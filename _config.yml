@@ -16,5 +16,10 @@ defaults:
       path: ""
     values:
       layout: "docs"
+  -
+    scope:
+      path: "v1.2"
+    values:
+      version: "v1.2"
 
 permalink: pretty

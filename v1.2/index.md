@@ -5,7 +5,7 @@ abstract: Testing the doducmentation with cascading layouts
 
 # This is a test of the documentation layout use
 
-aspdjfas
+Testing version {{ page.version }}
 dfas
 df
 asd
