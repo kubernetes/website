@@ -12,6 +12,7 @@ layout: headerfooter
 			<li><a href="#">SAMPLES</a></li>
 			<li><a href="#">SUPPORT</a></li>
 		</ul>
+		<input type="text" id="search" placeholder="Search the docs">
 		<div class="dropdown">
 			<div class="readout"></div>
 			<a href="#">Version 1.1</a>
@@ -22,7 +23,7 @@ layout: headerfooter
 
 <section id="encyclopedia">
 	<div id="docsToc">
-    	{% comment %} assign tree = site.data[page.toc].toc 
+    	{% comment %} assign tree = site.data[page.toc].toc
         {% assign tree = site.data[page.versionfilesafe][page.section].toc %}
 		{% include tree.html %}{% endcomment %}
 		<!--
