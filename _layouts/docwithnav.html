@@ -23,9 +23,9 @@ layout: headerfooter
 <section id="encyclopedia">
 	<div id="docsToc">
         <div class="pi-accordion">
-            {% comment %} assign tree = site.data[page.toc].toc 
+            {% comment %} assign tree = site.data[page.toc].toc {% endcomment %}
             {% assign tree = site.data[page.versionfilesafe][page.section].toc %}
-            {% include tree.html %}{% endcomment %}
+            {% include tree.html %}
         </div> <!-- /pi-accordion -->
 	</div> <!-- /docsToc -->
 	<div id="docsContent">
