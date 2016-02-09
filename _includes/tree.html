@@ -1,0 +1,45 @@
+
+<ul {% if subsection %}style="display: none; opacity: 0; margin-left: 15px;"{% endif %}>
+  {% for item in tree %}
+    
+    {% if item.status %}
+      {% capture statusHTML %} <sup style="color: red">{{item.status}}</sup>{% endcapture %}
+    {% else %}
+      {% assign statusHTML = "" %}
+    {% endif %}
+    
+    {% if item.section %}
+      {% capture sectionHTML %}<a class="tlw-control tlw-collapsed">▸</a>{% endcapture %}
+    {% else %}
+      {% assign sectionHTML = "" %}
+    {% endif %}
+    
+    
+    {% if item.path %}
+      {% if page.url | remove: ".html" | remove "index" == item.path %}
+        {% capture tocItemColor %}style="color:red;"{% endcapture %}
+      {% else %}
+        {% capture tocItemColor %}{% endcapture %}
+      {% endif %}
+      <li {{ tocItemColor }}>{{ sectionHTML }}<a href="{{ item.path }}" title="{{ item.title }}" data-title="{{ item.title }} - {{ item.path }}"><span>{{ item.title }} {{ statusHTML }}</span></a></li>
+    {% else %}
+      {% if item.include %}
+        {% assign tree = site.data[item.include].toc %}
+        {% assign subsection=false %}
+        {% include tree.html %}
+      {% else %}
+        <li>{{ sectionHTML }}<span class="tlw-title tlw-control-title" data-title="{{ item.title }}">{{ item.title }}{{ statusHTML }}</span></li>
+      {% endif %}
+    {% endif %}
+    
+    {% if item.break %}
+      <hr>
+    {% endif %}
+    
+    {% if item.section %}
+      {% assign tree = item.section %}
+      {% assign subsection=true %}
+      {% include tree.html %}
+    {% endif %}
+  {% endfor %}
+</ul>

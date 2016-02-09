@@ -15,11 +15,12 @@ defaults:
     scope:
       path: ""
     values:
-      layout: "docs"
+      layout: "docwithnav"
   -
     scope:
       path: "v1.2"
     values:
       version: "v1.2"
+      versionfilesafe: "v1_1"
 
 permalink: pretty

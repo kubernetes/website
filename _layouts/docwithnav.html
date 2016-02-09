@@ -17,7 +17,9 @@ layout: headerfooter
 
 <section id="encyclopedia">
 	<div id="docsToc">
-		HERE IS THE TOC
+		{% comment %} assign tree = site.data[page.toc].toc {% endcomment %}
+        {% assign tree = site.data[page.versionfilesafe][page.section].toc %}
+		{% include tree.html %}
 	</div>
 	<div id="docsContent">
 		{{ content }}

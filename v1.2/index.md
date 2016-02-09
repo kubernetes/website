@@ -1,6 +1,7 @@
 ---
 title: Doc test
 abstract: Testing the doducmentation with cascading layouts
+section: reference
 ---
 
 # This is a test of the documentation layout use
