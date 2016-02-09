@@ -4,7 +4,7 @@ kramdown:
   input: GFM
   html_to_native: true
   hard_wrap: false
-  use_coderay: true
+  enable_coderay: true
 baseurl: /
 
 safe: false
