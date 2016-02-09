@@ -1,0 +1,20 @@
+name: Kubernetes
+markdown: kramdown
+kramdown:
+  input: GFM
+  html_to_native: true
+  hard_wrap: false
+  use_coderay: true
+baseurl: /
+
+safe: false
+lsi: false
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "docs"
+
+permalink: pretty
