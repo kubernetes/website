@@ -17,6 +17,9 @@ layout: headerfooter
 
 <section id="encyclopedia">
 	<div id="docsToc">
+    	{% comment %} assign tree = site.data[page.toc].toc 
+        {% assign tree = site.data[page.versionfilesafe][page.section].toc %}
+		{% include tree.html %}{% endcomment %}
 		<!--
 
 		Here's your API ref for this accordion element:
