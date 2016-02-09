@@ -4,7 +4,7 @@ toc:
   section:
   - title: Kubernetes API Overview
     path: http://kubernetes.io/v1.1/docs/api.html
-  - title: Kubernetes API Reference (pretend the child nodes are here)
+  - title: Kubernetes API Reference
     path: http://kubernetes.io/v1.1/api-ref.html
 
 - title: kubectl
