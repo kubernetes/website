@@ -12,7 +12,7 @@ toc:
   - title: kubectl Overview
     path: http://kubernetes.io/v1.1/docs/user-guide/kubectl-overview.html
   - title: kubectl for Docker Users
-    path: http://kubernetes.io/v1.1/docs/user-guide/docker-cli-to-kubectl.html
+    path: /v1.1/reference/docker-cli-to-kubectl
   - title: kubectl Reference (pretend the child nodes are here)
     path: http://kubernetes.io/v1.1/docs/user-guide/kubectl/kubectl.html
 
