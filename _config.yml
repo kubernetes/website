@@ -4,7 +4,7 @@ kramdown:
   input: GFM
   html_to_native: true
   hard_wrap: false
-  use_coderay: true
+  enable_coderay: true
 baseurl: /
 
 safe: false
@@ -18,9 +18,28 @@ defaults:
       layout: "docwithnav"
   -
     scope:
-      path: "v1.2"
+      path: "v1.1"
     values:
-      version: "v1.2"
+      version: "v1.1"
       versionfilesafe: "v1_1"
-
+  -
+    scope:
+      path: "v1.1/reference"
+    values:
+      section: "reference"
+  -
+    scope:
+      path: "v1.1/guides"
+    values:
+      section: "guides"
+  -
+    scope:
+      path: "v1.1/support"
+    values:
+      section: "support"
+  -
+    scope:
+      path: "v1.1/samples"
+    values:
+      section: "samples"
 permalink: pretty

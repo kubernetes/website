@@ -1,2 +1,0 @@
-# CreaturesInUnitards
-Kubernetes Documentation
