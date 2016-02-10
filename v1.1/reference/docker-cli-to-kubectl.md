@@ -6,6 +6,7 @@ In this doc, we introduce the Kubernetes command line for interacting with the a
 
 **Table of Contents**
 
+{% include pagetoc.html %}
 
 #### docker run
 
