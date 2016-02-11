@@ -1,0 +1,453 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Kubernetes Deployment On Bare-metal Ubuntu Nodes with Calico Networking</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Kubernetes Deployment On Bare-metal Ubuntu Nodes with Calico Networking</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+<p>Kubernetes Deployment On Bare-metal Ubuntu Nodes with Calico Networking
+————————————————</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This document describes how to deploy Kubernetes on Ubuntu bare metal nodes with Calico Networking plugin. See <a href="http://projectcalico.org">projectcalico.org</a> for more information on what Calico is, and <a href="https://github.com/projectcalico/calico-docker">the calicoctl github</a> for more information on the command-line tool, <code>calicoctl</code>.</p>
+
+<p>This guide will set up a simple Kubernetes cluster with a master and two nodes. We will start the following processes with systemd:</p>
+
+<p>On the Master:
+- <code>etcd</code>
+- <code>kube-apiserver</code>
+- <code>kube-controller-manager</code>
+- <code>kube-scheduler</code>
+- <code>calico-node</code></p>
+
+<p>On each Node:
+- <code>kube-proxy</code>
+- <code>kube-kubelet</code>
+- <code>calico-node</code></p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ol>
+  <li>This guide uses <code>systemd</code> and thus uses Ubuntu 15.04 which supports systemd natively.</li>
+  <li>All machines should have the latest docker stable version installed. At the time of writing, that is Docker 1.7.0.
+    <ul>
+      <li>To install docker, follow <a href="https://docs.docker.com/installation/ubuntulinux/">these instructions</a></li>
+    </ul>
+  </li>
+  <li>All hosts should be able to communicate with each other, as well as the internet, to download the necessary files.</li>
+  <li>This demo assumes that none of the hosts have been configured with any Kubernetes or Calico software yet.</li>
+</ol>
+
+<h2 id="setup-master">Setup Master</h2>
+
+<p>First, get the sample configurations for this tutorial</p>
+
+<pre><code>
+wget https://github.com/Metaswitch/calico-kubernetes-ubuntu-demo/archive/master.tar.gz
+tar -xvf master.tar.gz
+
+</code></pre>
+
+<h3 id="setup-environment-variables-for-systemd-services-on-master">Setup environment variables for systemd services on Master</h3>
+
+<p>Many of the sample systemd services provided rely on environment variables on a per-node basis. Here we’ll edit those environment variables and move them into place.</p>
+
+<p>1.) Copy the network-environment-template from the <code>master</code> directory for editing.</p>
+
+<pre><code>
+cp calico-kubernetes-ubuntu-demo-master/master/network-environment-template network-environment
+
+</code></pre>
+
+<p>2.) Edit <code>network-environment</code> to represent your current host’s settings.</p>
+
+<p>3.) Move the <code>network-environment</code> into <code>/etc</code></p>
+
+<pre><code>
+sudo mv -f network-environment /etc
+
+</code></pre>
+
+<h3 id="install-kubernetes-on-master">Install Kubernetes on Master</h3>
+
+<p>1.) Build &amp; Install Kubernetes binaries</p>
+
+<pre><code>
+# Get the Kubernetes Source
+wget https://github.com/kubernetes/kubernetes/releases/download/v1.0.3/kubernetes.tar.gz
+
+# Untar it
+tar -xf kubernetes.tar.gz
+tar -xf kubernetes/server/kubernetes-server-linux-amd64.tar.gz
+kubernetes/cluster/ubuntu/build.sh
+
+# Add binaries to /usr/bin
+sudo cp -f binaries/master/* /usr/bin
+sudo cp -f binaries/kubectl /usr/bin
+
+</code></pre>
+
+<p>2.) Install the sample systemd processes settings for launching kubernetes services</p>
+
+<pre><code>
+sudo cp -f calico-kubernetes-ubuntu-demo-master/master/*.service /etc/systemd
+sudo systemctl enable /etc/systemd/etcd.service
+sudo systemctl enable /etc/systemd/kube-apiserver.service
+sudo systemctl enable /etc/systemd/kube-controller-manager.service
+sudo systemctl enable /etc/systemd/kube-scheduler.service
+
+</code></pre>
+
+<p>3.) Launch the processes.</p>
+
+<pre><code>
+sudo systemctl start etcd.service
+sudo systemctl start kube-apiserver.service
+sudo systemctl start kube-controller-manager.service
+sudo systemctl start kube-scheduler.service
+
+</code></pre>
+
+<h3 id="install-calico-on-master">Install Calico on Master</h3>
+
+<p>In order to allow the master to route to pods on our nodes, we will launch the calico-node daemon on our master. This will allow it to learn routes over BGP from the other calico-node daemons in the cluster. The docker daemon should already be running before calico is started.</p>
+
+<pre><code>
+# Install the calicoctl binary, which will be used to launch calico
+wget https://github.com/projectcalico/calico-docker/releases/download/v0.5.5/calicoctl
+chmod +x calicoctl
+sudo cp -f calicoctl /usr/bin
+
+# Install and start the calico service
+sudo cp -f calico-kubernetes-ubuntu-demo-master/master/calico-node.service /etc/systemd
+sudo systemctl enable /etc/systemd/calico-node.service
+sudo systemctl start calico-node.service
+
+</code></pre>
+
+<blockquote>
+  <p>Note: calico-node may take a few minutes on first boot while it downloads the calico-node docker image.</p>
+</blockquote>
+
+<h2 id="setup-nodes">Setup Nodes</h2>
+
+<p>Perform these steps <strong>once on each node</strong>, ensuring you appropriately set the environment variables on each node</p>
+
+<h3 id="setup-environment-variables-for-systemd-services-on-the-node">Setup environment variables for systemd services on the Node</h3>
+
+<p>1.) Get the sample configurations for this tutorial</p>
+
+<pre><code>
+wget https://github.com/Metaswitch/calico-kubernetes-ubuntu-demo/archive/master.tar.gz
+tar -xvf master.tar.gz
+
+</code></pre>
+
+<p>2.) Copy the network-environment-template from the <code>node</code> directory</p>
+
+<pre><code>
+cp calico-kubernetes-ubuntu-demo-master/node/network-environment-template network-environment
+
+</code></pre>
+
+<p>3.) Edit <code>network-environment</code> to represent your current host’s settings.</p>
+
+<p>4.) Move <code>network-environment</code> into <code>/etc</code></p>
+
+<pre><code>
+sudo mv -f network-environment /etc
+
+</code></pre>
+
+<h3 id="configure-docker-on-the-node">Configure Docker on the Node</h3>
+
+<h4 id="create-the-veth">Create the veth</h4>
+
+<p>Instead of using docker’s default interface (docker0), we will configure a new one to use desired IP ranges</p>
+
+<pre><code>
+sudo apt-get install -y bridge-utils
+sudo brctl addbr cbr0
+sudo ifconfig cbr0 up
+sudo ifconfig cbr0 &lt;IP&gt;/24
+
+</code></pre>
+
+<blockquote>
+  <p>Replace &lt;IP&gt;  with the subnet for this host’s containers. Example topology:</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>Node</th>
+      <th>cbr0 IP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>node-1</td>
+      <td>192.168.1.1/24</td>
+    </tr>
+    <tr>
+      <td>node-2</td>
+      <td>192.168.2.1/24</td>
+    </tr>
+    <tr>
+      <td>node-X</td>
+      <td>192.168.X.1/24</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="start-docker-on-cbr0">Start docker on cbr0</h4>
+
+<p>The Docker daemon must be started and told to use the already configured cbr0 instead of using the usual docker0, as well as disabling ip-masquerading and modification of the ip-tables.</p>
+
+<p>1.) Edit the ubuntu-15.04 docker.service for systemd at: <code>/lib/systemd/system/docker.service</code></p>
+
+<p>2.) Find the line that reads <code>ExecStart=/usr/bin/docker -d -H fd://</code> and append the following flags: <code>--bridge=cbr0 --iptables=false --ip-masq=false</code></p>
+
+<p>3.) Reload systemctl and restart docker.</p>
+
+<pre><code>
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+</code></pre>
+
+<h3 id="install-calico-on-the-node">Install Calico on the Node</h3>
+
+<p>1.) Install Calico</p>
+
+<pre><code>
+# Get the calicoctl binary
+wget https://github.com/projectcalico/calico-docker/releases/download/v0.5.5/calicoctl
+chmod +x calicoctl
+sudo cp -f calicoctl /usr/bin
+
+# Start calico on this node
+sudo cp calico-kubernetes-ubuntu-demo-master/node/calico-node.service /etc/systemd
+sudo systemctl enable /etc/systemd/calico-node.service
+sudo systemctl start calico-node.service
+
+</code></pre>
+
+<blockquote>
+  <p>The calico-node service will automatically get the kubernetes-calico plugin binary and install it on the host system.</p>
+</blockquote>
+
+<p>2.) Use calicoctl to add an IP pool. We must specify the IP and port that the master’s etcd is listening on.
+<strong>NOTE: This step only needs to be performed once per Kubernetes deployment, as it covers all the node’s IP ranges.</strong></p>
+
+<pre><code>
+ETCD_AUTHORITY=&lt;MASTER_IP&gt;:4001 calicoctl pool add 192.168.0.0/16
+
+</code></pre>
+
+<h3 id="install-kubernetes-on-the-node">Install Kubernetes on the Node</h3>
+
+<p>1.) Build &amp; Install Kubernetes binaries</p>
+
+<pre><code>
+# Get the Kubernetes Source
+wget https://github.com/kubernetes/kubernetes/releases/download/v1.0.3/kubernetes.tar.gz
+
+# Untar it
+tar -xf kubernetes.tar.gz
+tar -xf kubernetes/server/kubernetes-server-linux-amd64.tar.gz
+kubernetes/cluster/ubuntu/build.sh
+
+# Add binaries to /usr/bin
+sudo cp -f binaries/minion/* /usr/bin
+
+# Get the iptables based kube-proxy reccomended for this demo
+wget https://github.com/projectcalico/calico-kubernetes/releases/download/v0.1.1/kube-proxy
+sudo cp kube-proxy /usr/bin/
+sudo chmod +x /usr/bin/kube-proxy
+
+</code></pre>
+
+<p>2.) Install and launch the sample systemd processes settings for launching Kubernetes services</p>
+
+<pre><code>
+sudo cp calico-kubernetes-ubuntu-demo-master/node/kube-proxy.service /etc/systemd/
+sudo cp calico-kubernetes-ubuntu-demo-master/node/kube-kubelet.service /etc/systemd/
+sudo systemctl enable /etc/systemd/kube-proxy.service
+sudo systemctl enable /etc/systemd/kube-kubelet.service
+sudo systemctl start kube-proxy.service
+sudo systemctl start kube-kubelet.service
+
+</code></pre>
+
+<blockquote>
+  <p><em>You may want to consider checking their status after to ensure everything is running</em></p>
+</blockquote>
+
+<h2 id="install-the-dns-addon">Install the DNS Addon</h2>
+
+<p>Most Kubernetes deployments will require the DNS addon for service discovery.  For more on DNS service discovery, check <a href="https://releases.k8s.io/release-1.1/cluster/addons/dns">here</a>.</p>
+
+<p>The config repository for this guide comes with manifest files to start the DNS addon.  To install DNS, do the following on your Master node.</p>
+
+<p>Replace <code>&lt;MASTER_IP&gt;</code> in <code>calico-kubernetes-ubuntu-demo-master/dns/skydns-rc.yaml</code> with your Master’s IP address.  Then, create <code>skydns-rc.yaml</code> and <code>skydns-svc.yaml</code> using <code>kubectl create -f &lt;FILE&gt;</code>.</p>
+
+<h2 id="launch-other-services-with-calico-kubernetes">Launch other Services With Calico-Kubernetes</h2>
+
+<p>At this point, you have a fully functioning cluster running on kubernetes with a master and 2 nodes networked with Calico. You can now follow any of the <a href="../../examples/">standard documentation</a> to set up other services on your cluster.</p>
+
+<h2 id="connectivity-to-outside-the-cluster">Connectivity to outside the cluster</h2>
+
+<p>With this sample configuration, because the containers have private <code>192.168.0.0/16</code> IPs, you will need NAT to allow   connectivity between containers and the internet. However, in a full datacenter deployment, NAT is not always necessary, since Calico can peer with the border routers over BGP.</p>
+
+<h3 id="nat-on-the-nodes">NAT on the nodes</h3>
+
+<p>The simplest method for enabling connectivity from containers to the internet is to use an iptables masquerade rule. This is the standard mechanism <a href="../../docs/admin/networking.html#google-compute-engine-gce">recommended</a> in the Kubernetes GCE environment.</p>
+
+<p>We need to NAT traffic that has a destination outside of the cluster. Internal traffic includes the master/nodes, and the container IP pools. A suitable masquerade chain would follow the pattern below, replacing the following variables:
+- <code>CONTAINER_SUBNET</code>: The cluster-wide subnet from which container IPs are chosen.  All cbr0 bridge subnets fall within this range. The above example uses <code>192.168.0.0/16</code>.
+- <code>KUBERNETES_HOST_SUBNET</code>: The subnet from which Kubernetes node / master IP addresses have been chosen.
+- <code>HOST_INTERFACE</code>: The interface on the Kubernetes node which is used for external connectivity.  The above example uses <code>eth0</code></p>
+
+<pre><code>
+sudo iptables -t nat -N KUBE-OUTBOUND-NAT
+sudo iptables -t nat -A KUBE-OUTBOUND-NAT -d &lt;CONTAINER_SUBNET&gt; -o &lt;HOST_INTERFACE&gt; -j RETURN
+sudo iptables -t nat -A KUBE-OUTBOUND-NAT -d &lt;KUBERNETES_HOST_SUBNET&gt; -o &lt;HOST_INTERFACE&gt; -j RETURN
+sudo iptables -t nat -A KUBE-OUTBOUND-NAT -j MASQUERADE
+sudo iptables -t nat -A POSTROUTING -j KUBE-OUTBOUND-NAT
+
+</code></pre>
+
+<p>This chain should be applied on the master and all nodes. In production, these rules should be persisted, e.g. with <code>iptables-persistent</code>.</p>
+
+<h3 id="nat-at-the-border-router">NAT at the border router</h3>
+
+<p>In a datacenter environment, it is recommended to configure Calico to peer with the border routers over BGP. This means that the container IPs will be routable anywhere in the datacenter, and so NAT is not needed on the nodes (though it may be enabled at the datacenter edge to allow outbound-only internet connectivity).</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/ubuntu-calico.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

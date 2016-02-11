@@ -1,0 +1,231 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Writing a Getting Started Guide</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Writing a Getting Started Guide</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="writing-a-getting-started-guide">Writing a Getting Started Guide</h1>
+
+<p>This page gives some advice for anyone planning to write or update a Getting Started Guide for Kubernetes.
+It also gives some guidelines which reviewers should follow when reviewing a pull request for a
+guide.</p>
+
+<p>A Getting Started Guide is instructions on how to create a Kubernetes cluster on top of a particular
+type(s) of infrastructure.  Infrastructure includes: the IaaS provider for VMs;
+the node OS; inter-node networking; and node Configuration Management system.
+A guide refers to scripts, Configuration Management files, and/or binary assets such as RPMs.  We call
+the combination of all these things needed to run on a particular type of infrastructure a
+<strong>distro</strong>.</p>
+
+<p><a href="../../docs/getting-started-guides/README.html">The Matrix</a> lists the distros.  If there is already a guide
+which is similar to the one you have planned, consider improving that one.</p>
+
+<p>Distros fall into two categories:
+  - <strong>versioned distros</strong> are tested to work with a particular binary release of Kubernetes.  These
+    come in a wide variety, reflecting a wide range of ideas and preferences in how to run a cluster.
+  - <strong>development distros</strong> are tested work with the latest Kubernetes source code.  But, there are
+    relatively few of these and the bar is much higher for creating one.  They must support
+    fully automated cluster creation, deletion, and upgrade.</p>
+
+<p>There are different guidelines for each.</p>
+
+<h2 id="versioned-distro-guidelines">Versioned Distro Guidelines</h2>
+
+<p>These guidelines say <em>what</em> to do.  See the Rationale section for <em>why</em>.
+ - Send us a PR.
+ - Put the instructions in <code>docs/getting-started-guides/...</code>. Scripts go there too.  This helps devs easily
+   search for uses of flags by guides.
+ - We may ask that you host binary assets or large amounts of code in our <code>contrib</code> directory or on your
+   own repo.
+ - Add or update a row in <a href="../../docs/getting-started-guides/README.html">The Matrix</a>.
+ - State the binary version of Kubernetes that you tested clearly in your Guide doc.
+ - Setup a cluster and run the <a href="development.html#conformance-testing">conformance test</a> against it, and report the
+   results in your PR.
+ - Versioned distros should typically not modify or add code in <code>cluster/</code>.  That is just scripts for developer
+   distros.
+ - When a new major or minor release of Kubernetes comes out, we may also release a new
+   conformance test, and require a new conformance test run to earn a conformance checkmark.</p>
+
+<p>If you have a cluster partially working, but doing all the above steps seems like too much work,
+we still want to hear from you.  We suggest you write a blog post or a Gist, and we will link to it on our wiki page.
+Just file an issue or chat us on <a href="../troubleshooting.html#slack">Slack</a> and one of the committers will link to it from the wiki.</p>
+
+<h2 id="development-distro-guidelines">Development Distro Guidelines</h2>
+
+<p>These guidelines say <em>what</em> to do.  See the Rationale section for <em>why</em>.
+  - the main reason to add a new development distro is to support a new IaaS provider (VM and
+    network management).  This means implementing a new <code>pkg/cloudprovider/providers/$IAAS_NAME</code>.
+  - Development distros should use Saltstack for Configuration Management.
+  - development distros need to support automated cluster creation, deletion, upgrading, etc.
+    This mean writing scripts in <code>cluster/$IAAS_NAME</code>.
+  - all commits to the tip of this repo need to not break any of the development distros
+    - the author of the change is responsible for making changes necessary on all the cloud-providers if the
+      change affects any of them, and reverting the change if it breaks any of the CIs.
+  - a development distro needs to have an organization which owns it.  This organization needs to:
+    - Setting up and maintaining Continuous Integration that runs e2e frequently (multiple times per day) against the
+      Distro at head,  and which notifies all devs of breakage.
+    - being reasonably available for questions and assisting with
+      refactoring and feature additions that affect code for their IaaS.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<ul>
+  <li>We want people to create Kubernetes clusters with whatever IaaS, Node OS,
+configuration management tools, and so on, which they are familiar with.  The
+guidelines for <strong>versioned distros</strong> are designed for flexibility.</li>
+  <li>We want developers to be able to work without understanding all the permutations of
+IaaS, NodeOS, and configuration management.  The guidelines for <strong>developer distros</strong> are designed
+for consistency.</li>
+  <li>We want users to have a uniform experience with Kubernetes whenever they follow instructions anywhere
+in our Github repository.  So, we ask that versioned distros pass a <strong>conformance test</strong> to make sure
+really work.</li>
+  <li>We want to <strong>limit the number of development distros</strong> for several reasons.  Developers should
+only have to change a limited number of places to add a new feature.  Also, since we will
+gate commits on passing CI for all distros, and since end-to-end tests are typically somewhat
+flaky, it would be highly likely for there to be false positives and CI backlogs with many CI pipelines.</li>
+  <li>We do not require versioned distros to do <strong>CI</strong> for several reasons.  It is a steep
+learning curve to understand our automated testing scripts.  And it is considerable effort
+to fully automate setup and teardown of a cluster, which is needed for CI.  And, not everyone
+has the time and money to run CI.  We do not want to
+discourage people from writing and sharing guides because of this.</li>
+  <li>Versioned distro authors are free to run their own CI and let us know if there is breakage, but we
+will not include them as commit hooks – there cannot be so many commit checks that it is impossible
+to pass them all.</li>
+  <li>We prefer a single Configuration Management tool for development distros.  If there were more
+than one, the core developers would have to learn multiple tools and update config in multiple
+places.  <strong>Saltstack</strong> happens to be the one we picked when we started the project.  We
+welcome versioned distros that use any tool; there are already examples of
+CoreOS Fleet, Ansible, and others.</li>
+  <li>You can still run code from head or your own branch
+if you use another Configuration Management tool – you just have to do some manual steps
+during testing and deployment.</li>
+</ul>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/writing-a-getting-started-guide.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

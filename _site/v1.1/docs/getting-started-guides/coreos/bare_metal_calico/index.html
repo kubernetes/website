@@ -1,0 +1,267 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Bare Metal CoreOS with Kubernetes and Project Calico</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Bare Metal CoreOS with Kubernetes and Project Calico</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h2 id="bare-metal-coreos-with-kubernetes-and-project-calico">Bare Metal CoreOS with Kubernetes and Project Calico</h2>
+<p>This guide explains how to deploy a bare-metal Kubernetes cluster on CoreOS using <a href="http://www.projectcalico.org">Calico networking</a>.</p>
+
+<p>Specifically, this guide will have you do the following:
+- Deploy a Kubernetes master node on CoreOS using cloud-config
+- Deploy two Kubernetes compute nodes with Calico Networking using cloud-config</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ol>
+  <li>At least three bare-metal machines (or VMs) to work with. This guide will configure them as follows
+    <ul>
+      <li>1 Kubernetes Master</li>
+      <li>2 Kubernetes Nodes</li>
+    </ul>
+  </li>
+  <li>Your nodes should have IP connectivity.</li>
+</ol>
+
+<h2 id="cloud-config">Cloud-config</h2>
+
+<p>This guide will use <a href="https://coreos.com/docs/cluster-management/setup/cloudinit-cloud-config/">cloud-config</a> to configure each of the nodes in our Kubernetes cluster.</p>
+
+<p>For ease of distribution, the cloud-config files required for this demonstration can be found on <a href="https://github.com/projectcalico/calico-kubernetes-coreos-demo">GitHub</a>.</p>
+
+<p>This repo includes two cloud config files:
+- <code>master-config.yaml</code>: Cloud-config for the Kubernetes master
+- <code>node-config.yaml</code>: Cloud-config for each Kubernetes compute host</p>
+
+<p>In the next few steps you will be asked to configure these files and host them on an HTTP server where your cluster can access them.</p>
+
+<h2 id="building-kubernetes">Building Kubernetes</h2>
+
+<p>To get the Kubernetes source, clone the GitHub repo, and build the binaries.</p>
+
+<pre><code>
+git clone https://github.com/kubernetes/kubernetes.git
+cd kubernetes
+./build/release.sh 
+
+</code></pre>
+
+<p>Once the binaries are built, host the entire <code>&lt;kubernetes&gt;/_output/dockerized/bin/&lt;OS&gt;/&lt;ARCHITECTURE&gt;/</code> folder on an accessible HTTP server so they can be accessed by the cloud-config.  You’ll point your cloud-config files at this HTTP server later.</p>
+
+<h2 id="download-coreos">Download CoreOS</h2>
+
+<p>Let’s download the CoreOS bootable ISO.  We’ll use this image to boot and install CoreOS on each server.</p>
+
+<pre><code>
+wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso
+
+</code></pre>
+
+<p>You can also download the ISO from the <a href="https://coreos.com/docs/running-coreos/platforms/iso/">CoreOS website</a>.</p>
+
+<h2 id="configure-the-kubernetes-master">Configure the Kubernetes Master</h2>
+
+<p>Once you’ve downloaded the image, use it to boot your Kubernetes Master server.  Once booted, you should be automatically logged in as the <code>core</code> user.</p>
+
+<p>Let’s get the master-config.yaml and fill in the necessary variables.  Run the following commands on your HTTP server to get the cloud-config files.</p>
+
+<pre><code>
+git clone https://github.com/Metaswitch/calico-kubernetes-demo.git
+cd calico-kubernetes-demo/coreos
+
+</code></pre>
+
+<p>You’ll need to replace the following variables in the <code>master-config.yaml</code> file to match your deployment.
+- <code>&lt;SSH_PUBLIC_KEY&gt;</code>: The public key you will use for SSH access to this server.
+- <code>&lt;KUBERNETES_LOC&gt;</code>: The address used to get the kubernetes binaries over HTTP.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> The config will prepend <code>"http://"</code> and append <code>"/(kubernetes | kubectl | ...)"</code> to your <code>KUBERNETES_LOC</code> variable:, format accordingly</p>
+</blockquote>
+
+<p>Host the modified <code>master-config.yaml</code> file and pull it on to your Kubernetes Master server.</p>
+
+<p>The CoreOS bootable ISO comes with a tool called <code>coreos-install</code> which will allow us to install CoreOS to disk and configure the install using cloud-config.  The following command will download and install stable CoreOS, using the master-config.yaml file for configuration.</p>
+
+<pre><code>
+sudo coreos-install -d /dev/sda -C stable -c master-config.yaml
+
+</code></pre>
+
+<p>Once complete, eject the bootable ISO and restart the server.  When it comes back up, you should have SSH access as the <code>core</code> user using the public key provided in the master-config.yaml file.</p>
+
+<h2 id="configure-the-compute-hosts">Configure the compute hosts</h2>
+
+<blockquote>
+  <p>The following steps will set up a Kubernetes node for use as a compute host.  This demo uses two compute hosts, so you should run the following steps on each.</p>
+</blockquote>
+
+<p>First, boot up your node using the bootable ISO we downloaded earlier.  You should be automatically logged in as the <code>core</code> user.</p>
+
+<p>Let’s modify the <code>node-config.yaml</code> cloud-config file on your HTTP server.  Make a copy for this node, and fill in the necessary variables.</p>
+
+<p>You’ll need to replace the following variables in the <code>node-config.yaml</code> file to match your deployment.
+- <code>&lt;HOSTNAME&gt;</code>: Hostname for this node (e.g. kube-node1, kube-node2)
+- <code>&lt;SSH_PUBLIC_KEY&gt;</code>: The public key you will use for SSH access to this server.
+- <code>&lt;KUBERNETES_MASTER&gt;</code>: The IPv4 address of the Kubernetes master.
+- <code>&lt;KUBERNETES_LOC&gt;</code>: The address to use in order to get the kubernetes binaries over HTTP.
+- <code>&lt;DOCKER_BRIDGE_IP&gt;</code>: The IP and subnet to use for pods on this node.  By default, this should fall within the 192.168.0.0/16 subnet.</p>
+
+<blockquote>
+  <p>Note: The DOCKER_BRIDGE_IP is the range used by this Kubernetes node to assign IP addresses to pods on this node.  This subnet must not overlap with the subnets assigned to the other Kubernetes nodes in your cluster.  Calico expects each DOCKER_BRIDGE_IP subnet to fall within 192.168.0.0/16 by default (e.g. 192.168.1.1/24 for node 1), but if you’d like to use pod IPs within a different subnet, simply run <code>calicoctl pool add &lt;your_subnet&gt;</code> and select DOCKER_BRIDGE_IP accordingly.</p>
+</blockquote>
+
+<p>Host the modified <code>node-config.yaml</code> file and pull it on to your Kubernetes node.</p>
+
+<pre><code>
+wget http://&lt;http_server_ip&gt;/node-config.yaml
+
+</code></pre>
+
+<p>Install and configure CoreOS on the node using the following command.</p>
+
+<pre><code>
+sudo coreos-install -d /dev/sda -C stable -c node-config.yaml
+
+</code></pre>
+
+<p>Once complete, restart the server.  When it comes back up, you should have SSH access as the <code>core</code> user using the public key provided in the <code>node-config.yaml</code> file.  It will take some time for the node to be fully configured.  Once fully configured, you can check that the node is running with the following command on the Kubernetes master.</p>
+
+<pre><code>
+/home/core/kubectl get nodes
+
+</code></pre>
+
+<h2 id="testing-the-cluster">Testing the Cluster</h2>
+
+<p>You should now have a functional bare-metal Kubernetes cluster with one master and two compute hosts.
+Try running the <a href="../../../examples/guestbook/">guestbook demo</a> to test out your new cluster!</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/coreos/bare_metal_calico.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

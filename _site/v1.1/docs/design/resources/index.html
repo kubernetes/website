@@ -1,0 +1,424 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - The Kubernetes resource model</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>The Kubernetes resource model</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+<p><strong>Note: this is a design doc, which describes features that have not been completely implemented.
+User documentation of the current state is <a href="../user-guide/compute-resources.html">here</a>.  The tracking issue for
+implementation of this model is
+<a href="http://issue.k8s.io/168">#168</a>.  Currently, both limits and requests of memory and
+cpu on containers (not pods) are supported.  “memory” is in bytes and “cpu” is in
+milli-cores.</strong></p>
+
+<h1 id="the-kubernetes-resource-model">The Kubernetes resource model</h1>
+
+<p>To do good pod placement, Kubernetes needs to know how big pods are, as well as the sizes of the nodes onto which they are being placed.  The definition of “how big” is given by the Kubernetes resource model — the subject of this document.</p>
+
+<p>The resource model aims to be:
+* simple, for common cases;
+* extensible, to accommodate future growth;
+* regular, with few special cases; and
+* precise, to avoid misunderstandings and promote pod portability.</p>
+
+<h2 id="the-resource-model">The resource model</h2>
+
+<p>A Kubernetes <em>resource</em> is something that can be requested by, allocated to, or consumed by a pod or container.  Examples include memory (RAM), CPU, disk-time, and network bandwidth.</p>
+
+<p>Once resources on a node have been allocated to one pod, they should not be allocated to another until that pod is removed or exits. This means that Kubernetes schedulers should ensure that the sum of the resources allocated (requested and granted) to its pods never exceeds the usable capacity of the node. Testing whether a pod will fit on a node is called <em>feasibility checking</em>.</p>
+
+<p>Note that the resource model currently prohibits over-committing resources; we will want to relax that restriction later.</p>
+
+<h3 id="resource-types">Resource types</h3>
+
+<p>All resources have a <em>type</em> that is identified by their <em>typename</em> (a string, e.g., “memory”).  Several resource types are predefined by Kubernetes (a full list is below), although only two will be supported at first: CPU and memory.  Users and system administrators can define their own resource types if they wish (e.g., Hadoop slots).</p>
+
+<p>A fully-qualified resource typename is constructed from a DNS-style <em>subdomain</em>, followed by a slash <code>/</code>, followed by a name.
+* The subdomain must conform to <a href="http://www.ietf.org/rfc/rfc1123.txt">RFC 1123</a> (e.g., <code>kubernetes.io</code>, <code>example.com</code>).
+* The name must be not more than 63 characters, consisting of upper- or lower-case alphanumeric characters, with the <code>-</code>, <code>_</code>, and <code>.</code> characters allowed anywhere except the first or last character.
+* As a shorthand, any resource typename that does not start with a subdomain and a slash will automatically be prefixed with the built-in Kubernetes <em>namespace</em>, <code>kubernetes.io/</code> in order to fully-qualify it.  This namespace is reserved for code in the open source Kubernetes repository; as a result, all user typenames MUST be fully qualified, and cannot be created in this namespace.</p>
+
+<p>Some example typenames include <code>memory</code> (which will be fully-qualified as <code>kubernetes.io/memory</code>), and <code>example.com/Shiny_New-Resource.Type</code>.</p>
+
+<p>For future reference, note that some resources, such as CPU and network bandwidth, are <em>compressible</em>, which means that their usage can potentially be throttled in a relatively benign manner. All other resources are <em>incompressible</em>, which means that any attempt to throttle them is likely to cause grief.  This distinction will be important if a Kubernetes implementation supports over-committing of resources.</p>
+
+<h3 id="resource-quantities">Resource quantities</h3>
+
+<p>Initially, all Kubernetes resource types are <em>quantitative</em>, and have an associated <em>unit</em> for quantities of the associated resource (e.g., bytes for memory, bytes per seconds for bandwidth, instances for software licences). The units will always be a resource type’s natural base units (e.g., bytes, not MB), to avoid confusion between binary and decimal multipliers and the underlying unit multiplier (e.g., is memory measured in MiB, MB, or GB?).</p>
+
+<p>Resource quantities can be added and subtracted: for example, a node has a fixed quantity of each resource type that can be allocated to pods/containers; once such an allocation has been made, the allocated resources cannot be made available to other pods/containers without over-committing the resources.</p>
+
+<p>To make life easier for people, quantities can be represented externally as unadorned integers, or as fixed-point integers with one of these SI suffices  (E, P, T, G, M, K, m) or their power-of-two equivalents (Ei, Pi, Ti, Gi, Mi, Ki).  For example, the following represent roughly the same value: 128974848, “129e6”, “129M” , “123Mi”.  Small quantities can be represented directly as decimals (e.g., 0.3), or using milli-units (e.g., “300m”).
+  * “Externally” means in user interfaces, reports, graphs, and in JSON or YAML resource specifications that might be generated or read by people.
+  * Case is significant: “m” and “M” are not the same, so “k” is not a valid SI suffix. There are no power-of-two equivalents for SI suffixes that represent multipliers less than 1.
+  * These conventions only apply to resource quantities, not arbitrary values.</p>
+
+<p>Internally (i.e., everywhere else), Kubernetes will represent resource quantities as integers so it can avoid problems with rounding errors, and will not use strings to represent numeric values. To achieve this, quantities that naturally have fractional parts (e.g., CPU seconds/second) will be scaled to integral numbers of milli-units (e.g., milli-CPUs) as soon as they are read in.  Internal APIs, data structures, and protobufs will use these scaled integer units.  Raw measurement data such as usage may still need to be tracked and calculated using floating point values, but internally they should be rescaled to avoid some values being in milli-units and some not.
+  * Note that reading in a resource quantity and writing it out again may change the way its values are represented, and truncate precision (e.g., 1.0001 may become 1.000), so comparison and difference operations (e.g., by an updater) must be done on the internal representations.
+  * Avoiding milli-units in external representations has advantages for people who will use Kubernetes, but runs the risk of developers forgetting to rescale or accidentally using floating-point representations. That seems like the right choice. We will try to reduce the risk by providing libraries that automatically do the quantization for JSON/YAML inputs.</p>
+
+<h3 id="resource-specifications">Resource specifications</h3>
+
+<p>Both users and a number of system components, such as schedulers, (horizontal) auto-scalers, (vertical) auto-sizers, load balancers, and worker-pool managers need to reason about resource requirements of workloads, resource capacities of nodes, and resource usage. Kubernetes divides specifications of <em>desired state</em>, aka the Spec, and representations of <em>current state</em>, aka the Status. Resource requirements and total node capacity fall into the specification category, while resource usage, characterizations derived from usage (e.g., maximum usage, histograms), and other resource demand signals (e.g., CPU load) clearly fall into the status category and are discussed in the Appendix for now.</p>
+
+<p>Resource requirements for a container or pod should have the following form:</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">resourceRequirementSpec: [
+  request:   [ cpu: 2.5, memory: "40Mi" ],
+  limit:     [ cpu: 4.0, memory: "99Mi" ],
+]
+</code></pre>
+</div>
+
+<p>Where:
+* <em>request</em> [optional]: the amount of resources being requested, or that were requested and have been allocated. Scheduler algorithms will use these quantities to test feasibility (whether a pod will fit onto a node).  If a container (or pod) tries to use more resources than its <em>request</em>, any associated SLOs are voided — e.g., the program it is running may be throttled (compressible resource types), or the attempt may be denied. If <em>request</em> is omitted for a container, it defaults to <em>limit</em> if that is explicitly specified, otherwise to an implementation-defined value; this will always be 0 for a user-defined resource type. If <em>request</em> is omitted for a pod, it defaults to the sum of the (explicit or implicit) <em>request</em> values for the containers it encloses.</p>
+
+<ul>
+  <li><em>limit</em> [optional]: an upper bound or cap on the maximum amount of resources that will be made available to a container or pod; if a container or pod uses more resources than its <em>limit</em>, it may be terminated. The <em>limit</em> defaults to “unbounded”; in practice, this probably means the capacity of an enclosing container, pod, or node, but may result in non-deterministic behavior, especially for memory.</li>
+</ul>
+
+<p>Total capacity for a node should have a similar structure:</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">resourceCapacitySpec: [
+  total:     [ cpu: 12,  memory: "128Gi" ]
+]
+</code></pre>
+</div>
+
+<p>Where:
+* <em>total</em>: the total allocatable resources of a node.  Initially, the resources at a given scope will bound the resources of the sum of inner scopes.</p>
+
+<h4 id="notes">Notes</h4>
+
+<ul>
+  <li>
+    <p>It is an error to specify the same resource type more than once in each list.</p>
+  </li>
+  <li>
+    <p>It is an error for the <em>request</em> or <em>limit</em> values for a pod to be less than the sum of the (explicit or defaulted) values for the containers it encloses.  (We may relax this later.)</p>
+  </li>
+  <li>
+    <p>If multiple pods are running on the same node and attempting to use more resources than they have requested, the result is implementation-defined. For example: unallocated or unused resources might be spread equally across claimants, or the assignment might be weighted by the size of the original request, or as a function of limits, or priority, or the phase of the moon, perhaps modulated by the direction of the tide. Thus, although it’s not mandatory to provide a <em>request</em>, it’s probably a good idea.  (Note that the <em>request</em> could be filled in by an automated system that is observing actual usage and/or historical data.)</p>
+  </li>
+  <li>
+    <p>Internally, the Kubernetes master can decide the defaulting behavior and the kubelet implementation may expected an absolute specification.  For example, if the master decided that “the default is unbounded” it would pass 2^64 to the kubelet.</p>
+  </li>
+</ul>
+
+<h2 id="kubernetes-defined-resource-types">Kubernetes-defined resource types</h2>
+
+<p>The following resource types are predefined (“reserved”) by Kubernetes in the <code>kubernetes.io</code> namespace, and so cannot be used for user-defined resources.  Note that the syntax of all resource types in the resource spec is deliberately similar, but some resource types (e.g., CPU) may receive significantly more support than simply tracking quantities in the schedulers and/or the Kubelet.</p>
+
+<h3 id="processor-cycles">Processor cycles</h3>
+
+<ul>
+  <li>Name: <code>cpu</code> (or <code>kubernetes.io/cpu</code>)</li>
+  <li>Units: Kubernetes Compute Unit seconds/second (i.e., CPU cores normalized to a canonical “Kubernetes CPU”)</li>
+  <li>Internal representation: milli-KCUs</li>
+  <li>Compressible? yes</li>
+  <li>Qualities: this is a placeholder for the kind of thing that may be supported in the future — see <a href="http://issue.k8s.io/147">#147</a>
+    <ul>
+      <li>[future] <code>schedulingLatency</code>: as per lmctfy</li>
+      <li>[future] <code>cpuConversionFactor</code>: property of a node: the speed of a CPU core on the node’s processor divided by the speed of the canonical Kubernetes CPU (a floating point value; default = 1.0).</li>
+    </ul>
+  </li>
+</ul>
+
+<p>To reduce performance portability problems for pods, and to avoid worse-case provisioning behavior, the units of CPU will be normalized to a canonical “Kubernetes Compute Unit” (KCU, pronounced ˈko͝oko͞o), which will roughly be equivalent to a single CPU hyperthreaded core for some recent x86 processor. The normalization may be implementation-defined, although some reasonable defaults will be provided in the open-source Kubernetes code.</p>
+
+<p>Note that requesting 2 KCU won’t guarantee that precisely 2 physical cores will be allocated — control of aspects like this will be handled by resource <em>qualities</em> (a future feature).</p>
+
+<h3 id="memory">Memory</h3>
+
+<ul>
+  <li>Name: <code>memory</code> (or <code>kubernetes.io/memory</code>)</li>
+  <li>Units: bytes</li>
+  <li>Compressible? no (at least initially)</li>
+</ul>
+
+<p>The precise meaning of what “memory” means is implementation dependent, but the basic idea is to rely on the underlying <code>memcg</code> mechanisms, support, and definitions.</p>
+
+<p>Note that most people will want to use power-of-two suffixes (Mi, Gi) for memory quantities
+rather than decimal ones: “64MiB” rather than “64MB”.</p>
+
+<h2 id="resource-metadata">Resource metadata</h2>
+
+<p>A resource type may have an associated read-only ResourceType structure, that contains metadata about the type.  For example:</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">resourceTypes: [
+  "kubernetes.io/memory": [
+    isCompressible: false, ... 
+  ]
+  "kubernetes.io/cpu": [
+    isCompressible: true,
+    internalScaleExponent: 3, ...
+  ]
+  "kubernetes.io/disk-space": [ ... ]
+]
+</code></pre>
+</div>
+
+<p>Kubernetes will provide ResourceType metadata for its predefined types.  If no resource metadata can be found for a resource type, Kubernetes will assume that it is a quantified, incompressible resource that is not specified in milli-units, and has no default value.</p>
+
+<p>The defined properties are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>field name</th>
+      <th>type</th>
+      <th>contents</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td>string, required</td>
+      <td>the typename, as a fully-qualified string (e.g., <code>kubernetes.io/cpu</code>)</td>
+    </tr>
+    <tr>
+      <td>internalScaleExponent</td>
+      <td>int, default=0</td>
+      <td>external values are multiplied by 10 to this power for internal storage (e.g., 3 for milli-units)</td>
+    </tr>
+    <tr>
+      <td>units</td>
+      <td>string, required</td>
+      <td>format: <code>unit* [per unit+]</code> (e.g., <code>second</code>, <code>byte per second</code>). An empty unit field means “dimensionless”.</td>
+    </tr>
+    <tr>
+      <td>isCompressible</td>
+      <td>bool, default=false</td>
+      <td>true if the resource type is compressible</td>
+    </tr>
+    <tr>
+      <td>defaultRequest</td>
+      <td>string, default=none</td>
+      <td>in the same format as a user-supplied value</td>
+    </tr>
+    <tr>
+      <td><em>[future]</em> quantization</td>
+      <td>number, default=1</td>
+      <td>smallest granularity of allocation: requests may be rounded up to a multiple of this unit; implementation-defined unit (e.g., the page size for RAM).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="appendix-future-extensions">Appendix: future extensions</h1>
+
+<p>The following are planned future extensions to the resource model, included here to encourage comments.</p>
+
+<h2 id="usage-data">Usage data</h2>
+
+<p>Because resource usage and related metrics change continuously, need to be tracked over time (i.e., historically), can be characterized in a variety of ways, and are fairly voluminous, we will not include usage in core API objects, such as <a href="../user-guide/pods.html">Pods</a> and Nodes, but will provide separate APIs for accessing and managing that data. See the Appendix for possible representations of usage data, but the representation we’ll use is TBD.</p>
+
+<p>Singleton values for observed and predicted future usage will rapidly prove inadequate, so we will support the following structure for extended usage information:</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">resourceStatus: [
+  usage:     [ cpu: &lt;CPU-info&gt;, memory: &lt;memory-info&gt; ],
+  maxusage:  [ cpu: &lt;CPU-info&gt;, memory: &lt;memory-info&gt; ],
+  predicted: [ cpu: &lt;CPU-info&gt;, memory: &lt;memory-info&gt; ],
+]
+</code></pre>
+</div>
+
+<p>where a <code>&lt;CPU-info&gt;</code> or <code>&lt;memory-info&gt;</code> structure looks like this:</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">{
+    mean: &lt;value&gt;    # arithmetic mean
+    max: &lt;value&gt;     # minimum value
+    min: &lt;value&gt;     # maximum value
+    count: &lt;value&gt;   # number of data points
+    percentiles: [   # map from %iles to values
+      "10": &lt;10th-percentile-value&gt;,
+      "50": &lt;median-value&gt;,
+      "99": &lt;99th-percentile-value&gt;,
+      "99.9": &lt;99.9th-percentile-value&gt;,
+      ...
+    ]
+}
+</code></pre>
+</div>
+
+<p>All parts of this structure are optional, although we strongly encourage including quantities for 50, 90, 95, 99, 99.5, and 99.9 percentiles.  <em>[In practice, it will be important to include additional info such as the length of the time window over which the averages are calculated, the confidence level, and information-quality metrics such as the number of dropped or discarded data points.]</em>
+and predicted</p>
+
+<h2 id="future-resource-types">Future resource types</h2>
+
+<h3 id="future-network-bandwidth"><em>[future] Network bandwidth</em></h3>
+
+<ul>
+  <li>Name: “network-bandwidth” (or <code>kubernetes.io/network-bandwidth</code>)</li>
+  <li>Units: bytes per second</li>
+  <li>Compressible? yes</li>
+</ul>
+
+<h3 id="future-network-operations"><em>[future] Network operations</em></h3>
+
+<ul>
+  <li>Name: “network-iops” (or <code>kubernetes.io/network-iops</code>)</li>
+  <li>Units: operations (messages) per second</li>
+  <li>Compressible? yes</li>
+</ul>
+
+<h3 id="future-storage-space"><em>[future] Storage space</em></h3>
+
+<ul>
+  <li>Name: “storage-space” (or <code>kubernetes.io/storage-space</code>)</li>
+  <li>Units: bytes</li>
+  <li>Compressible? no</li>
+</ul>
+
+<p>The amount of secondary storage space available to a container.  The main target is local disk drives and SSDs, although this could also be used to qualify remotely-mounted volumes.   Specifying whether a resource is a raw disk, an SSD, a disk array, or a file system fronting any of these, is left for future work.</p>
+
+<h3 id="future-storage-time"><em>[future] Storage time</em></h3>
+
+<ul>
+  <li>Name: storage-time (or <code>kubernetes.io/storage-time</code>)</li>
+  <li>Units: seconds per second of disk time</li>
+  <li>Internal representation: milli-units</li>
+  <li>Compressible? yes</li>
+</ul>
+
+<p>This is the amount of time a container spends accessing disk, including actuator and transfer time.  A standard disk drive provides 1.0 diskTime seconds per second.</p>
+
+<h3 id="future-storage-operations"><em>[future] Storage operations</em></h3>
+
+<ul>
+  <li>Name: “storage-iops” (or <code>kubernetes.io/storage-iops</code>)</li>
+  <li>Units: operations per second</li>
+  <li>Compressible? yes</li>
+</ul>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/resources.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

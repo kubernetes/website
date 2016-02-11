@@ -1,37 +1,14 @@
 ---
-layout: docwithnav
 title: "Getting Started With Kubernetes on Mesos on Docker"
+section: samples
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-Getting Started With Kubernetes on Mesos on Docker
-----------------------------------------
 
 The mesos/docker provider uses docker-compose to launch Kubernetes as a Mesos framework, running in docker with its
 dependencies (etcd & mesos).
 
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
+## Table of Contents
 
-  - [Cluster Goals](#cluster-goals)
-  - [Cluster Topology](#cluster-topology)
-  - [Prerequisites](#prerequisites)
-    - [Install on Mac (Homebrew)](#install-on-mac-homebrew)
-    - [Install on Linux](#install-on-linux)
-    - [Boot2Docker Config (Mac)](#boot2docker-config-mac)
-  - [Walkthrough](#walkthrough)
-  - [Addons](#addons)
-    - [KubeUI](#kubeui)
-  - [End To End Testing](#end-to-end-testing)
-  - [Kubernetes CLI](#kubernetes-cli)
-  - [Helpful scripts](#helpful-scripts)
-  - [Build Locally](#build-locally)
-
-<!-- END MUNGE: GENERATED_TOC -->
-
+{% include pagetoc.html %}
 
 ## Cluster Goals
 
@@ -47,6 +24,7 @@ dependencies (etcd & mesos).
 - local deployment
 
 Non-Goals:
+
 - high availability
 - fault tolerance
 - remote deployment
@@ -64,14 +42,15 @@ The cluster consists of several docker containers linked together by docker-mana
 | docker-grand-ambassador       |                             | Proxy to allow circular hostname linking in docker                                      |
 | etcd                          | etcd                        | Key/Value store used by Mesos                                                           |
 | Mesos Master                  | mesosmaster1                | REST endpoint for interacting with Mesos                                                |
-| Mesos Slave (x2)              | mesosslave1<br/>mesosslave2 | Mesos agents that offer resources and run framework executors (e.g. Kubernetes Kublets) |
+| Mesos Slave (x2)              | mesosslave1, mesosslave2    | Mesos agents that offer resources and run framework executors (e.g. Kubernetes Kublets) |
 | Kubernetes API Server         | apiserver                   | REST endpoint for interacting with Kubernetes                                           |
-| Kubernetes Controller Manager | controller                  |                                                                                         |
+| Kubernetes Controller Manager | controller                  |                                                            |
 | Kubernetes Scheduler          | scheduler                   | Schedules container deployment by accepting Mesos offers                                |
 
 ## Prerequisites
 
 Required:
+
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - version control system
 - [Docker CLI](https://docs.docker.com/) - container management command line client
 - [Docker Engine](https://docs.docker.com/) - container management daemon
@@ -79,6 +58,7 @@ Required:
 - [Docker Compose](https://docs.docker.com/compose/install/) - multi-container application orchestration
 
 Optional:
+
 - [Virtual Box](https://www.virtualbox.org/wiki/Downloads) - x86 hardware virtualizer
   - Required by Boot2Docker and Docker Machine
 - [Golang](https://golang.org/doc/install) - Go programming language
@@ -92,18 +72,14 @@ It's possible to install all of the above via [Homebrew](http://brew.sh/) on a M
 
 Some steps print instructions for configuring or launching. Make sure each is properly set up before continuing to the next step.
 
-```
-{% raw %}
-brew install git
-brew install caskroom/cask/brew-cask
-brew cask install virtualbox
-brew install docker
-brew install boot2docker
-boot2docker init
-boot2docker up
-brew install docker-compose
-{% endraw %}
-```
+    brew install git
+    brew install caskroom/cask/brew-cask
+    brew cask install virtualbox
+    brew install docker
+    brew install boot2docker
+    boot2docker init
+    boot2docker up
+    brew install docker-compose
 
 ### Install on Linux
 
@@ -124,13 +100,9 @@ host machine (mac).
 
 1. Set the VM's host-only network to "promiscuous mode":
 
-    ```
-{% raw %}
-    boot2docker stop
-    VBoxManage modifyvm boot2docker-vm --nicpromisc2 allow-all
-    boot2docker start
-{% endraw %}
-    ```
+	  boot2docker stop
+      VBoxManage modifyvm boot2docker-vm --nicpromisc2 allow-all
+      boot2docker start
 
     This allows the VM to accept packets that were sent to a different IP.
 
@@ -139,11 +111,7 @@ host machine (mac).
 
 1. Route traffic to docker through the boot2docker IP:
 
-    ```
-{% raw %}
-    sudo route -n add -net 172.17.0.0 $(boot2docker ip)
-{% endraw %}
-    ```
+      sudo route -n add -net 172.17.0.0 $(boot2docker ip)
 
     Since the boot2docker IP can change when the VM is restarted, this route may need to be updated over time.
     To delete the route later: `sudo route delete 172.17.0.0`
@@ -153,12 +121,8 @@ host machine (mac).
 
 1. Checkout source
 
-    ```
-{% raw %}
-    git clone https://github.com/kubernetes/kubernetes
-    cd kubernetes
-{% endraw %}
-    ```
+      git clone https://github.com/kubernetes/kubernetes
+      cd kubernetes
 
     By default, that will get you the bleeding edge of master branch.
     You may want a [release branch](https://github.com/kubernetes/kubernetes/releases) instead,
@@ -170,11 +134,7 @@ host machine (mac).
 
     Building a new release covers both cases:
 
-    ```
-{% raw %}
-    KUBERNETES_CONTRIB=mesos build/release.sh
-{% endraw %}
-    ```
+      KUBERNETES_CONTRIB=mesos build/release.sh
 
     For developers, it may be faster to [build locally](#build-locally).
 
@@ -184,21 +144,13 @@ host machine (mac).
 
     1. Test image includes all the dependencies required for running e2e tests.
 
-        ```
-{% raw %}
-        ./cluster/mesos/docker/test/build.sh
-{% endraw %}
-        ```
+          ./cluster/mesos/docker/test/build.sh
 
         In the future, this image may be available to download. It doesn't contain anything specific to the current release, except its build dependencies.
 
     1. Kubernetes-Mesos image includes the compiled linux binaries.
 
-        ```
-{% raw %}
-        ./cluster/mesos/docker/km/build.sh
-{% endraw %}
-        ```
+          ./cluster/mesos/docker/km/build.sh
 
         This image needs to be built every time you recompile the server binaries.
 
@@ -215,29 +167,17 @@ host machine (mac).
 
 1. Configure provider
 
-    ```
-{% raw %}
-    export KUBERNETES_PROVIDER=mesos/docker
-{% endraw %}
-    ```
+      export KUBERNETES_PROVIDER=mesos/docker
 
     This tells cluster scripts to use the code within `cluster/mesos/docker`.
 
 1. Create cluster
 
-    ```
-{% raw %}
-    ./cluster/kube-up.sh
-{% endraw %}
-    ```
+      ./cluster/kube-up.sh
 
     If you manually built all the above docker images, you can skip that step during kube-up:
 
-    ```
-{% raw %}
-    MESOS_DOCKER_SKIP_BUILD=true ./cluster/kube-up.sh
-{% endraw %}
-    ```
+      MESOS_DOCKER_SKIP_BUILD=true ./cluster/kube-up.sh
 
     After deploying the cluster, `~/.kube/config` will be created or updated to configure kubectl to target the new cluster.
 
@@ -250,11 +190,7 @@ host machine (mac).
 
 1. Destroy cluster
 
-    ```
-{% raw %}
-    ./cluster/kube-down.sh
-{% endraw %}
-    ```
+      ./cluster/kube-down.sh
 
 ## Addons
 
@@ -262,11 +198,7 @@ The `kube-up` for the mesos/docker provider will automatically deploy KubeDNS an
 
 Check their status with:
 
-```
-{% raw %}
-./cluster/kubectl.sh get pods --namespace=kube-system
-{% endraw %}
-```
+    ./cluster/kubectl.sh get pods --namespace=kube-system
 
 ### KubeUI
 
@@ -283,11 +215,7 @@ Warning: e2e tests can take a long time to run. You may not want to run them imm
 
 While your cluster is up, you can run the end-to-end tests:
 
-```
-{% raw %}
-./cluster/test-e2e.sh
-{% endraw %}
-```
+    ./cluster/test-e2e.sh
 
 Notable parameters:
 - Increase the logging verbosity: `-v=2`
@@ -295,56 +223,35 @@ Notable parameters:
 
 To build, deploy, test, and destroy, all in one command (plus unit & integration tests):
 
-```
-{% raw %}
-make test_e2e
-{% endraw %}
-```
-
+    make test_e2e
 
 ## Kubernetes CLI
 
 When compiling from source, it's simplest to use the `./cluster/kubectl.sh` script, which detects your platform &
 architecture and proxies commands to the appropriate `kubectl` binary.
 
-ex: `./cluster/kubectl.sh get pods`
+    `./cluster/kubectl.sh get pods`
 
 
 ## Helpful scripts
 
-- Kill all docker containers
-
-    ```
-{% raw %}
+Kill all docker containers
+  
     docker ps -q -a | xargs docker rm -f
-{% endraw %}
-    ```
 
-- Clean up unused docker volumes
-
-    ```
-{% raw %}
+Clean up unused docker volumes
+  
     docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes
-{% endraw %}
-    ```
 
 ## Build Locally
 
 The steps above tell you how to build in a container, for minimal local dependencies. But if you have Go and Make installed you can build locally much faster:
 
-```
-{% raw %}
-KUBERNETES_CONTRIB=mesos make
-{% endraw %}
-```
+    KUBERNETES_CONTRIB=mesos make
 
 However, if you're not on linux, you'll still need to compile the linux/amd64 server binaries:
 
-```
-{% raw %}
-KUBERNETES_CONTRIB=mesos build/run.sh hack/build-go.sh
-{% endraw %}
-```
+    KUBERNETES_CONTRIB=mesos build/run.sh hack/build-go.sh
 
 The above two steps should be significantly faster than cross-compiling a whole new release for every supported platform (which is what `./build/release.sh` does).
 
@@ -355,16 +262,3 @@ Breakdown:
 - `make` - delegates to `hack/build-go.sh`
 - `build/run.sh` - executes a command in the build container
 - `build/release.sh` - cross compiles Kubernetes for all supported architectures and operating systems (slow)
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/mesos-docker.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

@@ -1,0 +1,500 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Getting Started With Kubernetes on Mesos on Docker</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1>Samples</h1>
+	<h5>A collection of example applications that show how to use Kubernetes.</h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+<div class="item" data-title="Clustered Application Samples">
+  <div class="container">
+    <a class="item" data-title="Apache Cassandra Database" href="http://kubernetes.io/v1.1/examples/cassandra/README.html" ></a>
+    <a class="item" data-title="Apache Spark" href="http://kubernetes.io/v1.1/examples/spark/README.html" ></a>
+    <a class="item" data-title="Apache Storm" href="http://kubernetes.io/v1.1/examples/storm/README.html" ></a>
+    <a class="item" data-title="Distributed Task Queue" href="http://kubernetes.io/v1.1/examples/celery-rabbitmq/README.html" ></a>
+    <a class="item" data-title="Hazelcast" href="http://kubernetes.io/v1.1/examples/hazelcast/README.html" ></a>
+    <a class="item" data-title="Meteor Applications" href="http://kubernetes.io/v1.1/examples/meteor/README.html" ></a>
+    <a class="item" data-title="Redis" href="http://kubernetes.io/v1.1/examples/redis/README.html" ></a>
+    <a class="item" data-title="RethinkDB" href="http://kubernetes.io/v1.1/examples/rethinkdb/README.html" ></a>
+    <a class="item" data-title="Elasticsearch/Kibana Logging Demonstration" href="http://kubernetes.io/v1.1/docs/user-guide/logging-demo/README.html" ></a>
+    <a class="item" data-title="Elasticsearch" href="http://kubernetes.io/v1.1/examples/elasticsearch/README.html" ></a>
+    <a class="item" data-title="OpenShift Origin" href="http://kubernetes.io/v1.1/examples/openshift-origin/README.html" ></a>
+    <a class="item" data-title="Ceph" href="http://kubernetes.io/v1.1/examples/rbd/README.html" ></a>
+
+  </div>
+</div>
+<div class="item" data-title="Persistent Volume Samples">
+  <div class="container">
+    <a class="item" data-title="WordPress on a Kubernetes Persistent Volume" href="http://kubernetes.io/v1.1/examples/mysql-wordpress-pd/README.html" ></a>
+    <a class="item" data-title="GlusterFS" href="http://kubernetes.io/v1.1/examples/glusterfs/README.html" ></a>
+    <a class="item" data-title="iSCSI" href="http://kubernetes.io/v1.1/examples/iscsi/README.html" ></a>
+    <a class="item" data-title="NFS" href="http://kubernetes.io/v1.1/examples/nfs/README.html" ></a>
+
+  </div>
+</div>
+<div class="item" data-title="Multi-tier Application Samples">
+  <div class="container">
+    <a class="item" data-title="Guestbook - Go Server" href="http://kubernetes.io/v1.1/examples/guestbook-go/README.html" ></a>
+    <a class="item" data-title="GuestBook - PHP Server" href="http://kubernetes.io/v1.1/examples/guestbook/README.html" ></a>
+    <a class="item" data-title="MySQL - Phabricator Server" href="http://kubernetes.io/v1.1/examples/phabricator/README.html" ></a>
+
+  </div>
+</div>
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Getting Started With Kubernetes on Mesos on Docker</h1>
+		<p>The mesos/docker provider uses docker-compose to launch Kubernetes as a Mesos framework, running in docker with its
+dependencies (etcd &amp; mesos).</p>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<div id="pageTOC" style="padding-top:15px; font-weight: bold; width: auto;"></div>
+
+<h2 id="cluster-goals">Cluster Goals</h2>
+
+<ul>
+  <li>kubernetes development</li>
+  <li>pod/service development</li>
+  <li>demoing</li>
+  <li>fast deployment</li>
+  <li>minimal hardware requirements</li>
+  <li>minimal configuration</li>
+  <li>entry point for exploration</li>
+  <li>simplified networking</li>
+  <li>fast end-to-end tests</li>
+  <li>local deployment</li>
+</ul>
+
+<p>Non-Goals:</p>
+
+<ul>
+  <li>high availability</li>
+  <li>fault tolerance</li>
+  <li>remote deployment</li>
+  <li>production usage</li>
+  <li>monitoring</li>
+  <li>long running</li>
+  <li>state persistence across restarts</li>
+</ul>
+
+<h2 id="cluster-topology">Cluster Topology</h2>
+
+<p>The cluster consists of several docker containers linked together by docker-managed hostnames:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Hostname</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>docker-grand-ambassador</td>
+      <td> </td>
+      <td>Proxy to allow circular hostname linking in docker</td>
+    </tr>
+    <tr>
+      <td>etcd</td>
+      <td>etcd</td>
+      <td>Key/Value store used by Mesos</td>
+    </tr>
+    <tr>
+      <td>Mesos Master</td>
+      <td>mesosmaster1</td>
+      <td>REST endpoint for interacting with Mesos</td>
+    </tr>
+    <tr>
+      <td>Mesos Slave (x2)</td>
+      <td>mesosslave1, mesosslave2</td>
+      <td>Mesos agents that offer resources and run framework executors (e.g. Kubernetes Kublets)</td>
+    </tr>
+    <tr>
+      <td>Kubernetes API Server</td>
+      <td>apiserver</td>
+      <td>REST endpoint for interacting with Kubernetes</td>
+    </tr>
+    <tr>
+      <td>Kubernetes Controller Manager</td>
+      <td>controller</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Kubernetes Scheduler</td>
+      <td>scheduler</td>
+      <td>Schedules container deployment by accepting Mesos offers</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>Required:</p>
+
+<ul>
+  <li><a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Git</a> - version control system</li>
+  <li><a href="https://docs.docker.com/">Docker CLI</a> - container management command line client</li>
+  <li><a href="https://docs.docker.com/">Docker Engine</a> - container management daemon
+    <ul>
+      <li>On Mac, use <a href="http://boot2docker.io/">Boot2Docker</a> or <a href="https://docs.docker.com/machine/install-machine/">Docker Machine</a></li>
+    </ul>
+  </li>
+  <li><a href="https://docs.docker.com/compose/install/">Docker Compose</a> - multi-container application orchestration</li>
+</ul>
+
+<p>Optional:</p>
+
+<ul>
+  <li><a href="https://www.virtualbox.org/wiki/Downloads">Virtual Box</a> - x86 hardware virtualizer
+    <ul>
+      <li>Required by Boot2Docker and Docker Machine</li>
+    </ul>
+  </li>
+  <li><a href="https://golang.org/doc/install">Golang</a> - Go programming language
+    <ul>
+      <li>Required to build Kubernetes locally</li>
+    </ul>
+  </li>
+  <li><a href="https://en.wikipedia.org/wiki/Make_(software)">Make</a>  - Utility for building executables from source
+    <ul>
+      <li>Required to build Kubernetes locally with make</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="install-on-mac-homebrew">Install on Mac (Homebrew)</h3>
+
+<p>It’s possible to install all of the above via <a href="http://brew.sh/">Homebrew</a> on a Mac.</p>
+
+<p>Some steps print instructions for configuring or launching. Make sure each is properly set up before continuing to the next step.</p>
+
+<pre><code>brew install git
+brew install caskroom/cask/brew-cask
+brew cask install virtualbox
+brew install docker
+brew install boot2docker
+boot2docker init
+boot2docker up
+brew install docker-compose
+</code></pre>
+
+<h3 id="install-on-linux">Install on Linux</h3>
+
+<p>Most of the above are available via apt and yum, but depending on your distribution, you may have to install via other
+means to get the latest versions.</p>
+
+<p>It is recommended to use Ubuntu, simply because it best supports AUFS, used by docker to mount volumes. Alternate file
+systems may not fully support docker-in-docker.</p>
+
+<p>In order to build Kubernetes, the current user must be in a docker group with sudo privileges.
+See the docker docs for <a href="https://docs.docker.com/installation/ubuntulinux/#create-a-docker-group">instructions</a>.</p>
+
+<h3 id="boot2docker-config-mac">Boot2Docker Config (Mac)</h3>
+
+<p>If on a mac using boot2docker, the following steps will make the docker IPs (in the virtualbox VM) reachable from the
+host machine (mac).</p>
+
+<ol>
+  <li>
+    <p>Set the VM’s host-only network to “promiscuous mode”:</p>
+
+    <p>boot2docker stop
+   VBoxManage modifyvm boot2docker-vm –nicpromisc2 allow-all
+   boot2docker start</p>
+
+    <p>This allows the VM to accept packets that were sent to a different IP.</p>
+
+    <p>Since the host-only network routes traffic between VMs and the host, other VMs will also be able to access the docker
+ IPs, if they have the following route.</p>
+  </li>
+  <li>
+    <p>Route traffic to docker through the boot2docker IP:</p>
+
+    <p>sudo route -n add -net 172.17.0.0 $(boot2docker ip)</p>
+
+    <p>Since the boot2docker IP can change when the VM is restarted, this route may need to be updated over time.
+ To delete the route later: <code>sudo route delete 172.17.0.0</code></p>
+  </li>
+</ol>
+
+<h2 id="walkthrough">Walkthrough</h2>
+
+<ol>
+  <li>
+    <p>Checkout source</p>
+
+    <p>git clone https://github.com/kubernetes/kubernetes
+   cd kubernetes</p>
+
+    <p>By default, that will get you the bleeding edge of master branch.
+ You may want a <a href="https://github.com/kubernetes/kubernetes/releases">release branch</a> instead,
+ if you have trouble with master.</p>
+  </li>
+  <li>
+    <p>Build binaries</p>
+
+    <p>You’ll need to build kubectl (CLI) for your local architecture and operating system and the rest of the server binaries for linux/amd64.</p>
+
+    <p>Building a new release covers both cases:</p>
+
+    <p>KUBERNETES_CONTRIB=mesos build/release.sh</p>
+
+    <p>For developers, it may be faster to <a href="#build-locally">build locally</a>.</p>
+  </li>
+  <li>
+    <p>[Optional] Build docker images</p>
+
+    <p>The following docker images are built as part of <code>./cluster/kube-up.sh</code>, but it may make sense to build them manually the first time because it may take a while.</p>
+
+    <ol>
+      <li>
+        <p>Test image includes all the dependencies required for running e2e tests.</p>
+
+        <p>./cluster/mesos/docker/test/build.sh</p>
+
+        <p>In the future, this image may be available to download. It doesn’t contain anything specific to the current release, except its build dependencies.</p>
+      </li>
+      <li>
+        <p>Kubernetes-Mesos image includes the compiled linux binaries.</p>
+
+        <p>./cluster/mesos/docker/km/build.sh</p>
+
+        <p>This image needs to be built every time you recompile the server binaries.</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>[Optional] Configure Mesos resources</p>
+
+    <p>By default, the mesos-slaves are configured to offer a fixed amount of resources (cpus, memory, disk, ports).
+ If you want to customize these values, update the <code>MESOS_RESOURCES</code> environment variables in <code>./cluster/mesos/docker/docker-compose.yml</code>.
+ If you delete the <code>MESOS_RESOURCES</code> environment variables, the resource amounts will be auto-detected based on the host resources, which will over-provision by &gt; 2x.</p>
+
+    <p>If the configured resources are not available on the host, you may want to increase the resources available to Docker Engine.
+ You may have to increase you VM disk, memory, or cpu allocation in VirtualBox,
+ <a href="https://docs.docker.com/machine/#oracle-virtualbox">Docker Machine</a>, or
+ <a href="https://ryanfb.github.io/etc/2015/01/28/increasing_boot2docker_allocations_on_os_x.html">Boot2Docker</a>.</p>
+  </li>
+  <li>
+    <p>Configure provider</p>
+
+    <p>export KUBERNETES_PROVIDER=mesos/docker</p>
+
+    <p>This tells cluster scripts to use the code within <code>cluster/mesos/docker</code>.</p>
+  </li>
+  <li>
+    <p>Create cluster</p>
+
+    <p>./cluster/kube-up.sh</p>
+
+    <p>If you manually built all the above docker images, you can skip that step during kube-up:</p>
+
+    <p>MESOS_DOCKER_SKIP_BUILD=true ./cluster/kube-up.sh</p>
+
+    <p>After deploying the cluster, <code>~/.kube/config</code> will be created or updated to configure kubectl to target the new cluster.</p>
+  </li>
+  <li>
+    <p>Explore examples</p>
+
+    <p>To learn more about Pods, Volumes, Labels, Services, and Replication Controllers, start with the
+ <a href="../user-guide/walkthrough/">Kubernetes Walkthrough</a>.</p>
+
+    <p>To skip to a more advanced example, see the <a href="../../examples/guestbook/">Guestbook Example</a></p>
+  </li>
+  <li>
+    <p>Destroy cluster</p>
+
+    <p>./cluster/kube-down.sh</p>
+  </li>
+</ol>
+
+<h2 id="addons">Addons</h2>
+
+<p>The <code>kube-up</code> for the mesos/docker provider will automatically deploy KubeDNS and KubeUI addons as pods/services.</p>
+
+<p>Check their status with:</p>
+
+<pre><code>./cluster/kubectl.sh get pods --namespace=kube-system
+</code></pre>
+
+<h3 id="kubeui">KubeUI</h3>
+
+<p>The web-based Kubernetes UI is accessible in a browser through the API Server proxy: <code>https://&lt;apiserver&gt;:6443/ui/</code>.</p>
+
+<p>By default, basic-auth is configured with user <code>admin</code> and password <code>admin</code>.</p>
+
+<p>The IP of the API Server can be found using <code>./cluster/kubectl.sh cluster-info</code>.</p>
+
+<h2 id="end-to-end-testing">End To End Testing</h2>
+
+<p>Warning: e2e tests can take a long time to run. You may not want to run them immediately if you’re just getting started.</p>
+
+<p>While your cluster is up, you can run the end-to-end tests:</p>
+
+<pre><code>./cluster/test-e2e.sh
+</code></pre>
+
+<p>Notable parameters:
+- Increase the logging verbosity: <code>-v=2</code>
+- Run only a subset of the tests (regex matching): <code>-ginkgo.focus=&lt;pattern&gt;</code></p>
+
+<p>To build, deploy, test, and destroy, all in one command (plus unit &amp; integration tests):</p>
+
+<pre><code>make test_e2e
+</code></pre>
+
+<h2 id="kubernetes-cli">Kubernetes CLI</h2>
+
+<p>When compiling from source, it’s simplest to use the <code>./cluster/kubectl.sh</code> script, which detects your platform &amp;
+architecture and proxies commands to the appropriate <code>kubectl</code> binary.</p>
+
+<pre><code>`./cluster/kubectl.sh get pods`
+</code></pre>
+
+<h2 id="helpful-scripts">Helpful scripts</h2>
+
+<p>Kill all docker containers</p>
+
+<pre><code>docker ps -q -a | xargs docker rm -f
+</code></pre>
+
+<p>Clean up unused docker volumes</p>
+
+<pre><code>docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes
+</code></pre>
+
+<h2 id="build-locally">Build Locally</h2>
+
+<p>The steps above tell you how to build in a container, for minimal local dependencies. But if you have Go and Make installed you can build locally much faster:</p>
+
+<pre><code>KUBERNETES_CONTRIB=mesos make
+</code></pre>
+
+<p>However, if you’re not on linux, you’ll still need to compile the linux/amd64 server binaries:</p>
+
+<pre><code>KUBERNETES_CONTRIB=mesos build/run.sh hack/build-go.sh
+</code></pre>
+
+<p>The above two steps should be significantly faster than cross-compiling a whole new release for every supported platform (which is what <code>./build/release.sh</code> does).</p>
+
+<p>Breakdown:</p>
+
+<ul>
+  <li><code>KUBERNETES_CONTRIB=mesos</code> - enables building of the contrib/mesos binaries</li>
+  <li><code>hack/build-go.sh</code> - builds the Go binaries for the current architecture (linux/amd64 when in a docker container)</li>
+  <li><code>make</code> - delegates to <code>hack/build-go.sh</code></li>
+  <li><code>build/run.sh</code> - executes a command in the build container</li>
+  <li><code>build/release.sh</code> - cross compiles Kubernetes for all supported architectures and operating systems (slow)</li>
+</ul>
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

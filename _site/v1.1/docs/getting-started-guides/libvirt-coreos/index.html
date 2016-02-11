@@ -1,0 +1,473 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Getting started with libvirt CoreOS</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Getting started with libvirt CoreOS</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+<p>Getting started with libvirt CoreOS
+———————————–</p>
+
+<p><strong>Table of Contents</strong></p>
+
+<ul>
+  <li><a href="#highlights">Highlights</a></li>
+  <li><a href="#warnings-about-libvirt-coreos-use-case">Warnings about <code>libvirt-coreos</code> use case</a></li>
+  <li><a href="#prerequisites">Prerequisites</a></li>
+  <li><a href="#setup">Setup</a></li>
+  <li><a href="#interacting-with-your-kubernetes-cluster-with-the-kube--scripts">Interacting with your Kubernetes cluster with the <code>kube-*</code> scripts.</a></li>
+  <li><a href="#troubleshooting">Troubleshooting</a>
+    <ul>
+      <li><a href="#-cannot-find-kubernetes-server-linux-amd64targz">!!! Cannot find kubernetes-server-linux-amd64.tar.gz</a></li>
+      <li><a href="#cant-find-virsh-in-path-please-fix-and-retry">Can’t find virsh in PATH, please fix and retry.</a></li>
+      <li><a href="#error-failed-to-connect-socket-to-varrunlibvirtlibvirt-sock-no-such-file-or-directory">error: Failed to connect socket to ‘/var/run/libvirt/libvirt-sock’: No such file or directory</a></li>
+      <li><a href="#error-failed-to-connect-socket-to-varrunlibvirtlibvirt-sock-permission-denied">error: Failed to connect socket to ‘/var/run/libvirt/libvirt-sock’: Permission denied</a></li>
+      <li><a href="#error-out-of-memory-initializing-network-virsh-net-create">error: Out of memory initializing network (virsh net-create…)</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="highlights">Highlights</h3>
+
+<ul>
+  <li>Super-fast cluster boot-up (few seconds instead of several minutes for vagrant)</li>
+  <li>Reduced disk usage thanks to <a href="https://en.wikibooks.org/wiki/QEMU/Images#Copy_on_write">COW</a></li>
+  <li>Reduced memory footprint thanks to <a href="https://www.kernel.org/doc/Documentation/vm/ksm.txt">KSM</a></li>
+</ul>
+
+<h3 id="warnings-about-libvirt-coreos-use-case">Warnings about <code>libvirt-coreos</code> use case</h3>
+
+<p>The primary goal of the <code>libvirt-coreos</code> cluster provider is to deploy a multi-node Kubernetes cluster on local VMs as fast as possible and to be as light as possible in term of resources used.</p>
+
+<p>In order to achieve that goal, its deployment is very different from the “standard production deployment” method used on other providers. This was done on purpose in order to implement some optimizations made possible by the fact that we know that all VMs will be running on the same physical machine.</p>
+
+<p>The <code>libvirt-coreos</code> cluster provider doesn’t aim at being production look-alike.</p>
+
+<p>Another difference is that no security is enforced on <code>libvirt-coreos</code> at all. For example,</p>
+
+<ul>
+  <li>Kube API server is reachable via a clear-text connection (no SSL);</li>
+  <li>Kube API server requires no credentials;</li>
+  <li>etcd access is not protected;</li>
+  <li>Kubernetes secrets are not protected as securely as they are on production environments;</li>
+  <li>etc.</li>
+</ul>
+
+<p>So, an k8s application developer should not validate its interaction with Kubernetes on <code>libvirt-coreos</code> because he might technically succeed in doing things that are prohibited on a production environment like:</p>
+
+<ul>
+  <li>un-authenticated access to Kube API server;</li>
+  <li>Access to Kubernetes private data structures inside etcd;</li>
+  <li>etc.</li>
+</ul>
+
+<p>On the other hand, <code>libvirt-coreos</code> might be useful for people investigating low level implementation of Kubernetes because debugging techniques like sniffing the network traffic or introspecting the etcd content are easier on <code>libvirt-coreos</code> than on a production deployment.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<ol>
+  <li>Install <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html">dnsmasq</a></li>
+  <li>Install <a href="http://ebtables.netfilter.org/">ebtables</a></li>
+  <li>Install <a href="http://wiki.qemu.org/Main_Page">qemu</a></li>
+  <li>Install <a href="http://libvirt.org/">libvirt</a></li>
+  <li>Enable and start the libvirt daemon, e.g:
+    <ul>
+      <li><code>systemctl enable libvirtd</code></li>
+      <li><code>systemctl start libvirtd</code></li>
+    </ul>
+  </li>
+  <li><a href="https://libvirt.org/aclpolkit.html">Grant libvirt access to your user¹</a></li>
+  <li>Check that your $HOME is accessible to the qemu user²</li>
+</ol>
+
+<h4 id="depending-on-your-distribution-libvirt-access-may-be-denied-by-default-or-may-require-a-password-at-each-access">¹ Depending on your distribution, libvirt access may be denied by default or may require a password at each access.</h4>
+
+<p>You can test it with the following command:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">virsh -c qemu:///system pool-list
+</code></pre>
+</div>
+
+<p>If you have access error messages, please read https://libvirt.org/acl.html and https://libvirt.org/aclpolkit.html .</p>
+
+<p>In short, if your libvirt has been compiled with Polkit support (ex: Arch, Fedora 21), you can create <code>/etc/polkit-1/rules.d/50-org.libvirt.unix.manage.rules</code> as follows to grant full access to libvirt to <code>$USER</code></p>
+
+<div class="highlight">
+  <pre><code class="language-sh">sudo /bin/sh -c "cat - &gt; /etc/polkit-1/rules.d/50-org.libvirt.unix.manage.rules" &lt;&lt; EOF
+polkit.addRule(function(action, subject) {
+        if (action.id == "org.libvirt.unix.manage" &amp;&amp;
+            subject.user == "$USER") {
+                return polkit.Result.YES;
+                polkit.log("action=" + action);
+                polkit.log("subject=" + subject);
+        }
+});
+EOF
+</code></pre>
+</div>
+
+<p>If your libvirt has not been compiled with Polkit (ex: Ubuntu 14.04.1 LTS), check the permissions on the libvirt unix socket:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ ls -l /var/run/libvirt/libvirt-sock
+srwxrwx--- 1 root libvirtd 0 févr. 12 16:03 /var/run/libvirt/libvirt-sock
+
+$ usermod -a -G libvirtd $USER
+# $USER needs to logout/login to have the new group be taken into account
+</code></pre>
+</div>
+
+<p>(Replace <code>$USER</code> with your login name)</p>
+
+<h4 id="qemu-will-run-with-a-specific-user-it-must-have-access-to-the-vms-drives">² Qemu will run with a specific user. It must have access to the VMs drives</h4>
+
+<p>All the disk drive resources needed by the VM (CoreOS disk image, Kubernetes binaries, cloud-init files, etc.) are put inside <code>./cluster/libvirt-coreos/libvirt_storage_pool</code>.</p>
+
+<p>As we’re using the <code>qemu:///system</code> instance of libvirt, qemu will run with a specific <code>user:group</code> distinct from your user. It is configured in <code>/etc/libvirt/qemu.conf</code>. That qemu user must have access to that libvirt storage pool.</p>
+
+<p>If your <code>$HOME</code> is world readable, everything is fine. If your $HOME is private, <code>cluster/kube-up.sh</code> will fail with an error message like:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">error: Cannot access storage file '$HOME/.../kubernetes/cluster/libvirt-coreos/libvirt_storage_pool/kubernetes_master.img' (as uid:99, gid:78): Permission denied
+</code></pre>
+</div>
+
+<p>In order to fix that issue, you have several possibilities:
+* set <code>POOL_PATH</code> inside <code>cluster/libvirt-coreos/config-default.sh</code> to a directory:
+  * backed by a filesystem with a lot of free disk space
+  * writable by your user;
+  * accessible by the qemu user.
+* Grant the qemu user access to the storage pool.</p>
+
+<p>On Arch:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">setfacl -m g:kvm:--x ~
+</code></pre>
+</div>
+
+<h3 id="setup">Setup</h3>
+
+<p>By default, the libvirt-coreos setup will create a single Kubernetes master and 3 Kubernetes nodes. Because the VM drives use Copy-on-Write and because of memory ballooning and KSM, there is a lot of resource over-allocation.</p>
+
+<p>To start your local cluster, open a shell and run:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">cd kubernetes
+
+export KUBERNETES_PROVIDER=libvirt-coreos
+cluster/kube-up.sh
+</code></pre>
+</div>
+
+<p>The <code>KUBERNETES_PROVIDER</code> environment variable tells all of the various cluster management scripts which variant to use.  If you forget to set this, the assumption is you are running on Google Compute Engine.</p>
+
+<p>The <code>NUM_MINIONS</code> environment variable may be set to specify the number of nodes to start. If it is not set, the number of nodes defaults to 3.</p>
+
+<p>The <code>KUBE_PUSH</code> environment variable may be set to specify which Kubernetes binaries must be deployed on the cluster. Its possible values are:</p>
+
+<ul>
+  <li><code>release</code> (default if <code>KUBE_PUSH</code> is not set) will deploy the binaries of <code>_output/release-tars/kubernetes-server-….tar.gz</code>. This is built with <code>make release</code> or <code>make release-skip-tests</code>.</li>
+  <li><code>local</code> will deploy the binaries of <code>_output/local/go/bin</code>. These are built with <code>make</code>.</li>
+</ul>
+
+<p>You can check that your machines are there and running with:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ virsh -c qemu:///system list
+ Id    Name                           State
+----------------------------------------------------
+ 15    kubernetes_master              running
+ 16    kubernetes_minion-01           running
+ 17    kubernetes_minion-02           running
+ 18    kubernetes_minion-03           running
+</code></pre>
+</div>
+
+<p>You can check that the Kubernetes cluster is working with:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get nodes
+NAME                LABELS              STATUS
+192.168.10.2        &lt;none&gt;              Ready
+192.168.10.3        &lt;none&gt;              Ready
+192.168.10.4        &lt;none&gt;              Ready
+</code></pre>
+</div>
+
+<p>The VMs are running <a href="https://coreos.com/">CoreOS</a>.
+Your ssh keys have already been pushed to the VM. (It looks for ~/.ssh/id_*.pub)
+The user to use to connect to the VM is <code>core</code>.
+The IP to connect to the master is 192.168.10.1.
+The IPs to connect to the nodes are 192.168.10.2 and onwards.</p>
+
+<p>Connect to <code>kubernetes_master</code>:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">ssh core@192.168.10.1
+</code></pre>
+</div>
+
+<p>Connect to <code>kubernetes_minion-01</code>:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">ssh core@192.168.10.2
+</code></pre>
+</div>
+
+<h3 id="interacting-with-your-kubernetes-cluster-with-the-kube--scripts">Interacting with your Kubernetes cluster with the <code>kube-*</code> scripts.</h3>
+
+<p>All of the following commands assume you have set <code>KUBERNETES_PROVIDER</code> appropriately:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">export KUBERNETES_PROVIDER=libvirt-coreos
+</code></pre>
+</div>
+
+<p>Bring up a libvirt-CoreOS cluster of 5 nodes</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">NUM_MINIONS=5 cluster/kube-up.sh
+</code></pre>
+</div>
+
+<p>Destroy the libvirt-CoreOS cluster</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">cluster/kube-down.sh
+</code></pre>
+</div>
+
+<p>Update the libvirt-CoreOS cluster with a new Kubernetes release produced by <code>make release</code> or <code>make release-skip-tests</code>:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">cluster/kube-push.sh
+</code></pre>
+</div>
+
+<p>Update the libvirt-CoreOS cluster with the locally built Kubernetes binaries produced by <code>make</code>:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">KUBE_PUSH=local cluster/kube-push.sh
+</code></pre>
+</div>
+
+<p>Interact with the cluster</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">kubectl ...
+</code></pre>
+</div>
+
+<h3 id="troubleshooting">Troubleshooting</h3>
+
+<h4 id="cannot-find-kubernetes-server-linux-amd64targz">!!! Cannot find kubernetes-server-linux-amd64.tar.gz</h4>
+
+<p>Build the release tarballs:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">make release
+</code></pre>
+</div>
+
+<h4 id="cant-find-virsh-in-path-please-fix-and-retry">Can’t find virsh in PATH, please fix and retry.</h4>
+
+<p>Install libvirt</p>
+
+<p>On Arch:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">pacman -S qemu libvirt
+</code></pre>
+</div>
+
+<p>On Ubuntu 14.04.1:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">aptitude install qemu-system-x86 libvirt-bin
+</code></pre>
+</div>
+
+<p>On Fedora 21:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">yum install qemu libvirt
+</code></pre>
+</div>
+
+<h4 id="error-failed-to-connect-socket-to-varrunlibvirtlibvirt-sock-no-such-file-or-directory">error: Failed to connect socket to ‘/var/run/libvirt/libvirt-sock’: No such file or directory</h4>
+
+<p>Start the libvirt daemon</p>
+
+<p>On Arch:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">systemctl start libvirtd
+</code></pre>
+</div>
+
+<p>On Ubuntu 14.04.1:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">service libvirt-bin start
+</code></pre>
+</div>
+
+<h4 id="error-failed-to-connect-socket-to-varrunlibvirtlibvirt-sock-permission-denied">error: Failed to connect socket to ‘/var/run/libvirt/libvirt-sock’: Permission denied</h4>
+
+<p>Fix libvirt access permission (Remember to adapt <code>$USER</code>)</p>
+
+<p>On Arch and Fedora 21:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">cat &gt; /etc/polkit-1/rules.d/50-org.libvirt.unix.manage.rules &lt;&lt;EOF
+polkit.addRule(function(action, subject) {
+        if (action.id == "org.libvirt.unix.manage" &amp;&amp;
+            subject.user == "$USER") {
+                return polkit.Result.YES;
+                polkit.log("action=" + action);
+                polkit.log("subject=" + subject);
+        }
+});
+EOF
+</code></pre>
+</div>
+
+<p>On Ubuntu:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">usermod -a -G libvirtd $USER
+</code></pre>
+</div>
+
+<h4 id="error-out-of-memory-initializing-network-virsh-net-create">error: Out of memory initializing network (virsh net-create…)</h4>
+
+<p>Ensure libvirtd has been restarted since ebtables was installed.</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/libvirt-coreos.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

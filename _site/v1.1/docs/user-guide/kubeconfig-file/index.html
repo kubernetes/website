@@ -1,0 +1,353 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - kubeconfig files</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>kubeconfig files</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="kubeconfig-files">kubeconfig files</h1>
+
+<p>Authentication in kubernetes can differ for different individuals.</p>
+
+<ul>
+  <li>A running kubelet might have one way of authenticating (i.e. certificates).</li>
+  <li>Users might have a different way of authenticating (i.e. tokens).</li>
+  <li>Administrators might have a list of certificates which they provide individual users.</li>
+  <li>There may be multiple clusters, and we may want to define them all in one place - giving users the ability to use their own certificates and reusing the same global configuration.</li>
+</ul>
+
+<p>So in order to easily switch between multiple clusters, for multiple users, a kubeconfig file was defined.</p>
+
+<p>This file contains a series of authentication mechanisms and cluster connection information associated with nicknames.  It also introduces the concept of a tuple of authentication information (user) and cluster connection information called a context that is also associated with a nickname.</p>
+
+<p>Multiple kubeconfig files are allowed.  At runtime they are loaded and merged together along with override options specified from the command line (see rules below).</p>
+
+<h2 id="related-discussion">Related discussion</h2>
+
+<p>http://issue.k8s.io/1755</p>
+
+<h2 id="example-kubeconfig-file">Example kubeconfig file</h2>
+
+<p>The below file contains a <code>current-context</code> which will be used by default by clients which are using the file to connect to a cluster.  Thus, this kubeconfig file has more information in it then we will necessarily have to use in a given session.  You can see it defines many clusters, and users associated with those clusters.  The context itself is associated with both a cluster AND a user.</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">current-context: federal-context
+apiVersion: v1
+clusters:
+- cluster:
+    api-version: v1
+    server: http://cow.org:8080
+  name: cow-cluster
+- cluster:
+    certificate-authority: path/to/my/cafile
+    server: https://horse.org:4443
+  name: horse-cluster
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://pig.org:443
+  name: pig-cluster
+contexts:
+- context:
+    cluster: horse-cluster
+    namespace: chisel-ns
+    user: green-user
+  name: federal-context
+- context:
+    cluster: pig-cluster
+    namespace: saw-ns
+    user: black-user
+  name: queen-anne-context
+kind: Config
+preferences:
+  colors: true
+users:
+- name: blue-user
+  user:
+    token: blue-token
+- name: green-user
+  user:
+    client-certificate: path/to/my/client/cert
+    client-key: path/to/my/client/key
+</code></pre>
+</div>
+
+<h3 id="building-your-own-kubeconfig-file">Building your own kubeconfig file</h3>
+
+<p>NOTE, that if you are deploying k8s via kube-up.sh, you do not need to create your own kubeconfig files, the script will do it for you.</p>
+
+<p>In any case, you can easily use this file as a template to create your own kubeconfig files.</p>
+
+<p>So, lets do a quick walk through the basics of the above file so you can easily modify it as needed…</p>
+
+<p>The above file would likely correspond to an api-server which was launched using the <code>--token-auth-file=tokens.csv</code> option, where the tokens.csv file looked something like this:</p>
+
+<pre><code>
+blue-user,blue-user,1
+mister-red,mister-red,2
+
+</code></pre>
+
+<p>Also, since we have other users who validate using <strong>other</strong> mechanisms, the api-server would have probably been launched with other authentication options (there are many such options, make sure you understand which ones YOU care about before crafting a kubeconfig file, as nobody needs to implement all the different permutations of possible authentication schemes).</p>
+
+<ul>
+  <li>Since the user for the current context is “green-user”, any client of the api-server using this kubeconfig file would naturally be able to log in succesfully, because we are providigin the green-user’s client credentials.</li>
+  <li>Similarly, we can operate as the “blue-user” if we choose to change the value of current-context.</li>
+</ul>
+
+<p>In the above scenario, green-user would have to log in by providing certificates, whereas blue-user would just provide the token.  All this information would be handled for us by the</p>
+
+<h2 id="loading-and-merging-rules">Loading and merging rules</h2>
+
+<p>The rules for loading and merging the kubeconfig files are straightforward, but there are a lot of them.  The final config is built in this order:
+  1.  Get the kubeconfig  from disk.  This is done with the following hierarchy and merge rules:</p>
+
+<pre><code>  If the CommandLineLocation (the value of the `kubeconfig` command line option) is set, use this file only.  No merging.  Only one instance of this flag is allowed.
+
+
+  Else, if EnvVarLocation (the value of $KUBECONFIG) is available, use it as a list of files that should be merged.
+  Merge files together based on the following rules.
+  Empty filenames are ignored.  Files with non-deserializable content produced errors.
+  The first file to set a particular value or map key wins and the value or map key is never changed.
+  This means that the first file to set CurrentContext will have its context preserved.  It also means that if two files specify a "red-user", only values from the first file's red-user are used.  Even non-conflicting entries from the second file's "red-user" are discarded.
+
+
+  Otherwise, use HomeDirectoryLocation (~/.kube/config) with no merging.   1.  Determine the context to use based on the first hit in this chain
+  1.  command line argument - the value of the `context` command line option
+  1.  current-context from the merged kubeconfig file
+  1.  Empty is allowed at this stage   1.  Determine the cluster info and user to use.  At this point, we may or may not have a context.  They are built based on the first hit in this chain.  (run it twice, once for user, once for cluster)
+  1.  command line argument - `user` for user name and `cluster` for cluster name
+  1.  If context is present, then use the context's value
+  1.  Empty is allowed   1.  Determine the actual cluster info to use.  At this point, we may or may not have a cluster info.  Build each piece of the cluster info based on the chain (first hit wins):
+  1.  command line arguments - `server`, `api-version`, `certificate-authority`, and `insecure-skip-tls-verify`
+  1.  If cluster info is present and a value for the attribute is present, use it.
+  1.  If you don't have a server location, error.   1.  Determine the actual user info to use. User is built using the same rules as cluster info, EXCEPT that you can only have one authentication technique per user.
+  1. Load precedence is 1) command line flag, 2) user fields from kubeconfig
+  1. The command line flags are: `client-certificate`, `client-key`, `username`, `password`, and `token`.
+  1. If there are two conflicting techniques, fail.   1.  For any information still missing, use default values and potentially prompt for authentication information
+</code></pre>
+
+<h2 id="manipulation-of-kubeconfig-via-kubectl-config-subcommand">Manipulation of kubeconfig via <code>kubectl config &lt;subcommand&gt;</code></h2>
+
+<p>In order to more easily manipulate kubeconfig files, there are a series of subcommands to <code>kubectl config</code> to help.
+See <a href="kubectl/kubectl_config.html">kubectl/kubectl_config.md</a> for help.</p>
+
+<h3 id="example">Example</h3>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl config set-credentials myself --username=admin --password=secret
+$ kubectl config set-cluster local-server --server=http://localhost:8080
+$ kubectl config set-context default-context --cluster=local-server --user=myself
+$ kubectl config use-context default-context
+$ kubectl config set contexts.default-context.namespace the-right-prefix
+$ kubectl config view
+</code></pre>
+</div>
+
+<p>produces this output</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">apiVersion: v1
+clusters:
+- cluster:
+    server: http://localhost:8080
+  name: local-server
+contexts:
+- context:
+    cluster: local-server
+    namespace: the-right-prefix
+    user: myself
+  name: default-context
+current-context: default-context
+kind: Config
+preferences: {}
+users:
+- name: myself
+  user:
+    password: secret
+    username: admin
+</code></pre>
+</div>
+
+<p>and a kubeconfig file that looks like this</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">apiVersion: v1
+clusters:
+- cluster:
+    server: http://localhost:8080
+  name: local-server
+contexts:
+- context:
+    cluster: local-server
+    namespace: the-right-prefix
+    user: myself
+  name: default-context
+current-context: default-context
+kind: Config
+preferences: {}
+users:
+- name: myself
+  user:
+    password: secret
+    username: admin
+</code></pre>
+</div>
+
+<h4 id="commands-for-the-example-file">Commands for the example file</h4>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl config set preferences.colors true
+$ kubectl config set-cluster cow-cluster --server=http://cow.org:8080 --api-version=v1
+$ kubectl config set-cluster horse-cluster --server=https://horse.org:4443 --certificate-authority=path/to/my/cafile
+$ kubectl config set-cluster pig-cluster --server=https://pig.org:443 --insecure-skip-tls-verify=true
+$ kubectl config set-credentials blue-user --token=blue-token
+$ kubectl config set-credentials green-user --client-certificate=path/to/my/client/cert --client-key=path/to/my/client/key
+$ kubectl config set-context queen-anne-context --cluster=pig-cluster --user=black-user --namespace=saw-ns
+$ kubectl config set-context federal-context --cluster=horse-cluster --user=green-user --namespace=chisel-ns
+$ kubectl config use-context federal-context
+</code></pre>
+</div>
+
+<h3 id="final-notes-for-tying-it-all-together">Final notes for tying it all together</h3>
+
+<p>So, tying this all together, a quick start to creating your own kubeconfig file:</p>
+
+<ul>
+  <li>
+    <p>Take a good look and understand how you’re api-server is being launched: You need to know YOUR security requirements and policies before you can design a kubeconfig file for convenient authentication.</p>
+  </li>
+  <li>
+    <p>Replace the snippet above with information for your cluster’s api-server endpoint.</p>
+  </li>
+  <li>
+    <p>Make sure your api-server is launched in such a way that at least one user (i.e. green-user) credentials are provided to it.  You will of course have to look at api-server documentation in order to determine the current state-of-the-art in terms of providing authentication details.</p>
+  </li>
+</ul>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubeconfig-file.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

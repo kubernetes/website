@@ -1,0 +1,269 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Cluster Troubleshooting</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Cluster Troubleshooting</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="cluster-troubleshooting">Cluster Troubleshooting</h1>
+
+<p>This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
+problem you are experiencing. See
+the <a href="../user-guide/application-troubleshooting.html">application troubleshooting guide</a> for tips on application debugging.
+You may also visit <a href="../troubleshooting.html">troubleshooting document</a> for more information.</p>
+
+<h2 id="listing-your-cluster">Listing your cluster</h2>
+
+<p>The first thing to debug in your cluster is if your nodes are all registered correctly.</p>
+
+<p>Run</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">kubectl get nodes
+</code></pre>
+</div>
+
+<p>And verify that all of the nodes you expect to see are present and that they are all in the <code>Ready</code> state.</p>
+
+<h2 id="looking-at-logs">Looking at logs</h2>
+
+<p>For now, digging deeper into the cluster requires logging into the relevant machines.  Here are the locations
+of the relevant log files.  (note that on systemd-based systems, you may need to use <code>journalctl</code> instead)</p>
+
+<h3 id="master">Master</h3>
+
+<ul>
+  <li>/var/log/kube-apiserver.log - API Server, responsible for serving the API</li>
+  <li>/var/log/kube-scheduler.log - Scheduler, responsible for making scheduling decisions</li>
+  <li>/var/log/kube-controller-manager.log - Controller that manages replication controllers</li>
+</ul>
+
+<h3 id="worker-nodes">Worker Nodes</h3>
+
+<ul>
+  <li>/var/log/kubelet.log - Kubelet, responsible for running containers on the node</li>
+  <li>/var/log/kube-proxy.log - Kube Proxy, responsible for service load balancing</li>
+</ul>
+
+<h2 id="a-general-overview-of-cluster-failure-modes">A general overview of cluster failure modes</h2>
+
+<p>This is an incomplete list of things that could go wrong, and how to adjust your cluster setup to mitigate the problems.</p>
+
+<p>Root causes:
+  - VM(s) shutdown
+  - Network partition within cluster, or between cluster and users
+  - Crashes in Kubernetes software
+  - Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
+  - Operator error, e.g. misconfigured Kubernetes software or application software</p>
+
+<p>Specific scenarios:
+  - Apiserver VM shutdown or apiserver crashing
+    - Results
+      - unable to stop, update, or start new pods, services, replication controller
+      - existing pods and services should continue to work normally, unless they depend on the Kubernetes API
+  - Apiserver backing storage lost
+    - Results
+      - apiserver should fail to come up
+      - kubelets will not be able to reach it but will continue to run the same pods and provide the same service proxying
+      - manual recovery or recreation of apiserver state necessary before apiserver is restarted
+  - Supporting services (node controller, replication controller manager, scheduler, etc) VM shutdown or crashes
+    - currently those are colocated with the apiserver, and their unavailability has similar consequences as apiserver
+    - in future, these will be replicated as well and may not be co-located
+    - they do not have their own persistent state
+  - Individual node (VM or physical machine) shuts down
+    - Results
+      - pods on that Node stop running
+  - Network partition
+    - Results
+      - partition A thinks the nodes in partition B are down; partition B thinks the apiserver is down. (Assuming the master VM ends up in partition A.)
+  - Kubelet software fault
+    - Results
+      - crashing kubelet cannot start new pods on the node
+      - kubelet might delete the pods or not
+      - node marked unhealthy
+      - replication controllers start new pods elsewhere
+  - Cluster operator error
+    - Results
+      - loss of pods, services, etc
+      - lost of apiserver backing store
+      - users unable to read API
+      - etc.</p>
+
+<p>Mitigations:
+- Action: Use IaaS provider’s automatic VM restarting feature for IaaS VMs
+  - Mitigates: Apiserver VM shutdown or apiserver crashing
+  - Mitigates: Supporting services VM shutdown or crashes</p>
+
+<ul>
+  <li>Action use IaaS providers reliable storage (e.g GCE PD or AWS EBS volume) for VMs with apiserver+etcd
+    <ul>
+      <li>Mitigates: Apiserver backing storage lost</li>
+    </ul>
+  </li>
+  <li>Action: Use (experimental) <a href="high-availability.html">high-availability</a> configuration
+    <ul>
+      <li>Mitigates: Master VM shutdown or master components (scheduler, API server, controller-managing) crashing
+        <ul>
+          <li>Will tolerate one or more simultaneous node or component failures</li>
+        </ul>
+      </li>
+      <li>Mitigates: Apiserver backing storage (i.e., etcd’s data directory) lost
+        <ul>
+          <li>Assuming you used clustered etcd.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Action: Snapshot apiserver PDs/EBS-volumes periodically
+    <ul>
+      <li>Mitigates: Apiserver backing storage lost</li>
+      <li>Mitigates: Some cases of operator error</li>
+      <li>Mitigates: Some cases of Kubernetes software fault</li>
+    </ul>
+  </li>
+  <li>Action: use replication controller and services in front of pods
+    <ul>
+      <li>Mitigates: Node shutdown</li>
+      <li>Mitigates: Kubelet software fault</li>
+    </ul>
+  </li>
+  <li>Action: applications (containers) designed to tolerate unexpected restarts
+    <ul>
+      <li>Mitigates: Node shutdown</li>
+      <li>Mitigates: Kubelet software fault</li>
+    </ul>
+  </li>
+  <li>Action: <a href="multi-cluster.html">Multiple independent clusters</a> (and avoid making risky changes to all clusters at once)
+    <ul>
+      <li>Mitigates: Everything listed above.</li>
+    </ul>
+  </li>
+</ul>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/cluster-troubleshooting.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

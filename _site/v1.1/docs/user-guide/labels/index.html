@@ -1,0 +1,337 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Labels</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Labels</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="labels">Labels</h1>
+
+<p><strong>Table of Contents</strong>
+<!-- BEGIN MUNGE: GENERATED_TOC --></p>
+
+<ul>
+  <li><a href="#labels">Labels</a>
+    <ul>
+      <li><a href="#motivation">Motivation</a></li>
+      <li><a href="#syntax-and-character-set">Syntax and character set</a></li>
+      <li><a href="#label-selectors">Label selectors</a>
+        <ul>
+          <li><a href="#equality-based-requirement"><em>Equality-based</em> requirement</a></li>
+          <li><a href="#set-based-requirement"><em>Set-based</em> requirement</a></li>
+        </ul>
+      </li>
+      <li><a href="#api">API</a>
+        <ul>
+          <li><a href="#list-and-watch-filtering">LIST and WATCH filtering</a></li>
+          <li><a href="#set-references-in-api-objects">Set references in API objects</a>
+            <ul>
+              <li><a href="#service-and-replicationcontroller">Service and ReplicationController</a></li>
+              <li><a href="#job-and-other-new-resources">Job and other new resources</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<!-- END MUNGE: GENERATED_TOC -->
+
+<p><em>Labels</em> are key/value pairs that are attached to objects, such as pods.
+Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but which do not directly imply semantics to the core system.
+Labels can be used to organize and to select subsets of objects.  Labels can be attached to objects at creation time and subsequently added and modified at any time.
+Each object can have a set of key/value labels defined.  Each Key must be unique for a given object.</p>
+
+<div class="highlight">
+  <pre><code class="language-json">"labels": {
+  "key1" : "value1",
+  "key2" : "value2"
+}
+</code></pre>
+</div>
+
+<p>We’ll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don’t want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using <a href="annotations.html">annotations</a>.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>Labels enable users to map their own organizational structures onto system objects in a loosely coupled fashion, without requiring clients to store these mappings.</p>
+
+<p>Service deployments and batch processing pipelines are often multi-dimensional entities (e.g., multiple partitions or deployments, multiple release tracks, multiple tiers, multiple micro-services per tier). Management often requires cross-cutting operations, which breaks encapsulation of strictly hierarchical representations, especially rigid hierarchies determined by the infrastructure rather than by users.</p>
+
+<p>Example labels:</p>
+
+<ul>
+  <li><code>"release" : "stable"</code>, <code>"release" : "canary"</code></li>
+  <li><code>"environment" : "dev"</code>, <code>"environment" : "qa"</code>, <code>"environment" : "production"</code></li>
+  <li><code>"tier" : "frontend"</code>, <code>"tier" : "backend"</code>, <code>"tier" : "cache"</code></li>
+  <li><code>"partition" : "customerA"</code>, <code>"partition" : "customerB"</code></li>
+  <li><code>"track" : "daily"</code>, <code>"track" : "weekly"</code></li>
+</ul>
+
+<p>These are just examples; you are free to develop your own conventions.</p>
+
+<h2 id="syntax-and-character-set">Syntax and character set</h2>
+
+<p><em>Labels</em> are key value pairs. Valid label keys have two segments: an optional prefix and name, separated by a slash (<code>/</code>).  The name segment is required and must be 63 characters or less, beginning and ending with an alphanumeric character (<code>[a-z0-9A-Z]</code>) with dashes (<code>-</code>), underscores (<code>_</code>), dots (<code>.</code>), and alphanumerics between.  The prefix is optional.  If specified, the prefix must be a DNS subdomain: a series of DNS labels separated by dots (<code>.</code>), not longer than 253 characters in total, followed by a slash (<code>/</code>).
+If the prefix is omitted, the label key is presumed to be private to the user. Automated system components (e.g. <code>kube-scheduler</code>, <code>kube-controller-manager</code>, <code>kube-apiserver</code>, <code>kubectl</code>, or other third-party automation) which add labels to end-user objects must specify a prefix.  The <code>kubernetes.io/</code> prefix is reserved for Kubernetes core components.</p>
+
+<p>Valid label values must be 63 characters or less and must be empty or begin and end with an alphanumeric character (<code>[a-z0-9A-Z]</code>) with dashes (<code>-</code>), underscores (<code>_</code>), dots (<code>.</code>), and alphanumerics between.</p>
+
+<h2 id="label-selectors">Label selectors</h2>
+
+<p>Unlike <a href="identifiers.html">names and UIDs</a>, labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).</p>
+
+<p>Via a <em>label selector</em>, the client/user can identify a set of objects. The label selector is the core grouping primitive in Kubernetes.</p>
+
+<p>The API currently supports two types of selectors: <em>equality-based</em> and <em>set-based</em>.
+A label selector can be made of multiple <em>requirements</em> which are comma-separated. In the case of multiple requirements, all must be satisfied so the comma separator acts as an <em>AND</em> logical operator.</p>
+
+<p>An empty label selector (that is, one with zero requirements) selects every object in the collection.</p>
+
+<p>A null label selector (which is only possible for optional selector fields) selects no objects.</p>
+
+<h3 id="equality-based-requirement"><em>Equality-based</em> requirement</h3>
+
+<p><em>Equality-</em> or <em>inequality-based</em> requirements allow filtering by label keys and values. Matching objects must satisfy all of the specified label constraints, though they may have additional labels as well.
+Three kinds of operators are admitted <code>=</code>,<code>==</code>,<code>!=</code>. The first two represent <em>equality</em> (and are simply synonyms), while the latter represents <em>inequality</em>. For example:</p>
+
+<pre><code>
+environment = production
+tier != frontend
+
+</code></pre>
+
+<p>The former selects all resources with key equal to <code>environment</code> and value equal to <code>production</code>.
+The latter selects all resources with key equal to <code>tier</code> and value distinct from <code>frontend</code>, and all resources with no labels with the <code>tier</code> key.
+One could filter for resources in <code>production</code> excluding <code>frontend</code> using the comma operator: <code>environment=production,tier!=frontend</code></p>
+
+<h3 id="set-based-requirement"><em>Set-based</em> requirement</h3>
+
+<p><em>Set-based</em> label requirements allow filtering keys according to a set of values. Three kinds of operators are supported: <code>in</code>,<code>notin</code> and exists (only the key identifier). For example:</p>
+
+<pre><code>
+environment in (production, qa)
+tier notin (frontend, backend)
+partition
+!partition
+
+</code></pre>
+
+<p>The first example selects all resources with key equal to <code>environment</code> and value equal to <code>production</code> or <code>qa</code>.
+The second example selects all resources with key equal to <code>tier</code> and values other than <code>frontend</code> and <code>backend</code>, and all resources with no labels with the <code>tier</code> key.
+The third example selects all resources including a label with key <code>partition</code>; no values are checked.
+The fourth example selects all resources without a label with key <code>partition</code>; no values are checked.
+Similarly the comma separator acts as an <em>AND</em> operator. So filtering resources with a <code>partition</code> key (no matter the value) and with <code>environment</code> different than  <code>qa</code> can be achieved using <code>partition,environment notin (qa)</code>.
+The <em>set-based</em> label selector is a general form of equality since <code>environment=production</code> is equivalent to <code>environment in (production)</code>; similarly for <code>!=</code> and <code>notin</code>.</p>
+
+<p><em>Set-based</em> requirements can be mixed with <em>equality-based</em> requirements. For example: <code>partition in (customerA, customerB),environment!=qa</code>.</p>
+
+<h2 id="api">API</h2>
+
+<h3 id="list-and-watch-filtering">LIST and WATCH filtering</h3>
+
+<p>LIST and WATCH operations may specify label selectors to filter the sets of objects returned using a query parameter. Both requirements are permitted:</p>
+
+<pre><code>* _equality-based_ requirements: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`
+* _set-based_ requirements: `?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
+</code></pre>
+
+<p>Both label selector styles can be used to list or watch resources via a REST client. For example targetting <code>apiserver</code> with <code>kubectl</code> and using <em>equality-based</em> one may write:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get pods -l environment=production,tier=frontend
+</code></pre>
+</div>
+
+<p>or using <em>set-based</em> requirements:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get pods -l 'environment in (production),tier in (frontend)'
+</code></pre>
+</div>
+
+<p>As already mentioned <em>set-based</em> requirements are more expressive.  For instance, they can implement the <em>OR</em> operator on values:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get pods -l 'environment in (production, qa)'
+</code></pre>
+</div>
+
+<p>or restricting negative matching via <em>exists</em> operator:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get pods -l 'environment,environment notin (frontend)'
+</code></pre>
+</div>
+
+<h3 id="set-references-in-api-objects">Set references in API objects</h3>
+
+<p>Some Kubernetes objects, such as <a href="services.html"><code>service</code>s</a> and <a href="replication-controller.html"><code>replicationcontroller</code>s</a>, also use label selectors to specify sets of other resources, such as <a href="pods.html">pods</a>.</p>
+
+<h4 id="service-and-replicationcontroller">Service and ReplicationController</h4>
+
+<p>The set of pods that a <code>service</code> targets is defined with a label selector. Similarly, the population of pods that a <code>replicationcontroller</code> should manage is also defined with a label selector.</p>
+
+<p>Labels selectors for both objects are defined in <code>json</code> or <code>yaml</code> files using maps, and only <em>equality-based</em> requirement selectors are supported:</p>
+
+<div class="highlight">
+  <pre><code class="language-json">"selector": {
+    "component" : "redis",
+}
+</code></pre>
+</div>
+
+<p>or</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">selector:
+    component: redis
+</code></pre>
+</div>
+
+<p>this selector (respectively in <code>json</code> or <code>yaml</code> format) is equivalent to <code>component=redis</code> or <code>component in (redis)</code>.</p>
+
+<h4 id="job-and-other-new-resources">Job and other new resources</h4>
+
+<p>Newer resources, such as <a href="jobs.html">job</a>, support <em>set-based</em> requirements as well.</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">selector:
+  matchLabels:
+    component: redis
+  matchExpressions:
+    - {key: tier, operator: In, values: [cache]}
+    - {key: environment, operator: NotIn, values: [dev]}
+</code></pre>
+</div>
+
+<p><code>matchLabels</code> is a map of <code>{key,value}</code> pairs. A single <code>{key,value}</code> in the <code>matchLabels</code> map is equivalent to an element of <code>matchExpressions</code>, whose <code>key</code> field is “key”, the <code>operator</code> is “In”, and the <code>values</code> array contains only “value”. <code>matchExpressions</code> is a list of pod selector requirements. Valid operators include In, NotIn, Exists, and DoesNotExist. The values set must be non-empty in the case of In and NotIn. All of the requirements, from both <code>matchLabels</code> and <code>matchExpressions</code> are ANDed together – they must all be satisfied in order to match.</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/labels.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

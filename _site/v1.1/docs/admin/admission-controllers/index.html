@@ -1,0 +1,297 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Admission Controllers</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Admission Controllers</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="admission-controllers">Admission Controllers</h1>
+
+<p><strong>Table of Contents</strong>
+<!-- BEGIN MUNGE: GENERATED_TOC --></p>
+
+<ul>
+  <li><a href="#admission-controllers">Admission Controllers</a>
+    <ul>
+      <li><a href="#what-are-they">What are they?</a></li>
+      <li><a href="#why-do-i-need-them">Why do I need them?</a></li>
+      <li><a href="#how-do-i-turn-on-an-admission-control-plug-in">How do I turn on an admission control plug-in?</a></li>
+      <li><a href="#what-does-each-plug-in-do">What does each plug-in do?</a>
+        <ul>
+          <li><a href="#alwaysadmit">AlwaysAdmit</a></li>
+          <li><a href="#alwaysdeny">AlwaysDeny</a></li>
+          <li><a href="#denyexeconprivileged-deprecated">DenyExecOnPrivileged (deprecated)</a></li>
+          <li><a href="#denyescalatingexec">DenyEscalatingExec</a></li>
+          <li><a href="#serviceaccount">ServiceAccount</a></li>
+          <li><a href="#securitycontextdeny">SecurityContextDeny</a></li>
+          <li><a href="#resourcequota">ResourceQuota</a></li>
+          <li><a href="#limitranger">LimitRanger</a></li>
+          <li><a href="#initialresources-experimental">InitialResources (experimental)</a></li>
+          <li><a href="#namespaceexists-deprecated">NamespaceExists (deprecated)</a></li>
+          <li><a href="#namespaceautoprovision-deprecated">NamespaceAutoProvision (deprecated)</a></li>
+          <li><a href="#namespacelifecycle">NamespaceLifecycle</a></li>
+        </ul>
+      </li>
+      <li><a href="#is-there-a-recommended-set-of-plug-ins-to-use">Is there a recommended set of plug-ins to use?</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- END MUNGE: GENERATED_TOC -->
+
+<h2 id="what-are-they">What are they?</h2>
+
+<p>An admission control plug-in is a piece of code that intercepts requests to the Kubernetes
+API server prior to persistence of the object, but after the request is authenticated
+and authorized.  The plug-in code is in the API server process
+and must be compiled into the binary in order to be used at this time.</p>
+
+<p>Each admission control plug-in is run in sequence before a request is accepted into the cluster.  If
+any of the plug-ins in the sequence reject the request, the entire request is rejected immediately
+and an error is returned to the end-user.</p>
+
+<p>Admission control plug-ins may mutate the incoming object in some cases to apply system configured
+defaults.  In addition, admission control plug-ins may mutate related resources as part of request
+processing to do things like increment quota usage.</p>
+
+<h2 id="why-do-i-need-them">Why do I need them?</h2>
+
+<p>Many advanced features in Kubernetes require an admission control plug-in to be enabled in order
+to properly support the feature.  As a result, a Kubernetes API server that is not properly
+configured with the right set of admission control plug-ins is an incomplete server and will not
+support all the features you expect.</p>
+
+<h2 id="how-do-i-turn-on-an-admission-control-plug-in">How do I turn on an admission control plug-in?</h2>
+
+<p>The Kubernetes API server supports a flag, <code>admission-control</code> that takes a comma-delimited,
+ordered list of admission control choices to invoke prior to modifying objects in the cluster.</p>
+
+<h2 id="what-does-each-plug-in-do">What does each plug-in do?</h2>
+
+<h3 id="alwaysadmit">AlwaysAdmit</h3>
+
+<p>Use this plugin by itself to pass-through all requests.</p>
+
+<h3 id="alwaysdeny">AlwaysDeny</h3>
+
+<p>Rejects all requests.  Used for testing.</p>
+
+<h3 id="denyexeconprivileged-deprecated">DenyExecOnPrivileged (deprecated)</h3>
+
+<p>This plug-in will intercept all requests to exec a command in a pod if that pod has a privileged container.</p>
+
+<p>If your cluster supports privileged containers, and you want to restrict the ability of end-users to exec
+commands in those containers, we strongly encourage enabling this plug-in.</p>
+
+<p>This functionality has been merged into <a href="#denyescalatingexec">DenyEscalatingExec</a>.</p>
+
+<h3 id="denyescalatingexec">DenyEscalatingExec</h3>
+
+<p>This plug-in will deny exec and attach commands to pods that run with escalated privileges that
+allow host access.  This includes pods that run as privileged, have access to the host IPC namespace, and
+have access to the host PID namespace.</p>
+
+<p>If your cluster supports containers that run with escalated privileges, and you want to
+restrict the ability of end-users to exec commands in those containers, we strongly encourage
+enabling this plug-in.</p>
+
+<h3 id="serviceaccount">ServiceAccount</h3>
+
+<p>This plug-in implements automation for <a href="../user-guide/service-accounts.html">serviceAccounts</a>.
+We strongly recommend using this plug-in if you intend to make use of Kubernetes <code>ServiceAccount</code> objects.</p>
+
+<h3 id="securitycontextdeny">SecurityContextDeny</h3>
+
+<p>This plug-in will deny any pod with a <a href="../user-guide/security-context.html">SecurityContext</a> that defines options that were not available on the <code>Container</code>.</p>
+
+<h3 id="resourcequota">ResourceQuota</h3>
+
+<p>This plug-in will observe the incoming request and ensure that it does not violate any of the constraints
+enumerated in the <code>ResourceQuota</code> object in a <code>Namespace</code>.  If you are using <code>ResourceQuota</code>
+objects in your Kubernetes deployment, you MUST use this plug-in to enforce quota constraints.</p>
+
+<p>See the <a href="../design/admission_control_resource_quota.html">resourceQuota design doc</a> and the <a href="resourcequota/">example of Resource Quota</a> for more details.</p>
+
+<p>It is strongly encouraged that this plug-in is configured last in the sequence of admission control plug-ins.  This is
+so that quota is not prematurely incremented only for the request to be rejected later in admission control.</p>
+
+<h3 id="limitranger">LimitRanger</h3>
+
+<p>This plug-in will observe the incoming request and ensure that it does not violate any of the constraints
+enumerated in the <code>LimitRange</code> object in a <code>Namespace</code>.  If you are using <code>LimitRange</code> objects in
+your Kubernetes deployment, you MUST use this plug-in to enforce those constraints. LimitRanger can also
+be used to apply default resource requests to Pods that don’t specify any; currently, the default LimitRanger
+applies a 0.1 CPU requirement to all Pods in the <code>default</code> namespace.</p>
+
+<p>See the <a href="../design/admission_control_limit_range.html">limitRange design doc</a> and the <a href="limitrange/">example of Limit Range</a> for more details.</p>
+
+<h3 id="initialresources-experimental">InitialResources (experimental)</h3>
+
+<p>This plug-in observes pod creation requests. If a container omits compute resource requests and limits,
+then the plug-in auto-populates a compute resource request based on historical usage of containers running the same image.
+If there is not enough data to make a decision the Request is left unchanged.
+When the plug-in sets a compute resource request, it annotates the pod with information on what compute resources it auto-populated.</p>
+
+<p>See the <a href="../proposals/initial-resources.html">InitialResouces proposal</a> for more details.</p>
+
+<h3 id="namespaceexists-deprecated">NamespaceExists (deprecated)</h3>
+
+<p>This plug-in will observe all incoming requests that attempt to create a resource in a Kubernetes <code>Namespace</code>
+and reject the request if the <code>Namespace</code> was not previously created.  We strongly recommend running
+this plug-in to ensure integrity of your data.</p>
+
+<p>The functionality of this admission controller has been merged into <code>NamespaceLifecycle</code></p>
+
+<h3 id="namespaceautoprovision-deprecated">NamespaceAutoProvision (deprecated)</h3>
+
+<p>This plug-in will observe all incoming requests that attempt to create a resource in a Kubernetes <code>Namespace</code>
+and create a new <code>Namespace</code> if one did not already exist previously.</p>
+
+<p>We strongly recommend <code>NamespaceLifecycle</code> over <code>NamespaceAutoProvision</code>.</p>
+
+<h3 id="namespacelifecycle">NamespaceLifecycle</h3>
+
+<p>This plug-in enforces that a <code>Namespace</code> that is undergoing termination cannot have new objects created in it,
+and ensures that requests in a non-existant <code>Namespace</code> are rejected.</p>
+
+<p>A <code>Namespace</code> deletion kicks off a sequence of operations that remove all objects (pods, services, etc.) in that
+namespace.  In order to enforce integrity of that process, we strongly recommend running this plug-in.</p>
+
+<h2 id="is-there-a-recommended-set-of-plug-ins-to-use">Is there a recommended set of plug-ins to use?</h2>
+
+<p>Yes.</p>
+
+<p>For Kubernetes 1.0, we strongly recommend running the following set of admission control plug-ins (order matters):</p>
+
+<pre><code>
+--admission-control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota
+
+</code></pre>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/admission-controllers.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,405 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Compute Resources</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Compute Resources</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="compute-resources">Compute Resources</h1>
+
+<p><strong>Table of Contents</strong>
+<!-- BEGIN MUNGE: GENERATED_TOC --></p>
+
+<ul>
+  <li><a href="#compute-resources">Compute Resources</a>
+    <ul>
+      <li><a href="#resource-requests-and-limits-of-pod-and-container">Resource Requests and Limits of Pod and Container</a></li>
+      <li><a href="#how-pods-with-resource-requests-are-scheduled">How Pods with Resource Requests are Scheduled</a></li>
+      <li><a href="#how-pods-with-resource-limits-are-run">How Pods with Resource Limits are Run</a></li>
+      <li><a href="#monitoring-compute-resource-usage">Monitoring Compute Resource Usage</a></li>
+      <li><a href="#troubleshooting">Troubleshooting</a>
+        <ul>
+          <li><a href="#my-pods-are-pending-with-event-message-failedscheduling">My pods are pending with event message failedScheduling</a></li>
+          <li><a href="#my-container-is-terminated">My container is terminated</a></li>
+        </ul>
+      </li>
+      <li><a href="#planned-improvements">Planned Improvements</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- END MUNGE: GENERATED_TOC -->
+
+<p>When specifying a <a href="pods.html">pod</a>, you can optionally specify how much CPU and memory (RAM) each
+container needs.  When containers have their resource requests specified, the scheduler is
+able to make better decisions about which nodes to place pods on; and when containers have their
+limits specified, contention for resources on a node can be handled in a specified manner. For
+more details about the difference between requests and limits, please refer to
+<a href="../proposals/resource-qos.html">Resource QoS</a>.</p>
+
+<p><em>CPU</em> and <em>memory</em> are each a <em>resource type</em>.  A resource type has a base unit.  CPU is specified
+in units of cores.  Memory is specified in units of bytes.</p>
+
+<p>CPU and RAM are collectively referred to as <em>compute resources</em>, or just <em>resources</em>.  Compute
+resources are measureable quantities which can be requested, allocated, and consumed.  They are
+distinct from <a href="working-with-resources.html">API resources</a>.  API resources, such as pods and
+<a href="services.html">services</a> are objects that can be written to and retrieved from the Kubernetes API
+server.</p>
+
+<h2 id="resource-requests-and-limits-of-pod-and-container">Resource Requests and Limits of Pod and Container</h2>
+
+<p>Each container of a Pod can optionally specify <code>spec.container[].resources.limits.cpu</code> and/or
+<code>spec.container[].resources.limits.memory</code> and/or <code>spec.container[].resources.requests.cpu</code>
+and/or <code>spec.container[].resources.requests.memory</code>.</p>
+
+<p>Specifying resource requests and/or limits is optional. In some clusters, unset limits or requests
+may be replaced with default values when a pod is created or updated. The default value depends on
+how the cluster is configured. If value of requests is not specified, they are set to be equal
+to limits by default. Please note that resource limits must be greater than or equal to resource
+requests.</p>
+
+<p>Although requests/limits can only be specified on individual containers, it is convenient to talk
+about pod resource requests/limits.  A <em>pod resource request/limit</em> for a particular resource
+type is the sum of the resource requests/limits of that type for each container in the pod, with
+unset values treated as zero (or equal to default values in some cluster configurations).</p>
+
+<p>The following pod has two containers.  Each has a request of 0.25 core of cpu and 64MiB
+(2<sup>20</sup> bytes) of memory and a limit of 0.5 core of cpu and 128MiB of memory. The pod can
+be said to have a request of 0.5 core and 128 MiB of memory and a limit of 1 core and 256MiB of
+memory.</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: db
+    image: mysql
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+  - name: wp
+    image: wordpress
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+</code></pre>
+</div>
+
+<h2 id="how-pods-with-resource-requests-are-scheduled">How Pods with Resource Requests are Scheduled</h2>
+
+<p>When a pod is created, the Kubernetes scheduler selects a node for the pod to
+run on.  Each node has a maximum capacity for each of the resource types: the
+amount of CPU and memory it can provide for pods.  The scheduler ensures that,
+for each resource type (CPU and memory), the sum of the resource requests of the
+containers scheduled to the node is less than the capacity of the node.  Note
+that although actual memory or CPU resource usage on nodes is very low, the
+scheduler will still refuse to place pods onto nodes if the capacity check
+fails.  This protects against a resource shortage on a node when resource usage
+later increases, such as due to a daily peak in request rate.</p>
+
+<h2 id="how-pods-with-resource-limits-are-run">How Pods with Resource Limits are Run</h2>
+
+<p>When kubelet starts a container of a pod, it passes the CPU and memory limits to the container
+runner (Docker or rkt).</p>
+
+<p>When using Docker:
+- The <code>spec.container[].resources.limits.cpu</code> is multiplied by 1024, converted to an integer, and
+  used as the value of the <a href="https://docs.docker.com/reference/run/#runtime-constraints-on-resources"><code>--cpu-shares</code></a> flag to the <code>docker run</code>
+  command.
+- The <code>spec.container[].resources.limits.memory</code> is converted to an integer, and used as the value
+  of the <a href="https://docs.docker.com/reference/run/#runtime-constraints-on-resources"><code>--memory</code></a> flag
+  to the <code>docker run</code> command.</p>
+
+<p><strong>TODO: document behavior for rkt</strong></p>
+
+<p>If a container exceeds its memory limit, it may be terminated.  If it is restartable, it will be
+restarted by kubelet, as will any other type of runtime failure.</p>
+
+<p>A container may or may not be allowed to exceed its CPU limit for extended periods of time.
+However, it will not be killed for excessive CPU usage.</p>
+
+<p>To determine if a container cannot be scheduled or is being killed due to resource limits, see the
+“Troubleshooting” section below.</p>
+
+<h2 id="monitoring-compute-resource-usage">Monitoring Compute Resource Usage</h2>
+
+<p>The resource usage of a pod is reported as part of the Pod status.</p>
+
+<p>If <a href="http://releases.k8s.io/release-1.1/cluster/addons/cluster-monitoring/README.md">optional monitoring</a> is configured for your cluster,
+then pod resource usage can be retrieved from the monitoring system.</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3 id="my-pods-are-pending-with-event-message-failedscheduling">My pods are pending with event message failedScheduling</h3>
+
+<p>If the scheduler cannot find any node where a pod can fit, then the pod will remain unscheduled
+until a place can be found.    An event will be produced each time the scheduler fails to find a
+place for the pod, like this:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl describe pod frontend | grep -A 3 Events
+Events:
+  FirstSeen	LastSeen	 Count	From          Subobject   PathReason			Message
+  36s		5s		 6	    {scheduler }              FailedScheduling	Failed for reason PodExceedsFreeCPU and possibly others
+</code></pre>
+</div>
+
+<p>In the case shown above, the pod “frontend” fails to be scheduled due to insufficient
+CPU resource on the node. Similar error messages can also suggest failure due to insufficient
+memory (PodExceedsFreeMemory). In general, if a pod or pods are pending with this message and
+alike, then there are several things to try:
+- Add more nodes to the cluster.
+- Terminate unneeded pods to make room for pending pods.
+- Check that the pod is not larger than all the nodes.  For example, if all the nodes
+have a capacity of <code>cpu: 1</code>, then a pod with a limit of <code>cpu: 1.1</code> will never be scheduled.</p>
+
+<p>You can check node capacities and amounts allocated with the <code>kubectl describe nodes</code> command.
+For example:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl describe nodes gke-cluster-4-386701dd-node-ww4p
+Name:			gke-cluster-4-386701dd-node-ww4p
+[ ... lines removed for clarity ...]
+Capacity:
+ cpu:		1
+ memory:	464Mi
+ pods:		40
+Allocated resources (total requests):
+ cpu:		910m
+ memory:	2370Mi
+ pods:		4
+[ ... lines removed for clarity ...]
+Pods:				(4 in total)
+  Namespace			Name								CPU(milliCPU)			Memory(bytes)
+  frontend 			webserver-ffj8j							500 (50% of total)		2097152000 (50% of total)
+  kube-system			fluentd-cloud-logging-gke-cluster-4-386701dd-node-ww4p		100 (10% of total)		209715200 (5% of total)
+  kube-system			kube-dns-v8-qopgw						310 (31% of total)		178257920 (4% of total)
+TotalResourceLimits:
+  CPU(milliCPU):		910 (91% of total)
+  Memory(bytes):		2485125120 (59% of total)
+[ ... lines removed for clarity ...]
+</code></pre>
+</div>
+
+<p>Here you can see from the <code>Allocated resources</code> section that that a pod which ask for more than
+90 millicpus or more than 1341MiB of memory will not be able to fit on this node.</p>
+
+<p>Looking at the <code>Pods</code> section, you can see which pods are taking up space on the node.</p>
+
+<p>The <a href="../admin/resource-quota.html">resource quota</a> feature can be configured
+to limit the total amount of resources that can be consumed.  If used in conjunction
+with namespaces, it can prevent one team from hogging all the resources.</p>
+
+<h3 id="my-container-is-terminated">My container is terminated</h3>
+
+<p>Your container may be terminated because it’s resource-starved. To check if a container is being killed because it is hitting a resource limit, call <code>kubectl describe pod</code>
+on the pod you are interested in:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">[12:54:41] $ ./cluster/kubectl.sh describe pod simmemleak-hra99
+Name:                           simmemleak-hra99
+Namespace:                      default
+Image(s):                       saadali/simmemleak
+Node:                           kubernetes-minion-tf0f/10.240.216.66
+Labels:                         name=simmemleak
+Status:                         Running
+Reason:             
+Message:            
+IP:                             10.244.2.75
+Replication Controllers:        simmemleak (1/1 replicas created)
+Containers:
+  simmemleak:
+    Image:  saadali/simmemleak
+    Limits:
+      cpu:                      100m
+      memory:                   50Mi
+    State:                      Running
+      Started:                  Tue, 07 Jul 2015 12:54:41 -0700
+    Last Termination State:     Terminated
+      Exit Code:                1
+      Started:                  Fri, 07 Jul 2015 12:54:30 -0700
+      Finished:                 Fri, 07 Jul 2015 12:54:33 -0700
+    Ready:                      False
+    Restart Count:              5
+Conditions:
+  Type      Status
+  Ready     False 
+Events:
+  FirstSeen                         LastSeen                         Count  From                              SubobjectPath                       Reason      Message
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {scheduler }                                                          scheduled   Successfully assigned simmemleak-hra99 to kubernetes-minion-tf0f
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  implicitly required container POD   pulled      Pod container image "gcr.io/google_containers/pause:0.8.0" already present on machine
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  implicitly required container POD   created     Created with docker id 6a41280f516d
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  implicitly required container POD   started     Started with docker id 6a41280f516d
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  spec.containers{simmemleak}         created     Created with docker id 87348f12526a
+</code></pre>
+</div>
+
+<p>The <code>Restart Count:  5</code> indicates that the <code>simmemleak</code> container in this pod was terminated and restarted 5 times.</p>
+
+<p>You can call <code>get pod</code> with the <code>-o go-template=...</code> option to fetch the status of previously terminated containers:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">[13:59:01] $ ./cluster/kubectl.sh  get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
+Container Name: simmemleak
+LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]][13:59:03] clusterScaleDoc ~/go/src/github.com/kubernetes/kubernetes $
+</code></pre>
+</div>
+
+<p>We can see that this container was terminated because <code>reason:OOM Killed</code>, where <em>OOM</em> stands for Out Of Memory.</p>
+
+<h2 id="planned-improvements">Planned Improvements</h2>
+
+<p>The current system only allows resource quantities to be specified on a container.
+It is planned to improve accounting for resources which are shared by all containers in a pod,
+such as <a href="volumes.html#emptydir">EmptyDir volumes</a>.</p>
+
+<p>The current system only supports container requests and limits for CPU and Memory.
+It is planned to add new resource types, including a node disk space
+resource, and a framework for adding custom <a href="../design/resources.html#resource-types">resource types</a>.</p>
+
+<p>Kubernetes supports overcommitment of resources by supporting multiple levels of <a href="http://issue.k8s.io/168">Quality of Service</a>.</p>
+
+<p>Currently, one unit of CPU means different things on different cloud providers, and on different
+machine types within the same cloud providers.  For example, on AWS, the capacity of a node
+is reported in <a href="http://aws.amazon.com/ec2/faqs/">ECUs</a>, while in GCE it is reported in logical
+cores.  We plan to revise the definition of the cpu resource to allow for more consistency
+across providers and platforms.</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/compute-resources.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

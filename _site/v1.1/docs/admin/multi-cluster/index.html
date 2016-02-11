@@ -1,0 +1,196 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Considerations for running multiple Kubernetes clusters</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Considerations for running multiple Kubernetes clusters</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="considerations-for-running-multiple-kubernetes-clusters">Considerations for running multiple Kubernetes clusters</h1>
+
+<p>You may want to set up multiple Kubernetes clusters, both to
+have clusters in different regions to be nearer to your users, and to tolerate failures and/or invasive maintenance.
+This document describes some of the issues to consider when making a decision about doing so.</p>
+
+<p>Note that at present,
+Kubernetes does not offer a mechanism to aggregate multiple clusters into a single virtual cluster. However,
+we <a href="../proposals/federation.html">plan to do this in the future</a>.</p>
+
+<h2 id="scope-of-a-single-cluster">Scope of a single cluster</h2>
+
+<p>On IaaS providers such as Google Compute Engine or Amazon Web Services, a VM exists in a
+<a href="https://cloud.google.com/compute/docs/zones">zone</a> or <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html">availability
+zone</a>.
+We suggest that all the VMs in a Kubernetes cluster should be in the same availability zone, because:
+  - compared to having a single global Kubernetes cluster, there are fewer single-points of failure
+  - compared to a cluster that spans availability zones, it is easier to reason about the availability properties of a
+    single-zone cluster.
+  - when the Kubernetes developers are designing the system (e.g. making assumptions about latency, bandwidth, or
+    correlated failures) they are assuming all the machines are in a single data center, or otherwise closely connected.</p>
+
+<p>It is okay to have multiple clusters per availability zone, though on balance we think fewer is better.
+Reasons to prefer fewer clusters are:
+  - improved bin packing of Pods in some cases with more nodes in one cluster (less resource fragmentation)
+  - reduced operational overhead (though the advantage is diminished as ops tooling and processes matures)
+  - reduced costs for per-cluster fixed resource costs, e.g. apiserver VMs (but small as a percentage
+    of overall cluster cost for medium to large clusters).</p>
+
+<p>Reasons to have multiple clusters include:
+  - strict security policies requiring isolation of one class of work from another (but, see Partitioning Clusters
+    below).
+  - test clusters to canary new Kubernetes releases or other cluster software.</p>
+
+<h2 id="selecting-the-right-number-of-clusters">Selecting the right number of clusters</h2>
+
+<p>The selection of the number of Kubernetes clusters may be a relatively static choice, only revisited occasionally.
+By contrast, the number of nodes in a cluster and the number of pods in a service may be change frequently according to
+load and growth.</p>
+
+<p>To pick the number of clusters, first, decide which regions you need to be in to have adequate latency to all your end users, for services that will run
+on Kubernetes (if you use a Content Distribution Network, the latency requirements for the CDN-hosted content need not
+be considered).  Legal issues might influence this as well. For example, a company with a global customer base might decide to have clusters in US, EU, AP, and SA regions.
+Call the number of regions to be in <code>R</code>.</p>
+
+<p>Second, decide how many clusters should be able to be unavailable at the same time, while still being available.  Call
+the number that can be unavailable <code>U</code>.  If you are not sure, then 1 is a fine choice.</p>
+
+<p>If it is allowable for load-balancing to direct traffic to any region in the event of a cluster failure, then
+you need <code>R + U</code> clusters.  If it is not (e.g you want to ensure low latency for all users in the event of a
+cluster failure), then you need to have <code>R * U</code> clusters (<code>U</code> in each of <code>R</code> regions).  In any case, try to put each cluster in a different zone.</p>
+
+<p>Finally, if any of your clusters would need more than the maximum recommended number of nodes for a Kubernetes cluster, then
+you may need even more clusters.  Kubernetes v1.0 currently supports clusters up to 100 nodes in size, but we are targeting
+1000-node clusters by early 2016.</p>
+
+<h2 id="working-with-multiple-clusters">Working with multiple clusters</h2>
+
+<p>When you have multiple clusters, you would typically create services with the same config in each cluster and put each of those
+service instances behind a load balancer (AWS Elastic Load Balancer, GCE Forwarding Rule or HTTP Load Balancer) spanning all of them, so that
+failures of a single cluster are not visible to end users.</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/multi-cluster.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

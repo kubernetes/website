@@ -1,0 +1,325 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Cluster Management</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Cluster Management</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="cluster-management">Cluster Management</h1>
+
+<p>This document describes several topics related to the lifecycle of a cluster: creating a new cluster,
+upgrading your cluster’s
+master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a
+running cluster.</p>
+
+<h2 id="creating-and-configuring-a-cluster">Creating and configuring a Cluster</h2>
+
+<p>To install Kubernetes on a set of machines, consult one of the existing <a href="../../docs/getting-started-guides/README.html">Getting Started guides</a> depending on your environment.</p>
+
+<h2 id="upgrading-a-cluster">Upgrading a cluster</h2>
+
+<p>The current state of cluster upgrades is provider dependent.</p>
+
+<h3 id="master-upgrades">Master Upgrades</h3>
+
+<p>Both Google Container Engine (GKE) and
+Compute Engine Open Source (GCE-OSS) support node upgrades via a <a href="https://cloud.google.com/compute/docs/instance-groups/">Managed Instance Group</a>.
+Managed Instance Group upgrades sequentially delete and recreate each virtual machine, while maintaining the same
+Persistent Disk (PD) to ensure that data is retained across the upgrade.</p>
+
+<p>In contrast, the <code>kube-push.sh</code> process used on <a href="#other-platforms">other platforms</a> attempts to upgrade the binaries in
+places, without recreating the virtual machines.</p>
+
+<h3 id="node-upgrades">Node Upgrades</h3>
+
+<p>Node upgrades for GKE and GCE-OSS again use a Managed Instance Group, each node is sequentially destroyed and then recreated with new software.  Any Pods that are running
+on that node need to be controlled by a Replication Controller, or manually re-created after the roll out.</p>
+
+<p>For other platforms, <code>kube-push.sh</code> is again used, performing an in-place binary upgrade on existing machines.</p>
+
+<h3 id="upgrading-google-container-engine-gke">Upgrading Google Container Engine (GKE)</h3>
+
+<p>Google Container Engine automatically updates master components (e.g. <code>kube-apiserver</code>, <code>kube-scheduler</code>) to the latest
+version. It also handles upgrading the operating system and other components that the master runs on.</p>
+
+<p>The node upgrade process is user-initiated and is described in the <a href="https://cloud.google.com/container-engine/docs/clusters/upgrade">GKE documentation.</a></p>
+
+<h3 id="upgrading-open-source-google-compute-engine-clusters">Upgrading open source Google Compute Engine clusters</h3>
+
+<p>Upgrades on open source Google Compute Engine (GCE) clusters are controlled by the <code>cluster/gce/upgrade.sh</code> script.</p>
+
+<p>Get its usage by running <code>cluster/gce/upgrade.sh -h</code>.</p>
+
+<p>For example, to upgrade just your master to a specific version (v1.0.2):</p>
+
+<div class="highlight">
+  <pre><code class="language-console">cluster/gce/upgrade.sh -M v1.0.2
+</code></pre>
+</div>
+
+<p>Alternatively, to upgrade your entire cluster to the latest stable release:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">cluster/gce/upgrade.sh release/stable
+</code></pre>
+</div>
+
+<h3 id="other-platforms">Other platforms</h3>
+
+<p>The <code>cluster/kube-push.sh</code> script will do a rudimentary update.  This process is still quite experimental, we
+recommend testing the upgrade on an experimental cluster before performing the update on a production cluster.</p>
+
+<h2 id="resizing-a-cluster">Resizing a cluster</h2>
+
+<p>If your cluster runs short on resources you can easily add more machines to it if your cluster is running in <a href="node.html#self-registration-of-nodes">Node self-registration mode</a>.
+If you’re using GCE or GKE it’s done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on <code>Compute &gt; Compute Engine &gt; Instance groups &gt; your group &gt; Edit group</code> <a href="https://console.developers.google.com">Google Cloud Console page</a> or using gcloud CLI:</p>
+
+<pre><code>
+gcloud compute instance-groups managed --zone compute-zone resize my-cluster-minon-group --new-size 42
+
+</code></pre>
+
+<p>Instance Group will take care of putting appropriate image on new machines and start them, while Kubelet will register its Node with API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.</p>
+
+<p>In other environments you may need to configure the machine yourself and tell the Kubelet on which machine API server is running.</p>
+
+<h3 id="horizontal-auto-scaling-of-nodes-gce">Horizontal auto-scaling of nodes (GCE)</h3>
+
+<p>If you are using GCE, you can configure your cluster so that the number of nodes will be automatically scaled based on their CPU and memory utilization.
+Before setting up the cluster by <code>kube-up.sh</code>, you can set <code>KUBE_ENABLE_NODE_AUTOSCALER</code> environment variable to <code>true</code> and export it.
+The script will create an autoscaler for the instance group managing your nodes.</p>
+
+<p>The autoscaler will try to maintain the average CPU and memory utilization of nodes within the cluster close to the target value.
+The target value can be configured by <code>KUBE_TARGET_NODE_UTILIZATION</code> environment variable (default: 0.7) for <code>kube-up.sh</code> when creating the cluster.
+The node utilization is the total node’s CPU/memory usage (OS + k8s + user load) divided by the node’s capacity.
+If the desired numbers of nodes in the cluster resulting from CPU utilization and memory utilization are different,
+the autoscaler will choose the bigger number.
+The number of nodes in the cluster set by the autoscaler will be limited from <code>KUBE_AUTOSCALER_MIN_NODES</code> (default: 1)
+to <code>KUBE_AUTOSCALER_MAX_NODES</code> (default: the initial number of nodes in the cluster).</p>
+
+<p>The autoscaler is implemented as a Compute Engine Autoscaler.
+The initial values of the autoscaler parameters set by <code>kube-up.sh</code> and some more advanced options can be tweaked on
+<code>Compute &gt; Compute Engine &gt; Instance groups &gt; your group &gt; Edit group</code><a href="https://console.developers.google.com">Google Cloud Console page</a>
+or using gcloud CLI:</p>
+
+<pre><code>
+gcloud preview autoscaler --zone compute-zone &lt;command&gt;
+
+</code></pre>
+
+<p>Note that autoscaling will work properly only if node metrics are accessible in Google Cloud Monitoring.
+To make the metrics accessible, you need to create your cluster with <code>KUBE_ENABLE_CLUSTER_MONITORING</code>
+equal to <code>google</code> or <code>googleinfluxdb</code> (<code>googleinfluxdb</code> is the default value).</p>
+
+<h2 id="maintenance-on-a-node">Maintenance on a Node</h2>
+
+<p>If you need to reboot a node (such as for a kernel upgrade, libc upgrade, hardware repair, etc.), and the downtime is
+brief, then when the Kubelet restarts, it will attempt to restart the pods scheduled to it.  If the reboot takes longer,
+then the node controller will terminate the pods that are bound to the unavailable node.  If there is a corresponding
+replication controller, then a new copy of the pod will be started on a different node.  So, in the case where all
+pods are replicated, upgrades can be done without special coordination, assuming that not all nodes will go down at the same time.</p>
+
+<p>If you want more control over the upgrading process, you may use the following workflow:</p>
+
+<p>Mark the node to be rebooted as unschedulable:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedulable": true}}'
+</code></pre>
+</div>
+
+<p>This keeps new pods from landing on the node while you are trying to get them off.</p>
+
+<p>Get the pods off the machine, via any of the following strategies:
+   * Wait for finite-duration pods to complete.
+   * Delete pods with:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">kubectl delete pods $PODNAME
+</code></pre>
+</div>
+
+<p>For pods with a replication controller, the pod will eventually be replaced by a new pod which will be scheduled to a new node. Additionally, if the pod is part of a service, then clients will automatically be redirected to the new pod.</p>
+
+<p>For pods with no replication controller, you need to bring up a new copy of the pod, and assuming it is not part of a service, redirect clients to it.</p>
+
+<p>Perform maintenance work on the node.</p>
+
+<p>Make the node schedulable again:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedulable": false}}'
+</code></pre>
+</div>
+
+<p>If you deleted the node’s VM instance and created a new one, then a new schedulable node resource will
+be created automatically when you create a new VM instance (if you’re using a cloud provider that supports
+node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register). See <a href="node.html">Node</a> for more details.</p>
+
+<h2 id="advanced-topics">Advanced Topics</h2>
+
+<h3 id="upgrading-to-a-different-api-version">Upgrading to a different API version</h3>
+
+<p>When a new API version is released, you may need to upgrade a cluster to support the new API version (e.g. switching from ‘v1’ to ‘v2’ when ‘v2’ is launched)</p>
+
+<p>This is an infrequent event, but it requires careful management. There is a sequence of steps to upgrade to a new API version.</p>
+
+<ol>
+  <li>Turn on the new api version.</li>
+  <li>Upgrade the cluster’s storage to use the new version.</li>
+  <li>Upgrade all config files. Identify users of the old API version endpoints.</li>
+  <li>Update existing objects in the storage to new version by running <code>cluster/update-storage-objects.sh</code>.</li>
+  <li>Turn off the old API version.</li>
+</ol>
+
+<h3 id="turn-on-or-off-an-api-version-for-your-cluster">Turn on or off an API version for your cluster</h3>
+
+<p>Specific API versions can be turned on or off by passing –runtime-config=api/  <version> flag while bringing up the API server. For example: to turn off v1 API, pass `--runtime-config=api/v1=false`. runtime-config also supports 2 special keys: api/all and api/legacy to control all and legacy APIs respectively. For example, for turning off all api versions except v1, pass `--runtime-config=api/all=false,api/v1=true`. For the purposes of these flags, _legacy_ APIs are those APIs which have been explicitly deprecated (e.g. `v1beta3`).</version>
+</p>
+
+<h3 id="switching-your-clusters-storage-api-version">Switching your cluster’s storage API version</h3>
+
+<p>The objects that are stored to disk for a cluster’s internal representation of the Kubernetes resources active in the cluster are written using a particular version of the API.
+When the supported API changes, these objects may need to be rewritten in the newer API.  Failure to do this will eventually result in resources that are no longer decodable or usable
+by the kubernetes API server.</p>
+
+<p><code>KUBE_API_VERSIONS</code> environment variable for the <code>kube-apiserver</code> binary which controls the API versions that are supported in the cluster. The first version in the list is used as the cluster’s storage version. Hence, to set a specific version as the storage version, bring it to the front of list of versions in the value of <code>KUBE_API_VERSIONS</code>.  You need to restart the <code>kube-apiserver</code> binary
+for changes to this variable to take effect.</p>
+
+<h3 id="switching-your-config-files-to-a-new-api-version">Switching your config files to a new API version</h3>
+
+<p>You can use the <code>kube-version-change</code> utility to convert config files between different API versions.</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ hack/build-go.sh cmd/kube-version-change
+$ _output/local/go/bin/kube-version-change -i myPod.v1beta3.yaml -o myPod.v1.yaml
+</code></pre>
+</div>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/cluster-management.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

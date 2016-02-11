@@ -1,0 +1,156 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Kubernetes Overview</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Kubernetes Overview</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="kubernetes-overview">Kubernetes Overview</h1>
+
+<p>Kubernetes is an open-source system for managing containerized applications across multiple hosts in a cluster. Kubernetes is intended to make deploying containerized/microservice-based applications easy but powerful.</p>
+
+<p>Kubernetes provides mechanisms for application deployment, scheduling, updating, maintenance, and scaling. A key feature of Kubernetes is that it actively manages the containers to ensure that the state of the cluster continually matches the user’s intentions. An operations user should be able to launch a micro-service, letting the scheduler find the right placement. We also want to improve the tools and experience for how users can roll-out applications through patterns like canary deployments.</p>
+
+<p>Kubernetes supports <a href="http://www.docker.io">Docker</a> and <a href="https://coreos.com/blog/rocket/">Rocket</a> containers, and other container image formats and container runtimes will be supported in the future.</p>
+
+<p>While Kubernetes currently focuses on continuously-running stateless (e.g. web server or in-memory object cache) and “cloud native” stateful applications (e.g. NoSQL datastores), in the near future it will support all the other workload types commonly found in production cluster environments, such as batch, stream processing, and traditional databases.</p>
+
+<p>In Kubernetes, all containers run inside <a href="pods.html">pods</a>. A pod can host a single container, or multiple cooperating containers; in the latter case, the containers in the pod are guaranteed to be co-located on the same machine and can share resources. A pod can also contain zero or more <a href="volumes.html">volumes</a>, which are directories that are private to a container or shared across containers in a pod. For each pod the user creates, the system finds a machine that is healthy and that has sufficient available capacity, and starts up the corresponding container(s) there. If a container fails it can be automatically restarted by Kubernetes’ node agent, called the Kubelet. But if the pod or its machine fails, it is not automatically moved or restarted unless the user also defines a <a href="replication-controller.html">replication controller</a>, which we discuss next.</p>
+
+<p>Users can create and manage pods themselves, but Kubernetes drastically simplifies system management by allowing users to delegate two common pod-related activities: deploying multiple pod replicas based on the same pod configuration, and creating replacement pods when a pod or its machine fails. The Kubernetes API object that manages these behaviors is called a <a href="replication-controller.html">replication controller</a>. It defines a pod in terms of a template, that the system then instantiates as some number of pods (specified by the user). The replicated set of pods might constitute an entire application, a micro-service, or one layer in a multi-tier application. Once the pods are created, the system continually monitors their health and that of the machines they are running on; if a pod fails due to a software problem or machine failure, the replication controller automatically creates a new pod on a healthy machine, to maintain the set of pods at the desired replication level. Multiple pods from the same or different applications can share the same machine. Note that a replication controller is needed even in the case of a single non-replicated pod if the user wants it to be re-created when it or its machine fails.</p>
+
+<p>Frequently it is useful to refer to a set of pods, for example to limit the set of pods on which a mutating operation should be performed, or that should be queried for status. As a general mechanism, users can attach to most Kubernetes API objects arbitrary key-value pairs called <a href="labels.html">labels</a>, and then use a set of label selectors (key-value queries over labels) to constrain the target of API operations. Each resource also has a map of string keys and values that can be used by external tooling to store and retrieve arbitrary metadata about this object, called <a href="annotations.html">annotations</a>.</p>
+
+<p>Kubernetes supports a unique <a href="../admin/networking.html">networking model</a>. Kubernetes encourages a flat address space and does not dynamically allocate ports, instead allowing users to select whichever ports are convenient for them. To achieve this, it allocates an IP address for each pod.</p>
+
+<p>Modern Internet applications are commonly built by layering micro-services, for example a set of web front-ends talking to a distributed in-memory key-value store talking to a replicated storage service. To facilitate this architecture, Kubernetes offers the <a href="services.html">service</a> abstraction, which provides a stable IP address and <a href="../admin/dns.html">DNS name</a> that corresponds to a dynamic set of pods such as the set of pods constituting a micro-service. The set is defined using a label selector and thus can refer to any set of pods. When a container running in a Kubernetes pod connects to this address, the connection is forwarded by a local agent (called the kube proxy) running on the source machine, to one of the corresponding back-end containers. The exact back-end is chosen using a round-robin policy to balance load. The kube proxy takes care of tracking the dynamic set of back-ends as pods are replaced by new pods on new hosts, so that the service IP address (and DNS name) never changes.</p>
+
+<p>Every resource in Kubernetes, such as a pod, is identified by a URI and has a UID. Important components of the URI are the kind of object (e.g. pod), the object’s name, and the object’s <a href="namespaces.html">namespace</a>. For a certain object kind, every name is unique within its namespace. In contexts where an object name is provided without a namespace, it is assumed to be in the default namespace. UID is unique across time and space.</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/overview.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

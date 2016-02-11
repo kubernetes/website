@@ -1,0 +1,513 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Getting started with Kubernetes on Mesos</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Getting started with Kubernetes on Mesos</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h2 id="getting-started-with-kubernetes-on-mesos">Getting started with Kubernetes on Mesos</h2>
+
+<p><strong>Table of Contents</strong>
+<!-- BEGIN MUNGE: GENERATED_TOC --></p>
+
+<ul>
+  <li><a href="#about-kubernetes-on-mesos">About Kubernetes on Mesos</a>
+    <ul>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#deploy-kubernetes-mesos">Deploy Kubernetes-Mesos</a></li>
+      <li><a href="#deploy-etcd">Deploy etcd</a></li>
+      <li><a href="#start-kubernetes-mesos-services">Start Kubernetes-Mesos Services</a>
+        <ul>
+          <li><a href="#validate-km-services">Validate KM Services</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#spin-up-a-pod">Spin up a pod</a></li>
+  <li><a href="#launching-kube-dns">Launching kube-dns</a></li>
+  <li><a href="#what-next">What next?</a></li>
+</ul>
+
+<!-- END MUNGE: GENERATED_TOC -->
+
+<h2 id="about-kubernetes-on-mesos">About Kubernetes on Mesos</h2>
+
+<!-- TODO: Update, clean up. -->
+
+<p>Mesos allows dynamic sharing of cluster resources between Kubernetes and other first-class Mesos frameworks such as <a href="http://mesosphere.com/docs/tutorials/run-hadoop-on-mesos-using-installer">Hadoop</a>, <a href="http://mesosphere.com/docs/tutorials/run-spark-on-mesos">Spark</a>, and <a href="http://mesosphere.com/docs/tutorials/run-chronos-on-mesos">Chronos</a>.
+Mesos also ensures applications from different frameworks running on your cluster are isolated and that resources are allocated fairly among them.</p>
+
+<p>Mesos clusters can be deployed on nearly every IaaS cloud provider infrastructure or in your own physical datacenter. Kubernetes on Mesos runs on-top of that and therefore allows you to easily move Kubernetes workloads from one of these environments to the other.</p>
+
+<p>This tutorial will walk you through setting up Kubernetes on a Mesos cluster.
+It provides a step by step walk through of adding Kubernetes to a Mesos cluster and starting your first pod with an nginx webserver.</p>
+
+<p><strong>NOTE:</strong> There are <a href="https://releases.k8s.io/release-1.1/contrib/mesos/docs/issues.md">known issues with the current implementation</a> and support for centralized logging and monitoring is not yet available.
+Please <a href="https://github.com/mesosphere/kubernetes-mesos/issues">file an issue against the kubernetes-mesos project</a> if you have problems completing the steps below.</p>
+
+<p>Further information is available in the Kubernetes on Mesos <a href="https://releases.k8s.io/release-1.1/contrib/mesos/README.md">contrib directory</a>.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<ul>
+  <li>Understanding of <a href="http://mesos.apache.org/">Apache Mesos</a></li>
+  <li>A running <a href="http://open.mesosphere.com/getting-started/cloud/google/mesosphere/">Mesos cluster on Google Compute Engine</a></li>
+  <li>A <a href="http://open.mesosphere.com/getting-started/cloud/google/mesosphere/#vpn-setup">VPN connection</a> to the cluster</li>
+  <li>A machine in the cluster which should become the Kubernetes <em>master node</em> with:
+    <ul>
+      <li>GoLang &gt; 1.2</li>
+      <li>make (i.e. build-essential)</li>
+      <li>Docker</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Note</strong>: You <em>can</em>, but you <em>don’t have to</em> deploy Kubernetes-Mesos on the same machine the Mesos master is running on.</p>
+
+<h3 id="deploy-kubernetes-mesos">Deploy Kubernetes-Mesos</h3>
+
+<p>Log into the future Kubernetes <em>master node</em> over SSH, replacing the placeholder below with the correct IP address.</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">ssh jclouds@${ip_address_of_master_node}
+</code></pre>
+</div>
+
+<p>Build Kubernetes-Mesos.</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">git clone https://github.com/kubernetes/kubernetes
+cd kubernetes
+export KUBERNETES_CONTRIB=mesos
+make
+</code></pre>
+</div>
+
+<p>Set some environment variables.
+The internal IP address of the master may be obtained via <code>hostname -i</code>.</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">export KUBERNETES_MASTER_IP=$(hostname -i)
+export KUBERNETES_MASTER=http://${KUBERNETES_MASTER_IP}:8888
+</code></pre>
+</div>
+
+<p>Note that KUBERNETES_MASTER is used as the api endpoint. If you have existing <code>~/.kube/config</code> and point to another endpoint, you need to add option <code>--server=${KUBERNETES_MASTER}</code> to kubectl in later steps.</p>
+
+<h3 id="deploy-etcd">Deploy etcd</h3>
+
+<p>Start etcd and verify that it is running:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">sudo docker run -d --hostname $(uname -n) --name etcd \
+  -p 4001:4001 -p 7001:7001 quay.io/coreos/etcd:v2.0.12 \
+  --listen-client-urls http://0.0.0.0:4001 \
+  --advertise-client-urls http://${KUBERNETES_MASTER_IP}:4001
+</code></pre>
+</div>
+
+<div class="highlight">
+  <pre><code class="language-console">$ sudo docker ps
+CONTAINER ID   IMAGE                        COMMAND   CREATED   STATUS   PORTS                NAMES
+fd7bac9e2301   quay.io/coreos/etcd:v2.0.12  "/etcd"   5s ago    Up 3s    2379/tcp, 2380/...   etcd
+</code></pre>
+</div>
+
+<p>It’s also a good idea to ensure your etcd instance is reachable by testing it</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">curl -L http://${KUBERNETES_MASTER_IP}:4001/v2/keys/
+</code></pre>
+</div>
+
+<p>If connectivity is OK, you will see an output of the available keys in etcd (if any).</p>
+
+<h3 id="start-kubernetes-mesos-services">Start Kubernetes-Mesos Services</h3>
+
+<p>Update your PATH to more easily run the Kubernetes-Mesos binaries:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">export PATH="$(pwd)/_output/local/go/bin:$PATH"
+</code></pre>
+</div>
+
+<p>Identify your Mesos master: depending on your Mesos installation this is either a <code>host:port</code> like <code>mesos-master:5050</code> or a ZooKeeper URL like <code>zk://zookeeper:2181/mesos</code>.
+In order to let Kubernetes survive Mesos master changes, the ZooKeeper URL is recommended for production environments.</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">export MESOS_MASTER=&lt;host:port or zk:// url&gt;
+</code></pre>
+</div>
+
+<p>Create a cloud config file <code>mesos-cloud.conf</code> in the current directory with the following contents:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ cat &lt;&lt;EOF &gt;mesos-cloud.conf
+[mesos-cloud]
+        mesos-master        = ${MESOS_MASTER}
+EOF
+</code></pre>
+</div>
+
+<p>Now start the kubernetes-mesos API server, controller manager, and scheduler on the master node:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ km apiserver \
+  --address=${KUBERNETES_MASTER_IP} \
+  --etcd-servers=http://${KUBERNETES_MASTER_IP}:4001 \
+  --service-cluster-ip-range=10.10.10.0/24 \
+  --port=8888 \
+  --cloud-provider=mesos \
+  --cloud-config=mesos-cloud.conf \
+  --secure-port=0 \
+  --v=1 &gt;apiserver.log 2&gt;&amp;1 &amp;
+
+$ km controller-manager \
+  --master=${KUBERNETES_MASTER_IP}:8888 \
+  --cloud-provider=mesos \
+  --cloud-config=./mesos-cloud.conf  \
+  --v=1 &gt;controller.log 2&gt;&amp;1 &amp;
+
+$ km scheduler \
+  --address=${KUBERNETES_MASTER_IP} \
+  --mesos-master=${MESOS_MASTER} \
+  --etcd-servers=http://${KUBERNETES_MASTER_IP}:4001 \
+  --mesos-user=root \
+  --api-servers=${KUBERNETES_MASTER_IP}:8888 \
+  --cluster-dns=10.10.10.10 \
+  --cluster-domain=cluster.local \
+  --v=2 &gt;scheduler.log 2&gt;&amp;1 &amp;
+</code></pre>
+</div>
+
+<p>Disown your background jobs so that they’ll stay running if you log out.</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">disown -a
+</code></pre>
+</div>
+
+<h4 id="validate-km-services">Validate KM Services</h4>
+
+<p>Add the appropriate binary folder to your <code>PATH</code> to access kubectl:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">export PATH=&lt;path/to/kubernetes-directory&gt;/platforms/linux/amd64:$PATH
+</code></pre>
+</div>
+
+<p>Interact with the kubernetes-mesos framework via <code>kubectl</code>:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get pods
+NAME      READY     STATUS    RESTARTS   AGE
+</code></pre>
+</div>
+
+<div class="highlight">
+  <pre><code class="language-console"># NOTE: your service IPs will likely differ
+$ kubectl get services
+NAME             LABELS                                    SELECTOR   IP(S)          PORT(S)
+k8sm-scheduler   component=scheduler,provider=k8sm         &lt;none&gt;     10.10.10.113   10251/TCP
+kubernetes       component=apiserver,provider=kubernetes   &lt;none&gt;     10.10.10.1     443/TCP
+</code></pre>
+</div>
+
+<p>Lastly, look for Kubernetes in the Mesos web GUI by pointing your browser to
+<code>http://&lt;mesos-master-ip:port&gt;</code>. Make sure you have an active VPN connection.
+Go to the Frameworks tab, and look for an active framework named “Kubernetes”.</p>
+
+<h2 id="spin-up-a-pod">Spin up a pod</h2>
+
+<p>Write a JSON pod description to a local file:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">$ cat &lt;&lt;EOPOD &gt;nginx.yaml
+</code></pre>
+</div>
+
+<div class="highlight">
+  <pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+EOPOD
+</code></pre>
+</div>
+
+<p>Send the pod description to Kubernetes using the <code>kubectl</code> CLI:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl create -f ./nginx.yaml
+pods/nginx
+</code></pre>
+</div>
+
+<p>Wait a minute or two while <code>dockerd</code> downloads the image layers from the internet.
+We can use the <code>kubectl</code> interface to monitor the status of our pod:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get pods
+NAME      READY     STATUS    RESTARTS   AGE
+nginx     1/1       Running   0          14s
+</code></pre>
+</div>
+
+<p>Verify that the pod task is running in the Mesos web GUI. Click on the
+Kubernetes framework. The next screen should show the running Mesos task that
+started the Kubernetes pod.</p>
+
+<h2 id="launching-kube-dns">Launching kube-dns</h2>
+
+<p>Kube-dns is an addon for Kubernetes which adds DNS-based service discovery to the cluster. For a detailed explanation see <a href="https://releases.k8s.io/release-1.1/cluster/addons/dns/README.md">DNS in Kubernetes</a>.</p>
+
+<p>The kube-dns addon runs as a pod inside the cluster. The pod consists of three co-located containers:</p>
+
+<ul>
+  <li>a local etcd instance</li>
+  <li>the <a href="https://releases.k8s.io/release-1.1/cluster/addons/dns/skydns-rc.yaml.in">skydns</a> DNS server</li>
+  <li>the kube2sky process to glue skydns to the state of the Kubernetes cluster.</li>
+</ul>
+
+<p>The skydns container offers DNS service via port 53 to the cluster. The etcd communication works via local 127.0.0.1 communication</p>
+
+<p>We assume that kube-dns will use</p>
+
+<ul>
+  <li>the service IP <code>10.10.10.10</code></li>
+  <li>and the <code>cluster.local</code> domain.</li>
+</ul>
+
+<p>Note that we have passed these two values already as parameter to the apiserver above.</p>
+
+<p>A template for an replication controller spinning up the pod with the 3 containers can be found at <a href="https://releases.k8s.io/release-1.1/cluster/addons/dns/skydns-rc.yaml.in">cluster/addons/dns/skydns-rc.yaml.in</a> in the repository. The following steps are necessary in order to get a valid replication controller yaml file:</p>
+
+<ul>
+  <li>replace ``  with <code>1</code></li>
+  <li>replace `` with <code>cluster.local.</code></li>
+  <li>add <code>--kube_master_url=${KUBERNETES_MASTER}</code> parameter to the kube2sky container command.</li>
+</ul>
+
+<p>In addition the service template at <a href="https://releases.k8s.io/release-1.1/cluster/addons/dns/skydns-svc.yaml.in">cluster/addons/dns/skydns-svc.yaml.in</a> needs the following replacement:</p>
+
+<ul>
+  <li>`` with <code>10.10.10.10</code>.</li>
+</ul>
+
+<p>To do this automatically:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">sed -e "s/{{ pillar\['dns_replicas'\] }}/1/g;"\
+"s,\(command = \"/kube2sky\"\),\\1\\"$'\n'"        - --kube_master_url=${KUBERNETES_MASTER},;"\
+"s/{{ pillar\['dns_domain'\] }}/cluster.local/g" \
+  cluster/addons/dns/skydns-rc.yaml.in &gt; skydns-rc.yaml
+sed -e "s/{{ pillar\['dns_server'\] }}/10.10.10.10/g" \
+  cluster/addons/dns/skydns-svc.yaml.in &gt; skydns-svc.yaml
+</code></pre>
+</div>
+
+<p>Now the kube-dns pod and service are ready to be launched:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">kubectl create -f ./skydns-rc.yaml
+kubectl create -f ./skydns-svc.yaml
+</code></pre>
+</div>
+
+<p>Check with <code>kubectl get pods --namespace=kube-system</code> that 3/3 containers of the pods are eventually up and running. Note that the kube-dns pods run in the <code>kube-system</code> namespace, not in  <code>default</code>.</p>
+
+<p>To check that the new DNS service in the cluster works, we start a busybox pod and use that to do a DNS lookup. First create the <code>busybox.yaml</code> pod spec:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">cat &lt;&lt;EOF &gt;busybox.yaml
+</code></pre>
+</div>
+
+<div class="highlight">
+  <pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  namespace: default
+spec:
+  containers:
+  - image: busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: busybox
+  restartPolicy: Always
+EOF
+</code></pre>
+</div>
+
+<p>Then start the pod:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">kubectl create -f ./busybox.yaml
+</code></pre>
+</div>
+
+<p>When the pod is up and running, start a lookup for the Kubernetes master service, made available on 10.10.10.1 by default:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">kubectl  exec busybox -- nslookup kubernetes
+</code></pre>
+</div>
+
+<p>If everything works fine, you will get this output:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">Server:    10.10.10.10
+Address 1: 10.10.10.10
+
+Name:      kubernetes
+Address 1: 10.10.10.1
+</code></pre>
+</div>
+
+<h2 id="what-next">What next?</h2>
+
+<p>Try out some of the standard <a href="../../examples/">Kubernetes examples</a>.</p>
+
+<p>Read about Kubernetes on Mesos’ architecture in the <a href="https://releases.k8s.io/release-1.1/contrib/mesos/README.md">contrib directory</a>.</p>
+
+<p><strong>NOTE:</strong> Some examples require Kubernetes DNS to be installed on the cluster.
+Future work will add instructions to this guide to enable support for Kubernetes DNS.</p>
+
+<p><strong>NOTE:</strong> Please be aware that there are <a href="https://releases.k8s.io/release-1.1/contrib/mesos/docs/issues.md">known issues with the current Kubernetes-Mesos implementation</a>.</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/mesos.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,278 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - The Kubernetes API</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>The Kubernetes API</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="the-kubernetes-api">The Kubernetes API</h1>
+
+<p>Primary system and API concepts are documented in the <a href="user-guide/README.html">User guide</a>.</p>
+
+<p>Overall API conventions are described in the <a href="devel/api-conventions.html">API conventions doc</a>.</p>
+
+<p>Complete API details are documented via <a href="http://swagger.io/">Swagger</a>. The Kubernetes apiserver (aka “master”) exports an API that can be used to retrieve the <a href="https://github.com/swagger-api/swagger-spec/tree/master/schemas/v1.2">Swagger spec</a> for the Kubernetes API, by default at <code>/swaggerapi</code>, and a UI you can use to browse the API documentation at <code>/swagger-ui</code>. We also periodically update a <a href="http://kubernetes.io/third_party/swagger-ui/">statically generated UI</a>.</p>
+
+<p>Remote access to the API is discussed in the <a href="admin/accessing-the-api.html">access doc</a>.</p>
+
+<p>The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The <a href="user-guide/kubectl/kubectl.html">Kubectl</a> command-line tool can be used to create, update, delete, and get API objects.</p>
+
+<p>Kubernetes also stores its serialized state (currently in <a href="https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/">etcd</a>) in terms of the API resources.</p>
+
+<p>Kubernetes itself is decomposed into multiple components, which interact through its API.</p>
+
+<h2 id="api-changes">API changes</h2>
+
+<p>In our experience, any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, we expect the Kubernetes API to continuously change and grow. However, we intend to not break compatibility with existing clients, for an extended period of time. In general, new API resources and new resource fields can be expected to be added frequently. Elimination of resources or fields will require following a deprecation process. The precise deprecation policy for eliminating features is TBD, but once we reach our 1.0 milestone, there will be a specific policy.</p>
+
+<p>What constitutes a compatible change and how to change the API are detailed by the <a href="devel/api_changes.html">API change document</a>.</p>
+
+<h2 id="api-versioning">API versioning</h2>
+
+<p>To make it easier to eliminate fields or restructure resource representations, Kubernetes supports
+multiple API versions, each at a different API path, such as <code>/api/v1</code> or
+<code>/apis/extensions/v1beta1</code>.</p>
+
+<p>We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-lifed and/or experimental APIs.</p>
+
+<p>Note that API versioning and Software versioning are only indirectly related.  The <a href="design/versioning.html">API and release
+versioning proposal</a> describes the relationship between API versioning and
+software versioning.</p>
+
+<p>Different API versions imply different levels of stability and support.  The criteria for each level are described
+in more detail in the <a href="devel/api_changes.html#alpha-beta-and-stable-versions">API Changes documentation</a>.  They are summarized here:</p>
+
+<ul>
+  <li>Alpha level:
+    <ul>
+      <li>The version names contain <code>alpha</code> (e.g. <code>v1alpha1</code>).</li>
+      <li>May be buggy.  Enabling the feature may expose bugs.  Disabled by default.</li>
+      <li>Support for feature may be dropped at any time without notice.</li>
+      <li>The API may change in incompatible ways in a later software release without notice.</li>
+      <li>Recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of long-term support.</li>
+    </ul>
+  </li>
+  <li>Beta level:
+    <ul>
+      <li>The version names contain <code>beta</code> (e.g. <code>v2beta3</code>).</li>
+      <li>Code is well tested.  Enabling the feature is considered safe.  Enabled by default.</li>
+      <li>Support for the overall feature will not be dropped, though details may change.</li>
+      <li>The schema and/or semantics of objects may change in incompatible ways in a subsequent beta or stable release.  When this happens,
+we will provide instructions for migrating to the next version.  This may require deleting, editing, and re-creating
+API objects.  The editing process may require some thought.   This may require downtime for appplications that rely on the feature.</li>
+      <li>Recommended for only non-business-critical uses because of potential for incompatible changes in subsequent releases.  If you have
+multiple clusters which can be upgraded independently, you may be able to relax this restriction.</li>
+      <li><strong>Please do try our beta features and give feedback on them!  Once they exit beta, it may not be practical for us to make more changes.</strong></li>
+    </ul>
+  </li>
+  <li>Stable level:
+    <ul>
+      <li>The version name is <code>vX</code> where <code>X</code> is an integer.</li>
+      <li>Stable versions of features will appear in released software for many subsequent versions.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="api-groups">API groups</h2>
+
+<p>To make it easier to extend the Kubernetes API, we are in the process of implementing <a href="proposals/api-group.html"><em>API
+groups</em></a>.  These are simply different interfaces to read and/or modify the
+same underlying resources.  The API group is specified in a REST path and in the <code>apiVersion</code> field
+of a serialized object.</p>
+
+<p>Currently there are two API groups in use:</p>
+
+<ol>
+  <li>the “core” group, which is at REST path <code>/api/v1</code> and is not specified as part of the <code>apiVersion</code> field, e.g.
+<code>apiVersion: v1</code>.</li>
+  <li>the “extensions” group, which is at REST path <code>/apis/extensions/$VERSION</code>, and which uses
+  <code>apiVersion: extensions/$VERSION</code> (e.g. currently <code>apiVersion: extensions/v1beta1</code>).</li>
+</ol>
+
+<p>In the future we expect that there will be more API groups, all at REST path <code>/apis/$API_GROUP</code> and
+using <code>apiVersion: $API_GROUP/$VERSION</code>.  We expect that there will be a way for (third parties to
+create their own API groups](design/extending-api.md), and to avoid naming collisions.</p>
+
+<h2 id="enabling-resources-in-the-extensions-group">Enabling resources in the extensions group</h2>
+
+<p>Jobs, Ingress and HorizontalPodAutoscalers are enabled by default.
+Other extensions resources can be enabled by setting runtime-config on
+apiserver. runtime-config accepts comma separated values. For ex: to enable deployments and disable jobs, set
+<code>--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/jobs=false</code></p>
+
+<h2 id="v1beta1-v1beta2-and-v1beta3-are-deprecated-please-move-to-v1-asap">v1beta1, v1beta2, and v1beta3 are deprecated; please move to v1 ASAP</h2>
+
+<p>As of June 4, 2015, the Kubernetes v1 API has been enabled by default. The v1beta1 and v1beta2 APIs were deleted on June 1, 2015. v1beta3 is planned to be deleted on July 6, 2015.</p>
+
+<h3 id="v1-conversion-tips-from-v1beta3">v1 conversion tips (from v1beta3)</h3>
+
+<p>We’re working to convert all documentation and examples to v1. A simple <a href="admin/cluster-management.html#switching-your-config-files-to-a-new-api-version">API conversion tool</a> has been written to simplify the translation process. Use <code>kubectl create --validate</code> in order to validate your json or yaml against our Swagger spec.</p>
+
+<p>Changes to services are the most significant difference between v1beta3 and v1.</p>
+
+<ul>
+  <li>The <code>service.spec.portalIP</code> property is renamed to <code>service.spec.clusterIP</code>.</li>
+  <li>The <code>service.spec.createExternalLoadBalancer</code> property is removed. Specify <code>service.spec.type: "LoadBalancer"</code> to create an external load balancer instead.</li>
+  <li>The <code>service.spec.publicIPs</code> property is deprecated and now called <code>service.spec.deprecatedPublicIPs</code>. This property will be removed entirely when v1beta3 is removed. The vast majority of users of this field were using it to expose services on ports on the node. Those users should specify <code>service.spec.type: "NodePort"</code> instead. Read <a href="user-guide/services.html#external-services">External Services</a> for more info. If this is not sufficient for your use case, please file an issue or contact @thockin.</li>
+</ul>
+
+<p>Some other difference between v1beta3 and v1:</p>
+
+<ul>
+  <li>The <code>pod.spec.containers[*].privileged</code> and <code>pod.spec.containers[*].capabilities</code> properties are now nested under the <code>pod.spec.containers[*].securityContext</code> property. See <a href="user-guide/security-context.html">Security Contexts</a>.</li>
+  <li>The <code>pod.spec.host</code> property is renamed to <code>pod.spec.nodeName</code>.</li>
+  <li>The <code>endpoints.subsets[*].addresses.IP</code> property is renamed to <code>endpoints.subsets[*].addresses.ip</code>.</li>
+  <li>The <code>pod.status.containerStatuses[*].state.termination</code> and <code>pod.status.containerStatuses[*].lastState.termination</code> properties are renamed to <code>pod.status.containerStatuses[*].state.terminated</code> and <code>pod.status.containerStatuses[*].lastState.terminated</code> respectively.</li>
+  <li>The <code>pod.status.Condition</code> property is renamed to <code>pod.status.conditions</code>.</li>
+  <li>The <code>status.details.id</code> property is renamed to <code>status.details.name</code>.</li>
+</ul>
+
+<h3 id="v1beta3-conversion-tips-from-v1beta12">v1beta3 conversion tips (from v1beta1/2)</h3>
+
+<p>Some important differences between v1beta1/2 and v1beta3:</p>
+
+<ul>
+  <li>The resource <code>id</code> is now called <code>name</code>.</li>
+  <li><code>name</code>, <code>labels</code>, <code>annotations</code>, and other metadata are now nested in a map called <code>metadata</code></li>
+  <li><code>desiredState</code> is now called <code>spec</code>, and <code>currentState</code> is now called <code>status</code></li>
+  <li><code>/minions</code> has been moved to <code>/nodes</code>, and the resource has kind <code>Node</code></li>
+  <li>The namespace is required (for all namespaced resources) and has moved from a URL parameter to the path: <code>/api/v1beta3/namespaces/{namespace}/{resource_collection}/{resource_name}</code>. If you were not using a namespace before, use <code>default</code> here.</li>
+  <li>The names of all resource collections are now lower cased - instead of <code>replicationControllers</code>, use <code>replicationcontrollers</code>.</li>
+  <li>To watch for changes to a resource, open an HTTP or Websocket connection to the collection query and provide the <code>?watch=true</code> query parameter along with the desired <code>resourceVersion</code> parameter to watch from.</li>
+  <li>The <code>labels</code> query parameter has been renamed to <code>labelSelector</code>.</li>
+  <li>The <code>fields</code> query parameter has been renamed to <code>fieldSelector</code>.</li>
+  <li>The container <code>entrypoint</code> has been renamed to <code>command</code>, and <code>command</code> has been renamed to <code>args</code>.</li>
+  <li>Container, volume, and node resources are expressed as nested maps (e.g., <code>resources{cpu:1}</code>) rather than as individual fields, and resource values support <a href="user-guide/compute-resources.html#specifying-resource-quantities">scaling suffixes</a> rather than fixed scales (e.g., milli-cores).</li>
+  <li>Restart policy is represented simply as a string (e.g., <code>"Always"</code>) rather than as a nested map (<code>always{}</code>).</li>
+  <li>Pull policies changed from <code>PullAlways</code>, <code>PullNever</code>, and <code>PullIfNotPresent</code> to <code>Always</code>, <code>Never</code>, and <code>IfNotPresent</code>.</li>
+  <li>The volume <code>source</code> is inlined into <code>volume</code> rather than nested.</li>
+  <li>Host volumes have been changed from <code>hostDir</code> to <code>hostPath</code> to better reflect that they can be files or directories.</li>
+</ul>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/api.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

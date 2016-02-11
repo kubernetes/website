@@ -1,0 +1,241 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Kubernetes User Guide: Managing Applications</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Kubernetes User Guide: Managing Applications</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="kubernetes-user-guide-managing-applications">Kubernetes User Guide: Managing Applications</h1>
+
+<p><strong>Table of Contents</strong>
+<!-- BEGIN MUNGE: GENERATED_TOC --></p>
+
+<ul>
+  <li><a href="#kubernetes-user-guide-managing-applications">Kubernetes User Guide: Managing Applications</a>
+    <ul>
+      <li><a href="#quick-walkthrough">Quick walkthrough</a></li>
+      <li><a href="#thorough-walkthrough">Thorough walkthrough</a></li>
+      <li><a href="#concept-guide">Concept guide</a></li>
+      <li><a href="#further-reading">Further reading</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- END MUNGE: GENERATED_TOC -->
+
+<p>The user guide is intended for anyone who wants to run programs and services on an existing Kubernetes cluster.  Setup and administration of a Kubernetes cluster is described in the <a href="../../docs/admin/README.html">Cluster Admin Guide</a>. The <a href="../../docs/devel/README.html">Developer Guide</a> is for anyone wanting to either write code which directly accesses the Kubernetes API, or to contribute directly to the Kubernetes project.</p>
+
+<p>Please ensure you have completed the <a href="prereqs.html">prerequisites for running examples from the user guide</a>.</p>
+
+<h2 id="quick-walkthrough">Quick walkthrough</h2>
+
+<ol>
+  <li><a href="walkthrough/README.html">Kubernetes 101</a></li>
+  <li><a href="walkthrough/k8s201.html">Kubernetes 201</a></li>
+</ol>
+
+<h2 id="thorough-walkthrough">Thorough walkthrough</h2>
+
+<p>If you don’t have much familiarity with Kubernetes, we recommend you read the following sections in order:</p>
+
+<ol>
+  <li><a href="quick-start.html">Quick start: launch and expose an application</a></li>
+  <li><a href="configuring-containers.html">Configuring and launching containers: configuring common container parameters</a></li>
+  <li><a href="deploying-applications.html">Deploying continuously running applications</a></li>
+  <li><a href="connecting-applications.html">Connecting applications: exposing applications to clients and users</a></li>
+  <li><a href="production-pods.html">Working with containers in production</a></li>
+  <li><a href="managing-deployments.html">Managing deployments</a></li>
+  <li><a href="introspection-and-debugging.html">Application introspection and debugging</a>
+    <ol>
+      <li><a href="ui.html">Using the Kubernetes web user interface</a></li>
+      <li><a href="logging.html">Logging</a></li>
+      <li><a href="monitoring.html">Monitoring</a></li>
+      <li><a href="getting-into-containers.html">Getting into containers via <code>exec</code></a></li>
+      <li><a href="connecting-to-applications-proxy.html">Connecting to containers via proxies</a></li>
+      <li><a href="connecting-to-applications-port-forward.html">Connecting to containers via port forwarding</a></li>
+    </ol>
+  </li>
+</ol>
+
+<h2 id="concept-guide">Concept guide</h2>
+
+<dl>
+  <dt><a href="overview.html"><strong>Overview</strong></a></dt>
+  <dd>A brief overview of Kubernetes concepts.</dd>
+  <dt><a href="../admin/README.html"><strong>Cluster</strong></a></dt>
+  <dd>A cluster is a set of physical or virtual machines and other infrastructure resources used by Kubernetes to run your applications.</dd>
+  <dt><a href="../admin/node.html"><strong>Node</strong></a></dt>
+  <dd>A node is a physical or virtual machine running Kubernetes, onto which pods can be scheduled.</dd>
+  <dt><a href="pods.html"><strong>Pod</strong></a></dt>
+  <dd>A pod is a co-located group of containers and volumes.</dd>
+  <dt><a href="labels.html"><strong>Label</strong></a></dt>
+  <dd>A label is a key/value pair that is attached to a resource, such as a pod, to convey a user-defined identifying attribute. Labels can be used to organize and to select subsets of resources.</dd>
+  <dt><a href="labels.html#label-selectors"><strong>Selector</strong></a></dt>
+  <dd>A selector is an expression that matches labels in order to identify related resources, such as which pods are targeted by a load-balanced service.</dd>
+  <dt><a href="replication-controller.html"><strong>Replication Controller</strong></a></dt>
+  <dd>A replication controller ensures that a specified number of pod replicas are running at any one time. It both allows for easy scaling of replicated systems and handles re-creation of a pod when the machine it is on reboots or otherwise fails.</dd>
+  <dt><a href="services.html"><strong>Service</strong></a></dt>
+  <dd>A service defines a set of pods and a means by which to access them, such as single stable IP address and corresponding DNS name.</dd>
+  <dt><a href="volumes.html"><strong>Volume</strong></a></dt>
+  <dd>A volume is a directory, possibly with some data in it, which is accessible to a Container as part of its filesystem.  Kubernetes volumes build upon <a href="https://docs.docker.com/userguide/dockervolumes/">Docker Volumes</a>, adding provisioning of the volume directory and/or device.</dd>
+  <dt><a href="secrets.html"><strong>Secret</strong></a></dt>
+  <dd>A secret stores sensitive data, such as authentication tokens, which can be made available to containers upon request.</dd>
+  <dt><a href="identifiers.html"><strong>Name</strong></a></dt>
+  <dd>A user- or client-provided name for a resource.</dd>
+  <dt><a href="namespaces.html"><strong>Namespace</strong></a></dt>
+  <dd>A namespace is like a prefix to the name of a resource. Namespaces help different projects, teams, or customers to share a cluster, such as by preventing name collisions between unrelated teams.</dd>
+  <dt><a href="annotations.html"><strong>Annotation</strong></a></dt>
+  <dd>A key/value pair that can hold larger (compared to a label), and possibly not human-readable, data, intended to store non-identifying auxiliary data, especially data manipulated by tools and system extensions.  Efficient filtering by annotation values is not supported.</dd>
+</dl>
+
+<h2 id="further-reading">Further reading</h2>
+
+<ul>
+  <li>API resources
+    <ul>
+      <li><a href="working-with-resources.html">Working with resources</a></li>
+    </ul>
+  </li>
+  <li>Pods and containers
+    <ul>
+      <li><a href="pod-states.html">Pod lifecycle and restart policies</a></li>
+      <li><a href="container-environment.html">Lifecycle hooks</a></li>
+      <li><a href="compute-resources.html">Compute resources, such as cpu and memory</a></li>
+      <li><a href="containers.html">Specifying commands and requesting capabilities</a></li>
+      <li><a href="downward-api.html">Downward API: accessing system configuration from a pod</a></li>
+      <li><a href="images.html">Images and registries</a></li>
+      <li><a href="docker-cli-to-kubectl.html">Migrating from docker-cli to kubectl</a></li>
+      <li><a href="config-best-practices.html">Tips and tricks when working with config</a></li>
+      <li><a href="node-selection/">Assign pods to selected nodes</a></li>
+      <li><a href="update-demo/">Perform a rolling update on a running group of pods</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/README.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

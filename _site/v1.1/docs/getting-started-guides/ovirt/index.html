@@ -1,0 +1,188 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Getting started on oVirt</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Getting started on oVirt</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+<p>Getting started on oVirt
+————————</p>
+
+<p><strong>Table of Contents</strong></p>
+
+<ul>
+  <li><a href="#what-is-ovirt">What is oVirt</a></li>
+  <li><a href="#ovirt-cloud-provider-deployment">oVirt Cloud Provider Deployment</a></li>
+  <li><a href="#using-the-ovirt-cloud-provider">Using the oVirt Cloud Provider</a></li>
+  <li><a href="#ovirt-cloud-provider-screencast">oVirt Cloud Provider Screencast</a></li>
+</ul>
+
+<h2 id="what-is-ovirt">What is oVirt</h2>
+
+<p>oVirt is a virtual datacenter manager that delivers powerful management of multiple virtual machines on multiple hosts. Using KVM and libvirt, oVirt can be installed on Fedora, CentOS, or Red Hat Enterprise Linux hosts to set up and manage your virtual data center.</p>
+
+<h2 id="ovirt-cloud-provider-deployment">oVirt Cloud Provider Deployment</h2>
+
+<p>The oVirt cloud provider allows to easily discover and automatically add new VM instances as nodes to your Kubernetes cluster.
+At the moment there are no community-supported or pre-loaded VM images including Kubernetes but it is possible to <a href="http://ovedou.blogspot.it/2014/03/importing-glance-images-as-ovirt.html">import</a> or <a href="http://www.ovirt.org/Quick_Start_Guide#Create_Virtual_Machines">install</a> Project Atomic (or Fedora) in a VM to <a href="http://www.ovirt.org/Quick_Start_Guide#Using_Templates">generate a template</a>. Any other distribution that includes Kubernetes may work as well.</p>
+
+<p>It is mandatory to <a href="http://www.ovirt.org/How_to_install_the_guest_agent_in_Fedora">install the ovirt-guest-agent</a> in the guests for the VM ip address and hostname to be reported to ovirt-engine and ultimately to Kubernetes.</p>
+
+<p>Once the Kubernetes template is available it is possible to start instantiating VMs that can be discovered by the cloud provider.</p>
+
+<h2 id="using-the-ovirt-cloud-provider">Using the oVirt Cloud Provider</h2>
+
+<p>The oVirt Cloud Provider requires access to the oVirt REST-API to gather the proper information, the required credential should be specified in the <code>ovirt-cloud.conf</code> file:</p>
+
+<pre><code>[connection]
+uri = https://localhost:8443/ovirt-engine/api
+username = admin@internal
+password = admin
+</code></pre>
+
+<p>In the same file it is possible to specify (using the <code>filters</code> section) what search query to use to identify the VMs to be reported to Kubernetes:</p>
+
+<pre><code>[filters]
+# Search query used to find nodes
+vms = tag=kubernetes
+</code></pre>
+
+<p>In the above example all the VMs tagged with the <code>kubernetes</code> label will be reported as nodes to Kubernetes.</p>
+
+<p>The <code>ovirt-cloud.conf</code> file then must be specified in kube-controller-manager:</p>
+
+<pre><code>kube-controller-manager ... --cloud-provider=ovirt --cloud-config=/path/to/ovirt-cloud.conf ...
+</code></pre>
+
+<h2 id="ovirt-cloud-provider-screencast">oVirt Cloud Provider Screencast</h2>
+
+<p>This short screencast demonstrates how the oVirt Cloud Provider can be used to dynamically add VMs to your Kubernetes cluster.</p>
+
+<p><a href="http://www.youtube.com/watch?v=JyyST4ZKne8"><img src="http://img.youtube.com/vi/JyyST4ZKne8/0.jpg" alt="Screencast" /></a></p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/ovirt.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

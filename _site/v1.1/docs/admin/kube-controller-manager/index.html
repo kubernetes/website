@@ -1,0 +1,197 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - kube-controller-manager</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>kube-controller-manager</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h2 id="kube-controller-manager">kube-controller-manager</h2>
+
+<h3 id="synopsis">Synopsis</h3>
+
+<p>The Kubernetes controller manager is a daemon that embeds
+the core control loops shipped with Kubernetes. In applications of robotics and
+automation, a control loop is a non-terminating loop that regulates the state of
+the system. In Kubernetes, a controller is a control loop that watches the shared
+state of the cluster through the apiserver and makes changes attempting to move the
+current state towards the desired state. Examples of controllers that ship with
+Kubernetes today are the replication controller, endpoints controller, namespace
+controller, and serviceaccounts controller.</p>
+
+<pre><code>
+kube-controller-manager
+
+</code></pre>
+
+<h3 id="options">Options</h3>
+
+<pre><code>
+      --address=127.0.0.1: The IP address to serve on (set to 0.0.0.0 for all interfaces)
+      --allocate-node-cidrs[=false]: Should CIDRs for Pods be allocated and set on the cloud provider.
+      --cloud-config="": The path to the cloud provider configuration file.  Empty string for no configuration file.
+      --cloud-provider="": The provider for cloud services.  Empty string for no provider.
+      --cluster-cidr=&lt;nil&gt;: CIDR Range for Pods in cluster.
+      --cluster-name="kubernetes": The instance prefix for the cluster
+      --concurrent-endpoint-syncs=5: The number of endpoint syncing operations that will be done concurrently. Larger number = faster endpoint updating, but more CPU (and network) load
+      --concurrent_rc_syncs=5: The number of replication controllers that are allowed to sync concurrently. Larger number = more reponsive replica management, but more CPU (and network) load
+      --deleting-pods-burst=10: Number of nodes on which pods are bursty deleted in case of node failure. For more details look into RateLimiter.
+      --deleting-pods-qps=0.1: Number of nodes per second on which pods are deleted in case of node failure.
+      --deployment-controller-sync-period=30s: Period for syncing the deployments.
+      --google-json-key="": The Google Cloud Platform Service Account JSON Key to use for authentication.
+      --horizontal-pod-autoscaler-sync-period=30s: The period for syncing the number of pods in horizontal pod autoscaler.
+      --kubeconfig="": Path to kubeconfig file with authorization and master location information.
+      --log-flush-frequency=5s: Maximum number of seconds between log flushes
+      --master="": The address of the Kubernetes API server (overrides any value in kubeconfig)
+      --min-resync-period=12h0m0s: The resync period in reflectors will be random between MinResyncPeriod and 2*MinResyncPeriod
+      --namespace-sync-period=5m0s: The period for syncing namespace life-cycle updates
+      --node-monitor-grace-period=40s: Amount of time which we allow running Node to be unresponsive before marking it unhealty. Must be N times more than kubelet's nodeStatusUpdateFrequency, where N means number of retries allowed for kubelet to post node status.
+      --node-monitor-period=5s: The period for syncing NodeStatus in NodeController.
+      --node-startup-grace-period=1m0s: Amount of time which we allow starting Node to be unresponsive before marking it unhealty.
+      --node-sync-period=10s: The period for syncing nodes from cloudprovider. Longer periods will result in fewer calls to cloud provider, but may delay addition of new nodes to cluster.
+      --pod-eviction-timeout=5m0s: The grace period for deleting pods on failed nodes.
+      --port=10252: The port that the controller-manager's http service runs on
+      --profiling[=true]: Enable profiling via web interface host:port/debug/pprof/
+      --pv-recycler-increment-timeout-nfs=30: the increment of time added per Gi to ActiveDeadlineSeconds for an NFS scrubber pod
+      --pv-recycler-minimum-timeout-hostpath=60: The minimum ActiveDeadlineSeconds to use for a HostPath Recycler pod.  This is for development and testing only and will not work in a multi-node cluster.
+      --pv-recycler-minimum-timeout-nfs=300: The minimum ActiveDeadlineSeconds to use for an NFS Recycler pod
+      --pv-recycler-pod-template-filepath-hostpath="": The file path to a pod definition used as a template for HostPath persistent volume recycling. This is for development and testing only and will not work in a multi-node cluster.
+      --pv-recycler-pod-template-filepath-nfs="": The file path to a pod definition used as a template for NFS persistent volume recycling
+      --pv-recycler-timeout-increment-hostpath=30: the increment of time added per Gi to ActiveDeadlineSeconds for a HostPath scrubber pod.  This is for development and testing only and will not work in a multi-node cluster.
+      --pvclaimbinder-sync-period=10s: The period for syncing persistent volumes and persistent volume claims
+      --resource-quota-sync-period=10s: The period for syncing quota usage status in the system
+      --root-ca-file="": If set, this root certificate authority will be included in service account's token secret. This must be a valid PEM-encoded CA bundle.
+      --service-account-private-key-file="": Filename containing a PEM-encoded private RSA key used to sign service account tokens.
+      --service-sync-period=5m0s: The period for syncing services with their external load balancers
+      --terminated-pod-gc-threshold=12500: Number of terminated pods that can exist before the terminated pod garbage collector starts deleting terminated pods. If &lt;= 0, the terminated pod garbage collector is disabled.
+
+</code></pre>
+
+<h6 id="auto-generated-by-spf13cobra-at-2015-10-29-201225539938496-0000-utc">Auto generated by spf13/cobra at 2015-10-29 20:12:25.539938496 +0000 UTC</h6>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/kube-controller-manager.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

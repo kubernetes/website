@@ -1,0 +1,187 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Working with Resources</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Working with Resources</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="working-with-resources">Working with Resources</h1>
+
+<p><em>This document is aimed at users who have worked through some of the examples,
+and who want to learn more about using kubectl to manage resources such
+as pods and services.  Users who want to access the REST API directly,
+and developers who want to extend the Kubernetes API should
+refer to the <a href="../devel/api-conventions.html">api conventions</a> and
+the <a href="../api.html">api document</a>.</em></p>
+
+<h2 id="resources-are-automatically-modified">Resources are Automatically Modified</h2>
+
+<p>When you create a resource such as pod, and then retrieve the created
+resource, a number of the fields of the resource are added.
+You can see this at work in the following example:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ cat &gt; /tmp/original.yaml &lt;&lt;EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: foo
+spec:
+  containers:
+    - name: foo
+      image: busybox
+  restartPolicy: Never
+EOF
+$ kubectl create -f /tmp/original.yaml
+pods/original
+$ kubectl get pods/original -o yaml &gt; /tmp/current.yaml
+pods/original
+$ wc -l /tmp/original.yaml /tmp/current.yaml
+      51 /tmp/current.yaml
+       9 /tmp/original.yaml
+      60 total
+</code></pre>
+</div>
+
+<p>The resource we posted had only 9 lines, but the one we got back had 51 lines.
+If you <code>diff -u /tmp/original.yaml /tmp/current.yaml</code>, you can see the fields added to the pod.
+The system adds fields in several ways:
+  - Some fields are added synchronously with creation of the resource and some are set asynchronously.
+    - For example: <code>metadata.uid</code> is set synchronously.  (Read more about <a href="../devel/api-conventions.html#metadata">metadata</a>).
+    - For example, <code>status.hostIP</code> is set only after the pod has been scheduled.  This often happens fast, but you may notice pods which do not have this set yet.  This is called Late Initialization.  (Read mode about <a href="../devel/api-conventions.html#spec-and-status">status</a> and <a href="../devel/api-conventions.html#late-initialization">late initialization</a> ).
+  - Some fields are set to default values.  Some defaults vary by cluster and some are fixed for the API at a certain version.  (Read more about <a href="../devel/api-conventions.html#defaulting">defaulting</a>).
+    - For example, <code>spec.containers[0].imagePullPolicy</code> always defaults to <code>IfNotPresent</code> in api v1.
+    - For example, <code>spec.containers[0].resources.limits.cpu</code> may be defaulted to  <code>100m</code> on some clusters, to some other value on others, and not defaulted at all on others.
+The API will generally not modify fields that you have set; it just sets ones which were unspecified.</p>
+
+<h2 id="a-namefindingschemadocsafinding-documentation-on-resource-fields"><a name="finding_schema_docs"></a>Finding Documentation on Resource Fields</h2>
+
+<p>You can browse auto-generated API documentation at the <a href="http://kubernetes.io/v1.1/api-ref.html">project website</a> or on <a href="https://releases.k8s.io/release-1.1/docs/api-reference">github</a>.</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/working-with-resources.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

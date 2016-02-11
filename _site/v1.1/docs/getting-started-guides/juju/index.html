@@ -1,0 +1,393 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Getting started with Juju</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Getting started with Juju</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h2 id="getting-started-with-juju">Getting started with Juju</h2>
+
+<p><a href="https://jujucharms.com/docs/stable/about-juju">Juju</a> makes it easy to deploy
+Kubernetes by provisioning, installing and configuring all the systems in
+the cluster.  Once deployed the cluster can easily scale up with one command
+to increase the cluster size.</p>
+
+<p><strong>Table of Contents</strong></p>
+
+<ul>
+  <li><a href="#prerequisites">Prerequisites</a>
+    <ul>
+      <li><a href="#on-ubuntu">On Ubuntu</a></li>
+      <li><a href="#with-docker">With Docker</a></li>
+    </ul>
+  </li>
+  <li><a href="#launch-kubernetes-cluster">Launch Kubernetes cluster</a></li>
+  <li><a href="#exploring-the-cluster">Exploring the cluster</a></li>
+  <li><a href="#run-some-containers">Run some containers!</a></li>
+  <li><a href="#scale-out-cluster">Scale out cluster</a></li>
+  <li><a href="#launch-the-k8petstore-example-app">Launch the “k8petstore” example app</a></li>
+  <li><a href="#tear-down-cluster">Tear down cluster</a></li>
+  <li><a href="#more-info">More Info</a>
+    <ul>
+      <li><a href="#cloud-compatibility">Cloud compatibility</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<blockquote>
+  <p>Note: If you’re running kube-up, on Ubuntu - all of the dependencies
+will be handled for you. You may safely skip to the section:
+<a href="#launch-kubernetes-cluster">Launch Kubernetes Cluster</a></p>
+</blockquote>
+
+<h3 id="on-ubuntu">On Ubuntu</h3>
+
+<p><a href="https://jujucharms.com/get-started">Install the Juju client</a> on your
+local Ubuntu system:</p>
+
+<pre><code>sudo add-apt-repository ppa:juju/stable
+sudo apt-get update
+sudo apt-get install juju-core juju-quickstart
+</code></pre>
+
+<h3 id="with-docker">With Docker</h3>
+
+<p>If you are not using Ubuntu or prefer the isolation of Docker, you may
+run the following:</p>
+
+<pre><code>mkdir ~/.juju
+sudo docker run -v ~/.juju:/home/ubuntu/.juju -ti jujusolutions/jujubox:latest
+</code></pre>
+
+<p>At this point from either path you will have access to the <code>juju
+quickstart</code> command.</p>
+
+<p>To set up the credentials for your chosen cloud run:</p>
+
+<pre><code>juju quickstart --constraints="mem=3.75G" -i
+</code></pre>
+
+<blockquote>
+  <p>The <code>constraints</code> flag is optional, it changes the size of virtual machines
+that Juju will generate when it requests a new machine.  Larger machines
+will run faster but cost more money than smaller machines.</p>
+</blockquote>
+
+<p>Follow the dialogue and choose <code>save</code> and <code>use</code>.  Quickstart will now
+bootstrap the juju root node and setup the juju web based user
+interface.</p>
+
+<h2 id="launch-kubernetes-cluster">Launch Kubernetes cluster</h2>
+
+<p>You will need to export the <code>KUBERNETES_PROVIDER</code> environment variable before
+bringing up the cluster.</p>
+
+<pre><code>export KUBERNETES_PROVIDER=juju
+cluster/kube-up.sh
+</code></pre>
+
+<p>If this is your first time running the <code>kube-up.sh</code> script, it will install
+the required dependencies to get started with Juju, additionally it will
+launch a curses based configuration utility allowing you to select your cloud
+provider and enter the proper access credentials.</p>
+
+<p>Next it will deploy the kubernetes master, etcd, 2 nodes with flannel based
+Software Defined Networking (SDN) so containers on different hosts can
+communicate with each other.</p>
+
+<h2 id="exploring-the-cluster">Exploring the cluster</h2>
+
+<p>The <code>juju status</code> command provides information about each unit in the cluster:</p>
+
+<pre><code>$ juju status --format=oneline
+- docker/0: 52.4.92.78 (started)
+  - flannel-docker/0: 52.4.92.78 (started)
+  - kubernetes/0: 52.4.92.78 (started)
+- docker/1: 52.6.104.142 (started)
+  - flannel-docker/1: 52.6.104.142 (started)
+  - kubernetes/1: 52.6.104.142 (started)
+- etcd/0: 52.5.216.210 (started) 4001/tcp
+- juju-gui/0: 52.5.205.174 (started) 80/tcp, 443/tcp
+- kubernetes-master/0: 52.6.19.238 (started) 8080/tcp
+</code></pre>
+
+<p>You can use <code>juju ssh</code> to access any of the units:</p>
+
+<pre><code>juju ssh kubernetes-master/0
+</code></pre>
+
+<h2 id="run-some-containers">Run some containers!</h2>
+
+<p><code>kubectl</code> is available on the Kubernetes master node.  We’ll ssh in to
+launch some containers, but one could use <code>kubectl</code> locally by setting
+<code>KUBERNETES_MASTER</code> to point at the ip address of “kubernetes-master/0”.</p>
+
+<p>No pods will be available before starting a container:</p>
+
+<pre><code>kubectl get pods
+NAME             READY     STATUS    RESTARTS   AGE
+
+kubectl get replicationcontrollers
+CONTROLLER  CONTAINER(S)  IMAGE(S)  SELECTOR  REPLICAS
+</code></pre>
+
+<p>We’ll follow the aws-coreos example. Create a pod manifest: <code>pod.json</code></p>
+
+<div class="highlight">
+  <pre><code class="language-json">{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "hello",
+    "labels": {
+      "name": "hello",
+      "environment": "testing"
+    }
+  },
+  "spec": {
+    "containers": [{
+      "name": "hello",
+      "image": "quay.io/kelseyhightower/hello",
+      "ports": [{
+        "containerPort": 80,
+        "hostPort": 80
+      }]
+    }]
+  }
+}
+</code></pre>
+</div>
+
+<p>Create the pod with kubectl:</p>
+
+<pre><code>kubectl create -f pod.json
+</code></pre>
+
+<p>Get info on the pod:</p>
+
+<pre><code>kubectl get pods
+</code></pre>
+
+<p>To test the hello app, we need to locate which node is hosting
+the container. Better tooling for using Juju to introspect container
+is in the works but we can use <code>juju run</code> and <code>juju status</code> to find
+our hello app.</p>
+
+<p>Exit out of our ssh session and run:</p>
+
+<pre><code>juju run --unit kubernetes/0 "docker ps -n=1"
+...
+juju run --unit kubernetes/1 "docker ps -n=1"
+CONTAINER ID        IMAGE                                  COMMAND             CREATED             STATUS              PORTS               NAMES
+02beb61339d8        quay.io/kelseyhightower/hello:latest   /hello              About an hour ago   Up About an hour                        k8s_hello....
+</code></pre>
+
+<p>We see “kubernetes/1” has our container, we can open port 80:</p>
+
+<pre><code>juju run --unit kubernetes/1 "open-port 80"
+juju expose kubernetes
+sudo apt-get install curl
+curl $(juju status --format=oneline kubernetes/1 | cut -d' ' -f3)
+</code></pre>
+
+<p>Finally delete the pod:</p>
+
+<pre><code>juju ssh kubernetes-master/0
+kubectl delete pods hello
+</code></pre>
+
+<h2 id="scale-out-cluster">Scale out cluster</h2>
+
+<p>We can add node units like so:</p>
+
+<pre><code>juju add-unit docker # creates unit docker/2, kubernetes/2, docker-flannel/2
+</code></pre>
+
+<h2 id="launch-the-k8petstore-example-app">Launch the “k8petstore” example app</h2>
+
+<p>The <a href="../../examples/k8petstore/">k8petstore example</a> is available as a
+<a href="https://jujucharms.com/docs/devel/actions">juju action</a>.</p>
+
+<pre><code>juju action do kubernetes-master/0
+</code></pre>
+
+<blockquote>
+  <p>Note: this example includes curl statements to exercise the app, which
+automatically generates “petstore” transactions written to redis, and allows
+you to visualize the throughput in your browser.</p>
+</blockquote>
+
+<h2 id="tear-down-cluster">Tear down cluster</h2>
+
+<pre><code>./kube-down.sh
+</code></pre>
+
+<p>or destroy your current Juju environment (using the <code>juju env</code> command):</p>
+
+<pre><code>juju destroy-environment --force `juju env`
+</code></pre>
+
+<h2 id="more-info">More Info</h2>
+
+<p>The Kubernetes charms and bundles can be found in the <code>kubernetes</code> project on
+github.com:</p>
+
+<ul>
+  <li><a href="http://releases.k8s.io/release-1.1/cluster/juju/bundles">Bundle Repository</a>
+    <ul>
+      <li><a href="https://releases.k8s.io/release-1.1/cluster/juju/charms/trusty/kubernetes-master">Kubernetes master charm</a></li>
+      <li><a href="https://releases.k8s.io/release-1.1/cluster/juju/charms/trusty/kubernetes">Kubernetes node charm</a></li>
+    </ul>
+  </li>
+  <li><a href="https://jujucharms.com">More about Juju</a></li>
+</ul>
+
+<h3 id="cloud-compatibility">Cloud compatibility</h3>
+
+<p>Juju runs natively against a variety of public cloud providers. Juju currently
+works with <a href="https://jujucharms.com/docs/stable/config-aws">Amazon Web Service</a>,
+<a href="https://jujucharms.com/docs/stable/config-azure">Windows Azure</a>,
+<a href="https://jujucharms.com/docs/stable/config-digitalocean">DigitalOcean</a>,
+<a href="https://jujucharms.com/docs/stable/config-gce">Google Compute Engine</a>,
+<a href="https://jujucharms.com/docs/stable/config-hpcloud">HP Public Cloud</a>,
+<a href="https://jujucharms.com/docs/stable/config-joyent">Joyent</a>,
+<a href="https://jujucharms.com/docs/stable/config-LXC">LXC</a>, any
+<a href="https://jujucharms.com/docs/stable/config-openstack">OpenStack</a> deployment,
+<a href="https://jujucharms.com/docs/stable/config-vagrant">Vagrant</a>, and
+<a href="https://jujucharms.com/docs/stable/config-vmware">Vmware vSphere</a>.</p>
+
+<p>If you do not see your favorite cloud provider listed many clouds can be
+configured for <a href="https://jujucharms.com/docs/stable/config-manual">manual provisioning</a>.</p>
+
+<p>The Kubernetes bundle has been tested on GCE and AWS and found to work with
+version 1.0.0.</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/juju.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

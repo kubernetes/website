@@ -1,0 +1,387 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Getting started on Google Compute Engine</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Getting started on Google Compute Engine</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+<p>Getting started on Google Compute Engine
+—————————————-</p>
+
+<p><strong>Table of Contents</strong></p>
+
+<ul>
+  <li><a href="#before-you-start">Before you start</a></li>
+  <li><a href="#prerequisites">Prerequisites</a></li>
+  <li><a href="#starting-a-cluster">Starting a cluster</a></li>
+  <li><a href="#installing-the-kubernetes-command-line-tools-on-your-workstation">Installing the Kubernetes command line tools on your workstation</a></li>
+  <li><a href="#getting-started-with-your-cluster">Getting started with your cluster</a>
+    <ul>
+      <li><a href="#inspect-your-cluster">Inspect your cluster</a></li>
+      <li><a href="#run-some-examples">Run some examples</a></li>
+    </ul>
+  </li>
+  <li><a href="#tearing-down-the-cluster">Tearing down the cluster</a></li>
+  <li><a href="#customizing">Customizing</a></li>
+  <li><a href="#troubleshooting">Troubleshooting</a>
+    <ul>
+      <li><a href="#project-settings">Project settings</a></li>
+      <li><a href="#cluster-initialization-hang">Cluster initialization hang</a></li>
+      <li><a href="#ssh">SSH</a></li>
+      <li><a href="#networking">Networking</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>The example below creates a Kubernetes cluster with 4 worker node Virtual Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).</p>
+
+<h3 id="before-you-start">Before you start</h3>
+
+<p>If you want a simplified getting started experience and GUI for managing clusters, please consider trying <a href="https://cloud.google.com/container-engine/">Google Container Engine</a> (GKE) for hosted cluster installation and management.</p>
+
+<p>If you want to use custom binaries or pure open source Kubernetes, please continue with the instructions below.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<ol>
+  <li>You need a Google Cloud Platform account with billing enabled. Visit the <a href="http://cloud.google.com/console">Google Developers Console</a> for more details.</li>
+  <li>Install <code>gcloud</code> as necessary. <code>gcloud</code> can be installed as a part of the <a href="https://cloud.google.com/sdk/">Google Cloud SDK</a>.</li>
+  <li>Then, make sure you have the <code>gcloud preview</code> command line component installed. Run <code>gcloud preview</code> at the command line - if it asks to install any components, go ahead and install them. If it simply shows help text, you’re good to go. This is required as the cluster setup script uses GCE <a href="https://cloud.google.com/compute/docs/instance-groups/">Instance Groups</a>, which are in the gcloud preview namespace. You will also need to <strong>enable <a href="https://developers.google.com/console/help/new/#activatingapis"><code>Compute Engine Instance Group Manager API</code></a></strong> in the developers console.</li>
+  <li>Make sure that gcloud is set to use the Google Cloud Platform project you want. You can check the current project using <code>gcloud config list project</code> and change it via <code>gcloud config set project &lt;project-id&gt;</code>.</li>
+  <li>Make sure you have credentials for GCloud by running ` gcloud auth login`.</li>
+  <li>Make sure you can start up a GCE VM from the command line.  At least make sure you can do the <a href="https://cloud.google.com/compute/docs/instances/#startinstancegcloud">Create an instance</a> part of the GCE Quickstart.</li>
+  <li>Make sure you can ssh into the VM without interactive prompts.  See the <a href="https://cloud.google.com/compute/docs/instances/#sshing">Log in to the instance</a> part of the GCE Quickstart.</li>
+</ol>
+
+<h3 id="starting-a-cluster">Starting a cluster</h3>
+
+<p>You can install a client and start a cluster with either one of these commands (we list both in case only one is installed on your machine):</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">curl -sS https://get.k8s.io | bash
+</code></pre>
+</div>
+
+<p>or</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">wget -q -O - https://get.k8s.io | bash
+</code></pre>
+</div>
+
+<p>Once this command completes, you will have a master VM and four worker VMs, running as a Kubernetes cluster.</p>
+
+<p>By default, some containers will already be running on your cluster. Containers like <code>kibana</code> and <code>elasticsearch</code> provide <a href="logging.html">logging</a>, while <code>heapster</code> provides <a href="http://releases.k8s.io/release-1.1/cluster/addons/cluster-monitoring/README.md">monitoring</a> services.</p>
+
+<p>The script run by the commands above creates a cluster with the name/prefix “kubernetes”. It defines one specific cluster config, so you can’t run it more than once.</p>
+
+<p>Alternately, you can download and install the latest Kubernetes release from <a href="https://github.com/kubernetes/kubernetes/releases">this page</a>, then run the <code>&lt;kubernetes&gt;/cluster/kube-up.sh</code> script to start the cluster:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">cd kubernetes
+cluster/kube-up.sh
+</code></pre>
+</div>
+
+<p>If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the <code>&lt;kubernetes&gt;/cluster/gce/config-default.sh</code> file for more fine-grained configuration before you start up your cluster.</p>
+
+<p>If you run into trouble, please see the section on <a href="gce.html#troubleshooting">troubleshooting</a>, post to the
+<a href="https://groups.google.com/forum/#!forum/google-containers">google-containers group</a>, or come ask questions on <a href="../troubleshooting.html#slack">Slack</a>.</p>
+
+<p>The next few steps will show you:</p>
+
+<ol>
+  <li>how to set up the command line client on your workstation to manage the cluster</li>
+  <li>examples of how to use the cluster</li>
+  <li>how to delete the cluster</li>
+  <li>how to start clusters with non-default options (like larger clusters)</li>
+</ol>
+
+<h3 id="installing-the-kubernetes-command-line-tools-on-your-workstation">Installing the Kubernetes command line tools on your workstation</h3>
+
+<p>The cluster startup script will leave you with a running cluster and a <code>kubernetes</code> directory on your workstation.
+The next step is to make sure the <code>kubectl</code> tool is in your path.</p>
+
+<p>The <a href="../user-guide/kubectl/kubectl.html">kubectl</a> tool controls the Kubernetes cluster manager.  It lets you inspect your cluster resources, create, delete, and update components, and much more.
+You will use it to look at your new cluster and bring up example apps.</p>
+
+<p>Add the appropriate binary folder to your <code>PATH</code> to access kubectl:</p>
+
+<div class="highlight">
+  <pre><code class="language-bash"># OS X
+export PATH=&lt;path/to/kubernetes-directory&gt;/platforms/darwin/amd64:$PATH
+
+# Linux
+export PATH=&lt;path/to/kubernetes-directory&gt;/platforms/linux/amd64:$PATH
+</code></pre>
+</div>
+
+<p><strong>Note</strong>: gcloud also ships with <code>kubectl</code>, which by default is added to your path.
+However the gcloud bundled kubectl version may be older than the one downloaded by the
+get.k8s.io install script. We recommend you use the downloaded binary to avoid
+potential issues with client/server version skew.</p>
+
+<h4 id="enabling-bash-completion-of-the-kubernetes-command-line-tools">Enabling bash completion of the Kubernetes command line tools</h4>
+
+<p>You may find it useful to enable <code>kubectl</code> bash completion:</p>
+
+<pre><code>
+$ source ./contrib/completions/bash/kubectl
+
+</code></pre>
+
+<p><strong>Note</strong>: This will last for the duration of your bash session. If you want to make this permanent you need to add this line in your bash profile.</p>
+
+<p>Alternatively, on most linux distributions you can also move the completions file to your bash_completions.d like this:</p>
+
+<pre><code>
+$ cp ./contrib/completions/bash/kubectl /etc/bash_completion.d/
+
+</code></pre>
+
+<p>but then you have to update it when you update kubectl.</p>
+
+<h3 id="getting-started-with-your-cluster">Getting started with your cluster</h3>
+
+<h4 id="inspect-your-cluster">Inspect your cluster</h4>
+
+<p>Once <code>kubectl</code> is in your path, you can use it to look at your cluster. E.g., running:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get --all-namespaces services
+</code></pre>
+</div>
+
+<p>should show a set of <a href="../user-guide/services.html">services</a> that look something like this:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">NAMESPACE     NAME                  CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR               AGE
+default       kubernetes            10.0.0.1         &lt;none&gt;            443/TCP       &lt;none&gt;                 1d
+kube-system   kube-dns              10.0.0.2         &lt;none&gt;            53/TCP,53/UDP k8s-app=kube-dns       1d
+kube-system   kube-ui               10.0.0.3         &lt;none&gt;            80/TCP        k8s-app=kube-ui        1d
+...
+</code></pre>
+</div>
+
+<p>Similarly, you can take a look at the set of <a href="../user-guide/pods.html">pods</a> that were created during cluster startup.
+You can do this via the</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get --all-namespaces pods
+</code></pre>
+</div>
+
+<p>command.</p>
+
+<p>You’ll see a list of pods that looks something like this (the name specifics will be different):</p>
+
+<div class="highlight">
+  <pre><code class="language-console">NAMESPACE     NAME                                           READY     STATUS    RESTARTS   AGE
+kube-system   fluentd-cloud-logging-kubernetes-minion-63uo   1/1       Running   0          14m
+kube-system   fluentd-cloud-logging-kubernetes-minion-c1n9   1/1       Running   0          14m
+kube-system   fluentd-cloud-logging-kubernetes-minion-c4og   1/1       Running   0          14m
+kube-system   fluentd-cloud-logging-kubernetes-minion-ngua   1/1       Running   0          14m
+kube-system   kube-dns-v5-7ztia                              3/3       Running   0          15m
+kube-system   kube-ui-v1-curt1                               1/1       Running   0          15m
+kube-system   monitoring-heapster-v5-ex4u3                   1/1       Running   1          15m
+kube-system   monitoring-influx-grafana-v1-piled             2/2       Running   0          15m
+</code></pre>
+</div>
+
+<p>Some of the pods may take a few seconds to start up (during this time they’ll show <code>Pending</code>), but check that they all show as <code>Running</code> after a short period.</p>
+
+<h4 id="run-some-examples">Run some examples</h4>
+
+<p>Then, see <a href="../../docs/user-guide/simple-nginx.html">a simple nginx example</a> to try out your new cluster.</p>
+
+<p>For more complete applications, please look in the <a href="../../examples/">examples directory</a>.  The <a href="../../examples/guestbook/">guestbook example</a> is a good “getting started” walkthrough.</p>
+
+<h3 id="tearing-down-the-cluster">Tearing down the cluster</h3>
+
+<p>To remove/delete/teardown the cluster, use the <code>kube-down.sh</code> script.</p>
+
+<div class="highlight">
+  <pre><code class="language-bash">cd kubernetes
+cluster/kube-down.sh
+</code></pre>
+</div>
+
+<p>Likewise, the <code>kube-up.sh</code> in the same directory will bring it back up. You do not need to rerun the <code>curl</code> or <code>wget</code> command: everything needed to setup the Kubernetes cluster is now on your workstation.</p>
+
+<h3 id="customizing">Customizing</h3>
+
+<p>The script above relies on Google Storage to stage the Kubernetes release. It
+then will start (by default) a single master VM along with 4 worker VMs.  You
+can tweak some of these parameters by editing <code>kubernetes/cluster/gce/config-default.sh</code>
+You can view a transcript of a successful cluster creation
+<a href="https://gist.github.com/satnam6502/fc689d1b46db9772adea">here</a>.</p>
+
+<h3 id="troubleshooting">Troubleshooting</h3>
+
+<h4 id="project-settings">Project settings</h4>
+
+<p>You need to have the Google Cloud Storage API, and the Google Cloud Storage
+JSON API enabled. It is activated by default for new projects. Otherwise, it
+can be done in the Google Cloud Console.  See the <a href="https://cloud.google.com/storage/docs/json_api/">Google Cloud Storage JSON
+API Overview</a> for more
+details.</p>
+
+<p>Also ensure that– as listed in the <a href="#prerequisites">Prerequsites section</a>– you’ve enabled the <code>Compute Engine Instance Group Manager API</code>, and can start up a GCE VM from the command line as in the <a href="https://cloud.google.com/compute/docs/quickstart">GCE Quickstart</a> instructions.</p>
+
+<h4 id="cluster-initialization-hang">Cluster initialization hang</h4>
+
+<p>If the Kubernetes startup script hangs waiting for the API to be reachable, you can troubleshoot by SSHing into the master and node VMs and looking at logs such as <code>/var/log/startupscript.log</code>.</p>
+
+<p><strong>Once you fix the issue, you should run <code>kube-down.sh</code> to cleanup</strong> after the partial cluster creation, before running <code>kube-up.sh</code> to try again.</p>
+
+<h4 id="ssh">SSH</h4>
+
+<p>If you’re having trouble SSHing into your instances, ensure the GCE firewall
+isn’t blocking port 22 to your VMs.  By default, this should work but if you
+have edited firewall rules or created a new non-default network, you’ll need to
+expose it: <code>gcloud compute firewall-rules create default-ssh --network=&lt;network-name&gt;
+--description "SSH allowed from anywhere" --allow tcp:22</code></p>
+
+<p>Additionally, your GCE SSH key must either have no passcode or you need to be
+using <code>ssh-agent</code>.</p>
+
+<h4 id="networking">Networking</h4>
+
+<p>The instances must be able to connect to each other using their private IP. The
+script uses the “default” network which should have a firewall rule called
+“default-allow-internal” which allows traffic on any port on the private IPs.
+If this rule is missing from the default network or if you change the network
+being used in <code>cluster/config-default.sh</code> create a new rule with the following
+field values:</p>
+
+<ul>
+  <li>Source Ranges: <code>10.0.0.0/8</code></li>
+  <li>Allowed Protocols and Port: <code>tcp:1-65535;udp:1-65535;icmp</code></li>
+</ul>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/gce.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

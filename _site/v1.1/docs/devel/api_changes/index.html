@@ -1,0 +1,750 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - So you want to change the API?</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>So you want to change the API?</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="so-you-want-to-change-the-api">So you want to change the API?</h1>
+
+<p>Before attempting a change to the API, you should familiarize yourself
+with a number of existing API types and with the <a href="api-conventions.html">API
+conventions</a>.  If creating a new API
+type/resource, we also recommend that you first send a PR containing
+just a proposal for the new API types, and that you initially target
+the extensions API (pkg/apis/extensions).</p>
+
+<p>The Kubernetes API has two major components - the internal structures and
+the versioned APIs.  The versioned APIs are intended to be stable, while the
+internal structures are implemented to best reflect the needs of the Kubernetes
+code itself.</p>
+
+<p>What this means for API changes is that you have to be somewhat thoughtful in
+how you approach changes, and that you have to touch a number of pieces to make
+a complete change.  This document aims to guide you through the process, though
+not all API changes will need all of these steps.</p>
+
+<h2 id="operational-overview">Operational overview</h2>
+
+<p>It is important to have a high level understanding of the API system used in
+Kubernetes in order to navigate the rest of this document.</p>
+
+<p>As mentioned above, the internal representation of an API object is decoupled
+from any one API version.  This provides a lot of freedom to evolve the code,
+but it requires robust infrastructure to convert between representations.  There
+are multiple steps in processing an API operation - even something as simple as
+a GET involves a great deal of machinery.</p>
+
+<p>The conversion process is logically a “star” with the internal form at the
+center. Every versioned API can be converted to the internal form (and
+vice-versa), but versioned APIs do not convert to other versioned APIs directly.
+This sounds like a heavy process, but in reality we do not intend to keep more
+than a small number of versions alive at once.  While all of the Kubernetes code
+operates on the internal structures, they are always converted to a versioned
+form before being written to storage (disk or etcd) or being sent over a wire.
+Clients should consume and operate on the versioned APIs exclusively.</p>
+
+<p>To demonstrate the general process, here is a (hypothetical) example:</p>
+
+<ol>
+  <li>A user POSTs a <code>Pod</code> object to <code>/api/v7beta1/...</code></li>
+  <li>The JSON is unmarshalled into a <code>v7beta1.Pod</code> structure</li>
+  <li>Default values are applied to the <code>v7beta1.Pod</code></li>
+  <li>The <code>v7beta1.Pod</code> is converted to an <code>api.Pod</code> structure</li>
+  <li>The <code>api.Pod</code> is validated, and any errors are returned to the user</li>
+  <li>The <code>api.Pod</code> is converted to a <code>v6.Pod</code> (because v6 is the latest stable
+version)</li>
+  <li>The <code>v6.Pod</code> is marshalled into JSON and written to etcd</li>
+</ol>
+
+<p>Now that we have the <code>Pod</code> object stored, a user can GET that object in any
+supported api version.  For example:</p>
+
+<ol>
+  <li>A user GETs the <code>Pod</code> from <code>/api/v5/...</code></li>
+  <li>The JSON is read from etcd and unmarshalled into a <code>v6.Pod</code> structure</li>
+  <li>Default values are applied to the <code>v6.Pod</code></li>
+  <li>The <code>v6.Pod</code> is converted to an <code>api.Pod</code> structure</li>
+  <li>The <code>api.Pod</code> is converted to a <code>v5.Pod</code> structure</li>
+  <li>The <code>v5.Pod</code> is marshalled into JSON and sent to the user</li>
+</ol>
+
+<p>The implication of this process is that API changes must be done carefully and
+backward-compatibly.</p>
+
+<h2 id="on-compatibility">On compatibility</h2>
+
+<p>Before talking about how to make API changes, it is worthwhile to clarify what
+we mean by API compatibility.  An API change is considered backward-compatible
+if it:
+   * adds new functionality that is not required for correct behavior (e.g.,
+     does not add a new required field)
+   * does not change existing semantics, including:
+     * default values and behavior
+     * interpretation of existing API types, fields, and values
+     * which fields are required and which are not</p>
+
+<p>Put another way:</p>
+
+<ol>
+  <li>Any API call (e.g. a structure POSTed to a REST endpoint) that worked before
+your change must work the same after your change.</li>
+  <li>Any API call that uses your change must not cause problems (e.g. crash or
+degrade behavior) when issued against servers that do not include your change.</li>
+  <li>It must be possible to round-trip your change (convert to different API
+versions and back) with no loss of information.</li>
+  <li>Existing clients need not be aware of your change in order for them to continue
+to function as they did previously, even when your change is utilized</li>
+</ol>
+
+<p>If your change does not meet these criteria, it is not considered strictly
+compatible.</p>
+
+<p>Let’s consider some examples.  In a hypothetical API (assume we’re at version
+v6), the <code>Frobber</code> struct looks something like this:</p>
+
+<div class="highlight">
+  <pre><code class="language-go">// API v6.
+type Frobber struct {
+	Height int    `json:"height"`
+	Param  string `json:"param"`
+}
+</code></pre>
+</div>
+
+<p>You want to add a new <code>Width</code> field.  It is generally safe to add new fields
+without changing the API version, so you can simply change it to:</p>
+
+<div class="highlight">
+  <pre><code class="language-go">// Still API v6.
+type Frobber struct {
+	Height int    `json:"height"`
+	Width  int    `json:"width"`
+	Param  string `json:"param"`
+}
+</code></pre>
+</div>
+
+<p>The onus is on you to define a sane default value for <code>Width</code> such that rule #1
+above is true - API calls and stored objects that used to work must continue to
+work.</p>
+
+<p>For your next change you want to allow multiple <code>Param</code> values.  You can not
+simply change <code>Param string</code> to <code>Params []string</code> (without creating a whole new
+API version) - that fails rules #1 and #2.  You can instead do something like:</p>
+
+<div class="highlight">
+  <pre><code class="language-go">// Still API v6, but kind of clumsy.
+type Frobber struct {
+	Height int           `json:"height"`
+	Width  int           `json:"width"`
+	Param  string        `json:"param"`  // the first param
+	ExtraParams []string `json:"params"` // additional params
+}
+</code></pre>
+</div>
+
+<p>Now you can satisfy the rules: API calls that provide the old style <code>Param</code>
+will still work, while servers that don’t understand <code>ExtraParams</code> can ignore
+it.  This is somewhat unsatisfying as an API, but it is strictly compatible.</p>
+
+<p>Part of the reason for versioning APIs and for using internal structs that are
+distinct from any one version is to handle growth like this.  The internal
+representation can be implemented as:</p>
+
+<div class="highlight">
+  <pre><code class="language-go">// Internal, soon to be v7beta1.
+type Frobber struct {
+	Height int
+	Width  int
+	Params []string
+}
+</code></pre>
+</div>
+
+<p>The code that converts to/from versioned APIs can decode this into the somewhat
+uglier (but compatible!) structures.  Eventually, a new API version, let’s call
+it v7beta1, will be forked and it can use the clean internal structure.</p>
+
+<p>We’ve seen how to satisfy rules #1 and #2.  Rule #3 means that you can not
+extend one versioned API without also extending the others.  For example, an
+API call might POST an object in API v7beta1 format, which uses the cleaner
+<code>Params</code> field, but the API server might store that object in trusty old v6
+form (since v7beta1 is “beta”).  When the user reads the object back in the
+v7beta1 API it would be unacceptable to have lost all but <code>Params[0]</code>.  This
+means that, even though it is ugly, a compatible change must be made to the v6
+API.</p>
+
+<p>However, this is very challenging to do correctly. It often requires
+multiple representations of the same information in the same API resource, which
+need to be kept in sync in the event that either is changed. For example,
+let’s say you decide to rename a field within the same API version. In this case,
+you add units to <code>height</code> and <code>width</code>. You implement this by adding duplicate
+fields:</p>
+
+<div class="highlight">
+  <pre><code class="language-go">type Frobber struct {
+	Height         *int          `json:"height"`
+	Width          *int          `json:"width"`
+	HeightInInches *int          `json:"heightInInches"`
+	WidthInInches  *int          `json:"widthInInches"`
+}
+</code></pre>
+</div>
+
+<p>You convert all of the fields to pointers in order to distinguish between unset and
+set to 0, and then set each corresponding field from the other in the defaulting
+pass (e.g., <code>heightInInches</code> from <code>height</code>, and vice versa), which runs just prior
+to conversion. That works fine when the user creates a resource from a hand-written
+configuration – clients can write either field and read either field, but what about
+creation or update from the output of GET, or update via PATCH (see
+<a href="../user-guide/managing-deployments.html#in-place-updates-of-resources">In-place updates</a>)?
+In this case, the two fields will conflict, because only one field would be updated
+in the case of an old client that was only aware of the old field (e.g., <code>height</code>).</p>
+
+<p>Say the client creates:</p>
+
+<div class="highlight">
+  <pre><code class="language-json">{
+  "height": 10,
+  "width": 5
+}
+</code></pre>
+</div>
+
+<p>and GETs:</p>
+
+<div class="highlight">
+  <pre><code class="language-json">{
+  "height": 10,
+  "heightInInches": 10,
+  "width": 5,
+  "widthInInches": 5
+}
+</code></pre>
+</div>
+
+<p>then PUTs back:</p>
+
+<div class="highlight">
+  <pre><code class="language-json">{
+  "height": 13,
+  "heightInInches": 10,
+  "width": 5,
+  "widthInInches": 5
+}
+</code></pre>
+</div>
+
+<p>The update should not fail, because it would have worked before <code>heightInInches</code> was added.</p>
+
+<p>Therefore, when there are duplicate fields, the old field MUST take precedence
+over the new, and the new field should be set to match by the server upon write.
+A new client would be aware of the old field as well as the new, and so can ensure
+that the old field is either unset or is set consistently with the new field. However,
+older clients would be unaware of the new field. Please avoid introducing duplicate
+fields due to the complexity they incur in the API.</p>
+
+<p>A new representation, even in a new API version, that is more expressive than an old one
+breaks backward compatibility, since clients that only understood the old representation
+would not be aware of the new representation nor its semantics. Examples of
+proposals that have run into this challenge include <a href="http://issues.k8s.io/341">generalized label
+selectors</a> and <a href="http://prs.k8s.io/12823">pod-level security
+context</a>.</p>
+
+<p>As another interesting example, enumerated values cause similar challenges.
+Adding a new value to an enumerated set is <em>not</em> a compatible change.  Clients
+which assume they know how to handle all possible values of a given field will
+not be able to handle the new values.  However, removing value from an
+enumerated set <em>can</em> be a compatible change, if handled properly (treat the
+removed value as deprecated but allowed). This is actually a special case of
+a new representation, discussed above.</p>
+
+<h2 id="incompatible-api-changes">Incompatible API changes</h2>
+
+<p>There are times when this might be OK, but mostly we want changes that
+meet this definition.  If you think you need to break compatibility,
+you should talk to the Kubernetes team first.</p>
+
+<p>Breaking compatibility of a beta or stable API version, such as v1, is unacceptable.
+Compatibility for experimental or alpha APIs is not strictly required, but
+breaking compatibility should not be done lightly, as it disrupts all users of the
+feature. Experimental APIs may be removed. Alpha and beta API versions may be deprecated
+and eventually removed wholesale, as described in the <a href="../design/versioning.html">versioning document</a>.
+Document incompatible changes across API versions under the <a href="../api.html">conversion tips</a>.</p>
+
+<p>If your change is going to be backward incompatible or might be a breaking change for API
+consumers, please send an announcement to <code>kubernetes-dev@googlegroups.com</code> before
+the change gets in. If you are unsure, ask. Also make sure that the change gets documented in
+the release notes for the next release by labeling the PR with the “release-note” github label.</p>
+
+<p>If you found that your change accidentally broke clients, it should be reverted.</p>
+
+<p>In short, the expected API evolution is as follows:
+* <code>extensions/v1alpha1</code> -&gt;
+* <code>newapigroup/v1alpha1</code> -&gt; … -&gt; <code>newapigroup/v1alphaN</code> -&gt;
+* <code>newapigroup/v1beta1</code> -&gt; … -&gt; <code>newapigroup/v1betaN</code> -&gt;
+* <code>newapigroup/v1</code> -&gt;
+* <code>newapigroup/v2alpha1</code> -&gt; …</p>
+
+<p>While in extensions we have no obligation to move forward with the API at all and may delete or break it at any time.</p>
+
+<p>While in alpha we expect to move forward with it, but may break it.</p>
+
+<p>Once in beta we will preserve forward compatibility, but may introduce new versions and delete old ones.</p>
+
+<p>v1 must be backward-compatible for an extended length of time.</p>
+
+<h2 id="changing-versioned-apis">Changing versioned APIs</h2>
+
+<p>For most changes, you will probably find it easiest to change the versioned
+APIs first.  This forces you to think about how to make your change in a
+compatible way.  Rather than doing each step in every version, it’s usually
+easier to do each versioned API one at a time, or to do all of one version
+before starting “all the rest”.</p>
+
+<h3 id="edit-typesgo">Edit types.go</h3>
+
+<p>The struct definitions for each API are in <code>pkg/api/&lt;version&gt;/types.go</code>.  Edit
+those files to reflect the change you want to make.  Note that all types and non-inline
+fields in versioned APIs must be preceded by descriptive comments - these are used to generate
+documentation.</p>
+
+<p>Optional fields should have the <code>,omitempty</code> json tag; fields are interpreted as being
+required otherwise.</p>
+
+<h3 id="edit-defaultsgo">Edit defaults.go</h3>
+
+<p>If your change includes new fields for which you will need default values, you
+need to add cases to <code>pkg/api/&lt;version&gt;/defaults.go</code>.  Of course, since you
+have added code, you have to add a test: <code>pkg/api/&lt;version&gt;/defaults_test.go</code>.</p>
+
+<p>Do use pointers to scalars when you need to distinguish between an unset value
+and an automatic zero value.  For example,
+<code>PodSpec.TerminationGracePeriodSeconds</code> is defined as <code>*int64</code> the go type
+definition.  A zero value means 0 seconds, and a nil value asks the system to
+pick a default.</p>
+
+<p>Don’t forget to run the tests!</p>
+
+<h3 id="edit-conversiongo">Edit conversion.go</h3>
+
+<p>Given that you have not yet changed the internal structs, this might feel
+premature, and that’s because it is.  You don’t yet have anything to convert to
+or from.  We will revisit this in the “internal” section.  If you’re doing this
+all in a different order (i.e. you started with the internal structs), then you
+should jump to that topic below.  In the very rare case that you are making an
+incompatible change you might or might not want to do this now, but you will
+have to do more later.  The files you want are
+<code>pkg/api/&lt;version&gt;/conversion.go</code> and <code>pkg/api/&lt;version&gt;/conversion_test.go</code>.</p>
+
+<p>Note that the conversion machinery doesn’t generically handle conversion of values,
+such as various kinds of field references and API constants. <a href="https://releases.k8s.io/release-1.1/pkg/client/unversioned/request.go">The client
+library</a> has custom conversion code for
+field references. You also need to add a call to api.Scheme.AddFieldLabelConversionFunc
+with a mapping function that understands supported translations.</p>
+
+<h2 id="changing-the-internal-structures">Changing the internal structures</h2>
+
+<p>Now it is time to change the internal structs so your versioned changes can be
+used.</p>
+
+<h3 id="edit-typesgo-1">Edit types.go</h3>
+
+<p>Similar to the versioned APIs, the definitions for the internal structs are in
+<code>pkg/api/types.go</code>.  Edit those files to reflect the change you want to make.
+Keep in mind that the internal structs must be able to express <em>all</em> of the
+versioned APIs.</p>
+
+<h2 id="edit-validationgo">Edit validation.go</h2>
+
+<p>Most changes made to the internal structs need some form of input validation.
+Validation is currently done on internal objects in
+<code>pkg/api/validation/validation.go</code>.  This validation is the one of the first
+opportunities we have to make a great user experience - good error messages and
+thorough validation help ensure that users are giving you what you expect and,
+when they don’t, that they know why and how to fix it.  Think hard about the
+contents of <code>string</code> fields, the bounds of <code>int</code> fields and the
+requiredness/optionalness of fields.</p>
+
+<p>Of course, code needs tests - <code>pkg/api/validation/validation_test.go</code>.</p>
+
+<h2 id="edit-version-conversions">Edit version conversions</h2>
+
+<p>At this point you have both the versioned API changes and the internal
+structure changes done.  If there are any notable differences - field names,
+types, structural change in particular - you must add some logic to convert
+versioned APIs to and from the internal representation.  If you see errors from
+the <code>serialization_test</code>, it may indicate the need for explicit conversions.</p>
+
+<p>Performance of conversions very heavily influence performance of apiserver.
+Thus, we are auto-generating conversion functions that are much more efficient
+than the generic ones (which are based on reflections and thus are highly
+inefficient).</p>
+
+<p>The conversion code resides with each versioned API. There are two files:
+   - <code>pkg/api/&lt;version&gt;/conversion.go</code> containing manually written conversion
+     functions
+   - <code>pkg/api/&lt;version&gt;/conversion_generated.go</code> containing auto-generated
+     conversion functions
+   - <code>pkg/apis/extensions/&lt;version&gt;/conversion.go</code> containing manually written
+     conversion functions
+   - <code>pkg/apis/extensions/&lt;version&gt;/conversion_generated.go</code> containing
+     auto-generated conversion functions</p>
+
+<p>Since auto-generated conversion functions are using manually written ones,
+those manually written should be named with a defined convention, i.e. a function
+converting type X in pkg a to type Y in pkg b, should be named:
+<code>convert_a_X_To_b_Y</code>.</p>
+
+<p>Also note that you can (and for efficiency reasons should) use auto-generated
+conversion functions when writing your conversion functions.</p>
+
+<p>Once all the necessary manually written conversions are added, you need to
+regenerate auto-generated ones. To regenerate them:
+   - run</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">hack/update-generated-conversions.sh
+</code></pre>
+</div>
+
+<p>If running the above script is impossible due to compile errors, the easiest
+workaround is to comment out the code causing errors and let the script to
+regenerate it. If the auto-generated conversion methods are not used by the
+manually-written ones, it’s fine to just remove the whole file and let the
+generator to create it from scratch.</p>
+
+<p>Unsurprisingly, adding manually written conversion also requires you to add tests to
+<code>pkg/api/&lt;version&gt;/conversion_test.go</code>.</p>
+
+<h2 id="edit-deep-copy-files">Edit deep copy files</h2>
+
+<p>At this point you have both the versioned API changes and the internal
+structure changes done.  You now need to generate code to handle deep copy
+of your versioned api objects.</p>
+
+<p>The deep copy code resides with each versioned API:
+   - <code>pkg/api/&lt;version&gt;/deep_copy_generated.go</code> containing auto-generated copy functions
+   - <code>pkg/apis/extensions/&lt;version&gt;/deep_copy_generated.go</code> containing auto-generated copy functions</p>
+
+<p>To regenerate them:
+   - run</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">hack/update-generated-deep-copies.sh
+</code></pre>
+</div>
+
+<h2 id="edit-json-unmarshaling-code">Edit json (un)marshaling code</h2>
+
+<p>We are auto-generating code for marshaling and unmarshaling json representation
+of api objects - this is to improve the overall system performance.</p>
+
+<p>The auto-generated code resides with each versioned API:
+   - <code>pkg/api/&lt;version&gt;/types.generated.go</code>
+   - <code>pkg/apis/extensions/&lt;version&gt;/types.generated.go</code></p>
+
+<p>To regenerate them:
+   - run</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">hack/update-codecgen.sh
+</code></pre>
+</div>
+
+<h2 id="making-a-new-api-group">Making a new API Group</h2>
+
+<p>This section is under construction, as we make the tooling completely generic.</p>
+
+<p>At the moment, you’ll have to make a new directory under pkg/apis/; copy the
+directory structure from pkg/apis/extensions. Add the new group/version to all
+of the hack/{verify,update}-generated-{deep-copy,conversions,swagger}.sh files
+in the appropriate places–it should just require adding your new group/version
+to a bash array. You will also need to make sure your new types are imported by
+the generation commands (cmd/gendeepcopy/ &amp; cmd/genconversion). These
+instructions may not be complete and will be updated as we gain experience.</p>
+
+<p>Adding API groups outside of the pkg/apis/ directory is not currently supported,
+but is clearly desirable. The deep copy &amp; conversion generators need to work by
+parsing go files instead of by reflection; then they will be easy to point at
+arbitrary directories: see issue <a href="http://issue.k8s.io/13775">#13775</a>.</p>
+
+<h2 id="update-the-fuzzer">Update the fuzzer</h2>
+
+<p>Part of our testing regimen for APIs is to “fuzz” (fill with random values) API
+objects and then convert them to and from the different API versions.  This is
+a great way of exposing places where you lost information or made bad
+assumptions.  If you have added any fields which need very careful formatting
+(the test does not run validation) or if you have made assumptions such as
+“this slice will always have at least 1 element”, you may get an error or even
+a panic from the <code>serialization_test</code>.  If so, look at the diff it produces (or
+the backtrace in case of a panic) and figure out what you forgot.  Encode that
+into the fuzzer’s custom fuzz functions.  Hint: if you added defaults for a field,
+that field will need to have a custom fuzz function that ensures that the field is
+fuzzed to a non-empty value.</p>
+
+<p>The fuzzer can be found in <code>pkg/api/testing/fuzzer.go</code>.</p>
+
+<h2 id="update-the-semantic-comparisons">Update the semantic comparisons</h2>
+
+<p>VERY VERY rarely is this needed, but when it hits, it hurts.  In some rare
+cases we end up with objects (e.g. resource quantities) that have morally
+equivalent values with different bitwise representations (e.g. value 10 with a
+base-2 formatter is the same as value 0 with a base-10 formatter).  The only way
+Go knows how to do deep-equality is through field-by-field bitwise comparisons.
+This is a problem for us.</p>
+
+<p>The first thing you should do is try not to do that.  If you really can’t avoid
+this, I’d like to introduce you to our semantic DeepEqual routine.  It supports
+custom overrides for specific types - you can find that in <code>pkg/api/helpers.go</code>.</p>
+
+<p>There’s one other time when you might have to touch this: unexported fields.
+You see, while Go’s <code>reflect</code> package is allowed to touch unexported fields, us
+mere mortals are not - this includes semantic DeepEqual.  Fortunately, most of
+our API objects are “dumb structs” all the way down - all fields are exported
+(start with a capital letter) and there are no unexported fields.  But sometimes
+you want to include an object in our API that does have unexported fields
+somewhere in it (for example, <code>time.Time</code> has unexported fields).  If this hits
+you, you may have to touch the semantic DeepEqual customization functions.</p>
+
+<h2 id="implement-your-change">Implement your change</h2>
+
+<p>Now you have the API all changed - go implement whatever it is that you’re
+doing!</p>
+
+<h2 id="write-end-to-end-tests">Write end-to-end tests</h2>
+
+<p>Check out the <a href="e2e-tests.html">E2E docs</a> for detailed information about how to write end-to-end
+tests for your feature.</p>
+
+<h2 id="examples-and-docs">Examples and docs</h2>
+
+<p>At last, your change is done, all unit tests pass, e2e passes, you’re done,
+right?  Actually, no.  You just changed the API.  If you are touching an
+existing facet of the API, you have to try <em>really</em> hard to make sure that
+<em>all</em> the examples and docs are updated.  There’s no easy way to do this, due
+in part to JSON and YAML silently dropping unknown fields.  You’re clever -
+you’ll figure it out.  Put <code>grep</code> or <code>ack</code> to good use.</p>
+
+<p>If you added functionality, you should consider documenting it and/or writing
+an example to illustrate your change.</p>
+
+<p>Make sure you update the swagger API spec by running:</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">hack/update-swagger-spec.sh
+</code></pre>
+</div>
+
+<p>The API spec changes should be in a commit separate from your other changes.</p>
+
+<h2 id="adding-new-rest-objects">Adding new REST objects</h2>
+
+<p>TODO(smarterclayton): write this.</p>
+
+<h2 id="alpha-beta-and-stable-versions">Alpha, Beta, and Stable Versions</h2>
+
+<p>New feature development proceeds through a series of stages of increasing maturity:</p>
+
+<ul>
+  <li>Development level
+    <ul>
+      <li>Object Versioning: no convention</li>
+      <li>Availability: not commited to main kubernetes repo, and thus not available in offical releases</li>
+      <li>Audience: other developers closely collaborating on a feature or proof-of-concept</li>
+      <li>Upgradeability, Reliability, Completeness, and Support: no requirements or guarantees</li>
+    </ul>
+  </li>
+  <li>Alpha level
+    <ul>
+      <li>Object Versioning: API version name contains <code>alpha</code> (e.g. <code>v1alpha1</code>)</li>
+      <li>Availability: committed to main kubernetes repo;  appears in an official release; feature is
+disabled by default, but may be enabled by flag</li>
+      <li>Audience: developers and expert users interested in giving early feedback on features</li>
+      <li>Completeness: some API operations, CLI commands, or UI support may not be implemented;  the API
+need not have had an <em>API review</em> (an intensive and targeted review of the API, on top of a normal
+code review)</li>
+      <li>Upgradeability: the object schema and semantics may change in a later software release, without
+any provision for preserving objects in an existing cluster;
+removing the upgradability concern allows developers to make rapid progress; in particular,
+API versions can increment faster than the minor release cadence and the developer need not
+maintain multiple versions; developers should still increment the API version when object schema
+or semantics change in an <a href="#on-compatibility">incompatible way</a></li>
+      <li>Cluster Reliability: because the feature is relatively new, and may lack complete end-to-end
+tests, enabling the feature via a flag might expose bugs with destabilize the cluster (e.g. a
+bug in a control loop might rapidly create excessive numbers of object, exhausting API storage).</li>
+      <li>Support: there is <em>no commitment</em> from the project to complete the feature; the feature may be
+dropped entirely in a later software release</li>
+      <li>Recommended Use Cases: only in short-lived testing clusters, due to complexity of upgradeability
+and lack of long-term support and lack of upgradability.</li>
+    </ul>
+  </li>
+  <li>Beta level:
+    <ul>
+      <li>Object Versioning: API version name contains <code>beta</code> (e.g. <code>v2beta3</code>)</li>
+      <li>Availability: in official Kubernetes releases, and enabled by default</li>
+      <li>Audience: users interested in providing feedback on features</li>
+      <li>Completeness: all API operations, CLI commands, and UI support should be implemented; end-to-end
+tests complete; the API has had a thorough API review and is thought to be complete, though use
+during beta may frequently turn up API issues not thought of during review</li>
+      <li>Upgradeability: the object schema and semantics may change in a later software release; when
+this happens, an upgrade path will be documentedr; in some cases, objects will be automatically
+converted to the new version; in other cases, a manual upgrade may be necessary;  a manual
+upgrade may require downtime for anything relying on the new feature, and may require
+manual conversion of objects to the new version; when manual conversion is necessary, the
+project will provide documentation on the process (for an example, see <a href="../api.html">v1 conversion
+tips</a>)</li>
+      <li>Cluster Reliability: since the feature has e2e tests, enabling the feature via a flag should not
+create new bugs in unrelated features;  because the feature is new, it may have minor bugs</li>
+      <li>Support: the project commits to complete the feature, in some form, in a subsequent Stable
+version;  typically this will happen within 3 months, but sometimes longer;  releases should
+simultaneously support two consecutive versions (e.g. <code>v1beta1</code> and <code>v1beta2</code>; or <code>v1beta2</code> and
+<code>v1</code>) for at least one minor release cycle (typically 3 months) so that users have enough time
+to upgrade and migrate objects</li>
+      <li>Recommended Use Cases: in short-lived testing clusters; in production clusters as part of a
+short-lived evaluation of the feature in order to provide feedback</li>
+    </ul>
+  </li>
+  <li>Stable level:
+    <ul>
+      <li>Object Versioning: API version <code>vX</code> where <code>X</code> is an integer (e.g. <code>v1</code>)</li>
+      <li>Availability: in official Kubernetes releases, and enabled by default</li>
+      <li>Audience: all users</li>
+      <li>Completeness: same as beta</li>
+      <li>Upgradeability: only <a href="#on-compatibility">strictly compatible</a> changes allowed in subsequent
+software releases</li>
+      <li>Cluster Reliability: high</li>
+      <li>Support: API version will continue to be present for many subsequent software releases;</li>
+      <li>Recommended Use Cases: any</li>
+    </ul>
+  </li>
+</ul>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/api_changes.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

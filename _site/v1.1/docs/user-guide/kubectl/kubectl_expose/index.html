@@ -1,0 +1,235 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - kubectl expose</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>kubectl expose</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h2 id="kubectl-expose">kubectl expose</h2>
+
+<p>Take a replication controller, service or pod and expose it as a new Kubernetes Service</p>
+
+<h3 id="synopsis">Synopsis</h3>
+
+<p>Take a replication controller, service or pod and expose it as a new Kubernetes Service.</p>
+
+<p>Looks up a replication controller, service or pod by name and uses the selector for that resource as the
+selector for a new Service on the specified port. If no labels are specified, the new service will
+re-use the labels from the resource it exposes.</p>
+
+<pre><code>
+kubectl expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP] [--target-port=number-or-name] [--name=name] [----external-ip=external-ip-of-service] [--type=type]
+
+</code></pre>
+
+<h3 id="examples">Examples</h3>
+
+<pre><code>
+# Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000.
+$ kubectl expose rc nginx --port=80 --target-port=8000
+
+# Create a service for a replication controller identified by type and name specified in "nginx-controller.yaml", which serves on port 80 and connects to the containers on port 8000.
+$ kubectl expose -f nginx-controller.yaml --port=80 --target-port=8000
+
+# Create a service for a pod valid-pod, which serves on port 444 with the name "frontend"
+$ kubectl expose pod valid-pod --port=444 --name=frontend
+
+# Create a second service based on the above service, exposing the container port 8443 as port 443 with the name "nginx-https"
+$ kubectl expose service nginx --port=443 --target-port=8443 --name=nginx-https
+
+# Create a service for a replicated streaming application on port 4100 balancing UDP traffic and named 'video-stream'.
+$ kubectl expose rc streamer --port=4100 --protocol=udp --name=video-stream
+
+</code></pre>
+
+<h3 id="options">Options</h3>
+
+<pre><code>
+      --container-port="": Synonym for --target-port
+      --dry-run[=false]: If true, only print the object that would be sent, without creating it.
+      --external-ip="": External IP address to set for the service. The service can be accessed by this IP in addition to its generated service IP.
+  -f, --filename=[]: Filename, directory, or URL to a file identifying the resource to expose a service
+      --generator="service/v2": The name of the API generator to use. There are 2 generators: 'service/v1' and 'service/v2'. The only difference between them is that service port in v1 is named 'default', while it is left unnamed in v2. Default is 'service/v2'.
+  -l, --labels="": Labels to apply to the service created by this call.
+      --load-balancer-ip="": IP to assign to to the Load Balancer. If empty, an ephemeral IP will be created and used(cloud-provider specific).
+      --name="": The name for the newly created object.
+      --no-headers[=false]: When using the default output, don't print headers.
+  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.1/docs/user-guide/jsonpath.md].
+      --output-version="": Output the formatted object with the given version (default api-version).
+      --overrides="": An inline JSON override for the generated object. If this is non-empty, it is used to override the generated object. Requires that the object supply a valid apiVersion field.
+      --port=-1: The port that the service should serve on. Copied from the resource being exposed, if unspecified
+      --protocol="TCP": The network protocol for the service to be created. Default is 'tcp'.
+      --selector="": A label selector to use for this service. If empty (the default) infer the selector from the replication controller.
+      --session-affinity="": If non-empty, set the session affinity for the service to this; legal values: 'None', 'ClientIP'
+  -a, --show-all[=false]: When printing, show all resources (default hide terminated pods.)
+      --sort-by="": If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. 'ObjectMeta.Name'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
+      --target-port="": Name or number for the port on the container that the service should direct traffic to. Optional.
+      --template="": Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
+      --type="": Type for this service: ClusterIP, NodePort, or LoadBalancer. Default is 'ClusterIP'.
+
+</code></pre>
+
+<h3 id="options-inherited-from-parent-commands">Options inherited from parent commands</h3>
+
+<pre><code>
+      --alsologtostderr[=false]: log to standard error as well as files
+      --api-version="": The API version to use when talking to the server
+      --certificate-authority="": Path to a cert. file for the certificate authority.
+      --client-certificate="": Path to a client key file for TLS.
+      --client-key="": Path to a client key file for TLS.
+      --cluster="": The name of the kubeconfig cluster to use
+      --context="": The name of the kubeconfig context to use
+      --insecure-skip-tls-verify[=false]: If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure.
+      --kubeconfig="": Path to the kubeconfig file to use for CLI requests.
+      --log-backtrace-at=:0: when logging hits line file:N, emit a stack trace
+      --log-dir="": If non-empty, write log files in this directory
+      --log-flush-frequency=5s: Maximum number of seconds between log flushes
+      --logtostderr[=true]: log to standard error instead of files
+      --match-server-version[=false]: Require server version to match client version
+      --namespace="": If present, the namespace scope for this CLI request.
+      --password="": Password for basic authentication to the API server.
+  -s, --server="": The address and port of the Kubernetes API server
+      --stderrthreshold=2: logs at or above this threshold go to stderr
+      --token="": Bearer token for authentication to the API server.
+      --user="": The name of the kubeconfig user to use
+      --username="": Username for basic authentication to the API server.
+      --v=0: log level for V logs
+      --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
+
+</code></pre>
+
+<h3 id="see-also">SEE ALSO</h3>
+
+<ul>
+  <li><a href="kubectl.html">kubectl</a>	 - kubectl controls the Kubernetes cluster manager</li>
+</ul>
+
+<h6 id="auto-generated-by-spf13cobra-at-2015-09-25-233947895322301-0000-utc">Auto generated by spf13/cobra at 2015-09-25 23:39:47.895322301 +0000 UTC</h6>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_expose.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

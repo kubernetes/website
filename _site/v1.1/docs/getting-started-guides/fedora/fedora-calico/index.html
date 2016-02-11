@@ -1,0 +1,551 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Running Kubernetes with Calico Networking on a Digital Ocean Fedora Host</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Running Kubernetes with Calico Networking on a Digital Ocean Fedora Host</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h2 id="running-kubernetes-with-calico-networkinghttpprojectcalicoorg-on-a-digital-oceanhttpdigitaloceancom-fedora-hosthttpfedoraprojectorg">Running Kubernetes with <a href="http://projectcalico.org">Calico Networking</a> on a <a href="http://digitalocean.com">Digital Ocean</a> <a href="http://fedoraproject.org">Fedora Host</a></h2>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li><a href="#prerequisites">Prerequisites</a></li>
+  <li><a href="#overview">Overview</a></li>
+  <li><a href="#setup-communication-between-hosts">Setup Communication Between Hosts</a></li>
+  <li><a href="#setup-master">Setup Master</a>
+    <ul>
+      <li><a href="#install-etcd">Install etcd</a></li>
+      <li><a href="#install-kubernetes">Install Kubernetes</a></li>
+      <li><a href="#install-calico">Install Calico</a></li>
+    </ul>
+  </li>
+  <li><a href="#setup-node">Setup Node</a>
+    <ul>
+      <li><a href="#configure-the-virtual-interface---cbr0">Configure the Virtual Interface - cbr0</a></li>
+      <li><a href="#install-docker">Install Docker</a></li>
+      <li><a href="#install-calico-1">Install Calico</a></li>
+      <li><a href="#install-kubernetes-1">Install Kubernetes</a></li>
+    </ul>
+  </li>
+  <li><a href="#check-running-cluster">Check Running Cluster</a></li>
+</ul>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>You need two or more Fedora 22 droplets on Digital Ocean with <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-digitalocean-private-networking">Private Networking</a> enabled.</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>This guide will walk you through the process of getting a Kubernetes Fedora cluster running on Digital Ocean with networking powered by Calico networking. It will cover the installation and configuration of the following systemd processes on the following hosts:</p>
+
+<p>Kubernetes Master:
+- <code>kube-apiserver</code>
+- <code>kube-controller-manager</code>
+- <code>kube-scheduler</code>
+- <code>etcd</code>
+- <code>docker</code>
+- <code>calico-node</code></p>
+
+<p>Kubernetes Node:
+- <code>kubelet</code>
+- <code>kube-proxy</code>
+- <code>docker</code>
+- <code>calico-node</code></p>
+
+<p>For this demo, we will be setting up one Master and one Node with the following information:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hostname</th>
+      <th>IP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>kube-master</td>
+      <td>10.134.251.56</td>
+    </tr>
+    <tr>
+      <td>kube-node-1</td>
+      <td>10.134.251.55</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This guide is scalable to multiple nodes provided you <a href="#configure-the-virtual-interface---cbr0">configure interface-cbr0 with its own subnet on each Node</a> and <a href="#setup-communication-between-hosts">add an entry to /etc/hosts for each host</a>.</p>
+
+<p>Ensure you substitute the IP Addresses and Hostnames used in this guide with ones in your own setup.</p>
+
+<h2 id="setup-communication-between-hosts">Setup Communication Between Hosts</h2>
+
+<p>Digital Ocean private networking configures a private network on eth1 for each host.  To simplify communication between the hosts, we will add an entry to /etc/hosts so that all hosts in the cluster can hostname-resolve one another to this interface.  <strong>It is important that the hostname resolves to this interface instead of eth0, as all Kubernetes and Calico services will be running on it.</strong></p>
+
+<pre><code>
+echo "10.134.251.56 kube-master" &gt;&gt; /etc/hosts
+echo "10.134.251.55 kube-node-1" &gt;&gt; /etc/hosts
+
+</code></pre>
+
+<blockquote>
+  <p>Make sure that communication works between kube-master and each kube-node by using a utility such as ping.</p>
+</blockquote>
+
+<h2 id="setup-master">Setup Master</h2>
+
+<h3 id="install-etcd">Install etcd</h3>
+
+<ul>
+  <li>Both Calico and Kubernetes use etcd as their datastore. We will run etcd on Master and point all Kubernetes and Calico services at it.</li>
+</ul>
+
+<pre><code>
+yum -y install etcd
+
+</code></pre>
+
+<ul>
+  <li>Edit <code>/etc/etcd/etcd.conf</code></li>
+</ul>
+
+<pre><code>
+ETCD_LISTEN_CLIENT_URLS="http://kube-master:4001"
+
+ETCD_ADVERTISE_CLIENT_URLS="http://kube-master:4001"
+
+</code></pre>
+
+<h3 id="install-kubernetes">Install Kubernetes</h3>
+
+<ul>
+  <li>Run the following command on Master to install the latest Kubernetes (as well as docker):</li>
+</ul>
+
+<pre><code>
+yum -y install kubernetes
+
+</code></pre>
+
+<ul>
+  <li>Edit <code>/etc/kubernetes/config </code></li>
+</ul>
+
+<pre><code>
+# How the controller-manager, scheduler, and proxy find the apiserver
+KUBE_MASTER="--master=http://kube-master:8080"
+
+</code></pre>
+
+<ul>
+  <li>Edit <code>/etc/kubernetes/apiserver</code></li>
+</ul>
+
+<pre><code>
+# The address on the local server to listen to.
+KUBE_API_ADDRESS="--insecure-bind-address=0.0.0.0"
+
+KUBE_ETCD_SERVERS="--etcd-servers=http://kube-master:4001"
+
+# Remove ServiceAccount from this line to run without API Tokens
+KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ResourceQuota"
+
+</code></pre>
+
+<ul>
+  <li>Create /var/run/kubernetes on master:</li>
+</ul>
+
+<pre><code>
+mkdir /var/run/kubernetes
+chown kube:kube /var/run/kubernetes
+chmod 750 /var/run/kubernetes
+
+</code></pre>
+
+<ul>
+  <li>Start the appropriate services on master:</li>
+</ul>
+
+<pre><code>
+for SERVICE in etcd kube-apiserver kube-controller-manager kube-scheduler; do
+    systemctl restart $SERVICE
+    systemctl enable $SERVICE
+    systemctl status $SERVICE
+done
+
+</code></pre>
+
+<h3 id="install-calico">Install Calico</h3>
+
+<p>Next, we’ll launch Calico on Master to allow communication between Pods and any services running on the Master.
+* Install calicoctl, the calico configuration tool.</p>
+
+<pre><code>
+wget https://github.com/Metaswitch/calico-docker/releases/download/v0.5.5/calicoctl
+chmod +x ./calicoctl
+sudo mv ./calicoctl /usr/bin
+
+</code></pre>
+
+<ul>
+  <li>Create <code>/etc/systemd/system/calico-node.service</code></li>
+</ul>
+
+<pre><code>
+[Unit]
+Description=calicoctl node
+Requires=docker.service
+After=docker.service
+
+[Service]
+User=root
+Environment="ETCD_AUTHORITY=kube-master:4001"
+PermissionsStartOnly=true
+ExecStartPre=/usr/bin/calicoctl checksystem --fix
+ExecStart=/usr/bin/calicoctl node --ip=10.134.251.56 --detach=false
+
+[Install]
+WantedBy=multi-user.target
+
+</code></pre>
+
+<blockquote>
+  <p>Be sure to substitute <code>--ip=10.134.251.56</code> with your Master’s eth1 IP Address.</p>
+</blockquote>
+
+<ul>
+  <li>Start Calico</li>
+</ul>
+
+<pre><code>
+systemctl enable calico-node.service
+systemctl start calico-node.service
+
+</code></pre>
+
+<blockquote>
+  <p>Starting calico for the first time may take a few minutes as the calico-node docker image is downloaded.</p>
+</blockquote>
+
+<h2 id="setup-node">Setup Node</h2>
+
+<h3 id="configure-the-virtual-interface---cbr0">Configure the Virtual Interface - cbr0</h3>
+
+<p>By default, docker will create and run on a virtual interface called <code>docker0</code>. This interface is automatically assigned the address range 172.17.42.1/16. In order to set our own address range, we will create a new virtual interface called <code>cbr0</code> and then start docker on it.</p>
+
+<ul>
+  <li>Add a virtual interface by creating <code>/etc/sysconfig/network-scripts/ifcfg-cbr0</code>:</li>
+</ul>
+
+<pre><code>
+DEVICE=cbr0
+TYPE=Bridge
+IPADDR=192.168.1.1
+NETMASK=255.255.255.0
+ONBOOT=yes
+BOOTPROTO=static
+
+</code></pre>
+
+<blockquote>
+  <p><strong>Note for Multi-Node Clusters:</strong> Each node should be assigned an IP address on a unique subnet. In this example, node-1 is using 192.168.1.1/24, so node-2 should be assigned another pool on the 192.168.x.0/24 subnet, e.g. 192.168.2.1/24.</p>
+</blockquote>
+
+<ul>
+  <li>Ensure that your system has bridge-utils installed. Then, restart the networking daemon to activate the new interface</li>
+</ul>
+
+<pre><code>
+systemctl restart network.service
+
+</code></pre>
+
+<h3 id="install-docker">Install Docker</h3>
+
+<ul>
+  <li>Install Docker</li>
+</ul>
+
+<pre><code>
+yum -y install docker
+
+</code></pre>
+
+<ul>
+  <li>Configure docker to run on <code>cbr0</code> by editing <code>/etc/sysconfig/docker-network</code>:</li>
+</ul>
+
+<pre><code>
+DOCKER_NETWORK_OPTIONS="--bridge=cbr0 --iptables=false --ip-masq=false"
+
+</code></pre>
+
+<ul>
+  <li>Start docker</li>
+</ul>
+
+<pre><code>
+systemctl start docker
+
+</code></pre>
+
+<h3 id="install-calico-1">Install Calico</h3>
+
+<ul>
+  <li>Install calicoctl, the calico configuration tool.</li>
+</ul>
+
+<pre><code>
+wget https://github.com/Metaswitch/calico-docker/releases/download/v0.5.5/calicoctl
+chmod +x ./calicoctl
+sudo mv ./calicoctl /usr/bin
+
+</code></pre>
+
+<ul>
+  <li>Create <code>/etc/systemd/system/calico-node.service</code></li>
+</ul>
+
+<pre><code>
+[Unit]
+Description=calicoctl node
+Requires=docker.service
+After=docker.service
+
+[Service]
+User=root
+Environment="ETCD_AUTHORITY=kube-master:4001"
+PermissionsStartOnly=true
+ExecStartPre=/usr/bin/calicoctl checksystem --fix
+ExecStart=/usr/bin/calicoctl node --ip=10.134.251.55 --detach=false --kubernetes
+
+[Install]
+WantedBy=multi-user.target
+
+</code></pre>
+
+<blockquote>
+  <p>Note: You must replace the IP address with your node’s eth1 IP Address!</p>
+</blockquote>
+
+<ul>
+  <li>Start Calico</li>
+</ul>
+
+<pre><code>
+systemctl enable calico-node.service
+systemctl start calico-node.service
+
+</code></pre>
+
+<ul>
+  <li>Configure the IP Address Pool</li>
+</ul>
+
+<p>Most Kubernetes application deployments will require communication between Pods and the kube-apiserver on Master. On a  standard Digital Ocean Private Network, requests sent from Pods to the kube-apiserver will not be returned as the networking fabric will drop response packets destined for any 192.168.0.0/16 address. To resolve this, you can have calicoctl add a masquerade rule to all outgoing traffic on the node:</p>
+
+<pre><code>
+ETCD_AUTHORITY=kube-master:4001 calicoctl pool add 192.168.0.0/16 --nat-outgoing
+
+</code></pre>
+
+<h3 id="install-kubernetes-1">Install Kubernetes</h3>
+
+<ul>
+  <li>First, install Kubernetes.</li>
+</ul>
+
+<pre><code>
+yum -y install kubernetes
+
+</code></pre>
+
+<ul>
+  <li>Edit <code>/etc/kubernetes/config</code></li>
+</ul>
+
+<pre><code>
+# How the controller-manager, scheduler, and proxy find the apiserver
+KUBE_MASTER="--master=http://kube-master:8080"
+
+</code></pre>
+
+<ul>
+  <li>
+    <p>Edit <code>/etc/kubernetes/kubelet</code></p>
+
+    <p>We’ll pass in an extra parameter - <code>--network-plugin=calico</code> to tell the Kubelet to use the Calico networking plugin. Additionally, we’ll add two environment variables that will be used by the Calico networking plugin.</p>
+  </li>
+</ul>
+
+<pre><code>
+# The address for the info server to serve on (set to 0.0.0.0 or "" for all interfaces)
+KUBELET_ADDRESS="--address=0.0.0.0"
+
+# You may leave this blank to use the actual hostname
+# KUBELET_HOSTNAME="--hostname-override=127.0.0.1"
+
+# location of the api-server
+KUBELET_API_SERVER="--api-servers=http://kube-master:8080"
+
+# Add your own!
+KUBELET_ARGS="--network-plugin=calico"
+
+# The following are variables which the kubelet will pass to the calico-networking plugin
+ETCD_AUTHORITY="kube-master:4001"
+KUBE_API_ROOT="http://kube-master:8080/api/v1"
+
+</code></pre>
+
+<ul>
+  <li>Start Kubernetes on the node.</li>
+</ul>
+
+<pre><code>
+for SERVICE in kube-proxy kubelet; do 
+    systemctl restart $SERVICE
+    systemctl enable $SERVICE
+    systemctl status $SERVICE 
+done
+
+</code></pre>
+
+<h2 id="check-running-cluster">Check Running Cluster</h2>
+
+<p>The cluster should be running! Check that your nodes are reporting as such:</p>
+
+<pre><code>
+kubectl get nodes
+NAME          LABELS                               STATUS
+kube-node-1   kubernetes.io/hostname=kube-node-1   Ready
+
+</code></pre>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/fedora/fedora-calico.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

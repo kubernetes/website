@@ -1,0 +1,314 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Security Contexts</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Security Contexts</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="security-contexts">Security Contexts</h1>
+
+<h2 id="abstract">Abstract</h2>
+
+<p>A security context is a set of constraints that are applied to a container in order to achieve the following goals (from <a href="security.html">security design</a>):</p>
+
+<ol>
+  <li>Ensure a clear isolation between container and the underlying host it runs on</li>
+  <li>Limit the ability of the container to negatively impact the infrastructure or other containers</li>
+</ol>
+
+<h2 id="background">Background</h2>
+
+<p>The problem of securing containers in Kubernetes has come up <a href="http://issue.k8s.io/398">before</a> and the potential problems with container security are <a href="http://opensource.com/business/14/7/docker-security-selinux">well known</a>. Although it is not possible to completely isolate Docker containers from their hosts, new features like <a href="https://github.com/docker/libcontainer/pull/304">user namespaces</a> make it possible to greatly reduce the attack surface.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<h3 id="container-isolation">Container isolation</h3>
+
+<p>In order to improve container isolation from host and other containers running on the host, containers should only be
+granted the access they need to perform their work. To this end it should be possible to take advantage of Docker
+features such as the ability to <a href="https://docs.docker.com/reference/run/#runtime-privilege-linux-capabilities-and-lxc-configuration">add or remove capabilities</a> and <a href="https://docs.docker.com/reference/run/#security-configuration">assign MCS labels</a>
+to the container process.</p>
+
+<p>Support for user namespaces has recently been <a href="https://github.com/docker/libcontainer/pull/304">merged</a> into Docker’s libcontainer project and should soon surface in Docker itself. It will make it possible to assign a range of unprivileged uids and gids from the host to each container, improving the isolation between host and container and between containers.</p>
+
+<h3 id="external-integration-with-shared-storage">External integration with shared storage</h3>
+
+<p>In order to support external integration with shared storage, processes running in a Kubernetes cluster
+should be able to be uniquely identified by their Unix UID, such that a chain of  ownership can be established.
+Processes in pods will need to have consistent UID/GID/SELinux category labels in order to access shared disks.</p>
+
+<h2 id="constraints-and-assumptions">Constraints and Assumptions</h2>
+
+<ul>
+  <li>It is out of the scope of this document to prescribe a specific set
+of constraints to isolate containers from their host. Different use cases need different
+settings.</li>
+  <li>The concept of a security context should not be tied to a particular security mechanism or platform
+(ie. SELinux, AppArmor)</li>
+  <li>Applying a different security context to a scope (namespace or pod) requires a solution such as the one proposed for
+<a href="service_accounts.html">service accounts</a>.</li>
+</ul>
+
+<h2 id="use-cases">Use Cases</h2>
+
+<p>In order of increasing complexity, following are example use cases that would
+be addressed with security contexts:</p>
+
+<ol>
+  <li>Kubernetes is used to run a single cloud application. In order to protect
+nodes from containers:
+    <ul>
+      <li>All containers run as a single non-root user</li>
+      <li>Privileged containers are disabled</li>
+      <li>All containers run with a particular MCS label</li>
+      <li>Kernel capabilities like CHOWN and MKNOD are removed from containers</li>
+    </ul>
+  </li>
+  <li>Just like case #1, except that I have more than one application running on
+the Kubernetes cluster.
+    <ul>
+      <li>Each application is run in its own namespace to avoid name collisions</li>
+      <li>For each application a different uid and MCS label is used</li>
+    </ul>
+  </li>
+  <li>Kubernetes is used as the base for a PAAS with
+multiple projects, each project represented by a namespace.
+    <ul>
+      <li>Each namespace is associated with a range of uids/gids on the node that
+are mapped to uids/gids on containers using linux user namespaces.</li>
+      <li>Certain pods in each namespace have special privileges to perform system
+actions such as talking back to the server for deployment, run docker
+builds, etc.</li>
+      <li>External NFS storage is assigned to each namespace and permissions set
+using the range of uids/gids assigned to that namespace.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="proposed-design">Proposed Design</h2>
+
+<h3 id="overview">Overview</h3>
+
+<p>A <em>security context</em> consists of a set of constraints that determine how a container
+is secured before getting created and run. A security context resides on the container and represents the runtime parameters that will
+be used to create and run the container via container APIs. A <em>security context provider</em> is passed to the Kubelet so it can have a chance
+to mutate Docker API calls in order to apply the security context.</p>
+
+<p>It is recommended that this design be implemented in two phases:</p>
+
+<ol>
+  <li>Implement the security context provider extension point in the Kubelet
+so that a default security context can be applied on container run and creation.</li>
+  <li>Implement a security context structure that is part of a service account. The
+default context provider can then be used to apply a security context based
+on the service account associated with the pod.</li>
+</ol>
+
+<h3 id="security-context-provider">Security Context Provider</h3>
+
+<p>The Kubelet will have an interface that points to a <code>SecurityContextProvider</code>. The <code>SecurityContextProvider</code> is invoked before creating and running a given container:</p>
+
+<div class="highlight">
+  <pre><code class="language-go">type SecurityContextProvider interface {
+	// ModifyContainerConfig is called before the Docker createContainer call.
+	// The security context provider can make changes to the Config with which
+	// the container is created.
+	// An error is returned if it's not possible to secure the container as 
+	// requested with a security context. 
+	ModifyContainerConfig(pod *api.Pod, container *api.Container, config *docker.Config)
+	
+	// ModifyHostConfig is called before the Docker runContainer call.
+	// The security context provider can make changes to the HostConfig, affecting
+	// security options, whether the container is privileged, volume binds, etc.
+	// An error is returned if it's not possible to secure the container as requested 
+	// with a security context. 
+	ModifyHostConfig(pod *api.Pod, container *api.Container, hostConfig *docker.HostConfig)
+}
+</code></pre>
+</div>
+
+<p>If the value of the SecurityContextProvider field on the Kubelet is nil, the kubelet will create and run the container as it does today.</p>
+
+<h3 id="security-context">Security Context</h3>
+
+<p>A security context resides on the container and represents the runtime parameters that will
+be used to create and run the container via container APIs. Following is an example of an initial implementation:</p>
+
+<div class="highlight">
+  <pre><code class="language-go">type Container struct {
+	... other fields omitted ...
+	// Optional: SecurityContext defines the security options the pod should be run with
+    SecurityContext *SecurityContext
+}
+
+// SecurityContext holds security configuration that will be applied to a container.  SecurityContext
+// contains duplication of some existing fields from the Container resource.  These duplicate fields
+// will be populated based on the Container configuration if they are not set.  Defining them on
+// both the Container AND the SecurityContext will result in an error.
+type SecurityContext struct {
+	// Capabilities are the capabilities to add/drop when running the container
+	Capabilities *Capabilities
+
+	// Run the container in privileged mode
+	Privileged *bool
+
+	// SELinuxOptions are the labels to be applied to the container
+	// and volumes
+	SELinuxOptions *SELinuxOptions
+
+	// RunAsUser is the UID to run the entrypoint of the container process.
+	RunAsUser *int64
+}
+
+// SELinuxOptions are the labels to be applied to the container.
+type SELinuxOptions struct {
+	// SELinux user label
+	User string
+
+	// SELinux role label
+	Role string
+
+	// SELinux type label
+	Type string
+
+	// SELinux level label.
+	Level string
+}
+</code></pre>
+</div>
+
+<h3 id="admission">Admission</h3>
+
+<p>It is up to an admission plugin to determine if the security context is acceptable or not.  At the
+time of writing, the admission control plugin for security contexts will only allow a context that
+has defined capabilities or privileged.  Contexts that attempt to define a UID or SELinux options
+will be denied by default.  In the future the admission plugin will base this decision upon
+configurable policies that reside within the <a href="http://pr.k8s.io/2297">service account</a>.</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/security_context.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

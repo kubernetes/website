@@ -1,0 +1,186 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - devel/coding-conventions</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>devel/coding-conventions</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+<p>Code conventions
+  - Bash
+    - https://google-styleguide.googlecode.com/svn/trunk/shell.xml
+    - Ensure that build, release, test, and cluster-management scripts run on OS X
+  - Go
+    - Ensure your code passes the <a href="development.html#hooks">presubmit checks</a>
+    - <a href="https://github.com/golang/go/wiki/CodeReviewComments">Go Code Review Comments</a>
+    - <a href="https://golang.org/doc/effective_go.html">Effective Go</a>
+    - Comment your code.
+      - <a href="http://blog.golang.org/godoc-documenting-go-code">Go’s commenting conventions</a>
+      - If reviewers ask questions about why the code is the way it is, that’s a sign that comments might be helpful.
+    - Command-line flags should use dashes, not underscores
+    - Naming
+      - Please consider package name when selecting an interface name, and avoid redundancy.
+        - e.g.: <code>storage.Interface</code> is better than <code>storage.StorageInterface</code>.
+      - Do not use uppercase characters, underscores, or dashes in package names.
+      - Please consider parent directory name when choosing a package name.
+        - so pkg/controllers/autoscaler/foo.go should say <code>package autoscaler</code> not <code>package autoscalercontroller</code>.
+        - Unless there’s a good reason, the <code>package foo</code> line should match the name of the directory in which the .go file exists.
+        - Importers can use a different name if they need to disambiguate.
+      - Locks should be called <code>lock</code> and should never be embedded (always <code>lock sync.Mutex</code>). When multiple locks are present, give each lock a distinct name following Go conventions - <code>stateLock</code>, <code>mapLock</code> etc.
+    - API conventions
+      - <a href="api_changes.html">API changes</a>
+      - <a href="api-conventions.html">API conventions</a>
+    - <a href="kubectl-conventions.html">Kubectl conventions</a>
+    - <a href="logging.html">Logging conventions</a></p>
+
+<p>Testing conventions
+  - All new packages and most new significant functionality must come with unit tests
+  - Table-driven tests are preferred for testing multiple scenarios/inputs; for example, see <a href="https://releases.k8s.io/release-1.1/test/integration/auth_test.go">TestNamespaceAuthorization</a>
+  - Significant features should come with integration (test/integration) and/or end-to-end (test/e2e) tests
+    - Including new kubectl commands and major features of existing commands
+  - Unit tests must pass on OS X and Windows platforms - if you use Linux specific features, your test case must either be skipped on windows or compiled out (skipped is better when running Linux specific commands, compiled out is required when your code does not compile on Windows).</p>
+
+<p>Directory and file conventions
+  - Avoid package sprawl. Find an appropriate subdirectory for new packages. (See <a href="http://issues.k8s.io/4851">#4851</a> for discussion.)
+    - Libraries with no more appropriate home belong in new package subdirectories of pkg/util
+  - Avoid general utility packages. Packages called “util” are suspect. Instead, derive a name that describes your desired function. For example, the utility functions dealing with waiting for operations are in the “wait” package and include functionality like Poll. So the full name is wait.Poll
+  - Go source files and directories use underscores, not dashes
+    - Package directories should generally avoid using separators as much as possible (when packages are multiple words, they usually should be in nested subdirectories).
+  - Document directories and filenames should use dashes rather than underscores
+  - Contrived examples that illustrate system features belong in /docs/user-guide or /docs/admin, depending on whether it is a feature primarily intended for users that deploy applications or cluster administrators, respectively. Actual application examples belong in /examples.
+    - Examples should also illustrate <a href="../user-guide/config-best-practices.html">best practices for using the system</a>
+  - Third-party code
+    - Third-party Go code is managed using Godeps
+    - Other third-party code belongs in /third_party
+    - Third-party code must include licenses
+    - This includes modified third-party code and excerpts, as well</p>
+
+<p>Coding advice
+  - Go
+    - <a href="https://gist.github.com/lavalamp/4bd23295a9f32706a48f">Go landmines</a></p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/coding-conventions.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

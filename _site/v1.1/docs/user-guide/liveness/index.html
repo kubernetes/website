@@ -1,0 +1,222 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Overview</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Overview</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h2 id="overview">Overview</h2>
+
+<p>This example shows two types of pod <a href="../production-pods.html#liveness-and-readiness-probes-aka-health-checks">health checks</a>: HTTP checks and container execution checks.</p>
+
+<p>The <a href="exec-liveness.yaml">exec-liveness.yaml</a> demonstrates the container execution check.</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/health
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+</code></pre>
+</div>
+
+<p>Kubelet executes the command <code>cat /tmp/health</code> in the container and reports failure if the command returns a non-zero exit code.</p>
+
+<p>Note that the container removes the <code>/tmp/health</code> file after 10 seconds,</p>
+
+<div class="highlight">
+  <pre><code class="language-sh">echo ok &gt; /tmp/health; sleep 10; rm -rf /tmp/health; sleep 600
+</code></pre>
+</div>
+
+<p>so when Kubelet executes the health check 15 seconds (defined by initialDelaySeconds) after the container started, the check would fail.</p>
+
+<p>The <a href="http-liveness.yaml">http-liveness.yaml</a> demonstrates the HTTP check.</p>
+
+<div class="highlight">
+  <pre><code class="language-yaml">livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+</code></pre>
+</div>
+
+<p>The Kubelet sends an HTTP request to the specified path and port to perform the health check. If you take a look at image/server.go, you will see the server starts to respond with an error code 500 after 10 seconds, so the check fails. The Kubelet sends the probe to the container’s ip address by default which could be specified with <code>host</code> as part of httpGet probe. If the container listens on <code>127.0.0.1</code>, <code>host</code> should be specified as <code>127.0.0.1</code>. In general, if the container listens on its ip address or on all interfaces (0.0.0.0), there is no need to specify the <code>host</code> as part of the httpGet probe.</p>
+
+<p>This <a href="../walkthrough/k8s201.html#health-checking">guide</a> has more information on health checks.</p>
+
+<h2 id="get-your-hands-dirty">Get your hands dirty</h2>
+
+<p>To show the health check is actually working, first create the pods:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl create -f docs/user-guide/liveness/exec-liveness.yaml
+$ kubectl create -f docs/user-guide/liveness/http-liveness.yaml
+</code></pre>
+</div>
+
+<p>Check the status of the pods once they are created:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get pods
+NAME                                           READY     STATUS       RESTARTS   AGE
+[...]
+liveness-exec                                  1/1       Running      0          13s
+liveness-http                                  1/1       Running      0          13s
+</code></pre>
+</div>
+
+<p>Check the status half a minute later, you will see the container restart count being incremented:</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl get pods
+NAME                                           READY     STATUS       RESTARTS   AGE
+[...]
+liveness-exec                                  1/1       Running      1          36s
+liveness-http                                  1/1       Running      1          36s
+</code></pre>
+</div>
+
+<p>At the bottom of the <em>kubectl describe</em> output there are messages indicating that the liveness probes have failed, and the containers have been killed and recreated.</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ kubectl describe pods liveness-exec
+[...]
+Sat, 27 Jun 2015 13:43:03 +0200    Sat, 27 Jun 2015 13:44:34 +0200    4    {kubelet kubernetes-minion-6fbi}    spec.containers{liveness}    unhealthy  Liveness probe failed: cat: can't open '/tmp/health': No such file or directory
+Sat, 27 Jun 2015 13:44:44 +0200    Sat, 27 Jun 2015 13:44:44 +0200    1    {kubelet kubernetes-minion-6fbi}    spec.containers{liveness}    killing    Killing with docker id 65b52d62c635
+Sat, 27 Jun 2015 13:44:44 +0200    Sat, 27 Jun 2015 13:44:44 +0200    1    {kubelet kubernetes-minion-6fbi}    spec.containers{liveness}    created    Created with docker id ed6bb004ee10
+Sat, 27 Jun 2015 13:44:44 +0200    Sat, 27 Jun 2015 13:44:44 +0200    1    {kubelet kubernetes-minion-6fbi}    spec.containers{liveness}    started    Started with docker id ed6bb004ee10
+</code></pre>
+</div>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/liveness/README.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,270 @@
+<!Doctype html>
+<html id="docs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/styles.css"/>
+	<script src="/js/script.js"></script>
+    <script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/non-mini.js"></script>
+    <title>Kubernetes - Sharing Cluster Access</title>
+</head>
+<body>
+<div id="cellophane" onclick="kub.toggleMenu()"></div>
+<header>
+	<a href="/" class="logo"></a>
+	<div class="nav-buttons" data-auto-burger="primary">
+		<a href="/docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/get-started" class="button" id="tryKubernetes">Try Kubernetes</a>
+		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+	</div>
+
+	<nav id="mainNav">
+		<main data-auto-burger="primary">
+			<div class="nav-box">
+				<h3><a href="">Get Started</a></h3>
+				<p>Built for a multi-cloud world, public, private or hybrid. Seamlessly roll out new features.</p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Documentation</a></h3>
+				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Community</a></h3>
+				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
+			</div>
+			<div class="nav-box">
+				<h3><a href="">Blog</a></h3>
+				<p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in. </p>
+			</div>
+		</main>
+		<main data-auto-burger="primary">
+			<div class="left">
+				<h5 class="github-invite">Interested in hacking on the core Kubernetes code base?</h5>
+				<a href="" class="button">View On Github</a>
+			</div>
+
+			<div class="right">
+				<h5 class="github-invite">Explore the community</h5>
+				<div class="social">
+					<a href="https://twitter.com/kubernetesio" class="Twitter"><span>twitter</span></a>
+					<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+					<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+					<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+					<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+				</div>
+			</div>
+			<div class="clear" style="clear: both"></div>
+		</main>
+	</nav>
+</header>
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<h1></h1>
+	<h5></h5>
+	<div id="vendorStrip" class="light-text">
+		<ul>
+			<li><a href="/v1.1/guides">GUIDES</a></li>
+			<li><a href="/v1.1/reference">REFERENCE</a></li>
+			<li><a href="/v1.1/samples">SAMPLES</a></li>
+			<li><a href="/v1.1/support">SUPPORT</a></li>
+		</ul>
+		<div class="dropdown">
+			<div class="readout"></div>
+			<a href="/v1.1">Version 1.1</a>
+			<a href="/v1.0">Version 1.0</a>
+		</div>
+		<input type="text" id="search" placeholder="Search the docs">
+	</div>
+</section>
+
+<section id="encyclopedia">
+	<div id="docsToc">
+        <div class="pi-accordion">
+            
+            
+
+        </div> <!-- /pi-accordion -->
+	</div> <!-- /docsToc -->
+	<div id="docsContent">
+    	<h1>Sharing Cluster Access</h1>
+		<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+
+<!-- END MUNGE: UNVERSIONED_WARNING -->
+
+<h1 id="sharing-cluster-access">Sharing Cluster Access</h1>
+
+<p>Client access to a running Kubernetes cluster can be shared by copying
+the <code>kubectl</code> client config bundle (<a href="kubeconfig-file.html">kubeconfig</a>).
+This config bundle lives in <code>$HOME/.kube/config</code>, and is generated
+by <code>cluster/kube-up.sh</code>. Sample steps for sharing <code>kubeconfig</code> below.</p>
+
+<p><strong>1. Create a cluster</strong></p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ cluster/kube-up.sh
+</code></pre>
+</div>
+
+<p><strong>2. Copy <code>kubeconfig</code> to new host</strong></p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ scp $HOME/.kube/config user@remotehost:/path/to/.kube/config
+</code></pre>
+</div>
+
+<p><strong>3. On new host, make copied <code>config</code> available to <code>kubectl</code></strong></p>
+
+<ul>
+  <li>Option A: copy to default location</li>
+</ul>
+
+<div class="highlight">
+  <pre><code class="language-console">$ mv /path/to/.kube/config $HOME/.kube/config
+</code></pre>
+</div>
+
+<ul>
+  <li>Option B: copy to working directory (from which kubectl is run)</li>
+</ul>
+
+<div class="highlight">
+  <pre><code class="language-console">$ mv /path/to/.kube/config $PWD
+</code></pre>
+</div>
+
+<ul>
+  <li>Option C: manually pass <code>kubeconfig</code> location to <code>kubectl</code></li>
+</ul>
+
+<div class="highlight">
+  <pre><code class="language-console"># via environment variable
+$ export KUBECONFIG=/path/to/.kube/config
+
+# via commandline flag
+$ kubectl ... --kubeconfig=/path/to/.kube/config
+</code></pre>
+</div>
+
+<h2 id="manually-generating-kubeconfig">Manually Generating <code>kubeconfig</code></h2>
+
+<p><code>kubeconfig</code> is generated by <code>kube-up</code> but you can generate your own
+using (any desired subset of) the following commands.</p>
+
+<div class="highlight">
+  <pre><code class="language-console"># create kubeconfig entry
+$ kubectl config set-cluster $CLUSTER_NICK \
+    --server=https://1.1.1.1 \
+    --certificate-authority=/path/to/apiserver/ca_file \
+    --embed-certs=true \
+    # Or if tls not needed, replace --certificate-authority and --embed-certs with
+    --insecure-skip-tls-verify=true \
+    --kubeconfig=/path/to/standalone/.kube/config
+
+# create user entry
+$ kubectl config set-credentials $USER_NICK \
+    # bearer token credentials, generated on kube master
+    --token=$token \
+    # use either username|password or token, not both
+    --username=$username \
+    --password=$password \
+    --client-certificate=/path/to/crt_file \
+    --client-key=/path/to/key_file \
+    --embed-certs=true \
+    --kubeconfig=/path/to/standalone/.kube/config
+
+# create context entry
+$ kubectl config set-context $CONTEXT_NAME --cluster=$CLUSTER_NICKNAME --user=$USER_NICK
+</code></pre>
+</div>
+
+<p>Notes:
+* The <code>--embed-certs</code> flag is needed to generate a standalone
+<code>kubeconfig</code>, that will work as-is on another host.
+* <code>--kubeconfig</code> is both the preferred file to load config from and the file to
+save config too. In the above commands the <code>--kubeconfig</code> file could be
+omitted if you first run</p>
+
+<div class="highlight">
+  <pre><code class="language-console">$ export KUBECONFIG=/path/to/standalone/.kube/config
+</code></pre>
+</div>
+
+<ul>
+  <li>The ca_file, key_file, and cert_file referenced above are generated on the
+kube master at cluster turnup. They can be found on the master under
+<code>/srv/kubernetes</code>. Bearer token/basic auth are also generated on the kube master.</li>
+</ul>
+
+<p>For more details on <code>kubeconfig</code> see <a href="kubeconfig-file.html">kubeconfig-file.md</a>,
+and/or run <code>kubectl config -h</code>.</p>
+
+<h2 id="merging-kubeconfig-example">Merging <code>kubeconfig</code> Example</h2>
+
+<p><code>kubectl</code> loads and merges config from the following locations (in order)</p>
+
+<ol>
+  <li><code>--kubeconfig=/path/to/.kube/config</code> command line flag</li>
+  <li><code>KUBECONFIG=/path/to/.kube/config</code> env variable</li>
+  <li><code>$PWD/.kube/config</code></li>
+  <li><code>$HOME/.kube/config</code></li>
+</ol>
+
+<p>If you create clusters A, B on host1, and clusters C, D on host2, you can
+make all four clusters available on both hosts by running</p>
+
+<div class="highlight">
+  <pre><code class="language-console"># on host2, copy host1's default kubeconfig, and merge it from env
+$ scp host1:/path/to/home1/.kube/config /path/to/other/.kube/config
+
+$ export $KUBECONFIG=/path/to/other/.kube/config
+
+# on host1, copy host2's default kubeconfig and merge it from env
+$ scp host2:/path/to/home2/.kube/config /path/to/other/.kube/config
+
+$ export $KUBECONFIG=/path/to/other/.kube/config
+</code></pre>
+</div>
+
+<p>Detailed examples and explanation of <code>kubeconfig</code> loading/merging rules can be found in <a href="kubeconfig-file.html">kubeconfig-file.md</a>.</p>
+
+<!-- BEGIN MUNGE: IS_VERSIONED -->
+<!-- TAG IS_VERSIONED -->
+<!-- END MUNGE: IS_VERSIONED -->
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+<p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/sharing-clusters.md?pixel" alt="Analytics" /></a>
+<!-- END MUNGE: GENERATED_ANALYTICS --></p>
+
+
+	</div>
+</section>
+
+
+<footer>
+	<main class="light-text">
+		<nav>
+			<a href="/getting-started.html">Getting Started</a>
+			<a href="/docs.html">Documentation</a>
+			<a href="http://blog.kubernetes.io/">Blog</a>
+			<a href="/foobang.html">Community</a>
+		</nav>
+		<div class="social">
+			<a href="https://twitter.com/kubernetesio" class="twitter"><span>twitter</span></a>
+			<a href="https://github.com/kubernetes/kubernetes" class="github"><span>Github</span></a>
+			<a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+			<a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>stackoverflow</span></a>
+			<a href="https://groups.google.com/forum/#!forum/google-containers" class="mailing-list"><span>Mailing List</span></a>
+			<label for="wishField">I wish this page <input type="text" id="wishField" name="wishField" placeholder="made better textfield suggestions"></label>
+		</div>
+		<div class="center">&copy; 2016 Kubernetes</div>
+	</main>
+</footer>
+
+</body>
+</html>
+
+
+
