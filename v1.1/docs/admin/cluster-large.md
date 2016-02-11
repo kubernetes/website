@@ -1,17 +1,15 @@
 ---
-layout: docwithnav
-title: "Kubernetes Large Cluster"
+title: "Using Large Clusters"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# Kubernetes Large Cluster
 
 ## Support
 
 At v1.0, Kubernetes supports clusters up to 100 nodes with 30 pods per node and 1-2 containers per pod.
+
+## Table of Contents
+
+{% include pagetoc.html %}
 
 ## Setup
 
@@ -71,16 +69,3 @@ To avoid running into cluster addon resource issues, when creating a cluster wit
   * [FluentD with GCP Plugin](http://releases.k8s.io/release-1.1/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml)
 
 For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](../user-guide/compute-resources.html#troubleshooting).
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/cluster-large.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

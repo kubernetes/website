@@ -1,35 +1,11 @@
 ---
-layout: docwithnav
-title: "User Guide to Accessing the Cluster"
+title: "Accessing Clusters"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
+## Table of Contents
 
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# User Guide to Accessing the Cluster
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [User Guide to Accessing the Cluster](#user-guide-to-accessing-the-cluster)
-  - [Accessing the cluster API](#accessing-the-cluster-api)
-    - [Accessing for the first time with kubectl](#accessing-for-the-first-time-with-kubectl)
-    - [Directly accessing the REST API](#directly-accessing-the-rest-api)
-      - [Using kubectl proxy](#using-kubectl-proxy)
-      - [Without kubectl proxy](#without-kubectl-proxy)
-    - [Programmatic access to the API](#programmatic-access-to-the-api)
-    - [Accessing the API from a Pod](#accessing-the-api-from-a-pod)
-  - [Accessing services running on the cluster](#accessing-services-running-on-the-cluster)
-    - [Ways to connect](#ways-to-connect)
-    - [Discovering builtin services](#discovering-builtin-services)
-      - [Manually constructing apiserver proxy URLs](#manually-constructing-apiserver-proxy-urls)
-        - [Examples](#examples)
-      - [Using web browsers to access services running on the cluster](#using-web-browsers-to-access-services-running-on-the-cluster)
-  - [Requesting redirects](#requesting-redirects)
-  - [So Many Proxies](#so-many-proxies)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## Accessing the cluster API
 
@@ -304,16 +280,3 @@ There are several different proxies you may encounter when using Kubernetes:
 
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
 will typically ensure that the latter types are setup correctly.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/accessing-the-cluster.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

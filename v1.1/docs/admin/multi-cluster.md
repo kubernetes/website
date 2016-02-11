@@ -1,13 +1,7 @@
 ---
-layout: docwithnav
 title: "Considerations for running multiple Kubernetes clusters"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# Considerations for running multiple Kubernetes clusters
 
 You may want to set up multiple Kubernetes clusters, both to
 have clusters in different regions to be nearer to your users, and to tolerate failures and/or invasive maintenance.
@@ -68,16 +62,3 @@ you may need even more clusters.  Kubernetes v1.0 currently supports clusters up
 When you have multiple clusters, you would typically create services with the same config in each cluster and put each of those
 service instances behind a load balancer (AWS Elastic Load Balancer, GCE Forwarding Rule or HTTP Load Balancer) spanning all of them, so that
 failures of a single cluster are not visible to end users.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/multi-cluster.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

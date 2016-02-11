@@ -1,16 +1,14 @@
 ---
-layout: docwithnav
 title: "Kubernetes Cluster Admin Guide"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# Kubernetes Cluster Admin Guide
 
 The cluster admin guide is for anyone creating or administering a Kubernetes cluster.
 It assumes some familiarity with concepts in the [User Guide](../user-guide/README.html).
+
+## Table of Contents
+
+{% include pagetoc.html %}
 
 ## Planning a cluster
 
@@ -81,16 +79,3 @@ project](salt.html).
 * **Authorization** [authorization](authorization.html)
 
 * **Admission Controllers** [admission_controllers](admission-controllers.html)
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/introduction.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

@@ -1,30 +1,10 @@
 ---
-layout: docwithnav
 title: "Getting started locally"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+## Table of Contents
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Getting started locally
------------------------
-
-**Table of Contents**
-
-- [Requirements](#requirements)
-    - [Linux](#linux)
-    - [Docker](#docker)
-    - [etcd](#etcd)
-    - [go](#go)
-- [Starting the cluster](#starting-the-cluster)
-- [Running a container](#running-a-container)
-- [Running a user defined pod](#running-a-user-defined-pod)
-- [Troubleshooting](#troubleshooting)
-    - [I cannot reach service IPs on the network.](#i-cannot-reach-service-ips-on-the-network)
-    - [I cannot create a replication controller with replica size greater than 1!  What gives?](#i-cannot-create-a-replication-controller-with-replica-size-greater-than-1--what-gives)
-    - [I changed Kubernetes code, how do I run it?](#i-changed-kubernetes-code-how-do-i-run-it)
-    - [kubectl claims to start a container but `get pods` and `docker ps` don't show it.](#kubectl-claims-to-start-a-container-but-get-pods-and-docker-ps-dont-show-it)
-    - [The pods fail to connect to the services by host names](#the-pods-fail-to-connect-to-the-services-by-host-names)
+{% include pagetoc.html %}
 
 ### Requirements
 
@@ -146,16 +126,3 @@ One or more of the KUbernetes daemons might've crashed. Tail the logs of each in
 #### The pods fail to connect to the services by host names
 
 The local-up-cluster.sh script doesn't start a DNS service. Similar situation can be found [here](http://issue.k8s.io/6667). You can start a manually. Related documents can be found [here](https://releases.k8s.io/release-1.1/cluster/addons/dns#how-do-i-configure-it)
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/locally.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

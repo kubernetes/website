@@ -1,37 +1,7 @@
 ---
-layout: docwithnav
 title: "High Availability Kubernetes Clusters"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# High Availability Kubernetes Clusters
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [High Availability Kubernetes Clusters](#high-availability-kubernetes-clusters)
-  - [Introduction](#introduction)
-  - [Overview](#overview)
-  - [Initial set-up](#initial-set-up)
-  - [Reliable nodes](#reliable-nodes)
-  - [Establishing a redundant, reliable data storage layer](#establishing-a-redundant-reliable-data-storage-layer)
-    - [Clustering etcd](#clustering-etcd)
-      - [Validating your cluster](#validating-your-cluster)
-    - [Even more reliable storage](#even-more-reliable-storage)
-  - [Replicated API Servers](#replicated-api-servers)
-    - [Installing configuration files](#installing-configuration-files)
-    - [Starting the API Server](#starting-the-api-server)
-    - [Load balancing](#load-balancing)
-  - [Master elected components](#master-elected-components)
-    - [Installing configuration files](#installing-configuration-files)
-    - [Running the podmaster](#running-the-podmaster)
-  - [Conclusion](#conclusion)
-  - [Vagrant up!](#vagrant-up)
-
-<!-- END MUNGE: GENERATED_TOC -->
 
 ## Introduction
 
@@ -42,6 +12,10 @@ or try [Google Container Engine](https://cloud.google.com/container-engine/) for
 
 Also, at this time high availability support for Kubernetes is not continuously tested in our end-to-end (e2e) testing.  We will
 be working to add this continuous testing, but for now the single-node master installations are more heavily tested.
+
+## Table of Contents
+
+{% include pagetoc.html %}
 
 ## Overview
 
@@ -265,16 +239,3 @@ set the `--apiserver` flag to your replicated endpoint.
 We indeed have an initial proof of concept tester for this, which is available [here](https://releases.k8s.io/release-1.1/examples/high-availability).
 
 It implements the major concepts (with a few minor reductions for simplicity), of the podmaster HA implementation alongside a quick smoke test using k8petstore.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/high-availability.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

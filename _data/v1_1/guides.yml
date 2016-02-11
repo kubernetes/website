@@ -25,10 +25,10 @@ toc:
       path: /v1.1/docs/getting-started-guides/vagrant
     - title: Running Kubernetes Locally with No VM
       path: /v1.1/docs/getting-started-guides/locally
-  - title: Running Kubernetes on Google Container Engine
-    path: https://cloud.google.com/container-engine/docs/before-you-begin
   - title: Running Kubernetes on Turn-key Cloud Solutions
     section:
+    - title: Running Kubernetes on Google Container Engine
+      path: https://cloud.google.com/container-engine/docs/before-you-begin
     - title: Running Kubernetes on Google Compute Engine
       path: /v1.1/docs/getting-started-guides/gce
     - title: Running Kubernetes on AWS EC2
@@ -80,9 +80,9 @@ toc:
       - title: Docker (Multi Node)
         path: /v1.1/docs/getting-started-guides/docker-multinode
 
-- title: Common Tasks
+- title: Administering Clusters
   section:
-  - title: Using Clusters
+  - title: Kubernetes Cluster Admin Guide
     path: /v1.1/docs/admin/introduction
   - title: Using Multiple Clusters
     path: /v1.1/docs/admin/multi-cluster
@@ -100,12 +100,12 @@ toc:
     path: /v1.1/docs/getting-started-guides/scratch
   - title: Authenticating Across Clusters with kubeconfig
     path: /v1.1/docs/user-guide/kubeconfig-file
-
+- title: Common Tasks
+  section:
   - title: Using Nodes
     path: /v1.1/docs/admin/node
   - title: Assigning Pods to Nodes
     path: /v1.1/docs/user-guide/node-selection/README
-
   - title: Using Configuration Files
     path: /v1.1/docs/user-guide/simple-yaml
   - title: Configuring Containers

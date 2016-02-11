@@ -1,14 +1,7 @@
 ---
-layout: docwithnav
-title: "kubeconfig files"
+title: "Authenticating Across Clusters with kubeconfig"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# kubeconfig files
-
 Authentication in kubernetes can differ for different individuals.
 
 - A running kubelet might have one way of authenticating (i.e. certificates).

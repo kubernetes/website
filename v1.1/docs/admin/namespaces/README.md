@@ -1,13 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes Namespaces"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-## Kubernetes Namespaces
 
 Kubernetes _[namespaces](../../../docs/admin/namespaces.html)_ help different projects, teams, or customers to share a Kubernetes cluster.
 
@@ -287,16 +281,3 @@ At this point, it should be clear that the resources users create in one namespa
 
 As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
 authorization rules for each namespace.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/namespaces/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

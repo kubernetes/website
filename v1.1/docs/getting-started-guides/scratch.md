@@ -1,11 +1,11 @@
 ---
-title: "Getting started from Scratch"
+title: "Creating a Custom Cluster From Scratch"
 section: guides
 ---
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
 can find an existing Getting Started Guide that meets your needs on [this
-list](README.html), then we recommend using it, as you will be able to benefit
+list](/{{ page.version }}/docs/getting-started-guides/README/), then we recommend using it, as you will be able to benefit
 from the experience of others.  However, if you have specific IaaS, networking,
 configuration management, or operating system requirements not met by any of
 those guides, then this guide will provide an outline of the steps you need to
@@ -25,10 +25,10 @@ steps that existing cluster setup scripts are making.
 
   1. You should be familiar with using Kubernetes already.  We suggest you set
     up a temporary cluster by following one of the other Getting Started Guides.
-    This will help you become familiar with the CLI ([kubectl](../user-guide/kubectl/kubectl.html)) and concepts ([pods](../user-guide/pods.html), [services](../user-guide/services.html), etc.) first.
+    This will help you become familiar with the CLI ([kubectl](/{{ page.version }}/docs/user-guide/kubectl/kubectl)) and concepts ([pods](/{{ page.version }}/docs/user-guide/pods), [services](/{{ page.version }}/docs/user-guide/services), etc.) first.
   1. You should have `kubectl` installed on your desktop.  This will happen as a side
     effect of completing one of the other Getting Started Guides.  If not, follow the instructions
-    [here](../user-guide/prereqs.html).
+    [here](/{{ page.version }}/docs/user-guide/prereqs).
 
 ### Cloud Provider
 
@@ -55,7 +55,7 @@ on how flags are set on various components.
 
 ### Network
 
-Kubernetes has a distinctive [networking model](../admin/networking.html).
+Kubernetes has a distinctive [networking model](/{{ page.version }}/docs/admin/networking).
 
 Kubernetes allocates an IP address to each pod.  When creating a cluster, you
 need to allocate a block of IPs for Kubernetes to use as Pod IPs.  The simplest
@@ -65,7 +65,7 @@ another pod using the IP of the second pod.  This connectivity can be
 accomplished in two ways:
 - Configure network to route Pod IPs
   - Harder to setup from scratch.
-  - Google Compute Engine ([GCE](gce.html)) and [AWS](aws.html) guides use this approach.
+  - Google Compute Engine ([GCE](gce)) and [AWS](aws) guides use this approach.
   - Need to make the Pod IPs routable by programming routers, switches, etc.
   - Can be configured external to Kubernetes, or can implement in the "Routes" interface of a Cloud Provider module.
   - Generally highest performance.
@@ -97,7 +97,7 @@ You need to select an address range for the Pod IPs.
     using `10.10.0.0/24` through `10.10.255.0/24`, respectively.
   - Need to make these routable or connect with overlay.
 
-Kubernetes also allocates an IP to each [service](../user-guide/services.html).  However,
+Kubernetes also allocates an IP to each [service](/{{ page.version }}/docs/user-guide/services).  However,
 service IPs do not necessarily need to be routable.  The kube-proxy takes care
 of translating Service IPs to Pod IPs before traffic leaves the node.  You do
 need to Allocate a block of IPs for services.  Call this
@@ -139,7 +139,7 @@ You will need binaries for:
 
 A Kubernetes binary release includes all the Kubernetes binaries as well as the supported release of etcd.
 You can use a Kubernetes binary release (recommended) or build your Kubernetes binaries following the instructions in the
-[Developer Documentation](../devel/README.html).  Only using a binary release is covered in this guide.
+[Developer Documentation](/{{ page.version }}/docs/devel/README).  Only using a binary release is covered in this guide.
 
 Download the [latest binary release](https://github.com/kubernetes/kubernetes/releases/latest) and unzip it.
 Then locate `./kubernetes/server/kubernetes-server-linux-amd64.tar.gz` and unzip *that*.
@@ -229,10 +229,10 @@ The admin user (and any users) need:
 
 Your tokens and passwords need to be stored in a file for the apiserver
 to read.  This guide uses `/var/lib/kube-apiserver/known_tokens.csv`.
-The format for this file is described in the [authentication documentation](../admin/authentication.html).
+The format for this file is described in the [authentication documentation](/{{ page.version }}/docs/admin/authentication).
 
 For distributing credentials to clients, the convention in Kubernetes is to put the credentials
-into a [kubeconfig file](../user-guide/kubeconfig-file.html).
+into a [kubeconfig file](/{{ page.version }}/docs/user-guide/kubeconfig-file).
 
 The kubeconfig file for the administrator can be created as follows:
  - If you have already used Kubernetes with a non-custom cluster (for example, used a Getting Started
@@ -346,7 +346,7 @@ The minimum version required is [v0.5.6](https://github.com/coreos/rkt/releases/
 
 [systemd](http://www.freedesktop.org/wiki/Software/systemd/) is required on your node to run rkt.  The
 minimum version required to match rkt v0.5.6 is
-[systemd 215](http://lists.freedesktop.org/archives/systemd-devel/2014-July/020903.html).
+[systemd 215](http://lists.freedesktop.org/archives/systemd-devel/2014-July/020903).
 
 [rkt metadata service](https://github.com/coreos/rkt/blob/master/Documentation/networking.md) is also required
 for rkt networking support.  You can start rkt metadata service by using command like
@@ -371,7 +371,7 @@ Arguments to consider:
   - `--docker-root=`
   - `--root-dir=`
   - `--configure-cbr0=` (described above)
-  - `--register-node` (described in [Node](../admin/node.html) documentation.)
+  - `--register-node` (described in [Node](/{{ page.version }}/docs/admin/node) documentation.)
 
 ### kube-proxy
 
@@ -392,7 +392,7 @@ Each node needs to be allocated its own CIDR range for pod networking.
 Call this `NODE_X_POD_CIDR`.
 
 A bridge called `cbr0` needs to be created on each node.  The bridge is explained
-further in the [networking documentation](../admin/networking.html).  The bridge itself
+further in the [networking documentation](/{{ page.version }}/docs/admin/networking).  The bridge itself
 needs an address from `$NODE_X_POD_CIDR` - by convention the first IP.  Call
 this `NODE_X_BRIDGE_ADDR`.  For example, if `NODE_X_POD_CIDR` is `10.0.0.0/16`,
 then `NODE_X_BRIDGE_ADDR` is `10.0.0.1/16`.  NOTE: this retains the `/16` suffix
@@ -425,7 +425,7 @@ iptables -w -t nat -A POSTROUTING -o eth0 -j MASQUERADE \! -d ${CLUSTER_SUBNET}
 
 This will rewrite the source address from
 the PodIP to the Node IP for traffic bound outside the cluster, and kernel
-[connection tracking](http://www.iptables.info/en/connection-state.html)
+[connection tracking](http://www.iptables.info/en/connection-state)
 will ensure that responses destined to the node still reach
 the pod.
 
@@ -446,7 +446,7 @@ traffic to the internet, but have no problem with them inside your GCE Project.
 
 The previous steps all involved "conventional" system administration techniques for setting up
 machines.  You may want to use a Configuration Management system to automate the node configuration
-process.  There are examples of [Saltstack](../admin/salt.html), Ansible, Juju, and CoreOS Cloud Config in the
+process.  There are examples of [Saltstack](/{{ page.version }}/docs/admin/salt), Ansible, Juju, and CoreOS Cloud Config in the
 various Getting Started Guides.
 
 ## Bootstrapping the Cluster
@@ -466,7 +466,7 @@ You will need to run one or more instances of etcd.
   - Alternative: run 3 or 5 etcd instances.
     - Log can be written to non-durable storage because storage is replicated.
     - run a single apiserver which connects to one of the etc nodes.
- See [cluster-troubleshooting](../admin/cluster-troubleshooting.html) for more discussion on factors affecting cluster
+ See [cluster-troubleshooting](/{{ page.version }}/docs/admin/cluster-troubleshooting) for more discussion on factors affecting cluster
 availability.
 
 To run an etcd instance:
@@ -576,7 +576,7 @@ Here are some apiserver flags you may need to set:
 - `--tls-cert-file=/srv/kubernetes/server.cert`
 - `--tls-private-key-file=/srv/kubernetes/server.key`
 - `--admission-control=$RECOMMENDED_LIST`
-  - See [admission controllers](../admin/admission-controllers.html) for recommended arguments.
+  - See [admission controllers](/{{ page.version }}/docs/admin/admission-controllers) for recommended arguments.
 - `--allow-privileged=true`, only if you trust your cluster user to run pods as root.
 
 If you are following the firewall-only security approach, then use these arguments:
@@ -743,7 +743,7 @@ Flags to consider using with controller manager:
  - `--allocate-node-cidrs=`
    - *TODO*: explain when you want controller to do this and when you want to do it another way.
  - `--cloud-provider=` and `--cloud-config` as described in apiserver section.
- - `--service-account-private-key-file=/srv/kubernetes/server.key`, used by the [service account](../user-guide/service-accounts.html) feature.
+ - `--service-account-private-key-file=/srv/kubernetes/server.key`, used by the [service account](/{{ page.version }}/docs/user-guide/service-accounts) feature.
  - `--master=127.0.0.1:8080`
 
 #### Starting and Verifying Apiserver, Scheduler, and Controller Manager
@@ -801,12 +801,12 @@ Otherwise, you will need to manually create node objects.
 
 ### Inspect pods and services
 
-Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](gce.html#inspect-your-cluster).
+Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](/{{ page.version }}/docs/getting-started-guides/gce.html#inspect-your-cluster).
 You should see some services.  You should also see "mirror pods" for the apiserver, scheduler and controller-manager, plus any add-ons you started.
 
 ### Try Examples
 
-At this point you should be able to run through one of the basic examples, such as the [nginx example](../../examples/simple-nginx.html).
+At this point you should be able to run through one of the basic examples, such as the [nginx example](/{{ page.version }}/examples/simple-nginx).
 
 ### Running the Conformance Test
 
@@ -819,5 +819,5 @@ pinging or SSH-ing from one node to another.
 
 ### Getting Help
 
-If you run into trouble, please see the section on [troubleshooting](gce.html#troubleshooting), post to the
-[google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](../troubleshooting.html#slack).
+If you run into trouble, please see the section on [troubleshooting](/{{ page.version }}/docs/getting-started-guides/gce#troubleshooting), post to the
+[google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](/{{ page.version }}/docs/troubleshooting#slack).
