@@ -1,13 +1,8 @@
 ---
-layout: docwithnav
 title: "Logging"
+section: support
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# Logging
+This page is designed to help you use logs to troubleshoot issues with your Kubernetes solution.
 
 ## Logging by Kubernetes Components
 
@@ -105,16 +100,3 @@ running in containers. The guide [Collecting log files within containers with Fl
 ## Known issues
 
 Kubernetes does log rotation for Kubernetes components and docker containers. The command `kubectl logs` currently only read the latest logs, not all historical ones.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/logging.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

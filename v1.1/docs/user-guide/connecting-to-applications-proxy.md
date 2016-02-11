@@ -1,14 +1,7 @@
 ---
-layout: docwithnav
 title: "Connecting to applications: kubectl proxy and apiserver proxy"
+section: support
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# Connecting to applications: kubectl proxy and apiserver proxy
-
 You have seen the [basics](accessing-the-cluster.html) about `kubectl proxy` and `apiserver proxy`. This guide shows how to use them together to access a service([kube-ui](ui.html)) running on the Kubernetes cluster from your workstation.
 
 
@@ -38,16 +31,3 @@ Starting to serve on localhost:8001
 {% endhighlight %}
 
 Now you can access the kube-ui service on your local workstation at [http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/kube-ui](http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/kube-ui)
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/connecting-to-applications-proxy.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

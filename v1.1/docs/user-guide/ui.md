@@ -1,14 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes User Interface"
+section: support
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# Kubernetes User Interface
-
 Kubernetes has a web-based user interface that displays the current cluster state graphically.
 
 ## Accessing the UI
@@ -58,16 +51,3 @@ Other views (Pods, Nodes, Replication Controllers, Services, and Events) simply 
 ## More Information
 
 For more information, see the [Kubernetes UI development document](http://releases.k8s.io/release-1.1/www/README.md) in the www directory.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/ui.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

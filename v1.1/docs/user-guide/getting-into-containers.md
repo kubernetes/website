@@ -1,14 +1,7 @@
 ---
-layout: docwithnav
 title: "Getting into containers: kubectl exec"
+section: support
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# Getting into containers: kubectl exec
-
 Developers can use `kubectl exec` to run commands in a container. This guide demonstrates two use cases.
 
 ## Using kubectl exec to check the environment variables of a container
@@ -92,16 +85,3 @@ root@storage:/data#
 {% endhighlight %}
 
 This gets you a terminal.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/getting-into-containers.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

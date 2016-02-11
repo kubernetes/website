@@ -1,14 +1,7 @@
 ---
-layout: docwithnav
-title: "Using Salt to configure Kubernetes"
+title: "Configuring Kubernetes with Salt"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# Using Salt to configure Kubernetes
-
 The Kubernetes cluster can be configured using Salt.
 
 The Salt scripts are shared across multiple hosting providers, so it's important to understand some background information prior to making a modification to ensure your changes do not break hosting Kubernetes across multiple environments.  Depending on where you host your Kubernetes cluster, you may be using different operating systems and different networking configurations.  As a result, it's important to understand some background information before making Salt changes in order to minimize introducing failures for other hosting providers.
@@ -114,16 +107,3 @@ We should define a grains.conf key that captures more specifically what network 
 ## Further reading
 
 The [cluster/saltbase](http://releases.k8s.io/release-1.1/cluster/saltbase/) tree has more details on the current SaltStack configuration.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/salt.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-
