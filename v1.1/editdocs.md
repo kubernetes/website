@@ -1,5 +1,5 @@
 ---
-title: Editing the Kubernetes Documentation
+title: Contributing to Kubernetes Documentation
 section: support
 showedit: false
 ---
@@ -11,7 +11,7 @@ $(document).ready(function(){
         var page = window.location.hash.substring(1,window.location.hash.length);
         $("#editlink").html('<h2>Continue with your edit</h2><p>Click the below link to edit the page you were just on. When you are done, press "Commit Changes" at the bottom of the screen. This will create a copy of our site on your GitHub account called a "fork." You can make other changes in your fork after it is created, if you want. When you are ready to send us all your changes, go to the index page for your fork and click "New Pull Request" to let us know about it.</p><a class="button" href="https://github.com/kubernetes/kubernetes.github.io/edit/master/' + page + '">Edit "' + page + '"</a>');
     } else {
-        $("#editlink").html('<h2>Getting Started</h2><p>Click the below button to visit the repo for our site. You can then click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.</p><a class="button" href="https://github.com/kubernetes/kubernetes.github.io/">Visit our GitHub repo</a>');
+        $("#editlink").html('<h2>Editing the site in the cloud</h2><p>Click the below button to visit the repo for our site. You can then click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.</p><a class="button" href="https://github.com/kubernetes/kubernetes.github.io/">Visit our GitHub repo</a>');
     }
 });
 </script>
@@ -19,6 +19,8 @@ $(document).ready(function(){
 Welcome! We are very pleased you want to contribute to the docs for Kubernetes.
 
 {% raw %}<span id="editlink"></span>{% endraw %}
+
+## Staging your changes in the cloud
 
 If you want to see your changes staged without having to install anything locally,
 change your fork of our repo to be named:
@@ -29,7 +31,7 @@ Then, visit: [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME
 
 You should see a special-to-you version of the site. 
 
-## Running the site locally
+## Editing and staging the site locally
 
 If you have files to upload, or just want to work offline, run the below commands to setup
 your environment for running GitHub pages locally. Then, any edits you make will be viewable
