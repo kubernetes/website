@@ -1,13 +1,7 @@
 ---
-layout: docwithnav
-title: "Overview"
+title: "Checking Pod Health"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-## Overview
 
 This example shows two types of pod [health checks](../production-pods.html#liveness-and-readiness-probes-aka-health-checks): HTTP checks and container execution checks.
 
@@ -102,16 +96,3 @@ Sat, 27 Jun 2015 13:44:44 +0200    Sat, 27 Jun 2015 13:44:44 +0200    1    {kube
 Sat, 27 Jun 2015 13:44:44 +0200    Sat, 27 Jun 2015 13:44:44 +0200    1    {kubelet kubernetes-minion-6fbi}    spec.containers{liveness}    started    Started with docker id ed6bb004ee10
 {% endraw %}
 {% endhighlight %}
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/liveness/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

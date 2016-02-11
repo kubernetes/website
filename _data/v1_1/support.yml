@@ -5,23 +5,21 @@ toc:
   path: /v1.1/support
   section:
   - title: Web Interface
-    path: /v1.1/docs/user-guide/ui.html
+    path: /v1.1/docs/user-guide/ui
   - title: Logging
-    path: /v1.1/docs/user-guide/logging.html
-  - title: Monitoring
-    path: /v1.1/docs/user-guide/monitoring.html
+    path: /v1.1/docs/user-guide/logging
   - title: Container Access (exec)
-    path: /v1.1/docs/user-guide/getting-into-containers.html
+    path: /v1.1/docs/user-guide/getting-into-containers
   - title: Connect with Proxies
-    path: /v1.1/docs/user-guide/connecting-to-applications-proxy.html
+    path: /v1.1/docs/user-guide/connecting-to-applications-proxy
   - title: Connect with Port Forwarding
-    path: /v1.1/docs/user-guide/connecting-to-applications-port-forward.html
+    path: /v1.1/docs/user-guide/connecting-to-applications-port-forward
   - title: Troubleshooting Applications
-    path: /v1.1/docs/user-guide/application-troubleshooting.html
+    path: /v1.1/docs/user-guide/application-troubleshooting
   - title: Troubleshooting Clusters
-    path: /v1.1/docs/admin/cluster-troubleshooting.html
+    path: /v1.1/docs/admin/cluster-troubleshooting
   - title: Best Practices for Configuration
-    path: /v1.1/docs/user-guide/config-best-practices.html
+    path: /v1.1/docs/user-guide/config-best-practices
 
 - title: Frequently Asked Questions
   section:
@@ -35,14 +33,14 @@ toc:
 - title: Other Resources
   section:
   - title: Known Issues
-    path: /v1.1/docs/user-guide/known-issues.html
+    path: /v1.1/docs/user-guide/known-issues
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues
   - title: Report a Security Vulnerability
-    path: /v1.1/docs/reporting-security-issues.html
+    path: /v1.1/docs/reporting-security-issues
   - title: Release Notes
     path: https://github.com/kubernetes/kubernetes/releases
   - title: Release Roadmap
-    path: /v1.1/docs/roadmap.html
+    path: /v1.1/docs/roadmap
   - title: Contributing to Kubernetes Documentation
     path: /v1.1/editdocs

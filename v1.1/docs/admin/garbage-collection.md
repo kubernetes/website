@@ -1,19 +1,7 @@
 ---
-layout: docwithnav
-title: "Garbage Collection"
+title: "Configuring Garbage Collection"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# Garbage Collection
-
-- [Introduction](#introduction)
-- [Image Collection](#image-collection)
-- [Container Collection](#container-collection)
-- [User Configuration](#user-configuration)
-
 ### Introduction
 
 Garbage collection is managed by kubelet automatically, mainly including unreferenced
@@ -74,20 +62,3 @@ Note that we highly recommend a large enough value for `maximum-dead-containers-
 to allow at least 2 dead containers retaining per expected container when you customize the flag
 configuration. A loose value for `maximum-dead-containers` also assumes importance for a similar reason.
 See [this issue](https://github.com/kubernetes/kubernetes/issues/13287) for more details.
-
-
-
-
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/garbage-collection.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

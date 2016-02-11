@@ -100,6 +100,10 @@ toc:
     path: /v1.1/docs/getting-started-guides/scratch
   - title: Authenticating Across Clusters with kubeconfig
     path: /v1.1/docs/user-guide/kubeconfig-file
+  - title: Configuring Garbage Collection
+    path: /v1.1/docs/admin/garbage-collection
+  - title: Configuring Kubernetes with Salt
+    path: /v1.1/docs/admin/salt
 - title: Common Tasks
   section:
   - title: Using Nodes
@@ -110,12 +114,8 @@ toc:
     path: /v1.1/docs/user-guide/simple-yaml
   - title: Configuring Containers
     path: /v1.1/docs/user-guide/configuring-containers
-  - title: Configuring Kubernetes with Salt
-    path: /v1.1/docs/admin/salt
   - title: Using Environment Variables
     path: /v1.1/docs/user-guide/environment-guide/README
-  - title: Configuring Garbage Collection
-    path: /v1.1/docs/admin/garbage-collection
 
   - title: Managing Compute Resources
     path: /v1.1/docs/user-guide/compute-resources

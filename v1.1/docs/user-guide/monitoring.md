@@ -1,14 +1,7 @@
 ---
-layout: docwithnav
 title: "Resource Usage Monitoring in Kubernetes"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# Resource Usage Monitoring in Kubernetes
-
 Understanding how an application behaves when deployed is crucial to scaling the application and providing a reliable service. In a Kubernetes cluster, application performance can be examined at many different levels: containers, [pods](pods.html), [services](services.html), and whole clusters. As part of Kubernetes we want to provide users with detailed resource usage information about their running applications at all these levels. This will give users deep insights into how their applications are performing and where possible application bottlenecks may be found. In comes [Heapster](https://github.com/GoogleCloudPlatform/heapster), a project meant to provide a base monitoring platform on Kubernetes.
 
 ### Overview
@@ -66,16 +59,3 @@ Now that you’ve learned a bit about Heapster, feel free to try it out on your 
 ***
 *Authors: Vishnu Kannan and Victor Marmol, Google Software Engineers.*
 *This article was originally posted in [Kubernetes blog](http://blog.kubernetes.io/2015/05/resource-usage-monitoring-kubernetes.html).*
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/monitoring.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-
