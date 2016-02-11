@@ -1672,7 +1672,7 @@ var kub = (function () {
 	}
 
 	function submitWish(textfield) {
-		alert('You typed: ' + textfield.value);
+		window.location.replace("https://github.com/kubernetes/kubernetes.github.io/issues/new?title=I%20wish%20this%20page%20" + textfield.value +"&body=I%20wish%20this%20page%20" + textfield.value + ". URL: " + window.location.href);
 		textfield.value = '';
 		textfield.blur();
 	}
