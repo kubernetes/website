@@ -22,24 +22,4 @@ defaults:
     values:
       version: "v1.1"
       versionfilesafe: "v1_1"
-  -
-    scope:
-      path: "v1.1/reference"
-    values:
-      section: "reference"
-  -
-    scope:
-      path: "v1.1/guides"
-    values:
-      section: "guides"
-  -
-    scope:
-      path: "v1.1/support"
-    values:
-      section: "support"
-  -
-    scope:
-      path: "v1.1/samples"
-    values:
-      section: "samples"
 permalink: pretty
