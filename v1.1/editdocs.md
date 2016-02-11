@@ -1,7 +1,7 @@
 ---
 title: Editing the Kubernetes Documentation
 section: support
-hideedit: true
+showedit: false
 ---
 
 <script language="JavaScript">

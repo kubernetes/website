@@ -28,7 +28,7 @@ layout: headerfooter
             {% include tree.html %}
         </div> <!-- /pi-accordion -->
 	</div> <!-- /docsToc -->
-	<div id="docsContent">{% if page.hideedit != true %}<a href="/{{ page.version }}/editdocs#{{ page.path }}" class="button" style="float:right;margin-top:20px;">Edit This Page</a>{% endif %}
+	<div id="docsContent">{% if page.showedit == true %}<a href="/{{ page.version }}/editdocs#{{ page.path }}" class="button" style="float:right;margin-top:20px;">Edit This Page</a>{% endif %}
     	<h1>{{ page.title }}</h1>
 		{{ content }}
         <p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ page.path }}?pixel" alt="Analytics" /></a>

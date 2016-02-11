@@ -22,4 +22,5 @@ defaults:
     values:
       version: "v1.1"
       versionfilesafe: "v1_1"
+      showedit: true
 permalink: pretty
