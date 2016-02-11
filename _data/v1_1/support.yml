@@ -44,5 +44,5 @@ toc:
     path: https://github.com/kubernetes/kubernetes/releases
   - title: Release Roadmap
     path: /v1.1/docs/roadmap.html
-  - title: Contributing to the Kubernetes Documentation
+  - title: Contributing to Kubernetes Documentation
     path: /v1.1/editdocs
