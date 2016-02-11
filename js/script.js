@@ -1672,7 +1672,7 @@ var kub = (function () {
 	}
 
 	function submitWish(textfield) {
-		window.location.replace("https://github.com/kubernetes/kubernetes.github.io/issues/new?title=I%20wish%20this%20page%20" + textfield.value +"&body=I%20wish%20this%20page%20" + textfield.value + ". URL: " + window.location.href);
+		window.location.replace("https://github.com/kubernetes/kubernetes.github.io/issues/new?title=I%20wish%20" + window.location.pathname + "%20" + textfield.value + "&body=I%20wish%20" + window.location.pathname + "%20" + textfield.value);
 		textfield.value = '';
 		textfield.blur();
 	}
