@@ -1189,7 +1189,7 @@ var kub = (function () {
 	}
 
 	function submitWish(textfield) {
-		alert('You typed: ' + textfield.value);
+		window.location.replace("https://github.com/kubernetes/kubernetes.github.io/issues/new?title=I%20wish%20" + window.location.pathname + "%20" + textfield.value + "&body=I%20wish%20" + window.location.pathname + "%20" + textfield.value);
 		textfield.value = '';
 		textfield.blur();
 	}
