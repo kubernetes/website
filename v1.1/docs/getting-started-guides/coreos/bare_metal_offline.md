@@ -1,32 +1,12 @@
 ---
-layout: docwithnav
 title: "Bare Metal CoreOS with Kubernetes (OFFLINE)"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Bare Metal CoreOS with Kubernetes (OFFLINE)
-------------------------------------------
 Deploy a CoreOS running Kubernetes environment. This particular guild is made to help those in an OFFLINE system, wither for testing a POC before the real deal, or you are restricted to be totally offline for your applications.
 
-**Table of Contents**
+## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [High Level Design](#high-level-design)
-- [This Guides variables](#this-guides-variables)
-- [Setup PXELINUX CentOS](#setup-pxelinux-centos)
-- [Adding CoreOS to PXE](#adding-coreos-to-pxe)
-- [DHCP configuration](#dhcp-configuration)
-- [Kubernetes](#kubernetes)
-- [Cloud Configs](#cloud-configs)
-    - [master.yml](#masteryml)
-    - [node.yml](#nodeyml)
-- [New pxelinux.cfg file](#new-pxelinuxcfg-file)
-- [Specify the pxelinux targets](#specify-the-pxelinux-targets)
-- [Creating test pod](#creating-test-pod)
-- [Helping commands for debugging](#helping-commands-for-debugging)
-
+{% include pagetoc.html %}
 
 ## Prerequisites
 
@@ -676,16 +656,3 @@ List Kubernetes
 Kill all pods:
 
     for i in `kubectl get pods | awk '{print $1}'`; do kubectl stop pod $i; done
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/coreos/bare_metal_offline.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

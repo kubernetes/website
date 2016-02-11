@@ -1,25 +1,10 @@
 ---
-layout: docwithnav
 title: "Getting started on AWS EC2"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+## Table of Contents
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Getting started on AWS EC2
---------------------------
-
-**Table of Contents**
-
-- [Prerequisites](#prerequisites)
-- [Cluster turnup](#cluster-turnup)
-    - [Supported procedure: `get-kube`](#supported-procedure-get-kube)
-    - [Alternatives](#alternatives)
-- [Getting started with your cluster](#getting-started-with-your-cluster)
-    - [Command line administration tool: `kubectl`](#command-line-administration-tool-kubectl)
-    - [Examples](#examples)
-- [Tearing down the cluster](#tearing-down-the-cluster)
-- [Further reading](#further-reading)
+{% include pagetoc.html %}
 
 ## Prerequisites
 

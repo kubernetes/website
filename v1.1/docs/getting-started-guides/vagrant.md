@@ -1,33 +1,13 @@
 ---
-layout: docwithnav
 title: "Getting started with Vagrant"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-## Getting started with Vagrant
 
 Running Kubernetes with Vagrant (and VirtualBox) is an easy way to run/test/develop on your local machine (Linux, Mac OS X).
 
-**Table of Contents**
+## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Setup](#setup)
-- [Interacting with your Kubernetes cluster with Vagrant.](#interacting-with-your-kubernetes-cluster-with-vagrant)
-- [Authenticating with your master](#authenticating-with-your-master)
-- [Running containers](#running-containers)
-- [Troubleshooting](#troubleshooting)
-    - [I keep downloading the same (large) box all the time!](#i-keep-downloading-the-same-large-box-all-the-time)
-    - [I just created the cluster, but I am getting authorization errors!](#i-just-created-the-cluster-but-i-am-getting-authorization-errors)
-    - [I just created the cluster, but I do not see my container running!](#i-just-created-the-cluster-but-i-do-not-see-my-container-running)
-    - [I want to make changes to Kubernetes code!](#i-want-to-make-changes-to-kubernetes-code)
-    - [I have brought Vagrant up but the nodes cannot validate!](#i-have-brought-vagrant-up-but-the-nodes-cannot-validate)
-    - [I want to change the number of nodes!](#i-want-to-change-the-number-of-nodes)
-    - [I want my VMs to have more memory!](#i-want-my-vms-to-have-more-memory)
-    - [I ran vagrant suspend and nothing works!](#i-ran-vagrant-suspend-and-nothing-works)
-    - [I want vagrant to sync folders via nfs!](#i-want-vagrant-to-sync-folders-via-nfs)
+{% include pagetoc.html %}
 
 ### Prerequisites
 
@@ -417,16 +397,3 @@ You can ensure that vagrant uses nfs to sync folders with virtual machines by se
 export KUBERNETES_VAGRANT_USE_NFS=true
 {% endraw %}
 {% endhighlight %}
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/vagrant.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

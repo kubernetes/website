@@ -5,23 +5,23 @@ toc:
   path: /v1.1/support
   section:
   - title: Web Interface
-    path: http://kubernetes.io/v1.1/docs/user-guide/ui.html
+    path: /v1.1/docs/user-guide/ui.html
   - title: Logging
-    path: http://kubernetes.io/v1.1/docs/user-guide/logging.html
+    path: /v1.1/docs/user-guide/logging.html
   - title: Monitoring
-    path: http://kubernetes.io/v1.1/docs/user-guide/monitoring.html
+    path: /v1.1/docs/user-guide/monitoring.html
   - title: Container Access (exec)
-    path: http://kubernetes.io/v1.1/docs/user-guide/getting-into-containers.html
+    path: /v1.1/docs/user-guide/getting-into-containers.html
   - title: Connect with Proxies
-    path: http://kubernetes.io/v1.1/docs/user-guide/connecting-to-applications-proxy.html
+    path: /v1.1/docs/user-guide/connecting-to-applications-proxy.html
   - title: Connect with Port Forwarding
-    path: http://kubernetes.io/v1.1/docs/user-guide/connecting-to-applications-port-forward.html
+    path: /v1.1/docs/user-guide/connecting-to-applications-port-forward.html
   - title: Troubleshooting Applications
-    path: http://kubernetes.io/v1.1/docs/user-guide/application-troubleshooting.html
+    path: /v1.1/docs/user-guide/application-troubleshooting.html
   - title: Troubleshooting Clusters
-    path: http://kubernetes.io/v1.1/docs/admin/cluster-troubleshooting.html
+    path: /v1.1/docs/admin/cluster-troubleshooting.html
   - title: Best Practices for Configuration
-    path: http://kubernetes.io/v1.1/docs/user-guide/config-best-practices.html
+    path: /v1.1/docs/user-guide/config-best-practices.html
 
 - title: Frequently Asked Questions
   section:
@@ -35,12 +35,12 @@ toc:
 - title: Other Resources
   section:
   - title: Known Issues
-    path: http://kubernetes.io/v1.1/docs/user-guide/known-issues.html
+    path: /v1.1/docs/user-guide/known-issues.html
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues
   - title: Report a Security Vulnerability
-    path: http://kubernetes.io/v1.1/docs/reporting-security-issues.html
+    path: /v1.1/docs/reporting-security-issues.html
   - title: Release Notes
     path: https://github.com/kubernetes/kubernetes/releases
   - title: Release Roadmap
-    path: http://kubernetes.io/v1.1/docs/roadmap.html
+    path: /v1.1/docs/roadmap.html

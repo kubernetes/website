@@ -1,13 +1,7 @@
 ---
-layout: docwithnav
 title: "Getting started from Scratch"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Getting started from Scratch
-----------------------------
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
 can find an existing Getting Started Guide that meets your needs on [this
@@ -21,50 +15,9 @@ pre-defined guides.
 This guide is also useful for those wanting to understand at a high level some of the
 steps that existing cluster setup scripts are making.
 
-**Table of Contents**
+## Table of Contents
 
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-  - [Designing and Preparing](#designing-and-preparing)
-    - [Learning](#learning)
-    - [Cloud Provider](#cloud-provider)
-    - [Nodes](#nodes)
-    - [Network](#network)
-    - [Cluster Naming](#cluster-naming)
-    - [Software Binaries](#software-binaries)
-      - [Downloading and Extracting Kubernetes Binaries](#downloading-and-extracting-kubernetes-binaries)
-      - [Selecting Images](#selecting-images)
-    - [Security Models](#security-models)
-      - [Preparing Certs](#preparing-certs)
-      - [Preparing Credentials](#preparing-credentials)
-  - [Configuring and Installing Base Software on Nodes](#configuring-and-installing-base-software-on-nodes)
-    - [Docker](#docker)
-    - [rkt](#rkt)
-    - [kubelet](#kubelet)
-    - [kube-proxy](#kube-proxy)
-    - [Networking](#networking)
-    - [Other](#other)
-    - [Using Configuration Management](#using-configuration-management)
-  - [Bootstrapping the Cluster](#bootstrapping-the-cluster)
-    - [etcd](#etcd)
-    - [Apiserver, Controller Manager, and Scheduler](#apiserver-controller-manager-and-scheduler)
-      - [Apiserver pod template](#apiserver-pod-template)
-        - [Cloud Providers](#cloud-providers)
-      - [Scheduler pod template](#scheduler-pod-template)
-      - [Controller Manager Template](#controller-manager-template)
-      - [Starting and Verifying Apiserver, Scheduler, and Controller Manager](#starting-and-verifying-apiserver-scheduler-and-controller-manager)
-    - [Logging](#logging)
-    - [Monitoring](#monitoring)
-    - [DNS](#dns)
-  - [Troubleshooting](#troubleshooting)
-    - [Running validate-cluster](#running-validate-cluster)
-    - [Inspect pods and services](#inspect-pods-and-services)
-    - [Try Examples](#try-examples)
-    - [Running the Conformance Test](#running-the-conformance-test)
-    - [Networking](#networking)
-    - [Getting Help](#getting-help)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## Designing and Preparing
 
@@ -868,16 +821,3 @@ pinging or SSH-ing from one node to another.
 
 If you run into trouble, please see the section on [troubleshooting](gce.html#troubleshooting), post to the
 [google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](../troubleshooting.html#slack).
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/scratch.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

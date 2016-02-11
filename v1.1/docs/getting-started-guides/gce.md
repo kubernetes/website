@@ -1,33 +1,13 @@
 ---
-layout: docwithnav
 title: "Getting started on Google Compute Engine"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Getting started on Google Compute Engine
-----------------------------------------
-
-**Table of Contents**
-
-- [Before you start](#before-you-start)
-- [Prerequisites](#prerequisites)
-- [Starting a cluster](#starting-a-cluster)
-- [Installing the Kubernetes command line tools on your workstation](#installing-the-kubernetes-command-line-tools-on-your-workstation)
-- [Getting started with your cluster](#getting-started-with-your-cluster)
-    - [Inspect your cluster](#inspect-your-cluster)
-    - [Run some examples](#run-some-examples)
-- [Tearing down the cluster](#tearing-down-the-cluster)
-- [Customizing](#customizing)
-- [Troubleshooting](#troubleshooting)
-    - [Project settings](#project-settings)
-    - [Cluster initialization hang](#cluster-initialization-hang)
-    - [SSH](#ssh)
-    - [Networking](#networking)
-
 
 The example below creates a Kubernetes cluster with 4 worker node Virtual Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
+
+## Table of Contents
+
+{% include pagetoc.html %}
 
 ### Before you start
 
@@ -258,16 +238,3 @@ field values:
 
 * Source Ranges: `10.0.0.0/8`
 * Allowed Protocols and Port: `tcp:1-65535;udp:1-65535;icmp`
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/gce.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

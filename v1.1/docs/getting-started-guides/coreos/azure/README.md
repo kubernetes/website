@@ -1,28 +1,15 @@
 ---
-layout: docwithnav
 title: "Kubernetes on Azure with CoreOS and Weave"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Kubernetes on Azure with CoreOS and [Weave](http://weave.works)
----------------------------------------------------------------
-
-**Table of Contents**
-
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Let's go!](#lets-go)
-- [Deploying the workload](#deploying-the-workload)
-- [Scaling](#scaling)
-- [Exposing the app to the outside world](#exposing-the-app-to-the-outside-world)
-- [Next steps](#next-steps)
-- [Tear down...](#tear-down)
 
 ## Introduction
 
 In this guide I will demonstrate how to deploy a Kubernetes cluster to Azure cloud. You will be using CoreOS with Weave, which implements simple and secure networking, in a transparent, yet robust way. The purpose of this guide is to provide an out-of-the-box implementation that can ultimately be taken into production with little change. It will demonstrate how to provision a dedicated Kubernetes master and etcd nodes, and show how to scale the cluster with ease.
+
+## Table of Contents
+
+{% include pagetoc.html %}
 
 ### Prerequisites
 
@@ -274,16 +261,3 @@ If you don't wish care about the Azure bill, you can tear down the cluster. It's
 > Note: make sure to use the _latest state file_, as after scaling there is a new one.
 
 By the way, with the scripts shown, you can deploy multiple clusters, if you like :)
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/coreos/azure/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

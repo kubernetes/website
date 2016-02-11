@@ -1,25 +1,11 @@
 ---
-layout: docwithnav
 title: "Running Kubernetes locally via Docker"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
+## Table of Contents
 
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Running Kubernetes locally via Docker
--------------------------------------
-
-**Table of Contents**
-
-- [Overview](#setting-up-a-cluster)
-- [Prerequisites](#prerequisites)
-- [Step One: Run etcd](#step-one-run-etcd)
-- [Step Two: Run the master](#step-two-run-the-master)
-- [Step Three: Run the service proxy](#step-three-run-the-service-proxy)
-- [Test it out](#test-it-out)
-- [Run an application](#run-an-application)
-- [Expose it as a service](#expose-it-as-a-service)
-- [A note on turning down your cluster](#a-note-on-turning-down-your-cluster)
+{% include pagetoc.html %}
 
 ### Overview
 
@@ -188,15 +174,3 @@ Many of these containers run under the management of the `kubelet` binary, which
 the cluster, you need to first kill the kubelet container, and then any other containers.
 
 You may use `docker kill $(docker ps -aq)`, note this removes _all_ containers running under Docker, so use with caution.
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/docker.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

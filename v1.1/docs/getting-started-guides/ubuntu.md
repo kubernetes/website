@@ -1,23 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes Deployment On Bare-metal Ubuntu Nodes"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Kubernetes Deployment On Bare-metal Ubuntu Nodes
-------------------------------------------------
-
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Starting a Cluster](#starting-a-cluster)
-    - [Download binaries](#download-binaries)
-    - [Configure and start the kubernetes cluster](#configure-and-start-the-kubernetes-cluster)
-    - [Test it out](#test-it-out)
-    - [Deploy addons](#deploy-addons)
-    - [Trouble shooting](#trouble-shooting)
-- [Upgrading a Cluster](#upgrading-a-cluster)
 
 ## Introduction
 
@@ -27,6 +11,10 @@ The original idea was heavily inspired by @jainvipin 's ubuntu single node
 work, which has been merge into this document.
 
 [Cloud team from Zhejiang University](https://github.com/ZJU-SEL) will maintain this work.
+
+## Table of Contents
+
+{% include pagetoc.html %}
 
 ## Prerequisites
 
@@ -296,15 +284,3 @@ Some examples are as follows:
 The script will not delete any resources of your cluster, it just replaces the binaries.
 You can use `kubectl` command to check if the newly upgraded k8s is working correctly.
 For example, use `$ kubectl get nodes` to see if all of your nodes are ready.Or refer to [test-it-out](ubuntu.html#test-it-out)
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/ubuntu.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

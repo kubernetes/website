@@ -1,35 +1,15 @@
 ---
-layout: docwithnav
 title: "Getting started with Juju"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-Getting started with Juju
--------------------------
-
 [Juju](https://jujucharms.com/docs/stable/about-juju) makes it easy to deploy
 Kubernetes by provisioning, installing and configuring all the systems in
 the cluster.  Once deployed the cluster can easily scale up with one command
 to increase the cluster size.
 
+## Table of Contents
 
-**Table of Contents**
-
-- [Prerequisites](#prerequisites)
-   - [On Ubuntu](#on-ubuntu)
-   - [With Docker](#with-docker)
-- [Launch Kubernetes cluster](#launch-kubernetes-cluster)
-- [Exploring the cluster](#exploring-the-cluster)
-- [Run some containers!](#run-some-containers)
-- [Scale out cluster](#scale-out-cluster)
-- [Launch the "k8petstore" example app](#launch-the-k8petstore-example-app)
-- [Tear down cluster](#tear-down-cluster)
-- [More Info](#more-info)
-    - [Cloud compatibility](#cloud-compatibility)
-
+{% include pagetoc.html %}
 
 ## Prerequisites
 
@@ -244,16 +224,3 @@ configured for [manual provisioning](https://jujucharms.com/docs/stable/config-m
 
 The Kubernetes bundle has been tested on GCE and AWS and found to work with
 version 1.0.0.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/juju.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

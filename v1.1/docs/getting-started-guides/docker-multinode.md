@@ -1,13 +1,7 @@
 ---
-layout: docwithnav
 title: "Running Multi-Node Kubernetes Using Docker"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Running Multi-Node Kubernetes Using Docker
-------------------------------------------
 
 _Note_:
 These instructions are somewhat significantly more advanced than the [single node](docker.html) instructions.  If you are
@@ -17,15 +11,9 @@ _Note_:
 There is a [bug](https://github.com/docker/docker/issues/14106) in Docker 1.7.0 that prevents this from working correctly.
 Please install Docker 1.6.2 or Docker 1.7.1.
 
-**Table of Contents**
+## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Overview](#overview)
-  - [Bootstrap Docker](#bootstrap-docker)
-- [Master Node](#master-node)
-- [Adding a worker node](#adding-a-worker-node)
-- [Deploy a DNS](#deploy-a-dns)
-- [Testing your cluster](#testing-your-cluster)
+{% include pagetoc.html %}
 
 ## Prerequisites
 
@@ -104,16 +92,3 @@ See [here](docker-multinode/deployDNS.html) for instructions.
 Once your cluster has been created you can [test it out](docker-multinode/testing.html)
 
 For more complete applications, please look in the [examples directory](../../examples/)
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/docker-multinode.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

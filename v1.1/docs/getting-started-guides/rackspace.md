@@ -1,23 +1,7 @@
 ---
-layout: docwithnav
 title: "Getting started on Rackspace"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Getting started on Rackspace
-----------------------------
-
-**Table of Contents**
-
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Provider: Rackspace](#provider-rackspace)
-- [Build](#build)
-- [Cluster](#cluster)
-- [Some notes:](#some-notes)
-- [Network Design](#network-design)
 
 ## Introduction
 
@@ -32,6 +16,10 @@ NOTE: The rackspace scripts do NOT rely on `saltstack` and instead rely on cloud
 The current cluster design is inspired by:
 - [corekube](https://github.com/metral/corekube)
 - [Angus Lees](https://github.com/anguslees/kube-openstack)
+
+## Table of Contents
+
+{% include pagetoc.html %}
 
 ## Prerequisites
 
@@ -77,16 +65,3 @@ There is a specific `cluster/rackspace` directory with the scripts for the follo
 - eth0 - Public Interface used for servers/containers to reach the internet
 - eth1 - ServiceNet - Intra-cluster communication (k8s, etcd, etc) communicate via this interface. The `cloud-config` files use the special CoreOS identifier `$private_ipv4` to configure the services.
 - eth2 - Cloud Network - Used for k8s pods to communicate with one another. The proxy service will pass traffic via this interface.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/rackspace.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

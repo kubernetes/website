@@ -5,103 +5,103 @@ toc:
   path: /v1.1/reference
   section:
   - title: Kubernetes API Overview
-    path: http://kubernetes.io/v1.1/docs/api.html
+    path: /v1.1/docs/api.html
   - title: Kubernetes API Reference
-    path: http://kubernetes.io/v1.1/api-ref.html
+    path: /v1.1/api-ref.html
 
 - title: kubectl
   section:
   - title: kubectl Overview
-    path: http://kubernetes.io/v1.1/docs/user-guide/kubectl-overview.html
+    path: /v1.1/docs/user-guide/kubectl-overview.html
   - title: kubectl for Docker Users
     path: /v1.1/reference/docker-cli-to-kubectl
   - title: kubectl Reference (pretend the child nodes are here)
-    path: http://kubernetes.io/v1.1/docs/user-guide/kubectl/kubectl.html
+    path: /v1.1/docs/user-guide/kubectl/kubectl.html
 
 - title: JSONpath
-  path: http://kubernetes.io/v1.1/docs/user-guide/jsonpath.html
+  path: /v1.1/docs/user-guide/jsonpath.html
 
 - title: kube-apiserver
   section:
   - title: Overview
-    path: http://kubernetes.io/v1.1/docs/admin/kube-apiserver.html
+    path: /v1.1/docs/admin/kube-apiserver.html
   - title: Authorization Plugins
-    path: http://kubernetes.io/v1.1/docs/admin/authorization.html
+    path: /v1.1/docs/admin/authorization.html
   - title: Authentication
-    path: http://kubernetes.io/v1.1/docs/admin/authentication.html
+    path: /v1.1/docs/admin/authentication.html
   - title: Accessing the API
-    path: http://kubernetes.io/v1.1/docs/admin/accessing-the-api.html
+    path: /v1.1/docs/admin/accessing-the-api.html
   - title: Admission Controllers
-    path: http://kubernetes.io/v1.1/docs/admin/admission-controllers.html
+    path: /v1.1/docs/admin/admission-controllers.html
   - title: Managing Service Accounts
-    path: http://kubernetes.io/v1.1/docs/admin/service-accounts-admin.html
+    path: /v1.1/docs/admin/service-accounts-admin.html
 
 - title: kub-scheduler
-  path: http://kubernetes.io/v1.1/docs/admin/kube-scheduler.html
+  path: /v1.1/docs/admin/kube-scheduler.html
 
 - title: kubelet
-  path: http://kubernetes.io/v1.1/docs/admin/kubelet.html
+  path: /v1.1/docs/admin/kubelet.html
 
 - title: kube-proxy
-  path: http://kubernetes.io/v1.1/docs/admin/kube-proxy.html
+  path: /v1.1/docs/admin/kube-proxy.html
 
 - title: etcd
-  path: http://kubernetes.io/v1.1/docs/admin/etcd.html
+  path: /v1.1/docs/admin/etcd.html
 
 - title: Concept Definitions
   section:
   - title: Container Environment
-    path: http://kubernetes.io/v1.1/docs/user-guide/container-environment.html
+    path: /v1.1/docs/user-guide/container-environment.html
   - title: Images
-    path: http://kubernetes.io/v1.1/docs/user-guide/images.html
+    path: /v1.1/docs/user-guide/images.html
   - title: Downward API
-    path: http://kubernetes.io/v1.1/docs/user-guide/downward-api.html
+    path: /v1.1/docs/user-guide/downward-api.html
   - title: Pods
-    path: http://kubernetes.io/v1.1/docs/user-guide/pods.html
+    path: /v1.1/docs/user-guide/pods.html
   - title: Labels and Selectors
-    path: http://kubernetes.io/v1.1/docs/user-guide/labels.html
+    path: /v1.1/docs/user-guide/labels.html
   - title: Replication Controller
-    path: http://kubernetes.io/v1.1/docs/user-guide/replication-controller.html
+    path: /v1.1/docs/user-guide/replication-controller.html
   - title: Services
-    path: http://kubernetes.io/v1.1/docs/user-guide/services.html
+    path: /v1.1/docs/user-guide/services.html
   - title: Volumes
-    path: http://kubernetes.io/v1.1/docs/user-guide/volumes.html
+    path: /v1.1/docs/user-guide/volumes.html
   - title: Persistent Volumes
-    path: http://kubernetes.io/v1.1/docs/user-guide/persistent-volumes.html
+    path: /v1.1/docs/user-guide/persistent-volumes.html
   - title: Secrets
-    path: http://kubernetes.io/v1.1/docs/user-guide/secrets.html
+    path: /v1.1/docs/user-guide/secrets.html
   - title: Names
-    path: http://kubernetes.io/v1.1/docs/user-guide/identifiers.html
+    path: /v1.1/docs/user-guide/identifiers.html
   - title: Namespaces
-    path: http://kubernetes.io/v1.1/docs/user-guide/namespaces.html
+    path: /v1.1/docs/user-guide/namespaces.html
   - title: Service Accounts
-    path: http://kubernetes.io/v1.1/docs/user-guide/service-accounts.html
+    path: /v1.1/docs/user-guide/service-accounts.html
   - title: Annotations
-    path: http://kubernetes.io/v1.1/docs/user-guide/annotations.html
+    path: /v1.1/docs/user-guide/annotations.html
   - title: Daemon Sets
-    path: http://kubernetes.io/v1.1/docs/admin/daemons.html
+    path: /v1.1/docs/admin/daemons.html
   - title: Deployments
-    path: http://kubernetes.io/v1.1/docs/user-guide/deployments.html
+    path: /v1.1/docs/user-guide/deployments.html
   - title: Ingress Resources
-    path: http://kubernetes.io/v1.1/docs/user-guide/ingress.html
+    path: /v1.1/docs/user-guide/ingress.html
   - title: Horizontal Pod Autoscaling
-    path: http://kubernetes.io/v1.1/docs/user-guide/horizontal-pod-autoscaler.html
+    path: /v1.1/docs/user-guide/horizontal-pod-autoscaler.html
   - title: Jobs
-    path: http://kubernetes.io/v1.1/docs/user-guide/jobs.html
+    path: /v1.1/docs/user-guide/jobs.html
   - title: Resource Quotas
-    path: http://kubernetes.io/v1.1/docs/admin/resource-quota.html
+    path: /v1.1/docs/admin/resource-quota.html
 
 - title: Kubernetes Design Docs
   section:
   - title: Kubernetes Architecture
-    path: http://kubernetes.io/v1.1/docs/design/architecture.html
+    path: /v1.1/docs/design/architecture.html
   - title: Kubernetes Design Overview
-    path: http://kubernetes.io/v1.1/docs/design/README.html
+    path: /v1.1/docs/design/README.html
   - title: Security in Kubernetes
-    path: http://kubernetes.io/v1.1/docs/design/security.html
+    path: /v1.1/docs/design/security.html
   - title: Kubernetes Identity and Access Management
-    path: http://kubernetes.io/v1.1/docs/design/access.html
+    path: /v1.1/docs/design/access.html
   - title: Security Contexts
-    path: http://kubernetes.io/v1.1/docs/design/security_context.html
+    path: /v1.1/docs/design/security_context.html
   - title: Kubernetes OpenVSwitch GRE/VxLAN networking
-    path: http://kubernetes.io/v1.1/docs/admin/ovs-networking.html
+    path: /v1.1/docs/admin/ovs-networking.html

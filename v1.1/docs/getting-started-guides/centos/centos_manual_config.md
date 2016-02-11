@@ -1,18 +1,10 @@
 ---
-layout: docwithnav
 title: "Getting started on CentOS"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+## Table of Contents
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Getting started on [CentOS](http://centos.org)
-----------------------------------------------
-
-**Table of Contents**
-
-- [Prerequisites](#prerequisites)
-- [Starting a cluster](#starting-a-cluster)
+{% include pagetoc.html %}
 
 ## Prerequisites
 
@@ -205,16 +197,3 @@ centos-minion          <none>            Ready
 **The cluster should be running! Launch a test pod.**
 
 You should have a functional cluster, check out [101](../../../docs/user-guide/walkthrough/README.html)!
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/centos/centos_manual_config.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

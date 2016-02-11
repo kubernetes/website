@@ -1,20 +1,10 @@
 ---
-layout: docwithnav
 title: "Getting started on oVirt"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+## Table of Contents
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Getting started on oVirt
-------------------------
-
-**Table of Contents**
-
-- [What is oVirt](#what-is-ovirt)
-- [oVirt Cloud Provider Deployment](#ovirt-cloud-provider-deployment)
-- [Using the oVirt Cloud Provider](#using-the-ovirt-cloud-provider)
-- [oVirt Cloud Provider Screencast](#ovirt-cloud-provider-screencast)
+{% include pagetoc.html %}
 
 ## What is oVirt
 
@@ -60,16 +50,3 @@ The `ovirt-cloud.conf` file then must be specified in kube-controller-manager:
 This short screencast demonstrates how the oVirt Cloud Provider can be used to dynamically add VMs to your Kubernetes cluster.
 
 [![Screencast](http://img.youtube.com/vi/JyyST4ZKne8/0.jpg)](http://www.youtube.com/watch?v=JyyST4ZKne8)
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/ovirt.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

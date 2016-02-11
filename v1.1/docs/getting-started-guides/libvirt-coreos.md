@@ -1,27 +1,10 @@
 ---
-layout: docwithnav
 title: "Getting started with libvirt CoreOS"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+## Table of Contents
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Getting started with libvirt CoreOS
------------------------------------
-
-**Table of Contents**
-
-- [Highlights](#highlights)
-- [Warnings about `libvirt-coreos` use case](#warnings-about-libvirt-coreos-use-case)
-- [Prerequisites](#prerequisites)
-- [Setup](#setup)
-- [Interacting with your Kubernetes cluster with the `kube-*` scripts.](#interacting-with-your-kubernetes-cluster-with-the-kube--scripts)
-- [Troubleshooting](#troubleshooting)
-    - [!!! Cannot find kubernetes-server-linux-amd64.tar.gz](#-cannot-find-kubernetes-server-linux-amd64targz)
-    - [Can't find virsh in PATH, please fix and retry.](#cant-find-virsh-in-path-please-fix-and-retry)
-    - [error: Failed to connect socket to '/var/run/libvirt/libvirt-sock': No such file or directory](#error-failed-to-connect-socket-to-varrunlibvirtlibvirt-sock-no-such-file-or-directory)
-    - [error: Failed to connect socket to '/var/run/libvirt/libvirt-sock': Permission denied](#error-failed-to-connect-socket-to-varrunlibvirtlibvirt-sock-permission-denied)
-    - [error: Out of memory initializing network (virsh net-create...)](#error-out-of-memory-initializing-network-virsh-net-create)
+{% include pagetoc.html %}
 
 ### Highlights
 
@@ -351,16 +334,3 @@ usermod -a -G libvirtd $USER
 #### error: Out of memory initializing network (virsh net-create...)
 
 Ensure libvirtd has been restarted since ebtables was installed.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/libvirt-coreos.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

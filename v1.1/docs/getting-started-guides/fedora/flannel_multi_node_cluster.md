@@ -2,20 +2,9 @@
 layout: docwithnav
 title: "Kubernetes multiple nodes cluster with flannel on Fedora"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+## Table of Contents
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Kubernetes multiple nodes cluster with flannel on Fedora
---------------------------------------------------------
-
-**Table of Contents**
-
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Master Setup](#master-setup)
-- [Node Setup](#node-setup)
-- [**Test the cluster and flannel configuration**](#test-the-cluster-and-flannel-configuration)
+{% include pagetoc.html %}
 
 ## Introduction
 
@@ -220,16 +209,3 @@ PING 18.16.90.4 (18.16.90.4) 56(84) bytes of data.
 {% endhighlight %}
 
 * Now Kubernetes multi-node cluster is set up with overlay networking set up by flannel.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/fedora/flannel_multi_node_cluster.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

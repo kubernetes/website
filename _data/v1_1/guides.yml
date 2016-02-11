@@ -2,111 +2,164 @@ bigheader: "User Guides"
 abstract: "How to get started, and acheive tasks, using Kubernetes"
 toc:
 - title: Overview
-  path: /v1.1/guides/
+  path: /v1.1/
 
 - title: Quickstarts
   section:
-  - title: Setting Up Your Local Environment
-    path: /v1.1/docs/setup
-  - title: 5-minute Quickstart
+  - title: TODO - 5-minute Quickstart
     path: /v1.1/docs/hellonode
   - title: Kubernetes 101
-    path: http://kubernetes.io/v1.1/docs/user-guide/walkthrough/README.html
+    path: /v1.1/docs/user-guide/walkthrough/README
   - title: Kubernetes 201
-    path: http://kubernetes.io/v1.1/docs/user-guide/walkthrough/k8s201.html
+    path: /v1.1/docs/user-guide/walkthrough/k8s201
 
 - title: Running Kubernetes
   section:
+  - title: Picking the Right Solution
+    path: /v1.1/docs/getting-started-guides/README 
   - title: Running Kubernetes on Your Local Machine
-    path: http://kubernetes.io/v1.1/gs-localmachine.html
+    section:
+    - title: Running Kubernetes Locally via Docker
+      path: /v1.1/docs/getting-started-guides/docker
+    - title: Running Kubernetes Locally via Vagrant
+      path: /v1.1/docs/getting-started-guides/vagrant
+    - title: Running Kubernetes Locally with No VM
+      path: /v1.1/docs/getting-started-guides/locally
   - title: Running Kubernetes on Google Container Engine
-    path: https://cloud.google.com/container-engine
+    path: https://cloud.google.com/container-engine/docs/before-you-begin
   - title: Running Kubernetes on Turn-key Cloud Solutions
-    path: http://kubernetes.io/v1.1/gs-turnkey.html
+    section:
+    - title: Running Kubernetes on Google Compute Engine
+      path: /v1.1/docs/getting-started-guides/gce
+    - title: Running Kubernetes on AWS EC2
+      path: /v1.1/docs/getting-started-guides/aws
+    - title: Running Kubernetes on Azure
+      path: /v1.1/docs/getting-started-guides/coreos/azure/README
   - title: Running Kubernetes on Custom Solutions
-    path: http://kubernetes.io/v1.1/gs-custom.html
-
+    section:
+    - title: Getting Started From Scratch
+      path: /v1.1/docs/getting-started-guides/scratch
+    - title: Custom Cloud Solutions
+      section:
+      - title: AWS or GCE on CoreOS
+        path: /v1.1/docs/getting-started-guides/coreos
+      - title: AWS or Joyent on Ubuntu
+        path: /v1.1/docs/getting-started-guides/juju
+      - title: Rackspace on CoreOS
+        path: /v1.1/docs/getting-started-guides/rackspace
+    - title: On-Premise VMs
+      section:
+      - title: Vagrant or VMware
+        path: /v1.1/docs/getting-started-guides/coreos
+      - title: Cloudstack
+        path: /v1.1/docs/getting-started-guides/cloudstack
+      - title: VMWare
+        path: /v1.1/docs/getting-started-guides/vsphere
+      - title: Juju
+        path: /v1.1/docs/getting-started-guides/juju
+      - title: libvirt on CoreOS
+        path: /v1.1/docs/getting-started-guides/libvirt-coreos
+      - title: oVirt
+        path: /v1.1/docs/getting-started-guides/ovirt
+      - title: libvirt or KVM
+        path: /v1.1/docs/getting-started-guides/fedora/flannel_multi_node_cluster
+    - title: Bare Metal
+      section:
+      - title: Offline
+        path: /v1.1/docs/getting-started-guides/coreos/bare_metal_offline
+      - title: Fedora via Ansible
+        path: /v1.1/docs/getting-started-guides/fedora/fedora_ansible_config
+      - title: Fedora (Single Node)
+        path: /v1.1/docs/getting-started-guides/fedora/fedora_manual_config
+      - title: Fedora (Multi Node)
+        path: /v1.1/docs/getting-started-guides/fedora/flannel_multi_node_cluster
+      - title: Centos
+        path: /v1.1/docs/getting-started-guides/centos/centos_manual_config
+      - title: Ubuntu
+        path: /v1.1/docs/getting-started-guides/ubuntu
+      - title: Docker (Multi Node)
+        path: /v1.1/docs/getting-started-guides/docker-multinode
 
 - title: Common Tasks
   section:
   - title: Using Clusters
-    path: http://kubernetes.io/v1.1/docs/admin/introduction.html
+    path: /v1.1/docs/admin/introduction
   - title: Using Multiple Clusters
-    path: http://kubernetes.io/v1.1/docs/admin/multi-cluster.html
+    path: /v1.1/docs/admin/multi-cluster
   - title: Using Large Clusters
-    path: http://kubernetes.io/v1.1/docs/admin/cluster-large.html
+    path: /v1.1/docs/admin/cluster-large
   - title: Building High-Availability Clusters
-    path: http://kubernetes.io/v1.1/docs/admin/high-availability.html
+    path: /v1.1/docs/admin/high-availability
   - title: Accessing Clusters
-    path: http://kubernetes.io/v1.1/docs/user-guide/accessing-the-cluster.html
+    path: /v1.1/docs/user-guide/accessing-the-cluster
   - title: Sharing a Cluster
-    path: http://kubernetes.io/v1.1/docs/admin/namespaces/README.html
+    path: /v1.1/docs/admin/namespaces/README
   - title: Changing Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster
   - title: Creating a Custom Cluster from Scratch
-    path: http://kubernetes.io/v1.1/docs/getting-started-guides/scratch.html
+    path: /v1.1/docs/getting-started-guides/scratch
   - title: Authenticating Across Clusters with kubeconfig
-    path: http://kubernetes.io/v1.1/docs/user-guide/kubeconfig-file.html
+    path: /v1.1/docs/user-guide/kubeconfig-file
 
   - title: Using Nodes
-    path: http://kubernetes.io/v1.1/docs/admin/node.html
+    path: /v1.1/docs/admin/node
   - title: Assigning Pods to Nodes
-    path: http://kubernetes.io/v1.1/docs/user-guide/node-selection/README.html
+    path: /v1.1/docs/user-guide/node-selection/README
 
   - title: Using Configuration Files
-    path: http://kubernetes.io/v1.1/docs/user-guide/simple-yaml.html
+    path: /v1.1/docs/user-guide/simple-yaml
   - title: Configuring Containers
-    path: http://kubernetes.io/v1.1/docs/user-guide/configuring-containers.html
+    path: /v1.1/docs/user-guide/configuring-containers
   - title: Configuring Kubernetes with Salt
-    path: http://kubernetes.io/v1.1/docs/admin/salt.html
+    path: /v1.1/docs/admin/salt
   - title: Using Environment Variables
-    path: http://kubernetes.io/v1.1/docs/user-guide/environment-guide/README.html
+    path: /v1.1/docs/user-guide/environment-guide/README
   - title: Configuring Garbage Collection
-    path: http://kubernetes.io/v1.1/docs/admin/garbage-collection.html
+    path: /v1.1/docs/admin/garbage-collection
 
   - title: Managing Compute Resources
-    path: http://kubernetes.io/v1.1/docs/user-guide/compute-resources.html
+    path: /v1.1/docs/user-guide/compute-resources
   - title: Applying Resource Quotas and Limits
-    path: http://kubernetes.io/v1.1/docs/admin/resourcequota/README.html
+    path: /v1.1/docs/admin/resourcequota/README
   - title: Setting Pod CPU and Memory Limits
-    path: http://kubernetes.io/v1.1/docs/admin/limitrange/README.html
+    path: /v1.1/docs/admin/limitrange/README
 
   - title: Managing Deployments
-    path: http://kubernetes.io/v1.1/docs/user-guide/managing-deployments.html
+    path: /v1.1/docs/user-guide/managing-deployments
   - title: Deploying Applications
-    path: http://kubernetes.io/v1.1/docs/user-guide/deploying-applications.html
+    path: /v1.1/docs/user-guide/deploying-applications
   - title: Launching, Exposing, and Killing Applications
-    path: http://kubernetes.io/v1.1/docs/user-guide/quick-start.html
+    path: /v1.1/docs/user-guide/quick-start
   - title: Connecting Applications
-    path: http://kubernetes.io/v1.1/docs/user-guide/connecting-applications.html
+    path: /v1.1/docs/user-guide/connecting-applications
 
   - title: Networking in Kubernetes
-    path: http://kubernetes.io/v1.1/docs/admin/networking.html
+    path: /v1.1/docs/admin/networking
   - title: Creating Servers with External IPs
-    path: http://kubernetes.io/v1.1/examples/simple-nginx.html
+    path: /v1.1/examples/simple-nginx
   - title: Setting Up and Configuring DNS
-    path: http://kubernetes.io/v1.1/examples/cluster-dns/README.html
+    path: /v1.1/examples/cluster-dns/README
   - title: Using DNS Pods and Services
-    path: http://kubernetes.io/v1.1/docs/admin/dns.html
+    path: /v1.1/docs/admin/dns
   - title: Working with Containers
-    path: http://kubernetes.io/v1.1/docs/user-guide/production-pods.html
+    path: /v1.1/docs/user-guide/production-pods
   - title: Creating Pods with the Downward API
-    path: http://kubernetes.io/v1.1/docs/user-guide/downward-api/README.html
+    path: /v1.1/docs/user-guide/downward-api/README
   - title: Using Secrets
-    path: http://kubernetes.io/v1.1/docs/user-guide/secrets/README.html
+    path: /v1.1/docs/user-guide/secrets/README
   - title: Using Persistent Volumes
-    path: http://kubernetes.io/v1.1/docs/user-guide/persistent-volumes/README.html
+    path: /v1.1/docs/user-guide/persistent-volumes/README
   - title: Updating Live Pods
-    path: http://kubernetes.io/v1.1/docs/user-guide/update-demo/README.html
+    path: /v1.1/docs/user-guide/update-demo/README
 
 
 - title: Testing and Monitoring
   section:
   - title: Simulating Large Test Loads
-    path: http://kubernetes.io/v1.1/examples/k8petstore/README.html
+    path: /v1.1/examples/k8petstore/README
   - title: Checking Pod Health
-    path: http://kubernetes.io/v1.1/docs/user-guide/liveness/README.html
+    path: /v1.1/docs/user-guide/liveness/README
   - title: Using Explorer to Examine the Runtime Environment
-    path: http://kubernetes.io/v1.1/examples/explorer/README.html
+    path: /v1.1/examples/explorer/README
   - title: Resource Usage Monitoring
-    path: http://kubernetes.io/v1.1/docs/user-guide/monitoring.html
+    path: /v1.1/docs/user-guide/monitoring

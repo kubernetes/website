@@ -1,23 +1,13 @@
 ---
-layout: docwithnav
 title: "Configuring Kubernetes on Fedora via Ansible"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Configuring Kubernetes on [Fedora](http://fedoraproject.org) via [Ansible](http://www.ansible.com/home)
--------------------------------------------------------------------------------------------------------
 
 Configuring Kubernetes on Fedora via Ansible offers a simple way to quickly create a clustered environment with little effort.
 
-**Table of Contents**
+## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Architecture of the cluster](#architecture-of-the-cluster)
-- [Setting up ansible access to your nodes](#setting-up-ansible-access-to-your-nodes)
-- [Setting up the cluster](#setting-up-the-cluster)
-- [Testing and using your new cluster](#testing-and-using-your-new-cluster)
+{% include pagetoc.html %}
 
 ## Prerequisites
 
@@ -278,16 +268,3 @@ curl http://localhost
 {% endhighlight %}
 
 That's it !
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/fedora/fedora_ansible_config.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

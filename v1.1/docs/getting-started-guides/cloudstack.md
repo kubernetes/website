@@ -1,22 +1,9 @@
 ---
-layout: docwithnav
 title: "Getting started on CloudStack"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Getting started on [CloudStack](http://cloudstack.apache.org)
-------------------------------------------------------------
-
-**Table of Contents**
-
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Clone the playbook](#clone-the-playbook)
-- [Create a Kubernetes cluster](#create-a-kubernetes-cluster)
-
-### Introduction
+## Introduction
 
 CloudStack is a software to build public and private clouds based on hardware virtualization principles (traditional IaaS). To deploy Kubernetes on CloudStack there are several possibilities depending on the Cloud being used and what images are made available. [Exoscale](http://exoscale.ch) for instance makes a [CoreOS](http://coreos.com) template available, therefore instructions to deploy Kubernetes on coreOS can be used. CloudStack also has a vagrant plugin available, hence Vagrant could be used to deploy Kubernetes either using the existing shell provisioner or using new Salt based recipes.
 
@@ -28,7 +15,11 @@ This is a completely automated, a single playbook deploys Kubernetes based on th
 
 This [Ansible](http://ansibleworks.com) playbook deploys Kubernetes on a CloudStack based Cloud using CoreOS images. The playbook, creates an ssh key pair, creates a security group and associated rules and finally starts coreOS instances configured via cloud-init.
 
-### Prerequisites
+## Table of Contents
+
+{% include pagetoc.html %}
+
+## Prerequisites
 
     $ sudo apt-get install -y python-pip
     $ sudo pip install ansible
@@ -90,16 +81,3 @@ SSH to it using the key that was created and using the _core_ user and you can l
     a017c422...	<node #1 IP>   role=node
     ad13bf84...	<master IP>	   role=master
     e9af8293...	<node #2 IP>   role=node
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/cloudstack.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

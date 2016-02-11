@@ -1,13 +1,11 @@
 ---
-layout: docwithnav
 title: "Getting Started on CoreOS"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
+## Table of Contents
 
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-## Getting Started on [CoreOS](https://coreos.com)
+{% include pagetoc.html %}
 
 There are multiple guides on running Kubernetes with [CoreOS](https://coreos.com/kubernetes/docs/latest/):
 
@@ -74,15 +72,3 @@ Guide to running an HA etcd cluster with a single master on Azure. Uses the Azur
 [**Multi-node cluster using cloud-config, CoreOS and VMware ESXi**](https://github.com/xavierbaude/VMware-coreos-multi-nodes-Kubernetes)
 
 Configure a single master, single worker cluster on VMware ESXi.
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/coreos.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

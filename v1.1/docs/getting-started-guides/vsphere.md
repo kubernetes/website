@@ -1,25 +1,15 @@
 ---
-layout: docwithnav
 title: "Getting started with vSphere"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-Getting started with vSphere
--------------------------------
-
 The example below creates a Kubernetes cluster with 4 worker node Virtual
 Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This
 cluster is set up and controlled from your workstation (or wherever you find
 convenient).
 
-**Table of Contents**
+## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Setup](#setup)
-- [Starting a cluster](#starting-a-cluster)
-- [Extra: debugging deployment failure](#extra-debugging-deployment-failure)
+{% include pagetoc.html %}
 
 ### Prerequisites
 
@@ -106,16 +96,3 @@ The output of `kube-up.sh` displays the IP addresses of the VMs it deploys. You
 can log into any VM as the `kube` user to poke around and figure out what is
 going on (find yourself authorized with your SSH key, or use the password
 `kube` otherwise).
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/vsphere.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

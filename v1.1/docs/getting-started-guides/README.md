@@ -1,37 +1,16 @@
 ---
-layout: docwithnav
-title: "Creating a Kubernetes Cluster"
+title: "Picking the Right Solution"
+section: guides
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-Creating a Kubernetes Cluster
-----------------------------------------
-
 Kubernetes can run on a range of platforms, from your laptop, to VMs on a cloud provider, to rack of
 bare metal servers.  The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster.  We'll guide you in picking a solution that fits for your needs.
 
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
+## Table of Contents
 
-  - [Picking the Right Solution](#picking-the-right-solution)
-    - [Local-machine Solutions](#local-machine-solutions)
-    - [Hosted Solutions](#hosted-solutions)
-    - [Turn-key Cloud Solutions](#turn-key-cloud-solutions)
-    - [Custom Solutions](#custom-solutions)
-      - [Cloud](#cloud)
-      - [On-Premises VMs](#on-premises-vms)
-      - [Bare Metal](#bare-metal)
-      - [Integrations](#integrations)
-  - [Table of Solutions](#table-of-solutions)
+{% include pagetoc.html %}
 
-<!-- END MUNGE: GENERATED_TOC -->
-
-
-## Picking the Right Solution
+## Options
 
 If you just want to "kick the tires" on Kubernetes, we recommend the [local Docker-based](docker.html) solution.
 
@@ -200,16 +179,3 @@ Definition of columns:
 [2]: https://gist.github.com/derekwaynecarr/505e56036cdf010bf6b6
 <!-- GKE conformance test result -->
 [3]: https://gist.github.com/erictune/2f39b22f72565365e59b
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-
