@@ -75,7 +75,7 @@ contributions to our site and our documentation!
 	π.listen(init);
 	function init(){
 		π.clean(init);
-		var editLink = πd('editLink');
+		var editLink = πd('editlink');
 		if(window.location.hash) {
 			var page = window.location.hash.substring(1,window.location.hash.length);
 			editLink.innerHTML = '<h2>Continue with your edit</h2><p>Click the below link to edit the page you were just on. When you are done, press "Commit Changes" at the bottom of the screen. This will create a copy of our site on your GitHub account called a "fork." You can make other changes in your fork after it is created, if you want. When you are ready to send us all your changes, go to the index page for your fork and click "New Pull Request" to let us know about it.</p><a class="button" href="https://github.com/kubernetes/kubernetes.github.io/edit/master/' + page + '">Edit "' + page + '"</a>';
