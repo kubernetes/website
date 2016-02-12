@@ -76,12 +76,22 @@ contributions to our site and our documentation!
 	function init(){
 		π.clean(init);
 		var editLink = πd('editlink');
+		var h2 = π.h2();
+		var p = π.p();
+		var a = π.contentElement('a', 'button');
 		if(window.location.hash) {
 			var page = window.location.hash.substring(1,window.location.hash.length);
-			editLink.fill('<h2>Continue with your edit</h2><p>Click the below link to edit the page you were just on. When you are done, press "Commit Changes" at the bottom of the screen. This will create a copy of our site on your GitHub account called a "fork." You can make other changes in your fork after it is created, if you want. When you are ready to send us all your changes, go to the index page for your fork and click "New Pull Request" to let us know about it.</p><a class="button" href="https://github.com/kubernetes/kubernetes.github.io/edit/master/' + page + '">Edit "' + page + '"</a>');
+			h2.fill('Continue with your edit');
+			p.fill('Click the below link to edit the page you were just on. When you are done, press "Commit Changes" at the bottom of the screen. This will create a copy of our site on your GitHub account called a "fork." You can make other changes in your fork after it is created, if you want. When you are ready to send us all your changes, go to the index page for your fork and click "New Pull Request" to let us know about it.');
+			a.href = 'https://github.com/kubernetes/kubernetes.github.io/edit/master/' + page;
+			a.fill('Edit ' + page);
 		} else {
-			editLink.fill('<h2>Editing the site in the cloud</h2><p>Click the below button to visit the repo for our site. You can then click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.</p><a class="button" href="https://github.com/kubernetes/kubernetes.github.io/">Visit our GitHub repo</a>');
+			h2.fill('Editing the site in the cloud');
+			p.fill('Click the below button to visit the repo for our site. You can then click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.');
+			a.href = 'https://github.com/kubernetes/kubernetes.github.io/';
+			a.fill('Visit our GitHub repo');
 		}
+		editLink.fill([h2, p, a]);
 	}
 })();
 </script>
