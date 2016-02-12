@@ -5,103 +5,103 @@ toc:
   path: /v1.1/reference
   section:
   - title: Kubernetes API Overview
-    path: /v1.1/docs/api.html
+    path: /v1.1/docs/api
   - title: Kubernetes API Reference
-    path: /v1.1/api-ref.html
+    path: /v1.1/api-ref
 
 - title: kubectl
   section:
   - title: kubectl Overview
-    path: /v1.1/docs/user-guide/kubectl-overview.html
+    path: /v1.1/docs/user-guide/kubectl-overview
   - title: kubectl for Docker Users
     path: /v1.1/reference/docker-cli-to-kubectl
   - title: kubectl Reference (pretend the child nodes are here)
-    path: /v1.1/docs/user-guide/kubectl/kubectl.html
+    path: /v1.1/docs/user-guide/kubectl/kubectl
 
 - title: JSONpath
-  path: /v1.1/docs/user-guide/jsonpath.html
+  path: /v1.1/docs/user-guide/jsonpath
 
 - title: kube-apiserver
   section:
   - title: Overview
-    path: /v1.1/docs/admin/kube-apiserver.html
+    path: /v1.1/docs/admin/kube-apiserver
   - title: Authorization Plugins
-    path: /v1.1/docs/admin/authorization.html
+    path: /v1.1/docs/admin/authorization
   - title: Authentication
-    path: /v1.1/docs/admin/authentication.html
+    path: /v1.1/docs/admin/authentication
   - title: Accessing the API
-    path: /v1.1/docs/admin/accessing-the-api.html
+    path: /v1.1/docs/admin/accessing-the-api
   - title: Admission Controllers
-    path: /v1.1/docs/admin/admission-controllers.html
+    path: /v1.1/docs/admin/admission-controllers
   - title: Managing Service Accounts
-    path: /v1.1/docs/admin/service-accounts-admin.html
+    path: /v1.1/docs/admin/service-accounts-admin
 
 - title: kub-scheduler
-  path: /v1.1/docs/admin/kube-scheduler.html
+  path: /v1.1/docs/admin/kube-scheduler
 
 - title: kubelet
-  path: /v1.1/docs/admin/kubelet.html
+  path: /v1.1/docs/admin/kubelet
 
 - title: kube-proxy
-  path: /v1.1/docs/admin/kube-proxy.html
+  path: /v1.1/docs/admin/kube-proxy
 
 - title: etcd
-  path: /v1.1/docs/admin/etcd.html
+  path: /v1.1/docs/admin/etcd
 
 - title: Concept Definitions
   section:
   - title: Container Environment
-    path: /v1.1/docs/user-guide/container-environment.html
+    path: /v1.1/docs/user-guide/container-environment
   - title: Images
-    path: /v1.1/docs/user-guide/images.html
+    path: /v1.1/docs/user-guide/images
   - title: Downward API
-    path: /v1.1/docs/user-guide/downward-api.html
+    path: /v1.1/docs/user-guide/downward-api
   - title: Pods
-    path: /v1.1/docs/user-guide/pods.html
+    path: /v1.1/docs/user-guide/pods
   - title: Labels and Selectors
-    path: /v1.1/docs/user-guide/labels.html
+    path: /v1.1/docs/user-guide/labels
   - title: Replication Controller
-    path: /v1.1/docs/user-guide/replication-controller.html
+    path: /v1.1/docs/user-guide/replication-controller
   - title: Services
-    path: /v1.1/docs/user-guide/services.html
+    path: /v1.1/docs/user-guide/services
   - title: Volumes
-    path: /v1.1/docs/user-guide/volumes.html
+    path: /v1.1/docs/user-guide/volumes
   - title: Persistent Volumes
-    path: /v1.1/docs/user-guide/persistent-volumes.html
+    path: /v1.1/docs/user-guide/persistent-volumes
   - title: Secrets
-    path: /v1.1/docs/user-guide/secrets.html
+    path: /v1.1/docs/user-guide/secrets
   - title: Names
-    path: /v1.1/docs/user-guide/identifiers.html
+    path: /v1.1/docs/user-guide/identifiers
   - title: Namespaces
-    path: /v1.1/docs/user-guide/namespaces.html
+    path: /v1.1/docs/user-guide/namespaces
   - title: Service Accounts
-    path: /v1.1/docs/user-guide/service-accounts.html
+    path: /v1.1/docs/user-guide/service-accounts
   - title: Annotations
-    path: /v1.1/docs/user-guide/annotations.html
+    path: /v1.1/docs/user-guide/annotations
   - title: Daemon Sets
-    path: /v1.1/docs/admin/daemons.html
+    path: /v1.1/docs/admin/daemons
   - title: Deployments
-    path: /v1.1/docs/user-guide/deployments.html
+    path: /v1.1/docs/user-guide/deployments
   - title: Ingress Resources
-    path: /v1.1/docs/user-guide/ingress.html
+    path: /v1.1/docs/user-guide/ingress
   - title: Horizontal Pod Autoscaling
-    path: /v1.1/docs/user-guide/horizontal-pod-autoscaler.html
+    path: /v1.1/docs/user-guide/horizontal-pod-autoscaler
   - title: Jobs
-    path: /v1.1/docs/user-guide/jobs.html
+    path: /v1.1/docs/user-guide/jobs
   - title: Resource Quotas
-    path: /v1.1/docs/admin/resource-quota.html
+    path: /v1.1/docs/admin/resource-quota
 
 - title: Kubernetes Design Docs
   section:
   - title: Kubernetes Architecture
-    path: /v1.1/docs/design/architecture.html
+    path: /v1.1/docs/design/architecture
   - title: Kubernetes Design Overview
-    path: /v1.1/docs/design/README.html
+    path: /v1.1/docs/design/README
   - title: Security in Kubernetes
-    path: /v1.1/docs/design/security.html
+    path: /v1.1/docs/design/security
   - title: Kubernetes Identity and Access Management
-    path: /v1.1/docs/design/access.html
+    path: /v1.1/docs/design/access
   - title: Security Contexts
-    path: /v1.1/docs/design/security_context.html
+    path: /v1.1/docs/design/security_context
   - title: Kubernetes OpenVSwitch GRE/VxLAN networking
-    path: /v1.1/docs/admin/ovs-networking.html
+    path: /v1.1/docs/admin/ovs-networking
