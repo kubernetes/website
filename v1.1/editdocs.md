@@ -76,8 +76,8 @@ contributions to our site and our documentation!
 	function init(){
 		π.clean(init);
 		var editLink = πd('editlink');
-		var h2 = π.h2();
-		var p = π.p();
+		var h2 = π.contentElement('h2');
+		var p = π.contentElement('p');
 		var a = π.contentElement('a', 'button');
 		if(window.location.hash) {
 			var page = window.location.hash.substring(1,window.location.hash.length);
