@@ -75,7 +75,6 @@ contributions to our site and our documentation!
 	π.listen(init);
 	function init(){
 		π.clean(init);
-
 		var editLink = πd('editLink');
 		if(window.location.hash) {
 			var page = window.location.hash.substring(1,window.location.hash.length);
