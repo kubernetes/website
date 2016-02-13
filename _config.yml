@@ -6,7 +6,7 @@ kramdown:
   hard_wrap: false
   enable_coderay: true
 baseurl: /
-destination: ../kubernetes.github.io-built/
+incremental: true
 
 safe: false
 lsi: false
