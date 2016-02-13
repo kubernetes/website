@@ -1,10 +1,6 @@
 ---
 title: "Adding custom resources to the Kubernetes API server"
 ---
-
-
-# Adding custom resources to the Kubernetes API server
-
 This document describes the design for implementing the storage of custom API types in the Kubernetes API Server.
 
 
@@ -60,7 +56,7 @@ using '-' instead of capitalization ('camel-case'), with the first character bei
 capitalized.  In pseudo code:
 
 {% highlight go %}
-{% raw %}
+
 var result string
 for ix := range kindName {
   if isCapital(kindName[ix]) {
@@ -68,7 +64,7 @@ for ix := range kindName {
   }
   result = append(result, toLowerCase(kindName[ix])
 }
-{% endraw %}
+
 {% endhighlight %}
 
 As a concrete example, the resource named `camel-case-kind.example.com` defines resources of Kind `CamelCaseKind`, in
@@ -86,7 +82,7 @@ deleting a namespace, deletes all third party resources in that namespace.
 For example, if a user creates:
 
 {% highlight yaml %}
-{% raw %}
+
 metadata:
   name: cron-tab.example.com
 apiVersion: extensions/v1beta1
@@ -95,7 +91,7 @@ description: "A specification of a Pod to run on a cron style schedule"
 versions:
   - name: stable/v1
   - name: experimental/v2
-{% endraw %}
+
 {% endhighlight %}
 
 Then the API server will program in two new RESTful resource paths:
@@ -106,7 +102,7 @@ Then the API server will program in two new RESTful resource paths:
 Now that this schema has been created, a user can `POST`:
 
 {% highlight json %}
-{% raw %}
+
 {
    "metadata": {
      "name": "my-new-cron-object"
@@ -116,7 +112,7 @@ Now that this schema has been created, a user can `POST`:
    "cronSpec": "* * * * /5",
    "image":     "my-awesome-chron-image"
 }
-{% endraw %}
+
 {% endhighlight %}
 
 to: `/third-party/example.com/stable/v1/namespaces/default/crontabs/my-new-cron-object`
@@ -124,9 +120,9 @@ to: `/third-party/example.com/stable/v1/namespaces/default/crontabs/my-new-cron-
 and the corresponding data will be stored into etcd by the APIServer, so that when the user issues:
 
 ```
-{% raw %}
+
 GET /third-party/example.com/stable/v1/namespaces/default/crontabs/my-new-cron-object`
-{% endraw %}
+
 ```
 
 And when they do that, they will get back the same data, but with additional Kubernetes metadata
@@ -135,15 +131,15 @@ And when they do that, they will get back the same data, but with additional Kub
 Likewise, to list all resources, a user can issue:
 
 ```
-{% raw %}
+
 GET /third-party/example.com/stable/v1/namespaces/default/crontabs
-{% endraw %}
+
 ```
 
 and get back:
 
 {% highlight json %}
-{% raw %}
+
 {
    "apiVersion": "example.com/stable/v1",
    "kind": "CronTabList",
@@ -159,7 +155,7 @@ and get back:
     }
    ]
 }
-{% endraw %}
+
 {% endhighlight %}
 
 Because all objects are expected to contain standard Kubernetes metadata fields, these
@@ -191,17 +187,17 @@ Each custom object stored by the API server needs a custom key in storage, this 
 Given the definitions above, the key for a specific third-party object is:
 
 ```
-{% raw %}
+
 ${standard-k8s-prefix}/third-party-resources/${third-party-resource-namespace}/${third-party-resource-name}/${resource-namespace}/${resource-name}
-{% endraw %}
+
 ```
 
 Thus, listing a third-party resource can be achieved by listing the directory:
 
 ```
-{% raw %}
+
 ${standard-k8s-prefix}/third-party-resources/${third-party-resource-namespace}/${third-party-resource-name}/${resource-namespace}/
-{% endraw %}
+
 ```
 
 

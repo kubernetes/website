@@ -24,8 +24,8 @@ layout: headerfooter
 <section id="encyclopedia">
 	<div id="docsToc">
         <div class="pi-accordion">
-            {% assign tree = site.data[page.versionfilesafe][page.section].toc %}
-            {% include tree.html %}
+        {% for thistoc in site.data[page.versionfilesafe].globals.tocs %}{% assign tree = site.data[page.versionfilesafe][thistoc].toc %}{% include tocsearch.html %}{% endfor %}
+        {% if foundTOC %}{% assign tree = site.data[page.versionfilesafe][foundTOC].toc %}{% include tree.html %}{% endif %}
         </div> <!-- /pi-accordion -->
 	</div> <!-- /docsToc -->
 	<div id="docsContent">{% if page.showedit == true %}<a href="/{{ page.version }}/editdocs#{{ page.path }}" class="button" style="float:right;margin-top:20px;">Edit This Page</a>{% endif %}

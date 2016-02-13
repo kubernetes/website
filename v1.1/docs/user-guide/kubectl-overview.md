@@ -1,32 +1,7 @@
 ---
 title: "kubectl overview"
 ---
-
-
-# kubectl overview
-
-Use this overview of the `kubectl` command line interface to help you start running commands against Kubernetes clusters. This overview quickly covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](kubectl/kubectl.html) reference documentation.
-
-**Table of contents:**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [kubectl overview](#kubectl-overview)
-  - [Syntax](#syntax)
-  - [Operations](#operations)
-  - [Resource types](#resource-types)
-  - [Output options](#output-options)
-    - [Formatting output](#formatting-output)
-      - [Syntax](#syntax)
-        - [Example](#example)
-      - [Custom columns](#custom-columns)
-        - [Examples](#examples)
-    - [Sorting list objects](#sorting-list-objects)
-      - [Syntax](#syntax)
-        - [Example](#example)
-  - [Examples: Common operations](#examples-common-operations)
-  - [Next steps](#next-steps)
-
-<!-- END MUNGE: GENERATED_TOC -->
+Use this overview of the `kubectl` command line interface to help you start running commands against Kubernetes clusters. This overview quickly covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](kubectl/kubectl) reference documentation.
 
 TODO: Auto-generate this file to ensure it's always in sync with any `kubectl` changes, see [#14177](http://pr.k8s.io/14177).
 
@@ -35,9 +10,9 @@ TODO: Auto-generate this file to ensure it's always in sync with any `kubectl` c
 Use the following syntax to run `kubectl` commands from your terminal window:
 
 ```
-{% raw %}
+
 kubectl [command] [TYPE] [NAME] [flags]
-{% endraw %}
+
 ```
 
 where `command`, `TYPE`, `NAME`, and `flags` are:
@@ -46,11 +21,11 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
    ```
-{% raw %}
+
     $ kubectl get pod pod1
     $ kubectl get pods pod1
     $ kubectl get po pod1
-{% endraw %}
+
    ```
 
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
@@ -62,7 +37,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
         * To specify multiple resource types individually: `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`<br/>
         Example: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
    * To specify resources with one or more files: `-f file1 -f file2 -f file<#>`
-	 [Use YAML rather than JSON](config-best-practices.html) since YAML tends to be more user-friendly, especially for configuration files.<br/>
+	 [Use YAML rather than JSON](config-best-practices) since YAML tends to be more user-friendly, especially for configuration files.<br/>
      Example: `$ kubectl get pod -f ./pod.yaml`
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
 **Important**: Flags that you specify from the command line override default values and any corresponding environment variables.
@@ -101,7 +76,7 @@ Operation       | Syntax	|       Description
 `stop`		| `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
 `version`		| `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
-Remember: For more about command operations, see the [kubectl](kubectl/kubectl.html) reference documentation.
+Remember: For more about command operations, see the [kubectl](kubectl/kubectl) reference documentation.
 
 ## Resource types
 
@@ -128,7 +103,7 @@ Resource type	| Abbreviated alias
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](kubectl/kubectl.html) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](kubectl/kubectl) reference documentation.
 
 ### Formatting output
 
@@ -137,9 +112,9 @@ The default output format for all `kubectl` commands is the human readable plain
 #### Syntax
 
 ```
-{% raw %}
+
 kubectl [command] [TYPE] [NAME] -o=<output_format>
-{% endraw %}
+
 ```
 
 Depending on the `kubectl` operation, the following output formats are supported:
@@ -149,8 +124,8 @@ Output format | Description
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of [custom columns](#custom-columns).
 `-o=custom-columns-file=<filename>` | Print a table using the [custom columns](#custom-columns) template in the `<filename>` file.
 `-o=json`     | Output a JSON formatted API object.
-`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](jsonpath.html) expression.
-`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](jsonpath.html) expression in the `<filename>` file.
+`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](jsonpath) expression.
+`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](jsonpath) expression in the `<filename>` file.
 `-o=name`     | Print only the resource name and nothing else.
 `-o=wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
 `-o=yaml`     | Output a YAML formatted API object.
@@ -161,7 +136,7 @@ In this example, the following command outputs the details for a single pod as a
 
 `$ kubectl get pod web-pod-13je7 -o=yaml`
 
-Remember: See the [kubectl](kubectl/kubectl.html) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](kubectl/kubectl) reference documentation for details about which output format is supported by each command.
 
 #### Custom columns
 
@@ -172,47 +147,47 @@ To define custom columns and output only the details that you want into a table,
  * Inline:
 
 {% highlight console %}
-{% raw %}
+
       $ kubectl get pods <pod-name> -o=custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
-{% endraw %}
+
 {% endhighlight %}
 
  * Template file:
 
 {% highlight console %}
-{% raw %}
+
      $ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
-{% endraw %}
+
 {% endhighlight %}
 
      where the `template.txt` file contains:
 
      ```
-{% raw %}
+
       NAME                    RSRC
       metadata.name           metadata.resourceVersion
-{% endraw %}
+
      ```
 
 The result of running either command is:
 
 {% highlight console %}
-{% raw %}
+
 NAME           RSRC
 submit-queue   610995
-{% endraw %}
+
 {% endhighlight %}
 
 ### Sorting list objects
 
-To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](jsonpath.html) expression.
+To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](jsonpath) expression.
 
 #### Syntax
 
 ```
-{% raw %}
+
 kubectl [command] [TYPE] [NAME] --sort-by=<jsonpath_exp>
-{% endraw %}
+
 ```
 
 ##### Example
@@ -295,7 +270,7 @@ Use the following set of examples to help you familiarize yourself with running 
 
 ## Next steps
 
-Start using the [kubectl](kubectl/kubectl.html) commands.
+Start using the [kubectl](kubectl/kubectl) commands.
 
 
 

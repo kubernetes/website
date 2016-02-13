@@ -1,44 +1,14 @@
 ---
 title: "Services in Kubernetes"
 ---
-
-
-# Services in Kubernetes
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Services in Kubernetes](#services-in-kubernetes)
-  - [Overview](#overview)
-  - [Defining a service](#defining-a-service)
-    - [Services without selectors](#services-without-selectors)
-  - [Virtual IPs and service proxies](#virtual-ips-and-service-proxies)
-  - [Multi-Port Services](#multi-port-services)
-  - [Choosing your own IP address](#choosing-your-own-ip-address)
-    - [Why not use round-robin DNS?](#why-not-use-round-robin-dns)
-  - [Discovering services](#discovering-services)
-    - [Environment variables](#environment-variables)
-    - [DNS](#dns)
-  - [Headless services](#headless-services)
-  - [Publishing services - service types](#publishing-services---service-types)
-    - [Type NodePort](#type-nodeport)
-    - [Type LoadBalancer](#type-loadbalancer)
-    - [External IPs](#external-ips)
-  - [Shortcomings](#shortcomings)
-  - [Future work](#future-work)
-  - [The gory details of virtual IPs](#the-gory-details-of-virtual-ips)
-    - [Avoiding collisions](#avoiding-collisions)
-    - [IPs and VIPs](#ips-and-vips)
-  - [API Object](#api-object)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## Overview
 
-Kubernetes [`Pods`](pods.html) are mortal. They are born and they die, and they
-are not resurrected.  [`ReplicationControllers`](replication-controller.html) in
+Kubernetes [`Pods`](pods) are mortal. They are born and they die, and they
+are not resurrected.  [`ReplicationControllers`](replication-controller) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
-or when doing [rolling updates](kubectl/kubectl_rolling-update.html)).  While each `Pod` gets its own IP address, even
+or when doing [rolling updates](kubectl/kubectl_rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -72,7 +42,7 @@ new instance.  For example, suppose you have a set of `Pods` that each expose
 port 9376 and carry a label `"app=MyApp"`.
 
 {% highlight json %}
-{% raw %}
+
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -92,7 +62,7 @@ port 9376 and carry a label `"app=MyApp"`.
         ]
     }
 }
-{% endraw %}
+
 {% endhighlight %}
 
 This specification will create a new `Service` object named "my-service" which
@@ -122,14 +92,14 @@ abstract other kinds of backends.  For example:
   * You want to have an external database cluster in production, but in test
     you use your own databases.
   * You want to point your service to a service in another
-    [`Namespace`](namespaces.html) or on another cluster.
+    [`Namespace`](namespaces) or on another cluster.
   * You are migrating your workload to Kubernetes and some of your backends run
     outside of Kubernetes.
 
 In any of these scenarios you can define a service without a selector:
 
 {% highlight json %}
-{% raw %}
+
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -146,14 +116,14 @@ In any of these scenarios you can define a service without a selector:
         ]
     }
 }
-{% endraw %}
+
 {% endhighlight %}
 
 Because this has no selector, the corresponding `Endpoints` object will not be
 created. You can manually map the service to your own specific endpoints:
 
 {% highlight json %}
-{% raw %}
+
 {
     "kind": "Endpoints",
     "apiVersion": "v1",
@@ -171,7 +141,7 @@ created. You can manually map the service to your own specific endpoints:
         }
     ]
 }
-{% endraw %}
+
 {% endhighlight %}
 
 NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
@@ -213,7 +183,7 @@ ports you must give all of your ports names, so that endpoints can be
 disambiguated.  For example:
 
 {% highlight json %}
-{% raw %}
+
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -240,7 +210,7 @@ disambiguated.  For example:
         ]
     }
 }
-{% endraw %}
+
 {% endhighlight %}
 
 ## Choosing your own IP address
@@ -288,7 +258,7 @@ allocated cluster IP address 10.0.0.11 produces the following environment
 variables:
 
 {% highlight bash %}
-{% raw %}
+
 REDIS_MASTER_SERVICE_HOST=10.0.0.11
 REDIS_MASTER_SERVICE_PORT=6379
 REDIS_MASTER_PORT=tcp://10.0.0.11:6379
@@ -296,7 +266,7 @@ REDIS_MASTER_PORT_6379_TCP=tcp://10.0.0.11:6379
 REDIS_MASTER_PORT_6379_TCP_PROTO=tcp
 REDIS_MASTER_PORT_6379_TCP_PORT=6379
 REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
-{% endraw %}
+
 {% endhighlight %}
 
 *This does imply an ordering requirement* - any `Service` that a `Pod` wants to
@@ -397,7 +367,7 @@ information about the provisioned balancer will be published in the `Service`'s
 `status.loadBalancer` field.  For example:
 
 {% highlight json %}
-{% raw %}
+
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -430,7 +400,7 @@ information about the provisioned balancer will be published in the `Service`'s
         }
     }
 }
-{% endraw %}
+
 {% endhighlight %}
 
 Traffic from the external load balancer will be directed at the backend `Pods`,
@@ -451,7 +421,7 @@ In the ServiceSpec, `externalIPs` can be specified along with any of the `Servic
 In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
 
 {% highlight json %}
-{% raw %}
+
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -475,7 +445,7 @@ In the example below, my-service can be accessed by clients on 80.11.12.10:80 (e
         ]
     }
 }
-{% endraw %}
+
 {% endhighlight %}
 
 ## Shortcomings

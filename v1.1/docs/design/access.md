@@ -1,12 +1,7 @@
 ---
 title: "K8s Identity and Access Management Sketch"
 ---
-
-
-# K8s Identity and Access Management Sketch
-
 This document suggests a direction for identity and access management in the Kubernetes system.
-
 
 ## Background
 
@@ -154,7 +149,7 @@ Improvements:
 
 K8s will have a have a `namespace` API object.  It is similar to a Google Compute Engine `project`.  It provides a namespace for objects created by a group of people co-operating together, preventing name collisions with non-cooperating groups.  It also serves as a reference point for authorization policies.
 
-Namespaces are described in [namespaces.md](namespaces.html).
+Namespaces are described in [namespaces.md](namespaces).
 
 In the Enterprise Profile:
    - a `userAccount` may have permission to access several `namespace`s.
@@ -164,7 +159,7 @@ In the Simple Profile:
 
 Namespaces versus userAccount vs Labels:
 - `userAccount`s are intended for audit logging (both name and UID should be logged), and to define who has access to `namespace`s.
-- `labels` (see [docs/user-guide/labels.md](../../docs/user-guide/labels.html)) should be used to distinguish pods, users, and other objects that cooperate towards a common goal but are different in some way, such as version, or responsibilities.
+- `labels` (see [docs/user-guide/labels.md](/{{page.version}}/docs/user-guide/labels)) should be used to distinguish pods, users, and other objects that cooperate towards a common goal but are different in some way, such as version, or responsibilities.
 - `namespace`s prevent name collisions between uncoordinated groups of people, and provide a place to attach common policies for co-operating groups of people.
 
 
@@ -225,7 +220,7 @@ Policy objects may be applicable only to a single namespace or to all namespaces
 
 ## Accounting
 
-The API should have a `quota` concept (see http://issue.k8s.io/442).  A quota object relates a namespace (and optionally a label selector) to a maximum quantity of resources that may be used (see [resources design doc](resources.html)).
+The API should have a `quota` concept (see http://issue.k8s.io/442).  A quota object relates a namespace (and optionally a label selector) to a maximum quantity of resources that may be used (see [resources design doc](resources)).
 
 Initially:
 - a `quota` object is immutable.

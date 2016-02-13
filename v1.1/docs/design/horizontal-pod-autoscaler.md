@@ -1,10 +1,6 @@
 ---
 title: "Horizontal Pod Autoscaling"
 ---
-
-
-# Horizontal Pod Autoscaling
-
 ## Preface
 
 This document briefly describes the design of the horizontal autoscaler for pods.
@@ -42,7 +38,7 @@ Scale subresource is in API for replication controller or deployment under the f
 It has the following structure:
 
 {% highlight go %}
-{% raw %}
+
 // represents a scaling request for a resource.
 type Scale struct {
 	unversioned.TypeMeta
@@ -69,7 +65,7 @@ type ScaleStatus struct {
 	// label query over pods that should match the replicas count.
 	Selector map[string]string `json:"selector,omitempty"`
 }
-{% endraw %}
+
 {% endhighlight %}
 
 Writing to `ScaleSpec.Replicas` resizes the replication controller/deployment associated with
@@ -86,7 +82,7 @@ In Kubernetes version 1.1, we are introducing HorizontalPodAutoscaler object. It
 It has the following structure:
 
 {% highlight go %}
-{% raw %}
+
 // configuration of a horizontal pod autoscaler.
 type HorizontalPodAutoscaler struct {
 	unversioned.TypeMeta
@@ -139,7 +135,7 @@ type HorizontalPodAutoscalerStatus struct {
 	// e.g. 70 means that an average pod is using now 70% of its requested CPU.
 	CurrentCPUUtilizationPercentage *int
 }
-{% endraw %}
+
 {% endhighlight %}
 
 `ScaleRef` is a reference to the Scale subresource.
@@ -147,7 +143,7 @@ type HorizontalPodAutoscalerStatus struct {
 We are also introducing HorizontalPodAutoscalerList object to enable listing all autoscalers in a namespace:
 
 {% highlight go %}
-{% raw %}
+
 // list of horizontal pod autoscaler objects.
 type HorizontalPodAutoscalerList struct {
 	unversioned.TypeMeta
@@ -156,7 +152,7 @@ type HorizontalPodAutoscalerList struct {
 	// list of horizontal pod autoscaler objects.
 	Items []HorizontalPodAutoscaler
 }
-{% endraw %}
+
 {% endhighlight %}
 
 ## Autoscaling Algorithm
@@ -178,9 +174,9 @@ In future, there will be API on master for this purpose
 The target number of pods is calculated from the following formula:
 
 ```
-{% raw %}
+
 TargetNumOfPods = ceil(sum(CurrentPodsCPUUtilization) / Target)
-{% endraw %}
+
 ```
 
 Starting and stopping pods may introduce noise to the metric (for instance, starting may temporarily increase CPU).

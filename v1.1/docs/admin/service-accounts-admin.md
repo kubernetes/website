@@ -1,12 +1,8 @@
 ---
 title: "Cluster Admin Guide to Service Accounts"
 ---
-
-
-# Cluster Admin Guide to Service Accounts
-
 *This is a Cluster Administrator guide to service accounts.  It assumes knowledge of
-the [User Guide to Service Accounts](../user-guide/service-accounts.html).*
+the [User Guide to Service Accounts](../user-guide/service-accounts).*
 
 *Support for authorization and user accounts is planned but incomplete.  Sometimes
 incomplete features are referred to in order to better describe service accounts.*
@@ -40,7 +36,7 @@ Three separate components cooperate to implement the automation around service a
 ### Service Account Admission Controller
 
 The modification of pods is implemented via a plugin
-called an [Admission Controller](admission-controllers.html). It is part of the apiserver.
+called an [Admission Controller](admission-controllers). It is part of the apiserver.
 It acts synchronously to modify pods as they are created or updated. When this plugin is active
 (and it is by default on most distributions), then it does the following when a pod is created or modified:
   1. If the pod does not have a `ServiceAccount` set, it sets the `ServiceAccount` to `default`.
@@ -66,7 +62,7 @@ of type `ServiceAccountToken` with an annotation referencing the service
 account, and the controller will update it with a generated token:
 
 {% highlight json %}
-{% raw %}
+
 secret.json:
 {
     "kind": "Secret",
@@ -79,22 +75,22 @@ secret.json:
     },
     "type": "kubernetes.io/service-account-token"
 }
-{% endraw %}
+
 {% endhighlight %}
 
 {% highlight sh %}
-{% raw %}
+
 kubectl create -f ./secret.json
 kubectl describe secret mysecretname
-{% endraw %}
+
 {% endhighlight %}
 
 #### To delete/invalidate a service account token
 
 {% highlight sh %}
-{% raw %}
+
 kubectl delete secret mysecretname
-{% endraw %}
+
 {% endhighlight %}
 
 ### Service Account Controller

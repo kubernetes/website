@@ -1,10 +1,6 @@
 ---
 title: "Cluster Management"
 ---
-
-
-# Cluster Management
-
 This document describes several topics related to the lifecycle of a cluster: creating a new cluster,
 upgrading your cluster's
 master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a
@@ -12,7 +8,7 @@ running cluster.
 
 ## Creating and configuring a Cluster
 
-To install Kubernetes on a set of machines, consult one of the existing [Getting Started guides](../../docs/getting-started-guides/README.html) depending on your environment.
+To install Kubernetes on a set of machines, consult one of the existing [Getting Started guides](/{{page.version}}/docs/getting-started-guides/README) depending on your environment.
 
 ## Upgrading a cluster
 
@@ -51,17 +47,17 @@ Get its usage by running `cluster/gce/upgrade.sh -h`.
 For example, to upgrade just your master to a specific version (v1.0.2):
 
 {% highlight console %}
-{% raw %}
+
 cluster/gce/upgrade.sh -M v1.0.2
-{% endraw %}
+
 {% endhighlight %}
 
 Alternatively, to upgrade your entire cluster to the latest stable release:
 
 {% highlight console %}
-{% raw %}
+
 cluster/gce/upgrade.sh release/stable
-{% endraw %}
+
 {% endhighlight %}
 
 ### Other platforms
@@ -75,9 +71,9 @@ If your cluster runs short on resources you can easily add more machines to it i
 If you're using GCE or GKE it's done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
 ```
-{% raw %}
+
 gcloud compute instance-groups managed --zone compute-zone resize my-cluster-minon-group --new-size 42
-{% endraw %}
+
 ```
 
 Instance Group will take care of putting appropriate image on new machines and start them, while Kubelet will register its Node with API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
@@ -105,9 +101,9 @@ The initial values of the autoscaler parameters set by ``kube-up.sh`` and some m
 or using gcloud CLI:
 
 ```
-{% raw %}
+
 gcloud preview autoscaler --zone compute-zone <command>
-{% endraw %}
+
 ```
 
 Note that autoscaling will work properly only if node metrics are accessible in Google Cloud Monitoring.
@@ -127,9 +123,9 @@ If you want more control over the upgrading process, you may use the following w
 Mark the node to be rebooted as unschedulable:
 
 {% highlight console %}
-{% raw %}
+
 kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedulable": true}}'
-{% endraw %}
+
 {% endhighlight %}
 
 This keeps new pods from landing on the node while you are trying to get them off.
@@ -139,9 +135,9 @@ Get the pods off the machine, via any of the following strategies:
    * Delete pods with:
 
 {% highlight console %}
-{% raw %}
+
 kubectl delete pods $PODNAME
-{% endraw %}
+
 {% endhighlight %}
 
 For pods with a replication controller, the pod will eventually be replaced by a new pod which will be scheduled to a new node. Additionally, if the pod is part of a service, then clients will automatically be redirected to the new pod.
@@ -153,14 +149,14 @@ Perform maintenance work on the node.
 Make the node schedulable again:
 
 {% highlight console %}
-{% raw %}
+
 kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedulable": false}}'
-{% endraw %}
+
 {% endhighlight %}
 
 If you deleted the node's VM instance and created a new one, then a new schedulable node resource will
 be created automatically when you create a new VM instance (if you're using a cloud provider that supports
-node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register). See [Node](node.html) for more details.
+node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register). See [Node](node) for more details.
 
 ## Advanced Topics
 
@@ -197,10 +193,10 @@ for changes to this variable to take effect.
 You can use the `kube-version-change` utility to convert config files between different API versions.
 
 {% highlight console %}
-{% raw %}
+
 $ hack/build-go.sh cmd/kube-version-change
 $ _output/local/go/bin/kube-version-change -i myPod.v1beta3.yaml -o myPod.v1.yaml
-{% endraw %}
+
 {% endhighlight %}
 
 

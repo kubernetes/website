@@ -37,7 +37,7 @@ Automation
 ----------
 
 We use a variety of automation to manage pull requests.  This automation is described in detail
-[elsewhere.](automation.html)
+[elsewhere.](automation)
 
 
 

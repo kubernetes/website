@@ -1,26 +1,7 @@
 ---
 title: "Running Kubernetes with Calico Networking on a Digital Ocean Fedora Host"
 ---
-
-
-Running Kubernetes with [Calico Networking](http://projectcalico.org) on a [Digital Ocean](http://digitalocean.com) [Fedora Host](http://fedoraproject.org)
------------------------------------------------------
-
-## Table of Contents
-
-* [Prerequisites](#prerequisites)
-* [Overview](#overview)
-* [Setup Communication Between Hosts](#setup-communication-between-hosts)
-* [Setup Master](#setup-master)
-  *  [Install etcd](#install-etcd)
-  *  [Install Kubernetes](#install-kubernetes)
-  *  [Install Calico](#install-calico)
-* [Setup Node](#setup-node)
-  * [Configure the Virtual Interface - cbr0](#configure-the-virtual-interface---cbr0)
-  * [Install Docker](#install-docker)
-  * [Install Calico](#install-calico-1)
-  * [Install Kubernetes](#install-kubernetes-1)
-* [Check Running Cluster](#check-running-cluster)
+{% include pagetoc.html %}
 
 ## Prerequisites
 
@@ -60,10 +41,10 @@ Ensure you substitute the IP Addresses and Hostnames used in this guide with one
 Digital Ocean private networking configures a private network on eth1 for each host.  To simplify communication between the hosts, we will add an entry to /etc/hosts so that all hosts in the cluster can hostname-resolve one another to this interface.  **It is important that the hostname resolves to this interface instead of eth0, as all Kubernetes and Calico services will be running on it.**
 
 ```
-{% raw %}
+
 echo "10.134.251.56 kube-master" >> /etc/hosts
 echo "10.134.251.55 kube-node-1" >> /etc/hosts
-{% endraw %}
+
 ```
 
 >Make sure that communication works between kube-master and each kube-node by using a utility such as ping.
@@ -75,19 +56,19 @@ echo "10.134.251.55 kube-node-1" >> /etc/hosts
 * Both Calico and Kubernetes use etcd as their datastore. We will run etcd on Master and point all Kubernetes and Calico services at it.
 
 ```
-{% raw %}
+
 yum -y install etcd
-{% endraw %}
+
 ```
 
 * Edit `/etc/etcd/etcd.conf`
 
 ```
-{% raw %}
+
 ETCD_LISTEN_CLIENT_URLS="http://kube-master:4001"
 
 ETCD_ADVERTISE_CLIENT_URLS="http://kube-master:4001"
-{% endraw %}
+
 ```
 
 ### Install Kubernetes
@@ -95,24 +76,24 @@ ETCD_ADVERTISE_CLIENT_URLS="http://kube-master:4001"
 * Run the following command on Master to install the latest Kubernetes (as well as docker):
 
 ```
-{% raw %}
+
 yum -y install kubernetes
-{% endraw %}
+
 ```
 
 * Edit `/etc/kubernetes/config `
 
 ```
-{% raw %}
+
 # How the controller-manager, scheduler, and proxy find the apiserver
 KUBE_MASTER="--master=http://kube-master:8080"
-{% endraw %}
+
 ```
 
 * Edit `/etc/kubernetes/apiserver`
 
 ```
-{% raw %}
+
 # The address on the local server to listen to.
 KUBE_API_ADDRESS="--insecure-bind-address=0.0.0.0"
 
@@ -120,29 +101,29 @@ KUBE_ETCD_SERVERS="--etcd-servers=http://kube-master:4001"
 
 # Remove ServiceAccount from this line to run without API Tokens
 KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ResourceQuota"
-{% endraw %}
+
 ```
 
 * Create /var/run/kubernetes on master:
 
 ```
-{% raw %}
+
 mkdir /var/run/kubernetes
 chown kube:kube /var/run/kubernetes
 chmod 750 /var/run/kubernetes
-{% endraw %}
+
 ```
 
 * Start the appropriate services on master:
 
 ```
-{% raw %}
+
 for SERVICE in etcd kube-apiserver kube-controller-manager kube-scheduler; do
     systemctl restart $SERVICE
     systemctl enable $SERVICE
     systemctl status $SERVICE
 done
-{% endraw %}
+
 ```
 
 ### Install Calico
@@ -151,17 +132,17 @@ Next, we'll launch Calico on Master to allow communication between Pods and any 
 * Install calicoctl, the calico configuration tool.
 
 ```
-{% raw %}
+
 wget https://github.com/Metaswitch/calico-docker/releases/download/v0.5.5/calicoctl
 chmod +x ./calicoctl
 sudo mv ./calicoctl /usr/bin
-{% endraw %}
+
 ```
 
 * Create `/etc/systemd/system/calico-node.service`
 
 ```
-{% raw %}
+
 [Unit]
 Description=calicoctl node
 Requires=docker.service
@@ -176,7 +157,7 @@ ExecStart=/usr/bin/calicoctl node --ip=10.134.251.56 --detach=false
 
 [Install]
 WantedBy=multi-user.target
-{% endraw %}
+
 ```
 
 >Be sure to substitute `--ip=10.134.251.56` with your Master's eth1 IP Address.
@@ -184,10 +165,10 @@ WantedBy=multi-user.target
 * Start Calico
 
 ```
-{% raw %}
+
 systemctl enable calico-node.service
 systemctl start calico-node.service
-{% endraw %}
+
 ```
 
 >Starting calico for the first time may take a few minutes as the calico-node docker image is downloaded.
@@ -201,14 +182,14 @@ By default, docker will create and run on a virtual interface called `docker0`. 
 * Add a virtual interface by creating `/etc/sysconfig/network-scripts/ifcfg-cbr0`:
 
 ```
-{% raw %}
+
 DEVICE=cbr0
 TYPE=Bridge
 IPADDR=192.168.1.1
 NETMASK=255.255.255.0
 ONBOOT=yes
 BOOTPROTO=static
-{% endraw %}
+
 ```
 
 >**Note for Multi-Node Clusters:** Each node should be assigned an IP address on a unique subnet. In this example, node-1 is using 192.168.1.1/24, so node-2 should be assigned another pool on the 192.168.x.0/24 subnet, e.g. 192.168.2.1/24.
@@ -216,9 +197,9 @@ BOOTPROTO=static
 * Ensure that your system has bridge-utils installed. Then, restart the networking daemon to activate the new interface
 
 ```
-{% raw %}
+
 systemctl restart network.service
-{% endraw %}
+
 ```
 
 ### Install Docker
@@ -226,25 +207,25 @@ systemctl restart network.service
 * Install Docker
 
 ```
-{% raw %}
+
 yum -y install docker
-{% endraw %}
+
 ```
 
 * Configure docker to run on `cbr0` by editing `/etc/sysconfig/docker-network`:
 
 ```
-{% raw %}
+
 DOCKER_NETWORK_OPTIONS="--bridge=cbr0 --iptables=false --ip-masq=false"
-{% endraw %}
+
 ```
 
 * Start docker
 
 ```
-{% raw %}
+
 systemctl start docker
-{% endraw %}
+
 ```
 
 ### Install Calico
@@ -252,17 +233,17 @@ systemctl start docker
 * Install calicoctl, the calico configuration tool.
 
 ```
-{% raw %}
+
 wget https://github.com/Metaswitch/calico-docker/releases/download/v0.5.5/calicoctl
 chmod +x ./calicoctl
 sudo mv ./calicoctl /usr/bin
-{% endraw %}
+
 ```
 
 * Create `/etc/systemd/system/calico-node.service`
 
 ```
-{% raw %}
+
 [Unit]
 Description=calicoctl node
 Requires=docker.service
@@ -277,7 +258,7 @@ ExecStart=/usr/bin/calicoctl node --ip=10.134.251.55 --detach=false --kubernetes
 
 [Install]
 WantedBy=multi-user.target
-{% endraw %}
+
 ```
 
 > Note: You must replace the IP address with your node's eth1 IP Address!
@@ -285,10 +266,10 @@ WantedBy=multi-user.target
 * Start Calico
 
 ```
-{% raw %}
+
 systemctl enable calico-node.service
 systemctl start calico-node.service
-{% endraw %}
+
 ```
 
 * Configure the IP Address Pool
@@ -296,9 +277,9 @@ systemctl start calico-node.service
  Most Kubernetes application deployments will require communication between Pods and the kube-apiserver on Master. On a  standard Digital Ocean Private Network, requests sent from Pods to the kube-apiserver will not be returned as the networking fabric will drop response packets destined for any 192.168.0.0/16 address. To resolve this, you can have calicoctl add a masquerade rule to all outgoing traffic on the node:
 
 ```
-{% raw %}
+
 ETCD_AUTHORITY=kube-master:4001 calicoctl pool add 192.168.0.0/16 --nat-outgoing
-{% endraw %}
+
 ```
 
 ### Install Kubernetes
@@ -306,18 +287,18 @@ ETCD_AUTHORITY=kube-master:4001 calicoctl pool add 192.168.0.0/16 --nat-outgoing
 * First, install Kubernetes.
 
 ```
-{% raw %}
+
 yum -y install kubernetes
-{% endraw %}
+
 ```
 
 * Edit `/etc/kubernetes/config`
 
 ```
-{% raw %}
+
 # How the controller-manager, scheduler, and proxy find the apiserver
 KUBE_MASTER="--master=http://kube-master:8080"
-{% endraw %}
+
 ```
 
 * Edit `/etc/kubernetes/kubelet`
@@ -325,7 +306,7 @@ KUBE_MASTER="--master=http://kube-master:8080"
   We'll pass in an extra parameter - `--network-plugin=calico` to tell the Kubelet to use the Calico networking plugin. Additionally, we'll add two environment variables that will be used by the Calico networking plugin.
 
 ```
-{% raw %}
+
 # The address for the info server to serve on (set to 0.0.0.0 or "" for all interfaces)
 KUBELET_ADDRESS="--address=0.0.0.0"
 
@@ -341,19 +322,19 @@ KUBELET_ARGS="--network-plugin=calico"
 # The following are variables which the kubelet will pass to the calico-networking plugin
 ETCD_AUTHORITY="kube-master:4001"
 KUBE_API_ROOT="http://kube-master:8080/api/v1"
-{% endraw %}
+
 ```
 
 * Start Kubernetes on the node.
 
 ```
-{% raw %}
+
 for SERVICE in kube-proxy kubelet; do 
     systemctl restart $SERVICE
     systemctl enable $SERVICE
     systemctl status $SERVICE 
 done
-{% endraw %}
+
 ```
 
 ## Check Running Cluster
@@ -361,11 +342,11 @@ done
 The cluster should be running! Check that your nodes are reporting as such:
 
 ```
-{% raw %}
+
 kubectl get nodes
 NAME          LABELS                               STATUS
 kube-node-1   kubernetes.io/hostname=kube-node-1   Ready
-{% endraw %}
+
 ```
 
 

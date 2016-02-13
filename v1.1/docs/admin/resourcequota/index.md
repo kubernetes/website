@@ -6,7 +6,7 @@ Resource Quota
 ========================================
 This example demonstrates how [resource quota](../../admin/admission-controllers.html#resourcequota) and
 [limitsranger](../../admin/admission-controllers.html#limitranger) can be applied to a Kubernetes namespace.
-See [ResourceQuota design doc](../../design/admission_control_resource_quota.html) for more information.
+See [ResourceQuota design doc](../../design/admission_control_resource_quota) for more information.
 
 This example assumes you have a functional Kubernetes setup.
 
@@ -16,15 +16,13 @@ This example will work in a custom namespace to demonstrate the concepts involve
 
 Let's create a new namespace called quota-example:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl create -f docs/admin/resourcequota/namespace.yaml
 namespace "quota-example" created
 $ kubectl get namespaces
 NAME            LABELS    STATUS    AGE
 default         <none>    Active    2m
-quota-example   <none>    Active    39s
-{% endraw %}
+quota-example   <none>    Active    39s
 {% endhighlight %}
 
 Step 2: Apply a quota to the namespace
@@ -40,11 +38,9 @@ checks the total resource *requests*, not resource *limits* of all containers/po
 
 Let's create a simple quota in our namespace:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl create -f docs/admin/resourcequota/quota.yaml --namespace=quota-example
-resourcequota "quota" created
-{% endraw %}
+resourcequota "quota" created
 {% endhighlight %}
 
 Once your quota is applied to a namespace, the system will restrict any creation of content
@@ -53,8 +49,7 @@ in the namespace until the quota usage has been calculated.  This should happen 
 You can describe your current quota usage to see what resources are being consumed in your
 namespace.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl describe quota quota --namespace=quota-example
 Name:			quota
 Namespace:		quota-example
@@ -67,8 +62,7 @@ pods			0	10
 replicationcontrollers	0	20
 resourcequotas		1	1
 secrets			1	10
-services		0	5
-{% endraw %}
+services		0	5
 {% endhighlight %}
 
 Step 3: Applying default resource requests and limits
@@ -80,26 +74,21 @@ cpu and memory by creating an nginx container.
 
 To demonstrate, lets create a replication controller that runs nginx:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl run nginx --image=nginx --replicas=1 --namespace=quota-example
-replicationcontroller "nginx" created
-{% endraw %}
+replicationcontroller "nginx" created
 {% endhighlight %}
 
 Now let's look at the pods that were created.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl get pods --namespace=quota-example
-NAME      READY     STATUS    RESTARTS   AGE
-{% endraw %}
+NAME      READY     STATUS    RESTARTS   AGE
 {% endhighlight %}
 
 What happened?  I have no pods!  Let's describe the replication controller to get a view of what is happening.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 kubectl describe rc nginx --namespace=quota-example
 Name:		nginx
 Namespace:	quota-example
@@ -111,8 +100,7 @@ Pods Status:	0 Running / 0 Waiting / 0 Succeeded / 0 Failed
 No volumes.
 Events:
   FirstSeen	LastSeen	Count	From				SubobjectPath	Reason		Message
-  42s		11s		3	{replication-controller }			FailedCreate	Error creating: Pod "nginx-" is forbidden: Must make a non-zero request for memory since it is tracked by quota.
-{% endraw %}
+  42s		11s		3	{replication-controller }			FailedCreate	Error creating: Pod "nginx-" is forbidden: Must make a non-zero request for memory since it is tracked by quota.
 {% endhighlight %}
 
 The Kubernetes API server is rejecting the replication controllers requests to create a pod because our pods
@@ -120,8 +108,7 @@ do not specify any memory usage *request*.
 
 So let's set some default values for the amount of cpu and memory a pod can consume:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl create -f docs/admin/resourcequota/limits.yaml --namespace=quota-example
 limitrange "limits" created
 $ kubectl describe limits limits --namespace=quota-example
@@ -130,8 +117,7 @@ Namespace:	quota-example
 Type		Resource	Min	Max	Request	Limit	Limit/Request
 ----		--------	---	---	-------	-----	-------------
 Container	memory		-	-	256Mi	512Mi	-
-Container	cpu		-	-	100m	200m	-
-{% endraw %}
+Container	cpu		-	-	100m	200m	-
 {% endhighlight %}
 
 Now any time a pod is created in this namespace, if it has not specified any resource request/limit, the default
@@ -140,18 +126,15 @@ amount of cpu and memory per container will be applied, and the request will be 
 Now that we have applied default resource *request* for our namespace, our replication controller should be able to
 create its pods.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl get pods --namespace=quota-example
 NAME          READY     STATUS    RESTARTS   AGE
-nginx-fca65   1/1       Running   0          1m
-{% endraw %}
+nginx-fca65   1/1       Running   0          1m
 {% endhighlight %}
 
 And if we print out our quota usage in the namespace:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl describe quota quota --namespace=quota-example
 Name:			quota
 Namespace:		quota-example
@@ -164,8 +147,7 @@ pods			1	10
 replicationcontrollers	1	20
 resourcequotas		1	1
 secrets			1	10
-services		0	5
-{% endraw %}
+services		0	5
 {% endhighlight %}
 
 You can now see the pod that was created is consuming explicit amounts of resources (specified by resource *request*),

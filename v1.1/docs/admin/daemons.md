@@ -1,31 +1,7 @@
 ---
 title: "Daemon Sets"
 ---
-
-
-# Daemon Sets
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Daemon Sets](#daemon-sets)
-  - [What is a _Daemon Set_?](#what-is-a-daemon-set)
-  - [Writing a DaemonSet Spec](#writing-a-daemonset-spec)
-    - [Required Fields](#required-fields)
-    - [Pod Template](#pod-template)
-    - [Pod Selector](#pod-selector)
-    - [Running Pods on Only Some Nodes](#running-pods-on-only-some-nodes)
-  - [How Daemon Pods are Scheduled](#how-daemon-pods-are-scheduled)
-  - [Communicating with DaemonSet Pods](#communicating-with-daemonset-pods)
-  - [Updating a DaemonSet](#updating-a-daemonset)
-  - [Alternatives to Daemon Set](#alternatives-to-daemon-set)
-    - [Init Scripts](#init-scripts)
-    - [Bare Pods](#bare-pods)
-    - [Static Pods](#static-pods)
-    - [Replication Controller](#replication-controller)
-  - [Caveats](#caveats)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## What is a _Daemon Set_?
 
@@ -49,8 +25,8 @@ but with different flags and/or different memory and cpu requests for different 
 ### Required Fields
 
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
-general information about working with config files, see [here](../user-guide/simple-yaml.html),
-[here](../user-guide/configuring-containers.html), and [here](../user-guide/working-with-resources.html).
+general information about working with config files, see [here](../user-guide/simple-yaml),
+[here](../user-guide/configuring-containers), and [here](../user-guide/working-with-resources).
 
 A DaemonSet also needs a [`.spec`](../devel/api-conventions.html#spec-and-status) section.
 
@@ -59,20 +35,20 @@ A DaemonSet also needs a [`.spec`](../devel/api-conventions.html#spec-and-status
 The `.spec.template` is the only required field of the `.spec`.
 
 The `.spec.template` is a [pod template](../user-guide/replication-controller.html#pod-template).
-It has exactly the same schema as a [pod](../user-guide/pods.html), except
+It has exactly the same schema as a [pod](../user-guide/pods), except
 it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields for a pod, a pod template in a DaemonSet has to specify appropriate
 labels (see [pod selector](#pod-selector)).
 
-A pod template in a DaemonSet must have a [`RestartPolicy`](../user-guide/pod-states.html)
+A pod template in a DaemonSet must have a [`RestartPolicy`](../user-guide/pod-states)
  equal to `Always`, or be unspecified, which defaults to `Always`.
 
 ### Pod Selector
 
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
-a [ReplicationController](../user-guide/replication-controller.html) or
-[Job](../user-guide/jobs.html).
+a [ReplicationController](../user-guide/replication-controller) or
+[Job](../user-guide/jobs).
 
 If the `.spec.selector` is specified, it must equal the `.spec.template.metadata.labels`.  If not
 specified, the are default to be equal.  Config with these unequal will be rejected by the API.
@@ -87,7 +63,7 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](../user-guide/node-selection/README.html).
+selector](../user-guide/node-selection/README).
 
 If you do not specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on all nodes.
@@ -163,14 +139,14 @@ use a Daemon Set rather than creating individual pods.
 ### Static Pods
 
 It is possible to create pods by writing a file to a certain directory watched by Kubelet.  These
-are called [static pods](static-pods.html).
+are called [static pods](static-pods).
 Unlike DaemonSet, static pods cannot be managed with kubectl
 or other Kubernetes API clients.  Static pods do not depend on the apiserver, making them useful
 in cluster bootstrapping cases.  Also, static pods may be deprecated in the future.
 
 ### Replication Controller
 
-Daemon Set are similar to [Replication Controllers](../user-guide/replication-controller.html) in that
+Daemon Set are similar to [Replication Controllers](../user-guide/replication-controller) in that
 they both create pods, and those pods have processes which are not expected to terminate (e.g. web servers,
 storage servers).
 

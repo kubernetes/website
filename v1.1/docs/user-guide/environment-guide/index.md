@@ -11,7 +11,7 @@ environment information about itself, and a backend pod that it has
 accessed through the service. The goal is to illuminate the
 environment metadata available to running containers inside the
 Kubernetes cluster. The documentation for the Kubernetes environment
-is [here](../../../docs/user-guide/container-environment.html).
+is [here](/{{page.version}}/docs/user-guide/container-environment).
 
 ![Diagram](diagram.png)
 
@@ -20,7 +20,7 @@ Prerequisites
 This example assumes that you have a Kubernetes cluster installed and
 running, and that you have installed the `kubectl` command line tool
 somewhere in your path.  Please see the [getting
-started](../../../docs/getting-started-guides/) for installation instructions
+started](/{{page.version}}/docs/getting-started-guides/) for installation instructions
 for your platform.
 
 Optional: Build your own containers
@@ -48,8 +48,7 @@ your service.
 Run `curl <public ip>:80` to query the service. You should get
 something like this back:
 
-```
-{% raw %}
+```
 Pod Name: show-rc-xxu6i
 Pod Namespace: default
 USER_VAR: important information
@@ -68,13 +67,12 @@ Found backend ip: 10.147.252.185 port: 5000
 Response from backend
 Backend Container
 Backend Pod Name: backend-rc-6qiya
-Backend Namespace: default
-{% endraw %}
+Backend Namespace: default
 ```
 
 First the frontend pod's information is printed. The pod name and
-[namespace](../../../docs/design/namespaces.html) are retrieved from the
-[Downward API](../../../docs/user-guide/downward-api.html). Next, `USER_VAR` is the name of
+[namespace](/{{page.version}}/docs/design/namespaces) are retrieved from the
+[Downward API](/{{page.version}}/docs/user-guide/downward-api). Next, `USER_VAR` is the name of
 an environment variable set in the [pod
 definition](show-rc.yaml). Then, the dynamic Kubernetes environment
 variables are scanned and printed. These are used to find the backend

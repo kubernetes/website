@@ -1,9 +1,8 @@
 ---
 title: "Accessing Clusters"
-section: guides
 ---
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -16,19 +15,17 @@ Kubernetes CLI, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
-though a [Getting started guide](../getting-started-guides/README.html),
+though a [Getting started guide](../getting-started-guides/README),
 or someone else setup the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
 
-{% highlight console %}
-{% raw %}
-$ kubectl config view
-{% endraw %}
+{% highlight console %}
+$ kubectl config view
 {% endhighlight %}
 
 Many of the [examples](../../examples/) provide an introduction to using
-kubectl and complete documentation is found in the [kubectl manual](kubectl/kubectl.html).
+kubectl and complete documentation is found in the [kubectl manual](kubectl/kubectl).
 
 ### Directly accessing the REST API
 
@@ -52,25 +49,21 @@ The following command runs kubectl in a mode where it acts as a reverse proxy.  
 locating the apiserver and authenticating.
 Run it like this:
 
-{% highlight console %}
-{% raw %}
-$ kubectl proxy --port=8080 &
-{% endraw %}
+{% highlight console %}
+$ kubectl proxy --port=8080 &
 {% endhighlight %}
 
-See [kubectl proxy](kubectl/kubectl_proxy.html) for more details.
+See [kubectl proxy](kubectl/kubectl_proxy) for more details.
 
 Then you can explore the API with curl, wget, or a browser, like so:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ curl http://localhost:8080/api/
 {
   "versions": [
     "v1"
   ]
-}
-{% endraw %}
+}
 {% endhighlight %}
 
 #### Without kubectl proxy
@@ -78,8 +71,7 @@ $ curl http://localhost:8080/api/
 It is also possible to avoid using kubectl proxy by passing an authentication token
 directly to the apiserver, like this:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
 $ TOKEN=$(kubectl config view | grep token | cut -f 2 -d ":" | tr -d " ")
 $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
@@ -87,8 +79,7 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
   "versions": [
     "v1"
   ]
-}
-{% endraw %}
+}
 {% endhighlight %}
 
 The above example uses the `--insecure` flag.  This leaves it subject to MITM
@@ -100,16 +91,16 @@ certificate.
 
 On some clusters, the apiserver does not require authentication; it may serve
 on localhost, or be protected by a firewall.  There is not a standard
-for this.  [Configuring Access to the API](../admin/accessing-the-api.html)
+for this.  [Configuring Access to the API](../admin/accessing-the-api)
 describes how a cluster admin can configure this.  Such approaches may conflict
 with future high-availability support.
 
 ### Programmatic access to the API
 
-There are [client libraries](../devel/client-libraries.html) for accessing the API
+There are [client libraries](../devel/client-libraries) for accessing the API
 from several languages.  The Kubernetes project-supported
 [Go](http://releases.k8s.io/release-1.1/pkg/client/)
-client library can use the same [kubeconfig file](kubeconfig-file.html)
+client library can use the same [kubeconfig file](kubeconfig-file)
 as the kubectl CLI does to locate and authenticate to the apiserver.
 
 See documentation for other libraries for how they authenticate.
@@ -124,7 +115,7 @@ the `kubernetes` DNS name, which resolves to a Service IP which in turn
 will be routed to an apiserver.
 
 The recommended way to authenticate to the apiserver is with a
-[service account](service-accounts.html) credential.  By kube-system, a pod
+[service account](service-accounts) credential.  By kube-system, a pod
 is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
@@ -144,7 +135,7 @@ In each case, the credentials of the pod are used to communicate securely with t
 
 The previous section was about connecting the Kubernetes API server.  This section is about
 connecting to other services running on Kubernetes cluster.  In Kubernetes, the
-[nodes](../admin/node.html), [pods](pods.html) and [services](services.html) all have
+[nodes](../admin/node), [pods](pods) and [services](services) all have
 their own IPs.  In many cases, the node IPs, pod IPs, and some service IPs on a cluster will not be
 routable, so they will not be reachable from a machine outside the cluster,
 such as your desktop machine.
@@ -154,8 +145,8 @@ such as your desktop machine.
 You have several options for connecting to nodes, pods and services from outside the cluster:
   - Access services through public IPs.
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
-      the cluster.  See the [services](services.html) and
-      [kubectl expose](kubectl/kubectl_expose.html) documentation.
+      the cluster.  See the [services](services) and
+      [kubectl expose](kubectl/kubectl_expose) documentation.
     - Depending on your cluster environment, this may just expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
@@ -171,7 +162,7 @@ You have several options for connecting to nodes, pods and services from outside
     - Only works for HTTP/HTTPS.
     - Described [here](#discovering-builtin-services).
   - Access from a node or pod in the cluster.
-    - Run a pod, and then connect to a shell in it using [kubectl exec](kubectl/kubectl_exec.html).
+    - Run a pod, and then connect to a shell in it using [kubectl exec](kubectl/kubectl_exec).
       Connect to other nodes, pods, and services from that shell.
     - Some clusters may allow you to ssh to a node in the cluster.  From there you may be able to
       access cluster services.  This is a non-standard method, and will work on some clusters but
@@ -182,8 +173,7 @@ You have several options for connecting to nodes, pods and services from outside
 Typically, there are several services which are started on a cluster by kube-system. Get a list of these
 with the `kubectl cluster-info` command:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl cluster-info
 
   Kubernetes master is running at https://104.197.5.247
@@ -191,8 +181,7 @@ $ kubectl cluster-info
   kibana-logging is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/kibana-logging
   kube-dns is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/kube-dns
   grafana is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-grafana
-  heapster is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-heapster
-{% endraw %}
+  heapster is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-heapster
 {% endhighlight %}
 
 This shows the proxy-verb URL for accessing each service.
@@ -213,8 +202,7 @@ about namespaces? 'proxy' verb? -->
  * To access the Elasticsearch service endpoint `_search?q=user:kimchy`, you would use:   `http://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy`
  * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:   `https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/_cluster/health?pretty=true`
 
-{% highlight json %}
-{% raw %}
+{% highlight json %}
   {
 	 "cluster_name" : "kubernetes_logging",
 	 "status" : "yellow",
@@ -226,8 +214,7 @@ about namespaces? 'proxy' verb? -->
 	 "relocating_shards" : 0,
 	 "initializing_shards" : 0,
 	 "unassigned_shards" : 5
-  }
-{% endraw %}
+  }
 {% endhighlight %}
 
 #### Using web browsers to access services running on the cluster

@@ -1,29 +1,7 @@
 ---
 title: "Jobs"
 ---
-
-
-# Jobs
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Jobs](#jobs)
-  - [What is a _job_?](#what-is-a-job)
-  - [Running an example Job](#running-an-example-job)
-  - [Writing a Job Spec](#writing-a-job-spec)
-    - [Pod Template](#pod-template)
-    - [Pod Selector](#pod-selector)
-    - [Multiple Completions](#multiple-completions)
-    - [Parallelism](#parallelism)
-  - [Handling Pod and Container Failures](#handling-pod-and-container-failures)
-  - [Alternatives to Job](#alternatives-to-job)
-    - [Bare Pods](#bare-pods)
-    - [Replication Controller](#replication-controller)
-  - [Caveats](#caveats)
-  - [Future work](#future-work)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## What is a _job_?
 
@@ -42,7 +20,7 @@ It takes around 10s to complete.
 <!-- BEGIN MUNGE: EXAMPLE job.yaml -->
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: extensions/v1beta1
 kind: Job
 metadata:
@@ -62,7 +40,7 @@ spec:
         image: perl
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
-{% endraw %}
+
 {% endhighlight %}
 
 [Download example](job.yaml)
@@ -71,16 +49,16 @@ spec:
 Run the example job by downloading the example file and then running this command:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl create -f ./job.yaml
 jobs/pi
-{% endraw %}
+
 {% endhighlight %}
 
 Check on the status of the job using this command:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl describe jobs/pi
 Name:		pi
 Namespace:	default
@@ -92,10 +70,10 @@ Labels:		<none>
 Pods Statuses:	1 Running / 0 Succeeded / 0 Failed
 Events:
   FirstSeen	LastSeen	Count	From	SubobjectPath	Reason			Message
-  ─────────	────────	─────	────	─────────────	──────			───────
+  '��'��'��'��'��'��'��'��'��	'��'��'��'��'��'��'��'��	'��'��'��'��'��	'��'��'��'��	'��'��'��'��'��'��'��'��'��'��'��'��'��	'��'��'��'��'��'��			'��'��'��'��'��'��'��
   1m		1m		1	{job }			SuccessfulCreate	Created pod: pi-z548a
 
-{% endraw %}
+
 {% endhighlight %}
 
 To view completed pods of a job, use `kubectl get pods --show-all`.  The `--show-all` will show completed pods too.
@@ -103,11 +81,11 @@ To view completed pods of a job, use `kubectl get pods --show-all`.  The `--show
 To list all the pods that belong to job in a machine readable form, you can use a command like this:
 
 {% highlight console %}
-{% raw %}
+
 $ pods=$(kubectl get pods --selector=app=pi --output=jsonpath={.items..metadata.name})
 echo $pods
 pi-aiw0a
-{% endraw %}
+
 {% endhighlight %}
 
 Here, the selector is the same as the selector for the job.  The `--output=jsonpath` option specifies an expression
@@ -116,17 +94,17 @@ that just gets the name from each pod in the returned list.
 View the standard output of one of the pods:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl logs pi-aiw0a
 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989380952572010654858632788659361533818279682303019520353018529689957736225994138912497217752834791315155748572424541506959508295331168617278558890750983817546374649393192550604009277016711390098488240128583616035637076601047101819429555961989467678374494482553797747268471040475346462080466842590694912933136770289891521047521620569660240580381501935112533824300355876402474964732639141992726042699227967823547816360093417216412199245863150302861829745557067498385054945885869269956909272107975093029553211653449872027559602364806654991198818347977535663698074265425278625518184175746728909777727938000816470600161452491921732172147723501414419735685481613611573525521334757418494684385233239073941433345477624168625189835694855620992192221842725502542568876717904946016534668049886272327917860857843838279679766814541009538837863609506800642251252051173929848960841284886269456042419652850222106611863067442786220391949450471237137869609563643719172874677646575739624138908658326459958133904780275901
-{% endraw %}
+
 {% endhighlight %}
 
 ## Writing a Job Spec
 
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.  For
-general information about working with config files, see [here](simple-yaml.html),
-[here](configuring-containers.html), and [here](working-with-resources.html).
+general information about working with config files, see [here](simple-yaml),
+[here](configuring-containers), and [here](working-with-resources).
 
 A Job also needs a [`.spec` section](../devel/api-conventions.html#spec-and-status).
 
@@ -135,20 +113,20 @@ A Job also needs a [`.spec` section](../devel/api-conventions.html#spec-and-stat
 The `.spec.template` is the only required field of the `.spec`.
 
 The `.spec.template` is a [pod template](replication-controller.html#pod-template).  It has exactly
-the same schema as a [pod](pods.html), except it is nested and does not have an `apiVersion` or
+the same schema as a [pod](pods), except it is nested and does not have an `apiVersion` or
 `kind`.
 
 In addition to required fields for a Pod, a pod template in a job must specify appropriate
 lables (see [pod selector](#pod-selector) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](pod-states.html) equal to `Never` or `OnFailure` are allowed.
+Only a [`RestartPolicy`](pod-states) equal to `Never` or `OnFailure` are allowed.
 
 ### Pod Selector
 
 The `.spec.selector` field is a label query over a set of pods.
 
 The `spec.selector` is an object consisting of two fields:
-* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](replication-controller.html)
+* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](replication-controller)
 * `matchExpressions` - allows to build more sophisticated selectors by specyfing key,
   list of values and an operator that relates the key and values.
 
@@ -192,7 +170,7 @@ a non-zero exit code, or the Container was killed for exceeding a memory limit, 
 happens, and the `.spec.template.containers[].restartPolicy = "OnFailure"`, then the Pod stays
 on the node, but the Container is re-run.  Therefore, your program needs to handle the the case when it is
 restarted locally, or else specify `.spec.template.containers[].restartPolicy = "Never"`.
-See [pods-states](pod-states.html) for more information on `restartPolicy`.
+See [pods-states](pod-states) for more information on `restartPolicy`.
 
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node
 (node is upgraded, rebooted, delelted, etc.), or if a container of the Pod fails and the
@@ -219,11 +197,11 @@ requires only a single pod.
 
 ### Replication Controller
 
-Jobs are complementary to [Replication Controllers](replication-controller.html).
+Jobs are complementary to [Replication Controllers](replication-controller).
 A Replication Controller manages pods which are not expected to terminate (e.g. web servers), and a Job
 manages pods that are expected to terminate (e.g. batch jobs).
 
-As discussed in [life of a pod](pod-states.html), `Job` is *only* appropriate for pods with
+As discussed in [life of a pod](pod-states), `Job` is *only* appropriate for pods with
 `RestartPolicy` equal to `OnFailure` or `Never`.  (Note: If `RestartPolicy` is not set, the default
 value is `Always`.)
 
@@ -239,5 +217,3 @@ similar functionality will be supported.
 
 Support for creating Jobs at specified times/dates (i.e. cron) is expected in the next minor
 release.
-
-

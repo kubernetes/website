@@ -1,26 +1,7 @@
 ---
 title: "Labels"
 ---
-
-
-# Labels
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Labels](#labels)
-  - [Motivation](#motivation)
-  - [Syntax and character set](#syntax-and-character-set)
-  - [Label selectors](#label-selectors)
-    - [_Equality-based_ requirement](#equality-based-requirement)
-    - [_Set-based_ requirement](#set-based-requirement)
-  - [API](#api)
-    - [LIST and WATCH filtering](#list-and-watch-filtering)
-    - [Set references in API objects](#set-references-in-api-objects)
-      - [Service and ReplicationController](#service-and-replicationcontroller)
-      - [Job and other new resources](#job-and-other-new-resources)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.
 Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but which do not directly imply semantics to the core system.
@@ -28,15 +9,15 @@ Labels can be used to organize and to select subsets of objects.  Labels can be 
 Each object can have a set of key/value labels defined.  Each Key must be unique for a given object.
 
 {% highlight json %}
-{% raw %}
+
 "labels": {
   "key1" : "value1",
   "key2" : "value2"
 }
-{% endraw %}
+
 {% endhighlight %}
 
-We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](annotations.html).
+We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](annotations).
 
 
 ## Motivation
@@ -64,7 +45,7 @@ Valid label values must be 63 characters or less and must be empty or begin and 
 
 ## Label selectors
 
-Unlike [names and UIDs](identifiers.html), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
+Unlike [names and UIDs](identifiers), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
 
 Via a _label selector_, the client/user can identify a set of objects. The label selector is the core grouping primitive in Kubernetes.
 
@@ -81,10 +62,10 @@ _Equality-_ or _inequality-based_ requirements allow filtering by label keys and
 Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _equality_ (and are simply synonyms), while the latter represents _inequality_. For example:
 
 ```
-{% raw %}
+
 environment = production
 tier != frontend
-{% endraw %}
+
 ```
 
 The former selects all resources with key equal to `environment` and value equal to `production`.
@@ -97,12 +78,12 @@ One could filter for resources in `production` excluding `frontend` using the co
 _Set-based_ label requirements allow filtering keys according to a set of values. Three kinds of operators are supported: `in`,`notin` and exists (only the key identifier). For example:
 
 ```
-{% raw %}
+
 environment in (production, qa)
 tier notin (frontend, backend)
 partition
 !partition
-{% endraw %}
+
 ```
 
 The first example selects all resources with key equal to `environment` and value equal to `production` or `qa`.
@@ -127,38 +108,38 @@ LIST and WATCH operations may specify label selectors to filter the sets of obje
 Both label selector styles can be used to list or watch resources via a REST client. For example targetting `apiserver` with `kubectl` and using _equality-based_ one may write:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get pods -l environment=production,tier=frontend
-{% endraw %}
+
 {% endhighlight %}
 
 or using _set-based_ requirements:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get pods -l 'environment in (production),tier in (frontend)'
-{% endraw %}
+
 {% endhighlight %}
 
 As already mentioned _set-based_ requirements are more expressive.  For instance, they can implement the _OR_ operator on values:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get pods -l 'environment in (production, qa)'
-{% endraw %}
+
 {% endhighlight %}
 
 or restricting negative matching via _exists_ operator:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get pods -l 'environment,environment notin (frontend)'
-{% endraw %}
+
 {% endhighlight %}
 
 ### Set references in API objects
 
-Some Kubernetes objects, such as [`service`s](services.html) and [`replicationcontroller`s](replication-controller.html), also use label selectors to specify sets of other resources, such as [pods](pods.html).
+Some Kubernetes objects, such as [`service`s](services) and [`replicationcontroller`s](replication-controller), also use label selectors to specify sets of other resources, such as [pods](pods).
 
 #### Service and ReplicationController
 
@@ -167,37 +148,37 @@ The set of pods that a `service` targets is defined with a label selector. Simil
 Labels selectors for both objects are defined in `json` or `yaml` files using maps, and only _equality-based_ requirement selectors are supported:
 
 {% highlight json %}
-{% raw %}
+
 "selector": {
     "component" : "redis",
 }
-{% endraw %}
+
 {% endhighlight %}
 
 or
 
 {% highlight yaml %}
-{% raw %}
+
 selector:
     component: redis
-{% endraw %}
+
 {% endhighlight %}
 
 this selector (respectively in `json` or `yaml` format) is equivalent to `component=redis` or `component in (redis)`.
 
 #### Job and other new resources
 
-Newer resources, such as [job](jobs.html), support _set-based_ requirements as well.
+Newer resources, such as [job](jobs), support _set-based_ requirements as well.
 
 {% highlight yaml %}
-{% raw %}
+
 selector:
   matchLabels:
     component: redis
   matchExpressions:
     - {key: tier, operator: In, values: [cache]}
     - {key: environment, operator: NotIn, values: [dev]}
-{% endraw %}
+
 {% endhighlight %}
 
 `matchLabels` is a map of `{key,value}` pairs. A single `{key,value}` in the `matchLabels` map is equivalent to an element of `matchExpressions`, whose `key` field is "key", the `operator` is "In", and the `values` array contains only "value". `matchExpressions` is a list of pod selector requirements. Valid operators include In, NotIn, Exists, and DoesNotExist. The values set must be non-empty in the case of In and NotIn. All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together -- they must all be satisfied in order to match.

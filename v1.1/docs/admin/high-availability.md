@@ -1,19 +1,18 @@
 ---
 title: "High Availability Kubernetes Clusters"
-section: guides
 ---
 
 ## Introduction
 
 This document describes how to build a high-availability (HA) Kubernetes cluster.  This is a fairly advanced topic.
 Users who merely want to experiment with Kubernetes are encouraged to use configurations that are simpler to set up such as
-the simple [Docker based single node cluster instructions](../../docs/getting-started-guides/docker.html),
+the simple [Docker based single node cluster instructions](/{{page.version}}/docs/getting-started-guides/docker),
 or try [Google Container Engine](https://cloud.google.com/container-engine/) for hosted Kubernetes.
 
 Also, at this time high availability support for Kubernetes is not continuously tested in our end-to-end (e2e) testing.  We will
 be working to add this continuous testing, but for now the single-node master installations are more heavily tested.
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -86,10 +85,8 @@ a simple cluster set up, using etcd's built in discovery to build our cluster.
 
 First, hit the etcd discovery service to create a new token:
 
-{% highlight sh %}
-{% raw %}
-curl https://discovery.etcd.io/new?size=3
-{% endraw %}
+{% highlight sh %}
+curl https://discovery.etcd.io/new?size=3
 {% endhighlight %}
 
 On each node, copy the [etcd.yaml](high-availability/etcd.yaml) file into `/etc/kubernetes/manifests/etcd.yaml`
@@ -106,18 +103,14 @@ for `${NODE_IP}` on each machine.
 
 Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate with
 
-{% highlight sh %}
-{% raw %}
-etcdctl member list
-{% endraw %}
+{% highlight sh %}
+etcdctl member list
 {% endhighlight %}
 
 and
 
-{% highlight sh %}
-{% raw %}
-etcdctl cluster-health
-{% endraw %}
+{% highlight sh %}
+etcdctl cluster-health
 {% endhighlight %}
 
 You can also validate that this is working with `etcdctl set foo bar` on one node, and `etcd get foo`
@@ -148,10 +141,8 @@ Once you have replicated etcd set up correctly, we will also install the apiserv
 
 First you need to create the initial log file, so that Docker mounts a file instead of a directory:
 
-{% highlight sh %}
-{% raw %}
-touch /var/log/kube-apiserver.log
-{% endraw %}
+{% highlight sh %}
+touch /var/log/kube-apiserver.log
 {% endhighlight %}
 
 Next, you need to create a `/srv/kubernetes/` directory on each node.  This directory includes:
@@ -196,17 +187,15 @@ master election.  On each of the three apiserver nodes, we run a small utility a
 election protocol using etcd "compare and swap". If the apiserver node wins the election, it starts the master component it is managing (e.g. the scheduler), if it
 loses the election, it ensures that any master components running on the node (e.g. the scheduler) are stopped.
 
-In the future, we expect to more tightly integrate this lease-locking into the scheduler and controller-manager binaries directly, as described in the [high availability design proposal](../proposals/high-availability.html)
+In the future, we expect to more tightly integrate this lease-locking into the scheduler and controller-manager binaries directly, as described in the [high availability design proposal](../proposals/high-availability)
 
 ### Installing configuration files
 
 First, create empty log files on each node, so that Docker will mount the files not make new directories:
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 touch /var/log/kube-scheduler.log
-touch /var/log/kube-controller-manager.log
-{% endraw %}
+touch /var/log/kube-controller-manager.log
 {% endhighlight %}
 
 Next, set up the descriptions of the scheduler and controller manager pods on each node.

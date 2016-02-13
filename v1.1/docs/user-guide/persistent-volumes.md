@@ -1,35 +1,9 @@
 ---
 title: "Persistent Volumes and Claims"
 ---
+This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](volumes) is suggested.
 
-
-# Persistent Volumes and Claims
-
-This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](volumes.html) is suggested.
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Persistent Volumes and Claims](#persistent-volumes-and-claims)
-  - [Introduction](#introduction)
-  - [Lifecycle of a volume and claim](#lifecycle-of-a-volume-and-claim)
-    - [Provisioning](#provisioning)
-    - [Binding](#binding)
-    - [Using](#using)
-    - [Releasing](#releasing)
-    - [Reclaiming](#reclaiming)
-  - [Types of Persistent Volumes](#types-of-persistent-volumes)
-  - [Persistent Volumes](#persistent-volumes)
-    - [Capacity](#capacity)
-    - [Access Modes](#access-modes)
-    - [Recycling Policy](#recycling-policy)
-    - [Phase](#phase)
-  - [PersistentVolumeClaims](#persistentvolumeclaims)
-    - [Access Modes](#access-modes)
-    - [Resources](#resources)
-  - [Claims As Volumes](#claims-as-volumes)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## Introduction
 
@@ -89,7 +63,7 @@ Each PV contains a spec and status, which is the specification and status of the
 
 
 {% highlight yaml %}
-{% raw %}
+
   apiVersion: v1
   kind: PersistentVolume
   metadata:
@@ -103,12 +77,12 @@ Each PV contains a spec and status, which is the specification and status of the
     nfs:
       path: /tmp
       server: 172.17.0.2
-{% endraw %}
+
 {% endhighlight %}
 
 ### Capacity
 
-Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](../design/resources.html) to understand the units expected by `capacity`.
+Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](../design/resources) to understand the units expected by `capacity`.
 
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
 
@@ -156,7 +130,7 @@ The CLI will show the name of the PVC bound to the PV.
 Each PVC contains a spec and status, which is the specification and status of the claim.
 
 {% highlight yaml %}
-{% raw %}
+
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -167,7 +141,7 @@ spec:
   resources:
     requests:
       storage: 8Gi
-{% endraw %}
+
 {% endhighlight %}
 
 ### Access Modes
@@ -176,14 +150,14 @@ Claims use the same conventions as volumes when requesting storage with specific
 
 ### Resources
 
-Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](../design/resources.html) applies to both volumes and claims.
+Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](../design/resources) applies to both volumes and claims.
 
 ## Claims As Volumes
 
 Pods access storage by using the claim as a volume.  Claims must exist in the same namespace as the pod using the claim.  The cluster finds the claim in the pod's namespace and uses it to get the `PersistentVolume` backing the claim.  The volume is then mounted to the host and into the pod.
 
 {% highlight yaml %}
-{% raw %}
+
 kind: Pod
 apiVersion: v1
 metadata:
@@ -199,7 +173,7 @@ spec:
     - name: mypd
       persistentVolumeClaim:
         claimName: myclaim
-{% endraw %}
+
 {% endhighlight %}
 
 

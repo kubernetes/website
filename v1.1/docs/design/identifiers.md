@@ -1,10 +1,6 @@
 ---
 title: "Identifiers and Names in Kubernetes"
 ---
-
-
-# Identifiers and Names in Kubernetes
-
 A summarization of the goals and recommendations for identifiers in Kubernetes.  Described in [GitHub issue #199](http://issue.k8s.io/199).
 
 

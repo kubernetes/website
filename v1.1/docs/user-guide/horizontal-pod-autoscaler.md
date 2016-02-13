@@ -1,24 +1,7 @@
 ---
 title: "Horizontal Pod Autoscaler"
 ---
-
-
-# Horizontal Pod Autoscaler
-
 This document describes the current state of Horizontal Pod Autoscaler in Kubernetes.
-
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Horizontal Pod Autoscaler](#horizontal-pod-autoscaler)
-  - [What is Horizontal Pod Autoscaler?](#what-is-horizontal-pod-autoscaler)
-  - [How does Horizontal Pod Autoscaler work?](#how-does-horizontal-pod-autoscaler-work)
-  - [API Object](#api-object)
-  - [Support for horizontal pod autoscaler in kubectl](#support-for-horizontal-pod-autoscaler-in-kubectl)
-  - [Autoscaling during rolling update](#autoscaling-during-rolling-update)
-  - [Further reading](#further-reading)
-
-<!-- END MUNGE: GENERATED_TOC -->
-
 
 ## What is Horizontal Pod Autoscaler?
 
@@ -72,7 +55,7 @@ In addition, there is a special `kubectl autoscale` command that allows for easy
 For instance, executing `kubectl autoscale rc foo --min=2 --max=5 --cpu-percent=80`
 will create an autoscaler for replication controller *foo*, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
-The detailed documentation of `kubectl autoscale` can be found [here](kubectl/kubectl_autoscale.html).
+The detailed documentation of `kubectl autoscale` can be found [here](kubectl/kubectl_autoscale).
 
 
 ## Autoscaling during rolling update
@@ -90,9 +73,9 @@ the horizontal pod autoscaler will not be bound to the new replication controlle
 
 ## Further reading
 
-* Design documentation: [Horizontal Pod Autoscaling](../design/horizontal-pod-autoscaler.html).
-* Manual of autoscale command in kubectl: [kubectl autoscale](kubectl/kubectl_autoscale.html).
-* Usage example of [Horizontal Pod Autoscaler](horizontal-pod-autoscaling/README.html).
+* Design documentation: [Horizontal Pod Autoscaling](../design/horizontal-pod-autoscaler).
+* Manual of autoscale command in kubectl: [kubectl autoscale](kubectl/kubectl_autoscale).
+* Usage example of [Horizontal Pod Autoscaler](horizontal-pod-autoscaling/README).
 
 
 

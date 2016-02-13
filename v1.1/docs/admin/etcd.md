@@ -1,10 +1,6 @@
 ---
 title: "etcd"
 ---
-
-
-# etcd
-
 [etcd](https://coreos.com/etcd/docs/2.0.12/) is a highly-available key value
 store which Kubernetes uses for persistent storage of all of its REST API
 objects.
@@ -34,7 +30,7 @@ be run on master VMs. The default location that kubelet scans for manifests is
 ## Kubernetes's usage of etcd
 
 By default, Kubernetes objects are stored under the `/registry` key in etcd.
-This path can be prefixed by using the [kube-apiserver](kube-apiserver.html) flag
+This path can be prefixed by using the [kube-apiserver](kube-apiserver) flag
 `--etcd-prefix="/foo"`.
 
 `etcd` is the only place that Kubernetes keeps state.
@@ -46,9 +42,9 @@ test key. On your master VM (or somewhere with firewalls configured such that
 you can talk to your cluster's etcd), try:
 
 {% highlight sh %}
-{% raw %}
+
 curl -fs -X PUT "http://${host}:${port}/v2/keys/_test"
-{% endraw %}
+
 {% endhighlight %}
 
 

@@ -1,13 +1,8 @@
 ---
 title: "Authorization Plugins"
 ---
-
-
-# Authorization Plugins
-
-
 In Kubernetes, authorization happens as a separate step from authentication.
-See the [authentication documentation](authentication.html) for an
+See the [authentication documentation](authentication) for an
 overview of authentication.
 
 Authorization applies to all HTTP accesses on the main (secure) apiserver port.
@@ -94,25 +89,25 @@ To permit an action Policy with an unset namespace applies regardless of namespa
 A service account automatically generates a user. The user's name is generated according to the naming convention:
 
 ```
-{% raw %}
+
 system:serviceaccount:<namespace>:<serviceaccountname>
-{% endraw %}
+
 ```
 
 Creating a new namespace also causes a new service account to be created, of this form:*
 
 ```
-{% raw %}
+
 system:serviceaccount:<namespace>:default
-{% endraw %}
+
 ```
 
 For example, if you wanted to grant the default service account in the kube-system full privilege to the API, you would add this line to your policy file:
 
 {% highlight json %}
-{% raw %}
+
 {"user":"system:serviceaccount:kube-system:default"}
-{% endraw %}
+
 {% endhighlight %}
 
 The apiserver will need to be restarted to pickup the new policy lines.
@@ -123,11 +118,11 @@ Other implementations can be developed fairly easily.
 The APIserver calls the Authorizer interface:
 
 {% highlight go %}
-{% raw %}
+
 type Authorizer interface {
   Authorize(a Attributes) error
 }
-{% endraw %}
+
 {% endhighlight %}
 
 to determine whether or not to allow each API action.

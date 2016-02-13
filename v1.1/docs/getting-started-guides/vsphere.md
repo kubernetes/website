@@ -1,13 +1,12 @@
 ---
 title: "Getting started with vSphere"
-section: guides
 ---
 The example below creates a Kubernetes cluster with 4 worker node Virtual
 Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This
 cluster is set up and controlled from your workstation (or wherever you find
 convenient).
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -17,55 +16,45 @@ convenient).
 2. You must have Go (version 1.2 or later) installed: [www.golang.org](http://www.golang.org).
 3. You must have your `GOPATH` set up and include `$GOPATH/bin` in your `PATH`.
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
    export GOPATH=$HOME/src/go
    mkdir -p $GOPATH
-   export PATH=$PATH:$GOPATH/bin
-{% endraw %}
+   export PATH=$PATH:$GOPATH/bin
 {% endhighlight %}
 
 4. Install the govc tool to interact with ESXi/vCenter:
 
-{% highlight sh %}
-{% raw %}
-   go get github.com/vmware/govmomi/govc
-{% endraw %}
+{% highlight sh %}
+   go get github.com/vmware/govmomi/govc
 {% endhighlight %}
 
-5. Get or build a [binary release](binary_release.html)
+5. Get or build a [binary release](binary_release)
 
 ### Setup
 
 Download a prebuilt Debian 7.7 VMDK that we'll use as a base image:
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 curl --remote-name-all https://storage.googleapis.com/govmomi/vmdk/2014-11-11/kube.vmdk.gz{,.md5}
 md5sum -c kube.vmdk.gz.md5
-gzip -d kube.vmdk.gz
-{% endraw %}
+gzip -d kube.vmdk.gz
 {% endhighlight %}
 
 Import this VMDK into your vSphere datastore:
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 export GOVC_URL='user:pass@hostname'
 export GOVC_INSECURE=1 # If the host above uses a self-signed cert
 export GOVC_DATASTORE='target datastore'
 export GOVC_RESOURCE_POOL='resource pool or cluster with access to datastore'
 
-govc import.vmdk kube.vmdk ./kube/
-{% endraw %}
+govc import.vmdk kube.vmdk ./kube/
 {% endhighlight %}
 
 Verify that the VMDK was correctly uploaded and expanded to ~3GiB:
 
-{% highlight sh %}
-{% raw %}
-govc datastore.ls ./kube/
-{% endraw %}
+{% highlight sh %}
+govc datastore.ls ./kube/
 {% endhighlight %}
 
 Take a look at the file `cluster/vsphere/config-common.sh` fill in the required
@@ -76,12 +65,10 @@ parameters. The guest login for the image that you imported is `kube:kube`.
 Now, let's continue with deploying Kubernetes.
 This process takes about ~10 minutes.
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 cd kubernetes # Extracted binary release OR repository root
 export KUBERNETES_PROVIDER=vsphere
-cluster/kube-up.sh
-{% endraw %}
+cluster/kube-up.sh
 {% endhighlight %}
 
 Refer to the top level README and the getting started guide for Google Compute

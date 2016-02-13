@@ -1,39 +1,22 @@
 ---
 title: "Compute Resources"
 ---
+{% include pagetoc.html %}
 
-
-# Compute Resources
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Compute Resources](#compute-resources)
-  - [Resource Requests and Limits of Pod and Container](#resource-requests-and-limits-of-pod-and-container)
-  - [How Pods with Resource Requests are Scheduled](#how-pods-with-resource-requests-are-scheduled)
-  - [How Pods with Resource Limits are Run](#how-pods-with-resource-limits-are-run)
-  - [Monitoring Compute Resource Usage](#monitoring-compute-resource-usage)
-  - [Troubleshooting](#troubleshooting)
-    - [My pods are pending with event message failedScheduling](#my-pods-are-pending-with-event-message-failedscheduling)
-    - [My container is terminated](#my-container-is-terminated)
-  - [Planned Improvements](#planned-improvements)
-
-<!-- END MUNGE: GENERATED_TOC -->
-
-When specifying a [pod](pods.html), you can optionally specify how much CPU and memory (RAM) each
+When specifying a [pod](pods), you can optionally specify how much CPU and memory (RAM) each
 container needs.  When containers have their resource requests specified, the scheduler is
 able to make better decisions about which nodes to place pods on; and when containers have their
 limits specified, contention for resources on a node can be handled in a specified manner. For
 more details about the difference between requests and limits, please refer to
-[Resource QoS](../proposals/resource-qos.html).
+[Resource QoS](../proposals/resource-qos).
 
 *CPU* and *memory* are each a *resource type*.  A resource type has a base unit.  CPU is specified
 in units of cores.  Memory is specified in units of bytes.
 
 CPU and RAM are collectively referred to as *compute resources*, or just *resources*.  Compute
 resources are measureable quantities which can be requested, allocated, and consumed.  They are
-distinct from [API resources](working-with-resources.html).  API resources, such as pods and
-[services](services.html) are objects that can be written to and retrieved from the Kubernetes API
+distinct from [API resources](working-with-resources).  API resources, such as pods and
+[services](services) are objects that can be written to and retrieved from the Kubernetes API
 server.
 
 ## Resource Requests and Limits of Pod and Container
@@ -59,7 +42,7 @@ be said to have a request of 0.5 core and 128 MiB of memory and a limit of 1 cor
 memory.
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -84,7 +67,7 @@ spec:
       limits:
         memory: "128Mi"
         cpu: "500m"
-{% endraw %}
+
 {% endhighlight %}
 
 ## How Pods with Resource Requests are Scheduled
@@ -140,13 +123,13 @@ until a place can be found.    An event will be produced each time the scheduler
 place for the pod, like this:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl describe pod frontend | grep -A 3 Events
 Events:
   FirstSeen	LastSeen	 Count	From          Subobject   PathReason			Message
   36s		5s		 6	    {scheduler }              FailedScheduling	Failed for reason PodExceedsFreeCPU and possibly others
 
-{% endraw %}
+
 {% endhighlight %}
 
 In the case shown above, the pod "frontend" fails to be scheduled due to insufficient
@@ -162,7 +145,7 @@ You can check node capacities and amounts allocated with the `kubectl describe n
 For example:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl describe nodes gke-cluster-4-386701dd-node-ww4p
 Name:			gke-cluster-4-386701dd-node-ww4p
 [ ... lines removed for clarity ...]
@@ -184,7 +167,7 @@ TotalResourceLimits:
   CPU(milliCPU):		910 (91% of total)
   Memory(bytes):		2485125120 (59% of total)
 [ ... lines removed for clarity ...]
-{% endraw %}
+
 {% endhighlight %}
 
 Here you can see from the `Allocated resources` section that that a pod which ask for more than
@@ -192,7 +175,7 @@ Here you can see from the `Allocated resources` section that that a pod which as
 
 Looking at the `Pods` section, you can see which pods are taking up space on the node.
 
-The [resource quota](../admin/resource-quota.html) feature can be configured
+The [resource quota](../admin/resource-quota) feature can be configured
 to limit the total amount of resources that can be consumed.  If used in conjunction
 with namespaces, it can prevent one team from hogging all the resources.
 
@@ -202,7 +185,7 @@ Your container may be terminated because it's resource-starved. To check if a co
 on the pod you are interested in:
 
 {% highlight console %}
-{% raw %}
+
 [12:54:41] $ ./cluster/kubectl.sh describe pod simmemleak-hra99
 Name:                           simmemleak-hra99
 Namespace:                      default
@@ -238,7 +221,7 @@ Events:
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  implicitly required container POD   created     Created with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  implicitly required container POD   started     Started with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  spec.containers{simmemleak}         created     Created with docker id 87348f12526a
-{% endraw %}
+
 {% endhighlight %}
 
 The `Restart Count:  5` indicates that the `simmemleak` container in this pod was terminated and restarted 5 times.
@@ -246,11 +229,11 @@ The `Restart Count:  5` indicates that the `simmemleak` container in this pod wa
 You can call `get pod` with the `-o go-template=...` option to fetch the status of previously terminated containers:
 
 {% highlight console %}
-{% raw %}
+
 [13:59:01] $ ./cluster/kubectl.sh  get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
 Container Name: simmemleak
 LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]][13:59:03] clusterScaleDoc ~/go/src/github.com/kubernetes/kubernetes $ 
-{% endraw %}
+
 {% endhighlight %}
 
 We can see that this container was terminated because `reason:OOM Killed`, where *OOM* stands for Out Of Memory.

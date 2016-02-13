@@ -1,10 +1,6 @@
 ---
 title: "End-2-End Testing in Kubernetes"
 ---
-
-
-# End-2-End Testing in Kubernetes
-
 ## Overview
 
 The end-2-end tests for kubernetes provide a mechanism to test behavior of the system, and to ensure end user operations match developer specifications.  In distributed systems it is not uncommon that a minor change may pass all unit tests, but cause unforseen changes at the system level.  Thus, the primary objectives of the end-2-end tests are to ensure a consistent and reliable behavior of the kubernetes code base, and to catch bugs early.
@@ -32,7 +28,7 @@ The output for the end-2-end tests will be a single binary called `e2e.test` und
 For the purposes of brevity, we will look at a subset of the options, which are listed below:
 
 ```
-{% raw %}
+
 -ginkgo.dryRun=false: If set, ginkgo will walk the test hierarchy without actually running anything.  Best paired with -v.
 -ginkgo.failFast=false: If set, ginkgo will stop running a test suite after a failure occurs.
 -ginkgo.failOnPending=false: If set, ginkgo will mark the test suite as failed if any specs are pending.
@@ -45,18 +41,18 @@ For the purposes of brevity, we will look at a subset of the options, which are 
 -prom-push-gateway="": The URL to prometheus gateway, so that metrics can be pushed during e2es and scraped by prometheus. Typically something like 127.0.0.1:9091.
 -provider="": The name of the Kubernetes provider (gce, gke, local, vagrant, etc.)
 -repo-root="../../": Root directory of kubernetes repository, for finding test files.
-{% endraw %}
+
 ```
 
 Prior to running the tests, it is recommended that you first create a simple auth file in your home directory, e.g. `$HOME/.kubernetes_auth` , with the following:
 
 ```
-{% raw %}
+
 {
   "User": "root",
   "Password": ""
 }
-{% endraw %}
+
 ```
 
 Next, you will need a cluster that you can test against.  As mentioned earlier, you will want to execute `sudo ./hack/local-up-cluster.sh`.  To get a sense of what tests exist, you may want to run:
@@ -89,14 +85,14 @@ If a behavior does not currently have coverage and a developer wishes to add a n
 
 Another benefit of the end-2-end tests is the ability to create reproducible loads on the system, which can then be used to determine the responsiveness, or analyze other characteristics of the system.  For example, the density tests load the system to 30,50,100 pods per/node and measures the different characteristics of the system, such as throughput, api-latency, etc.
 
-For a good overview of how we analyze performance data, please read the following [post](http://blog.kubernetes.io/2015/09/kubernetes-performance-measurements-and.html)
+For a good overview of how we analyze performance data, please read the following [post](http://blog.kubernetes.io/2015/09/kubernetes-performance-measurements-and)
 
 For developers who are interested in doing their own performance analysis, we recommend setting up [prometheus](http://prometheus.io/) for data collection, and using [promdash](http://prometheus.io/docs/visualization/promdash/) to visualize the data.  There also exists the option of pushing your own metrics in from the tests using a [prom-push-gateway](http://prometheus.io/docs/instrumenting/pushing/).  Containers for all of these components can be found [here](https://hub.docker.com/u/prom/).
 
 For more accurate measurements, you may wish to set up prometheus external to kubernetes in an environment where it can access the major system components (api-server, controller-manager, scheduler).  This is especially useful when attempting to gather metrics in a load-balanced api-server environment, because all api-servers can be analyzed independently as well as collectively. On startup, configuration file is passed to prometheus that specifies the endpoints that prometheus will scrape, as well as the sampling interval.
 
 ```
-{% raw %}
+
 #prometheus.conf
 job: {
       name: "kubernetes"
@@ -109,7 +105,7 @@ job: {
 		# controller-manager
 		target: "http://localhost:10252/metrics"
       }
-{% endraw %}
+
 ```
 
 Once prometheus is scraping the kubernetes endpoints, that data can then be plotted using promdash, and alerts can be created against the assortment of metrics that kubernetes provides.

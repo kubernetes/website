@@ -1,6 +1,5 @@
 ---
 title: "Getting started on Rackspace"
-section: guides
 ---
 
 ## Introduction
@@ -17,7 +16,7 @@ The current cluster design is inspired by:
 - [corekube](https://github.com/metral/corekube)
 - [Angus Lees](https://github.com/anguslees/kube-openstack)
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -25,7 +24,7 @@ The current cluster design is inspired by:
 
 1. Python2.7
 2. You need to have both `nova` and `swiftly` installed. It's recommended to use a python virtualenv to install these packages into.
-3. Make sure you have the appropriate environment variables set to interact with the OpenStack APIs. See [Rackspace Documentation](http://docs.rackspace.com/servers/api/v2/cs-gettingstarted/content/section_gs_install_nova.html) for more details.
+3. Make sure you have the appropriate environment variables set to interact with the OpenStack APIs. See [Rackspace Documentation](http://docs.rackspace.com/servers/api/v2/cs-gettingstarted/content/section_gs_install_nova) for more details.
 
 ## Provider: Rackspace
 

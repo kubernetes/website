@@ -1,13 +1,9 @@
 ---
 title: "Security Contexts"
 ---
-
-
-# Security Contexts
-
 ## Abstract
 
-A security context is a set of constraints that are applied to a container in order to achieve the following goals (from [security design](security.html)):
+A security context is a set of constraints that are applied to a container in order to achieve the following goals (from [security design](security)):
 
 1.  Ensure a clear isolation between container and the underlying host it runs on
 2.  Limit the ability of the container to negatively impact the infrastructure or other containers
@@ -41,7 +37,7 @@ Processes in pods will need to have consistent UID/GID/SELinux category labels i
 * The concept of a security context should not be tied to a particular security mechanism or platform
   (ie. SELinux, AppArmor)
 * Applying a different security context to a scope (namespace or pod) requires a solution such as the one proposed for
-  [service accounts](service_accounts.html).
+  [service accounts](service_accounts).
 
 ## Use Cases
 
@@ -92,7 +88,7 @@ It is recommended that this design be implemented in two phases:
 The Kubelet will have an interface that points to a `SecurityContextProvider`. The `SecurityContextProvider` is invoked before creating and running a given container:
 
 {% highlight go %}
-{% raw %}
+
 type SecurityContextProvider interface {
 	// ModifyContainerConfig is called before the Docker createContainer call.
 	// The security context provider can make changes to the Config with which
@@ -108,7 +104,7 @@ type SecurityContextProvider interface {
 	// with a security context. 
 	ModifyHostConfig(pod *api.Pod, container *api.Container, hostConfig *docker.HostConfig)
 }
-{% endraw %}
+
 {% endhighlight %}
 
 If the value of the SecurityContextProvider field on the Kubelet is nil, the kubelet will create and run the container as it does today.
@@ -119,7 +115,7 @@ A security context resides on the container and represents the runtime parameter
 be used to create and run the container via container APIs. Following is an example of an initial implementation:
 
 {% highlight go %}
-{% raw %}
+
 type Container struct {
 	... other fields omitted ...
 	// Optional: SecurityContext defines the security options the pod should be run with
@@ -159,7 +155,7 @@ type SELinuxOptions struct {
 	// SELinux level label.
 	Level string
 }
-{% endraw %}
+
 {% endhighlight %}
 
 ### Admission

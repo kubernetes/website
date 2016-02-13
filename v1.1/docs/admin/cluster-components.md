@@ -1,10 +1,6 @@
 ---
 title: "Kubernetes Cluster Admin Guide: Cluster Components"
 ---
-
-
-# Kubernetes Cluster Admin Guide: Cluster Components
-
 This document outlines the various binary components that need to run to
 deliver a functioning Kubernetes cluster.
 
@@ -19,7 +15,7 @@ unsatisfied).
 Master components could in theory be run on any node in the cluster. However,
 for simplicity, current set up scripts typically start all master components on
 the same VM, and does not run user containers on this VM. See
-[high-availability.md](high-availability.html) for an example multi-master-VM setup.
+[high-availability.md](high-availability) for an example multi-master-VM setup.
 
 Even in the future, when Kubernetes is fully self-hosting, it will probably be
 wise to only allow master components to schedule on a subset of nodes, to limit
@@ -28,19 +24,19 @@ node-compromising security exploit.
 
 ### kube-apiserver
 
-[kube-apiserver](kube-apiserver.html) exposes the Kubernetes API; it is the front-end for the
+[kube-apiserver](kube-apiserver) exposes the Kubernetes API; it is the front-end for the
 Kubernetes control plane. It is designed to scale horizontally (i.e., one scales
-it by running more of them-- [high-availability.md](high-availability.html)).
+it by running more of them-- [high-availability.md](high-availability)).
 
 ### etcd
 
-[etcd](etcd.html) is used as Kubernetes' backing store. All cluster data is stored here.
+[etcd](etcd) is used as Kubernetes' backing store. All cluster data is stored here.
 Proper administration of a Kubernetes cluster includes a backup plan for etcd's
 data.
 
 ### kube-controller-manager
 
-[kube-controller-manager](kube-controller-manager.html) is a binary that runs controllers, which are the
+[kube-controller-manager](kube-controller-manager) is a binary that runs controllers, which are the
 background threads that handle routine tasks in the cluster. Logically, each
 controller is a separate process, but to reduce the number of moving pieces in
 the system, they are all compiled into a single binary and run in a single
@@ -61,7 +57,7 @@ These controllers include:
 
 ### kube-scheduler
 
-[kube-scheduler](kube-scheduler.html) watches newly created pods that have no node assigned, and
+[kube-scheduler](kube-scheduler) watches newly created pods that have no node assigned, and
 selects a node for them to run on.
 
 ### addons
@@ -89,7 +85,7 @@ the Kubernetes runtime environment.
 
 ### kubelet
 
-[kubelet](kubelet.html) is the primary node agent. It:
+[kubelet](kubelet) is the primary node agent. It:
 * Watches for pods that have been assigned to its node (either by apiserver
   or via local configuration file) and:
  * Mounts the pod's required volumes
@@ -102,7 +98,7 @@ the Kubernetes runtime environment.
 
 ### kube-proxy
 
-[kube-proxy](kube-proxy.html) enables the Kubernetes service abstraction by maintaining
+[kube-proxy](kube-proxy) enables the Kubernetes service abstraction by maintaining
 network rules on the host and performing connection forwarding.
 
 ### docker

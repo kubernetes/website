@@ -7,159 +7,159 @@ toc:
 - title: Quickstarts
   section:
   - title: TODO - 5-minute Quickstart
-    path: /v1.1/docs/hellonode
+    path: /v1.1/docs/hellonode/
   - title: Kubernetes 101
-    path: /v1.1/docs/user-guide/walkthrough/README
+    path: /v1.1/docs/user-guide/walkthrough/README/
   - title: Kubernetes 201
-    path: /v1.1/docs/user-guide/walkthrough/k8s201
+    path: /v1.1/docs/user-guide/walkthrough/k8s201/
 
 - title: Running Kubernetes
   section:
   - title: Picking the Right Solution
-    path: /v1.1/docs/getting-started-guides/README 
+    path: /v1.1/docs/getting-started-guides/README/
   - title: Running Kubernetes on Your Local Machine
     section:
     - title: Running Kubernetes Locally via Docker
-      path: /v1.1/docs/getting-started-guides/docker
+      path: /v1.1/docs/getting-started-guides/docker/
     - title: Running Kubernetes Locally via Vagrant
-      path: /v1.1/docs/getting-started-guides/vagrant
+      path: /v1.1/docs/getting-started-guides/vagrant/
     - title: Running Kubernetes Locally with No VM
-      path: /v1.1/docs/getting-started-guides/locally
+      path: /v1.1/docs/getting-started-guides/locally/
   - title: Running Kubernetes on Turn-key Cloud Solutions
     section:
     - title: Running Kubernetes on Google Container Engine
-      path: https://cloud.google.com/container-engine/docs/before-you-begin
+      path: https://cloud.google.com/container-engine/docs/before-you-begin/
     - title: Running Kubernetes on Google Compute Engine
-      path: /v1.1/docs/getting-started-guides/gce
+      path: /v1.1/docs/getting-started-guides/gce/
     - title: Running Kubernetes on AWS EC2
-      path: /v1.1/docs/getting-started-guides/aws
+      path: /v1.1/docs/getting-started-guides/aws/
     - title: Running Kubernetes on Azure
-      path: /v1.1/docs/getting-started-guides/coreos/azure/README
+      path: /v1.1/docs/getting-started-guides/coreos/azure/README/
   - title: Running Kubernetes on Custom Solutions
     section:
     - title: Getting Started From Scratch
-      path: /v1.1/docs/getting-started-guides/scratch
+      path: /v1.1/docs/getting-started-guides/scratch/
     - title: Custom Cloud Solutions
       section:
       - title: AWS or GCE on CoreOS
-        path: /v1.1/docs/getting-started-guides/coreos
+        path: /v1.1/docs/getting-started-guides/coreos/
       - title: AWS or Joyent on Ubuntu
-        path: /v1.1/docs/getting-started-guides/juju
+        path: /v1.1/docs/getting-started-guides/juju/
       - title: Rackspace on CoreOS
-        path: /v1.1/docs/getting-started-guides/rackspace
+        path: /v1.1/docs/getting-started-guides/rackspace/
     - title: On-Premise VMs
       section:
       - title: Vagrant or VMware
-        path: /v1.1/docs/getting-started-guides/coreos
+        path: /v1.1/docs/getting-started-guides/coreos/
       - title: Cloudstack
-        path: /v1.1/docs/getting-started-guides/cloudstack
+        path: /v1.1/docs/getting-started-guides/cloudstack/
       - title: VMWare
-        path: /v1.1/docs/getting-started-guides/vsphere
+        path: /v1.1/docs/getting-started-guides/vsphere/
       - title: Juju
-        path: /v1.1/docs/getting-started-guides/juju
+        path: /v1.1/docs/getting-started-guides/juju/
       - title: libvirt on CoreOS
-        path: /v1.1/docs/getting-started-guides/libvirt-coreos
+        path: /v1.1/docs/getting-started-guides/libvirt-coreos/
       - title: oVirt
-        path: /v1.1/docs/getting-started-guides/ovirt
+        path: /v1.1/docs/getting-started-guides/ovirt/
       - title: libvirt or KVM
-        path: /v1.1/docs/getting-started-guides/fedora/flannel_multi_node_cluster
+        path: /v1.1/docs/getting-started-guides/fedora/flannel_multi_node_cluster/
     - title: Bare Metal
       section:
       - title: Offline
-        path: /v1.1/docs/getting-started-guides/coreos/bare_metal_offline
+        path: /v1.1/docs/getting-started-guides/coreos/bare_metal_offline/
       - title: Fedora via Ansible
-        path: /v1.1/docs/getting-started-guides/fedora/fedora_ansible_config
+        path: /v1.1/docs/getting-started-guides/fedora/fedora_ansible_config/
       - title: Fedora (Single Node)
-        path: /v1.1/docs/getting-started-guides/fedora/fedora_manual_config
+        path: /v1.1/docs/getting-started-guides/fedora/fedora_manual_config/
       - title: Fedora (Multi Node)
-        path: /v1.1/docs/getting-started-guides/fedora/flannel_multi_node_cluster
+        path: /v1.1/docs/getting-started-guides/fedora/flannel_multi_node_cluster/
       - title: Centos
-        path: /v1.1/docs/getting-started-guides/centos/centos_manual_config
+        path: /v1.1/docs/getting-started-guides/centos/centos_manual_config/
       - title: Ubuntu
-        path: /v1.1/docs/getting-started-guides/ubuntu
+        path: /v1.1/docs/getting-started-guides/ubuntu/
       - title: Docker (Multi Node)
-        path: /v1.1/docs/getting-started-guides/docker-multinode
+        path: /v1.1/docs/getting-started-guides/docker-multinode/
 
 - title: Administering Clusters
   section:
   - title: Kubernetes Cluster Admin Guide
-    path: /v1.1/docs/admin/introduction
+    path: /v1.1/docs/admin/introduction/
   - title: Using Multiple Clusters
-    path: /v1.1/docs/admin/multi-cluster
+    path: /v1.1/docs/admin/multi-cluster/
   - title: Using Large Clusters
-    path: /v1.1/docs/admin/cluster-large
+    path: /v1.1/docs/admin/cluster-large/
   - title: Building High-Availability Clusters
-    path: /v1.1/docs/admin/high-availability
+    path: /v1.1/docs/admin/high-availability/
   - title: Accessing Clusters
-    path: /v1.1/docs/user-guide/accessing-the-cluster
+    path: /v1.1/docs/user-guide/accessing-the-cluster/
   - title: Sharing a Cluster
-    path: /v1.1/docs/admin/namespaces/README
+    path: /v1.1/docs/admin/namespaces/README/
   - title: Changing Cluster Size
-    path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster
+    path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
   - title: Creating a Custom Cluster from Scratch
-    path: /v1.1/docs/getting-started-guides/scratch
+    path: /v1.1/docs/getting-started-guides/scratch/
   - title: Authenticating Across Clusters with kubeconfig
-    path: /v1.1/docs/user-guide/kubeconfig-file
+    path: /v1.1/docs/user-guide/kubeconfig-file/
   - title: Configuring Garbage Collection
-    path: /v1.1/docs/admin/garbage-collection
+    path: /v1.1/docs/admin/garbage-collection/
   - title: Configuring Kubernetes with Salt
-    path: /v1.1/docs/admin/salt
+    path: /v1.1/docs/admin/salt/
 - title: Common Tasks
   section:
   - title: Using Nodes
-    path: /v1.1/docs/admin/node
+    path: /v1.1/docs/admin/node/
   - title: Assigning Pods to Nodes
-    path: /v1.1/docs/user-guide/node-selection/README
+    path: /v1.1/docs/user-guide/node-selection/README/
   - title: Using Configuration Files
-    path: /v1.1/docs/user-guide/simple-yaml
+    path: /v1.1/docs/user-guide/simple-yaml/
   - title: Configuring Containers
-    path: /v1.1/docs/user-guide/configuring-containers
+    path: /v1.1/docs/user-guide/configuring-containers/
   - title: Using Environment Variables
-    path: /v1.1/docs/user-guide/environment-guide/README
+    path: /v1.1/docs/user-guide/environment-guide/README/
 
   - title: Managing Compute Resources
-    path: /v1.1/docs/user-guide/compute-resources
+    path: /v1.1/docs/user-guide/compute-resources/
   - title: Applying Resource Quotas and Limits
-    path: /v1.1/docs/admin/resourcequota/README
+    path: /v1.1/docs/admin/resourcequota/README/
   - title: Setting Pod CPU and Memory Limits
-    path: /v1.1/docs/admin/limitrange/README
+    path: /v1.1/docs/admin/limitrange/README/
 
   - title: Managing Deployments
-    path: /v1.1/docs/user-guide/managing-deployments
+    path: /v1.1/docs/user-guide/managing-deployments/
   - title: Deploying Applications
-    path: /v1.1/docs/user-guide/deploying-applications
+    path: /v1.1/docs/user-guide/deploying-applications/
   - title: Launching, Exposing, and Killing Applications
-    path: /v1.1/docs/user-guide/quick-start
+    path: /v1.1/docs/user-guide/quick-start/
   - title: Connecting Applications
-    path: /v1.1/docs/user-guide/connecting-applications
+    path: /v1.1/docs/user-guide/connecting-applications/
 
   - title: Networking in Kubernetes
-    path: /v1.1/docs/admin/networking
+    path: /v1.1/docs/admin/networking/
   - title: Creating Servers with External IPs
-    path: /v1.1/examples/simple-nginx
+    path: /v1.1/examples/simple-nginx/
   - title: Setting Up and Configuring DNS
-    path: /v1.1/examples/cluster-dns/README
+    path: /v1.1/examples/cluster-dns/README/
   - title: Using DNS Pods and Services
-    path: /v1.1/docs/admin/dns
+    path: /v1.1/docs/admin/dns/
   - title: Working with Containers
-    path: /v1.1/docs/user-guide/production-pods
+    path: /v1.1/docs/user-guide/production-pods/
   - title: Creating Pods with the Downward API
-    path: /v1.1/docs/user-guide/downward-api/README
+    path: /v1.1/docs/user-guide/downward-api/README/
   - title: Using Secrets
-    path: /v1.1/docs/user-guide/secrets/README
+    path: /v1.1/docs/user-guide/secrets/README/
   - title: Using Persistent Volumes
-    path: /v1.1/docs/user-guide/persistent-volumes/README
+    path: /v1.1/docs/user-guide/persistent-volumes/README/
   - title: Updating Live Pods
-    path: /v1.1/docs/user-guide/update-demo/README
+    path: /v1.1/docs/user-guide/update-demo/README/
 
 
 - title: Testing and Monitoring
   section:
   - title: Simulating Large Test Loads
-    path: /v1.1/examples/k8petstore/README
+    path: /v1.1/examples/k8petstore/README/
   - title: Checking Pod Health
-    path: /v1.1/docs/user-guide/liveness/README
+    path: /v1.1/docs/user-guide/liveness/README/
   - title: Using Explorer to Examine the Runtime Environment
-    path: /v1.1/examples/explorer/README
+    path: /v1.1/examples/explorer/README/
   - title: Resource Usage Monitoring
-    path: /v1.1/docs/user-guide/monitoring
+    path: /v1.1/docs/user-guide/monitoring/

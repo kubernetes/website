@@ -29,11 +29,11 @@ This example demonstrates how limits can be applied to a Kubernetes namespace to
 min/max resource limits per pod.  In addition, this example demonstrates how you can
 apply default resource limits to pods in the absence of an end-user specified value.
 
-See [LimitRange design doc](../../design/admission_control_limit_range.html) for more information. For a detailed description of the Kubernetes resource model, see [Resources](../../../docs/user-guide/compute-resources.html)
+See [LimitRange design doc](../../design/admission_control_limit_range) for more information. For a detailed description of the Kubernetes resource model, see [Resources](/{{page.version}}/docs/user-guide/compute-resources)
 
 Step 0: Prerequisites
 -----------------------------------------
-This example requires a running Kubernetes cluster.  See the [Getting Started guides](../../../docs/getting-started-guides/) for how to get started.
+This example requires a running Kubernetes cluster.  See the [Getting Started guides](/{{page.version}}/docs/getting-started-guides/) for how to get started.
 
 Change to the `<kubernetes>` directory if you're not already there.
 
@@ -43,32 +43,27 @@ This example will work in a custom namespace to demonstrate the concepts involve
 
 Let's create a new namespace called limit-example:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl create -f docs/admin/limitrange/namespace.yaml
 namespace "limit-example" created
 $ kubectl get namespaces
 NAME            LABELS    STATUS    AGE
 default         <none>    Active    5m
-limit-example   <none>    Active    53s
-{% endraw %}
+limit-example   <none>    Active    53s
 {% endhighlight %}
 
 Step 2: Apply a limit to the namespace
 -----------------------------------------
 Let's create a simple limit in our namespace.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl create -f docs/admin/limitrange/limits.yaml --namespace=limit-example
-limitrange "mylimits" created
-{% endraw %}
+limitrange "mylimits" created
 {% endhighlight %}
 
 Let's describe the limits that we have imposed in our namespace.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl describe limits mylimits --namespace=limit-example
 Name:   mylimits
 Namespace:  limit-example
@@ -77,8 +72,7 @@ Type        Resource      Min      Max      Request      Limit      Limit/Reques
 Pod         cpu           200m     2        -            -          -
 Pod         memory        6Mi      1Gi      -            -          -
 Container   cpu           100m     2        200m         300m       -
-Container   memory        3Mi      1Gi      100Mi        200Mi      -
-{% endraw %}
+Container   memory        3Mi      1Gi      100Mi        200Mi      -
 {% endhighlight %}
 
 In this scenario, we have said the following:
@@ -107,19 +101,16 @@ of creation explaining why.
 Let's first spin up a replication controller that creates a single container pod to demonstrate
 how default values are applied to each pod.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl run nginx --image=nginx --replicas=1 --namespace=limit-example
 replicationcontroller "nginx" created
 $ kubectl get pods --namespace=limit-example
 NAME          READY     STATUS    RESTARTS   AGE
 nginx-aq0mf   1/1       Running   0          35s
-$ kubectl get pods nginx-aq0mf --namespace=limit-example -o yaml | grep resources -C 8
-{% endraw %}
+$ kubectl get pods nginx-aq0mf --namespace=limit-example -o yaml | grep resources -C 8
 {% endhighlight %}
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
   resourceVersion: "127"
   selfLink: /api/v1/namespaces/limit-example/pods/nginx-aq0mf
   uid: 51be42a7-7156-11e5-9921-286ed488f785
@@ -136,33 +127,27 @@ spec:
         cpu: 200m
         memory: 100Mi
     terminationMessagePath: /dev/termination-log
-    volumeMounts:
-{% endraw %}
+    volumeMounts:
 {% endhighlight %}
 
 Note that our nginx container has picked up the namespace default cpu and memory resource *limits* and *requests*.
 
 Let's create a pod that exceeds our allowed limits by having it have a container that requests 3 cpu cores.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl create -f docs/admin/limitrange/invalid-pod.yaml --namespace=limit-example
-Error from server: error when creating "docs/admin/limitrange/invalid-pod.yaml": Pod "invalid-pod" is forbidden: [Maximum cpu usage per Pod is 2, but limit is 3., Maximum cpu usage per Container is 2, but limit is 3.]
-{% endraw %}
+Error from server: error when creating "docs/admin/limitrange/invalid-pod.yaml": Pod "invalid-pod" is forbidden: [Maximum cpu usage per Pod is 2, but limit is 3., Maximum cpu usage per Container is 2, but limit is 3.]
 {% endhighlight %}
 
 Let's create a pod that falls within the allowed limit boundaries.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl create -f docs/admin/limitrange/valid-pod.yaml --namespace=limit-example
 pod "valid-pod" created
-$ kubectl get pods valid-pod --namespace=limit-example -o yaml | grep -C 6 resources
-{% endraw %}
+$ kubectl get pods valid-pod --namespace=limit-example -o yaml | grep -C 6 resources
 {% endhighlight %}
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
  uid: 162a12aa-7157-11e5-9921-286ed488f785
 spec:
   containers:
@@ -175,8 +160,7 @@ spec:
         memory: 512Mi
       requests:
         cpu: "1"
-        memory: 512Mi
-{% endraw %}
+        memory: 512Mi
 {% endhighlight %}
 
 Note that this pod specifies explicit resource *limits* and *requests* so it did not pick up the namespace
@@ -185,28 +169,24 @@ default values.
 Note: The *limits* for CPU resource are not enforced in the default Kubernetes setup on the physical node
 that runs the container unless the administrator deploys the kubelet with the folllowing flag:
 
-```
-{% raw %}
+```
 $ kubelet --help
 Usage of kubelet
 ....
   --cpu-cfs-quota[=false]: Enable CPU CFS quota enforcement for containers that specify CPU limits
-$ kubelet --cpu-cfs-quota=true ...
-{% endraw %}
+$ kubelet --cpu-cfs-quota=true ...
 ```
 
 Step 4: Cleanup
 ----------------------------
 To remove the resources used by this example, you can just delete the limit-example namespace.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl delete namespace limit-example
 namespace "limit-example" deleted
 $ kubectl get namespaces
 NAME      LABELS    STATUS    AGE
-default   <none>    Active    20m
-{% endraw %}
+default   <none>    Active    20m
 {% endhighlight %}
 
 Summary

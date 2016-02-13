@@ -1,8 +1,7 @@
 ---
 title: "Getting started on AWS EC2"
-section: guides
 ---
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -10,29 +9,25 @@ section: guides
 
 1. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
 2. Install and configure [AWS Command Line Interface](http://aws.amazon.com/cli)
-3. You need an AWS [instance profile and role](http://docs.aws.amazon.com/IAM/latest/UserGuide/instance-profiles.html) with EC2 full access.
+3. You need an AWS [instance profile and role](http://docs.aws.amazon.com/IAM/latest/UserGuide/instance-profiles) with EC2 full access.
 
 NOTE: This script use the 'default' AWS profile by default.
 You may explicitly set AWS profile to use using the `AWS_DEFAULT_PROFILE` environment variable:
 
-{% highlight bash %}
-{% raw %}
-export AWS_DEFAULT_PROFILE=myawsprofile
-{% endraw %}
+{% highlight bash %}
+export AWS_DEFAULT_PROFILE=myawsprofile
 {% endhighlight %}
 
 ## Cluster turnup
 
 ### Supported procedure: `get-kube`
 
-{% highlight bash %}
-{% raw %}
+{% highlight bash %}
 #Using wget
 export KUBERNETES_PROVIDER=aws; wget -q -O - https://get.k8s.io | bash
 
 #Using cURL
-export KUBERNETES_PROVIDER=aws; curl -sS https://get.k8s.io | bash
-{% endraw %}
+export KUBERNETES_PROVIDER=aws; curl -sS https://get.k8s.io | bash
 {% endhighlight %}
 
 NOTE: This script calls [cluster/kube-up.sh](http://releases.k8s.io/release-1.1/cluster/kube-up.sh)
@@ -46,16 +41,14 @@ tokens are written in `~/.kube/config`, they will be necessary to use the CLI or
 By default, the script will provision a new VPC and a 4 node k8s cluster in us-west-2a (Oregon) with `t2.micro` instances running on Ubuntu.
 You can override the variables defined in [config-default.sh](http://releases.k8s.io/release-1.1/cluster/aws/config-default.sh) to change this behavior as follows:
 
-{% highlight bash %}
-{% raw %}
+{% highlight bash %}
 export KUBE_AWS_ZONE=eu-west-1c
 export NUM_MINIONS=2
 export MINION_SIZE=m3.medium
 export AWS_S3_REGION=eu-west-1
 export AWS_S3_BUCKET=mycompany-kubernetes-artifacts
 export INSTANCE_PREFIX=k8s
-...
-{% endraw %}
+...
 {% endhighlight %}
 
 It will also try to create or reuse a keypair called "kubernetes", and IAM profiles called "kubernetes-master" and "kubernetes-minion".
@@ -65,7 +58,7 @@ NOTE: If using an existing keypair named "kubernetes" then you must set the `AWS
 
 ### Alternatives
 
-A contributed [example](coreos/coreos_multinode_cluster.html) allows you to setup a Kubernetes cluster based on [CoreOS](http://www.coreos.com), using
+A contributed [example](/{{page.version}}/docs/getting-started-guides/coreos/coreos_multinode_cluster) allows you to setup a Kubernetes cluster based on [CoreOS](http://www.coreos.com), using
 EC2 with user data (cloud-config).
 
 ## Getting started with your cluster
@@ -77,24 +70,22 @@ Alternately, you can download the latest Kubernetes release from [this page](htt
 
 Next, add the appropriate binary folder to your `PATH` to access kubectl:
 
-{% highlight bash %}
-{% raw %}
+{% highlight bash %}
 # OS X
 export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 
 # Linux
-export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
-{% endraw %}
+export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 {% endhighlight %}
 
-An up-to-date documentation page for this tool is available here: [kubectl manual](../../docs/user-guide/kubectl/kubectl.html)
+An up-to-date documentation page for this tool is available here: [kubectl manual](/{{page.version}}/docs/user-guide/kubectl/kubectl)
 
 By default, `kubectl` will use the `kubeconfig` file generated during the cluster startup for authenticating against the API.
-For more information, please read [kubeconfig files](../../docs/user-guide/kubeconfig-file.html)
+For more information, please read [kubeconfig files](/{{page.version}}/docs/user-guide/kubeconfig-file)
 
 ### Examples
 
-See [a simple nginx example](../../docs/user-guide/simple-nginx.html) to try out your new cluster.
+See [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
 The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](../../examples/guestbook/)
 
@@ -105,15 +96,13 @@ For more complete applications, please look in the [examples directory](../../ex
 Make sure the environment variables you used to provision your cluster are still exported, then call the following script inside the
 `kubernetes` directory:
 
-{% highlight bash %}
-{% raw %}
-cluster/kube-down.sh
-{% endraw %}
+{% highlight bash %}
+cluster/kube-down.sh
 {% endhighlight %}
 
 ## Further reading
 
-Please see the [Kubernetes docs](../../docs/) for more details on administering
+Please see the [Kubernetes docs](/{{page.version}}/docs/) for more details on administering
 and using a Kubernetes cluster.
 
 

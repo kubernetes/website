@@ -1,18 +1,14 @@
 ---
 title: "Downward API example"
 ---
-
-
-# Downward API example
-
 Following this example, you will create a pod with a container that consumes the pod's name and
-namespace using the [downward API](../downward-api.html).
+namespace using the [downward API](../downward-api).
 
 ## Step Zero: Prerequisites
 
 This example assumes you have a Kubernetes cluster installed and running, and that you have
 installed the `kubectl` command line tool somewhere in your path. Please see the [getting
-started](../../../docs/getting-started-guides/) for installation instructions for your platform.
+started](/{{page.version}}/docs/getting-started-guides/) for installation instructions for your platform.
 
 ## Step One: Create the pod
 
@@ -23,9 +19,9 @@ Use the [`examples/downward-api/dapi-pod.yaml`](dapi-pod.yaml) file to create a 
 downward API.
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl create -f docs/user-guide/downward-api/dapi-pod.yaml
-{% endraw %}
+
 {% endhighlight %}
 
 ### Examine the logs
@@ -34,12 +30,12 @@ This pod runs the `env` command in a container that consumes the downward API.  
 through the pod logs to see that the pod was injected with the correct values:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl logs dapi-test-pod | grep POD_
 2015-04-30T20:22:18.568024817Z MY_POD_NAME=dapi-test-pod
 2015-04-30T20:22:18.568087688Z MY_POD_NAMESPACE=default
 2015-04-30T20:22:18.568092435Z MY_POD_IP=10.0.1.6
-{% endraw %}
+
 {% endhighlight %}
 
 

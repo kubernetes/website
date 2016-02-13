@@ -1,42 +1,26 @@
 ---
 title: "Kubernetes 101 - Kubectl CLI and Pods"
 ---
-
-
-# Kubernetes 101 - Kubectl CLI and Pods
-
 For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple containers
 
 In order for the kubectl usage examples to work, make sure you have an examples directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or [the source](https://github.com/kubernetes/kubernetes).
 
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
-- [Kubernetes 101 - Kubectl CLI and Pods](#kubernetes-101---kubectl-cli-and-pods)
-  - [Kubectl CLI](#kubectl-cli)
-  - [Pods](#pods)
-      - [Pod Definition](#pod-definition)
-      - [Pod Management](#pod-management)
-      - [Volumes](#volumes)
-        - [Volume Types](#volume-types)
-      - [Multiple Containers](#multiple-containers)
-  - [What's Next?](#whats-next)
-
-<!-- END MUNGE: GENERATED_TOC -->
 
 ## Kubectl CLI
 
-The easiest way to interact with Kubernetes is via the [kubectl](../kubectl/kubectl.html) command-line interface.
+The easiest way to interact with Kubernetes is via the [kubectl](../kubectl/kubectl) command-line interface.
 
-For more info about kubectl, including its usage, commands, and parameters, see the [kubectl CLI reference](../kubectl/kubectl.html).
+For more info about kubectl, including its usage, commands, and parameters, see the [kubectl CLI reference](../kubectl/kubectl).
 
-If you haven't installed and configured kubectl, finish the [prerequisites](../prereqs.html) before continuing.
+If you haven't installed and configured kubectl, finish the [prerequisites](../prereqs) before continuing.
 
 ## Pods
 
 In Kubernetes, a group of one or more containers is called a _pod_. Containers in a pod are deployed together, and are started, stopped, and replicated as a group.
 
-See [pods](../../../docs/user-guide/pods.html) for more details.
+See [pods](/{{page.version}}/docs/user-guide/pods) for more details.
 
 
 #### Pod Definition
@@ -44,7 +28,7 @@ See [pods](../../../docs/user-guide/pods.html) for more details.
 The simplest pod definition describes the deployment of a single container.  For example, an nginx web server pod might be defined as such:
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -55,12 +39,12 @@ spec:
     image: nginx
     ports:
     - containerPort: 80
-{% endraw %}
+
 {% endhighlight %}
 
 A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and it is Kubernetes' responsibility to make sure that the current state matches the desired state.  For example, when you create a Pod, you declare that you want the containers in it to be running.  If the containers happen to not be running (e.g. program failure, ...), Kubernetes will continue to (re-)create them for you in order to drive them to the desired state. This process continues until the Pod is deleted.
 
-See the [design document](../../design/README.html) for more details.
+See the [design document](../../design/README) for more details.
 
 
 #### Pod Management
@@ -68,35 +52,35 @@ See the [design document](../../design/README.html) for more details.
 Create a pod containing an nginx server ([pod-nginx.yaml](pod-nginx.yaml)):
 
 {% highlight sh %}
-{% raw %}
+
 $ kubectl create -f docs/user-guide/walkthrough/pod-nginx.yaml
-{% endraw %}
+
 {% endhighlight %}
 
 List all pods:
 
 {% highlight sh %}
-{% raw %}
+
 $ kubectl get pods
-{% endraw %}
+
 {% endhighlight %}
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](../kubectl/kubectl_exec.html) for details.
+On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](../kubectl/kubectl_exec) for details.
 
 Provided the pod IP is accessible, you should be able to access its http endpoint with curl on port 80:
 
 {% highlight sh %}
-{% raw %}
+
 $ curl http://$(kubectl get pod nginx -o go-template={{.status.podIP}})
-{% endraw %}
+
 {% endhighlight %}
 
 Delete the pod by name:
 
 {% highlight sh %}
-{% raw %}
+
 $ kubectl delete pod nginx
-{% endraw %}
+
 {% endhighlight %}
 
 
@@ -111,23 +95,23 @@ For this example we'll be creating a Redis pod with a named volume and volume mo
 1. Define a volume:
 
 {% highlight yaml %}
-{% raw %}
+
     volumes:
     - name: redis-persistent-storage
       emptyDir: {}
-{% endraw %}
+
 {% endhighlight %}
 
 2. Define a volume mount within a container definition:
 
 {% highlight yaml %}
-{% raw %}
+
     volumeMounts:
     # name must match the volume name below
     - name: redis-persistent-storage
       # mount path within the container
       mountPath: /data/redis
-{% endraw %}
+
 {% endhighlight %}
 
 Example Redis pod definition with a persistent storage volume ([pod-redis.yaml](pod-redis.yaml)):
@@ -135,7 +119,7 @@ Example Redis pod definition with a persistent storage volume ([pod-redis.yaml](
 <!-- BEGIN MUNGE: EXAMPLE pod-redis.yaml -->
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -150,7 +134,7 @@ spec:
   volumes:
   - name: redis-persistent-storage
     emptyDir: {}
-{% endraw %}
+
 {% endhighlight %}
 
 [Download example](pod-redis.yaml)
@@ -165,7 +149,7 @@ Notes:
 - **EmptyDir**: Creates a new directory that will persist across container failures and restarts.
 - **HostPath**: Mounts an existing directory on the node's file system (e.g. `/var/logs`).
 
-See [volumes](../../../docs/user-guide/volumes.html) for more details.
+See [volumes](/{{page.version}}/docs/user-guide/volumes) for more details.
 
 
 #### Multiple Containers
@@ -177,7 +161,7 @@ The examples below are syntactically correct, but some of the images (e.g. kuber
 However, often you want to have two different containers that work together.  An example of this would be a web server, and a helper job that polls a git repository for new updates:
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -201,7 +185,7 @@ spec:
   volumes:
   - name: www-data
     emptyDir: {}
-{% endraw %}
+
 {% endhighlight %}
 
 Note that we have also added a volume here.  In this case, the volume is mounted into both containers.  It is marked `readOnly` in the web server's case, since it doesn't need to write to the directory.
@@ -211,8 +195,8 @@ Finally, we have also introduced an environment variable to the `git-monitor` co
 
 ## What's Next?
 
-Continue on to [Kubernetes 201](k8s201.html) or
-for a complete application see the [guestbook example](../../../examples/guestbook/README.html)
+Continue on to [Kubernetes 201](k8s201) or
+for a complete application see the [guestbook example](../../../examples/guestbook/README)
 
 
 

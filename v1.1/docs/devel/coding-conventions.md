@@ -9,7 +9,7 @@ Code conventions
   - Go
     - Ensure your code passes the [presubmit checks](development.html#hooks)
     - [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
-    - [Effective Go](https://golang.org/doc/effective_go.html)
+    - [Effective Go](https://golang.org/doc/effective_go)
     - Comment your code.
       - [Go's commenting conventions](http://blog.golang.org/godoc-documenting-go-code)
       - If reviewers ask questions about why the code is the way it is, that's a sign that comments might be helpful.
@@ -24,10 +24,10 @@ Code conventions
         - Importers can use a different name if they need to disambiguate.
       - Locks should be called `lock` and should never be embedded (always `lock sync.Mutex`). When multiple locks are present, give each lock a distinct name following Go conventions - `stateLock`, `mapLock` etc.
     - API conventions
-      - [API changes](api_changes.html)
-      - [API conventions](api-conventions.html)
-    - [Kubectl conventions](kubectl-conventions.html)
-    - [Logging conventions](logging.html)
+      - [API changes](api_changes)
+      - [API conventions](api-conventions)
+    - [Kubectl conventions](kubectl-conventions)
+    - [Logging conventions](logging)
 
 Testing conventions
   - All new packages and most new significant functionality must come with unit tests
@@ -44,7 +44,7 @@ Directory and file conventions
     - Package directories should generally avoid using separators as much as possible (when packages are multiple words, they usually should be in nested subdirectories).
   - Document directories and filenames should use dashes rather than underscores
   - Contrived examples that illustrate system features belong in /docs/user-guide or /docs/admin, depending on whether it is a feature primarily intended for users that deploy applications or cluster administrators, respectively. Actual application examples belong in /examples.
-    - Examples should also illustrate [best practices for using the system](../user-guide/config-best-practices.html)
+    - Examples should also illustrate [best practices for using the system](../user-guide/config-best-practices)
   - Third-party code
     - Third-party Go code is managed using Godeps
     - Other third-party code belongs in /third_party

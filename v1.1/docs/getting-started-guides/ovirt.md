@@ -1,9 +1,6 @@
 ---
 title: "Getting started on oVirt"
-section: guides
 ---
-## Table of Contents
-
 {% include pagetoc.html %}
 
 ## What is oVirt

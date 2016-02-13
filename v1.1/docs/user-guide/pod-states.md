@@ -1,10 +1,6 @@
 ---
 title: "The life of a pod"
 ---
-
-
-# The life of a pod
-
 Updated: 4/14/2015
 
 This document covers the lifecycle of a pod.  It is not an exhaustive document, but an introduction to the topic.
@@ -54,10 +50,10 @@ The possible values for RestartPolicy are `Always`, `OnFailure`, or `Never`. If 
 
 Three types of controllers are currently available:
 
-- Use a [`Job`](jobs.html) for pods which are expected to terminate (e.g. batch computations).
-- Use a [`ReplicationController`](replication-controller.html) for pods which are not expected to
+- Use a [`Job`](jobs) for pods which are expected to terminate (e.g. batch computations).
+- Use a [`ReplicationController`](replication-controller) for pods which are not expected to
   terminate, and where (e.g. web servers).
-- Use a [`DaemonSet`](../admin/daemons.html): Use for pods which need to run 1 per machine because they provide a
+- Use a [`DaemonSet`](../admin/daemons): Use for pods which need to run 1 per machine because they provide a
   machine-specific system service.
 If you are unsure whether to use ReplicationController or Daemon, then see [Daemon Set versus
 Replication Controller](../admin/daemons.html#daemon-set-versus-replication-controller).

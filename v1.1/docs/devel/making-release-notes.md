@@ -1,10 +1,6 @@
 ---
 title: "Making release notes"
 ---
-
-
-## Making release notes
-
 This documents the process for making release notes for a release.
 
 ### 1) Note the PR number of the previous release
@@ -17,9 +13,9 @@ Find the most-recent PR that was merged with the current .0 release.  Remember t
 ### 2) Run the release-notes tool
 
 {% highlight bash %}
-{% raw %}
+
 ${KUBERNETES_ROOT}/build/make-release-notes.sh $LASTPR $CURRENTPR
-{% endraw %}
+
 {% endhighlight %}
 
 ### 3) Trim the release notes

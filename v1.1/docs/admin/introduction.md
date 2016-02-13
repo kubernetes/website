@@ -1,19 +1,18 @@
 ---
 title: "Kubernetes Cluster Admin Guide"
-section: guides
 ---
 
 The cluster admin guide is for anyone creating or administering a Kubernetes cluster.
-It assumes some familiarity with concepts in the [User Guide](../user-guide/README.html).
+It assumes some familiarity with concepts in the [User Guide](../user-guide/README).
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
 ## Planning a cluster
 
 There are many different examples of how to setup a kubernetes cluster.  Many of them are listed in this
-[matrix](../getting-started-guides/README.html).  We call each of the combinations in this matrix a *distro*.
+[matrix](../getting-started-guides/README).  We call each of the combinations in this matrix a *distro*.
 
 Before choosing a particular guide, here are some things to consider:
 
@@ -30,52 +29,52 @@ Before choosing a particular guide, here are some things to consider:
  - Not all distros are maintained as actively.  Prefer ones which are listed as tested on a more recent version of
    Kubernetes.
  - If you are configuring kubernetes on-premises, you will need to consider what [networking
-   model](networking.html) fits best.
- - If you are designing for very high-availability, you may want [clusters in multiple zones](multi-cluster.html).
+   model](networking) fits best.
+ - If you are designing for very high-availability, you may want [clusters in multiple zones](multi-cluster).
  - You may want to familiarize yourself with the various
-   [components](cluster-components.html) needed to run a cluster.
+   [components](cluster-components) needed to run a cluster.
 
 ## Setting up a cluster
 
-Pick one of the Getting Started Guides from the [matrix](../getting-started-guides/README.html) and follow it.
+Pick one of the Getting Started Guides from the [matrix](../getting-started-guides/README) and follow it.
 If none of the Getting Started Guides fits, you may want to pull ideas from several of the guides.
 
-One option for custom networking is *OpenVSwitch GRE/VxLAN networking* ([ovs-networking.md](ovs-networking.html)), which
+One option for custom networking is *OpenVSwitch GRE/VxLAN networking* ([ovs-networking.md](ovs-networking)), which
 uses OpenVSwitch to set up networking between pods across
   Kubernetes nodes.
 
 If you are modifying an existing guide which uses Salt, this document explains [how Salt is used in the Kubernetes
-project](salt.html).
+project](salt).
 
 ## Managing a cluster, including upgrades
 
-[Managing a cluster](cluster-management.html).
+[Managing a cluster](cluster-management).
 
 ## Managing nodes
 
-[Managing nodes](node.html).
+[Managing nodes](node).
 
 ## Optional Cluster Services
 
-* **DNS Integration with SkyDNS** ([dns.md](dns.html)):
+* **DNS Integration with SkyDNS** ([dns.md](dns)):
   Resolving a DNS name directly to a Kubernetes service.
 
-* **Logging** with [Kibana](../user-guide/logging.html)
+* **Logging** with [Kibana](../user-guide/logging)
 
 ## Multi-tenant support
 
-* **Resource Quota** ([resource-quota.md](resource-quota.html))
+* **Resource Quota** ([resource-quota.md](resource-quota))
 
 ## Security
 
-* **Kubernetes Container Environment** ([docs/user-guide/container-environment.md](../user-guide/container-environment.html)):
+* **Kubernetes Container Environment** ([docs/user-guide/container-environment.md](../user-guide/container-environment)):
   Describes the environment for Kubelet managed containers on a Kubernetes
   node.
 
-* **Securing access to the API Server** [accessing the api](accessing-the-api.html)
+* **Securing access to the API Server** [accessing the api](accessing-the-api)
 
-* **Authentication**  [authentication](authentication.html)
+* **Authentication**  [authentication](authentication)
 
-* **Authorization** [authorization](authorization.html)
+* **Authorization** [authorization](authorization)
 
-* **Admission Controllers** [admission_controllers](admission-controllers.html)
+* **Admission Controllers** [admission_controllers](admission-controllers)

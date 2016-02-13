@@ -1,10 +1,6 @@
 ---
 title: "Admission control plugin: ResourceQuota"
 ---
-
-
-# Admission control plugin: ResourceQuota
-
 ## Background
 
 This document describes a system for enforcing hard resource usage limits per namespace as part of admission control.
@@ -20,7 +16,7 @@ This document describes a system for enforcing hard resource usage limits per na
 The **ResourceQuota** object is scoped to a **Namespace**.
 
 {% highlight go %}
-{% raw %}
+
 // The following identify resource constants for Kubernetes object types
 const (
   // Pods, number
@@ -71,7 +67,7 @@ type ResourceQuotaList struct {
   // Items is a list of ResourceQuota objects
   Items []ResourceQuota `json:"items" description:"items is a list of ResourceQuota objects; see http://releases.k8s.io/release-1.1/docs/design/admission_control_resource_quota.md#admissioncontrol-plugin-resourcequota"`
 }
-{% endraw %}
+
 {% endhighlight %}
 
 ## Quota Tracked Resources
@@ -152,9 +148,9 @@ The **ResourceQuota** plug-in introspects all incoming admission requests.
 To enable the plug-in and support for ResourceQuota, the kube-apiserver must be configured as follows:
 
 ```
-{% raw %}
+
 $ kube-apiserver --admission-control=ResourceQuota
-{% endraw %}
+
 ```
 
 It makes decisions by evaluating the incoming object against all defined **ResourceQuota.Status.Hard** resource limits in the request
@@ -177,7 +173,7 @@ kubectl is modified to support the **ResourceQuota** resource.
 For example,
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl create -f docs/admin/resourcequota/namespace.yaml
 namespace "quota-example" created
 $ kubectl create -f docs/admin/resourcequota/quota.yaml --namespace=quota-example
@@ -195,11 +191,11 @@ replicationcontrollers   0         20
 resourcequotas           1         1
 secrets                  1         10
 services                 0         5
-{% endraw %}
+
 {% endhighlight %}
 
 ## More information
 
-See [resource quota document](../admin/resource-quota.html) and the [example of Resource Quota](../admin/resourcequota/) for more information.
+See [resource quota document](../admin/resource-quota) and the [example of Resource Quota](../admin/resourcequota/) for more information.
 
 

@@ -1,11 +1,7 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Prerequisites"
 ---
-
-
-# Kubernetes User Guide: Managing Applications: Prerequisites
-
-To deploy and manage applications on Kubernetes, you’ll use the Kubernetes command-line tool, [kubectl](kubectl/kubectl.html). It lets you inspect your cluster resources, create, delete, and update components, and much more. You will use it to look at your new cluster and bring up example apps.
+To deploy and manage applications on Kubernetes, you'll use the Kubernetes command-line tool, [kubectl](kubectl/kubectl). It lets you inspect your cluster resources, create, delete, and update components, and much more. You will use it to look at your new cluster and bring up example apps.
 
 ## Installing kubectl
 
@@ -18,37 +14,37 @@ The kubectl binary doesn't have to be installed to be executable, but the rest o
 The simplest way to install is to copy or move kubectl into a dir already in PATH (e.g. `/usr/local/bin`). For example:
 
 {% highlight console %}
-{% raw %}
+
 # OS X
 $ sudo cp kubernetes/platforms/darwin/amd64/kubectl /usr/local/bin/kubectl
 # Linux
 $ sudo cp kubernetes/platforms/linux/amd64/kubectl /usr/local/bin/kubectl
-{% endraw %}
+
 {% endhighlight %}
 
 You also need to ensure it's executable:
 
 {% highlight console %}
-{% raw %}
+
 $ sudo chmod +x /usr/local/bin/kubectl
-{% endraw %}
+
 {% endhighlight %}
 
 If you prefer not to copy kubectl, you need to ensure the tool is in your path:
 
 {% highlight bash %}
-{% raw %}
+
 # OS X
 export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 
 # Linux
 export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
-{% endraw %}
+
 {% endhighlight %}
 
 ## Configuring kubectl
 
-In order for kubectl to find and access the Kubernetes cluster, it needs a [kubeconfig file](kubeconfig-file.html), which is created automatically when creating a cluster using kube-up.sh (see the [getting started guides](../../docs/getting-started-guides/) for more about creating clusters). If you need access to a cluster you didn’t create, see the [Sharing Cluster Access document](sharing-clusters.html).
+In order for kubectl to find and access the Kubernetes cluster, it needs a [kubeconfig file](kubeconfig-file), which is created automatically when creating a cluster using kube-up.sh (see the [getting started guides](/{{page.version}}/docs/getting-started-guides/) for more about creating clusters). If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](sharing-clusters).
 By default, kubectl configuration lives at `~/.kube/config`.
 
 #### Making sure you're ready
@@ -56,16 +52,16 @@ By default, kubectl configuration lives at `~/.kube/config`.
 Check that kubectl is properly configured by getting the cluster state:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl cluster-info
-{% endraw %}
+
 {% endhighlight %}
 
 If you see a url response, you are ready to go.
 
 ## What's next?
 
-[Learn how to launch and expose your application.](quick-start.html)
+[Learn how to launch and expose your application.](quick-start)
 
 
 

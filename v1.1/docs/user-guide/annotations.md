@@ -1,23 +1,19 @@
 ---
 title: "Annotations"
 ---
-
-
-# Annotations
-
-We have [labels](labels.html) for identifying metadata.
+We have [labels](labels) for identifying metadata.
 
 It is also useful to be able to attach arbitrary non-identifying metadata, for retrieval by API clients such as tools, libraries, etc. This information may be large, may be structured or unstructured, may include characters not permitted by labels, etc. Such information would not be used for object selection and therefore doesn't belong in labels.
 
 Like labels, annotations are key-value maps.
 
 {% highlight json %}
-{% raw %}
+
 "annotations": {
   "key1" : "value1",
   "key2" : "value2"
 }
-{% endraw %}
+
 {% endhighlight %}
 
 Possible information that could be recorded in annotations:

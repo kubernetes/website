@@ -1,35 +1,15 @@
 ---
 title: "Networking in Kubernetes"
 ---
-
-
-# Networking in Kubernetes
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Networking in Kubernetes](#networking-in-kubernetes)
-  - [Summary](#summary)
-  - [Docker model](#docker-model)
-  - [Kubernetes model](#kubernetes-model)
-  - [How to achieve this](#how-to-achieve-this)
-    - [Google Compute Engine (GCE)](#google-compute-engine-gce)
-    - [L2 networks and linux bridging](#l2-networks-and-linux-bridging)
-    - [Flannel](#flannel)
-    - [OpenVSwitch](#openvswitch)
-    - [Weave](#weave)
-    - [Calico](#calico)
-  - [Other reading](#other-reading)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 Kubernetes approaches networking somewhat differently than Docker does by
 default.  There are 4 distinct networking problems to solve:
 1. Highly-coupled container-to-container communications: this is solved by
-   [pods](../user-guide/pods.html) and `localhost` communications.
+   [pods](../user-guide/pods) and `localhost` communications.
 2. Pod-to-Pod communications: this is the primary focus of this document.
-3. Pod-to-Service communications: this is covered by [services](../user-guide/services.html).
-4. External-to-Service communications: this is covered by [services](../user-guide/services.html).
+3. Pod-to-Service communications: this is covered by [services](../user-guide/services).
+4. External-to-Service communications: this is covered by [services](../user-guide/services).
 
 ## Summary
 
@@ -95,7 +75,7 @@ talk to other VMs in your project.  This is the same basic model.
 Until now this document has talked about containers.  In reality, Kubernetes
 applies IP addresses at the `Pod` scope - containers within a `Pod` share their
 network namespaces - including their IP address.  This means that containers
-within a `Pod` can all reach each other’s ports on `localhost`.  This does imply
+within a `Pod` can all reach each other's ports on `localhost`.  This does imply
 that containers within a `Pod` must coordinate port usage, but this is no
 different than processes in a VM.  We call this the "IP-per-pod" model.  This
 is implemented in Docker as a "pod container" which holds the network namespace
@@ -128,9 +108,9 @@ on that subnet, and is passed to docker's `--bridge` flag.
 We start Docker with:
 
 {% highlight sh %}
-{% raw %}
+
     DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
-{% endraw %}
+
 {% endhighlight %}
 
 This bridge is created by Kubelet (controlled by the `--configure-cbr0=true`
@@ -147,18 +127,18 @@ itself) traffic that is bound for IPs outside the GCE project network
 (10.0.0.0/8).
 
 {% highlight sh %}
-{% raw %}
+
 iptables -t nat -A POSTROUTING ! -d 10.0.0.0/8 -o eth0 -j MASQUERADE
-{% endraw %}
+
 {% endhighlight %}
 
 Lastly we enable IP forwarding in the kernel (so the kernel will process
 packets for bridged containers):
 
 {% highlight sh %}
-{% raw %}
+
 sysctl net.ipv4.ip_forward=1
-{% endraw %}
+
 {% endhighlight %}
 
 The result of all this is that all `Pods` can reach each other and can egress
@@ -185,7 +165,7 @@ people have reported success with Flannel and Kubernetes.
 
 ### OpenVSwitch
 
-[OpenVSwitch](ovs-networking.html) is a somewhat more mature but also
+[OpenVSwitch](ovs-networking) is a somewhat more mature but also
 complicated way to build an overlay network.  This is endorsed by several of the
 "Big Shops" for networking.
 
@@ -203,7 +183,7 @@ IPs.
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
-document](../design/networking.html).
+document](../design/networking).
 
 
 

@@ -1,10 +1,6 @@
 ---
 title: "Admission control plugin: LimitRanger"
 ---
-
-
-# Admission control plugin: LimitRanger
-
 ## Background
 
 This document proposes a system for enforcing resource requirements constraints as part of admission control.
@@ -25,7 +21,7 @@ The **LimitRange** resource is scoped to a **Namespace**.
 ### Type
 
 {% highlight go %}
-{% raw %}
+
 // LimitType is a type of object that is limited
 type LimitType string
 
@@ -81,7 +77,7 @@ type LimitRangeList struct {
   // More info: http://releases.k8s.io/release-1.1/docs/design/admission_control_limit_range.md
   Items []LimitRange `json:"items"`
 }
-{% endraw %}
+
 {% endhighlight %}
 
 ### Validation
@@ -95,21 +91,21 @@ Min (if specified) <= DefaultRequest (if specified) <= Default (if specified) <=
 The following default value behaviors are applied to a LimitRange for a given named resource.
 
 ```
-{% raw %}
+
 if LimitRangeItem.Default[resourceName] is undefined 
   if LimitRangeItem.Max[resourceName] is defined
     LimitRangeItem.Default[resourceName] = LimitRangeItem.Max[resourceName]
-{% endraw %}
+
 ```
 
 ```
-{% raw %}
+
 if LimitRangeItem.DefaultRequest[resourceName] is undefined
   if LimitRangeItem.Default[resourceName] is defined
     LimitRangeItem.DefaultRequest[resourceName] = LimitRangeItem.Default[resourceName]
   else if LimitRangeItem.Min[resourceName] is defined
     LimitRangeItem.DefaultRequest[resourceName] = LimitRangeItem.Min[resourceName]
-{% endraw %}
+
 ```
 
 ## AdmissionControl plugin: LimitRanger
@@ -121,9 +117,9 @@ If a constraint is not specified for an enumerated resource, it is not enforced 
 To enable the plug-in and support for LimitRange, the kube-apiserver must be configured as follows:
 
 {% highlight console %}
-{% raw %}
+
 $ kube-apiserver --admission-control=LimitRanger
-{% endraw %}
+
 {% endhighlight %}
 
 ### Enforcement of constraints
@@ -172,7 +168,7 @@ Across all containers in pod, the following must hold true
 The default ```LimitRange``` that is applied via Salt configuration will be updated as follows:
 
 ```
-{% raw %}
+
 apiVersion: "v1"
 kind: "LimitRange"
 metadata:
@@ -183,7 +179,7 @@ spec:
     - type: "Container"
       defaultRequests:
         cpu: "100m"
-{% endraw %}
+
 ```
 
 ## Example

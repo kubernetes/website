@@ -1,10 +1,6 @@
 ---
 title: "Service Accounts"
 ---
-
-
-# Service Accounts
-
 ## Motivation
 
 Processes in Pods may need to call the Kubernetes API.  For example:
@@ -26,10 +22,10 @@ They also may interact with services other than the Kubernetes API, such as:
 
 A service account binds together several things:
   - a *name*, understood by users, and perhaps by peripheral systems, for an identity
-  - a *principal* that can be authenticated and [authorized](../admin/authorization.html)
-  - a [security context](security_context.html), which defines the Linux Capabilities, User IDs, Groups IDs, and other
+  - a *principal* that can be authenticated and [authorized](../admin/authorization)
+  - a [security context](security_context), which defines the Linux Capabilities, User IDs, Groups IDs, and other
     capabilities and controls on interaction with the file system and OS.
-  - a set of [secrets](secrets.html), which a container may use to
+  - a set of [secrets](secrets), which a container may use to
     access various networked resources.
 
 ## Design Discussion
@@ -37,7 +33,7 @@ A service account binds together several things:
 A new object Kind is added:
 
 {% highlight go %}
-{% raw %}
+
 type ServiceAccount struct {
     TypeMeta   `json:",inline" yaml:",inline"`
     ObjectMeta `json:"metadata,omitempty" yaml:"metadata,omitempty"`
@@ -46,7 +42,7 @@ type ServiceAccount struct {
     securityContext ObjectReference // (reference to a securityContext object)
     secrets []ObjectReference // (references to secret objects
 }
-{% endraw %}
+
 {% endhighlight %}
 
 The name ServiceAccount is chosen because it is widely used already (e.g. by Kerberos and LDAP)

@@ -1,13 +1,12 @@
 ---
 title: "Getting started with Juju"
-section: guides
 ---
 [Juju](https://jujucharms.com/docs/stable/about-juju) makes it easy to deploy
 Kubernetes by provisioning, installing and configuring all the systems in
 the cluster.  Once deployed the cluster can easily scale up with one command
 to increase the cluster size.
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -105,8 +104,7 @@ No pods will be available before starting a container:
 
 We'll follow the aws-coreos example. Create a pod manifest: `pod.json`
 
-{% highlight json %}
-{% raw %}
+{% highlight json %}
 {
   "apiVersion": "v1",
   "kind": "Pod",
@@ -127,8 +125,7 @@ We'll follow the aws-coreos example. Create a pod manifest: `pod.json`
       }]
     }]
   }
-}
-{% endraw %}
+}
 {% endhighlight %}
 
 Create the pod with kubectl:

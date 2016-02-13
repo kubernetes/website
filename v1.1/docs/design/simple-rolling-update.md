@@ -1,11 +1,7 @@
 ---
 title: "Simple rolling update"
 ---
-
-
-## Simple rolling update
-
-This is a lightweight design document for simple [rolling update](../user-guide/kubectl/kubectl_rolling-update.html) in `kubectl`.
+This is a lightweight design document for simple [rolling update](../user-guide/kubectl/kubectl_rolling-update) in `kubectl`.
 
 Complete execution flow can be found [here](#execution-details). See the [example of rolling update](../user-guide/update-demo/) for more information.
 
@@ -35,9 +31,9 @@ To facilitate recovery in the case of a crash of the updating process itself, we
 Recovery is achieved by issuing the same command again:
 
 {% highlight sh %}
-{% raw %}
+
 kubectl rolling-update foo [foo-v2] --image=myimage:v2
-{% endraw %}
+
 {% endhighlight %}
 
 Whenever the rolling update command executes, the kubectl client looks for replication controllers called `foo` and `foo-next`, if they exist, an attempt is

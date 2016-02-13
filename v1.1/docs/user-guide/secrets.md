@@ -1,39 +1,12 @@
 ---
 title: "Secrets"
 ---
-
-
-# Secrets
-
 Objects of type `secret` are intended to hold sensitive information, such as
 passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
 is safer and more flexible than putting it verbatim in a `pod` definition or in
-a docker image. See [Secrets design document](../design/secrets.html) for more information.
+a docker image. See [Secrets design document](../design/secrets) for more information.
 
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Secrets](#secrets)
-  - [Overview of Secrets](#overview-of-secrets)
-    - [Service Accounts Automatically Create and Attach Secrets with API Credentials](#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
-    - [Creating a Secret Manually](#creating-a-secret-manually)
-    - [Manually specifying a Secret to be Mounted on a Pod](#manually-specifying-a-secret-to-be-mounted-on-a-pod)
-    - [Manually specifying an imagePullSecret](#manually-specifying-an-imagepullsecret)
-    - [Arranging for imagePullSecrets to be Automatically Attached](#arranging-for-imagepullsecrets-to-be-automatically-attached)
-    - [Automatic Mounting of Manually Created Secrets](#automatic-mounting-of-manually-created-secrets)
-  - [Details](#details)
-    - [Restrictions](#restrictions)
-    - [Consuming Secret Values](#consuming-secret-values)
-    - [Secret and Pod Lifetime interaction](#secret-and-pod-lifetime-interaction)
-  - [Use cases](#use-cases)
-    - [Use-Case: Pod with ssh keys](#use-case-pod-with-ssh-keys)
-    - [Use-Case: Pods with prod / test credentials](#use-case-pods-with-prod--test-credentials)
-    - [Use-case: Secret visible to one container in a pod](#use-case-secret-visible-to-one-container-in-a-pod)
-  - [Security Properties](#security-properties)
-    - [Protections](#protections)
-    - [Risks](#risks)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## Overview of Secrets
 
@@ -45,7 +18,7 @@ more control over how it is used, and reduces the risk of accidental exposure.
 Users can create secrets, and the system also creates some secrets.
 
 To use a secret, a pod needs to reference the secret.
-A secret can be used with a pod in two ways: either as files in a [volume](volumes.html) mounted on one or more of
+A secret can be used with a pod in two ways: either as files in a [volume](volumes) mounted on one or more of
 its containers, or used by kubelet when pulling images for the pod.
 
 ### Service Accounts Automatically Create and Attach Secrets with API Credentials
@@ -58,7 +31,7 @@ The automatic creation and use of API credentials can be disabled or overridden
 if desired.  However, if all you need to do is securely access the apiserver,
 this is the recommended workflow.
 
-See the [Service Account](service-accounts.html) documentation for more
+See the [Service Account](service-accounts) documentation for more
 information on how Service Accounts work.
 
 ### Creating a Secret Manually
@@ -66,7 +39,7 @@ information on how Service Accounts work.
 This is an example of a simple secret, in yaml format:
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Secret
 metadata:
@@ -75,16 +48,16 @@ type: Opaque
 data:
   password: dmFsdWUtMg0K
   username: dmFsdWUtMQ0K
-{% endraw %}
+
 {% endhighlight %}
 
 The data field is a map.  Its keys must match
-[`DNS_SUBDOMAIN`](../design/identifiers.html), except that leading dots are also
+[`DNS_SUBDOMAIN`](../design/identifiers), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64. The values of
 username and password in the example above, before base64 encoding,
 are `value-1` and `value-2`, respectively, with carriage return and newline characters at the end.
 
-Create the secret using [`kubectl create`](kubectl/kubectl_create.html).
+Create the secret using [`kubectl create`](kubectl/kubectl_create).
 
 Once the secret is created, you can need to modify your pod to specify
 that it should use the secret.
@@ -94,7 +67,7 @@ that it should use the secret.
 This is an example of a pod that mounts a secret in a volume:
 
 {% highlight json %}
-{% raw %}
+
 {
  "apiVersion": "v1",
  "kind": "Pod",
@@ -120,7 +93,7 @@ This is an example of a pod that mounts a secret in a volume:
     }]
   }
 }
-{% endraw %}
+
 {% endhighlight %}
 
 Each secret you want to use needs its own `spec.volumes`.
@@ -184,7 +157,7 @@ This is the result of commands
 executed inside the container from the example above:
 
 {% highlight console %}
-{% raw %}
+
 $ ls /etc/foo/
 username
 password
@@ -192,7 +165,7 @@ $ cat /etc/foo/username
 value-1
 $ cat /etc/foo/password
 value-2
-{% endraw %}
+
 {% endhighlight %}
 
 The program in a container is responsible for reading the secret(s) from the
@@ -219,7 +192,7 @@ change, even if the secret resource is modified.  To change the secret used,
 the original pod must be deleted, and a new pod (perhaps with an identical
 `PodSpec`) must be created.  Therefore, updating a secret follows the same
 workflow as deploying a new container image.  The `kubectl rolling-update`
-command can be used ([man page](kubectl/kubectl_rolling-update.html)).
+command can be used ([man page](kubectl/kubectl_rolling-update)).
 
 The [`resourceVersion`](../devel/api-conventions.html#concurrency-control-and-consistency)
 of the secret is not specified when it is referenced.
@@ -238,7 +211,7 @@ update the data of existing secrets, but to create new ones with distinct names.
 To create a pod that uses an ssh key stored as a secret, we first need to create a secret:
 
 {% highlight json %}
-{% raw %}
+
 {
   "kind": "Secret",
   "apiVersion": "v1",
@@ -250,7 +223,7 @@ To create a pod that uses an ssh key stored as a secret, we first need to create
     "id-rsa.pub": "dmFsdWUtMQ0K"
   }
 }
-{% endraw %}
+
 {% endhighlight %}
 
 **Note:** The serialized JSON and YAML values of secret data are encoded as
@@ -261,7 +234,7 @@ Now we can create a pod which references the secret with the ssh key and
 consumes it in a volume:
 
 {% highlight json %}
-{% raw %}
+
 {
   "kind": "Pod",
   "apiVersion": "v1",
@@ -295,7 +268,7 @@ consumes it in a volume:
     ]
   }
 }
-{% endraw %}
+
 {% endhighlight %}
 
 When the container's command runs, the pieces of the key will be available in:
@@ -314,7 +287,7 @@ credentials.
 The secrets:
 
 {% highlight json %}
-{% raw %}
+
 {
   "apiVersion": "v1",
   "kind": "List",
@@ -342,13 +315,13 @@ The secrets:
     }
   }]
 }
-{% endraw %}
+
 {% endhighlight %}
 
 The pods:
 
 {% highlight json %}
-{% raw %}
+
 {
   "apiVersion": "v1",
   "kind": "List",
@@ -420,16 +393,16 @@ The pods:
     }
   }]
 }
-{% endraw %}
+
 {% endhighlight %}
 
 Both containers will have the following files present on their filesystems:
 
 {% highlight console %}
-{% raw %}
+
     /etc/secret-volume/username
     /etc/secret-volume/password
-{% endraw %}
+
 {% endhighlight %}
 
 Note how the specs for the two pods differ only in one field;  this facilitates
@@ -440,7 +413,7 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
 `test-user` with the `test-db-secret`.  Then, the pod spec can be shortened to, for example:
 
 {% highlight json %}
-{% raw %}
+
 {
 "kind": "Pod",
 "apiVersion": "v1",
@@ -459,7 +432,7 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
     }
   ]
 }
-{% endraw %}
+
 {% endhighlight %}
 
 ### Use-case: Secret visible to one container in a pod

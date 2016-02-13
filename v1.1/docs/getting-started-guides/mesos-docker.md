@@ -1,12 +1,11 @@
 ---
 title: "Getting Started With Kubernetes on Mesos on Docker"
-section: samples
 ---
 
 The mesos/docker provider uses docker-compose to launch Kubernetes as a Mesos framework, running in docker with its
 dependencies (etcd & mesos).
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -163,7 +162,7 @@ host machine (mac).
     If the configured resources are not available on the host, you may want to increase the resources available to Docker Engine.
     You may have to increase you VM disk, memory, or cpu allocation in VirtualBox,
     [Docker Machine](https://docs.docker.com/machine/#oracle-virtualbox), or
-    [Boot2Docker](https://ryanfb.github.io/etc/2015/01/28/increasing_boot2docker_allocations_on_os_x.html).
+    [Boot2Docker](https://ryanfb.github.io/etc/2015/01/28/increasing_boot2docker_allocations_on_os_x).
 
 1. Configure provider
 

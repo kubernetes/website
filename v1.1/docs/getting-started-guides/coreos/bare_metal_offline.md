@@ -1,10 +1,7 @@
 ---
 title: "Bare Metal CoreOS with Kubernetes (OFFLINE)"
-section: guides
 ---
 Deploy a CoreOS running Kubernetes environment. This particular guild is made to help those in an OFFLINE system, wither for testing a POC before the real deal, or you are restricted to be totally offline for your applications.
-
-## Table of Contents
 
 {% include pagetoc.html %}
 
@@ -35,7 +32,7 @@ Deploy a CoreOS running Kubernetes environment. This particular guild is made to
 
 ## Setup PXELINUX CentOS
 
-To setup CentOS PXELINUX environment there is a complete [guide here](http://docs.fedoraproject.org/en-US/Fedora/7/html/Installation_Guide/ap-pxe-server.html). This section is the abbreviated version.
+To setup CentOS PXELINUX environment there is a complete [guide here](http://docs.fedoraproject.org/en-US/Fedora/7/html/Installation_Guide/ap-pxe-server). This section is the abbreviated version.
 
 1. Install packages needed on CentOS
 
@@ -621,7 +618,7 @@ Reboot these servers to get the images PXEd and ready for running containers!
 
 Now that the CoreOS with Kubernetes installed is up and running lets spin up some Kubernetes pods to demonstrate the system.
 
-See [a simple nginx example](../../../docs/user-guide/simple-nginx.html) to try out your new cluster.
+See [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
 For more complete applications, please look in the [examples directory](../../../examples/).
 

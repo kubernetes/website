@@ -1,10 +1,6 @@
 ---
 title: "Resource Quotas"
 ---
-
-
-# Resource Quotas
-
 When several users or teams share a cluster with a fixed number of nodes,
 there is a concern that one team could use more than its fair share of resources.
 
@@ -21,7 +17,7 @@ work like this:
   their resource requests defaulted to match their defined limits. The user is only charged for the
   resources they request in the Resource Quota versus their limits because the request is the minimum
   amount of resource guaranteed by the cluster during scheduling. For more information on over commit,
-  see [compute-resources](../user-guide/compute-resources.html).
+  see [compute-resources](../user-guide/compute-resources).
 - If creating a pod would cause the namespace to exceed any of the limits specified in the
   the Resource Quota for that namespace, then the request will fail with HTTP status
   code `403 FORBIDDEN`.
@@ -29,7 +25,7 @@ work like this:
   of the resources for which quota is enabled, then the POST of the pod will fail with HTTP
   status code `403 FORBIDDEN`.  Hint: Use the LimitRange admission controller to force default
   values of *limits* (then resource *requests* would be equal to *limits* by default, see
-  [admission controller](admission-controllers.html)) before the quota is checked to avoid this problem.
+  [admission controller](admission-controllers)) before the quota is checked to avoid this problem.
 
 Examples of policies that could be created using namespaces and quotas are:
 - In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 Gib and 10 cores,
@@ -54,7 +50,7 @@ Resource Quota is enforced in a particular namespace when there is a
 
 ## Compute Resource Quota
 
-The total sum of [compute resources](../user-guide/compute-resources.html) requested by pods
+The total sum of [compute resources](../user-guide/compute-resources) requested by pods
 in a namespace can be limited.  The following compute resource types are supported:
 
 | ResourceName | Description |
@@ -91,7 +87,7 @@ supply of Pod IPs.
 Kubectl supports creating, updating, and viewing quotas:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl namespace myspace
 $ cat <<EOF > quota.json
 {
@@ -126,7 +122,7 @@ pods                    5       10
 replicationcontrollers  5       20
 resourcequotas          1       1
 services                3       5
-{% endraw %}
+
 {% endhighlight %}
 
 ## Quota and Cluster Capacity
@@ -154,7 +150,7 @@ See a [detailed example for how to use resource quota](resourcequota/)..
 
 ## Read More
 
-See [ResourceQuota design doc](../design/admission_control_resource_quota.html) for more information.
+See [ResourceQuota design doc](../design/admission_control_resource_quota) for more information.
 
 
 

@@ -1,6 +1,5 @@
 ---
 title: "Configuring Kubernetes with Salt"
-section: guides
 ---
 The Kubernetes cluster can be configured using Salt.
 
@@ -14,11 +13,9 @@ The **salt-minion** service runs on the kubernetes-master and each kubernetes-no
 
 Each salt-minion service is configured to interact with the **salt-master** service hosted on the kubernetes-master via the **master.conf** file [(except on GCE)](#standalone-salt-configuration-on-gce).
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 [root@kubernetes-master] $ cat /etc/salt/minion.d/master.conf
-master: kubernetes-master
-{% endraw %}
+master: kubernetes-master
 {% endhighlight %}
 
 The salt-master is contacted by each salt-minion and depending upon the machine information presented, the salt-master will provision the machine as either a kubernetes-master or kubernetes-node with all the required capabilities needed to run Kubernetes.
@@ -27,7 +24,7 @@ If you are running the Vagrant based environment, the **salt-api** service is ru
 
 ## Standalone Salt Configuration on GCE
 
-On GCE, the master and nodes are all configured as [standalone minions](http://docs.saltstack.com/en/latest/topics/tutorials/standalone_minion.html). The configuration for each VM is derived from the VM's [instance metadata](https://cloud.google.com/compute/docs/metadata) and then stored in Salt grains (`/etc/salt/minion.d/grains.conf`) and pillars (`/srv/salt-overlay/pillar/cluster-params.sls`) that local Salt uses to enforce state.
+On GCE, the master and nodes are all configured as [standalone minions](http://docs.saltstack.com/en/latest/topics/tutorials/standalone_minion). The configuration for each VM is derived from the VM's [instance metadata](https://cloud.google.com/compute/docs/metadata) and then stored in Salt grains (`/etc/salt/minion.d/grains.conf`) and pillars (`/srv/salt-overlay/pillar/cluster-params.sls`) that local Salt uses to enforce state.
 
 All remaining sections that refer to master/minion setups should be ignored for GCE. One fallout of the GCE setup is that the Salt mine doesn't exist - there is no sharing of configuration amongst nodes.
 
@@ -37,12 +34,10 @@ All remaining sections that refer to master/minion setups should be ignored for 
 
 Security is not enabled on the salt-master, and the salt-master is configured to auto-accept incoming requests from minions.  It is not recommended to use this security configuration in production environments without deeper study.  (In some environments this isn't as bad as it might sound if the salt master port isn't externally accessible and you trust everyone on your network.)
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 [root@kubernetes-master] $ cat /etc/salt/master.d/auto-accept.conf
 open_mode: True
-auto_accept: True
-{% endraw %}
+auto_accept: True
 {% endhighlight %}
 
 ## Salt minion configuration
@@ -51,15 +46,13 @@ Each minion in the salt cluster has an associated configuration that instructs t
 
 An example file is presented below using the Vagrant based environment.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 [root@kubernetes-master] $ cat /etc/salt/minion.d/grains.conf
 grains:
   etcd_servers: $MASTER_IP
   cloud_provider: vagrant
   roles:
-    - kubernetes-master
-{% endraw %}
+    - kubernetes-master
 {% endhighlight %}
 
 Each hosting environment has a slightly different grains.conf file that is used to build conditional logic where required in the Salt files.
@@ -84,14 +77,12 @@ These keys may be leveraged by the Salt sls files to branch behavior.
 
 In addition, a cluster may be running a Debian based operating system or Red Hat based operating system (Centos, Fedora, RHEL, etc.).  As a result, it's important to sometimes distinguish behavior based on operating system using if branches like the following.
 
-{% highlight jinja %}
-{% raw %}
+{% highlight jinja %}
 {% if grains['os_family'] == 'RedHat' %}
 // something specific to a RedHat environment (Centos, Fedora, RHEL) where you may use yum, systemd, etc.
 {% else %}
 // something specific to Debian environment (apt-get, initd)
-{% endif %}
-{% endraw %}
+{% endif %}
 {% endhighlight %}
 
 ## Best Practices

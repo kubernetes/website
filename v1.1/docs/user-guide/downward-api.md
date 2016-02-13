@@ -1,10 +1,6 @@
 ---
 title: "Downward API"
 ---
-
-
-# Downward API
-
 It is sometimes useful for a container to have information about itself, but we
 want to be careful not to over-couple containers to Kubernetes. The downward
 API allows containers to consume information about themselves or the system and
@@ -55,7 +51,7 @@ downward API:
 <!-- BEGIN MUNGE: EXAMPLE downward-api/dapi-pod.yaml -->
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -79,7 +75,7 @@ spec:
             fieldRef:
               fieldPath: status.podIP
   restartPolicy: Never
-{% endraw %}
+
 {% endhighlight %}
 
 [Download example](downward-api/dapi-pod.yaml)
@@ -93,13 +89,13 @@ Using a similar syntax it's possible to expose pod information to containers usi
 Downward API are dumped to a mounted volume. This is achieved using a `downwardAPI`
 volume type and the different items represent the files to be created. `fieldPath` references the field to be exposed.
 
-Downward API volume permits to store more complex data like [`metadata.labels`](labels.html) and [`metadata.annotations`](annotations.html). Currently key/value pair set fields are saved using `key="value"` format:
+Downward API volume permits to store more complex data like [`metadata.labels`](labels) and [`metadata.annotations`](annotations). Currently key/value pair set fields are saved using `key="value"` format:
 
 ```
-{% raw %}
+
 key1="value1"
 key2="value2"
-{% endraw %}
+
 ```
 
 In future, it will be possible to specify an output format option.
@@ -122,7 +118,7 @@ This is an example of a pod that consumes its labels and annotations via the dow
 <!-- BEGIN MUNGE: EXAMPLE downward-api/volume/dapi-volume.yaml -->
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -153,7 +149,7 @@ spec:
           - path: "annotations"
             fieldRef:
               fieldPath: metadata.annotations
-{% endraw %}
+
 {% endhighlight %}
 
 [Download example](downward-api/volume/dapi-volume.yaml)

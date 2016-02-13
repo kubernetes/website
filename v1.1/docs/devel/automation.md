@@ -1,10 +1,6 @@
 ---
 title: "Kubernetes Development Automation"
 ---
-
-
-# Kubernetes Development Automation
-
 ## Overview
 
 Kubernetes uses a variety of automated tools in an attempt to relieve developers of repeptitive, low
@@ -24,13 +20,13 @@ for kubernetes.
 The submit-queue does the following:
 
 {% highlight go %}
-{% raw %}
+
 for _, pr := range readyToMergePRs() {
     if testsAreStable() {
         mergePR(pr)
     }
 }
-{% endraw %}
+
 {% endhighlight %}
 
 The status of the submit-queue is [online.](http://submit-queue.k8s.io/)

@@ -1,10 +1,6 @@
 ---
 title: "Variable expansion in pod command, args, and env"
 ---
-
-
-# Variable expansion in pod command, args, and env
-
 ## Abstract
 
 A proposal for the expansion of environment variables using a simple `$(var)` syntax.
@@ -170,7 +166,7 @@ which may not be bound because the service that provides them does not yet exist
 mapping function that uses a list of `map[string]string` like:
 
 {% highlight go %}
-{% raw %}
+
 func MakeMappingFunc(maps ...map[string]string) func(string) string {
 	return func(input string) string {
 		for _, context := range maps {
@@ -201,7 +197,7 @@ mapping := MakeMappingFunc(containerEnv)
 
 // default variables not found in serviceEnv
 mappingWithDefaults := MakeMappingFunc(serviceEnv, containerEnv)
-{% endraw %}
+
 {% endhighlight %}
 
 ### Implementation changes
@@ -224,7 +220,7 @@ must be able to create an event.  In order to facilitate this, we should create 
 the `api/client/record` package which is similar to `EventRecorder`, but scoped to a single object:
 
 {% highlight go %}
-{% raw %}
+
 // ObjectEventRecorder knows how to record events about a single object.
 type ObjectEventRecorder interface {
 	// Event constructs an event from the given information and puts it in the queue for sending.
@@ -242,14 +238,14 @@ type ObjectEventRecorder interface {
 	// PastEventf is just like Eventf, but with an option to specify the event's 'timestamp' field.
 	PastEventf(timestamp unversioned.Time, reason, messageFmt string, args ...interface{})
 }
-{% endraw %}
+
 {% endhighlight %}
 
 There should also be a function that can construct an `ObjectEventRecorder` from a `runtime.Object`
 and an `EventRecorder`:
 
 {% highlight go %}
-{% raw %}
+
 type objectRecorderImpl struct {
 	object   runtime.Object
 	recorder EventRecorder
@@ -262,7 +258,7 @@ func (r *objectRecorderImpl) Event(reason, message string) {
 func ObjectEventRecorderFor(object runtime.Object, recorder EventRecorder) ObjectEventRecorder {
 	return &objectRecorderImpl{object, recorder}	
 }
-{% endraw %}
+
 {% endhighlight %}
 
 #### Expansion package
@@ -270,7 +266,7 @@ func ObjectEventRecorderFor(object runtime.Object, recorder EventRecorder) Objec
 The expansion package should provide two methods:
 
 {% highlight go %}
-{% raw %}
+
 // MappingFuncFor returns a mapping function for use with Expand that
 // implements the expansion semantics defined in the expansion spec; it
 // returns the input string wrapped in the expansion syntax if no mapping
@@ -286,7 +282,7 @@ func MappingFuncFor(recorder record.ObjectEventRecorder, context ...map[string]s
 func Expand(input string, mapping func(string) string) string {
 	// ...
 }
-{% endraw %}
+
 {% endhighlight %}
 
 #### Kubelet changes
@@ -361,7 +357,7 @@ No other variables are defined.
 Notice the `$(var)` syntax.
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -375,13 +371,13 @@ spec:
         - name: PUBLIC_URL
           value: "http://$(GITSERVER_SERVICE_HOST):$(GITSERVER_SERVICE_PORT)"
   restartPolicy: Never
-{% endraw %}
+
 {% endhighlight %}
 
 #### In a pod: building a URL using downward API
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -399,7 +395,7 @@ spec:
         - name: PUBLIC_URL
           value: "http://gitserver.$(POD_NAMESPACE):$(SERVICE_PORT)"
   restartPolicy: Never
-{% endraw %}
+
 {% endhighlight %}
 
 

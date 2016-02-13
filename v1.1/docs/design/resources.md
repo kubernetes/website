@@ -3,7 +3,7 @@ title: "The Kubernetes resource model"
 ---
 
 **Note: this is a design doc, which describes features that have not been completely implemented.
-User documentation of the current state is [here](../user-guide/compute-resources.html).  The tracking issue for
+User documentation of the current state is [here](../user-guide/compute-resources).  The tracking issue for
 implementation of this model is
 [#168](http://issue.k8s.io/168).  Currently, both limits and requests of memory and
 cpu on containers (not pods) are supported.  "memory" is in bytes and "cpu" is in
@@ -62,12 +62,12 @@ Both users and a number of system components, such as schedulers, (horizontal) a
 Resource requirements for a container or pod should have the following form:
 
 {% highlight yaml %}
-{% raw %}
+
 resourceRequirementSpec: [
   request:   [ cpu: 2.5, memory: "40Mi" ],
   limit:     [ cpu: 4.0, memory: "99Mi" ],
 ]
-{% endraw %}
+
 {% endhighlight %}
 
 Where:
@@ -78,11 +78,11 @@ Where:
 Total capacity for a node should have a similar structure:
 
 {% highlight yaml %}
-{% raw %}
+
 resourceCapacitySpec: [
   total:     [ cpu: 12,  memory: "128Gi" ]
 ]
-{% endraw %}
+
 {% endhighlight %}
 
 Where:
@@ -113,7 +113,7 @@ The following resource types are predefined ("reserved") by Kubernetes in the `k
     * [future] `schedulingLatency`: as per lmctfy
     * [future] `cpuConversionFactor`: property of a node: the speed of a CPU core on the node's processor divided by the speed of the canonical Kubernetes CPU (a floating point value; default = 1.0).
 
-To reduce performance portability problems for pods, and to avoid worse-case provisioning behavior, the units of CPU will be normalized to a canonical "Kubernetes Compute Unit" (KCU, pronounced ˈko�?oko͞o), which will roughly be equivalent to a single CPU hyperthreaded core for some recent x86 processor. The normalization may be implementation-defined, although some reasonable defaults will be provided in the open-source Kubernetes code.
+To reduce performance portability problems for pods, and to avoid worse-case provisioning behavior, the units of CPU will be normalized to a canonical "Kubernetes Compute Unit" (KCU, pronounced ËˆkoÍ?okoÍžo), which will roughly be equivalent to a single CPU hyperthreaded core for some recent x86 processor. The normalization may be implementation-defined, although some reasonable defaults will be provided in the open-source Kubernetes code.
 
 Note that requesting 2 KCU won't guarantee that precisely 2 physical cores will be allocated &mdash; control of aspects like this will be handled by resource _qualities_ (a future feature).
 
@@ -135,7 +135,7 @@ rather than decimal ones: "64MiB" rather than "64MB".
 A resource type may have an associated read-only ResourceType structure, that contains metadata about the type.  For example:
 
 {% highlight yaml %}
-{% raw %}
+
 resourceTypes: [
   "kubernetes.io/memory": [
     isCompressible: false, ... 
@@ -146,7 +146,7 @@ resourceTypes: [
   ]
   "kubernetes.io/disk-space": [ ... ]
 ]
-{% endraw %}
+
 {% endhighlight %}
 
 Kubernetes will provide ResourceType metadata for its predefined types.  If no resource metadata can be found for a resource type, Kubernetes will assume that it is a quantified, incompressible resource that is not specified in milli-units, and has no default value.
@@ -169,24 +169,24 @@ The following are planned future extensions to the resource model, included here
 
 ## Usage data
 
-Because resource usage and related metrics change continuously, need to be tracked over time (i.e., historically), can be characterized in a variety of ways, and are fairly voluminous, we will not include usage in core API objects, such as [Pods](../user-guide/pods.html) and Nodes, but will provide separate APIs for accessing and managing that data. See the Appendix for possible representations of usage data, but the representation we'll use is TBD.
+Because resource usage and related metrics change continuously, need to be tracked over time (i.e., historically), can be characterized in a variety of ways, and are fairly voluminous, we will not include usage in core API objects, such as [Pods](../user-guide/pods) and Nodes, but will provide separate APIs for accessing and managing that data. See the Appendix for possible representations of usage data, but the representation we'll use is TBD.
 
 Singleton values for observed and predicted future usage will rapidly prove inadequate, so we will support the following structure for extended usage information:
 
 {% highlight yaml %}
-{% raw %}
+
 resourceStatus: [
   usage:     [ cpu: <CPU-info>, memory: <memory-info> ],
   maxusage:  [ cpu: <CPU-info>, memory: <memory-info> ],
   predicted: [ cpu: <CPU-info>, memory: <memory-info> ],
 ]
-{% endraw %}
+
 {% endhighlight %}
 
 where a `<CPU-info>` or `<memory-info>` structure looks like this:
 
 {% highlight yaml %}
-{% raw %}
+
 {
     mean: <value>    # arithmetic mean
     max: <value>     # minimum value
@@ -200,7 +200,7 @@ where a `<CPU-info>` or `<memory-info>` structure looks like this:
       ...
     ]
 }
-{% endraw %}
+
 {% endhighlight %}
 
 All parts of this structure are optional, although we strongly encourage including quantities for 50, 90, 95, 99, 99.5, and 99.9 percentiles.  _[In practice, it will be important to include additional info such as the length of the time window over which the averages are calculated, the confidence level, and information-quality metrics such as the number of dropped or discarded data points.]_
@@ -242,6 +242,4 @@ This is the amount of time a container spends accessing disk, including actuator
   * Name: "storage-iops" (or `kubernetes.io/storage-iops`)
   * Units: operations per second
   * Compressible? yes
-
-
 

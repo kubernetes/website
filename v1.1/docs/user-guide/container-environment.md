@@ -1,26 +1,7 @@
 ---
 title: "Kubernetes Container Environment"
 ---
-
-
-# Kubernetes Container Environment
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Kubernetes Container Environment](#kubernetes-container-environment)
-  - [Overview](#overview)
-  - [Cluster Information](#cluster-information)
-    - [Container Information](#container-information)
-    - [Cluster Information](#cluster-information)
-  - [Container Hooks](#container-hooks)
-    - [Hook Details](#hook-details)
-    - [Hook Handler Execution](#hook-handler-execution)
-    - [Hook delivery guarantees](#hook-delivery-guarantees)
-    - [Hook Handler Implementations](#hook-handler-implementations)
-
-<!-- END MUNGE: GENERATED_TOC -->
-
+{% include pagetoc.html %}
 
 ## Overview
 
@@ -29,7 +10,7 @@ This document describes the environment for Kubelet managed containers on a Kube
 This cluster information makes it possible to build applications that are *cluster aware*.
 Additionally, the Kubernetes container environment defines a series of hooks that are surfaced to optional hook handlers defined as part of individual containers.  Container hooks are somewhat analogous to operating system signals in a traditional process model.   However these hooks are designed to make it easier to build reliable, scalable cloud applications in the Kubernetes cluster.  Containers that participate in this cluster lifecycle become *cluster native*.
 
-Another important part of the container environment is the file system that is available to the container.  In Kubernetes, the filesystem is a combination of an [image](images.html) and one or more [volumes](volumes.html).
+Another important part of the container environment is the file system that is available to the container.  In Kubernetes, the filesystem is a combination of an [image](images) and one or more [volumes](volumes).
 
 
 The following sections describe both the cluster information provided to containers, as well as the hooks and life-cycle that allows containers to interact with the management system.
@@ -42,7 +23,7 @@ There are two types of information that are available within the container envir
 
 Currently, the Pod name for the pod in which the container is running is set as the hostname of the container, and is accessible through all calls to access the hostname within the container (e.g. the hostname command, or the [gethostname][1] function call in libc), but this is planned to change in the future and should not be used.
 
-The Pod name and namespace are also available as environment variables via the [downward API](downward-api.html).  Additionally, user-defined environment variables from the pod definition, are also available to the container, as are any environment variables specified statically in the Docker image.
+The Pod name and namespace are also available as environment variables via the [downward API](downward-api).  Additionally, user-defined environment variables from the pod definition, are also available to the container, as are any environment variables specified statically in the Docker image.
 
 In the future, we anticipate expanding this information with richer information about the container.  Examples include available memory, number of restarts, and in general any state that you could get from the call to GET /pods on the API server.
 
@@ -53,10 +34,10 @@ Currently the list of all services that are running at the time when the contain
 For a service named **foo** that maps to a container port named **bar**, the following variables are defined:
 
 {% highlight sh %}
-{% raw %}
+
 FOO_SERVICE_HOST=<the host the service is running on>
 FOO_SERVICE_PORT=<the port the service is running on>
-{% endraw %}
+
 {% endhighlight %}
 
 Services have dedicated IP address, and are also surfaced to the container via DNS (If [DNS addon](http://releases.k8s.io/release-1.1/cluster/addons/dns/) is enabled).  Of course DNS is still not an enumerable protocol, so we will continue to provide environment variables so that containers can do discovery.

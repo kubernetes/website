@@ -8,16 +8,8 @@ Kubectl Conventions
 
 Updated: 8/27/2015
 
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
-  - [Principles](#principles)
-  - [Command conventions](#command-conventions)
-  - [Flag conventions](#flag-conventions)
-  - [Output conventions](#output-conventions)
-  - [Documentation conventions](#documentation-conventions)
-
-<!-- END MUNGE: GENERATED_TOC -->
 
 ## Principles
 

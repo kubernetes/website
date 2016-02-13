@@ -1,15 +1,10 @@
 ---
 title: "Services and Firewalls"
 ---
-
-
-# Services and Firewalls
-
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent
 exposure to the internet.  When exposing a service to the external world, you may need to open up
 one or more ports in these firewalls to serve traffic.  This document describes this process, as
 well as any provider specific details that may be necessary.
-
 
 ### Google Compute Engine
 
@@ -22,9 +17,9 @@ Google Compute Engine firewalls are documented [elsewhere](https://cloud.google.
 You can add a firewall with the `gcloud` command line tool:
 
 {% highlight console %}
-{% raw %}
+
 $ gcloud compute firewall-rules create my-rule --allow=tcp:<port>
-{% endraw %}
+
 {% endhighlight %}
 
 **Note**

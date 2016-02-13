@@ -1,10 +1,6 @@
 ---
 title: "DaemonSet in Kubernetes"
 ---
-
-
-# DaemonSet in Kubernetes
-
 **Author**: Ananya Kumar (@AnanyaKumar)
 
 **Status**: Implemented.
@@ -25,7 +21,7 @@ Logging: Some users want a way to collect statistics about nodes in a cluster an
 
 ### Cluster-Level Applications
 
-Datastore: Users might want to implement a sharded datastore in their cluster. A few nodes in the cluster, labeled ‘app=datastore’, might be responsible for storing data shards, and pods running on these nodes might serve data. This architecture requires a way to bind pods to specific nodes, so it cannot be achieved using a Replication Controller. A DaemonSet is a convenient way to implement such a datastore.
+Datastore: Users might want to implement a sharded datastore in their cluster. A few nodes in the cluster, labeled 'app=datastore', might be responsible for storing data shards, and pods running on these nodes might serve data. This architecture requires a way to bind pods to specific nodes, so it cannot be achieved using a Replication Controller. A DaemonSet is a convenient way to implement such a datastore.
 
 For other uses, see the related [feature request](https://issues.k8s.io/1518)
 
@@ -34,7 +30,7 @@ For other uses, see the related [feature request](https://issues.k8s.io/1518)
 The DaemonSet supports standard API features:
 - create
   - The spec for DaemonSets has a pod template field.
-  - Using the pod’s nodeSelector field, DaemonSets can be restricted to operate over nodes that have a certain label. For example, suppose that in a cluster some nodes are labeled ‘app=database’. You can use a DaemonSet to launch a datastore pod on exactly those nodes labeled ‘app=database’.
+  - Using the pod's nodeSelector field, DaemonSets can be restricted to operate over nodes that have a certain label. For example, suppose that in a cluster some nodes are labeled 'app=database'. You can use a DaemonSet to launch a datastore pod on exactly those nodes labeled 'app=database'.
   - Using the pod's nodeName field, DaemonSets can be restricted to operate on a specified node.
   - The PodTemplateSpec used by the DaemonSet is the same as the PodTemplateSpec used by the Replication Controller.
   - The initial implementation will not guarnatee that DaemonSet pods are created on nodes before other pods.
@@ -42,8 +38,7 @@ The DaemonSet supports standard API features:
   - The DaemonSet controller adds an annotation "kubernetes.io/created-by: \<json API object reference\>"
   - YAML example:
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
   apiVersion: v1
   kind: DaemonSet
   metadata:
@@ -63,8 +58,7 @@ The DaemonSet supports standard API features:
           image: kubernetes/sharded
           ports:
             - containerPort: 9042
-              name: main
-{% endraw %}
+              name: main
 {% endhighlight %}
 
   - commands that get info
@@ -85,8 +79,8 @@ The DaemonSet supports standard API features:
 
 ### Cluster Mutations
 
-  - When a new node is added to the cluster, the DaemonSet controller starts daemon pods on the node for DaemonSets whose pod template nodeSelectors match the node’s labels.
-  - Suppose the user launches a DaemonSet that runs a logging daemon on all nodes labeled “logger=fluentd�?. If the user then adds the “logger=fluentd�? label to a node (that did not initially have the label), the logging daemon will launch on the node. Additionally, if a user removes the label from a node, the logging daemon on that node will be killed.
+  - When a new node is added to the cluster, the DaemonSet controller starts daemon pods on the node for DaemonSets whose pod template nodeSelectors match the node's labels.
+  - Suppose the user launches a DaemonSet that runs a logging daemon on all nodes labeled 'logger=fluentd'?. If the user then adds the 'logger=fluentd'? label to a node (that did not initially have the label), the logging daemon will launch on the node. Additionally, if a user removes the label from a node, the logging daemon on that node will be killed.
 
 ## Alternatives Considered
 
@@ -115,13 +109,13 @@ A third alternative is to generalize the Replication Controller. We would do som
 
 #### Daemon Manager
 
-- Creates new DaemonSets when requested. Launches the corresponding daemon pod on all nodes with labels matching the new DaemonSet’s selector.
+- Creates new DaemonSets when requested. Launches the corresponding daemon pod on all nodes with labels matching the new DaemonSet's selector.
 - Listens for addition of new nodes to the cluster, by setting up a framework.NewInformer that watches for the creation of Node API objects. When a new node is added, the daemon manager will loop through each DaemonSet. If the label of the node matches the selector of the DaemonSet, then the daemon manager will create the corresponding daemon pod in the new node.
 - The daemon manager creates a pod on a node by sending a command to the API server, requesting for a pod to be bound to the node (the node will be specified via its hostname)
 
 #### Kubelet
 
-- Does not need to be modified, but health checking will occur for the daemon pods and revive the pods if they are killed (we set the pod restartPolicy to Always). We reject DaemonSet objects with pod templates that don’t have restartPolicy set to Always.
+- Does not need to be modified, but health checking will occur for the daemon pods and revive the pods if they are killed (we set the pod restartPolicy to Always). We reject DaemonSet objects with pod templates that don't have restartPolicy set to Always.
 
 ## Open Issues
 

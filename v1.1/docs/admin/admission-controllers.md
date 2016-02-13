@@ -1,33 +1,7 @@
 ---
 title: "Admission Controllers"
 ---
-
-
-# Admission Controllers
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Admission Controllers](#admission-controllers)
-  - [What are they?](#what-are-they)
-  - [Why do I need them?](#why-do-i-need-them)
-  - [How do I turn on an admission control plug-in?](#how-do-i-turn-on-an-admission-control-plug-in)
-  - [What does each plug-in do?](#what-does-each-plug-in-do)
-    - [AlwaysAdmit](#alwaysadmit)
-    - [AlwaysDeny](#alwaysdeny)
-    - [DenyExecOnPrivileged (deprecated)](#denyexeconprivileged-deprecated)
-    - [DenyEscalatingExec](#denyescalatingexec)
-    - [ServiceAccount](#serviceaccount)
-    - [SecurityContextDeny](#securitycontextdeny)
-    - [ResourceQuota](#resourcequota)
-    - [LimitRanger](#limitranger)
-    - [InitialResources (experimental)](#initialresources-experimental)
-    - [NamespaceExists (deprecated)](#namespaceexists-deprecated)
-    - [NamespaceAutoProvision (deprecated)](#namespaceautoprovision-deprecated)
-    - [NamespaceLifecycle](#namespacelifecycle)
-  - [Is there a recommended set of plug-ins to use?](#is-there-a-recommended-set-of-plug-ins-to-use)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## What are they?
 
@@ -87,12 +61,12 @@ enabling this plug-in.
 
 ### ServiceAccount
 
-This plug-in implements automation for [serviceAccounts](../user-guide/service-accounts.html).
+This plug-in implements automation for [serviceAccounts](../user-guide/service-accounts).
 We strongly recommend using this plug-in if you intend to make use of Kubernetes `ServiceAccount` objects.
 
 ### SecurityContextDeny
 
-This plug-in will deny any pod with a [SecurityContext](../user-guide/security-context.html) that defines options that were not available on the `Container`.
+This plug-in will deny any pod with a [SecurityContext](../user-guide/security-context) that defines options that were not available on the `Container`.
 
 ### ResourceQuota
 
@@ -100,7 +74,7 @@ This plug-in will observe the incoming request and ensure that it does not viola
 enumerated in the `ResourceQuota` object in a `Namespace`.  If you are using `ResourceQuota`
 objects in your Kubernetes deployment, you MUST use this plug-in to enforce quota constraints.
 
-See the [resourceQuota design doc](../design/admission_control_resource_quota.html) and the [example of Resource Quota](resourcequota/) for more details.
+See the [resourceQuota design doc](../design/admission_control_resource_quota) and the [example of Resource Quota](resourcequota/) for more details.
 
 It is strongly encouraged that this plug-in is configured last in the sequence of admission control plug-ins.  This is
 so that quota is not prematurely incremented only for the request to be rejected later in admission control.
@@ -113,7 +87,7 @@ your Kubernetes deployment, you MUST use this plug-in to enforce those constrain
 be used to apply default resource requests to Pods that don't specify any; currently, the default LimitRanger
 applies a 0.1 CPU requirement to all Pods in the `default` namespace.
 
-See the [limitRange design doc](../design/admission_control_limit_range.html) and the [example of Limit Range](limitrange/) for more details.
+See the [limitRange design doc](../design/admission_control_limit_range) and the [example of Limit Range](limitrange/) for more details.
 
 ### InitialResources (experimental)
 
@@ -122,7 +96,7 @@ then the plug-in auto-populates a compute resource request based on historical u
 If there is not enough data to make a decision the Request is left unchanged.
 When the plug-in sets a compute resource request, it annotates the pod with information on what compute resources it auto-populated.
 
-See the [InitialResouces proposal](../proposals/initial-resources.html) for more details.
+See the [InitialResouces proposal](../proposals/initial-resources) for more details.
 
 ### NamespaceExists (deprecated)
 
@@ -154,9 +128,9 @@ Yes.
 For Kubernetes 1.0, we strongly recommend running the following set of admission control plug-ins (order matters):
 
 ```
-{% raw %}
+
 --admission-control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota
-{% endraw %}
+
 ```
 
 

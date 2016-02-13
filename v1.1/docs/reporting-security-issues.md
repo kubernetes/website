@@ -1,10 +1,6 @@
 ---
 title: "Security"
 ---
-
-
-# Security
-
 If you believe you have discovered a vulnerability or a have a security incident to report, please follow the steps below. This applies to Kubernetes releases v1.0 or later.
 
 To watch for security and major API announcements, please join our [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) group.
@@ -13,8 +9,8 @@ To watch for security and major API announcements, please join our [kubernetes-a
 
 To report an issue, please:
 - Submit a bug report [here](http://goo.gl/vulnz).
-  - Select â€œI want to report a technical security bug in a Google product (SQLi, XSS, etc.).â€?
-  - Select â€œOtherâ€? as the Application Type.
+  - Select 'I want to report a technical security bug in a Google product (SQLi, XSS, etc.).'?
+  - Select 'Other'? as the Application Type.
 - Under reproduction steps, please additionally include
   - the words "Kubernetes Security issue"
   - Description of the issue

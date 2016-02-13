@@ -1,19 +1,15 @@
 ---
 title: "The Kubernetes API"
 ---
+Primary system and API concepts are documented in the [User guide](user-guide/README).
 
-
-# The Kubernetes API
-
-Primary system and API concepts are documented in the [User guide](user-guide/README.html).
-
-Overall API conventions are described in the [API conventions doc](devel/api-conventions.html).
+Overall API conventions are described in the [API conventions doc](devel/api-conventions).
 
 Complete API details are documented via [Swagger](http://swagger.io/). The Kubernetes apiserver (aka "master") exports an API that can be used to retrieve the [Swagger spec](https://github.com/swagger-api/swagger-spec/tree/master/schemas/v1.2) for the Kubernetes API, by default at `/swaggerapi`, and a UI you can use to browse the API documentation at `/swagger-ui`. We also periodically update a [statically generated UI](http://kubernetes.io/third_party/swagger-ui/).
 
-Remote access to the API is discussed in the [access doc](admin/accessing-the-api.html).
+Remote access to the API is discussed in the [access doc](admin/accessing-the-api).
 
-The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [Kubectl](user-guide/kubectl/kubectl.html) command-line tool can be used to create, update, delete, and get API objects.
+The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [Kubectl](user-guide/kubectl/kubectl) command-line tool can be used to create, update, delete, and get API objects.
 
 Kubernetes also stores its serialized state (currently in [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)) in terms of the API resources.
 
@@ -23,7 +19,7 @@ Kubernetes itself is decomposed into multiple components, which interact through
 
 In our experience, any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, we expect the Kubernetes API to continuously change and grow. However, we intend to not break compatibility with existing clients, for an extended period of time. In general, new API resources and new resource fields can be expected to be added frequently. Elimination of resources or fields will require following a deprecation process. The precise deprecation policy for eliminating features is TBD, but once we reach our 1.0 milestone, there will be a specific policy.
 
-What constitutes a compatible change and how to change the API are detailed by the [API change document](devel/api_changes.html).
+What constitutes a compatible change and how to change the API are detailed by the [API change document](devel/api_changes).
 
 ## API versioning
 
@@ -34,7 +30,7 @@ multiple API versions, each at a different API path, such as `/api/v1` or
 We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-lifed and/or experimental APIs.
 
 Note that API versioning and Software versioning are only indirectly related.  The [API and release
-versioning proposal](design/versioning.html) describes the relationship between API versioning and
+versioning proposal](design/versioning) describes the relationship between API versioning and
 software versioning.
 
 
@@ -64,7 +60,7 @@ in more detail in the [API Changes documentation](devel/api_changes.html#alpha-b
 ## API groups
 
 To make it easier to extend the Kubernetes API, we are in the process of implementing [*API
-groups*](proposals/api-group.html).  These are simply different interfaces to read and/or modify the
+groups*](proposals/api-group).  These are simply different interfaces to read and/or modify the
 same underlying resources.  The API group is specified in a REST path and in the `apiVersion` field
 of a serialized object.
 
@@ -102,7 +98,7 @@ Changes to services are the most significant difference between v1beta3 and v1.
 
 Some other difference between v1beta3 and v1:
 
-* The `pod.spec.containers[*].privileged` and `pod.spec.containers[*].capabilities` properties are now nested under the `pod.spec.containers[*].securityContext` property. See [Security Contexts](user-guide/security-context.html).
+* The `pod.spec.containers[*].privileged` and `pod.spec.containers[*].capabilities` properties are now nested under the `pod.spec.containers[*].securityContext` property. See [Security Contexts](user-guide/security-context).
 * The `pod.spec.host` property is renamed to `pod.spec.nodeName`.
 * The `endpoints.subsets[*].addresses.IP` property is renamed to `endpoints.subsets[*].addresses.ip`.
 * The `pod.status.containerStatuses[*].state.termination` and `pod.status.containerStatuses[*].lastState.termination` properties are renamed to `pod.status.containerStatuses[*].state.terminated` and `pod.status.containerStatuses[*].lastState.terminated` respectively.

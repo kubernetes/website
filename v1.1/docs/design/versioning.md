@@ -1,10 +1,6 @@
 ---
 title: "Kubernetes API and Release Versioning"
 ---
-
-
-# Kubernetes API and Release Versioning
-
 Legend:
 
 * **Kube &lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;** refers to the version of Kubernetes that is released. This versions all components: apiserver, kubelet, kubectl, etc.

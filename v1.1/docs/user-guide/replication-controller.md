@@ -1,33 +1,13 @@
 ---
 title: "Replication Controller"
 ---
-
-
-# Replication Controller
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Replication Controller](#replication-controller)
-  - [What is a _replication controller_?](#what-is-a-replication-controller)
-  - [How does a replication controller work?](#how-does-a-replication-controller-work)
-    - [Pod template](#pod-template)
-    - [Labels](#labels)
-  - [Responsibilities of the replication controller](#responsibilities-of-the-replication-controller)
-  - [Common usage patterns](#common-usage-patterns)
-    - [Rescheduling](#rescheduling)
-    - [Scaling](#scaling)
-    - [Rolling updates](#rolling-updates)
-    - [Multiple release tracks](#multiple-release-tracks)
-  - [API Object](#api-object)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## What is a _replication controller_?
 
 A _replication controller_ ensures that a specified number of pod "replicas" are running at any one time.  If there are too many, it will kill some.  If there are too few, it will start more. Unlike in the case where a user directly created pods, a replication controller replaces pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a replication controller even if your application requires only a single pod. Think of it similarly to a process supervisor, only it supervises multiple pods across multiple nodes instead of individual processes on a single node.  A replication controller delegates local container restarts to some agent on the node (e.g., Kubelet or Docker).
 
-As discussed in [life of a pod](pod-states.html), `ReplicationController` is *only* appropriate for pods with `RestartPolicy = Always`. (Note: If `RestartPolicy` is not set, the default value is `Always`.)  `ReplicationController` should refuse to instantiate any pod that has a different restart policy. As discussed in [issue #503](http://issue.k8s.io/503#issuecomment-50169443), we expect other types of controllers to be added to Kubernetes to handle other types of workloads, such as build/test and batch workloads, in the future.
+As discussed in [life of a pod](pod-states), `ReplicationController` is *only* appropriate for pods with `RestartPolicy = Always`. (Note: If `RestartPolicy` is not set, the default value is `Always`.)  `ReplicationController` should refuse to instantiate any pod that has a different restart policy. As discussed in [issue #503](http://issue.k8s.io/503#issuecomment-50169443), we expect other types of controllers to be added to Kubernetes to handle other types of workloads, such as build/test and batch workloads, in the future.
 
 A replication controller will never terminate on its own, but it isn't expected to be as long-lived as services. Services may be composed of pods controlled by multiple replication controllers, and it is expected that many replication controllers may be created and destroyed over the lifetime of a service (for instance, to perform an update of pods that run the service). Both services themselves and their clients should remain oblivious to the replication controllers that maintain the pods of the services.
 
@@ -39,7 +19,7 @@ A replication controller creates new pods from a template, which is currently in
 
 Rather than specifying the current desired state of all replicas, pod templates are like cookie cutters. Once a cookie has been cut, the cookie has no relationship to the cutter. There is no quantum entanglement. Subsequent changes to the template or even switching to a new template has no direct effect on the pods already created. Similarly, pods created by a replication controller may subsequently be updated directly. This is in deliberate contrast to pods, which do specify the current desired state of all containers belonging to the pod. This approach radically simplifies system semantics and increases the flexibility of the primitive, as demonstrated by the use cases explained below.
 
-Pods created by a replication controller are intended to be fungible and semantically identical, though their configurations may become heterogeneous over time. This is an obvious fit for replicated stateless servers, but replication controllers can also be used to maintain availability of master-elected, sharded, and worker-pool applications. Such applications should use dynamic work assignment mechanisms, such as the [etcd lock module](https://coreos.com/docs/distributed-configuration/etcd-modules/) or [RabbitMQ work queues](https://www.rabbitmq.com/tutorials/tutorial-two-python.html), as opposed to static/one-time customization of the configuration of each pod, which is considered an anti-pattern. Any pod customization performed, such as vertical auto-sizing of resources (e.g., cpu or memory), should be performed by another online controller process, not unlike the replication controller itself.
+Pods created by a replication controller are intended to be fungible and semantically identical, though their configurations may become heterogeneous over time. This is an obvious fit for replicated stateless servers, but replication controllers can also be used to maintain availability of master-elected, sharded, and worker-pool applications. Such applications should use dynamic work assignment mechanisms, such as the [etcd lock module](https://coreos.com/docs/distributed-configuration/etcd-modules/) or [RabbitMQ work queues](https://www.rabbitmq.com/tutorials/tutorial-two-python), as opposed to static/one-time customization of the configuration of each pod, which is considered an anti-pattern. Any pod customization performed, such as vertical auto-sizing of resources (e.g., cpu or memory), should be performed by another online controller process, not unlike the replication controller itself.
 
 ### Labels
 
@@ -51,7 +31,7 @@ Note that replication controllers may themselves have labels and would generally
 
 Pods may be removed from a replication controller's target set by changing their labels. This technique may be used to remove pods from service for debugging, data recovery, etc. Pods that are removed in this way will be replaced automatically (assuming that the number of replicas is not also changed).
 
-Similarly, deleting a replication controller using the API does not affect the pods it created. Its `replicas` field must first be set to `0` in order to delete the pods controlled. (Note that the client tool, `kubectl`, provides a single operation, [delete](kubectl/kubectl_delete.html) to delete both the replication controller and the pods it controls. If you want to leave the pods running when deleting a replication controller, specify `--cascade=false`. However, there is no such operation in the API at the moment)
+Similarly, deleting a replication controller using the API does not affect the pods it created. Its `replicas` field must first be set to `0` in order to delete the pods controlled. (Note that the client tool, `kubectl`, provides a single operation, [delete](kubectl/kubectl_delete) to delete both the replication controller and the pods it controls. If you want to leave the pods running when deleting a replication controller, specify `--cascade=false`. However, there is no such operation in the API at the moment)
 
 ## Responsibilities of the replication controller
 
@@ -82,7 +62,7 @@ Ideally, the rolling update controller would take application readiness into acc
 The two replication controllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 
 Rolling update is implemented in the client tool
-[kubectl](kubectl/kubectl_rolling-update.html)
+[kubectl](kubectl/kubectl_rolling-update)
 
 ### Multiple release tracks
 

@@ -1,6 +1,5 @@
 ---
 title: "Configuring Garbage Collection"
-section: guides
 ---
 ### Introduction
 

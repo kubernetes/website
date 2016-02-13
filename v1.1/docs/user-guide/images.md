@@ -1,29 +1,14 @@
 ---
 title: "Images"
 ---
-
-
-# Images
-
 Each container in a pod has its own image.  Currently, the only type of image supported is a [Docker Image](https://docs.docker.com/userguide/dockerimages/).
 
 You create your Docker image and push it to a registry before referring to it in a Kubernetes pod.
 
 The `image` property of a container supports the same syntax as the `docker` command does, including private registries and tags.
 
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
-- [Images](#images)
-  - [Updating Images](#updating-images)
-  - [Using a Private Registry](#using-a-private-registry)
-    - [Using Google Container Registry](#using-google-container-registry)
-    - [Configuring Nodes to Authenticate to a Private Repository](#configuring-nodes-to-authenticate-to-a-private-repository)
-    - [Pre-pulling Images](#pre-pulling-images)
-    - [Specifying ImagePullSecrets on a Pod](#specifying-imagepullsecrets-on-a-pod)
-    - [Use Cases](#use-cases)
-
-<!-- END MUNGE: GENERATED_TOC -->
 
 ## Updating Images
 
@@ -89,7 +74,7 @@ example, run these on your desktop/laptop:
 Verify by creating a pod that uses a private image, e.g.:
 
 {% highlight yaml %}
-{% raw %}
+
 $ cat <<EOF > /tmp/private-image-test-1.yaml
 apiVersion: v1
 kind: Pod
@@ -105,25 +90,25 @@ EOF
 $ kubectl create -f /tmp/private-image-test-1.yaml
 pods/private-image-test-1
 $
-{% endraw %}
+
 {% endhighlight %}
 
 If everything is working, then, after a few moments, you should see:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl logs private-image-test-1
 SUCCESS
-{% endraw %}
+
 {% endhighlight %}
 
 If it failed, then you will see:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl describe pods/private-image-test-1 | grep "Failed"
   Fri, 26 Jun 2015 15:36:13 -0700	Fri, 26 Jun 2015 15:39:13 -0700	19	{kubelet node-i2hq}	spec.containers{uses-private-image}	failed		Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
-{% endraw %}
+
 {% endhighlight %}
 
 
@@ -165,13 +150,13 @@ where node creation is automated.
 Kubernetes supports specifying registry keys on a pod.
 
 First, create a `.dockercfg`, such as running `docker login <registry.domain>`.
-Then put the resulting `.dockercfg` file into a [secret resource](secrets.html).  For example:
+Then put the resulting `.dockercfg` file into a [secret resource](secrets).  For example:
 
 {% highlight console %}
-{% raw %}
+
 $ docker login
 Username: janedoe
-Password: â—?â—?â—?â—?â—?â—?â—?â—?â—?â—?â—?
+Password: 'ï¿½?'ï¿½?'ï¿½?'ï¿½?'ï¿½?'ï¿½?'ï¿½?'ï¿½?'ï¿½?'ï¿½?'ï¿½?
 Email: jdoe@example.com
 WARNING: login credentials saved in /Users/jdoe/.dockercfg.
 Login Succeeded
@@ -195,7 +180,7 @@ EOF
 $ kubectl create -f /tmp/image-pull-secret.yaml
 secrets/myregistrykey
 $
-{% endraw %}
+
 {% endhighlight %}
 
 If you get the error message `error: no objects passed to create`, it may mean the base64 encoded string is invalid.
@@ -208,7 +193,7 @@ Now, you can create pods which reference that secret by adding an `imagePullSecr
 section to a pod definition.
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -219,12 +204,12 @@ spec:
       image: janedoe/awesomeapp:v1
   imagePullSecrets:
     - name: myregistrykey
-{% endraw %}
+
 {% endhighlight %}
 
 This needs to be done for each pod that is using a private registry.
 However, setting of this field can be automated by setting the imagePullSecrets
-in a [serviceAccount](service-accounts.html) resource.
+in a [serviceAccount](service-accounts) resource.
 
 Currently, all pods will potentially have read access to any images which were
 pulled using imagePullSecrets.  That is, imagePullSecrets does *NOT* protect your
@@ -258,6 +243,3 @@ common use cases and suggested solutions.
      - DO NOT use imagePullSecrets for this use case yet.
   1. A multi-tenant cluster where each tenant needs own private registry
      - NOT supported yet.
-
-
-

@@ -1,10 +1,6 @@
 ---
 title: "Containers with Kubernetes"
 ---
-
-
-# Containers with Kubernetes
-
 ## Containers and commands
 
 So far the Pods we've seen have all used the `image` field to indicate what process Kubernetes
@@ -51,7 +47,7 @@ Here are examples for these rules in table format
 
 By default, Docker containers are "unprivileged" and cannot, for example, run a Docker daemon inside a Docker container. We can have fine grain control over the capabilities using cap-add and cap-drop.More details [here](https://docs.docker.com/reference/run/#runtime-privilege-linux-capabilities-and-lxc-configuration).
 
-The relationship between Docker's capabilities and [Linux capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html)
+The relationship between Docker's capabilities and [Linux capabilities](http://man7.org/linux/man-pages/man7/capabilities.7)
 
 | Docker's capabilities | Linux capabilities |
 | ---- | ---- |

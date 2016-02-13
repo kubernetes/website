@@ -1,10 +1,6 @@
 ---
 title: "Volumes"
 ---
-
-
-# Volumes
-
 On-disk files in a container are ephemeral, which presents some problems for
 non-trivial applications when running in containers.  First, when a container
 crashes kubelet will restart it, but the files will be lost - the
@@ -12,34 +8,10 @@ container starts with a clean slate.  Second, when running containers together
 in a `Pod` it is often necessary to share files between those containers.  The
 Kubernetes `Volume` abstraction solves both of these problems.
 
-Familiarity with [pods](pods.html) is suggested.
+Familiarity with [pods](pods) is suggested.
 
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
-- [Volumes](#volumes)
-  - [Background](#background)
-  - [Types of Volumes](#types-of-volumes)
-    - [emptyDir](#emptydir)
-    - [hostPath](#hostpath)
-    - [gcePersistentDisk](#gcepersistentdisk)
-      - [Creating a PD](#creating-a-pd)
-      - [Example pod](#example-pod)
-    - [awsElasticBlockStore](#awselasticblockstore)
-      - [Creating an EBS volume](#creating-an-ebs-volume)
-      - [AWS EBS Example configuration](#aws-ebs-example-configuration)
-    - [nfs](#nfs)
-    - [iscsi](#iscsi)
-    - [flocker](#flocker)
-    - [glusterfs](#glusterfs)
-    - [rbd](#rbd)
-    - [gitRepo](#gitrepo)
-    - [secret](#secret)
-    - [persistentVolumeClaim](#persistentvolumeclaim)
-    - [downwardAPI](#downwardapi)
-  - [Resources](#resources)
-
-<!-- END MUNGE: GENERATED_TOC -->
 
 ## Background
 
@@ -171,15 +143,15 @@ the PD is read-only or the replica count is 0 or 1.
 Before you can use a GCE PD with a pod, you need to create it.
 
 {% highlight sh %}
-{% raw %}
+
 gcloud compute disks create --size=500GB --zone=us-central1-a my-data-disk
-{% endraw %}
+
 {% endhighlight %}
 
 #### Example pod
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -197,7 +169,7 @@ spec:
     gcePersistentDisk:
       pdName: my-data-disk
       fsType: ext4
-{% endraw %}
+
 {% endhighlight %}
 
 ### awsElasticBlockStore
@@ -223,9 +195,9 @@ There are some restrictions when using an awsElasticBlockStore volume:
 Before you can use a EBS volume with a pod, you need to create it.
 
 {% highlight sh %}
-{% raw %}
+
 aws ec2 create-volume --availability-zone eu-west-1a --size 10 --volume-type gp2
-{% endraw %}
+
 {% endhighlight %}
 
 Make sure the zone matches the zone you brought up your cluster in.  (And also check that the size and EBS volume
@@ -234,7 +206,7 @@ type are suitable for your use!)
 #### AWS EBS Example configuration
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -252,7 +224,7 @@ spec:
     awsElasticBlockStore:
       volumeID: aws://<availability-zone>/<volume-id>
       fsType: ext4
-{% endraw %}
+
 {% endhighlight %}
 
 (Note: the syntax of volumeID is currently awkward; #10181 fixes it)
@@ -350,7 +322,7 @@ rather than extending the Kubernetes API for every such use case.
 Here is a example for gitRepo volume:
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -367,7 +339,7 @@ spec:
     gitRepo:
       repository: "git@somewhere:me/my-git-repository.git"
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
-{% endraw %}
+
 {% endhighlight %}
 
 ### secret
@@ -381,12 +353,12 @@ non-volatile storage.
 __Important: You must create a secret in the Kubernetes API before you can use
 it__
 
-Secrets are described in more detail [here](secrets.html).
+Secrets are described in more detail [here](secrets).
 
 ### persistentVolumeClaim
 
 A `persistentVolumeClaim` volume is used to mount a
-[PersistentVolume](persistent-volumes.html) into a pod.  PersistentVolumes are a
+[PersistentVolume](persistent-volumes) into a pod.  PersistentVolumes are a
 way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 
@@ -398,7 +370,7 @@ details.
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
 
-See the [`downwardAPI` volume example](downward-api/volume/README.html)  for more details.
+See the [`downwardAPI` volume example](downward-api/volume/README)  for more details.
 
 ## Resources
 
@@ -409,7 +381,7 @@ medium of the filesystem holding the kubelet root dir (typically
 pods.
 
 In the future, we expect that `emptyDir` and `hostPath` volumes will be able to
-request a certain amount of space using a [resource](compute-resources.html)
+request a certain amount of space using a [resource](compute-resources)
 specification, and to select the type of media to use, for clusters that have
 several media types.
 

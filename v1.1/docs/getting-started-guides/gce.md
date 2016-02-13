@@ -1,11 +1,10 @@
 ---
 title: "Getting started on Google Compute Engine"
-section: guides
 ---
 
 The example below creates a Kubernetes cluster with 4 worker node Virtual Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -30,33 +29,27 @@ If you want to use custom binaries or pure open source Kubernetes, please contin
 You can install a client and start a cluster with either one of these commands (we list both in case only one is installed on your machine):
 
 
-{% highlight bash %}
-{% raw %}
- curl -sS https://get.k8s.io | bash
-{% endraw %}
+{% highlight bash %}
+ curl -sS https://get.k8s.io | bash
 {% endhighlight %}
 
 or
 
-{% highlight bash %}
-{% raw %}
-wget -q -O - https://get.k8s.io | bash
-{% endraw %}
+{% highlight bash %}
+wget -q -O - https://get.k8s.io | bash
 {% endhighlight %}
 
 Once this command completes, you will have a master VM and four worker VMs, running as a Kubernetes cluster.
 
-By default, some containers will already be running on your cluster. Containers like `kibana` and `elasticsearch` provide [logging](logging.html), while `heapster` provides [monitoring](http://releases.k8s.io/release-1.1/cluster/addons/cluster-monitoring/README.md) services.
+By default, some containers will already be running on your cluster. Containers like `kibana` and `elasticsearch` provide [logging](logging), while `heapster` provides [monitoring](http://releases.k8s.io/release-1.1/cluster/addons/cluster-monitoring/README.md) services.
 
 The script run by the commands above creates a cluster with the name/prefix "kubernetes". It defines one specific cluster config, so you can't run it more than once.
 
 Alternately, you can download and install the latest Kubernetes release from [this page](https://github.com/kubernetes/kubernetes/releases), then run the `<kubernetes>/cluster/kube-up.sh` script to start the cluster:
 
-{% highlight bash %}
-{% raw %}
+{% highlight bash %}
 cd kubernetes
-cluster/kube-up.sh
-{% endraw %}
+cluster/kube-up.sh
 {% endhighlight %}
 
 If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
@@ -76,19 +69,17 @@ The next few steps will show you:
 The cluster startup script will leave you with a running cluster and a `kubernetes` directory on your workstation.
 The next step is to make sure the `kubectl` tool is in your path.
 
-The [kubectl](../user-guide/kubectl/kubectl.html) tool controls the Kubernetes cluster manager.  It lets you inspect your cluster resources, create, delete, and update components, and much more.
+The [kubectl](../user-guide/kubectl/kubectl) tool controls the Kubernetes cluster manager.  It lets you inspect your cluster resources, create, delete, and update components, and much more.
 You will use it to look at your new cluster and bring up example apps.
 
 Add the appropriate binary folder to your `PATH` to access kubectl:
 
-{% highlight bash %}
-{% raw %}
+{% highlight bash %}
 # OS X
 export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 
 # Linux
-export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
-{% endraw %}
+export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 {% endhighlight %}
 
 **Note**: gcloud also ships with `kubectl`, which by default is added to your path.
@@ -100,20 +91,16 @@ potential issues with client/server version skew.
 
 You may find it useful to enable `kubectl` bash completion:
 
-```
-{% raw %}
-$ source ./contrib/completions/bash/kubectl
-{% endraw %}
+```
+$ source ./contrib/completions/bash/kubectl
 ```
 
 **Note**: This will last for the duration of your bash session. If you want to make this permanent you need to add this line in your bash profile.
 
 Alternatively, on most linux distributions you can also move the completions file to your bash_completions.d like this:
 
-```
-{% raw %}
-$ cp ./contrib/completions/bash/kubectl /etc/bash_completion.d/
-{% endraw %}
+```
+$ cp ./contrib/completions/bash/kubectl /etc/bash_completion.d/
 ```
 
 but then you have to update it when you update kubectl.
@@ -124,39 +111,32 @@ but then you have to update it when you update kubectl.
 
 Once `kubectl` is in your path, you can use it to look at your cluster. E.g., running:
 
-{% highlight console %}
-{% raw %}
-$ kubectl get --all-namespaces services
-{% endraw %}
+{% highlight console %}
+$ kubectl get --all-namespaces services
 {% endhighlight %}
 
-should show a set of [services](../user-guide/services.html) that look something like this:
+should show a set of [services](../user-guide/services) that look something like this:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 NAMESPACE     NAME                  CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR               AGE
 default       kubernetes            10.0.0.1         <none>            443/TCP       <none>                 1d
 kube-system   kube-dns              10.0.0.2         <none>            53/TCP,53/UDP k8s-app=kube-dns       1d
 kube-system   kube-ui               10.0.0.3         <none>            80/TCP        k8s-app=kube-ui        1d
-...
-{% endraw %}
+...
 {% endhighlight %}
 
-Similarly, you can take a look at the set of [pods](../user-guide/pods.html) that were created during cluster startup.
+Similarly, you can take a look at the set of [pods](../user-guide/pods) that were created during cluster startup.
 You can do this via the
 
-{% highlight console %}
-{% raw %}
-$ kubectl get --all-namespaces pods
-{% endraw %}
+{% highlight console %}
+$ kubectl get --all-namespaces pods
 {% endhighlight %}
 
 command.
 
 You'll see a list of pods that looks something like this (the name specifics will be different):
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 NAMESPACE     NAME                                           READY     STATUS    RESTARTS   AGE
 kube-system   fluentd-cloud-logging-kubernetes-minion-63uo   1/1       Running   0          14m
 kube-system   fluentd-cloud-logging-kubernetes-minion-c1n9   1/1       Running   0          14m
@@ -165,15 +145,14 @@ kube-system   fluentd-cloud-logging-kubernetes-minion-ngua   1/1       Running  
 kube-system   kube-dns-v5-7ztia                              3/3       Running   0          15m
 kube-system   kube-ui-v1-curt1                               1/1       Running   0          15m
 kube-system   monitoring-heapster-v5-ex4u3                   1/1       Running   1          15m
-kube-system   monitoring-influx-grafana-v1-piled             2/2       Running   0          15m
-{% endraw %}
+kube-system   monitoring-influx-grafana-v1-piled             2/2       Running   0          15m
 {% endhighlight %}
 
 Some of the pods may take a few seconds to start up (during this time they'll show `Pending`), but check that they all show as `Running` after a short period.
 
 #### Run some examples
 
-Then, see [a simple nginx example](../../docs/user-guide/simple-nginx.html) to try out your new cluster.
+Then, see [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
 For more complete applications, please look in the [examples directory](../../examples/).  The [guestbook example](../../examples/guestbook/) is a good "getting started" walkthrough.
 
@@ -181,11 +160,9 @@ For more complete applications, please look in the [examples directory](../../ex
 
 To remove/delete/teardown the cluster, use the `kube-down.sh` script.
 
-{% highlight bash %}
-{% raw %}
+{% highlight bash %}
 cd kubernetes
-cluster/kube-down.sh
-{% endraw %}
+cluster/kube-down.sh
 {% endhighlight %}
 
 Likewise, the `kube-up.sh` in the same directory will bring it back up. You do not need to rerun the `curl` or `wget` command: everything needed to setup the Kubernetes cluster is now on your workstation.

@@ -1,6 +1,5 @@
 ---
 title: "Considerations for running multiple Kubernetes clusters"
-section: guides
 ---
 
 You may want to set up multiple Kubernetes clusters, both to
@@ -9,13 +8,13 @@ This document describes some of the issues to consider when making a decision ab
 
 Note that at present,
 Kubernetes does not offer a mechanism to aggregate multiple clusters into a single virtual cluster. However,
-we [plan to do this in the future](../proposals/federation.html).
+we [plan to do this in the future](../proposals/federation).
 
 ## Scope of a single cluster
 
 On IaaS providers such as Google Compute Engine or Amazon Web Services, a VM exists in a
 [zone](https://cloud.google.com/compute/docs/zones) or [availability
-zone](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html).
+zone](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones).
 We suggest that all the VMs in a Kubernetes cluster should be in the same availability zone, because:
   - compared to having a single global Kubernetes cluster, there are fewer single-points of failure
   - compared to a cluster that spans availability zones, it is easier to reason about the availability properties of a

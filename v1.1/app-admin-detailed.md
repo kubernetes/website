@@ -2,8 +2,6 @@
 title: "Application Administration: Detailed Walkthrough"
 ---
 
-## {{ page.title }} ##
-
 The detailed walkthrough covers all the in-depth details and tasks for administering your applications in Kubernetes.
 
 <p>Table of Contents:</p>

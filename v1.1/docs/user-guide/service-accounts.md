@@ -1,14 +1,10 @@
 ---
 title: "Service Accounts"
 ---
-
-
-# Service Accounts
-
 A service account provides an identity for processes that run in a Pod.
 
 *This is a user introduction to Service Accounts.  See also the
-[Cluster Admin Guide to Service Accounts](../admin/service-accounts-admin.html).*
+[Cluster Admin Guide to Service Accounts](../admin/service-accounts-admin).*
 
 *Note: This document describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project.  Your cluster administrator may have
@@ -39,17 +35,17 @@ Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get serviceAccounts
 NAME      SECRETS
 default   1
-{% endraw %}
+
 {% endhighlight %}
 
 You can create additional serviceAccounts like this:
 
 {% highlight console %}
-{% raw %}
+
 $ cat > /tmp/serviceaccount.yaml <<EOF
 apiVersion: v1
 kind: ServiceAccount
@@ -58,13 +54,13 @@ metadata:
 EOF
 $ kubectl create -f /tmp/serviceaccount.yaml
 serviceaccounts/build-robot
-{% endraw %}
+
 {% endhighlight %}
 
 If you get a complete dump of the service account object, like this:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get serviceaccounts/build-robot -o yaml
 apiVersion: v1
 kind: ServiceAccount
@@ -77,7 +73,7 @@ metadata:
   uid: 721ab723-13bc-11e5-aec2-42010af0021e
 secrets:
 - name: build-robot-token-bvbk5
-{% endraw %}
+
 {% endhighlight %}
 
 then you will see that a token has automatically been created and is referenced by the service account.
@@ -94,9 +90,9 @@ You cannot update the service account of an already created pod.
 You can clean up the service account from this example like this:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl delete serviceaccount/build-robot
-{% endraw %}
+
 {% endhighlight %}
 
 <!-- TODO: describe how to create a pod with no Service Account. -->
@@ -108,7 +104,7 @@ Suppose we have an existing service account named "build-robot" as mentioned abo
 a new secret manually.
 
 {% highlight console %}
-{% raw %}
+
 $ cat > /tmp/build-robot-secret.yaml <<EOF
 apiVersion: v1
 kind: Secret
@@ -120,13 +116,13 @@ type: kubernetes.io/service-account-token
 EOF
 $ kubectl create -f /tmp/build-robot-secret.yaml
 secrets/build-robot-secret
-{% endraw %}
+
 {% endhighlight %}
 
 Now you can confirm that the newly built secret is populated with an API token for the "build-robot" service account.
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl describe secrets/build-robot-secret 
 Name:   build-robot-secret
 Namespace:  default
@@ -139,7 +135,7 @@ Data
 ====
 ca.crt: 1220 bytes
 token:  
-{% endraw %}
+
 {% endhighlight %}
 
 > Note that the content of `token` is elided here.
@@ -150,17 +146,17 @@ First, create an imagePullSecret, as described [here](images.html#specifying-ima
 Next, verify it has been created.  For example:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get secrets myregistrykey
 NAME             TYPE                      DATA
 myregistrykey    kubernetes.io/dockercfg   1
-{% endraw %}
+
 {% endhighlight %}
 
 Next, read/modify/write the service account for the namespace to use this secret as an imagePullSecret
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get serviceaccounts default -o yaml > ./sa.yaml
 $ cat sa.yaml
 apiVersion: v1
@@ -193,17 +189,17 @@ imagePullSecrets:
 - name: myregistrykey
 $ kubectl replace serviceaccount default -f ./sa.yaml
 serviceaccounts/default
-{% endraw %}
+
 {% endhighlight %}
 
 Now, any new pods created in the current namespace will have this added to their spec:
 
 {% highlight yaml %}
-{% raw %}
+
 spec:
   imagePullSecrets:
   - name: myregistrykey
-{% endraw %}
+
 {% endhighlight %}
 
 ## Adding Secrets to a service account.

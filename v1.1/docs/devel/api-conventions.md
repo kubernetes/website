@@ -9,46 +9,12 @@ Updated: 9/20/2015
 
 *This document is oriented at users who want a deeper understanding of the Kubernetes
 API structure, and developers wanting to extend the Kubernetes API.  An introduction to
-using resources with kubectl can be found in [Working with resources](../user-guide/working-with-resources.html).*
+using resources with kubectl can be found in [Working with resources](../user-guide/working-with-resources).*
 
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
-  - [Types (Kinds)](#types-kinds)
-    - [Resources](#resources)
-    - [Objects](#objects)
-      - [Metadata](#metadata)
-      - [Spec and Status](#spec-and-status)
-        - [Typical status properties](#typical-status-properties)
-      - [References to related objects](#references-to-related-objects)
-      - [Lists of named subobjects preferred over maps](#lists-of-named-subobjects-preferred-over-maps)
-      - [Constants](#constants)
-    - [Lists and Simple kinds](#lists-and-simple-kinds)
-  - [Differing Representations](#differing-representations)
-  - [Verbs on Resources](#verbs-on-resources)
-    - [PATCH operations](#patch-operations)
-      - [Strategic Merge Patch](#strategic-merge-patch)
-    - [List Operations](#list-operations)
-    - [Map Operations](#map-operations)
-  - [Idempotency](#idempotency)
-  - [Defaulting](#defaulting)
-  - [Late Initialization](#late-initialization)
-  - [Concurrency Control and Consistency](#concurrency-control-and-consistency)
-  - [Serialization Format](#serialization-format)
-  - [Units](#units)
-  - [Selecting Fields](#selecting-fields)
-  - [Object references](#object-references)
-  - [HTTP Status codes](#http-status-codes)
-      - [Success codes](#success-codes)
-      - [Error codes](#error-codes)
-  - [Response Status Kind](#response-status-kind)
-  - [Events](#events)
-  - [Naming conventions](#naming-conventions)
-  - [Label, selector, and annotation conventions](#label-selector-and-annotation-conventions)
 
-<!-- END MUNGE: GENERATED_TOC -->
-
-The conventions of the [Kubernetes API](../api.html) (and related APIs in the ecosystem) are intended to ease client development and ensure that configuration mechanisms can be implemented that work across a diverse set of use cases consistently.
+The conventions of the [Kubernetes API](../api) (and related APIs in the ecosystem) are intended to ease client development and ensure that configuration mechanisms can be implemented that work across a diverse set of use cases consistently.
 
 The general style of the Kubernetes API is RESTful - clients create, update, delete, or retrieve a description of an object via the standard HTTP verbs (POST, PUT, DELETE, and GET) - and those APIs preferentially accept and return JSON. Kubernetes also exposes additional endpoints for non-standard verbs and allows alternative content types. All of the JSON accepted and returned by the server has a schema, identified by the "kind" and "apiVersion" fields. Where relevant HTTP header fields exist, they should mirror the content of JSON fields, but the information should not be represented only in the HTTP header.
 
@@ -82,7 +48,7 @@ Kinds are grouped into three categories:
 
    Most objects defined in the system should have an endpoint that returns the full set of resources, as well as zero or more endpoints that return subsets of the full list. Some objects may be singletons (the current user, the system defaults) and may not have lists.
 
-   In addition, all lists that return objects with labels should support label filtering (see [docs/user-guide/labels.md](../user-guide/labels.html), and most lists should support filtering by fields.
+   In addition, all lists that return objects with labels should support label filtering (see [docs/user-guide/labels.md](../user-guide/labels), and most lists should support filtering by fields.
 
    Examples: PodLists, ServiceLists, NodeLists
 
@@ -100,7 +66,7 @@ Kinds are grouped into three categories:
    * `/status`: Used to write just the status portion of a resource. For example, the `/pods` endpoint only allows updates to `metadata` and `spec`, since those reflect end-user intent. An automated process should be able to modify status for users to see by sending an updated Pod kind to the server to the "/pods/&lt;name&gt;/status" endpoint - the alternate endpoint allows different rules to be applied to the update, and access to be appropriately restricted.
    * `/scale`: Used to read and write the count of a resource in a manner that is independent of the specific resource schema.
 
-   Two additional subresources, `proxy` and `portforward`, provide access to cluster resources as described in [docs/user-guide/accessing-the-cluster.md](../user-guide/accessing-the-cluster.html).
+   Two additional subresources, `proxy` and `portforward`, provide access to cluster resources as described in [docs/user-guide/accessing-the-cluster.md](../user-guide/accessing-the-cluster).
 
 The standard REST verbs (defined below) MUST return singular JSON objects. Some API endpoints may deviate from the strict REST pattern and return resources that are not singular JSON objects, such as streams of JSON objects or unstructured text log data.
 
@@ -121,9 +87,9 @@ These fields are required for proper decoding of the object. They may be populat
 
 Every object kind MUST have the following metadata in a nested object field called "metadata":
 
-* namespace: a namespace is a DNS compatible subdomain that objects are subdivided into. The default namespace is 'default'.  See [docs/user-guide/namespaces.md](../user-guide/namespaces.html) for more.
-* name: a string that uniquely identifies this object within the current namespace (see [docs/user-guide/identifiers.md](../user-guide/identifiers.html)). This value is used in the path when retrieving an individual object.
-* uid: a unique in time and space value (typically an RFC 4122 generated identifier, see [docs/user-guide/identifiers.md](../user-guide/identifiers.html)) used to distinguish between objects with the same name that have been deleted and recreated
+* namespace: a namespace is a DNS compatible subdomain that objects are subdivided into. The default namespace is 'default'.  See [docs/user-guide/namespaces.md](../user-guide/namespaces) for more.
+* name: a string that uniquely identifies this object within the current namespace (see [docs/user-guide/identifiers.md](../user-guide/identifiers)). This value is used in the path when retrieving an individual object.
+* uid: a unique in time and space value (typically an RFC 4122 generated identifier, see [docs/user-guide/identifiers.md](../user-guide/identifiers)) used to distinguish between objects with the same name that have been deleted and recreated
 
 Every object SHOULD have the following metadata in a nested object field called "metadata":
 
@@ -131,8 +97,8 @@ Every object SHOULD have the following metadata in a nested object field called 
 * generation: a sequence number representing a specific generation of the desired state. Set by the system and monotonically increasing, per-resource. May be compared, such as for RAW and WAW consistency.
 * creationTimestamp: a string representing an RFC 3339 date of the date and time an object was created
 * deletionTimestamp: a string representing an RFC 3339 date of the date and time after which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource will be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field. Once set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time.
-* labels: a map of string keys and values that can be used to organize and categorize objects (see [docs/user-guide/labels.md](../user-guide/labels.html))
-* annotations: a map of string keys and values that can be used by external tooling to store and retrieve arbitrary metadata about this object (see [docs/user-guide/annotations.md](../user-guide/annotations.html))
+* labels: a map of string keys and values that can be used to organize and categorize objects (see [docs/user-guide/labels.md](../user-guide/labels))
+* annotations: a map of string keys and values that can be used by external tooling to store and retrieve arbitrary metadata about this object (see [docs/user-guide/annotations.md](../user-guide/annotations))
 
 Labels are intended for organizational purposes by end users (select the pods that match this label query). Annotations enable third-party automation and tooling to decorate objects with additional metadata for their own use.
 
@@ -158,15 +124,13 @@ Objects that contain both spec and status should not contain additional top-leve
 
 The `FooCondition` type for some resource type `Foo` may include a subset of the following fields, but must contain at least `type` and `status` fields:
 
-{% highlight go %}
-{% raw %}
+{% highlight go %}
 	Type               FooConditionType  `json:"type" description:"type of Foo condition"`
 	Status             ConditionStatus   `json:"status" description:"status of the condition, one of True, False, Unknown"`
 	LastHeartbeatTime  unversioned.Time         `json:"lastHeartbeatTime,omitempty" description:"last time we got an update on a given condition"`
 	LastTransitionTime unversioned.Time         `json:"lastTransitionTime,omitempty" description:"last time the condition transit from one status to another"`
 	Reason             string            `json:"reason,omitempty" description:"one-word CamelCase reason for the condition's last transition"`
-	Message            string            `json:"message,omitempty" description:"human-readable message indicating details about last transition"`
-{% endraw %}
+	Message            string            `json:"message,omitempty" description:"human-readable message indicating details about last transition"`
 {% endhighlight %}
 
 Additional fields may be added in the future.
@@ -179,7 +143,7 @@ In general, condition values may change back and forth, but some condition trans
 
 A typical oscillating condition type is `Ready`, which indicates the object was believed to be fully operational at the time it was last probed. A possible monotonic condition could be `Succeeded`. A `False` status for `Succeeded` would imply failure. An object that was still active would not have a `Succeeded` condition, or its status would be `Unknown`.
 
-Some resources in the v1 API contain fields called **`phase`**, and associated `message`, `reason`, and other status fields. The pattern of using `phase` is deprecated. Newer API types should use conditions instead. Phase was essentially a state-machine enumeration field, that contradicted [system-design principles](../design/principles.html#control-logic) and hampered evolution, since [adding new enum values breaks backward compatibility](api_changes.html). Rather than encouraging clients to infer implicit properties from phases, we intend to explicitly expose the conditions that clients need to monitor. Conditions also have the benefit that it is possible to create some conditions with uniform meaning across all resource types, while still exposing others that are unique to specific resource types. See [#7856](http://issues.k8s.io/7856) for more details and discussion.
+Some resources in the v1 API contain fields called **`phase`**, and associated `message`, `reason`, and other status fields. The pattern of using `phase` is deprecated. Newer API types should use conditions instead. Phase was essentially a state-machine enumeration field, that contradicted [system-design principles](../design/principles.html#control-logic) and hampered evolution, since [adding new enum values breaks backward compatibility](api_changes). Rather than encouraging clients to infer implicit properties from phases, we intend to explicitly expose the conditions that clients need to monitor. Conditions also have the benefit that it is possible to create some conditions with uniform meaning across all resource types, while still exposing others that are unique to specific resource types. See [#7856](http://issues.k8s.io/7856) for more details and discussion.
 
 In condition types, and everywhere else they appear in the API, **`Reason`** is intended to be a one-word, CamelCase representation of the category of cause of the current status, and **`Message`** is intended to be a human-readable phrase or sentence, which may contain specific details of the individual occurrence. `Reason` is intended to be used in concise output, such as one-line `kubectl get` output, and in summarizing occurrences of causes, whereas `Message` is intended to be presented to users in detailed status explanations, such as `kubectl describe` output.
 
@@ -191,7 +155,7 @@ Some resources report the `observedGeneration`, which is the `generation` most r
 
 #### References to related objects
 
-References to loosely coupled sets of objects, such as [pods](../user-guide/pods.html) overseen by a [replication controller](../user-guide/replication-controller.html), are usually best referred to using a [label selector](../user-guide/labels.html). In order to ensure that GETs of individual objects remain bounded in time and space, these sets may be queried via separate API queries, but will not be expanded in the referring object's status.
+References to loosely coupled sets of objects, such as [pods](../user-guide/pods) overseen by a [replication controller](../user-guide/replication-controller), are usually best referred to using a [label selector](../user-guide/labels). In order to ensure that GETs of individual objects remain bounded in time and space, these sets may be queried via separate API queries, but will not be expanded in the referring object's status.
 
 References to specific objects, especially specific resource versions and/or specific fields of those objects, are specified using the `ObjectReference` type (or other types representing strict subsets of it). Unlike partial URLs, the ObjectReference type facilitates flexible defaulting of fields from the referring object or other contextual information.
 
@@ -203,22 +167,18 @@ Discussed in [#2004](http://issue.k8s.io/2004) and elsewhere. There are no maps 
 
 For example:
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
 ports:
   - name: www
-    containerPort: 80
-{% endraw %}
+    containerPort: 80
 {% endhighlight %}
 
 vs.
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
 ports:
   www:
-    containerPort: 80
-{% endraw %}
+    containerPort: 80
 {% endhighlight %}
 
 This rule maintains the invariant that all JSON/YAML keys are fields in API objects. The only exceptions are pure maps in the API (currently, labels, selectors, annotations, data), as opposed to sets of subobjects.
@@ -274,25 +234,21 @@ The API supports three different PATCH operations, determined by their correspon
 
 In the standard JSON merge patch, JSON objects are always merged but lists are always replaced. Often that isn't what we want. Let's say we start with the following Pod:
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
 spec:
   containers:
     - name: nginx
-      image: nginx-1.0
-{% endraw %}
+      image: nginx-1.0
 {% endhighlight %}
 
 ...and we POST that to the server (as JSON). Then let's say we want to *add* a container to this Pod.
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
 PATCH /api/v1/namespaces/default/pods/pod-name
 spec:
   containers:
     - name: log-tailer
-      image: log-tailer-1.0
-{% endraw %}
+      image: log-tailer-1.0
 {% endhighlight %}
 
 If we were to use standard Merge Patch, the entire container list would be replaced with the single log-tailer container. However, our intent is for the container lists to merge together based on the `name` field.
@@ -307,55 +263,47 @@ Strategic Merge Patch also supports special operations as listed below.
 
 To override the container list to be strictly replaced, regardless of the default:
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
 containers:
   - name: nginx
     image: nginx-1.0
-  - $patch: replace   # any further $patch operations nested in this list will be ignored
-{% endraw %}
+  - $patch: replace   # any further $patch operations nested in this list will be ignored
 {% endhighlight %}
 
 To delete an element of a list that should be merged:
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
 containers:
   - name: nginx
     image: nginx-1.0
   - $patch: delete
-    name: log-tailer  # merge key and value goes here
-{% endraw %}
+    name: log-tailer  # merge key and value goes here
 {% endhighlight %}
 
 ### Map Operations
 
 To indicate that a map should not be merged and instead should be taken literally:
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
 $patch: replace  # recursive and applies to all fields of the map it's in
 containers:
 - name: nginx
-  image: nginx-1.0
-{% endraw %}
+  image: nginx-1.0
 {% endhighlight %}
 
 To delete a field of a map:
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
 name: nginx
 image: nginx-1.0
 labels:
-  live: null  # set the value of the map key to null
-{% endraw %}
+  live: null  # set the value of the map key to null
 {% endhighlight %}
 
 
 ## Idempotency
 
-All compatible Kubernetes APIs MUST support "name idempotency" and respond with an HTTP status code 409 when a request is made to POST an object that has the same name as an existing object in the system. See [docs/user-guide/identifiers.md](../user-guide/identifiers.html) for details.
+All compatible Kubernetes APIs MUST support "name idempotency" and respond with an HTTP status code 409 when a request is made to POST an object that has the same name as an existing object in the system. See [docs/user-guide/identifiers.md](../user-guide/identifiers) for details.
 
 Names generated by the system may be requested using `metadata.generateName`. GenerateName indicates that the name should be made unique by the server prior to persisting it. A non-empty value for the field indicates the name will be made unique (and the name returned to the client will be different than the name passed). The value of this field will be combined with a unique suffix on the server if the Name field has not been provided. The provided value must be valid within the rules for Name, and may be truncated by the length of the suffix required to make the value unique on the server. If this field is specified, and Name is not present, the server will NOT return a 409 if the generated name exists - instead, it will either return 201 Created or 504 with Reason `ServerTimeout` indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
 
@@ -409,13 +357,11 @@ The only way for a client to know the expected value of resourceVersion is to ha
 
 In the case of a conflict, the correct client action at this point is to GET the resource again, apply the changes afresh, and try submitting again. This mechanism can be used to prevent races like the following:
 
-```
-{% raw %}
+```
 Client #1                                  Client #2
 GET Foo                                    GET Foo
 Set Foo.Bar = "one"                        Set Foo.Baz = "two"
-PUT Foo                                    PUT Foo
-{% endraw %}
+PUT Foo                                    PUT Foo
 ```
 
 When these sequences occur in parallel, either the change to Foo.Bar or the change to Foo.Baz can be lost.
@@ -539,8 +485,7 @@ The status object is encoded as JSON and provided as the body of the response.  
 
 **Example:**
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ curl -v -k -H "Authorization: Bearer WhCDvq4VPpYhrcfmF6ei7V9qlbqTubUc" https://10.240.122.184:443/api/v1/namespaces/default/pods/grafana
 
 > GET /api/v1/namespaces/default/pods/grafana HTTP/1.1
@@ -567,8 +512,7 @@ $ curl -v -k -H "Authorization: Bearer WhCDvq4VPpYhrcfmF6ei7V9qlbqTubUc" https:/
     "kind": "pods"
   },
   "code": 404
-}
-{% endraw %}
+}
 {% endhighlight %}
 
 `status` field contains one of two possible values:
@@ -694,7 +638,7 @@ However, we should support conveniences for common cases by default. For example
 
 If the user wants to apply additional labels to the pods that it doesn't select upon, such as to facilitate adoption of pods or in the expectation that some label values will change, they can set the selector to a subset of the pod labels. Similarly, the RC's labels could be initialized to a subset of the pod template's labels, or could include additional/different labels.
 
-For disciplined users managing resources within their own namespaces, it's not that hard to consistently apply schemas that ensure uniqueness. One just needs to ensure that at least one value of some label key in common differs compared to all other comparable resources. We could/should provide a verification tool to check that. However, development of conventions similar to the examples in [Labels](../user-guide/labels.html) make uniqueness straightforward. Furthermore, relatively narrowly used namespaces (e.g., per environment, per application) can be used to reduce the set of resources that could potentially cause overlap.
+For disciplined users managing resources within their own namespaces, it's not that hard to consistently apply schemas that ensure uniqueness. One just needs to ensure that at least one value of some label key in common differs compared to all other comparable resources. We could/should provide a verification tool to check that. However, development of conventions similar to the examples in [Labels](../user-guide/labels) make uniqueness straightforward. Furthermore, relatively narrowly used namespaces (e.g., per environment, per application) can be used to reduce the set of resources that could potentially cause overlap.
 
 In cases where users could be running misc. examples with inconsistent schemas, or where tooling or components need to programmatically generate new objects to be selected, there needs to be a straightforward way to generate unique label sets. A simple way to ensure uniqueness of the set is to ensure uniqueness of a single label value, such as by using a resource name, uid, resource hash, or generation number.
 

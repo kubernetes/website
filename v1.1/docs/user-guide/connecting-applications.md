@@ -1,25 +1,7 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Connecting applications"
 ---
-
-
-# Kubernetes User Guide: Managing Applications: Connecting applications
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Kubernetes User Guide: Managing Applications: Connecting applications](#kubernetes-user-guide-managing-applications-connecting-applications)
-- [The Kubernetes model for connecting containers](#the-kubernetes-model-for-connecting-containers)
-  - [Exposing pods to the cluster](#exposing-pods-to-the-cluster)
-  - [Creating a Service](#creating-a-service)
-  - [Accessing the Service](#accessing-the-service)
-    - [Environment Variables](#environment-variables)
-    - [DNS](#dns)
-  - [Securing the Service](#securing-the-service)
-  - [Exposing the Service](#exposing-the-service)
-  - [What's next?](#whats-next)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 # The Kubernetes model for connecting containers
 
@@ -27,16 +9,16 @@ Now that you have a continuously running, replicated application you can expose 
 
 By default, Docker uses host-private networking, so containers can talk to other containers only if they are on the same machine. In order for Docker containers to communicate across nodes, they must be allocated ports on the machine's own IP address, which are then forwarded or proxied to the containers. This obviously means that containers must either coordinate which ports they use very carefully or else be allocated ports dynamically.
 
-Coordinating ports across multiple developers is very difficult to do at scale and exposes users to cluster-level issues outside of their control. Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. We give every pod its own cluster-private-IP address so you do not need to explicitly create links between pods or mapping container ports to host ports. This means that containers within a Pod can all reach each other’s ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document will elaborate on how you can run reliable services on such a networking model.
+Coordinating ports across multiple developers is very difficult to do at scale and exposes users to cluster-level issues outside of their control. Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. We give every pod its own cluster-private-IP address so you do not need to explicitly create links between pods or mapping container ports to host ports. This means that containers within a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document will elaborate on how you can run reliable services on such a networking model.
 
-This guide uses a simple nginx server to demonstrate proof of concept. The same principles are embodied in a more complete [Jenkins CI application](http://blog.kubernetes.io/2015/07/strong-simple-ssl-for-kubernetes.html).
+This guide uses a simple nginx server to demonstrate proof of concept. The same principles are embodied in a more complete [Jenkins CI application](http://blog.kubernetes.io/2015/07/strong-simple-ssl-for-kubernetes).
 
 ## Exposing pods to the cluster
 
 We did this in a previous example, but lets do it once again and focus on the networking perspective. Create an nginx pod, and note that it has a container port specification:
 
 {% highlight yaml %}
-{% raw %}
+
 $ cat nginxrc.yaml
 apiVersion: v1
 kind: ReplicationController
@@ -54,33 +36,33 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
-{% endraw %}
+
 {% endhighlight %}
 
 This makes it accessible from any node in your cluster. Check the nodes the pod is running on:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl create -f ./nginxrc.yaml
 $ kubectl get pods -l app=nginx -o wide
 my-nginx-6isf4   1/1       Running   0          2h        e2e-test-beeps-minion-93ly
 my-nginx-t26zt   1/1       Running   0          2h        e2e-test-beeps-minion-93ly
-{% endraw %}
+
 {% endhighlight %}
 
 Check your pods' IPs:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get pods -l app=nginx -o json | grep podIP
                 "podIP": "10.245.0.15",
                 "podIP": "10.245.0.14",
-{% endraw %}
+
 {% endhighlight %}
 
 You should be able to ssh into any node in your cluster and curl both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same containerPort and access them from any other pod or node in your cluster using IP. Like Docker, ports can still be published to the host node's interface(s), but the need for this is radically diminished because of the networking model.
 
-You can read more about [how we achieve this](../admin/networking.html#how-to-achieve-this) if you’re curious.
+You can read more about [how we achieve this](../admin/networking.html#how-to-achieve-this) if you're curious.
 
 ## Creating a Service
 
@@ -91,7 +73,7 @@ A Kubernetes Service is an abstraction which defines a logical set of Pods runni
 You can create a Service for your 2 nginx replicas with the following yaml:
 
 {% highlight yaml %}
-{% raw %}
+
 $ cat nginxsvc.yaml
 apiVersion: v1
 kind: Service
@@ -105,25 +87,25 @@ spec:
     protocol: TCP
   selector:
     app: nginx
-{% endraw %}
+
 {% endhighlight %}
 
 This specification will create a Service which targets TCP port 80 on any Pod with the `app=nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_service) to see the list of supported fields in service definition.
 Check your Service:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get svc
 NAME         CLUSTER_IP       EXTERNAL_IP       PORT(S)                SELECTOR     AGE
 kubernetes   10.179.240.1     <none>            443/TCP                <none>       8d
 nginxsvc     10.179.252.126   122.222.183.144   80/TCP,81/TCP,82/TCP   run=nginx2   11m
-{% endraw %}
+
 {% endhighlight %}
 
-As mentioned previously, a Service is backed by a group of pods. These pods are exposed through `endpoints`. The Service's selector will be evaluated continuously and the results will be POSTed to an Endpoints object also named `nginxsvc`. When a pod dies, it is automatically removed from the endpoints, and new pods matching the Service’s selector will automatically get added to the endpoints. Check the endpoints, and note that the IPs are the same as the pods created in the first step:
+As mentioned previously, a Service is backed by a group of pods. These pods are exposed through `endpoints`. The Service's selector will be evaluated continuously and the results will be POSTed to an Endpoints object also named `nginxsvc`. When a pod dies, it is automatically removed from the endpoints, and new pods matching the Service's selector will automatically get added to the endpoints. Check the endpoints, and note that the IPs are the same as the pods created in the first step:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl describe svc nginxsvc
 Name:			nginxsvc
 Namespace:		default
@@ -139,10 +121,10 @@ No events.
 $ kubectl get ep
 NAME         ENDPOINTS
 nginxsvc     10.245.0.14:80,10.245.0.15:80
-{% endraw %}
+
 {% endhighlight %}
 
-You should now be able to curl the nginx Service on `10.0.116.146:80` from any node in your cluster. Note that the Service IP is completely virtual, it never hits the wire, if you’re curious about how this works you can read more about the [service proxy](services.html#virtual-ips-and-service-proxies).
+You should now be able to curl the nginx Service on `10.0.116.146:80` from any node in your cluster. Note that the Service IP is completely virtual, it never hits the wire, if you're curious about how this works you can read more about the [service proxy](services.html#virtual-ips-and-service-proxies).
 
 ## Accessing the Service
 
@@ -153,17 +135,17 @@ Kubernetes supports 2 primary modes of finding a Service - environment variables
 When a Pod is run on a Node, the kubelet adds a set of environment variables for each active Service. This introduces an ordering problem. To see why, inspect the environment of your running nginx pods:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl exec my-nginx-6isf4 -- printenv | grep SERVICE
 KUBERNETES_SERVICE_HOST=10.0.0.1
 KUBERNETES_SERVICE_PORT=443
-{% endraw %}
+
 {% endhighlight %}
 
-Note there’s no mention of your Service. This is because you created the replicas before the Service. Another disadvantage of doing this is that the scheduler might put both pods on the same machine, which will take your entire Service down if it dies. We can do this the right way by killing the 2 pods and waiting for the replication controller to recreate them. This time around the Service exists *before* the replicas. This will given you scheduler level Service spreading of your pods (provided all your nodes have equal capacity), as well as the right environment variables:
+Note there's no mention of your Service. This is because you created the replicas before the Service. Another disadvantage of doing this is that the scheduler might put both pods on the same machine, which will take your entire Service down if it dies. We can do this the right way by killing the 2 pods and waiting for the replication controller to recreate them. This time around the Service exists *before* the replicas. This will given you scheduler level Service spreading of your pods (provided all your nodes have equal capacity), as well as the right environment variables:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl scale rc my-nginx --replicas=0; kubectl scale rc my-nginx --replicas=2;
 $ kubectl get pods -l app=nginx -o wide
 NAME             READY   STATUS     RESTARTS   AGE   NODE
@@ -175,25 +157,25 @@ KUBERNETES_SERVICE_PORT=443
 NGINXSVC_SERVICE_HOST=10.0.116.146
 KUBERNETES_SERVICE_HOST=10.0.0.1
 NGINXSVC_SERVICE_PORT=80
-{% endraw %}
+
 {% endhighlight %}
 
 ### DNS
 
-Kubernetes offers a DNS cluster addon Service that uses skydns to automatically assign dns names to other Services. You can check if it’s running on your cluster:
+Kubernetes offers a DNS cluster addon Service that uses skydns to automatically assign dns names to other Services. You can check if it's running on your cluster:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get services kube-dns --namespace=kube-system
 NAME       CLUSTER_IP      EXTERNAL_IP   PORT(S)         SELECTOR           AGE
 kube-dns   10.179.240.10   <none>        53/UDP,53/TCP   k8s-app=kube-dns   8d
-{% endraw %}
+
 {% endhighlight %}
 
-If it isn’t running, you can [enable it](http://releases.k8s.io/release-1.1/cluster/addons/dns/README.md#how-do-i-configure-it). The rest of this section will assume you have a Service with a long lived IP (nginxsvc), and a dns server that has assigned a name to that IP (the kube-dns cluster addon), so you can talk to the Service from any pod in your cluster using standard methods (e.g. gethostbyname). Let’s create another pod to test this:
+If it isn't running, you can [enable it](http://releases.k8s.io/release-1.1/cluster/addons/dns/README.md#how-do-i-configure-it). The rest of this section will assume you have a Service with a long lived IP (nginxsvc), and a dns server that has assigned a name to that IP (the kube-dns cluster addon), so you can talk to the Service from any pod in your cluster using standard methods (e.g. gethostbyname). Let's create another pod to test this:
 
 {% highlight yaml %}
-{% raw %}
+
 $ cat curlpod.yaml
 apiVersion: v1
 kind: Pod
@@ -208,13 +190,13 @@ spec:
     imagePullPolicy: IfNotPresent
     name: curlcontainer
   restartPolicy: Always
-{% endraw %}
+
 {% endhighlight %}
 
 And perform a lookup of the nginx Service
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl create -f ./curlpod.yaml
 default/curlpod
 $ kubectl get pods curlpod
@@ -226,7 +208,7 @@ Server:    10.0.0.10
 Address 1: 10.0.0.10
 Name:      nginxsvc
 Address 1: 10.0.116.146
-{% endraw %}
+
 {% endhighlight %}
 
 ## Securing the Service
@@ -234,12 +216,12 @@ Address 1: 10.0.116.146
 Till now we have only accessed the nginx server from within the cluster. Before exposing the Service to the internet, you want to make sure the communication channel is secure. For this, you will need:
 * Self signed certificates for https (unless you already have an identity certificate)
 * An nginx server configured to use the certificates
-* A [secret](secrets.html) that makes the certificates accessible to pods
+* A [secret](secrets) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](../../examples/https-nginx/README.html), in short:
+You can acquire all these from the [nginx https example](../../examples/https-nginx/README), in short:
 
 {% highlight console %}
-{% raw %}
+
 $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
 $ kubectl create -f /tmp/secret.json
 secrets/nginxsecret
@@ -247,13 +229,13 @@ $ kubectl get secrets
 NAME                  TYPE                                  DATA
 default-token-il9rc   kubernetes.io/service-account-token   1
 nginxsecret           Opaque                                2
-{% endraw %}
+
 {% endhighlight %}
 
 Now modify your nginx replicas to start a https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
 
 {% highlight yaml %}
-{% raw %}
+
 $ cat nginx-app.yaml
 apiVersion: v1
 kind: Service
@@ -298,7 +280,7 @@ spec:
         volumeMounts:
         - mountPath: /etc/nginx/ssl
           name: secret-volume
-{% endraw %}
+
 {% endhighlight %}
 
 Noteworthy points about the nginx-app manifest:
@@ -307,25 +289,25 @@ Noteworthy points about the nginx-app manifest:
 - Each container has access to the keys through a volume mounted at /etc/nginx/ssl. This is setup *before* the nginx server is started.
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl delete rc,svc -l app=nginx; kubectl create -f ./nginx-app.yaml
 replicationcontrollers/my-nginx
 services/nginxsvc
 services/nginxsvc
 replicationcontrollers/my-nginx
-{% endraw %}
+
 {% endhighlight %}
 
 At this point you can reach the nginx server from any node.
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get pods -o json | grep -i podip
     "podIP": "10.1.0.80",
 node $ curl -k https://10.1.0.80
 ...
 <h1>Welcome to nginx!</h1>
-{% endraw %}
+
 {% endhighlight %}
 
 Note how we supplied the `-k` parameter to curl in the last step, this is because we don't know anything about the pods running nginx at certificate generation time,
@@ -333,7 +315,7 @@ so we have to tell curl to ignore the CName mismatch. By creating a Service we l
 Lets test this from a pod (the same secret is being reused for simplicity, the pod only needs nginx.crt to access the Service):
 
 {% highlight console %}
-{% raw %}
+
 $ cat curlpod.yaml
 vapiVersion: v1
 kind: ReplicationController
@@ -371,7 +353,7 @@ $ kubectl exec curlpod -- curl https://nginxsvc --cacert /etc/nginx/ssl/nginx.cr
 ...
 <title>Welcome to nginx!</title>
 ...
-{% endraw %}
+
 {% endhighlight %}
 
 ## Exposing the Service
@@ -379,7 +361,7 @@ $ kubectl exec curlpod -- curl https://nginxsvc --cacert /etc/nginx/ssl/nginx.cr
 For some parts of your applications you may want to expose a Service onto an external IP address. Kubernetes supports two ways of doing this: NodePorts and LoadBalancers. The Service created in the last section already used `NodePort`, so your nginx https replica is ready to serve traffic on the internet if your node has a public IP.
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get svc nginxsvc -o json | grep -i nodeport -C 5
             {
                 "name": "http",
@@ -410,13 +392,13 @@ $ kubectl get nodes -o json | grep ExternalIP -C 2
 $ curl https://104.197.63.17:30645 -k
 ...
 <h1>Welcome to nginx!</h1>
-{% endraw %}
+
 {% endhighlight %}
 
 Lets now recreate the Service to use a cloud load balancer, just change the `Type` of Service in the nginx-app.yaml from `NodePort` to `LoadBalancer`:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl delete rc, svc -l app=nginx
 $ kubectl create -f ./nginx-app.yaml
 $ kubectl get svc nginxsvc
@@ -426,7 +408,7 @@ nginxsvc  10.179.252.126   162.222.184.144   80/TCP,81/TCP,82/TCP   run=nginx2  
 $ curl https://162.22.184.144 -k
 ...
 <title>Welcome to nginx!</title>
-{% endraw %}
+
 {% endhighlight %}
 
 The IP address in the `EXTERNAL_IP` column is the one that is available on the public internet.  The `CLUSTER_IP` is only available inside your
@@ -434,7 +416,7 @@ cluster/private cloud network.
 
 ## What's next?
 
-[Learn about more Kubernetes features that will help you run containers reliably in production.](production-pods.html)
+[Learn about more Kubernetes features that will help you run containers reliably in production.](production-pods)
 
 
 

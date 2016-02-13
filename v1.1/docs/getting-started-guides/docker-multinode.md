@@ -1,17 +1,16 @@
 ---
 title: "Running Multi-Node Kubernetes Using Docker"
-section: guides
 ---
 
 _Note_:
-These instructions are somewhat significantly more advanced than the [single node](docker.html) instructions.  If you are
+These instructions are somewhat significantly more advanced than the [single node](docker) instructions.  If you are
 interested in just starting to explore Kubernetes, we recommend that you start there.
 
 _Note_:
 There is a [bug](https://github.com/docker/docker/issues/14106) in Docker 1.7.0 that prevents this from working correctly.
 Please install Docker 1.6.2 or Docker 1.7.1.
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -40,10 +39,8 @@ it is still useful to use containers for deployment and management, so we create
 
 You can specify k8s version on very node before install:
 
-```
-{% raw %}
-export K8S_VERSION=<your_k8s_version (e.g. 1.0.3)>
-{% endraw %}
+```
+export K8S_VERSION=<your_k8s_version (e.g. 1.0.3)>
 ```
 
 Otherwise, we'll use latest `hyperkube` image as default k8s version.
@@ -52,43 +49,39 @@ Otherwise, we'll use latest `hyperkube` image as default k8s version.
 
 The first step in the process is to initialize the master node.
 
-Clone the Kubernetes repo, and run [master.sh](docker-multinode/master.sh) on the master machine with root:
+Clone the Kubernetes repo, and run [master.sh](/{{page.version}}/docs/getting-started-guides/docker-multinode/master.sh) on the master machine with root:
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 cd kubernetes/docs/getting-started-guides/docker-multinode/
-./master.sh
-{% endraw %}
+./master.sh
 {% endhighlight %}
 
 `Master done!`
 
-See [here](docker-multinode/master.html) for detailed instructions explanation.
+See [here](/{{page.version}}/docs/getting-started-guides/docker-multinode/master) for detailed instructions explanation.
 
 ## Adding a worker node
 
 Once your master is up and running you can add one or more workers on different machines.
 
-Clone the Kubernetes repo, and run [worker.sh](docker-multinode/worker.sh) on the worker machine with root:
+Clone the Kubernetes repo, and run [worker.sh](/{{page.version}}/docs/getting-started-guides/docker-multinode/worker.sh) on the worker machine with root:
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 export MASTER_IP=<your_master_ip (e.g. 1.2.3.4)>
 cd kubernetes/docs/getting-started-guides/docker-multinode/
-./worker.sh
-{% endraw %}
+./worker.sh
 {% endhighlight %}
 
 `Worker done!`
 
-See [here](docker-multinode/worker.html) for detailed instructions explanation.
+See [here](/{{page.version}}/docs/getting-started-guides/docker-multinode/worker) for detailed instructions explanation.
 
 ## Deploy a DNS
 
-See [here](docker-multinode/deployDNS.html) for instructions.
+See [here](/{{page.version}}/docs/getting-started-guides/docker-multinode/deployDNS) for instructions.
 
 ## Testing your cluster
 
-Once your cluster has been created you can [test it out](docker-multinode/testing.html)
+Once your cluster has been created you can [test it out](/{{page.version}}/docs/getting-started-guides/docker-multinode/testing)
 
 For more complete applications, please look in the [examples directory](../../examples/)

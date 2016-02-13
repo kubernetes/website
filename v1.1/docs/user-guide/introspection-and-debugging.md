@@ -1,31 +1,18 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Application Introspection and Debugging"
 ---
-
-
-# Kubernetes User Guide: Managing Applications: Application Introspection and Debugging
-
-Once your application is running, you’ll inevitably need to debug problems with it.
+Once your application is running, you'll inevitably need to debug problems with it.
 Earlier we described how you can use `kubectl get pods` to retrieve simple status information about
 your pods. But there are a number of ways to get even more information about your application.
 
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Kubernetes User Guide: Managing Applications: Application Introspection and Debugging](#kubernetes-user-guide-managing-applications-application-introspection-and-debugging)
-  - [Using `kubectl describe pod` to fetch details about pods](#using-kubectl-describe-pod-to-fetch-details-about-pods)
-  - [Example: debugging Pending Pods](#example-debugging-pending-pods)
-  - [Example: debugging a down/unreachable node](#example-debugging-a-downunreachable-node)
-  - [What's next?](#whats-next)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## Using `kubectl describe pod` to fetch details about pods
 
-For this example we’ll use a ReplicationController to create two pods, similar to the earlier example.
+For this example we'll use a ReplicationController to create two pods, similar to the earlier example.
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: ReplicationController
 metadata:
@@ -46,29 +33,29 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 80
-{% endraw %}
+
 {% endhighlight %}
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl create -f ./my-nginx-rc.yaml
 replicationcontrollers/my-nginx
-{% endraw %}
+
 {% endhighlight %}
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get pods
 NAME             READY     REASON    RESTARTS   AGE
 my-nginx-gy1ij   1/1       Running   0          1m
 my-nginx-yv5cn   1/1       Running   0          1m
-{% endraw %}
+
 {% endhighlight %}
 
 We can retrieve a lot more information about each of these pods using `kubectl describe pod`. For example:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl describe pod my-nginx-gy1ij
 Name:				my-nginx-gy1ij
 Image(s):			nginx
@@ -101,7 +88,7 @@ Events:
   Thu, 09 Jul 2015 15:33:06 -0700	Thu, 09 Jul 2015 15:33:06 -0700	1	{kubelet kubernetes-minion-y3vk}	spec.containers{nginx}			pulled		Successfully pulled image "nginx"
   Thu, 09 Jul 2015 15:33:06 -0700	Thu, 09 Jul 2015 15:33:06 -0700	1	{kubelet kubernetes-minion-y3vk}	spec.containers{nginx}			created		Created with docker id 56d7a7b14dac
   Thu, 09 Jul 2015 15:33:07 -0700	Thu, 09 Jul 2015 15:33:07 -0700	1	{kubelet kubernetes-minion-y3vk}	spec.containers{nginx}			started		Started with docker id 56d7a7b14dac
-{% endraw %}
+
 {% endhighlight %}
 
 Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.)
@@ -110,7 +97,7 @@ The container state is one of Waiting, Running, or Terminated. Depending on the 
 
 Ready tells you whether the container passed its last readiness probe. (In this case, the container does not have a readiness probe configured; the container is assumed to be ready if no readiness probe is configured.)
 
-Restart Count tells you how many times the container has restarted; this information can be useful for detecting crash loops in containers that are configured with a restart policy of “always.�?
+Restart Count tells you how many times the container has restarted; this information can be useful for detecting crash loops in containers that are configured with a restart policy of 'always.'?
 
 Currently the only Condition associated with a Pod is the binary Ready condition, which indicates that the pod is able to service requests and should be added to the load balancing pools of all matching services.
 
@@ -118,10 +105,10 @@ Lastly, you see a log of recent events related to your Pod. The system compresse
 
 ## Example: debugging Pending Pods
 
-A common scenario that you can detect using events is when you’ve created a Pod that won’t fit on any node. For example, the Pod might request more resources than are free on any node, or it might specify a label selector that doesn’t match any nodes. Let’s say we created the previous Replication Controller with 5 replicas (instead of 2) and requesting 600 millicores instead of 500, on a four-node cluster where each (virtual) machine has 1 CPU. In that case one of the Pods will not be able to schedule. (Note that because of the cluster addon pods such as fluentd, skydns, etc., that run on each node, if we requested 1000 millicores then none of the Pods would be able to schedule.)
+A common scenario that you can detect using events is when you've created a Pod that won't fit on any node. For example, the Pod might request more resources than are free on any node, or it might specify a label selector that doesn't match any nodes. Let's say we created the previous Replication Controller with 5 replicas (instead of 2) and requesting 600 millicores instead of 500, on a four-node cluster where each (virtual) machine has 1 CPU. In that case one of the Pods will not be able to schedule. (Note that because of the cluster addon pods such as fluentd, skydns, etc., that run on each node, if we requested 1000 millicores then none of the Pods would be able to schedule.)
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get pods
 NAME             READY     REASON    RESTARTS   AGE
 my-nginx-9unp9   0/1       Pending   0          8s
@@ -129,13 +116,13 @@ my-nginx-b7zs9   0/1       Running   0          8s
 my-nginx-i595c   0/1       Running   0          8s
 my-nginx-iichp   0/1       Running   0          8s
 my-nginx-tc2j9   0/1       Running   0          8s
-{% endraw %}
+
 {% endhighlight %}
 
 To find out why the my-nginx-9unp9 pod is not running, we can use `kubectl describe pod` on the pending Pod and look at its events:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl describe pod my-nginx-9unp9 
 Name:				my-nginx-9unp9
 Image(s):			nginx
@@ -158,7 +145,7 @@ Containers:
 Events:
   FirstSeen				LastSeen			Count	From		SubobjectPath	Reason			Message
   Thu, 09 Jul 2015 23:56:21 -0700	Fri, 10 Jul 2015 00:01:30 -0700	21	{scheduler }			failedScheduling	Failed for reason PodFitsResources and possibly others
-{% endraw %}
+
 {% endhighlight %}
 
 Here you can see the event generated by the scheduler saying that the Pod failed to schedule for reason `PodFitsResources` (and possibly others). `PodFitsResources` means there were not enough resources for the Pod on any of the nodes. Due to the way the event is generated, there may be other reasons as well, hence "and possibly others."
@@ -168,17 +155,17 @@ To correct this situation, you can use `kubectl scale` to update your Replicatio
 Events such as the ones you saw at the end of `kubectl describe pod` are persisted in etcd and provide high-level information on what is happening in the cluster. To list all events you can use
 
 ```
-{% raw %}
+
 kubectl get events
-{% endraw %}
+
 ```
 
 but you have to remember that events are namespaced. This means that if you're interested in events for some namespaced object (e.g. what happened with Pods in namespace `my-namespace`) you need to explicitly provide a namespace to the command:
 
 ```
-{% raw %}
+
 kubectl get events --namespace=my-namespace
-{% endraw %}
+
 ```
 
 To see events from all namespaces, you can use the `--all-namespaces` argument.
@@ -186,7 +173,7 @@ To see events from all namespaces, you can use the `--all-namespaces` argument.
 In addition to `kubectl describe pod`, another way to get extra information about a pod (beyond what is provided by `kubectl get pod`) is to pass the `-o yaml` output format flag to `kubectl get pod`. This will give you, in YAML format, even more information than `kubectl describe pod`--essentially all of the information the system has about the Pod. Here you will see things like annotations (which are key-value metadata without the label restrictions, that is used internally by Kubernetes system components), restart policy, ports, and volumes.
 
 {% highlight yaml %}
-{% raw %}
+
 $ kubectl get pod my-nginx-i595c -o yaml
 apiVersion: v1
 kind: Pod
@@ -246,15 +233,15 @@ status:
   phase: Running
   podIP: 10.244.3.4
   startTime: 2015-07-10T06:56:21Z
-{% endraw %}
+
 {% endhighlight %}
 
 ## Example: debugging a down/unreachable node
 
-Sometimes when debugging it can be useful to look at the status of a node -- for example, because you've noticed strange behavior of a Pod that’s running on the node, or to find out why a Pod won’t schedule onto the node. As with Pods, you can use `kubectl describe node` and `kubectl get node -o yaml` to retrieve detailed information about nodes. For example, here's what you'll see if a node is down (disconnected from the network, or kubelet dies and won't restart, etc.). Notice the events that show the node is NotReady, and also notice that the pods are no longer running (they are evicted after five minutes of NotReady status).
+Sometimes when debugging it can be useful to look at the status of a node -- for example, because you've noticed strange behavior of a Pod that's running on the node, or to find out why a Pod won't schedule onto the node. As with Pods, you can use `kubectl describe node` and `kubectl get node -o yaml` to retrieve detailed information about nodes. For example, here's what you'll see if a node is down (disconnected from the network, or kubelet dies and won't restart, etc.). Notice the events that show the node is NotReady, and also notice that the pods are no longer running (they are evicted after five minutes of NotReady status).
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get nodes
 NAME                     LABELS                                          STATUS
 kubernetes-minion-861h   kubernetes.io/hostname=kubernetes-minion-861h   NotReady
@@ -333,17 +320,17 @@ status:
     machineID: ""
     osImage: Debian GNU/Linux 7 (wheezy)
     systemUUID: ABE5F6B4-D44B-108B-C46A-24CCE16C8B6E
-{% endraw %}
+
 {% endhighlight %}
 
 ## What's next?
 
 Learn about additional debugging tools, including:
-* [Logging](logging.html)
-* [Monitoring](monitoring.html)
-* [Getting into containers via `exec`](getting-into-containers.html)
-* [Connecting to containers via proxies](connecting-to-applications-proxy.html)
-* [Connecting to containers via port forwarding](connecting-to-applications-port-forward.html)
+* [Logging](logging)
+* [Monitoring](monitoring)
+* [Getting into containers via `exec`](getting-into-containers)
+* [Connecting to containers via proxies](connecting-to-applications-proxy)
+* [Connecting to containers via port forwarding](connecting-to-applications-port-forward)
 
 
 

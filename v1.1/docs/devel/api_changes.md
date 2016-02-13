@@ -1,13 +1,9 @@
 ---
 title: "So you want to change the API?"
 ---
-
-
-# So you want to change the API?
-
 Before attempting a change to the API, you should familiarize yourself
 with a number of existing API types and with the [API
-conventions](api-conventions.html).  If creating a new API
+conventions](api-conventions).  If creating a new API
 type/resource, we also recommend that you first send a PR containing
 just a proposal for the new API types, and that you initially target
 the extensions API (pkg/apis/extensions).
@@ -96,27 +92,27 @@ Let's consider some examples.  In a hypothetical API (assume we're at version
 v6), the `Frobber` struct looks something like this:
 
 {% highlight go %}
-{% raw %}
+
 // API v6.
 type Frobber struct {
 	Height int    `json:"height"`
 	Param  string `json:"param"`
 }
-{% endraw %}
+
 {% endhighlight %}
 
 You want to add a new `Width` field.  It is generally safe to add new fields
 without changing the API version, so you can simply change it to:
 
 {% highlight go %}
-{% raw %}
+
 // Still API v6.
 type Frobber struct {
 	Height int    `json:"height"`
 	Width  int    `json:"width"`
 	Param  string `json:"param"`
 }
-{% endraw %}
+
 {% endhighlight %}
 
 The onus is on you to define a sane default value for `Width` such that rule #1
@@ -128,7 +124,7 @@ simply change `Param string` to `Params []string` (without creating a whole new
 API version) - that fails rules #1 and #2.  You can instead do something like:
 
 {% highlight go %}
-{% raw %}
+
 // Still API v6, but kind of clumsy.
 type Frobber struct {
 	Height int           `json:"height"`
@@ -136,7 +132,7 @@ type Frobber struct {
 	Param  string        `json:"param"`  // the first param
 	ExtraParams []string `json:"params"` // additional params
 }
-{% endraw %}
+
 {% endhighlight %}
 
 Now you can satisfy the rules: API calls that provide the old style `Param`
@@ -148,14 +144,14 @@ distinct from any one version is to handle growth like this.  The internal
 representation can be implemented as:
 
 {% highlight go %}
-{% raw %}
+
 // Internal, soon to be v7beta1.
 type Frobber struct {
 	Height int
 	Width  int
 	Params []string
 }
-{% endraw %}
+
 {% endhighlight %}
 
 The code that converts to/from versioned APIs can decode this into the somewhat
@@ -179,14 +175,14 @@ you add units to `height` and `width`. You implement this by adding duplicate
 fields:
 
 {% highlight go %}
-{% raw %}
+
 type Frobber struct {
 	Height         *int          `json:"height"`
 	Width          *int          `json:"width"`
 	HeightInInches *int          `json:"heightInInches"`
 	WidthInInches  *int          `json:"widthInInches"`
 }
-{% endraw %}
+
 {% endhighlight %}
 
 You convert all of the fields to pointers in order to distinguish between unset and
@@ -202,38 +198,38 @@ in the case of an old client that was only aware of the old field (e.g., `height
 Say the client creates:
 
 {% highlight json %}
-{% raw %}
+
 {
   "height": 10,
   "width": 5
 }
-{% endraw %}
+
 {% endhighlight %}
 
 and GETs:
 
 {% highlight json %}
-{% raw %}
+
 {
   "height": 10,
   "heightInInches": 10,
   "width": 5,
   "widthInInches": 5
 }
-{% endraw %}
+
 {% endhighlight %}
 
 then PUTs back:
 
 {% highlight json %}
-{% raw %}
+
 {
   "height": 13,
   "heightInInches": 10,
   "width": 5,
   "widthInInches": 5
 }
-{% endraw %}
+
 {% endhighlight %}
 
 The update should not fail, because it would have worked before `heightInInches` was added.
@@ -270,8 +266,8 @@ Breaking compatibility of a beta or stable API version, such as v1, is unaccepta
 Compatibility for experimental or alpha APIs is not strictly required, but
 breaking compatibility should not be done lightly, as it disrupts all users of the
 feature. Experimental APIs may be removed. Alpha and beta API versions may be deprecated
-and eventually removed wholesale, as described in the [versioning document](../design/versioning.html).
-Document incompatible changes across API versions under the [conversion tips](../api.html).
+and eventually removed wholesale, as described in the [versioning document](../design/versioning).
+Document incompatible changes across API versions under the [conversion tips](../api).
 
 If your change is going to be backward incompatible or might be a breaking change for API
 consumers, please send an announcement to `kubernetes-dev@googlegroups.com` before
@@ -405,9 +401,9 @@ regenerate auto-generated ones. To regenerate them:
    - run
 
 {% highlight sh %}
-{% raw %}
+
 hack/update-generated-conversions.sh
-{% endraw %}
+
 {% endhighlight %}
 
 If running the above script is impossible due to compile errors, the easiest
@@ -433,9 +429,9 @@ To regenerate them:
    - run
 
 {% highlight sh %}
-{% raw %}
+
 hack/update-generated-deep-copies.sh
-{% endraw %}
+
 {% endhighlight %}
 
 ## Edit json (un)marshaling code
@@ -451,9 +447,9 @@ To regenerate them:
    - run
 
 {% highlight sh %}
-{% raw %}
+
 hack/update-codecgen.sh
-{% endraw %}
+
 {% endhighlight %}
 
 ## Making a new API Group
@@ -518,7 +514,7 @@ doing!
 
 ## Write end-to-end tests
 
-Check out the [E2E docs](e2e-tests.html) for detailed information about how to write end-to-end
+Check out the [E2E docs](e2e-tests) for detailed information about how to write end-to-end
 tests for your feature.
 
 ## Examples and docs
@@ -536,9 +532,9 @@ an example to illustrate your change.
 Make sure you update the swagger API spec by running:
 
 {% highlight sh %}
-{% raw %}
+
 hack/update-swagger-spec.sh
-{% endraw %}
+
 {% endhighlight %}
 
 The API spec changes should be in a commit separate from your other changes.
@@ -590,7 +586,7 @@ New feature development proceeds through a series of stages of increasing maturi
     upgrade may require downtime for anything relying on the new feature, and may require
     manual conversion of objects to the new version; when manual conversion is necessary, the
     project will provide documentation on the process (for an example, see [v1 conversion
-    tips](../api.html))
+    tips](../api))
   - Cluster Reliability: since the feature has e2e tests, enabling the feature via a flag should not
     create new bugs in unrelated features;  because the feature is new, it may have minor bugs
   - Support: the project commits to complete the feature, in some form, in a subsequent Stable

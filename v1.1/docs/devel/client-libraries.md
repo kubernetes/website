@@ -1,10 +1,6 @@
 ---
 title: "Kubernetes API client libraries"
 ---
-
-
-## Kubernetes API client libraries
-
 ### Supported
 
    * [Go](http://releases.k8s.io/release-1.1/pkg/client/)

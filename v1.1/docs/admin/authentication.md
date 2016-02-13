@@ -1,10 +1,6 @@
 ---
 title: "Authentication Plugins"
 ---
-
-
-# Authentication Plugins
-
 Kubernetes uses client certificates, tokens, or http basic auth to authenticate users for API calls.
 
 **Client certificate authentication** is enabled by passing the `--client-ca-file=SOMEFILE`

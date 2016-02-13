@@ -1,35 +1,13 @@
 ---
 title: "Node"
 ---
-
-
-# Node
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Node](#node)
-  - [What is a node?](#what-is-a-node)
-  - [Node Status](#node-status)
-    - [Node Addresses](#node-addresses)
-    - [Node Phase](#node-phase)
-    - [Node Condition](#node-condition)
-    - [Node Capacity](#node-capacity)
-    - [Node Info](#node-info)
-  - [Node Management](#node-management)
-    - [Node Controller](#node-controller)
-    - [Self-Registration of Nodes](#self-registration-of-nodes)
-      - [Manual Node Administration](#manual-node-administration)
-    - [Node capacity](#node-capacity)
-  - [API Object](#api-object)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## What is a node?
 
 `Node` is a worker machine in Kubernetes, previously known as `Minion`. Node
 may be a VM or physical machine, depending on the cluster. Each node has
-the services necessary to run [Pods](../user-guide/pods.html) and is managed by the master
+the services necessary to run [Pods](../user-guide/pods) and is managed by the master
 components. The services on a node include docker, kubelet and network proxy. See
 [The Kubernetes Node](../design/architecture.html#the-kubernetes-node) section in the
 architecture design doc for more details.
@@ -79,14 +57,14 @@ Node condition is represented as a json object. For example,
 the following conditions mean the node is in sane state:
 
 {% highlight json %}
-{% raw %}
+
 "conditions": [
   {
     "kind": "Ready",
     "status": "True",
     },
 ]
-{% endraw %}
+
 {% endhighlight %}
 
 If the Status of the Ready condition
@@ -105,7 +83,7 @@ The information is gathered by Kubelet from the node.
 
 ## Node Management
 
-Unlike [Pods](../user-guide/pods.html) and [Services](../user-guide/services.html), a Node is not inherently
+Unlike [Pods](../user-guide/pods) and [Services](../user-guide/services), a Node is not inherently
 created by Kubernetes: it is either taken from cloud providers like Google Compute Engine,
 or from your pool of physical or virtual machines. What this means is that when
 Kubernetes creates a node, it is really just creating an object that represents the node in its internal state.
@@ -113,7 +91,7 @@ After creation, Kubernetes will check whether the node is valid or not.
 For example, if you try to create a node from the following content:
 
 {% highlight json %}
-{% raw %}
+
 {
   "kind": "Node",
   "apiVersion": "v1",
@@ -124,7 +102,7 @@ For example, if you try to create a node from the following content:
     }
   }
 }
-{% endraw %}
+
 {% endhighlight %}
 
 Kubernetes will create a Node object internally (the representation), and
@@ -187,9 +165,9 @@ preparatory step before a node reboot, etc.  For example, to mark a node
 unschedulable, run this command:
 
 {% highlight sh %}
-{% raw %}
+
 kubectl replace nodes 10.1.2.3 --patch='{"apiVersion": "v1", "unschedulable": true}'
-{% endraw %}
+
 {% endhighlight %}
 
 Note that pods which are created by a daemonSet controller bypass the Kubernetes scheduler,
@@ -212,7 +190,7 @@ If you want to explicitly reserve resources for non-Pod processes, you can creat
 pod.  Use the following template:
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -225,7 +203,7 @@ spec:
       limits:
         cpu: 100m
         memory: 100Mi
-{% endraw %}
+
 {% endhighlight %}
 
 Set the `cpu` and `memory` values to the amount of resources you want to reserve.

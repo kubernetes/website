@@ -5,7 +5,7 @@ title: "Getting started on Fedora"
 Getting started on [Fedora](http://fedoraproject.org)
 -----------------------------------------------------
 
-**Table of Contents**
+{% include pagetoc.html %}
 
 - [Prerequisites](#prerequisites)
 - [Instructions](#instructions)
@@ -18,7 +18,7 @@ Getting started on [Fedora](http://fedoraproject.org)
 
 This is a getting started guide for Fedora.  It is a manual configuration so you understand all the underlying packages / services / ports, etc...
 
-This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](../../admin/networking.html) done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
+This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](../../admin/networking) done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
 
 The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: /etc/kubernetes.  We will break the services up between the hosts.  The first host, fed-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager, and kube-scheduler.  In addition, the master will also run _etcd_ (not needed if _etcd_ runs on a different host but this guide assumes that _etcd_ and Kubernetes master run on the same host).  The remaining host, fed-node will be the node and run kubelet, proxy and docker.
 
@@ -26,11 +26,9 @@ The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, 
 
 Hosts:
 
-```
-{% raw %}
+```
 fed-master = 192.168.121.9
-fed-node = 192.168.121.65
-{% endraw %}
+fed-node = 192.168.121.65
 ```
 
 **Prepare the hosts:**
@@ -39,33 +37,26 @@ fed-node = 192.168.121.65
 * The [--enablerepo=updates-testing](https://fedoraproject.org/wiki/QA:Updates_Testing) directive in the yum command below will ensure that the most recent Kubernetes version that is scheduled for pre-release will be installed. This should be a more recent version than the Fedora "stable" release for Kubernetes that you would get without adding the directive.
 * If you want the very latest Kubernetes release [you can download and yum install the RPM directly from Fedora Koji](http://koji.fedoraproject.org/koji/packageinfo?packageID=19202) instead of using the yum install command below.
 
-{% highlight sh %}
-{% raw %}
-yum -y install --enablerepo=updates-testing kubernetes
-{% endraw %}
+{% highlight sh %}
+yum -y install --enablerepo=updates-testing kubernetes
 {% endhighlight %}
 
 * Install etcd and iptables
 
-{% highlight sh %}
-{% raw %}
-yum -y install etcd iptables
-{% endraw %}
+{% highlight sh %}
+yum -y install etcd iptables
 {% endhighlight %}
 
 * Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS). Make sure that communication works between fed-master and fed-node by using a utility such as ping.
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 echo "192.168.121.9	fed-master
-192.168.121.65	fed-node" >> /etc/hosts
-{% endraw %}
+192.168.121.65	fed-node" >> /etc/hosts
 {% endhighlight %}
 
 * Edit /etc/kubernetes/config which will be the same on all hosts (master and node) to contain:
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 # Comma separated list of nodes in the etcd cluster
 KUBE_MASTER="--master=http://fed-master:8080"
 
@@ -76,25 +67,21 @@ KUBE_LOGTOSTDERR="--logtostderr=true"
 KUBE_LOG_LEVEL="--v=0"
 
 # Should this cluster be allowed to run privileged docker containers
-KUBE_ALLOW_PRIV="--allow-privileged=false"
-{% endraw %}
+KUBE_ALLOW_PRIV="--allow-privileged=false"
 {% endhighlight %}
 
 * Disable the firewall on both the master and node, as docker does not play well with other firewall rule managers.  Please note that iptables-services does not exist on default fedora server install.
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 systemctl disable iptables-services firewalld
-systemctl stop iptables-services firewalld
-{% endraw %}
+systemctl stop iptables-services firewalld
 {% endhighlight %}
 
 **Configure the Kubernetes services on the master.**
 
 * Edit /etc/kubernetes/apiserver to appear as such.  The service-cluster-ip-range IP addresses must be an unused block of addresses, not used anywhere else.  They do not need to be routed or assigned to anything.
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 # The address on the local server to listen to.
 KUBE_API_ADDRESS="--address=0.0.0.0"
 
@@ -105,46 +92,38 @@ KUBE_ETCD_SERVERS="--etcd-servers=http://127.0.0.1:4001"
 KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
 
 # Add your own!
-KUBE_API_ARGS=""
-{% endraw %}
+KUBE_API_ARGS=""
 {% endhighlight %}
 
 * Edit /etc/etcd/etcd.conf,let the etcd to listen all the ip instead of 127.0.0.1, if not, you will get the error like "connection refused". Note that Fedora 22 uses etcd 2.0, One of the changes in etcd 2.0 is that now uses port 2379 and 2380 (as opposed to etcd 0.46 which userd 4001 and 7001).
 
-{% highlight sh %}
-{% raw %}
-ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:4001"
-{% endraw %}
+{% highlight sh %}
+ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:4001"
 {% endhighlight %}
 
 * Create /var/run/kubernetes on master:
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 mkdir /var/run/kubernetes
 chown kube:kube /var/run/kubernetes
-chmod 750 /var/run/kubernetes
-{% endraw %}
+chmod 750 /var/run/kubernetes
 {% endhighlight %}
 
 * Start the appropriate services on master:
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do
 	systemctl restart $SERVICES
 	systemctl enable $SERVICES
 	systemctl status $SERVICES
-done
-{% endraw %}
+done
 {% endhighlight %}
 
 * Addition of nodes:
 
 * Create following node.json file on Kubernetes master node:
 
-{% highlight json %}
-{% raw %}
+{% highlight json %}
 {
     "apiVersion": "v1",
     "kind": "Node",
@@ -155,20 +134,17 @@ done
     "spec": {
         "externalID": "fed-node"
     }
-}
-{% endraw %}
+}
 {% endhighlight %}
 
 Now create a node object internally in your Kubernetes cluster by running:
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 $ kubectl create -f ./node.json
 
 $ kubectl get nodes
 NAME                LABELS              STATUS
-fed-node           name=fed-node-label     Unknown
-{% endraw %}
+fed-node           name=fed-node-label     Unknown
 {% endhighlight %}
 
 Please note that in the above, it only creates a representation for the node
@@ -183,8 +159,7 @@ a Kubernetes node (fed-node) below.
 
 * Edit /etc/kubernetes/kubelet to appear as such:
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 ###
 # Kubernetes kubelet (node) config
 
@@ -198,47 +173,40 @@ KUBELET_HOSTNAME="--hostname-override=fed-node"
 KUBELET_API_SERVER="--api-servers=http://fed-master:8080"
 
 # Add your own!
-#KUBELET_ARGS=""
-{% endraw %}
+#KUBELET_ARGS=""
 {% endhighlight %}
 
 * Start the appropriate services on the node (fed-node).
 
-{% highlight sh %}
-{% raw %}
+{% highlight sh %}
 for SERVICES in kube-proxy kubelet docker; do 
     systemctl restart $SERVICES
     systemctl enable $SERVICES
     systemctl status $SERVICES 
-done
-{% endraw %}
+done
 {% endhighlight %}
 
 * Check to make sure now the cluster can see the fed-node on fed-master, and its status changes to _Ready_.
 
-{% highlight console %}
-{% raw %}
+{% highlight console %}
 kubectl get nodes
 NAME                LABELS              STATUS
-fed-node          name=fed-node-label     Ready
-{% endraw %}
+fed-node          name=fed-node-label     Ready
 {% endhighlight %}
 
 * Deletion of nodes:
 
 To delete _fed-node_ from your Kubernetes cluster, one should run the following on fed-master (Please do not do it, it is just for information):
 
-{% highlight sh %}
-{% raw %}
-kubectl delete -f ./node.json
-{% endraw %}
+{% highlight sh %}
+kubectl delete -f ./node.json
 {% endhighlight %}
 
 *You should be finished!*
 
 **The cluster should be running! Launch a test pod.**
 
-You should have a functional cluster, check out [101](../../../docs/user-guide/walkthrough/README.html)!
+You should have a functional cluster, check out [101](/{{page.version}}/docs/user-guide/walkthrough/README)!
 
 
 

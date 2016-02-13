@@ -1,10 +1,6 @@
 ---
 title: "Writing a Getting Started Guide"
 ---
-
-
-# Writing a Getting Started Guide
-
 This page gives some advice for anyone planning to write or update a Getting Started Guide for Kubernetes.
 It also gives some guidelines which reviewers should follow when reviewing a pull request for a
 guide.
@@ -16,7 +12,7 @@ A guide refers to scripts, Configuration Management files, and/or binary assets 
 the combination of all these things needed to run on a particular type of infrastructure a
 **distro**.
 
-[The Matrix](../../docs/getting-started-guides/README.html) lists the distros.  If there is already a guide
+[The Matrix](/{{page.version}}/docs/getting-started-guides/README) lists the distros.  If there is already a guide
 which is similar to the one you have planned, consider improving that one.
 
 
@@ -37,7 +33,7 @@ These guidelines say *what* to do.  See the Rationale section for *why*.
    search for uses of flags by guides.
  - We may ask that you host binary assets or large amounts of code in our `contrib` directory or on your
    own repo.
- - Add or update a row in [The Matrix](../../docs/getting-started-guides/README.html).
+ - Add or update a row in [The Matrix](/{{page.version}}/docs/getting-started-guides/README).
  - State the binary version of Kubernetes that you tested clearly in your Guide doc.
  - Setup a cluster and run the [conformance test](development.html#conformance-testing) against it, and report the
    results in your PR.

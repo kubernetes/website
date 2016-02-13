@@ -1,14 +1,10 @@
 ---
 title: "Cluster Troubleshooting"
 ---
-
-
-# Cluster Troubleshooting
-
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
 problem you are experiencing. See
-the [application troubleshooting guide](../user-guide/application-troubleshooting.html) for tips on application debugging.
-You may also visit [troubleshooting document](../troubleshooting.html) for more information.
+the [application troubleshooting guide](../user-guide/application-troubleshooting) for tips on application debugging.
+You may also visit [troubleshooting document](../troubleshooting) for more information.
 
 ## Listing your cluster
 
@@ -17,9 +13,9 @@ The first thing to debug in your cluster is if your nodes are all registered cor
 Run
 
 {% highlight sh %}
-{% raw %}
+
 kubectl get nodes
-{% endraw %}
+
 {% endhighlight %}
 
 And verify that all of the nodes you expect to see are present and that they are all in the `Ready` state.
@@ -92,7 +88,7 @@ Mitigations:
 - Action use IaaS providers reliable storage (e.g GCE PD or AWS EBS volume) for VMs with apiserver+etcd
   - Mitigates: Apiserver backing storage lost
 
-- Action: Use (experimental) [high-availability](high-availability.html) configuration
+- Action: Use (experimental) [high-availability](high-availability) configuration
   - Mitigates: Master VM shutdown or master components (scheduler, API server, controller-managing) crashing
     - Will tolerate one or more simultaneous node or component failures
   - Mitigates: Apiserver backing storage (i.e., etcd's data directory) lost
@@ -111,7 +107,7 @@ Mitigations:
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
 
-- Action: [Multiple independent clusters](multi-cluster.html) (and avoid making risky changes to all clusters at once)
+- Action: [Multiple independent clusters](multi-cluster) (and avoid making risky changes to all clusters at once)
   - Mitigates: Everything listed above.
 
 

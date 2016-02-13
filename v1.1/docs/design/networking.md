@@ -1,10 +1,6 @@
 ---
 title: "Networking"
 ---
-
-
-# Networking
-
 There are 4 distinct networking problems to solve:
 
 1. Highly-coupled container-to-container communications
@@ -40,7 +36,7 @@ among other problems.
 ## Container to container
 
 All containers within a pod behave as if they are on the same host with regard
-to networking. They can all reach each other’s ports on localhost.  This offers
+to networking. They can all reach each other's ports on localhost.  This offers
 simplicity (static ports know a priori), security (ports bound to localhost
 are visible within the pod but never outside it), and performance.  This also
 reduces friction for applications moving from the world of uncontainerized apps
@@ -104,14 +100,14 @@ differentiate it from `docker0`) is set up outside of Docker proper.
 Example of GCE's advanced routing rules:
 
 {% highlight sh %}
-{% raw %}
+
 gcloud compute routes add "${MINION_NAMES[$i]}" \
   --project "${PROJECT}" \
   --destination-range "${MINION_IP_RANGES[$i]}" \
   --network "${NETWORK}" \
   --next-hop-instance "${MINION_NAMES[$i]}" \
   --next-hop-instance-zone "${ZONE}" &
-{% endraw %}
+
 {% endhighlight %}
 
 GCE itself does not know anything about these IPs, though.  This means that when
@@ -122,7 +118,7 @@ a pod tries to egress beyond GCE's project the packets must be SNAT'ed
 
 With the primary aim of providing IP-per-pod-model, other implementations exist
 to serve the purpose outside of GCE.
-  - [OpenVSwitch with GRE/VxLAN](../admin/ovs-networking.html)
+  - [OpenVSwitch with GRE/VxLAN](../admin/ovs-networking)
   - [Flannel](https://github.com/coreos/flannel#flannel)
   - [L2 networks](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/)
     ("With Linux Bridge devices" section)
@@ -133,7 +129,7 @@ to serve the purpose outside of GCE.
 
 ## Pod to service
 
-The [service](../user-guide/services.html) abstraction provides a way to group pods under a
+The [service](../user-guide/services) abstraction provides a way to group pods under a
 common access policy (e.g. load-balanced).  The implementation of this creates a
 virtual IP which clients can access and which is transparently proxied to the
 pods in a Service.  Each node runs a kube-proxy process which programs

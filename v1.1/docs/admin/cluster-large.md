@@ -1,13 +1,12 @@
 ---
 title: "Using Large Clusters"
-section: guides
 ---
 
 ## Support
 
 At v1.0, Kubernetes supports clusters up to 100 nodes with 30 pods per node and 1-2 containers per pod.
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -42,16 +41,14 @@ To prevent memory leaks or other resource issues in [cluster addons](https://rel
 
 For example:
 
-{% highlight yaml %}
-{% raw %}
+{% highlight yaml %}
 containers:
   - image: gcr.io/google_containers/heapster:v0.15.0
     name: heapster
     resources:
       limits:
         cpu: 100m
-        memory: 200Mi
-{% endraw %}
+        memory: 200Mi
 {% endhighlight %}
 
 These limits, however, are based on data collected from addons running on 4-node clusters (see [#10335](http://issue.k8s.io/10335#issuecomment-117861225)). The addons consume a lot more resources when running on large deployment clusters (see [#5880](http://issue.k8s.io/5880#issuecomment-113984085)). So, if a large cluster is deployed without adjusting these values, the addons may continuously get killed because they keep hitting the limits.

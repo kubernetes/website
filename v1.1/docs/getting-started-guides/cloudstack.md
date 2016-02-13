@@ -1,21 +1,20 @@
 ---
 title: "Getting started on CloudStack"
-section: guides
 ---
 
 ## Introduction
 
 CloudStack is a software to build public and private clouds based on hardware virtualization principles (traditional IaaS). To deploy Kubernetes on CloudStack there are several possibilities depending on the Cloud being used and what images are made available. [Exoscale](http://exoscale.ch) for instance makes a [CoreOS](http://coreos.com) template available, therefore instructions to deploy Kubernetes on coreOS can be used. CloudStack also has a vagrant plugin available, hence Vagrant could be used to deploy Kubernetes either using the existing shell provisioner or using new Salt based recipes.
 
-[CoreOS](http://coreos.com) templates for CloudStack are built [nightly](http://stable.release.core-os.net/amd64-usr/current/). CloudStack operators need to [register](http://docs.cloudstack.apache.org/projects/cloudstack-administration/en/latest/templates.html) this template in their cloud before proceeding with these Kubernetes deployment instructions.
+[CoreOS](http://coreos.com) templates for CloudStack are built [nightly](http://stable.release.core-os.net/amd64-usr/current/). CloudStack operators need to [register](http://docs.cloudstack.apache.org/projects/cloudstack-administration/en/latest/templates) this template in their cloud before proceeding with these Kubernetes deployment instructions.
 
 This guide uses an [Ansible playbook](https://github.com/runseb/ansible-kubernetes).
-This is a completely automated, a single playbook deploys Kubernetes based on the coreOS [instructions](coreos/coreos_multinode_cluster.html).
+This is a completely automated, a single playbook deploys Kubernetes based on the coreOS [instructions](/{{page.version}}/docs/getting-started-guides/coreos/coreos_multinode_cluster).
 
 
 This [Ansible](http://ansibleworks.com) playbook deploys Kubernetes on a CloudStack based Cloud using CoreOS images. The playbook, creates an ssh key pair, creates a security group and associated rules and finally starts coreOS instances configured via cloud-init.
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 

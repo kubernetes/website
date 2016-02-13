@@ -1,17 +1,13 @@
 ---
 title: "Configuring APIserver ports"
 ---
-
-
-# Configuring APIserver ports
-
 This document describes what ports the Kubernetes apiserver
 may serve on and how to reach them.  The audience is
 cluster administrators who want to customize their cluster
 or understand the details.
 
 Most questions about accessing the cluster are covered
-in [Accessing the cluster](../user-guide/accessing-the-cluster.html).
+in [Accessing the cluster](../user-guide/accessing-the-cluster).
 
 
 ## Ports and IPs Served On
@@ -30,10 +26,10 @@ By default the Kubernetes APIserver serves HTTP on 2 ports:
     - default is port 6443, change with `--secure-port` flag.
     - default IP is first non-localhost network interface, change with `--bind-address` flag.
     - serves HTTPS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
-    - uses token-file or client-certificate based [authentication](authentication.html).
-    - uses policy-based [authorization](authorization.html).
+    - uses token-file or client-certificate based [authentication](authentication).
+    - uses policy-based [authorization](authorization).
   3. Removed: ReadOnly Port
-    - For security reasons, this had to be removed. Use the [service account](../user-guide/service-accounts.html) feature instead.
+    - For security reasons, this had to be removed. Use the [service account](../user-guide/service-accounts) feature instead.
 
 ## Proxies and Firewall rules
 
@@ -56,7 +52,7 @@ variety of uses cases:
       running on the `kubernetes-master` machine.  The proxy can use cert-based authentication
       or token-based authentication.
    2. Processes running in Containers on Kubernetes that need to read from
-      the apiserver.  Currently, these can use a [service account](../user-guide/service-accounts.html).
+      the apiserver.  Currently, these can use a [service account](../user-guide/service-accounts).
    3. Scheduler and Controller-manager processes, which need to do read-write
       API operations. Currently, these have to run on the same host as the
       apiserver and use the Localhost Port.  In the future, these will be

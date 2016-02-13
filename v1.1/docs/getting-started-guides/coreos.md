@@ -1,9 +1,8 @@
 ---
 title: "Getting Started on CoreOS"
-section: guides
 ---
 
-## Table of Contents
+
 
 {% include pagetoc.html %}
 
@@ -11,21 +10,21 @@ There are multiple guides on running Kubernetes with [CoreOS](https://coreos.com
 
 ### Official CoreOS Guides
 
-These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" with full TLS, the DNS add-on, and more. These guides pass Kubernetes conformance testing and we encourage you to [test this yourself](https://coreos.com/kubernetes/docs/latest/conformance-tests.html).
+These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" with full TLS, the DNS add-on, and more. These guides pass Kubernetes conformance testing and we encourage you to [test this yourself](https://coreos.com/kubernetes/docs/latest/conformance-tests).
 
-[**Vagrant Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant.html)
+[**Vagrant Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant)
 
 Guide to setting up a multi-node cluster on Vagrant. The deployer can independently configure the number of etcd nodes, master nodes, and worker nodes to bring up a fully HA control plane.
 
 <hr/>
 
-[**Vagrant Single-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant-single.html)
+[**Vagrant Single-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant-single)
 
 The quickest way to set up a Kubernetes development environment locally. As easy as `git clone`, `vagrant up` and configuring `kubectl`.
 
 <hr/>
 
-[**Full Step by Step Guide**](https://coreos.com/kubernetes/docs/latest/getting-started.html)
+[**Full Step by Step Guide**](https://coreos.com/kubernetes/docs/latest/getting-started)
 
 A generic guide to setting up an HA cluster on any cloud or bare metal, with full TLS. Repeat the master or worker steps to configure more machines of that role.
 
@@ -33,7 +32,7 @@ A generic guide to setting up an HA cluster on any cloud or bare metal, with ful
 
 These guides are maintained by community members, cover specific platforms and use cases, and experiment with different ways of configuring Kubernetes on CoreOS.
 
-[**Multi-node Cluster**](coreos/coreos_multinode_cluster.html)
+[**Multi-node Cluster**](/{{page.version}}/docs/getting-started-guides/coreos/coreos_multinode_cluster)
 
 Set up a single master, multi-worker cluster on your choice of platform: AWS, GCE, or VMware Fusion.
 
@@ -63,7 +62,7 @@ Guide to running a single master, multi-worker cluster controlled by an OS X men
 
 <hr/>
 
-[**Resizable multi-node cluster on Azure with Weave**](coreos/azure/README.html)
+[**Resizable multi-node cluster on Azure with Weave**](/{{page.version}}/docs/getting-started-guides/coreos/azure/README)
 
 Guide to running an HA etcd cluster with a single master on Azure. Uses the Azure node.js CLI to resize the cluster.
 

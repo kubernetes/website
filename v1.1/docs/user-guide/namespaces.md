@@ -1,10 +1,6 @@
 ---
 title: "Namespaces"
 ---
-
-
-# Namespaces
-
 Kubernetes supports multiple virtual clusters backed by the same physical cluster.
 These virtual clusters are called namespaces.
 
@@ -17,7 +13,7 @@ need the features they provide.
 
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace, but not across namespaces.
 
-Namespaces are a way to divide cluster resources between multiple uses (via [resource quota](../../docs/admin/resource-quota.html)).
+Namespaces are a way to divide cluster resources between multiple uses (via [resource quota](/{{page.version}}/docs/admin/resource-quota)).
 
 In future versions of Kubernetes, objects in the same namespace will have the same
 access control policies by default.
@@ -29,19 +25,19 @@ resources within the same namespace.
 ## Working with Namespaces
 
 Creation and deletion of namespaces is described in the [Admin Guide documentation
-for namespaces](../../docs/admin/namespaces.html)
+for namespaces](/{{page.version}}/docs/admin/namespaces)
 
 ### Viewing namespaces
 
 You can list the current namespaces in a cluster using:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get namespaces
 NAME          LABELS    STATUS
 default       <none>    Active
 kube-system   <none>    Active
-{% endraw %}
+
 {% endhighlight %}
 
 Kubernetes starts with two initial namespaces:
@@ -55,10 +51,10 @@ To temporarily set the namespace for a request, use the `--namespace` flag.
 For example:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
 $ kubectl --namespace=<insert-namespace-name-here> get pods
-{% endraw %}
+
 {% endhighlight %}
 
 ### Setting the namespace preference
@@ -69,22 +65,22 @@ context.
 First get your current context:
 
 {% highlight console %}
-{% raw %}
+
 $ export CONTEXT=$(kubectl config view | grep current-context | awk '{print $2}')
-{% endraw %}
+
 {% endhighlight %}
 
 Then update the default namespace:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl config set-context $(CONTEXT) --namespace=<insert-namespace-name-here>
-{% endraw %}
+
 {% endhighlight %}
 
 ## Namespaces and DNS
 
-When you create a [Service](services.html), it creates a corresponding [DNS entry](../admin/dns.html).
+When you create a [Service](services), it creates a corresponding [DNS entry](../admin/dns).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
 that if a container just uses `<service-name>` it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across
@@ -95,7 +91,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 Most kubernetes resources (e.g. pods, services, replication controllers, and others) are
 in a some namespace.  However namespace resources are not themselves in a namespace.
-And, low-level resources, such as [nodes](../../docs/admin/node.html) and
+And, low-level resources, such as [nodes](/{{page.version}}/docs/admin/node) and
 persistentVolumes, are not in any namespace. Events are an exception: they may or may not
 have a namespace, depending on the object the event is about.
 

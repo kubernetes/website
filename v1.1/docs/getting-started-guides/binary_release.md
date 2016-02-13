@@ -1,10 +1,6 @@
 ---
 title: "Getting a Binary Release"
 ---
-
-
-## Getting a Binary Release
-
 You can either build a release from sources or download a pre-built release.  If you do not plan on developing Kubernetes itself, we suggest a pre-built release.
 
 ### Prebuilt Binary Release
@@ -20,11 +16,11 @@ Get the Kubernetes source.  If you are simply building a release from source the
 Building a release is simple.
 
 {% highlight bash %}
-{% raw %}
+
 git clone https://github.com/kubernetes/kubernetes.git
 cd kubernetes
 make release
-{% endraw %}
+
 {% endhighlight %}
 
 For more details on the release process see the [`build/` directory](http://releases.k8s.io/release-1.1/build/)

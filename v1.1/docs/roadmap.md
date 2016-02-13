@@ -1,10 +1,6 @@
 ---
 title: "Kubernetes Roadmap"
 ---
-
-
-# Kubernetes Roadmap
-
 ## Kubernetes 1.1
 
 ### Timeline

@@ -1,10 +1,6 @@
 ---
 title: "Namespaces"
 ---
-
-
-# Namespaces
-
 ## Abstract
 
 A Namespace is a mechanism to partition resources created by users into
@@ -50,12 +46,12 @@ Look [here](namespaces/) for an in depth example of namespaces.
 You can list the current namespaces in a cluster using:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get namespaces
 NAME          LABELS    STATUS
 default       <none>    Active
 kube-system   <none>    Active
-{% endraw %}
+
 {% endhighlight %}
 
 Kubernetes starts with two initial namespaces:
@@ -65,15 +61,15 @@ Kubernetes starts with two initial namespaces:
 You can also get the summary of a specific namespace using:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get namespaces <name>
-{% endraw %}
+
 {% endhighlight %}
 
 Or you can get detailed information with:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl describe namespaces <name>
 Name:	   default
 Labels:	   <none>
@@ -85,7 +81,7 @@ Resource Limits
  Type		Resource	Min	Max	Default
  ----				--------	---	---	---
  Container			cpu			-	-	100m
-{% endraw %}
+
 {% endhighlight %}
 
 Note that these details show both resource quota (if present) as well as resource limit ranges.
@@ -96,7 +92,7 @@ to define *Hard* resource usage limits that a *Namespace* may consume.
 A limit range defines min/max constraints on the amount of resources a single entity can consume in
 a *Namespace*.
 
-See [Admission control: Limit Range](../design/admission_control_limit_range.html)
+See [Admission control: Limit Range](../design/admission_control_limit_range)
 
 A namespace can be in one of two phases:
    * `Active` the namespace is in use
@@ -109,12 +105,12 @@ See the [design doc](../design/namespaces.html#phases) for more details.
 To create a new namespace, first create a new YAML file called `my-namespace.yaml` with the contents:
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: v1
 kind: Namespace
 metadata:
   name: <insert-namespace-name-here>
-{% endraw %}
+
 {% endhighlight %}
 
 Note that the name of your namespace must be a DNS compatible label.
@@ -124,24 +120,24 @@ More information on the `finalizers` field can be found in the namespace [design
 Then run:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl create -f ./my-namespace.yaml
-{% endraw %}
+
 {% endhighlight %}
 
 ### Working in namespaces
 
-See [Setting the namespace for a request](../../docs/user-guide/namespaces.html#setting-the-namespace-for-a-request)
-and [Setting the namespace preference](../../docs/user-guide/namespaces.html#setting-the-namespace-preference).
+See [Setting the namespace for a request](/{{page.version}}/docs/user-guide/namespaces.html#setting-the-namespace-for-a-request)
+and [Setting the namespace preference](/{{page.version}}/docs/user-guide/namespaces.html#setting-the-namespace-preference).
 
 ### Deleting a namespace
 
 You can delete a namespace with
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl delete namespaces <insert-some-namespace-name>
-{% endraw %}
+
 {% endhighlight %}
 
 **WARNING, this deletes _everything_ under the namespace!**
@@ -150,7 +146,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
 
 ## Namespaces and DNS
 
-When you create a [Service](../../docs/user-guide/services.html), it creates a corresponding [DNS entry](dns.html).
+When you create a [Service](/{{page.version}}/docs/user-guide/services), it creates a corresponding [DNS entry](dns).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
 that if a container just uses `<service-name>` it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across
@@ -160,7 +156,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 ## Design
 
 Details of the design of namespaces in Kubernetes, including a [detailed example](../design/namespaces.html#example-openshift-origin-managing-a-kubernetes-namespace)
-can be found in the [namespaces design doc](../design/namespaces.html)
+can be found in the [namespaces design doc](../design/namespaces)
 
 
 

@@ -1,10 +1,6 @@
 ---
 title: "How to get faster PR reviews"
 ---
-
-
-# How to get faster PR reviews
-
 Most of what is written here is not at all specific to Kubernetes, but it bears
 being written down in the hope that it will occasionally remind people of "best
 practices" around code reviews.
@@ -27,10 +23,10 @@ Let's talk about how to avoid this.
 
 ## 0. Familiarize yourself with project conventions
 
-* [Development guide](development.html)
-* [Coding conventions](coding-conventions.html)
-* [API conventions](api-conventions.html)
-* [Kubectl conventions](kubectl-conventions.html)
+* [Development guide](development)
+* [Coding conventions](coding-conventions)
+* [API conventions](api-conventions)
+* [Kubectl conventions](kubectl-conventions)
 
 ## 1. Don't build a cathedral in one PR
 

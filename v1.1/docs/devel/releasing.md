@@ -1,10 +1,6 @@
 ---
 title: "Releasing Kubernetes"
 ---
-
-
-# Releasing Kubernetes
-
 This document explains how to cut a release, and the theory behind it. If you
 just want to cut a release and move on with your life, you can stop reading
 after the first section.
@@ -38,9 +34,9 @@ can find the Git hash for a build by looking at the "Console Log", then look for
 `githash=`. You should see a line line:
 
 {% highlight console %}
-{% raw %}
+
 + githash=v0.20.2-322-g974377b
-{% endraw %}
+
 {% endhighlight %}
 
 Because Jenkins builds frequently, if you're looking between jobs
@@ -55,9 +51,9 @@ oncall.
 Before proceeding to the next step:
 
 {% highlight sh %}
-{% raw %}
+
 export BRANCHPOINT=v0.20.2-322-g974377b
-{% endraw %}
+
 {% endhighlight %}
 
 Where `v0.20.2-322-g974377b` is the git hash you decided on. This will become
@@ -95,7 +91,7 @@ In your git repo (you still have `${VER}` set from above right?):
 
 #### Writing Release Notes
 
-[This helpful guide](making-release-notes.html) describes how to write release
+[This helpful guide](making-release-notes) describes how to write release
 notes for a major/minor release. In the release template on GitHub, leave the
 last PR number that the tool finds for the `.0` release, so the next releaser
 doesn't have to hunt.
@@ -107,7 +103,7 @@ doesn't have to hunt.
 We cut `vX.Y.Z` releases from the `release-vX.Y` branch after all cherry picks
 to the branch have been resolved. You should ensure all outstanding cherry picks
 have been reviewed and merged and the branch validated on Jenkins (validation
-TBD). See the [Cherry Picks](cherry-picks.html) for more information on how to
+TBD). See the [Cherry Picks](cherry-picks) for more information on how to
 manage cherry picks prior to cutting the release.
 
 #### Tagging and Merging
@@ -207,12 +203,12 @@ We are using `pkg/version/base.go` as the source of versioning in absence of
 information from git. Here is a sample of that file's contents:
 
 {% highlight go %}
-{% raw %}
+
 var (
     gitVersion   string = "v0.4-dev"  // version from git, output of $(git describe)
     gitCommit    string = ""          // sha1 from git, output of $(git rev-parse HEAD)
 )
-{% endraw %}
+
 {% endhighlight %}
 
 This means a build with `go install` or `go get` or a build from a tarball will
@@ -292,7 +288,7 @@ As an example, Docker commit a327d9b91edf has a `v1.1.1-N-gXXX` label but it is
 not present in Docker `v1.2.0`:
 
 {% highlight console %}
-{% raw %}
+
 $ git describe a327d9b91edf
 v1.1.1-822-ga327d9b91edf
 
@@ -300,7 +296,7 @@ $ git log --oneline v1.2.0..a327d9b91edf
 a327d9b91edf Fix data space reporting from Kb/Mb to KB/MB
 
 (Non-empty output here means the commit is not present on v1.2.0.)
-{% endraw %}
+
 {% endhighlight %}
 
 ## Release Notes

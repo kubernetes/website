@@ -1,10 +1,6 @@
 ---
 title: "What is Kubernetes?"
 ---
-
-
-# What is Kubernetes?
-
 Kubernetes is an open-source platform for automating deployment, scaling, and operations of application containers across clusters of hosts.
 
 With Kubernetes, you are able to quickly and efficiently respond to customer demand:
@@ -22,9 +18,9 @@ Our goal is to foster an ecosystem of components and tools that relieve the burd
 * **extensible**: modular, pluggable, hookable, composable
 * **self-healing**: auto-placement, auto-restart, auto-replication
 
-The Kubernetes project was started by Google in 2014. Kubernetes builds upon a [decade and a half of experience that Google has with running production workloads at scale](https://research.google.com/pubs/pub43438.html), combined with best-of-breed ideas and practices from the community.
+The Kubernetes project was started by Google in 2014. Kubernetes builds upon a [decade and a half of experience that Google has with running production workloads at scale](https://research.google.com/pubs/pub43438), combined with best-of-breed ideas and practices from the community.
 
-##### Ready to [Get Started](getting-started-guides/README.html)?
+##### Ready to [Get Started](getting-started-guides/README)?
 
 <hr>
 
@@ -42,7 +38,7 @@ Here are some key points:
     Increased ease and efficiency of container image creation compared to VM image use.
 * **Continuous development, integration, and deployment**:
     Provides for reliable and frequent container image build and deployment with quick and easy rollbacks (due to image immutability).
-* **Loosely coupled, distributed, elastic, liberated [micro-services](http://martinfowler.com/articles/microservices.html)**:
+* **Loosely coupled, distributed, elastic, liberated [micro-services](http://martinfowler.com/articles/microservices)**:
     Applications are broken into smaller, independent pieces and can be deployed and managed dynamically -- not a fat monolithic stack running on one big single-purpose machine.
 * **Environmental consistency across development, testing, and production**:
     Runs the same on a laptop as it does in the cloud.
@@ -60,15 +56,15 @@ Kubernetes can schedule and run application containers on clusters of physical o
 It can also do much more than that.
 
 Kubernetes satisfies a number of common needs of applications running in production, such as:
-* [co-locating helper processes](user-guide/pods.html),
-* [mounting storage systems](user-guide/volumes.html),
-* [distributing secrets](user-guide/secrets.html),
+* [co-locating helper processes](user-guide/pods),
+* [mounting storage systems](user-guide/volumes),
+* [distributing secrets](user-guide/secrets),
 * [application health checking](user-guide/production-pods.html#liveness-and-readiness-probes-aka-health-checks),
-* [replicating application instances](user-guide/replication-controller.html),
-* [horizontal auto-scaling](user-guide/horizontal-pod-autoscaler.html),
-* [load balancing](user-guide/services.html),
+* [replicating application instances](user-guide/replication-controller),
+* [horizontal auto-scaling](user-guide/horizontal-pod-autoscaler),
+* [load balancing](user-guide/services),
 * [rolling updates](user-guide/update-demo/), and
-* [resource monitoring](user-guide/monitoring.html).
+* [resource monitoring](user-guide/monitoring).
 
 For more details, see the [user guide](user-guide/).
 
@@ -76,11 +72,11 @@ For more details, see the [user guide](user-guide/).
 
 Even though Kubernetes provides a lot of functionality, there are always new scenarios that would benefit from new features. Ad hoc orchestration that is acceptable initially often requires robust automation at scale. Application-specific workflows can be streamlined to accelerate developer velocity. This is why Kubernetes was also designed to serve as a platform for building an ecosystem of components and tools to make it easier to deploy, scale, and manage applications.
 
-[Labels](user-guide/labels.html) empower users to organize their resources however they please. [Annotations](user-guide/annotations.html) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
+[Labels](user-guide/labels) empower users to organize their resources however they please. [Annotations](user-guide/annotations) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
 
-Additionally, the [Kubernetes control plane](admin/cluster-components.html) is built upon the same [APIs](api.html) that are available to developers and users. Users can write their own controllers, [schedulers](devel/scheduler.html), etc., if they choose, with [their own APIs](design/extending-api.html) that can be targeted by a general-purpose [command-line tool](user-guide/kubectl-overview.html).
+Additionally, the [Kubernetes control plane](admin/cluster-components) is built upon the same [APIs](api) that are available to developers and users. Users can write their own controllers, [schedulers](devel/scheduler), etc., if they choose, with [their own APIs](design/extending-api) that can be targeted by a general-purpose [command-line tool](user-guide/kubectl-overview).
 
-This [design](design/principles.html) has enabled a number of other systems to build atop Kubernetes.
+This [design](design/principles) has enabled a number of other systems to build atop Kubernetes.
 
 #### Kubernetes is not:
 

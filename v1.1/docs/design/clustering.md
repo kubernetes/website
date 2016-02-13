@@ -1,11 +1,6 @@
 ---
 title: "Clustering in Kubernetes"
 ---
-
-
-# Clustering in Kubernetes
-
-
 ## Overview
 
 The term "clustering" refers to the process of having all members of the Kubernetes cluster find and trust each other.  There are multiple different ways to achieve clustering with different security and usability profiles.  This document attempts to lay out the user experiences for clustering that Kubernetes aims to address.

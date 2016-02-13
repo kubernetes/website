@@ -1,15 +1,11 @@
 ---
 title: "Troubleshooting"
 ---
-
-
-# Troubleshooting
-
 Sometimes things go wrong.  This guide is aimed at making them right.  It has two sections:
-   * [Troubleshooting your application](user-guide/application-troubleshooting.html) - Useful for users who are deploying code into Kubernetes and wondering why it is not working.
-   * [Troubleshooting your cluster](admin/cluster-troubleshooting.html) - Useful for cluster administrators and people whose Kubernetes cluster is unhappy.
+   * [Troubleshooting your application](user-guide/application-troubleshooting) - Useful for users who are deploying code into Kubernetes and wondering why it is not working.
+   * [Troubleshooting your cluster](admin/cluster-troubleshooting) - Useful for cluster administrators and people whose Kubernetes cluster is unhappy.
 
-You should also check the [known issues](user-guide/known-issues.html) for the release you're using.
+You should also check the [known issues](user-guide/known-issues) for the release you're using.
 
 # Getting help
 
@@ -17,7 +13,7 @@ If your problem isn't answered by any of the guides above, there are variety of 
 
 ## Questions
 
-If you aren't familiar with it, many of your questions may be answered by the [user guide](user-guide/README.html).
+If you aren't familiar with it, many of your questions may be answered by the [user guide](user-guide/README).
 
 We also have a number of FAQ pages:
    * [User FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ)

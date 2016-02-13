@@ -1,50 +1,52 @@
 bigheader: "Samples"
 abstract: "A collection of example applications that show how to use Kubernetes."
 toc:
+- title: Samples Overview
+  path: /v1.1/samples/
+
 - title: Clustered Application Samples
-  path: /v1.1/samples
   section:
   - title: Apache Cassandra Database
-    path: /v1.1/examples/cassandra/README
+    path: /v1.1/examples/cassandra/README/
   - title: Apache Spark
-    path: /v1.1/examples/spark/README
+    path: /v1.1/examples/spark/README/
   - title: Apache Storm
-    path: /v1.1/examples/storm/README
+    path: /v1.1/examples/storm/README/
   - title: Distributed Task Queue
-    path: /v1.1/examples/celery-rabbitmq/README
+    path: /v1.1/examples/celery-rabbitmq/README/
   - title: Hazelcast
-    path: /v1.1/examples/hazelcast/README
+    path: /v1.1/examples/hazelcast/README/
   - title: Meteor Applications
-    path: /v1.1/examples/meteor/README
+    path: /v1.1/examples/meteor/README/
   - title: Redis
-    path: /v1.1/examples/redis/README
+    path: /v1.1/examples/redis/README/
   - title: RethinkDB
-    path: /v1.1/examples/rethinkdb/README
+    path: /v1.1/examples/rethinkdb/README/
   - title: Elasticsearch/Kibana Logging Demonstration
-    path: /v1.1/docs/user-guide/logging-demo/README
+    path: /v1.1/docs/user-guide/logging-demo/README/
   - title: Elasticsearch
-    path: /v1.1/examples/elasticsearch/README
+    path: /v1.1/examples/elasticsearch/README/
   - title: OpenShift Origin
-    path: /v1.1/examples/openshift-origin/README
+    path: /v1.1/examples/openshift-origin/README/
   - title: Ceph
-    path: /v1.1/examples/rbd/README
+    path: /v1.1/examples/rbd/README/
 
 - title: Persistent Volume Samples
   section:
   - title: WordPress on a Kubernetes Persistent Volume
-    path: /v1.1/examples/mysql-wordpress-pd/README
+    path: /v1.1/examples/mysql-wordpress-pd/README/
   - title: GlusterFS
-    path: /v1.1/examples/glusterfs/README
+    path: /v1.1/examples/glusterfs/README/
   - title: iSCSI
-    path: /v1.1/examples/iscsi/README
+    path: /v1.1/examples/iscsi/README/
   - title: NFS
-    path: /v1.1/examples/nfs/README
+    path: /v1.1/examples/nfs/README/
 
 - title: Multi-tier Application Samples
   section:
   - title: Guestbook - Go Server
-    path: /v1.1/examples/guestbook-go/README
+    path: /v1.1/examples/guestbook-go/README/
   - title: GuestBook - PHP Server
-    path: /v1.1/examples/guestbook/README
+    path: /v1.1/examples/guestbook/README/
   - title: MySQL - Phabricator Server
-    path: /v1.1/examples/phabricator/README
+    path: /v1.1/examples/phabricator/README/

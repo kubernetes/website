@@ -1,10 +1,6 @@
 ---
 title: "Known Issues"
 ---
-
-
-## Known Issues
-
 This document summarizes known issues with existing Kubernetes releases.
 
 Please consult this document before filing new bugs.

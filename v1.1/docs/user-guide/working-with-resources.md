@@ -1,16 +1,12 @@
 ---
 title: "Working with Resources"
 ---
-
-
-# Working with Resources
-
 *This document is aimed at users who have worked through some of the examples,
 and who want to learn more about using kubectl to manage resources such
 as pods and services.  Users who want to access the REST API directly,
 and developers who want to extend the Kubernetes API should
-refer to the [api conventions](../devel/api-conventions.html) and
-the [api document](../api.html).*
+refer to the [api conventions](../devel/api-conventions) and
+the [api document](../api).*
 
 ## Resources are Automatically Modified
 
@@ -19,7 +15,7 @@ resource, a number of the fields of the resource are added.
 You can see this at work in the following example:
 
 {% highlight console %}
-{% raw %}
+
 $ cat > /tmp/original.yaml <<EOF
 apiVersion: v1
 kind: Pod
@@ -39,7 +35,7 @@ $ wc -l /tmp/original.yaml /tmp/current.yaml
       51 /tmp/current.yaml
        9 /tmp/original.yaml
       60 total
-{% endraw %}
+
 {% endhighlight %}
 
 The resource we posted had only 9 lines, but the one we got back had 51 lines.
@@ -55,7 +51,7 @@ The API will generally not modify fields that you have set; it just sets ones wh
 
 ## <a name="finding_schema_docs"></a>Finding Documentation on Resource Fields
 
-You can browse auto-generated API documentation at the [project website](http://kubernetes.io/v1.1/api-ref.html) or on [github](https://releases.k8s.io/release-1.1/docs/api-reference).
+You can browse auto-generated API documentation at the [project website](http://kubernetes.io/v1.1/api-ref) or on [github](https://releases.k8s.io/release-1.1/docs/api-reference).
 
 
 

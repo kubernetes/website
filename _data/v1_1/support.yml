@@ -1,46 +1,48 @@
 bigheader: "Support"
 abstract: "Troubleshooting resources, frequently asked questions, and community support channels."
 toc:
+- title: Support Overview
+  path: /v1.1/support/
+
 - title: Troubleshooting
-  path: /v1.1/support
   section:
   - title: Web Interface
-    path: /v1.1/docs/user-guide/ui
+    path: /v1.1/docs/user-guide/ui/
   - title: Logging
-    path: /v1.1/docs/user-guide/logging
+    path: /v1.1/docs/user-guide/logging/
   - title: Container Access (exec)
-    path: /v1.1/docs/user-guide/getting-into-containers
+    path: /v1.1/docs/user-guide/getting-into-containers/
   - title: Connect with Proxies
-    path: /v1.1/docs/user-guide/connecting-to-applications-proxy
+    path: /v1.1/docs/user-guide/connecting-to-applications-proxy/
   - title: Connect with Port Forwarding
-    path: /v1.1/docs/user-guide/connecting-to-applications-port-forward
+    path: /v1.1/docs/user-guide/connecting-to-applications-port-forward/
   - title: Troubleshooting Applications
-    path: /v1.1/docs/user-guide/application-troubleshooting
+    path: /v1.1/docs/user-guide/application-troubleshooting/
   - title: Troubleshooting Clusters
-    path: /v1.1/docs/admin/cluster-troubleshooting
+    path: /v1.1/docs/admin/cluster-troubleshooting/
   - title: Best Practices for Configuration
-    path: /v1.1/docs/user-guide/config-best-practices
+    path: /v1.1/docs/user-guide/config-best-practices/
 
 - title: Frequently Asked Questions
   section:
   - title: User FAQ
-    path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ
+    path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ/
   - title: Debugging FAQ
-    path: https://github.com/kubernetes/kubernetes/wiki/Debugging-FAQ
+    path: https://github.com/kubernetes/kubernetes/wiki/Debugging-FAQ/
   - title: Services FAQ
-    path: https://github.com/kubernetes/kubernetes/wiki/Services-FAQ
+    path: https://github.com/kubernetes/kubernetes/wiki/Services-FAQ/
 
 - title: Other Resources
   section:
   - title: Known Issues
-    path: /v1.1/docs/user-guide/known-issues
+    path: /v1.1/docs/user-guide/known-issues/
   - title: Kubernetes Issue Tracker on GitHub
-    path: https://github.com/kubernetes/kubernetes/issues
+    path: https://github.com/kubernetes/kubernetes/issues/
   - title: Report a Security Vulnerability
-    path: /v1.1/docs/reporting-security-issues
+    path: /v1.1/docs/reporting-security-issues/
   - title: Release Notes
-    path: https://github.com/kubernetes/kubernetes/releases
+    path: https://github.com/kubernetes/kubernetes/releases/
   - title: Release Roadmap
-    path: /v1.1/docs/roadmap
+    path: /v1.1/docs/roadmap/
   - title: Contributing to Kubernetes Documentation
-    path: /v1.1/editdocs
+    path: /v1.1/editdocs/

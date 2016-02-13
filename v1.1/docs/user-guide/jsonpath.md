@@ -1,10 +1,6 @@
 ---
 title: "JSONPath template syntax"
 ---
-
-
-# JSONPath template syntax
-
 JSONPath template is composed of JSONPath expressions enclosed by {}.
 And we add three functions in addition to the original JSONPath syntax:
 
@@ -18,7 +14,7 @@ The result object is printed as its String() function.
 Given the input:
 
 {% highlight json  %}
-{% raw %}
+
 {
   "kind": "List",
   "items":[
@@ -53,7 +49,7 @@ Given the input:
     }
   ]
 }
-{% endraw %}
+
 {% endhighlight %}
 
 Function | Description        | Example            | Result

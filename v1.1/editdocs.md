@@ -1,10 +1,9 @@
 ---
 title: Contributing to Kubernetes Documentation
-section: support
-showedit: false
 ---
 
 Welcome! We are very pleased you want to contribute to the docs for Kubernetes.
+
 
 {% raw %}<span id="editlink"></span>{% endraw %}
 

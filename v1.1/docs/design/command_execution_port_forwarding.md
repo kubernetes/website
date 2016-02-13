@@ -1,10 +1,6 @@
 ---
 title: "Container Command Execution & Port Forwarding in Kubernetes"
 ---
-
-
-# Container Command Execution & Port Forwarding in Kubernetes
-
 ## Abstract
 
 This describes an approach for providing support for:

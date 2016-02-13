@@ -1,6 +1,5 @@
 ---
 title: "Kubernetes Deployment On Bare-metal Ubuntu Nodes"
-section: guides
 ---
 
 ## Introduction
@@ -12,7 +11,6 @@ work, which has been merge into this document.
 
 [Cloud team from Zhejiang University](https://github.com/ZJU-SEL) will maintain this work.
 
-## Table of Contents
 
 {% include pagetoc.html %}
 
@@ -33,18 +31,18 @@ Ubuntu 15 which use systemd instead of upstart. We are working around fixing thi
 First clone the kubernetes github repo
 
 {% highlight console %}
-{% raw %}
+
 $ git clone https://github.com/kubernetes/kubernetes.git
-{% endraw %}
+
 {% endhighlight %}
 
 Then download all the needed binaries into given directory (cluster/ubuntu/binaries)
 
 {% highlight console %}
-{% raw %}
+
 $ cd kubernetes/cluster/ubuntu
 $ ./build.sh
-{% endraw %}
+
 {% endhighlight %}
 
 You can customize your etcd version, flannel version, k8s version by changing corresponding variables
@@ -70,7 +68,7 @@ An example cluster is listed below:
 First configure the cluster information in cluster/ubuntu/config-default.sh, below is a simple sample.
 
 {% highlight sh %}
-{% raw %}
+
 export nodes="vcap@10.10.103.250 vcap@10.10.103.162 vcap@10.10.103.223"
 
 export role="ai i i"
@@ -80,7 +78,7 @@ export NUM_MINIONS=${NUM_MINIONS:-3}
 export SERVICE_CLUSTER_IP_RANGE=192.168.3.0/24
 
 export FLANNEL_NET=172.16.0.0/16
-{% endraw %}
+
 {% endhighlight %}
 
 The first variable `nodes` defines all your cluster nodes, MASTER node comes first and
@@ -117,19 +115,19 @@ The scripts automatically scp binaries and config files to all the machines and 
 The only thing you need to do is to type the sudo password when promoted.
 
 {% highlight console %}
-{% raw %}
+
 Deploying minion on machine 10.10.103.223
 ...
 [sudo] password to copy files and start minion: 
-{% endraw %}
+
 {% endhighlight %}
 
 If all things goes right, you will see the below message from console indicating the k8s is up.
 
 {% highlight console %}
-{% raw %}
+
 Cluster validation succeeded
-{% endraw %}
+
 {% endhighlight %}
 
 ### Test it out
@@ -141,13 +139,13 @@ You can make it available via PATH, then you can use the below command smoothly.
 For example, use `$ kubectl get nodes` to see if all of your nodes are ready.
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get nodes
 NAME            LABELS                                 STATUS
 10.10.103.162   kubernetes.io/hostname=10.10.103.162   Ready
 10.10.103.223   kubernetes.io/hostname=10.10.103.223   Ready
 10.10.103.250   kubernetes.io/hostname=10.10.103.250   Ready
-{% endraw %}
+
 {% endhighlight %}
 
 Also you can run Kubernetes [guest-example](../../examples/guestbook/) to build a redis backend cluster on the k8s．
@@ -161,7 +159,7 @@ and UI onto the existing cluster.
 The configuration of DNS is configured in cluster/ubuntu/config-default.sh.
 
 {% highlight sh %}
-{% raw %}
+
 ENABLE_CLUSTER_DNS="${KUBE_ENABLE_CLUSTER_DNS:-true}"
 
 DNS_SERVER_IP="192.168.3.10"
@@ -169,7 +167,7 @@ DNS_SERVER_IP="192.168.3.10"
 DNS_DOMAIN="cluster.local"
 
 DNS_REPLICAS=1
-{% endraw %}
+
 {% endhighlight %}
 
 The `DNS_SERVER_IP` is defining the ip of dns server which must be in the `SERVICE_CLUSTER_IP_RANGE`.
@@ -178,18 +176,18 @@ The `DNS_REPLICAS` describes how many dns pod running in the cluster.
 By default, we also take care of kube-ui addon.
 
 {% highlight sh %}
-{% raw %}
+
 ENABLE_CLUSTER_UI="${KUBE_ENABLE_CLUSTER_UI:-true}"
-{% endraw %}
+
 {% endhighlight %}
 
 After all the above variables have been set, just type the following command.
 
 {% highlight console %}
-{% raw %}
+
 $ cd cluster/ubuntu
 $ KUBERNETES_PROVIDER=ubuntu ./deployAddons.sh
-{% endraw %}
+
 {% endhighlight %}
 
 After some time, you can use `$ kubectl get pods --namespace=kube-system` to see the DNS and UI pods are running in the cluster.
@@ -225,10 +223,10 @@ Please try:
 the latter one could start it again.
 
 {% highlight console %}
-{% raw %}
+
     $ KUBERNETES_PROVIDER=ubuntu ./kube-down.sh
     $ KUBERNETES_PROVIDER=ubuntu ./kube-up.sh
-{% endraw %}
+
 {% endhighlight %}
 
 4. You can also customize your own settings in `/etc/default/{component_name}`.
@@ -240,39 +238,39 @@ If you already have a kubernetes cluster, and want to upgrade to a new version,
 you can use following command in cluster/ directory to update the whole cluster or a specified node to a new version.
 
 {% highlight console %}
-{% raw %}
+
 $ KUBERNETES_PROVIDER=ubuntu ./kube-push.sh [-m|-n <node id>] <version>
-{% endraw %}
+
 {% endhighlight %}
 
 It can be done for all components (by default), master(`-m`) or specified node(`-n`).
 If the version is not specified, the script will try to use local binaries.You should ensure all the binaries are well prepared in path `cluster/ubuntu/binaries`.
 
 {% highlight console %}
-{% raw %}
+
 $ tree cluster/ubuntu/binaries
 binaries/
-├── kubectl
-├── master
-│   ├── etcd
-│   ├── etcdctl
-│   ├── flanneld
-│   ├── kube-apiserver
-│   ├── kube-controller-manager
-│   └── kube-scheduler
-└── minion
-    ├── flanneld
-    ├── kubelet
-    └── kube-proxy
-{% endraw %}
+'��'��'�� kubectl
+'��'��'�� master
+'��   '��'��'�� etcd
+'��   '��'��'�� etcdctl
+'��   '��'��'�� flanneld
+'��   '��'��'�� kube-apiserver
+'��   '��'��'�� kube-controller-manager
+'��   '��'��'�� kube-scheduler
+'��'��'�� minion
+    '��'��'�� flanneld
+    '��'��'�� kubelet
+    '��'��'�� kube-proxy
+
 {% endhighlight %}
 
 Upgrading single node is experimental now. You can use following command to get a help.
 
 {% highlight console %}
-{% raw %}
+
 $ KUBERNETES_PROVIDER=ubuntu ./kube-push.sh -h
-{% endraw %}
+
 {% endhighlight %}
 
 Some examples are as follows:

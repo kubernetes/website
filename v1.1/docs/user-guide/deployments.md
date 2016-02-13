@@ -1,34 +1,7 @@
 ---
 title: "Deployments"
 ---
-
-
-# Deployments
-
-**Table of Contents**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [Deployments](#deployments)
-  - [What is a _Deployment_?](#what-is-a-deployment)
-  - [Enabling Deployments on kubernetes cluster](#enabling-deployments-on-kubernetes-cluster)
-  - [Creating a Deployment](#creating-a-deployment)
-  - [Updating a Deployment](#updating-a-deployment)
-    - [Multiple Updates](#multiple-updates)
-  - [Writing a Deployment Spec](#writing-a-deployment-spec)
-    - [Pod Template](#pod-template)
-    - [Replicas](#replicas)
-    - [Selector](#selector)
-    - [Unique Label Key](#unique-label-key)
-    - [Strategy](#strategy)
-      - [Recreate Deployment](#recreate-deployment)
-      - [Rolling Update Deployment](#rolling-update-deployment)
-        - [Max Unavailable](#max-unavailable)
-        - [Max Surge](#max-surge)
-        - [Min Ready Seconds](#min-ready-seconds)
-  - [Alternative to Deployments](#alternative-to-deployments)
-    - [kubectl rolling update](#kubectl-rolling-update)
-
-<!-- END MUNGE: GENERATED_TOC -->
+{% include pagetoc.html %}
 
 ## What is a _Deployment_?
 
@@ -64,7 +37,7 @@ bring up 3 nginx pods.
 <!-- BEGIN MUNGE: EXAMPLE nginx-deployment.yaml -->
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -81,7 +54,7 @@ spec:
         image: nginx:1.7.9
         ports:
         - containerPort: 80
-{% endraw %}
+
 {% endhighlight %}
 
 [Download example](nginx-deployment.yaml)
@@ -90,20 +63,20 @@ spec:
 Run the example by downloading the example file and then running this command:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl create -f docs/user-guide/nginx-deployment.yaml
 deployment "nginx-deployment" created
-{% endraw %}
+
 {% endhighlight %}
 
 Running a get immediately will give:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get deployments
 NAME               UPDATEDREPLICAS   AGE
 nginx-deployment   0/3               8s
-{% endraw %}
+
 {% endhighlight %}
 
 This indicates that deployment is trying to update 3 replicas. It has not
@@ -112,33 +85,33 @@ updated any one of those yet.
 Running a get again after a minute, will give:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get deployments
 NAME               UPDATEDREPLICAS   AGE
 nginx-deployment   3/3               1m
-{% endraw %}
+
 {% endhighlight %}
 
 This indicates that deployent has created all the 3 replicas.
 Running ```kubectl get rc``` and ```kubectl get pods``` will show the replication controller (RC) and pods created.
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get rc
 CONTROLLER                      CONTAINER(S)   IMAGE(S)      SELECTOR                                                        REPLICAS   AGE
 REPLICAS   AGE
 deploymentrc-1975012602         nginx          nginx:1.7.9   deployment.kubernetes.io/podTemplateHash=1975012602,app=nginx   3          2m
-{% endraw %}
+
 {% endhighlight %}
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get pods
 NAME                            READY          STATUS        RESTARTS       AGE
 deploymentrc-1975012602-4f2tb   1/1            Running       0              1m
 deploymentrc-1975012602-j975u   1/1            Running       0              1m
 deploymentrc-1975012602-uashb   1/1            Running       0              1m
-{% endraw %}
+
 {% endhighlight %}
 
 The created RC will ensure that there are 3 nginx pods at all time.
@@ -152,7 +125,7 @@ For this, we update our deployment to be as follows:
 <!-- BEGIN MUNGE: EXAMPLE new-nginx-deployment.yaml -->
 
 {% highlight yaml %}
-{% raw %}
+
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -169,7 +142,7 @@ spec:
         image: nginx:1.9.1
         ports:
         - containerPort: 80
-{% endraw %}
+
 {% endhighlight %}
 
 [Download example](new-nginx-deployment.yaml)
@@ -177,20 +150,20 @@ spec:
 
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl apply -f docs/user-guide/new-nginx-deployment.yaml
 deployment "nginx-deployment" configured
-{% endraw %}
+
 {% endhighlight %}
 
 Running a get immediately will still give:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get deployments
 NAME               UPDATEDREPLICAS   AGE
 nginx-deployment   3/3               8s
-{% endraw %}
+
 {% endhighlight %}
 
 This indicates that deployment status has not been updated yet (it is still
@@ -198,11 +171,11 @@ showing old status).
 Running a get again after a minute, will give:
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get deployments
 NAME               UPDATEDREPLICAS   AGE
 nginx-deployment   1/3               1m
-{% endraw %}
+
 {% endhighlight %}
 
 This indicates that deployment has updated one of the three pods that it needs
@@ -210,35 +183,35 @@ to update.
 Eventually, it will get around to updating all the pods.
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl get deployments
 NAME               UPDATEDREPLICAS   AGE
 nginx-deployment   3/3               3m
-{% endraw %}
+
 {% endhighlight %}
 
 We can run ```kubectl get rc``` to see that deployment updated the pods by creating a new RC
 which it scaled up to 3 and scaled down the old RC to 0.
 
 {% highlight console %}
-{% raw %}
+
 kubectl get rc
 CONTROLLER                CONTAINER(S)   IMAGE(S)      SELECTOR                                                         REPLICAS   AGE
 deploymentrc-1562004724   nginx          nginx:1.9.1   deployment.kubernetes.io/podTemplateHash=1562004724,app=nginx   3          5m
 deploymentrc-1975012602   nginx          nginx:1.7.9   deployment.kubernetes.io/podTemplateHash=1975012602,app=nginx   0          7m
-{% endraw %}
+
 {% endhighlight %}
 
 Running get pods, will only show the new pods.
 
 {% highlight console %}
-{% raw %}
+
 kubectl get pods
 NAME                            READY     STATUS    RESTARTS   AGE
 deploymentrc-1562004724-0tgk5   1/1       Running   0          9m
 deploymentrc-1562004724-1rkfl   1/1       Running   0          8m
 deploymentrc-1562004724-6v702   1/1       Running   0          8m
-{% endraw %}
+
 {% endhighlight %}
 
 Next time we want to update pods, we can just update the deployment again.
@@ -250,7 +223,7 @@ it first created a new pod, then deleted some old pods and created new ones. It
 does not kill old pods until a sufficient number of new pods have come up.
 
 {% highlight console %}
-{% raw %}
+
 $ kubectl describe deployments
 Name:                           nginx-deployment
 Namespace:                      default
@@ -264,13 +237,13 @@ OldReplicationControllers:      deploymentrc-1562004724 (3/3 replicas created)
 NewReplicationController:       <none>
 Events:
   FirstSeen     LastSeen        Count   From                            SubobjectPath   Reason          Message
-  ─────────     ────────        ─────   ────                            ─────────────   ──────          ───────
+  '��'��'��'��'��'��'��'��'��     '��'��'��'��'��'��'��'��        '��'��'��'��'��   '��'��'��'��                            '��'��'��'��'��'��'��'��'��'��'��'��'��   '��'��'��'��'��'��          '��'��'��'��'��'��'��
   10m           10m             1       {deployment-controller }                        ScalingRC       Scaled up rc deploymentrc-1975012602 to 3
   2m            2m              1       {deployment-controller }                        ScalingRC       Scaled up rc deploymentrc-1562004724 to 1
   2m            2m              1       {deployment-controller }                        ScalingRC       Scaled down rc deploymentrc-1975012602 to 1
   1m            1m              1       {deployment-controller }                        ScalingRC       Scaled up rc deploymentrc-1562004724 to 3
   1m            1m              1       {deployment-controller }                        ScalingRC       Scaled down rc deploymentrc-1975012602 to 0
-{% endraw %}
+
 {% endhighlight %}
 
 Here we see that when we first created the deployment, it created an RC and scaled it up to 3 replicas directly.
@@ -300,7 +273,7 @@ before changing course.
 
 As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, and
 `metadata` fields.  For general information about working with config files,
-see [here](deploying-applications.html), [here](configuring-containers.html), and [here](working-with-resources.html).
+see [here](deploying-applications), [here](configuring-containers), and [here](working-with-resources).
 
 A Deployment also needs a [`.spec` section](../devel/api-conventions.html#spec-and-status).
 
@@ -309,7 +282,7 @@ A Deployment also needs a [`.spec` section](../devel/api-conventions.html#spec-a
 The `.spec.template` is the only required field of the `.spec`.
 
 The `.spec.template` is a [pod template](replication-controller.html#pod-template).  It has exactly
-the same schema as a [pod](pods.html), except it is nested and does not have an
+the same schema as a [pod](pods), except it is nested and does not have an
 `apiVersion` or `kind`.
 
 ### Replicas
@@ -397,8 +370,5 @@ Note: This is not implemented yet.
 
 ### kubectl rolling update
 
-[Kubectl rolling update](kubectl/kubectl_rolling-update.html) also updates pods and replication controllers in a similar fashion.
+[Kubectl rolling update](kubectl/kubectl_rolling-update) also updates pods and replication controllers in a similar fashion.
 But deployments is declarative and is server side.
-
-
-
