@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes User Guide: Managing Applications: Deploying continuously running applications"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes User Guide: Managing Applications: Deploying continuously running applications
 
@@ -147,14 +143,4 @@ You could also specify the `selector` explicitly, such as if you wanted to speci
 [Learn about exposing applications to users and clients, and connecting tiers of your application together.](connecting-applications.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/deploying-applications.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

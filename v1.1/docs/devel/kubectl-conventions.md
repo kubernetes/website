@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubectl Conventions"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 Kubectl Conventions
 ===================
@@ -111,14 +107,4 @@ Updated: 8/27/2015
 * Use "TYPE" for the particular flavor of resource type accepted by kubectl, rather than "RESOURCE" or "KIND"
 * Use "NAME" for resource names
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/kubectl-conventions.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

@@ -224,13 +224,3 @@ So, tying this all together, a quick start to creating your own kubeconfig file:
 
 
 
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubeconfig-file.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
-

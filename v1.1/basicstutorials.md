@@ -1,5 +1,4 @@
 ---
-layout: docwithnav
 title: "Quick Walkthrough: Kubernetes Basics"
 ---
 

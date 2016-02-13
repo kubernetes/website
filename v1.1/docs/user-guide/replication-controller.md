@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Replication Controller"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Replication Controller
 
@@ -101,14 +97,4 @@ API object can be found at: [ReplicationController API
 object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_replicationcontroller).
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/replication-controller.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

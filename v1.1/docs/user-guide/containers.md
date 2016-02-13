@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Containers with Kubernetes"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Containers with Kubernetes
 
@@ -98,14 +94,4 @@ The relationship between Docker's capabilities and [Linux capabilities](http://m
 | BLOCK_SUSPEND |  CAP_BLOCK_SUSPEND |
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/containers.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

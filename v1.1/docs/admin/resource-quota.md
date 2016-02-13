@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Resource Quotas"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Resource Quotas
 
@@ -161,14 +157,4 @@ See a [detailed example for how to use resource quota](resourcequota/)..
 See [ResourceQuota design doc](../design/admission_control_resource_quota.html) for more information.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/resource-quota.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

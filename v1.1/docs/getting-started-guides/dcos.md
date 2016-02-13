@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Getting started with Kubernetes on DCOS"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 Getting started with Kubernetes on DCOS
 ----------------------------------------
@@ -176,14 +172,4 @@ Now that Kubernetes is installed on DCOS, you may wish to explore the [Kubernete
     ```
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/dcos.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

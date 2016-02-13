@@ -1,5 +1,4 @@
 ---
-layout: docwithnav
 title: "Kubernetes API Reference"
 ---
 

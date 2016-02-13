@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Deploy DNS"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 ## Deploy DNS
 
@@ -62,14 +58,4 @@ Follow [this link](https://releases.k8s.io/release-1.1/cluster/addons/dns#how-do
 
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/docker-multinode/deployDNS.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

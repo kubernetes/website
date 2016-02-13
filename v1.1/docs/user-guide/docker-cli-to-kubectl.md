@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "kubectl for docker users"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # kubectl for docker users
 
@@ -356,14 +352,4 @@ InfluxDB is running at https://108.59.85.141/api/v1/proxy/namespaces/kube-system
 {% endhighlight %}
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/docker-cli-to-kubectl.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

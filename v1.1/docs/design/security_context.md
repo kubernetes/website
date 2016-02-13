@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Security Contexts"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Security Contexts
 
@@ -175,14 +171,4 @@ will be denied by default.  In the future the admission plugin will base this de
 configurable policies that reside within the [service account](http://pr.k8s.io/2297).
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/security_context.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

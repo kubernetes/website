@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes User Guide: Managing Applications: Connecting applications"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes User Guide: Managing Applications: Connecting applications
 
@@ -441,14 +437,4 @@ cluster/private cloud network.
 [Learn about more Kubernetes features that will help you run containers reliably in production.](production-pods.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/connecting-applications.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

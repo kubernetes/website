@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Writing a Getting Started Guide"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Writing a Getting Started Guide
 
@@ -105,14 +101,4 @@ These guidelines say *what* to do.  See the Rationale section for *why*.
 
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/writing-a-getting-started-guide.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

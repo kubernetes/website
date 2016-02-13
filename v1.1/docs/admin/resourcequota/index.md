@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Resource Quota"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 Resource Quota
 ========================================
 This example demonstrates how [resource quota](../../admin/admission-controllers.html#resourcequota) and
@@ -184,14 +180,4 @@ Any action that consumes those resources can be tweaked, or can pick up namespac
 meet your end goal.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/resourcequota/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

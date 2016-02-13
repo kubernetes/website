@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes Cluster Admin Guide: Cluster Components"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes Cluster Admin Guide: Cluster Components
 
@@ -123,14 +119,4 @@ network rules on the host and performing connection forwarding.
 running.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/cluster-components.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

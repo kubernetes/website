@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Environment Guide Example"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 Environment Guide Example
 =========================
 This example demonstrates running pods, replication controllers, and
@@ -99,14 +95,4 @@ Cleanup
     kubectl delete rc,service -l type=backend-type
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/environment-guide/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

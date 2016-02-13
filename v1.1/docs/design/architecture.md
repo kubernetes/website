@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes architecture"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes architecture
 
@@ -54,14 +50,4 @@ All other cluster-level functions are currently performed by the Controller Mana
 The [`replicationcontroller`](../user-guide/replication-controller.html) is a mechanism that is layered on top of the simple [`pod`](../user-guide/pods.html) API. We eventually plan to port it to a generic plug-in mechanism, once one is implemented.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/architecture.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

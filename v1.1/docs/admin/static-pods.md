@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Static pods (deprecated)"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Static pods (deprecated)
 
@@ -152,14 +148,4 @@ e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
 
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/static-pods.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

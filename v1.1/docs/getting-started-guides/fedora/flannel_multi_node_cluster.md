@@ -1,5 +1,4 @@
 ---
-layout: docwithnav
 title: "Kubernetes multiple nodes cluster with flannel on Fedora"
 ---
 ## Table of Contents

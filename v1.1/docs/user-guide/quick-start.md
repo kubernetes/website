@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes User Guide: Managing Applications: Quick start"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes User Guide: Managing Applications: Quick start
 
@@ -93,14 +89,4 @@ services/my-nginx
 [Learn about how to configure common container parameters, such as commands and environment variables.](configuring-containers.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/quick-start.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes API client libraries"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 ## Kubernetes API client libraries
 
@@ -27,14 +23,4 @@ title: "Kubernetes API client libraries"
    * [Perl](https://metacpan.org/pod/Net::Kubernetes)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/client-libraries.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

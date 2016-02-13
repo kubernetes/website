@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Getting started with Kubernetes on Mesos"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 Getting started with Kubernetes on Mesos
 ----------------------------------------
@@ -407,14 +403,4 @@ Future work will add instructions to this guide to enable support for Kubernetes
 [13]: https://releases.k8s.io/release-1.1/contrib/mesos/README.md
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/mesos.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

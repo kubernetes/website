@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Deployments"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Deployments
 
@@ -405,14 +401,4 @@ Note: This is not implemented yet.
 But deployments is declarative and is server side.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/deployments.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Authentication Plugins"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Authentication Plugins
 
@@ -133,14 +129,4 @@ into apiserver start parameters.
     `openssl x509  -noout -text -in ./server.crt`
     Finally, do not forget fill the same parameters and add parameters into apiserver start parameters.
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/authentication.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Jobs"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Jobs
 
@@ -244,14 +240,4 @@ similar functionality will be supported.
 Support for creating Jobs at specified times/dates (i.e. cron) is expected in the next minor
 release.
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/jobs.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

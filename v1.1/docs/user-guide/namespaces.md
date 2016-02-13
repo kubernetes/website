@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Namespaces"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Namespaces
 
@@ -104,14 +100,4 @@ persistentVolumes, are not in any namespace. Events are an exception: they may o
 have a namespace, depending on the object the event is about.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/namespaces.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

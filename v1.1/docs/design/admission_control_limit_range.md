@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Admission control plugin: LimitRanger"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Admission control plugin: LimitRanger
 
@@ -206,14 +202,4 @@ the following would happen.
 2. The incoming container memory would request 250Mi with a limit of 500Mi
 3. If the container is later resized, it's cpu would be constrained to between .1 and 1 and the ratio of limit to request could not exceed 4.
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/admission_control_limit_range.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

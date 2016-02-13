@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Tips and tricks when working with config"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Tips and tricks when working with config
 
@@ -30,14 +26,4 @@ This document is meant to highlight and consolidate in one place configuration b
 1. Put an object description in an annotation to allow better introspection.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/config-best-practices.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

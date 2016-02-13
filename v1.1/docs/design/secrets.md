@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Abstract"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 ## Abstract
 
@@ -598,14 +594,4 @@ source.  Both containers will have the following files present on their filesyst
     /etc/secret-volume/password
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/secrets.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

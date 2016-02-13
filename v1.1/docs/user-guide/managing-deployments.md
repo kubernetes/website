@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes User Guide: Managing Applications: Managing deployments"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes User Guide: Managing Applications: Managing deployments
 
@@ -291,7 +287,7 @@ my-nginx-o0ef1   1/1       Running   0          1h
 
 At some point, you’ll eventually need to update your deployed application, typically by specifying a new image or image tag, as in the canary deployment scenario above. `kubectl` supports several update operations, each of which is applicable to different scenarios.
 
-To update a service without an outage, `kubectl` supports what is called [“rolling update”](kubectl/kubectl_rolling-update.html), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](../design/simple-rolling-update.html) and the [example of rolling update](update-demo/) for more information.
+To update a service without an outage, `kubectl` supports what is called [“rolling update�?](kubectl/kubectl_rolling-update.html), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](../design/simple-rolling-update.html) and the [example of rolling update](update-demo/) for more information.
 
 Let’s say you were running version 1.7.9 of nginx:
 
@@ -401,7 +397,7 @@ spec:
       containers:
       - name: nginx
         image: nginx:1.9.2
-        args: [“nginx”,”-T”]
+        args: [“nginx�?,�?-T�?]
         ports:
         - containerPort: 80
 {% endraw %}
@@ -487,14 +483,4 @@ replicationcontrollers/my-nginx-v4
 - [Tips and tricks when working with config](config-best-practices.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/managing-deployments.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

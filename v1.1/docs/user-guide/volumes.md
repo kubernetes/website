@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Volumes"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Volumes
 
@@ -418,14 +414,4 @@ specification, and to select the type of media to use, for clusters that have
 several media types.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/volumes.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Services and Firewalls"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Services and Firewalls
 
@@ -61,14 +57,4 @@ This will be fixed in an upcoming release of Kubernetes.
 Coming soon.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/services-firewalls.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

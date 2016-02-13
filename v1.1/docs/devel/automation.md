@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes Development Automation"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes Development Automation
 
@@ -111,14 +107,4 @@ Right now you have to ask a contributor (this may be you!) to re-run the test wi
 
 Right now the easiest way is to close and then immediately re-open the PR.
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/automation.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

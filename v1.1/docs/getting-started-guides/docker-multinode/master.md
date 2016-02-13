@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Installing a Kubernetes Master Node via Docker"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 ## Installing a Kubernetes Master Node via Docker
 
@@ -218,14 +214,4 @@ If all else fails, ask questions on [Slack](../../troubleshooting.html#slack).
 Move on to [adding one or more workers](worker.html) or [deploy a dns](deployDNS.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/docker-multinode/master.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

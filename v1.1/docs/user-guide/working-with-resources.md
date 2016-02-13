@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Working with Resources"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Working with Resources
 
@@ -62,14 +58,4 @@ The API will generally not modify fields that you have set; it just sets ones wh
 You can browse auto-generated API documentation at the [project website](http://kubernetes.io/v1.1/api-ref.html) or on [github](https://releases.k8s.io/release-1.1/docs/api-reference).
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/working-with-resources.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

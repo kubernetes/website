@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Running your first containers in Kubernetes"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 ## Running your first containers in Kubernetes
 
@@ -76,14 +72,4 @@ Most people will eventually want to use declarative configuration files for crea
 is given in a different document.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/simple-nginx.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

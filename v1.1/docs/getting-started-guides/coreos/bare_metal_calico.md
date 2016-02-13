@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Bare Metal CoreOS with Kubernetes and Project Calico"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 Bare Metal CoreOS with Kubernetes and Project Calico
 ------------------------------------------
@@ -139,14 +135,4 @@ Try running the [guestbook demo](../../../examples/guestbook/) to test out your 
 
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/coreos/bare_metal_calico.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

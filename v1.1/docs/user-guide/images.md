@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Images"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Images
 
@@ -175,7 +171,7 @@ Then put the resulting `.dockercfg` file into a [secret resource](secrets.html).
 {% raw %}
 $ docker login
 Username: janedoe
-Password: â—â—â—â—â—â—â—â—â—â—â—
+Password: â—?â—?â—?â—?â—?â—?â—?â—?â—?â—?â—?
 Email: jdoe@example.com
 WARNING: login credentials saved in /Users/jdoe/.dockercfg.
 Login Succeeded
@@ -264,14 +260,4 @@ common use cases and suggested solutions.
      - NOT supported yet.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/images.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

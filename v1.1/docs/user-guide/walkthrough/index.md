@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes 101 - Kubectl CLI and Pods"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes 101 - Kubectl CLI and Pods
 
@@ -219,14 +215,4 @@ Continue on to [Kubernetes 201](k8s201.html) or
 for a complete application see the [guestbook example](../../../examples/guestbook/README.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/walkthrough/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

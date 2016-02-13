@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes Event Compression"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes Event Compression
 
@@ -94,14 +90,4 @@ This demonstrates what would have been 20 separate entries (indicating schedulin
  * PR [#4444](http://pr.k8s.io/4444): Switch events history to use LRU cache instead of map
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/event_compression.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

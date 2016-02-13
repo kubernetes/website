@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Networking in Kubernetes"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Networking in Kubernetes
 
@@ -210,14 +206,4 @@ plans are described in more detail in the [networking design
 document](../design/networking.html).
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/networking.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

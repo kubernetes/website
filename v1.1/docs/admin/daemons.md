@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Daemon Sets"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Daemon Sets
 
@@ -197,14 +193,4 @@ However, due to to a known issue, they will appear as API version `v1beta1` if e
 
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/daemons.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

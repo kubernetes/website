@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Cluster Admin Guide to Service Accounts"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Cluster Admin Guide to Service Accounts
 
@@ -107,14 +103,4 @@ Service Account Controller manages ServiceAccount inside namespaces, and ensures
 a ServiceAccount named "default" exists in every active namespace.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/service-accounts-admin.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

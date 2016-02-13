@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Namespaces"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Namespaces
 
@@ -167,14 +163,4 @@ Details of the design of namespaces in Kubernetes, including a [detailed example
 can be found in the [namespaces design doc](../design/namespaces.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/namespaces.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

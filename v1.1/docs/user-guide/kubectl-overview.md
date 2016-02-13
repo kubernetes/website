@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "kubectl overview"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # kubectl overview
 
@@ -302,14 +298,4 @@ Use the following set of examples to help you familiarize yourself with running 
 Start using the [kubectl](kubectl/kubectl.html) commands.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl-overview.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

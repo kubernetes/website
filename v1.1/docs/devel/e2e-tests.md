@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "End-2-End Testing in Kubernetes"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # End-2-End Testing in Kubernetes
 
@@ -122,14 +118,4 @@ Once prometheus is scraping the kubernetes endpoints, that data can then be plot
 
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/e2e-tests.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

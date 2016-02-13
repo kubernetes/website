@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "The Kubernetes Scheduler"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # The Kubernetes Scheduler
 
@@ -55,14 +51,4 @@ If you want to get a global picture of how the scheduler works, you can start in
 [plugin/cmd/kube-scheduler/app/server.go](http://releases.k8s.io/release-1.1/plugin/cmd/kube-scheduler/app/server.go)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/scheduler.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

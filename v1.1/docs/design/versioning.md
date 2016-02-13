@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes API and Release Versioning"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes API and Release Versioning
 
@@ -61,14 +57,4 @@ Dependencies, such as Docker or Etcd, should also not be changed unless absolute
 There is a separate question of how to track the capabilities of a kubelet to facilitate rolling upgrades. That is not addressed here.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/versioning.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

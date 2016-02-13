@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Service Accounts"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Service Accounts
 
@@ -217,14 +213,4 @@ TODO: Test and explain how to use additional non-K8s secrets with an existing se
 TODO explain:
   - The token goes to: "/var/run/secrets/kubernetes.io/serviceaccount/$WHATFILENAME"
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/service-accounts.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

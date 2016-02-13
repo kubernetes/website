@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes User Guide: Managing Applications: Configuring and launching containers"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes User Guide: Managing Applications: Configuring and launching containers
 
@@ -28,7 +24,7 @@ title: "Kubernetes User Guide: Managing Applications: Configuring and launching 
 
 In addition to the imperative-style commands, such as `kubectl run` and `kubectl expose`, described [elsewhere](quick-start.html), Kubernetes supports declarative configuration. Often times, configuration files are preferable to imperative commands, since they can be checked into version control and changes to the files can be code reviewed, which is especially important for more complex configurations, producing a more robust, reliable and archival system.
 
-In the declarative style, all configuration is stored in YAML or JSON configuration files using Kubernetes's API resource schemas as the configuration schemas. `kubectl` can create, update, delete, and get API resources. The `apiVersion` (currently “v1”), resource `kind`, and resource `name` are used by `kubectl` to construct the appropriate API path to invoke for the specified operation.
+In the declarative style, all configuration is stored in YAML or JSON configuration files using Kubernetes's API resource schemas as the configuration schemas. `kubectl` can create, update, delete, and get API resources. The `apiVersion` (currently “v1�?), resource `kind`, and resource `name` are used by `kubectl` to construct the appropriate API path to invoke for the specified operation.
 
 ## Launching a container using a configuration file
 
@@ -45,7 +41,7 @@ spec:  # specification of the pod’s contents
   containers:
   - name: hello
     image: "ubuntu:14.04"
-    command: ["/bin/echo","hello”,”world"]
+    command: ["/bin/echo","hello�?,�?world"]
 {% endraw %}
 {% endhighlight %}
 
@@ -210,14 +206,4 @@ On the other hand, containers and their logs are eventually deleted automaticall
 [Learn about deploying continuously running applications.](deploying-applications.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/configuring-containers.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

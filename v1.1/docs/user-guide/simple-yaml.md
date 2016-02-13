@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Getting started with config files."
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 ## Getting started with config files.
 
@@ -116,14 +112,4 @@ $ kubectl delete rc nginx
 {% endhighlight %}
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/simple-yaml.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

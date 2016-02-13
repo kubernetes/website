@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Persistent Volumes and Claims"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Persistent Volumes and Claims
 
@@ -207,14 +203,4 @@ spec:
 {% endhighlight %}
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/persistent-volumes.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

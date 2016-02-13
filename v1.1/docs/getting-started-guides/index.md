@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Creating a Kubernetes Cluster"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 Creating a Kubernetes Cluster
 ----------------------------------------
@@ -202,14 +198,4 @@ Definition of columns:
 [3]: https://gist.github.com/erictune/2f39b22f72565365e59b
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

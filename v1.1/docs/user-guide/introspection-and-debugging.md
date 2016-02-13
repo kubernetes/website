@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes User Guide: Managing Applications: Application Introspection and Debugging"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes User Guide: Managing Applications: Application Introspection and Debugging
 
@@ -114,7 +110,7 @@ The container state is one of Waiting, Running, or Terminated. Depending on the 
 
 Ready tells you whether the container passed its last readiness probe. (In this case, the container does not have a readiness probe configured; the container is assumed to be ready if no readiness probe is configured.)
 
-Restart Count tells you how many times the container has restarted; this information can be useful for detecting crash loops in containers that are configured with a restart policy of “always.”
+Restart Count tells you how many times the container has restarted; this information can be useful for detecting crash loops in containers that are configured with a restart policy of “always.�?
 
 Currently the only Condition associated with a Pod is the binary Ready condition, which indicates that the pod is able to service requests and should be added to the load balancing pools of all matching services.
 
@@ -350,14 +346,4 @@ Learn about additional debugging tools, including:
 * [Connecting to containers via port forwarding](connecting-to-applications-port-forward.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/introspection-and-debugging.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

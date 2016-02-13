@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "So you want to change the API?"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # So you want to change the API?
 
@@ -615,14 +611,4 @@ New feature development proceeds through a series of stages of increasing maturi
   - Support: API version will continue to be present for many subsequent software releases;
   - Recommended Use Cases: any
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/api_changes.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

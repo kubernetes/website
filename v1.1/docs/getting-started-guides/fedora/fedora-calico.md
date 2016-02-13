@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Running Kubernetes with Calico Networking on a Digital Ocean Fedora Host"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 Running Kubernetes with [Calico Networking](http://projectcalico.org) on a [Digital Ocean](http://digitalocean.com) [Fedora Host](http://fedoraproject.org)
 -----------------------------------------------------
@@ -373,14 +369,4 @@ kube-node-1   kubernetes.io/hostname=kube-node-1   Ready
 ```
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/fedora/fedora-calico.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes Developer Guide"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes Developer Guide
 
@@ -83,14 +79,4 @@ Guide](../admin/README.html).
   and how the version information gets embedded into the built binaries.
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

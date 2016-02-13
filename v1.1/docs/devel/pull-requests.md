@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Pull Request Process"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 Pull Request Process
 ====================
 
@@ -44,14 +40,4 @@ We use a variety of automation to manage pull requests.  This automation is desc
 [elsewhere.](automation.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/pull-requests.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

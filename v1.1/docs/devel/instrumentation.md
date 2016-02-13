@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Instrumenting Kubernetes with a new metric"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 Instrumenting Kubernetes with a new metric
 ===================
 
@@ -41,14 +37,4 @@ https://github.com/prometheus/client_golang/blob/master/prometheus/histogram.go
 https://github.com/prometheus/client_golang/blob/master/prometheus/summary.go
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/instrumentation.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

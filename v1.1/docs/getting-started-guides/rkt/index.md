@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Run Kubernetes with rkt"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Run Kubernetes with rkt
 
@@ -167,14 +163,4 @@ where `$UUID` is the rkt pod's UUID, which you can find via `rkt list --full`, a
 
 Besides above tricks, Kubernetes also provides us handy tools for debugging the pods. More information can be found [here](../../../docs/user-guide/application-troubleshooting.html)
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/rkt/README.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

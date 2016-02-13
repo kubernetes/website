@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Adding a Kubernetes worker node via Docker."
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 ## Adding a Kubernetes worker node via Docker.
 
@@ -171,14 +167,4 @@ sudo docker run -d --net=host --privileged gcr.io/google_containers/hyperkube:v1
 Move on to [testing your cluster](testing.html) or [add another node](#adding-a-kubernetes-worker-node-via-docker)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/getting-started-guides/docker-multinode/worker.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

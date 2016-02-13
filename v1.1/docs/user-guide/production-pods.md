@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Kubernetes User Guide: Managing Applications: Working with pods and containers in production"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Kubernetes User Guide: Managing Applications: Working with pods and containers in production
 
@@ -146,7 +142,7 @@ Then put the resulting `.dockercfg` file into a [secret resource](secrets.html).
 {% raw %}
 $ docker login
 Username: janedoe
-Password: â—â—â—â—â—â—â—â—â—â—â—
+Password: â—?â—?â—?â—?â—?â—?â—?â—?â—?â—?â—?
 Email: jdoe@example.com
 WARNING: login credentials saved in /Users/jdoe/.dockercfg.
 Login Succeeded
@@ -350,7 +346,7 @@ spec:
 
 ## Termination message
 
-In order to achieve a reasonably high level of availability, especially for actively developed applications, itâ€™s important to debug failures quickly. Kubernetes can speed debugging by surfacing causes of fatal errors in a way that can be display using [`kubectl`](kubectl/kubectl.html) or the [UI](ui.html), in addition to general [log collection](logging.html). It is possible to specify a `terminationMessagePath` where a container will write its â€œdeath rattleâ€, such as assertion failure messages, stack traces, exceptions, and so on. The default path is `/dev/termination-log`.
+In order to achieve a reasonably high level of availability, especially for actively developed applications, itâ€™s important to debug failures quickly. Kubernetes can speed debugging by surfacing causes of fatal errors in a way that can be display using [`kubectl`](kubectl/kubectl.html) or the [UI](ui.html), in addition to general [log collection](logging.html). It is possible to specify a `terminationMessagePath` where a container will write its â€œdeath rattleâ€?, such as assertion failure messages, stack traces, exceptions, and so on. The default path is `/dev/termination-log`.
 
 Here is a toy example:
 
@@ -388,14 +384,4 @@ $ kubectl get pods/pod-w-message -o go-template="{{range .status.containerStatus
 [Learn more about managing deployments.](managing-deployments.html)
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/production-pods.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "The Kubernetes resource model"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 **Note: this is a design doc, which describes features that have not been completely implemented.
 User documentation of the current state is [here](../user-guide/compute-resources.html).  The tracking issue for
 implementation of this model is
@@ -117,7 +113,7 @@ The following resource types are predefined ("reserved") by Kubernetes in the `k
     * [future] `schedulingLatency`: as per lmctfy
     * [future] `cpuConversionFactor`: property of a node: the speed of a CPU core on the node's processor divided by the speed of the canonical Kubernetes CPU (a floating point value; default = 1.0).
 
-To reduce performance portability problems for pods, and to avoid worse-case provisioning behavior, the units of CPU will be normalized to a canonical "Kubernetes Compute Unit" (KCU, pronounced ˈko͝oko͞o), which will roughly be equivalent to a single CPU hyperthreaded core for some recent x86 processor. The normalization may be implementation-defined, although some reasonable defaults will be provided in the open-source Kubernetes code.
+To reduce performance portability problems for pods, and to avoid worse-case provisioning behavior, the units of CPU will be normalized to a canonical "Kubernetes Compute Unit" (KCU, pronounced ˈko�?oko͞o), which will roughly be equivalent to a single CPU hyperthreaded core for some recent x86 processor. The normalization may be implementation-defined, although some reasonable defaults will be provided in the open-source Kubernetes code.
 
 Note that requesting 2 KCU won't guarantee that precisely 2 physical cores will be allocated &mdash; control of aspects like this will be handled by resource _qualities_ (a future feature).
 
@@ -248,14 +244,4 @@ This is the amount of time a container spends accessing disk, including actuator
   * Compressible? yes
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/resources.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

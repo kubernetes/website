@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "Hunting flaky tests in Kubernetes"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # Hunting flaky tests in Kubernetes
 
@@ -82,14 +78,4 @@ If you do a final check for flakes with `docker ps -a`, ignore tasks that exited
 Happy flake hunting!
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/devel/flaky-tests.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 

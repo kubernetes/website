@@ -1,5 +1,4 @@
 ---
-layout: docwithnav
 title: "Application Administration: Detailed Walkthrough"
 ---
 

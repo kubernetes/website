@@ -1,11 +1,7 @@
 ---
-layout: docwithnav
 title: "DaemonSet in Kubernetes"
 ---
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
 
 # DaemonSet in Kubernetes
 
@@ -90,7 +86,7 @@ The DaemonSet supports standard API features:
 ### Cluster Mutations
 
   - When a new node is added to the cluster, the DaemonSet controller starts daemon pods on the node for DaemonSets whose pod template nodeSelectors match the node’s labels.
-  - Suppose the user launches a DaemonSet that runs a logging daemon on all nodes labeled “logger=fluentd”. If the user then adds the “logger=fluentd” label to a node (that did not initially have the label), the logging daemon will launch on the node. Additionally, if a user removes the label from a node, the logging daemon on that node will be killed.
+  - Suppose the user launches a DaemonSet that runs a logging daemon on all nodes labeled “logger=fluentd�?. If the user then adds the “logger=fluentd�? label to a node (that did not initially have the label), the logging daemon will launch on the node. Additionally, if a user removes the label from a node, the logging daemon on that node will be killed.
 
 ## Alternatives Considered
 
@@ -132,14 +128,4 @@ A third alternative is to generalize the Replication Controller. We would do som
 - Should work similarly to [Deployment](http://issues.k8s.io/1743).
 
 
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/design/daemon.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
 
