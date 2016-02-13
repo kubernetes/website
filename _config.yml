@@ -14,14 +14,10 @@ lsi: false
 defaults:
   -
     scope:
-      path: ""
-    values:
-      layout: "docwithnav"
-  -
-    scope:
       path: "v1.1"
     values:
       version: "v1.1"
       versionfilesafe: "v1_1"
+      layout: docwithnav
       showedit: true
 permalink: pretty
