@@ -1,8 +1,6 @@
 ---
 title: "Labels"
 ---
-{% include pagetoc.html %}
-
 _Labels_ are key/value pairs that are attached to objects, such as pods.
 Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but which do not directly imply semantics to the core system.
 Labels can be used to organize and to select subsets of objects.  Labels can be attached to objects at creation time and subsequently added and modified at any time.
@@ -19,6 +17,7 @@ Each object can have a set of key/value labels defined.  Each Key must be unique
 
 We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](annotations).
 
+{% include pagetoc.html %}
 
 ## Motivation
 
