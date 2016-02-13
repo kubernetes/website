@@ -2,9 +2,10 @@
 layout: headerfooter
 ---
 <!--  HERO  -->
+{% for thistoc in site.data[page.versionfilesafe].globals.tocs %}{% assign tree = site.data[page.versionfilesafe][thistoc].toc %}{% include tocsearch.html %}{% endfor %}
 <section id="hero" class="light-text">
-	<h1>{{ site.data[page.versionfilesafe][page.section].bigheader }}</h1>
-	<h5>{{ site.data[page.versionfilesafe][page.section].abstract }}</h5>
+	<h1>{{ site.data[page.versionfilesafe][foundTOC].bigheader }}</h1>
+	<h5>{{ site.data[page.versionfilesafe][foundTOC].abstract }}</h5>
 	<div id="vendorStrip" class="light-text">
 		<ul>
 			<li><a href="/{{ page.version }}/">GUIDES</a></li>
@@ -24,8 +25,7 @@ layout: headerfooter
 <section id="encyclopedia">
 	<div id="docsToc">
         <div class="pi-accordion">
-        {% for thistoc in site.data[page.versionfilesafe].globals.tocs %}{% assign tree = site.data[page.versionfilesafe][thistoc].toc %}{% include tocsearch.html %}{% endfor %}
-        {% if foundTOC %}{% assign tree = site.data[page.versionfilesafe][foundTOC].toc %}{% include tree.html %}{% endif %}
+        {% assign tree = site.data[page.versionfilesafe][foundTOC].toc %}{% include tree.html %}
         </div> <!-- /pi-accordion -->
 	</div> <!-- /docsToc -->
 	<div id="docsContent">{% if page.showedit == true %}<a href="/{{ page.version }}/editdocs#{{ page.path }}" class="button" style="float:right;margin-top:20px;">Edit This Page</a>{% endif %}
