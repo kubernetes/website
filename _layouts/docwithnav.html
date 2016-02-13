@@ -2,7 +2,7 @@
 layout: headerfooter
 ---
 <!--  HERO  -->
-{% for thistoc in site.data[page.versionfilesafe].globals.tocs %}{% assign tree = site.data[page.versionfilesafe][thistoc].toc %}{% include tocsearch.html %}{% endfor %}
+{% for thistoc in site.data[page.versionfilesafe].globals.tocs %}{% if foundTOC %}{% break %}{% else %}{% assign tree = site.data[page.versionfilesafe][thistoc].toc %}{% include tocsearch.html %}{% endif %}{% endfor %}
 <section id="hero" class="light-text">
 	<h1>{{ site.data[page.versionfilesafe][foundTOC].bigheader }}</h1>
 	<h5>{{ site.data[page.versionfilesafe][foundTOC].abstract }}</h5>

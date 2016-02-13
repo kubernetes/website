@@ -1,6 +1,3 @@
-
-.DS_Store
-
-_includes/.DS_Store
-
-docs.html
+**/.DS_Store
+.jekyll-metadata
+_site/**

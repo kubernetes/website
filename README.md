@@ -45,10 +45,10 @@ Clone our site
 
 	git clone https://github.com/kubernetes/kubernetes.github.io.git
 
-Then, see it run locally:
+Then, to see it run locally:
 
 	cd kubernetes.github.io
-	jekyll serve .
+	jekyll serve
 
 Your copy of the site will then be viewable at: [http://0.0.0.0:4000](http://0.0.0.0:4000)
 (or wherever Ruby tells you).
