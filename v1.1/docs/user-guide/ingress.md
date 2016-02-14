@@ -289,6 +289,3 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * Use [Service.Type=NodePort](https://github.com/kubernetes/kubernetes/blob/release-1.0/docs/user-guide/services.md#type-nodeport)
 * Use a [Port Proxy] (https://github.com/kubernetes/contrib/tree/master/for-demos/proxy-to-service)
 * Deploy the [Service loadbalancer](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer). This allows you to share a single IP among multiple Services and achieve more advanced loadbalancing through Service Annotations.
-
-
-

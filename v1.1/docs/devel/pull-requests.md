@@ -1,14 +1,9 @@
 ---
 title: "Pull Request Process"
 ---
-
-Pull Request Process
-====================
-
 An overview of how we will manage old or out-of-date pull requests.
 
-Process
--------
+## Process
 
 We will close any pull requests older than two weeks.
 
@@ -19,8 +14,7 @@ We want to limit the total number of PRs in flight to:
 * Remove old PRs that would be difficult to rebase as the underlying code has changed over time
 * Encourage code velocity
 
-Life of a Pull Request
-----------------------
+## Life of a Pull Request
 
 Unless in the last few weeks of a milestone when we need to reduce churn and stabilize, we aim to be always accepting pull requests.
 
@@ -33,8 +27,7 @@ There are several requirements for the submit queue to work:
 
 Additionally, for infrequent or new contributors, we require the on call to apply the "ok-to-merge" label manually.  This is gated by the [whitelist](https://github.com/kubernetes/contrib/tree/master/submit-queue/whitelist.txt).
 
-Automation
-----------
+## Automation
 
 We use a variety of automation to manage pull requests.  This automation is described in detail
 [elsewhere.](automation)

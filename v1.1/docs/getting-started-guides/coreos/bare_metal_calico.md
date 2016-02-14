@@ -1,10 +1,6 @@
 ---
 title: "Bare Metal CoreOS with Kubernetes and Project Calico"
 ---
-
-
-Bare Metal CoreOS with Kubernetes and Project Calico
-------------------------------------------
 This guide explains how to deploy a bare-metal Kubernetes cluster on CoreOS using [Calico networking](http://www.projectcalico.org).
 
 Specifically, this guide will have you do the following:
@@ -34,10 +30,12 @@ In the next few steps you will be asked to configure these files and host them o
 
 To get the Kubernetes source, clone the GitHub repo, and build the binaries.
 
-```
+```
+
 git clone https://github.com/kubernetes/kubernetes.git
 cd kubernetes
-./build/release.sh 
+./build/release.sh 
+
 ```
 
 Once the binaries are built, host the entire `<kubernetes>/_output/dockerized/bin/<OS>/<ARCHITECTURE>/` folder on an accessible HTTP server so they can be accessed by the cloud-config.  You'll point your cloud-config files at this HTTP server later.
@@ -46,8 +44,10 @@ Once the binaries are built, host the entire `<kubernetes>/_output/dockerized/bi
 
 Let's download the CoreOS bootable ISO.  We'll use this image to boot and install CoreOS on each server.
 
-```
-wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso
+```
+
+wget http://stable.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso
+
 ```
 
 You can also download the ISO from the [CoreOS website](https://coreos.com/docs/running-coreos/platforms/iso/).
@@ -58,9 +58,11 @@ Once you've downloaded the image, use it to boot your Kubernetes Master server. 
 
 Let's get the master-config.yaml and fill in the necessary variables.  Run the following commands on your HTTP server to get the cloud-config files.
 
-```
+```
+
 git clone https://github.com/Metaswitch/calico-kubernetes-demo.git
-cd calico-kubernetes-demo/coreos
+cd calico-kubernetes-demo/coreos
+
 ```
 
 You'll need to replace the following variables in the `master-config.yaml` file to match your deployment.
@@ -73,8 +75,10 @@ Host the modified `master-config.yaml` file and pull it on to your Kubernetes Ma
 
 The CoreOS bootable ISO comes with a tool called `coreos-install` which will allow us to install CoreOS to disk and configure the install using cloud-config.  The following command will download and install stable CoreOS, using the master-config.yaml file for configuration.
 
-```
-sudo coreos-install -d /dev/sda -C stable -c master-config.yaml
+```
+
+sudo coreos-install -d /dev/sda -C stable -c master-config.yaml
+
 ```
 
 Once complete, eject the bootable ISO and restart the server.  When it comes back up, you should have SSH access as the `core` user using the public key provided in the master-config.yaml file.
@@ -98,20 +102,26 @@ You'll need to replace the following variables in the `node-config.yaml` file to
 
 Host the modified `node-config.yaml` file and pull it on to your Kubernetes node.
 
-```
-wget http://<http_server_ip>/node-config.yaml
+```
+
+wget http://<http_server_ip>/node-config.yaml
+
 ```
 
 Install and configure CoreOS on the node using the following command.
 
-```
-sudo coreos-install -d /dev/sda -C stable -c node-config.yaml
+```
+
+sudo coreos-install -d /dev/sda -C stable -c node-config.yaml
+
 ```
 
 Once complete, restart the server.  When it comes back up, you should have SSH access as the `core` user using the public key provided in the `node-config.yaml` file.  It will take some time for the node to be fully configured.  Once fully configured, you can check that the node is running with the following command on the Kubernetes master.
 
-```
-/home/core/kubectl get nodes
+```
+
+/home/core/kubectl get nodes
+
 ```
 
 ## Testing the Cluster

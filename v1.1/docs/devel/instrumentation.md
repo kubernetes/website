@@ -1,10 +1,6 @@
 ---
 title: "Instrumenting Kubernetes with a new metric"
 ---
-
-Instrumenting Kubernetes with a new metric
-===================
-
 The following is a step-by-step guide for adding a new metric to the Kubernetes code base.
 
 We use the Prometheus monitoring system's golang client library for instrumenting our code. Once you've picked out a file that you want to add a metric to, you should:

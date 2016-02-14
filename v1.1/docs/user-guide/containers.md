@@ -1,6 +1,8 @@
 ---
 title: "Containers with Kubernetes"
 ---
+{% include pagetoc.html %}
+
 ## Containers and commands
 
 So far the Pods we've seen have all used the `image` field to indicate what process Kubernetes

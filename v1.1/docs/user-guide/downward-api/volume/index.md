@@ -70,8 +70,3 @@ drwxrwxrwt    3 0        0              180 Aug 24 13:03 ..
 {% endhighlight %}
 
 The file `labels` is stored in a temporary directory (`..2015_08_24_13_03_44259413923` in the example above) which is symlinked to by `..downwardapi`. Symlinks for annotations and labels in `/etc` point to files containing the actual metadata through the `..downwardapi` indirection.  This structure allows for dynamic atomic refresh of the metadata: updates are written to a new temporary directory, and the `..downwardapi` symlink is updated atomically using `rename(2)`.
-
-
-
-
-

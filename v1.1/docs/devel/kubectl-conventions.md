@@ -2,10 +2,6 @@
 title: "Kubectl Conventions"
 ---
 
-
-Kubectl Conventions
-===================
-
 Updated: 8/27/2015
 
 {% include pagetoc.html %}

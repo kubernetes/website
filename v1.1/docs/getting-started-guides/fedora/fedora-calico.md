@@ -9,7 +9,8 @@ You need two or more Fedora 22 droplets on Digital Ocean with [Private Networkin
 
 ## Overview
 
-This guide will walk you through the process of getting a Kubernetes Fedora cluster running on Digital Ocean with networking powered by Calico networking. It will cover the installation and configuration of the following systemd processes on the following hosts:
+This guide will walk you through the process of getting a Kubernetes Fedora cluster running on Digital Ocean with networking powered by Calico networking.
+It will cover the installation and configuration of the following systemd processes on the following hosts:
 
 Kubernetes Master:
 - `kube-apiserver`
@@ -32,13 +33,16 @@ For this demo, we will be setting up one Master and one Node with the following 
 | kube-master |10.134.251.56|
 | kube-node-1 |10.134.251.55|
 
-This guide is scalable to multiple nodes provided you [configure interface-cbr0 with its own subnet on each Node](#configure-the-virtual-interface---cbr0) and [add an entry to /etc/hosts for each host](#setup-communication-between-hosts).
+This guide is scalable to multiple nodes provided you [configure interface-cbr0 with its own subnet on each Node](#configure-the-virtual-interface---cbr0)
+and [add an entry to /etc/hosts for each host](#setup-communication-between-hosts).
 
 Ensure you substitute the IP Addresses and Hostnames used in this guide with ones in your own setup.
 
 ## Setup Communication Between Hosts
 
-Digital Ocean private networking configures a private network on eth1 for each host.  To simplify communication between the hosts, we will add an entry to /etc/hosts so that all hosts in the cluster can hostname-resolve one another to this interface.  **It is important that the hostname resolves to this interface instead of eth0, as all Kubernetes and Calico services will be running on it.**
+Digital Ocean private networking configures a private network on eth1 for each host.  To simplify communication between the hosts, we will add an entry to /etc/hosts
+so that all hosts in the cluster can hostname-resolve one another to this interface.  **It is important that the hostname resolves to this interface instead of eth0, as
+all Kubernetes and Calico services will be running on it.**
 
 ```
 
@@ -177,7 +181,8 @@ systemctl start calico-node.service
 
 ### Configure the Virtual Interface - cbr0
 
-By default, docker will create and run on a virtual interface called `docker0`. This interface is automatically assigned the address range 172.17.42.1/16. In order to set our own address range, we will create a new virtual interface called `cbr0` and then start docker on it.
+By default, docker will create and run on a virtual interface called `docker0`. This interface is automatically assigned the address range 172.17.42.1/16.
+In order to set our own address range, we will create a new virtual interface called `cbr0` and then start docker on it.
 
 * Add a virtual interface by creating `/etc/sysconfig/network-scripts/ifcfg-cbr0`:
 
@@ -192,7 +197,8 @@ BOOTPROTO=static
 
 ```
 
->**Note for Multi-Node Clusters:** Each node should be assigned an IP address on a unique subnet. In this example, node-1 is using 192.168.1.1/24, so node-2 should be assigned another pool on the 192.168.x.0/24 subnet, e.g. 192.168.2.1/24.
+>**Note for Multi-Node Clusters:** Each node should be assigned an IP address on a unique subnet. In this example, node-1 is using 192.168.1.1/24,
+so node-2 should be assigned another pool on the 192.168.x.0/24 subnet, e.g. 192.168.2.1/24.
 
 * Ensure that your system has bridge-utils installed. Then, restart the networking daemon to activate the new interface
 
@@ -274,7 +280,9 @@ systemctl start calico-node.service
 
 * Configure the IP Address Pool
 
- Most Kubernetes application deployments will require communication between Pods and the kube-apiserver on Master. On a  standard Digital Ocean Private Network, requests sent from Pods to the kube-apiserver will not be returned as the networking fabric will drop response packets destined for any 192.168.0.0/16 address. To resolve this, you can have calicoctl add a masquerade rule to all outgoing traffic on the node:
+ Most Kubernetes application deployments will require communication between Pods and the kube-apiserver on Master. On a  standard Digital
+Ocean Private Network, requests sent from Pods to the kube-apiserver will not be returned as the networking fabric will drop response packets
+destined for any 192.168.0.0/16 address. To resolve this, you can have calicoctl add a masquerade rule to all outgoing traffic on the node:
 
 ```
 
@@ -303,7 +311,8 @@ KUBE_MASTER="--master=http://kube-master:8080"
 
 * Edit `/etc/kubernetes/kubelet`
 
-  We'll pass in an extra parameter - `--network-plugin=calico` to tell the Kubelet to use the Calico networking plugin. Additionally, we'll add two environment variables that will be used by the Calico networking plugin.
+  We'll pass in an extra parameter - `--network-plugin=calico` to tell the Kubelet to use the Calico networking plugin. Additionally, we'll add two
+environment variables that will be used by the Calico networking plugin.
 
 ```
 

@@ -1,9 +1,6 @@
 ---
 title: "Environment Guide Example"
 ---
-
-Environment Guide Example
-=========================
 This example demonstrates running pods, replication controllers, and
 services. It shows two types of pods: frontend and backend, with
 services on top of both. Accessing the frontend pod will return
@@ -15,29 +12,28 @@ is [here](/{{page.version}}/docs/user-guide/container-environment).
 
 ![Diagram](diagram.png)
 
-Prerequisites
--------------
+## Prerequisites
+
 This example assumes that you have a Kubernetes cluster installed and
 running, and that you have installed the `kubectl` command line tool
 somewhere in your path.  Please see the [getting
 started](/{{page.version}}/docs/getting-started-guides/) for installation instructions
 for your platform.
 
-Optional: Build your own containers
------------------------------------
+## Optional: Build your own containers
+
 The code for the containers is under
 [containers/](containers/)
 
-Get everything running
-----------------------
+## Get everything running
 
     kubectl create -f ./backend-rc.yaml
     kubectl create -f ./backend-srv.yaml
     kubectl create -f ./show-rc.yaml
     kubectl create -f ./show-srv.yaml
 
-Query the service
------------------
+## Query the service
+
 Use `kubectl describe service show-srv` to determine the public IP of
 your service.
 
@@ -48,7 +44,8 @@ your service.
 Run `curl <public ip>:80` to query the service. You should get
 something like this back:
 
-```
+```
+
 Pod Name: show-rc-xxu6i
 Pod Namespace: default
 USER_VAR: important information
@@ -67,7 +64,8 @@ Found backend ip: 10.147.252.185 port: 5000
 Response from backend
 Backend Container
 Backend Pod Name: backend-rc-6qiya
-Backend Namespace: default
+Backend Namespace: default
+
 ```
 
 First the frontend pod's information is printed. The pod name and
@@ -87,8 +85,8 @@ frontend pods are always contacting the backend through the backend
 service. This results in a different backend pod servicing each
 request as well.
 
-Cleanup
--------
+## Cleanup
+
     kubectl delete rc,service -l type=show-type
     kubectl delete rc,service -l type=backend-type
 

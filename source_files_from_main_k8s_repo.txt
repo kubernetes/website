@@ -1,0 +1,17 @@
+v1.1/examples
+v1.1/docs/design
+v1.1/docs/man
+v1.1/docs/proposals
+v1.1/docs/api-reference
+v1.1/docs/user-guide/kubectl
+v1.1/docs/admin/kube-apiserver.md
+v1.1/docs/admin/kube-controller-manager.md
+v1.1/docs/admin/kube-proxy.md
+v1.1/docs/admin/kube-scheduler.md
+v1.1/docs/admin/kubelet.md
+v1.0/docs/user-guide/kubectl
+v1.0/docs/admin/kube-apiserver.md
+v1.0/docs/admin/kube-controller-manager.md
+v1.0/docs/admin/kube-proxy.md
+v1.0/docs/admin/kube-scheduler.md
+v1.0/docs/admin/kubelet.md

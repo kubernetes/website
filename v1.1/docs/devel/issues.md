@@ -1,10 +1,6 @@
 ---
 title: "GitHub Issues for the Kubernetes Project"
 ---
-
-GitHub Issues for the Kubernetes Project
-========================================
-
 A list quick overview of how we will review and prioritize incoming issues at https://github.com/kubernetes/kubernetes/issues
 
 Priorities

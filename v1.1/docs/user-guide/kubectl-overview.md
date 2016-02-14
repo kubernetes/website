@@ -271,6 +271,3 @@ Use the following set of examples to help you familiarize yourself with running 
 ## Next steps
 
 Start using the [kubectl](kubectl/kubectl) commands.
-
-
-

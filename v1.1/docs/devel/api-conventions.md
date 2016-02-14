@@ -1,10 +1,6 @@
 ---
 title: "API Conventions"
 ---
-
-API Conventions
-===============
-
 Updated: 9/20/2015
 
 *This document is oriented at users who want a deeper understanding of the Kubernetes
@@ -124,13 +120,15 @@ Objects that contain both spec and status should not contain additional top-leve
 
 The `FooCondition` type for some resource type `Foo` may include a subset of the following fields, but must contain at least `type` and `status` fields:
 
-{% highlight go %}
+{% highlight go %}
+
 	Type               FooConditionType  `json:"type" description:"type of Foo condition"`
 	Status             ConditionStatus   `json:"status" description:"status of the condition, one of True, False, Unknown"`
 	LastHeartbeatTime  unversioned.Time         `json:"lastHeartbeatTime,omitempty" description:"last time we got an update on a given condition"`
 	LastTransitionTime unversioned.Time         `json:"lastTransitionTime,omitempty" description:"last time the condition transit from one status to another"`
 	Reason             string            `json:"reason,omitempty" description:"one-word CamelCase reason for the condition's last transition"`
-	Message            string            `json:"message,omitempty" description:"human-readable message indicating details about last transition"`
+	Message            string            `json:"message,omitempty" description:"human-readable message indicating details about last transition"`
+
 {% endhighlight %}
 
 Additional fields may be added in the future.
@@ -167,18 +165,22 @@ Discussed in [#2004](http://issue.k8s.io/2004) and elsewhere. There are no maps 
 
 For example:
 
-{% highlight yaml %}
+{% highlight yaml %}
+
 ports:
   - name: www
-    containerPort: 80
+    containerPort: 80
+
 {% endhighlight %}
 
 vs.
 
-{% highlight yaml %}
+{% highlight yaml %}
+
 ports:
   www:
-    containerPort: 80
+    containerPort: 80
+
 {% endhighlight %}
 
 This rule maintains the invariant that all JSON/YAML keys are fields in API objects. The only exceptions are pure maps in the API (currently, labels, selectors, annotations, data), as opposed to sets of subobjects.
@@ -234,21 +236,25 @@ The API supports three different PATCH operations, determined by their correspon
 
 In the standard JSON merge patch, JSON objects are always merged but lists are always replaced. Often that isn't what we want. Let's say we start with the following Pod:
 
-{% highlight yaml %}
+{% highlight yaml %}
+
 spec:
   containers:
     - name: nginx
-      image: nginx-1.0
+      image: nginx-1.0
+
 {% endhighlight %}
 
 ...and we POST that to the server (as JSON). Then let's say we want to *add* a container to this Pod.
 
-{% highlight yaml %}
+{% highlight yaml %}
+
 PATCH /api/v1/namespaces/default/pods/pod-name
 spec:
   containers:
     - name: log-tailer
-      image: log-tailer-1.0
+      image: log-tailer-1.0
+
 {% endhighlight %}
 
 If we were to use standard Merge Patch, the entire container list would be replaced with the single log-tailer container. However, our intent is for the container lists to merge together based on the `name` field.
@@ -263,41 +269,49 @@ Strategic Merge Patch also supports special operations as listed below.
 
 To override the container list to be strictly replaced, regardless of the default:
 
-{% highlight yaml %}
+{% highlight yaml %}
+
 containers:
   - name: nginx
     image: nginx-1.0
-  - $patch: replace   # any further $patch operations nested in this list will be ignored
+  - $patch: replace   # any further $patch operations nested in this list will be ignored
+
 {% endhighlight %}
 
 To delete an element of a list that should be merged:
 
-{% highlight yaml %}
+{% highlight yaml %}
+
 containers:
   - name: nginx
     image: nginx-1.0
   - $patch: delete
-    name: log-tailer  # merge key and value goes here
+    name: log-tailer  # merge key and value goes here
+
 {% endhighlight %}
 
 ### Map Operations
 
 To indicate that a map should not be merged and instead should be taken literally:
 
-{% highlight yaml %}
+{% highlight yaml %}
+
 $patch: replace  # recursive and applies to all fields of the map it's in
 containers:
 - name: nginx
-  image: nginx-1.0
+  image: nginx-1.0
+
 {% endhighlight %}
 
 To delete a field of a map:
 
-{% highlight yaml %}
+{% highlight yaml %}
+
 name: nginx
 image: nginx-1.0
 labels:
-  live: null  # set the value of the map key to null
+  live: null  # set the value of the map key to null
+
 {% endhighlight %}
 
 
@@ -357,11 +371,13 @@ The only way for a client to know the expected value of resourceVersion is to ha
 
 In the case of a conflict, the correct client action at this point is to GET the resource again, apply the changes afresh, and try submitting again. This mechanism can be used to prevent races like the following:
 
-```
+```
+
 Client #1                                  Client #2
 GET Foo                                    GET Foo
 Set Foo.Bar = "one"                        Set Foo.Baz = "two"
-PUT Foo                                    PUT Foo
+PUT Foo                                    PUT Foo
+
 ```
 
 When these sequences occur in parallel, either the change to Foo.Bar or the change to Foo.Baz can be lost.
@@ -485,7 +501,8 @@ The status object is encoded as JSON and provided as the body of the response.  
 
 **Example:**
 
-{% highlight console %}
+{% highlight console %}
+
 $ curl -v -k -H "Authorization: Bearer WhCDvq4VPpYhrcfmF6ei7V9qlbqTubUc" https://10.240.122.184:443/api/v1/namespaces/default/pods/grafana
 
 > GET /api/v1/namespaces/default/pods/grafana HTTP/1.1
@@ -512,7 +529,8 @@ $ curl -v -k -H "Authorization: Bearer WhCDvq4VPpYhrcfmF6ei7V9qlbqTubUc" https:/
     "kind": "pods"
   },
   "code": 404
-}
+}
+
 {% endhighlight %}
 
 `status` field contains one of two possible values:
