@@ -765,7 +765,8 @@ section {
     line-height: 58px; }
   #docsContent h2 {
     font-size: 32px;
-    line-height: 40px; }
+    line-height: 40px;
+	margin: 30px 0px 15px 0px; }
   #docsContent h3 {
     font-size: 28px;
     line-height: 35px; }
@@ -778,17 +779,20 @@ section {
   #docsContent p + p {
     margin-top: 30px; }
   #docsContent code {
-    display: block;
-    white-space: pre-wrap;
-    margin: 30px 0;
-    padding: 30px;
-    background-color: #f7f7f7;
+	background-color: #f7f7f7;
     color: #303030;
     font-family: "Roboto Mono", monospace;
-    font-size: 14px;
+	font-size: 16px; 
+	padding: 2px 4px; }
+  #docsContent pre code {
+    display: block;
+    white-space: pre-wrap;
+    margin: 20px 0;
+    padding: 15px;
+	font-size: 14px; 
     line-height: 32px;
     overflow: auto; }
-    #docsContent code::-webkit-scrollbar {
+    #docsContent pre code::-webkit-scrollbar {
       background-color: transparent; }
   #docsContent ul li {
     list-style: disc; }
