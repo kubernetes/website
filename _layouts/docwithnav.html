@@ -3,6 +3,10 @@ layout: headerfooter
 ---
 <!--  HERO  -->
 {% for thistoc in site.data[page.versionfilesafe].globals.tocs %}{% if foundTOC %}{% break %}{% else %}{% assign tree = site.data[page.versionfilesafe][thistoc].toc %}{% include tocsearch.html %}{% endif %}{% endfor %}
+{% for override in site.data.overrides.overrides %}
+    <script>console.log('thispage.path={{ override.path }}, page.path={{ page.path }}')</script>
+    {% if page.path == override.path %}{% assign hideTitle="true" %}{% endif %}
+{% endfor %}
 <section id="hero" class="light-text">
 	<h1>{{ site.data[page.versionfilesafe][foundTOC].bigheader }}</h1>
 	<h5>{{ site.data[page.versionfilesafe][foundTOC].abstract }}</h5>
@@ -29,7 +33,7 @@ layout: headerfooter
         </div> <!-- /pi-accordion -->
 	</div> <!-- /docsToc -->
 	<div id="docsContent">{% if page.showedit == true %}<a href="/{{ page.version }}/editdocs#{{ page.path }}" class="button" style="float:right;margin-top:20px;">Edit This Page</a>{% endif %}
-    	<h1>{{ page.title }}</h1>
+    	{% if hideTitle != true %}<h1>{{ page.title }}</h1>{% endif %}
 		{{ content }}
         <p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ page.path }}?pixel" alt="Analytics" /></a>
 	</div>
