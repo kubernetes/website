@@ -19,17 +19,17 @@ This example assumes you have a Kubernetes cluster installed and running, and th
 
 Use the `docs/user-guide/downward-api/dapi-volume.yaml` file to create a Pod with a  downward API volume which stores pod labels and pod annotations to `/etc/labels` and  `/etc/annotations` respectively.
 
-{% highlight sh %}
+```shell
 
 $ kubectl create -f  docs/user-guide/downward-api/volume/dapi-volume.yaml
 
-{% endhighlight %}
+```
 
 ### Step Two: Examine pod/container output
 
 The pod displays (every 5 seconds) the content of the dump files which can be executed via the usual `kubectl log` command
 
-{% highlight sh %}
+```shell
 
 $ kubectl logs kubernetes-downwardapi-volume-example
 cluster="test-cluster1"
@@ -40,13 +40,13 @@ builder="john-doe"
 kubernetes.io/config.seen="2015-08-24T13:47:23.432459138Z"
 kubernetes.io/config.source="api"
 
-{% endhighlight %}
+```
 
 ### Internals
 
 In pod's `/etc` directory one may find the file created by the plugin (system files elided):
 
-{% highlight sh %}
+```shell
 
 $ kubectl exec kubernetes-downwardapi-volume-example -i -t -- sh
 / # ls -laR /etc
@@ -67,6 +67,6 @@ drwxrwxrwt    3 0        0              180 Aug 24 13:03 ..
 -rw-r--r--    1 0        0               53 Aug 24 13:03 labels
 / #
 
-{% endhighlight %}
+```
 
 The file `labels` is stored in a temporary directory (`..2015_08_24_13_03_44259413923` in the example above) which is symlinked to by `..downwardapi`. Symlinks for annotations and labels in `/etc` point to files containing the actual metadata through the `..downwardapi` indirection.  This structure allows for dynamic atomic refresh of the metadata: updates are written to a new temporary directory, and the `..downwardapi` symlink is updated atomically using `rename(2)`.

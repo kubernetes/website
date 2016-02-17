@@ -5,44 +5,44 @@ kubectl port-forward forwards connections to a local port to a port on a pod. It
 
 ## Creating a Redis master
 
-{% highlight console %}
+```shell
 $ kubectl create examples/redis/redis-master.yaml
 pods/redis-master
-{% endhighlight %}
+```
 
 wait until the Redis master pod is Running and Ready,
 
-{% highlight console %}
+```shell
 $ kubectl get pods
 NAME           READY     STATUS    RESTARTS   AGE
 redis-master   2/2       Running   0          41s
-{% endhighlight %}
+```
 
 
 ## Connecting to the Redis master[a]
 
 The Redis master is listening on port 6397, to verify this,
 
-{% highlight console %}
+```shell
 $ kubectl get pods redis-master -t='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
 6379
-{% endhighlight %}
+```
 
 
 then we forward the port 6379 on the local workstation to the port 6379 of pod redis-master,
 
-{% highlight console %}
+```shell
 $ kubectl port-forward redis-master 6379:6379
 I0710 14:43:38.274550    3655 portforward.go:225] Forwarding from 127.0.0.1:6379 -> 6379
 I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:6379 -> 6379
-{% endhighlight %}
+```
 
 To verify the connection is successful, we run a redis-cli on the local workstation,
 
-{% highlight console %}
+```shell
 $ redis-cli
 127.0.0.1:6379> ping
 PONG
-{% endhighlight %}
+```
 
 Now one can debug the database from the local workstation.

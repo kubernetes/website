@@ -85,9 +85,9 @@ a simple cluster set up, using etcd's built in discovery to build our cluster.
 
 First, hit the etcd discovery service to create a new token:
 
-{% highlight sh %}
+```shell
 curl https://discovery.etcd.io/new?size=3
-{% endhighlight %}
+```
 
 On each node, copy the [etcd.yaml](high-availability/etcd.yaml) file into `/etc/kubernetes/manifests/etcd.yaml`
 
@@ -103,15 +103,15 @@ for `${NODE_IP}` on each machine.
 
 Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate with
 
-{% highlight sh %}
+```shell
 etcdctl member list
-{% endhighlight %}
+```
 
 and
 
-{% highlight sh %}
+```shell
 etcdctl cluster-health
-{% endhighlight %}
+```
 
 You can also validate that this is working with `etcdctl set foo bar` on one node, and `etcd get foo`
 on a different node.
@@ -141,9 +141,9 @@ Once you have replicated etcd set up correctly, we will also install the apiserv
 
 First you need to create the initial log file, so that Docker mounts a file instead of a directory:
 
-{% highlight sh %}
+```shell
 touch /var/log/kube-apiserver.log
-{% endhighlight %}
+```
 
 Next, you need to create a `/srv/kubernetes/` directory on each node.  This directory includes:
    * basic_auth.csv  - basic auth user and password
@@ -193,10 +193,10 @@ In the future, we expect to more tightly integrate this lease-locking into the s
 
 First, create empty log files on each node, so that Docker will mount the files not make new directories:
 
-{% highlight sh %}
+```shell
 touch /var/log/kube-scheduler.log
 touch /var/log/kube-controller-manager.log
-{% endhighlight %}
+```
 
 Next, set up the descriptions of the scheduler and controller manager pods on each node.
 by copying [kube-scheduler.yaml](high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](high-availability/kube-controller-manager.yaml) into the `/srv/kubernetes/`

@@ -15,13 +15,13 @@ Get the Kubernetes source.  If you are simply building a release from source the
 
 Building a release is simple.
 
-{% highlight bash %}
+```shell
 
 git clone https://github.com/kubernetes/kubernetes.git
 cd kubernetes
 make release
 
-{% endhighlight %}
+```
 
 For more details on the release process see the [`build/` directory](http://releases.k8s.io/release-1.1/build/)
 

@@ -8,18 +8,18 @@ alternative to Google Cloud Logging.
 
 To use Elasticsearch and Kibana for cluster logging you should set the following environment variable as shown below:
 
-{% highlight console %}
+```shell
 
 KUBE_LOGGING_DESTINATION=elasticsearch
 
-{% endhighlight %}
+```
 
 You should also ensure that `KUBE_ENABLE_NODE_LOGGING=true` (which is the default for the GCE platform).
 
 Now when you create a cluster a message will indicate that the Fluentd node-level log collectors
 will target Elasticsearch:
 
-{% highlight console %}
+```shell
 
 $ cluster/kube-up.sh
 ...
@@ -39,12 +39,12 @@ kubernetes-master-pd us-central1-b 20      pd-ssd READY
 Created [https://www.googleapis.com/compute/v1/projects/kubernetes-satnam/regions/us-central1/addresses/kubernetes-master-ip].
 +++ Logging using Fluentd to elasticsearch
 
-{% endhighlight %}
+```
 
 The node level Fluentd collector pods and the Elasticsearech pods used to ingest cluster logs and the pod for the Kibana
 viewer should be running in the kube-system namespace soon after the cluster comes to life.
 
-{% highlight console %}
+```shell
 
 $ kubectl get pods --namespace=kube-system
 NAME                                           READY     REASON    RESTARTS   AGE
@@ -59,7 +59,7 @@ kube-dns-v3-7r1l9                              3/3       Running   0          2h
 monitoring-heapster-v4-yl332                   1/1       Running   1          2h
 monitoring-influx-grafana-v1-o79xf             2/2       Running   0          2h
 
-{% endhighlight %}
+```
 
 Here we see that for a four node cluster there is a `fluent-elasticsearch` pod running which gathers
 the Docker container logs and sends them to Elasticsearch. The Fluentd collector communicates to
@@ -67,7 +67,7 @@ a Kubernetes service that maps requests to specific Elasticsearch pods. Similarl
 accessed via a Kubernetes service definition.
 
 
-{% highlight console %}
+```shell
 
 $ kubectl get services --namespace=kube-system
 NAME                    LABELS                                                                                              SELECTOR                        IP(S)          PORT(S)
@@ -80,11 +80,11 @@ monitoring-grafana      kubernetes.io/cluster-service=true,kubernetes.io/name=Gr
 monitoring-heapster     kubernetes.io/cluster-service=true,kubernetes.io/name=Heapster                                      k8s-app=heapster                10.0.208.221   80/TCP
 monitoring-influxdb     kubernetes.io/cluster-service=true,kubernetes.io/name=InfluxDB                                      k8s-app=influxGrafana           10.0.188.57    8083/TCP
 
-{% endhighlight %}
+```
 
 By default two Elasticsearch replicas are created and one Kibana replica is created.
 
-{% highlight console %}
+```shell
 
 $ kubectl get rc --namespace=kube-system
 CONTROLLER                     CONTAINER(S)            IMAGE(S)                                          SELECTOR                                   REPLICAS
@@ -97,13 +97,13 @@ monitoring-heapster-v4         heapster                gcr.io/google_containers/
 monitoring-influx-grafana-v1   influxdb                gcr.io/google_containers/heapster_influxdb:v0.3   k8s-app=influxGrafana,version=v1           1
                                grafana                 gcr.io/google_containers/heapster_grafana:v0.7                                         
 
-{% endhighlight %}
+```
 
 The Elasticsearch and Kibana services are not directly exposed via a publicly reachable IP address. Instead,
 they can be accessed via the service proxy running at the master. The URLs for accessing Elasticsearch
 and Kibana via the service proxy can be found using the `kubectl cluster-info` command.
 
-{% highlight console %}
+```shell
 
 $ kubectl cluster-info
 Kubernetes master is running at https://146.148.94.154
@@ -115,12 +115,12 @@ Grafana is running at https://146.148.94.154/api/v1/proxy/namespaces/kube-system
 Heapster is running at https://146.148.94.154/api/v1/proxy/namespaces/kube-system/services/monitoring-heapster
 InfluxDB is running at https://146.148.94.154/api/v1/proxy/namespaces/kube-system/services/monitoring-influxdb
 
-{% endhighlight %}
+```
 
 Before accessing the logs ingested into Elasticsearch using a browser and the service proxy URL we need to find out
 the `admin` password for the cluster using `kubectl config view`.
 
-{% highlight console %}
+```shell
 
 $ kubectl config view
 ...
@@ -130,7 +130,7 @@ $ kubectl config view
     username: admin
 ...
 
-{% endhighlight %}
+```
 
 The first time you try to access the cluster from a browser a dialog box appears asking for the username and password.
 Use the username `admin` and provide the basic auth password reported by `kubectl config view` for the
@@ -142,7 +142,7 @@ status page for Elasticsearch.
 You can now type Elasticsearch queries directly into the browser. Alternatively you can query Elasticsearch
 from your local machine using `curl` but first you need to know what your bearer token is:
 
-{% highlight console %}
+```shell
 
 $ kubectl config view --minify
 apiVersion: v1
@@ -166,11 +166,11 @@ users:
     client-key-data: REDACTED
     token: JsUe2Z3cXqa17UQqQ8qWGGf4nOSLwSnp
 
-{% endhighlight %}
+```
 
 Now you can issue requests to Elasticsearch:
 
-{% highlight console %}
+```shell
 
 $ curl --header "Authorization: Bearer JsUe2Z3cXqa17UQqQ8qWGGf4nOSLwSnp" --insecure https://146.148.94.154/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/
 {
@@ -187,11 +187,11 @@ $ curl --header "Authorization: Bearer JsUe2Z3cXqa17UQqQ8qWGGf4nOSLwSnp" --insec
   "tagline" : "You Know, for Search"
 }
 
-{% endhighlight %}
+```
 
 Note that you need the trailing slash at the end of the service proxy URL. Here is an example of a search:
 
-{% highlight console %}
+```shell
 
 $ curl --header "Authorization: Bearer JsUe2Z3cXqa17UQqQ8qWGGf4nOSLwSnp" --insecure https://146.148.94.154/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/_search?pretty=true
 {
@@ -228,7 +228,7 @@ $ curl --header "Authorization: Bearer JsUe2Z3cXqa17UQqQ8qWGGf4nOSLwSnp" --insec
   }
 }
 
-{% endhighlight %}
+```
 
 The Elasticsearch website contains information about [URI search queries](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-uri-request) which can be used to extract the required logs.
 
@@ -243,12 +243,12 @@ regulary refreshed. Here is a typical view of ingested logs from the Kibana view
 Another way to access Elasticsearch and Kibana in the cluster is to use `kubectl proxy` which will serve
 a local proxy to the remote master:
 
-{% highlight console %}
+```shell
 
 $ kubectl proxy
 Starting to serve on localhost:8001
 
-{% endhighlight %}
+```
 
 Now you can visit the URL [http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging](http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging) to contact Elasticsearch and [http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/kibana-logging](http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/kibana-logging) to access the Kibana viewer.
 

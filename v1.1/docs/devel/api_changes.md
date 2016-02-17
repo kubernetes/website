@@ -91,7 +91,7 @@ compatible.
 Let's consider some examples.  In a hypothetical API (assume we're at version
 v6), the `Frobber` struct looks something like this:
 
-{% highlight go %}
+```go
 
 // API v6.
 type Frobber struct {
@@ -99,12 +99,12 @@ type Frobber struct {
 	Param  string `json:"param"`
 }
 
-{% endhighlight %}
+```
 
 You want to add a new `Width` field.  It is generally safe to add new fields
 without changing the API version, so you can simply change it to:
 
-{% highlight go %}
+```go
 
 // Still API v6.
 type Frobber struct {
@@ -113,7 +113,7 @@ type Frobber struct {
 	Param  string `json:"param"`
 }
 
-{% endhighlight %}
+```
 
 The onus is on you to define a sane default value for `Width` such that rule #1
 above is true - API calls and stored objects that used to work must continue to
@@ -123,7 +123,7 @@ For your next change you want to allow multiple `Param` values.  You can not
 simply change `Param string` to `Params []string` (without creating a whole new
 API version) - that fails rules #1 and #2.  You can instead do something like:
 
-{% highlight go %}
+```go
 
 // Still API v6, but kind of clumsy.
 type Frobber struct {
@@ -133,7 +133,7 @@ type Frobber struct {
 	ExtraParams []string `json:"params"` // additional params
 }
 
-{% endhighlight %}
+```
 
 Now you can satisfy the rules: API calls that provide the old style `Param`
 will still work, while servers that don't understand `ExtraParams` can ignore
@@ -143,7 +143,7 @@ Part of the reason for versioning APIs and for using internal structs that are
 distinct from any one version is to handle growth like this.  The internal
 representation can be implemented as:
 
-{% highlight go %}
+```go
 
 // Internal, soon to be v7beta1.
 type Frobber struct {
@@ -152,7 +152,7 @@ type Frobber struct {
 	Params []string
 }
 
-{% endhighlight %}
+```
 
 The code that converts to/from versioned APIs can decode this into the somewhat
 uglier (but compatible!) structures.  Eventually, a new API version, let's call
@@ -174,7 +174,7 @@ let's say you decide to rename a field within the same API version. In this case
 you add units to `height` and `width`. You implement this by adding duplicate
 fields:
 
-{% highlight go %}
+```go
 
 type Frobber struct {
 	Height         *int          `json:"height"`
@@ -183,7 +183,7 @@ type Frobber struct {
 	WidthInInches  *int          `json:"widthInInches"`
 }
 
-{% endhighlight %}
+```
 
 You convert all of the fields to pointers in order to distinguish between unset and
 set to 0, and then set each corresponding field from the other in the defaulting
@@ -197,18 +197,18 @@ in the case of an old client that was only aware of the old field (e.g., `height
 
 Say the client creates:
 
-{% highlight json %}
+```json
 
 {
   "height": 10,
   "width": 5
 }
 
-{% endhighlight %}
+```
 
 and GETs:
 
-{% highlight json %}
+```json
 
 {
   "height": 10,
@@ -217,11 +217,11 @@ and GETs:
   "widthInInches": 5
 }
 
-{% endhighlight %}
+```
 
 then PUTs back:
 
-{% highlight json %}
+```json
 
 {
   "height": 13,
@@ -230,7 +230,7 @@ then PUTs back:
   "widthInInches": 5
 }
 
-{% endhighlight %}
+```
 
 The update should not fail, because it would have worked before `heightInInches` was added.
 
@@ -400,11 +400,11 @@ Once all the necessary manually written conversions are added, you need to
 regenerate auto-generated ones. To regenerate them:
    - run
 
-{% highlight sh %}
+```shell
 
 hack/update-generated-conversions.sh
 
-{% endhighlight %}
+```
 
 If running the above script is impossible due to compile errors, the easiest
 workaround is to comment out the code causing errors and let the script to
@@ -428,11 +428,11 @@ The deep copy code resides with each versioned API:
 To regenerate them:
    - run
 
-{% highlight sh %}
+```shell
 
 hack/update-generated-deep-copies.sh
 
-{% endhighlight %}
+```
 
 ## Edit json (un)marshaling code
 
@@ -446,11 +446,11 @@ The auto-generated code resides with each versioned API:
 To regenerate them:
    - run
 
-{% highlight sh %}
+```shell
 
 hack/update-codecgen.sh
 
-{% endhighlight %}
+```
 
 ## Making a new API Group
 
@@ -531,11 +531,11 @@ an example to illustrate your change.
 
 Make sure you update the swagger API spec by running:
 
-{% highlight sh %}
+```shell
 
 hack/update-swagger-spec.sh
 
-{% endhighlight %}
+```
 
 The API spec changes should be in a commit separate from your other changes.
 

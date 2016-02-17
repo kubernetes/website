@@ -41,11 +41,11 @@ To test whether `etcd` is running correctly, you can try writing a value to a
 test key. On your master VM (or somewhere with firewalls configured such that
 you can talk to your cluster's etcd), try:
 
-{% highlight sh %}
+```shell
 
 curl -fs -X PUT "http://${host}:${port}/v2/keys/_test"
 
-{% endhighlight %}
+```
 
 
 

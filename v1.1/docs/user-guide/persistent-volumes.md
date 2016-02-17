@@ -62,7 +62,7 @@ The reclaim policy for a `PersistentVolume` tells the cluster what to do with th
 Each PV contains a spec and status, which is the specification and status of the volume.
 
 
-{% highlight yaml %}
+```yaml
 
   apiVersion: v1
   kind: PersistentVolume
@@ -78,7 +78,7 @@ Each PV contains a spec and status, which is the specification and status of the
       path: /tmp
       server: 172.17.0.2
 
-{% endhighlight %}
+```
 
 ### Capacity
 
@@ -129,7 +129,7 @@ The CLI will show the name of the PVC bound to the PV.
 
 Each PVC contains a spec and status, which is the specification and status of the claim.
 
-{% highlight yaml %}
+```yaml
 
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -142,7 +142,7 @@ spec:
     requests:
       storage: 8Gi
 
-{% endhighlight %}
+```
 
 ### Access Modes
 
@@ -156,7 +156,7 @@ Claims, like pods, can request specific quantities of a resource.  In this case,
 
 Pods access storage by using the claim as a volume.  Claims must exist in the same namespace as the pod using the claim.  The cluster finds the claim in the pod's namespace and uses it to get the `PersistentVolume` backing the claim.  The volume is then mounted to the host and into the pod.
 
-{% highlight yaml %}
+```yaml
 
 kind: Pod
 apiVersion: v1
@@ -174,7 +174,7 @@ spec:
       persistentVolumeClaim:
         claimName: myclaim
 
-{% endhighlight %}
+```
 
 
 

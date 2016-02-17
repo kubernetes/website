@@ -783,14 +783,15 @@ section {
 	background-color: #f7f7f7;
 	padding: 2px 4px; }
   #docsContent pre pi, #docsContent pre s {
-	  margin: 0px;
-	  padding: 0px;
+    margin: 0px;
+    padding: 0px;
   }
-  #docsContent code, #docsContent pre code {
-    color: #303030;
+  .highlight code span, #docsContent code, #docsContent pre code {
     font-family: "Roboto Mono", monospace; }
+  #docsContent code, #docsContent pre code {
+    color: #303030; }
   #docsContent pre code {
-	  padding: 0px; }
+    padding: 0px; }
   #docsContent pre {
 	background-color: #f7f7f7;
     display: block;

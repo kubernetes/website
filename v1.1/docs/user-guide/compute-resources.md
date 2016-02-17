@@ -41,7 +41,7 @@ The following pod has two containers.  Each has a request of 0.25 core of cpu an
 be said to have a request of 0.5 core and 128 MiB of memory and a limit of 1 core and 256MiB of
 memory.
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: v1
 kind: Pod
@@ -68,7 +68,7 @@ spec:
         memory: "128Mi"
         cpu: "500m"
 
-{% endhighlight %}
+```
 
 ## How Pods with Resource Requests are Scheduled
 
@@ -122,7 +122,7 @@ If the scheduler cannot find any node where a pod can fit, then the pod will rem
 until a place can be found.    An event will be produced each time the scheduler fails to find a
 place for the pod, like this:
 
-{% highlight console %}
+```shell
 
 $ kubectl describe pod frontend | grep -A 3 Events
 Events:
@@ -130,7 +130,7 @@ Events:
   36s		5s		 6	    {scheduler }              FailedScheduling	Failed for reason PodExceedsFreeCPU and possibly others
 
 
-{% endhighlight %}
+```
 
 In the case shown above, the pod "frontend" fails to be scheduled due to insufficient
 CPU resource on the node. Similar error messages can also suggest failure due to insufficient
@@ -144,7 +144,7 @@ have a capacity of `cpu: 1`, then a pod with a limit of `cpu: 1.1` will never be
 You can check node capacities and amounts allocated with the `kubectl describe nodes` command.
 For example:
 
-{% highlight console %}
+```shell
 
 $ kubectl describe nodes gke-cluster-4-386701dd-node-ww4p
 Name:			gke-cluster-4-386701dd-node-ww4p
@@ -168,7 +168,7 @@ TotalResourceLimits:
   Memory(bytes):		2485125120 (59% of total)
 [ ... lines removed for clarity ...]
 
-{% endhighlight %}
+```
 
 Here you can see from the `Allocated resources` section that that a pod which ask for more than
 90 millicpus or more than 1341MiB of memory will not be able to fit on this node.
@@ -184,7 +184,7 @@ with namespaces, it can prevent one team from hogging all the resources.
 Your container may be terminated because it's resource-starved. To check if a container is being killed because it is hitting a resource limit, call `kubectl describe pod`
 on the pod you are interested in:
 
-{% highlight console %}
+```shell
 
 [12:54:41] $ ./cluster/kubectl.sh describe pod simmemleak-hra99
 Name:                           simmemleak-hra99
@@ -222,19 +222,19 @@ Events:
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  implicitly required container POD   started     Started with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  spec.containers{simmemleak}         created     Created with docker id 87348f12526a
 
-{% endhighlight %}
+```
 
 The `Restart Count:  5` indicates that the `simmemleak` container in this pod was terminated and restarted 5 times.
 
 You can call `get pod` with the `-o go-template=...` option to fetch the status of previously terminated containers:
 
-{% highlight console %}
+```shell
 
 [13:59:01] $ ./cluster/kubectl.sh  get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
 Container Name: simmemleak
 LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]][13:59:03] clusterScaleDoc ~/go/src/github.com/kubernetes/kubernetes $ 
 
-{% endhighlight %}
+```
 
 We can see that this container was terminated because `reason:OOM Killed`, where *OOM* stands for Out Of Memory.
 

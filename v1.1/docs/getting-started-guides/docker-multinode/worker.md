@@ -25,11 +25,11 @@ As previously, we need a second instance of the Docker daemon running to bootstr
 
 Run:
 
-{% highlight sh %}
+```shell
 
 sudo sh -c 'docker -d -H unix:///var/run/docker-bootstrap.sock -p /var/run/docker-bootstrap.pid --iptables=false --ip-masq=false --bridge=none --graph=/var/lib/docker-bootstrap 2> /var/log/docker-bootstrap.log 1> /dev/null &'
 
-{% endhighlight %}
+```
 
 _Important Note_:
 If you are running this on a long running system, rather than experimenting, you should run the bootstrap Docker instance under something like SysV init, upstart or systemd so that it is restarted
@@ -41,19 +41,19 @@ To re-configure Docker to use flannel, we need to take docker down, run flannel 
 
 Turning down Docker is system dependent, it may be:
 
-{% highlight sh %}
+```shell
 
 sudo /etc/init.d/docker stop
 
-{% endhighlight %}
+```
 
 or
 
-{% highlight sh %}
+```shell
 
 sudo systemctl stop docker
 
-{% endhighlight %}
+```
 
 or it may be something else.
 
@@ -61,21 +61,21 @@ or it may be something else.
 
 Now run flanneld itself, this call is slightly different from the above, since we point it at the etcd instance on the master.
 
-{% highlight sh %}
+```shell
 
 sudo docker -H unix:///var/run/docker-bootstrap.sock run -d --net=host --privileged -v /dev/net:/dev/net quay.io/coreos/flannel:0.5.0 /opt/bin/flanneld --etcd-endpoints=http://${MASTER_IP}:4001
 
-{% endhighlight %}
+```
 
 The previous command should have printed a really long hash, copy this hash.
 
 Now get the subnet settings from flannel:
 
-{% highlight sh %}
+```shell
 
 sudo docker -H unix:///var/run/docker-bootstrap.sock exec <really-long-hash-from-above-here> cat /run/flannel/subnet.env
 
-{% endhighlight %}
+```
 
 
 #### Edit the docker configuration
@@ -86,22 +86,22 @@ This may be in `/etc/default/docker` or `/etc/systemd/service/docker.service` or
 
 Regardless, you need to add the following to the docker command line:
 
-{% highlight sh %}
+```shell
 
 --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU}
 
-{% endhighlight %}
+```
 
 #### Remove the existing Docker bridge
 
 Docker creates a bridge named `docker0` by default.  You need to remove this:
 
-{% highlight sh %}
+```shell
 
 sudo /sbin/ifconfig docker0 down
 sudo brctl delbr docker0
 
-{% endhighlight %}
+```
 
 You may need to install the `bridge-utils` package for the `brctl` binary.
 
@@ -109,19 +109,19 @@ You may need to install the `bridge-utils` package for the `brctl` binary.
 
 Again this is system dependent, it may be:
 
-{% highlight sh %}
+```shell
 
 sudo /etc/init.d/docker start
 
-{% endhighlight %}
+```
 
 it may be:
 
-{% highlight sh %}
+```shell
 
 systemctl start docker
 
-{% endhighlight %}
+```
 
 ### Start Kubernetes on the worker node
 
@@ -129,7 +129,7 @@ systemctl start docker
 
 Again this is similar to the above, but the `--api-servers` now points to the master we set up in the beginning.
 
-{% highlight sh %}
+```shell
 
 sudo docker run \
     --volume=/:/rootfs:ro \
@@ -144,17 +144,17 @@ sudo docker run \
     -d \
     gcr.io/google_containers/hyperkube:v1.0.1 /hyperkube kubelet --api-servers=http://${MASTER_IP}:8080 --v=2 --address=0.0.0.0 --enable-server --hostname-override=$(hostname -i) --cluster-dns=10.0.0.10 --cluster-domain=cluster.local
 
-{% endhighlight %}
+```
 
 #### Run the service proxy
 
 The service proxy provides load-balancing between groups of containers defined by Kubernetes `Services`
 
-{% highlight sh %}
+```shell
 
 sudo docker run -d --net=host --privileged gcr.io/google_containers/hyperkube:v1.0.1 /hyperkube proxy --master=http://${MASTER_IP}:8080 --v=2
 
-{% endhighlight %}
+```
 
 ### Next steps
 

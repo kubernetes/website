@@ -73,7 +73,7 @@ example, run these on your desktop/laptop:
 
 Verify by creating a pod that uses a private image, e.g.:
 
-{% highlight yaml %}
+```yaml
 
 $ cat <<EOF > /tmp/private-image-test-1.yaml
 apiVersion: v1
@@ -91,25 +91,25 @@ $ kubectl create -f /tmp/private-image-test-1.yaml
 pods/private-image-test-1
 $
 
-{% endhighlight %}
+```
 
 If everything is working, then, after a few moments, you should see:
 
-{% highlight console %}
+```shell
 
 $ kubectl logs private-image-test-1
 SUCCESS
 
-{% endhighlight %}
+```
 
 If it failed, then you will see:
 
-{% highlight console %}
+```shell
 
 $ kubectl describe pods/private-image-test-1 | grep "Failed"
   Fri, 26 Jun 2015 15:36:13 -0700	Fri, 26 Jun 2015 15:39:13 -0700	19	{kubelet node-i2hq}	spec.containers{uses-private-image}	failed		Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 
-{% endhighlight %}
+```
 
 
 You must ensure all nodes in the cluster have the same `.dockercfg`.  Otherwise, pods will run on
@@ -152,7 +152,7 @@ Kubernetes supports specifying registry keys on a pod.
 First, create a `.dockercfg`, such as running `docker login <registry.domain>`.
 Then put the resulting `.dockercfg` file into a [secret resource](secrets).  For example:
 
-{% highlight console %}
+```shell
 
 $ docker login
 Username: janedoe
@@ -181,7 +181,7 @@ $ kubectl create -f /tmp/image-pull-secret.yaml
 secrets/myregistrykey
 $
 
-{% endhighlight %}
+```
 
 If you get the error message `error: no objects passed to create`, it may mean the base64 encoded string is invalid.
 If you get an error message like `Secret "myregistrykey" is invalid: data[.dockercfg]: invalid value ...` it means
@@ -192,7 +192,7 @@ This process only needs to be done one time (per namespace).
 Now, you can create pods which reference that secret by adding an `imagePullSecrets`
 section to a pod definition.
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: v1
 kind: Pod
@@ -205,7 +205,7 @@ spec:
   imagePullSecrets:
     - name: myregistrykey
 
-{% endhighlight %}
+```
 
 This needs to be done for each pod that is using a private registry.
 However, setting of this field can be automated by setting the imagePullSecrets

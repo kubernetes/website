@@ -22,50 +22,50 @@ as well to select which [stage1 image](https://github.com/coreos/rkt/blob/master
 If you are using the [hack/local-up-cluster.sh](https://releases.k8s.io/release-1.1/hack/local-up-cluster.sh) script to launch the local cluster, then you can edit the environment variable `CONTAINER_RUNTIME`, `RKT_PATH` and `RKT_STAGE1_IMAGE` to
 set these flags:
 
-{% highlight console %}
+```shell
 
 $ export CONTAINER_RUNTIME=rkt
 $ export RKT_PATH=$PATH_TO_RKT_BINARY
 $ export RKT_STAGE1_IMAGE=PATH=$PATH_TO_STAGE1_IMAGE
 
-{% endhighlight %}
+```
 
 Then we can launch the local cluster using the script:
 
-{% highlight console %}
+```shell
 
 $ hack/local-up-cluster.sh
 
-{% endhighlight %}
+```
 
 ### CoreOS cluster on Google Compute Engine (GCE)
 
 To use rkt as the container runtime for your CoreOS cluster on GCE, you need to specify the OS distribution, project, image:
 
-{% highlight console %}
+```shell
 
 $ export KUBE_OS_DISTRIBUTION=coreos
 $ export KUBE_GCE_MINION_IMAGE=<image_id>
 $ export KUBE_GCE_MINION_PROJECT=coreos-cloud
 $ export KUBE_CONTAINER_RUNTIME=rkt
 
-{% endhighlight %}
+```
 
 You can optionally choose the version of rkt used by setting `KUBE_RKT_VERSION`:
 
-{% highlight console %}
+```shell
 
 $ export KUBE_RKT_VERSION=0.8.0
 
-{% endhighlight %}
+```
 
 Then you can launch the cluster by:
 
-{% highlight console %}
+```shell
 
 $ kube-up.sh
 
-{% endhighlight %}
+```
 
 Note that we are still working on making all containerized the master components run smoothly in rkt. Before that we are not able to run the master node with rkt yet.
 
@@ -73,37 +73,37 @@ Note that we are still working on making all containerized the master components
 
 To use rkt as the container runtime for your CoreOS cluster on AWS, you need to specify the provider and OS distribution:
 
-{% highlight console %}
+```shell
 
 $ export KUBERNETES_PROVIDER=aws
 $ export KUBE_OS_DISTRIBUTION=coreos
 $ export KUBE_CONTAINER_RUNTIME=rkt
 
-{% endhighlight %}
+```
 
 You can optionally choose the version of rkt used by setting `KUBE_RKT_VERSION`:
 
-{% highlight console %}
+```shell
 
 $ export KUBE_RKT_VERSION=0.8.0
 
-{% endhighlight %}
+```
 
 You can optionally choose the CoreOS channel  by setting `COREOS_CHANNEL`:
 
-{% highlight console %}
+```shell
 
 $ export COREOS_CHANNEL=stable
 
-{% endhighlight %}
+```
 
 Then you can launch the cluster by:
 
-{% highlight console %}
+```shell
 
 $ kube-up.sh
 
-{% endhighlight %}
+```
 
 Note: CoreOS is not supported as the master using the automated launch
 scripts. The master node is always Ubuntu.
@@ -137,21 +137,21 @@ using `journalctl`:
 
 - Check the running state of the systemd service:
 
-{% highlight console %}
+```shell
 
 $ sudo journalctl -u $SERVICE_FILE
 
-{% endhighlight %}
+```
 
 where `$SERVICE_FILE` is the name of the service file created for the pod, you can find it in the kubelet logs.
 
 ##### Check the log of the container in the pod:
 
-{% highlight console %}
+```shell
 
 $ sudo journalctl -M rkt-$UUID -u $CONTAINER_NAME
 
-{% endhighlight %}
+```
 
 where `$UUID` is the rkt pod's UUID, which you can find via `rkt list --full`, and `$CONTAINER_NAME` is the container's name.
 

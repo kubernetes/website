@@ -142,15 +142,15 @@ the PD is read-only or the replica count is 0 or 1.
 
 Before you can use a GCE PD with a pod, you need to create it.
 
-{% highlight sh %}
+```shell
 
 gcloud compute disks create --size=500GB --zone=us-central1-a my-data-disk
 
-{% endhighlight %}
+```
 
 #### Example pod
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: v1
 kind: Pod
@@ -170,7 +170,7 @@ spec:
       pdName: my-data-disk
       fsType: ext4
 
-{% endhighlight %}
+```
 
 ### awsElasticBlockStore
 
@@ -194,18 +194,18 @@ There are some restrictions when using an awsElasticBlockStore volume:
 
 Before you can use a EBS volume with a pod, you need to create it.
 
-{% highlight sh %}
+```shell
 
 aws ec2 create-volume --availability-zone eu-west-1a --size 10 --volume-type gp2
 
-{% endhighlight %}
+```
 
 Make sure the zone matches the zone you brought up your cluster in.  (And also check that the size and EBS volume
 type are suitable for your use!)
 
 #### AWS EBS Example configuration
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: v1
 kind: Pod
@@ -225,7 +225,7 @@ spec:
       volumeID: aws://<availability-zone>/<volume-id>
       fsType: ext4
 
-{% endhighlight %}
+```
 
 (Note: the syntax of volumeID is currently awkward; #10181 fixes it)
 
@@ -321,7 +321,7 @@ rather than extending the Kubernetes API for every such use case.
 
 Here is a example for gitRepo volume:
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: v1
 kind: Pod
@@ -340,7 +340,7 @@ spec:
       repository: "git@somewhere:me/my-git-repository.git"
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 
-{% endhighlight %}
+```
 
 ### secret
 

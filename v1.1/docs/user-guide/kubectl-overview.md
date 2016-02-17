@@ -146,19 +146,19 @@ To define custom columns and output only the details that you want into a table,
 
  * Inline:
 
-{% highlight console %}
+```shell
 
       $ kubectl get pods <pod-name> -o=custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
 
-{% endhighlight %}
+```
 
  * Template file:
 
-{% highlight console %}
+```shell
 
      $ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
 
-{% endhighlight %}
+```
 
      where the `template.txt` file contains:
 
@@ -171,12 +171,12 @@ To define custom columns and output only the details that you want into a table,
 
 The result of running either command is:
 
-{% highlight console %}
+```shell
 
 NAME           RSRC
 submit-queue   610995
 
-{% endhighlight %}
+```
 
 ### Sorting list objects
 

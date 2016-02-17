@@ -19,7 +19,7 @@ for kubernetes.
 
 The submit-queue does the following:
 
-{% highlight go %}
+```go
 
 for _, pr := range readyToMergePRs() {
     if testsAreStable() {
@@ -27,7 +27,7 @@ for _, pr := range readyToMergePRs() {
     }
 }
 
-{% endhighlight %}
+```
 
 The status of the submit-queue is [online.](http://submit-queue.k8s.io/)
 

@@ -13,7 +13,7 @@ The result object is printed as its String() function.
 
 Given the input:
 
-{% highlight json  %}
+```json
 
 {
   "kind": "List",
@@ -50,7 +50,7 @@ Given the input:
   ]
 }
 
-{% endhighlight %}
+```
 
 Function | Description        | Example            | Result
 ---------|--------------------|--------------------|------------------

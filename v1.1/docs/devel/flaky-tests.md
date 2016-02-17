@@ -13,7 +13,7 @@ There is a testing image `brendanburns/flake` up on the docker hub.  We will use
 
 Create a replication controller with the following config:
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: v1
 kind: ReplicationController
@@ -35,21 +35,21 @@ spec:
         - name: REPO_SPEC
           value: https://github.com/kubernetes/kubernetes
 
-{% endhighlight %}
+```
 
 Note that we omit the labels and the selector fields of the replication controller, because they will be populated from the labels field of the pod template by default.
 
-{% highlight sh %}
+```shell
 
 kubectl create -f ./controller.yaml
 
-{% endhighlight %}
+```
 
 This will spin up 24 instances of the test.  They will run to completion, then exit, and the kubelet will restart them, accumulating more and more runs of the test.
 You can examine the recent runs of the test by calling `docker ps -a` and looking for tasks that exited with non-zero exit codes. Unfortunately, docker ps -a only keeps around the exit status of the last 15-20 containers with the same image, so you have to check them frequently.
 You can use this script to automate checking for failures, assuming your cluster is running on GCE and has four nodes:
 
-{% highlight sh %}
+```shell
 
 echo "" > output.txt
 for i in {1..4}; do
@@ -59,15 +59,15 @@ for i in {1..4}; do
 done
 grep "Exited ([^0])" output.txt
 
-{% endhighlight %}
+```
 
 Eventually you will have sufficient runs for your purposes. At that point you can stop and delete the replication controller by running:
 
-{% highlight sh %}
+```shell
 
 kubectl stop replicationcontroller flakecontroller
 
-{% endhighlight %}
+```
 
 If you do a final check for flakes with `docker ps -a`, ignore tasks that exited -1, since that's what happens when you stop the replication controller.
 

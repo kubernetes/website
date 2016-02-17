@@ -38,7 +38,7 @@ information on how Service Accounts work.
 
 This is an example of a simple secret, in yaml format:
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: v1
 kind: Secret
@@ -49,7 +49,7 @@ data:
   password: dmFsdWUtMg0K
   username: dmFsdWUtMQ0K
 
-{% endhighlight %}
+```
 
 The data field is a map.  Its keys must match
 [`DNS_SUBDOMAIN`](../design/identifiers), except that leading dots are also
@@ -66,7 +66,7 @@ that it should use the secret.
 
 This is an example of a pod that mounts a secret in a volume:
 
-{% highlight json %}
+```json
 
 {
  "apiVersion": "v1",
@@ -94,7 +94,7 @@ This is an example of a pod that mounts a secret in a volume:
   }
 }
 
-{% endhighlight %}
+```
 
 Each secret you want to use needs its own `spec.volumes`.
 
@@ -156,7 +156,7 @@ files and the secret values are base-64 decoded and stored inside these files.
 This is the result of commands
 executed inside the container from the example above:
 
-{% highlight console %}
+```shell
 
 $ ls /etc/foo/
 username
@@ -166,7 +166,7 @@ value-1
 $ cat /etc/foo/password
 value-2
 
-{% endhighlight %}
+```
 
 The program in a container is responsible for reading the secret(s) from the
 files.  Currently, if a program expects a secret to be stored in an environment
@@ -210,7 +210,7 @@ update the data of existing secrets, but to create new ones with distinct names.
 
 To create a pod that uses an ssh key stored as a secret, we first need to create a secret:
 
-{% highlight json %}
+```json
 
 {
   "kind": "Secret",
@@ -224,7 +224,7 @@ To create a pod that uses an ssh key stored as a secret, we first need to create
   }
 }
 
-{% endhighlight %}
+```
 
 **Note:** The serialized JSON and YAML values of secret data are encoded as
 base64 strings.  Newlines are not valid within these strings and must be
@@ -233,7 +233,7 @@ omitted.
 Now we can create a pod which references the secret with the ssh key and
 consumes it in a volume:
 
-{% highlight json %}
+```json
 
 {
   "kind": "Pod",
@@ -269,7 +269,7 @@ consumes it in a volume:
   }
 }
 
-{% endhighlight %}
+```
 
 When the container's command runs, the pieces of the key will be available in:
 
@@ -286,7 +286,7 @@ credentials.
 
 The secrets:
 
-{% highlight json %}
+```json
 
 {
   "apiVersion": "v1",
@@ -316,11 +316,11 @@ The secrets:
   }]
 }
 
-{% endhighlight %}
+```
 
 The pods:
 
-{% highlight json %}
+```json
 
 {
   "apiVersion": "v1",
@@ -394,16 +394,16 @@ The pods:
   }]
 }
 
-{% endhighlight %}
+```
 
 Both containers will have the following files present on their filesystems:
 
-{% highlight console %}
+```shell
 
     /etc/secret-volume/username
     /etc/secret-volume/password
 
-{% endhighlight %}
+```
 
 Note how the specs for the two pods differ only in one field;  this facilitates
 creating pods with different capabilities from a common pod config template.
@@ -412,7 +412,7 @@ You could further simplify the base pod specification by using two Service Accou
 one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
 `test-user` with the `test-db-secret`.  Then, the pod spec can be shortened to, for example:
 
-{% highlight json %}
+```json
 
 {
 "kind": "Pod",
@@ -433,7 +433,7 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
   ]
 }
 
-{% endhighlight %}
+```
 
 ### Use-case: Secret visible to one container in a pod
 

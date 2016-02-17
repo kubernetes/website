@@ -14,7 +14,7 @@ When you create a resource such as pod, and then retrieve the created
 resource, a number of the fields of the resource are added.
 You can see this at work in the following example:
 
-{% highlight console %}
+```shell
 
 $ cat > /tmp/original.yaml <<EOF
 apiVersion: v1
@@ -36,7 +36,7 @@ $ wc -l /tmp/original.yaml /tmp/current.yaml
        9 /tmp/original.yaml
       60 total
 
-{% endhighlight %}
+```
 
 The resource we posted had only 9 lines, but the one we got back had 51 lines.
 If you `diff -u /tmp/original.yaml /tmp/current.yaml`, you can see the fields added to the pod.

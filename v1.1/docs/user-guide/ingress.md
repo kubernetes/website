@@ -52,7 +52,7 @@ Before you start using the Ingress resource, there are a few things you should u
 
 A minimal Ingress might look like:
 
-{% highlight yaml %}
+```yaml
 
 01. apiVersion: extensions/v1beta1
 02. kind: Ingress
@@ -67,7 +67,7 @@ A minimal Ingress might look like:
 11.          serviceName: test
 12.          servicePort: 80
 
-{% endhighlight %}
+```
 
 *POSTing this to the API server will have no effect if you have not configured an [Ingress controller](#ingress-controllers).*
 
@@ -93,7 +93,7 @@ There are existing Kubernetes concepts that allow you to expose a single service
 
 <!-- BEGIN MUNGE: EXAMPLE ingress.yaml -->
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -104,20 +104,20 @@ spec:
     serviceName: testsvc
     servicePort: 80
 
-{% endhighlight %}
+```
 
 [Download example](ingress.yaml)
 <!-- END MUNGE: EXAMPLE ingress.yaml -->
 
 If you create it using `kubectl -f` you should see:
 
-{% highlight sh %}
+```shell
 
 $ kubectl get ing
 NAME                RULE          BACKEND        ADDRESS
 test-ingress        -             testsvc:80     107.178.254.228
 
-{% endhighlight %}
+```
 
 Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy this Ingress. The `RULE` column shows that all traffic send to the IP is directed to the Kubernetes Service listed under `BACKEND`.
 
@@ -134,7 +134,7 @@ foo.bar.com -> 178.91.123.132 -> / foo    s1:80
 
 would require an Ingress such as:
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -154,7 +154,7 @@ spec:
           serviceName: s2
           servicePort: 80
 
-{% endhighlight %}
+```
 
 When you create the Ingress with `kubectl create -f`:
 
@@ -186,7 +186,7 @@ bar.foo.com --|                 |-> bar.foo.com s2:80
 
 The following Ingress tells the backing loadbalancer to route requests based on the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -207,7 +207,7 @@ spec:
           serviceName: s2
           servicePort: 80
 
-{% endhighlight %}
+```
 
 
 __Default Backends__: An Ingress with no rules, like the one shown in the previous section, sends all traffic to a single default backend. You can use the same technique to tell a loadbalancer where to find your website's 404 page, by specifying a set of rules *and* a default backend. Traffic is routed to your default backend if none of the Hosts in your Ingress match the Host in the request header, and/or none of the paths match the url of the request.
@@ -222,7 +222,7 @@ It's also worth noting that even though health checks are not exposed directly t
 
 Say you'd like to add a new Host to an existing Ingress, you can update it by editing the resource:
 
-{% highlight sh %}
+```shell
 
 $ kubectl get ing
 NAME      RULE          BACKEND   ADDRESS
@@ -231,11 +231,11 @@ test      -                       178.91.123.132
           /foo          s1:80
 $ kubectl edit ing test
 
-{% endhighlight %}
+```
 
 This should pop up an editor with the existing yaml, modify it to include the new Host.
 
-{% highlight yaml %}
+```yaml
 
 spec:
   rules:
@@ -255,11 +255,11 @@ spec:
         path: /foo
 ..
 
-{% endhighlight %}
+```
 
 saving it will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
 
-{% highlight sh %}
+```shell
 
 $ kubectl get ing
 NAME      RULE          BACKEND   ADDRESS
@@ -269,7 +269,7 @@ test      -                       178.91.123.132
           bar.baz.com
           /foo          s2:80
 
-{% endhighlight %}
+```
 
 You can achieve the same by invoking `kubectl replace -f` on a modified Ingress yaml file.
 

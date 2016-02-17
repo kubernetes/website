@@ -104,11 +104,11 @@ system:serviceaccount:<namespace>:default
 
 For example, if you wanted to grant the default service account in the kube-system full privilege to the API, you would add this line to your policy file:
 
-{% highlight json %}
+```json
 
 {"user":"system:serviceaccount:kube-system:default"}
 
-{% endhighlight %}
+```
 
 The apiserver will need to be restarted to pickup the new policy lines.
 
@@ -117,13 +117,13 @@ The apiserver will need to be restarted to pickup the new policy lines.
 Other implementations can be developed fairly easily.
 The APIserver calls the Authorizer interface:
 
-{% highlight go %}
+```go
 
 type Authorizer interface {
   Authorize(a Attributes) error
 }
 
-{% endhighlight %}
+```
 
 to determine whether or not to allow each API action.
 

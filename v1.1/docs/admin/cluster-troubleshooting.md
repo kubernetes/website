@@ -12,11 +12,11 @@ The first thing to debug in your cluster is if your nodes are all registered cor
 
 Run
 
-{% highlight sh %}
+```shell
 
 kubectl get nodes
 
-{% endhighlight %}
+```
 
 And verify that all of the nodes you expect to see are present and that they are all in the `Ready` state.
 

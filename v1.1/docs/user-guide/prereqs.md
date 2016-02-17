@@ -13,26 +13,26 @@ The kubectl binary doesn't have to be installed to be executable, but the rest o
 
 The simplest way to install is to copy or move kubectl into a dir already in PATH (e.g. `/usr/local/bin`). For example:
 
-{% highlight console %}
+```shell
 
 # OS X
 $ sudo cp kubernetes/platforms/darwin/amd64/kubectl /usr/local/bin/kubectl
 # Linux
 $ sudo cp kubernetes/platforms/linux/amd64/kubectl /usr/local/bin/kubectl
 
-{% endhighlight %}
+```
 
 You also need to ensure it's executable:
 
-{% highlight console %}
+```shell
 
 $ sudo chmod +x /usr/local/bin/kubectl
 
-{% endhighlight %}
+```
 
 If you prefer not to copy kubectl, you need to ensure the tool is in your path:
 
-{% highlight bash %}
+```shell
 
 # OS X
 export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
@@ -40,7 +40,7 @@ export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 # Linux
 export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 
-{% endhighlight %}
+```
 
 ## Configuring kubectl
 
@@ -51,11 +51,11 @@ By default, kubectl configuration lives at `~/.kube/config`.
 
 Check that kubectl is properly configured by getting the cluster state:
 
-{% highlight console %}
+```shell
 
 $ kubectl cluster-info
 
-{% endhighlight %}
+```
 
 If you see a url response, you are ready to go.
 

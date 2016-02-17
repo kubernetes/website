@@ -50,7 +50,7 @@ downward API:
 
 <!-- BEGIN MUNGE: EXAMPLE downward-api/dapi-pod.yaml -->
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: v1
 kind: Pod
@@ -76,7 +76,7 @@ spec:
               fieldPath: status.podIP
   restartPolicy: Never
 
-{% endhighlight %}
+```
 
 [Download example](downward-api/dapi-pod.yaml)
 <!-- END MUNGE: EXAMPLE downward-api/dapi-pod.yaml -->
@@ -117,7 +117,7 @@ This is an example of a pod that consumes its labels and annotations via the dow
 
 <!-- BEGIN MUNGE: EXAMPLE downward-api/volume/dapi-volume.yaml -->
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: v1
 kind: Pod
@@ -150,7 +150,7 @@ spec:
             fieldRef:
               fieldPath: metadata.annotations
 
-{% endhighlight %}
+```
 
 [Download example](downward-api/volume/dapi-volume.yaml)
 <!-- END MUNGE: EXAMPLE downward-api/volume/dapi-volume.yaml -->

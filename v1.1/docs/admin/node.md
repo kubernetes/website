@@ -56,7 +56,7 @@ node recently (currently 40 seconds).
 Node condition is represented as a json object. For example,
 the following conditions mean the node is in sane state:
 
-{% highlight json %}
+```json
 
 "conditions": [
   {
@@ -65,7 +65,7 @@ the following conditions mean the node is in sane state:
     },
 ]
 
-{% endhighlight %}
+```
 
 If the Status of the Ready condition
 is Unknown or False for more than five minutes, then all of the Pods on the node are terminated by the Node Controller.
@@ -90,7 +90,7 @@ Kubernetes creates a node, it is really just creating an object that represents 
 After creation, Kubernetes will check whether the node is valid or not.
 For example, if you try to create a node from the following content:
 
-{% highlight json %}
+```json
 
 {
   "kind": "Node",
@@ -103,7 +103,7 @@ For example, if you try to create a node from the following content:
   }
 }
 
-{% endhighlight %}
+```
 
 Kubernetes will create a Node object internally (the representation), and
 validate the node by health checking based on the `metadata.name` field: we
@@ -164,11 +164,11 @@ node, but will not affect any existing pods on the node.  This is useful as a
 preparatory step before a node reboot, etc.  For example, to mark a node
 unschedulable, run this command:
 
-{% highlight sh %}
+```shell
 
 kubectl replace nodes 10.1.2.3 --patch='{"apiVersion": "v1", "unschedulable": true}'
 
-{% endhighlight %}
+```
 
 Note that pods which are created by a daemonSet controller bypass the Kubernetes scheduler,
 and do not respect the unschedulable attribute on a node.   The assumption is that daemons belong on
@@ -189,7 +189,7 @@ processes not in containers.
 If you want to explicitly reserve resources for non-Pod processes, you can create a placeholder
 pod.  Use the following template:
 
-{% highlight yaml %}
+```yaml
 
 apiVersion: v1
 kind: Pod
@@ -204,7 +204,7 @@ spec:
         cpu: 100m
         memory: 100Mi
 
-{% endhighlight %}
+```
 
 Set the `cpu` and `memory` values to the amount of resources you want to reserve.
 Place the file in the manifest directory (`--config=DIR` flag of kubelet).  Do this

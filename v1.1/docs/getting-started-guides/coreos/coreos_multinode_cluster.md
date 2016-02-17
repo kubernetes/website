@@ -20,16 +20,16 @@ Use the [master.yaml](cloud-configs/master.yaml) and [node.yaml](cloud-configs/n
 
 #### Provision the Master
 
-{% highlight sh %}
+```shell
 
 aws ec2 create-security-group --group-name kubernetes --description "Kubernetes Security Group"
 aws ec2 authorize-security-group-ingress --group-name kubernetes --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name kubernetes --protocol tcp --port 80 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name kubernetes --source-security-group-name kubernetes
 
-{% endhighlight %}
+```
 
-{% highlight sh %}
+```shell
 
 aws ec2 run-instances \
 --image-id <ami_image_id> \
@@ -39,15 +39,15 @@ aws ec2 run-instances \
 --instance-type m3.medium \
 --user-data file://master.yaml
 
-{% endhighlight %}
+```
 
 #### Capture the private IP address
 
-{% highlight sh %}
+```shell
 
 aws ec2 describe-instances --instance-id <master-instance-id>
 
-{% endhighlight %}
+```
 
 #### Edit node.yaml
 
@@ -55,7 +55,7 @@ Edit `node.yaml` and replace all instances of `<master-private-ip>` with the pri
 
 #### Provision worker nodes
 
-{% highlight sh %}
+```shell
 
 aws ec2 run-instances \
 --count 1 \
@@ -66,7 +66,7 @@ aws ec2 run-instances \
 --instance-type m3.medium \
 --user-data file://node.yaml
 
-{% endhighlight %}
+```
 
 ### Google Compute Engine (GCE)
 
@@ -74,7 +74,7 @@ aws ec2 run-instances \
 
 #### Provision the Master
 
-{% highlight sh %}
+```shell
 
 gcloud compute instances create master \
 --image-project coreos-cloud \
@@ -84,15 +84,15 @@ gcloud compute instances create master \
 --zone us-central1-a \
 --metadata-from-file user-data=master.yaml
 
-{% endhighlight %}
+```
 
 #### Capture the private IP address
 
-{% highlight sh %}
+```shell
 
 gcloud compute instances list
 
-{% endhighlight %}
+```
 
 #### Edit node.yaml
 
@@ -100,7 +100,7 @@ Edit `node.yaml` and replace all instances of `<master-private-ip>` with the pri
 
 #### Provision worker nodes
 
-{% highlight sh %}
+```shell
 
 gcloud compute instances create node1 \
 --image-project coreos-cloud \
@@ -110,7 +110,7 @@ gcloud compute instances create node1 \
 --zone us-central1-a \
 --metadata-from-file user-data=node.yaml
 
-{% endhighlight %}
+```
 
 #### Establish network connectivity
 
@@ -127,7 +127,7 @@ These instructions were tested on the Ice House release on a Metacloud distribut
 
 Make sure the environment variables are set for OpenStack such as:
 
-{% highlight sh %}
+```shell
 
 OS_TENANT_ID
 OS_PASSWORD
@@ -135,7 +135,7 @@ OS_AUTH_URL
 OS_USERNAME
 OS_TENANT_NAME
 
-{% endhighlight %}
+```
 
 Test this works with something like:
 
@@ -150,28 +150,28 @@ nova list
 You'll need a [suitable version of CoreOS image for OpenStack](https://coreos.com/os/docs/latest/booting-on-openstack)
 Once you download that, upload it to glance.  An example is shown below:
 
-{% highlight sh %}
+```shell
 
 glance image-create --name CoreOS723 \
 --container-format bare --disk-format qcow2 \
 --file coreos_production_openstack_image.img \
 --is-public True
 
-{% endhighlight %}
+```
 
 #### Create security group
 
-{% highlight sh %}
+```shell
 
 nova secgroup-create kubernetes "Kubernetes Security Group"
 nova secgroup-add-rule kubernetes tcp 22 22   0.0.0.0/0
 nova secgroup-add-rule kubernetes tcp 80 80   0.0.0.0/0
 
-{% endhighlight %}
+```
 
 #### Provision the Master
 
-{% highlight sh %}
+```shell
 
 nova boot \
 --image <image_name> \
@@ -181,7 +181,7 @@ nova boot \
 --user-data files/master.yaml \
 kube-master
 
-{% endhighlight %}
+```
 
 ```<image_name>``` is the CoreOS image name.  In our example we can use the image we created in the previous step and put in 'CoreOS723'
 
@@ -213,7 +213,7 @@ where ```<ip address>``` is the IP address that was available from the ```nova f
 
 Edit ```node.yaml``` and replace all instances of ```<master-private-ip>``` with the private IP address of the master node.  You can get this by running ```nova show kube-master``` assuming you named your instance kube master.  This is not the floating IP address you just assigned it.
 
-{% highlight sh %}
+```shell
 
 nova boot \
 --image <image_name> \
@@ -223,7 +223,7 @@ nova boot \
 --user-data files/node.yaml \
 minion01
 
-{% endhighlight %}
+```
 
 This is basically the same as the master nodes but with the node.yaml post-boot script instead of the master.
 

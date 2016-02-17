@@ -11,24 +11,24 @@ Once your application is packaged into a container and pushed to an image regist
 
 For example, [nginx](http://wiki.nginx.org/Main) is a popular HTTP server, with a [pre-built container on Docker hub](https://registry.hub.docker.com/_/nginx/). The [`kubectl run`](kubectl/kubectl_run) command below will create two nginx replicas, listening on port 80.
 
-{% highlight console %}
+```shell
 
 $ kubectl run my-nginx --image=nginx --replicas=2 --port=80
 CONTROLLER   CONTAINER(S)   IMAGE(S)   SELECTOR       REPLICAS
 my-nginx     my-nginx       nginx      run=my-nginx   2
 
-{% endhighlight %}
+```
 
 You can see that they are running by:
 
-{% highlight console %}
+```shell
 
 $ kubectl get po
 NAME             READY     STATUS    RESTARTS   AGE
 my-nginx-l8n3i   1/1       Running   0          29m
 my-nginx-q7jo3   1/1       Running   0          29m
 
-{% endhighlight %}
+```
 
 Kubernetes will ensure that your application keeps running, by automatically restarting containers that fail, spreading containers across nodes, and recreating containers on new nodes when nodes fail.
 
@@ -36,22 +36,22 @@ Kubernetes will ensure that your application keeps running, by automatically res
 
 Through integration with some cloud providers (for example Google Compute Engine and AWS EC2), Kubernetes enables you to request that it provision a public IP address for your application. To do this run:
 
-{% highlight console %}
+```shell
 
 $ kubectl expose rc my-nginx --port=80 --type=LoadBalancer
 service "my-nginx" exposed
 
-{% endhighlight %}
+```
 
 To find the public IP address assigned to your application, execute:
 
-{% highlight console %}
+```shell
 
 $ kubectl get svc my-nginx
 NAME         CLUSTER_IP       EXTERNAL_IP       PORT(S)                SELECTOR     AGE
 my-nginx     10.179.240.1     25.1.2.3          80/TCP                 run=nginx    8d
 
-{% endhighlight %}
+```
 
 You may need to wait for a minute or two for the external ip address to be provisioned.
 
@@ -61,14 +61,14 @@ In order to access your nginx landing page, you also have to make sure that traf
 
 To kill the application and delete its containers and public IP address, do:
 
-{% highlight console %}
+```shell
 
 $ kubectl delete rc my-nginx
 replicationcontrollers/my-nginx
 $ kubectl delete svc my-nginx
 services/my-nginx
 
-{% endhighlight %}
+```
 
 ## What's next?
 

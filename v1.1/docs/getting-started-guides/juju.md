@@ -104,7 +104,7 @@ No pods will be available before starting a container:
 
 We'll follow the aws-coreos example. Create a pod manifest: `pod.json`
 
-{% highlight json %}
+```json
 {
   "apiVersion": "v1",
   "kind": "Pod",
@@ -126,7 +126,7 @@ We'll follow the aws-coreos example. Create a pod manifest: `pod.json`
     }]
   }
 }
-{% endhighlight %}
+```
 
 Create the pod with kubectl:
 

@@ -41,7 +41,7 @@ REST objects, a `Service` definition can be POSTed to the apiserver to create a
 new instance.  For example, suppose you have a set of `Pods` that each expose
 port 9376 and carry a label `"app=MyApp"`.
 
-{% highlight json %}
+```json
 
 {
     "kind": "Service",
@@ -63,7 +63,7 @@ port 9376 and carry a label `"app=MyApp"`.
     }
 }
 
-{% endhighlight %}
+```
 
 This specification will create a new `Service` object named "my-service" which
 targets TCP port 9376 on any `Pod` with the `"app=MyApp"` label.  This `Service`
@@ -98,7 +98,7 @@ abstract other kinds of backends.  For example:
 
 In any of these scenarios you can define a service without a selector:
 
-{% highlight json %}
+```json
 
 {
     "kind": "Service",
@@ -117,12 +117,12 @@ In any of these scenarios you can define a service without a selector:
     }
 }
 
-{% endhighlight %}
+```
 
 Because this has no selector, the corresponding `Endpoints` object will not be
 created. You can manually map the service to your own specific endpoints:
 
-{% highlight json %}
+```json
 
 {
     "kind": "Endpoints",
@@ -142,7 +142,7 @@ created. You can manually map the service to your own specific endpoints:
     ]
 }
 
-{% endhighlight %}
+```
 
 NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
 (169.254.0.0/16), or link-local multicast ((224.0.0.0/24).
@@ -182,7 +182,7 @@ supports multiple port definitions on a `Service` object.  When using multiple
 ports you must give all of your ports names, so that endpoints can be
 disambiguated.  For example:
 
-{% highlight json %}
+```json
 
 {
     "kind": "Service",
@@ -211,7 +211,7 @@ disambiguated.  For example:
     }
 }
 
-{% endhighlight %}
+```
 
 ## Choosing your own IP address
 
@@ -257,7 +257,7 @@ For example, the Service `"redis-master"` which exposes TCP port 6379 and has be
 allocated cluster IP address 10.0.0.11 produces the following environment
 variables:
 
-{% highlight bash %}
+```shell
 
 REDIS_MASTER_SERVICE_HOST=10.0.0.11
 REDIS_MASTER_SERVICE_PORT=6379
@@ -267,7 +267,7 @@ REDIS_MASTER_PORT_6379_TCP_PROTO=tcp
 REDIS_MASTER_PORT_6379_TCP_PORT=6379
 REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
 
-{% endhighlight %}
+```
 
 *This does imply an ordering requirement* - any `Service` that a `Pod` wants to
 access must be created before the `Pod` itself, or else the environment
@@ -366,7 +366,7 @@ The actual creation of the load balancer happens asynchronously, and
 information about the provisioned balancer will be published in the `Service`'s
 `status.loadBalancer` field.  For example:
 
-{% highlight json %}
+```json
 
 {
     "kind": "Service",
@@ -401,7 +401,7 @@ information about the provisioned balancer will be published in the `Service`'s
     }
 }
 
-{% endhighlight %}
+```
 
 Traffic from the external load balancer will be directed at the backend `Pods`,
 though exactly how that works depends on the cloud provider. Some cloud providers allow
@@ -420,7 +420,7 @@ of the cluster administrator.
 In the ServiceSpec, `externalIPs` can be specified along with any of the `ServiceTypes`.
 In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
 
-{% highlight json %}
+```json
 
 {
     "kind": "Service",
@@ -446,7 +446,7 @@ In the example below, my-service can be accessed by clients on 80.11.12.10:80 (e
     }
 }
 
-{% endhighlight %}
+```
 
 ## Shortcomings
 

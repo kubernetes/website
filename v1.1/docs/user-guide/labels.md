@@ -6,14 +6,14 @@ Labels are intended to be used to specify identifying attributes of objects that
 Labels can be used to organize and to select subsets of objects.  Labels can be attached to objects at creation time and subsequently added and modified at any time.
 Each object can have a set of key/value labels defined.  Each Key must be unique for a given object.
 
-{% highlight json %}
+```json
 
 "labels": {
   "key1" : "value1",
   "key2" : "value2"
 }
 
-{% endhighlight %}
+```
 
 We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](annotations).
 
@@ -106,35 +106,35 @@ LIST and WATCH operations may specify label selectors to filter the sets of obje
 
 Both label selector styles can be used to list or watch resources via a REST client. For example targetting `apiserver` with `kubectl` and using _equality-based_ one may write:
 
-{% highlight console %}
+```shell
 
 $ kubectl get pods -l environment=production,tier=frontend
 
-{% endhighlight %}
+```
 
 or using _set-based_ requirements:
 
-{% highlight console %}
+```shell
 
 $ kubectl get pods -l 'environment in (production),tier in (frontend)'
 
-{% endhighlight %}
+```
 
 As already mentioned _set-based_ requirements are more expressive.  For instance, they can implement the _OR_ operator on values:
 
-{% highlight console %}
+```shell
 
 $ kubectl get pods -l 'environment in (production, qa)'
 
-{% endhighlight %}
+```
 
 or restricting negative matching via _exists_ operator:
 
-{% highlight console %}
+```shell
 
 $ kubectl get pods -l 'environment,environment notin (frontend)'
 
-{% endhighlight %}
+```
 
 ### Set references in API objects
 
@@ -146,22 +146,22 @@ The set of pods that a `service` targets is defined with a label selector. Simil
 
 Labels selectors for both objects are defined in `json` or `yaml` files using maps, and only _equality-based_ requirement selectors are supported:
 
-{% highlight json %}
+```json
 
 "selector": {
     "component" : "redis",
 }
 
-{% endhighlight %}
+```
 
 or
 
-{% highlight yaml %}
+```yaml
 
 selector:
     component: redis
 
-{% endhighlight %}
+```
 
 this selector (respectively in `json` or `yaml` format) is equivalent to `component=redis` or `component in (redis)`.
 
@@ -169,7 +169,7 @@ this selector (respectively in `json` or `yaml` format) is equivalent to `compon
 
 Newer resources, such as [job](jobs), support _set-based_ requirements as well.
 
-{% highlight yaml %}
+```yaml
 
 selector:
   matchLabels:
@@ -178,7 +178,7 @@ selector:
     - {key: tier, operator: In, values: [cache]}
     - {key: environment, operator: NotIn, values: [dev]}
 
-{% endhighlight %}
+```
 
 `matchLabels` is a map of `{key,value}` pairs. A single `{key,value}` in the `matchLabels` map is equivalent to an element of `matchExpressions`, whose `key` field is "key", the `operator` is "In", and the `values` array contains only "value". `matchExpressions` is a list of pod selector requirements. Valid operators include In, NotIn, Exists, and DoesNotExist. The values set must be non-empty in the case of In and NotIn. All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together -- they must all be satisfied in order to match.
 

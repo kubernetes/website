@@ -30,10 +30,10 @@ You need [go](https://golang.org/doc/install) at least 1.3+ in your path, please
 
 In a separate tab of your terminal, run the following (since one needs sudo access to start/stop Kubernetes daemons, it is easier to run the entire script as root):
 
-{% highlight sh %}
+```shell
 cd kubernetes
 hack/local-up-cluster.sh
-{% endhighlight %}
+```
 
 This will build and start a lightweight local cluster, consisting of a master
 and a single node. Type Control-C to shut it down.
@@ -48,7 +48,7 @@ Your cluster is running, and you want to start running containers!
 
 You can now use any of the cluster/kubectl.sh commands to interact with your local setup.
 
-{% highlight sh %}
+```shell
 cluster/kubectl.sh get pods
 cluster/kubectl.sh get services
 cluster/kubectl.sh get replicationcontrollers
@@ -67,7 +67,7 @@ cluster/kubectl.sh run my-nginx --image=nginx --replicas=2 --port=80
 cluster/kubectl.sh get pods
 cluster/kubectl.sh get services
 cluster/kubectl.sh get replicationcontrollers
-{% endhighlight %}
+```
 
 
 ### Running a user defined pod
@@ -78,9 +78,9 @@ However you cannot view the nginx start page on localhost. To verify that nginx 
 
 You can control the specifications of a pod via a user defined manifest, and reach nginx through your browser on the port specified therein:
 
-{% highlight sh %}
+```shell
 cluster/kubectl.sh create -f docs/user-guide/pod.yaml
-{% endhighlight %}
+```
 
 Congratulations!
 
@@ -104,11 +104,11 @@ You are running a single node setup.  This has the limitation of only supporting
 
 #### I changed Kubernetes code, how do I run it?
 
-{% highlight sh %}
+```shell
 cd kubernetes
 hack/build-go.sh
 hack/local-up-cluster.sh
-{% endhighlight %}
+```
 
 #### kubectl claims to start a container but `get pods` and `docker ps` don't show it.
 

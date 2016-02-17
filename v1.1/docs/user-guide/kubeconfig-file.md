@@ -22,7 +22,7 @@ http://issue.k8s.io/1755
 
 The below file contains a `current-context` which will be used by default by clients which are using the file to connect to a cluster.  Thus, this kubeconfig file has more information in it then we will necessarily have to use in a given session.  You can see it defines many clusters, and users associated with those clusters.  The context itself is associated with both a cluster AND a user.
 
-{% highlight yaml %}
+```yaml
 current-context: federal-context
 apiVersion: v1
 clusters:
@@ -60,7 +60,7 @@ users:
   user:
     client-certificate: path/to/my/client/cert
     client-key: path/to/my/client/key
-{% endhighlight %}
+```
 
 ### Building your own kubeconfig file
 
@@ -126,18 +126,18 @@ See [kubectl/kubectl_config.md](kubectl/kubectl_config) for help.
 
 ### Example
 
-{% highlight console %}
+```shell
 $ kubectl config set-credentials myself --username=admin --password=secret
 $ kubectl config set-cluster local-server --server=http://localhost:8080
 $ kubectl config set-context default-context --cluster=local-server --user=myself
 $ kubectl config use-context default-context
 $ kubectl config set contexts.default-context.namespace the-right-prefix
 $ kubectl config view
-{% endhighlight %}
+```
 
 produces this output
 
-{% highlight yaml %}
+```yaml
 apiVersion: v1
 clusters:
 - cluster:
@@ -157,11 +157,11 @@ users:
   user:
     password: secret
     username: admin
-{% endhighlight %}
+```
 
 and a kubeconfig file that looks like this
 
-{% highlight yaml %}
+```yaml
 apiVersion: v1
 clusters:
 - cluster:
@@ -181,11 +181,11 @@ users:
   user:
     password: secret
     username: admin
-{% endhighlight %}
+```
 
 #### Commands for the example file
 
-{% highlight console %}
+```shell
 $ kubectl config set preferences.colors true
 $ kubectl config set-cluster cow-cluster --server=http://cow.org:8080 --api-version=v1
 $ kubectl config set-cluster horse-cluster --server=https://horse.org:4443 --certificate-authority=path/to/my/cafile
@@ -195,7 +195,7 @@ $ kubectl config set-credentials green-user --client-certificate=path/to/my/clie
 $ kubectl config set-context queen-anne-context --cluster=pig-cluster --user=black-user --namespace=saw-ns
 $ kubectl config set-context federal-context --cluster=horse-cluster --user=green-user --namespace=chisel-ns
 $ kubectl config use-context federal-context
-{% endhighlight %}
+```
 
 ### Final notes for tying it all together
 

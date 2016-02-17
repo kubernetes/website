@@ -51,10 +51,10 @@ The first step in the process is to initialize the master node.
 
 Clone the Kubernetes repo, and run [master.sh](/{{page.version}}/docs/getting-started-guides/docker-multinode/master.sh) on the master machine with root:
 
-{% highlight sh %}
+```shell
 cd kubernetes/docs/getting-started-guides/docker-multinode/
 ./master.sh
-{% endhighlight %}
+```
 
 `Master done!`
 
@@ -66,11 +66,11 @@ Once your master is up and running you can add one or more workers on different 
 
 Clone the Kubernetes repo, and run [worker.sh](/{{page.version}}/docs/getting-started-guides/docker-multinode/worker.sh) on the worker machine with root:
 
-{% highlight sh %}
+```shell
 export MASTER_IP=<your_master_ip (e.g. 1.2.3.4)>
 cd kubernetes/docs/getting-started-guides/docker-multinode/
 ./worker.sh
-{% endhighlight %}
+```
 
 `Worker done!`
 

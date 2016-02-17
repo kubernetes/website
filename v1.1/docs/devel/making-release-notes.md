@@ -12,11 +12,11 @@ Find the most-recent PR that was merged with the current .0 release.  Remember t
 
 ### 2) Run the release-notes tool
 
-{% highlight bash %}
+```shell
 
 ${KUBERNETES_ROOT}/build/make-release-notes.sh $LASTPR $CURRENTPR
 
-{% endhighlight %}
+```
 
 ### 3) Trim the release notes
 

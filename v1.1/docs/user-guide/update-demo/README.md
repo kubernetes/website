@@ -27,10 +27,10 @@ This example demonstrates the usage of Kubernetes to perform a [rolling update](
 
 This example assumes that you have forked the repository and [turned up a Kubernetes cluster](/{{page.version}}/docs/getting-started-guides/):
 
-{% highlight console %}
+```shell
 $ cd kubernetes
 $ ./cluster/kube-up.sh
-{% endhighlight %}
+```
 
 ### Step One: Turn up the UX for the demo
 
@@ -39,10 +39,10 @@ This can sometimes spew to the output so you could also run it in a different te
 Kubernetes repository. Otherwise you will get "404 page not found" errors as the paths will not match. You can find more information about `kubectl proxy`
 [here](/{{page.version}}/docs/user-guide/kubectl/kubectl_proxy).
 
-{% highlight console %}
+```shell
 $ kubectl proxy --www=docs/user-guide/update-demo/local/ &
 I0218 15:18:31.623279   67480 proxy.go:36] Starting to serve on localhost:8001
-{% endhighlight %}
+```
 
 Now visit the the [demo website](http://localhost:8001/static).  You won't see anything much quite yet.
 
@@ -50,9 +50,9 @@ Now visit the the [demo website](http://localhost:8001/static).  You won't see a
 
 Now we will turn up two replicas of an [image](../images).  They all serve on internal port 80.
 
-{% highlight console %}
+```shell
 $ kubectl create -f docs/user-guide/update-demo/nautilus-rc.yaml
-{% endhighlight %}
+```
 
 After pulling the image from the Docker Hub to your worker nodes (which may take a minute or so) you'll see a couple of squares in the UI detailing the pods that are running along with the image that they are serving up.  A cute little nautilus.
 
@@ -60,9 +60,9 @@ After pulling the image from the Docker Hub to your worker nodes (which may take
 
 Now we will increase the number of replicas from two to four:
 
-{% highlight console %}
+```shell
 $ kubectl scale rc update-demo-nautilus --replicas=4
-{% endhighlight %}
+```
 
 If you go back to the [demo website](http://localhost:8001/static/index) you should eventually see four boxes, one for each pod.
 
@@ -70,9 +70,9 @@ If you go back to the [demo website](http://localhost:8001/static/index) you sho
 
 We will now update the docker image to serve a different image by doing a rolling update to a new Docker image.
 
-{% highlight console %}
+```shell
 $ kubectl rolling-update update-demo-nautilus --update-period=10s -f docs/user-guide/update-demo/kitten-rc.yaml
-{% endhighlight %}
+```
 
 The rolling-update command in kubectl will do 2 things:
 
@@ -85,9 +85,9 @@ But if the replica count had been specified, the final replica count of the new 
 
 ### Step Five: Bring down the pods
 
-{% highlight console %}
+```shell
 $ kubectl delete rc update-demo-kitten
-{% endhighlight %}
+```
 
 This first stops the replication controller by turning the target number of replicas to 0 and then deletes the controller.
 
@@ -95,28 +95,28 @@ This first stops the replication controller by turning the target number of repl
 
 To turn down a Kubernetes cluster:
 
-{% highlight console %}
+```shell
 $ ./cluster/kube-down.sh
-{% endhighlight %}
+```
 
 Kill the proxy running in the background:
 After you are done running this demo make sure to kill it:
 
-{% highlight console %}
+```shell
 $ jobs
 [1]+  Running                 ./kubectl proxy --www=local/ &
 $ kill %1
 [1]+  Terminated: 15          ./kubectl proxy --www=local/
-{% endhighlight %}
+```
 
 ### Updating the Docker images
 
 If you want to build your own docker images, you can set `$DOCKER_HUB_USER` to your Docker user id and run the included shell script. It can take a few minutes to download/upload stuff.
 
-{% highlight console %}
+```shell
 $ export DOCKER_HUB_USER=my-docker-id
 $ ./docs/user-guide/update-demo/build-images.sh
-{% endhighlight %}
+```
 
 To use your custom docker image in the above examples, you will need to change the image name in `docs/user-guide/update-demo/nautilus-rc.yaml` and `docs/user-guide/update-demo/kitten-rc.yaml`.
 

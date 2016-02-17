@@ -33,11 +33,11 @@ to make sure they're solid around then as well. Once you find some greens, you
 can find the Git hash for a build by looking at the "Console Log", then look for
 `githash=`. You should see a line line:
 
-{% highlight console %}
+```shell
 
 + githash=v0.20.2-322-g974377b
 
-{% endhighlight %}
+```
 
 Because Jenkins builds frequently, if you're looking between jobs
 (e.g. `kubernetes-e2e-gke-ci` and `kubernetes-e2e-gce`), there may be no single
@@ -50,11 +50,11 @@ oncall.
 
 Before proceeding to the next step:
 
-{% highlight sh %}
+```shell
 
 export BRANCHPOINT=v0.20.2-322-g974377b
 
-{% endhighlight %}
+```
 
 Where `v0.20.2-322-g974377b` is the git hash you decided on. This will become
 our (retroactive) branch point.
@@ -202,14 +202,14 @@ present.
 We are using `pkg/version/base.go` as the source of versioning in absence of
 information from git. Here is a sample of that file's contents:
 
-{% highlight go %}
+```go
 
 var (
     gitVersion   string = "v0.4-dev"  // version from git, output of $(git describe)
     gitCommit    string = ""          // sha1 from git, output of $(git rev-parse HEAD)
 )
 
-{% endhighlight %}
+```
 
 This means a build with `go install` or `go get` or a build from a tarball will
 yield binaries that will identify themselves as `v0.4-dev` and will not be able
@@ -287,7 +287,7 @@ projects seem to live with that and it does not really become a large problem.
 As an example, Docker commit a327d9b91edf has a `v1.1.1-N-gXXX` label but it is
 not present in Docker `v1.2.0`:
 
-{% highlight console %}
+```shell
 
 $ git describe a327d9b91edf
 v1.1.1-822-ga327d9b91edf
@@ -297,7 +297,7 @@ a327d9b91edf Fix data space reporting from Kb/Mb to KB/MB
 
 (Non-empty output here means the commit is not present on v1.2.0.)
 
-{% endhighlight %}
+```
 
 ## Release Notes
 
