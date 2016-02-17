@@ -10,8 +10,6 @@ _Note_:
 There is a [bug](https://github.com/docker/docker/issues/14106) in Docker 1.7.0 that prevents this from working correctly.
 Please install Docker 1.6.2 or Docker 1.7.1.
 
-
-
 {% include pagetoc.html %}
 
 ## Prerequisites
@@ -25,7 +23,7 @@ and a _worker_ node which receives work from the master.  You can repeat the pro
 times to create larger clusters.
 
 Here's a diagram of what the final result will look like:
-![Kubernetes Single Node on Docker](k8s-docker.png)
+![Kubernetes Single Node on Docker](/images/docs/k8s-docker.png)
 
 ### Bootstrap Docker
 

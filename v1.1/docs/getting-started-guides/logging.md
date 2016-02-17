@@ -168,11 +168,11 @@ This pod specification maps the directory on the host containing the Docker log 
 
 We can click on the Logs item under the Monitoring section of the Google Developer Console and select the logs for the counter container, which will be called kubernetes.counter_default_count.  This identifies the name of the pod (counter), the namespace (default) and the name of the container (count) for which the log collection occurred. Using this name we can select just the logs for our counter container from the drop down menu:
 
-![Cloud Logging Console](cloud-logging-console.png)
+![Cloud Logging Console](/images/docs/cloud-logging-console.png)
 
 When we view the logs in the Developer Console we observe the logs for both invocations of the container.
 
-![Both Logs](all-lines.png)
+![Both Logs](/images/docs/all-lines.png)
 
 Note the first container counted to 108 and then it was terminated. When the next container image restarted the counting process resumed from 0. Similarly if we deleted the pod and restarted it we would capture the logs for all instances of the containers in the pod whenever the pod was running.
 
@@ -189,7 +189,7 @@ SELECT metadata.timestamp, structPayload.log
 
 Here is some sample output:
 
-![BigQuery](bigquery-logging.png)
+![BigQuery](/images/docs/bigquery-logging.png)
 
 We could also fetch the logs from Google Cloud Storage buckets to our desktop or laptop and then search them locally. The following command fetches logs for the counter pod running in a cluster which is itself in a Compute Engine project called `myproject`. Only logs for the date 2015-06-11 are fetched.
 

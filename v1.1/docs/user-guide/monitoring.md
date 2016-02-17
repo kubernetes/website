@@ -7,7 +7,7 @@ Understanding how an application behaves when deployed is crucial to scaling the
 
 Heapster is a cluster-wide aggregator of monitoring and event data. It currently supports Kubernetes natively and works on all Kubernetes setups. Heapster runs as a pod in the cluster, similar to how any Kubernetes application would run. The Heapster pod discovers all nodes in the cluster and queries usage information from the nodes' [Kubelet](https://releases.k8s.io/release-1.1/DESIGN.md#kubelet)s, the on-machine Kubernetes agent. The Kubelet itself fetches the data from [cAdvisor](https://github.com/google/cadvisor). Heapster groups the information by pod along with the relevant labels. This data is then pushed to a configurable backend for storage and visualization. Currently supported backends include [InfluxDB](http://influxdb.com/) (with [Grafana](http://grafana.org/) for visualization) and [Google Cloud Monitoring](https://cloud.google.com/monitoring/). The overall architecture of the service can be seen below:
 
-![overall monitoring architecture](monitoring-architecture.png)
+![overall monitoring architecture](/images/docs/monitoring-architecture.png)
 
 Let's look at some of the other components in more detail.
 
@@ -17,7 +17,7 @@ cAdvisor is an open source container resource usage and performance analysis age
 
 On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine containers on port 4194. Here is a snapshot of part of cAdvisor's UI that shows the overall machine usage:
 
-![cAdvisor](cadvisor.png)
+![cAdvisor](/images/docs/cadvisor.png)
 
 ### Kubelet
 
@@ -37,7 +37,7 @@ Here is a video showing how to monitor a Kubernetes cluster using heapster, Infl
 
 Here is a snapshot of the default Kubernetes Grafana dashboard that shows the CPU and Memory usage of the entire cluster, individual pods and containers:
 
-![snapshot of the default Kubernetes Grafana dashboard](influx.png)
+![snapshot of the default Kubernetes Grafana dashboard](/images/docs/influx.png)
 
 ### Google Cloud Monitoring
 
@@ -49,7 +49,7 @@ Here is a video showing how to setup and run a Google Cloud Monitoring backed He
 
 Here is a snapshot of the a Google Cloud Monitoring dashboard showing cluster-wide resource usage.
 
-![Google Cloud Monitoring dashboard](gcm.png)
+![Google Cloud Monitoring dashboard](/images/docs/gcm.png)
 
 ## Try it out!
 

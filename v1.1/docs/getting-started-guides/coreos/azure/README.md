@@ -1,12 +1,7 @@
 ---
 title: "Kubernetes on Azure with CoreOS and Weave"
 ---
-
-## Introduction
-
 In this guide I will demonstrate how to deploy a Kubernetes cluster to Azure cloud. You will be using CoreOS with Weave, which implements simple and secure networking, in a transparent, yet robust way. The purpose of this guide is to provide an out-of-the-box implementation that can ultimately be taken into production with little change. It will demonstrate how to provision a dedicated Kubernetes master and etcd nodes, and show how to scale the cluster with ease.
-
-
 
 {% include pagetoc.html %}
 
@@ -37,7 +32,7 @@ Now, all you need to do is:
 ```
 This script will provision a cluster suitable for production use, where there is a ring of 3 dedicated etcd nodes: 1 kubernetes master and 2 kubernetes nodes. The `kube-00` VM will be the master, your work loads are only to be deployed on the nodes, `kube-01` and `kube-02`. Initially, all VMs are single-core, to ensure a user of the free tier can reproduce it without paying extra. I will show how to add more bigger VMs later.
 
-![VMs in Azure](initial_cluster.png)
+![VMs in Azure](/images/docs/initial_cluster.png)
 
 Once the creation of Azure VMs has finished, you should see the following:
 

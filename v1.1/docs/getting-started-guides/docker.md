@@ -1,14 +1,11 @@
 ---
 title: "Running Kubernetes locally via Docker"
 ---
-
-## Overview
-
 The following instructions show you how to set up a simple, single node Kubernetes cluster using Docker.
 
 Here's a diagram of what the final result will look like:
 
-![Kubernetes Single Node on Docker](/{{page.version}}/docs/getting-started-guides/k8s-singlenode-docker.png)
+![Kubernetes Single Node on Docker](/images/docs/k8s-singlenode-docker.png)
 
 {% include pagetoc.html %}
 

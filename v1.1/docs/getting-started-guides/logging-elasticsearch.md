@@ -123,7 +123,7 @@ Use the username `admin` and provide the basic auth password reported by `kubect
 cluster you are trying to connect to. Connecting to the Elasticsearch URL should then give the
 status page for Elasticsearch.
 
-![Elasticsearch Status](es-browser.png)
+![Elasticsearch Status](/images/docs/es-browser.png)
 
 You can now type Elasticsearch queries directly into the browser. Alternatively you can query Elasticsearch
 from your local machine using `curl` but first you need to know what your bearer token is:
@@ -227,7 +227,7 @@ timeseries values and select `@timestamp`. On the following page select the `Dis
 should be able to see the ingested logs. You can set the refresh interval to 5 seconds to have the logs
 regulary refreshed. Here is a typical view of ingested logs from the Kibana viewer.
 
-![Kibana logs](kibana-logs.png)
+![Kibana logs](/images/docs/kibana-logs.png)
 
 Another way to access Elasticsearch and Kibana in the cluster is to use `kubectl proxy` which will serve
 a local proxy to the remote master:

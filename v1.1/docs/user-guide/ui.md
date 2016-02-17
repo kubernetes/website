@@ -22,7 +22,8 @@ The Kubernetes UI can be used to introspect your current cluster, such as checki
 ### Node Resource Usage
 
 After accessing Kubernetes UI, you'll see a homepage dynamically listing out all nodes in your current cluster, with related information including internal IP addresses, CPU usage, memory usage, and file systems usage.
-![Kubernetes UI home page](k8s-ui-overview.png)
+
+![Kubernetes UI home page](/images/docs/k8s-ui-overview.png)
 
 ### Dashboard Views
 
@@ -31,18 +32,26 @@ Click on the "Views" button in the top-right of the page to see other views avai
 #### Explore View
 
 The "Explore" view allows your to see the pods, replication controllers, and services in current cluster easily.
-![Kubernetes UI Explore View](k8s-ui-explore.png)
+
+![Kubernetes UI Explore View](/images/docs/k8s-ui-explore.png)
+
 The "Group by" dropdown list allows you to group these resources by a number of factors, such as type, name, host, etc.
-![Kubernetes UI Explore View - Group by](k8s-ui-explore-groupby.png)
+
+![Kubernetes UI Explore View - Group by](/images/docs/k8s-ui-explore-groupby.png)
+
 You can also create filters by clicking on the down triangle of any listed resource instances and choose which filters you want to add.
-![Kubernetes UI Explore View - Filter](k8s-ui-explore-filter.png)
+
+![Kubernetes UI Explore View - Filter](/images/docs/k8s-ui-explore-filter.png)
+
 To see more details of each resource instance, simply click on it.
-![Kubernetes UI - Pod](k8s-ui-explore-poddetail.png)
+
+![Kubernetes UI - Pod](/images/docs/k8s-ui-explore-poddetail.png)
 
 ### Other Views
 
 Other views (Pods, Nodes, Replication Controllers, Services, and Events) simply list information about each type of resource. You can also click on any instance for more details.
-![Kubernetes UI - Nodes](k8s-ui-nodes.png)
+
+![Kubernetes UI - Nodes](/images/docs/k8s-ui-nodes.png)
 
 ## More Information
 

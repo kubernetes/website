@@ -15,7 +15,7 @@ Below, we outline one of the more common git workflows that core developers use.
 
 ### Visual overview
 
-![Git workflow](git_workflow.png)
+![Git workflow](/images/docs/git_workflow.png)
 
 ### Fork the main repository
 

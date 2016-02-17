@@ -27,7 +27,7 @@ The steps involved are as follows:
    * [Setting up master-elected Kubernetes scheduler and controller-manager daemons](#master-elected-components)
 
 Here's what the system should look like when it's finished:
-![High availability Kubernetes diagram](high-availability/ha.png)
+![High availability Kubernetes diagram](/images/docs/ha.png)
 
 Ready? Let's get started.
 

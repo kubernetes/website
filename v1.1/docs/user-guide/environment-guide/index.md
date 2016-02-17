@@ -10,7 +10,7 @@ environment metadata available to running containers inside the
 Kubernetes cluster. The documentation for the Kubernetes environment
 is [here](/{{page.version}}/docs/user-guide/container-environment).
 
-![Diagram](diagram.png)
+![Diagram](/images/docs/diagram.png)
 
 ## Prerequisites
 
