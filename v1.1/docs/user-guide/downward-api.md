@@ -51,7 +51,6 @@ downward API:
 <!-- BEGIN MUNGE: EXAMPLE downward-api/dapi-pod.yaml -->
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -77,7 +76,6 @@ spec:
   restartPolicy: Never
 
 ```
-
 [Download example](downward-api/dapi-pod.yaml)
 <!-- END MUNGE: EXAMPLE downward-api/dapi-pod.yaml -->
 
@@ -92,12 +90,10 @@ volume type and the different items represent the files to be created. `fieldPat
 Downward API volume permits to store more complex data like [`metadata.labels`](labels) and [`metadata.annotations`](annotations). Currently key/value pair set fields are saved using `key="value"` format:
 
 ```
-
 key1="value1"
 key2="value2"
 
 ```
-
 In future, it will be possible to specify an output format option.
 
 Downward API volumes can expose:
@@ -118,7 +114,6 @@ This is an example of a pod that consumes its labels and annotations via the dow
 <!-- BEGIN MUNGE: EXAMPLE downward-api/volume/dapi-volume.yaml -->
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -151,7 +146,6 @@ spec:
               fieldPath: metadata.annotations
 
 ```
-
 [Download example](downward-api/volume/dapi-volume.yaml)
 <!-- END MUNGE: EXAMPLE downward-api/volume/dapi-volume.yaml -->
 

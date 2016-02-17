@@ -28,7 +28,6 @@ See [pods](/{{page.version}}/docs/user-guide/pods) for more details.
 The simplest pod definition describes the deployment of a single container.  For example, an nginx web server pod might be defined as such:
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -41,7 +40,6 @@ spec:
     - containerPort: 80
 
 ```
-
 A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and it is Kubernetes' responsibility to make sure that the current state matches the desired state.  For example, when you create a Pod, you declare that you want the containers in it to be running.  If the containers happen to not be running (e.g. program failure, ...), Kubernetes will continue to (re-)create them for you in order to drive them to the desired state. This process continues until the Pod is deleted.
 
 See the [design document](../../design/README) for more details.
@@ -52,38 +50,29 @@ See the [design document](../../design/README) for more details.
 Create a pod containing an nginx server ([pod-nginx.yaml](pod-nginx.yaml)):
 
 ```shell
-
 $ kubectl create -f docs/user-guide/walkthrough/pod-nginx.yaml
 
 ```
-
 List all pods:
 
 ```shell
-
 $ kubectl get pods
 
 ```
-
 On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](../kubectl/kubectl_exec) for details.
 
 Provided the pod IP is accessible, you should be able to access its http endpoint with curl on port 80:
 
 ```shell
-
 $ curl http://$(kubectl get pod nginx -o go-template={{.status.podIP}})
 
 ```
-
 Delete the pod by name:
 
 ```shell
-
 $ kubectl delete pod nginx
 
 ```
-
-
 #### Volumes
 
 That's great for a simple static web server, but what about persistent storage?
@@ -95,31 +84,26 @@ For this example we'll be creating a Redis pod with a named volume and volume mo
 1. Define a volume:
 
 ```yaml
-
-    volumes:
+volumes:
     - name: redis-persistent-storage
       emptyDir: {}
 
 ```
-
 2. Define a volume mount within a container definition:
 
 ```yaml
-
-    volumeMounts:
+volumeMounts:
     # name must match the volume name below
     - name: redis-persistent-storage
       # mount path within the container
       mountPath: /data/redis
 
 ```
-
 Example Redis pod definition with a persistent storage volume ([pod-redis.yaml](pod-redis.yaml)):
 
 <!-- BEGIN MUNGE: EXAMPLE pod-redis.yaml -->
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -136,7 +120,6 @@ spec:
     emptyDir: {}
 
 ```
-
 [Download example](pod-redis.yaml)
 <!-- END MUNGE: EXAMPLE pod-redis.yaml -->
 
@@ -161,7 +144,6 @@ The examples below are syntactically correct, but some of the images (e.g. kuber
 However, often you want to have two different containers that work together.  An example of this would be a web server, and a helper job that polls a git repository for new updates:
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -187,7 +169,6 @@ spec:
     emptyDir: {}
 
 ```
-
 Note that we have also added a volume here.  In this case, the volume is mounted into both containers.  It is marked `readOnly` in the web server's case, since it doesn't need to write to the directory.
 
 Finally, we have also introduced an environment variable to the `git-monitor` container, which allows us to parameterize that container with the particular git repository that we want to track.
@@ -196,7 +177,7 @@ Finally, we have also introduced an environment variable to the `git-monitor` co
 ## What's Next?
 
 Continue on to [Kubernetes 201](k8s201) or
-for a complete application see the [guestbook example](../../../examples/guestbook/README)
+for a complete application see the [guestbook example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/README)
 
 
 

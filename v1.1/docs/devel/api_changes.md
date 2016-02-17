@@ -92,27 +92,23 @@ Let's consider some examples.  In a hypothetical API (assume we're at version
 v6), the `Frobber` struct looks something like this:
 
 ```go
-
 // API v6.
 type Frobber struct {
 	Height int    `json:"height"`
 	Param  string `json:"param"`
 }
-
 ```
 
 You want to add a new `Width` field.  It is generally safe to add new fields
 without changing the API version, so you can simply change it to:
 
 ```go
-
 // Still API v6.
 type Frobber struct {
 	Height int    `json:"height"`
 	Width  int    `json:"width"`
 	Param  string `json:"param"`
 }
-
 ```
 
 The onus is on you to define a sane default value for `Width` such that rule #1
@@ -124,7 +120,6 @@ simply change `Param string` to `Params []string` (without creating a whole new
 API version) - that fails rules #1 and #2.  You can instead do something like:
 
 ```go
-
 // Still API v6, but kind of clumsy.
 type Frobber struct {
 	Height int           `json:"height"`
@@ -132,7 +127,6 @@ type Frobber struct {
 	Param  string        `json:"param"`  // the first param
 	ExtraParams []string `json:"params"` // additional params
 }
-
 ```
 
 Now you can satisfy the rules: API calls that provide the old style `Param`
@@ -144,14 +138,12 @@ distinct from any one version is to handle growth like this.  The internal
 representation can be implemented as:
 
 ```go
-
 // Internal, soon to be v7beta1.
 type Frobber struct {
 	Height int
 	Width  int
 	Params []string
 }
-
 ```
 
 The code that converts to/from versioned APIs can decode this into the somewhat
@@ -175,14 +167,12 @@ you add units to `height` and `width`. You implement this by adding duplicate
 fields:
 
 ```go
-
 type Frobber struct {
 	Height         *int          `json:"height"`
 	Width          *int          `json:"width"`
 	HeightInInches *int          `json:"heightInInches"`
 	WidthInInches  *int          `json:"widthInInches"`
 }
-
 ```
 
 You convert all of the fields to pointers in order to distinguish between unset and
@@ -198,38 +188,32 @@ in the case of an old client that was only aware of the old field (e.g., `height
 Say the client creates:
 
 ```json
-
 {
   "height": 10,
   "width": 5
 }
-
 ```
 
 and GETs:
 
 ```json
-
 {
   "height": 10,
   "heightInInches": 10,
   "width": 5,
   "widthInInches": 5
 }
-
 ```
 
 then PUTs back:
 
 ```json
-
 {
   "height": 13,
   "heightInInches": 10,
   "width": 5,
   "widthInInches": 5
 }
-
 ```
 
 The update should not fail, because it would have worked before `heightInInches` was added.
@@ -401,11 +385,9 @@ regenerate auto-generated ones. To regenerate them:
    - run
 
 ```shell
-
 hack/update-generated-conversions.sh
 
 ```
-
 If running the above script is impossible due to compile errors, the easiest
 workaround is to comment out the code causing errors and let the script to
 regenerate it. If the auto-generated conversion methods are not used by the
@@ -429,9 +411,7 @@ To regenerate them:
    - run
 
 ```shell
-
 hack/update-generated-deep-copies.sh
-
 ```
 
 ## Edit json (un)marshaling code
@@ -447,9 +427,7 @@ To regenerate them:
    - run
 
 ```shell
-
 hack/update-codecgen.sh
-
 ```
 
 ## Making a new API Group
@@ -532,9 +510,7 @@ an example to illustrate your change.
 Make sure you update the swagger API spec by running:
 
 ```shell
-
 hack/update-swagger-spec.sh
-
 ```
 
 The API spec changes should be in a commit separate from your other changes.
@@ -606,5 +582,3 @@ New feature development proceeds through a series of stages of increasing maturi
   - Cluster Reliability: high
   - Support: API version will continue to be present for many subsequent software releases;
   - Recommended Use Cases: any
-
-

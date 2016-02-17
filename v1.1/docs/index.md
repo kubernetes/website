@@ -19,7 +19,7 @@ title: "Kubernetes Documentation: releases.k8s.io/release-1.1"
 
 * An overview of the [Design of Kubernetes](design/)
 
-* There are example files and walkthroughs in the [examples](../examples/)
+* There are example files and walkthroughs in the [examples](https://github.com/kubernetes/kubernetes/tree/master/examples)
   folder.
 
 * If something went wrong, see the [troubleshooting](troubleshooting) document for how to debug.

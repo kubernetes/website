@@ -15,7 +15,6 @@ resource, a number of the fields of the resource are added.
 You can see this at work in the following example:
 
 ```shell
-
 $ cat > /tmp/original.yaml <<EOF
 apiVersion: v1
 kind: Pod
@@ -37,7 +36,6 @@ $ wc -l /tmp/original.yaml /tmp/current.yaml
       60 total
 
 ```
-
 The resource we posted had only 9 lines, but the one we got back had 51 lines.
 If you `diff -u /tmp/original.yaml /tmp/current.yaml`, you can see the fields added to the pod.
 The system adds fields in several ways:

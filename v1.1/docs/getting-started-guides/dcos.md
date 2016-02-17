@@ -27,7 +27,7 @@ Explore the following resources for more information about Kubernetes, Kubernete
 
 - [DCOS Documentation](https://docs.mesosphere.com/)
 - [Managing DCOS Services](https://docs.mesosphere.com/services/kubernetes/)
-- [Kubernetes Examples](../../examples/README)
+- [Kubernetes Examples](https://github.com/kubernetes/kubernetes/tree/master/examples/README)
 - [Kubernetes on Mesos Documentation](https://releases.k8s.io/release-1.1/contrib/mesos/README.md)
 - [Kubernetes on Mesos Release Notes](https://github.com/mesosphere/kubernetes-mesos/releases)
 - [Kubernetes on DCOS Package Source](https://github.com/mesosphere/kubernetes-mesos)
@@ -45,73 +45,66 @@ Explore the following resources for more information about Kubernetes, Kubernete
 
 1. Configure and validate the [Mesosphere Multiverse](https://github.com/mesosphere/multiverse) as a package source repository
 
-    ```
-    $ dcos config prepend package.sources https://github.com/mesosphere/multiverse/archive/version-1.x.zip
-    $ dcos package update --validate
-    ```
-
+    ```shell
+$ dcos config prepend package.sources https://github.com/mesosphere/multiverse/archive/version-1.x.zip
+    $ dcos package update --validate
+    ```    
 2. Install etcd
 
     By default, the Kubernetes DCOS package starts a single-node etcd. In order to avoid state loss in the event of Kubernetes component container failure, install an HA [etcd-mesos](https://github.com/mesosphere/etcd-mesos) cluster on DCOS.
 
-    ```
-    $ dcos package install etcd
-    ```
-
+    ```shell
+$ dcos package install etcd
+    ```    
 3. Verify that etcd is installed and healthy
 
     The etcd cluster takes a short while to deploy. Verify that `/etcd` is healthy before going on to the next step.
 
-    ```
-    $ dcos marathon app list
+    ```shell
+$ dcos marathon app list
     ID           MEM  CPUS  TASKS  HEALTH  DEPLOYMENT  CONTAINER  CMD
-    /etcd        128  0.2    1/1    1/1       ---        DOCKER   None
-    ```
-
+    /etcd        128  0.2    1/1    1/1       ---        DOCKER   None
+    ```    
 4. Create Kubernetes installation configuration
 
     Configure Kubernetes to use the HA etcd installed on DCOS.
 
-    ```
-    $ cat >/tmp/options.json <<EOF
+    ```shell
+$ cat >/tmp/options.json <<EOF
     {
       "kubernetes": {
         "etcd-mesos-framework-name": "etcd"
       }
     }
-    EOF
-    ```
-
+    EOF
+    ```    
 5. Install Kubernetes
 
-    ```
-    $ dcos package install --options=/tmp/options.json kubernetes
-    ```
-
+    ```shell
+$ dcos package install --options=/tmp/options.json kubernetes
+    ```    
 6. Verify that Kubernetes is installed and healthy
 
     The Kubernetes cluster takes a short while to deploy. Verify that `/kubernetes` is healthy before going on to the next step.
 
-    ```
-    $ dcos marathon app list
+    ```shell
+$ dcos marathon app list
     ID           MEM  CPUS  TASKS  HEALTH  DEPLOYMENT  CONTAINER  CMD
     /etcd        128  0.2    1/1    1/1       ---        DOCKER   None
-    /kubernetes  768   1     1/1    1/1       ---        DOCKER   None
-    ```
-
+    /kubernetes  768   1     1/1    1/1       ---        DOCKER   None
+    ```    
 7. Verify that Kube-DNS & Kube-UI are deployed, running, and ready
 
-    ```
-    $ dcos kubectl get pods --namespace=kube-system
+    ```shell
+$ dcos kubectl get pods --namespace=kube-system
     NAME                READY     STATUS    RESTARTS   AGE
     kube-dns-v8-tjxk9   4/4       Running   0          1m
-    kube-ui-v2-tjq7b    1/1       Running   0          1m
-    ```
+    kube-ui-v2-tjq7b    1/1       Running   0          1m
+    ```    
+Names and ages may vary.
 
-    Names and ages may vary.
 
-
-Now that Kubernetes is installed on DCOS, you may wish to explore the [Kubernetes Examples](../../examples/README) or the [Kubernetes User Guide](../user-guide/README).
+Now that Kubernetes is installed on DCOS, you may wish to explore the [Kubernetes Examples](https://github.com/kubernetes/kubernetes/tree/master/examples/) or the [Kubernetes User Guide](../user-guide/README).
 
 
 ## Uninstall
@@ -120,19 +113,17 @@ Now that Kubernetes is installed on DCOS, you may wish to explore the [Kubernete
 
     Before uninstalling Kubernetes, destroy all the pods and replication controllers. The uninstall process will try to do this itself, but by default it times out quickly and may leave your cluster in a dirty state.
 
-    ```
-    $ dcos kubectl delete rc,pods --all --namespace=default
-    $ dcos kubectl delete rc,pods --all --namespace=kube-system
-    ```
-
+    ```shell
+$ dcos kubectl delete rc,pods --all --namespace=default
+    $ dcos kubectl delete rc,pods --all --namespace=kube-system
+    ```    
 2. Validate that all pods have been deleted
 
-    ```
-    $ dcos kubectl get pods --all-namespaces
-    ```
-
+    ```shell
+$ dcos kubectl get pods --all-namespaces
+    ```    
 3. Uninstall Kubernetes
 
-    ```
-    $ dcos package uninstall kubernetes
+    ```shell
+$ dcos package uninstall kubernetes
     ```

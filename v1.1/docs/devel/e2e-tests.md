@@ -27,8 +27,7 @@ The output for the end-2-end tests will be a single binary called `e2e.test` und
 
 For the purposes of brevity, we will look at a subset of the options, which are listed below:
 
-```
-
+```shell
 -ginkgo.dryRun=false: If set, ginkgo will walk the test hierarchy without actually running anything.  Best paired with -v.
 -ginkgo.failFast=false: If set, ginkgo will stop running a test suite after a failure occurs.
 -ginkgo.failOnPending=false: If set, ginkgo will mark the test suite as failed if any specs are pending.
@@ -41,31 +40,34 @@ For the purposes of brevity, we will look at a subset of the options, which are 
 -prom-push-gateway="": The URL to prometheus gateway, so that metrics can be pushed during e2es and scraped by prometheus. Typically something like 127.0.0.1:9091.
 -provider="": The name of the Kubernetes provider (gce, gke, local, vagrant, etc.)
 -repo-root="../../": Root directory of kubernetes repository, for finding test files.
-
 ```
 
 Prior to running the tests, it is recommended that you first create a simple auth file in your home directory, e.g. `$HOME/.kubernetes_auth` , with the following:
 
-```
-
+```json
 {
   "User": "root",
   "Password": ""
 }
-
 ```
 
 Next, you will need a cluster that you can test against.  As mentioned earlier, you will want to execute `sudo ./hack/local-up-cluster.sh`.  To get a sense of what tests exist, you may want to run:
 
-`e2e.test --host="127.0.0.1:8080" --provider="local" --ginkgo.v=true -ginkgo.dryRun=true --kubeconfig="$HOME/.kubernetes_auth" --repo-root="$KUBERNETES_SRC_PATH"`
+```shell
+e2e.test --host="127.0.0.1:8080" --provider="local" --ginkgo.v=true -ginkgo.dryRun=true --kubeconfig="$HOME/.kubernetes_auth" --repo-root="$KUBERNETES_SRC_PATH"
+```
 
 If you wish to execute a specific set of tests you can use the `-ginkgo.focus=` regex, e.g.:
 
-`e2e.test ... --ginkgo.focus="DNS|(?i)nodeport(?-i)|kubectl guestbook"`
+```shell
+e2e.test ... --ginkgo.focus="DNS|(?i)nodeport(?-i)|kubectl guestbook"
+```
 
 Conversely, if you wish to exclude a set of tests, you can run:
 
-`e2e.test ... --ginkgo.skip="Density|Scale"`
+```shell
+e2e.test ... --ginkgo.skip="Density|Scale"
+```
 
 As mentioned earlier there are a host of other options that are available, but are left to the developer
 
@@ -91,9 +93,9 @@ For developers who are interested in doing their own performance analysis, we re
 
 For more accurate measurements, you may wish to set up prometheus external to kubernetes in an environment where it can access the major system components (api-server, controller-manager, scheduler).  This is especially useful when attempting to gather metrics in a load-balanced api-server environment, because all api-servers can be analyzed independently as well as collectively. On startup, configuration file is passed to prometheus that specifies the endpoints that prometheus will scrape, as well as the sampling interval.
 
-```
+**prometheus.conf**
 
-#prometheus.conf
+```conf
 job: {
       name: "kubernetes"
       scrape_interval: "1s"
@@ -105,13 +107,8 @@ job: {
 		# controller-manager
 		target: "http://localhost:10252/metrics"
       }
-
 ```
 
 Once prometheus is scraping the kubernetes endpoints, that data can then be plotted using promdash, and alerts can be created against the assortment of metrics that kubernetes provides.
 
 **HAPPY TESTING!**
-
-
-
-

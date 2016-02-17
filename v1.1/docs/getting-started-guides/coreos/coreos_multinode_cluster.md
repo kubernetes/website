@@ -21,16 +21,13 @@ Use the [master.yaml](cloud-configs/master.yaml) and [node.yaml](cloud-configs/n
 #### Provision the Master
 
 ```shell
-
 aws ec2 create-security-group --group-name kubernetes --description "Kubernetes Security Group"
 aws ec2 authorize-security-group-ingress --group-name kubernetes --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name kubernetes --protocol tcp --port 80 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-name kubernetes --source-security-group-name kubernetes
 
 ```
-
 ```shell
-
 aws ec2 run-instances \
 --image-id <ami_image_id> \
 --key-name <keypair> \
@@ -40,15 +37,12 @@ aws ec2 run-instances \
 --user-data file://master.yaml
 
 ```
-
 #### Capture the private IP address
 
 ```shell
-
 aws ec2 describe-instances --instance-id <master-instance-id>
 
 ```
-
 #### Edit node.yaml
 
 Edit `node.yaml` and replace all instances of `<master-private-ip>` with the private IP address of the master node.
@@ -56,7 +50,6 @@ Edit `node.yaml` and replace all instances of `<master-private-ip>` with the pri
 #### Provision worker nodes
 
 ```shell
-
 aws ec2 run-instances \
 --count 1 \
 --image-id <ami_image_id> \
@@ -67,7 +60,6 @@ aws ec2 run-instances \
 --user-data file://node.yaml
 
 ```
-
 ### Google Compute Engine (GCE)
 
 *Attention:* Replace `<gce_image_id>` below for a [suitable version of CoreOS image for Google Compute Engine](https://coreos.com/docs/running-coreos/cloud-providers/google-compute-engine/).
@@ -75,7 +67,6 @@ aws ec2 run-instances \
 #### Provision the Master
 
 ```shell
-
 gcloud compute instances create master \
 --image-project coreos-cloud \
 --image <gce_image_id> \
@@ -85,15 +76,12 @@ gcloud compute instances create master \
 --metadata-from-file user-data=master.yaml
 
 ```
-
 #### Capture the private IP address
 
 ```shell
-
 gcloud compute instances list
 
 ```
-
 #### Edit node.yaml
 
 Edit `node.yaml` and replace all instances of `<master-private-ip>` with the private IP address of the master node.
@@ -101,7 +89,6 @@ Edit `node.yaml` and replace all instances of `<master-private-ip>` with the pri
 #### Provision worker nodes
 
 ```shell
-
 gcloud compute instances create node1 \
 --image-project coreos-cloud \
 --image <gce_image_id> \
@@ -111,7 +98,6 @@ gcloud compute instances create node1 \
 --metadata-from-file user-data=node.yaml
 
 ```
-
 #### Establish network connectivity
 
 Next, setup an ssh tunnel to the master so you can run kubectl from your local host.
@@ -128,7 +114,6 @@ These instructions were tested on the Ice House release on a Metacloud distribut
 Make sure the environment variables are set for OpenStack such as:
 
 ```shell
-
 OS_TENANT_ID
 OS_PASSWORD
 OS_AUTH_URL
@@ -136,43 +121,35 @@ OS_USERNAME
 OS_TENANT_NAME
 
 ```
-
 Test this works with something like:
 
 ```
-
 nova list
 
 ```
-
 #### Get a Suitable CoreOS Image
 
 You'll need a [suitable version of CoreOS image for OpenStack](https://coreos.com/os/docs/latest/booting-on-openstack)
 Once you download that, upload it to glance.  An example is shown below:
 
 ```shell
-
 glance image-create --name CoreOS723 \
 --container-format bare --disk-format qcow2 \
 --file coreos_production_openstack_image.img \
 --is-public True
 
 ```
-
 #### Create security group
 
 ```shell
-
 nova secgroup-create kubernetes "Kubernetes Security Group"
 nova secgroup-add-rule kubernetes tcp 22 22   0.0.0.0/0
 nova secgroup-add-rule kubernetes tcp 80 80   0.0.0.0/0
 
 ```
-
 #### Provision the Master
 
 ```shell
-
 nova boot \
 --image <image_name> \
 --key-name <my_key> \
@@ -182,39 +159,42 @@ nova boot \
 kube-master
 
 ```
+```<image_name>```
+is the CoreOS image name.  In our example we can use the image we created in the previous step and put in 'CoreOS723'
 
-```<image_name>``` is the CoreOS image name.  In our example we can use the image we created in the previous step and put in 'CoreOS723'
+```<my_key>```
+is the keypair name that you already generated to access the instance.
 
-```<my_key>``` is the keypair name that you already generated to access the instance.
-
-```<flavor_id>``` is the flavor ID you use to size the instance.  Run ```nova flavor-list``` to get the IDs.  3 on the system this was tested with gives the m1.large size.
+```<flavor_id>```
+is the flavor ID you use to size the instance.  Run ```nova flavor-list```
+to get the IDs.  3 on the system this was tested with gives the m1.large size.
 
 The important part is to ensure you have the files/master.yml as this is what will do all the post boot configuration. This path is relevant so we are assuming in this example that you are running the nova command in a directory where there is a subdirectory called files that has the master.yml file in it.  Absolute paths also work.
 
 Next, assign it a public IP address:
 
-``` 
-
+```
 nova floating-ip-list
 
 ```
-
 Get an IP address that's free and run:
 
 ```
-
 nova floating-ip-associate kube-master <ip address>
 
 ```
-
-where ```<ip address>``` is the IP address that was available from the ```nova floating-ip-list``` command.
+where ```<ip address>```
+is the IP address that was available from the ```nova floating-ip-list```
+command.
 
 #### Provision Worker Nodes
 
-Edit ```node.yaml``` and replace all instances of ```<master-private-ip>``` with the private IP address of the master node.  You can get this by running ```nova show kube-master``` assuming you named your instance kube master.  This is not the floating IP address you just assigned it.
+Edit ```node.yaml```
+and replace all instances of ```<master-private-ip>```
+with the private IP address of the master node.  You can get this by running ```nova show kube-master```
+assuming you named your instance kube master.  This is not the floating IP address you just assigned it.
 
 ```shell
-
 nova boot \
 --image <image_name> \
 --key-name <my_key> \
@@ -224,7 +204,6 @@ nova boot \
 minion01
 
 ```
-
 This is basically the same as the master nodes but with the node.yaml post-boot script instead of the master.
 
 

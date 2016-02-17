@@ -20,11 +20,10 @@ or someone else setup the cluster and provided you with credentials and a locati
 
 Check the location and credentials that kubectl knows about with this command:
 
-```shell
+```shell
 $ kubectl config view
 ```
-
-Many of the [examples](../../examples/) provide an introduction to using
+Many of the [examples](https://github.com/kubernetes/kubernetes/tree/master/examples/) provide an introduction to using
 kubectl and complete documentation is found in the [kubectl manual](kubectl/kubectl).
 
 ### Directly accessing the REST API
@@ -49,15 +48,14 @@ The following command runs kubectl in a mode where it acts as a reverse proxy.  
 locating the apiserver and authenticating.
 Run it like this:
 
-```shell
+```shell
 $ kubectl proxy --port=8080 &
 ```
-
 See [kubectl proxy](kubectl/kubectl_proxy) for more details.
 
 Then you can explore the API with curl, wget, or a browser, like so:
 
-```shell
+```shell
 $ curl http://localhost:8080/api/
 {
   "versions": [
@@ -65,13 +63,12 @@ $ curl http://localhost:8080/api/
   ]
 }
 ```
-
 #### Without kubectl proxy
 
 It is also possible to avoid using kubectl proxy by passing an authentication token
 directly to the apiserver, like this:
 
-```shell
+```shell
 $ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
 $ TOKEN=$(kubectl config view | grep token | cut -f 2 -d ":" | tr -d " ")
 $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
@@ -81,7 +78,6 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
   ]
 }
 ```
-
 The above example uses the `--insecure` flag.  This leaves it subject to MITM
 attacks.  When kubectl accesses the cluster it uses a stored root certificate
 and client certificates to access the server.  (These are installed in the
@@ -125,7 +121,7 @@ From within a pod the recommended ways to connect to API are:
     process within a container.  This proxies the
     Kubernetes API to the localhost interface of the pod, so that other processes
     in any container of the pod can access it.  See this [example of using kubectl proxy
-    in a pod](../../examples/kubectl-container/).
+    in a pod](https://github.com/kubernetes/kubernetes/tree/master/examples/kubectl-container/).
   - use the Go client library, and create a client using the `client.NewInCluster()` factory.
     This handles locating and authenticating to the apiserver.
 In each case, the credentials of the pod are used to communicate securely with the apiserver.
@@ -173,7 +169,7 @@ You have several options for connecting to nodes, pods and services from outside
 Typically, there are several services which are started on a cluster by kube-system. Get a list of these
 with the `kubectl cluster-info` command:
 
-```shell
+```shell
 $ kubectl cluster-info
 
   Kubernetes master is running at https://104.197.5.247
@@ -183,7 +179,6 @@ $ kubectl cluster-info
   grafana is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-grafana
   heapster is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-heapster
 ```
-
 This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
 at `https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/` if suitable credentials are passed, or through a kubectl proxy at, for example:
@@ -202,8 +197,8 @@ about namespaces? 'proxy' verb? -->
  * To access the Elasticsearch service endpoint `_search?q=user:kimchy`, you would use:   `http://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy`
  * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:   `https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/_cluster/health?pretty=true`
 
-```json
-  {
+```json
+{
 	 "cluster_name" : "kubernetes_logging",
 	 "status" : "yellow",
 	 "timed_out" : false,
@@ -216,7 +211,6 @@ about namespaces? 'proxy' verb? -->
 	 "unassigned_shards" : 5
   }
 ```
-
 #### Using web browsers to access services running on the cluster
 
 You may be able to put an apiserver proxy url into the address bar of a browser. However:

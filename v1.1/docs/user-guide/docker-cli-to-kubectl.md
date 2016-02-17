@@ -12,7 +12,6 @@ How do I run an nginx container and expose it to the world? Checkout [kubectl ru
 With docker:
 
 ```shell
-
 $ docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
 a9ec34d9878748d2f33dc20cb25c714ff21da8d40558b45bfaec9955859075d0
 $ docker ps
@@ -20,11 +19,9 @@ CONTAINER ID        IMAGE               COMMAND                CREATED          
 a9ec34d98787        nginx               "nginx -g 'daemon of   2 seconds ago       Up 2 seconds        0.0.0.0:80->80/tcp, 443/tcp   nginx-app 
 
 ```
-
 With kubectl:
 
 ```shell
-
 # start the pod running nginx
 $ kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
 replicationcontroller "nginx-app" created
@@ -32,17 +29,14 @@ replicationcontroller "nginx-app" created
 $ kubectl expose rc nginx-app --port=80 --name=nginx-http
 
 ```
-
 With kubectl, we create a [replication controller](replication-controller) which will make sure that N pods are running nginx (where N is the number of replicas stated in the spec, which defaults to 1). We also create a [service](services) with a selector that matches the replication controller's selector. See the [Quick start](quick-start) for more information.
 
 By default images are run in the background, similar to `docker run -d ...`, if you want to run things in the foreground, use:
 
 ```shell
-
 kubectl run [-i] [--tty] --attach <name> --image=<image>
 
 ```
-
 Unlike `docker run ...`, if `--attach` is specified, we attach to `stdin`, `stdout` and `stderr`, there is no ability to control which streams are attached (`docker -a ...`).
 
 Because we start a replication controller for your container, it will be restarted if you terminate the attached process (e.g. `ctrl-c`), this is different than `docker run -it`.
@@ -55,23 +49,19 @@ How do I list what is currently running? Checkout [kubectl get](kubectl/kubectl_
 With docker:
 
 ```shell
-
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
 a9ec34d98787        nginx               "nginx -g 'daemon of   About an hour ago   Up About an hour    0.0.0.0:80->80/tcp, 443/tcp   nginx-app
 
 ```
-
 With kubectl:
 
 ```shell
-
 $ kubectl get po
 NAME              READY     STATUS    RESTARTS   AGE
 nginx-app-5jyvm   1/1       Running   0          1h
 
 ```
-
 #### docker attach
 
 How do I attach to a process that is already running in a container?  Checkout [kubectl attach](kubectl/kubectl_attach)
@@ -79,7 +69,6 @@ How do I attach to a process that is already running in a container?  Checkout [
 With docker:
 
 ```shell
-
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
 a9ec34d98787        nginx               "nginx -g 'daemon of   8 minutes ago       Up 8 minutes        0.0.0.0:80->80/tcp, 443/tcp   nginx-app
@@ -87,11 +76,9 @@ $ docker attach -it a9ec34d98787
 ...
 
 ```
-
 With kubectl:
 
 ```shell
-
 $ kubectl get pods
 NAME              READY     STATUS    RESTARTS   AGE
 nginx-app-5jyvm   1/1       Running   0          10m
@@ -100,7 +87,6 @@ $ kubectl attach -it nginx-app-5jyvm
 
 
 ```
-
 #### docker exec
 
 How do I execute a command in a container? Checkout [kubectl exec](kubectl/kubectl_exec).
@@ -108,8 +94,6 @@ How do I execute a command in a container? Checkout [kubectl exec](kubectl/kubec
 With docker:
 
 ```shell
-
-
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
 a9ec34d98787        nginx               "nginx -g 'daemon of   8 minutes ago       Up 8 minutes        0.0.0.0:80->80/tcp, 443/tcp   nginx-app
@@ -118,12 +102,9 @@ a9ec34d98787
 
 
 ```
-
 With kubectl:
 
 ```shell
-
-
 $ kubectl get po
 NAME              READY     STATUS    RESTARTS   AGE
 nginx-app-5jyvm   1/1       Running   0          10m
@@ -132,34 +113,27 @@ nginx-app-5jyvm
 
 
 ```
-
 What about interactive commands?
 
 
 With docker:
 
 ```shell
-
-
 $ docker exec -ti a9ec34d98787 /bin/sh
 
 # exit
 
 
 ```
-
 With kubectl:
 
 ```shell
-
-
 $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh      
 
 # exit
 
 
 ```
-
 For more information see [Getting into containers](getting-into-containers).
 
 #### docker logs
@@ -170,39 +144,30 @@ How do I follow stdout/stderr of a running process? Checkout [kubectl logs](kube
 With docker:
 
 ```shell
-
-
 $ docker logs -f a9e
 192.168.9.1 - - [14/Jul/2015:01:04:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.35.0" "-"
 192.168.9.1 - - [14/Jul/2015:01:04:03 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.35.0" "-"
 
 
 ```
-
 With kubectl:
 
 ```shell
-
-
 $ kubectl logs -f nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:01 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 
 
 ```
-
 Now's a good time to mention slight difference between pods and containers; by default pods will not terminate if their processes exit. Instead it will restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this:
 
 ```shell
-
-
 $ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:01 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 
 
 ```
-
 See [Logging](logging) for more information.
 
 #### docker stop and docker rm
@@ -212,8 +177,6 @@ How do I stop and delete a running process? Checkout [kubectl delete](kubectl/ku
 With docker
 
 ```shell
-
-
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
 a9ec34d98787        nginx               "nginx -g 'daemon of   22 hours ago        Up 22 hours         0.0.0.0:80->80/tcp, 443/tcp   nginx-app
@@ -224,12 +187,9 @@ a9ec34d98787
 
 
 ```
-
 With kubectl:
 
 ```shell
-
-
 $ kubectl get rc nginx-app
 CONTROLLER   CONTAINER(S)   IMAGE(S)   SELECTOR        REPLICAS
 nginx-app    nginx-app      nginx      run=nginx-app   1
@@ -244,7 +204,6 @@ NAME      READY     STATUS    RESTARTS   AGE
 
 
 ```
-
 Notice that we don't delete the pod directly. With kubectl we want to delete the replication controller that owns the pod. If we delete the pod directly, the replication controller will recreate the pod.
 
 #### docker login
@@ -258,8 +217,6 @@ How do I get the version of my client and server? Checkout [kubectl version](kub
 With docker:
 
 ```shell
-
-
 $ docker version
 Client version: 1.7.0
 Client API version: 1.19
@@ -274,19 +231,15 @@ OS/Arch (server): linux/amd64
 
 
 ```
-
 With kubectl:
 
 ```shell
-
-
 $ kubectl version
 Client Version: version.Info{Major:"0", Minor:"20.1", GitVersion:"v0.20.1", GitCommit:"", GitTreeState:"not a git tree"}
 Server Version: version.Info{Major:"0", Minor:"21+", GitVersion:"v0.21.1-411-g32699e873ae1ca-dirty", GitCommit:"32699e873ae1caa01812e41de7eab28df4358ee4", GitTreeState:"dirty"}
 
 
 ```
-
 #### docker info
 
 How do I get miscellaneous info about my environment and configuration? Checkout [kubectl cluster-info](kubectl/kubectl_cluster-info).
@@ -294,8 +247,6 @@ How do I get miscellaneous info about my environment and configuration? Checkout
 With docker:
 
 ```shell
-
-
 $ docker info
 Containers: 40
 Images: 168
@@ -316,12 +267,9 @@ WARNING: No swap limit support
 
 
 ```
-
 With kubectl:
 
 ```shell
-
-
 $ kubectl cluster-info
 Kubernetes master is running at https://108.59.85.141
 KubeDNS is running at https://108.59.85.141/api/v1/proxy/namespaces/kube-system/services/kube-dns
@@ -332,6 +280,3 @@ InfluxDB is running at https://108.59.85.141/api/v1/proxy/namespaces/kube-system
 
 
 ```
-
-
-

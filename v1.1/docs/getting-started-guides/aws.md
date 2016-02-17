@@ -14,20 +14,19 @@ title: "Getting started on AWS EC2"
 NOTE: This script use the 'default' AWS profile by default.
 You may explicitly set AWS profile to use using the `AWS_DEFAULT_PROFILE` environment variable:
 
-```shell
-export AWS_DEFAULT_PROFILE=myawsprofile
+```shell
+export AWS_DEFAULT_PROFILE=myawsprofile
 ```
 
 ## Cluster turnup
 
 ### Supported procedure: `get-kube`
 
-```shell
+```shell
 #Using wget
 export KUBERNETES_PROVIDER=aws; wget -q -O - https://get.k8s.io | bash
-
 #Using cURL
-export KUBERNETES_PROVIDER=aws; curl -sS https://get.k8s.io | bash
+export KUBERNETES_PROVIDER=aws; curl -sS https://get.k8s.io | bash
 ```
 
 NOTE: This script calls [cluster/kube-up.sh](http://releases.k8s.io/release-1.1/cluster/kube-up.sh)
@@ -41,14 +40,14 @@ tokens are written in `~/.kube/config`, they will be necessary to use the CLI or
 By default, the script will provision a new VPC and a 4 node k8s cluster in us-west-2a (Oregon) with `t2.micro` instances running on Ubuntu.
 You can override the variables defined in [config-default.sh](http://releases.k8s.io/release-1.1/cluster/aws/config-default.sh) to change this behavior as follows:
 
-```shell
+```shell
 export KUBE_AWS_ZONE=eu-west-1c
 export NUM_MINIONS=2
 export MINION_SIZE=m3.medium
 export AWS_S3_REGION=eu-west-1
 export AWS_S3_BUCKET=mycompany-kubernetes-artifacts
 export INSTANCE_PREFIX=k8s
-...
+...
 ```
 
 It will also try to create or reuse a keypair called "kubernetes", and IAM profiles called "kubernetes-master" and "kubernetes-minion".
@@ -70,12 +69,11 @@ Alternately, you can download the latest Kubernetes release from [this page](htt
 
 Next, add the appropriate binary folder to your `PATH` to access kubectl:
 
-```shell
+```shell
 # OS X
 export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
-
 # Linux
-export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
+export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 ```
 
 An up-to-date documentation page for this tool is available here: [kubectl manual](/{{page.version}}/docs/user-guide/kubectl/kubectl)
@@ -87,23 +85,20 @@ For more information, please read [kubeconfig files](/{{page.version}}/docs/user
 
 See [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
-The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](../../examples/guestbook/)
+The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/)
 
-For more complete applications, please look in the [examples directory](../../examples/)
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/master/examples/)
 
 ## Tearing down the cluster
 
 Make sure the environment variables you used to provision your cluster are still exported, then call the following script inside the
 `kubernetes` directory:
 
-```shell
-cluster/kube-down.sh
+```shell
+cluster/kube-down.sh
 ```
 
 ## Further reading
 
 Please see the [Kubernetes docs](/{{page.version}}/docs/) for more details on administering
 and using a Kubernetes cluster.
-
-
-

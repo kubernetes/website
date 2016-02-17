@@ -12,8 +12,6 @@ or try [Google Container Engine](https://cloud.google.com/container-engine/) for
 Also, at this time high availability support for Kubernetes is not continuously tested in our end-to-end (e2e) testing.  We will
 be working to add this continuous testing, but for now the single-node master installations are more heavily tested.
 
-
-
 {% include pagetoc.html %}
 
 ## Overview
@@ -85,8 +83,8 @@ a simple cluster set up, using etcd's built in discovery to build our cluster.
 
 First, hit the etcd discovery service to create a new token:
 
-```shell
-curl https://discovery.etcd.io/new?size=3
+```shell
+curl https://discovery.etcd.io/new?size=3
 ```
 
 On each node, copy the [etcd.yaml](high-availability/etcd.yaml) file into `/etc/kubernetes/manifests/etcd.yaml`
@@ -103,14 +101,14 @@ for `${NODE_IP}` on each machine.
 
 Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate with
 
-```shell
-etcdctl member list
+```shell
+etcdctl member list
 ```
 
 and
 
-```shell
-etcdctl cluster-health
+```shell
+etcdctl cluster-health
 ```
 
 You can also validate that this is working with `etcdctl set foo bar` on one node, and `etcd get foo`
@@ -141,8 +139,8 @@ Once you have replicated etcd set up correctly, we will also install the apiserv
 
 First you need to create the initial log file, so that Docker mounts a file instead of a directory:
 
-```shell
-touch /var/log/kube-apiserver.log
+```shell
+touch /var/log/kube-apiserver.log
 ```
 
 Next, you need to create a `/srv/kubernetes/` directory on each node.  This directory includes:
@@ -193,14 +191,13 @@ In the future, we expect to more tightly integrate this lease-locking into the s
 
 First, create empty log files on each node, so that Docker will mount the files not make new directories:
 
-```shell
+```shell
 touch /var/log/kube-scheduler.log
-touch /var/log/kube-controller-manager.log
+touch /var/log/kube-controller-manager.log
 ```
 
 Next, set up the descriptions of the scheduler and controller manager pods on each node.
-by copying [kube-scheduler.yaml](high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](high-availability/kube-controller-manager.yaml) into the `/srv/kubernetes/`
- directory.
+by copying [kube-scheduler.yaml](high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](high-availability/kube-controller-manager.yaml) into the `/srv/kubernetes/` directory.
 
 ### Running the podmaster
 

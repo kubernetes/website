@@ -24,13 +24,13 @@ whether for testing a POC before the real deal, or you are restricted to be tota
 
 ## This Guides variables
 
+```shell
 | Node Description              | MAC               | IP          |
 | :---------------------------- | :---------------: | :---------: |
 | CoreOS/etcd/Kubernetes Master | d0:00:67:13:0d:00 | 10.20.30.40 |
 | CoreOS Slave 1                | d0:00:67:13:0d:01 | 10.20.30.41 |
 | CoreOS Slave 2                | d0:00:67:13:0d:02 | 10.20.30.42 |
-
-
+```
 ## Setup PXELINUX CentOS
 
 To setup CentOS PXELINUX environment there is a complete [guide here](http://docs.fedoraproject.org/en-US/Fedora/7/html/Installation_Guide/ap-pxe-server). This section is the abbreviated version.
@@ -98,7 +98,7 @@ This section describes how to setup the CoreOS images to live alongside a pre-ex
         gpg --verify coreos_production_pxe_image.cpio.gz.sig
 
 4. Edit the menu `vi /tftpboot/pxelinux.cfg/default` again
-
+ 
         default menu.c32
         prompt 0
         timeout 300
@@ -221,358 +221,357 @@ To make the setup work, you need to replace a few placeholders:
 
 On the PXE server make and fill in the variables `vi /var/www/html/coreos/pxe-cloud-config-master.yml`.
 
-
-    #cloud-config
-    ---
-    write_files:
-      - path: /opt/bin/waiter.sh
-        owner: root
-        content: |
-          #! /usr/bin/bash
-          until curl http://127.0.0.1:4001/v2/machines; do sleep 2; done
-      - path: /opt/bin/kubernetes-download.sh
-        owner: root
-        permissions: 0755
-        content: |
-          #! /usr/bin/bash
-          /usr/bin/wget -N -P "/opt/bin" "http://<PXE_SERVER_IP>/kubectl"
-          /usr/bin/wget -N -P "/opt/bin" "http://<PXE_SERVER_IP>/kubernetes"
-          /usr/bin/wget -N -P "/opt/bin" "http://<PXE_SERVER_IP>/kubecfg"
-          chmod +x /opt/bin/*
-      - path: /etc/profile.d/opt-path.sh
-        owner: root
-        permissions: 0755
-        content: |
-          #! /usr/bin/bash
-          PATH=$PATH/opt/bin
-    coreos:
-      units:
-        - name: 10-eno1.network
-          runtime: true
-          content: |
-            [Match]
-            Name=eno1
-            [Network]
-            DHCP=yes
-        - name: 20-nodhcp.network
-          runtime: true
-          content: |
-            [Match]
-            Name=en*
-            [Network]
-            DHCP=none
-        - name: get-kube-tools.service
-          runtime: true
-          command: start
-          content: |
-            [Service]
-            ExecStartPre=-/usr/bin/mkdir -p /opt/bin
-            ExecStart=/opt/bin/kubernetes-download.sh
-            RemainAfterExit=yes
-            Type=oneshot
-        - name: setup-network-environment.service
-          command: start
-          content: |
-            [Unit]
-            Description=Setup Network Environment
-            Documentation=https://github.com/kelseyhightower/setup-network-environment
-            Requires=network-online.target
-            After=network-online.target
-            [Service]
-            ExecStartPre=-/usr/bin/mkdir -p /opt/bin
-            ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/setup-network-environment
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/setup-network-environment
-            ExecStart=/opt/bin/setup-network-environment
-            RemainAfterExit=yes
-            Type=oneshot
-        - name: etcd.service
-          command: start
-          content: |
-            [Unit]
-            Description=etcd
-            Requires=setup-network-environment.service
-            After=setup-network-environment.service
-            [Service]
-            EnvironmentFile=/etc/network-environment
-            User=etcd
-            PermissionsStartOnly=true
-            ExecStart=/usr/bin/etcd \
-            --name ${DEFAULT_IPV4} \
-            --addr ${DEFAULT_IPV4}:4001 \
-            --bind-addr 0.0.0.0 \
-            --cluster-active-size 1 \
-            --data-dir /var/lib/etcd \
-            --http-read-timeout 86400 \
-            --peer-addr ${DEFAULT_IPV4}:7001 \
-            --snapshot true
-            Restart=always
-            RestartSec=10s
-        - name: fleet.socket
-          command: start
-          content: |
-            [Socket]
-            ListenStream=/var/run/fleet.sock
-        - name: fleet.service
-          command: start
-          content: |
-            [Unit]
-            Description=fleet daemon
-            Wants=etcd.service
-            After=etcd.service
-            Wants=fleet.socket
-            After=fleet.socket
-            [Service]
-            Environment="FLEET_ETCD_SERVERS=http://127.0.0.1:4001"
-            Environment="FLEET_METADATA=role=master"
-            ExecStart=/usr/bin/fleetd
-            Restart=always
-            RestartSec=10s
-        - name: etcd-waiter.service
-          command: start
-          content: |
-            [Unit]
-            Description=etcd waiter
-            Wants=network-online.target
-            Wants=etcd.service
-            After=etcd.service
-            After=network-online.target
-            Before=flannel.service
-            Before=setup-network-environment.service
-            [Service]
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/waiter.sh
-            ExecStart=/usr/bin/bash /opt/bin/waiter.sh
-            RemainAfterExit=true
-            Type=oneshot
-        - name: flannel.service
-          command: start
-          content: |
-            [Unit]
-            Wants=etcd-waiter.service
-            After=etcd-waiter.service
-            Requires=etcd.service
-            After=etcd.service
-            After=network-online.target
-            Wants=network-online.target
-            Description=flannel is an etcd backed overlay network for containers
-            [Service]
-            Type=notify
-            ExecStartPre=-/usr/bin/mkdir -p /opt/bin
-            ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/flanneld
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/flanneld
-            ExecStartPre=-/usr/bin/etcdctl mk /coreos.com/network/config '{"Network":"10.100.0.0/16", "Backend": {"Type": "vxlan"}}'
-            ExecStart=/opt/bin/flanneld
-        - name: kube-apiserver.service
-          command: start
-          content: |
-            [Unit]
-            Description=Kubernetes API Server
-            Documentation=https://github.com/kubernetes/kubernetes
-            Requires=etcd.service
-            After=etcd.service
-            [Service]
-            ExecStartPre=-/usr/bin/mkdir -p /opt/bin
-            ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kube-apiserver
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-apiserver
-            ExecStart=/opt/bin/kube-apiserver \
-            --address=0.0.0.0 \
-            --port=8080 \
-            --service-cluster-ip-range=10.100.0.0/16 \
-            --etcd-servers=http://127.0.0.1:4001 \
-            --logtostderr=true
-            Restart=always
-            RestartSec=10
-        - name: kube-controller-manager.service
-          command: start
-          content: |
-            [Unit]
-            Description=Kubernetes Controller Manager
-            Documentation=https://github.com/kubernetes/kubernetes
-            Requires=kube-apiserver.service
-            After=kube-apiserver.service
-            [Service]
-            ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kube-controller-manager
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-controller-manager
-            ExecStart=/opt/bin/kube-controller-manager \
-            --master=127.0.0.1:8080 \
-            --logtostderr=true
-            Restart=always
-            RestartSec=10
-        - name: kube-scheduler.service
-          command: start
-          content: |
-            [Unit]
-            Description=Kubernetes Scheduler
-            Documentation=https://github.com/kubernetes/kubernetes
-            Requires=kube-apiserver.service
-            After=kube-apiserver.service
-            [Service]
-            ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kube-scheduler
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-scheduler
-            ExecStart=/opt/bin/kube-scheduler --master=127.0.0.1:8080
-            Restart=always
-            RestartSec=10
-        - name: kube-register.service
-          command: start
-          content: |
-            [Unit]
-            Description=Kubernetes Registration Service
-            Documentation=https://github.com/kelseyhightower/kube-register
-            Requires=kube-apiserver.service
-            After=kube-apiserver.service
-            Requires=fleet.service
-            After=fleet.service
-            [Service]
-            ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kube-register
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-register
-            ExecStart=/opt/bin/kube-register \
-            --metadata=role=node \
-            --fleet-endpoint=unix:///var/run/fleet.sock \
-            --healthz-port=10248 \
-            --api-endpoint=http://127.0.0.1:8080
-            Restart=always
-            RestartSec=10
-      update:
-        group: stable
-        reboot-strategy: off
-    ssh_authorized_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAAD...
-
-
+```yaml
+#cloud-config
+---
+write_files:
+  - path: /opt/bin/waiter.sh
+    owner: root
+    content: |
+      #! /usr/bin/bash
+      until curl http://127.0.0.1:4001/v2/machines; do sleep 2; done
+  - path: /opt/bin/kubernetes-download.sh
+    owner: root
+    permissions: 0755
+    content: |
+      #! /usr/bin/bash
+      /usr/bin/wget -N -P "/opt/bin" "http://<PXE_SERVER_IP>/kubectl"
+      /usr/bin/wget -N -P "/opt/bin" "http://<PXE_SERVER_IP>/kubernetes"
+      /usr/bin/wget -N -P "/opt/bin" "http://<PXE_SERVER_IP>/kubecfg"
+      chmod +x /opt/bin/*
+  - path: /etc/profile.d/opt-path.sh
+    owner: root
+    permissions: 0755
+    content: |
+      #! /usr/bin/bash
+      PATH=$PATH/opt/bin
+coreos:
+  units:
+    - name: 10-eno1.network
+      runtime: true
+      content: |
+        [Match]
+        Name=eno1
+        [Network]
+        DHCP=yes
+    - name: 20-nodhcp.network
+      runtime: true
+      content: |
+        [Match]
+        Name=en*
+        [Network]
+        DHCP=none
+    - name: get-kube-tools.service
+      runtime: true
+      command: start
+      content: |
+        [Service]
+        ExecStartPre=-/usr/bin/mkdir -p /opt/bin
+        ExecStart=/opt/bin/kubernetes-download.sh
+        RemainAfterExit=yes
+        Type=oneshot
+    - name: setup-network-environment.service
+      command: start
+      content: |
+        [Unit]
+        Description=Setup Network Environment
+        Documentation=https://github.com/kelseyhightower/setup-network-environment
+        Requires=network-online.target
+        After=network-online.target
+        [Service]
+        ExecStartPre=-/usr/bin/mkdir -p /opt/bin
+        ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/setup-network-environment
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/setup-network-environment
+        ExecStart=/opt/bin/setup-network-environment
+        RemainAfterExit=yes
+        Type=oneshot
+    - name: etcd.service
+      command: start
+      content: |
+        [Unit]
+        Description=etcd
+        Requires=setup-network-environment.service
+        After=setup-network-environment.service
+        [Service]
+        EnvironmentFile=/etc/network-environment
+        User=etcd
+        PermissionsStartOnly=true
+        ExecStart=/usr/bin/etcd \
+        --name ${DEFAULT_IPV4} \
+        --addr ${DEFAULT_IPV4}:4001 \
+        --bind-addr 0.0.0.0 \
+        --cluster-active-size 1 \
+        --data-dir /var/lib/etcd \
+        --http-read-timeout 86400 \
+        --peer-addr ${DEFAULT_IPV4}:7001 \
+        --snapshot true
+        Restart=always
+        RestartSec=10s
+    - name: fleet.socket
+      command: start
+      content: |
+        [Socket]
+        ListenStream=/var/run/fleet.sock
+    - name: fleet.service
+      command: start
+      content: |
+        [Unit]
+        Description=fleet daemon
+        Wants=etcd.service
+        After=etcd.service
+        Wants=fleet.socket
+        After=fleet.socket
+        [Service]
+        Environment="FLEET_ETCD_SERVERS=http://127.0.0.1:4001"
+        Environment="FLEET_METADATA=role=master"
+        ExecStart=/usr/bin/fleetd
+        Restart=always
+        RestartSec=10s
+    - name: etcd-waiter.service
+      command: start
+      content: |
+        [Unit]
+        Description=etcd waiter
+        Wants=network-online.target
+        Wants=etcd.service
+        After=etcd.service
+        After=network-online.target
+        Before=flannel.service
+        Before=setup-network-environment.service
+        [Service]
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/waiter.sh
+        ExecStart=/usr/bin/bash /opt/bin/waiter.sh
+        RemainAfterExit=true
+        Type=oneshot
+    - name: flannel.service
+      command: start
+      content: |
+        [Unit]
+        Wants=etcd-waiter.service
+        After=etcd-waiter.service
+        Requires=etcd.service
+        After=etcd.service
+        After=network-online.target
+        Wants=network-online.target
+        Description=flannel is an etcd backed overlay network for containers
+        [Service]
+        Type=notify
+        ExecStartPre=-/usr/bin/mkdir -p /opt/bin
+        ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/flanneld
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/flanneld
+        ExecStartPre=-/usr/bin/etcdctl mk /coreos.com/network/config '{"Network":"10.100.0.0/16", "Backend": {"Type": "vxlan"}}'
+        ExecStart=/opt/bin/flanneld
+    - name: kube-apiserver.service
+      command: start
+      content: |
+        [Unit]
+        Description=Kubernetes API Server
+        Documentation=https://github.com/kubernetes/kubernetes
+        Requires=etcd.service
+        After=etcd.service
+        [Service]
+        ExecStartPre=-/usr/bin/mkdir -p /opt/bin
+        ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kube-apiserver
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-apiserver
+        ExecStart=/opt/bin/kube-apiserver \
+        --address=0.0.0.0 \
+        --port=8080 \
+        --service-cluster-ip-range=10.100.0.0/16 \
+        --etcd-servers=http://127.0.0.1:4001 \
+        --logtostderr=true
+        Restart=always
+        RestartSec=10
+    - name: kube-controller-manager.service
+      command: start
+      content: |
+        [Unit]
+        Description=Kubernetes Controller Manager
+        Documentation=https://github.com/kubernetes/kubernetes
+        Requires=kube-apiserver.service
+        After=kube-apiserver.service
+        [Service]
+        ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kube-controller-manager
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-controller-manager
+        ExecStart=/opt/bin/kube-controller-manager \
+        --master=127.0.0.1:8080 \
+        --logtostderr=true
+        Restart=always
+        RestartSec=10
+    - name: kube-scheduler.service
+      command: start
+      content: |
+        [Unit]
+        Description=Kubernetes Scheduler
+        Documentation=https://github.com/kubernetes/kubernetes
+        Requires=kube-apiserver.service
+        After=kube-apiserver.service
+        [Service]
+        ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kube-scheduler
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-scheduler
+        ExecStart=/opt/bin/kube-scheduler --master=127.0.0.1:8080
+        Restart=always
+        RestartSec=10
+    - name: kube-register.service
+      command: start
+      content: |
+        [Unit]
+        Description=Kubernetes Registration Service
+        Documentation=https://github.com/kelseyhightower/kube-register
+        Requires=kube-apiserver.service
+        After=kube-apiserver.service
+        Requires=fleet.service
+        After=fleet.service
+        [Service]
+        ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kube-register
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-register
+        ExecStart=/opt/bin/kube-register \
+        --metadata=role=node \
+        --fleet-endpoint=unix:///var/run/fleet.sock \
+        --healthz-port=10248 \
+        --api-endpoint=http://127.0.0.1:8080
+        Restart=always
+        RestartSec=10
+  update:
+    group: stable
+    reboot-strategy: off
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAAD...
+```
 ### node.yml
 
 On the PXE server make and fill in the variables `vi /var/www/html/coreos/pxe-cloud-config-slave.yml`.
 
-    #cloud-config
-    ---
-    write_files:
-      - path: /etc/default/docker
-        content: |
-          DOCKER_EXTRA_OPTS='--insecure-registry="rdocker.example.com:5000"'
-    coreos:
-      units:
-        - name: 10-eno1.network
-          runtime: true
+```yaml
+#cloud-config
+---
+write_files:
+  - path: /etc/default/docker
+    content: |
+      DOCKER_EXTRA_OPTS='--insecure-registry="rdocker.example.com:5000"'
+coreos:
+  units:
+    - name: 10-eno1.network
+      runtime: true
+      content: |
+        [Match]
+        Name=eno1
+        [Network]
+        DHCP=yes
+    - name: 20-nodhcp.network
+      runtime: true
+      content: |
+        [Match]
+        Name=en*
+        [Network]
+        DHCP=none
+    - name: etcd.service
+      mask: true
+    - name: docker.service
+      drop-ins:
+        - name: 50-insecure-registry.conf
           content: |
-            [Match]
-            Name=eno1
-            [Network]
-            DHCP=yes
-        - name: 20-nodhcp.network
-          runtime: true
-          content: |
-            [Match]
-            Name=en*
-            [Network]
-            DHCP=none
-        - name: etcd.service
-          mask: true
-        - name: docker.service
-          drop-ins:
-            - name: 50-insecure-registry.conf
-              content: |
-                [Service]
-                Environment="HTTP_PROXY=http://rproxy.example.com:3128/" "NO_PROXY=localhost,127.0.0.0/8,rdocker.example.com"
-        - name: fleet.service
-          command: start
-          content: |
-            [Unit]
-            Description=fleet daemon
-            Wants=fleet.socket
-            After=fleet.socket
             [Service]
-            Environment="FLEET_ETCD_SERVERS=http://<MASTER_SERVER_IP>:4001"
-            Environment="FLEET_METADATA=role=node"
-            ExecStart=/usr/bin/fleetd
-            Restart=always
-            RestartSec=10s
-        - name: flannel.service
-          command: start
-          content: |
-            [Unit]
-            After=network-online.target
-            Wants=network-online.target
-            Description=flannel is an etcd backed overlay network for containers
-            [Service]
-            Type=notify
-            ExecStartPre=-/usr/bin/mkdir -p /opt/bin
-            ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/flanneld
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/flanneld
-            ExecStart=/opt/bin/flanneld -etcd-endpoints http://<MASTER_SERVER_IP>:4001
-        - name: docker.service
-          command: start
-          content: |
-            [Unit]
-            After=flannel.service
-            Wants=flannel.service
-            Description=Docker Application Container Engine
-            Documentation=http://docs.docker.io
-            [Service]
-            EnvironmentFile=-/etc/default/docker
-            EnvironmentFile=/run/flannel/subnet.env
-            ExecStartPre=/bin/mount --make-rprivate /
-            ExecStart=/usr/bin/docker -d --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} -s=overlay -H fd:// ${DOCKER_EXTRA_OPTS}
-            [Install]
-            WantedBy=multi-user.target
-        - name: setup-network-environment.service
-          command: start
-          content: |
-            [Unit]
-            Description=Setup Network Environment
-            Documentation=https://github.com/kelseyhightower/setup-network-environment
-            Requires=network-online.target
-            After=network-online.target
-            [Service]
-            ExecStartPre=-/usr/bin/mkdir -p /opt/bin
-            ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/setup-network-environment
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/setup-network-environment
-            ExecStart=/opt/bin/setup-network-environment
-            RemainAfterExit=yes
-            Type=oneshot
-        - name: kube-proxy.service
-          command: start
-          content: |
-            [Unit]
-            Description=Kubernetes Proxy
-            Documentation=https://github.com/kubernetes/kubernetes
-            Requires=setup-network-environment.service
-            After=setup-network-environment.service
-            [Service]
-            ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kube-proxy
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-proxy
-            ExecStart=/opt/bin/kube-proxy \
-            --etcd-servers=http://<MASTER_SERVER_IP>:4001 \
-            --logtostderr=true
-            Restart=always
-            RestartSec=10
-        - name: kube-kubelet.service
-          command: start
-          content: |
-            [Unit]
-            Description=Kubernetes Kubelet
-            Documentation=https://github.com/kubernetes/kubernetes
-            Requires=setup-network-environment.service
-            After=setup-network-environment.service
-            [Service]
-            EnvironmentFile=/etc/network-environment
-            ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kubelet
-            ExecStartPre=/usr/bin/chmod +x /opt/bin/kubelet
-            ExecStart=/opt/bin/kubelet \
-            --address=0.0.0.0 \
-            --port=10250 \
-            --hostname-override=${DEFAULT_IPV4} \
-            --api-servers=<MASTER_SERVER_IP>:8080 \
-            --healthz-bind-address=0.0.0.0 \
-            --healthz-port=10248 \
-            --logtostderr=true
-            Restart=always
-            RestartSec=10
-      update:
-        group: stable
-        reboot-strategy: off
-    ssh_authorized_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAAD...
-
-
+            Environment="HTTP_PROXY=http://rproxy.example.com:3128/" "NO_PROXY=localhost,127.0.0.0/8,rdocker.example.com"
+    - name: fleet.service
+      command: start
+      content: |
+        [Unit]
+        Description=fleet daemon
+        Wants=fleet.socket
+        After=fleet.socket
+        [Service]
+        Environment="FLEET_ETCD_SERVERS=http://<MASTER_SERVER_IP>:4001"
+        Environment="FLEET_METADATA=role=node"
+        ExecStart=/usr/bin/fleetd
+        Restart=always
+        RestartSec=10s
+    - name: flannel.service
+      command: start
+      content: |
+        [Unit]
+        After=network-online.target
+        Wants=network-online.target
+        Description=flannel is an etcd backed overlay network for containers
+        [Service]
+        Type=notify
+        ExecStartPre=-/usr/bin/mkdir -p /opt/bin
+        ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/flanneld
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/flanneld
+        ExecStart=/opt/bin/flanneld -etcd-endpoints http://<MASTER_SERVER_IP>:4001
+    - name: docker.service
+      command: start
+      content: |
+        [Unit]
+        After=flannel.service
+        Wants=flannel.service
+        Description=Docker Application Container Engine
+        Documentation=http://docs.docker.io
+        [Service]
+        EnvironmentFile=-/etc/default/docker
+        EnvironmentFile=/run/flannel/subnet.env
+        ExecStartPre=/bin/mount --make-rprivate /
+        ExecStart=/usr/bin/docker -d --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU} -s=overlay -H fd:// ${DOCKER_EXTRA_OPTS}
+        [Install]
+        WantedBy=multi-user.target
+    - name: setup-network-environment.service
+      command: start
+      content: |
+        [Unit]
+        Description=Setup Network Environment
+        Documentation=https://github.com/kelseyhightower/setup-network-environment
+        Requires=network-online.target
+        After=network-online.target
+        [Service]
+        ExecStartPre=-/usr/bin/mkdir -p /opt/bin
+        ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/setup-network-environment
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/setup-network-environment
+        ExecStart=/opt/bin/setup-network-environment
+        RemainAfterExit=yes
+        Type=oneshot
+    - name: kube-proxy.service
+      command: start
+      content: |
+        [Unit]
+        Description=Kubernetes Proxy
+        Documentation=https://github.com/kubernetes/kubernetes
+        Requires=setup-network-environment.service
+        After=setup-network-environment.service
+        [Service]
+        ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kube-proxy
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/kube-proxy
+        ExecStart=/opt/bin/kube-proxy \
+        --etcd-servers=http://<MASTER_SERVER_IP>:4001 \
+        --logtostderr=true
+        Restart=always
+        RestartSec=10
+    - name: kube-kubelet.service
+      command: start
+      content: |
+        [Unit]
+        Description=Kubernetes Kubelet
+        Documentation=https://github.com/kubernetes/kubernetes
+        Requires=setup-network-environment.service
+        After=setup-network-environment.service
+        [Service]
+        EnvironmentFile=/etc/network-environment
+        ExecStartPre=/usr/bin/wget -N -P /opt/bin http://<PXE_SERVER_IP>/kubelet
+        ExecStartPre=/usr/bin/chmod +x /opt/bin/kubelet
+        ExecStart=/opt/bin/kubelet \
+        --address=0.0.0.0 \
+        --port=10250 \
+        --hostname-override=${DEFAULT_IPV4} \
+        --api-servers=<MASTER_SERVER_IP>:8080 \
+        --healthz-bind-address=0.0.0.0 \
+        --healthz-port=10248 \
+        --logtostderr=true
+        Restart=always
+        RestartSec=10
+  update:
+    group: stable
+    reboot-strategy: off
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAAD...
+```
 ## New pxelinux.cfg file
 
 Create a pxelinux target file for a _slave_ node: `vi /tftpboot/pxelinux.cfg/coreos-node-slave`
@@ -621,7 +620,7 @@ Now that the CoreOS with Kubernetes installed is up and running lets spin up som
 
 See [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
-For more complete applications, please look in the [examples directory](../../../examples/).
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/master/examples/).
 
 ## Helping commands for debugging
 

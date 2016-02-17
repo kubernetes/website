@@ -34,9 +34,7 @@ can find the Git hash for a build by looking at the "Console Log", then look for
 `githash=`. You should see a line line:
 
 ```shell
-
 + githash=v0.20.2-322-g974377b
-
 ```
 
 Because Jenkins builds frequently, if you're looking between jobs
@@ -51,9 +49,7 @@ oncall.
 Before proceeding to the next step:
 
 ```shell
-
 export BRANCHPOINT=v0.20.2-322-g974377b
-
 ```
 
 Where `v0.20.2-322-g974377b` is the git hash you decided on. This will become
@@ -203,12 +199,10 @@ We are using `pkg/version/base.go` as the source of versioning in absence of
 information from git. Here is a sample of that file's contents:
 
 ```go
-
 var (
     gitVersion   string = "v0.4-dev"  // version from git, output of $(git describe)
     gitCommit    string = ""          // sha1 from git, output of $(git rev-parse HEAD)
 )
-
 ```
 
 This means a build with `go install` or `go get` or a build from a tarball will
@@ -288,7 +282,6 @@ As an example, Docker commit a327d9b91edf has a `v1.1.1-N-gXXX` label but it is
 not present in Docker `v1.2.0`:
 
 ```shell
-
 $ git describe a327d9b91edf
 v1.1.1-822-ga327d9b91edf
 
@@ -296,7 +289,6 @@ $ git log --oneline v1.2.0..a327d9b91edf
 a327d9b91edf Fix data space reporting from Kb/Mb to KB/MB
 
 (Non-empty output here means the commit is not present on v1.2.0.)
-
 ```
 
 ## Release Notes

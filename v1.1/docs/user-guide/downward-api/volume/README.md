@@ -13,24 +13,22 @@ Supported metadata fields:
 
 ### Step Zero: Prerequisites
 
-This example assumes you have a Kubernetes cluster installed and running, and the ```kubectl``` command line tool somewhere in your path. Please see the [gettingstarted](..//{{page.version}}/docs/getting-started-guides/) for installation instructions for your platform.
+This example assumes you have a Kubernetes cluster installed and running, and the ```kubectl```
+command line tool somewhere in your path. Please see the [gettingstarted](..//{{page.version}}/docs/getting-started-guides/) for installation instructions for your platform.
 
 ### Step One: Create the pod
 
 Use the `docs/user-guide/downward-api/dapi-volume.yaml` file to create a Pod with a  downward API volume which stores pod labels and pod annotations to `/etc/labels` and  `/etc/annotations` respectively.
 
 ```shell
-
 $ kubectl create -f  docs/user-guide/downward-api/volume/dapi-volume.yaml
 
 ```
-
 ### Step Two: Examine pod/container output
 
 The pod displays (every 5 seconds) the content of the dump files which can be executed via the usual `kubectl log` command
 
 ```shell
-
 $ kubectl logs kubernetes-downwardapi-volume-example
 cluster="test-cluster1"
 rack="rack-22"
@@ -41,13 +39,11 @@ kubernetes.io/config.seen="2015-08-24T13:47:23.432459138Z"
 kubernetes.io/config.source="api"
 
 ```
-
 ### Internals
 
 In pod's `/etc` directory one may find the file created by the plugin (system files elided):
 
 ```shell
-
 $ kubectl exec kubernetes-downwardapi-volume-example -i -t -- sh
 / # ls -laR /etc
 /etc:
@@ -68,5 +64,4 @@ drwxrwxrwt    3 0        0              180 Aug 24 13:03 ..
 / #
 
 ```
-
 The file `labels` is stored in a temporary directory (`..2015_08_24_13_03_44259413923` in the example above) which is symlinked to by `..downwardapi`. Symlinks for annotations and labels in `/etc` point to files containing the actual metadata through the `..downwardapi` indirection.  This structure allows for dynamic atomic refresh of the metadata: updates are written to a new temporary directory, and the `..downwardapi` symlink is updated atomically using `rename(2)`.

@@ -63,8 +63,7 @@ Each PV contains a spec and status, which is the specification and status of the
 
 
 ```yaml
-
-  apiVersion: v1
+apiVersion: v1
   kind: PersistentVolume
   metadata:
     name: pv0003
@@ -79,7 +78,6 @@ Each PV contains a spec and status, which is the specification and status of the
       server: 172.17.0.2
 
 ```
-
 ### Capacity
 
 Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](../design/resources) to understand the units expected by `capacity`.
@@ -130,7 +128,6 @@ The CLI will show the name of the PVC bound to the PV.
 Each PVC contains a spec and status, which is the specification and status of the claim.
 
 ```yaml
-
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -143,7 +140,6 @@ spec:
       storage: 8Gi
 
 ```
-
 ### Access Modes
 
 Claims use the same conventions as volumes when requesting storage with specific access modes.
@@ -157,7 +153,6 @@ Claims, like pods, can request specific quantities of a resource.  In this case,
 Pods access storage by using the claim as a volume.  Claims must exist in the same namespace as the pod using the claim.  The cluster finds the claim in the pod's namespace and uses it to get the `PersistentVolume` backing the claim.  The volume is then mounted to the host and into the pod.
 
 ```yaml
-
 kind: Pod
 apiVersion: v1
 metadata:
@@ -175,6 +170,3 @@ spec:
         claimName: myclaim
 
 ```
-
-
-

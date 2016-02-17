@@ -32,12 +32,10 @@ On each Node:
 First, get the sample configurations for this tutorial
 
 ```
-
 wget https://github.com/Metaswitch/calico-kubernetes-ubuntu-demo/archive/master.tar.gz
 tar -xvf master.tar.gz
 
 ```
-
 ### Setup environment variables for systemd services on Master
 
 Many of the sample systemd services provided rely on environment variables on a per-node basis. Here we'll edit those environment variables and move them into place.
@@ -45,27 +43,22 @@ Many of the sample systemd services provided rely on environment variables on a 
 1.) Copy the network-environment-template from the `master` directory for editing.
 
 ```
-
 cp calico-kubernetes-ubuntu-demo-master/master/network-environment-template network-environment
 
 ```
-
 2.) Edit `network-environment` to represent your current host's settings.
 
 3.) Move the `network-environment` into `/etc`
 
 ```
-
 sudo mv -f network-environment /etc
 
 ```
-
 ### Install Kubernetes on Master
 
 1.) Build & Install Kubernetes binaries
 
 ```
-
 # Get the Kubernetes Source
 wget https://github.com/kubernetes/kubernetes/releases/download/v1.0.3/kubernetes.tar.gz
 
@@ -79,11 +72,9 @@ sudo cp -f binaries/master/* /usr/bin
 sudo cp -f binaries/kubectl /usr/bin
 
 ```
-
 2.) Install the sample systemd processes settings for launching kubernetes services
 
 ```
-
 sudo cp -f calico-kubernetes-ubuntu-demo-master/master/*.service /etc/systemd
 sudo systemctl enable /etc/systemd/etcd.service
 sudo systemctl enable /etc/systemd/kube-apiserver.service
@@ -91,24 +82,20 @@ sudo systemctl enable /etc/systemd/kube-controller-manager.service
 sudo systemctl enable /etc/systemd/kube-scheduler.service
 
 ```
-
 3.) Launch the processes.
 
 ```
-
 sudo systemctl start etcd.service
 sudo systemctl start kube-apiserver.service
 sudo systemctl start kube-controller-manager.service
 sudo systemctl start kube-scheduler.service
 
 ```
-
 ### Install Calico on Master
 
 In order to allow the master to route to pods on our nodes, we will launch the calico-node daemon on our master. This will allow it to learn routes over BGP from the other calico-node daemons in the cluster. The docker daemon should already be running before calico is started.
 
 ```
-
 # Install the calicoctl binary, which will be used to launch calico
 wget https://github.com/projectcalico/calico-docker/releases/download/v0.5.5/calicoctl
 chmod +x calicoctl
@@ -120,7 +107,6 @@ sudo systemctl enable /etc/systemd/calico-node.service
 sudo systemctl start calico-node.service
 
 ```
-
 >Note: calico-node may take a few minutes on first boot while it downloads the calico-node docker image.
 
 ## Setup Nodes
@@ -132,30 +118,24 @@ Perform these steps **once on each node**, ensuring you appropriately set the en
 1.) Get the sample configurations for this tutorial
 
 ```
-
 wget https://github.com/Metaswitch/calico-kubernetes-ubuntu-demo/archive/master.tar.gz
 tar -xvf master.tar.gz
 
 ```
-
 2.) Copy the network-environment-template from the `node` directory
 
 ```
-
 cp calico-kubernetes-ubuntu-demo-master/node/network-environment-template network-environment
 
 ```
-
 3.) Edit `network-environment` to represent your current host's settings.
 
 4.) Move `network-environment` into `/etc`
 
 ```
-
 sudo mv -f network-environment /etc
 
 ```
-
 ### Configure Docker on the Node
 
 #### Create the veth
@@ -163,14 +143,12 @@ sudo mv -f network-environment /etc
 Instead of using docker's default interface (docker0), we will configure a new one to use desired IP ranges
 
 ```
-
 sudo apt-get install -y bridge-utils
 sudo brctl addbr cbr0
 sudo ifconfig cbr0 up
 sudo ifconfig cbr0 <IP>/24
 
 ```
-
 > Replace \<IP\>  with the subnet for this host's containers. Example topology:
 
   Node   |   cbr0 IP
@@ -190,18 +168,15 @@ The Docker daemon must be started and told to use the already configured cbr0 in
 3.) Reload systemctl and restart docker.
 
 ```
-
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 
 ```
-
 ### Install Calico on the Node
 
 1.) Install Calico
 
 ```
-
 # Get the calicoctl binary
 wget https://github.com/projectcalico/calico-docker/releases/download/v0.5.5/calicoctl
 chmod +x calicoctl
@@ -213,24 +188,20 @@ sudo systemctl enable /etc/systemd/calico-node.service
 sudo systemctl start calico-node.service
 
 ```
-
 >The calico-node service will automatically get the kubernetes-calico plugin binary and install it on the host system.
 
 2.) Use calicoctl to add an IP pool. We must specify the IP and port that the master's etcd is listening on.
 **NOTE: This step only needs to be performed once per Kubernetes deployment, as it covers all the node's IP ranges.**
 
 ```
-
 ETCD_AUTHORITY=<MASTER_IP>:4001 calicoctl pool add 192.168.0.0/16
 
 ```
-
 ### Install Kubernetes on the Node
 
 1.) Build & Install Kubernetes binaries
 
 ```
-
 # Get the Kubernetes Source
 wget https://github.com/kubernetes/kubernetes/releases/download/v1.0.3/kubernetes.tar.gz
 
@@ -248,11 +219,9 @@ sudo cp kube-proxy /usr/bin/
 sudo chmod +x /usr/bin/kube-proxy
 
 ```
-
 2.) Install and launch the sample systemd processes settings for launching Kubernetes services
 
 ```
-
 sudo cp calico-kubernetes-ubuntu-demo-master/node/kube-proxy.service /etc/systemd/
 sudo cp calico-kubernetes-ubuntu-demo-master/node/kube-kubelet.service /etc/systemd/
 sudo systemctl enable /etc/systemd/kube-proxy.service
@@ -261,7 +230,6 @@ sudo systemctl start kube-proxy.service
 sudo systemctl start kube-kubelet.service
 
 ```
-
 >*You may want to consider checking their status after to ensure everything is running*
 
 ## Install the DNS Addon
@@ -274,7 +242,7 @@ Replace `<MASTER_IP>` in `calico-kubernetes-ubuntu-demo-master/dns/skydns-rc.yam
 
 ## Launch other Services With Calico-Kubernetes
 
-At this point, you have a fully functioning cluster running on kubernetes with a master and 2 nodes networked with Calico. You can now follow any of the [standard documentation](../../examples/) to set up other services on your cluster.
+At this point, you have a fully functioning cluster running on kubernetes with a master and 2 nodes networked with Calico. You can now follow any of the [standard documentation](https://github.com/kubernetes/kubernetes/tree/master/examples/) to set up other services on your cluster.
 
 ## Connectivity to outside the cluster
 
@@ -290,7 +258,6 @@ We need to NAT traffic that has a destination outside of the cluster. Internal t
 - `HOST_INTERFACE`: The interface on the Kubernetes node which is used for external connectivity.  The above example uses `eth0`
 
 ```
-
 sudo iptables -t nat -N KUBE-OUTBOUND-NAT
 sudo iptables -t nat -A KUBE-OUTBOUND-NAT -d <CONTAINER_SUBNET> -o <HOST_INTERFACE> -j RETURN
 sudo iptables -t nat -A KUBE-OUTBOUND-NAT -d <KUBERNETES_HOST_SUBNET> -o <HOST_INTERFACE> -j RETURN
@@ -298,7 +265,6 @@ sudo iptables -t nat -A KUBE-OUTBOUND-NAT -j MASQUERADE
 sudo iptables -t nat -A POSTROUTING -j KUBE-OUTBOUND-NAT
 
 ```
-
 This chain should be applied on the master and all nodes. In production, these rules should be persisted, e.g. with `iptables-persistent`.
 
 ### NAT at the border router

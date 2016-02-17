@@ -23,50 +23,40 @@ If you are using the [hack/local-up-cluster.sh](https://releases.k8s.io/release-
 set these flags:
 
 ```shell
-
 $ export CONTAINER_RUNTIME=rkt
 $ export RKT_PATH=$PATH_TO_RKT_BINARY
 $ export RKT_STAGE1_IMAGE=PATH=$PATH_TO_STAGE1_IMAGE
 
 ```
-
 Then we can launch the local cluster using the script:
 
 ```shell
-
 $ hack/local-up-cluster.sh
 
 ```
-
 ### CoreOS cluster on Google Compute Engine (GCE)
 
 To use rkt as the container runtime for your CoreOS cluster on GCE, you need to specify the OS distribution, project, image:
 
 ```shell
-
 $ export KUBE_OS_DISTRIBUTION=coreos
 $ export KUBE_GCE_MINION_IMAGE=<image_id>
 $ export KUBE_GCE_MINION_PROJECT=coreos-cloud
 $ export KUBE_CONTAINER_RUNTIME=rkt
 
 ```
-
 You can optionally choose the version of rkt used by setting `KUBE_RKT_VERSION`:
 
 ```shell
-
 $ export KUBE_RKT_VERSION=0.8.0
 
 ```
-
 Then you can launch the cluster by:
 
 ```shell
-
 $ kube-up.sh
 
 ```
-
 Note that we are still working on making all containerized the master components run smoothly in rkt. Before that we are not able to run the master node with rkt yet.
 
 ### CoreOS cluster on AWS
@@ -74,37 +64,29 @@ Note that we are still working on making all containerized the master components
 To use rkt as the container runtime for your CoreOS cluster on AWS, you need to specify the provider and OS distribution:
 
 ```shell
-
 $ export KUBERNETES_PROVIDER=aws
 $ export KUBE_OS_DISTRIBUTION=coreos
 $ export KUBE_CONTAINER_RUNTIME=rkt
 
 ```
-
 You can optionally choose the version of rkt used by setting `KUBE_RKT_VERSION`:
 
 ```shell
-
 $ export KUBE_RKT_VERSION=0.8.0
 
 ```
-
 You can optionally choose the CoreOS channel  by setting `COREOS_CHANNEL`:
 
 ```shell
-
 $ export COREOS_CHANNEL=stable
 
 ```
-
 Then you can launch the cluster by:
 
 ```shell
-
 $ kube-up.sh
 
 ```
-
 Note: CoreOS is not supported as the master using the automated launch
 scripts. The master node is always Ubuntu.
 
@@ -112,7 +94,7 @@ scripts. The master node is always Ubuntu.
 
 See [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
-For more complete applications, please look in the [examples directory](../../../examples/).
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/master/examples/).
 
 
 ### Debugging
@@ -138,21 +120,17 @@ using `journalctl`:
 - Check the running state of the systemd service:
 
 ```shell
-
 $ sudo journalctl -u $SERVICE_FILE
 
 ```
-
 where `$SERVICE_FILE` is the name of the service file created for the pod, you can find it in the kubelet logs.
 
 ##### Check the log of the container in the pod:
 
 ```shell
-
 $ sudo journalctl -M rkt-$UUID -u $CONTAINER_NAME
 
 ```
-
 where `$UUID` is the rkt pod's UUID, which you can find via `rkt list --full`, and `$CONTAINER_NAME` is the container's name.
 
 ##### Check Kubernetes events, logs.

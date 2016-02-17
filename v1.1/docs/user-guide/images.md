@@ -74,7 +74,6 @@ example, run these on your desktop/laptop:
 Verify by creating a pod that uses a private image, e.g.:
 
 ```yaml
-
 $ cat <<EOF > /tmp/private-image-test-1.yaml
 apiVersion: v1
 kind: Pod
@@ -92,26 +91,20 @@ pods/private-image-test-1
 $
 
 ```
-
 If everything is working, then, after a few moments, you should see:
 
 ```shell
-
 $ kubectl logs private-image-test-1
 SUCCESS
 
 ```
-
 If it failed, then you will see:
 
 ```shell
-
 $ kubectl describe pods/private-image-test-1 | grep "Failed"
   Fri, 26 Jun 2015 15:36:13 -0700	Fri, 26 Jun 2015 15:39:13 -0700	19	{kubelet node-i2hq}	spec.containers{uses-private-image}	failed		Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 
 ```
-
-
 You must ensure all nodes in the cluster have the same `.dockercfg`.  Otherwise, pods will run on
 some nodes and fail to run on others.  For example, if you use node autoscaling, then each instance
 template needs to include the `.dockercfg` or mount a drive that contains it.
@@ -153,7 +146,6 @@ First, create a `.dockercfg`, such as running `docker login <registry.domain>`.
 Then put the resulting `.dockercfg` file into a [secret resource](secrets).  For example:
 
 ```shell
-
 $ docker login
 Username: janedoe
 Password: '�?'�?'�?'�?'�?'�?'�?'�?'�?'�?'�?
@@ -182,7 +174,6 @@ secrets/myregistrykey
 $
 
 ```
-
 If you get the error message `error: no objects passed to create`, it may mean the base64 encoded string is invalid.
 If you get an error message like `Secret "myregistrykey" is invalid: data[.dockercfg]: invalid value ...` it means
 the data was successfully un-base64 encoded, but could not be parsed as a dockercfg file.
@@ -193,7 +184,6 @@ Now, you can create pods which reference that secret by adding an `imagePullSecr
 section to a pod definition.
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -206,7 +196,6 @@ spec:
     - name: myregistrykey
 
 ```
-
 This needs to be done for each pod that is using a private registry.
 However, setting of this field can be automated by setting the imagePullSecrets
 in a [serviceAccount](service-accounts) resource.

@@ -57,14 +57,12 @@ Node condition is represented as a json object. For example,
 the following conditions mean the node is in sane state:
 
 ```json
-
 "conditions": [
   {
     "kind": "Ready",
     "status": "True",
     },
 ]
-
 ```
 
 If the Status of the Ready condition
@@ -91,7 +89,6 @@ After creation, Kubernetes will check whether the node is valid or not.
 For example, if you try to create a node from the following content:
 
 ```json
-
 {
   "kind": "Node",
   "apiVersion": "v1",
@@ -102,7 +99,6 @@ For example, if you try to create a node from the following content:
     }
   }
 }
-
 ```
 
 Kubernetes will create a Node object internally (the representation), and
@@ -165,9 +161,7 @@ preparatory step before a node reboot, etc.  For example, to mark a node
 unschedulable, run this command:
 
 ```shell
-
 kubectl replace nodes 10.1.2.3 --patch='{"apiVersion": "v1", "unschedulable": true}'
-
 ```
 
 Note that pods which are created by a daemonSet controller bypass the Kubernetes scheduler,
@@ -190,7 +184,6 @@ If you want to explicitly reserve resources for non-Pod processes, you can creat
 pod.  Use the following template:
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -203,7 +196,6 @@ spec:
       limits:
         cpu: 100m
         memory: 100Mi
-
 ```
 
 Set the `cpu` and `memory` values to the amount of resources you want to reserve.
@@ -216,6 +208,3 @@ on each kubelet where you want to reserve resources.
 Node is a top-level resource in the kubernetes REST API. More details about the
 API object can be found at: [Node API
 object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_node).
-
-
-

@@ -14,7 +14,6 @@ The result object is printed as its String() function.
 Given the input:
 
 ```json
-
 {
   "kind": "List",
   "items":[
@@ -51,7 +50,6 @@ Given the input:
 }
 
 ```
-
 Function | Description        | Example            | Result
 ---------|--------------------|--------------------|------------------
 text     | the plain text     | kind is {.kind}    | kind is List

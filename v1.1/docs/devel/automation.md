@@ -20,13 +20,11 @@ for kubernetes.
 The submit-queue does the following:
 
 ```go
-
 for _, pr := range readyToMergePRs() {
     if testsAreStable() {
         mergePR(pr)
     }
 }
-
 ```
 
 The status of the submit-queue is [online.](http://submit-queue.k8s.io/)
@@ -102,5 +100,3 @@ Right now you have to ask a contributor (this may be you!) to re-run the test wi
 ### How can I kick Shippable to re-test on a failure?
 
 Right now the easiest way is to close and then immediately re-open the PR.
-
-

@@ -45,7 +45,6 @@ Run `curl <public ip>:80` to query the service. You should get
 something like this back:
 
 ```
-
 Pod Name: show-rc-xxu6i
 Pod Namespace: default
 USER_VAR: important information
@@ -67,7 +66,6 @@ Backend Pod Name: backend-rc-6qiya
 Backend Namespace: default
 
 ```
-
 First the frontend pod's information is printed. The pod name and
 [namespace](/{{page.version}}/docs/design/namespaces) are retrieved from the
 [Downward API](/{{page.version}}/docs/user-guide/downward-api). Next, `USER_VAR` is the name of

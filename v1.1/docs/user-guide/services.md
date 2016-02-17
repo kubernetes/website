@@ -42,7 +42,6 @@ new instance.  For example, suppose you have a set of `Pods` that each expose
 port 9376 and carry a label `"app=MyApp"`.
 
 ```json
-
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -64,7 +63,6 @@ port 9376 and carry a label `"app=MyApp"`.
 }
 
 ```
-
 This specification will create a new `Service` object named "my-service" which
 targets TCP port 9376 on any `Pod` with the `"app=MyApp"` label.  This `Service`
 will also be assigned an IP address (sometimes called the "cluster IP"), which
@@ -99,7 +97,6 @@ abstract other kinds of backends.  For example:
 In any of these scenarios you can define a service without a selector:
 
 ```json
-
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -118,12 +115,10 @@ In any of these scenarios you can define a service without a selector:
 }
 
 ```
-
 Because this has no selector, the corresponding `Endpoints` object will not be
 created. You can manually map the service to your own specific endpoints:
 
 ```json
-
 {
     "kind": "Endpoints",
     "apiVersion": "v1",
@@ -143,7 +138,6 @@ created. You can manually map the service to your own specific endpoints:
 }
 
 ```
-
 NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
 (169.254.0.0/16), or link-local multicast ((224.0.0.0/24).
 
@@ -183,7 +177,6 @@ ports you must give all of your ports names, so that endpoints can be
 disambiguated.  For example:
 
 ```json
-
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -212,7 +205,6 @@ disambiguated.  For example:
 }
 
 ```
-
 ## Choosing your own IP address
 
 You can specify your own cluster IP address as part of a `Service` creation
@@ -258,7 +250,6 @@ allocated cluster IP address 10.0.0.11 produces the following environment
 variables:
 
 ```shell
-
 REDIS_MASTER_SERVICE_HOST=10.0.0.11
 REDIS_MASTER_SERVICE_PORT=6379
 REDIS_MASTER_PORT=tcp://10.0.0.11:6379
@@ -268,7 +259,6 @@ REDIS_MASTER_PORT_6379_TCP_PORT=6379
 REDIS_MASTER_PORT_6379_TCP_ADDR=10.0.0.11
 
 ```
-
 *This does imply an ordering requirement* - any `Service` that a `Pod` wants to
 access must be created before the `Pod` itself, or else the environment
 variables will not be populated.  DNS does not have this restriction.
@@ -367,7 +357,6 @@ information about the provisioned balancer will be published in the `Service`'s
 `status.loadBalancer` field.  For example:
 
 ```json
-
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -402,7 +391,6 @@ information about the provisioned balancer will be published in the `Service`'s
 }
 
 ```
-
 Traffic from the external load balancer will be directed at the backend `Pods`,
 though exactly how that works depends on the cloud provider. Some cloud providers allow
 the `loadBalancerIP` to be specified. In those cases, the load-balancer will be created
@@ -421,7 +409,6 @@ In the ServiceSpec, `externalIPs` can be specified along with any of the `Servic
 In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
 
 ```json
-
 {
     "kind": "Service",
     "apiVersion": "v1",
@@ -447,7 +434,6 @@ In the example below, my-service can be accessed by clients on 80.11.12.10:80 (e
 }
 
 ```
-
 ## Shortcomings
 
 We expect that using iptables and userspace proxies for VIPs will work at

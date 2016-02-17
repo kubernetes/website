@@ -88,26 +88,19 @@ To permit an action Policy with an unset namespace applies regardless of namespa
 
 A service account automatically generates a user. The user's name is generated according to the naming convention:
 
-```
-
+```shell
 system:serviceaccount:<namespace>:<serviceaccountname>
-
 ```
-
 Creating a new namespace also causes a new service account to be created, of this form:*
 
-```
-
+```shell
 system:serviceaccount:<namespace>:default
-
 ```
 
 For example, if you wanted to grant the default service account in the kube-system full privilege to the API, you would add this line to your policy file:
 
 ```json
-
 {"user":"system:serviceaccount:kube-system:default"}
-
 ```
 
 The apiserver will need to be restarted to pickup the new policy lines.
@@ -118,11 +111,9 @@ Other implementations can be developed fairly easily.
 The APIserver calls the Authorizer interface:
 
 ```go
-
 type Authorizer interface {
   Authorize(a Attributes) error
 }
-
 ```
 
 to determine whether or not to allow each API action.

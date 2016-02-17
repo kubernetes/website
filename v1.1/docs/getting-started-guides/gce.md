@@ -4,8 +4,6 @@ title: "Getting started on Google Compute Engine"
 
 The example below creates a Kubernetes cluster with 4 worker node Virtual Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
 
-
-
 {% include pagetoc.html %}
 
 ### Before you start
@@ -29,14 +27,14 @@ If you want to use custom binaries or pure open source Kubernetes, please contin
 You can install a client and start a cluster with either one of these commands (we list both in case only one is installed on your machine):
 
 
-```shell
- curl -sS https://get.k8s.io | bash
+```shell
+curl -sS https://get.k8s.io | bash
 ```
 
 or
 
-```shell
-wget -q -O - https://get.k8s.io | bash
+```shell
+wget -q -O - https://get.k8s.io | bash
 ```
 
 Once this command completes, you will have a master VM and four worker VMs, running as a Kubernetes cluster.
@@ -47,9 +45,9 @@ The script run by the commands above creates a cluster with the name/prefix "kub
 
 Alternately, you can download and install the latest Kubernetes release from [this page](https://github.com/kubernetes/kubernetes/releases), then run the `<kubernetes>/cluster/kube-up.sh` script to start the cluster:
 
-```shell
+```shell
 cd kubernetes
-cluster/kube-up.sh
+cluster/kube-up.sh
 ```
 
 If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
@@ -74,12 +72,11 @@ You will use it to look at your new cluster and bring up example apps.
 
 Add the appropriate binary folder to your `PATH` to access kubectl:
 
-```shell
+```shell
 # OS X
 export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
-
 # Linux
-export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
+export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 ```
 
 **Note**: gcloud also ships with `kubectl`, which by default is added to your path.
@@ -91,16 +88,16 @@ potential issues with client/server version skew.
 
 You may find it useful to enable `kubectl` bash completion:
 
-```
-$ source ./contrib/completions/bash/kubectl
+```
+$ source ./contrib/completions/bash/kubectl
 ```
 
 **Note**: This will last for the duration of your bash session. If you want to make this permanent you need to add this line in your bash profile.
 
 Alternatively, on most linux distributions you can also move the completions file to your bash_completions.d like this:
 
-```
-$ cp ./contrib/completions/bash/kubectl /etc/bash_completion.d/
+```
+$ cp ./contrib/completions/bash/kubectl /etc/bash_completion.d/
 ```
 
 but then you have to update it when you update kubectl.
@@ -111,32 +108,32 @@ but then you have to update it when you update kubectl.
 
 Once `kubectl` is in your path, you can use it to look at your cluster. E.g., running:
 
-```shell
-$ kubectl get --all-namespaces services
+```shell
+$ kubectl get --all-namespaces services
 ```
 
 should show a set of [services](../user-guide/services) that look something like this:
 
-```shell
+```shell
 NAMESPACE     NAME                  CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR               AGE
 default       kubernetes            10.0.0.1         <none>            443/TCP       <none>                 1d
 kube-system   kube-dns              10.0.0.2         <none>            53/TCP,53/UDP k8s-app=kube-dns       1d
 kube-system   kube-ui               10.0.0.3         <none>            80/TCP        k8s-app=kube-ui        1d
-...
+...
 ```
 
 Similarly, you can take a look at the set of [pods](../user-guide/pods) that were created during cluster startup.
 You can do this via the
 
-```shell
-$ kubectl get --all-namespaces pods
+```shell
+$ kubectl get --all-namespaces pods
 ```
 
 command.
 
 You'll see a list of pods that looks something like this (the name specifics will be different):
 
-```shell
+```shell
 NAMESPACE     NAME                                           READY     STATUS    RESTARTS   AGE
 kube-system   fluentd-cloud-logging-kubernetes-minion-63uo   1/1       Running   0          14m
 kube-system   fluentd-cloud-logging-kubernetes-minion-c1n9   1/1       Running   0          14m
@@ -145,7 +142,7 @@ kube-system   fluentd-cloud-logging-kubernetes-minion-ngua   1/1       Running  
 kube-system   kube-dns-v5-7ztia                              3/3       Running   0          15m
 kube-system   kube-ui-v1-curt1                               1/1       Running   0          15m
 kube-system   monitoring-heapster-v5-ex4u3                   1/1       Running   1          15m
-kube-system   monitoring-influx-grafana-v1-piled             2/2       Running   0          15m
+kube-system   monitoring-influx-grafana-v1-piled             2/2       Running   0          15m
 ```
 
 Some of the pods may take a few seconds to start up (during this time they'll show `Pending`), but check that they all show as `Running` after a short period.
@@ -154,15 +151,15 @@ Some of the pods may take a few seconds to start up (during this time they'll sh
 
 Then, see [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
-For more complete applications, please look in the [examples directory](../../examples/).  The [guestbook example](../../examples/guestbook/) is a good "getting started" walkthrough.
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/master/examples/).  The [guestbook example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/) is a good "getting started" walkthrough.
 
 ### Tearing down the cluster
 
 To remove/delete/teardown the cluster, use the `kube-down.sh` script.
 
-```shell
+```shell
 cd kubernetes
-cluster/kube-down.sh
+cluster/kube-down.sh
 ```
 
 Likewise, the `kube-up.sh` in the same directory will bring it back up. You do not need to rerun the `curl` or `wget` command: everything needed to setup the Kubernetes cluster is now on your workstation.

@@ -40,24 +40,20 @@ The node upgrade process is user-initiated and is described in the [GKE document
 
 ### Upgrading open source Google Compute Engine clusters
 
-Upgrades on open source Google Compute Engine (GCE) clusters are controlled by the ```cluster/gce/upgrade.sh``` script.
+Upgrades on open source Google Compute Engine (GCE) clusters are controlled by the `cluster/gce/upgrade.sh` script.
 
 Get its usage by running `cluster/gce/upgrade.sh -h`.
 
 For example, to upgrade just your master to a specific version (v1.0.2):
 
 ```shell
-
 cluster/gce/upgrade.sh -M v1.0.2
-
 ```
 
 Alternatively, to upgrade your entire cluster to the latest stable release:
 
 ```shell
-
 cluster/gce/upgrade.sh release/stable
-
 ```
 
 ### Other platforms
@@ -70,10 +66,8 @@ recommend testing the upgrade on an experimental cluster before performing the u
 If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](node.html#self-registration-of-nodes).
 If you're using GCE or GKE it's done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
-```
-
+```shell
 gcloud compute instance-groups managed --zone compute-zone resize my-cluster-minon-group --new-size 42
-
 ```
 
 Instance Group will take care of putting appropriate image on new machines and start them, while Kubelet will register its Node with API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
@@ -84,31 +78,32 @@ In other environments you may need to configure the machine yourself and tell th
 ### Horizontal auto-scaling of nodes (GCE)
 
 If you are using GCE, you can configure your cluster so that the number of nodes will be automatically scaled based on their CPU and memory utilization.
-Before setting up the cluster by ```kube-up.sh```, you can set ```KUBE_ENABLE_NODE_AUTOSCALER``` environment variable to ```true``` and export it.
+Before setting up the cluster by `kube-up.sh`, you can set `KUBE_ENABLE_NODE_AUTOSCALE`
+environment variable to `true`
+and export it.
 The script will create an autoscaler for the instance group managing your nodes.
 
 The autoscaler will try to maintain the average CPU and memory utilization of nodes within the cluster close to the target value.
-The target value can be configured by ```KUBE_TARGET_NODE_UTILIZATION``` environment variable (default: 0.7) for ``kube-up.sh`` when creating the cluster.
+The target value can be configured by `KUBE_TARGET_NODE_UTILIZATION`
+environment variable (default: 0.7) for `kube-up.sh` when creating the cluster.
 The node utilization is the total node's CPU/memory usage (OS + k8s + user load) divided by the node's capacity.
 If the desired numbers of nodes in the cluster resulting from CPU utilization and memory utilization are different,
 the autoscaler will choose the bigger number.
-The number of nodes in the cluster set by the autoscaler will be limited from ```KUBE_AUTOSCALER_MIN_NODES``` (default: 1)
-to ```KUBE_AUTOSCALER_MAX_NODES``` (default: the initial number of nodes in the cluster).
+The number of nodes in the cluster set by the autoscaler will be limited from `KUBE_AUTOSCALER_MIN_NODES`
+(default: 1)
+to `KUBE_AUTOSCALER_MAX_NODES`
+(default: the initial number of nodes in the cluster).
 
 The autoscaler is implemented as a Compute Engine Autoscaler.
-The initial values of the autoscaler parameters set by ``kube-up.sh`` and some more advanced options can be tweaked on
+The initial values of the autoscaler parameters set by `kube-up.sh` and some more advanced options can be tweaked on
 `Compute > Compute Engine > Instance groups > your group > Edit group`[Google Cloud Console page](https://console.developers.google.com)
 or using gcloud CLI:
 
-```
-
+```shell
 gcloud preview autoscaler --zone compute-zone <command>
-
 ```
 
-Note that autoscaling will work properly only if node metrics are accessible in Google Cloud Monitoring.
-To make the metrics accessible, you need to create your cluster with ```KUBE_ENABLE_CLUSTER_MONITORING```
-equal to ```google``` or ```googleinfluxdb``` (```googleinfluxdb``` is the default value).
+Note that autoscaling will work properly only if node metrics are accessible in Google Cloud Monitoring. To make the metrics accessible, you need to create your cluster with `KUBE_ENABLE_CLUSTER_MONITORING` equal to `google` or `googleinfluxdb` (`googleinfluxdb` is the default value).
 
 ## Maintenance on a Node
 
@@ -123,9 +118,7 @@ If you want more control over the upgrading process, you may use the following w
 Mark the node to be rebooted as unschedulable:
 
 ```shell
-
 kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedulable": true}}'
-
 ```
 
 This keeps new pods from landing on the node while you are trying to get them off.
@@ -135,9 +128,7 @@ Get the pods off the machine, via any of the following strategies:
    * Delete pods with:
 
 ```shell
-
 kubectl delete pods $PODNAME
-
 ```
 
 For pods with a replication controller, the pod will eventually be replaced by a new pod which will be scheduled to a new node. Additionally, if the pod is part of a service, then clients will automatically be redirected to the new pod.
@@ -149,9 +140,7 @@ Perform maintenance work on the node.
 Make the node schedulable again:
 
 ```shell
-
 kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedulable": false}}'
-
 ```
 
 If you deleted the node's VM instance and created a new one, then a new schedulable node resource will
@@ -193,11 +182,6 @@ for changes to this variable to take effect.
 You can use the `kube-version-change` utility to convert config files between different API versions.
 
 ```shell
-
 $ hack/build-go.sh cmd/kube-version-change
 $ _output/local/go/bin/kube-version-change -i myPod.v1beta3.yaml -o myPod.v1.yaml
-
 ```
-
-
-

@@ -32,14 +32,12 @@ for namespaces](/{{page.version}}/docs/admin/namespaces)
 You can list the current namespaces in a cluster using:
 
 ```shell
-
 $ kubectl get namespaces
 NAME          LABELS    STATUS
 default       <none>    Active
 kube-system   <none>    Active
 
 ```
-
 Kubernetes starts with two initial namespaces:
    * `default` The default namespace for objects with no other namespace
    * `kube-system` The namespace for objects created by the Kubernetes system
@@ -51,12 +49,10 @@ To temporarily set the namespace for a request, use the `--namespace` flag.
 For example:
 
 ```shell
-
 $ kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
 $ kubectl --namespace=<insert-namespace-name-here> get pods
 
 ```
-
 ### Setting the namespace preference
 
 You can permanently save the namespace for all subsequent kubectl commands in that
@@ -65,19 +61,15 @@ context.
 First get your current context:
 
 ```shell
-
 $ export CONTEXT=$(kubectl config view | grep current-context | awk '{print $2}')
 
 ```
-
 Then update the default namespace:
 
 ```shell
-
 $ kubectl config set-context $(CONTEXT) --namespace=<insert-namespace-name-here>
 
 ```
-
 ## Namespaces and DNS
 
 When you create a [Service](services), it creates a corresponding [DNS entry](../admin/dns).

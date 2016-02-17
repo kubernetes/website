@@ -9,9 +9,7 @@ Kubernetes projects.
 Any contributor can propose a cherry pick of any pull request, like so:
 
 ```shell
-
 hack/cherry_pick_pull.sh upstream/release-3.14 98765
-
 ```
 
 This will walk you through the steps to propose an automated cherry pick of pull
@@ -33,6 +31,3 @@ conflict***.
 Now that we've structured cherry picks as PRs, searching for all cherry-picks
 against a release is a GitHub query: For example,
 [this query is all of the v0.21.x cherry-picks](https://github.com/kubernetes/kubernetes/pulls?utf8=%E2%9C%93&q=is%3Apr+%22automated+cherry+pick%22+base%3Arelease-0.21)
-
-
-

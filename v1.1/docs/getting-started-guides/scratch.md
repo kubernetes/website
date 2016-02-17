@@ -258,7 +258,7 @@ many distinct files to make:
 You can make the files by copying the `$HOME/.kube/config`, by following the code
 in `cluster/gce/configure-vm.sh` or by using the following template:
 
-```yaml
+```yaml
 apiVersion: v1
 kind: Config
 users:
@@ -276,7 +276,6 @@ contexts:
   name: service-account-context
 current-context: service-account-context
 ```
-
 Put the kubeconfig(s) on every node.  The examples later in this
 guide assume that there are kubeconfigs in `/var/lib/kube-proxy/kubeconfig` and
 `/var/lib/kubelet/kubeconfig`.
@@ -305,12 +304,11 @@ If you previously had Docker installed on a node without setting Kubernetes-spec
 options, you may have a Docker-created bridge and iptables rules.  You may want to remove these
 as follows before proceeding to configure Docker for Kubernetes.
 
-```shell
+```shell
 iptables -t nat -F
 ifconfig docker0 down
 brctl delbr docker0
 ```
-
 The way you configure docker will depend in whether you have chosen the routable-vip or overlay-network approaches for your network.
 Some suggested docker options:
   - create your own bridge for the per-node CIDR ranges, call it cbr0, and set `--bridge=cbr0` option on docker.
@@ -412,10 +410,9 @@ If you have turned off Docker's IP masquerading to allow pods to talk to each
 other, then you may need to do masquerading just for destination IPs outside
 the cluster network.  For example:
 
-```shell
+```shell
 iptables -w -t nat -A POSTROUTING -o eth0 -j MASQUERADE \! -d ${CLUSTER_SUBNET}
 ```
-
 This will rewrite the source address from
 the PodIP to the Node IP for traffic bound outside the cluster, and kernel
 [connection tracking](http://www.iptables.info/en/connection-state)
@@ -483,7 +480,7 @@ For each of these components, the steps to start them running are similar:
 
 #### Apiserver pod template
 
-```json
+```json
 {
   "kind": "Pod",
   "apiVersion": "v1",
@@ -555,7 +552,6 @@ For each of these components, the steps to start them running are similar:
   }
 }
 ```
-
 Here are some apiserver flags you may need to set:
 
 - `--cloud-provider=` see [cloud providers](#cloud-providers)
@@ -614,8 +610,7 @@ Some cloud providers require a config file. If so, you need to put config file i
 
 Complete this template for the scheduler pod:
 
-```json
-
+```json
 {
   "kind": "Pod",
   "apiVersion": "v1",
@@ -651,7 +646,6 @@ Complete this template for the scheduler pod:
 }
 
 ```
-
 Typically, no additional flags are required for the scheduler.
 
 Optionally, you may want to mount `/var/log` as well and redirect output there.
@@ -660,8 +654,7 @@ Optionally, you may want to mount `/var/log` as well and redirect output there.
 
 Template for controller manager pod:
 
-```json
-
+```json
 {
   "kind": "Pod",
   "apiVersion": "v1",
@@ -722,7 +715,6 @@ Template for controller manager pod:
 }
 
 ```
-
 Flags to consider using with controller manager:
  - `--cluster-name=$CLUSTER_NAME`
  - `--cluster-cidr=`
@@ -742,14 +734,13 @@ controller manager will retry reaching the apiserver until it is up.
 
 Use `ps` or `docker ps` to verify that each process has started.  For example, verify that kubelet has started a container for the apiserver like this:
 
-```shell
+```shell
 $ sudo docker ps | grep apiserver:
 5783290746d5        gcr.io/google_containers/kube-apiserver:e36bf367342b5a80d7467fd7611ad873            "/bin/sh -c '/usr/lo'"    10 seconds ago      Up 9 seconds                              k8s_kube-apiserver.feb145e7_kube-apiserver-kubernetes-master_default_eaebc600cf80dae59902b44225f2fc0a_225a4695
 ```
-
 Then try to connect to the apiserver:
 
-```shell
+```shell
 $ echo $(curl -s http://localhost:8080/healthz)
 ok
 $ curl -s http://localhost:8080/api
@@ -759,7 +750,6 @@ $ curl -s http://localhost:8080/api
   ]
 }
 ```
-
 If you have selected the `--register-node=true` option for kubelets, they will now begin self-registering with the apiserver.
 You should soon be able to see all your nodes by running the `kubectl get nodes` command.
 Otherwise, you will need to manually create node objects.

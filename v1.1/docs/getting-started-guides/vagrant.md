@@ -22,20 +22,18 @@ Running Kubernetes with Vagrant (and VirtualBox) is an easy way to run/test/deve
 
 Setting up a cluster is as simple as running:
 
-```shell
+```shell
 export KUBERNETES_PROVIDER=vagrant
 curl -sS https://get.k8s.io | bash
 ```
-
 Alternatively, you can download [Kubernetes release](https://github.com/kubernetes/kubernetes/releases) and extract the archive. To start your local cluster, open a shell and run:
 
-```shell
+```shell
 cd kubernetes
 
 export KUBERNETES_PROVIDER=vagrant
 ./cluster/kube-up.sh
 ```
-
 The `KUBERNETES_PROVIDER` environment variable tells all of the various cluster management scripts which variant to use.  If you forget to set this, the assumption is you are running on Google Compute Engine.
 
 By default, the Vagrant setup will create a single master VM (called kubernetes-master) and one node (called kubernetes-minion-1). Each VM will take 1 GB, so make sure you have at least 2GB to 4GB of free memory (plus appropriate free disk space).
@@ -44,35 +42,32 @@ Vagrant will provision each machine in the cluster with all the necessary compon
 
 If you installed more than one Vagrant provider, Kubernetes will usually pick the appropriate one. However, you can override which one Kubernetes will use by setting the [`VAGRANT_DEFAULT_PROVIDER`](https://docs.vagrantup.com/v2/providers/default) environment variable:
 
-```shell
+```shell
 export VAGRANT_DEFAULT_PROVIDER=parallels
 export KUBERNETES_PROVIDER=vagrant
 ./cluster/kube-up.sh
 ```
-
 By default, each VM in the cluster is running Fedora.
 
 To access the master or any node:
 
-```shell
+```shell
 vagrant ssh master
 vagrant ssh minion-1
 ```
-
 If you are running more than one node, you can access the others by:
 
-```shell
+```shell
 vagrant ssh minion-2
 vagrant ssh minion-3
 ```
-
 Each node in the cluster installs the docker daemon and the kubelet.
 
 The master node instantiates the Kubernetes master components as pods on the machine.
 
 To view the service status and/or logs on the kubernetes-master:
 
-```shell
+```shell
 [vagrant@kubernetes-master ~] $ vagrant ssh master
 [vagrant@kubernetes-master ~] $ sudo su
 
@@ -86,10 +81,9 @@ To view the service status and/or logs on the kubernetes-master:
 [root@kubernetes-master ~] $ tail -f /var/log/kube-controller-manager.log
 [root@kubernetes-master ~] $ tail -f /var/log/kube-scheduler.log
 ```
-
 To view the services on any of the nodes:
 
-```shell
+```shell
 [vagrant@kubernetes-master ~] $ vagrant ssh minion-1
 [vagrant@kubernetes-master ~] $ sudo su
 
@@ -99,35 +93,31 @@ To view the services on any of the nodes:
 [root@kubernetes-master ~] $ systemctl status docker
 [root@kubernetes-master ~] $ journalctl -ru docker
 ```
-
 ### Interacting with your Kubernetes cluster with Vagrant.
 
 With your Kubernetes cluster up, you can manage the nodes in your cluster with the regular Vagrant commands.
 
 To push updates to new Kubernetes code after making source changes:
 
-```shell
+```shell
 ./cluster/kube-push.sh
 ```
-
 To stop and then restart the cluster:
 
-```shell
+```shell
 vagrant halt
 ./cluster/kube-up.sh
 ```
-
 To destroy the cluster:
 
-```shell
+```shell
 vagrant destroy
 ```
-
 Once your Vagrant machines are up and provisioned, the first thing to do is to check that you can use the `kubectl.sh` script.
 
 You may need to build the binaries first, you can do this with `make`
 
-```shell
+```shell
 $ ./cluster/kubectl.sh get nodes
 
 NAME                LABELS
@@ -135,16 +125,14 @@ NAME                LABELS
 10.245.1.5          <none>
 10.245.1.3          <none>
 ```
-
 ### Authenticating with your master
 
 When using the vagrant provider in Kubernetes, the `cluster/kubectl.sh` script will cache your credentials in a `~/.kubernetes_vagrant_auth` file so you will not be prompted for them in the future.
 
-```shell
+```shell
 cat ~/.kubernetes_vagrant_auth
 ```
-
-```json
+```json
 { "User": "vagrant",
   "Password": "vagrant",
   "CAFile": "/home/k8s_user/.kubernetes.vagrant.ca.crt",
@@ -152,18 +140,16 @@ cat ~/.kubernetes_vagrant_auth
   "KeyFile": "/home/k8s_user/.kubecfg.vagrant.key"
 }
 ```
-
 You should now be set to use the `cluster/kubectl.sh` script. For example try to list the nodes that you have started with:
 
-```shell
+```shell
 ./cluster/kubectl.sh get nodes
 ```
-
 ### Running containers
 
 Your cluster is running, you can list the nodes in your cluster:
 
-```shell
+```shell
 $ ./cluster/kubectl.sh get nodes
 
 NAME                 LABELS
@@ -171,13 +157,12 @@ NAME                 LABELS
 10.245.2.3           <none>
 10.245.2.2           <none>
 ```
-
 Now start running some containers!
 
 You can now use any of the `cluster/kube-*.sh` commands to interact with your VM machines.
 Before starting a container there will be no pods, services and replication controllers.
 
-```shell
+```shell
 $ ./cluster/kubectl.sh get pods
 NAME        READY     STATUS    RESTARTS   AGE
 
@@ -187,26 +172,23 @@ NAME              CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR     
 $ ./cluster/kubectl.sh get replicationcontrollers
 CONTROLLER   CONTAINER(S)   IMAGE(S)   SELECTOR   REPLICAS
 ```
-
 Start a container running nginx with a replication controller and three replicas
 
-```shell
+```shell
 $ ./cluster/kubectl.sh run my-nginx --image=nginx --replicas=3 --port=80
 ```
-
 When listing the pods, you will see that three containers have been started and are in Waiting state:
 
-```shell
+```shell
 $ ./cluster/kubectl.sh get pods
 NAME             READY     STATUS    RESTARTS   AGE
 my-nginx-5kq0g   0/1       Pending   0          10s
 my-nginx-gr3hh   0/1       Pending   0          10s
 my-nginx-xql4j   0/1       Pending   0          10s
 ```
-
 You need to wait for the provisioning to complete, you can monitor the nodes by doing:
 
-```shell
+```shell
 $ vagrant ssh minion-1 -c 'sudo docker images'
 kubernetes-minion-1:
     REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
@@ -214,10 +196,9 @@ kubernetes-minion-1:
     google/cadvisor     latest              e0575e677c50        13 days ago         12.64 MB
     kubernetes/pause    latest              6c4579af347b        8 weeks ago         239.8 kB
 ```
-
 Once the docker image for nginx has been downloaded, the container will start and you can list it:
 
-```shell
+```shell
 $ vagrant ssh minion-1 -c 'sudo docker ps'
 kubernetes-minion-1:
     CONTAINER ID        IMAGE                     COMMAND                CREATED             STATUS              PORTS                    NAMES
@@ -226,10 +207,9 @@ kubernetes-minion-1:
     aa2ee3ed844a        google/cadvisor:latest    "/usr/bin/cadvisor"    38 minutes ago      Up 38 minutes                                k8s--cadvisor.9e90d182--cadvisor_-_agent.file--4626b3a2
     65a3a926f357        kubernetes/pause:latest   "/pause"               39 minutes ago      Up 39 minutes       0.0.0.0:4194->8080/tcp   k8s--net.c5ba7f0e--cadvisor_-_agent.file--342fd561
 ```
-
 Going back to listing the pods, services and replicationcontrollers, you now have:
 
-```shell
+```shell
 $ ./cluster/kubectl.sh get pods
 NAME             READY     STATUS    RESTARTS   AGE
 my-nginx-5kq0g   1/1       Running   0          1m
@@ -240,19 +220,17 @@ $ ./cluster/kubectl.sh get services
 NAME              CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR               AGE
 my-nginx          10.0.0.1         <none>            80/TCP        run=my-nginx           1h
 ```
-
 We did not start any services, hence there are none listed. But we see three replicas displayed properly.
-Check the [guestbook](../../examples/guestbook/README) application to learn how to create a service.
+Check the [guestbook](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/README) application to learn how to create a service.
 You can already play with scaling the replicas with:
 
-```shell
+```shell
 $ ./cluster/kubectl.sh scale rc my-nginx --replicas=2
 $ ./cluster/kubectl.sh get pods
 NAME             READY     STATUS    RESTARTS   AGE
 my-nginx-5kq0g   1/1       Running   0          2m
 my-nginx-gr3hh   1/1       Running   0          2m
 ```
-
 Congratulations!
 
 ### Troubleshooting
@@ -261,34 +239,30 @@ Congratulations!
 
 By default the Vagrantfile will download the box from S3. You can change this (and cache the box locally) by providing a name and an alternate URL when calling `kube-up.sh`
 
-```shell
+```shell
 export KUBERNETES_BOX_NAME=choose_your_own_name_for_your_kuber_box
 export KUBERNETES_BOX_URL=path_of_your_kuber_box
 export KUBERNETES_PROVIDER=vagrant
 ./cluster/kube-up.sh
 ```
-
 #### I just created the cluster, but I am getting authorization errors!
 
 You probably have an incorrect ~/.kubernetes_vagrant_auth file for the cluster you are attempting to contact.
 
-```shell
+```shell
 rm ~/.kubernetes_vagrant_auth
 ```
-
 After using kubectl.sh make sure that the correct credentials are set:
 
-```shell
+```shell
 cat ~/.kubernetes_vagrant_auth
 ```
-
-```json
+```json
 {
   "User": "vagrant",
   "Password": "vagrant"
 }
 ```
-
 #### I just created the cluster, but I do not see my container running!
 
 If this is your first time creating the cluster, the kubelet on each node schedules a number of docker pull requests to fetch prerequisite images.  This can take some time and as a result may delay your initial pod getting provisioned.
@@ -305,26 +279,23 @@ Log on to one of the nodes (`vagrant ssh minion-1`) and inspect the salt minion 
 
 You can control the number of nodes that are instantiated via the environment variable `NUM_MINIONS` on your host machine.  If you plan to work with replicas, we strongly encourage you to work with enough nodes to satisfy your largest intended replica size.  If you do not plan to work with replicas, you can save some system resources by running with a single node. You do this, by setting `NUM_MINIONS` to 1 like so:
 
-```shell
+```shell
 export NUM_MINIONS=1
 ```
-
 #### I want my VMs to have more memory!
 
 You can control the memory allotted to virtual machines with the `KUBERNETES_MEMORY` environment variable.
 Just set it to the number of megabytes you would like the machines to have. For example:
 
-```shell
+```shell
 export KUBERNETES_MEMORY=2048
 ```
-
 If you need more granular control, you can set the amount of memory for the master and nodes independently. For example:
 
-```shell
+```shell
 export KUBERNETES_MASTER_MEMORY=1536
 export KUBERNETES_MINION_MEMORY=2048
 ```
-
 #### I ran vagrant suspend and nothing works!
 
 `vagrant suspend` seems to mess up the network.  This is not supported at this time.
@@ -333,6 +304,6 @@ export KUBERNETES_MINION_MEMORY=2048
 
 You can ensure that vagrant uses nfs to sync folders with virtual machines by setting the KUBERNETES_VAGRANT_USE_NFS environment variable to 'true'. nfs is faster than virtualbox or vmware's 'shared folders' and does not require guest additions. See the [vagrant docs](http://docs.vagrantup.com/v2/synced-folders/nfs) for details on configuring nfs on the host. This setting will have no effect on the libvirt provider, which uses nfs by default. For example:
 
-```shell
+```shell
 export KUBERNETES_VAGRANT_USE_NFS=true
 ```

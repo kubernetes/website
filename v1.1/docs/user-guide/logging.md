@@ -10,12 +10,12 @@ Kubernetes components, such as kubelet and apiserver, use the [glog](https://god
 ## Examining the logs of running containers
 
 The logs of a running container may be fetched using the command `kubectl logs`. For example, given
-this pod specification [counter-pod.yaml](../../examples/blog-logging/counter-pod.yaml), which has a container which writes out some text to standard
+this pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/master/examples/blog-logging/counter-pod.yaml), which has a container which writes out some text to standard
 output every second. (You can find different pod specifications [here](logging-demo/).)
 
 <!-- BEGIN MUNGE: EXAMPLE ../../examples/blog-logging/counter-pod.yaml -->
 
-```yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -27,20 +27,18 @@ spec:
     args: [bash, -c, 
            'for ((i = 0; ; i++)); do echo "$i: $(date)"; sleep 1; done']
 ```
-
-[Download example](../../examples/blog-logging/counter-pod.yaml)
+[Download example](https://github.com/kubernetes/kubernetes/tree/master/examples/blog-logging/counter-pod.yaml)
 <!-- END MUNGE: EXAMPLE ../../examples/blog-logging/counter-pod.yaml -->
 
 we can run the pod:
 
-```shell
+```shell
 $ kubectl create -f ./counter-pod.yaml
 pods/counter
 ```
-
 and then fetch the logs:
 
-```shell
+```shell
 $ kubectl logs counter
 0: Tue Jun  2 21:37:31 UTC 2015
 1: Tue Jun  2 21:37:32 UTC 2015
@@ -50,11 +48,10 @@ $ kubectl logs counter
 5: Tue Jun  2 21:37:36 UTC 2015
 ...
 ```
-
 If a pod has more than one container then you need to specify which container's log files should
 be fetched e.g.
 
-```shell
+```shell
 $ kubectl logs kube-dns-v3-7r1l9 etcd
 2015/06/23 00:43:10 etcdserver: start to snapshot (applied: 30003, lastsnap: 20002)
 2015/06/23 00:43:10 etcdserver: compacted log at index 30003
@@ -71,7 +68,6 @@ $ kubectl logs kube-dns-v3-7r1l9 etcd
 2015/06/23 04:51:03 etcdserver: saved snapshot at index 60006
 ...
 ```
-
 ## Cluster level logging to Google Cloud Logging
 
 The getting started guide [Cluster Level Logging to Google Cloud Logging](../getting-started-guides/logging)

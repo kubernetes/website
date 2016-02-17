@@ -14,14 +14,12 @@ This example will work in a custom namespace to demonstrate the concepts involve
 Let's create a new namespace called quota-example:
 
 ```shell
-
 $ kubectl create -f docs/admin/resourcequota/namespace.yaml
 namespace "quota-example" created
 $ kubectl get namespaces
 NAME            LABELS    STATUS    AGE
 default         <none>    Active    2m
 quota-example   <none>    Active    39s
-
 ```
 
 ## Step 2: Apply a quota to the namespace
@@ -38,10 +36,8 @@ checks the total resource *requests*, not resource *limits* of all containers/po
 Let's create a simple quota in our namespace:
 
 ```shell
-
 $ kubectl create -f docs/admin/resourcequota/quota.yaml --namespace=quota-example
 resourcequota "quota" created
-
 ```
 
 Once your quota is applied to a namespace, the system will restrict any creation of content
@@ -51,7 +47,6 @@ You can describe your current quota usage to see what resources are being consum
 namespace.
 
 ```shell
-
 $ kubectl describe quota quota --namespace=quota-example
 Name:			quota
 Namespace:		quota-example
@@ -65,7 +60,6 @@ replicationcontrollers	0	20
 resourcequotas		1	1
 secrets			1	10
 services		0	5
-
 ```
 
 ## Step 3: Applying default resource requests and limits
@@ -78,25 +72,20 @@ cpu and memory by creating an nginx container.
 To demonstrate, lets create a replication controller that runs nginx:
 
 ```shell
-
 $ kubectl run nginx --image=nginx --replicas=1 --namespace=quota-example
 replicationcontroller "nginx" created
-
 ```
 
 Now let's look at the pods that were created.
 
 ```shell
-
 $ kubectl get pods --namespace=quota-example
 NAME      READY     STATUS    RESTARTS   AGE
-
 ```
 
 What happened?  I have no pods!  Let's describe the replication controller to get a view of what is happening.
 
 ```shell
-
 kubectl describe rc nginx --namespace=quota-example
 Name:		nginx
 Namespace:	quota-example
@@ -109,7 +98,6 @@ No volumes.
 Events:
   FirstSeen	LastSeen	Count	From				SubobjectPath	Reason		Message
   42s		11s		3	{replication-controller }			FailedCreate	Error creating: Pod "nginx-" is forbidden: Must make a non-zero request for memory since it is tracked by quota.
-
 ```
 
 The Kubernetes API server is rejecting the replication controllers requests to create a pod because our pods
@@ -118,7 +106,6 @@ do not specify any memory usage *request*.
 So let's set some default values for the amount of cpu and memory a pod can consume:
 
 ```shell
-
 $ kubectl create -f docs/admin/resourcequota/limits.yaml --namespace=quota-example
 limitrange "limits" created
 $ kubectl describe limits limits --namespace=quota-example
@@ -128,7 +115,6 @@ Type		Resource	Min	Max	Request	Limit	Limit/Request
 ----		--------	---	---	-------	-----	-------------
 Container	memory		-	-	256Mi	512Mi	-
 Container	cpu		-	-	100m	200m	-
-
 ```
 
 Now any time a pod is created in this namespace, if it has not specified any resource request/limit, the default
@@ -138,17 +124,14 @@ Now that we have applied default resource *request* for our namespace, our repli
 create its pods.
 
 ```shell
-
 $ kubectl get pods --namespace=quota-example
 NAME          READY     STATUS    RESTARTS   AGE
 nginx-fca65   1/1       Running   0          1m
-
 ```
 
 And if we print out our quota usage in the namespace:
 
 ```shell
-
 $ kubectl describe quota quota --namespace=quota-example
 Name:			quota
 Namespace:		quota-example
@@ -162,7 +145,6 @@ replicationcontrollers	1	20
 resourcequotas		1	1
 secrets			1	10
 services		0	5
-
 ```
 
 You can now see the pod that was created is consuming explicit amounts of resources (specified by resource *request*),
@@ -173,8 +155,4 @@ and the usage is being tracked by the Kubernetes system properly.
 Actions that consume node resources for cpu and memory can be subject to hard quota limits defined
 by the namespace quota. The resource consumption is measured by resource *request* in pod specification.
 
-Any action that consumes those resources can be tweaked, or can pick up namespace level defaults to
-meet your end goal.
-
-
-
+Any action that consumes those resources can be tweaked, or can pick up namespace level defaults to meet your end goal.

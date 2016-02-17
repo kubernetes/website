@@ -62,7 +62,6 @@ of type `ServiceAccountToken` with an annotation referencing the service
 account, and the controller will update it with a generated token:
 
 ```json
-
 secret.json:
 {
     "kind": "Secret",
@@ -75,28 +74,20 @@ secret.json:
     },
     "type": "kubernetes.io/service-account-token"
 }
-
 ```
 
 ```shell
-
 kubectl create -f ./secret.json
 kubectl describe secret mysecretname
-
 ```
 
 #### To delete/invalidate a service account token
 
 ```shell
-
 kubectl delete secret mysecretname
-
 ```
 
 ### Service Account Controller
 
 Service Account Controller manages ServiceAccount inside namespaces, and ensures
 a ServiceAccount named "default" exists in every active namespace.
-
-
-

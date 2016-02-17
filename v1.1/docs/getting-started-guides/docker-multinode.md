@@ -39,8 +39,8 @@ it is still useful to use containers for deployment and management, so we create
 
 You can specify k8s version on very node before install:
 
-```
-export K8S_VERSION=<your_k8s_version (e.g. 1.0.3)>
+```shell
+export K8S_VERSION=<your_k8s_version (e.g. 1.0.3)>
 ```
 
 Otherwise, we'll use latest `hyperkube` image as default k8s version.
@@ -51,12 +51,12 @@ The first step in the process is to initialize the master node.
 
 Clone the Kubernetes repo, and run [master.sh](/{{page.version}}/docs/getting-started-guides/docker-multinode/master.sh) on the master machine with root:
 
-```shell
+```shell
 cd kubernetes/docs/getting-started-guides/docker-multinode/
-./master.sh
-```
-
+./master.sh
+...
 `Master done!`
+```
 
 See [here](/{{page.version}}/docs/getting-started-guides/docker-multinode/master) for detailed instructions explanation.
 
@@ -66,13 +66,12 @@ Once your master is up and running you can add one or more workers on different 
 
 Clone the Kubernetes repo, and run [worker.sh](/{{page.version}}/docs/getting-started-guides/docker-multinode/worker.sh) on the worker machine with root:
 
-```shell
+```shell
 export MASTER_IP=<your_master_ip (e.g. 1.2.3.4)>
 cd kubernetes/docs/getting-started-guides/docker-multinode/
-./worker.sh
-```
-
+./worker.sh...
 `Worker done!`
+````
 
 See [here](/{{page.version}}/docs/getting-started-guides/docker-multinode/worker) for detailed instructions explanation.
 
@@ -84,4 +83,4 @@ See [here](/{{page.version}}/docs/getting-started-guides/docker-multinode/deploy
 
 Once your cluster has been created you can [test it out](/{{page.version}}/docs/getting-started-guides/docker-multinode/testing)
 
-For more complete applications, please look in the [examples directory](../../examples/)
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/master/examples/)

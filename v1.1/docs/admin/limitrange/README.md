@@ -41,14 +41,12 @@ This example will work in a custom namespace to demonstrate the concepts involve
 Let's create a new namespace called limit-example:
 
 ```shell
-
 $ kubectl create -f docs/admin/limitrange/namespace.yaml
 namespace "limit-example" created
 $ kubectl get namespaces
 NAME            LABELS    STATUS    AGE
 default         <none>    Active    5m
 limit-example   <none>    Active    53s
-
 ```
 
 ## Step 2: Apply a limit to the namespace
@@ -56,16 +54,13 @@ limit-example   <none>    Active    53s
 Let's create a simple limit in our namespace.
 
 ```shell
-
 $ kubectl create -f docs/admin/limitrange/limits.yaml --namespace=limit-example
 limitrange "mylimits" created
-
 ```
 
 Let's describe the limits that we have imposed in our namespace.
 
 ```shell
-
 $ kubectl describe limits mylimits --namespace=limit-example
 Name:   mylimits
 Namespace:  limit-example
@@ -75,7 +70,6 @@ Pod         cpu           200m     2        -            -          -
 Pod         memory        6Mi      1Gi      -            -          -
 Container   cpu           100m     2        200m         300m       -
 Container   memory        3Mi      1Gi      100Mi        200Mi      -
-
 ```
 
 In this scenario, we have said the following:
@@ -105,19 +99,16 @@ Let's first spin up a replication controller that creates a single container pod
 how default values are applied to each pod.
 
 ```shell
-
 $ kubectl run nginx --image=nginx --replicas=1 --namespace=limit-example
 replicationcontroller "nginx" created
 $ kubectl get pods --namespace=limit-example
 NAME          READY     STATUS    RESTARTS   AGE
 nginx-aq0mf   1/1       Running   0          35s
 $ kubectl get pods nginx-aq0mf --namespace=limit-example -o yaml | grep resources -C 8
-
 ```
 
 ```yaml
-
-  resourceVersion: "127"
+resourceVersion: "127"
   selfLink: /api/v1/namespaces/limit-example/pods/nginx-aq0mf
   uid: 51be42a7-7156-11e5-9921-286ed488f785
 spec:
@@ -134,7 +125,6 @@ spec:
         memory: 100Mi
     terminationMessagePath: /dev/termination-log
     volumeMounts:
-
 ```
 
 Note that our nginx container has picked up the namespace default cpu and memory resource *limits* and *requests*.
@@ -142,25 +132,20 @@ Note that our nginx container has picked up the namespace default cpu and memory
 Let's create a pod that exceeds our allowed limits by having it have a container that requests 3 cpu cores.
 
 ```shell
-
 $ kubectl create -f docs/admin/limitrange/invalid-pod.yaml --namespace=limit-example
 Error from server: error when creating "docs/admin/limitrange/invalid-pod.yaml": Pod "invalid-pod" is forbidden: [Maximum cpu usage per Pod is 2, but limit is 3., Maximum cpu usage per Container is 2, but limit is 3.]
-
 ```
 
 Let's create a pod that falls within the allowed limit boundaries.
 
 ```shell
-
 $ kubectl create -f docs/admin/limitrange/valid-pod.yaml --namespace=limit-example
 pod "valid-pod" created
 $ kubectl get pods valid-pod --namespace=limit-example -o yaml | grep -C 6 resources
-
 ```
 
 ```yaml
-
- uid: 162a12aa-7157-11e5-9921-286ed488f785
+uid: 162a12aa-7157-11e5-9921-286ed488f785
 spec:
   containers:
   - image: gcr.io/google_containers/serve_hostname
@@ -173,9 +158,7 @@ spec:
       requests:
         cpu: "1"
         memory: 512Mi
-
 ```
-
 Note that this pod specifies explicit resource *limits* and *requests* so it did not pick up the namespace
 default values.
 
@@ -183,13 +166,11 @@ Note: The *limits* for CPU resource are not enforced in the default Kubernetes s
 that runs the container unless the administrator deploys the kubelet with the folllowing flag:
 
 ```
-
 $ kubelet --help
 Usage of kubelet
 ....
   --cpu-cfs-quota[=false]: Enable CPU CFS quota enforcement for containers that specify CPU limits
 $ kubelet --cpu-cfs-quota=true ...
-
 ```
 
 ## Step 4: Cleanup
@@ -197,13 +178,11 @@ $ kubelet --cpu-cfs-quota=true ...
 To remove the resources used by this example, you can just delete the limit-example namespace.
 
 ```shell
-
 $ kubectl delete namespace limit-example
 namespace "limit-example" deleted
 $ kubectl get namespaces
 NAME      LABELS    STATUS    AGE
 default   <none>    Active    20m
-
 ```
 
 ## Summary
@@ -212,8 +191,3 @@ Cluster operators that want to restrict the amount of resources a single contain
 are able to define allowable ranges per Kubernetes namespace.  In the absence of any explicit assignments,
 the Kubernetes system is able to apply default resource *limits* and *requests* if desired in order to
 constrain the amount of resource a pod consumes on a node.
-
-
-
-
-

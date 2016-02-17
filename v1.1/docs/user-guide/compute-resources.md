@@ -42,7 +42,6 @@ be said to have a request of 0.5 core and 128 MiB of memory and a limit of 1 cor
 memory.
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -69,7 +68,6 @@ spec:
         cpu: "500m"
 
 ```
-
 ## How Pods with Resource Requests are Scheduled
 
 When a pod is created, the Kubernetes scheduler selects a node for the pod to
@@ -123,7 +121,6 @@ until a place can be found.    An event will be produced each time the scheduler
 place for the pod, like this:
 
 ```shell
-
 $ kubectl describe pod frontend | grep -A 3 Events
 Events:
   FirstSeen	LastSeen	 Count	From          Subobject   PathReason			Message
@@ -131,7 +128,6 @@ Events:
 
 
 ```
-
 In the case shown above, the pod "frontend" fails to be scheduled due to insufficient
 CPU resource on the node. Similar error messages can also suggest failure due to insufficient
 memory (PodExceedsFreeMemory). In general, if a pod or pods are pending with this message and
@@ -145,7 +141,6 @@ You can check node capacities and amounts allocated with the `kubectl describe n
 For example:
 
 ```shell
-
 $ kubectl describe nodes gke-cluster-4-386701dd-node-ww4p
 Name:			gke-cluster-4-386701dd-node-ww4p
 [ ... lines removed for clarity ...]
@@ -169,7 +164,6 @@ TotalResourceLimits:
 [ ... lines removed for clarity ...]
 
 ```
-
 Here you can see from the `Allocated resources` section that that a pod which ask for more than
 90 millicpus or more than 1341MiB of memory will not be able to fit on this node.
 
@@ -185,7 +179,6 @@ Your container may be terminated because it's resource-starved. To check if a co
 on the pod you are interested in:
 
 ```shell
-
 [12:54:41] $ ./cluster/kubectl.sh describe pod simmemleak-hra99
 Name:                           simmemleak-hra99
 Namespace:                      default
@@ -223,19 +216,16 @@ Events:
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  spec.containers{simmemleak}         created     Created with docker id 87348f12526a
 
 ```
-
 The `Restart Count:  5` indicates that the `simmemleak` container in this pod was terminated and restarted 5 times.
 
 You can call `get pod` with the `-o go-template=...` option to fetch the status of previously terminated containers:
 
 ```shell
-
 [13:59:01] $ ./cluster/kubectl.sh  get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
 Container Name: simmemleak
 LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]][13:59:03] clusterScaleDoc ~/go/src/github.com/kubernetes/kubernetes $ 
 
 ```
-
 We can see that this container was terminated because `reason:OOM Killed`, where *OOM* stands for Out Of Memory.
 
 ## Planned Improvements

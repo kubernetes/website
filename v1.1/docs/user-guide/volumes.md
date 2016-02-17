@@ -143,15 +143,12 @@ the PD is read-only or the replica count is 0 or 1.
 Before you can use a GCE PD with a pod, you need to create it.
 
 ```shell
-
 gcloud compute disks create --size=500GB --zone=us-central1-a my-data-disk
 
 ```
-
 #### Example pod
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -171,7 +168,6 @@ spec:
       fsType: ext4
 
 ```
-
 ### awsElasticBlockStore
 
 An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS) [EBS
@@ -195,18 +191,15 @@ There are some restrictions when using an awsElasticBlockStore volume:
 Before you can use a EBS volume with a pod, you need to create it.
 
 ```shell
-
 aws ec2 create-volume --availability-zone eu-west-1a --size 10 --volume-type gp2
 
 ```
-
 Make sure the zone matches the zone you brought up your cluster in.  (And also check that the size and EBS volume
 type are suitable for your use!)
 
 #### AWS EBS Example configuration
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -226,7 +219,6 @@ spec:
       fsType: ext4
 
 ```
-
 (Note: the syntax of volumeID is currently awkward; #10181 fixes it)
 
 ### nfs
@@ -241,7 +233,7 @@ writers simultaneously.
 __Important: You must have your own NFS server running with the share exported
 before you can use it__
 
-See the [NFS example](../../examples/nfs/) for more details.
+See the [NFS example](https://github.com/kubernetes/kubernetes/tree/master/examples/nfs/) for more details.
 
 ### iscsi
 
@@ -260,7 +252,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous readers allowed.
 
-See the [iSCSI example](../../examples/iscsi/) for more details.
+See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/master/examples/iscsi/) for more details.
 
 ### flocker
 
@@ -275,7 +267,7 @@ can be "handed off" between pods as required.
 
 __Important: You must have your own Flocker installation running before you can use it__
 
-See the [Flocker example](../../examples/flocker/) for more details.
+See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/master/examples/flocker/) for more details.
 
 ### glusterfs
 
@@ -290,7 +282,7 @@ simultaneously.
 __Important: You must have your own GlusterFS installation running before you
 can use it__
 
-See the [GlusterFS example](../../examples/glusterfs/) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/master/examples/glusterfs/) for more details.
 
 ### rbd
 
@@ -310,7 +302,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](../../examples/rbd/) for more details.
+See the [RBD example](https://github.com/kubernetes/kubernetes/tree/master/examples/rbd/) for more details.
 
 ### gitRepo
 
@@ -322,7 +314,6 @@ rather than extending the Kubernetes API for every such use case.
 Here is a example for gitRepo volume:
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -341,7 +332,6 @@ spec:
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 
 ```
-
 ### secret
 
 A `secret` volume is used to pass sensitive information, such as passwords, to

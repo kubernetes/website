@@ -7,14 +7,12 @@ Labels can be used to organize and to select subsets of objects.  Labels can be 
 Each object can have a set of key/value labels defined.  Each Key must be unique for a given object.
 
 ```json
-
 "labels": {
   "key1" : "value1",
   "key2" : "value2"
 }
 
 ```
-
 We'll eventually index and reverse-index labels for efficient queries and watches, use them to sort and group in UIs and CLIs, etc. We don't want to pollute labels with non-identifying, especially large and/or structured, data. Non-identifying information should be recorded using [annotations](annotations).
 
 {% include pagetoc.html %}
@@ -61,12 +59,10 @@ _Equality-_ or _inequality-based_ requirements allow filtering by label keys and
 Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _equality_ (and are simply synonyms), while the latter represents _inequality_. For example:
 
 ```
-
 environment = production
 tier != frontend
 
 ```
-
 The former selects all resources with key equal to `environment` and value equal to `production`.
 The latter selects all resources with key equal to `tier` and value distinct from `frontend`, and all resources with no labels with the `tier` key.
 One could filter for resources in `production` excluding `frontend` using the comma operator: `environment=production,tier!=frontend`
@@ -77,14 +73,12 @@ One could filter for resources in `production` excluding `frontend` using the co
 _Set-based_ label requirements allow filtering keys according to a set of values. Three kinds of operators are supported: `in`,`notin` and exists (only the key identifier). For example:
 
 ```
-
 environment in (production, qa)
 tier notin (frontend, backend)
 partition
 !partition
 
 ```
-
 The first example selects all resources with key equal to `environment` and value equal to `production` or `qa`.
 The second example selects all resources with key equal to `tier` and values other than `frontend` and `backend`, and all resources with no labels with the `tier` key.
 The third example selects all resources including a label with key `partition`; no values are checked.
@@ -107,35 +101,27 @@ LIST and WATCH operations may specify label selectors to filter the sets of obje
 Both label selector styles can be used to list or watch resources via a REST client. For example targetting `apiserver` with `kubectl` and using _equality-based_ one may write:
 
 ```shell
-
 $ kubectl get pods -l environment=production,tier=frontend
 
 ```
-
 or using _set-based_ requirements:
 
 ```shell
-
 $ kubectl get pods -l 'environment in (production),tier in (frontend)'
 
 ```
-
 As already mentioned _set-based_ requirements are more expressive.  For instance, they can implement the _OR_ operator on values:
 
 ```shell
-
 $ kubectl get pods -l 'environment in (production, qa)'
 
 ```
-
 or restricting negative matching via _exists_ operator:
 
 ```shell
-
 $ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ```
-
 ### Set references in API objects
 
 Some Kubernetes objects, such as [`service`s](services) and [`replicationcontroller`s](replication-controller), also use label selectors to specify sets of other resources, such as [pods](pods).
@@ -147,22 +133,18 @@ The set of pods that a `service` targets is defined with a label selector. Simil
 Labels selectors for both objects are defined in `json` or `yaml` files using maps, and only _equality-based_ requirement selectors are supported:
 
 ```json
-
 "selector": {
     "component" : "redis",
 }
 
 ```
-
 or
 
 ```yaml
-
 selector:
     component: redis
 
 ```
-
 this selector (respectively in `json` or `yaml` format) is equivalent to `component=redis` or `component in (redis)`.
 
 #### Job and other new resources
@@ -170,7 +152,6 @@ this selector (respectively in `json` or `yaml` format) is equivalent to `compon
 Newer resources, such as [job](jobs), support _set-based_ requirements as well.
 
 ```yaml
-
 selector:
   matchLabels:
     component: redis
@@ -179,7 +160,6 @@ selector:
     - {key: environment, operator: NotIn, values: [dev]}
 
 ```
-
 `matchLabels` is a map of `{key,value}` pairs. A single `{key,value}` in the `matchLabels` map is equivalent to an element of `matchExpressions`, whose `key` field is "key", the `operator` is "In", and the `values` array contains only "value". `matchExpressions` is a list of pod selector requirements. Valid operators include In, NotIn, Exists, and DoesNotExist. The values set must be non-empty in the case of In and NotIn. All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together -- they must all be satisfied in order to match.
 
 

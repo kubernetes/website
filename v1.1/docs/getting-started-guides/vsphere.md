@@ -16,33 +16,30 @@ convenient).
 2. You must have Go (version 1.2 or later) installed: [www.golang.org](http://www.golang.org).
 3. You must have your `GOPATH` set up and include `$GOPATH/bin` in your `PATH`.
 
-```shell
-   export GOPATH=$HOME/src/go
+```shell
+export GOPATH=$HOME/src/go
    mkdir -p $GOPATH
    export PATH=$PATH:$GOPATH/bin
 ```
-
 4. Install the govc tool to interact with ESXi/vCenter:
 
-```shell
-   go get github.com/vmware/govmomi/govc
+```shell
+go get github.com/vmware/govmomi/govc
 ```
-
 5. Get or build a [binary release](binary_release)
 
 ### Setup
 
 Download a prebuilt Debian 7.7 VMDK that we'll use as a base image:
 
-```shell
+```shell
 curl --remote-name-all https://storage.googleapis.com/govmomi/vmdk/2014-11-11/kube.vmdk.gz{,.md5}
 md5sum -c kube.vmdk.gz.md5
 gzip -d kube.vmdk.gz
 ```
-
 Import this VMDK into your vSphere datastore:
 
-```shell
+```shell
 export GOVC_URL='user:pass@hostname'
 export GOVC_INSECURE=1 # If the host above uses a self-signed cert
 export GOVC_DATASTORE='target datastore'
@@ -50,13 +47,11 @@ export GOVC_RESOURCE_POOL='resource pool or cluster with access to datastore'
 
 govc import.vmdk kube.vmdk ./kube/
 ```
-
 Verify that the VMDK was correctly uploaded and expanded to ~3GiB:
 
-```shell
+```shell
 govc datastore.ls ./kube/
 ```
-
 Take a look at the file `cluster/vsphere/config-common.sh` fill in the required
 parameters. The guest login for the image that you imported is `kube:kube`.
 
@@ -65,12 +60,11 @@ parameters. The guest login for the image that you imported is `kube:kube`.
 Now, let's continue with deploying Kubernetes.
 This process takes about ~10 minutes.
 
-```shell
+```shell
 cd kubernetes # Extracted binary release OR repository root
 export KUBERNETES_PROVIDER=vsphere
 cluster/kube-up.sh
 ```
-
 Refer to the top level README and the getting started guide for Google Compute
 Engine. Once you have successfully reached this point, your vSphere Kubernetes
 deployment works just as any other one!

@@ -18,26 +18,22 @@ Throughout this doc you will see a few terms that are sometimes used interchanga
 Typically, services and pods have IPs only routable by the cluster network. All traffic that ends up at an edge router is either dropped or forwarded elsewhere. Conceptually, this might look like:
 
 ```
-
-    internet
+internet
         |
   ------------
   [ Services ]
 
 ```
-
 An Ingress is a collection of rules that allow inbound connections to reach the cluster services.
 
 ```
-
-    internet
+internet
         |
    [ Ingress ]
    --|-----|--
    [ Services ]
 
 ```
-
 It can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. Users request ingress by POSTing the Ingress resource to the API server. An [Ingress controller](#ingress-controllers) is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic in an HA manner.
 
 ## Prerequisites
@@ -53,7 +49,6 @@ Before you start using the Ingress resource, there are a few things you should u
 A minimal Ingress might look like:
 
 ```yaml
-
 01. apiVersion: extensions/v1beta1
 02. kind: Ingress
 03. metadata:
@@ -68,7 +63,6 @@ A minimal Ingress might look like:
 12.          servicePort: 80
 
 ```
-
 *POSTing this to the API server will have no effect if you have not configured an [Ingress controller](#ingress-controllers).*
 
 __Lines 1-4__: As with all other Kubernetes config, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](simple-yaml), [here](configuring-containers), and [here](working-with-resources).
@@ -94,7 +88,6 @@ There are existing Kubernetes concepts that allow you to expose a single service
 <!-- BEGIN MUNGE: EXAMPLE ingress.yaml -->
 
 ```yaml
-
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -105,20 +98,17 @@ spec:
     servicePort: 80
 
 ```
-
 [Download example](ingress.yaml)
 <!-- END MUNGE: EXAMPLE ingress.yaml -->
 
 If you create it using `kubectl -f` you should see:
 
 ```shell
-
 $ kubectl get ing
 NAME                RULE          BACKEND        ADDRESS
 test-ingress        -             testsvc:80     107.178.254.228
 
 ```
-
 Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy this Ingress. The `RULE` column shows that all traffic send to the IP is directed to the Kubernetes Service listed under `BACKEND`.
 
 ### Simple fanout
@@ -126,16 +116,13 @@ Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
 As described previously, pods within kubernetes have ips only visible on the cluster network, so we need something at the edge accepting ingress traffic and proxying it to the right endpoints. This component is usually a highly available loadbalancer/s. An Ingress allows you to keep the number of loadbalancers down to a minimum, for example, a setup like:
 
 ```
-
 foo.bar.com -> 178.91.123.132 -> / foo    s1:80
                                  / bar    s2:80
 
 ```
-
 would require an Ingress such as:
 
 ```yaml
-
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -155,11 +142,9 @@ spec:
           servicePort: 80
 
 ```
-
 When you create the Ingress with `kubectl create -f`:
 
 ```
-
 $ kubectl get ing
 NAME      RULE          BACKEND   ADDRESS
 test      -
@@ -168,7 +153,6 @@ test      -
           /bar          s2:80
 
 ```
-
 The Ingress controller will provision an implementation specific loadbalancer that satisfies the Ingress, as long as the services (s1, s2) exist. When it has done so, you will see the address of the loadbalancer under the last column of the Ingress.
 
 ### Name based virtual hosting
@@ -176,18 +160,14 @@ The Ingress controller will provision an implementation specific loadbalancer th
 Name-based virtual hosts use multiple host names for the same IP address.
 
 ```
-
-
 foo.bar.com --|                 |-> foo.bar.com s1:80
               | 178.91.123.132  |
 bar.foo.com --|                 |-> bar.foo.com s2:80
 
 ```
-
 The following Ingress tells the backing loadbalancer to route requests based on the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 ```yaml
-
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -208,8 +188,6 @@ spec:
           servicePort: 80
 
 ```
-
-
 __Default Backends__: An Ingress with no rules, like the one shown in the previous section, sends all traffic to a single default backend. You can use the same technique to tell a loadbalancer where to find your website's 404 page, by specifying a set of rules *and* a default backend. Traffic is routed to your default backend if none of the Hosts in your Ingress match the Host in the request header, and/or none of the paths match the url of the request.
 
 ### Loadbalancing
@@ -223,7 +201,6 @@ It's also worth noting that even though health checks are not exposed directly t
 Say you'd like to add a new Host to an existing Ingress, you can update it by editing the resource:
 
 ```shell
-
 $ kubectl get ing
 NAME      RULE          BACKEND   ADDRESS
 test      -                       178.91.123.132
@@ -232,11 +209,9 @@ test      -                       178.91.123.132
 $ kubectl edit ing test
 
 ```
-
 This should pop up an editor with the existing yaml, modify it to include the new Host.
 
 ```yaml
-
 spec:
   rules:
   - host: foo.bar.com
@@ -256,11 +231,9 @@ spec:
 ..
 
 ```
-
 saving it will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
 
 ```shell
-
 $ kubectl get ing
 NAME      RULE          BACKEND   ADDRESS
 test      -                       178.91.123.132
@@ -270,7 +243,6 @@ test      -                       178.91.123.132
           /foo          s2:80
 
 ```
-
 You can achieve the same by invoking `kubectl replace -f` on a modified Ingress yaml file.
 
 ## Future Work

@@ -37,7 +37,6 @@ bring up 3 nginx pods.
 <!-- BEGIN MUNGE: EXAMPLE nginx-deployment.yaml -->
 
 ```yaml
-
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -56,56 +55,48 @@ spec:
         - containerPort: 80
 
 ```
-
 [Download example](nginx-deployment.yaml)
 <!-- END MUNGE: EXAMPLE nginx-deployment.yaml -->
 
 Run the example by downloading the example file and then running this command:
 
 ```shell
-
 $ kubectl create -f docs/user-guide/nginx-deployment.yaml
 deployment "nginx-deployment" created
 
 ```
-
 Running a get immediately will give:
 
 ```shell
-
 $ kubectl get deployments
 NAME               UPDATEDREPLICAS   AGE
 nginx-deployment   0/3               8s
 
 ```
-
 This indicates that deployment is trying to update 3 replicas. It has not
 updated any one of those yet.
 
 Running a get again after a minute, will give:
 
 ```shell
-
 $ kubectl get deployments
 NAME               UPDATEDREPLICAS   AGE
 nginx-deployment   3/3               1m
 
 ```
-
 This indicates that deployent has created all the 3 replicas.
-Running ```kubectl get rc``` and ```kubectl get pods``` will show the replication controller (RC) and pods created.
+Running ```kubectl get rc```
+and ```kubectl get pods```
+will show the replication controller (RC) and pods created.
 
 ```shell
-
 $ kubectl get rc
 CONTROLLER                      CONTAINER(S)   IMAGE(S)      SELECTOR                                                        REPLICAS   AGE
 REPLICAS   AGE
 deploymentrc-1975012602         nginx          nginx:1.7.9   deployment.kubernetes.io/podTemplateHash=1975012602,app=nginx   3          2m
 
 ```
-
 ```shell
-
 $ kubectl get pods
 NAME                            READY          STATUS        RESTARTS       AGE
 deploymentrc-1975012602-4f2tb   1/1            Running       0              1m
@@ -113,7 +104,6 @@ deploymentrc-1975012602-j975u   1/1            Running       0              1m
 deploymentrc-1975012602-uashb   1/1            Running       0              1m
 
 ```
-
 The created RC will ensure that there are 3 nginx pods at all time.
 
 ## Updating a Deployment
@@ -125,7 +115,6 @@ For this, we update our deployment to be as follows:
 <!-- BEGIN MUNGE: EXAMPLE new-nginx-deployment.yaml -->
 
 ```yaml
-
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -144,68 +133,57 @@ spec:
         - containerPort: 80
 
 ```
-
 [Download example](new-nginx-deployment.yaml)
 <!-- END MUNGE: EXAMPLE new-nginx-deployment.yaml -->
 
 
 ```shell
-
 $ kubectl apply -f docs/user-guide/new-nginx-deployment.yaml
 deployment "nginx-deployment" configured
 
 ```
-
 Running a get immediately will still give:
 
 ```shell
-
 $ kubectl get deployments
 NAME               UPDATEDREPLICAS   AGE
 nginx-deployment   3/3               8s
 
 ```
-
 This indicates that deployment status has not been updated yet (it is still
 showing old status).
 Running a get again after a minute, will give:
 
 ```shell
-
 $ kubectl get deployments
 NAME               UPDATEDREPLICAS   AGE
 nginx-deployment   1/3               1m
 
 ```
-
 This indicates that deployment has updated one of the three pods that it needs
 to update.
 Eventually, it will get around to updating all the pods.
 
 ```shell
-
 $ kubectl get deployments
 NAME               UPDATEDREPLICAS   AGE
 nginx-deployment   3/3               3m
 
 ```
-
-We can run ```kubectl get rc``` to see that deployment updated the pods by creating a new RC
+We can run ```kubectl get rc```
+to see that deployment updated the pods by creating a new RC
 which it scaled up to 3 and scaled down the old RC to 0.
 
 ```shell
-
 kubectl get rc
 CONTROLLER                CONTAINER(S)   IMAGE(S)      SELECTOR                                                         REPLICAS   AGE
 deploymentrc-1562004724   nginx          nginx:1.9.1   deployment.kubernetes.io/podTemplateHash=1562004724,app=nginx   3          5m
 deploymentrc-1975012602   nginx          nginx:1.7.9   deployment.kubernetes.io/podTemplateHash=1975012602,app=nginx   0          7m
 
 ```
-
 Running get pods, will only show the new pods.
 
 ```shell
-
 kubectl get pods
 NAME                            READY     STATUS    RESTARTS   AGE
 deploymentrc-1562004724-0tgk5   1/1       Running   0          9m
@@ -213,7 +191,6 @@ deploymentrc-1562004724-1rkfl   1/1       Running   0          8m
 deploymentrc-1562004724-6v702   1/1       Running   0          8m
 
 ```
-
 Next time we want to update pods, we can just update the deployment again.
 
 Deployment ensures that not all pods are down while they are being updated. By
@@ -223,7 +200,6 @@ it first created a new pod, then deleted some old pods and created new ones. It
 does not kill old pods until a sufficient number of new pods have come up.
 
 ```shell
-
 $ kubectl describe deployments
 Name:                           nginx-deployment
 Namespace:                      default
@@ -245,7 +221,6 @@ Events:
   1m            1m              1       {deployment-controller }                        ScalingRC       Scaled down rc deploymentrc-1975012602 to 0
 
 ```
-
 Here we see that when we first created the deployment, it created an RC and scaled it up to 3 replicas directly.
 When we updated the deployment, it created a new RC and scaled it up to 1 and then scaled down the old RC by 1, so that at least 2 pods were available at all times.
 It then scaled up the new RC to 3 and when those pods were ready, it scaled down the old RC to 0.

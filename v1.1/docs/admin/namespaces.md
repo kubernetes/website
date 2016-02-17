@@ -46,12 +46,10 @@ Look [here](namespaces/) for an in depth example of namespaces.
 You can list the current namespaces in a cluster using:
 
 ```shell
-
 $ kubectl get namespaces
 NAME          LABELS    STATUS
 default       <none>    Active
 kube-system   <none>    Active
-
 ```
 
 Kubernetes starts with two initial namespaces:
@@ -61,15 +59,12 @@ Kubernetes starts with two initial namespaces:
 You can also get the summary of a specific namespace using:
 
 ```shell
-
 $ kubectl get namespaces <name>
-
 ```
 
 Or you can get detailed information with:
 
 ```shell
-
 $ kubectl describe namespaces <name>
 Name:	   default
 Labels:	   <none>
@@ -81,7 +76,6 @@ Resource Limits
  Type		Resource	Min	Max	Default
  ----				--------	---	---	---
  Container			cpu			-	-	100m
-
 ```
 
 Note that these details show both resource quota (if present) as well as resource limit ranges.
@@ -105,12 +99,10 @@ See the [design doc](../design/namespaces.html#phases) for more details.
 To create a new namespace, first create a new YAML file called `my-namespace.yaml` with the contents:
 
 ```yaml
-
 apiVersion: v1
 kind: Namespace
 metadata:
   name: <insert-namespace-name-here>
-
 ```
 
 Note that the name of your namespace must be a DNS compatible label.
@@ -120,9 +112,7 @@ More information on the `finalizers` field can be found in the namespace [design
 Then run:
 
 ```shell
-
 $ kubectl create -f ./my-namespace.yaml
-
 ```
 
 ### Working in namespaces
@@ -135,9 +125,7 @@ and [Setting the namespace preference](/{{page.version}}/docs/user-guide/namespa
 You can delete a namespace with
 
 ```shell
-
 $ kubectl delete namespaces <insert-some-namespace-name>
-
 ```
 
 **WARNING, this deletes _everything_ under the namespace!**
@@ -157,6 +145,3 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 Details of the design of namespaces in Kubernetes, including a [detailed example](../design/namespaces.html#example-openshift-origin-managing-a-kubernetes-namespace)
 can be found in the [namespaces design doc](../design/namespaces)
-
-
-

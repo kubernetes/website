@@ -10,24 +10,20 @@ TODO: Auto-generate this file to ensure it's always in sync with any `kubectl` c
 Use the following syntax to run `kubectl` commands from your terminal window:
 
 ```
-
 kubectl [command] [TYPE] [NAME] [flags]
 
 ```
-
 where `command`, `TYPE`, `NAME`, and `flags` are:
 
 * `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
    ```
-
-    $ kubectl get pod pod1
+$ kubectl get pod pod1
     $ kubectl get pods pod1
     $ kubectl get po pod1
 
    ```
-
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
 
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
@@ -112,11 +108,9 @@ The default output format for all `kubectl` commands is the human readable plain
 #### Syntax
 
 ```
-
 kubectl [command] [TYPE] [NAME] -o=<output_format>
 
 ```
-
 Depending on the `kubectl` operation, the following output formats are supported:
 
 Output format | Description
@@ -147,37 +141,29 @@ To define custom columns and output only the details that you want into a table,
  * Inline:
 
 ```shell
-
-      $ kubectl get pods <pod-name> -o=custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
+$ kubectl get pods <pod-name> -o=custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
 
 ```
-
- * Template file:
+* Template file:
 
 ```shell
-
-     $ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
+$ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
 
 ```
-
-     where the `template.txt` file contains:
+where the `template.txt` file contains:
 
      ```
-
-      NAME                    RSRC
+NAME                    RSRC
       metadata.name           metadata.resourceVersion
 
      ```
-
 The result of running either command is:
 
 ```shell
-
 NAME           RSRC
 submit-queue   610995
 
 ```
-
 ### Sorting list objects
 
 To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](jsonpath) expression.
@@ -185,11 +171,9 @@ To output objects to a sorted list in your terminal window, you can add the `--s
 #### Syntax
 
 ```
-
 kubectl [command] [TYPE] [NAME] --sort-by=<jsonpath_exp>
 
 ```
-
 ##### Example
 
 To print a list of pods sorted by name, you run:
