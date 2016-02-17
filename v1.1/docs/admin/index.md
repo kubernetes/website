@@ -35,6 +35,3 @@ It assumes some familiarity with concepts in the [User Guide](../user-guide/READ
     1. [Getting started from scratch](../getting-started-guides/scratch)
       1. [Kubernetes's use of salt](salt)
   1. [Troubleshooting](cluster-troubleshooting)
-
-
-

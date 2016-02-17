@@ -781,6 +781,7 @@ section {
   #docsContent code {
 	font-size: 16px;
 	background-color: #f7f7f7;
+    font-weight: bold;
 	padding: 2px 4px; }
   #docsContent pre pi, #docsContent pre s {
     margin: 0px;
