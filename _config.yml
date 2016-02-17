@@ -3,8 +3,7 @@ markdown: kramdown
 kramdown:
   input: GFM
   html_to_native: true
-  hard_wrap: false
-  enable_coderay: true
+  syntax_highlighter: rouge
 baseurl: /
 incremental: true
 
