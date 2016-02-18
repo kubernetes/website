@@ -27,16 +27,17 @@
 	background-color: #f7f7f7;
 	font-weight: bold;
 	padding: 2px 4px; }
-#docsContent pre pi, #docsContent pre s {
-	margin: 0px;
-	padding: 0px;
+#docsContent pre .pi, #docsContent pre .s {
+	margin: 0;
+	padding: 0;
 }
 .highlight code span, #docsContent code, #docsContent pre code {
 	font-family: "Roboto Mono", monospace; }
 #docsContent code, #docsContent pre code {
 	color: #303030; }
 #docsContent pre code {
-	padding: 0px; }
+	padding: 0; }
+
 #docsContent pre {
 	background-color: #f7f7f7;
 	display: block;
