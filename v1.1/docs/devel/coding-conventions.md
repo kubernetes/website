@@ -8,7 +8,7 @@ Code conventions
     - https://google-styleguide.googlecode.com/svn/trunk/shell.xml
     - Ensure that build, release, test, and cluster-management scripts run on OS X
   - Go
-    - Ensure your code passes the [presubmit checks](development.html#hooks)
+    - Ensure your code passes the [presubmit checks](development/#hooks)
     - [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
     - [Effective Go](https://golang.org/doc/effective_go)
     - Comment your code.
@@ -47,7 +47,7 @@ Directory and file conventions
     - Package directories should generally avoid using separators as much as possible (when packages are multiple words, they usually should be in nested subdirectories).
   - Document directories and filenames should use dashes rather than underscores
   - Contrived examples that illustrate system features belong in /docs/user-guide or /docs/admin, depending on whether it is a feature primarily intended for users that deploy applications or cluster administrators, respectively. Actual application examples belong in /examples.
-    - Examples should also illustrate [best practices for using the system](../user-guide/config-best-practices)
+    - Examples should also illustrate [best practices for using the system](/{{page.version}}/docs/user-guide/config-best-practices)
   - Third-party code
     - Third-party Go code is managed using Godeps
     - Other third-party code belongs in /third_party

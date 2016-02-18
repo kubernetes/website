@@ -24,7 +24,7 @@ Pods created by a replication controller are intended to be fungible and semanti
 
 ### Labels
 
-The population of pods that a replication controller is monitoring is defined with a [label selector](labels.html#label-selectors), which creates a loosely coupled relationship between the controller and the pods controlled, in contrast to pods, which are more tightly coupled to their definition. We deliberately chose not to represent the set of pods controlled using a fixed-length array of pod specifications, because our experience is that approach increases complexity of management operations, for both clients and the system.
+The population of pods that a replication controller is monitoring is defined with a [label selector](labels/#label-selectors), which creates a loosely coupled relationship between the controller and the pods controlled, in contrast to pods, which are more tightly coupled to their definition. We deliberately chose not to represent the set of pods controlled using a fixed-length array of pod specifications, because our experience is that approach increases complexity of management operations, for both clients and the system.
 
 The replication controller should verify that the pods created from the specified template have labels that match its label selector. Though it isn't verified yet, you should also ensure that only one replication controller controls any given pod, by ensuring that the label selectors of replication controllers do not target overlapping sets. If you do end up with multiple controllers that have overlapping selectors, you will have to manage the deletion yourself with --cascade=false until there are no controllers with an overlapping superset of selectors.
 
@@ -75,4 +75,4 @@ For instance, a service might target all pods with `tier in (frontend), environm
 
 Replication controller is a top-level resource in the kubernetes REST API. More details about the
 API object can be found at: [ReplicationController API
-object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_replicationcontroller).
+object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions/#_v1_replicationcontroller).

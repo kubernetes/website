@@ -12,7 +12,7 @@ title: "Getting started on Fedora"
 
 This is a getting started guide for [Fedora](http://fedoraproject.org).  It is a manual configuration so you understand all the underlying packages / services / ports, etc...
 
-This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](../../admin/networking)
+This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](/{{page.version}}/docs/admin/networking)
 done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
 
 The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These
@@ -212,4 +212,4 @@ kubectl delete -f ./node.json
 
 **The cluster should be running! Launch a test pod.**
 
-You should have a functional cluster, check out [101](/{{page.version}}/docs/user-guide/walkthrough/README)!
+You should have a functional cluster, check out [101](/{{page.version}}/docs/user-guide/walkthrough/)!

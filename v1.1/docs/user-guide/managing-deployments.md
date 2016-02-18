@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Managing deployments"
 ---
-You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features we'll discuss in more depth are [configuration files](configuring-containers.html#configuration-in-kubernetes) and [labels](deploying-applications.html#labels).
+You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features we'll discuss in more depth are [configuration files](configuring-containers/#configuration-in-kubernetes) and [labels](deploying-applications/#labels).
 
 * TOC
 {:toc}
@@ -233,7 +233,7 @@ my-nginx-o0ef1   1/1       Running   0          1h
 
 At some point, you'll eventually need to update your deployed application, typically by specifying a new image or image tag, as in the canary deployment scenario above. `kubectl` supports several update operations, each of which is applicable to different scenarios.
 
-To update a service without an outage, `kubectl` supports what is called ['rolling update'?](kubectl/kubectl_rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](../design/simple-rolling-update) and the [example of rolling update](update-demo/) for more information.
+To update a service without an outage, `kubectl` supports what is called ['rolling update'?](kubectl/kubectl_rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://github.com/kubernetes/kubernetes/tree/master/docs/design/simple-rolling-update.md) and the [example of rolling update](update-demo/) for more information.
 
 Let's say you were running version 1.7.9 of nginx:
 
@@ -256,7 +256,7 @@ spec:
         - containerPort: 80
 ```
 
-To update to version 1.9.1, you can use [`kubectl rolling-update --image`](/{{page.version}}/docs/design/simple-rolling-update):
+To update to version 1.9.1, you can use [`kubectl rolling-update --image`](https://github.com/kubernetes/kubernetes/tree/master/docs/design/simple-rolling-update.md):
 
 ```shell
 $ kubectl rolling-update my-nginx --image=nginx:1.9.1

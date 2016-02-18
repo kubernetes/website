@@ -24,7 +24,7 @@ Below, we outline one of the more common git workflows that core developers use.
 
 ### Clone your fork
 
-The commands below require that you have $GOPATH set ([$GOPATH docs](https://golang.org/doc/code.html#GOPATH)). We highly recommend you put Kubernetes' code into your GOPATH. Note: the commands below will not work if there is more than one directory in your `$GOPATH`.
+The commands below require that you have $GOPATH set ([$GOPATH docs](https://golang.org/doc/code/#GOPATH)). We highly recommend you put Kubernetes' code into your GOPATH. Note: the commands below will not work if there is more than one directory in your `$GOPATH`.
 
 ```shell
 mkdir -p $GOPATH/src/k8s.io

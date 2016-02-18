@@ -4,7 +4,7 @@ title: "Secrets"
 Objects of type `secret` are intended to hold sensitive information, such as
 passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
 is safer and more flexible than putting it verbatim in a `pod` definition or in
-a docker image. See [Secrets design document](../design/secrets) for more information.
+a docker image. See [Secrets design document](https://github.com/kubernetes/kubernetes/tree/master/docs/design/secrets.md) for more information.
 
 * TOC
 {:toc}
@@ -51,7 +51,7 @@ data:
 ```
 
 The data field is a map.  Its keys must match
-[`DNS_SUBDOMAIN`](../design/identifiers), except that leading dots are also
+[`DNS_SUBDOMAIN`](https://github.com/kubernetes/kubernetes/tree/master/docs/design/identifiers.md), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64. The values of
 username and password in the example above, before base64 encoding,
 are `value-1` and `value-2`, respectively, with carriage return and newline characters at the end.
@@ -105,7 +105,7 @@ See another example of creating a secret and a pod that consumes that secret in 
 
 ### Manually specifying an imagePullSecret
 
-Use of imagePullSecrets is described in the [images documentation](images.html#specifying-imagepullsecrets-on-a-pod)
+Use of imagePullSecrets is described in the [images documentation](images/#specifying-imagepullsecrets-on-a-pod)
 
 ### Arranging for imagePullSecrets to be Automatically Attached
 
@@ -113,7 +113,7 @@ You can manually create an imagePullSecret, and reference it from
 a serviceAccount.  Any pods created with that serviceAccount
 or that default to use that serviceAccount, will get have the imagePullSecret of the
 field set to that of the service account.
-See [here](service-accounts.html#adding-imagepullsecrets-to-a-service-account)
+See [here](service-accounts/#adding-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
 
 
@@ -189,7 +189,7 @@ the original pod must be deleted, and a new pod (perhaps with an identical
 workflow as deploying a new container image.  The `kubectl rolling-update`
 command can be used ([man page](kubectl/kubectl_rolling-update)).
 
-The [`resourceVersion`](../devel/api-conventions.html#concurrency-control-and-consistency)
+The [`resourceVersion`](/{{page.version}}/docs/devel/api-conventions/#concurrency-control-and-consistency)
 of the secret is not specified when it is referenced.
 Therefore, if a secret is updated at about the same time as pods are starting,
 then it is not defined which version of the secret will be used for the pod. It

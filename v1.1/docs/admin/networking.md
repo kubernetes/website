@@ -1,17 +1,18 @@
 ---
 title: "Networking in Kubernetes"
 ---
-* TOC
-{:toc}
-
 Kubernetes approaches networking somewhat differently than Docker does by
 default.  There are 4 distinct networking problems to solve:
 
 1. Highly-coupled container-to-container communications: this is solved by
-   [pods](../user-guide/pods) and `localhost` communications.
+   [pods](/{{page.version}}/docs/user-guide/pods) and `localhost` communications.
 2. Pod-to-Pod communications: this is the primary focus of this document.
-3. Pod-to-Service communications: this is covered by [services](../user-guide/services).
-4. External-to-Service communications: this is covered by [services](../user-guide/services).
+3. Pod-to-Service communications: this is covered by [services](/{{page.version}}/docs/user-guide/services).
+4. External-to-Service communications: this is covered by [services](/{{page.version}}/docs/user-guide/services).
+
+* TOC
+{:toc}
+
 
 ## Summary
 
@@ -180,4 +181,4 @@ IPs.
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
-document](../design/networking).
+document](https://github.com/kubernetes/kubernetes/tree/master/docs/design/networking.md).

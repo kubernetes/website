@@ -29,7 +29,7 @@ Like individual application containers, pods are considered to be relatively eph
 
 Pods facilitate data sharing and communication among their constituents.
 
-The applications in the pod all use the same network namespace/IP and port space, and can find and communicate with each other using localhost. Each pod has an IP address in a flat shared networking namespace that has full communication with other physical computers and containers across the network. The hostname is set to the pod's Name for the application containers within the pod. [More details on networking](../admin/networking).
+The applications in the pod all use the same network namespace/IP and port space, and can find and communicate with each other using localhost. Each pod has an IP address in a flat shared networking namespace that has full communication with other physical computers and containers across the network. The hostname is set to the pod's Name for the application containers within the pod. [More details on networking](/{{page.version}}/docs/admin/networking).
 
 In addition to defining the application containers that run in the pod, the pod specifies a set of shared storage volumes. Volumes enable data to survive container restarts and to be shared among the applications within the pod.
 
@@ -93,7 +93,7 @@ An example flow:
 2. The Pod in the API server is updated with the time beyond which the Pod is considered "dead" along with the grace period.
 3. Pod shows up as "Terminating" when listed in client commands
 4. (simultaneous with 3) When the Kubelet sees that a Pod has been marked as terminating because the time in 2 has been set, it begins the pod shutdown process.
-  1. If the pod has defined a [preStop hook](container-environment.html#hook-details), it is invoked inside of the pod. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) extended grace period.
+  1. If the pod has defined a [preStop hook](container-environment/#hook-details), it is invoked inside of the pod. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) extended grace period.
   2. The processes in the Pod are sent the TERM signal.
 5. (simultaneous with 3), Pod is removed from endpoints list for service, and are no longer considered part of the set of running pods for replication controllers. Pods that shutdown slowly can continue to serve traffic as load balancers (like the service proxy) remove them from their rotations.
 6. When the grace period expires, any processes still running in the Pod are killed with SIGKILL.
@@ -118,7 +118,7 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 
 Pod is a top-level resource in the kubernetes REST API. More details about the
 API object can be found at: [Pod API
-object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_pod).
+object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions/#_v1_pod).
 
 
 

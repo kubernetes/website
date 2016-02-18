@@ -69,7 +69,7 @@ rules:
 
 __Lines 1-4__: As with all other Kubernetes config, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](simple-yaml), [here](configuring-containers), and [here](working-with-resources).
 
-__Lines 5-7__: Ingress [spec](../devel/api-conventions.html#spec-and-status) has all the information needed to configure a loadbalancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Currently the Ingress resource only supports http rules.
+__Lines 5-7__: Ingress [spec](/{{page.version}}/docs/devel/api-conventions/#spec-and-status) has all the information needed to configure a loadbalancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Currently the Ingress resource only supports http rules.
 
 __Lines 8-9__: Each http rule contains the following information: A host (eg: foo.bar.com, defaults to * in this example), a list of paths (eg: /testpath) each of which has an associated backend (test:80). Both the host and path must match the content of an incoming request before the loadbalancer directs traffic to the backend.
 

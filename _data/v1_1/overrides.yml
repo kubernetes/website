@@ -1,5 +1,4 @@
 overrides:
-- path: v1.1/docs/design
 - path: v1.1/docs/man
 - path: v1.1/docs/proposals
 - path: v1.1/docs/api-reference

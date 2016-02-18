@@ -73,7 +73,7 @@ $ kubectl config set-context $(CONTEXT) --namespace=<insert-namespace-name-here>
 
 ## Namespaces and DNS
 
-When you create a [Service](services), it creates a corresponding [DNS entry](../admin/dns).
+When you create a [Service](services), it creates a corresponding [DNS entry](/{{page.version}}/docs/admin/dns).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
 that if a container just uses `<service-name>` it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across

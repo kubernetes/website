@@ -21,7 +21,7 @@ limitations under the License.
 
 # Rolling update example
 
-This example demonstrates the usage of Kubernetes to perform a [rolling update](../kubectl/kubectl_rolling-update) on a running group of [pods](/{{page.version}}/docs/user-guide/pods). See [here](../managing-deployments.html#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](../../design/simple-rolling-update) for more information.
+This example demonstrates the usage of Kubernetes to perform a [rolling update](../kubectl/kubectl_rolling-update) on a running group of [pods](/{{page.version}}/docs/user-guide/pods). See [here](../managing-deployments/#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](https://github.com/kubernetes/kubernetes/tree/master/docs/design/simple-rolling-update) for more information.
 
 ### Step Zero: Prerequisites
 

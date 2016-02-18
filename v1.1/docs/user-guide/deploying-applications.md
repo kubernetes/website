@@ -35,7 +35,7 @@ spec:
 
 Some differences compared to specifying just a pod are that the `kind` is `ReplicationController`, the number of `replicas` desired is specified, and the pod specification is under the `template` field. The names of the pods don't need to be specified explicitly because they are generated from the name of the replication controller.
 View the [replication controller API
-object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_replicationcontroller)
+object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions/#_v1_replicationcontroller)
 to view the list of supported fields.
 
 This replication controller can be created using `create`, just as with pods:
@@ -100,7 +100,7 @@ CONTROLLER   CONTAINER(S)   IMAGE(S)   SELECTOR    REPLICAS   APP
 my-nginx     nginx          nginx      app=nginx   2          nginx
 ```
 
-More importantly, the pod template's labels are used to create a [`selector`](labels.html#label-selectors) that will match pods carrying those labels. You can see this field by requesting it using the [Go template output format of `kubectl get`](kubectl/kubectl_get):
+More importantly, the pod template's labels are used to create a [`selector`](labels/#label-selectors) that will match pods carrying those labels. You can see this field by requesting it using the [Go template output format of `kubectl get`](kubectl/kubectl_get):
 
 ```shell
 $ kubectl get rc my-nginx -o template --template="{{.spec.selector}}"

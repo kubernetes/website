@@ -171,7 +171,7 @@ Here you can see from the `Allocated resources` section that that a pod which as
 
 Looking at the `Pods` section, you can see which pods are taking up space on the node.
 
-The [resource quota](../admin/resource-quota) feature can be configured
+The [resource quota](/{{page.version}}/docs/admin/resource-quota) feature can be configured
 to limit the total amount of resources that can be consumed.  If used in conjunction
 with namespaces, it can prevent one team from hogging all the resources.
 
@@ -234,11 +234,11 @@ We can see that this container was terminated because `reason:OOM Killed`, where
 
 The current system only allows resource quantities to be specified on a container.
 It is planned to improve accounting for resources which are shared by all containers in a pod,
-such as [EmptyDir volumes](volumes.html#emptydir).
+such as [EmptyDir volumes](volumes/#emptydir).
 
 The current system only supports container requests and limits for CPU and Memory.
 It is planned to add new resource types, including a node disk space
-resource, and a framework for adding custom [resource types](../design/resources.html#resource-types).
+resource, and a framework for adding custom [resource types](https://github.com/kubernetes/kubernetes/tree/master/docs/design/resources.md#resource-types).
 
 Kubernetes supports overcommitment of resources by supporting multiple levels of [Quality of Service](http://issue.k8s.io/168).
 

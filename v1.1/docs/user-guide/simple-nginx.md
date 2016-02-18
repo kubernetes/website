@@ -35,7 +35,7 @@ kubectl stop rc my-nginx
 
 ### Exposing your pods to the internet.
 
-On some platforms (for example Google Compute Engine) the kubectl command can integrate with your cloud provider to add a [public IP address](services.html#external-services) for the pods,
+On some platforms (for example Google Compute Engine) the kubectl command can integrate with your cloud provider to add a [public IP address](services/#external-services) for the pods,
 to do this run:
 
 ```shell

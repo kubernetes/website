@@ -1,15 +1,15 @@
 ---
 title: "The Kubernetes API"
 ---
-Primary system and API concepts are documented in the [User guide](user-guide/README).
+Primary system and API concepts are documented in the [User guide](/{{page.version}}/docs/user-guide/).
 
-Overall API conventions are described in the [API conventions doc](devel/api-conventions).
+Overall API conventions are described in the [API conventions doc](/{{page.version}}/docs/devel/api-conventions).
 
 Complete API details are documented via [Swagger](http://swagger.io/). The Kubernetes apiserver (aka "master") exports an API that can be used to retrieve the [Swagger spec](https://github.com/swagger-api/swagger-spec/tree/master/schemas/v1.2) for the Kubernetes API, by default at `/swaggerapi`, and a UI you can use to browse the API documentation at `/swagger-ui`. We also periodically update a [statically generated UI](http://kubernetes.io/third_party/swagger-ui/).
 
-Remote access to the API is discussed in the [access doc](admin/accessing-the-api).
+Remote access to the API is discussed in the [access doc](/{{page.version}}/docs/admin/accessing-the-api).
 
-The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [Kubectl](user-guide/kubectl/kubectl) command-line tool can be used to create, update, delete, and get API objects.
+The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [Kubectl](/{{page.version}}/docs/user-guide/kubectl/kubectl) command-line tool can be used to create, update, delete, and get API objects.
 
 Kubernetes also stores its serialized state (currently in [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)) in terms of the API resources.
 
@@ -19,7 +19,7 @@ Kubernetes itself is decomposed into multiple components, which interact through
 
 In our experience, any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, we expect the Kubernetes API to continuously change and grow. However, we intend to not break compatibility with existing clients, for an extended period of time. In general, new API resources and new resource fields can be expected to be added frequently. Elimination of resources or fields will require following a deprecation process. The precise deprecation policy for eliminating features is TBD, but once we reach our 1.0 milestone, there will be a specific policy.
 
-What constitutes a compatible change and how to change the API are detailed by the [API change document](devel/api_changes).
+What constitutes a compatible change and how to change the API are detailed by the [API change document](/{{page.version}}/docs/devel/api_changes).
 
 ## API versioning
 
@@ -30,12 +30,12 @@ multiple API versions, each at a different API path, such as `/api/v1` or
 We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-lifed and/or experimental APIs.
 
 Note that API versioning and Software versioning are only indirectly related.  The [API and release
-versioning proposal](design/versioning) describes the relationship between API versioning and
+versioning proposal](https://github.com/kubernetes/kubernetes/tree/master/docs/design/versioning.md) describes the relationship between API versioning and
 software versioning.
 
 
 Different API versions imply different levels of stability and support.  The criteria for each level are described
-in more detail in the [API Changes documentation](devel/api_changes.html#alpha-beta-and-stable-versions).  They are summarized here:
+in more detail in the [API Changes documentation](/{{page.version}}/docs/devel/api_changes/#alpha-beta-and-stable-versions).  They are summarized here:
 
 - Alpha level:
   - The version names contain `alpha` (e.g. `v1alpha1`).
@@ -73,7 +73,7 @@ Currently there are two API groups in use:
 
 In the future we expect that there will be more API groups, all at REST path `/apis/$API_GROUP` and
 using `apiVersion: $API_GROUP/$VERSION`.  We expect that there will be a way for (third parties to
-create their own API groups](design/extending-api.md), and to avoid naming collisions.
+create their own API groups](https://github.com/kubernetes/kubernetes/tree/master/docs/design/extending-api.md), and to avoid naming collisions.
 
 ## Enabling resources in the extensions group
 
@@ -88,17 +88,17 @@ As of June 4, 2015, the Kubernetes v1 API has been enabled by default. The v1bet
 
 ### v1 conversion tips (from v1beta3)
 
-We're working to convert all documentation and examples to v1. A simple [API conversion tool](admin/cluster-management.html#switching-your-config-files-to-a-new-api-version) has been written to simplify the translation process. Use `kubectl create --validate` in order to validate your json or yaml against our Swagger spec.
+We're working to convert all documentation and examples to v1. A simple [API conversion tool](/{{page.version}}/docs/admin/cluster-management/#switching-your-config-files-to-a-new-api-version) has been written to simplify the translation process. Use `kubectl create --validate` in order to validate your json or yaml against our Swagger spec.
 
 Changes to services are the most significant difference between v1beta3 and v1.
 
 * The `service.spec.portalIP` property is renamed to `service.spec.clusterIP`.
 * The `service.spec.createExternalLoadBalancer` property is removed. Specify `service.spec.type: "LoadBalancer"` to create an external load balancer instead.
-* The `service.spec.publicIPs` property is deprecated and now called `service.spec.deprecatedPublicIPs`. This property will be removed entirely when v1beta3 is removed. The vast majority of users of this field were using it to expose services on ports on the node. Those users should specify `service.spec.type: "NodePort"` instead. Read [External Services](user-guide/services.html#external-services) for more info. If this is not sufficient for your use case, please file an issue or contact @thockin.
+* The `service.spec.publicIPs` property is deprecated and now called `service.spec.deprecatedPublicIPs`. This property will be removed entirely when v1beta3 is removed. The vast majority of users of this field were using it to expose services on ports on the node. Those users should specify `service.spec.type: "NodePort"` instead. Read [External Services](/{{page.version}}/docs/user-guide/services/#external-services) for more info. If this is not sufficient for your use case, please file an issue or contact @thockin.
 
 Some other difference between v1beta3 and v1:
 
-* The `pod.spec.containers[*].privileged` and `pod.spec.containers[*].capabilities` properties are now nested under the `pod.spec.containers[*].securityContext` property. See [Security Contexts](user-guide/security-context).
+* The `pod.spec.containers[*].privileged` and `pod.spec.containers[*].capabilities` properties are now nested under the `pod.spec.containers[*].securityContext` property. See [Security Contexts](/{{page.version}}/docs/user-guide/security-context).
 * The `pod.spec.host` property is renamed to `pod.spec.nodeName`.
 * The `endpoints.subsets[*].addresses.IP` property is renamed to `endpoints.subsets[*].addresses.ip`.
 * The `pod.status.containerStatuses[*].state.termination` and `pod.status.containerStatuses[*].lastState.termination` properties are renamed to `pod.status.containerStatuses[*].state.terminated` and `pod.status.containerStatuses[*].lastState.terminated` respectively.
@@ -119,7 +119,7 @@ Some important differences between v1beta1/2 and v1beta3:
 * The `labels` query parameter has been renamed to `labelSelector`.
 * The `fields` query parameter has been renamed to `fieldSelector`.
 * The container `entrypoint` has been renamed to `command`, and `command` has been renamed to `args`.
-* Container, volume, and node resources are expressed as nested maps (e.g., `resources{cpu:1}`) rather than as individual fields, and resource values support [scaling suffixes](user-guide/compute-resources.html#specifying-resource-quantities) rather than fixed scales (e.g., milli-cores).
+* Container, volume, and node resources are expressed as nested maps (e.g., `resources{cpu:1}`) rather than as individual fields, and resource values support [scaling suffixes](/{{page.version}}/docs/user-guide/compute-resources/#specifying-resource-quantities) rather than fixed scales (e.g., milli-cores).
 * Restart policy is represented simply as a string (e.g., `"Always"`) rather than as a nested map (`always{}`).
 * Pull policies changed from `PullAlways`, `PullNever`, and `PullIfNotPresent` to `Always`, `Never`, and `IfNotPresent`.
 * The volume `source` is inlined into `volume` rather than nested.

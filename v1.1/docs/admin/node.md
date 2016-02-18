@@ -8,9 +8,9 @@ title: "Node"
 
 `Node` is a worker machine in Kubernetes, previously known as `Minion`. Node
 may be a VM or physical machine, depending on the cluster. Each node has
-the services necessary to run [Pods](../user-guide/pods) and is managed by the master
+the services necessary to run [Pods](/{{page.version}}/docs/user-guide/pods) and is managed by the master
 components. The services on a node include docker, kubelet and network proxy. See
-[The Kubernetes Node](../design/architecture.html#the-kubernetes-node) section in the
+[The Kubernetes Node](https://github.com/kubernetes/kubernetes/tree/master/docs/design/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
 
 ## Node Status
@@ -82,7 +82,7 @@ The information is gathered by Kubelet from the node.
 
 ## Node Management
 
-Unlike [Pods](../user-guide/pods) and [Services](../user-guide/services), a Node is not inherently
+Unlike [Pods](/{{page.version}}/docs/user-guide/pods) and [Services](/{{page.version}}/docs/user-guide/services), a Node is not inherently
 created by Kubernetes: it is either taken from cloud providers like Google Compute Engine,
 or from your pool of physical or virtual machines. What this means is that when
 Kubernetes creates a node, it is really just creating an object that represents the node in its internal state.
@@ -209,4 +209,4 @@ on each kubelet where you want to reserve resources.
 
 Node is a top-level resource in the kubernetes REST API. More details about the
 API object can be found at: [Node API
-object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_node).
+object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions/#_v1_node).

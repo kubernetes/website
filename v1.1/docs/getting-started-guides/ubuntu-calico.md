@@ -252,7 +252,7 @@ With this sample configuration, because the containers have private `192.168.0.0
 
 ### NAT on the nodes
 
-The simplest method for enabling connectivity from containers to the internet is to use an iptables masquerade rule. This is the standard mechanism [recommended](/{{page.version}}/docs/admin/networking.html#google-compute-engine-gce) in the Kubernetes GCE environment.
+The simplest method for enabling connectivity from containers to the internet is to use an iptables masquerade rule. This is the standard mechanism [recommended](/{{page.version}}/docs/admin/networking/#google-compute-engine-gce) in the Kubernetes GCE environment.
 
 We need to NAT traffic that has a destination outside of the cluster. Internal traffic includes the master/nodes, and the container IP pools. A suitable masquerade chain would follow the pattern below, replacing the following variables:
 

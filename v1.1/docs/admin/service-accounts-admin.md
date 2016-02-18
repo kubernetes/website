@@ -2,7 +2,7 @@
 title: "Cluster Admin Guide to Service Accounts"
 ---
 *This is a Cluster Administrator guide to service accounts.  It assumes knowledge of
-the [User Guide to Service Accounts](../user-guide/service-accounts).*
+the [User Guide to Service Accounts](/{{page.version}}/docs/user-guide/service-accounts).*
 
 *Support for authorization and user accounts is planned but incomplete.  Sometimes
 incomplete features are referred to in order to better describe service accounts.*

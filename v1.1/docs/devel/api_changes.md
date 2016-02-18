@@ -182,7 +182,7 @@ pass (e.g., `heightInInches` from `height`, and vice versa), which runs just pri
 to conversion. That works fine when the user creates a resource from a hand-written
 configuration -- clients can write either field and read either field, but what about
 creation or update from the output of GET, or update via PATCH (see
-[In-place updates](../user-guide/managing-deployments.html#in-place-updates-of-resources))?
+[In-place updates](/{{page.version}}/docs/user-guide/managing-deployments/#in-place-updates-of-resources))?
 In this case, the two fields will conflict, because only one field would be updated
 in the case of an old client that was only aware of the old field (e.g., `height`).
 
@@ -251,7 +251,7 @@ Breaking compatibility of a beta or stable API version, such as v1, is unaccepta
 Compatibility for experimental or alpha APIs is not strictly required, but
 breaking compatibility should not be done lightly, as it disrupts all users of the
 feature. Experimental APIs may be removed. Alpha and beta API versions may be deprecated
-and eventually removed wholesale, as described in the [versioning document](../design/versioning).
+and eventually removed wholesale, as described in the [versioning document](https://github.com/kubernetes/kubernetes/tree/master/docs/design/versioning.md).
 Document incompatible changes across API versions under the [conversion tips](../api).
 
 If your change is going to be backward incompatible or might be a breaking change for API

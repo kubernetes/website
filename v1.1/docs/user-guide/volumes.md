@@ -362,7 +362,7 @@ details.
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
 
-See the [`downwardAPI` volume example](downward-api/volume/README)  for more details.
+See the [`downwardAPI` volume example](downward-api/volume/)  for more details.
 
 ## Resources
 

@@ -18,7 +18,7 @@ work like this:
   their resource requests defaulted to match their defined limits. The user is only charged for the
   resources they request in the Resource Quota versus their limits because the request is the minimum
   amount of resource guaranteed by the cluster during scheduling. For more information on over commit,
-  see [compute-resources](../user-guide/compute-resources).
+  see [compute-resources](/{{page.version}}/docs/user-guide/compute-resources).
 - If creating a pod would cause the namespace to exceed any of the limits specified in the
   the Resource Quota for that namespace, then the request will fail with HTTP status
   code `403 FORBIDDEN`.
@@ -52,7 +52,7 @@ Resource Quota is enforced in a particular namespace when there is a
 
 ## Compute Resource Quota
 
-The total sum of [compute resources](../user-guide/compute-resources) requested by pods
+The total sum of [compute resources](/{{page.version}}/docs/user-guide/compute-resources) requested by pods
 in a namespace can be limited.  The following compute resource types are supported:
 
 | ResourceName | Description |
@@ -73,9 +73,9 @@ are supported:
 | pods | Total number of pods  |
 | services | Total number of services |
 | replicationcontrollers | Total number of replication controllers |
-| resourcequotas | Total number of [resource quotas](admission-controllers.html#resourcequota) |
+| resourcequotas | Total number of [resource quotas](admission-controllers/#resourcequota) |
 | secrets | Total number of secrets |
-| persistentvolumeclaims | Total number of [persistent volume claims](../user-guide/persistent-volumes.html#persistentvolumeclaims) |
+| persistentvolumeclaims | Total number of [persistent volume claims](/{{page.version}}/docs/user-guide/persistent-volumes/#persistentvolumeclaims) |
 
 For example, `pods` quota counts and enforces a maximum on the number of `pods`
 created in a single namespace.
@@ -151,4 +151,4 @@ See a [detailed example for how to use resource quota](resourcequota/).
 
 ## Read More
 
-See [ResourceQuota design doc](../design/admission_control_resource_quota) for more information.
+See [ResourceQuota design doc](https://github.com/kubernetes/kubernetes/tree/master/docs/design/admission_control_resource_quota.md) for more information.

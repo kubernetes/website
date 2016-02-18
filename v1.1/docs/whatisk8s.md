@@ -57,27 +57,27 @@ It can also do much more than that.
 
 Kubernetes satisfies a number of common needs of applications running in production, such as:
 
-* [co-locating helper processes](user-guide/pods),
-* [mounting storage systems](user-guide/volumes),
-* [distributing secrets](user-guide/secrets),
-* [application health checking](user-guide/production-pods.html#liveness-and-readiness-probes-aka-health-checks),
-* [replicating application instances](user-guide/replication-controller),
-* [horizontal auto-scaling](user-guide/horizontal-pod-autoscaler),
-* [load balancing](user-guide/services),
-* [rolling updates](user-guide/update-demo/), and
-* [resource monitoring](user-guide/monitoring).
+* [co-locating helper processes](/{{page.version}}/docs/user-guide/pods),
+* [mounting storage systems](/{{page.version}}/docs/user-guide/volumes),
+* [distributing secrets](/{{page.version}}/docs/user-guide/secrets),
+* [application health checking](/{{page.version}}/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks),
+* [replicating application instances](/{{page.version}}/docs/user-guide/replication-controller),
+* [horizontal auto-scaling](/{{page.version}}/docs/user-guide/horizontal-pod-autoscaler),
+* [load balancing](/{{page.version}}/docs/user-guide/services),
+* [rolling updates](/{{page.version}}/docs/user-guide/update-demo/), and
+* [resource monitoring](/{{page.version}}/docs/user-guide/monitoring).
 
-For more details, see the [user guide](user-guide/).
+For more details, see the [user guide](/{{page.version}}/docs/user-guide/).
 
 #### Why and how is Kubernetes a platform?
 
 Even though Kubernetes provides a lot of functionality, there are always new scenarios that would benefit from new features. Ad hoc orchestration that is acceptable initially often requires robust automation at scale. Application-specific workflows can be streamlined to accelerate developer velocity. This is why Kubernetes was also designed to serve as a platform for building an ecosystem of components and tools to make it easier to deploy, scale, and manage applications.
 
-[Labels](user-guide/labels) empower users to organize their resources however they please. [Annotations](user-guide/annotations) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
+[Labels](/{{page.version}}/docs/user-guide/labels) empower users to organize their resources however they please. [Annotations](/{{page.version}}/docs/user-guide/annotations) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
 
-Additionally, the [Kubernetes control plane](admin/cluster-components) is built upon the same [APIs](api) that are available to developers and users. Users can write their own controllers, [schedulers](devel/scheduler), etc., if they choose, with [their own APIs](design/extending-api) that can be targeted by a general-purpose [command-line tool](user-guide/kubectl-overview).
+Additionally, the [Kubernetes control plane](/{{page.version}}/docs/admin/cluster-components) is built upon the same [APIs](api) that are available to developers and users. Users can write their own controllers, [schedulers](/{{page.version}}/docs/devel/scheduler), etc., if they choose, with [their own APIs](https://github.com/kubernetes/kubernetes/tree/master/docs/design/extending-api.md) that can be targeted by a general-purpose [command-line tool](/{{page.version}}/docs/user-guide/kubectl-overview).
 
-This [design](design/principles) has enabled a number of other systems to build atop Kubernetes.
+This [design](https://github.com/kubernetes/kubernetes/tree/master/docs/design/principles.md) has enabled a number of other systems to build atop Kubernetes.
 
 #### Kubernetes is not:
 

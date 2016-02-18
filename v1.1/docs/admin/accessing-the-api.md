@@ -7,7 +7,7 @@ cluster administrators who want to customize their cluster
 or understand the details.
 
 Most questions about accessing the cluster are covered
-in [Accessing the cluster](../user-guide/accessing-the-cluster).
+in [Accessing the cluster](/{{page.version}}/docs/user-guide/accessing-the-cluster).
 
 
 ## Ports and IPs Served On
@@ -30,7 +30,7 @@ By default the Kubernetes APIserver serves HTTP on 2 ports:
     - uses token-file or client-certificate based [authentication](authentication).
     - uses policy-based [authorization](authorization).
   3. Removed: ReadOnly Port
-    - For security reasons, this had to be removed. Use the [service account](../user-guide/service-accounts) feature instead.
+    - For security reasons, this had to be removed. Use the [service account](/{{page.version}}/docs/user-guide/service-accounts) feature instead.
 
 ## Proxies and Firewall rules
 
@@ -54,7 +54,7 @@ variety of uses cases:
       running on the `kubernetes-master` machine.  The proxy can use cert-based authentication
       or token-based authentication.
    2. Processes running in Containers on Kubernetes that need to read from
-      the apiserver.  Currently, these can use a [service account](../user-guide/service-accounts).
+      the apiserver.  Currently, these can use a [service account](/{{page.version}}/docs/user-guide/service-accounts).
    3. Scheduler and Controller-manager processes, which need to do read-write
       API operations. Currently, these have to run on the same host as the
       apiserver and use the Localhost Port.  In the future, these will be

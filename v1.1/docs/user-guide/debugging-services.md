@@ -494,7 +494,7 @@ misbehaving.  And yet your `Service` is not working.  You should probably let
 us know, so we can help investigate!
 
 Contact us on
-[Slack](../troubleshooting.html#slack) or
+[Slack](../troubleshooting/#slack) or
 [email](https://groups.google.com/forum/#!forum/google-containers) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 

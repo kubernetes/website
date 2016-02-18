@@ -19,14 +19,14 @@ A typical use case is:
 
 ## Enabling Deployments on kubernetes cluster
 
-Deployments is part of the [`extensions` API Group](../api.html#api-groups) and is not enabled by default.
+Deployments is part of the [`extensions` API Group](../api/#api-groups) and is not enabled by default.
 Set `--runtime-config=extensions/v1beta1/deployments=true` on API server to
 enable it.
 This can be achieved by exporting `ENABLE_DEPLOYMENTS=true` before running
 `kube-up.sh` script on GCE.
 
 Note that Deployment objects effectively have [API version
-`v1alpha1`](../api.html#api-versioning).
+`v1alpha1`](../api/#api-versioning).
 Alpha objects may change or even be discontinued in future software releases.
 However, due to to a known issue, they will appear as API version `v1beta1` if
 enabled.
@@ -252,13 +252,13 @@ As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, a
 `metadata` fields.  For general information about working with config files,
 see [here](deploying-applications), [here](configuring-containers), and [here](working-with-resources).
 
-A Deployment also needs a [`.spec` section](../devel/api-conventions.html#spec-and-status).
+A Deployment also needs a [`.spec` section](/{{page.version}}/docs/devel/api-conventions/#spec-and-status).
 
 ### Pod Template
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](replication-controller.html#pod-template).  It has exactly
+The `.spec.template` is a [pod template](replication-controller/#pod-template).  It has exactly
 the same schema as a [pod](pods), except it is nested and does not have an
 `apiVersion` or `kind`.
 

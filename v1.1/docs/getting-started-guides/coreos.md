@@ -63,7 +63,7 @@ Guide to running a single master, multi-worker cluster controlled by an OS X men
 
 <hr/>
 
-[**Resizable multi-node cluster on Azure with Weave**](/{{page.version}}/docs/getting-started-guides/coreos/azure/README)
+[**Resizable multi-node cluster on Azure with Weave**](/{{page.version}}/docs/getting-started-guides/coreos/azure/)
 
 Guide to running an HA etcd cluster with a single master on Azure. Uses the Azure node.js CLI to resize the cluster.
 

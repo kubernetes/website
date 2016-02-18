@@ -65,7 +65,7 @@ docker run \
     /hyperkube kubelet --containerized --hostname-override="127.0.0.1" --address="0.0.0.0" --api-servers=http://localhost:8080 --config=/etc/kubernetes/manifests
 ```
 
-This actually runs the kubelet, which in turn runs a [pod](../user-guide/pods) that contains the other master components.
+This actually runs the kubelet, which in turn runs a [pod](/{{page.version}}/docs/user-guide/pods) that contains the other master components.
 
 ### Step Three: Run the service proxy
 

@@ -66,4 +66,4 @@ To avoid running into cluster addon resource issues, when creating a cluster wit
   * [FluentD with ElasticSearch Plugin](http://releases.k8s.io/release-1.1/cluster/saltbase/salt/fluentd-es/fluentd-es.yaml)
   * [FluentD with GCP Plugin](http://releases.k8s.io/release-1.1/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml)
 
-For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](../user-guide/compute-resources.html#troubleshooting).
+For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/{{page.version}}/docs/user-guide/compute-resources/#troubleshooting).

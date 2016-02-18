@@ -140,7 +140,7 @@ You will need binaries for:
 
 A Kubernetes binary release includes all the Kubernetes binaries as well as the supported release of etcd.
 You can use a Kubernetes binary release (recommended) or build your Kubernetes binaries following the instructions in the
-[Developer Documentation](/{{page.version}}/docs/devel/README).  Only using a binary release is covered in this guide.
+[Developer Documentation](/{{page.version}}/docs/devel/).  Only using a binary release is covered in this guide.
 
 Download the [latest binary release](https://github.com/kubernetes/kubernetes/releases/latest) and unzip it.
 Then locate `./kubernetes/server/kubernetes-server-linux-amd64.tar.gz` and unzip *that*.
@@ -806,7 +806,7 @@ Otherwise, you will need to manually create node objects.
 
 ### Inspect pods and services
 
-Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](/{{page.version}}/docs/getting-started-guides/gce.html#inspect-your-cluster).
+Try to run through the "Inspect your cluster" section in one of the other Getting Started Guides, such as [GCE](/{{page.version}}/docs/getting-started-guides/gce/#inspect-your-cluster).
 You should see some services.  You should also see "mirror pods" for the apiserver, scheduler and controller-manager, plus any add-ons you started.
 
 ### Try Examples

@@ -4,7 +4,7 @@ title: "Getting Started: Custom Solutions"
 
 Use these solutions to create Kubernetes clusters in your custom environment.
 
-First time here? See [Picking the Right Solution](/{{page.version}}/docs/getting-started-guides/README) for more information.
+First time here? See [Picking the Right Solution](/{{page.version}}/docs/getting-started-guides/) for more information.
 
 ## From scratch
 

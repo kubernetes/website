@@ -7,7 +7,7 @@ This document covers the lifecycle of a pod.  It is not an exhaustive document, 
 
 ## Pod Phase
 
-As consistent with the overall [API convention](../devel/api-conventions.html#typical-status-properties), phase is a simple, high-level summary of the phase of the lifecycle of a pod. It is not intended to be a comprehensive rollup of observations of container-level or even pod-level conditions or other state, nor is it intended to be a comprehensive state machine.
+As consistent with the overall [API convention](/{{page.version}}/docs/devel/api-conventions/#typical-status-properties), phase is a simple, high-level summary of the phase of the lifecycle of a pod. It is not intended to be a comprehensive rollup of observations of container-level or even pod-level conditions or other state, nor is it intended to be a comprehensive state machine.
 
 The number and meanings of `PodPhase` values are tightly guarded.  Other than what is documented here, nothing should be assumed about pods with a given `PodPhase`.
 
@@ -46,17 +46,17 @@ More detailed information about the current (and previous) container statuses ca
 
 ## RestartPolicy
 
-The possible values for RestartPolicy are `Always`, `OnFailure`, or `Never`. If RestartPolicy is not set, the default value is `Always`. RestartPolicy applies to all containers in the pod. RestartPolicy only refers to restarts of the containers by the Kubelet on the same node. Failed containers that are restarted by Kubelet, are restarted with an exponential back-off delay, the delay is in multiples of sync-frequency 0, 1x, 2x, 4x, 8x ... capped at 5 minutes and is reset after 10 minutes of successful execution. As discussed in the [pods document](pods.html#durability-of-pods-or-lack-thereof), once bound to a node, a pod will never be rebound to another node. This means that some kind of controller is necessary in order for a pod to survive node failure, even if just a single pod at a time is desired.
+The possible values for RestartPolicy are `Always`, `OnFailure`, or `Never`. If RestartPolicy is not set, the default value is `Always`. RestartPolicy applies to all containers in the pod. RestartPolicy only refers to restarts of the containers by the Kubelet on the same node. Failed containers that are restarted by Kubelet, are restarted with an exponential back-off delay, the delay is in multiples of sync-frequency 0, 1x, 2x, 4x, 8x ... capped at 5 minutes and is reset after 10 minutes of successful execution. As discussed in the [pods document](pods/#durability-of-pods-or-lack-thereof), once bound to a node, a pod will never be rebound to another node. This means that some kind of controller is necessary in order for a pod to survive node failure, even if just a single pod at a time is desired.
 
 Three types of controllers are currently available:
 
 - Use a [`Job`](jobs) for pods which are expected to terminate (e.g. batch computations).
 - Use a [`ReplicationController`](replication-controller) for pods which are not expected to
   terminate, and where (e.g. web servers).
-- Use a [`DaemonSet`](../admin/daemons): Use for pods which need to run 1 per machine because they provide a
+- Use a [`DaemonSet`](/{{page.version}}/docs/admin/daemons): Use for pods which need to run 1 per machine because they provide a
   machine-specific system service.
 If you are unsure whether to use ReplicationController or Daemon, then see [Daemon Set versus
-Replication Controller](../admin/daemons.html#daemon-set-versus-replication-controller).
+Replication Controller](/{{page.version}}/docs/admin/daemons/#daemon-set-versus-replication-controller).
 
 `ReplicationController` is *only* appropriate for pods with `RestartPolicy = Always`.
 `Job` is *only* appropriate for pods with `RestartPolicy` equal to `OnFailure` or `Never`.

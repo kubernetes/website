@@ -50,7 +50,7 @@ few commands, and have active community support.
 
 - [GCE](gce)
 - [AWS](aws)
-- [Azure](/{{page.version}}/docs/getting-started-guides/coreos/azure/README)
+- [Azure](/{{page.version}}/docs/getting-started-guides/coreos/azure/)
 
 ### Custom Solutions
 
@@ -116,7 +116,7 @@ IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs               
 GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | ['��][3]   | Commercial
 Vagrant              | Saltstack    | Fedora | flannel     | [docs](vagrant)                                | ['��][2]   | Project
 GCE                  | Saltstack    | Debian | GCE         | [docs](gce)                                    | ['��][1]   | Project
-Azure                | CoreOS       | CoreOS | Weave       | [docs](/{{page.version}}/docs/getting-started-guides/coreos/azure/README)                    |          | Community ([@errordeveloper](https://github.com/errordeveloper), [@squillace](https://github.com/squillace), [@chanezon](https://github.com/chanezon), [@crossorigin](https://github.com/crossorigin))
+Azure                | CoreOS       | CoreOS | Weave       | [docs](/{{page.version}}/docs/getting-started-guides/coreos/azure/)                    |          | Community ([@errordeveloper](https://github.com/errordeveloper), [@squillace](https://github.com/squillace), [@chanezon](https://github.com/chanezon), [@crossorigin](https://github.com/crossorigin))
 Docker Single Node   | custom       | N/A    | local       | [docs](docker)                                 |          | Project ([@brendandburns](https://github.com/brendandburns))
 Docker Multi Node    | Flannel      | N/A    | local       | [docs](docker-multinode)                       |          | Project ([@brendandburns](https://github.com/brendandburns))
 Bare-metal           | Ansible      | Fedora | flannel     | [docs](/{{page.version}}/docs/getting-started-guides/fedora/fedora_ansible_config)           |          | Project

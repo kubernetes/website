@@ -85,7 +85,7 @@ static-web-my-minion1   172.17.0.3                              my-minion1/192.1
 
 Labels from the static pod are propagated into the mirror-pod and can be used as usual for filtering.
 
-Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](../user-guide/kubectl/kubectl) command), kubelet simply won't remove it.
+Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/{{page.version}}/docs/user-guide/kubectl/kubectl) command), kubelet simply won't remove it.
 
 ```shell
 [joe@my-master ~] $ kubectl delete pod static-web-my-minion1

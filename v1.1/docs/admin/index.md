@@ -2,7 +2,7 @@
 title: "Kubernetes Cluster Admin Guide"
 ---
 The cluster admin guide is for anyone creating or administering a Kubernetes cluster.
-It assumes some familiarity with concepts in the [User Guide](../user-guide/README).
+It assumes some familiarity with concepts in the [User Guide](/{{page.version}}/docs/user-guide/).
 
 ## Admin Guide Table of Contents
 
@@ -32,6 +32,6 @@ It assumes some familiarity with concepts in the [User Guide](../user-guide/READ
     1. [Multiple Clusters](multi-cluster)
     1. [High Availability Clusters](high-availability)
     1. [Large Clusters](cluster-large)
-    1. [Getting started from scratch](../getting-started-guides/scratch)
+    1. [Getting started from scratch](/{{page.version}}/docs/getting-started-guides/scratch)
       1. [Kubernetes's use of salt](salt)
   1. [Troubleshooting](cluster-troubleshooting)

@@ -31,7 +31,7 @@ The value of `metadata.name`, `hello-world`, will be the name of the pod resourc
 
 `restartPolicy: Never` indicates that we just want to run the container once and then terminate the pod.
 
-The [`command`](containers.html#containers-and-commands) overrides the Docker container's `Entrypoint`. Command arguments (corresponding to Docker's `Cmd`) may be specified using `args`, as follows:
+The [`command`](containers/#containers-and-commands) overrides the Docker container's `Entrypoint`. Command arguments (corresponding to Docker's `Cmd`) may be specified using `args`, as follows:
 
 ```yaml
 command: ["/bin/echo"]
@@ -65,7 +65,7 @@ pods/hello-world
 
 `kubectl create --validate` currently warns about problems it detects, but creates the resource anyway, unless a required field is absent or a field value is invalid. Unknown API fields are ignored, so be careful. This pod was created, but with no `command`, which is an optional field, since the image may specify an `Entrypoint`.
 View the [Pod API
-object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_pod)
+object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions/#_v1_pod)
 to see the list of valid fields.
 
 ## Environment variables and variable expansion
@@ -89,7 +89,7 @@ spec:  # specification of the pod's contents
     args: ["/bin/echo \"${MESSAGE}\""]
 ```
 
-However, a shell isn't necessary just to expand environment variables. Kubernetes will do it for you if you use [`$(ENVVAR)` syntax](/{{page.version}}/docs/design/expansion):
+However, a shell isn't necessary just to expand environment variables. Kubernetes will do it for you if you use [`$(ENVVAR)` syntax](https://github.com/kubernetes/kubernetes/blob/master/docs/design/expansion):
 
 ```yaml
 command: ["/bin/echo"]

@@ -52,7 +52,7 @@ This hook is sent immediately after a container is created.  It notifies the co
 
 *PreStop*
 
-This hook is called immediately before a container is terminated. No parameters are passed to the handler. This event handler is blocking, and must complete before the call to delete the container is sent to the Docker daemon.  The SIGTERM notification sent by Docker is also still sent. A more complete description of termination behavior can be found in [Termination of Pods](pods.html#termination-of-pods).
+This hook is called immediately before a container is terminated. No parameters are passed to the handler. This event handler is blocking, and must complete before the call to delete the container is sent to the Docker daemon.  The SIGTERM notification sent by Docker is also still sent. A more complete description of termination behavior can be found in [Termination of Pods](pods/#termination-of-pods).
 
 ### Hook Handler Execution
 

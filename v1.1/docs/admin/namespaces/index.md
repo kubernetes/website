@@ -5,7 +5,7 @@ Kubernetes _[namespaces](/{{page.version}}/docs/admin/namespaces)_ help differen
 
 It does this by providing the following:
 
-1. A scope for [Names](../../user-guide/identifiers).
+1. A scope for [Names](/{{page.version}}/docs/user-guide/identifiers).
 2. A mechanism to attach authorization and policy to a subsection of the cluster.
 
 Use of multiple namespaces is optional.
@@ -16,8 +16,8 @@ This example demonstrates how to use Kubernetes namespaces to subdivide your clu
 
 This example assumes the following:
 
-1. You have an [existing Kubernetes cluster](../../getting-started-guides/).
-2. You have a basic understanding of Kubernetes _[pods](../../user-guide/pods)_, _[services](../../user-guide/services)_, and _[replication controllers](../../user-guide/replication-controller)_.
+1. You have an [existing Kubernetes cluster](/{{page.version}}/docs/getting-started-guides/).
+2. You have a basic understanding of Kubernetes _[pods](/{{page.version}}/docs/user-guide/pods)_, _[services](/{{page.version}}/docs/user-guide/services)_, and _[replication controllers](/{{page.version}}/docs/user-guide/replication-controller)_.
 
 ### Step One: Understand the default namespace
 

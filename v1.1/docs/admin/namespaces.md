@@ -1,8 +1,6 @@
 ---
 title: "Namespaces"
 ---
-## Abstract
-
 A Namespace is a mechanism to partition resources created by users into
 a logically named group.
 
@@ -86,13 +84,13 @@ to define *Hard* resource usage limits that a *Namespace* may consume.
 A limit range defines min/max constraints on the amount of resources a single entity can consume in
 a *Namespace*.
 
-See [Admission control: Limit Range](../design/admission_control_limit_range)
+See [Admission control: Limit Range](https://github.com/kubernetes/kubernetes/tree/master/docs/design/admission_control_limit_range.md)
 
 A namespace can be in one of two phases:
    * `Active` the namespace is in use
    * `Terminating` the namespace is being deleted, and can not be used for new objects
 
-See the [design doc](../design/namespaces.html#phases) for more details.
+See the [design doc](https://github.com/kubernetes/kubernetes/tree/master/docs/design/namespaces.md#phases) for more details.
 
 ### Creating a new namespace
 
@@ -107,7 +105,7 @@ metadata:
 
 Note that the name of your namespace must be a DNS compatible label.
 
-More information on the `finalizers` field can be found in the namespace [design doc](../design/namespaces.html#finalizers).
+More information on the `finalizers` field can be found in the namespace [design doc](https://github.com/kubernetes/kubernetes/tree/master/docs/design/namespaces.md#finalizers).
 
 Then run:
 
@@ -117,8 +115,8 @@ $ kubectl create -f ./my-namespace.yaml
 
 ### Working in namespaces
 
-See [Setting the namespace for a request](/{{page.version}}/docs/user-guide/namespaces.html#setting-the-namespace-for-a-request)
-and [Setting the namespace preference](/{{page.version}}/docs/user-guide/namespaces.html#setting-the-namespace-preference).
+See [Setting the namespace for a request](/{{page.version}}/docs/user-guide/namespaces/#setting-the-namespace-for-a-request)
+and [Setting the namespace preference](/{{page.version}}/docs/user-guide/namespaces/#setting-the-namespace-preference).
 
 ### Deleting a namespace
 
@@ -143,5 +141,5 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 ## Design
 
-Details of the design of namespaces in Kubernetes, including a [detailed example](../design/namespaces.html#example-openshift-origin-managing-a-kubernetes-namespace)
-can be found in the [namespaces design doc](../design/namespaces)
+Details of the design of namespaces in Kubernetes, including a [detailed example](https://github.com/kubernetes/kubernetes/tree/master/docs/design/namespaces.md#example-openshift-origin-managing-a-kubernetes-namespace)
+can be found in the [namespaces design doc](https://github.com/kubernetes/kubernetes/tree/master/docs/design/namespaces.md)

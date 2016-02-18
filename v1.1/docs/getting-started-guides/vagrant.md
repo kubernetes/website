@@ -240,7 +240,7 @@ my-nginx          10.0.0.1         <none>            80/TCP        run=my-nginx 
 ```
 
 We did not start any services, hence there are none listed. But we see three replicas displayed properly.
-Check the [guestbook](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/README) application to learn how to create a service.
+Check the [guestbook](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/) application to learn how to create a service.
 You can already play with scaling the replicas with:
 
 ```shell
@@ -293,7 +293,7 @@ If this is your first time creating the cluster, the kubelet on each node schedu
 
 #### I want to make changes to Kubernetes code!
 
-To set up a vagrant cluster for hacking, follow the [vagrant developer guide](../devel/developer-guides/vagrant).
+To set up a vagrant cluster for hacking, follow the [vagrant developer guide](/{{page.version}}/docs/devel/developer-guides/vagrant).
 
 #### I have brought Vagrant up but the nodes cannot validate!
 

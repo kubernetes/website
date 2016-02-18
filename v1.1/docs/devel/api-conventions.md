@@ -5,11 +5,10 @@ Updated: 9/20/2015
 
 *This document is oriented at users who want a deeper understanding of the Kubernetes
 API structure, and developers wanting to extend the Kubernetes API.  An introduction to
-using resources with kubectl can be found in [Working with resources](../user-guide/working-with-resources).*
+using resources with kubectl can be found in [Working with resources](/{{page.version}}/docs/user-guide/working-with-resources).*
 
 * TOC
 {:toc}
-
 
 The conventions of the [Kubernetes API](../api) (and related APIs in the ecosystem) are intended to ease client development and ensure that configuration mechanisms can be implemented that work across a diverse set of use cases consistently.
 
@@ -45,7 +44,7 @@ Kinds are grouped into three categories:
 
    Most objects defined in the system should have an endpoint that returns the full set of resources, as well as zero or more endpoints that return subsets of the full list. Some objects may be singletons (the current user, the system defaults) and may not have lists.
 
-   In addition, all lists that return objects with labels should support label filtering (see [docs/user-guide/labels.md](../user-guide/labels), and most lists should support filtering by fields.
+   In addition, all lists that return objects with labels should support label filtering (see [docs/user-guide/labels.md](/{{page.version}}/docs/user-guide/labels), and most lists should support filtering by fields.
 
    Examples: PodLists, ServiceLists, NodeLists
 
@@ -63,7 +62,7 @@ Kinds are grouped into three categories:
    * `/status`: Used to write just the status portion of a resource. For example, the `/pods` endpoint only allows updates to `metadata` and `spec`, since those reflect end-user intent. An automated process should be able to modify status for users to see by sending an updated Pod kind to the server to the "/pods/&lt;name&gt;/status" endpoint - the alternate endpoint allows different rules to be applied to the update, and access to be appropriately restricted.
    * `/scale`: Used to read and write the count of a resource in a manner that is independent of the specific resource schema.
 
-   Two additional subresources, `proxy` and `portforward`, provide access to cluster resources as described in [docs/user-guide/accessing-the-cluster.md](../user-guide/accessing-the-cluster).
+   Two additional subresources, `proxy` and `portforward`, provide access to cluster resources as described in [docs/user-guide/accessing-the-cluster.md](/{{page.version}}/docs/user-guide/accessing-the-cluster).
 
 The standard REST verbs (defined below) MUST return singular JSON objects. Some API endpoints may deviate from the strict REST pattern and return resources that are not singular JSON objects, such as streams of JSON objects or unstructured text log data.
 
@@ -84,9 +83,9 @@ These fields are required for proper decoding of the object. They may be populat
 
 Every object kind MUST have the following metadata in a nested object field called "metadata":
 
-* namespace: a namespace is a DNS compatible subdomain that objects are subdivided into. The default namespace is 'default'.  See [docs/user-guide/namespaces.md](../user-guide/namespaces) for more.
-* name: a string that uniquely identifies this object within the current namespace (see [docs/user-guide/identifiers.md](../user-guide/identifiers)). This value is used in the path when retrieving an individual object.
-* uid: a unique in time and space value (typically an RFC 4122 generated identifier, see [docs/user-guide/identifiers.md](../user-guide/identifiers)) used to distinguish between objects with the same name that have been deleted and recreated
+* namespace: a namespace is a DNS compatible subdomain that objects are subdivided into. The default namespace is 'default'.  See [docs/user-guide/namespaces.md](/{{page.version}}/docs/user-guide/namespaces) for more.
+* name: a string that uniquely identifies this object within the current namespace (see [docs/user-guide/identifiers.md](/{{page.version}}/docs/user-guide/identifiers)). This value is used in the path when retrieving an individual object.
+* uid: a unique in time and space value (typically an RFC 4122 generated identifier, see [docs/user-guide/identifiers.md](/{{page.version}}/docs/user-guide/identifiers)) used to distinguish between objects with the same name that have been deleted and recreated
 
 Every object SHOULD have the following metadata in a nested object field called "metadata":
 
@@ -94,8 +93,8 @@ Every object SHOULD have the following metadata in a nested object field called 
 * generation: a sequence number representing a specific generation of the desired state. Set by the system and monotonically increasing, per-resource. May be compared, such as for RAW and WAW consistency.
 * creationTimestamp: a string representing an RFC 3339 date of the date and time an object was created
 * deletionTimestamp: a string representing an RFC 3339 date of the date and time after which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource will be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field. Once set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time.
-* labels: a map of string keys and values that can be used to organize and categorize objects (see [docs/user-guide/labels.md](../user-guide/labels))
-* annotations: a map of string keys and values that can be used by external tooling to store and retrieve arbitrary metadata about this object (see [docs/user-guide/annotations.md](../user-guide/annotations))
+* labels: a map of string keys and values that can be used to organize and categorize objects (see [docs/user-guide/labels.md](/{{page.version}}/docs/user-guide/labels))
+* annotations: a map of string keys and values that can be used by external tooling to store and retrieve arbitrary metadata about this object (see [docs/user-guide/annotations.md](/{{page.version}}/docs/user-guide/annotations))
 
 Labels are intended for organizational purposes by end users (select the pods that match this label query). Annotations enable third-party automation and tooling to decorate objects with additional metadata for their own use.
 
@@ -140,19 +139,19 @@ In general, condition values may change back and forth, but some condition trans
 
 A typical oscillating condition type is `Ready`, which indicates the object was believed to be fully operational at the time it was last probed. A possible monotonic condition could be `Succeeded`. A `False` status for `Succeeded` would imply failure. An object that was still active would not have a `Succeeded` condition, or its status would be `Unknown`.
 
-Some resources in the v1 API contain fields called **`phase`**, and associated `message`, `reason`, and other status fields. The pattern of using `phase` is deprecated. Newer API types should use conditions instead. Phase was essentially a state-machine enumeration field, that contradicted [system-design principles](../design/principles.html#control-logic) and hampered evolution, since [adding new enum values breaks backward compatibility](api_changes). Rather than encouraging clients to infer implicit properties from phases, we intend to explicitly expose the conditions that clients need to monitor. Conditions also have the benefit that it is possible to create some conditions with uniform meaning across all resource types, while still exposing others that are unique to specific resource types. See [#7856](http://issues.k8s.io/7856) for more details and discussion.
+Some resources in the v1 API contain fields called **`phase`**, and associated `message`, `reason`, and other status fields. The pattern of using `phase` is deprecated. Newer API types should use conditions instead. Phase was essentially a state-machine enumeration field, that contradicted [system-design principles](https://github.com/kubernetes/kubernetes/tree/master/docs/design/principles.md#control-logic) and hampered evolution, since [adding new enum values breaks backward compatibility](api_changes). Rather than encouraging clients to infer implicit properties from phases, we intend to explicitly expose the conditions that clients need to monitor. Conditions also have the benefit that it is possible to create some conditions with uniform meaning across all resource types, while still exposing others that are unique to specific resource types. See [#7856](http://issues.k8s.io/7856) for more details and discussion.
 
 In condition types, and everywhere else they appear in the API, **`Reason`** is intended to be a one-word, CamelCase representation of the category of cause of the current status, and **`Message`** is intended to be a human-readable phrase or sentence, which may contain specific details of the individual occurrence. `Reason` is intended to be used in concise output, such as one-line `kubectl get` output, and in summarizing occurrences of causes, whereas `Message` is intended to be presented to users in detailed status explanations, such as `kubectl describe` output.
 
 Historical information status (e.g., last transition time, failure counts) is only provided with reasonable effort, and is not guaranteed to not be lost.
 
-Status information that may be large (especially proportional in size to collections of other resources, such as lists of references to other objects -- see below) and/or rapidly changing, such as [resource usage](../design/resources.html#usage-data), should be put into separate objects, with possibly a reference from the original object. This helps to ensure that GETs and watch remain reasonably efficient for the majority of clients, which may not need that data.
+Status information that may be large (especially proportional in size to collections of other resources, such as lists of references to other objects -- see below) and/or rapidly changing, such as [resource usage](https://github.com/kubernetes/kubernetes/tree/master/docs/design/resources.md#usage-data), should be put into separate objects, with possibly a reference from the original object. This helps to ensure that GETs and watch remain reasonably efficient for the majority of clients, which may not need that data.
 
 Some resources report the `observedGeneration`, which is the `generation` most recently observed by the component responsible for acting upon changes to the desired state of the resource. This can be used, for instance, to ensure that the reported status reflects the most recent desired status.
 
 #### References to related objects
 
-References to loosely coupled sets of objects, such as [pods](../user-guide/pods) overseen by a [replication controller](../user-guide/replication-controller), are usually best referred to using a [label selector](../user-guide/labels). In order to ensure that GETs of individual objects remain bounded in time and space, these sets may be queried via separate API queries, but will not be expanded in the referring object's status.
+References to loosely coupled sets of objects, such as [pods](/{{page.version}}/docs/user-guide/pods) overseen by a [replication controller](/{{page.version}}/docs/user-guide/replication-controller), are usually best referred to using a [label selector](/{{page.version}}/docs/user-guide/labels). In order to ensure that GETs of individual objects remain bounded in time and space, these sets may be queried via separate API queries, but will not be expanded in the referring object's status.
 
 References to specific objects, especially specific resource versions and/or specific fields of those objects, are specified using the `ObjectReference` type (or other types representing strict subsets of it). Unlike partial URLs, the ObjectReference type facilitates flexible defaulting of fields from the referring object or other contextual information.
 
@@ -299,7 +298,7 @@ labels:
 
 ## Idempotency
 
-All compatible Kubernetes APIs MUST support "name idempotency" and respond with an HTTP status code 409 when a request is made to POST an object that has the same name as an existing object in the system. See [docs/user-guide/identifiers.md](../user-guide/identifiers) for details.
+All compatible Kubernetes APIs MUST support "name idempotency" and respond with an HTTP status code 409 when a request is made to POST an object that has the same name as an existing object in the system. See [docs/user-guide/identifiers.md](/{{page.version}}/docs/user-guide/identifiers) for details.
 
 Names generated by the system may be requested using `metadata.generateName`. GenerateName indicates that the name should be made unique by the server prior to persisting it. A non-empty value for the field indicates the name will be made unique (and the name returned to the client will be different than the name passed). The value of this field will be combined with a unique suffix on the server if the Name field has not been provided. The provided value must be valid within the rules for Name, and may be truncated by the length of the suffix required to make the value unique on the server. If this field is specified, and Name is not present, the server will NOT return a 409 if the generated name exists - instead, it will either return 201 Created or 504 with Reason `ServerTimeout` indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
 
@@ -638,7 +637,7 @@ However, we should support conveniences for common cases by default. For example
 
 If the user wants to apply additional labels to the pods that it doesn't select upon, such as to facilitate adoption of pods or in the expectation that some label values will change, they can set the selector to a subset of the pod labels. Similarly, the RC's labels could be initialized to a subset of the pod template's labels, or could include additional/different labels.
 
-For disciplined users managing resources within their own namespaces, it's not that hard to consistently apply schemas that ensure uniqueness. One just needs to ensure that at least one value of some label key in common differs compared to all other comparable resources. We could/should provide a verification tool to check that. However, development of conventions similar to the examples in [Labels](../user-guide/labels) make uniqueness straightforward. Furthermore, relatively narrowly used namespaces (e.g., per environment, per application) can be used to reduce the set of resources that could potentially cause overlap.
+For disciplined users managing resources within their own namespaces, it's not that hard to consistently apply schemas that ensure uniqueness. One just needs to ensure that at least one value of some label key in common differs compared to all other comparable resources. We could/should provide a verification tool to check that. However, development of conventions similar to the examples in [Labels](/{{page.version}}/docs/user-guide/labels) make uniqueness straightforward. Furthermore, relatively narrowly used namespaces (e.g., per environment, per application) can be used to reduce the set of resources that could potentially cause overlap.
 
 In cases where users could be running misc. examples with inconsistent schemas, or where tooling or components need to programmatically generate new objects to be selected, there needs to be a straightforward way to generate unique label sets. A simple way to ensure uniqueness of the set is to ensure uniqueness of a single label value, such as by using a resource name, uid, resource hash, or generation number.
 

@@ -13,7 +13,7 @@ Kubernetes CLI, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
-though a [Getting started guide](../getting-started-guides/README),
+though a [Getting started guide](/{{page.version}}/docs/getting-started-guides/),
 or someone else setup the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
@@ -90,13 +90,13 @@ certificate.
 
 On some clusters, the apiserver does not require authentication; it may serve
 on localhost, or be protected by a firewall.  There is not a standard
-for this.  [Configuring Access to the API](../admin/accessing-the-api)
+for this.  [Configuring Access to the API](/{{page.version}}/docs/admin/accessing-the-api)
 describes how a cluster admin can configure this.  Such approaches may conflict
 with future high-availability support.
 
 ### Programmatic access to the API
 
-There are [client libraries](../devel/client-libraries) for accessing the API
+There are [client libraries](/{{page.version}}/docs/devel/client-libraries) for accessing the API
 from several languages.  The Kubernetes project-supported
 [Go](http://releases.k8s.io/release-1.1/pkg/client/)
 client library can use the same [kubeconfig file](kubeconfig-file)
@@ -136,7 +136,7 @@ In each case, the credentials of the pod are used to communicate securely with t
 
 The previous section was about connecting the Kubernetes API server.  This section is about
 connecting to other services running on Kubernetes cluster.  In Kubernetes, the
-[nodes](../admin/node), [pods](pods) and [services](services) all have
+[nodes](/{{page.version}}/docs/admin/node), [pods](pods) and [services](services) all have
 their own IPs.  In many cases, the node IPs, pod IPs, and some service IPs on a cluster will not be
 routable, so they will not be reachable from a machine outside the cluster,
 such as your desktop machine.
@@ -251,7 +251,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxy to target may use HTTP or HTTPS as chosen by proxy using available information
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
-  1. The [kube proxy](services.html#ips-and-vips):
+  1. The [kube proxy](services/#ips-and-vips):
     - runs on each node
     - proxies UDP and TCP
     - does not understand HTTP

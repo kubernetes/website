@@ -96,14 +96,14 @@ toc:
 - title: Kubernetes Design Docs
   section:
   - title: Kubernetes Architecture
-    path: /v1.1/docs/design/architecture/
+    path: https://github.com/kubernetes/kubernetes/tree/master/docs/design/architecture.md
   - title: Kubernetes Design Overview
-    path: /v1.1/docs/design/README/
+    path: https://github.com/kubernetes/kubernetes/blob/master/docs/design/
   - title: Security in Kubernetes
-    path: /v1.1/docs/design/security/
+    path: https://github.com/kubernetes/kubernetes/tree/master/docs/design/security.md
   - title: Kubernetes Identity and Access Management
-    path: /v1.1/docs/design/access/
+    path: https://github.com/kubernetes/kubernetes/tree/master/docs/design/access.md
   - title: Security Contexts
-    path: /v1.1/docs/design/security_context/
+    path: https://github.com/kubernetes/kubernetes/tree/master/docs/design/security_context.md
   - title: Kubernetes OpenVSwitch GRE/VxLAN networking
     path: /v1.1/docs/admin/ovs-networking/

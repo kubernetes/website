@@ -2,7 +2,7 @@
 title: "Kubernetes Cluster Admin Guide"
 ---
 The cluster admin guide is for anyone creating or administering a Kubernetes cluster.
-It assumes some familiarity with concepts in the [User Guide](../user-guide/README).
+It assumes some familiarity with concepts in the [User Guide](/{{page.version}}/docs/user-guide/).
 
 * TOC
 {:toc}
@@ -10,7 +10,7 @@ It assumes some familiarity with concepts in the [User Guide](../user-guide/READ
 ## Planning a cluster
 
 There are many different examples of how to setup a kubernetes cluster.  Many of them are listed in this
-[matrix](../getting-started-guides/README).  We call each of the combinations in this matrix a *distro*.
+[matrix](/{{page.version}}/docs/getting-started-guides/).  We call each of the combinations in this matrix a *distro*.
 
 Before choosing a particular guide, here are some things to consider:
 
@@ -34,7 +34,7 @@ Before choosing a particular guide, here are some things to consider:
 
 ## Setting up a cluster
 
-Pick one of the Getting Started Guides from the [matrix](../getting-started-guides/README) and follow it.
+Pick one of the Getting Started Guides from the [matrix](/{{page.version}}/docs/getting-started-guides/) and follow it.
 If none of the Getting Started Guides fits, you may want to pull ideas from several of the guides.
 
 One option for custom networking is *OpenVSwitch GRE/VxLAN networking* ([ovs-networking.md](ovs-networking)), which
@@ -57,7 +57,7 @@ project](salt).
 * **DNS Integration with SkyDNS** ([dns.md](dns)):
   Resolving a DNS name directly to a Kubernetes service.
 
-* **Logging** with [Kibana](../user-guide/logging)
+* **Logging** with [Kibana](/{{page.version}}/docs/user-guide/logging)
 
 ## Multi-tenant support
 
@@ -65,7 +65,7 @@ project](salt).
 
 ## Security
 
-* **Kubernetes Container Environment** ([docs/user-guide/container-environment.md](../user-guide/container-environment)):
+* **Kubernetes Container Environment** ([docs/user-guide/container-environment.md](/{{page.version}}/docs/user-guide/container-environment)):
   Describes the environment for Kubelet managed containers on a Kubernetes
   node.
 

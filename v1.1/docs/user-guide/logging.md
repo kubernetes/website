@@ -5,7 +5,7 @@ This page is designed to help you use logs to troubleshoot issues with your Kube
 
 ## Logging by Kubernetes Components
 
-Kubernetes components, such as kubelet and apiserver, use the [glog](https://godoc.org/github.com/golang/glog) logging library.  Developer conventions for logging severity are described in [docs/devel/logging.md](../devel/logging).
+Kubernetes components, such as kubelet and apiserver, use the [glog](https://godoc.org/github.com/golang/glog) logging library.  Developer conventions for logging severity are described in [docs/devel/logging.md](/{{page.version}}/docs/devel/logging).
 
 ## Examining the logs of running containers
 
@@ -74,13 +74,13 @@ $ kubectl logs kube-dns-v3-7r1l9 etcd
 
 ## Cluster level logging to Google Cloud Logging
 
-The getting started guide [Cluster Level Logging to Google Cloud Logging](../getting-started-guides/logging)
+The getting started guide [Cluster Level Logging to Google Cloud Logging](/{{page.version}}/docs/getting-started-guides/logging)
 explains how container logs are ingested into [Google Cloud Logging](https://cloud.google.com/logging/docs/)
 and shows how to query the ingested logs.
 
 ## Cluster level logging with Elasticsearch and Kibana
 
-The getting started guide [Cluster Level Logging with Elasticsearch and Kibana](../getting-started-guides/logging-elasticsearch)
+The getting started guide [Cluster Level Logging with Elasticsearch and Kibana](/{{page.version}}/docs/getting-started-guides/logging-elasticsearch)
 describes how to ingest cluster level logs into Elasticsearch and view them using Kibana.
 
 ## Ingesting Application Log Files

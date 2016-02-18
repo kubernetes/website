@@ -57,7 +57,7 @@ $ kubectl get pods -l app=nginx -o json | grep podIP
 
 You should be able to ssh into any node in your cluster and curl both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same containerPort and access them from any other pod or node in your cluster using IP. Like Docker, ports can still be published to the host node's interface(s), but the need for this is radically diminished because of the networking model.
 
-You can read more about [how we achieve this](../admin/networking.html#how-to-achieve-this) if you're curious.
+You can read more about [how we achieve this](/{{page.version}}/docs/admin/networking/#how-to-achieve-this) if you're curious.
 
 ## Creating a Service
 
@@ -83,7 +83,7 @@ spec:
     app: nginx
 ```
 
-This specification will create a Service which targets TCP port 80 on any Pod with the `app=nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_service) to see the list of supported fields in service definition.
+This specification will create a Service which targets TCP port 80 on any Pod with the `app=nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions/#_v1_service) to see the list of supported fields in service definition.
 Check your Service:
 
 ```shell
@@ -113,7 +113,7 @@ NAME         ENDPOINTS
 nginxsvc     10.245.0.14:80,10.245.0.15:80
 ```
 
-You should now be able to curl the nginx Service on `10.0.116.146:80` from any node in your cluster. Note that the Service IP is completely virtual, it never hits the wire, if you're curious about how this works you can read more about the [service proxy](services.html#virtual-ips-and-service-proxies).
+You should now be able to curl the nginx Service on `10.0.116.146:80` from any node in your cluster. Note that the Service IP is completely virtual, it never hits the wire, if you're curious about how this works you can read more about the [service proxy](services/#virtual-ips-and-service-proxies).
 
 ## Accessing the Service
 
@@ -198,7 +198,7 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 * An nginx server configured to use the certificates
 * A [secret](secrets) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](https://github.com/kubernetes/kubernetes/tree/master/examples/https-nginx/README), in short:
+You can acquire all these from the [nginx https example](https://github.com/kubernetes/kubernetes/tree/master/examples/https-nginx/), in short:
 
 ```shell
 $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json

@@ -3,7 +3,7 @@ title: "Cluster Troubleshooting"
 ---
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
 problem you are experiencing. See
-the [application troubleshooting guide](../user-guide/application-troubleshooting) for tips on application debugging.
+the [application troubleshooting guide](/{{page.version}}/docs/user-guide/application-troubleshooting) for tips on application debugging.
 You may also visit [troubleshooting document](../troubleshooting) for more information.
 
 ## Listing your cluster

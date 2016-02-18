@@ -1,7 +1,7 @@
 ---
 title: "Node selection example"
 ---
-This example shows how to assign a [pod](../pods) to a specific [node](../../admin/node) or to one of a set of nodes using node labels and the nodeSelector field in a pod specification. Generally this is unnecessary, as the scheduler will take care of things for you, but you may want to do so in certain circumstances like to ensure that your pod ends up on a machine with an SSD attached to it.
+This example shows how to assign a [pod](../pods) to a specific [node](/{{page.version}}/docs/admin/node) or to one of a set of nodes using node labels and the nodeSelector field in a pod specification. Generally this is unnecessary, as the scheduler will take care of things for you, but you may want to do so in certain circumstances like to ensure that your pod ends up on a machine with an SSD attached to it.
 
 ### Step Zero: Prerequisites
 
@@ -15,7 +15,7 @@ Then, to add a label to the node you've chosen, run `kubectl label nodes <node-n
 
 If this fails with an "invalid command" error, you're likely using an older version of kubectl that doesn't have the `label` command. In that case, see the [previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md) of this guide for instructions on how to manually set labels on a node.
 
-Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](/{{page.version}}/docs/design/identifiers)), meaning that they are not allowed to contain any upper-case letters.
+Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](https://github.com/kubernetes/kubernetes/blob/master/docs/design/identifiers)), meaning that they are not allowed to contain any upper-case letters.
 
 You can verify that it worked by re-running `kubectl get nodes` and checking that the node now has a label.
 

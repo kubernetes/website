@@ -1,7 +1,7 @@
 ---
 title: "Horizontal Pod Autoscaler"
 ---
-Horizontal pod autoscaling is a [beta](/{{page.version}}/docs/api.html#api-versioning) feature in Kubernetes 1.1.
+Horizontal pod autoscaling is a [beta](/{{page.version}}/docs/api/#api-versioning) feature in Kubernetes 1.1.
 It allows the number of pods in a replication controller or deployment to scale automatically based on observed CPU usage.
 In the future also other metrics will be supported.
 
@@ -93,7 +93,7 @@ controlled by the php-apache replication controller we created in the first step
 Roughly speaking, the horizontal autoscaler will increase and decrease the number of replicas
 (via the replication controller) so as to maintain an average CPU utilization across all Pods of 50%
 (since each pod requests 200 milli-cores by [kubectl run](#kubectl-run), this means average CPU utilization of 100 milli-cores).
-See [here](/{{page.version}}/docs/design/horizontal-pod-autoscaler.html#autoscaling-algorithm) for more details on the algorithm.
+See [here](https://github.com/kubernetes/kubernetes/tree/master/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
 
 We will create the autoscaler by executing the following command:
 

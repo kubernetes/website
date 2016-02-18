@@ -96,13 +96,13 @@ As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `meta
 general information about working with config files, see [here](simple-yaml),
 [here](configuring-containers), and [here](working-with-resources).
 
-A Job also needs a [`.spec` section](../devel/api-conventions.html#spec-and-status).
+A Job also needs a [`.spec` section](/{{page.version}}/docs/devel/api-conventions/#spec-and-status).
 
 ### Pod Template
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](replication-controller.html#pod-template).  It has exactly
+The `.spec.template` is a [pod template](replication-controller/#pod-template).  It has exactly
 the same schema as a [pod](pods), except it is nested and does not have an `apiVersion` or
 `kind`.
 
@@ -135,7 +135,7 @@ think that those pods were created by it.  Kubernetes will not stop you from doi
 By default, a Job is complete when one Pod runs to successful completion.  You can also specify that
 this needs to happen multiple times by specifying `.spec.completions` with a value greater than 1.
 When multiple completions are requested, each Pod created by the Job controller has an identical
-[`spec`](../devel/api-conventions.html#spec-and-status).  In particular, all pods will have
+[`spec`](/{{page.version}}/docs/devel/api-conventions/#spec-and-status).  In particular, all pods will have
 the same command line and the same image, the same volumes, and mostly the same environment
 variables.  It is up to the user to arrange for the pods to do work on different things.  For
 example, the pods might all access a shared work queue service to acquire work units.
@@ -198,9 +198,9 @@ value is `Always`.)
 
 ## Caveats
 
-Job objects are in the [`extensions` API Group](../api.html#api-groups).
+Job objects are in the [`extensions` API Group](../api/#api-groups).
 
-Job objects have [API version `v1beta1`](../api.html#api-versioning).  Beta objects may
+Job objects have [API version `v1beta1`](../api/#api-versioning).  Beta objects may
 undergo changes to their schema and/or semantics in future software releases, but
 similar functionality will be supported.
 

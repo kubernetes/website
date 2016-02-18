@@ -9,14 +9,14 @@ toc:
   - title: TODO - 5-minute Quickstart
     path: /v1.1/docs/hellonode/
   - title: Kubernetes 101
-    path: /v1.1/docs/user-guide/walkthrough/README/
+    path: /v1.1/docs/user-guide/walkthrough/
   - title: Kubernetes 201
     path: /v1.1/docs/user-guide/walkthrough/k8s201/
 
 - title: Running Kubernetes
   section:
   - title: Picking the Right Solution
-    path: /v1.1/docs/getting-started-guides/README/
+    path: /v1.1/docs/getting-started-guides/
   - title: Running Kubernetes on Your Local Machine
     section:
     - title: Running Kubernetes Locally via Docker
@@ -34,7 +34,7 @@ toc:
     - title: Running Kubernetes on AWS EC2
       path: /v1.1/docs/getting-started-guides/aws/
     - title: Running Kubernetes on Azure
-      path: /v1.1/docs/getting-started-guides/coreos/azure/README/
+      path: /v1.1/docs/getting-started-guides/coreos/azure/
   - title: Running Kubernetes on Custom Solutions
     section:
     - title: Getting Started From Scratch
@@ -93,7 +93,7 @@ toc:
   - title: Accessing Clusters
     path: /v1.1/docs/user-guide/accessing-the-cluster/
   - title: Sharing a Cluster
-    path: /v1.1/docs/admin/namespaces/README/
+    path: /v1.1/docs/admin/namespaces/
   - title: Changing Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
   - title: Creating a Custom Cluster from Scratch
@@ -109,20 +109,20 @@ toc:
   - title: Using Nodes
     path: /v1.1/docs/admin/node/
   - title: Assigning Pods to Nodes
-    path: /v1.1/docs/user-guide/node-selection/README/
+    path: /v1.1/docs/user-guide/node-selection/
   - title: Using Configuration Files
     path: /v1.1/docs/user-guide/simple-yaml/
   - title: Configuring Containers
     path: /v1.1/docs/user-guide/configuring-containers/
   - title: Using Environment Variables
-    path: /v1.1/docs/user-guide/environment-guide/README/
+    path: /v1.1/docs/user-guide/environment-guide/
 
   - title: Managing Compute Resources
     path: /v1.1/docs/user-guide/compute-resources/
   - title: Applying Resource Quotas and Limits
-    path: /v1.1/docs/admin/resourcequota/README/
+    path: /v1.1/docs/admin/resourcequota/
   - title: Setting Pod CPU and Memory Limits
-    path: /v1.1/docs/admin/limitrange/README/
+    path: /v1.1/docs/admin/limitrange/
 
   - title: Managing Deployments
     path: /v1.1/docs/user-guide/managing-deployments/
@@ -138,28 +138,28 @@ toc:
   - title: Creating Servers with External IPs
     path: /v1.1/examples/simple-nginx/
   - title: Setting Up and Configuring DNS
-    path: /v1.1/examples/cluster-dns/README/
+    path: /v1.1/examples/cluster-dns/
   - title: Using DNS Pods and Services
     path: /v1.1/docs/admin/dns/
   - title: Working with Containers
     path: /v1.1/docs/user-guide/production-pods/
   - title: Creating Pods with the Downward API
-    path: /v1.1/docs/user-guide/downward-api/README/
+    path: /v1.1/docs/user-guide/downward-api/
   - title: Using Secrets
-    path: /v1.1/docs/user-guide/secrets/README/
+    path: /v1.1/docs/user-guide/secrets/
   - title: Using Persistent Volumes
-    path: /v1.1/docs/user-guide/persistent-volumes/README/
+    path: /v1.1/docs/user-guide/persistent-volumes/
   - title: Updating Live Pods
-    path: /v1.1/docs/user-guide/update-demo/README/
+    path: /v1.1/docs/user-guide/update-demo/
 
 
 - title: Testing and Monitoring
   section:
   - title: Simulating Large Test Loads
-    path: /v1.1/examples/k8petstore/README/
+    path: /v1.1/examples/k8petstore/
   - title: Checking Pod Health
-    path: /v1.1/docs/user-guide/liveness/README/
+    path: /v1.1/docs/user-guide/liveness/
   - title: Using Explorer to Examine the Runtime Environment
-    path: /v1.1/examples/explorer/README/
+    path: /v1.1/examples/explorer/
   - title: Resource Usage Monitoring
     path: /v1.1/docs/user-guide/monitoring/

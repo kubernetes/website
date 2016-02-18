@@ -8,7 +8,7 @@ running cluster.
 
 ## Creating and configuring a Cluster
 
-To install Kubernetes on a set of machines, consult one of the existing [Getting Started guides](/{{page.version}}/docs/getting-started-guides/README) depending on your environment.
+To install Kubernetes on a set of machines, consult one of the existing [Getting Started guides](/{{page.version}}/docs/getting-started-guides/) depending on your environment.
 
 ## Upgrading a cluster
 
@@ -63,7 +63,7 @@ recommend testing the upgrade on an experimental cluster before performing the u
 
 ## Resizing a cluster
 
-If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](node.html#self-registration-of-nodes).
+If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](node/#self-registration-of-nodes).
 If you're using GCE or GKE it's done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
 ```shell

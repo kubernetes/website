@@ -3,8 +3,8 @@ title: "Kubernetes Developer Guide"
 ---
 The developer guide is for anyone wanting to either write code which directly accesses the
 Kubernetes API, or to contribute directly to the Kubernetes project.
-It assumes some familiarity with concepts in the [User Guide](../user-guide/README) and the [Cluster Admin
-Guide](../admin/README).
+It assumes some familiarity with concepts in the [User Guide](/{{page.version}}/docs/user-guide/) and the [Cluster Admin
+Guide](/{{page.version}}/docs/admin/).
 
 
 ## The process of developing and contributing code to the Kubernetes project
@@ -45,7 +45,7 @@ Guide](../admin/README).
 
 * API objects are explained at [http://kubernetes.io/third_party/swagger-ui/](http://kubernetes.io/third_party/swagger-ui/).
 
-* **Annotations** ([docs/user-guide/annotations.md](../user-guide/annotations)): are for attaching arbitrary non-identifying metadata to objects.
+* **Annotations** ([docs/user-guide/annotations.md](/{{page.version}}/docs/user-guide/annotations)): are for attaching arbitrary non-identifying metadata to objects.
   Programs that automate Kubernetes objects may use annotations to store small amounts of their state.
 
 * **API Conventions** ([api-conventions.md](api-conventions)):
@@ -57,14 +57,14 @@ Guide](../admin/README).
 
 ## Writing plugins
 
-* **Authentication Plugins** ([docs/admin/authentication.md](../admin/authentication)):
+* **Authentication Plugins** ([docs/admin/authentication.md](/{{page.version}}/docs/admin/authentication)):
   The current and planned states of authentication tokens.
 
-* **Authorization Plugins** ([docs/admin/authorization.md](../admin/authorization)):
+* **Authorization Plugins** ([docs/admin/authorization.md](/{{page.version}}/docs/admin/authorization)):
   Authorization applies to all HTTP requests on the main apiserver port.
   This doc explains the available authorization implementations.
 
-* **Admission Control Plugins** ([admission_control](../design/admission_control))
+* **Admission Control Plugins** ([admission_control](https://github.com/kubernetes/kubernetes/tree/master/docs/design/admission_control.md))
 
 
 ## Building releases

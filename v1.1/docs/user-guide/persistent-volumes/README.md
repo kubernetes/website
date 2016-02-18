@@ -6,7 +6,7 @@ nginx serving content from your persistent volume.
 
 This guide assumes knowledge of Kubernetes fundamentals and that you have a cluster up and running.
 
-See [Persistent Storage design document](../../design/persistent-storage) for more information.
+See [Persistent Storage design document](https://github.com/kubernetes/kubernetes/tree/master/docs/design/persistent-storage) for more information.
 
 ## Provisioning
 
@@ -90,7 +90,7 @@ $ curl 10.0.0.241:3000
 I love Kubernetes storage!
 
 ```
-Hopefully this simple guide is enough to get you started with PersistentVolumes.  If you have any questions, join the team on [Slack](../../troubleshooting.html#slack) and ask!
+Hopefully this simple guide is enough to get you started with PersistentVolumes.  If you have any questions, join the team on [Slack](../../troubleshooting/#slack) and ask!
 
 Enjoy!
 

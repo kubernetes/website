@@ -1,9 +1,9 @@
 ---
 title: "Resource Quota"
 ---
-This example demonstrates how [resource quota](../../admin/admission-controllers.html#resourcequota) and
-[limitsranger](../../admin/admission-controllers.html#limitranger) can be applied to a Kubernetes namespace.
-See [ResourceQuota design doc](../../design/admission_control_resource_quota) for more information.
+This example demonstrates how [resource quota](/{{page.version}}/docs/admin/admission-controllers/#resourcequota) and
+[limitsranger](/{{page.version}}/docs/admin/admission-controllers/#limitranger) can be applied to a Kubernetes namespace.
+See [ResourceQuota design doc](https://github.com/kubernetes/kubernetes/tree/master/docs/design/admission_control_resource_quota.md) for more information.
 
 This example assumes you have a functional Kubernetes setup.
 

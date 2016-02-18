@@ -4,13 +4,13 @@ title: "Kubernetes User Guide: Managing Applications"
 * TOC
 {:toc}
 
-The user guide is intended for anyone who wants to run programs and services on an existing Kubernetes cluster.  Setup and administration of a Kubernetes cluster is described in the [Cluster Admin Guide](/{{page.version}}/docs/admin/README). The [Developer Guide](/{{page.version}}/docs/devel/README) is for anyone wanting to either write code which directly accesses the Kubernetes API, or to contribute directly to the Kubernetes project.
+The user guide is intended for anyone who wants to run programs and services on an existing Kubernetes cluster.  Setup and administration of a Kubernetes cluster is described in the [Cluster Admin Guide](/{{page.version}}/docs/admin/). The [Developer Guide](/{{page.version}}/docs/devel/) is for anyone wanting to either write code which directly accesses the Kubernetes API, or to contribute directly to the Kubernetes project.
 
 Please ensure you have completed the [prerequisites for running examples from the user guide](prereqs).
 
 ## Quick walkthrough
 
-1. [Kubernetes 101](walkthrough/README)
+1. [Kubernetes 101](walkthrough/)
 1. [Kubernetes 201](walkthrough/k8s201)
 
 ## Thorough walkthrough
@@ -36,10 +36,10 @@ If you don't have much familiarity with Kubernetes, we recommend you read the fo
 [**Overview**](overview)
 : A brief overview of Kubernetes concepts.
 
-[**Cluster**](../admin/README)
+[**Cluster**](/{{page.version}}/docs/admin/)
 : A cluster is a set of physical or virtual machines and other infrastructure resources used by Kubernetes to run your applications.
 
-[**Node**](../admin/node)
+[**Node**](/{{page.version}}/docs/admin/node)
 : A node is a physical or virtual machine running Kubernetes, onto which pods can be scheduled.
 
 [**Pod**](pods)
@@ -48,7 +48,7 @@ If you don't have much familiarity with Kubernetes, we recommend you read the fo
 [**Label**](labels)
 : A label is a key/value pair that is attached to a resource, such as a pod, to convey a user-defined identifying attribute. Labels can be used to organize and to select subsets of resources.
 
-[**Selector**](labels.html#label-selectors)
+[**Selector**](labels/#label-selectors)
 : A selector is an expression that matches labels in order to identify related resources, such as which pods are targeted by a load-balanced service.
 
 [**Replication Controller**](replication-controller)

@@ -13,11 +13,11 @@ internet at large), because access to etcd is equivalent to root in your
 cluster.
 
 Data Reliability: for reasonable safety, either etcd needs to be run as a
-[cluster](high-availability.html#clustering-etcd) (multiple machines each running
+[cluster](high-availability/#clustering-etcd) (multiple machines each running
 etcd) or etcd's data directory should be located on durable storage (e.g., GCE's
 persistent disk). In either case, if high availability is required--as it might
 be in a production cluster--the data directory ought to be [backed up
-periodically](https://coreos.com/etcd/docs/2.0.12/admin_guide.html#disaster-recovery),
+periodically](https://coreos.com/etcd/docs/2.0.12/admin_guide/#disaster-recovery),
 to reduce downtime in case of corruption.
 
 ## Default configuration

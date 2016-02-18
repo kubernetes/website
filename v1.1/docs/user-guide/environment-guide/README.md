@@ -64,10 +64,10 @@ Response from backend
 Backend Container
 Backend Pod Name: backend-rc-6qiya
 Backend Namespace: default
-
 ```
+
 First the frontend pod's information is printed. The pod name and
-[namespace](/{{page.version}}/docs/design/namespaces) are retrieved from the
+[namespace](https://github.com/kubernetes/kubernetes/blob/master/docs/design/namespaces) are retrieved from the
 [Downward API](/{{page.version}}/docs/user-guide/downward-api). Next, `USER_VAR` is the name of
 an environment variable set in the [pod
 definition](show-rc.yaml). Then, the dynamic Kubernetes environment

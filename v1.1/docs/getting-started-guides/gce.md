@@ -53,8 +53,8 @@ cluster/kube-up.sh
 
 If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
 
-If you run into trouble, please see the section on [troubleshooting](gce.html#troubleshooting), post to the
-[google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](../troubleshooting.html#slack).
+If you run into trouble, please see the section on [troubleshooting](gce/#troubleshooting), post to the
+[google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](../troubleshooting/#slack).
 
 The next few steps will show you:
 
@@ -68,7 +68,7 @@ The next few steps will show you:
 The cluster startup script will leave you with a running cluster and a `kubernetes` directory on your workstation.
 The next step is to make sure the `kubectl` tool is in your path.
 
-The [kubectl](../user-guide/kubectl/kubectl) tool controls the Kubernetes cluster manager.  It lets you inspect your cluster resources, create, delete, and update components, and much more.
+The [kubectl](/{{page.version}}/docs/user-guide/kubectl/kubectl) tool controls the Kubernetes cluster manager.  It lets you inspect your cluster resources, create, delete, and update components, and much more.
 You will use it to look at your new cluster and bring up example apps.
 
 Add the appropriate binary folder to your `PATH` to access kubectl:
@@ -113,7 +113,7 @@ Once `kubectl` is in your path, you can use it to look at your cluster. E.g., ru
 $ kubectl get --all-namespaces services
 ```
 
-should show a set of [services](../user-guide/services) that look something like this:
+should show a set of [services](/{{page.version}}/docs/user-guide/services) that look something like this:
 
 ```shell
 NAMESPACE     NAME                  CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR               AGE
@@ -123,7 +123,7 @@ kube-system   kube-ui               10.0.0.3         <none>            80/TCP   
 ...
 ```
 
-Similarly, you can take a look at the set of [pods](../user-guide/pods) that were created during cluster startup.
+Similarly, you can take a look at the set of [pods](/{{page.version}}/docs/user-guide/pods) that were created during cluster startup.
 You can do this via the
 
 ```shell
