@@ -58,7 +58,7 @@ on a lightweight webserver that runs on your local machine.
 
 First install rvm
 
-```shell
+```text
 \curl -sSL https://get.rvm.io | bash -s stable
 ```
 
