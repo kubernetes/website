@@ -8,7 +8,6 @@ And we add three functions in addition to the original JSONPath syntax:
 2. We can use `""` to quote text inside JSONPath expression.
 3. We can use `range` operator to iterate list.
 
-
 The result object is printed as its String() function.
 
 Given the input:
@@ -48,8 +47,8 @@ Given the input:
     }
   ]
 }
-
 ```
+
 Function | Description        | Example            | Result
 ---------|--------------------|--------------------|------------------
 text     | the plain text     | kind is {.kind}    | kind is List

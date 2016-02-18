@@ -24,8 +24,8 @@ Run:
 
 ```shell
 sudo sh -c 'docker -d -H unix:///var/run/docker-bootstrap.sock -p /var/run/docker-bootstrap.pid --iptables=false --ip-masq=false --bridge=none --graph=/var/lib/docker-bootstrap 2> /var/log/docker-bootstrap.log 1> /dev/null &'
-
 ```
+
 _Important Note_:
 If you are running this on a long running system, rather than experimenting, you should run the bootstrap Docker instance under something like SysV init, upstart or systemd so that it is restarted
 across reboots and failures.
@@ -37,14 +37,14 @@ Run:
 
 ```shell
 sudo docker -H unix:///var/run/docker-bootstrap.sock run --net=host -d gcr.io/google_containers/etcd:2.0.12 /usr/local/bin/etcd --addr=127.0.0.1:4001 --bind-addr=0.0.0.0:4001 --data-dir=/var/etcd/data
-
 ```
+
 Next, you need to set a CIDR range for flannel.  This CIDR should be chosen to be non-overlapping with any existing network you are using:
 
 ```shell
 sudo docker -H unix:///var/run/docker-bootstrap.sock run --net=host gcr.io/google_containers/etcd:2.0.12 etcdctl set /coreos.com/network/config '{ "Network": "10.1.0.0/16" }'
-
 ```
+
 ### Set up Flannel on the master node
 
 Flannel is a network abstraction layer build by CoreOS, we will use it to provide simplified networking between our Pods of containers.
@@ -59,14 +59,14 @@ Turning down Docker is system dependent, it may be:
 
 ```shell
 sudo /etc/init.d/docker stop
-
 ```
+
 or
 
 ```shell
 sudo systemctl stop docker
-
 ```
+
 or it may be something else.
 
 #### Run flannel
@@ -75,16 +75,16 @@ Now run flanneld itself:
 
 ```shell
 sudo docker -H unix:///var/run/docker-bootstrap.sock run -d --net=host --privileged -v /dev/net:/dev/net quay.io/coreos/flannel:0.5.0
-
 ```
+
 The previous command should have printed a really long hash, copy this hash.
 
 Now get the subnet settings from flannel:
 
 ```shell
 sudo docker -H unix:///var/run/docker-bootstrap.sock exec <really-long-hash-from-above-here> cat /run/flannel/subnet.env
-
 ```
+
 #### Edit the docker configuration
 
 You now need to edit the docker configuration to activate new flags.  Again, this is system specific.
@@ -95,8 +95,8 @@ Regardless, you need to add the following to the docker command line:
 
 ```shell
 --bip=${FLANNEL_SUBNET} --mtu=${FLANNEL_MTU}
-
 ```
+
 #### Remove the existing Docker bridge
 
 Docker creates a bridge named `docker0` by default.  You need to remove this:
@@ -104,8 +104,8 @@ Docker creates a bridge named `docker0` by default.  You need to remove this:
 ```shell
 sudo /sbin/ifconfig docker0 down
 sudo brctl delbr docker0
-
 ```
+
 You may need to install the `bridge-utils` package for the `brctl` binary.
 
 #### Restart Docker
@@ -114,14 +114,14 @@ Again this is system dependent, it may be:
 
 ```shell
 sudo /etc/init.d/docker start
-
 ```
+
 it may be:
 
 ```shell
 systemctl start docker
-
 ```
+
 ## Starting the Kubernetes Master
 
 Ok, now that your networking is set up, you can startup Kubernetes, this is the same as the single-node case, we will use the "main" instance of the Docker daemon for the Kubernetes components.
@@ -139,16 +139,16 @@ sudo docker run \
     --pid=host \ 
     -d \
     gcr.io/google_containers/hyperkube:v1.0.1 /hyperkube kubelet --api-servers=http://localhost:8080 --v=2 --address=0.0.0.0 --enable-server --hostname-override=127.0.0.1 --config=/etc/kubernetes/manifests-multi --cluster-dns=10.0.0.10 --cluster-domain=cluster.local
-
 ```
+
 > Note that `--cluster-dns` and `--cluster-domain` is used to deploy dns, feel free to discard them if dns is not needed.
 
 ### Also run the service proxy
 
 ```shell
 sudo docker run -d --net=host --privileged gcr.io/google_containers/hyperkube:v1.0.1 /hyperkube proxy --master=http://127.0.0.1:8080 --v=2
-
 ```
+
 ### Test it out
 
 At this point, you should have a functioning 1-node cluster.  Let's test it out!
@@ -161,15 +161,15 @@ List the nodes
 
 ```shell
 kubectl get nodes
-
 ```
+
 This should print:
 
 ```shell
 NAME        LABELS                             STATUS
 127.0.0.1   kubernetes.io/hostname=127.0.0.1   Ready
-
 ```
+
 If the status of the node is `NotReady` or `Unknown` please check that all of the containers you created are successfully running.
 If all else fails, ask questions on [Slack](../../troubleshooting.html#slack).
 
@@ -177,6 +177,3 @@ If all else fails, ask questions on [Slack](../../troubleshooting.html#slack).
 ### Next steps
 
 Move on to [adding one or more workers](worker) or [deploy a dns](deployDNS)
-
-
-

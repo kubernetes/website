@@ -1,15 +1,14 @@
 ---
 title: "Kubernetes Development Automation"
 ---
-## Overview
-
 Kubernetes uses a variety of automated tools in an attempt to relieve developers of repeptitive, low
 brain power work.  This document attempts to describe these processes.
 
 
 ## Submit Queue
 
-In an effort to
+In an effort to:
+
    * reduce load on core developers
    * maintain e2e stability
    * load test githubs label feature
@@ -32,6 +31,7 @@ The status of the submit-queue is [online.](http://submit-queue.k8s.io/)
 ### Ready to merge status
 
 A PR is considered "ready for merging" if it matches the following:
+
    * it has the `lgtm` label, and that `lgtm` is newer than the latest commit
    * it has passed the cla pre-submit and has the `cla:yes` label
    * it has passed the travis and shippable pre-submit tests
@@ -65,6 +65,7 @@ We also run a [github "munger"](https://github.com/kubernetes/contrib/tree/maste
 This runs repeatedly over github pulls and issues and runs modular "mungers" similar to "mungedocs"
 
 Currently this runs:
+
    * blunderbuss - Tries to automatically find an owner for a PR without an owner, uses mapping file here:
         https://github.com/kubernetes/contrib/blob/master/mungegithub/blunderbuss.yml
    * needs-rebase - Adds `needs-rebase` to PRs that aren't currently mergeable, and removes it from those that are.

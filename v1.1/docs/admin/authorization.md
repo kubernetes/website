@@ -12,6 +12,7 @@ the request, (such as user, resource, and namespace) with access
 policies.  An API call must be allowed by some policy in order to proceed.
 
 The following implementations are available, and are selected by flag:
+
   - `--authorization-mode=AlwaysDeny`
   - `--authorization-mode=AlwaysAllow`
   - `--authorization-mode=ABAC`
@@ -25,6 +26,7 @@ The following implementations are available, and are selected by flag:
 ### Request Attributes
 
 A request has 5 attributes that can be considered for authorization:
+
   - user (the user-string which a user was authenticated as).
   - group (the list of group names the authenticated user is a member of).
   - whether the request is readonly (GETs are readonly).
@@ -46,6 +48,7 @@ The file format is [one JSON object per line](http://jsonlines.org/).  There sho
 one map per line.
 
 Each line is a "policy object".  A policy object is a map with the following properties:
+
   - `user`, type string; the user-string from `--token-auth-file`. If you specify `user`, it must match the username of the authenticated user.
   - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user.
   - `readonly`, type boolean, when true, means that the policy only applies to GET
@@ -126,6 +129,3 @@ to a remote authorization service.  Authorization modules can implement
 their own caching to reduce the cost of repeated authorization calls with the
 same or similar arguments.  Developers should then consider the interaction between
 caching and revocation of permissions.
-
-
-

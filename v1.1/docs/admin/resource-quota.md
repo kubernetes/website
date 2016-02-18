@@ -6,6 +6,7 @@ there is a concern that one team could use more than its fair share of resources
 
 Resource quotas are a tool for administrators to address this concern. Resource quotas
 work like this:
+
 - Different teams work in different namespaces.  Currently this is voluntary, but
   support for making this mandatory via ACLs is planned.
 - The administrator creates a Resource Quota for each namespace.
@@ -28,6 +29,7 @@ work like this:
   [admission controller](admission-controllers)) before the quota is checked to avoid this problem.
 
 Examples of policies that could be created using namespaces and quotas are:
+
 - In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 Gib and 10 cores,
   let B use 10GiB and 4 cores, and hold 2GiB and 2 cores in reserve for future allocation.
 - Limit the "testing" namespace to using 1 core and 1GiB RAM.  Let the "production" namespace
@@ -130,6 +132,7 @@ expressed in absolute units.  So, if you add nodes to your cluster, this does *n
 automatically give each namespace the ability to consume more resources.
 
 Sometimes more complex policies may be desired, such as:
+
   - proportionally divide total cluster resources among several teams.
   - allow each tenant to grow resource usage as needed, but have a generous
     limit to prevent accidental resource exhaustion.

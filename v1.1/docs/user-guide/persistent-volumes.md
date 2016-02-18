@@ -61,7 +61,6 @@ The reclaim policy for a `PersistentVolume` tells the cluster what to do with th
 
 Each PV contains a spec and status, which is the specification and status of the volume.
 
-
 ```yaml
 apiVersion: v1
   kind: PersistentVolume
@@ -76,8 +75,8 @@ apiVersion: v1
     nfs:
       path: /tmp
       server: 172.17.0.2
-
 ```
+
 ### Capacity
 
 Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](../design/resources) to understand the units expected by `capacity`.
@@ -138,8 +137,8 @@ spec:
   resources:
     requests:
       storage: 8Gi
-
 ```
+
 ### Access Modes
 
 Claims use the same conventions as volumes when requesting storage with specific access modes.
@@ -168,5 +167,4 @@ spec:
     - name: mypd
       persistentVolumeClaim:
         claimName: myclaim
-
 ```

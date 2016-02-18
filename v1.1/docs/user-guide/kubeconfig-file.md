@@ -59,8 +59,9 @@ users:
 - name: green-user
   user:
     client-certificate: path/to/my/client/cert
-    client-key: path/to/my/client/key
+    client-key: path/to/my/client/key
 ```
+
 ### Building your own kubeconfig file
 
 NOTE, that if you are deploying k8s via kube-up.sh, you do not need to create your own kubeconfig files, the script will do it for you.
@@ -71,10 +72,11 @@ So, lets do a quick walk through the basics of the above file so you can easily 
 
 The above file would likely correspond to an api-server which was launched using the `--token-auth-file=tokens.csv` option, where the tokens.csv file looked something like this:
 
-```
+```conf
 blue-user,blue-user,1
-mister-red,mister-red,2
+mister-red,mister-red,2
 ```
+
 Also, since we have other users who validate using **other** mechanisms, the api-server would have probably been launched with other authentication options (there are many such options, make sure you understand which ones YOU care about before crafting a kubeconfig file, as nobody needs to implement all the different permutations of possible authentication schemes).
 
 - Since the user for the current context is "green-user", any client of the api-server using this kubeconfig file would naturally be able to log in succesfully, because we are providigin the green-user's client credentials.
@@ -130,8 +132,9 @@ $ kubectl config set-cluster local-server --server=http://localhost:8080
 $ kubectl config set-context default-context --cluster=local-server --user=myself
 $ kubectl config use-context default-context
 $ kubectl config set contexts.default-context.namespace the-right-prefix
-$ kubectl config view
+$ kubectl config view
 ```
+
 produces this output
 
 ```yaml
@@ -153,8 +156,9 @@ users:
 - name: myself
   user:
     password: secret
-    username: admin
+    username: admin
 ```
+
 and a kubeconfig file that looks like this
 
 ```yaml
@@ -176,8 +180,9 @@ users:
 - name: myself
   user:
     password: secret
-    username: admin
+    username: admin
 ```
+
 #### Commands for the example file
 
 ```shell
@@ -189,8 +194,9 @@ $ kubectl config set-credentials blue-user --token=blue-token
 $ kubectl config set-credentials green-user --client-certificate=path/to/my/client/cert --client-key=path/to/my/client/key
 $ kubectl config set-context queen-anne-context --cluster=pig-cluster --user=black-user --namespace=saw-ns
 $ kubectl config set-context federal-context --cluster=horse-cluster --user=green-user --namespace=chisel-ns
-$ kubectl config use-context federal-context
+$ kubectl config use-context federal-context
 ```
+
 ### Final notes for tying it all together
 
 So, tying this all together, a quick start to creating your own kubeconfig file:
@@ -200,8 +206,3 @@ So, tying this all together, a quick start to creating your own kubeconfig file:
 - Replace the snippet above with information for your cluster's api-server endpoint.
 
 - Make sure your api-server is launched in such a way that at least one user (i.e. green-user) credentials are provided to it.  You will of course have to look at api-server documentation in order to determine the current state-of-the-art in terms of providing authentication details.
-
-
-
-
-

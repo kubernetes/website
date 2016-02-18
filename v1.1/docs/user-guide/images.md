@@ -21,6 +21,7 @@ your image.
 
 Private registries may require keys to read images from them.
 Credentials can be provided in several ways:
+
   - Using Google Container Registry
     - Per-cluster
     - automatically configured on Google Compute Engine or Google Container Engine
@@ -64,6 +65,7 @@ in the `$HOME` of `root` on a kubelet, then docker will use it.
 
 Here are the recommended steps to configuring your nodes to use a private registry.  In this
 example, run these on your desktop/laptop:
+
    1. run `docker login [server]` for each set of credentials you want to use.
    1. view `$HOME/.dockercfg` in an editor to ensure it contains just the credentials you want to use.
    1. get a list of your nodes
@@ -89,22 +91,22 @@ EOF
 $ kubectl create -f /tmp/private-image-test-1.yaml
 pods/private-image-test-1
 $
-
 ```
+
 If everything is working, then, after a few moments, you should see:
 
 ```shell
 $ kubectl logs private-image-test-1
 SUCCESS
-
 ```
+
 If it failed, then you will see:
 
 ```shell
 $ kubectl describe pods/private-image-test-1 | grep "Failed"
   Fri, 26 Jun 2015 15:36:13 -0700	Fri, 26 Jun 2015 15:39:13 -0700	19	{kubelet node-i2hq}	spec.containers{uses-private-image}	failed		Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
-
 ```
+
 You must ensure all nodes in the cluster have the same `.dockercfg`.  Otherwise, pods will run on
 some nodes and fail to run on others.  For example, if you use node autoscaling, then each instance
 template needs to include the `.dockercfg` or mount a drive that contains it.
@@ -172,8 +174,8 @@ EOF
 $ kubectl create -f /tmp/image-pull-secret.yaml
 secrets/myregistrykey
 $
-
 ```
+
 If you get the error message `error: no objects passed to create`, it may mean the base64 encoded string is invalid.
 If you get an error message like `Secret "myregistrykey" is invalid: data[.dockercfg]: invalid value ...` it means
 the data was successfully un-base64 encoded, but could not be parsed as a dockercfg file.
@@ -194,8 +196,8 @@ spec:
       image: janedoe/awesomeapp:v1
   imagePullSecrets:
     - name: myregistrykey
-
 ```
+
 This needs to be done for each pod that is using a private registry.
 However, setting of this field can be automated by setting the imagePullSecrets
 in a [serviceAccount](service-accounts) resource.

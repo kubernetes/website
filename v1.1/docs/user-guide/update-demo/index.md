@@ -29,8 +29,9 @@ This example assumes that you have forked the repository and [turned up a Kubern
 
 ```shell
 $ cd kubernetes
-$ ./cluster/kube-up.sh
+$ ./cluster/kube-up.sh
 ```
+
 ### Step One: Turn up the UX for the demo
 
 You can use bash job control to run this in the background (note that you must use the default port -- 8001 -- for the following demonstration to work properly).
@@ -40,8 +41,9 @@ Kubernetes repository. Otherwise you will get "404 page not found" errors as the
 
 ```shell
 $ kubectl proxy --www=docs/user-guide/update-demo/local/ &
-I0218 15:18:31.623279   67480 proxy.go:36] Starting to serve on localhost:8001
+I0218 15:18:31.623279   67480 proxy.go:36] Starting to serve on localhost:8001
 ```
+
 Now visit the the [demo website](http://localhost:8001/static).  You won't see anything much quite yet.
 
 ### Step Two: Run the replication controller
@@ -49,8 +51,9 @@ Now visit the the [demo website](http://localhost:8001/static).  You won't see a
 Now we will turn up two replicas of an [image](../images).  They all serve on internal port 80.
 
 ```shell
-$ kubectl create -f docs/user-guide/update-demo/nautilus-rc.yaml
+$ kubectl create -f docs/user-guide/update-demo/nautilus-rc.yaml
 ```
+
 After pulling the image from the Docker Hub to your worker nodes (which may take a minute or so) you'll see a couple of squares in the UI detailing the pods that are running along with the image that they are serving up.  A cute little nautilus.
 
 ### Step Three: Try scaling the replication controller
@@ -58,8 +61,9 @@ After pulling the image from the Docker Hub to your worker nodes (which may take
 Now we will increase the number of replicas from two to four:
 
 ```shell
-$ kubectl scale rc update-demo-nautilus --replicas=4
+$ kubectl scale rc update-demo-nautilus --replicas=4
 ```
+
 If you go back to the [demo website](http://localhost:8001/static/index) you should eventually see four boxes, one for each pod.
 
 ### Step Four: Update the docker image
@@ -67,8 +71,9 @@ If you go back to the [demo website](http://localhost:8001/static/index) you sho
 We will now update the docker image to serve a different image by doing a rolling update to a new Docker image.
 
 ```shell
-$ kubectl rolling-update update-demo-nautilus --update-period=10s -f docs/user-guide/update-demo/kitten-rc.yaml
+$ kubectl rolling-update update-demo-nautilus --update-period=10s -f docs/user-guide/update-demo/kitten-rc.yaml
 ```
+
 The rolling-update command in kubectl will do 2 things:
 
 1. Create a new [replication controller](/{{page.version}}/docs/user-guide/replication-controller) with a pod template that uses the new image (`gcr.io/google_containers/update-demo:kitten`)
@@ -81,8 +86,9 @@ But if the replica count had been specified, the final replica count of the new 
 ### Step Five: Bring down the pods
 
 ```shell
-$ kubectl delete rc update-demo-kitten
+$ kubectl delete rc update-demo-kitten
 ```
+
 This first stops the replication controller by turning the target number of replicas to 0 and then deletes the controller.
 
 ### Step Six: Cleanup
@@ -90,8 +96,9 @@ This first stops the replication controller by turning the target number of repl
 To turn down a Kubernetes cluster:
 
 ```shell
-$ ./cluster/kube-down.sh
+$ ./cluster/kube-down.sh
 ```
+
 Kill the proxy running in the background:
 After you are done running this demo make sure to kill it:
 
@@ -99,16 +106,18 @@ After you are done running this demo make sure to kill it:
 $ jobs
 [1]+  Running                 ./kubectl proxy --www=local/ &
 $ kill %1
-[1]+  Terminated: 15          ./kubectl proxy --www=local/
+[1]+  Terminated: 15          ./kubectl proxy --www=local/
 ```
+
 ### Updating the Docker images
 
 If you want to build your own docker images, you can set `$DOCKER_HUB_USER` to your Docker user id and run the included shell script. It can take a few minutes to download/upload stuff.
 
 ```shell
 $ export DOCKER_HUB_USER=my-docker-id
-$ ./docs/user-guide/update-demo/build-images.sh
+$ ./docs/user-guide/update-demo/build-images.sh
 ```
+
 To use your custom docker image in the above examples, you will need to change the image name in `docs/user-guide/update-demo/nautilus-rc.yaml` and `docs/user-guide/update-demo/kitten-rc.yaml`.
 
 ### Image Copyright
@@ -117,6 +126,3 @@ Note that the images included here are public domain.
 
 * [kitten](http://commons.wikimedia.org/wiki/File:Kitten-stare.jpg)
 * [nautilus](http://commons.wikimedia.org/wiki/File:Nautilus_pompilius.jpg)
-
-
-

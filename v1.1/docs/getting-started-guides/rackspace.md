@@ -1,9 +1,6 @@
 ---
 title: "Getting started on Rackspace"
 ---
-
-## Introduction
-
 * Supported Version: v0.18.1
 
 In general, the dev-build-and-up.sh workflow for Rackspace is the similar to Google Compute Engine. The specific implementation is different due to the use of CoreOS, Rackspace Cloud Files and the overall network design.
@@ -13,10 +10,9 @@ These scripts should be used to deploy development environments for Kubernetes. 
 NOTE: The rackspace scripts do NOT rely on `saltstack` and instead rely on cloud-init for configuration.
 
 The current cluster design is inspired by:
+
 - [corekube](https://github.com/metral/corekube)
 - [Angus Lees](https://github.com/anguslees/kube-openstack)
-
-
 
 {% include pagetoc.html %}
 

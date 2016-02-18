@@ -12,8 +12,8 @@ Like labels, annotations are key-value maps.
   "key1" : "value1",
   "key2" : "value2"
 }
-
 ```
+
 Possible information that could be recorded in annotations:
 
 * fields managed by a declarative configuration layer, to distinguish them from client- and/or server-set default values and other auto-generated fields, fields set by auto-sizing/auto-scaling systems, etc., in order to facilitate merging
@@ -25,6 +25,3 @@ Possible information that could be recorded in annotations:
 * phone/pager number(s) of person(s) responsible, or directory entry where that info could be found, such as a team website
 
 Yes, this information could be stored in an external database or directory, but that would make it much harder to produce shared client libraries and tools for deployment, management, introspection, etc.
-
-
-

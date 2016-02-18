@@ -15,6 +15,7 @@ Users are highly encouraged to check out our [FAQ](https://github.com/kubernetes
 
 The first step in troubleshooting is triage.  What is the problem?  Is it your Pods, your Replication Controller or
 your Service?
+
    * [Debugging Pods](#debugging-pods)
    * [Debugging Replication Controllers](#debugging-replication-controllers)
    * [Debugging Services](#debugging-services)
@@ -25,8 +26,8 @@ The first step in debugging a Pod is taking a look at it.  Check the current sta
 
 ```shell
 $ kubectl describe pods ${POD_NAME}
-
 ```
+
 Look at the state of the containers in the pod.  Are they all `Running`?  Have there been recent restarts?
 
 Continue debugging depending on the state of the pods.
@@ -50,6 +51,7 @@ scheduled.  In most cases, `hostPort` is unnecessary, try using a Service object
 
 If a Pod is stuck in the `Waiting` state, then it has been scheduled to a worker node, but it can't run on that machine.
 Again, the information from `kubectl describe ...` should be informative.  The most common cause of `Waiting` pods is a failure to pull the image.  There are three things to check:
+
 * Make sure that you have the name of the image correct
 * Have you pushed the image to the repository?
 * Run a manual `docker pull <image>` on your machine to see if the image can be pulled.
@@ -61,28 +63,28 @@ the current container:
 
 ```shell
 $ kubectl logs ${POD_NAME} ${CONTAINER_NAME}
-
 ```
+
 If your container has previously crashed, you can access the previous container's crash log with:
 
 ```shell
 $ kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
-
 ```
+
 Alternately, you can run commands inside that container with `exec`:
 
 ```shell
 $ kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
-
 ```
+
 Note that `-c ${CONTAINER_NAME}` is optional and can be omitted for Pods that only contain a single container.
 
 As an example, to look at the logs from a running Cassandra pod, you might run
 
 ```shell
 $ kubectl exec cassandra -- cat /var/log/cassandra/system.log
-
 ```
+
 If none of these approaches work, you can find the host machine that the pod is running on and SSH into that host,
 but this should generally not be necessary given tools in the Kubernetes API. Therefore, if you find yourself needing to ssh into a machine, please file a
 feature request on GitHub describing your use case and why these tools are insufficient.
@@ -100,12 +102,12 @@ The first thing to do is to delete your pod and try creating it again with the `
 For example, run `kubectl create --validate -f mypod.yaml`.
 If you misspelled `command` as `commnd` then  will give an error like this:
 
-```
+```shell
 I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
 I0805 10:43:25.129973   46757 schema.go:129] this may be a false alarm, see https://github.com/kubernetes/kubernetes/issues/6842
 pods/mypod
-
 ```
+
 <!-- TODO: Now that #11914 is merged, this advice may need to be updated -->
 
 The next thing to check is whether the pod on the apiserver
@@ -136,8 +138,8 @@ You can view this resource with:
 
 ```shell
 $ kubectl get endpoints ${SERVICE_NAME}
-
 ```
+
 Make sure that the endpoints match up with the number of containers that you expect to be a member of your service.
 For example, if your Service is for an nginx container with 3 replicas, you would expect to see three different
 IP addresses in the Service's endpoints.
@@ -153,14 +155,14 @@ spec:
   - selector:
      name: nginx
      type: frontend
-
 ```
+
 You can use:
 
 ```shell
 $ kubectl get pods --selector=name=nginx,type=frontend
-
 ```
+
 to list pods that match this selector.  Verify that the list matches the Pods that you expect to provide your Service.
 
 If the list of pods matches expectations, but your endpoints are still empty, it's possible that you don't
@@ -176,6 +178,7 @@ in the endpoints list, it's likely that the proxy can't contact your pods.
 
 There are three things to
 check:
+
    * Are your pods working correctly?  Look for restart count, and [debug pods](#debugging-pods)
    * Can you connect to your pods directly?  Get the IP address for the Pod, and try to connect directly to that IP
    * Is your application serving on the port that you configured?  Kubernetes doesn't do port remapping, so if your application serves on 8080, the `containerPort` field needs to be 8080.
@@ -185,6 +188,3 @@ check:
 If none of the above solves your problem, follow the instructions in [Debugging Service document](debugging-services) to make sure that your `Service` is running, has `Endpoints`, and your `Pods` are actually serving; you have DNS working, iptables rules installed, and kube-proxy does not seem to be misbehaving.
 
 You may also visit [troubleshooting document](../troubleshooting) for more information.
-
-
-

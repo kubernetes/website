@@ -37,6 +37,3 @@ time.
 ## For more information
 
 See [the docs for the DNS cluster addon](http://releases.k8s.io/release-1.1/cluster/addons/dns/README.md).
-
-
-

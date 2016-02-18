@@ -18,14 +18,14 @@ The simplest way to install is to copy or move kubectl into a dir already in PAT
 $ sudo cp kubernetes/platforms/darwin/amd64/kubectl /usr/local/bin/kubectl
 # Linux
 $ sudo cp kubernetes/platforms/linux/amd64/kubectl /usr/local/bin/kubectl
-
 ```
+
 You also need to ensure it's executable:
 
 ```shell
 $ sudo chmod +x /usr/local/bin/kubectl
-
 ```
+
 If you prefer not to copy kubectl, you need to ensure the tool is in your path:
 
 ```shell
@@ -34,8 +34,8 @@ export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 
 # Linux
 export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
-
 ```
+
 ## Configuring kubectl
 
 In order for kubectl to find and access the Kubernetes cluster, it needs a [kubeconfig file](kubeconfig-file), which is created automatically when creating a cluster using kube-up.sh (see the [getting started guides](/{{page.version}}/docs/getting-started-guides/) for more about creating clusters). If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](sharing-clusters).
@@ -47,13 +47,10 @@ Check that kubectl is properly configured by getting the cluster state:
 
 ```shell
 $ kubectl cluster-info
-
 ```
+
 If you see a url response, you are ready to go.
 
 ## What's next?
 
 [Learn how to launch and expose your application.](quick-start)
-
-
-

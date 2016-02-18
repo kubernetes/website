@@ -38,8 +38,8 @@ You can list this and any other serviceAccount resources in the namespace with t
 $ kubectl get serviceAccounts
 NAME      SECRETS
 default   1
-
 ```
+
 You can create additional serviceAccounts like this:
 
 ```shell
@@ -51,8 +51,8 @@ metadata:
 EOF
 $ kubectl create -f /tmp/serviceaccount.yaml
 serviceaccounts/build-robot
-
 ```
+
 If you get a complete dump of the service account object, like this:
 
 ```shell
@@ -68,8 +68,8 @@ metadata:
   uid: 721ab723-13bc-11e5-aec2-42010af0021e
 secrets:
 - name: build-robot-token-bvbk5
-
 ```
+
 then you will see that a token has automatically been created and is referenced by the service account.
 
 In the future, you will be able to configure different access policies for each service account.
@@ -85,8 +85,8 @@ You can clean up the service account from this example like this:
 
 ```shell
 $ kubectl delete serviceaccount/build-robot
-
 ```
+
 <!-- TODO: describe how to create a pod with no Service Account. -->
 Note that if a pod does not have a `ServiceAccount` set, the `ServiceAccount` will be set to `default`.
 
@@ -107,8 +107,8 @@ type: kubernetes.io/service-account-token
 EOF
 $ kubectl create -f /tmp/build-robot-secret.yaml
 secrets/build-robot-secret
-
 ```
+
 Now you can confirm that the newly built secret is populated with an API token for the "build-robot" service account.
 
 ```shell
@@ -124,8 +124,8 @@ Data
 ====
 ca.crt: 1220 bytes
 token:  
-
 ```
+
 > Note that the content of `token` is elided here.
 
 ## Adding ImagePullSecrets to a service account
@@ -137,8 +137,8 @@ Next, verify it has been created.  For example:
 $ kubectl get secrets myregistrykey
 NAME             TYPE                      DATA
 myregistrykey    kubernetes.io/dockercfg   1
-
 ```
+
 Next, read/modify/write the service account for the namespace to use this secret as an imagePullSecret
 
 ```shell
@@ -174,21 +174,19 @@ imagePullSecrets:
 - name: myregistrykey
 $ kubectl replace serviceaccount default -f ./sa.yaml
 serviceaccounts/default
-
 ```
+
 Now, any new pods created in the current namespace will have this added to their spec:
 
 ```yaml
 spec:
   imagePullSecrets:
   - name: myregistrykey
-
 ```
+
 ## Adding Secrets to a service account.
 
 TODO: Test and explain how to use additional non-K8s secrets with an existing service account.
 
 TODO explain:
   - The token goes to: "/var/run/secrets/kubernetes.io/serviceaccount/$WHATFILENAME"
-
-

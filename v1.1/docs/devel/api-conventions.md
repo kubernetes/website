@@ -323,12 +323,14 @@ after an object is created/updated.
 For example, the scheduler sets the `pod.spec.nodeName` field after the pod is created.
 
 Late-initializers should only make the following types of modifications:
+
  - Setting previously unset fields
  - Adding keys to maps
  - Adding values to arrays which have mergeable semantics (`patchStrategy:"merge"` attribute in
   the type definition).
 
 These conventions:
+
  1. allow a user (with sufficient privilege) to override any system-default behaviors by setting
     the fields that would otherwise have been defaulted.
  1. enables updates from users to be merged with changes made during late initialization, using
@@ -473,8 +475,9 @@ Kubernetes will always return the `Status` kind from any API endpoint when an er
 Clients SHOULD handle these types of objects when appropriate.
 
 A `Status` kind will be returned by the API in two cases:
-  * When an operation is not successful (i.e. when the server would return a non 2xx HTTP status code).
-  * When a HTTP `DELETE` call is successful.
+
+  1. When an operation is not successful (i.e. when the server would return a non 2xx HTTP status code).
+  2. When a HTTP `DELETE` call is successful.
 
 The status object is encoded as JSON and provided as the body of the response.  The status object contains fields for humans and machine consumers of the API to get more detailed information for the cause of the failure. The information in the status object supplements, but does not override, the HTTP status code's meaning. When fields in the status object have the same meaning as generally defined HTTP headers and that header is returned with the response, the header should be considered as having higher priority.
 
@@ -521,6 +524,7 @@ $ curl -v -k -H "Authorization: Bearer WhCDvq4VPpYhrcfmF6ei7V9qlbqTubUc" https:/
 `details` may contain extended data associated with the reason. Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
 
 Possible values for the `reason` and `details` fields:
+
 * `BadRequest`
   * Indicates that the request itself was invalid, because the request doesn't make any sense, for example deleting a read-only object.
   * This is different than `status reason` `Invalid` above which indicates that the API call could possibly succeed, but the data was invalid.
@@ -648,6 +652,7 @@ Annotations have very different intended usage from labels. We expect them to be
 In fact, in-development API fields, including those used to represent fields of newer alpha/beta API versions in the older stable storage version, may be represented as annotations with the form `something.alpha.kubernetes.io/name` or `something.beta.kubernetes.io/name` (depending on our confidence in it).  For example `net.alpha.kubernetes.io/policy` might represent an experimental network policy field.
 
 Other advice regarding use of labels, annotations, and other generic map keys by Kubernetes components and tools:
+
   - Key names should be all lowercase, with words separated by dashes, such as `desired-replicas`
   - Prefix the key with `kubernetes.io/` or `foo.kubernetes.io/`, preferably the latter if the label/annotation is specific to `foo`
     - For instance, prefer `service-account.kubernetes.io/name` over `kubernetes.io/service-account.name`

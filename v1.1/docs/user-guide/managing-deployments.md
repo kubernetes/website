@@ -39,30 +39,30 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
-
 ```
+
 Multiple resources can be created the same way as a single resource:
 
 ```shell
 $ kubectl create -f ./nginx-app.yaml
 services/my-nginx-svc
 replicationcontrollers/my-nginx
-
 ```
+
 The resources will be created in the order they appear in the file. Therefore, it's best to specify the service first, since that will ensure the scheduler can spread the pods associated with the service as they are created by the replication controller(s).
 
 `kubectl create` also accepts multiple `-f` arguments:
 
 ```shell
 $ kubectl create -f ./nginx-svc.yaml -f ./nginx-rc.yaml
-
 ```
+
 And a directory can be specified rather than or in addition to individual files:
 
 ```shell
 $ kubectl create -f ./nginx/
-
 ```
+
 `kubectl` will read any files with suffixes `.yaml`, `.yml`, or `.json`.
 
 It is a recommended practice to put resources related to the same microservice or application tier into the same file, and to group all of the files associated with your application in the same directory. If the tiers of your application bind to each other using DNS, then you can then simply deploy all of the components of your stack en masse.
@@ -72,8 +72,8 @@ A URL can also be specified as a configuration source, which is handy for deploy
 ```shell
 $ kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/kubernetes/master/docs/user-guide/replication.yaml
 replicationcontrollers/nginx
-
 ```
+
 ## Bulk operations in kubectl
 
 Resource creation isn't the only operation that `kubectl` can perform in bulk. It can also extract resource names from configuration files in order to perform other operations, in particular to delete the same resources you created:
@@ -82,22 +82,22 @@ Resource creation isn't the only operation that `kubectl` can perform in bulk. I
 $ kubectl delete -f ./nginx/
 replicationcontrollers/my-nginx
 services/my-nginx-svc
-
 ```
+
 In the case of just two resources, it's also easy to specify both on the command line using the resource/name syntax:
 
 ```shell
 $ kubectl delete replicationcontrollers/my-nginx services/my-nginx-svc
-
 ```
+
 For larger numbers of resources, one can use labels to filter resources. The selector is specified using `-l`:
 
 ```shell
 $ kubectl delete all -lapp=nginx
 replicationcontrollers/my-nginx
 services/my-nginx-svc
-
 ```
+
 Because `kubectl` outputs resource names in the same syntax it accepts, it's easy to chain operations using `$()` or `xargs`:
 
 ```shell
@@ -106,8 +106,8 @@ CONTROLLER   CONTAINER(S)   IMAGE(S)   SELECTOR    REPLICAS
 my-nginx     nginx          nginx      app=nginx   2
 NAME           LABELS      SELECTOR    IP(S)          PORT(S)
 my-nginx-svc   app=nginx   app=nginx   10.0.152.174   80/TCP
-
 ```
+
 ## Using labels effectively
 
 The examples we've used so far apply at most a single label to any resource. There are many scenarios where multiple labels should be used to distinguish sets from one another.
@@ -118,8 +118,8 @@ For instance, different applications would use different values for the `app` la
 labels:
         app: guestbook
         tier: frontend
-
 ```
+
 while the Redis master and slave would have different `tier` labels, and perhaps even an additional `role` label:
 
 ```yaml
@@ -127,8 +127,8 @@ labels:
         app: guestbook
         tier: backend
         role: master
-
 ```
+
 and
 
 ```yaml
@@ -136,8 +136,8 @@ labels:
         app: guestbook
         tier: backend
         role: slave
-
 ```
+
 The labels allow us to slice and dice our resources along any dimension specified by a label:
 
 ```shell
@@ -159,8 +159,8 @@ $ kubectl get pods -lapp=guestbook,role=slave
 NAME                          READY     STATUS    RESTARTS   AGE
 guestbook-redis-slave-2q2yf   1/1       Running   0          3m
 guestbook-redis-slave-qgazl   1/1       Running   0          3m
-
 ```
+
 ## Canary deployments
 
 Another scenario where multiple labels are needed is to distinguish deployments of different releases or configurations of the same component. For example, it is common practice to deploy a *canary* of a new application release (specified via image tag) side by side with the previous release so that the new release can receive live production traffic before fully rolling it out. For instance, a new release of the guestbook frontend might carry the following labels:
@@ -170,8 +170,8 @@ labels:
         app: guestbook
         tier: frontend
         track: canary
-
 ```
+
 and the primary, stable release would have a different value of the `track` label, so that the sets of pods controlled by the two replication controllers would not overlap:
 
 ```yaml
@@ -179,16 +179,16 @@ labels:
         app: guestbook
         tier: frontend
         track: stable
-
 ```
+
 The frontend service would span both sets of replicas by selecting the common subset of their labels, omitting the `track` label:
 
 ```yaml
 selector:
      app: guestbook
      tier: frontend
-
 ```
+
 ## Updating labels
 
 Sometimes existing pods and other resources need to be relabeled before creating new resources. This can be done with `kubectl label`. For example:
@@ -212,8 +212,8 @@ my-nginx-v4-hayza   1/1       Running   0          14m       fe
 my-nginx-v4-mde6m   1/1       Running   0          18m       fe
 my-nginx-v4-sh6m8   1/1       Running   0          19m       fe
 my-nginx-v4-wfof4   1/1       Running   0          16m       fe
-
 ```
+
 ## Scaling your application
 
 When load on your application grows or shrinks, it's easy to scale with `kubectl`. For instance, to increase the number of nginx replicas from 2 to 3, do:
@@ -226,8 +226,8 @@ NAME             READY     STATUS    RESTARTS   AGE
 my-nginx-1jgkf   1/1       Running   0          3m
 my-nginx-divi2   1/1       Running   0          1h
 my-nginx-o0ef1   1/1       Running   0          1h
-
 ```
+
 ## Updating your application without a service outage
 
 At some point, you'll eventually need to update your deployed application, typically by specifying a new image or image tag, as in the canary deployment scenario above. `kubectl` supports several update operations, each of which is applicable to different scenarios.
@@ -253,15 +253,15 @@ spec:
         image: nginx:1.7.9
         ports:
         - containerPort: 80
-
 ```
+
 To update to version 1.9.1, you can use [`kubectl rolling-update --image`](/{{page.version}}/docs/design/simple-rolling-update):
 
 ```shell
 $ kubectl rolling-update my-nginx --image=nginx:1.9.1
 Creating my-nginx-ccba8fbd8cc8160970f63f9a2696fc46
-
 ```
+
 In another window, you can see that `kubectl` added a `deployment` label to the pods, whose value is a hash of the configuration, to distinguish the new pods from the old:
 
 ```shell
@@ -273,8 +273,8 @@ my-nginx-ccba8fbd8cc8160970f63f9a2696fc46-v95yh   1/1       Running   0         
 my-nginx-divi2                                    1/1       Running   0          2h        2d1d7a8f682934a254002b56404b813e
 my-nginx-o0ef1                                    1/1       Running   0          2h        2d1d7a8f682934a254002b56404b813e
 my-nginx-q6all                                    1/1       Running   0          8m        2d1d7a8f682934a254002b56404b813e
-
 ```
+
 `kubectl rolling-update` reports progress as it progresses:
 
 ```shell
@@ -295,8 +295,8 @@ At end of loop: my-nginx replicas: 0, my-nginx-ccba8fbd8cc8160970f63f9a2696fc46 
 Update succeeded. Deleting old controller: my-nginx
 Renaming my-nginx-ccba8fbd8cc8160970f63f9a2696fc46 to my-nginx
 my-nginx
-
 ```
+
 If you encounter a problem, you can stop the rolling update midway and revert to the previous version using `--rollback`:
 
 ```shell
@@ -306,8 +306,8 @@ Found desired replicas.Continuing update with existing controller my-nginx.
 Stopping my-nginx-02ca3e87d8685813dbe1f8c164a46f02 replicas: 1 -> 0
 Update succeeded. Deleting my-nginx-ccba8fbd8cc8160970f63f9a2696fc46
 my-nginx
-
 ```
+
 This is one example where the immutability of containers is a huge asset.
 
 If you need to update more than just the image (e.g., command arguments, environment variables), you can create a new replication controller, with a new name and distinguishing label value, such as:
@@ -334,8 +334,8 @@ spec:
         args: ['nginx'?,'?-T'?]
         ports:
         - containerPort: 80
-
 ```
+
 and roll it out:
 
 ```shell
@@ -358,8 +358,8 @@ Updating my-nginx replicas: 0, my-nginx-v4 replicas: 5
 At end of loop: my-nginx replicas: 0, my-nginx-v4 replicas: 5
 Update succeeded. Deleting my-nginx
 my-nginx-v4
-
 ```
+
 You can also run the [update demo](update-demo/) to see a visual representation of the rolling update process.
 
 ## In-place updates of resources
@@ -376,8 +376,8 @@ metadata:
   annotations:
     description: my frontend running nginx
 ...
-
 ```
+
 The patch is specified using json.
 
 For more significant changes, you can `get` the resource, edit it, and then `replace` the resource with the updated version:
@@ -388,8 +388,8 @@ $ vi /tmp/nginx.yaml
 $ kubectl replace -f /tmp/nginx.yaml
 replicationcontrollers/my-nginx-v4
 $ rm $TMP
-
 ```
+
 The system ensures that you don't clobber changes made by other users or components by confirming that the `resourceVersion` doesn't differ from the version you edited. If you want to update regardless of other changes, remove the `resourceVersion` field when you edit the resource. However, if you do this, don't use your original configuration file as the source since additional fields most likely were set in the live state.
 
 ## Disruptive updates
@@ -400,12 +400,9 @@ In some cases, you may need to update resource fields that cannot be updated onc
 $ kubectl replace -f ./nginx-rc.yaml --force
 replicationcontrollers/my-nginx-v4
 replicationcontrollers/my-nginx-v4
-
 ```
+
 ## What's next?
 
 - [Learn about how to use `kubectl` for application introspection and debugging.](introspection-and-debugging)
-- [Tips and tricks when working with config](config-best-practices)
-
-
-
+- [Tips and tricks when working with config](config-best-practices

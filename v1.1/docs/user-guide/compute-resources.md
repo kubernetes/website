@@ -66,8 +66,8 @@ spec:
       limits:
         memory: "128Mi"
         cpu: "500m"
-
 ```
+
 ## How Pods with Resource Requests are Scheduled
 
 When a pod is created, the Kubernetes scheduler selects a node for the pod to
@@ -86,6 +86,7 @@ When kubelet starts a container of a pod, it passes the CPU and memory limits to
 runner (Docker or rkt).
 
 When using Docker:
+
 - The `spec.container[].resources.limits.cpu` is multiplied by 1024, converted to an integer, and
   used as the value of the [`--cpu-shares`](
   https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
@@ -125,13 +126,13 @@ $ kubectl describe pod frontend | grep -A 3 Events
 Events:
   FirstSeen	LastSeen	 Count	From          Subobject   PathReason			Message
   36s		5s		 6	    {scheduler }              FailedScheduling	Failed for reason PodExceedsFreeCPU and possibly others
-
-
 ```
+
 In the case shown above, the pod "frontend" fails to be scheduled due to insufficient
 CPU resource on the node. Similar error messages can also suggest failure due to insufficient
 memory (PodExceedsFreeMemory). In general, if a pod or pods are pending with this message and
 alike, then there are several things to try:
+
 - Add more nodes to the cluster.
 - Terminate unneeded pods to make room for pending pods.
 - Check that the pod is not larger than all the nodes.  For example, if all the nodes
@@ -162,8 +163,8 @@ TotalResourceLimits:
   CPU(milliCPU):		910 (91% of total)
   Memory(bytes):		2485125120 (59% of total)
 [ ... lines removed for clarity ...]
-
 ```
+
 Here you can see from the `Allocated resources` section that that a pod which ask for more than
 90 millicpus or more than 1341MiB of memory will not be able to fit on this node.
 
@@ -214,8 +215,8 @@ Events:
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  implicitly required container POD   created     Created with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  implicitly required container POD   started     Started with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-minion-tf0f}  spec.containers{simmemleak}         created     Created with docker id 87348f12526a
-
 ```
+
 The `Restart Count:  5` indicates that the `simmemleak` container in this pod was terminated and restarted 5 times.
 
 You can call `get pod` with the `-o go-template=...` option to fetch the status of previously terminated containers:
@@ -224,8 +225,8 @@ You can call `get pod` with the `-o go-template=...` option to fetch the status 
 [13:59:01] $ ./cluster/kubectl.sh  get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
 Container Name: simmemleak
 LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]][13:59:03] clusterScaleDoc ~/go/src/github.com/kubernetes/kubernetes $ 
-
 ```
+
 We can see that this container was terminated because `reason:OOM Killed`, where *OOM* stands for Out Of Memory.
 
 ## Planned Improvements
@@ -245,6 +246,3 @@ machine types within the same cloud providers.  For example, on AWS, the capacit
 is reported in [ECUs](http://aws.amazon.com/ec2/faqs/), while in GCE it is reported in logical
 cores.  We plan to revise the definition of the cpu resource to allow for more consistency
 across providers and platforms.
-
-
-

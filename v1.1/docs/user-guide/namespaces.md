@@ -19,7 +19,7 @@ In future versions of Kubernetes, objects in the same namespace will have the sa
 access control policies by default.
 
 It is not necessary to use multiple namespaces just to separate slightly different
-resources, such as different versions of the same software: use [labels](#labels.md) to distinguish
+resources, such as different versions of the same software: use [labels](labels) to distinguish
 resources within the same namespace.
 
 ## Working with Namespaces
@@ -36,9 +36,10 @@ $ kubectl get namespaces
 NAME          LABELS    STATUS
 default       <none>    Active
 kube-system   <none>    Active
-
 ```
+
 Kubernetes starts with two initial namespaces:
+
    * `default` The default namespace for objects with no other namespace
    * `kube-system` The namespace for objects created by the Kubernetes system
 
@@ -51,8 +52,8 @@ For example:
 ```shell
 $ kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
 $ kubectl --namespace=<insert-namespace-name-here> get pods
-
 ```
+
 ### Setting the namespace preference
 
 You can permanently save the namespace for all subsequent kubectl commands in that
@@ -62,14 +63,14 @@ First get your current context:
 
 ```shell
 $ export CONTEXT=$(kubectl config view | grep current-context | awk '{print $2}')
-
 ```
+
 Then update the default namespace:
 
 ```shell
 $ kubectl config set-context $(CONTEXT) --namespace=<insert-namespace-name-here>
-
 ```
+
 ## Namespaces and DNS
 
 When you create a [Service](services), it creates a corresponding [DNS entry](../admin/dns).
@@ -86,6 +87,3 @@ in a some namespace.  However namespace resources are not themselves in a namesp
 And, low-level resources, such as [nodes](/{{page.version}}/docs/admin/node) and
 persistentVolumes, are not in any namespace. Events are an exception: they may or may not
 have a namespace, depending on the object the event is about.
-
-
-

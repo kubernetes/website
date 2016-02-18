@@ -17,6 +17,7 @@ which is similar to the one you have planned, consider improving that one.
 
 
 Distros fall into two categories:
+
   - **versioned distros** are tested to work with a particular binary release of Kubernetes.  These
     come in a wide variety, reflecting a wide range of ideas and preferences in how to run a cluster.
   - **development distros** are tested work with the latest Kubernetes source code.  But, there are
@@ -28,6 +29,7 @@ There are different guidelines for each.
 ## Versioned Distro Guidelines
 
 These guidelines say *what* to do.  See the Rationale section for *why*.
+
  - Send us a PR.
  - Put the instructions in `docs/getting-started-guides/...`. Scripts go there too.  This helps devs easily
    search for uses of flags by guides.
@@ -49,6 +51,7 @@ Just file an issue or chat us on [Slack](../troubleshooting.html#slack) and one 
 ## Development Distro Guidelines
 
 These guidelines say *what* to do.  See the Rationale section for *why*.
+
   - the main reason to add a new development distro is to support a new IaaS provider (VM and
     network management).  This means implementing a new `pkg/cloudprovider/providers/$IAAS_NAME`.
   - Development distros should use Saltstack for Configuration Management.
@@ -94,7 +97,3 @@ These guidelines say *what* to do.  See the Rationale section for *why*.
  - You can still run code from head or your own branch
    if you use another Configuration Management tool -- you just have to do some manual steps
    during testing and deployment.
-
-
-
-

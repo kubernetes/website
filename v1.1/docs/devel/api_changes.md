@@ -67,6 +67,7 @@ backward-compatibly.
 Before talking about how to make API changes, it is worthwhile to clarify what
 we mean by API compatibility.  An API change is considered backward-compatible
 if it:
+
    * adds new functionality that is not required for correct behavior (e.g.,
      does not add a new required field)
    * does not change existing semantics, including:
@@ -261,6 +262,7 @@ the release notes for the next release by labeling the PR with the "release-note
 If you found that your change accidentally broke clients, it should be reverted.
 
 In short, the expected API evolution is as follows:
+
 * `extensions/v1alpha1` ->
 * `newapigroup/v1alpha1` -> ... -> `newapigroup/v1alphaN` ->
 * `newapigroup/v1beta1` -> ... -> `newapigroup/v1betaN` ->
@@ -363,6 +365,7 @@ than the generic ones (which are based on reflections and thus are highly
 inefficient).
 
 The conversion code resides with each versioned API. There are two files:
+
    - `pkg/api/<version>/conversion.go` containing manually written conversion
      functions
    - `pkg/api/<version>/conversion_generated.go` containing auto-generated
@@ -381,8 +384,7 @@ Also note that you can (and for efficiency reasons should) use auto-generated
 conversion functions when writing your conversion functions.
 
 Once all the necessary manually written conversions are added, you need to
-regenerate auto-generated ones. To regenerate them:
-   - run
+regenerate auto-generated ones. To regenerate them, run:
 
 ```shell
 hack/update-generated-conversions.sh
@@ -404,11 +406,11 @@ structure changes done.  You now need to generate code to handle deep copy
 of your versioned api objects.
 
 The deep copy code resides with each versioned API:
+
    - `pkg/api/<version>/deep_copy_generated.go` containing auto-generated copy functions
    - `pkg/apis/extensions/<version>/deep_copy_generated.go` containing auto-generated copy functions
 
-To regenerate them:
-   - run
+To regenerate them, run:
 
 ```shell
 hack/update-generated-deep-copies.sh
@@ -420,11 +422,11 @@ We are auto-generating code for marshaling and unmarshaling json representation
 of api objects - this is to improve the overall system performance.
 
 The auto-generated code resides with each versioned API:
+
    - `pkg/api/<version>/types.generated.go`
    - `pkg/apis/extensions/<version>/types.generated.go`
 
-To regenerate them:
-   - run
+To regenerate them, run:
 
 ```shell
 hack/update-codecgen.sh

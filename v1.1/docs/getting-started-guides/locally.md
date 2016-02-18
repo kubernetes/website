@@ -1,8 +1,6 @@
 ---
 title: "Getting started locally"
----
-
-
+--
 {% include pagetoc.html %}
 
 ### Requirements

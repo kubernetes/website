@@ -1,16 +1,12 @@
 ---
 title: "Kubernetes Deployment On Bare-metal Ubuntu Nodes"
 ---
-
-## Introduction
-
 This document describes how to deploy kubernetes on ubuntu nodes, 1 master and 3 nodes involved
 in the given examples. You can scale to **any number of nodes** by changing some settings with ease.
 The original idea was heavily inspired by @jainvipin 's ubuntu single node
 work, which has been merge into this document.
 
 [Cloud team from Zhejiang University](https://github.com/ZJU-SEL) will maintain this work.
-
 
 {% include pagetoc.html %}
 
@@ -32,15 +28,15 @@ First clone the kubernetes github repo
 
 ```shell
 $ git clone https://github.com/kubernetes/kubernetes.git
-
 ```
+
 Then download all the needed binaries into given directory (cluster/ubuntu/binaries)
 
 ```shell
 $ cd kubernetes/cluster/ubuntu
 $ ./build.sh
-
 ```
+
 You can customize your etcd version, flannel version, k8s version by changing corresponding variables
 `ETCD_VERSION` , `FLANNEL_VERSION` and `KUBE_VERSION` in build.sh, by default etcd version is 2.0.12,
 flannel version is 0.4.0 and k8s version is 1.0.3.
@@ -73,8 +69,8 @@ export NUM_MINIONS=${NUM_MINIONS:-3}
 export SERVICE_CLUSTER_IP_RANGE=192.168.3.0/24
 
 export FLANNEL_NET=172.16.0.0/16
-
 ```
+
 The first variable `nodes` defines all your cluster nodes, MASTER node comes first and
 separated with blank space like `<user_1@ip_1> <user_2@ip_2> <user_3@ip_3> `
 
@@ -88,22 +84,28 @@ that you do have a valid private ip range defined here, because some IaaS provid
 You can use below three private network range according to rfc1918. Besides you'd better not choose the one
 that conflicts with your own private network range.
 
-     10.0.0.0        -   10.255.255.255  (10/8 prefix)
+```shell
+10.0.0.0        -   10.255.255.255  (10/8 prefix)
 
-     172.16.0.0      -   172.31.255.255  (172.16/12 prefix)
+172.16.0.0      -   172.31.255.255  (172.16/12 prefix)
 
-     192.168.0.0     -   192.168.255.255 (192.168/16 prefix)
+192.168.0.0     -   192.168.255.255 (192.168/16 prefix)
+```
 
 The `FLANNEL_NET` variable defines the IP range used for flannel overlay network,
 should not conflict with above `SERVICE_CLUSTER_IP_RANGE`.
 
 **Note:** When deploying, master needs to connect the Internet to download the necessary files. If your machines locate in a private network that need proxy setting to connect the Internet, you can set the config `PROXY_SETTING` in cluster/ubuntu/config-default.sh such as:
 
-     PROXY_SETTING="http_proxy=http://server:port https_proxy=https://server:port"
+```shell
+PROXY_SETTING="http_proxy=http://server:port https_proxy=https://server:port"
+```
 
 After all the above variables being set correctly, we can use following command in cluster/ directory to bring up the whole cluster.
 
-`$ KUBERNETES_PROVIDER=ubuntu ./kube-up.sh`
+```shell
+KUBERNETES_PROVIDER=ubuntu ./kube-up.sh
+```
 
 The scripts automatically scp binaries and config files to all the machines and start the k8s service on them.
 The only thing you need to do is to type the sudo password when promoted.
@@ -112,14 +114,14 @@ The only thing you need to do is to type the sudo password when promoted.
 Deploying minion on machine 10.10.103.223
 ...
 [sudo] password to copy files and start minion: 
-
 ```
+
 If all things goes right, you will see the below message from console indicating the k8s is up.
 
 ```shell
 Cluster validation succeeded
-
 ```
+
 ### Test it out
 
 You can use `kubectl` command to check if the newly created k8s is working correctly.
@@ -134,8 +136,8 @@ NAME            LABELS                                 STATUS
 10.10.103.162   kubernetes.io/hostname=10.10.103.162   Ready
 10.10.103.223   kubernetes.io/hostname=10.10.103.223   Ready
 10.10.103.250   kubernetes.io/hostname=10.10.103.250   Ready
-
 ```
+
 Also you can run Kubernetes [guest-example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/) to build a redis backend cluster on the k8s．
 
 
@@ -154,8 +156,8 @@ DNS_SERVER_IP="192.168.3.10"
 DNS_DOMAIN="cluster.local"
 
 DNS_REPLICAS=1
-
 ```
+
 The `DNS_SERVER_IP` is defining the ip of dns server which must be in the `SERVICE_CLUSTER_IP_RANGE`.
 The `DNS_REPLICAS` describes how many dns pod running in the cluster.
 
@@ -163,15 +165,15 @@ By default, we also take care of kube-ui addon.
 
 ```shell
 ENABLE_CLUSTER_UI="${KUBE_ENABLE_CLUSTER_UI:-true}"
-
 ```
+
 After all the above variables have been set, just type the following command.
 
 ```shell
 $ cd cluster/ubuntu
 $ KUBERNETES_PROVIDER=ubuntu ./deployAddons.sh
-
 ```
+
 After some time, you can use `$ kubectl get pods --namespace=kube-system` to see the DNS and UI pods are running in the cluster.
 
 ### On going
@@ -197,17 +199,18 @@ Please try:
 1. Check `/var/log/upstart/etcd.log` for suspicious etcd log
 2. Check `/etc/default/etcd`, as we do not have much input validation, a right config should be like:
 
-	```sh
-	ETCD_OPTS="-name infra1 -initial-advertise-peer-urls <http://ip_of_this_node:2380> -listen-peer-urls <http://ip_of_this_node:2380> -initial-cluster-token etcd-cluster-1 -initial-cluster infra1=<http://ip_of_this_node:2380>,infra2=<http://ip_of_another_node:2380>,infra3=<http://ip_of_another_node:2380> -initial-cluster-state new"
-	```
+```shell
+ETCD_OPTS="-name infra1 -initial-advertise-peer-urls <http://ip_of_this_node:2380> -listen-peer-urls <http://ip_of_this_node:2380> -initial-cluster-token etcd-cluster-1 -initial-cluster infra1=<http://ip_of_this_node:2380>,infra2=<http://ip_of_another_node:2380>,infra3=<http://ip_of_another_node:2380> -initial-cluster-state new"
+```
+
 3. You may find following commands useful, the former one to bring down the cluster, while
 the latter one could start it again.
 
 ```shell
-$ KUBERNETES_PROVIDER=ubuntu ./kube-down.sh
-    $ KUBERNETES_PROVIDER=ubuntu ./kube-up.sh
-
+KUBERNETES_PROVIDER=ubuntu ./kube-down.sh
+KUBERNETES_PROVIDER=ubuntu ./kube-up.sh
 ```
+
 4. You can also customize your own settings in `/etc/default/{component_name}`.
 
 
@@ -217,9 +220,9 @@ If you already have a kubernetes cluster, and want to upgrade to a new version,
 you can use following command in cluster/ directory to update the whole cluster or a specified node to a new version.
 
 ```shell
-$ KUBERNETES_PROVIDER=ubuntu ./kube-push.sh [-m|-n <node id>] <version>
-
+KUBERNETES_PROVIDER=ubuntu ./kube-push.sh [-m|-n <node id>] <version>
 ```
+
 It can be done for all components (by default), master(`-m`) or specified node(`-n`).
 If the version is not specified, the script will try to use local binaries.You should ensure all the binaries are well prepared in path `cluster/ubuntu/binaries`.
 
@@ -238,14 +241,14 @@ binaries/
     '��'��'�� flanneld
     '��'��'�� kubelet
     '��'��'�� kube-proxy
-
 ```
+
 Upgrading single node is experimental now. You can use following command to get a help.
 
 ```shell
-$ KUBERNETES_PROVIDER=ubuntu ./kube-push.sh -h
-
+KUBERNETES_PROVIDER=ubuntu ./kube-push.sh -h
 ```
+
 Some examples are as follows:
 
 * upgrade master to version 1.0.5: `$ KUBERNETES_PROVIDER=ubuntu ./kube-push.sh -m 1.0.5`
@@ -254,4 +257,4 @@ Some examples are as follows:
 
 The script will not delete any resources of your cluster, it just replaces the binaries.
 You can use `kubectl` command to check if the newly upgraded k8s is working correctly.
-For example, use `$ kubectl get nodes` to see if all of your nodes are ready.Or refer to [test-it-out](ubuntu.html#test-it-out)
+For example, use `$ kubectl get nodes` to see if all of your nodes are ready.Or refer to [test-it-out](ubuntu/#test-it-out)

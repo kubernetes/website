@@ -21,22 +21,22 @@ If the command "COMMAND" is expected to run in a `Pod` and produce "OUTPUT":
 ```shell
 u@pod$ COMMAND
 OUTPUT
-
 ```
+
 If the command "COMMAND" is expected to run on a `Node` and produce "OUTPUT":
 
 ```shell
 u@node$ COMMAND
 OUTPUT
-
 ```
+
 If the command is "kubectl ARGS":
 
 ```shell
 $ kubectl ARGS
 OUTPUT
-
 ```
+
 ## Running commands in a Pod
 
 For many steps here you will want to see what a `Pod` running in the cluster
@@ -58,22 +58,22 @@ spec:
     - "1000000"
 EOF
 pods/busybox-sleep
-
 ```
+
 Now, when you need to run a command (even an interactive shell) in a `Pod`-like
 context, use:
 
 ```shell
 $ kubectl exec busybox-sleep -- <COMMAND>
-
 ```
+
 or
 
 ```shell
 $ kubectl exec -ti busybox-sleep sh
 / #
-
 ```
+
 ## Setup
 
 For the purposes of this walk-through, let's run some `Pod`s.  Since you're
@@ -87,8 +87,8 @@ $ kubectl run hostnames --image=gcr.io/google_containers/serve_hostname \
                         --replicas=3
 CONTROLLER   CONTAINER(S)   IMAGE(S)                                  SELECTOR        REPLICAS
 hostnames    hostnames      gcr.io/google_containers/serve_hostname   app=hostnames   3
-
 ```
+
 Note that this is the same as if you had started the `ReplicationController` with
 the following YAML:
 
@@ -112,8 +112,8 @@ spec:
         ports:
         - containerPort: 9376
           protocol: TCP
-
 ```
+
 Confirm your `Pod`s are running:
 
 ```shell
@@ -122,8 +122,8 @@ NAME              READY     STATUS    RESTARTS   AGE
 hostnames-0uton   1/1       Running   0          12s
 hostnames-bvc05   1/1       Running   0          12s
 hostnames-yp2kp   1/1       Running   0          12s
-
 ```
+
 ## Does the Service exist?
 
 The astute reader will have noticed that we did not actually create a `Service`
@@ -137,37 +137,37 @@ like:
 ```shell
 u@pod$ wget -qO- hostnames
 wget: bad address 'hostname'
-
 ```
+
 or:
 
 ```shell
 u@pod$ echo $HOSTNAMES_SERVICE_HOST
-
 ```
+
 So the first thing to check is whether that `Service` actually exists:
 
 ```shell
 $ kubectl get svc hostnames
 Error from server: service "hostnames" not found
-
 ```
+
 So we have a culprit, let's create the `Service`.  As before, this is for the
 walk-through - you can use your own `Service`'s details here.
 
 ```shell
 $ kubectl expose rc hostnames --port=80 --target-port=9376
 service "hostnames" exposed
-
 ```
+
 And read it back, just to be sure:
 
 ```shell
 $ kubectl get svc hostnames
 NAME              CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR               AGE
 hostnames         10.0.0.1         <none>            80/TCP        run=hostnames          1h
-
 ```
+
 As before, this is the same as if you had started the `Service` with YAML:
 
 ```yaml
@@ -183,8 +183,8 @@ spec:
     protocol: TCP
     port: 80
     targetPort: 9376
-
 ```
+
 Now you can confirm that the `Service` exists.
 
 ## Does the Service work by DNS?
@@ -198,8 +198,8 @@ Address:        10.0.0.10#53
 
 Name:   hostnames
 Address: 10.0.1.175
-
 ```
+
 If this fails, perhaps your `Pod` and `Service` are in different
 `Namespace`s, try a namespace-qualified name:
 
@@ -210,8 +210,8 @@ Address:        10.0.0.10#53
 
 Name:   hostnames.default
 Address: 10.0.1.175
-
 ```
+
 If this works, you'll need to ensure that `Pod`s and `Service`s run in the same
 `Namespace`.  If this still fails, try a fully-qualified name:
 
@@ -222,8 +222,8 @@ Address:        10.0.0.10#53
 
 Name:   hostnames.default.svc.cluster.local
 Address: 10.0.1.175
-
 ```
+
 Note the suffix here: "default.svc.cluster.local".  The "default" is the
 `Namespace` we're operating in.  The "svc" denotes that this is a `Service`.
 The "cluster.local" is your cluster domain.
@@ -238,8 +238,8 @@ Address:        10.0.0.10#53
 
 Name:   hostnames.default.svc.cluster.local
 Address: 10.0.1.175
-
 ```
+
 If you are able to do a fully-qualified name lookup but not a relative one, you
 need to check that your `kubelet` is running with the right flags.
 The `--cluster-dns` flag needs to point to your DNS `Service`'s IP and the
@@ -260,8 +260,8 @@ Address 1: 10.0.0.10
 
 Name:      kubernetes
 Address 1: 10.0.0.1
-
 ```
+
 If this fails, you might need to go to the kube-proxy section of this doc, or
 even go back to the top of this document and start over, but instead of
 debugging your own `Service`, debug DNS.
@@ -280,8 +280,8 @@ hostnames-yp2kp
 
 u@node$ curl 10.0.1.175:80
 hostnames-bvc05
-
 ```
+
 If your `Service` is working, you should get correct responses.  If not, there
 are a number of things that could be going wrong.  Read on.
 
@@ -328,8 +328,8 @@ $ kubectl get service hostnames -o json
         "loadBalancer": {}
     }
 }
-
 ```
+
 Is the port you are trying to access in `spec.ports[]`?  Is the `targetPort`
 correct for your `Pod`s?  If you meant it to be a numeric port, is it a number
 (9376) or a string "9376"?  If you meant it to be a named port, do your `Pod`s
@@ -350,8 +350,8 @@ NAME              READY     STATUS    RESTARTS   AGE
 hostnames-0uton   1/1       Running   0          1h
 hostnames-bvc05   1/1       Running   0          1h
 hostnames-yp2kp   1/1       Running   0          1h
-
 ```
+
 The "AGE" column says that these `Pod`s are about an hour old, which implies that
 they are running fine and not crashing.
 
@@ -363,8 +363,8 @@ selector of every `Service` and save the results into an `Endpoints` object.
 $ kubectl get endpoints hostnames
 NAME        ENDPOINTS
 hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
-
 ```
+
 This confirms that the control loop has found the correct `Pod`s for your
 `Service`.  If the `hostnames` row is blank, you should check that the
 `spec.selector` field of your `Service` actually selects for `metadata.labels`
@@ -385,8 +385,8 @@ hostnames-bvc05
 
 u@pod$ wget -qO- 10.244.0.7:9376
 hostnames-yp2kp
-
 ```
+
 We expect each `Pod` in the `Endpoints` list to return its own hostname.  If
 this is not what happens (or whatever the correct behavior is for your own
 `Pod`s), you should investigate what's happening there.  You might find
@@ -407,8 +407,8 @@ like the below:
 ```shell
 u@node$ ps auxw | grep kube-proxy
 root  4194  0.4  0.1 101864 17696 ?    Sl Jul04  25:43 /usr/local/bin/kube-proxy --master=https://kubernetes-master --kubeconfig=/var/lib/kube-proxy/kubeconfig --v=2
-
 ```
+
 Next, confirm that it is not failing something obvious, like contacting the
 master.  To do this, you'll have to look at the logs.  Accessing the logs
 depends on your `Node` OS.  On some OSes it is a file, such as
@@ -434,8 +434,8 @@ I0707 17:34:54.902313   30031 proxysocket.go:130] Accepted TCP connection from 1
 I0707 17:34:54.903107   30031 proxysocket.go:130] Accepted TCP connection from 10.244.3.3:42671 to 10.244.3.1:40074
 I0707 17:35:46.015868   30031 proxysocket.go:246] New UDP connection from 10.244.3.2:57493
 I0707 17:35:46.017061   30031 proxysocket.go:246] New UDP connection from 10.244.3.2:55471
-
 ```
+
 If you see error messages about not being able to contact the master, you
 should double-check your `Node` configuration and installation steps.
 
@@ -449,8 +449,8 @@ written.
 u@node$ iptables-save | grep hostnames
 -A KUBE-PORTALS-CONTAINER -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j REDIRECT --to-ports 48577
 -A KUBE-PORTALS-HOST -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j DNAT --to-destination 10.240.115.247:48577
-
 ```
+
 There should be 2 rules for each port on your `Service` (just one in this
 example) - a "KUBE-PORTALS-CONTAINER" and a "KUBE-PORTALS-HOST".  If you do
 not see these, try restarting `kube-proxy` with the `-V` flag set to 4, and
@@ -463,8 +463,8 @@ Assuming you do see the above rules, try again to access your `Service` by IP:
 ```shell
 u@node$ curl 10.0.1.175:80
 hostnames-0uton
-
 ```
+
 If this fails, we can try accessing the proxy directly.  Look back at the
 `iptables-save` output above, and extract the port number that `kube-proxy` is
 using for your `Service`.  In the above examples it is "48577".  Now connect to
@@ -473,14 +473,14 @@ that:
 ```shell
 u@node$ curl localhost:48577
 hostnames-yp2kp
-
 ```
+
 If this still fails, look at the `kube-proxy` logs for specific lines like:
 
 ```shell
 Setting endpoints for default/hostnames:default to [10.244.0.5:9376 10.244.0.6:9376 10.244.0.7:9376]
-
 ```
+
 If you don't see those, try restarting `kube-proxy` with the `-V` flag set to 4, and
 then look at the logs again.
 
@@ -500,6 +500,3 @@ Contact us on
 ## More information
 
 Visit [troubleshooting document](../troubleshooting) for more information.
-
-
-

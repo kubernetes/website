@@ -22,8 +22,8 @@ internet
         |
   ------------
   [ Services ]
-
 ```
+
 An Ingress is a collection of rules that allow inbound connections to reach the cluster services.
 
 ```
@@ -32,13 +32,14 @@ internet
    [ Ingress ]
    --|-----|--
    [ Services ]
-
 ```
+
 It can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. Users request ingress by POSTing the Ingress resource to the API server. An [Ingress controller](#ingress-controllers) is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic in an HA manner.
 
 ## Prerequisites
 
 Before you start using the Ingress resource, there are a few things you should understand:
+
 * The Ingress resource is not available in any Kubernetes release prior to 1.1
 * You need an Ingress controller to satisfy an Ingress. Simply creating the resource will have no effect.
 * On GCE/GKE there should be a [L7 cluster addon](https://releases.k8s.io/release-1.1/cluster/addons/cluster-loadbalancing/glbc/README.md#prerequisites), on other platforms you either need to write your own or [deploy an existing controller](https://github.com/kubernetes/contrib/tree/master/Ingress) as a pod.
@@ -49,20 +50,20 @@ Before you start using the Ingress resource, there are a few things you should u
 A minimal Ingress might look like:
 
 ```yaml
-01. apiVersion: extensions/v1beta1
-02. kind: Ingress
-03. metadata:
-04.  name: test-ingress
-05. spec:
-06.  rules:
-07.  - http:
-08.      paths:
-09.      - path: /testpath
-10.        backend:
-11.          serviceName: test
-12.          servicePort: 80
-
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+name: test-ingress
+spec:
+rules:
+- http:
+    paths:
+    - path: /testpath
+    backend:
+        serviceName: test
+        servicePort: 80
 ```
+
 *POSTing this to the API server will have no effect if you have not configured an [Ingress controller](#ingress-controllers).*
 
 __Lines 1-4__: As with all other Kubernetes config, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](simple-yaml), [here](configuring-containers), and [here](working-with-resources).
@@ -96,8 +97,8 @@ spec:
   backend:
     serviceName: testsvc
     servicePort: 80
-
 ```
+
 [Download example](ingress.yaml)
 <!-- END MUNGE: EXAMPLE ingress.yaml -->
 
@@ -107,19 +108,19 @@ If you create it using `kubectl -f` you should see:
 $ kubectl get ing
 NAME                RULE          BACKEND        ADDRESS
 test-ingress        -             testsvc:80     107.178.254.228
-
 ```
+
 Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy this Ingress. The `RULE` column shows that all traffic send to the IP is directed to the Kubernetes Service listed under `BACKEND`.
 
 ### Simple fanout
 
 As described previously, pods within kubernetes have ips only visible on the cluster network, so we need something at the edge accepting ingress traffic and proxying it to the right endpoints. This component is usually a highly available loadbalancer/s. An Ingress allows you to keep the number of loadbalancers down to a minimum, for example, a setup like:
 
-```
+```shell
 foo.bar.com -> 178.91.123.132 -> / foo    s1:80
                                  / bar    s2:80
-
 ```
+
 would require an Ingress such as:
 
 ```yaml
@@ -140,18 +141,17 @@ spec:
         backend:
           serviceName: s2
           servicePort: 80
-
 ```
+
 When you create the Ingress with `kubectl create -f`:
 
-```
+```shell
 $ kubectl get ing
 NAME      RULE          BACKEND   ADDRESS
 test      -
           foo.bar.com
           /foo          s1:80
           /bar          s2:80
-
 ```
 The Ingress controller will provision an implementation specific loadbalancer that satisfies the Ingress, as long as the services (s1, s2) exist. When it has done so, you will see the address of the loadbalancer under the last column of the Ingress.
 
@@ -163,8 +163,8 @@ Name-based virtual hosts use multiple host names for the same IP address.
 foo.bar.com --|                 |-> foo.bar.com s1:80
               | 178.91.123.132  |
 bar.foo.com --|                 |-> bar.foo.com s2:80
-
 ```
+
 The following Ingress tells the backing loadbalancer to route requests based on the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 
 ```yaml
@@ -186,8 +186,8 @@ spec:
       - backend:
           serviceName: s2
           servicePort: 80
-
 ```
+
 __Default Backends__: An Ingress with no rules, like the one shown in the previous section, sends all traffic to a single default backend. You can use the same technique to tell a loadbalancer where to find your website's 404 page, by specifying a set of rules *and* a default backend. Traffic is routed to your default backend if none of the Hosts in your Ingress match the Host in the request header, and/or none of the paths match the url of the request.
 
 ### Loadbalancing
@@ -207,8 +207,8 @@ test      -                       178.91.123.132
           foo.bar.com
           /foo          s1:80
 $ kubectl edit ing test
-
 ```
+
 This should pop up an editor with the existing yaml, modify it to include the new Host.
 
 ```yaml
@@ -229,8 +229,8 @@ spec:
           servicePort: 80
         path: /foo
 ..
-
 ```
+
 saving it will update the resource in the API server, which should tell the Ingress controller to reconfigure the loadbalancer.
 
 ```shell
@@ -241,8 +241,8 @@ test      -                       178.91.123.132
           /foo          s1:80
           bar.baz.com
           /foo          s2:80
-
 ```
+
 You can achieve the same by invoking `kubectl replace -f` on a modified Ingress yaml file.
 
 ## Future Work
@@ -257,6 +257,7 @@ Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kuberne
 ## Alternatives
 
 You can expose a Service in multiple ways that don't directly involve the Ingress resource:
+
 * Use [Service.Type=LoadBalancer](https://github.com/kubernetes/kubernetes/blob/release-1.0/docs/user-guide/services.md#type-loadbalancer)
 * Use [Service.Type=NodePort](https://github.com/kubernetes/kubernetes/blob/release-1.0/docs/user-guide/services.md#type-nodeport)
 * Use a [Port Proxy] (https://github.com/kubernetes/contrib/tree/master/for-demos/proxy-to-service)

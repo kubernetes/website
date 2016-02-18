@@ -39,6 +39,7 @@ of the relevant log files.  (note that on systemd-based systems, you may need to
 This is an incomplete list of things that could go wrong, and how to adjust your cluster setup to mitigate the problems.
 
 Root causes:
+
   - VM(s) shutdown
   - Network partition within cluster, or between cluster and users
   - Crashes in Kubernetes software
@@ -46,6 +47,7 @@ Root causes:
   - Operator error, e.g. misconfigured Kubernetes software or application software
 
 Specific scenarios:
+
   - Apiserver VM shutdown or apiserver crashing
     - Results
       - unable to stop, update, or start new pods, services, replication controller
@@ -79,6 +81,7 @@ Specific scenarios:
       - etc.
 
 Mitigations:
+
 - Action: Use IaaS provider's automatic VM restarting feature for IaaS VMs
   - Mitigates: Apiserver VM shutdown or apiserver crashing
   - Mitigates: Supporting services VM shutdown or crashes

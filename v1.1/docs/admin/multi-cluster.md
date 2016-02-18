@@ -1,7 +1,6 @@
 ---
 title: "Considerations for running multiple Kubernetes clusters"
 ---
-
 You may want to set up multiple Kubernetes clusters, both to
 have clusters in different regions to be nearer to your users, and to tolerate failures and/or invasive maintenance.
 This document describes some of the issues to consider when making a decision about doing so.
@@ -15,7 +14,9 @@ we [plan to do this in the future](../proposals/federation).
 On IaaS providers such as Google Compute Engine or Amazon Web Services, a VM exists in a
 [zone](https://cloud.google.com/compute/docs/zones) or [availability
 zone](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones).
+
 We suggest that all the VMs in a Kubernetes cluster should be in the same availability zone, because:
+
   - compared to having a single global Kubernetes cluster, there are fewer single-points of failure
   - compared to a cluster that spans availability zones, it is easier to reason about the availability properties of a
     single-zone cluster.
@@ -24,12 +25,14 @@ We suggest that all the VMs in a Kubernetes cluster should be in the same availa
 
 It is okay to have multiple clusters per availability zone, though on balance we think fewer is better.
 Reasons to prefer fewer clusters are:
+
   - improved bin packing of Pods in some cases with more nodes in one cluster (less resource fragmentation)
   - reduced operational overhead (though the advantage is diminished as ops tooling and processes matures)
   - reduced costs for per-cluster fixed resource costs, e.g. apiserver VMs (but small as a percentage
     of overall cluster cost for medium to large clusters).
 
 Reasons to have multiple clusters include:
+
   - strict security policies requiring isolation of one class of work from another (but, see Partitioning Clusters
     below).
   - test clusters to canary new Kubernetes releases or other cluster software.

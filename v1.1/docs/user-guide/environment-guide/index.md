@@ -27,10 +27,12 @@ The code for the containers is under
 
 ## Get everything running
 
-    kubectl create -f ./backend-rc.yaml
-    kubectl create -f ./backend-srv.yaml
-    kubectl create -f ./show-rc.yaml
-    kubectl create -f ./show-srv.yaml
+```shell
+kubectl create -f ./backend-rc.yaml
+kubectl create -f ./backend-srv.yaml
+kubectl create -f ./show-rc.yaml
+kubectl create -f ./show-srv.yaml
+```
 
 ## Query the service
 
@@ -38,13 +40,13 @@ Use `kubectl describe service show-srv` to determine the public IP of
 your service.
 
 > Note: If your platform does not support external load balancers,
-  you'll need to open the proper port and direct traffic to the
-  internal IP shown for the frontend service with the above command
+> you'll need to open the proper port and direct traffic to the
+> internal IP shown for the frontend service with the above command
 
 Run `curl <public ip>:80` to query the service. You should get
 something like this back:
 
-```
+```shell
 Pod Name: show-rc-xxu6i
 Pod Namespace: default
 USER_VAR: important information
@@ -64,8 +66,8 @@ Response from backend
 Backend Container
 Backend Pod Name: backend-rc-6qiya
 Backend Namespace: default
-
 ```
+
 First the frontend pod's information is printed. The pod name and
 [namespace](/{{page.version}}/docs/design/namespaces) are retrieved from the
 [Downward API](/{{page.version}}/docs/user-guide/downward-api). Next, `USER_VAR` is the name of
@@ -85,8 +87,7 @@ request as well.
 
 ## Cleanup
 
-    kubectl delete rc,service -l type=show-type
-    kubectl delete rc,service -l type=backend-type
-
-
-
+```shell
+kubectl delete rc,service -l type=show-type
+kubectl delete rc,service -l type=backend-type
+```

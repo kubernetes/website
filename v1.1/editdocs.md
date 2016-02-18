@@ -58,34 +58,48 @@ on a lightweight webserver that runs on your local machine.
 
 First install rvm
 
-	\curl -sSL https://get.rvm.io | bash -s stable
+```shell
+\curl -sSL https://get.rvm.io | bash -s stable
+```
 
 Then load it into your environment
 
-	source /Users/(USERNAME)/.rvm/scripts/rvm (or whatever is prompted by the installer)
+```shell
+source /Users/(USERNAME)/.rvm/scripts/rvm (or whatever is prompted by the installer)
+```
 
 Then install Ruby 2.2 or higher
 
-	rvm install 2.2
-	rvm use 2.2 --default
-	
+```shell
+rvm install 2.2
+rvm use 2.2 --default
+```
+
 Verify that this new version is running (optional)
 
-	which ruby
-	ruby -v
-	
+```shell
+which ruby
+ruby -v
+```
+
 Install the GitHub Pages package, which includes Jekyll:
 
-	gem install github-pages
+```shell
+gem install github-pages
+```
 
 Clone our site
 
-	git clone https://github.com/kubernetes/kubernetes.github.io.git
+```shell
+git clone https://github.com/kubernetes/kubernetes.github.io.git
+```
 
 Then, to see it run locally:
 
-	cd kubernetes.github.io
-	jekyll serve
+```shell
+cd kubernetes.github.io
+jekyll serve
+```
 
 Your copy of the site will then be viewable at: [http://0.0.0.0:4000](http://0.0.0.0:4000)
 (or wherever Ruby tells you).

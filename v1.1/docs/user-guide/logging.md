@@ -25,8 +25,9 @@ spec:
   - name: count
     image: ubuntu:14.04
     args: [bash, -c, 
-           'for ((i = 0; ; i++)); do echo "$i: $(date)"; sleep 1; done']
+           'for ((i = 0; ; i++)); do echo "$i: $(date)"; sleep 1; done']
 ```
+
 [Download example](https://github.com/kubernetes/kubernetes/tree/master/examples/blog-logging/counter-pod.yaml)
 <!-- END MUNGE: EXAMPLE ../../examples/blog-logging/counter-pod.yaml -->
 
@@ -34,8 +35,9 @@ we can run the pod:
 
 ```shell
 $ kubectl create -f ./counter-pod.yaml
-pods/counter
+pods/counter
 ```
+
 and then fetch the logs:
 
 ```shell
@@ -46,8 +48,9 @@ $ kubectl logs counter
 3: Tue Jun  2 21:37:34 UTC 2015
 4: Tue Jun  2 21:37:35 UTC 2015
 5: Tue Jun  2 21:37:36 UTC 2015
-...
+...
 ```
+
 If a pod has more than one container then you need to specify which container's log files should
 be fetched e.g.
 
@@ -66,8 +69,9 @@ $ kubectl logs kube-dns-v3-7r1l9 etcd
 2015/06/23 04:51:03 etcdserver: start to snapshot (applied: 60006, lastsnap: 50005)
 2015/06/23 04:51:03 etcdserver: compacted log at index 60006
 2015/06/23 04:51:03 etcdserver: saved snapshot at index 60006
-...
+...
 ```
+
 ## Cluster level logging to Google Cloud Logging
 
 The getting started guide [Cluster Level Logging to Google Cloud Logging](../getting-started-guides/logging)

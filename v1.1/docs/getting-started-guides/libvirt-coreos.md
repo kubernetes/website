@@ -98,6 +98,7 @@ error: Cannot access storage file '$HOME/.../kubernetes/cluster/libvirt-coreos/l
 ```
 
 In order to fix that issue, you have several possibilities:
+
 * set `POOL_PATH` inside `cluster/libvirt-coreos/config-default.sh` to a directory:
   * backed by a filesystem with a lot of free disk space
   * writable by your user;

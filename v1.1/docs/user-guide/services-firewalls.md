@@ -18,8 +18,8 @@ You can add a firewall with the `gcloud` command line tool:
 
 ```shell
 $ gcloud compute firewall-rules create my-rule --allow=tcp:<port>
-
 ```
+
 **Note**
 There is one important security note when using firewalls on Google Compute Engine:
 
@@ -31,6 +31,7 @@ as they listen on IP addresses that are different than the host node's external
 IP address.
 
 Consider:
+
    * You create a Service with an external load balancer (IP Address 1.2.3.4)
      and port 80
    * You open the firewall for port 80 for all nodes in your cluster, so that
@@ -48,6 +49,3 @@ This will be fixed in an upcoming release of Kubernetes.
 ### Other cloud providers
 
 Coming soon.
-
-
-

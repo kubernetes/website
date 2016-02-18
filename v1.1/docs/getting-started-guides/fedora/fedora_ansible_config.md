@@ -1,10 +1,7 @@
 ---
 title: "Configuring Kubernetes on Fedora via Ansible"
 ---
-
 Configuring Kubernetes on Fedora via Ansible offers a simple way to quickly create a clustered environment with little effort.
-
-
 
 {% include pagetoc.html %}
 
@@ -23,8 +20,9 @@ A Kubernetes cluster requires etcd, a master, and n nodes, so we will create a c
 ```shell
 master,etcd = kube-master.example.com
     node1 = kube-node-01.example.com
-    node2 = kube-node-02.example.com
+    node2 = kube-node-02.example.com
 ```
+
 **Make sure your local machine has**
 
  - ansible (must be 1.9.0+)
@@ -34,14 +32,16 @@ master,etcd = kube-master.example.com
 If not
 
 ```shell
-yum install -y ansible git python-netaddr
+yum install -y ansible git python-netaddr
 ```
+
 **Now clone down the Kubernetes repository**
 
 ```shell
 git clone https://github.com/kubernetes/contrib.git
-cd contrib/ansible
+cd contrib/ansible
 ```
+
 **Tell ansible about each machine and its role in your cluster**
 
 Get the IP addresses from the master and nodes.  Add those to the `~/contrib/ansible/inventory` file on the host running Ansible.
@@ -55,8 +55,9 @@ kube-master.example.com
 
 [nodes]
 kube-node-01.example.com
-kube-node-02.example.com
+kube-node-02.example.com
 ```
+
 ## Setting up ansible access to your nodes
 
 If you already are running on a machine which has passwordless ssh access to the kube-master and kube-node-{01,02} nodes, and 'sudo' privileges, simply set the value of `ansible_ssh_user` in `~/contrib/ansible/group_vars/all.yaml` to the username which you use to ssh to the nodes (i.e. `fedora`), and proceed to the next step...
@@ -66,8 +67,9 @@ If you already are running on a machine which has passwordless ssh access to the
 edit: ~/contrib/ansible/group_vars/all.yml
 
 ```yaml
-ansible_ssh_user: root
+ansible_ssh_user: root
 ```
+
 **Configuring ssh access to the cluster**
 
 If you already have ssh access to every machine using ssh public keys you may skip to [setting up the cluster](#setting-up-the-cluster)
@@ -75,35 +77,41 @@ If you already have ssh access to every machine using ssh public keys you may sk
 Make sure your local machine (root) has an ssh key pair if not
 
 ```shell
-ssh-keygen
+ssh-keygen
 ```
+
 Copy the ssh public key to **all** nodes in the cluster
 
 ```shell
 for node in kube-master.example.com kube-node-01.example.com kube-node-02.example.com; do
   ssh-copy-id ${node}
-done
+done
 ```
+
 ## Setting up the cluster
 
 Although the default value of variables in `~/contrib/ansible/group_vars/all.yml` should be good enough, if not, change them as needed.
 
+```conf
 edit: ~/contrib/ansible/group_vars/all.yml
+```
 
 **Configure access to kubernetes packages**
 
 Modify `source_type` as below to access kubernetes packages through the package manager.
 
 ```yaml
-source_type: packageManager
+source_type: packageManager
 ```
+
 **Configure the IP addresses used for services**
 
 Each Kubernetes service gets its own IP address.  These are not real IPs.  You need only select a range of IPs which are not in use elsewhere in your environment.
 
 ```yaml
-kube_service_addresses: 10.254.0.0/16
+kube_service_addresses: 10.254.0.0/16
 ```
+
 **Managing flannel**
 
 Modify `flannel_subnet`, `flannel_prefix` and `flannel_host_prefix` only if defaults are not appropriate for your cluster.
@@ -114,18 +122,21 @@ Modify `flannel_subnet`, `flannel_prefix` and `flannel_host_prefix` only if defa
 Set `cluster_logging` to false or true (default) to disable or enable logging with elasticsearch.
 
 ```yaml
-cluster_logging: true
+cluster_logging: true
 ```
+
 Turn `cluster_monitoring` to true (default) or false to enable or disable cluster monitoring with heapster and influxdb.
 
 ```yaml
-cluster_monitoring: true
+cluster_monitoring: true
 ```
+
 Turn `dns_setup` to true (recommended) or false to enable or disable whole DNS configuration.
 
 ```yaml
-dns_setup: true
+dns_setup: true
 ```
+
 **Tell ansible to get to work!**
 
 This will finally setup your whole Kubernetes cluster for you.
@@ -133,8 +144,9 @@ This will finally setup your whole Kubernetes cluster for you.
 ```shell
 cd ~/contrib/ansible/
 
-./setup.sh
+./setup.sh
 ```
+
 ## Testing and using your new cluster
 
 That's all there is to it.  It's really that easy.  At this point you should have a functioning Kubernetes cluster.
@@ -144,13 +156,15 @@ That's all there is to it.  It's really that easy.  At this point you should hav
 Run the following on the kube-master:
 
 ```shell
-kubectl get nodes
+kubectl get nodes
 ```
+
 **Show services running on masters and nodes**
 
 ```shell
-systemctl | grep -i kube
+systemctl | grep -i kube
 ```
+
 **Show firewall rules on the masters and nodes**
 
 ```shell
@@ -182,25 +196,30 @@ iptables -nvL
       }
     ]
   }
-}
+}
 ```
+
 ```shell
-kubectl create -f /tmp/apache.json
+kubectl create -f /tmp/apache.json
 ```
+
 **Check where the pod was created**
 
 ```shell
-kubectl get pods
+kubectl get pods
 ```
+
 **Check Docker status on nodes**
 
 ```shell
 docker ps
-docker images
+docker images
 ```
+
 **After the pod is 'Running' Check web server access on the node**
 
 ```shell
-curl http://localhost
+curl http://localhost
 ```
+
 That's it !

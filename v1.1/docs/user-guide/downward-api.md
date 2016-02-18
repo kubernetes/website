@@ -74,11 +74,10 @@ spec:
             fieldRef:
               fieldPath: status.podIP
   restartPolicy: Never
-
 ```
+
 [Download example](downward-api/dapi-pod.yaml)
 <!-- END MUNGE: EXAMPLE downward-api/dapi-pod.yaml -->
-
 
 
 ### Downward API volume
@@ -89,11 +88,11 @@ volume type and the different items represent the files to be created. `fieldPat
 
 Downward API volume permits to store more complex data like [`metadata.labels`](labels) and [`metadata.annotations`](annotations). Currently key/value pair set fields are saved using `key="value"` format:
 
-```
+```conf
 key1="value1"
 key2="value2"
-
 ```
+
 In future, it will be possible to specify an output format option.
 
 Downward API volumes can expose:
@@ -144,14 +143,12 @@ spec:
           - path: "annotations"
             fieldRef:
               fieldPath: metadata.annotations
-
 ```
+
 [Download example](downward-api/volume/dapi-volume.yaml)
 <!-- END MUNGE: EXAMPLE downward-api/volume/dapi-volume.yaml -->
 
 Some more thorough examples:
+
    * [environment variables](environment-guide/)
    * [downward API](downward-api/)
-
-
-

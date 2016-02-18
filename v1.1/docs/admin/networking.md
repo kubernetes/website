@@ -5,6 +5,7 @@ title: "Networking in Kubernetes"
 
 Kubernetes approaches networking somewhat differently than Docker does by
 default.  There are 4 distinct networking problems to solve:
+
 1. Highly-coupled container-to-container communications: this is solved by
    [pods](../user-guide/pods) and `localhost` communications.
 2. Pod-to-Pod communications: this is the primary focus of this document.
@@ -59,6 +60,7 @@ different approach.
 
 Kubernetes imposes the following fundamental requirements on any networking
 implementation (barring any intentional network segmentation policies):
+
    * all containers can communicate with all other containers without NAT
    * all nodes can communicate with all containers (and vice-versa) without NAT
    * the IP that a container sees itself as is the same IP that others see it as

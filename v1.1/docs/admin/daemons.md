@@ -166,7 +166,3 @@ on GCE.
 DaemonSet objects effectively have [API version `v1alpha1`](../api.html#api-versioning).
  Alpha objects may change or even be discontinued in future software releases.
 However, due to to a known issue, they will appear as API version `v1beta1` if enabled.
-
-
-
-

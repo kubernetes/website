@@ -20,9 +20,9 @@ Our goal is to foster an ecosystem of components and tools that relieve the burd
 
 The Kubernetes project was started by Google in 2014. Kubernetes builds upon a [decade and a half of experience that Google has with running production workloads at scale](https://research.google.com/pubs/pub43438), combined with best-of-breed ideas and practices from the community.
 
-##### Ready to [Get Started](getting-started-guides/README)?
+##### Ready to [Get Started](/{{page.version}}/docs/getting-started-guides/)?
 
-<hr>
+----
 
 #### Why containers?
 
@@ -56,6 +56,7 @@ Kubernetes can schedule and run application containers on clusters of physical o
 It can also do much more than that.
 
 Kubernetes satisfies a number of common needs of applications running in production, such as:
+
 * [co-locating helper processes](user-guide/pods),
 * [mounting storage systems](user-guide/volumes),
 * [distributing secrets](user-guide/secrets),
@@ -81,16 +82,16 @@ This [design](design/principles) has enabled a number of other systems to build 
 #### Kubernetes is not:
 
 Kubernetes is not a PaaS (Platform as a Service).
+
 * Kubernetes does not limit the types of applications supported. It does not dictate application frameworks, restrict the set of supported language runtimes, nor cater to only [12-factor applications](http://12factor.net/). Kubernetes aims to support an extremely diverse variety of workloads: if an application can run in a container, it should run great on Kubernetes.
 * Kubernetes is unopinionated in the source-to-image space. It does not build your application. Continuous Integration (CI) workflow is an area where different users and projects have their own requirements and preferences, so we support layering CI workflows on Kubernetes but don't dictate how it should work.
 * On the other hand, a number of PaaS systems run *on* Kubernetes, such as [Openshift](https://github.com/openshift/origin) and [Deis](http://deis.io/). You could also roll your own custom PaaS, integrate with a CI system of your choice, or get along just fine with just Kubernetes: bring your container images and deploy them on Kubernetes.
 * Since Kubernetes operates at the application level rather than at just the hardware level, it provides some generally applicable features common to PaaS offerings, such as deployment, scaling, load balancing, logging, monitoring, etc. However, Kubernetes is not monolithic, and these default solutions are optional and pluggable.
 
 Kubernetes is not a mere "orchestration system"; it eliminates the need for orchestration:
+
 * The technical definition of "orchestration" is execution of a defined workflow: do A, then B, then C. In contrast, Kubernetes is comprised of a set of control processes that continuously drive current state towards the provided desired state. It shouldn't matter how you get from A to C: make it so. This results in a system that is easier to use and more powerful, robust, and resilient.
 
 #### What does *Kubernetes* mean? K8s?
 
 The name **Kubernetes** originates from Greek, meaning "helmsman" or "pilot", and is the root of "governor" and ["cybernetic"](http://www.etymonline.com/index.php?term=cybernetics). **K8s** is an abbreviation derived by replacing the 8 letters "ubernete" with 8.
-
-

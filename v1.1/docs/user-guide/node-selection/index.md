@@ -23,7 +23,7 @@ You can verify that it worked by re-running `kubectl get nodes` and checking tha
 
 Take whatever pod config file you want to run, and add a nodeSelector section to it, like this. For example, if this is my pod config:
 
-<pre>
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -34,11 +34,11 @@ spec:
   containers:
   - name: nginx
     image: nginx
-</pre>
+```
 
 Then add a nodeSelector like so:
 
-<pre>
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -52,13 +52,10 @@ spec:
     imagePullPolicy: IfNotPresent
   <b>nodeSelector:
     disktype: ssd</b>
-</pre>
+```
 
 When you then run `kubectl create -f pod.yaml`, the pod will get scheduled on the node that you attached the label to! You can verify that it worked by running `kubectl get pods -o wide` and looking at the "NODE" that the pod was assigned to.
 
 ### Conclusion
 
 While this example only covered one node, you can attach labels to as many nodes as you want. Then when you schedule a pod with a nodeSelector, it can be scheduled on any of the nodes that satisfy that nodeSelector. Be careful that it will match at least one node, however, because if it doesn't the pod won't be scheduled at all.
-
-
-

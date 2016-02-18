@@ -1,10 +1,6 @@
 ---
 title: "Kubernetes Container Environment"
 ---
-{% include pagetoc.html %}
-
-## Overview
-
 This document describes the environment for Kubelet managed containers on a Kubernetes node (kNode).  In contrast to the Kubernetes cluster API, which provides an API for creating and managing containers, the Kubernetes container environment provides the container access to information about what else is going on in the cluster.
 
 This cluster information makes it possible to build applications that are *cluster aware*.
@@ -12,8 +8,9 @@ Additionally, the Kubernetes container environment defines a series of hooks tha
 
 Another important part of the container environment is the file system that is available to the container.  In Kubernetes, the filesystem is a combination of an [image](images) and one or more [volumes](volumes).
 
-
 The following sections describe both the cluster information provided to containers, as well as the hooks and life-cycle that allows containers to interact with the management system.
+
+{% include pagetoc.html %}
 
 ## Cluster Information
 
@@ -36,8 +33,8 @@ For a service named **foo** that maps to a container port named **bar**, the fol
 ```shell
 FOO_SERVICE_HOST=<the host the service is running on>
 FOO_SERVICE_PORT=<the port the service is running on>
-
 ```
+
 Services have dedicated IP address, and are also surfaced to the container via DNS (If [DNS addon](http://releases.k8s.io/release-1.1/cluster/addons/dns/) is enabled).  Of course DNS is still not an enumerable protocol, so we will continue to provide environment variables so that containers can do discovery.
 
 ## Container Hooks
@@ -80,6 +77,3 @@ Hook handlers are the way that hooks are surfaced to containers.  Containers ca
    * HTTP - Executes an HTTP request against a specific endpoint on the container.
 
 [1]: http://man7.org/linux/man-pages/man2/gethostname.2.html
-
-
-

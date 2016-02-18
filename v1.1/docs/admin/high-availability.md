@@ -21,6 +21,7 @@ wearing underwear, pants, a belt, suspenders, another pair of underwear, and ano
 of these steps in detail, but a summary is given here to help guide and orient the user.
 
 The steps involved are as follows:
+
    * [Creating the reliable constituent nodes that collectively form our HA master implementation.](#reliable-nodes)
    * [Setting up a redundant, reliable storage layer with clustered etcd.](#establishing-a-redundant-reliable-data-storage-layer)
    * [Starting replicated, load balanced Kubernetes API servers](#replicated-api-servers)
@@ -144,6 +145,7 @@ touch /var/log/kube-apiserver.log
 ```
 
 Next, you need to create a `/srv/kubernetes/` directory on each node.  This directory includes:
+
    * basic_auth.csv  - basic auth user and password
    * ca.crt - Certificate Authority cert
    * known_tokens.csv - tokens that entities (e.g. the kubelet) can use to talk to the apiserver

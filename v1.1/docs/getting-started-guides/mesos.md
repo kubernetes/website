@@ -1,14 +1,7 @@
 ---
 title: "Getting started with Kubernetes on Mesos"
 ---
-
-
-Getting started with Kubernetes on Mesos
-----------------------------------------
-
 {% include pagetoc.html %}
-
-
 
 ## About Kubernetes on Mesos
 

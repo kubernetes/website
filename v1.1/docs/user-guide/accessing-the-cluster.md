@@ -1,9 +1,6 @@
 ---
 title: "Accessing Clusters"
 ---
-
-
-
 {% include pagetoc.html %}
 
 ## Accessing the cluster API
@@ -21,8 +18,9 @@ or someone else setup the cluster and provided you with credentials and a locati
 Check the location and credentials that kubectl knows about with this command:
 
 ```shell
-$ kubectl config view
+$ kubectl config view
 ```
+
 Many of the [examples](https://github.com/kubernetes/kubernetes/tree/master/examples/) provide an introduction to using
 kubectl and complete documentation is found in the [kubectl manual](kubectl/kubectl).
 
@@ -31,6 +29,7 @@ kubectl and complete documentation is found in the [kubectl manual](kubectl/kube
 Kubectl handles locating and authenticating to the apiserver.
 If you want to directly access the REST API with an http client like
 curl or wget, or a browser, there are several ways to locate and authenticate:
+
   - Run kubectl in proxy mode.
     - Recommended approach.
     - Uses stored apiserver location.
@@ -49,8 +48,9 @@ locating the apiserver and authenticating.
 Run it like this:
 
 ```shell
-$ kubectl proxy --port=8080 &
+$ kubectl proxy --port=8080 &
 ```
+
 See [kubectl proxy](kubectl/kubectl_proxy) for more details.
 
 Then you can explore the API with curl, wget, or a browser, like so:
@@ -61,8 +61,9 @@ $ curl http://localhost:8080/api/
   "versions": [
     "v1"
   ]
-}
+}
 ```
+
 #### Without kubectl proxy
 
 It is also possible to avoid using kubectl proxy by passing an authentication token
@@ -76,8 +77,9 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
   "versions": [
     "v1"
   ]
-}
+}
 ```
+
 The above example uses the `--insecure` flag.  This leaves it subject to MITM
 attacks.  When kubectl accesses the cluster it uses a stored root certificate
 and client certificates to access the server.  (These are installed in the
@@ -117,6 +119,7 @@ service account is placed into the filesystem tree of each container in that pod
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
 
 From within a pod the recommended ways to connect to API are:
+
   - run a kubectl proxy as one of the containers in the pod, or as a background
     process within a container.  This proxies the
     Kubernetes API to the localhost interface of the pod, so that other processes
@@ -124,6 +127,7 @@ From within a pod the recommended ways to connect to API are:
     in a pod](https://github.com/kubernetes/kubernetes/tree/master/examples/kubectl-container/).
   - use the Go client library, and create a client using the `client.NewInCluster()` factory.
     This handles locating and authenticating to the apiserver.
+
 In each case, the credentials of the pod are used to communicate securely with the apiserver.
 
 
@@ -139,6 +143,7 @@ such as your desktop machine.
 ### Ways to connect
 
 You have several options for connecting to nodes, pods and services from outside the cluster:
+
   - Access services through public IPs.
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
       the cluster.  See the [services](services) and
@@ -177,8 +182,9 @@ $ kubectl cluster-info
   kibana-logging is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/kibana-logging
   kube-dns is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/kube-dns
   grafana is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-grafana
-  heapster is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-heapster
+  heapster is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-heapster
 ```
+
 This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
 at `https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/` if suitable credentials are passed, or through a kubectl proxy at, for example:
@@ -209,11 +215,13 @@ about namespaces? 'proxy' verb? -->
 	 "relocating_shards" : 0,
 	 "initializing_shards" : 0,
 	 "unassigned_shards" : 5
-  }
+  }
 ```
+
 #### Using web browsers to access services running on the cluster
 
 You may be able to put an apiserver proxy url into the address bar of a browser. However:
+
   - Web browsers cannot usually pass tokens, so you may need to use basic (password) auth.  Apiserver can be configured to accept basic auth,
     but your cluster may not be configured to accept basic auth.
   - Some web apps may not work, particularly those with client side javascript that construct urls in a
@@ -226,6 +234,7 @@ The redirect capabilities have been deprecated and removed.  Please use a proxy 
 ## So Many Proxies
 
 There are several different proxies you may encounter when using Kubernetes:
+
   1. The [kubectl proxy](#directly-accessing-the-rest-api):
     - runs on a user's desktop or in a pod
     - proxies from a localhost address to the Kubernetes apiserver
@@ -256,8 +265,6 @@ There are several different proxies you may encounter when using Kubernetes:
     - are created automatically when the Kubernetes service has type `LoadBalancer`
     - use UDP/TCP only
     - implementation varies by cloud provider.
-
-
 
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
 will typically ensure that the latter types are setup correctly.

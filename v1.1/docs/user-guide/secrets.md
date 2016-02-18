@@ -47,8 +47,8 @@ type: Opaque
 data:
   password: dmFsdWUtMg0K
   username: dmFsdWUtMQ0K
-
 ```
+
 The data field is a map.  Its keys must match
 [`DNS_SUBDOMAIN`](../design/identifiers), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64. The values of
@@ -90,8 +90,8 @@ This is an example of a pod that mounts a secret in a volume:
     }]
   }
 }
-
 ```
+
 Each secret you want to use needs its own `spec.volumes`.
 
 If there are multiple containers in the pod, then each container needs its
@@ -160,8 +160,8 @@ $ cat /etc/foo/username
 value-1
 $ cat /etc/foo/password
 value-2
-
 ```
+
 The program in a container is responsible for reading the secret(s) from the
 files.  Currently, if a program expects a secret to be stored in an environment
 variable, then the user needs to modify the image to populate the environment
@@ -216,8 +216,8 @@ To create a pod that uses an ssh key stored as a secret, we first need to create
     "id-rsa.pub": "dmFsdWUtMQ0K"
   }
 }
-
 ```
+
 **Note:** The serialized JSON and YAML values of secret data are encoded as
 base64 strings.  Newlines are not valid within these strings and must be
 omitted.
@@ -259,12 +259,14 @@ consumes it in a volume:
     ]
   }
 }
-
 ```
+
 When the container's command runs, the pieces of the key will be available in:
 
-    /etc/secret-volume/id-rsa.pub
-    /etc/secret-volume/id-rsa
+```shell
+/etc/secret-volume/id-rsa.pub
+/etc/secret-volume/id-rsa
+```
 
 The container is then free to use the secret data to establish an ssh connection.
 
@@ -304,8 +306,8 @@ The secrets:
     }
   }]
 }
-
 ```
+
 The pods:
 
 ```json
@@ -380,15 +382,15 @@ The pods:
     }
   }]
 }
-
 ```
+
 Both containers will have the following files present on their filesystems:
 
 ```shell
 /etc/secret-volume/username
-    /etc/secret-volume/password
-
+/etc/secret-volume/password
 ```
+
 Note how the specs for the two pods differ only in one field;  this facilitates
 creating pods with different capabilities from a common pod config template.
 
@@ -415,8 +417,8 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
     }
   ]
 }
-
 ```
+
 ### Use-case: Secret visible to one container in a pod
 
 <a name="use-case-two-containers"></a>
@@ -486,6 +488,3 @@ Pod level](#use-case-two-containers).
    by impersonating the kubelet.  It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a
    single node.
-
-
-

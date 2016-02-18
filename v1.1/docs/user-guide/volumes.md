@@ -53,6 +53,7 @@ mount each volume.
 ## Types of Volumes
 
 Kubernetes supports several types of Volumes:
+
    * `emptyDir`
    * `hostPath`
    * `gcePersistentDisk`
@@ -144,8 +145,8 @@ Before you can use a GCE PD with a pod, you need to create it.
 
 ```shell
 gcloud compute disks create --size=500GB --zone=us-central1-a my-data-disk
-
 ```
+
 #### Example pod
 
 ```yaml
@@ -166,8 +167,8 @@ spec:
     gcePersistentDisk:
       pdName: my-data-disk
       fsType: ext4
-
 ```
+
 ### awsElasticBlockStore
 
 An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS) [EBS
@@ -192,8 +193,8 @@ Before you can use a EBS volume with a pod, you need to create it.
 
 ```shell
 aws ec2 create-volume --availability-zone eu-west-1a --size 10 --volume-type gp2
-
 ```
+
 Make sure the zone matches the zone you brought up your cluster in.  (And also check that the size and EBS volume
 type are suitable for your use!)
 
@@ -217,8 +218,8 @@ spec:
     awsElasticBlockStore:
       volumeID: aws://<availability-zone>/<volume-id>
       fsType: ext4
-
 ```
+
 (Note: the syntax of volumeID is currently awkward; #10181 fixes it)
 
 ### nfs
@@ -330,8 +331,8 @@ spec:
     gitRepo:
       repository: "git@somewhere:me/my-git-repository.git"
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
-
 ```
+
 ### secret
 
 A `secret` volume is used to pass sensitive information, such as passwords, to
@@ -374,6 +375,3 @@ In the future, we expect that `emptyDir` and `hostPath` volumes will be able to
 request a certain amount of space using a [resource](compute-resources)
 specification, and to select the type of media to use, for clusters that have
 several media types.
-
-
-

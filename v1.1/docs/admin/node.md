@@ -134,6 +134,7 @@ When kubelet flag `--register-node` is true (the default), the kubelet will atte
 register itself with the API server.  This is the preferred pattern, used by most distros.
 
 For self-registration, the kubelet is started with the following options:
+
   - `--api-servers=` tells the kubelet the location of the apiserver.
   - `--kubeconfig` tells kubelet where to find credentials to authenticate itself to the apiserver.
   - `--cloud-provider=` tells the kubelet how to talk to a cloud provider to read metadata about itself.

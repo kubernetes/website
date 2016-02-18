@@ -1,9 +1,9 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Working with pods and containers in production"
 ---
-{% include pagetoc.html %}
-
 You've seen [how to configure and deploy pods and containers](configuring-containers), using some of the most common configuration parameters. This section dives into additional features that are especially useful for running applications in production.
+
+{% include pagetoc.html %}
 
 ## Persistent storage
 
@@ -36,8 +36,8 @@ spec:
         volumeMounts:
         - mountPath: /redis-master-data
           name: data   # must match the name of the volume, above
-
 ```
+
 `emptyDir` volumes live for the lifespan of the [pod](pods), which is longer than the lifespan of any one container, so if the container fails and is restarted, our storage will live on.
 
 In addition to the local disk storage provided by `emptyDir`, Kubernetes supports many different network-attached storage solutions, including PD on GCE and EBS on EC2, which are preferred for critical data, and will handle details such as mounting and unmounting the devices on the nodes. See [the volumes doc](volumes) for more details.
@@ -57,8 +57,8 @@ type: Opaque
 data:
   password: dmFsdWUtMg0K
   username: dmFsdWUtMQ0K
-
 ```
+
 As with other resources, this secret can be instantiated using `create` and can be viewed with `get`:
 
 ```shell
@@ -68,8 +68,8 @@ $ kubectl get secrets
 NAME                  TYPE                                  DATA
 default-token-v9pyz   kubernetes.io/service-account-token   2
 mysecret              Opaque                                2
-
 ```
+
 To use the secret, you need to reference it in a pod or pod template. The `secret` volume source enables you to mount it as an in-memory directory into your containers.
 
 ```yaml
@@ -101,8 +101,8 @@ spec:
           name: data   # must match the name of the volume, above
         - mountPath: /var/run/secrets/super
           name: supersecret
-
 ```
+
 For more details, see the [secrets document](secrets), [example](secrets/) and [design doc](/{{page.version}}/docs/design/secrets).
 
 ## Authenticating with a private image registry
@@ -138,8 +138,8 @@ EOF
 
 $ kubectl create -f ./image-pull-secret.yaml
 secrets/myregistrykey
-
 ```
+
 Now, you can create pods which reference that secret by adding an `imagePullSecrets`
 section to a pod definition.
 
@@ -154,8 +154,8 @@ spec:
       image: janedoe/awesomeapp:v1
   imagePullSecrets:
     - name: myregistrykey
-
 ```
+
 ## Helper containers
 
 [Pods](pods) support running multiple containers co-located together. They can be used to host vertically integrated application stacks, but their primary motivation is to support auxiliary helper programs that assist the primary application. Typical examples are data pullers, data pushers, and proxies.
@@ -193,8 +193,8 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: www-data
-
 ```
+
 More examples can be found in our [blog article](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns) and [presentation slides](http://www.slideshare.net/Docker/slideshare-burns).
 
 ## Resource management
@@ -231,8 +231,8 @@ spec:
             cpu: 500m
             # memory units are bytes
             memory: 64Mi
-
 ```
+
 The container will die due to OOM (out of memory) if it exceeds its specified limit, so specifying a value a little higher than expected generally improves reliability. By specifying request, pod is guaranteed to be able to use that much of resource when needed. See [Resource QoS](../proposals/resource-qos) for the difference between resource limits and requests.
 
 If you're not sure how much resources to request, you can first launch the application without specifying resources, and use [resource usage monitoring](monitoring) to determine appropriate values.
@@ -267,8 +267,8 @@ spec:
             port: 80
           initialDelaySeconds: 30
           timeoutSeconds: 1
-
 ```
+
 Other times, applications are only temporarily unable to serve, and will recover on their own. Typically in such cases you'd prefer not to kill the application, but don't want to send it requests, either, since the application won't respond correctly or at all. A common such scenario is loading large data or configuration files during application startup. Kubernetes provides *readiness probes* to detect and mitigate such situations. Readiness probes are configured similarly to liveness probes, just using the `readinessProbe` field. A pod with containers reporting that they are not ready will not receive traffic through Kubernetes [services](connecting-applications).
 
 For more details (e.g., how to specify command-based probes), see the [example in the walkthrough](walkthrough/k8s201.html#health-checking), the [standalone example](liveness/), and the [documentation](pod-states.html#container-probes).
@@ -304,8 +304,8 @@ spec:
             exec:
               # SIGTERM triggers a quick exit; gracefully terminate instead
               command: ["/usr/sbin/nginx","-s","quit"]
-
 ```
+
 ## Termination message
 
 In order to achieve a reasonably high level of availability, especially for actively developed applications, it's important to debug failures quickly. Kubernetes can speed debugging by surfacing causes of fatal errors in a way that can be display using [`kubectl`](kubectl/kubectl) or the [UI](ui), in addition to general [log collection](logging). It is possible to specify a `terminationMessagePath` where a container will write its 'death rattle'?, such as assertion failure messages, stack traces, exceptions, and so on. The default path is `/dev/termination-log`.
@@ -323,8 +323,8 @@ spec:
     image: "ubuntu:14.04"
     command: ["/bin/sh","-c"]
     args: ["sleep 60 && /bin/echo Sleep expired > /dev/termination-log"]
-
 ```
+
 The message is recorded along with the other state of the last (i.e., most recent) termination:
 
 ```shell
@@ -340,4 +340,3 @@ $ kubectl get pods/pod-w-message -o go-template="{{range .status.containerStatus
 ## What's next?
 
 [Learn more about managing deployments.](managing-deployments)
-

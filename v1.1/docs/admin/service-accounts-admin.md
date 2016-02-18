@@ -11,6 +11,7 @@ incomplete features are referred to in order to better describe service accounts
 
 Kubernetes distinguished between the concept of a user account and a service accounts
 for a number of reasons:
+
   - User accounts are for humans.  Service accounts are for processes, which
     run in pods.
   - User accounts are intended to be global. Names must be unique across all
@@ -29,6 +30,7 @@ for a number of reasons:
 ## Service account automation
 
 Three separate components cooperate to implement the automation around service accounts:
+
   - A Service account admission controller
   - A Token controller
   - A Service account controller
@@ -39,6 +41,7 @@ The modification of pods is implemented via a plugin
 called an [Admission Controller](admission-controllers). It is part of the apiserver.
 It acts synchronously to modify pods as they are created or updated. When this plugin is active
 (and it is by default on most distributions), then it does the following when a pod is created or modified:
+
   1. If the pod does not have a `ServiceAccount` set, it sets the `ServiceAccount` to `default`.
   2. It ensures that the `ServiceAccount` referenced by the pod exists, and otherwise rejects it.
   4. If the pod does not contain any `ImagePullSecrets`, then `ImagePullSecrets` of the
@@ -49,6 +52,7 @@ It acts synchronously to modify pods as they are created or updated. When this p
 ### Token Controller
 
 TokenController runs as part of controller-manager. It acts asynchronously. It:
+
 - observes serviceAccount creation and creates a corresponding Secret to allow API access.
 - observes serviceAccount deletion and deletes all corresponding ServiceAccountToken Secrets
 - observes secret addition, and ensures the referenced ServiceAccount exists, and adds a token to the secret if needed
