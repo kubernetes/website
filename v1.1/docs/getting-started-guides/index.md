@@ -1,15 +1,9 @@
 ---
-title: "Creating a Kubernetes Cluster"
+title: "Picking the Right Solution"
 ---
 Kubernetes can run on a range of platforms, from your laptop, to VMs on a cloud provider, to rack of
 bare metal servers.  The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster.  We'll guide you in picking a solution that fits for your needs.
-
-* TOC
-{:toc}
-
-
-## Picking the Right Solution
 
 If you just want to "kick the tires" on Kubernetes, we recommend the [local Docker-based](docker) solution.
 
@@ -25,6 +19,9 @@ and cover a wider range of cloud providers.
 [Custom solutions](#custom-solutions) require more effort to setup but cover and even
 they vary from step-by-step instructions to general advice for setting up
 a Kubernetes cluster from scratch.
+
+* TOC
+{:toc}
 
 ### Local-machine Solutions
 
