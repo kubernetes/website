@@ -121,11 +121,11 @@ toc:
   - title: Networking in Kubernetes
     path: /v1.1/docs/admin/networking/
   - title: Setting Up and Configuring DNS
-    path: /v1.1/examples/cluster-dns/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/cluster-dns
   - title: Connecting Applications
     path: /v1.1/docs/user-guide/connecting-applications/
   - title: Creating Servers with External IPs
-    path: /v1.1/examples/simple-nginx/
+    path: https://github.com/kubernetes/kubernetes/blob/release-1.1/examples/simple-nginx.md
   - title: Using DNS Pods and Services
     path: /v1.1/docs/admin/dns/
  
@@ -156,10 +156,10 @@ toc:
 - title: Testing and Monitoring
   section:
   - title: Simulating Large Test Loads
-    path: /v1.1/examples/k8petstore/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/k8petstore
   - title: Checking Pod Health
     path: /v1.1/docs/user-guide/liveness/
   - title: Using Explorer to Examine the Runtime Environment
-    path: /v1.1/examples/explorer/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/explorer
   - title: Resource Usage Monitoring
     path: /v1.1/docs/user-guide/monitoring/
