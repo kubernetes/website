@@ -1,15 +1,6 @@
 ---
 title: "Running Kubernetes with Calico Networking on a Digital Ocean Fedora Host"
 ---
-* TOC
-{:toc}
-
-## Prerequisites
-
-You need two or more Fedora 22 droplets on Digital Ocean with [Private Networking](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-digitalocean-private-networking) enabled.
-
-## Overview
-
 This guide will walk you through the process of getting a Kubernetes Fedora cluster running on Digital Ocean with networking powered by Calico networking.
 It will cover the installation and configuration of the following systemd processes on the following hosts:
 
@@ -40,6 +31,13 @@ This guide is scalable to multiple nodes provided you [configure interface-cbr0 
 and [add an entry to /etc/hosts for each host](#setup-communication-between-hosts).
 
 Ensure you substitute the IP Addresses and Hostnames used in this guide with ones in your own setup.
+
+* TOC
+{:toc}
+
+## Prerequisites
+
+You need two or more Fedora 22 droplets on Digital Ocean with [Private Networking](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-digitalocean-private-networking) enabled.
 
 ## Setup Communication Between Hosts
 

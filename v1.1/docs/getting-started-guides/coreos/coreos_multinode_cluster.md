@@ -7,12 +7,8 @@ Use the [master.yaml](cloud-configs/master.yaml) and [node.yaml](cloud-configs/n
 
 [coreos695]: https://coreos.com/releases/#695.0.0
 
-## Overview
-
-* Provision the master node
-* Capture the master node private IP address
-* Edit node.yaml
-* Provision one or more worker nodes
+* TOC
+{:toc}
 
 ### AWS
 

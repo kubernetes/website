@@ -1,8 +1,6 @@
 ---
 title: "End-2-End Testing in Kubernetes"
 ---
-## Overview
-
 The end-2-end tests for kubernetes provide a mechanism to test behavior of the system, and to ensure end user operations match developer specifications.  In distributed systems it is not uncommon that a minor change may pass all unit tests, but cause unforseen changes at the system level.  Thus, the primary objectives of the end-2-end tests are to ensure a consistent and reliable behavior of the kubernetes code base, and to catch bugs early.
 
 The end-2-end tests in kubernetes are built atop of [ginkgo] (http://onsi.github.io/ginkgo/) and [gomega] (http://onsi.github.io/gomega/).  There are a host of features that this BDD testing framework provides, and it is recommended that the developer read the documentation prior to diving into the tests.

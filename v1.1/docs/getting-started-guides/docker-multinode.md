@@ -1,6 +1,12 @@
 ---
 title: "Running Multi-Node Kubernetes Using Docker"
 ---
+This guide will set up a 2-node Kubernetes cluster, consisting of a _master_ node which hosts the API server and orchestrates work
+and a _worker_ node which receives work from the master.  You can repeat the process of adding worker nodes an arbitrary number of
+times to create larger clusters.
+
+Here's a diagram of what the final result will look like:
+![Kubernetes Single Node on Docker](/images/docs/k8s-docker.png)
 
 _Note_:
 These instructions are somewhat significantly more advanced than the [single node](docker) instructions.  If you are
@@ -15,16 +21,7 @@ Please install Docker 1.6.2 or Docker 1.7.1.
 
 ## Prerequisites
 
-1. You need a machine with docker of right version installed.
-
-## Overview
-
-This guide will set up a 2-node Kubernetes cluster, consisting of a _master_ node which hosts the API server and orchestrates work
-and a _worker_ node which receives work from the master.  You can repeat the process of adding worker nodes an arbitrary number of
-times to create larger clusters.
-
-Here's a diagram of what the final result will look like:
-![Kubernetes Single Node on Docker](/images/docs/k8s-docker.png)
+You need a machine with docker of right version installed.
 
 ### Bootstrap Docker
 
