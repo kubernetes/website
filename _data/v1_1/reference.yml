@@ -149,6 +149,8 @@ toc:
     path: /v1.1/docs/user-guide/identifiers/
   - title: Namespaces
     path: /v1.1/docs/user-guide/namespaces/
+  - title: Nodes
+    path: /v1.1/docs/admin/node/
   - title: Service Accounts
     path: /v1.1/docs/user-guide/service-accounts/
   - title: Annotations

@@ -104,43 +104,11 @@ toc:
     path: /v1.1/docs/admin/garbage-collection/
   - title: Configuring Kubernetes with Salt
     path: /v1.1/docs/admin/salt/
-- title: Common Tasks
+ 
+- title: Using Nodes, Pods, and Containers
   section:
-  - title: Using Nodes
-    path: /v1.1/docs/admin/node/
   - title: Assigning Pods to Nodes
     path: /v1.1/docs/user-guide/node-selection/
-  - title: Using Configuration Files
-    path: /v1.1/docs/user-guide/simple-yaml/
-  - title: Configuring Containers
-    path: /v1.1/docs/user-guide/configuring-containers/
-  - title: Using Environment Variables
-    path: /v1.1/docs/user-guide/environment-guide/
-
-  - title: Managing Compute Resources
-    path: /v1.1/docs/user-guide/compute-resources/
-  - title: Applying Resource Quotas and Limits
-    path: /v1.1/docs/admin/resourcequota/
-  - title: Setting Pod CPU and Memory Limits
-    path: /v1.1/docs/admin/limitrange/
-
-  - title: Managing Deployments
-    path: /v1.1/docs/user-guide/managing-deployments/
-  - title: Deploying Applications
-    path: /v1.1/docs/user-guide/deploying-applications/
-  - title: Launching, Exposing, and Killing Applications
-    path: /v1.1/docs/user-guide/quick-start/
-  - title: Connecting Applications
-    path: /v1.1/docs/user-guide/connecting-applications/
-
-  - title: Networking in Kubernetes
-    path: /v1.1/docs/admin/networking/
-  - title: Creating Servers with External IPs
-    path: /v1.1/examples/simple-nginx/
-  - title: Setting Up and Configuring DNS
-    path: /v1.1/examples/cluster-dns/
-  - title: Using DNS Pods and Services
-    path: /v1.1/docs/admin/dns/
   - title: Working with Containers
     path: /v1.1/docs/user-guide/production-pods/
   - title: Creating Pods with the Downward API
@@ -148,6 +116,42 @@ toc:
   - title: Updating Live Pods
     path: /v1.1/docs/user-guide/update-demo/
 
+- title: Networking
+  section:
+  - title: Networking in Kubernetes
+    path: /v1.1/docs/admin/networking/
+  - title: Setting Up and Configuring DNS
+    path: /v1.1/examples/cluster-dns/
+  - title: Connecting Applications
+    path: /v1.1/docs/user-guide/connecting-applications/
+  - title: Creating Servers with External IPs
+    path: /v1.1/examples/simple-nginx/
+  - title: Using DNS Pods and Services
+    path: /v1.1/docs/admin/dns/
+ 
+- title: Configuring Kubernetes
+  section:
+  - title: Using Configuration Files
+    path: /v1.1/docs/user-guide/simple-yaml/
+  - title: Configuring Containers
+    path: /v1.1/docs/user-guide/configuring-containers/
+  - title: Using Environment Variables
+    path: /v1.1/docs/user-guide/environment-guide/
+  - title: Managing Compute Resources
+    path: /v1.1/docs/user-guide/compute-resources/
+  - title: Applying Resource Quotas and Limits
+    path: /v1.1/docs/admin/resourcequota/
+  - title: Setting Pod CPU and Memory Limits
+    path: /v1.1/docs/admin/limitrange/
+
+- title: Application Management and Deployment
+  section:
+  - title: Managing Deployments
+    path: /v1.1/docs/user-guide/managing-deployments/
+  - title: Deploying Applications
+    path: /v1.1/docs/user-guide/deploying-applications/
+  - title: Launching, Exposing, and Killing Applications
+    path: /v1.1/docs/user-guide/quick-start/
 
 - title: Testing and Monitoring
   section:
