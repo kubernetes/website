@@ -1,7 +1,8 @@
 ---
 title: "Kubernetes User Guide: Managing Applications"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 The user guide is intended for anyone who wants to run programs and services on an existing Kubernetes cluster.  Setup and administration of a Kubernetes cluster is described in the [Cluster Admin Guide](/{{page.version}}/docs/admin/README). The [Developer Guide](/{{page.version}}/docs/devel/README) is for anyone wanting to either write code which directly accesses the Kubernetes API, or to contribute directly to the Kubernetes project.
 

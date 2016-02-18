@@ -10,7 +10,8 @@ Kubernetes `Volume` abstraction solves both of these problems.
 
 Familiarity with [pods](pods) is suggested.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 
 ## Background

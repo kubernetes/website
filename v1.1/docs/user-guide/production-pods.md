@@ -3,7 +3,8 @@ title: "Kubernetes User Guide: Managing Applications: Working with pods and cont
 ---
 You've seen [how to configure and deploy pods and containers](configuring-containers), using some of the most common configuration parameters. This section dives into additional features that are especially useful for running applications in production.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Persistent storage
 

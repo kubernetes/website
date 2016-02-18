@@ -6,7 +6,8 @@ that `Services` are not working properly.  You've run all your `Pod`s and
 `ReplicationController`s, but you get no response when you try to access them.
 This document will hopefully help you to figure out what's going wrong.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 
 ## Conventions

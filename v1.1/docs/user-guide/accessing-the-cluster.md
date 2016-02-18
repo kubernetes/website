@@ -1,7 +1,8 @@
 ---
 title: "Accessing Clusters"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Accessing the cluster API
 

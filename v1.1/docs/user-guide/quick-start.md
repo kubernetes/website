@@ -3,7 +3,8 @@ title: "Kubernetes User Guide: Managing Applications: Quick start"
 ---
 This guide will help you get oriented to Kubernetes and running your first containers on the cluster. If you are already familiar with the docker-cli, you can also checkout the docker-cli to kubectl migration guide [here](docker-cli-to-kubectl).
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Launching a simple application
 

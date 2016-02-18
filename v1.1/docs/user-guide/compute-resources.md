@@ -1,7 +1,8 @@
 ---
 title: "Compute Resources"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 When specifying a [pod](pods), you can optionally specify how much CPU and memory (RAM) each
 container needs.  When containers have their resource requests specified, the scheduler is

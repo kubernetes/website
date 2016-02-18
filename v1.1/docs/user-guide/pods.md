@@ -1,7 +1,8 @@
 ---
 title: "Pods"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 In Kubernetes, rather than individual application containers, _pods_ are the smallest deployable units that can be created, scheduled, and managed.
 

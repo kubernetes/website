@@ -1,7 +1,8 @@
 ---
 title: "Ingress"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 __Terminology__
 

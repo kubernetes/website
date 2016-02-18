@@ -1,7 +1,8 @@
 ---
 title: "Running Kubernetes with Calico Networking on a Digital Ocean Fedora Host"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Prerequisites
 

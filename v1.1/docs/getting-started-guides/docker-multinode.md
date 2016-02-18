@@ -10,7 +10,8 @@ _Note_:
 There is a [bug](https://github.com/docker/docker/issues/14106) in Docker 1.7.0 that prevents this from working correctly.
 Please install Docker 1.6.2 or Docker 1.7.1.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Prerequisites
 

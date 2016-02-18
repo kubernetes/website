@@ -1,7 +1,8 @@
 ---
 title: "Getting started with libvirt CoreOS"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ### Highlights
 

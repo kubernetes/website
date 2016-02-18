@@ -1,7 +1,8 @@
 ---
 title: "Daemon Sets"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## What is a _Daemon Set_?
 

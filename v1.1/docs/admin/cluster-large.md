@@ -6,7 +6,8 @@ title: "Using Large Clusters"
 
 At v1.0, Kubernetes supports clusters up to 100 nodes with 30 pods per node and 1-2 containers per pod.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Setup
 

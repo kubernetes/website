@@ -14,7 +14,8 @@ The current cluster design is inspired by:
 - [corekube](https://github.com/metral/corekube)
 - [Angus Lees](https://github.com/anguslees/kube-openstack)
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Prerequisites
 

@@ -8,7 +8,8 @@ In order for the kubectl usage examples to work, make sure you have an examples 
 
 
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Kubectl CLI
 

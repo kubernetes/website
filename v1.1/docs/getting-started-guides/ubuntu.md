@@ -8,7 +8,8 @@ work, which has been merge into this document.
 
 [Cloud team from Zhejiang University](https://github.com/ZJU-SEL) will maintain this work.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Prerequisites
 

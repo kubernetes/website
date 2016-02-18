@@ -6,7 +6,8 @@ Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This
 cluster is set up and controlled from your workstation (or wherever you find
 convenient).
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ### Prerequisites
 

@@ -6,7 +6,8 @@ which implements simple and secure networking, in a transparent, yet robust way.
 implementation that can ultimately be taken into production with little change. It will demonstrate how to provision a dedicated Kubernetes
 master and etcd nodes, and show how to scale the cluster with ease.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ### Prerequisites
 

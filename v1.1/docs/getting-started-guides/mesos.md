@@ -1,7 +1,8 @@
 ---
 title: "Getting started with Kubernetes on Mesos"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## About Kubernetes on Mesos
 

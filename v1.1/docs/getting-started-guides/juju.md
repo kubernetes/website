@@ -6,7 +6,8 @@ Kubernetes by provisioning, installing and configuring all the systems in
 the cluster.  Once deployed the cluster can easily scale up with one command
 to increase the cluster size.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Prerequisites
 

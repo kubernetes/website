@@ -1,7 +1,8 @@
 ---
 title: "Jobs"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## What is a _job_?
 

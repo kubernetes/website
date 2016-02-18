@@ -4,7 +4,8 @@ title: "Getting Started on CoreOS"
 
 
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 There are multiple guides on running Kubernetes with [CoreOS](https://coreos.com/kubernetes/docs/latest/):
 

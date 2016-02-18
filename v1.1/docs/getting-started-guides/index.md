@@ -5,7 +5,8 @@ Kubernetes can run on a range of platforms, from your laptop, to VMs on a cloud 
 bare metal servers.  The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster.  We'll guide you in picking a solution that fits for your needs.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 
 ## Picking the Right Solution

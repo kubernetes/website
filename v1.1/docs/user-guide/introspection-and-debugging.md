@@ -5,7 +5,8 @@ Once your application is running, you'll inevitably need to debug problems with 
 Earlier we described how you can use `kubectl get pods` to retrieve simple status information about
 your pods. But there are a number of ways to get even more information about your application.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Using `kubectl describe pod` to fetch details about pods
 

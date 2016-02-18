@@ -6,7 +6,8 @@ passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
 is safer and more flexible than putting it verbatim in a `pod` definition or in
 a docker image. See [Secrets design document](../design/secrets) for more information.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Overview of Secrets
 

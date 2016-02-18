@@ -7,7 +7,8 @@ You create your Docker image and push it to a registry before referring to it in
 
 The `image` property of a container supports the same syntax as the `docker` command does, including private registries and tags.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 
 ## Updating Images

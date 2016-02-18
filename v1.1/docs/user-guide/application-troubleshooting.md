@@ -5,7 +5,8 @@ This guide is to help users debug applications that are deployed into Kubernetes
 This is *not* a guide for people who want to debug their cluster.  For that you should check out
 [this guide](../admin/cluster-troubleshooting)
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## FAQ
 

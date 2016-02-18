@@ -1,7 +1,8 @@
 ---
 title: "Replication Controller"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## What is a _replication controller_?
 
@@ -75,6 +76,3 @@ For instance, a service might target all pods with `tier in (frontend), environm
 Replication controller is a top-level resource in the kubernetes REST API. More details about the
 API object can be found at: [ReplicationController API
 object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_replicationcontroller).
-
-
-

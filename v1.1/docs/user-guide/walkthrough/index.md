@@ -5,7 +5,8 @@ For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple container
 
 In order for the kubectl usage examples to work, make sure you have an examples directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or [the source](https://github.com/kubernetes/kubernetes).
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 
 ## Kubectl CLI

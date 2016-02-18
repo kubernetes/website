@@ -3,7 +3,8 @@ title: "Getting started with Vagrant"
 ---
 Running Kubernetes with Vagrant (and VirtualBox) is an easy way to run/test/develop on your local machine (Linux, Mac OS X).
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ### Prerequisites
 

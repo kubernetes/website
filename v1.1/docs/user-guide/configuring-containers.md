@@ -1,7 +1,8 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Configuring and launching containers"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Configuration in Kubernetes
 

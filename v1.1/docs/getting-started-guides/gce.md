@@ -4,7 +4,8 @@ title: "Getting started on Google Compute Engine"
 
 The example below creates a Kubernetes cluster with 4 worker node Virtual Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ### Before you start
 

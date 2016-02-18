@@ -1,7 +1,8 @@
 ---
 title: "Deployments"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## What is a _Deployment_?
 

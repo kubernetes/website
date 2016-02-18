@@ -10,7 +10,8 @@ Another important part of the container environment is the file system that is a
 
 The following sections describe both the cluster information provided to containers, as well as the hooks and life-cycle that allows containers to interact with the management system.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Cluster Information
 

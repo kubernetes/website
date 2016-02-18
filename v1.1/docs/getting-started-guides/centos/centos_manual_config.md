@@ -1,7 +1,8 @@
 ---
 title: "Getting started on CentOS"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Prerequisites
 

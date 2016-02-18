@@ -7,7 +7,8 @@ Updated: 9/20/2015
 API structure, and developers wanting to extend the Kubernetes API.  An introduction to
 using resources with kubectl can be found in [Working with resources](../user-guide/working-with-resources).*
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 
 The conventions of the [Kubernetes API](../api) (and related APIs in the ecosystem) are intended to ease client development and ensure that configuration mechanisms can be implemented that work across a diverse set of use cases consistently.

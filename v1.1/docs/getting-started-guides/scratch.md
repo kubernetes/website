@@ -13,7 +13,8 @@ pre-defined guides.
 This guide is also useful for those wanting to understand at a high level some of the
 steps that existing cluster setup scripts are making.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Designing and Preparing
 

@@ -1,7 +1,8 @@
 ---
 title: "Node"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## What is a node?
 

@@ -1,7 +1,8 @@
 ---
 title: "Getting started on Fedora"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Prerequisites
 

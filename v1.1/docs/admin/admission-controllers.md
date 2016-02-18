@@ -1,7 +1,8 @@
 ---
 title: "Admission Controllers"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## What are they?
 

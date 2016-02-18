@@ -1,7 +1,8 @@
 ---
 title: "Getting started on AWS EC2"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Prerequisites
 

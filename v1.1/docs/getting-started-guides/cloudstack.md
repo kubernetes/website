@@ -16,7 +16,8 @@ This [Ansible](http://ansibleworks.com) playbook deploys Kubernetes on a CloudSt
 
 
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Prerequisites
 

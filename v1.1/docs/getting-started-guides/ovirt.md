@@ -1,7 +1,8 @@
 ---
 title: "Getting started on oVirt"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## What is oVirt
 

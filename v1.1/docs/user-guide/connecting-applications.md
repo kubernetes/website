@@ -1,7 +1,8 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Connecting applications"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 # The Kubernetes model for connecting containers
 

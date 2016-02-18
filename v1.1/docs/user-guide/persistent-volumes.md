@@ -3,7 +3,8 @@ title: "Persistent Volumes and Claims"
 ---
 This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](volumes) is suggested.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Introduction
 

@@ -3,7 +3,8 @@ title: "Kubernetes User Guide: Managing Applications: Deploying continuously run
 ---
 You previously read about how to quickly deploy a simple replicated application using [`kubectl run`](quick-start) and how to configure and launch single-run containers using pods ([Configuring containers](configuring-containers)). Here you'll use the configuration-based approach to deploy a continuously running, replicated application.
 
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Launching a set of replicas using a configuration file
 

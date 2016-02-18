@@ -1,7 +1,8 @@
 ---
 title: "Containers with Kubernetes"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 ## Containers and commands
 

@@ -1,7 +1,8 @@
 ---
 title: "Networking in Kubernetes"
 ---
-{% include pagetoc.html %}
+* TOC
+{:toc}
 
 Kubernetes approaches networking somewhat differently than Docker does by
 default.  There are 4 distinct networking problems to solve:
