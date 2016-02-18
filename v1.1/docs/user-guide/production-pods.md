@@ -104,7 +104,7 @@ spec:
           name: supersecret
 ```
 
-For more details, see the [secrets document](secrets), [example](secrets/) and [design doc](https://github.com/kubernetes/kubernetes/tree/master/docs/design/secrets.md).
+For more details, see the [secrets document](secrets), [example](secrets/) and [design doc](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/secrets.md).
 
 ## Authenticating with a private image registry
 

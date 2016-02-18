@@ -17,7 +17,7 @@ title: "Kubernetes Documentation: releases.k8s.io/release-1.1"
 * The [API object documentation](http://kubernetes.io/third_party/swagger-ui/)
   is a detailed description of all fields found in core API objects.
 
-* An overview of the [Design of Kubernetes](https://github.com/kubernetes/kubernetes/tree/master/docs/design/)
+* An overview of the [Design of Kubernetes](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/)
 
 * There are example files and walkthroughs in the [examples](https://github.com/kubernetes/kubernetes/tree/master/examples)
   folder.

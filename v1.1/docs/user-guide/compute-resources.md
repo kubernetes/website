@@ -238,7 +238,7 @@ such as [EmptyDir volumes](volumes/#emptydir).
 
 The current system only supports container requests and limits for CPU and Memory.
 It is planned to add new resource types, including a node disk space
-resource, and a framework for adding custom [resource types](https://github.com/kubernetes/kubernetes/tree/master/docs/design/resources.md#resource-types).
+resource, and a framework for adding custom [resource types](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/resources.md#resource-types).
 
 Kubernetes supports overcommitment of resources by supporting multiple levels of [Quality of Service](http://issue.k8s.io/168).
 

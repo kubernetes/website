@@ -145,10 +145,6 @@ toc:
     path: /v1.1/docs/user-guide/production-pods/
   - title: Creating Pods with the Downward API
     path: /v1.1/docs/user-guide/downward-api/
-  - title: Using Secrets
-    path: /v1.1/docs/user-guide/secrets/
-  - title: Using Persistent Volumes
-    path: /v1.1/docs/user-guide/persistent-volumes/
   - title: Updating Live Pods
     path: /v1.1/docs/user-guide/update-demo/
 

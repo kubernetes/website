@@ -75,7 +75,7 @@ This plug-in will observe the incoming request and ensure that it does not viola
 enumerated in the `ResourceQuota` object in a `Namespace`.  If you are using `ResourceQuota`
 objects in your Kubernetes deployment, you MUST use this plug-in to enforce quota constraints.
 
-See the [resourceQuota design doc](https://github.com/kubernetes/kubernetes/tree/master/docs/design/admission_control_resource_quota.md) and the [example of Resource Quota](resourcequota/) for more details.
+See the [resourceQuota design doc](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/admission_control_resource_quota.md) and the [example of Resource Quota](resourcequota/) for more details.
 
 It is strongly encouraged that this plug-in is configured last in the sequence of admission control plug-ins.  This is
 so that quota is not prematurely incremented only for the request to be rejected later in admission control.
@@ -88,7 +88,7 @@ your Kubernetes deployment, you MUST use this plug-in to enforce those constrain
 be used to apply default resource requests to Pods that don't specify any; currently, the default LimitRanger
 applies a 0.1 CPU requirement to all Pods in the `default` namespace.
 
-See the [limitRange design doc](https://github.com/kubernetes/kubernetes/tree/master/docs/design/admission_control_limit_range.md) and the [example of Limit Range](limitrange/) for more details.
+See the [limitRange design doc](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/admission_control_limit_range.md) and the [example of Limit Range](limitrange/) for more details.
 
 ### InitialResources (experimental)
 

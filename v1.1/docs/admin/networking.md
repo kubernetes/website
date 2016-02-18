@@ -181,4 +181,4 @@ IPs.
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
-document](https://github.com/kubernetes/kubernetes/tree/master/docs/design/networking.md).
+document](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/networking.md).

@@ -251,7 +251,7 @@ Breaking compatibility of a beta or stable API version, such as v1, is unaccepta
 Compatibility for experimental or alpha APIs is not strictly required, but
 breaking compatibility should not be done lightly, as it disrupts all users of the
 feature. Experimental APIs may be removed. Alpha and beta API versions may be deprecated
-and eventually removed wholesale, as described in the [versioning document](https://github.com/kubernetes/kubernetes/tree/master/docs/design/versioning.md).
+and eventually removed wholesale, as described in the [versioning document](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/versioning.md).
 Document incompatible changes across API versions under the [conversion tips](../api).
 
 If your change is going to be backward incompatible or might be a breaking change for API

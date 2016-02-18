@@ -4,7 +4,7 @@ title: "Secrets"
 Objects of type `secret` are intended to hold sensitive information, such as
 passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
 is safer and more flexible than putting it verbatim in a `pod` definition or in
-a docker image. See [Secrets design document](https://github.com/kubernetes/kubernetes/tree/master/docs/design/secrets.md) for more information.
+a docker image. See [Secrets design document](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/secrets.md) for more information.
 
 * TOC
 {:toc}
@@ -51,7 +51,7 @@ data:
 ```
 
 The data field is a map.  Its keys must match
-[`DNS_SUBDOMAIN`](https://github.com/kubernetes/kubernetes/tree/master/docs/design/identifiers.md), except that leading dots are also
+[`DNS_SUBDOMAIN`](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/identifiers.md), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64. The values of
 username and password in the example above, before base64 encoding,
 are `value-1` and `value-2`, respectively, with carriage return and newline characters at the end.

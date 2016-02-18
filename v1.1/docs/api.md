@@ -30,7 +30,7 @@ multiple API versions, each at a different API path, such as `/api/v1` or
 We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-lifed and/or experimental APIs.
 
 Note that API versioning and Software versioning are only indirectly related.  The [API and release
-versioning proposal](https://github.com/kubernetes/kubernetes/tree/master/docs/design/versioning.md) describes the relationship between API versioning and
+versioning proposal](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/versioning.md) describes the relationship between API versioning and
 software versioning.
 
 
@@ -73,7 +73,7 @@ Currently there are two API groups in use:
 
 In the future we expect that there will be more API groups, all at REST path `/apis/$API_GROUP` and
 using `apiVersion: $API_GROUP/$VERSION`.  We expect that there will be a way for (third parties to
-create their own API groups](https://github.com/kubernetes/kubernetes/tree/master/docs/design/extending-api.md), and to avoid naming collisions.
+create their own API groups](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/extending-api.md), and to avoid naming collisions.
 
 ## Enabling resources in the extensions group
 
