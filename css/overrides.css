@@ -1,24 +1,6 @@
 /* overrides */
-#docsContent h1 {
-	font-size: 48px;
-	line-height: 58px; }
-#docsContent h2 {
-	font-size: 32px;
-	line-height: 40px;
-	margin: 30px 0px 15px 0px; }
-#docsContent h3 {
-	font-size: 28px;
-	line-height: 35px; }
-#docsContent h4 {
-	font-size: 24px;
-	line-height: 30px; }
-#docsContent h5 {
-	font-size: 22px;
-	line-height: 26px; }
-#docsContent p + p {
-	margin-top: 30px; }
 #docsContent code {
-	font-size: 16px;
+	font-size: 14px;
 	background-color: #f7f7f7;
 	font-weight: bold;
 	padding: 2px 4px; }
