@@ -6,6 +6,7 @@ and a _worker_ node which receives work from the master.  You can repeat the pro
 times to create larger clusters.
 
 Here's a diagram of what the final result will look like:
+
 ![Kubernetes Single Node on Docker](/images/docs/k8s-docker.png)
 
 _Note_:
@@ -65,7 +66,8 @@ Clone the Kubernetes repo, and run [worker.sh](/{{page.version}}/docs/getting-st
 ```shell
 export MASTER_IP=<your_master_ip (e.g. 1.2.3.4)>
 cd kubernetes/docs/getting-started-guides/docker-multinode/
-./worker.sh...
+./worker.sh
+...
 `Worker done!`
 ````
 
