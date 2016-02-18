@@ -100,10 +100,6 @@ toc:
     path: /v1.1/docs/getting-started-guides/scratch/
   - title: Authenticating Across Clusters with kubeconfig
     path: /v1.1/docs/user-guide/kubeconfig-file/
-  - title: Configuring Garbage Collection
-    path: /v1.1/docs/admin/garbage-collection/
-  - title: Configuring Kubernetes with Salt
-    path: /v1.1/docs/admin/salt/
  
 - title: Using Nodes, Pods, and Containers
   section:
@@ -143,6 +139,10 @@ toc:
     path: /v1.1/docs/admin/resourcequota/
   - title: Setting Pod CPU and Memory Limits
     path: /v1.1/docs/admin/limitrange/
+  - title: Configuring Garbage Collection
+    path: /v1.1/docs/admin/garbage-collection/
+  - title: Configuring Kubernetes with Salt
+    path: /v1.1/docs/admin/salt/
 
 - title: Application Management and Deployment
   section:
