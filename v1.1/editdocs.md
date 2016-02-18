@@ -1,10 +1,10 @@
 ---
 title: Contributing to Kubernetes Documentation
 ---
-
 Welcome! We are very pleased you want to contribute to the docs for Kubernetes.
 
 <!-- BEGIN: Gotta keep this section JS/HTML because it swaps out content dynamically -->
+<p>&nbsp;</p>
 <script language="JavaScript">
 var forwarding=window.location.hash.replace("#","");
 $( document ).ready(function() {
