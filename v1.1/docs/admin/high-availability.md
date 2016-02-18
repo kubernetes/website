@@ -1,9 +1,6 @@
 ---
 title: "High Availability Kubernetes Clusters"
 ---
-
-## Introduction
-
 This document describes how to build a high-availability (HA) Kubernetes cluster.  This is a fairly advanced topic.
 Users who merely want to experiment with Kubernetes are encouraged to use configurations that are simpler to set up such as
 the simple [Docker based single node cluster instructions](/{{page.version}}/docs/getting-started-guides/docker),
