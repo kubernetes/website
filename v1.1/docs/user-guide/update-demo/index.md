@@ -19,7 +19,7 @@ limitations under the License.
 
 -->
 
-This example demonstrates the usage of Kubernetes to perform a [rolling update](../kubectl/kubectl_rolling-update) on a running group of [pods](/{{page.version}}/docs/user-guide/pods). See [here](../managing-deployments/#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/simple-rolling-update.md) for more information.
+This example demonstrates the usage of Kubernetes to perform a [rolling update](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/user-guide/kubectl/kubectl_rolling-update.md) on a running group of [pods](/{{page.version}}/docs/user-guide/pods). See [here](/{{page.version}}/docs/user-guide/managing-deployments/#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/simple-rolling-update.md) for more information.
 
 ### Step Zero: Prerequisites
 
@@ -46,7 +46,7 @@ Now visit the the [demo website](http://localhost:8001/static).  You won't see a
 
 ### Step Two: Run the replication controller
 
-Now we will turn up two replicas of an [image](../images).  They all serve on internal port 80.
+Now we will turn up two replicas of an [image](/{{page.version}}/docs/user-guide/images/).  They all serve on internal port 80.
 
 ```shell
 $ kubectl create -f docs/user-guide/update-demo/nautilus-rc.yaml

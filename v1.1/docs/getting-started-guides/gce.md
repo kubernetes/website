@@ -54,7 +54,7 @@ cluster/kube-up.sh
 If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
 
 If you run into trouble, please see the section on [troubleshooting](gce/#troubleshooting), post to the
-[google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](../troubleshooting/#slack).
+[google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](/{{page.version}}/docs/troubleshooting/)#slack).
 
 The next few steps will show you:
 
@@ -152,7 +152,7 @@ Some of the pods may take a few seconds to start up (during this time they'll sh
 
 Then, see [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/master/examples/).  The [guestbook example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/) is a good "getting started" walkthrough.
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/).  The [guestbook example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook/) is a good "getting started" walkthrough.
 
 ### Tearing down the cluster
 

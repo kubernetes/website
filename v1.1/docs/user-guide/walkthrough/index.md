@@ -11,17 +11,17 @@ In order for the kubectl usage examples to work, make sure you have an examples 
 
 ## Kubectl CLI
 
-The easiest way to interact with Kubernetes is via the [kubectl](../kubectl/kubectl) command-line interface.
+The easiest way to interact with Kubernetes is via the [kubectl](/{{page.version}}/docs/user-guide/kubectl-overview/) command-line interface.
 
-For more info about kubectl, including its usage, commands, and parameters, see the [kubectl CLI reference](../kubectl/kubectl).
+For more info about kubectl, including its usage, commands, and parameters, see the [kubectl CLI reference](/{{page.version}}/docs/user-guide/kubectl-overview/).
 
-If you haven't installed and configured kubectl, finish the [prerequisites](../prereqs) before continuing.
+If you haven't installed and configured kubectl, finish the [prerequisites](/{{page.version}}/docs/user-guide/prereqs/) before continuing.
 
 ## Pods
 
 In Kubernetes, a group of one or more containers is called a _pod_. Containers in a pod are deployed together, and are started, stopped, and replicated as a group.
 
-See [pods](/{{page.version}}/docs/user-guide/pods) for more details.
+See [pods](/{{page.version}}/docs/user-guide/pods/) for more details.
 
 
 #### Pod Definition
@@ -60,7 +60,7 @@ List all pods:
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](../kubectl/kubectl_exec) for details.
+On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/{{page.version}}/docs/user-guide/getting-into-containers/) for details.
 
 Provided the pod IP is accessible, you should be able to access its http endpoint with curl on port 80:
 
@@ -179,4 +179,4 @@ Finally, we have also introduced an environment variable to the `git-monitor` co
 ## What's Next?
 
 Continue on to [Kubernetes 201](k8s201) or
-for a complete application see the [guestbook example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/)
+for a complete application see the [guestbook example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook/)

@@ -6,22 +6,14 @@ toc:
 
 - title: Troubleshooting
   section:
+  - title: Troubleshooting Overview
+    path: /v1.1/docs/troubleshooting/
   - title: Web Interface
     path: /v1.1/docs/user-guide/ui/
-  - title: Logging
-    path: /v1.1/docs/user-guide/logging/
-  - title: Container Access (exec)
-    path: /v1.1/docs/user-guide/getting-into-containers/
-  - title: Connect with Proxies
-    path: /v1.1/docs/user-guide/connecting-to-applications-proxy/
-  - title: Connect with Port Forwarding
-    path: /v1.1/docs/user-guide/connecting-to-applications-port-forward/
   - title: Troubleshooting Applications
     path: /v1.1/docs/user-guide/application-troubleshooting/
   - title: Troubleshooting Clusters
     path: /v1.1/docs/admin/cluster-troubleshooting/
-  - title: Best Practices for Configuration
-    path: /v1.1/docs/user-guide/config-best-practices/
 
 - title: Frequently Asked Questions
   section:

@@ -2,7 +2,7 @@
 title: "Downward API example"
 ---
 Following this example, you will create a pod with a container that consumes the pod's name and
-namespace using the [downward API](../downward-api).
+namespace using the [downward API](/{{page.version}}/docs/user-guide/downward-api/).
 
 ## Step Zero: Prerequisites
 

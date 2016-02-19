@@ -53,7 +53,7 @@ Here is a snapshot of the a Google Cloud Monitoring dashboard showing cluster-wi
 
 ## Try it out!
 
-Now that you've learned a bit about Heapster, feel free to try it out on your own clusters! The [Heapster repository](https://github.com/kubernetes/heapster) is available on GitHub. It contains detailed instructions to setup Heapster and its storage backends. Heapster runs by default on most Kubernetes clusters, so you may already have it! Feedback is always welcome. Please let us know if you run into any issues via the troubleshooting [channels](../troubleshooting).
+Now that you've learned a bit about Heapster, feel free to try it out on your own clusters! The [Heapster repository](https://github.com/kubernetes/heapster) is available on GitHub. It contains detailed instructions to setup Heapster and its storage backends. Heapster runs by default on most Kubernetes clusters, so you may already have it! Feedback is always welcome. Please let us know if you run into any issues via the troubleshooting [channels](/{{page.version}}/docs/troubleshooting/).
 
 ***
 *Authors: Vishnu Kannan and Victor Marmol, Google Software Engineers.*

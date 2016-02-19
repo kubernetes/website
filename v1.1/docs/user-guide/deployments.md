@@ -19,14 +19,14 @@ A typical use case is:
 
 ## Enabling Deployments on kubernetes cluster
 
-Deployments is part of the [`extensions` API Group](../api/#api-groups) and is not enabled by default.
+Deployments is part of the [`extensions` API Group](/{{page.version}}/docs/api/)#api-groups) and is not enabled by default.
 Set `--runtime-config=extensions/v1beta1/deployments=true` on API server to
 enable it.
 This can be achieved by exporting `ENABLE_DEPLOYMENTS=true` before running
 `kube-up.sh` script on GCE.
 
 Note that Deployment objects effectively have [API version
-`v1alpha1`](../api/#api-versioning).
+`v1alpha1`](/{{page.version}}/docs/api/)#api-versioning).
 Alpha objects may change or even be discontinued in future software releases.
 However, due to to a known issue, they will appear as API version `v1beta1` if
 enabled.

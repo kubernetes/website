@@ -97,7 +97,7 @@ then the plug-in auto-populates a compute resource request based on historical u
 If there is not enough data to make a decision the Request is left unchanged.
 When the plug-in sets a compute resource request, it annotates the pod with information on what compute resources it auto-populated.
 
-See the [InitialResouces proposal](../proposals/initial-resources) for more details.
+See the [InitialResouces proposal](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/proposals/initial-resources.md) for more details.
 
 ### NamespaceExists (deprecated)
 

@@ -15,7 +15,7 @@ NAME           LABELS                                 STATUS
 127.0.0.1      kubernetes.io/hostname=127.0.0.1       Ready
 ```
 
-If the status of any node is `Unknown` or `NotReady` your cluster is broken, double check that all containers are running properly, and if all else fails, contact us on [Slack](../../troubleshooting/#slack).
+If the status of any node is `Unknown` or `NotReady` your cluster is broken, double check that all containers are running properly, and if all else fails, contact us on [Slack](/{{page.version}}/docs/troubleshooting/)#slack).
 
 ### Run an application
 

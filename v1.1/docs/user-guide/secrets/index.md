@@ -1,7 +1,7 @@
 ---
 title: "Secrets example"
 ---
-Following this example, you will create a [secret](../secrets) and a [pod](../pods) that consumes that secret in a [volume](../volumes). See [Secrets design document](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/secrets.md) for more information.
+Following this example, you will create a [secret](/{{page.version}}/docs/user-guide/secrets/) and a [pod](/{{page.version}}/docs/user-guide/pods/) that consumes that secret in a [volume](/{{page.version}}/docs/user-guide/volumes/). See [Secrets design document](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/secrets.md) for more information.
 
 ## Step Zero: Prerequisites
 

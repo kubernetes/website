@@ -113,7 +113,7 @@ my-nginx-svc   app=nginx   app=nginx   10.0.152.174   80/TCP
 
 The examples we've used so far apply at most a single label to any resource. There are many scenarios where multiple labels should be used to distinguish sets from one another.
 
-For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
+For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
 
 ```yaml
 labels:

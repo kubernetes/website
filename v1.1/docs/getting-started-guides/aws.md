@@ -84,9 +84,9 @@ For more information, please read [kubeconfig files](/{{page.version}}/docs/user
 
 See [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
-The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/)
+The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook/)
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/master/examples/)
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/)
 
 ## Tearing down the cluster
 

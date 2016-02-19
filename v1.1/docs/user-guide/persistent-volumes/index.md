@@ -1,7 +1,7 @@
 ---
 title: "How To Use Persistent Volumes"
 ---
-The purpose of this guide is to help you become familiar with [Kubernetes Persistent Volumes](../persistent-volumes).  By the end of the guide, we'll have
+The purpose of this guide is to help you become familiar with [Kubernetes Persistent Volumes](/{{page.version}}/docs/user-guide/persistent-volumes/).  By the end of the guide, we'll have
 nginx serving content from your persistent volume.
 
 This guide assumes knowledge of Kubernetes fundamentals and that you have a cluster up and running.
@@ -88,6 +88,6 @@ $ curl 10.0.0.241:3000
 I love Kubernetes storage!
 ```
 
-Hopefully this simple guide is enough to get you started with PersistentVolumes.  If you have any questions, join the team on [Slack](../../troubleshooting/#slack) and ask!
+Hopefully this simple guide is enough to get you started with PersistentVolumes.  If you have any questions, join the team on [Slack](/{{page.version}}/docs/troubleshooting/)#slack) and ask!
 
 Enjoy!

@@ -6,7 +6,7 @@ and who want to learn more about using kubectl to manage resources such
 as pods and services.  Users who want to access the REST API directly,
 and developers who want to extend the Kubernetes API should
 refer to the [api conventions](/{{page.version}}/docs/devel/api-conventions) and
-the [api document](../api).*
+the [api document](/{{page.version}}/docs/api/).*
 
 ## Resources are Automatically Modified
 

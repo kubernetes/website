@@ -111,6 +111,8 @@ toc:
     path: /v1.1/docs/user-guide/downward-api/
   - title: Updating Live Pods
     path: /v1.1/docs/user-guide/update-demo/
+  - title: Running Commands in a Container with kubectl exec
+    path: /v1.1/docs/user-guide/getting-into-containers/
 
 - title: Networking
   section:
@@ -124,6 +126,10 @@ toc:
     path: https://github.com/kubernetes/kubernetes/blob/release-1.1/examples/simple-nginx.md
   - title: Using DNS Pods and Services
     path: /v1.1/docs/admin/dns/
+  - title: Connect with Proxies
+    path: /v1.1/docs/user-guide/connecting-to-applications-proxy/
+  - title: Connect with Port Forwarding
+    path: /v1.1/docs/user-guide/connecting-to-applications-port-forward/
  
 - title: Configuring Kubernetes
   section:
@@ -143,9 +149,13 @@ toc:
     path: /v1.1/docs/admin/garbage-collection/
   - title: Configuring Kubernetes with Salt
     path: /v1.1/docs/admin/salt/
+  - title: Best Practices for Configuration
+    path: /v1.1/docs/user-guide/config-best-practices/
 
 - title: Application Management and Deployment
   section:
+  - title: Managing Applications: Prerequisites
+    path: /v1.1/docs/user-guide/prereqs/
   - title: Managing Deployments
     path: /v1.1/docs/user-guide/managing-deployments/
   - title: Deploying Applications
@@ -163,3 +173,5 @@ toc:
     path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/explorer
   - title: Resource Usage Monitoring
     path: /v1.1/docs/user-guide/monitoring/
+  - title: Logging
+    path: /v1.1/docs/user-guide/logging/

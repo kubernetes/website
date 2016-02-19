@@ -252,7 +252,7 @@ Compatibility for experimental or alpha APIs is not strictly required, but
 breaking compatibility should not be done lightly, as it disrupts all users of the
 feature. Experimental APIs may be removed. Alpha and beta API versions may be deprecated
 and eventually removed wholesale, as described in the [versioning document](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/versioning.md).
-Document incompatible changes across API versions under the [conversion tips](../api).
+Document incompatible changes across API versions under the [conversion tips](/{{page.version}}/docs/api/).
 
 If your change is going to be backward incompatible or might be a breaking change for API
 consumers, please send an announcement to `kubernetes-dev@googlegroups.com` before
@@ -564,7 +564,7 @@ New feature development proceeds through a series of stages of increasing maturi
     upgrade may require downtime for anything relying on the new feature, and may require
     manual conversion of objects to the new version; when manual conversion is necessary, the
     project will provide documentation on the process (for an example, see [v1 conversion
-    tips](../api))
+    tips](/{{page.version}}/docs/api/))
   - Cluster Reliability: since the feature has e2e tests, enabling the feature via a flag should not
     create new bugs in unrelated features;  because the feature is new, it may have minor bugs
   - Support: the project commits to complete the feature, in some form, in a subsequent Stable

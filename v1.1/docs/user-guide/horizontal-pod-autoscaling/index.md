@@ -102,7 +102,7 @@ $ kubectl create -f docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache.ya
 horizontalpodautoscaler "php-apache" created
 ```
 
-Alternatively, we can create the autoscaler using [kubectl autoscale](../kubectl/kubectl_autoscale).
+Alternatively, we can create the autoscaler using [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/user-guide/kubectl/kubectl_autoscale.md).
 The following command will create the equivalent autoscaler as defined in the [hpa-php-apache.yaml](hpa-php-apache.yaml) file:
 
 ```shell

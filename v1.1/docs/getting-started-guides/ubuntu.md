@@ -139,7 +139,7 @@ NAME            LABELS                                 STATUS
 10.10.103.250   kubernetes.io/hostname=10.10.103.250   Ready
 ```
 
-Also you can run Kubernetes [guest-example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/) to build a redis backend cluster on the k8s．
+Also you can run Kubernetes [guest-example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook/) to build a redis backend cluster on the k8s．
 
 
 ### Deploy addons

@@ -35,7 +35,7 @@ the policies used are selected by the functions `defaultPredicates()` and `defau
 However, the choice of policies
 can be overridden by passing the command-line flag `--policy-config-file` to the scheduler, pointing to a JSON
 file specifying which scheduling policies to use. See
-[examples/scheduler-policy-config.json](https://github.com/kubernetes/kubernetes/tree/master/examples/scheduler-policy-config.json) for an example
+[examples/scheduler-policy-config.json](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/scheduler-policy-config.json) for an example
 config file. (Note that the config file format is versioned; the API is defined in
 [plugin/pkg/scheduler/api](http://releases.k8s.io/release-1.1/plugin/pkg/scheduler/api/)).
 Thus to add a new scheduling policy, you should modify predicates.go or priorities.go,

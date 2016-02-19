@@ -1,7 +1,7 @@
 ---
 title: "Overview"
 ---
-This example shows two types of pod [health checks](../production-pods/#liveness-and-readiness-probes-aka-health-checks): HTTP checks and container execution checks.
+This example shows two types of pod [health checks](/{{page.version}}/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks): HTTP checks and container execution checks.
 
 The [exec-liveness.yaml](exec-liveness.yaml) demonstrates the container execution check.
 
@@ -39,7 +39,7 @@ livenessProbe:
 
 The Kubelet sends an HTTP request to the specified path and port to perform the health check. If you take a look at image/server.go, you will see the server starts to respond with an error code 500 after 10 seconds, so the check fails. The Kubelet sends the probe to the container's ip address by default which could be specified with `host` as part of httpGet probe. If the container listens on `127.0.0.1`, `host` should be specified as `127.0.0.1`. In general, if the container listens on its ip address or on all interfaces (0.0.0.0), there is no need to specify the `host` as part of the httpGet probe.
 
-This [guide](../walkthrough/k8s201/#health-checking) has more information on health checks.
+This [guide](/{{page.version}}/docs/user-guide/k8s201/#health-checking) has more information on health checks.
 
 ## Get your hands dirty
 

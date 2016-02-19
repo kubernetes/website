@@ -7,7 +7,7 @@ This document describes the current state of Horizontal Pod Autoscaler in Kubern
 
 Horizontal pod autoscaling allows the number of pods in a replication controller or deployment
 to scale automatically based on observed CPU utilization.
-It is a [beta](../api/#api-versioning) feature in Kubernetes 1.1.
+It is a [beta](/{{page.version}}/docs/api/)#api-versioning) feature in Kubernetes 1.1.
 
 The autoscaler is implemented as a Kubernetes API resource and a controller.
 The resource describes behavior of the controller.
@@ -40,7 +40,7 @@ More details on scale sub-resource can be found [here](https://github.com/kubern
 
 ## API Object
 
-Horizontal pod autoscaler is a top-level resource in the Kubernetes REST API (currently in [beta](../api/#api-versioning)).
+Horizontal pod autoscaler is a top-level resource in the Kubernetes REST API (currently in [beta](/{{page.version}}/docs/api/)#api-versioning)).
 More details about the API object can be found at
 [HorizontalPodAutoscaler Object](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 

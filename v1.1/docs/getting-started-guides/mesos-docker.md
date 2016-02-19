@@ -184,7 +184,7 @@ host machine (mac).
     To learn more about Pods, Volumes, Labels, Services, and Replication Controllers, start with the
     [Kubernetes Walkthrough](/{{page.version}}/docs/user-guide/walkthrough/).
 
-    To skip to a more advanced example, see the [Guestbook Example](https://github.com/kubernetes/kubernetes/tree/master/examples/guestbook/)
+    To skip to a more advanced example, see the [Guestbook Example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook/)
 
 1. Destroy cluster
 
