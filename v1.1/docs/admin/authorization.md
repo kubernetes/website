@@ -2,7 +2,7 @@
 title: "Authorization Plugins"
 ---
 In Kubernetes, authorization happens as a separate step from authentication.
-See the [authentication documentation](authentication) for an
+See the [authentication documentation(/{{page.version}}/docs/admin/authentication) for an
 overview of authentication.
 
 Authorization applies to all HTTP accesses on the main (secure) apiserver port.

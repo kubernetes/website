@@ -83,7 +83,7 @@ toc:
 - title: Administering Clusters
   section:
   - title: Kubernetes Cluster Admin Guide
-    path: /v1.1/docs/admin/introduction/
+    path: /v1.1/docs/admin/
   - title: Using Multiple Clusters
     path: /v1.1/docs/admin/multi-cluster/
   - title: Using Large Clusters
