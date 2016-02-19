@@ -198,7 +198,7 @@ value is `Always`.)
 
 ## Caveats
 
-Job objects are in the [`extensions` API Group](/{{page.version}}/docs/api/)#api-groups).
+Job objects are in the [`extensions` API Group](/{{page.version}}/docs/api/#api-groups).
 
 Job objects have [API version `v1beta1`](/{{page.version}}/docs/api/)#api-versioning).  Beta objects may
 undergo changes to their schema and/or semantics in future software releases, but

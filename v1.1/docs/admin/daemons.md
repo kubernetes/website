@@ -158,7 +158,7 @@ all or certain hosts, and when it needs to start before other pods.
 
 ## Caveats
 
-DaemonSet objects are in the [`extensions` API Group](/{{page.version}}/docs/api/)#api-groups).
+DaemonSet objects are in the [`extensions` API Group](/{{page.version}}/docs/api/#api-groups).
 DaemonSet is not enabled by default. Enable it by setting
 `--runtime-config=extensions/v1beta1/daemonsets=true` on the api server. This can be
 achieved by exporting ENABLE_DAEMONSETS=true before running kube-up.sh script

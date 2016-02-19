@@ -19,7 +19,7 @@ A typical use case is:
 
 ## Enabling Deployments on kubernetes cluster
 
-Deployments is part of the [`extensions` API Group](/{{page.version}}/docs/api/)#api-groups) and is not enabled by default.
+Deployments is part of the [`extensions` API Group](/{{page.version}}/docs/api/#api-groups) and is not enabled by default.
 Set `--runtime-config=extensions/v1beta1/deployments=true` on API server to
 enable it.
 This can be achieved by exporting `ENABLE_DEPLOYMENTS=true` before running

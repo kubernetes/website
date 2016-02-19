@@ -88,6 +88,6 @@ $ curl 10.0.0.241:3000
 I love Kubernetes storage!
 ```
 
-Hopefully this simple guide is enough to get you started with PersistentVolumes.  If you have any questions, join the team on [Slack](/{{page.version}}/docs/troubleshooting/)#slack) and ask!
+Hopefully this simple guide is enough to get you started with PersistentVolumes.  If you have any questions, join the team on [Slack](/{{page.version}}/docs/troubleshooting/#slack) and ask!
 
 Enjoy!
