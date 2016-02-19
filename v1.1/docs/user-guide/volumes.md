@@ -235,7 +235,7 @@ writers simultaneously.
 __Important: You must have your own NFS server running with the share exported
 before you can use it__
 
-See the [NFS example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/nfs/) for more details.
+See the [NFS example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/nfs/) for more details.
 
 ### iscsi
 
@@ -254,7 +254,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous readers allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/iscsi/) for more details.
+See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/iscsi/) for more details.
 
 ### flocker
 
@@ -269,7 +269,7 @@ can be "handed off" between pods as required.
 
 __Important: You must have your own Flocker installation running before you can use it__
 
-See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/flocker/) for more details.
+See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/flocker/) for more details.
 
 ### glusterfs
 
@@ -284,7 +284,7 @@ simultaneously.
 __Important: You must have your own GlusterFS installation running before you
 can use it__
 
-See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/glusterfs/) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/glusterfs/) for more details.
 
 ### rbd
 
@@ -304,7 +304,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/rbd/) for more details.
+See the [RBD example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/rbd/) for more details.
 
 ### gitRepo
 

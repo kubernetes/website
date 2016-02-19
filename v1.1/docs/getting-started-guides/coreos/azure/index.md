@@ -212,7 +212,7 @@ You then should be able to access it from anywhere via the Azure virtual IP for 
 
 You now have a full-blow cluster running in Azure, congrats!
 
-You should probably try deploy other [example apps](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/) or write your own ;)
+You should probably try deploy other [example apps](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/) or write your own ;)
 
 ## Tear down...
 

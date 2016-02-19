@@ -113,7 +113,7 @@ my-nginx-svc   app=nginx   app=nginx   10.0.152.174   80/TCP
 
 The examples we've used so far apply at most a single label to any resource. There are many scenarios where multiple labels should be used to distinguish sets from one another.
 
-For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
+For instance, different applications would use different values for the `app` label, but a multi-tier application, such as the [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/guestbook/), would additionally need to distinguish each tier. The frontend could carry the following labels:
 
 ```yaml
 labels:
@@ -233,7 +233,7 @@ my-nginx-o0ef1   1/1       Running   0          1h
 
 At some point, you'll eventually need to update your deployed application, typically by specifying a new image or image tag, as in the canary deployment scenario above. `kubectl` supports several update operations, each of which is applicable to different scenarios.
 
-To update a service without an outage, `kubectl` supports what is called ['rolling update'?](kubectl/kubectl_rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/simple-rolling-update.md) and the [example of rolling update](update-demo/) for more information.
+To update a service without an outage, `kubectl` supports what is called ['rolling update'?](kubectl/kubectl_rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/simple-rolling-update.md) and the [example of rolling update](update-demo/) for more information.
 
 Let's say you were running version 1.7.9 of nginx:
 
@@ -256,7 +256,7 @@ spec:
         - containerPort: 80
 ```
 
-To update to version 1.9.1, you can use [`kubectl rolling-update --image`](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/simple-rolling-update.md):
+To update to version 1.9.1, you can use [`kubectl rolling-update --image`](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/simple-rolling-update.md):
 
 ```shell
 $ kubectl rolling-update my-nginx --image=nginx:1.9.1

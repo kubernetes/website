@@ -22,7 +22,7 @@ Check the location and credentials that kubectl knows about with this command:
 $ kubectl config view
 ```
 
-Many of the [examples](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/) provide an introduction to using
+Many of the [examples](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/) provide an introduction to using
 kubectl and complete documentation is found in the [kubectl manual](kubectl/kubectl).
 
 ### Directly accessing the REST API
@@ -125,7 +125,7 @@ From within a pod the recommended ways to connect to API are:
     process within a container.  This proxies the
     Kubernetes API to the localhost interface of the pod, so that other processes
     in any container of the pod can access it.  See this [example of using kubectl proxy
-    in a pod](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/kubectl-container/).
+    in a pod](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/kubectl-container/).
   - use the Go client library, and create a client using the `client.NewInCluster()` factory.
     This handles locating and authenticating to the apiserver.
 

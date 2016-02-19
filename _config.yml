@@ -20,4 +20,5 @@ defaults:
       versionfilesafe: "v1_1"
       layout: docwithnav
       showedit: true
+      githubbranch: “release-1.1”
 permalink: pretty

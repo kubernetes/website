@@ -242,7 +242,7 @@ Replace `<MASTER_IP>` in `calico-kubernetes-ubuntu-demo-master/dns/skydns-rc.yam
 
 ## Launch other Services With Calico-Kubernetes
 
-At this point, you have a fully functioning cluster running on kubernetes with a master and 2 nodes networked with Calico. You can now follow any of the [standard documentation](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/) to set up other services on your cluster.
+At this point, you have a fully functioning cluster running on kubernetes with a master and 2 nodes networked with Calico. You can now follow any of the [standard documentation](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/) to set up other services on your cluster.
 
 ## Connectivity to outside the cluster
 

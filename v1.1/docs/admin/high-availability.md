@@ -185,7 +185,7 @@ master election.  On each of the three apiserver nodes, we run a small utility a
 election protocol using etcd "compare and swap". If the apiserver node wins the election, it starts the master component it is managing (e.g. the scheduler), if it
 loses the election, it ensures that any master components running on the node (e.g. the scheduler) are stopped.
 
-In the future, we expect to more tightly integrate this lease-locking into the scheduler and controller-manager binaries directly, as described in the [high availability design proposal](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/proposals/high-availability.md)
+In the future, we expect to more tightly integrate this lease-locking into the scheduler and controller-manager binaries directly, as described in the [high availability design proposal](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/high-availability.md)
 
 ### Installing configuration files
 

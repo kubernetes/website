@@ -10,7 +10,7 @@ You've seen [how to configure and deploy pods and containers](configuring-contai
 
 The container file system only lives as long as the container does, so when a container crashes and restarts, changes to the filesystem will be lost and the container will restart from a clean slate. To access more-persistent storage, outside the container file system, you need a [*volume*](volumes). This is especially important to stateful applications, such as key-value stores and databases.
 
-For example, [Redis](http://redis.io/) is a key-value cache and store, which we use in the [guestbook](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook/) and other examples. We can add a volume to it to store persistent data as follows:
+For example, [Redis](http://redis.io/) is a key-value cache and store, which we use in the [guestbook](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/guestbook/) and other examples. We can add a volume to it to store persistent data as follows:
 
 ```yaml
 apiVersion: v1
@@ -104,7 +104,7 @@ spec:
           name: supersecret
 ```
 
-For more details, see the [secrets document](secrets), [example](secrets/) and [design doc](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/secrets.md).
+For more details, see the [secrets document](secrets), [example](secrets/) and [design doc](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/secrets.md).
 
 ## Authenticating with a private image registry
 
@@ -234,7 +234,7 @@ spec:
             memory: 64Mi
 ```
 
-The container will die due to OOM (out of memory) if it exceeds its specified limit, so specifying a value a little higher than expected generally improves reliability. By specifying request, pod is guaranteed to be able to use that much of resource when needed. See [Resource QoS](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/proposals/resource-qos.md) for the difference between resource limits and requests.
+The container will die due to OOM (out of memory) if it exceeds its specified limit, so specifying a value a little higher than expected generally improves reliability. By specifying request, pod is guaranteed to be able to use that much of resource when needed. See [Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/resource-qos.md) for the difference between resource limits and requests.
 
 If you're not sure how much resources to request, you can first launch the application without specifying resources, and use [resource usage monitoring](monitoring) to determine appropriate values.
 

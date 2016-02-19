@@ -80,7 +80,7 @@ apiVersion: v1
 
 ### Capacity
 
-Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/resources.md) to understand the units expected by `capacity`.
+Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/resources.md) to understand the units expected by `capacity`.
 
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
 
@@ -146,7 +146,7 @@ Claims use the same conventions as volumes when requesting storage with specific
 
 ### Resources
 
-Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/resources.md) applies to both volumes and claims.
+Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/resources.md) applies to both volumes and claims.
 
 ## Claims As Volumes
 

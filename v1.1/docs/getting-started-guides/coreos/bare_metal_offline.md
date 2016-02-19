@@ -648,7 +648,7 @@ Now that the CoreOS with Kubernetes installed is up and running lets spin up som
 
 See [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/).
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/).
 
 ## Helping commands for debugging
 

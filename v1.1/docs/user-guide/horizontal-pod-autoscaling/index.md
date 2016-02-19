@@ -93,7 +93,7 @@ controlled by the php-apache replication controller we created in the first step
 Roughly speaking, the horizontal autoscaler will increase and decrease the number of replicas
 (via the replication controller) so as to maintain an average CPU utilization across all Pods of 50%
 (since each pod requests 200 milli-cores by [kubectl run](#kubectl-run), this means average CPU utilization of 100 milli-cores).
-See [here](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
+See [here](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
 
 We will create the autoscaler by executing the following command:
 
@@ -102,7 +102,7 @@ $ kubectl create -f docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache.ya
 horizontalpodautoscaler "php-apache" created
 ```
 
-Alternatively, we can create the autoscaler using [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/user-guide/kubectl/kubectl_autoscale.md).
+Alternatively, we can create the autoscaler using [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/user-guide/kubectl/kubectl_autoscale.md).
 The following command will create the equivalent autoscaler as defined in the [hpa-php-apache.yaml](hpa-php-apache.yaml) file:
 
 ```shell

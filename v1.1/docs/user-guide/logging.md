@@ -10,7 +10,7 @@ Kubernetes components, such as kubelet and apiserver, use the [glog](https://god
 ## Examining the logs of running containers
 
 The logs of a running container may be fetched using the command `kubectl logs`. For example, given
-this pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/blog-logging/counter-pod.yaml), which has a container which writes out some text to standard
+this pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/blog-logging/counter-pod.yaml), which has a container which writes out some text to standard
 output every second. (You can find different pod specifications [here](logging-demo/).)
 
 <!-- BEGIN MUNGE: EXAMPLE ../../examples/blog-logging/counter-pod.yaml -->
@@ -28,7 +28,7 @@ spec:
            'for ((i = 0; ; i++)); do echo "$i: $(date)"; sleep 1; done']
 ```
 
-[Download example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/blog-logging/counter-pod.yaml)
+[Download example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/blog-logging/counter-pod.yaml)
 <!-- END MUNGE: EXAMPLE ../../examples/blog-logging/counter-pod.yaml -->
 
 we can run the pod:

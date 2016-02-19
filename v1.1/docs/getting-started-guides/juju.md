@@ -192,7 +192,7 @@ juju add-unit docker # creates unit docker/2, kubernetes/2, docker-flannel/2
 
 ## Launch the "k8petstore" example app
 
-The [k8petstore example](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/k8petstore/) is available as a
+The [k8petstore example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/k8petstore/) is available as a
 [juju action](https://jujucharms.com/docs/devel/actions).
 
 ```shell

@@ -81,4 +81,4 @@ See [here](/{{page.version}}/docs/getting-started-guides/docker-multinode/deploy
 
 Once your cluster has been created you can [test it out](/{{page.version}}/docs/getting-started-guides/docker-multinode/testing)
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/)
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/)

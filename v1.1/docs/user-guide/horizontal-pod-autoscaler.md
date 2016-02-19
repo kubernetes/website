@@ -28,21 +28,21 @@ Then, it compares the arithmetic mean of the pods' CPU utilization with the targ
 CPU utilization is the recent CPU usage of a pod divided by the sum of CPU requested by the pod's containers.
 Please note that if some of the pod's containers do not have CPU request set,
 CPU utilization for the pod will not be defined and the autoscaler will not take any action.
-Further details of the autoscaling algorithm are given [here](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm).
+Further details of the autoscaling algorithm are given [here](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm).
 
 Autoscaler uses heapster to collect CPU utilization.
 Therefore, it is required to deploy heapster monitoring in your cluster for autoscaling to work.
 
 Autoscaler accesses corresponding replication controller or deployment by scale sub-resource.
 Scale is an interface which allows to dynamically set the number of replicas and to learn the current state of them.
-More details on scale sub-resource can be found [here](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/horizontal-pod-autoscaler.md#scale-subresource).
+More details on scale sub-resource can be found [here](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/horizontal-pod-autoscaler.md#scale-subresource).
 
 
 ## API Object
 
 Horizontal pod autoscaler is a top-level resource in the Kubernetes REST API (currently in [beta](/{{page.version}}/docs/api/)#api-versioning)).
 More details about the API object can be found at
-[HorizontalPodAutoscaler Object](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
+[HorizontalPodAutoscaler Object](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 
 ## Support for horizontal pod autoscaler in kubectl
 
@@ -73,7 +73,7 @@ the horizontal pod autoscaler will not be bound to the new replication controlle
 
 ## Further reading
 
-* Design documentation: [Horizontal Pod Autoscaling](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/horizontal-pod-autoscaler.md).
+* Design documentation: [Horizontal Pod Autoscaling](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/horizontal-pod-autoscaler.md).
 * Manual of autoscale command in kubectl: [kubectl autoscale](kubectl/kubectl_autoscale).
 * Usage example of [Horizontal Pod Autoscaler](horizontal-pod-autoscaling/).
 

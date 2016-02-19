@@ -69,7 +69,7 @@ Backend Namespace: default
 ```
 
 First the frontend pod's information is printed. The pod name and
-[namespace](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/namespaces.md) are retrieved from the
+[namespace](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/namespaces.md) are retrieved from the
 [Downward API](/{{page.version}}/docs/user-guide/downward-api). Next, `USER_VAR` is the name of
 an environment variable set in the [pod
 definition](show-rc.yaml). Then, the dynamic Kubernetes environment

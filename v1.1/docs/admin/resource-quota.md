@@ -151,4 +151,4 @@ See a [detailed example for how to use resource quota](resourcequota/).
 
 ## Read More
 
-See [ResourceQuota design doc](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/admission_control_resource_quota.md) for more information.
+See [ResourceQuota design doc](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/admission_control_resource_quota.md) for more information.

@@ -7,7 +7,7 @@ This document describes some of the issues to consider when making a decision ab
 
 Note that at present,
 Kubernetes does not offer a mechanism to aggregate multiple clusters into a single virtual cluster. However,
-we [plan to do this in the future](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/proposals/federation.md).
+we [plan to do this in the future](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/federation.md).
 
 ## Scope of a single cluster
 
