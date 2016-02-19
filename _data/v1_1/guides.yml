@@ -154,7 +154,7 @@ toc:
 
 - title: Application Management and Deployment
   section:
-  - title: Managing Applications: Prerequisites
+  - title: "Managing Applications: Prerequisites"
     path: /v1.1/docs/user-guide/prereqs/
   - title: Managing Deployments
     path: /v1.1/docs/user-guide/managing-deployments/
