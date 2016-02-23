@@ -27,41 +27,41 @@ Before choosing a particular guide, here are some things to consider:
  - Not all distros are maintained as actively.  Prefer ones which are listed as tested on a more recent version of
    Kubernetes.
  - If you are configuring kubernetes on-premises, you will need to consider what [networking
-   model](networking) fits best.
- - If you are designing for very high-availability, you may want [clusters in multiple zones](multi-cluster).
+   model](/{{page.version}}/docs/admin/networking) fits best.
+ - If you are designing for very high-availability, you may want [clusters in multiple zones](/{{page.version}}/docs/admin/multi-cluster).
  - You may want to familiarize yourself with the various
-   [components](cluster-components) needed to run a cluster.
+   [components](/{{page.version}}/docs/admin/cluster-components) needed to run a cluster.
 
 ## Setting up a cluster
 
 Pick one of the Getting Started Guides from the [matrix](/{{page.version}}/docs/getting-started-guides/) and follow it.
 If none of the Getting Started Guides fits, you may want to pull ideas from several of the guides.
 
-One option for custom networking is *OpenVSwitch GRE/VxLAN networking* ([ovs-networking.md](ovs-networking)), which
+One option for custom networking is *OpenVSwitch GRE/VxLAN networking* ([ovs-networking.md](/{{page.version}}/docs/admin/ovs-networking)), which
 uses OpenVSwitch to set up networking between pods across
   Kubernetes nodes.
 
 If you are modifying an existing guide which uses Salt, this document explains [how Salt is used in the Kubernetes
-project](salt).
+project](/{{page.version}}/docs/admin/salt).
 
 ## Managing a cluster, including upgrades
 
-[Managing a cluster](cluster-management).
+[Managing a cluster](/{{page.version}}/docs/admin/cluster-management).
 
 ## Managing nodes
 
-[Managing nodes](node).
+[Managing nodes](/{{page.version}}/docs/admin/node).
 
 ## Optional Cluster Services
 
-* **DNS Integration with SkyDNS** ([dns.md](dns)):
+* **DNS Integration with SkyDNS** ([dns.md](/{{page.version}}/docs/admin/dns)):
   Resolving a DNS name directly to a Kubernetes service.
 
 * **Logging** with [Kibana](/{{page.version}}/docs/user-guide/logging)
 
 ## Multi-tenant support
 
-* **Resource Quota** ([resource-quota.md](resource-quota))
+* **Resource Quota** ([resource-quota.md](/{{page.version}}/docs/admin/resource-quota))
 
 ## Security
 
@@ -69,10 +69,10 @@ project](salt).
   Describes the environment for Kubelet managed containers on a Kubernetes
   node.
 
-* **Securing access to the API Server** [accessing the api](accessing-the-api)
+* **Securing access to the API Server** [accessing the api](/{{page.version}}/docs/admin/accessing-the-api)
 
-* **Authentication**  [authentication(/{{page.version}}/docs/admin/authentication)
+* **Authentication**  [authentication](/{{page.version}}/docs/admin/authentication)
 
-* **Authorization** [authorization(/{{page.version}}/docs/admin/authorization)
+* **Authorization** [authorization](/{{page.version}}/docs/admin/authorization)
 
-* **Admission Controllers** [admission_controllers](admission-controllers)
+* **Admission Controllers** [admission_controllers](/{{page.version}}/docs/admin/admission-controllers)

@@ -27,7 +27,7 @@ pods/podname -o yaml`), you can see the `spec.serviceAccount` field has been
 [automatically set](working-with-resources/#resources-are-automatically-modified).
 
 You can access the API using a proxy or with a client library, as described in
-[Accessing the Cluster](accessing-the-cluster/#accessing-the-api-from-a-pod).
+[Accessing the Cluster](/{{page.version}}/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
 
 ## Using Multiple Service Accounts.
 

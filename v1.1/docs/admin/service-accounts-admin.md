@@ -38,7 +38,7 @@ Three separate components cooperate to implement the automation around service a
 ### Service Account Admission Controller
 
 The modification of pods is implemented via a plugin
-called an [Admission Controller](admission-controllers). It is part of the apiserver.
+called an [Admission Controller](/{{page.version}}/docs/admin/admission-controllers). It is part of the apiserver.
 It acts synchronously to modify pods as they are created or updated. When this plugin is active
 (and it is by default on most distributions), then it does the following when a pod is created or modified:
 

@@ -6,13 +6,13 @@ title: "Kubernetes User Guide: Managing Applications: Configuring and launching 
 
 ## Configuration in Kubernetes
 
-In addition to the imperative-style commands, such as `kubectl run` and `kubectl expose`, described [elsewhere](quick-start), Kubernetes supports declarative configuration. Often times, configuration files are preferable to imperative commands, since they can be checked into version control and changes to the files can be code reviewed, which is especially important for more complex configurations, producing a more robust, reliable and archival system.
+In addition to the imperative-style commands, such as `kubectl run` and `kubectl expose`, described [elsewhere](/{{page.version}}/docs/user-guide/quick-start), Kubernetes supports declarative configuration. Often times, configuration files are preferable to imperative commands, since they can be checked into version control and changes to the files can be code reviewed, which is especially important for more complex configurations, producing a more robust, reliable and archival system.
 
 In the declarative style, all configuration is stored in YAML or JSON configuration files using Kubernetes's API resource schemas as the configuration schemas. `kubectl` can create, update, delete, and get API resources. The `apiVersion` (currently 'v1'?), resource `kind`, and resource `name` are used by `kubectl` to construct the appropriate API path to invoke for the specified operation.
 
 ## Launching a container using a configuration file
 
-Kubernetes executes containers in [*Pods*](pods). A pod containing a simple Hello World container can be specified in YAML as follows:
+Kubernetes executes containers in [*Pods*](/{{page.version}}/docs/user-guide/pods). A pod containing a simple Hello World container can be specified in YAML as follows:
 
 ```yaml
 apiVersion: v1
@@ -31,7 +31,7 @@ The value of `metadata.name`, `hello-world`, will be the name of the pod resourc
 
 `restartPolicy: Never` indicates that we just want to run the container once and then terminate the pod.
 
-The [`command`](containers/#containers-and-commands) overrides the Docker container's `Entrypoint`. Command arguments (corresponding to Docker's `Cmd`) may be specified using `args`, as follows:
+The [`command`](/{{page.version}}/docs/user-guide/containers/#containers-and-commands) overrides the Docker container's `Entrypoint`. Command arguments (corresponding to Docker's `Cmd`) may be specified using `args`, as follows:
 
 ```yaml
 command: ["/bin/echo"]
@@ -161,4 +161,4 @@ On the other hand, containers and their logs are eventually deleted automaticall
 
 ## What's next?
 
-[Learn about deploying continuously running applications.](deploying-applications)
+[Learn about deploying continuously running applications.](/{{page.version}}/docs/user-guide/deploying-applications)

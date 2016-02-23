@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Managing deployments"
 ---
-You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features we'll discuss in more depth are [configuration files](configuring-containers/#configuration-in-kubernetes) and [labels](deploying-applications/#labels).
+You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features we'll discuss in more depth are [configuration files](/{{page.version}}/docs/user-guide/configuring-containers/#configuration-in-kubernetes) and [labels](deploying-applications/#labels).
 
 * TOC
 {:toc}
@@ -365,7 +365,7 @@ You can also run the [update demo](update-demo/) to see a visual representation 
 
 ## In-place updates of resources
 
-Sometimes it's necessary to make narrow, non-disruptive updates to resources you've created. For instance, you might want to add an [annotation](annotations) with a description of your object. That's easiest to do with `kubectl patch`:
+Sometimes it's necessary to make narrow, non-disruptive updates to resources you've created. For instance, you might want to add an [annotation](/{{page.version}}/docs/user-guide/annotations) with a description of your object. That's easiest to do with `kubectl patch`:
 
 ```shell
 $ kubectl patch rc my-nginx-v4 -p '{"metadata": {"annotations": {"description": "my frontend running nginx"}}}' 
@@ -406,4 +406,4 @@ replicationcontrollers/my-nginx-v4
 ## What's next?
 
 - [Learn about how to use `kubectl` for application introspection and debugging.](introspection-and-debugging)
-- [Tips and tricks when working with config](config-best-practices
+- [Tips and tricks when working with config](/{{page.version}}/docs/user-guide/config-best-practices

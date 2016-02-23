@@ -1,7 +1,7 @@
 ---
 title: "Connecting to applications: kubectl proxy and apiserver proxy"
 ---
-You have seen the [basics](accessing-the-cluster) about `kubectl proxy` and `apiserver proxy`. This guide shows how to use them together to access a service([kube-ui](ui)) running on the Kubernetes cluster from your workstation.
+You have seen the [basics](/{{page.version}}/docs/user-guide/accessing-the-cluster) about `kubectl proxy` and `apiserver proxy`. This guide shows how to use them together to access a service([kube-ui](ui)) running on the Kubernetes cluster from your workstation.
 
 
 ## Getting the apiserver proxy URL of kube-ui

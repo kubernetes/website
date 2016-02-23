@@ -27,7 +27,7 @@ export GOPATH=$HOME/src/go
 go get github.com/vmware/govmomi/govc
 ```
 
-5. Get or build a [binary release](binary_release)
+5. Get or build a [binary release](/{{page.version}}/docs/getting-started-guides/binary_release)
 
 ### Setup
 

@@ -250,7 +250,7 @@ before changing course.
 
 As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, and
 `metadata` fields.  For general information about working with config files,
-see [here](deploying-applications), [here](configuring-containers), and [here](working-with-resources).
+see [here](deploying-applications), [here](/{{page.version}}/docs/user-guide/configuring-containers), and [here](working-with-resources).
 
 A Deployment also needs a [`.spec` section](/{{page.version}}/docs/devel/api-conventions/#spec-and-status).
 

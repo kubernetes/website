@@ -3,7 +3,7 @@ title: "So you want to change the API?"
 ---
 Before attempting a change to the API, you should familiarize yourself
 with a number of existing API types and with the [API
-conventions](api-conventions).  If creating a new API
+conventions](/{{page.version}}/docs/devel/api-conventions).  If creating a new API
 type/resource, we also recommend that you first send a PR containing
 just a proposal for the new API types, and that you initially target
 the extensions API (pkg/apis/extensions).

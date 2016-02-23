@@ -311,6 +311,6 @@ Learn about additional debugging tools, including:
 * [Logging](logging)
 * [Monitoring](monitoring)
 * [Getting into containers via `exec`](getting-into-containers)
-* [Connecting to containers via proxies](connecting-to-applications-proxy)
-* [Connecting to containers via port forwarding](connecting-to-applications-port-forward)
+* [Connecting to containers via proxies](/{{page.version}}/docs/user-guide/connecting-to-applications-proxy)
+* [Connecting to containers via port forwarding](/{{page.version}}/docs/user-guide/connecting-to-applications-port-forward)
 

@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Deploying continuously running applications"
 ---
-You previously read about how to quickly deploy a simple replicated application using [`kubectl run`](quick-start) and how to configure and launch single-run containers using pods ([Configuring containers](configuring-containers)). Here you'll use the configuration-based approach to deploy a continuously running, replicated application.
+You previously read about how to quickly deploy a simple replicated application using [`kubectl run`](quick-start) and how to configure and launch single-run containers using pods ([Configuring containers](/{{page.version}}/docs/user-guide/configuring-containers)). Here you'll use the configuration-based approach to deploy a continuously running, replicated application.
 
 * TOC
 {:toc}
@@ -111,4 +111,4 @@ You could also specify the `selector` explicitly, such as if you wanted to speci
 
 ## What's next?
 
-[Learn about exposing applications to users and clients, and connecting tiers of your application together.](connecting-applications)
+[Learn about exposing applications to users and clients, and connecting tiers of your application together.](/{{page.version}}/docs/user-guide/connecting-applications)

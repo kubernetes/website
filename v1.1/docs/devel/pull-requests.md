@@ -30,7 +30,7 @@ Additionally, for infrequent or new contributors, we require the on call to appl
 ## Automation
 
 We use a variety of automation to manage pull requests.  This automation is described in detail
-[elsewhere.](automation)
+[elsewhere.](/{{page.version}}/docs/devel/automation)
 
 
 

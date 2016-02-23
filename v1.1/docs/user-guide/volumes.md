@@ -373,6 +373,6 @@ medium of the filesystem holding the kubelet root dir (typically
 pods.
 
 In the future, we expect that `emptyDir` and `hostPath` volumes will be able to
-request a certain amount of space using a [resource](compute-resources)
+request a certain amount of space using a [resource](/{{page.version}}/docs/user-guide/compute-resources)
 specification, and to select the type of media to use, for clusters that have
 several media types.

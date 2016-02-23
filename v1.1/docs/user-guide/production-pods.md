@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Working with pods and containers in production"
 ---
-You've seen [how to configure and deploy pods and containers](configuring-containers), using some of the most common configuration parameters. This section dives into additional features that are especially useful for running applications in production.
+You've seen [how to configure and deploy pods and containers](/{{page.version}}/docs/user-guide/configuring-containers), using some of the most common configuration parameters. This section dives into additional features that are especially useful for running applications in production.
 
 * TOC
 {:toc}
@@ -200,7 +200,7 @@ More examples can be found in our [blog article](http://blog.kubernetes.io/2015/
 
 ## Resource management
 
-Kubernetes's scheduler will place applications only where they have adequate CPU and memory, but it can only do so if it knows how much [resources they require](compute-resources). The consequence of specifying too little CPU is that the containers could be starved of CPU if too many other containers were scheduled onto the same node. Similarly, containers could die unpredictably due to running out of memory if no memory were requested, which can be especially likely for large-memory applications.
+Kubernetes's scheduler will place applications only where they have adequate CPU and memory, but it can only do so if it knows how much [resources they require](/{{page.version}}/docs/user-guide/compute-resources). The consequence of specifying too little CPU is that the containers could be starved of CPU if too many other containers were scheduled onto the same node. Similarly, containers could die unpredictably due to running out of memory if no memory were requested, which can be especially likely for large-memory applications.
 
 If no resource requirements are specified, a nominal amount of resources is assumed. (This default is applied via a [LimitRange](/{{page.version}}/docs/admin/limitrange/) for the default [Namespace](namespaces). It can be viewed with `kubectl describe limitrange limits`.) You may explicitly specify the amount of resources required as follows:
 
@@ -270,7 +270,7 @@ spec:
           timeoutSeconds: 1
 ```
 
-Other times, applications are only temporarily unable to serve, and will recover on their own. Typically in such cases you'd prefer not to kill the application, but don't want to send it requests, either, since the application won't respond correctly or at all. A common such scenario is loading large data or configuration files during application startup. Kubernetes provides *readiness probes* to detect and mitigate such situations. Readiness probes are configured similarly to liveness probes, just using the `readinessProbe` field. A pod with containers reporting that they are not ready will not receive traffic through Kubernetes [services](connecting-applications).
+Other times, applications are only temporarily unable to serve, and will recover on their own. Typically in such cases you'd prefer not to kill the application, but don't want to send it requests, either, since the application won't respond correctly or at all. A common such scenario is loading large data or configuration files during application startup. Kubernetes provides *readiness probes* to detect and mitigate such situations. Readiness probes are configured similarly to liveness probes, just using the `readinessProbe` field. A pod with containers reporting that they are not ready will not receive traffic through Kubernetes [services](/{{page.version}}/docs/user-guide/connecting-applications).
 
 For more details (e.g., how to specify command-based probes), see the [example in the walkthrough](walkthrough/k8s201/#health-checking), the [standalone example](liveness/), and the [documentation](pod-states/#container-probes).
 
@@ -279,7 +279,7 @@ For more details (e.g., how to specify command-based probes), see the [example i
 Of course, nodes and applications may fail at any time, but many applications benefit from clean shutdown, such as to complete in-flight requests, when the termination of the application is deliberate. To support such cases, Kubernetes supports two kinds of notifications:
 
 * Kubernetes will send SIGTERM to applications, which can be handled in order to effect graceful termination. SIGKILL is sent a configurable number of seconds later if the application does not terminate sooner (defaults to 30 seconds, controlled by `spec.terminationGracePeriodSeconds`).
-* Kubernetes supports the (optional) specification of a [*pre-stop lifecycle hook*](container-environment/#container-hooks), which will execute prior to sending SIGTERM.
+* Kubernetes supports the (optional) specification of a [*pre-stop lifecycle hook*](/{{page.version}}/docs/user-guide/container-environment/#container-hooks), which will execute prior to sending SIGTERM.
 
 The specification of a pre-stop hook is similar to that of probes, but without the timing-related parameters. For example:
 

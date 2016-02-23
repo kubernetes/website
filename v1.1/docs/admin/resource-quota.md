@@ -26,7 +26,7 @@ work like this:
   of the resources for which quota is enabled, then the POST of the pod will fail with HTTP
   status code `403 FORBIDDEN`.  Hint: Use the LimitRange admission controller to force default
   values of *limits* (then resource *requests* would be equal to *limits* by default, see
-  [admission controller](admission-controllers)) before the quota is checked to avoid this problem.
+  [admission controller](/{{page.version}}/docs/admin/admission-controllers)) before the quota is checked to avoid this problem.
 
 Examples of policies that could be created using namespaces and quotas are:
 
@@ -73,7 +73,7 @@ are supported:
 | pods | Total number of pods  |
 | services | Total number of services |
 | replicationcontrollers | Total number of replication controllers |
-| resourcequotas | Total number of [resource quotas](admission-controllers/#resourcequota) |
+| resourcequotas | Total number of [resource quotas](/{{page.version}}/docs/admin/admission-controllers/#resourcequota) |
 | secrets | Total number of secrets |
 | persistentvolumeclaims | Total number of [persistent volume claims](/{{page.version}}/docs/user-guide/persistent-volumes/#persistentvolumeclaims) |
 

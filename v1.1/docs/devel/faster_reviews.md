@@ -23,10 +23,10 @@ Let's talk about how to avoid this.
 
 ## 0. Familiarize yourself with project conventions
 
-* [Development guide](development)
-* [Coding conventions](coding-conventions)
-* [API conventions](api-conventions)
-* [Kubectl conventions](kubectl-conventions)
+* [Development guide](/{{page.version}}/docs/devel/development)
+* [Coding conventions](/{{page.version}}/docs/devel/coding-conventions)
+* [API conventions](/{{page.version}}/docs/devel/api-conventions)
+* [Kubectl conventions](/{{page.version}}/docs/devel/kubectl-conventions)
 
 ## 1. Don't build a cathedral in one PR
 

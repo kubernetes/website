@@ -25,8 +25,8 @@ Code conventions
         - Importers can use a different name if they need to disambiguate.
       - Locks should be called `lock` and should never be embedded (always `lock sync.Mutex`). When multiple locks are present, give each lock a distinct name following Go conventions - `stateLock`, `mapLock` etc.
     - API conventions
-      - [API changes](api_changes)
-      - [API conventions](api-conventions)
+      - [API changes](/{{page.version}}/docs/devel/api_changes)
+      - [API conventions](/{{page.version}}/docs/devel/api-conventions)
     - [Kubectl conventions](kubectl-conventions)
     - [Logging conventions](logging)
 

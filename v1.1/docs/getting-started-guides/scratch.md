@@ -63,7 +63,7 @@ accomplished in two ways:
 
 - Configure network to route Pod IPs
   - Harder to setup from scratch.
-  - Google Compute Engine ([GCE](gce)) and [AWS](aws) guides use this approach.
+  - Google Compute Engine ([GCE](gce)) and [AWS](/{{page.version}}/docs/getting-started-guides/aws) guides use this approach.
   - Need to make the Pod IPs routable by programming routers, switches, etc.
   - Can be configured external to Kubernetes, or can implement in the "Routes" interface of a Cloud Provider module.
   - Generally highest performance.

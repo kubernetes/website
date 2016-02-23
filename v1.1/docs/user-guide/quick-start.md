@@ -63,4 +63,4 @@ services/my-nginx
 
 ## What's next?
 
-[Learn about how to configure common container parameters, such as commands and environment variables.](configuring-containers)
+[Learn about how to configure common container parameters, such as commands and environment variables.](/{{page.version}}/docs/user-guide/configuring-containers)
