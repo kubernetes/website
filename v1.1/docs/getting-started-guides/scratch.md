@@ -159,7 +159,7 @@ You have several choices for Kubernetes images:
   - e.g `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
     release tag, which can be found on the [latest releases page](https://github.com/kubernetes/kubernetes/releases/latest).
   - Ensure $TAG is the same tag as the release tag you are using for kubelet and kube-proxy.
-  - The [hyperkube](https://releases.k8s.io/release-1.1/cmd/hyperkube) binary is an all in one binary
+  - The [hyperkube](https://releases.k8s.io/{{page.githubbranch}}/cmd/hyperkube) binary is an all in one binary
     - `hyperkube kubelet ...` runs the kublet, `hyperkube apiserver ...` runs an apiserver, etc.
 - Build your own images.
   - Useful if you are using a private registry.
@@ -623,7 +623,7 @@ Apiserver supports several cloud providers.
 
 - options for `--cloud-provider` flag are `aws`, `gce`, `mesos`, `openshift`, `ovirt`, `rackspace`, `vagrant`, or unset.
 - unset used for e.g. bare metal setups.
-- support for new IaaS is added by contributing code [here](https://releases.k8s.io/release-1.1/pkg/cloudprovider/providers)
+- support for new IaaS is added by contributing code [here](https://releases.k8s.io/{{page.githubbranch}}/pkg/cloudprovider/providers)
 
 Some cloud providers require a config file. If so, you need to put config file into apiserver image or mount through hostPath.
 
@@ -631,9 +631,9 @@ Some cloud providers require a config file. If so, you need to put config file i
 - Used by `aws`, `gce`, `mesos`, `openshift`, `ovirt` and `rackspace`.
 - You must put config file into apiserver image or mount through hostPath.
 - Cloud config file syntax is [Gcfg](https://code.google.com/p/gcfg/).
-- AWS format defined by type [AWSCloudConfig](https://releases.k8s.io/release-1.1/pkg/cloudprovider/providers/aws/aws.go)
+- AWS format defined by type [AWSCloudConfig](https://releases.k8s.io/{{page.githubbranch}}/pkg/cloudprovider/providers/aws/aws.go)
 - There is a similar type in the corresponding file for other cloud providers.
-- GCE example: search for `gce.conf` in [this file](https://releases.k8s.io/release-1.1/cluster/gce/configure-vm.sh)
+- GCE example: search for `gce.conf` in [this file](https://releases.k8s.io/{{page.githubbranch}}/cluster/gce/configure-vm.sh)
 
 #### Scheduler pod template
 

@@ -13,11 +13,11 @@ DCOS is system software that manages computer cluster hardware and software reso
 
 Another feature of the DCOS CLI is that it allows plugins like the [DCOS Kubectl plugin](https://github.com/mesosphere/dcos-kubectl). This allows for easy access to a version-compatible Kubectl without having to manually download or install.
 
-Further information about the benefits of installing Kubernetes on DCOS can be found in the [Kubernetes-Mesos documentation](https://releases.k8s.io/release-1.1/contrib/mesos/README.md).
+Further information about the benefits of installing Kubernetes on DCOS can be found in the [Kubernetes-Mesos documentation](https://releases.k8s.io/{{page.githubbranch}}/contrib/mesos/README.md).
 
 For more details about the Kubernetes DCOS packaging, see the [Kubernetes-Mesos project](https://github.com/mesosphere/kubernetes-mesos).
 
-Since Kubernetes-Mesos is still alpha, it is a good idea to familiarize yourself with the [current known issues](https://releases.k8s.io/release-1.1/contrib/mesos/docs/issues.md) which may limit or modify the behavior of Kubernetes on DCOS.
+Since Kubernetes-Mesos is still alpha, it is a good idea to familiarize yourself with the [current known issues](https://releases.k8s.io/{{page.githubbranch}}/contrib/mesos/docs/issues.md) which may limit or modify the behavior of Kubernetes on DCOS.
 
 If you have problems completing the steps below, please [file an issue against the kubernetes-mesos project](https://github.com/mesosphere/kubernetes-mesos/issues).
 
@@ -29,7 +29,7 @@ Explore the following resources for more information about Kubernetes, Kubernete
 - [DCOS Documentation](https://docs.mesosphere.com/)
 - [Managing DCOS Services](https://docs.mesosphere.com/services/kubernetes/)
 - [Kubernetes Examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/)
-- [Kubernetes on Mesos Documentation](https://releases.k8s.io/release-1.1/contrib/mesos/README.md)
+- [Kubernetes on Mesos Documentation](https://releases.k8s.io/{{page.githubbranch}}/contrib/mesos/README.md)
 - [Kubernetes on Mesos Release Notes](https://github.com/mesosphere/kubernetes-mesos/releases)
 - [Kubernetes on DCOS Package Source](https://github.com/mesosphere/kubernetes-mesos)
 

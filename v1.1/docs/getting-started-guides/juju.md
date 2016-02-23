@@ -222,8 +222,8 @@ The Kubernetes charms and bundles can be found in the `kubernetes` project on
 github.com:
 
  - [Bundle Repository](http://releases.k8s.io/{{page.githubbranch}}/cluster/juju/bundles)
-   * [Kubernetes master charm](https://releases.k8s.io/release-1.1/cluster/juju/charms/trusty/kubernetes-master)
-   * [Kubernetes node charm](https://releases.k8s.io/release-1.1/cluster/juju/charms/trusty/kubernetes)
+   * [Kubernetes master charm](https://releases.k8s.io/{{page.githubbranch}}/cluster/juju/charms/trusty/kubernetes-master)
+   * [Kubernetes node charm](https://releases.k8s.io/{{page.githubbranch}}/cluster/juju/charms/trusty/kubernetes)
  - [More about Juju](https://jujucharms.com)
 
 

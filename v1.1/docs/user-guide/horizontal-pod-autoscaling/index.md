@@ -19,7 +19,7 @@ heapster monitoring will be turned-on by default).
 ## Step One: Run & expose php-apache server
 
 To demonstrate horizontal pod autoscaler we will use a custom docker image based on php-apache server.
-The image can be found [here](https://releases.k8s.io/release-1.1/docs/user-guide/horizontal-pod-autoscaling/image).
+The image can be found [here](https://releases.k8s.io/{{page.githubbranch}}/docs/user-guide/horizontal-pod-autoscaling/image).
 It defines [index.php](/{{page.version}}/docs/user-guide/horizontal-pod-autoscaling/image/index.php) page which performs some CPU intensive computations.
 
 First, we will start a replication controller running the image and expose it as an external service:
