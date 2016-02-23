@@ -336,8 +336,8 @@ $ kubectl get pods/pod-w-message -o go-template="{{range .status.containerStatus
 Sleep expired
 $ kubectl get pods/pod-w-message -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.exitCode}}{{end}}"
 0
-
 ```
+
 ## What's next?
 
 [Learn more about managing deployments.](/{{page.version}}/docs/user-guide/managing-deployments)
