@@ -116,7 +116,7 @@ Then put the resulting `.dockercfg` file into a [secret resource](/{{page.versio
 ```shell
 $ docker login
 Username: janedoe
-Password: '�?'�?'�?'�?'�?'�?'�?'�?'�?'�?'�?
+Password: *******
 Email: jdoe@example.com
 WARNING: login credentials saved in /Users/jdoe/.dockercfg.
 Login Succeeded
