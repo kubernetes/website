@@ -1,7 +1,7 @@
 bigheader: "Samples"
 abstract: "A collection of example applications that show how to use Kubernetes."
 toc:
-- title: Samples Overview
+- title: Samples
   path: /v1.1/samples/
 
 - title: Clustered Application Samples

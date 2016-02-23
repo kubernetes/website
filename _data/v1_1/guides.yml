@@ -1,7 +1,7 @@
-bigheader: "User Guides"
+bigheader: "Guides"
 abstract: "How to get started, and acheive tasks, using Kubernetes"
 toc:
-- title: Overview
+- title: Guides
   path: /v1.1/
 
 - title: Quickstarts

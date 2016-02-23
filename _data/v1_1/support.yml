@@ -1,7 +1,7 @@
 bigheader: "Support"
 abstract: "Troubleshooting resources, frequently asked questions, and community support channels."
 toc:
-- title: Support Overview
+- title: Support
   path: /v1.1/support/
 
 - title: Troubleshooting
@@ -38,3 +38,5 @@ toc:
     path: /v1.1/docs/roadmap/
   - title: Contributing to Kubernetes Documentation
     path: /v1.1/editdocs/
+  - title: Sitemap for v1.1
+    path: /v1.1/pagelist/
