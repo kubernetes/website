@@ -3,7 +3,7 @@ title: "Kubernetes API client libraries"
 ---
 ### Supported
 
-   * [Go](http://releases.k8s.io/release-1.1/pkg/client/)
+   * [Go](http://releases.k8s.io/{{page.githubbranch}}/pkg/client/)
 
 ### User Contributed
 

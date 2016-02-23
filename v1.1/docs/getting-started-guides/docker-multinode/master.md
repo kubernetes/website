@@ -176,4 +176,4 @@ If all else fails, ask questions on [Slack](/{{page.version}}/docs/troubleshooti
 
 ### Next steps
 
-Move on to [adding one or more workers](worker) or [deploy a dns](deployDNS)
+Move on to [adding one or more workers](/{{page.version}}/docs/getting-started-guides/docker-multinode/worker) or [deploy a dns](/{{page.version}}/docs/getting-started-guides/docker-multinode/deployDNS)

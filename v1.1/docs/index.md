@@ -17,15 +17,15 @@ title: "Kubernetes Documentation: releases.k8s.io/release-1.1"
 * The [API object documentation](http://kubernetes.io/third_party/swagger-ui/)
   is a detailed description of all fields found in core API objects.
 
-* An overview of the [Design of Kubernetes](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/)
+* An overview of the [Design of Kubernetes](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/)
 
-* There are example files and walkthroughs in the [examples](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples)
+* There are example files and walkthroughs in the [examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples)
   folder.
 
-* If something went wrong, see the [troubleshooting](troubleshooting) document for how to debug.
+* If something went wrong, see the [troubleshooting](/{{page.version}}/docs/troubleshooting) document for how to debug.
 You should also check the [known issues](/{{page.version}}/docs/user-guide/known-issues) for the release you're using.
 
-* To report a security issue, see [Reporting a Security Issue](reporting-security-issues).
+* To report a security issue, see [Reporting a Security Issue](/{{page.version}}/docs/reporting-security-issues).
 
 
 

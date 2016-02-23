@@ -251,7 +251,7 @@ Breaking compatibility of a beta or stable API version, such as v1, is unaccepta
 Compatibility for experimental or alpha APIs is not strictly required, but
 breaking compatibility should not be done lightly, as it disrupts all users of the
 feature. Experimental APIs may be removed. Alpha and beta API versions may be deprecated
-and eventually removed wholesale, as described in the [versioning document](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/versioning.md).
+and eventually removed wholesale, as described in the [versioning document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/versioning.md).
 Document incompatible changes across API versions under the [conversion tips](/{{page.version}}/docs/api/).
 
 If your change is going to be backward incompatible or might be a breaking change for API
@@ -494,7 +494,7 @@ doing!
 
 ## Write end-to-end tests
 
-Check out the [E2E docs](e2e-tests) for detailed information about how to write end-to-end
+Check out the [E2E docs](/{{page.version}}/docs/devel/e2e-tests) for detailed information about how to write end-to-end
 tests for your feature.
 
 ## Examples and docs

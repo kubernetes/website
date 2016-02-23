@@ -10,7 +10,7 @@ title: "Node"
 may be a VM or physical machine, depending on the cluster. Each node has
 the services necessary to run [Pods](/{{page.version}}/docs/user-guide/pods) and is managed by the master
 components. The services on a node include docker, kubelet and network proxy. See
-[The Kubernetes Node](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/architecture.md#the-kubernetes-node) section in the
+[The Kubernetes Node](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
 
 ## Node Status

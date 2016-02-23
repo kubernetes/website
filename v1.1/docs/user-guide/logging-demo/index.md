@@ -2,9 +2,9 @@
 title: "Elasticsearch/Kibana Logging Demonstration"
 ---
 This directory contains two [pod](/{{page.version}}/docs/user-guide/pods) specifications which can be used as synthetic
-logging sources. The pod specification in [synthetic_0_25lps.yaml](synthetic_0_25lps.yaml)
+logging sources. The pod specification in [synthetic_0_25lps.yaml](/{{page.version}}/docs/user-guide/logging-demo/synthetic_0_25lps.yaml)
 describes a pod that just emits a log message once every 4 seconds. The pod specification in
-[synthetic_10lps.yaml](synthetic_10lps.yaml)
+[synthetic_10lps.yaml](/{{page.version}}/docs/user-guide/logging-demo/synthetic_10lps.yaml)
 describes a pod that just emits 10 log lines per second.
 
 See [logging document](/{{page.version}}/docs/user-guide/logging/) for more details about logging. To observe the ingested log lines when using Google Cloud Logging please see the getting

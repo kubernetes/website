@@ -18,11 +18,11 @@ we can use:
 
 Docker images have metadata associated with them that is used to store information about the image.
 The image author may use this to define defaults for the command and arguments to run a container
-when the user does not supply values.  Docker calls the fields for commands and arguments
-`Entrypoint` and `Cmd` respectively.  The full details for this feature are too complicated to
-describe here, mostly due to the fact that the docker API allows users to specify both of these
+when the user does not supply values. Docker calls the fields for commands and arguments
+`Entrypoint` and `Cmd` respectively. The full details for this feature are too complicated to
+describe here, mostly due to the fact that the Docker API allows users to specify both of these
 fields as either a string array or a string and there are subtle differences in how those cases are
-handled.  We encourage the curious to check out [docker's documentation]() for this feature.
+handled.  We encourage the curious to check out Docker's documentation for this feature.
 
 Kubernetes allows you to override both the image's default command (docker `Entrypoint`) and args
 (docker `Cmd`) with the `Command` and `Args` fields of `Container`.  The rules are:
@@ -91,6 +91,3 @@ The relationship between Docker's capabilities and [Linux capabilities](http://m
 | SETFCAP |  CAP_SETFCAP |
 | WAKE_ALARM |  CAP_WAKE_ALARM |
 | BLOCK_SUSPEND |  CAP_BLOCK_SUSPEND |
-
-
-

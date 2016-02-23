@@ -8,7 +8,7 @@ container starts with a clean slate.  Second, when running containers together
 in a `Pod` it is often necessary to share files between those containers.  The
 Kubernetes `Volume` abstraction solves both of these problems.
 
-Familiarity with [pods](pods) is suggested.
+Familiarity with [pods](/{{page.version}}/docs/user-guide/pods) is suggested.
 
 * TOC
 {:toc}
@@ -235,7 +235,7 @@ writers simultaneously.
 __Important: You must have your own NFS server running with the share exported
 before you can use it__
 
-See the [NFS example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/nfs/) for more details.
+See the [NFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/nfs/) for more details.
 
 ### iscsi
 
@@ -254,7 +254,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous readers allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/iscsi/) for more details.
+See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/iscsi/) for more details.
 
 ### flocker
 
@@ -269,7 +269,7 @@ can be "handed off" between pods as required.
 
 __Important: You must have your own Flocker installation running before you can use it__
 
-See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/flocker/) for more details.
+See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/flocker/) for more details.
 
 ### glusterfs
 
@@ -284,7 +284,7 @@ simultaneously.
 __Important: You must have your own GlusterFS installation running before you
 can use it__
 
-See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/glusterfs/) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/glusterfs/) for more details.
 
 ### rbd
 
@@ -304,7 +304,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/rbd/) for more details.
+See the [RBD example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/rbd/) for more details.
 
 ### gitRepo
 
@@ -345,16 +345,16 @@ non-volatile storage.
 __Important: You must create a secret in the Kubernetes API before you can use
 it__
 
-Secrets are described in more detail [here](secrets).
+Secrets are described in more detail [here](/{{page.version}}/docs/user-guide/secrets).
 
 ### persistentVolumeClaim
 
 A `persistentVolumeClaim` volume is used to mount a
-[PersistentVolume](persistent-volumes) into a pod.  PersistentVolumes are a
+[PersistentVolume](/{{page.version}}/docs/user-guide/persistent-volumes) into a pod.  PersistentVolumes are a
 way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 
-See the [PersistentVolumes example](persistent-volumes/) for more
+See the [PersistentVolumes example](/{{page.version}}/docs/user-guide/persistent-volumes/) for more
 details.
 
 ### downwardAPI
@@ -362,7 +362,7 @@ details.
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
 
-See the [`downwardAPI` volume example](downward-api/volume/)  for more details.
+See the [`downwardAPI` volume example](/{{page.version}}/docs/user-guide/downward-api/volume/)  for more details.
 
 ## Resources
 

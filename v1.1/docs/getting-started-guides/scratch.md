@@ -63,7 +63,7 @@ accomplished in two ways:
 
 - Configure network to route Pod IPs
   - Harder to setup from scratch.
-  - Google Compute Engine ([GCE](gce)) and [AWS](/{{page.version}}/docs/getting-started-guides/aws) guides use this approach.
+  - Google Compute Engine ([GCE](/{{page.version}}/docs/getting-started-guides/gce)) and [AWS](/{{page.version}}/docs/getting-started-guides/aws) guides use this approach.
   - Need to make the Pod IPs routable by programming routers, switches, etc.
   - Can be configured external to Kubernetes, or can implement in the "Routes" interface of a Cloud Provider module.
   - Generally highest performance.
@@ -815,7 +815,7 @@ At this point you should be able to run through one of the basic examples, such 
 
 ### Running the Conformance Test
 
-You may want to try to run the [Conformance test](http://releases.k8s.io/release-1.1/hack/conformance-test.sh).  Any failures may give a hint as to areas that need more attention.
+You may want to try to run the [Conformance test](http://releases.k8s.io/{{page.githubbranch}}/hack/conformance-test.sh).  Any failures may give a hint as to areas that need more attention.
 
 ### Networking
 

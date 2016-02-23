@@ -75,7 +75,7 @@ Normally, the machine that a pod runs on is selected by the Kubernetes scheduler
 created by the Daemon controller have the machine already selected (`.spec.nodeName` is specified
 when the pod is created, so it is ignored by the scheduler).  Therefore:
 
- - the [`unschedulable`](node/#manual-node-administration) field of a node is not respected
+ - the [`unschedulable`](/{{page.version}}/docs/admin/node/#manual-node-administration) field of a node is not respected
    by the daemon set controller.
  - daemon set controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
@@ -140,7 +140,7 @@ use a Daemon Set rather than creating individual pods.
 ### Static Pods
 
 It is possible to create pods by writing a file to a certain directory watched by Kubelet.  These
-are called [static pods](static-pods).
+are called [static pods](/{{page.version}}/docs/admin/static-pods).
 Unlike DaemonSet, static pods cannot be managed with kubectl
 or other Kubernetes API clients.  Static pods do not depend on the apiserver, making them useful
 in cluster bootstrapping cases.  Also, static pods may be deprecated in the future.

@@ -3,7 +3,7 @@ title: "Adding a Kubernetes worker node via Docker."
 ---
 These instructions are very similar to the master set-up above, but they are duplicated for clarity.
 You need to repeat these instructions for each node you want to join the cluster.
-We will assume that the IP address of this node is `${NODE_IP}` and you have the IP address of the master in `${MASTER_IP}` that you created in the [master instructions](master).
+We will assume that the IP address of this node is `${NODE_IP}` and you have the IP address of the master in `${MASTER_IP}` that you created in the [master instructions](/{{page.version}}/docs/getting-started-guides/docker-multinode/master).
 
 For each worker node, there are three steps:
 
@@ -136,4 +136,4 @@ sudo docker run -d --net=host --privileged gcr.io/google_containers/hyperkube:v1
 
 ### Next steps
 
-Move on to [testing your cluster](testing) or add another node](#).
+Move on to [testing your cluster](/{{page.version}}/docs/getting-started-guides/docker-multinode/testing) or add another node](#).

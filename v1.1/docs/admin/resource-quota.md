@@ -147,8 +147,8 @@ restrictions around nodes: pods from several namespaces may run on the same node
 
 ## Example
 
-See a [detailed example for how to use resource quota](resourcequota/).
+See a [detailed example for how to use resource quota](/{{page.version}}/docs/admin/resourcequota/).
 
 ## Read More
 
-See [ResourceQuota design doc](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/admission_control_resource_quota.md) for more information.
+See [ResourceQuota design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_resource_quota.md) for more information.

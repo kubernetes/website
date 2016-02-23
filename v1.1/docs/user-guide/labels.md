@@ -43,7 +43,7 @@ Valid label values must be 63 characters or less and must be empty or begin and 
 
 ## Label selectors
 
-Unlike [names and UIDs](identifiers), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
+Unlike [names and UIDs](/{{page.version}}/docs/user-guide/identifiers), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
 
 Via a _label selector_, the client/user can identify a set of objects. The label selector is the core grouping primitive in Kubernetes.
 
@@ -125,7 +125,7 @@ $ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ### Set references in API objects
 
-Some Kubernetes objects, such as [`service`s](services) and [`replicationcontroller`s](replication-controller), also use label selectors to specify sets of other resources, such as [pods](pods).
+Some Kubernetes objects, such as [`service`s](/{{page.version}}/docs/user-guide/services) and [`replicationcontroller`s](/{{page.version}}/docs/user-guide/replication-controller), also use label selectors to specify sets of other resources, such as [pods](/{{page.version}}/docs/user-guide/pods).
 
 #### Service and ReplicationController
 
@@ -149,7 +149,7 @@ this selector (respectively in `json` or `yaml` format) is equivalent to `compon
 
 #### Job and other new resources
 
-Newer resources, such as [job](jobs), support _set-based_ requirements as well.
+Newer resources, such as [job](/{{page.version}}/docs/user-guide/jobs), support _set-based_ requirements as well.
 
 ```yaml
 selector:

@@ -1,10 +1,10 @@
 ---
 title: "Services in Kubernetes"
 ---
-Kubernetes [`Pods`](pods) are mortal. They are born and they die, and they
-are not resurrected.  [`ReplicationControllers`](replication-controller) in
+Kubernetes [`Pods`](/{{page.version}}/docs/user-guide/pods) are mortal. They are born and they die, and they
+are not resurrected.  [`ReplicationControllers`](/{{page.version}}/docs/user-guide/replication-controller) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
-or when doing [rolling updates](kubectl/kubectl_rolling-update)).  While each `Pod` gets its own IP address, even
+or when doing [rolling updates](/{{page.version}}/docs/user-guide/kubectl/kubectl_rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -16,7 +16,7 @@ Enter `Services`.
 A Kubernetes `Service` is an abstraction which defines a logical set of `Pods`
 and a policy by which to access them - sometimes called a micro-service.  The
 set of `Pods` targeted by a `Service` is (usually) determined by a [`Label
-Selector`](labels/#label-selectors) (see below for why you might want a
+Selector`](/{{page.version}}/docs/user-guide/labels/#label-selectors) (see below for why you might want a
 `Service` without a selector).
 
 As an example, consider an image-processing backend which is running with 3
@@ -89,7 +89,7 @@ abstract other kinds of backends.  For example:
   * You want to have an external database cluster in production, but in test
     you use your own databases.
   * You want to point your service to a service in another
-    [`Namespace`](namespaces) or on another cluster.
+    [`Namespace`](/{{page.version}}/docs/user-guide/namespaces) or on another cluster.
   * You are migrating your workload to Kubernetes and some of your backends run
     outside of Kubernetes.
 
@@ -240,7 +240,7 @@ variables and DNS.
 When a `Pod` is run on a `Node`, the kubelet adds a set of environment variables
 for each active `Service`.  It supports both [Docker links
 compatible](https://docs.docker.com/userguide/dockerlinks/) variables (see
-[makeLinkVariables](http://releases.k8s.io/release-1.1/pkg/kubelet/envvars/envvars.go#L49))
+[makeLinkVariables](http://releases.k8s.io/{{page.githubbranch}}/pkg/kubelet/envvars/envvars.go#L49))
 and simpler `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
 where the Service name is upper-cased and dashes are converted to underscores.
 
@@ -265,7 +265,7 @@ variables will not be populated.  DNS does not have this restriction.
 ### DNS
 
 An optional (though strongly recommended) [cluster
-add-on](http://releases.k8s.io/release-1.1/cluster/addons/README.md) is a DNS server.  The
+add-on](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md) is a DNS server.  The
 DNS server watches the Kubernetes API for new `Services` and creates a set of
 DNS records for each.  If DNS has been enabled throughout the cluster then all
 `Pods` should be able to do name resolution of `Services` automatically.
@@ -528,4 +528,4 @@ of which `Pods` they are actually accessing.
 
 Service is a top-level resource in the kubernetes REST API. More details about the
 API object can be found at: [Service API
-object](/{{ page.version }}/docs/api-reference/v1/definitions/#_v1_service).
+object](/{{page.version}}/docs/api-reference/v1/definitions/#_v1_service).

@@ -53,11 +53,11 @@ choices. For example, on systemd-based systems (e.g. RHEL, CentOS), you can run 
 If you are extending from a standard Kubernetes installation, the `kubelet` binary should already be present on your system.  You can run
 `which kubelet` to determine if the binary is in fact installed.  If it is not installed,
 you should install the [kubelet binary](https://storage.googleapis.com/kubernetes-release/release/v0.19.3/bin/linux/amd64/kubelet), the
-[kubelet init file](http://releases.k8s.io/release-1.1/cluster/saltbase/salt/kubelet/initd) and [high-availability/default-kubelet](high-availability/default-kubelet)
+[kubelet init file](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/kubelet/initd) and [high-availability/default-kubelet](/{{page.version}}/docs/admin/high-availability/default-kubelet)
 scripts.
 
-If you are using monit, you should also install the monit daemon (`apt-get install monit`) and the [high-availability/monit-kubelet](high-availability/monit-kubelet) and
-[high-availability/monit-docker](high-availability/monit-docker) configs.
+If you are using monit, you should also install the monit daemon (`apt-get install monit`) and the [high-availability/monit-kubelet](/{{page.version}}/docs/admin/high-availability/monit-kubelet) and
+[high-availability/monit-docker](/{{page.version}}/docs/admin/high-availability/monit-docker) configs.
 
 On systemd systems you `systemctl enable kubelet` and `systemctl enable docker`.
 
@@ -86,7 +86,7 @@ First, hit the etcd discovery service to create a new token:
 curl https://discovery.etcd.io/new?size=3
 ```
 
-On each node, copy the [etcd.yaml](high-availability/etcd.yaml) file into `/etc/kubernetes/manifests/etcd.yaml`
+On each node, copy the [etcd.yaml](/{{page.version}}/docs/admin/high-availability/etcd.yaml) file into `/etc/kubernetes/manifests/etcd.yaml`
 
 The kubelet on each node actively monitors the contents of that directory, and it will create an instance of the `etcd`
 server from the definition of the pod specified in `etcd.yaml`.
@@ -156,7 +156,7 @@ The easiest way to create this directory, may be to copy it from the master node
 
 ### Starting the API Server
 
-Once these files exist, copy the [kube-apiserver.yaml](high-availability/kube-apiserver.yaml) into `/etc/kubernetes/manifests/` on each master node.
+Once these files exist, copy the [kube-apiserver.yaml](/{{page.version}}/docs/admin/high-availability/kube-apiserver.yaml) into `/etc/kubernetes/manifests/` on each master node.
 
 The kubelet monitors this directory, and will automatically create an instance of the `kube-apiserver` container using the pod definition specified
 in the file.
@@ -185,7 +185,7 @@ master election.  On each of the three apiserver nodes, we run a small utility a
 election protocol using etcd "compare and swap". If the apiserver node wins the election, it starts the master component it is managing (e.g. the scheduler), if it
 loses the election, it ensures that any master components running on the node (e.g. the scheduler) are stopped.
 
-In the future, we expect to more tightly integrate this lease-locking into the scheduler and controller-manager binaries directly, as described in the [high availability design proposal](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/high-availability.md)
+In the future, we expect to more tightly integrate this lease-locking into the scheduler and controller-manager binaries directly, as described in the [high availability design proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/high-availability.md)
 
 ### Installing configuration files
 
@@ -197,11 +197,11 @@ touch /var/log/kube-controller-manager.log
 ```
 
 Next, set up the descriptions of the scheduler and controller manager pods on each node.
-by copying [kube-scheduler.yaml](high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](high-availability/kube-controller-manager.yaml) into the `/srv/kubernetes/` directory.
+by copying [kube-scheduler.yaml](/{{page.version}}/docs/admin/high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](high-availability//{{page.version}}/docs/admin/kube-controller-manager.yaml) into the `/srv/kubernetes/` directory.
 
 ### Running the podmaster
 
-Now that the configuration files are in place, copy the [podmaster.yaml](high-availability/podmaster.yaml) config file into `/etc/kubernetes/manifests/`
+Now that the configuration files are in place, copy the [podmaster.yaml](/{{page.version}}/docs/admin/high-availability/podmaster.yaml) config file into `/etc/kubernetes/manifests/`
 
 As before, the kubelet on the node monitors this directory, and will start an instance of the podmaster using the pod specification provided in `podmaster.yaml`.
 

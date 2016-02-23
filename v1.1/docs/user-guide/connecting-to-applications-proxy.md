@@ -1,7 +1,7 @@
 ---
 title: "Connecting to applications: kubectl proxy and apiserver proxy"
 ---
-You have seen the [basics](/{{page.version}}/docs/user-guide/accessing-the-cluster) about `kubectl proxy` and `apiserver proxy`. This guide shows how to use them together to access a service([kube-ui](ui)) running on the Kubernetes cluster from your workstation.
+You have seen the [basics](/{{page.version}}/docs/user-guide/accessing-the-cluster) about `kubectl proxy` and `apiserver proxy`. This guide shows how to use them together to access a service([kube-ui](/{{page.version}}/docs/user-guide/ui)) running on the Kubernetes cluster from your workstation.
 
 
 ## Getting the apiserver proxy URL of kube-ui
@@ -13,7 +13,7 @@ $ kubectl cluster-info | grep "KubeUI"
 KubeUI is running at https://173.255.119.104/api/v1/proxy/namespaces/kube-system/services/kube-ui
 ```
 
-if this command does not find the URL, try the steps [here](ui/#accessing-the-ui).
+if this command does not find the URL, try the steps [here](/{{page.version}}/docs/user-guide/ui/#accessing-the-ui).
 
 
 ## Connecting to the kube-ui service from your local workstation

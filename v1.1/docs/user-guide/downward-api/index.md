@@ -15,7 +15,7 @@ started](/{{page.version}}/docs/getting-started-guides/) for installation instru
 Containers consume the downward API using environment variables.  The downward API allows
 containers to be injected with the name and namespace of the pod the container is in.
 
-Use the [`examples/downward-api/dapi-pod.yaml`](dapi-pod.yaml) file to create a Pod with a container that consumes the
+Use the [`dapi-pod.yaml`](/{{page.version}}/docs/user-guide/downward-api/dapi-pod.yaml) file to create a Pod with a container that consumes the
 downward API.
 
 ```shell

@@ -192,7 +192,7 @@ juju add-unit docker # creates unit docker/2, kubernetes/2, docker-flannel/2
 
 ## Launch the "k8petstore" example app
 
-The [k8petstore example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/k8petstore/) is available as a
+The [k8petstore example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/k8petstore/) is available as a
 [juju action](https://jujucharms.com/docs/devel/actions).
 
 ```shell
@@ -221,7 +221,7 @@ juju destroy-environment --force `juju env`
 The Kubernetes charms and bundles can be found in the `kubernetes` project on
 github.com:
 
- - [Bundle Repository](http://releases.k8s.io/release-1.1/cluster/juju/bundles)
+ - [Bundle Repository](http://releases.k8s.io/{{page.githubbranch}}/cluster/juju/bundles)
    * [Kubernetes master charm](https://releases.k8s.io/release-1.1/cluster/juju/charms/trusty/kubernetes-master)
    * [Kubernetes node charm](https://releases.k8s.io/release-1.1/cluster/juju/charms/trusty/kubernetes)
  - [More about Juju](https://jujucharms.com)

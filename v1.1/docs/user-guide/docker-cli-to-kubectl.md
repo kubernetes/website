@@ -8,7 +8,7 @@ In this doc, we introduce the Kubernetes command line for interacting with the a
 
 #### docker run
 
-How do I run an nginx container and expose it to the world? Checkout [kubectl run](kubectl/kubectl_run).
+How do I run an nginx container and expose it to the world? Checkout [kubectl run](/{{page.version}}/docs/user-guide/kubectl/kubectl_run).
 
 With docker:
 
@@ -30,7 +30,7 @@ replicationcontroller "nginx-app" created
 $ kubectl expose rc nginx-app --port=80 --name=nginx-http
 ```
 
-With kubectl, we create a [replication controller](replication-controller) which will make sure that N pods are running nginx (where N is the number of replicas stated in the spec, which defaults to 1). We also create a [service](services) with a selector that matches the replication controller's selector. See the [Quick start](quick-start) for more information.
+With kubectl, we create a [replication controller](/{{page.version}}/docs/user-guide/replication-controller) which will make sure that N pods are running nginx (where N is the number of replicas stated in the spec, which defaults to 1). We also create a [service](/{{page.version}}/docs/user-guide/services) with a selector that matches the replication controller's selector. See the [Quick start](/{{page.version}}/docs/user-guide/quick-start) for more information.
 
 By default images are run in the background, similar to `docker run -d ...`, if you want to run things in the foreground, use:
 
@@ -45,7 +45,7 @@ To destroy the replication controller (and it's pods)  you need to run `kubectl 
 
 #### docker ps
 
-How do I list what is currently running? Checkout [kubectl get](kubectl/kubectl_get).
+How do I list what is currently running? Checkout [kubectl get](/{{page.version}}/docs/user-guide/kubectl/kubectl_get).
 
 With docker:
 
@@ -65,7 +65,7 @@ nginx-app-5jyvm   1/1       Running   0          1h
 
 #### docker attach
 
-How do I attach to a process that is already running in a container?  Checkout [kubectl attach](kubectl/kubectl_attach)
+How do I attach to a process that is already running in a container?  Checkout [kubectl attach](/{{page.version}}/docs/user-guide/kubectl/kubectl_attach)
 
 With docker:
 
@@ -89,7 +89,7 @@ $ kubectl attach -it nginx-app-5jyvm
 
 #### docker exec
 
-How do I execute a command in a container? Checkout [kubectl exec](kubectl/kubectl_exec).
+How do I execute a command in a container? Checkout [kubectl exec](/{{page.version}}/docs/user-guide/kubectl/kubectl_exec).
 
 With docker:
 
@@ -128,11 +128,11 @@ $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-For more information see [Getting into containers](getting-into-containers).
+For more information see [Getting into containers](/{{page.version}}/docs/user-guide/getting-into-containers).
 
 #### docker logs
 
-How do I follow stdout/stderr of a running process? Checkout [kubectl logs](kubectl/kubectl_logs).
+How do I follow stdout/stderr of a running process? Checkout [kubectl logs](/{{page.version}}/docs/user-guide/kubectl/kubectl_logs).
 
 
 With docker:
@@ -159,11 +159,11 @@ $ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-See [Logging](logging) for more information.
+See [Logging](/{{page.version}}/docs/user-guide/logging) for more information.
 
 #### docker stop and docker rm
 
-How do I stop and delete a running process? Checkout [kubectl delete](kubectl/kubectl_delete).
+How do I stop and delete a running process? Checkout [kubectl delete](/{{page.version}}/docs/user-guide/kubectl/kubectl_delete).
 
 With docker
 
@@ -197,11 +197,11 @@ Notice that we don't delete the pod directly. With kubectl we want to delete the
 
 #### docker login
 
-There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](images/#using-a-private-registry).
+There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/{{page.version}}/docs/user-guide/images/#using-a-private-registry).
 
 #### docker version
 
-How do I get the version of my client and server? Checkout [kubectl version](kubectl/kubectl_version).
+How do I get the version of my client and server? Checkout [kubectl version](/{{page.version}}/docs/user-guide/kubectl/kubectl_version).
 
 With docker:
 
@@ -229,7 +229,7 @@ Server Version: version.Info{Major:"0", Minor:"21+", GitVersion:"v0.21.1-411-g32
 
 #### docker info
 
-How do I get miscellaneous info about my environment and configuration? Checkout [kubectl cluster-info](kubectl/kubectl_cluster-info).
+How do I get miscellaneous info about my environment and configuration? Checkout [kubectl cluster-info](/{{page.version}}/docs/user-guide/kubectl/kubectl_cluster-info).
 
 With docker:
 

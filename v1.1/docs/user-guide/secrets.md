@@ -4,7 +4,7 @@ title: "Secrets"
 Objects of type `secret` are intended to hold sensitive information, such as
 passwords, OAuth tokens, and ssh keys.  Putting this information in a `secret`
 is safer and more flexible than putting it verbatim in a `pod` definition or in
-a docker image. See [Secrets design document](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/secrets.md) for more information.
+a docker image. See [Secrets design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/secrets.md) for more information.
 
 * TOC
 {:toc}
@@ -19,7 +19,7 @@ more control over how it is used, and reduces the risk of accidental exposure.
 Users can create secrets, and the system also creates some secrets.
 
 To use a secret, a pod needs to reference the secret.
-A secret can be used with a pod in two ways: either as files in a [volume](volumes) mounted on one or more of
+A secret can be used with a pod in two ways: either as files in a [volume](/{{page.version}}/docs/user-guide/volumes) mounted on one or more of
 its containers, or used by kubelet when pulling images for the pod.
 
 ### Service Accounts Automatically Create and Attach Secrets with API Credentials
@@ -32,7 +32,7 @@ The automatic creation and use of API credentials can be disabled or overridden
 if desired.  However, if all you need to do is securely access the apiserver,
 this is the recommended workflow.
 
-See the [Service Account](service-accounts) documentation for more
+See the [Service Account](/{{page.version}}/docs/user-guide/service-accounts) documentation for more
 information on how Service Accounts work.
 
 ### Creating a Secret Manually
@@ -51,12 +51,12 @@ data:
 ```
 
 The data field is a map.  Its keys must match
-[`DNS_SUBDOMAIN`](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/identifiers.md), except that leading dots are also
+[`DNS_SUBDOMAIN`](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/identifiers.md), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64. The values of
 username and password in the example above, before base64 encoding,
 are `value-1` and `value-2`, respectively, with carriage return and newline characters at the end.
 
-Create the secret using [`kubectl create`](kubectl/kubectl_create).
+Create the secret using [`kubectl create`](/{{page.version}}/docs/user-guide/kubectl/kubectl_create).
 
 Once the secret is created, you can need to modify your pod to specify
 that it should use the secret.
@@ -101,11 +101,11 @@ own `volumeMounts` block, but only one `spec.volumes` is needed per secret.
 You can package many files into one secret, or use many secrets,
 whichever is convenient.
 
-See another example of creating a secret and a pod that consumes that secret in a volume [here](secrets/).
+See another example of creating a secret and a pod that consumes that secret in a volume [here](/{{page.version}}/docs/user-guide/secrets/).
 
 ### Manually specifying an imagePullSecret
 
-Use of imagePullSecrets is described in the [images documentation](images/#specifying-imagepullsecrets-on-a-pod)
+Use of imagePullSecrets is described in the [images documentation](/{{page.version}}/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
 
 ### Arranging for imagePullSecrets to be Automatically Attached
 
@@ -113,7 +113,7 @@ You can manually create an imagePullSecret, and reference it from
 a serviceAccount.  Any pods created with that serviceAccount
 or that default to use that serviceAccount, will get have the imagePullSecret of the
 field set to that of the service account.
-See [here](service-accounts/#adding-imagepullsecrets-to-a-service-account)
+See [here](/{{page.version}}/docs/user-guide/service-accounts/#adding-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
 
 
@@ -187,7 +187,7 @@ change, even if the secret resource is modified.  To change the secret used,
 the original pod must be deleted, and a new pod (perhaps with an identical
 `PodSpec`) must be created.  Therefore, updating a secret follows the same
 workflow as deploying a new container image.  The `kubectl rolling-update`
-command can be used ([man page](kubectl/kubectl_rolling-update)).
+command can be used ([man page](/{{page.version}}/docs/user-guide/kubectl/kubectl_rolling-update)).
 
 The [`resourceVersion`](/{{page.version}}/docs/devel/api-conventions/#concurrency-control-and-consistency)
 of the secret is not specified when it is referenced.

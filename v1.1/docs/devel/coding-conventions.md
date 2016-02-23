@@ -2,13 +2,11 @@
 title: "devel/coding-conventions"
 ---
 
-Code conventions
-
   - Bash
     - https://google-styleguide.googlecode.com/svn/trunk/shell.xml
     - Ensure that build, release, test, and cluster-management scripts run on OS X
   - Go
-    - Ensure your code passes the [presubmit checks](development/#hooks)
+    - Ensure your code passes the [presubmit checks](/{{page.version}}/docs/devel/development/#hooks)
     - [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
     - [Effective Go](https://golang.org/doc/effective_go)
     - Comment your code.
@@ -27,8 +25,8 @@ Code conventions
     - API conventions
       - [API changes](/{{page.version}}/docs/devel/api_changes)
       - [API conventions](/{{page.version}}/docs/devel/api-conventions)
-    - [Kubectl conventions](kubectl-conventions)
-    - [Logging conventions](logging)
+    - [Kubectl conventions](/{{page.version}}/docs/devel/kubectl-conventions)
+    - [Logging conventions](/{{page.version}}/docs/devel/logging)
 
 Testing conventions
 
@@ -58,6 +56,3 @@ Coding advice
 
   - Go
     - [Go landmines](https://gist.github.com/lavalamp/4bd23295a9f32706a48f)
-
-
-

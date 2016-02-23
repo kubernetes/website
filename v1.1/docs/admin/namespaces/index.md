@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes Namespaces"
 ---
-Kubernetes _[namespaces](/{{page.version}}/docs/admin/namespaces)_ help different projects, teams, or customers to share a Kubernetes cluster.
+Kubernetes _namespaces_ help different projects, teams, or customers to share a Kubernetes cluster.
 
 It does this by providing the following:
 
@@ -49,7 +49,7 @@ One pattern this organization could follow is to partition the Kubernetes cluste
 
 Let's create two new namespaces to hold our work.
 
-Use the file [`namespace-dev.json`](namespace-dev.json) which describes a development namespace:
+Use the file [`namespace-dev.json`](/{{page.version}}/docs/admin/namespacesnamespace-dev.json) which describes a development namespace:
 
 <!-- BEGIN MUNGE: EXAMPLE namespace-dev.json -->
 
@@ -66,7 +66,7 @@ Use the file [`namespace-dev.json`](namespace-dev.json) which describes a develo
 }
 ```
 
-[Download example](namespace-dev.json)
+[Download example](/{{page.version}}/docs/admin/namespacesnamespace-dev.json)
 <!-- END MUNGE: EXAMPLE namespace-dev.json -->
 
 Create the development namespace using kubectl.

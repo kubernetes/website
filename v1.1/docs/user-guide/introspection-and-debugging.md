@@ -308,9 +308,9 @@ status:
 
 Learn about additional debugging tools, including:
 
-* [Logging](logging)
-* [Monitoring](monitoring)
-* [Getting into containers via `exec`](getting-into-containers)
+* [Logging](/{{page.version}}/docs/user-guide/logging)
+* [Monitoring](/{{page.version}}/docs/user-guide/monitoring)
+* [Getting into containers via `exec`](/{{page.version}}/docs/user-guide/getting-into-containers)
 * [Connecting to containers via proxies](/{{page.version}}/docs/user-guide/connecting-to-applications-proxy)
 * [Connecting to containers via port forwarding](/{{page.version}}/docs/user-guide/connecting-to-applications-port-forward)
 

@@ -10,8 +10,8 @@ Kubernetes components, such as kubelet and apiserver, use the [glog](https://god
 ## Examining the logs of running containers
 
 The logs of a running container may be fetched using the command `kubectl logs`. For example, given
-this pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/blog-logging/counter-pod.yaml), which has a container which writes out some text to standard
-output every second. (You can find different pod specifications [here](logging-demo/).)
+this pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/counter-pod.yaml), which has a container which writes out some text to standard
+output every second. (You can find different pod specifications [here](/{{page.version}}/docs/user-guide/logging-demo/).)
 
 <!-- BEGIN MUNGE: EXAMPLE ../../examples/blog-logging/counter-pod.yaml -->
 
@@ -28,7 +28,7 @@ spec:
            'for ((i = 0; ; i++)); do echo "$i: $(date)"; sleep 1; done']
 ```
 
-[Download example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/blog-logging/counter-pod.yaml)
+[Download example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/counter-pod.yaml)
 <!-- END MUNGE: EXAMPLE ../../examples/blog-logging/counter-pod.yaml -->
 
 we can run the pod:
@@ -86,7 +86,7 @@ describes how to ingest cluster level logs into Elasticsearch and view them usin
 ## Ingesting Application Log Files
 
 Cluster level logging only collects the standard output and standard error output of the applications
-running in containers. The guide [Collecting log files within containers with Fluentd](http://releases.k8s.io/release-1.1/contrib/logging/fluentd-sidecar-gcp/README.md) explains how the log files of applications can also be ingested into Google Cloud logging.
+running in containers. The guide [Collecting log files within containers with Fluentd](http://releases.k8s.io/{{page.githubbranch}}/contrib/logging/fluentd-sidecar-gcp/README.md) explains how the log files of applications can also be ingested into Google Cloud logging.
 
 ## Known issues
 

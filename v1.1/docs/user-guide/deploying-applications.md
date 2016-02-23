@@ -1,18 +1,18 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Deploying continuously running applications"
 ---
-You previously read about how to quickly deploy a simple replicated application using [`kubectl run`](quick-start) and how to configure and launch single-run containers using pods ([Configuring containers](/{{page.version}}/docs/user-guide/configuring-containers)). Here you'll use the configuration-based approach to deploy a continuously running, replicated application.
+You previously read about how to quickly deploy a simple replicated application using [`kubectl run`](/{{page.version}}/docs/user-guide/quick-start) and how to configure and launch single-run containers using pods ([Configuring containers](/{{page.version}}/docs/user-guide/configuring-containers)). Here you'll use the configuration-based approach to deploy a continuously running, replicated application.
 
 * TOC
 {:toc}
 
 ## Launching a set of replicas using a configuration file
 
-Kubernetes creates and manages sets of replicated containers (actually, replicated [Pods](pods)) using [*Replication Controllers*](replication-controller).
+Kubernetes creates and manages sets of replicated containers (actually, replicated [Pods](/{{page.version}}/docs/user-guide/pods)) using [*Replication Controllers*](/{{page.version}}/docs/user-guide/replication-controller).
 
 A replication controller simply ensures that a specified number of pod "replicas" are running at any one time. If there are too many, it will kill some. If there are too few, it will start more. It's analogous to Google Compute Engine's [Instance Group Manager](https://cloud.google.com/compute/docs/instance-groups/manager/) or AWS's [Auto-scaling Group](http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/AutoScalingGroup) (with no scaling policies).
 
-The replication controller created to run nginx by `kubectl run` in the [Quick start](quick-start) could be specified using YAML as follows:
+The replication controller created to run nginx by `kubectl run` in the [Quick start](/{{page.version}}/docs/user-guide/quick-start) could be specified using YAML as follows:
 
 ```yaml
 apiVersion: v1
@@ -70,7 +70,7 @@ my-nginx-buaiq   1/1       Running   0          51s
 
 ## Deleting replication controllers
 
-When you want to kill your application, delete your replication controller, as in the [Quick start](quick-start):
+When you want to kill your application, delete your replication controller, as in the [Quick start](/{{page.version}}/docs/user-guide/quick-start):
 
 ```shell
 $ kubectl delete rc my-nginx
@@ -83,7 +83,7 @@ If you try to delete the pods before deleting the replication controller, it wil
 
 ## Labels
 
-Kubernetes uses user-defined key-value attributes called [*labels*](labels) to categorize and identify sets of resources, such as pods and replication controllers. The example above specified a single label in the pod template, with key `app` and value `nginx`. All pods created carry that label, which can be viewed using `-L`:
+Kubernetes uses user-defined key-value attributes called [*labels*](/{{page.version}}/docs/user-guide/labels) to categorize and identify sets of resources, such as pods and replication controllers. The example above specified a single label in the pod template, with key `app` and value `nginx`. All pods created carry that label, which can be viewed using `-L`:
 
 ```shell
 $ kubectl get pods -L app
@@ -100,7 +100,7 @@ CONTROLLER   CONTAINER(S)   IMAGE(S)   SELECTOR    REPLICAS   APP
 my-nginx     nginx          nginx      app=nginx   2          nginx
 ```
 
-More importantly, the pod template's labels are used to create a [`selector`](labels/#label-selectors) that will match pods carrying those labels. You can see this field by requesting it using the [Go template output format of `kubectl get`](kubectl/kubectl_get):
+More importantly, the pod template's labels are used to create a [`selector`](/{{page.version}}/docs/user-guide/labels/#label-selectors) that will match pods carrying those labels. You can see this field by requesting it using the [Go template output format of `kubectl get`](/{{page.version}}/docs/user-guide/kubectl/kubectl_get):
 
 ```shell
 $ kubectl get rc my-nginx -o template --template="{{.spec.selector}}"

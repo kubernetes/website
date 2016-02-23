@@ -37,7 +37,7 @@ These guidelines say *what* to do.  See the Rationale section for *why*.
    own repo.
  - Add or update a row in [The Matrix](/{{page.version}}/docs/getting-started-guides/).
  - State the binary version of Kubernetes that you tested clearly in your Guide doc.
- - Setup a cluster and run the [conformance test](development/#conformance-testing) against it, and report the
+ - Setup a cluster and run the [conformance test](/{{page.version}}/docs/devel/development/#conformance-testing) against it, and report the
    results in your PR.
  - Versioned distros should typically not modify or add code in `cluster/`.  That is just scripts for developer
    distros.

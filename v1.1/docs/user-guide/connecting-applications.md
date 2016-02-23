@@ -113,11 +113,11 @@ NAME         ENDPOINTS
 nginxsvc     10.245.0.14:80,10.245.0.15:80
 ```
 
-You should now be able to curl the nginx Service on `10.0.116.146:80` from any node in your cluster. Note that the Service IP is completely virtual, it never hits the wire, if you're curious about how this works you can read more about the [service proxy](services/#virtual-ips-and-service-proxies).
+You should now be able to curl the nginx Service on `10.0.116.146:80` from any node in your cluster. Note that the Service IP is completely virtual, it never hits the wire, if you're curious about how this works you can read more about the [service proxy](/{{page.version}}/docs/user-guide/services/#virtual-ips-and-service-proxies).
 
 ## Accessing the Service
 
-Kubernetes supports 2 primary modes of finding a Service - environment variables and DNS. The former works out of the box while the latter requires the [kube-dns cluster addon](http://releases.k8s.io/release-1.1/cluster/addons/dns/README.md).
+Kubernetes supports 2 primary modes of finding a Service - environment variables and DNS. The former works out of the box while the latter requires the [kube-dns cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).
 
 ### Environment Variables
 
@@ -155,7 +155,7 @@ NAME       CLUSTER_IP      EXTERNAL_IP   PORT(S)         SELECTOR           AGE
 kube-dns   10.179.240.10   <none>        53/UDP,53/TCP   k8s-app=kube-dns   8d
 ```
 
-If it isn't running, you can [enable it](http://releases.k8s.io/release-1.1/cluster/addons/dns/README.md#how-do-i-configure-it). The rest of this section will assume you have a Service with a long lived IP (nginxsvc), and a dns server that has assigned a name to that IP (the kube-dns cluster addon), so you can talk to the Service from any pod in your cluster using standard methods (e.g. gethostbyname). Let's create another pod to test this:
+If it isn't running, you can [enable it](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md#how-do-i-configure-it). The rest of this section will assume you have a Service with a long lived IP (nginxsvc), and a dns server that has assigned a name to that IP (the kube-dns cluster addon), so you can talk to the Service from any pod in your cluster using standard methods (e.g. gethostbyname). Let's create another pod to test this:
 
 ```yaml
 $ cat curlpod.yaml
@@ -196,9 +196,9 @@ Till now we have only accessed the nginx server from within the cluster. Before 
 
 * Self signed certificates for https (unless you already have an identity certificate)
 * An nginx server configured to use the certificates
-* A [secret](secrets) that makes the certificates accessible to pods
+* A [secret](/{{page.version}}/docs/user-guide/secrets) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/https-nginx/), in short:
+You can acquire all these from the [nginx https example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/https-nginx/), in short:
 
 ```shell
 $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
@@ -262,7 +262,7 @@ spec:
 Noteworthy points about the nginx-app manifest:
 
 - It contains both rc and service specification in the same file
-- The [nginx server](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/https-nginx/default.conf) serves http traffic on port 80 and https traffic on 443, and nginx Service exposes both ports.
+- The [nginx server](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/https-nginx/default.conf) serves http traffic on port 80 and https traffic on 443, and nginx Service exposes both ports.
 - Each container has access to the keys through a volume mounted at /etc/nginx/ssl. This is setup *before* the nginx server is started.
 
 ```shell
@@ -383,4 +383,4 @@ cluster/private cloud network.
 
 ## What's next?
 
-[Learn about more Kubernetes features that will help you run containers reliably in production.](production-pods)
+[Learn about more Kubernetes features that will help you run containers reliably in production.](/{{page.version}}/docs/user-guide/production-pods)

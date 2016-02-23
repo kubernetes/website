@@ -6,7 +6,7 @@ nginx serving content from your persistent volume.
 
 This guide assumes knowledge of Kubernetes fundamentals and that you have a cluster up and running.
 
-See [Persistent Storage design document](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/persistent-storage.md) for more information.
+See [Persistent Storage design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/persistent-storage.md) for more information.
 
 ## Provisioning
 

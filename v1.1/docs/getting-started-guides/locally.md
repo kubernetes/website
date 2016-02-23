@@ -8,7 +8,7 @@ title: "Getting started locally"
 
 #### Linux
 
-Not running Linux? Consider running Linux in a local virtual machine with [Vagrant](vagrant), or on a cloud provider like [Google Compute Engine](gce)
+Not running Linux? Consider running Linux in a local virtual machine with [Vagrant](/{{page.version}}/docs/getting-started-guides/vagrant), or on a cloud provider like [Google Compute Engine](/{{page.version}}/docs/getting-started-guides/gce)
 
 #### Docker
 

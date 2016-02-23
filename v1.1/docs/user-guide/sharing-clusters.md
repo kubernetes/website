@@ -2,7 +2,7 @@
 title: "Sharing Cluster Access"
 ---
 Client access to a running Kubernetes cluster can be shared by copying
-the `kubectl` client config bundle ([kubeconfig](kubeconfig-file)).
+the `kubectl` client config bundle ([kubeconfig](/{{page.version}}/docs/user-guide/kubeconfig-file)).
 This config bundle lives in `$HOME/.kube/config`, and is generated
 by `cluster/kube-up.sh`. Sample steps for sharing `kubeconfig` below.
 
@@ -89,7 +89,7 @@ $ export KUBECONFIG=/path/to/standalone/.kube/config
 kube master at cluster turnup. They can be found on the master under
 `/srv/kubernetes`. Bearer token/basic auth are also generated on the kube master.
 
-For more details on `kubeconfig` see [kubeconfig-file.md](kubeconfig-file),
+For more details on `kubeconfig` see [kubeconfig-file.md](/{{page.version}}/docs/user-guide/kubeconfig-file),
 and/or run `kubectl config -h`.
 
 ## Merging `kubeconfig` Example
@@ -116,4 +116,4 @@ $ scp host2:/path/to/home2/.kube/config /path/to/other/.kube/config
 $ export $KUBECONFIG=/path/to/other/.kube/config
 ```
 
-Detailed examples and explanation of `kubeconfig` loading/merging rules can be found in [kubeconfig-file](kubeconfig-file).
+Detailed examples and explanation of `kubeconfig` loading/merging rules can be found in [kubeconfig-file](/{{page.version}}/docs/user-guide/kubeconfig-file).

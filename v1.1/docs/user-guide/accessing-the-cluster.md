@@ -22,8 +22,8 @@ Check the location and credentials that kubectl knows about with this command:
 $ kubectl config view
 ```
 
-Many of the [examples](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/) provide an introduction to using
-kubectl and complete documentation is found in the [kubectl manual](kubectl/kubectl).
+Many of the [examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/) provide an introduction to using
+kubectl and complete documentation is found in the [kubectl manual](/{{page.version}}/docs/user-guide/kubectl/kubectl).
 
 ### Directly accessing the REST API
 
@@ -52,7 +52,7 @@ Run it like this:
 $ kubectl proxy --port=8080 &
 ```
 
-See [kubectl proxy](kubectl/kubectl_proxy) for more details.
+See [kubectl proxy](/{{page.version}}/docs/user-guide/kubectl/kubectl_proxy) for more details.
 
 Then you can explore the API with curl, wget, or a browser, like so:
 
@@ -98,8 +98,8 @@ with future high-availability support.
 
 There are [client libraries](/{{page.version}}/docs/devel/client-libraries) for accessing the API
 from several languages.  The Kubernetes project-supported
-[Go](http://releases.k8s.io/release-1.1/pkg/client/)
-client library can use the same [kubeconfig file](kubeconfig-file)
+[Go](http://releases.k8s.io/{{page.githubbranch}}/pkg/client/)
+client library can use the same [kubeconfig file](/{{page.version}}/docs/user-guide/kubeconfig-file)
 as the kubectl CLI does to locate and authenticate to the apiserver.
 
 See documentation for other libraries for how they authenticate.
@@ -114,7 +114,7 @@ the `kubernetes` DNS name, which resolves to a Service IP which in turn
 will be routed to an apiserver.
 
 The recommended way to authenticate to the apiserver is with a
-[service account](service-accounts) credential.  By kube-system, a pod
+[service account](/{{page.version}}/docs/user-guide/service-accounts) credential.  By kube-system, a pod
 is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
@@ -125,7 +125,7 @@ From within a pod the recommended ways to connect to API are:
     process within a container.  This proxies the
     Kubernetes API to the localhost interface of the pod, so that other processes
     in any container of the pod can access it.  See this [example of using kubectl proxy
-    in a pod](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/kubectl-container/).
+    in a pod](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/kubectl-container/).
   - use the Go client library, and create a client using the `client.NewInCluster()` factory.
     This handles locating and authenticating to the apiserver.
 
@@ -136,7 +136,7 @@ In each case, the credentials of the pod are used to communicate securely with t
 
 The previous section was about connecting the Kubernetes API server.  This section is about
 connecting to other services running on Kubernetes cluster.  In Kubernetes, the
-[nodes](/{{page.version}}/docs/admin/node), [pods](pods) and [services](services) all have
+[nodes](/{{page.version}}/docs/admin/node), [pods](/{{page.version}}/docs/user-guide/pods) and [services](/{{page.version}}/docs/user-guide/services) all have
 their own IPs.  In many cases, the node IPs, pod IPs, and some service IPs on a cluster will not be
 routable, so they will not be reachable from a machine outside the cluster,
 such as your desktop machine.
@@ -147,8 +147,8 @@ You have several options for connecting to nodes, pods and services from outside
 
   - Access services through public IPs.
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
-      the cluster.  See the [services](services) and
-      [kubectl expose](kubectl/kubectl_expose) documentation.
+      the cluster.  See the [services](/{{page.version}}/docs/user-guide/services) and
+      [kubectl expose](/{{page.version}}/docs/user-guide/kubectl/kubectl_expose) documentation.
     - Depending on your cluster environment, this may just expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
@@ -164,7 +164,7 @@ You have several options for connecting to nodes, pods and services from outside
     - Only works for HTTP/HTTPS.
     - Described [here](#discovering-builtin-services).
   - Access from a node or pod in the cluster.
-    - Run a pod, and then connect to a shell in it using [kubectl exec](kubectl/kubectl_exec).
+    - Run a pod, and then connect to a shell in it using [kubectl exec](/{{page.version}}/docs/user-guide/kubectl/kubectl_exec).
       Connect to other nodes, pods, and services from that shell.
     - Some clusters may allow you to ssh to a node in the cluster.  From there you may be able to
       access cluster services.  This is a non-standard method, and will work on some clusters but
@@ -251,7 +251,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - proxy to target may use HTTP or HTTPS as chosen by proxy using available information
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
-  1. The [kube proxy](services/#ips-and-vips):
+  1. The [kube proxy](/{{page.version}}/docs/user-guide/services/#ips-and-vips):
     - runs on each node
     - proxies UDP and TCP
     - does not understand HTTP

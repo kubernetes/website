@@ -139,7 +139,7 @@ NAME            LABELS                                 STATUS
 10.10.103.250   kubernetes.io/hostname=10.10.103.250   Ready
 ```
 
-Also you can run Kubernetes [guest-example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/guestbook/) to build a redis backend cluster on the k8s．
+Also you can run Kubernetes [guest-example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) to build a redis backend cluster on the k8s．
 
 
 ### Deploy addons
@@ -258,4 +258,4 @@ Some examples are as follows:
 
 The script will not delete any resources of your cluster, it just replaces the binaries.
 You can use `kubectl` command to check if the newly upgraded k8s is working correctly.
-For example, use `$ kubectl get nodes` to see if all of your nodes are ready.Or refer to [test-it-out](ubuntu/#test-it-out)
+For example, use `$ kubectl get nodes` to see if all of your nodes are ready.Or refer to [test-it-out](/{{page.version}}/docs/getting-started-guides/ubuntu/#test-it-out)

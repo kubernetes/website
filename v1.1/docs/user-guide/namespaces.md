@@ -19,7 +19,7 @@ In future versions of Kubernetes, objects in the same namespace will have the sa
 access control policies by default.
 
 It is not necessary to use multiple namespaces just to separate slightly different
-resources, such as different versions of the same software: use [labels](labels) to distinguish
+resources, such as different versions of the same software: use [labels](/{{page.version}}/docs/user-guide/labels) to distinguish
 resources within the same namespace.
 
 ## Working with Namespaces
@@ -73,7 +73,7 @@ $ kubectl config set-context $(CONTEXT) --namespace=<insert-namespace-name-here>
 
 ## Namespaces and DNS
 
-When you create a [Service](services), it creates a corresponding [DNS entry](/{{page.version}}/docs/admin/dns).
+When you create a [Service](/{{page.version}}/docs/user-guide/services), it creates a corresponding [DNS entry](/{{page.version}}/docs/admin/dns).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
 that if a container just uses `<service-name>` it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across

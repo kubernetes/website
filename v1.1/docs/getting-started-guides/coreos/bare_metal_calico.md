@@ -117,4 +117,4 @@ Once complete, restart the server.  When it comes back up, you should have SSH a
 ## Testing the Cluster
 
 You should now have a functional bare-metal Kubernetes cluster with one master and two compute hosts.
-Try running the [guestbook demo](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/guestbook/) to test out your new cluster!
+Try running the [guestbook demo](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) to test out your new cluster!

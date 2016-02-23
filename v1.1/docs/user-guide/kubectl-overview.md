@@ -1,7 +1,7 @@
 ---
 title: "kubectl overview"
 ---
-Use this overview of the `kubectl` command line interface to help you start running commands against Kubernetes clusters. This overview quickly covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](kubectl/kubectl) reference documentation.
+Use this overview of the `kubectl` command line interface to help you start running commands against Kubernetes clusters. This overview quickly covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/{{page.version}}/docs/user-guide/kubectl/kubectl) reference documentation.
 
 TODO: Auto-generate this file to ensure it's always in sync with any `kubectl` changes, see [#14177](http://pr.k8s.io/14177).
 
@@ -74,7 +74,7 @@ Operation       | Syntax	|       Description
 `stop`		| `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
 `version`		| `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
-Remember: For more about command operations, see the [kubectl](kubectl/kubectl) reference documentation.
+Remember: For more about command operations, see the [kubectl](/{{page.version}}/docs/user-guide/kubectl/kubectl) reference documentation.
 
 ## Resource types
 
@@ -101,7 +101,7 @@ Resource type	| Abbreviated alias
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](kubectl/kubectl) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/{{page.version}}/docs/user-guide/kubectl/kubectl) reference documentation.
 
 ### Formatting output
 
@@ -120,8 +120,8 @@ Output format | Description
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of [custom columns](#custom-columns).
 `-o=custom-columns-file=<filename>` | Print a table using the [custom columns](#custom-columns) template in the `<filename>` file.
 `-o=json`     | Output a JSON formatted API object.
-`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](jsonpath) expression.
-`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](jsonpath) expression in the `<filename>` file.
+`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/{{page.version}}/docs/user-guide/jsonpath) expression.
+`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/{{page.version}}/docs/user-guide/jsonpath) expression in the `<filename>` file.
 `-o=name`     | Print only the resource name and nothing else.
 `-o=wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
 `-o=yaml`     | Output a YAML formatted API object.
@@ -132,7 +132,7 @@ In this example, the following command outputs the details for a single pod as a
 
 `$ kubectl get pod web-pod-13je7 -o=yaml`
 
-Remember: See the [kubectl](kubectl/kubectl) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](/{{page.version}}/docs/user-guide/kubectl/kubectl) reference documentation for details about which output format is supported by each command.
 
 #### Custom columns
 
@@ -167,7 +167,7 @@ submit-queue   610995
 
 ### Sorting list objects
 
-To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](jsonpath) expression.
+To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](/{{page.version}}/docs/user-guide/jsonpath) expression.
 
 #### Syntax
 
@@ -267,4 +267,4 @@ $ kubectl logs -f <pod-name>
 
 ## Next steps
 
-Start using the [kubectl](kubectl/kubectl) commands.
+Start using the [kubectl](/{{page.version}}/docs/user-guide/kubectl/kubectl) commands.

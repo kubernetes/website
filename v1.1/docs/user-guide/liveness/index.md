@@ -3,7 +3,7 @@ title: "Overview"
 ---
 This example shows two types of pod [health checks](/{{page.version}}/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks): HTTP checks and container execution checks.
 
-The [exec-liveness.yaml](exec-liveness.yaml) demonstrates the container execution check.
+The [exec-liveness.yaml](/{{page.version}}/docs/user-guide/liveness/exec-liveness.yaml) demonstrates the container execution check.
 
 ```yaml
 livenessProbe:
@@ -26,7 +26,7 @@ echo ok > /tmp/health; sleep 10; rm -rf /tmp/health; sleep 600
 so when Kubelet executes the health check 15 seconds (defined by initialDelaySeconds) after the container started, the check would fail.
 
 
-The [http-liveness.yaml](http-liveness.yaml) demonstrates the HTTP check.
+The [http-liveness.yaml](/{{page.version}}/docs/user-guide/liveness/http-liveness.yaml) demonstrates the HTTP check.
 
 ```yaml
 livenessProbe:

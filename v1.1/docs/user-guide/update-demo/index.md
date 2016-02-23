@@ -19,7 +19,7 @@ limitations under the License.
 
 -->
 
-This example demonstrates the usage of Kubernetes to perform a [rolling update](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/user-guide/kubectl/kubectl_rolling-update.md) on a running group of [pods](/{{page.version}}/docs/user-guide/pods). See [here](/{{page.version}}/docs/user-guide/managing-deployments/#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/simple-rolling-update.md) for more information.
+This example demonstrates the usage of Kubernetes to perform a [rolling update](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/user-guide/kubectl/kubectl_rolling-update.md) on a running group of [pods](/{{page.version}}/docs/user-guide/pods). See [here](/{{page.version}}/docs/user-guide/managing-deployments/#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) for more information.
 
 ### Step Zero: Prerequisites
 

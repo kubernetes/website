@@ -63,7 +63,7 @@ recommend testing the upgrade on an experimental cluster before performing the u
 
 ## Resizing a cluster
 
-If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](node/#self-registration-of-nodes).
+If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](/{{page.version}}/docs/admin/node/#self-registration-of-nodes).
 If you're using GCE or GKE it's done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
 ```shell
@@ -145,7 +145,7 @@ kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedu
 
 If you deleted the node's VM instance and created a new one, then a new schedulable node resource will
 be created automatically when you create a new VM instance (if you're using a cloud provider that supports
-node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register). See [Node](node) for more details.
+node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register). See [Node](/{{page.version}}/docs/admin/node) for more details.
 
 ## Advanced Topics
 

@@ -10,7 +10,7 @@ Here's a diagram of what the final result will look like:
 ![Kubernetes Single Node on Docker](/images/docs/k8s-docker.png)
 
 _Note_:
-These instructions are somewhat significantly more advanced than the [single node](docker) instructions.  If you are
+These instructions are somewhat significantly more advanced than the [single node](/{{page.version}}/docs/getting-started-guides/docker) instructions.  If you are
 interested in just starting to explore Kubernetes, we recommend that you start there.
 
 _Note_:
@@ -81,4 +81,4 @@ See [here](/{{page.version}}/docs/getting-started-guides/docker-multinode/deploy
 
 Once your cluster has been created you can [test it out](/{{page.version}}/docs/getting-started-guides/docker-multinode/testing)
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/)
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/)

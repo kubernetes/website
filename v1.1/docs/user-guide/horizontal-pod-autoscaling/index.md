@@ -20,7 +20,7 @@ heapster monitoring will be turned-on by default).
 
 To demonstrate horizontal pod autoscaler we will use a custom docker image based on php-apache server.
 The image can be found [here](https://releases.k8s.io/release-1.1/docs/user-guide/horizontal-pod-autoscaling/image).
-It defines [index.php](image/index.php) page which performs some CPU intensive computations.
+It defines [index.php](/{{page.version}}/docs/user-guide/horizontal-pod-autoscaling/image/index.php) page which performs some CPU intensive computations.
 
 First, we will start a replication controller running the image and expose it as an external service:
 
@@ -69,7 +69,7 @@ OK!
 ## Step Two: Create horizontal pod autoscaler
 
 Now that the server is running, we will create a horizontal pod autoscaler for it.
-To create it, we will use the [hpa-php-apache.yaml](hpa-php-apache.yaml) file, which looks like this:
+To create it, we will use the [hpa-php-apache.yaml](/{{page.version}}/docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache.yaml) file, which looks like this:
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -93,7 +93,7 @@ controlled by the php-apache replication controller we created in the first step
 Roughly speaking, the horizontal autoscaler will increase and decrease the number of replicas
 (via the replication controller) so as to maintain an average CPU utilization across all Pods of 50%
 (since each pod requests 200 milli-cores by [kubectl run](#kubectl-run), this means average CPU utilization of 100 milli-cores).
-See [here](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
+See [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
 
 We will create the autoscaler by executing the following command:
 
@@ -102,8 +102,8 @@ $ kubectl create -f docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache.ya
 horizontalpodautoscaler "php-apache" created
 ```
 
-Alternatively, we can create the autoscaler using [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/user-guide/kubectl/kubectl_autoscale.md).
-The following command will create the equivalent autoscaler as defined in the [hpa-php-apache.yaml](hpa-php-apache.yaml) file:
+Alternatively, we can create the autoscaler using [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/user-guide/kubectl/kubectl_autoscale.md).
+The following command will create the equivalent autoscaler as defined in the [hpa-php-apache.yaml](/{{page.version}}/docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache.yaml) file:
 
 ```shell
 $ kubectl autoscale rc php-apache --cpu-percent=50 --min=1 --max=10

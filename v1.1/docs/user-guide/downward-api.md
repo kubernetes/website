@@ -76,7 +76,7 @@ spec:
   restartPolicy: Never
 ```
 
-[Download example](downward-api/dapi-pod.yaml)
+[Download example](/{{page.version}}/docs/user-guide/downward-api/dapi-pod.yaml)
 <!-- END MUNGE: EXAMPLE downward-api/dapi-pod.yaml -->
 
 
@@ -86,7 +86,7 @@ Using a similar syntax it's possible to expose pod information to containers usi
 Downward API are dumped to a mounted volume. This is achieved using a `downwardAPI`
 volume type and the different items represent the files to be created. `fieldPath` references the field to be exposed.
 
-Downward API volume permits to store more complex data like [`metadata.labels`](labels) and [`metadata.annotations`](/{{page.version}}/docs/user-guide/annotations). Currently key/value pair set fields are saved using `key="value"` format:
+Downward API volume permits to store more complex data like [`metadata.labels`](/{{page.version}}/docs/user-guide/labels) and [`metadata.annotations`](/{{page.version}}/docs/user-guide/annotations). Currently key/value pair set fields are saved using `key="value"` format:
 
 ```conf
 key1="value1"
@@ -145,10 +145,10 @@ spec:
               fieldPath: metadata.annotations
 ```
 
-[Download example](downward-api/volume/dapi-volume.yaml)
+[Download example](/{{page.version}}/docs/user-guide/downward-api/volume/dapi-volume.yaml)
 <!-- END MUNGE: EXAMPLE downward-api/volume/dapi-volume.yaml -->
 
 Some more thorough examples:
 
-   * [environment variables](environment-guide/)
-   * [downward API](downward-api/)
+   * [environment variables](/{{page.version}}/docs/user-guide/environment-guide/)
+   * [downward API](/{{page.version}}/docs/user-guide/downward-api/)

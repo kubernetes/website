@@ -122,7 +122,7 @@ The rules for loading and merging the kubeconfig files are straightforward, but 
 ## Manipulation of kubeconfig via `kubectl config <subcommand>`
 
 In order to more easily manipulate kubeconfig files, there are a series of subcommands to `kubectl config` to help.
-See [kubectl/kubectl_config.md](kubectl/kubectl_config) for help.
+See [kubectl/kubectl_config.md](/{{page.version}}/docs/user-guide/kubectl/kubectl_config) for help.
 
 ### Example
 

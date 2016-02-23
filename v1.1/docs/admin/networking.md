@@ -163,7 +163,7 @@ people have reported success with Flannel and Kubernetes.
 
 ### OpenVSwitch
 
-[OpenVSwitch](ovs-networking) is a somewhat more mature but also
+[OpenVSwitch](/{{page.version}}/docs/admin/ovs-networking) is a somewhat more mature but also
 complicated way to build an overlay network.  This is endorsed by several of the
 "Big Shops" for networking.
 
@@ -181,4 +181,4 @@ IPs.
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
-document](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/networking.md).
+document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/networking.md).

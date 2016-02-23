@@ -15,7 +15,7 @@ unsatisfied).
 Master components could in theory be run on any node in the cluster. However,
 for simplicity, current set up scripts typically start all master components on
 the same VM, and does not run user containers on this VM. See
-[high-availability.md](high-availability) for an example multi-master-VM setup.
+[high-availability.md](/{{page.version}}/docs/admin/high-availability) for an example multi-master-VM setup.
 
 Even in the future, when Kubernetes is fully self-hosting, it will probably be
 wise to only allow master components to schedule on a subset of nodes, to limit
@@ -24,19 +24,19 @@ node-compromising security exploit.
 
 ### kube-apiserver
 
-[kube-apiserver](kube-apiserver) exposes the Kubernetes API; it is the front-end for the
+[kube-apiserver](/{{page.version}}/docs/admin/kube-apiserver) exposes the Kubernetes API; it is the front-end for the
 Kubernetes control plane. It is designed to scale horizontally (i.e., one scales
-it by running more of them-- [high-availability.md](high-availability)).
+it by running more of them-- [high-availability.md](/{{page.version}}/docs/admin/high-availability)).
 
 ### etcd
 
-[etcd](etcd) is used as Kubernetes' backing store. All cluster data is stored here.
+[etcd](/{{page.version}}/docs/admin/etcd) is used as Kubernetes' backing store. All cluster data is stored here.
 Proper administration of a Kubernetes cluster includes a backup plan for etcd's
 data.
 
 ### kube-controller-manager
 
-[kube-controller-manager](kube-controller-manager) is a binary that runs controllers, which are the
+[kube-controller-manager](/{{page.version}}/docs/admin/kube-controller-manager) is a binary that runs controllers, which are the
 background threads that handle routine tasks in the cluster. Logically, each
 controller is a separate process, but to reduce the number of moving pieces in
 the system, they are all compiled into a single binary and run in a single
@@ -57,7 +57,7 @@ These controllers include:
 
 ### kube-scheduler
 
-[kube-scheduler](kube-scheduler) watches newly created pods that have no node assigned, and
+[kube-scheduler](/{{page.version}}/docs/admin/kube-scheduler) watches newly created pods that have no node assigned, and
 selects a node for them to run on.
 
 ### addons
@@ -65,17 +65,17 @@ selects a node for them to run on.
 Addons are pods and services that implement cluster features. They don't run on
 the master VM, but currently the default setup scripts that make the API calls
 to create these pods and services does run on the master VM. See:
-[kube-master-addons](http://releases.k8s.io/release-1.1/cluster/saltbase/salt/kube-master-addons/kube-master-addons.sh)
+[kube-master-addons](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/kube-master-addons/kube-master-addons.sh)
 
 Addon objects are created in the "kube-system" namespace.
 
 Example addons are:
-* [DNS](http://releases.k8s.io/release-1.1/cluster/addons/dns/) provides cluster local DNS.
-* [kube-ui](http://releases.k8s.io/release-1.1/cluster/addons/kube-ui/) provides a graphical UI for the
+* [DNS](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/) provides cluster local DNS.
+* [kube-ui](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/kube-ui/) provides a graphical UI for the
   cluster.
-* [fluentd-elasticsearch](http://releases.k8s.io/release-1.1/cluster/addons/fluentd-elasticsearch/) provides
-  log storage. Also see the [gcp version](http://releases.k8s.io/release-1.1/cluster/addons/fluentd-gcp/).
-* [cluster-monitoring](http://releases.k8s.io/release-1.1/cluster/addons/cluster-monitoring/) provides
+* [fluentd-elasticsearch](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/) provides
+  log storage. Also see the [gcp version](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/).
+* [cluster-monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/) provides
   monitoring for the cluster.
 
 ## Node components
@@ -85,7 +85,7 @@ the Kubernetes runtime environment.
 
 ### kubelet
 
-[kubelet](kubelet) is the primary node agent. It:
+[kubelet](/{{page.version}}/docs/admin/kubelet) is the primary node agent. It:
 * Watches for pods that have been assigned to its node (either by apiserver
   or via local configuration file) and:
  * Mounts the pod's required volumes
@@ -98,7 +98,7 @@ the Kubernetes runtime environment.
 
 ### kube-proxy
 
-[kube-proxy](kube-proxy) enables the Kubernetes service abstraction by maintaining
+[kube-proxy](/{{page.version}}/docs/admin/kube-proxy) enables the Kubernetes service abstraction by maintaining
 network rules on the host and performing connection forwarding.
 
 ### docker

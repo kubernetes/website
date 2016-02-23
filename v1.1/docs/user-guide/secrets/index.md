@@ -1,7 +1,7 @@
 ---
 title: "Secrets example"
 ---
-Following this example, you will create a [secret](/{{page.version}}/docs/user-guide/secrets/) and a [pod](/{{page.version}}/docs/user-guide/pods/) that consumes that secret in a [volume](/{{page.version}}/docs/user-guide/volumes/). See [Secrets design document](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/secrets.md) for more information.
+Following this example, you will create a secret and a [pod](/{{page.version}}/docs/user-guide/pods/) that consumes that secret in a [volume](/{{page.version}}/docs/user-guide/volumes/). See [Secrets design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/secrets.md) for more information.
 
 ## Step Zero: Prerequisites
 
@@ -13,7 +13,7 @@ started](/{{page.version}}/docs/getting-started-guides/) for installation instru
 
 A secret contains a set of named byte arrays.
 
-Use the [`examples/secrets/secret.yaml`](secret.yaml) file to create a secret:
+Use the [`examples/secrets/secret.yaml`](/{{page.version}}/docs/user-guide/secrets/secret.yaml) file to create a secret:
 
 ```shell
 $ kubectl create -f docs/user-guide/secrets/secret.yaml
@@ -44,7 +44,7 @@ data-2: 11 bytes
 Pods consume secrets in volumes.  Now that you have created a secret, you can create a pod that
 consumes it.
 
-Use the [`examples/secrets/secret-pod.yaml`](secret-pod.yaml) file to create a Pod that consumes the secret.
+Use the [`examples/secrets/secret-pod.yaml`](/{{page.version}}/docs/user-guide/secrets/secret-pod.yaml) file to create a Pod that consumes the secret.
 
 ```shell
 $ kubectl create -f docs/user-guide/secrets/secret-pod.yaml

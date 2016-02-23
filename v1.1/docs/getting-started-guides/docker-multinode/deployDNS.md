@@ -5,9 +5,9 @@ title: "Deploy DNS"
 
 First of all, download the template dns rc and svc file from
 
-[skydns-rc template](skydns-rc.yaml.in)
+[skydns-rc template](/{{page.version}}/docs/getting-started-guides/docker-multinode/skydns-rc.yaml.in)
 
-[skydns-svc template](skydns-svc.yaml.in)
+[skydns-svc template](/{{page.version}}/docs/getting-started-guides/docker-multinode/skydns-svc.yaml.in)
 
 ### Set env
 

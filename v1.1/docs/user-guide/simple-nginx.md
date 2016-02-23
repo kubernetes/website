@@ -9,7 +9,7 @@ to Kubernetes and running your first containers on the cluster.
 
 From this point onwards, it is assumed that `kubectl` is on your path from one of the getting started guides.
 
-The [`kubectl run`](kubectl/kubectl_run) line below will create two [nginx](https://registry.hub.docker.com/_/nginx/) [pods](pods) listening on port 80. It will also create a [replication controller](replication-controller) named `my-nginx` to ensure that there are always two pods running.
+The [`kubectl run`](/{{page.version}}/docs/user-guide/kubectl/kubectl_run) line below will create two [nginx](https://registry.hub.docker.com/_/nginx/) [pods](/{{page.version}}/docs/user-guide/pods) listening on port 80. It will also create a [replication controller](/{{page.version}}/docs/user-guide/replication-controller) named `my-nginx` to ensure that there are always two pods running.
 
 ```shell
 kubectl run my-nginx --image=nginx --replicas=2 --port=80
@@ -35,7 +35,7 @@ kubectl stop rc my-nginx
 
 ### Exposing your pods to the internet.
 
-On some platforms (for example Google Compute Engine) the kubectl command can integrate with your cloud provider to add a [public IP address](services/#external-services) for the pods,
+On some platforms (for example Google Compute Engine) the kubectl command can integrate with your cloud provider to add a [public IP address](/{{page.version}}/docs/user-guide/services/#external-services) for the pods,
 to do this run:
 
 ```shell
@@ -52,5 +52,5 @@ In order to access your nginx landing page, you also have to make sure that traf
 
 ### Next: Configuration files
 
-Most people will eventually want to use declarative configuration files for creating/modifying their applications.  A [simplified introduction](simple-yaml)
+Most people will eventually want to use declarative configuration files for creating/modifying their applications.  A [simplified introduction](/{{page.version}}/docs/user-guide/simple-yaml)
 is given in a different document.

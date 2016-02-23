@@ -40,7 +40,7 @@ wget -q -O - https://get.k8s.io | bash
 
 Once this command completes, you will have a master VM and four worker VMs, running as a Kubernetes cluster.
 
-By default, some containers will already be running on your cluster. Containers like `kibana` and `elasticsearch` provide [logging](logging), while `heapster` provides [monitoring](http://releases.k8s.io/release-1.1/cluster/addons/cluster-monitoring/README.md) services.
+By default, some containers will already be running on your cluster. Containers like `kibana` and `elasticsearch` provide [logging](/{{page.version}}/docs/getting-started-guides/logging), while `heapster` provides [monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/README.md) services.
 
 The script run by the commands above creates a cluster with the name/prefix "kubernetes". It defines one specific cluster config, so you can't run it more than once.
 
@@ -53,7 +53,7 @@ cluster/kube-up.sh
 
 If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
 
-If you run into trouble, please see the section on [troubleshooting](gce/#troubleshooting), post to the
+If you run into trouble, please see the section on [troubleshooting](/{{page.version}}/docs/getting-started-guides/gce/#troubleshooting), post to the
 [google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](/{{page.version}}/docs/troubleshooting/#slack).
 
 The next few steps will show you:
@@ -152,7 +152,7 @@ Some of the pods may take a few seconds to start up (during this time they'll sh
 
 Then, see [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/).  The [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/guestbook/) is a good "getting started" walkthrough.
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).  The [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) is a good "getting started" walkthrough.
 
 ### Tearing down the cluster
 

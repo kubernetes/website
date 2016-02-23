@@ -130,7 +130,7 @@ token:
 
 ## Adding ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](images/#specifying-imagepullsecrets-on-a-pod)
+First, create an imagePullSecret, as described [here](/{{page.version}}/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
 Next, verify it has been created.  For example:
 
 ```shell

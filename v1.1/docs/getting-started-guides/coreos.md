@@ -1,9 +1,6 @@
 ---
 title: "Getting Started on CoreOS"
 ---
-
-
-
 * TOC
 {:toc}
 

@@ -240,7 +240,7 @@ my-nginx          10.0.0.1         <none>            80/TCP        run=my-nginx 
 ```
 
 We did not start any services, hence there are none listed. But we see three replicas displayed properly.
-Check the [guestbook](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/guestbook/) application to learn how to create a service.
+Check the [guestbook](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) application to learn how to create a service.
 You can already play with scaling the replicas with:
 
 ```shell

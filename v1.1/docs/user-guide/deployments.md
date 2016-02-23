@@ -57,7 +57,7 @@ spec:
         - containerPort: 80
 ```
 
-[Download example](nginx-deployment.yaml)
+[Download example](/{{page.version}}/docs/user-guide/nginx-deployment.yaml)
 <!-- END MUNGE: EXAMPLE nginx-deployment.yaml -->
 
 Run the example by downloading the example file and then running this command:
@@ -135,7 +135,7 @@ spec:
         - containerPort: 80
 ```
 
-[Download example](new-nginx-deployment.yaml)
+[Download example](/{{page.version}}/docs/user-guide/new-nginx-deployment.yaml)
 <!-- END MUNGE: EXAMPLE new-nginx-deployment.yaml -->
 
 
@@ -250,7 +250,7 @@ before changing course.
 
 As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, and
 `metadata` fields.  For general information about working with config files,
-see [here](deploying-applications), [here](/{{page.version}}/docs/user-guide/configuring-containers), and [here](working-with-resources).
+see [here](/{{page.version}}/docs/user-guide/deploying-applications), [here](/{{page.version}}/docs/user-guide/configuring-containers), and [here](/{{page.version}}/docs/user-guide/working-with-resources).
 
 A Deployment also needs a [`.spec` section](/{{page.version}}/docs/devel/api-conventions/#spec-and-status).
 
@@ -258,8 +258,8 @@ A Deployment also needs a [`.spec` section](/{{page.version}}/docs/devel/api-con
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](replication-controller/#pod-template).  It has exactly
-the same schema as a [pod](pods), except it is nested and does not have an
+The `.spec.template` is a [pod template](/{{page.version}}/docs/user-guide/replication-controller/#pod-template).  It has exactly
+the same schema as a [pod](/{{page.version}}/docs/user-guide/pods), except it is nested and does not have an
 `apiVersion` or `kind`.
 
 ### Replicas
@@ -347,5 +347,5 @@ Note: This is not implemented yet.
 
 ### kubectl rolling update
 
-[Kubectl rolling update](kubectl/kubectl_rolling-update) also updates pods and replication controllers in a similar fashion.
+[Kubectl rolling update](/{{page.version}}/docs/user-guide/kubectl/kubectl_rolling-update) also updates pods and replication controllers in a similar fashion.
 But deployments is declarative and is server side.

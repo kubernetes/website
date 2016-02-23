@@ -6,7 +6,7 @@ This document describes the environment for Kubelet managed containers on a Kube
 This cluster information makes it possible to build applications that are *cluster aware*.
 Additionally, the Kubernetes container environment defines a series of hooks that are surfaced to optional hook handlers defined as part of individual containers.  Container hooks are somewhat analogous to operating system signals in a traditional process model.   However these hooks are designed to make it easier to build reliable, scalable cloud applications in the Kubernetes cluster.  Containers that participate in this cluster lifecycle become *cluster native*.
 
-Another important part of the container environment is the file system that is available to the container.  In Kubernetes, the filesystem is a combination of an [image](images) and one or more [volumes](volumes).
+Another important part of the container environment is the file system that is available to the container.  In Kubernetes, the filesystem is a combination of an [image](/{{page.version}}/docs/user-guide/images) and one or more [volumes](/{{page.version}}/docs/user-guide/volumes).
 
 The following sections describe both the cluster information provided to containers, as well as the hooks and life-cycle that allows containers to interact with the management system.
 
@@ -21,7 +21,7 @@ There are two types of information that are available within the container envir
 
 Currently, the Pod name for the pod in which the container is running is set as the hostname of the container, and is accessible through all calls to access the hostname within the container (e.g. the hostname command, or the [gethostname][1] function call in libc), but this is planned to change in the future and should not be used.
 
-The Pod name and namespace are also available as environment variables via the [downward API](downward-api).  Additionally, user-defined environment variables from the pod definition, are also available to the container, as are any environment variables specified statically in the Docker image.
+The Pod name and namespace are also available as environment variables via the [downward API](/{{page.version}}/docs/user-guide/downward-api).  Additionally, user-defined environment variables from the pod definition, are also available to the container, as are any environment variables specified statically in the Docker image.
 
 In the future, we anticipate expanding this information with richer information about the container.  Examples include available memory, number of restarts, and in general any state that you could get from the call to GET /pods on the API server.
 
@@ -36,7 +36,7 @@ FOO_SERVICE_HOST=<the host the service is running on>
 FOO_SERVICE_PORT=<the port the service is running on>
 ```
 
-Services have dedicated IP address, and are also surfaced to the container via DNS (If [DNS addon](http://releases.k8s.io/release-1.1/cluster/addons/dns/) is enabled).  Of course DNS is still not an enumerable protocol, so we will continue to provide environment variables so that containers can do discovery.
+Services have dedicated IP address, and are also surfaced to the container via DNS (If [DNS addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/) is enabled).  Of course DNS is still not an enumerable protocol, so we will continue to provide environment variables so that containers can do discovery.
 
 ## Container Hooks
 
@@ -52,7 +52,7 @@ This hook is sent immediately after a container is created.  It notifies the co
 
 *PreStop*
 
-This hook is called immediately before a container is terminated. No parameters are passed to the handler. This event handler is blocking, and must complete before the call to delete the container is sent to the Docker daemon.  The SIGTERM notification sent by Docker is also still sent. A more complete description of termination behavior can be found in [Termination of Pods](pods/#termination-of-pods).
+This hook is called immediately before a container is terminated. No parameters are passed to the handler. This event handler is blocking, and must complete before the call to delete the container is sent to the Docker daemon.  The SIGTERM notification sent by Docker is also still sent. A more complete description of termination behavior can be found in [Termination of Pods](/{{page.version}}/docs/user-guide/pods/#termination-of-pods).
 
 ### Hook Handler Execution
 

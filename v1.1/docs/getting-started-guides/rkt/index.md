@@ -94,7 +94,7 @@ scripts. The master node is always Ubuntu.
 
 See [a simple nginx example](/{{page.version}}/docs/user-guide/simple-nginx) to try out your new cluster.
 
-For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/).
+For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
 
 
 ### Debugging

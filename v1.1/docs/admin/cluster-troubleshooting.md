@@ -89,7 +89,7 @@ Mitigations:
 - Action use IaaS providers reliable storage (e.g GCE PD or AWS EBS volume) for VMs with apiserver+etcd
   - Mitigates: Apiserver backing storage lost
 
-- Action: Use (experimental) [high-availability](high-availability) configuration
+- Action: Use (experimental) [high-availability](/{{page.version}}/docs/admin/high-availability) configuration
   - Mitigates: Master VM shutdown or master components (scheduler, API server, controller-managing) crashing
     - Will tolerate one or more simultaneous node or component failures
   - Mitigates: Apiserver backing storage (i.e., etcd's data directory) lost
@@ -108,5 +108,5 @@ Mitigations:
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
 
-- Action: [Multiple independent clusters](multi-cluster) (and avoid making risky changes to all clusters at once)
+- Action: [Multiple independent clusters](/{{page.version}}/docs/admin/multi-cluster) (and avoid making risky changes to all clusters at once)
   - Mitigates: Everything listed above.

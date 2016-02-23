@@ -42,7 +42,7 @@ spec:
       restartPolicy: Never
 ```
 
-[Download example](job.yaml)
+[Download example](/{{page.version}}/docs/user-guide/job.yaml)
 <!-- END MUNGE: EXAMPLE job.yaml -->
 
 Run the example job by downloading the example file and then running this command:
@@ -93,7 +93,7 @@ $ kubectl logs pi-aiw0a
 ## Writing a Job Spec
 
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.  For
-general information about working with config files, see [here](simple-yaml),
+general information about working with config files, see [here](/{{page.version}}/docs/user-guide/simple-yaml),
 [here](/{{page.version}}/docs/user-guide/configuring-containers), and [here](working-with-resources).
 
 A Job also needs a [`.spec` section](/{{page.version}}/docs/devel/api-conventions/#spec-and-status).
@@ -102,14 +102,14 @@ A Job also needs a [`.spec` section](/{{page.version}}/docs/devel/api-convention
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](replication-controller/#pod-template).  It has exactly
-the same schema as a [pod](pods), except it is nested and does not have an `apiVersion` or
+The `.spec.template` is a [pod template](/{{page.version}}/docs/user-guide/replication-controller/#pod-template).  It has exactly
+the same schema as a [pod](/{{page.version}}/docs/user-guide/pods), except it is nested and does not have an `apiVersion` or
 `kind`.
 
 In addition to required fields for a Pod, a pod template in a job must specify appropriate
 lables (see [pod selector](#pod-selector) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](pod-states) equal to `Never` or `OnFailure` are allowed.
+Only a [`RestartPolicy`](/{{page.version}}/docs/user-guide/pod-states) equal to `Never` or `OnFailure` are allowed.
 
 ### Pod Selector
 
@@ -117,7 +117,7 @@ The `.spec.selector` field is a label query over a set of pods.
 
 The `spec.selector` is an object consisting of two fields:
 
-* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](replication-controller)
+* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/{{page.version}}/docs/user-guide/replication-controller)
 * `matchExpressions` - allows to build more sophisticated selectors by specyfing key,
   list of values and an operator that relates the key and values.
 
@@ -161,7 +161,7 @@ a non-zero exit code, or the Container was killed for exceeding a memory limit, 
 happens, and the `.spec.template.containers[].restartPolicy = "OnFailure"`, then the Pod stays
 on the node, but the Container is re-run.  Therefore, your program needs to handle the the case when it is
 restarted locally, or else specify `.spec.template.containers[].restartPolicy = "Never"`.
-See [pods-states](pod-states) for more information on `restartPolicy`.
+See [pods-states](/{{page.version}}/docs/user-guide/pod-states) for more information on `restartPolicy`.
 
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node
 (node is upgraded, rebooted, delelted, etc.), or if a container of the Pod fails and the
@@ -188,11 +188,11 @@ requires only a single pod.
 
 ### Replication Controller
 
-Jobs are complementary to [Replication Controllers](replication-controller).
+Jobs are complementary to [Replication Controllers](/{{page.version}}/docs/user-guide/replication-controller).
 A Replication Controller manages pods which are not expected to terminate (e.g. web servers), and a Job
 manages pods that are expected to terminate (e.g. batch jobs).
 
-As discussed in [life of a pod](pod-states), `Job` is *only* appropriate for pods with
+As discussed in [life of a pod](/{{page.version}}/docs/user-guide/pod-states), `Job` is *only* appropriate for pods with
 `RestartPolicy` equal to `OnFailure` or `Never`.  (Note: If `RestartPolicy` is not set, the default
 value is `Always`.)
 

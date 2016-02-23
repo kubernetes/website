@@ -4,20 +4,20 @@ title: "Compute Resources"
 * TOC
 {:toc}
 
-When specifying a [pod](pods), you can optionally specify how much CPU and memory (RAM) each
+When specifying a [pod](/{{page.version}}/docs/user-guide/pods), you can optionally specify how much CPU and memory (RAM) each
 container needs.  When containers have their resource requests specified, the scheduler is
 able to make better decisions about which nodes to place pods on; and when containers have their
 limits specified, contention for resources on a node can be handled in a specified manner. For
 more details about the difference between requests and limits, please refer to
-[Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/resource-qos.md).
+[Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/resource-qos.md).
 
 *CPU* and *memory* are each a *resource type*.  A resource type has a base unit.  CPU is specified
 in units of cores.  Memory is specified in units of bytes.
 
 CPU and RAM are collectively referred to as *compute resources*, or just *resources*.  Compute
 resources are measureable quantities which can be requested, allocated, and consumed.  They are
-distinct from [API resources](working-with-resources).  API resources, such as pods and
-[services](services) are objects that can be written to and retrieved from the Kubernetes API
+distinct from [API resources](/{{page.version}}/docs/user-guide/working-with-resources).  API resources, such as pods and
+[services](/{{page.version}}/docs/user-guide/services) are objects that can be written to and retrieved from the Kubernetes API
 server.
 
 ## Resource Requests and Limits of Pod and Container
@@ -111,7 +111,7 @@ To determine if a container cannot be scheduled or is being killed due to resour
 
 The resource usage of a pod is reported as part of the Pod status.
 
-If [optional monitoring](http://releases.k8s.io/release-1.1/cluster/addons/cluster-monitoring/README.md) is configured for your cluster,
+If [optional monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/README.md) is configured for your cluster,
 then pod resource usage can be retrieved from the monitoring system.
 
 ## Troubleshooting
@@ -234,11 +234,11 @@ We can see that this container was terminated because `reason:OOM Killed`, where
 
 The current system only allows resource quantities to be specified on a container.
 It is planned to improve accounting for resources which are shared by all containers in a pod,
-such as [EmptyDir volumes](volumes/#emptydir).
+such as [EmptyDir volumes](/{{page.version}}/docs/user-guide/volumes/#emptydir).
 
 The current system only supports container requests and limits for CPU and Memory.
 It is planned to add new resource types, including a node disk space
-resource, and a framework for adding custom [resource types](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/resources.md#resource-types).
+resource, and a framework for adding custom [resource types](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resources.md#resource-types).
 
 Kubernetes supports overcommitment of resources by supporting multiple levels of [Quality of Service](http://issue.k8s.io/168).
 

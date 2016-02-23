@@ -5,7 +5,7 @@ Kubernetes can run on a range of platforms, from your laptop, to VMs on a cloud 
 bare metal servers.  The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster.  We'll guide you in picking a solution that fits for your needs.
 
-If you just want to "kick the tires" on Kubernetes, we recommend the [local Docker-based](docker) solution.
+If you just want to "kick the tires" on Kubernetes, we recommend the [local Docker-based](/{{page.version}}/docs/getting-started-guides/docker) solution.
 
 The local Docker-based solution is one of several [Local cluster](#local-machine-solutions) solutions
 that are quick to set up, but are limited to running on one machine.
@@ -31,9 +31,9 @@ But their size and availability is limited to that of a single machine.
 
 The local-machine solutions are:
 
-- [Local Docker-based](docker) (recommended starting point)
-- [Vagrant](vagrant) (works on any platform with Vagrant: Linux, MacOS, or Windows.)
-- [No-VM local cluster](locally) (Linux only)
+- [Local Docker-based](/{{page.version}}/docs/getting-started-guides/docker) (recommended starting point)
+- [Vagrant](/{{page.version}}/docs/getting-started-guides/vagrant) (works on any platform with Vagrant: Linux, MacOS, or Windows.)
+- [No-VM local cluster](/{{page.version}}/docs/getting-started-guides/locally) (Linux only)
 
 
 ### Hosted Solutions
@@ -58,7 +58,7 @@ base operating systems.
 If you can find a guide below that matches your needs, use it.  It may be a little out of date, but
 it will be easier than starting from scratch.  If you do want to start from scratch because you
 have special requirements or just because you want to understand what is underneath a Kubernetes
-cluster, try the [Getting Started from Scratch](scratch) guide.
+cluster, try the [Getting Started from Scratch](/{{page.version}}/docs/getting-started-guides/scratch) guide.
 
 If you are interested in supporting Kubernetes on a new platform, check out our [advice for
 writing a new solution](/{{page.version}}/docs/devel/writing-a-getting-started-guide).

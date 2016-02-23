@@ -37,7 +37,7 @@ The Namespace provides a unique scope for:
 
 ## Usage
 
-Look [here](namespaces/) for an in depth example of namespaces.
+Look [here](/{{page.version}}/docs/admin/namespaces/) for an in depth example of namespaces.
 
 ### Viewing namespaces
 
@@ -84,13 +84,13 @@ to define *Hard* resource usage limits that a *Namespace* may consume.
 A limit range defines min/max constraints on the amount of resources a single entity can consume in
 a *Namespace*.
 
-See [Admission control: Limit Range](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/admission_control_limit_range.md)
+See [Admission control: Limit Range](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_limit_range.md)
 
 A namespace can be in one of two phases:
    * `Active` the namespace is in use
    * `Terminating` the namespace is being deleted, and can not be used for new objects
 
-See the [design doc](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/namespaces.md#phases) for more details.
+See the [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md#phases) for more details.
 
 ### Creating a new namespace
 
@@ -105,7 +105,7 @@ metadata:
 
 Note that the name of your namespace must be a DNS compatible label.
 
-More information on the `finalizers` field can be found in the namespace [design doc](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/namespaces.md#finalizers).
+More information on the `finalizers` field can be found in the namespace [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md#finalizers).
 
 Then run:
 
@@ -132,7 +132,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
 
 ## Namespaces and DNS
 
-When you create a [Service](/{{page.version}}/docs/user-guide/services), it creates a corresponding [DNS entry](dns).
+When you create a [Service](/{{page.version}}/docs/user-guide/services), it creates a corresponding [DNS entry](/{{page.version}}/docs/admin/dns).
 This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
 that if a container just uses `<service-name>` it will resolve to the service which
 is local to a namespace.  This is useful for using the same configuration across
@@ -141,5 +141,5 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 ## Design
 
-Details of the design of namespaces in Kubernetes, including a [detailed example](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/namespaces.md#example-openshift-origin-managing-a-kubernetes-namespace)
-can be found in the [namespaces design doc](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/namespaces.md)
+Details of the design of namespaces in Kubernetes, including a [detailed example](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md#example-openshift-origin-managing-a-kubernetes-namespace)
+can be found in the [namespaces design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md)

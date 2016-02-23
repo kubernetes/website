@@ -43,12 +43,12 @@ spec:
 
 A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and it is Kubernetes' responsibility to make sure that the current state matches the desired state.  For example, when you create a Pod, you declare that you want the containers in it to be running.  If the containers happen to not be running (e.g. program failure, ...), Kubernetes will continue to (re-)create them for you in order to drive them to the desired state. This process continues until the Pod is deleted.
 
-See the [design document](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/design/README.md) for more details.
+See the [design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/README.md) for more details.
 
 
 #### Pod Management
 
-Create a pod containing an nginx server ([pod-nginx.yaml](pod-nginx.yaml)):
+Create a pod containing an nginx server ([pod-nginx.yaml](/{{page.version}}/docs/user-guide/walkthrough/pod-nginx.yaml)):
 
 ```shell
 $ kubectl create -f docs/user-guide/walkthrough/pod-nginx.yaml
@@ -100,7 +100,7 @@ volumeMounts:
       mountPath: /data/redis
 ```
 
-Example Redis pod definition with a persistent storage volume ([pod-redis.yaml](pod-redis.yaml)):
+Example Redis pod definition with a persistent storage volume ([pod-redis.yaml](/{{page.version}}/docs/user-guide/walkthrough/pod-redis.yaml)):
 
 <!-- BEGIN MUNGE: EXAMPLE pod-redis.yaml -->
 
@@ -121,7 +121,7 @@ spec:
     emptyDir: {}
 ```
 
-[Download example](pod-redis.yaml)
+[Download example](/{{page.version}}/docs/user-guide/walkthrough/pod-redis.yaml)
 <!-- END MUNGE: EXAMPLE pod-redis.yaml -->
 
 Notes:
@@ -178,5 +178,5 @@ Finally, we have also introduced an environment variable to the `git-monitor` co
 
 ## What's Next?
 
-Continue on to [Kubernetes 201](k8s201) or
-for a complete application see the [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{ page.githubbranch }}/examples/guestbook/)
+Continue on to [Kubernetes 201](/{{page.version}}/docs/user-guide/walkthrough/k8s201) or
+for a complete application see the [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/)

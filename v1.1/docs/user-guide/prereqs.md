@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes User Guide: Managing Applications: Prerequisites"
 ---
-To deploy and manage applications on Kubernetes, you'll use the Kubernetes command-line tool, [kubectl](kubectl/kubectl). It lets you inspect your cluster resources, create, delete, and update components, and much more. You will use it to look at your new cluster and bring up example apps.
+To deploy and manage applications on Kubernetes, you'll use the Kubernetes command-line tool, [kubectl](/{{page.version}}/docs/user-guide/kubectl/kubectl). It lets you inspect your cluster resources, create, delete, and update components, and much more. You will use it to look at your new cluster and bring up example apps.
 
 ## Installing kubectl
 
@@ -38,7 +38,7 @@ export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 
 ## Configuring kubectl
 
-In order for kubectl to find and access the Kubernetes cluster, it needs a [kubeconfig file](kubeconfig-file), which is created automatically when creating a cluster using kube-up.sh (see the [getting started guides](/{{page.version}}/docs/getting-started-guides/) for more about creating clusters). If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](sharing-clusters).
+In order for kubectl to find and access the Kubernetes cluster, it needs a [kubeconfig file](/{{page.version}}/docs/user-guide/kubeconfig-file), which is created automatically when creating a cluster using kube-up.sh (see the [getting started guides](/{{page.version}}/docs/getting-started-guides/) for more about creating clusters). If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/{{page.version}}/docs/user-guide/sharing-clusters).
 By default, kubectl configuration lives at `~/.kube/config`.
 
 #### Making sure you're ready
@@ -53,4 +53,4 @@ If you see a url response, you are ready to go.
 
 ## What's next?
 
-[Learn how to launch and expose your application.](quick-start)
+[Learn how to launch and expose your application.](/{{page.version}}/docs/user-guide/quick-start)

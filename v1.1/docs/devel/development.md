@@ -3,7 +3,7 @@ title: "Development Guide"
 ---
 # Releases and Official Builds
 
-Official releases are built in Docker containers.  Details are [here](http://releases.k8s.io/release-1.1/build/README.md).  You can do simple builds and development with just a local Docker installation.  If want to build go locally outside of docker, please continue below.
+Official releases are built in Docker containers.  Details are [here](http://releases.k8s.io/{{page.githubbranch}}/build/README.md).  You can do simple builds and development with just a local Docker installation.  If want to build go locally outside of docker, please continue below.
 
 ## Go development environment
 
@@ -66,7 +66,7 @@ git push -f origin myfeature
 
 1. Visit https://github.com/$YOUR_GITHUB_USERNAME/kubernetes
 2. Click the "Compare and pull request" button next to your "myfeature" branch.
-3. Check out the pull request [process](pull-requests) for more details
+3. Check out the pull request [process](/{{page.version}}/docs/devel/pull-requests) for more details
 
 ### When to retain commits and when to squash
 
@@ -80,7 +80,7 @@ fixups (e.g. automated doc formatting), use one or more commits for the
 changes to tooling and a final commit to apply the fixup en masse.  This makes
 reviews much easier.
 
-See [Faster Reviews](faster_reviews) for more details.
+See [Faster Reviews](/{{page.version}}/docs/devel/faster_reviews) for more details.
 
 ## godep and dependency management
 
@@ -297,18 +297,18 @@ go run hack/e2e.go -v -ctl='delete pod foobar'
 ## Conformance testing
 
 End-to-end testing, as described above, is for [development
-distributions](writing-a-getting-started-guide).  A conformance test is used on
-a [versioned distro](writing-a-getting-started-guide).
+distributions](/{{page.version}}/docs/devel/writing-a-getting-started-guide).  A conformance test is used on
+a [versioned distro](/{{page.version}}/docs/devel/writing-a-getting-started-guide).
 
 The conformance test runs a subset of the e2e-tests against a manually-created cluster.  It does not
 require support for up/push/down and other operations.  To run a conformance test, you need to know the
 IP of the master for your cluster and the authorization arguments to use.  The conformance test is
 intended to run against a cluster at a specific binary release of Kubernetes.
-See [conformance-test.sh](http://releases.k8s.io/release-1.1/hack/conformance-test.sh).
+See [conformance-test.sh](http://releases.k8s.io/{{page.githubbranch}}/hack/conformance-test.sh).
 
 ## Testing out flaky tests
 
-[Instructions here](flaky-tests)
+[Instructions here](/{{page.version}}/docs/devel/flaky-tests)
 
 ## Regenerating the CLI documentation
 
