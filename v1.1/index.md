@@ -1,5 +1,3 @@
 ---
-title: "Documentation"
 ---
-
-Landing page for docs
+{% include {{page.path | replace: page.version, 'masterdocs'}} %}

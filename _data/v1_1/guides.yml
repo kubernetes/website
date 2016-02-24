@@ -1,11 +1,13 @@
-bigheader: "User Guides"
+bigheader: "Guides"
 abstract: "How to get started, and acheive tasks, using Kubernetes"
 toc:
-- title: Overview
+- title: Guides
   path: /v1.1/
 
 - title: Quickstarts
   section:
+  - title: What is Kubernetes?
+    path: /v1.1/docs/whatisk8s/
   - title: TODO - 5-minute Quickstart
     path: /v1.1/docs/hellonode/
   - title: Kubernetes 101
@@ -83,7 +85,7 @@ toc:
 - title: Administering Clusters
   section:
   - title: Kubernetes Cluster Admin Guide
-    path: /v1.1/docs/admin/introduction/
+    path: /v1.1/docs/admin/
   - title: Using Multiple Clusters
     path: /v1.1/docs/admin/multi-cluster/
   - title: Using Large Clusters

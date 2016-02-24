@@ -1,5 +1,3 @@
 ---
-title: Reference Documentation
 ---
-
-This is the landing page for the reference section.
+{% include {{page.path | replace: page.version, 'masterdocs'}} %}
