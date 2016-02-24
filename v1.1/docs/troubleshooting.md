@@ -1,6 +1,8 @@
 ---
-title: "Troubleshooting"
+title: "Support"
 ---
+## Troubleshooting
+
 Sometimes things go wrong.  This guide is aimed at making them right.  It has two sections:
 
    * [Troubleshooting your application](/{{page.version}}/docs/user-guide/application-troubleshooting) - Useful for users who are deploying code into Kubernetes and wondering why it is not working.

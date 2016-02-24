@@ -2,12 +2,10 @@ bigheader: "Support"
 abstract: "Troubleshooting resources, frequently asked questions, and community support channels."
 toc:
 - title: Support
-  path: /v1.1/support/
+  path: /v1.1/docs/troubleshooting/
 
 - title: Troubleshooting
   section:
-  - title: Troubleshooting Overview
-    path: /v1.1/docs/troubleshooting/
   - title: Web Interface
     path: /v1.1/docs/user-guide/ui/
   - title: Troubleshooting Applications
