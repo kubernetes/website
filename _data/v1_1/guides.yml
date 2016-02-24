@@ -6,14 +6,14 @@ toc:
 
 - title: Quickstarts
   section:
+  - title: What is Kubernetes?
+    path: /v1.1/docs/whatisk8s/
   - title: TODO - 5-minute Quickstart
     path: /v1.1/docs/hellonode/
   - title: Kubernetes 101
     path: /v1.1/docs/user-guide/walkthrough/
   - title: Kubernetes 201
     path: /v1.1/docs/user-guide/walkthrough/k8s201/
-  - title: Running a MEAN stack on Google Cloud Platform with Kubernetes
-    path: /v1.1/docs/getting-started-guides/meanstack/
 
 - title: Running Kubernetes
   section:

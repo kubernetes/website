@@ -30,6 +30,8 @@ toc:
     path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/openshift-origin/
   - title: Ceph
     path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/rbd/
+  - title: MEAN stack on Google Cloud Platform
+    path: /v1.1/docs/getting-started-guides/meanstack/
 
 - title: Persistent Volume Samples
   section:

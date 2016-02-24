@@ -22,16 +22,16 @@ layout: headerfooter
 			<a href="/v1.1">Version 1.1</a>
 			<a href="/v1.0">Version 1.0</a>
 		</div>
-		<input type="text" id="search" placeholder="Search the docs">
+		<input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/search/?q=' + this.value)">
 	</div>
 </section>
 
-<section id="encyclopedia">
+<section id="encyclopedia">{% if page.hideTOC != true %}
 	<div id="docsToc">
         <div class="pi-accordion">
         {% assign tree = site.data[page.versionfilesafe][foundTOC].toc %}{% include tree.html %}
         </div> <!-- /pi-accordion -->
-	</div> <!-- /docsToc -->
+	</div> <!-- /docsToc -->{% endif %}
 	<div id="docsContent">{% if page.showedit == true %}<a href="/{{ page.version }}/editdocs#{{ page.path }}" id="editPageButton">Edit This Page</a>{% endif %}
     	<h1>{{ page.title }}</h1>
 		{{ content }}
