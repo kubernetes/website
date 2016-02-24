@@ -10,6 +10,9 @@ h1, h2, h3, h4 {
   padding-left: 2px;
   overflow: auto;
 }
+#samples a {
+  color: #000;
+}
 .col3rd {
   display: block;
   width: 250px;
@@ -82,7 +85,7 @@ h1, h2, h3, h4 {
 
 ## Samples
 
-<div class="colContainer">
+<div id="samples" class="colContainer">
 <a href="/{{page.version}}/docs/getting-started-guides/meanstack/" class="shadowbox">
   <img src="/images/docs/meanstack/image_0.png"><br/>MEAN Stack
 </a>
