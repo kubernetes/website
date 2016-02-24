@@ -14,15 +14,6 @@ lsi: false
 defaults:
   -
     scope:
-      path: "v1.0"
-    values:
-      version: "v1.0"
-      versionfilesafe: "v1_0"
-      layout: docwithnav
-      showedit: true
-      githubbranch: "release-1.0"
-  -
-    scope:
       path: "v1.1"
     values:
       version: "v1.1"
