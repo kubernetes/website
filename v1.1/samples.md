@@ -1,5 +1,3 @@
 ---
-title: Samples
 ---
-
-This is the landing page for the samples section.
+{% include {{page.path |  replace: page.version, 'docs'}} %}

@@ -3,6 +3,7 @@ layout: headerfooter
 ---
 <!--  HERO  -->
 {% for thistoc in site.data[page.versionfilesafe].globals.tocs %}{% if foundTOC %}{% break %}{% else %}{% assign tree = site.data[page.versionfilesafe][thistoc].toc %}{% include tocsearch.html %}{% endif %}{% endfor %}
+{% if page.title %}{% assign title=page.title %}{% endif %}
 {% for override in site.data.overrides.overrides %}
     <script>console.log('thispage.path={{ override.path }}, page.path={{ page.path }}')</script>
     {% if page.path == override.path %}{% assign hideTitle="true" %}{% endif %}
@@ -33,7 +34,7 @@ layout: headerfooter
         </div> <!-- /pi-accordion -->
 	</div> <!-- /docsToc -->{% endif %}
 	<div id="docsContent">{% if page.showedit == true %}<a href="/{{ page.version }}/editdocs#{{ page.path }}" id="editPageButton">Edit This Page</a>{% endif %}
-    	<h1>{{ page.title }}</h1>
+    	<h1>{{ title }}</h1>
 		{{ content }}
         <p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ page.path }}?pixel" alt="Analytics" /></a>
 	</div>
