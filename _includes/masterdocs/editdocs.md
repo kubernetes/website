@@ -9,7 +9,7 @@ $( document ).ready(function() {
     	$("#generalInstructions").hide();
     	$("#continueEdit").show();
     	$("#continueEditButton").text("Edit " + forwarding);
-    	$("#continueEditButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/edit/master/" + forwarding)
+    	$("#continueEditButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/edit/master/_includes/masterdocs" + forwarding.replace("{{page.version}}",""))
     } else {
         $("#generalInstructions").show();
     	$("#continueEdit").hide();
@@ -21,6 +21,8 @@ $( document ).ready(function() {
 <h2>Continue your edit</h2>
 
 <p>Click the below link to edit the page you were just on. When you are done, press "Commit Changes" at the bottom of the screen. This will create a copy of our site on your GitHub account called a "fork." You can make other changes in your fork after it is created, if you want. When you are ready to send us all your changes, go to the index page for your fork and click "New Pull Request" to let us know about it.</p>
+
+<p>Note that you'll be editing the master file, which is not version-specific. This means that you'll be editing the docs for all versions of Kubernetes! If you need to note something that is specific only some versions of Kubernetes, check for <code>page.version</code>'s value being "v1.1" or "v1.2" with <a href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers#user-content-if--else">an if/then statement</a>.</p>
 
 <p><a id="continueEditButton" class="button"></a></p>
 

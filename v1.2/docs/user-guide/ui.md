@@ -1,3 +1,3 @@
 ---
 ---
-{% include {{page.path | replace: page.version, 'docs'}} %}
+{% include {{page.path | replace: page.version, 'masterdocs'}} %}
