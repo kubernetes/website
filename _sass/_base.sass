@@ -1,0 +1,878 @@
+
+
+
+@import "reset"
+
+// TEXT
+$h1-font-size: 40px
+$h1-line-height: 50px
+
+$h2-font-size: 42px
+$h2-line-height: 60px
+
+$h3-font-size: 26px
+$h3-line-height: 32px
+
+$h4-font-size: 26px
+$h4-line-height: 40px
+
+$h5-font-size: 18px
+$h5-line-height: 36px
+
+$p-font-size: 16px
+$p-line-height: 22px
+
+
+// header
+$full-width-paddingX: 20px
+
+$main-width: 100%
+$main-max-width: 100%
+
+$header-height: 80px
+
+$logo-width: 120px
+
+$nav-buttons-margin-left: 30px
+
+$hamburger-size: 50px
+
+
+// main nav
+$main-nav-padding: 140px 0 30px
+$main-nav-h5-margin-bottom: 1em
+$main-nav-h3-margin-bottom: 0.6em
+$nav-box-width: 20%
+$nav-box-sibling-margin-left: calc(20% / 3)
+$main-nav-main-sibling-margin-top: 60px
+$main-nav-left-button-size: 50px
+$main-nav-left-button-font-size: 18px
+
+
+// hero
+$hero-padding-top: 80px
+$headline-wrapper-margin-bottom: 40px
+$quickstart-button-padding: 0 50px
+$vendor-strip-height: 60px
+$vendor-strip-font-size: 18px
+
+@import "size"
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+body
+	background-color: white
+
+section
+	position: relative
+	background-color: white
+	min-width: 1024px
+
+section, header, footer
+	main
+		position: relative
+		margin: auto
+		min-width: 850px
+
+.button
+	display: inline-block
+	border-radius: 6px
+	padding: 0 20px
+	line-height: 40px
+	color: white
+	background-color: $blue
+	text-decoration: none
+
+#cellophane
+	position: fixed
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	display: none
+
+
+// HEADER
+header
+	position: fixed
+	top: 0
+	left: 0
+	width: 100%
+	z-index: 8888
+	background-color: transparent
+	box-shadow: 0 0 0 transparent
+	overflow: hidden
+	transition: 0.3s
+
+.logo
+	float: left
+	background-image: url(../images/nav_logo.svg)
+	background-size: contain
+	background-position: center center
+	background-repeat: no-repeat
+
+.nav-buttons
+	float: right
+
+#hamburger
+	display: inline-block
+	position: relative
+	vertical-align: middle
+	padding: 0
+	border: 0
+	background: none
+
+	div, &:before, &:after
+		position: absolute
+		left: 15%
+		width: 70%
+		height: 2px
+		background-color: $blue
+		transition: 0.3s
+		content: ""
+
+	div
+		top: calc(50% - 1px)
+
+	&:before
+		top: 24%
+
+	&:after
+		bottom: 24%
+
+	&:hover
+		div, &:before, &:after
+			background-color: white
+
+#mainNav
+	h5
+		color: $blue
+		font-weight: normal
+
+	main
+		white-space: nowrap
+		overflow: hidden
+		clear: both
+
+	.nav-box
+		float: left
+		white-space: normal
+
+	h3
+		a
+			color: $blue
+			text-decoration: none
+
+// FLIP NAV
+.flip-nav
+	header
+		background-color: white
+
+
+// OPEN NAV
+.open-nav
+	body
+		overflow: hidden
+
+	#cellophane
+		display: block
+		z-index: 9998
+
+	header
+		background-color: $light-grey
+		z-index: 9999
+
+	#hamburger
+		div
+			opacity: 0
+
+		&:before, &:after
+			left: 12px
+			transform-origin: 0 1px
+
+		&:before
+			transform: rotate(45deg)
+
+		&:after
+			transform: rotate(-45deg)
+
+.open-nav, .y-enough
+	#tryKubernetes
+		width: 160px
+
+
+.flip-nav, .open-nav
+	header
+		box-shadow: 0 1px 2px $medium-grey
+
+		.logo
+			background-image: url(../images/nav_logo2.svg)
+
+	#viewDocs
+		border-color: $dark-grey
+		color: $dark-grey
+
+		&:hover
+			border-color: $blue
+			background-color: $blue
+			color: white
+
+	#hamburger:hover
+		div, &:before, &:after
+			background-color: $dark-grey
+
+
+
+// HERO
+#hero
+	background-image: url(../images/texture.png)
+	background-color: $dark-grey
+	text-align: center
+	padding-left: 0
+	padding-right: 0
+
+// VENDOR STRIP
+#vendorStrip
+	background-color: transparentize(white, 0.9)
+	font-weight: 100
+	white-space: nowrap
+	text-align: left
+
+	div
+		vertical-align: middle
+		height: 100%
+		display: inline-block
+
+// FOOTER
+footer
+	width: 100%
+	background-image: url(../images/texture.png)
+	background-color: $dark-grey
+
+	main
+		padding: 40px 0
+
+	nav
+		white-space: nowrap
+
+		a
+			width: 25%
+			text-align: center
+			display: inline-block
+			font-size: 32px
+			font-weight: 300
+			color: white
+			text-decoration: none
+
+	.social
+		position: relative
+		margin: 80px 0 60px
+
+		label
+			float: right
+			display: inline-block
+			height: 50px
+			line-height: 50px
+			font-weight: 100
+			white-space: nowrap
+
+			input
+				margin-left: 8px
+				width: 300px
+
+
+#search, #wishField
+	background-color: transparent
+	padding: 10px
+	font-size: 16px
+	font-weight: 100
+	color: white
+	border: 1px solid white
+	transition: 0.3s
+
+	&:focus
+		background-color: $light-grey
+		color: $dark-grey
+
+.social a
+	display: inline-block
+	background-image: url(../images/social_sprite.png)
+	background-repeat: no-repeat
+	background-size: auto
+	width: 50px
+	height: 50px
+	border-radius: 5px
+	margin-right: 30px
+
+	&:hover
+		background-color: #fff
+
+	span
+		position: absolute
+		display: block
+		height: 0
+		overflow: hidden
+
+a.twitter
+	background-position: 0 0
+
+	&:hover
+		background-position: 0 100%
+
+a.stack-overflow
+	background-position: -50px 0
+
+	&:hover
+		background-position: -50px 100%
+
+a.slack
+	background-position: -100px 0
+
+	&:hover
+		background-position: -100px 100%
+
+a.github
+	background-position: -150px 0
+
+	&:hover
+		background-position: -150px 100%
+
+a.mailing-list
+	background-position: -200px 0
+
+	&:hover
+		background-position: -200px 100%
+
+#viewDocs
+	display: none
+
+section
+	background-color: white
+
+#hero
+	background-color: $dark-grey
+
+	h5
+		margin-bottom: 40px
+
+#vendorStrip
+	position: relative
+	white-space: nowrap
+
+	ul
+		float: left
+
+	li
+		display: inline-block
+		height: 100%
+
+	a
+		display: block
+		height: 100%
+		color: white
+
+	li + li, #search
+		margin-left: 60px
+
+	#search
+		position: relative
+		float: right
+		width: 24%
+		min-width: 250px
+		padding: 0 10px
+		margin: 10px 30px 0 0
+		height: 40px
+		line-height: 40px
+		border: 1px solid $light-grey
+		font-size: 16px
+		vertical-align: middle
+
+	.dropdown
+		position: relative
+		float: right
+		height: 60px
+		font-size: 20px
+		color: white
+		line-height: 60px
+		cursor: pointer
+		overflow: hidden
+		z-index: 5000
+
+		&.on
+			overflow: visible
+
+		.readout
+			padding-left: 10px
+			padding-right: 40px
+			transition: 0.3s
+
+			&:after
+				content: ""
+				position: absolute
+				top: 30px
+				right: 10px
+				width: 0
+				height: 0
+				border-style: solid
+				border-width: 6px 6px 0 6px
+				border-color: white transparent transparent transparent
+				transition: 0.3s
+
+		.readout:hover
+			background-color: transparentize(white, 0.9)
+
+		&.on .readout
+			background-color: $light-grey
+			color: $dark-grey
+
+		&.on .readout:after
+			border-top-color: $dark-grey
+
+		.wrapper
+			position: absolute
+			top: 100%
+			left: 0
+			width: 100%
+
+		a
+			display: block
+			width: 100%
+			height: 30px
+			line-height: 30px
+			padding: 0 10px
+			font-size: 16px
+			font-weight: 300
+			background-color: $light-grey
+			color: $dark-grey
+			opacity: 0
+			transition: 0.3s
+
+			&:hover
+				background-color: #cccccc
+
+		&.on a
+			opacity: 1
+
+#encyclopedia
+	position: relative
+	padding: 50px
+	overflow: hidden
+
+	& > div
+		height: 100%
+
+#docsToc
+	float: left
+	width: 350px
+	padding: 0 20px 0 0
+
+	.yah
+		& > .title
+			background-color: $light-grey
+			border-left: 3px solid $blue
+			padding: 7.5px 10px 7.5px 18px
+			margin-left: -21px
+			color: $blue
+
+
+.pi-accordion
+	margin-left: -20px
+
+	.container
+		padding-left: 20px
+
+	.item
+		overflow: hidden
+
+	.title
+		color: $dark-grey
+		position: relative
+		padding: 7.5px 10px 7.5px 18px
+		cursor: pointer
+		transition: 0.3s
+
+		&:hover
+			color: $blue
+
+	a.item > .title
+		color: black
+		padding-left: 0
+
+		&:hover
+			color: $blue
+
+	div.item > .title
+		&:before
+			content: ""
+			position: absolute
+			top: 9px
+			left: 2px
+			border-style: solid
+			border-width: 5px 0 5px 8px
+			border-color: transparent transparent transparent $blue
+			transform: rotate(0deg)
+			transition: 0.3s
+
+	.wrapper
+		position: relative
+		width: 100%
+		transition: height 0.3s
+
+	.content
+		padding-left: 20px
+		opacity: 0
+		transition: 0.3s
+		padding-bottom: 20px
+
+	.item.on
+		& > .title:before
+			transform: rotate(90deg)
+
+		& > .wrapper > .content
+			opacity: 1
+
+
+#docsContent
+	position: relative
+	float: right
+	width: calc(100% - 400px)
+
+	$toc-margin: 15px
+	$header-clearance: 40px
+
+	* + h2, * + h3, * + h4, * + h5, * + h6
+		margin-top: 30px
+
+	h1, h2, h3, h4, h5, h6
+		line-height: normal
+		font-weight: 500
+		margin-bottom: 30px
+		padding-bottom: 10px
+		border-bottom: 1px solid #cccccc
+
+		&:before
+			content: ''
+			display: block
+			height: 100px
+			margin-top: -100px
+			background-color: red
+			visibility: hidden
+
+	h1
+		font-size: 32px
+		padding-right: 60px
+
+	h2
+		font-size: 28px
+
+	h3
+		font-size: 24px
+
+	h4
+		font-size: 20px
+
+	h5, h6
+		font-size: 16px
+
+	p
+		font-size: 16px
+		font-weight: 300
+		line-height: 1.25em
+		overflow: auto
+
+	p + p
+		margin-top: 10px
+
+	code
+		white-space: pre-wrap
+		background-color: $light-grey
+		color: $dark-grey
+		font-family: $mono-font
+		line-height: 32px
+		overflow: auto
+		font-size: 14px
+		font-weight: bold
+		padding: 2px 4px
+
+		&::-webkit-scrollbar
+			background-color: transparent
+
+	pre .pi, pre .s
+		margin: 0
+		padding: 0
+
+	.highlight code span, code, pre code
+		font-family: "Roboto Mono", monospace
+
+	code, pre code
+		color: #303030
+
+	pre code
+		padding: 0
+
+	pre
+		background-color: #f7f7f7
+		display: block
+		white-space: pre-wrap
+		margin: 20px 0
+		padding: 15px
+		overflow: auto
+
+	pre::-webkit-scrollbar
+		background-color: transparent
+
+	ul li
+		list-style: disc
+
+	ol li
+		list-style: decimal
+
+	ul, ol
+		padding-left: 30px
+
+	li
+		margin-bottom: 1em
+
+	#editPageButton
+		position: absolute
+		top: -25px
+		right: -25px
+		width: 50px
+		height: 50px
+		line-height: 50px
+		border-radius: 50%
+		white-space: nowrap
+		text-indent: 50px
+		overflow: hidden
+		background: $blue url(../images/pencil.png) no-repeat
+		background-position: 1px 1px
+		background-size: auto
+
+	#markdown-toc
+		margin-bottom: 20px
+
+		ul, li
+			list-style: disc
+			color: $blue
+
+		ul
+			padding: 0 15px
+
+		li
+			padding: 0
+			line-height: 1.5em
+			margin-bottom: 0
+
+		a
+			position: relative
+			color: $blue
+			font-weight: 700
+
+.fixed footer
+	position: fixed
+	bottom: 0
+
+
+/* Default gh-pages-blog css from https://github.com/thedereck/gh-pages-blog/blob/master/css/syntax.css */
+.highlight br
+	display: none
+
+.highlight
+	background: #ffffff
+
+.highlight .c
+	color: #999988
+	font-style: italic
+
+.highlight .err
+	color: #a61717
+	background-color: #e3d2d2
+
+.highlight .k
+	font-weight: bold
+
+.highlight .o
+	font-weight: bold
+
+.highlight .cm
+	color: #999988
+	font-style: italic
+
+.highlight .cp
+	color: #999999
+	font-weight: bold
+
+.highlight .c1
+	color: #999988
+	font-style: italic
+
+.highlight .cs
+	color: #999999
+	font-weight: bold
+	font-style: italic
+
+.highlight .gd
+	color: #000000
+	background-color: #ffdddd
+
+.highlight .gd .x
+	color: #000000
+	background-color: #ffaaaa
+
+.highlight .ge
+	font-style: italic
+
+.highlight .gr
+	color: #aa0000
+
+.highlight .gh
+	color: #999999
+
+.highlight .gi
+	color: #000000
+	background-color: #ddffdd
+
+.highlight .gi .x
+	color: #000000
+	background-color: #aaffaa
+
+.highlight .go
+	color: #888888
+
+.highlight .gp
+	color: #555555
+
+.highlight .gs
+	font-weight: bold
+
+.highlight .gu
+	color: #aaaaaa
+
+.highlight .gt
+	color: #aa0000
+
+.highlight .kc
+	font-weight: bold
+
+.highlight .kd
+	font-weight: bold
+
+.highlight .kp
+	font-weight: bold
+
+.highlight .kr
+	font-weight: bold
+
+.highlight .kt
+	color: #445588
+	font-weight: bold
+
+.highlight .m
+	color: #009999
+
+.highlight .s
+	color: #d14
+
+.highlight .na
+	color: #008080
+
+.highlight .nb
+	color: #0086B3
+
+.highlight .nc
+	color: #445588
+	font-weight: bold
+
+.highlight .no
+	color: #008080
+
+.highlight .ni
+	color: #800080
+
+.highlight .ne
+	color: #990000
+	font-weight: bold
+
+.highlight .nf
+	color: #990000
+	font-weight: bold
+
+.highlight .nn
+	color: #555555
+
+.highlight .nt
+	color: #000080
+
+.highlight .nv
+	color: #008080
+
+.highlight .ow
+	font-weight: bold
+
+.highlight .w
+	color: #bbbbbb
+
+.highlight .mf
+	color: #009999
+
+.highlight .mh
+	color: #009999
+
+.highlight .mi
+	color: #009999
+
+.highlight .mo
+	color: #009999
+
+.highlight .sb
+	color: #d14
+
+.highlight .sc
+	color: #d14
+
+.highlight .sd
+	color: #d14
+
+.highlight .s2
+	color: #d14
+
+.highlight .se
+	color: #d14
+
+.highlight .sh
+	color: #d14
+
+.highlight .si
+	color: #d14
+
+.highlight .sx
+	color: #d14
+
+.highlight .sr
+	color: #009926
+
+.highlight .s1
+	color: #d14
+
+.highlight .ss
+	color: #990073
+
+.highlight .bp
+	color: #999999
+
+.highlight .vc
+	color: #008080
+
+.highlight .vg
+	color: #008080
+
+.highlight .vi
+	color: #008080
+
+.highlight .il
+	color: #009999
+
+
+
