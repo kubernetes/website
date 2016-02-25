@@ -586,18 +586,17 @@ section
 		margin-top: 10px
 
 	code
-		white-space: pre-wrap
 		background-color: $light-grey
 		color: $dark-grey
 		font-family: $mono-font
-		line-height: 32px
-		overflow: auto
+		overflow-x: scroll
 		font-size: 14px
 		font-weight: bold
 		padding: 2px 4px
 
-		&::-webkit-scrollbar
-			background-color: transparent
+	a code
+		color: $blue
+		text-decoration: underline
 
 	pre .pi, pre .s
 		margin: 0
@@ -615,13 +614,9 @@ section
 	pre
 		background-color: #f7f7f7
 		display: block
-		white-space: pre-wrap
 		margin: 20px 0
 		padding: 15px
-		overflow: auto
-
-	pre::-webkit-scrollbar
-		background-color: transparent
+		overflow-x: scroll
 
 	ul li
 		list-style: disc
@@ -630,10 +625,21 @@ section
 		list-style: decimal
 
 	ul, ol
+		margin: 20px 0
 		padding-left: 30px
+		font-weight: 300
 
 	li
 		margin-bottom: 1em
+
+	thead, tr:nth-child(even)
+		background-color: $light-grey
+
+	th, td
+		padding: 6px
+
+	td
+		font-size: 0.85em
 
 	#editPageButton
 		position: absolute
@@ -659,6 +665,7 @@ section
 
 		ul
 			padding: 0 15px
+			margin: 0
 
 		li
 			padding: 0
@@ -673,6 +680,27 @@ section
 .fixed footer
 	position: fixed
 	bottom: 0
+
+
+html.search #docsContent
+	position: relative
+	float: none
+	width: 90%
+	max-width: 850px
+	margin: 0 auto
+
+	#editPageButton
+		display: none
+
+	td
+		padding: 0
+
+	h1
+		margin-bottom: 0
+		border-bottom: 0
+		padding-bottom: 0
+		padding-left: 8px
+
 
 
 /* Default gh-pages-blog css from https://github.com/thedereck/gh-pages-blog/blob/master/css/syntax.css */
