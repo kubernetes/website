@@ -5,7 +5,7 @@
 
 // TEXT
 $h1-font-size: 40px
-$h1-line-height: 50px
+$h1-line-height: 40px
 
 $h2-font-size: 42px
 $h2-line-height: 60px
@@ -506,7 +506,7 @@ section
 		&:before
 			content: ""
 			position: absolute
-			top: 9px
+			top: 12px
 			left: 2px
 			border-style: solid
 			border-width: 5px 0 5px 8px
@@ -713,8 +713,15 @@ section
 	li
 		margin-bottom: 1em
 
+	table
+		width: 100%
+		border: 1px solid #ccc
+
 	thead, tr:nth-child(even)
 		background-color: $light-grey
+
+	thead
+		border-bottom: 1px solid #ccc
 
 	th, td
 		padding: 6px
@@ -975,7 +982,7 @@ html.search #docsContent
 	color: #008080
 
 .highlight .vg
-	color: #008080
+	color: #008080`
 
 .highlight .vi
 	color: #008080
