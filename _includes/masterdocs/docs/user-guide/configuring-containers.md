@@ -57,8 +57,7 @@ Let's say you specified `entrypoint` instead of `command`. You'd see output as f
 
 ```shell
 I0709 06:33:05.600829   14160 schema.go:126] unknown field: entrypoint
-I0709 06:33:05.600988   14160 schema.go:129] this may be a false alarm, see http://issue.k8s.io/6842
-pods/hello-world
+I0709 06:33:05.600988   14160 schema.go:129] this may be a false alarm, see http://issue.k8s.io/6842 pods/hello-world
 ```
 
 `kubectl create --validate` currently warns about problems it detects, but creates the resource anyway, unless a required field is absent or a field value is invalid. Unknown API fields are ignored, so be careful. This pod was created, but with no `command`, which is an optional field, since the image may specify an `Entrypoint`.
