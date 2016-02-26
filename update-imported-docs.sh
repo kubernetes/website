@@ -18,6 +18,12 @@ while read line || [[ -n ${line} ]]; do
   fi
 done <_data/overrides.yml
 
+mv -f k8s/_includes/v1.1 _includes/
+cd _includes/v1.1
+find . -name '*.html' -type f -exec sed -i '' '/<style>/,/<\/style>/d' {} \;
+cd ..
+cd ..
+
 rm -rf k8s
 git add .
 git commit -m "Ran update-imported-docs.sh"
