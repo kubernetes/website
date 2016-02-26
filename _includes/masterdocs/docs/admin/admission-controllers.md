@@ -35,16 +35,6 @@ ordered list of admission control choices to invoke prior to modifying objects i
 
 Use this plugin by itself to pass-through all requests.
 
-### AlwaysPullImages
-
-This plug-in modifies every new Pod to force the image pull policy to Always. This is useful in a
-multitenant cluster so that users can be assured that their private images can only be used by those
-who have the credentials to pull them. Without this plug-in, once an image has been pulled to a
-node, any pod from any user can use it simply by knowing the image's name (assuming the Pod is
-scheduled onto the right node), without any authorization check against the image. When this plug-in
-is enabled, images are always pulled prior to starting containers, which means valid credentials are
-required.
-
 ### AlwaysDeny
 
 Rejects all requests.  Used for testing.
@@ -125,7 +115,7 @@ We strongly recommend `NamespaceLifecycle` over `NamespaceAutoProvision`.
 ### NamespaceLifecycle
 
 This plug-in enforces that a `Namespace` that is undergoing termination cannot have new objects created in it,
-and ensures that requests in a non-existent `Namespace` are rejected.
+and ensures that requests in a non-existant `Namespace` are rejected.
 
 A `Namespace` deletion kicks off a sequence of operations that remove all objects (pods, services, etc.) in that
 namespace.  In order to enforce integrity of that process, we strongly recommend running this plug-in.
