@@ -699,6 +699,12 @@ section
 		padding: 15px
 		overflow-x: scroll
 
+
+	h1 code, h2 code, h3 code, h4 code, h5 code, h6 code
+		font-family: inherit
+		font-size: inherit
+		background-color: transparent
+
 	ul li
 		list-style: disc
 
@@ -710,12 +716,16 @@ section
 		padding-left: 30px
 		font-weight: 300
 
+	ul ul, ol ol, ul ol, ol ul
+		margin: 0.75em 0
+
 	li
-		margin-bottom: 1em
+		margin-bottom: 0.75em
 
 	table
 		width: 100%
 		border: 1px solid #ccc
+		border-spacing: 0
 
 	thead, tr:nth-child(even)
 		background-color: $light-grey
@@ -725,9 +735,12 @@ section
 		color: white
 
 	th, td
-		padding: 6px
+		padding: 8px
 		text-align: left
 		margin: 0
+
+	th
+		font-weight: normal
 
 	td
 		font-size: 0.85em
