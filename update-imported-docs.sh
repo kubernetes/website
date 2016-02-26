@@ -21,4 +21,4 @@ done <_data/overrides.yml
 rm -rf k8s
 git add .
 git commit -m "Ran update-imported-docs.sh"
-echo "Docs imported! Run 'git status' to see proposed changes, 'git push' to upload them"
+echo "Docs imported! Run 'git push' to upload them"
