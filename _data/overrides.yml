@@ -1,4 +1,5 @@
 overrides:
+- path: _includes/v1.1/
 - path: v1.1/docs/proposals
 - path: v1.1/docs/api-reference
 - path: v1.1/docs/user-guide/kubectl
