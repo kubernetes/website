@@ -1,5 +1,4 @@
 overrides:
-- path: v1.1/docs/man
 - path: v1.1/docs/proposals
 - path: v1.1/docs/api-reference
 - path: v1.1/docs/user-guide/kubectl
@@ -8,7 +7,6 @@ overrides:
 - path: v1.1/docs/admin/kube-proxy.md
 - path: v1.1/docs/admin/kube-scheduler.md
 - path: v1.1/docs/admin/kubelet.md
-- path: v1.2/docs/man
 - path: v1.2/docs/proposals
 - path: v1.2/docs/api-reference
 - path: v1.2/docs/user-guide/kubectl
