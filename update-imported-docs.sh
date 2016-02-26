@@ -18,6 +18,7 @@ while read line || [[ -n ${line} ]]; do
   fi
 done <_data/overrides.yml
 
+rm -rf _includes/v1.1
 mv -f k8s/_includes/v1.1 _includes/
 cd _includes/v1.1
 find . -name '*.html' -type f -exec sed -i '' '/<style>/,/<\/style>/d' {} \;
