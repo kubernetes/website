@@ -1,3 +1,6 @@
 ---
 ---
-{% include {{page.path | replace: page.version, 'masterdocs'}} %}
+
+This page has been moved to [here](/{{page.version}}/docs/admin/resourcequota/)
+
+

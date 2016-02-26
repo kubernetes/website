@@ -1,3 +1,3 @@
 ---
 ---
-{% include {{page.path | replace: page.version, 'masterdocs'}} %}
+This is the landing page for the reference section.
