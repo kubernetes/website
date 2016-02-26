@@ -73,13 +73,13 @@ Currently there are two API groups in use:
 
 In the future we expect that there will be more API groups, all at REST path `/apis/$API_GROUP` and
 using `apiVersion: $API_GROUP/$VERSION`.  We expect that there will be a way for [third parties to
-create their own API groups](design/extending-api.md), and to avoid naming collisions.
+create their own API groups](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md), and to avoid naming collisions.
 
 ## Enabling resources in the extensions group
 
 DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
-Other extensions resources can be enabled by setting runtime-config on
-apiserver. runtime-config accepts comma separated values. For ex: to disable deployments and jobs, set
+Other extensions resources can be enabled by setting `runtime-config` on
+apiserver. `runtime-config` accepts comma separated values. For ex: to disable deployments and jobs, set
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`
 
 ## v1beta1, v1beta2, and v1beta3 are deprecated; please move to v1 ASAP
