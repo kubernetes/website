@@ -1,0 +1,54 @@
+bigheader: "Samples"
+abstract: "A collection of example applications that show how to use Kubernetes."
+toc:
+- title: Samples
+  path: /docs/samples/
+
+- title: Clustered Application Samples
+  section:
+  - title: Apache Cassandra Database
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/cassandra
+  - title: Apache Spark
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/spark
+  - title: Apache Storm
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/storm
+  - title: Distributed Task Queue
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/celery-rabbitmq
+  - title: Hazelcast
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/hazelcast
+  - title: Meteor Applications
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/meteor/
+  - title: Redis
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/redis/
+  - title: RethinkDB
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/rethinkdb/
+  - title: Elasticsearch/Kibana Logging Demonstration
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/logging-demo/
+  - title: Elasticsearch
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/elasticsearch/
+  - title: OpenShift Origin
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/openshift-origin/
+  - title: Ceph
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/rbd/
+  - title: MEAN stack on Google Cloud Platform
+    path: /docs/getting-started-guides/meanstack/
+
+- title: Persistent Volume Samples
+  section:
+  - title: WordPress on a Kubernetes Persistent Volume
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/mysql-wordpress-pd/
+  - title: GlusterFS
+    path: /https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/glusterfs/
+  - title: iSCSI
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/iscsi/
+  - title: NFS
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/nfs/
+
+- title: Multi-tier Application Samples
+  section:
+  - title: Guestbook - Go Server
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook-go/
+  - title: GuestBook - PHP Server
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook/
+  - title: MySQL - Phabricator Server
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/phabricator/

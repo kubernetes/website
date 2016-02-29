@@ -1,15 +1,8 @@
 overrides:
-- path: v1.1/docs/api-reference
-- path: v1.1/docs/user-guide/kubectl
-- path: v1.1/docs/admin/kube-apiserver.md
-- path: v1.1/docs/admin/kube-controller-manager.md
-- path: v1.1/docs/admin/kube-proxy.md
-- path: v1.1/docs/admin/kube-scheduler.md
-- path: v1.1/docs/admin/kubelet.md
-- path: v1.2/docs/api-reference
-- path: v1.2/docs/user-guide/kubectl
-- path: v1.2/docs/admin/kube-apiserver.md
-- path: v1.2/docs/admin/kube-controller-manager.md
-- path: v1.2/docs/admin/kube-proxy.md
-- path: v1.2/docs/admin/kube-scheduler.md
-- path: v1.2/docs/admin/kubelet.md
+- path: docs/api-reference
+- path: docs/user-guide/kubectl
+- path: docs/admin/kube-apiserver.md
+- path: docs/admin/kube-controller-manager.md
+- path: docs/admin/kube-proxy.md
+- path: docs/admin/kube-scheduler.md
+- path: docs/admin/kubelet.md

@@ -1,6 +1,6 @@
 ---
 ---
-{% for thistoc in site.data[page.versionfilesafe].globals.tocs %}{% if foundTOC %}{% break %}{% else %}{% assign tree = site.data[page.versionfilesafe][thistoc].toc %}{% include tocsearch.html %}{% endif %}{% endfor %}
+{% for thistoc in site.data.globals.tocs %}{% if foundTOC %}{% break %}{% else %}{% assign tree = site.data[thistoc].toc %}{% include tocsearch.html %}{% endif %}{% endfor %}
 {% if page.title %}{% assign title=page.title %}{% endif %}
 <!Doctype html>
 <html id="docs">
@@ -69,14 +69,14 @@
 
 <!--  HERO  -->
 <section id="hero" class="light-text">
-	<h1>{{ site.data[page.versionfilesafe][foundTOC].bigheader }}</h1>
-	<h5>{{ site.data[page.versionfilesafe][foundTOC].abstract }}</h5>
+	<h1>{{ site.data[foundTOC].bigheader }}</h1>
+	<h5>{{ site.data[foundTOC].abstract }}</h5>
 	<div id="vendorStrip" class="light-text">
 		<ul>
-			<li><a href="/{{page.version}}/">GUIDES</a></li>
-			<li><a href="/{{page.version}}/reference">REFERENCE</a></li>
-			<li><a href="/{{page.version}}/samples">SAMPLES</a></li>
-			<li><a href="/{{page.version}}/docs/troubleshooting/">SUPPORT</a></li>
+			<li><a href="/docs/">GUIDES</a></li>
+			<li><a href="/docs/reference">REFERENCE</a></li>
+			<li><a href="/docs/samples">SAMPLES</a></li>
+			<li><a href="/docs/troubleshooting/">SUPPORT</a></li>
 		</ul>
 		<div class="dropdown">
 			<div class="readout"></div>
@@ -90,10 +90,10 @@
 <section id="encyclopedia">
 	<div id="docsToc">
         <div class="pi-accordion">
-        {% assign tree = site.data[page.versionfilesafe][foundTOC].toc %}{% include tree.html %}
+        {% assign tree = site.data[foundTOC].toc %}{% include tree.html %}
         </div> <!-- /pi-accordion -->
 	</div> <!-- /docsToc -->
-	<div id="docsContent"><a href="/{{ page.version }}/editdocs#{{ page.path }}" id="editPageButton">Edit This Page</a>
+	<div id="docsContent"><a href="/docs/editdocs#{{ page.path }}" id="editPageButton">Edit This Page</a>
     	<h1>{{ title }}</h1>
 		{{ content }}
         <p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ page.path }}?pixel" alt="Analytics" /></a>

@@ -14,20 +14,10 @@ lsi: false
 defaults:
   -
     scope:
-      path: "v1.1"
+      path: "docs"
     values:
       version: "v1.1"
-      versionfilesafe: "v1_1"
       layout: docwithnav
       showedit: true
       githubbranch: "release-1.1"
-  -
-    scope:
-      path: "v1.2"
-    values:
-      version: "v1.2"
-      versionfilesafe: "v1_2"
-      layout: docwithnav
-      showedit: true
-      githubbranch: "release-1.2"
 permalink: pretty
