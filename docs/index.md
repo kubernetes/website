@@ -78,7 +78,7 @@ h2, h3, h4 {
   <div class="col3rd">
     <h3>Guided Tutorial</h3>
     <p>If you’ve mastered the quickstart, a great next step is Kubernetes 101. You will follow a path through the various features of Kubernetes, with code examples along the way, learning all of the core concepts. There's also a <a href="/docs/user-guide/walkthrough/k8s201">Kubernetes 201</a>!</p>
-    <a href="/{{page.version}}/docs/user-guide/walkthrough/" class="button">Kubernetes 101</a>
+    <a href="/docs/user-guide/walkthrough/" class="button">Kubernetes 101</a>
   </div>
 </div>
 
