@@ -1,7 +1,7 @@
 ---
 ---
 <style>
-h1, h2, h3, h4 {
+h2, h3, h4 {
   border-bottom: 0px !important;
 }
 .colContainer {
