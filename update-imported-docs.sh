@@ -3,6 +3,7 @@ cd k8s
 git checkout gh-pages
 cd ..
 
+# batch fetches
 while read line || [[ -n ${line} ]]; do
   IFS=': ' read -a myarray <<< "${line}"
   # echo "arraypos0: ${myarray[0]}"
@@ -26,6 +27,14 @@ cd ..
 cd ..
 
 rm -rf k8s
+
+# Single-file fetches 
+rm -rf docs/getting-started-guides/fluentd-gcp.yaml
+rm -rf docs/getting-started-guides/counter-pod.yaml
+rm -rf docs/user-guide/counter-pod.yaml
+curl https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.1/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml > docs/getting-started-guides/fluentd-gcp.yaml
+curl https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.1/examples/blog-logging/counter-pod.yaml > docs/getting-started-guides/counter-pod.yaml
+curl https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.1/examples/blog-logging/counter-pod.yaml > docs/user-guide/counter-pod.yaml
 git add .
 git commit -m "Ran update-imported-docs.sh"
 echo "Docs imported! Run 'git push' to upload them"

@@ -36,29 +36,7 @@ enabled.
 Here is an example Deployment. It creates a replication controller to
 bring up 3 nginx pods.
 
-<!-- BEGIN MUNGE: EXAMPLE nginx-deployment.yaml -->
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.7.9
-        ports:
-        - containerPort: 80
-```
-
-[Download example](/docs/user-guide/nginx-deployment.yaml)
-<!-- END MUNGE: EXAMPLE nginx-deployment.yaml -->
+{% include code.html language="yaml" file="nginx-deployment.yaml" ghlink="/docs/user-guide/nginx-deployment.yaml" %}
 
 Run the example by downloading the example file and then running this command:
 
@@ -114,30 +92,7 @@ Lets say, now we want to update the nginx pods to start using nginx:1.9.1 image
 instead of nginx:1.7.9.
 For this, we update our deployment to be as follows:
 
-<!-- BEGIN MUNGE: EXAMPLE new-nginx-deployment.yaml -->
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.9.1
-        ports:
-        - containerPort: 80
-```
-
-[Download example](/docs/user-guide/new-nginx-deployment.yaml)
-<!-- END MUNGE: EXAMPLE new-nginx-deployment.yaml -->
-
+{% include code.html language="yaml" file="new-nginx-deployment.yaml" ghlink="/docs/user-guide/new-nginx-deployment.yaml" %}
 
 ```shell
 $ kubectl apply -f docs/user-guide/new-nginx-deployment.yaml
@@ -215,7 +170,6 @@ OldReplicationControllers:      deploymentrc-1562004724 (3/3 replicas created)
 NewReplicationController:       <none>
 Events:
   FirstSeen     LastSeen        Count   From                            SubobjectPath   Reason          Message
-  '��'��'��'��'��'��'��'��'��     '��'��'��'��'��'��'��'��        '��'��'��'��'��   '��'��'��'��                            '��'��'��'��'��'��'��'��'��'��'��'��'��   '��'��'��'��'��'��          '��'��'��'��'��'��'��
   10m           10m             1       {deployment-controller }                        ScalingRC       Scaled up rc deploymentrc-1975012602 to 3
   2m            2m              1       {deployment-controller }                        ScalingRC       Scaled up rc deploymentrc-1562004724 to 1
   2m            2m              1       {deployment-controller }                        ScalingRC       Scaled down rc deploymentrc-1975012602 to 1

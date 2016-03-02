@@ -1,9 +1,11 @@
 {% capture samplecode %}{% include_relative {{include.file}} %}{% endcapture %}
+{% if include.k8slink %}{% capture ghlink %}https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}{{include.k8slink}}{% endcapture %}{% endif %}
+{% if include.ghlink %}{% capture ghlink %}https://github.com/kubernetes/kubernetes.github.io/blob/master{{include.ghlink}}{% endcapture %}{% endif %}
 {% capture mysample %}
 ```{{include.language}}
 {{ samplecode | raw | strip }}
 ```
 {% endcapture %}
 <p>&nbsp;</p>
-<table class="includecode"><thead><tr><th><a href="{{include.ghlink}}"><code>{{include.file}}</code></a></th></tr></thead>
+<table class="includecode"><thead><tr><th>{% if ghlink %}<a href="{{ghlink}}">{% endif %}<code>{{include.file}}</code></a></th></tr></thead>
 <tr><td>{{ mysample | markdownify }}</td></tr></table>

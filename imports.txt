@@ -1,0 +1,7 @@
+https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.1/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml,docs/getting-started-guides/fluentd-gcp.yaml
+https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.1/examples/blog-logging/counter-pod.yaml,docs/getting-started-guides/counter-pod.yaml
+https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.1/examples/blog-logging/counter-pod.yaml,docs/user-guide/counter-pod.yaml
+https://raw.githubusercontent.com/kubernetes/kubernetes/gh-pages/_includes/v1.1/extensions-v1beta1-definitions.html,_includes/v1.1/extensions-v1beta1-definitions.html
+https://raw.githubusercontent.com/kubernetes/kubernetes/gh-pages/_includes/v1.1/extensions-v1beta1-operations.html,_includes/v1.1/extensions-v1beta1-operations.html
+https://raw.githubusercontent.com/kubernetes/kubernetes/gh-pages/_includes/v1.1/v1-definitions.html,_includes/v1.1/v1-definitions.html
+https://raw.githubusercontent.com/kubernetes/kubernetes/gh-pages/_includes/v1.1/v1-operations.html,_includes/v1.1/v1-operations.html

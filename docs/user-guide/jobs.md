@@ -18,32 +18,8 @@ A Job can also be used to run multiple pods in parallel.
 
 Here is an example Job config.  It computes π to 2000 places and prints it out.
 It takes around 10s to complete.
-<!-- BEGIN MUNGE: EXAMPLE job.yaml -->
 
-```yaml
-apiVersion: extensions/v1beta1
-kind: Job
-metadata:
-  name: pi
-spec:
-  selector:
-    matchLabels:
-      app: pi
-  template:
-    metadata:
-      name: pi
-      labels:
-        app: pi
-    spec:
-      containers:
-      - name: pi
-        image: perl
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
-      restartPolicy: Never
-```
-
-[Download example](/docs/user-guide/job.yaml)
-<!-- END MUNGE: EXAMPLE job.yaml -->
+{% include code.html language="yaml" file="job.yaml" ghlink="/docs/user-guide/job.yaml" %}
 
 Run the example job by downloading the example file and then running this command:
 
@@ -66,7 +42,6 @@ Labels:		<none>
 Pods Statuses:	1 Running / 0 Succeeded / 0 Failed
 Events:
   FirstSeen	LastSeen	Count	From	SubobjectPath	Reason			Message
-  '��'��'��'��'��'��'��'��'��	'��'��'��'��'��'��'��'��	'��'��'��'��'��	'��'��'��'��	'��'��'��'��'��'��'��'��'��'��'��'��'��	'��'��'��'��'��'��			'��'��'��'��'��'��'��
   1m		1m		1	{job }			SuccessfulCreate	Created pod: pi-z548a
 ```
 

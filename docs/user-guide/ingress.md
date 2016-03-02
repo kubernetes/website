@@ -87,21 +87,7 @@ In order for the Ingress resource to work, the cluster must have an Ingress cont
 
 There are existing Kubernetes concepts that allow you to expose a single service (see [alternatives](#alternatives)), however you can do so through an Ingress as well, by specifying a *default backend* with no rules.
 
-<!-- BEGIN MUNGE: EXAMPLE ingress.yaml -->
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: test-ingress
-spec:
-  backend:
-    serviceName: testsvc
-    servicePort: 80
-```
-
-[Download example](/docs/user-guide/ingress.yaml)
-<!-- END MUNGE: EXAMPLE ingress.yaml -->
+{% include code.html language="yaml" file="ingress.yaml" ghlink="/docs/user-guide/ingress.yaml" %}
 
 If you create it using `kubectl -f` you should see:
 

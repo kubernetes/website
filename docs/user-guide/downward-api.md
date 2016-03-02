@@ -13,6 +13,7 @@ is often possible to "wrap" such applications, this is tedious and error prone,
 and violates the goal of low coupling.  Instead, the user should be able to use
 the Pod's name, for example, and inject it into this well-known variable.
 
+
 ## Capabilities
 
 The following information is available to a `Pod` through the downward API:
@@ -23,10 +24,12 @@ The following information is available to a `Pod` through the downward API:
 
 More information will be exposed through this same API over time.
 
+
 ## Exposing pod information into a container
 
 Containers consume information from the downward API using environment
 variables or using a volume plugin.
+
 
 ### Environment variables
 
@@ -43,41 +46,13 @@ The `fieldRef` is evaluated and the resulting value is used as the value for
 the environment variable.  This allows users to publish their pod's name in any
 environment variable they want.
 
+
 ## Example
 
 This is an example of a pod that consumes its name and namespace via the
 downward API:
 
-<!-- BEGIN MUNGE: EXAMPLE downward-api/dapi-pod.yaml -->
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "-c", "env" ]
-      env:
-        - name: MY_POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: MY_POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: MY_POD_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
-  restartPolicy: Never
-```
-
-[Download example](/docs/user-guide/downward-api/dapi-pod.yaml)
-<!-- END MUNGE: EXAMPLE downward-api/dapi-pod.yaml -->
+{% include code.html language="yaml" file="downward-api/dapi-pod.yaml" ghlink="/docs/user-guide/downward-api/dapi-pod.yaml" %}
 
 
 ### Downward API volume
@@ -106,47 +81,13 @@ The downward API volume refreshes its data in step with the kubelet refresh loop
 
 In future, it will be possible to specify a specific annotation or label.
 
+
 ## Example
 
 This is an example of a pod that consumes its labels and annotations via the downward API volume, labels and annotations are dumped in `/etc/podlabels` and in `/etc/annotations`, respectively:
 
-<!-- BEGIN MUNGE: EXAMPLE downward-api/volume/dapi-volume.yaml -->
+{% include code.html language="yaml" file="downward-api/volume/dapi-volume.yaml" ghlink="/docs/user-guide/downward-api/volume/dapi-volume.yaml" %}
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: kubernetes-downwardapi-volume-example
-  labels:
-    zone: us-est-coast
-    cluster: test-cluster1
-    rack: rack-22
-  annotations:
-    build: two
-    builder: john-doe
-spec:
-  containers:
-    - name: client-container
-      image: gcr.io/google_containers/busybox
-      command: ["sh", "-c", "while true; do if [[ -e /etc/labels ]]; then cat /etc/labels; fi; if [[ -e /etc/annotations ]]; then cat /etc/annotations; fi; sleep 5; done"]
-      volumeMounts:
-        - name: podinfo
-          mountPath: /etc
-          readOnly: false
-  volumes:
-    - name: podinfo
-      downwardAPI:
-        items:
-          - path: "labels"
-            fieldRef:
-              fieldPath: metadata.labels
-          - path: "annotations"
-            fieldRef:
-              fieldPath: metadata.annotations
-```
-
-[Download example](/docs/user-guide/downward-api/volume/dapi-volume.yaml)
-<!-- END MUNGE: EXAMPLE downward-api/volume/dapi-volume.yaml -->
 
 Some more thorough examples:
 

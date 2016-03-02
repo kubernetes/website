@@ -26,23 +26,7 @@ This diagram shows four nodes created on a Google Compute Engine cluster with th
 
 To help explain how cluster level logging works let's start off with a synthetic log generator pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/counter-pod.yaml):
 
-<!-- BEGIN MUNGE: EXAMPLE ../../examples/blog-logging/counter-pod.yaml -->
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: counter
-spec:
-  containers:
-  - name: count
-    image: ubuntu:14.04
-    args: [bash, -c, 
-           'for ((i = 0; ; i++)); do echo "$i: $(date)"; sleep 1; done']
-```
-
-[Download example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/counter-pod.yaml)
-<!-- END MUNGE: EXAMPLE ../../examples/blog-logging/counter-pod.yaml -->
+{% include code.html language="yaml" file="counter-pod.yaml" k8slink="/examples/blog-logging/counter-pod.yaml" %}
 
 This pod specification has one container which runs a bash script when the container is born. This script simply writes out the value of a counter and the date once per second and runs indefinitely. Let's create the pod in the default
 namespace.
@@ -126,43 +110,7 @@ When a Kubernetes cluster is created with logging to Google Cloud Logging enable
 
 This log collection pod has a specification which looks something like this:
 
-<!-- BEGIN MUNGE: EXAMPLE ../../cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml -->
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: fluentd-cloud-logging
-  namespace: kube-system
-spec:
-  containers:
-  - name: fluentd-cloud-logging
-    image: gcr.io/google_containers/fluentd-gcp:1.14
-    resources:
-      limits:
-        cpu: 100m
-        memory: 200Mi
-    env:
-    - name: FLUENTD_ARGS
-      value: -q
-    volumeMounts:
-    - name: varlog
-      mountPath: /var/log
-    - name: varlibdockercontainers
-      mountPath: /var/lib/docker/containers
-      readOnly: true
-  terminationGracePeriodSeconds: 30
-  volumes:
-  - name: varlog
-    hostPath:
-      path: /var/log
-  - name: varlibdockercontainers
-    hostPath:
-      path: /var/lib/docker/containers
-```
-
-[Download example](https://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml)
-<!-- END MUNGE: EXAMPLE ../../cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml -->
+{% include code.html language="yaml" file="fluentd-gcp.yaml" k8slink="/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml" %}
 
 This pod specification maps the directory on the host containing the Docker log files, `/var/lib/docker/containers`, to a directory inside the container which has the same path. The pod runs one image, `gcr.io/google_containers/fluentd-gcp:1.6`, which is configured to collect the Docker log files from the logs directory and ingest them into Google Cloud Logging. One instance of this pod runs on each node of the cluster. Kubernetes will notice if this pod fails and automatically restart it.
 
