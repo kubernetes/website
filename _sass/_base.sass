@@ -1,6 +1,3 @@
-
-
-
 @import "reset"
 
 // TEXT
@@ -56,6 +53,10 @@ $quickstart-button-padding: 0 50px
 $vendor-strip-height: 44px
 $vendor-strip-font-size: 16px
 
+
+// video
+$video-section-height: 200px
+
 @import "size"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,13 +69,13 @@ body
 section
 	position: relative
 	background-color: white
-	min-width: 1024px
+	//min-width: 1024px
 
 section, header, footer
 	main
 		position: relative
 		margin: auto
-		min-width: 850px
+		//min-width: 850px
 
 .button
 	display: inline-block
@@ -181,7 +182,7 @@ header
 		z-index: 9998
 
 	header
-		background-color: $light-grey
+		background-color: #e8e8e8
 		z-index: 9999
 
 	#hamburger
@@ -232,6 +233,7 @@ header
 	text-align: center
 	padding-left: 0
 	padding-right: 0
+	margin-bottom: 60px
 
 // VENDOR STRIP
 #vendorStrip
@@ -255,13 +257,12 @@ footer
 		padding: 40px 0
 
 	nav
-		white-space: nowrap
-
 		a
-			width: 25%
+			width: 100%
 			text-align: center
 			display: inline-block
-			font-size: 32px
+			margin: 10px 0
+			font-size: 24px
 			font-weight: 300
 			color: white
 			text-decoration: none
@@ -463,7 +464,8 @@ section
 		height: 100%
 
 #docsToc
-	float: left
+	position: absolute
+	left: -400px
 	width: 350px
 	padding: 0 20px 0 0
 
@@ -618,7 +620,8 @@ section
 #docsContent
 	position: relative
 	float: right
-	width: calc(100% - 400px)
+	//width: calc(100% - 400px)
+	width: 100%
 
 	$toc-margin: 15px
 	$header-clearance: 40px
@@ -666,10 +669,13 @@ section
 		margin-top: 10px
 
 	code
+		display: inline-block
+		box-sizing: border-box
 		background-color: $light-grey
 		color: $dark-grey
 		font-family: $mono-font
 		overflow-x: auto
+		vertical-align: bottom
 		font-size: 14px
 		font-weight: bold
 		padding: 2px 4px
@@ -1027,4 +1033,231 @@ html.search #docsContent
 	color: #009999
 
 
+
+
+// ocean nodes
+$ocean-nodes-padding-Y: 60px
+$ocean-nodes-main-margin-bottom: 60px
+$ocean-nodes-h3-margin-bottom: 30px
+
+// video
+$video-section-height: 200px
+
+// features
+$features-h3-margin-bottom: 20px
+$feature-box-div-width: 100%
+$feature-box-margin-bottom: 0
+$feature-box-div-margin-bottom: 40px
+
+
+// Home-specific
+
+#home
+	section
+		min-width: 320px
+
+	section, header, footer
+		main
+			min-width: 320px
+
+
+#home #hero
+	margin-bottom: 0
+
+	main
+		margin-bottom: 30px
+
+#vendorStrip img
+	max-height: 24px
+	vertical-align: middle
+	margin: 0 30px
+
+
+// OCEAN NODES
+#oceanNodes
+	padding-top: $ocean-nodes-padding-Y
+	padding-bottom: $ocean-nodes-padding-Y
+
+	main
+		margin-bottom: $ocean-nodes-padding-Y
+
+	.image-wrapper
+		max-width: 75%
+		margin: 0 auto 20px
+		text-align: center
+
+		img
+			width: 100%
+			max-width: 160px
+
+	main:first-child
+		.image-wrapper
+			max-width: 100%
+
+			img
+				max-width: 491px
+
+	h3
+		margin-bottom: $ocean-nodes-h3-margin-bottom
+
+
+// Video thingy
+#video
+	height: $video-section-height
+
+#video
+	width: 100%
+	position: relative
+	background-image: url(../images/kub_video_thm.jpg)
+	background-position: center center
+	background-size: cover
+
+
+	& > .light-text
+		display: none
+		position: absolute
+		top: 50%
+		left: 75%
+		width: 50%
+		max-width: 600px
+		min-width: 500px
+		padding-right: 10%
+		transform: translate(-50%, -50%)
+		color: white
+
+	h2
+		font-size: 32px
+		line-height: 44px
+		margin-bottom: 20px
+
+	p
+		margin-bottom: 20px
+
+	#desktopShowVideoButton
+		position: relative
+		font-size: 24px
+		background-color: white
+		border-radius: 8px
+		color: $blue
+		padding: 15px 30px 15px 80px
+
+		&:before
+			content: ""
+			position: absolute
+			@include pureCenter(40px)
+			width: 0
+			height: 0
+			border-style: solid
+			border-width: 10px 0 10px 20px
+			border-color: transparent transparent transparent $blue
+
+	#mobileShowVideoButton
+		@include pureCenter
+		width: 80px
+		height: 80px
+		border-radius: 50%
+		background-color: transparent
+		border: 5px solid rgba(255, 255, 255, 0.2)
+		overflow: visible
+
+		&:after
+			@include pureCenter
+			left: 40px
+			content: ""
+			width: 0
+			height: 0
+			border-style: solid
+			border-width: 20px 0 20px 30px
+			border-color: transparent transparent transparent #ffffff
+
+
+
+// Features
+#features
+	padding-top: 140px
+	background-color: $light-grey
+	background-image: url(../../images/wheel.png)
+	background-position: center 60px
+	background-repeat: no-repeat
+	background-size: auto
+
+.feature-box
+	//padding: 50px 0
+	width: 100%
+	overflow: hidden
+	clear: both
+
+	h4
+		line-height: normal
+		margin-bottom: 15px
+
+	& > div:first-child
+		float: left
+
+	& > div:last-child
+		float: right
+
+#features
+	h3
+		margin-bottom: $features-h3-margin-bottom
+
+	.feature-box
+		margin-bottom: $feature-box-margin-bottom
+
+		& > div
+			width: $feature-box-div-width
+			margin-bottom: $feature-box-div-margin-bottom
+
+
+
+// Talk to us
+#talkToUs
+	main
+		padding: 50px 0
+
+	h3, h4
+		text-align: center
+
+	h3
+		margin-bottom: 15px
+
+	h4
+		line-height: normal
+		margin-bottom: 50px
+
+	#bigSocial
+		overflow: hidden
+
+		div
+			width: 100%
+			float: left
+			padding: 30px
+			padding-top: 110px
+			background-position: center top
+			background-size: auto
+			background-repeat: no-repeat
+
+		div:nth-child(1)
+			background-image: url(../../images/twitter_icon.png)
+
+		div:nth-child(2)
+			background-image: url(../../images/github_icon.png)
+
+		div:nth-child(3)
+			background-image: url(../../images/slack_icon.png)
+
+		div:nth-child(4)
+			background-image: url(../../images/stackoverflow_icon.png)
+
+		div + div
+			margin-top: 20px
+			margin-left: 0
+
+		a
+			display: inline-block
+			color: $blue
+			font-size: 24px
+			font-weight: 400
+			text-decoration: none
+			margin-bottom: 15px
 

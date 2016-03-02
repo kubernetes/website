@@ -51,6 +51,16 @@ $quickstart-button-padding: 0 50px
 $vendor-strip-height: 44px
 $vendor-strip-font-size: 16px
 
+//video
+$video-section-height: 400px
+
+//features
+$features-h3-margin-bottom: 40px
+$feature-box-margin-bottom: 60px
+$feature-box-div-margin-bottom: 0
+$feature-box-div-width: 45%
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,3 +78,120 @@ $vendor-strip-font-size: 16px
 
 	#vendorStrip
 		display: block
+
+
+	#oceanNodes
+		h3
+			text-align: left
+
+		main
+			position: relative
+			clear: both
+
+			.image-wrapper
+				position: absolute
+				top: 50%
+				max-width: 25%
+				max-height: 100%
+				transform: translateY(-50%)
+
+			&:nth-child(odd)
+				.content
+					padding-right: 30%
+
+				.image-wrapper
+					right: 0
+
+			&:nth-child(even)
+				.content
+					padding-left: 30%
+
+				.image-wrapper
+					left: 0
+
+			&:nth-child(1)
+				.content
+					padding-right: 0
+
+				.image-wrapper
+					position: relative
+					max-width: 100%
+					transform: none
+
+			img
+				width: 100%
+
+
+	#video
+		height: $video-section-height
+
+	#video
+		display: block
+
+		& > .light-text
+			display: block
+
+	#mobileShowVideoButton
+		display: none
+
+	#features
+		padding-bottom: 60px
+
+		.feature-box
+			&:last-child
+				margin-bottom: 0
+
+		h3
+			margin-bottom: $features-h3-margin-bottom
+
+		.feature-box
+			margin-bottom: $feature-box-margin-bottom
+
+			& > div
+				width: $feature-box-div-width
+				margin-bottom: $feature-box-div-margin-bottom
+
+	#talkToUs
+		#bigSocial
+			div
+				width: calc(50% - 15px)
+
+			div:nth-child(2)
+				margin-left: 20px
+
+			div:nth-child(4)
+				margin-left: 20px
+
+			a
+				display: inline-block
+				color: $blue
+				font-size: 24px
+				font-weight: 400
+				text-decoration: none
+				margin-bottom: 15px
+
+	// FOOTER
+	footer
+		nav
+			white-space: nowrap
+
+			a
+				width: 25%
+				font-size: 22px
+
+	//
+	//	.social
+	//		position: relative
+	//		margin: 80px 0 60px
+	//
+	//		label
+	//			float: right
+	//			display: inline-block
+	//			height: 50px
+	//			line-height: 50px
+	//			font-weight: 100
+	//			white-space: nowrap
+	//
+	//			input
+	//				margin-left: 8px
+	//				width: 300px
