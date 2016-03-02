@@ -51,23 +51,7 @@ Let's create two new namespaces to hold our work.
 
 Use the file [`namespace-dev.json`](/docs/admin/namespacesnamespace-dev.json) which describes a development namespace:
 
-<!-- BEGIN MUNGE: EXAMPLE namespace-dev.json -->
-
-```json
-{
-  "kind": "Namespace",
-  "apiVersion": "v1",
-  "metadata": {
-    "name": "development",
-    "labels": {
-      "name": "development"
-    }
-  }
-}
-```
-
-[Download example](/docs/admin/namespacesnamespace-dev.json)
-<!-- END MUNGE: EXAMPLE namespace-dev.json -->
+{% include code.html language="json" file="namespace-dev.json" ghlink="https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/admin/namespaces/namespace-dev.json" %}
 
 Create the development namespace using kubectl.
 

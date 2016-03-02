@@ -102,27 +102,7 @@ volumeMounts:
 
 Example Redis pod definition with a persistent storage volume ([pod-redis.yaml](/docs/user-guide/walkthrough/pod-redis.yaml)):
 
-<!-- BEGIN MUNGE: EXAMPLE pod-redis.yaml -->
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: redis
-spec:
-  containers:
-  - name: redis
-    image: redis
-    volumeMounts:
-    - name: redis-persistent-storage
-      mountPath: /data/redis
-  volumes:
-  - name: redis-persistent-storage
-    emptyDir: {}
-```
-
-[Download example](/docs/user-guide/walkthrough/pod-redis.yaml)
-<!-- END MUNGE: EXAMPLE pod-redis.yaml -->
+{% include code.html language="yaml" file="pod-redis.yaml" ghlink="https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/user-guide/walkthrough/pod-redis.yaml" %}
 
 Notes:
 
