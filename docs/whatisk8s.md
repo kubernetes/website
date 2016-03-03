@@ -72,7 +72,7 @@ Even though Kubernetes provides a lot of functionality, there are always new sce
 
 [Labels](/docs/user-guide/labels/) empower users to organize their resources however they please. [Annotations](/docs/user-guide/annotations/) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
 
-Additionally, the [Kubernetes control plane](/docs/admin/cluster-components) is built upon the same [APIs](/docs/api/) that are available to developers and users. Users can write their own controllers, [schedulers](/docs/devel/scheduler), etc., if they choose, with [their own APIs](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
+Additionally, the [Kubernetes control plane](/docs/admin/cluster-components) is built upon the same [APIs](/docs/api/) that are available to developers and users. Users can write their own controllers, [schedulers](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/scheduler.md), etc., if they choose, with [their own APIs](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
 
 This [design](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/principles.md) has enabled a number of other systems to build atop Kubernetes.
 

@@ -5,7 +5,7 @@
 and who want to learn more about using kubectl to manage resources such
 as pods and services.  Users who want to access the REST API directly,
 and developers who want to extend the Kubernetes API should
-refer to the [api conventions](/docs/devel/api-conventions) and
+refer to the [api conventions](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md) and
 the [api document](/docs/api/).*
 
 ## Resources are Automatically Modified
@@ -41,9 +41,9 @@ If you `diff -u /tmp/original.yaml /tmp/current.yaml`, you can see the fields ad
 The system adds fields in several ways:
 
   - Some fields are added synchronously with creation of the resource and some are set asynchronously.
-    - For example: `metadata.uid` is set synchronously.  (Read more about [metadata](/docs/devel/api-conventions/#metadata)).
-    - For example, `status.hostIP` is set only after the pod has been scheduled.  This often happens fast, but you may notice pods which do not have this set yet.  This is called Late Initialization.  (Read mode about [status](/docs/devel/api-conventions/#spec-and-status) and [late initialization](/docs/devel/api-conventions/#late-initialization) ).
-  - Some fields are set to default values.  Some defaults vary by cluster and some are fixed for the API at a certain version.  (Read more about [defaulting](/docs/devel/api-conventions/#defaulting)).
+    - For example: `metadata.uid` is set synchronously.  (Read more about [metadata](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#metadata)).
+    - For example, `status.hostIP` is set only after the pod has been scheduled.  This often happens fast, but you may notice pods which do not have this set yet.  This is called Late Initialization.  (Read mode about [status](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) and [late initialization](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#late-initialization) ).
+  - Some fields are set to default values.  Some defaults vary by cluster and some are fixed for the API at a certain version.  (Read more about [defaulting](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#defaulting)).
     - For example, `spec.containers[0].imagePullPolicy` always defaults to `IfNotPresent` in api v1.
     - For example, `spec.containers[0].resources.limits.cpu` may be defaulted to  `100m` on some clusters, to some other value on others, and not defaulted at all on others.
     

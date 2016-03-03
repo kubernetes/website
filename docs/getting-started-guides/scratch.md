@@ -140,7 +140,7 @@ You will need binaries for:
 
 A Kubernetes binary release includes all the Kubernetes binaries as well as the supported release of etcd.
 You can use a Kubernetes binary release (recommended) or build your Kubernetes binaries following the instructions in the
-[Developer Documentation](/docs/devel/).  Only using a binary release is covered in this guide.
+[Developer Documentation](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/).  Only using a binary release is covered in this guide.
 
 Download the [latest binary release](https://github.com/kubernetes/kubernetes/releases/latest) and unzip it.
 Then locate `./kubernetes/server/kubernetes-server-linux-amd64.tar.gz` and unzip *that*.

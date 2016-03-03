@@ -61,7 +61,7 @@ have special requirements or just because you want to understand what is underne
 cluster, try the [Getting Started from Scratch](/docs/getting-started-guides/scratch) guide.
 
 If you are interested in supporting Kubernetes on a new platform, check out our [advice for
-writing a new solution](/docs/devel/writing-a-getting-started-guide).
+writing a new solution](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/writing-a-getting-started-guide.md).
 
 #### Cloud
 

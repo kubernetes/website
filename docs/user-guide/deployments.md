@@ -206,7 +206,7 @@ As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, a
 `metadata` fields.  For general information about working with config files,
 see [here](/docs/user-guide/deploying-applications), [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
 
-A Deployment also needs a [`.spec` section](/docs/devel/api-conventions/#spec-and-status).
+A Deployment also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 

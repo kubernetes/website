@@ -189,7 +189,7 @@ the original pod must be deleted, and a new pod (perhaps with an identical
 workflow as deploying a new container image.  The `kubectl rolling-update`
 command can be used ([man page](/docs/user-guide/kubectl/kubectl_rolling-update)).
 
-The [`resourceVersion`](/docs/devel/api-conventions/#concurrency-control-and-consistency)
+The [`resourceVersion`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#concurrency-control-and-consistency)
 of the secret is not specified when it is referenced.
 Therefore, if a secret is updated at about the same time as pods are starting,
 then it is not defined which version of the secret will be used for the pod. It

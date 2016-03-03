@@ -2,7 +2,7 @@
 ---
 
 Following this example, you will create a pod with a downward API volume.
-A downward API volume is a k8s volume plugin with the ability to save some pod information in a plain text file. The pod information can be  for example some [metadata](/docs/devel/api-conventions/#metadata).
+A downward API volume is a k8s volume plugin with the ability to save some pod information in a plain text file. The pod information can be  for example some [metadata](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#metadata).
 
 Supported metadata fields:
 

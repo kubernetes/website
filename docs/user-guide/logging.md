@@ -5,7 +5,7 @@ This page is designed to help you use logs to troubleshoot issues with your Kube
 
 ## Logging by Kubernetes Components
 
-Kubernetes components, such as kubelet and apiserver, use the [glog](https://godoc.org/github.com/golang/glog) logging library.  Developer conventions for logging severity are described in [docs/devel/logging.md](/docs/devel/logging).
+Kubernetes components, such as kubelet and apiserver, use the [glog](https://godoc.org/github.com/golang/glog) logging library.  Developer conventions for logging severity are described in [docs/devel/logging.md](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/logging.md).
 
 ## Examining the logs of running containers
 

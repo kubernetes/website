@@ -3,7 +3,7 @@
 
 Primary system and API concepts are documented in the [User guide](/docs/user-guide/).
 
-Overall API conventions are described in the [API conventions doc](/docs/devel/api-conventions).
+Overall API conventions are described in the [API conventions doc](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md).
 
 Complete API details are documented via [Swagger](http://swagger.io/). The Kubernetes apiserver (aka "master") exports an API that can be used to retrieve the [Swagger spec](https://github.com/swagger-api/swagger-spec/tree/master/schemas/v1.2) for the Kubernetes API, by default at `/swaggerapi`, and a UI you can use to browse the API documentation at `/swagger-ui`. We also periodically update a [statically generated UI](http://kubernetes.io/third_party/swagger-ui/).
 
@@ -19,7 +19,7 @@ Kubernetes itself is decomposed into multiple components, which interact through
 
 In our experience, any system that is successful needs to grow and change as new use cases emerge or existing ones change. Therefore, we expect the Kubernetes API to continuously change and grow. However, we intend to not break compatibility with existing clients, for an extended period of time. In general, new API resources and new resource fields can be expected to be added frequently. Elimination of resources or fields will require following a deprecation process. The precise deprecation policy for eliminating features is TBD, but once we reach our 1.0 milestone, there will be a specific policy.
 
-What constitutes a compatible change and how to change the API are detailed by the [API change document](/docs/devel/api_changes).
+What constitutes a compatible change and how to change the API are detailed by the [API change document](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api_changes.md).
 
 ## API versioning
 
@@ -35,7 +35,7 @@ software versioning.
 
 
 Different API versions imply different levels of stability and support.  The criteria for each level are described
-in more detail in the [API Changes documentation](/docs/devel/api_changes/#alpha-beta-and-stable-versions).  They are summarized here:
+in more detail in the [API Changes documentation](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api_changes.md#alpha-beta-and-stable-versions).  They are summarized here:
 
 - Alpha level:
   - The version names contain `alpha` (e.g. `v1alpha1`).

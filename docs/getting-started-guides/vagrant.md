@@ -293,7 +293,7 @@ If this is your first time creating the cluster, the kubelet on each node schedu
 
 #### I want to make changes to Kubernetes code!
 
-To set up a vagrant cluster for hacking, follow the [vagrant developer guide](/docs/devel/developer-guides/vagrant).
+To set up a vagrant cluster for hacking, follow the [vagrant developer guide](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/developer-guides/vagrant.md).
 
 #### I have brought Vagrant up but the nodes cannot validate!
 
