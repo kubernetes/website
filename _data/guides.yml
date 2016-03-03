@@ -4,11 +4,11 @@ toc:
 - title: Guides
   path: /docs/
 
-- title: Quickstarts
+- title: Getting Started
   section:
   - title: What is Kubernetes?
     path: /docs/whatisk8s/
-  - title: TODO - 5-minute Quickstart
+  - title: Hello World Walkthrough
     path: /docs/hellonode/
   - title: Kubernetes 101
     path: /docs/user-guide/walkthrough/
