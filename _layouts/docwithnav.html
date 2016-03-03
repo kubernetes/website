@@ -1,5 +1,3 @@
----
----
 {% for thistoc in site.data.globals.tocs %}{% if foundTOC %}{% break %}{% else %}{% assign tree = site.data[thistoc].toc %}{% include tocsearch.html %}{% endif %}{% endfor %}
 {% if page.title %}{% assign title=page.title %}{% endif %}
 <!Doctype html>
