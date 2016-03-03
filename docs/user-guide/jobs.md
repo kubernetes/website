@@ -71,7 +71,7 @@ As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `meta
 general information about working with config files, see [here](/docs/user-guide/simple-yaml),
 [here](/docs/user-guide/configuring-containers), and [here](working-with-resources).
 
-A Job also needs a [`.spec` section](/docs/devel/api-conventions/#spec-and-status).
+A Job also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
@@ -110,7 +110,7 @@ think that those pods were created by it.  Kubernetes will not stop you from doi
 By default, a Job is complete when one Pod runs to successful completion.  You can also specify that
 this needs to happen multiple times by specifying `.spec.completions` with a value greater than 1.
 When multiple completions are requested, each Pod created by the Job controller has an identical
-[`spec`](/docs/devel/api-conventions/#spec-and-status).  In particular, all pods will have
+[`spec`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).  In particular, all pods will have
 the same command line and the same image, the same volumes, and mostly the same environment
 variables.  It is up to the user to arrange for the pods to do work on different things.  For
 example, the pods might all access a shared work queue service to acquire work units.

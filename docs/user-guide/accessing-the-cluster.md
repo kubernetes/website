@@ -96,7 +96,7 @@ with future high-availability support.
 
 ### Programmatic access to the API
 
-There are [client libraries](/docs/devel/client-libraries) for accessing the API
+There are [client libraries](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/client-libraries.md) for accessing the API
 from several languages.  The Kubernetes project-supported
 [Go](http://releases.k8s.io/{{page.githubbranch}}/pkg/client/)
 client library can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
