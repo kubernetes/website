@@ -42,7 +42,7 @@ The following features will be part of 1.1 if complete, but will not block the r
 
 We're in the process of prioritizing changes to be made after 1.1.
 
-Please watch the [Github milestones] (https://github.com/kubernetes/kubernetes/milestones) for our future plans.
+Please watch the [Github milestones](https://github.com/kubernetes/kubernetes/milestones) for our future plans.
 
 
 

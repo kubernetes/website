@@ -20,6 +20,24 @@ toc:
   - title: Extensions API Definitions
     path: /docs/api-reference/extensions/v1beta1/definitions/
 
+- title: kube-apiserver
+  section:
+  - title: Overview
+    path: /docs/admin/kube-apiserver/
+  - title: Authorization Plugins
+    path: /docs/admin/authorization/
+  - title: Authentication
+    path: /docs/admin/authentication/
+  - title: Accessing the API
+    path: /docs/admin/accessing-the-api/
+  - title: Admission Controllers
+    path: /docs/admin/admission-controllers/
+  - title: Managing Service Accounts
+    path: /docs/admin/service-accounts-admin/
+
+- title: etcd
+  path: /docs/admin/etcd/
+
 - title: kubectl
   section:
   - title: kubectl Overview
@@ -95,37 +113,19 @@ toc:
     - title: kubectl version
       path: /docs/user-guide/kubectl/kubectl_version/
 
-- title: kube-apiserver
-  section:
-  - title: Overview
-    path: /docs/admin/kube-apiserver/
-  - title: Authorization Plugins
-    path: /docs/admin/authorization/
-  - title: Authentication
-    path: /docs/admin/authentication/
-  - title: Accessing the API
-    path: /docs/admin/accessing-the-api/
-  - title: Admission Controllers
-    path: /docs/admin/admission-controllers/
-  - title: Managing Service Accounts
-    path: /docs/admin/service-accounts-admin/
+- title: JSONpath
+  path: /docs/user-guide/jsonpath/
+
+- title: kube-proxy
+  path: /docs/admin/kube-proxy/
 
 - title: kub-scheduler
   path: /docs/admin/kube-scheduler/
 
 - title: kubelet
-  path: /docs/admin/kubelet.md
+  path: /docs/admin/kubelet/
 
-- title: kube-proxy
-  path: /docs/admin/kube-proxy/
-
-- title: JSONpath
-  path: /docs/user-guide/jsonpath/
-
-- title: etcd
-  path: /docs/admin/etcd/
-
-- title: Concept Definitions
+- title: Glossary
   section:
   - title: Container Environment
     path: /docs/user-guide/container-environment/
