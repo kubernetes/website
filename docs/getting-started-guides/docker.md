@@ -41,6 +41,12 @@ $cat /proc/cmdline
     swapaccount=1
 ```
 
+4. Decide what Kubernetes version to use. Set the ${K8S_VERSION} variable to a value such as "v1.1.8". If you'd like to use the latest released version of Kubernetes, run the following:
+
+```sh
+export K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+```
+
 ### Step One: Run etcd
 
 ```shell
@@ -61,7 +67,7 @@ docker run \
     --pid=host \
     --privileged=true \
     -d \
-    gcr.io/google_containers/hyperkube:v1.0.1 \
+    gcr.io/google_containers/hyperkube:${K8S_VERSION} \
     /hyperkube kubelet --containerized --hostname-override="127.0.0.1" --address="0.0.0.0" --api-servers=http://localhost:8080 --config=/etc/kubernetes/manifests
 ```
 
@@ -70,15 +76,27 @@ This actually runs the kubelet, which in turn runs a [pod](/docs/user-guide/pods
 ### Step Three: Run the service proxy
 
 ```shell
-docker run -d --net=host --privileged gcr.io/google_containers/hyperkube:v1.0.1 /hyperkube proxy --master=http://127.0.0.1:8080 --v=2
+docker run -d --net=host --privileged gcr.io/google_containers/hyperkube:${K8S_VERSION} /hyperkube proxy --master=http://127.0.0.1:8080 --v=2
 ```
 
 ### Test it out
 
 At this point you should have a running Kubernetes cluster.  You can test this by downloading the kubectl
-binary
-([OS X](https://storage.googleapis.com/kubernetes-release/release/v1.0.1/bin/darwin/amd64/kubectl))
-([linux](https://storage.googleapis.com/kubernetes-release/release/v1.0.1/bin/linux/amd64/kubectl))
+binary:
+
+For OS X:
+
+```
+sh
+wget https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/darwin/amd64/kubectl
+```
+
+For GNU/Linux:
+
+```
+sh
+wget https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl
++```
 
 *Note:*
 On OS/X you will need to set up port forwarding via ssh:
