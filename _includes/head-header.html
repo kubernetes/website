@@ -1,3 +1,4 @@
+{% if page.title %}{% assign title=page.title %}{% endif %}
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,14 +8,14 @@
 	<link rel="stylesheet" href="/css/styles.css"/>
 	<script src="/js/jquery-2.2.0.min.js"></script>
 	<script src="/js/script.js"></script>
-	<title>Kubernetes - {{ page.title }}</title>
+	<title>Kubernetes - {{ title }}</title>
 </head>
 <body>
 <div id="cellophane" onclick="kub.toggleMenu()"></div>
 <header>
 	<a href="/" class="logo"></a>
 	<div class="nav-buttons" data-auto-burger="primary">
-		<a href="docs" class="button" id="viewDocs">View Documentation</a>
+		<a href="/docs/" class="button" id="viewDocs">View Documentation</a>
 		<a href="/docs/hellonode/" class="button" id="tryKubernetes">Try Kubernetes</a>
 		<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
 	</div>
@@ -30,7 +31,7 @@
 				<p>Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. </p>
 			</div>
 			<div class="nav-box">
-				<h3><a href="/community.html">Community</a></h3>
+				<h3><a href="/community/">Community</a></h3>
 				<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. </p>
 			</div>
 			<div class="nav-box">
