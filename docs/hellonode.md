@@ -4,9 +4,7 @@
 * TOC
 {:toc}
 
-# Introduction
-
-Duration: 5:00
+## Introduction
 
 The goal of this codelab is for you to turn your code (a simple Hello World node.js app here) into a replicated application running on Kubernetes. We will show you how to take code that you have developed on your machine, turn it into a Docker container image, and then run that image on [Google Container Engine](https://cloud.google.com/container-engine/).
 
@@ -18,11 +16,9 @@ Kubernetes is an open source project which can run on many different environment
 
 For the purpose of this codelab, using a managed environment such as Google Container Engine (a Google-hosted version of Kubernetes running on Compute Engine) will allow you to focus more on experiencing Kubernetes rather than setting up the underlying infrastructure.
 
-# Setup and Requirements
+## Setup and Requirements
 
-Duration: 5:00
-
-## Self-paced environment setup
+### Self-paced environment setup
 
 Environment: Web
 
@@ -40,7 +36,7 @@ Running through this codelab shouldn’t cost you more than a few dollars, but i
 
 New users of Google Cloud Platform are eligible for a [$300 free trial](https://console.developers.google.com/billing/freetrial?hl=en).
 
-## Codelab-at-a-conference setup
+### Codelab-at-a-conference setup
 
 Environment: gcp-next
 
@@ -48,7 +44,7 @@ The instructor will be sharing with you temporary accounts with existing project
 
 TODO: what will they find when they log in? See [https://docs.google.com/document/d/1WwSTJErQyfQrFE6dXhkAcxE3NLX95dd2CHass8muFvg/edit#](https://docs.google.com/document/d/1WwSTJErQyfQrFE6dXhkAcxE3NLX95dd2CHass8muFvg/edit#) 
 
-## Google Cloud Shell
+### Google Cloud Shell
 
 While Google Cloud and Kubernetes can be operated remotely from your laptop, in this codelab we will be using [Google Cloud Shell](https://cloud.google.com/cloud-shell/), a command line environment running in the Cloud. This Debian-based virtual machine is loaded with all the development tools you’ll need (docker, gcloud, kubectl and more), it offers a persistent 5GB home directory, and runs on the Google Cloud, greatly enhancing network performance and authentication. This means that all you will need for this codelab is a browser (yes, it works on a Chromebook).
 
@@ -97,9 +93,7 @@ You can pick and choose different zones too. Learn more about zones in [Regions 
 Note: When you run gcloud on your own machine, the config settings would’ve been persisted across sessions.  But in Cloud Shell, you will need to set this for every new session or reconnection.
 
 
-# Create your Node.js application
-
-Duration: 3:00
+## Create your Node.js application
 
 The first step is to write the application that we want to deploy to Google Container Engine. Here is a simple Node.js server:
 
@@ -109,8 +103,12 @@ nano server.js
 
 ```javascript
 var http = require('http');
-var handleRequest = function(request, response) {  response.writeHead(200);  response.end("Hello World!");}
-var www = http.createServer(handleRequest);www.listen(8080);
+var handleRequest = function(request, response) {
+  response.writeHead(200);
+  response.end("Hello World!");
+}
+var www = http.createServer(handleRequest);
+www.listen(8080);
 ```
 
 We recommend using the nano editor but vi and emacs are also available in Cloud Shell.
@@ -131,9 +129,7 @@ Now, more importantly, let’s package this application in a Docker container.
 
 Before we continue, simply stop the running node server by pressing Ctrl-C in CloudShell.
 
-# Create a Docker container image
-
-Duration: 12:00
+## Create a Docker container image
 
 Next, create a Dockerfile which describes the image that you want to build. Docker container images can extend from other existing images so for this image, we'll extend from an existing Node image.
 
@@ -187,7 +183,8 @@ Let’s now stop the container :
 ```shell
 docker ps
 CONTAINER ID        IMAGE                              COMMAND
-2c66d0efcbd4        gcr.io/PROJECT_ID/hello-node:v1    "/bin/sh -c 'node    $ docker stop 2c66d0efcbd4
+2c66d0efcbd4        gcr.io/PROJECT_ID/hello-node:v1    "/bin/sh -c 'node    
+$ docker stop 2c66d0efcbd4
 2c66d0efcbd4
 ```
 
@@ -209,14 +206,14 @@ If you’re curious, you can navigate through the container images as they are s
 
 (the full link should read https://console.cloud.google.com/project/*PROJECT_ID*/storage/browser/)
 
-# Create your cluster
-
-Duration: 7:00
+## Create your cluster
 
 Ok, you are now ready to create your Container Engine cluster. A cluster consists of a master API server hosted by Google and a set of worker nodes. The worker nodes are Compute Engine virtual machines. Let’s create a cluster with two [n1-standard-1](https://cloud.google.com/compute/docs/machine-types) nodes (this will take a few minutes to complete):
 
 ```shell
-gcloud container clusters create hello-world \		--num-nodes 2 \		--machine-type n1-standard-1
+gcloud container clusters create hello-world \
+		--num-nodes 2 \
+		--machine-type n1-standard-1
 Creating cluster hello-world...done.
 Created [https://container.googleapis.com/v1/projects/kubernetes-codelab/zones/us-central1-f/clusters/hello-world].
 kubeconfig entry generated for hello-world.
@@ -243,9 +240,7 @@ But you really shouldn’t have to use anything Compute Engine-specific but rath
 
 It’s now time to deploy your own containerized application to the Kubernetes cluster!
 
-# Create your pod
-
-Duration: 5:00
+## Create your pod
 
 From now on we’ll be using the standard Kubernetes command line tool: kubectl (already set up in your Cloud Shell environment).
 
@@ -276,9 +271,7 @@ $ kubectl get events
 
 At this point you should have our container running under the control of Kubernetes but we still have to make it accessible to the outside world.
 
-# Allow external traffic
-
-Duration: 8:00
+## Allow external traffic
 
 By default, the pod is only accessible by its internal IP within the cluster. In order to make the hello-node container accessible from outside the kubernetes virtual network, you have to expose the pod as a kubernetes service.
 
@@ -300,7 +293,25 @@ A [replication controller](https://cloud.google.com/container-engine/docs/replic
 While in this simple codelab the replication controller is implicitly created, this is a critical (and arguably somewhat awesome) piece of the Kubernetes architecture. For anything beyond this codelab you will probably have to configure your own controller. Here’s a simple example of a nginx replication controller :
 
 ```yaml
-apiVersion: v1kind: ReplicationControllermetadata:  name: nginxspec:  replicas: 3  selector:    app: nginx  template:    metadata:      name: nginx      labels:        app: nginx    spec:      containers:      - name: nginx        image: nginx        ports:        - containerPort: 80
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    app: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
 ```
 
 
@@ -322,22 +333,18 @@ You should now be able to reach the service by pointing your browser to this add
 
 ![image](/images/hellonode/image_12.png)
 
-# Scale up your website
-
-Duration: 5:00
+## Scale up your website
 
 One of the powerful features offered by Kubernetes is how easy it is to scale your application. Suppose you suddenly need more capacity for your application; you can simply tell the replication controller to manage a new number of replicas for your pod:
 
-<table>
-  <tr>
-    <td>$ kubectl scale rc hello-node --replicas=3
+```shell
+kubectl scale rc hello-node --replicas=3
 $ kubectl get pods
 NAME               READY     STATUS    RESTARTS   AGE
 hello-node-6uzt8   1/1       Running   0          8m
 hello-node-gxhty   1/1       Running   0          34s
-hello-node-z2odh   1/1       Running   0          34s</td>
-  </tr>
-</table>
+hello-node-z2odh   1/1       Running   0          34s
+```
 
 
 You now have three replicas of your application, each running independently on the cluster with the load balancer you created earlier and serving traffic to all of them. 
@@ -354,9 +361,7 @@ Here’s a diagram summarizing the state of our Kubernetes cluster:
 
 ![image](/images/hellonode/image_13.png)
 
-# Roll out an upgrade to your website
-
-Duration: 6:00
+## Roll out an upgrade to your website
 
 As always, the application you deployed to production requires bug fixes or additional features. Kubernetes is here to help you deploy a new version to production without impacting your users.
 
@@ -403,9 +408,7 @@ While this is happening, the users of the services should not see any interrupti
 
 Hopefully with these deployment, scaling and update features you’ll agree that once you’ve setup your environment (your GKE/Kubernetes cluster here), Kubernetes is here to help you focus on the application rather than the infrastructure.
 
-# Observe the Kubernetes Graphical dashboard (optional)
-
-Duration: 3:00
+## Observe the Kubernetes Graphical dashboard (optional)
 
 While logged into your development machine, execute the following commands:
 
@@ -422,9 +425,7 @@ Navigate to the URL that is shown under after KubeUI is running at and log in wi
 
 ![image](/images/hellonode/image_14.png)
 
-# Cleanup
-
-Duration: 3:00
+## Cleanup
 
 Time for some cleaning of the resources used (to save on cost and to be a good cloud citizen).
 
@@ -466,9 +467,7 @@ Removing gs://artifacts.<PROJECT_ID>.appspot.com/...
 
 Of course, you can also delete the entire project but note that you must first disable billing on the project. Additionally, deleting a project will only happen after the current billing cycle ends.
 
-# What’s next?
-
-Duration: 1:00
+## What’s next?
 
 This concludes this simple getting started codelab with Kubernetes. We’ve only scratched the surface of this technology and we encourage you to explore further with your own pods, replication controllers, and services but also to check out liveness probes (health checks) and consider using the Kubernetes API directly.
 
