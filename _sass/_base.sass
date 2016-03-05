@@ -368,6 +368,12 @@ a.mailing-list
 	&:hover
 		background-position: -200px 100%
 
+a.calendar
+	background-position: -250px 0
+
+	&:hover
+		background-position: -250px 100%
+
 #viewDocs
 	display: none
 
@@ -1194,6 +1200,15 @@ $feature-box-div-margin-bottom: 40px
 			border-style: solid
 			border-width: 20px 0 20px 30px
 			border-color: transparent transparent transparent #ffffff
+
+#videoPlayer
+	@include fullScreen
+	background-color: rgba(0, 0, 0, 0.75)
+	display: none
+
+	iframe
+		@include pureCenter
+		@include maintain-aspect-ratio
 
 
 

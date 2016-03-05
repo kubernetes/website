@@ -1,7 +1,186 @@
 ---
-title: Accelerate Your Development
-abstract:
-layout: home
 ---
 
-<!--<a href="/docs/" class="button">View the Docs</a>-->
+<!Doctype html>
+<html id="home">
+
+{% include head-header.html %}
+
+<!--  HERO  -->
+<section id="hero" class="light-text">
+	<main>
+		<div id="headlineWrapper">
+			<h1>Accelerate Your Development</h1>
+			<h5>Manage a cluster of containers as a single system to simplify operations</h5>
+		</div>
+		<a href="/docs/hellonode/" id="quickstartButton" class="button">5 Minute Quick Start</a>
+	</main>
+	<div id="vendorStrip" class="light-text">
+		<div>Join the growing community already using Kubernetes</div>
+		<div>
+			<img src="images/logos/viacom_logo.png">
+			<img src="images/logos/soundcloud_logo.png">
+			<img src="images/logos/redhat_logo.png">
+			<img src="images/logos/wepay_logo.png">
+			<img src="images/logos/verizon_logo.png">
+		</div>
+	</div>
+</section>
+
+<!--  OCEAN NODES  -->
+<section id="oceanNodes">
+	<main>
+		<div class="image-wrapper"><img src="images/flower.png"></div>
+		<div class="content">
+			<h3>Kubernetes is an open source system for automating deployment, operations, and scaling of applications.</h3>
+			<p>It groups containers that make up an application into logical units for easy management and discovery.
+				Kubernetes builds upon a decade and a half of experience of running production workloads at Google,
+				combined with best-of-breed ideas and practices from the community.</p>
+		</div>
+	</main>
+	<main>
+		<div class="image-wrapper"><img src="images/suitcase.png"></div>
+		<div class="content">
+			<h4>Run Anywhere</h4>
+			<p>Kubernetes is open source giving you the flexibility to take advantage of on-premise, hybrid, or public
+				cloud infrastructure allowing you to easily move workloads to where it matters to you.</p>
+		</div>
+	</main>
+	<main>
+		<div class="image-wrapper"><img src="images/self-heal.png"></div>
+		<div class="content">
+			<h4>Self-healing</h4>
+			<p>Pager wakeup calls are a thing of the past, when a hardware failure occurs Kubernetes is able to scale-up
+				services and distribute the load among your existing infrastructure. It automates tasks with
+				auto-placement, auto-restart, and auto-replication making your operations run smoothly.</p>
+		</div>
+	</main>
+	<main>
+		<div class="image-wrapper"><img src="images/blocks.png"></div>
+		<div class="content">
+			<h4>Modular</h4>
+			<p>Energistically build reliable deliverables with interactive core competencies. Enthusiastically fashion
+				accurate "outside the box" thinking for accurate e-markets. Dramatically evolve mission-critical
+				scenarios rather than fully tested experiences. Dynamically embrace effective potentialities vis-a-vis
+				installed base process improvements. </p>
+		</div>
+	</main>
+	<main>
+		<div class="image-wrapper"><img src="images/scalable.png"></div>
+		<div class="content">
+			<h4>Planet Scale</h4>
+			<p>Designed on the same principles that allows Google to run billions of containers a week, Kubernetes can
+				scale without increasing your ops team. From testing locally to running a global enterprise, your
+				application scales consistently and easily.</p>
+		</div>
+	</main>
+</section>
+
+<section id="video">
+	<div class="light-text">
+		<h2>A techincal overview<br>of Kubernetes</h2>
+		<p>Kubernetes is an open source system for managing containerized applications across multiple hosts,
+			providing mechanisms for deployment, maintenance, and scaling of applications.</p>
+		<button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
+	</div>
+	<button id="mobileShowVideoButton" onclick="kub.showVideo()"></button>
+</section>
+
+<section id="features">
+	<main>
+		<h3 class="center">Kubernetes Features</h3>
+
+		<div class="feature-box">
+			<div>
+				<h4>Feature</h4>
+				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
+					conceptualize open-source best practices via mission-critical potentialities. Competently
+					grow proactive ideas via 24/7 communities. </p>
+			</div>
+			<div>
+				<h4>Feature</h4>
+				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
+					conceptualize open-source best practices via mission-critical potentialities. Competently
+					grow proactive ideas via 24/7 communities. </p>
+			</div>
+		</div>
+
+		<div class="feature-box">
+			<div>
+				<h4>Feature</h4>
+				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
+					conceptualize open-source best practices via mission-critical potentialities. Competently
+					grow proactive ideas via 24/7 communities. </p>
+			</div>
+			<div>
+				<h4>Feature</h4>
+				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
+					conceptualize open-source best practices via mission-critical potentialities. Competently
+					grow proactive ideas via 24/7 communities. </p>
+				<p>Quickly envisioneer customized initiatives without proactive intellectual capital. Intrinsicly
+					predominate focused innovation whereas clicks-and-mortar initiatives.</p>
+			</div>
+		</div>
+
+		<div class="feature-box">
+			<div>
+				<h4>Feature</h4>
+				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
+					conceptualize open-source best practices via mission-critical potentialities. Competently
+					grow proactive ideas via 24/7 communities. </p>
+				<p>Quickly envisioneer customized initiatives without proactive intellectual capital. Intrinsicly
+					predominate focused innovation whereas clicks-and-mortar initiatives.</p>
+			</div>
+			<div>
+				<h4>Feature</h4>
+				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
+					conceptualize open-source best practices via mission-critical potentialities. Competently
+					grow proactive ideas via 24/7 communities. </p>
+			</div>
+		</div>
+
+	</main>
+</section>
+
+<section id="talkToUs">
+	<main>
+		<h3>Talk to Us!</h3>
+		<h4>We would love to hear from you, how you are using Kubernetes,<br> and what we can do to make it better.</h4>
+		<div id="bigSocial">
+			<div>
+				<a href="https://twitter.com/kubernetesio">@kubernetesio</a>
+				<p>Get the latest news and updates.</p>
+			</div>
+			<div>
+				<a href="https://github.com/kubernetes/kubernetes">Github Project</a>
+				<p>Check out the project and consider contributing.</p>
+			</div>
+			<div>
+				<a href="http://slack.k8s.io/">#kubernetes-users</a>
+				<p>Our Slack channel is the best way to contact our engineers and share your ideas with them.</p>
+			</div>
+			<div>
+				<a href="http://stackoverflow.com/questions/tagged/kubernetes">Stackoverflow</a>
+				<p>Our user forum is a great place to go for community support.</p>
+			</div>
+		</div>
+	</main>
+</section>
+
+{% include footer.html %}
+
+
+<div id="videoPlayer">
+	<iframe data-url="https://www.youtube.com/embed/WwBdNXt6wO4?autoplay=1" frameborder="0" allowfullscreen></iframe>
+	<button class="close-button">foo</button>
+</div>
+
+<style>
+	.cse .gsc-control-cse, .gsc-control-cse {
+		padding: 0;
+	}
+</style>
+
+</body>
+</html>
+
