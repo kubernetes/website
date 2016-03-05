@@ -107,8 +107,7 @@ If you're a bit rusty with git/GitHub, you might wanna read
 [this](http://readwrite.com/2013/10/02/github-for-beginners-part-2) for a refresher.
 
 The above instructions work on Mac and Linux.
-[These instructions ](https://martinbuberl.com/blog/setup-jekyll-on-windows-and-host-it-on-github-pages/)
-might help for Windows users. 
+Windows users shold follow [these instructions](https://martinbuberl.com/blog/setup-jekyll-on-windows-and-host-it-on-github-pages/). 
 
 ## Thank you!
 
