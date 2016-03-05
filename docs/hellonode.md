@@ -116,7 +116,7 @@ We recommend using the nano editor but vi and emacs are also available in Cloud 
 From Cloud Shell simply exit the editor and save the server.js file. Since CloudShell has the node executable installed we can now run this simple command :
 
 ```shell
-nano server.js
+node server.js
 ```
 
 and use the built-in Web [preview feature](https://cloud.google.com/cloud-shell/docs/features#web_preview) of CloudShell to open a new browser tab and proxy a request to the instance you just started on port 8080.
