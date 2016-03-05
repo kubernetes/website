@@ -51,7 +51,7 @@ You should see a special-to-you version of the site.
 
 ## Editing and staging the site locally
 
-If you have files to upload, or just want to work offline, run the below commands to setup
+If you want to work offline, run the below commands to setup
 your environment for running GitHub pages locally. Then, any edits you make will be viewable
 on a lightweight webserver that runs on your local machine.
 
