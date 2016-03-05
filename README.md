@@ -29,8 +29,8 @@ Then load it into your environment
 
 Then install Ruby 2.2 or higher
 
-	rvm install 2.2
-	rvm use 2.2 --default
+	rvm install ruby-2.2.4
+	rvm use ruby-2.2.4 --default
 	
 Verify that this new version is running (optional)
 
