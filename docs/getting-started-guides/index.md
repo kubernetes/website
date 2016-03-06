@@ -118,7 +118,6 @@ Azure                | CoreOS       | CoreOS | Weave       | [docs](/docs/gettin
 Docker Single Node   | custom       | N/A    | local       | [docs](/docs/getting-started-guides/docker)                                 |          | Project ([@brendandburns](https://github.com/brendandburns))
 Docker Multi Node    | Flannel      | N/A    | local       | [docs](/docs/getting-started-guides/docker-multinode)                       |          | Project ([@brendandburns](https://github.com/brendandburns))
 Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config)           |          | Project
-Digital Ocean        | custom       | Fedora | Calico      | [docs](/docs/getting-started-guides/fedora/fedora-calico)                   |          | Community (@djosborne)
 Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config)            |          | Project
 Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)      |          | Community ([@aveshagarwal](https://github.com/aveshagarwal))
 libvirt              | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)      |          | Community ([@aveshagarwal](https://github.com/aveshagarwal))
@@ -140,7 +139,6 @@ Joyent               | Juju         | Ubuntu | flannel     | [docs](/docs/gettin
 AWS                  | Saltstack    | Ubuntu | OVS         | [docs](/docs/getting-started-guides/aws)                                    |          | Community ([@justinsb](https://github.com/justinsb))
 Bare-metal           | custom       | Ubuntu | Calico      | [docs](/docs/getting-started-guides/ubuntu-calico)                          |          | Community ([@djosborne](https://github.com/djosborne))
 Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu)                                 |          | Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
-Local                |              |        | _none_      | [docs](/docs/getting-started-guides/locally)                                |          | Community ([@preillyme](https://github.com/preillyme))
 libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/getting-started-guides/libvirt-coreos)                         |          | Community ([@lhuard1A](https://github.com/lhuard1A))
 oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt)                                  |          | Community ([@simon3z](https://github.com/simon3z))
 Rackspace            | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/rackspace)                              |          | Community ([@doublerr](https://github.com/doublerr))

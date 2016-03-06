@@ -105,7 +105,7 @@ $ dcos kubectl get pods --namespace=kube-system
 Names and ages may vary.
 
 
-Now that Kubernetes is installed on DCOS, you may wish to explore the [Kubernetes Examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/) or the [Kubernetes User Guide](/docs/user-guide/).
+Now that Kubernetes is installed on DCOS, you may wish to explore the [Kubernetes Examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/README.md) or the [Kubernetes User Guide](/docs/user-guide/).
 
 
 ## Uninstall

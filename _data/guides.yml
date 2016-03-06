@@ -80,7 +80,11 @@ toc:
       - title: Fedora With Calico Networking
         path: /docs/getting-started-guides/fedora/fedora-calico/
       - title: rkt
-        path: /docs/getting-started-guides/rkt/
+        section:
+        - title: Running Kubernetes on rat
+          path: /docs/getting-started-guides/rkt/
+        - title: Notes on Different UX with rkt Container Runtime
+          path: /docs/getting-started-guides/rkt/notes/
       - title: Kubernetes on Mesos
         path: /docs/getting-started-guides/mesos/
       - title: Kubernetes on Mesos on Docker

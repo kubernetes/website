@@ -230,18 +230,16 @@ github.com:
 ### Cloud compatibility
 
 Juju runs natively against a variety of public cloud providers. Juju currently
-works with:
-
-- [Amazon Web Service](https://jujucharms.com/docs/stable/config-aws)
-- [Windows Azure](https://jujucharms.com/docs/stable/config-azure)
-- [DigitalOcean](https://jujucharms.com/docs/stable/config-digitalocean)
-- [Google Compute Engine](https://jujucharms.com/docs/stable/config-gce)
-- [HP Public Cloud](https://jujucharms.com/docs/stable/config-hpcloud)
-- [Joyent](https://jujucharms.com/docs/stable/config-joyent)
-- [LXC](https://jujucharms.com/docs/stable/config-LXC)
-- Any [OpenStack](https://jujucharms.com/docs/stable/config-openstack) deployment
-- [Vagrant](https://jujucharms.com/docs/stable/config-vagrant)
-- [Vmware vSphere](https://jujucharms.com/docs/stable/config-vmware)
+works with [Amazon Web Service](https://jujucharms.com/docs/stable/config-aws),
+[Windows Azure](https://jujucharms.com/docs/stable/config-azure),
+[DigitalOcean](https://jujucharms.com/docs/stable/config-digitalocean),
+[Google Compute Engine](https://jujucharms.com/docs/stable/config-gce),
+[HP Public Cloud](https://jujucharms.com/docs/stable/config-hpcloud),
+[Joyent](https://jujucharms.com/docs/stable/config-joyent),
+[LXC](https://jujucharms.com/docs/stable/config-LXC), any
+[OpenStack](https://jujucharms.com/docs/stable/config-openstack) deployment,
+[Vagrant](https://jujucharms.com/docs/stable/config-vagrant), and
+[Vmware vSphere](https://jujucharms.com/docs/stable/config-vmware).
 
 If you do not see your favorite cloud provider listed many clouds can be
 configured for [manual provisioning](https://jujucharms.com/docs/stable/config-manual).

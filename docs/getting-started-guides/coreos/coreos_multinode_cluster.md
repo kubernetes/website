@@ -125,7 +125,7 @@ nova list
 
 #### Get a Suitable CoreOS Image
 
-You'll need a [suitable version of CoreOS image for OpenStack](https://coreos.com/os/docs/latest/booting-on-openstack)
+You'll need a [suitable version of CoreOS image for OpenStack](https://coreos.com/os/docs/latest/booting-on-openstack.html)
 Once you download that, upload it to glance.  An example is shown below:
 
 ```shell
@@ -159,8 +159,7 @@ kube-master
 
 `<my_key>` is the keypair name that you already generated to access the instance.
 
-`<flavor_id>` is the flavor ID you use to size the instance.  Run `nova flavor-list`
-to get the IDs.  3 on the system this was tested with gives the m1.large size.
+`<flavor_id>` is the flavor ID you use to size the instance.  Run `nova flavor-list` to get the IDs.  3 on the system this was tested with gives the m1.large size.
 
 The important part is to ensure you have the files/master.yml as this is what will do all the post boot configuration. This path is relevant so we are assuming in this example that you are running the nova command in a directory where there is a subdirectory called files that has the master.yml file in it.  Absolute paths also work.
 
@@ -176,15 +175,11 @@ Get an IP address that's free and run:
 nova floating-ip-associate kube-master <ip address>
 ```
 
-...where `<ip address>` is the IP address that was available from the `nova floating-ip-list`
-command.
+where `<ip address>` is the IP address that was available from the `nova floating-ip-list` command.
 
 #### Provision Worker Nodes
 
-Edit `node.yaml`
-and replace all instances of ```<master-private-ip>```
-with the private IP address of the master node.  You can get this by running ```nova show kube-master```
-assuming you named your instance kube master.  This is not the floating IP address you just assigned it.
+Edit `node.yaml` and replace all instances of `<master-private-ip>` with the private IP address of the master node.  You can get this by running `nova show kube-master` assuming you named your instance kube master.  This is not the floating IP address you just assigned it.
 
 ```shell
 nova boot \

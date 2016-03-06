@@ -42,7 +42,7 @@ The cluster consists of several docker containers linked together by docker-mana
 | Mesos Master                  | mesosmaster1                | REST endpoint for interacting with Mesos                                                |
 | Mesos Slave (x2)              | mesosslave1, mesosslave2    | Mesos agents that offer resources and run framework executors (e.g. Kubernetes Kublets) |
 | Kubernetes API Server         | apiserver                   | REST endpoint for interacting with Kubernetes                                           |
-| Kubernetes Controller Manager | controller                  |                                                            |
+| Kubernetes Controller Manager | controller                  |                                                                                         |
 | Kubernetes Scheduler          | scheduler                   | Schedules container deployment by accepting Mesos offers                                |
 
 ## Prerequisites
@@ -52,13 +52,13 @@ Required:
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - version control system
 - [Docker CLI](https://docs.docker.com/) - container management command line client
 - [Docker Engine](https://docs.docker.com/) - container management daemon
-  - On Mac, use [Boot2Docker](http://boot2docker.io/) or [Docker Machine](https://docs.docker.com/machine/install-machine/)
+  - On Mac, use [Docker Machine](https://docs.docker.com/machine/install-machine/)
 - [Docker Compose](https://docs.docker.com/compose/install/) - multi-container application orchestration
 
 Optional:
 
-- [Virtual Box](https://www.virtualbox.org/wiki/Downloads) - x86 hardware virtualizer
-  - Required by Boot2Docker and Docker Machine
+- [Virtual Box](https://www.virtualbox.org/wiki/Downloads)
+  - Free x86 virtualization engine with a Docker Machine driver
 - [Golang](https://golang.org/doc/install) - Go programming language
   - Required to build Kubernetes locally
 - [Make](https://en.wikipedia.org/wiki/Make_(software))  - Utility for building executables from source
@@ -70,14 +70,14 @@ It's possible to install all of the above via [Homebrew](http://brew.sh/) on a M
 
 Some steps print instructions for configuring or launching. Make sure each is properly set up before continuing to the next step.
 
-    brew install git
-    brew install caskroom/cask/brew-cask
-    brew cask install virtualbox
-    brew install docker
-    brew install boot2docker
-    boot2docker init
-    boot2docker up
-    brew install docker-compose
+```shell
+brew install git
+brew install caskroom/cask/brew-cask
+brew cask install virtualbox
+brew install docker
+brew install docker-machine
+brew install docker-compose
+```
 
 ### Install on Linux
 
@@ -91,27 +91,42 @@ In order to build Kubernetes, the current user must be in a docker group with su
 See the docker docs for [instructions](https://docs.docker.com/installation/ubuntulinux/#create-a-docker-group).
 
 
-### Boot2Docker Config (Mac)
+#### Docker Machine Config (Mac)
 
-If on a mac using boot2docker, the following steps will make the docker IPs (in the virtualbox VM) reachable from the
-host machine (mac).
+If on a Mac using docker-machine, the following steps will make the docker IPs (in the virtualbox VM) reachable from the
+host machine (Mac).
 
-1. Set the VM's host-only network to "promiscuous mode":
+1. Create VM
 
-	  boot2docker stop
-      VBoxManage modifyvm boot2docker-vm --nicpromisc2 allow-all
-      boot2docker start
+   oracle-virtualbox
+
+   ```shell
+   docker-machine create --driver virtualbox kube-dev
+   eval "$(docker-machine env kube-dev)"
+   ```
+
+2. Set the VM's host-only network to "promiscuous mode":
+
+    oracle-virtualbox
+
+    ```conf
+    docker-machine stop kube-dev
+    VBoxManage modifyvm kube-dev --nicpromisc2 allow-all
+    docker-machine start kube-dev
+    ```
 
     This allows the VM to accept packets that were sent to a different IP.
 
     Since the host-only network routes traffic between VMs and the host, other VMs will also be able to access the docker
     IPs, if they have the following route.
 
-1. Route traffic to docker through the boot2docker IP:
+1. Route traffic to docker through the docker-machine IP:
 
-      sudo route -n add -net 172.17.0.0 $(boot2docker ip)
+```shell
+sudo route -n add -net 172.17.0.0 $(docker-machine ip kube-dev)
+```
 
-    Since the boot2docker IP can change when the VM is restarted, this route may need to be updated over time.
+    Since the docker-machine IP can change when the VM is restarted, this route may need to be updated over time.
     To delete the route later: `sudo route delete 172.17.0.0`
 
 
@@ -119,8 +134,10 @@ host machine (mac).
 
 1. Checkout source
 
-      git clone https://github.com/kubernetes/kubernetes
-      cd kubernetes
+    ```shell
+    git clone https://github.com/kubernetes/kubernetes
+    cd kubernetes
+    ```
 
     By default, that will get you the bleeding edge of master branch.
     You may want a [release branch](https://github.com/kubernetes/kubernetes/releases) instead,
@@ -132,7 +149,9 @@ host machine (mac).
 
     Building a new release covers both cases:
 
-      KUBERNETES_CONTRIB=mesos build/release.sh
+    ```shell
+    KUBERNETES_CONTRIB=mesos build/release.sh
+    ```
 
     For developers, it may be faster to [build locally](#build-locally).
 
@@ -142,13 +161,17 @@ host machine (mac).
 
     1. Test image includes all the dependencies required for running e2e tests.
 
-          ./cluster/mesos/docker/test/build.sh
+        ```shell
+        ./cluster/mesos/docker/test/build.sh
+        ```
 
         In the future, this image may be available to download. It doesn't contain anything specific to the current release, except its build dependencies.
 
     1. Kubernetes-Mesos image includes the compiled linux binaries.
 
-          ./cluster/mesos/docker/km/build.sh
+        ```shell
+        ./cluster/mesos/docker/km/build.sh
+        ```
 
         This image needs to be built every time you recompile the server binaries.
 
@@ -159,23 +182,29 @@ host machine (mac).
     If you delete the `MESOS_RESOURCES` environment variables, the resource amounts will be auto-detected based on the host resources, which will over-provision by > 2x.
 
     If the configured resources are not available on the host, you may want to increase the resources available to Docker Engine.
-    You may have to increase you VM disk, memory, or cpu allocation in VirtualBox,
-    [Docker Machine](https://docs.docker.com/machine/#oracle-virtualbox), or
-    [Boot2Docker](https://ryanfb.github.io/etc/2015/01/28/increasing_boot2docker_allocations_on_os_x).
+    You may have to increase you VM disk, memory, or cpu allocation. See the Docker Machine docs for details
+    ([Virtualbox](https://docs.docker.com/machine/drivers/virtualbox))
+
 
 1. Configure provider
 
-      export KUBERNETES_PROVIDER=mesos/docker
+    ```shell
+    export KUBERNETES_PROVIDER=mesos/docker
+    ```
 
     This tells cluster scripts to use the code within `cluster/mesos/docker`.
 
 1. Create cluster
 
-      ./cluster/kube-up.sh
+    ```shell
+    ./cluster/kube-up.sh
+    ```
 
     If you manually built all the above docker images, you can skip that step during kube-up:
 
-      MESOS_DOCKER_SKIP_BUILD=true ./cluster/kube-up.sh
+    ```shell
+    MESOS_DOCKER_SKIP_BUILD=true ./cluster/kube-up.sh
+    ```
 
     After deploying the cluster, `~/.kube/config` will be created or updated to configure kubectl to target the new cluster.
 
@@ -188,7 +217,9 @@ host machine (mac).
 
 1. Destroy cluster
 
-      ./cluster/kube-down.sh
+    ```shell
+    ./cluster/kube-down.sh
+    ```
 
 ## Addons
 
@@ -196,7 +227,9 @@ The `kube-up` for the mesos/docker provider will automatically deploy KubeDNS an
 
 Check their status with:
 
-    ./cluster/kubectl.sh get pods --namespace=kube-system
+```shell
+./cluster/kubectl.sh get pods --namespace=kube-system
+```
 
 ### KubeUI
 
@@ -213,7 +246,9 @@ Warning: e2e tests can take a long time to run. You may not want to run them imm
 
 While your cluster is up, you can run the end-to-end tests:
 
-    ./cluster/test-e2e.sh
+```shell
+./cluster/test-e2e.sh
+```
 
 Notable parameters:
 - Increase the logging verbosity: `-v=2`
@@ -221,35 +256,45 @@ Notable parameters:
 
 To build, deploy, test, and destroy, all in one command (plus unit & integration tests):
 
-    make test_e2e
+```shell
+make test_e2e
+```
 
 ## Kubernetes CLI
 
 When compiling from source, it's simplest to use the `./cluster/kubectl.sh` script, which detects your platform &
 architecture and proxies commands to the appropriate `kubectl` binary.
 
-    `./cluster/kubectl.sh get pods`
+ex: `./cluster/kubectl.sh get pods`
 
 
 ## Helpful scripts
 
-Kill all docker containers
-  
-    docker ps -q -a | xargs docker rm -f
+- Kill all docker containers
 
-Clean up unused docker volumes
-  
+    ```shell
+    docker ps -q -a | xargs docker rm -f
+    ```
+
+- Clean up unused docker volumes
+
+    ```shell
     docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes
+    ```
 
 ## Build Locally
 
 The steps above tell you how to build in a container, for minimal local dependencies. But if you have Go and Make installed you can build locally much faster:
 
-    KUBERNETES_CONTRIB=mesos make
+```shell
+KUBERNETES_CONTRIB=mesos make
+```
 
 However, if you're not on linux, you'll still need to compile the linux/amd64 server binaries:
 
-    KUBERNETES_CONTRIB=mesos build/run.sh hack/build-go.sh
+```shell
+KUBERNETES_CONTRIB=mesos build/run.sh hack/build-go.sh
+```
 
 The above two steps should be significantly faster than cross-compiling a whole new release for every supported platform (which is what `./build/release.sh` does).
 

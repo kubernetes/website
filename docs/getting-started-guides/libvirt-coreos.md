@@ -14,7 +14,7 @@
 
 The primary goal of the `libvirt-coreos` cluster provider is to deploy a multi-node Kubernetes cluster on local VMs as fast as possible and to be as light as possible in term of resources used.
 
-In order to achieve that goal, its deployment is very different from the 'standard production deployment'? method used on other providers. This was done on purpose in order to implement some optimizations made possible by the fact that we know that all VMs will be running on the same physical machine.
+In order to achieve that goal, its deployment is very different from the "standard production deployment" method used on other providers. This was done on purpose in order to implement some optimizations made possible by the fact that we know that all VMs will be running on the same physical machine.
 
 The `libvirt-coreos` cluster provider doesn't aim at being production look-alike.
 
@@ -36,15 +36,16 @@ On the other hand, `libvirt-coreos` might be useful for people investigating low
 
 ### Prerequisites
 
-1. Install [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc)
+1. Install [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html)
 2. Install [ebtables](http://ebtables.netfilter.org/)
 3. Install [qemu](http://wiki.qemu.org/Main_Page)
 4. Install [libvirt](http://libvirt.org/)
-5. Enable and start the libvirt daemon, e.g:
-   * ``systemctl enable libvirtd``
-   * ``systemctl start libvirtd``
-6. [Grant libvirt access to your user&sup1;](https://libvirt.org/aclpolkit)
-7. Check that your $HOME is accessible to the qemu user&sup2;
+5. Install [openssl](http://openssl.org/)
+6. Enable and start the libvirt daemon, e.g:
+   * ``systemctl enable libvirtd && systemctl start libvirtd`` # for systemd-based systems
+   * ``/etc/init.d/libvirt-bin start`` # for init.d-based systems
+7. [Grant libvirt access to your user¹](https://libvirt.org/aclpolkit.html)
+8. Check that your $HOME is accessible to the qemu user²
 
 #### &sup1; Depending on your distribution, libvirt access may be denied by default or may require a password at each access.
 
@@ -127,11 +128,11 @@ cluster/kube-up.sh
 
 The `KUBERNETES_PROVIDER` environment variable tells all of the various cluster management scripts which variant to use.  If you forget to set this, the assumption is you are running on Google Compute Engine.
 
-The `NUM_MINIONS` environment variable may be set to specify the number of nodes to start. If it is not set, the number of nodes defaults to 3.
+The `NUM_NODES` environment variable may be set to specify the number of nodes to start. If it is not set, the number of nodes defaults to 3.
 
 The `KUBE_PUSH` environment variable may be set to specify which Kubernetes binaries must be deployed on the cluster. Its possible values are:
 
-* `release` (default if `KUBE_PUSH` is not set) will deploy the binaries of `_output/release-tars/kubernetes-server-'|.tar.gz`. This is built with `make release` or `make release-skip-tests`.
+* `release` (default if `KUBE_PUSH` is not set) will deploy the binaries of `_output/release-tars/kubernetes-server-….tar.gz`. This is built with `make release` or `make release-skip-tests`.
 * `local` will deploy the binaries of `_output/local/go/bin`. These are built with `make`.
 
 You can check that your machines are there and running with:
@@ -141,10 +142,10 @@ $ virsh -c qemu:///system list
  Id    Name                           State
 ----------------------------------------------------
  15    kubernetes_master              running
- 16    kubernetes_minion-01           running
- 17    kubernetes_minion-02           running
- 18    kubernetes_minion-03           running
-```
+ 16    kubernetes_node-01             running
+ 17    kubernetes_node-02             running
+ 18    kubernetes_node-03             running
+ ```
 
 You can check that the Kubernetes cluster is working with:
 
@@ -168,7 +169,7 @@ Connect to `kubernetes_master`:
 ssh core@192.168.10.1
 ```
 
-Connect to `kubernetes_minion-01`:
+Connect to `kubernetes_node-01`:
 
 ```shell
 ssh core@192.168.10.2
@@ -185,7 +186,7 @@ export KUBERNETES_PROVIDER=libvirt-coreos
 Bring up a libvirt-CoreOS cluster of 5 nodes
 
 ```shell
-NUM_MINIONS=5 cluster/kube-up.sh
+NUM_NODES=5 cluster/kube-up.sh
 ```
 
 Destroy the libvirt-CoreOS cluster

@@ -1,10 +1,7 @@
----
----
-
-This document describes how to deploy Kubernetes on multiple hosts to set up a multi-node cluster and networking with flannel. Follow fedora [getting started guide](/docs/getting-started-guides/fedora/fedora_manual_config) to setup 1 master (fed-master) and 2 or more nodes. Make sure that all nodes have different names (fed-node1, fed-node2 and so on) and labels (fed-node1-label, fed-node2-label, and so on) to avoid any conflict. Also make sure that the Kubernetes master host is running etcd, kube-controller-manager, kube-scheduler, and kube-apiserver services, and the nodes are running docker, kube-proxy and kubelet services. Now install flannel on Kubernetes nodes. flannel on each node configures an overlay network that docker uses. flannel runs on each node to setup a unique class-C container network.
-
 * TOC
 {:toc}
+
+This document describes how to deploy Kubernetes on multiple hosts to set up a multi-node cluster and networking with flannel. Follow fedora [getting started guide](/docs/getting-started-guides/fedora/fedora_manual_config/) to setup 1 master (fed-master) and 2 or more nodes. Make sure that all nodes have different names (fed-node1, fed-node2 and so on) and labels (fed-node1-label, fed-node2-label, and so on) to avoid any conflict. Also make sure that the Kubernetes master host is running etcd, kube-controller-manager, kube-scheduler, and kube-apiserver services, and the nodes are running docker, kube-proxy and kubelet services. Now install flannel on Kubernetes nodes. flannel on each node configures an overlay network that docker uses. flannel runs on each node to setup a unique class-C container network.
 
 ## Prerequisites
 
@@ -14,7 +11,7 @@ You need 2 or more machines with Fedora installed.
 
 **Perform following commands on the Kubernetes master**
 
-Configure flannel by creating a `flannel-config.json` in your current directory on fed-master. flannel provides udp and vxlan among other overlay networking backend options. In this guide, we choose kernel based vxlan backend. The contents of the json are:
+* Configure flannel by creating a `flannel-config.json` in your current directory on fed-master. flannel provides udp and vxlan among other overlay networking backend options. In this guide, we choose kernel based vxlan backend. The contents of the json are:
 
 ```json
 {

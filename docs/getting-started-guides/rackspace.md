@@ -21,7 +21,7 @@ The current cluster design is inspired by:
 
 1. Python2.7
 2. You need to have both `nova` and `swiftly` installed. It's recommended to use a python virtualenv to install these packages into.
-3. Make sure you have the appropriate environment variables set to interact with the OpenStack APIs. See [Rackspace Documentation](http://docs.rackspace.com/servers/api/v2/cs-gettingstarted/content/section_gs_install_nova) for more details.
+3. Make sure you have the appropriate environment variables set to interact with the OpenStack APIs. See [Rackspace Documentation](http://docs.rackspace.com/servers/api/v2/cs-gettingstarted/content/section_gs_install_nova.html) for more details.
 
 ## Provider: Rackspace
 
@@ -44,7 +44,7 @@ There is a specific `cluster/rackspace` directory with the scripts for the follo
   - flanneld uses this network for next hop routing. These routes allow the containers running on each node to communicate with one another on this private network.
 2. A SSH key will be created and uploaded if needed. This key must be used to ssh into the machines (we do not capture the password).
 3. The master server and additional nodes will be created via the `nova` CLI. A `cloud-config.yaml` is generated and provided as user-data with the entire configuration for the systems.
-4. We then boot as many nodes as defined via `$NUM_MINIONS`.
+4. We then boot as many nodes as defined via `$NUM_NODES`.
 
 ## Some notes
 
