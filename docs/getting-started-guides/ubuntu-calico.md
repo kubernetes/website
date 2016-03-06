@@ -114,7 +114,7 @@ Calico needs its own etcd cluster to store its state.  In this guide we install 
 
 1.  Download the template manifest file:
 
-    ```
+    ```shell
     wget https://raw.githubusercontent.com/projectcalico/calico-cni/k8s-1.1-docs/samples/kubernetes/master/calico-etcd.manifest
     ```
 
@@ -140,13 +140,13 @@ We need to install Calico on the master.  This allows the master to route packet
 
 2.  Prefetch the calico/node container (this ensures that the Calico service starts immediately when we enable it):
 
-    ```
+    ```shell
     sudo docker pull calico/node:v0.15.0
     ```
 
 3.  Download the `network-environment` template from the `calico-kubernetes` repository:
 
-    ```
+    ```shell
     wget -O network-environment https://raw.githubusercontent.com/projectcalico/calico-cni/k8s-1.1-docs/samples/kubernetes/master/network-environment-template
     ```
 
@@ -210,7 +210,7 @@ Worker nodes require three keys: `ca.pem`, `worker.pem`, and `worker-key.pem`.  
 
 4.  Move the files to the `/etc/kubernetes/ssl` folder with the appropriate permissions:
 
-    ```
+    ```shell
     # Move keys
     sudo mkdir -p /etc/kubernetes/ssl/
     sudo mv -t /etc/kubernetes/ssl/ ca.pem worker.pem worker-key.pem
@@ -224,7 +224,7 @@ Worker nodes require three keys: `ca.pem`, `worker.pem`, and `worker-key.pem`.  
 
 1.  With your certs in place, create a kubeconfig for worker authentication in `/etc/kubernetes/worker-kubeconfig.yaml`; replace `<KUBERNETES_MASTER>` with the IP address of the master:
 
-    ```
+    ```yaml
     apiVersion: v1
     kind: Config
     clusters:

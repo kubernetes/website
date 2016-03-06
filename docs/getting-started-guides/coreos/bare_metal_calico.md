@@ -50,7 +50,7 @@ Download the stable CoreOS bootable ISO from the [CoreOS website](https://coreos
 
     > **Warning:** this is a destructive operation that erases disk `sda` on your server.
 
-    ```
+    ```shell
     sudo coreos-install -d /dev/sda -C stable -c master-config.yaml
     ```
 
@@ -105,7 +105,7 @@ The following steps will set up a single Kubernetes node for use as a compute ho
 
     > **Important:** Make sure you indent the entire file to match the indentation of the placeholder.  For example:
     >
-    > ```
+    > ```shell
     >  - path: /etc/kubernetes/ssl/ca.pem
     >    owner: core
     >    permissions: 0644
@@ -115,7 +115,7 @@ The following steps will set up a single Kubernetes node for use as a compute ho
     >
     > should look like this once the certificate is in place:
     >
-    > ```
+    > ```shell
     >   - path: /etc/kubernetes/ssl/ca.pem
     >     owner: core
     >     permissions: 0644

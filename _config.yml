@@ -16,8 +16,8 @@ defaults:
     scope:
       path: "docs"
     values:
-      version: "v1.1"
+      version: "v1.2"
       layout: docwithnav
       showedit: true
-      githubbranch: "release-1.1"
+      githubbranch: "release-1.2"
 permalink: pretty

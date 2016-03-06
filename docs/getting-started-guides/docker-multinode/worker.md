@@ -8,7 +8,7 @@ to run is `${K8S_VERSION}`, which should hold a released version of Kubernetes >
 
 Enviroinment variables used:
 
-```sh
+```shell
 export MASTER_IP=<the_master_ip_here>
 export K8S_VERSION=<your_k8s_version (e.g. 1.2.0-alpha.6)>
 export FLANNEL_VERSION=<your_flannel_version (e.g. 0.5.5)>
@@ -42,7 +42,7 @@ sudo sh -c 'docker -d -H unix:///var/run/docker-bootstrap.sock -p /var/run/docke
 
 _If you have Docker 1.8.0 or higher run this instead_
 
-```sh
+```shell
 sudo sh -c 'docker daemon -H unix:///var/run/docker-bootstrap.sock -p /var/run/docker-bootstrap.pid --iptables=false --ip-masq=false --bridge=none --graph=/var/lib/docker-bootstrap 2> /var/log/docker-bootstrap.log 1> /dev/null &'
 ```
 

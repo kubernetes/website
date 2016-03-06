@@ -37,7 +37,7 @@ as well as information about the default services running in the cluster (monito
 tokens are written in `~/.kube/config`, they will be necessary to use the CLI or the HTTP Basic Auth.
 
 By default, the script will provision a new VPC and a 4 node k8s cluster in us-west-2a (Oregon) with EC2 instances running on Ubuntu.
-You can override the variables defined in [config-default.sh](http://releases.k8s.io/release-1.2/cluster/aws/config-default.sh) to change this behavior as follows:
+You can override the variables defined in [config-default.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/aws/config-default.sh) to change this behavior as follows:
 
 ```shell
 export KUBE_AWS_ZONE=eu-west-1c
