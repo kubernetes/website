@@ -51,7 +51,7 @@ Let's create two new namespaces to hold our work.
 
 Use the file [`namespace-dev.json`](/docs/admin/namespacesnamespace-dev.json) which describes a development namespace:
 
-{% include code.html language="json" file="namespace-dev.json" ghlink="https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/admin/namespaces/namespace-dev.json" %}
+{% include code.html language="json" file="namespace-dev.json" ghlink="/docs/admin/namespaces/namespace-dev.json" %}
 
 Create the development namespace using kubectl.
 

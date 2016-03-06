@@ -8,10 +8,16 @@ toc:
   section:
   - title: Web Interface
     path: /docs/user-guide/ui/
+  - title: Application Introspection and Debugging
+    path: /docs/user-guide/introspection-and-debugging/
+  - title: Retrieving Logs
+    path: /docs/user-guide/logging/
   - title: Troubleshooting Applications
     path: /docs/user-guide/application-troubleshooting/
   - title: Troubleshooting Clusters
     path: /docs/admin/cluster-troubleshooting/
+  - title: Debugging Services
+    path: /docs/user-guide/debugging-services/
 
 - title: Frequently Asked Questions
   section:
@@ -36,5 +42,3 @@ toc:
     path: /docs/roadmap/
   - title: Contributing to Kubernetes Documentation
     path: /docs/editdocs/
-  - title: Sitemap for v1.1
-    path: /docs/pagelist/

@@ -43,6 +43,8 @@ toc:
     path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/iscsi/
   - title: NFS
     path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/nfs/
+  - title: Downward API Volumes
+    path: /docs/user-guide/downward-api/volume/
 
 - title: Multi-tier Application Samples
   section:
@@ -52,3 +54,5 @@ toc:
     path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/guestbook/
   - title: MySQL - Phabricator Server
     path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/phabricator/
+  - title: Elasticsearch/Kibana Logging Demo
+    path: https://github.com/kubernetes/kubernetes.github.io/tree/master/docs/user-guide/logging-demo

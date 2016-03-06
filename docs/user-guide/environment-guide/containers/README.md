@@ -1,7 +1,3 @@
----
----
-
-
 ## Building
 
 For each container, the build steps are the same. The examples below

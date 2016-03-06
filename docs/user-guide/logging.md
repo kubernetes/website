@@ -11,7 +11,7 @@ Kubernetes components, such as kubelet and apiserver, use the [glog](https://god
 
 The logs of a running container may be fetched using the command `kubectl logs`. For example, given
 this pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/counter-pod.yaml), which has a container which writes out some text to standard
-output every second. (You can find different pod specifications [here](/docs/user-guide/logging-demo/).)
+output every second. (You can find different pod specifications [here](https://github.com/kubernetes/kubernetes.github.io/tree/master/docs/user-guide/logging-demo).)
 
 {% include code.html language="yaml" file="counter-pod.yaml" k8slink="/examples/blog-logging/counter-pod.yaml" %}
 

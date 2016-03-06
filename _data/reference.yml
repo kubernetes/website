@@ -20,30 +20,14 @@ toc:
   - title: Extensions API Definitions
     path: /docs/api-reference/extensions/v1beta1/definitions/
 
-- title: kube-apiserver
-  section:
-  - title: Overview
-    path: /docs/admin/kube-apiserver/
-  - title: Authorization Plugins
-    path: /docs/admin/authorization/
-  - title: Authentication
-    path: /docs/admin/authentication/
-  - title: Accessing the API
-    path: /docs/admin/accessing-the-api/
-  - title: Admission Controllers
-    path: /docs/admin/admission-controllers/
-  - title: Managing Service Accounts
-    path: /docs/admin/service-accounts-admin/
-
-- title: etcd
-  path: /docs/admin/etcd/
-
-- title: kubectl
+- title: kubectl CLI
   section:
   - title: kubectl Overview
     path: /docs/user-guide/kubectl-overview/
   - title: kubectl for Docker Users
     path: /docs/user-guide/docker-cli-to-kubectl/
+  - title: JSONpath Support
+    path: /docs/user-guide/jsonpath/
   - title: kubectl Commands
     section:
     - title: kubectl
@@ -108,27 +92,43 @@ toc:
       path: /docs/user-guide/kubectl/kubectl_run/
     - title: kubectl scale
       path: /docs/user-guide/kubectl/kubectl_scale/
-    - title: kubectl stop
-      path: /docs/user-guide/kubectl/kubectl_stop/
     - title: kubectl version
       path: /docs/user-guide/kubectl/kubectl_version/
+    - title: Superseded and Deprecated Commands
+      section:
+      - title: kubectl namespace
+        path: /docs/user-guide/kubectl/kubectl_namespace/
+      - title: kubectl stop
+        path: /docs/user-guide/kubectl/kubectl_stop/
 
-- title: JSONpath
-  path: /docs/user-guide/jsonpath/
-
-- title: kube-proxy
+- title: kube-apiserver CLI
+  section:
+  - title: Overview
+    path: /docs/admin/kube-apiserver/
+  - title: Authorization Plugins
+    path: /docs/admin/authorization/
+  - title: Authentication
+    path: /docs/admin/authentication/
+  - title: Accessing the API
+    path: /docs/admin/accessing-the-api/
+  - title: Admission Controllers
+    path: /docs/admin/admission-controllers/
+  - title: Managing Service Accounts
+    path: /docs/admin/service-accounts-admin/
+- title: kube-proxy CLI
   path: /docs/admin/kube-proxy/
 
-- title: kub-scheduler
+- title: kub-scheduler CLI
   path: /docs/admin/kube-scheduler/
 
-- title: kubelet
+- title: kubelet CLI
   path: /docs/admin/kubelet/
+
+- title: kube-controller-manager CLI
+  path: /docs/admin/kube-controller-manager/
 
 - title: Glossary
   section:
-  - title: Container Environment
-    path: /docs/user-guide/container-environment/
   - title: Images
     path: /docs/user-guide/images/
   - title: Pods
@@ -151,6 +151,8 @@ toc:
     path: /docs/user-guide/namespaces/
   - title: Nodes
     path: /docs/admin/node/
+  - title: Security Context
+    path: /docs/user-guide/security-context/
   - title: Service Accounts
     path: /docs/user-guide/service-accounts/
   - title: Annotations

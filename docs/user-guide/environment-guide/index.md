@@ -23,7 +23,7 @@ for your platform.
 ## Optional: Build your own containers
 
 The code for the containers is under
-[containers/](/docs/user-guide/environment-guide/containers/)
+[containers/](https://github.com/kubernetes/kubernetes.github.io/tree/master/docs/user-guide/environment-guide/containers/)
 
 ## Get everything running
 
