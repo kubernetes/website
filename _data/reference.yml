@@ -8,6 +8,18 @@ toc:
   section:
   - title: Kubernetes API Overview
     path: /docs/api/
+  - title: Accessing the API
+    section:
+    - title: Overview
+      path: /docs/admin/accessing-the-api/
+    - title: Authenticating
+      path: /docs/admin/authentication/
+    - title: Using Authorization Plugins
+      path: /docs/admin/authorization/
+    - title: Using Admission Controllers
+      path: /docs/admin/admission-controllers/
+    - title: Managing Service Accounts
+      path: /docs/admin/service-accounts-admin/
   - title: Kubernetes API Operations
     path: /docs/api-reference/v1/operations/
   - title: Kubernetes API Definitions
@@ -102,19 +114,8 @@ toc:
         path: /docs/user-guide/kubectl/kubectl_stop/
 
 - title: kube-apiserver CLI
-  section:
-  - title: Overview
-    path: /docs/admin/kube-apiserver/
-  - title: Authorization Plugins
-    path: /docs/admin/authorization/
-  - title: Authentication
-    path: /docs/admin/authentication/
-  - title: Accessing the API
-    path: /docs/admin/accessing-the-api/
-  - title: Admission Controllers
-    path: /docs/admin/admission-controllers/
-  - title: Managing Service Accounts
-    path: /docs/admin/service-accounts-admin/
+  path: /docs/admin/kube-ap
+
 - title: kube-proxy CLI
   path: /docs/admin/kube-proxy/
 
