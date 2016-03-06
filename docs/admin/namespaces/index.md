@@ -49,7 +49,7 @@ One pattern this organization could follow is to partition the Kubernetes cluste
 
 Let's create two new namespaces to hold our work.
 
-Use the file [`namespace-dev.json`](/docs/admin/namespacesnamespace-dev.json) which describes a development namespace:
+Use the file [`namespace-dev.json`](/docs/admin/namespaces/namespace-dev.json) which describes a development namespace:
 
 {% include code.html language="json" file="namespace-dev.json" ghlink="/docs/admin/namespaces/namespace-dev.json" %}
 

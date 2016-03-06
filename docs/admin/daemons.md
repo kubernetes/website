@@ -26,8 +26,8 @@ but with different flags and/or different memory and cpu requests for different 
 ### Required Fields
 
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
-general information about working with config files, see [here](/docs/user-guide/simple-yaml),
-[here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
+general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
+[configuring containers](/docs/user-guide/configuring-containers/), and [working with resources](/docs/user-guide/working-with-resources/) documents.
 
 A DaemonSet also needs a [`.spec`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) section.
 
@@ -48,11 +48,18 @@ A pod template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod
 ### Pod Selector
 
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
-a [ReplicationController](/docs/user-guide/replication-controller) or
-[Job](/docs/user-guide/jobs).
+a [Job](/docs/user-guide/jobs/) or other new resources.
 
-If the `.spec.selector` is specified, it must equal the `.spec.template.metadata.labels`.  If not
-specified, the are default to be equal.  Config with these unequal will be rejected by the API.
+The `spec.selector` is an object consisting of two fields:
+
+* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/docs/user-guide/replication-controller/)
+* `matchExpressions` - allows to build more sophisticated selectors by specifying key,
+  list of values and an operator that relates the key and values.
+
+When the two are specified the result is ANDed.
+
+If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`.  If not
+specified, they are defaulted to be equal.  Config with these not matching will be rejected by the API.
 
 Also you should not normally create any pods whose labels match this selector, either directly, via
 another DaemonSet, or via other controller such as ReplicationController.  Otherwise, the DaemonSet
@@ -100,11 +107,11 @@ If node labels are changed, the DaemonSet will promptly add pods to newly matchi
 pods from newly not-matching nodes.
 
 You can modify the pods that a DaemonSet creates.  However, pods do not allow all
-fields to be updated.  Also, the DeamonSet controller will use the original template the next
+fields to be updated.  Also, the DaemonSet controller will use the original template the next
 time a node (even with the same name) is created.
 
 
-You can delete a DeamonSet.  If you specify `--cascade=false` with `kubectl`, then the pods
+You can delete a DaemonSet.  If you specify `--cascade=false` with `kubectl`, then the pods
 will be left on the nodes.  You can then create a new DaemonSet with a different template.
 the new DaemonSet with the different template will recognize all the existing pods as having
 matching labels.  It will not modify or delete them despite a mismatch in the pod template.
@@ -137,6 +144,14 @@ a Daemon Set replaces pods that are deleted or terminated for any reason, such a
 node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, you should
 use a Daemon Set rather than creating individual pods.
 
+### Static Pods
+
+It is possible to create pods by writing a file to a certain directory watched by Kubelet.  These
+are called [static pods](/docs/admin/static-pods/).
+Unlike DaemonSet, static pods cannot be managed with kubectl
+or other Kubernetes API clients.  Static pods do not depend on the apiserver, making them useful
+in cluster bootstrapping cases.  Also, static pods may be deprecated in the future.
+
 ### Replication Controller
 
 Daemon Set are similar to [Replication Controllers](/docs/user-guide/replication-controller) in that
@@ -147,15 +162,3 @@ Use a replication controller for stateless services, like frontends, where scali
 number of replicas and rolling out updates are more important than controlling exactly which host
 the pod runs on.  Use a Daemon Controller when it is important that a copy of a pod always run on
 all or certain hosts, and when it needs to start before other pods.
-
-## Caveats
-
-DaemonSet objects are in the [`extensions` API Group](/docs/api/#api-groups).
-DaemonSet is not enabled by default. Enable it by setting
-`--runtime-config=extensions/v1beta1/daemonsets=true` on the api server. This can be
-achieved by exporting ENABLE_DAEMONSETS=true before running kube-up.sh script
-on GCE.
-
-DaemonSet objects effectively have [API version `v1alpha1`](/docs/api/)#api-versioning).
- Alpha objects may change or even be discontinued in future software releases.
-However, due to to a known issue, they will appear as API version `v1beta1` if enabled.

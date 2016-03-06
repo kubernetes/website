@@ -138,5 +138,7 @@ network rules on the host and performing connection forwarding.
 `supervisord` is a lightweight process babysitting system for keeping kubelet and docker
 running.
 
+### fluentd
 
+`fluentd` is a daemon which helps provide [cluster-level logging](#cluster-level-logging).
 

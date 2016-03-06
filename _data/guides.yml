@@ -149,6 +149,8 @@ toc:
     path: /docs/user-guide/downward-api/
   - title: Updating Live Pods
     path: /docs/user-guide/update-demo/
+  - title: Static Pods
+    path: /docs/admin/static-pods/
   - title: Installing a Kubernetes Master Node via Docker
     path: /docs/getting-started-guides/docker-multinode/master/
   - title: Adding a Kubernetes Worker Node via Docker
@@ -174,6 +176,10 @@ toc:
     path: /docs/user-guide/connecting-to-applications-port-forward/
   - title: Configuring Your Cloud Provider's Firewalls
     path: /docs/user-guide/services-firewalls/
+  - title: Master <-> Node Communication
+    path: /docs/admin/master-node-communication/
+  - title: Network Plugins
+    path: /docs/admin/network-plugins/
  
 - title: Configuring Kubernetes
   section:

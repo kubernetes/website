@@ -79,7 +79,7 @@ talk to other VMs in your project.  This is the same basic model.
 Until now this document has talked about containers.  In reality, Kubernetes
 applies IP addresses at the `Pod` scope - containers within a `Pod` share their
 network namespaces - including their IP address.  This means that containers
-within a `Pod` can all reach each other's ports on `localhost`.  This does imply
+within a `Pod` can all reach each other’s ports on `localhost`.  This does imply
 that containers within a `Pod` must coordinate port usage, but this is no
 different than processes in a VM.  We call this the "IP-per-pod" model.  This
 is implemented in Docker as a "pod container" which holds the network namespace
@@ -174,7 +174,7 @@ network, primarily aiming at Docker integration.
 
 ### Calico
 
-[Calico](https://github.com/Metaswitch/calico) uses BGP to enable real container
+[Calico](https://github.com/projectcalico/calico-containers) uses BGP to enable real container
 IPs.
 
 ## Other reading

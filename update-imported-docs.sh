@@ -14,8 +14,9 @@ while read line || [[ -n ${line} ]]; do
     CLEARPATH="${TARGET}"
     K8SSOURCE='k8s/_'${TARGET}
     DESTINATION=${TARGET%/*}
-    rm -rf ${CLEARPATH}
-    mv -f ${K8SSOURCE} ${DESTINATION}
+    rm -rf "${CLEARPATH}"
+    mv -f "${K8SSOURCE}" "${DESTINATION}"
+    find "${DESTINATION}" -name "*.md" -print0 | xargs -0 sed -i '' -e 's/.html)/)/g'
   fi
 done <_data/overrides.yml
 
@@ -23,6 +24,7 @@ rm -rf _includes/v1.1
 mv -f k8s/_includes/v1.1 _includes/
 cd _includes/v1.1
 find . -name '*.html' -type f -exec sed -i '' '/<style>/,/<\/style>/d' {} \;
+find . -name '*.html' -print0 | xargs -0 sed -i '' -e 's/http:\/\/kubernetes.io\/v1.1//g'
 cd ..
 cd ..
 

@@ -1,7 +1,8 @@
 ---
 ---
 
-[etcd](https://coreos.com/etcd/docs/2.0.12/) is a highly-available key value
+
+[etcd](https://coreos.com/etcd/docs/2.2.1/) is a highly-available key value
 store which Kubernetes uses for persistent storage of all of its REST API
 objects.
 
@@ -17,12 +18,12 @@ Data Reliability: for reasonable safety, either etcd needs to be run as a
 etcd) or etcd's data directory should be located on durable storage (e.g., GCE's
 persistent disk). In either case, if high availability is required--as it might
 be in a production cluster--the data directory ought to be [backed up
-periodically](https://coreos.com/etcd/docs/2.0.12/admin_guide/#disaster-recovery),
+periodically](https://coreos.com/etcd/docs/2.2.1/admin_guide.html#disaster-recovery),
 to reduce downtime in case of corruption.
 
 ## Default configuration
 
-The default setup scripts run etcd in a
+The default setup scripts use kubelet's file-based static pods feature to run etcd in a
 [pod](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/etcd/etcd.manifest). This manifest should only
 be run on master VMs. The default location that kubelet scans for manifests is
 `/etc/kubernetes/manifests/`.
