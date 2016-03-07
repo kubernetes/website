@@ -117,6 +117,13 @@ header
 .nav-buttons
 	float: right
 
+#viewDocs, #tryKubernetes
+	display: none
+
+#home
+	#viewDocs, #tryKubernetes
+		display: inline-block
+
 #viewDocs
 	border: 1px solid white
 	background-color: transparent
@@ -255,7 +262,7 @@ header
 	text-align: center
 	padding-left: 0
 	padding-right: 0
-	margin-bottom: 30px
+	margin-bottom: 0
 
 // VENDOR STRIP
 #vendorStrip
@@ -832,6 +839,7 @@ section
 		max-width: 100%
 
 .fixed footer
+	position: fixed
 	bottom: 0
 
 
