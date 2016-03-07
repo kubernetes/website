@@ -1,6 +1,6 @@
-# Contributing to the Kubernetes Documentation and Website
+## Instructions for Contributing to the Docs/Website
 
-Welcome! We are very pleased you want to contribute to Kubernetes.
+Welcome! We are very pleased you want to contribute to the documentation and/or website for Kubernetes.
 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
 
@@ -13,7 +13,7 @@ Then, visit: [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME
 
 You should see a special-to-you version of the site. 
 
-## Running the site locally
+## Editing/staging the site locally
 
 If you have files to upload, or just want to work offline, run the below commands to setup
 your environment for running GitHub pages locally. Then, any edits you make will be viewable
@@ -45,12 +45,12 @@ Clone our site
 
 	git clone https://github.com/kubernetes/kubernetes.github.io.git
 
-Then, to see it run locally:
+Make any changes you want. Then, to see your changes locally:
 
 	cd kubernetes.github.io
 	jekyll serve
 
-Your copy of the site will then be viewable at: [http://0.0.0.0:4000](http://0.0.0.0:4000)
+Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
 (or wherever Ruby tells you).
 
 If you're a bit rusty with git/GitHub, you might wanna read
@@ -59,6 +59,56 @@ If you're a bit rusty with git/GitHub, you might wanna read
 The above instructions work on Mac and Linux.
 [These instructions ](https://martinbuberl.com/blog/setup-jekyll-on-windows-and-host-it-on-github-pages/)
 might help for Windows users. 
+
+## Common Tasks
+
+### Edit Page Titles or Change the Left Navigation
+
+Edit the yaml files in `/_data/` for the Guides, Reference, Samples, or Support areas. 
+
+### Add Images
+
+Put the new image in `/images/docs/` if it's for the documentation, and just `/images/` if it's for the website.
+
+### Include code from another file
+
+To include a file that is hosted on this GitHub repo, insert this code:
+
+<pre>&#123;% include code.html language="&lt;LEXERVALUE&gt;" file="&lt;RELATIVEPATH&gt;" ghlink="&lt;PATHFROMROOT&gt;" %&#125;</pre>
+
+* `LEXERVALUE`: The language in which the file was written; must be [a value supported by Rouge](https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers).
+* `RELATIVEPATH`: The path to the file you're including, relative to the current file.
+* `PATHFROMROOT`: The path to the file relative to root, e.g. `/docs/admin/foo.yaml`
+
+To include a file that is hosted in the external, main Kubernetes repo, make sure it's added to [/update-imported-docs.sh](https://github.com/kubernetes/kubernetes.github.io/blob/master/update-imported-docs.sh), and run it so that the file gets downloaded, then enter:
+
+<pre>&#123;% include code.html language="&lt;LEXERVALUE&gt;" file="&lt;RELATIVEPATH&gt;" k8slink="&lt;PATHFROMK8SROOT&gt;" %&#125;</pre>
+
+* `PATHFROMK8SROOT`: The path to the file relative to the root of [the Kubernetes repo](https://github.com/kubernetes/kubernetes/tree/release-1.2), e.g. `/examples/rbd/foo.yaml`
+
+## Use a global variable
+
+The `/_config.yml` file defines some useful variables you can use when editing docs. 
+
+* `page.githubbranch`: The name of the GitHub branch on the Kubernetes repo that is associated with this branch of the docs. e.g. `release-1.2`
+* `page.version` The version of Kubernetes associated with this branch of the docs. e.g. `v1.2`
+* `page.docsbranch` The name of the GitHub branch on the Docs/Website repo that you are currently using. e.g. `release-1.1` or `master`
+
+This keeps the docs you're editing aligned with the Kubernetes version you're talking about. For example, if you define a link like so, you'll never have to worry about it going stale in future doc branches:
+
+<pre>View the README [here](http://releases.k8s.io/&#123;&#123;page.githubbranch&#125;&#125;/cluster/addons/README.md).</pre>
+
+That, of course, will send users to:
+
+[http://releases.k8s.io/release-1.2/cluster/addons/README.md](http://releases.k8s.io/release-1.2/cluster/addons/README.md)
+
+(Or whatever Kubernetes release that docs branch is associated with.)
+
+## Branch structure
+
+The current version of the website is served out of the `master` branch.
+
+All versions of the site that relate to past and future versions will be named after their Kubernetes release number. For example, [the old branch for the 1.1 docs is called `release-1.1`](https://github.com/kubernetes/kubernetes.github.io/tree/release-1.1).
 
 ## Thank you!
 

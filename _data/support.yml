@@ -41,4 +41,4 @@ toc:
   - title: Release Roadmap
     path: https://github.com/kubernetes/kubernetes/milestones/
   - title: Contributing to Kubernetes Documentation
-    path: /docs/editdocs/
+    path: /editdocs/
