@@ -70,6 +70,8 @@ Edit the yaml files in `/_data/` for the Guides, Reference, Samples, or Support 
 
 Put the new image in `/images/docs/` if it's for the documentation, and just `/images/` if it's for the website.
 
+**For diagrams, we greatly prefer SVG files!**
+
 ### Include code from another file
 
 To include a file that is hosted on this GitHub repo, insert this code:
