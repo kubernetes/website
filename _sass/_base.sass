@@ -613,18 +613,32 @@ section
 		line-height: 60px
 		background-color: #444
 
-	.pi-modal-close-button
+	.push-menu-close-button
 		position: absolute
-		top: 10px
-		right: 10px
-		z-index: 1
+		top: 0
+		right: 0
+		width: 50px
+		height: 50px
 
 		&:before, &:after
-			background-color: #222222
+			content: ""
+			position: absolute
+			top: calc(50% - 1px)
+			left: 10%
+			width: 80%
+			height: 2px
+			background-color: $blue
+
+		&:before
+			transform: rotate(45deg)
+
+		&:after
+			transform: rotate(-45deg)
 
 
 	ul
 		padding: 0 60px 0 20px
+
 	li
 		position: relative
 		display: block
