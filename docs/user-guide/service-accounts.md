@@ -123,7 +123,8 @@ Type: kubernetes.io/service-account-token
 Data
 ====
 ca.crt: 1220 bytes
-token:  
+token: ...
+namespace: 7 bytes
 ```
 
 > Note that the content of `token` is elided here.
@@ -135,8 +136,8 @@ Next, verify it has been created.  For example:
 
 ```shell
 $ kubectl get secrets myregistrykey
-NAME             TYPE                      DATA
-myregistrykey    kubernetes.io/dockercfg   1
+NAME             TYPE                              DATA
+myregistrykey    kubernetes.io/.dockerconfigjson   1
 ```
 
 Next, read/modify/write the service account for the namespace to use this secret as an imagePullSecret

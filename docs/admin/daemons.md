@@ -71,7 +71,7 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](/docs/user-guide/node-selection/).
+selector](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/node-selection).
 
 If you do not specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on all nodes.

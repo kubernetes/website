@@ -4,6 +4,9 @@
 The purpose of this guide is to help you become familiar with [Kubernetes Persistent Volumes](/docs/user-guide/persistent-volumes/).  By the end of the guide, we'll have
 nginx serving content from your persistent volume.
 
+You can view all the files for this example in [the docs repo
+here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/persistent-volumes).
+
 This guide assumes knowledge of Kubernetes fundamentals and that you have a cluster up and running.
 
 See [Persistent Storage design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/persistent-storage.md) for more information.

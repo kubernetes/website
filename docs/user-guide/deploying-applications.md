@@ -1,7 +1,6 @@
 ---
 ---
 
-You previously read about how to quickly deploy a simple replicated application using [`kubectl run`](/docs/user-guide/quick-start) and how to configure and launch single-run containers using pods ([Configuring containers](/docs/user-guide/configuring-containers)). Here you'll use the configuration-based approach to deploy a continuously running, replicated application.
 
 * TOC
 {:toc}
@@ -35,7 +34,7 @@ spec:
 
 Some differences compared to specifying just a pod are that the `kind` is `ReplicationController`, the number of `replicas` desired is specified, and the pod specification is under the `template` field. The names of the pods don't need to be specified explicitly because they are generated from the name of the replication controller.
 View the [replication controller API
-object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions/#_v1_replicationcontroller)
+object](/docs/api-reference/v1/definitions/#_v1_replicationcontroller)
 to view the list of supported fields.
 
 This replication controller can be created using `create`, just as with pods:

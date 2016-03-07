@@ -11,7 +11,7 @@ Kubernetes components, such as kubelet and apiserver, use the [glog](https://god
 
 The logs of a running container may be fetched using the command `kubectl logs`. For example, given
 this pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/counter-pod.yaml), which has a container which writes out some text to standard
-output every second. (You can find different pod specifications [here](https://github.com/kubernetes/kubernetes.github.io/tree/master/docs/user-guide/logging-demo).)
+output every second. (You can find different pod specifications [here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/logging-demo/).)
 
 {% include code.html language="yaml" file="counter-pod.yaml" k8slink="/examples/blog-logging/counter-pod.yaml" %}
 
@@ -70,7 +70,7 @@ describes how to ingest cluster level logs into Elasticsearch and view them usin
 ## Ingesting Application Log Files
 
 Cluster level logging only collects the standard output and standard error output of the applications
-running in containers. The guide [Collecting log files within containers with Fluentd](http://releases.k8s.io/{{page.githubbranch}}/contrib/logging/fluentd-sidecar-gcp/README.md) explains how the log files of applications can also be ingested into Google Cloud logging.
+running in containers. The guide [Collecting log files from within containers with Fluentd and sending them to the Google Cloud Logging service](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-gcp/README.md) explains how the log files of applications can also be ingested into Google Cloud logging.
 
 ## Known issues
 

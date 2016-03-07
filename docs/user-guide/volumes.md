@@ -67,6 +67,8 @@ Kubernetes supports several types of Volumes:
    * `gitRepo`
    * `secret`
    * `persistentVolumeClaim`
+   * `downwardAPI`
+   * `azureFileVolume`
 
 We welcome additional contributions.
 
@@ -83,7 +85,7 @@ volume is safe across container crashes.
 
 Some uses for an `emptyDir` are:
 
-* scratch space, such as for a disk-based mergesortcw
+* scratch space, such as for a disk-based merge sort
 * checkpointing a long computation for recovery from crashes
 * holding files that a content-manager container fetches while a webserver
   container serves the data
@@ -135,7 +137,7 @@ A feature of PD is that they can be mounted as read-only by multiple consumers
 simultaneously.  This means that you can pre-populate a PD with your dataset
 and then serve it in parallel from as many pods as you need.  Unfortunately,
 PDs can only be mounted by a single consumer in read-write mode - no
-simultaneous readers allowed.
+simultaneous writers allowed.
 
 Using a PD on a pod controlled by a ReplicationController will fail unless
 the PD is read-only or the replica count is 0 or 1.
@@ -217,11 +219,9 @@ spec:
   - name: test-volume
     # This AWS EBS volume must already exist.
     awsElasticBlockStore:
-      volumeID: aws://<availability-zone>/<volume-id>
+      volumeID: <volume-id>
       fsType: ext4
 ```
-
-(Note: the syntax of volumeID is currently awkward; #10181 fixes it)
 
 ### nfs
 
@@ -252,7 +252,7 @@ A feature of iSCSI is that it can be mounted as read-only by multiple consumers
 simultaneously.  This means that you can pre-populate a volume with your dataset
 and then serve it in parallel from as many pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
-simultaneous readers allowed.
+simultaneous writers allowed.
 
 See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/iscsi/) for more details.
 
@@ -262,8 +262,8 @@ See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.git
 and orchestration of data volumes backed by a variety of storage backends.
 
 A `flocker` volume allows a Flocker dataset to be mounted into a pod. If the
-dataset does not already exist in Flocker, it needs to be created with Flocker
-CLI or the using the Flocker API. If the dataset already exists it will
+dataset does not already exist in Flocker, it needs to be first created with the Flocker
+CLI or by using the Flocker API. If the dataset already exists it will be
 reattached by Flocker to the node that the pod is scheduled. This means data
 can be "handed off" between pods as required.
 
@@ -363,6 +363,21 @@ A `downwardAPI` volume is used to make downward API data available to applicatio
 It mounts a directory and writes the requested data in plain text files.
 
 See the [`downwardAPI` volume example](/docs/user-guide/downward-api/volume/)  for more details.
+
+### FlexVolume
+
+A `FlexVolume` enables users to mount vendor volumes into a pod. It expects vendor
+drivers are installed in the volume plugin path on each kubelet node. This is
+an alpha feature and may change in future.
+
+More details are in [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/flexvolume/README.md)
+
+### AzureFileVolume
+
+A `AzureFileVolume` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
+into a Pod.
+
+More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/azure_file/README.md)
 
 ## Resources
 

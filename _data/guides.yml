@@ -147,6 +147,8 @@ toc:
     path: /docs/user-guide/getting-into-containers/
   - title: The Lifecycle of a Pod
     path: /docs/user-guide/pod-states/
+  - title: Pod Templates
+    path: /docs/user-guide/pod-templates/
   - title: Assigning Pods to Nodes
     path: /docs/user-guide/node-selection/
   - title: Creating Pods with the Downward API
@@ -167,13 +169,13 @@ toc:
   - title: Using DNS Pods and Services
     path: /docs/admin/dns/
   - title: Setting Up and Configuring DNS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/cluster-dns
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/cluster-dns
   - title: Deploying DNS
     path: /docs/getting-started-guides/docker-multinode/deployDNS/
   - title: Connecting Applications
     path: /docs/user-guide/connecting-applications/
   - title: Creating Servers with External IPs
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.1/examples/simple-nginx.md
+    path: https://github.com/kubernetes/kubernetes/blob/release-1.2/examples/simple-nginx.md
   - title: Connect with Proxies
     path: /docs/user-guide/connecting-to-applications-proxy/
   - title: Connect with Port Forwarding
@@ -193,6 +195,8 @@ toc:
     path: /docs/user-guide/config-best-practices/
   - title: Configuring Containers
     path: /docs/user-guide/configuring-containers/
+  - title: Using ConfigMap
+    path: /docs/user-guide/configmap/
   - title: Sharing Cluster Access with kubeconfig
     path: /docs/user-guide/sharing-clusters/
   - title: Using Environment Variables
@@ -228,11 +232,11 @@ toc:
   - title: Testing a Kubernetes Cluster
     path: /docs/getting-started-guides/docker-multinode/testing/
   - title: Simulating Large Test Loads
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/k8petstore
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/k8petstore
   - title: Checking Pod Health
     path: /docs/user-guide/liveness/
   - title: Using Explorer to Examine the Runtime Environment
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/explorer
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/explorer
   - title: Resource Usage Monitoring
     path: /docs/user-guide/monitoring/
   - title: Logging
