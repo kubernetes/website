@@ -1,7 +1,7 @@
 ---
 ---
 
-This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](/docs/user-guide/volumes) is suggested.
+This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](/docs/user-guide/volumes/) is suggested.
 
 * TOC
 {:toc}
@@ -63,7 +63,7 @@ The reclaim policy for a `PersistentVolume` tells the cluster what to do with th
 Each PV contains a spec and status, which is the specification and status of the volume.
 
 ```yaml
-apiVersion: v1
+  apiVersion: v1
   kind: PersistentVolume
   metadata:
     name: pv0003

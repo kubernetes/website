@@ -1,7 +1,3 @@
----
-layout: docwithnav
-title: "kubectl autoscale"
----
 <!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
 
@@ -9,62 +5,58 @@ title: "kubectl autoscale"
 
 ## kubectl autoscale
 
-Auto-scale a replication controller
+Auto-scale a deployment or replication controller
 
 ### Synopsis
 
 
 Creates an autoscaler that automatically chooses and sets the number of pods that run in a kubernetes cluster.
 
-Looks up a replication controller by name and creates an autoscaler that uses this replication controller as a reference.
+Looks up a deployment or replication controller by name and creates an autoscaler that uses this deployment or replication controller as a reference.
 An autoscaler can automatically increase or decrease number of pods deployed within the system as needed.
 
 ```
-{% raw %}
 kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]
-{% endraw %}
 ```
 
 ### Examples
 
 ```
-{% raw %}
-# Auto scale a replication controller "foo", with the number of pods between 2 to 10, target CPU utilization at a default value that server applies:
-$ kubectl autoscale rc foo --min=2 --max=10
+# Auto scale a deployment "foo", with the number of pods between 2 to 10, target CPU utilization at a default value that server applies:
+kubectl autoscale deployment foo --min=2 --max=10
 
 # Auto scale a replication controller "foo", with the number of pods between 1 to 5, target CPU utilization at 80%:
-$ kubectl autoscale rc foo --max=5 --cpu-percent=80
-{% endraw %}
+kubectl autoscale rc foo --max=5 --cpu-percent=80
 ```
 
 ### Options
 
 ```
-{% raw %}
       --cpu-percent=-1: The target average CPU utilization (represented as a percent of requested CPU) over all the pods. If it's not specified or negative, the server will apply a default value.
       --dry-run[=false]: If true, only print the object that would be sent, without creating it.
-  -f, --filename=[]: Filename, directory, or URL to a file identifying the resource to get from a server.
+  -f, --filename=[]: Filename, directory, or URL to a file identifying the resource to autoscale.
       --generator="horizontalpodautoscaler/v1beta1": The name of the API generator to use. Currently there is only 1 generator.
       --max=-1: The upper limit for the number of pods that can be set by the autoscaler. Required.
       --min=-1: The lower limit for the number of pods that can be set by the autoscaler. If it's not specified or negative, the server will apply a default value.
       --name="": The name for the newly created object. If not specified, the name of the input resource will be used.
       --no-headers[=false]: When using the default output, don't print headers.
-  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.1/docs/user-guide/jsonpath.md].
+  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.2/docs/user-guide/jsonpath.md].
       --output-version="": Output the formatted object with the given version (default api-version).
+      --record[=false]: Record current kubectl command in the resource annotation.
+      --save-config[=false]: If true, the configuration of current object will be saved in its annotation. This is useful when you want to perform kubectl apply on this object in the future.
   -a, --show-all[=false]: When printing, show all resources (default hide terminated pods.)
-      --sort-by="": If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. 'ObjectMeta.Name'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
+      --show-labels[=false]: When printing, show all labels as the last column (default hide labels column)
+      --sort-by="": If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
       --template="": Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
-{% endraw %}
 ```
 
 ### Options inherited from parent commands
 
 ```
-{% raw %}
       --alsologtostderr[=false]: log to standard error as well as files
       --api-version="": The API version to use when talking to the server
       --certificate-authority="": Path to a cert. file for the certificate authority.
-      --client-certificate="": Path to a client key file for TLS.
+      --client-certificate="": Path to a client certificate file for TLS.
       --client-key="": Path to a client key file for TLS.
       --cluster="": The name of the kubeconfig cluster to use
       --context="": The name of the kubeconfig context to use
@@ -84,14 +76,13 @@ $ kubectl autoscale rc foo --max=5 --cpu-percent=80
       --username="": Username for basic authentication to the API server.
       --v=0: log level for V logs
       --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
-{% endraw %}
 ```
 
 ### SEE ALSO
 
-* [kubectl](kubectl.html)	 - kubectl controls the Kubernetes cluster manager
+* [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 
-###### Auto generated by spf13/cobra on 16-Oct-2015
+###### Auto generated by spf13/cobra on 29-Feb-2016
 
 
 
@@ -103,4 +94,3 @@ $ kubectl autoscale rc foo --max=5 --cpu-percent=80
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
 [![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_autoscale.md?pixel)]()
 <!-- END MUNGE: GENERATED_ANALYTICS -->
-

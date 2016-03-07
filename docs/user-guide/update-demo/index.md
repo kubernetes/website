@@ -2,24 +2,10 @@
 ---
 
 
-<!--
-Copyright 2014 Google Inc. All rights reserved.
+This example demonstrates the usage of Kubernetes to perform a [rolling update](/docs/user-guide/kubectl/kubectl_rolling-update/) on a running group of [pods](/docs/user-guide/pods/). See [here](/docs/user-guide/managing-deployments/#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) for more information.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
--->
-
-This example demonstrates the usage of Kubernetes to perform a [rolling update](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/user-guide/kubectl/kubectl_rolling-update.md) on a running group of [pods](/docs/user-guide/pods). See [here](/docs/user-guide/managing-deployments/#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) for more information.
+The files for this example are viewable in [our docs repo
+here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/update-demo).
 
 ### Step Zero: Prerequisites
 
@@ -62,7 +48,7 @@ Now we will increase the number of replicas from two to four:
 $ kubectl scale rc update-demo-nautilus --replicas=4
 ```
 
-If you go back to the [demo website](http://localhost:8001/static/index) you should eventually see four boxes, one for each pod.
+If you go back to the [demo website](http://localhost:8001/static/index.html) you should eventually see four boxes, one for each pod.
 
 ### Step Four: Update the docker image
 
@@ -74,10 +60,10 @@ $ kubectl rolling-update update-demo-nautilus --update-period=10s -f docs/user-g
 
 The rolling-update command in kubectl will do 2 things:
 
-1. Create a new [replication controller](/docs/user-guide/replication-controller) with a pod template that uses the new image (`gcr.io/google_containers/update-demo:kitten`)
+1. Create a new [replication controller](/docs/user-guide/replication-controller/) with a pod template that uses the new image (`gcr.io/google_containers/update-demo:kitten`)
 2. Scale the old and new replication controllers until the new controller replaces the old. This will kill the current pods one at a time, spinning up new ones to replace them.
 
-Watch the [demo website](http://localhost:8001/static/index), it will update one pod every 10 seconds until all of the pods have the new image.
+Watch the [demo website](http://localhost:8001/static/index.html), it will update one pod every 10 seconds until all of the pods have the new image.
 Note that the new replication controller definition does not include the replica count, so the current replica count of the old replication controller is preserved.
 But if the replica count had been specified, the final replica count of the new replication controller will be equal this number.
 

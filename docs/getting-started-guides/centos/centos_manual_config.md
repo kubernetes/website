@@ -27,36 +27,19 @@ centos-minion = 192.168.121.65
 
 **Prepare the hosts:**
 
-* Create virt7-testing repo on all hosts - centos-{master,minion} with following information.
+* Create a virt7-docker-common-release repo on all hosts - centos-{master,minion} with following information.
 
 ```conf
-[virt7-testing]
-name=virt7-testing
-baseurl=http://cbs.centos.org/repos/virt7-testing/x86_64/os/
+[virt7-docker-common-release]
+name=virt7-docker-common-release
+baseurl=http://cbs.centos.org/repos/virt7-docker-common-release/x86_64/os/
 gpgcheck=0
 ```
 
 * Install Kubernetes on all hosts - centos-{master,minion}.  This will also pull in etcd, docker, and cadvisor.
 
 ```shell
-yum -y install --enablerepo=virt7-testing kubernetes
-```
-
-* Note * Using etcd-0.4.6-7 (This is temporary update in documentation)
-
-If you do not get etcd-0.4.6-7 installed with virt7-testing repo,
-
-In the current virt7-testing repo, the etcd package is updated which causes service failure. To avoid this,
-
-```shell
-yum erase etcd
-```
-
-It will uninstall the current available etcd package
-
-```shell
-yum install http://cbs.centos.org/kojifiles/packages/etcd/0.4.6/7.el7.centos/x86_64/etcd-0.4.6-7.el7.centos.x86_64.rpm
-yum -y install --enablerepo=virt7-testing kubernetes
+yum -y install --enablerepo=virt7-docker-common-release kubernetes
 ```
 
 * Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS)
@@ -66,11 +49,11 @@ echo "192.168.121.9	centos-master
 192.168.121.65	centos-minion" >> /etc/hosts
 ```
 
-* Edit `/etc/kubernetes/config` which will be the same on all hosts to contain:
+* Edit /etc/kubernetes/config which will be the same on all hosts to contain:
 
 ```shell
 # Comma separated list of nodes in the etcd cluster
-KUBE_ETCD_SERVERS="--etcd-servers=http://centos-master:4001"
+KUBE_ETCD_SERVERS="--etcd-servers=http://centos-master:2379"
 
 # logging to stderr means we get it in the systemd journal
 KUBE_LOGTOSTDERR="--logtostderr=true"
@@ -127,7 +110,7 @@ done
 
 ***We need to configure the kubelet and start the kubelet and proxy***
 
-* Edit `/etc/kubernetes/kubelet` to appear as such:
+* Edit /etc/kubernetes/kubelet to appear as such:
 
 ```shell
 # The address for the info server to serve on

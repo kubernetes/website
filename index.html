@@ -1,5 +1,5 @@
 ---
-title: Accelerate Your Development
+title: Accelerate Your Delivery
 ---
 
 <!Doctype html>
@@ -11,10 +11,10 @@ title: Accelerate Your Development
 <section id="hero" class="light-text">
 	<main>
 		<div id="headlineWrapper">
-			<h1>Accelerate Your Development</h1>
-			<h5>Manage a cluster of containers as a single system to simplify operations</h5>
+			<h1>Accelerate Your Delivery</h1>
+			<h5>Manage an infrastructure cluster as a single system to simplify container operations.</h5>
 		</div>
-		<a href="/docs/hellonode/" id="quickstartButton" class="button">5 Minute Quick Start</a>
+		<a href="/docs/hellonode/" id="quickstartButton" class="button">Try Our Hello World</a>
 	</main>
 	<div id="vendorStrip" class="light-text">
 		<div>Join the growing community already using Kubernetes</div>
@@ -33,46 +33,31 @@ title: Accelerate Your Development
 	<main>
 		<div class="image-wrapper"><img src="images/flower.png"></div>
 		<div class="content">
-			<h3>Kubernetes is an open source system for automating deployment, operations, and scaling of applications.</h3>
-			<p>It groups containers that make up an application into logical units for easy management and discovery.
-				Kubernetes builds upon a decade and a half of experience of running production workloads at Google,
-				combined with best-of-breed ideas and practices from the community.</p>
-		</div>
-	</main>
-	<main>
-		<div class="image-wrapper"><img src="images/suitcase.png"></div>
-		<div class="content">
-			<h4>Run Anywhere</h4>
-			<p>Kubernetes is open source giving you the flexibility to take advantage of on-premise, hybrid, or public
-				cloud infrastructure allowing you to easily move workloads to where it matters to you.</p>
-		</div>
-	</main>
-	<main>
-		<div class="image-wrapper"><img src="images/self-heal.png"></div>
-		<div class="content">
-			<h4>Self-healing</h4>
-			<p>Pager wakeup calls are a thing of the past, when a hardware failure occurs Kubernetes is able to scale-up
-				services and distribute the load among your existing infrastructure. It automates tasks with
-				auto-placement, auto-restart, and auto-replication making your operations run smoothly.</p>
-		</div>
-	</main>
-	<main>
-		<div class="image-wrapper"><img src="images/blocks.png"></div>
-		<div class="content">
-			<h4>Modular</h4>
-			<p>Energistically build reliable deliverables with interactive core competencies. Enthusiastically fashion
-				accurate "outside the box" thinking for accurate e-markets. Dramatically evolve mission-critical
-				scenarios rather than fully tested experiences. Dynamically embrace effective potentialities vis-a-vis
-				installed base process improvements. </p>
+			<h3>Kubernetes is an open-source system for automating deployment, operations, and scaling of containerized applications.</h3>
+			<p>It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds
+            upon <a href="http://queue.acm.org/detail.cfm?id=2898444">a decade and a half of experience of running production workloads at Google</a>,
+            combined with best-of-breed ideas and practices from the community.</p>
 		</div>
 	</main>
 	<main>
 		<div class="image-wrapper"><img src="images/scalable.png"></div>
 		<div class="content">
 			<h4>Planet Scale</h4>
-			<p>Designed on the same principles that allows Google to run billions of containers a week, Kubernetes can
-				scale without increasing your ops team. From testing locally to running a global enterprise, your
-				application scales consistently and easily.</p>
+			<p>Designed on the same principles that allows Google to run billions of containers a week, Kubernetes can scale without increasing your ops team. From testing locally to running a global enterprise, your application scales consistently and easily.</p>
+		</div>
+	</main>
+	<main>
+		<div class="image-wrapper"><img src="images/blocks.png"></div>
+		<div class="content">
+			<h4>Never Outgrow</h4>
+			<p>Simple cases, complex cases. Kubernetes is flexible enough for your needs.</p>
+		</div>
+	</main>
+	<main>
+		<div class="image-wrapper"><img src="images/suitcase.png"></div>
+		<div class="content">
+			<h4>Run Anywhere</h4>
+			<p>Kubernetes is open source giving you the flexibility to take advantage of on-premise, hybrid, or public cloud infrastructure allowing you to easily move workloads to where it matters to you.</p>
 		</div>
 	</main>
 </section>
@@ -80,8 +65,8 @@ title: Accelerate Your Development
 <section id="video">
 	<div class="light-text">
 		<h2>A techincal overview<br>of Kubernetes</h2>
-		<p>Kubernetes is an open source system for managing containerized applications across multiple hosts,
-			providing mechanisms for deployment, maintenance, and scaling of applications.</p>
+		<p>Brendan Burns, Software Engineer and a founder of Kubernetes at Google, gives a technical overview of Kubernetes in this
+        30-minute presentation from CoreOS Fest 2015.</p>
 		<button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
 	</div>
 	<button id="mobileShowVideoButton" onclick="kub.showVideo()"></button>
@@ -93,50 +78,53 @@ title: Accelerate Your Development
 
 		<div class="feature-box">
 			<div>
-				<h4>Feature</h4>
-				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
-					conceptualize open-source best practices via mission-critical potentialities. Competently
-					grow proactive ideas via 24/7 communities. </p>
+				<h4>Automatic binpacking</h4>
+				<p>Automatically places containers based on their resource requirements and other constraints, never sacrificing
+                availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.</p>
 			</div>
 			<div>
-				<h4>Feature</h4>
-				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
-					conceptualize open-source best practices via mission-critical potentialities. Competently
-					grow proactive ideas via 24/7 communities. </p>
+				<h4>Self-healing</h4>
+				<p>Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers that don't
+                respond to your user-defined health check, and doesn't advertise containers to clients until they are ready to serve.</p>
 			</div>
 		</div>
 
 		<div class="feature-box">
 			<div>
-				<h4>Feature</h4>
-				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
-					conceptualize open-source best practices via mission-critical potentialities. Competently
-					grow proactive ideas via 24/7 communities. </p>
+				<h4>Horizontal scaling</h4>
+				<p>Scale your application up and down with a simple command, a UI, or automatically based on CPU usage.</p>
 			</div>
 			<div>
-				<h4>Feature</h4>
-				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
-					conceptualize open-source best practices via mission-critical potentialities. Competently
-					grow proactive ideas via 24/7 communities. </p>
-				<p>Quickly envisioneer customized initiatives without proactive intellectual capital. Intrinsicly
-					predominate focused innovation whereas clicks-and-mortar initiatives.</p>
+				<h4>Service discovery and load balancing</h4>
+				<p>No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives containers
+                their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.</p>
 			</div>
 		</div>
 
 		<div class="feature-box">
 			<div>
-				<h4>Feature</h4>
-				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
-					conceptualize open-source best practices via mission-critical potentialities. Competently
-					grow proactive ideas via 24/7 communities. </p>
-				<p>Quickly envisioneer customized initiatives without proactive intellectual capital. Intrinsicly
-					predominate focused innovation whereas clicks-and-mortar initiatives.</p>
+				<h4>Automated rollouts and rollbacks</h4>
+				<p>Kubernetes progressively rolls out application and configuration changes, while monitoring
+                application health to ensure it doesn't kill all your instances at the same time. If something goes wrong,
+                Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.</p>
 			</div>
 			<div>
-				<h4>Feature</h4>
-				<p>Energistically transform quality total linkage whereas go forward interfaces. Assertively
-					conceptualize open-source best practices via mission-critical potentialities. Competently
-					grow proactive ideas via 24/7 communities. </p>
+				<h4>Secret and configuration management</h4>
+				<p>Deploy and update secrets and application configuration changes without rebuilding your image and without exposing
+                secrets in your stack configuration.</p>
+			</div>
+		</div>
+        
+		<div class="feature-box">
+			<div>
+				<h4>Storage orchestration</h4>
+				<p>Automatically mount the storage system of your choice, whether from local storage, a public cloud provider
+                such as <a href="https://cloud.google.com/storage/">Google</a> or <a href="http://media.amazonwebservices.com/AWS_Storage_Options.pdf">Amazon</a>, or a network storage system such as NFS, iSCSI, 
+                Gluster, Ceph, Cinder, or Flocker.</p>
+			</div>
+			<div>
+				<h4>Batch execution</h4>
+				<p>In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.</p>
 			</div>
 		</div>
 
@@ -161,7 +149,7 @@ title: Accelerate Your Development
 				<p>Our Slack channel is the best way to contact our engineers and share your ideas with them.</p>
 			</div>
 			<div>
-				<a href="http://stackoverflow.com/questions/tagged/kubernetes">Stackoverflow</a>
+				<a href="http://stackoverflow.com/questions/tagged/kubernetes">Stack Overflow</a>
 				<p>Our user forum is a great place to go for community support.</p>
 			</div>
 		</div>
@@ -190,8 +178,9 @@ title: Accelerate Your Development
 	ga('create', 'UA-36037335-10', 'auto');
 	ga('send', 'pageview');
 </script>
-<!-- Start of AnswerDash script --> <script>var AnswerDash;!function(e,t,n,s,a){if(!t.getElementById(s)){var i,r=t.createElement(n),c=t.getElementsByTagName(n)[0];e[a]||(i=e[a]=function(){i.__oninit.push(arguments)},i.__oninit=[]),r.type="text/javascript",r.async=!0,r.src="https://p1.answerdash.com/answerdash.min.js?siteid=756",r.setAttribute("id",s),c.parentNode.insertBefore(r,c)}}(window,document,"script","answerdash-script","AnswerDash");</script> <!-- End of AnswerDash script -->
-
+<!-- Start of AnswerDash script 
+<script>var AnswerDash;!function(e,t,n,s,a){if(!t.getElementById(s)){var i,r=t.createElement(n),c=t.getElementsByTagName(n)[0];e[a]||(i=e[a]=function(){i.__oninit.push(arguments)},i.__oninit=[]),r.type="text/javascript",r.async=!0,r.src="https://p1.answerdash.com/answerdash.min.js?siteid=756",r.setAttribute("id",s),c.parentNode.insertBefore(r,c)}}(window,document,"script","answerdash-script","AnswerDash");</script>
+<!-- End of AnswerDash script -->
 </body>
 </html>
 

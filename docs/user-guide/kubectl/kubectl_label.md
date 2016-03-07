@@ -1,7 +1,3 @@
----
-layout: docwithnav
-title: "kubectl label"
----
 <!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
 
@@ -21,63 +17,58 @@ If --overwrite is true, then existing labels can be overwritten, otherwise attem
 If --resource-version is specified, then updates will use this resource version, otherwise the existing resource-version will be used.
 
 ```
-{% raw %}
 kubectl label [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]
-{% endraw %}
 ```
 
 ### Examples
 
 ```
-{% raw %}
 # Update pod 'foo' with the label 'unhealthy' and the value 'true'.
-$ kubectl label pods foo unhealthy=true
+kubectl label pods foo unhealthy=true
 
 # Update pod 'foo' with the label 'status' and the value 'unhealthy', overwriting any existing value.
-$ kubectl label --overwrite pods foo status=unhealthy
+kubectl label --overwrite pods foo status=unhealthy
 
 # Update all pods in the namespace
-$ kubectl label pods --all status=unhealthy
+kubectl label pods --all status=unhealthy
 
 # Update a pod identified by the type and name in "pod.json"
-$ kubectl label -f pod.json status=unhealthy
+kubectl label -f pod.json status=unhealthy
 
 # Update pod 'foo' only if the resource is unchanged from version 1.
-$ kubectl label pods foo status=unhealthy --resource-version=1
+kubectl label pods foo status=unhealthy --resource-version=1
 
 # Update pod 'foo' by removing a label named 'bar' if it exists.
 # Does not require the --overwrite flag.
-$ kubectl label pods foo bar-
-{% endraw %}
+kubectl label pods foo bar-
 ```
 
 ### Options
 
 ```
-{% raw %}
       --all[=false]: select all resources in the namespace of the specified resource types
       --dry-run[=false]: If true, only print the object that would be sent, without sending it.
   -f, --filename=[]: Filename, directory, or URL to a file identifying the resource to update the labels
       --no-headers[=false]: When using the default output, don't print headers.
-  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.1/docs/user-guide/jsonpath.md].
+  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.2/docs/user-guide/jsonpath.md].
       --output-version="": Output the formatted object with the given version (default api-version).
       --overwrite[=false]: If true, allow labels to be overwritten, otherwise reject label updates that overwrite existing labels.
+      --record[=false]: Record current kubectl command in the resource annotation.
       --resource-version="": If non-empty, the labels update will only succeed if this is the current resource-version for the object. Only valid when specifying a single resource.
   -l, --selector="": Selector (label query) to filter on
   -a, --show-all[=false]: When printing, show all resources (default hide terminated pods.)
-      --sort-by="": If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. 'ObjectMeta.Name'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
+      --show-labels[=false]: When printing, show all labels as the last column (default hide labels column)
+      --sort-by="": If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
       --template="": Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
-{% endraw %}
 ```
 
 ### Options inherited from parent commands
 
 ```
-{% raw %}
       --alsologtostderr[=false]: log to standard error as well as files
       --api-version="": The API version to use when talking to the server
       --certificate-authority="": Path to a cert. file for the certificate authority.
-      --client-certificate="": Path to a client key file for TLS.
+      --client-certificate="": Path to a client certificate file for TLS.
       --client-key="": Path to a client key file for TLS.
       --cluster="": The name of the kubeconfig cluster to use
       --context="": The name of the kubeconfig context to use
@@ -97,14 +88,13 @@ $ kubectl label pods foo bar-
       --username="": Username for basic authentication to the API server.
       --v=0: log level for V logs
       --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
-{% endraw %}
 ```
 
 ### SEE ALSO
 
-* [kubectl](kubectl.html)	 - kubectl controls the Kubernetes cluster manager
+* [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 
-###### Auto generated by spf13/cobra at 2015-09-25 23:39:47.89548479 +0000 UTC
+###### Auto generated by spf13/cobra on 29-Feb-2016
 
 
 
@@ -116,4 +106,3 @@ $ kubectl label pods foo bar-
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
 [![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_label.md?pixel)]()
 <!-- END MUNGE: GENERATED_ANALYTICS -->
-

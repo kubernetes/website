@@ -1,7 +1,3 @@
----
-layout: docwithnav
-title: "kubectl rolling-update"
----
 <!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
 
 
@@ -21,62 +17,60 @@ new PodTemplate. The new-controller.json must specify the same namespace as the
 existing replication controller and overwrite at least one (common) label in its replicaSelector.
 
 ```
-{% raw %}
 kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE | -f NEW_CONTROLLER_SPEC)
-{% endraw %}
 ```
 
 ### Examples
 
 ```
-{% raw %}
 # Update pods of frontend-v1 using new replication controller data in frontend-v2.json.
-$ kubectl rolling-update frontend-v1 -f frontend-v2.json
+kubectl rolling-update frontend-v1 -f frontend-v2.json
 
 # Update pods of frontend-v1 using JSON data passed into stdin.
-$ cat frontend-v2.json | kubectl rolling-update frontend-v1 -f -
+cat frontend-v2.json | kubectl rolling-update frontend-v1 -f -
 
 # Update the pods of frontend-v1 to frontend-v2 by just changing the image, and switching the
 # name of the replication controller.
-$ kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2
+kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2
 
-# Update the pods of frontend by just changing the image, and keeping the old name
-$ kubectl rolling-update frontend --image=image:v2
+# Update the pods of frontend by just changing the image, and keeping the old name.
+kubectl rolling-update frontend --image=image:v2
 
-{% endraw %}
+# Abort and reverse an existing rollout in progress (from frontend-v1 to frontend-v2).
+kubectl rolling-update frontend-v1 frontend-v2 --rollback
+
 ```
 
 ### Options
 
 ```
-{% raw %}
+      --container="": Container name which will have its image upgraded. Only relevant when --image is specified, ignored otherwise. Required when using --image on a multi-container pod
       --deployment-label-key="deployment": The key to use to differentiate between two different controllers, default 'deployment'.  Only relevant when --image is specified, ignored otherwise
       --dry-run[=false]: If true, print out the changes that would be made, but don't actually make them.
   -f, --filename=[]: Filename or URL to file to use to create the new replication controller.
-      --image="": Image to use for upgrading the replication controller.  Can not be used with --filename/-f
+      --image="": Image to use for upgrading the replication controller. Must be distinct from the existing image (either new image or new image tag).  Can not be used with --filename/-f
       --no-headers[=false]: When using the default output, don't print headers.
-  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.1/docs/user-guide/jsonpath.md].
+  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.2/docs/user-guide/jsonpath.md].
       --output-version="": Output the formatted object with the given version (default api-version).
       --poll-interval=3s: Time delay between polling for replication controller status after the update. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
       --rollback[=false]: If true, this is a request to abort an existing rollout that is partially rolled out. It effectively reverses current and next and runs a rollout
-      --schema-cache-dir="/tmp/kubectl.schema": If non-empty, load/store cached API schemas in this directory, default is '/tmp/kubectl.schema'
+      --schema-cache-dir="~/.kube/schema": If non-empty, load/store cached API schemas in this directory, default is '$HOME/.kube/schema'
   -a, --show-all[=false]: When printing, show all resources (default hide terminated pods.)
-      --sort-by="": If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. 'ObjectMeta.Name'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
+      --show-labels[=false]: When printing, show all labels as the last column (default hide labels column)
+      --sort-by="": If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
       --template="": Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
       --timeout=5m0s: Max time to wait for a replication controller to update before giving up. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
       --update-period=1m0s: Time to wait between updating pods. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
       --validate[=true]: If true, use a schema to validate the input before sending it
-{% endraw %}
 ```
 
 ### Options inherited from parent commands
 
 ```
-{% raw %}
       --alsologtostderr[=false]: log to standard error as well as files
       --api-version="": The API version to use when talking to the server
       --certificate-authority="": Path to a cert. file for the certificate authority.
-      --client-certificate="": Path to a client key file for TLS.
+      --client-certificate="": Path to a client certificate file for TLS.
       --client-key="": Path to a client key file for TLS.
       --cluster="": The name of the kubeconfig cluster to use
       --context="": The name of the kubeconfig context to use
@@ -96,14 +90,13 @@ $ kubectl rolling-update frontend --image=image:v2
       --username="": Username for basic authentication to the API server.
       --v=0: log level for V logs
       --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
-{% endraw %}
 ```
 
 ### SEE ALSO
 
-* [kubectl](kubectl.html)	 - kubectl controls the Kubernetes cluster manager
+* [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 
-###### Auto generated by spf13/cobra at 2015-09-25 23:39:47.894124392 +0000 UTC
+###### Auto generated by spf13/cobra on 29-Feb-2016
 
 
 
@@ -115,4 +108,3 @@ $ kubectl rolling-update frontend --image=image:v2
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
 [![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_rolling-update.md?pixel)]()
 <!-- END MUNGE: GENERATED_ANALYTICS -->
-

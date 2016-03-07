@@ -27,10 +27,10 @@ You can also see the replication controller that was created:
 kubectl get rc
 ```
 
-To stop the two replicated containers, stop the replication controller:
+To stop the two replicated containers, delete the replication controller:
 
 ```shell
-kubectl stop rc my-nginx
+kubectl delete rc my-nginx
 ```
 
 ### Exposing your pods to the internet.
@@ -52,5 +52,5 @@ In order to access your nginx landing page, you also have to make sure that traf
 
 ### Next: Configuration files
 
-Most people will eventually want to use declarative configuration files for creating/modifying their applications.  A [simplified introduction](/docs/user-guide/simple-yaml)
+Most people will eventually want to use declarative configuration files for creating/modifying their applications.  A [simplified introduction](/docs/user-guide/deploying-applications/)
 is given in a different document.

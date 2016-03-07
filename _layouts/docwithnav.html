@@ -1,4 +1,5 @@
 {% for thistoc in site.data.globals.tocs %}{% if foundTOC %}{% break %}{% else %}{% assign tree = site.data[thistoc].toc %}{% include tocsearch.html %}{% endif %}{% endfor %}
+{% for override in site.data.overrides.overrides %}{% if page.path contains override.path %}{% assign notitle = "true" %}{% endif %}{% endfor %}
 <!Doctype html>
 <html id="docs">
 
@@ -31,8 +32,8 @@
         </div> <!-- /pi-accordion -->
 	</div> <!-- /docsToc -->
 	<div id="docsContent">
-        <p><a href="/docs/editdocs#{{ page.path }}" id="editPageButton">Edit This Page</a></p>
-    	<h1>{{ title }}</h1>
+        <p><a href="/editdocs#{{ page.path }}" id="editPageButton">Edit This Page</a></p>
+    	{% if notitle != "true" %}<h1>{{ title }}</h1>{% endif %}
 		{{ content }}
         <p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ page.path }}?pixel" alt="Analytics" /></a>
         <div id="pd_rating_holder_8345992"></div>
@@ -69,6 +70,7 @@
   ga('create', 'UA-36037335-10', 'auto');
   ga('send', 'pageview');
 </script>
-<!-- Start of AnswerDash script --> <script>var AnswerDash;!function(e,t,n,s,a){if(!t.getElementById(s)){var i,r=t.createElement(n),c=t.getElementsByTagName(n)[0];e[a]||(i=e[a]=function(){i.__oninit.push(arguments)},i.__oninit=[]),r.type="text/javascript",r.async=!0,r.src="https://p1.answerdash.com/answerdash.min.js?siteid=756",r.setAttribute("id",s),c.parentNode.insertBefore(r,c)}}(window,document,"script","answerdash-script","AnswerDash");</script> <!-- End of AnswerDash script -->
+<!-- Commenting out AnswerDash for now; we need to work on our list of questions/answers/design first
+<!-- Start of AnswerDash script <script>var AnswerDash;!function(e,t,n,s,a){if(!t.getElementById(s)){var i,r=t.createElement(n),c=t.getElementsByTagName(n)[0];e[a]||(i=e[a]=function(){i.__oninit.push(arguments)},i.__oninit=[]),r.type="text/javascript",r.async=!0,r.src="https://p1.answerdash.com/answerdash.min.js?siteid=756",r.setAttribute("id",s),c.parentNode.insertBefore(r,c)}}(window,document,"script","answerdash-script","AnswerDash");</script> <!-- End of AnswerDash script -->
 </body>
 </html>

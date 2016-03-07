@@ -84,12 +84,11 @@ In future, it will be possible to specify a specific annotation or label.
 
 ## Example
 
-This is an example of a pod that consumes its labels and annotations via the downward API volume, labels and annotations are dumped in `/etc/podlabels` and in `/etc/annotations`, respectively:
+This is an example of a pod that consumes its labels and annotations via the downward API volume, labels and annotations are dumped in `/etc/labels` and in `/etc/annotations`, respectively:
 
 {% include code.html language="yaml" file="downward-api/volume/dapi-volume.yaml" ghlink="/docs/user-guide/downward-api/volume/dapi-volume.yaml" %}
 
 
 Some more thorough examples:
-
    * [environment variables](/docs/user-guide/environment-guide/)
    * [downward API](/docs/user-guide/downward-api/)

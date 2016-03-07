@@ -13,8 +13,7 @@ Supported metadata fields:
 
 ### Step Zero: Prerequisites
 
-This example assumes you have a Kubernetes cluster installed and running, and the `kubectl`
-command line tool somewhere in your path. Please see the [gettingstarted](/docs/getting-started-guides/) for installation instructions for your platform.
+This example assumes you have a Kubernetes cluster installed and running, and the `kubectl` command line tool somewhere in your path. Please see the [gettingstarted](/docs/getting-started-guides/) for installation instructions for your platform.
 
 ### Step One: Create the pod
 

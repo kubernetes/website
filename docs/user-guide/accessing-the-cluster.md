@@ -85,7 +85,7 @@ The above example uses the `--insecure` flag.  This leaves it subject to MITM
 attacks.  When kubectl accesses the cluster it uses a stored root certificate
 and client certificates to access the server.  (These are installed in the
 `~/.kube` directory).  Since cluster certificates are typically self-signed, it
-make take special configuration to get your http client to use root
+may take special configuration to get your http client to use root
 certificate.
 
 On some clusters, the apiserver does not require authentication; it may serve
@@ -118,6 +118,13 @@ The recommended way to authenticate to the apiserver is with a
 is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
+
+If available, a certificate bundle is placed into the filesystem tree of each
+container at `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`, and should be
+used to verify the serving certificate of the apiserver.
+
+Finally, the default namespace to be used for namespaced API operations is placed in a file
+at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
 
 From within a pod the recommended ways to connect to API are:
 
@@ -195,9 +202,9 @@ at `https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticse
 #### Manually constructing apiserver proxy URLs
 
 As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you simply append to the service's proxy URL:
-`http://`*`kubernetes_master_address`*`/`*`service_path`*`/`*`service_name`*`/`*`service_endpoint-suffix-parameter`*
-<!--- TODO: update this part of doc because it doesn't seem to be valid. What
-about namespaces? 'proxy' verb? -->
+`http://`*`kubernetes_master_address`*`/api/v1/proxy/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*
+
+If you haven't specified a name for your port, you don't have to specify *port_name* in the URL
 
 ##### Examples
 
@@ -205,7 +212,7 @@ about namespaces? 'proxy' verb? -->
  * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:   `https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/_cluster/health?pretty=true`
 
 ```json
-{
+  {
 	 "cluster_name" : "kubernetes_logging",
 	 "status" : "yellow",
 	 "timed_out" : false,

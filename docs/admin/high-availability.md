@@ -1,6 +1,13 @@
 ---
 ---
 
+## Introduction
+
+PLEASE NOTE: Note that the podmaster implementation is obsoleted by https://github.com/kubernetes/kubernetes/pull/16830,
+which provides a primitive for leader election in the experimental kubernetes API.
+
+Nevertheless, the concepts and implementation in this document are still valid, as is the podmaster implementation itself.
+
 This document describes how to build a high-availability (HA) Kubernetes cluster.  This is a fairly advanced topic.
 Users who merely want to experiment with Kubernetes are encouraged to use configurations that are simpler to set up such as
 the simple [Docker based single node cluster instructions](/docs/getting-started-guides/docker),
@@ -197,7 +204,7 @@ touch /var/log/kube-controller-manager.log
 ```
 
 Next, set up the descriptions of the scheduler and controller manager pods on each node.
-by copying [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](high-availability//{{page.version}}/docs/admin/kube-controller-manager.yaml) into the `/srv/kubernetes/` directory.
+by copying [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](/docs/admin/high-availability/kube-controller-manager.yaml) into the `/srv/kubernetes/` directory.
 
 ### Running the podmaster
 
@@ -219,9 +226,3 @@ restarting the kubelets on each node.
 
 If you are turning up a fresh cluster, you will need to install the kubelet and kube-proxy on each worker node, and
 set the `--apiserver` flag to your replicated endpoint.
-
-## Vagrant up!
-
-We indeed have an initial proof of concept tester for this, which is available [here](https://releases.k8s.io/{{page.githubbranch}}/examples/high-availability).
-
-It implements the major concepts (with a few minor reductions for simplicity), of the podmaster HA implementation alongside a quick smoke test using k8petstore.

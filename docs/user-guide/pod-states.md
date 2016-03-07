@@ -50,11 +50,10 @@ The possible values for RestartPolicy are `Always`, `OnFailure`, or `Never`. If 
 
 Three types of controllers are currently available:
 
-- Use a [`Job`](/docs/user-guide/jobs) for pods which are expected to terminate (e.g. batch computations).
-- Use a [`ReplicationController`](/docs/user-guide/replication-controller) for pods which are not expected to
-
-  terminate, and where (e.g. web servers).
-- Use a [`DaemonSet`](/docs/admin/daemons): Use for pods which need to run 1 per machine because they provide a
+- Use a [`Job`](/docs/user-guide/jobs/) for pods which are expected to terminate (e.g. batch computations).
+- Use a [`ReplicationController`](/docs/user-guide/replication-controller/) for pods which are not expected to
+  terminate (e.g. web servers).
+- Use a [`DaemonSet`](/docs/admin/daemons/): Use for pods which need to run 1 per machine because they provide a
   machine-specific system service.
 If you are unsure whether to use ReplicationController or Daemon, then see [Daemon Set versus
 Replication Controller](/docs/admin/daemons/#daemon-set-versus-replication-controller).
@@ -120,6 +119,4 @@ If a node dies or is disconnected from the rest of the cluster, some entity with
      * NodeController waits for timeout
      * NodeController marks pod `Failed`
      * If running under a controller, pod will be recreated elsewhere
-
-
 

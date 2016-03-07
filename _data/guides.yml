@@ -8,12 +8,20 @@ toc:
   section:
   - title: What is Kubernetes?
     path: /docs/whatisk8s/
+  - title: Downloading Kubernetes
+    path: /docs/getting-started-guides/binary_release/
   - title: Hello World Walkthrough
     path: /docs/hellonode/
   - title: Kubernetes 101
     path: /docs/user-guide/walkthrough/
   - title: Kubernetes 201
     path: /docs/user-guide/walkthrough/k8s201/
+
+- title: User Guide
+  path: /docs/user-guide/
+
+- title: Admin Guide
+  path: /docs/admin/
 
 - title: Running Kubernetes
   section:
@@ -59,12 +67,28 @@ toc:
         path: /docs/getting-started-guides/vsphere/
       - title: Juju
         path: /docs/getting-started-guides/juju/
+      - title: DCOS
+        path: /docs/getting-started-guides/dcos/
       - title: libvirt on CoreOS
         path: /docs/getting-started-guides/libvirt-coreos/
       - title: oVirt
         path: /docs/getting-started-guides/ovirt/
       - title: libvirt or KVM
         path: /docs/getting-started-guides/fedora/flannel_multi_node_cluster/
+      - title: Multinode Cluster on CoreOS
+        path: /docs/getting-started-guides/coreos/coreos_multinode_cluster/
+      - title: Fedora With Calico Networking
+        path: /docs/getting-started-guides/fedora/fedora-calico/
+      - title: rkt
+        section:
+        - title: Running Kubernetes on rat
+          path: /docs/getting-started-guides/rkt/
+        - title: Notes on Different UX with rkt Container Runtime
+          path: /docs/getting-started-guides/rkt/notes/
+      - title: Kubernetes on Mesos
+        path: /docs/getting-started-guides/mesos/
+      - title: Kubernetes on Mesos on Docker
+        path: /docs/getting-started-guides/mesos-docker/
     - title: Bare Metal
       section:
       - title: Offline
@@ -79,13 +103,19 @@ toc:
         path: /docs/getting-started-guides/centos/centos_manual_config/
       - title: Ubuntu
         path: /docs/getting-started-guides/ubuntu/
-      - title: Docker (Multi Node)
+      - title: Docker (Multi-Node)
         path: /docs/getting-started-guides/docker-multinode/
+      - title: CoreOS with Calico
+        path: /docs/getting-started-guides/coreos/bare_metal_calico/
+      - title: Ubuntu Nodes with Calico
+        path: /docs/getting-started-guides/ubuntu-calico/
 
 - title: Administering Clusters
   section:
-  - title: Kubernetes Cluster Admin Guide
-    path: /docs/admin/
+  - title: Cluster Management Guide
+    path: /docs/admin/cluster-management/
+  - title: Anatomy of a Cluster
+    path: /docs/admin/cluster-components/
   - title: Using Multiple Clusters
     path: /docs/admin/multi-cluster/
   - title: Using Large Clusters
@@ -105,44 +135,76 @@ toc:
  
 - title: Using Nodes, Pods, and Containers
   section:
-  - title: Assigning Pods to Nodes
-    path: /docs/user-guide/node-selection/
+  - title: The Container Environment
+    path: /docs/user-guide/container-environment/
+  - title: Running Your First Containers
+    path: /docs/user-guide/simple-nginx/
   - title: Working with Containers
     path: /docs/user-guide/production-pods/
+  - title: Overriding Default Container Behavior 
+    path: /docs/user-guide/containers/
+  - title: Running Commands in a Container with kubectl exec
+    path: /docs/user-guide/getting-into-containers/
+  - title: The Lifecycle of a Pod
+    path: /docs/user-guide/pod-states/
+  - title: Pod Templates
+    path: /docs/user-guide/pod-templates/
+  - title: Assigning Pods to Nodes
+    path: /docs/user-guide/node-selection/
   - title: Creating Pods with the Downward API
     path: /docs/user-guide/downward-api/
   - title: Updating Live Pods
     path: /docs/user-guide/update-demo/
-  - title: Running Commands in a Container with kubectl exec
-    path: /docs/user-guide/getting-into-containers/
+  - title: Static Pods
+    path: /docs/admin/static-pods/
+  - title: Installing a Kubernetes Master Node via Docker
+    path: /docs/getting-started-guides/docker-multinode/master/
+  - title: Adding a Kubernetes Worker Node via Docker
+    path: /docs/getting-started-guides/docker-multinode/worker/
 
 - title: Networking
   section:
   - title: Networking in Kubernetes
     path: /docs/admin/networking/
+  - title: Using DNS Pods and Services
+    path: /docs/admin/dns/
   - title: Setting Up and Configuring DNS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/cluster-dns
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/cluster-dns
+  - title: Deploying DNS
+    path: /docs/getting-started-guides/docker-multinode/deployDNS/
   - title: Connecting Applications
     path: /docs/user-guide/connecting-applications/
   - title: Creating Servers with External IPs
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.1/examples/simple-nginx.md
-  - title: Using DNS Pods and Services
-    path: /docs/admin/dns/
+    path: https://github.com/kubernetes/kubernetes/blob/release-1.2/examples/simple-nginx.md
   - title: Connect with Proxies
     path: /docs/user-guide/connecting-to-applications-proxy/
   - title: Connect with Port Forwarding
     path: /docs/user-guide/connecting-to-applications-port-forward/
+  - title: Configuring Your Cloud Provider's Firewalls
+    path: /docs/user-guide/services-firewalls/
+  - title: Master <-> Node Communication
+    path: /docs/admin/master-node-communication/
+  - title: Network Plugins
+    path: /docs/admin/network-plugins/
  
 - title: Configuring Kubernetes
   section:
   - title: Using Configuration Files
     path: /docs/user-guide/simple-yaml/
+  - title: Best Practices for Configuration
+    path: /docs/user-guide/config-best-practices/
   - title: Configuring Containers
     path: /docs/user-guide/configuring-containers/
+  - title: Using ConfigMap
+    path: /docs/user-guide/configmap/
+  - title: Sharing Cluster Access with kubeconfig
+    path: /docs/user-guide/sharing-clusters/
   - title: Using Environment Variables
     path: /docs/user-guide/environment-guide/
   - title: Managing Compute Resources
     path: /docs/user-guide/compute-resources/
+  - title: Using kubectl to Manage Resources
+    path: /docs/user-guide/working-with-resources/
   - title: Applying Resource Quotas and Limits
     path: /docs/admin/resourcequota/
   - title: Setting Pod CPU and Memory Limits
@@ -151,8 +213,8 @@ toc:
     path: /docs/admin/garbage-collection/
   - title: Configuring Kubernetes with Salt
     path: /docs/admin/salt/
-  - title: Best Practices for Configuration
-    path: /docs/user-guide/config-best-practices/
+  - title: Configuring Kubernetes Use of etcd
+    path: /docs/admin/etcd/
 
 - title: Application Management and Deployment
   section:
@@ -167,13 +229,17 @@ toc:
 
 - title: Testing and Monitoring
   section:
+  - title: Testing a Kubernetes Cluster
+    path: /docs/getting-started-guides/docker-multinode/testing/
   - title: Simulating Large Test Loads
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/k8petstore
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/k8petstore
   - title: Checking Pod Health
     path: /docs/user-guide/liveness/
   - title: Using Explorer to Examine the Runtime Environment
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.1/examples/explorer
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/explorer
   - title: Resource Usage Monitoring
     path: /docs/user-guide/monitoring/
   - title: Logging
-    path: /docs/user-guide/logging/
+    path: /docs/getting-started-guides/logging/
+  - title: Logging with Elasticsearch and Kibana
+    path: /docs/getting-started-guides/logging-elasticsearch/

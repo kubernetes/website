@@ -3,7 +3,7 @@
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
 can find an existing Getting Started Guide that meets your needs on [this
-list](/docs/getting-started-guides/README/), then we recommend using it, as you will be able to benefit
+list](/docs/getting-started-guides/), then we recommend using it, as you will be able to benefit
 from the experience of others.  However, if you have specific IaaS, networking,
 configuration management, or operating system requirements not met by any of
 those guides, then this guide will provide an outline of the steps you need to
@@ -171,8 +171,8 @@ You have several choices for Kubernetes images:
 
 For etcd, you can:
 
-- Use images hosted on Google Container Registry (GCR), such as `gcr.io/google_containers/etcd:2.0.12`
-- Use images hosted on [Docker Hub](https://hub.docker.com/search/?q=etcd) or [Quay.io](https://quay.io/repository/coreos/etcd), such as `quay.io/coreos/etcd:v2.2.0`
+- Use images hosted on Google Container Registry (GCR), such as `gcr.io/google_containers/etcd:2.2.1`
+- Use images hosted on [Docker Hub](https://hub.docker.com/search/?q=etcd) or [Quay.io](https://quay.io/repository/coreos/etcd), such as `quay.io/coreos/etcd:v2.2.1`
 - Use etcd binary included in your OS distro.
 - Build your own image
   - You can do: `cd kubernetes/cluster/images/etcd; make`
@@ -208,13 +208,13 @@ You need to prepare several certs:
 - The kubelets optionally need certs to identify themselves as clients of the master, and when
   serving its own API over HTTPS.
 
-Unless you plan to have a real CA generate your certs, you will need to generate a root cert and use that to sign the master, kubelet, and kubectl certs:
+Unless you plan to have a real CA generate your certs, you will need to generate a root cert and use that to sign the master, kubelet, and kubectl certs.
 
-- See function `create-certs` in `cluster/gce/util.sh`
-- See also `cluster/saltbase/salt/generate-cert/make-ca-cert.sh` and
+- see function `create-certs` in `cluster/gce/util.sh`
+- see also `cluster/saltbase/salt/generate-cert/make-ca-cert.sh` and
   `cluster/saltbase/salt/generate-cert/make-cert.sh`
 
-You will end up with the following files (we will use these variables later on):
+You will end up with the following files (we will use these variables later on)
 
 - `CA_CERT`
   - put in on node where apiserver runs, in e.g. `/srv/kubernetes/ca.crt`.
@@ -356,7 +356,7 @@ The minimum version required is [v0.5.6](https://github.com/coreos/rkt/releases/
 
 [systemd](http://www.freedesktop.org/wiki/Software/systemd/) is required on your node to run rkt.  The
 minimum version required to match rkt v0.5.6 is
-[systemd 215](http://lists.freedesktop.org/archives/systemd-devel/2014-July/020903).
+[systemd 215](http://lists.freedesktop.org/archives/systemd-devel/2014-July/020903.html).
 
 [rkt metadata service](https://github.com/coreos/rkt/blob/master/Documentation/networking.md) is also required
 for rkt networking support.  You can start rkt metadata service by using command like
@@ -378,7 +378,7 @@ Arguments to consider:
   - Otherwise, if taking the firewall-based security approach
     - `--api-servers=http://$MASTER_IP`
   - `--config=/etc/kubernetes/manifests`
-  - `--cluster-dns=` to the address of the DNS server you will setup (see [Starting Addons](#starting-addons).)
+  - `--cluster-dns=` to the address of the DNS server you will setup (see [Starting Cluster Services](#starting-cluster-services).)
   - `--cluster-domain=` to the dns domain prefix to use for cluster DNS addresses.
   - `--docker-root=`
   - `--root-dir=`
@@ -411,35 +411,34 @@ this `NODE_X_BRIDGE_ADDR`.  For example, if `NODE_X_POD_CIDR` is `10.0.0.0/16`,
 then `NODE_X_BRIDGE_ADDR` is `10.0.0.1/16`.  NOTE: this retains the `/16` suffix
 because of how this is used later.
 
-Recommended, automatic approach:
+- Recommended, automatic approach:
 
   1. Set `--configure-cbr0=true` option in kubelet init script and restart kubelet service.  Kubelet will configure cbr0 automatically.
      It will wait to do this until the node controller has set Node.Spec.PodCIDR.  Since you have not setup apiserver and node controller
      yet, the bridge will not be setup immediately.
-
-Alternate, manual approach:
+- Alternate, manual approach:
 
   1. Set `--configure-cbr0=false` on kubelet and restart.
   1. Create a bridge
-  - e.g. `brctl addbr cbr0`.
-  1. Set appropriate MTU
-  - `ip link set dev cbr0 mtu 1460` (NOTE: the actual value of MTU will depend on your network environment)
-  1. Add the clusters network to the bridge (docker will go on other side of bridge).
-  - e.g. `ip addr add $NODE_X_BRIDGE_ADDR dev eth0`
+     - `brctl addbr cbr0`.
+  1. Set appropriate MTU. NOTE: the actual value of MTU will depend on your network environment
+     - `ip link set dev cbr0 mtu 1460`
+  1. Add the node's network to the bridge (docker will go on other side of bridge).
+     - `ip addr add $NODE_X_BRIDGE_ADDR dev cbr0`
   1. Turn it on
-  - e.g. `ip link set dev cbr0 up`
+     - `ip link set dev cbr0 up`
 
 If you have turned off Docker's IP masquerading to allow pods to talk to each
 other, then you may need to do masquerading just for destination IPs outside
 the cluster network.  For example:
 
 ```shell
-iptables -w -t nat -A POSTROUTING -o eth0 -j MASQUERADE \! -d ${CLUSTER_SUBNET}
+iptables -t nat -A POSTROUTING ! -d ${CLUSTER_SUBNET} -m addrtype ! --dst-type LOCAL -j MASQUERADE
 ```
 
 This will rewrite the source address from
 the PodIP to the Node IP for traffic bound outside the cluster, and kernel
-[connection tracking](http://www.iptables.info/en/connection-state)
+[connection tracking](http://www.iptables.info/en/connection-state.html)
 will ensure that responses destined to the node still reach
 the pod.
 
@@ -786,17 +785,29 @@ If you have selected the `--register-node=true` option for kubelets, they will n
 You should soon be able to see all your nodes by running the `kubectl get nodes` command.
 Otherwise, you will need to manually create node objects.
 
-### Logging
+### Starting Cluster Services
 
-**TODO** talk about starting Logging.
+You will want to complete your Kubernetes clusters by adding cluster-wide
+services.  These are sometimes called *addons*, and [an overview
+of their purpose is in the admin guide](/docs/admin/cluster-components/#addons).
 
-### Monitoring
+Notes for setting up each cluster service are given below:
 
-**TODO** talk about starting Monitoring.
-
-### DNS
-
-**TODO** talk about starting DNS.
+* Cluster DNS:
+  * required for many kubernetes examples
+  * [Setup instructions](http://releases.k8s.io/release-1.2/cluster/addons/dns/)
+  * [Admin Guide](../admin/dns.md)
+* Cluster-level Logging
+  * Multiple implementations with different storage backends and UIs.
+  * [Elasticsearch Backend Setup Instructions](http://releases.k8s.io/release-1.2/cluster/addons/fluentd-elasticsearch/)
+  * [Google Cloud Logging Backend Setup Instructions](http://releases.k8s.io/release-1.2/cluster/addons/fluentd-gcp/).
+  * Both require running fluentd on each node.
+  * [User Guide](../user-guide/logging.md)
+* Container Resource Monitoring
+  * [Setup instructions](http://releases.k8s.io/release-1.2/cluster/addons/cluster-monitoring/)
+* GUI
+  * [Setup instructions](http://releases.k8s.io/release-1.2/cluster/addons/kube-ui/)
+  cluster.
 
 ## Troubleshooting
 

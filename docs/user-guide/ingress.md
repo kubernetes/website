@@ -6,7 +6,7 @@
 
 __Terminology__
 
-Throughout this doc you will see a few terms that are sometimes used interchangably elsewhere, that might cause confusion. This section attempts to clarify them.
+Throughout this doc you will see a few terms that are sometimes used interchangeably elsewhere, that might cause confusion. This section attempts to clarify them.
 
 * Node: A single virtual or physical machine in a Kubernetes cluster.
 * Cluster: A group of nodes firewalled from the internet, that are the primary compute resources managed by Kubernetes.
@@ -19,7 +19,7 @@ Throughout this doc you will see a few terms that are sometimes used interchanga
 Typically, services and pods have IPs only routable by the cluster network. All traffic that ends up at an edge router is either dropped or forwarded elsewhere. Conceptually, this might look like:
 
 ```
-internet
+    internet
         |
   ------------
   [ Services ]
@@ -41,7 +41,7 @@ It can be configured to give services externally-reachable urls, load balance tr
 
 Before you start using the Ingress resource, there are a few things you should understand:
 
-* The Ingress resource is not available in any Kubernetes release prior to 1.1
+* The Ingress is a beta resource, not available in any Kubernetes release prior to 1.1.
 * You need an Ingress controller to satisfy an Ingress. Simply creating the resource will have no effect.
 * On GCE/GKE there should be a [L7 cluster addon](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-loadbalancing/glbc/README.md#prerequisites), on other platforms you either need to write your own or [deploy an existing controller](https://github.com/kubernetes/contrib/tree/master/Ingress) as a pod.
 * The resource currently does not support HTTPS, but will do so before it leaves beta.
@@ -51,18 +51,18 @@ Before you start using the Ingress resource, there are a few things you should u
 A minimal Ingress might look like:
 
 ```yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-name: test-ingress
-spec:
-rules:
-- http:
-    paths:
-    - path: /testpath
-    backend:
-        serviceName: test
-        servicePort: 80
+01. apiVersion: extensions/v1beta1
+02. kind: Ingress
+03. metadata:
+04.  name: test-ingress
+05. spec:
+06.  rules:
+07.  - http:
+08.      paths:
+09.      - path: /testpath
+10.        backend:
+11.          serviceName: test
+12.          servicePort: 80
 ```
 
 *POSTing this to the API server will have no effect if you have not configured an [Ingress controller](#ingress-controllers).*
@@ -179,7 +179,7 @@ __Default Backends__: An Ingress with no rules, like the one shown in the previo
 
 ### Loadbalancing
 
-An Ingress controller is bootstrapped with some loadbalancing policy settings that it applies to all Ingress, such as the loadbalancing algorithm, backend weight scheme etc. More advanced loadbalancing concepts (eg: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer). With time, we plan to distil loadbalancing patterns that are applicable cross platform into the Ingress resource.
+An Ingress controller is bootstrapped with some loadbalancing policy settings that it applies to all Ingress, such as the loadbalancing algorithm, backend weight scheme etc. More advanced loadbalancing concepts (eg: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer). With time, we plan to distill loadbalancing patterns that are applicable cross platform into the Ingress resource.
 
 It's also worth noting that even though health checks are not exposed directly through the Ingress, there exist parallel concepts in Kubernetes such as [readiness probes](https://github.com/kubernetes/kubernetes/blob/release-1.0/docs/user-guide/production-pods.md#liveness-and-readiness-probes-aka-health-checks) which allow you to achieve the same end result.
 
@@ -245,7 +245,7 @@ Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kuberne
 
 You can expose a Service in multiple ways that don't directly involve the Ingress resource:
 
-* Use [Service.Type=LoadBalancer](https://github.com/kubernetes/kubernetes/blob/release-1.0/docs/user-guide/services.md#type-loadbalancer)
-* Use [Service.Type=NodePort](https://github.com/kubernetes/kubernetes/blob/release-1.0/docs/user-guide/services.md#type-nodeport)
+* Use [Service.Type=LoadBalancer](/docs/user-guide/services/#type-loadbalancer)
+* Use [Service.Type=NodePort](/docs/user-guide/services/#type-nodeport)
 * Use a [Port Proxy](https://github.com/kubernetes/contrib/tree/master/for-demos/proxy-to-service)
 * Deploy the [Service loadbalancer](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer). This allows you to share a single IP among multiple Services and achieve more advanced loadbalancing through Service Annotations.

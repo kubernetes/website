@@ -34,7 +34,7 @@ The value of `metadata.name`, `hello-world`, will be the name of the pod resourc
 The [`command`](/docs/user-guide/containers/#containers-and-commands) overrides the Docker container's `Entrypoint`. Command arguments (corresponding to Docker's `Cmd`) may be specified using `args`, as follows:
 
 ```yaml
-command: ["/bin/echo"]
+    command: ["/bin/echo"]
     args: ["hello","world"]
 ```
 
@@ -49,22 +49,17 @@ pods/hello-world
 
 ## Validating configuration
 
-If you're not sure you specified the resource correctly, you can ask `kubectl` to validate it for you:
-
-```shell
-$ kubectl create -f ./hello-world.yaml --validate
-```
+We enable validation by default in `kubectl` since v1.1.
 
 Let's say you specified `entrypoint` instead of `command`. You'd see output as follows:
 
 ```shell
-I0709 06:33:05.600829   14160 schema.go:126] unknown field: entrypoint
-I0709 06:33:05.600988   14160 schema.go:129] this may be a false alarm, see http://issue.k8s.io/6842 pods/hello-world
+error validating "./hello-world.yaml": error validating data: found invalid field Entrypoint for v1.Container; if you choose to ignore these errors, turn validation off with --validate=false
 ```
 
-`kubectl create --validate` currently warns about problems it detects, but creates the resource anyway, unless a required field is absent or a field value is invalid. Unknown API fields are ignored, so be careful. This pod was created, but with no `command`, which is an optional field, since the image may specify an `Entrypoint`.
+Using `kubectl create --validate=false` to turn validation off, it creates the resource anyway, unless a required field is absent or a field value is invalid. Unknown API fields are ignored, so be careful. This pod was created, but with no `command`, which is an optional field, since the image may specify an `Entrypoint`.
 View the [Pod API
-object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions/#_v1_pod)
+object](/docs/api-reference/v1/definitions/#_v1_pod)
 to see the list of valid fields.
 
 ## Environment variables and variable expansion
@@ -76,7 +71,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: hello-world
-spec:  # specification of the pod's contents
+spec:  # specification of the pod’s contents
   restartPolicy: Never
   containers:
   - name: hello
@@ -91,7 +86,7 @@ spec:  # specification of the pod's contents
 However, a shell isn't necessary just to expand environment variables. Kubernetes will do it for you if you use [`$(ENVVAR)` syntax](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/expansion):
 
 ```yaml
-command: ["/bin/echo"]
+    command: ["/bin/echo"]
     args: ["$(MESSAGE)"]
 ```
 
@@ -129,7 +124,7 @@ hello-world   0/1       ExitCode:0   0          15s
 
 ## Viewing pod output
 
-You probably want to see the output of the command you ran. As with [`docker logs`](https://docs.docker.com/userguide/usingdocker/), `kubectl logs` will show you the output:
+You probably want to see the output of the command you ran. As with [`docker logs`](https://docs.docker.com/engine/reference/commandline/logs/), `kubectl logs` will show you the output:
 
 ```shell
 $ kubectl logs hello-world

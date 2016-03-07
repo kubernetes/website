@@ -1,11 +1,11 @@
 ---
 ---
 
-Deploy a CoreOS running Kubernetes environment. This particular guild is made to help those in an OFFLINE system, 
-whether for testing a POC before the real deal, or you are restricted to be totally offline for your applications.
+Deploy a CoreOS running Kubernetes environment. This particular guild is made to help those in an OFFLINE system, wither for testing a POC before the real deal, or you are restricted to be totally offline for your applications.
 
 * TOC
 {:toc}
+
 
 ## Prerequisites
 
@@ -31,9 +31,10 @@ whether for testing a POC before the real deal, or you are restricted to be tota
 | CoreOS Slave 1                | d0:00:67:13:0d:01 | 10.20.30.41 |
 | CoreOS Slave 2                | d0:00:67:13:0d:02 | 10.20.30.42 |
 
+
 ## Setup PXELINUX CentOS
 
-To setup CentOS PXELINUX environment there is a complete [guide here](http://docs.fedoraproject.org/en-US/Fedora/7/html/Installation_Guide/ap-pxe-server). This section is the abbreviated version.
+To setup CentOS PXELINUX environment there is a complete [guide here](http://docs.fedoraproject.org/en-US/Fedora/7/html/Installation_Guide/ap-pxe-server.html). This section is the abbreviated version.
 
 1. Install packages needed on CentOS
 
@@ -690,5 +691,5 @@ kubectl get nodes
 Kill all pods:
 
 ```shell
-for i in `kubectl get pods | awk '{print $1}'`; do kubectl stop pod $i; done
+for i in `kubectl get pods | awk '{print $1}'`; do kubectl delete pod $i; done
 ```

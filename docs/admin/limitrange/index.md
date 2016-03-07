@@ -26,7 +26,7 @@ This example demonstrates how limits can be applied to a Kubernetes namespace to
 min/max resource limits per pod.  In addition, this example demonstrates how you can
 apply default resource limits to pods in the absence of an end-user specified value.
 
-See [LimitRange design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_limit_range.md) for more information. For a detailed description of the Kubernetes resource model, see [Resources](/docs/user-guide/compute-resources)
+See [LimitRange design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_limit_range.md) for more information. For a detailed description of the Kubernetes resource model, see [Resources](/docs/user-guide/compute-resources/)
 
 ## Step 0: Prerequisites
 
@@ -64,12 +64,12 @@ Let's describe the limits that we have imposed in our namespace.
 $ kubectl describe limits mylimits --namespace=limit-example
 Name:   mylimits
 Namespace:  limit-example
-Type        Resource      Min      Max      Request      Limit      Limit/Request
-----        --------      ---      ---      -------      -----      -------------
-Pod         cpu           200m     2        -            -          -
-Pod         memory        6Mi      1Gi      -            -          -
-Container   cpu           100m     2        200m         300m       -
-Container   memory        3Mi      1Gi      100Mi        200Mi      -
+Type        Resource      Min      Max      Default Request      Default Limit      Max Limit/Request Ratio
+----        --------      ---      ---      ---------------      -------------      -----------------------
+Pod         cpu           200m     2        -                    -                  -
+Pod         memory        6Mi      1Gi      -                    -                  -
+Container   cpu           100m     2        200m                 300m               -
+Container   memory        3Mi      1Gi      100Mi                200Mi              -
 ```
 
 In this scenario, we have said the following:
@@ -108,7 +108,7 @@ $ kubectl get pods nginx-aq0mf --namespace=limit-example -o yaml | grep resource
 ```
 
 ```yaml
-resourceVersion: "127"
+  resourceVersion: "127"
   selfLink: /api/v1/namespaces/limit-example/pods/nginx-aq0mf
   uid: 51be42a7-7156-11e5-9921-286ed488f785
 spec:
@@ -145,7 +145,7 @@ $ kubectl get pods valid-pod --namespace=limit-example -o yaml | grep -C 6 resou
 ```
 
 ```yaml
-uid: 162a12aa-7157-11e5-9921-286ed488f785
+ uid: 162a12aa-7157-11e5-9921-286ed488f785
 spec:
   containers:
   - image: gcr.io/google_containers/serve_hostname

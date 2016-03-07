@@ -9,17 +9,17 @@ logging and DNS resolution for names of Kubernetes services:
 ```shell
 $ kubectl get pods --namespace=kube-system
 NAME                                           READY     REASON    RESTARTS   AGE
-fluentd-cloud-logging-kubernetes-minion-0f64   1/1       Running   0          32m
-fluentd-cloud-logging-kubernetes-minion-27gf   1/1       Running   0          32m
-fluentd-cloud-logging-kubernetes-minion-pk22   1/1       Running   0          31m
-fluentd-cloud-logging-kubernetes-minion-20ej   1/1       Running   0          31m
+fluentd-cloud-logging-kubernetes-node-0f64     1/1       Running   0          32m
+fluentd-cloud-logging-kubernetes-node-27gf     1/1       Running   0          32m
+fluentd-cloud-logging-kubernetes-node-pk22     1/1       Running   0          31m
+fluentd-cloud-logging-kubernetes-node-20ej     1/1       Running   0          31m
 kube-dns-v3-pk22                               3/3       Running   0          32m
 monitoring-heapster-v1-20ej                    0/1       Running   9          32m
 ```
 
 Here is the same information in a picture which shows how the pods might be placed on specific nodes.
 
-![Cluster](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/diagrams/cloud-logging.png)
+![Cluster](https://raw.githubusercontent.com/kubernetes/kubernetes/{{page.githubbranch}}/examples/blog-logging/diagrams/cloud-logging.png)
 
 This diagram shows four nodes created on a Google Compute Engine cluster with the name of each VM node on a purple background. The internal and public IPs of each node are shown on gray boxes and the pods running in each node are shown in green boxes. Each pod box shows the name of the pod and the namespace it runs in, the IP address of the pod and the images which are run as part of the pod's execution. Here we see that every node is running a fluentd-cloud-logging pod which is collecting the log output of the containers running on the same node and sending them to Google Cloud Logging. A pod which provides the
 [cluster DNS service](/docs/admin/dns) runs on one of the nodes and a pod which provides monitoring support runs on another node.
@@ -48,7 +48,7 @@ This step may take a few minutes to download the ubuntu:14.04 image during which
 
 One of the nodes is now running the counter pod:
 
-![Counter Pod](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/diagrams/27gf-counter.png)
+![Counter Pod](https://raw.githubusercontent.com/kubernetes/kubernetes/{{page.githubbranch}}/examples/blog-logging/diagrams/27gf-counter.png)
 
 When the pod status changes to `Running` we can use the kubectl logs command to view the output of this counter pod.
 
@@ -75,10 +75,10 @@ root       479  0.0  0.0   4348   812 ?        S    00:05   0:00 sleep 1
 root       480  0.0  0.0  15572  2212 ?        R    00:05   0:00 ps aux
 ```
 
-What happens if for any reason the image in this pod is killed off and then restarted by Kubernetes? Will we still see the log lines from the previous invocation of the container followed by the log lines for the started container? Or will we lose the log lines from the original container's execution and only see the log lines for the new container? Let's find out. First let's stop the currently running counter.
+What happens if for any reason the image in this pod is killed off and then restarted by Kubernetes? Will we still see the log lines from the previous invocation of the container followed by the log lines for the started container? Or will we lose the log lines from the original container's execution and only see the log lines for the new container? Let’s find out. First let's delete the currently running counter.
 
 ```shell
-$ kubectl stop pod counter
+$ kubectl delete pod counter
 pods/counter
 ```
 
@@ -131,8 +131,8 @@ Note the first container counted to 108 and then it was terminated. When the nex
 
 ```shell
 SELECT metadata.timestamp, structPayload.log
- FROM [mylogs.kubernetes_counter_default_count_20150611] 
- ORDER BY metadata.timestamp DESC
+FROM [mylogs.kubernetes_counter_default_count_20150611]
+ORDER BY metadata.timestamp DESC
 ```
 
 Here is some sample output:

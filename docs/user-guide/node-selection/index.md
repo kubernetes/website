@@ -3,6 +3,9 @@
 
 This example shows how to assign a [pod](/docs/user-guide/pods/) to a specific [node](/docs/admin/node/) or to one of a set of nodes using node labels and the nodeSelector field in a pod specification. Generally this is unnecessary, as the scheduler will take care of things for you, but you may want to do so in certain circumstances like to ensure that your pod ends up on a machine with an SSD attached to it.
 
+You can find all the files for this example [in our docs
+repo here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/node-selection).
+
 ### Step Zero: Prerequisites
 
 This example assumes that you have a basic understanding of Kubernetes pods and that you have [turned up a Kubernetes cluster](https://github.com/kubernetes/kubernetes#documentation).
@@ -38,23 +41,53 @@ spec:
 
 Then add a nodeSelector like so:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-  labels:
-    env: test
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-    imagePullPolicy: IfNotPresent
-  <b>nodeSelector:
-    disktype: ssd</b>
-```
+{% include code.html language="yaml" file="pod.yaml" ghlink="/docs/user-guide/node-selection/pod.yaml" %}
 
 When you then run `kubectl create -f pod.yaml`, the pod will get scheduled on the node that you attached the label to! You can verify that it worked by running `kubectl get pods -o wide` and looking at the "NODE" that the pod was assigned to.
+
+#### Alpha feature in Kubernetes v1.2: Node Affinity
+
+During the first half of 2016 we are rolling out a new mechanism, called *affinity* for controlling which nodes your pods wil be scheduled onto.
+Like `nodeSelector`, affinity is based on labels. But it allows you to write much more expressive rules.
+`nodeSelector` wil continue to work during the transition, but will eventually be deprecated.
+
+Kubernetes v1.2 offers an alpha version of the first piece of the affinity mechanism, called [node affinity](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/nodeaffinity.md).
+There are currently two types of node affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
+`preferresDuringSchedulingIgnoredDuringExecution`. You can think of them as "hard" and "soft" respectively,
+in the sense that the former specifies rules that *must* be met for a pod to schedule onto a node (just like
+`nodeSelector` but using a more expressive syntax), while the latter specifies *preferences* that the scheduler
+will try to enforce but will not guarantee. The "IgnoredDuringExecution" part of the names means that, similar
+to how `nodeSelector` works, if labels on a node change at runtime such that the rules on a pod are no longer
+met, the pod will still continue to run on the node. In the future we plan to offer
+`requiredDuringSchedulingRequiredDuringExecution` which will be just like `requiredDuringSchedulingIgnoredDuringExecution`
+except that it will evict pods from nodes that cease to satisfy the pods' node affinity requirements.
+
+Node affinity is currently expressed using an annotation on Pod. In v1.3 it will use a field, and we will
+also introduce the second piece of the affinity mechanism, called pod affinity,
+which allows you to control whether a pod schedules onto a particular node based on which other pods are
+running on the node, rather than the labels on the node.
+
+Here's an example of a pod that uses node affinity:
+
+{% include code.html language="yaml" file="pod-with-node-affinity.yaml" ghlink="/docs/user-guide/node-selection/pod-with-node-affinity.yaml" %}
+
+This node affinity rule says the pod can only be placed on a node with a label whose key is
+`kubernetes.io/e2e-az-name` and whose value is either `e2e-az1` or `e2e-az2`. In addition,
+among nodes that meet that criteria, nodes with a label whose key is `foo` and whose
+value is `bar` should be preferred.
+
+If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
+to be scheduled onto a candidate node.
+
+### Built-in node labels
+
+In addition to labels you [attach yourself](#step-one-attach-label-to-the-node), nodes come pre-populated
+with a standard set of labels. As of Kubernetes v1.2 these labels are
+
+* `kubernetes.io/hostname`
+* `failure-domain.beta.kubernetes.io/zone`
+* `failure-domain.beta.kubernetes.io/region`
+* `beta.kubernetes.io/instance-type`
 
 ### Conclusion
 

@@ -1,6 +1,8 @@
 ---
 ---
 
+## Kubectl CLI and Pods
+
 For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple containers
 
 In order for the kubectl usage examples to work, make sure you have an examples directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or [the source](https://github.com/kubernetes/kubernetes).
@@ -74,6 +76,7 @@ Delete the pod by name:
 $ kubectl delete pod nginx
 ```
 
+
 #### Volumes
 
 That's great for a simple static web server, but what about persistent storage?
@@ -106,15 +109,15 @@ Example Redis pod definition with a persistent storage volume ([pod-redis.yaml](
 
 Notes:
 
-- The volume mount name is a reference to a specific empty dir volume.
-- The volume mount path is the path to mount the empty dir volume within the container.
+- The `volumeMounts` `name` is a reference to a specific  `volumes` `name`.
+- The `volumeMounts` `mountPath` is the path to mount the volume within the container.
 
 ##### Volume Types
 
-- **EmptyDir**: Creates a new directory that will persist across container failures and restarts.
+- **EmptyDir**: Creates a new directory that will exist as long as the Pod is running on the node, but it can persist across container failures and restarts.
 - **HostPath**: Mounts an existing directory on the node's file system (e.g. `/var/logs`).
 
-See [volumes](/docs/user-guide/volumes) for more details.
+See [volumes](/docs/user-guide/volumes/) for more details.
 
 
 #### Multiple Containers

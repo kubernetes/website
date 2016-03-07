@@ -40,8 +40,8 @@ Use `kubectl describe service show-srv` to determine the public IP of
 your service.
 
 > Note: If your platform does not support external load balancers,
-> you'll need to open the proper port and direct traffic to the
-> internal IP shown for the frontend service with the above command
+  you'll need to open the proper port and direct traffic to the
+  internal IP shown for the frontend service with the above command
 
 Run `curl <public ip>:80` to query the service. You should get
 something like this back:

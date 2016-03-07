@@ -12,15 +12,15 @@ So in order to easily switch between multiple clusters, for multiple users, a ku
 
 This file contains a series of authentication mechanisms and cluster connection information associated with nicknames.  It also introduces the concept of a tuple of authentication information (user) and cluster connection information called a context that is also associated with a nickname.
 
-Multiple kubeconfig files are allowed.  At runtime they are loaded and merged together along with override options specified from the command line (see rules below).
+Multiple kubeconfig files are allowed, if specified explicitly.  At runtime they are loaded and merged together along with override options specified from the command line (see [rules](#loading-and-merging) below).
 
 ## Related discussion
 
 http://issue.k8s.io/1755
 
-## Example kubeconfig file
+## Components of a kubeconfig file
 
-The below file contains a `current-context` which will be used by default by clients which are using the file to connect to a cluster.  Thus, this kubeconfig file has more information in it then we will necessarily have to use in a given session.  You can see it defines many clusters, and users associated with those clusters.  The context itself is associated with both a cluster AND a user.
+### Example kubeconfig file
 
 ```yaml
 current-context: federal-context
@@ -62,7 +62,103 @@ users:
     client-key: path/to/my/client/key
 ```
 
-### Building your own kubeconfig file
+### Breakdown/explanation of components
+
+#### cluster
+
+```yaml
+clusters:
+- cluster:
+    certificate-authority: path/to/my/cafile
+    server: https://horse.org:4443
+  name: horse-cluster
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://pig.org:443
+  name: pig-cluster
+```
+
+A `cluster` contains endpoint data for a kubernetes cluster. This includes the fully
+qualified url for the kubernetes apiserver, as well as the cluster's certificate
+authority or `insecure-skip-tls-verify: true`, if the cluster's serving
+certificate is not signed by a system trusted certificate authority.
+A `cluster` has a name (nickname) which acts as a dictionary key for the cluster
+within this kubeconfig file. You can add or modify `cluster` entries using
+[`kubectl config set-cluster`](/docs/user-guide/kubectl/kubectl_config_set-cluster/).
+
+#### user
+
+```yaml
+users:
+- name: blue-user
+  user:
+    token: blue-token
+- name: green-user
+  user:
+    client-certificate: path/to/my/client/cert
+    client-key: path/to/my/client/key
+```
+
+A `user` defines client credentials for authenticating to a kubernetes cluster. A
+`user` has a name (nickname) which acts as its key within the list of user entries
+after kubeconfig is loaded/merged. Available credentials are `client-certificate`,
+`client-key`, `token`, and `username/password`. `username/password` and `token`
+are mutually exclusive, but client certs and keys can be combined with them.
+You can add or modify `user` entries using
+[`kubectl config set-credentials`](kubectl/kubectl_config_set-credentials.md).
+
+#### context
+
+```yaml
+contexts:
+- context:
+    cluster: horse-cluster
+    namespace: chisel-ns
+    user: green-user
+  name: federal-context
+```
+
+A `context` defines a named [`cluster`](#cluster),[`user`](#user),[`namespace`](namespaces.md) tuple
+which is used to send requests to the specified cluster using the provided authentication info and
+namespace. Each of the three is optional; it is valid to specify a context with only one of `cluster`,
+`user`,`namespace`, or to specify none. Unspecified values, or named values that don't have corresponding
+entries in the loaded kubeconfig (e.g. if the context specified a `pink-user` for the above kubeconfig file)
+will be replaced with the default. See [Loading and merging rules](#loading-and-merging) below for override/merge behavior.
+You can add or modify `context` entries with [`kubectl config set-conext`](kubectl/kubectl_config_set-context.md).
+
+#### current-context
+
+```yaml
+current-context: federal-context
+```
+
+`current-context` is the nickname or 'key' for the cluster,user,namespace tuple that kubectl
+will use by default when loading config from this file. You can override any of the values in kubectl
+from the commandline, by passing `--context=CONTEXT`, `--cluster=CLUSTER`, `--user=USER`, and/or `--namespace=NAMESPACE` respectively.
+You can change the `current-context` with [`kubectl config use-context`](kubectl/kubectl_config_use-context.md).
+
+#### miscellaneous
+
+```yaml
+apiVersion: v1
+kind: Config
+preferences:
+  colors: true
+```
+
+`apiVersion` and `kind` identify the version and schema for the client parser and should not
+be edited manually.
+
+`preferences` specify optional (and currently unused) kubectl preferences.
+
+## Viewing kubeconfig files
+
+`kubectl config view` will display the current kubeconfig settings. By default
+it will show you all loaded kubeconfig settings; you can filter the view to just
+the settings relevant to the `current-context` by passing `--minify`. See
+[`kubectl config view`](kubectl/kubectl_config_view.md) for other options.
+
+## Building your own kubeconfig file
 
 NOTE, that if you are deploying k8s via kube-up.sh, you do not need to create your own kubeconfig files, the script will do it for you.
 
@@ -79,7 +175,7 @@ mister-red,mister-red,2
 
 Also, since we have other users who validate using **other** mechanisms, the api-server would have probably been launched with other authentication options (there are many such options, make sure you understand which ones YOU care about before crafting a kubeconfig file, as nobody needs to implement all the different permutations of possible authentication schemes).
 
-- Since the user for the current context is "green-user", any client of the api-server using this kubeconfig file would naturally be able to log in succesfully, because we are providigin the green-user's client credentials.
+- Since the user for the current context is "green-user", any client of the api-server using this kubeconfig file would naturally be able to log in successfully, because we are providing the green-user's client credentials.
 - Similarly, we can operate as the "blue-user" if we choose to change the value of current-context.
 
 In the above scenario, green-user would have to log in by providing certificates, whereas blue-user would just provide the token.  All this information would be handled for us by the
@@ -87,23 +183,24 @@ In the above scenario, green-user would have to log in by providing certificates
 ## Loading and merging rules
 
 The rules for loading and merging the kubeconfig files are straightforward, but there are a lot of them.  The final config is built in this order:
+
   1.  Get the kubeconfig  from disk.  This is done with the following hierarchy and merge rules:
 
 
-      If the CommandLineLocation (the value of the `kubeconfig` command line option) is set, use this file only.  No merging.  Only one instance of this flag is allowed.
+      If the `CommandLineLocation` (the value of the `kubeconfig` command line option) is set, use this file only.  No merging.  Only one instance of this flag is allowed.
 
 
-      Else, if EnvVarLocation (the value of $KUBECONFIG) is available, use it as a list of files that should be merged.
+      Else, if `EnvVarLocation` (the value of `$KUBECONFIG`) is available, use it as a list of files that should be merged.
       Merge files together based on the following rules.
       Empty filenames are ignored.  Files with non-deserializable content produced errors.
       The first file to set a particular value or map key wins and the value or map key is never changed.
-      This means that the first file to set CurrentContext will have its context preserved.  It also means that if two files specify a "red-user", only values from the first file's red-user are used.  Even non-conflicting entries from the second file's "red-user" are discarded.
+      This means that the first file to set `CurrentContext` will have its context preserved.  It also means that if two files specify a "red-user", only values from the first file's red-user are used.  Even non-conflicting entries from the second file's "red-user" are discarded.
 
 
-      Otherwise, use HomeDirectoryLocation (~/.kube/config) with no merging.
+      Otherwise, use HomeDirectoryLocation (`~/.kube/config`) with no merging.
   1.  Determine the context to use based on the first hit in this chain
       1.  command line argument - the value of the `context` command line option
-      1.  current-context from the merged kubeconfig file
+      1.  `current-context` from the merged kubeconfig file
       1.  Empty is allowed at this stage
   1.  Determine the cluster info and user to use.  At this point, we may or may not have a context.  They are built based on the first hit in this chain.  (run it twice, once for user, once for cluster)
       1.  command line argument - `user` for user name and `cluster` for cluster name
@@ -118,6 +215,11 @@ The rules for loading and merging the kubeconfig files are straightforward, but 
       1. The command line flags are: `client-certificate`, `client-key`, `username`, `password`, and `token`.
       1. If there are two conflicting techniques, fail.
   1.  For any information still missing, use default values and potentially prompt for authentication information
+  1.  All file references inside of a kubeconfig file are resolved relative to the location of the kubeconfig file itself.  When file references are presented on the command line
+  they are resolved relative to the current working directory.  When paths are saved in the ~/.kube/config, relative paths are stored relatively while absolute paths are stored absolutely.
+
+Any path in a kubeconfig file is resolved relative to the location of the kubeconfig file itself.
+
 
 ## Manipulation of kubeconfig via `kubectl config <subcommand>`
 

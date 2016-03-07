@@ -10,16 +10,11 @@
 
 ## Instructions
 
-This is a getting started guide for [Fedora](http://fedoraproject.org).  It is a manual configuration so you understand all the underlying packages / services / ports, etc...
+This is a getting started guide for Fedora.  It is a manual configuration so you understand all the underlying packages / services / ports, etc...
 
-This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](/docs/admin/networking)
-done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
+This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](/docs/admin/networking/) done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
 
-The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These
-services are managed by systemd and the configuration resides in a central location: /etc/kubernetes.  We will break the services up
-between the hosts.  The first host, fed-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager,
-and kube-scheduler.  In addition, the master will also run _etcd_ (not needed if _etcd_ runs on a different host but this guide assumes
-that _etcd_ and Kubernetes master run on the same host).  The remaining host, fed-node will be the node and run kubelet, proxy and docker.
+The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: /etc/kubernetes.  We will break the services up between the hosts.  The first host, fed-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager, and kube-scheduler.  In addition, the master will also run _etcd_ (not needed if _etcd_ runs on a different host but this guide assumes that _etcd_ and Kubernetes master run on the same host).  The remaining host, fed-node will be the node and run kubelet, proxy and docker.
 
 **System Information:**
 
@@ -32,15 +27,9 @@ fed-node = 192.168.121.65
 
 **Prepare the hosts:**
 
-* Install Kubernetes on all hosts - fed-{master,node}.  This will also pull in docker. Also install etcd on fed-master. 
-  This guide has been tested with kubernetes-0.18 and beyond.
-* The [--enablerepo=updates-testing](https://fedoraproject.org/wiki/QA:Updates_Testing) directive in the yum 
-  command below will ensure that the most recent Kubernetes version that is scheduled for pre-release will
-  be installed. This should be a more recent version than the Fedora "stable" release for Kubernetes that you
-  would get without adding the directive.
-* If you want the very latest Kubernetes release [you can download and yum install the RPM directly from
-  Fedora Koji](http://koji.fedoraproject.org/koji/packageinfo?packageID=19202) instead of using the yum
-  install command below.
+* Install Kubernetes on all hosts - fed-{master,node}.  This will also pull in docker. Also install etcd on fed-master.  This guide has been tested with kubernetes-0.18 and beyond.
+* The [--enablerepo=updates-testing](https://fedoraproject.org/wiki/QA:Updates_Testing) directive in the yum command below will ensure that the most recent Kubernetes version that is scheduled for pre-release will be installed. This should be a more recent version than the Fedora "stable" release for Kubernetes that you would get without adding the directive.
+* If you want the very latest Kubernetes release [you can download and yum install the RPM directly from Fedora Koji](http://koji.fedoraproject.org/koji/packageinfo?packageID=19202) instead of using the yum install command below.
 
 ```shell
 yum -y install --enablerepo=updates-testing kubernetes
@@ -84,8 +73,7 @@ systemctl stop iptables-services firewalld
 
 **Configure the Kubernetes services on the master.**
 
-* Edit /etc/kubernetes/apiserver to appear as such.  The service-cluster-ip-range IP addresses must be an unused block of addresses, not used anywhere else. 
-They do not need to be routed or assigned to anything.
+* Edit /etc/kubernetes/apiserver to appear as such.  The service-cluster-ip-range IP addresses must be an unused block of addresses, not used anywhere else.  They do not need to be routed or assigned to anything.
 
 ```shell
 # The address on the local server to listen to.

@@ -12,7 +12,7 @@ By default, Docker uses host-private networking, so containers can talk to other
 
 Coordinating ports across multiple developers is very difficult to do at scale and exposes users to cluster-level issues outside of their control. Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. We give every pod its own cluster-private-IP address so you do not need to explicitly create links between pods or mapping container ports to host ports. This means that containers within a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document will elaborate on how you can run reliable services on such a networking model.
 
-This guide uses a simple nginx server to demonstrate proof of concept. The same principles are embodied in a more complete [Jenkins CI application](http://blog.kubernetes.io/2015/07/strong-simple-ssl-for-kubernetes).
+This guide uses a simple nginx server to demonstrate proof of concept. The same principles are embodied in a more complete [Jenkins CI application](http://blog.kubernetes.io/2015/07/strong-simple-ssl-for-kubernetes.html).
 
 ## Exposing pods to the cluster
 
@@ -43,8 +43,8 @@ This makes it accessible from any node in your cluster. Check the nodes the pod 
 ```shell
 $ kubectl create -f ./nginxrc.yaml
 $ kubectl get pods -l app=nginx -o wide
-my-nginx-6isf4   1/1       Running   0          2h        e2e-test-beeps-minion-93ly
-my-nginx-t26zt   1/1       Running   0          2h        e2e-test-beeps-minion-93ly
+my-nginx-6isf4   1/1       Running   0          2h        e2e-test-beeps-node-93ly
+my-nginx-t26zt   1/1       Running   0          2h        e2e-test-beeps-node-93ly
 ```
 
 Check your pods' IPs:
@@ -83,7 +83,7 @@ spec:
     app: nginx
 ```
 
-This specification will create a Service which targets TCP port 80 on any Pod with the `app=nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](http://kubernetes.io/v1.1/docs/api-reference/v1/definitions/#_v1_service) to see the list of supported fields in service definition.
+This specification will create a Service which targets TCP port 80 on any Pod with the `app=nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](/docs/api-reference/v1/definitions/#_v1_service) to see the list of supported fields in service definition.
 Check your Service:
 
 ```shell
@@ -289,7 +289,7 @@ Lets test this from a pod (the same secret is being reused for simplicity, the p
 
 ```shell
 $ cat curlpod.yaml
-vapiVersion: v1
+apiVersion: v1
 kind: ReplicationController
 metadata:
   name: curlrc
@@ -367,7 +367,7 @@ $ curl https://104.197.63.17:30645 -k
 Lets now recreate the Service to use a cloud load balancer, just change the `Type` of Service in the nginx-app.yaml from `NodePort` to `LoadBalancer`:
 
 ```shell
-$ kubectl delete rc, svc -l app=nginx
+$ kubectl delete rc,svc -l app=nginx
 $ kubectl create -f ./nginx-app.yaml
 $ kubectl get svc nginxsvc
 NAME      CLUSTER_IP       EXTERNAL_IP       PORT(S)                SELECTOR     AGE
@@ -380,6 +380,18 @@ $ curl https://162.22.184.144 -k
 
 The IP address in the `EXTERNAL_IP` column is the one that is available on the public internet.  The `CLUSTER_IP` is only available inside your
 cluster/private cloud network.
+
+Note that on AWS, type `LoadBalancer` creates an ELB, which uses a (long)
+hostname, not an IP.  It's too long to fit in the standard `kubectl get svc`
+output, in fact, so you'll need to do `kubectl describe service nginxsvc` to
+see it.  You'll see something like this:
+
+```shell
+> kubectl describe service nginxsvc
+...
+LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.elb.amazonaws.com
+...
+```
 
 ## What's next?
 

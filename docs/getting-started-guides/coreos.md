@@ -8,21 +8,27 @@ There are multiple guides on running Kubernetes with [CoreOS](https://coreos.com
 
 ### Official CoreOS Guides
 
-These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" with full TLS, the DNS add-on, and more. These guides pass Kubernetes conformance testing and we encourage you to [test this yourself](https://coreos.com/kubernetes/docs/latest/conformance-tests).
+These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" with full TLS, the DNS add-on, and more. These guides pass Kubernetes conformance testing and we encourage you to [test this yourself](https://coreos.com/kubernetes/docs/latest/conformance-tests.html).
 
-[**Vagrant Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant)
+[**AWS Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html)
+
+Guide and CLI tool for setting up a multi-node cluster on AWS. CloudFormation is used to set up a master and multiple workers in auto-scaling groups.
+
+<hr/>
+
+[**Vagrant Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant.html)
 
 Guide to setting up a multi-node cluster on Vagrant. The deployer can independently configure the number of etcd nodes, master nodes, and worker nodes to bring up a fully HA control plane.
 
 <hr/>
 
-[**Vagrant Single-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant-single)
+[**Vagrant Single-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant-single.html)
 
 The quickest way to set up a Kubernetes development environment locally. As easy as `git clone`, `vagrant up` and configuring `kubectl`.
 
 <hr/>
 
-[**Full Step by Step Guide**](https://coreos.com/kubernetes/docs/latest/getting-started)
+[**Full Step by Step Guide**](https://coreos.com/kubernetes/docs/latest/getting-started.html)
 
 A generic guide to setting up an HA cluster on any cloud or bare metal, with full TLS. Repeat the master or worker steps to configure more machines of that role.
 
@@ -51,6 +57,12 @@ Configure a Vagrant-based cluster of 3 machines with networking provided by Weav
 [**Multi-node cluster using cloud-config and Vagrant**](https://github.com/pires/kubernetes-vagrant-coreos-cluster/blob/master/README.md)
 
 Configure a single master, multi-worker cluster locally, running on your choice of hypervisor: VirtualBox, Parallels, or VMware
+
+<hr/>
+
+[**Single-node cluster using a small OS X App**](https://github.com/rimusz/kube-solo-osx/blob/master/README.md)
+
+Guide to running a solo cluster (master + worker) controlled by an OS X menubar application. Uses xhyve + CoreOS under the hood.
 
 <hr/>
 

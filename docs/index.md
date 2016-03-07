@@ -106,11 +106,11 @@ h2, h3, h4 {
   <div class="col2nd">
   <h3>Contribute to Our Docs</h3>
   <p>The docs for Kubernetes are open-source, just like the code for Kubernetes itself. The docs are on GitHub Pages, so you can fork it and it will auto-stage on username.github.io, previewing your changes!</p>
-  <a href="/docs/editdocs/" class="button">Write Docs for K8s</a>
+  <a href="/editdocs/" class="button">Write Docs for K8s</a>
   </div>
   <div class="col2nd">
   <h3>Need Help?</h3>
-  <p>Try consulting our <a href="/docs/troubleshooting/">troubleshooting guides</a>, or <a href="https://github.com/kubernetes/kubernetes/wiki/User-FAQ">our FAQ</a>. Kubernetes is also supported by a great community of contributors and experts who hang out in <a href="http://slack.kubernetes.io/">our Slack channel</a>, <a href="https://groups.google.com/forum/#!forum/google-containers">our Google Group</a> and <a href="http://stackoverflow.com/questions/tagged/kubernetes">Stackoverflow</a>.</p>
+  <p>Try consulting our <a href="/docs/troubleshooting/">troubleshooting guides</a>, or <a href="https://github.com/kubernetes/kubernetes/wiki/User-FAQ">our FAQ</a>. Kubernetes is also supported by a great community of contributors and experts who hang out in <a href="http://slack.kubernetes.io/">our Slack channel</a>, <a href="https://groups.google.com/forum/#!forum/google-containers">our Google Group</a> and <a href="http://stackoverflow.com/questions/tagged/kubernetes">Stack Overflow</a>.</p>
   <a href="/docs/troubleshooting/" class="button">Get Support</a>
   </div>
 </div>

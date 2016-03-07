@@ -5,15 +5,14 @@ In the reference section, you can find reference documentation for Kubernetes AP
 ## API References
 
 * [Kubernetes API](/docs/api/) - The core API for Kubernetes.
-* [Extensions API](/docs/api-reference/extensions/v1beta1/operations/) - Manages extensions resources such as Jobs, Ingress and HorizontalPodAutoscalers.
-* [kube-apiserver](/docs/admin/kube-apiserver/) - REST API that validates and configures data for API objects such as  pods, services, replication controllers.
-* [etcd](/docs/admin/etcd/) -  Highly-available key value store which Kubernetes uses for persistent storage of all of its REST API objects.
+* [Extensions API](/docs/api-reference/extensions/v1beta1/operations/) - Manages extensions resources such as Jobs, Ingress and HorizontalPodAutoscalers.	
 
 
 ## CLI References
 
 * [kubectl](/docs/user-guide/kubectl-overview/) - Runs commands against Kubernetes clusters.
-	* [JSONPath](/docs/user-guide/jsonpath/) - Syntax guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
+	* [JSONPath](/docs/user-guide/jsonpath/) - Syntax 	guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
+* [kube-apiserver](/docs/admin/kube-apiserver/) - REST API that validates and configures data for API objects such as  pods, services, replication controllers.
 * [kube-proxy](/docs/admin/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of backends.
 * [kube-scheduler](/docs/admin/kube-scheduler/) - A policy-rich, topology-aware, workload-specific function that significantly impacts availability, performance, and capacity.
 * [kubelet](/docs/admin/kubelet/) - The primary "node agent" that runs on each node. The kubelet takes a set of PodSpecs and ensures that the described containers are running and healthy.
