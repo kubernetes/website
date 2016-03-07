@@ -18,7 +18,7 @@
 # For examples of how to observe the ingested logs please
 # see the appropriate getting started guide e.g.
 # Google Cloud Logging: http://kubernetes.io/docs/getting-started-guides/logging/
-# With Elasticsearch and Kibana logging: http://kubernetes.io/docs/getting-started-guides/logging-elasticsearch.md
+# With Elasticsearch and Kibana logging: http://kubernetes.io/docs/getting-started-guides/logging-elasticsearch/
 
 .PHONY: up down logger-up logger-down logger10-up logger10-down
 
