@@ -216,7 +216,7 @@ For more information, please see [labels](/docs/user-guide/labels/) and [kubectl
 
 Sometimes you want to attach annotations to resources. Annotations are arbitrary non-identifying metadata for retrieval by API clients such as tools, libraries, etc. This can be done with `kubectl annotate`. For example:
 
-```console
+```shell
 $ kubectl annotate pods my-nginx-v4-9gw19 decscription='my frontend running nginx'
 $ kubectl get pods my-nginx-v4-9gw19 -o yaml
 apiversion: v1
@@ -433,7 +433,7 @@ For more information, please see [kubectl patch](/docs/user-guide/kubectl/kubect
 
 Alternatively, you may also update resources with `kubectl edit`:
 
-```console
+```shell
 $ kubectl edit pod my-nginx-1jgkf
 ```
 
@@ -460,7 +460,7 @@ With apply, you can keep a set of configuration files in source control, where t
 
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
 
-```console
+```shell
 $ kubectl apply -f ./nginx-rc.yaml
 replicationcontroller "my-nginx-v4" configured
 ```

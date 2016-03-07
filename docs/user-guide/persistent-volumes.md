@@ -1,7 +1,7 @@
 ---
 ---
 
-This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](volumes.md) is suggested.
+This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](/docs/user-guide/volumes/) is suggested.
 
 * TOC
 {:toc}

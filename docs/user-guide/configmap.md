@@ -80,10 +80,8 @@ how.nice.to.look=fairlyNice
 The `kubectl create configmap` command can be used to create a ConfigMap holding the content of each
 file in this directory:
 
-```console
-
+```shell
 $ kubectl create configmap game-config --from-file=docs/user-guide/configmap/kubectl
-
 ```
 
 When `--from-file` points to a directory, each file directly in that directory is used to populate a
@@ -113,6 +111,9 @@ If we want to see the values of the keys, we can simply `kubectl get` the resour
 
 ```shell
 $ kubectl get configmaps game-config -o yaml
+```
+
+```yaml
 apiVersion: v1
 data:
   game.properties: |-
@@ -147,6 +148,9 @@ following command yields equivalent results to the above example:
 $ kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties --from-file=docs/user-guide/configmap/kubectl/ui.properties
 
 $ cluster/kubectl.sh get configmaps game-config-2 -o yaml
+```
+
+```yaml
 apiVersion: v1
 data:
   game.properties: |-
@@ -179,6 +183,9 @@ of `key=value`: `--from-file=game-special-key=docs/user-guide/configmap/kubectl/
 $ kubectl create configmap game-config-3 --from-file=game-special-key=docs/user-guide/configmap/kubectl/game.properties
 
 $ kubectl get configmaps game-config-3 -o yaml
+```
+
+```yaml
 apiVersion: v1
 data:
   game-special-key: |-
@@ -209,6 +216,9 @@ directly on the command line:
 $ kubectl create configmap special-config --from-literal=special.how=very --from-literal=special.type=charm
 
 $ kubectl get configmaps special-config -o yaml
+```
+
+```yaml
 apiVersion: v1
 data:
   special.how: very

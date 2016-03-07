@@ -31,8 +31,6 @@ Here is an example Replication Controller config.  It runs 3 copies of the nginx
 
 {% include code.html language="yaml" file="replication.yaml" ghlink="/docs/user-guide/replication.yaml" %}
 
-
-
 Run the example job by downloading the example file and then running this command:
 
 ```shell
@@ -88,7 +86,7 @@ As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `meta
 general information about working with config files, see [here](/docs/user-guide/simple-yaml/),
 [here](/docs/user-guide/configuring-containers/), and [here](/docs/user-guide/working-with-resources/).
 
-A Replication Controller also needs a [`.spec` section](../devel/api-conventions.md#spec-and-status).
+A Replication Controller also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
@@ -101,11 +99,11 @@ the same schema as a [pod](pods.md), except it is nested and does not have an `a
 In addition to required fields for a Pod, a pod template in a job must specify appropriate
 labels (see [pod selector](#pod-selector) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](pod-states.md) equal to `Always` is allowed, which is the default
+Only a [`RestartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
 if not specified.
 
 For local container restarts, replication controllers delegate to an agent on the node,
-for example the [Kubelet](/docs/admin/kubelet.md) or Docker.
+for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 
 ### Labels on the Replication Controller
 

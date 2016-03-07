@@ -109,7 +109,7 @@ You can add or modify `user` entries using
 
 #### context
 
-```
+```yaml
 contexts:
 - context:
     cluster: horse-cluster
@@ -139,7 +139,7 @@ You can change the `current-context` with [`kubectl config use-context`](kubectl
 
 #### miscellaneous
 
-```
+```yaml
 apiVersion: v1
 kind: Config
 preferences:
@@ -183,23 +183,24 @@ In the above scenario, green-user would have to log in by providing certificates
 ## Loading and merging rules
 
 The rules for loading and merging the kubeconfig files are straightforward, but there are a lot of them.  The final config is built in this order:
+
   1.  Get the kubeconfig  from disk.  This is done with the following hierarchy and merge rules:
 
 
-      If the CommandLineLocation (the value of the `kubeconfig` command line option) is set, use this file only.  No merging.  Only one instance of this flag is allowed.
+      If the `CommandLineLocation` (the value of the `kubeconfig` command line option) is set, use this file only.  No merging.  Only one instance of this flag is allowed.
 
 
-      Else, if EnvVarLocation (the value of $KUBECONFIG) is available, use it as a list of files that should be merged.
+      Else, if `EnvVarLocation` (the value of `$KUBECONFIG`) is available, use it as a list of files that should be merged.
       Merge files together based on the following rules.
       Empty filenames are ignored.  Files with non-deserializable content produced errors.
       The first file to set a particular value or map key wins and the value or map key is never changed.
-      This means that the first file to set CurrentContext will have its context preserved.  It also means that if two files specify a "red-user", only values from the first file's red-user are used.  Even non-conflicting entries from the second file's "red-user" are discarded.
+      This means that the first file to set `CurrentContext` will have its context preserved.  It also means that if two files specify a "red-user", only values from the first file's red-user are used.  Even non-conflicting entries from the second file's "red-user" are discarded.
 
 
-      Otherwise, use HomeDirectoryLocation (~/.kube/config) with no merging.
+      Otherwise, use HomeDirectoryLocation (`~/.kube/config`) with no merging.
   1.  Determine the context to use based on the first hit in this chain
       1.  command line argument - the value of the `context` command line option
-      1.  current-context from the merged kubeconfig file
+      1.  `current-context` from the merged kubeconfig file
       1.  Empty is allowed at this stage
   1.  Determine the cluster info and user to use.  At this point, we may or may not have a context.  They are built based on the first hit in this chain.  (run it twice, once for user, once for cluster)
       1.  command line argument - `user` for user name and `cluster` for cluster name

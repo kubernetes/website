@@ -117,7 +117,7 @@ The data field is a map.  Its keys must match
 [`DNS_SUBDOMAIN`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/design/identifiers.md), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64.
 
-Create the secret using [`kubectl create`](kubectl/kubectl_create.md):
+Create the secret using [`kubectl create`](/docs/user-guide/kubectl/kubectl_create/):
 
 ```shell
 $ kubectl create -f ./secret.yaml
@@ -271,7 +271,7 @@ Inside a container that consumes a secret in an environment variables, the secre
 normal environment variables containing the base-64 decoded values of the secret data.
 This is the result of commands executed inside the container from the example above:
 
-```console
+```shell
 $ echo $SECRET_USERNAME
 admin
 $ cat /etc/foo/password

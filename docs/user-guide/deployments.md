@@ -33,7 +33,7 @@ deployment "nginx-deployment" created
 
 Running
 
-```console
+```shell
 $ kubectl get deployments
 ```
 

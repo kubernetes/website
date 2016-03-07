@@ -83,6 +83,7 @@ to be scheduled onto a candidate node.
 
 In addition to labels you [attach yourself](#step-one-attach-label-to-the-node), nodes come pre-populated
 with a standard set of labels. As of Kubernetes v1.2 these labels are
+
 * `kubernetes.io/hostname`
 * `failure-domain.beta.kubernetes.io/zone`
 * `failure-domain.beta.kubernetes.io/region`

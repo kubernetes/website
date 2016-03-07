@@ -90,8 +90,8 @@ This document is meant to highlight and consolidate in one place configuration b
 
 ## Container Images
 
-- The [default container image pull policy](images.md) is `IfNotPresent`, which causes the
-  [Kubelet](/docs/admin/kubelet.md) to not pull an image if it already exists. If you would like to
+- The [default container image pull policy](/docs/user-guide/images/) is `IfNotPresent`, which causes the
+  [Kubelet](/docs/admin/kubelet/) to not pull an image if it already exists. If you would like to
   always force a pull, you must specify a pull image policy of `Always` in your .yaml file
   (`imagePullPolicy: Always`) or specify a `:latest` tag on your image.
 

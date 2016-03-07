@@ -1,5 +1,5 @@
 Following this example, you will create a pod with a container that consumes the pod's name and
-namespace using the [downward API](http://kubernetesio/docs/user-guide/downward-api/).
+namespace using the [downward API](http://kubernetes.io/docs/user-guide/downward-api/).
 
 ## Step Zero: Prerequisites
 

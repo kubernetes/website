@@ -195,7 +195,7 @@ As with the userspace proxy, the net result is that any traffic bound for the
 knowing anything about Kubernetes or `Services` or `Pods`. This should be
 faster and more reliable than the userspace proxy.
 
-![Services overview diagram for iptables proxy](services-iptables-overview.png)
+![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
 ## Multi-Port Services
 

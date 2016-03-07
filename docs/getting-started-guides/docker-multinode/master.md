@@ -207,7 +207,7 @@ Download the kubectl binary for `${K8S_VERSION}` ({{page.version}}) and make it 
 
 For example, OS X:
 
-```console
+```shell
 $ wget http://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/darwin/amd64/kubectl
 $ chmod 755 kubectl
 $ PATH=$PATH:`pwd`
@@ -215,7 +215,7 @@ $ PATH=$PATH:`pwd`
 
 Linux:
 
-```console
+```shell
 $ wget http://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/linux/amd64/kubectl
 $ chmod 755 kubectl
 $ PATH=$PATH:`pwd`
