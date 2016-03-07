@@ -1216,12 +1216,40 @@ $feature-box-div-margin-bottom: 40px
 
 #videoPlayer
 	@include fullScreen
-	background-color: rgba(0, 0, 0, 0.75)
+	background-color: rgba(0, 0, 0, 0.9)
 	display: none
 
 	iframe
 		@include pureCenter
 		@include maintain-aspect-ratio
+
+	#closeButton
+		position: absolute
+		top: 20px
+		right: 20px
+		width: 50px
+		height: 50px
+		border: 2px solid transparent
+		transition: 0.3s
+
+		&:before, &:after
+			content: ""
+			position: absolute
+			top: calc(50% - 1px)
+			left: 10%
+			width: 80%
+			height: 2px
+			background-color: white
+
+		&:before
+			transform: rotate(45deg)
+
+		&:after
+			transform: rotate(-45deg)
+
+		&:hover
+			border-color: white
+
 
 
 
