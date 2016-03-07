@@ -365,21 +365,25 @@ export KUBERNETES_NODE_MEMORY=2048
 
 #### I want to set proxy settings for my Kubernetes cluster boot strapping!
 
-If you are behind a proxy, you need to install vagrant proxy plugin and set the proxy settings by
+If you are behind a proxy, you need to install the Vagrant proxy plugin and set the proxy settings:
 
-```sh
+```shell
 vagrant plugin install vagrant-proxyconf
 export KUBERNETES_HTTP_PROXY=http://username:password@proxyaddr:proxyport
 export KUBERNETES_HTTPS_PROXY=https://username:password@proxyaddr:proxyport
 ```
 
-Optionally you can specify addresses to not proxy, for example
+You can also specify addresses that bypass the proxy, for example:
 
-```sh
+```shell
 export KUBERNETES_NO_PROXY=127.0.0.1
 ```
 
-If you are using sudo to make kubernetes build for example make quick-release, you need run `sudo -E make quick-release` to pass the environment variables.
+If you are using sudo to make Kubernetes build, use the `-E` flag to pass in the environment variables. For example, if running `make quick-release`, use:
+
+```shell
+sudo -E make quick-release
+```
 
 #### I ran vagrant suspend and nothing works!
 
