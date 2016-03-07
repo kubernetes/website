@@ -39,6 +39,10 @@ $video-section-height: 550px
 
 
 	#talkToUs
+		h4
+			br
+				display: block
+
 		#bigSocial
 			div
 				width: calc(25% - 15px)
@@ -48,6 +52,141 @@ $video-section-height: 550px
 
 			div:nth-child(3), div:nth-child(4)
 				margin-top: 0
+
+
+
+	// FOOTER
+	footer
+		width: 100%
+		background-image: url(../images/texture.png)
+		background-color: $dark-grey
+
+		main
+			padding: 20px 0
+
+		nav
+			a
+				//width: 100%
+				text-align: center
+				display: inline-block
+				margin: 10px 0
+				font-size: 24px
+				font-weight: 300
+				color: white
+				text-decoration: none
+
+		.social
+			position: relative
+			margin: 20px 0
+
+			a
+				float: left
+
+			a + a
+				margin-left: 10px
+
+			label
+				float: right
+				width: auto
+				display: inline-block
+				height: 50px
+				line-height: 50px
+				font-weight: 100
+				white-space: nowrap
+
+				input
+					margin-left: 8px
+					max-width: none
+
+
+	#search, #wishField
+		background-color: transparent
+		padding: 10px
+		font-size: 16px
+		font-weight: 100
+		color: white
+		border: 1px solid white
+		transition: 0.3s
+
+		&:focus
+			background-color: $light-grey
+			color: $dark-grey
+
+	.social a
+		display: inline-block
+		background-image: url(../images/social_sprite.png)
+		background-repeat: no-repeat
+		background-size: auto
+		width: 50px
+		height: 50px
+		border-radius: 5px
+		margin-right: 10px
+
+		&:hover
+			background-color: #fff
+
+		span
+			position: absolute
+			display: block
+			height: 0
+			overflow: hidden
+
+	a.twitter
+		background-position: 0 0
+
+		&:hover
+			background-position: 0 100%
+
+	a.stack-overflow
+		background-position: -50px 0
+
+		&:hover
+			background-position: -50px 100%
+
+	a.slack
+		background-position: -100px 0
+
+		&:hover
+			background-position: -100px 100%
+
+	a.github
+		background-position: -150px 0
+
+		&:hover
+			background-position: -150px 100%
+
+	a.mailing-list
+		background-position: -200px 0
+
+		&:hover
+			background-position: -200px 100%
+
+	a.calendar
+		background-position: -250px 0
+
+		&:hover
+			background-position: -250px 100%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

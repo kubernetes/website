@@ -69,13 +69,11 @@ body
 section
 	position: relative
 	background-color: white
-	//min-width: 1024px
 
 section, header, footer
 	main
 		position: relative
 		margin: auto
-		//min-width: 850px
 
 .button
 	display: inline-block
@@ -298,11 +296,18 @@ footer
 
 	.social
 		position: relative
-		margin: 20px 0
+		text-align: center
+
+		a, label
+			margin: 20px 0
+
+		a
+			vertical-align: middle
 
 		label
-			float: right
+			//float: right
 			display: inline-block
+			width: 100%
 			height: 50px
 			line-height: 50px
 			font-weight: 100
@@ -311,6 +316,7 @@ footer
 			input
 				margin-left: 8px
 				width: 300px
+				max-width: 60%
 
 
 #search, #wishField
@@ -842,6 +848,9 @@ section
 	position: fixed
 	bottom: 0
 
+#miceType
+	clear: both
+
 
 html.search #docsContent
 	position: relative
@@ -1269,6 +1278,9 @@ $feature-box-div-margin-bottom: 40px
 		line-height: normal
 		margin-bottom: 50px
 
+		br
+			display: none
+
 	#bigSocial
 		overflow: hidden
 
@@ -1305,3 +1317,6 @@ $feature-box-div-margin-bottom: 40px
 			text-decoration: none
 			margin-bottom: 15px
 
+		a, p
+			text-align: center
+			width: 100%
