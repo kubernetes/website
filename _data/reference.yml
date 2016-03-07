@@ -60,6 +60,8 @@ toc:
       path: /docs/user-guide/kubectl/kubectl_cluster-info/
     - title: kubectl config
       path: /docs/user-guide/kubectl/kubectl_config/
+    - title: kubectl config current-context
+      path: /docs/user-guide/kubectl/kubectl_config_current-context/
     - title: kubectl config set-cluster
       path: /docs/user-guide/kubectl/kubectl_config_set-cluster/
     - title: kubectl config set-context
@@ -74,16 +76,36 @@ toc:
       path: /docs/user-guide/kubectl/kubectl_config_use-context/
     - title: kubectl config view
       path: /docs/user-guide/kubectl/kubectl_config_view/
+    - title: kubectl convert
+      path: /docs/user-guide/kubectl/kubectl_convert/
+    - title: kubectl cordon
+      path: /docs/user-guide/kubectl/kubectl_cordon/
     - title: kubectl create
       path: /docs/user-guide/kubectl/kubectl_create/
+    - title: kubectl create configmap
+      path: /docs/user-guide/kubectl/kubectl_create_configmap/
+    - title: kubectl create namespace
+      path: /docs/user-guide/kubectl/kubectl_create_namespace/
+    - title: kubectl create secret docker-registry
+      path: /docs/user-guide/kubectl/kubectl_create_secret_docker-registry/
+    - title: kubectl create secret
+      path: /docs/user-guide/kubectl/kubectl_create_secret/
+    - title: kubectl create secret generic
+      path: /docs/user-guide/kubectl/kubectl_create_secret_generic/
+    - title: kubectl create serviceaccount
+      path: /docs/user-guide/kubectl/kubectl_create_serviceaccount/
     - title: kubectl delete
       path: /docs/user-guide/kubectl/kubectl_delete/
     - title: kubectl describe
       path: /docs/user-guide/kubectl/kubectl_describe/
+    - title: kubectl drain
+      path: /docs/user-guide/kubectl/kubectl_drain/
     - title: kubectl edit
       path: /docs/user-guide/kubectl/kubectl_edit/
     - title: kubectl exec
       path: /docs/user-guide/kubectl/kubectl_exec/
+    - title: kubectl explain
+      path: /docs/user-guide/kubectl/kubectl_explain/
     - title: kubectl expose
       path: /docs/user-guide/kubectl/kubectl_expose/
     - title: kubectl get
@@ -102,10 +124,22 @@ toc:
       path: /docs/user-guide/kubectl/kubectl_replace/
     - title: kubectl rolling-update
       path: /docs/user-guide/kubectl/kubectl_rolling-update/
+    - title: kubectl rollout
+      path: /docs/user-guide/kubectl/kubectl_rollout/
+    - title: kubectl rollout history
+      path: /docs/user-guide/kubectl/kubectl_rollout_history/
+    - title: kubectl rollout pause
+      path: /docs/user-guide/kubectl/kubectl_rollout_pause/
+    - title: kubectl rollout resume
+      path: /docs/user-guide/kubectl/kubectl_rollout_resume/
+    - title: kubectl rollout undo
+      path: /docs/user-guide/kubectl/kubectl_rollout_undo/
     - title: kubectl run
       path: /docs/user-guide/kubectl/kubectl_run/
     - title: kubectl scale
       path: /docs/user-guide/kubectl/kubectl_scale/
+    - title: kubectl uncordon
+      path: /docs/user-guide/kubectl/kubectl_uncordon/
     - title: kubectl version
       path: /docs/user-guide/kubectl/kubectl_version/
     - title: Superseded and Deprecated Commands
