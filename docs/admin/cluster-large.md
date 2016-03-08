@@ -49,6 +49,28 @@ When creating a cluster, existing salt scripts:
 * start and configure additional etcd instance
 * configure api-server to use it for storing events
 
+### Size of master and master components
+
+On GCE/GKE, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
+in your cluster. On other providers, you will need to configure it manually. For reference, the sizes we use on GCE are
+* 1-5 nodes: n1-standard-1
+* 6-10 nodes: n1-standard-2
+* 11-100 nodes: n1-standard-4
+* 101-250 nodes: n1-standard-8
+* 251-500 nodes: n1-standard-16
+* more than 500 nodes: n1-standard-32
+
+We have measured the following 99th percentile resource consumption for the various master components at
+(100 nodes/500 nodes/1000 nodes) cluster size:
+* main etcd instance: CPU (0.135/0.241/0.312) RAM MB (242/706/1792)
+* events etcd instance: CPU (0.082/0.099/0.095) RAM MB (237/746/1846)
+* API server: CPU (1.233/3.0/5.9) RAM MB (895/2439/4285)
+* controller manager: CPU (0.345/0.633/3.57) RAM MB (320/1624/4507)
+* scheduler: CPU (0.232/1.576/1.758) RAM MB (48/167/5541)
+
+In a future Kubernetes release, we will set container limits based on these values, but for now these
+containers do not have limits set.
+
 ### Addon Resources
 
 To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](http://pr.k8s.io/10653/files) and [#10778](http://pr.k8s.io/10778/files)).
