@@ -45,6 +45,4 @@ Possible values for `YOUR_PROVIDER` include:
 * `vsphere` - VMWare VSphere
 * `rackspace` - Rackspace
 
-For the complete, up-to-date list of supported providers, see [the `/cluster` folder in the main Kubernetes repo](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster) (each folder represents a possible value for `YOUR_PROVIDER`.
-
-You can also set `KUBERNETES_SKIP_DOWNLOAD` to non-empty to skip downloading a release and just provision the clusters, or set `KUBERNETES_SKIP_CONFIRM` to skip the installation confirmation prompt.
+For the complete, up-to-date list of supported providers, see [the `/cluster` folder in the main Kubernetes repo](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster) (each folder represents a possible value for `YOUR_PROVIDER`. If you don't see your desired provider, try looking at our [getting started guides](/docs/getting-started-guides); there's a good chance we have docs for them.
