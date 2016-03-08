@@ -48,7 +48,6 @@ $main-nav-left-button-font-size: 18px
 $hero-padding-top: 80px
 $headline-wrapper-margin-bottom: 40px
 $quickstart-button-padding: 0 50px
-$vendor-strip-height: 44px
 $vendor-strip-font-size: 16px
 
 //video
@@ -80,6 +79,21 @@ $feature-box-div-width: 45%
 	#vendorStrip
 		display: block
 		text-align: center
+
+		img
+			max-height: 24px
+			vertical-align: middle
+			margin: 0 30px
+
+	#docs
+		#vendorStrip
+			ul
+				a
+					font-size: 1em
+					font-weight: normal
+
+				li + li
+					margin-left: 60px
 
 
 	#oceanNodes
@@ -126,8 +140,6 @@ $feature-box-div-width: 45%
 
 	#video
 		height: $video-section-height
-
-	#video
 		display: block
 
 		& > .light-text
@@ -187,20 +199,3 @@ $feature-box-div-width: 45%
 			a
 				width: 25%
 				font-size: 22px
-
-	//
-	//	.social
-	//		position: relative
-	//		margin: 80px 0 60px
-	//
-	//		label
-	//			float: right
-	//			display: inline-block
-	//			height: 50px
-	//			line-height: 50px
-	//			font-weight: 100
-	//			white-space: nowrap
-	//
-	//			input
-	//				margin-left: 8px
-	//				width: 300px

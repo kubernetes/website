@@ -50,7 +50,7 @@ $main-nav-left-button-font-size: 18px
 $hero-padding-top: 80px
 $headline-wrapper-margin-bottom: 40px
 $quickstart-button-padding: 0 50px
-$vendor-strip-height: 44px
+$vendor-strip-height: 88px
 $vendor-strip-font-size: 16px
 
 
@@ -119,7 +119,7 @@ header
 	display: none
 
 #viewDocs
-	border: 1px solid white
+	border: 2px solid white
 	background-color: transparent
 	transition: 0.3s
 
@@ -260,15 +260,11 @@ header
 
 // VENDOR STRIP
 #vendorStrip
+	position: relative
 	background-color: transparentize(white, 0.9)
 	font-weight: 100
 	white-space: nowrap
 	text-align: center
-
-	div
-		vertical-align: middle
-		height: 100%
-		display: inline-block
 
 // FOOTER
 footer
@@ -393,7 +389,8 @@ section
 	background-color: $dark-grey
 
 	h5
-		margin-bottom: 20px
+		margin: 20px 0
+		line-height: 28px
 
 #vendorStrip
 	position: relative
@@ -412,22 +409,31 @@ section
 		font-size: 0.75em
 		font-weight: bold
 
-	li + li, #search
+	li + li
 		margin-left: 20px
 
-	#search
-		display: block
-		position: relative
-		width: 100%
-		min-width: 250px
-		padding: 0 10px
-		margin: 0
-		height: 30px
-		line-height: 30px
-		border: 0
-		background-color: $dark-grey
-		font-size: 16px
-		clear: both
+
+#docs
+	#vendorStrip
+		line-height: 44px
+
+		ul
+			float: none
+
+		#searchBox
+			float: none
+			display: block
+			width: 80%
+			margin: 0 auto
+			height: 44px
+			line-height: 44px
+
+		#search
+			width: 100%
+			padding: 0 10px
+			height: 30px
+			line-height: 30px
+			font-size: 16px
 
 
 #encyclopedia
@@ -700,7 +706,7 @@ section
 		background-color: transparent
 
 	.includecode, .includecode th, .includecode td
-		padding: 0px !important
+		padding: 0 !important
 
 	.includecode th
 		text-align: right !important
@@ -711,7 +717,7 @@ section
 		background-color: transparent !important
 
 	.includecode pre
-		margin: 0px !important
+		margin: 0 !important
 
 	ul li
 		list-style: disc
@@ -1057,14 +1063,14 @@ $feature-box-div-margin-bottom: 40px
 
 #home #hero
 	margin-bottom: 0
+	padding-bottom: 1px
 
 	main
+		padding: 0 10px
 		margin-bottom: 30px
 
-#vendorStrip img
-	max-height: 24px
-	vertical-align: middle
-	margin: 0 30px
+	#vendorStrip
+		display: none
 
 
 // OCEAN NODES

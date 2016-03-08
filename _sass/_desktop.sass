@@ -1,26 +1,44 @@
 $main-max-width: 1200px
+$vendor-strip-height: 44px
 $video-section-height: 550px
 
 @media screen and (min-width: 1025px)
 	#vendorStrip
-		white-space: nowrap
+		height: $vendor-strip-height
+		line-height: $vendor-strip-height
 
-		li + li, #search
-			margin-left: 60px
-
-		#search
-			display: inline-block
-			position: relative
+		#searchBox
 			float: right
-			width: 24%
-			min-width: 250px
-			padding: 0 10px
-			margin: 8px 30px 0 0
-			height: 30px
-			line-height: 30px
-			border: 1px solid $light-grey
-			font-size: 16px
 
+		//#search
+		//	display: inline-block
+		//	position: relative
+		//	float: right
+		//	width: 24%
+		//	min-width: 250px
+		//	padding: 0 10px
+		//	margin: 8px 30px 0 0
+		//	height: 30px
+		//	line-height: 30px
+		//	border: 1px solid $light-grey
+		//	font-size: 16px
+		//	clear: none
+
+
+	#home
+		#hero
+			#vendorStrip
+				display: block
+
+	#docs
+		#hero
+			#vendorStrip
+				ul
+					float: left
+
+				#searchBox
+					float: right
+					width: 30%
 
 
 	#docsToc
