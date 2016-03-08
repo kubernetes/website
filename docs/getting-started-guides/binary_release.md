@@ -23,5 +23,28 @@ make release
 
 For more details on the release process see the [`build/` directory](http://releases.k8s.io/{{page.githubbranch}}/build/)
 
+#### Downloading Kubernetes and automatically set up clusters
 
+The bash script at `https://get.k8s.io`, which can be run with `wget` or `curl`, automatically downloads Kubernetes, and provisions a cluster based on your desired cloud provider.
 
+```shell
+# wget version
+export KUBERNETES_PROVIDER=YOUR_PROVIDER; wget -q -O - https://get.k8s.io | bash
+
+# curl version
+export KUBERNETES_PROVIDER=YOUR_PROVIDER; curl -sS https://get.k8s.io | bash
+```
+
+Possible values for `YOUR_PROVIDER` include:
+
+* `gce` - Google Compute Engine [default]
+* `gke` - Google Container Engine
+* `aws` - Amazon EC2
+* `azure` - Microsoft Azure
+* `vagrant` - Vagrant (on local virtual machines)
+* `vsphere` - VMWare VSphere
+* `rackspace` - Rackspace
+
+For the complete, up-to-date list of supported providers, see [the `/cluster` folder in the main Kubernetes repo](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster) (each folder represents a possible value for `YOUR_PROVIDER`.
+
+You can also set `KUBERNETES_SKIP_DOWNLOAD` to non-empty to skip downloading a release and just provision the clusters, or set `KUBERNETES_SKIP_CONFIRM` to skip the installation confirmation prompt.
