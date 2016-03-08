@@ -26,7 +26,7 @@ make release
 
 For more details on the release process see the [`build/` directory](http://releases.k8s.io/{{page.githubbranch}}/build/)
 
-#### Download Kubernetes and automatically set up a default cluster
+### Download Kubernetes and automatically set up a default cluster
 
 The bash script at `https://get.k8s.io`, which can be run with `wget` or `curl`, automatically downloads Kubernetes, and provisions a cluster based on your desired cloud provider.
 
