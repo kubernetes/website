@@ -34,6 +34,7 @@ h2, h3, h4 {
   float: left;
   margin-right: 30px;
   margin-bottom: 30px;
+  overflow: hidden;
 }
 .col3rd h3, .col2nd h3 {
   margin-bottom: 0px !important;
@@ -51,6 +52,7 @@ h2, h3, h4 {
   float: left;
   margin-right: 30px;
   margin-bottom: 30px;
+  overflow: hidden;
 }
 .shadowbox {
   display: inline;
