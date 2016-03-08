@@ -2,6 +2,27 @@ $main-max-width: 1200px
 $video-section-height: 550px
 
 @media screen and (min-width: 1025px)
+	#vendorStrip
+		white-space: nowrap
+
+		li + li, #search
+			margin-left: 60px
+
+		#search
+			display: inline-block
+			position: relative
+			float: right
+			width: 24%
+			min-width: 250px
+			padding: 0 10px
+			margin: 8px 30px 0 0
+			height: 30px
+			line-height: 30px
+			border: 1px solid $light-grey
+			font-size: 16px
+
+
+
 	#docsToc
 		position: relative
 		float: left
