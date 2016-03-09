@@ -27,6 +27,7 @@
         <div class="pi-accordion">
         {% assign tree = site.data[foundTOC].toc %}{% include tree.html %}
         </div> <!-- /pi-accordion -->
+		<button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
 	</div> <!-- /docsToc -->
 	<div id="docsContent">
         <p><a href="/editdocs#{{ page.path }}" id="editPageButton">Edit This Page</a></p>
@@ -35,19 +36,20 @@
         <p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ page.path }}?pixel" alt="Analytics" /></a>
         <div id="pd_rating_holder_8345992"></div>
 		<script type="text/javascript">
-        PDRTJS_settings_8345992 = {
-        "id" : "8345992",
-        "unique_id" : "{{page.url}}",
-        "title" : "{{title}}",
-        "permalink" : "http://kubernetes.github.io{{page.url}}"
-        };
-        (function(d,c,j){if(!document.getElementById(j)){var pd=d.createElement(c),s;pd.id=j;pd.src=('https:'==document.location.protocol)?'https://polldaddy.com/js/rating/rating.js':'http://i0.poll.fm/js/rating/rating.js';s=document.getElementsByTagName(c)[0];s.parentNode.insertBefore(pd,s);}}(document,'script','pd-rating-js'));
+	        PDRTJS_settings_8345992 = {
+		        "id" : "8345992",
+		        "unique_id" : "{{page.url}}",
+		        "title" : "{{title}}",
+		        "permalink" : "http://kubernetes.github.io{{page.url}}"
+	        };
+	        (function(d,c,j){if(!document.getElementById(j)){var pd=d.createElement(c),s;pd.id=j;pd.src=('https:'==document.location.protocol)?'https://polldaddy.com/js/rating/rating.js':'http://i0.poll.fm/js/rating/rating.js';s=document.getElementsByTagName(c)[0];s.parentNode.insertBefore(pd,s);}}(document,'script','pd-rating-js'));
         </script>
 	</div>
 </section>
 
 {% include footer.html %}
 
+<button class="flyout-button" onclick="kub.toggleToc()"></button>
 
 <style>
 	.cse .gsc-control-cse, .gsc-control-cse {

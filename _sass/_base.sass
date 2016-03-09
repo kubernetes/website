@@ -28,7 +28,7 @@ $main-max-width: 100%
 
 $header-height: 80px
 
-$logo-width: 120px
+$logo-width: 180px
 
 $nav-buttons-margin-left: 30px
 
@@ -52,7 +52,6 @@ $headline-wrapper-margin-bottom: 40px
 $quickstart-button-padding: 0 50px
 $vendor-strip-height: 88px
 $vendor-strip-font-size: 16px
-
 
 // video
 $video-section-height: 200px
@@ -104,13 +103,56 @@ header
 	box-shadow: 0 0 0 transparent
 	overflow: hidden
 	transition: 0.3s
+	text-align: center
+
 
 .logo
+	position: relative
 	float: left
+	display: block
+	width: 180px
+	height: 88px
+	top: 0
+	left: 0
+	transform: none
 	background-image: url(../images/nav_logo.svg)
 	background-size: contain
 	background-position: center center
 	background-repeat: no-repeat
+
+
+#docs
+	.flyout-button
+		position: fixed
+		top: 20px
+		left: 20px
+		width: 50px
+		height: 50px
+		background-image: url(../images/toc_icon.png)
+		background-position: center center
+		background-repeat: no-repeat
+		background-size: auto
+		border-radius: 50%
+		transition: 0.3s
+		z-index: 99999
+
+	&.open-nav .flyout-button
+		display: none
+
+	.logo
+		position: absolute
+		top: 40px
+		left: 50%
+		transform: translate(-50%, -50%)
+		display: block
+		width: 45px
+		height: 44px
+		background-image: url(../images/favicon.png)
+
+
+	&.flip-nav .flyout-button
+		background-image: url(../images/toc_icon_grey.png)
+
 
 .nav-buttons
 	float: right
@@ -231,9 +273,6 @@ header
 	header
 		box-shadow: 0 1px 2px $medium-grey
 
-		.logo
-			background-image: url(../images/nav_logo2.svg)
-
 	#viewDocs
 		border-color: $dark-grey
 		color: $dark-grey
@@ -286,29 +325,63 @@ footer
 			color: white
 			text-decoration: none
 
+
 	.social
-		position: relative
-		text-align: center
+		margin: 20px 0
 
-		a, label
-			margin: 20px 0
+		div
+			text-align: center
+			margin-bottom: 20px
 
-		a
-			vertical-align: middle
+		div:last-child
+			margin: 30px 0
 
-		label
-			//float: right
-			display: inline-block
-			width: 100%
-			height: 50px
-			line-height: 50px
-			font-weight: 100
-			white-space: nowrap
+		span
+			display: block
+			margin-bottom: 8px
 
-			input
-				margin-left: 8px
-				width: 300px
-				max-width: 60%
+		input
+			text-align: center
+
+
+	//.social
+	//	position: relative
+	//	text-align: center
+	//
+	//	a, label
+	//		margin: 20px 0
+	//
+	//	a
+	//		vertical-align: middle
+	//
+	//	a.line-break
+	//		display: block
+	//
+	//
+	//	label
+	//		//float: right
+	//		display: inline-block
+	//		width: 100%
+	//		height: 50px
+	//		line-height: 50px
+	//		font-weight: 100
+	//		white-space: nowrap
+	//
+	//		input
+	//			margin-left: 8px
+	//			width: 300px
+	//			max-width: 60%
+	//
+	//
+	//.social
+	//	a
+	//		float: left
+	//		margin-right: 10px
+	//
+	//	a:nth-child(4)
+	//		clear: left
+
+
 
 
 #search, #wishField
@@ -434,21 +507,29 @@ section
 			height: 30px
 			line-height: 30px
 			font-size: 16px
+			vertical-align: top
 
 
 #encyclopedia
 	position: relative
-	padding: 50px
+	padding: 50px 50px 20px 20px
 	overflow: hidden
 
 	& > div
 		height: 100%
 
 #docsToc
-	position: absolute
-	left: -400px
-	width: 350px
-	padding: 0 20px 0 0
+	position: fixed
+	background-color: white
+	top: 0
+	left: 0
+	width: 0
+	height: 100vh
+	overflow: hidden
+	padding: 50px 0
+	z-index: 999999
+	transition: 0.3s
+
 
 	.yah
 		& > .title
@@ -458,6 +539,15 @@ section
 			margin-left: -21px
 			color: $blue
 
+.open-toc
+	body
+		overflow: hidden
+
+	#docsToc
+		padding: 50px 20px
+		width: 400px
+		max-width: 100vw
+		overflow-y: auto
 
 .pi-accordion
 	margin-left: -20px
@@ -553,29 +643,6 @@ section
 		line-height: 60px
 		background-color: #444
 
-	.push-menu-close-button
-		position: absolute
-		top: 0
-		right: 0
-		width: 50px
-		height: 50px
-
-		&:before, &:after
-			content: ""
-			position: absolute
-			top: calc(50% - 1px)
-			left: 25%
-			width: 50%
-			height: 2px
-			background-color: black
-
-		&:before
-			transform: rotate(45deg)
-
-		&:after
-			transform: rotate(-45deg)
-
-
 	ul
 		margin-top: 25px
 
@@ -611,6 +678,29 @@ section
 			line-height: 40px
 			font-size: 18px
 			color: lighten(#222222, 20%)
+
+
+.push-menu-close-button
+	position: absolute
+	top: 0
+	right: 0
+	width: 50px
+	height: 50px
+
+	&:before, &:after
+		content: ""
+		position: absolute
+		top: calc(50% - 1px)
+		left: 25%
+		width: 50%
+		height: 2px
+		background-color: black
+
+	&:before
+		transform: rotate(45deg)
+
+	&:after
+		transform: rotate(-45deg)
 
 
 
@@ -833,205 +923,6 @@ html.search #docsContent
 
 
 
-/* Default gh-pages-blog css from https://github.com/thedereck/gh-pages-blog/blob/master/css/syntax.css */
-.highlight br
-	display: none
-
-.highlight
-	background: #ffffff
-
-.highlight .c
-	color: #999988
-	font-style: italic
-
-.highlight .err
-	color: #a61717
-	background-color: #e3d2d2
-
-.highlight .k
-	font-weight: bold
-
-.highlight .o
-	font-weight: bold
-
-.highlight .cm
-	color: #999988
-	font-style: italic
-
-.highlight .cp
-	color: #999999
-	font-weight: bold
-
-.highlight .c1
-	color: #999988
-	font-style: italic
-
-.highlight .cs
-	color: #999999
-	font-weight: bold
-	font-style: italic
-
-.highlight .gd
-	color: #000000
-	background-color: #ffdddd
-
-.highlight .gd .x
-	color: #000000
-	background-color: #ffaaaa
-
-.highlight .ge
-	font-style: italic
-
-.highlight .gr
-	color: #aa0000
-
-.highlight .gh
-	color: #999999
-
-.highlight .gi
-	color: #000000
-	background-color: #ddffdd
-
-.highlight .gi .x
-	color: #000000
-	background-color: #aaffaa
-
-.highlight .go
-	color: #888888
-
-.highlight .gp
-	color: #555555
-
-.highlight .gs
-	font-weight: bold
-
-.highlight .gu
-	color: #aaaaaa
-
-.highlight .gt
-	color: #aa0000
-
-.highlight .kc
-	font-weight: bold
-
-.highlight .kd
-	font-weight: bold
-
-.highlight .kp
-	font-weight: bold
-
-.highlight .kr
-	font-weight: bold
-
-.highlight .kt
-	color: #445588
-	font-weight: bold
-
-.highlight .m
-	color: #009999
-
-.highlight .s
-	color: #d14
-
-.highlight .na
-	color: #008080
-
-.highlight .nb
-	color: #0086B3
-
-.highlight .nc
-	color: #445588
-	font-weight: bold
-
-.highlight .no
-	color: #008080
-
-.highlight .ni
-	color: #800080
-
-.highlight .ne
-	color: #990000
-	font-weight: bold
-
-.highlight .nf
-	color: #990000
-	font-weight: bold
-
-.highlight .nn
-	color: #555555
-
-.highlight .nt
-	color: #000080
-
-.highlight .nv
-	color: #008080
-
-.highlight .ow
-	font-weight: bold
-
-.highlight .w
-	color: #bbbbbb
-
-.highlight .mf
-	color: #009999
-
-.highlight .mh
-	color: #009999
-
-.highlight .mi
-	color: #009999
-
-.highlight .mo
-	color: #009999
-
-.highlight .sb
-	color: #d14
-
-.highlight .sc
-	color: #d14
-
-.highlight .sd
-	color: #d14
-
-.highlight .s2
-	color: #d14
-
-.highlight .se
-	color: #d14
-
-.highlight .sh
-	color: #d14
-
-.highlight .si
-	color: #d14
-
-.highlight .sx
-	color: #d14
-
-.highlight .sr
-	color: #009926
-
-.highlight .s1
-	color: #d14
-
-.highlight .ss
-	color: #990073
-
-.highlight .bp
-	color: #999999
-
-.highlight .vc
-	color: #008080
-
-.highlight .vg
-	color: #008080
-
-.highlight .vi
-	color: #008080
-
-.highlight .il
-	color: #009999
-
 
 
 
@@ -1053,24 +944,20 @@ $feature-box-div-margin-bottom: 40px
 // Home-specific
 
 #home
-	section
-		min-width: 320px
+	&.flip-nav, &.open-nav
+		.logo
+			background-image: url(../images/nav_logo2.svg)
 
-	section, header, footer
+	#hero
+		margin-bottom: 0
+		padding-bottom: 1px
+
 		main
-			min-width: 320px
+			padding: 0 10px
+			margin-bottom: 30px
 
-
-#home #hero
-	margin-bottom: 0
-	padding-bottom: 1px
-
-	main
-		padding: 0 10px
-		margin-bottom: 30px
-
-	#vendorStrip
-		display: none
+		#vendorStrip
+			display: none
 
 
 // OCEAN NODES
@@ -1213,7 +1100,7 @@ $feature-box-div-margin-bottom: 40px
 #features
 	padding-top: 140px
 	background-color: $light-grey
-	background-image: url(../../images/wheel.png)
+	background-image: url(../images/wheel.png)
 	background-position: center 60px
 	background-repeat: no-repeat
 	background-size: auto
@@ -1247,11 +1134,65 @@ $feature-box-div-margin-bottom: 40px
 
 
 
+
+// Community
+
+#community
+	&.open-nav, &.flip-nav
+		.logo
+			background-image: url(../images/nav_logo2.svg)
+
+	#hero
+		padding-bottom: 20px
+
+	#mainContent
+		padding: 20px 0
+
+		main
+			max-width: none
+
+		a
+			color: $blue
+
+		.content
+			margin-bottom: 30px
+			padding: 30px 0
+
+			h1, h2, h3, h4, h5, h6, p
+				line-height: normal
+				max-width: 1200px
+				padding: 0 20px
+				margin: 0 auto 20px
+
+			&:nth-child(even)
+				background-color: $light-grey
+
+		.company-logos
+			text-align: center
+			max-width: 1200px
+			margin: 0 auto
+
+			img
+				width: auto
+				margin: 10px
+				background-color: $light-grey
+
+		#calendarWrapper
+			position: relative
+			width: 80vw
+			height: 60vw
+			max-width: 1200px
+			max-height: 900px
+			margin: 20px auto
+
+		iframe
+			position: absolute
+			border: 0
+			width: 100%
+			height: 100%
+
 // Talk to us
 #talkToUs
-	main
-		padding: 50px 0
-
 	h3, h4
 		text-align: center
 
@@ -1278,16 +1219,16 @@ $feature-box-div-margin-bottom: 40px
 			background-repeat: no-repeat
 
 		div:nth-child(1)
-			background-image: url(../../images/twitter_icon.png)
+			background-image: url(../images/twitter_icon.png)
 
 		div:nth-child(2)
-			background-image: url(../../images/github_icon.png)
+			background-image: url(../images/github_icon.png)
 
 		div:nth-child(3)
-			background-image: url(../../images/slack_icon.png)
+			background-image: url(../images/slack_icon.png)
 
 		div:nth-child(4)
-			background-image: url(../../images/stackoverflow_icon.png)
+			background-image: url(../images/stackoverflow_icon.png)
 
 		div + div
 			margin-top: 20px

@@ -68,10 +68,6 @@ $feature-box-div-width: 45%
 @media screen and (min-width: 750px)
 	@import "size"
 
-	#docs #hero
-		h1, h5
-			text-align: left
-
 	#home
 		#viewDocs, #tryKubernetes
 			display: inline-block
@@ -194,8 +190,26 @@ $feature-box-div-width: 45%
 	// FOOTER
 	footer
 		nav
-			white-space: nowrap
+			text-align: center
 
 			a
-				width: 25%
 				font-size: 22px
+				width: auto
+				padding: 0 20px
+
+		.social
+			text-align: center
+
+			div
+				display: inline-block
+
+			div:last-child
+				display: block
+				margin: 0
+
+			span
+				display: inline-block
+				margin-right: 10px
+
+			input
+				text-align: left

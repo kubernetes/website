@@ -30,6 +30,7 @@ kubectl get [(-o|--output=)json|yaml|wide|go-template=...|go-template-file=...|j
 ### Examples
 
 ```
+{% raw %}
 # List all pods in ps output format.
 kubectl get pods
 
@@ -53,6 +54,7 @@ kubectl get rc,services
 
 # List one or more resources by their type and names.
 kubectl get rc/web service/frontend pods/web-pod-13je7
+{% endraw %}
 ```
 
 ### Options
