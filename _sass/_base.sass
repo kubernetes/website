@@ -136,8 +136,14 @@ header
 		transition: 0.3s
 		z-index: 99999
 
+	&.open-nav .flyout-button
+		display: none
+
 	.logo
-		@include pureCenter
+		position: absolute
+		top: 40px
+		left: 50%
+		transform: translate(-50%, -50%)
 		display: block
 		width: 45px
 		height: 44px
@@ -506,7 +512,7 @@ section
 
 #encyclopedia
 	position: relative
-	padding: 50px
+	padding: 50px 50px 20px 20px
 	overflow: hidden
 
 	& > div
