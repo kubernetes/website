@@ -114,7 +114,7 @@ toc:
   section:
   - title: Cluster Management Guide
     path: /docs/admin/cluster-management/
-  - title: Anatomy of a Cluster
+  - title: Cluster Management Tools
     path: /docs/admin/cluster-components/
   - title: Using Multiple Clusters
     path: /docs/admin/multi-cluster/
