@@ -1134,11 +1134,65 @@ $feature-box-div-margin-bottom: 40px
 
 
 
+
+// Community
+
+#community
+	&.open-nav, &.flip-nav
+		.logo
+			background-image: url(../images/nav_logo2.svg)
+
+	#hero
+		padding-bottom: 20px
+
+	#mainContent
+		padding: 20px 0
+
+		main
+			max-width: none
+
+		a
+			color: $blue
+
+		.content
+			margin-bottom: 30px
+			padding: 30px 0
+
+			h1, h2, h3, h4, h5, h6, p
+				line-height: normal
+				max-width: 1200px
+				padding: 0 20px
+				margin: 0 auto 20px
+
+			&:nth-child(even)
+				background-color: $light-grey
+
+		.company-logos
+			text-align: center
+			max-width: 1200px
+			margin: 0 auto
+
+			img
+				width: auto
+				margin: 10px
+				background-color: $light-grey
+
+		#calendarWrapper
+			position: relative
+			width: 80vw
+			height: 60vw
+			max-width: 1200px
+			max-height: 900px
+			margin: 20px auto
+
+		iframe
+			position: absolute
+			border: 0
+			width: 100%
+			height: 100%
+
 // Talk to us
 #talkToUs
-	main
-		padding: 50px 0
-
 	h3, h4
 		text-align: center
 
