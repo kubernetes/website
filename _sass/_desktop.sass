@@ -10,20 +10,6 @@ $video-section-height: 550px
 		#searchBox
 			float: right
 
-		//#search
-		//	display: inline-block
-		//	position: relative
-		//	float: right
-		//	width: 24%
-		//	min-width: 250px
-		//	padding: 0 10px
-		//	margin: 8px 30px 0 0
-		//	height: 30px
-		//	line-height: 30px
-		//	border: 1px solid $light-grey
-		//	font-size: 16px
-		//	clear: none
-
 
 	#home
 		#hero
@@ -32,6 +18,9 @@ $video-section-height: 550px
 
 	#docs
 		#hero
+			h1, h5
+				text-align: left
+
 			#vendorStrip
 				ul
 					float: left
@@ -40,11 +29,39 @@ $video-section-height: 550px
 					float: right
 					width: 30%
 
+				#search
+					vertical-align: middle
+
+		.flyout-button
+			display: none
+
+		.logo
+			position: relative
+			float: left
+			display: block
+			width: 180px
+			height: 88px
+			top: 0
+			left: 0
+			transform: none
+			background-image: url(../images/nav_logo.svg)
+
+		&.flip-nav, &.open-nav
+			.logo
+				background-image: url(../images/nav_logo2.svg)
+
+
 
 	#docsToc
 		position: relative
 		float: left
+		padding: 0 20px
 		left: 0
+		width: 350px
+		z-index: auto
+
+		.push-menu-close-button
+			display: none
 
 	#docsContent
 		width: calc(100% - 400px)
@@ -72,7 +89,7 @@ $video-section-height: 550px
 	#video
 		height: $video-section-height
 		position: relative
-		background-image: url(../../images/kub_video_thm.jpg)
+		background-image: url(../images/kub_video_thm.jpg)
 		background-position: center center
 		background-size: cover
 
@@ -105,38 +122,47 @@ $video-section-height: 550px
 			padding: 20px 0
 
 		nav
+			overflow: hidden
+			margin-bottom: 20px
+
 			a
-				//width: 100%
-				text-align: center
-				display: inline-block
-				margin: 10px 0
+				width: 25%
+				float: left
 				font-size: 24px
 				font-weight: 300
-				color: white
-				text-decoration: none
 
 		.social
-			position: relative
-			margin: 20px 0
+			padding: 0 30px
+			max-width: 1200px
 
-			a
+			div
 				float: left
 
-			a + a
-				margin-left: 10px
-
-			label
+			div:last-child
 				float: right
-				width: auto
-				display: inline-block
-				height: 50px
-				line-height: 50px
-				font-weight: 100
-				white-space: nowrap
 
-				input
-					margin-left: 8px
-					max-width: none
+		//.social
+		//	position: relative
+		//	margin: 20px 0
+		//
+		//	a
+		//		float: left
+		//
+		//	a + a
+		//		margin-left: 10px
+		//
+		//	label
+		//		float: right
+		//		width: auto
+		//		display: inline-block
+		//		height: 50px
+		//		line-height: 50px
+		//		font-weight: 100
+		//		white-space: nowrap
+		//
+		//		input
+		//			margin-left: 8px
+		//			max-width: none
 
 
 	#search, #wishField
