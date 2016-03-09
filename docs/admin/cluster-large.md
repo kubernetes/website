@@ -51,7 +51,7 @@ When creating a cluster, existing salt scripts:
 
 ### Size of master and master components
 
-On GCE/GKE, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
+On GCE/GKE and AWS, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
 in your cluster. On other providers, you will need to configure it manually. For reference, the sizes we use on GCE are
 * 1-5 nodes: n1-standard-1
 * 6-10 nodes: n1-standard-2
@@ -60,7 +60,13 @@ in your cluster. On other providers, you will need to configure it manually. For
 * 251-500 nodes: n1-standard-16
 * more than 500 nodes: n1-standard-32
 
-We have measured the following 99th percentile resource consumption for the various master components at
+And the sizes we use on AWS are
+* 1-149 nodes: m3.medium
+* more than 150 nodes: m3.large
+
+Note that these master node sizes are currently only set at cluster startup time, and are not adjusted if you later scale your cluster up or down.
+
+We have measured the following 99th percentile resource consumption for the various master components on GCE at
 (100 nodes/500 nodes/1000 nodes) cluster size:
 * main etcd instance: CPU (0.135/0.241/0.312) RAM MB (242/706/1792)
 * events etcd instance: CPU (0.082/0.099/0.095) RAM MB (237/746/1846)
@@ -68,7 +74,7 @@ We have measured the following 99th percentile resource consumption for the vari
 * controller manager: CPU (0.345/0.633/3.57) RAM MB (320/1624/4507)
 * scheduler: CPU (0.232/1.576/1.758) RAM MB (48/167/5541)
 
-In a future Kubernetes release, we will set container limits based on these values, but for now these
+In a future Kubernetes release, we will set container resource limits based on these values, but for now these
 containers do not have limits set.
 
 ### Addon Resources
