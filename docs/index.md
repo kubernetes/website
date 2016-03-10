@@ -74,7 +74,7 @@ h2, h3, h4 {
   </div>
   <div class="col3rd">
     <h3>Hello Node!</h3>
-    <p>In this quickstart, we’ll be creating a Kubernetes instance on that stands up a simple “Hello World” app using Node.js. In just a few minutes you'll go from zero to deployed app.</p>
+    <p>In this quickstart, we’ll be creating a Kubernetes instance on that stands up a simple “Hello World” app using Node.js. In just a few minutes you'll go from zero to deployed Kubernetes app on Google Container Engine.</p>
     <a href="/docs/hellonode/" class="button">Get Started</a>
   </div>
   <div class="col3rd">
