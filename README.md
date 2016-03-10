@@ -21,7 +21,7 @@ on a lightweight webserver that runs on your local machine.
 
 First install rvm
 
-	\curl -sSL https://get.rvm.io | bash -s stable
+	curl -sSL https://get.rvm.io | bash -s stable
 
 Then load it into your environment
 
