@@ -16,7 +16,7 @@ Please ensure you have completed the [prerequisites for running examples from th
 
 ## Thorough walkthrough
 
-If you don't have much familiarity with Kubernetes, we recommend you read the following sections in order:
+If you don't have any familiarity with Kubernetes, we recommend you read the following sections in order:
 
 1. [Quick start: launch and expose an application](/docs/user-guide/quick-start/)
 1. [Configuring and launching containers: configuring common container parameters](/docs/user-guide/configuring-containers/)
