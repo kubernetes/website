@@ -30,6 +30,8 @@ New users of Google Cloud Platform recieve a [$300 free trial](https://console.d
 
 Next, make sure you []download Node.js](https://nodejs.org/en/download/).
 
+Finally, 
+
 ## Create your Node.js application
 
 The first step is to write the application. Save this code in a folder called "`hellonode/`" with the filename `server.js`:
