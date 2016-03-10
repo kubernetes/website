@@ -73,8 +73,8 @@ h2, h3, h4 {
     <a href="/docs/whatisk8s/" class="button">Read the Overview</a>
   </div>
   <div class="col3rd">
-    <h3>5-Minute Quickstart</h3>
-    <p>In this quickstart, we’ll be creating a Kubernetes instance on your local machine that uses Docker and stands up a simple “Hello World” app using Node.js. In just 5 minutes you’ll have something that is deployable.</p>
+    <h3>Hello Node!</h3>
+    <p>In this quickstart, we’ll be creating a Kubernetes instance on that stands up a simple “Hello World” app using Node.js. In just a few minutes you'll go from zero to deployed app.</p>
     <a href="/docs/hellonode/" class="button">Get Started</a>
   </div>
   <div class="col3rd">
