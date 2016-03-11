@@ -6,7 +6,7 @@ hideTOC: true
 <script>
 
   (function() {
-    var cx = '013467772795878830775:lgtavaxylpe';
+    var cx = '013288817511911618469:elfqqbqldzg';
     var gcse = document.createElement('script');
     gcse.type = 'text/javascript';
     gcse.async = true;
