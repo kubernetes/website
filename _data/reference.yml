@@ -150,7 +150,7 @@ toc:
         path: /docs/user-guide/kubectl/kubectl_stop/
 
 - title: kube-apiserver CLI
-  path: /docs/admin/kube-ap
+  path: /docs/admin/kube-apiserver/
 
 - title: kube-proxy CLI
   path: /docs/admin/kube-proxy/
