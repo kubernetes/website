@@ -28,9 +28,7 @@ Next, [enable billing](https://console.developers.google.com/billing) in the Dev
 
 New users of Google Cloud Platform recieve a [$300 free trial](https://console.developers.google.com/billing/freetrial?hl=en). Running through this codelab shouldn’t cost you more than a few dollars of that trial. Google Container Engine pricing is documented [here](https://cloud.google.com/container-engine/docs/#pricing).
 
-Next, make sure you []download Node.js](https://nodejs.org/en/download/).
-
-Finally, 
+Next, make sure you [download Node.js](https://nodejs.org/en/download/).
 
 ## Create your Node.js application
 
