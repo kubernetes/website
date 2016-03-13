@@ -53,6 +53,7 @@ When creating a cluster, existing salt scripts:
 
 On GCE/GKE and AWS, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
 in your cluster. On other providers, you will need to configure it manually. For reference, the sizes we use on GCE are
+
 * 1-5 nodes: n1-standard-1
 * 6-10 nodes: n1-standard-2
 * 11-100 nodes: n1-standard-4
@@ -61,21 +62,15 @@ in your cluster. On other providers, you will need to configure it manually. For
 * more than 500 nodes: n1-standard-32
 
 And the sizes we use on AWS are
-* 1-149 nodes: m3.medium
-* more than 150 nodes: m3.large
 
-Note that these master node sizes are currently only set at cluster startup time, and are not adjusted if you later scale your cluster up or down.
+* 1-5 nodes: m3.medium
+* 6-10 nodes: m3.large
+* 11-100 nodes: m3.xlarge
+* 101-250 nodes: m3.2xlarge
+* 251-500 nodes: c4.4xlarge
+* more than 500 nodes: c4.8xlarge
 
-We have measured the following 99th percentile resource consumption for the various master components on GCE at
-(100 nodes/500 nodes/1000 nodes) cluster size:
-* main etcd instance: CPU (0.135/0.241/0.312) RAM MB (242/706/1792)
-* events etcd instance: CPU (0.082/0.099/0.095) RAM MB (237/746/1846)
-* API server: CPU (1.233/3.0/5.9) RAM MB (895/2439/4285)
-* controller manager: CPU (0.345/0.633/3.57) RAM MB (320/1624/4507)
-* scheduler: CPU (0.232/1.576/1.758) RAM MB (48/167/5541)
-
-In a future Kubernetes release, we will set container resource limits based on these values, but for now these
-containers do not have limits set.
+Note that these master node sizes are currently only set at cluster startup time, and are not adjusted if you later scale your cluster up or down (e.g. manually removing or adding nodes, or using a cluster autoscaler).
 
 ### Addon Resources
 
