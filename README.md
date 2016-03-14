@@ -5,7 +5,7 @@ Welcome! We are very pleased you want to contribute to the documentation and/or 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
 
 If you want to see your changes staged without having to install anything locally, remove the CNAME file in this directory and
-change the name of the fork of our repo to be named:
+change the name of the fork to be:
 
     YOUR_GITHUB_USERNAME.github.io
 
