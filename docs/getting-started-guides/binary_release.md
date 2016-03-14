@@ -12,6 +12,8 @@ The list of binary releases is available for download from the [GitHub Kubernete
 
 Download the latest release and unpack this tar file on Linux or OS X, cd to the created `kubernetes/` directory, and then follow the getting started guide for your cloud.
 
+On OS X you can also use the [homebrew](http://brew.sh/) package manager: `brew install kubernetes-cli`
+
 ### Building from source
 
 Get the Kubernetes source.  If you are simply building a release from source there is no need to set up a full golang environment as all building happens in a Docker container.
