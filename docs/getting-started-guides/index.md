@@ -49,6 +49,7 @@ few commands, and have active community support.
 - [GCE](/docs/getting-started-guides/gce)
 - [AWS](/docs/getting-started-guides/aws)
 - [Azure](/docs/getting-started-guides/coreos/azure/)
+- [CenturyLink Cloud](/docs/getting-started-guides/clc)
 
 ### Custom Solutions
 
