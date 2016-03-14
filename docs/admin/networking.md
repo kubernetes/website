@@ -177,6 +177,10 @@ network, primarily aiming at Docker integration.
 [Calico](https://github.com/projectcalico/calico-containers) uses BGP to enable real container
 IPs.
 
+### Romana
+
+[Romana](https://romana.io) is an open source software defined networking (SDN) solution that lets you deploy Kubernetes without an overlay network. 
+
 ## Other reading
 
 The early design of the networking model and its rationale, and some future
