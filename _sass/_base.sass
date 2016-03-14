@@ -1,22 +1,22 @@
 @import "reset"
 
 // TEXT
-$h1-font-size: 40px
+$h1-font-size: 32px
 $h1-line-height: 40px
 
-$h2-font-size: 42px
+$h2-font-size: 28px
 $h2-line-height: 60px
 
-$h3-font-size: 26px
+$h3-font-size: 24px
 $h3-line-height: 32px
 
-$h4-font-size: 26px
+$h4-font-size: 20px
 $h4-line-height: 40px
 
-$h5-font-size: 18px
+$h5-font-size: 16px
 $h5-line-height: 36px
 
-$p-font-size: 16px
+$p-font-size: 14px
 $p-line-height: 22px
 
 
@@ -73,6 +73,11 @@ section, header, footer
 	main
 		position: relative
 		margin: auto
+
+p
+	font-size: 14px
+	font-weight: 400
+
 
 .button
 	display: inline-block
@@ -304,6 +309,14 @@ header
 	font-weight: 100
 	white-space: nowrap
 	text-align: center
+
+	li a
+		color: transparentize(white, 0.5)
+
+		&.YAH
+			color: white
+			position: relative
+
 
 // FOOTER
 footer
@@ -746,6 +759,7 @@ section
 
 	h5, h6
 		font-size: 16px
+		font-weight: 500
 
 	p
 		font-size: 16px
