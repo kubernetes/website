@@ -144,7 +144,9 @@ toc:
     path: /docs/user-guide/resizing-a-replication-controller/
   - title: Service Operations
     path: /docs/user-guide/services/operations/
-
+  - title: Configuring Multiple Schedulers
+    path: /docs/admin/multiple-schedulers/
+ 
 - title: Using Nodes, Pods, and Containers
   section:
   - title: The Container Environment
