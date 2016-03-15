@@ -28,7 +28,7 @@ Typically, services and pods have IPs only routable by the cluster network. All 
 An Ingress is a collection of rules that allow inbound connections to reach the cluster services.
 
 ```
-internet
+    internet
         |
    [ Ingress ]
    --|-----|--
