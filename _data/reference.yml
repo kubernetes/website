@@ -155,7 +155,7 @@ toc:
 - title: kube-proxy CLI
   path: /docs/admin/kube-proxy/
 
-- title: kub-scheduler CLI
+- title: kube-scheduler CLI
   path: /docs/admin/kube-scheduler/
 
 - title: kubelet CLI

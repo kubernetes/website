@@ -161,6 +161,14 @@ users:
     user:
       client-certificate: /path/to/cert.pem # cert for the webhook plugin to use
       client-key: /path/to/key.pem          # key matching the cert
+
+# kubeconfig files require a context. Provide one for the API Server.
+current-context: webhook
+contexts:
+- context:
+    cluster: name-of-remote-authz-service
+    user: name-of-api-sever
+  name: webhook
 ```
 
 ### Request Payloads
