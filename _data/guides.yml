@@ -186,7 +186,7 @@ toc:
     path: /docs/admin/master-node-communication/
   - title: Network Plugins
     path: /docs/admin/network-plugins/
- 
+
 - title: Configuring Kubernetes
   section:
   - title: Using Configuration Files
@@ -195,6 +195,8 @@ toc:
     path: /docs/user-guide/config-best-practices/
   - title: Configuring Containers
     path: /docs/user-guide/configuring-containers/
+  - title: Using Secrets
+    path: /docs/user-guide/secrets/
   - title: Using ConfigMap
     path: /docs/user-guide/configmap/
   - title: Sharing Cluster Access with kubeconfig
