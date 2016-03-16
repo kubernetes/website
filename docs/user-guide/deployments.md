@@ -7,9 +7,9 @@
 ## What is a _Deployment_?
 
 A _Deployment_ provides declarative updates for Pods and ReplicaSets.
-Users describe the desired state in a Deployment object, and the deployment
-controller changes the actual state to the desired state at a controlled rate.
-Users can define Deployments to create new resources, or replace existing ones
+You only need to describe the desired state in a Deployment object, and the deployment
+controller will change the actual state to the desired state at a controlled rate for you.
+You can define Deployments to create new resources, or replace existing ones
 by new ones.
 
 A typical use case is:
@@ -181,12 +181,12 @@ template does not match `.spec.template` are scaled down.
 Eventually, the new replica set will be scaled to `.spec.replicas` and all old replica sets will
 be scaled to 0.
 
-If the user updates a Deployment while an existing deployment is in progress,
+If you update a Deployment while an existing deployment is in progress,
 the Deployment will create a new replica set as per the update and start scaling that up, and
 will roll the replica set that it was scaling up previously -- it will add it to its list of old replica sets and will
 start scaling it down.
 
-For example, suppose the user creates a Deployment to create 5 replicas of `nginx:1.7.9`,
+For example, suppose you create a Deployment to create 5 replicas of `nginx:1.7.9`,
 but then updates the Deployment to create 5 replicas of `nginx:1.9.1`, when only 3
 replicas of `nginx:1.7.9` had been created. In that case, Deployment will immediately start
 killing the 3 `nginx:1.7.9` pods that it had created, and will start creating
@@ -195,7 +195,7 @@ before changing course.
 
 ## Rolling Back a Deployment
 
-Sometimes we may want to rollback a Deployment; for example, when the previous Deployment is crash looping. 
+Sometimes we may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping.
 
 Suppose that we made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
 
@@ -214,7 +214,7 @@ nginx-deployment-2035384211   0         0         36s
 nginx-deployment-3066724191   2         2         6s
 ```
 
-Looking at the pods created, you will see that the 2 pods created by new replica set are crash looping.
+Looking at the pods created, you will see that the 2 pods created by new replica set are stuck in an image pull loop.
 
 ```console
 $ kubectl get pods 
@@ -415,7 +415,7 @@ All existing pods are killed before new ones are created when
 
 The Deployment updates pods in a [rolling update](/docs/user-guide/update-demo/) fashion
 when `.spec.strategy.type==RollingUpdate`.
-Users can specify `maxUnavailable` and `maxSurge` to control
+You can specify `maxUnavailable` and `maxSurge` to control
 the rolling update process.
 
 ##### Max Unavailable
