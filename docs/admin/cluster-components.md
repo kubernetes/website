@@ -106,14 +106,15 @@ the Kubernetes runtime environment.
 ### kubelet
 
 [kubelet](/docs/admin/kubelet) is the primary node agent. It:
+
 * Watches for pods that have been assigned to its node (either by apiserver
   or via local configuration file) and:
- * Mounts the pod's required volumes
- * Downloads the pod's secrets
- * Run the pod's containers via docker (or, experimentally, rkt).
- * Periodically executes any requested container liveness probes.
- * Reports the status of the pod back to the rest of the system, by creating a
-   "mirror pod" if necessary.
+* Mounts the pod's required volumes
+* Downloads the pod's secrets
+* Run the pod's containers via docker (or, experimentally, rkt).
+* Periodically executes any requested container liveness probes.
+* Reports the status of the pod back to the rest of the system, by creating a
+  "mirror pod" if necessary.
 * Reports the status of the node back to the rest of the system.
 
 ### kube-proxy
