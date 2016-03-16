@@ -182,6 +182,8 @@ toc:
     path: /docs/user-guide/persistent-volumes/
   - title: Secrets
     path: /docs/user-guide/secrets/
+  - title: ConfigMaps
+    path: /docs/user-guide/configmap/
   - title: Names
     path: /docs/user-guide/identifiers/
   - title: Namespaces
