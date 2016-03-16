@@ -44,15 +44,11 @@ process.
 
 These controllers include:
 
-* Node Controller
- * Responsible for noticing & responding when nodes go down.
-* Replication Controller
- * Responsible for maintaining the correct number of pods for every replication
-   controller object in the system.
-* Endpoints Controller
- * Populates the Endpoints object (i.e., join Services & Pods).
-* Service Account & Token Controllers
- * Create default accounts and API access tokens for new namespaces.
+* Node Controller: Responsible for noticing & responding when nodes go down.
+* Replication Controller: Responsible for maintaining the correct number of pods for every replication
+  controller object in the system.
+* Endpoints Controller: Populates the Endpoints object (i.e., join Services & Pods).
+* Service Account & Token Controllers: Create default accounts and API access tokens for new namespaces.
 * ... and others.
 
 ### kube-scheduler
