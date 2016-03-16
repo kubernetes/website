@@ -66,6 +66,9 @@ might help for Windows users.
 
 Edit the yaml files in `/_data/` for the Guides, Reference, Samples, or Support areas. 
 
+You may have to exit and `jekyll clean` before restarting the `jekyll serve` to
+get changes to files in `/_data/` to show up.
+
 ### Add Images
 
 Put the new image in `/images/docs/` if it's for the documentation, and just `/images/` if it's for the website.
