@@ -11,7 +11,7 @@ As pods successfully complete, the _job_ tracks the successful completions.  Whe
 of successful completions is reached, the job itself is complete.  Deleting a Job will cleanup the
 pods it created.
 
-A simple case is to create 1 Job object in order to reliably run one Pod to completion.
+A simple case is to create one Job object in order to reliably run one Pod to completion.
 The Job object will start a new Pod if the first pod fails or is deleted (for example
 due to a node hardware failure or a node reboot).
 
