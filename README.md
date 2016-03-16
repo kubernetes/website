@@ -25,7 +25,7 @@ First install rvm
 
 Then load it into your environment
 
-	source /Users/(USERNAME)/.rvm/scripts/rvm (or whatever is prompted by the installer)
+	source ${HOME}/.rvm/scripts/rvm (or whatever is prompted by the installer)
 
 Then install Ruby 2.2 or higher
 
