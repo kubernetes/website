@@ -220,6 +220,8 @@ toc:
     path: /docs/user-guide/jobs/
   - title: Resource Quotas
     path: /docs/admin/resource-quota/
+  - title: Replica Sets
+    path: /docs/user-guide/replicasets/
 
 - title: Kubernetes Design Docs
   section:
