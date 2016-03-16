@@ -88,6 +88,22 @@ To include a file that is hosted in the external, main Kubernetes repo, make sur
 
 * `PATHFROMK8SROOT`: The path to the file relative to the root of [the Kubernetes repo](https://github.com/kubernetes/kubernetes/tree/release-1.2), e.g. `/examples/rbd/foo.yaml`
 
+## Using tabs for multi-language examples
+
+By specifying some inline CSV in a varable called `tabspec`, you can include a file
+called `tabs.html` that generates tabs showing code examples in multiple langauges.
+
+<pre>&#123;% capture tabspec %&#125;servicesample
+JSON,json,service-sample.json,/docs/user-guide/services/service-sample.json
+YAML,yaml,service-sample.yaml,/docs/user-guide/services/service-sample.yaml&#123;% endcapture %&#125;
+&#123;% include tabs.html %&#125;</pre>
+
+In English, this would read: "Create a set of tabs with the alias `servicesample`,
+and have tabs visually labeled "JSON" and "YAML" that use `json` and `yaml` Rouge syntax highlighting, which display the contents of
+`service-sample.{extension}` on the page, and link to the file in GitHub at (full path)."
+
+Example file: [Pods: Multi-Container](/docs/user-guide/pods/multi-container/).
+
 ## Use a global variable
 
 The `/_config.yml` file defines some useful variables you can use when editing docs. 

@@ -92,8 +92,8 @@ A Replication Controller also needs a [`.spec` section](https://github.com/kuber
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](/docs/user-guide/replication-controller/#pod-template).  It has exactly
-the same schema as a [pod](pods.md), except it is nested and does not have an `apiVersion` or
+The `.spec.template` is a [pod template](#pod-template).  It has exactly
+the same schema as a [pod](/docs/user-guide/pods/), except it is nested and does not have an `apiVersion` or
 `kind`.
 
 In addition to required fields for a Pod, a pod template in a job must specify appropriate
@@ -241,3 +241,7 @@ Use a [DaemonSet](/docs/admin/daemons/) instead of a replication controller for 
 machine-level function, such as machine monitoring or machine logging.  These pods have a lifetime is tied
 to machine lifetime: the pod needs to be running on the machine before other pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
+
+## For more information
+
+Read [Replication Controller Operations](/docs/user-guide/replication-controller/operations/).
