@@ -558,7 +558,7 @@ To learn more about when a Pod is considered ready, see [Container Probes](/docs
 
 ### Revision History Limit
 
-`.spec.revisionHistoryLimit` is an optional field that specifies the number of old Replica Sets to retain to allow rollback. All old Replica Sets will be kept by default, if this field is not set. The configuration of each Deployment revision is stored in its Replica Sets; therefore, once an old Replica Set is deleted, you lose the ability to rollback to that revision of Deployment. 
+`.spec.revisionHistoryLimit` is an optional field that specifies the number of old Replica Sets to retain to allow rollback. Its ideal value depends on the frequency and stability of new deployments. All old Replica Sets will be kept by default, consuming resources in `etcd` and crowding the output of `kubectl get rs`, if this field is not set. The configuration of each Deployment revision is stored in its Replica Sets; therefore, once an old Replica Set is deleted, you lose the ability to rollback to that revision of Deployment. More specifically, setting this field to zero means that a new deployment revision can be undone only while still in progress.
 
 ### Paused
 
