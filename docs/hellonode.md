@@ -156,7 +156,7 @@ At this point you should have our container running under the control of Kuberne
 
 By default, the pod is only accessible by its internal IP within the Kubernetes cluster. In order to make the `hello-node` container accessible from outside the kubernetes virtual network, you have to expose the pod as a kubernetes service.
 
-From our development machine we can expose the pod with the `kubectl` expose command and the `--create-external-load-balancer=true` flag which creates an external IP to accept traffic:
+From our development machine we can expose the pod with the `kubectl` expose command and the `--type="LoadBalancer"` flag which creates an external IP to accept traffic:
 
 ```shell
 kubectl expose rc hello-node --type="LoadBalancer"
