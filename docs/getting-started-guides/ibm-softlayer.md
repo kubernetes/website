@@ -12,11 +12,24 @@
 
 ## Creating the environment
 
+Follow this procedure to create a Kubernetes environment in IBM SoftLayer:
 
-The procedure to create a Kubernetes environment in SoftLayer is described at:
-[https://github.com/patrocinio/kubernetes-softlayer](https://github.com/patrocinio/kubernetes-softlayer)
-Follow the instructions there to create your environment.
+* First clone the project [https://github.com/patrocinio/kubernetes-softlayer](https://github.com/patrocinio/kubernetes-softlayer)
 
+* Edit the kubernetes.cfg file to enter the following SoftLayer configuration
+
+    - USER
+    - API_KEY
+    - (Optional) DATACENTER: Check http://www.softlayer.com/data-centers and look at the Ping/Trace Route column for the code. For example, the code for speedtest.wdc01.softlayer.com is wdc01
+    - (Optional) CPU: Define the number of CPIUs you want in each server
+    - (Optional) Memory: Define the amount of RAM (in MB) in each server
+
+* Run the following command: 
+
+
+```shell
+deploy-kubernetes.sh
+````
 
 ## Tearing down the cluster
 
