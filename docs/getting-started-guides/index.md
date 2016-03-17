@@ -46,9 +46,10 @@ clusters.
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
 few commands, and have active community support.
 
-- [GCE](/docs/getting-started-guides/gce)
 - [AWS](/docs/getting-started-guides/aws)
 - [Azure](/docs/getting-started-guides/coreos/azure/)
+- [GCE](/docs/getting-started-guides/gce)
+- [IBM-SoftLayer](/docs/getting-started-guides/ibm-softlayer)
 
 ### Custom Solutions
 
