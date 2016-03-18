@@ -10,7 +10,7 @@ This document describes the current state of `PersistentVolumes` in Kubernetes. 
 
 Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed.  To do this we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
 
-A `PersistentVolume` (PV) is a piece of networked storage in the cluster that has been provisioned by an administrator.  It is a resource in the cluster just like a node is a cluster resource.   PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV.  This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+A `PersistentVolume` (PV) represents a real piece of networked storage in the infrastructure.  It is a resource in the cluster just like a node is a cluster resource.   PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV.  This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
 A `PersistentVolumeClaim` (PVC) is a request for storage by a user.  It is similar to a pod.  Pods consume node resources and PVCs consume PV resources.  Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g, can be mounted once read/write or many times read-only).
 
@@ -23,7 +23,17 @@ PVs are resources in the cluster.  PVCs are requests for those resources and als
 
 ### Provisioning
 
-A cluster administrator will create a number of PVs. They carry the details of the real storage which is available for use by cluster users.  They exist in the Kubernetes API and are available for consumption.
+#### Manual
+
+A cluster administrator manually creates a volume resource and the PV API object that contains the details about that volume. Once the PV object is created, it is available to fulfill PVCs.
+
+#### Dynamic (experimental)
+
+Volume plugins that support dynamic volume provisioning (GCE PD, AWS EBS, and Cinder) can automatically create a volume resource and the PV API object that represents the details of that volume. Dynamic volume provisioning is triggered by the user creating a PVC with an annotation. Once the volume resource and the PV object representing it are created, the PVC that triggered the dynamic provisioning binds to the volume. 
+
+Dynamic volume provisioning is an experimental feature. In this experimental state, it determines which provisioner (GCE PD, AWS EBS, or Cinder) to invoke based on the `cloudprovider` it is running in. If running in GCE/GKE, the GCE PD provisioner is used. If running in AWS, the EBS provisioner is used. If running in OpenStack, the Cinder provisioner is used. For all other cloud providers dynamic provisioning is not supported.
+
+See [Persistent Volume Provisioning](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning) for more details.
 
 ### Binding
 
@@ -46,19 +56,6 @@ When a user is done with their volume, they can delete the PVC objects from the 
 The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released.  Currently, volumes can either be Retained or Recycled.  Retention allows for manual reclamation of the resource.  For those volume plugins that support it, recycling performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
 
 ## Types of Persistent Volumes
-
-`PersistentVolume` types are implemented as plugins.  Kubernetes currently supports the following plugins:
-
-* GCEPersistentDisk
-* AWSElasticBlockStore
-* NFS
-* iSCSI
-* RBD (Ceph Block Device)
-* Glusterfs
-* HostPath (single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
-
-
-## Persistent Volumes
 
 Each PV contains a spec and status, which is the specification and status of the volume.
 
@@ -122,6 +119,23 @@ A volume will be in one of the following phases:
 * Failed -- the volume has failed its automatic reclamation
 
 The CLI will show the name of the PVC bound to the PV.
+
+### Types of Persistent Volumes
+
+`PersistentVolume` types are implemented as plugins.  Kubernetes currently supports the following plugins:
+
+* [GCEPersistentDisk](/docs/user-guide/volumes#gcepersistentdisk)
+* [AWSElasticBlockStore](/docs/user-guide/volumes#awselasticblockstore)
+* [NFS](/docs/user-guide/volumes#nfs)
+* [iSCSI](/docs/user-guide/volumes#iscsi)
+* [RBD (Ceph's RADOS Block Device)](/docs/user-guide/volumes#rbd)
+* [Glusterfs](/docs/user-guide/volumes#glusterfs)
+* Cinder - OpenStack
+* Ceph File System
+* Fibre Channel
+* [Flocker](/docs/user-guide/volumes#flocker)
+* [Azure File Service](/docs/user-guide/volumes#azurefilevolume)
+* [HostPath](/docs/user-guide/volumes#hostpath) (single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
 
 ## PersistentVolumeClaims
 
