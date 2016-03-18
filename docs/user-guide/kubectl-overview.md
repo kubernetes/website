@@ -268,17 +268,16 @@ $ kubectl logs -f <pod-name>
 
 ## Using kubectl with multiple remote environments
 
-When managing multiple Kubernetes clusters, it is very useful to be able to run kubectl on your local machine, and connect to different remote Kubernetes installations. First of all, [download and install](http://kubernetes.io/docs/getting-started-guides/docker/#download-kubectl) kubectl on your machine.
+When managing multiple Kubernetes clusters, it is very useful to be able to run kubectl on your local machine, and connect to different remote Kubernetes installations. First of all, [download and install](http://kubernetes.io/docs/getting-started-guides/docker/#download-kubectl) `kubectl` on your machine.
 You can now connect to a remote Kubernetes API server by providing the `--server` argument.
 
-```
+```shell
 kubectl get pods --server=k8s.api.server:8080
 ```
 
-Although this works, it's not very convenient to provide this (and potentially other) parameters for every command. 
-To easily switch between environments you can setup a "context".
+To easily switch between environments you can save a set of settings in a "context".
 
-```
+```shell
 kubectl config set-cluster testcluster --server=k8s.api.server:8080
 kubectl config set-context testcontext --cluster=testcluster --namespace=mynamespace
 kubectl config use-context testcontext
