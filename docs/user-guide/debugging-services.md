@@ -9,7 +9,6 @@ This document will hopefully help you to figure out what's going wrong.
 * TOC
 {:toc}
 
-
 ## Conventions
 
 Throughout this doc you will see various commands that you can run.  Some
@@ -505,6 +504,66 @@ Setting endpoints for default/hostnames:default to [10.244.0.5:9376 10.244.0.6:9
 
 If you don't see those, try restarting `kube-proxy` with the `-V` flag set to 4, and
 then look at the logs again.
+
+Services provide load balancing across a set of pods. There are several common
+problems that can make services not work properly. The following instructions
+should help debug service problems.
+
+First, verify that there are endpoints for the service. For every service
+object, the apiserver makes an `endpoints` resource available.
+
+You can view this resource with:
+
+    $ kubectl get endpoints ${SERVICE_NAME}
+
+Make sure that the endpoints match up with the number of containers that you
+expect to be a member of your service. For example, if your service is for an
+nginx container with 3 replicas, you would expect to see three different IP
+addresses in the service's endpoints.
+
+### My service is missing endpoints
+
+If you are missing endpoints, try listing pods using the labels that service
+uses. Imagine that you have a service where the labels are:
+
+    ...
+    spec:
+      - selector:
+         name: nginx
+         type: frontend
+
+You can use:
+
+    $ kubectl get pods --selector=name=nginx,type=frontend
+
+to list pods that match this selector. Verify that the list matches the pods
+that you expect to provide your service.
+
+If the list of pods matches expectations, but your endpoints are still empty,
+it's possible that you don't have the right ports exposed. If your service has
+a `containerPort` specified, but the pods that are selected don't have that
+port listed, then they won't be added to the endpoints list.
+
+Verify that the pod's `containerPort` matches up with the service's
+`containerPort`.
+
+### Network traffic is not forwarded
+
+If you can connect to the service, but the connection is immediately dropped,
+and there are endpoints in the endpoints list, it's likely that the proxy can't
+contact your pods.
+
+There are three things to check:
+
+* Are your pods working correctly?  Look for restart count, and
+  [debug pods](#debugging_pods).
+
+* Can you connect to your pods directly?  Get the IP address for the pod, and
+  try to connect directly to that IP.
+
+* Is your application serving on the port that you configured? Container
+  Engine doesn't do port remapping, so if your application serves on 8080,
+  the `containerPort` field needs to be 8080.
 
 ## Seek help
 

@@ -49,6 +49,29 @@ When creating a cluster, existing salt scripts:
 * start and configure additional etcd instance
 * configure api-server to use it for storing events
 
+### Size of master and master components
+
+On GCE/GKE and AWS, `kube-up` automatically configures the proper VM size for your master depending on the number of nodes
+in your cluster. On other providers, you will need to configure it manually. For reference, the sizes we use on GCE are
+
+* 1-5 nodes: n1-standard-1
+* 6-10 nodes: n1-standard-2
+* 11-100 nodes: n1-standard-4
+* 101-250 nodes: n1-standard-8
+* 251-500 nodes: n1-standard-16
+* more than 500 nodes: n1-standard-32
+
+And the sizes we use on AWS are
+
+* 1-5 nodes: m3.medium
+* 6-10 nodes: m3.large
+* 11-100 nodes: m3.xlarge
+* 101-250 nodes: m3.2xlarge
+* 251-500 nodes: c4.4xlarge
+* more than 500 nodes: c4.8xlarge
+
+Note that these master node sizes are currently only set at cluster startup time, and are not adjusted if you later scale your cluster up or down (e.g. manually removing or adding nodes, or using a cluster autoscaler).
+
 ### Addon Resources
 
 To prevent memory leaks or other resource issues in [cluster addons](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons) from consuming all the resources available on a node, Kubernetes sets resource limits on addon containers to limit the CPU and Memory resources they can consume (See PR [#10653](http://pr.k8s.io/10653/files) and [#10778](http://pr.k8s.io/10778/files)).

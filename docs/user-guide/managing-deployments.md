@@ -1,6 +1,5 @@
 ---
 ---
-
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features we'll discuss in more depth are [configuration files](/docs/user-guide/configuring-containers/#configuration-in-kubernetes) and [labels](/docs/user-guide/deploying-applications/#labels).
 
 * TOC
@@ -217,7 +216,7 @@ For more information, please see [labels](/docs/user-guide/labels/) and [kubectl
 Sometimes you want to attach annotations to resources. Annotations are arbitrary non-identifying metadata for retrieval by API clients such as tools, libraries, etc. This can be done with `kubectl annotate`. For example:
 
 ```shell
-$ kubectl annotate pods my-nginx-v4-9gw19 decscription='my frontend running nginx'
+$ kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
 $ kubectl get pods my-nginx-v4-9gw19 -o yaml
 apiversion: v1
 kind: pod

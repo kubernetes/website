@@ -132,6 +132,12 @@ toc:
     path: /docs/getting-started-guides/scratch/
   - title: Authenticating Across Clusters with kubeconfig
     path: /docs/user-guide/kubeconfig-file/
+  - title: Replication Controller Operations
+    path: /docs/user-guide/replication-controller/operations/
+  - title: Resizing a Replication Controller
+    path: /docs/user-guide/resizing-a-replication-controller/
+  - title: Service Operations
+    path: /docs/user-guide/services/operations/
  
 - title: Using Nodes, Pods, and Containers
   section:
@@ -147,6 +153,10 @@ toc:
     path: /docs/user-guide/getting-into-containers/
   - title: The Lifecycle of a Pod
     path: /docs/user-guide/pod-states/
+  - title: Creating Single-Container Pods
+    path: /docs/user-guide/pods/single-container/
+  - title: Creating Multi-Container Pods
+    path: /docs/user-guide/pods/multi-container/
   - title: Pod Templates
     path: /docs/user-guide/pod-templates/
   - title: Assigning Pods to Nodes
@@ -166,6 +176,8 @@ toc:
   section:
   - title: Networking in Kubernetes
     path: /docs/admin/networking/
+  - title: Creating an External Load Balancer
+    path: /docs/user-guide/load-balancer/
   - title: Using DNS Pods and Services
     path: /docs/admin/dns/
   - title: Setting Up and Configuring DNS
@@ -224,6 +236,8 @@ toc:
     path: /docs/user-guide/managing-deployments/
   - title: Deploying Applications
     path: /docs/user-guide/deploying-applications/
+  - title: Updating Applications with Rolling Updates
+    path: /docs/user-guide/rolling-updates/
   - title: Launching, Exposing, and Killing Applications
     path: /docs/user-guide/quick-start/
 

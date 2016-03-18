@@ -108,7 +108,7 @@ $ docker stop 2c66d0efcbd4
 Now that the image works as intended and is all tagged with your `PROJECT_ID`, we can push it to the [Google Container Registry](https://cloud.google.com/tools/container-registry/), a private repository for your Docker images accessible from every Google Cloud project (but also from outside Google Cloud Platform) :
 
 ```shell
-docker push gcr.io/PROJECT_ID/hello-node:v1
+gcloud docker push gcr.io/PROJECT_ID/hello-node:v1
 ```
 
 If all goes well, you should be able to see the container image listed in the console: *Compute > Container Engine > Container Registry*. We now have a project-wide Docker image available which Kubernetes can access and orchestrate.
@@ -124,7 +124,7 @@ Create a cluster via the Console: *Compute > Container Engine > Container Cluste
 
 ![image](/images/hellonode/image_11.png)
 
-It’s now time to deploy your own containerized application to the Kubernetes cluster!
+It’s now time to deploy your own containerized application to the Kubernetes cluster! Please ensure that you have [configured](https://cloud.google.com/container-engine/docs/before-you-begin#optional_set_gcloud_defaults) `kubectl` to use the cluster you just created.
 
 ## Create your pod
 
@@ -156,7 +156,7 @@ At this point you should have our container running under the control of Kuberne
 
 By default, the pod is only accessible by its internal IP within the Kubernetes cluster. In order to make the `hello-node` container accessible from outside the kubernetes virtual network, you have to expose the pod as a kubernetes service.
 
-From our development machine we can expose the pod with the `kubectl` expose command and the `--create-external-load-balancer=true` flag which creates an external IP to accept traffic:
+From our development machine we can expose the pod with the `kubectl` expose command and the `--type="LoadBalancer"` flag which creates an external IP to accept traffic:
 
 ```shell
 kubectl expose rc hello-node --type="LoadBalancer"

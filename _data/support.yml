@@ -6,6 +6,8 @@ toc:
 
 - title: Troubleshooting
   section:
+  - title: Debugging Pods and Replication Controllers
+    path: /docs/user-guide/debugging-pods-and-replication-controllers/
   - title: Web Interface
     path: /docs/user-guide/ui/
   - title: Application Introspection and Debugging

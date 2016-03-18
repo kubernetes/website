@@ -61,8 +61,8 @@ the following conditions mean the node is in sane state:
 "conditions": [
   {
     "kind": "Ready",
-    "status": "True",
-    },
+    "status": "True"
+  }
 ]
 ```
 

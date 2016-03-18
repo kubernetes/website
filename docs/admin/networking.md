@@ -5,10 +5,10 @@ Kubernetes approaches networking somewhat differently than Docker does by
 default.  There are 4 distinct networking problems to solve:
 
 1. Highly-coupled container-to-container communications: this is solved by
-   [pods](/docs/user-guide/pods) and `localhost` communications.
+   [pods](/docs/user-guide/pods/) and `localhost` communications.
 2. Pod-to-Pod communications: this is the primary focus of this document.
-3. Pod-to-Service communications: this is covered by [services](/docs/user-guide/services).
-4. External-to-Service communications: this is covered by [services](/docs/user-guide/services).
+3. Pod-to-Service communications: this is covered by [services](/docs/user-guide/services/).
+4. External-to-Service communications: this is covered by [services](/docs/user-guide/services/).
 
 * TOC
 {:toc}
@@ -102,7 +102,7 @@ here.
 ### Google Compute Engine (GCE)
 
 For the Google Compute Engine cluster configuration scripts, we use [advanced
-routing](https://developers.google.com/compute/docs/networking#routing) to
+routing](https://cloud.google.com/compute/docs/networking#routing) to
 assign each VM a subnet (default is `/24` - 254 IPs).  Any traffic bound for that
 subnet will be routed directly to the VM by the GCE network fabric.  This is in
 addition to the "main" IP address assigned to the VM, which is NAT'ed for
@@ -176,6 +176,10 @@ network, primarily aiming at Docker integration.
 
 [Calico](https://github.com/projectcalico/calico-containers) uses BGP to enable real container
 IPs.
+
+### Romana
+
+[Romana](https://romana.io) is an open source software defined networking (SDN) solution that lets you deploy Kubernetes without an overlay network. 
 
 ## Other reading
 

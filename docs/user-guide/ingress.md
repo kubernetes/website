@@ -43,7 +43,7 @@ Before you start using the Ingress resource, there are a few things you should u
 
 * The Ingress is a beta resource, not available in any Kubernetes release prior to 1.1.
 * You need an Ingress controller to satisfy an Ingress. Simply creating the resource will have no effect.
-* On GCE/GKE there should be a [L7 cluster addon](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-loadbalancing/glbc/README.md#prerequisites), on other platforms you either need to write your own or [deploy an existing controller](https://github.com/kubernetes/contrib/tree/master/Ingress) as a pod.
+* On GCE/GKE there should be a [L7 cluster addon](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-loadbalancing/glbc/README.md#prerequisites), on other platforms you either need to write your own or [deploy an existing controller](https://github.com/kubernetes/contrib/tree/master/ingress) as a pod.
 * The resource currently does not support HTTPS, but will do so before it leaves beta.
 
 ## The Ingress Resource
@@ -79,7 +79,7 @@ __Global Parameters__: For the sake of simplicity the example Ingress has no glo
 
 ## Ingress controllers
 
-In order for the Ingress resource to work, the cluster must have an Ingress controller running. This is unlike other types of controllers, which typically run as part of the `kube-controller-manager` binary, and which are typically started automatically as part of cluster creation. You need to choose the ingress controller implementation that is the best fit for your cluster, or implement one.  Examples and instructions can be found [here](https://github.com/kubernetes/contrib/tree/master/Ingress).
+In order for the Ingress resource to work, the cluster must have an Ingress controller running. This is unlike other types of controllers, which typically run as part of the `kube-controller-manager` binary, and which are typically started automatically as part of cluster creation. You need to choose the ingress controller implementation that is the best fit for your cluster, or implement one.  Examples and instructions can be found [here](https://github.com/kubernetes/contrib/tree/master/ingress/controllers).
 
 ## Types of Ingress
 
@@ -239,7 +239,7 @@ You can achieve the same by invoking `kubectl replace -f` on a modified Ingress 
 * Combining L4 and L7 Ingress
 * More Ingress controllers
 
-Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kubernetes/pull/12827) for more details on the evolution of the resource, and the [Ingress sub-repository](https://github.com/kubernetes/contrib/tree/master/Ingress) for more details on the evolution of various Ingress controllers.
+Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kubernetes/pull/12827) for more details on the evolution of the resource, and the [Ingress sub-repository](https://github.com/kubernetes/contrib/tree/master/ingress) for more details on the evolution of various Ingress controllers.
 
 ## Alternatives
 

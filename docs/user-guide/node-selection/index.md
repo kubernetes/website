@@ -76,6 +76,8 @@ This node affinity rule says the pod can only be placed on a node with a label w
 among nodes that meet that criteria, nodes with a label whose key is `foo` and whose
 value is `bar` should be preferred.
 
+You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
+
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
 to be scheduled onto a candidate node.
 
