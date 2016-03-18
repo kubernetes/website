@@ -113,7 +113,13 @@ Now run `docker ps` you should see nginx running.  You may need to wait a few mi
 ### Expose it as a service
 
 ```shell
-kubectl expose rc nginx --port=80
+kubectl expose deployment nginx --port=80
+```
+
+If running with docker-machine, you want to expose the deployment on the docker-machine ip as well, so use
+
+```shell
+kubectl expose deployment nginx --port=80 --external-ip=$(docker-machine ip)
 ```
 
 Run the following command to obtain the IP of this service we just created. There are two IPs, the first one is internal (CLUSTER_IP), and the second one is the external load-balanced IP (if a LoadBalancer is configured)
