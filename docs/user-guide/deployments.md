@@ -28,7 +28,7 @@ bring up 3 nginx pods.
 
 Run the example by downloading the example file and then running this command:
 
-```console
+```shell
 $ kubectl create -f docs/user-guide/nginx-deployment.yaml --record
 deployment "nginx-deployment" created
 ```
@@ -37,7 +37,7 @@ Setting the kubectl flag `--record` to `true` allows you to record current comma
 
 Then running `get` immediately will give:
 
-```console
+```shell
 $ kubectl get deployments
 NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         0         0            0           1s
@@ -47,7 +47,7 @@ This indicates that the Deployment's number of desired replicas is 3 (according 
 
 Running the `get` again a few seconds later, should give:
 
-```console
+```shell
 $ kubectl get deployments
 NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         3            3           18s
@@ -55,7 +55,7 @@ nginx-deployment   3         3         3            3           18s
 
 This indicates that the Deployment has created all three replicas, and all replicas are up-to-date (contains the latest pod template) and available (pod status is ready for at least deployment's `.spec.minReadySeconds`). Running `kubectl get rs` and `kubectl get pods` will show the replica set (RS) and pods created.
 
-```console
+```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   AGE
 nginx-deployment-2035384211   3         3         18s 
@@ -63,7 +63,7 @@ nginx-deployment-2035384211   3         3         18s
 
 You may notice that the name of the replica set is always `<the name of the Deployment>-<hash value of the pod template>`. 
 
-```console
+```shell
 $ kubectl get pods --show-labels
 NAME                                READY     STATUS    RESTARTS   AGE       LABELS
 nginx-deployment-2035384211-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=2035384211
@@ -83,21 +83,21 @@ For this, we update our deployment file as follows:
 
 We can then `apply` the new Deployment:
 
-```console
+```shell
 $ kubectl apply -f docs/user-guide/new-nginx-deployment.yaml
 deployment "nginx-deployment" configured
 ```
 
 Alternatively, we can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
 
-```console
+```shell
 $ kubectl edit deployment/nginx-deployment
 deployment "nginx-deployment" edited
 ```
 
 Running a `get` immediately will give:
 
-```console
+```shell
 $ kubectl get deployments
 NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         0            3           20s
@@ -107,7 +107,7 @@ The 0 number of up-to-date replicas indicates that the deployment hasn't updated
 
 The Deployment will update all the pods in a few seconds.
 
-```console
+```shell
 $ kubectl get deployments
 NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         3            3           36s
@@ -115,7 +115,7 @@ nginx-deployment   3         3         3            3           36s
 
 We can run `kubectl get rs` to see that the Deployment updated the pods by creating a new replica set and scaling it up to 3 replicas, as well as scaling down the old replica set to 0 replicas.
 
-```console
+```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   AGE
 nginx-deployment-1564180365   3         3         6s
@@ -124,7 +124,7 @@ nginx-deployment-2035384211   0         0         36s
 
 Running `get pods` should now show only the new pods:
 
-```console
+```shell
 $ kubectl get pods
 NAME                                READY     STATUS    RESTARTS   AGE
 nginx-deployment-1564180365-khku8   1/1       Running   0          14s
@@ -144,7 +144,7 @@ For example, if you look at the above deployment closely, you will see that
 it first created a new pod, then deleted some old pods and created new ones. It
 does not kill old pods until a sufficient number of new pods have come up, and does not create new pods until a sufficient number of old pods have been killed. It makes sure that number of available pods is at least 2 and the number of total pods is at most 4.
 
-```console
+```shell
 $ kubectl describe deployments
 Name:           nginx-deployment
 Namespace:      default
@@ -199,14 +199,14 @@ Sometimes we may want to rollback a Deployment; for example, when the Deployment
 
 Suppose that we made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
 
-```console
+```shell
 $ kubectl apply -f docs/user-guide/bad-nginx-deployment.yaml
 deployment "nginx-deployment" configured
 ```
 
 You will see that both the number of old replicas (nginx-deployment-1564180365 and nginx-deployment-2035384211) and new replicas (nginx-deployment-3066724191) are 2.
 
-```console
+```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   AGE
 nginx-deployment-1564180365   2         2         25s
@@ -216,7 +216,7 @@ nginx-deployment-3066724191   2         2         6s
 
 Looking at the pods created, you will see that the 2 pods created by new replica set are stuck in an image pull loop.
 
-```console
+```shell
 $ kubectl get pods 
 NAME                                READY     STATUS             RESTARTS   AGE
 nginx-deployment-1564180365-70iae   1/1       Running            0          25s
@@ -227,7 +227,7 @@ nginx-deployment-3066724191-eocby   0/1       ImagePullBackOff   0          6s
 
 Note that the Deployment controller will stop the bad rollout automatically, and will stop scaling up the new replica set.
 
-```console
+```shell
 $ kubectl describe deployment
 Name:           nginx-deployment
 Namespace:      default
@@ -258,7 +258,7 @@ To fix this, we need to rollback to a previous revision of Deployment that is st
 
 First, check the revisions of this deployment:
 
-```console
+```shell
 $ kubectl rollout history deployment/nginx-deployment
 deployments "nginx-deployment":
 REVISION    CHANGE-CAUSE
@@ -271,7 +271,7 @@ Because we recorded the command while creating this Deployment using `--record`,
 
 To further see the details of each revision, run:
 
-```console
+```shell
 $ kubectl rollout history deployment/nginx-deployment --revision=2
 deployments "nginx-deployment" revision 2
 Labels:     app=nginx,pod-template-hash=1564180365
@@ -282,21 +282,21 @@ No volumes.
 
 Now we've decided to undo the current rollout and rollback to the previous revision:
 
-```console
+```shell
 $ kubectl rollout undo deployment/nginx-deployment
 deployment "nginx-deployment" rolled back
 ```
 
 Alternatively, you can rollback to a specific revision by specify that in `--to-revision`:
 
-```console
+```shell
 $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 deployment "nginx-deployment" rolled back
 ```
 
 The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event for rolling back to revision 2 is generated from Deployment controller. 
 
-```console
+```shell
 $ kubectl get deployment 
 NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         3            3           30m
@@ -334,7 +334,7 @@ You can also pause a Deployment mid-way and then resume it. A use case is to sup
 
 Update the Deployment again and then pause the Deployment with `kubectl rollout pause`:
 
-```console
+```shell
 $ kubectl apply -f docs/user-guide/new-nginx-deployment; kubectl rollout pause deployment/nginx-deployment
 deployment "nginx-deployment" configured
 deployment "nginx-deployment" paused
@@ -344,7 +344,7 @@ Note that any current state of the Deployment will continue its function, but ne
 
 The Deployment was still in progress when we paused it, so the actions of scaling up and down replica sets are paused too. 
 
-```console
+```shell
 $ kubectl get rs 
 NAME                          DESIRED   CURRENT   AGE
 nginx-deployment-1564180365   2         2         1h
@@ -354,14 +354,14 @@ nginx-deployment-3066724191   0         0         1h
 
 To resume the Deployment, simply do `kubectl rollout resume`:
 
-```console
+```shell
 $ kubectl rollout resume deployment/nginx-deployment
 deployment "nginx-deployment" resumed
 ```
 
 Then the Deployment will continue and finish the rollout:
 
-```console
+```shell
 $ kubectl get rs 
 NAME                          DESIRED   CURRENT   AGE
 nginx-deployment-1564180365   3         3         1h
