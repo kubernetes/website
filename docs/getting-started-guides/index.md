@@ -1,33 +1,24 @@
 ---
 ---
 
-Kubernetes can run on a range of platforms, from your laptop, to VMs on a cloud provider, to rack of
-bare metal servers.  The effort required to set up a cluster varies from running a single command to
-crafting your own customized cluster.  We'll guide you in picking a solution that fits for your needs.
+Kubernetes can run on a range of platforms, from your laptop, to VMs on a cloud provider, to rack of bare metal servers.  The effort required to set up a cluster varies from running a single command to crafting your own customized cluster.  We'll guide you in picking a solution that fits for your needs.
 
 If you just want to "kick the tires" on Kubernetes, we recommend the [local Docker-based](/docs/getting-started-guides/docker) solution.
 
-The local Docker-based solution is one of several [Local cluster](#local-machine-solutions) solutions
-that are quick to set up, but are limited to running on one machine.
+The local Docker-based solution is one of several [Local cluster](#local-machine-solutions) solutions that are quick to set up, but are limited to running on one machine.
 
-When you are ready to scale up to more machines and higher availability, a [Hosted](#hosted-solutions)
-solution is the easiest to create and maintain.
+When you are ready to scale up to more machines and higher availability, a [Hosted](#hosted-solutions)solution is the easiest to create and maintain.
 
-[Turn-key cloud solutions](#turn-key-cloud-solutions) require only a few commands to create
-and cover a wider range of cloud providers.
+[Turn-key cloud solutions](#turn-key-cloud-solutions) require only a few commands to create and cover a wider range of cloud providers.
 
-[Custom solutions](#custom-solutions) require more effort to setup but cover and even
-they vary from step-by-step instructions to general advice for setting up
-a Kubernetes cluster from scratch.
+[Custom solutions](#custom-solutions) require more effort to setup but cover and even they vary from step-by-step instructions to general advice for setting up a Kubernetes cluster from scratch.
 
 * TOC
 {:toc}
 
 ### Local-machine Solutions
 
-Local-machine solutions create a single cluster with one or more Kubernetes nodes on a single
-physical machine.  Setup is completely automated and doesn't require a cloud provider account.
-But their size and availability is limited to that of a single machine.
+Local-machine solutions create a single cluster with one or more Kubernetes nodes on a single physical machine.  Setup is completely automated and doesn't require a cloud provider account. But their size and availability is limited to that of a single machine.
 
 The local-machine solutions are:
 
@@ -43,8 +34,7 @@ clusters.
 
 ### Turn-key Cloud Solutions
 
-These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
-few commands, and have active community support.
+These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a few commands, and have active community support.
 
 - [GCE](/docs/getting-started-guides/gce)
 - [AWS](/docs/getting-started-guides/aws)
@@ -52,34 +42,31 @@ few commands, and have active community support.
 
 ### Custom Solutions
 
-Kubernetes can run on a wide range of Cloud providers and bare-metal environments, and with many
-base operating systems.
+Kubernetes can run on a wide range of Cloud providers and bare-metal environments, and with many base operating systems.
 
-If you can find a guide below that matches your needs, use it.  It may be a little out of date, but
-it will be easier than starting from scratch.  If you do want to start from scratch because you
-have special requirements or just because you want to understand what is underneath a Kubernetes
-cluster, try the [Getting Started from Scratch](/docs/getting-started-guides/scratch) guide.
+If you can find a guide below that matches your needs, use it.  It may be a little out of date, but it will be easier than starting from scratch.  If you do want to start from scratch because you have special requirements or just because you want to understand what is underneath a Kubernetes cluster, try the [Getting Started from Scratch](/docs/getting-started-guides/scratch) guide.
 
-If you are interested in supporting Kubernetes on a new platform, check out our [advice for
-writing a new solution](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/writing-a-getting-started-guide.md).
+If you are interested in supporting Kubernetes on a new platform, check out our [advice for writing a new solution](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/writing-a-getting-started-guide.md).
 
 #### Cloud
 
 These solutions are combinations of cloud provider and OS not covered by the above solutions.
 
-- [AWS + coreos](/docs/getting-started-guides/coreos)
+- [AWS + CoreOS](/docs/getting-started-guides/coreos)
 - [GCE + CoreOS](/docs/getting-started-guides/coreos)
 - [AWS + Ubuntu](/docs/getting-started-guides/juju)
+- [AWS + Ubuntu + Romana](/docs/getting-started-guides/ubuntu/aws-romana)
 - [Joyent + Ubuntu](/docs/getting-started-guides/juju)
 - [Rackspace + CoreOS](/docs/getting-started-guides/rackspace)
 
 #### On-Premises VMs
 
-- [Vagrant](/docs/getting-started-guides/coreos) (uses CoreOS and flannel)
+- [CoreOS + Vagrant](/docs/getting-started-guides/coreos) (flannel Networking)
+- [Ubuntu + Vagrant](/docs/getting-started-guides/ubuntu/vagrant-romana) (Romana Networking)
 - [CloudStack](/docs/getting-started-guides/cloudstack) (uses Ansible, CoreOS and flannel)
-- [Vmware](/docs/getting-started-guides/vsphere)  (uses Debian)
-- [juju.md](/docs/getting-started-guides/juju) (uses Juju, Ubuntu and flannel)
-- [Vmware](/docs/getting-started-guides/coreos)  (uses CoreOS and flannel)
+- [VMware](/docs/getting-started-guides/vsphere)  (uses Debian)
+- [Juju](/docs/getting-started-guides/juju) (uses Juju, Ubuntu and flannel)
+- [VMware](/docs/getting-started-guides/coreos)  (uses CoreOS and flannel)
 - [libvirt-coreos.md](/docs/getting-started-guides/libvirt-coreos)  (uses CoreOS)
 - [oVirt](/docs/getting-started-guides/ovirt)
 - [libvirt](/docs/getting-started-guides/fedora/flannel_multi_node_cluster) (uses Fedora and flannel)
@@ -87,12 +74,13 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 
 #### Bare Metal
 
-- [Offline](/docs/getting-started-guides/coreos/bare_metal_offline) (no internet required.  Uses CoreOS and Flannel)
+- [Offline](/docs/getting-started-guides/coreos/bare_metal_offline) (no internet required.  Uses CoreOS and flannel)
 - [fedora/fedora_ansible_config.md](/docs/getting-started-guides/fedora/fedora_ansible_config)
 - [Fedora single node](/docs/getting-started-guides/fedora/fedora_manual_config)
 - [Fedora multi node](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)
 - [Centos](/docs/getting-started-guides/centos/centos_manual_config)
-- [Ubuntu](/docs/getting-started-guides/ubuntu)
+- [Ubuntu + flannel](/docs/getting-started-guides/ubuntu) (flannel networking)
+- [Ubuntu + Romana](/docs/getting-started-guides/ubuntu/bare-metal-romana) (Romana networking)
 - [Docker Multi Node](/docs/getting-started-guides/docker-multinode)
 
 #### Integrations
@@ -126,6 +114,9 @@ Mesos/Docker         | custom       | Ubuntu | Docker      | [docs](/docs/gettin
 Mesos/GCE            |              |        |             | [docs](/docs/getting-started-guides/mesos)                                  |          | Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
 DCOS                 | Marathon   | CoreOS/Alpine | custom | [docs](/docs/getting-started-guides/dcos)                                   |          | Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
 AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |          | Community
+AWS                  | Ansible       | Ubuntu | Romana     | [docs](/docs/getting-started-guides/ubuntu/aws-romana)                                 |          | Community ([@romana](https://github.com/romana))
+Vagrant                  | Ansible       | Ubuntu | Romana     | [docs](/docs/getting-started-guides/ubuntu/vagrant-romana)                                 |          | Community ([@romana](https://github.com/romana))
+Bare-metal                  | Ansible       | Ubuntu | Romana     | [docs](/docs/getting-started-guides/ubuntu/bare-metal-romana)                                 |          | Community ([@romana](https://github.com/romana))
 GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |          | Community ([@pires](https://github.com/pires))
 Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |          | Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
 Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline)              |          | Community ([@jeffbean](https://github.com/jeffbean))
