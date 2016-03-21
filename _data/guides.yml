@@ -81,7 +81,7 @@ toc:
         path: /docs/getting-started-guides/fedora/fedora-calico/
       - title: rkt
         section:
-        - title: Running Kubernetes on rat
+        - title: Running Kubernetes on rkt
           path: /docs/getting-started-guides/rkt/
         - title: Notes on Different UX with rkt Container Runtime
           path: /docs/getting-started-guides/rkt/notes/
@@ -138,7 +138,7 @@ toc:
     path: /docs/user-guide/resizing-a-replication-controller/
   - title: Service Operations
     path: /docs/user-guide/services/operations/
- 
+
 - title: Using Nodes, Pods, and Containers
   section:
   - title: The Container Environment
@@ -147,7 +147,7 @@ toc:
     path: /docs/user-guide/simple-nginx/
   - title: Working with Containers
     path: /docs/user-guide/production-pods/
-  - title: Overriding Default Container Behavior 
+  - title: Overriding Default Container Behavior
     path: /docs/user-guide/containers/
   - title: Running Commands in a Container with kubectl exec
     path: /docs/user-guide/getting-into-containers/
@@ -198,7 +198,7 @@ toc:
     path: /docs/admin/master-node-communication/
   - title: Network Plugins
     path: /docs/admin/network-plugins/
- 
+
 - title: Configuring Kubernetes
   section:
   - title: Using Configuration Files
