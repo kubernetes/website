@@ -199,6 +199,8 @@ Sometimes we may want to rollback a Deployment; for example, when the Deployment
 
 Suppose that we made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
 
+{% include code.html language="yaml" file="bad-nginx-deployment.yaml" ghlink="/docs/user-guide/bad-nginx-deployment.yaml" %}
+
 ```shell
 $ kubectl apply -f docs/user-guide/bad-nginx-deployment.yaml
 deployment "nginx-deployment" configured
