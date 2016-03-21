@@ -81,7 +81,7 @@ toc:
         path: /docs/getting-started-guides/fedora/fedora-calico/
       - title: rkt
         section:
-        - title: Running Kubernetes on rat
+        - title: Running Kubernetes on rkt
           path: /docs/getting-started-guides/rkt/
         - title: Notes on Different UX with rkt Container Runtime
           path: /docs/getting-started-guides/rkt/notes/
