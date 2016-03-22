@@ -256,7 +256,7 @@ NAME      REFERENCE                           TARGET    CURRENT     MINPODS   MA
 nginx     ReplicationController/nginx/scale   80%       <waiting>   1         3         1m
 ```
 
-For more information, please see [kubectl scale](/docs/user-guide/kubectl/kubectl_scale/), [kubectl autoscale](/docs/user-guide/kubectl/kubectl_autoscale.) and [horizontal pod autoscaler](/docs/user-guide/horizontal-pod-autoscaling/) document.
+For more information, please see [kubectl scale](/docs/user-guide/kubectl/kubectl_scale/), [kubectl autoscale](/docs/user-guide/kubectl/kubectl_autoscale/) and [horizontal pod autoscaler](/docs/user-guide/horizontal-pod-autoscaling/) document.
 
 ## Updating your application without a service outage
 
