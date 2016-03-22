@@ -119,7 +119,7 @@ which is unique from future cluster names. This will be used in several ways:
     second one sometime later, such as for testing new Kubernetes releases, running in a different
 region of the world, etc.
   - Kubernetes clusters can create cloud provider resources (e.g. AWS ELBs) and different clusters
-    need to distinguish which resources each created.  Call this `CLUSTERNAME`.
+    need to distinguish which resources each created.  Call this `CLUSTER_NAME`.
 
 ### Software Binaries
 
