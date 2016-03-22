@@ -7,7 +7,7 @@ This document describes how to build a high-availability (HA) Kubernetes cluster
 Users who merely want to experiment with Kubernetes are encouraged to use configurations that are simpler to set up such as
 the simple [Docker based single node cluster instructions](/docs/getting-started-guides/docker),
 or try [Google Container Engine](https://cloud.google.com/container-engine/) for hosted Kubernetes.
-
+le
 Also, at this time high availability support for Kubernetes is not continuously tested in our end-to-end (e2e) testing.  We will
 be working to add this continuous testing, but for now the single-node master installations are more heavily tested.
 
@@ -182,8 +182,8 @@ them to talk to the external load balancer's IP address.
 
 So far we have set up state storage, and we have set up the API server, but we haven't run anything that actually modifies
 cluster state, such as the controller manager and scheduler.  To achieve this reliably, we only want to have one actor modifying state at a time, but we want replicated
-instances of these actors, in case a machine dies.  To achieve this, we are going to use a lease-lock in etcd to perform
-master election.  We will use the `--leader-elect` flag for each scheduler and controller-manager, using etcd locks this will ensure that only 1 instance of the scheduler and controller-manager are running at once.
+instances of these actors, in case a machine dies.  To achieve this, we are going to use a lease-lock in the API to perform
+master election.  We will use the `--leader-elect` flag for each scheduler and controller-manager, using a lease in the API will ensure that only 1 instance of the scheduler and controller-manager are running at once.
 
 ### Installing configuration files
 
