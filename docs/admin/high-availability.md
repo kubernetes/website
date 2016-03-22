@@ -3,11 +3,6 @@
 
 ## Introduction
 
-PLEASE NOTE: Note that the podmaster implementation is obsoleted by https://github.com/kubernetes/kubernetes/pull/16830,
-which provides a primitive for leader election in the experimental kubernetes API.
-
-Nevertheless, the concepts and implementation in this document are still valid, as is the podmaster implementation itself.
-
 This document describes how to build a high-availability (HA) Kubernetes cluster.  This is a fairly advanced topic.
 Users who merely want to experiment with Kubernetes are encouraged to use configurations that are simpler to set up such as
 the simple [Docker based single node cluster instructions](/docs/getting-started-guides/docker),
@@ -188,11 +183,7 @@ them to talk to the external load balancer's IP address.
 So far we have set up state storage, and we have set up the API server, but we haven't run anything that actually modifies
 cluster state, such as the controller manager and scheduler.  To achieve this reliably, we only want to have one actor modifying state at a time, but we want replicated
 instances of these actors, in case a machine dies.  To achieve this, we are going to use a lease-lock in etcd to perform
-master election.  On each of the three apiserver nodes, we run a small utility application named `podmaster`. It's job is to implement a master
-election protocol using etcd "compare and swap". If the apiserver node wins the election, it starts the master component it is managing (e.g. the scheduler), if it
-loses the election, it ensures that any master components running on the node (e.g. the scheduler) are stopped.
-
-In the future, we expect to more tightly integrate this lease-locking into the scheduler and controller-manager binaries directly, as described in the [high availability design proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/high-availability.md)
+master election.  We will use the `--leader-elect` flag for each scheduler and controller-manager, using etcd locks this will ensure that only 1 instance of the scheduler and controller-manager are running at once.
 
 ### Installing configuration files
 
@@ -204,18 +195,7 @@ touch /var/log/kube-controller-manager.log
 ```
 
 Next, set up the descriptions of the scheduler and controller manager pods on each node.
-by copying [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](/docs/admin/high-availability/kube-controller-manager.yaml) into the `/srv/kubernetes/` directory.
-
-### Running the podmaster
-
-Now that the configuration files are in place, copy the [podmaster.yaml](/docs/admin/high-availability/podmaster.yaml) config file into `/etc/kubernetes/manifests/`
-
-As before, the kubelet on the node monitors this directory, and will start an instance of the podmaster using the pod specification provided in `podmaster.yaml`.
-
-Now you will have one instance of the scheduler process running on a single master node, and likewise one
-controller-manager process running on a single (possibly different) master node.  If either of these processes fail,
-the kubelet will restart them.  If any of these nodes fail, the process will move to a different instance of a master
-node.
+by copying [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](/docs/admin/high-availability/kube-controller-manager.yaml) into the `/etc/kubernetes/manifests/` directory.
 
 ## Conclusion
 
