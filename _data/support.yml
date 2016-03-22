@@ -32,8 +32,6 @@ toc:
 
 - title: Other Resources
   section:
-  - title: Known Issues
-    path: /docs/user-guide/known-issues/
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues/
   - title: Report a Security Vulnerability
