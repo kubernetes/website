@@ -286,7 +286,7 @@ kubectl config use-context testcontext
 kubectl get pods 
 ```
 
-These steps can be repeated for each environment (or different namespaces within an environment), and now you can simply switch between environments using the `kubectl config use-context` command.
+These steps can be repeated for using multiple environments, and you can switch between environments using the kubectl config use-context command.
 
 ## Next steps
 
