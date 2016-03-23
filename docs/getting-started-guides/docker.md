@@ -84,7 +84,7 @@ $ kubectl config use-context test-doc
 ```
 
 For Max OS X users instead of `localhost` you will have to use IP address of your docker machine,
-which you can find by running `docker-machine env <machinename>` (see [documentation](https://docs.docker.com/machine/reference/env/)
+which you can find by running `docker-machine ip <machinename>` (see [documentation](https://docs.docker.com/machine/reference/ip/)
 for details).
 
 ### Test it out
