@@ -68,21 +68,21 @@ There are additional flags that can be specified. For a complete list, run:
 ## Deleting a pod
 
 If your pod was created using the `run` command, kubernetes creates a
-[replication controller](/docs/user-guide/replication-controller/)
-to manage the pod. Pods managed by a replication controller are rescheduled if
+[deployment](/docs/user-guide/deployments/)
+to manage the pod. Pods managed by a deployment are rescheduled if
 they go away, including being deleted by `kubectl delete pod`. To permanently
-delete the pod, delete its replication controller.
+delete the pod, delete its deployment.
 
-First, find the controller's name:
+First, find the deployment's name:
 
 ```shell
-$ kubectl get rc
-CONTROLLER  CONTAINER(S)  IMAGE(S)  SELECTOR     REPLICAS
-example     example       busybox   run=example  1
+$ kubectl get deployments
+NAME            DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+example         1         1         1            1           1m
 ```
 
-Then, `delete` the controller:
+Then, `delete` the deployment:
 
 ```shell
-$ kubectl delete rc CONTROLLER_NAME
+$ kubectl delete deployment DEPLOYMENT_NAME
 ```
