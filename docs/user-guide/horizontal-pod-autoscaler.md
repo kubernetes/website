@@ -42,7 +42,7 @@ More details on scale sub-resource can be found [here](https://github.com/kubern
 Horizontal pod autoscaler is a top-level resource in the Kubernetes REST API.
 In Kubernetes 1.2 HPA was graduated from beta to stable (more details about [api versioning](/docs/api/#api-versioning)) with compatibility between versions.
 The stable version is available in `autoscaling/v1` api group whereas the beta vesion is available in `extensions/v1beta1` api group as before.
-The transition plan is to depracate beta verion of HPA in Kubernetes 1.3 and get it rid off completely in Kubernetes 1.4.
+The transition plan is to depracate beta version of HPA in Kubernetes 1.3 and get it rid off completely in Kubernetes 1.4.
 
 **Warning!** Please have in mind that all Kubernetes components still use HPA in version `extensions/v1beta1` in Kubernetes 1.2.
 
