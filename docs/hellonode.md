@@ -179,7 +179,7 @@ To view the kubectl configuration run:
 kubectl config view
 ```
 
-Full documentation for kubectl commands is available **[here](https://cloud.google.com/container-engine/docs/kubectl/)**:
+Full documentation for kubectl commands is available **[here](/docs/user-guide/kubectl-overview/)**:
 
 At this point you should have our container running under the control of Kubernetes but we still have to make it accessible to the outside world.
 
