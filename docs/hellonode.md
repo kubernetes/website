@@ -175,6 +175,12 @@ To view cluster events run:
 kubectl get events
 ```
 
+To view the kubectl configuration run:
+
+```shell
+kubectl config view
+```
+
 Full documentation for kubectl commands is available [here](https://cloud.google.com/container-engine/docs/kubectl/)):
 
 At this point you should have our container running under the control of Kubernetes but we still have to make it accessible to the outside world.
