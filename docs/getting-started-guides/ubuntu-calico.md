@@ -77,8 +77,8 @@ We'll use the `kubelet` to bootstrap the Kubernetes master.
 1.  Download and install the `kubelet` and `kubectl` binaries:
 
     ```shell
-    sudo wget -N -P /usr/bin http://storage.googleapis.com/kubernetes-release/release/v1.1.4/bin/linux/amd64/kubectl
-    sudo wget -N -P /usr/bin http://storage.googleapis.com/kubernetes-release/release/v1.1.4/bin/linux/amd64/kubelet
+    sudo wget -N -P /usr/bin https://storage.googleapis.com/kubernetes-release/release/v1.1.4/bin/linux/amd64/kubectl
+    sudo wget -N -P /usr/bin https://storage.googleapis.com/kubernetes-release/release/v1.1.4/bin/linux/amd64/kubelet
     sudo chmod +x /usr/bin/kubelet /usr/bin/kubectl
     ```
 
@@ -354,7 +354,7 @@ On your compute nodes, it is important that you install Calico before Kubernetes
 1.  Download and Install the kubelet binary:
 
     ```shell
-    sudo wget -N -P /usr/bin http://storage.googleapis.com/kubernetes-release/release/v1.1.4/bin/linux/amd64/kubelet
+    sudo wget -N -P /usr/bin https://storage.googleapis.com/kubernetes-release/release/v1.1.4/bin/linux/amd64/kubelet
     sudo chmod +x /usr/bin/kubelet
     ```
 
@@ -389,7 +389,7 @@ To administer your cluster from a separate host (e.g your laptop), you will need
 1. Download the kubectl binary.
 
    ```shell
-   sudo wget -N -P /usr/bin http://storage.googleapis.com/kubernetes-release/release/v1.1.4/bin/linux/amd64/kubectl
+   sudo wget -N -P /usr/bin https://storage.googleapis.com/kubernetes-release/release/v1.1.4/bin/linux/amd64/kubectl
    sudo chmod +x /usr/bin/kubectl
    ```
 

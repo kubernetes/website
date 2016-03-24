@@ -14,7 +14,7 @@ Here's a diagram of what the final result will look like:
 
 1. You need to have docker installed on one machine.
 2. Decide what Kubernetes version to use.  Set the `${K8S_VERSION}` variable to
-   a released version of Kubernetes >= "1.2.0-alpha.7"
+   a released version of Kubernetes >= "1.2.0"
 
 ### Run it
 
@@ -53,16 +53,16 @@ At this point you should have a running Kubernetes cluster.  You can test this
 by downloading the kubectl binary for `${K8S_VERSION}` (look at the URL in the
 following links) and make it available by editing your PATH environment
 variable.
-([OS X/amd64](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0-alpha.7/bin/darwin/amd64/kubectl))
-([OS X/386](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0-alpha.7/bin/darwin/386/kubectl))
-([linux/amd64](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0-alpha.7/bin/linux/amd64/kubectl))
-([linux/386](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0-alpha.7/bin/linux/386/kubectl))
-([linux/arm](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0-alpha.7/bin/linux/arm/kubectl))
+([OS X/amd64](https://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/amd64/kubectl))
+([OS X/386](https://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/386/kubectl))
+([linux/amd64](https://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl))
+([linux/386](https://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/386/kubectl))
+([linux/arm](https://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm/kubectl))
 
 For example, OS X:
 
 ```shell
-$ wget http://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/darwin/amd64/kubectl
+$ wget https://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/darwin/amd64/kubectl
 $ chmod 755 kubectl
 $ PATH=$PATH:`pwd`
 ```
@@ -70,7 +70,7 @@ $ PATH=$PATH:`pwd`
 Linux:
 
 ```shell
-$ wget http://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/linux/amd64/kubectl
+$ wget https://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/linux/amd64/kubectl
 $ chmod 755 kubectl
 $ PATH=$PATH:`pwd`
 ```
