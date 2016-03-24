@@ -133,9 +133,7 @@ A kubernetes **[pod](/docs/user-guide/pods/)** is a group of containers, tied to
 Create a pod with the `kubectl run` command:
 
 ```shell
-kubectl run hello-node \
-    --image=gcr.io/PROJECT_ID/hello-node:v1 \
-    --port=8080
+kubectl run hello-node --image=gcr.io/PROJECT_ID/hello-node:v1 --port=8080
 deployment "hello-node" created
 ```
 
@@ -181,7 +179,7 @@ To view the kubectl configuration run:
 kubectl config view
 ```
 
-Full documentation for kubectl commands is available [here](https://cloud.google.com/container-engine/docs/kubectl/)):
+Full documentation for kubectl commands is available **[here](https://cloud.google.com/container-engine/docs/kubectl/)**:
 
 At this point you should have our container running under the control of Kubernetes but we still have to make it accessible to the outside world.
 
