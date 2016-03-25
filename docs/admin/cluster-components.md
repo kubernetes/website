@@ -68,7 +68,7 @@ Addon objects are created in the "kube-system" namespace.
 #### DNS
 
 While the other addons are not strictly required, all Kubernetes
-clusters should have [cluster DNS](dns.md), as many examples rely on it.
+clusters should have [cluster DNS](/docs/admin/dns/), as many examples rely on it.
 
 Cluster DNS is a DNS server, in addition to the other DNS server(s) in your
 environment, which serves DNS records for Kubernetes services.
