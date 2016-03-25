@@ -136,8 +136,7 @@ Create a pod with the `kubectl run` command:
 kubectl run hello-node \
     --image=gcr.io/PROJECT_ID/hello-node:v1 \
     --port=8080
-CONTROLLER  CONTAINER(S)  IMAGE(S)                     SELECTOR        REPLICAS
-hello-node  hello-node    gcr.io/..../hello-node:v1    run=hello-node  1
+deployment "hello-node" created
 ```
 
 Now is probably a good time to run through some of the following interesting kubectl commands (none of these will change the state of the cluster, full documentation is available [here](https://cloud.google.com/container-engine/docs/kubectl/)):
