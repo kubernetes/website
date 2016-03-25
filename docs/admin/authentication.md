@@ -59,7 +59,7 @@ with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
 
 **Keystone authentication** is enabled by passing the `--experimental-keystone-url=<AuthURL>`
 option to the apiserver during startup. The plugin is implemented in
-`plugin/pkg/auth/authenticator/request/keystone/keystone.go`.
+`plugin/pkg/auth/authenticator/password/keystone/keystone.go`.
 For details on how to use keystone to manage projects and users, refer to the
 [Keystone documentation](http://docs.openstack.org/developer/keystone/). Please note that
 this plugin is still experimental which means it is subject to changes.
@@ -131,5 +131,3 @@ into apiserver start parameters.
 1.  View the certificate.
     `openssl x509  -noout -text -in ./server.crt`
     Finally, do not forget fill the same parameters and add parameters into apiserver start parameters.
-
-
