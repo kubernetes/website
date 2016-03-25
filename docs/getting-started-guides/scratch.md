@@ -796,7 +796,7 @@ Notes for setting up each cluster service are given below:
 * Cluster DNS:
   * required for many kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
-  * [Admin Guide](/admin/dns/)
+  * [Admin Guide](/docs/admin/dns/)
 * Cluster-level Logging
   * Multiple implementations with different storage backends and UIs.
   * [Elasticsearch Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/)
