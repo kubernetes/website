@@ -802,7 +802,7 @@ Notes for setting up each cluster service are given below:
   * [Elasticsearch Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/)
   * [Google Cloud Logging Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/).
   * Both require running fluentd on each node.
-  * [User Guide](/user-guide/logging/)
+  * [User Guide](/docs/user-guide/logging/)
 * Container Resource Monitoring
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/)
 * GUI
