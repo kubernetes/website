@@ -128,9 +128,9 @@ kubectl get svc nginx
 
 Alternatively, you can obtain only the first IP (CLUSTER_IP) by running:
 
-```shell
+```shell{% raw %}
 kubectl get svc nginx --template={{.spec.clusterIP}}
-```
+{% endraw %}```
 
 Hit the webserver with the first IP (CLUSTER_IP):
 
