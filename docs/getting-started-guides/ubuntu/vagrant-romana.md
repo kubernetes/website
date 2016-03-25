@@ -1,6 +1,9 @@
 ---
 ---
 
+* TOC
+{:toc}
+
 ## Installation on Ubuntu with Vagrant and Romana Networking.
 
 See the [Romana](http://romana.io) project site and the [Github repository](http://github.com/romana/romana) for updates and latest installation details.
@@ -18,7 +21,7 @@ To run this installation, you will need
 
 ## Set up Ansible
 
-```bash
+```shell
 # Ubuntu
 sudo apt-get install git python-pip python-dev
 sudo pip install ansible netaddr
@@ -26,19 +29,23 @@ sudo pip install ansible netaddr
 # OS X
 sudo easy_install pip
 sudo pip install ansible netaddr
+
 ```
 
 # Install
 
 Check out the Romana repository and run the installer
-```bash
+
+```shell
 git clone https://github.com/romana/romana
 cd romana/romana-install
 ./romana-setup -p vagrant -s kubernetes install
+
 ```
 
 The Vagrant installation can take a long time to complete, because of some large downloads that are performed. Please be patient. When installation is complete, information about the cluster should be provided.
-```sh-session
+
+```shell
 Kubernetes Summary
 ==================
 
@@ -56,8 +63,9 @@ You can now proceed to [Using Romana on Kubernetes](kubernetes_romana.md).
 
 # Uninstall
 
-From the same directory, you can perform an uninstall
-```bash
+From the same directory, you can perform an uninstall:
+
+```shell
 ./romana-setup -p vagrant -s kubernetes install
 ```
 

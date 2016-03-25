@@ -11,14 +11,14 @@ When you are ready to scale up to more machines and higher availability, a [Host
 
 [Turn-key cloud solutions](#turn-key-cloud-solutions) require only a few commands to create and cover a wider range of cloud providers.
 
-[Custom solutions](#custom-solutions) require more effort to setup but cover and even they vary from step-by-step instructions to general advice for setting up a Kubernetes cluster from scratch.
+[Custom solutions](#custom-solutions) vary from step-by-step instructions to general advice for setting up a Kubernetes cluster from scratch.
 
 * TOC
 {:toc}
 
 ### Local-machine Solutions
 
-Local-machine solutions create a single cluster with one or more Kubernetes nodes on a single physical machine.  Setup is completely automated and doesn't require a cloud provider account. But their size and availability is limited to that of a single machine.
+Local-machine solutions create a single cluster with one or more Kubernetes nodes on a single physical machine.  Setup is completely automated and doesn't require a cloud provider account, but their size and availability is limited to that of a single machine.
 
 The local-machine solutions are:
 

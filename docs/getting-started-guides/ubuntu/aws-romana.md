@@ -1,6 +1,9 @@
 ---
 ---
 
+* TOC
+{:toc}
+
 ## Installation on AWS with Ubuntu instances and Romana Networking.
 
 See the [Romana](http://romana.io) project site and the [Github repository](http://github.com/romana/romana) for updates and latest installation details.
@@ -19,7 +22,7 @@ To run this installation, you will need
 
 ## Set up Ansible
 
-```bash
+```shell
 # Ubuntu
 sudo apt-get install git python-pip python-dev
 sudo pip install ansible boto awscli netaddr
@@ -31,13 +34,13 @@ sudo pip install ansible boto awscli netaddr
 
 ## Set up AWS tools
 
-```bash
+```shell
 aws configure
 ```
 
 This will prompt you for your AWS Access Key ID, AWS Secret Key ID and Region.
 
-```sh-session
+```shell
 AWS Access Key ID [None]: A*******************
 AWS Secret Access Key [None]: ****************************************
 Default region name [None]: us-west-1
@@ -47,7 +50,8 @@ Default output format [None]:
 ## (Optional) Set up EC2 Key Pair
 
 If the servers will be accessed by people using an [EC2 Key Pair](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html), apply the additional configuration step.
-```bash
+
+```shell
 # Configure 'shared-key-1' as the EC2 Key Pair used by the installer
 echo "shared-key-1" > ~/.aws/ec2_keypair
 ```
@@ -55,14 +59,16 @@ echo "shared-key-1" > ~/.aws/ec2_keypair
 # Install
 
 Check out the Romana repository and run the installer
-```bash
+
+```shell
 git clone https://github.com/romana/romana
 cd romana/romana-install
 ./romana-setup -p aws -s kubernetes install
 ```
 
 The EC2 installation takes 20-25 mins to complete, and creates a Kubernetes cluster with two nodes. When installation is complete, information about the cluster should be provided.
-```sh-session
+
+```shell
 Kubernetes Summary
 ==================
 
@@ -80,8 +86,9 @@ You can now proceed to [Using Romana on Kubernetes](kubernetes_romana.md).
 
 # Uninstall
 
-From the same directory, you can perform an uninstall
-```bash
+From the same directory, you can perform an uninstall:
+
+```shell
 ./romana-setup -p aws -s kubernetes install
 ```
 
