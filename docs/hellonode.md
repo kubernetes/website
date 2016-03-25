@@ -83,14 +83,14 @@ Now there is a trusted source for getting an image of your containerized app.
 Let's try your image out with Docker:
 
 ```shell
-docker run -d -p 8080:8080 gcr.io/PROJECT_ID/hello-node:v1
+$ docker run -d -p 8080:8080 gcr.io/PROJECT_ID/hello-node:v1
 325301e6b2bffd1d0049c621866831316d653c0b25a496d04ce0ec6854cb7998
 ```
 
 Visit your app in the browser, or use `curl` or `wget` if you’d like :
 
 ```shell
-curl http://localhost:8080
+$ curl http://localhost:8080
 Hello World!
 ```
 
@@ -115,7 +115,6 @@ If all goes well, you should be able to see the container image listed in the co
 
 ![image](/images/hellonode/image_10.png)
 
-
 ## Create your cluster
 
 A cluster consists of a master API server and a set of worker VMs called nodes. 
@@ -126,6 +125,8 @@ Create a cluster via the Console: *Compute > Container Engine > Container Cluste
 
 It’s now time to deploy your own containerized application to the Kubernetes cluster! Please ensure that you have [configured](https://cloud.google.com/container-engine/docs/before-you-begin#optional_set_gcloud_defaults) `kubectl` to use the cluster you just created.
 
+**The rest of this document requires both the kubernetes client and server version to be 1.2. Run `kubectl version` to see your current versions.**  For 1.1 see [this document](https://github.com/kubernetes/kubernetes.github.io/blob/release-1.1/docs/hellonode.md).
+
 ## Create your pod
 
 A kubernetes **[pod](/docs/user-guide/pods/)** is a group of containers, tied together for the purposes of administration and networking. It can contain a single container or multiple.
@@ -133,7 +134,7 @@ A kubernetes **[pod](/docs/user-guide/pods/)** is a group of containers, tied to
 Create a pod with the `kubectl run` command:
 
 ```shell
-kubectl run hello-node --image=gcr.io/PROJECT_ID/hello-node:v1 --port=8080
+$ kubectl run hello-node --image=gcr.io/PROJECT_ID/hello-node:v1 --port=8080
 deployment "hello-node" created
 ```
 
@@ -142,7 +143,7 @@ As shown in the output, the `kubectl run` created a **[deployment](/docs/user-gu
 To view the deployment we just created run:
 
 ```shell
-kubectl get deployments
+$ kubectl get deployments
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 hello-node   1         1         1            1           3m
 ```
@@ -150,7 +151,7 @@ hello-node   1         1         1            1           3m
 To view the pod created by the deployment run:
 
 ```shell
-kubectl get pods
+$ kubectl get pods
 NAME                         READY     STATUS    RESTARTS   AGE
 hello-node-714049816-ztzrb   1/1       Running   0          6m
 ```
@@ -187,11 +188,13 @@ At this point you should have our container running under the control of Kuberne
 
 By default, the pod is only accessible by its internal IP within the Kubernetes cluster. In order to make the `hello-node` container accessible from outside the kubernetes virtual network, you have to expose the pod as a kubernetes **[service](/docs/user-guide/services/)**.
 
-From our development machine we can expose the pod with the `kubectl` expose command and the `--type="LoadBalancer"` flag which creates an external IP to accept traffic:
+From our development machine we can expose the pod to the public internet using the `kubectl expose` command combined with the `--type="LoadBalancer"` flag.  The flag is needed for the creation of an externally accessible ip:
 
 ```shell
 kubectl expose deployment hello-node --type="LoadBalancer"
 ```
+
+**If this fails, make sure your client and server are both version 1.2.  See the [Create your cluster](#create-your-cluster) section for details.**
 
 The flag used in this command specifies that we’ll be using the load-balancer provided by the underlying infrastructure (in this case the [Compute Engine load balancer](https://cloud.google.com/compute/docs/load-balancing/)). Note that we expose the deployment, and not the pod directly.  This will cause the resulting service to load balance traffic across all pods managed by the deployment (in this case only 1 pod, but we will add more replicas later).
 
@@ -200,7 +203,7 @@ The Kubernetes master creates the load balancer and related Compute Engine forwa
 To find the ip addresses associated with the service run:
 
 ```shell
-kubectl get services hello-node
+$ kubectl get services hello-node
 NAME         CLUSTER_IP    EXTERNAL_IP     PORT(S)    SELECTOR         AGE
 hello-node   10.3.246.12                   8080/TCP   run=hello-node   23s
 ```
@@ -208,7 +211,7 @@ hello-node   10.3.246.12                   8080/TCP   run=hello-node   23s
 The `EXTERNAL_IP` may take several minutes to become available and visible.  If the `EXTERNAL_IP` is missing, wait a few minutes and try again.
 
 ```shell
-kubectl get services hello-node
+$ kubectl get services hello-node
 NAME         CLUSTER_IP    EXTERNAL_IP     PORT(S)    SELECTOR         AGE
 hello-node   10.3.246.12   23.251.159.72   8080/TCP   run=hello-node   2m
 ```
@@ -230,13 +233,13 @@ kubectl scale deployment hello-node --replicas=4
 You now have four replicas of your application, each running independently on the cluster with the load balancer you created earlier and serving traffic to all of them.
 
 ```shell
-kubectl get deployment
+$ kubectl get deployment
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 hello-node   4         4         4            3           40m
 ```
 
 ```shell
-kubectl get pods
+$ kubectl get pods
 NAME                         READY     STATUS    RESTARTS   AGE
 hello-node-714049816-g4azy   1/1       Running   0          1m
 hello-node-714049816-rk0u6   1/1       Running   0          1m
@@ -340,7 +343,7 @@ deployment "hello-node" edited
 This updates the deployment with the new image, causing new pods to be created with the new image and old pods to be deleted.
 
 ```
-kubectl get deployments
+$ kubectl get deployments
 NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 hello-node   4         5         4            3           1h
 ```
@@ -348,23 +351,6 @@ hello-node   4         5         4            3           1h
 While this is happening, the users of the services should not see any interruption. After a little while they will start accessing the new version of your application. You can find more details in the [deployment documentation](/docs/user-guide/deployments/).
 
 Hopefully with these deployment, scaling and update features you’ll agree that once you’ve setup your environment (your GKE/Kubernetes cluster here), Kubernetes is here to help you focus on the application rather than the infrastructure.
-
-## Observe the Kubernetes Graphical dashboard (optional)
-
-While logged into your development machine, execute the following commands:
-
-```shell
-kubectl config view | grep "password"
-    password: vUYwC5ATJMWa6goh
-kubectl cluster-info
-  ... 
-  KubeUI is running at https://<ip-address>/api/v1/proxy/namespaces/kube-system/services/kube-ui
-  ...
-```
-
-Navigate to the URL that is shown under after KubeUI is running at and log in with username "admin" and the password retrieved above and enjoy the Kubernetes graphical dashboard!
-
-![image](/images/hellonode/image_14.png)
 
 ## That's it! Time to tear it down
 
@@ -379,7 +365,7 @@ kubectl delete service,deployment hello-node
 Delete your cluster:
 
 ```shell
-gcloud container clusters delete hello-world
+$ gcloud container clusters delete hello-world
 Waiting for cluster deletion...done.
 name: operation-xxxxxxxxxxxxxxxx
 operationType: deleteCluster
@@ -393,9 +379,9 @@ This deletes the Google Compute Engine instances that are running the cluster.
 Finally delete the Docker registry storage bucket hosting your image(s) :
 
 ```shell
-gsutil ls
+$ gsutil ls
 gs://artifacts.<PROJECT_ID>.appspot.com/
-gsutil rm -r gs://artifacts.<PROJECT_ID>.appspot.com/
+$ gsutil rm -r gs://artifacts.<PROJECT_ID>.appspot.com/
 Removing gs://artifacts.<PROJECT_ID>.appspot.com/...
 ```
 
