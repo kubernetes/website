@@ -12,7 +12,7 @@ Here’s a diagram of the various parts in play in this codelab to help you unde
 
 ![image](/images/hellonode/image_1.png)
 
-Kubernetes is an open source project which can run on many different environments, from laptops to high-availability multi-node clusters, from public clouds to on-premise deployments, from virtual machines to bare metal. Using a managed environment such as Google Container Engine (a Google-hosted version of Kubernetes) will allow you to focus more on experiencing Kubernetes rather than setting up the underlying infrastructure.
+Kubernetes is an open source project which can run on many different environments, from laptops to high-availability multi-node clusters, from public clouds to on-premises deployments, from virtual machines to bare metal. Using a managed environment such as Google Container Engine (a Google-hosted version of Kubernetes) will allow you to focus more on experiencing Kubernetes rather than setting up the underlying infrastructure.
 
 ## Setup and Requirements
 
@@ -27,6 +27,10 @@ Remember the project ID; it will be referred to later in this codelab as `PROJEC
 Next, [enable billing](https://console.developers.google.com/billing) in the Developers Console in order to use Google Cloud resources and [enable the Container Engine API](https://console.developers.google.com/project/_/kubernetes/list).
 
 New users of Google Cloud Platform recieve a [$300 free trial](https://console.developers.google.com/billing/freetrial?hl=en). Running through this codelab shouldn’t cost you more than a few dollars of that trial. Google Container Engine pricing is documented [here](https://cloud.google.com/container-engine/docs/#pricing).
+
+You must have an instance of Docker running, either in a VM (via docker-engine) or straight on your Linux box. You can learn about installing and running Docker [here](https://www.docker.com/).
+
+If you don't already have the gcloud command line interface application installed, make sure you follow the instructions and set up gcloud on your machine: [gcloud](https://cloud.google.com/sdk/gcloud/) 
 
 Next, make sure you [download Node.js](https://nodejs.org/en/download/).
 
