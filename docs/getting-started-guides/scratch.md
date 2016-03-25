@@ -806,7 +806,7 @@ Notes for setting up each cluster service are given below:
 * Container Resource Monitoring
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/)
 * GUI
-  * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/kube-ui/)
+  * [Setup instructions](https://github.com/kubernetes/kube-ui)
   cluster.
 
 ## Troubleshooting
