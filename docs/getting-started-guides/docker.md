@@ -83,9 +83,12 @@ $ kubectl config set-context test-doc --cluster=test-doc
 $ kubectl config use-context test-doc
 ```
 
-For Max OS X users instead of `localhost` you will have to use IP address of your docker machine,
-which you can find by running `docker-machine env <machinename>` (see [documentation](https://docs.docker.com/machine/reference/env/)
-for details).
+For Max OS X users instead of `localhost` you will have to use the IP address of your docker machine. You also need to forward requests from the docker-machine ip address to `localhost` on the docker VM. Instead of the first line above use
+
+```shell
+$ docker-machine ssh default sudo /usr/local/sbin/iptables -t nat -I PREROUTING -p tcp -d $(docker-machine ip) --dport 8080 -j DNAT --to-destination 127.0.0.1:8080
+$ kubectl config set-cluster test-doc --server=http://$(docker-machine ip):8080
+```
 
 ### Test it out
 
