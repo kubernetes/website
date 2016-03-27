@@ -368,11 +368,11 @@ kubectl config view | grep "password"
     password: vUYwC5ATJMWa6goh
 kubectl cluster-info
   ... 
-  KubeUI is running at https://<ip-address>/api/v1/proxy/namespaces/kube-system/services/kube-ui
+  kubernetes-dashboard is running at https://<ip-address>/api/v1/proxy/namespaces/kube-system/services/kubernetes-dashboard
   ...
 ```
 
-Navigate to the URL that is shown under after KubeUI is running at and log in with username "admin" and the password retrieved above and enjoy the Kubernetes graphical dashboard!
+Navigate to the URL that is shown under after ```kubernetes-dashboard is running at``` and log in with username "admin" and the password retrieved above and enjoy the Kubernetes graphical dashboard!
 
 ![image](/images/hellonode/image_14.png)
 
