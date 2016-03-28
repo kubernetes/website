@@ -267,7 +267,7 @@ spec:
         - name: SPECIAL_LEVEL_KEY
           valueFrom:
             configMapKeyRef:
-              name: special-configmap
+              name: special-config
               key: special.how
         - name: SPECIAL_TYPE_KEY
           valueFrom:
@@ -318,7 +318,7 @@ spec:
         - name: SPECIAL_LEVEL_KEY
           valueFrom:
             configMapKeyRef:
-              name: special-configmap
+              name: special-config
               key: special.how
         - name: SPECIAL_TYPE_KEY
           valueFrom:
