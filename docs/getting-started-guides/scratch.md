@@ -796,17 +796,17 @@ Notes for setting up each cluster service are given below:
 * Cluster DNS:
   * required for many kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
-  * [Admin Guide](/admin/dns/)
+  * [Admin Guide](/docs/admin/dns/)
 * Cluster-level Logging
   * Multiple implementations with different storage backends and UIs.
   * [Elasticsearch Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/)
   * [Google Cloud Logging Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/).
   * Both require running fluentd on each node.
-  * [User Guide](/user-guide/logging/)
+  * [User Guide](/docs/user-guide/logging/)
 * Container Resource Monitoring
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/)
 * GUI
-  * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/kube-ui/)
+  * [Setup instructions](https://github.com/kubernetes/kube-ui)
   cluster.
 
 ## Troubleshooting

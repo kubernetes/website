@@ -98,7 +98,7 @@ Kubernetes supports declarative configuration. In this style, all configuration 
 
 As an alternative to specifying application details in the deploy wizard, you can define your Replication Controllers and Services in YAML or JSON files, and upload the files to your Pods:
 
-![Kubernetes Dashboard deploy from file upload](ui-dashboard-deploy-file.png)
+![Kubernetes Dashboard deploy from file upload](/images/docs/ui-dashboard-deploy-file.png)
 
 ### Applications view
 

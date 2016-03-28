@@ -39,12 +39,28 @@ It can be configured to give services externally-reachable urls, load balance tr
 
 ## Prerequisites
 
-Before you start using the Ingress resource, there are a few things you should understand:
+Before you start using the Ingress resource, there are a few things you should understand. The Ingress is a beta resource, not available in any Kubernetes release prior to 1.1. You need an Ingress controller to satisfy an Ingress, simply creating the resource will have no effect.
 
-* The Ingress is a beta resource, not available in any Kubernetes release prior to 1.1.
-* You need an Ingress controller to satisfy an Ingress. Simply creating the resource will have no effect.
-* On GCE/GKE there should be a [L7 cluster addon](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-loadbalancing/glbc/README.md#prerequisites), on other platforms you either need to write your own or [deploy an existing controller](https://github.com/kubernetes/contrib/tree/master/ingress) as a pod.
-* The resource currently does not support HTTPS, but will do so before it leaves beta.
+On GCE/GKE there should be a [L7 cluster addon](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/README.md), deployed into the `kube-system` namespace:
+
+```shell
+$ kubectl get pods --namespace=kube-system -l name=glbc
+NAME                            READY     STATUS    RESTARTS   AGE
+l7-lb-controller-v0.6.0-chnan   2/2       Running   0          1d
+```
+
+Make sure you review the [beta limitations](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/gce/BETA_LIMITATIONS.md) of this controller. In particular, you need to create a single firewall-rule on your cloudprovider, to allow health checks. On GKE this would be:
+
+```shell
+$ export TAG=$(basename `gcloud container clusters describe ${CLUSTER_NAME} --zone ${ZONE} | grep gke | awk '{print $2}'` | sed -e s/group/node/)
+$ export NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services echoheaders)
+$ gcloud compute firewall-rules create allow-130-211-0-0-22 \
+  --source-ranges 130.211.0.0/22 \
+  --target-tags $TAG \
+  --allow tcp:$NODE_PORT
+```
+
+In environments other than GCE/GKE, you need to [deploy a controller](https://github.com/kubernetes/contrib/tree/master/ingress/controllers) as a pod.
 
 ## The Ingress Resource
 
