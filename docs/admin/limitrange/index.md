@@ -163,15 +163,15 @@ spec:
 Note that this pod specifies explicit resource *limits* and *requests* so it did not pick up the namespace
 default values.
 
-Note: The *limits* for CPU resource are not enforced in the default Kubernetes setup on the physical node
+Note: The *limits* for CPU resource are enforced in the default Kubernetes setup (since v1.2) on the physical node
 that runs the container unless the administrator deploys the kubelet with the folllowing flag:
 
 ```shell
 $ kubelet --help
 Usage of kubelet
 ....
-  --cpu-cfs-quota[=false]: Enable CPU CFS quota enforcement for containers that specify CPU limits
-$ kubelet --cpu-cfs-quota=true ...
+  --cpu-cfs-quota[=true]: Enable CPU CFS quota enforcement for containers that specify CPU limits
+$ kubelet --cpu-cfs-quota=false ...
 ```
 
 ## Step 4: Cleanup
