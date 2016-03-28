@@ -108,6 +108,6 @@ This document is meant to highlight and consolidate in one place configuration b
 
 - Use kubectl bulk operations (via files and/or labels) for get and delete. See [label selectors](/docs/user-guide/labels/#label-selectors) and [using labels effectively](/docs/user-guide/managing-deployments/#using-labels-effectively).
 
-- Use `kubectl run` and `expose` to quickly create and expose single container replication controllers. See the [quick start guide](/docs/user-guide/quick-start/) for an example.
+- Use `kubectl run` and `expose` to quickly create and expose single container Deployments. See the [quick start guide](/docs/user-guide/quick-start/) for an example.
 
 

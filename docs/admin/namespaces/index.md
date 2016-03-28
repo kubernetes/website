@@ -17,12 +17,12 @@ This example demonstrates how to use Kubernetes namespaces to subdivide your clu
 This example assumes the following:
 
 1. You have an [existing Kubernetes cluster](/docs/getting-started-guides/).
-2. You have a basic understanding of Kubernetes _[pods](/docs/user-guide/pods)_, _[services](/docs/user-guide/services)_, and _[replication controllers](/docs/user-guide/replication-controller)_.
+2. You have a basic understanding of Kubernetes _[Pods](/docs/user-guide/pods)_, _[Services](/docs/user-guide/services)_, and _[Deployments](/docs/user-guide/deployments)_.
 
 ### Step One: Understand the default namespace
 
-By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of pods,
-services, and replication controllers used by the cluster.
+By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of Pods,
+Services, and Deployments used by the cluster.
 
 Assuming you have a fresh cluster, you can introspect the available namespace's by doing the following:
 
@@ -38,12 +38,12 @@ For this exercise, we will create two additional Kubernetes namespaces to hold o
 
 Let's imagine a scenario where an organization is using a shared Kubernetes cluster for development and production use cases.
 
-The development team would like to maintain a space in the cluster where they can get a view on the list of pods, services, and replication controllers
+The development team would like to maintain a space in the cluster where they can get a view on the list of Pods, Services, and Deployments
 they use to build and run their application.  In this space, Kubernetes resources come and go, and the restrictions on who can or cannot modify resources
 are relaxed to enable agile development.
 
 The operations team would like to maintain a space in the cluster where they can enforce strict procedures on who can or cannot manipulate the set of
-pods, services, and replication controllers that run the production site.
+pods, services, and Deployments that run the production site.
 
 One pattern this organization could follow is to partition the Kubernetes cluster into two namespaces: development and production.
 
@@ -77,11 +77,11 @@ production    name=production    Active
 
 ### Step Three: Create pods in each namespace
 
-A Kubernetes namespace provides the scope for pods, services, and replication controllers in the cluster.
+A Kubernetes namespace provides the scope for Pods, Services, and Deployments in the cluster.
 
 Users interacting with one namespace do not see the content in another namespace.
 
-To demonstrate this, let's spin up a simple replication controller and pod in the development namespace.
+To demonstrate this, let's spin up a simple Deployment and Pods in the development namespace.
 
 We first check what is the current context:
 
@@ -178,18 +178,18 @@ Let's create some content.
 ```shell
 $ kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
 ```
-
-We have just created a replication controller whose replica size is 2 that is running the pod called snowflake with a basic container that just serves the hostname.
+We have just created a deployment whose replica size is 2 that is running the pod called snowflake with a basic container that just serves the hostname. 
+Note that `kubectl run` creates deployments only on kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
 
 ```shell
-$ kubectl get rc
-CONTROLLER   CONTAINER(S)   IMAGE(S)                    SELECTOR        REPLICAS
-snowflake    snowflake      kubernetes/serve_hostname   run=snowflake   2
+$ kubectl get deployment
+NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+snowflake   2         2         2            2           2m
 
-$ kubectl get pods
-NAME              READY     STATUS    RESTARTS   AGE
-snowflake-8w0qn   1/1       Running   0          22s
-snowflake-jrpzb   1/1       Running   0          22s
+$ kubectl get pods -l run=snowflake
+NAME                         READY     STATUS    RESTARTS   AGE
+snowflake-3968820950-9dgr8   1/1       Running   0          2m
+snowflake-3968820950-vgc4n   1/1       Running   0          2m
 ```
 
 And this is great, developers are able to do what they want, and they do not have to worry about affecting content in the production namespace.
@@ -200,14 +200,11 @@ Let's switch to the production namespace and show how resources in one namespace
 $ kubectl config use-context prod
 ```
 
-The production namespace should be empty.
+The production namespace should be empty, and the following commands should return nothing.
 
 ```shell
-$ kubectl get rc
-CONTROLLER   CONTAINER(S)   IMAGE(S)   SELECTOR   REPLICAS
-
+$ kubectl get deployment
 $ kubectl get pods
-NAME      READY     STATUS    RESTARTS   AGE
 ```
 
 Production likes to run cattle, so let's create some cattle pods.
@@ -215,17 +212,17 @@ Production likes to run cattle, so let's create some cattle pods.
 ```shell
 $ kubectl run cattle --image=kubernetes/serve_hostname --replicas=5
 
-$ kubectl get rc
-CONTROLLER   CONTAINER(S)   IMAGE(S)                    SELECTOR     REPLICAS
-cattle       cattle         kubernetes/serve_hostname   run=cattle   5
+$ kubectl get deployment
+NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+cattle    5         5         5            5           10s
 
-$ kubectl get pods
-NAME           READY     STATUS    RESTARTS   AGE
-cattle-97rva   1/1       Running   0          12s
-cattle-i9ojn   1/1       Running   0          12s
-cattle-qj3yv   1/1       Running   0          12s
-cattle-yc7vn   1/1       Running   0          12s
-cattle-zz7ea   1/1       Running   0          12s
+kubectl get pods -l run=cattle
+NAME                      READY     STATUS    RESTARTS   AGE
+cattle-2263376956-41xy6   1/1       Running   0          34s
+cattle-2263376956-kw466   1/1       Running   0          34s
+cattle-2263376956-n4v97   1/1       Running   0          34s
+cattle-2263376956-p5p3i   1/1       Running   0          34s
+cattle-2263376956-sxpth   1/1       Running   0          34s
 ```
 
 At this point, it should be clear that the resources users create in one namespace are hidden from the other namespace.
