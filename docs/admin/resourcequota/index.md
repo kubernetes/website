@@ -69,38 +69,40 @@ Pod authors rarely specify resource requests and limits for their pods.
 Since we applied a quota to our project, let's see what happens when an end-user creates a pod that has unbounded
 cpu and memory by creating an nginx container.
 
-To demonstrate, lets create a replication controller that runs nginx:
+To demonstrate, lets create a Deployment that runs nginx:
 
 ```shell
 $ kubectl run nginx --image=nginx --replicas=1 --namespace=quota-example
-replicationcontroller "nginx" created
+deployment "nginx" created
 ```
 
-Now let's look at the pods that were created.
+This creates a Deployment "nginx" with its underlying resource, a ReplicaSet, which handles the creation and deletion of Pod replicas. Now let's look at the pods that were created.
 
 ```shell
 $ kubectl get pods --namespace=quota-example
 NAME      READY     STATUS    RESTARTS   AGE
 ```
 
-What happened?  I have no pods!  Let's describe the replication controller to get a view of what is happening.
+What happened?  I have no pods!  Let's describe the ReplicaSet managed by the nginx Deployment to get a view of what is happening.
+Note that `kubectl describe rs` works only on kubernetes cluster >= v1.2. If you are running older versions, use `kubectl describe rc` instead.
 
 ```shell
-kubectl describe rc nginx --namespace=quota-example
-Name:		nginx
+$ kubectl describe rs -l run=nginx --namespace=quota-example
+Name:		nginx-2040093540
 Namespace:	quota-example
 Image(s):	nginx
-Selector:	run=nginx
-Labels:		run=nginx
+Selector:	pod-template-hash=2040093540,run=nginx
+Labels:		pod-template-hash=2040093540,run=nginx
 Replicas:	0 current / 1 desired
 Pods Status:	0 Running / 0 Waiting / 0 Succeeded / 0 Failed
 No volumes.
 Events:
-  FirstSeen	LastSeen	Count	From				SubobjectPath	Reason		Message
-  42s		11s		3	{replication-controller }			FailedCreate	Error creating: Pod "nginx-" is forbidden: Must make a non-zero request for memory since it is tracked by quota.
+  FirstSeen	LastSeen	Count	From				SubobjectPath	Type		Reason		Message
+  ---------	--------	-----	----				-------------	--------	------		-------
+  48s		26s		4	{replicaset-controller }			Warning		FailedCreate	Error creating: pods "nginx-2040093540-" is forbidden: Failed quota: quota: must specify cpu,memory
 ```
 
-The Kubernetes API server is rejecting the replication controllers requests to create a pod because our pods
+The Kubernetes API server is rejecting the ReplicaSet requests to create a pod because our pods
 do not specify any memory usage *request*.
 
 So let's set some default values for the amount of cpu and memory a pod can consume:
@@ -111,22 +113,22 @@ limitrange "limits" created
 $ kubectl describe limits limits --namespace=quota-example
 Name:		limits
 Namespace:	quota-example
-Type		Resource	Min	Max	Request	Limit	Limit/Request
-----		--------	---	---	-------	-----	-------------
-Container	memory		-	-	256Mi	512Mi	-
-Container	cpu		-	-	100m	200m	-
+Type		Resource	Min	Max	Default Request	Default Limit	Max Limit/Request Ratio
+----		--------	---	---	---------------	-------------	-----------------------
+Container	cpu		-	-	100m		200m		-
+Container	memory		-	-	256Mi		512Mi		-
 ```
 
 Now any time a pod is created in this namespace, if it has not specified any resource request/limit, the default
 amount of cpu and memory per container will be applied, and the request will be used as part of admission control.
 
-Now that we have applied default resource *request* for our namespace, our replication controller should be able to
+Now that we have applied default resource *request* for our namespace, our Deployment should be able to
 create its pods.
 
 ```shell
 $ kubectl get pods --namespace=quota-example
-NAME          READY     STATUS    RESTARTS   AGE
-nginx-fca65   1/1       Running   0          1m
+NAME                     READY     STATUS    RESTARTS   AGE
+nginx-2040093540-miohp   1/1       Running   0          5s
 ```
 
 And if we print out our quota usage in the namespace:

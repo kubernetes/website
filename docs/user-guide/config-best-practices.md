@@ -79,7 +79,7 @@ This document is meant to highlight and consolidate in one place configuration b
   controller 'version names'. A desired state of an object is described by a Deployment, and if
   changes to that spec are _applied_, the deployment controller changes the actual state to the
   desired state at a controlled rate. (Deployment objects are currently part of the [`extensions`
-  API Group](/docs/api/#api-groups), and are not enabled by default.)
+  API Group](/docs/api/#api-groups).)
 
 - You can manipulate labels for debugging. Because Kubernetes replication controllers and services
   match to pods using labels, this allows you to remove a pod from being considered by a
@@ -108,6 +108,6 @@ This document is meant to highlight and consolidate in one place configuration b
 
 - Use kubectl bulk operations (via files and/or labels) for get and delete. See [label selectors](/docs/user-guide/labels/#label-selectors) and [using labels effectively](/docs/user-guide/managing-deployments/#using-labels-effectively).
 
-- Use `kubectl run` and `expose` to quickly create and expose single container replication controllers. See the [quick start guide](/docs/user-guide/quick-start/) for an example.
+- Use `kubectl run` and `expose` to quickly create and expose single container Deployments. See the [quick start guide](/docs/user-guide/quick-start/) for an example.
 
 
