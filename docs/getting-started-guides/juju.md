@@ -17,42 +17,46 @@ to increase the cluster size.
 
 ### On Ubuntu
 
-[Install the Juju client](https://jujucharms.com/get-started) on your
-local Ubuntu system:
+[Install the Juju client](https://jujucharms.com/get-started)
+
+> This documentation focuses on the juju 2.0 release which will be
+> promoted to stable during its release cycle in April
+
+To paraphrase, on your local Ubuntu system:
 
 ```shell
-sudo add-apt-repository ppa:juju/stable
+sudo add-apt-repository ppa:juju/devel
 sudo apt-get update
-sudo apt-get install juju-core juju-quickstart
+sudo apt-get install juju2
 ```
 
+If you are using another distro/platform - please consult the
+[getting started guide](https://jujucharms.com/get-started) to install the
+Juju dependencies for your platform.
+
 ### With Docker
+
+> While this is a common target, the charmbox flavors of images are
+> unofficial, and should be treated as Experimental. If you encounter any issues
+> turning up the Kubernetes cluster with charmbox, please file a bug on the
+> respective issue tracker [here](https://github.com/juju-solutions/charmbox/issues)
 
 If you are not using Ubuntu or prefer the isolation of Docker, you may
 run the following:
 
 ```shell
-mkdir ~/.juju
-sudo docker run -v ~/.juju:/home/ubuntu/.juju -ti jujusolutions/jujubox:latest
+mkdir ~/.juju2
+sudo docker run -v ~/.juju2:/home/ubuntu/.local/share/juju -ti jujusolutions/charmbox:devel
 ```
 
 At this point from either path you will have access to the `juju
-quickstart` command.
+bootstrap` command. However we will need to configure the credentials for the
+ Juju cloud provider before we can proceed.
 
-To set up the credentials for your chosen cloud run:
+To set up the credentials for your chosen cloud see the [cloud setup docs](https://jujucharms.com/docs/devel/getting-started#2.-choose-a-cloud):
 
-```shell
-juju quickstart --constraints="mem=3.75G" -i
-```
-
-> The `constraints` flag is optional, it changes the size of virtual machines
-> that Juju will generate when it requests a new machine.  Larger machines
-> will run faster but cost more money than smaller machines.
-
-Follow the dialogue and choose `save` and `use`.  Quickstart will now
-bootstrap the juju root node and setup the juju web based user
-interface.
-
+Once your cloud has been bootstrapped via:
+`juju bootstrap $cloudname $cloudtype` you are ready to launch the cluster.
 
 ## Launch Kubernetes cluster
 
@@ -64,14 +68,12 @@ export KUBERNETES_PROVIDER=juju
 cluster/kube-up.sh
 ```
 
-If this is your first time running the `kube-up.sh` script, it will install
-the required dependencies to get started with Juju, additionally it will
-launch a curses based configuration utility allowing you to select your cloud
-provider and enter the proper access credentials.
+If this is your first time running the `kube-up.sh` script, it will attempt to
+install the required dependencies to get started with Juju.
 
-Next it will deploy the kubernetes master, etcd, 2 nodes with flannel based
-Software Defined Networking (SDN) so containers on different hosts can
-communicate with each other.
+Next it will deploy the kubernetes application, 3 units of etcd, and network
+the units with flannel based Software Defined Networking (SDN) so containers
+on different hosts can communicate with each other.
 
 
 ## Exploring the cluster
@@ -80,28 +82,33 @@ The `juju status` command provides information about each unit in the cluster:
 
 ```shell
 $ juju status --format=oneline
-- docker/0: 52.4.92.78 (started)
-  - flannel-docker/0: 52.4.92.78 (started)
-  - kubernetes/0: 52.4.92.78 (started)
-- docker/1: 52.6.104.142 (started)
-  - flannel-docker/1: 52.6.104.142 (started)
-  - kubernetes/1: 52.6.104.142 (started)
-- etcd/0: 52.5.216.210 (started) 4001/tcp
-- juju-gui/0: 52.5.205.174 (started) 80/tcp, 443/tcp
-- kubernetes-master/0: 52.6.19.238 (started) 8080/tcp
+
+... (snipped for brevity)
+
+[Units]
+ID           WORKLOAD-STATE AGENT-STATE VERSION   MACHINE PORTS             PUBLIC-ADDRESS MESSAGE
+etcd/0       active         idle        2.0-beta2 1                         54.146.50.29   Etcd leader running
+kubernetes/0 active         idle        2.0-beta2 2       6443/tcp,8088/tcp 54.205.204.227 Kubernetes follower running
+kubernetes/1 active         idle        2.0-beta2 3       6443/tcp,8088/tcp 54.145.57.114  Kubernetes leader running
+
+... (snipped for brevity)
 ```
 
-You can use `juju ssh` to access any of the units:
-
-```shell
-juju ssh kubernetes-master/0
-```
 
 ## Run some containers!
 
-`kubectl` is available on the Kubernetes master node.  We'll ssh in to
-launch some containers, but one could use `kubectl` locally by setting
-`KUBERNETES_MASTER` to point at the ip address of "kubernetes-master/0".
+`kubectl` is available on the Kubernetes leader node. We'll fetch the kubectl
+command, and execute some queries against our newly stood up cluster.
+
+
+```shell
+juju scp kubernetes/1:kubectl_package.tar.gz .
+tar xvfz kubectl_package.tar.gz
+```
+
+If you are not on a linux amd64 host system, you will need to fetch a kubectl
+
+
 
 No pods will be available before starting a container:
 
@@ -178,7 +185,7 @@ curl $(juju status --format=oneline kubernetes/1 | cut -d' ' -f3)
 Finally delete the pod:
 
 ```shell
-juju ssh kubernetes-master/0
+juju ssh kubernetes/0
 kubectl delete pods hello
 ```
 
@@ -187,21 +194,9 @@ kubectl delete pods hello
 We can add node units like so:
 
 ```shell
-juju add-unit docker # creates unit docker/2, kubernetes/2, docker-flannel/2
+juju add-unit kubernetes
 ```
 
-## Launch the "k8petstore" example app
-
-The [k8petstore example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/k8petstore/) is available as a
-[juju action](https://jujucharms.com/docs/devel/actions).
-
-```shell
-juju action do kubernetes-master/0
-```
-
-> Note: this example includes curl statements to exercise the app, which
-> automatically generates "petstore" transactions written to redis, and allows
-> you to visualize the throughput in your browser.
 
 ## Tear down cluster
 
@@ -243,6 +238,3 @@ works with [Amazon Web Service](https://jujucharms.com/docs/stable/config-aws),
 
 If you do not see your favorite cloud provider listed many clouds can be
 configured for [manual provisioning](https://jujucharms.com/docs/stable/config-manual).
-
-The Kubernetes bundle has been tested on GCE and AWS and found to work with
-version 1.0.0.
