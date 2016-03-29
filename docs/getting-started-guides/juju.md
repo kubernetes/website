@@ -211,7 +211,6 @@ Or multiple units at one time:
 juju add-unit -n3 kubernetes
 ```
 
-
 ## Tear down cluster
 
 We recommend that you use the `kube-down.sh` command when you are done using
@@ -231,12 +230,16 @@ juju destroy-environment --force `juju env`
 
 ## More Info
 
-The Kubernetes charms and bundleso can be found in the `kubernetes` project on
-github.com:
+Juju works with charms and bundles to deploy solutions. The code that stands up
+a Kubernetes cluster is done in the charm code. The charm is built from using
+a layered approach to keep the code smaller and more focused on the operations
+of Kubernetes.
 
- - [Bundle Repository](http://releases.k8s.io/{{page.githubbranch}}/cluster/juju/bundles)
-   * [Kubernetes master charm](https://releases.k8s.io/{{page.githubbranch}}/cluster/juju/charms/trusty/kubernetes-master)
-   * [Kubernetes node charm](https://releases.k8s.io/{{page.githubbranch}}/cluster/juju/charms/trusty/kubernetes)
+The Kubernetes layer and bundles can be found in the `kubernetes`
+project on github.com:
+
+ - [Bundle location](https://github.com/kubernetes/kubernetes/tree/master/cluster/juju/bundles)
+ - [Kubernetes charm layer location](https://github.com/kubernetes/kubernetes/tree/master/cluster/juju/layers/kubernetes)
  - [More about Juju](https://jujucharms.com)
 
 
@@ -254,5 +257,11 @@ works with [Amazon Web Service](https://jujucharms.com/docs/stable/config-aws),
 [Vagrant](https://jujucharms.com/docs/stable/config-vagrant), and
 [Vmware vSphere](https://jujucharms.com/docs/stable/config-vmware).
 
-If you do not see your favorite cloud provider listed many clouds can be
-configured for [manual provisioning](https://jujucharms.com/docs/stable/config-manual).
+If you do not see your favorite cloud provider listed many clouds with ssh
+access can be configured for
+[manual provisioning](https://jujucharms.com/docs/stable/config-manual).
+
+The Juju Kubernetes work is curated by a very small group of community members.
+Let us know how we are doing. If you find any problems please open an
+[issue at the kubernetes project](https://github.com/kubernetes/kubernetes/issues)
+and tag it with "juju" so we can find it. 
