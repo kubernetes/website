@@ -215,7 +215,7 @@ toc:
   - title: Ingress Resources
     path: /docs/user-guide/ingress/
   - title: Horizontal Pod Autoscaling
-    path: /docs/user-guide/horizontal-pod-autoscaler/
+    path: /docs/user-guide/horizontal-pod-autoscaling/
   - title: Jobs
     path: /docs/user-guide/jobs/
   - title: Resource Quotas

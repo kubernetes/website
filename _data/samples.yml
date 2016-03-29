@@ -35,6 +35,8 @@ toc:
 
 - title: Persistent Volume Samples
   section:
+  - title: Persistent Volumes Walkthrough
+    path: /docs/user-guide/persistent-volumes/walkthrough/
   - title: WordPress on a Kubernetes Persistent Volume
     path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/mysql-wordpress-pd/
   - title: GlusterFS
@@ -60,3 +62,9 @@ toc:
 
 - title: ConfigMap Example
   path: https://github.com/kubernetes/kubernetes.github.io/tree/master/docs/user-guide/configmap
+
+- title: Horizontal Pod Autoscaling Example
+  path: /docs/user-guide/horizontal-pod-autoscaling/walkthrough/
+
+- title: Secrets Walkthrough
+  path: /docs/user-guide/secrets/walkthrough/

@@ -171,7 +171,7 @@ Here you can see from the `Allocated resources` section that that a pod which as
 
 Looking at the `Pods` section, you can see which pods are taking up space on the node.
 
-The [resource quota](/docs/admin/resource-quota) feature can be configured
+The [resource quota](/docs/admin/resourcequota/) feature can be configured
 to limit the total amount of resources that can be consumed.  If used in conjunction
 with namespaces, it can prevent one team from hogging all the resources.
 
