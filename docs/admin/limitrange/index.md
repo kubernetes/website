@@ -95,16 +95,16 @@ were previously created in a namespace.
 If a resource (cpu or memory) is being restricted by a limit, the user will get an error at time
 of creation explaining why.
 
-Let's first spin up a replication controller that creates a single container pod to demonstrate
+Let's first spin up a deployment that creates a single container pod to demonstrate
 how default values are applied to each pod.
 
 ```shell
 $ kubectl run nginx --image=nginx --replicas=1 --namespace=limit-example
-replicationcontroller "nginx" created
+deployment "nginx" created
 $ kubectl get pods --namespace=limit-example
-NAME          READY     STATUS    RESTARTS   AGE
-nginx-aq0mf   1/1       Running   0          35s
-$ kubectl get pods nginx-aq0mf --namespace=limit-example -o yaml | grep resources -C 8
+NAME                     READY     STATUS    RESTARTS   AGE
+nginx-2040093540-s8vzu   1/1       Running   0          11s
+$ kubectl get pods nginx-2040093540-s8vzu --namespace=limit-example -o yaml | grep resources -C 8
 ```
 
 ```yaml
