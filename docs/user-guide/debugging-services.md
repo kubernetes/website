@@ -57,9 +57,10 @@ spec:
     - sleep
     - "1000000"
 EOF
-pods/busybox-sleep
+pod "busybox-sleep" created
 ```
 
+Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. 
 Now, when you need to run a command (even an interactive shell) in a `Pod`-like
 context, use:
 
