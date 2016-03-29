@@ -35,7 +35,7 @@ Ubuntu 15 which uses systemd instead of upstart.
 Clone the kubernetes github repo locally
 
 ```shell
-$ git clone https://github.com/kubernetes/kubernetes.git
+$ git clone --depth 1 https://github.com/kubernetes/kubernetes.git
 ```
 
 #### Configure and start the Kubernetes cluster
