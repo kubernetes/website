@@ -22,7 +22,7 @@ may be too small to be useful, but big enough for the waste to be costly over th
 the cluster operator may want to set limits that a pod must consume at least 20% of the memory and cpu of their
 average node size in order to provide for more uniform scheduling and to limit waste.
 
-This example demonstrates how limits can be applied to a Kubernetes [namespace](/docs/admin/namespaces) to control
+This example demonstrates how limits can be applied to a Kubernetes [namespace](/docs/admin/namespaces/walkthrough/) to control
 min/max resource limits per pod.  In addition, this example demonstrates how you can
 apply default resource limits to pods in the absence of an end-user specified value.
 
