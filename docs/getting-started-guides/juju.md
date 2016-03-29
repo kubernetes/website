@@ -3,8 +3,14 @@
 
 [Juju](https://jujucharms.com/docs/stable/about-juju) makes it easy to deploy
 Kubernetes by provisioning, installing and configuring all the systems in
-the cluster.  Once deployed the cluster can easily scale up with one command
+the cluster. Once deployed the cluster can easily scale up with one command
 to increase the cluster size.
+
+The Juju Kubernetes work is curated by a very small group of community members.
+Let us know how we are doing. If you find any problems please open an
+[issue at the kubernetes project](https://github.com/kubernetes/kubernetes/issues)
+and tag the issue with "juju" so we can find them.
+
 
 * TOC
 {:toc}
@@ -51,11 +57,11 @@ sudo docker run -v ~/.juju2:/home/ubuntu/.local/share/juju -ti jujusolutions/cha
 
 ### Configure Juju to point a cloud
 
-At this point you have access to the Juju client. If you wish to use a cloud,
-you need to configure the credentials for the Juju cloud provider.
+At this point you have access to the Juju client. Before you can deploy a
+cluster you have to configure the credentials for the Juju cloud provider.
 
-Juju supports a wide variety of public clouds to set up the credentials for
-your chosen cloud see the
+Juju [supports a wide variety of public clouds](#Cloud-compatibility) to set
+up the credentials for your chosen cloud see the
 [cloud setup page](https://jujucharms.com/docs/devel/getting-started#2.-choose-a-cloud).
 
 After configuration is complete test your setup with a `juju bootstrap`
@@ -110,7 +116,7 @@ and copy the file from the leader:
 ```shell
 juju scp kubernetes/1:kubectl_package.tar.gz .
 tar xvfz kubectl_package.tar.gz
-kubectl --config config get pods
+kubectl --kubeconfig config get pods
 ```
 
 If you are not on a Linux amd64 host system, you will need to find or build a
@@ -196,10 +202,18 @@ Finally delete the pod:
 juju ssh kubernetes/0
 kubectl delete pods hello
 ```
+## Scale up cluster
+
+Whant larger kubernetes nodes? It is easy to request different sizes of cloud
+resources from Juju by using **constraints**. You can increase the amount of
+CPU or memory (RAM) in any of the systems requested by Juju. This allows you
+to fine tune th Kubernetes cluster to fit your workload. Use the boostrap
+command or as a seperate `juju constraints` command. Look to the
+[Juju documentation for machine constraints](https://jujucharms.com/docs/devel/charms-constraints).
 
 ## Scale out cluster
 
-We can add node units like so:
+Need more clusters? Juju makes it easy to add units of a charm:
 
 ```shell
 juju add-unit kubernetes
@@ -221,11 +235,11 @@ build directories.
 ./kube-down.sh
 ```
 
-If you want stop the servers you can destroy your current Juju environment
-(using the `juju env` command):
+Alternately if you want stop the servers you can destroy your current Juju environment.
+Use the `juju env` command to get the current environment name:
 
 ```shell
-juju destroy-environment --force `juju env`
+juju kill-controller `juju env`
 ```
 
 ## More Info
@@ -260,8 +274,3 @@ works with [Amazon Web Service](https://jujucharms.com/docs/stable/config-aws),
 If you do not see your favorite cloud provider listed many clouds with ssh
 access can be configured for
 [manual provisioning](https://jujucharms.com/docs/stable/config-manual).
-
-The Juju Kubernetes work is curated by a very small group of community members.
-Let us know how we are doing. If you find any problems please open an
-[issue at the kubernetes project](https://github.com/kubernetes/kubernetes/issues)
-and tag it with "juju" so we can find it. 
