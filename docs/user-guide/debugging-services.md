@@ -40,38 +40,27 @@ OUTPUT
 ## Running commands in a Pod
 
 For many steps here you will want to see what a `Pod` running in the cluster
-sees.  Kubernetes does not directly support interactive `Pod`s (yet), but you can
-approximate it:
+sees.  You can start a busybox `Pod` and run commands in it:
 
 ```shell
-$ cat <<EOF | kubectl create -f -
-apiVersion: v1
-kind: Pod
-metadata:
-  name: busybox-sleep
-spec:
-  containers:
-  - name: busybox
-    image: busybox
-    args:
-    - sleep
-    - "1000000"
-EOF
-pod "busybox-sleep" created
+$ kubectl run -i --tty busybox --image=busybox --generator="run-pod/v1"
+Waiting for pod default/busybox to be running, status is Pending, pod ready: false
+
+Hit enter for command prompt
+
+/ #
 ```
 
-Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. 
-Now, when you need to run a command (even an interactive shell) in a `Pod`-like
-context, use:
+If you already have a running `Pod`, run a command in it using:
 
 ```shell
-$ kubectl exec busybox-sleep -- <COMMAND>
+$ kubectl exec <POD-NAME> -c <CONTAINER-NAME> -- <COMMAND>
 ```
 
-or
+or run an interactive shell with:
 
 ```shell
-$ kubectl exec -ti busybox-sleep sh
+$ kubectl exec -ti <POD-NAME> -c <CONTAINER-NAME> sh
 / #
 ```
 
@@ -89,6 +78,7 @@ $ kubectl run hostnames --image=gcr.io/google_containers/serve_hostname \
 deployment "hostnames" created
 ```
 
+`kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. 
 Note that this is the same as if you had started the `Deployment` with
 the following YAML:
 
