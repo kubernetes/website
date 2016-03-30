@@ -242,7 +242,7 @@ toc:
     path: /docs/user-guide/managing-deployments/
   - title: Deploying Applications
     path: /docs/user-guide/deploying-applications/
-  - title: Rolling Updating Applications with kubectl
+  - title: Rolling Update
     path: /docs/user-guide/rolling-updates/
   - title: Launching, Exposing, and Killing Applications
     path: /docs/user-guide/quick-start/
