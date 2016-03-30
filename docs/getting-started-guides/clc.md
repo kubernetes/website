@@ -224,7 +224,7 @@ We use the following to create the kubernetes cluster:
 ## Optional add-ons
 
 * Logging: We offer an integrated centralized logging ELK platform so that all
-  kubernetes and docker logs get sent to the ELK stack. To install the ELK stack
+  Kubernetes and docker logs get sent to the ELK stack. To install the ELK stack
   and configure Kubernetes to send logs to it, follow [the log
   aggregation documentation](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/log_aggregration.md). Note: We don't install this by default as
   the footprint isn't trivial.
