@@ -68,6 +68,25 @@ $feature-box-div-width: 45%
 @media screen and (min-width: 750px)
 	@import "size"
 
+	p
+		font-size: 16px
+		line-height: 24px
+		letter-spacing: 0.1px
+
+	h1
+		font-size: 36px
+		line-height: 44px
+
+	h3
+		font-size: 28px
+		line-height: 36px
+
+	h4
+		font-size: 24px
+		line-height: 40px
+
+
+
 	#home
 		#viewDocs, #tryKubernetes
 			display: inline-block
@@ -95,10 +114,17 @@ $feature-box-div-width: 45%
 	#oceanNodes
 		h3
 			text-align: left
+			margin-bottom: 18px
 
 		main
 			position: relative
 			clear: both
+			display: table
+
+			.content
+				display: table-cell
+				position: relative
+				vertical-align: middle
 
 			.image-wrapper
 				position: absolute
@@ -108,27 +134,32 @@ $feature-box-div-width: 45%
 				transform: translateY(-50%)
 
 			&:nth-child(odd)
-				.content
-					padding-right: 30%
+				padding-right: 210px
 
 				.image-wrapper
 					right: 0
 
 			&:nth-child(even)
-				.content
-					padding-left: 30%
+				padding-left: 210px
 
 				.image-wrapper
 					left: 0
 
 			&:nth-child(1)
-				.content
-					padding-right: 0
+				padding-right: 0
+
+				h3, p
+					text-align: center
 
 				.image-wrapper
 					position: relative
+					display: block
+					float: none
 					max-width: 100%
 					transform: none
+
+				.content
+					display: block
 
 			img
 				width: 100%
@@ -148,6 +179,8 @@ $feature-box-div-width: 45%
 		padding-bottom: 60px
 
 		.feature-box
+			margin-bottom: 30px
+
 			&:last-child
 				margin-bottom: 0
 
@@ -155,8 +188,6 @@ $feature-box-div-width: 45%
 			margin-bottom: $features-h3-margin-bottom
 
 		.feature-box
-			margin-bottom: $feature-box-margin-bottom
-
 			& > div
 				width: $feature-box-div-width
 				margin-bottom: $feature-box-div-margin-bottom

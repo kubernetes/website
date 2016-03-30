@@ -1,6 +1,5 @@
 ---
 ---
-
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features we'll discuss in more depth are [configuration files](/docs/user-guide/configuring-containers/#configuration-in-kubernetes) and [labels](/docs/user-guide/deploying-applications/#labels).
 
 * TOC
@@ -210,14 +209,14 @@ my-nginx-v4-sh6m8   1/1       Running   0          19m       fe
 my-nginx-v4-wfof4   1/1       Running   0          16m       fe
 ```
 
-For more information, please see [labels](/docs/user-guide/labels/) and [kubectl label](/docs/kubectl/kubectl_label/) document.
+For more information, please see [labels](/docs/user-guide/labels/) and [kubectl label](/docs/user-guide/kubectl/kubectl_label/) document.
 
 ## Updating annotations
 
 Sometimes you want to attach annotations to resources. Annotations are arbitrary non-identifying metadata for retrieval by API clients such as tools, libraries, etc. This can be done with `kubectl annotate`. For example:
 
 ```shell
-$ kubectl annotate pods my-nginx-v4-9gw19 decscription='my frontend running nginx'
+$ kubectl annotate pods my-nginx-v4-9gw19 description='my frontend running nginx'
 $ kubectl get pods my-nginx-v4-9gw19 -o yaml
 apiversion: v1
 kind: pod
@@ -227,7 +226,7 @@ metadata:
 ...
 ```
 
-For more information, please see [annotations](annotations.md) and [kubectl annotate](kubectl/kubectl_annotate.md) document.
+For more information, please see [annotations](/docs/user-guide/annotations/) and [kubectl annotate](/docs/user-guide/kubectl/kubectl_annotate/) document.
 
 ## Scaling your application
 
@@ -257,7 +256,7 @@ NAME      REFERENCE                           TARGET    CURRENT     MINPODS   MA
 nginx     ReplicationController/nginx/scale   80%       <waiting>   1         3         1m
 ```
 
-For more information, please see [kubectl scale](kubectl/kubectl_scale.md), [kubectl autoscale](kubectl/kubectl_autoscale.md) and [horizontal pod autoscaler](horizontal-pod-autoscaling/README.md) document.
+For more information, please see [kubectl scale](/docs/user-guide/kubectl/kubectl_scale/), [kubectl autoscale](/docs/user-guide/kubectl/kubectl_autoscale/) and [horizontal pod autoscaler](/docs/user-guide/horizontal-pod-autoscaling/) document.
 
 ## Updating your application without a service outage
 

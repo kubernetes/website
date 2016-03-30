@@ -32,6 +32,20 @@ toc:
   - title: Extensions API Definitions
     path: /docs/api-reference/extensions/v1beta1/definitions/
 
+- title: Autoscaling API
+  section:
+  - title: Autoscaling API Operations
+    path: /docs/api-reference/autoscaling/v1/operations/
+  - title: Autoscaling API Definitions
+    path: /docs/api-reference/autoscaling/v1/definitions/
+
+- title: Batch API
+  section:
+  - title: Batch API Operations
+    path: /docs/api-reference/batch/v1/operations/
+  - title: Batch API Definitions
+    path: /docs/api-reference/batch/v1/definitions/
+
 - title: kubectl CLI
   section:
   - title: kubectl Overview
@@ -155,7 +169,7 @@ toc:
 - title: kube-proxy CLI
   path: /docs/admin/kube-proxy/
 
-- title: kub-scheduler CLI
+- title: kube-scheduler CLI
   path: /docs/admin/kube-scheduler/
 
 - title: kubelet CLI
@@ -201,7 +215,7 @@ toc:
   - title: Ingress Resources
     path: /docs/user-guide/ingress/
   - title: Horizontal Pod Autoscaling
-    path: /docs/user-guide/horizontal-pod-autoscaler/
+    path: /docs/user-guide/horizontal-pod-autoscaling/
   - title: Jobs
     path: /docs/user-guide/jobs/
   - title: Resource Quotas

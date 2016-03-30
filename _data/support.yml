@@ -6,6 +6,8 @@ toc:
 
 - title: Troubleshooting
   section:
+  - title: Debugging Pods and Replication Controllers
+    path: /docs/user-guide/debugging-pods-and-replication-controllers/
   - title: Web Interface
     path: /docs/user-guide/ui/
   - title: Application Introspection and Debugging
@@ -30,8 +32,6 @@ toc:
 
 - title: Other Resources
   section:
-  - title: Known Issues
-    path: /docs/user-guide/known-issues/
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues/
   - title: Report a Security Vulnerability

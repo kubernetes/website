@@ -4,8 +4,8 @@ Welcome! We are very pleased you want to contribute to the documentation and/or 
 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
 
-If you want to see your changes staged without having to install anything locally,
-change your fork of our repo to be named:
+If you want to see your changes staged without having to install anything locally, remove the CNAME file in this directory and
+change the name of the fork to be:
 
     YOUR_GITHUB_USERNAME.github.io
 
@@ -25,7 +25,7 @@ First install rvm
 
 Then load it into your environment
 
-	source /Users/(USERNAME)/.rvm/scripts/rvm (or whatever is prompted by the installer)
+	source ${HOME}/.rvm/scripts/rvm (or whatever is prompted by the installer)
 
 Then install Ruby 2.2 or higher
 
@@ -66,6 +66,9 @@ might help for Windows users.
 
 Edit the yaml files in `/_data/` for the Guides, Reference, Samples, or Support areas. 
 
+You may have to exit and `jekyll clean` before restarting the `jekyll serve` to
+get changes to files in `/_data/` to show up.
+
 ### Add Images
 
 Put the new image in `/images/docs/` if it's for the documentation, and just `/images/` if it's for the website.
@@ -87,6 +90,22 @@ To include a file that is hosted in the external, main Kubernetes repo, make sur
 <pre>&#123;% include code.html language="&lt;LEXERVALUE&gt;" file="&lt;RELATIVEPATH&gt;" k8slink="&lt;PATHFROMK8SROOT&gt;" %&#125;</pre>
 
 * `PATHFROMK8SROOT`: The path to the file relative to the root of [the Kubernetes repo](https://github.com/kubernetes/kubernetes/tree/release-1.2), e.g. `/examples/rbd/foo.yaml`
+
+## Using tabs for multi-language examples
+
+By specifying some inline CSV in a varable called `tabspec`, you can include a file
+called `tabs.html` that generates tabs showing code examples in multiple langauges.
+
+<pre>&#123;% capture tabspec %&#125;servicesample
+JSON,json,service-sample.json,/docs/user-guide/services/service-sample.json
+YAML,yaml,service-sample.yaml,/docs/user-guide/services/service-sample.yaml&#123;% endcapture %&#125;
+&#123;% include tabs.html %&#125;</pre>
+
+In English, this would read: "Create a set of tabs with the alias `servicesample`,
+and have tabs visually labeled "JSON" and "YAML" that use `json` and `yaml` Rouge syntax highlighting, which display the contents of
+`service-sample.{extension}` on the page, and link to the file in GitHub at (full path)."
+
+Example file: [Pods: Multi-Container](/docs/user-guide/pods/multi-container/).
 
 ## Use a global variable
 

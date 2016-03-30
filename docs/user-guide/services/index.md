@@ -138,7 +138,7 @@ created. You can manually map the service to your own specific endpoints:
 ```
 
 NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
-(169.254.0.0/16), or link-local multicast ((224.0.0.0/24).
+(169.254.0.0/16), or link-local multicast (224.0.0.0/24).
 
 Accessing a `Service` without a selector works the same as if it had selector.
 The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
@@ -569,3 +569,7 @@ through a load-balancer, though in those cases the client IP does get altered.
 Service is a top-level resource in the kubernetes REST API. More details about the
 API object can be found at: [Service API
 object](/docs/api-reference/v1/definitions/#_v1_service).
+
+## For More Information
+
+Read [Service Operations](/docs/user-guide/services/operations/).

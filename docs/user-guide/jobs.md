@@ -11,7 +11,7 @@ As pods successfully complete, the _job_ tracks the successful completions.  Whe
 of successful completions is reached, the job itself is complete.  Deleting a Job will cleanup the
 pods it created.
 
-A simple case is to create 1 Job object in order to reliably run one Pod to completion.
+A simple case is to create one Job object in order to reliably run one Pod to completion.
 The Job object will start a new Pod if the first pod fails or is deleted (for example
 due to a node hardware failure or a node reboot).
 
@@ -88,9 +88,9 @@ the same schema as a [pod](/docs/user-guide/pods), except it is nested and does 
 `kind`.
 
 In addition to required fields for a Pod, a pod template in a job must specify appropriate
-labels (see [pod selector](#pod-selector) and an appropriate restart policy.
+labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](/docs/user-guide/pod-states) equal to `Never` or `OnFailure` are allowed.
+Only a [`RestartPolicy`](/docs/user-guide/pod-states/#restartpolicy) equal to `Never` or `OnFailure` are allowed.
 
 ### Pod Selector
 
@@ -331,15 +331,6 @@ driver, and then cleans up.
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but complete control over what pods are created and how work is assigned to them.
 
-## Caveats
-
-Job objects are in the [`extensions` API Group](/docs/api/#api-groups).
-
-Job objects have [API version `v1beta1`](/docs/api/)#api-versioning).  Beta objects may
-undergo changes to their schema and/or semantics in future software releases, but
-similar functionality will be supported.
-
 ## Future work
 
-Support for creating Jobs at specified times/dates (i.e. cron) is expected in the next minor
-release.
+Support for creating Jobs at specified times/dates (i.e. cron) is expected in [1.3](https://github.com/kubernetes/kubernetes/pull/11980).
