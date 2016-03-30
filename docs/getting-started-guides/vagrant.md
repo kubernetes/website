@@ -173,7 +173,7 @@ NAME                 LABELS
 Now start running some containers!
 
 You can now use any of the `cluster/kube-*.sh` commands to interact with your VM machines.
-Before starting a container there will be no pods, services and replication controllers.
+Before starting a container there will be no Pods, Services and Deployments.
 
 ```shell
 $ ./cluster/kubectl.sh get pods
@@ -182,11 +182,11 @@ NAME        READY     STATUS    RESTARTS   AGE
 $ ./cluster/kubectl.sh get services
 NAME              CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR               AGE
 
-$ ./cluster/kubectl.sh get replicationcontrollers
+$ ./cluster/kubectl.sh get deployments
 CONTROLLER   CONTAINER(S)   IMAGE(S)   SELECTOR   REPLICAS
 ```
 
-Start a container running nginx with a replication controller and three replicas
+Start a container running nginx with a Deployment and three replicas
 
 ```shell
 $ ./cluster/kubectl.sh run my-nginx --image=nginx --replicas=3 --port=80
@@ -196,10 +196,10 @@ When listing the pods, you will see that three containers have been started and 
 
 ```shell
 $ ./cluster/kubectl.sh get pods
-NAME             READY     STATUS    RESTARTS   AGE
-my-nginx-5kq0g   0/1       Pending   0          10s
-my-nginx-gr3hh   0/1       Pending   0          10s
-my-nginx-xql4j   0/1       Pending   0          10s
+NAME                        READY     STATUS              RESTARTS   AGE
+my-nginx-3800858182-4e6pe   0/1       ContainerCreating   0          3s
+my-nginx-3800858182-8ko0s   1/1       Running             0          3s
+my-nginx-3800858182-seu3u   0/1       ContainerCreating   0          3s
 ```
 
 You need to wait for the provisioning to complete, you can monitor the nodes by doing:
@@ -225,33 +225,33 @@ kubernetes-node-1:
     65a3a926f357        kubernetes/pause:latest   "/pause"               39 minutes ago      Up 39 minutes       0.0.0.0:4194->8080/tcp   k8s--net.c5ba7f0e--cadvisor_-_agent.file--342fd561
 ```
 
-Going back to listing the pods, services and replicationcontrollers, you now have:
+Going back to listing the Pods, Services and Deployments, you now have:
 
 ```shell
 $ ./cluster/kubectl.sh get pods
-NAME             READY     STATUS    RESTARTS   AGE
-my-nginx-5kq0g   1/1       Running   0          1m
-my-nginx-gr3hh   1/1       Running   0          1m
-my-nginx-xql4j   1/1       Running   0          1m
+NAME                        READY     STATUS    RESTARTS   AGE
+my-nginx-3800858182-4e6pe   1/1       Running   0          40s
+my-nginx-3800858182-8ko0s   1/1       Running   0          40s
+my-nginx-3800858182-seu3u   1/1       Running   0          40s
 
 $ ./cluster/kubectl.sh get services
 NAME              CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR               AGE
 
-$ ./cluster/kubectl.sh get replicationcontrollers
-CONTROLLER   CONTAINER(S)   IMAGE(S)   SELECTOR       REPLICAS   AGE
-my-nginx     my-nginx       nginx      run=my-nginx   3          1m
+$ ./cluster/kubectl.sh get deployments
+NAME       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+my-nginx   3         3         3            3           1m
 ```
 
-We did not start any services, hence there are none listed. But we see three replicas displayed properly.
-Check the [guestbook](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) application to learn how to create a service.
+We did not start any Services, hence there are none listed. But we see three replicas displayed properly.
+Check the [guestbook](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) application to learn how to create a Service.
 You can already play with scaling the replicas with:
 
 ```shell
-$ ./cluster/kubectl.sh scale rc my-nginx --replicas=2
+$ ./cluster/kubectl.sh scale deployments my-nginx --replicas=2
 $ ./cluster/kubectl.sh get pods
-NAME             READY     STATUS    RESTARTS   AGE
-my-nginx-5kq0g   1/1       Running   0          2m
-my-nginx-gr3hh   1/1       Running   0          2m
+NAME                        READY     STATUS    RESTARTS   AGE
+my-nginx-3800858182-4e6pe   1/1       Running   0          2m
+my-nginx-3800858182-8ko0s   1/1       Running   0          2m
 ```
 
 Congratulations!
