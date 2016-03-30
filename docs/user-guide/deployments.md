@@ -15,6 +15,7 @@ by new ones.
 A typical use case is:
 
 * Create a Deployment to bring up a replica set and pods.
+* Check the status of a Deployment to see if it succeeds or not. 
 * Later, update that Deployment to recreate the pods (for example, to use a new image).
 * Rollback to an earlier Deployment revision if the current Deployment isn't stable. 
 * Pause and resume a Deployment.
@@ -72,6 +73,32 @@ nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app
 ```
 
 The created replica set will ensure that there are three nginx pods at all times.
+
+## The Status of a Deployment
+
+After creating or updating a Deployment, you would want to confirm whether it succeeded or not. The best way to do this is through checking its status.
+
+To verify if the above Deployment succeeded or not, first compare the `.metadata.generation` and `.status.observedGeneration` of the Deployment:
+
+```shell
+$ kubectl get deployment/nginx-deployment -o yaml | grep [Gg]eneration
+  generation: 2
+  observedGeneration: 2
+```
+
+When `observedGeneration` >= `generation`, the Deployment controller has observed current Deployment; if not, wait for a few more seconds.
+
+Once the above condition is met, check the Deployment's up-to-date replicas (`.status.updatedReplicas`) and see if it matches the desired replicas (`.spec.replicas`):
+
+```shell
+$ kubectl get deployment/nginx-deployment
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   3         3         3            3           9m
+```
+
+Additionally, if you set `.spec.minReadySeconds`, you would also want to check if the available replicas (`.status.availableReplicas`) matches the desired replicas too.
+
+**Note:** It's impossible to know whether a Deployment will ever succeed, so one has to timeout and give up at some point.
 
 ## Updating a Deployment
 
@@ -481,4 +508,4 @@ To learn more about when a pod is considered ready, see [Container Probes](/docs
 ### kubectl rolling update
 
 [Kubectl rolling update](/docs/user-guide/kubectl/kubectl_rolling-update) updates pods and replication controllers in a similar fashion.
-But deployments is recommended, since it's declarative and is server side, and has more features, such as rolling back to any previous revision even after the rolling update is done. Also, replica sets supersede replication controllers. 
+But deployments are recommended, since they are declarative, server side, and have additional features, such as rolling back to any previous revision even after the rolling update is done.
