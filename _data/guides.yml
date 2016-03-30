@@ -238,11 +238,11 @@ toc:
   section:
   - title: "Managing Applications: Prerequisites"
     path: /docs/user-guide/prereqs/
-  - title: Managing Deployments
+  - title: Managing Resources
     path: /docs/user-guide/managing-deployments/
   - title: Deploying Applications
     path: /docs/user-guide/deploying-applications/
-  - title: Updating Applications with Rolling Updates
+  - title: Rolling Update
     path: /docs/user-guide/rolling-updates/
   - title: Launching, Exposing, and Killing Applications
     path: /docs/user-guide/quick-start/
