@@ -28,8 +28,8 @@ Assuming you have a fresh cluster, you can introspect the available namespace's 
 
 ```shell
 $ kubectl get namespaces
-NAME                LABELS
-default             <none>
+NAME      STATUS    AGE
+default   Active    13m
 ```
 
 ### Step Two: Create new namespaces
@@ -43,7 +43,7 @@ they use to build and run their application.  In this space, Kubernetes resource
 are relaxed to enable agile development.
 
 The operations team would like to maintain a space in the cluster where they can enforce strict procedures on who can or cannot manipulate the set of
-pods, services, and Deployments that run the production site.
+Pods, Services, and Deployments that run the production site.
 
 One pattern this organization could follow is to partition the Kubernetes cluster into two namespaces: development and production.
 
@@ -68,11 +68,11 @@ $ kubectl create -f docs/admin/namespaces/namespace-prod.json
 To be sure things are right, let's list all of the namespaces in our cluster.
 
 ```shell
-$ kubectl get namespaces
-NAME          LABELS             STATUS
-default       <none>             Active
-development   name=development   Active
-production    name=production    Active
+$ kubectl get namespaces --show-labels
+NAME          STATUS    AGE       LABELS
+default       Active    32m       <none>
+development   Active    29s       name=development
+production    Active    23s       name=production
 ```
 
 ### Step Three: Create pods in each namespace
@@ -85,7 +85,8 @@ To demonstrate this, let's spin up a simple Deployment and Pods in the developme
 
 We first check what is the current context:
 
-```yaml
+```shell
+$ kubectl config view
 apiVersion: v1
 clusters:
 - cluster:
@@ -110,6 +111,9 @@ users:
   user:
     password: h5M0FtUUIflBSdI7
     username: admin
+
+$ kubectl config current-context
+lithe-cocoa-92103_kubernetes
 ```
 
 The next step is to define a context for the kubectl client to work in each namespace. The value of "cluster" and "user" fields are copied from the current context.
@@ -131,44 +135,8 @@ $ kubectl config use-context dev
 You can verify your current context by doing the following:
 
 ```shell
-$ kubectl config view
-```
-
-```yaml
-apiVersion: v1
-clusters:
-- cluster:
-    certificate-authority-data: REDACTED
-    server: https://130.211.122.180
-  name: lithe-cocoa-92103_kubernetes
-contexts:
-- context:
-    cluster: lithe-cocoa-92103_kubernetes
-    namespace: development
-    user: lithe-cocoa-92103_kubernetes
-  name: dev
-- context:
-    cluster: lithe-cocoa-92103_kubernetes
-    user: lithe-cocoa-92103_kubernetes
-  name: lithe-cocoa-92103_kubernetes
-- context:
-    cluster: lithe-cocoa-92103_kubernetes
-    namespace: production
-    user: lithe-cocoa-92103_kubernetes
-  name: prod
-current-context: dev
-kind: Config
-preferences: {}
-users:
-- name: lithe-cocoa-92103_kubernetes
-  user:
-    client-certificate-data: REDACTED
-    client-key-data: REDACTED
-    token: 65rZW78y8HbwXXtSXuUw9DbP4FLjHi4b
-- name: lithe-cocoa-92103_kubernetes-basic-auth
-  user:
-    password: h5M0FtUUIflBSdI7
-    username: admin
+$ kubectl config current-context
+dev
 ```
 
 At this point, all requests we make to the Kubernetes cluster from the command line are scoped to the development namespace.
@@ -180,6 +148,7 @@ $ kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
 ```
 We have just created a deployment whose replica size is 2 that is running the pod called snowflake with a basic container that just serves the hostname. 
 Note that `kubectl run` creates deployments only on kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
 
 ```shell
 $ kubectl get deployment

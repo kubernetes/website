@@ -14,12 +14,17 @@ This example will work in a custom namespace to demonstrate the concepts involve
 Let's create a new namespace called quota-example:
 
 ```shell
-$ kubectl create -f docs/admin/resourcequota/namespace.yaml
+$ kubectl create namespace quota-example
 namespace "quota-example" created
+```
+
+Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands: 
+
+```shell
 $ kubectl get namespaces
-NAME            LABELS    STATUS    AGE
-default         <none>    Active    2m
-quota-example   <none>    Active    39s
+NAME            STATUS    AGE
+default         Active    50m
+quota-example   Active    2s
 ```
 
 ## Step 2: Apply a quota to the namespace
@@ -85,6 +90,7 @@ NAME      READY     STATUS    RESTARTS   AGE
 
 What happened?  I have no pods!  Let's describe the ReplicaSet managed by the nginx Deployment to get a view of what is happening.
 Note that `kubectl describe rs` works only on kubernetes cluster >= v1.2. If you are running older versions, use `kubectl describe rc` instead.
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
 
 ```shell
 $ kubectl describe rs -l run=nginx --namespace=quota-example

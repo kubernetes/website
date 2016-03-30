@@ -22,7 +22,7 @@ may be too small to be useful, but big enough for the waste to be costly over th
 the cluster operator may want to set limits that a pod must consume at least 20% of the memory and cpu of their
 average node size in order to provide for more uniform scheduling and to limit waste.
 
-This example demonstrates how limits can be applied to a Kubernetes namespace to control
+This example demonstrates how limits can be applied to a Kubernetes [namespace](/docs/admin/namespaces/walkthrough/) to control
 min/max resource limits per pod.  In addition, this example demonstrates how you can
 apply default resource limits to pods in the absence of an end-user specified value.
 
@@ -41,12 +41,17 @@ This example will work in a custom namespace to demonstrate the concepts involve
 Let's create a new namespace called limit-example:
 
 ```shell
-$ kubectl create -f docs/admin/limitrange/namespace.yaml
+$ kubectl create namespace limit-example
 namespace "limit-example" created
+```
+
+Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands: 
+
+```shell
 $ kubectl get namespaces
-NAME            LABELS    STATUS    AGE
-default         <none>    Active    5m
-limit-example   <none>    Active    53s
+NAME            STATUS    AGE
+default         Active    51s
+limit-example   Active    45s
 ```
 
 ## Step 2: Apply a limit to the namespace
@@ -95,26 +100,35 @@ were previously created in a namespace.
 If a resource (cpu or memory) is being restricted by a limit, the user will get an error at time
 of creation explaining why.
 
-Let's first spin up a deployment that creates a single container pod to demonstrate
+Let's first spin up a [Deployment](/docs/user-guide/deployments) that creates a single container Pod to demonstrate
 how default values are applied to each pod.
 
 ```shell
 $ kubectl run nginx --image=nginx --replicas=1 --namespace=limit-example
 deployment "nginx" created
+```
+
+Note that `kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
+The Deployment manages 1 replica of single container Pod. Let's take a look at the Pod it manages. First, find the name of the Pod:
+
+```shell 
 $ kubectl get pods --namespace=limit-example
 NAME                     READY     STATUS    RESTARTS   AGE
 nginx-2040093540-s8vzu   1/1       Running   0          11s
-$ kubectl get pods nginx-2040093540-s8vzu --namespace=limit-example -o yaml | grep resources -C 8
 ```
 
-```yaml
-  resourceVersion: "127"
-  selfLink: /api/v1/namespaces/limit-example/pods/nginx-aq0mf
-  uid: 51be42a7-7156-11e5-9921-286ed488f785
+Let's print this Pod with yaml output format (using `-o yaml` flag), and then `grep` the `resources` field. Note that your pod name will be different. 
+
+``` shell
+$ kubectl get pods nginx-2040093540-s8vzu --namespace=limit-example -o yaml | grep resources -C 8
+  resourceVersion: "57"
+  selfLink: /api/v1/namespaces/limit-example/pods/nginx-2040093540-ivimu
+  uid: 67b20741-f53b-11e5-b066-64510658e388
 spec:
   containers:
   - image: nginx
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     name: nginx
     resources:
       limits:
@@ -141,15 +155,17 @@ Let's create a pod that falls within the allowed limit boundaries.
 ```shell
 $ kubectl create -f docs/admin/limitrange/valid-pod.yaml --namespace=limit-example
 pod "valid-pod" created
-$ kubectl get pods valid-pod --namespace=limit-example -o yaml | grep -C 6 resources
 ```
 
-```yaml
- uid: 162a12aa-7157-11e5-9921-286ed488f785
+Now look at the Pod's resources field: 
+
+```shell
+$ kubectl get pods valid-pod --namespace=limit-example -o yaml | grep -C 6 resources
+  uid: 3b1bfd7a-f53c-11e5-b066-64510658e388
 spec:
   containers:
   - image: gcr.io/google_containers/serve_hostname
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     name: kubernetes-serve-hostname
     resources:
       limits:
@@ -163,15 +179,15 @@ spec:
 Note that this pod specifies explicit resource *limits* and *requests* so it did not pick up the namespace
 default values.
 
-Note: The *limits* for CPU resource are not enforced in the default Kubernetes setup on the physical node
+Note: The *limits* for CPU resource are enforced in the default Kubernetes setup on the physical node
 that runs the container unless the administrator deploys the kubelet with the folllowing flag:
 
 ```shell
 $ kubelet --help
 Usage of kubelet
 ....
-  --cpu-cfs-quota[=false]: Enable CPU CFS quota enforcement for containers that specify CPU limits
-$ kubelet --cpu-cfs-quota=true ...
+  --cpu-cfs-quota[=true]: Enable CPU CFS quota enforcement for containers that specify CPU limits
+$ kubelet --cpu-cfs-quota=false ...
 ```
 
 ## Step 4: Cleanup
@@ -182,8 +198,8 @@ To remove the resources used by this example, you can just delete the limit-exam
 $ kubectl delete namespace limit-example
 namespace "limit-example" deleted
 $ kubectl get namespaces
-NAME      LABELS    STATUS    AGE
-default   <none>    Active    20m
+NAME            STATUS        AGE
+default         Active        12m
 ```
 
 ## Summary
