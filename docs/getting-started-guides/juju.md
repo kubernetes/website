@@ -19,16 +19,16 @@ and tag the issue with "juju" so we can find them.
 
 > Note: If you're running kube-up, on Ubuntu - all of the dependencies
 > will be handled for you. You may safely skip to the section:
-> [Launch Kubernetes Cluster](#launch-kubernetes-cluster)
+> [Launch a Kubernetes Cluster](#launch-a-kubernetes-cluster)
 
 ### On Ubuntu
 
 [Install the Juju client](https://jujucharms.com/get-started)
 
-> This documentation focuses on the juju 2.0 release which will be
-> promoted to stable during its release cycle in April
+> This documentation focuses on the Juju 2.0 release which will be
+> promoted to stable during the April 2016 release cycle.
 
-To paraphrase, on your local Ubuntu system:
+To paraphrase, on your local Ubuntu system:  
 
 ```shell
 sudo add-apt-repository ppa:juju/devel
@@ -46,9 +46,9 @@ If you are not using Ubuntu or prefer the isolation of Docker, you may
 run the following:
 
 > While this is a common target, the charmbox flavors of images are
-> unofficial, and should be treated as Experimental. If you encounter any issues
+> unofficial, and should be treated as experimental. If you encounter any issues
 > turning up the Kubernetes cluster with charmbox, please file a bug on the
-> respective issue tracker [here](https://github.com/juju-solutions/charmbox/issues)
+> [charmbox issue tracker](https://github.com/juju-solutions/charmbox/issues).
 
 ```shell
 mkdir ~/.juju2
@@ -69,7 +69,7 @@ command:
 `juju bootstrap $cloudname $cloudtype` you are ready to launch the
 Kubernetes cluster.
 
-## Launch Kubernetes cluster
+## Launch a Kubernetes cluster
 
 You will need to export the `KUBERNETES_PROVIDER` environment variable before
 bringing up the cluster.
@@ -82,9 +82,8 @@ cluster/kube-up.sh
 If this is your first time running the `kube-up.sh` script, it will attempt to
 install the required dependencies to get started with Juju.
 
-Next it will deploy the kubernetes application, 3 units of etcd, and network
-the units with flannel based Software Defined Networking (SDN) so containers
-on different hosts can communicate with each other.
+Next it will deploy two nodes of Kubernetes, 1 unit of etcd, and network
+the units so containers on different hosts can communicate with each other.
 
 ## Exploring the cluster
 
@@ -161,13 +160,13 @@ We'll follow the aws-coreos example. Create a pod manifest: `pod.json`
 }
 ```
 
-Create the pod with kubectl:
+Create the pod with kubectl:  
 
 ```shell
 kubectl create -f pod.json
 ```
 
-Get info on the pod:
+Get info on the pod:  
 
 ```shell
 kubectl get pods
@@ -187,7 +186,8 @@ CONTAINER IDIMAGE  COMMAND CREATED STATUS  PORTS   NAMES
 02beb61339d8quay.io/kelseyhightower/hello:latest   /hello  About an hour ago   Up About an hourk8s_hello....
 ```
 
-We see "kubernetes/1" has our container, we can open port 80:
+We see "kubernetes/1" has our container, expose the kubernetes charm and open
+port 80:
 
 ```shell
 juju run --unit kubernetes/1 "open-port 80"
@@ -196,7 +196,7 @@ sudo apt-get install curl
 curl $(juju status --format=oneline kubernetes/1 | cut -d' ' -f3)
 ```
 
-Finally delete the pod:
+Finally delete the pod:  
 
 ```shell
 juju ssh kubernetes/0
@@ -204,22 +204,23 @@ kubectl delete pods hello
 ```
 ## Scale up cluster
 
-Whant larger kubernetes nodes? It is easy to request different sizes of cloud
+Want larger Kubernetes nodes? It is easy to request different sizes of cloud
 resources from Juju by using **constraints**. You can increase the amount of
 CPU or memory (RAM) in any of the systems requested by Juju. This allows you
-to fine tune th Kubernetes cluster to fit your workload. Use the boostrap
-command or as a seperate `juju constraints` command. Look to the
-[Juju documentation for machine constraints](https://jujucharms.com/docs/devel/charms-constraints).
+to fine tune th Kubernetes cluster to fit your workload. Use flags on the
+bootstrap command or as a separate `juju constraints` command. Look to the
+[Juju documentation for machine constraints](https://jujucharms.com/docs/devel/charms-constraints)
+details.
 
 ## Scale out cluster
 
-Need more clusters? Juju makes it easy to add units of a charm:
+Need more clusters? Juju makes it easy to add units of a charm:  
 
 ```shell
 juju add-unit kubernetes
 ```
 
-Or multiple units at one time:
+Or multiple units at one time:  
 
 ```shell
 juju add-unit -n3 kubernetes
@@ -235,8 +236,8 @@ build directories.
 ./kube-down.sh
 ```
 
-Alternately if you want stop the servers you can destroy your current Juju environment.
-Use the `juju env` command to get the current environment name:
+Alternately if you want stop the servers you can destroy your current Juju
+environment. Use the `juju env` command to get the current environment name:  
 
 ```shell
 juju kill-controller `juju env`
@@ -250,7 +251,7 @@ a layered approach to keep the code smaller and more focused on the operations
 of Kubernetes.
 
 The Kubernetes layer and bundles can be found in the `kubernetes`
-project on github.com:
+project on github.com:  
 
  - [Bundle location](https://github.com/kubernetes/kubernetes/tree/master/cluster/juju/bundles)
  - [Kubernetes charm layer location](https://github.com/kubernetes/kubernetes/tree/master/cluster/juju/layers/kubernetes)
