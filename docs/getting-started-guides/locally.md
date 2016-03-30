@@ -27,7 +27,8 @@ You need [go](https://golang.org/doc/install) at least 1.3+ in your path, please
 
 ### Starting the cluster
 
-In a separate tab of your terminal, run the following (since one needs sudo access to start/stop Kubernetes daemons, it is easier to run the entire script as root):
+First, you need to [download Kubernetes](/docs/getting-started-guides/binary_release/). Then open a separate tab of your terminal 
+and run the following (since one needs sudo access to start/stop Kubernetes daemons, it is easier to run the entire script as root):
 
 ```shell
 cd kubernetes
