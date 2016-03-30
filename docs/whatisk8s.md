@@ -77,7 +77,7 @@ Kubernetes satisfies a number of common needs of applications running in product
 * [distributing secrets](/docs/user-guide/secrets/),
 * [application health checking](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks),
 * [replicating application instances](/docs/user-guide/replication-controller/),
-* [horizontal auto-scaling](/docs/user-guide/horizontal-pod-autoscaler/),
+* [horizontal auto-scaling](/docs/user-guide/horizontal-pod-autoscaling/),
 * [naming and discovery](/docs/user-guide/connecting-applications/),
 * [load balancing](/docs/user-guide/services/),
 * [rolling updates](/docs/user-guide/update-demo/),

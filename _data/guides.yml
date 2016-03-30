@@ -126,8 +126,10 @@ toc:
     path: /docs/admin/high-availability/
   - title: Accessing Clusters
     path: /docs/user-guide/accessing-the-cluster/
-  - title: Sharing a Cluster
+  - title: Sharing a Cluster with Namespaces
     path: /docs/admin/namespaces/
+  - title: Namespaces Walkthrough
+    path: /docs/admin/namespaces/walkthrough/
   - title: Changing Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
   - title: Creating a Custom Cluster from Scratch
@@ -219,8 +221,10 @@ toc:
     path: /docs/user-guide/compute-resources/
   - title: Using kubectl to Manage Resources
     path: /docs/user-guide/working-with-resources/
-  - title: Applying Resource Quotas and Limits
+  - title: Understanding Resource Quotas
     path: /docs/admin/resourcequota/
+  - title: Applying Resource Quotas and Limits
+    path: /docs/admin/resourcequota/walkthrough/
   - title: Setting Pod CPU and Memory Limits
     path: /docs/admin/limitrange/
   - title: Configuring Garbage Collection

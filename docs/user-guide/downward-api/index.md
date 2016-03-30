@@ -52,7 +52,7 @@ environment variable they want.
 This is an example of a pod that consumes its name and namespace via the
 downward API:
 
-{% include code.html language="yaml" file="downward-api/dapi-pod.yaml" ghlink="/docs/user-guide/downward-api/dapi-pod.yaml" %}
+{% include code.html language="yaml" file="dapi-pod.yaml" ghlink="/docs/user-guide/downward-api/dapi-pod.yaml" %}
 
 
 ### Downward API volume
@@ -86,7 +86,7 @@ In future, it will be possible to specify a specific annotation or label.
 
 This is an example of a pod that consumes its labels and annotations via the downward API volume, labels and annotations are dumped in `/etc/labels` and in `/etc/annotations`, respectively:
 
-{% include code.html language="yaml" file="downward-api/volume/dapi-volume.yaml" ghlink="/docs/user-guide/downward-api/volume/dapi-volume.yaml" %}
+{% include code.html language="yaml" file="volume/dapi-volume.yaml" ghlink="/docs/user-guide/downward-api/volume/dapi-volume.yaml" %}
 
 
 Some more thorough examples:

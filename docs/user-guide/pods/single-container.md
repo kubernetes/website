@@ -35,6 +35,7 @@ $ kubectl run NAME
 
 Where:
 
+* `kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead. If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
 * `NAME` (required) is the name of the container to create. This value is also
   applied as the name of the Deployment, and as the prefix of the
   pod name. For example:
