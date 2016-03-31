@@ -51,7 +51,7 @@ You can now use any of the cluster/kubectl.sh commands to interact with your loc
 ```shell
 cluster/kubectl.sh get pods
 cluster/kubectl.sh get services
-cluster/kubectl.sh get replicationcontrollers
+cluster/kubectl.sh get deployments
 cluster/kubectl.sh run my-nginx --image=nginx --replicas=2 --port=80
 
 ## begin wait for provision to complete, you can monitor the docker pull by opening a new terminal
@@ -65,7 +65,7 @@ cluster/kubectl.sh run my-nginx --image=nginx --replicas=2 --port=80
 ## introspect Kubernetes!
 cluster/kubectl.sh get pods
 cluster/kubectl.sh get services
-cluster/kubectl.sh get replicationcontrollers
+cluster/kubectl.sh get deployments
 ```
 
 ### Running a user defined pod
@@ -82,7 +82,7 @@ cluster/kubectl.sh create -f docs/user-guide/pod.yaml
 
 Congratulations!
 
-### Troubleshooting
+### FAQs
 
 #### I cannot reach service IPs on the network.
 
@@ -96,10 +96,6 @@ docker installation, this may conflict with IPs for containers.  If you find
 containers running with IPs in this range, edit hack/local-cluster-up.sh and
 change the service-cluster-ip-range flag to something else.
 
-#### I cannot create a replication controller with replica size greater than 1!  What gives?
-
-You are running a single node setup.  This has the limitation of only supporting a single replica of a given pod.  If you are interested in running with larger replica sizes, we encourage you to try the local vagrant setup or one of the cloud providers.
-
 #### I changed Kubernetes code, how do I run it?
 
 ```shell
@@ -110,7 +106,12 @@ hack/local-up-cluster.sh
 
 #### kubectl claims to start a container but `get pods` and `docker ps` don't show it.
 
-One or more of the KUbernetes daemons might've crashed. Tail the logs of each in /tmp.
+One or more of the Kubernetes daemons might've crashed. Tail the [logs](/docs/admin/cluster-troubleshooting/#looking-at-logs) of each in /tmp.
+
+```shell
+$ ls /tmp/kube*.log
+$ tail -f /tmp/kube-apiserver.log
+```
 
 #### The pods fail to connect to the services by host names
 
