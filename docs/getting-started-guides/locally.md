@@ -8,12 +8,12 @@
 
 #### Linux
 
-Not running Linux? Consider running Linux in a local virtual machine with [Vagrant](/docs/getting-started-guides/vagrant), or on a cloud provider like [Google Compute Engine](/docs/getting-started-guides/gce)
+Not running Linux? Consider running Linux in a local virtual machine with [vagrant](https://www.vagrantup.com/), or on a cloud provider like [Google Compute Engine](/docs/getting-started-guides/gce)
 
 #### Docker
 
 At least [Docker](https://docs.docker.com/installation/#installation)
-1.3+. Ensure the Docker daemon is running and can be contacted (try `docker
+1.8.3+. Ensure the Docker daemon is running and can be contacted (try `docker
 ps`).  Some of the Kubernetes components need to run as root, which normally
 works fine with docker.
 

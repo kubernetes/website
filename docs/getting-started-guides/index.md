@@ -32,7 +32,6 @@ But their size and availability is limited to that of a single machine.
 The local-machine solutions are:
 
 - [Local Docker-based](/docs/getting-started-guides/docker) (recommended starting point)
-- [Vagrant](/docs/getting-started-guides/vagrant) (works on any platform with Vagrant: Linux, MacOS, or Windows.)
 - [No-VM local cluster](/docs/getting-started-guides/locally) (Linux only)
 
 
@@ -112,7 +111,6 @@ Here are all the solutions mentioned above in table form.
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | ['œ“][3]   | Commercial
-Vagrant              | Saltstack    | Fedora | flannel     | [docs](/docs/getting-started-guides/vagrant)                                | ['œ“][2]   | Project
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | ['œ“][1]   | Project
 Azure                | CoreOS       | CoreOS | Weave       | [docs](/docs/getting-started-guides/coreos/azure/)                    |          | Community ([@errordeveloper](https://github.com/errordeveloper), [@squillace](https://github.com/squillace), [@chanezon](https://github.com/chanezon), [@crossorigin](https://github.com/crossorigin))
 Docker Single Node   | custom       | N/A    | local       | [docs](/docs/getting-started-guides/docker)                                 |          | Project ([@brendandburns](https://github.com/brendandburns))
