@@ -117,10 +117,7 @@ and
 The labels allow us to slice and dice our resources along any dimension specified by a label:
 
 ```shell
-$ kubectl create -f ./guestbook-fe.yaml -f ./redis-master.yaml -f ./redis-slave.yaml
-replicationcontrollers "guestbook-fe" created
-replicationcontrollers "guestbook-redis-master" created
-replicationcontrollers "guestbook-redis-slave" created
+$ kubectl create -f examples/guestbook/all-in-one/guestbook-all-in-one.yaml
 $ kubectl get pods -Lapp -Ltier -Lrole
 NAME                           READY     STATUS    RESTARTS   AGE       APP         TIER       ROLE
 guestbook-fe-4nlpb             1/1       Running   0          1m        guestbook   frontend   <none>
@@ -148,7 +145,7 @@ Another scenario where multiple labels are needed is to distinguish deployments 
         track: canary
 ```
 
-and the primary, stable release would have a different value of the `track` label, so that the sets of pods controlled by the two replication controllers would not overlap:
+and the primary, stable release would have a different value of the `track` label, so that two sets of pods would not overlap:
 
 ```yaml
      labels:
@@ -215,7 +212,7 @@ When load on your application grows or shrinks, it's easy to scale with `kubectl
 
 ```shell
 $ kubectl scale deployment/my-nginx --replicas=1
-replicationcontroller "my-nginx" scaled
+deployment "my-nginx" scaled
 ```
 
 Now you only have one pod managed by the deployment. 
@@ -244,9 +241,9 @@ Sometimes it's necessary to make narrow, non-disruptive updates to resources you
 
 ### kubectl apply
 
-The most disciplined way to update resources is [`kubectl apply`](/docs/user-guide/kubectl/kubectl_apply/). If you maintain a set of configuration files in source control, 
-where they can be maintained and versioned along with the code for the resources they configure. Then, when you're ready to push 
-configuration changes to the cluster, you can run `kubectl apply`.
+It is suggested to maintain a set of configuration files in source control (see [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)),
+so that they can be maintained and versioned along with the code for the resources they configure.
+Then, you can use [`kubectl apply`](/docs/user-guide/kubectl/kubectl_apply/) to push your configuration changes to the cluster. 
 
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
 
@@ -334,7 +331,7 @@ For more information, please see [kubectl patch](/docs/user-guide/kubectl/kubect
 
 ## Disruptive updates
 
-In some cases, you may need to update resource fields that cannot be updated once initialized, or you may just want to make a recursive change immediately, such as to fix broken pods created by a replication controller. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can simply modify your original configuration file:
+In some cases, you may need to update resource fields that cannot be updated once initialized, or you may just want to make a recursive change immediately, such as to fix broken pods created by a Deployment. To change such fields, use `replace --force`, which deletes and re-creates the resource. In this case, you can simply modify your original configuration file:
 
 ```shell
 $ kubectl replace -f docs/user-guide/nginx/nginx-deployment.yaml --force
@@ -362,7 +359,7 @@ To update to version 1.9.1, simply change `.spec.template.spec.containers[0].ima
 $ kubectl edit deployment/my-nginx
 ```
 
-That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](docs/user-guide/deployments/).
+That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/user-guide/deployments/).
 
 ## What's next?
 
