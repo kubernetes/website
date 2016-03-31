@@ -14,7 +14,7 @@ cluster nodes.
 ## Configuration file
 
 To create an external load balancer, add the following line to your
-[service configuration file](/docs/services/operations/#service-configuration-file):
+[service configuration file](/docs/user-guide/services/operations/#service-configuration-file):
 
     "type": "LoadBalancer"
 
