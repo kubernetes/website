@@ -328,7 +328,7 @@ spec:
         name: web
     spec:
       containers:
-      - image: gcr.io/kubernetes-codelab-1259/myapp
+      - image: gcr.io/<YOUR-PROJECT-ID>/myapp
         name: web
         ports:
         - name: http-server
