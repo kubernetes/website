@@ -214,16 +214,16 @@ To find the ip addresses associated with the service run:
 
 ```shell
 $ kubectl get services hello-node
-NAME         CLUSTER_IP    EXTERNAL_IP     PORT(S)    SELECTOR         AGE
-hello-node   10.3.246.12                   8080/TCP   run=hello-node   23s
+NAME         CLUSTER_IP    EXTERNAL_IP     PORT(S)    AGE
+hello-node   10.3.246.12                   8080/TCP   23s
 ```
 
 The `EXTERNAL_IP` may take several minutes to become available and visible.  If the `EXTERNAL_IP` is missing, wait a few minutes and try again.
 
 ```shell
 $ kubectl get services hello-node
-NAME         CLUSTER_IP    EXTERNAL_IP     PORT(S)    SELECTOR         AGE
-hello-node   10.3.246.12   23.251.159.72   8080/TCP   run=hello-node   2m
+NAME         CLUSTER_IP    EXTERNAL_IP     PORT(S)    AGE
+hello-node   10.3.246.12   23.251.159.72   8080/TCP   2m
 ```
 
 Note there are 2 IP addresses listed, both serving port 8080.  `CLUSTER_IP` is only visible inside your cloud virtual network.  `EXTERNAL_IP` is externally accessible.  In this example, the external IP address is 23.251.159.72.
