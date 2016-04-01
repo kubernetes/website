@@ -130,7 +130,7 @@ system:serviceaccount:<namespace>:default
 For example, if you wanted to grant the default service account in the kube-system full privilege to the API, you would add this line to your policy file:
 
 ```json
-{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}
+{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}
 ```
 
 The apiserver will need to be restarted to pickup the new policy lines.
