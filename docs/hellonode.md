@@ -376,12 +376,13 @@ Delete your cluster:
 
 ```shell
 $ gcloud container clusters delete hello-world
-Waiting for cluster deletion...done.
-name: operation-xxxxxxxxxxxxxxxx
-operationType: deleteCluster
-status: done
-target: /projects/kubernetes-codelab/zones/us-central1-f/clusters/hello-world
-zone: us-central1-f
+The following clusters will be deleted.
+ - [hello-world] in [us-central1-f]
+
+Do you want to continue (Y/n)?
+
+Deleting cluster hello-world...done.
+Deleted [https://container.googleapis.com/v1/projects/<PROJECT_ID>/zones/us-central1-f/clusters/hello-world].
 ```
 
 This deletes the Google Compute Engine instances that are running the cluster.
