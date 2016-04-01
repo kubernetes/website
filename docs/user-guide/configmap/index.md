@@ -237,7 +237,7 @@ metadata:
 
 ### Use-Case: Consume ConfigMap in environment variables
 
-ConfigMaps can be used to populate the value of command line arguments.  As an example, consider
+ConfigMaps can be used to populate environment variables.  As an example, consider
 the following ConfigMap:
 
 ```yaml
