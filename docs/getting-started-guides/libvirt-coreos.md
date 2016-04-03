@@ -117,23 +117,29 @@ setfacl -m g:kvm:--x ~
 
 By default, the libvirt-coreos setup will create a single Kubernetes master and 3 Kubernetes nodes. Because the VM drives use Copy-on-Write and because of memory ballooning and KSM, there is a lot of resource over-allocation.
 
-There are two major ways of how-to run and configure the libvirt-based Kubernetes cluster on CoreOS instances:
+There is both an automated way and a manual, customizable way of setting up libvert Kubernetes clusters on CoreOS.
 
 #### Automated setup
 
-To start and setup your local CoreOS-Kubernetes cluster the following command might be easily runned:
+There is an automated setup script on https://get.k8s.io that will download the tarball for Kubernetes and spawn a Kubernetes cluster on a local CoreOS instances that the script creates. To run this script, use wget or curl with the KUBERNETES_PROVIDER environment variable set to libvirt-coreos:
 
-`export KUBERNETES_PROVIDER=libvirt-coreos; wget -q -O - https://get.k8s.io | bash`
+```shell
+export KUBERNETES_PROVIDER=libvirt-coreos; wget -q -O - https://get.k8s.io | bash
+```
 
-or, in favor of curl:
+Here is the curl version of this command:
 
-`export KUBERNETES_PROVIDER=libvirt-coreos; curl -sS https://get.k8s.io | bash`
+```shell
+export KUBERNETES_PROVIDER=libvirt-coreos; curl -sS https://get.k8s.io | bash`
+```
 
-Just wait a few minutes, the tarball with the latest Kubernetes release will be downloaded; CoreOS instances will be spawned and Kubernetes cluster on them will be launched.
+This script downloads and unpacks the tarball, then spawns a Kubernetes cluster on CoreOS instances with the following characteristics:
 
-Cluster configuration will be the following: 4 KVM/QEMU instances, where 1 instance will act as a Kubernetes Master node and 3 as Minion nodes.
+- Total of 4 KVM/QEMU instances
+- 1 instance acting as a Kubernetes master node
+- 3 instances acting as minion nodes
 
-If you'd like to run this cluster with customized settings, run it in a manual way:
+If you'd like to run this cluster with customized settings, follow the manual setup instructions.
 
 #### Manual setup
 
@@ -255,7 +261,7 @@ On Arch:
 pacman -S qemu libvirt
 ```
 
-On Ubuntu 14.04.1:
+On Ubuntu 14.04:
 
 ```shell
 aptitude install qemu-system-x86 libvirt-bin
@@ -277,7 +283,7 @@ On Arch:
 systemctl start libvirtd
 ```
 
-On Ubuntu 14.04.1:
+On Ubuntu 14.04:
 
 ```shell
 service libvirt-bin start
