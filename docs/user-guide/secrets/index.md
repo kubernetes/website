@@ -521,22 +521,23 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
 
 ```json
 {
-"kind": "Pod",
-"apiVersion": "v1",
-"metadata": {
-  "name": "prod-db-client-pod",
-  "labels": {
-    "name": "prod-db-client"
-  }
-},
-"spec": {
-  "serviceAccount": "prod-db-client",
-  "containers": [
-    {
-      "name": "db-client-container",
-      "image": "myClientImage"
+  "kind": "Pod",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "prod-db-client-pod",
+    "labels": {
+      "name": "prod-db-client"
     }
-  ]
+  },
+  "spec": {
+    "serviceAccount": "prod-db-client",
+    "containers": [
+      {
+        "name": "db-client-container",
+        "image": "myClientImage"
+      }
+    ]
+  }
 }
 ```
 
@@ -553,7 +554,7 @@ make that key begin with a dot.  For example, when the following secret secret i
     "name": "dotfile-secret"
   },
   "data": {
-    ".secret-file": "dmFsdWUtMg0KDQo=",
+    ".secret-file": "dmFsdWUtMg0KDQo="
   }
 }
 
@@ -561,7 +562,7 @@ make that key begin with a dot.  For example, when the following secret secret i
   "kind": "Pod",
   "apiVersion": "v1",
   "metadata": {
-    "name": "secret-dotfiles-pod",
+    "name": "secret-dotfiles-pod"
   },
   "spec": {
     "volumes": [
@@ -576,7 +577,7 @@ make that key begin with a dot.  For example, when the following secret secret i
       {
         "name": "dotfile-test-container",
         "image": "gcr.io/google_containers/busybox",
-        "command": "ls -l /etc/secret-volume"
+        "command": "ls -l /etc/secret-volume",
         "volumeMounts": [
           {
             "name": "secret-volume",
