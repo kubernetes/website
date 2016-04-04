@@ -24,10 +24,12 @@ NOTE: This script calls [cluster/kube-up.sh](http://releases.k8s.io/{{page.githu
 which in turn calls [cluster/azure/util.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/azure/util.sh)
 using [cluster/azure/config-default.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/azure/config-default.sh).
 
-You must set `AZURE_SUBSCRIPTION_ID` or you will receive errors. It may be set in `cluster/azure/config-default.sh` or set as an environment variable:
+You must set `AZURE_SUBSCRIPTION_ID` or you will receive errors. Prior to Kubernetes 1.3.0, you must also set `AZURE_TENANT_ID`.
+These may be set in `cluster/azure/config-default.sh` or set as environment variables:
 
 ```shell
 export AZURE_SUBSCRIPTION_ID="<subscription-guid>"
+export AZURE_TENANT_ID="<tenant-guid>" # only needed for Kubernetes < v1.3.0.
 ```
 
 These values can be overriden by setting them in `cluster/azure/config-default.sh` or as environment variables. They are shown here with their default values:
@@ -76,8 +78,8 @@ $ ./util.sh ssh
 
 The cluster addons are created in the `kube-system` namespace.
 
-For versions of Kubernetes before 1.2.2, this must be done manually. Starting with 1.2.2, the
-namespace is created automatically as part of the Azure bring-up. For 1.2.0 and 1.2.1, you may
+For versions of Kubernetes before 1.3.0, this must be done manually. Starting with 1.3.0, the
+namespace is created automatically as part of the Azure bring-up. For versions prior to 1.3.0, you may
 execute this to create the `kube-system` namespace:
 
 ```shell
