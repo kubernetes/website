@@ -48,7 +48,7 @@ By default, this will deploy a cluster with 4 `Standard_A1`-sized VMs: one maste
 
 The Azure deployment process produces an output directory `cluster/azure/_deployments/${AZURE_DEPLOY_ID}`. In this directory you will find the PKI and SSH assets created for the cluster, as well as a script named `util.sh`. Here are some examples of its usage:
 
-```
+```shell
 $ cd cluster/azure/_deployments/kube-20160316-001122/
 
 # This uses the client cert with curl to make an http call to the apiserver.
@@ -72,11 +72,23 @@ $ ./util.sh ssh
 
 ### Cluster deployment examples
 
+#### Deploy the `kube-system` namespace
+
+The cluster addons are created in the `kube-system` namespace.
+
+For versions of Kubernetes before 1.2.2, this must be done manually. Starting with 1.2.2, the
+namespace is created automatically as part of the Azure bring-up. For 1.2.0 and 1.2.1, you may
+execute this to create the `kube-system` namespace:
+
+```shell
+kubectl create -f https://raw.githubusercontent.com/colemickens/azkube/v0.0.5/templates/coreos/addons/kube-system.yaml
+```
+
 #### Using `kubectl proxy`
 
 `kubectl proxy` is currently used to access to access deployed services.
 
-```
+```shell
 kubectl proxy --port=8001
 ```
 
@@ -85,10 +97,10 @@ Deployed services are available at: `http://localhost:8001/api/v1/proxy/namespac
 
 #### Addon: SkyDNS
 
-You can deploy the [SkyDNS addon](https://github.com/kubernetes/kubernetes/tree/release-1.2/cluster/addons/dns):
+You can deploy the [SkyDNS addon](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster/addons/dns):
 
-```
-kubectl create -f https://raw.githubusercontent.com/colemickens/azkube/v0.0.4/templates/coreos/addons/skydns.yaml
+```shell
+kubectl create -f https://raw.githubusercontent.com/colemickens/azkube/v0.0.5/templates/coreos/addons/skydns.yaml
 ```
 
 
@@ -96,17 +108,17 @@ kubectl create -f https://raw.githubusercontent.com/colemickens/azkube/v0.0.4/te
 
 This will deploy the [`kube-dashboard`](https://github.com/kubernetes/dashboard) addon:
 
-```
-kubectl create -f https://raw.githubusercontent.com/colemickens/azkube/v0.0.4/templates/coreos/addons/kube-dashboard.yaml
+```shell
+kubectl create -f https://raw.githubusercontent.com/colemickens/azkube/v0.0.5/templates/coreos/addons/kube-dashboard.yaml
 ```
 
 The dashboard is then available at: `http://localhost:8001/api/v1/proxy/namespaces/kube-system/services/dashboard-canary`.
 
 #### Example: Guestbook
 
-This will deploy the [`guestbook example`](https://github.com/kubernetes/kubernetes/blob/release-1.2/examples/guestbook/README.md) (the all-in-one variant):
+This will deploy the [`guestbook example`](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/examples/guestbook/README.md) (the all-in-one variant):
 
-```
+```shell
 kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.2/examples/guestbook/all-in-one/guestbook-all-in-one.yaml
 ```
 
@@ -118,10 +130,10 @@ The guestbook is then available at: `http://localhost:8001/api/v1/proxy/namespac
 The `azkube` tool used internally during `kube-up` can also be used to scale your cluster.
 Here's an example of scaling a default deployment of 3 nodes to 10 nodes:
 
-```
+```shell
 export AZURE_DEPLOY_ID="kube-20160316-001122"
 $ docker run -it -v "$HOME/.azkube:/.azkube" -v "/tmp:/tmp" \
-    colemickens/azkube:v0.0.4 /opt/azkube/azkube scale \
+    colemickens/azkube:v0.0.5 /opt/azkube/azkube scale \
     --deployment-name="${AZURE_DEPLOY_ID}" \
     --node-size="Standard_A1" \
     --node-count=10
@@ -147,9 +159,6 @@ $ ./cluster/kube-down.sh
 6. If you are deploying from a checkout of `kubernetes`, then you will need to take an additional step to ensure that a `hyperkube` image is available. You can set `AZURE_DOCKER_REGISTRY` and `AZURE_DOCKER_REPO` and the deployment will ensure that a hyperkube container is built and available in the specified Docker registry. That `hyperkube` image will then be used throughout the cluster for running the Kubernetes services. Alternatively, you may set `AZURE_HYPERKUBE_SPEC` to point to a custom `hyperkube` image.
 
 
-
 ## Further reading
 
 * Please see the [azkube](https://github.com/colemickens/azkube) repository for more information about the deployment tool that manages the deployment.
-* Please see the [Kubernetes docs](/docs/) for more details on administering
-and using a Kubernetes cluster.
