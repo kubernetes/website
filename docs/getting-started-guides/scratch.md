@@ -394,10 +394,10 @@ kubelet.
 Arguments to consider:
 
   - If following the HTTPS security approach:
-    - `--api-servers=https://$MASTER_IP`
+    - `--master=https://$MASTER_IP`
     - `--kubeconfig=/var/lib/kube-proxy/kubeconfig`
   - Otherwise, if taking the firewall-based security approach
-    - `--api-servers=http://$MASTER_IP`
+    - `--master=http://$MASTER_IP`
 
 ### Networking
 
