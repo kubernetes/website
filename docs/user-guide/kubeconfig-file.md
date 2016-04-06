@@ -124,7 +124,7 @@ namespace. Each of the three is optional; it is valid to specify a context with 
 `user`,`namespace`, or to specify none. Unspecified values, or named values that don't have corresponding
 entries in the loaded kubeconfig (e.g. if the context specified a `pink-user` for the above kubeconfig file)
 will be replaced with the default. See [Loading and merging rules](#loading-and-merging) below for override/merge behavior.
-You can add or modify `context` entries with [`kubectl config set-conext`](/docs/user-guide/kubectl/kubectl_config_set-context).
+You can add or modify `context` entries with [`kubectl config set-context`](/docs/user-guide/kubectl/kubectl_config_set-context).
 
 #### current-context
 
