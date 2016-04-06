@@ -181,6 +181,10 @@ IPs.
 
 [Romana](https://romana.io) is an open source software defined networking (SDN) solution that lets you deploy Kubernetes without an overlay network. 
 
+### Contiv
+
+[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](http://contiv.io) is all open sourced.
+
 ## Other reading
 
 The early design of the networking model and its rationale, and some future
