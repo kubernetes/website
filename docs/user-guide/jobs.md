@@ -187,11 +187,13 @@ When a Job completes, no more Pods are created, but the Pods are not deleted eit
 they don't show up with `kubectl get pods`, but they will show up with `kubectl get pods -a`.  Keeping them around
 allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
 The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
-old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`).  When you delete the job using `kubectl`, all the pods are deleted too.
+old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`).  When you delete the job using `kubectl`, all the pods it created are deleted too.
 
-If Job's pods are failing repeatedly, the Job will keep creating new pods forever, by default.
+If a Job's pods are failing repeatedly, the Job will keep creating new pods forever, by default.
 Retrying forever can be a useful pattern.  If an external dependency of the Job's 
-pods is missing (for example an input file on a networked storage volume is not present), then the Job will keep trying Pods, and when you later resolve the external dependency (for example, creating the missing file), the Job will then complete without any further action.
+pods is missing (for example an input file on a networked storage volume is not present), then the
+Job will keep trying Pods, and when you later resolve the external dependency (for example, creating
+the missing file) the Job will then complete without any further action.
 
 However, if you prefer not to retry forever, you can set a deadline on the job.  Do this by setting the
 `spec.activeDeadlineSeconds` field of the job to a number of seconds.  The job will have status with
