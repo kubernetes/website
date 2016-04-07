@@ -150,7 +150,7 @@ See [here](/docs/getting-started-guides/docker-multinode/deployDNS/) for instruc
 Many of these containers run under the management of the `kubelet` binary, which attempts to keep containers running, even if they fail.
 So, in order to turn down the cluster, you need to first kill the kubelet container, and then any other containers.
 
-You may use `docker kill $(docker ps -aq)`, note this removes _all_ containers running under Docker, so use with caution.
+You may use `docker rm $(docker ps -aq)`, note this removes _all_ containers running under Docker, so use with caution.
 
 2. Cleanup the filesystem:
 
