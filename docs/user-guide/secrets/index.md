@@ -274,7 +274,7 @@ This is the result of commands executed inside the container from the example ab
 ```shell
 $ echo $SECRET_USERNAME
 admin
-$ cat /etc/foo/password
+$ echo $SECRET_PASSWORD
 1f2d1e2e67df
 ```
 
