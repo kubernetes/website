@@ -222,7 +222,10 @@ before changing course.
 
 ## Rolling Back a Deployment
 
-Sometimes we may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping.
+Sometimes you may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping.
+By default, all of the Deployment's rollout history is kept in the system so that you can rollback anytime you want 
+(you can change that by specifying [revision history limit](/docs/user-guide/deployments/#revision-history-limit)). 
+You should note that only the update to the Deployment's "pod template" is seen as a different revision of rollout.
 
 Suppose that we made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
 
@@ -285,6 +288,8 @@ Events:
 
 To fix this, we need to rollback to a previous revision of Deployment that is stable. 
 
+### Checking Rollout History of a Deployment
+
 First, check the revisions of this deployment:
 
 ```shell
@@ -309,6 +314,8 @@ Image(s):   nginx:1.9.1
 No volumes.
 ```
 
+### Rolling Back to a Previous Revision
+
 Now we've decided to undo the current rollout and rollback to the previous revision:
 
 ```shell
@@ -322,6 +329,8 @@ Alternatively, you can rollback to a specific revision by specify that in `--to-
 $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 deployment "nginx-deployment" rolled back
 ```
+
+For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/kubectl_rollout/). 
 
 The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event for rolling back to revision 2 is generated from Deployment controller. 
 
