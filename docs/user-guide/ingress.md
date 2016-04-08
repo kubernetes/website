@@ -54,8 +54,8 @@ Make sure you review the [beta limitations](https://github.com/kubernetes/contri
 ```shell
 $ export TAG=$(basename `gcloud container clusters describe ${CLUSTER_NAME} --zone ${ZONE} | grep gke | awk '{print $2}'` | sed -e s/group/node/)
 $ export NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services echoheaders)
-$ gcloud compute firewall-rules create allow-130-211-0-0-22 \
-  --source-ranges 130.211.0.0/22 \
+$ gcloud compute firewall-rules create allow-130-211-0-0-21 \
+  --source-ranges 130.211.0.0/21 \
   --target-tags $TAG \
   --allow tcp:$NODE_PORT
 ```
