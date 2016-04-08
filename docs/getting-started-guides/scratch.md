@@ -368,7 +368,7 @@ Then you need to configure your kubelet with flag:
 
 ### kubelet
 
-All nodes should run kubelet.  See [Selecting Binaries](#selecting-binaries).
+All nodes should run kubelet.  See [Software Binaries](#software-binaries).
 
 Arguments to consider:
 
