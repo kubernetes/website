@@ -24,7 +24,7 @@ When you create a pod, you do not need to specify a service account.  It is
 automatically assigned the `default` service account of the same namespace.  If
 you get the raw json or yaml for a pod you have created (e.g. `kubectl get
 pods/podname -o yaml`), you can see the `spec.serviceAccount` field has been
-[automatically set](working-with-resources/#resources-are-automatically-modified).
+[automatically set](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
 
 You can access the API using a proxy or with a client library, as described in
 [Accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
