@@ -94,9 +94,9 @@ in json or yaml format, and then create that object.
 Each item must be base64 encoded:
 
 ```shell
-$ echo "admin" | base64
+$ printf "admin" | base64
 YWRtaW4K
-$ echo "1f2d1e2e67df" | base64
+$ printf "1f2d1e2e67df" | base64
 MWYyZDFlMmU2N2RmCg==
 ```
 
@@ -152,7 +152,7 @@ type: Opaque
 Decode the password field:
 
 ```shell
-$ echo "MWYyZDFlMmU2N2RmCg==" | base64 -D
+$ printf "MWYyZDFlMmU2N2RmCg==" | base64 -D
 1f2d1e2e67df
 ```
 
