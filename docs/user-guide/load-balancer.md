@@ -29,7 +29,7 @@ Your configuration file might look like:
       "spec": {
         "ports": [{
           "port": 8765,
-          "targetPort": 9376,
+          "targetPort": 9376
         }],
         "selector": {
           "app": "example"
