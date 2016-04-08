@@ -222,10 +222,10 @@ The `Restart Count:  5` indicates that the `simmemleak` container in this pod wa
 
 You can call `get pod` with the `-o go-template=...` option to fetch the status of previously terminated containers:
 
-```shell
+```shell{% raw %}
 [13:59:01] $ ./cluster/kubectl.sh  get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
 Container Name: simmemleak
-LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
+LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]{% endraw %}
 ```
 
 We can see that this container was terminated because `reason:OOM Killed`, where *OOM* stands for Out Of Memory.
