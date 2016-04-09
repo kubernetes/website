@@ -70,7 +70,7 @@ Now let’s package this application in a Docker container.
 
 ## Create a Docker container image
 
-Next, create a file, also within `helloworld/` named `Dockerfile`. A Dockerfile describes the image that you want to build. Docker container images can extend from other existing images so for this image, we'll extend from an existing Node image.
+Next, create a file, also within `hellonode/` named `Dockerfile`. A Dockerfile describes the image that you want to build. Docker container images can extend from other existing images so for this image, we'll extend from an existing Node image.
 
 #### Dockerfile
 
