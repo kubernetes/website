@@ -214,7 +214,7 @@ The pattern names are also links to examples and more detailed description.
 | -------------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
 | [Job Template Expansion](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/job/expansions/README.md)          |                   |                             |          ✓          |          ✓          |
 | [Queue with Pod Per Work Item](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/job/work-queue-1/README.md)  |         ✓         |                             |      sometimes      |          ✓          |
-| [Queue with Variable Pod Count](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/job/work-queue-2/README.md) |                   |         ✓         |             ✓               |                     |          ✓          |
+| [Queue with Variable Pod Count](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/job/work-queue-2/README.md) |         ✓         |             ✓               |                     |          ✓          |
 | Single Job with Static Work Assignment                                     |         ✓         |                             |          ✓          |                     |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
