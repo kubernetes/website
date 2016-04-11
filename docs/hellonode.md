@@ -26,7 +26,7 @@ Remember the project ID; it will be referred to later in this codelab as `PROJEC
 
 Next, [enable billing](https://console.developers.google.com/billing) in the Developers Console in order to use Google Cloud resources and [enable the Container Engine API](https://console.developers.google.com/project/_/kubernetes/list).
 
-New users of Google Cloud Platform recieve a [$300 free trial](https://console.developers.google.com/billing/freetrial?hl=en). Running through this codelab shouldn’t cost you more than a few dollars of that trial. Google Container Engine pricing is documented [here](https://cloud.google.com/container-engine/docs/#pricing).
+New users of Google Cloud Platform receive a [$300 free trial](https://console.developers.google.com/billing/freetrial?hl=en). Running through this codelab shouldn’t cost you more than a few dollars of that trial. Google Container Engine pricing is documented [here](https://cloud.google.com/container-engine/docs/#pricing).
 
 Next, make sure you [download Node.js](https://nodejs.org/en/download/).
 
