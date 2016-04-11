@@ -67,7 +67,7 @@ On most providers, the pod IPs are not externally accessible. The easiest way to
 Provided the pod IP is accessible, you should be able to access its http endpoint with curl on port 80:
 
 ```shell
-$ curl http://$(kubectl get pod nginx -o go-template={{.status.podIP}})
+$ curl http://$(kubectl get pod nginx -o go-template={% raw %}{{.status.podIP}}{% endraw %})
 ```
 
 Delete the pod by name:
