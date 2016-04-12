@@ -36,7 +36,10 @@ provides declarative updates to pods along with a lot of other useful features.
 Therefore, we recommend using Deployments instead of directly using Replica Sets, unless
 you require custom update orchestration or don't require updates at all.
 
-### Example
+This actually means that you may never need to manipulate Replica Set objects:
+use directly a Deployment and define your application in the spec section.
+
+## Example
 
 {% include code.html language="yaml" file="replicasets/frontend.yaml" ghlink="/docs/user-guide/replicasets/frontend.yaml" %}
 
@@ -44,7 +47,7 @@ Saving this config into `frontend.yaml` and submitting it to a Kubernetes cluste
 create the defined replica set and the pods that it manages.
 
 ```shell
-$ kubectl create -f frontend.yaml 
+$ kubectl create -f frontend.yaml
 replicaset "frontend" created
 $ kubectl describe rs/frontend
 Name:		frontend
