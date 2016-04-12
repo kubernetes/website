@@ -78,7 +78,7 @@ $ kubectl run hostnames --image=gcr.io/google_containers/serve_hostname \
 deployment "hostnames" created
 ```
 
-`kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. 
+`kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
 Note that this is the same as if you had started the `Deployment` with
 the following YAML:
 
@@ -256,6 +256,14 @@ If this fails, you might need to go to the kube-proxy section of this doc, or
 even go back to the top of this document and start over, but instead of
 debugging your own `Service`, debug DNS.
 
+### _Some_ of my images cannot resolve
+
+Check if the container image can resolve DNS via `search`.
+
+Alpine Linux for example uses `musl-libc` and as such does not support the
+`search` keyword in `resolv.conf` and if you want to use is as base image you
+will need to get an specially built for Kubernetes.
+
 ## Does the Service work by IP?
 
 The next thing to test is whether your `Service` works at all.  From a
@@ -320,11 +328,16 @@ $ kubectl get service hostnames -o json
 }
 ```
 
-Is the port you are trying to access in `spec.ports[]`?  Is the `targetPort`
-correct for your `Pod`s?  If you meant it to be a numeric port, is it a number
-(9376) or a string "9376"?  If you meant it to be a named port, do your `Pod`s
-expose a port with the same name?  Is the port's `protocol` the same as the
-`Pod`'s?
+Also, check:
+* Is the port you are trying to access in `spec.ports[]`?
+* Is the `targetPort` correct for your `Pod`s?
+* If you meant it to be a numeric port, is it a number (9376)
+  or a string "9376"?
+* If you meant it to be a named port, do your `Pod`s expose a port
+  with the same name?
+* Is the port's `protocol` the same as the `Pod`'s?
+* Does the service has a `selector` and is correctly written?
+
 
 ## Does the Service have any Endpoints?
 

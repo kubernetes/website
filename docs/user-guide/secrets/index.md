@@ -128,6 +128,19 @@ secret "mysecret" created
 base64 strings.  Newlines are not valid within these strings and must be
 omitted (i.e. do not use `-b` option of `base64` which breaks long lines.)
 
+Also, take into account that the `echo` command attaches a newline. Many
+applications will not do any trimming nor stripping and you could could get
+into troubles. An example is the official Wordpress docker image, which
+manipulates usernames with `sed` to insert into configuration files. To avoid
+this use the `-n` switch:
+
+```shell
+$ echo "admin" | base64
+YWRtaW4K
+$ echo -n "admin" | base64
+YWRtaW4=
+```
+
 #### Decoding a Secret
 
 Get back the secret created in the previous section:
