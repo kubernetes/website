@@ -1,179 +1,216 @@
----
-title: Accelerate Your Delivery
----
+<!DOCTYPE html>
+<html>
 
-<!Doctype html>
-<html id="home">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Xiangpengzhao.GitHub.io : Website/documentation repo">
 
-{% include head-header.html %}
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-<!--  HERO  -->
-<section id="hero" class="light-text">
-	<main>
-		<div id="headlineWrapper">
-			<h1>Accelerate Your Delivery</h1>
-			<h5>Manage an infrastructure cluster as a single system to simplify container operations.</h5>
-		</div>
-		<a href="/docs/hellonode/" id="quickstartButton" class="button">Try Our Hello World</a>
-	</main>
-	<!--<div id="vendorStrip" class="light-text">-->
-		<!--<img src="images/logos/viacom_logo.png">-->
-		<!--<img src="images/logos/soundcloud_logo.png">-->
-		<!--<img src="images/logos/redhat_logo.png">-->
-		<!--<img src="images/logos/wepay_logo.png">-->
-		<!--<img src="images/logos/verizon_logo.png">-->
-	<!--</div>-->
-</section>
+    <title>Xiangpengzhao.GitHub.io</title>
+  </head>
 
-<!--  OCEAN NODES  -->
-<section id="oceanNodes">
-	<main>
-		<div class="image-wrapper"><img src="images/flower.png"></div>
-		<div class="content">
-			<h3>Kubernetes is an open-source system for automating deployment, operations, and scaling of containerized applications.</h3>
-			<p>It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds
-            upon <a href="http://queue.acm.org/detail.cfm?id=2898444">a decade and a half of experience of running production workloads at Google</a>,
-            combined with best-of-breed ideas and practices from the community.</p>
-		</div>
-	</main>
-	<main>
-		<div class="image-wrapper"><img src="images/scalable.png"></div>
-		<div class="content">
-			<h4>Planet Scale</h4>
-			<p>Designed on the same principles that allows Google to run billions of containers a week, Kubernetes can scale without increasing your ops team.</p>
-		</div>
-	</main>
-	<main>
-		<div class="image-wrapper"><img src="images/blocks.png"></div>
-		<div class="content">
-			<h4>Never Outgrow</h4>
-			<p>Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.</p>
-		</div>
-	</main>
-	<main>
-		<div class="image-wrapper"><img src="images/suitcase.png"></div>
-		<div class="content">
-			<h4>Run Anywhere</h4>
-			<p>Kubernetes is open source giving you the freedom to take advantage of on-premise, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.</p>
-		</div>
-	</main>
-</section>
+  <body>
 
-<section id="video">
-	<div class="light-text">
-		<h2>A technical overview<br>of Kubernetes</h2>
-		<p>Brendan Burns, Software Engineer and a founder of Kubernetes at Google, gives a technical overview of Kubernetes in this
-        30-minute presentation from CoreOS Fest.</p>
-		<button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
-	</div>
-	<button id="mobileShowVideoButton" onclick="kub.showVideo()"></button>
-</section>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/xiangpengzhao">View on GitHub</a>
 
-<section id="features">
-	<main>
-		<h3 class="center">Kubernetes Features</h3>
+          <h1 id="project_title">Xiangpengzhao.GitHub.io</h1>
+          <h2 id="project_tagline">Website/documentation repo</h2>
 
-		<div class="feature-box">
-			<div>
-				<h4>Automatic binpacking</h4>
-				<p>Automatically places containers based on their resource requirements and other constraints, while not
-					sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.</p>
-			</div>
-			<div>
-				<h4>Self-healing</h4>
-				<p>Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers
-					that don’t respond to your user-defined health check, and doesn’t advertise them to clients until they are ready to serve.</p>
-			</div>
-		</div>
+        </header>
+    </div>
 
-		<div class="feature-box">
-			<div>
-				<h4>Horizontal scaling</h4>
-				<p>Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.</p>
-			</div>
-			<div>
-				<h4>Service discovery and load balancing</h4>
-				<p>No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives
-					containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.</p>
-			</div>
-		</div>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>
+<a id="instructions-for-contributing-to-the-docswebsite" class="anchor" href="#instructions-for-contributing-to-the-docswebsite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instructions for Contributing to the Docs/Website</h2>
 
-		<div class="feature-box">
-			<div>
-				<h4>Automated rollouts and rollbacks</h4>
-				<p>Kubernetes progressively rolls out changes to your application or its configuration, while monitoring
-					application health to ensure it doesn’t kill all your instances at the same time. If something goes
-					wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.</p>
-			</div>
-			<div>
-				<h4>Secret and configuration management</h4>
-				<p>Deploy and update secrets and application configuration without rebuilding your image and without
-					exposing secrets in your stack configuration.</p>
-			</div>
-		</div>
-        
-		<div class="feature-box">
-			<div>
-				<h4>Storage orchestration</h4>
-				<p>Automatically mount the storage system of your choice, whether from local storage, a public cloud provider
-                such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="http://media.amazonwebservices.com/AWS_Storage_Options.pdf">AWS</a>, or a network storage system such as NFS, iSCSI,
-                Gluster, Ceph, Cinder, or Flocker.</p>
-			</div>
-			<div>
-				<h4>Batch execution</h4>
-				<p>In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.</p>
-			</div>
-		</div>
+<p>Welcome! We are very pleased you want to contribute to the documentation and/or website for Kubernetes.</p>
 
-	</main>
-</section>
+<p>You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.</p>
 
-<section id="talkToUs">
-	<main>
-		<h3>Case Studies</h3>
-		<div id="bigSocial">
-			<div>
-				<a href="https://youtu.be/OLwzSHBtxhI">Watch the video</a>
-				<p>Creating Next Generation Kubernetes Infrastructure at Viacom</p>
-			</div>
-			<div>
-				<a href="http://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/">Read the story</a>
-				<p>Inside eBay’s shift to Kubernetes and containers atop OpenStack</p>
-			</div>
-			<div>
-				<a href="https://www.youtube.com/watch?v=6XGUTu3WhBw">Watch the video</a>
-				<p>Migrating from a homegrown ‘cluster’ to Kubernetes</p>
-			</div>
-		</div>
-	</main>
-</section>
+<p>If you want to see your changes staged without having to install anything locally, remove the CNAME file in this directory and
+change the name of the fork to be:</p>
 
+<pre><code>YOUR_GITHUB_USERNAME.github.io
+</code></pre>
 
-{% include footer.html %}
+<p>Then, visit: <a href="http://YOUR_GITHUB_USERNAME.github.io">http://YOUR_GITHUB_USERNAME.github.io</a></p>
 
+<p>You should see a special-to-you version of the site. </p>
 
-<div id="videoPlayer">
-	<iframe data-url="https://www.youtube.com/embed/WwBdNXt6wO4?autoplay=1" frameborder="0" allowfullscreen></iframe>
-	<button id="closeButton"></button>
-</div>
+<h2>
+<a id="editingstaging-the-site-locally" class="anchor" href="#editingstaging-the-site-locally" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Editing/staging the site locally</h2>
 
-<style>
-	.cse .gsc-control-cse, .gsc-control-cse {
-		padding: 0;
-	}
-</style>
-<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<p>If you have files to upload, or just want to work offline, run the below commands to setup
+your environment for running GitHub pages locally. Then, any edits you make will be viewable
+on a lightweight webserver that runs on your local machine.</p>
 
-	ga('create', 'UA-36037335-10', 'auto');
-	ga('send', 'pageview');
-</script>
-<!-- Start of AnswerDash script 
-<script>var AnswerDash;!function(e,t,n,s,a){if(!t.getElementById(s)){var i,r=t.createElement(n),c=t.getElementsByTagName(n)[0];e[a]||(i=e[a]=function(){i.__oninit.push(arguments)},i.__oninit=[]),r.type="text/javascript",r.async=!0,r.src="https://p1.answerdash.com/answerdash.min.js?siteid=756",r.setAttribute("id",s),c.parentNode.insertBefore(r,c)}}(window,document,"script","answerdash-script","AnswerDash");</script>
-<!-- End of AnswerDash script -->
-</body>
+<p>First install rvm</p>
+
+<pre><code>curl -sSL https://get.rvm.io | bash -s stable
+</code></pre>
+
+<p>Then load it into your environment</p>
+
+<pre><code>source ${HOME}/.rvm/scripts/rvm (or whatever is prompted by the installer)
+</code></pre>
+
+<p>Then install Ruby 2.2 or higher</p>
+
+<pre><code>rvm install ruby-2.2.4
+rvm use ruby-2.2.4 --default
+</code></pre>
+
+<p>Verify that this new version is running (optional)</p>
+
+<pre><code>which ruby
+ruby -v
+</code></pre>
+
+<p>Install the GitHub Pages package, which includes Jekyll</p>
+
+<pre><code>gem install github-pages
+</code></pre>
+
+<p>Clone our site</p>
+
+<pre><code>git clone https://github.com/kubernetes/kubernetes.github.io.git
+</code></pre>
+
+<p>Make any changes you want. Then, to see your changes locally:</p>
+
+<pre><code>cd kubernetes.github.io
+jekyll serve
+</code></pre>
+
+<p>Your copy of the site will then be viewable at: <a href="http://localhost:4000">http://localhost:4000</a>
+(or wherever Ruby tells you).</p>
+
+<p>If you're a bit rusty with git/GitHub, you might wanna read
+<a href="http://readwrite.com/2013/10/02/github-for-beginners-part-2">this</a> for a refresher.</p>
+
+<p>The above instructions work on Mac and Linux.
+<a href="https://martinbuberl.com/blog/setup-jekyll-on-windows-and-host-it-on-github-pages/">These instructions </a>
+might help for Windows users. </p>
+
+<h2>
+<a id="common-tasks" class="anchor" href="#common-tasks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Common Tasks</h2>
+
+<h3>
+<a id="edit-page-titles-or-change-the-left-navigation" class="anchor" href="#edit-page-titles-or-change-the-left-navigation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Edit Page Titles or Change the Left Navigation</h3>
+
+<p>Edit the yaml files in <code>/_data/</code> for the Guides, Reference, Samples, or Support areas. </p>
+
+<p>You may have to exit and <code>jekyll clean</code> before restarting the <code>jekyll serve</code> to
+get changes to files in <code>/_data/</code> to show up.</p>
+
+<h3>
+<a id="add-images" class="anchor" href="#add-images" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add Images</h3>
+
+<p>Put the new image in <code>/images/docs/</code> if it's for the documentation, and just <code>/images/</code> if it's for the website.</p>
+
+<p><strong>For diagrams, we greatly prefer SVG files!</strong></p>
+
+<h3>
+<a id="include-code-from-another-file" class="anchor" href="#include-code-from-another-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Include code from another file</h3>
+
+<p>To include a file that is hosted on this GitHub repo, insert this code:</p>
+
+<pre>{% include code.html language="&lt;LEXERVALUE&gt;" file="&lt;RELATIVEPATH&gt;" ghlink="&lt;PATHFROMROOT&gt;" %}</pre>
+
+<ul>
+<li>
+<code>LEXERVALUE</code>: The language in which the file was written; must be <a href="https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers">a value supported by Rouge</a>.</li>
+<li>
+<code>RELATIVEPATH</code>: The path to the file you're including, relative to the current file.</li>
+<li>
+<code>PATHFROMROOT</code>: The path to the file relative to root, e.g. <code>/docs/admin/foo.yaml</code>
+</li>
+</ul>
+
+<p>To include a file that is hosted in the external, main Kubernetes repo, make sure it's added to <a href="https://github.com/kubernetes/kubernetes.github.io/blob/master/update-imported-docs.sh">/update-imported-docs.sh</a>, and run it so that the file gets downloaded, then enter:</p>
+
+<pre>{% include code.html language="&lt;LEXERVALUE&gt;" file="&lt;RELATIVEPATH&gt;" k8slink="&lt;PATHFROMK8SROOT&gt;" %}</pre>
+
+<ul>
+<li>
+<code>PATHFROMK8SROOT</code>: The path to the file relative to the root of <a href="https://github.com/kubernetes/kubernetes/tree/release-1.2">the Kubernetes repo</a>, e.g. <code>/examples/rbd/foo.yaml</code>
+</li>
+</ul>
+
+<h2>
+<a id="using-tabs-for-multi-language-examples" class="anchor" href="#using-tabs-for-multi-language-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using tabs for multi-language examples</h2>
+
+<p>By specifying some inline CSV in a varable called <code>tabspec</code>, you can include a file
+called <code>tabs.html</code> that generates tabs showing code examples in multiple langauges.</p>
+
+<pre>{% capture tabspec %}servicesample
+JSON,json,service-sample.json,/docs/user-guide/services/service-sample.json
+YAML,yaml,service-sample.yaml,/docs/user-guide/services/service-sample.yaml{% endcapture %}
+{% include tabs.html %}</pre>
+
+<p>In English, this would read: "Create a set of tabs with the alias <code>servicesample</code>,
+and have tabs visually labeled "JSON" and "YAML" that use <code>json</code> and <code>yaml</code> Rouge syntax highlighting, which display the contents of
+<code>service-sample.{extension}</code> on the page, and link to the file in GitHub at (full path)."</p>
+
+<p>Example file: <a href="/docs/user-guide/pods/multi-container/">Pods: Multi-Container</a>.</p>
+
+<h2>
+<a id="use-a-global-variable" class="anchor" href="#use-a-global-variable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use a global variable</h2>
+
+<p>The <code>/_config.yml</code> file defines some useful variables you can use when editing docs. </p>
+
+<ul>
+<li>
+<code>page.githubbranch</code>: The name of the GitHub branch on the Kubernetes repo that is associated with this branch of the docs. e.g. <code>release-1.2</code>
+</li>
+<li>
+<code>page.version</code> The version of Kubernetes associated with this branch of the docs. e.g. <code>v1.2</code>
+</li>
+<li>
+<code>page.docsbranch</code> The name of the GitHub branch on the Docs/Website repo that you are currently using. e.g. <code>release-1.1</code> or <code>master</code>
+</li>
+</ul>
+
+<p>This keeps the docs you're editing aligned with the Kubernetes version you're talking about. For example, if you define a link like so, you'll never have to worry about it going stale in future doc branches:</p>
+
+<pre>View the README [here](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md).</pre>
+
+<p>That, of course, will send users to:</p>
+
+<p><a href="http://releases.k8s.io/release-1.2/cluster/addons/README.md">http://releases.k8s.io/release-1.2/cluster/addons/README.md</a></p>
+
+<p>(Or whatever Kubernetes release that docs branch is associated with.)</p>
+
+<h2>
+<a id="branch-structure" class="anchor" href="#branch-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Branch structure</h2>
+
+<p>The current version of the website is served out of the <code>master</code> branch.</p>
+
+<p>All versions of the site that relate to past and future versions will be named after their Kubernetes release number. For example, <a href="https://github.com/kubernetes/kubernetes.github.io/tree/release-1.1">the old branch for the 1.1 docs is called <code>release-1.1</code></a>.</p>
+
+<h2>
+<a id="thank-you" class="anchor" href="#thank-you" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Thank you!</h2>
+
+<p>Kubernetes thrives on community participation and we really appreciate your
+contributions to our site and our documentation!</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
 </html>
-
