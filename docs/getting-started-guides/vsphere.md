@@ -62,6 +62,11 @@ govc datastore.ls ./kube/
 Take a look at the file `cluster/vsphere/config-common.sh` fill in the required
 parameters. The guest login for the image that you imported is `kube:kube`.
 
+Also take a look at the file `cluster/vsphere/config-default.sh` and
+make any needed changes. You can configure the number of nodes
+as well as the IP subnets you have made available to Kubernetes, pods,
+and services.
+
 ### Starting a cluster
 
 Now, let's continue with deploying Kubernetes.
