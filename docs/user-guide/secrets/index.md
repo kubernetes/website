@@ -130,6 +130,19 @@ be omitted.  When using the `base64` utility on Darwin/OS X users should avoid
 using the `-b` option to split long lines.  Conversely Linux users *should* add
 the option `-w 0` to `base64` commands.
 
+Also, take into account that the `echo` command attaches a newline. Many
+applications will not do any trimming nor stripping and you could could get
+into troubles. An example is the official Wordpress docker image, which
+manipulates usernames with `sed` to insert into configuration files. To avoid
+this use the `-n` switch:
+
+```shell
+$ echo "admin" | base64
+YWRtaW4K
+$ echo -n "admin" | base64
+YWRtaW4=
+```
+
 #### Decoding a Secret
 
 Get back the secret created in the previous section:
