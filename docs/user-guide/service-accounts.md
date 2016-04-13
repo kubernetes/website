@@ -72,7 +72,7 @@ secrets:
 
 then you will see that a token has automatically been created and is referenced by the service account.
 
-In the future, you will be able to configure different access policies for each service account.
+You may use the ABAC authorization plugin to [set permissions on service accounts](/docs/admin/authorization/#a-quick-note-on-service-accounts).
 
 To use a non-default service account, simply set the `spec.serviceAccount`
 field of a pod to the name of the service account you wish to use.
