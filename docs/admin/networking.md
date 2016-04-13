@@ -179,7 +179,7 @@ IPs.
 
 ### Romana
 
-[Romana](https://romana.io) is an open source software defined networking (SDN) solution that lets you deploy Kubernetes without an overlay network. 
+[Romana](http://romana.io) is an open source software defined networking (SDN) solution that lets you deploy Kubernetes without an overlay network. 
 
 ## Other reading
 
