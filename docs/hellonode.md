@@ -129,7 +129,7 @@ If all goes well, you should be able to see the container image listed in the co
 
 A cluster consists of a master API server and a set of worker VMs called nodes.
 
-Create a cluster via the Console: *Compute > Container Engine > Container Clusters > New container cluster*. Leave all the options default, and you should get a Kubernetes cluster with three nodes, ready to receive your container image.
+Create a cluster via the Console: *Compute > Container Engine > Container Clusters > New container cluster*. Set the name to 'hello-world', leaving all other options default.  You should get a Kubernetes cluster with three nodes, ready to receive your container image.
 
 ![image](/images/hellonode/image_11.png)
 
