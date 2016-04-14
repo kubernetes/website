@@ -16,6 +16,8 @@ toc:
     path: /docs/user-guide/walkthrough/
   - title: Kubernetes 201
     path: /docs/user-guide/walkthrough/k8s201/
+  - title: Accessing the Kubernetes Web UI
+    path: /docs/user-guide/ui-access/
 
 - title: User Guide
   path: /docs/user-guide/
@@ -142,7 +144,7 @@ toc:
     path: /docs/user-guide/resizing-a-replication-controller/
   - title: Service Operations
     path: /docs/user-guide/services/operations/
- 
+
 - title: Using Nodes, Pods, and Containers
   section:
   - title: The Container Environment
@@ -151,7 +153,7 @@ toc:
     path: /docs/user-guide/simple-nginx/
   - title: Working with Containers
     path: /docs/user-guide/production-pods/
-  - title: Overriding Default Container Behavior 
+  - title: Overriding Default Container Behavior
     path: /docs/user-guide/containers/
   - title: Running Commands in a Container with kubectl exec
     path: /docs/user-guide/getting-into-containers/
@@ -202,7 +204,7 @@ toc:
     path: /docs/admin/master-node-communication/
   - title: Network Plugins
     path: /docs/admin/network-plugins/
- 
+
 - title: Configuring Kubernetes
   section:
   - title: Using Configuration Files
@@ -246,6 +248,8 @@ toc:
     path: /docs/user-guide/rolling-updates/
   - title: Launching, Exposing, and Killing Applications
     path: /docs/user-guide/quick-start/
+  - title: Web Interface
+    path: /docs/user-guide/ui/
 
 - title: Testing and Monitoring
   section:

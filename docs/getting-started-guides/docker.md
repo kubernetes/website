@@ -14,7 +14,17 @@ Here's a diagram of what the final result will look like:
 
 1. You need to have docker installed on one machine.
 2. Decide what Kubernetes version to use.  Set the `${K8S_VERSION}` variable to
-   a released version of Kubernetes >= "1.2.0"
+   a released version of Kubernetes >= "v1.2.0". If you'd like to use the actual stable version of Kubernetes, run the following:
+
+```sh
+export K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+```
+
+   and for the latest available version (including unstable releases):
+
+```sh
+export K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/release/latest.txt)
+```
 
 ### Run it
 
@@ -30,7 +40,7 @@ docker run \
     --privileged=true \
     --name=kubelet \
     -d \
-    gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \
+    gcr.io/google_containers/hyperkube-amd64:${K8S_VERSION} \
     /hyperkube kubelet \
         --containerized \
         --hostname-override="127.0.0.1" \
@@ -63,7 +73,7 @@ variable.
 For example, OS X:
 
 ```shell
-wget http://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/darwin/amd64/kubectl
+wget http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/darwin/amd64/kubectl
 chmod 755 kubectl
 PATH=$PATH:`pwd`
 ```
@@ -71,7 +81,7 @@ PATH=$PATH:`pwd`
 Linux:
 
 ```shell
-wget http://storage.googleapis.com/kubernetes-release/release/v${K8S_VERSION}/bin/linux/amd64/kubectl
+wget http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl
 chmod 755 kubectl
 PATH=$PATH:`pwd`
 ```
@@ -150,7 +160,7 @@ See [here](/docs/getting-started-guides/docker-multinode/deployDNS/) for instruc
 Many of these containers run under the management of the `kubelet` binary, which attempts to keep containers running, even if they fail.
 So, in order to turn down the cluster, you need to first kill the kubelet container, and then any other containers.
 
-You may use `docker kill $(docker ps -aq)`, note this removes _all_ containers running under Docker, so use with caution.
+You may use `docker rm $(docker ps -aq)`, note this removes _all_ containers running under Docker, so use with caution.
 
 2. Cleanup the filesystem:
 

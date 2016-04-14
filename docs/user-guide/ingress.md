@@ -52,12 +52,9 @@ l7-lb-controller-v0.6.0-chnan   2/2       Running   0          1d
 Make sure you review the [beta limitations](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/gce/BETA_LIMITATIONS.md) of this controller. In particular, you need to create a single firewall-rule on your cloudprovider, to allow health checks. On GKE this would be:
 
 ```shell
-$ export TAG=$(basename `gcloud container clusters describe ${CLUSTER_NAME} --zone ${ZONE} | grep gke | awk '{print $2}'` | sed -e s/group/node/)
-$ export NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services echoheaders)
 $ gcloud compute firewall-rules create allow-130-211-0-0-22 \
   --source-ranges 130.211.0.0/22 \
-  --target-tags $TAG \
-  --allow tcp:$NODE_PORT
+  --allow tcp:30000-32767
 ```
 
 In environments other than GCE/GKE, you need to [deploy a controller](https://github.com/kubernetes/contrib/tree/master/ingress/controllers) as a pod.
@@ -218,7 +215,7 @@ metadata:
   name: no-rules-map
 spec:
   tls:
-    secretName: testsecret
+    - secretName: testsecret
   backend:
     serviceName: s1
     servicePort: 80

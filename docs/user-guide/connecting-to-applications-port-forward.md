@@ -22,9 +22,9 @@ redis-master   2/2       Running   0          41s
 
 The Redis master is listening on port 6397, to verify this,
 
-```shell
+```shell{% raw %}
 $ kubectl get pods redis-master -t='{{(index (index .spec.containers 0).ports 0).containerPort}}{{"\n"}}'
-6379
+6379{% endraw %}
 ```
 
 then we forward the port 6379 on the local workstation to the port 6379 of pod redis-master,

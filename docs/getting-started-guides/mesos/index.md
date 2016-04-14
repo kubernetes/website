@@ -229,23 +229,23 @@ Note that we have passed these two values already as parameter to the apiserver 
 
 A template for an replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/skydns-rc.yaml.in][11] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
 
-- replace `{{ pillar['dns_replicas'] }}`  with `1`
-- replace `{{ pillar['dns_domain'] }}` with `cluster.local.`
+- replace `{% raw %}{{ pillar['dns_replicas'] }}{% endraw %}`  with `1`
+- replace `{% raw %}{{ pillar['dns_domain'] }}{% endraw %}` with `cluster.local.`
 - add `--kube_master_url=${KUBERNETES_MASTER}` parameter to the kube2sky container command.
 
 In addition the service template at [cluster/addons/dns/skydns-svc.yaml.in][12] needs the following replacement:
 
-- `{{ pillar['dns_server'] }}` with `10.10.10.10`.
+- `{% raw %}{{ pillar['dns_server'] }}{% endraw %}` with `10.10.10.10`.
 
 To do this automatically:
 
-```shell
+```shell{% raw %}
 sed -e "s/{{ pillar\['dns_replicas'\] }}/1/g;"\
 "s,\(command = \"/kube2sky\"\),\\1\\"$'\n'"        - --kube_master_url=${KUBERNETES_MASTER},;"\
 "s/{{ pillar\['dns_domain'\] }}/cluster.local/g" \
   cluster/addons/dns/skydns-rc.yaml.in > skydns-rc.yaml
 sed -e "s/{{ pillar\['dns_server'\] }}/10.10.10.10/g" \
-  cluster/addons/dns/skydns-svc.yaml.in > skydns-svc.yaml
+  cluster/addons/dns/skydns-svc.yaml.in > skydns-svc.yaml{% endraw %}
 ```
 
 Now the kube-dns pod and service are ready to be launched:

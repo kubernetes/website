@@ -26,7 +26,7 @@ Remember the project ID; it will be referred to later in this codelab as `PROJEC
 
 Next, [enable billing](https://console.developers.google.com/billing) in the Developers Console in order to use Google Cloud resources and [enable the Container Engine API](https://console.developers.google.com/project/_/kubernetes/list).
 
-New users of Google Cloud Platform recieve a [$300 free trial](https://console.developers.google.com/billing/freetrial?hl=en). Running through this codelab shouldn’t cost you more than a few dollars of that trial. Google Container Engine pricing is documented [here](https://cloud.google.com/container-engine/docs/#pricing).
+New users of Google Cloud Platform receive a [$300 free trial](https://console.developers.google.com/billing/freetrial?hl=en). Running through this codelab shouldn’t cost you more than a few dollars of that trial. Google Container Engine pricing is documented [here](https://cloud.google.com/container-engine/docs/#pricing).
 
 Next, make sure you [download Node.js](https://nodejs.org/en/download/).
 
@@ -70,7 +70,7 @@ Now let’s package this application in a Docker container.
 
 ## Create a Docker container image
 
-Next, create a file, also within `helloworld/` named `Dockerfile`. A Dockerfile describes the image that you want to build. Docker container images can extend from other existing images so for this image, we'll extend from an existing Node image.
+Next, create a file, also within `hellonode/` named `Dockerfile`. A Dockerfile describes the image that you want to build. Docker container images can extend from other existing images so for this image, we'll extend from an existing Node image.
 
 #### Dockerfile
 
@@ -127,7 +127,7 @@ If all goes well, you should be able to see the container image listed in the co
 
 ## Create your cluster
 
-A cluster consists of a master API server and a set of worker VMs called nodes. 
+A cluster consists of a master API server and a set of worker VMs called nodes.
 
 Create a cluster via the Console: *Compute > Container Engine > Container Clusters > New container cluster*. Leave all the options default, and you should get a Kubernetes cluster with three nodes, ready to receive your container image.
 
@@ -277,7 +277,7 @@ First, let’s modify the application. On the development machine, edit server.j
 We can now build and publish a new container image to the registry with an incremented tag:
 
 ```shell
-docker build -t gcr.io/PROJECT_ID/hello-node:v2 . 
+docker build -t gcr.io/PROJECT_ID/hello-node:v2 .
 gcloud docker push gcr.io/PROJECT_ID/hello-node:v2
 ```
 
@@ -362,9 +362,20 @@ While this is happening, the users of the services should not see any interrupti
 
 Hopefully with these deployment, scaling and update features you’ll agree that once you’ve setup your environment (your GKE/Kubernetes cluster here), Kubernetes is here to help you focus on the application rather than the infrastructure.
 
+## Observe the Kubernetes Web UI (optional)
+
+With Kubernetes 1.2, a graphical web user interface (dashboard) has been introduced. It is enabled by default for 1.2 clusters.
+This user interface allows you to get started quickly and enables some of the functionality found in the CLI as a more approachable and discoverable way of interacting with the system.
+
+Enjoy the Kubernetes graphical dashboard and use it for deploying containerized applications, as well as for monitoring and managing your clusters!
+
+![image](/images/docs/ui-dashboard-cards-menu.png)
+
+Learn more about the web interface by taking the [Dashboard tour](/docs/user-guide/ui/).
+
 ## That's it! Time to tear it down
 
-That's it for the demo! So you don't leave this all running and incur charges, let's learn how to tear things down. 
+That's it for the demo! So you don't leave this all running and incur charges, let's learn how to tear things down.
 
 Delete the Deployment (which also deletes the running pods) and Service (which also deletes your external load balancer):
 

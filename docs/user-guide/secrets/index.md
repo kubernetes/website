@@ -124,9 +124,11 @@ $ kubectl create -f ./secret.yaml
 secret "mysecret" created
 ```
 
-**Encoding Note:** The serialized JSON and YAML values of secret data are encoded as
-base64 strings.  Newlines are not valid within these strings and must be
-omitted (i.e. do not use `-b` option of `base64` which breaks long lines.)
+**Encoding Note:** The serialized JSON and YAML values of secret data are
+encoded as base64 strings.  Newlines are not valid within these strings and must
+be omitted.  When using the `base64` utility on Darwin/OS X users should avoid
+using the `-b` option to split long lines.  Conversely Linux users *should* add
+the option `-w 0` to `base64` commands.
 
 #### Decoding a Secret
 
@@ -274,7 +276,7 @@ This is the result of commands executed inside the container from the example ab
 ```shell
 $ echo $SECRET_USERNAME
 admin
-$ cat /etc/foo/password
+$ echo $SECRET_PASSWORD
 1f2d1e2e67df
 ```
 
@@ -521,22 +523,23 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
 
 ```json
 {
-"kind": "Pod",
-"apiVersion": "v1",
-"metadata": {
-  "name": "prod-db-client-pod",
-  "labels": {
-    "name": "prod-db-client"
-  }
-},
-"spec": {
-  "serviceAccount": "prod-db-client",
-  "containers": [
-    {
-      "name": "db-client-container",
-      "image": "myClientImage"
+  "kind": "Pod",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "prod-db-client-pod",
+    "labels": {
+      "name": "prod-db-client"
     }
-  ]
+  },
+  "spec": {
+    "serviceAccount": "prod-db-client",
+    "containers": [
+      {
+        "name": "db-client-container",
+        "image": "myClientImage"
+      }
+    ]
+  }
 }
 ```
 
@@ -553,7 +556,7 @@ make that key begin with a dot.  For example, when the following secret secret i
     "name": "dotfile-secret"
   },
   "data": {
-    ".secret-file": "dmFsdWUtMg0KDQo=",
+    ".secret-file": "dmFsdWUtMg0KDQo="
   }
 }
 
@@ -561,7 +564,7 @@ make that key begin with a dot.  For example, when the following secret secret i
   "kind": "Pod",
   "apiVersion": "v1",
   "metadata": {
-    "name": "secret-dotfiles-pod",
+    "name": "secret-dotfiles-pod"
   },
   "spec": {
     "volumes": [
@@ -576,7 +579,7 @@ make that key begin with a dot.  For example, when the following secret secret i
       {
         "name": "dotfile-test-container",
         "image": "gcr.io/google_containers/busybox",
-        "command": "ls -l /etc/secret-volume"
+        "command": "ls -l /etc/secret-volume",
         "volumeMounts": [
           {
             "name": "secret-volume",
