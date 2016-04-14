@@ -33,8 +33,6 @@ toc:
     section:
     - title: Running Kubernetes Locally via Docker
       path: /docs/getting-started-guides/docker/
-    - title: Running Kubernetes Locally via Vagrant
-      path: /docs/getting-started-guides/vagrant/
     - title: Running Kubernetes Locally with No VM
       path: /docs/getting-started-guides/locally/
   - title: Running Kubernetes on Turn-key Cloud Solutions
