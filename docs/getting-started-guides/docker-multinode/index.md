@@ -2,7 +2,7 @@
 ---
 
 _Note_:
-These instructions are somewhat significantly more advanced than the [single node](docker.md) instructions.  If you are
+These instructions are somewhat significantly more advanced than the [single node](/docs/getting-started-guides/docker) instructions.  If you are
 interested in just starting to explore Kubernetes, we recommend that you start there.
 
 * TOC
