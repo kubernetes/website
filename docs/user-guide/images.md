@@ -66,9 +66,14 @@ in the Pod definition.
 All users of the cluster who can create pods will be able to run pods that use any of the
 images in the ECR registry.
 
-The kubelet will fetch and periodically refresh ECR credentials.  It needs the
-`ecr:GetAuthorizationToken` permission to do this.
-
+The kubelet will fetch and periodically refresh ECR credentials.  It needs the following permissions to do this:
+- `ecr:GetAuthorizationToken` 
+- `ecr:BatchCheckLayerAvailability`
+- `ecr:GetDownloadUrlForLayer`
+- `ecr:GetRepositoryPolicy`
+- `ecr:DescribeRepositories`
+- `ecr:ListImages`
+- `ecr:BatchGetImage`
 
 ### Configuring Nodes to Authenticate to a Private Repository
 
