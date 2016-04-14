@@ -3,23 +3,25 @@
 
 By default, the Kubernetes Dashboard is deployed as a cluster addon. For 1.2 clusters, it is enabled by default.
 
-If you want to manually install it, visit
+To access the Dashboard, visit
 
 `https://<kubernetes-master>/ui`, which redirects to
 `https://<kubernetes-master>/api/v1/proxy/namespaces/kube-system/services/kubernetes-dashboard`.
 
-If you find that you're not able to access the Dashboard, it may be because the
-`kubernetes-dashboard` service has not been started on your cluster. In that case,
-you can start it manually as follows:
+If you find that you're not able to access the Dashboard, you can install and open the latest stable release by running the following commands:
 
 ```shell
-kubectl create -f cluster/addons/dashboard/dashboard-controller.yaml --namespace=kube-system
-kubectl create -f cluster/addons/dashboard/dashboard-service.yaml --namespace=kube-system
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml --namespace=kube-system
+kubectl proxy --port=9090
 ```
+Then navigate to
 
-Normally, this should be taken care of automatically by the
-[`kube-addons.sh`](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/kube-addons/kube-addons.sh)
-script that runs on the master. Release notes and development versions of the Dashboard can be
+```shell
+http://localhost:9090/api/v1/proxy/namespaces/kube-system/services/kubernetes-dashboard
+```
+If you are asked for a password, use `kubectl config view` to find it.
+
+Release notes and development versions of the Dashboard can be
 found at https://github.com/kubernetes/dashboard/releases.
 
 ## Walkthrough
