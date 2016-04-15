@@ -413,7 +413,8 @@ Note: A paused Deployment cannot be scaled at this moment, and we will add this 
 
 ### Canary Deployment
 
-If you want to run multiple versions of a container using the Deployment, you can just create multiple Deployments for different versions. 
+If you want to roll out releases to a subset of users or servers using the Deployment, you can create multiple Deployments, one for each release,
+following the canary pattern described in [managing resources](/docs/user-guide/managing-deployments/#canary-deployments). 
 
 ## Writing a Deployment Spec
 
