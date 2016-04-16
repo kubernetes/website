@@ -14,7 +14,7 @@ This is a getting started guide for Fedora.  It is a manual configuration so you
 
 This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](/docs/admin/networking/) done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
 
-The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: /etc/kubernetes.  We will break the services up between the hosts.  The first host, fed-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager, and kube-scheduler.  In addition, the master will also run _etcd_ (not needed if _etcd_ runs on a different host but this guide assumes that _etcd_ and Kubernetes master run on the same host).  The remaining host, fed-node will be the node and run kubelet, proxy and docker.
+The Kubernetes package provides a few services: `kube-apiserver`, `kube-scheduler`, `kube-controller-manager`, `kubelet`, `kube-proxy`.  These services are managed by systemd and the configuration resides in a central location: `/etc/kubernetes`.  We will break the services up between the hosts.  The first host, _fed-master_, will be the Kubernetes master.  This host will run the `kube-apiserver`, `kube-controller-manager`, and `kube-scheduler`.  In addition, the master will also run _etcd_ (not needed if _etcd_ runs on a different host but this guide assumes that _etcd_ and Kubernetes master run on the same host).  The remaining host, _fed-node_ will be the node and run `kubelet`, `proxy` and `docker`.
 
 **System Information:**
 
@@ -28,27 +28,21 @@ fed-node = 192.168.121.65
 **Prepare the hosts:**
 
 * Install Kubernetes on all hosts - fed-{master,node}.  This will also pull in docker. Also install etcd on fed-master.  This guide has been tested with kubernetes-0.18 and beyond.
-* The [--enablerepo=updates-testing](https://fedoraproject.org/wiki/QA:Updates_Testing) directive in the yum command below will ensure that the most recent Kubernetes version that is scheduled for pre-release will be installed. This should be a more recent version than the Fedora "stable" release for Kubernetes that you would get without adding the directive.
-* If you want the very latest Kubernetes release [you can download and yum install the RPM directly from Fedora Koji](http://koji.fedoraproject.org/koji/packageinfo?packageID=19202) instead of using the yum install command below.
+* The [--enablerepo=updates-testing](https://fedoraproject.org/wiki/QA:Updates_Testing) directive in the dnf command below will ensure that the most recent Kubernetes version that is scheduled for pre-release will be installed. This should be a more recent version than the Fedora "stable" release for Kubernetes that you would get without adding the directive.
+* If you want the very latest Kubernetes release [you can download and dnf install the RPM directly from Fedora Koji](http://koji.fedoraproject.org/koji/packageinfo?packageID=19202) instead of using the dnf install command below.
 
 ```shell
-yum -y install --enablerepo=updates-testing kubernetes
+dnf -y install --enablerepo=updates-testing kubernetes
 ```
 
-* Install etcd and iptables
+* Add master and node to `/etc/hosts` on all machines (not needed if hostnames already in DNS). Make sure that communication works between fed-master and fed-node by using a utility such as ping.
 
 ```shell
-yum -y install etcd iptables
+echo "192.168.121.9 fed-master
+192.168.121.65  fed-node" >> /etc/hosts
 ```
 
-* Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS). Make sure that communication works between fed-master and fed-node by using a utility such as ping.
-
-```shell
-echo "192.168.121.9	fed-master
-192.168.121.65	fed-node" >> /etc/hosts
-```
-
-* Edit /etc/kubernetes/config which will be the same on all hosts (master and node) to contain:
+* Edit `/etc/kubernetes/config` which will be the same on all hosts (master and node) to contain:
 
 ```shell
 # Comma separated list of nodes in the etcd cluster
@@ -73,14 +67,14 @@ systemctl stop iptables-services firewalld
 
 **Configure the Kubernetes services on the master.**
 
-* Edit /etc/kubernetes/apiserver to appear as such.  The service-cluster-ip-range IP addresses must be an unused block of addresses, not used anywhere else.  They do not need to be routed or assigned to anything.
+* Edit `/etc/kubernetes/apiserver` to appear as such.  The `service-cluster-ip-range` IP addresses must be an unused block of addresses, not used anywhere else.  They do not need to be routed or assigned to anything.
 
 ```shell
 # The address on the local server to listen to.
-KUBE_API_ADDRESS="--address=0.0.0.0"
+KUBE_API_ADDRESS="--insecure-bind-address=0.0.0.0"
 
 # Comma separated list of nodes in the etcd cluster
-KUBE_ETCD_SERVERS="--etcd-servers=http://127.0.0.1:4001"
+KUBE_ETCD_SERVERS="--etcd-servers=http://127.0.0.1:2379"
 
 # Address range to use for services
 KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
@@ -89,13 +83,19 @@ KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
 KUBE_API_ARGS=""
 ```
 
-* Edit /etc/etcd/etcd.conf,let the etcd to listen all the ip instead of 127.0.0.1, if not, you will get the error like "connection refused". Note that Fedora 22 uses etcd 2.0, One of the changes in etcd 2.0 is that now uses port 2379 and 2380 (as opposed to etcd 0.46 which userd 4001 and 7001).
+* Install _etcd_ and _iptables_
 
 ```shell
-ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:4001"
+dnf -y install etcd iptables
 ```
 
-* Create /var/run/kubernetes on master:
+* Edit `/etc/etcd/etcd.conf`, let the _etcd_ listen on all interfaces instead of just `127.0.0.1`, if not, you will get the error like "connection refused".
+
+```shell
+ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
+```
+
+* Create `/var/run/kubernetes` on _master_:
 
 ```shell
 mkdir /var/run/kubernetes
@@ -107,15 +107,15 @@ chmod 750 /var/run/kubernetes
 
 ```shell
 for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do
-	systemctl restart $SERVICES
-	systemctl enable $SERVICES
-	systemctl status $SERVICES
+    systemctl restart $SERVICES
+    systemctl enable $SERVICES
+    systemctl status $SERVICES
 done
 ```
 
 * Addition of nodes:
 
-* Create following node.json file on Kubernetes master node:
+* Create following `node.json` file on Kubernetes _master_ node:
 
 ```json
 {
@@ -137,8 +137,8 @@ Now create a node object internally in your Kubernetes cluster by running:
 $ kubectl create -f ./node.json
 
 $ kubectl get nodes
-NAME                LABELS              STATUS
-fed-node           name=fed-node-label     Unknown
+NAME       LABELS                STATUS    AGE
+fed-node   name=fed-node-label   Unknown   22s
 ```
 
 Please note that in the above, it only creates a representation for the node
@@ -151,7 +151,7 @@ a Kubernetes node (fed-node) below.
 
 ***We need to configure the kubelet on the node.***
 
-* Edit /etc/kubernetes/kubelet to appear as such:
+* Edit `/etc/kubernetes/kubelet` to appear as such:
 
 ```shell
 ###
@@ -184,8 +184,8 @@ done
 
 ```shell
 kubectl get nodes
-NAME                LABELS              STATUS
-fed-node          name=fed-node-label     Ready
+NAME                LABELS                  STATUS
+fed-node            name=fed-node-label     Ready
 ```
 
 * Deletion of nodes:
@@ -210,4 +210,3 @@ IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs               
 Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config)            |          | Project
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
-
