@@ -9,8 +9,8 @@ Enviroinment variables used:
 
 ```shell
 export MASTER_IP=<the_master_ip_here>
-export K8S_VERSION=<your_k8s_version (e.g. 1.2.1)>
-export ETCD_VERSION=<your_etcd_version (e.g. 2.2.1)>
+export K8S_VERSION=<your_k8s_version (e.g. 1.2.2)>
+export ETCD_VERSION=<your_etcd_version (e.g. 2.3.1)>
 export FLANNEL_VERSION=<your_flannel_version (e.g. 0.5.5)>
 export FLANNEL_IFACE=<flannel_interface (defaults to eth0)>
 export FLANNEL_IPMASQ=<flannel_ipmasq_flag (defaults to true)>
