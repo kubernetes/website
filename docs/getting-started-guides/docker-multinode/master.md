@@ -57,7 +57,7 @@ Run:
 ```shell
 sudo docker -H unix:///var/run/docker-bootstrap.sock run -d \
     --net=host \
-    gcr.io/google_containers/etcd-amd64:${ETCD_VERSION} \
+    quay.io/coreos/etcd:v${ETCD_VERSION} \
     /usr/local/bin/etcd \
         --listen-client-urls=http://127.0.0.1:4001,http://${MASTER_IP}:4001 \
         --advertise-client-urls=http://${MASTER_IP}:4001 \
@@ -69,7 +69,7 @@ Next, you need to set a CIDR range for flannel.  This CIDR should be chosen to b
 ```shell
 sudo docker -H unix:///var/run/docker-bootstrap.sock run \
     --net=host \
-    gcr.io/google_containers/etcd-amd64:${ETCD_VERSION} \
+    quay.io/coreos/etcd:v${ETCD_VERSION} \
     etcdctl set /coreos.com/network/config '{ "Network": "10.1.0.0/16" }'
 ```
 
