@@ -21,6 +21,8 @@ your image.
 If you did not specify tag of your image, it will be assumed as `:latest`, with
 pull image policy of `Always` correspondingly.
 
+Note that you should avoid using `:latest` tag, see [Best Practices for Configuration](/docs/user-guide/config-best-practices/#container-images) for more information.
+
 ## Using a Private Registry
 
 Private registries may require keys to read images from them.
