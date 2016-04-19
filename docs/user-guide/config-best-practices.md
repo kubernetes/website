@@ -100,6 +100,9 @@ This document is meant to highlight and consolidate in one place configuration b
   address this by ensuring that any updates to an image bump the image tag as well (e.g.
   `myimage:v2`), and ensuring that your configs point to the correct version.
 
+  **Note:** you should avoid using `:latest` tag when deploying containers in production, because this makes it hard
+  to track which version of the image is running and hard to roll back.
+
 ## Using kubectl
 
 - Use `kubectl create -f <directory>` where possible. This looks for config objects in all `.yaml`, `.yml`, and `.json` files in `<directory>` and passes them to `create`.
