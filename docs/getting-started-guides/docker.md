@@ -73,7 +73,7 @@ variable.
 For example, OS X:
 
 ```shell
-wget http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/darwin/amd64/kubectl
+curl -O http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/darwin/amd64/kubectl
 chmod 755 kubectl
 PATH=$PATH:`pwd`
 ```
@@ -146,7 +146,7 @@ kubectl get svc nginx --template={{.spec.clusterIP}}
 
 On OS X, since docker is running inside a VM, run the following command instead:
 ```shell
- docker-machine ssh `docker-machine active` curl $ip
+docker-machine ssh `docker-machine active` curl $ip
 ```
 
 ## Deploy a DNS
@@ -184,23 +184,23 @@ If you see your node as `NotReady` it's possible that your OS does not have memc
 1. Your kernel should support memory accounting. Ensure that the
 following configs are turned on in your linux kernel:
 
-    ```shell
-    CONFIG_RESOURCE_COUNTERS=y
-    CONFIG_MEMCG=y
-    ```
+```shell
+CONFIG_RESOURCE_COUNTERS=y
+CONFIG_MEMCG=y
+```
 
 2. Enable the memory accounting in the kernel, at boot, as command line
 parameters as follows:
 
-    ```shell
-    GRUB_CMDLINE_LINUX="cgroup_enable=memory=1"
-    ```
+```shell
+GRUB_CMDLINE_LINUX="cgroup_enable=memory=1"
+```
 
-    NOTE: The above is specifically for GRUB2.
-    You can check the command line parameters passed to your kernel by looking at the
-    output of /proc/cmdline:
+NOTE: The above is specifically for GRUB2.
+You can check the command line parameters passed to your kernel by looking at the
+output of /proc/cmdline:
 
-    ```shell
-    $ cat /proc/cmdline
-    BOOT_IMAGE=/boot/vmlinuz-3.18.4-aufs root=/dev/sda5 ro cgroup_enable=memory=1
-    ```
+```shell
+$ cat /proc/cmdline
+BOOT_IMAGE=/boot/vmlinuz-3.18.4-aufs root=/dev/sda5 ro cgroup_enable=memory=1
+```
