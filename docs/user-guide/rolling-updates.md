@@ -73,6 +73,8 @@ The update will fail if `IMAGE:TAG` is identical to the
 current value. For this reason, we recommend the use of versioned tags as
 opposed to values such as `:latest`. Doing a rolling update from `image:latest`
 to a new `image:latest` will fail, even if the image at that tag has changed.
+Moreover, the use of `:latest` is not recommended, see 
+[Best Practices for Configuration](/docs/user-guide/config-best-practices/#container-images) for more information.
 
 ### Examples
 
