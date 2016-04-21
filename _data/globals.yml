@@ -1,5 +1,22 @@
 tocs:
-- guides
-- reference
-- samples
-- support
+- item:
+	name: Tutorials
+	file: tutorials
+- item:
+	name: Concepts
+	file: concepts
+- item:
+	name: How To
+	file: howto
+- item: 
+	name: Tools/UI
+	file: toolsui
+- item:
+	name: Samples
+	file: samples
+- item:
+	name: Building Clusters
+	file: building clusters
+- item:
+	name: Troubleshooting
+	file: troubleshooting
