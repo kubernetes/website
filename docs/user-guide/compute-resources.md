@@ -32,7 +32,8 @@ Each container of a pod can optionally specify one or more of the following:
 Specifying resource requests and/or limits is optional. In some clusters, unset limits or requests
 may be replaced with default values when a pod is created or updated. The default value depends on
 how the cluster is configured. If the requests values are not specified, they are set to be equal
-to limits by default. Please note that limits must always be greater than or equal to requests.
+to the limits values by default. Please note that limits must always be greater than or equal to
+requests.
 
 Although requests/limits can only be specified on individual containers, it is convenient to talk
 about pod resource requests/limits.  A *pod resource request/limit* for a particular resource
