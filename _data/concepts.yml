@@ -70,7 +70,7 @@ toc:
   section:
   - title: What is a workload?
     path: /docs/workloads/
-  - Deployments
+  - title: Deployments
     section:
     - title: What is a Deployment?
       path: /docs/deployment/
@@ -128,7 +128,7 @@ toc:
       path: /docs/daemon-set/tutorials/
     - title: Daemon Set How-Tos
       path: /docs/daemon-set/howtos/
-      - title: Daemon Set Reference Documentation
+    - title: Daemon Set Reference Documentation
       path: /docs/daemon-set/reference/
   - title: Horizontal Pod Autoscaler
     section:
