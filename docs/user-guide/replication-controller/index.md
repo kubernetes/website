@@ -96,8 +96,8 @@ The `.spec.template` is a [pod template](#pod-template).  It has exactly
 the same schema as a [pod](/docs/user-guide/pods/), except it is nested and does not have an `apiVersion` or
 `kind`.
 
-In addition to required fields for a Pod, a pod template in a job must specify appropriate
-labels (see [pod selector](#pod-selector) and an appropriate restart policy.
+In addition to required fields for a Pod, a pod template in a Replication Controller must specify appropriate
+labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
 
 Only a [`RestartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
 if not specified.
