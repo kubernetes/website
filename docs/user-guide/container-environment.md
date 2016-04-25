@@ -48,7 +48,7 @@ There are currently two container hooks that are surfaced to containers:
 
 *PostStart*
 
-This hook is sent immediately after a container is created.  It notifies the container that it has been created.  No parameters are passed to the handler.
+This hook is sent immediately after a container is created.  It notifies the container that it has been created.  No parameters are passed to the handler. It is NOT guaranteed that the hook will execute before the container entrypoint.
 
 *PreStop*
 
