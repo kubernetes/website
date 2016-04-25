@@ -12,7 +12,7 @@
 	<div id="vendorStrip" class="light-text">
 		<ul>
             {% for navItem in site.data.globals.tocs %}
-            <li><a href="{{navItem.path}}">{{navItem.name}}</a></li>
+            <li><a href="{{navItem.path}}" {% if foundTOC.file == navItem.file %}class="YAH"{% endif %}>{{navItem.name}}</a></li>
             {% endfor %}
 		</ul>
 		<div id="searchBox">
