@@ -96,7 +96,7 @@ implementations:
 docs/user-guide/logging/#cluster-level-logging-to-google-cloud-logging)
 
 * [Cluster-level Logging with Elasticsearch and Kibana](
-docs/user-guide/logging/#cluster-level-logging-with-elasticsearch-and-kibana)
+docs/getting-started-guides/logging-elasticsearch/)
 
 ## Node components
 
