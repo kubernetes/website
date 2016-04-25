@@ -425,6 +425,12 @@ The `.spec.template` is a [pod template](/docs/user-guide/replication-controller
 the same schema as a [Pod](/docs/user-guide/pods), except it is nested and does not have an
 `apiVersion` or `kind`.
 
+In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate
+labels (see [selector](#selector)) and an appropriate restart policy.
+
+Only a [`RestartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
+if not specified.
+
 ### Replicas
 
 `.spec.replicas` is an optional field that specifies the number of desired Pods. It defaults
@@ -432,8 +438,14 @@ to 1.
 
 ### Selector
 
-`.spec.selector` is an optional field that specifies label selectors for Pods
-targeted by this deployment. Deployment kills some of these Pods, if their
+`.spec.selector` is an optional field that specifies [label selectors](/docs/user-guide/labels/#label-selectors) for Pods
+targeted by this deployment. 
+
+If specified, the `.spec.template.metadata.labels` must be equal to the `.spec.selector`, or it will
+be rejected by the API.  If `.spec.selector` is unspecified, it will be defaulted to
+`.spec.template.metadata.labels`.
+
+Deployment kills some of these Pods, if their
 template is different than `.spec.template` or if the total number of such Pods
 exceeds `.spec.replicas`. It will bring up new Pods with `.spec.template` if
 number of Pods are less than the desired number.

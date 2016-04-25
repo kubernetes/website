@@ -147,9 +147,9 @@ selector:
 
 this selector (respectively in `json` or `yaml` format) is equivalent to `component=redis` or `component in (redis)`.
 
-#### Job and other new resources
+#### Resources that support set-based requirements
 
-Newer resources, such as [job](/docs/user-guide/jobs), support _set-based_ requirements as well.
+Newer resources, such as [`Job`](/docs/user-guide/jobs), [`Deployment`](/docs/user-guide/deployments/), [`Replica Set`](/docs/user-guide/replicasets/), and [`Daemon Set`](/docs/admin/daemons/), support _set-based_ requirements as well.
 
 ```yaml
 selector:
