@@ -1,8 +1,8 @@
-bigheader: "Concepts"
-abstract: "An overview of api objects and high level concepts"
+bigheader: "How-To"
+abstract: "Abstract here"
 toc:
-- title: Concepts Overview
-  path: /docs/concepts/
+- title: How-To Overview
+  path: /docs/howto/
 - title: API
   section:
   - title: API Overview

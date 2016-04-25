@@ -1,20 +1,19 @@
-{% for thistoc in site.data.globals.tocs %}{% if foundTOC %}{% break %}{% else %}{% assign tree = site.data[thistoc].toc %}{% include tocsearch.html %}{% endif %}{% endfor %}
+{% for thistoc in site.data.globals.tocs %}{% if foundTOC %}{% break %}{% else %}{% assign tree = site.data[thistoc.file].toc %}{% include tocsearch.html %}{% endif %}{% endfor %}
 {% for override in site.data.overrides.overrides %}{% if page.path contains override.path %}{% assign notitle = "true" %}{% endif %}{% endfor %}
 <!Doctype html>
-<html id="docs" class="{{site.data[foundTOC].bigheader}}">
+<html id="docs" class="{{site.data[foundTOC.file].bigheader}}">
 
 {% include head-header.html %}
 
 <!--  HERO  -->
 <section id="hero" class="light-text">
-	<h1>{{ site.data[foundTOC].bigheader }}</h1>
-	<h5>{{ site.data[foundTOC].abstract }}</h5>
+	<h1>{{ site.data[foundTOC.file].bigheader }}</h1>
+	<h5>{{ site.data[foundTOC.file].abstract }}</h5>
 	<div id="vendorStrip" class="light-text">
 		<ul>
-			<li><a href="/docs/" {% if site.data[foundTOC].bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
-			<li><a href="/docs/reference" {% if site.data[foundTOC].bigheader == "Reference Documentation" %}class="YAH"{% endif %}>REFERENCE</a></li>
-			<li><a href="/docs/samples" {% if site.data[foundTOC].bigheader == "Samples" %}class="YAH"{% endif %}>SAMPLES</a></li>
-			<li><a href="/docs/troubleshooting/" {% if site.data[foundTOC].bigheader == "Support" %}class="YAH"{% endif %}>SUPPORT</a></li>
+            {% for navItem in site.data.globals.tocs %}
+            <li><a href="{{navItem.path}}">{{navItem.name}}</a></li>
+            {% endfor %}
 		</ul>
 		<div id="searchBox">
 			<input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)">
@@ -25,7 +24,7 @@
 <section id="encyclopedia">
 	<div id="docsToc">
         <div class="pi-accordion">
-        {% assign tree = site.data[foundTOC].toc %}{% include tree.html %}
+        {% assign tree = site.data[foundTOC.file].toc %}{% include tree.html %}
         </div> <!-- /pi-accordion -->
 		<button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
 	</div> <!-- /docsToc -->

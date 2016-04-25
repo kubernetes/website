@@ -1,22 +1,29 @@
 tocs:
-item:
-  name: Tutorials
-  file: tutorials
-item:
+- item:
   name: Concepts
   file: concepts
-item:
+  path: /docs/concepts/
+- item:
+  name: Tutorials
+  file: tutorials
+  path: /docs/tutorials/
+- item:
   name: How To
   file: howto
-item: 
+  path: /docs/howto/
+- item: 
   name: Tools/UI
   file: toolsui
-item:
+  path: /docs/toolsui/
+- item:
   name: Samples
   file: samples
-item:
+  path: /docs/samples/
+- item:
   name: Building Clusters
-  file: building clusters
-item:
+  file: clusters
+  path: /docs/clusters/
+- item:
   name: Troubleshooting
   file: troubleshooting
+  path: /docs/troubleshooting/
