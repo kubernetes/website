@@ -1,12 +1,12 @@
 tocs:
 - item:
-  name: Concepts
-  file: concepts
-  path: /docs/concepts/
-- item:
   name: Tutorials
   file: tutorials
   path: /docs/tutorials/
+- item:
+  name: Concepts
+  file: concepts
+  path: /docs/concepts/
 - item:
   name: How To
   file: howto
