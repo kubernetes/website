@@ -14,7 +14,7 @@ Here's a diagram of what the final result will look like:
 
 1. You need to have docker installed on one machine.
 2. Decide what Kubernetes version to use.  Set the `${K8S_VERSION}` variable to
-   a released version of Kubernetes >= "v1.2.0". If you'd like to use the actual stable version of Kubernetes, run the following:
+   a released version of Kubernetes >= "v1.2.0". If you'd like to use the current stable version of Kubernetes, run the following:
 
 ```sh
 export K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/release/stable.txt)
