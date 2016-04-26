@@ -7,14 +7,14 @@ These scripts handle the creation, deletion and expansion of kubernetes clusters
 
 You can accomplish all these tasks with a single command. We have made the Ansible playbooks used to perform these tasks available [here](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md).
 
-## Latest Changes
+## Change History
 
-Our latest release (v0.5) included the following major changes:
+The v0.5 release included the following major changes:
 
-- Kubernetes 1.2 versus 1.1
-- Integrated Load Balancing: Ie, kubernetes services of type 'LoadBalancer' now automatically get a public IP address routed to all minions in the cluster via the Centurylink Cloud LB service.
+- Kubernetes 1.2
+- Integrated Load Balancing, i.e. Kubernetes services of type LoadBalancer now automatically get a public IP address routed to all minions in the cluster via the CenturyLink Cloud LB service.
 
-For a detailed list of this version, and previous versions, please visit [our release notes page](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/releases).
+For a detailed change history, please visit [the CenturyLink Cloud release notes page](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/releases).
 
 ## Find Help
 
@@ -36,7 +36,7 @@ If you run into any problems or want help with anything, we are here to help. Re
 
 The requirements to run this script are:
 - A linux administrative host (tested on ubuntu and OSX)
-- python 2 (tested on 2.7.11)
+- python 2 (tested on 2.7.11), including the -dev and -crypto packages
   - pip (installed with python as of 2.7.9)
 - git
 - A CenturyLink Cloud account with rights to create new hosts
@@ -80,7 +80,7 @@ guide to install the requirements and install the script.
 ```shell
   # system
   apt-get update
-  apt-get install -y git python python-crypto
+  apt-get install -y curl git python python-dev python-crypto
   curl -O https://bootstrap.pypa.io/get-pip.py
   python get-pip.py
 
@@ -186,7 +186,7 @@ python delete_cluster.py --clc_cluster_name=clc_cluster_name --datacenter=DC1
 
 2) Use the CenturyLink Cloud UI. To delete a cluster, log into the CenturyLink
 Cloud control portal and delete the parent server group that contains the
-Kubernetes Cluster. 
+Kubernetes Cluster.
 
 ## Examples
 
@@ -222,7 +222,7 @@ We configue the Kubernetes cluster with the following features:
 
 We use the following to create the kubernetes cluster:
 
-- Kubernetes 1.2+ including CenturyLinkCloud cloudprovider integration
+- Kubernetes 1.2
 - Unbuntu 14.04
 - Flannel 0.5.5
 - Docker 1.9.1
@@ -255,9 +255,9 @@ kubectl version
 kubectl cluster-info
 ```
 
-### Accessing the cluster programmatically 
+### Accessing the cluster programmatically
 
-It's possible to use the locally-stored client certificates to access the api server. For example, you may want to use any of the [Kubernetes API client libraries](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/client-libraries.md) to program against your Kubernetes cluster in the programming language of your choice. 
+It's possible to use the locally-stored client certificates to access the api server. For example, you may want to use any of the [Kubernetes API client libraries](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/client-libraries.md) to program against your Kubernetes cluster in the programming language of your choice.
 
 To demostrate how to use these locally stored certificates, we provide the folowing example of using ```curl``` to communicate to the master api server via https:
 
@@ -268,7 +268,7 @@ curl \
    --cert ${CLC_CLUSTER_HOME}/pki/kubecfg.crt https://${MASTER_IP}:6443
 ```
 
-But please note, this _does not_ work out of the box with the curl binary distributed with OSX
+But please note, this _does not_ work out of the box with the curl binary distributed with OSX.
 
 ### Accessing the cluster with a browser
 
@@ -322,10 +322,11 @@ kubectl proxy -p 8001
 
 Then, you can access urls like ```http://127.0.0.1:8001/api/v1/proxy/namespaces/kube-system/services/kube-ui/``` without the need for client certificates in your browser.
 
-## Load Balancer integration.
+## LoadBalancer integration.
 
-Our Kubernetes code includes definitions of CenturyLinkCloud as a Kubernetes cloudprovider, which includes integration of the CLC Load Balancer services. When a Kubernetes service is defined as type: LoadBalancer, a public ip address is automatically obtained and mapped to the service endpoint.
- 
+Our Kubernetes code includes definitions of CenturyLink Cloud as a provider, which includes integration of the CLC Load Balancer services. When a Kubernetes service is defined as type LoadBalancer, a public IP address is automatically obtained and mapped to the service endpoint.
+
+
 ## What Kubernetes features do not work on CenturyLink Cloud
 
 These are the known items that don't work on CenturyLink cloud but do work on other cloud providers:
@@ -338,4 +339,3 @@ These are the known items that don't work on CenturyLink cloud but do work on ot
 ## Ansible Files
 
 If you want more information about our Ansible files, please [read this file](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md)
-
