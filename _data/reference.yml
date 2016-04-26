@@ -80,7 +80,7 @@ toc:
       path: /docs/user-guide/kubectl/kubectl_config_set-cluster/
     - title: kubectl config set-context
       path: /docs/user-guide/kubectl/kubectl_config_set-context/
-    - title: kubectl set-credentials
+    - title: kubectl config set-credentials
       path: /docs/user-guide/kubectl/kubectl_config_set-credentials/
     - title: kubectl config set
       path: /docs/user-guide/kubectl/kubectl_config_set/
