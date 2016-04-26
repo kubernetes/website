@@ -66,7 +66,7 @@ export ENABLE_PROXY=false
 ```
 #### Manually overriding configuration values
 
-If you do not have your environment variables set, or do not want them consumed, modify the variables in the following files under `cluster/openstack`:
+If you do not have your environment variables set, or do not want them consumed, modify the variables in the following files under `cluster/openstack-heat`:
 
 - **[config-default.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/openstack-heat/config-default.sh)** Sets all parameters needed for heat template.
 - **[config-image.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/openstack-heat/config-image.sh)** Sets parameters needed to download and create new OpenStack image via glance.
@@ -160,8 +160,8 @@ You can manage the nodes in your cluster using the OpenStack CLI Tools.
 First, set your environment variables:
 
 ```sh
-. cluster/openstack/config-default.sh
-. cluster/openstack/openrc-default.sh
+. cluster/openstack-heat/config-default.sh
+. cluster/openstack-heat/openrc-default.sh
 ```
 
 To get all information about your cluster, use heat:
