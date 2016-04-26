@@ -73,8 +73,8 @@ Here's an example of a pod that uses node affinity:
 
 This node affinity rule says the pod can only be placed on a node with a label whose key is
 `kubernetes.io/e2e-az-name` and whose value is either `e2e-az1` or `e2e-az2`. In addition,
-among nodes that meet that criteria, nodes with a label whose key is `foo` and whose
-value is `bar` should be preferred.
+among nodes that meet that criteria, nodes with a label whose key is `another-annotation-key` and whose
+value is `another-annotation-value` should be preferred.
 
 You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 
