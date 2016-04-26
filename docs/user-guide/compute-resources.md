@@ -22,14 +22,17 @@ server.
 
 ## Resource Requests and Limits of Pod and Container
 
-Each container of a Pod can optionally specify `spec.container[].resources.limits.cpu` and/or
-`spec.container[].resources.limits.memory` and/or `spec.container[].resources.requests.cpu`
-and/or `spec.container[].resources.requests.memory`.
+Each container of a pod can optionally specify one or more of the following:
+
+* `spec.container[].resources.limits.cpu`
+* `spec.container[].resources.limits.memory`
+* `spec.container[].resources.requests.cpu`
+* `spec.container[].resources.requests.memory`.
 
 Specifying resource requests and/or limits is optional. In some clusters, unset limits or requests
 may be replaced with default values when a pod is created or updated. The default value depends on
-how the cluster is configured. If value of requests is not specified, they are set to be equal
-to limits by default. Please note that resource limits must be greater than or equal to resource
+how the cluster is configured. If the requests values are not specified, they are set to be equal
+to the limits values by default. Please note that limits must always be greater than or equal to
 requests.
 
 Although requests/limits can only be specified on individual containers, it is convenient to talk
