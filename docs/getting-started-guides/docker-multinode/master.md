@@ -9,8 +9,8 @@ Environment variables used:
 
 ```shell
 export MASTER_IP=<the_master_ip_here>
-export K8S_VERSION=<your_k8s_version (e.g. 1.2.1)>
-export ETCD_VERSION=<your_etcd_version (e.g. 2.2.1)>
+export K8S_VERSION=<your_k8s_version (e.g. 1.2.2)>
+export ETCD_VERSION=<your_etcd_version (e.g. 2.3.1)>
 export FLANNEL_VERSION=<your_flannel_version (e.g. 0.5.5)>
 export FLANNEL_IFACE=<flannel_interface (defaults to eth0)>
 export FLANNEL_IPMASQ=<flannel_ipmasq_flag (defaults to true)>
@@ -57,7 +57,7 @@ Run:
 ```shell
 sudo docker -H unix:///var/run/docker-bootstrap.sock run -d \
     --net=host \
-    gcr.io/google_containers/etcd-amd64:${ETCD_VERSION} \
+    quay.io/coreos/etcd:v${ETCD_VERSION} \
     /usr/local/bin/etcd \
         --listen-client-urls=http://127.0.0.1:4001,http://${MASTER_IP}:4001 \
         --advertise-client-urls=http://${MASTER_IP}:4001 \
@@ -69,7 +69,7 @@ Next, you need to set a CIDR range for flannel.  This CIDR should be chosen to b
 ```shell
 sudo docker -H unix:///var/run/docker-bootstrap.sock run \
     --net=host \
-    gcr.io/google_containers/etcd-amd64:${ETCD_VERSION} \
+    quay.io/coreos/etcd:v${ETCD_VERSION} \
     etcdctl set /coreos.com/network/config '{ "Network": "10.1.0.0/16" }'
 ```
 
