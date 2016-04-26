@@ -117,7 +117,7 @@ The `READY` column shows how many containers in the pod are running.
 Almost immediately after it starts running, this command will terminate. `kubectl` shows that the container is no longer running and displays the exit status:
 
 ```shell
-$ kubectl get pods
+$ kubectl get pods --show-all
 NAME          READY     STATUS       RESTARTS   AGE
 hello-world   0/1       ExitCode:0   0          15s
 ```
