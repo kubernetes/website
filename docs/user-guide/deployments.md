@@ -426,9 +426,9 @@ the same schema as a [Pod](/docs/user-guide/pods), except it is nested and does 
 `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate
-labels (see [selector](#selector)) and an appropriate restart policy.
+labels (i.e. don't overlap with other controllers, see [selector](#selector)) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
+Only a [`.spec.template.spec.restartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
 if not specified.
 
 ### Replicas
@@ -438,14 +438,14 @@ to 1.
 
 ### Selector
 
-`.spec.selector` is an optional field that specifies [label selectors](/docs/user-guide/labels/#label-selectors) for Pods
+`.spec.selector` is an optional field that specifies a [label selector](/docs/user-guide/labels/#label-selectors) for the Pods
 targeted by this deployment. 
 
 If specified, `.spec.selector` must match `.spec.template.metadata.labels`, or it will
 be rejected by the API.  If `.spec.selector` is unspecified, `.spec.selector.matchLabels` will be defaulted to
 `.spec.template.metadata.labels`.
 
-Deployment kills some of these Pods, if their
+Deployment may kill Pods whose labels match the selector, in the case that their
 template is different than `.spec.template` or if the total number of such Pods
 exceeds `.spec.replicas`. It will bring up new Pods with `.spec.template` if
 number of Pods are less than the desired number.
