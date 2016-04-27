@@ -97,9 +97,9 @@ the same schema as a [pod](/docs/user-guide/pods/), except it is nested and does
 `kind`.
 
 In addition to required fields for a Pod, a pod template in a Replication Controller must specify appropriate
-labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
+labels (i.e. don't overlap with other controllers, see [pod selector](#pod-selector)) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
+Only a [`.spec.template.spec.restartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
 if not specified.
 
 For local container restarts, replication controllers delegate to an agent on the node,
