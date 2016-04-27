@@ -409,6 +409,13 @@ nginx-deployment-3066724191   0         0         1h
 
 Note: A paused Deployment cannot be scaled at this moment, and we will add this feature in 1.3 release, see [issue #20853](https://github.com/kubernetes/kubernetes/issues/20853). You cannot rollback a paused Deployment either, and you should resume a Deployment first before doing a rollback. 
 
+## Use Cases 
+
+### Canary Deployment
+
+If you want to roll out releases to a subset of users or servers using the Deployment, you can create multiple Deployments, one for each release,
+following the canary pattern described in [managing resources](/docs/user-guide/managing-deployments/#canary-deployments). 
+
 ## Writing a Deployment Spec
 
 As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, and
