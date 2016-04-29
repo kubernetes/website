@@ -145,6 +145,7 @@ kubectl get svc nginx --template={{.spec.clusterIP}}
 {% endraw %}```
 
 On OS X, since docker is running inside a VM, run the following command instead:
+
 ```shell
 docker-machine ssh `docker-machine active` curl $ip
 ```
