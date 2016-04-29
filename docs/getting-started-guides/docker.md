@@ -73,7 +73,7 @@ variable.
 For example, OS X:
 
 ```shell
-curl -O http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/darwin/amd64/kubectl
+curl -O "http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/darwin/amd64/kubectl"
 chmod 755 kubectl
 PATH=$PATH:`pwd`
 ```
@@ -81,7 +81,7 @@ PATH=$PATH:`pwd`
 Linux:
 
 ```shell
-wget http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl
+wget "http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl"
 chmod 755 kubectl
 PATH=$PATH:`pwd`
 ```
