@@ -36,6 +36,31 @@ NAME      LABELS       CAPACITY      ACCESSMODES   STATUS      CLAIM     REASON
 pv0001    type=local   10737418240   RWO           Available 
 ```
 
+### Access Control
+
+Storage configured with GID will only allow writing by pods using the
+same GID. Mismatched or missing GIDs will cause `permission denied`
+errors. Adding GID to a PersistentVolume- via the
+`pv.beta.kubernetes.io/gid annotation` -allows Kubelet to automatically
+add the GID to the pod that requires it. No coordination between an
+admin and end user is required. Setting GID automatically is safe
+because this is only done for PersistentVolumes which are accessed
+through a PersistentVolumeClaim.
+
+To add the volume's GID to the volume you use the
+`volume.kuberntes.io/gid` annotation as follows:
+
+```yaml
+apiVersion: v1
+metadata:
+  name: pv1
+  annotations:
+    volume.kubernetes.io/gid: "1234"
+#...
+```
+
+For more information please see [Security Contexts](../security-context.md) for more information.
+
 ## Requesting storage
 
 Users of Kubernetes request persistent storage for their pods.  They don't know how the underlying cluster is provisioned.
