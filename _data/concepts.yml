@@ -10,26 +10,69 @@ toc:
   - title: Operations
     section:
     - title: Kubernetes API Operations
-      path: /docs/kubernetes-api/operations/
+      path: /docs/api/kubernetes-operations/
     - title: Extensions API Operations
-      path: /docs/extensions-api/operations/
+      path: /docs/api/extensions-operations/
     - title: Autoscaling API Operations
-      path: /docs/autoscaling-api/operations/
+      path: /docs/api/autoscaling-operations/
     - title: Batch API Operations
-      path: /docs/batch-api/operations/
+      path: /docs/api/batch-operations/
   - title: Definitions
     section:
     - title: Kubernetes API Definitions
-      path: /docs/kubernetes-api/definitions/
+      path: /docs/api/kubernetes-definitions/
     - title: Extensions API Definitions
-      path: /docs/extensions-api/definitions/
+      path: /docs/api/extensions-definitions/
     - title: Autoscaling API Definitions
-      path: /docs/autoscaling-api/definitions/
+      path: /docs/api/autoscaling-definitions/
     - title: Batch API Definitions
-      path: /docs/batch-api/definitions/
+      path: /docs/api/batch-definitions/
+
+- title: Object Metadata
+  section:
+  - title: Object Metadata Overview
+    path: /docs/concept-overviews/object-metadata/
+  - title: Labels and Selectors
+    section:
+    - title: What are Labels and Selectors?
+      path: /docs/labels-selectors/
+    - title: Labels and Selectors with Client Libraries
+      path: /docs/labels-selectors/client-libraries/
+    - title: Labels and Selectors Tutorials
+      path: /docs/labels-selectors/tutorials/
+    - title: Labels and Selectors How-Tos
+      path: /docs/labels-selectors/howtos/
+    - title: Labels and Selectors Reference Documentation
+      path: /docs/labels-selectors/reference/
+  - title: Annotations
+    section:
+    - title: What are Annotations?
+      path: /docs/annotations/
+    - title: Annotations with Client Libraries
+      path: /docs/annotations/client-libraries/
+    - title: Annotations Tutorials
+      path: /docs/annotations/tutorials/
+    - title: Annotations How-Tos
+      path: /docs/annotations/howtos/
+    - title: Annotations Reference Documentation
+      path: /docs/annotations/reference/
+  - title: Names
+    section:
+    - title: What are Names?
+      path: /docs/names/
+    - title: Names with Client Libraries
+      path: /docs/names/client-libraries/
+    - title: Names Tutorials
+      path: /docs/names/tutorials/
+    - title: Names How-Tos
+      path: /docs/names/howtos/
+    - title: Names Reference Documentation
+      path: /docs/names/reference/
 
 - title: Clusters
   section:
+  - title: Clusters Overview
+    path: /docs/concept-overviews/clusters/
   - title: Namespaces
     section:
     - title: What are Namespaces?
@@ -69,8 +112,8 @@ toc:
 
 - title: Workloads
   section:
-  - title: What is a workload?
-    path: /docs/workloads/
+  - title: Workload Overview
+    path: /docs/concept-overviews/workloads/
   - title: Deployments
     section:
     - title: What is a Deployment?
@@ -147,17 +190,59 @@ toc:
     section:
     - title: What is a Pod?
       path: /docs/pod/
-    - title: Pods with Client Libraries
-      path: /docs/pod/client-libraries/
+    - title: Pod Operations
+      section:
+      - title: Create Pods
+        path: /docs/pod/create/
+      - title: Read Pods
+        path: /docs/pod/read/
+      - title: Update Pods
+        path: /docs/pod/update/
+      - title: Delete Pods
+        path: /docs/pod/delete
     - title: Pod Tutorials
       path: /docs/pod/tutorials/
     - title: Pod How-Tos
       path: /docs/pod/howtos/
     - title: Pod Reference Documentation
       path: /docs/pod/reference/
+  - title: Container
+    section:
+    - title: What is a Container? 
+      path: /docs/container/
+    - title: Container Tutorials
+      path: /docs/container/tutorials/
+    - title: Contain How-Tos
+      path: /docs/container/howtos/
+    - title: Container Reference Documentation
+      path: /docs/container/reference/
+   - title: Image
+     section:
+    - title: What is an Image? 
+      path: /docs/image/
+    - title: Image Tutorials
+      path: /docs/image/tutorials/
+    - title: Image How-Tos
+      path: /docs/image/howtos/
+    - title: Image Reference Documentation
+      path: /docs/image/reference/
+  - title: Volume
+    section:
+    - title: What is a Volume? 
+      path: /docs/volume/
+    - title: Volumes with Client Libraries
+      path: /docs/volume/client-libraries/
+    - title: Volume Tutorials
+      path: /docs/volume/tutorials/
+    - title: Volume How-Tos
+      path: /docs/volume/howtos/
+    - title: Volume Reference Documentation
+      path: /docs/volume/reference/
 
 - title: Service Discovery and Load Balancing
   section:
+  - title: Service Discovery and Load Balancing Overview
+    path: /docs/concept-overviews/service-discovery-load-balancing/
   - title: Service
     section:
     - title: What is a Service?
@@ -185,15 +270,110 @@ toc:
 
 - title: Configuration
   section:
-  - title: Ingress
+  - title: Configuration Overview
+    section: /docs/concept-overviews/configuration/
+  - title: Secret
     section:
-    - title: What is Ingress?
-      path: /docs/ingress/
-    - title: Ingress with Client Libraries
-      path: /docs/ingress/client-libraries/
-    - title: Ingress Tutorials
-      path: /docs/ingress/tutorials/
-    - title: Ingress How-Tos
-      path: /docs/ingress/howtos/
-    - title: Ingress Reference Documentation
-      path: /docs/ingress/reference/
+    - title: What is a Secret?
+      path: /docs/secret/
+    - title: Secrets with Client Libraries
+      path: /docs/secret/client-libraries/
+    - title: Secret Tutorials
+      path: /docs/secret/tutorials/
+    - title: Secret How-Tos
+      path: /docs/secret/howtos/
+    - title: Secret Reference Documentation
+      path: /docs/secret/reference/
+  - title: Config Maps
+    section:
+    - title: What is a Config Map?
+      path: /docs/config-map/
+    - title: Config Maps with Client Libraries
+      path: /docs/config-map/client-libraries/
+    - title: Config Map Tutorials
+      path: /docs/config-map/tutorials/
+    - title: Config Map How-Tos
+      path: /docs/config-map/howtos/
+    - title: Config Map Reference Documentation
+      path: /docs/config-map/reference/
+
+- title: Storage
+  section:
+  - title: Storage Overview
+    path: /docs/concept-overviews/storage/
+  - title: Persistent Volume Claims
+    section:
+    - title: What are Persistent Volume Claims?
+      path: /docs/persistent-volume-claims/
+    - title: Persistent Volume Claims with Client Libraries
+      path: /docs/config-map/client-libraries/
+    - title: Persistent Volume Claim Tutorials
+      path: /docs/config-map/tutorials/
+    - title: Persistent Volume Claim How-Tos
+      path: /docs/config-map/howtos/
+    - title: Persistent Volume Claim Reference Documentation
+      path: /docs/config-map/reference/
+
+- title: Policies
+  section:
+  - title: Policies Overview
+    /docs/concept-overviews/policies/
+  - title: Resource Quota
+    section:
+    - title: What are Resource Quotas?
+      path: /docs/resource-quota/
+    - title: Resource Quotas with Client Libraries
+      path: /docs/resource-quota/client-libraries/
+    - title: Resource Quota Tutorials
+      path: /docs/resource-quota/tutorials/
+    - title: Resource Quota How-Tos
+      path: /docs/resource-quota/howtos/
+    - title: Resource Quota Reference Documentation
+      path: /docs/resource-quota/reference/
+  - title: Limit Range
+    section:
+    - title: What are Limit Ranges?
+      path: /docs/limit-range/
+    - title: Limit Ranges with Client Libraries
+      path: /docs/limit-range/client-libraries/
+    - title: Limit Range Tutorials
+      path: /docs/limit-range/tutorials/
+    - title: Limit Range How-Tos
+      path: /docs/limit-range/howtos/
+    - title: Limit Range Reference Documentation
+      path: /docs/limit-range/reference/
+  - title: Service Accounts
+    section:
+    - title: What are Service Accounts?
+      path: /docs/service-account/
+    - title: Service Accounts with Client Libraries
+      path: /docs/service-account/client-libraries/
+    - title: Service Account Tutorials
+      path: /docs/service-account/tutorials/
+    - title: Service Account How-Tos
+      path: /docs/service-account/howtos/
+    - title: Service Account Reference Documentation
+      path: /docs/service-account/reference/
+  - title: Security Context
+    section:
+    - title: What are Security Contexts?
+      path: /docs/security-context/
+    - title: Security Contexts with Client Libraries
+      path: /docs/security-context/client-libraries/
+    - title: Security Context Tutorials
+      path: /docs/security-context/tutorials/
+    - title: Security Context How-Tos
+      path: /docs/security-context/howtos/
+    - title: Security Context Reference Documentation
+      path: /docs/security-context/reference/
+  - title: Pod Security Contexts
+    - title: What are Pod Security Contexts?
+      path: /docs/pod-security-context/
+    - title: Pod Security Contexts with Client Libraries
+      path: /docs/pod-security-context/client-libraries/
+    - title: Pod Security Context Tutorials
+      path: /docs/pod-security-context/tutorials/
+    - title: Pod Security Context How-Tos
+      path: /docs/pod-security-context/howtos/
+    - title: Pod Security Context Reference Documentation
+      path: /docs/pod-security-context/reference/
