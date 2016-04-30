@@ -9,7 +9,7 @@ script:
 - git config --global user.email ${GIT_EMAIL}
 - git config --global user.name "${GIT_NAME}"
 - git clone https://${GIT_USERNAME}:${GH_TOKEN}@github.com/k8sdocs/k8sdocs.github.io.git
-- cd k8sdocs.gihub.io
+- cd k8sdocs.github.io
 - git remote add --fetch --track docsv2 homebase "https://${GIT_USERNAME}:${GH_TOKEN}@github.com/kubernetes/kubernetes.github.io.git"
 - git merge -s recursive -X theirs homebase/docsv2 -m "Sync from homebase"
 - git push
