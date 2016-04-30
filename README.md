@@ -1,6 +1,6 @@
 ## Instructions for Contributing to the Docs/Website
 
-**Note: Changes to this branch are automatically served as a website at [http://kubernetes-v1-3.github.io/](http://kubernetes-v1-3.github.io/). This branch is for the v1.3 docs. See the "master" branch to edit the current stable release, which is served at http://kubernetes.io.**
+**Note: This branch is for pre-release documentation for 1.3 of Kubernetes. Changes to this branch are automatically served as a website at [http://kubernetes-v1-3.github.io/](http://kubernetes-v1-3.github.io/). See the "master" branch to edit the current stable release, which is served at http://kubernetes.io.**
 
 Welcome! We are very pleased you want to contribute to the documentation and/or website for Kubernetes.
 
