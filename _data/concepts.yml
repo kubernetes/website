@@ -216,8 +216,8 @@ toc:
       path: /docs/container/howtos/
     - title: Container Reference Documentation
       path: /docs/container/reference/
-   - title: Image
-     section:
+  - title: Image
+    section:
     - title: What is an Image? 
       path: /docs/image/
     - title: Image Tutorials
@@ -317,7 +317,7 @@ toc:
 - title: Policies
   section:
   - title: Policies Overview
-    /docs/concept-overviews/policies/
+    path: /docs/concept-overviews/policies/
   - title: Resource Quota
     section:
     - title: What are Resource Quotas?
@@ -367,6 +367,7 @@ toc:
     - title: Security Context Reference Documentation
       path: /docs/security-context/reference/
   - title: Pod Security Contexts
+    section:
     - title: What are Pod Security Contexts?
       path: /docs/pod-security-context/
     - title: Pod Security Contexts with Client Libraries
