@@ -1,6 +1,6 @@
 ## Instructions for Contributing to the Docs/Website
 
-**NOTE: This branch is for experimental documentation prototypes only. To see the contents of this repo served as a website, visit [https://k8sdocs.github.io](https://k8sdocs.github.io).**
+**NOTE: To see the contents of this repo served as a website, visit [https://k8sdocs.github.io](https://k8sdocs.github.io). This branch is for experimental documentation prototypes only.**
 
 Welcome! We are very pleased you want to contribute to the documentation and/or website for Kubernetes.
 
