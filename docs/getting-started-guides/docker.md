@@ -13,14 +13,14 @@ Here's a diagram of what the final result will look like:
 ## Prerequisites
 
 1. You need to have docker installed on one machine.
-2. Decide what Kubernetes version to use.  Set the `${K8S_VERSION}` variable to
+2. Decide what Kubernetes version to use. Set the `${K8S_VERSION}` variable to
    a released version of Kubernetes >= "v1.2.0". If you'd like to use the current stable version of Kubernetes, run the following:
 
 ```sh
 export K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 ```
 
-   and for the latest available version (including unstable releases):
+and for the latest available version (including unstable releases):
 
 ```sh
 export K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/release/latest.txt)
@@ -29,7 +29,8 @@ export K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/
 ### Run it
 
 ```shell
-docker run \
+export ARCH=amd64
+docker run -d \
     --volume=/:/rootfs:ro \
     --volume=/sys:/sys:ro \
     --volume=/var/lib/docker/:/var/lib/docker:rw \
@@ -37,53 +38,54 @@ docker run \
     --volume=/var/run:/var/run:rw \
     --net=host \
     --pid=host \
-    --privileged=true \
-    --name=kubelet \
-    -d \
-    gcr.io/google_containers/hyperkube-amd64:${K8S_VERSION} \
+    --privileged \
+    gcr.io/google_containers/hyperkube-${ARCH}:${K8S_VERSION} \
     /hyperkube kubelet \
         --containerized \
-        --hostname-override="127.0.0.1" \
-        --address="0.0.0.0" \
+        --hostname-override=127.0.0.1 \
         --api-servers=http://localhost:8080 \
         --config=/etc/kubernetes/manifests \
         --cluster-dns=10.0.0.10 \
         --cluster-domain=cluster.local \
-        --allow-privileged=true --v=2
+        --allow-privileged --v=2
 ```
 
 > Note that `--cluster-dns` and `--cluster-domain` is used to deploy dns, feel free to discard them if dns is not needed.
 
 > If you would like to mount an external device as a volume, add `--volume=/dev:/dev` to the command above. It may however, cause some problems described in [#18230](https://github.com/kubernetes/kubernetes/issues/18230)
 
+> Architectures other than `amd64` are experimental and sometimes unstable, but feel free to try them out! Valid values: `arm`, `arm64` and `ppc64le`. ARM is available with Kubernetes version `v1.3.0-alpha.2` and higher. ARM 64-bit and PowerPC 64 little-endian are available with `v1.3.0-alpha.3` and higher. Track progress on multi-arch support [here](https://github.com/kubernetes/kubernetes/issues/17981)
+
 This actually runs the kubelet, which in turn runs a [pod](/docs/user-guide/pods/) that contains the other master components.
 
 ### Download `kubectl`
 
-At this point you should have a running Kubernetes cluster.  You can test this
-by downloading the kubectl binary for `${K8S_VERSION}` (look at the URL in the
-following links) and make it available by editing your PATH environment
-variable.
-([OS X/amd64](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/amd64/kubectl))
-([OS X/386](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/386/kubectl))
-([linux/amd64](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl))
-([linux/386](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/386/kubectl))
-([linux/arm](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm/kubectl))
+At this point you should have a running Kubernetes cluster. You can test it out
+by downloading the kubectl binary for `${K8S_VERSION}` (in this example: `{{page.version}}.0`).
 
-For example, OS X:
 
-```shell
-curl -O "http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/darwin/amd64/kubectl"
-chmod 755 kubectl
-PATH=$PATH:`pwd`
+Downloads:
+
+ - `linux/amd64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl
+ - `linux/386`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/386/kubectl
+ - `linux/arm`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm/kubectl
+ - `linux/arm64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm64/kubectl
+ - `linux/ppc64le`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/ppc64le/kubectl
+ - `OS X/amd64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/amd64/kubectl
+ - `OS X/386`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/386/kubectl
+ - `windows/amd64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/windows/amd64/kubectl
+ - `windows/386`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/windows/386/kubectl
+
+The generic download path is:
+```
+http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/${GOOS}/${GOARCH}/${K8S_BINARY}
 ```
 
-Linux:
+An example install with `linux/amd64`:
 
-```shell
-wget "http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl"
-chmod 755 kubectl
-PATH=$PATH:`pwd`
+```
+curl -sSL "http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl" > /usr/bin/kubectl
+chmod +x /usr/bin/kubectl
 ```
 
 On OS X, to make the API server accessible locally, setup a ssh tunnel.
@@ -113,8 +115,8 @@ kubectl get nodes
 This should print:
 
 ```shell
-NAME        LABELS                             STATUS
-127.0.0.1   kubernetes.io/hostname=127.0.0.1   Ready
+NAME        STATUS    AGE
+127.0.0.1   Ready     1h
 ```
 
 ### Run an application
@@ -123,7 +125,7 @@ NAME        LABELS                             STATUS
 kubectl run nginx --image=nginx --port=80
 ```
 
-Now run `docker ps` you should see nginx running.  You may need to wait a few minutes for the image to get pulled.
+Now run `docker ps` you should see nginx running. You may need to wait a few minutes for the image to get pulled.
 
 ### Expose it as a service
 
