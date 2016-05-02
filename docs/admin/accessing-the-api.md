@@ -38,24 +38,3 @@ and on several other cloud providers, the API server serves on port 443.  On
 GCE, a firewall rule is configured on the project to allow external HTTPS
 access to the API. Other cluster setup methods vary.
 
-## Use Cases vs IP:Ports
-
-There are differently configured serving ports to serve a variety of uses cases:
-
-   1. Clients outside of a Kubernetes cluster, such as human running `kubectl`
-on a desktop machine.  These access the Kubernetes cluster in however is specified
-in `$USER/.kube/config`.  On GCE, this is via port 443 on the host of the apiserver.
-   2. Processes running in Containers on Kubernetes that need to read from
-the apiserver. Currently, these can use a [service account](/docs/user-guide/service-accounts).
-   3. Scheduler and Controller-manager processes, which need to do read-write
-API operations, using service accounts to avoid the need to be co-located.
-   4. Kubelets, which need to do read-write API operations and are necessarily
-on different machines than the apiserver.  Kubelet uses the Secure Port
-to get their pods, to find the services that a pod can see, and to
-write events. Credentials are distributed to kubelets at cluster
-setup time. Kubelet and kube-proxy can use cert-based authentication or
-token-based authentication.
-
-## Expected changes
-
-   - Policy will limit the actions kubelets can do via the authed port.
