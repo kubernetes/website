@@ -24,6 +24,7 @@ By default the Kubernetes APIserver serves HTTP on 2 ports:
           - defaults IP is localhost, change with `--insecure-bind-address` flag.
           - no authentication or authorization checks in HTTP
           - protected by need to have host access
+
   2. `Secure Port`:
   
           - default is port 6443, change with `--secure-port` flag.
@@ -31,9 +32,6 @@ By default the Kubernetes APIserver serves HTTP on 2 ports:
           - serves HTTPS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
           - uses token-file or client-certificate based [authentication](/docs/admin/authentication).
           - uses policy-based [authorization](/docs/admin/authorization).
-  3. Removed: `ReadOnly Port`
-  
-          - For security reasons, this had to be removed. Use the [service account](/docs/user-guide/service-accounts) feature instead.
 
 ## Proxies and Firewall rules
 
