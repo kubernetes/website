@@ -33,27 +33,18 @@ By default the Kubernetes APIserver serves HTTP on 2 ports:
           - uses token-file or client-certificate based [authentication](/docs/admin/authentication).
           - uses policy-based [authorization](/docs/admin/authorization).
 
-## Proxies and Firewall rules
-
-Additionally, in some configurations there is a proxy (nginx) running
-on the same machine as the apiserver process.  The proxy serves HTTPS protected
-by Basic Auth on port 443, and proxies to the apiserver on localhost:8080. In
-these configurations the secure port is typically set to 6443.
-
-A firewall rule is typically configured to allow external HTTPS access to port
-443.
-
-The above are defaults and reflect how Kubernetes is deployed to Google Compute
-Engine using `kube-up.sh.` Other cloud providers may vary.
+When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
+and on several other cloud providers, the API server serves on port 443.  On
+GCE, a firewall rule is configured on the project to allow external HTTPS
+access to the API. Other cluster setup methods vary.
 
 ## Use Cases vs IP:Ports
 
 There are differently configured serving ports to serve a variety of uses cases:
 
    1. Clients outside of a Kubernetes cluster, such as human running `kubectl`
-on a desktop machine. Currently, accesses the Localhost Port via a proxy (nginx)
-running on the `kubernetes-master` machine.  The proxy can use cert-based
-authentication or token-based authentication.
+on a desktop machine.  These access the Kubernetes cluster in however is specified
+in `$USER/.kube/config`.  On GCE, this is via port 443 on the host of the apiserver.
    2. Processes running in Containers on Kubernetes that need to read from
 the apiserver. Currently, these can use a [service account](/docs/user-guide/service-accounts).
    3. Scheduler and Controller-manager processes, which need to do read-write
