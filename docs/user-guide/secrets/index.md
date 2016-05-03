@@ -334,7 +334,7 @@ secret exists.  Once a pod is scheduled, the kubelet will try to fetch the
 secret value.  If the secret cannot be fetched because it does not exist or
 because of a temporary lack of connection to the API server, kubelet will
 periodically retry.  It will report an event about the pod explaining the
-reason it is not started yet.  Once the a secret is fetched, the kubelet will
+reason it is not started yet.  Once the secret is fetched, the kubelet will
 create and mount a volume containing it.  None of the pod's containers will
 start until all the pod's volumes are mounted.
 
