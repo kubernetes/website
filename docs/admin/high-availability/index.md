@@ -78,7 +78,7 @@ size of the cluster from three to five nodes.  If that is still insufficient, yo
 ### Clustering etcd
 
 The full details of clustering etcd are beyond the scope of this document, lots of details are given on the
-[etcd clustering page](https://github.com/coreos/etcd/blob/master/Documentation/clustering.md).  This example walks through
+[etcd clustering page](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md).  This example walks through
 a simple cluster set up, using etcd's built in discovery to build our cluster.
 
 First, hit the etcd discovery service to create a new token:
