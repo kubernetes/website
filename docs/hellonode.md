@@ -75,7 +75,7 @@ Next, create a file, also within `hellonode/` named `Dockerfile`. A Dockerfile d
 #### Dockerfile
 
 ```conf
-FROM node:0.12
+FROM node:latest
 EXPOSE 8080
 COPY server.js .
 CMD node server.js
