@@ -55,14 +55,18 @@ toc:
       section:
       - title: AWS or GCE on CoreOS
         path: /docs/getting-started-guides/coreos/
+      - title: AWS on Ubuntu with Romana Networking
+        path: /docs/getting-started-guides/ubuntu/aws-romana/
       - title: AWS or Joyent on Ubuntu
         path: /docs/getting-started-guides/juju/
       - title: Rackspace on CoreOS
         path: /docs/getting-started-guides/rackspace/
     - title: On-Premise VMs
       section:
-      - title: Vagrant or VMware
+      - title: CoreOS with Vagrant or VMware
         path: /docs/getting-started-guides/coreos/
+      - title: Ubuntu with Romana Networking
+        path: /docs/getting-started-guides/ubuntu/vagrant-romana/
       - title: Cloudstack
         path: /docs/getting-started-guides/cloudstack/
       - title: VMWare
@@ -105,6 +109,8 @@ toc:
         path: /docs/getting-started-guides/centos/centos_manual_config/
       - title: Ubuntu
         path: /docs/getting-started-guides/ubuntu/
+      - title: Ubuntu with Romana Networking
+        path: /docs/getting-started-guides/ubuntu/bare-metal-romana/
       - title: Docker (Multi-Node)
         path: /docs/getting-started-guides/docker-multinode/
       - title: CoreOS with Calico
