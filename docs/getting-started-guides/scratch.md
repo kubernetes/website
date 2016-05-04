@@ -210,7 +210,7 @@ You need to prepare several certs:
 
 Unless you plan to have a real CA generate your certs, you will need to generate a root cert and use that to sign the master, kubelet, and kubectl certs.
 
-- see function `create-certs` in `cluster/gce/util.sh`
+- see function `create-certs` in `cluster/common.sh`
 - see also `cluster/saltbase/salt/generate-cert/make-ca-cert.sh` and
   `cluster/saltbase/salt/generate-cert/make-cert.sh`
 
