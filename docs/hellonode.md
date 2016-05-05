@@ -133,7 +133,11 @@ Create a cluster via the Console: *Compute > Container Engine > Container Cluste
 
 ![image](/images/hellonode/image_11.png)
 
-It’s now time to deploy your own containerized application to the Kubernetes cluster! Please ensure that you have [configured](https://cloud.google.com/container-engine/docs/before-you-begin#optional_set_gcloud_defaults) `kubectl` to use the cluster you just created.
+It’s now time to deploy your own containerized application to the Kubernetes cluster! Please ensure that you have [configured](https://cloud.google.com/container-engine/docs/clusters/operations#configuring_kubectl) `kubectl` to use the cluster you just created:
+
+```shell
+$ gcloud container clusters get-credentials hello-world
+```
 
 **The rest of this document requires both the kubernetes client and server version to be 1.2. Run `kubectl version` to see your current versions.**  For 1.1 see [this document](https://github.com/kubernetes/kubernetes.github.io/blob/release-1.1/docs/hellonode.md).
 
