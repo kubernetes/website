@@ -214,7 +214,53 @@ You can package many files into one secret, or use many secrets, whichever is co
 
 See another example of creating a secret and a pod that consumes that secret in a volume [here](/docs/user-guide/secrets/).
 
-##### Consuming Secret Values from Volumes
+**Projection of secret keys to specific paths**
+
+We can also control the paths within the volume where Secret keys are projected.
+You can use `spec.volumes[].secret.items` field to change target path of each key:
+
+```json
+{
+ "apiVersion": "v1",
+ "kind": "Pod",
+  "metadata": {
+    "name": "mypod",
+    "namespace": "myns"
+  },
+  "spec": {
+    "containers": [{
+      "name": "mypod",
+      "image": "redis",
+      "volumeMounts": [{
+        "name": "foo",
+        "mountPath": "/etc/foo",
+        "readOnly": true
+      }]
+    }],
+    "volumes": [{
+      "name": "foo",
+      "secret": {
+        "secretName": "mysecret",
+        "items": [{
+          "key": "username",
+          "path": "my-group/my-username"
+        }]
+      }
+    }]
+  }
+}
+```
+
+What will happen:
+
+* `username` secret is stored under `/etc/foo/my-group/my-username` file instead of `/etc/foo/username`.
+* `password` secret is not projected
+
+If `spec.volumes[].secret.items` is used, only keys specified in `items` are projected.
+To consume all keys from the secret, all of them must be listed in the `items` field.
+All listed keys must exist in the corresponding secret. Otherwise, the volume is not created.
+
+**Consuming Secret Values from Volumes**
 
 Inside the container that mounts a secret volume, the secret keys appear as
 files and the secret values are base-64 decoded and stored inside these files.
@@ -233,6 +279,11 @@ $ cat /etc/foo/password
 
 The program in a container is responsible for reading the secret(s) from the
 files.
+
+**Mounted Secrets are updated automatically**
+
+When a secret being already consumed in a volume is updated, projected keys are eventually updated as well.
+The update time depends on the kubelet syncing period.
 
 #### Using Secrets as Environment Variables
 
@@ -267,7 +318,7 @@ spec:
   restartPolicy: Never
 ```
 
-##### Consuming Secret Values from Environment Variables
+**Consuming Secret Values from Environment Variables**
 
 Inside a container that consumes a secret in an environment variables, the secret keys appear as
 normal environment variables containing the base-64 decoded values of the secret data.
@@ -285,7 +336,7 @@ $ echo $SECRET_PASSWORD
 An imagePullSecret is a way to pass a secret that contains a Docker (or other) image registry
 password to the Kubelet so it can pull a private image on behalf of your Pod.
 
-##### Manually specifying an imagePullSecret
+**Manually specifying an imagePullSecret**
 
 Use of imagePullSecrets is described in the [images documentation](/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
 
@@ -337,23 +388,6 @@ periodically retry.  It will report an event about the pod explaining the
 reason it is not started yet.  Once the secret is fetched, the kubelet will
 create and mount a volume containing it.  None of the pod's containers will
 start until all the pod's volumes are mounted.
-
-Once the kubelet has started a pod's containers, its secret volumes will not
-change, even if the secret resource is modified.  To change the secret used,
-the original pod must be deleted, and a new pod (perhaps with an identical
-`PodSpec`) must be created.  Therefore, updating a secret follows the same
-workflow as deploying a new container image.  The `kubectl rolling-update`
-command can be used ([man page](/docs/user-guide/kubectl/kubectl_rolling-update)).
-
-The [`resourceVersion`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#concurrency-control-and-consistency)
-of the secret is not specified when it is referenced.
-Therefore, if a secret is updated at about the same time as pods are starting,
-then it is not defined which version of the secret will be used for the pod. It
-is not possible currently to check what resource version of a secret object was
-used when a pod was created.  It is planned that pods will report this
-information, so that a replication controller restarts ones using an old
-`resourceVersion`.  In the interim, if this is a concern, it is recommended to not
-update the data of existing secrets, but to create new ones with distinct names.
 
 ## Use cases
 
