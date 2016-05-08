@@ -304,7 +304,7 @@ On your compute nodes, it is important that you install Calico before Kubernetes
     mkdir -p /etc/cni/net.d
 
     # Make the network configuration file
-    cat >/etc/rkt/net.d/10-calico.conf <<EOF
+    cat >/etc/cni/net.d/10-calico.conf <<EOF
     {
         "name": "calico-k8s-network",
         "type": "calico",
