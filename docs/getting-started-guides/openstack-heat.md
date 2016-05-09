@@ -10,10 +10,17 @@ This guide will take you through the steps of deploying Kubernetes to Openstack 
 
 The default OS is CentOS 7, this has not been tested on other operating systems.
 
-This guide assumes you have a working OpenStack cluster.
+This guide assumes you have a working OpenStack cluster with the following features:
+
+- Nova
+- Neutron
+- Swift
+- Glance
+- Heat
+- DNS resolution of instance hostnames
 
 ## Pre-Requisites
-If you already have the OpenStack CLI tools installed and configured, you can move on to the [Starting a cluster](#starting-a-cluster) section.
+If you already have the required versions of the OpenStack CLI tools installed and configured, you can move on to the [Starting a cluster](#starting-a-cluster) section.
 
 #### Install OpenStack CLI tools
 
@@ -49,7 +56,7 @@ export OS_REGION_NAME=regionName
 
 #### Set additional configuration values
 
-In addition, here are some commonly changed variables specific to this provider, with example values. Under most circumstances you will not have to change these.
+In addition, here are some commonly changed variables specific to this provider, with example values. Under most circumstances you will not have to change these. Please see files in the next section for a full list of options.
 
 ```sh
 export STACK_NAME=KubernetesStack
