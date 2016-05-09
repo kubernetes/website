@@ -104,7 +104,11 @@ Additionally, if you set `.spec.minReadySeconds`, you would also want to check i
 
 Suppose that we now want to update the nginx Pods to start using the `nginx:1.9.1` image
 instead of the `nginx:1.7.9` image.
-For this, we update our Deployment configuration as follows:
+
+**Note:** a Deployment's rollout is triggered if and only if the Deployment's pod template (i.e. `.spec.template`) is changed, 
+e.g. updating labels or container images of the template. Other updates, such as scaling the Deployment, will not trigger a rollout. 
+
+First, we update our Deployment configuration as follows:
 
 {% include code.html language="yaml" file="new-nginx-deployment.yaml" ghlink="/docs/user-guide/new-nginx-deployment.yaml" %}
 
@@ -225,7 +229,11 @@ before changing course.
 Sometimes you may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping.
 By default, all of the Deployment's rollout history is kept in the system so that you can rollback anytime you want 
 (you can change that by specifying [revision history limit](/docs/user-guide/deployments/#revision-history-limit)). 
-You should note that only the update to the Deployment's "pod template" is seen as a different revision of rollout.
+
+**Note:** a Deployment's revision is created when a Deployment's rollout is triggered. This means that the new revision is created 
+if and only if the Deployment's pod template (i.e. `.spec.template`) is changed, e.g. updating labels or container images of the template. 
+Other updates, such as scaling the Deployment, will not create a Deployment revision -- so that we can facilitate simultaneous manual- or
+auto-scaling. This implies that when you rollback to an earlier revision, only the Deployment's pod template part will be rolled back.  
 
 Suppose that we made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
 
