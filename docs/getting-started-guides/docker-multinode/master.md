@@ -114,6 +114,7 @@ sudo docker -H unix:///var/run/docker-bootstrap.sock run -d \
     --privileged \
     -v /dev/net:/dev/net \
     quay.io/coreos/flannel:${FLANNEL_VERSION} \
+    /opt/bin/flanneld \
         --ip-masq=${FLANNEL_IPMASQ} \
         --iface=${FLANNEL_IFACE}
 ```
