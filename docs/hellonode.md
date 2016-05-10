@@ -75,13 +75,13 @@ Next, create a file, also within `hellonode/` named `Dockerfile`. A Dockerfile d
 #### Dockerfile
 
 ```conf
-FROM node:0.12
+FROM node:4.4
 EXPOSE 8080
 COPY server.js .
 CMD node server.js
 ```
 
-This "recipe" for the Docker image will start from the Node 0.12 image found on the Docker registry, expose port 8080, copy our `server.js` file to the image and start the Node server.
+This "recipe" for the Docker image will start from the official Node.js LTS image found on the Docker registry, expose port 8080, copy our `server.js` file to the image and start the Node server.
 
 Now build an image of your container by running `docker build`, tagging the image with the Google  Container Registry repo for your `PROJECT_ID`:
 
