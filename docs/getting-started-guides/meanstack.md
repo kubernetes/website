@@ -53,7 +53,7 @@ First, you need a `Dockerfile`. This is basically the list of instructions Docke
 Here is the `Dockerfile` for the web server:
 
 ```shell
-FROM node:0.10.40
+FROM node:4.4
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -65,7 +65,7 @@ CMD ["node", "app.js"]
 
 A `Dockerfile` is pretty self explanatory, and this one is dead simple.
 
-First, it uses the official Node.js image as the base image.
+First, it uses the official Node.js LTS image as the base image.
 
 Then, it creates a folder to store the code, `cd`s into that directory, copies the code in, and installs the dependencies with npm.
 
@@ -441,4 +441,3 @@ By using Container Engine and Kubernetes, we have a very robust, container based
 Hopefully I can do some more posts about advanced Kubernetes topics such as changing the cluster size and number of Node.js web server replicas, using different environments (dev, staging, prod) on the same cluster, and doing rolling updates.
 
 Thanks to [Mark Mandel](https://medium.com/@markmandel), [Aja Hammerly](https://medium.com/@thagomizer), and [Jack Wilber](https://medium.com/@jack.g.wilber). [Some rights reserved](http://creativecommons.org/licenses/by/4.0/) by the author.
-
