@@ -165,7 +165,7 @@ will be proxied to one of the `Service`'s backend `Pods` (as reported in
 `Endpoints`).  Which backend `Pod`  to use is decided based on the
 `SessionAffinity` of the `Service`.  Lastly, it installs iptables rules which
 capture traffic to the `Service`'s `clusterIP` (which is virtual) and `Port`
-and redirects that traffic to the proxy port which proxies the a backend `Pod`.
+and redirects that traffic to the proxy port which proxies the backend `Pod`.
 
 The net result is that any traffic bound for the `Service`'s IP:Port is proxied
 to an appropriate backend without the clients knowing anything about Kubernetes
