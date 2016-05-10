@@ -114,8 +114,7 @@ sudo docker -H unix:///var/run/docker-bootstrap.sock run -d \
     --privileged \
     -v /dev/net:/dev/net \
     quay.io/coreos/flannel:${FLANNEL_VERSION} \
-        --ip-masq=${FLANNEL_IPMASQ} \
-        --iface=${FLANNEL_IFACE}
+        /opt/bin/flanneld --ip-masq=${FLANNEL_IPMASQ} --iface=${FLANNEL_IFACE}
 ```
 
 The previous command should have printed a really long hash, the container id, copy this hash.
