@@ -94,10 +94,10 @@ in json or yaml format, and then create that object.
 Each item must be base64 encoded:
 
 ```shell
-$ echo "admin" | base64
-YWRtaW4K
-$ echo "1f2d1e2e67df" | base64
-MWYyZDFlMmU2N2RmCg==
+$ echo -n "admin" | base64
+YWRtaW4=
+$ echo -n "1f2d1e2e67df" | base64
+MWYyZDFlMmU2N2Rm
 ```
 
 Now write a secret object that looks like this:
@@ -109,8 +109,8 @@ metadata:
   name: mysecret
 type: Opaque
 data:
-  password: MWYyZDFlMmU2N2RmCg==
-  username: YWRtaW4K
+  password: MWYyZDFlMmU2N2Rm
+  username: YWRtaW4=
 ```
 
 The data field is a map.  Its keys must match
@@ -138,8 +138,8 @@ Get back the secret created in the previous section:
 $ kubectl get secret mysecret -o yaml
 apiVersion: v1
 data:
-  password: MWYyZDFlMmU2N2RmCg==
-  username: YWRtaW4K
+  password: MWYyZDFlMmU2N2Rm
+  username: YWRtaW4=
 kind: Secret
 metadata:
   creationTimestamp: 2016-01-22T18:41:56Z
@@ -154,7 +154,7 @@ type: Opaque
 Decode the password field:
 
 ```shell
-$ echo "MWYyZDFlMmU2N2RmCg==" | base64 -D
+$ echo "MWYyZDFlMmU2N2Rm" | base64 -D
 1f2d1e2e67df
 ```
 
