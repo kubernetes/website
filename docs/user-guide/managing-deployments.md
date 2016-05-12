@@ -278,6 +278,8 @@ Currently, resources are created without this annotation, so the first invocatio
 
 All subsequent calls to `kubectl apply`, and other commands that modify the configuration, such as `kubectl replace` and `kubectl edit`, will update the annotation, allowing subsequent calls to `kubectl apply` to detect and perform deletions using a three-way diff.
 
+**Note:** To use apply, always create resource initially with either `kubectl apply` or `kubectl create --save-config`.
+
 ### kubectl edit
 
 Alternatively, you may also update resources with `kubectl edit`:
