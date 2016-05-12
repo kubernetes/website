@@ -15,16 +15,13 @@ Multi-container pods must be created with the `create` command. Properties
 are passed to the command as a YAML- or JSON-formatted configuration file.
 
 The `create` command can be used to create a pod directly, or it can create
-a pod or pods through a replication controller. It is highly recommended that
+a pod or pods through a `Deployment`. It is highly recommended that
 you use a
-[replication controller](/docs/user-guide/replication-controller/)
-to create your pods. The controller watches for failed pods and will start up
+[Deployment](/docs/user-guide/deployments/)
+to create your pods. It watches for failed pods and will start up
 new pods as required to maintain the specified number.
 
-For instructions on creating pods with a replication controller, refer to
-[Creating replication controllers](/docs/user-guide/replication-controller/operations/).
-
-If you don't want a replication controller to monitor your pod (e.g. your pod
+If you don't want a Deployment to monitor your pod (e.g. your pod
 is writing non-persistent data which won't survive a restart, or your pod is
 intended to be very short-lived), you can create a pod directly with the
 `create` command.
@@ -32,12 +29,12 @@ intended to be very short-lived), you can create a pod directly with the
 ### Using `create`
 
 Note: We recommend using a
-[replication controller](/docs/user-guide/replication-controller/)
+[Deployment](/docs/user-guide/deployments/)
 to create pods. You should use the instructions below only if you don't want
-to create a replication controller.
+to create a Deployment.
 
 If your pod will contain more than one container, or if you don't want to
-create a replication controller to manage your pod, use the
+create a Deployment to manage your pod, use the
 `kubectl create` command and pass a pod specification as a JSON- or
 YAML-formatted configuration file.
 
@@ -75,7 +72,7 @@ Required fields are:
       unique within the namespace.
     * `labels`: Optional. Labels are arbitrary key:value pairs that can be used
       by
-      [replication controllers](/docs/user-guide/replication-controller)
+      [Deployment](/docs/user-guide/deployments/)
       and [services](/docs/user-guide/services/) for grouping and targeting
       pods.
     * `generateName`: Required if `name` is not set. A prefix to use to generate
