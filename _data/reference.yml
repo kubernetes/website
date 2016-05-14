@@ -52,6 +52,8 @@ toc:
     path: /docs/user-guide/kubectl-overview/
   - title: kubectl for Docker Users
     path: /docs/user-guide/docker-cli-to-kubectl/
+  - title: kubectl Usage Conventions
+    path: /docs/user-guide/kubectl-conventions/
   - title: JSONpath Support
     path: /docs/user-guide/jsonpath/
   - title: kubectl Cheat Sheet
