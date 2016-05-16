@@ -163,20 +163,18 @@ toc:
       - title: kubectl stop
         path: /docs/user-guide/kubectl/kubectl_stop/
 
-- title: kube-apiserver CLI
-  path: /docs/admin/kube-apiserver/
-
-- title: kube-proxy CLI
-  path: /docs/admin/kube-proxy/
-
-- title: kube-scheduler CLI
-  path: /docs/admin/kube-scheduler/
-
-- title: kubelet CLI
-  path: /docs/admin/kubelet/
-
-- title: kube-controller-manager CLI
-  path: /docs/admin/kube-controller-manager/
+- title: Kubernetes Components
+  section:
+  - title: kube-apiserver
+    path: /docs/admin/kube-apiserver/
+  - title: kube-proxy
+    path: /docs/admin/kube-proxy/
+  - title: kube-scheduler
+    path: /docs/admin/kube-scheduler/
+  - title: kubelet
+    path: /docs/admin/kubelet/
+  - title: kube-controller-manager
+    path: /docs/admin/kube-controller-manager/
 
 - title: Glossary
   section:
