@@ -75,6 +75,8 @@ toc:
         path: /docs/getting-started-guides/libvirt-coreos/
       - title: oVirt
         path: /docs/getting-started-guides/ovirt/
+      - title: OpenStack Heat
+        path: /docs/getting-started-guides/openstack-heat/
       - title: libvirt or KVM
         path: /docs/getting-started-guides/fedora/flannel_multi_node_cluster/
       - title: Multinode Cluster on CoreOS
