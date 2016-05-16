@@ -22,8 +22,8 @@ must be running on the node.
 
 rkt uses the [Container Network Interface (CNI)](https://github.com/appc/cni)
 to manage container networking. By default, all pods attempt to join a network
-called `rkt.kubernetes.io`, which is currently defined [in `rkt.go`]
-(https://github.com/kubernetes/kubernetes/blob/v1.2.0-alpha.6/pkg/kubelet/rkt/rkt.go#L91).
+called `rkt.kubernetes.io`, which is currently defined [in
+`rkt.go`](https://github.com/kubernetes/kubernetes/blob/v1.2.0-alpha.6/pkg/kubelet/rkt/rkt.go#L91).
 In order for pods to get correct IP addresses, the CNI config file must be
 edited to add this `rkt.kubernetes.io` network:
 
