@@ -131,7 +131,7 @@ The current version of the website is served out of the `master` branch.
 
 All versions of the site that relate to past and future versions will be named after their Kubernetes release number. For example, [the old branch for the 1.1 docs is called `release-1.1`](https://github.com/kubernetes/kubernetes.github.io/tree/release-1.1).
 
-## Partners {#partners}
+## Partners
 Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
 
 * The partner product logo should be a transparent png image centered in a 215x125 px frame. (look at the existing logos for reference)
