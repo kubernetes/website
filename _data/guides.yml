@@ -156,15 +156,15 @@ toc:
       path: /docs/getting-started-guides/scratch/
     - title: Custom Cloud Solutions
       section:
-      - title: AWS or GCE on CoreOS
+      - title: CoreOS on AWS or GCE
         path: /docs/getting-started-guides/coreos/
-      - title: AWS or Joyent on Ubuntu
+      - title: Ubuntu on AWS or Joyent
         path: /docs/getting-started-guides/juju/
-      - title: Rackspace on CoreOS
+      - title: CoreOS on Rackspace
         path: /docs/getting-started-guides/rackspace/
     - title: On-Premise VMs
       section:
-      - title: Vagrant or VMware
+      - title: CoreOS on Vagrant
         path: /docs/getting-started-guides/coreos/
       - title: Cloudstack
         path: /docs/getting-started-guides/cloudstack/
@@ -174,15 +174,13 @@ toc:
         path: /docs/getting-started-guides/juju/
       - title: DCOS
         path: /docs/getting-started-guides/dcos/
-      - title: libvirt on CoreOS
+      - title: CoreOS on libvirt
         path: /docs/getting-started-guides/libvirt-coreos/
       - title: oVirt
         path: /docs/getting-started-guides/ovirt/
       - title: OpenStack Heat
         path: /docs/getting-started-guides/openstack-heat/
-      - title: libvirt or KVM
-        path: /docs/getting-started-guides/fedora/flannel_multi_node_cluster/
-      - title: Multinode Cluster on CoreOS
+      - title: CoreOS on Multinode Cluster
         path: /docs/getting-started-guides/coreos/coreos_multinode_cluster/
       - title: Fedora With Calico Networking
         path: /docs/getting-started-guides/fedora/fedora-calico/
