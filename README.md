@@ -132,14 +132,13 @@ The current version of the website is served out of the `master` branch.
 All versions of the site that relate to past and future versions will be named after their Kubernetes release number. For example, [the old branch for the 1.1 docs is called `release-1.1`](https://github.com/kubernetes/kubernetes.github.io/tree/release-1.1).
 
 ## Partners {#partners}
-
-For Kubernetes partners, once verified by the community manager, can get their logos added to the partner section on [community page](http://k8s.io/community). The partner solutions should have a landing page / guide / blog at their end that talks about the integration details with kubernetes.
+Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
 
 * The partner product logo should be a transparent png image centered in a 215x125 px frame. (look at the existing logos for reference)
-* The partner solution link should take directly to the kubernetes integration landing page/doc/blog on partner's own site.
-* The logo should be named *product-name*_logo.png and placed at `/images/community_logos` folder.
-* The image reference (and hyperlink)should be added in`community.html` under `<div class="partner-logos" > ...</div>`.
-* Please do not change the order of the existing partner images. Append your `<a href="..."><img ...></a>`tag at the end of the list.
+* The logo must link to a URL that is specific to integrating with Kubernetes, hosted on the partner's site.
+* The logo should be named *product-name*_logo.png and placed in the `/images/community_logos` folder.
+* The image reference (including the link to the partner URL) should be added in `community.html` under `<div class="partner-logos" > ...</div>`.
+* Please do not change the order of the existing partner images. Append your logo to the end of the list.
 * Once completed and tested the look and feel, submit the pull request.
 
 ## Thank you!
