@@ -425,10 +425,10 @@ credentials.
 Make the secrets:
 
 ```shell
-$ kubectl create secret generic prod-db-password --from-literal=user=produser --from-literal=password=Y4nys7f11
-secret "prod-db-password" created
-$ kubectl create secret generic test-db-password --from-literal=user=testuser --from-literal=password=iluvtests
-secret "test-db-password" created
+$ kubectl create secret generic prod-db-secret --from-literal=user=produser --from-literal=password=Y4nys7f11
+secret "prod-db-secret" created
+$ kubectl create secret generic test-db-secret --from-literal=user=testuser --from-literal=password=iluvtests
+secret "test-db-secret" created
 ```
 
 Now make the pods:
