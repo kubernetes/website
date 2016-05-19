@@ -33,6 +33,7 @@ The local-machine solutions are:
 
 - [Local Docker-based](/docs/getting-started-guides/docker) (recommended starting point)
 - [No-VM local cluster](/docs/getting-started-guides/locally) (Linux only)
+- [Vagrant](/docs/getting-started-guides/vagrant)
 
 
 ### Hosted Solutions
