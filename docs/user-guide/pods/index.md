@@ -57,7 +57,8 @@ pod is deleted for any reason, even if an identical replacement is created, the
 related thing (e.g. volume) is also destroyed and created anew.
 
 ![pod diagram](/images/docs/pod.svg)
-*A multi-container pod that contains a file puller and web server that use a persistent volume for storage.*
+*A multi-container pod that contains a file puller and a 
+web server that uses a persistent volume for shared storage between the containers.*
 
 ## Motivation for pods
 
