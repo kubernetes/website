@@ -157,8 +157,6 @@ JSON,json,pod-sample.json,/docs/user-guide/pods/pod-sample.json
 YAML,yaml,pod-sample.yaml,/docs/user-guide/pods/pod-sample.yaml{% endcapture %}
 {% include tabs.html %}
 
-![image](/images/docs/pods/multi-container_1.svg) 
-
 ## Viewing a pod
 
 {% include_relative _viewing-a-pod.md %}
