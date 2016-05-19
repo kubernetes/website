@@ -103,6 +103,14 @@ Visit your app in the browser, or use `curl` or `wget` if you’d like :
 $ curl http://localhost:8080
 Hello World!
 ```
+**If you get a `Connection refused` message, your `DOCKER_HOST` address may be the address of your Docker VM, not the localhost address.** Use the `docker-machine ip default` command to find the Docker VM address.
+
+```shell
+$ docker-machine ip default
+192.168.1.100
+$ curl 192.168.1.100:8080
+Hello World!
+```
 
 Let’s now stop the container. In this example, our app was running as Docker process `2c66d0efcbd4`, which we looked up with `docker ps`:
 
