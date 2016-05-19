@@ -73,6 +73,7 @@ export IMAGE_FILE=CentOS-7-x86_64-GenericCloud-1510.qcow2
 export SWIFT_SERVER_URL=http://192.168.123.100:8080
 export ENABLE_PROXY=false
 ```
+
 #### Manually overriding configuration values
 
 If you do not have your environment variables set, or do not want them consumed, modify the variables in the following files under `cluster/openstack-heat`:
@@ -105,6 +106,7 @@ make clean
 make quick-release
 KUBERNETES_PROVIDER=openstack-heat ./cluster/kube-up.sh
 ```
+
 ## Inspect your cluster
 
 Once kube-up is finished, your cluster should be running:
