@@ -58,13 +58,47 @@ and is a csv file with 3 columns: password, user name, user id.
 When using basic authentication from an http client, the apiserver expects an `Authorization` header
 with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
 
-**Keystone authentication** is enabled by passing the `--experimental-keystone-url=<AuthURL>`
-option to the apiserver during startup. The plugin is implemented in
-`plugin/pkg/auth/authenticator/password/keystone/keystone.go`.
+**Keystone token authentication** is enabled by passing the ` --experimental-keystone-auth-mode=token`
+and `--experimental-keystone-config=<config file>` options to the apiserver during startup. The plugin
+is implemented in `plugin/pkg/auth/authenticator/token/keystone/keystone.go`.
+
+Please note that this plugin is still experimental which means it is subject to changes.
+
+Create a service username/password with token validate permissions as described in the [keystone documentation](http://docs.openstack.org/developer/keystone/configuringservices.html#creating-service-users)
+
+The config file passed via `--experimental-keystone-config` should look something like the following, modified using the info used during the service user creation step:
+```conf
+[Global]
+auth-url=https://localhost:5001/v3
+username=k8s
+password=<Password here>
+tenant-name=services
+domain-id=default
+```
+
+If you have a self signed certificate for your Keystone server, you can load it into your api-server using [this procedure](http://kb.kerio.com/product/kerio-connect/server-configuration/ssl-certificates/adding-trusted-root-certificates-to-the-server-1605.html)
+
+*WARNING* It is highly recommended you enable an authorization plugin such as the Keystone Authorization plugin to restrict access to the Kubernetes cluster. Without some further restriction, all Keystone users will be able to authenticate, and in a Multitenant environment that may allow one project access to another projects resources.
+
+After enabling, you can use kubecli using the following procedure:
+ * Download your keystonerc file from Horizon as with any other OpenStack client.
+ * Load it into your environment:
+   `source yourkeystone.rc`
+ * Fetch a fresh token into your environment:
+   `OS_TOKEN=$(openstack token issue -c id -f value)`
+ * Use your kubectl command like:
+   `kubectl --token "$OS_TOKEN" get pods`
+
+**Keystone password authentication** is enabled by passing the
+`--experimental-keystone-auth-mode=password` and `--experimental-keystone-url=<AuthURL>`
+options to the apiserver during startup. The plugin is implemented in `plugin/pkg/auth/authenticator/password/keystone/keystone.go`.
+
+Please note that this plugin is still experimental which means it is subject to changes.
 
 For details on how to use keystone to manage projects and users, refer to the
-[Keystone documentation](http://docs.openstack.org/developer/keystone/). Please note that
-this plugin is still experimental which means it is subject to changes.
+[Keystone documentation](http://docs.openstack.org/developer/keystone/).
+
+*WARNING* It is highly recommended you enable an authorization plugin to restrict access to the Kubernetes cluster. Without some further restriction, all Keystone users will be able to authenticate, and in a Multitenant environment that may allow one project access to another projects resources.
 
 Please refer to the [discussion](https://github.com/kubernetes/kubernetes/pull/11798#issuecomment-129655212)
 and the [blueprint](https://github.com/kubernetes/kubernetes/issues/11626) for more details.

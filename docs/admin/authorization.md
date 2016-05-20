@@ -285,6 +285,27 @@ restricting access to the REST api.
 For further documentation refer to the authorization.v1beta1 API objects and
 plugin/pkg/auth/authorizer/webhook/webhook.go.
 
+## Keystone Mode
+
+When specified, mode `Keystone` causes Kubernetes to validate users
+authenticated with the experimental Keystone Token Authentication plugin
+against the the Keystone Role and Keystone Project ID specified by the
+following api-server command line flags:
+ * `--experimental-authorization-keystone-single-projectid="<The Keystone Project ID>"`
+ * `--experimental-authorization-keystone-role="<The keystone Role Name, such as _member_>"`
+
+This allows a single specified Keystone Project access to the entire set of
+namespaces in the Kubernetes cluster. AKA: Single Tenant mode. This is
+intended to allow any Project to create their own dedicated Kubernetes cluster
+and enable access to it using their existing Keystone credentials.
+
+Restricting Keystone Projects to namespaces, AKA: Multi Tenant Mode, is not
+currently supported but the use case is important and will be considered in
+a future version.
+
+Please note that this plugin is still experimental which means it is subject
+to changes.
+
 ## Plugin Development
 
 Other implementations can be developed fairly easily.
