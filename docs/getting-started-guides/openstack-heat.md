@@ -28,6 +28,7 @@ If you already have the required versions of the OpenStack CLI tools installed a
 
 ```sh
 sudo pip install -U --force 'python-openstackclient==2.4.0'
+sudo pip install -U --force 'python-heatclient==1.1.0'
 sudo pip install -U --force 'python-swiftclient==3.0.0'
 sudo pip install -U --force 'python-glanceclient==2.0.0'
 sudo pip install -U --force 'python-novaclient==3.4.0'
