@@ -76,47 +76,34 @@ The created Replica Set will ensure that there are three nginx Pods at all times
 
 ## The Status of a Deployment
 
-After creating or updating a Deployment, you would want to confirm whether it succeeded or not. The best way to do this is through checking its status.
-
-To verify if the above Deployment succeeded or not, first compare the `.metadata.generation` and `.status.observedGeneration` of the Deployment:
+After creating or updating a Deployment, you would want to confirm whether it succeeded or not. The simplest way to do this is through `kubectl rollout status`.
 
 ```shell
-$ kubectl get deployment/nginx-deployment -o yaml | grep [Gg]eneration
-  generation: 2
-  observedGeneration: 2
+$ kubectl rollout status deployment/nginx-deployment
+<some more messages if update is in progress>
+deployment nginx-deployment successfully rolled out
 ```
 
-When `observedGeneration` >= `generation`, the Deployment controller has observed current Deployment; if not, wait for a few more seconds.
+This verifies the deployment's `.status.observedGeneration` >= `.metadata.generation`, and its up-to-date replicas
+(`.status.updatedReplicas`) matches the desired replicas (`.spec.replicas`). 
 
-Once the above condition is met, check the Deployment's up-to-date replicas (`.status.updatedReplicas`) and see if it matches the desired replicas (`.spec.replicas`):
-
-```shell
-$ kubectl get deployment/nginx-deployment
-NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-nginx-deployment   3         3         3            3           9m
-```
+Note that it's impossible to know whether a Deployment will ever succeed, so if the above command doesn't return success, 
+you'll need to timeout and give up at some point.
 
 Additionally, if you set `.spec.minReadySeconds`, you would also want to check if the available replicas (`.status.availableReplicas`) matches the desired replicas too.
 
-**Note:** It's impossible to know whether a Deployment will ever succeed, so one has to timeout and give up at some point.
 
 ## Updating a Deployment
-
-Suppose that we now want to update the nginx Pods to start using the `nginx:1.9.1` image
-instead of the `nginx:1.7.9` image.
 
 **Note:** a Deployment's rollout is triggered if and only if the Deployment's pod template (i.e. `.spec.template`) is changed, 
 e.g. updating labels or container images of the template. Other updates, such as scaling the Deployment, will not trigger a rollout. 
 
-First, we update our Deployment configuration as follows:
-
-{% include code.html language="yaml" file="new-nginx-deployment.yaml" ghlink="/docs/user-guide/new-nginx-deployment.yaml" %}
-
-We can then `apply` the new Deployment:
+Suppose that we now want to update the nginx Pods to start using the `nginx:1.9.1` image
+instead of the `nginx:1.7.9` image.
 
 ```shell
-$ kubectl apply -f docs/user-guide/new-nginx-deployment.yaml
-deployment "nginx-deployment" configured
+$ kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1
+deployment "nginx-deployment" image updated
 ```
 
 Alternatively, we can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
