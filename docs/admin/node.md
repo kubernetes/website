@@ -31,19 +31,7 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 
 ### Node Phase
 
-Node Phase is the current lifecycle phase of node, one of `Pending`,
-`Running` and `Terminated`.
-
-* Pending: New nodes are created in this state. A node stays in this state until it is configured.
-
-* Running: Node has been configured and the Kubernetes components are running
-
-* Terminated: Node has been removed from the cluster. It will not receive any scheduling requests,
-and any running pods will be removed from the node.
-
-Node with `Running` phase is necessary but not sufficient requirement for
-scheduling Pods. For a node to be considered a scheduling candidate, it
-must have appropriate conditions, see below.
+Deprecated: Node Phase is no longer used
 
 ### Node Condition
 
