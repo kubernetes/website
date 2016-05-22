@@ -410,7 +410,7 @@ web-controller-xxxx    1/1       Running   0          1m
 
 ## Step 9: Accessing the App
 
-At this point, everything is up and running. The architecture looks something like this:
+At this point, everything is up and running. The architecture looks something like this: 
 
 ![image](/images/docs/meanstack/MEANstack_architecture.svg){: style="max-width:25%"} 
 
