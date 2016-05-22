@@ -86,3 +86,14 @@ See [here](/docs/getting-started-guides/docker-multinode/deployDNS) for instruct
 Once your cluster has been created you can [test it out](/docs/getting-started-guides/docker-multinode/testing)
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/)
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+Docker Multi Node    | custom       | N/A    | flannel     | [docs](/docs/getting-started-guides/docker-multinode)                       |          | Project ([@brendandburns](https://github.com/brendandburns))
+
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+
