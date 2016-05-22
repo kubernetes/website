@@ -13,17 +13,6 @@ toc:
   - title: Hello World Walkthrough
     path: /docs/hellonode/
 
-- title: Accessing the Cluster
-  section:
-  - title: Installing and Setting up kubectl
-    path: /docs/user-guide/prereqs/
-  - title: Accessing Clusters
-    path: /docs/user-guide/accessing-the-cluster/
-  - title: Sharing Cluster Access with kubeconfig
-    path: /docs/user-guide/sharing-clusters/
-  - title: Authenticating Across Clusters with kubeconfig
-    path: /docs/user-guide/kubeconfig-file/
-
 - title: User Guide
   path: /docs/user-guide/
 
@@ -218,6 +207,17 @@ toc:
     path: /docs/admin/multiple-zones/
   - title: Building High-Availability Clusters
     path: /docs/admin/high-availability/
+
+- title: Accessing the Cluster
+  section:
+  - title: Installing and Setting up kubectl
+    path: /docs/user-guide/prereqs/
+  - title: Accessing Clusters
+    path: /docs/user-guide/accessing-the-cluster/
+  - title: Sharing Cluster Access with kubeconfig
+    path: /docs/user-guide/sharing-clusters/
+  - title: Authenticating Across Clusters with kubeconfig
+    path: /docs/user-guide/kubeconfig-file/
 
 - title: Administering Clusters
   section:
