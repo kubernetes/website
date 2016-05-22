@@ -213,3 +213,11 @@ field values:
 
 * Source Ranges: `10.0.0.0/8`
 * Allowed Protocols and Port: `tcp:1-65535;udp:1-65535;icmp`
+
+
+## Further reading
+
+Please see the [Kubernetes docs](/docs/) for more details on administering
+and using a Kubernetes cluster.
+ 
+For support level information, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
