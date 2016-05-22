@@ -3,7 +3,7 @@
 
 **By: Sandeep Dinesh** - _July 29, 2015_
 
-![image](/images/docs/meanstack/image_0.png)
+![image](/images/docs/meanstack/image_0.png) 
 
 In [a recent post](http://blog.sandeepdinesh.com/2015/07/running-mean-web-application-in-docker.html), I talked about running a MEAN stack with [Docker Containers.](http://docker.com/)
 
