@@ -5,7 +5,6 @@ kramdown:
   html_to_native: true
   hard_wrap: false
   syntax_highlighter: rouge
-baseurl: /
 incremental: true
 
 safe: false
@@ -21,9 +20,7 @@ defaults:
       docsbranch: "master"
   -
     scope:
-      path: "docs"
+      path: ""
     values:
       layout: docwithnav
       showedit: true
-
-permalink: pretty
