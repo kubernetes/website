@@ -135,6 +135,14 @@ Make sure the environment variables you used to provision your cluster are still
 ```shell
 cluster/kube-down.sh
 ```
+## Support Level
+Here are all the solutions mentioned above in table form.
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/aws)                                 |          | Community
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
 ## Further reading
 
