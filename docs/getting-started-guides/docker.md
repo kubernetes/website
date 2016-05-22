@@ -209,3 +209,9 @@ output of /proc/cmdline:
 $ cat /proc/cmdline
 BOOT_IMAGE=/boot/vmlinuz-3.18.4-aufs root=/dev/sda5 ro cgroup_enable=memory=1
 ```
+## Further reading
+
+Please see the [Kubernetes docs](/docs/) for more details on administering
+and using a Kubernetes cluster.
+
+For support level information, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
