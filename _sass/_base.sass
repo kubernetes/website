@@ -694,7 +694,7 @@ dd
 	width: 100%
 
 	$toc-margin: 15px
-	$header-clearance: 40px
+	$header-clearance: $header-height + 20px
 
 	* + h2, * + h3, * + h4, * + h5, * + h6
 		margin-top: 30px
@@ -705,6 +705,14 @@ dd
 		margin-bottom: 30px
 		padding-bottom: 10px
 		border-bottom: 1px solid #cccccc
+
+		// Make sure anchor links aren't hidden by the header
+		&:before
+			display: block
+			content: " "
+			margin-top: -$header-clearance
+			height: $header-clearance
+			visibility: hidden
 
 	h1
 		font-size: 32px
