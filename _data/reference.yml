@@ -24,6 +24,8 @@ toc:
     path: /docs/api-reference/v1/operations/
   - title: Kubernetes API Definitions
     path: /docs/api-reference/v1/definitions/
+  - title: Kubernetes API Swagger Spec
+    path: /kubernetes/third_party/swagger-ui/
 
 - title: Extensions API
   section:
