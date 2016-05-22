@@ -136,7 +136,7 @@ Make sure the environment variables you used to provision your cluster are still
 cluster/kube-down.sh
 ```
 ## Support Level
-Here are all the solutions mentioned above in table form.
+
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
@@ -149,5 +149,5 @@ For support level information on all solutions, see the [Table of solutions](/do
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
 
-For support level information, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+
 
