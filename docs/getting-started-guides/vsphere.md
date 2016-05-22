@@ -94,3 +94,13 @@ The output of `kube-up.sh` displays the IP addresses of the VMs it deploys. You
 can log into any VM as the `kube` user to poke around and figure out what is
 going on (find yourself authorized with your SSH key, or use the password
 `kube` otherwise).
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+Vmware               |              | Debian | OVS         | [docs](/docs/getting-started-guides/vsphere)                                |          | Community ([@pietern](https://github.com/pietern))
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+
