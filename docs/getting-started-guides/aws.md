@@ -141,7 +141,5 @@ cluster/kube-down.sh
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
 
-For support level information, see the [Table of solutions](/docs/)
+For support level information, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
-
-[table of solutions] (/docs/getting-started-guides/) chart.
