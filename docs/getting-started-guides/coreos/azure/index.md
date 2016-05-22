@@ -231,8 +231,6 @@ By the way, with the scripts shown, you can deploy multiple clusters, if you lik
 
 ## Support Level
 
-## Support Level
-
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
