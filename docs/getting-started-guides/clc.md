@@ -332,3 +332,11 @@ These are the known items that don't work on CenturyLink cloud but do work on ot
 
 If you want more information about our Ansible files, please [read this file](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md)
 
+## Further reading
+
+Please see the [Kubernetes docs](/docs/) for more details on administering
+and using a Kubernetes cluster.
+
+For support level information, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+
+
