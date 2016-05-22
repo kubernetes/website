@@ -34,7 +34,7 @@ Instead, you have to build a custom container that has the code already inside i
 
 To do this, you need to use more Docker. Make sure you have the latest version installed for the rest of this tutorial.
 
-Getting the code:
+Getting the code: 
 
 Before starting, let’s get some code to run. You can follow along on your personal machine or a Linux VM in the cloud. I recommend using Linux or a Linux VM; running Docker on Mac and Windows is outside the scope of this tutorial.
 
