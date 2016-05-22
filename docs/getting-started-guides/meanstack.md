@@ -14,7 +14,7 @@ Thankfully, there is a system we can use to manage our containers in a cluster e
 * TOC
 {:toc}
 
-## The Basics of Using Kubernetes
+## The Basics of Using Kubernetes 
 
 Before we jump in and start kube’ing it up, it’s important to understand some of the fundamentals of Kubernetes.
 
