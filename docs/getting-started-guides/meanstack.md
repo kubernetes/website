@@ -72,7 +72,7 @@ Then, it creates a folder to store the code, `cd`s into that directory, copies t
 Finally, it specifies the command Docker should run when the container starts, which is to start the app.
 
 
-## Step 2: Building our Container
+## Step 2: Building our Container 
 
 Right now, the directory should look like this:
 
