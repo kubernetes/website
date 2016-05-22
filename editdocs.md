@@ -1,5 +1,7 @@
 ---
 layout: docwithnav
+redirect_from:
+  - /docs/editdocs
 ---
 
 <!-- BEGIN: Gotta keep this section JS/HTML because it swaps out content dynamically -->
