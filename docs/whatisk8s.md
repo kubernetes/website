@@ -31,13 +31,8 @@ The *Old Way* to deploy applications was to install the applications on a host u
 
 The *New Way* is to deploy containers based on operating-system-level virtualization rather than hardware virtualization. These containers are isolated from each other and from the host: they have their own filesystems, they can't see each others' processes, and their computational resource usage can be bounded. They are easier to build than VMs, and because they are decoupled from the underlying infrastructure and from the host filesystem, they are portable across clouds and OS distributions.
 
-Because containers are small and fast, one application can be packed in each container image. It is this one-to-one application-to-image relationship that unlocks the full benefits of containers:
-
-1. Immutable container images can be created at build/release time rather than deployment time, since each application doesn't need to be composed with the rest of the application stack nor married to the production infrastructure environment. This enables a consistent environment to be carried from development into production.
-
-2. Containers are vastly more transparent than VMs, which facilitates monitoring and management. This is especially true when the containers' process lifecycles are managed by the infrastructure rather than hidden by a process supervisor inside the container.
-
-3. With a single application per container, managing the containers becomes tantamount to managing deployment of the application.
+Because containers are small and fast, one application can be packed in each container image. This one-to-one application-to-image relationship unlocks the full benefits of containers. With containers, immutable container images can be created at build/release time rather than deployment time, since each application doesn't need to be composed with the rest of the application stack, nor married to the production infrastructure environment. Generating container images at build/release time enables a consistent environment to be carried from development into production.
+Similarly, containers are vastly more transparent than VMs, which facilitates monitoring and management. This is especially true when the containers' process lifecycles are managed by the infrastructure rather than hidden by a process supervisor inside the container. Finally, with a single application per container, managing the containers becomes tantamount to managing deployment of the application.
 
 Summary of container benefits:
 
@@ -62,13 +57,7 @@ Summary of container benefits:
 
 #### Why do I need Kubernetes and what can it do?
 
-Kubernetes can schedule and run application containers on clusters of physical or virtual machines.
-
-It can also do much more than that.
-
-In order to take full advantage of the potential benefits of containers and leave the old deployment methods behind, one needs to cut the cord to physical and virtual machines.
-
-However, once specific containers are no longer bound to specific machines, **host-centric** infrastructure no longer works: managed groups, load balancing, auto-scaling, etc. One needs **container-centric** infrastructure. That's what Kubernetes provides.
+At a minimum, Kubernetes can schedule and run application containers on clusters of physical or virtual machines. However, Kubernetes also allows developers to 'cut the cord' to physical and virtual machines, moving from a **host-centric** infrastructure to a **container-centric** infrastructure, which provides the full advantages and benefits inherent to containers. Kubernetes provides the infrastructure to build a truly **container-centric** development environment.
 
 Kubernetes satisfies a number of common needs of applications running in production, such as:
 
