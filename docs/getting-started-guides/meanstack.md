@@ -412,7 +412,7 @@ web-controller-xxxx    1/1       Running   0          1m
 
 At this point, everything is up and running. The architecture looks something like this:
 
-![image](/images/docs/meanstack/MEANstack_architecture.svg){: style="max-width:50%"} 
+![image](/images/docs/meanstack/MEANstack_architecture.svg){: style="max-width:25%"} 
 
 By default, port 80 should be open on the load balancer. In order to find the IP address of our app, run this command: 
 
