@@ -57,6 +57,8 @@ Where:
   addition to any labels specified here, `run` attaches a label of
   the format `run=NAME`. This is used by the Deployment
   to target the pods created by the command.
+  
+![image](/images/docs/pods/single-container_1.svg)  
 
 There are additional flags that can be specified. For a complete list, run:
 
