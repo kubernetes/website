@@ -7,12 +7,23 @@ These scripts handle the creation, deletion and expansion of kubernetes clusters
 
 You can accomplish all these tasks with a single command. We have made the Ansible playbooks used to perform these tasks available [here](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md).
 
+## Change History
+
+The v0.5 release included the following major changes:
+
+- Kubernetes 1.2
+- Integrated Load Balancing, i.e. Kubernetes services of type LoadBalancer now automatically get a public IP address routed to all minions in the cluster via the CenturyLink Cloud LB service.
+
+For a detailed change history, please visit [the CenturyLink Cloud release notes page](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/releases).
+
 ## Find Help
 
 If you run into any problems or want help with anything, we are here to help. Reach out to use via any of the following ways:
+
 - Submit a github issue
+- Find us in the Kubernetes Slack Community, channel #provider-centurylink
 - Send an email to kubernetes AT ctl DOT io
-- Visit http://info.ctl.io/kubernetes
+- Visit [our website](https://www.ctl.io/kubernetes/)
 
 ## Clusters of VMs or Physical Servers, your choice.
 
@@ -25,7 +36,7 @@ If you run into any problems or want help with anything, we are here to help. Re
 
 The requirements to run this script are:
 - A linux administrative host (tested on ubuntu and OSX)
-- python 2 (tested on 2.7.11)
+- python 2 (tested on 2.7.11), including the -dev and -crypto packages
   - pip (installed with python as of 2.7.9)
 - git
 - A CenturyLink Cloud account with rights to create new hosts
@@ -42,12 +53,12 @@ git clone https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc
 ```
 
 2) Install all requirements, including
-  * Ansible
-  * CenturyLink Cloud SDK
-  * Ansible Modules
+- Ansible
+- [CenturyLink Cloud SDK](https://github.com/CenturyLinkCloud/clc-python-sdk)
+- Ansible Modules
 
 ```shell
-sudo pip install -r ansible/requirements.txt
+sudo pip install -r requirements.txt
 ```
 
 3) Create the credentials file from the template and use it to set your ENV variables
@@ -56,7 +67,6 @@ sudo pip install -r ansible/requirements.txt
 cp ansible/credentials.sh.template ansible/credentials.sh
 vi ansible/credentials.sh
 source ansible/credentials.sh
-
 ```
 
 4) Grant your machine access to the CenturyLink Cloud network by using a VM inside the network or [ configuring a VPN connection to the CenturyLink Cloud network.](https://www.ctl.io/knowledge-base/network/how-to-configure-client-vpn/)
@@ -70,7 +80,7 @@ guide to install the requirements and install the script.
 ```shell
   # system
   apt-get update
-  apt-get install -y git python python-crypto
+  apt-get install -y curl git python python-dev python-crypto
   curl -O https://bootstrap.pypa.io/get-pip.py
   python get-pip.py
 
@@ -87,15 +97,13 @@ guide to install the requirements and install the script.
   source credentials.sh
 ```
 
-
-
 ## Cluster Creation
 
 To create a new Kubernetes cluster, simply run the kube-up.sh script. A complete
 list of script options and some examples are listed below.
 
 ```shell
-CLC_CLUSTER_NAME=[name of kubernetes cluster]
+export CLC_CLUSTER_NAME=[name of kubernetes cluster]
 cd ./adm-kubernetes-on-clc
 bash kube-up.sh -c="$CLC_CLUSTER_NAME"
 ```
@@ -173,13 +181,12 @@ There are two ways to delete an existing cluster:
 1) Use our python script:
 
 ```shell
-python delete_cluster.py --cluster=clc_cluster_name --datacenter=DC1
-
+python delete_cluster.py --clc_cluster_name=clc_cluster_name --datacenter=DC1
 ```
 
 2) Use the CenturyLink Cloud UI. To delete a cluster, log into the CenturyLink
 Cloud control portal and delete the parent server group that contains the
-Kubernetes Cluster. We hope to add a scripted option to do this soon.
+Kubernetes Cluster.
 
 ## Examples
 
@@ -189,7 +196,7 @@ Create a cluster with name of k8s_1, 1 master node and 3 worker minions (on phys
  bash kube-up.sh --clc_cluster_name=k8s_1 --minion_type=bareMetal --minion_count=3 --datacenter=VA1
 ```
 
-Create a cluster with name of k8s_2, an ha etcd cluster on 3 VMs and 6 worker minions (on VMs), in VA1
+Create a cluster with name of k8s_2, an HA etcd cluster on 3 VMs and 6 worker minions (on VMs), in VA1
 
 ```shell
  bash kube-up.sh --clc_cluster_name=k8s_2 --minion_type=standard --minion_count=6 --datacenter=VA1 --etcd_separate_cluster=yes
@@ -198,7 +205,7 @@ Create a cluster with name of k8s_2, an ha etcd cluster on 3 VMs and 6 worker mi
 Create a cluster with name of k8s_3, 1 master node, and 10 worker minions (on VMs) with higher mem/cpu, in UC1:
 
 ```shell
-  bash kube-up.sh --clc_cluster_name=k8s_3 --minion_type=standard --minion_count=10 --datacenter=VA1 -mem=6 -cpu=4
+bash kube-up.sh --clc_cluster_name=k8s_3 --minion_type=standard --minion_count=10 --datacenter=VA1 -mem=6 -cpu=4
 ```
 
 
@@ -207,19 +214,19 @@ Create a cluster with name of k8s_3, 1 master node, and 10 worker minions (on VM
 
 We configue the Kubernetes cluster with the following features:
 
-* KubeDNS: DNS resolution and service discovery
-* Heapster/InfluxDB: For metric collection. Needed for Grafana and auto-scaling.
-* Grafana: Kubernetes/Docker metric dashboard
-* KubeUI: Simple web interface to view kubernetes state
-* Kube Dashboard: New web interface to interact with your cluster
+- KubeDNS: DNS resolution and service discovery
+- Heapster/InfluxDB: For metric collection. Needed for Grafana and auto-scaling.
+- Grafana: Kubernetes/Docker metric dashboard
+- KubeUI: Simple web interface to view kubernetes state
+- Kube Dashboard: New web interface to interact with your cluster
 
 We use the following to create the kubernetes cluster:
 
-* Kubernetes 1.1.7
-* Unbuntu 14.04
-* Flannel 0.5.4
-* Docker 1.9.1-0~trusty
-* Etcd 2.2.2
+- Kubernetes 1.2
+- Unbuntu 14.04
+- Flannel 0.5.5
+- Docker 1.9.1
+- Etcd 2.2.5
 
 ## Optional add-ons
 
@@ -248,21 +255,20 @@ kubectl version
 kubectl cluster-info
 ```
 
-### Accessing the cluster programmatically 
+### Accessing the cluster programmatically
 
-It's possible to use the locally-stored client certificates to access the api server. For example, you may want to use any of the [Kubernetes API client libraries](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/client-libraries.md) to program against your Kubernetes cluster in the programming language of your choice. 
+It's possible to use the locally-stored client certificates to access the api server. For example, you may want to use any of the [Kubernetes API client libraries](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/client-libraries.md) to program against your Kubernetes cluster in the programming language of your choice.
 
 To demostrate how to use these locally stored certificates, we provide the folowing example of using ```curl``` to communicate to the master api server via https:
 
 ```shell
 curl \
-   --cacert ${CLC_CLUSTER_HOME}/pki/ca.crt  \
+   --cacert ${CLC_CLUSTER_HOME}/pki/ca.crt \
    --key ${CLC_CLUSTER_HOME}/pki/kubecfg.key \
-   --cert ${CLC_CLUSTER_HOME}/pki/kubecfg.crt  https://${MASTER_IP}:6443
+   --cert ${CLC_CLUSTER_HOME}/pki/kubecfg.crt https://${MASTER_IP}:6443
 ```
 
-But please note, this *does not* work out of the box with the ```curl``` binary
-distributed with OSX.
+But please note, this _does not_ work out of the box with the curl binary distributed with OSX.
 
 ### Accessing the cluster with a browser
 
@@ -287,16 +293,16 @@ Various configuration files are written into the home directory *CLC_CLUSTER_HOM
 ```.clc_kube/${CLC_CLUSTER_NAME}``` in several subdirectories. You can use these files
 to access the cluster from machines other than where you created the cluster from.
 
-* ```config/```: Ansible variable files containing parameters describing the master and minion hosts
-* ```hosts/```: hosts files listing access information for the ansible playbooks
-* ```kube/```: ```kubectl``` configuration files, and the basic-authentication password for admin access to the Kubernetes API
-* ```pki/```: public key infrastructure files enabling TLS communication in the cluster
-* ```ssh/```: SSH keys for root access to the hosts
+- ```config/```: Ansible variable files containing parameters describing the master and minion hosts
+- ```hosts/```: hosts files listing access information for the ansible playbooks
+- ```kube/```: ```kubectl``` configuration files, and the basic-authentication password for admin access to the Kubernetes API
+- ```pki/```: public key infrastructure files enabling TLS communication in the cluster
+- ```ssh/```: SSH keys for root access to the hosts
 
 
 ## ```kubectl``` usage examples
 
-There are a great many features of _kubectl_.  Here are a few examples
+There are a great many features of _kubectl_. Here are a few examples
 
 List existing nodes, pods, services and more, in all namespaces, or in just one:
 
@@ -316,12 +322,14 @@ kubectl proxy -p 8001
 
 Then, you can access urls like ```http://127.0.0.1:8001/api/v1/proxy/namespaces/kube-system/services/kube-ui/``` without the need for client certificates in your browser.
 
+## LoadBalancer integration.
+
+Our Kubernetes code includes definitions of CenturyLink Cloud as a provider, which includes integration of the CLC Load Balancer services. When a Kubernetes service is defined as type LoadBalancer, a public IP address is automatically obtained and mapped to the service endpoint.
+
 
 ## What Kubernetes features do not work on CenturyLink Cloud
 
 These are the known items that don't work on CenturyLink cloud but do work on other cloud providers:
-
-- At this time, there is no support services of the type [LoadBalancer](/docs/user-guide/load-balancer/). We are actively working on this and hope to publish the changes sometime around April 2016.
 
 - At this time, there is no support for persistent storage volumes provided by
   CenturyLink Cloud. However, customers can bring their own persistent storage
@@ -331,4 +339,3 @@ These are the known items that don't work on CenturyLink cloud but do work on ot
 ## Ansible Files
 
 If you want more information about our Ansible files, please [read this file](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md)
-
