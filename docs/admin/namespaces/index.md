@@ -34,12 +34,7 @@ The Namespace provides a unique scope for:
 4.  As a cluster user, I want to interact with resources that are pertinent to my user community in
     isolation of what other user communities are doing on the cluster.
 
-
-## Usage
-
-Look [here](/docs/admin/namespaces/) for an in depth example of namespaces.
-
-### Viewing namespaces
+## Viewing namespaces
 
 You can list the current namespaces in a cluster using:
 
@@ -92,7 +87,7 @@ A namespace can be in one of two phases:
 
 See the [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md#phases) for more details.
 
-### Creating a new namespace
+## Creating a new namespace
 
 To create a new namespace, first create a new YAML file called `my-namespace.yaml` with the contents:
 
@@ -113,12 +108,12 @@ Then run:
 $ kubectl create -f ./my-namespace.yaml
 ```
 
-### Working in namespaces
+## Working in namespaces
 
 See [Setting the namespace for a request](/docs/user-guide/namespaces/#setting-the-namespace-for-a-request)
 and [Setting the namespace preference](/docs/user-guide/namespaces/#setting-the-namespace-preference).
 
-### Deleting a namespace
+## Deleting a namespace
 
 You can delete a namespace with
 
