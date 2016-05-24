@@ -47,8 +47,8 @@ username and password that the pods should use is in the files
 
 ```shell
 # Create files needed for rest of example.
-$ echo "admin" > ./username.txt
-$ echo "1f2d1e2e67df" > ./password.txt
+$ echo -n "admin" > ./username.txt
+$ echo -n "1f2d1e2e67df" > ./password.txt
 ```
 
 The `kubectl create secret` command
