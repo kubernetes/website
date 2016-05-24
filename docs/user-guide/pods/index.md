@@ -38,7 +38,7 @@ filesystem.
 
 In terms of [Docker](https://www.docker.com/) constructs, a pod is modelled as
 a group of Docker containers with shared namespaces and shared
-[volumes](/docs/user-guide/volumes/). PID namespace sharing is not yet implemented in Docker.
+[volumes](/docs/user-guide/volumes/).
 
 ![pod diagram](/images/docs/pod.svg){: style="max-width: 50%" }
 
@@ -133,7 +133,9 @@ that means that it exists as long as that pod (with that UID) exists. If that
 pod is deleted for any reason, even if an identical replacement is created, the
 related thing (e.g. volume) is also destroyed and created anew.
 
+## Durability of pods (or lack thereof)
 
+See [Pod Lifecycle](/docs/user-guide/pod-states.md)
 
 ## Privileged mode for pod containers
 
