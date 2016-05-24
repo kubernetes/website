@@ -32,7 +32,7 @@ export K8S_VERSION=$(curl -sS https://storage.googleapis.com/kubernetes-release/
 export ARCH=amd64
 docker run -d \
     --volume=/:/rootfs:ro \
-    --volume=/sys:/sys:ro \
+    --volume=/sys:/sys:rw \
     --volume=/var/lib/docker/:/var/lib/docker:rw \
     --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \
     --volume=/var/run:/var/run:rw \
