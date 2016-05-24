@@ -127,6 +127,10 @@ The "Guestbook" application is another popular example to get started with Kuber
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/)
 
+## Scaling the cluster
+
+Adding and removing nodes through `kubectl` is not supported. You can still scale the amount of nodes through manual adjustments of the Auto Scaling Group which was created during the installation. In cause you increase the number of nodes, the new node will automatically join the cluster once it's ready.
+
 ## Tearing down the cluster
 
 Make sure the environment variables you used to provision your cluster are still exported, then call the following script inside the
