@@ -14,7 +14,7 @@ Through integration with some cloud providers (for example Google Compute Engine
 For example, [nginx](http://wiki.nginx.org/Main) is a popular HTTP server, with a [pre-built container on Docker hub](https://registry.hub.docker.com/_/nginx/). The [`kubectl run`](/docs/user-guide/kubectl/kubectl_run) command below will create two nginx replicas, listening on port 80, and a public IP address for your application.
 
 ```shell
-$ kubectl run my-nginx --image=nginx --replicas=2 --port=80 --expose --service-overrides='{ "spec": { "type": "LoadBalancer" } }'
+$ kubectl run my-nginx --image=nginx --replicas=2 --port=80 --overrides='{ "spec": { "apiVersion": "v1", "type": "LoadBalancer" } }'
 service "my-nginx" created
 deployment "my-nginx" created
 ```
