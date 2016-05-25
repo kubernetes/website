@@ -2,8 +2,8 @@ To view a specific pod, use the `kubectl get` command:
 
 ```shell
 $ kubectl get pod NAME
-NAME      READY   STATUS    RESTARTS   AGE
-example   1/1     Running   0          2d
+NAME                       READY   STATUS    RESTARTS   AGE
+example-1934187764-scau1   1/1     Running   0          2d
 ```
 
 To return the name of the node on which the pod is scheduled, use the `-o wide`
@@ -11,8 +11,8 @@ option:
 
 ```shell
 $ kubectl get pod NAME -o wide
-NAME      READY   STATUS    RESTARTS   AGE   NODE
-example   1/1     Running   0          2d    gke-example-c6a38-node-xij3
+NAME                       READY   STATUS    RESTARTS   AGE   NODE
+example-1934187764-scau1   1/1     Running   0          2d    gke-example-c6a38-node-xij3
 ```
 
 For more details about a pod, including events, use `describe` in place of
@@ -20,7 +20,7 @@ For more details about a pod, including events, use `describe` in place of
 
 ```shell
 $ kubectl describe pod NAME
-Name:        example
+Name:        example-1934187764-scau1
 Namespace:   default
 Image(s):    kubernetes/example-php-redis:v2
 Node:        gke-example-c6a38461-node-xij3/10.240.34.183
@@ -52,7 +52,7 @@ To list all pods running on a cluster:
 ```shell
 $ kubectl get pods
 
-NAME                 READY     STATUS    RESTARTS   AGE
-example-xypvc        1/1       Running   0          1m
-frontend-7kdod       1/1       Running   0          1d
+NAME                       READY     STATUS    RESTARTS   AGE
+example-1934187764-scau1   1/1       Running   0          1m
+frontend-7kdod             1/1       Running   0          1d
 ```
