@@ -693,6 +693,7 @@ Kill all pods:
 ```shell
 for i in `kubectl get pods | awk '{print $1}'`; do kubectl delete pod $i; done
 ```
+
 ## Support Level
 
 
