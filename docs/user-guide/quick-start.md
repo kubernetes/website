@@ -30,6 +30,14 @@ my-nginx-3800858182-wqafx           1/1       Running   0          1m
 
 Kubernetes will ensure that your application keeps running, by automatically restarting containers that fail, spreading containers across nodes, and recreating containers on new nodes when nodes fail.
 
+To expose your service to a public IP address, run:
+
+```shell
+$ kubectl expose rc my-nginx --target-port=80 --type=NodePort
+service "my-nginx" exposed
+```
+
+
 To find the public IP address assigned to your application, execute:
 
 ```shell
