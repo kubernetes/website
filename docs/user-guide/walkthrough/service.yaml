@@ -9,7 +9,7 @@ spec:
     # (e.g. 'www') or a number (e.g. 80)
     targetPort: 80
     protocol: TCP
-  # just like the selector in the replication controller,
+  # just like the selector in the deployment,
   # but this time it identifies the set of pods to load balance
   # traffic to.
   selector:
