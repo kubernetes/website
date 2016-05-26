@@ -102,7 +102,7 @@ that you have Google Cloud Monitoring API enabled in Google Developer Console.
 
 If you need to reboot a node (such as for a kernel upgrade, libc upgrade, hardware repair, etc.), and the downtime is
 brief, then when the Kubelet restarts, it will attempt to restart the pods scheduled to it.  If the reboot takes longer
-(5 minutes is the default timeout, controlled by `--pod-eviction-timeout` on the controller-manager),
+(the default time is 5 minutes, controlled by `--pod-eviction-timeout` on the controller-manager),
 then the node controller will terminate the pods that are bound to the unavailable node.  If there is a corresponding
 replica set (or replication controller), then a new copy of the pod will be started on a different node.  So, in the case where all
 pods are replicated, upgrades can be done without special coordination, assuming that not all nodes will go down at the same time.
