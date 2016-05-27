@@ -12,6 +12,8 @@ toc:
     path: /docs/getting-started-guides/binary_release/
   - title: Hello World Walkthrough
     path: /docs/hellonode/
+  - title: Online Training Course
+    path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
 
 - title: Accessing the Cluster
   section:
