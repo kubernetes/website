@@ -54,7 +54,7 @@ higher-level API may support pod migration.)
 When something is said to have the same lifetime as a pod, such as a volume,
 that means that it exists as long as that pod (with that UID) exists. If that
 pod is deleted for any reason, even if an identical replacement is created, the
-related thing (e.g. volume) is also destroyed and created anew.
+related thing (e.g. volume) is also destroyed and created a new.
 
 ![pod diagram](/images/docs/pod.svg){: style="max-width: 50%" }
 
