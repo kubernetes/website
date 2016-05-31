@@ -105,7 +105,7 @@ after kubeconfig is loaded/merged. Available credentials are `client-certificate
 `client-key`, `token`, and `username/password`. `username/password` and `token`
 are mutually exclusive, but client certs and keys can be combined with them.
 You can add or modify `user` entries using
-[`kubectl config set-credentials`](kubectl/kubectl_config_set-credentials.md).
+[`kubectl config set-credentials`](/docs/user-guide/kubectl/kubectl_config_set-credentials).
 
 #### context
 
@@ -118,13 +118,13 @@ contexts:
   name: federal-context
 ```
 
-A `context` defines a named [`cluster`](#cluster),[`user`](#user),[`namespace`](namespaces.md) tuple
+A `context` defines a named [`cluster`](#cluster),[`user`](#user),[`namespace`](/docs/user-guide/namespaces) tuple
 which is used to send requests to the specified cluster using the provided authentication info and
 namespace. Each of the three is optional; it is valid to specify a context with only one of `cluster`,
 `user`,`namespace`, or to specify none. Unspecified values, or named values that don't have corresponding
 entries in the loaded kubeconfig (e.g. if the context specified a `pink-user` for the above kubeconfig file)
 will be replaced with the default. See [Loading and merging rules](#loading-and-merging) below for override/merge behavior.
-You can add or modify `context` entries with [`kubectl config set-conext`](kubectl/kubectl_config_set-context.md).
+You can add or modify `context` entries with [`kubectl config set-context`](/docs/user-guide/kubectl/kubectl_config_set-context).
 
 #### current-context
 
@@ -135,7 +135,7 @@ current-context: federal-context
 `current-context` is the nickname or 'key' for the cluster,user,namespace tuple that kubectl
 will use by default when loading config from this file. You can override any of the values in kubectl
 from the commandline, by passing `--context=CONTEXT`, `--cluster=CLUSTER`, `--user=USER`, and/or `--namespace=NAMESPACE` respectively.
-You can change the `current-context` with [`kubectl config use-context`](kubectl/kubectl_config_use-context.md).
+You can change the `current-context` with [`kubectl config use-context`](/docs/user-guide/kubectl/kubectl_config_use-context).
 
 #### miscellaneous
 
@@ -156,7 +156,7 @@ be edited manually.
 `kubectl config view` will display the current kubeconfig settings. By default
 it will show you all loaded kubeconfig settings; you can filter the view to just
 the settings relevant to the `current-context` by passing `--minify`. See
-[`kubectl config view`](kubectl/kubectl_config_view.md) for other options.
+[`kubectl config view`](/docs/user-guide/kubectl/kubectl_config_view) for other options.
 
 ## Building your own kubeconfig file
 

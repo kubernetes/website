@@ -96,10 +96,10 @@ The `.spec.template` is a [pod template](#pod-template).  It has exactly
 the same schema as a [pod](/docs/user-guide/pods/), except it is nested and does not have an `apiVersion` or
 `kind`.
 
-In addition to required fields for a Pod, a pod template in a job must specify appropriate
-labels (see [pod selector](#pod-selector) and an appropriate restart policy.
+In addition to required fields for a Pod, a pod template in a Replication Controller must specify appropriate
+labels (i.e. don't overlap with other controllers, see [pod selector](#pod-selector)) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
+Only a [`.spec.template.spec.restartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
 if not specified.
 
 For local container restarts, replication controllers delegate to an agent on the node,
@@ -190,7 +190,7 @@ Ideally, the rolling update controller would take application readiness into acc
 The two replication controllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 
 Rolling update is implemented in the client tool
-[kubectl](/docs/user-guide/kubectl/kubectl_rolling-update)
+[`kubectl rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update). Visit [`kubectl rolling-update` tutorial](/docs/user-guide/rolling-updates/) for more concrete examples. 
 
 ### Multiple release tracks
 
@@ -226,18 +226,30 @@ object](/docs/api-reference/v1/definitions/#_v1_replicationcontroller).
 
 ## Alternatives to Replication Controller
 
+### ReplicaSet
+
+[`ReplicaSet`](/docs/user-guide/replicasets/) is the next-generation Replication Controller that supports the new [set-based label selector](/docs/user-guide/labels/#set-based-requirement).
+It’s mainly used by [`Deployment`](/docs/user-guide/deployments/) as a mechanism to orchestrate pod creation, deletion and updates.
+Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don’t require updates at all.
+
+### Deployment (Recommended)
+
+[`Deployment`](/docs/user-guide/deployments/) is a higher-level API object that updates its underlying Replica Sets and their Pods
+in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want this rolling update functionality, 
+because unlike `kubectl rolling-update`, they are declarative, server-side, and have additional features.
+
 ### Bare Pods
 
 Unlike in the case where a user directly created pods, a replication controller replaces pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a replication controller even if your application requires only a single pod. Think of it similarly to a process supervisor, only it supervises multiple pods across multiple nodes instead of individual processes on a single node.  A replication controller delegates local container restarts to some agent on the node (e.g., Kubelet or Docker).
 
 ### Job
 
-Use a [Job](/docs/user-guide/jobs/) instead of a replication controller for pods that are expected to terminate on their own
+Use a [`Job`](/docs/user-guide/jobs/) instead of a replication controller for pods that are expected to terminate on their own
 (i.e. batch jobs).
 
 ### DaemonSet
 
-Use a [DaemonSet](/docs/admin/daemons/) instead of a replication controller for pods that provide a
+Use a [`DaemonSet`](/docs/admin/daemons/) instead of a replication controller for pods that provide a
 machine-level function, such as machine monitoring or machine logging.  These pods have a lifetime is tied
 to machine lifetime: the pod needs to be running on the machine before other pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.

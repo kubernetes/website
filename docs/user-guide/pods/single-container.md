@@ -14,11 +14,11 @@ as storage volumes and IP addresses.
 Single-container pods can be created with the `run` command. The
 pod's properties are specified with flags on the command line.
 
-The `run` command creates a replication controller to monitor the pod(s).
-The controller watches for failed pods and will start up new pods as required
+The `run` command creates a Deployment to monitor the pod(s).
+The Deployment watches for failed pods and will start up new pods as required
 to maintain the specified number.
 
-Note: If you don't want a replication controller to monitor your pod (e.g. your pod
+Note: If you don't want a Deployment to monitor your pod (e.g. your pod
 is writing non-persistent data which won't survive a restart, or your pod is
 intended to be very short-lived), you can
 [create a pod directly with the `create` command](/docs/user-guide/pods/multi-container/).
@@ -35,17 +35,18 @@ $ kubectl run NAME
 
 Where:
 
+* `kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead. If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
 * `NAME` (required) is the name of the container to create. This value is also
-  applied as the name of the replication controller, and as the prefix of the
+  applied as the name of the Deployment, and as the prefix of the
   pod name. For example:
   
   ```shell 
   $ kubectl run example --image=nginx
-  replicationcontroller "example" created
+  deployment "example" created
 
-  $ kubectl get pods
-  NAME                 READY     STATUS    RESTARTS   AGE
-  example-xypvc        1/1       Running   0          13s
+  $ kubectl get pods -l run=example
+  NAME                       READY     STATUS    RESTARTS   AGE
+  example-1934187764-scau1   1/1       Running   0          13s
   ```
 * `--image=IMAGE` (required) is the Docker container image to use for this
    container.
@@ -54,8 +55,10 @@ Where:
   one pod will be created.
 * `--labels=key=value` specifies one or more labels to attach to the pod. In
   addition to any labels specified here, `run` attaches a label of
-  the format `run=NAME`. This is used by the replication controller
+  the format `run=NAME`. This is used by the Deployment
   to target the pods created by the command.
+  
+![image](/images/docs/pods/single-container_1.svg)  
 
 There are additional flags that can be specified. For a complete list, run:
 
@@ -68,21 +71,21 @@ There are additional flags that can be specified. For a complete list, run:
 ## Deleting a pod
 
 If your pod was created using the `run` command, kubernetes creates a
-[replication controller](/docs/user-guide/replication-controller/)
-to manage the pod. Pods managed by a replication controller are rescheduled if
+[Deployment](/docs/user-guide/deployments/)
+to manage the pod. Pods managed by a Deployment are rescheduled if
 they go away, including being deleted by `kubectl delete pod`. To permanently
-delete the pod, delete its replication controller.
+delete the pod, delete its Deployment.
 
-First, find the controller's name:
+First, find the Deployment's name:
 
 ```shell
-$ kubectl get rc
-CONTROLLER  CONTAINER(S)  IMAGE(S)  SELECTOR     REPLICAS
-example     example       busybox   run=example  1
+$ kubectl get deployment 
+NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+example   1         1         1            1           1m
 ```
 
-Then, `delete` the controller:
+Then, `delete` the Deployment:
 
 ```shell
-$ kubectl delete rc CONTROLLER_NAME
+$ kubectl delete deployment DEPLOYMENT_NAME
 ```

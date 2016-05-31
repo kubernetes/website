@@ -133,6 +133,17 @@ The current version of the website is served out of the `master` branch.
 
 All versions of the site that relate to past and future versions will be named after their Kubernetes release number. For example, [the old branch for the 1.1 docs is called `release-1.1`](https://github.com/kubernetes/kubernetes.github.io/tree/release-1.1).
 
+Changes in the "docsv2" branch (where we are testing a revamp of the docs) are automatically staged here: 
+http://k8sdocs.github.io/docs/tutorials/
+
+Changes in the "release-1.1" branch (for k8s v1.1 docs) are automatically staged here:
+http://kubernetes-v1-1.github.io/
+
+Changes in the "release-1.3" branch (for k8s v1.3 docs) are automatically staged here: 
+http://kubernetes-v1-3.github.io/
+
+Editing of these branches will kick off a build using Travis CI that auto-updates these URLs; you can monitor the build progress at [https://travis-ci.org/kubernetes/kubernetes.github.io](https://travis-ci.org/kubernetes/kubernetes.github.io).
+
 ## Thank you!
 
 Kubernetes thrives on community participation and we really appreciate your

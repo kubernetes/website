@@ -61,7 +61,7 @@ project](/docs/admin/salt).
 
 ## Multi-tenant support
 
-* **Resource Quota** ([resource-quota.md](/docs/admin/resource-quota))
+* **Resource Quota** ([resourcequota/](/docs/admin/resourcequota/))
 
 ## Security
 
