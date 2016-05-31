@@ -35,10 +35,22 @@ Each probe will have one of three results:
 * `Failure`: indicates that the container failed the diagnostic.
 * `Unknown`: indicates that the diagnostic failed so no action should be taken.
 
-Currently, the kubelet optionally performs two independent diagnostics on running containers which trigger action:
+The kubelet can optionally perform and react to two kinds of probes on running containers:
 
-* `LivenessProbe`: indicates whether the container is *live*, i.e. still running. The LivenessProbe hints to the kubelet when a container is unhealthy. If the LivenessProbe fails, the kubelet will kill the container and the container will be subjected to it's [RestartPolicy](#restartpolicy). The default state of Liveness before the initial delay is `Success`. The state of Liveness for a container when no probe is provided is assumed to be `Success`.
-* `ReadinessProbe`: indicates whether the container is *ready* to service requests. If the ReadinessProbe fails, the endpoints controller will remove the pod's IP address from the endpoints of all services that match the pod. Thus, the ReadinessProbe is sometimes useful to signal to the endpoints controller that even though a pod may be running, it should not receive traffic from the proxy (e.g. the container has a long startup time before it starts listening or the container is down for maintenance). The default state of Readiness before the initial delay is `Failure`. The state of Readiness for a container when no probe is provided is assumed to be `Success`.
+* `LivenessProbe`: indicates whether the container is *live*, i.e. running. If the LivenessProbe fails, the kubelet will kill the container and the container will be subjected to its [RestartPolicy](#restartpolicy). The default state of Liveness before the initial delay is `Success`. The state of Liveness for a container when no probe is provided is assumed to be `Success`.
+* `ReadinessProbe`: indicates whether the container is *ready* to service requests. If the ReadinessProbe fails, the endpoints controller will remove the pod's IP address from the endpoints of all services that match the pod. The default state of Readiness before the initial delay is `Failure`. The state of Readiness for a container when no probe is provided is assumed to be `Success`.
+
+### When should I use liveness or readiness probes?
+
+If the process in your container is able to crash on its own whenever it encounters an issue or becomes unhealthy, you do not necessarily need a liveness probe - the kubelet will automatically perform the correct action in accordance with the RestartPolicy when the process crashes.
+
+If you'd like your container to be killed and restarted if a probe fails, then specify a LivenessProbe and a RestartPolicy of `Always` or `OnFailure`.
+
+If you'd like to start sending traffic to a pod only when a probe succeeds, specify a ReadinessProbe. In this case, the ReadinessProbe may be the same as the LivenessProbe, but the existence of the ReadinessProbe in the spec means that the pod will start without receiving any traffic and only start receiving traffic once the probe starts succeeding.
+
+If a container wants the ability to take itself down for maintenance, you can specify a ReadinessProbe that checks an endpoint specific to readiness which is different than the LivenessProbe.
+
+Note that if you just want to be able to drain requests when the pod is deleted, you do not necessarily need a ReadinessProbe - on deletion, the pod automatically puts itself into an unready state regardless of whether the ReadinessProbe exists or not while it waits for the containers in the pod to stop.
 
 ## Container Statuses
 

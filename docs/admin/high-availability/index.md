@@ -28,9 +28,8 @@ The steps involved are as follows:
    * [Setting up master-elected Kubernetes scheduler and controller-manager daemons](#master-elected-components)
 
 Here's what the system should look like when it's finished:
-![High availability Kubernetes diagram](/images/docs/ha.svg)
 
-Ready? Let's get started.
+![High availability Kubernetes diagram](/images/docs/ha.svg)
 
 ## Initial set-up
 
@@ -55,11 +54,11 @@ choices. For example, on systemd-based systems (e.g. RHEL, CentOS), you can run 
 If you are extending from a standard Kubernetes installation, the `kubelet` binary should already be present on your system.  You can run
 `which kubelet` to determine if the binary is in fact installed.  If it is not installed,
 you should install the [kubelet binary](https://storage.googleapis.com/kubernetes-release/release/v0.19.3/bin/linux/amd64/kubelet), the
-[kubelet init file](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/kubelet/initd) and [high-availability/default-kubelet](/docs/admin/high-availability/default-kubelet)
+[kubelet init file](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/kubelet/initd) and [default-kubelet](/docs/admin/high-availability/default-kubelet)
 scripts.
 
-If you are using monit, you should also install the monit daemon (`apt-get install monit`) and the [high-availability/monit-kubelet](/docs/admin/high-availability/monit-kubelet) and
-[high-availability/monit-docker](/docs/admin/high-availability/monit-docker) configs.
+If you are using monit, you should also install the monit daemon (`apt-get install monit`) and the [monit-kubelet](/docs/admin/high-availability/monit-kubelet) and
+[monit-docker](/docs/admin/high-availability/monit-docker) configs.
 
 On systemd systems you `systemctl enable kubelet` and `systemctl enable docker`.
 
@@ -79,7 +78,7 @@ size of the cluster from three to five nodes.  If that is still insufficient, yo
 ### Clustering etcd
 
 The full details of clustering etcd are beyond the scope of this document, lots of details are given on the
-[etcd clustering page](https://github.com/coreos/etcd/blob/master/Documentation/clustering.md).  This example walks through
+[etcd clustering page](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md).  This example walks through
 a simple cluster set up, using etcd's built in discovery to build our cluster.
 
 First, hit the etcd discovery service to create a new token:
@@ -94,7 +93,7 @@ The kubelet on each node actively monitors the contents of that directory, and i
 server from the definition of the pod specified in `etcd.yaml`.
 
 Note that in `etcd.yaml` you should substitute the token URL you got above for `${DISCOVERY_TOKEN}` on all three machines,
-and you should substitute a different name (e.g. `node-1`) for ${NODE_NAME} and the correct IP address
+and you should substitute a different name (e.g. `node-1`) for `${NODE_NAME}` and the correct IP address
 for `${NODE_IP}` on each machine.
 
 

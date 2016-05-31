@@ -169,7 +169,7 @@ You have several options for connecting to nodes, pods and services from outside
       access to ports on the node IP, or for debugging.
     - Proxies may cause problems for some web applications.
     - Only works for HTTP/HTTPS.
-    - Described [here](#discovering-builtin-services).
+    - Described [here](#manually-constructing-apiserver-proxy-urls).
   - Access from a node or pod in the cluster.
     - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/user-guide/kubectl/kubectl_exec).
       Connect to other nodes, pods, and services from that shell.

@@ -154,6 +154,15 @@ Follow the "With Linux Bridge devices" section of [this very nice
 tutorial](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) from
 Lars Kellogg-Stedman.
 
+### Weave Net from Weaveworks
+
+[Weave Net](https://www.weave.works/documentation/net-1-5-0-introducing-weave/) is a 
+resilient and simple to use network for Kubernetes and its hosted applications.  
+Weave Net runs as a [CNI plug-in](https://www.weave.works/documentation/net-1-5-0-cni-plugin/)  
+or stand-alone.  In either version, it doesn’t require any configuration or extra code 
+to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
+
+
 ### Flannel
 
 [Flannel](https://github.com/coreos/flannel#flannel) is a very simple overlay
@@ -167,10 +176,6 @@ people have reported success with Flannel and Kubernetes.
 complicated way to build an overlay network.  This is endorsed by several of the
 "Big Shops" for networking.
 
-### Weave
-
-[Weave](https://github.com/zettio/weave) is yet another way to build an overlay
-network, primarily aiming at Docker integration.
 
 ### Calico
 
@@ -179,7 +184,11 @@ IPs.
 
 ### Romana
 
-[Romana](https://romana.io) is an open source software defined networking (SDN) solution that lets you deploy Kubernetes without an overlay network. 
+[Romana](http://romana.io) is an open source software defined networking (SDN) solution that lets you deploy Kubernetes without an overlay network. 
+
+### Contiv
+
+[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](http://contiv.io) is all open sourced.
 
 ## Other reading
 

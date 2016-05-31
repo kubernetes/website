@@ -8,7 +8,7 @@ In this doc, we introduce the Kubernetes command line for interacting with the a
 
 #### docker run
 
-How do I run an nginx container and expose it to the world? Checkout [kubectl run](/docs/user-guide/kubectl/kubectl_run).
+How do I run an nginx Deployment and expose it to the world? Checkout [kubectl run](/docs/user-guide/kubectl/kubectl_run).
 
 With docker:
 
@@ -25,12 +25,20 @@ With kubectl:
 ```shell
 # start the pod running nginx
 $ kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
-replicationcontroller "nginx-app" created
-# expose a port through with a service
-$ kubectl expose rc nginx-app --port=80 --name=nginx-http
+deployment "nginx-app" created
 ```
 
-With kubectl, we create a [replication controller](/docs/user-guide/replication-controller) which will make sure that N pods are running nginx (where N is the number of replicas stated in the spec, which defaults to 1). We also create a [service](/docs/user-guide/services) with a selector that matches the replication controller's selector. See the [Quick start](/docs/user-guide/quick-start) for more information.
+`kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
+Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. Now, we can expose a new Service with the deployment created above:
+
+```shell
+# expose a port through with a service
+$ kubectl expose deployment nginx-app --port=80 --name=nginx-http
+service "nginx-http" exposed
+```
+
+With kubectl, we create a [Deployment](/docs/user-guide/deployments) which will make sure that N pods are running nginx (where N is the number of replicas stated in the spec, which defaults to 1). We also create a [service](/docs/user-guide/services) with a selector that matches the Deployment's selector. See the [Quick start](/docs/user-guide/quick-start) for more information.
 
 By default images are run in the background, similar to `docker run -d ...`, if you want to run things in the foreground, use:
 
@@ -40,8 +48,8 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 
 Unlike `docker run ...`, if `--attach` is specified, we attach to `stdin`, `stdout` and `stderr`, there is no ability to control which streams are attached (`docker -a ...`).
 
-Because we start a replication controller for your container, it will be restarted if you terminate the attached process (e.g. `ctrl-c`), this is different than `docker run -it`.
-To destroy the replication controller (and it's pods)  you need to run `kubectl delete rc <name>`
+Because we start a Deployment for your container, it will be restarted if you terminate the attached process (e.g. `ctrl-c`), this is different than `docker run -it`.
+To destroy the Deployment (and its pods) you need to run `kubectl delete deployment <name>`
 
 #### docker ps
 
@@ -180,20 +188,19 @@ a9ec34d98787
 With kubectl:
 
 ```shell
-$ kubectl get rc nginx-app
-CONTROLLER   CONTAINER(S)   IMAGE(S)   SELECTOR        REPLICAS
-nginx-app    nginx-app      nginx      run=nginx-app   1
-$ kubectl get po
-NAME              READY     STATUS    RESTARTS   AGE
-nginx-app-aualv   1/1       Running   0          16s
-$ kubectl delete rc nginx-app
-NAME              READY     STATUS    RESTARTS   AGE
-nginx-app-aualv   1/1       Running   0          16s
-$ kubectl get po
-NAME      READY     STATUS    RESTARTS   AGE
+$ kubectl get deployment nginx-app
+NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-app   1         1         1            1           2m
+$ kubectl get po -l run=nginx-app
+NAME                         READY     STATUS    RESTARTS   AGE
+nginx-app-2883164633-aklf7   1/1       Running   0          2m
+$ kubectl delete deployment nginx-app
+deployment "nginx-app" deleted
+$ kubectl get po -l run=nginx-app
+# Return nothing
 ```
 
-Notice that we don't delete the pod directly. With kubectl we want to delete the replication controller that owns the pod. If we delete the pod directly, the replication controller will recreate the pod.
+Notice that we don't delete the pod directly. With kubectl we want to delete the Deployment that owns the pod. If we delete the pod directly, the Deployment will recreate the pod.
 
 #### docker login
 

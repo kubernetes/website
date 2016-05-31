@@ -24,6 +24,8 @@ toc:
     path: /docs/api-reference/v1/operations/
   - title: Kubernetes API Definitions
     path: /docs/api-reference/v1/definitions/
+  - title: Kubernetes API Swagger Spec
+    path: /kubernetes/third_party/swagger-ui/
 
 - title: Extensions API
   section:
@@ -52,6 +54,8 @@ toc:
     path: /docs/user-guide/kubectl-overview/
   - title: kubectl for Docker Users
     path: /docs/user-guide/docker-cli-to-kubectl/
+  - title: kubectl Usage Conventions
+    path: /docs/user-guide/kubectl-conventions/
   - title: JSONpath Support
     path: /docs/user-guide/jsonpath/
   - title: kubectl Cheat Sheet
@@ -80,7 +84,7 @@ toc:
       path: /docs/user-guide/kubectl/kubectl_config_set-cluster/
     - title: kubectl config set-context
       path: /docs/user-guide/kubectl/kubectl_config_set-context/
-    - title: kubectl set-credentials
+    - title: kubectl config set-credentials
       path: /docs/user-guide/kubectl/kubectl_config_set-credentials/
     - title: kubectl config set
       path: /docs/user-guide/kubectl/kubectl_config_set/
@@ -163,20 +167,18 @@ toc:
       - title: kubectl stop
         path: /docs/user-guide/kubectl/kubectl_stop/
 
-- title: kube-apiserver CLI
-  path: /docs/admin/kube-apiserver/
-
-- title: kube-proxy CLI
-  path: /docs/admin/kube-proxy/
-
-- title: kube-scheduler CLI
-  path: /docs/admin/kube-scheduler/
-
-- title: kubelet CLI
-  path: /docs/admin/kubelet/
-
-- title: kube-controller-manager CLI
-  path: /docs/admin/kube-controller-manager/
+- title: Kubernetes Components
+  section:
+  - title: kube-apiserver
+    path: /docs/admin/kube-apiserver/
+  - title: kube-proxy
+    path: /docs/admin/kube-proxy/
+  - title: kube-scheduler
+    path: /docs/admin/kube-scheduler/
+  - title: kubelet
+    path: /docs/admin/kubelet/
+  - title: kube-controller-manager
+    path: /docs/admin/kube-controller-manager/
 
 - title: Glossary
   section:
@@ -215,11 +217,13 @@ toc:
   - title: Ingress Resources
     path: /docs/user-guide/ingress/
   - title: Horizontal Pod Autoscaling
-    path: /docs/user-guide/horizontal-pod-autoscaler/
+    path: /docs/user-guide/horizontal-pod-autoscaling/
   - title: Jobs
     path: /docs/user-guide/jobs/
   - title: Resource Quotas
     path: /docs/admin/resource-quota/
+  - title: Replica Sets
+    path: /docs/user-guide/replicasets/
 
 - title: Kubernetes Design Docs
   section:

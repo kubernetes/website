@@ -14,7 +14,7 @@ cluster nodes.
 ## Configuration file
 
 To create an external load balancer, add the following line to your
-[service configuration file](/docs/services/operations/#service-configuration-file):
+[service configuration file](/docs/user-guide/services/operations/#service-configuration-file):
 
     "type": "LoadBalancer"
 
@@ -29,7 +29,7 @@ Your configuration file might look like:
       "spec": {
         "ports": [{
           "port": 8765,
-          "targetPort": 9376,
+          "targetPort": 9376
         }],
         "selector": {
           "app": "example"
