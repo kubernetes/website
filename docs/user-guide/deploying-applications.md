@@ -84,9 +84,9 @@ my-nginx   2         2         2            2           2m        my-nginx
 
 More importantly, the pod template's labels are used to create a [`selector`](/docs/user-guide/labels/#label-selectors) that will match pods carrying those labels. You can see this field by requesting it using the [Go template output format of `kubectl get`](/docs/user-guide/kubectl/kubectl_get):
 
-```shell
+```shell{% raw %}
 $ kubectl get deployment/my-nginx -o template --template="{{.spec.selector}}"
-map[matchLabels:map[run:my-nginx]]
+map[matchLabels:map[run:my-nginx]]{% endraw %}
 ```
 
 You could also specify the `selector` explicitly, such as if you wanted to specify labels in the pod template that you didn't want to select on, but you should ensure that the selector will match the labels of the pods created from the pod template, and that it won't match pods created by other Deployments. The most straightforward way to ensure the latter is to create a unique label value for the Deployment, and to specify it in both the pod template's labels and in the selector's

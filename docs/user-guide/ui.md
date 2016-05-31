@@ -5,31 +5,13 @@
 Kubernetes has a web-based user interface that allows you to deploy containerized
 applications to a Kubernetes cluster, troubleshoot them, and manage the cluster itself.
 
-## Accessing the Dashboard
-
-By default, the Kubernetes Dashboard is deployed as a cluster addon. To access it, visit
-`https://<kubernetes-master>/ui`, which redirects to
-`https://<kubernetes-master>/api/v1/proxy/namespaces/kube-system/services/kubernetes-dashboard`.
-
-If you find that you're not able to access the Dashboard, it may be because the
-`kubernetes-dashboard` service has not been started on your cluster. In that case,
-you can start it manually as follows:
-
-```shell
-kubectl create -f cluster/addons/dashboard/dashboard-controller.yaml --namespace=kube-system
-kubectl create -f cluster/addons/dashboard/dashboard-service.yaml --namespace=kube-system
-```
-
-Normally, this should be taken care of automatically by the
-[`kube-addons.sh`](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/kube-addons/kube-addons.sh)
-script that runs on the master. Release notes and development versions of the Dashboard can be
-found at https://github.com/kubernetes/dashboard/releases.
+By default, the Kubernetes Dashboard is deployed as a cluster addon. It is enabled by default in Kubernetes 1.2 clusters. Click [here](/docs/user-guide/ui-access/) to learn more about the Dashboard access.
 
 ## Using the Dashboard
 
 The Dashboard can be used to get an overview of applications running on the cluster, and to provide information on any errors that have occurred. You can also inspect your replication controllers and corresponding services, change the number of replicated Pods, and deploy new applications using a deploy wizard.
 
-When accessing the Dashboard on an empty cluster for the first time, the Welcome page is displayed. This page contains a link to this document as well as a button to deploy your first application.
+When accessing the Dashboard on an empty cluster for the first time, the Welcome page is displayed. This page contains a link to this document as well as a button to deploy your first application. In addition, you can view which system applications are running by default in the `kube-system` [namespace](/docs/admin/namespaces/) of your cluster, for example monitoring applications such as Heapster.
 
 ![Kubernetes Dashboard welcome page](/images/docs/ui-dashboard-zerostate.png)
 
@@ -45,7 +27,7 @@ The wizard expects that you provide the following information:
 
 - **App name** (mandatory): Name for your application. A [label](/docs/user-guide/labels/) with the name will be added to the Replication Controller and Service, if any, that will be deployed.
 
-  The application name must be unique within the selected Kubernetes namespace. It must start with a lowercase character, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters.
+  The application name must be unique within the selected Kubernetes [namespace](/docs/admin/namespaces/). It must start with a lowercase character, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters.
 
 - **Container image** (mandatory): The URL of a public Docker [container image](/docs/user-guide/images/) on any registry, or a private image (commonly hosted on the Google Container Registry or Docker Hub).
 
@@ -98,7 +80,7 @@ Kubernetes supports declarative configuration. In this style, all configuration 
 
 As an alternative to specifying application details in the deploy wizard, you can define your Replication Controllers and Services in YAML or JSON files, and upload the files to your Pods:
 
-![Kubernetes Dashboard deploy from file upload](ui-dashboard-deploy-file.png)
+![Kubernetes Dashboard deploy from file upload](/images/docs/ui-dashboard-deploy-file.png)
 
 ### Applications view
 

@@ -26,7 +26,7 @@ $ sed -e "s/{{ pillar\['dns_replicas'\] }}/${DNS_REPLICAS}/g;s/{{ pillar\['dns_d
 
 # If the kube-system namespace isn't already created, create it
 $ kubectl get ns
-$ kubectl create -f ./kube-system.yaml
+$ kubectl create namespace kube-system
 
 $ kubectl create -f ./skydns.yaml{% endraw %}
 ```

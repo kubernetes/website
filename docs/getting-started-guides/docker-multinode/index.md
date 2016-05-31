@@ -2,7 +2,7 @@
 ---
 
 _Note_:
-These instructions are somewhat significantly more advanced than the [single node](docker.md) instructions.  If you are
+These instructions are somewhat significantly more advanced than the [single node](/docs/getting-started-guides/docker) instructions.  If you are
 interested in just starting to explore Kubernetes, we recommend that you start there.
 
 * TOC
@@ -35,7 +35,7 @@ it is still useful to use containers for deployment and management, so we create
 You can specify the version on every node before install:
 
 ```shell
-export K8S_VERSION=<your_k8s_version (e.g. 1.2.0-alpha.7)>
+export K8S_VERSION=<your_k8s_version (e.g. 1.2.0)>
 export ETCD_VERSION=<your_etcd_version (e.g. 2.2.1)>
 export FLANNEL_VERSION=<your_flannel_version (e.g. 0.5.5)>
 export FLANNEL_IFACE=<flannel_interface (defaults to eth0)>

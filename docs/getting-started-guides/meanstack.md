@@ -3,7 +3,7 @@
 
 **By: Sandeep Dinesh** - _July 29, 2015_
 
-![image](/images/docs/meanstack/image_0.png)
+![image](/images/docs/meanstack/image_0.png) 
 
 In [a recent post](http://blog.sandeepdinesh.com/2015/07/running-mean-web-application-in-docker.html), I talked about running a MEAN stack with [Docker Containers.](http://docker.com/)
 
@@ -14,7 +14,7 @@ Thankfully, there is a system we can use to manage our containers in a cluster e
 * TOC
 {:toc}
 
-## The Basics of Using Kubernetes
+## The Basics of Using Kubernetes 
 
 Before we jump in and start kube’ing it up, it’s important to understand some of the fundamentals of Kubernetes.
 
@@ -34,7 +34,7 @@ Instead, you have to build a custom container that has the code already inside i
 
 To do this, you need to use more Docker. Make sure you have the latest version installed for the rest of this tutorial.
 
-Getting the code:
+Getting the code: 
 
 Before starting, let’s get some code to run. You can follow along on your personal machine or a Linux VM in the cloud. I recommend using Linux or a Linux VM; running Docker on Mac and Windows is outside the scope of this tutorial.
 
@@ -53,7 +53,7 @@ First, you need a `Dockerfile`. This is basically the list of instructions Docke
 Here is the `Dockerfile` for the web server:
 
 ```shell
-FROM node:0.10.40
+FROM node:4.4
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -65,14 +65,14 @@ CMD ["node", "app.js"]
 
 A `Dockerfile` is pretty self explanatory, and this one is dead simple.
 
-First, it uses the official Node.js image as the base image.
+First, it uses the official Node.js LTS image as the base image.
 
 Then, it creates a folder to store the code, `cd`s into that directory, copies the code in, and installs the dependencies with npm.
 
 Finally, it specifies the command Docker should run when the container starts, which is to start the app.
 
 
-## Step 2: Building our Container
+## Step 2: Building our Container 
 
 Right now, the directory should look like this:
 
@@ -410,11 +410,11 @@ web-controller-xxxx    1/1       Running   0          1m
 
 ## Step 9: Accessing the App
 
-At this point, everything is up and running. The architecture looks something like this:
+At this point, everything is up and running. The architecture looks something like this: 
 
-![image](/images/docs/meanstack/image_5.png)
+![image](/images/docs/meanstack/MEANstack_architecture.svg){: style="max-width:25%"} 
 
-By default, port 80 should be open on the load balancer. In order to find the IP address of our app, run this command:
+By default, port 80 should be open on the load balancer. In order to find the IP address of our app, run this command: 
 
 ```shell
 $ gcloud compute forwarding-rules list
@@ -441,4 +441,3 @@ By using Container Engine and Kubernetes, we have a very robust, container based
 Hopefully I can do some more posts about advanced Kubernetes topics such as changing the cluster size and number of Node.js web server replicas, using different environments (dev, staging, prod) on the same cluster, and doing rolling updates.
 
 Thanks to [Mark Mandel](https://medium.com/@markmandel), [Aja Hammerly](https://medium.com/@thagomizer), and [Jack Wilber](https://medium.com/@jack.g.wilber). [Some rights reserved](http://creativecommons.org/licenses/by/4.0/) by the author.
-

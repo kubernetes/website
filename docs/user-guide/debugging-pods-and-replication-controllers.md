@@ -45,7 +45,7 @@ case you can try several things:
         kubectl get nodes -o yaml | grep '\sname\|cpu\|memory'
         kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, cap: .status.capacity}'
 
-  The [resource quota](/docs/admin/resource-quota/)
+  The [resource quota](/docs/admin/resourcequota/)
   feature can be configured to limit the total amount of
   resources that can be consumed. If used in conjunction with namespaces, it can
   prevent one team from hogging all the resources.

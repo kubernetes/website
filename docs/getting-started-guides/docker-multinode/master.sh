@@ -26,8 +26,8 @@ if ( ! ps -ef | grep "/usr/bin/docker" | grep -v 'grep' &> /dev/null ); then
 fi
 
 # Make sure k8s version env is properly set
-K8S_VERSION=${K8S_VERSION:-"1.2.0-alpha.7"}
-ETCD_VERSION=${ETCD_VERSION:-"2.2.1"}
+K8S_VERSION=${K8S_VERSION:-"1.2.2}
+ETCD_VERSION=${ETCD_VERSION:-"2.3.1"}
 FLANNEL_VERSION=${FLANNEL_VERSION:-"0.5.5"}
 FLANNEL_IPMASQ=${FLANNEL_IPMASQ:-"true"}
 FLANNEL_IFACE=${FLANNEL_IFACE:-"eth0"}
@@ -176,7 +176,7 @@ start_k8s(){
             ;;
         centos)
             DOCKER_CONF="/etc/sysconfig/docker"
-            echo "OPTIONS=\"\$OPTIONS --mtu=${FLANNEL_MTU} --bip=${FLANNEL_SUBNET}\"" | tee -a ${DOCKER_CONF}
+            sed -i "/^OPTIONS=/ s|\( --mtu=.*\)\?'$| --mtu=${FLANNEL_MTU} --bip=${FLANNEL_SUBNET}'|" ${DOCKER_CONF}
             if ! command_exists ifconfig; then
                 yum -y -q install net-tools
             fi

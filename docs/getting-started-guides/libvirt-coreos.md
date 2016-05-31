@@ -117,6 +117,32 @@ setfacl -m g:kvm:--x ~
 
 By default, the libvirt-coreos setup will create a single Kubernetes master and 3 Kubernetes nodes. Because the VM drives use Copy-on-Write and because of memory ballooning and KSM, there is a lot of resource over-allocation.
 
+There is both an automated way and a manual, customizable way of setting up libvert Kubernetes clusters on CoreOS.
+
+#### Automated setup
+
+There is an automated setup script on https://get.k8s.io that will download the tarball for Kubernetes and spawn a Kubernetes cluster on a local CoreOS instances that the script creates. To run this script, use wget or curl with the KUBERNETES_PROVIDER environment variable set to libvirt-coreos:
+
+```shell
+export KUBERNETES_PROVIDER=libvirt-coreos; wget -q -O - https://get.k8s.io | bash
+```
+
+Here is the curl version of this command:
+
+```shell
+export KUBERNETES_PROVIDER=libvirt-coreos; curl -sS https://get.k8s.io | bash`
+```
+
+This script downloads and unpacks the tarball, then spawns a Kubernetes cluster on CoreOS instances with the following characteristics:
+
+- Total of 4 KVM/QEMU instances
+- 1 instance acting as a Kubernetes master node
+- 3 instances acting as minion nodes
+
+If you'd like to run this cluster with customized settings, follow the manual setup instructions.
+
+#### Manual setup
+
 To start your local cluster, open a shell and run:
 
 ```shell
@@ -134,6 +160,8 @@ The `KUBE_PUSH` environment variable may be set to specify which Kubernetes bina
 
 * `release` (default if `KUBE_PUSH` is not set) will deploy the binaries of `_output/release-tars/kubernetes-server-….tar.gz`. This is built with `make release` or `make release-skip-tests`.
 * `local` will deploy the binaries of `_output/local/go/bin`. These are built with `make`.
+
+### Management
 
 You can check that your machines are there and running with:
 
@@ -233,7 +261,7 @@ On Arch:
 pacman -S qemu libvirt
 ```
 
-On Ubuntu 14.04.1:
+On Ubuntu 14.04:
 
 ```shell
 aptitude install qemu-system-x86 libvirt-bin
@@ -255,7 +283,7 @@ On Arch:
 systemctl start libvirtd
 ```
 
-On Ubuntu 14.04.1:
+On Ubuntu 14.04:
 
 ```shell
 service libvirt-bin start
