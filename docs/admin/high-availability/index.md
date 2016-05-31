@@ -93,7 +93,7 @@ The kubelet on each node actively monitors the contents of that directory, and i
 server from the definition of the pod specified in `etcd.yaml`.
 
 Note that in `etcd.yaml` you should substitute the token URL you got above for `${DISCOVERY_TOKEN}` on all three machines,
-and you should substitute a different name (e.g. `node-1`) for ${NODE_NAME} and the correct IP address
+and you should substitute a different name (e.g. `node-1`) for `${NODE_NAME}` and the correct IP address
 for `${NODE_IP}` on each machine.
 
 
