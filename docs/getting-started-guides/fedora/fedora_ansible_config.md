@@ -169,7 +169,8 @@ systemctl | grep -i kube
 **Show firewall rules on the masters and nodes**
 
 ```shell
-iptables -nvL
+iptables -nvL
+
 ```
 
 **Create /tmp/apache.json on the master with the following contents and deploy pod**
@@ -225,3 +226,12 @@ curl http://localhost
 ```
 
 That's it !
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config)           |          | Project
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
