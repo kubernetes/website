@@ -214,7 +214,7 @@ You can package many files into one secret, or use many secrets, whichever is co
 
 See another example of creating a secret and a pod that consumes that secret in a volume [here](/docs/user-guide/secrets/).
 
-##### Projection of secret keys to specific paths
+**Projection of secret keys to specific paths**
 
 We can also control the paths within the volume where Secret keys are projected.
 You can use `spec.volumes[].secret.items` field to change target path of each key:
@@ -260,7 +260,7 @@ If `spec.volumes[].secret.items` is used, only keys specified in `items` are pro
 To consume all keys from the secret, all of them must be listed in the `items` field.
 All listed keys must exist in the corresponding secret. Otherwise, the volume is not created.
 
-##### Consuming Secret Values from Volumes
+**Consuming Secret Values from Volumes**
 
 Inside the container that mounts a secret volume, the secret keys appear as
 files and the secret values are base-64 decoded and stored inside these files.
@@ -280,7 +280,7 @@ $ cat /etc/foo/password
 The program in a container is responsible for reading the secret(s) from the
 files.
 
-##### Mounted Secrets are updated automatically
+**Mounted Secrets are updated automatically**
 
 When a secret being already consumed in a volume is updated, projected keys are eventually updated as well.
 The update time depends on the kubelet syncing period.
@@ -318,7 +318,7 @@ spec:
   restartPolicy: Never
 ```
 
-##### Consuming Secret Values from Environment Variables
+**Consuming Secret Values from Environment Variables**
 
 Inside a container that consumes a secret in an environment variables, the secret keys appear as
 normal environment variables containing the base-64 decoded values of the secret data.
@@ -336,7 +336,7 @@ $ echo $SECRET_PASSWORD
 An imagePullSecret is a way to pass a secret that contains a Docker (or other) image registry
 password to the Kubelet so it can pull a private image on behalf of your Pod.
 
-##### Manually specifying an imagePullSecret
+**Manually specifying an imagePullSecret**
 
 Use of imagePullSecrets is described in the [images documentation](/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
 
