@@ -129,7 +129,7 @@ For more complete applications, please look in the [examples directory](https://
 
 ## Scaling the cluster
 
-Adding and removing nodes through `kubectl` is not supported. You can still scale the amount of nodes through manual adjustments of the Auto Scaling Group which was created during the installation. In cause you increase the number of nodes, the new node will automatically join the cluster once it's ready.
+Adding and removing nodes through `kubectl` is not supported. You can still scale the amount of nodes manually through adjustments of the 'Desired' and 'Max' properties within the [Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html), which was created during the installation.
 
 ## Tearing down the cluster
 
