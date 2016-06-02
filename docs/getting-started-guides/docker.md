@@ -56,6 +56,11 @@ docker run -d \
 
 > Architectures other than `amd64` are experimental and sometimes unstable, but feel free to try them out! Valid values: `arm`, `arm64` and `ppc64le`. ARM is available with Kubernetes version `v1.3.0-alpha.2` and higher. ARM 64-bit and PowerPC 64 little-endian are available with `v1.3.0-alpha.3` and higher. Track progress on multi-arch support [here](https://github.com/kubernetes/kubernetes/issues/17981)
 
+> If you are behind a proxy, you need to pass the proxy setup to curl in the containers to pull the certificates. Create a .curlrc under /root folder (because the containers are running as root) with the following line:
+```
+proxy = <your_proxy_server>:<port>
+```
+
 This actually runs the kubelet, which in turn runs a [pod](/docs/user-guide/pods/) that contains the other master components.
 
 ** **SECURITY WARNING** ** services exposed via Kubernetes using Hyperkube are available on the host node's public network interface / IP address.  Because of this, this guide is not suitable for any host node/server that is directly internet accessible.  Refer to [#21735](https://github.com/kubernetes/kubernetes/issues/21735) for addtional info.
