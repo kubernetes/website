@@ -5,7 +5,7 @@
 Kubernetes has a web-based user interface that allows you to deploy containerized
 applications to a Kubernetes cluster, troubleshoot them, and manage the cluster itself.
 
-By default, the Kubernetes Dashboard is deployed as a cluster addon. It is enabled by default in Kubernetes 1.2 clusters. Click [here](/docs/user-guide/ui-access/) to learn more about the Dashboard access.
+By default, the Kubernetes Dashboard is deployed as a cluster addon. It is enabled by default as of Kubernetes 1.2 clusters.
 
 ## Using the Dashboard
 
