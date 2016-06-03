@@ -10,9 +10,7 @@ A pod is the vehicle for running containers in Kubernetes. A pod consists of:
 - An IP address that is unique within the cluster
 - Optionally: Environment variables, storage volumes, and enterprise features (such as health checking)
 
-TODO: Mention that these things are shared amongst containers in the pod
-
-TODO: Containers within a pod share an IP address and port space, and can find each other via localhost, or interprocess communications (such as semaphores)
+Resources are shared amongst containers in the pod. Containers within a pod also share an IP address and port space, and can find each other via localhost, or interprocess communications (such as semaphores).
 
 ![Pod diagram](/images/docs/pod-overview.svg){: style="max-width: 25%" }
 {% comment %}https://drive.google.com/open?id=1pQe4-s76fqyrzB8f3xoJo4MPLNVoBlsE1tT9MyLNINg{% endcomment %}
@@ -37,7 +35,7 @@ Do not use pods directly. Pods should always be managed by a controller.
 {% endcapture %}
 
 {% capture status %}
-GA as of 1.0
+TODO: How to check pod status
 {% endcapture %}
 
 {% capture usage %}
