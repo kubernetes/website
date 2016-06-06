@@ -46,6 +46,7 @@ kube-system   <none>    Active
 ```
 
 Kubernetes starts with two initial namespaces:
+
    * `default` The default namespace for objects with no other namespace
    * `kube-system` The namespace for objects created by the Kubernetes system
 
