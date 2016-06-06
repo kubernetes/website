@@ -150,6 +150,7 @@ export AZURE_DEPLOY_ID="kube-20160316-001122"
 $ ./cluster/kube-down.sh
 ```
 
+Prior to Kubernetes 1.3, the cluster must be deleted manually with the Azure CLI or via the Azure Portal.
 
 ### Notes
 
