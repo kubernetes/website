@@ -38,11 +38,11 @@ $ kubectl describe jobs/pi
 Name:		pi
 Namespace:	default
 Image(s):	perl
-Selector:	app in (pi)
+Selector:       controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
 Parallelism:	1
 Completions:	1
-Start Time:	Mon, 11 Jan 2016 15:35:52 -0800
-Labels:		app=pi
+Start Time:     Tue, 07 Jun 2016 10:56:16 +0200
+Labels:         controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495,job-name=pi
 Pods Statuses:	0 Running / 1 Succeeded / 0 Failed
 No volumes.
 Events:
@@ -56,7 +56,7 @@ To view completed pods of a job, use `kubectl get pods --show-all`.  The `--show
 To list all the pods that belong to job in a machine readable form, you can use a command like this:
 
 ```shell
-$ pods=$(kubectl get pods --selector=app=pi --output=jsonpath={.items..metadata.name})
+$ pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath={.items..metadata.name})
 echo $pods
 pi-aiw0a
 ```
@@ -190,7 +190,7 @@ The job object also remains after it is completed so that you can view its statu
 old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`).  When you delete the job using `kubectl`, all the pods it created are deleted too.
 
 If a Job's pods are failing repeatedly, the Job will keep creating new pods forever, by default.
-Retrying forever can be a useful pattern.  If an external dependency of the Job's 
+Retrying forever can be a useful pattern.  If an external dependency of the Job's
 pods is missing (for example an input file on a networked storage volume is not present), then the
 Job will keep trying Pods, and when you later resolve the external dependency (for example, creating
 the missing file) the Job will then complete without any further action.
