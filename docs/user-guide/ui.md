@@ -5,7 +5,7 @@
 Kubernetes has a web-based user interface that allows you to deploy containerized
 applications to a Kubernetes cluster, troubleshoot them, and manage the cluster itself.
 
-By default, the Kubernetes Dashboard is deployed as a cluster addon. It is enabled by default in Kubernetes 1.2 clusters. Click [here](/docs/user-guide/ui-access/) to learn more about the Dashboard access.
+By default, the Kubernetes Dashboard is deployed as a cluster addon. It is enabled by default as of Kubernetes 1.2 clusters.
 
 ## Using the Dashboard
 
@@ -100,7 +100,7 @@ Selecting this option from the card menu will take you to the following page whe
 
 ![Kubernetes Dashboard application detail](/images/docs/ui-dashboard-rcs-detail.png)
 
-The **EVENTS** tab can be useful for debugging flapping applications.
+The **EVENTS** tab can be useful for debugging applications.
 
 Clicking the plus sign in the right corner of the screen leads you back to the page for deploying a new application.
 
@@ -110,9 +110,9 @@ If you choose to change the number of Pods, the respective Replication Controlle
 
 #### Delete
 
-Deleting a Replication Controller also deletes the Pods managed by it. It is currently not supported to leave the Pods running.
+Deleting a Replication Controller also deletes the Pods managed by it. 
 
-You have the option to also delete Services related to the Replication Controller if the label selector targets only the Replication Controller to be deleted.
+You can also delete Services related to the Replication Controller if they have the same label as the Replication Controller.
 
 ## More Information
 
