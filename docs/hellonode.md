@@ -290,7 +290,7 @@ Building and pushing this updated image should be much quicker as we take full a
 We’re now ready for kubernetes to smoothly update our deployment to the new version of the application.  In order to change
 the image label for our running container, we will need to edit the existing *hello-node deployment* and change the image from
 `gcr.io/PROJECT_ID/hello-node:v1` to `gcr.io/PROJECT_ID/hello-node:v2`.  To do this, we will use the `kubectl edit` command.
-This will open up a text editor displaying the full deployment yaml configuration.  It isn't necessary to understand the full yaml config
+This will open up a text editor displaying the full deployment yaml [configuration](/docs/user-guide/configuring-containers/).  It isn't necessary to understand the full yaml config
 right now, instead just understand that by updating the `spec.template.spec.containers.image` field in the config we are telling
 the deployment to update the pods to use the new image.
 
