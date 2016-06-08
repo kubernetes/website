@@ -190,7 +190,7 @@ toc:
     section:
     - title: What is a Pod?
       path: /docs/pod/
-    - title: Pod Operations
+    - title: Pod Functions
       section:
       - title: Create Pods
         path: /docs/pod/create/
@@ -200,10 +200,14 @@ toc:
         path: /docs/pod/update/
       - title: Delete Pods
         path: /docs/pod/delete
-    - title: Pod Tutorials
-      path: /docs/pod/tutorials/
-    - title: Pod How-Tos
-      path: /docs/pod/howtos/
+    - title: Common Tasks
+      section:
+      - title: Explicitly Scheduling a Pod to a Node
+        path: /docs/pod/explicitly-scheduling-pod-node/
+      - title: Pulling Images From a Private Registry
+        path: /docs/pod/pulling-images-private-registry/
+      - title: Configuring Container Restart Behavior
+        path: /docs/pod/configuring-container-restart-behavior/
     - title: Pod Reference Documentation
       path: /docs/pod/reference/
   - title: Container
