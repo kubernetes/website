@@ -27,7 +27,7 @@ For each worker node, there are three steps:
 As before, the Flannel daemon is going to provide network connectivity.
 
 _Note_:
-This guide expects **Docker 1.7.1 or higher**.
+This guide expects **Docker 1.10 or higher**.
 
 
 #### Set up a bootstrap docker
@@ -142,7 +142,7 @@ sudo docker run \
     --volume=/sys:/sys:ro \
     --volume=/dev:/dev \
     --volume=/var/lib/docker/:/var/lib/docker:rw \
-    --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \
+    --volume=/var/lib/kubelet/:/var/lib/kubelet:rw,rslave \
     --volume=/var/run:/var/run:rw \
     --net=host \
     --privileged=true \
