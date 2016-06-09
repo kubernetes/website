@@ -80,4 +80,4 @@ the horizontal pod autoscaler will not be bound to the new replication controlle
 
 * Design documentation: [Horizontal Pod Autoscaling](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md).
 * Manual of autoscale command in kubectl: [kubectl autoscale](/docs/user-guide/kubectl/kubectl_autoscale).
-* Usage example of [Horizontal Pod Autoscaler](/docs/user-guide/horizontal-pod-autoscaling/).
+* Usage example of [Horizontal Pod Autoscaler](/docs/user-guide/horizontal-pod-autoscaling/walkthrough/).
