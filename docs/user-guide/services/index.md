@@ -328,12 +328,14 @@ for them. How DNS is automatically configured depends on if the service has
 selectors or not.
 
 ### With selectors
+
 For headless services that define selectors, the endpoints controller will still
 create `Endpoints` records in the API, and DNS is configured to return multiple A
 records (addresses) for the `Service` name which point directly to the `Pods`
 backing the `Service`. 
 
 ### Without selectors
+
 For headless services that do not define selectors, the endpoints controller does
 not create `Endpoints` records. However, the DNS system looks for and configures
 A records for any `Endpoints` that share a name with the service.
