@@ -329,10 +329,9 @@ selectors or not.
 
 ### With selectors
 
-For headless services that define selectors, the endpoints controller will still
-create `Endpoints` records in the API, and DNS is configured to return multiple A
-records (addresses) for the `Service` name which point directly to the `Pods`
-backing the `Service`. 
+For headless services that define selectors, the endpoints controller creates
+`Endpoints` records in the API, and modifies the DNS configuration to return A
+records (addresses) which point directly to the `Pods` backing the `Service`.
 
 ### Without selectors
 
