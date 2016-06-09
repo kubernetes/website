@@ -75,9 +75,29 @@ i.e. you cannot bind a horizontal pod autoscaler to a replication controller and
 The reason this doesn't work is that when rolling update creates a new replication controller,
 the horizontal pod autoscaler will not be bound to the new replication controller.
 
+## Changes in the beta1 and v1 specs
+
+As any Kubernetes object you can declare and create a autoscaler in a yaml file. Take into account that the spec changed a little during the stabilization so now instead of writing:
+
+```yaml
+apiVersion: extensions/v1beta1
+[...]
+spec:
+  scaleRef:
+  [...]
+  cpuUtilization:
+    targetPercentage: 50
+```
+
+You write:
+
+
+{% include code.html language="yaml" file="hpa-php-apache-v1.yaml" 
+   ghlink="/docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache-v1.yaml" %}
+
 
 ## Further reading
 
 * Design documentation: [Horizontal Pod Autoscaling](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md).
 * Manual of autoscale command in kubectl: [kubectl autoscale](/docs/user-guide/kubectl/kubectl_autoscale).
-* Usage example of [Horizontal Pod Autoscaler](/docs/user-guide/horizontal-pod-autoscaling/).
+* Usage example of [Horizontal Pod Autoscaler](/docs/user-guide/horizontal-pod-autoscaling/walkthrough/).
