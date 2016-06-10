@@ -22,3 +22,8 @@ Click the headings to see the source of the template in GitHub.
 
 - [Blank](blanktask/)
 - [Filled Out](task/)
+
+## kubectl yaml
+
+- [Blank](blankkubectl/)
+- [Filled Out](kubectl/)
