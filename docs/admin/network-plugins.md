@@ -31,7 +31,7 @@ Place plugins in `network-plugin-dir/plugin-name/plugin-name`, i.e if you have a
 
 ### CNI
 
-The CNI plugin is selected by passing Kubelet the `--network-plugin=cni` command-line option.  Kubelet reads the first CNI configuration file from `--network-plugin-dir` and uses the CNI configuration from that file to set up each pod's network.  The CNI configuration file must match the [CNI specification](https://github.com/appc/cni/blob/master/SPEC.md), and any required CNI plugins referenced by the configuration must be present in `/opt/cni/bin`.
+The CNI plugin is selected by passing Kubelet the `--network-plugin=cni` command-line option.  Kubelet reads the first CNI configuration file from `--network-plugin-dir` and uses the CNI configuration from that file to set up each pod's network.  The CNI configuration file must match the [CNI specification](https://github.com/containernetworking/cni/blob/master/SPEC.md), and any required CNI plugins referenced by the configuration must be present in `/opt/cni/bin`.
 
 ### kubenet
 
