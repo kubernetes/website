@@ -82,16 +82,6 @@ EOF
 This example creates a `bridge` plugin configuration for the CNI network, specifying
 the bridge name `cbr0`. It also specifies the CIDR, in the `ipam` field.
 
-Creating these files for any moderately-sized cluster is at best inconvenient.
-Work is in progress to
-[enable Kubernetes to use the CNI by default]
-(https://github.com/kubernetes/kubernetes/pull/18795/files).
-As that work matures, such manual CNI config munging will become unnecessary
-for primary use cases. For early adopters, an initial example shows one way to
-[automatically generate these CNI configurations]
-(https://gist.github.com/yifan-gu/fbb911db83d785915543)
-for rkt.
-
 ### Local cluster
 
 To use rkt as the container runtime, we need to supply the following flags to kubelet:
