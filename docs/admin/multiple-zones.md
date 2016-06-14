@@ -73,7 +73,7 @@ plane should follow the [high availability](/docs/admin/high-availability) instr
 
 We're now going to walk through setting up and using a multi-zone
 cluster on both GCE & AWS.  To do so, you bring up a full cluster
-(specifying `MULTIZONE=1`), and then you add nodes in additional zones
+(specifying `MULTIZONE=true`), and then you add nodes in additional zones
 by running `kube-up` again (specifying `KUBE_USE_EXISTING_MASTER=true`).
 
 ### Bringing up your cluster
@@ -83,17 +83,17 @@ Create the cluster as normal, but pass MULTIZONE to tell the cluster to manage m
 GCE:
 
 ```shell
-curl -sS https://get.k8s.io | MULTIZONE=1 KUBERNETES_PROVIDER=gce KUBE_GCE_ZONE=us-central1-a NUM_NODES=3 bash
+curl -sS https://get.k8s.io | MULTIZONE=true KUBERNETES_PROVIDER=gce KUBE_GCE_ZONE=us-central1-a NUM_NODES=3 bash
 ```
 
 AWS:
 
 ```shell
-curl -sS https://get.k8s.io | MULTIZONE=1 KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a NUM_NODES=3 bash
+curl -sS https://get.k8s.io | MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a NUM_NODES=3 bash
 ```
 
 This step brings up a cluster as normal, still running in a single zone
-(but `MULTIZONE=1` has enabled multi-zone capabilities).
+(but `MULTIZONE=true` has enabled multi-zone capabilities).
 
 ### Nodes are labeled
 
@@ -124,14 +124,14 @@ created instead.
 GCE:
 
 ```shell
-KUBE_USE_EXISTING_MASTER=true MULTIZONE=1 KUBERNETES_PROVIDER=gce KUBE_GCE_ZONE=us-central1-b NUM_NODES=3 kubernetes/cluster/kube-up.sh
+KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=gce KUBE_GCE_ZONE=us-central1-b NUM_NODES=3 kubernetes/cluster/kube-up.sh
 ```
 
 On AWS we also need to specify the network CIDR for the additional
 subnet, along with the master internal IP address:
 
 ```shell
-KUBE_USE_EXISTING_MASTER=true MULTIZONE=1 KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2b NUM_NODES=3 KUBE_SUBNET_CIDR=172.20.1.0/24 MASTER_INTERNAL_IP=172.20.0.9 kubernetes/cluster/kube-up.sh
+KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2b NUM_NODES=3 KUBE_SUBNET_CIDR=172.20.1.0/24 MASTER_INTERNAL_IP=172.20.0.9 kubernetes/cluster/kube-up.sh
 ```
 
 
@@ -235,13 +235,13 @@ across zones.  First, let's launch more nodes in a third zone:
 GCE:
 
 ```shell
-KUBE_USE_EXISTING_MASTER=true MULTIZONE=1 KUBERNETES_PROVIDER=gce KUBE_GCE_ZONE=us-central1-f NUM_NODES=3 kubernetes/cluster/kube-up.sh
+KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=gce KUBE_GCE_ZONE=us-central1-f NUM_NODES=3 kubernetes/cluster/kube-up.sh
 ```
 
 AWS:
 
 ```shell
-KUBE_USE_EXISTING_MASTER=true MULTIZONE=1 KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2c NUM_NODES=3 KUBE_SUBNET_CIDR=172.20.2.0/24 MASTER_INTERNAL_IP=172.20.0.9 kubernetes/cluster/kube-up.sh
+KUBE_USE_EXISTING_MASTER=true MULTIZONE=true KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2c NUM_NODES=3 KUBE_SUBNET_CIDR=172.20.2.0/24 MASTER_INTERNAL_IP=172.20.0.9 kubernetes/cluster/kube-up.sh
 ```
 
 Verify that you now have nodes in 3 zones:
