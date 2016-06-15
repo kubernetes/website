@@ -12,3 +12,5 @@ variable and populate it with content.
 Text that {{ include.purpose }}.
 {% raw %}{%{% endraw %} endcapture {% raw %}%}{% endraw %}
 ```
+
+<!-- TEMPLATE_ERROR -->
