@@ -167,7 +167,7 @@ See [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new 
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
 
-### Different UX with rkt container runtime
+### Known Issues and Differences
 
 rkt and Docker have very different designs, as well as ACI and Docker image format. Users might experience some different experience when switching from one to the other. More information can be found [here](/docs/getting-started-guides/rkt/notes/).
 

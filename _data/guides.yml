@@ -192,7 +192,7 @@ toc:
         section:
         - title: Running Kubernetes on rkt
           path: /docs/getting-started-guides/rkt/
-        - title: Notes on Different UX with rkt Container Runtime
+        - title: Known issues and Differences with rkt as the Container Runtime
           path: /docs/getting-started-guides/rkt/notes/
       - title: Kubernetes on Mesos
         path: /docs/getting-started-guides/mesos/
