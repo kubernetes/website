@@ -32,6 +32,8 @@ However, there are a small number of caveats you should be aware of when using r
 
 #### Using flannel
 
+While it's recommended that you configure flannel using kubernetes' CNI support, you can also configure it using rkt's contained networking. <!-- TODO, better link for flannel configuration the preferred way -->
+
 In addition to the basic prerequisites above, each node must be running
 a [flannel](https://github.com/coreos/flannel) daemon. This implies
 that a flannel-supporting etcd service must be available to the cluster
@@ -57,30 +59,7 @@ More details about the flannel CNI plugin can be found
 #### On GCE
 
 Each VM on GCE has an additional 256 IP addresses routed to it, so
-it is possible to forego flannel in smaller clusters. This makes the
-necessary CNI config file a bit more verbose:
-
-```shell
-$ cat <<EOF >/etc/rkt/net.d/k8s_cluster.conf
-{
-    "name": "rkt.kubernetes.io",
-    "type": "bridge",
-    "bridge": "cbr0",
-    "isGateway": true,
-    "ipam": {
-        "type": "host-local",
-        "subnet": "10.255.228.1/24",
-        "gateway": "10.255.228.1"
-    },
-    "routes": [
-      { "dst": "0.0.0.0/0" }
-    ]
-}
-EOF
-```
-
-This example creates a `bridge` plugin configuration for the CNI network, specifying
-the bridge name `cbr0`. It also specifies the CIDR, in the `ipam` field.
+it is possible to forego flannel in smaller clusters. This can most easily be done by using the builtin kubenet plugin. This can be done by setting `--network-plugin=kubenet`.
 
 ### Local cluster
 
@@ -95,6 +74,7 @@ set these flags:
 
 ```shell
 $ export CONTAINER_RUNTIME=rkt
+$ export NET_PLUGIN=kubenet
 $ export RKT_PATH=$PATH_TO_RKT_BINARY
 $ export RKT_STAGE1_IMAGE=PATH=$PATH_TO_STAGE1_IMAGE
 ```
@@ -119,7 +99,7 @@ $ export KUBE_CONTAINER_RUNTIME=rkt
 You can optionally choose the version of rkt used by setting `KUBE_RKT_VERSION`:
 
 ```shell
-$ export KUBE_RKT_VERSION=0.15.0
+$ export KUBE_RKT_VERSION=1.9.0
 ```
 
 Then you can launch the cluster by:
@@ -143,7 +123,7 @@ $ export KUBE_CONTAINER_RUNTIME=rkt
 You can optionally choose the version of rkt used by setting `KUBE_RKT_VERSION`:
 
 ```shell
-$ export KUBE_RKT_VERSION=0.8.0
+$ export KUBE_RKT_VERSION=1.9.0
 ```
 
 You can optionally choose the CoreOS channel  by setting `COREOS_CHANNEL`:
