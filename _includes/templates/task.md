@@ -34,3 +34,5 @@
 {% include templates/_errorthrower.md missing_block='step_by_step' heading='Step by step' purpose='lists a series of linear, numbered steps that accomplish the described task.' %}
 
 {% endif %}
+
+{% include tagfooter.md %}

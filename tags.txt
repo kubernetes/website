@@ -1,0 +1,4 @@
+---
+---
+{% for page in site.pages %}{% if page.tags %}{% for tag in page.tags %}{{ tag }},{{ page.url }}
+{% endfor %}{% endif %}{% endfor %}

@@ -1,0 +1,2 @@
+{% for item in tree %}{% if item.section %}{% assign tree = item.section %}{% include titlefinder.html %}{% else %}{% assign prefix = item.path | slice: 0, 4 %}{% if prefix != "http" %}{{item.path}},{{toc.name}},{{item.title}}
+{% endif %}{% endif %}{% endfor %}

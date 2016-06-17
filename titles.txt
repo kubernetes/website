@@ -1,0 +1,3 @@
+---
+---
+{% for toc in site.data.globals.tocs %}{% assign tree = site.data[toc.file].toc %}{% include titlefinder.html %}{% endfor %}

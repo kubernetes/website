@@ -8,10 +8,10 @@ tocs:
   file: concepts
   path: /docs/concepts/
 - item:
-  name: How To
-  file: howto
-  path: /docs/howto/
-- item: 
+  name: Tasks
+  file: tasks
+  path: /docs/tasks/
+- item:
   name: Tools/UI
   file: toolsui
   path: /docs/toolsui/

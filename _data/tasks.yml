@@ -1,8 +1,8 @@
-bigheader: "How-To"
+bigheader: "Tasks"
 abstract: "Abstract here"
 toc:
-- title: How-To Overview
-  path: /docs/howto/
+- title: Tasks Overview
+  path: /docs/tasks/
 - title: API
   section:
   - title: API Overview
@@ -44,7 +44,7 @@ toc:
       path: /docs/namespaces/reference/
   - title: Nodes
     section:
-    - title: What are Nodes? 
+    - title: What are Nodes?
       path: /docs/nodes/
     - title: Nodes with Client Libraries
       path: /docs/nodes/client-libraries/
@@ -106,7 +106,7 @@ toc:
     - title: Replication Controller How-Tos
       path: /docs/replication-controller/howtos/
     - title: Replication Controller Reference Documentation
-      path: /docs/replication-controller/reference/ 
+      path: /docs/replication-controller/reference/
   - title: Job
     section:
     - title: What is a Job?

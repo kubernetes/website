@@ -11,23 +11,35 @@
 {% if site.data.kubectl[command].options %}
 ## Options
 
-| Option | Shorthand | Default Value | Usage |
-|--------------------|---------------|-------|{% for option in site.data.kubectl[command].options %}
-| `{{option.name | strip}}` | {% if option.shorthand %}`{{ option.shorthand | strip }}`{% endif %} | {% if option.default_value %}`{{option.default_value| strip}}`{% endif %} | {% if option.usage %}{{option.usage| strip | replace:'|',', '}}{% endif %} |{% endfor %}
+| Option | Usage | Default | Shorthand |
+|--------|-------|---------|-----------|{% for option in site.data.kubectl[command].options %}
+| `{{option.name | strip}}` | {% if option.usage %}{{option.usage| strip | replace:'|',', '}}{% endif %} | {% if option.default_value %}`{{option.default_value| strip}}`{% endif %} | {% if option.shorthand %}`{{ option.shorthand | strip }}`{% endif %} |{% endfor %}
 {% endif %}
 
 {% if site.data.kubectl[command].inherited_options %}
 ## Inherited Options
 
-| Option | Shorthand | Default Value | Usage |
-|--------------------|---------------|-------|{% for option in site.data.kubectl[command].inherited_options %}
-| `{{option.name | strip}}` | {% if option.shorthand %}`{{ option.shorthand | strip }}`{% endif %} | {% if option.default_value %}`{{option.default_value| strip}}`{% endif %} | {% if option.usage %}{{option.usage| strip | replace:'|',', '}}{% endif %} |{% endfor %}
+| Option | Usage | Default | Shorthand |
+|--------|-------|---------|-----------|{% for option in site.data.kubectl[command].inherited_options %}
+| `{{option.name | strip}}` | {% if option.usage %}{{option.usage| strip | replace:'|',', '}}{% endif %} | {% if option.default_value %}`{{option.default_value| strip}}`{% endif %} | {% if option.shorthand %}`{{ option.shorthand | strip }}`{% endif %} |{% endfor %}
 {% endif %}
 
 ## See also
 
-{% for seealso in site.data.kubectl[command].see_also %}
-- [`{{ seealso }}`](/docs/kubectl/{% if seealso != "kubectl" %}kubectl_{{seealso}}{% endif %})
+{% assign seealsos = site.data.kubectl[command].see_also | sort %}
+{% for seealso in seealsos %}
+  {% if seealso != "kubectl" %}
+    {% capture fullseealsoname %}kubectl_{{seealso}}{% endcapture %}
+    {% capture fullcommandname %}kubectl {{seealso}}{% endcapture %}
+    {% capture linkurl %}{{ fullseealsoname }}{% endcapture %}
+  {% else %}
+    {% capture fullseealsoname %}{{seealso}}{% endcapture %}
+    {% capture fullcommandname %}{{seealso}}{% endcapture %}
+    {% capture linkurl %}{% endcapture %}
+  {% endif %}
+{% if site.data.kubectl[fullseealsoname].synopsis %}
+- [`{{ fullcommandname }}`](/docs/kubectl/{{ linkurl }}) - {{ site.data.kubectl[fullseealsoname].synopsis }}
+{% endif %}
 {% endfor %}
 
 {% else %}
