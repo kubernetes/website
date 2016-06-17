@@ -86,7 +86,7 @@ h2, h3, h4 {
 
 This template requires that you insert YAML at the top of your document
 that defines the "cards" you'd like to display on the page. The cards will
-render in clickable boxes. 
+render in clickable boxes.
 
 To get rid of this message and take advantage of this template, define `cards`:
 
@@ -109,13 +109,15 @@ cards:
 - card:
   title: WordPress + MySQL
   image: /images/docs/wordpress.svg
-  description: Lorem ipsum dolor it verberum. 
+  description: Lorem ipsum dolor it verberum.
 ---
 ```
 
 **Note:** If `progression` is set to `yes` then a "Start Here!" icon will be
 placed on the first card and arrows suggesting linear reading will be overlayed
 between the other cards, telling the reader that they should explore the content
-in a certain order. 
+in a certain order.
 
 {% endif %}
+
+{% include tagfooter.md %}
