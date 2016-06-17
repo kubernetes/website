@@ -5,7 +5,9 @@ tags:
 - container
 - image
 - registry
+- imagePullSecrets
 ---
+
 {% capture purpose %}
 This document explains how to pull images from a private container registry and run them inside a pod.
 
