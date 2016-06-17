@@ -10,20 +10,8 @@
 
 {% else %}
 
-### ERROR: You must define a "what_is" block
-{: style="color:red" }
+{% include templates/_errorthrower.md missing_block='what_is' heading='What is a (Concept)?' purpose='explains what this concept is and its purpose.' %}
 
-This template requires that you explain what this concept is. This explanation will
-be displayed under the heading, **What is a {{ concept }}?**
-
-To get rid of this message and take advantage of this template, define the `what_is`
-variable and populate it with content.
-
-```liquid
-{% raw %}{% capture what_is %}{% endraw %}
-A {{ concept }} does x and y and z...(etc, etc, text goes on)
-{% raw %}{% endcapture %}{% endraw %}
-```
 {% endif %}
 
 
@@ -35,45 +23,21 @@ A {{ concept }} does x and y and z...(etc, etc, text goes on)
 
 {% else %}
 
-### ERROR: You must define a "when_to_use" block
-{: style="color:red" }
+{% include templates/_errorthrower.md missing_block='when_to_use' heading='When to use (Concept)' purpose='explains when to use this object.' %}
 
-This template requires that you explain when to use this object. This explanation will
-be displayed under the heading, **When to use {{ concept }}s**
-
-To get rid of this message and take advantage of this template, define the `when_to_use`
-variable and populate it with content.
-
-```liquid
-{% raw %}{% capture when_to_use %}{% endraw %}
-You should use {{ concept }} when...
-{% raw %}{% endcapture %}{% endraw %}
-```
 {% endif %}
 
 
 {% if when_not_to_use %}
 
-### When not to use {{ concept }}s (alternatives)
+### When not to use {{ concept }}s
 
 {{ when_not_to_use }}
 
 {% else %}
 
-### ERROR: You must define a "when_not_to_use" block
-{: style="color:red" }
+{% include templates/_errorthrower.md missing_block='when_not_to_use' heading='When not to use (Concept)' purpose='explains when not to use this object.' %}
 
-This template requires that you explain when not to use this object. This explanation will
-be displayed under the heading, **When not to use {{ concept }}s (alternatives)**
-
-To get rid of this message and take advantage of this template, define the `when_not_to_use`
-block and populate it with content.
-
-```liquid
-{% raw %}{% capture when_not_to_use %}{% endraw %}
-You should not use {{ concept }} if...
-{% raw %}{% endcapture %}{% endraw %}
-```
 {% endif %}
 
 
@@ -85,68 +49,22 @@ You should not use {{ concept }} if...
 
 {% else %}
 
-### ERROR: You must define a "status" block
-{: style="color:red" }
+{% include templates/_errorthrower.md missing_block='status' heading='Retrieving status for a (Concept)' purpose='explains how to retrieve a status description for this object.' %}
 
-This template requires that you explain the current status of support for this object.
-This explanation will be displayed under the heading, **{{ concept }} status**.
-
-To get rid of this message and take advantage of this template, define the `status`
-block and populate it with content.
-
-```liquid
-{% raw %}{% capture status %}{% endraw %}
-The current status of {{ concept }}s is...
-{% raw %}{% endcapture %}{% endraw %}
-```
 {% endif %}
 
 
-{% if required_fields %}
+{% if usage %}
 
-### {{ concept }} spec
+#### Usage
 
-#### Required Fields 
-
-{{ required_fields }}
+{{ usage }}
 
 {% else %}
 
-### ERROR: You must define a "required_fields" block
-{: style="color:red" }
-
-This template requires that you provide a Markdown list of required fields for this
-object. This list will be displayed under the heading **Required Fields**.
-
-To get rid of this message and take advantage of this template, define the `required_fields`
-block and populate it with content.
-
-```liquid
-{% raw %}{% capture required_fields %}
-* `kind`: Always `Pod`.
-* `apiVersion`: Currently `v1`.
-* `metadata`: An object containing:
-    * `name`: Required if `generateName` is not specified. The name of this pod.
-      It must be an
-      [RFC1035](https://www.ietf.org/rfc/rfc1035.txt) compatible value and be
-      unique within the namespace.
-{% endcapture %}{% endraw %}
-```
-
-**Note**: You can also define a `common_fields` block that will go under a heading
-directly underneath **Required Fields** called **Common Fields**, but it is
-not required. 
-{% endif %}
-
-
-{% if common_fields %}
-
-#### Common Fields 
-
-{{ common_fields }}
+{% include templates/_errorthrower.md missing_block='usage' heading='Usage' purpose='shows the most basic, common use case for this object, in the form of a code sample, command, etc, using tabs to show multiple approaches' %}
 
 {% endif %}
-
 
 <!-- continuing the "if concept" if/then: -->
 
