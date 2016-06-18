@@ -41,6 +41,8 @@ The local-machine solutions are:
 [Google Container Engine](https://cloud.google.com/container-engine) offers managed Kubernetes
 clusters.
 
+[Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
+
 ### Turn-key Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -114,6 +116,7 @@ Here are all the solutions mentioned above in table form.
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | ['œ“][3]   | Commercial
+Stackpoint.io        |              | multi-support       | multi-support   | [docs](http://www.stackpointcloud.com) |    | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | ['œ“][1]   | Project
 Azure                | CoreOS       | CoreOS | Weave       | [docs](/docs/getting-started-guides/coreos/azure/)                    |          | Community ([@errordeveloper](https://github.com/errordeveloper), [@squillace](https://github.com/squillace), [@chanezon](https://github.com/chanezon), [@crossorigin](https://github.com/crossorigin))
 Docker Single Node   | custom       | N/A    | local       | [docs](/docs/getting-started-guides/docker)                                 |          | Project ([@brendandburns](https://github.com/brendandburns))
