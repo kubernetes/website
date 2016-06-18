@@ -3,6 +3,8 @@ tags:
 - pod
 - container
 - controller
+related_objects:
+- restartPolicy
 ---
 {% capture purpose %}
 This document explains how to configure container restart behavior in your pod in the event of failures.

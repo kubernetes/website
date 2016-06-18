@@ -5,7 +5,8 @@ tags:
 - container
 - image
 - registry
-- imagePullSecrets
+related_objects:
+- imagePullSecrets 
 ---
 
 {% capture purpose %}

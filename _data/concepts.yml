@@ -87,7 +87,7 @@ toc:
       path: /docs/namespaces/reference/
   - title: Nodes
     section:
-    - title: What are Nodes?
+    - title: What are Nodes? 
       path: /docs/nodes/
     - title: Nodes with Client Libraries
       path: /docs/nodes/client-libraries/
@@ -149,7 +149,7 @@ toc:
     - title: Replication Controller How-Tos
       path: /docs/replication-controller/howtos/
     - title: Replication Controller Reference Documentation
-      path: /docs/replication-controller/reference/
+      path: /docs/replication-controller/reference/ 
   - title: Job
     section:
     - title: What is a Job?
@@ -200,19 +200,11 @@ toc:
         path: /docs/pod/update/
       - title: Delete Pods
         path: /docs/pod/delete
-    - title: Common Tasks
-      section:
-      - title: Explicitly Scheduling a Pod to a Node
-        path: /docs/pod/explicitly-scheduling-pod-node/
-      - title: Pulling Images From a Private Registry
-        path: /docs/pod/pulling-images-private-registry/
-      - title: Configuring Container Restart Behavior
-        path: /docs/pod/configuring-container-restart-behavior/
     - title: Pod Reference Documentation
       path: /docs/pod/reference/
   - title: Container
     section:
-    - title: What is a Container?
+    - title: What is a Container? 
       path: /docs/container/
     - title: Container Tutorials
       path: /docs/container/tutorials/
@@ -222,7 +214,7 @@ toc:
       path: /docs/container/reference/
   - title: Image
     section:
-    - title: What is an Image?
+    - title: What is an Image? 
       path: /docs/image/
     - title: Image Tutorials
       path: /docs/image/tutorials/
@@ -232,7 +224,7 @@ toc:
       path: /docs/image/reference/
   - title: Volume
     section:
-    - title: What is a Volume?
+    - title: What is a Volume? 
       path: /docs/volume/
     - title: Volumes with Client Libraries
       path: /docs/volume/client-libraries/
