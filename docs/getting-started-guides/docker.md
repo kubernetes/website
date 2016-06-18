@@ -162,14 +162,22 @@ See [here](/docs/getting-started-guides/docker-multinode/deployDNS/) for instruc
 
 ### Turning down your cluster
 
-1. Delete all the containers including the kubelet:
+1\. Delete the nginx service and deployment:
+
+If you plan on re-creating your nginx deployment and service you will need to clean it up.
+
+```shell
+kubectl delete service,deployments nginx
+```
+
+2\. Delete all the containers including the kubelet:
 
 Many of these containers run under the management of the `kubelet` binary, which attempts to keep containers running, even if they fail.
 So, in order to turn down the cluster, you need to first kill the kubelet container, and then any other containers.
 
 You may use `docker rm -f $(docker ps -aq)`, note this removes _all_ containers running under Docker, so use with caution.
 
-2. Cleanup the filesystem:
+3\. Cleanup the filesystem:
 
 On OS X, first ssh into the docker VM:
 
