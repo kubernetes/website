@@ -91,4 +91,3 @@ This is an example of a pod that consumes its labels and annotations via the dow
 
 Some more thorough examples:
    * [environment variables](/docs/user-guide/environment-guide/)
-   * [downward API](/docs/user-guide/downward-api/)
