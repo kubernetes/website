@@ -20,6 +20,13 @@
 export KUBERNETES_PROVIDER=azure; curl -sS https://get.k8s.io | bash
 ```
 
+Note: if you receive an error "the input device is not a TTY", then you need to start the deployment manually.
+
+```shell
+cd ~/kubernetes
+./cluster/kube-up.sh
+```
+
 NOTE: This script calls [cluster/kube-up.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/kube-up.sh)
 which in turn calls [cluster/azure/util.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/azure/util.sh)
 using [cluster/azure/config-default.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/azure/config-default.sh).
