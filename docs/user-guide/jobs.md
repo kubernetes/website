@@ -249,12 +249,12 @@ The tradeoffs are:
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
 The pattern names are also links to examples and more detailed description.
 
-|                            Pattern                                         | Single Job object | Fewer pods than work items? | Use app unmodified? |  Works in Kube 1.1? |
-| -------------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
-| [Job Template Expansion](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/job/expansions/README.md)          |                   |                             |          ✓          |          ✓          |
-| [Queue with Pod Per Work Item](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/job/work-queue-1/README.md)  |         ✓         |                             |      sometimes      |          ✓          |
-| [Queue with Variable Pod Count](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/job/work-queue-2/README.md) |         ✓         |             ✓               |                     |          ✓          |
-| Single Job with Static Work Assignment                                     |         ✓         |                             |          ✓          |                     |
+|                            Pattern                                   | Single Job object | Fewer pods than work items? | Use app unmodified? |  Works in Kube 1.1? |
+| -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
+| [Job Template Expansion](/docs/user-guide/job/expansions)            |                   |                             |          ✓          |          ✓          |
+| [Queue with Pod Per Work Item](/docs/user-guide/job/work-queue-1/)   |         ✓         |                             |      sometimes      |          ✓          |
+| [Queue with Variable Pod Count](/docs/user-guide/job/work-queue-2/)  |         ✓         |             ✓               |                     |          ✓          |
+| Single Job with Static Work Assignment                               |         ✓         |                             |          ✓          |                     |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
 has an identical [`spec`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).  This means that
@@ -265,12 +265,12 @@ are different ways to arrange for pods to work on different things.
 This table shows the required settings for `.spec.parallelism` and `.spec.completions` for each of the patterns.
 Here, `W` is the number of work items.
 
-|                             Pattern                                        | `.spec.completions` |  `.spec.parallelism` |
-| -------------------------------------------------------------------------- |:-------------------:|:--------------------:|
-| [Job Template Expansion](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/job/expansions/README.md)          |          1          |     should be 1      |
-| [Queue with Pod Per Work Item](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/job/work-queue-1/README.md)  |          W          |        any           |
-| [Queue with Variable Pod Count](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/job/work-queue-2/README.md) |          1          |        any           |
-| Single Job with Static Work Assignment                                     |          W          |        any           |
+|                             Pattern                                  | `.spec.completions` |  `.spec.parallelism` |
+| -------------------------------------------------------------------- |:-------------------:|:--------------------:|
+| [Job Template Expansion](/docs/user-guide/job/expansions/)           |          1          |     should be 1      |
+| [Queue with Pod Per Work Item](/docs/user-guide/job/work-queue-1/)   |          W          |        any           |
+| [Queue with Variable Pod Count](/docs/user-guide/job/work-queue-2/)  |          1          |        any           |
+| Single Job with Static Work Assignment                               |          W          |        any           |
 
 
 ## Advanced Usage
