@@ -59,6 +59,17 @@ toc:
   - title: Using kubectl to Manage Resources
     path: /docs/user-guide/working-with-resources/
 
+- title: Batch Jobs
+  section:
+  - title: Jobs
+    path: /docs/user-guide/jobs/
+  - title: Parallel Processing using Expansions
+    path: /docs/user-guide/jobs/expansions/
+  - title: Coarse Parallel Processing using a Work Queue
+    path: /docs/user-guide/jobs/work-queue-1/
+  - title: Fine Parallel Processing using a Work Queue
+    path: /docs/user-guide/jobs/work-queue-2/
+
 - title: Service Discovery and Load Balancing
   section:
   - title: Connecting Applications with Services
