@@ -1,6 +1,8 @@
 ---
 ---
 
+**Stop. This guide has been superseded by [Minikube](../minikube/) which is the recommended method of running Kubernetes on your local machine.**
+
 * TOC
 {:toc}
 
