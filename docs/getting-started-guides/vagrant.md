@@ -1,6 +1,8 @@
 ---
 ---
 
+**Stop. This guide has been superseded by [Minikube](../minikube/) which is the recommended method of running Kubernetes on your local machine.**
+
 Running Kubernetes with Vagrant (and VirtualBox) is an easy way to run/test/develop on your local machine (Linux, Mac OS X).
 
 * TOC
