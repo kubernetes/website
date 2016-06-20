@@ -265,3 +265,5 @@ toc:
     path: /docs/admin/garbage-collection/
   - title: Configuring Kubernetes with Salt
     path: /docs/admin/salt/
+  - title: Monitoring Node Health
+    path: /docs/admin/node-problem/
