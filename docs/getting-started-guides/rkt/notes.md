@@ -35,16 +35,22 @@ spec:
 ### Kubectl attach
 
 The `kubectl attach` command does not work under the rkt container runtime.
-
+And because of this, some flags in `kubectl run` are not supported, including:
+- --attach=true
+- --leave-stdin-open=true
+- --rm=true
 
 ### Init containers
-<!-- TODO link to init containers doc here -->
 
-The alpha "init container" feature is currently not supported.
+The alpha [init container](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/container-init.md) feature is currently not supported.
+
+### Container restart back-off
+
+Exponential restart back-off for a failing container is currently not supported.
 
 ### Experimental NVIDIA GPU support
 
-The `--experimental-nvidia-gpus` flag, and related features, are not supported.
+The `--experimental-nvidia-gpus` flag, and related [GPU features](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/gpu-support.md) are not supported.
 
 ### QoS Classes
 
@@ -70,13 +76,16 @@ spec:
     ...
 ```
 
-### Container image updates (patch)
+On the other hand, when running the pod with [stage1-fly](), the pod will be run in the host namespace.
 
+
+### Container image updates (patch)
 
 Patching a pod to change the image will result in the entire pod restarting, not just the container that was changed.
 
 ### Volume mounts specifying a subPath 
 
-The subPath feature does not work correctly under rkt. In addition, the above-issue of Non-existent host volume paths being invalid would make many common use-cases for subPaths fail in that way as well.
+The [subPath](https://github.com/kubernetes/kubernetes/pull/22575) feature does not work correctly under rkt.
+In addition, the above-issue of Non-existent host volume paths being invalid would make many common use-cases for subPaths fail in that way as well.
 
 In some cases, this issue can be worked around by creating and using subdirectories from within the container rather than relying on Kubernetes to do so.
