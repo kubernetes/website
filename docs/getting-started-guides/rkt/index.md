@@ -10,24 +10,29 @@ We still have [a bunch of work](http://issue.k8s.io/8262) to do to make the expe
   *(Note that systemd is not required by rkt itself, we are using it here to monitor and manage the pods launched by kubelet.)*
 
 - Install the latest rkt release according to the instructions [here](https://github.com/coreos/rkt).
-  The minimum version required for now is [v0.8.0](https://github.com/coreos/rkt/releases/tag/v0.8.0).
+  The minimum version required is [v1.9.0](https://github.com/coreos/rkt/releases/tag/v1.9.0).
 
-- Note that for rkt version later than v0.7.0, `metadata service` is not required for running pods in private networks. So now rkt pods will not register the metadata service be default.
-
-- Since release [v1.2.0-alpha.5](https://github.com/kubernetes/kubernetes/releases/tag/v1.2.0-alpha.5),
-the [rkt API service](https://github.com/coreos/rkt/blob/master/api/v1alpha/README.md)
+The [rkt API service](http://coreos.com/rkt/docs/latest/subcommands/api-service.html)
 must be running on the node.
 
 ### Network Setup
 
-rkt uses the [Container Network Interface (CNI)](https://github.com/appc/cni)
-to manage container networking. By default, all pods attempt to join a network
-called `rkt.kubernetes.io`, which is currently defined [in
-`rkt.go`](https://github.com/kubernetes/kubernetes/blob/v1.2.0-alpha.6/pkg/kubelet/rkt/rkt.go#L91).
-In order for pods to get correct IP addresses, the CNI config file must be
-edited to add this `rkt.kubernetes.io` network:
+You can configure your network using the kubenet and CNI [network
+plugins](http://kubernetes.io/docs/admin/network-plugins/) by setting the
+`--network-plugin` flag, as described in each plugin's documentation.
+
+
+In addition, rkt supports using rkt's [Contained Networking](https://coreos.com/rkt/docs/latest/networking.html#contained-mode). In this mode, rkt will attempt to join pods into a network named `rkt.kubernetes.io`.
+
+However, there are a small number of caveats you should be aware of when using rkt's networking:
+
+* You must create an appropriate CNI configuration file with a network name of `rkt.kubernetes.io`.
+* The downwards API and environment variable substitution will not contain the pod IP.
+* The `/etc/hosts` file will not contain your own hostname.
 
 #### Using flannel
+
+While it's recommended that you configure flannel using kubernetes' CNI support, you can also configure it using rkt's contained networking. <!-- TODO, better link for flannel configuration the preferred way -->
 
 In addition to the basic prerequisites above, each node must be running
 a [flannel](https://github.com/coreos/flannel) daemon. This implies
@@ -54,40 +59,7 @@ More details about the flannel CNI plugin can be found
 #### On GCE
 
 Each VM on GCE has an additional 256 IP addresses routed to it, so
-it is possible to forego flannel in smaller clusters. This makes the
-necessary CNI config file a bit more verbose:
-
-```shell
-$ cat <<EOF >/etc/rkt/net.d/k8s_cluster.conf
-{
-    "name": "rkt.kubernetes.io",
-    "type": "bridge",
-    "bridge": "cbr0",
-    "isGateway": true,
-    "ipam": {
-        "type": "host-local",
-        "subnet": "10.255.228.1/24",
-        "gateway": "10.255.228.1"
-    },
-    "routes": [
-      { "dst": "0.0.0.0/0" }
-    ]
-}
-EOF
-```
-
-This example creates a `bridge` plugin configuration for the CNI network, specifying
-the bridge name `cbr0`. It also specifies the CIDR, in the `ipam` field.
-
-Creating these files for any moderately-sized cluster is at best inconvenient.
-Work is in progress to
-[enable Kubernetes to use the CNI by default]
-(https://github.com/kubernetes/kubernetes/pull/18795/files).
-As that work matures, such manual CNI config munging will become unnecessary
-for primary use cases. For early adopters, an initial example shows one way to
-[automatically generate these CNI configurations]
-(https://gist.github.com/yifan-gu/fbb911db83d785915543)
-for rkt.
+it is possible to forego flannel in smaller clusters. This can most easily be done by using the builtin kubenet plugin. This can be done by setting `--network-plugin=kubenet`.
 
 ### Local cluster
 
@@ -102,6 +74,7 @@ set these flags:
 
 ```shell
 $ export CONTAINER_RUNTIME=rkt
+$ export NET_PLUGIN=kubenet
 $ export RKT_PATH=$PATH_TO_RKT_BINARY
 $ export RKT_STAGE1_IMAGE=PATH=$PATH_TO_STAGE1_IMAGE
 ```
@@ -126,7 +99,7 @@ $ export KUBE_CONTAINER_RUNTIME=rkt
 You can optionally choose the version of rkt used by setting `KUBE_RKT_VERSION`:
 
 ```shell
-$ export KUBE_RKT_VERSION=0.15.0
+$ export KUBE_RKT_VERSION=1.9.0
 ```
 
 Then you can launch the cluster by:
@@ -150,7 +123,7 @@ $ export KUBE_CONTAINER_RUNTIME=rkt
 You can optionally choose the version of rkt used by setting `KUBE_RKT_VERSION`:
 
 ```shell
-$ export KUBE_RKT_VERSION=0.8.0
+$ export KUBE_RKT_VERSION=1.9.0
 ```
 
 You can optionally choose the CoreOS channel  by setting `COREOS_CHANNEL`:
@@ -174,13 +147,13 @@ See [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new 
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
 
-### Different UX with rkt container runtime
+### Known Issues and Differences
 
 rkt and Docker have very different designs, as well as ACI and Docker image format. Users might experience some different experience when switching from one to the other. More information can be found [here](/docs/getting-started-guides/rkt/notes/).
 
 ### Debugging
 
-Here are several tips for you when you run into any issues.
+Here are several tips in case you run into any issues.
 
 ##### Check logs
 
