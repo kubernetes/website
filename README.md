@@ -34,7 +34,7 @@ on a lightweight webserver that runs on your local machine.
 
 This will typically be the fastest way (by far) to iterate on docs changes and see them staged, once you get this set up, but it does involve several install steps that take awhile to complete, and makes system-wide modifications.
 
-Install Ruby 2.2 or higher:
+Install Ruby 2.2 or higher. If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). If you're on Linux, run these commands:
 
     apt-get install software-properties-common
     apt-add-repository ppa:brightbox/ruby-ng
