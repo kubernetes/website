@@ -117,6 +117,29 @@ Watch out when using this type of volume, because:
   behave differently on different nodes due to different files on the nodes
 * when Kubernetes adds resource-aware scheduling, as is planned, it will not be
   able to account for resources used by a `hostPath`
+* the directories created on the underlying hosts will not be writable by
+  your container unless you set securityContext/priveleged to true.
+
+#### Example pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: gcr.io/google_containers/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /test-pd
+      name: test-volume
+  volumes:
+  - name: test-volume
+    hostPath:
+      # directory location on host
+      path: /data
+```
 
 ### gcePersistentDisk
 
