@@ -11,23 +11,21 @@ change the name of the fork to be:
 
     YOUR_GITHUB_USERNAME.github.io
 
-Then make any changes. 
+Then make your changes. 
 
 When you visit [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io) you should see a special-to-you version of the site that contains the changes you just made.
 
-## Staging the site locally (using Docker image)
+## Staging the site locally (using Docker)
 
 Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
 
     git clone https://github.com/kubernetes/kubernetes.github.io.git
     cd kubernetes.github.io
-    docker run -v "$PWD":/usr/src/app -p "4000:4000" starefossen/github-pages
+    docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs
 
-Then visit [http://localhost:4000](http://localhost:4000) (or wherever Jekyll tells you) to see our site.
+Then visit [http://localhost:4000](http://localhost:4000) to see our site. Any changes you make on your local machine will be automatically staged.
 
-Any changes you make on your local machine will be automatically staged at this URL. 
-
-For details on this Docker image, see [starefossen/github-pages on Docker Hub](https://hub.docker.com/r/starefossen/github-pages/).
+If you're interested you can view [the Dockerfile for this image](https://gist.github.com/johndmulhausen/f8f0ab8d82d2c755af3a4709729e1859).
 
 ## Staging the site locally (from scratch setup)
 
@@ -112,7 +110,7 @@ In English, this would read: "Create a set of tabs with the alias `servicesample
 and have tabs visually labeled "JSON" and "YAML" that use `json` and `yaml` Rouge syntax highlighting, which display the contents of
 `service-sample.{extension}` on the page, and link to the file in GitHub at (full path)."
 
-Example file: [Pods: Multi-Container](/docs/user-guide/pods/multi-container/).
+Example file: [Pods: Multi-Container](http://kubernetes.io/docs/user-guide/pods/multi-container/).
 
 ## Use a global variable
 
