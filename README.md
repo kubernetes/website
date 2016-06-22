@@ -20,7 +20,7 @@ When you visit [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNA
 Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
 
     git clone https://github.com/kubernetes/kubernetes.github.io.git k8sdocs
-    docker run --rm -v ./k8sdocs:/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs serve
+    docker run --rm -v "$PWD"/k8sdocs:/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs serve
 
 Then visit [http://localhost:4000](http://localhost:4000) to see our site. Any changes you make in your local clone will be automatically staged. 
 
