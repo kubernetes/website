@@ -4,44 +4,47 @@ Welcome! We are very pleased you want to contribute to the documentation and/or 
 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
 
+## Staging the site on GitHub Pages
+
 If you want to see your changes staged without having to install anything locally, remove the CNAME file in this directory and
 change the name of the fork to be:
 
     YOUR_GITHUB_USERNAME.github.io
 
-Then, visit: [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io)
+Then make any changes. 
 
-You should see a special-to-you version of the site.
+When you visit [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io) you should see a special-to-you version of the site that contains the changes you just made.
 
-## Editing/staging the site locally
+## Staging the site locally (using pre-baked Docker image)
 
-If you have files to upload, or just want to work offline, run the below commands to setup
-your environment for running GitHub pages locally. Then, any edits you make will be viewable
+Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
+
+    git clone https://github.com/kubernetes/kubernetes.github.io.git k8sdocs
+    docker run --rm -v ./k8sdocs:/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs serve
+
+Then visit [http://localhost:4000](http://localhost:4000) to see our site. Any changes you make in your local clone will be automatically staged. 
+
+If you'd like to see the Dockerfile for this image, see [this gist by @johndmulhausen](https://gist.github.com/johndmulhausen/f8f0ab8d82d2c755af3a4709729e1859).
+
+## Staging the site locally (from scratch setup)
+
+The below commands to setup your environment for running GitHub pages locally. Then, any edits you make will be viewable
 on a lightweight webserver that runs on your local machine.
 
-First install rvm
+This will typically be the fastest way (by far) to iterate on docs changes and see them staged, once you get this set up, but it does involve several install steps that take awhile to complete.
 
-	curl -sSL https://get.rvm.io | bash -s stable
+Install Ruby 2.2 or higher:
 
-Then load it into your environment
+    apt-get install software-properties-common
+    apt-add-repository ppa:brightbox/ruby-ng
+    apt-get install ruby2.2
+    apt-get install ruby2.2-dev
 
-	source ${HOME}/.rvm/scripts/rvm (or whatever is prompted by the installer)
-
-Then install Ruby 2.2 or higher
-
-	rvm install ruby-2.2.4
-	rvm use ruby-2.2.4 --default
-
-Verify that this new version is running (optional)
-
-	which ruby
-	ruby -v
-
-Install the GitHub Pages package, which includes Jekyll
+Install the GitHub Pages package, which includes Jekyll:
 
 	gem install github-pages
 
-Clone our site
+Clone our site:
 
 	git clone https://github.com/kubernetes/kubernetes.github.io.git
 
@@ -51,14 +54,15 @@ Make any changes you want. Then, to see your changes locally:
 	jekyll serve
 
 Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
-(or wherever Ruby tells you).
+(or wherever Jekyll tells you).
+
+The above instructions work on Mac and Linux.
+[These instructions](https://martinbuberl.com/blog/setup-jekyll-on-windows-and-host-it-on-github-pages/) are for Windows users.
+
+## GitHub help
 
 If you're a bit rusty with git/GitHub, you might wanna read
 [this](http://readwrite.com/2013/10/02/github-for-beginners-part-2) for a refresher.
-
-The above instructions work on Mac and Linux.
-[These instructions ](https://martinbuberl.com/blog/setup-jekyll-on-windows-and-host-it-on-github-pages/)
-might help for Windows users.
 
 ## Common Tasks
 
