@@ -15,23 +15,26 @@ Then make any changes.
 
 When you visit [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io) you should see a special-to-you version of the site that contains the changes you just made.
 
-## Staging the site locally (using pre-baked Docker image)
+## Staging the site locally (using Docker image)
 
 Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
 
-    git clone https://github.com/kubernetes/kubernetes.github.io.git k8sdocs
-    docker run --rm -v "$PWD"/k8sdocs:/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs serve
+    git clone https://github.com/kubernetes/kubernetes.github.io.git
+    cd kubernetes.github.io
+    docker run -v "$PWD":/usr/src/app -p "4000:4000" starefossen/github-pages
 
-Then visit [http://localhost:4000](http://localhost:4000) to see our site. Any changes you make in your local clone will be automatically staged. 
+Then visit [http://localhost:4000](http://localhost:4000) (or wherever Jekyll tells you) to see our site.
 
-If you'd like to see the Dockerfile for this image, see [this gist by @johndmulhausen](https://gist.github.com/johndmulhausen/f8f0ab8d82d2c755af3a4709729e1859).
+Any changes you make on your local machine will be automatically staged at this URL. 
+
+For details on this Docker image, see [starefossen/github-pages on Docker Hub](https://hub.docker.com/r/starefossen/github-pages/).
 
 ## Staging the site locally (from scratch setup)
 
 The below commands to setup your environment for running GitHub pages locally. Then, any edits you make will be viewable
 on a lightweight webserver that runs on your local machine.
 
-This will typically be the fastest way (by far) to iterate on docs changes and see them staged, once you get this set up, but it does involve several install steps that take awhile to complete.
+This will typically be the fastest way (by far) to iterate on docs changes and see them staged, once you get this set up, but it does involve several install steps that take awhile to complete, and makes system-wide modifications.
 
 Install Ruby 2.2 or higher:
 
