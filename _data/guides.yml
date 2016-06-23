@@ -263,5 +263,7 @@ toc:
     path: /docs/admin/static-pods/
   - title: Configuring Garbage Collection
     path: /docs/admin/garbage-collection/
+  - title: Configuring Out Of Resource Handling
+    path: /docs/admin/out-of-resource/    
   - title: Configuring Kubernetes with Salt
     path: /docs/admin/salt/
