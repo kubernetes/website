@@ -58,6 +58,8 @@ toc:
     path: /docs/user-guide/config-best-practices/
   - title: Using kubectl to Manage Resources
     path: /docs/user-guide/working-with-resources/
+  - title: Garbage collection
+    path: /docs/user-guide/garbage-collector/
 
 - title: Service Discovery and Load Balancing
   section:
@@ -261,7 +263,7 @@ toc:
     path: /docs/admin/network-plugins/
   - title: Static Pods
     path: /docs/admin/static-pods/
-  - title: Configuring Garbage Collection
+  - title: Configuring kubelet Garbage Collection
     path: /docs/admin/garbage-collection/
   - title: Configuring Kubernetes with Salt
     path: /docs/admin/salt/
