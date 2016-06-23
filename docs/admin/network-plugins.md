@@ -39,7 +39,7 @@ The Linux-only kubenet plugin provides functionality similar to the `--configure
 
 The plugin requires a few things:
 
-* The standard CNI `bridge` and `host-local` plugins to be placed in `/opt/cni/bin`.
+* The standard CNI `bridge` and `host-local` plugins are required. Kubenet will first search for them in `/opt/cni/bin`. Specify `network-plugin-dir` to supply additional search path. The first found match will take effect.
 * Kubelet must be run with the `--network-plugin=kubenet` argument to enable the plugin
 * Kubelet must also be run with the `--reconcile-cidr` argument to ensure the IP subnet assigned to the node by configuration or the controller-manager is propagated to the plugin
 * The node must be assigned an IP subnet through either the `--pod-cidr` kubelet command-line option or the `--allocate-node-cidrs=true --cluster-cidr=<cidr>` controller-manager command-line options.
