@@ -50,7 +50,8 @@ few commands, and have active community support.
 
 - [GCE](/docs/getting-started-guides/gce)
 - [AWS](/docs/getting-started-guides/aws)
-- [Azure](/docs/getting-started-guides/coreos/azure/)
+- [Azure](/docs/getting-started-guides/coreos/azure/) (Weave-based, contributed by WeaveWorks employees)
+- [Azure](/docs/getting-started-guides/azure/) (Flannel-based, contributed by Microsoft employee)
 - [CenturyLink Cloud](/docs/getting-started-guides/clc)
 
 ### Custom Solutions
@@ -119,6 +120,7 @@ GKE                  |              |        | GCE         | [docs](https://clou
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](http://www.stackpointcloud.com) |    | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | ['œ“][1]   | Project
 Azure                | CoreOS       | CoreOS | Weave       | [docs](/docs/getting-started-guides/coreos/azure/)                    |          | Community ([@errordeveloper](https://github.com/errordeveloper), [@squillace](https://github.com/squillace), [@chanezon](https://github.com/chanezon), [@crossorigin](https://github.com/crossorigin))
+Azure                | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/azure)                    |          | Community ([@colemickens](https://github.com/colemickens))
 Docker Single Node   | custom       | N/A    | local       | [docs](/docs/getting-started-guides/docker)                                 |          | Project ([@brendandburns](https://github.com/brendandburns))
 Docker Multi Node    | custom       | N/A    | flannel     | [docs](/docs/getting-started-guides/docker-multinode)                       |          | Project ([@brendandburns](https://github.com/brendandburns))
 Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config)           |          | Project
