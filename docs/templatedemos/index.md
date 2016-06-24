@@ -73,54 +73,23 @@ e.g. `docs/your-concept-name/index.md`.
 ### Adding the Template sections
 
 - tags
+- concept: the concept name e.g. Pod
+- what_is: one sentence description the function / role  of the concept.  Diagrams are helpful.
+- when_to_use: disambiguate when to use this vs alternatives
+- when_not_to_use: highlight common anti-patterns
+- status: how to get the status for this object using kubectl
+- usage: example yaml
+- template: include the template at the end
 
 ```liquid{% raw %}
 ---
-include
-tags
 ---
-```
-
-- concept: the concept name e.g. Pod
-
-``` #
 {% capture concept %}{% endcapture %}
-```
-
-- what_is: one sentence description the function / role  of the concept.  Diagrams are helpful.
-
-``` #
 {% capture what_is %}{% endcapture %}
-```
-
-- when_to_use: disambiguate when to use this vs alternatives
-
-``` #
 {% capture when_to_use %}{% endcapture %}
-```
-
-- when_not_to_use: highlight common anti-patterns
-
-``` #
 {% capture when_not_to_use %}{% endcapture %}
-```
-
-- status: how to get the status for this object using kubectl
-
-``` #
 {% capture status %}{% endcapture %}
-```
-
-- usage: example yaml
-
-``` #
 {% capture usage %}{% endcapture %}
-
-```
-
-- template: include the template at the end
-
-``` #
 {% include templates/concept-overview.md %}
 {% endraw %}```
 
@@ -152,34 +121,17 @@ e.g. `docs/tasks/your-task-name`.
 ### Adding the Template sections
 
 - tags
+- purpose: one sentence description of the task and motivation
+- recommended_background: List of Concepts referenced or other Tasks, Tutorials that provide needed context
+- set_by_step: Add multiple sections.  1 per step in the task.
+- template: include the template at the end
 
 ```liquid{% raw %}
 ---
-tags
 ---
-```
-
-- purpose: one sentence description of the task and motivation
-
-``` #
 {% capture purpose %}{% endcapture %}
-```
-
-- recommended_background: List of Concepts referenced or other Tasks, Tutorials that provide needed context
-
-``` #
 {% capture recommended_background %}{% endcapture %}
-```
-
-- set_by_step: Add multiple sections.  1 per step in the task.
-
-``` #
 {% capture step_by_step %}{% endcapture %}
-```
-
-- template: include the template at the end
-
-``` #
 {% include templates/task.md %}
 {% endraw %}```
 
