@@ -2,8 +2,8 @@
 ---
 
 Horizontal Pod Autoscaling automatically scales the number of pods
-in a replication controller, deployment or replica set based on observed CPU utilization.
-In the future also other metrics will be supported.
+in a replication controller, deployment or replica set based on observed CPU utilization
+(or, with alpha support, on some other, application-provided metrics).
 
 In this document we explain how this feature works by walking you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.
 
@@ -37,7 +37,7 @@ The following command will create a Horizontal Pod Autoscaler that maintains bet
 controlled by the php-apache deployment we created in the first step of these instructions.
 Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
-(since each pod requests 200 milli-cores by [kubectl run](#kubectl-run), this means average CPU usage of 100 milli-cores).
+(since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
 See [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
 
 ```shell
