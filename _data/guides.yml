@@ -104,6 +104,8 @@ toc:
     path: /docs/user-guide/downward-api/volume
   - title: Persistent Volumes Walkthrough
     path: /docs/user-guide/persistent-volumes/walkthrough/
+  - title: Bootstrapping Pet Sets
+    path: /docs/user-guide/petset/bootstrapping/
 
 - title: Monitoring, Logging, and Debugging Containers
   section:
