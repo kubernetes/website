@@ -3,7 +3,7 @@
 
 This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as a container runtime.
 
-### **Prerequisite**
+### Prerequisite
 
 - [systemd](http://www.freedesktop.org/wiki/Software/systemd/) should be installed on the machine and should be enabled.
   The minimum version required for Kubernetes 1.3 is `219`.
@@ -25,7 +25,7 @@ In addition, rkt supports using rkt's [Contained Networking](https://coreos.com/
 In this mode, rkt will attempt to join pods into a network named `rkt.kubernetes.io`.
 To use rkt's contained networking, you can leave the `--network-plugin` to empty, and put a network config file under one of the rkt's [config directories](https://github.com/coreos/rkt/blob/master/Documentation/configuration.md#command-line-flags), for example:
 
-```shell		
+```shell
 $ cat <<EOF >/etc/rkt/net.d/k8s_network_example.conf
 {
   "name": "rkt.kubernetes.io",
@@ -75,8 +75,7 @@ For more information on flannel configuration, please read [CNI/flannel README](
 ##### Use Google Compute Engine (GCE) network
 
 Each VM on GCE has an additional 256 IP addresses routed to it, so it is possible to forego flannel in smaller clusters.
-This can most easily be done by using the builtin kubenet plugin.
-This can be done by setting `--network-plugin=kubenet`.
+This can most easily be done by using the builtin kubenet plugin, by setting the kubelet flag `--network-plugin=kubenet`.
 
 ### Launch a local cluster
 
@@ -104,7 +103,7 @@ Then we can launch the local cluster using the script:
 $ hack/local-up-cluster.sh
 ```
 
-We are also working on set up rkt as the container runtime for [minikube](https://github.com/kubernetes/minikube/issues/168).
+We are also working on setting up rkt as the container runtime for [minikube](https://github.com/kubernetes/minikube/issues/168).
 
 ### Launch a CoreOS/rkt cluster on Google Compute Engine (GCE)
 
