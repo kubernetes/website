@@ -1,8 +1,6 @@
 ---
 ---
 
-# Known issues
-
 The following features either are not supported or have large caveats when using the rkt container runtime.
 
 ##### Non-existent host volume paths
@@ -37,9 +35,9 @@ spec:
 The `kubectl attach` command does not work under the rkt container runtime.
 And because of this, some flags in `kubectl run` are not supported, including:
 
-- --attach=true
-- --leave-stdin-open=true
-- --rm=true
+- `--attach=true`
+- `--leave-stdin-open=true`
+- `--rm=true`
 
 ##### Init containers
 
@@ -84,7 +82,7 @@ On the other hand, when running the pod with [stage1-fly](https://coreos.com/rkt
 
 Patching a pod to change the image will result in the entire pod restarting, not just the container that was changed.
 
-##### Volume mounts specifying a subPath 
+##### Volume mounts specifying a subPath
 
 The [subPath](https://github.com/kubernetes/kubernetes/pull/22575) feature does not work correctly under rkt.
 In addition, the above-issue of Non-existent host volume paths being invalid would make many common use-cases for subPaths fail in that way as well.
