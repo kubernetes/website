@@ -290,7 +290,7 @@ $ sleep $grace
 $ kubectl delete pvc -l app=nginx
 {% endraw %}```
 
-## Troubelshooting
+## Troubleshooting
 
 You might have noticed an `annotations` field in all the Pet Sets shown above.
 
