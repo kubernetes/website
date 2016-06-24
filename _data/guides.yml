@@ -190,9 +190,9 @@ toc:
         path: /docs/getting-started-guides/fedora/fedora-calico/
       - title: rkt
         section:
-        - title: Running Kubernetes on rkt
+        - title: Running Kubernetes with rkt
           path: /docs/getting-started-guides/rkt/
-        - title: Notes on Different UX with rkt Container Runtime
+        - title: Known Issues when Using rkt
           path: /docs/getting-started-guides/rkt/notes/
       - title: Kubernetes on Mesos
         path: /docs/getting-started-guides/mesos/

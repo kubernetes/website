@@ -1,99 +1,92 @@
 ---
 ---
 
-# Notes on Different UX with rkt container runtime
+# Known issues
 
-### Doesn't support ENTRYPOINT + CMD feature
+The following features either are not supported or have large caveats when using the rkt container runtime.
 
-To run a Docker image, rkt will convert it into [App Container Image (ACI) format](https://github.com/appc/spec/blob/master/SPEC.md) first.
-However, during the conversion, the `ENTRYPOINT` and `CMD` are concatentated to construct ACI's `Exec` field.
-This means after the conversion, we are not able to replace only `ENTRYPOINT` or `CMD` without touching the other part.
-So for now, users are recommended to specify the **executable path** in `Command` and **arguments** in `Args`.
-(This has the same effect if users specify the **executable path + arguments** in `Command` or `Args` alone).
+##### Non-existent host volume paths
 
-For example:
+When mounting a host volume path that does not exist, rkt will error out. Under the Docker runtime, an empty directory will be created at the referenced path.
+
+An example of a pod which will error out:
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx
   labels:
-    name: nginx
+    name: mount-dne
+  name: mount-dne
 spec:
+  volumes:
+  - name: does-not-exist
+    hostPath:
+      path: /does/not/exist
   containers:
-  - name: nginx
-    image: nginx
-    ports:
-    - containerPort: 80
+    - name: exit
+      image: busybox
+      command: ["sh", "-c", "ls /test; sleep 60"]
+      volumeMounts:
+      - mountPath: /test
+        name: does-not-exist
 ```
 
-The above pod yaml file is valid as it's not specifying `Command` or `Args`, so the default `ENTRYPOINT` and `CMD` of the image will be used.
+##### Kubectl attach
+
+The `kubectl attach` command does not work under the rkt container runtime.
+And because of this, some flags in `kubectl run` are not supported, including:
+
+- --attach=true
+- --leave-stdin-open=true
+- --rm=true
+
+##### Init containers
+
+The alpha [init container](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/container-init.md) feature is currently not supported.
+
+##### Container restart back-off
+
+Exponential restart back-off for a failing container is currently not supported.
+
+##### Experimental NVIDIA GPU support
+
+The `--experimental-nvidia-gpus` flag, and related [GPU features](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/gpu-support.md) are not supported.
+
+##### QoS Classes
+
+Under rkt, QoS classes do not result in the `OOM Score` of containers being adjusted as occurs under Docker.
+
+##### HostPID and HostIPC namespaces
+
+Setting a the hostPID or hostIPC flag on a pod is not supported.
+
+For example, the following pod will not run correctly:
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: busybox
   labels:
-    name: busybox
+    name: host-ipc-pid
+  name: host-ipc-pid
 spec:
+  hostIPC: true
+  hostPID: true
   containers:
-  - name: busybox
-    image: busybox
-    command:
-    - /bin/sleep
-    - 1000
+    ...
 ```
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: busybox
-  labels:
-    name: busybox
-spec:
-  containers:
-  - name: busybox
-    image: busybox
-    command:
-    - /bin/sleep
-    args:
-    - 1000
-```
+On the other hand, when running the pod with [stage1-fly](https://coreos.com/rkt/docs/latest/running-fly-stage1.html), the pod will be run in the host namespace.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: busybox
-  labels:
-    name: busybox
-spec:
-  containers:
-  - name: busybox
-    image: busybox
-    args:
-    - /bin/sleep
-    - 1000
-```
 
-All the three examples above are valid as they contain both the executable path and the arguments.
+##### Container image updates (patch)
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: busybox
-  labels:
-    name: busybox
-spec:
-  containers:
-  - name: busybox
-    image: busybox
-    args:
-    - 1000
-```
+Patching a pod to change the image will result in the entire pod restarting, not just the container that was changed.
 
-The last example is invalid, as we cannot override just the `CMD` of the image alone.
+##### Volume mounts specifying a subPath 
+
+The [subPath](https://github.com/kubernetes/kubernetes/pull/22575) feature does not work correctly under rkt.
+In addition, the above-issue of Non-existent host volume paths being invalid would make many common use-cases for subPaths fail in that way as well.
+
+In some cases, this issue can be worked around by creating and using subdirectories from within the container rather than relying on Kubernetes to do so.
