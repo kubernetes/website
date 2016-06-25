@@ -77,6 +77,89 @@ For more information on flannel configuration, please read [CNI/flannel README](
 Each VM on GCE has an additional 256 IP addresses routed to it, so it is possible to forego flannel in smaller clusters.
 This can most easily be done by using the builtin kubenet plugin, by setting the kubelet flag `--network-plugin=kubenet`.
 
+### Choose stage1 image
+
+rkt comes with the design that lets you to run the container images inside different isolation environments, which is known as [**rkt stage1**](https://coreos.com/rkt/docs/latest/devel/architecture.html#stage-1).
+Today, there are three coreos officially supported stage1s:
+
+- `systemd-nspawn stage1`, which is the default one that runs container images in a namespace/cgroup isolated environment.
+- [`lkvm stage1`](https://github.com/coreos/rkt/blob/v1.9.1/Documentation/running-lkvm-stage1.md), which runs container images inside a KVM hypervisor.
+- [`fly stage1`](https://github.com/coreos/rkt/blob/v1.9.1/Documentation/running-fly-stage1.md), which runs container images within a `chroot` environment, but without namespace/cgroup isolation.
+
+You can choose either stage1 to meet your use case. There are typically two ways of specifying the stage1 image:
+
+- Setup the kubelet's `--rkt-stage1-image` flag, which tells kubelet the stage1 image to use for every pod on the node.
+  For example, `--rkt-stage1-image=coreos/rkt/stage1-coreos` chooses the default systemd-nspawn stage1.
+- Setup the pod's annotation `rkt.alpha.kubernetes.io/stage1-name-override` to override the stage1 choice.
+  This enables users to run a standard Linux namespace based containers and lkvm hypervisor based containers together in one cluster.
+  For example, the following pod will be run with the `fly stage1` and let the application (`kubelet` in this case) to run in the host's namespace.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubelet
+  namespace: kube-system
+  labels:
+    k8s-app: kubelet
+  annotations:
+    rkt.alpha.kubernetes.io/stage1-name-override: stage1-fly
+spec:
+  containers:
+  - name: kubelet
+    image: quay.io/coreos/hyperkube:v1.3.0-beta.2_coreos.0
+    command:
+    - kubelet
+    - --api-servers=127.0.0.1:8080
+    - --config=/etc/kubernetes/manifests
+    - --allow-privileged
+    - --kubeconfig=/etc/kubernetes/kubeconfig
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: dev
+      mountPath: /dev
+    - name: run
+      mountPath: /run
+    - name: sys
+      mountPath: /sys
+      readOnly: true
+    - name: etc-kubernetes
+      mountPath: /etc/kubernetes
+      readOnly: true
+    - name: etc-ssl-certs
+      mountPath: /etc/ssl/certs
+      readOnly: true
+    - name: var-lib-kubelet
+      mountPath: /var/lib/kubelet
+  hostNetwork: true
+  volumes:
+  - name: dev
+    hostPath:
+      path: /dev
+  - name: run
+    hostPath:
+      path: /run
+  - name: sys
+    hostPath:
+      path: /sys
+  - name: etc-kubernetes
+    hostPath:
+      path: /etc/kubernetes
+  - name: etc-ssl-certs
+    hostPath:
+      path: /usr/share/ca-certificates
+  - name: var-lib-kubelet
+    hostPath:
+      path: /var/lib/kubelet
+```
+
+##### Notes for using different stage1 image
+
+Setting up the stage1 annotation could potentially gives the pod root privilege, and because of this, the pod is required to set the `privileged` boolean in container's `securityContext` to `true`.
+
+Besides, if you want to the lkvm stage1, we suggest you to use the rkt's own [Contained Network](#use-rkts-contained-networking) mentioned above as the network setup, because today's CNI plugin driver has not fully support hypervisor based container runtime yet.
+
 ### Launch a local cluster
 
 To use rkt as the container runtime, we need to supply the following flags to kubelet:
@@ -93,8 +176,8 @@ If you are using the [hack/local-up-cluster.sh](https://github.com/kubernetes/ku
 
 ```shell
 $ export CONTAINER_RUNTIME=rkt
-$ export RKT_PATH=$PATH_TO_RKT_BINARY
-$ export RKT_STAGE1_IMAGE=$NAME_OF_THE_STAGE1_IMAGE
+$ export RKT_PATH=<rkt_binary_path>
+$ export RKT_STAGE1_IMAGE=<stage1-name>
 ```
 
 Then we can launch the local cluster using the script:
@@ -125,6 +208,12 @@ You can optionally choose the version of rkt used by setting `KUBE_RKT_VERSION`:
 $ export KUBE_RKT_VERSION=1.9.1
 ```
 
+Besides, you can also override the default stage1 image to use by setting `KUBE_RKT_STAGE1_IMAGE`:
+
+```shell
+$ export KUBE_RKT_STAGE1_IMAGE=<stage1-name>
+```
+
 Then you can launch the cluster by:
 
 ```shell
@@ -153,9 +242,8 @@ Here are several tips in case you run into any issues.
 
 ##### Check logs
 
-By default, the log verbose level is 2. In order to see more logs related to rkt, we can set the verbose level to 4.
+By default, the log verbose level is 2. In order to see more logs related to rkt, we can set the verbose level to 4 or above.
 For local cluster, we can set the environment variable: `LOG_LEVEL=4`.
-If the cluster is using salt, we can edit the [logging.sls](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster/saltbase/pillar/logging.sls) in the saltbase.
 
 ##### Check rkt pod status
 
