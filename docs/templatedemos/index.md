@@ -83,13 +83,23 @@ e.g. `docs/your-concept-name/index.md`.
 
 ```liquid{% raw %}
 ---
+objects:
+- list_of_concepts
+- fields_and_tools
+- that_are_the_focus
+concepts:
+- list_of_concepts: 10
+- fields_and_tools: 20
+- that_are_used: 30
+- with_a_sort_order: 15
+advanced: false
 ---
-{% capture concept %}{% endcapture %}
-{% capture what_is %}{% endcapture %}
-{% capture when_to_use %}{% endcapture %}
-{% capture when_not_to_use %}{% endcapture %}
-{% capture status %}{% endcapture %}
-{% capture usage %}{% endcapture %}
+{% capture concept %} concept-name-here {% endcapture %}
+{% capture what_is %} description-of-concept-here {% endcapture %}
+{% capture when_to_use %} when-to-user-here {% endcapture %}
+{% capture when_not_to_use %} anti-patterns-here {% endcapture %}
+{% capture status %} how-to-get-with-kubectl-here {% endcapture %}
+{% capture usage %} yaml-config-usage-here {% endcapture %}
 {% include templates/concept-overview.md %}
 {% endraw %}```
 
@@ -120,7 +130,7 @@ e.g. `docs/tasks/your-task-name`.
 
 ### Adding the Template sections
 
-- tags
+- metadata: structured description of the doc content
 - purpose: one sentence description of the task and motivation
 - recommended_background: List of Concepts referenced or other Tasks, Tutorials that provide needed context
 - set_by_step: Add multiple sections.  1 per step in the task.
@@ -128,10 +138,21 @@ e.g. `docs/tasks/your-task-name`.
 
 ```liquid{% raw %}
 ---
+synopsis: "one sentence description of task."
+objects:
+- list_of_concepts
+- fields_and_tools
+- that_are_the_focus
+concepts:
+- list_of_concepts: 10
+- fields_and_tools: 20
+- that_are_used: 30
+- with_a_sort_order: 15
+advanced: false
 ---
-{% capture purpose %}{% endcapture %}
-{% capture recommended_background %}{% endcapture %}
-{% capture step_by_step %}{% endcapture %}
+{% capture purpose %} task-description-here {% endcapture %}
+{% capture recommended_background %} prereq-reading-here {% endcapture %}
+{% capture step_by_step %} single-step-here {% endcapture %}
 {% include templates/task.md %}
 {% endraw %}```
 
