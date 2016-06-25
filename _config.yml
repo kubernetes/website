@@ -7,10 +7,9 @@ kramdown:
   syntax_highlighter: rouge
 baseurl: /
 incremental: true
-
 safe: false
 lsi: false
-
+array: []
 defaults:
   -
     scope:

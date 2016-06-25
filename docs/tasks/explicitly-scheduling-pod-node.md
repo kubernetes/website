@@ -1,7 +1,14 @@
 ---
-tags:
-- pod
-- node
+object_rankings:
+- object: nodeAffinity
+  rank: 1
+- object: nodeSelector
+  rank: 2
+concept_rankings:
+- concept: node
+  rank: 1
+- concept: pod
+  rank: 1
 ---
 {% capture purpose %}
 This document explains how to ensure that a pod is running on a desired node. 

@@ -1,10 +1,14 @@
 ---
-tags:
-- pod
-- container
-- controller
-related_objects:
-- restartPolicy
+object_rankings:
+- object: restartPolicy
+  rank: 1
+concept_rankings:
+- concept: container
+  rank: 1
+- concept: controller
+  rank: 2
+- concept: pod
+  rank: 2
 ---
 {% capture purpose %}
 This document explains how to configure container restart behavior in your pod in the event of failures.

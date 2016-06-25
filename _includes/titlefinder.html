@@ -1,2 +1,2 @@
-{% for item in tree %}{% if item.section %}{% assign tree = item.section %}{% include titlefinder.html %}{% else %}{% assign prefix = item.path | slice: 0, 4 %}{% if prefix != "http" %}{{item.path}},{{toc.name}},{{item.title}}
-{% endif %}{% endif %}{% endfor %}
+{% for item in tree %}{% if item.section %}{% assign tree = item.section %}{% include titlefinder.html %}{% else %}{% if item.path == page.url %}"t": {{ item.title | jsonify}},
+"s": {{ toc.name | jsonify }},{% break %}{% break %}{% endif %}{% endif %}{% endfor %}

@@ -1,0 +1,11 @@
+---
+---
+{% assign myArray = site.array %}{% for page in site.pages %}{% if page.concept_rankings %}{% assign myArray = myArray | push: page %}{% endif %}{% endfor %}{ "pages":[
+{% for page in myArray %}{
+{% for toc in site.data.globals.tocs %}{% assign tree = site.data[toc.file].toc %}{% include titlefinder.html %}{% endfor %}
+"u":"{{ page.url }}",{% if page.glossary %}
+"g":{{ page.glossary| jsonify }},{% endif %}
+{% if page.object_rankings %}"or":{{ page.object_rankings | jsonify }},{% endif %}
+"cr":{{ page.concept_rankings | jsonify }}
+}{% if forloop.index < forloop.length %},{% endif %}
+{% endfor %}]}

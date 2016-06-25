@@ -1,14 +1,19 @@
 ---
-tags:
-- pod
-- secret
-- container
-- image
-- registry
-related_objects:
-- imagePullSecrets 
+object_rankings:
+- object: imagePullSecrets
+  rank: 1
+concept_rankings:
+- concept: image
+  rank: 1
+- concept: secret
+  rank: 1
+- concept: registry
+  rank: 1
+- concept: container
+  rank: 2
+- concept: pod
+  rank: 2
 ---
-
 {% capture purpose %}
 This document explains how to pull images from a private container registry and run them inside a pod.
 

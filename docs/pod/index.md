@@ -1,6 +1,11 @@
 ---
-tags:
-- pod
+glossary: A pod is the vehicle for running containers in Kubernetes.
+object_rankings:
+- object: pod
+  rank: 1
+concept_rankings:
+- concept: pod
+  rank: 1
 ---
 
 {% assign concept="Pod" %}

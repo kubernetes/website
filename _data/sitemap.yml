@@ -1,0 +1,9 @@
+bigheader: "Sitemap"
+abstract: "Filter by topic or API objects"
+toc:
+- title: Sitemap
+  path: /docs/sitemap/
+- title: Site Metadata (JSON)
+  path: /metadata.txt
+- title: XML Sitemap
+  path: /sitemap.xml
