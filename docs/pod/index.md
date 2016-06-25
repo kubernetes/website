@@ -6,6 +6,11 @@ object_rankings:
 concept_rankings:
 - concept: pod
   rank: 1
+command_rankings:
+- command: kubect describe
+  rank: 1
+- command: kubectl get
+  rank: 1
 ---
 
 {% assign concept="Pod" %}
@@ -33,7 +38,7 @@ Pods are used any time you need a container to be run. However, they are rarely 
 | Deployment | For running pods as a continuous and healthy application |
 | Replication Controller | Used for the same purpose as Deployments (superseded Replication Controllers) |
 | Jobs | For running pods "to completion" (which are then shut down) |
-| Daemon Set | Mainly for performing operations on any nodes that match given parameters | 
+| Daemon Set | Mainly for performing operations on any nodes that match given parameters |
 
 {% endcapture %}
 
@@ -44,9 +49,11 @@ Do not use pods directly. Pods should always be managed by a controller.
 {% capture status %}
 To retrieve the status of a pod, run the following command:
 
-```shell 
+```shell
 kubectl get pod <name>
 ```
+
+#### Possible status results
 
 | Return Value | Description |
 |--------------|-------------|
@@ -56,22 +63,13 @@ kubectl get pod <name>
 TODO: Link to refpage for `kubectl get pod`
 
 
-To get a full description of a pod, including past events, run the following command: 
+To get a full description of a pod, including past events, run the following command:
 
 ```shell
 kubectl describe pod <name>
 ```
 
 TODO: Link to refpage for `kubectl describe pod`
-
-#### Possible status results
-
-| Value | Description |
-|------------|----------------|
-| Deployment | For running pods as a continuous and healthy application |
-| Replication Controller | Used for the same purpose as Deployments (superseded Replication Controllers) |
-| Jobs | For running pods "to completion" (which are then shut down) |
-| Daemon Set | Mainly for performing operations on any nodes that match given parameters | 
 
 {% endcapture %}
 

@@ -5,34 +5,95 @@ var metadata;
 var currentTopics;
 var sortingBy;
 var reverse = true;
-function mainLogic()
-{
-  var tag=window.location.hash.replace("#","");
-  console.log(metadata)
-  if(tag) {
-    if (tag.indexOf("object=" > -1))
-    {
-      tag = tag.replace("object=","");
-      topicsFilter("object",$.trim(tag));
-    }
-    if (tag.indexOf("concept=") > -1)
-    {
-      tag = tag.replace("concept=","");
-      topicsFilter("concept",$.trim(tag));
-    }
-  } else {
-    currentTopics = metadata.pages;
-  }
-  renderTable(currentTopics);
-}
-
+var conceptList;
+var objectList;
+var commandList;
 $( document ).ready(function() {
+  // When the document loads, get the metadata JSON, and kick off tbl render
   $.get("/metadata.txt", function(data, status) {
     metadata = $.parseJSON(data);
     metadata.pages.sort(dynamicSort("t"));
     mainLogic()
   });
 });
+function mainLogic()
+{
+  // If there's a tag filter, change the table/drop down output
+  populateDropdowns();
+  var tag=window.location.hash.replace("#","");
+  console.log(metadata)
+  if(tag) {
+    tag = $.trim(tag);
+    if (tag.indexOf("object=" > -1))
+    {
+      tag = tag.replace("object=","");
+      selectDropDown("o",tag);
+      topicsFilter("object",tag);
+    }
+    if (tag.indexOf("concept=") > -1)
+    {
+      tag = tag.replace("concept=","");
+      selectDropDown("c",tag);
+      topicsFilter("concept",tag);
+    }
+    if (tag.indexOf("command=") > -1)
+    {
+      tag = tag.replace("command=","");
+      selectDropDown("m",tag);
+      topicsFilter("command",tag);
+    }
+  } else {
+    currentTopics = metadata.pages;
+  }
+  renderTable(currentTopics);
+}
+function populateDropdowns()
+{
+  // Keeping mainLogic() brief by functionizing the initialization of the
+  // drop-down filter boxes
+  // Note the parallel ordering between tagName, storedTagsArrays, dropDowns, and metadataArrays
+  // They must be in the same order for this to work:
+  // 1. conceptsList/.cr/conceptFilter
+  // 2. objectList/.or/objectFilter
+  // 3. commandList/.mr/commandFilter
+  var storedTagsArrays = [conceptList, objectList, commandList];
+  var dropDowns = ["#conceptFilter", "#objectFilter", "#commandFilter"];
+  var tagName = ["concept","object","command"];
+  for(i=0;i<metadata.pages.length;i++)
+  {
+    var metadataArrays = [metadata.pages[i].cr,metadata.pages[i].or,metadata.pages[i].mr];
+    for(j=0;j<metadataArrays.length;j++)
+    {
+      if (metadataArrays[j]) {
+        for (k=0;k<metadataArrays[j].length;k++) {
+          if (typeof storedTagsArrays[j] == 'undefined') storedTagsArrays[j] = new Array();
+          storedTagsArrays[j][metadataArrays[j][k][tagName[j]]] = true;
+          console.log("storing " + metadataArrays[j][k][tagName[j]] + " in " + storedTagsArrays[j])
+          // ^ conceptList[metadata.pages[i].cr[k].concept] = true; (if rolling through concepts)
+          // ^ conceptList['container'] = true; (ultimate result)
+          // ^ objectList[metadata.pages[i].or[k].object] = true; (if rolling through objects)
+          // ^ objectList['restartPolicy'] = true; (ultimate result)
+        }
+      }
+    }
+  }
+  var output = new Array();
+  for(i=0;i<dropDowns.length;i++)
+  {
+    output = [];
+    output.push("<select id='" + dropDowns[i] + "DD' onChange='updateSelectedTag(this)'>");
+    output.push("<option>---</option>");
+    Object.keys(storedTagsArrays[i]).forEach(function (key) {
+      output.push("<option>" + key + "</option>");
+    });
+    output.push("</select>")
+    $(dropDowns[i]).html(output.join(""));
+  }
+}
+
+function selectDropDown(type,tag) {
+//
+}
 function dynamicSort(property) {
     var sortOrder = 1;
     if(property[0] === "-") {
@@ -58,6 +119,9 @@ function renderTable(topiclist)
   })
   $(".objectfilter").click(function() {
     topicsFilter("object",$(this).text());
+  })
+  $(".commandfilter").click(function() {
+    topicsFilter("command",$(this).text());
   })
   $(".topicsort").click(function() {
     if (sortingBy == "topics") {
@@ -115,13 +179,22 @@ function topicToTableRow(topic)
       output.push("<a href='/docs/sitemap/#concept=" + topic.cr[i].concept + "' class='conceptfilter'>" + topic.cr[i].concept + "</a>");
     }
   }
-  output.push("<br/>");
   if (topic.or) {
+    output.push("<br/>");
     output.push("Objects: ");
     for(i=0;i<topic.or.length;i++)
     {
       if (i>0) output.push(", ");
       output.push("<a href='/docs/sitemap/#object=" + topic.or[i].object + "' class='objectfilter'>" + topic.or[i].object + "</a>");
+    }
+  }
+  if (topic.mr) {
+    output.push("<br/>");
+    output.push("Commands: ");
+    for(i=0;i<topic.mr.length;i++)
+    {
+      if (i>0) output.push(", ");
+      output.push("<a href='/docs/sitemap/#command=" + topic.mr[i].command + "' class='commandfilter'>" + topic.mr[i].command + "</a>");
     }
   }
   output.push("</td></tr>");
@@ -135,6 +208,7 @@ function topicsFilter(type,tag)
   {
     if(type=="object") var tagsArray = metadata.pages[i].or;
     if(type=="concept") var tagsArray = metadata.pages[i].cr;
+    if(type=="command") var tagsArray = metadata.pages[i].mr;
     if (tagsArray)
     {
       for(n=0;n<tagsArray.length;n++)
@@ -147,8 +221,23 @@ function topicsFilter(type,tag)
   renderTable(currentTopics);
 }
 </script>
+<style>
+#filters select{
+  font-size: 14px;
+  border: 1px #000 solid;
+}
+#filters {
+  padding-top: 20px;
+}
+</style>
 
 Click tags or use the drop downs to filter. Click table headers to sort or reverse sort.
+
+<p id="filters">
+Filter by Concept: <span id="conceptFilter" /><br/>
+Filter by Object: <span id="objectFilter" /><br/>
+Filter by Command: <span id="commandFilter" />
+</p>
 
 <div id="output" />
 
