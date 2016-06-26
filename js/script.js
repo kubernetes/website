@@ -123,7 +123,7 @@ function topicsFilter(type,tag,target,rank)
 {
 	// filter type, filter tag, DOM target for table, and the optional rank filter
 
-  if (tag!="---") window.location.hash = type + "=" + tag;
+  if (tag!="---" && window.location.pathname == "/docs/sitemap/") window.location.hash = type + "=" + tag;
   console.log("topicsFilter=" + type + ":" + tag);
   currentTopics=[];
   for(i=0;i<metadata.pages.length;i++)
