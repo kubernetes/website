@@ -9,6 +9,11 @@ concept_rankings:
   rank: 1
 - concept: pod
   rank: 1
+command_rankings:
+- command: kubectl label
+  rank: 1
+- command: kubectl get
+  rank: 2
 ---
 {% capture purpose %}
 This document explains how to ensure that a pod is running on a desired node. 

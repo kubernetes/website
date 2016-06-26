@@ -1,3 +1,20 @@
+{% if page.glossary %}
+<meta name="description" content="{{ page.glossary }}">
+{% else %}
+{% include templates/_errorthrower.md missing_block='glossary' yaml='true' defaultcode='true' purpose='provides a brief (~140 character) definition of the concept.' %}
+{% endif %}
+
+{% if page.concept_rankings %}{% else %}
+{% include templates/_errorthrower.md missing_block='concept_rankings' tagsblock='true' purpose='provides a list of associated concepts that pertain to this topic.' tagname='concept' tieroneexample='pod' tiertwoexample='container'%}
+{% endif %}
+
+{% if page.object_rankings %}{% else %}
+{% include templates/_errorthrower.md missing_block='object_rankings' tagsblock='true' purpose='provides a list of associated API object that pertain to this topic.' tagname='object' tieroneexample='restartPolicy' tiertwoexample='nodeAffinity'%}
+{% endif %}
+
+{% if page.command_rankings %}{% else %}
+{% include templates/_errorthrower.md missing_block='command_rankings' tagsblock='true' purpose='provides a list of associated CLI commands that pertain to this topic.' tagname='command' tieroneexample='kubectl get' tiertwoexample='kubectl describe'%}
+{% endif %}
 {% if concept %}<!-- check for this before going any further; if not present, skip to else at bottom -->
 
 * TOC
@@ -18,33 +35,33 @@
 
 {% if when_to_use %}
 
-### When to use {{ concept }}s
+### When to use a {{ concept }}
 
 {{ when_to_use }}
 
 {% else %}
 
-{% include templates/_errorthrower.md missing_block='when_to_use' heading='When to use (Concept)' purpose='explains when to use this object.' %}
+{% include templates/_errorthrower.md missing_block='when_to_use' heading='When to use a (Concept)' purpose='explains when to use this object.' %}
 
 {% endif %}
 
 
 {% if when_not_to_use %}
 
-#### When not to use {{ concept }}s
+#### When not to use a {{ concept }}
 
 {{ when_not_to_use }}
 
 {% else %}
 
-{% include templates/_errorthrower.md missing_block='when_not_to_use' heading='When not to use (Concept)' purpose='explains when not to use this object.' %}
+{% include templates/_errorthrower.md missing_block='when_not_to_use' heading='When not to use a (Concept)' purpose='explains when not to use this object.' %}
 
 {% endif %}
 
 
 {% if usage %}
 
-### Usage
+## Basic usage
 
 {{ usage }}
 
@@ -85,7 +102,7 @@ These topics illustrate the more rare, corner use cases for {{ concept }}s.
 
 {% if status %}
 
-### {{ concept }} status
+## Obtaining {{ concept }} status
 
 {{ status }}
 

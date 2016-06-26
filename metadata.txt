@@ -1,6 +1,6 @@
 ---
 ---
-{% assign myArray = site.array %}{% for page in site.pages %}{% if page.concept_rankings %}{% assign myArray = myArray | push: page %}{% endif %}{% endfor %}{ "pages":[
+{% assign myArray = site.array %}{% for page in site.pages %}{% if page.url contains "/templatedemos" %}{% else %}{% if page.concept_rankings %}{% assign myArray = myArray | push: page %}{% endif %}{% endif %}{% endfor %}{ "pages":[
 {% for page in myArray %}{
 {% for toc in site.data.globals.tocs %}{% assign tree = site.data[toc.file].toc %}{% include titlefinder.html %}{% endfor %}
 "u":"{{ page.url }}",{% if page.glossary %}

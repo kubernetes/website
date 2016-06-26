@@ -9,6 +9,12 @@ concept_rankings:
   rank: 2
 - concept: pod
   rank: 2
+- concept: job
+  rank: 1
+- concept: deployment
+  rank: 1
+- concept: daemonset
+  rank: 1
 ---
 {% capture purpose %}
 This document explains how to configure container restart behavior in your pod in the event of failures.

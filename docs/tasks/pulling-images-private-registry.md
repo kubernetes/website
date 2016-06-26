@@ -13,6 +13,9 @@ concept_rankings:
   rank: 2
 - concept: pod
   rank: 2
+command_rankings:
+- command: kubectl create secret
+  rank: 1
 ---
 {% capture purpose %}
 This document explains how to pull images from a private container registry and run them inside a pod.

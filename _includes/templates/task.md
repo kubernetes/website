@@ -1,3 +1,7 @@
+{% if page.concept_rankings %}{% else %}
+{% include templates/_errorthrower.md missing_block='concept_rankings' tagsblock='true' purpose='provides a list of associated concepts that pertain to this topic.' tagname='concept' tieroneexample='pod' tiertwoexample='container'%}
+{% endif %}
+
 {% if purpose %}
 
 ### Purpose
