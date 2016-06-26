@@ -20,10 +20,6 @@ tocs:
   file: samples
   path: /docs/samples/
 - item:
-  name: Building Clusters
-  file: clusters
-  path: /docs/clusters/
-- item:
   name: Sitemap
   file: sitemap
   path: /docs/sitemap/
