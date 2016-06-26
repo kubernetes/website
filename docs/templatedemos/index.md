@@ -1,28 +1,28 @@
 ---
 ---
-<script>
-$(function() {
-    $( "#accordion" ).accordion();
-});
-</script>
 
-# Before you Begin: Get the docs code checked out locally
+* TOC
+{:toc}
+
+## Before you Begin: Get the docs code checked out locally
 
 Check out the kubernetes/kubernetes.github.io repo and the docsv2 branch.
 
 ### Step 1: Fork and Clone the repo
+
 - Fork [kubernetes/kubernetes.github.io](https://github.com/kubernetes/kubernetes.github.io)
 - [Setup your GitHub authentication using ssh](https://help.github.com/articles/generating-an-ssh-key/)
 - Clone the repo under ~/go/src/k8s.io
 
 ```shell
 cd ~/go/src/k8s.io
-git clone git@github.com:<you-github-repo>/kubernetes.github.io
+git clone git@github.com:<your-github-username>/kubernetes.github.io
 cd kubernetes.github.io
 git remote add upstream https://github.com/kubernetes/kubernetes.github.io.git
 ```
 
 ### Step 2: Switch to the docsv2 branch
+
 Docs v2 development is being performed in the `docsv2` branch.  This is the branch
 you want to be working from.
 
@@ -38,9 +38,19 @@ git reset --hard upstream/docsv2
 
 - [Follow the editdocs instructions](http://kubernetes.io/editdocs/)
 
-# Writing Docs Using Templates
+Or, just use Docker! Run this from within your `kubernetes.github.io` directory and you should be good:
 
-## Types of Templates
+```shell
+docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs
+```
+
+The site will then be viewable at [http://localhost:4000/](http://localhost:4000/).
+
+
+## Writing Docs Using Templates
+
+### Types of Templates
+
 - Concept Template
   - Introduce K8s Api Objects e.g. Pod
 - Task Template
@@ -50,19 +60,18 @@ git reset --hard upstream/docsv2
   - Collection of click-able cards on a grid
   - Useful for directing users to actual content from a visual Table of Contents
 
-# Concept Overview Template Details
-<div>{% capture instructions %}
+## Concept Overview Template Details
 
 A concept overview covers the most essential, important information about core
 Kubernetes concepts and features.  Examples of Concepts include `Pod`,
 `Deployment`, `Service`, etc.
 
-## Reference Examples
+### Reference Examples
 
-- [Link to Example Template](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/templatedemos/filledout.md)
-- [Link to Rendered Template](filledout/)
+- [Link to Example Template: Source](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/docsv2/docs/pod/index.md)
+- [Link to Example Template: Rendered](http://k8sdocs.github.io/docs/pod/)
 
-## Usage
+### Usage
 
 ### Creating the file
 
@@ -70,9 +79,12 @@ To create a new concept overview page, create a new directory with the concept
 name under the docs directory and an index.md file.
 e.g. `docs/your-concept-name/index.md`.
 
+### Adding the page to navigation
+
+Once your page is saved, somewhere in the `/docs/` directory, add a reference to the `concepts.yml` file under `/_data/` so that it will appear in the left-hand navigation of the site. This is also where you add a title to the page.
+
 ### Adding the Template sections
 
-- tags
 - concept: the concept name e.g. Pod
 - what_is: one sentence description the function / role  of the concept.  Diagrams are helpful.
 - when_to_use: disambiguate when to use this vs alternatives
@@ -81,52 +93,65 @@ e.g. `docs/your-concept-name/index.md`.
 - usage: example yaml
 - template: include the template at the end
 
+### Tags structure
+
+- `object_rankings:` associates the page with API objects/functions.
+- `concept_rankings:` associates the page with Kubernetes concepts.
+- `command_rankings:` associates the page with CLI commands
+
+In each case, the association is ranked. If ranked "1," the topic will surface as a "Core Topic" (of high importance) on various associated pages. If ranked "2," the topic will be grouped under "Advanced Topics," which are deemed less essential.
+
+Only ranks 1 and 2 are supported.
+
+Tags are mandatory and should be thorough; they are the connective tissue of the site. To see them in action, [visit our sitemap](http://k8sdocs.github.io/docs/sitemap/).
+
+
 ```liquid{% raw %}
 ---
-objects:
-- list_of_concepts
-- fields_and_tools
-- that_are_the_focus
-concepts:
-- list_of_concepts: 10
-- fields_and_tools: 20
-- that_are_used: 30
-- with_a_sort_order: 15
-advanced: false
+glossary: A pod is the vehicle for running containers in Kubernetes.
+object_rankings:
+- object: pod
+  rank: 1
+concept_rankings:
+- concept: pod
+  rank: 1
+command_rankings:
+- command: kubect describe
+  rank: 1
+- command: kubectl get
+  rank: 1
 ---
 {% capture concept %} concept-name-here {% endcapture %}
 {% capture what_is %} description-of-concept-here {% endcapture %}
-{% capture when_to_use %} when-to-user-here {% endcapture %}
+{% capture when_to_use %} when-to-use-here {% endcapture %}
 {% capture when_not_to_use %} anti-patterns-here {% endcapture %}
 {% capture status %} how-to-get-with-kubectl-here {% endcapture %}
 {% capture usage %} yaml-config-usage-here {% endcapture %}
 {% include templates/concept-overview.md %}
 {% endraw %}```
 
-### Adding the page to navigation
 
-Once your page is saved, somewhere in the `/docs/` directory, add a reference to the `concepts.yml` file under `/_data/` so that it will appear in the left-hand navigation of the site. This is also where you add a title to the page.
-
-{% endcapture %}
-{{ instructions | markdownify }}
-
-</div>
-
-# Task Template Details
-<div>{% capture instructions %}
+## Task Template Details
 
 A task page offers step-by-step instructions for completing a task with Kubernetes. **A task page should be narrowly focused on task completion and not delve into concepts or reference information.**
 
-## Example
-- [Link to Example Template](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/templatedemos/task.md)
-- [Link to Rendered Page](task/)
+### Example
+
+- [Link to Example Template: Source](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/docsv2/docs/tasks/explicitly-scheduling-pod-node.md)
+- [Link to Example Template: Rendered](http://k8sdocs.github.io/docs/tasks/explicitly-scheduling-pod-node/)
 
 ### Usage
 
-## Creating the file
+### Creating the file
 
 To create a new task page, create a file under docs/tasks/task-name.
 e.g. `docs/tasks/your-task-name`.
+
+Task filenames should match the title, chaining words with dashes in all lowercase, omitting articles and prepositions. For example, the topic "Explictly Scheduling a Pod on a Node" is stored in file `/docs/tasks/explicitly-scheduling-pod-node.md`.
+
+### Adding the page to navigation
+
+Add a reference to the `tasks.yml` file under `/_data/` so that it will appear in the left-hand navigation of the site. This is also where you add a title to the page.
 
 ### Adding the Template sections
 
@@ -136,19 +161,36 @@ e.g. `docs/tasks/your-task-name`.
 - set_by_step: Add multiple sections.  1 per step in the task.
 - template: include the template at the end
 
+### Tags structure
+
+- `object_rankings:` associates the page with API objects/functions.
+- `concept_rankings:` associates the page with Kubernetes concepts.
+- `command_rankings:` associates the page with CLI commands
+
+In each case, the association is ranked. If ranked "1," the topic will surface as a "Core Topic" (of high importance) on various associated pages. If ranked "2," the topic will be grouped under "Advanced Topics," which are deemed less essential.
+
+Only ranks 1 and 2 are supported.
+
+Tags are mandatory and should be thorough; they are the connective tissue of the site. To see them in action, [visit our sitemap](http://k8sdocs.github.io/docs/sitemap/).
+
+
 ```liquid{% raw %}
 ---
-synopsis: "one sentence description of task."
-objects:
-- list_of_concepts
-- fields_and_tools
-- that_are_the_focus
-concepts:
-- list_of_concepts: 10
-- fields_and_tools: 20
-- that_are_used: 30
-- with_a_sort_order: 15
-advanced: false
+object_rankings:
+- object: nodeAffinity
+  rank: 1
+- object: nodeSelector
+  rank: 2
+concept_rankings:
+- concept: node
+  rank: 1
+- concept: pod
+  rank: 1
+command_rankings:
+- command: kubectl label
+  rank: 1
+- command: kubectl get
+  rank: 2
 ---
 {% capture purpose %} task-description-here {% endcapture %}
 {% capture recommended_background %} prereq-reading-here {% endcapture %}
@@ -156,17 +198,8 @@ advanced: false
 {% include templates/task.md %}
 {% endraw %}```
 
-### Adding the page to navigation
 
-Add a reference to the `tasks.yml` file under `/_data/` so that it will appear in the left-hand navigation of the site. This is also where you add a title to the page.
-
-{% endcapture %}
-{{ instructions | markdownify }}
-
-</div>
-
-# Landing Pages
-<div>{% capture instructions %}
+## Landing Pages
 
 Landing pages are a set of clickable "cards" arranged in a grid. Each card has a heading and description, and optioninall, a thumbnail image. They are meant to be index pages that quickly forward users on to deeper content.
 
@@ -196,27 +229,16 @@ cards:
 
 Once your page is saved, somewhere in the `/docs/` directory, add a reference to the appropriate .yml file under `/_data/` so that it will appear in the left-hand navigation of the site. This is also where you add a title to the page.
 
-{% endcapture %}
-{{ instructions | markdownify }}
 
-</div>
+## kubectl yaml
 
-
-# kubectl yaml
-<div>{% capture instructions %}
 You probably shouldn't be using this, but we also have templates which consume YAML files that are generated by the Kubernetes authors. These are turned into pages which display the reference information for the various CLI tools.
 
 ### Demos
 
-- [Link to Example Template](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/templatedemos/kubectl.md)
-- [Link to Rendered Template](kubectl/)
+- [Link to Example Template](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/docsv2/docs/kubectl/kubectl_api-versions.md)
+- [Link to Rendered Template](http://k8sdocs.github.io/docs/kubectl/kubectl_api-versions/)
 
 ### Adding page to navigation
 
-Once your page is saved, somewhere in the `/docs/` directory, add a reference to the `concepts.yml` file under `/_data/` so that it will appear in the left-hand navigation of the site. This is also where you add a title to the page.
-
-{% endcapture %}
-{{ instructions | markdownify }}
-
-</div>
-</div>
+Once your page is saved, somewhere in the `/docs/` directory, add a reference to the `reference.yml` file under `/_data/` so that it will appear in the left-hand navigation of the site. This is also where you add a title to the page.
