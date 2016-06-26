@@ -56,90 +56,32 @@
 
 
 <script language="JavaScript">
-
-var tagEntries;
-var topics;
-var topicsReady = false;
-var tagsReady = false;
-
-function populateArrays()
-{
-  $.get("/tags.txt", function(data, status) {
-    var lines = data.split("\n");
-    var line;
-    for(i=0;i<lines.length;i++) {
-      if (lines[i].length > 0) {
-        line = lines[i].split(",");
-        if (typeof tagEntries == 'undefined') tagEntries = new Array();
-        if (typeof tagEntries[line[0]] == 'undefined') tagEntries[line[0]] = new Array();
-        if (typeof tagEntries[line[0]].topics == 'undefined') tagEntries[line[0]].topics = new Array();
-        tagEntries[line[0]].topics.push(line[1]);
-        //console.log(line[0] + " mapped to " + line[1]);
-        // console.log(tagEntries[line[0]].topics)
-      }
-    }
-    tagsReady = true;
-    if (tagsReady && topicsReady) mainLogic()
+$( document ).ready(function() {
+  // When the document loads, get the metadata JSON, and kick off tbl render
+  $.get("/metadata.txt", function(data, status) {
+    metadata = $.parseJSON(data);
+    metadata.pages.sort(dynamicSort("t"));
+    mainLogic();
   });
-
-  $.get("/titles.txt", function(data, status) {
-    var lines = data.split("\n");
-    var line;
-    for(i=0;i<lines.length;i++) {
-      if (lines[i].length > 0) {
-        line = lines[i].split(",");
-        if (typeof topics == 'undefined') topics = new Array();
-        if (typeof topics[line[0]] == 'undefined') topics[line[0]] = new Array();
-        topics[line[0]].section = line[1];
-        topics[line[0]].title = line[2];
-        //console.log(line[0] + " mapped to " + line[1]);
-      }
-    }
-    topicsReady = true;
-    if (tagsReady && topicsReady) mainLogic()
-  });
-}
-
-function updateSelectedTag() {
-  window.location.href = "/docs/tagviewer/#" + $("#tags :selected").text();
-  populateTaggedTopicsTable($("#tags :selected").text());
-}
-
-function populateTaggedTopicsTable(tag)
-{
-    var result = new Array();
-    var dropDown = new Array();
-    console.log("selected tag: " + tag);
-
-    if (typeof tagEntries[tag] != 'undefined') {
-      if (tagEntries[tag].topics.length > 0) {
-        result.push("<ul>")
-        for (i=0;i<tagEntries[tag].topics.length;i++) {
-          if (topics[tagEntries[tag].topics[i]].section == "Tasks") {
-              result.push("<li><a href='" + tagEntries[tag].topics[i] + "'>" + topics[tagEntries[tag].topics[i]].title + "</a></li>")
-          }
-        }
-        result.push("</ul>")
-      }
-      $("#topicList").html(result.join(""));
-      $("#currentTag").text(tag);
-    }
-}
-
+});
 function mainLogic()
 {
-  populateTaggedTopicsTable('{{ concept | downcase }}');
+  topicsFilter("concept","pod","coretopics",1);
+  topicsFilter("concept","pod","advancedtopics",2);
 }
-
-$( document ).ready(function() {
-  populateArrays();
-});
 </script>
 
-### Tasks
+## Core Topics
 
-<div id="topicList" />
+These topics illustrate the core use cases for {{ concept }}s.
 
+<div id="coretopics" />
+
+### Advanced Topics
+
+These topics illustrate the more rare, corner use cases for {{ concept }}s.
+
+<div id="advancedtopics" />
 
 {% if status %}
 
