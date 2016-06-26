@@ -16,23 +16,13 @@ function mainLogic()
   var tag=window.location.hash.replace("#","");
   if(tag) {
     tag = $.trim(tag);
-    if (tag.indexOf("object=" > -1))
-    {
-      tag = tag.replace("object=","");
-      selectDropDown("object",tag);
-      topicsFilter("object",tag,"output");
-    }
-    if (tag.indexOf("concept=") > -1)
-    {
-      tag = tag.replace("concept=","");
-      selectDropDown("concept",tag);
-      topicsFilter("concept",tag,"output");
-    }
-    if (tag.indexOf("command=") > -1)
-    {
-      tag = tag.replace("command=","");
-      selectDropDown("command",tag);
-      topicsFilter("command",tag,"output");
+    for (i=0;i<tagName.length;i++) {
+      if (tag.indexOf(tagName[i] + "=" > -1))
+      {
+        tag = tag.replace(tagName[i] + "=","");
+        selectDropDown(tagName[i],tag);
+        topicsFilter(tagName[i],tag,"output");
+      }
     }
   } else {
     currentTopics = metadata.pages;

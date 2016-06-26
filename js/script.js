@@ -24,7 +24,7 @@ var commandList;
 var storedTagsArrays = [conceptList, objectList, commandList];
 var dropDowns = ["#conceptFilter", "#objectFilter", "#commandFilter"];
 var tagName = ["concept","object","command"];
-function renderTable(topiclist,target)
+function renderTable(topiclist,target,rank)
 {
   var output = new Array();
   output.push("<table><thead><tr><th><a class='topicsort'><u style='cursor: pointer; cursor: hand;'>Topic</u></a></th><th><a class='sectionsort'><u style='cursor: pointer; cursor: hand;'>Section</u></a></th><th>Tags</th></tr></thead><tbody>");
@@ -34,13 +34,13 @@ function renderTable(topiclist,target)
   output.push("</tbody></table>");
   $("#" + target).html(output.join(""));
   $(".conceptfilter").click(function() {
-    topicsFilter("concept",$(this).text());
+    topicsFilter("concept",$(this).text(),target,rank);
   })
   $(".objectfilter").click(function() {
-    topicsFilter("object",$(this).text());
+    topicsFilter("object",$(this).text(),target,rank);
   })
   $(".commandfilter").click(function() {
-    topicsFilter("command",$(this).text());
+    topicsFilter("command",$(this).text(),target,rank);
   })
   $(".topicsort").click(function() {
     if (sortingBy == "topics") {
@@ -56,7 +56,7 @@ function renderTable(topiclist,target)
       currentTopics.sort(dynamicSort('t'));
       reverse = false;
     }
-    renderTable(currentTopics,target);
+    renderTable(currentTopics,target,rank);
     sortingBy = "topics";
   })
   $(".sectionsort").click(function() {
@@ -73,7 +73,7 @@ function renderTable(topiclist,target)
       currentTopics.sort(dynamicSort('s'));
       reverse = false;
     }
-    renderTable(currentTopics,taret);
+    renderTable(currentTopics,target,rank);
     sortingBy = "section";
   })
 }
@@ -124,6 +124,17 @@ function topicsFilter(type,tag,target,rank)
 	// filter type, filter tag, DOM target for table, and the optional rank filter
 
   if (tag!="---" && window.location.pathname == "/docs/sitemap/") window.location.hash = type + "=" + tag;
+  if (window.location.pathname == "/docs/sitemap/") {
+  	for (i=0;i<tagName.length;i++) {
+      {
+      	if (type==tagName[i]) {
+        	selectDropDown(tagName[i],tag);
+        } else {
+        	selectDropDown(tagName[i],"---");
+        }
+      }
+    }
+  }
   console.log("topicsFilter=" + type + ":" + tag);
   currentTopics=[];
   for(i=0;i<metadata.pages.length;i++)
@@ -149,7 +160,7 @@ function topicsFilter(type,tag,target,rank)
     }
   }
   if (currentTopics.length==0) currentTopics = metadata.pages;
-  renderTable(currentTopics,target);
+  renderTable(currentTopics,target,rank);
 }
 function dynamicSort(property) {
     var sortOrder = 1;
