@@ -1,25 +1,31 @@
 ---
 ---
 <script language="JavaScript">
+var dropDownsPopulated = false;
 $( document ).ready(function() {
   // When the document loads, get the metadata JSON, and kick off tbl render
   $.get("/metadata.txt", function(data, status) {
     metadata = $.parseJSON(data);
     metadata.pages.sort(dynamicSort("t"));
     mainLogic()
+    $(window).bind( 'hashchange', function(e) {
+      mainLogic();
+    });
   });
 });
 function mainLogic()
 {
   // If there's a tag filter, change the table/drop down output
-  populateDropdowns();
+  if (!dropDownsPopulated) populateDropdowns();
   var tag=window.location.hash.replace("#","");
   if(tag) {
     tag = $.trim(tag);
     for (i=0;i<tagName.length;i++) {
-      if (tag.indexOf(tagName[i] + "=" > -1))
+      querystringTag = tagName[i] + "=";
+      if (tag.indexOf(querystringTag) > -1)
       {
-        tag = tag.replace(tagName[i] + "=","");
+        console.log("in mainLog: querystringTag of " + querystringTag + " matches tag of " + tag);
+        tag = tag.replace(querystringTag,"");
         selectDropDown(tagName[i],tag);
         topicsFilter(tagName[i],tag,"output");
       }
@@ -28,6 +34,7 @@ function mainLogic()
     currentTopics = metadata.pages;
   }
   renderTable(currentTopics,"output");
+
 }
 function populateDropdowns()
 {
@@ -65,6 +72,7 @@ function populateDropdowns()
     output.push("</select>")
     $(dropDowns[i]).html(output.join(""));
   }
+  dropDownsPopulated = true;
 }
 function dropFilter(srcobj)
 {
@@ -72,7 +80,7 @@ function dropFilter(srcobj)
   // the ID of the drop down is either command, object, or concept
   // these exact values are what topicsFilter() expects, plus a filter val
   // which we get from .text() of :selected
-  console.log($(srcobj).attr('id') + ":" + $(srcobj).find(":selected").text());
+  console.log("dropFilter:" + $(srcobj).attr('id') + ":" + $(srcobj).find(":selected").text());
   topicsFilter($(srcobj).attr('id').replace("#",""),$(srcobj).find(":selected").text(),"output");
   for(i=0;i<tagName.length;i++)
   {
