@@ -34,11 +34,11 @@ git fetch upstream
 git reset --hard upstream/docsv2
 ```
 
-### Step 3: Make sure you can serve rendered docs locally from your dev box
+### Step 3: Make sure you can serve rendered docs 
 
-- [Follow the editdocs instructions](http://kubernetes.io/editdocs/)
+One option is to simply rename your fork's repo on GitHub.com to `yourusername.github.io`, which will auto-stage your commits at that URL. 
 
-Or, just use Docker! Run this from within your `kubernetes.github.io` directory and you should be good:
+Or, just use Docker! Run this from within your local `kubernetes.github.io` directory and you should be good:
 
 ```shell
 docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs
@@ -46,6 +46,7 @@ docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs
 
 The site will then be viewable at [http://localhost:4000/](http://localhost:4000/).
 
+Or, you can [follow the instructions](/editdocs/) for running a from-scratch staging server, which is both the most performant option and the biggest pain to get set up.
 
 ## Writing Docs Using Templates
 
@@ -95,6 +96,7 @@ Once your page is saved, somewhere in the `/docs/` directory, add a reference to
 
 ### Tags structure
 
+- `glossary:` a brief (~140 character) definition of what this concept is.
 - `object_rankings:` associates the page with API objects/functions.
 - `concept_rankings:` associates the page with Kubernetes concepts.
 - `command_rankings:` associates the page with CLI commands
