@@ -88,12 +88,12 @@ Please see the contents of these files for documentation regarding each variable
 
 ## Starting a cluster
 
-Once you've installed the OpenStack CLI tools and have set your OpenStack environment variables, issue this command:
+Once Kubernetes version 1.3 is released, and you've installed the OpenStack CLI tools and have set your OpenStack environment variables, issue this command:
 
 ```sh
 export KUBERNETES_PROVIDER=openstack-heat; curl -sS https://get.k8s.io | bash
 ```
-Alternatively, you can download a [Kubernetes release](https://github.com/kubernetes/kubernetes/releases) and extract the archive. To start your cluster, open a shell and run:
+Alternatively, you can download a [Kubernetes release](https://github.com/kubernetes/kubernetes/releases) of version 1.3 or higher and extract the archive. To start your cluster, open a shell and run:
 
 ```sh
 cd kubernetes # Or whichever path you have extracted the release to
