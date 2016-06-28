@@ -4,7 +4,7 @@
 When several users or teams share a cluster with a fixed number of nodes,
 there is a concern that one team could use more than its fair share of resources.
 
-Resource quotas are a tool for administrators to address this concern. Resource quotas
+Resource quotas are a tool for administrators to address this concern. Resource Quotas
 work like this:
 
 - Different teams work in different namespaces.  Currently this is voluntary, but
