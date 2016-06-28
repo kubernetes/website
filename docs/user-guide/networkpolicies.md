@@ -46,7 +46,7 @@ kubectl annotate ns <namespace> "net.beta.kubernetes.io/networkpolicy={\"ingress
 
 ## The `NetworkPolicy` Resource
 
-See the [api-reference](docs/api-reference/extensions/v1beta1/definitions/#_v1beta1_networkpolicy) for a full definition of the resource.
+See the [api-reference](/docs/api-reference/extensions/v1beta1/definitions/#_v1beta1_networkpolicy) for a full definition of the resource.
 
 A minimal `NetworkPolicy` might look like this:
 
