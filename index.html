@@ -1,5 +1,5 @@
 ---
-title: Production-Grade Container Orchestration
+title: Enterprise Workload Management
 ---
 
 <!Doctype html>
@@ -11,151 +11,60 @@ title: Production-Grade Container Orchestration
 <section id="hero" class="light-text">
 	<main>
 		<div id="headlineWrapper">
-			<h1>Production-Grade Container Orchestration</h1>
-			<h5>Automated container deployment, scaling, and management</h5>
+			<h1>Cloud Load Control</h1>
+			<h5>Enterprise Workload Management</h5>
 		</div>
 		<a href="/docs/hellonode/" id="quickstartButton" class="button">Try Our Hello World</a>
 	</main>
-	<!--<div id="vendorStrip" class="light-text">-->
-		<!--<img src="images/logos/viacom_logo.png">-->
-		<!--<img src="images/logos/soundcloud_logo.png">-->
-		<!--<img src="images/logos/redhat_logo.png">-->
-		<!--<img src="images/logos/wepay_logo.png">-->
-		<!--<img src="images/logos/verizon_logo.png">-->
-	<!--</div>--> 
 </section>
 
 <!--  OCEAN NODES  -->
 <section id="oceanNodes">
 	<main>
-		<div class="image-wrapper"><img src="images/flower.png"></div>
+		<div class="image-wrapper"><img src="images/flower.png">
+		</div>
 		<div class="content">
-			<h3><a href="docs/whatisk8s">Kubernetes</a> is an open-source system for automating deployment, scaling, and management of containerized applications.</h3>
-			<p>It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds
-            upon <a href="http://queue.acm.org/detail.cfm?id=2898444">15 years of experience of running production workloads at Google</a>,
-            combined with best-of-breed ideas and practices from the community.</p>
+			<h3>
+				<a href="/docs/whatisk8s">Cloud Load Control</a> lorem ipsum dolor sit amet,
+				consectetur adipiscing elit.
+			</h3>
+			<p>
+				Mauris pharetra dignissim arcu nec tincidunt. Etiam sed placerat ex, ac sodales
+				magna. Vestibulum faucibus mi nec felis pulvinar rhoncus. Nam ut felis sit amet
+				massa malesuada pretium non et ante. Sed a volutpat lacus. Sed accumsan vulputate
+				mauris gravida tempor. Duis id molestie dolor. Duis varius, mauris eu fermentum
+				fermentum, nibh nisl sagittis elit, vel vehicula felis tellus sit amet dolor.
+			</p>
 		</div>
 	</main>
+	<img style="display:block;margin:auto;padding-bottom:36px;" src="images/features.png">
 	<main>
 		<div class="image-wrapper"><img src="images/scalable.png"></div>
 		<div class="content">
-			<h4>Planet Scale</h4>
-			<p>Designed on the same principles that allows Google to run billions of containers a week, Kubernetes can scale without increasing your ops team.</p>
+			<h4>Curabitur lacinia</h4>
+			<p>
+				Etiam eu velit at ipsum suscipit elementum. Pellentesque vel fermentum turpis. In
+				sit amet nisl vel orci pulvinar facilisis eu non tortor. Nam ut euismod erat, a
+				congue lectus. Etiam viverra dictum dolor sit amet molestie. Suspendisse eu
+				turpis ut velit egestas lacinia vel eu ante.
+			</p>
 		</div>
 	</main>
 	<main>
 		<div class="image-wrapper"><img src="images/blocks.png"></div>
 		<div class="content">
-			<h4>Never Outgrow</h4>
-			<p>Whether testing locally or running a global enterprise, Kubernetes flexibility grows with you to deliver your applications consistently and easily no matter how complex your need is.</p>
-		</div>
-	</main>
-	<main>
-		<div class="image-wrapper"><img src="images/suitcase.png"></div>
-		<div class="content">
-			<h4>Run Anywhere</h4>
-			<p>Kubernetes is open source giving you the freedom to take advantage of on-premise, hybrid, or public cloud infrastructure, letting you effortlessly move workloads to where it matters to you.</p>
-		</div>
-	</main>
-</section>
-
-<section id="video">
-	<div class="light-text">
-		<h2>A technical overview<br>of Kubernetes</h2>
-		<p>Brendan Burns, Software Engineer and a founder of Kubernetes at Google, gives a technical overview of Kubernetes in this
-        30-minute presentation from CoreOS Fest.</p>
-		<button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
-	</div>
-	<button id="mobileShowVideoButton" onclick="kub.showVideo()"></button>
-</section>
-
-<section id="features">
-	<main>
-		<h3 class="center">Kubernetes Features</h3>
-
-		<div class="feature-box">
-			<div>
-				<h4><a href="/docs/user-guide/compute-resources/">Automatic binpacking</a></h4>
-				<p>Automatically places containers based on their resource requirements and other constraints, while not
-					sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.</p>
-			</div>
-			<div>
-				<h4><a href="/docs/user-guide/replication-controller/#what-is-a-replication-controller">Self-healing</a></h4>
-				<p>Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers
-					that don’t respond to your user-defined health check, and doesn’t advertise them to clients until they are ready to serve.</p>
-			</div>
-		</div>
-
-		<div class="feature-box">
-			<div>
-				<h4><a href="/docs/user-guide/horizontal-pod-autoscaling/">Horizontal scaling</a></h4>
-				<p>Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.</p>
-			</div>
-			<div>
-				<h4><a href="/docs/user-guide/services/">Service discovery and load balancing</a></h4>
-				<p>No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives
-					containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.</p>
-			</div>
-		</div>
-
-		<div class="feature-box">
-			<div>
-				<h4><a href="/docs/user-guide/deployments/#what-is-a-deployment">Automated rollouts and rollbacks</a></h4>
-				<p>Kubernetes progressively rolls out changes to your application or its configuration, while monitoring
-					application health to ensure it doesn’t kill all your instances at the same time. If something goes
-					wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.</p>
-			</div>
-			<div>
-				<h4><a href="/docs/user-guide/secrets/">Secret</a> and <a href="/docs/user-guide/configmap/">configuration</a> management</h4>
-				<p>Deploy and update secrets and application configuration without rebuilding your image and without
-					exposing secrets in your stack configuration.</p>
-			</div>
-		</div>
-        
-		<div class="feature-box">
-			<div>
-				<h4><a href="/docs/user-guide/persistent-volumes/">Storage orchestration</a></h4>
-				<p>Automatically mount the storage system of your choice, whether from local storage, a public cloud provider
-                such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="http://media.amazonwebservices.com/AWS_Storage_Options.pdf">AWS</a>, or a network storage system such as NFS, iSCSI,
-                Gluster, Ceph, Cinder, or Flocker.</p>
-			</div>
-			<div>
-				<h4><a href="/docs/user-guide/jobs/">Batch execution</a></h4>
-				<p>In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.</p>
-			</div>
-		</div>
-
-	</main>
-</section>
-
-<section id="talkToUs">
-	<main>
-		<h3>Case Studies</h3>
-		<div id="bigSocial">
-			<div>
-				<a href="https://youtu.be/OLwzSHBtxhI">Watch the video</a>
-				<p>Creating Next Generation Kubernetes Infrastructure at Viacom</p>
-			</div>
-			<div>
-				<a href="http://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/">Read the story</a>
-				<p>Inside eBay’s shift to Kubernetes and containers atop OpenStack</p>
-			</div>
-			<div>
-				<a href="https://www.youtube.com/watch?v=6XGUTu3WhBw">Watch the video</a>
-				<p>Migrating from a homegrown ‘cluster’ to Kubernetes</p>
-			</div>
+			<h4>Morbi bibendum</h4>
+			<p>
+				Vivamus quis faucibus leo. Pellentesque volutpat interdum nunc vitae efficitur.
+				Maecenas vitae ligula vitae lectus venenatis facilisis. Etiam id sapien lorem.
+				Phasellus in justo laoreet, varius velit nec, ornare sapien. Integer at rhoncus
+				magna, ac pharetra nulla. Maecenas ut congue est.
+			</p>
 		</div>
 	</main>
 </section>
-
 
 {% include footer.html %}
-
-
-<div id="videoPlayer">
-	<iframe data-url="https://www.youtube.com/embed/WwBdNXt6wO4?autoplay=1" frameborder="0" allowfullscreen></iframe>
-	<button id="closeButton"></button>
-</div>
 
 <style>
 	.cse .gsc-control-cse, .gsc-control-cse {

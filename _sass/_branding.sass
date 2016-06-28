@@ -1,0 +1,37 @@
+@import "reset"
+
+$primary: #ec1d24
+$primary-dark: darken($primary, 15)
+$secondary: #fff
+
+#home, #docs
+
+	#hero
+		background-color: $primary
+
+		#vendorStrip
+			background-color: $primary-dark
+
+			#search
+				&::-webkit-input-placeholder
+					color: $secondary
+
+	.logo
+		background-image: url(/images/nav_logo.svg)
+		width: 128px
+		margin-top: -4px
+
+	.button
+		background-color: $secondary
+		border: none
+		color: $primary
+
+	a:not(.button)
+		color: $primary
+
+	footer
+		background-color: $primary
+
+	.light-text
+		a:not(.button)
+			color: $secondary
