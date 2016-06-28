@@ -82,6 +82,12 @@ Guide to running an HA etcd cluster with a single master on Azure. Uses the Azur
 
 Configure a single master, single worker cluster on VMware ESXi.
 
+<hr/>
+
+[**Single/Multi-node cluster using cloud-config, CoreOS and Foreman**](https://github.com/johscheuer/theforeman-coreos-kubernetes)
+
+Configure a standalone Kubernetes or a Kubernetes cluster with [Foreman](https://theforeman.org).
+
 ## Support Level
 
 
