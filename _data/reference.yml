@@ -226,7 +226,7 @@ toc:
     path: /docs/user-guide/replicasets/
   - title: Pet Sets
     path: /docs/user-guide/petset/
-  - title: NetworkPolicy Resources 
+  - title: Network Policies 
     path: /docs/user-guide/networkpolicies/
 
 - title: Kubernetes Design Docs
