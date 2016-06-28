@@ -25,13 +25,15 @@ Complete API details are documented using [Swagger v1.2](http://swagger.io/). Th
 
 We also host a version of the [latest API documentation UI](http://kubernetes.io/kubernetes/third_party/swagger-ui/). This is updated with the latest release, so if you are using a different version of Kubernetes you will want to use the spec from your apiserver.
 
+Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
+
 ## API versioning
 
 To make it easier to eliminate fields or restructure resource representations, Kubernetes supports
 multiple API versions, each at a different API path, such as `/api/v1` or
 `/apis/extensions/v1beta1`.
 
-We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-lifed and/or experimental APIs.
+We chose to version at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-lifed and/or experimental APIs. The JSON and Protobuf serialization schemas follow the same guidelines for schema changes - all descriptions below cover both formats.
 
 Note that API versioning and Software versioning are only indirectly related.  The [API and release
 versioning proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/versioning.md) describes the relationship between API versioning and
