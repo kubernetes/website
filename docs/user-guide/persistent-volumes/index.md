@@ -14,7 +14,7 @@ A `PersistentVolume` (PV) is a piece of networked storage in the cluster that ha
 
 A `PersistentVolumeClaim` (PVC) is a request for storage by a user.  It is similar to a pod.  Pods consume node resources and PVCs consume PV resources.  Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g, can be mounted once read/write or many times read-only).
 
-Please see the [detailed walkthrough with working examples](/docs/user-guide/persistent-volumes/).
+Please see the [detailed walkthrough with working examples](/docs/user-guide/persistent-volumes/walkthrough/).
 
 
 ## Lifecycle of a volume and claim
