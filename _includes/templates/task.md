@@ -52,8 +52,14 @@ $( document ).ready(function() {
   // When the document loads, get the metadata JSON, and kick off tbl render
   $.get("/metadata.txt", function(data, status) {
     metadata = $.parseJSON(data);
-    showTags("tagoutput");
+    mainLogic();
   });
 });
+function mainLogic()
+{
+  topicsFilter("concept","pod","coretopics",1);
+  topicsFilter("concept","pod","advancedtopics",2);
+  showTags();
+}
 </script>
 {% include tagfooter.md %}
