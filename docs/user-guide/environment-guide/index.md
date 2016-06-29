@@ -22,10 +22,30 @@ for your platform.
 
 ## Optional: Build your own containers
 
-The code for the containers is under
-[containers/](/docs/user-guide/containers/)
+The code and build instructions for the containers are shown 
+[here](/docs/user-guide/environment-guide/containers/)
 
 ## Get everything running
+
+First grab the replication controllers and services definitions.
+
+For the backend containers:
+
+{% include code.html language="yaml" file="backend-rc.yaml" ghlink="/docs/user-guide/environment-guide/backend-rc.yaml" %}
+
+And its service:
+
+{% include code.html language="yaml" file="backend-srv.yaml" ghlink="/docs/user-guide/environment-guide/backend-srv.yaml" %}
+
+For the show containers:
+
+{% include code.html language="yaml" file="show-rc.yaml" ghlink="/docs/user-guide/environment-guide/show-rc.yaml" %}
+
+And it service:
+
+{% include code.html language="yaml" file="show-srv.yaml" ghlink="/docs/user-guide/environment-guide/show-srv.yaml" %}
+
+You are then ready to create them with the `kubectl` CLI.
 
 ```shell
 kubectl create -f ./backend-rc.yaml
