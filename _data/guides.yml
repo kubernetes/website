@@ -245,6 +245,8 @@ toc:
     path: /docs/admin/cluster-components/
   - title: Configuring Kubernetes Use of etcd
     path: /docs/admin/etcd/
+  - title: Federating Clusters
+    path: /docs/admin/federation/
   - title: Using Multiple Clusters
     path: /docs/admin/multi-cluster/
   - title: Changing Cluster Size
