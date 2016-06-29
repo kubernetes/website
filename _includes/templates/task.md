@@ -4,7 +4,7 @@
 
 {% if purpose %}
 
-### Purpose
+## Purpose
 
 {{ purpose }}
 
@@ -16,7 +16,7 @@
 
 {% if recommended_background %}
 
-### Recommended background
+## Recommended background
 
 {{ recommended_background }}
 
@@ -29,13 +29,21 @@
 
 {% if step_by_step %}
 
-### Step by step
+## Step by step
 
 {{ step_by_step }}
 
 {% else %}
 
 {% include templates/_errorthrower.md missing_block='step_by_step' heading='Step by step' purpose='lists a series of linear, numbered steps that accomplish the described task.' %}
+
+{% endif %}
+
+{% if options_and_considerations %}
+
+## Options and considerations
+
+{{ options_and_considerations }}
 
 {% endif %}
 
