@@ -95,8 +95,12 @@ toc:
     path: /docs/user-guide/production-pods/
   - title: Commands and Capabilities
     path: /docs/user-guide/containers/
-  - title: Using Environment Variables
-    path: /docs/user-guide/environment-guide/
+  - title: Accessing Environment Variables
+    section:
+    - title: Using Environment Variables 
+      path: /docs/user-guide/environment-guide/
+    - title: Building the Example Containers
+      path: /docs/user-guide/environment-guide/containers/
   - title: Managing Compute Resources
     path: /docs/user-guide/compute-resources/
   - title: The Lifecycle of a Pod
