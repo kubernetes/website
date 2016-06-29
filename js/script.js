@@ -24,6 +24,32 @@ var commandList;
 var storedTagsArrays = [conceptList, objectList, commandList];
 var dropDowns = ["#conceptFilter", "#objectFilter", "#commandFilter"];
 var tagName = ["concept","object","command"];
+
+function showTags()
+{
+  var output = new Array();
+  for(i=0;n<metadata.pages.length;i++)
+  {
+    if(metadata.pages[i].u == window.location.pathname)
+    {
+      for (n=0;n<tagName.length;n++)
+      {
+        if(tagName[n]=="object") var tagsArray = metadata.pages[i].or;
+        if(tagName[n]=="concept") var tagsArray = metadata.pages[i].cr;
+        if(tagName[n]=="command") var tagsArray = metadata.pages[i].mr;
+        var output = [];
+        output.push("<br/><b style='text-transform:capitalize'>" + tagName[n] + "s</b>: ");
+        for (j=0;j<tagsArray.length;j++)
+        {
+          output.push("<a href='/docs/sitemap/#" + tagName[n] + "=" + tagsArray[j][tagName[n]] + "'>" + tagsArray[j][tagName[n]] + "");
+          if (j < (tagsArray.length - 1)) output.push(", ");
+        }
+        $("#tagoutput").append(output.join(""));
+      }
+    }
+  }
+}
+
 function renderTable(topiclist,target,rank)
 {
   var output = new Array();

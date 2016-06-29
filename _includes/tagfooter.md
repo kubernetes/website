@@ -1,8 +1,5 @@
-{% if page.tags %}
 ## Tags
 
-Click on the following tags to see other pages relating to these topics:
+This page was tagged as pertaining to the following:
 
-{% for tag in page.tags %}- [{{tag}}](/docs/tagviewer/#{{tag}})
-{% endfor %}
-{% endif %}
+<div id="tagoutput" />

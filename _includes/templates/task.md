@@ -47,4 +47,13 @@
 
 {% endif %}
 
+<script language="JavaScript">
+$( document ).ready(function() {
+  // When the document loads, get the metadata JSON, and kick off tbl render
+  $.get("/metadata.txt", function(data, status) {
+    metadata = $.parseJSON(data);
+    showTags("tagoutput");
+  });
+});
+</script>
 {% include tagfooter.md %}

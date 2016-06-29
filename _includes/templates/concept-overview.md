@@ -85,6 +85,7 @@ function mainLogic()
 {
   topicsFilter("concept","pod","coretopics",1);
   topicsFilter("concept","pod","advancedtopics",2);
+  showTags();
 }
 </script>
 
@@ -133,3 +134,4 @@ Complete this task, then we'll walk you through preparing the rest of the docume
 
 {% endif %}
 
+{% include tagfooter.md %}
