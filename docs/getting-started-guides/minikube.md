@@ -55,6 +55,51 @@ Minikube requires one of the following:
 
 See the [latest Minikube release](https://github.com/kubernetes/minikube/releases) for installation instructions.
 
+### Download `kubectl`
+
+You will need to download the kubectl client binary for `${K8S_VERSION}` (in this example: `{{page.version}}.0`)
+to run commands against the cluster.
+
+Downloads:
+
+ - `linux/amd64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl
+ - `linux/386`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/386/kubectl
+ - `linux/arm`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm/kubectl
+ - `linux/arm64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm64/kubectl
+ - `linux/ppc64le`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/ppc64le/kubectl
+ - `OS X/amd64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/amd64/kubectl
+ - `OS X/386`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/386/kubectl
+ - `windows/amd64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/windows/amd64/kubectl.exe
+ - `windows/386`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/windows/386/kubectl.exe
+
+The generic download path is:
+```
+http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/${GOOS}/${GOARCH}/${K8S_BINARY}
+```
+
+An example install with `linux/amd64`:
+
+```
+curl -sSL "http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl" > /usr/bin/kubectl
+chmod +x /usr/bin/kubectl
+```
+
+On OS X, to make the API server accessible locally, setup a ssh tunnel.
+
+```shell
+docker-machine ssh `docker-machine active` -N -L 8080:localhost:8080
+```
+
+Setting up a ssh tunnel is applicable to remote docker hosts as well.
+
+(Optional) Create kubernetes cluster configuration:
+
+```shell
+kubectl config set-cluster minikube --server=http://localhost:8080
+kubectl config set-context minikube --cluster=test-doc
+kubectl config use-context minikube
+```
+
 ### Starting the cluster
 
 To start a cluster, run the command:
