@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: readiness-http
+spec:
+  containers:
+  - name: readiness
+    image: gcr.io/google_containers/nginx:1.7.9
+    readinessProbe: # This is the important part
+      httpGet: # This defines the http Get
+        path: / # Probes are sent to the Pod IP
+        port: 80

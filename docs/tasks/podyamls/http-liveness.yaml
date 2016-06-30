@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: liveness-http
+spec:
+  containers:
+  - name: liveness
+    image: gcr.io/google_containers/liveness
+    args:
+    - /server
+    livenessProbe: # This is the important part
+      httpGet: # This defines the http Get
+        path: /healthz # Probes are sent to the Pod IP
+        port: 8080
+      initialDelaySeconds: 30 # Number of seconds to wait before starting checks
+      timeoutSeconds: 1 # Number of seconds before timing out any check

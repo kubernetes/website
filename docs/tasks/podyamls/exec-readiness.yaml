@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: readiness-exec
+spec:
+  containers:
+  - name: readiness
+    args:
+    - /bin/sh
+    - -c
+    - sleep 60; echo ok > /tmp/health;
+    image: gcr.io/google_containers/busybox
+    readinessProbe: # This is the important part
+      exec: # This defines the exec command
+        command: # This is the command + argv executed to check Readiness
+        - cat
+        - /tmp/health
