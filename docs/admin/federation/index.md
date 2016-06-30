@@ -86,8 +86,9 @@ Running `federation-up.sh` also creates a new record in our kubeconfig for us
 to be able to talk to federation apiserver. We can view this by running
 `kubectl config view`.
 
-Note: `federation-up.sh` creates the federation-apiserver pod with an etcd container that is not backed by any
-persistent volume, so it is possible to lose data. You can edit
+Note: `federation-up.sh` creates the federation-apiserver pod with an etcd
+container that is backed by a persistent volume, so as to persist data. This
+currently works only on AWS, GKE, and GCE.  You can edit
 `federation/manifests/federation-apiserver-deployment.yaml` to suit your needs,
 if required.
 
