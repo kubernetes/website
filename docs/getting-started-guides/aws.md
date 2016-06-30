@@ -7,11 +7,13 @@
 ## Prerequisites
 
 1. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
-2. Install and configure [AWS Command Line Interface](http://aws.amazon.com/cli)
-3. You need an AWS [instance profile and role](http://docs.aws.amazon.com/IAM/latest/UserGuide/instance-profiles.html) with EC2 full access.
+2. Install the [AWS Command Line Interface](http://aws.amazon.com/cli)
+3. [Configure the AWS Command Line tool](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) with your AWS account credentials.
 
-NOTE: This script use the 'default' AWS profile by default.
-You may explicitly set AWS profile to use using the `AWS_DEFAULT_PROFILE` environment variable:
+You should check that, for example, `aws ec2 describe-regions` works.
+
+NOTE: This script use the 'default' AWS CLI profile by default.
+You may explicitly set AWS CLI profile to use using the `AWS_DEFAULT_PROFILE` environment variable:
 
 ```shell
 export AWS_DEFAULT_PROFILE=myawsprofile
@@ -28,16 +30,15 @@ export KUBERNETES_PROVIDER=aws; wget -q -O - https://get.k8s.io | bash
 export KUBERNETES_PROVIDER=aws; curl -sS https://get.k8s.io | bash
 ```
 
-NOTE: This script calls [cluster/kube-up.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/kube-up.sh)
-which in turn calls [cluster/aws/util.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/aws/util.sh)
-using [cluster/aws/config-default.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/aws/config-default.sh).
+This script downloads a pre-built Kubernetes distribution, and then calls [cluster/kube-up.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/kube-up.sh) to install the cluster.
 
-This process takes about 5 to 10 minutes. Once the cluster is up, the IP addresses of your master and node(s) will be printed,
+The installation process takes about 5 to 10 minutes. Once the cluster is up, the IP addresses of your master and node(s) will be printed,
 as well as information about the default services running in the cluster (monitoring, logging, dns). User credentials and security
-tokens are written in `~/.kube/config`, they will be necessary to use the CLI or the HTTP Basic Auth.
+tokens are written in `~/.kube/config`, they will be necessary to use the kubectl CLI or HTTP Basic Auth.
 
-By default, the script will provision a new VPC and a 4 node k8s cluster in us-west-2a (Oregon) with EC2 instances running on Ubuntu.
-You can override the variables defined in [config-default.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/aws/config-default.sh) to change this behavior as follows:
+By default, the script will provision a new VPC and a 4 node k8s cluster in us-west-2a (Oregon) with EC2 instances running on Debian Jessie.
+
+You can change the default behaviour, by exporting variables before running the installation script.  The default values are defined in [config-default.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/aws/config-default.sh).  For example, you might do:
 
 ```shell
 export KUBE_AWS_ZONE=eu-west-1c
@@ -62,7 +63,7 @@ version 1.2 these default are:
   for clusters between 50 and 150 nodes it will use a `t2.small` and for
   clusters with greater than 150 nodes it will use a `t2.medium`.
 
-WARNING: beware that `t2` instances receive a limited number of CPU credits per hour and might not be suitable for clusters where the CPU is used
+WARNING: be aware that `t2` instances receive a limited number of CPU credits per hour and might not be suitable for clusters where the CPU is used
 consistently. As a rough estimation, consider 15 pods/node the absolute limit a `t2.large` instance can handle before it starts exhausting its CPU credits
 steadily, although this number depends heavily on the usage.
 
@@ -88,10 +89,10 @@ instance storage, you may want to increase the `NODE_ROOT_DISK_SIZE` value,
 although the default value of 32 is probably sufficient for the smaller
 instance types in the m4 family.
 
-The script will also try to create or reuse a keypair called "kubernetes", and IAM profiles called "kubernetes-master" and "kubernetes-minion".
+The script will also try to create a keypair from the private key in `~/.ssh/kube_aws_rsa`, and IAM profiles called "kubernetes-master" and "kubernetes-minion".
 If these already exist, make sure you want them to be used here.
 
-NOTE: If using an existing keypair named "kubernetes" then you must set the `AWS_SSH_KEY` key to point to your private key.
+NOTE: If you want to use an existing SSH key, then set the `AWS_SSH_KEY` environment variable to point to your private key.
 
 ### Alternatives
 
@@ -116,7 +117,7 @@ export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 
 An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl/kubectl)
 
-By default, `kubectl` will use the `kubeconfig` file generated during the cluster startup for authenticating against the API.
+By default, `kubectl` will use the the configuration file generated during the cluster startup for authenticating against the API, located in `~/.kube/config`.
 For more information, please read [kubeconfig files](/docs/user-guide/kubeconfig-file)
 
 ### Examples
