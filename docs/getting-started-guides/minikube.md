@@ -84,22 +84,6 @@ curl -sSL "http://storage.googleapis.com/kubernetes-release/release/{{page.versi
 chmod +x /usr/bin/kubectl
 ```
 
-On OS X, to make the API server accessible locally, setup a ssh tunnel.
-
-```shell
-docker-machine ssh `docker-machine active` -N -L 8080:localhost:8080
-```
-
-Setting up a ssh tunnel is applicable to remote docker hosts as well.
-
-(Optional) Create kubernetes cluster configuration:
-
-```shell
-kubectl config set-cluster minikube --server=http://localhost:8080
-kubectl config set-context minikube --cluster=test-doc
-kubectl config use-context minikube
-```
-
 ### Starting the cluster
 
 To start a cluster, run the command:
