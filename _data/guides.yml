@@ -1,8 +1,25 @@
 bigheader: "Guides"
-abstract: "How to get started, and achieve tasks, using Kubernetes"
+abstract: "How to get started, and achieve tasks, using Cloud Load Control"
 toc:
 - title: Guides
   path: /docs/
+
+- title: CLC Overview
+  section:
+  - title: What is Cloud Load Control?
+    path: /docs/clc-overview/intro/
+  - title: Cluster Management
+    path: /docs/clc-overview/cluster-mgmt/
+  - title: Cluster Orchestration
+    path: /docs/clc-overview/cluster-orchestration/
+  - title: Related Web References
+    path: /docs/clc-overview/related-web-references/
+
+- title: CLC PDF Manuals
+  path: /docs/clc-pdf-manuals/clc-pdfs/
+
+- title: CLC Overview - Generated out of XML sources with DitaWorks
+  path: /docs/clc-overview-html/overview/
 
 - title: Getting Started
   section:

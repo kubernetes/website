@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-us" lang="en-us">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="(C) Copyright 2005" />
+<meta name="DC.rights.owner" content="(C) Copyright 2005" />
+<meta content="concept" name="DC.Type" />
+<meta name="DC.Title" content="Interaction of Components and Users" />
+<meta scheme="URI" name="DC.Relation" content="../../overview/chapter-1/c-intro.htm" />
+<meta name="prodname" content="ServerView" />
+<meta content="1.1" name="version" />
+<meta name="brand" content="FUJITSU Software" />
+<meta name="component" content="" />
+<meta name="prognum" content="Cloud Load Control V1.1" />
+<meta name="series" content="Overview" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="UsageScenario" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../commonltr.css" type="text/css" rel="stylesheet" />
+<link href="../../book.css" type="text/css" rel="stylesheet" />
+<title>Interaction of Components and Users</title>
+</head>
+<body id="UsageScenario">
+
+
+    <h1 class="topictitle1">Interaction of Components and Users</h1>
+
+    <div>
+        <div class="section">
+            <p>The following picture shows how the <span>CLC</span> components and users interact with each other: </p>
+
+            <div class="p"><div class="fignone">
+                <img height="345" src="../../images/components2.png" width="339" alt="components2.png" /><br />
+            </div>
+</div>
+
+            <div class="p"><div class="fignone">
+                    <img src="../../images/components2.png" width="594" height="604" alt="components2.png" /><br />
+                </div>
+</div>
+
+            <div class="p">
+                                <ol>
+                                        <li>The OpenStack operator installs <span>CLC</span> on top of OpenStack. The OpenStack operator can use an automated setup or follow manual step-by-step instructions as provided in the <em>Installation Guide</em>.<p>In addition, for a stand-alone evaluation of <span>CLC</span>, a setup based on Vagrant is provided. With this setup, a DevStack-based OpenStack environment is created, and <span>CLC</span> is automatically installed on top of it. If you want to try this installation, please contact your Fujitsu Support organization.</p>
+</li>
+
+                                        <li>The installation process automatically sets up the <strong>Cluster Management</strong> component which provides all artefacts and tools required for provisioning a cluster. Cluster Management utilizes the resources provided by the underlying OpenStack platform. <p>Cluster Management comprises a <strong>Cluster Management UI</strong> and Cluster Provisioning which integrates seamlessly with the OpenStack dashboard (<a href="http://docs.openstack.org/developer/horizon/" target="_blank"><u>Horizon</u></a>). It extends the dashboard with a panel for cluster management. </p>
+
+                    </li>
+
+                                        <li>The Cluster operator uses the Cluster Management UI for creating and deleting clusters, as well as getting an overview of all existing clusters and their current state. <p><strong>Cluster Provisioning</strong> is triggered when the cluster operator requests the creation of a new cluster. The operator provides the required information, for example, number of nodes to be provisioned, or access keys in the Cluster Management UI.</p>
+</li>
+
+                                        <li>Based on the input values, instructions for provisioning the cluster are created and passed to the <strong>OpenStack Orchestration</strong> (<strong>Heat</strong>) system. Heat is responsible for the actual creation of the resources (for example, VMs, volumes, etc.) as well as the installation and configuration of the<strong> Cluster Orchestration</strong> (Kubernetes) on top of the created resources.</li>
+
+                                        <li>The cluster operator uses the command-line interface (<strong>CLI</strong>) of the Cluster Orchestration for maintenance and troubleshooting purposes, as well as for retrieving the usage of the underlying resources, such as CPU and memory. </li>
+
+                                        <li>The cluster user deploys the actual workloads into the Docker containers using the CLI of the Cluster Orchestration.</li>
+
+                                </ol>
+
+                        </div>
+
+        </div>
+
+    </div>
+
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../../overview/chapter-1/c-intro.htm">What is Cloud Load Control?</a></div>
+</div>
+</div>
+
+</body>
+</html>

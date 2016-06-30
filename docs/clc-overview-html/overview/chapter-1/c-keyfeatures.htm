@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-us" lang="en-us">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="(C) Copyright 2005" />
+<meta name="DC.rights.owner" content="(C) Copyright 2005" />
+<meta content="concept" name="DC.Type" />
+<meta name="DC.Title" content="Key Features" />
+<meta scheme="URI" name="DC.Relation" content="../../overview/chapter-1/c-intro.htm" />
+<meta name="prodname" content="ServerView" />
+<meta content="1.1" name="version" />
+<meta name="brand" content="FUJITSU Software" />
+<meta name="component" content="" />
+<meta name="prognum" content="Cloud Load Control V1.1" />
+<meta name="series" content="Overview" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="KeyFeatures" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../commonltr.css" type="text/css" rel="stylesheet" />
+<link href="../../book.css" type="text/css" rel="stylesheet" />
+<title>Key Features</title>
+</head>
+<body id="KeyFeatures">
+
+
+    <h1 class="topictitle1">Key Features</h1>
+
+    <div>
+        <div class="section">
+            <p>The key features of <span>CLC</span> are:  </p>
+
+            <div class="p">
+                <ul>
+                    <li>Integration of container technology and cluster orchestration</li>
+
+                    <li>Automated provisioning and setup of clusters on top of OpenStack </li>
+
+                    <li>Seamless integration in OpenStack dashboard</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="section"><h4 class="sectiontitle">Integration of Container Technology and Cluster Orchestration</h4>
+            
+            <p>Container technology provides for the decoupling of applications from infrastructure, as well as the independence in where an application is deployed. This separation leads to increased efficiency and reliability, in particular to faster and more frequent application deployments. Workloads become mobile and can be shifted quickly between execution environments. This helps to maintain agility and control cost. </p>
+
+            <p>Containers are a layer of abstraction and automation on top of operating-system-level virtualization. OS-level virtualization is a server virtualization method where the kernel of an operating system allows for multiple isolated user space instances, instead of just one. Such an instance is called container. Multiple isolated containers can run on a single host, using their own process and network space. The deployment of applications inside software containers can easily be automated, and identical runtime conditions for applications on any type of machine can be ensured. Containers and virtual machines (VMs) share many similarities but are fundamentally different because of the architecture. Containers run as lightweight processes within a host OS, whereas VMs depend on a hypervisor to emulate the architecture. Since there is no hypervisor involved, containers are faster, more efficient, and easier to manage.</p>
+
+            <p><span>CLC</span> integrates Kubernetes into preassembled base images the nodes of a cluster. Kubernetes works in conjunction with Docker containers. Docker containers automate the deployment of applications inside software containers. Kubernetes is a cluster manager that can manage containerized applications across multiple hosts. It aggregates cluster resources into one large virtual machine, and provides basic mechanisms for deployment, maintenance, and scaling of applications. With <span>CLC</span>, Docker containers are automatically dispatched to cluster nodes. </p>
+
+            <p>While Docker provides the lifecycle management of containers, Kubernetes takes it to the next level by allowing for orchestration, managing clusters of containers, automating scaling and failover, and providing means of container interconnection.</p>
+
+            <p>For details, refer to <a href="../chapter-3/c-clusterorchestration.htm">Cluster Orchestration</a>.</p>
+
+        </div>
+
+        <div class="section"><h4 class="sectiontitle">Automated Provisioning and Setup of Clusters</h4>
+            
+            <p><span>CLC</span> provides an integrated, tested package including all components required to set up and operate a cluster. Cluster nodes are powered by CentOS Atomic Host, a light weight Linux operating system optimized to run containers. <span>CLC</span> provides preassembled nodes, which automate the provisioning of clusters: The node image contains a ready-to-use Docker integration on CentOS.</p>
+
+            <p>For details, refer to <a href="../chapter-2/c-clustermgmt.htm">Cluster Management</a>.</p>
+
+        </div>
+
+        <div class="section"><h4 class="sectiontitle">Seamless Integration with the OpenStack Dashboard</h4>
+            
+            <p><span>CLC</span> is fully integrated with OpenStack  and extends the OpenStack dashboard (Horizon) with an additional panel. A cluster operator can use this panel for requesting the automatic setup, provisioning, or deprovisioning of a cluster. </p>
+
+            <p>For details, refer to <a href="../chapter-2/c-clustermgmt.htm">Cluster Management</a>.</p>
+
+        </div>
+
+    </div>
+
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../../overview/chapter-1/c-intro.htm">What is Cloud Load Control?</a></div>
+</div>
+</div>
+
+</body>
+</html>
