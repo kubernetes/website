@@ -108,7 +108,7 @@ In the CLI, the access modes are abbreviated to:
 > __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
 
 
-|                      | ReadWriteOnce| ReadOnlyMany| ReadWriteMany|
+| Volume Plugin        | ReadWriteOnce| ReadOnlyMany| ReadWriteMany|
 | :---                 |     :---:    |    :---:    |    :---:     |
 | AWSElasticBlockStore | x            | -           | -            |
 | AzureFile            | x            | x           | x            |
