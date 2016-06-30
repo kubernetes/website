@@ -1,0 +1,149 @@
+P.Code {
+	display: block;
+	text-align: left;
+	text-indent: 0.00pt;
+	margin-top: 0.000000pt;
+	margin-bottom: 0.000000pt;
+	margin-right: 0.000000pt;
+	margin-left: 15pt;
+	font-size: 10.000000pt;
+	font-weight: medium;
+	font-style: Regular;
+	color: #4444CC;
+	text-decoration: none;
+	vertical-align: baseline;
+	text-transform: none;
+	font-family: "Courier New";
+}
+H6.CaptionFigColumn {
+	display: block;
+	text-align: left;
+	text-indent: 0.000000pt;
+	margin-top: 3.000000pt;
+	margin-bottom: 11.000000pt;
+	margin-right: 0.000000pt;
+	margin-left: 0.000000pt;
+	font-size: 9.000000pt;
+	font-weight: medium;
+	font-style: Italic;
+	color: #000000;
+	text-decoration: none;
+	vertical-align: baseline;
+	text-transform: none;
+	font-family: "Segoe UI", Roboto, Helvetica, Arial;
+}
+
+P.Note {
+	display: block;
+	text-align: left;
+	text-indent: 0pt;
+	margin-top: 19.500000pt;
+	margin-bottom: 19.500000pt;
+	margin-right: 0.000000pt;
+	margin-left: 30pt;
+	font-size: 11.000000pt;
+	font-weight: medium;
+	font-style: Italic;
+	color: #000000;
+	text-decoration: none;
+	vertical-align: baseline;
+	text-transform: none;
+	font-family: "Segoe UI", Roboto, Helvetica, Arial;
+}
+EM.UILabel {
+	font-weight: Bold;
+	font-style: Regular;
+	text-decoration: none;
+	vertical-align: baseline;
+	text-transform: none;
+}
+EM.CodeName {
+	font-weight: Bold;
+	font-style: Regular;
+	text-decoration: none;
+	vertical-align: baseline;
+	text-transform: none;
+	font-family:"Courier New";
+}
+
+
+
+
+/* following font face declarations need to be removed for DBCS */
+
+body, h1, h2, h3, h4, h5, h6, p, table, td, caption, th, ul, ol, dl, li, dd, dt {font-family: "Segoe UI", Roboto, Helvetica, Arial; color: #3c3c3c}
+pre				{ font-family: Courier, monospace}
+
+/* end font face declarations */
+
+/* following font size declarations should be OK for DBCS */
+body, h1, h2, h3, h4, h5, h6, p, table, td, caption, th, ul, ol, dl, li, dd, dt {font-size: 10pt; }
+pre				{ font-size: 10pt}
+
+/* end font size declarations */
+
+
+/* ---------------------- */
+/* Fujitsu Changes Here */
+
+html{
+	height: 100%;
+	background: #b1b1b1;
+}
+
+body{
+	min-height: -webkit-calc(100% - 40px);
+	min-height: calc(100% - 40px);
+	background: #FFFFFF; 
+	margin: 20px; 
+	padding: 20px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	line-height: 1.5;
+}
+
+.h1>p>img{
+	width: 100%;
+}
+
+.codeblock{
+	background: #EEE;
+	margin: 0;
+	padding: 20px;
+	font-family: Consolas, Monaco, Courier, monospace
+}
+
+/* ---------------------- */
+
+h1           { font-size: 18pt; margin-top: 5; margin-bottom: 1 }	
+h2           { font-size: 14pt; margin-top: 25; margin-bottom: 3 }
+h3           { font-size: 11pt; margin-top: 20; margin-bottom: 3 }
+h4           { font-size: 14pt; margin-top: 25; margin-bottom: 3}
+p            { margin-top: 10px; margin-bottom: 10px }
+pre	     { margin-left: 6; font-size: 9pt }
+a:link	     { color: #000088; margin-top: 10px; margin-bottom: 10px; font-size:9pt }
+a:hover	     { color: #000080 }
+a:visited    { text-decoration: underline }
+ul	     { margin-top: 0; margin-bottom: 10 }
+li	     { margin-top: 0; margin-bottom: 0 } 
+li p	     { margin-top: 0; margin-bottom: 0 } 
+ol	     { margin-top: 0; margin-bottom: 10 }
+dl	     { margin-top: 0; margin-bottom: 10 }
+dt	     { margin-top: 0; margin-bottom: 0; font-weight: bold }
+dd	     { margin-top: 0; margin-bottom: 0 }
+strong	{ font-weight: bold}
+em	     { font-style: italic}
+var	     { font-style: italic}
+.uicontrol { font-weight: bold}
+.note   	{ font-style: italic}
+.notetitle 	{ font-weight: bold}
+table{
+	width: 100%;
+}
+
+div.revision { border-left-style: solid; border-left-width: thin; 
+				   border-left-color: #7B68EE; padding-left:5 }
+div.linklist { font-size: 12pt}
+div 		{ font-size: 10pt;  margin-top: 10; margin-bottom: 10 }
+
+th	     	{ font-weight: bold }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-us" lang="en-us">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="(C) Copyright 2005" />
+<meta name="DC.rights.owner" content="(C) Copyright 2005" />
+<meta content="concept" name="DC.Type" />
+<meta name="DC.Title" content="Cluster Orchestration" />
+<meta name="prodname" content="ServerView" />
+<meta content="1.1" name="version" />
+<meta name="brand" content="FUJITSU Software" />
+<meta name="component" content="" />
+<meta name="prognum" content="Cloud Load Control V1.1" />
+<meta name="series" content="Overview" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="ClusterOrchestration" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../commonltr.css" type="text/css" rel="stylesheet" />
+<link href="../../book.css" type="text/css" rel="stylesheet" />
+<title>Cluster Orchestration</title>
+</head>
+<body id="ClusterOrchestration">
+
+
+    <h1 class="topictitle1">Cluster Orchestration</h1>
+
+    <div>
+        <div class="section">
+            <p>Cluster Orchestration is the core of <span>CLC</span>. It utilizes <a href="http://kubernetes.io/" target="_blank"><u>Kubernetes</u></a>, an open source project initiated by Google and developed by a large open source community. Below you find a description of the basic Kubernetes concepts. </p>
+
+        </div>
+
+        <div class="section"><h4 class="sectiontitle">Master Server</h4>
+            
+            <p>The controlling unit in a Kubernetes cluster is called the master server. It serves as the main management contact point for administrators, and provides many cluster-wide services for the node servers. </p>
+
+            <p>The master server runs a number of unique services that are used to manage the cluster's workload and direct communication across the system. </p>
+
+        </div>
+
+        <div class="section"><h4 class="sectiontitle">Node Server</h4>
+            
+            <p>In Kubernetes, servers that perform work are called nodes or node servers. Node servers communicate with the master server, configure the networking for containers, and run the actual workloads assigned to them.</p>
+
+            <p>Each individual node server is used to run <a href="http://docs.docker.com/installation/windows/" target="_blank"><u>Docker</u></a>. The Docker service allows for running encapsulated application containers in a relatively isolated but lightweight operating environment. Each unit of work, at its basic level, is implemented as a series of containers that must be deployed.</p>
+
+            <p>In order to make services available to external parties, a proxy service runs on each node server. This service forwards requests to the correct containers, can do primitive load balancing, and is generally responsible for ensuring that the networking environment is predictable and accessible, but isolated.</p>
+
+        </div>
+
+        <div class="section"><h4 class="sectiontitle">Kubernetes Workloads</h4>
+            
+            <p>While containers are used to deploy applications, the workloads that define each type of work are specific to Kubernetes. Kubernetes applies the following concepts: </p>
+
+            <div class="p">
+                <ul>
+                    <li><strong>Clusters</strong> are the compute resources on top of which the containers are build. </li>
+
+                    <li><strong>Pods</strong> are a collocated group of Docker containers with shared volumes. They are the smallest deployable units that can be created, scheduled, and managed by the Cluster Orchestration. Pods can be created individually, but the usage of replication controllers is recommended. </li>
+
+                    <li><strong>Replication controllers</strong> manage the lifecycle of pods. They ensure that a specific number of pods are running at a given time by creating or killing pods as required.</li>
+
+                    <li><strong>Services</strong> provide a single, stable name and address for a set of pods. They act as basic load balancers. </li>
+
+                    <li><strong>Labels</strong> are used to organize and select groups of objects based on key-value pairs. </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="section"><h4 class="sectiontitle">Kubernetes Interface</h4>
+            
+            <p>Interaction with Kubernetes is possible via a command line interface (CLI). The cluster user deploys and manages workloads on the cluster with it. The cluster operator uses it for maintenance and troubleshooting purposes, as well as for retrieving the status of a cluster and its resources. Via the CLI, the operator can also access the logical components of a cluster, such as services or replication controllers. </p>
+
+            <p>
+                
+            </p>
+
+        </div>
+
+    </div>
+
+
+</body>
+</html>

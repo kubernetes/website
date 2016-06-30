@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en-us" lang="en-us">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="(C) Copyright 2005" />
+<meta name="DC.rights.owner" content="(C) Copyright 2005" />
+<meta content="concept" name="DC.Type" />
+<meta name="DC.Title" content="Components" />
+<meta scheme="URI" name="DC.Relation" content="../../overview/chapter-1/c-intro.htm" />
+<meta name="prodname" content="ServerView" />
+<meta content="1.1" name="version" />
+<meta name="brand" content="FUJITSU Software" />
+<meta name="component" content="" />
+<meta name="prognum" content="Cloud Load Control V1.1" />
+<meta name="series" content="Overview" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="Components" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../commonltr.css" type="text/css" rel="stylesheet" />
+<link href="../../book.css" type="text/css" rel="stylesheet" />
+<title>Components</title>
+</head>
+<body id="Components">
+
+
+    <h1 class="topictitle1">Components</h1>
+
+    <div>
+        <div class="section">
+            <p>The following illustration provides an overview of the <span>CLC</span> components as well as their integration with the underlying platform. </p>
+
+            <div class="p">
+                <div class="fignone">
+                    <img src="../../images/product-structure.png" width="283" height="133" alt="product_structure.png" /><br />
+                </div>
+</div>
+
+            <div class="p">
+                <div class="fignone">
+                    <img src="../../images/product-structure.png" width="311" height="148" alt="product-structure.png" /><br />
+                </div>
+</div>
+
+            
+        </div>
+
+        <div class="section"><h4 class="sectiontitle">OpenStack</h4>
+            
+            <p><strong>OpenStack</strong> is the underlying platform technology of <span>CLC</span>. OpenStack is a cloud operating system that controls large pools of compute, storage, and networking resources throughout a datacenter, all managed through a dashboard that gives administrators control while empowering their users to provision resources through a web interface. OpenStack allows for the deployment and management of Infrastructure as a Service (IaaS) platforms.</p>
+
+            <p>For details, refer to the <a href="http://www.openstack.org/" target="_blank"><u>OpenStack</u></a> documentation.</p>
+
+        </div>
+
+        <div class="section"><h4 class="sectiontitle">Cluster Management</h4>
+            
+            <p>Cluster Management integrates closely with OpenStack. It consists of: </p>
+
+            <div class="p">
+                <ul>
+                    <li><strong>Cluster Provisioning</strong>: Provides the functionality to automatically provision clusters based on resources provided by OpenStack and the subsequent setup of the Cluster Orchestration.</li>
+
+                    <li><strong>Cluster Management UI</strong>: Graphical user interface integrated in the OpenStack dashboard for the cluster operator to request the automatic setup of a cluster, and to manage clusters on an infrastructure level. </li>
+
+                </ul>
+
+            </div>
+
+            <p>For details, refer to <a href="../chapter-2/c-clustermgmt.htm">Cluster Management</a>.</p>
+
+        </div>
+
+        <div class="section"><h4 class="sectiontitle">Cluster Orchestration</h4>
+            
+            <p><strong>Cluster Orchestration</strong> based on Kubernetes is mostly independent from the underlying platform. It is the core of <span>CLC</span>.</p>
+
+            <p>The command-line interface (<strong>CLI</strong>) is used for maintenance and troubleshooting purposes, as well as for deploying workloads to the cluster nodes. In addition the status of a cluster can be retrieved so that optimizing cluster utilization is facilitated. </p>
+
+            <p>For details, refer to <a href="../chapter-3/c-clusterorchestration.htm">Cluster Orchestration</a>. </p>
+
+        </div>
+
+    </div>
+
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../../overview/chapter-1/c-intro.htm">What is Cloud Load Control?</a></div>
+</div>
+</div>
+
+</body>
+</html>
