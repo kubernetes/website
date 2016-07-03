@@ -37,7 +37,7 @@ Created [https://www.googleapis.com/compute/v1/projects/kubernetes-satnam/region
 +++ Logging using Fluentd to elasticsearch
 ```
 
-The node level Fluentd collector pods and the Elasticsearech pods used to ingest cluster logs and the pod for the Kibana
+The node level Fluentd collector pods and the Elasticsearch pods used to ingest cluster logs and the pod for the Kibana
 viewer should be running in the kube-system namespace soon after the cluster comes to life.
 
 ```shell
