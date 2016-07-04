@@ -24,7 +24,7 @@ When you create a pod, you do not need to specify a service account.  It is
 automatically assigned the `default` service account of the same namespace.  If
 you get the raw json or yaml for a pod you have created (e.g. `kubectl get
 pods/podname -o yaml`), you can see the `spec.serviceAccount` field has been
-[automatically set](working-with-resources/#resources-are-automatically-modified).
+[automatically set](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
 
 You can access the API using a proxy or with a client library, as described in
 [Accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
@@ -72,7 +72,7 @@ secrets:
 
 then you will see that a token has automatically been created and is referenced by the service account.
 
-In the future, you will be able to configure different access policies for each service account.
+You may use the ABAC authorization plugin to [set permissions on service accounts](/docs/admin/authorization/#a-quick-note-on-service-accounts).
 
 To use a non-default service account, simply set the `spec.serviceAccount`
 field of a pod to the name of the service account you wish to use.
@@ -110,6 +110,8 @@ secrets/build-robot-secret
 ```
 
 Now you can confirm that the newly built secret is populated with an API token for the "build-robot" service account.
+
+Any tokens for non-existent service accounts will be cleaned up by the token controller.
 
 ```shell
 $ kubectl describe secrets/build-robot-secret 

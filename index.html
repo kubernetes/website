@@ -1,9 +1,9 @@
 ---
-title: Accelerate Your Delivery
+title: Production-Grade Container Orchestration
 ---
 
 <!Doctype html>
-<html id="home">
+<html id="home">  
 
 {% include head-header.html %}
 
@@ -11,8 +11,8 @@ title: Accelerate Your Delivery
 <section id="hero" class="light-text">
 	<main>
 		<div id="headlineWrapper">
-			<h1>Accelerate Your Delivery</h1>
-			<h5>Manage an infrastructure cluster as a single system to simplify container operations.</h5>
+			<h1>Production-Grade Container Orchestration</h1>
+			<h5>Automated container deployment, scaling, and management</h5>
 		</div>
 		<a href="/docs/hellonode/" id="quickstartButton" class="button">Try Our Hello World</a>
 	</main>
@@ -22,7 +22,7 @@ title: Accelerate Your Delivery
 		<!--<img src="images/logos/redhat_logo.png">-->
 		<!--<img src="images/logos/wepay_logo.png">-->
 		<!--<img src="images/logos/verizon_logo.png">-->
-	<!--</div>-->
+	<!--</div>--> 
 </section>
 
 <!--  OCEAN NODES  -->
@@ -30,9 +30,9 @@ title: Accelerate Your Delivery
 	<main>
 		<div class="image-wrapper"><img src="images/flower.png"></div>
 		<div class="content">
-			<h3>Kubernetes is an open-source system for automating deployment, operations, and scaling of containerized applications.</h3>
+			<h3><a href="docs/whatisk8s">Kubernetes</a> is an open-source system for automating deployment, scaling, and management of containerized applications.</h3>
 			<p>It groups containers that make up an application into logical units for easy management and discovery. Kubernetes builds
-            upon <a href="http://queue.acm.org/detail.cfm?id=2898444">a decade and a half of experience of running production workloads at Google</a>,
+            upon <a href="http://queue.acm.org/detail.cfm?id=2898444">15 years of experience of running production workloads at Google</a>,
             combined with best-of-breed ideas and practices from the community.</p>
 		</div>
 	</main>
@@ -75,12 +75,12 @@ title: Accelerate Your Delivery
 
 		<div class="feature-box">
 			<div>
-				<h4>Automatic binpacking</h4>
+				<h4><a href="/docs/user-guide/compute-resources/">Automatic binpacking</a></h4>
 				<p>Automatically places containers based on their resource requirements and other constraints, while not
 					sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.</p>
 			</div>
 			<div>
-				<h4>Self-healing</h4>
+				<h4><a href="/docs/user-guide/replication-controller/#what-is-a-replication-controller">Self-healing</a></h4>
 				<p>Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers
 					that don’t respond to your user-defined health check, and doesn’t advertise them to clients until they are ready to serve.</p>
 			</div>
@@ -88,11 +88,11 @@ title: Accelerate Your Delivery
 
 		<div class="feature-box">
 			<div>
-				<h4>Horizontal scaling</h4>
+				<h4><a href="/docs/user-guide/horizontal-pod-autoscaling/">Horizontal scaling</a></h4>
 				<p>Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.</p>
 			</div>
 			<div>
-				<h4>Service discovery and load balancing</h4>
+				<h4><a href="/docs/user-guide/services/">Service discovery and load balancing</a></h4>
 				<p>No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives
 					containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.</p>
 			</div>
@@ -100,13 +100,13 @@ title: Accelerate Your Delivery
 
 		<div class="feature-box">
 			<div>
-				<h4>Automated rollouts and rollbacks</h4>
+				<h4><a href="/docs/user-guide/deployments/#what-is-a-deployment">Automated rollouts and rollbacks</a></h4>
 				<p>Kubernetes progressively rolls out changes to your application or its configuration, while monitoring
 					application health to ensure it doesn’t kill all your instances at the same time. If something goes
 					wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.</p>
 			</div>
 			<div>
-				<h4>Secret and configuration management</h4>
+				<h4><a href="/docs/user-guide/secrets/">Secret</a> and <a href="/docs/user-guide/configmap/">configuration</a> management</h4>
 				<p>Deploy and update secrets and application configuration without rebuilding your image and without
 					exposing secrets in your stack configuration.</p>
 			</div>
@@ -114,13 +114,13 @@ title: Accelerate Your Delivery
         
 		<div class="feature-box">
 			<div>
-				<h4>Storage orchestration</h4>
+				<h4><a href="/docs/user-guide/persistent-volumes/">Storage orchestration</a></h4>
 				<p>Automatically mount the storage system of your choice, whether from local storage, a public cloud provider
                 such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="http://media.amazonwebservices.com/AWS_Storage_Options.pdf">AWS</a>, or a network storage system such as NFS, iSCSI,
                 Gluster, Ceph, Cinder, or Flocker.</p>
 			</div>
 			<div>
-				<h4>Batch execution</h4>
+				<h4><a href="/docs/user-guide/jobs/">Batch execution</a></h4>
 				<p>In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.</p>
 			</div>
 		</div>

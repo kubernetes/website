@@ -22,8 +22,8 @@ You can use `kubectl` to see information about the ConfigMap:
 
 ```shell
 $ kubectl get configmap
-NAME          DATA
-test-secret   2
+NAME                   DATA      AGE
+test-configmap         2         6s
 
 $ kubectl describe configMap test-configmap
 Name:          test-configmap
@@ -39,7 +39,7 @@ data-2: 7 bytes
 View the values of the keys with `kubectl get`:
 
 ```shell
-$ cluster/kubectl.sh get configmaps test-configmap -o yaml
+$ kubectl get configmaps test-configmap -o yaml
 apiVersion: v1
 data:
   data-1: value-1
@@ -66,23 +66,24 @@ $ kubectl create -f docs/user-guide/configmap/env-pod.yaml
 This pod runs the `env` command to display the environment of the container:
 
 ```shell
-$ kubectl logs secret-test-pod
+$ kubectl logs config-env-test-pod | grep KUBE_CONFIG
 KUBE_CONFIG_1=value-1
 KUBE_CONFIG_2=value-2
 ```
 
 ## Step Three: Create a pod that sets the command line using ConfigMap
 
-Use the [`command-pod.yaml`](env-pod.yaml) file to create a Pod with a container
+Use the [`command-pod.yaml`](command-pod.yaml) file to create a Pod with a container
 whose command is injected with the keys of a ConfigMap
 
 ```shell
-$ kubectl create -f docs/user-guide/configmap/env-pod.yaml
+$ kubectl create -f docs/user-guide/configmap/command-pod.yaml
 ```
 
 This pod runs an `echo` command to display the keys:
 
 ```shell
+$ kubectl logs config-cmd-test-pod
 value-1 value-2
 ```
 
@@ -97,5 +98,6 @@ $ kubectl create -f docs/user-guide/configmap/volume-pod.yaml
 This pod runs a `cat` command to print the value of one of the keys in the volume:
 
 ```shell
+$ kubectl logs config-volume-test-pod
 value-1
 ```

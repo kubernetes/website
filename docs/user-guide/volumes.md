@@ -38,9 +38,9 @@ medium that backs it, and the contents of it are determined by the particular
 volume type used.
 
 To use a volume, a pod specifies what volumes to provide for the pod (the
-[`spec.volumes`](http://kubernetes.io/third_party/swagger-ui/#!/v1/createPod)
+[`spec.volumes`](http://kubernetes.io/kubernetes/third_party/swagger-ui/#!/v1/createPod)
 field) and where to mount those into containers(the
-[`spec.containers.volumeMounts`](http://kubernetes.io/third_party/swagger-ui/#!/v1/createPod)
+[`spec.containers.volumeMounts`](http://kubernetes.io/kubernetes/third_party/swagger-ui/#!/v1/createPod)
 field).
 
 A process in a container sees a filesystem view composed from their Docker
@@ -69,6 +69,7 @@ Kubernetes supports several types of Volumes:
    * `persistentVolumeClaim`
    * `downwardAPI`
    * `azureFileVolume`
+   * `vsphereVirtualDisk`
 
 We welcome additional contributions.
 
@@ -378,6 +379,44 @@ A `AzureFileVolume` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 
 into a Pod.
 
 More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/azure_file/README.md)
+
+### vsphereVirtualDisk
+
+A `VSphereVirtualDisk` is used to mount a vSphere VMDK Volume into your Pod.  The contents
+of a volume are preserved when it is unmounted.
+
+__Important: You must create a VMDK volume using `vmware-vdiskmanager -c` or
+the VSphere API before you can use it__
+
+#### Creating a VMDK volume
+
+Before you can use a vSphere volume with a pod, you need to create it.
+
+```shell
+vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
+```
+
+#### vSphere VMDK Example configuration
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-vmdk
+spec:
+  containers:
+  - image: gcr.io/google_containers/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /test-vmdk
+      name: test-volume
+  volumes:
+  - name: test-volume
+    # This VMDK volume must already exist.
+    vsphereVirtualDisk:
+      volumePath: myDisk
+      fsType: ext4
+```
 
 ## Resources
 

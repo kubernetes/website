@@ -4,44 +4,48 @@ Welcome! We are very pleased you want to contribute to the documentation and/or 
 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
 
+## Staging the site on GitHub Pages
+
 If you want to see your changes staged without having to install anything locally, remove the CNAME file in this directory and
 change the name of the fork to be:
 
     YOUR_GITHUB_USERNAME.github.io
 
-Then, visit: [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io)
+Then make your changes. 
 
-You should see a special-to-you version of the site. 
+When you visit [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io) you should see a special-to-you version of the site that contains the changes you just made.
 
-## Editing/staging the site locally
+## Staging the site locally (using Docker)
 
-If you have files to upload, or just want to work offline, run the below commands to setup
-your environment for running GitHub pages locally. Then, any edits you make will be viewable
+Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
+
+    git clone https://github.com/kubernetes/kubernetes.github.io.git
+    cd kubernetes.github.io
+    docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs
+
+Then visit [http://localhost:4000](http://localhost:4000) to see our site. Any changes you make on your local machine will be automatically staged.
+
+If you're interested you can view [the Dockerfile for this image](https://gist.github.com/johndmulhausen/f8f0ab8d82d2c755af3a4709729e1859).
+
+## Staging the site locally (from scratch setup)
+
+The below commands to setup your environment for running GitHub pages locally. Then, any edits you make will be viewable
 on a lightweight webserver that runs on your local machine.
 
-First install rvm
+This will typically be the fastest way (by far) to iterate on docs changes and see them staged, once you get this set up, but it does involve several install steps that take awhile to complete, and makes system-wide modifications.
 
-	curl -sSL https://get.rvm.io | bash -s stable
+Install Ruby 2.2 or higher. If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). If you're on Linux, run these commands:
 
-Then load it into your environment
+    apt-get install software-properties-common
+    apt-add-repository ppa:brightbox/ruby-ng
+    apt-get install ruby2.2
+    apt-get install ruby2.2-dev
 
-	source ${HOME}/.rvm/scripts/rvm (or whatever is prompted by the installer)
-
-Then install Ruby 2.2 or higher
-
-	rvm install ruby-2.2.4
-	rvm use ruby-2.2.4 --default
-	
-Verify that this new version is running (optional)
-
-	which ruby
-	ruby -v
-	
-Install the GitHub Pages package, which includes Jekyll
+Install the GitHub Pages package, which includes Jekyll:
 
 	gem install github-pages
 
-Clone our site
+Clone our site:
 
 	git clone https://github.com/kubernetes/kubernetes.github.io.git
 
@@ -51,20 +55,21 @@ Make any changes you want. Then, to see your changes locally:
 	jekyll serve
 
 Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
-(or wherever Ruby tells you).
+(or wherever Jekyll tells you).
+
+The above instructions work on Mac and Linux.
+[These instructions](https://martinbuberl.com/blog/setup-jekyll-on-windows-and-host-it-on-github-pages/) are for Windows users.
+
+## GitHub help
 
 If you're a bit rusty with git/GitHub, you might wanna read
 [this](http://readwrite.com/2013/10/02/github-for-beginners-part-2) for a refresher.
-
-The above instructions work on Mac and Linux.
-[These instructions ](https://martinbuberl.com/blog/setup-jekyll-on-windows-and-host-it-on-github-pages/)
-might help for Windows users. 
 
 ## Common Tasks
 
 ### Edit Page Titles or Change the Left Navigation
 
-Edit the yaml files in `/_data/` for the Guides, Reference, Samples, or Support areas. 
+Edit the yaml files in `/_data/` for the Guides, Reference, Samples, or Support areas.
 
 You may have to exit and `jekyll clean` before restarting the `jekyll serve` to
 get changes to files in `/_data/` to show up.
@@ -105,11 +110,11 @@ In English, this would read: "Create a set of tabs with the alias `servicesample
 and have tabs visually labeled "JSON" and "YAML" that use `json` and `yaml` Rouge syntax highlighting, which display the contents of
 `service-sample.{extension}` on the page, and link to the file in GitHub at (full path)."
 
-Example file: [Pods: Multi-Container](/docs/user-guide/pods/multi-container/).
+Example file: [Pods: Multi-Container](http://kubernetes.io/docs/user-guide/pods/multi-container/).
 
 ## Use a global variable
 
-The `/_config.yml` file defines some useful variables you can use when editing docs. 
+The `/_config.yml` file defines some useful variables you can use when editing docs.
 
 * `page.githubbranch`: The name of the GitHub branch on the Kubernetes repo that is associated with this branch of the docs. e.g. `release-1.2`
 * `page.version` The version of Kubernetes associated with this branch of the docs. e.g. `v1.2`
@@ -130,6 +135,27 @@ That, of course, will send users to:
 The current version of the website is served out of the `master` branch.
 
 All versions of the site that relate to past and future versions will be named after their Kubernetes release number. For example, [the old branch for the 1.1 docs is called `release-1.1`](https://github.com/kubernetes/kubernetes.github.io/tree/release-1.1).
+
+Changes in the "docsv2" branch (where we are testing a revamp of the docs) are automatically staged here:
+http://k8sdocs.github.io/docs/tutorials/
+
+Changes in the "release-1.1" branch (for k8s v1.1 docs) are automatically staged here:
+http://kubernetes-v1-1.github.io/
+
+Changes in the "release-1.3" branch (for k8s v1.3 docs) are automatically staged here:
+http://kubernetes-v1-3.github.io/
+
+Editing of these branches will kick off a build using Travis CI that auto-updates these URLs; you can monitor the build progress at [https://travis-ci.org/kubernetes/kubernetes.github.io](https://travis-ci.org/kubernetes/kubernetes.github.io).
+
+## Partners
+Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
+
+* The partner product logo should be a transparent png image centered in a 215x125 px frame. (look at the existing logos for reference)
+* The logo must link to a URL that is specific to integrating with Kubernetes, hosted on the partner's site.
+* The logo should be named *product-name*_logo.png and placed in the `/images/community_logos` folder.
+* The image reference (including the link to the partner URL) should be added in `community.html` under `<div class="partner-logos" > ...</div>`.
+* Please do not change the order of the existing partner images. Append your logo to the end of the list.
+* Once completed and tested the look and feel, submit the pull request.
 
 ## Thank you!
 

@@ -1,96 +1,172 @@
 ---
 ---
 
-The purpose of this guide is to help you become familiar with [Kubernetes Persistent Volumes](/docs/user-guide/persistent-volumes/).  By the end of the guide, we'll have
-nginx serving content from your persistent volume.
+This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](/docs/user-guide/volumes/) is suggested.
 
-You can view all the files for this example in [the docs repo
-here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/persistent-volumes).
+* TOC
+{:toc}
 
-This guide assumes knowledge of Kubernetes fundamentals and that you have a cluster up and running.
+## Introduction
 
-See [Persistent Storage design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/persistent-storage.md) for more information.
+Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed.  To do this we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
 
-## Provisioning
+A `PersistentVolume` (PV) is a piece of networked storage in the cluster that has been provisioned by an administrator.  It is a resource in the cluster just like a node is a cluster resource.   PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV.  This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
-A Persistent Volume (PV) in Kubernetes represents a real piece of underlying storage capacity in the infrastructure.  Cluster administrators
-must first create storage (create their Google Compute Engine (GCE) disks, export their NFS shares, etc.) in order for Kubernetes to mount it.
+A `PersistentVolumeClaim` (PVC) is a request for storage by a user.  It is similar to a pod.  Pods consume node resources and PVCs consume PV resources.  Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g, can be mounted once read/write or many times read-only).
 
-PVs are intended for "network volumes" like GCE Persistent Disks, NFS shares, and AWS ElasticBlockStore volumes.  `HostPath` was included
-for ease of development and testing.  You'll create a local `HostPath` for this example.
+Please see the [detailed walkthrough with working examples](/docs/user-guide/persistent-volumes/walkthrough/).
 
-> IMPORTANT! For `HostPath` to work, you will need to run a single node cluster.  Kubernetes does not
-support local storage on the host at this time.  There is no guarantee your pod ends up on the correct node where the `HostPath` resides.
 
-```shell
-# This will be nginx's webroot
-$ mkdir /tmp/data01
-$ echo 'I love Kubernetes storage!' > /tmp/data01/index.html
+## Lifecycle of a volume and claim
+
+PVs are resources in the cluster.  PVCs are requests for those resources and also act as claim checks to the resource.  The interaction between PVs and PVCs follows this lifecycle:
+
+### Provisioning
+
+A cluster administrator will create a number of PVs. They carry the details of the real storage which is available for use by cluster users.  They exist in the Kubernetes API and are available for consumption.
+
+### Binding
+
+A user creates a `PersistentVolumeClaim` with a specific amount of storage requested and with certain access modes.  A control loop in the master watches for new PVCs, finds a matching PV (if possible), and binds them together.  The user will always get at least what they asked for, but the volume may be in excess of what was requested.
+
+Claims will remain unbound indefinitely if a matching volume does not exist.  Claims will be bound as matching volumes become available.  For example, a cluster provisioned with many 50Gi PVs would not match a PVC requesting 100Gi.  The PVC can be bound when a 100Gi PV is added to the cluster.
+
+### Using
+
+Pods use claims as volumes. The cluster inspects the claim to find the bound volume and mounts that volume for a pod.  For volumes which support multiple access modes, the user specifies which mode desired when using their claim as a volume in a pod.
+
+Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a persistentVolumeClaim in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
+
+### Releasing
+
+When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource.  The volume is considered "released" when the claim is deleted, but it is not yet available for another claim.  The previous claimant's data remains on the volume which must be handled according to policy.
+
+### Reclaiming
+
+The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim.  Currently, volumes can either be Retained, Recycled or Deleted.  Retention allows for manual reclamation of the resource.  For those volume plugins that support it, deletion removes both the `PersistentVolume` object from Kubernetes as well as deletes associated storage asset in external infrastructure such as AWS EBS, GCE PD or Cinder volume. If supported by appropriate volume plugin, recycling performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
+
+## Types of Persistent Volumes
+
+`PersistentVolume` types are implemented as plugins.  Kubernetes currently supports the following plugins:
+
+* GCEPersistentDisk
+* AWSElasticBlockStore
+* NFS
+* iSCSI
+* RBD (Ceph Block Device)
+* Glusterfs
+* HostPath (single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
+
+
+## Persistent Volumes
+
+Each PV contains a spec and status, which is the specification and status of the volume.
+
+```yaml
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: pv0003
+  spec:
+    capacity:
+      storage: 5Gi
+    accessModes:
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Recycle
+    nfs:
+      path: /tmp
+      server: 172.17.0.2
 ```
 
-PVs are created by posting them to the API server.
+### Capacity
 
-```shell
-$ kubectl create -f docs/user-guide/persistent-volumes/volumes/local-01.yaml
-NAME      LABELS       CAPACITY      ACCESSMODES   STATUS      CLAIM     REASON
-pv0001    type=local   10737418240   RWO           Available 
+Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resources.md) to understand the units expected by `capacity`.
+
+Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
+
+### Access Modes
+
+A `PersistentVolume` can be mounted on a host in any way supported by the resource provider.  Providers will have different capabilities and each PV's access modes are set to the specific modes supported by that particular volume.  For example, NFS can support multiple read/write clients, but a specific NFS PV might be exported on the server as read-only.  Each PV gets its own set of access modes describing that specific PV's capabilities.
+
+The access modes are:
+
+* ReadWriteOnce -- the volume can be mounted as read-write by a single node
+* ReadOnlyMany -- the volume can be mounted read-only by many nodes
+* ReadWriteMany -- the volume can be mounted as read-write by many nodes
+
+In the CLI, the access modes are abbreviated to:
+
+* RWO - ReadWriteOnce
+* ROX - ReadOnlyMany
+* RWX - ReadWriteMany
+
+> __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
+
+
+### Recycling Policy
+
+Current recycling policies are:
+
+* Retain -- manual reclamation
+* Recycle -- basic scrub ("rm -rf /thevolume/*")
+* Delete -- associated storage asset such as AWS EBS, GCE PD or OpenStack Cinder volume is deleted
+
+Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD and Cinder volumes support deletion.
+
+### Phase
+
+A volume will be in one of the following phases:
+
+* Available -- a free resource that is not yet bound to a claim
+* Bound -- the volume is bound to a claim
+* Released -- the claim has been deleted, but the resource is not yet reclaimed by the cluster
+* Failed -- the volume has failed its automatic reclamation
+
+The CLI will show the name of the PVC bound to the PV.
+
+## PersistentVolumeClaims
+
+Each PVC contains a spec and status, which is the specification and status of the claim.
+
+```yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: myclaim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
 ```
 
-## Requesting storage
+### Access Modes
 
-Users of Kubernetes request persistent storage for their pods.  They don't know how the underlying cluster is provisioned.
-They just know they can rely on their claim to storage and can manage its lifecycle independently from the many pods that may use it.
+Claims use the same conventions as volumes when requesting storage with specific access modes.
 
-Claims must be created in the same namespace as the pods that use them.
+### Resources
 
-```shell
-$ kubectl create -f docs/user-guide/persistent-volumes/claims/claim-01.yaml
+Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resources.md) applies to both volumes and claims.
 
-$ kubectl get pvc
-NAME                LABELS              STATUS              VOLUME
-myclaim-1           map[]                                   
-           
-           
-# A background process will attempt to match this claim to a volume.
-# The eventual state of your claim will look something like this:
+## Claims As Volumes
 
-$ kubectl get pvc
-NAME        LABELS    STATUS    VOLUME
-myclaim-1   map[]     Bound     pv0001
+Pods access storage by using the claim as a volume.  Claims must exist in the same namespace as the pod using the claim.  The cluster finds the claim in the pod's namespace and uses it to get the `PersistentVolume` backing the claim.  The volume is then mounted to the host and into the pod.
 
-$ kubectl get pv
-NAME      LABELS       CAPACITY      ACCESSMODES   STATUS    CLAIM               REASON
-pv0001    type=local   10737418240   RWO           Bound     default/myclaim-1 
+```yaml
+kind: Pod
+apiVersion: v1
+metadata:
+  name: mypod
+spec:
+  containers:
+    - name: myfrontend
+      image: dockerfile/nginx
+      volumeMounts:
+      - mountPath: "/var/www/html"
+        name: mypd
+  volumes:
+    - name: mypd
+      persistentVolumeClaim:
+        claimName: myclaim
 ```
-
-## Using your claim as a volume
-
-Claims are used as volumes in pods.  Kubernetes uses the claim to look up its bound PV.  The PV is then exposed to the pod.
-
-```shell
-$ kubectl create -f docs/user-guide/persistent-volumes/simpletest/pod.yaml
-
-$ kubectl get pods
-NAME      READY     STATUS    RESTARTS   AGE
-mypod     1/1       Running   0          1h
-
-$ kubectl create -f docs/user-guide/persistent-volumes/simpletest/service.json
-$ kubectl get services
-NAME              CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR           AGE
-frontendservice   10.0.0.241       <none>            3000/TCP      name=frontendhttp  1d
-kubernetes        10.0.0.2         <none>            443/TCP       <none>             2d
-```
-
-## Next steps
-
-You should be able to query your service endpoint and see what content nginx is serving.  A "forbidden" error might mean you
-need to disable SELinux (setenforce 0).
-
-```shell
-$ curl 10.0.0.241:3000
-I love Kubernetes storage!
-```
-
-Hopefully this simple guide is enough to get you started with PersistentVolumes.  If you have any questions, join the team on [Slack](/docs/troubleshooting/#slack) and ask!
-
-Enjoy!

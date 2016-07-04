@@ -54,6 +54,8 @@ An empty label selector (that is, one with zero requirements) selects every obje
 
 A null label selector (which is only possible for optional selector fields) selects no objects.
 
+**Note**: the label selectors of two controllers must not overlap within a namespace, otherwise they will fight with each other. 
+
 ### _Equality-based_ requirement
 
 _Equality-_ or _inequality-based_ requirements allow filtering by label keys and values. Matching objects must satisfy all of the specified label constraints, though they may have additional labels as well.
@@ -147,9 +149,9 @@ selector:
 
 this selector (respectively in `json` or `yaml` format) is equivalent to `component=redis` or `component in (redis)`.
 
-#### Job and other new resources
+#### Resources that support set-based requirements
 
-Newer resources, such as [job](/docs/user-guide/jobs), support _set-based_ requirements as well.
+Newer resources, such as [`Job`](/docs/user-guide/jobs), [`Deployment`](/docs/user-guide/deployments/), [`Replica Set`](/docs/user-guide/replicasets/), and [`Daemon Set`](/docs/admin/daemons/), support _set-based_ requirements as well.
 
 ```yaml
 selector:
