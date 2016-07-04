@@ -83,7 +83,7 @@ spec:  # specification of the pod’s contents
     args: ["/bin/echo \"${MESSAGE}\""]
 ```
 
-However, a shell isn't necessary just to expand environment variables. Kubernetes will do it for you if you use [`$(ENVVAR)` syntax](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/expansion):
+However, a shell isn't necessary just to expand environment variables. Kubernetes will do it for you if you use [`$(ENVVAR)` syntax](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/expansion.md):
 
 ```yaml
     command: ["/bin/echo"]
@@ -117,7 +117,7 @@ The `READY` column shows how many containers in the pod are running.
 Almost immediately after it starts running, this command will terminate. `kubectl` shows that the container is no longer running and displays the exit status:
 
 ```shell
-$ kubectl get pods
+$ kubectl get pods --show-all
 NAME          READY     STATUS       RESTARTS   AGE
 hello-world   0/1       ExitCode:0   0          15s
 ```

@@ -22,14 +22,17 @@ server.
 
 ## Resource Requests and Limits of Pod and Container
 
-Each container of a Pod can optionally specify `spec.container[].resources.limits.cpu` and/or
-`spec.container[].resources.limits.memory` and/or `spec.container[].resources.requests.cpu`
-and/or `spec.container[].resources.requests.memory`.
+Each container of a pod can optionally specify one or more of the following:
+
+* `spec.container[].resources.limits.cpu`
+* `spec.container[].resources.limits.memory`
+* `spec.container[].resources.requests.cpu`
+* `spec.container[].resources.requests.memory`.
 
 Specifying resource requests and/or limits is optional. In some clusters, unset limits or requests
 may be replaced with default values when a pod is created or updated. The default value depends on
-how the cluster is configured. If value of requests is not specified, they are set to be equal
-to limits by default. Please note that resource limits must be greater than or equal to resource
+how the cluster is configured. If the requests values are not specified, they are set to be equal
+to the limits values by default. Please note that limits must always be greater than or equal to
 requests.
 
 Although requests/limits can only be specified on individual containers, it is convenient to talk
@@ -88,10 +91,16 @@ runner (Docker or rkt).
 
 When using Docker:
 
-- The `spec.container[].resources.limits.cpu` is multiplied by 1024, converted to an integer, and
-  used as the value of the [`--cpu-shares`](
+- The `spec.container[].resources.requests.cpu` is converted to its core value (potentially fractional),
+  and multipled by 1024, and used as the value of the [`--cpu-shares`](
   https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
   command.
+- The `spec.container[].resources.limits.cpu` is converted to its millicore value,
+  multipled by 100000, and then divided by 1000, and used as the value of the [`--cpu-quota`](
+  https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
+  command.  The [`--cpu-period`] flag is set to 100000 which represents the default 100ms period
+  for measuring quota usage.  The kubelet enforces cpu limits if it was started with the
+  [`--cpu-cfs-quota`] flag set to true.  As of version 1.2, this flag will now default to true.
 - The `spec.container[].resources.limits.memory` is converted to an integer, and used as the value
   of the [`--memory`](https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag
   to the `docker run` command.
@@ -171,7 +180,7 @@ Here you can see from the `Allocated resources` section that that a pod which as
 
 Looking at the `Pods` section, you can see which pods are taking up space on the node.
 
-The [resource quota](/docs/admin/resource-quota) feature can be configured
+The [resource quota](/docs/admin/resourcequota/) feature can be configured
 to limit the total amount of resources that can be consumed.  If used in conjunction
 with namespaces, it can prevent one team from hogging all the resources.
 
@@ -222,10 +231,10 @@ The `Restart Count:  5` indicates that the `simmemleak` container in this pod wa
 
 You can call `get pod` with the `-o go-template=...` option to fetch the status of previously terminated containers:
 
-```shell
+```shell{% raw %}
 [13:59:01] $ ./cluster/kubectl.sh  get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
 Container Name: simmemleak
-LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]
+LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]{% endraw %}
 ```
 
 We can see that this container was terminated because `reason:OOM Killed`, where *OOM* stands for Out Of Memory.

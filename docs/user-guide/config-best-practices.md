@@ -79,7 +79,7 @@ This document is meant to highlight and consolidate in one place configuration b
   controller 'version names'. A desired state of an object is described by a Deployment, and if
   changes to that spec are _applied_, the deployment controller changes the actual state to the
   desired state at a controlled rate. (Deployment objects are currently part of the [`extensions`
-  API Group](/docs/api/#api-groups), and are not enabled by default.)
+  API Group](/docs/api/#api-groups).)
 
 - You can manipulate labels for debugging. Because Kubernetes replication controllers and services
   match to pods using labels, this allows you to remove a pod from being considered by a
@@ -100,6 +100,9 @@ This document is meant to highlight and consolidate in one place configuration b
   address this by ensuring that any updates to an image bump the image tag as well (e.g.
   `myimage:v2`), and ensuring that your configs point to the correct version.
 
+  **Note:** you should avoid using `:latest` tag when deploying containers in production, because this makes it hard
+  to track which version of the image is running and hard to roll back.
+
 ## Using kubectl
 
 - Use `kubectl create -f <directory>` where possible. This looks for config objects in all `.yaml`, `.yml`, and `.json` files in `<directory>` and passes them to `create`.
@@ -108,6 +111,6 @@ This document is meant to highlight and consolidate in one place configuration b
 
 - Use kubectl bulk operations (via files and/or labels) for get and delete. See [label selectors](/docs/user-guide/labels/#label-selectors) and [using labels effectively](/docs/user-guide/managing-deployments/#using-labels-effectively).
 
-- Use `kubectl run` and `expose` to quickly create and expose single container replication controllers. See the [quick start guide](/docs/user-guide/quick-start/) for an example.
+- Use `kubectl run` and `expose` to quickly create and expose single container Deployments. See the [quick start guide](/docs/user-guide/quick-start/) for an example.
 
 

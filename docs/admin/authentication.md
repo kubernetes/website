@@ -25,6 +25,7 @@ When using token authentication from an http client the apiserver expects an `Au
 header with a value of `Bearer SOMETOKEN`.
 
 **OpenID Connect ID Token** is enabled by passing the following options to the apiserver:
+
 - `--oidc-issuer-url` (required) tells the apiserver where to connect to the OpenID provider. Only HTTPS scheme will be accepted.
 - `--oidc-client-id` (required) is used by apiserver to verify the audience of the token.
 A valid [ID token](http://openid.net/specs/openid-connect-core-1_0.html#IDToken) MUST have this
@@ -59,38 +60,47 @@ with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
 
 **Keystone authentication** is enabled by passing the `--experimental-keystone-url=<AuthURL>`
 option to the apiserver during startup. The plugin is implemented in
-`plugin/pkg/auth/authenticator/request/keystone/keystone.go`.
+`plugin/pkg/auth/authenticator/password/keystone/keystone.go`.
+
 For details on how to use keystone to manage projects and users, refer to the
 [Keystone documentation](http://docs.openstack.org/developer/keystone/). Please note that
 this plugin is still experimental which means it is subject to changes.
+
 Please refer to the [discussion](https://github.com/kubernetes/kubernetes/pull/11798#issuecomment-129655212)
-and the [blueprint](https://github.com/kubernetes/kubernetes/issues/11626) for more details
+and the [blueprint](https://github.com/kubernetes/kubernetes/issues/11626) for more details.
 
 ## Plugin Development
 
-We plan for the Kubernetes API server to issue tokens
-after the user has been (re)authenticated by a *bedrock* authentication
-provider external to Kubernetes.  We plan to make it easy to develop modules
-that interface between Kubernetes and a bedrock authentication provider (e.g.
-github.com, google.com, enterprise directory, kerberos, etc.)
+We plan for the Kubernetes API server to issue tokens after the user has been
+(re)authenticated by a *bedrock* authentication provider external to Kubernetes.
+We also plan to make it easy to develop modules that interface between
+Kubernetes and a bedrock authentication provider (e.g. github.com, google.com,
+enterprise directory, kerberos, etc.)
 
 ## APPENDIX
 
 ### Creating Certificates
 
-When using client certificate authentication, you can generate certificates manually or
-using an existing deployment script.
+When using client certificate authentication, you can generate certificates
+using an existing deployment script or manually through `easyrsa` or `openssl.``
 
-**Deployment script** is implemented at
-`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.
-Execute this script with two parameters. First is the IP address of apiserver, the second is
-a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.
-The script will generate three files:ca.crt, server.crt and server.key.
-Finally, add these parameters
-`--client-ca-file=/srv/kubernetes/ca.crt`
-`--tls-cert-file=/srv/kubernetes/server.cert`
-`--tls-private-key-file=/srv/kubernetes/server.key`
-into apiserver start parameters.
+#### Using an Existing Deployment Script
+
+**Using an existing deployment script** is implemented at 
+`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.  
+
+Execute this script with two parameters. The first is the IP address
+of apiserver. The second is a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.
+
+The script will generate three files: `ca.crt`, `server.crt`, and `server.key`.
+
+Finally, add the following parameters into apiserver start parameters:
+
+- `--client-ca-file=/srv/kubernetes/ca.crt`
+- `--tls-cert-file=/srv/kubernetes/server.cert`
+- `--tls-private-key-file=/srv/kubernetes/server.key`
+
+#### easyrsa
 
 **easyrsa** can be used to manually generate certificates for your cluster.
 
@@ -107,29 +117,34 @@ into apiserver start parameters.
     (build-server-full [filename]: Generate a keypair and sign locally for a client or server)
 
           ./easyrsa --subject-alt-name="IP:${MASTER_IP}" build-server-full kubernetes-master nopass
-1.  Copy `pki/ca.crt`  `pki/issued/kubernetes-master.crt`
-    `pki/private/kubernetes-master.key` to your directory.
-1.  Remember fill the parameters
-    `--client-ca-file=/yourdirectory/ca.crt`
-    `--tls-cert-file=/yourdirectory/server.cert`
-    `--tls-private-key-file=/yourdirectory/server.key`
-    and add these into apiserver start parameters.
+1.  Copy `pki/ca.crt`, `pki/issued/kubernetes-master.crt`, and `pki/private/kubernetes-master.key` to your directory.
+1.  Fill in and add the following parameters into the apiserver start parameters:
+
+          --client-ca-file=/yourdirectory/ca.crt
+          --tls-cert-file=/yourdirectory/server.cert
+          --tls-private-key-file=/yourdirectory/server.key
+
+#### openssl 
 
 **openssl** can also be use to manually generate certificates for your cluster.
 
-1.  Generate a ca.key with 2048bit
-    `openssl genrsa -out ca.key 2048`
-1.  According to the ca.key generate a ca.crt.  (-days set the certificate effective time).
-    `openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt`
+1.  Generate a ca.key with 2048bit:
+
+          openssl genrsa -out ca.key 2048
+1.  According to the ca.key generate a ca.crt (use -days to set the certificate effective time):
+
+          openssl req -x509 -new -nodes -key ca.key -subj "/CN=${MASTER_IP}" -days 10000 -out ca.crt
 1.  Generate a server.key with 2048bit
-    `openssl genrsa -out server.key 2048`
-1.  According to the server.key generate a server.csr.
-    `openssl req -new -key server.key -subj "/CN=${MASTER_IP}" -out server.csr`
-1.  According to the ca.key, ca.crt and server.csr generate the server.crt.
-    `openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt
-    -days 10000`
+
+          openssl genrsa -out server.key 2048
+1.  According to the server.key generate a server.csr:
+
+          openssl req -new -key server.key -subj "/CN=${MASTER_IP}" -out server.csr
+1.  According to the ca.key, ca.crt and server.csr generate the server.crt:
+
+          openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 10000
 1.  View the certificate.
-    `openssl x509  -noout -text -in ./server.crt`
-    Finally, do not forget fill the same parameters and add parameters into apiserver start parameters.
 
+          openssl x509  -noout -text -in ./server.crt
 
+Finally, do not forget to fill out and add the same parameters into the apiserver start parameters.
