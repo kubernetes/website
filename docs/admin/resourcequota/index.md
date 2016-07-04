@@ -1,156 +1,213 @@
 ---
 ---
 
-This example demonstrates how [resource quota](/docs/admin/admission-controllers/#resourcequota) and
-[limitsranger](/docs/admin/admission-controllers/#limitranger) can be applied to a Kubernetes namespace.
+When several users or teams share a cluster with a fixed number of nodes,
+there is a concern that one team could use more than its fair share of resources.
+
+Resource quotas are a tool for administrators to address this concern.
+
+A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
+aggregate resource consumption per namespace.  It can limit the quantity of objects that can
+be created in a namespace by type, as well as the total amount of compute resources that may
+be consumed by resources in that project.
+
+Resource quotas work like this:
+
+- Different teams work in different namespaces.  Currently this is voluntary, but
+  support for making this mandatory via ACLs is planned.
+- The administrator creates one or more Resource Quota objects for each namespace.
+- Users create resources (pods, services, etc.) in the namespace, and the quota system
+  tracks usage to ensure it does not exceed hard resource limits defined in a Resource Quota.
+- If creating or updating a resource violates a quota constraint, the request will fail with HTTP
+  status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
+- If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
+  requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
+  the LimitRange admission controller to force defaults for pods that make no compute resource requirements.
+  See the [walkthrough](/docs/admin/resourcequota/walkthrough/) for an example to avoid this problem.
+
+Examples of policies that could be created using namespaces and quotas are:
+
+- In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 Gib and 10 cores,
+  let B use 10GiB and 4 cores, and hold 2GiB and 2 cores in reserve for future allocation.
+- Limit the "testing" namespace to using 1 core and 1GiB RAM.  Let the "production" namespace
+  use any amount.
+
+In the case where the total capacity of the cluster is less than the sum of the quotas of the namespaces,
+there may be contention for resources.  This is handled on a first-come-first-served basis.
+
+Neither contention nor changes to quota will affect already created resources.
+
+## Enabling Resource Quota
+
+Resource Quota support is enabled by default for many Kubernetes distributions.  It is
+enabled when the apiserver `--admission-control=` flag has `ResourceQuota` as
+one of its arguments.
+
+Resource Quota is enforced in a particular namespace when there is a
+`ResourceQuota` object in that namespace.  There should be at most one
+`ResourceQuota` object in a namespace.
+
+## Compute Resource Quota
+
+The total sum of [compute resources](/docs/user-guide/compute-resources) requested by pods
+in a namespace can be limited.  The following compute resource types are supported:
+
+| Resource Name | Description |
+| ------------ | ----------- |
+| `cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
+| `limits.cpu` | Across all pods in a non-terminal state, the sum of CPU limits cannot exceed this value. |
+| `limits.memory` | Across all pods in a non-terminal state, the sum of memory limits cannot exceed this value. |
+| `memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
+| `requests.cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
+| `requests.memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
+
+## Object Count Quota
+
+The number of objects of a given type can be restricted.  The following types
+are supported:
+
+| Resource Name | Description |
+| ------------ | ----------- |
+| `configmaps` | The total number of config maps that can exist in the namespace. |
+| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `status.phase in (Failed, Succeeded)` is true.  |
+| `replicationcontrollers` | The total number of replication controllers that can exist in the namespace. |
+| `resourcequotas` | The total number of [resource quotas](/docs/admin/admission-controllers/#resourcequota) that can exist in the namespace. |
+| `services` | The total number of services that can exist in the namespace. |
+| `secrets` | The total number of secrets that can exist in the namespace. |
+
+For example, `pods` quota counts and enforces a maximum on the number of `pods`
+created in a single namespace.
+
+You might want to set a pods quota on a namespace
+to avoid the case where a user creates many small pods and exhausts the cluster's
+supply of Pod IPs.
+
+## Quota Scopes
+
+Each quota can have an associated set of scopes.  A quota will only measure usage for a resource if it matches
+the intersection of enumerated scopes.
+
+When a scope is added to the quota, it limits the number of resources it supports to those that pertain to the scope.
+Resources specified on the quota outside of the allowed set results in a validation error.
+
+| Scope | Description |
+| ----- | ----------- |
+| `Terminating` | Match pods where `spec.activeDeadlineSeconds >= 0` |
+| `NotTerminating` | Match pods where `spec.activeDeadlineSeconds is nil` |
+| `BestEffort` | Match pods that have best effort quality of service. |
+| `NotBestEffort` | Match pods that do not have best effort quality of service. |
+
+The `BestEffort` scope restricts a quota to tracking the following resource: `pods`
+
+The `Terminating`, `NotTerminating`, and `NotBestEffort` scopes restrict a quota to tracking the following resources:
+
+* `cpu`
+* `limits.cpu`
+* `limits.memory`
+* `memory`
+* `pods`
+* `requests.cpu`
+* `requests.memory`
+
+## Requests vs Limits
+
+When allocating compute resources, each container may specify a request and a limit value for either CPU or memory.
+The quota can be configured to quota either value.
+
+If the quota has a value specified for `requests.cpu` or `requests.memory`, then it requires that every incoming
+container makes an explicit request for those resources.  If the quota has a value specified for `limits.cpu` or `limits.memory`,
+then it requires that every incoming container specifies an explict limit for those resources.
+
+## Viewing and Setting Quotas
+
+Kubectl supports creating, updating, and viewing quotas:
+
+```shell
+$ kubectl create namespace myspace
+
+$ cat <<EOF > compute-resources.yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-resources
+spec:
+  hard:
+    pods: "4"
+    requests.cpu: "1"
+    requests.memory: 1Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi
+EOF
+$ kubectl create -f ./compute-resources.yaml --namespace=myspace
+
+$ cat <<EOF > object-counts.yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: object-counts
+spec:
+  hard:
+    configmaps: "10"
+    persistentvolumeclaims: "4"
+    replicationcontrollers: "20"
+    secrets: "10"
+    services: "10"
+EOF
+$ kubectl create -f ./object-counts.yaml --namespace=myspace
+
+$ kubectl get quota --namespace=myspace
+NAME                    AGE
+compute-resources       30s
+object-counts           32s
+
+$ kubectl describe quota compute-resources --namespace=myspace
+Name:                  compute-resources
+Namespace:             myspace
+Resource               Used Hard
+--------               ---- ----
+limits.cpu             0    2
+limits.memory          0    2Gi
+pods                   0    4
+requests.cpu           0    1
+requests.memory        0    1Gi
+
+$ kubectl describe quota object-counts --namespace=myspace
+Name:                   object-counts
+Namespace:              myspace
+Resource                Used    Hard
+--------                ----    ----
+configmaps              0       10
+persistentvolumeclaims  0       4
+replicationcontrollers  0       20
+secrets                 1       10
+services                0       10
+```
+
+## Quota and Cluster Capacity
+
+Resource Quota objects are independent of the Cluster Capacity. They are
+expressed in absolute units.  So, if you add nodes to your cluster, this does *not*
+automatically give each namespace the ability to consume more resources.
+
+Sometimes more complex policies may be desired, such as:
+
+  - proportionally divide total cluster resources among several teams.
+  - allow each tenant to grow resource usage as needed, but have a generous
+    limit to prevent accidental resource exhaustion.
+  - detect demand from one namespace, add nodes, and increase quota.
+
+Such policies could be implemented using ResourceQuota as a building-block, by
+writing a 'controller' which watches the quota usage and adjusts the quota
+hard limits of each namespace according to other signals.
+
+Note that resource quota divides up aggregate cluster resources, but it creates no
+restrictions around nodes: pods from several namespaces may run on the same node.
+
+## Example
+
+See a [detailed example for how to use resource quota](/docs/admin/resourcequota/walkthrough/).
+
+## Read More
+
 See [ResourceQuota design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_resource_quota.md) for more information.
-
-This example assumes you have a functional Kubernetes setup.
-
-## Step 1: Create a namespace
-
-This example will work in a custom namespace to demonstrate the concepts involved.
-
-Let's create a new namespace called quota-example:
-
-```shell
-$ kubectl create -f docs/admin/resourcequota/namespace.yaml
-namespace "quota-example" created
-$ kubectl get namespaces
-NAME            LABELS    STATUS    AGE
-default         <none>    Active    2m
-quota-example   <none>    Active    39s
-```
-
-## Step 2: Apply a quota to the namespace
-
-By default, a pod will run with unbounded CPU and memory requests/limits.  This means that any pod in the
-system will be able to consume as much CPU and memory on the node that executes the pod.
-
-Users may want to restrict how much of the cluster resources a given namespace may consume
-across all of its pods in order to manage cluster usage.  To do this, a user applies a quota to
-a namespace.  A quota lets the user set hard limits on the total amount of node resources (cpu, memory)
-and API resources (pods, services, etc.) that a namespace may consume. In term of resources, Kubernetes
-checks the total resource *requests*, not resource *limits* of all containers/pods in the namespace.
-
-Let's create a simple quota in our namespace:
-
-```shell
-$ kubectl create -f docs/admin/resourcequota/quota.yaml --namespace=quota-example
-resourcequota "quota" created
-```
-
-Once your quota is applied to a namespace, the system will restrict any creation of content
-in the namespace until the quota usage has been calculated.  This should happen quickly.
-
-You can describe your current quota usage to see what resources are being consumed in your
-namespace.
-
-```shell
-$ kubectl describe quota quota --namespace=quota-example
-Name:			quota
-Namespace:		quota-example
-Resource		Used	Hard
---------		----	----
-cpu			0	20
-memory			0	1Gi
-persistentvolumeclaims	0	10
-pods			0	10
-replicationcontrollers	0	20
-resourcequotas		1	1
-secrets			1	10
-services		0	5
-```
-
-## Step 3: Applying default resource requests and limits
-
-Pod authors rarely specify resource requests and limits for their pods.
-
-Since we applied a quota to our project, let's see what happens when an end-user creates a pod that has unbounded
-cpu and memory by creating an nginx container.
-
-To demonstrate, lets create a replication controller that runs nginx:
-
-```shell
-$ kubectl run nginx --image=nginx --replicas=1 --namespace=quota-example
-replicationcontroller "nginx" created
-```
-
-Now let's look at the pods that were created.
-
-```shell
-$ kubectl get pods --namespace=quota-example
-NAME      READY     STATUS    RESTARTS   AGE
-```
-
-What happened?  I have no pods!  Let's describe the replication controller to get a view of what is happening.
-
-```shell
-kubectl describe rc nginx --namespace=quota-example
-Name:		nginx
-Namespace:	quota-example
-Image(s):	nginx
-Selector:	run=nginx
-Labels:		run=nginx
-Replicas:	0 current / 1 desired
-Pods Status:	0 Running / 0 Waiting / 0 Succeeded / 0 Failed
-No volumes.
-Events:
-  FirstSeen	LastSeen	Count	From				SubobjectPath	Reason		Message
-  42s		11s		3	{replication-controller }			FailedCreate	Error creating: Pod "nginx-" is forbidden: Must make a non-zero request for memory since it is tracked by quota.
-```
-
-The Kubernetes API server is rejecting the replication controllers requests to create a pod because our pods
-do not specify any memory usage *request*.
-
-So let's set some default values for the amount of cpu and memory a pod can consume:
-
-```shell
-$ kubectl create -f docs/admin/resourcequota/limits.yaml --namespace=quota-example
-limitrange "limits" created
-$ kubectl describe limits limits --namespace=quota-example
-Name:		limits
-Namespace:	quota-example
-Type		Resource	Min	Max	Request	Limit	Limit/Request
-----		--------	---	---	-------	-----	-------------
-Container	memory		-	-	256Mi	512Mi	-
-Container	cpu		-	-	100m	200m	-
-```
-
-Now any time a pod is created in this namespace, if it has not specified any resource request/limit, the default
-amount of cpu and memory per container will be applied, and the request will be used as part of admission control.
-
-Now that we have applied default resource *request* for our namespace, our replication controller should be able to
-create its pods.
-
-```shell
-$ kubectl get pods --namespace=quota-example
-NAME          READY     STATUS    RESTARTS   AGE
-nginx-fca65   1/1       Running   0          1m
-```
-
-And if we print out our quota usage in the namespace:
-
-```shell
-$ kubectl describe quota quota --namespace=quota-example
-Name:			quota
-Namespace:		quota-example
-Resource		Used	Hard
---------		----	----
-cpu			100m	20
-memory			256Mi	1Gi
-persistentvolumeclaims	0	10
-pods			1	10
-replicationcontrollers	1	20
-resourcequotas		1	1
-secrets			1	10
-services		0	5
-```
-
-You can now see the pod that was created is consuming explicit amounts of resources (specified by resource *request*), and the usage is being tracked by the Kubernetes system properly.
-
-## Summary
-
-Actions that consume node resources for cpu and memory can be subject to hard quota limits defined by the namespace quota. The resource consumption is measured by resource *request* in pod specification.
-
-Any action that consumes those resources can be tweaked, or can pick up namespace level defaults to meet your end goal.

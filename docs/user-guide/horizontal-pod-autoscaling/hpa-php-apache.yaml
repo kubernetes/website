@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   scaleRef:
-    kind: ReplicationController
+    kind: Deployment
     name: php-apache
     subresource: scale
   minReplicas: 1

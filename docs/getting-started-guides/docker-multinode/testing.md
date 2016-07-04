@@ -20,7 +20,7 @@ If the status of any node is `Unknown` or `NotReady` your cluster is broken, dou
 ### Run an application
 
 ```shell
-kubectl -s http://localhost:8080 run nginx --image=nginx --port=80
+kubectl run nginx --image=nginx --port=80
 ```
 
 now run `docker ps` you should see nginx running.  You may need to wait a few minutes for the image to get pulled.

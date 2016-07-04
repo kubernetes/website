@@ -10,13 +10,13 @@ your pods. But there are a number of ways to get even more information about you
 
 ## Using `kubectl describe pod` to fetch details about pods
 
-For this example we'll use a ReplicationController to create two pods, similar to the earlier example.
+For this example we'll use a Deployment to create two pods, similar to the earlier example.
 
 ```yaml
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
-  name: my-nginx
+  name: nginx-deployment
 spec:
   replicas: 2
   template:
@@ -35,53 +35,67 @@ spec:
         - containerPort: 80
 ```
 
+Copy this to a file *./my-nginx-dep.yaml*
+
 ```shell
-$ kubectl create -f ./my-nginx-rc.yaml
-replicationcontrollers/my-nginx
+$ kubectl create -f ./my-nginx-dep.yaml
+deployment "nginx-deployment" created
 ```
 
 ```shell
 $ kubectl get pods
-NAME             READY     REASON    RESTARTS   AGE
-my-nginx-gy1ij   1/1       Running   0          1m
-my-nginx-yv5cn   1/1       Running   0          1m
+NAME                                READY     STATUS    RESTARTS   AGE
+nginx-deployment-1006230814-6winp   1/1       Running   0          11s
+nginx-deployment-1006230814-fmgu3   1/1       Running   0          11s
 ```
 
 We can retrieve a lot more information about each of these pods using `kubectl describe pod`. For example:
 
 ```shell
-$ kubectl describe pod my-nginx-gy1ij
-Name:				my-nginx-gy1ij
-Image(s):			nginx
-Node:				kubernetes-node-y3vk/10.240.154.168
-Labels:				app=nginx
-Status:				Running
-Reason:				
-Message:			
-IP:				10.244.1.4
-Replication Controllers:	my-nginx (2/2 replicas created)
+$ kubectl describe pod nginx-deployment-1006230814-6winp
+Name:		nginx-deployment-1006230814-6winp
+Namespace:	default
+Node:		kubernetes-node-wul5/10.240.0.9
+Start Time:	Thu, 24 Mar 2016 01:39:49 +0000
+Labels:		app=nginx,pod-template-hash=1006230814
+Status:		Running
+IP:		10.244.0.6
+Controllers:	ReplicaSet/nginx-deployment-1006230814
 Containers:
   nginx:
-    Image:	nginx
+    Container ID:	docker://90315cc9f513c724e9957a4788d3e625a078de84750f244a40f97ae355eb1149
+    Image:		nginx
+    Image ID:		docker://6f62f48c4e55d700cf3eb1b5e33fa051802986b77b874cc351cce539e5163707
+    Port:		80/TCP
+    QoS Tier:
+      cpu:	Guaranteed
+      memory:	Guaranteed
     Limits:
-      cpu:		500m
+      cpu:	500m
+      memory:	128Mi
+    Requests:
       memory:		128Mi
+      cpu:		500m
     State:		Running
-      Started:		Thu, 09 Jul 2015 15:33:07 -0700
+      Started:		Thu, 24 Mar 2016 01:39:51 +0000
     Ready:		True
     Restart Count:	0
+    Environment Variables:
 Conditions:
   Type		Status
   Ready 	True 
+Volumes:
+  default-token-4bcbi:
+    Type:	Secret (a volume populated by a Secret)
+    SecretName:	default-token-4bcbi
 Events:
-  FirstSeen				LastSeen			Count	From					SubobjectPath				Reason		Message
-  Thu, 09 Jul 2015 15:32:58 -0700	Thu, 09 Jul 2015 15:32:58 -0700	1	{scheduler }									scheduled	Successfully assigned my-nginx-gy1ij to kubernetes-node-y3vk
-  Thu, 09 Jul 2015 15:32:58 -0700	Thu, 09 Jul 2015 15:32:58 -0700	1	{kubelet kubernetes-node-y3vk}	implicitly required container POD		pulled		Pod container image "gcr.io/google_containers/pause:0.8.0" already present on machine
-  Thu, 09 Jul 2015 15:32:58 -0700	Thu, 09 Jul 2015 15:32:58 -0700	1	{kubelet kubernetes-node-y3vk}	implicitly required container POD		created		Created with docker id cd1644065066
-  Thu, 09 Jul 2015 15:32:58 -0700	Thu, 09 Jul 2015 15:32:58 -0700	1	{kubelet kubernetes-node-y3vk}	implicitly required container POD		started		Started with docker id cd1644065066
-  Thu, 09 Jul 2015 15:33:06 -0700	Thu, 09 Jul 2015 15:33:06 -0700	1	{kubelet kubernetes-node-y3vk}	spec.containers{nginx}				pulled		Successfully pulled image "nginx"
-  Thu, 09 Jul 2015 15:33:06 -0700	Thu, 09 Jul 2015 15:33:06 -0700	1	{kubelet kubernetes-node-y3vk}	spec.containers{nginx}				created		Created with docker id 56d7a7b14dac
-  Thu, 09 Jul 2015 15:33:07 -0700	Thu, 09 Jul 2015 15:33:07 -0700	1	{kubelet kubernetes-node-y3vk}	spec.containers{nginx}				started		Started with docker id 56d7a7b14dac
+  FirstSeen	LastSeen	Count	From					SubobjectPath		Type		Reason		Message
+  ---------	--------	-----	----					-------------		--------	------		-------
+  54s		54s		1	{default-scheduler }						Normal		Scheduled	Successfully assigned nginx-deployment-1006230814-6winp to kubernetes-node-wul5
+  54s		54s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Pulling		pulling image "nginx"
+  53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Pulled		Successfully pulled image "nginx"
+  53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Created		Created container with docker id 90315cc9f513
+  53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Started		Started container with docker id 90315cc9f513
 ```
 
 Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.)
@@ -98,48 +112,59 @@ Lastly, you see a log of recent events related to your Pod. The system compresse
 
 ## Example: debugging Pending Pods
 
-A common scenario that you can detect using events is when you've created a Pod that won't fit on any node. For example, the Pod might request more resources than are free on any node, or it might specify a label selector that doesn't match any nodes. Let's say we created the previous Replication Controller with 5 replicas (instead of 2) and requesting 600 millicores instead of 500, on a four-node cluster where each (virtual) machine has 1 CPU. In that case one of the Pods will not be able to schedule. (Note that because of the cluster addon pods such as fluentd, skydns, etc., that run on each node, if we requested 1000 millicores then none of the Pods would be able to schedule.)
+A common scenario that you can detect using events is when you've created a Pod that won't fit on any node. For example, the Pod might request more resources than are free on any node, or it might specify a label selector that doesn't match any nodes. Let's say we created the previous Deployment with 5 replicas (instead of 2) and requesting 600 millicores instead of 500, on a four-node cluster where each (virtual) machine has 1 CPU. In that case one of the Pods will not be able to schedule. (Note that because of the cluster addon pods such as fluentd, skydns, etc., that run on each node, if we requested 1000 millicores then none of the Pods would be able to schedule.)
 
 ```shell
 $ kubectl get pods
 NAME             READY     REASON    RESTARTS   AGE
-my-nginx-9unp9   0/1       Pending   0          8s
-my-nginx-b7zs9   0/1       Running   0          8s
-my-nginx-i595c   0/1       Running   0          8s
-my-nginx-iichp   0/1       Running   0          8s
-my-nginx-tc2j9   0/1       Running   0          8s
+NAME                                READY     STATUS    RESTARTS   AGE
+nginx-deployment-1006230814-6winp   1/1       Running   0          7m
+nginx-deployment-1006230814-fmgu3   1/1       Running   0          7m
+nginx-deployment-1370807587-6ekbw   1/1       Running   0          1m
+nginx-deployment-1370807587-fg172   0/1       Pending   0          1m
+nginx-deployment-1370807587-fz9sd   0/1       Pending   0          1m
 ```
 
-To find out why the my-nginx-9unp9 pod is not running, we can use `kubectl describe pod` on the pending Pod and look at its events:
+To find out why the nginx-deployment-1370807587-fz9sd pod is not running, we can use `kubectl describe pod` on the pending Pod and look at its events:
 
 ```shell
-$ kubectl describe pod my-nginx-9unp9 
-Name:				my-nginx-9unp9
-Image(s):			nginx
-Node:				/
-Labels:				app=nginx
-Status:				Pending
-Reason:				
-Message:			
-IP:				
-Replication Controllers:	my-nginx (5/5 replicas created)
-Containers:
-  nginx:
-    Image:	nginx
-    Limits:
-      cpu:		600m
-      memory:		128Mi
-    State:		Waiting
-    Ready:		False
-    Restart Count:	0
-Events:
-  FirstSeen				LastSeen			Count	From		SubobjectPath	Reason			Message
-  Thu, 09 Jul 2015 23:56:21 -0700	Fri, 10 Jul 2015 00:01:30 -0700	21	{scheduler }			failedScheduling	Failed for reason PodFitsResources and possibly others
+$ kubectl describe pod nginx-deployment-1370807587-fz9sd
+  Name:		nginx-deployment-1370807587-fz9sd
+  Namespace:	default
+  Node:		/
+  Labels:		app=nginx,pod-template-hash=1370807587
+  Status:		Pending
+  IP:		
+  Controllers:	ReplicaSet/nginx-deployment-1370807587
+  Containers:
+    nginx:
+      Image:	nginx
+      Port:	80/TCP
+      QoS Tier:
+        memory:	Guaranteed
+        cpu:	Guaranteed
+      Limits:
+        cpu:	1
+        memory:	128Mi
+      Requests:
+        cpu:	1
+        memory:	128Mi
+      Environment Variables:
+  Volumes:
+    default-token-4bcbi:
+      Type:	Secret (a volume populated by a Secret)
+      SecretName:	default-token-4bcbi
+  Events:
+    FirstSeen	LastSeen	Count	From			        SubobjectPath	Type		Reason			    Message
+    ---------	--------	-----	----			        -------------	--------	------			    -------
+    1m		    48s		    7	    {default-scheduler }			        Warning		FailedScheduling	pod (nginx-deployment-1370807587-fz9sd) failed to fit in any node
+  fit failure on node (kubernetes-node-6ta5): Node didn't have enough resource: CPU, requested: 1000, used: 1420, capacity: 2000
+  fit failure on node (kubernetes-node-wul5): Node didn't have enough resource: CPU, requested: 1000, used: 1100, capacity: 2000
 ```
 
-Here you can see the event generated by the scheduler saying that the Pod failed to schedule for reason `PodFitsResources` (and possibly others). `PodFitsResources` means there were not enough resources for the Pod on any of the nodes. Due to the way the event is generated, there may be other reasons as well, hence "and possibly others."
+Here you can see the event generated by the scheduler saying that the Pod failed to schedule for reason `FailedScheduling` (and possibly others).  The message tells us that there were not enough resources for the Pod on any of the nodes.
 
-To correct this situation, you can use `kubectl scale` to update your Replication Controller to specify four or fewer replicas. (Or you could just leave the one Pod pending, which is harmless.)
+To correct this situation, you can use `kubectl scale` to update your Deployment to specify four or fewer replicas. (Or you could just leave the one Pod pending, which is harmless.)
 
 Events such as the ones you saw at the end of `kubectl describe pod` are persisted in etcd and provide high-level information on what is happening in the cluster. To list all events you can use
 
@@ -158,65 +183,75 @@ To see events from all namespaces, you can use the `--all-namespaces` argument.
 In addition to `kubectl describe pod`, another way to get extra information about a pod (beyond what is provided by `kubectl get pod`) is to pass the `-o yaml` output format flag to `kubectl get pod`. This will give you, in YAML format, even more information than `kubectl describe pod`--essentially all of the information the system has about the Pod. Here you will see things like annotations (which are key-value metadata without the label restrictions, that is used internally by Kubernetes system components), restart policy, ports, and volumes.
 
 ```yaml
-$ kubectl get pod my-nginx-i595c -o yaml
+$kubectl get pod nginx-deployment-1006230814-6winp -o yaml
 apiVersion: v1
 kind: Pod
 metadata:
   annotations:
-    kubernetes.io/created-by: '{"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicationController","namespace":"default","name":"my-nginx","uid":"c555c14f-26d0-11e5-99cb-42010af00e4b","apiVersion":"v1","resourceVersion":"26174"}}'
-  creationTimestamp: 2015-07-10T06:56:21Z
-  generateName: my-nginx-
+    kubernetes.io/created-by: |
+      {"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicaSet","namespace":"default","name":"nginx-deployment-1006230814","uid":"4c84c175-f161-11e5-9a78-42010af00005","apiVersion":"extensions","resourceVersion":"133434"}}
+  creationTimestamp: 2016-03-24T01:39:50Z
+  generateName: nginx-deployment-1006230814-
   labels:
     app: nginx
-  name: my-nginx-i595c
+    pod-template-hash: "1006230814"
+  name: nginx-deployment-1006230814-6winp
   namespace: default
-  resourceVersion: "26243"
-  selfLink: /api/v1/namespaces/default/pods/my-nginx-i595c
-  uid: c558e44b-26d0-11e5-99cb-42010af00e4b
+  resourceVersion: "133447"
+  selfLink: /api/v1/namespaces/default/pods/nginx-deployment-1006230814-6winp
+  uid: 4c879808-f161-11e5-9a78-42010af00005
 spec:
   containers:
   - image: nginx
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     name: nginx
     ports:
     - containerPort: 80
       protocol: TCP
     resources:
       limits:
-        cpu: 600m
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 500m
         memory: 128Mi
     terminationMessagePath: /dev/termination-log
     volumeMounts:
     - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-      name: default-token-zkhkk
+      name: default-token-4bcbi
       readOnly: true
   dnsPolicy: ClusterFirst
-  nodeName: kubernetes-node-u619
+  nodeName: kubernetes-node-wul5
   restartPolicy: Always
+  securityContext: {}
+  serviceAccount: default
   serviceAccountName: default
+  terminationGracePeriodSeconds: 30
   volumes:
-  - name: default-token-zkhkk
+  - name: default-token-4bcbi
     secret:
-      secretName: default-token-zkhkk
+      secretName: default-token-4bcbi
 status:
   conditions:
-  - status: "True"
+  - lastProbeTime: null
+    lastTransitionTime: 2016-03-24T01:39:51Z
+    status: "True"
     type: Ready
   containerStatuses:
-  - containerID: docker://9506ace0eb91fbc31aef1d249e0d1d6d6ef5ebafc60424319aad5b12e3a4e6a9
+  - containerID: docker://90315cc9f513c724e9957a4788d3e625a078de84750f244a40f97ae355eb1149
     image: nginx
-    imageID: docker://319d2015d149943ff4d2a20ddea7d7e5ce06a64bbab1792334c0d3273bbbff1e
+    imageID: docker://6f62f48c4e55d700cf3eb1b5e33fa051802986b77b874cc351cce539e5163707
     lastState: {}
     name: nginx
     ready: true
     restartCount: 0
     state:
       running:
-        startedAt: 2015-07-10T06:56:28Z
-  hostIP: 10.240.112.234
+        startedAt: 2016-03-24T01:39:51Z
+  hostIP: 10.240.0.9
   phase: Running
-  podIP: 10.244.3.4
-  startTime: 2015-07-10T06:56:21Z
+  podIP: 10.244.0.6
+  startTime: 2016-03-24T01:39:49Z
 ```
 
 ## Example: debugging a down/unreachable node

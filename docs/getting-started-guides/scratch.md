@@ -119,7 +119,7 @@ which is unique from future cluster names. This will be used in several ways:
     second one sometime later, such as for testing new Kubernetes releases, running in a different
 region of the world, etc.
   - Kubernetes clusters can create cloud provider resources (e.g. AWS ELBs) and different clusters
-    need to distinguish which resources each created.  Call this `CLUSTERNAME`.
+    need to distinguish which resources each created.  Call this `CLUSTER_NAME`.
 
 ### Software Binaries
 
@@ -160,7 +160,7 @@ You have several choices for Kubernetes images:
     release tag, which can be found on the [latest releases page](https://github.com/kubernetes/kubernetes/releases/latest).
   - Ensure $TAG is the same tag as the release tag you are using for kubelet and kube-proxy.
   - The [hyperkube](https://releases.k8s.io/{{page.githubbranch}}/cmd/hyperkube) binary is an all in one binary
-    - `hyperkube kubelet ...` runs the kublet, `hyperkube apiserver ...` runs an apiserver, etc.
+    - `hyperkube kubelet ...` runs the kubelet, `hyperkube apiserver ...` runs an apiserver, etc.
 - Build your own images.
   - Useful if you are using a private registry.
   - The release contains files such as `./kubernetes/server/bin/kube-apiserver.tar` which
@@ -368,7 +368,7 @@ Then you need to configure your kubelet with flag:
 
 ### kubelet
 
-All nodes should run kubelet.  See [Selecting Binaries](#selecting-binaries).
+All nodes should run kubelet.  See [Software Binaries](#software-binaries).
 
 Arguments to consider:
 
@@ -796,17 +796,17 @@ Notes for setting up each cluster service are given below:
 * Cluster DNS:
   * required for many kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
-  * [Admin Guide](/admin/dns/)
+  * [Admin Guide](/docs/admin/dns/)
 * Cluster-level Logging
   * Multiple implementations with different storage backends and UIs.
   * [Elasticsearch Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/)
   * [Google Cloud Logging Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/).
   * Both require running fluentd on each node.
-  * [User Guide](/user-guide/logging/)
+  * [User Guide](/docs/user-guide/logging/)
 * Container Resource Monitoring
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/)
 * GUI
-  * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/kube-ui/)
+  * [Setup instructions](https://github.com/kubernetes/kube-ui)
   cluster.
 
 ## Troubleshooting
@@ -837,3 +837,13 @@ pinging or SSH-ing from one node to another.
 
 If you run into trouble, please see the section on [troubleshooting](/docs/getting-started-guides/gce#troubleshooting), post to the
 [google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](/docs/troubleshooting#slack).
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch)                                |          | Community ([@erictune](https://github.com/erictune))
+
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.

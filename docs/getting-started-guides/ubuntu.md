@@ -24,7 +24,7 @@ use a CNI plugin instead.
 Internet to download the necessary files, while worker nodes do not.
 3. These guide is tested OK on Ubuntu 14.04 LTS 64bit server, but it can not work with
 Ubuntu 15 which uses systemd instead of upstart.
-4. Dependencies of this guide: etcd-2.2.1, flannel-0.5.5, k8s-1.1.4, may work with higher versions.
+4. Dependencies of this guide: etcd-2.2.1, flannel-0.5.5, k8s-1.1.8, may work with higher versions.
 5. All the remote servers can be ssh logged in without a password by using key authentication.
 
 
@@ -41,12 +41,12 @@ $ git clone https://github.com/kubernetes/kubernetes.git
 #### Configure and start the Kubernetes cluster
 
 The startup process will first download all the required binaries automatically.
-By default etcd version is 2.2.1, flannel version is 0.5.5 and k8s version is 1.1.4.
+By default etcd version is 2.2.1, flannel version is 0.5.5 and k8s version is 1.1.8.
 You can customize your etcd version, flannel version, k8s version by changing corresponding variables
 `ETCD_VERSION` , `FLANNEL_VERSION` and `KUBE_VERSION` like following.
 
 ```shell
-$ export KUBE_VERSION=1.0.5
+$ export KUBE_VERSION=1.1.8
 $ export FLANNEL_VERSION=0.5.0
 $ export ETCD_VERSION=2.2.0
 ```
@@ -280,4 +280,14 @@ You can use the `kubectl` command to check if the newly upgraded kubernetes clus
 To make sure the version of the upgraded cluster is what you expect, you will find these commands helpful.
 
 * upgrade all components or master: `$ kubectl version`. Check the *Server Version*.
-* upgrade node `vcap@10.10.102.223`: `$ ssh -t vcap@10.10.102.223 'cd /opt/bin && sudo ./kubelet --version'`
+* upgrade node `vcap@10.10.102.223`: `$ ssh -t vcap@10.10.102.223 'cd /opt/bin && sudo ./kubelet --version'`* 
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu)                                 |          | Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
+
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
