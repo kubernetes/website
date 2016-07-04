@@ -30,18 +30,7 @@ See [pods](/docs/user-guide/pods/) for more details.
 
 The simplest pod definition describes the deployment of a single container.  For example, an nginx web server pod might be defined as such:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-    ports:
-    - containerPort: 80
-```
+{% include code.html language="yaml" file="pod-nginx.yaml" ghlink="/docs/user-guide/walkthrough/pod-nginx.yaml" %}
 
 A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and it is Kubernetes' responsibility to make sure that the current state matches the desired state.  For example, when you create a Pod, you declare that you want the containers in it to be running.  If the containers happen to not be running (e.g. program failure, ...), Kubernetes will continue to (re-)create them for you in order to drive them to the desired state. This process continues until the Pod is deleted.
 
@@ -64,11 +53,14 @@ $ kubectl get pods
 
 On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/user-guide/getting-into-containers/) for details.
 
-Provided the pod IP is accessible, you should be able to access its http endpoint with curl on port 80:
+Provided the pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
 
-```shell
-$ curl http://$(kubectl get pod nginx -o go-template={{.status.podIP}})
-```
+```shell{% raw %}
+$ kubectl run busybox --image=busybox --restart=Never --tty -i --generator=run-pod/v1 --env "POD_IP=$(kubectl get pod nginx -o go-template={{.status.podIP}})"
+u@busybox$ wget -qO- http://$POD_IP # Run in the busybox container
+u@busybox$ exit # Exit the busybox container
+$ kubectl delete pod busybox # Clean up the pod we created with "kubectl run"
+{% endraw %}```
 
 Delete the pod by name:
 

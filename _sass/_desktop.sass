@@ -66,6 +66,7 @@ $video-section-height: 550px
 
 	#encyclopedia
 		padding: 50px 50px 20px 20px
+		clear: both
 
 	#docsToc
 		position: relative
@@ -88,20 +89,33 @@ $video-section-height: 550px
 		main
 			max-width: $main-max-width
 
+	#home
+		section, header, footer
+			main
+				max-width: 1000px
+
 	#oceanNodes
 		main
 			position: relative
-			max-width: $main-max-width
+			max-width: 830px
 
 			&:nth-child(1)
+				max-width: 1000px
+				padding-right: 475px
+
+				h3, p
+					text-align: left
 
 				.image-wrapper
 					position: absolute
 					max-width: 48%
 					transform: translateY(-50%)
 
-				.content
-					width: 50%
+					img
+						max-width: 425px
+
+				//.content
+				//	width: 50%
 
 
 	#video
@@ -164,30 +178,6 @@ $video-section-height: 550px
 
 			div:last-child
 				float: right
-
-		//.social
-		//	position: relative
-		//	margin: 20px 0
-		//
-		//	a
-		//		float: left
-		//
-		//	a + a
-		//		margin-left: 10px
-		//
-		//	label
-		//		float: right
-		//		width: auto
-		//		display: inline-block
-		//		height: 50px
-		//		line-height: 50px
-		//		font-weight: 100
-		//		white-space: nowrap
-		//
-		//		input
-		//			margin-left: 8px
-		//			max-width: none
-
 
 	#search, #wishField
 		background-color: transparent

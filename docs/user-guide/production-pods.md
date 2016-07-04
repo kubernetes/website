@@ -12,32 +12,7 @@ The container file system only lives as long as the container does, so when a co
 
 For example, [Redis](http://redis.io/) is a key-value cache and store, which we use in the [guestbook](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) and other examples. We can add a volume to it to store persistent data as follows:
 
-```yaml
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  name: redis
-spec:
-  template:
-    metadata:
-      labels:
-        app: redis
-        tier: backend
-    spec:
-      # Provision a fresh volume for the pod
-      volumes:
-        - name: data
-          emptyDir: {}
-      containers:
-      - name: redis
-        image: kubernetes/redis:v1
-        ports:
-        - containerPort: 6379
-        # Mount the volume into the pod
-        volumeMounts:
-        - mountPath: /redis-master-data
-          name: data   # must match the name of the volume, above
-```
+{% include code.html language="yaml" file="redis-deployment.yaml" ghlink="/docs/user-guide/redis-deployment.yaml" %}
 
 `emptyDir` volumes live for the lifespan of the [pod](/docs/user-guide/pods), which is longer than the lifespan of any one container, so if the container fails and is restarted, our storage will live on.
 
@@ -47,7 +22,14 @@ In addition to the local disk storage provided by `emptyDir`, Kubernetes support
 
 Many applications need credentials, such as passwords, OAuth tokens, and TLS keys, to authenticate with other applications, databases, and services. Storing these credentials in container images or environment variables is less than ideal, since the credentials can then be copied by anyone with access to the image, pod/container specification, host file system, or host Docker daemon.
 
-Kubernetes provides a mechanism, called [*secrets*](/docs/user-guide/secrets), that facilitates delivery of sensitive credentials to applications. A `Secret` is a simple resource containing a map of data. For instance, a simple secret with a username and password might look as follows:
+Kubernetes provides a mechanism, called [*secrets*](/docs/user-guide/secrets), that facilitates delivery of sensitive credentials to applications. A `Secret` is a simple resource containing a map of data. For instance, you can create a simple secret with a username and password as follows:
+
+```shell
+$ kubectl create secret generic mysecret --from-literal=username="admin",password="1234"
+secret "mysecret" created
+```
+
+This is equivalent to `kubectl create -f`:
 
 ```yaml
 apiVersion: v1
@@ -56,53 +38,22 @@ metadata:
   name: mysecret
 type: Opaque
 data:
-  password: dmFsdWUtMg0K
-  username: dmFsdWUtMQ0K
+  username: YWRtaW4=
+  password: MTIzNA==
 ```
 
-As with other resources, this secret can be instantiated using `create` and can be viewed with `get`:
+As with other resources, the created secret can be viewed with `get`:
 
 ```shell
-$ kubectl create -f ./secret.yaml
-secrets/mysecret
 $ kubectl get secrets
-NAME                  TYPE                                  DATA
-default-token-v9pyz   kubernetes.io/service-account-token   2
-mysecret              Opaque                                2
+NAME                  TYPE                                  DATA      AGE
+default-token-zirbw   kubernetes.io/service-account-token   3         3h
+mysecret              Opaque                                2         2m
 ```
 
 To use the secret, you need to reference it in a pod or pod template. The `secret` volume source enables you to mount it as an in-memory directory into your containers.
 
-```yaml
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  name: redis
-spec:
-  template:
-    metadata:
-      labels:
-        app: redis
-        tier: backend
-    spec:
-      volumes:
-        - name: data
-          emptyDir: {}
-        - name: supersecret
-          secret:
-            secretName: mysecret
-      containers:
-      - name: redis
-        image: kubernetes/redis:v1
-        ports:
-        - containerPort: 6379
-        # Mount the volume into the pod
-        volumeMounts:
-        - mountPath: /redis-master-data
-          name: data   # must match the name of the volume, above
-        - mountPath: /var/run/secrets/super
-          name: supersecret
-```
+{% include code.html language="yaml" file="redis-secret-deployment.yaml" ghlink="/docs/user-guide/redis-secret-deployment.yaml" %}
 
 For more details, see the [secrets document](/docs/user-guide/secrets), [example](/docs/user-guide/secrets/) and [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/secrets.md).
 
@@ -110,7 +61,14 @@ For more details, see the [secrets document](/docs/user-guide/secrets), [example
 
 Secrets can also be used to pass [image registry credentials](/docs/user-guide/images/#using-a-private-registry).
 
-First, create a `.docker/config.json`, such as by running `docker login <registry.domain>`.
+The easiest way to create a secret for Docker registry is:
+
+```shell
+$ kubectl create secret docker-registry myregistrykey --docker-username=janedoe --docker-password=●●●●●●●●●●● --docker-email=jdoe@example.com
+secret "myregistrykey" created
+```
+
+Alternatively, you can do the equivalent with the following steps. First, create a `.docker/config.json`, such as by running `docker login <registry.domain>`.
 Then put the resulting `.docker/config.json` file into a [secret resource](secrets.md).  For example:
 
 ```shell
@@ -138,7 +96,7 @@ type: kubernetes.io/dockerconfigjson
 EOF
 
 $ kubectl create -f /tmp/image-pull-secret.yaml
-secrets/myregistrykey
+secret "myregistrykey" created
 ```
 
 Now, you can create pods which reference that secret by adding an `imagePullSecrets`
@@ -164,8 +122,8 @@ spec:
 Such containers typically need to communicate with one another, often through the file system. This can be achieved by mounting the same volume into both containers. An example of this pattern would be a web server with a [program that polls a git repository](http://releases.k8s.io/{{page.githubbranch}}/contrib/git-sync/) for new updates:
 
 ```yaml
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: my-nginx
 spec:
@@ -204,35 +162,7 @@ Kubernetes's scheduler will place applications only where they have adequate CPU
 
 If no resource requirements are specified, a nominal amount of resources is assumed. (This default is applied via a [LimitRange](/docs/admin/limitrange/) for the default [Namespace](/docs/user-guide/namespaces). It can be viewed with `kubectl describe limitrange limits`.) You may explicitly specify the amount of resources required as follows:
 
-```yaml
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  name: my-nginx
-spec:
-  replicas: 2
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx
-        ports:
-        - containerPort: 80
-        resources:
-          limits:
-            # cpu units are cores
-            cpu: 500m
-            # memory units are bytes
-            memory: 64Mi
-          requests:
-            # cpu units are cores
-            cpu: 500m
-            # memory units are bytes
-            memory: 64Mi
-```
+{% include code.html language="yaml" file="redis-resource-deployment.yaml" ghlink="/docs/user-guide/redis-resource-deployment.yaml" %}
 
 The container will die due to OOM (out of memory) if it exceeds its specified limit, so specifying a value a little higher than expected generally improves reliability. By specifying request, pod is guaranteed to be able to use that much of resource when needed. See [Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/resource-qos.md) for the difference between resource limits and requests.
 
@@ -244,31 +174,7 @@ Many applications running for long periods of time eventually transition to brok
 
 A common way to probe an application is using HTTP, which can be specified as follows:
 
-```yaml
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  name: my-nginx
-spec:
-  replicas: 2
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx
-        ports:
-        - containerPort: 80
-        livenessProbe:
-          httpGet:
-            # Path to probe; should be cheap, but representative of typical behavior
-            path: /index.html
-            port: 80
-          initialDelaySeconds: 30
-          timeoutSeconds: 1
-```
+{% include code.html language="yaml" file="nginx-probe-deployment.yaml" ghlink="/docs/user-guide/nginx-probe-deployment.yaml" %}
 
 Other times, applications are only temporarily unable to serve, and will recover on their own. Typically in such cases you'd prefer not to kill the application, but don't want to send it requests, either, since the application won't respond correctly or at all. A common such scenario is loading large data or configuration files during application startup. Kubernetes provides *readiness probes* to detect and mitigate such situations. Readiness probes are configured similarly to liveness probes, just using the `readinessProbe` field. A pod with containers reporting that they are not ready will not receive traffic through Kubernetes [services](/docs/user-guide/connecting-applications).
 
@@ -283,29 +189,7 @@ Of course, nodes and applications may fail at any time, but many applications be
 
 The specification of a pre-stop hook is similar to that of probes, but without the timing-related parameters. For example:
 
-```yaml
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  name: my-nginx
-spec:
-  replicas: 2
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx
-        ports:
-        - containerPort: 80
-        lifecycle:
-          preStop:
-            exec:
-              # SIGTERM triggers a quick exit; gracefully terminate instead
-              command: ["/usr/sbin/nginx","-s","quit"]
-```
+{% include code.html language="yaml" file="nginx-lifecycle-deployment.yaml" ghlink="/docs/user-guide/nginx-lifecycle-deployment.yaml" %}
 
 ## Termination message
 
@@ -313,24 +197,13 @@ In order to achieve a reasonably high level of availability, especially for acti
 
 Here is a toy example:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: pod-w-message
-spec:
-  containers:
-  - name: messager
-    image: "ubuntu:14.04"
-    command: ["/bin/sh","-c"]
-    args: ["sleep 60 && /bin/echo Sleep expired > /dev/termination-log"]
-```
+{% include code.html language="yaml" file="pod-w-message.yaml" ghlink="/docs/user-guide/pod-w-message.yaml" %}
 
 The message is recorded along with the other state of the last (i.e., most recent) termination:
 
 ```shell{% raw %}
-$ kubectl create -f ./pod.yaml
-pods/pod-w-message
+$ kubectl create -f ./pod-w-message.yaml
+pod "pod-w-message" created
 $ sleep 70
 $ kubectl get pods/pod-w-message -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"
 Sleep expired

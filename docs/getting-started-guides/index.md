@@ -32,14 +32,16 @@ But their size and availability is limited to that of a single machine.
 The local-machine solutions are:
 
 - [Local Docker-based](/docs/getting-started-guides/docker) (recommended starting point)
-- [Vagrant](/docs/getting-started-guides/vagrant) (works on any platform with Vagrant: Linux, MacOS, or Windows.)
 - [No-VM local cluster](/docs/getting-started-guides/locally) (Linux only)
+- [Vagrant](/docs/getting-started-guides/vagrant)
 
 
 ### Hosted Solutions
 
 [Google Container Engine](https://cloud.google.com/container-engine) offers managed Kubernetes
 clusters.
+
+[Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
 
 ### Turn-key Cloud Solutions
 
@@ -48,7 +50,9 @@ few commands, and have active community support.
 
 - [GCE](/docs/getting-started-guides/gce)
 - [AWS](/docs/getting-started-guides/aws)
-- [Azure](/docs/getting-started-guides/coreos/azure/)
+- [Azure](/docs/getting-started-guides/coreos/azure/) (Weave-based, contributed by WeaveWorks employees)
+- [Azure](/docs/getting-started-guides/azure/) (Flannel-based, contributed by Microsoft employee)
+- [CenturyLink Cloud](/docs/getting-started-guides/clc)
 
 ### Custom Solutions
 
@@ -82,6 +86,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 - [Vmware](/docs/getting-started-guides/coreos)  (uses CoreOS and flannel)
 - [libvirt-coreos.md](/docs/getting-started-guides/libvirt-coreos)  (uses CoreOS)
 - [oVirt](/docs/getting-started-guides/ovirt)
+- [OpenStack Heat](/docs/getting-started-guides/openstack-heat) (uses CentOS and flannel)
 - [libvirt](/docs/getting-started-guides/fedora/flannel_multi_node_cluster) (uses Fedora and flannel)
 - [KVM](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)  (uses Fedora and flannel)
 
@@ -112,11 +117,12 @@ Here are all the solutions mentioned above in table form.
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | ['œ“][3]   | Commercial
-Vagrant              | Saltstack    | Fedora | flannel     | [docs](/docs/getting-started-guides/vagrant)                                | ['œ“][2]   | Project
+Stackpoint.io        |              | multi-support       | multi-support   | [docs](http://www.stackpointcloud.com) |    | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | ['œ“][1]   | Project
 Azure                | CoreOS       | CoreOS | Weave       | [docs](/docs/getting-started-guides/coreos/azure/)                    |          | Community ([@errordeveloper](https://github.com/errordeveloper), [@squillace](https://github.com/squillace), [@chanezon](https://github.com/chanezon), [@crossorigin](https://github.com/crossorigin))
+Azure                | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/azure)                    |          | Community ([@colemickens](https://github.com/colemickens))
 Docker Single Node   | custom       | N/A    | local       | [docs](/docs/getting-started-guides/docker)                                 |          | Project ([@brendandburns](https://github.com/brendandburns))
-Docker Multi Node    | Flannel      | N/A    | local       | [docs](/docs/getting-started-guides/docker-multinode)                       |          | Project ([@brendandburns](https://github.com/brendandburns))
+Docker Multi Node    | custom       | N/A    | flannel     | [docs](/docs/getting-started-guides/docker-multinode)                       |          | Project ([@brendandburns](https://github.com/brendandburns))
 Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config)           |          | Project
 Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config)            |          | Project
 Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)      |          | Community ([@aveshagarwal](https://github.com/aveshagarwal))
@@ -125,7 +131,7 @@ KVM                  | custom       | Fedora | flannel     | [docs](/docs/gettin
 Mesos/Docker         | custom       | Ubuntu | Docker      | [docs](/docs/getting-started-guides/mesos-docker)                           |          | Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
 Mesos/GCE            |              |        |             | [docs](/docs/getting-started-guides/mesos)                                  |          | Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
 DCOS                 | Marathon   | CoreOS/Alpine | custom | [docs](/docs/getting-started-guides/dcos)                                   |          | Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
-AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |          | Community
+AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/aws)                                 |          | Community
 GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |          | Community ([@pires](https://github.com/pires))
 Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |          | Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
 Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline)              |          | Community ([@jeffbean](https://github.com/jeffbean))
@@ -141,6 +147,7 @@ Bare-metal           | custom       | Ubuntu | Calico      | [docs](/docs/gettin
 Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu)                                 |          | Community ([@resouer](https://github.com/resouer), [@WIZARD-CXY](https://github.com/WIZARD-CXY))
 libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/getting-started-guides/libvirt-coreos)                         |          | Community ([@lhuard1A](https://github.com/lhuard1A))
 oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt)                                  |          | Community ([@simon3z](https://github.com/simon3z))
+OpenStack Heat       | Saltstack    | CentOS | Neutron + flannel hostgw | [docs](/docs/getting-started-guides/openstack-heat)            |          | Community ([@FujitsuEnablingSoftwareTechnologyGmbH](https://github.com/FujitsuEnablingSoftwareTechnologyGmbH))
 Rackspace            | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/rackspace)                              |          | Community ([@doublerr](https://github.com/doublerr))
 any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch)                                |          | Community ([@erictune](https://github.com/erictune))
 

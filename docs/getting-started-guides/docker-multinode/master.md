@@ -3,13 +3,13 @@
 
 We'll begin by setting up the master node.  For the purposes of illustration, we'll assume that the IP of this machine
 is `${MASTER_IP}`.  We'll need to run several versioned Kubernetes components, so we'll assume that the version we want
-to run is `${K8S_VERSION}`, which should hold a released version of Kubernetes >= "1.2.0-alpha.7"
+to run is `${K8S_VERSION}`, which should hold a released version of Kubernetes >= "1.2.1"
 
-Enviroinment variables used:
+Environment variables used:
 
 ```shell
 export MASTER_IP=<the_master_ip_here>
-export K8S_VERSION=<your_k8s_version (e.g. 1.2.0-alpha.7)>
+export K8S_VERSION=<your_k8s_version (e.g. 1.2.1)>
 export ETCD_VERSION=<your_etcd_version (e.g. 2.2.1)>
 export FLANNEL_VERSION=<your_flannel_version (e.g. 0.5.5)>
 export FLANNEL_IFACE=<flannel_interface (defaults to eth0)>
@@ -114,6 +114,7 @@ sudo docker -H unix:///var/run/docker-bootstrap.sock run -d \
     --privileged \
     -v /dev/net:/dev/net \
     quay.io/coreos/flannel:${FLANNEL_VERSION} \
+    /opt/bin/flanneld \
         --ip-masq=${FLANNEL_IPMASQ} \
         --iface=${FLANNEL_IFACE}
 ```

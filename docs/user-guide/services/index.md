@@ -138,7 +138,7 @@ created. You can manually map the service to your own specific endpoints:
 ```
 
 NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
-(169.254.0.0/16), or link-local multicast ((224.0.0.0/24).
+(169.254.0.0/16), or link-local multicast (224.0.0.0/24).
 
 Accessing a `Service` without a selector works the same as if it had selector.
 The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
@@ -165,7 +165,7 @@ will be proxied to one of the `Service`'s backend `Pods` (as reported in
 `Endpoints`).  Which backend `Pod`  to use is decided based on the
 `SessionAffinity` of the `Service`.  Lastly, it installs iptables rules which
 capture traffic to the `Service`'s `clusterIP` (which is virtual) and `Port`
-and redirects that traffic to the proxy port which proxies the a backend `Pod`.
+and redirects that traffic to the proxy port which proxies the backend `Pod`.
 
 The net result is that any traffic bound for the `Service`'s IP:Port is proxied
 to an appropriate backend without the clients knowing anything about Kubernetes

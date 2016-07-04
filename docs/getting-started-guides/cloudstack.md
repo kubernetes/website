@@ -68,7 +68,7 @@ Check the tasks and templates in `roles/k8s` if you want to modify anything.
 
 Once the playbook as finished, it will print out the IP of the Kubernetes master:
 
-    TASK: [k8s | debug msg='k8s master IP is {{ k8s_master.default_ip }}'] ********
+    TASK: [k8s | debug msg='k8s master IP is {% raw %}{{ k8s_master.default_ip }}{% endraw %}'] ********
 
 SSH to it using the key that was created and using the _core_ user and you can list the machines in your cluster:
 
@@ -78,3 +78,12 @@ SSH to it using the key that was created and using the _core_ user and you can l
     a017c422...	<node #1 IP>   role=node
     ad13bf84...	<master IP>	   role=master
     e9af8293...	<node #2 IP>   role=node
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/getting-started-guides/cloudstack)                             |          | Community ([@runseb](https://github.com/runseb))
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
