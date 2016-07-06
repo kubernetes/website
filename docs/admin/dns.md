@@ -31,9 +31,13 @@ performance. The healthz container provides a single health check endpoint while
 
 ## Kubernetes Federation (Multiple Zone support)
 
-The 1.3 release introduced Federation (Ubernetes) support for multisite Kubernetes installations. There are
-DNS changes introduced that will allow the lookup of services using a six part DNS name.
-See [Federation docs](/docs/admin/multiple-zones/) for more details on multiple site support.
+Release 1.3 introduced Cluster Federation support for multi-site
+Kubernetes installations. This required some minor
+(backward-compatible) changes to the way
+the Kubernetes cluster DNS server processes DNS queries, to facilitate
+the lookup of federated services (which span multiple Kubernetes clusters).
+See the [Cluster Federation Administrators' Guide](/docs/admin/federation/index.md) for more
+details on Cluster Federation and multi-site support.
 
 ## References
 
