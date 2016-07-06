@@ -221,6 +221,8 @@ spec:
     servicePort: 80
 ```
 
+Please refer to documentation on [nginx](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx#https), [GCE](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/gce#tls), or any other platform specific Ingress controller to understand how TLS works in your environment.
+
 ### Loadbalancing
 
 An Ingress controller is bootstrapped with some loadbalancing policy settings that it applies to all Ingress, such as the loadbalancing algorithm, backend weight scheme etc. More advanced loadbalancing concepts (eg: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer). With time, we plan to distill loadbalancing patterns that are applicable cross platform into the Ingress resource.
