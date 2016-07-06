@@ -555,6 +555,63 @@ There are three things to check:
   Engine doesn't do port remapping, so if your application serves on 8080,
   the `containerPort` field needs to be 8080.
 
+### A Pod cannot reach itself via Service IP
+
+This mostly happens when `kube-proxy` is running in `iptables` mode and Pods
+are connected with bridge network. The `Kubelet` exposes a `hairpin-mode`
+[flag](http://kubernetes.io/docs/admin/kubelet/) that allows endpoints of a Service to loadbalance back to themselves
+if they try to access their own Service VIP. The `hairpin-mode` flag must either be
+set to `haripin-veth` or `promiscuous-bridge`.
+
+The common steps to trouble shoot this are as follows:
+
+* Confirm `hairpin-mode` is set to `haripin-veth` or `promiscuous-bridge`.
+You should see something like the below. `hairpin-mode` is set to
+`promiscuous-bridge` in the following example.
+
+```shell
+u@node$ ps auxw|grep kubelet
+root      3392  1.1  0.8 186804 65208 ?        Sl   00:51  11:11 /usr/local/bin/kubelet --enable-debugging-handlers=true --config=/etc/kubernetes/manifests --allow-privileged=True --v=4 --cluster-dns=10.0.0.10 --cluster-domain=cluster.local --configure-cbr0=true --cgroup-root=/ --system-cgroups=/system --hairpin-mode=promiscuous-bridge --runtime-cgroups=/docker-daemon --kubelet-cgroups=/kubelet --babysit-daemons=true --max-pods=110 --serialize-image-pulls=false --outofdisk-transition-frequency=0
+
+```
+
+* Confirm the effective `hairpin-mode`. To do this, you'll have to look at
+kubelet log. Accessing the logs depends on your Node OS. On some OSes it
+is a file, such as /var/log/kubelet.log, while other OSes use `journalctl`
+to access logs. Please be noted that the effective hairpin mode may not
+match `--hairpin-mode` flag due to compatibility. Check if there is any log
+lines with key word `hairpin` in kubelet.log. There should be log lines
+indicating the effective hairpin mode, like something below.
+
+```shell
+I0629 00:51:43.648698    3252 kubelet.go:380] Hairpin mode set to "promiscuous-bridge"
+```
+
+* If the effective hairpin mode is `hairpin-veth`, ensure the `Kubelet` has
+the permission to operate in `/sys` on node. If everything works properly,
+you should see something like:
+
+```shell
+u@node$ for intf in /sys/devices/virtual/net/cbr0/brif/*; do cat $intf/hairpin_mode; done
+1
+1
+1
+1
+```
+
+* If the effective hairpin mode is `promiscuous-bridge`, ensure `Kubelet`
+has the permission to manipulate linux bridge on node. If cbr0` bridge is
+used and configured properly, you should see:
+
+```shell
+u@node$ ifconfig cbr0 |grep PROMISC
+UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
+
+```
+
+* Seek help if none of above works out.
+
+
 ## Seek help
 
 If you get this far, something very strange is happening.  Your `Service` is
