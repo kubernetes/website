@@ -1,29 +1,38 @@
 ---
 ---
 
-This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as a container runtime.
+This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as the container runtime.
 
-### Prerequisite
+* TOC
+{:toc}
 
-- [systemd](http://www.freedesktop.org/wiki/Software/systemd/) should be installed on the machine and should be enabled.
-  The minimum version required for Kubernetes 1.3 is `219`.
-  *(Note that systemd is not required by rkt itself, we are using it here to monitor and manage the pods launched by kubelet.)*
+## Prerequisites
 
-- Install the latest rkt release according to the instructions [here](https://github.com/coreos/rkt).
-  The minimum version required is [v1.9.1](https://github.com/coreos/rkt/releases/tag/v1.9.1).
+* [Systemd](http://www.freedesktop.org/wiki/Software/systemd/) must be installed and enabled. The minimum systemd version required for Kubernetes v1.3 is `219`. Systemd is used to monitor and manage the pods on each node.
 
-- The [rkt API service](http://coreos.com/rkt/docs/latest/subcommands/api-service.html) must be running on the node.
+* [Install the latest rkt release](https://coreos.com/rkt/docs/latest/trying-out-rkt.html). The minimum rkt version required is [v1.9.1](https://github.com/coreos/rkt/releases/tag/v1.9.1). The [CoreOS Linux alpha channel](https://coreos.com/releases/) ships with a recent rkt release, and you can easily [upgrade rkt on CoreOS](https://coreos.com/rkt/docs/latest/install-rkt-in-coreos.html), if necessary.
 
-### Setup network
+* The [rkt API service](https://coreos.com/rkt/docs/latest/subcommands/api-service.html) must be running on the node.
 
-You can configure the Kubernetes networking using its own `kubenet` and `CNI` [network
-plugins](http://kubernetes.io/docs/admin/network-plugins/) by setting the kubelet's `--network-plugin` and `--network-plugin-dir` flag.
-In addition, rkt supports using rkt's [Contained Networking](https://coreos.com/rkt/docs/latest/networking.html#contained-mode).
+## Pod networking in rktnetes
 
-##### Use rkt's Contained Networking
+### Kubernetes CNI networking
 
-In this mode, rkt will attempt to join pods into a network named `rkt.kubernetes.io`.
-To use rkt's contained networking, you can leave the `--network-plugin` to empty, and put a network config file under one of the rkt's [config directories](https://github.com/coreos/rkt/blob/master/Documentation/configuration.md#command-line-flags), for example:
+You can configure Kubernetes pod networking with the usual Container Network Interface (CNI) [network plugins](/docs/admin/network-plugins/) by setting the kubelet's `--network-plugin` and `--network-plugin-dir` options appropriately. Configured in this fashion, the rkt container engine will be unaware of network details, and expects to connect pods to the provided subnet.
+
+#### kubenet: Google Compute Engine (GCE) network
+
+The `kubenet` plugin can be selected with the kubelet option `--network-plugin=kubenet`. This plugin is currently only supported on GCE. When using kubenet, Kubernetes CNI creates and manages the network, and rkt is provided with a subnet from a bridge device connected to the GCE network.
+
+### rkt contained network
+
+Rather than delegating pod networking to Kubernetes, rkt can configure connectivity directly with its own [*contained network*](https://coreos.com/rkt/docs/latest/networking/overview.html#contained-mode) on a subnet provided by a bridge device, the flannel SDN, or another CNI plugin. Configured this way, rkt looks in its [config directories](https://coreos.com/rkt/docs/latest/configuration.html#command-line-flags), usually `/etc/rkt/net.d`, to discover the CNI configuration and invoke the appropriate plugins to create the pod network.
+
+#### rkt contained network with bridge
+
+The *contained network* is rkt's default, so you can leave the kubelet's `--network-plugin` option empty to select this network. The contained network can be backed by any CNI plugin. With the *contained network*, rkt will attempt to join pods to a network named `rkt.kubernetes.io`, so this network name must be used for whatever desired CNI configuration.
+
+When using the contained network, create a network configuration file beneath the rkt network config directory that defines how to create this `rkt.kubernetes.io` network in your environment. This example sets up a bridge device with the `bridge` CNI plugin:
 
 ```shell
 $ cat <<EOF >/etc/rkt/net.d/k8s_network_example.conf
@@ -47,16 +56,9 @@ $ cat <<EOF >/etc/rkt/net.d/k8s_network_example.conf
 EOF
 ```
 
-However, there are a small number of caveats you should be aware of when using rkt's networking:
+#### rkt contained network with flannel
 
-* You must create an appropriate CNI configuration file with a network name of `rkt.kubernetes.io`.
-* The downwards API and environment variable substitution will not contain the pod IP.
-* The `/etc/hosts` file will not contain your own hostname (though `/etc/hostname` is populated).
-
-##### Use flannel
-
-While it's recommended that you configure flannel using kubernetes' CNI support, you can also configure it using rkt's contained networking.
-An example flannel/CNI config file looks like this:
+While it is recommended to operate flannel through the Kubernetes CNI support, you can alternatively configure the flannel plugin directly to provide the subnet for rkt's contained network. An example CNI/flannel config file looks like this:
 
 ```shell
 $ cat <<EOF >/etc/rkt/net.d/k8s_flannel_example.conf
@@ -70,45 +72,46 @@ $ cat <<EOF >/etc/rkt/net.d/k8s_flannel_example.conf
 EOF
 ```
 
-For more information on flannel configuration, please read [CNI/flannel README](https://github.com/containernetworking/cni/blob/master/Documentation/flannel.md).
+For more information on flannel configuration, see the [CNI/flannel README](https://github.com/containernetworking/cni/blob/master/Documentation/flannel.md).
 
-##### Use Google Compute Engine (GCE) network
+#### Contained network caveats:
 
-Each VM on GCE has an additional 256 IP addresses routed to it, so it is possible to forego flannel in smaller clusters.
-This can most easily be done by using the builtin kubenet plugin, by setting the kubelet flag `--network-plugin=kubenet`.
+* You must create an appropriate CNI configuration file with a network name of `rkt.kubernetes.io`.
+* The downwards API and environment variable substitution will not contain the pod IP address.
+* The `/etc/hosts` file will not contain the pod's own hostname, although `/etc/hostname` is populated.
 
-### Launch a local cluster
+## Running rktnetes
 
-To use rkt as the container runtime, we need to supply the following flags to kubelet:
+### Spin up a local Kubernetes cluster with the rkt runtime
 
-- `--container-runtime=rkt` chooses the container runtime to use.
-- `--rkt-api-endpoint=HOST:PORT` sets the endpoint of the rkt API service.
-  Leave empty to use the default one (`localhost:15441`).
-- `--rkt-path=$PATH_TO_RKT_BINARY` sets the path of rkt binary.
-  Leave empty to use the first rkt in $PATH.
-- `--rkt-stage1-image` sets the name of the stage1 image, e.g. coreos.com/rkt/stage1-coreos.
-  Leave empty to use the default stage1 image in the rkt's configuration.
+To use rkt as the container runtime in a local Kubernetes cluster, supply the following flags to the kubelet:
 
-If you are using the [hack/local-up-cluster.sh](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/hack/local-up-cluster.sh) script to launch the local cluster, then you can edit the environment variable `CONTAINER_RUNTIME`, `RKT_PATH` and `RKT_STAGE1_IMAGE` to set these flags, the `RKT_PATH` and `RKT_STAGE1_IMAGE` are optional if you have `rkt` in your `$PATH` with appropriate configuration.
+* `--container-runtime=rkt` Set the node's container runtime to rkt.
+* `--rkt-api-endpoint=HOST:PORT` Set the endpoint of the rkt API service. Default: `localhost:15441`.
+* `--rkt-path=PATH_TO_RKT_BINARY` Set the path of the rkt binary. Optional. If empty, look for `rkt` in `$PATH`.
+* `--rkt-stage1-image=STAGE1` Set the name of the stage1 image, e.g. `coreos.com/rkt/stage1-coreos`. Optional. If not set, the default Linux kernel software isolation stage1 is used.
+
+If you are using the [hack/local-up-cluster.sh](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/hack/local-up-cluster.sh) script to launch the cluster, you can edit the environment variables `CONTAINER_RUNTIME`, `RKT_PATH`, and `RKT_STAGE1_IMAGE` to set these flags. `RKT_PATH` and `RKT_STAGE1_IMAGE` are optional if `rkt` is in your $PATH` with appropriate configuration.
 
 ```shell
 $ export CONTAINER_RUNTIME=rkt
-$ export RKT_PATH=$PATH_TO_RKT_BINARY
-$ export RKT_STAGE1_IMAGE=$NAME_OF_THE_STAGE1_IMAGE
+$ export RKT_PATH=<rkt_binary_path>
+$ export RKT_STAGE1_IMAGE=<stage1-name>
 ```
 
-Then we can launch the local cluster using the script:
+Now you can launch the cluster using the `local-up-cluster.sh` script:
 
 ```shell
 $ hack/local-up-cluster.sh
 ```
 
-We are also working on setting up rkt as the container runtime for [minikube](https://github.com/kubernetes/minikube/issues/168).
+We are also working on getting rkt working as the container runtime in [minikube](https://github.com/kubernetes/minikube/issues/168).
 
-### Launch a CoreOS/rkt cluster on Google Compute Engine (GCE)
+### Launch a rktnetes cluster on Google Compute Engine (GCE)
 
-Here we provide instruction on how to use the `kube-up` script to launch a CoreOS/rkt cluster on GCE.
-In order to do that, you need to specify the OS distribution, project, image:
+This section outlines using the `kube-up` script to launch a CoreOS/rkt cluster on GCE.
+
+Specify the OS distribution, the GCE distributor's master project, and the instance images for the Kubernetes master and nodes. Set the `KUBE_CONTAINER_RUNTIME` to `rkt`:
 
 ```shell
 $ export KUBE_OS_DISTRIBUTION=coreos
@@ -119,61 +122,101 @@ $ export KUBE_GCE_NODE_IMAGE=<image_id>
 $ export KUBE_CONTAINER_RUNTIME=rkt
 ```
 
-You can optionally choose the version of rkt used by setting `KUBE_RKT_VERSION`:
+Optionally, set the version of rkt by setting `KUBE_RKT_VERSION`:
 
 ```shell
 $ export KUBE_RKT_VERSION=1.9.1
 ```
 
-Then you can launch the cluster by:
+Optionally, select an alternative [stage1 isolator](#modular-isolation-with-interchangeable-stage1-images) for the container runtime by setting `KUBE_RKT_STAGE1_IMAGE`:
+
+```shell
+$ export KUBE_RKT_STAGE1_IMAGE=<stage1-name>
+```
+
+Then you can launch the cluster with:
 
 ```shell
 $ cluster/kube-up.sh
 ```
 
-### Launch a CoreOS/rkt cluster on AWS
+### Launch a rktnetes cluster on AWS
 
-`kube-up` for AWS is currently unsupported.
-Instead, we recommend you to refer the [Kubernetes on AWS guide](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html) to launch a CoreOS/rkt cluster on AWS.
+The `kube-up` script is not yet supported on AWS. Instead, we recommend following the [Kubernetes on AWS guide](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html) to launch a CoreOS Kubernetes cluster on AWS, then setting kubelet options as above.
 
-### Deploy apps to your cluster
+### Deploy apps to the cluster
 
-After you created the cluster, you can start deploying apps to the cluster. For example here is how you can [deploy a simgle nginx app](/docs/user-guide/simple-nginx).
-More examples can be found in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
+After creating the cluster, you can start deploying applications. For an introductory example, [deploy a simple nginx web server](/docs/user-guide/simple-nginx). Note that this example did not have to be modified for use with a "rktnetes" cluster. More examples can be found in the [Kubernetes examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/).
 
-### Known Issues and Differences
+## Modular isolation with interchangeable stage1 images
 
-rkt and Docker have very different designs, as well as ACI and Docker image format.
-Users might experience some different experience when switching from one to the other.
-More information can be found [here](/docs/getting-started-guides/rkt/notes/).
+rkt executes containers in an interchangeable isolation environment. This facility is called the [*stage1* image](https://coreos.com/rkt/docs/latest/devel/architecture.html#stage-1). There are currently three supported rkt stage1 images:
 
-### Debugging
+* `systemd-nspawn` stage1, the default. Isolates running containers with Linux kernel namespaces and cgroups in a manner similar to the default container runtime.
+* [`KVM` stage1](https://coreos.com/rkt/docs/latest/running-lkvm-stage1.html), runs containers inside a KVM hypervisor-managed virtual machine. Experimental in the Kubernetes v1.3 release.
+* [`fly stage1`](https://coreos.com/rkt/docs/latest/running-fly-stage1.html), which isolates containers with only a `chroot`, giving host-level access to mount and network namespaces for specially-privileged utilities.
 
-Here are several tips in case you run into any issues.
+In addition to the three provided stage1 images, you can [create your own](https://coreos.com/rkt/docs/latest/devel/stage1-implementors-guide.html) for specific isolation requirements. If no configuration is set, the [default stage1](https://coreos.com/rkt/docs/latest/build-configure.html#parameters-for-setting-up-default-stage1-image) is used. There are two ways to select a different stage1; either per-node, or per-pod:
 
-##### Check logs
+* Set the kubelet's `--rkt-stage1-image` flag, which tells the kubelet the stage1 image to use for every pod on the node. For example, `--rkt-stage1-image=coreos/rkt/stage1-coreos` selects the default systemd-nspawn stage1.
+* Set the annotation `rkt.alpha.kubernetes.io/stage1-name-override` to override the stage1 used to execute a given pod. This allows for mixing different container isolation mechanisms on the same cluster or on the same node. For example, the following (shortened) pod manifest will run its pod with the `fly stage1` to give the application -- the `kubelet` in this case -- access to the host's namespace:
 
-By default, the log verbose level is 2. In order to see more logs related to rkt, we can set the verbose level to 4.
-For local cluster, we can set the environment variable: `LOG_LEVEL=4`.
-If the cluster is using salt, we can edit the [logging.sls](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster/saltbase/pillar/logging.sls) in the saltbase.
-
-##### Check rkt pod status
-
-To check the pods' status, we can use rkt command, such as `rkt list`, `rkt status`, `rkt image list`, etc.
-More information about rkt command line can be found [here](https://github.com/coreos/rkt/blob/master/Documentation/commands.md).
-
-##### Check journal logs
-
-As we use systemd to launch/manage rkt pods, we can check the pods' log using `journalctl`:
-
-- Check the running state of the systemd service:
-
-```shell
-$ sudo journalctl -u ${SERVICE_NAME}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubelet
+  namespace: kube-system
+  labels:
+    k8s-app: kubelet
+  annotations:
+    rkt.alpha.kubernetes.io/stage1-name-override: coreos.com/rkt/stage1-fly
+spec:
+  containers:
+  - name: kubelet
+    image: quay.io/coreos/hyperkube:v1.3.0-beta.2_coreos.0
+    command:
+    - kubelet
+    - --api-servers=127.0.0.1:8080
+    - --config=/etc/kubernetes/manifests
+    - --allow-privileged
+    - --kubeconfig=/etc/kubernetes/kubeconfig
+    securityContext:
+      privileged: true
+[...]
 ```
 
-where `${SERVICE_NAME}` is the name of the service file created for the pod, typically the format is `k8s_${RKT_UUID}`.
+### Notes on using different stage1 images
 
-##### Check Kubernetes events, logs.
+Setting the stage1 annotation could potentially give the pod root privileges. Because of this, the `privileged` boolean in the pod's `securityContext` must be set to `true`.
 
-Kubernetes also provides various tools for debugging. More information can be found [here](/docs/user-guide/application-troubleshooting).
+Use rkt's [*contained network*](#rkt-contained-network) with the KVM stage1, because the CNI plugin driver does not yet fully support the hypervisor-based runtime.
+
+## Known issues and differences between rkt and Docker
+
+rkt and the default node container engine have very different designs, as do rkt's native ACI and the Docker container image format. Users may experience different behaviors when switching from one container engine to the other. More information can be found [in the Kubernetes rkt notes](/docs/getting-started-guides/rkt/notes/).
+
+## Troubleshooting
+
+Here are a few tips for troubleshooting Kubernetes with the rkt container engine:
+
+### Check rkt pod status
+
+To check the status of running pods, use the rkt subcommands [`rkt list`](https://coreos.com/rkt/docs/latest/subcommands/list.html), [`rkt status`](https://coreos.com/rkt/docs/latest/subcommands/status.html), and [`rkt image list`](https://coreos.com/rkt/docs/latest/subcommands/image.html#rkt-image-list). See the [rkt commands documentation](https://coreos.com/rkt/docs/latest/commands.html) for more information about rkt subcommands.
+
+### Check journal logs
+
+Check a pod's log using `journalctl` on the node. Pods are managed and named as systemd units. The pod's unit name is formed by concatenating a `k8s_` prefix with the pod UUID, in a format like `k8s_${RKT_UUID}`. Find the pod's UUID with `rkt list` to assemble its service name, then ask journalctl for the logs:
+
+
+```shell
+$ sudo journalctl -u k8s_ad623346
+```
+
+#### Log verbosity
+
+By default, the log verbosity level is 2. In order to see more log messages related to rkt, set this level to 4 or above. For a local cluster, set the environment variable: `LOG_LEVEL=4`.
+
+### Check Kubernetes events and logs.
+
+Kubernetes provides various tools for troubleshooting and examination. More information can be found [in the app troubleshooting guide](/docs/user-guide/application-troubleshooting).
