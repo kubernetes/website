@@ -98,7 +98,7 @@ Saving this config into `petset.yaml` and submitting it to a Kubernetes cluster 
 ```shell
 $ kubectl create -f petset.yaml
 service "nginx" created
-petset "nginx" deleted
+petset "nginx" created
 ```
 
 ## Pet Identity
@@ -131,26 +131,66 @@ pvc-902733c2-3717-11e6-a46e-42010af00002   1Gi        RWO           Bound     de
 
 The network identity has 2 parts. First, we created a headless Service that controls the domain within which we create Pets. The domain managed by this Service takes the form: `$(service name).$(namespace).svc.cluster.local`, where "cluster.local" is the [cluster domain](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it). As each pet is created, it gets a matching DNS subdomain, taking the form: `$(petname).$(governing service domain)`, where the governing service is defined by the `serviceName` field on the Pet Set.
 
+Here are some examples of choices for Cluster Domain, Service name, Pet Set name, and how that affects the DNS names for the Pets and the hostnames in the Pet's pods:
+
 Cluster Domain | Service (ns/name) | Pet Set (ns/name) | Pet Set Domain | Pet DNS | Pet Hostname |
 -------------- | ----------------- | ----------------- | -------------- | ------- | ------------ |
  cluster.local | default/nginx     | default/web       | nginx.default.svc.cluster.local | web-{0..N-1}.nginx.default.svc.cluster.local | web-{0..N-1} |
  cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
-Lets verify this assertion with a simple test.
+Note that Cluster Domain will be set to `cluster.local` unless [otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it).
+
+Lets verify our assertion with a simple test.
 
 ```shell
 $ kubectl get svc
 NAME          CLUSTER-IP     EXTERNAL-IP       PORT(S)   AGE
 nginx         None           <none>            80/TCP    12m
+...
 ```
 
-The containers are running nginx webservers, which by default will look for an index.html file in `/usr/share/nginx/html/index.html`. That directory is backed by a PersistentVolume created by the Pet Set. So lets write our hostname there (remember the Pet Set gives us a stable hostname):
+First, the PetSet gives provides a stable hostname:
+
+```shell
+$ for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
+web-0
+web-1
+```
+
+And the hostname is linked to the in-cluster DNS address:
+
+```shell
+$ kubectl run -it --image busybox dns-test --restart=Never /bin/sh
+dns-test # nslookup web-0.nginx
+Server:    10.0.0.10
+Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      web-0.nginx
+Address 1: 10.180.3.5
+
+dns-test # nslookup web-1.nginx
+Server:    10.0.0.10
+Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      web-1.nginx
+Address 1: 10.180.0.9
+```
+
+The containers are running nginx webservers, which by default will look for an index.html file in `/usr/share/nginx/html/index.html`. That directory is backed by a `PersistentVolume` created by the Pet Set. So lets write our hostname there:
 
 ```shell
 $ for i in 0 1; do
   kubectl exec web-$i -- sh -c 'echo $(hostname) > /usr/share/nginx/html/index.html';
 done
+```
+
+And verify each webserver serves its own hostname:
+
+```shell
+$ for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
+web-0
+web-1
 ```
 
 Now delete all pods in the petset:
@@ -161,7 +201,7 @@ pod "web-0" deleted
 pod "web-1" deleted
 ```
 
-Wait for them to come back up, and try to retrieve the previously written hostname through the DNS name of the peer (remember the Pet Set also gives us stable storage, and that the hostname is linked to the DNS name).
+Wait for them to come back up, and try to retrieve the previously written hostname through the DNS name of the peer. They match, because the storage, DNS name, and hostname stick to the Pet no matter where it gets scheduled:
 
 ```shell
 $ kubectl exec -it web-1 -- curl web-0.nginx
@@ -277,5 +317,6 @@ This list goes on, if you have examples, ideas or thoughts, please contribute.
 
 Deploying one RC of size 1/Service per pod is a popular alternative, as is simply deploying a DaemonSet that utilizes the identity of a Node.
 
+## Next steps
 
-
+The deployment and maintenance of stateful applications is a vast topic. The next step is to explore cluster bootstrapping and initialization, [here](/docs/user-guide/petset/bootstrapping/).
