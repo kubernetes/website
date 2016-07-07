@@ -1,3 +1,3 @@
 ---
 ---
-{% include v1.2/extensions-v1beta1-definitions.html %}
+{% include v1.3/extensions-v1beta1-definitions.html %}

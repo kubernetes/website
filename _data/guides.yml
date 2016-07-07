@@ -133,7 +133,7 @@ toc:
   - title: Connect with Port Forwarding
     path: /docs/user-guide/connecting-to-applications-port-forward/
   - title: Using Explorer to Examine the Runtime Environment
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/explorer
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/explorer
 
 - title: Creating a Cluster
   section:
@@ -273,7 +273,7 @@ toc:
   - title: Using DNS Pods and Services
     path: /docs/admin/dns/
   - title: Setting Up and Configuring DNS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/cluster-dns
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/cluster-dns
   - title: Master <-> Node Communication
     path: /docs/admin/master-node-communication/
   - title: Network Plugins
