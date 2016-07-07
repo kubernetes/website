@@ -152,3 +152,13 @@ centos-minion          <none>            Ready
 **The cluster should be running! Launch a test pod.**
 
 You should have a functional cluster, check out [101](/docs/user-guide/walkthrough/)!
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+Bare-metal           | custom       | CentOS | _none_      | [docs](/docs/getting-started-guides/centos/centos_manual_config)            |          | Community ([@coolsvap](https://github.com/coolsvap))
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+

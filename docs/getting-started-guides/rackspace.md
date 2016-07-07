@@ -61,3 +61,13 @@ There is a specific `cluster/rackspace` directory with the scripts for the follo
 - eth0 - Public Interface used for servers/containers to reach the internet
 - eth1 - ServiceNet - Intra-cluster communication (k8s, etcd, etc) communicate via this interface. The `cloud-config` files use the special CoreOS identifier `$private_ipv4` to configure the services.
 - eth2 - Cloud Network - Used for k8s pods to communicate with one another. The proxy service will pass traffic via this interface.
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+Rackspace            | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/rackspace)                              |          | Community ([@doublerr](https://github.com/doublerr))
+
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.

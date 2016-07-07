@@ -41,6 +41,8 @@ The local-machine solutions are:
 [Google Container Engine](https://cloud.google.com/container-engine) offers managed Kubernetes
 clusters.
 
+[Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
+
 ### Turn-key Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -48,7 +50,8 @@ few commands, and have active community support.
 
 - [GCE](/docs/getting-started-guides/gce)
 - [AWS](/docs/getting-started-guides/aws)
-- [Azure](/docs/getting-started-guides/coreos/azure/)
+- [Azure](/docs/getting-started-guides/coreos/azure/) (Weave-based, contributed by WeaveWorks employees)
+- [Azure](/docs/getting-started-guides/azure/) (Flannel-based, contributed by Microsoft employee)
 - [CenturyLink Cloud](/docs/getting-started-guides/clc)
 
 ### Custom Solutions
@@ -114,8 +117,10 @@ Here are all the solutions mentioned above in table form.
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | ['œ“][3]   | Commercial
+Stackpoint.io        |              | multi-support       | multi-support   | [docs](http://www.stackpointcloud.com) |    | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | ['œ“][1]   | Project
 Azure                | CoreOS       | CoreOS | Weave       | [docs](/docs/getting-started-guides/coreos/azure/)                    |          | Community ([@errordeveloper](https://github.com/errordeveloper), [@squillace](https://github.com/squillace), [@chanezon](https://github.com/chanezon), [@crossorigin](https://github.com/crossorigin))
+Azure                | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/azure)                    |          | Community ([@colemickens](https://github.com/colemickens))
 Docker Single Node   | custom       | N/A    | local       | [docs](/docs/getting-started-guides/docker)                                 |          | Project ([@brendandburns](https://github.com/brendandburns))
 Docker Multi Node    | custom       | N/A    | flannel     | [docs](/docs/getting-started-guides/docker-multinode)                       |          | Project ([@brendandburns](https://github.com/brendandburns))
 Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config)           |          | Project
@@ -126,7 +131,7 @@ KVM                  | custom       | Fedora | flannel     | [docs](/docs/gettin
 Mesos/Docker         | custom       | Ubuntu | Docker      | [docs](/docs/getting-started-guides/mesos-docker)                           |          | Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
 Mesos/GCE            |              |        |             | [docs](/docs/getting-started-guides/mesos)                                  |          | Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
 DCOS                 | Marathon   | CoreOS/Alpine | custom | [docs](/docs/getting-started-guides/dcos)                                   |          | Community ([Kubernetes-Mesos Authors](https://github.com/mesosphere/kubernetes-mesos/blob/master/AUTHORS.md))
-AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |          | Community
+AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/aws)                                 |          | Community
 GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |          | Community ([@pires](https://github.com/pires))
 Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |          | Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
 Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline)              |          | Community ([@jeffbean](https://github.com/jeffbean))

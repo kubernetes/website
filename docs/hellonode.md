@@ -139,11 +139,11 @@ It’s now time to deploy your own containerized application to the Kubernetes c
 $ gcloud container clusters get-credentials hello-world
 ```
 
-**The rest of this document requires both the kubernetes client and server version to be 1.2. Run `kubectl version` to see your current versions.**  For 1.1 see [this document](https://github.com/kubernetes/kubernetes.github.io/blob/release-1.1/docs/hellonode.md).
+**The rest of this document requires both the Kubernetes client and server version to be 1.2. Run `kubectl version` to see your current versions.**  For 1.1 see [this document](https://github.com/kubernetes/kubernetes.github.io/blob/release-1.1/docs/hellonode.md).
 
 ## Create your pod
 
-A kubernetes **[pod](/docs/user-guide/pods/)** is a group of containers, tied together for the purposes of administration and networking. It can contain a single container or multiple.
+A Kubernetes **[pod](/docs/user-guide/pods/)** is a group of containers, tied together for the purposes of administration and networking. It can contain a single container or multiple.
 
 Create a pod with the `kubectl run` command:
 
@@ -200,7 +200,7 @@ At this point you should have our container running under the control of Kuberne
 
 ## Allow external traffic
 
-By default, the pod is only accessible by its internal IP within the Kubernetes cluster. In order to make the `hello-node` container accessible from outside the kubernetes virtual network, you have to expose the pod as a kubernetes **[service](/docs/user-guide/services/)**.
+By default, the pod is only accessible by its internal IP within the Kubernetes cluster. In order to make the `hello-node` container accessible from outside the Kubernetes virtual network, you have to expose the pod as a Kubernetes **[service](/docs/user-guide/services/)**.
 
 From our development machine we can expose the pod to the public internet using the `kubectl expose` command combined with the `--type="LoadBalancer"` flag.  The flag is needed for the creation of an externally accessible ip:
 
@@ -287,10 +287,10 @@ gcloud docker push gcr.io/PROJECT_ID/hello-node:v2
 
 Building and pushing this updated image should be much quicker as we take full advantage of the Docker cache.
 
-We’re now ready for kubernetes to smoothly update our deployment to the new version of the application.  In order to change
+We’re now ready for Kubernetes to smoothly update our deployment to the new version of the application.  In order to change
 the image label for our running container, we will need to edit the existing *hello-node deployment* and change the image from
 `gcr.io/PROJECT_ID/hello-node:v1` to `gcr.io/PROJECT_ID/hello-node:v2`.  To do this, we will use the `kubectl edit` command.
-This will open up a text editor displaying the full deployment yaml configuration.  It isn't necessary to understand the full yaml config
+This will open up a text editor displaying the full deployment yaml [configuration](/docs/user-guide/configuring-containers/).  It isn't necessary to understand the full yaml config
 right now, instead just understand that by updating the `spec.template.spec.containers.image` field in the config we are telling
 the deployment to update the pods to use the new image.
 
@@ -373,7 +373,7 @@ This user interface allows you to get started quickly and enables some of the fu
 
 Enjoy the Kubernetes graphical dashboard and use it for deploying containerized applications, as well as for monitoring and managing your clusters!
 
-![image](/images/docs/ui-dashboard-cards-menu.png)
+![image](/images/docs/ui-dashboard-workloadview.png)
 
 Learn more about the web interface by taking the [Dashboard tour](/docs/user-guide/ui/).
 
