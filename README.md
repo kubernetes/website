@@ -1,7 +1,5 @@
 ## Instructions for Contributing to the Docs/Website
 
-**Note: This branch is for pre-release documentation for 1.3 of Kubernetes. Changes to this branch are automatically served as a website at [http://kubernetes-v1-3.github.io/](http://kubernetes-v1-3.github.io/). See the "master" branch to edit the current stable release, which is served at http://kubernetes.io.**
-
 Welcome! We are very pleased you want to contribute to the documentation and/or website for Kubernetes.
 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
