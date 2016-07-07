@@ -5,7 +5,7 @@ This example demonstrates a typical setup to control for resource usage in a nam
 
 It demonstrates using the following resources:
 
-* [Namespace](/docs/admin/namespaces/)
+* [Namespace](/docs/admin/namespaces)
 * [Resource Quota](/docs/admin/resourcequota/)
 * [Limit Range](/docs/admin/limitrange/)
 
@@ -19,8 +19,10 @@ fair sharing of the cluster and control cost.
 
 The cluster-admin has the following goals:
 
-* Limit the amount of compute resources for running pods
+* Limit the amount of compute resource for running pods
 * Limit the number of persistent volume claims to control access to storage
+* Limit the number of load balancers to control cost
+* Prevent the use of node ports to preserve scarce resources
 * Provide default compute resource requests to enable better scheduling decisions
 
 ## Step 1: Create a namespace
@@ -41,7 +43,11 @@ quota-example   Active    39s
 
 ## Step 2: Apply an object-count quota to the namespace
 
-The cluster-admin wants to control the amount of persistent volume claims.
+The cluster-admin wants to control the following resources:
+
+* persistent volume claims
+* load balancers
+* node ports
 
 Let's create a simple quota that controls object counts for those resource types in this namespace.
 
@@ -62,9 +68,12 @@ Namespace:             quota-example
 Resource               Used	Hard
 --------               ----	----
 persistentvolumeclaims 0    2
+services.loadbalancers 0    2
+services.nodeports     0    0
 ```
 
 The quota system will now prevent users from creating more than the specified amount for each resource.
+
 
 ## Step 3: Apply a compute-resource quota to the namespace
 
@@ -116,6 +125,7 @@ $ kubectl get pods --namespace=quota-example
 ```
 
 What happened?  I have no pods!  Let's describe the deployment to get a view of what is happening.
+<<<<<<< HEAD
 
 ```shell
 $ kubectl describe deployment nginx --namespace=quota-example
@@ -154,7 +164,7 @@ Events:
   4m        7s        11    {replicaset-controller }              Warning   FailedCreate  Error creating: pods "nginx-3137573019-" is forbidden: Failed quota: compute-resources: must specify limits.cpu,limits.memory,requests.cpu,requests.memory
 ```
 
-The Kubernetes API server is rejecting the replica set's request to create a pod because our pods
+The Kubernetes API server is rejecting the replica set requests to create a pod because our pods
 do not specify `requests` or `limits` for `cpu` and `memory`.
 
 So let's set some default values for the amount of `cpu` and `memory` a pod can consume:
@@ -215,6 +225,8 @@ Namespace:            quota-example
 Resource              Used    Hard
 --------              ----    ----
 persistentvolumeclaims 0      2
+services.loadbalancers 0      2
+services.nodeports     0      0
 ```
 
 As you can see, the pod that was created is consuming explict amounts of compute resources, and the usage is being
