@@ -228,3 +228,20 @@ If you don't wish care about the Azure bill, you can tear down the cluster. It's
 > Note: make sure to use the _latest state file_, as after scaling there is a new one.
 
 By the way, with the scripts shown, you can deploy multiple clusters, if you like :)
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+Azure                | CoreOS       | CoreOS | Weave       | [docs](/docs/getting-started-guides/coreos/azure/)                    |          | Community ([@errordeveloper](https://github.com/errordeveloper), [@squillace](https://github.com/squillace), [@chanezon](https://github.com/chanezon), [@crossorigin](https://github.com/crossorigin))
+
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+
+
+## Further reading
+
+Please see the [Kubernetes docs](/docs/) for more details on administering
+and using a Kubernetes cluster
+

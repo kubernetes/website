@@ -98,7 +98,7 @@ There are existing Kubernetes concepts that allow you to expose a single service
 
 {% include code.html language="yaml" file="ingress.yaml" ghlink="/docs/user-guide/ingress.yaml" %}
 
-If you create it using `kubectl -f` you should see:
+If you create it using `kubectl create -f` you should see:
 
 ```shell
 $ kubectl get ing

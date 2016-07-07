@@ -74,6 +74,7 @@ services.nodeports     0    0
 
 The quota system will now prevent users from creating more than the specified amount for each resource.
 
+
 ## Step 3: Apply a compute-resource quota to the namespace
 
 To limit the amount of compute resource that can be consumed in this namespace,
@@ -124,6 +125,7 @@ $ kubectl get pods --namespace=quota-example
 ```
 
 What happened?  I have no pods!  Let's describe the deployment to get a view of what is happening.
+<<<<<<< HEAD
 
 ```shell
 $ kubectl describe deployment nginx --namespace=quota-example
