@@ -136,7 +136,20 @@ Make sure the environment variables you used to provision your cluster are still
 cluster/kube-down.sh
 ```
 
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/aws)                                 |          | Community
+AWS                  | Saltstack    | Ubuntu | OVS         | [docs](/docs/getting-started-guides/aws)                                    |          | Community ([@justinsb](https://github.com/justinsb))
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+
 ## Further reading
 
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
+
+
+

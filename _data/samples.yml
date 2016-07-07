@@ -76,4 +76,4 @@ toc:
   - title: Nodejs + Mongo
     path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/nodesjs-mongodb
   - title: Petstore
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/k8spetstore/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.2/examples/k8petstore/

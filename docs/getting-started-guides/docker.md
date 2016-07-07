@@ -1,6 +1,8 @@
 ---
 ---
 
+**Stop. This guide has been superseded by [Minikube](../minikube/) which is the recommended method of running Kubernetes on your local machine.**
+
 The following instructions show you how to set up a simple, single node Kubernetes cluster using Docker.
 
 Here's a diagram of what the final result will look like:
@@ -11,6 +13,8 @@ Here's a diagram of what the final result will look like:
 {:toc}
 
 ## Prerequisites
+
+**Note: These steps have not been tested with the [Docker For Mac or Docker For Windows beta programs](https://blog.docker.com/2016/03/docker-for-mac-windows-beta/).**
 
 1. You need to have docker installed on one machine.
 2. Decide what Kubernetes version to use. Set the `${K8S_VERSION}` variable to
@@ -209,3 +213,19 @@ output of /proc/cmdline:
 $ cat /proc/cmdline
 BOOT_IMAGE=/boot/vmlinuz-3.18.4-aufs root=/dev/sda5 ro cgroup_enable=memory=1
 ```
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+Docker Single Node   | custom       | N/A    | local       | [docs](/docs/getting-started-guides/docker)                                 |          | Project ([@brendandburns](https://github.com/brendandburns))
+
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+
+
+## Further reading
+
+Please see the [Kubernetes docs](/docs/) for more details on administering
+and using a Kubernetes cluster.
+

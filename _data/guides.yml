@@ -61,6 +61,17 @@ toc:
   - title: Garbage collection
     path: /docs/user-guide/garbage-collector/
 
+- title: Batch Jobs
+  section:
+  - title: Jobs
+    path: /docs/user-guide/jobs/
+  - title: Parallel Processing using Expansions
+    path: /docs/user-guide/jobs/expansions/
+  - title: Coarse Parallel Processing using a Work Queue
+    path: /docs/user-guide/jobs/work-queue-1/
+  - title: Fine Parallel Processing using a Work Queue
+    path: /docs/user-guide/jobs/work-queue-2/
+
 - title: Service Discovery and Load Balancing
   section:
   - title: Connecting Applications with Services
@@ -132,6 +143,8 @@ toc:
     path: /docs/getting-started-guides/
   - title: Running Kubernetes on Your Local Machine
     section:
+    - title: Running Kubernetes Locally via Minikube
+      path: /docs/getting-started-guides/minikube/
     - title: Running Kubernetes Locally via Docker
       path: /docs/getting-started-guides/docker/
     - title: Running Kubernetes Locally with No VM
@@ -146,8 +159,10 @@ toc:
       path: /docs/getting-started-guides/gce/
     - title: Running Kubernetes on AWS EC2
       path: /docs/getting-started-guides/aws/
-    - title: Running Kubernetes on Azure
+    - title: Running Kubernetes on Azure (Weave-based)
       path: /docs/getting-started-guides/coreos/azure/
+    - title: Running Kubernetes on Azure (Flannel-based)
+      path: /docs/getting-started-guides/azure/
     - title: Running Kubernetes on CenturyLink Cloud
       path: /docs/getting-started-guides/clc/
   - title: Portable Multi-Node Clusters

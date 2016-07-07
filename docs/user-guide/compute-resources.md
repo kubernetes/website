@@ -91,10 +91,16 @@ runner (Docker or rkt).
 
 When using Docker:
 
-- The `spec.container[].resources.limits.cpu` is multiplied by 1024, converted to an integer, and
-  used as the value of the [`--cpu-shares`](
+- The `spec.container[].resources.requests.cpu` is converted to its core value (potentially fractional),
+  and multipled by 1024, and used as the value of the [`--cpu-shares`](
   https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
   command.
+- The `spec.container[].resources.limits.cpu` is converted to its millicore value,
+  multipled by 100000, and then divided by 1000, and used as the value of the [`--cpu-quota`](
+  https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
+  command.  The [`--cpu-period`] flag is set to 100000 which represents the default 100ms period
+  for measuring quota usage.  The kubelet enforces cpu limits if it was started with the
+  [`--cpu-cfs-quota`] flag set to true.  As of version 1.2, this flag will now default to true.
 - The `spec.container[].resources.limits.memory` is converted to an integer, and used as the value
   of the [`--memory`](https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag
   to the `docker run` command.

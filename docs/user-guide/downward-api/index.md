@@ -122,6 +122,7 @@ This is an example of a pod that consumes its container's resources via the down
 {% include code.html language="yaml" file="volume/dapi-volume-resources.yaml" ghlink="/docs/user-guide/downward-api/volume/dapi-volume-resources.yaml" %}
 
 Some more thorough examples:
+
    * [environment variables](/docs/user-guide/environment-guide/)
    * [downward API](/docs/user-guide/downward-api/)
 
