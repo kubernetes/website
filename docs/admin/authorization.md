@@ -19,8 +19,19 @@ need authorization.
   - `--authorization-mode=ABAC`allows for user-configured authorization policy.
 ABAC stands for
   Attribute-Based Access Control.
+  - `--authorization-mode=RBAC` is an experimental implementation which allows
+for authorization to be driven by the Kubernetes API.
+RBAC stands for Roles-Based Access Control.
   - `--authorization-mode=Webhook` allows for authorization to be driven by a
 remote service using REST.
+
+If multiple modes are provided the set is unioned, and only a single authorizer is required to admit the action.  This means the flag:
+
+```
+--authorization-mode=AlwaysDeny,AlwaysAllow
+```
+
+will always allow.
 
 ## ABAC Mode
 
@@ -151,6 +162,154 @@ file:
 ```
 
 The apiserver will need to be restarted to pickup the new policy lines.
+
+## RBAC Mode
+
+When specified "RBAC" (Role-Based Access Control) uses the
+"rbac.authorization.k8s.io" API group to drive authorization decisions,
+allowing admins to dynamically configure permission policies through the
+Kubernetes API.
+
+As of 1.3 RBAC mode is in alpha and considered experimental.
+
+### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
+
+The RBAC API Group declares four top level types which will be covered in this
+section. Users can interact with these resources as they would with any other
+API resource. Through `kubectl`, direct calls to the API, etc. For instance,
+`kubectl create -f (resource).yml` can be used with any of these examples,
+though readers who wish to follow along should review the following section on
+bootstrapping first.
+
+In the RBAC API Group, roles hold a logical grouping of permissions. These
+permissions map very closely to ABAC policies, but only contain information
+about requests being made. Permission are purely additive, rules may only omit
+permissions they do not wish to grant.
+
+Here's an example of a role which grants read access to pods within the
+"default" namespace.
+
+```yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  namespace: default
+  name: pod-reader
+rules:
+  - apiGroups: [""] # The API group "" indicates the default API Group.
+    resources: ["pods"]
+    verbs: ["get", "watch", "list"]
+    nonResourceURLs: []
+```
+
+`ClusterRoles` hold the same information as a `Role` but can apply to any
+namespace as well as non-namespaced resources (such as `Nodes`,
+`PersistentVolume`, etc.). The following `ClusterRole` can grant permissions to
+read secrets in any namespace.
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  # "namespace" omitted since ClusterRoles are not namespaced.
+  name: secret-reader
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "watch", "list"]
+    nonResourceURLs: []
+```
+
+`RoleBindings` perform the task of granting the permission to a user or set of
+users. They hold a list of subjects which they apply to, and a reference to the
+`Role` being assigned.
+
+The following `RoleBinding` assigns the "pod-reader" role to the user "jane"
+within the "default" namespace, and allows jane to read pods.
+
+```yaml
+# This role binding allows "jane" to read pods in the namespace "default"
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  name: read-pods
+  namespace: default
+subjects:
+  - kind: User # May be "User", "Group" or "ServiceAccount"
+    name: jane
+roleRef:
+  kind: Role
+  namespace: default
+  name: pod-reader
+  apiVersion: rbac.authorization.k8s.io/v1alpha1
+```
+
+`RoleBindings` may also refer to a `ClusterRole`. However, a `RoleBinding` that
+refers to a `ClusterRole` only applies in the `RoleBinding`'s namespace, not at
+the cluster level. This allows admins to define a set of common roles for the
+entire cluster, then reuse them in multiple namespaces.
+
+For instance, even though the following `RoleBinding` refers to a `ClusterRole`,
+"dave" (the subject) will only be able read secrets in the "development"
+namespace, the namespace of the `RoleBinding`.
+
+```yaml
+# This role binding allows "dave" to read secrets in the namespace "development"
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  name: read-secrets
+  namespace: development # This binding only applies in the "development" namespace
+subjects:
+  - kind: User # May be "User", "Group" or "ServiceAccount"
+    name: dave
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiVersion: rbac.authorization.k8s.io/v1alpha1
+```
+
+Finally a `ClusterRoleBinding` may be used to grant permissions in all
+namespaces. The following `ClusterRoleBinding` allows any user in the group
+"manager" to read secrets in any namepsace.
+
+```yaml
+# This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  name: read-secrets
+subjects:
+  - kind: Group # May be "User", "Group" or "ServiceAccount"
+    name: manager
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiVersion: rbac.authorization.k8s.io/v1alpha1
+```
+
+### Privilege Escalation Prevention and Bootstrapping
+
+The `rbac.authorization.k8s.io` API group inherently attempts to prevent users
+from escalating privileges. Simply put, __a user can't grant permissions they
+don't already have even when the RBAC authorizer it disabled__. If "user-1"
+does not have the ability to read secrets in "namespace-a", they cannot create
+a binding that would grant that permission to themselves or any other user.
+
+For bootstrapping the first roles, it becomes necessary for someone to get
+around these limitations. For the alpha release of RBAC, an API Server flag was
+added to allow one user to step around all RBAC authorization and privilege
+escalation checks. NOTE: _This is subject to change with future releases._
+
+```
+--authorization-rbac-super-user=admin
+```
+
+Once set the specified super user, in this case "admin", can be used to create
+the roles and role bindings to initialize the system.
+
+This flag is optional and once the initial bootstrapping is performed can be
+unset.
 
 ## Webhook Mode
 

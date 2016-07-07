@@ -74,6 +74,8 @@ are supported:
 | `replicationcontrollers` | The total number of replication controllers that can exist in the namespace. |
 | `resourcequotas` | The total number of [resource quotas](/docs/admin/admission-controllers/#resourcequota) that can exist in the namespace. |
 | `services` | The total number of services that can exist in the namespace. |
+| `services.loadbalancers` | The total number of services of type load balancer that can exist in the namespace. |
+| `services.nodeports` | The total number of services of type node port that can exist in the namespace. |
 | `secrets` | The total number of secrets that can exist in the namespace. |
 
 For example, `pods` quota counts and enforces a maximum on the number of `pods`
@@ -153,6 +155,7 @@ spec:
     replicationcontrollers: "20"
     secrets: "10"
     services: "10"
+    services.loadbalancers: "2"
 EOF
 $ kubectl create -f ./object-counts.yaml --namespace=myspace
 
@@ -182,6 +185,7 @@ persistentvolumeclaims  0       4
 replicationcontrollers  0       20
 secrets                 1       10
 services                0       10
+services.loadbalancers  0       2
 ```
 
 ## Quota and Cluster Capacity

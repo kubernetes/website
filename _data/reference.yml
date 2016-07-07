@@ -224,6 +224,10 @@ toc:
     path: /docs/admin/resource-quota/
   - title: Replica Sets
     path: /docs/user-guide/replicasets/
+  - title: Pet Sets
+    path: /docs/user-guide/petset/
+  - title: Network Policies 
+    path: /docs/user-guide/networkpolicies/
 
 - title: Kubernetes Design Docs
   section:
