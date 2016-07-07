@@ -58,6 +58,8 @@ toc:
     path: /docs/user-guide/config-best-practices/
   - title: Using kubectl to Manage Resources
     path: /docs/user-guide/working-with-resources/
+  - title: Garbage collection
+    path: /docs/user-guide/garbage-collector/
 
 - title: Batch Jobs
   section:
@@ -113,6 +115,8 @@ toc:
     path: /docs/user-guide/downward-api/volume
   - title: Persistent Volumes Walkthrough
     path: /docs/user-guide/persistent-volumes/walkthrough/
+  - title: Bootstrapping Pet Sets
+    path: /docs/user-guide/petset/bootstrapping/
 
 - title: Monitoring, Logging, and Debugging Containers
   section:
@@ -205,9 +209,9 @@ toc:
         path: /docs/getting-started-guides/fedora/fedora-calico/
       - title: rkt
         section:
-        - title: Running Kubernetes on rkt
+        - title: Running Kubernetes with rkt
           path: /docs/getting-started-guides/rkt/
-        - title: Notes on Different UX with rkt Container Runtime
+        - title: Known Issues when Using rkt
           path: /docs/getting-started-guides/rkt/notes/
       - title: Kubernetes on Mesos
         path: /docs/getting-started-guides/mesos/
@@ -258,6 +262,8 @@ toc:
     path: /docs/admin/cluster-components/
   - title: Configuring Kubernetes Use of etcd
     path: /docs/admin/etcd/
+  - title: Federating Clusters
+    path: /docs/admin/federation/
   - title: Using Multiple Clusters
     path: /docs/admin/multi-cluster/
   - title: Changing Cluster Size
@@ -276,7 +282,11 @@ toc:
     path: /docs/admin/network-plugins/
   - title: Static Pods
     path: /docs/admin/static-pods/
-  - title: Configuring Garbage Collection
+  - title: Configuring kubelet Garbage Collection
     path: /docs/admin/garbage-collection/
+  - title: Configuring Out Of Resource Handling
+    path: /docs/admin/out-of-resource/    
   - title: Configuring Kubernetes with Salt
     path: /docs/admin/salt/
+  - title: Monitoring Node Health
+    path: /docs/admin/node-problem/
