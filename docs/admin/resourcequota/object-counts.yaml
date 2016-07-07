@@ -5,3 +5,5 @@ metadata:
 spec:
   hard:
     persistentvolumeclaims: "2"
+    services.loadbalancers: "2"    
+    services.nodeports: "0"
