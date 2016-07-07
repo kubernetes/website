@@ -1,6 +1,8 @@
 ---
 ---
 
+**Stop. This guide has been superseded by [Minikube](../minikube/) which is the recommended method of running Kubernetes on your local machine.**
+
 * TOC
 {:toc}
 
@@ -49,6 +51,7 @@ Your cluster is running, and you want to start running containers!
 You can now use any of the cluster/kubectl.sh commands to interact with your local setup.
 
 ```shell
+export KUBERNETES_PROVIDER=local
 cluster/kubectl.sh get pods
 cluster/kubectl.sh get services
 cluster/kubectl.sh get deployments

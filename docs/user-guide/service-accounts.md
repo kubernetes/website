@@ -111,6 +111,8 @@ secrets/build-robot-secret
 
 Now you can confirm that the newly built secret is populated with an API token for the "build-robot" service account.
 
+Any tokens for non-existent service accounts will be cleaned up by the token controller.
+
 ```shell
 $ kubectl describe secrets/build-robot-secret 
 Name:   build-robot-secret

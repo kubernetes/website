@@ -237,3 +237,12 @@ To bring down your cluster, issue the following command:
 KUBERNETES_PROVIDER=openstack-heat ./cluster/kube-down.sh
 ```
 If you have changed the default `$STACK_NAME`, you must specify the name. Note that this will not remove any Cinder volumes created by Kubernetes.
+
+## Support Level
+
+
+IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
+-------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+OpenStack Heat       | Saltstack    | CentOS | Neutron + flannel hostgw | [docs](/docs/getting-started-guides/openstack-heat)            |          | Community ([@FujitsuEnablingSoftwareTechnologyGmbH](https://github.com/FujitsuEnablingSoftwareTechnologyGmbH))
+
+For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
