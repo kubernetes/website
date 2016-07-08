@@ -25,13 +25,14 @@ a Kubernetes cluster from scratch.
 
 ### Local-machine Solutions
 
-Local-machine solutions create a single cluster with one or more Kubernetes nodes on a single
-physical machine.  Setup is completely automated and doesn't require a cloud provider account.
-But their size and availability is limited to that of a single machine.
+[Minikube](/docs/getting-started-guides/minikube) (recommended starting point) creates a
+single node kubernetes cluster locally for purposes of development and testing. Minikube
+packages and configures a Linux VM, Docker and all Kubernetes components, optimized for local
+development.
 
-The local-machine solutions are:
+Deprecated local-machine solutions:
 
-- [Local Docker-based](/docs/getting-started-guides/docker) (recommended starting point)
+- [Local Docker-based](/docs/getting-started-guides/docker)
 - [No-VM local cluster](/docs/getting-started-guides/locally) (Linux only)
 - [Vagrant](/docs/getting-started-guides/vagrant)
 
