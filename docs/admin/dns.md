@@ -41,5 +41,5 @@ details on Cluster Federation and multi-site support.
 
 ## References
 
-- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md)
+- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md)
 
