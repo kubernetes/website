@@ -18,7 +18,7 @@ The easiest way to take advantage of sysdig’s Kubernetes support is by launchi
 csysdig -k http://127.0.0.1:8080
 ```
 
-Specify the address of your Kubernetes API server with the -k command, and sysdig will poll all the relevant information, leveraging both the standard and the watch API.
+Specify the address of your Kubernetes API server with the -k command, and sysdig will poll all the relevant information from the API.
 
 Now that csysdig is running, hit F2 to bring up the views panel, and you'll notice the presence of a bunch of `K8s` views. The k8s Namespaces view can be used to see the list of namespaces and observe the amount of CPU, memory, network and disk resources each of them is using on this machine:  
  
@@ -84,6 +84,14 @@ The two gifs below show the exact same infrastructure and services. But the firs
 ![sysdig-9](/images/docs/sysdig/sysdig-9.gif)
 
 ![sysdig-10](/images/docs/sysdig/sysdig-10.gif)
+
+## Further reading
+
+* [3 ways that Kubernetes changes monitoring](https://sysdig.com/blog/3-ways-that-kubernetes-changes-monitoring/)
+* [Troubleshooting Kubernetes: How container metadata changes your point of view](https://sysdig.com/blog/container-metadata/)
+* [Greed is Good: Troubleshooting Kubernetes](https://sysdig.com/blog/greed-good-troubleshooting-kubernetes/)
+* [A Sysdig + Kubernetes Adventure, Part 1: How Kubernetes Services Work](https://sysdig.com/blog/sysdigkubernetes-adventure-part-1-kubernetes-services-work/)
+* [A Sysdig + Kubernetes Adventure, Part 2: Troubleshooting Kubernetes Services](https://sysdig.com/blog/a-sysdigkubernetes-adventure-part-2-troubleshooting-kubernetes-services/)
 
 ***
 *You can find open source sysdig on [github](https://github.com/draios/sysdig) and at [sysdig.org](http://www.sysdig.org/), and you can sign up for free trial of Sysdig Cloud at [sysdig.com](https://sysdig.com/).*  
