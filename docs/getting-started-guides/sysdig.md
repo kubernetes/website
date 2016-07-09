@@ -93,11 +93,11 @@ The two gifs below show the exact same infrastructure and services. But the firs
 * [A Sysdig + Kubernetes Adventure, Part 1: How Kubernetes Services Work](https://sysdig.com/blog/sysdigkubernetes-adventure-part-1-kubernetes-services-work/)
 * [A Sysdig + Kubernetes Adventure, Part 2: Troubleshooting Kubernetes Services](https://sysdig.com/blog/a-sysdigkubernetes-adventure-part-2-troubleshooting-kubernetes-services/)
 
-***  
+---  
   
 *You can find open source sysdig on [github](https://github.com/draios/sysdig) and at [sysdig.org](http://www.sysdig.org/), and you can sign up for free trial of Sysdig Cloud at [sysdig.com](https://sysdig.com/).*  
   
-***  
+---  
   
 *Author: Chris Crane, VP Product, Sysdig*  
 *A version of this article was originally posted on the [Kubernetes blog](http://blog.kubernetes.io/2015/11/monitoring-Kubernetes-with-Sysdig.html).*
