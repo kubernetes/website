@@ -60,6 +60,8 @@ toc:
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/logging-demo/
   - title: NewRelic
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/newrelic
+  - title: Sysdig Cloud
+    path: https://github.com/kubernetes/kubernetes/tree/master/examples/sysdig-cloud
 
 - title: Multi-tier Applications
   section:
