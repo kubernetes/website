@@ -12,6 +12,12 @@ In this post we will quickly preview the Kubernetes visibility in both open sour
 
 ## Troubleshooting Kubernetes with csysdig 
 
+Sysdig is designed to offer simple, intuitive, and incredibly rich insight into all activity on a Linux machine, including inside containers. Sysdig is scriptable in Lua and includes a command line interface and a powerful interactive UI, csysdig, that runs in your terminal. Think of sysdig as strace + tcpdump + htop + iftop + lsof. With state of the art container visibility on top.
+
+Install sysdig on any Kubernetes node that you want to troubleshoot by following the install isntructions on [github](https://github.com/draios/sysdig/wiki/How%20to%20Install%20Sysdig%20for%20Linux) or [sysdig.org](http://www.sysdig.org/install/).
+
+
+### Getting Started
 The easiest way to take advantage of sysdig’s Kubernetes support is by launching csysdig, the sysdig ncurses UI:
 
 ```
