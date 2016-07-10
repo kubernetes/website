@@ -79,7 +79,7 @@ curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page
 
 The generic download path is:
 ```
-http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/${GOOS}/${GOARCH}/${K8S_BINARY}
+https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/${GOOS}/${GOARCH}/${K8S_BINARY}
 ```
 
 ### Starting the cluster
