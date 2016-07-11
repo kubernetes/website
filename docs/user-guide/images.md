@@ -32,6 +32,9 @@ Credentials can be provided in several ways:
     - Per-cluster
     - automatically configured on Google Compute Engine or Google Container Engine
     - all pods can read the project's private registry
+  - Using AWS EC2 Container Registry (ECR)
+    - use IAM roles and policies to control access to ECR repositories
+    - automatically refreshes ECR login credentials
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
@@ -60,7 +63,7 @@ so it can pull from the project's GCR, but not push.
 ### Using AWS EC2 Container Registry
 
 Kubernetes has native support for the [AWS EC2 Container
-Registry](https://aws.amazon.com/ecr/), when nodes are AWS instances.
+Registry](https://aws.amazon.com/ecr/), when nodes are AWS EC2 instances.
 
 Simply use the full image name (e.g. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`)
 in the Pod definition.
@@ -82,6 +85,9 @@ The kubelet will fetch and periodically refresh ECR credentials.  It needs the f
 
 **Note:** if you are running on Google Container Engine (GKE), there will already be a `.dockercfg` on each node
 with credentials for Google Container Registry.  You cannot use this approach.
+
+**Note:** if you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
+manage and update the ECR login credentials. You cannot use this approach.
 
 **Note:** this approach is suitable if you can control node configuration.  It
 will not work reliably on GCE, and any other cloud provider that does automatic
