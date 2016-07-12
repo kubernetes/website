@@ -160,21 +160,23 @@ web-1
 
 And the hostname is linked to the in-cluster DNS address:
 
-```shell
+```console
 $ kubectl run -it --image busybox dns-test --restart=Never /bin/sh
-dns-test # nslookup web-0.nginx
+/ # nslookup web-0.nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
 Name:      web-0.nginx
 Address 1: 10.180.3.5
 
-dns-test # nslookup web-1.nginx
+/ # nslookup web-1.nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
 Name:      web-1.nginx
 Address 1: 10.180.0.9
+
+/ # exit
 ```
 
 The containers are running nginx webservers, which by default will look for an index.html file in `/usr/share/nginx/html/index.html`. That directory is backed by a `PersistentVolume` created by the Pet Set. So lets write our hostname there:
