@@ -83,7 +83,7 @@ h2, h3, h4 {
 <a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook" target="_blank" class="shadowbox">
   <img src="/images/docs/redis.svg"><br/>Guestbook + Redis
 </a>
-<a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/cassandra" target="_blank" class="shadowbox">
+<a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/storage/cassandra" target="_blank" class="shadowbox">
   <img src="/images/docs/cassandra.svg"><br/>Cloud Native Cassandra
 </a>
 <a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/mysql-wordpress-pd/" target="_blank" class="shadowbox">
