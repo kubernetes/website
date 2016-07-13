@@ -61,9 +61,9 @@ spec:
     role: db
  ingress:
   - from:
-     podSelector:
-      matchLabels:
-       role: frontend
+     - podSelector:
+        matchLabels:
+         role: frontend
     ports:
      - protocol: tcp
        port: 6379
