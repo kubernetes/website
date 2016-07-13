@@ -54,18 +54,18 @@ A minimal `NetworkPolicy` might look like this:
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 metadata:
- name: test-network-policy
+  name: test-network-policy
 spec:
- podSelector:
-  matchLabels:
-    role: db
+  podSelector:
+    matchLabels:
+      role: db
  ingress:
-  - from:
-     podSelector:
-      matchLabels:
-       role: frontend
+ - from:
+    - podSelector:
+        matchLabels:
+          role: frontend
     ports:
-     - protocol: tcp
+    - protocol: tcp
        port: 6379
 ```
 
