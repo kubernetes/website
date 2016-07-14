@@ -139,6 +139,11 @@ spec:
   resources:
     requests:
       storage: 8Gi
+  selector:
+    matchLabels:
+      release: "stable"
+    matchExpressions:
+      - {key: environment, operator: In, values: [dev]}
 ```
 
 ### Access Modes
@@ -148,6 +153,15 @@ Claims use the same conventions as volumes when requesting storage with specific
 ### Resources
 
 Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resources.md) applies to both volumes and claims.
+
+### Selector
+
+Claims can specify a [label selector](/docs/user-guide/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
+
+* matchLabels - the volume must have a label with this value
+* matchExpressions - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
+
+All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together – they must all be satisfied in order to match.
 
 ## Claims As Volumes
 
