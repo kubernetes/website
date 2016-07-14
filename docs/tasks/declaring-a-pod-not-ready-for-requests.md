@@ -12,8 +12,8 @@ concept_rankings:
 ---
 
 {% capture purpose %}
-This document explains how to configure Pods to receive requests ***only after***
-they have declared that they are *Ready* to do so.
+This document explains how to configure Pods to receive requests only after
+they pass *Readiness Checks*.
 
 This should be used anytime initialization is performed in the Container
 prior to being able to serve requests.  Examples:
@@ -21,6 +21,10 @@ prior to being able to serve requests.  Examples:
 - Creating connection pools to Databases or other applications
 - Initializing objects via reflection or dependency injection
 - Pre-populating caches
+
+By configuring a `ReadinessProbe` for your Container, you can ensure that
+Services will not send requests to the Container until the Readiness Checks
+succeed.
 {% endcapture %}
 
 {% capture recommended_background %}
@@ -28,89 +32,47 @@ It is recommended you are familiar with the following concepts before continuing
 
 - [Pods](/docs/pod/)
 - [Containers](/docs/container/)
+- [Services](/docs/service/)
 {% endcapture %}
 
 {% capture step_by_step %}
-#### Option 1: Define an http Get request
+#### Option A: Define an Http Get request
 
 Add `pod.containers.readinessProbe.httpGet` with a URL and port that returns
 a response code >= 200 and < 400 on success:
 
-```yaml
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: httpget-probe-example
-    args:
-    - /bin/sh
-    - -c
-    - sleep 60; echo ok > /tmp/health;
-    image: gcr.io/google_containers/liveness
-    readinessProbe: # This is the important part
-      httpGet: # This defines the http Get
-        path: /healthz # Probes are sent to the Pod IP
-        port: 80
-```
+{% include code.html language="yaml" file="podyamls/http-readiness.yaml" ghlink="/docs/tasks/podyamls/http-readiness.yaml"%}
 
-#### Option 2: Define a shell command
+
+#### Option B: Define a Shell command
 
 Add `pod.containers.readinessProbe.exec` with a shell command that exits 0
 on *Ready* and non-zero on *NotReady*:
 
-```yaml
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: exec-probe-example
-    args:
-    - /bin/sh
-    - -c
-    - sleep 60; echo ok > /tmp/health;
-    image: gcr.io/google_containers/busybox
-    readinessProbe: # This is the important part
-      exec: # This defines the exec command
-        command: # This is the command + argv executed to check Readiness
-        - cat
-        - /tmp/health
-```
+{% include code.html language="yaml" file="podyamls/exec-readiness.yaml" ghlink="/docs/tasks/podyamls/exec-readiness.yaml"%}
 
-#### Option 3: Define a TCP request
+#### Option C: Define a TCP connection
 
 Add `pod.containers.readinessProbe.tcpSocket` with a port that is opened
 on *Ready* and is not opened on *NotReady*:
 
-```yaml
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: httpget-probe-example
-    args:
-    - /bin/sh
-    - -c
-    - sleep 60; echo ok > /tmp/health;
-    image: gcr.io/google_containers/liveness
-    readinessProbe: # This is the important part
-      tcpSocket: # Connection is made to the Pod IP
-        port: 22
-```
+{% include code.html language="yaml" file="podyamls/tcp-readiness.yaml" ghlink="/docs/tasks/podyamls/tcp-readiness.yaml"%}
+
 {% endcapture %}
 
 {% capture options_and_considerations %}
 
-- *ReadinessProbe*s only prevent *Services* from sending traffic to the *Pod*,
-and do not prevent requests from being sent directly to the *Pod* IP address
+- `ReadinessProbe`s only prevent Services from sending traffic to the Pod,
+and do not prevent requests from being sent directly to the Pod IP address
 through other means.
 - Each probe will have one of three results:
   - `Success`: indicates that the container passed the diagnostic.
   - `Failure`: indicates that the container failed the diagnostic.
   - `Unknown`: indicates that the diagnostic failed so no action should be taken.
-- Probes can be further customized (e.g. *TimeoutSeconds*, *PeriodSeconds*).  See
+- Probes can be further customized (e.g. `TimeoutSeconds`, `PeriodSeconds`).  See
 the [probe documentation](/docs/api-reference/v1//definitions/#_v1_probe)
 for the full list of options.
-- *ReadinessProbe*s can be used by containers to take themselves down for maintenance without deleting the pod
+- `ReadinessProbe`s can be used by containers to take themselves down for maintenance without deleting the pod
 {% endcapture %}
 
 {% include templates/task.md %}

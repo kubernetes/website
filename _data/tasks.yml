@@ -13,3 +13,5 @@ toc:
     path: /docs/tasks/configuring-container-restart-behavior/
   - title: Declaring A Pod Not Ready For Requests
     path: /docs/tasks/declaring-a-pod-not-ready-for-requests/
+  - title: Automatically Restarting Unhealthy Containers
+    path: /docs/tasks/automatically-restarting-unhealthy-containers/
