@@ -79,8 +79,8 @@ Example workloads for Pet Set:
 Before you start deploying applications as Pet Sets, there are a few limitations you should understand.
 
 * Pet Set is an *alpha* resource, not available in any Kubernetes release prior to 1.3.
-* As with all alpha/beta resources, it can be disable through the `--runtime-config` option passed to the apiserver, and in fact most likely will be disabled on hosted offerings of Kubernetes.
-* The only updatable field on a Pet Set is `replicas`
+* As with all alpha/beta resources, it can be disabled through the `--runtime-config` option passed to the apiserver, and in fact most likely will be disabled on hosted offerings of Kubernetes.
+* The only updatable field on a Pet Set is `replicas`.
 * The storage for a given pet must either be provisioned by a [dynamic storage provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin. Note that dynamic volume provisioning is also currently in alpha.
 * Deleting the Pet Set  *will not*  delete any pets. You will either have to manually scale it down to 0 pets first, or delete the pets yourself.
 * Deleting and/or scaling a Pet Set down will *not* delete the volumes associated with the Pet Set. This is done to ensure safety first, your data is more valuable than an auto purge of all related Pet Set resources. **Deleting the Persistent Volume Claims will result in a deletion of the associated volumes**.
