@@ -103,7 +103,7 @@ to the corresponding `gcloud` commands.
 
 Examples:
 ```shell
-gcloud container clusters create mytestcluster --zone=us-central1-b --enable-autoscaling=true --min-nodes=3 --max-nodes=10 --num-nodes=5
+gcloud container clusters create mytestcluster --zone=us-central1-b --enable-autoscaling --min-nodes=3 --max-nodes=10 --num-nodes=5
 ```
 
 ```shell
