@@ -16,7 +16,7 @@ Here's a diagram of what the final result will look like:
 
 **Note: These steps have not been tested with the [Docker For Mac or Docker For Windows beta programs](https://blog.docker.com/2016/03/docker-for-mac-windows-beta/).**
 
-1. You need to have docker installed on one machine.
+1. You need to have docker version >= "1.10" installed on the machine.
 2. Decide what Kubernetes version to use. Set the `${K8S_VERSION}` variable to
    a released version of Kubernetes >= "v1.2.0". If you'd like to use the current stable version of Kubernetes, run the following:
 
@@ -38,7 +38,7 @@ docker run -d \
     --volume=/:/rootfs:ro \
     --volume=/sys:/sys:rw \
     --volume=/var/lib/docker/:/var/lib/docker:rw \
-    --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \
+    --volume=/var/lib/kubelet/:/var/lib/kubelet:rw,rslave \
     --volume=/var/run:/var/run:rw \
     --net=host \
     --pid=host \
@@ -180,7 +180,7 @@ docker-machine ssh `docker-machine active`
 ```
 
 ```shell
-sudo umount `cat /proc/mounts | grep /var/lib/kubelet | awk '{print $2}'` 
+sudo umount `cat /proc/mounts | grep /var/lib/kubelet | awk '{print $2}'`
 sudo rm -rf /var/lib/kubelet
 ```
 
@@ -228,4 +228,3 @@ For support level information on all solutions, see the [Table of solutions](/do
 
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
-

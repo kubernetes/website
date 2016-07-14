@@ -25,7 +25,7 @@ There are two main phases to installing the master:
 ## Setting up flanneld and etcd
 
 _Note_:
-This guide expects **Docker 1.7.1 or higher**.
+This guide expects **Docker 1.10 or higher**.
 
 ### Setup Docker Bootstrap
 
@@ -173,7 +173,7 @@ sudo docker run \
     --volume=/:/rootfs:ro \
     --volume=/sys:/sys:ro \
     --volume=/var/lib/docker/:/var/lib/docker:rw \
-    --volume=/var/lib/kubelet/:/var/lib/kubelet:rw \
+    --volume=/var/lib/kubelet/:/var/lib/kubelet:rw,rslave \
     --volume=/var/run:/var/run:rw \
     --net=host \
     --privileged=true \
