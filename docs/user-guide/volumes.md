@@ -236,7 +236,7 @@ writers simultaneously.
 __Important: You must have your own NFS server running with the share exported
 before you can use it__
 
-See the [NFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/nfs/) for more details.
+See the [NFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/nfs) for more details.
 
 ### iscsi
 
@@ -255,7 +255,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/iscsi/) for more details.
+See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/iscsi) for more details.
 
 ### flocker
 
@@ -270,7 +270,7 @@ can be "handed off" between pods as required.
 
 __Important: You must have your own Flocker installation running before you can use it__
 
-See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/flocker/) for more details.
+See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/flocker) for more details.
 
 ### glusterfs
 
@@ -285,7 +285,7 @@ simultaneously.
 __Important: You must have your own GlusterFS installation running before you
 can use it__
 
-See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/glusterfs/) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/glusterfs) for more details.
 
 ### rbd
 
@@ -305,7 +305,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/rbd/) for more details.
+See the [RBD example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/rbd) for more details.
 
 ### gitRepo
 
@@ -371,14 +371,14 @@ A `FlexVolume` enables users to mount vendor volumes into a pod. It expects vend
 drivers are installed in the volume plugin path on each kubelet node. This is
 an alpha feature and may change in future.
 
-More details are in [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/flexvolume/README.md)
+More details are in [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/flexvolume/README.md)
 
 ### AzureFileVolume
 
 A `AzureFileVolume` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
 into a Pod.
 
-More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/azure_file/README.md)
+More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_file/README.md)
 
 ### vsphereVirtualDisk
 
