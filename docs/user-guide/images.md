@@ -1,15 +1,16 @@
 ---
 ---
 
+**Launch Stage:** *Stable since 1.0*
+
+* TOC
+{:toc}
+
 Each container in a pod has its own image.  Currently, the only type of image supported is a [Docker Image](https://docs.docker.com/userguide/dockerimages/).
 
 You create your Docker image and push it to a registry before referring to it in a Kubernetes pod.
 
 The `image` property of a container supports the same syntax as the `docker` command does, including private registries and tags.
-
-* TOC
-{:toc}
-
 
 ## Updating Images
 
