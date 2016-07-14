@@ -8,7 +8,7 @@
 
 1. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
 2. Install and configure [AWS Command Line Interface](http://aws.amazon.com/cli)
-3. You need an AWS [instance profile and role](http://docs.aws.amazon.com/IAM/latest/UserGuide/instance-profiles.html) with EC2 full access.
+3. You need an AWS [instance profile and role](http://docs.aws.amazon.com/IAM/latest/UserGuide/instance-profiles.html) with EC2 full access and S3 full access.
 
 NOTE: This script use the 'default' AWS profile by default.
 You may explicitly set AWS profile to use using the `AWS_DEFAULT_PROFILE` environment variable:
