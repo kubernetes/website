@@ -62,7 +62,7 @@ to run commands against the cluster.
 
 ```shell
 # linux/amd64
-curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 # linux/386
 curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/386/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 # linux/arm
