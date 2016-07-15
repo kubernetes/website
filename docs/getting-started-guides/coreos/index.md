@@ -16,6 +16,10 @@ Guide and CLI tool for setting up a multi-node cluster on AWS. CloudFormation is
 
 <hr/>
 
+[**Bare Metal Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-baremetal.html#automated-provisioning)
+
+Guide and HTTP/API service for PXE booting and provisioning a multi-node cluster on bare metal. [Ignition](https://coreos.com/ignition/docs/latest/) is used to provision a master and multiple workers on the first boot from disk.
+
 [**Vagrant Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant.html)
 
 Guide to setting up a multi-node cluster on Vagrant. The deployer can independently configure the number of etcd nodes, master nodes, and worker nodes to bring up a fully HA control plane.
