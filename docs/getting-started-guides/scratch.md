@@ -183,7 +183,7 @@ The recommended version number can also be found as the value of `TAG` in `kuber
 
 The remainder of the document assumes that the image identifiers have been chosen and stored in corresponding env vars.  Examples (replace with latest tags and appropriate registry):
 
-  - `HYPERKUBE_IMAGE==gcr.io/google_containers/hyperkube:$TAG`
+  - `HYPERKUBE_IMAGE=gcr.io/google_containers/hyperkube:$TAG`
   - `ETCD_IMAGE=gcr.io/google_containers/etcd:$ETCD_VERSION`
 
 ### Security Models
