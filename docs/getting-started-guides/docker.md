@@ -180,7 +180,7 @@ docker-machine ssh `docker-machine active`
 ```
 
 ```shell
-sudo umount `cat /proc/mounts | grep /var/lib/kubelet | awk '{print $2}'` 
+grep /var/lib/kubelet /proc/mounts | awk '{print $2}' | sudo xargs -n1 umount
 sudo rm -rf /var/lib/kubelet
 ```
 
