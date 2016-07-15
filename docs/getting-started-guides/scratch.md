@@ -208,11 +208,10 @@ You need to prepare several certs:
 - The kubelets optionally need certs to identify themselves as clients of the master, and when
   serving its own API over HTTPS.
 
-Unless you plan to have a real CA generate your certs, you will need to generate a root cert and use that to sign the master, kubelet, and kubectl certs.
-
-- see function `create-certs` in `cluster/common.sh`
-- see also `cluster/saltbase/salt/generate-cert/make-ca-cert.sh` and
-  `cluster/saltbase/salt/generate-cert/make-cert.sh`
+Unless you plan to have a real CA generate your certs, you will need
+to generate a root cert and use that to sign the master, kubelet, and
+kubectl certs. How to do this is described in the [authentication
+documentation](/docs/admin/authentication/#creating-certificates).
 
 You will end up with the following files (we will use these variables later on)
 
