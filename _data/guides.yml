@@ -189,8 +189,10 @@ toc:
         path: /docs/getting-started-guides/coreos/
       - title: Cloudstack
         path: /docs/getting-started-guides/cloudstack/
-      - title: VMWare
+      - title: VMware vSphere
         path: /docs/getting-started-guides/vsphere/
+      - title: VMware Photon Controller
+        path: /docs/getting-started-guides/photon-controller/
       - title: Juju
         path: /docs/getting-started-guides/juju/
       - title: DCOS
