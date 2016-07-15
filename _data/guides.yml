@@ -82,6 +82,8 @@ toc:
     path: /docs/user-guide/load-balancer/
   - title: Configuring Your Cloud Provider's Firewalls
     path: /docs/user-guide/services-firewalls/
+  - title: Cross-cluster Service Discovery using Federated Services
+    path: /docs/user-guide/federation/federated-services/
 
 - title: Containers and Pods
   section:
