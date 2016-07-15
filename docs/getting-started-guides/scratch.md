@@ -600,6 +600,7 @@ If you are following the firewall-only security approach, then use these argumen
 - `--advertise-address=$MASTER_IP`
 
 If you are using the HTTPS approach, then set:
+
 - `--client-ca-file=/srv/kubernetes/ca.crt`
 - `--token-auth-file=/srv/kubernetes/known_tokens.csv`
 - `--basic-auth-file=/srv/kubernetes/basic_auth.csv`
