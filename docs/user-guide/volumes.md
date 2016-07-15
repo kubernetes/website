@@ -118,6 +118,26 @@ Watch out when using this type of volume, because:
 * when Kubernetes adds resource-aware scheduling, as is planned, it will not be
   able to account for resources used by a `hostPath`
 
+#### Example pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-hostpath
+spec:
+  containers:
+  - image: myimage
+    name: test-container
+    volumeMounts:
+    - mountPath: /test-hostpath
+      name: test-volume
+  volumes:
+  - name: test-volume
+    hostPath:
+      path: /path/to/my/dir
+```
+
 ### gcePersistentDisk
 
 A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE) [Persistent
