@@ -146,11 +146,7 @@ ip=$(kubectl get svc nginx --template={{.spec.clusterIP}})
 echo $ip
 {% endraw %}```
 
-Hit the webserver with this IP:
-
-```shell{% raw %}
-kubectl get svc nginx --template={{.spec.clusterIP}}
-{% endraw %}```
+On Linux the IP is directly accessible via a web browser.
 
 On OS X, since docker is running inside a VM, run the following command instead:
 
