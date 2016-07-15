@@ -106,6 +106,7 @@ be active at once.  Note that you can grow the end of this range, but you
 cannot move it without disrupting the services and pods that already use it.
 
 Also, you need to pick a static IP for master node.
+
 - Call this `MASTER_IP`.
 - Open any firewalls to allow access to the apiserver ports 80 and/or 443.
 - Enable ipv4 forwarding sysctl, `net.ipv4.ip_forward = 1`
