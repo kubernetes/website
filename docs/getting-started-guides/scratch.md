@@ -288,6 +288,10 @@ contexts:
 current-context: service-account-context
 ```
 
+Where CA_CERT_BASE64_ENCODED can be generated like `< ca.crt base64
+-w0`.  Alternatively you can refer to a file (e.g. `certificate-authority:
+/etc/kubernetes/ca.crt`).
+
 Put the kubeconfig(s) on every node.  The examples later in this
 guide assume that there are kubeconfigs in `/var/lib/kube-proxy/kubeconfig` and
 `/var/lib/kubelet/kubeconfig`.
