@@ -1,6 +1,5 @@
 ---
 ---
-# Kubernetes Federated Services and Cross-Cluster Service Discovery
 
 This guide explains how to use Kubernetes Federated Services to deploy
 a common Service across multiple Kubernetes clusters. This makes it
@@ -48,7 +47,7 @@ automatically find the local shard of the Federated Service in their
 cluster if it exists and is healthy, or the closest healthy shard in a
 different cluster if it does not.
 
-## Hybrid Cloud Capabilities
+## Hybrid cloud capabilities
 
 Federations of Kubernetes Clusters can include clusters running in
 different cloud providers (e.g. Google Cloud, AWS), and on-premises
@@ -61,11 +60,11 @@ Federation API Server (See the
 Thereafter, your applications and services can span different clusters
 and cloud providers as described in more detail below.
 
-## Creating a Federated Service
+## Creating a federated service
 
 This is done in the usual way, for example:
 
-```
+``` shell
 kubectl --context=federation-cluster create -f services/nginx.yaml
 ```
 
@@ -82,7 +81,7 @@ underlying your federation.
 
 You can verify this by checking in each of the underlying clusters, for example:
 
-```
+``` shell
 kubectl --context=gce-asia-east1a get services nginx
 NAME      CLUSTER-IP     EXTERNAL-IP      PORT(S)   AGE
 nginx     10.63.250.98   104.199.136.89   80/TCP    9m
@@ -100,11 +99,9 @@ Federated Service - either way, the end result will be the same).
 The status of your Federated Service will automatically reflect the
 real-time status of the underlying Kubernetes services, for example:
 
-```
-kubectl --context=federation-cluster describe services nginx
-```
+``` shell
+$kubectl --context=federation-cluster describe services nginx
 
-```
 Name:                   nginx
 Namespace:              default
 Labels:                 run=nginx
@@ -123,8 +120,10 @@ correspond with the 'LoadBalancer Ingress' addresses of all of the
 underlying Kubernetes services (once these have been allocated - this
 may take a few seconds). For inter-cluster and inter-cloud-provider
 networking between service shards to work correctly, your services
-need to have an externally visible IP address. Service Type:
-Loadbalancer is typically used for this.
+need to have an externally visible IP address. [Service Type:
+Loadbalancer](/docs/user-guide/services/#type-loadbalancer)
+is typically used for this, although other options
+(e.g. [External IP's](/docs/user-guide/services/#external-ips)) exist.
 
 Note also that we have not yet provisioned any backend Pods to receive
 the network traffic directed to these addresses (i.e. 'Service
@@ -133,7 +132,7 @@ be healthy service shards, and has accordingly not yet added their
 addresses to the DNS records for this Federated Service (more on this
 aspect later).
 
-## Adding Backend Pods
+## Adding backend pods
 
 To render the underlying service shards healthy, we need to add
 backend Pods behind them. This is currently done directly against the
@@ -142,7 +141,7 @@ Federation server will be able to do all this for you with a single
 command, to save you the trouble). For example, to create backend Pods
 in 13 underlying clusters:
 
-```
+``` shell
 for CLUSTER in asia-east1-c asia-east1-a asia-east1-b \
                         europe-west1-d europe-west1-c europe-west1-b \
                         us-central1-f us-central1-a us-central1-b us-central1-c \
@@ -151,21 +150,22 @@ do
   kubectl --context=$CLUSTER run nginx --image=nginx:1.11.1-alpine --port=80
 done
 ```
+
 Note that `kubectl run` automatically adds the `run=nginx` labels required to associate the backend pods with their services.
 
-## Verifying Public DNS Records
+## Verifying public DNS records
 
 Once the above Pods have successfully started and have begun listening
-for connections, Kubernetes in each cluster (via automatic health
-checks) will report them as healthy endpoints of the service in that
-cluster. The Cluster Federation will in turn consider each of these
+for connections, Kubernetes will report them as healthy endpoints of
+the service in that cluster (via automatic health checks). The Cluster
+Federation will in turn consider each of these
 service 'shards' to be healthy, and place them in serving by
 automatically configuring corresponding public DNS records. You can
 use your preferred interface to your configured DNS provider to verify
 this. For example, if your Federation is configured to use Google
 Cloud DNS, and a managed DNS domain 'example.com':
 
-```
+``` shell
 $ gcloud dns managed-zones describe example-dot-com 
 creationTime: '2016-06-26T18:18:39.229Z'
 description: Example domain for Kubernetes Cluster Federation
@@ -180,7 +180,7 @@ nameServers:
 - ns-cloud-a4.googledomains.com.
 ```
 
-```
+``` shell
 $ gcloud dns record-sets list --zone example-dot-com
 NAME                                                                                                 TYPE      TTL     DATA
 example.com.                                                                                       NS     21600  ns-cloud-e1.googledomains.com., ns-cloud-e2.googledomains.com.
@@ -202,11 +202,11 @@ nginx.mynamespace.myfederation.svc.europe-west1-d.example.com.  CNAME   180     
 
 Note: If your Federation is configured to use AWS Route53, you can use one of the equivalent AWS tools, for example:
 
-```
+``` shell
 $aws route53 list-hosted-zones
 ```
 and
-```
+``` shell
 $aws route53 list-resource-record-sets --hosted-zone-id Z3ECL0L9QLOVBX
 ```
 
@@ -234,9 +234,9 @@ then select any one of the returned addresses to initiate a network
 connection (and fail over automatically to one of the other equivalent
 addresses if required).
 
-## Discovering a Federated Service
+## Discovering a federated service
 
-### From Pods Inside your Federated Clusters
+### From pods inside your federated clusters
 
 By default, Kubernetes clusters come pre-configured with a
 cluster-local DNS server ('KubeDNS'), as well as an intelligently
@@ -296,7 +296,7 @@ if the Pod issuing the lookup is located in the U.S., and irrespective
 of whether or not there are healthy shards of the service in the U.S.
 This is useful for remote monitoring and other similar applications.
 
-### From Other Clients Outside your Federated Clusters
+### From other clients outside your federated clusters
 
 Much of the above discussion applies equally to external clients,
 except that the automatic DNS expansion described is no longer
@@ -306,7 +306,7 @@ regional or global name. For convenience reasons, it is often a good
 idea to manually configure additional static CNAME records in your
 service, for example:
 
-```
+``` shell
 eu.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.europe-west1.example.com.
 us.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.us-central1.example.com.
 nginx.acme.com             CNAME nginx.mynamespace.myfederation.svc.example.com.
@@ -317,7 +317,7 @@ home continent.  All of the required failover is handled for you
 automatically by Kubernetes Cluster Federation.  Future releases will
 improve upon this even further.
 
-## Handling Failures of Backend Pods and Whole Clusters
+## Handling failures of backend pods and whole clusters
 
 Standard Kubernetes service cluster-IP's already ensure that
 non-responsive individual Pod endpoints are automatically taken out of
@@ -339,7 +339,7 @@ IP's in less time than that given appropriate configuration.
 
 ## Troubleshooting
 
-#### I cannot connect to my Cluster Federation API
+#### I cannot connect to my cluster federation API
 Check that your
 
 1. Client (typically kubectl) is correctly configured (including API endpoints and login credentials), and
@@ -348,7 +348,7 @@ Check that your
 See the [federation admin guide](/docs/admin/federation/) to learn
 how to bring up a cluster federation correctly (or have your cluster administrator do this for you), and how to correctly configure your client.
 
-#### I can create a Federated Service successfully against the Cluster Federation API, but no matching services are created in my underlying clusters
+#### I can create a federated service successfully against the cluster federation API, but no matching services are created in my underlying clusters
 Check that:
 
 1. Your clusters are correctly registered in the Cluster Federation API (`kubectl describe clusters`)
@@ -356,7 +356,7 @@ Check that:
 3. That the login credentials provided to the Cluster Federation API for the clusters have the correct authorization and quota to create services in the relevant namespace in the clusters.  Again you should see associated error messages providing more detail in the above log file if this is not the case.
 4. Whether any other error is preventing the service creation operation from succeeding (look for `service-controller` errors in the output of `kubectl logs federation-controller-manager --namespace federation`).
 
-#### I can create a Federated Service successfully, but no matching DNS records are created in my DNS provider.
+#### I can create a federated service successfully, but no matching DNS records are created in my DNS provider.
 Check that:
 
 1. Your federation name, DNS provider, DNS domain name are configured correctly.  Consult the [federation admin guide](/docs/admin/federation/) or  [tutorial](https://github.com/kelseyhightower/kubernetes-cluster-federation) to learn
