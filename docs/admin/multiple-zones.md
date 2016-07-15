@@ -117,7 +117,7 @@ kubernetes-minion-a12q   Ready                      6m        beta.kubernetes.io
 
 Let's add another set of nodes to the existing cluster, reusing the
 existing master, running in a different zone (us-central1-b or us-west-2b).
-We run kube-up again, but by specifying `KUBE_USE_EXISTING_MASTER=1`
+We run kube-up again, but by specifying `KUBE_USE_EXISTING_MASTER=true`
 kube-up will not create a new master, but will reuse one that was previously
 created instead.
 
@@ -183,7 +183,7 @@ EOF
 
 The PV is also labeled with the zone & region it was created in.  For
 version 1.2, dynamic persistent volumes are always created in the zone
-of the cluster master (here us-centaral1-a / us-west-2a); this will
+of the cluster master (here us-central1-a / us-west-2a); this will
 be improved in a future version (issue [#23330](https://github.com/kubernetes/kubernetes/issues/23330).)
 
 ```shell
