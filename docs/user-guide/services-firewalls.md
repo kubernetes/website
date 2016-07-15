@@ -6,7 +6,7 @@ exposure to the internet.  When exposing a service to the external world, you ma
 one or more ports in these firewalls to serve traffic.  This document describes this process, as
 well as any provider specific details that may be necessary.
 
-### Restrict Access For LoadBlancer Service
+### Restrict Access For LoadBalancer Service
 
  When using a Service with `spec.type: LoadBalancer`, you can specify the IP ranges that are allowed to access the load balancer
  by using `spec.loadBalancerSourceRanges`. This field takes a list of IP CIDR ranges, which Kubernetes will use to configure firewall exceptions.
