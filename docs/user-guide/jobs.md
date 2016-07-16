@@ -372,4 +372,4 @@ object, but complete control over what pods are created and how work is assigned
 
 ## Future work
 
-Support for creating Jobs at specified times/dates (i.e. cron) is expected in [1.3](https://github.com/kubernetes/kubernetes/pull/11980).
+Support for creating Jobs at specified times/dates (i.e. cron) is expected in [1.4](https://github.com/kubernetes/kubernetes/pull/11980).
