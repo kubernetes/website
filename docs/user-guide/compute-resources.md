@@ -41,7 +41,7 @@ type is the sum of the resource requests/limits of that type for each container 
 unset values treated as zero (or equal to default values in some cluster configurations).
 
 The following pod has two containers.  Each has a request of 0.25 core of cpu and 64MiB
-(2<sup>20</sup> bytes) of memory and a limit of 0.5 core of cpu and 128MiB of memory. The pod can
+(2<sup>26</sup> bytes) of memory and a limit of 0.5 core of cpu and 128MiB of memory. The pod can
 be said to have a request of 0.5 core and 128 MiB of memory and a limit of 1 core and 256MiB of
 memory.
 
