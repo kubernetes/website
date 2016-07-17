@@ -212,8 +212,6 @@ own `volumeMounts` block, but only one `spec.volumes` is needed per secret.
 
 You can package many files into one secret, or use many secrets, whichever is convenient.
 
-See another example of creating a secret and a pod that consumes that secret in a volume [here](/docs/user-guide/secrets/).
-
 **Projection of secret keys to specific paths**
 
 We can also control the paths within the volume where Secret keys are projected.
