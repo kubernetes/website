@@ -31,7 +31,8 @@ But their size and availability is limited to that of a single machine.
 
 The local-machine solutions are:
 
-- [Local Docker-based](/docs/getting-started-guides/docker) (recommended starting point)
+- [minikube](/docs/getting-started-guides/minikube) (recommended starting point)
+- [Local Docker-based](/docs/getting-started-guides/docker)
 - [No-VM local cluster](/docs/getting-started-guides/locally) (Linux only)
 - [Vagrant](/docs/getting-started-guides/vagrant)
 
