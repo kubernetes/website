@@ -60,6 +60,8 @@ Open source sysdig and csysdig are great for troubleshooting single instances.. 
 ### Installation
 In order to instrument your Kubernetes environment with Sysdig Cloud, you simply need to install the Sysdig Cloud agent container on each underlying host in your Kubernetes cluster. The recommended way to accomplish this install is using a DaemonSet. Example files and install instructions can be found [in the Kubernetes Examples documentation](https://github.com/kubernetes/kubernetes/tree/master/examples/sysdig-cloud).
 
+### How It Works
+
 Sysdig Cloud’s support for Kubernetes works like this: 
 
 1. Each Sysdig Cloud agent container automatically reports 100's of different system and network metrics from each Kubernetes node
