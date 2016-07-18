@@ -2,8 +2,8 @@
 ---
 
 In Kubernetes, authorization happens as a separate step from authentication.
-See the [authentication documentation](/docs/admin/authentication) for an
-overview of authentication.
+See the [Accessing Control Overview](/docs/admin/accessing-the-api/) for an
+overview of how authentication and authorization are applied to requests.
 
 Authorization applies to all HTTP accesses on the main (secure) apiserver port.
 
@@ -16,9 +16,9 @@ The following implementations are available, and are selected by flag:
   - `--authorization-mode=AlwaysDeny` blocks all requests (used in tests).
   - `--authorization-mode=AlwaysAllow` allows all requests; use if you don't
 need authorization.
-  - `--authorization-mode=ABAC`allows for user-configured authorization policy.
-ABAC stands for
-  Attribute-Based Access Control.
+  - `--authorization-mode=ABAC` allows for a simple local-file-based user-configured
+authorization policy.  ABAC stands for Attribute-Based Access Control.
+authorization policy. 
   - `--authorization-mode=RBAC` is an experimental implementation which allows
 for authorization to be driven by the Kubernetes API.
 RBAC stands for Roles-Based Access Control.
@@ -171,6 +171,11 @@ allowing admins to dynamically configure permission policies through the
 Kubernetes API.
 
 As of 1.3 RBAC mode is in alpha and considered experimental.
+
+To use RBAC, you must both enable the authorization module with `--authorization-mode=RBAC`,
+and [enable the API version](
+docs/admin/cluster-management.md/#Turn-on-or-off-an-api-version-for-your-cluster),
+with a `--runtime-config=` that includes `rbac.authorization/v1alpha1`.
 
 ### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
 
@@ -444,7 +449,7 @@ restricting access to the REST api.
 For further documentation refer to the authorization.v1beta1 API objects and
 plugin/pkg/auth/authorizer/webhook/webhook.go.
 
-## Plugin Development
+## Module Development
 
 Other implementations can be developed fairly easily.
 The APIserver calls the Authorizer interface:
