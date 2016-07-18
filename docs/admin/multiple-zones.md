@@ -6,7 +6,7 @@
 Kubernetes 1.2 adds support for running a single cluster in multiple failure zones
 (GCE calls them simply "zones", AWS calls them "availability zones", here we'll refer to them as "zones").
 This is a lightweight version of a broader Cluster Federation feature (previously referred to by the affectionate
-nickname ["Ubernetes"](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/federation.md).
+nickname ["Ubernetes"](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/federation.md)).
 Full Cluster Federation allows combining separate
 Kubernetes clusters running in different regions or cloud providers
 (or on-premise data centers).  However, many
@@ -117,7 +117,7 @@ kubernetes-minion-a12q   Ready                      6m        beta.kubernetes.io
 
 Let's add another set of nodes to the existing cluster, reusing the
 existing master, running in a different zone (us-central1-b or us-west-2b).
-We run kube-up again, but by specifying `KUBE_USE_EXISTING_MASTER=1`
+We run kube-up again, but by specifying `KUBE_USE_EXISTING_MASTER=true`
 kube-up will not create a new master, but will reuse one that was previously
 created instead.
 
@@ -183,7 +183,7 @@ EOF
 
 The PV is also labeled with the zone & region it was created in.  For
 version 1.2, dynamic persistent volumes are always created in the zone
-of the cluster master (here us-centaral1-a / us-west-2a); this will
+of the cluster master (here us-central1-a / us-west-2a); this will
 be improved in a future version (issue [#23330](https://github.com/kubernetes/kubernetes/issues/23330).)
 
 ```shell
