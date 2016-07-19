@@ -66,6 +66,7 @@ You can check that the secret was created like this:
 $ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 db-user-pass          Opaque                                2         51s
+
 $ kubectl describe secrets/db-user-pass
 Name:		db-user-pass
 Namespace:	default
