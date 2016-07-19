@@ -95,7 +95,7 @@ http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/${GO
 An example install with `linux/amd64`:
 
 ```
-curl -sSL "http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl" > /usr/bin/kubectl
+curl -sSL "https://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl" > /usr/bin/kubectl
 chmod +x /usr/bin/kubectl
 ```
 
