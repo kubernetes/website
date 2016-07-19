@@ -320,8 +320,8 @@ as follows before proceeding to configure Docker for Kubernetes.
 
 ```shell
 iptables -t nat -F
-ifconfig docker0 down
-brctl delbr docker0
+ip link set docker0 down
+ip link delete docker0
 ```
 
 The way you configure docker will depend in whether you have chosen the routable-vip or overlay-network approaches for your network.
@@ -420,7 +420,7 @@ because of how this is used later.
 
   1. Set `--configure-cbr0=false` on kubelet and restart.
   1. Create a bridge
-     - `brctl addbr cbr0`.
+     - `ip link add name cbr0 type bridge`.
   1. Set appropriate MTU. NOTE: the actual value of MTU will depend on your network environment
      - `ip link set dev cbr0 mtu 1460`
   1. Add the node's network to the bridge (docker will go on other side of bridge).
