@@ -39,7 +39,7 @@ gpgcheck=0
 * Install Kubernetes on all hosts - centos-{master,minion}.  This will also pull in etcd, docker, and cadvisor.
 
 ```shell
-yum -y install --enablerepo=virt7-docker-common-release kubernetes
+yum -y install --enablerepo=virt7-docker-common-release kubernetes etcd
 ```
 
 * Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS)
