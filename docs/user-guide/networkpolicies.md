@@ -10,7 +10,7 @@ A network policy is a specification of how selections of pods are allowed to com
 
 ## Prerequisites
 
-You must enable the `extensions/v1beta/networkpolicies` runtime config in your apiserver to enable this resource.
+You must enable the `extensions/v1beta1/networkpolicies` runtime config in your apiserver to enable this resource.
 
 You must also be using a networking solution which supports `NetworkPolicy` - simply creating the
 resource without a controller to implement it will have no effect.
