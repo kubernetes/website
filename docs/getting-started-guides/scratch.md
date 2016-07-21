@@ -553,8 +553,10 @@ For each of these components, the steps to start them running are similar:
         ],
         "livenessProbe": {
           "httpGet": {
-            "path": "/healthz",
-            "port": 8080
+            "scheme": "HTTP",
+            "host": "127.0.0.1",
+            "port": 8080,
+            "path": "/healthz"
           },
           "initialDelaySeconds": 15,
           "timeoutSeconds": 15
@@ -662,9 +664,10 @@ Complete this template for the scheduler pod:
         ],
         "livenessProbe": {
           "httpGet": {
+            "scheme": "HTTP",
             "host": "127.0.0.1",
-            "path": "/healthz",
-            "port": 10251
+            "port": 10251,
+            "path": "/healthz"
           },
           "initialDelaySeconds": 15,
           "timeoutSeconds": 15
@@ -717,9 +720,10 @@ Template for controller manager pod:
         ],
         "livenessProbe": {
           "httpGet": {
+            "scheme": "HTTP",
             "host": "127.0.0.1",
-            "path": "/healthz",
-            "port": 10252
+            "port": 10252,
+            "path": "/healthz"
           },
           "initialDelaySeconds": 15,
           "timeoutSeconds": 15
