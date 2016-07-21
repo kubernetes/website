@@ -14,7 +14,7 @@
         "image": "redis",
         "ports": [
           {
-            "containerPort": 6379,
+            "containerPort": 6379
           }
         ]
       },
@@ -23,7 +23,7 @@
         "image": "django",
         "ports": [
           {
-            "containerPort": 8000,
+            "containerPort": 8000
           }
         ]
       }
