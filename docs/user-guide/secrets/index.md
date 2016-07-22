@@ -66,6 +66,7 @@ You can check that the secret was created like this:
 $ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 db-user-pass          Opaque                                2         51s
+
 $ kubectl describe secrets/db-user-pass
 Name:		db-user-pass
 Namespace:	default
@@ -154,7 +155,7 @@ type: Opaque
 Decode the password field:
 
 ```shell
-$ echo "MWYyZDFlMmU2N2Rm" | base64 -D
+$ echo "MWYyZDFlMmU2N2Rm" | base64 -d
 1f2d1e2e67df
 ```
 
@@ -211,8 +212,6 @@ If there are multiple containers in the pod, then each container needs its
 own `volumeMounts` block, but only one `spec.volumes` is needed per secret.
 
 You can package many files into one secret, or use many secrets, whichever is convenient.
-
-See another example of creating a secret and a pod that consumes that secret in a volume [here](/docs/user-guide/secrets/).
 
 **Projection of secret keys to specific paths**
 
@@ -459,10 +458,10 @@ credentials.
 Make the secrets:
 
 ```shell
-$ kubectl create secret generic prod-db-password --from-literal=user=produser --from-literal=password=Y4nys7f11
-secret "prod-db-password" created
-$ kubectl create secret generic test-db-password --from-literal=user=testuser --from-literal=password=iluvtests
-secret "test-db-password" created
+$ kubectl create secret generic prod-db-secret --from-literal=user=produser --from-literal=password=Y4nys7f11
+secret "prod-db-secret" created
+$ kubectl create secret generic test-db-secret --from-literal=user=testuser --from-literal=password=iluvtests
+secret "test-db-secret" created
 ```
 
 Now make the pods:
@@ -580,7 +579,7 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
 ### Use-case: Dotfiles in secret volume
 
 In order to make piece of data 'hidden' (ie, in a file whose name begins with a dot character), simply
-make that key begin with a dot.  For example, when the following secret secret is mounted into a volume:
+make that key begin with a dot.  For example, when the following secret is mounted into a volume:
 
 ```json
 {

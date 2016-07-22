@@ -175,7 +175,7 @@ The following steps should be run on each Kubernetes node.
 ### Configure TLS
 
 Worker nodes require three keys: `ca.pem`, `worker.pem`, and `worker-key.pem`.  We've already generated
-`ca.pem` for use on the Master.  The worker public/private keypair should be generated for each Kubernetes node.
+`ca.pem` and `ca-key.pem` for use on the Master.  The worker public/private keypair should be generated for each Kubernetes node.
 
 1.  Create the file `worker-openssl.cnf` with the following contents.
 
@@ -192,7 +192,7 @@ Worker nodes require three keys: `ca.pem`, `worker.pem`, and `worker-key.pem`.  
     IP.1 = $ENV::WORKER_IP
     ```
 
-2.  Generate the necessary TLS assets for this worker. This relies on the worker's IP address, and the `ca.pem` file generated earlier in the guide.
+2.  Generate the necessary TLS assets for this worker. This relies on the worker's IP address, and the `ca.pem` and `ca-key.pem` files generated earlier in the guide.
 
     ```shell
     # Export this worker's IP address.
@@ -304,7 +304,7 @@ On your compute nodes, it is important that you install Calico before Kubernetes
     mkdir -p /etc/cni/net.d
 
     # Make the network configuration file
-    cat >/etc/rkt/net.d/10-calico.conf <<EOF
+    cat >/etc/cni/net.d/10-calico.conf <<EOF
     {
         "name": "calico-k8s-network",
         "type": "calico",
