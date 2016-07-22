@@ -79,7 +79,7 @@ curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page
 
 The generic download path is:
 ```
-http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/${GOOS}/${GOARCH}/${K8S_BINARY}
+https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/${GOOS}/${GOARCH}/${K8S_BINARY}
 ```
 
 ### Starting the cluster
@@ -123,15 +123,15 @@ kubectl get nodes
 ```
 
 Minikube contains a built-in Docker daemon that for running containers.
-If you use another Docker daemon for building your containers, you will have to publish them to a registry before minikube can pull them.
+If you use another Docker daemon for building your containers, you will have to publish them to a registry before minikube can pull them. 
 You can use minikube's built in Docker daemon to avoid this extra step of pushing your images.
 Use the built-in Docker daemon with:
 
 ```shell
 eval $(minikube docker-env)
 ```
-
-This command sets up the Docker environment variables so a Docker client can communicate with the minikube Docker daemon:
+This command sets up the Docker environment variables so a Docker client can communicate with the minikube Docker daemon.
+Minikube currently supports only docker version 1.11.1 on the server, which is what is supported by Kubernetes 1.3. With a newer docker version you'll get this [issue](https://github.com/kubernetes/minikube/issues/338).
 
 ```shell
 docker ps

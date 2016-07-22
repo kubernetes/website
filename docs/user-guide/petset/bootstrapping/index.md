@@ -32,7 +32,7 @@ Since Pet Set already gives each Pet a consistent identity, all we need is a way
 Download [this](petset_vm.yaml) petset into a file called petset_vm.yaml, and create it:
 
 ```shell
-$ kubectl create -f ./petset_vm.yaml
+$ kubectl create -f petset_vm.yaml
 service "ub" created
 petset "vm" created
 ```
@@ -49,7 +49,7 @@ vm-1      1/1       Running    0          2m
 We can exec into one and install nginx
 
 ```shell
-$ kubectl exec vm-0 /bin/sh
+$ kubectl exec -it vm-0 /bin/sh
 vm-0 # apt-get update
 ...
 vm-0 # apt-get install nginx -y
@@ -79,6 +79,9 @@ And access it from anywhere in the cluster (and because this is an example that 
 
 ```shell
 $ kubectl exec -it vm-1 /bin/sh
+vm-1 # apt-get update
+...
+vm-1 # apt-get install netcat -y
 vm-1 # printf "GET / HTTP/1.0\r\n\r\n" | netcat vm-0.ub 80
 ```
 
@@ -139,7 +142,10 @@ The role of the peer finder:
 You can invoke the peer finder inside the Pets we created in the last example:
 
 ```shell
-$ kubectl exec -it vm-0 /bin/bash
+$ kubectl exec -it vm-0 /bin/sh
+vm-0 # apt-get update
+...
+vm-0 # apt-get install curl -y
 vm-0 # curl -sSL -o /peer-finder https://storage.googleapis.com/kubernetes-release/pets/peer-finder
 vm-0 # chmod -c 755 peer-finder
 
@@ -196,6 +202,9 @@ web-0
 If you scale the cluster, the new pods parent themselves to the same master. To test this you can `kubectl edit` the petset and change the `replicas` field to 5:
 
 ```shell
+$ kubectl edit petset web
+... 
+
 $ kubectl get po -l app=nginx
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          2h
