@@ -93,7 +93,7 @@ We'll create a basic Pet Set to demonstrate how Pets are assigned unique and "st
 
 {% include code.html language="yaml" file="petset.yaml" ghlink="/docs/user-guide/petset.yaml" %}
 
-Saving this config into `petset.yaml` and submitting it to a Kubernetes cluster should creae the defined Pet Set and Pets it manages:
+Saving this config into `petset.yaml` and submitting it to a Kubernetes cluster should create the defined Pet Set and Pets it manages:
 
 ```shell
 $ kubectl create -f petset.yaml
