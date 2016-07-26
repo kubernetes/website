@@ -40,9 +40,7 @@ metadata:
 
 To configure the annotation via `kubectl`:
 
-```shell{% raw %}
-kubectl annotate ns <namespace> "net.beta.kubernetes.io/network-policy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"
-{% endraw %}```
+`kubectl annotate ns <namespace> "net.beta.kubernetes.io/network-policy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"`
 
 ## The `NetworkPolicy` Resource
 
