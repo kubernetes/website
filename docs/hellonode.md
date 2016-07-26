@@ -104,7 +104,11 @@ $ curl http://localhost:8080
 Hello World!
 ```
 
-**If you recieve a `Connection refused` message from Docker for Mac, ensure you are using the latest version of Docker (1.12 or later).** 
+**If you recieve a `Connection refused` message from Docker for Mac, ensure you are using the latest version of Docker (1.12 or later). Alternatively, if you are using Docker Toolbox on OSX, make sure you are using the VM's IP and not localhost :**
+
+```shell
+$ curl "http://$(docker-machine ip YOUR-VM-MACHINE-NAME):8080"
+```
 
 Let’s now stop the container. In this example, our app was running as Docker process `2c66d0efcbd4`, which we looked up with `docker ps`:
 
