@@ -15,13 +15,13 @@ You must enable the `extensions/v1beta1/networkpolicies` runtime config in your 
 You must also be using a networking solution which supports `NetworkPolicy` - simply creating the
 resource without a controller to implement it will have no effect.
 
-## Configuring Namespace Isolation Policy 
+## Configuring Namespace Isolation Policy
 
 Isolation can be configured on a per-namespace basis.  Once isolation is configured on a namespace it will be applied to all pods in that namespace. Currently, only isolation policy on inbound traffic (ingress) can be defined.
 
-The following ingress isolation types being supported: 
+The following ingress isolation types being supported:
 
-- `DefaultDeny`: Pods in the namespace will be inaccessible from any source except the pod's local node. 
+- `DefaultDeny`: Pods in the namespace will be inaccessible from any source except the pod's local node.
 
 Ingress isolation can be enabled using an annotation on the Namespace.
 
@@ -41,7 +41,7 @@ metadata:
 To configure the annotation via `kubectl`:
 
 ```shell{% raw %}
-kubectl annotate ns <namespace> "net.beta.kubernetes.io/networkpolicy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"
+kubectl annotate ns <namespace> "net.beta.kubernetes.io/network-policy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"
 {% endraw %}```
 
 ## The `NetworkPolicy` Resource
@@ -75,6 +75,6 @@ __Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy` nee
 
 __spec__: `NetworkPolicy` [spec](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) has all the information needed to define a network isolation policy in the deployed controller.
 
-__podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the `ingress` rules in the policy apply. 
+__podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the `ingress` rules in the policy apply.
 
-__ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. 
+__ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections.
