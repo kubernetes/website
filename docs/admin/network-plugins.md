@@ -43,3 +43,9 @@ The plugin requires a few things:
 * Kubelet must be run with the `--network-plugin=kubenet` argument to enable the plugin
 * Kubelet must also be run with the `--reconcile-cidr` argument to ensure the IP subnet assigned to the node by configuration or the controller-manager is propagated to the plugin
 * The node must be assigned an IP subnet through either the `--pod-cidr` kubelet command-line option or the `--allocate-node-cidrs=true --cluster-cidr=<cidr>` controller-manager command-line options.
+
+## Usage Summary
+
+* `--network-plugin=exec` specifies that we use the `exec` plugin, with executables located in `--network-plugin-dir`.
+* `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `/opt/cni/bin` and CNI plugin configuration located in `network-plugin-dir`, config location defaults to `/etc/cni/net.d`.
+* `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge` and `host-local` plugins placed in `/opt/cni/bin` or `network-plugin-dir`.
