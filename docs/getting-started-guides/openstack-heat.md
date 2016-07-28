@@ -28,6 +28,7 @@ If you already have the required versions of the OpenStack CLI tools installed a
 
 ```sh
 sudo pip install -U --force 'python-openstackclient==2.4.0'
+sudo pip install -U --force 'python-heatclient==1.1.0'
 sudo pip install -U --force 'python-swiftclient==3.0.0'
 sudo pip install -U --force 'python-glanceclient==2.0.0'
 sudo pip install -U --force 'python-novaclient==3.4.0'
@@ -73,6 +74,7 @@ export IMAGE_FILE=CentOS-7-x86_64-GenericCloud-1510.qcow2
 export SWIFT_SERVER_URL=http://192.168.123.100:8080
 export ENABLE_PROXY=false
 ```
+
 #### Manually overriding configuration values
 
 If you do not have your environment variables set, or do not want them consumed, modify the variables in the following files under `cluster/openstack-heat`:
@@ -86,12 +88,12 @@ Please see the contents of these files for documentation regarding each variable
 
 ## Starting a cluster
 
-Once you've installed the OpenStack CLI tools and have set your OpenStack environment variables, issue this command:
+Once Kubernetes version 1.3 is released, and you've installed the OpenStack CLI tools and have set your OpenStack environment variables, issue this command:
 
 ```sh
 export KUBERNETES_PROVIDER=openstack-heat; curl -sS https://get.k8s.io | bash
 ```
-Alternatively, you can download a [Kubernetes release](https://github.com/kubernetes/kubernetes/releases) and extract the archive. To start your cluster, open a shell and run:
+Alternatively, you can download a [Kubernetes release](https://github.com/kubernetes/kubernetes/releases) of version 1.3 or higher and extract the archive. To start your cluster, open a shell and run:
 
 ```sh
 cd kubernetes # Or whichever path you have extracted the release to
@@ -105,6 +107,7 @@ make clean
 make quick-release
 KUBERNETES_PROVIDER=openstack-heat ./cluster/kube-up.sh
 ```
+
 ## Inspect your cluster
 
 Once kube-up is finished, your cluster should be running:
