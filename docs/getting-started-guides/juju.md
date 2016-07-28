@@ -3,14 +3,13 @@
 
 [Juju](https://jujucharms.com/docs/2.0/about-juju) encapsulates the 
 operational knowledge of provisioning, installing, and securing a Kubernetes
-cluster into one step. Juju allows you to consistently deploy a cluster on
-different cloud providers with a consistent repeatable open source operations.
-Once deployed the cluster can easily scale up with one command to increase the 
-cluster size.
+cluster into one step. Juju allows you to deploy a Kubernetes cluster on
+different cloud providers with a consistent, repeatable user experience.
+Once deployed the cluster can easily scale up with one command.
 
-The Juju Kubernetes work is curated by a very small group of community members.
-Let us know how we are doing. If you find any problems please open an
-[issue at the kubernetes project](https://github.com/kubernetes/kubernetes/issues)
+The Juju Kubernetes work is curated by a dedicated team of community members,
+let us know how we are doing. If you find any problems please open an
+[issue on the kubernetes project](https://github.com/kubernetes/kubernetes/issues)
 and tag the issue with "juju" so we can find them.
 
 
@@ -91,7 +90,7 @@ cluster/kube-up.sh
 If this is your first time running the `kube-up.sh` script, it will attempt to
 install the required dependencies to get started with Juju.
 
-The script will deploy two nodes of kubernetes, 1 unit of etcd, and network
+The script will deploy two nodes of Kubernetes, 1 unit of etcd, and network
 the units so containers on different hosts can communicate with each other.
 
 ## Exploring the cluster
@@ -270,7 +269,7 @@ controller. Use the `juju switch` command to get the current controller name:
 
 ```shell
 juju switch
-juju destroy-controller $controllername
+juju destroy-controller $controllername --destroy-all-models
 ```
 
 ## More Info
@@ -303,31 +302,6 @@ and
 If you do not see your favorite cloud provider listed many clouds with ssh
 access can be configured for
 [manual provisioning](https://jujucharms.com/docs/2.0/clouds-manual).
-
-There are three special types of clouds: MAAS, LXD and Manual.
-
-- [LXD](https://jujucharms.com/docs/2.0/clouds-LXD): Is a system level 
-  container technology that is extremely fast and less overhead than 
-  traditional virutalization. 
-  [LXD is a container hypervisor](http://www.ubuntu.com/cloud/lxd)
-  that runs on any Linux host, providing the ability to spin up system 
-  containers on the host machine. **Note** that at this time nested 
-  containerization of Docker inside LXD is not supported, so you can not spin 
-  up a Kubernetes cluster on LXD. For more details on using LXD, please see the 
-  [LXD documentation](https://jujucharms.com/docs/2.0/clouds-LXD).
-
-- [MAAS](https://jujucharms.com/docs/2.0/clouds-maas): An acronym of Metal As
-  A Service, MAAS lets you treat physical servers like virtual machines in the 
-  cloud. Rather than having to manage each server individually, MAAS turns your
-  bare metal into an elastic cloud-like resource. There is more information on
-  MAAS at the [MAAS website](http://maas.io/), and detailed instructions on 
-  [using MAAS with Juju here](https://jujucharms.com/docs/2.0/clouds-maas).
-
- - [Manual](https://jujucharms.com/docs/2.0/clouds-manual): There may be 
-  occasions where you can bring up machines for Juju to use which are not part 
-  of a recognized public cloud or do not support other protocols used by Juju. 
-  As long as you have SSH access to these machines, you can get part of the
-  Juju magic and deploy applications. 
 
 To change to a different cloud you can use the `juju switch` command and set
 up the credentials for that cloud provider and continue to use the `kubeup.sh`
