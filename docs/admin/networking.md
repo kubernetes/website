@@ -156,9 +156,9 @@ Lars Kellogg-Stedman.
 
 ### Weave Net from Weaveworks
 
-[Weave Net](https://www.weave.works/documentation/net-1-5-0-introducing-weave/) is a 
+[Weave Net](https://www.weave.works/documentation/net-1-6-0-introducing-weave/) is a 
 resilient and simple to use network for Kubernetes and its hosted applications.  
-Weave Net runs as a [CNI plug-in](https://www.weave.works/documentation/net-1-5-0-cni-plugin/)  
+Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)  
 or stand-alone.  In either version, it doesn’t require any configuration or extra code 
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
