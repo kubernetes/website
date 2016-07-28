@@ -145,7 +145,7 @@ It’s now time to deploy your own containerized application to the Kubernetes c
 $ gcloud container clusters get-credentials hello-world
 ```
 
-**The rest of this document requires both the Kubernetes client and server version to be 1.2. Run `kubectl version` to see your current versions.**  For 1.1 see [this document](https://github.com/kubernetes/kubernetes.github.io/blob/release-1.1/docs/hellonode.md).
+**The rest of this document requires both the Kubernetes client and server version to be 1.3. Run `kubectl version` to see your current versions.**  For 1.2 see [this document](https://github.com/kubernetes/kubernetes.github.io/blob/release-1.2/docs/hellonode.md).
 
 ## Create your pod
 
@@ -214,7 +214,7 @@ From our development machine we can expose the pod to the public internet using 
 kubectl expose deployment hello-node --type="LoadBalancer"
 ```
 
-**If this fails, make sure your client and server are both version 1.2.  See the [Create your cluster](#create-your-cluster) section for details.**
+**If this fails, make sure your client and server are both version 1.3.  See the [Create your cluster](#create-your-cluster) section for details.**
 
 The flag used in this command specifies that we’ll be using the load-balancer provided by the underlying infrastructure (in this case the [Compute Engine load balancer](https://cloud.google.com/compute/docs/load-balancing/)). Note that we expose the deployment, and not the pod directly.  This will cause the resulting service to load balance traffic across all pods managed by the deployment (in this case only 1 pod, but we will add more replicas later).
 
@@ -295,69 +295,11 @@ Building and pushing this updated image should be much quicker as we take full a
 
 We’re now ready for Kubernetes to smoothly update our deployment to the new version of the application.  In order to change
 the image label for our running container, we will need to edit the existing *hello-node deployment* and change the image from
-`gcr.io/PROJECT_ID/hello-node:v1` to `gcr.io/PROJECT_ID/hello-node:v2`.  To do this, we will use the `kubectl edit` command.
-This will open up a text editor displaying the full deployment yaml [configuration](/docs/user-guide/configuring-containers/).  It isn't necessary to understand the full yaml config
-right now, instead just understand that by updating the `spec.template.spec.containers.image` field in the config we are telling
-the deployment to update the pods to use the new image.
+`gcr.io/PROJECT_ID/hello-node:v1` to `gcr.io/PROJECT_ID/hello-node:v2`.  To do this, we will use the `kubectl set image` command.
 
 ```shell
-kubectl edit deployment hello-node
-```
-
-```yaml
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file will be
-# reopened with the relevant failures.
-#
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-  creationTimestamp: 2016-03-24T17:55:28Z
-  generation: 3
-  labels:
-    run: hello-node
-  name: hello-node
-  namespace: default
-  resourceVersion: "151017"
-  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/hello-node
-  uid: 981fe302-f1e9-11e5-9a78-42010af00005
-spec:
-  replicas: 4
-  selector:
-    matchLabels:
-      run: hello-node
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        run: hello-node
-    spec:
-      containers:
-      - image: gcr.io/PROJECT_ID/hello-node:v1 # Update this line
-        imagePullPolicy: IfNotPresent
-        name: hello-node
-        ports:
-        - containerPort: 8080
-          protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-```
-
-After making the change save and close the file.
-
-```
-deployment "hello-node" edited
+$ kubectl set image deployment/hello-node hello-node=gcr.io/PROJECT_ID/hello-node:v2
+deployment "hello-node" image updated
 ```
 
 This updates the deployment with the new image, causing new pods to be created with the new image and old pods to be deleted.
@@ -374,7 +316,7 @@ Hopefully with these deployment, scaling and update features you’ll agree that
 
 ## Observe the Kubernetes Web UI (optional)
 
-With Kubernetes 1.2, a graphical web user interface (dashboard) has been introduced. It is enabled by default for 1.2 clusters.
+Kubernetes comes with a graphical web user interface that is enabled by default with your clusters.
 This user interface allows you to get started quickly and enables some of the functionality found in the CLI as a more approachable and discoverable way of interacting with the system.
 
 Enjoy the Kubernetes graphical dashboard and use it for deploying containerized applications, as well as for monitoring and managing your clusters!
