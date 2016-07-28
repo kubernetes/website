@@ -59,7 +59,7 @@ This is equivalent to `kubectl create -f` the following yaml:
 
 {% include code.html language="yaml" file="nginx-svc.yaml" ghlink="/docs/user-guide/nginx-svc.yaml" %}
 
-This specification will create a Service which targets TCP port 80 on any Pod with the `app=nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](/docs/api-reference/v1/definitions/#_v1_service) to see the list of supported fields in service definition.
+This specification will create a Service which targets TCP port 80 on any Pod with the `run: my-nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](/docs/api-reference/v1/definitions/#_v1_service) to see the list of supported fields in service definition.
 Check your Service:
 
 ```shell
