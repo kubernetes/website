@@ -5,6 +5,25 @@ Updated: 4/14/2015
 
 This document covers the lifecycle of a pod.  It is not an exhaustive document, but an introduction to the topic.
 
+## Durability of pods (or lack thereof)
+
+Pods aren't intended to be treated as durable [pets](https://blog.engineyard.com/2014/pets-vs-cattle). They won't survive scheduling failures, node failures, or other evictions, such as due to lack of resources, or in the case of node maintenance.
+
+In general, users shouldn't need to create pods directly. They should almost always use controllers (e.g., [replication controller](/docs/user-guide/replication-controller/)), even for singletons.  Controllers provide self-healing with a cluster scope, as well as replication and rollout management.
+
+The use of collective APIs as the primary user-facing primitive is relatively common among cluster scheduling systems, including [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/configuration-reference/#job-schema), and [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
+
+Pod is exposed as a primitive in order to facilitate:
+
+* scheduler and controller pluggability
+* support for pod-level operations without the need to "proxy" them via controller APIs
+* decoupling of pod lifetime from controller lifetime, such as for bootstrapping
+* decoupling of controllers and services &mdash; the endpoint controller just watches pods
+* clean composition of Kubelet-level functionality with cluster-level functionality &mdash; Kubelet is effectively the "pod controller"
+* high-availability applications, which will expect pods to be replaced in advance of their termination and certainly in advance of deletion, such as in the case of planned evictions, image prefetching, or live pod migration [#3949](http://issue.k8s.io/3949)
+
+The current best practice for pets is to create a replication controller with `replicas` equal to `1` and a corresponding service. If you find this cumbersome, please comment on [issue #260](http://issue.k8s.io/260).
+
 ## Pod Phase
 
 As consistent with the overall [API convention](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#typical-status-properties), phase is a simple, high-level summary of the phase of the lifecycle of a pod. It is not intended to be a comprehensive rollup of observations of container-level or even pod-level conditions or other state, nor is it intended to be a comprehensive state machine.
@@ -132,3 +151,20 @@ If a node dies or is disconnected from the rest of the cluster, some entity with
      * NodeController marks pod `Failed`
      * If running under a controller, pod will be recreated elsewhere
 
+## Termination of Pods
+
+Because pods represent running processes on nodes in the cluster, it is important to allow those processes to gracefully terminate when they are no longer needed (vs being violently killed with a KILL signal and having no chance to clean up). Users should be able to request deletion and know when processes terminate, but also be able to ensure that deletes eventually complete. When a user requests deletion of a pod the system records the intended grace period before the pod is allowed to be forcefully killed, and a TERM signal is sent to the main process in each container. Once the grace period has expired the KILL signal is sent to those processes and the pod is then deleted from the API server. If the Kubelet or the container manager is restarted while waiting for processes to terminate, the termination will be retried with the full grace period.
+
+An example flow:
+
+1. User sends command to delete Pod, with default grace period (30s)
+2. The Pod in the API server is updated with the time beyond which the Pod is considered "dead" along with the grace period.
+3. Pod shows up as "Terminating" when listed in client commands
+4. (simultaneous with 3) When the Kubelet sees that a Pod has been marked as terminating because the time in 2 has been set, it begins the pod shutdown process.
+  1. If the pod has defined a [preStop hook](/docs/user-guide/container-environment/#hook-details), it is invoked inside of the pod. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) extended grace period.
+  2. The processes in the Pod are sent the TERM signal.
+5. (simultaneous with 3), Pod is removed from endpoints list for service, and are no longer considered part of the set of running pods for replication controllers. Pods that shutdown slowly can continue to serve traffic as load balancers (like the service proxy) remove them from their rotations.
+6. When the grace period expires, any processes still running in the Pod are killed with SIGKILL.
+7. The Kubelet will finish deleting the Pod on the API server by setting grace period 0 (immediate deletion). The Pod disappears from the API and is no longer visible from the client.
+
+By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports the `--grace-period=<seconds>` option which allows a user to override the default and specify their own value. The value `0` indicates that delete should be immediate, and removes the pod in the API immediately so a new pod can be created with the same name. On the node pods that are set to terminate immediately will still be given a small grace period before being force killed.
