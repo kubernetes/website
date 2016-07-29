@@ -111,7 +111,7 @@ and
 etcdctl cluster-health
 ```
 
-You can also validate that this is working with `etcdctl set foo bar` on one node, and `etcd get foo`
+You can also validate that this is working with `etcdctl set foo bar` on one node, and `etcdctl get foo`
 on a different node.
 
 ### Even more reliable storage
