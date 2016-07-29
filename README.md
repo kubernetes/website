@@ -1,7 +1,10 @@
 ## Instructions for Contributing to the Docs/Website
 
+<<<<<<< HEAD
 **Note: This branch is for pre-release documentation for 1.3 of Kubernetes. Changes to this branch are automatically served as a website at [http://kubernetes-v1-3.github.io/](http://kubernetes-v1-3.github.io/), which is the permanent URL for the 1.3 docs. 
 
+=======
+>>>>>>> kubernetes/master
 Welcome! We are very pleased you want to contribute to the documentation and/or website for Kubernetes.
 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
@@ -150,7 +153,7 @@ http://kubernetes-v1-3.github.io/
 Editing of these branches will kick off a build using Travis CI that auto-updates these URLs; you can monitor the build progress at [https://travis-ci.org/kubernetes/kubernetes.github.io](https://travis-ci.org/kubernetes/kubernetes.github.io).
 
 ## Partners
-Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
+Kubernetes partners refers to the companies who contribute to the Kubernetes core codebase and/or extend their platform to support Kubernetes. Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
 
 * The partner product logo should be a transparent png image centered in a 215x125 px frame. (look at the existing logos for reference)
 * The logo must link to a URL that is specific to integrating with Kubernetes, hosted on the partner's site.
