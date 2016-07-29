@@ -1,4 +1,8 @@
 ---
+assignees:
+- erictune
+- jbeda
+
 ---
 
 The example below creates a Kubernetes cluster with 4 worker node Virtual

@@ -1,4 +1,8 @@
 ---
+assignees:
+- bgrant0607
+- derekwaynecarr
+
 ---
 ## kubectl create namespace
 

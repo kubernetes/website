@@ -1,4 +1,8 @@
 ---
+assignees:
+- dchen1107
+- pires
+
 ---
 
 Use the [master.yaml](/docs/getting-started-guides/coreos/cloud-configs/master.yaml) and [node.yaml](/docs/getting-started-guides/coreos/cloud-configs/node.yaml) cloud-configs to provision a multi-node Kubernetes cluster.
