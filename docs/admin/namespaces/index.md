@@ -1,4 +1,8 @@
 ---
+assignees:
+- derekwaynecarr
+- janetkuo
+
 ---
 
 A Namespace is a mechanism to partition resources created by users into

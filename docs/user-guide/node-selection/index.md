@@ -1,4 +1,9 @@
 ---
+assignees:
+- dchen1107
+- eparis
+- mikedanese
+
 ---
 
 This example shows how to assign a [pod](/docs/user-guide/pods/) to a specific [node](/docs/admin/node/) or to one of a set of nodes using node labels and the nodeSelector field in a pod specification. Generally this is unnecessary, as the scheduler will take care of things for you, but you may want to do so in certain circumstances like to ensure that your pod ends up on a machine with an SSD attached to it.

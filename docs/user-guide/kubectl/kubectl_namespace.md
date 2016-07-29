@@ -1,4 +1,9 @@
 ---
+assignees:
+- bgrant0607
+- derekwaynecarr
+- eparis
+
 ---
 
 ## kubectl namespace

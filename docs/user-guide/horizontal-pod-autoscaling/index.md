@@ -1,4 +1,8 @@
 ---
+assignees:
+- fgrzadkowski
+- jszczepkowski
+
 ---
 
 This document describes the current state of Horizontal Pod Autoscaling in Kubernetes.
