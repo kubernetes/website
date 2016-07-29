@@ -1,4 +1,7 @@
 ---
+assignees:
+- bprashanth
+
 ---
 
 To increase or decrease the number of pods under a replication controller's

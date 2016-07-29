@@ -1,4 +1,9 @@
 ---
+assignees:
+- eparis
+- jijun2
+- mikedanese
+
 ---
 
 ## Kubectl CLI and Pods

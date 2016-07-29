@@ -1,4 +1,8 @@
 ---
+assignees:
+- derekwaynecarr
+- janetkuo
+
 ---
 
 This example demonstrates a typical setup to control for resource usage in a namespace.

@@ -1,4 +1,9 @@
 ---
+assignees:
+- bprashanth
+- janetkuo
+- thockin
+
 ---
 
 An issue that comes up rather frequently for new installations of Kubernetes is
