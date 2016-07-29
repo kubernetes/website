@@ -384,6 +384,11 @@ Events:
   29m       2m          2       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 3
 ```
 
+### Clean up Policy
+
+You can set `.spec.revisionHistoryLimit` field to specify how much revision history of this deployment you want to keep. By default, 
+all revision history will be kept; explicitly setting this field to `0` disallows a deployment being rolled back. 
+
 ## Pausing and Resuming a Deployment 
 
 You can also pause a Deployment mid-way and then resume it. A use case is to support canary deployment. 
@@ -558,7 +563,12 @@ To learn more about when a Pod is considered ready, see [Container Probes](/docs
 
 ### Revision History Limit
 
-`.spec.revisionHistoryLimit` is an optional field that specifies the number of old Replica Sets to retain to allow rollback. All old Replica Sets will be kept by default, if this field is not set. The configuration of each Deployment revision is stored in its Replica Sets; therefore, once an old Replica Set is deleted, you lose the ability to rollback to that revision of Deployment. 
+A deployment's revision history is stored in the replica sets it controls. 
+
+`.spec.revisionHistoryLimit` is an optional field that specifies the number of old Replica Sets to retain to allow rollback. Its ideal value depends on the frequency and stability of new deployments. All old Replica Sets will be kept by default, consuming resources in `etcd` and crowding the output of `kubectl get rs`, if this field is not set. The configuration of each Deployment revision is stored in its Replica Sets; therefore, once an old Replica Set is deleted, you lose the ability to rollback to that revision of Deployment. 
+
+More specifically, setting this field to zero means that all old replica sets with 0 replica will be cleaned up. 
+In this case, a new deployment rollout cannot be undone, since its revision history is cleaned up.
 
 ### Paused
 
