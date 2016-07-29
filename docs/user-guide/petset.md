@@ -93,7 +93,7 @@ We'll create a basic Pet Set to demonstrate how Pets are assigned unique and "st
 
 {% include code.html language="yaml" file="petset.yaml" ghlink="/docs/user-guide/petset.yaml" %}
 
-Saving this config into `petset.yaml` and submitting it to a Kubernetes cluster should creae the defined Pet Set and Pets it manages:
+Saving this config into `petset.yaml` and submitting it to a Kubernetes cluster should create the defined Pet Set and Pets it manages:
 
 ```shell
 $ kubectl create -f petset.yaml
@@ -161,7 +161,7 @@ web-1
 And the hostname is linked to the in-cluster DNS address:
 
 ```shell
-$ kubectl run -it --image busybox dns-test --restart=Never /bin/sh
+$ kubectl run -i --tty --image busybox dns-test --restart=Never /bin/sh
 dns-test # nslookup web-0.nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local

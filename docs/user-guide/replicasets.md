@@ -22,16 +22,16 @@ instead. Also, the
 imperative whereas Deployments are declarative, so we recommend using Deployments
 through the [`rollout`](/docs/user-guide/kubectl/kubectl_rollout/) command.
 
-While replica sets can be used independently, today it's mainly used by
+While Replica Sets can be used independently, today it's mainly used by
 [Deployments](/docs/user-guide/deployments/) as a mechanism to orchestrate pod
 creation, deletion and updates. When you use Deployments you don't have to worry
-about managing the replica sets that they create. Deployments own and manage
-their replica sets.
+about managing the Replica Sets that they create. Deployments own and manage
+their Replica Sets.
 
 ## When to use a Replica Set?
 
 A Replica Set ensures that a specified number of pod “replicas” are running at any given
-time. However, a Deployment is a higher-level concept that manages replica sets and
+time. However, a Deployment is a higher-level concept that manages Replica Sets and
 provides declarative updates to pods along with a lot of other useful features.
 Therefore, we recommend using Deployments instead of directly using Replica Sets, unless
 you require custom update orchestration or don't require updates at all.
@@ -44,7 +44,7 @@ use directly a Deployment and define your application in the spec section.
 {% include code.html language="yaml" file="replicasets/frontend.yaml" ghlink="/docs/user-guide/replicasets/frontend.yaml" %}
 
 Saving this config into `frontend.yaml` and submitting it to a Kubernetes cluster should
-create the defined replica set and the pods that it manages.
+create the defined Replica Set and the pods that it manages.
 
 ```shell
 $ kubectl create -f frontend.yaml

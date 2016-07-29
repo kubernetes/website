@@ -210,7 +210,7 @@ You need to prepare several certs:
 
 Unless you plan to have a real CA generate your certs, you will need to generate a root cert and use that to sign the master, kubelet, and kubectl certs.
 
-- see function `create-certs` in `cluster/gce/util.sh`
+- see function `create-certs` in `cluster/common.sh`
 - see also `cluster/saltbase/salt/generate-cert/make-ca-cert.sh` and
   `cluster/saltbase/salt/generate-cert/make-cert.sh`
 
@@ -320,8 +320,8 @@ as follows before proceeding to configure Docker for Kubernetes.
 
 ```shell
 iptables -t nat -F
-ifconfig docker0 down
-brctl delbr docker0
+ip link set docker0 down
+ip link delete docker0
 ```
 
 The way you configure docker will depend in whether you have chosen the routable-vip or overlay-network approaches for your network.
@@ -394,10 +394,10 @@ kubelet.
 Arguments to consider:
 
   - If following the HTTPS security approach:
-    - `--api-servers=https://$MASTER_IP`
+    - `--master=https://$MASTER_IP`
     - `--kubeconfig=/var/lib/kube-proxy/kubeconfig`
   - Otherwise, if taking the firewall-based security approach
-    - `--api-servers=http://$MASTER_IP`
+    - `--master=http://$MASTER_IP`
 
 ### Networking
 
@@ -420,7 +420,7 @@ because of how this is used later.
 
   1. Set `--configure-cbr0=false` on kubelet and restart.
   1. Create a bridge
-     - `brctl addbr cbr0`.
+     - `ip link add name cbr0 type bridge`.
   1. Set appropriate MTU. NOTE: the actual value of MTU will depend on your network environment
      - `ip link set dev cbr0 mtu 1460`
   1. Add the node's network to the bridge (docker will go on other side of bridge).
@@ -480,7 +480,7 @@ You will need to run one or more instances of etcd.
     by durable storage (RAID, GCE PD)
   - Alternative: run 3 or 5 etcd instances.
     - Log can be written to non-durable storage because storage is replicated.
-    - run a single apiserver which connects to one of the etc nodes.
+    - run a single apiserver which connects to one of the etcd nodes.
 
 See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting) for more discussion on factors affecting cluster
 availability.

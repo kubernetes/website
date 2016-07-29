@@ -115,43 +115,36 @@ gcloud container clusters update mytestcluster --enable-autoscaling=true --min-n
 ## Maintenance on a Node
 
 If you need to reboot a node (such as for a kernel upgrade, libc upgrade, hardware repair, etc.), and the downtime is
-brief, then when the Kubelet restarts, it will attempt to restart the pods scheduled to it.  If the reboot takes longer,
+brief, then when the Kubelet restarts, it will attempt to restart the pods scheduled to it.  If the reboot takes longer
+(the default time is 5 minutes, controlled by `--pod-eviction-timeout` on the controller-manager),
 then the node controller will terminate the pods that are bound to the unavailable node.  If there is a corresponding
-replication controller, then a new copy of the pod will be started on a different node.  So, in the case where all
+replica set (or replication controller), then a new copy of the pod will be started on a different node.  So, in the case where all
 pods are replicated, upgrades can be done without special coordination, assuming that not all nodes will go down at the same time.
 
 If you want more control over the upgrading process, you may use the following workflow:
 
-Mark the node to be rebooted as unschedulable:
+Use `kubectl drain` to gracefully terminate all pods on the node while marking the node as unschedulable:
 
 ```shell
-kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedulable": true}}'
+kubectl drain $NODENAME
 ```
 
 This keeps new pods from landing on the node while you are trying to get them off.
 
-Get the pods off the machine, via any of the following strategies:
-   * Wait for finite-duration pods to complete.
-   * Delete pods with:
+For pods with a replica set, the pod will be replaced by a new pod which will be scheduled to a new node. Additionally, if the pod is part of a service, then clients will automatically be redirected to the new pod.
 
-```shell
-kubectl delete pods $PODNAME
-```
-
-For pods with a replication controller, the pod will eventually be replaced by a new pod which will be scheduled to a new node. Additionally, if the pod is part of a service, then clients will automatically be redirected to the new pod.
-
-For pods with no replication controller, you need to bring up a new copy of the pod, and assuming it is not part of a service, redirect clients to it.
+For pods with no replica set, you need to bring up a new copy of the pod, and assuming it is not part of a service, redirect clients to it.
 
 Perform maintenance work on the node.
 
 Make the node schedulable again:
 
 ```shell
-kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedulable": false}}'
+kubectl uncordon $NODENAME
 ```
 
 If you deleted the node's VM instance and created a new one, then a new schedulable node resource will
-be created automatically when you create a new VM instance (if you're using a cloud provider that supports
+be created automatically (if you're using a cloud provider that supports
 node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register). See [Node](/docs/admin/node) for more details.
 
 ## Advanced Topics

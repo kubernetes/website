@@ -51,37 +51,35 @@ Minikube requires one of the following:
 * The latest [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
 * The latest version of [VMWare Fusion](https://www.vmware.com/products/fusion).
 
-### Installation
+### Install `minikube`
 
 See the [latest Minikube release](https://github.com/kubernetes/minikube/releases) for installation instructions.
 
-### Download `kubectl`
+### Install `kubectl`
 
-You will need to download the kubectl client binary for `${K8S_VERSION}` (in this example: `{{page.version}}.0`)
+You will need to download and install the kubectl client binary for `${K8S_VERSION}` (in this example: `{{page.version}}.0`)
 to run commands against the cluster.
 
-Downloads:
-
- - `linux/amd64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl
- - `linux/386`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/386/kubectl
- - `linux/arm`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm/kubectl
- - `linux/arm64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm64/kubectl
- - `linux/ppc64le`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/ppc64le/kubectl
- - `OS X/amd64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/amd64/kubectl
- - `OS X/386`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/386/kubectl
- - `windows/amd64`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/windows/amd64/kubectl.exe
- - `windows/386`: http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/windows/386/kubectl.exe
+```shell
+# linux/amd64
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+# linux/386
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/386/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+# linux/arm
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+# linux/arm64
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+#linux/ppc64le
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/ppc64le/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+# OS X/amd64 
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+# OS X/386 
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/386/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+```
 
 The generic download path is:
 ```
-http://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/${GOOS}/${GOARCH}/${K8S_BINARY}
-```
-
-An example install with `linux/amd64`:
-
-```
-curl -sSL "http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl" > /usr/bin/kubectl
-chmod +x /usr/bin/kubectl
+https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/${GOOS}/${GOARCH}/${K8S_BINARY}
 ```
 
 ### Starting the cluster
@@ -125,15 +123,15 @@ kubectl get nodes
 ```
 
 Minikube contains a built-in Docker daemon that for running containers.
-If you use another Docker daemon for building your containers, you will have to publish them to a registry before minikube can pull them.
+If you use another Docker daemon for building your containers, you will have to publish them to a registry before minikube can pull them. 
 You can use minikube's built in Docker daemon to avoid this extra step of pushing your images.
 Use the built-in Docker daemon with:
 
 ```shell
 eval $(minikube docker-env)
 ```
-
-This command sets up the Docker environment variables so a Docker client can communicate with the minikube Docker daemon:
+This command sets up the Docker environment variables so a Docker client can communicate with the minikube Docker daemon.
+Minikube currently supports only docker version 1.11.1 on the server, which is what is supported by Kubernetes 1.3. With a newer docker version you'll get this [issue](https://github.com/kubernetes/minikube/issues/338).
 
 ```shell
 docker ps

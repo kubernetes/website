@@ -25,7 +25,7 @@ You need an [etcd](https://github.com/coreos/etcd/releases) in your path, please
 
 #### go
 
-You need [go](https://golang.org/doc/install) at least 1.3+ in your path, please make sure it is installed and in your ``$PATH``.
+You need [go](https://golang.org/doc/install) at least 1.4+ in your path, please make sure it is installed and in your ``$PATH``.
 
 ### Starting the cluster
 
@@ -65,10 +65,16 @@ cluster/kubectl.sh run my-nginx --image=nginx --replicas=2 --port=80
   exit
 ## end wait
 
+## create a service for nginx, which serves on port 80
+cluster/kubectl.sh expose deployment my-nginx --port=80 --name=my-nginx
+
 ## introspect Kubernetes!
 cluster/kubectl.sh get pods
 cluster/kubectl.sh get services
 cluster/kubectl.sh get deployments
+
+## Test the nginx service with the IP/port from "get services" command
+curl http://10.X.X.X:80/
 ```
 
 ### Running a user defined pod

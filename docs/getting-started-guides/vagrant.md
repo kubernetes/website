@@ -40,6 +40,12 @@ The `KUBERNETES_PROVIDER` environment variable tells all of the various cluster 
 
 By default, the Vagrant setup will create a single master VM (called kubernetes-master) and one node (called kubernetes-node-1). Each VM will take 1 GB, so make sure you have at least 2GB to 4GB of free memory (plus appropriate free disk space).
 
+If you'd like more than one node, set the `NUM_NODES` environment variable to the number you want:
+
+```sh
+export NUM_NODES=3
+```
+
 Vagrant will provision each machine in the cluster with all the necessary components to run Kubernetes.  The initial setup can take a few minutes to complete on each machine.
 
 If you installed more than one Vagrant provider, Kubernetes will usually pick the appropriate one. However, you can override which one Kubernetes will use by setting the [`VAGRANT_DEFAULT_PROVIDER`](https://docs.vagrantup.com/v2/providers/default.html) environment variable:
@@ -360,6 +366,24 @@ If you need more granular control, you can set the amount of memory for the mast
 export KUBERNETES_MASTER_MEMORY=1536
 export KUBERNETES_NODE_MEMORY=2048
 ```
+
+#### I want to set proxy settings for my Kubernetes cluster boot strapping!
+
+If you are behind a proxy, you need to install vagrant proxy plugin and set the proxy settings by
+
+```sh
+vagrant plugin install vagrant-proxyconf
+export VAGRANT_HTTP_PROXY=http://username:password@proxyaddr:proxyport
+export VAGRANT_HTTPS_PROXY=https://username:password@proxyaddr:proxyport
+```
+
+Optionally you can specify addresses to not proxy, for example
+
+```sh
+export VAGRANT_NO_PROXY=127.0.0.1
+```
+
+If you are using sudo to make kubernetes build for example make quick-release, you need run `sudo -E make quick-release` to pass the environment variables.
 
 #### I ran vagrant suspend and nothing works!
 

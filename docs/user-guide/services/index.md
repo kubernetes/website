@@ -320,17 +320,27 @@ Sometimes you don't need or want load-balancing and a single service IP.  In
 this case, you can create "headless" services by specifying `"None"` for the
 cluster IP (`spec.clusterIP`).
 
-For such `Services`, a cluster IP is not allocated. DNS is configured to return
-multiple A records (addresses) for the `Service` name, which point directly to
-the `Pods` backing the `Service`.  Additionally, the kube proxy does not handle
-these services and there is no load balancing or proxying done by the platform
-for them.  The endpoints controller will still create `Endpoints` records in
-the API.
-
 This option allows developers to reduce coupling to the Kubernetes system, if
 they desire, but leaves them freedom to do discovery in their own way.
 Applications can still use a self-registration pattern and adapters for other
 discovery systems could easily be built upon this API.
+
+For such `Services` a cluster IP is not allocated, the kube proxy does not handle
+these services, and there is no load balancing or proxying done by the platform
+for them. How DNS is automatically configured depends on if the service has
+selectors or not.
+
+### With selectors
+
+For headless services that define selectors, the endpoints controller creates
+`Endpoints` records in the API, and modifies the DNS configuration to return A
+records (addresses) which point directly to the `Pods` backing the `Service`.
+
+### Without selectors
+
+For headless services that do not define selectors, the endpoints controller does
+not create `Endpoints` records. However, the DNS system looks for and configures
+A records for any `Endpoints` that share a name with the service.
 
 ## Publishing services - service types
 

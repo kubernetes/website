@@ -20,6 +20,8 @@ The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, 
 
 Hosts:
 
+Please replace host IP with your environment.
+
 ```conf
 centos-master = 192.168.121.9
 centos-minion = 192.168.121.65
@@ -27,7 +29,7 @@ centos-minion = 192.168.121.65
 
 **Prepare the hosts:**
 
-* Create a virt7-docker-common-release repo on all hosts - centos-{master,minion} with following information.
+* Create a /etc/yum.repos.d/virt7-docker-common-release.repo on all hosts - centos-{master,minion} with following information.
 
 ```conf
 [virt7-docker-common-release]
@@ -36,10 +38,10 @@ baseurl=http://cbs.centos.org/repos/virt7-docker-common-release/x86_64/os/
 gpgcheck=0
 ```
 
-* Install Kubernetes on all hosts - centos-{master,minion}.  This will also pull in etcd, docker, and cadvisor.
+* Install Kubernetes and etcd on all hosts - centos-{master,minion}. This will also pull in docker and cadvisor.
 
 ```shell
-yum -y install --enablerepo=virt7-docker-common-release kubernetes
+yum -y install --enablerepo=virt7-docker-common-release kubernetes etcd
 ```
 
 * Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS)
@@ -63,6 +65,9 @@ KUBE_LOG_LEVEL="--v=0"
 
 # Should this cluster be allowed to run privileged docker containers
 KUBE_ALLOW_PRIV="--allow-privileged=false"
+
+# How the replication controller and scheduler find the kube-apiserver
+KUBE_MASTER="--master=http://centos-master:8080"
 ```
 
 * Disable the firewall on both the master and node, as docker does not play well with other firewall rule managers
@@ -74,6 +79,18 @@ systemctl stop iptables-services firewalld
 
 **Configure the Kubernetes services on the master.**
 
+* Edit /etc/etcd/etcd.conf to appear as such:
+
+```shell
+# [member]
+ETCD_NAME=default
+ETCD_DATA_DIR="/var/lib/etcd/default.etcd"
+ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
+
+#[cluster]
+ETCD_ADVERTISE_CLIENT_URLS="http://0.0.0.0:2379"
+```
+
 * Edit /etc/kubernetes/apiserver to appear as such:
 
 ```shell
@@ -82,9 +99,6 @@ KUBE_API_ADDRESS="--address=0.0.0.0"
 
 # The port on the local server to listen on.
 KUBE_API_PORT="--port=8080"
-
-# How the replication controller and scheduler find the kube-apiserver
-KUBE_MASTER="--master=http://centos-master:8080"
 
 # Port kubelets listen on
 KUBELET_PORT="--kubelet-port=10250"
@@ -99,10 +113,10 @@ KUBE_API_ARGS=""
 * Start the appropriate services on master:
 
 ```shell
-for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do 
+for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do
 	systemctl restart $SERVICES
 	systemctl enable $SERVICES
-	systemctl status $SERVICES 
+	systemctl status $SERVICES
 done
 ```
 
@@ -132,10 +146,10 @@ KUBELET_ARGS=""
 * Start the appropriate services on node (centos-minion).
 
 ```shell
-for SERVICES in kube-proxy kubelet docker; do 
+for SERVICES in kube-proxy kubelet docker; do
     systemctl restart $SERVICES
     systemctl enable $SERVICES
-    systemctl status $SERVICES 
+    systemctl status $SERVICES
 done
 ```
 
