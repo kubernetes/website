@@ -1,16 +1,12 @@
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
-
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-
+---
+---
 An assortment of compact kubectl examples
 
-See also: [Kubectl overview](kubectl-overview.md) and [JsonPath guide](jsonpath.md).
+See also: [Kubectl overview](/docs/user-guide/kubectl-overview/) and [JsonPath guide](/docs/user-guide/jsonpath).
 
 ## Creating Objects
 
-```console
+```shell
 $ kubectl create -f ./file.yml                   # create resource(s) in a json or yaml file
 
 $ kubectl create -f ./file1.yml -f ./file2.yaml  # create resource(s) in a json or yaml file
@@ -18,6 +14,7 @@ $ kubectl create -f ./file1.yml -f ./file2.yaml  # create resource(s) in a json 
 $ kubectl create -f ./dir                        # create resources in all .json, .yml, and .yaml files in dir
 
 # Create from a URL
+
 $ kubectl create -f http://www.fpaste.org/279276/48569091/raw/
 
 # Create multiple YAML objects from stdin
@@ -65,7 +62,7 @@ EOF
 
 ## Viewing, Finding Resources
 
-```console
+```shell
 # Columnar output
 $ kubectl get services                          # List all services in the namespace
 $ kubectl get pods --all-namespaces             # List all pods in all namespaces
@@ -89,7 +86,7 @@ $ kubectl get pods --sort-by=.status.containerStatuses[0].restartCount
 $ kubectl get pods --selector=app=cassandra rc -o 'jsonpath={.items[*].metadata.labels.version}'
 
 # Get ExternalIPs of all nodes
-$ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=ExternalIP)].address}'
+$ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 
 # List Names of Pods that belong to Particular RC
 # "jq" command useful for transformations that are too complex for jsonpath
@@ -103,7 +100,7 @@ $ kubectl get nodes -o jsonpath='{range .items[*]}{@.metadata.name}:{range @.sta
 
 ## Modifying and Deleting Resources
 
-```console
+```shell
 $ kubectl label pods <pod-name> new-label=awesome                  # Add a Label
 $ kubectl annotate pods <pod-name> icon-url=http://goo.gl/XXBTWq   # Add an annotation
 
@@ -112,7 +109,7 @@ $ kubectl annotate pods <pod-name> icon-url=http://goo.gl/XXBTWq   # Add an anno
 
 ## Interacting with running Pods
 
-```console
+```shell
 $ kubectl logs <pod-name>         # dump pod logs (stdout)
 $ kubectl logs -f <pod-name>      # stream pod logs (stdout) until canceled (ctrl-c) or timeout
 
@@ -123,16 +120,3 @@ $ kubectl port-forward <servicename> <port>               # Forward port to serv
 $ kubectl exec <pod-name> -- ls /                         # Run command in existing pod (1 container case) 
 $ kubectl exec <pod-name> -c <container-name> -- ls /     # Run command in existing pod (multi-container case) 
 ```
-
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl-cheatsheet.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->

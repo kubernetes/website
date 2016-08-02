@@ -1,32 +1,7 @@
-<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->
+---
+---
 
-
-<!-- END MUNGE: UNVERSIONED_WARNING -->
-
-# kubectl overview
-
-Use this overview of the `kubectl` command line interface to help you start running commands against Kubernetes clusters. This overview quickly covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](kubectl/kubectl.md) reference documentation.
-
-**Table of contents:**
-<!-- BEGIN MUNGE: GENERATED_TOC -->
-
-- [kubectl overview](#kubectl-overview)
-  - [Syntax](#syntax)
-  - [Operations](#operations)
-  - [Resource types](#resource-types)
-  - [Output options](#output-options)
-    - [Formatting output](#formatting-output)
-      - [Syntax](#syntax)
-        - [Example](#example)
-      - [Custom columns](#custom-columns)
-        - [Examples](#examples)
-    - [Sorting list objects](#sorting-list-objects)
-      - [Syntax](#syntax)
-        - [Example](#example)
-  - [Examples: Common operations](#examples-common-operations)
-  - [Next steps](#next-steps)
-
-<!-- END MUNGE: GENERATED_TOC -->
+Use this overview of the `kubectl` command line interface to help you start running commands against Kubernetes clusters. This overview quickly covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation.
 
 TODO: Auto-generate this file to ensure it's always in sync with any `kubectl` changes, see [#14177](http://pr.k8s.io/14177).
 
@@ -34,7 +9,7 @@ TODO: Auto-generate this file to ensure it's always in sync with any `kubectl` c
 
 Use the following syntax to run `kubectl` commands from your terminal window:
 
-```
+```shell
 kubectl [command] [TYPE] [NAME] [flags]
 ```
 
@@ -43,7 +18,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 * `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
-   ```
+   ```shell
     $ kubectl get pod pod1
     $ kubectl get pods pod1
     $ kubectl get po pod1
@@ -52,13 +27,14 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
 
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
+
    * To specify resources by type and name:
         * To group resources if they are all the same type: `TYPE1 name1 name2 name<#>`<br/>
         Example: `$ kubectl get pod example-pod1 example-pod2`
         * To specify multiple resource types individually: `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`<br/>
         Example: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
    * To specify resources with one or more files: `-f file1 -f file2 -f file<#>`
-     [Use YAML rather than JSON](config-best-practices.md#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
+     [Use YAML rather than JSON](/docs/user-guide/config-best-practices/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
      Example: `$ kubectl get pod -f ./pod.yaml`
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
 **Important**: Flags that you specify from the command line override default values and any corresponding environment variables.
@@ -83,7 +59,7 @@ Operation       | Syntax	|       Description
 `describe`	| `kubectl describe (-f FILENAME | TYPE [NAME_PREFIX | /NAME | -l label]) [flags]` | Display the detailed state of one or more resources.
 `edit`		| `kubectl edit (-f FILENAME | TYPE NAME | TYPE/NAME) [flags]` | Edit and update the definition of one or more resources on the server by using the default editor.
 `exec`		| `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
-`expose`		| `kubectl expose (-f FILENAME | TYPE NAME | TYPE/NAME) [--port=port] [--protocol=TCP|UDP] [--target-port=number-or-name] [--name=name] [----external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, deployment or pod as a new Kubernetes service.
+`expose`		| `kubectl expose (-f FILENAME | TYPE NAME | TYPE/NAME) [--port=port] [--protocol=TCP|UDP] [--target-port=number-or-name] [--name=name] [----external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, or pod as a new Kubernetes service.
 `get`		| `kubectl get (-f FILENAME | TYPE [NAME | /NAME | -l label]) [--watch] [--sort-by=FIELD] [[-o | --output]=OUTPUT_FORMAT] [flags]` | List one or more resources.
 `label`		| `kubectl label (-f FILENAME | TYPE NAME | TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]` | Add or update the labels of one or more resources.
 `logs`		| `kubectl logs POD [-c CONTAINER] [--follow] [flags]` | Print the logs for a container in a pod.
@@ -97,7 +73,7 @@ Operation       | Syntax	|       Description
 `stop`		| `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
 `version`		| `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
-Remember: For more about command operations, see the [kubectl](kubectl/kubectl.md) reference documentation.
+Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation.
 
 ## Resource types
 
@@ -127,7 +103,7 @@ Resource type	| Abbreviated alias
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](kubectl/kubectl.md) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation.
 
 ### Formatting output
 
@@ -135,7 +111,7 @@ The default output format for all `kubectl` commands is the human readable plain
 
 #### Syntax
 
-```
+```shell
 kubectl [command] [TYPE] [NAME] -o=<output_format>
 ```
 
@@ -146,8 +122,8 @@ Output format | Description
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of [custom columns](#custom-columns).
 `-o=custom-columns-file=<filename>` | Print a table using the [custom columns](#custom-columns) template in the `<filename>` file.
 `-o=json`     | Output a JSON formatted API object.
-`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](jsonpath.md) expression.
-`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](jsonpath.md) expression in the `<filename>` file.
+`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/user-guide/jsonpath) expression.
+`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/user-guide/jsonpath) expression in the `<filename>` file.
 `-o=name`     | Print only the resource name and nothing else.
 `-o=wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
 `-o=yaml`     | Output a YAML formatted API object.
@@ -158,7 +134,7 @@ In this example, the following command outputs the details for a single pod as a
 
 `$ kubectl get pod web-pod-13je7 -o=yaml`
 
-Remember: See the [kubectl](kubectl/kubectl.md) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation for details about which output format is supported by each command.
 
 #### Custom columns
 
@@ -166,39 +142,38 @@ To define custom columns and output only the details that you want into a table,
 
 ##### Examples
 
- * Inline:
+Inline:
 
-      ```console
-      $ kubectl get pods <pod-name> -o=custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
-     ```
+```shell
+$ kubectl get pods <pod-name> -o=custom-columns=NAME:.metadata.name,RSRC:.metadata.resourceVersion
+```
 
- * Template file:
+Template file:
 
-     ```console
-     $ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
-     ```
+```shell
+$ kubectl get pods <pod-name> -o=custom-columns-file=template.txt
+```
 
-     where the `template.txt` file contains:
+where the `template.txt` file contains:
 
-     ```
-      NAME                    RSRC
+```
+NAME                    RSRC
       metadata.name           metadata.resourceVersion
-     ```
-
+```
 The result of running either command is:
 
-```console
+```shell
 NAME           RSRC
 submit-queue   610995
 ```
 
 ### Sorting list objects
 
-To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](jsonpath.md) expression.
+To output objects to a sorted list in your terminal window, you can add the `--sort-by` flag to a supported `kubectl` command. Sort your objects by specifying any numeric or string field with the `--sort-by` flag. To specify a field, use a [jsonpath](/docs/user-guide/jsonpath) expression.
 
 #### Syntax
 
-```
+```shell
 kubectl [command] [TYPE] [NAME] --sort-by=<jsonpath_exp>
 ```
 
@@ -212,86 +187,86 @@ To print a list of pods sorted by name, you run:
 
 Use the following set of examples to help you familiarize yourself with running the commonly used `kubectl` operations:
 
- * `kubectl create` - Create a resource from a file or stdin.
+`kubectl create` - Create a resource from a file or stdin.
 
-		// Create a service using the definition in example-service.yaml.
-		$ kubectl create -f example-service.yaml
+```shell
+// Create a service using the definition in example-service.yaml.
+$ kubectl create -f example-service.yaml
 
-		// Create a replication controller using the definition in example-controller.yaml.
-		$ kubectl create -f example-controller.yaml
+// Create a replication controller using the definition in example-controller.yaml.
+$ kubectl create -f example-controller.yaml
 
-		// Create the objects that are defined in any .yaml, .yml, or .json file within the <directory> directory.
-		$ kubectl create -f <directory>
+// Create the objects that are defined in any .yaml, .yml, or .json file within the <directory> directory.
+$ kubectl create -f <directory>
+```
 
- * `kubectl get` - List one or more resources.
+`kubectl get` - List one or more resources.
 
-		// List all pods in plain-text output format.
-		$ kubectl get pods
+```shell
+// List all pods in plain-text output format.
+$ kubectl get pods
 
-		// List all pods in plain-text output format and includes additional information (such as node name).
-		$ kubectl get pods -o wide
+// List all pods in plain-text output format and includes additional information (such as node name).
+$ kubectl get pods -o wide
 
-		// List the replication controller with the specified name in plain-text output format. Tip: You can shorten and replace the 'replicationcontroller' resource type with the alias 'rc'.
-		$ kubectl get replicationcontroller <rc-name>
+// List the replication controller with the specified name in plain-text output format. Tip: You can shorten and replace the 'replicationcontroller' resource type with the alias 'rc'.
+$ kubectl get replicationcontroller <rc-name>
 
-		// List all replication controllers and services together in plain-text output format.
-		$ kubectl get rc,services
+// List all replication controllers and services together in plain-text output format.
+$ kubectl get rc,services
+```
 
- * `kubectl describe` - Display detailed state of one or more resources.
+`kubectl describe` - Display detailed state of one or more resources.
 
-		// Display the details of the node with name <node-name>.
-		$ kubectl describe nodes <node-name>
+```shell
+// Display the details of the node with name <node-name>.
+$ kubectl describe nodes <node-name>
 
-		// Display the details of the pod with name <pod-name>.
-		$ kubectl describe pods/<pod-name>
+// Display the details of the pod with name <pod-name>.
+$ kubectl describe pods/<pod-name>
 
-		// Display the details of all the pods that are managed by the replication controller named <rc-name>.
-		// Remember: Any pods that are created by the replication controller get prefixed with the name of the replication controller.
-		$ kubectl describe pods <rc-name>
+// Display the details of all the pods that are managed by the replication controller named <rc-name>.
+// Remember: Any pods that are created by the replication controller get prefixed with the name of the replication controller.
+$ kubectl describe pods <rc-name>
+```
 
- * `kubectl delete` - Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
+`kubectl delete` - Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
 
-		// Delete a pod using the type and name specified in the pod.yaml file.
-		$ kubectl delete -f pod.yaml
+```shell
+// Delete a pod using the type and name specified in the pod.yaml file.
+$ kubectl delete -f pod.yaml
 
-		// Delete all the pods and services that have the label name=<label-name>.
-		$ kubectl delete pods,services -l name=<label-name>
+// Delete all the pods and services that have the label name=<label-name>.
+$ kubectl delete pods,services -l name=<label-name>
 
-		// Delete all pods.
-		$ kubectl delete pods --all
+// Delete all pods.
+$ kubectl delete pods --all
+```
 
- * `kubectl exec` - Execute a command against a container in a pod.
+`kubectl exec` - Execute a command against a container in a pod.
 
-		// Get output from running 'date' from pod <pod-name>. By default, output is from the first container.
-		$ kubectl exec <pod-name> date
+```shell
+// Get output from running 'date' from pod <pod-name>. By default, output is from the first container.
+$ kubectl exec <pod-name> date
 
-		// Get output from running 'date' in container <container-name> of pod <pod-name>.
-		$ kubectl exec <pod-name> -c <container-name> date
+// Get output from running 'date' in container <container-name> of pod <pod-name>.
+$ kubectl exec <pod-name> -c <container-name> date
 
-		// Get an interactive TTY and run /bin/bash from pod <pod-name>. By default, output is from the first container.
-		$ kubectl exec -ti <pod-name> /bin/bash
+// Get an interactive TTY and run /bin/bash from pod <pod-name>. By default, output is from the first container.
+$ kubectl exec -ti <pod-name> /bin/bash
+```
 
- * `kubectl logs` - Print the logs for a container in a pod.
+`kubectl logs` - Print the logs for a container in a pod.
 
-		// Return a snapshot of the logs from pod <pod-name>.
-		$ kubectl logs <pod-name>
+```shell
+// Return a snapshot of the logs from pod <pod-name>.
+$ kubectl logs <pod-name>
 
-		// Start streaming the logs from pod <pod-name>. This is similar to the 'tail -f' Linux command.
-		$ kubectl logs -f <pod-name>
+// Start streaming the logs from pod <pod-name>. This is similiar to the 'tail -f' Linux command.
+$ kubectl logs -f <pod-name>
+```
 
 
 ## Next steps
 
-Start using the [kubectl](kubectl/kubectl.md) commands.
-
-
-
-
-<!-- BEGIN MUNGE: IS_VERSIONED -->
-<!-- TAG IS_VERSIONED -->
-<!-- END MUNGE: IS_VERSIONED -->
-
-
-<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl-overview.md?pixel)]()
-<!-- END MUNGE: GENERATED_ANALYTICS -->
+Start using the [kubectl](/docs/user-guide/kubectl/kubectl) commands.
