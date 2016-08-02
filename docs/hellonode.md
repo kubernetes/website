@@ -22,7 +22,11 @@ If you don't already have a Google Account (Gmail or Google Apps), you must [cre
 
 ![image](/images/hellonode/image_3.png)
 
-Remember the project ID; it will be referred to later in this codelab as `PROJECT_ID`.
+Remember the project ID; it will be referred to later in this codelab as `$PROJECT_ID`. It may be helpful to store your project ID into a variable:
+ 
+ ```shell
+ export $PROJECT_ID="your-project-id"
+ ```
 
 Next, [enable billing](https://console.developers.google.com/billing) in the Developers Console in order to use Google Cloud resources and [enable the Container Engine API](https://console.developers.google.com/project/_/kubernetes/list).
 
@@ -83,17 +87,17 @@ CMD node server.js
 
 This "recipe" for the Docker image will start from the official Node.js LTS image found on the Docker registry, expose port 8080, copy our `server.js` file to the image and start the Node server.
 
-Now build an image of your container by running `docker build`, tagging the image with the Google  Container Registry repo for your `PROJECT_ID`:
+Now build an image of your container by running `docker build`, tagging the image with the Google  Container Registry repo for your `$PROJECT_ID`:
 
 ```shell
-docker build -t gcr.io/PROJECT_ID/hello-node:v1 .
+docker build -t gcr.io/$PROJECT_ID/hello-node:v1 .
 ```
 Now there is a trusted source for getting an image of your containerized app.
 
 Let's try your image out with Docker:
 
 ```shell
-$ docker run -d -p 8080:8080 gcr.io/PROJECT_ID/hello-node:v1
+$ docker run -d -p 8080:8080 gcr.io/$PROJECT_ID/hello-node:v1
 325301e6b2bffd1d0049c621866831316d653c0b25a496d04ce0ec6854cb7998
 ```
 
@@ -115,16 +119,16 @@ Let’s now stop the container. In this example, our app was running as Docker p
 ```shell
 docker ps
 CONTAINER ID        IMAGE                              COMMAND
-2c66d0efcbd4        gcr.io/PROJECT_ID/hello-node:v1    "/bin/sh -c 'node    
+2c66d0efcbd4        gcr.io/$PROJECT_ID/hello-node:v1    "/bin/sh -c 'node    
 
 docker stop 2c66d0efcbd4
 2c66d0efcbd4
 ```
 
-Now that the image works as intended and is all tagged with your `PROJECT_ID`, we can push it to the [Google Container Registry](https://cloud.google.com/tools/container-registry/), a private repository for your Docker images accessible from every Google Cloud project (but also from outside Google Cloud Platform) :
+Now that the image works as intended and is all tagged with your `$PROJECT_ID`, we can push it to the [Google Container Registry](https://cloud.google.com/tools/container-registry/), a private repository for your Docker images accessible from every Google Cloud project (but also from outside Google Cloud Platform) :
 
 ```shell
-gcloud docker push gcr.io/PROJECT_ID/hello-node:v1
+gcloud docker push gcr.io/$PROJECT_ID/hello-node:v1
 ```
 
 If all goes well, you should be able to see the container image listed in the console: *Compute > Container Engine > Container Registry*. We now have a project-wide Docker image available which Kubernetes can access and orchestrate.
@@ -154,7 +158,7 @@ A Kubernetes **[pod](/docs/user-guide/pods/)** is a group of containers, tied to
 Create a pod with the `kubectl run` command:
 
 ```shell
-$ kubectl run hello-node --image=gcr.io/PROJECT_ID/hello-node:v1 --port=8080
+$ kubectl run hello-node --image=gcr.io/$PROJECT_ID/hello-node:v1 --port=8080
 deployment "hello-node" created
 ```
 
@@ -287,18 +291,18 @@ First, let’s modify the application. On the development machine, edit server.j
 We can now build and publish a new container image to the registry with an incremented tag:
 
 ```shell
-docker build -t gcr.io/PROJECT_ID/hello-node:v2 .
-gcloud docker push gcr.io/PROJECT_ID/hello-node:v2
+docker build -t gcr.io/$PROJECT_ID/hello-node:v2 .
+gcloud docker push gcr.io/$PROJECT_ID/hello-node:v2
 ```
 
 Building and pushing this updated image should be much quicker as we take full advantage of the Docker cache.
 
 We’re now ready for Kubernetes to smoothly update our deployment to the new version of the application.  In order to change
 the image label for our running container, we will need to edit the existing *hello-node deployment* and change the image from
-`gcr.io/PROJECT_ID/hello-node:v1` to `gcr.io/PROJECT_ID/hello-node:v2`.  To do this, we will use the `kubectl set image` command.
+`gcr.io/$PROJECT_ID/hello-node:v1` to `gcr.io/$PROJECT_ID/hello-node:v2`.  To do this, we will use the `kubectl set image` command.
 
 ```shell
-$ kubectl set image deployment/hello-node hello-node=gcr.io/PROJECT_ID/hello-node:v2
+$ kubectl set image deployment/hello-node hello-node=gcr.io/$PROJECT_ID/hello-node:v2
 deployment "hello-node" image updated
 ```
 
@@ -345,7 +349,7 @@ The following clusters will be deleted.
 Do you want to continue (Y/n)?
 
 Deleting cluster hello-world...done.
-Deleted [https://container.googleapis.com/v1/projects/<PROJECT_ID>/zones/us-central1-f/clusters/hello-world].
+Deleted [https://container.googleapis.com/v1/projects/<$PROJECT_ID>/zones/us-central1-f/clusters/hello-world].
 ```
 
 This deletes the Google Compute Engine instances that are running the cluster.
@@ -354,9 +358,9 @@ Finally delete the Docker registry storage bucket hosting your image(s) :
 
 ```shell
 $ gsutil ls
-gs://artifacts.<PROJECT_ID>.appspot.com/
-$ gsutil rm -r gs://artifacts.<PROJECT_ID>.appspot.com/
-Removing gs://artifacts.<PROJECT_ID>.appspot.com/...
+gs://artifacts.<$PROJECT_ID>.appspot.com/
+$ gsutil rm -r gs://artifacts.<$PROJECT_ID>.appspot.com/
+Removing gs://artifacts.<$PROJECT_ID>.appspot.com/...
 ```
 
 Of course, you can also delete the entire project but note that you must first disable billing on the project. Additionally, deleting a project will only happen after the current billing cycle ends.
