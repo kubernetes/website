@@ -434,6 +434,14 @@ The Kubernetes UI can be installed using `kubectl` to run the following manifest
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico-cni/k8s-1.1-docs/samples/kubernetes/master/kube-ui/kube-ui.yaml
 ```
 
+Note: The Kubernetes UI addon is deprecated and has been replaced with Kubernetes dashboard. You can install it by running:
+
+```shell
+kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+```
+
+You can find the docs at [Kubernetes Dashboard](https://github.com/kubernetes/dashboard)
+
 ## Launch other Services With Calico-Kubernetes
 
 At this point, you have a fully functioning cluster running on Kubernetes with a master and two nodes networked with Calico. You can now follow any of the [standard documentation](https://github.com/kubernetes/kubernetes/tree/{{page.version}}.0/examples/) to set up other services on your cluster.
