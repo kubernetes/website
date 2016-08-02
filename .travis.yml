@@ -10,7 +10,7 @@ script:
 - git config --global user.name "${GIT_NAME}"
 - git clone https://${GIT_USERNAME}:${GH_TOKEN}@github.com/kubernetes-v1-4/kubernetes-v1-4.github.io.git
 - cd kubernetes-v1-4.github.io
-- git remote add --fetch --track release-1.3 homebase "https://${GIT_USERNAME}:${GH_TOKEN}@github.com/kubernetes/kubernetes.github.io.git"
+- git remote add --fetch --track release-1.4 homebase "https://${GIT_USERNAME}:${GH_TOKEN}@github.com/kubernetes/kubernetes.github.io.git"
 - git merge -s recursive -X theirs homebase/release-1.4 -m "Sync from homebase"
 - git push
 env:
