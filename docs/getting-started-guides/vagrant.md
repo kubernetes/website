@@ -40,12 +40,6 @@ The `KUBERNETES_PROVIDER` environment variable tells all of the various cluster 
 
 By default, the Vagrant setup will create a single master VM (called kubernetes-master) and one node (called kubernetes-node-1). Each VM will take 1 GB, so make sure you have at least 2GB to 4GB of free memory (plus appropriate free disk space).
 
-If you'd like more than one node, set the `NUM_NODES` environment variable to the number you want:
-
-```sh
-export NUM_NODES=3
-```
-
 Vagrant will provision each machine in the cluster with all the necessary components to run Kubernetes.  The initial setup can take a few minutes to complete on each machine.
 
 If you installed more than one Vagrant provider, Kubernetes will usually pick the appropriate one. However, you can override which one Kubernetes will use by setting the [`VAGRANT_DEFAULT_PROVIDER`](https://docs.vagrantup.com/v2/providers/default.html) environment variable:

@@ -11,7 +11,7 @@ convenient).
 
 ### Prerequisites
 
-1. You need administrator credentials to an ESXi machine or vCenter instance with write mode api access enabled (not available on the free ESXi license).
+1. You need administrator credentials to an ESXi machine or vCenter instance.
 2. You must have Go (see [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/development.md#go-versions) for supported versions) installed: [www.golang.org](http://www.golang.org).
 3. You must have your `GOPATH` set up and include `$GOPATH/bin` in your `PATH`.
 

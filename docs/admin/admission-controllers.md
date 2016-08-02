@@ -145,5 +145,5 @@ For Kubernetes >= 1.2.0, we strongly recommend running the following set of admi
 For Kubernetes >= 1.0.0, we strongly recommend running the following set of admission control plug-ins (order matters):
 
 ```shell
---admission-control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,PersistentVolumeLabel,ResourceQuota
+--admission-control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota
 ```
