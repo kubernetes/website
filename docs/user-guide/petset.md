@@ -1,6 +1,8 @@
 ---
 ---
 
+**Launch Stage:** *Alpha since 1.3*
+
 * TOC
 {:toc}
 
