@@ -1,21 +1,21 @@
 ---
 ---
 
-Kubernetes comes built-in with some basic resource utilization monitoring as described at the [Monitoring](/docs/user-guide/monitoring) user guide page. Here we describe how to utilize distributed, full-stack application monitoring and deep system troubleshooting for your Kubernetes cluster with Sysdig.
+Kubernetes comes built-in with some basic resource utilization monitoring as described at the [Monitoring](/docs/user-guide/monitoring) user guide page. This page describes how to utilize distributed, full-stack application monitoring and deep system troubleshooting for your Kubernetes cluster with Sysdig.
 
 ### Kubernetes and Sysdig
 Sysdig offers native, first class support for Kubernetes. That includes [sysdig](http://www.sysdig.org/), an open source system troubleshooting tool, and [Sysdig Cloud](https://sysdig.com/), a monitoring solution that has been designed from the ground up to support containers and microservices.
 
-In this post we will quickly preview the Kubernetes visibility in both open source sysdig and Sysdig Cloud, covering two primary use cases:
+This document covers two primary use cases based on Sysdig technology:
 
 - [Troubleshooting Kubernetes with sysdig](#Troubleshooting-Kubernetes-with-sysdig) - start here if you're looking for an open source tool that offers deep visibility into a single Kubernetes instance
 - [Monitoring Kubernetes with Sysdig Cloud](#Monitoring-Kubernetes-with-Sysdig-Cloud) - start here if you're looking for a commercial monitoring solution that offers metrics, dashboards, alerting, etc for a distributed Kubernetes cluster
 
 ## Troubleshooting Kubernetes with sysdig 
 
-Open source sysdig is designed to offer simple, intuitive, and incredibly rich insight into all activity on a Linux machine, including inside containers. Sysdig is scriptable in Lua and includes a command line interface and a powerful interactive UI, csysdig, that runs in your terminal. Think of sysdig as strace + tcpdump + htop + iftop + lsof. With state of the art container visibility on top.
+Open source sysdig is designed to offer simple, intuitive, and incredibly rich insight into all activity on a Linux machine, including inside containers. Sysdig is scriptable in Lua and includes a command line interface and a powerful interactive UI, csysdig, that runs in your terminal. Think of sysdig as strace + tcpdump + htop + iftop + lsof + state of the art container visibility on top.
 
-Install sysdig on any Kubernetes node that you want to troubleshoot by following the install instructions on [github](https://github.com/draios/sysdig/wiki/How%20to%20Install%20Sysdig%20for%20Linux) or [sysdig.org](http://www.sysdig.org/install/).
+Install sysdig on any Kubernetes node that you want to troubleshoot by following the install instructions at [sysdig.org](http://www.sysdig.org/install/).
 
 Once installed, Sysdig will automatically connect to your Kubernetes API server and poll information on your Kubernetes cluster hierarchy, including namespaces, services, replication controllers and labels. This metadata is then automatically correlated with the rich system, network, container and application data that is automatically collected by Sysdig's core instrumentation. 
 
