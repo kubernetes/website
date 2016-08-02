@@ -436,7 +436,9 @@ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico-cni/k8s
 
 Note: The Kubernetes UI addon is deprecated and has been replaced with Kubernetes dashboard. You can install it by running:
 
-```kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml```
+```shell
+kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+```
 
 You can find the docs at [Kubernetes Dashboard](https://github.com/kubernetes/dashboard)
 
