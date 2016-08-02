@@ -17,8 +17,9 @@ This guide also assumes that we have the Kubernetes source code that can be
 ## Setting up a federation control plane
 
 Setting up federation requires running the federation control plane which
-consists of etcd, federation-apiserver and federation-controller-manager.
-We can run these binaries as pods on an existing Kubernetes cluster.
+consists of etcd, federation-apiserver (via hyperkube binary) and
+federation-controller-manager (via hyperkube binary). We can run these
+binaries as pods on an existing Kubernetes cluster.
 
 ### Getting images
 
@@ -30,7 +31,9 @@ official release images or we can build from HEAD.
 As part of every release, images are pushed to `gcr.io/google_containers`. To use
 these images, we set env var `FEDERATION_PUSH_REPO_BASE=gcr.io/google_containers`
 This will always use the latest image.
-To use federation-apiserver and federation-controller-manager images from a specific release, we can set `FEDERATION_IMAGE_TAG`.
+To use the hyperkube image which includes federation-apiserver and
+federation-controller-manager from a specific release, we can set
+`FEDERATION_IMAGE_TAG`.
 
 #### Building and pushing images from HEAD
 
