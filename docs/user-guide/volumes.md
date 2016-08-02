@@ -64,6 +64,7 @@ Kubernetes supports several types of Volumes:
    * `flocker`
    * `glusterfs`
    * `rbd`
+   * `cephfs`
    * `gitRepo`
    * `secret`
    * `persistentVolumeClaim`
@@ -350,6 +351,20 @@ RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
 See the [RBD example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/rbd) for more details.
+
+### cephfs
+
+A `cephfs` volume allows an existing CephFS volume to be
+mounted into your pod. Unlike `emptyDir`, which is erased when a Pod is
+removed, the contents of a `cephfs` volume are preserved and the volume is merely
+unmounted.  This means that a CephFS volume can be pre-populated with data, and
+that data can be "handed off" between pods.  CephFS can be mounted by multiple
+writers simultaneously.
+
+__Important: You must have your own Ceph server running with the share exported
+before you can use it__
+
+See the [CephFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/cephfs/) for more details.
 
 ### gitRepo
 

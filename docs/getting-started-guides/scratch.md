@@ -394,10 +394,10 @@ kubelet.
 Arguments to consider:
 
   - If following the HTTPS security approach:
-    - `--api-servers=https://$MASTER_IP`
+    - `--master=https://$MASTER_IP`
     - `--kubeconfig=/var/lib/kube-proxy/kubeconfig`
   - Otherwise, if taking the firewall-based security approach
-    - `--api-servers=http://$MASTER_IP`
+    - `--master=http://$MASTER_IP`
 
 ### Networking
 
@@ -480,7 +480,7 @@ You will need to run one or more instances of etcd.
     by durable storage (RAID, GCE PD)
   - Alternative: run 3 or 5 etcd instances.
     - Log can be written to non-durable storage because storage is replicated.
-    - run a single apiserver which connects to one of the etc nodes.
+    - run a single apiserver which connects to one of the etcd nodes.
 
 See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting) for more discussion on factors affecting cluster
 availability.

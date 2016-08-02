@@ -156,9 +156,9 @@ Lars Kellogg-Stedman.
 
 ### Weave Net from Weaveworks
 
-[Weave Net](https://www.weave.works/documentation/net-1-5-0-introducing-weave/) is a 
+[Weave Net](https://www.weave.works/documentation/net-1-6-0-introducing-weave/) is a 
 resilient and simple to use network for Kubernetes and its hosted applications.  
-Weave Net runs as a [CNI plug-in](https://www.weave.works/documentation/net-1-5-0-cni-plugin/)  
+Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)  
 or stand-alone.  In either version, it doesn’t require any configuration or extra code 
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
@@ -177,10 +177,13 @@ complicated way to build an overlay network.  This is endorsed by several of the
 "Big Shops" for networking.
 
 
-### Calico
+### Project Calico
 
-[Calico](https://github.com/projectcalico/calico-containers) uses BGP to enable real container
-IPs.
+[Project Calico](https://github.com/projectcalico/calico-containers/blob/master/docs/cni/kubernetes/README.md) is an open source container networking provider and network policy engine.
+
+Calico provides a highly scalable networking and network policy solution for connecting Kubernetes pods based on the same IP networking principles as the internet.  Calico can be deployed without encapsulation or overlays to provide high-performance, high-scale data center networking.  Calico also provides fine-grained, intent based network security policy for Kubernetes pods via its distributed firewall.
+
+Calico can also be run in policy enforcement mode in conjunction with other networking solutions such as Flannel, aka [canal](https://github.com/tigera/canal), or native GCE networking.
 
 ### Romana
 
