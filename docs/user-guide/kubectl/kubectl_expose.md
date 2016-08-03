@@ -1,4 +1,10 @@
 ---
+assignees:
+- AdoHe
+- bgrant0607
+- brendandburns
+- janetkuo
+
 ---
 
 ## kubectl expose

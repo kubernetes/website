@@ -1,4 +1,9 @@
 ---
+assignees:
+- WIZARD-CXY
+- dalanlan
+- thockin
+
 ---
 
 This document describes how to deploy kubernetes on ubuntu nodes, 1 master and 3 nodes involved

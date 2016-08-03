@@ -1,4 +1,8 @@
 ---
+assignees:
+- alexhersh
+- caseydavenport
+
 ---
 
 This document describes how to deploy Kubernetes with Calico networking from scratch on _bare metal_ Ubuntu. For more information on Project Calico, visit [projectcalico.org](http://projectcalico.org) and the [calico-containers repository](https://github.com/projectcalico/calico-containers).

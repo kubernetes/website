@@ -1,4 +1,9 @@
 ---
+assignees:
+- bgrant0607
+- fgrzadkowski
+- janetkuo
+
 ---
 ## kubectl autoscale
 
