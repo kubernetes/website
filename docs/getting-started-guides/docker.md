@@ -197,7 +197,7 @@ docker-machine ssh `docker-machine active` curl $ip
 
 ## Deploy a DNS
 
-See [here](/docs/getting-started-guides/docker-multinode/deployDNS/) for instructions.
+Read [documentation for manually deploying a DNS](/docs/getting-started-guides/docker-multinode/#deploy-dns-manually-for-v12x) for instructions.
 
 ### Turning down your cluster
 
@@ -258,6 +258,7 @@ output of /proc/cmdline:
 $ cat /proc/cmdline
 BOOT_IMAGE=/boot/vmlinuz-3.18.4-aufs root=/dev/sda5 ro cgroup_enable=memory=1
 ```
+
 ## Support Level
 
 
