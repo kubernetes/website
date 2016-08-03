@@ -1,8 +1,6 @@
 ---
 assignees:
 - bprashanth
-- joshperry
-- rutsky
 
 ---
 

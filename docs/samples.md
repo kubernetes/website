@@ -1,6 +1,5 @@
 ---
 assignees:
-- CreaturesInUnitards
 - bgrant0607
 
 ---
