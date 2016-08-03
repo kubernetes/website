@@ -26,17 +26,21 @@ If you don't already have a Google Account (Gmail or Google Apps), you must [cre
 
 ![image](/images/hellonode/image_3.png)
 
-Remember the project ID; it will be referred to later in this codelab as `$PROJECT_ID`. It may be helpful to store your project ID into a variable:
+Remember the project ID; it will be referred to later in this codelab as `$PROJECT_ID`.
+
+Make sure you have a Linux terminal available, you will use it to control your cluster via command line. You can use [Google Cloud Shell](https://console.cloud.google.com?cloudshell=true), it has the software this codelab uses pre-installed so that you can skip most of the environment configuration steps below.
+
+It may be helpful to store your project ID into a variable as many commands below use it:
  
- ```shell
- export $PROJECT_ID="your-project-id"
- ```
+```shell
+export PROJECT_ID="your-project-id"
+```
 
-Next, [enable billing](https://console.developers.google.com/billing) in the Developers Console in order to use Google Cloud resources and [enable the Container Engine API](https://console.developers.google.com/project/_/kubernetes/list).
+Next, [enable billing](https://console.cloud.google.com/billing) in the Cloud Console in order to use Google Cloud resources and [enable the Container Engine API](https://console.cloud.google.com/project/_/kubernetes/list).
 
-New users of Google Cloud Platform receive a [$300 free trial](https://console.developers.google.com/billing/freetrial?hl=en). Running through this codelab shouldn’t cost you more than a few dollars of that trial. Google Container Engine pricing is documented [here](https://cloud.google.com/container-engine/pricing).
+New users of Google Cloud Platform receive a [$300 free trial](https://console.cloud.google.com/billing/freetrial?hl=en). Running through this codelab shouldn’t cost you more than a few dollars of that trial. Google Container Engine pricing is documented [here](https://cloud.google.com/container-engine/pricing).
 
-Next, make sure you [download Node.js](https://nodejs.org/en/download/).
+Next, make sure you [download Node.js](https://nodejs.org/en/download/). You can skip this and the steps for installing Docker and Cloud SDK if you're using Cloud Shell.
 
 Then install [Docker](https://docs.docker.com/engine/installation/), and [Google Cloud SDK](https://cloud.google.com/sdk/).
 
@@ -70,7 +74,7 @@ Now run this simple command :
 node server.js
 ```
 
-You should be able to see your "Hello World!" message at http://localhost:8080/
+You should be able to see your "Hello World!" message at http://localhost:8080/. If using Cloud Shell, use [Web Preview](https://cloud.google.com/shell/docs/using-web-preview) to view the URL.
 
 Stop the running node server by pressing Ctrl-C.
 
@@ -147,10 +151,10 @@ Create a cluster via the Console: *Compute > Container Engine > Container Cluste
 
 ![image](/images/hellonode/image_11.png)
 
-It’s now time to deploy your own containerized application to the Kubernetes cluster! Please ensure that you have [configured](https://cloud.google.com/container-engine/docs/clusters/operations#configuring_kubectl) `kubectl` to use the cluster you just created:
+It’s now time to deploy your own containerized application to the Kubernetes cluster! Please ensure that you have [configured](https://cloud.google.com/container-engine/docs/clusters/operations#configuring_kubectl) `kubectl` to use the cluster you just created (make sure the value of `--zone` flag matches the zone you used for the cluster:
 
 ```shell
-$ gcloud container clusters get-credentials hello-world
+$ gcloud container clusters get-credentials --zone us-central1-f hello-world
 ```
 
 **The rest of this document requires both the Kubernetes client and server version to be 1.3. Run `kubectl version` to see your current versions.**  For 1.2 see [this document](https://github.com/kubernetes/kubernetes.github.io/blob/release-1.2/docs/hellonode.md).
@@ -346,7 +350,7 @@ kubectl delete service,deployment hello-node
 Delete your cluster:
 
 ```shell
-$ gcloud container clusters delete hello-world
+$ gcloud container clusters delete --zone us-central1-f hello-world
 The following clusters will be deleted.
  - [hello-world] in [us-central1-f]
 
