@@ -1,7 +1,6 @@
 ---
 assignees:
 - bprashanth
-- chrisseto
 - foxish
 
 ---

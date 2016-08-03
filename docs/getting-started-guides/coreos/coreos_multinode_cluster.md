@@ -1,7 +1,6 @@
 ---
 assignees:
 - dchen1107
-- pires
 
 ---
 

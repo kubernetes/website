@@ -1,6 +1,5 @@
 ---
 assignees:
-- asridharan
 - brendandburns
 - fgrzadkowski
 
