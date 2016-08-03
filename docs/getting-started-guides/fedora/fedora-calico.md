@@ -1,8 +1,6 @@
 ---
 assignees:
-- alexhersh
 - caesarxuchao
-- caseydavenport
 
 ---
 

@@ -1,6 +1,5 @@
 ---
 assignees:
-- joshix
 - lavalamp
 - yifan-gu
 

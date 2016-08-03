@@ -1,7 +1,5 @@
 ---
 assignees:
-- WIZARD-CXY
-- dalanlan
 - thockin
 
 ---

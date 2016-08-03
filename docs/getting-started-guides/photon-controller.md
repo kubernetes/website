@@ -1,6 +1,5 @@
 ---
 assignees:
-- AlainRoy
 - bprashanth
 
 ---

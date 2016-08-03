@@ -1,6 +1,5 @@
 ---
 assignees:
-- coolsvap
 - lavalamp
 - thockin
 

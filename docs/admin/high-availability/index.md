@@ -1,7 +1,4 @@
 ---
-assignees:
-- mwhahaha
-- stp-ip
 
 ---
 
