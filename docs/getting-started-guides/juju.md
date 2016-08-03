@@ -2,7 +2,6 @@
 assignees:
 - caesarxuchao
 - erictune
-- mbruzek
 
 ---
 

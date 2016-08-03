@@ -1,7 +1,6 @@
 ---
 assignees:
 - bryk
-- gertipoppel
 - mikedanese
 
 ---
