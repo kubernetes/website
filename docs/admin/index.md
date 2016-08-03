@@ -1,4 +1,8 @@
 ---
+assignees:
+- davidopp
+- lavalamp
+
 ---
 
 The cluster admin guide is for anyone creating or administering a Kubernetes cluster.
