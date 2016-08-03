@@ -33,24 +33,22 @@ If multiple modes are provided the set is unioned, and only a single authorizer 
 
 will always allow.
 
-## ABAC Mode
-
-### Request Attributes
+## Request Attributes
 
 A request has the following attributes that can be considered for authorization:
 
   - user (the user-string which a user was authenticated as).
   - group (the list of group names the authenticated user is a member of).
+  - "extra" (a map of arbitrary string keys to string values, provided by the authentication layer)
   - whether the request is for an API resource.
   - the request path.
     - allows authorizing access to miscellaneous non-resource endpoints like `/api` or `/healthz` (see [kubectl](#kubectl)).
   - the request verb.
     - API verbs `get`, `list`, `create`, `update`, `watch`, `delete`, and `deletecollection` are used for resource requests
-    - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource
-requests
+    - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests
   - what resource is being accessed (for resource requests only)
-  - the namespace of the object being accessed (for namespaced resource requests
-only)
+  - what subresource is being accessed (for resource requests only)
+  - the namespace of the object being accessed (for namespaced resource requests only)
   - the API group being accessed (for resource requests only)
 
 The request verb for a resource API endpoint can be determined by the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
@@ -63,8 +61,8 @@ PUT       | update
 PATCH     | patch
 DELETE    | delete (for individual resources), deletecollection (for collections)
 
-We anticipate adding more attributes to allow finer grained access control and
-to assist in policy management.
+
+## ABAC Mode
 
 ### Policy File Format
 
