@@ -65,6 +65,7 @@ Here's a diagram of what the final result will look like:
       --net=host \
       --pid=host \
       --privileged \
+	  --name=kubelet \
       gcr.io/google_containers/hyperkube-${ARCH}:${K8S_VERSION} \
       /hyperkube kubelet \
           --hostname-override=127.0.0.1 \
@@ -172,7 +173,11 @@ ip=$(kubectl get svc nginx --template={{.spec.clusterIP}})
 echo $ip
 {% endraw %}```
 
-On Linux the IP is directly accessible via a web browser.
+Hit the webserver with this IP:
+
+```shell{% raw %}
+curl $ip
+{% endraw %}```
 
 On OS X, since docker is running inside a VM, run the following command instead:
 
@@ -196,10 +201,10 @@ kubectl delete service,deployments nginx
 
 2\. Delete all the containers including the kubelet:
 
-Many of these containers run under the management of the `kubelet` binary, which attempts to keep containers running, even if they fail.
-So, in order to turn down the cluster, you need to first kill the kubelet container, and then any other containers.
-
-You may use `docker rm -f $(docker ps -aq)`, note this removes _all_ containers running under Docker, so use with caution.
+```shell
+docker rm -f kubelet
+docker rm -f `docker ps | grep k8s | awk '{print $1}'`
+```
 
 3\. Cleanup the filesystem:
 
