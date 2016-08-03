@@ -1,7 +1,6 @@
 ---
 assignees:
 - erictune
-- jeffbean
 - thockin
 
 ---

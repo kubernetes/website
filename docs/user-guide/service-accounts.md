@@ -1,7 +1,6 @@
 ---
 assignees:
 - bprashanth
-- dalanlan
 - liggitt
 - thockin
 

@@ -1,7 +1,6 @@
 ---
 assignees:
 - janetkuo
-- tpryan
 
 ---
 

@@ -3,7 +3,6 @@ assignees:
 - Kashomon
 - bprashanth
 - madhusudancs
-- paurullan
 
 ---
 

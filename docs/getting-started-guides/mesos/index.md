@@ -1,8 +1,6 @@
 ---
 assignees:
-- JamesDeFabia
 - jdef
-- mikebrow
 
 ---
 
