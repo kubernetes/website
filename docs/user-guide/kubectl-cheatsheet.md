@@ -1,4 +1,9 @@
 ---
+assignees:
+- bgrant0607
+- erictune
+- krousey
+
 ---
 An assortment of compact kubectl examples
 

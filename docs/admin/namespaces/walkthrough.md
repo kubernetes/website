@@ -1,4 +1,8 @@
 ---
+assignees:
+- derekwaynecarr
+- janetkuo
+
 ---
 
 Kubernetes _namespaces_ help different projects, teams, or customers to share a Kubernetes cluster.

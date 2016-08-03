@@ -1,4 +1,6 @@
 ---
+assignees:
+
 ---
 
 Following this example, you will create a secret and a [pod](/docs/user-guide/pods/) that consumes that secret in a [volume](/docs/user-guide/volumes/). See [Secrets design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/secrets.md) for more information.

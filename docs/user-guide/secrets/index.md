@@ -1,4 +1,8 @@
 ---
+assignees:
+- eyalev
+- mikedanese
+
 ---
 
 Objects of type `secret` are intended to hold sensitive information, such as
