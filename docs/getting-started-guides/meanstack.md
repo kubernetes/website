@@ -1,7 +1,4 @@
 ---
-assignees:
-- glnds
-- paulzim
 
 ---
 

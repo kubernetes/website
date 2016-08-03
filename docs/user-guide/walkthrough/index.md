@@ -1,7 +1,6 @@
 ---
 assignees:
 - eparis
-- jijun2
 - mikedanese
 
 ---

@@ -1,6 +1,5 @@
 ---
 assignees:
-- doublerr
 - erictune
 
 ---

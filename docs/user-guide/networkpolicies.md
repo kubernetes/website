@@ -1,8 +1,5 @@
 ---
 assignees:
-- MikeSpreitzer
-- caseydavenport
-- matthewdupre
 - thockin
 
 ---

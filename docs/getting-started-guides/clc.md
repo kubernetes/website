@@ -1,7 +1,4 @@
 ---
-assignees:
-- JamesDeFabia
-- ckleban
 
 ---
 * TOC

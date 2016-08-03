@@ -1,10 +1,7 @@
 ---
 assignees:
-- elsonrodriguez
 - idvoretskyi
-- ohtake
 - xsgordon
-- zreigz
 
 ---
 
