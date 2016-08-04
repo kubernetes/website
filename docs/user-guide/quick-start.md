@@ -25,7 +25,7 @@ deployment "my-nginx" created
 To expose your service to the public internet, run:
 
 ```shell
-$ kubectl expose rc my-nginx --target-port=80 --type=LoadBalancer
+$ kubectl expose deployment my-nginx --target-port=80 --type=LoadBalancer
 service "my-nginx" exposed
 ```
 
