@@ -18,7 +18,7 @@ Some typical uses of a Daemon Set are:
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
 - running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), `collectd`, New Relic agent, or Ganglia `gmond`.
+  https://github.com/prometheus/node_exporter), `collectd`, [Sysdig Cloud agent](https://github.com/kubernetes/kubernetes/tree/master/examples/sysdig-cloud), New Relic agent, or Ganglia `gmond`.
 
 In a simple case, one Daemon Set, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets would be used for a single type of daemon,

@@ -124,6 +124,8 @@ toc:
   section:
   - title: Resource Usage Monitoring
     path: /docs/user-guide/monitoring/
+  - title: Monitoring and Troubleshooting with Sysdig
+    path: /docs/getting-started-guides/sysdig/
   - title: Logging
     path: /docs/getting-started-guides/logging/
   - title: Logging with Elasticsearch and Kibana
