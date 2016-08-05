@@ -44,7 +44,7 @@ A request has the following attributes that can be considered for authorization:
   - the request path.
     - allows authorizing access to miscellaneous non-resource endpoints like `/api` or `/healthz` (see [kubectl](#kubectl)).
   - the request verb.
-    - API verbs `get`, `list`, `create`, `update`, `watch`, `delete`, and `deletecollection` are used for resource requests
+    - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests
     - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests
   - what resource is being accessed (for resource requests only)
   - what subresource is being accessed (for resource requests only)
