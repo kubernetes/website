@@ -38,7 +38,6 @@ The local-machine solutions are:
 
 - [Minikube](/docs/getting-started-guides/minikube/) (recommended)
 - [Local Docker-based](/docs/getting-started-guides/docker) 
-- [No-VM local cluster](/docs/getting-started-guides/locally) (Linux only)
 - [Vagrant](/docs/getting-started-guides/vagrant)
 
 
