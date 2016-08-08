@@ -219,10 +219,12 @@ toc:
         path: /docs/getting-started-guides/fedora/flannel_multi_node_cluster/
       - title: CentOS
         path: /docs/getting-started-guides/centos/centos_manual_config/
-      - title: Ubuntu
-        path: /docs/getting-started-guides/ubuntu/
+      - title: CoreOS
+        path: /docs/getting-started-guides/coreos
       - title: CoreOS with Calico
         path: /docs/getting-started-guides/coreos/bare_metal_calico/
+      - title: Ubuntu
+        path: /docs/getting-started-guides/ubuntu/
       - title: Ubuntu Nodes with Calico
         path: /docs/getting-started-guides/ubuntu-calico/
   - title: Portable Multi-Node Cluster
