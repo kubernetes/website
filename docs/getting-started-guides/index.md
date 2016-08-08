@@ -106,6 +106,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 - [Centos](/docs/getting-started-guides/centos/centos_manual_config)
 - [Ubuntu](/docs/getting-started-guides/ubuntu)
 - [Docker Multi Node](/docs/getting-started-guides/docker-multinode)
+- [CoreOS](/docs/getting-started-guides/coreos)
 
 #### Integrations
 
