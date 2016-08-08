@@ -58,7 +58,7 @@ Like `nodeSelector`, affinity is based on labels. But it allows you to write muc
 
 Kubernetes v1.2 offers an alpha version of the first piece of the affinity mechanism, called [node affinity](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/nodeaffinity.md).
 There are currently two types of node affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
-`preferresDuringSchedulingIgnoredDuringExecution`. You can think of them as "hard" and "soft" respectively,
+`preferredDuringSchedulingIgnoredDuringExecution`. You can think of them as "hard" and "soft" respectively,
 in the sense that the former specifies rules that *must* be met for a pod to schedule onto a node (just like
 `nodeSelector` but using a more expressive syntax), while the latter specifies *preferences* that the scheduler
 will try to enforce but will not guarantee. The "IgnoredDuringExecution" part of the names means that, similar
