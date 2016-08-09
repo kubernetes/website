@@ -10,10 +10,7 @@ Kubernetes can run on a range of platforms, from your laptop, to VMs on a cloud 
 bare metal servers.  The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster.  We'll guide you in picking a solution that fits for your needs.
 
-If you just want to "kick the tires" on Kubernetes, we recommend the [local Docker-based](/docs/getting-started-guides/docker) solution.
-
-The local Docker-based solution is one of several [Local cluster](#local-machine-solutions) solutions
-that are quick to set up, but are limited to running on one machine.
+If you just want to "kick the tires" on Kubernetes, we recommend the [local Docker-based solution using MiniKube](#local-machine-solutions).
 
 When you are ready to scale up to more machines and higher availability, a [Hosted](#hosted-solutions)
 solution is the easiest to create and maintain.
@@ -30,9 +27,7 @@ a Kubernetes cluster from scratch.
 
 ### Local-machine Solutions
 
-[Minikube](/docs/getting-started-guides/minikube/) is the recommended method for you to create a 
-single node kubernetes cluster locally for purposes of development and testing.  
-Setup is completely automated and doesn't require a cloud provider account.
+[Minikube](/docs/getting-started-guides/minikube/) is the recommended method for you to create a single node kubernetes cluster locally for purposes of development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
 
 ### Hosted Solutions
