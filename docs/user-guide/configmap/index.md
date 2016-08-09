@@ -366,7 +366,7 @@ spec:
   containers:
     - name: test-container
       image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "cat /etc/config/special.how" ]
+      command: [ "/bin/sh", "-c", "cat /etc/config/special.how" ]
       volumeMounts:
       - name: config-volume
         mountPath: /etc/config
@@ -394,7 +394,7 @@ spec:
   containers:
     - name: test-container
       image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "cat /etc/config/path/to/special-key" ]
+      command: [ "/bin/sh","-c","cat /etc/config/path/to/special-key" ]
       volumeMounts:
       - name: config-volume
         mountPath: /etc/config
