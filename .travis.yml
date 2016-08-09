@@ -1,0 +1,7 @@
+language: go
+go:
+  - 1.6
+
+# Don't want default ./... here:
+install: go get -t -v ./test
+script: go test -v ./test
