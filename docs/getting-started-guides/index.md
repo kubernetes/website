@@ -27,7 +27,9 @@ a Kubernetes cluster from scratch.
 
 ### Local-machine Solutions
 
-[Minikube](/docs/getting-started-guides/minikube/) is the recommended method for you to create a single node kubernetes cluster locally for purposes of development and testing. Setup is completely automated and doesn't require a cloud provider account.
+[Minikube](/docs/getting-started-guides/minikube/) is the recommended method for you to create a single node kubernetes cluster locally for purposes of development and testing. Setup is completely automated and doesn't require a cloud provider account.  
+
+Use the [Minikube getting started guide](/docs/getting-started-guides/minikube/) to try it out.
 
 
 ### Hosted Solutions
