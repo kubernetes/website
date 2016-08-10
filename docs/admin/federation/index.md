@@ -113,7 +113,7 @@ Note that the file name should be `kubeconfig` since file name determines the na
 Now that the secret is created, we are ready to register the cluster. The YAML file for cluster will look like:
 
 ```yaml
-apiVersion: v1beta1
+apiVersion: federation/v1beta1
 kind: Cluster
 metadata:
   name: cluster1
@@ -136,12 +136,13 @@ cluster.
 
 Assuming our YAML file is located at `/cluster1/cluster.yaml`, we can run the following command to register this cluster:
 
+<!-- TODO(madhusudancs): Make the kubeconfig context configurable with default set to `federation` -->
 ```shell
-$ kubectl create -f /cluster1/cluster.yaml --cluster=federation-cluster
+$ kubectl create -f /cluster1/cluster.yaml --context=federation-cluster
 
 ```
 
-By specifying `--cluster=federation-cluster`, we direct the request to federation apiserver.
+By specifying `--context=federation-cluster`, we direct the request to federation apiserver.
 we can ensure that the cluster registration was successful by running:
 
 ```shell
