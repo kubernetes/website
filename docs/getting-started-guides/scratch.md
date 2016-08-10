@@ -846,7 +846,7 @@ pinging or SSH-ing from one node to another.
 ### Getting Help
 
 If you run into trouble, please see the section on [troubleshooting](/docs/getting-started-guides/gce#troubleshooting), post to the
-[google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](/docs/troubleshooting#slack).
+[kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting#slack).
 
 ## Support Level
 
