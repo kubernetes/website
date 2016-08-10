@@ -53,6 +53,7 @@ export GOVC_NETWORK='Network Name' # Name of the network the vms should join. Ma
 export GOVC_INSECURE=1 # If the host above uses a self-signed cert
 export GOVC_DATASTORE='target datastore'
 export GOVC_RESOURCE_POOL='resource pool or cluster with access to datastore'
+export GOVC_GUEST_LOGIN='kube:kube' # Used for logging into kube.vmdk during deployment.
 
 govc import.vmdk kube.vmdk ./kube/
 ```
@@ -62,9 +63,9 @@ Verify that the VMDK was correctly uploaded and expanded to ~3GiB:
 ```shell
 govc datastore.ls ./kube/
 ```
-
-Take a look at the file `cluster/vsphere/config-common.sh` fill in the required
-parameters. The guest login for the image that you imported is `kube:kube`.
+If you need to debug any part of the deployment, the guest login for 
+the image that you imported is `kube:kube`. It is normally specified 
+in the GOVC_GUEST_LOGIN parameter above.
 
 Also take a look at the file `cluster/vsphere/config-default.sh` and
 make any needed changes. You can configure the number of nodes
