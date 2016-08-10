@@ -69,7 +69,7 @@ Clone the `kube-deploy` repo, and run [master.sh](master.sh) on the master machi
 
 ```shell
 $ git clone https://github.com/kubernetes/kube-deploy
-$ cd docker-multinode
+$ cd kube-deploy/docker-multinode
 $ ./master.sh
 ```
 
