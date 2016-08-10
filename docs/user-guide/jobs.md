@@ -255,9 +255,9 @@ The pattern names are also links to examples and more detailed description.
 
 |                            Pattern                                   | Single Job object | Fewer pods than work items? | Use app unmodified? |  Works in Kube 1.1? |
 | -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
-| [Job Template Expansion](/docs/user-guide/job/expansions)            |                   |                             |          ✓          |          ✓          |
-| [Queue with Pod Per Work Item](/docs/user-guide/job/work-queue-1/)   |         ✓         |                             |      sometimes      |          ✓          |
-| [Queue with Variable Pod Count](/docs/user-guide/job/work-queue-2/)  |         ✓         |             ✓               |                     |          ✓          |
+| [Job Template Expansion](/docs/user-guide/jobs/expansions)            |                   |                             |          ✓          |          ✓          |
+| [Queue with Pod Per Work Item](/docs/user-guide/jobs/work-queue-1/)   |         ✓         |                             |      sometimes      |          ✓          |
+| [Queue with Variable Pod Count](/docs/user-guide/jobs/work-queue-2/)  |         ✓         |             ✓               |                     |          ✓          |
 | Single Job with Static Work Assignment                               |         ✓         |                             |          ✓          |                     |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
