@@ -136,6 +136,7 @@ cluster.
 
 Assuming our YAML file is located at `/cluster1/cluster.yaml`, we can run the following command to register this cluster:
 
+<!-- TODO(madhusudancs): Make the kubeconfig context configurable with default set to `federation` -->
 ```shell
 $ kubectl create -f /cluster1/cluster.yaml --context=federation-cluster
 
