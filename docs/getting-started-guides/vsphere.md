@@ -53,7 +53,7 @@ export GOVC_NETWORK='Network Name' # Name of the network the vms should join. Ma
 export GOVC_INSECURE=1 # If the host above uses a self-signed cert
 export GOVC_DATASTORE='target datastore'
 export GOVC_RESOURCE_POOL='resource pool or cluster with access to datastore'
-export GOVC_GUEST_LOGIN=kube:kube # Used for logging into kube.vmdk during deployment.
+export GOVC_GUEST_LOGIN='kube:kube' # Used for logging into kube.vmdk during deployment.
 
 govc import.vmdk kube.vmdk ./kube/
 ```
