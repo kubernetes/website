@@ -34,12 +34,19 @@ on a lightweight webserver that runs on your local machine.
 
 This will typically be the fastest way (by far) to iterate on docs changes and see them staged, once you get this set up, but it does involve several install steps that take awhile to complete, and makes system-wide modifications.
 
-Install Ruby 2.2 or higher. If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). If you're on Linux, run these commands:
+Install Ruby 2.2 or higher. If you're on Linux, run these commands:
 
     apt-get install software-properties-common
     apt-add-repository ppa:brightbox/ruby-ng
     apt-get install ruby2.2
     apt-get install ruby2.2-dev
+
+* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). 
+* If you're on a Windows machine you can use the [Ruby Installer](http://rubyinstaller.org/downloads/). During the installation make sure to check the option for *Add Ruby executables to your PATH*.
+
+The remainder of the steps should work the same across operating systems.
+
+To confirm you've installed Ruby correctly, at the command prompt run `gem --version` and you should get a response with your version number. Likewise you can confirm you have Git installed properly by running `git --version`, which will respond with your version of Git.
 
 Install the GitHub Pages package, which includes Jekyll:
 
@@ -57,8 +64,6 @@ Make any changes you want. Then, to see your changes locally:
 Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
 (or wherever Jekyll tells you).
 
-The above instructions work on Mac and Linux.
-[These instructions](https://martinbuberl.com/blog/setup-jekyll-on-windows-and-host-it-on-github-pages/) are for Windows users.
 
 ## GitHub help
 
