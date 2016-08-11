@@ -1,4 +1,10 @@
 ---
+assignees:
+- bgrant0607
+- brendandburns
+- hurf
+- janetkuo
+
 ---
 
 ## kubectl annotate

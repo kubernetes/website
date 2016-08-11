@@ -1,4 +1,8 @@
 ---
+assignees:
+- erictune
+- thockin
+
 ---
 
 Each container in a pod has its own image.  Currently, the only type of image supported is a [Docker Image](https://docs.docker.com/userguide/dockerimages/).
@@ -32,9 +36,6 @@ Credentials can be provided in several ways:
     - Per-cluster
     - automatically configured on Google Compute Engine or Google Container Engine
     - all pods can read the project's private registry
-  - Using AWS EC2 Container Registry (ECR)
-    - use IAM roles and policies to control access to ECR repositories
-    - automatically refreshes ECR login credentials
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
@@ -63,7 +64,7 @@ so it can pull from the project's GCR, but not push.
 ### Using AWS EC2 Container Registry
 
 Kubernetes has native support for the [AWS EC2 Container
-Registry](https://aws.amazon.com/ecr/), when nodes are AWS EC2 instances.
+Registry](https://aws.amazon.com/ecr/), when nodes are AWS instances.
 
 Simply use the full image name (e.g. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`)
 in the Pod definition.
@@ -81,13 +82,25 @@ The kubelet will fetch and periodically refresh ECR credentials.  It needs the f
 - `ecr:ListImages`
 - `ecr:BatchGetImage`
 
+Requirements:
+
+- You must be using kubelet version `v1.2.0` or newer.  (e.g. run `/usr/bin/kubelet --version=true`).
+- Your nodes must be in the same region as the registry you are using
+- ECR must be offered in your region
+
+Troubleshooting:
+
+- Verify all requirements above.
+- Get $REGION (e.g. `us-west-2`) credentials on your workstation. SSH into the host and run Docker manually with those creds. Does it work?
+- Verify kubelet is running with `--cloud-provider=aws`.
+- Check kubelet logs (e.g. `journalctl -t kubelet`) for log lines like:
+  - `plugins.go:56] Registering credential provider: aws-ecr-key`
+  - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
+
 ### Configuring Nodes to Authenticate to a Private Repository
 
 **Note:** if you are running on Google Container Engine (GKE), there will already be a `.dockercfg` on each node
 with credentials for Google Container Registry.  You cannot use this approach.
-
-**Note:** if you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
-manage and update the ECR login credentials. You cannot use this approach.
 
 **Note:** this approach is suitable if you can control node configuration.  It
 will not work reliably on GCE, and any other cloud provider that does automatic

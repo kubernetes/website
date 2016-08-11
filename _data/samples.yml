@@ -13,7 +13,7 @@ toc:
   - title: CephFS
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/cephfs/
   - title: GlusterFS
-    path: /https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/glusterfs/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/glusterfs/
   - title: Hazelcast
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/hazelcast
   - title: iSCSI
@@ -47,6 +47,8 @@ toc:
   section:
   - title: Meteor Applications
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/meteor/
+  - title: Elasticsearch
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/elasticsearch/
   - title: OpenShift Origin
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/openshift-origin/
   - title: Selenium
@@ -54,8 +56,8 @@ toc:
 
 - title: Monitoring and Logging
   section:
-  - title: Elasticsearch
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/elasticsearch/
+  - title: Elasticsearch/Kibana Logging Demonstration
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/logging-demo/
   - title: NewRelic
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/newrelic
 

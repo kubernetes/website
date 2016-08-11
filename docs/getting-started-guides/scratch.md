@@ -1,4 +1,9 @@
 ---
+assignees:
+- erictune
+- lavalamp
+- thockin
+
 ---
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
@@ -106,6 +111,7 @@ be active at once.  Note that you can grow the end of this range, but you
 cannot move it without disrupting the services and pods that already use it.
 
 Also, you need to pick a static IP for master node.
+
 - Call this `MASTER_IP`.
 - Open any firewalls to allow access to the apiserver ports 80 and/or 443.
 - Enable ipv4 forwarding sysctl, `net.ipv4.ip_forward = 1`
@@ -179,11 +185,11 @@ For etcd, you can:
 
 We recommend that you use the etcd version which is provided in the Kubernetes binary distribution.   The Kubernetes binaries in the release
 were tested extensively with this version of etcd and not with any other version.
-The recommended version number can also be found as the value of `ETCD_VERSION` in `kubernetes/cluster/images/etcd/Makefile`.
+The recommended version number can also be found as the value of `TAG` in `kubernetes/cluster/images/etcd/Makefile`.
 
 The remainder of the document assumes that the image identifiers have been chosen and stored in corresponding env vars.  Examples (replace with latest tags and appropriate registry):
 
-  - `HYPERKUBE_IMAGE==gcr.io/google_containers/hyperkube:$TAG`
+  - `HYPERKUBE_IMAGE=gcr.io/google_containers/hyperkube:$TAG`
   - `ETCD_IMAGE=gcr.io/google_containers/etcd:$ETCD_VERSION`
 
 ### Security Models
@@ -208,11 +214,10 @@ You need to prepare several certs:
 - The kubelets optionally need certs to identify themselves as clients of the master, and when
   serving its own API over HTTPS.
 
-Unless you plan to have a real CA generate your certs, you will need to generate a root cert and use that to sign the master, kubelet, and kubectl certs.
-
-- see function `create-certs` in `cluster/common.sh`
-- see also `cluster/saltbase/salt/generate-cert/make-ca-cert.sh` and
-  `cluster/saltbase/salt/generate-cert/make-cert.sh`
+Unless you plan to have a real CA generate your certs, you will need
+to generate a root cert and use that to sign the master, kubelet, and
+kubectl certs. How to do this is described in the [authentication
+documentation](/docs/admin/authentication/#creating-certificates).
 
 You will end up with the following files (we will use these variables later on)
 
@@ -280,7 +285,7 @@ users:
 clusters:
 - name: local
   cluster:
-    certificate-authority-data: ${CA_CERT_BASE64_ENCODED}
+    certificate-authority: /srv/kubernetes/ca.crt
 contexts:
 - context:
     cluster: local
@@ -394,10 +399,10 @@ kubelet.
 Arguments to consider:
 
   - If following the HTTPS security approach:
-    - `--master=https://$MASTER_IP`
+    - `--api-servers=https://$MASTER_IP`
     - `--kubeconfig=/var/lib/kube-proxy/kubeconfig`
   - Otherwise, if taking the firewall-based security approach
-    - `--master=http://$MASTER_IP`
+    - `--api-servers=http://$MASTER_IP`
 
 ### Networking
 
@@ -480,7 +485,7 @@ You will need to run one or more instances of etcd.
     by durable storage (RAID, GCE PD)
   - Alternative: run 3 or 5 etcd instances.
     - Log can be written to non-durable storage because storage is replicated.
-    - run a single apiserver which connects to one of the etcd nodes.
+    - run a single apiserver which connects to one of the etc nodes.
 
 See [cluster-troubleshooting](/docs/admin/cluster-troubleshooting) for more discussion on factors affecting cluster
 availability.
@@ -553,8 +558,10 @@ For each of these components, the steps to start them running are similar:
         ],
         "livenessProbe": {
           "httpGet": {
-            "path": "/healthz",
-            "port": 8080
+            "scheme": "HTTP",
+            "host": "127.0.0.1",
+            "port": 8080,
+            "path": "/healthz"
           },
           "initialDelaySeconds": 15,
           "timeoutSeconds": 15
@@ -600,6 +607,7 @@ If you are following the firewall-only security approach, then use these argumen
 - `--advertise-address=$MASTER_IP`
 
 If you are using the HTTPS approach, then set:
+
 - `--client-ca-file=/srv/kubernetes/ca.crt`
 - `--token-auth-file=/srv/kubernetes/known_tokens.csv`
 - `--basic-auth-file=/srv/kubernetes/basic_auth.csv`
@@ -661,9 +669,10 @@ Complete this template for the scheduler pod:
         ],
         "livenessProbe": {
           "httpGet": {
-            "host" : "127.0.0.1",
-            "path": "/healthz",
-            "port": 10251
+            "scheme": "HTTP",
+            "host": "127.0.0.1",
+            "port": 10251,
+            "path": "/healthz"
           },
           "initialDelaySeconds": 15,
           "timeoutSeconds": 15
@@ -716,9 +725,10 @@ Template for controller manager pod:
         ],
         "livenessProbe": {
           "httpGet": {
+            "scheme": "HTTP",
             "host": "127.0.0.1",
-            "path": "/healthz",
-            "port": 10252
+            "port": 10252,
+            "path": "/healthz"
           },
           "initialDelaySeconds": 15,
           "timeoutSeconds": 15
@@ -836,7 +846,7 @@ pinging or SSH-ing from one node to another.
 ### Getting Help
 
 If you run into trouble, please see the section on [troubleshooting](/docs/getting-started-guides/gce#troubleshooting), post to the
-[google-containers group](https://groups.google.com/forum/#!forum/google-containers), or come ask questions on [Slack](/docs/troubleshooting#slack).
+[kubernetes-users group](https://groups.google.com/forum/#!forum/kubernetes-users), or come ask questions on [Slack](/docs/troubleshooting#slack).
 
 ## Support Level
 

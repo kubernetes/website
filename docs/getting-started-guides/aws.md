@@ -1,4 +1,8 @@
 ---
+assignees:
+- justinsb
+- lavalamp
+
 ---
 
 * TOC
@@ -129,10 +133,6 @@ See [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new 
 The "Guestbook" application is another popular example to get started with Kubernetes: [guestbook example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/)
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/)
-
-## Scaling the cluster
-
-Adding and removing nodes through `kubectl` is not supported. You can still scale the amount of nodes manually through adjustments of the 'Desired' and 'Max' properties within the [Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html), which was created during the installation.
 
 ## Tearing down the cluster
 

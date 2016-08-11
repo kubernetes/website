@@ -1,4 +1,9 @@
 ---
+assignees:
+- bgrant0607
+- erictune
+- lavalamp
+
 ---
 
 This document describes how access to the Kubernetes API is controlled.
@@ -34,7 +39,7 @@ one or more Authenticator Modules.
 Authenticators are described in more detail [here](/docs/admin/authentication/).
 
 The input to the authentication step is the entire HTTP request, however, it typically
-just examines the headers and/or or client certificate.
+just examines the headers and/or client certificate.
 
 Authentication modules include Client Certificates, Password, and Plain Tokens,
 and JWT Tokens (used for service accounts).

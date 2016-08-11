@@ -1,4 +1,8 @@
 ---
+assignees:
+- bgrant0607
+- janetkuo
+
 ---
 
 * TOC
@@ -73,6 +77,8 @@ nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app
 ```
 
 The created Replica Set will ensure that there are three nginx Pods at all times.
+
+**Note:** You must specify appropriate selector and pod template labels of a Deployment (in this case, `app = nginx`), i.e. don't overlap with other controllers (including Deployments, Replica Sets, Replication Controllers, etc.) Kubernetes won't stop you from doing that, and if you end up with multiple controllers that have overlapping selectors, those controllers will fight with each others and won't behave correctly.
 
 ## The Status of a Deployment
 
@@ -384,11 +390,6 @@ Events:
   29m       2m          2       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-1564180365 to 3
 ```
 
-### Clean up Policy
-
-You can set `.spec.revisionHistoryLimit` field to specify how much revision history of this deployment you want to keep. By default, 
-all revision history will be kept; explicitly setting this field to `0` disallows a deployment being rolled back. 
-
 ## Pausing and Resuming a Deployment 
 
 You can also pause a Deployment mid-way and then resume it. A use case is to support canary deployment. 
@@ -495,6 +496,10 @@ template is different than `.spec.template` or if the total number of such Pods
 exceeds `.spec.replicas`. It will bring up new Pods with `.spec.template` if
 number of Pods are less than the desired number.
 
+Note that you should not create other pods whose labels match this selector, either directly, via another Deployment or via another controller such as Replica Sets or Replication Controllers. Otherwise, the Deployment will think that those pods were created by it. Kubernetes will not stop you from doing this.
+
+If you have multiple controllers that have overlapping selectors, the controllers will fight with each others and won't behave correctly.
+
 ### Strategy
 
 `.spec.strategy` specifies the strategy used to replace old Pods by new ones.
@@ -563,12 +568,7 @@ To learn more about when a Pod is considered ready, see [Container Probes](/docs
 
 ### Revision History Limit
 
-A deployment's revision history is stored in the replica sets it controls. 
-
-`.spec.revisionHistoryLimit` is an optional field that specifies the number of old Replica Sets to retain to allow rollback. Its ideal value depends on the frequency and stability of new deployments. All old Replica Sets will be kept by default, consuming resources in `etcd` and crowding the output of `kubectl get rs`, if this field is not set. The configuration of each Deployment revision is stored in its Replica Sets; therefore, once an old Replica Set is deleted, you lose the ability to rollback to that revision of Deployment. 
-
-More specifically, setting this field to zero means that all old replica sets with 0 replica will be cleaned up. 
-In this case, a new deployment rollout cannot be undone, since its revision history is cleaned up.
+`.spec.revisionHistoryLimit` is an optional field that specifies the number of old Replica Sets to retain to allow rollback. All old Replica Sets will be kept by default, if this field is not set. The configuration of each Deployment revision is stored in its Replica Sets; therefore, once an old Replica Set is deleted, you lose the ability to rollback to that revision of Deployment. 
 
 ### Paused
 

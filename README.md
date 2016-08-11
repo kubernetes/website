@@ -34,12 +34,19 @@ on a lightweight webserver that runs on your local machine.
 
 This will typically be the fastest way (by far) to iterate on docs changes and see them staged, once you get this set up, but it does involve several install steps that take awhile to complete, and makes system-wide modifications.
 
-Install Ruby 2.2 or higher. If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). If you're on Linux, run these commands:
+Install Ruby 2.2 or higher. If you're on Linux, run these commands:
 
     apt-get install software-properties-common
     apt-add-repository ppa:brightbox/ruby-ng
     apt-get install ruby2.2
     apt-get install ruby2.2-dev
+
+* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). 
+* If you're on a Windows machine you can use the [Ruby Installer](http://rubyinstaller.org/downloads/). During the installation make sure to check the option for *Add Ruby executables to your PATH*.
+
+The remainder of the steps should work the same across operating systems.
+
+To confirm you've installed Ruby correctly, at the command prompt run `gem --version` and you should get a response with your version number. Likewise you can confirm you have Git installed properly by running `git --version`, which will respond with your version of Git.
 
 Install the GitHub Pages package, which includes Jekyll:
 
@@ -57,8 +64,6 @@ Make any changes you want. Then, to see your changes locally:
 Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
 (or wherever Jekyll tells you).
 
-The above instructions work on Mac and Linux.
-[These instructions](https://martinbuberl.com/blog/setup-jekyll-on-windows-and-host-it-on-github-pages/) are for Windows users.
 
 ## GitHub help
 
@@ -148,7 +153,7 @@ http://kubernetes-v1-3.github.io/
 Editing of these branches will kick off a build using Travis CI that auto-updates these URLs; you can monitor the build progress at [https://travis-ci.org/kubernetes/kubernetes.github.io](https://travis-ci.org/kubernetes/kubernetes.github.io).
 
 ## Partners
-Kubernetes partners refers to the companies who contribute to the Kubernetes core codebase and/or extend their platform to support Kubernetes. Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
+Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
 
 * The partner product logo should be a transparent png image centered in a 215x125 px frame. (look at the existing logos for reference)
 * The logo must link to a URL that is specific to integrating with Kubernetes, hosted on the partner's site.

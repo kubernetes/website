@@ -1,4 +1,8 @@
 ---
+assignees:
+- eparis
+- mikedanese
+
 ---
 
 ## Kubectl CLI and Pods
@@ -56,7 +60,7 @@ On most providers, the pod IPs are not externally accessible. The easiest way to
 Provided the pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
 
 ```shell{% raw %}
-$ kubectl run busybox --image=busybox --restart=Never --tty -i --generator=run-pod/v1 --env "POD_IP=$(kubectl get pod nginx -o go-template='{{.status.podIP}}')"
+$ kubectl run busybox --image=busybox --restart=Never --tty -i --generator=run-pod/v1 --env "POD_IP=$(kubectl get pod nginx -o go-template={{.status.podIP}})"
 u@busybox$ wget -qO- http://$POD_IP # Run in the busybox container
 u@busybox$ exit # Exit the busybox container
 $ kubectl delete pod busybox # Clean up the pod we created with "kubectl run"

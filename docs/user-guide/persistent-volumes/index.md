@@ -1,4 +1,10 @@
 ---
+assignees:
+- jsafrane
+- mikedanese
+- saad-ali
+- thockin
+
 ---
 
 This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](/docs/user-guide/volumes/) is suggested.
@@ -51,10 +57,15 @@ The reclaim policy for a `PersistentVolume` tells the cluster what to do with th
 
 * GCEPersistentDisk
 * AWSElasticBlockStore
+* AzureFile
+* FC (Fibre Channel)
 * NFS
 * iSCSI
 * RBD (Ceph Block Device)
+* CephFS
+* Cinder (OpenStack block storage)
 * Glusterfs
+* VsphereVolume
 * HostPath (single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
 
 
@@ -86,7 +97,7 @@ Currently, storage size is the only resource that can be set or requested.  Futu
 
 ### Access Modes
 
-A `PersistentVolume` can be mounted on a host in any way supported by the resource provider.  Providers will have different capabilities and each PV's access modes are set to the specific modes supported by that particular volume.  For example, NFS can support multiple read/write clients, but a specific NFS PV might be exported on the server as read-only.  Each PV gets its own set of access modes describing that specific PV's capabilities.
+A `PersistentVolume` can be mounted on a host in any way supported by the resource provider.  As shown in the table below, providers will have different capabilities and each PV's access modes are set to the specific modes supported by that particular volume.  For example, NFS can support multiple read/write clients, but a specific NFS PV might be exported on the server as read-only.  Each PV gets its own set of access modes describing that specific PV's capabilities.
 
 The access modes are:
 
@@ -101,6 +112,23 @@ In the CLI, the access modes are abbreviated to:
 * RWX - ReadWriteMany
 
 > __Important!__ A volume can only be mounted using one access mode at a time, even if it supports many.  For example, a GCEPersistentDisk can be mounted as ReadWriteOnce by a single node or ReadOnlyMany by many nodes, but not at the same time.
+
+
+| Volume Plugin        | ReadWriteOnce| ReadOnlyMany| ReadWriteMany|
+| :---                 |     :---:    |    :---:    |    :---:     |
+| AWSElasticBlockStore | x            | -           | -            |
+| AzureFile            | x            | x           | x            |
+| CephFS               | x            | x           | x            |
+| Cinder               | x            | -           | -            |
+| FC                   | x            | x           | -            |
+| FlexVolume           | x            | x           | -            |
+| GCEPersistentDisk    | x            | x           | -            |
+| Glusterfs            | x            | x           | x            |
+| HostPath             | x            | -           | -            |
+| iSCSI                | x            | x           | -            |
+| NFS                  | x            | x           | x            |
+| RDB                  | x            | x           | -            |
+| VsphereVolume        | x            | -           | -            |
 
 
 ### Recycling Policy
@@ -139,11 +167,6 @@ spec:
   resources:
     requests:
       storage: 8Gi
-  selector:
-    matchLabels:
-      release: "stable"
-    matchExpressions:
-      - {key: environment, operator: In, values: [dev]}
 ```
 
 ### Access Modes
@@ -153,15 +176,6 @@ Claims use the same conventions as volumes when requesting storage with specific
 ### Resources
 
 Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resources.md) applies to both volumes and claims.
-
-### Selector
-
-Claims can specify a [label selector](/docs/user-guide/labels/#label-selectors) to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim. The selector can consist of two fields:
-
-* matchLabels - the volume must have a label with this value
-* matchExpressions - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
-
-All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together – they must all be satisfied in order to match.
 
 ## Claims As Volumes
 

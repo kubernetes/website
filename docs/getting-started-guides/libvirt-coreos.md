@@ -1,4 +1,8 @@
 ---
+assignees:
+- erictune
+- idvoretskyi
+
 ---
 
 * TOC
@@ -280,10 +284,8 @@ Start the libvirt daemon
 On Arch:
 
 ```shell
-systemctl start libvirtd virtlogd.socket
+systemctl start libvirtd
 ```
-
-The `virtlogd.socket` is not started with the libvirtd daemon. If you enable the `libvirtd.service` it is linked and started automatically on the next boot.
 
 On Ubuntu 14.04:
 
