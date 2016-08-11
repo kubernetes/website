@@ -1,4 +1,5 @@
 ---
+
 ---
 
 JSONPath template is composed of JSONPath expressions enclosed by {}.

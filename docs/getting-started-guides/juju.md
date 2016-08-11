@@ -1,4 +1,8 @@
 ---
+assignees:
+- caesarxuchao
+- erictune
+
 ---
 
 [Juju](https://jujucharms.com/docs/stable/about-juju) makes it easy to deploy

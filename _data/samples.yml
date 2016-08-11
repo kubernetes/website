@@ -13,7 +13,7 @@ toc:
   - title: CephFS
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/cephfs/
   - title: GlusterFS
-    path: /https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/glusterfs/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/glusterfs/
   - title: Hazelcast
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/hazelcast
   - title: iSCSI

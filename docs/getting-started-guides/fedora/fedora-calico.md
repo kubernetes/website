@@ -1,4 +1,7 @@
 ---
+assignees:
+- caesarxuchao
+
 ---
 
 This guide will walk you through the process of getting a Kubernetes Fedora cluster running on Digital Ocean with networking powered by Calico networking.

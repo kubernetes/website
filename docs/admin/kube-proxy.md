@@ -1,4 +1,7 @@
 ---
+assignees:
+- thockin
+
 ---
 
 ## kube-proxy
