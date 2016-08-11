@@ -1,12 +1,22 @@
-git clone https://github.com/kubernetes/kubernetes.git k8s
+#!/bin/bash
+
+set -x
+
+VERSION=1.3
+
+git clone --depth=1 https://github.com/kubernetes/kubernetes.git k8s
 cd k8s
-git checkout release-1.2
+git remote add upstream https://github.com/kubernetes/kubernetes.git
+git fetch upstream
+git checkout release-$VERSION
+hack/generate-docs.sh
+hack/update-generated-swagger-docs.sh
+build/versionize-docs.sh release-$VERSION
 cd ..
 
-rm -rf _includes/v1.2
-mkdir _includes/v1.2
 
-unalias cp
+rm -rf _includes/v$VERSION
+mkdir _includes/v$VERSION
 
 # batch fetches
 while read line || [[ -n ${line} ]]; do
@@ -39,12 +49,12 @@ while read line || [[ -n ${line} ]]; do
 done <_data/overrides.yml
 
 # refdoc munging
-cd _includes/v1.2
-find . -name '*.html' -type f -exec sed -i '' '/<style>/,/<\/style>/d' {} \;
-find . -name '*.html' -print0 | xargs -0 sed -i '' -e 's/http:\/\/kubernetes.io\/v1.2//g'
+cd _includes/v$VERSION
+find . -name '*.html' -type f -exec sed -i -e '/<style>/,/<\/style>/d' {} \;
+find . -name '*.html' -type f -exec sed -i -e "s/http:\/\/kubernetes.io\/v$VERSION//g" {} \;
 cd ..
 cd ..
 
 rm -rf k8s
- 
+
 echo "Docs imported! Run 'git add .' 'git commit -m <comment>' and 'git push' to upload them"
