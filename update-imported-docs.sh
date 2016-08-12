@@ -5,13 +5,13 @@
 
 VERSION=1.3
 
-#git clone --depth=1 -b release-$VERSION https://github.com/kubernetes/kubernetes.git k8s
+git clone --depth=1 -b release-$VERSION https://github.com/kubernetes/kubernetes.git k8s
 cd k8s
-#git remote add upstream https://github.com/kubernetes/kubernetes.git
-#git fetch upstream
-#hack/generate-docs.sh
-#hack/update-generated-swagger-docs.sh
-#build/versionize-docs.sh release-$VERSION
+git remote add upstream https://github.com/kubernetes/kubernetes.git
+git fetch upstream
+hack/generate-docs.sh
+hack/update-generated-swagger-docs.sh
+build/versionize-docs.sh release-$VERSION
 cd ..
 
 rm -rf _includes/v$VERSION
@@ -105,6 +105,6 @@ cd docs/admin
   done
 popd
 
-#rm -rf k8s
+rm -rf k8s
 
 echo "Docs imported! Run 'git add .' 'git commit -m <comment>' and 'git push' to upload them"
