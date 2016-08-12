@@ -1,17 +1,40 @@
 ---
 ---
 
-## kubectl api-versions
+## kubectl completion
 
-Print the supported API versions on the server, in the form of "group/version".
+Output shell completion code for the given shell (bash or zsh)
 
 ### Synopsis
 
 
-Print the supported API versions on the server, in the form of "group/version".
+Output shell completion code for the given shell (bash or zsh).
+
+This command prints shell code which must be evaluation to provide interactive
+completion of kubectl commands.
+
 
 ```
-kubectl api-versions
+kubectl completion SHELL
+```
+
+### Examples
+
+```
+
+$ source <(kubectl completion bash)
+
+will load the kubectl completion code for bash. Note that this depends on the bash-completion
+framework. It must be sourced before sourcing the kubectl completion, i.e. on the Mac:
+
+$ brew install bash-completion
+$ source $(brew --prefix)/etc/bash_completion
+$ source <(kubectl completion bash)
+
+If you use zsh, the following will load kubectl zsh completion:
+
+$ source <(kubectl completion zsh)
+
 ```
 
 ### Options inherited from parent commands
@@ -53,5 +76,5 @@ kubectl api-versions
 
 
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_api-versions.md?pixel)]()
+[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_completion.md?pixel)]()
 <!-- END MUNGE: GENERATED_ANALYTICS -->
