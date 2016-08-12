@@ -447,7 +447,7 @@ More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{
 
 ### vsphereVolume
 
-A `VSphereVirtualDisk` is used to mount a vSphere VMDK Volume into your Pod.  The contents
+A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
 of a volume are preserved when it is unmounted.
 
 __Important: You must create a VMDK volume using `vmware-vdiskmanager -c` or
