@@ -1,58 +1,54 @@
 ---
 ---
 
-## kubectl create secret docker-registry
+## kubectl set image
 
-Create a secret for use with a Docker registry.
+Update image of a pod template
 
 ### Synopsis
 
 
+Update existing container image(s) of resources.
 
-Create a new secret for use with Docker registries.
-
-Dockercfg secrets are used to authenticate against Docker registries.
-
-When using the Docker command line to push images, you can authenticate to a given registry by running
-  'docker login DOCKER_REGISTRY_SERVER --username=DOCKER_USER --password=DOCKER_PASSWORD --email=DOCKER_EMAIL'.
-That produces a ~/.dockercfg file that is used by subsequent 'docker push' and 'docker pull' commands to
-authenticate to the registry.
-
-When creating applications, you may have a Docker registry that requires authentication.  In order for the
-nodes to pull images on your behalf, they have to have the credentials.  You can provide this information
-by creating a dockercfg secret and attaching it to your service account.
+Possible resources include (case insensitive):
+  pod (po), replicationcontroller (rc), deployment, daemonset (ds), job, replicaset (rs)
 
 ```
-kubectl create secret docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-literal=key1=value1] [--dry-run]
+kubectl set image (-f FILENAME | TYPE NAME) CONTAINER_NAME_1=CONTAINER_IMAGE_1 ... CONTAINER_NAME_N=CONTAINER_IMAGE_N
 ```
 
 ### Examples
 
 ```
-  # If you don't already have a .dockercfg file, you can create a dockercfg secret directly by using:
-  kubectl create secret docker-registry my-secret --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
+# Set a deployment's nginx container image to 'nginx:1.9.1', and its busybox container image to 'busybox'.
+kubectl set image deployment/nginx busybox=busybox nginx=nginx:1.9.1
+
+# Update all deployments' and rc's nginx container's image to 'nginx:1.9.1'
+kubectl set image deployments,rc nginx=nginx:1.9.1 --all
+
+# Update image of all containers of daemonset abc to 'nginx:1.9.1'
+kubectl set image daemonset abc *=nginx:1.9.1
+
+# Print result (in yaml format) of updating nginx container image from local file, without hitting the server 
+kubectl set image -f path/to/file.yaml nginx=nginx:1.9.1 --local -o yaml
 ```
 
 ### Options
 
 ```
-      --docker-email="": Email for Docker registry
-      --docker-password="": Password for Docker registry authentication
-      --docker-server="https://index.docker.io/v1/": Server location for Docker registry
-      --docker-username="": Username for Docker registry authentication
-      --dry-run[=false]: If true, only print the object that would be sent, without sending it.
-      --generator="secret-for-docker-registry/v1": The name of the API generator to use.
-      --include-extended-apis[=true]: If true, include definitions of new APIs via calls to the API server. [default true]
+      --all[=false]: select all resources in the namespace of the specified resource types
+  -f, --filename=[]: Filename, directory, or URL to a file identifying the resource to get from a server.
+      --local[=false]: If true, set image will NOT contact api-server but run locally.
       --no-headers[=false]: When using the default output, don't print headers.
   -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.3/docs/user-guide/jsonpath.md].
       --output-version="": Output the formatted object with the given group version (for ex: 'extensions/v1beta1').
-      --save-config[=false]: If true, the configuration of current object will be saved in its annotation. This is useful when you want to perform kubectl apply on this object in the future.
-      --schema-cache-dir="~/.kube/schema": If non-empty, load/store cached API schemas in this directory, default is '$HOME/.kube/schema'
+      --record[=false]: Record current kubectl command in the resource annotation.
+  -R, --recursive[=false]: Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
+  -l, --selector="": Selector (label query) to filter on
   -a, --show-all[=false]: When printing, show all resources (default hide terminated pods.)
       --show-labels[=false]: When printing, show all labels as the last column (default hide labels column)
       --sort-by="": If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
       --template="": Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
-      --validate[=true]: If true, use a schema to validate the input before sending it
 ```
 
 ### Options inherited from parent commands
@@ -85,7 +81,7 @@ kubectl create secret docker-registry NAME --docker-username=user --docker-passw
 
 ### SEE ALSO
 
-* [kubectl create secret](kubectl_create_secret.md)	 - Create a secret using specified subcommand.
+* [kubectl set](kubectl_set.md)	 - Set specific features on objects
 
 ###### Auto generated by spf13/cobra on 12-Aug-2016
 
@@ -94,5 +90,5 @@ kubectl create secret docker-registry NAME --docker-username=user --docker-passw
 
 
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
-[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_create_secret_docker-registry.md?pixel)]()
+[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_set_image.md?pixel)]()
 <!-- END MUNGE: GENERATED_ANALYTICS -->
