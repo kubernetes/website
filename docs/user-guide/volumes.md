@@ -478,7 +478,7 @@ spec:
   volumes:
   - name: test-volume
     # This VMDK volume must already exist.
-    vsphereVirtualDisk:
+    vsphereVolume:
       volumePath: myDisk
       fsType: ext4
 ```
