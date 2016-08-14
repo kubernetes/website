@@ -288,7 +288,7 @@ $ kubectl get pv
 If you simply want to clean everything:
 
 ```shell{% raw %}
-$ grace=$(k get po web-0 --template '{{.spec.terminationGracePeriodSeconds}}')
+$ grace=$(kubectl get po web-0 --template '{{.spec.terminationGracePeriodSeconds}}')
 $ kubectl delete petset,po -l app=nginx
 $ sleep $grace
 $ kubectl delete pvc -l app=nginx
