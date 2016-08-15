@@ -61,7 +61,7 @@ interest. For example, people new to Kubernetes may also want to join the
 
 ### Mailing List
 
-The Google Container Engine mailing list is [google-containers@googlegroups.com](https://groups.google.com/forum/#!forum/google-containers)
+The Kubernetes / Google Container Engine mailing list is [kubernetes-users@googlegroups.com](https://groups.google.com/forum/#!forum/kubernetes-users)
 
 ### Bugs and Feature requests
 
