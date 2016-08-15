@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kubernetes/kubernetes.github.io.svg?branch=master)](https://travis-ci.org/kubernetes/kubernetes.github.io)
+
 ## Instructions for Contributing to the Docs/Website
 
 Welcome! We are very pleased you want to contribute to the documentation and/or website for Kubernetes.
