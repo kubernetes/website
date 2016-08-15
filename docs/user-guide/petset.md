@@ -252,6 +252,22 @@ You can scale a Pet Set by updating the "replicas" field. Note however that the 
 1. Create one pet at a time, in order from {0..N-1}, and wait till each one is in [Running and Ready](/docs/user-guide/pod-states) before creating the next
 2. Delete one pet at a time, in reverse order from {N-1..0}, and wait till each one is completely shutdown (past its [terminationGracePeriodSeconds](/docs/user-guide/pods/index#termination-of-pods)) before deleting the next
 
+```shell
+$ kubectl get po
+NAME     READY     STATUS    RESTARTS   AGE
+web-0    1/1       Running   0          30s
+web-1    1/1       Running   0          36s
+
+$ kubectl patch petset web -p '{"spec":{"replicas":3}}'
+"web" patched
+
+$ kubectl get po
+NAME     READY     STATUS    RESTARTS   AGE
+web-0    1/1       Running   0          40s
+web-1    1/1       Running   0          46s
+web-2    1/1       Running   0          8s
+```
+
 ## Deleting a Pet Set
 
 Cleaning up a Pet Set is somewhat manual, as noted in the [limitations section](#alpha-limitations). You can delete a Pet Set using Kubectl, but this will *not* scale it down to 0:
