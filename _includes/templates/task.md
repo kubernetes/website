@@ -5,48 +5,57 @@
 {% include templates/_errorthrower.md missing_block='concept_rankings' tagsblock='true' purpose='provides a list of associated concepts that pertain to this topic.' tagname='concept' tieroneexample='pod' tiertwoexample='container'%}
 {% endif %}
 
-{% if purpose %}
+{% if overview %}
 
-## Purpose
-
-{{ purpose }}
+{{ overview }}
 
 {% else %}
 
-{% include templates/_errorthrower.md missing_block='purpose' heading='Purpose' purpose='states, in one sentence, what the purpose of this document is, so that the user will know what they are able to achieve if they follow the provided steps.' %}
-
-{% endif %}
-
-{% if recommended_background %}
-
-## Recommended background
-
-{{ recommended_background }}
-
-{% else %}
-
-{% include templates/_errorthrower.md missing_block='recommended_background' heading='Recommended background' purpose='lists assumptions of baseline knowledge that you expect the user to have before reading ahead.' %}
+{% include templates/_errorthrower.md missing_block='overview' purpose='states, in one or two sentences, the purpose of this document' %}
 
 {% endif %}
 
 
-{% if step_by_step %}
+{% if prerequisites %}
 
-## Step by step
+### Before you begin
 
-{{ step_by_step }}
+{{ prerequisites }}
 
 {% else %}
 
-{% include templates/_errorthrower.md missing_block='step_by_step' heading='Step by step' purpose='lists a series of linear, numbered steps that accomplish the described task.' %}
+{% include templates/_errorthrower.md missing_block='prerequisites' heading='Before you begin' purpose='lists action prerequisites and knowledge prerequisites' %}
 
 {% endif %}
 
-{% if options_and_considerations %}
 
-## Options and considerations
+{% if steps %}
 
-{{ options_and_considerations }}
+### Steps
+
+{{ steps }}
+
+{% else %}
+
+{% include templates/_errorthrower.md missing_block='steps' heading='Steps' purpose='lists a sequence of numbered steps that accomplish the task.' %}
+
+{% endif %}
+
+
+{% if discussion %}
+
+{{ discussion }}
+
+{% else %}
+
+{% endif %}
+
+
+{% if whats_next %}
+
+### What's next
+
+{{ whats_next }}
 
 {% endif %}
 

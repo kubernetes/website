@@ -16,11 +16,12 @@ concept_rankings:
 - concept: daemonset
   rank: 1
 ---
-{% capture purpose %}
+
+{% capture overview %}
 This document explains how to configure container restart behavior in your pod in the event of failures.
 {% endcapture %}
 
-{% capture recommended_background %}
+{% capture prerequisites %}
 It is recommended you are familiar with the following concepts before continuing.
 
 - [Pods](/docs/pod/)
@@ -28,7 +29,7 @@ It is recommended you are familiar with the following concepts before continuing
 
 {% endcapture %}
 
-{% capture step_by_step %}
+{% capture steps %}
 #### 1: Deciding on a restart strategy
 
 The recommended restart behavior depends on the kind of controller that is running your pods:
@@ -51,7 +52,7 @@ pod definition.
 | `restartPolicy` value | Description |
 |-----------------------|-------------|
 | `Always` | Will restart container any time it exits. |
-| `OnFailure` | Will restart container if any process exits with a non-zero exit code. | 
+| `OnFailure` | Will restart container if any process exits with a non-zero exit code. |
 | `Never` | Will never restart the container. |
 
 `restartPolicy` applies to all containers in the pod. If `restartPolicy` is not set, the default value is `Always`.
