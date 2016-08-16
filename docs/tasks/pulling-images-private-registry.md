@@ -17,12 +17,13 @@ command_rankings:
 - command: kubectl create secret
   rank: 1
 ---
-{% capture purpose %}
+
+{% capture overview %}
 This document explains how to pull images from a private container registry and run them inside a pod.
 
-TODOs: Get GCR and EC2 auth instructions from here: 
+<!-- TODOs: Get GCR and EC2 auth instructions from here:
 http://kubernetes.io/docs/user-guide/images/#using-a-private-registry
-Then show these generic instructions:
+Then show these generic instructions:-->
 {% endcapture %}
 
 {% capture recommended_background %}
@@ -33,7 +34,15 @@ It is recommended you are familiar with the following concepts before continuing
 
 {% endcapture %}
 
-{% capture step_by_step %}
+
+{% capture prerequisites %}
+<!-- TODO: Improve these prerequisites. -->
+1. Create a project.
+1. Create a cluster.
+{% endcapture %}
+
+
+{% capture steps %}
 #### 1: Obtaining access to a private registry
 
 Use a secret to store your image registry credentials

@@ -11,7 +11,7 @@ concept_rankings:
   rank: 2
 ---
 
-{% capture purpose %}
+{% capture overview %}
 This document explains how to configure Pods to receive requests only after
 they pass *Readiness Checks*.
 
@@ -27,7 +27,7 @@ Services will not send requests to the Container until the Readiness Checks
 succeed.
 {% endcapture %}
 
-{% capture recommended_background %}
+{% capture prerequisites %}
 It is recommended you are familiar with the following concepts before continuing.
 
 - [Pods](/docs/pod/)
@@ -35,7 +35,7 @@ It is recommended you are familiar with the following concepts before continuing
 - [Services](/docs/service/)
 {% endcapture %}
 
-{% capture step_by_step %}
+{% capture steps %}
 #### Option A: Define an Http Get request
 
 Add `pod.containers.readinessProbe.httpGet` with a URL and port that returns
@@ -60,7 +60,7 @@ on *Ready* and is not opened on *NotReady*:
 
 {% endcapture %}
 
-{% capture options_and_considerations %}
+{% capture discussion %}
 
 - `ReadinessProbe`s only prevent Services from sending traffic to the Pod,
 and do not prevent requests from being sent directly to the Pod IP address

@@ -13,7 +13,7 @@ concept_rankings:
   rank: 2
 ---
 
-{% capture purpose %}
+{% capture overview %}
 This document explains how to configure Pods to kill and restart
 Containers whose Applications are unhealthy.
 
@@ -28,14 +28,14 @@ the Application becomes unhealthy, that the Container is killed and restarted
 
 {% endcapture %}
 
-{% capture recommended_background %}
+{% capture prerequisites %}
 It is recommended you are familiar with the following concepts before continuing.
 
 - [Pods](/docs/pod/)
 - [Containers](/docs/container/)
 {% endcapture %}
 
-{% capture step_by_step %}
+{% capture steps %}
 ### Step 1: Set an appropriate value for the Container `RestartPolicy`
 
 The `LivenessProbe` is responsible only for killing the running Container,
@@ -90,7 +90,7 @@ successfully.
 
 {% endcapture %}
 
-{% capture options_and_considerations %}
+{% capture discussion %}
 - When running the examples you can see the container restart count using
 
 ```shell

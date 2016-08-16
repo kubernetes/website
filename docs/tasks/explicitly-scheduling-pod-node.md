@@ -15,13 +15,14 @@ command_rankings:
 - command: kubectl get
   rank: 2
 ---
-{% capture purpose %}
-This document explains how to ensure that a pod is running on a desired node. 
 
-**Note:** Generally this is unnecessary, as the scheduler will take care of things for you, but you may want to do so in certain circumstances. For example: you may wish to ensure that your pod ends up on a node using an SSD. 
+{% capture overview %}
+This document explains how to ensure that a pod is running on a desired node.
+
+**Note:** Generally this is unnecessary, as the scheduler will take care of things for you, but you may want to do so in certain circumstances. For example: you may wish to ensure that your pod ends up on a node using an SSD.
 {% endcapture %}
 
-{% capture recommended_background %}
+{% capture prerequisites %}
 It is recommended you are familiar with the following concepts before continuing.
 
 - [Pods](/docs/pod/)
@@ -29,7 +30,7 @@ It is recommended you are familiar with the following concepts before continuing
 
 {% endcapture %}
 
-{% capture step_by_step %}
+{% capture steps %}
 ### 1: Attach label to the node
 
 Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the one that you want to add a label to.
@@ -75,6 +76,10 @@ with a standard set of labels. As of Kubernetes v1.2 these labels are
 * `failure-domain.beta.kubernetes.io/region`
 * `beta.kubernetes.io/instance-type`
 
+{% endcapture %}
+
+
+{% capture discussion %}
 ### Conclusion
 
 While this example only covered one node, you can attach labels to as many nodes as you want. Then when you schedule a pod with a nodeSelector, it can be scheduled on any of the nodes that satisfy that nodeSelector. Be careful that it will match at least one node, however, because if it doesn't the pod won't be scheduled at all.
@@ -113,7 +118,7 @@ value is `another-annotation-value` should be preferred.
 You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
-to be scheduled onto a candidate node.  
+to be scheduled onto a candidate node.
 {% endcapture %}
 
 {% include templates/task.md %}
