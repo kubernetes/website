@@ -76,7 +76,7 @@ Kubernetes supports several types of Volumes:
    * `persistentVolumeClaim`
    * `downwardAPI`
    * `azureFileVolume`
-   * `vsphereVirtualDisk`
+   * `vsphereVolume`
 
 We welcome additional contributions.
 
@@ -445,9 +445,9 @@ into a Pod.
 
 More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_file/README.md)
 
-### vsphereVirtualDisk
+### vsphereVolume
 
-A `VSphereVirtualDisk` is used to mount a vSphere VMDK Volume into your Pod.  The contents
+A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
 of a volume are preserved when it is unmounted.
 
 __Important: You must create a VMDK volume using `vmware-vdiskmanager -c` or
@@ -478,7 +478,7 @@ spec:
   volumes:
   - name: test-volume
     # This VMDK volume must already exist.
-    vsphereVirtualDisk:
+    vsphereVolume:
       volumePath: myDisk
       fsType: ext4
 ```
