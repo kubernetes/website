@@ -12,9 +12,8 @@ command_rankings:
 - command: kubectl get
   rank: 1
 ---
-{% assign concept="Pod" %}
 
-{% capture what_is %}
+{% capture overview %}
 A pod is the vehicle for running containers in Kubernetes. A pod consists of:
 
 - One or more containers
@@ -28,7 +27,10 @@ Resources are shared amongst containers in the pod. Containers within a pod also
 
 {% endcapture %}
 
-{% capture when_to_use %}
+{% capture body %}
+
+## When to us a pod
+
 Pods are used any time you need a container to be run. However, they are rarely created by a user, and are instead automatically created by controllers such as jobs, replication controllers, deployments, daemon set. The following table describes the strategy each controller uses to create pods.
 
 
@@ -37,20 +39,21 @@ Pods are used any time you need a container to be run. However, they are rarely 
 | Deployment | For running pods as a continuous and healthy application |
 | Replication Controller | Used for the same purpose as Deployments (superseded Replication Controllers) |
 | Jobs | For running pods "to completion" (which are then shut down) |
-| Daemon Set | Mainly for performing operations on any nodes that match given parameters | 
+| Daemon Set | Mainly for performing operations on any nodes that match given parameters |
 
-{% endcapture %}
+## When not to use a pod
 
-{% capture when_not_to_use %}
 Do not use pods directly. Pods should always be managed by a controller.
-{% endcapture %}
 
-{% capture status %}
+## Obtaining pod status
+
 To retrieve the status of a pod, run the following command:
 
-```shell 
+```shell
 kubectl get pod <name>
 ```
+
+#### Possible status results
 
 | Return Value | Description |
 |--------------|-------------|
@@ -59,8 +62,7 @@ kubectl get pod <name>
 
 TODO: Link to refpage for `kubectl get pod`
 
-
-To get a full description of a pod, including past events, run the following command: 
+To get a full description of a pod, including past events, run the following command:
 
 ```shell
 kubectl describe pod <name>
@@ -68,25 +70,9 @@ kubectl describe pod <name>
 
 TODO: Link to refpage for `kubectl describe pod`
 
-#### Possible status results
-
-| Value | Description |
-|------------|----------------|
-| Deployment | For running pods as a continuous and healthy application |
-| Replication Controller | Used for the same purpose as Deployments (superseded Replication Controllers) |
-| Jobs | For running pods "to completion" (which are then shut down) |
-| Daemon Set | Mainly for performing operations on any nodes that match given parameters | 
-
-{% endcapture %}
-
-{% capture usage %}
-Pods are defined when configuring the controller of your choice. In controller specifications,
+Pods are defined when configuring the controller of your choice. In these controller specifications,
 the parts that define the contents of the pod are inside the `template:` section.
 
-```yaml
-YAML EXAMPLE HERE
-```
-
 {% endcapture %}
 
-{% include templates/concept-overview.md %}
+{% include templates/concept.md %}
