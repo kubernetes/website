@@ -50,7 +50,7 @@ export MASTER_SIZE=m3.medium
 export NODE_SIZE=m3.medium
 export AWS_S3_REGION=eu-west-1
 export AWS_S3_BUCKET=mycompany-kubernetes-artifacts
-export INSTANCE_PREFIX=k8s
+export KUBE_AWS_INSTANCE_PREFIX=k8s
 ...
 ```
 
