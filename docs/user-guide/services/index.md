@@ -171,7 +171,7 @@ will return a `CNAME` record with the value `my.database.example.com`. Accessing
 such a service works in the same way as others, with the only difference that
 the redirection happens at the DNS level and no proxying or forwarding occurs.
 Should you later decide to move your database into your cluster, you can start
-its pods and change the service `type`.
+its pods, add appropriate selectors or endpoints and change the service `type`.
 
 ## Virtual IPs and service proxies
 
