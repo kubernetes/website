@@ -3,6 +3,63 @@ abstract: "Abstract here"
 toc:
 - title: Tasks Overview
   path: /docs/tasks/
+
+- title: Running Applications with Kubernetes
+  section:
+  - title: Running a Java App
+    path: /docs/tasks/placeholder1/
+  - title: Running a Rails App
+    path: /docs/tasks/placeholder2/
+  - title: Capturing Logs Using Fluentd
+    path: /docs/tasks/placeholder3/
+
+- title: Accessing Applications Running in a Cluster
+  section:
+  - title: Via an HTTP Proxy
+    path: /docs/tasks/placeholder4/
+  - title: Via a Tunnel
+    path: /docs/tasks/placeholder5/
+  - title: Via an External Load Balancer
+    path: /docs/tasks/placeholder6/
+
+- title: Administering a Cluster
+  section:
+  - title: Configuring Centralized Logging for Pods
+    path: /docs/tasks/placeholder7/
+  - title: Assigning Pods to Nodes
+    path: /docs/tasks/placeholder8/
+  - title: Resizing a Cluster
+    path: /docs/tasks/placeholder9/
+  - title: Simulating Large Test Loads
+    path: /docs/tasks/placeholder10/
+  - title: Configuring Automatic Cluster Resizing
+    path: /docs/tasks/placeholder11/
+  - title: Configuring Resource Quotas by Namespace
+    path: /docs/tasks/placeholder12/
+  - title: Configuring Access Control Through Namespaces
+    path: /docs/tasks/placeholder13/
+  - title: Managing Cluster Access with kubeconfig
+    path: /docs/tasks/placeholder14/
+  - title: Statically Defining Pods on Nodes Without Using a DaemonSet
+    path: /docs/tasks/placeholder15/
+  - title: Upgrading a Cluster
+    path: /docs/tasks/placeholder16/
+  - title: Configuring Pod Garbage Collection
+    path: /docs/tasks/placeholder17/
+  - title: Maintaining Nodes
+    path: /docs/tasks/placeholder18/
+
+- title: Accessing the Kubernetes API
+  section:
+  - title: Managing Service Accounts
+    path: /docs/tasks/placeholder19/
+  - title: Using Admission Controllers
+    path: /docs/tasks/placeholder20/
+  - title: Using Authorization Plugins
+    path: /docs/tasks/placeholder21/
+  - title: Authenticating Users
+    path: /docs/tasks/placeholder22/
+
 - title: Tasks (WIP)
   section:
   - title: Explicitly Scheduling a Pod to a Node
