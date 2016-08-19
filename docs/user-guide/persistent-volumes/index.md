@@ -20,6 +20,19 @@ A `PersistentVolume` (PV) is a piece of networked storage in the cluster that ha
 
 A `PersistentVolumeClaim` (PVC) is a request for storage by a user.  It is similar to a pod.  Pods consume node resources and PVCs consume PV resources.  Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g, can be mounted once read/write or many times read-only).
 
+Administrators often need to offer and provision a variety of 
+`PersistentVolumes` that differ in more ways than just size and access modes, 
+and users should be able to choose from the offered volumes without having to 
+understand their technical properties. For these needs there is the 
+`StorageClass` resource.
+
+A `StorageClass` provides a way for administrators to describe the "classes" of
+ storage they offer. Different classes might map to quality-of-service levels, 
+or to backup policies, or to arbitrary policies determined by the cluster 
+administrators. Kubernetes itself is unopinionated about what classes 
+represent. This concept is sometimes called "profiles" in other storage 
+systems.
+
 Please see the [detailed walkthrough with working examples](/docs/user-guide/persistent-volumes/walkthrough/).
 
 
@@ -216,3 +229,106 @@ spec:
 ### A Note on Namespaces
 
 `PersistentVolumes` binds are exclusive, and since `PersistentVolumeClaims` are namespaced objects, mounting claims with "Many" modes (`ROX`, `RWX`) is only possible within one namespace.
+
+## StorageClasses
+
+Each `StorageClass` contains the fields `provisioner` and `parameters`, which 
+are used when a `PersistentVolume` belonging to a class needs to be dynamically
+ provisioned.
+
+The name of a `StorageClass` object is significant, and is how users can 
+request a particular class. Administrators set the name and other parameters 
+of a class, all of which are opaque to users, when first creating 
+`StorageClass` objects, and the objects cannot be updated once they are 
+created.
+
+```yaml
+kind: StorageClass
+apiVersion: extensions/v1beta1
+metadata:
+  name: standard
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+```
+
+### Provisioner
+Storage classes have a provisioner that determines what volume plugin is used 
+for provisioning PVs. This field must be specified. The available provisioner 
+types are `kubernetes.io/aws-ebs` and `kubernetes.io/gce-pd`.
+
+### Parameters
+Storage classes have parameters that describe volumes belonging to the storage 
+class. Different parameters may be accepted depending on the `provisioner`. For
+ example, the value `io1`, for the parameter `type`, and the parameter 
+`iopsPerGB` are specific to EBS. When a parameter is omitted, some default is 
+used.
+
+#### AWS
+
+```yaml
+kind: StorageClass
+apiVersion: extensions/v1beta1
+metadata:
+  name: slow
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: io1
+  zone: us-east-1d
+  iopsPerGB: "10"
+```
+
+* `type`: `io1`, `gp2`, `sc1`, `st1`. See AWS docs for details. Default: `gp2`. 
+* `zone`: AWS zone. If not specified, a random zone in the same region as 
+controller-manager will be chosen.
+* `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS 
+volume plugin multiplies this with size of requested volume to compute IOPS of 
+the volume and caps it at 20 000 IOPS (maximum supported by AWS, see AWS docs).
+
+#### GCE
+
+```yaml
+kind: StorageClass
+apiVersion: extensions/v1beta1
+metadata:
+  name: slow
+provisionerType: kubernetes.io/gce-pd
+provisionerParameters:
+  type: pd-standard
+  zone: us-central1-a
+```
+
+* `type`: `pd-standard` or `pd-ssd`. Default: `pd-ssd`
+* `zone`: GCE zone. If not specified, a random zone in the same region as 
+controller-manager will be chosen.
+
+## Requesting a StorageClass
+
+Users request a particular `StorageClass`, i.e. a `PersistentVolume` that 
+belongs to and has the characteristics described by the `StorageClass`, by 
+specifying the name of the class in their `PersistentVolumeClaim` using the 
+annotation `volume.beta.kubernetes.io/storage-class`. Only a PV of the 
+requested class, one with the same annotation as the PVC, can then be bound to 
+the PVC.
+
+```yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: myclaim
+  annotations:
+    "volume.beta.kubernetes.io/storage-class": "slow"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+If a PV of the requested class is not found, a new one will be provisioned 
+using the `StorageClass`.
+
+When a PVC specifies a `LabelSelector` in addition to requesting a 
+`StorageClass`, the requirements are ANDed together: only a PV of the requested
+ class and with the requested labels may be bound to the PVC.
