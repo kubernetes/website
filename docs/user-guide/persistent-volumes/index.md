@@ -244,6 +244,22 @@ of a class, all of which are opaque to users, when first creating
 `StorageClass` objects, and the objects cannot be updated once they are 
 created.
 
+Users don't necessarily have to request a `StorageClass` in their PVC. The
+cluster treats PVCs that don't request a `StorageClass` differently depending
+on whether the
+[`SimpleDefaultStorageClassForPVC` admission controller](docs/admin/admission-controllers/#simpledefaultstorageclassforpvc) is turned on.
+* If the admission controller is turned on, the administrator may specify a
+default `StorageClass`. All PVCs that don't request a `StorageClass` will be
+bound only to PVs of that default. Specifying a default `StorageClass` is done
+by setting the annotation `storageclass.beta.kubernetes.io/is-default-class`
+equal to "true" in a `StorageClass` object. If the administrator does not
+specify a default, the cluster will respond to PVC creation as if the admission
+controller were turned off. If more than one default is specified, the
+admission controller will forbid the creation of all PVCs.
+* If the admission controller is turned off, the claim may be bound to any
+volume that does not belong to a `StorageClass` or that has a blank `""` value
+for its `volume.beta.kubernetes.io/storage-class` annotation.
+
 ```yaml
 kind: StorageClass
 apiVersion: extensions/v1beta1
