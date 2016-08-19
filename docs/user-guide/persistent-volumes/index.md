@@ -20,11 +20,13 @@ A `PersistentVolume` (PV) is a piece of networked storage in the cluster that ha
 
 A `PersistentVolumeClaim` (PVC) is a request for storage by a user.  It is similar to a pod.  Pods consume node resources and PVCs consume PV resources.  Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g, can be mounted once read/write or many times read-only).
 
-Administrators often need to offer and provision a variety of 
-`PersistentVolumes` that differ in more ways than just size and access modes, 
-and users should be able to choose from the offered volumes without having to 
-understand their technical properties. For these needs there is the 
-`StorageClass` resource.
+While `PersistentVolumeClaims` allow a user to consume abstract storage
+resources, it is common that users need `PersistentVolumes` with varying
+properties, such as performance, for different problems. Cluster administrators
+need to be able to offer a variety of `PersistentVolumes` that differ in more
+ways than just size and access modes, without exposing users to the details of
+how those volumes are implemented. For these needs there is the `StorageClass`
+resource.
 
 A `StorageClass` provides a way for administrators to describe the "classes" of
  storage they offer. Different classes might map to quality-of-service levels, 
@@ -254,8 +256,8 @@ parameters:
 
 ### Provisioner
 Storage classes have a provisioner that determines what volume plugin is used 
-for provisioning PVs. This field must be specified. The available provisioner 
-types are `kubernetes.io/aws-ebs` and `kubernetes.io/gce-pd`.
+for provisioning PVs. This field must be specified. During beta, the available
+provisioner types are `kubernetes.io/aws-ebs` and `kubernetes.io/gce-pd`.
 
 ### Parameters
 Storage classes have parameters that describe volumes belonging to the storage 
