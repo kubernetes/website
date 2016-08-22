@@ -7,68 +7,65 @@ toc:
 - title: Running Applications with Kubernetes
   section:
   - title: Running a Java App
-    path: /docs/tasks/placeholder1/
+    path: /docs/tasks/run-java-app/
   - title: Running a Rails App
-    path: /docs/tasks/placeholder2/
+    path: /docs/tasks/run-rails-app/
   - title: Capturing Logs Using Fluentd
-    path: /docs/tasks/placeholder3/
+    path: /docs/tasks/capture-logs-fluentd/
+  - title: Pulling Images From a Private Registry
+    path: /docs/tasks/pulling-images-private-registry/
 
 - title: Accessing Applications Running in a Cluster
   section:
-  - title: Via an HTTP Proxy
-    path: /docs/tasks/placeholder4/
-  - title: Via a Tunnel
-    path: /docs/tasks/placeholder5/
-  - title: Via an External Load Balancer
-    path: /docs/tasks/placeholder6/
+  - title: Using an HTTP Proxy to Access Applications in a Cluster
+    path: /docs/tasks/http-proxy-access-applications-cluster/
+  - title: Using a Tunnel to Access Applications in a Cluster
+    path: /docs/tasks/tunnel-access-applications-cluster/
+  - title: Using an External Load Balancer to Access Applications in a Cluster
+    path: /docs/tasks/external-load-balancer-access-applications-cluster/
 
 - title: Administering a Cluster
   section:
   - title: Configuring Centralized Logging for Pods
-    path: /docs/tasks/placeholder7/
+    path: /docs/tasks/configure-centralized-logging-pods/
   - title: Assigning Pods to Nodes
-    path: /docs/tasks/placeholder8/
+    path: /docs/tasks/assign-pods-nodes/
+  - title: Explicitly Scheduling a Pod to a Node
+    path: /docs/tasks/explicitly-scheduling-pod-node/
   - title: Resizing a Cluster
-    path: /docs/tasks/placeholder9/
+    path: /docs/tasks/resize-cluster/
+  - title: Configuring Container Restart Behavior
+    path: /docs/tasks/configuring-container-restart-behavior/
+  - title: Automatically Restarting Unhealthy Containers
+    path: /docs/tasks/automatically-restarting-unhealthy-containers/
   - title: Simulating Large Test Loads
-    path: /docs/tasks/placeholder10/
+    path: /docs/tasks/simulate-large-test-loads/
   - title: Configuring Automatic Cluster Resizing
-    path: /docs/tasks/placeholder11/
+    path: /docs/tasks/configure-automatic-cluster-resize/
   - title: Configuring Resource Quotas by Namespace
-    path: /docs/tasks/placeholder12/
+    path: /docs/tasks/configure-resource-quotas-namespace/
   - title: Configuring Access Control Through Namespaces
-    path: /docs/tasks/placeholder13/
+    path: /docs/tasks/configure-access-control-namespace/
   - title: Managing Cluster Access with kubeconfig
-    path: /docs/tasks/placeholder14/
-  - title: Statically Defining Pods on Nodes Without Using a DaemonSet
-    path: /docs/tasks/placeholder15/
+    path: /docs/tasks/manage-cluster-access-kubeconfig/
+  - title: Statically Defining Pods on Nodes
+    path: /docs/tasks/static-define-pods-nodes/
+  - title: Declaring A Pod Not Ready For Requests
+    path: /docs/tasks/declaring-a-pod-not-ready-for-requests/
   - title: Upgrading a Cluster
-    path: /docs/tasks/placeholder16/
+    path: /docs/tasks/upgrade-cluster/
   - title: Configuring Pod Garbage Collection
-    path: /docs/tasks/placeholder17/
+    path: /docs/tasks/configure-pod-garbage-collection/
   - title: Maintaining Nodes
-    path: /docs/tasks/placeholder18/
+    path: /docs/tasks/maintain-nodes/
 
 - title: Accessing the Kubernetes API
   section:
   - title: Managing Service Accounts
-    path: /docs/tasks/placeholder19/
+    path: /docs/tasks/manage-service-account/
   - title: Using Admission Controllers
-    path: /docs/tasks/placeholder20/
+    path: /docs/tasks/admission-controller/
   - title: Using Authorization Plugins
-    path: /docs/tasks/placeholder21/
+    path: /docs/tasks/authorization-plugin/
   - title: Authenticating Users
-    path: /docs/tasks/placeholder22/
-
-- title: Tasks (WIP)
-  section:
-  - title: Explicitly Scheduling a Pod to a Node
-    path: /docs/tasks/explicitly-scheduling-pod-node/
-  - title: Pulling Images From a Private Registry
-    path: /docs/tasks/pulling-images-private-registry/
-  - title: Configuring Container Restart Behavior
-    path: /docs/tasks/configuring-container-restart-behavior/
-  - title: Declaring A Pod Not Ready For Requests
-    path: /docs/tasks/declaring-a-pod-not-ready-for-requests/
-  - title: Automatically Restarting Unhealthy Containers
-    path: /docs/tasks/automatically-restarting-unhealthy-containers/
+    path: /docs/tasks/authenticate-users/
