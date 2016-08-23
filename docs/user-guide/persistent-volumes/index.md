@@ -29,10 +29,10 @@ how those volumes are implemented. For these needs there is the `StorageClass`
 resource.
 
 A `StorageClass` provides a way for administrators to describe the "classes" of
- storage they offer. Different classes might map to quality-of-service levels, 
-or to backup policies, or to arbitrary policies determined by the cluster 
-administrators. Kubernetes itself is unopinionated about what classes 
-represent. This concept is sometimes called "profiles" in other storage 
+storage they offer. Different classes might map to quality-of-service levels,
+or to backup policies, or to arbitrary policies determined by the cluster
+administrators. Kubernetes itself is unopinionated about what classes
+represent. This concept is sometimes called "profiles" in other storage
 systems.
 
 Please see the [detailed walkthrough with working examples](/docs/user-guide/persistent-volumes/walkthrough/).
@@ -44,7 +44,7 @@ PVs are resources in the cluster.  PVCs are requests for those resources and als
 
 ### Provisioning
 
-There are two ways PVs may be provisioned: statically or dynamically. 
+There are two ways PVs may be provisioned: statically or dynamically.
 
 #### Static
 A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users.  They exist in the Kubernetes API and are available for consumption.
@@ -165,7 +165,7 @@ A PV can have a class, which is specified by setting the
 that class. A PV with no annotation or its class annotation set to `""` has no
 class and can only be bound to PVCs that request no particular class.
 
-In the future after beta, the `volume.beta.kubernetes.io/storage-class` 
+In the future after beta, the `volume.beta.kubernetes.io/storage-class`
 annotation will become an attribute.
 
 ### Recycling Policy
@@ -262,7 +262,7 @@ When a PVC specifies a `selector` in addition to requesting a `StorageClass`,
 the requirements are ANDed together: only a PV of the requested class and with
 the requested labels may be bound to the PVC.
 
-In the future after beta, the `volume.beta.kubernetes.io/storage-class` 
+In the future after beta, the `volume.beta.kubernetes.io/storage-class`
 annotation will become an attribute.
 
 ## Claims As Volumes
@@ -293,19 +293,19 @@ spec:
 
 ## StorageClasses
 
-Each `StorageClass` contains the fields `provisioner` and `parameters`, which 
+Each `StorageClass` contains the fields `provisioner` and `parameters`, which
 are used when a `PersistentVolume` belonging to the class needs to be
 dynamically provisioned.
 
-The name of a `StorageClass` object is significant, and is how users can 
-request a particular class. Administrators set the name and other parameters 
-of a class, all of which are opaque to users, when first creating 
-`StorageClass` objects, and the objects cannot be updated once they are 
+The name of a `StorageClass` object is significant, and is how users can
+request a particular class. Administrators set the name and other parameters
+of a class, all of which are opaque to users, when first creating
+`StorageClass` objects, and the objects cannot be updated once they are
 created.
 
 Administrators can specify a default `StorageClass` just for PVCs that don't
 request any particular class to bind to: see the
-[`PersistentVolumeClaim` section](docs/user-guide/persistent-volumes/index/#class-1)
+[`PersistentVolumeClaim` section](docs/user-guide/persistent-volumes/#class-1)
 for details.
 
 ```yaml
@@ -319,15 +319,15 @@ parameters:
 ```
 
 ### Provisioner
-Storage classes have a provisioner that determines what volume plugin is used 
+Storage classes have a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified. During beta, the available
 provisioner types are `kubernetes.io/aws-ebs` and `kubernetes.io/gce-pd`.
 
 ### Parameters
-Storage classes have parameters that describe volumes belonging to the storage 
+Storage classes have parameters that describe volumes belonging to the storage
 class. Different parameters may be accepted depending on the `provisioner`. For
- example, the value `io1`, for the parameter `type`, and the parameter 
-`iopsPerGB` are specific to EBS. When a parameter is omitted, some default is 
+ example, the value `io1`, for the parameter `type`, and the parameter
+`iopsPerGB` are specific to EBS. When a parameter is omitted, some default is
 used.
 
 #### AWS
@@ -344,11 +344,11 @@ parameters:
   iopsPerGB: "10"
 ```
 
-* `type`: `io1`, `gp2`, `sc1`, `st1`. See AWS docs for details. Default: `gp2`. 
+* `type`: `io1`, `gp2`, `sc1`, `st1`. See AWS docs for details. Default: `gp2`.
 * `zone`: AWS zone. If not specified, a random zone where the cluster has a node
 is chosen
-* `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS 
-volume plugin multiplies this with size of requested volume to compute IOPS of 
+* `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS
+volume plugin multiplies this with size of requested volume to compute IOPS of
 the volume and caps it at 20 000 IOPS (maximum supported by AWS, see AWS docs).
 
 #### GCE
@@ -365,5 +365,5 @@ provisionerParameters:
 ```
 
 * `type`: `pd-standard` or `pd-ssd`. Default: `pd-ssd`
-* `zone`: GCE zone. If not specified, a random zone in the same region as 
+* `zone`: GCE zone. If not specified, a random zone in the same region as
 controller-manager will be chosen.
