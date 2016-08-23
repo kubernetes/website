@@ -227,26 +227,26 @@ A claim can request a particular class by specifying the name of a
 Only PVs of the requested class, ones with the same annotation as the PVC, can
 be bound to the PVC.
 
-PVCs don't necessarily have to request a class, they can omit the annotation or
-set it to `""`. The cluster treats PVCs that don't request a class differently
-depending on whether the
+PVCs don't necessarily have to request a class. A PVC with its annotation set
+equal to `""` is always interpreted to be requesting a PV with no class, so it
+can only be bound to PVs with no class (no annotation or one set equal to
+`""`). A PVC with no annotation is not quite the same and is treated differently
+by the cluster depending on whether the
 [`SimpleDefaultStorageClassForPVC` admission controller](docs/admin/admission-controllers/#simpledefaultstorageclassforpvc)
 is turned on.
 
 * If the admission controller is turned on, the administrator may specify a
-default `StorageClass`. All PVCs that don't request a `StorageClass` can be
-bound only to PVs of that default. A consequence of this is that the PVs those
-PVCs would normally be bound to, the PVs that have no class (no annotation or annotation
-equal to `""`), are unable to be bound to any PVC. Specifying a default
-`StorageClass` is done by setting the annotation
-`storageclass.beta.kubernetes.io/is-default-class` equal to "true" in a
-`StorageClass` object. If the administrator does not specify a default, the
+default `StorageClass`. All PVCs that have no annotation can be bound only to
+PVs of that default. Specifying a default `StorageClass` is done by setting the
+annotation `storageclass.beta.kubernetes.io/is-default-class` equal to "true" in
+a `StorageClass` object. If the administrator does not specify a default, the
 cluster responds to PVC creation as if the admission controller were turned off.
 If more than one default is specified, the admission controller forbids the
 creation of all PVCs.
 * If the admission controller is turned off, there is no notion of a default
-`StorageClass`. All PVCs that don't request a `StorageClass` can be bound only
-to PVs that have no class.
+`StorageClass`. All PVCs that have no annotation can be bound only to PVs that
+have no class. In this case the PVCs that have no annotation are treated the
+same way as PVCs that have their annotation set to `""`.
 
 In the future after beta, the `volume.beta.kubernetes.io/storage-class` 
 annotation will become an attribute.
