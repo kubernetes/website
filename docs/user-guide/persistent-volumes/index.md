@@ -44,11 +44,21 @@ PVs are resources in the cluster.  PVCs are requests for those resources and als
 
 ### Provisioning
 
-A cluster administrator will create a number of PVs. They carry the details of the real storage which is available for use by cluster users.  They exist in the Kubernetes API and are available for consumption.
+There are two ways PVs may be provisioned: statically or dynamically. 
+
+#### Static
+A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users.  They exist in the Kubernetes API and are available for consumption.
+
+#### Dynamic
+A cluster administrator creates a number of `StorageClasses`. They describe "classes" of PVs that cluster users may request. They contain the information that the cluster needs in order to dynamically create PVs in response to user requests.
+
+A user creates a `PersistentVolumeClaim` that requests one of the `StorageClasses` the administrator created. A PV that exactly matches the requests of the PVC is automatically created specially for the user's PVC using the information contained in the requested `StorageClass`.
+
+Claims that request the class `""` effectively disable dynamic provisioning for themselves.
 
 ### Binding
 
-A user creates a `PersistentVolumeClaim` with a specific amount of storage requested and with certain access modes.  A control loop in the master watches for new PVCs, finds a matching PV (if possible), and binds them together.  The user will always get at least what they asked for, but the volume may be in excess of what was requested.  Once bound, `PersistentVolumeClaim` binds are exclusive, regardless of the mode used to bind them.
+A user creates, or has already created in the case of dynamic provisioning, a `PersistentVolumeClaim` with a specific amount of storage requested and with certain access modes.  A control loop in the master watches for new PVCs, finds a matching PV (if possible), and binds them together.  If a PV was dynamically provisioned for a new PVC, the loop will always bind that PV to the PVC. Otherwise, the user will always get at least what they asked for, but the volume may be in excess of what was requested.  Once bound, `PersistentVolumeClaim` binds are exclusive, regardless of the mode used to bind them.
 
 Claims will remain unbound indefinitely if a matching volume does not exist.  Claims will be bound as matching volumes become available.  For example, a cluster provisioned with many 50Gi PVs would not match a PVC requesting 100Gi.  The PVC can be bound when a 100Gi PV is added to the cluster.
 
@@ -248,6 +258,10 @@ creation of all PVCs.
 have no class. In this case the PVCs that have no annotation are treated the
 same way as PVCs that have their annotation set to `""`.
 
+When a PVC specifies a `selector` in addition to requesting a `StorageClass`,
+the requirements are ANDed together: only a PV of the requested class and with
+the requested labels may be bound to the PVC.
+
 In the future after beta, the `volume.beta.kubernetes.io/storage-class` 
 annotation will become an attribute.
 
@@ -280,8 +294,8 @@ spec:
 ## StorageClasses
 
 Each `StorageClass` contains the fields `provisioner` and `parameters`, which 
-are used when a `PersistentVolume` belonging to a class needs to be dynamically
- provisioned.
+are used when a `PersistentVolume` belonging to the class needs to be
+dynamically provisioned.
 
 The name of a `StorageClass` object is significant, and is how users can 
 request a particular class. Administrators set the name and other parameters 
