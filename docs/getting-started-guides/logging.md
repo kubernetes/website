@@ -23,7 +23,7 @@ monitoring-heapster-v1-20ej                    0/1       Running   9          32
 
 Here is the same information in a picture which shows how the pods might be placed on specific nodes.
 
-![Cluster](https://raw.githubusercontent.com/kubernetes/kubernetes/{{page.githubbranch}}/examples/blog-logging/diagrams/cloud-logging.png)
+![image](/images/blog-logging/diagrams/cloud-logging.png)
 
 This diagram shows four nodes created on a Google Compute Engine cluster with the name of each VM node on a purple background. The internal and public IPs of each node are shown on gray boxes and the pods running in each node are shown in green boxes. Each pod box shows the name of the pod and the namespace it runs in, the IP address of the pod and the images which are run as part of the pod's execution. Here we see that every node is running a fluentd-cloud-logging pod which is collecting the log output of the containers running on the same node and sending them to Google Cloud Logging. A pod which provides the
 [cluster DNS service](/docs/admin/dns) runs on one of the nodes and a pod which provides monitoring support runs on another node.
@@ -52,7 +52,7 @@ This step may take a few minutes to download the ubuntu:14.04 image during which
 
 One of the nodes is now running the counter pod:
 
-![Counter Pod](https://raw.githubusercontent.com/kubernetes/kubernetes/{{page.githubbranch}}/examples/blog-logging/diagrams/27gf-counter.png)
+![image](/images/blog-logging/diagrams/27gf-counter.png)
 
 When the pod status changes to `Running` we can use the kubectl logs command to view the output of this counter pod.
 
