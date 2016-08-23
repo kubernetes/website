@@ -93,6 +93,8 @@ Each PV contains a spec and status, which is the specification and status of the
   kind: PersistentVolume
   metadata:
     name: pv0003
+    annotations:
+      volume.beta.kubernetes.io/storage-class: "slow"
   spec:
     capacity:
       storage: 5Gi
@@ -145,6 +147,16 @@ In the CLI, the access modes are abbreviated to:
 | RDB                  | x            | x           | -            |
 | VsphereVolume        | x            | -           | -            |
 
+### Class
+
+A PV can have a class, which is specified by setting the
+"volume.beta.kubernetes.io/storage-class" annotation to the name of a
+`StorageClass`. A PV of a particular class can only be bound to PVCs requesting
+that class. A PV with no annotation or its class annotation set to `""` has no
+class and can only be bound to PVCs that request no particular class.
+
+In the future after beta, the `volume.beta.kubernetes.io/storage-class` 
+annotation will become an attribute.
 
 ### Recycling Policy
 
@@ -176,6 +188,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: myclaim
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "slow"
 spec:
   accessModes:
     - ReadWriteOnce
@@ -205,6 +219,36 @@ Claims can specify a [label selector](/docs/user-guide/labels/#label-selectors) 
 * matchExpressions - a list of requirements made by specifying key, list of values, and operator that relates the key and values. Valid operators include In, NotIn, Exists, and DoesNotExist.
 
 All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together – they must all be satisfied in order to match.
+
+### Class
+
+A claim can request a particular class by specifying the name of a
+`StorageClass`using the annotation `volume.beta.kubernetes.io/storage-class`.
+Only PVs of the requested class, ones with the same annotation as the PVC, can
+be bound to the PVC.
+
+PVCs don't necessarily have to request a class, they can omit the annotation or
+set it to `""`. The cluster treats PVCs that don't request a class differently
+depending on whether the
+[`SimpleDefaultStorageClassForPVC` admission controller](docs/admin/admission-controllers/#simpledefaultstorageclassforpvc)
+is turned on.
+
+* If the admission controller is turned on, the administrator may specify a
+default `StorageClass`. All PVCs that don't request a `StorageClass` can be
+bound only to PVs of that default. This means that the PVs those PVCs would
+normally be bound to, the PVs that have no class (no annotation or annotation
+equal to `""`), cannot be bound to any PVC. Specifying a default `StorageClass`
+is done by setting the annotation
+`storageclass.beta.kubernetes.io/is-default-class` equal to "true" in a
+`StorageClass` object. If the administrator does not specify a default, the
+cluster will respond to PVC creation as if the admission controller were turned
+off. If more than one default is specified, the admission controller will forbid
+the creation of all PVCs.
+* If the admission controller is turned off, the claim may be bound to volumes
+that have no class
+
+In the future after beta, the `volume.beta.kubernetes.io/storage-class` 
+annotation will become an attribute.
 
 ## Claims As Volumes
 
@@ -244,21 +288,10 @@ of a class, all of which are opaque to users, when first creating
 `StorageClass` objects, and the objects cannot be updated once they are 
 created.
 
-Users don't necessarily have to request a `StorageClass` in their PVC. The
-cluster treats PVCs that don't request a `StorageClass` differently depending
-on whether the
-[`SimpleDefaultStorageClassForPVC` admission controller](docs/admin/admission-controllers/#simpledefaultstorageclassforpvc) is turned on.
-* If the admission controller is turned on, the administrator may specify a
-default `StorageClass`. All PVCs that don't request a `StorageClass` will be
-bound only to PVs of that default. Specifying a default `StorageClass` is done
-by setting the annotation `storageclass.beta.kubernetes.io/is-default-class`
-equal to "true" in a `StorageClass` object. If the administrator does not
-specify a default, the cluster will respond to PVC creation as if the admission
-controller were turned off. If more than one default is specified, the
-admission controller will forbid the creation of all PVCs.
-* If the admission controller is turned off, the claim may be bound to any
-volume that does not belong to a `StorageClass` or that has a blank `""` value
-for its `volume.beta.kubernetes.io/storage-class` annotation.
+Administrators can specify a default `StorageClass` just for PVCs that don't
+request any particular class to bind to: see the
+[`PersistentVolumeClaim` section](docs/user-guide/persistent-volumes/index/#class-1)
+for details.
 
 ```yaml
 kind: StorageClass
@@ -297,8 +330,8 @@ parameters:
 ```
 
 * `type`: `io1`, `gp2`, `sc1`, `st1`. See AWS docs for details. Default: `gp2`. 
-* `zone`: AWS zone. If not specified, a random zone in the same region as 
-controller-manager will be chosen.
+* `zone`: AWS zone. If not specified, a random zone where the cluster has a node
+is chosen
 * `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS 
 volume plugin multiplies this with size of requested volume to compute IOPS of 
 the volume and caps it at 20 000 IOPS (maximum supported by AWS, see AWS docs).
@@ -319,34 +352,3 @@ provisionerParameters:
 * `type`: `pd-standard` or `pd-ssd`. Default: `pd-ssd`
 * `zone`: GCE zone. If not specified, a random zone in the same region as 
 controller-manager will be chosen.
-
-## Requesting a StorageClass
-
-Users request a particular `StorageClass`, i.e. a `PersistentVolume` that 
-belongs to and has the characteristics described by the `StorageClass`, by 
-specifying the name of the class in their `PersistentVolumeClaim` using the 
-annotation `volume.beta.kubernetes.io/storage-class`. Only a PV of the 
-requested class, one with the same annotation as the PVC, can then be bound to 
-the PVC.
-
-```yaml
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: myclaim
-  annotations:
-    "volume.beta.kubernetes.io/storage-class": "slow"
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
-```
-
-If a PV of the requested class is not found, a new one will be provisioned 
-using the `StorageClass`.
-
-When a PVC specifies a `LabelSelector` in addition to requesting a 
-`StorageClass`, the requirements are ANDed together: only a PV of the requested
- class and with the requested labels may be bound to the PVC.
