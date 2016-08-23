@@ -244,8 +244,9 @@ is done by setting the annotation
 cluster will respond to PVC creation as if the admission controller were turned
 off. If more than one default is specified, the admission controller will forbid
 the creation of all PVCs.
-* If the admission controller is turned off, the claim may be bound to volumes
-that have no class
+* If the admission controller is turned off, there is no notion of a default
+`StorageClass`. All PVCs that don't request a `StorageClass` can be bound only
+to PVs that have no class.
 
 In the future after beta, the `volume.beta.kubernetes.io/storage-class` 
 annotation will become an attribute.
