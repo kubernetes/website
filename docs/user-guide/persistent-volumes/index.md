@@ -150,7 +150,7 @@ In the CLI, the access modes are abbreviated to:
 ### Class
 
 A PV can have a class, which is specified by setting the
-"volume.beta.kubernetes.io/storage-class" annotation to the name of a
+`volume.beta.kubernetes.io/storage-class` annotation to the name of a
 `StorageClass`. A PV of a particular class can only be bound to PVCs requesting
 that class. A PV with no annotation or its class annotation set to `""` has no
 class and can only be bound to PVCs that request no particular class.
@@ -235,15 +235,15 @@ is turned on.
 
 * If the admission controller is turned on, the administrator may specify a
 default `StorageClass`. All PVCs that don't request a `StorageClass` can be
-bound only to PVs of that default. This means that the PVs those PVCs would
-normally be bound to, the PVs that have no class (no annotation or annotation
-equal to `""`), cannot be bound to any PVC. Specifying a default `StorageClass`
-is done by setting the annotation
+bound only to PVs of that default. A consequence of this is that the PVs those
+PVCs would normally be bound to, the PVs that have no class (no annotation or annotation
+equal to `""`), are unable to be bound to any PVC. Specifying a default
+`StorageClass` is done by setting the annotation
 `storageclass.beta.kubernetes.io/is-default-class` equal to "true" in a
 `StorageClass` object. If the administrator does not specify a default, the
-cluster will respond to PVC creation as if the admission controller were turned
-off. If more than one default is specified, the admission controller will forbid
-the creation of all PVCs.
+cluster responds to PVC creation as if the admission controller were turned off.
+If more than one default is specified, the admission controller forbids the
+creation of all PVCs.
 * If the admission controller is turned off, there is no notion of a default
 `StorageClass`. All PVCs that don't request a `StorageClass` can be bound only
 to PVs that have no class.
