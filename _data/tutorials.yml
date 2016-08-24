@@ -25,85 +25,85 @@ toc:
 - title: Stateless Applications
   section:
   - title: Exposing an External IP Endpoint Using a Service
-    path: /docs/stateless-application/expose-external-ip-endpoint-service/
+    path: /docs/tutorials/stateless-application/expose-external-ip-endpoint-service/
   - title: Running a Stateless Application Using a Deployment
-    path: /docs/stateless-application/run-stateless-application-deployment/
+    path: /docs/tutorials/stateless-application/run-stateless-application-deployment/
   - title: Scaling an Application Using the Replica Count
-    path: /docs/stateless-application/scale-application-replica-count/
+    path: /docs/tutorials/stateless-application/scale-application-replica-count/
   - title: Rolling Out a Release Using an Image Tag
-    path: /docs/stateless-application/rollout-release-image-tag/
+    path: /docs/tutorials/stateless-application/rollout-release-image-tag/
 
 - title: Stateful Applications
   section:
   - title: Exposing an Internal IP Endpoint Using a Service
-    path: /docs/stateful-application/expose-interal-ip-endpoint-service/
+    path: /docs/tutorials/stateful-application/expose-interal-ip-endpoint-service/
   - title: Running a Stateful Application Using a PetSet
-    path: /docs/stateful-application/run-stateful-application-petset/
+    path: /docs/tutorials/stateful-application/run-stateful-application-petset/
   - title: Scaling an Application Using the Replica Count
-    path: /docs/stateful-application/scale-application-replica-count/
+    path: /docs/tutorials/stateful-application/scale-application-replica-count/
   - title: Rolling Out a Release Using an Image Tag
-    path: /docs/stateful-application/rollout-release-image-tag/
+    path: /docs/tutorials/stateful-application/rollout-release-image-tag/
 
 - title: Connecting Applications
   section:
   - title: Running a Back End Using a Deployment
-    path: /docs/connecting-applications/run-backend-deployment/
+    path: /docs/tutorials/connecting-applications/run-backend-deployment/
   - title: Connecting a Front End to a Back End Using a Service
-    path: /docs/connecting-applications/connect-frontend-backend-service/
+    path: /docs/tutorials/connecting-applications/connect-frontend-backend-service/
 
 - title: Injecting Data into Applications
   section:
   - title: Providing an Encrypted SSL Cert Using Secrets
-    path: /docs/data-injection/provide-encrypted-ssl-cert-secrets/
+    path: /docs/tutorials/data-injection/provide-encrypted-ssl-cert-secrets/
   - title: Providing a .properties File Using a ConfigMap
-    path: /docs/data-injection/provide-properties-file-configmap/
+    path: /docs/tutorials/data-injection/provide-properties-file-configmap/
 
 - title: Running Workloads to Completion
   section:
   - title: Running an Interactive Bash Terminal Using a Job
-    path: /docs/workloads/run-interactive-bash-terminal-job/
+    path: /docs/tutorials/workloads/run-interactive-bash-terminal-job/
   - title: Running a Worker Queue Using Jobs
-    path: /docs/workloads/run-worker-queue-job/
+    path: /docs/tutorials/workloads/run-worker-queue-job/
   - title: Scheduling a Cron Task Using a Scheduled Job
-    path: /docs/workloads/schedule-cron-task-scheduled-job/
+    path: /docs/tutorials/workloads/schedule-cron-task-scheduled-job/
 
 - title: Running Agents
   section:
   - title: Running ntdp on Every Machine Using a Daemon Set
-    path: /docs/agents/run-ndtp-every-machine-daemon-set/
+    path: /docs/tutorials/agents/run-ndtp-every-machine-daemon-set/
 
 - title: Application Health
   section:
   - title: Running a Canary Deployment Using Labels
-    path: /docs/application-health/run-canary-deployment-labels/
+    path: /docs/tutorials/application-health/run-canary-deployment-labels/
   - title: Separating Workloads Using Namespaces
-    path: /docs/application-health/separate-workloads-namespaces/
+    path: /docs/tutorials/application-health/separate-workloads-namespaces/
   - title: Syncing a GitHub Repo by Adding a Support Container
-    path: /docs/application-health/sync-github-repo-adding-support-container/
+    path: /docs/tutorials/application-health/sync-github-repo-adding-support-container/
   - title: Restarting Unhealthy Containers using Readiness and Liveness Probes
-    path: /docs/application-health/restart-unhealthy-containers-readiness-liveness-probes/
+    path: /docs/tutorials/application-health/restart-unhealthy-containers-readiness-liveness-probes/
   - title: Reserving Capacity for a Pod Using Resource Reservations
-    path: /docs/application-health/reserve-capacity-pod-resource-reservations/
+    path: /docs/tutorials/application-health/reserve-capacity-pod-resource-reservations/
   - title: Gracefully Shutting Down a Container by Listening to the Termination Notice
-    path: /docs/application-health/gracefully-shut-down-container-listening-termination-notice/
+    path: /docs/tutorials/application-health/gracefully-shut-down-container-listening-termination-notice/
   - title: Updating Container Exit Status Using a Termination Message
-    path: /docs/application-health/update-container-exit-status-termination-message/
+    path: /docs/tutorials/application-health/update-container-exit-status-termination-message/
 
 - title: Cluster Activity
   section:
   - title: Viewing Cluster Health Using Cloud Monitoring
-    path: /docs/cluster-activity/view-cluster-health-cloud-monitoring/
+    path: /docs/tutorials/cluster-activity/view-cluster-health-cloud-monitoring/
   - title: Searching Cluster-wide Container Logs Using Cloud Logging
-    path: /docs/cluster-activity/search-cluster-wide-container-logs-cloud-logging/
+    path: /docs/tutorials/cluster-activity/search-cluster-wide-container-logs-cloud-logging/
 
 - title: Predefined Deployments
   section:
   - title: Running Predefined Deployments Using Helm
-    path: /docs/predefined-deployments/run-predefined-deployment-helm/
+    path: /docs/tutorials/predefined-deployments/run-predefined-deployment-helm/
 
 - title: Recommended Release Practices
   section:
   - title: Expanding Environment Variables in Configuration
-    path: /docs/release-practices/expanding-environment-variables-configuration/
+    path: /docs/tutorials/release-practices/expanding-environment-variables-configuration/
   - title: Scripting with kubectl
-    path: /docs/release-practices/scripting-kubectl/
+    path: /docs/tutorials/release-practices/scripting-kubectl/
