@@ -251,7 +251,11 @@ toc:
   - title: Understanding Resource Quotas
     path: /docs/admin/resourcequota/
   - title: Applying Resource Quotas and Limits
-    path: /docs/admin/resourcequota/walkthrough/
+    section:
+    - title: Compute Resources
+      path: /docs/admin/resourcequota/walkthrough/
+    - title: Storage Resources
+      path: /docs/admin/resourcequota/limitstorageconsumption/
   - title: Kubernetes Components
     path: /docs/admin/cluster-components/
   - title: Configuring Kubernetes Use of etcd
