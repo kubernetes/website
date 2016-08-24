@@ -145,7 +145,7 @@ Cluster Domain | Service (ns/name) | Pet Set (ns/name) | Pet Set Domain | Pet DN
 
 Note that Cluster Domain will be set to `cluster.local` unless [otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it).
 
-Lets verify our assertion with a simple test.
+Let's verify our assertion with a simple test.
 
 ```shell
 $ kubectl get svc
@@ -154,7 +154,7 @@ nginx         None           <none>            80/TCP    12m
 ...
 ```
 
-First, the PetSet gives provides a stable hostname:
+First, the PetSet provides a stable hostname:
 
 ```shell
 $ for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
@@ -181,7 +181,7 @@ Name:      web-1.nginx
 Address 1: 10.180.0.9
 ```
 
-The containers are running nginx webservers, which by default will look for an index.html file in `/usr/share/nginx/html/index.html`. That directory is backed by a `PersistentVolume` created by the Pet Set. So lets write our hostname there:
+The containers are running nginx webservers, which by default will look for an index.html file in `/usr/share/nginx/html/index.html`. That directory is backed by a `PersistentVolume` created by the Pet Set. So let's write our hostname there:
 
 ```shell
 $ for i in 0 1; do
