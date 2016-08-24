@@ -7,65 +7,65 @@ toc:
 - title: Running Applications with Kubernetes
   section:
   - title: Running a Java App
-    path: /docs/tasks/run-java-app/
+    path: /docs/tasks/run-application/run-java-app/
   - title: Running a Rails App
-    path: /docs/tasks/run-rails-app/
+    path: /docs/tasks/run-application/run-rails-app/
   - title: Capturing Logs Using Fluentd
-    path: /docs/tasks/capture-logs-fluentd/
+    path: /docs/tasks/run-application/capture-logs-fluentd/
   - title: Pulling Images From a Private Registry
-    path: /docs/tasks/pull-image-private-registry/
+    path: /docs/tasks/run-application/pull-image-private-registry/
 
 - title: Accessing Applications Running in a Cluster
   section:
   - title: Using an HTTP Proxy to Access Applications in a Cluster
-    path: /docs/tasks/http-proxy-access-applications-cluster/
+    path: /docs/tasks/access-application-cluster/http-proxy-access-applications-cluster/
   - title: Using a Tunnel to Access Applications in a Cluster
-    path: /docs/tasks/tunnel-access-applications-cluster/
+    path: /docs/tasks/access-application-cluster/tunnel-access-applications-cluster/
   - title: Using an External Load Balancer to Access Applications in a Cluster
-    path: /docs/tasks/external-load-balancer-access-applications-cluster/
+    path: /docs/tasks/access-application-cluster/external-load-balancer-access-applications-cluster/
 
 - title: Administering a Cluster
   section:
   - title: Configuring Centralized Logging for Pods
-    path: /docs/tasks/configure-centralized-logging-pods/
+    path: /docs/tasks/administer-cluster/configure-centralized-logging-pods/
   - title: Assigning Pods to Nodes
-    path: /docs/tasks/assign-pods-nodes/
+    path: /docs/tasks/administer-cluster/assign-pods-nodes/
   - title: Explicitly Scheduling a Pod to a Node
-    path: /docs/tasks/explicitly-schedule-pod-node/
+    path: /docs/tasks/administer-cluster/explicitly-schedule-pod-node/
   - title: Resizing a Cluster
-    path: /docs/tasks/resize-cluster/
+    path: /docs/tasks/administer-cluster/resize-cluster/
   - title: Configuring Container Restart Behavior
-    path: /docs/tasks/configure-container-restart-behavior/
+    path: /docs/tasks/administer-cluster/configure-container-restart-behavior/
   - title: Automatically Restarting Unhealthy Containers
-    path: /docs/tasks/automatic-restart-unhealthy-container/
+    path: /docs/tasks/administer-cluster/automatic-restart-unhealthy-container/
   - title: Simulating Large Test Loads
-    path: /docs/tasks/simulate-large-test-loads/
+    path: /docs/tasks/administer-cluster/simulate-large-test-loads/
   - title: Configuring Automatic Cluster Resizing
-    path: /docs/tasks/configure-automatic-cluster-resize/
+    path: /docs/tasks/administer-cluster/configure-automatic-cluster-resize/
   - title: Configuring Resource Quotas by Namespace
-    path: /docs/tasks/configure-resource-quotas-namespace/
+    path: /docs/tasks/administer-cluster/configure-resource-quotas-namespace/
   - title: Configuring Access Control Through Namespaces
-    path: /docs/tasks/configure-access-control-namespace/
+    path: /docs/tasks/administer-cluster/configure-access-control-namespace/
   - title: Managing Cluster Access with kubeconfig
-    path: /docs/tasks/manage-cluster-access-kubeconfig/
+    path: /docs/tasks/administer-cluster/manage-cluster-access-kubeconfig/
   - title: Statically Defining Pods on Nodes
-    path: /docs/tasks/static-define-pods-nodes/
+    path: /docs/tasks/administer-cluster/static-define-pods-nodes/
   - title: Declaring A Pod Not Ready For Requests
-    path: /docs/tasks/declare-pod-not-ready-requests/
+    path: /docs/tasks/administer-cluster/declare-pod-not-ready-requests/
   - title: Upgrading a Cluster
-    path: /docs/tasks/upgrade-cluster/
+    path: /docs/tasks/administer-cluster/upgrade-cluster/
   - title: Configuring Pod Garbage Collection
-    path: /docs/tasks/configure-pod-garbage-collection/
+    path: /docs/tasks/administer-cluster/configure-pod-garbage-collection/
   - title: Maintaining Nodes
-    path: /docs/tasks/maintain-nodes/
+    path: /docs/tasks/administer-cluster/maintain-nodes/
 
 - title: Accessing the Kubernetes API
   section:
   - title: Managing Service Accounts
-    path: /docs/tasks/manage-service-account/
+    path: /docs/tasks/api/manage-service-account/
   - title: Using Admission Controllers
-    path: /docs/tasks/admission-controller/
+    path: /docs/tasks/api/admission-controller/
   - title: Using Authorization Plugins
-    path: /docs/tasks/authorization-plugin/
+    path: /docs/tasks/api/authorization-plugin/
   - title: Authenticating Users
-    path: /docs/tasks/authenticate-users/
+    path: /docs/tasks/api/authenticate-users/
