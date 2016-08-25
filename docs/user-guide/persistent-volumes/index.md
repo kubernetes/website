@@ -50,11 +50,7 @@ There are two ways PVs may be provisioned: statically or dynamically.
 A cluster administrator creates a number of PVs. They carry the details of the real storage which is available for use by cluster users.  They exist in the Kubernetes API and are available for consumption.
 
 #### Dynamic
-A cluster administrator creates a number of `StorageClasses`. They describe "classes" of PVs that cluster users may request. They contain the information that the cluster needs in order to dynamically create PVs in response to user requests.
-
-A user creates a `PersistentVolumeClaim` that requests one of the `StorageClasses` the administrator created. A PV that exactly matches the requests of the PVC is automatically created specially for the user's PVC using the information contained in the requested `StorageClass`.
-
-Claims that request the class `""` effectively disable dynamic provisioning for themselves.
+When none of the static PVs the administrator created matches a user's `PersistentVolumeClaim`, the cluster may try to dynamically provision a volume specially for the PVC. This provisioning is based on `StorageClasses`: the PVC must request a class and the administrator must have created and configured that class in order for dynamic provisioning to occur. Claims that request the class `""` effectively disable dynamic provisioning for themselves.
 
 ### Binding
 
@@ -74,7 +70,7 @@ When a user is done with their volume, they can delete the PVC objects from the 
 
 ### Reclaiming
 
-The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim.  Currently, volumes can either be Retained, Recycled or Deleted.  Retention allows for manual reclamation of the resource.  For those volume plugins that support it, deletion removes both the `PersistentVolume` object from Kubernetes as well as deletes associated storage asset in external infrastructure such as AWS EBS, GCE PD or Cinder volume. If supported by appropriate volume plugin, recycling performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
+The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim.  Currently, volumes can either be Retained, Recycled or Deleted.  Retention allows for manual reclamation of the resource.  For those volume plugins that support it, deletion removes both the `PersistentVolume` object from Kubernetes as well as deletes associated storage asset in external infrastructure such as AWS EBS, GCE PD or Cinder volume.  Volumes that were dynamically provisioned are always deleted.  If supported by appropriate volume plugin, recycling performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
 
 ## Types of Persistent Volumes
 
@@ -242,18 +238,18 @@ equal to `""` is always interpreted to be requesting a PV with no class, so it
 can only be bound to PVs with no class (no annotation or one set equal to
 `""`). A PVC with no annotation is not quite the same and is treated differently
 by the cluster depending on whether the
-[`SimpleDefaultStorageClassForPVC` admission controller](docs/admin/admission-controllers/#simpledefaultstorageclassforpvc)
+[`DefaultStorageClass` admission plugin](docs/admin/admission-controllers/#defaultstorageclass)
 is turned on.
 
-* If the admission controller is turned on, the administrator may specify a
+* If the admission plugin is turned on, the administrator may specify a
 default `StorageClass`. All PVCs that have no annotation can be bound only to
 PVs of that default. Specifying a default `StorageClass` is done by setting the
 annotation `storageclass.beta.kubernetes.io/is-default-class` equal to "true" in
 a `StorageClass` object. If the administrator does not specify a default, the
-cluster responds to PVC creation as if the admission controller were turned off.
-If more than one default is specified, the admission controller forbids the
-creation of all PVCs.
-* If the admission controller is turned off, there is no notion of a default
+cluster responds to PVC creation as if the admission plugin were turned off. If
+more than one default is specified, the admission plugin forbids the creation of
+all PVCs.
+* If the admission plugin is turned off, there is no notion of a default
 `StorageClass`. All PVCs that have no annotation can be bound only to PVs that
 have no class. In this case the PVCs that have no annotation are treated the
 same way as PVCs that have their annotation set to `""`.
@@ -344,10 +340,10 @@ parameters:
   iopsPerGB: "10"
 ```
 
-* `type`: `io1`, `gp2`, `sc1`, `st1`. See AWS docs for details. Default: `gp2`.
+* `type`: `io1`, `gp2`, `sc1`, `st1`. See [AWS docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) for details. Default: `gp2`.
 * `zone`: AWS zone. If not specified, a random zone from those where Kubernetes cluster has a node is chosen.
-* `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS volume plugin multiplies this with size of requested volume to compute IOPS of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see AWS docs).
-* `encrypted`: denotes whether the EBS volume should be encrypted or not. Valid values are `true` or `false`.
+* `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS volume plugin multiplies this with size of requested volume to compute IOPS of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see [AWS docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html). A string is expected here, i.e. `"10"`, not `10`.
+* `encrypted`: denotes whether the EBS volume should be encrypted or not. Valid values are `"true"` or `"false"`. A string is expected here, i.e. `"true"`, not `true`.
 * `kmsKeyId`: optional. The full Amazon Resource Name of the key to use when encrypting the volume. If none is supplied but `encrypted` is true, a key is generated by AWS. See AWS docs for valid ARN value.
 
 #### GCE
