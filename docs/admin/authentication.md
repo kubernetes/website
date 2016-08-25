@@ -45,8 +45,13 @@ with the request:
 All values are opaque to the authentication system and only hold significance
 when interpreted by an [authorizer](/docs/admin/authorization/).
 
-Multiple authentication methods may be enabled at once. In these cases, the first
-authenticator to successfully authenticate the request short-circuits evaluation.
+Multiple authentication methods may be enabled at once. Usually, you need at least two methods:
+
+ - service account tokens for service accounts
+ - at least one other method for user authentication.
+
+When multiple are enabled, the first authenticator module
+to successfully authenticate the request short-circuits evaluation.
 The API server does not guarantee the order authenticators run in.
 
 ### X509 Client Certs
@@ -189,7 +194,9 @@ verify ID token's signature and determine the end users identity.
 To enable the plugin, pass the following required flags:
 
 * `--oidc-issuer-url` URL of the provider which allows the API server to discover
-public signing keys. Only URLs which use the `https://` scheme are accepted.
+public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically
+the provider's URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
+
 * `--oidc-client-id` A client id that all tokens must be issued for.
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
@@ -211,6 +218,17 @@ which is expected to be a unique identifier of the end user. Admins can choose
 other claims, such as `email`, depending on their provider.
 * `--oidc-groups-claim` JWT claim to use as the user's group. If the claim is present
 it must be an array of strings.
+
+Kubernetes does not provide an OpenID Connect Identity Provider.
+You can use an existing public OpenID Connect Identity Provider (such as Google, or [others](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
+Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex/blob/master/Documentation/getting-started.md), [Keycloak](https://github.com/keycloak/keycloak) or CloudFoundary [UAA](https://github.com/cloudfoundry/uaa).
+
+The provider needs to support [OpenID connect discovery]https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
+
+Setup instructions for specific systems:
+
+- [UAA]: http://apigee.com/about/blog/engineering/kubernetes-authentication-enterprise
+- [Dex]: https://speakerdeck.com/ericchiang/kubernetes-access-control-with-dex
 
 ### Webhook Token Authentication
 
