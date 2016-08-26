@@ -34,6 +34,8 @@ spec:
         name: does-not-exist
 ```
 
+Also note that if `subPath` is specified in the container's volumeMounts and the `subPath` doesn't exist in the corresponding volume, the pod execution will fail as well.
+
 ## Kubectl attach
 
 The `kubectl attach` command does not work under the rkt container runtime.
@@ -97,6 +99,8 @@ On the other hand, when running the pod with [stage1-fly](https://coreos.com/rkt
 
 Patching a pod to change the image will result in the entire pod restarting, not just the container that was changed.
 
-## Volume mounts specifying a subPath
+## ImagePullPolicy 'Always'
 
-The [subPath](https://github.com/kubernetes/kubernetes/pull/22575) feature does not work correctly under rkt. In addition, the issue of non-existent host volume paths being invalid, mentioned above, would cause many common use cases for subPaths to fail in the same way. In some cases, this issue can be worked around by creating and using subdirectories from within the container, rather than relying on Kubernetes to do so.
+When the container's image pull policy is `Always`, rkt will always pull the image from remote even if the image has not changed at all.
+This can add significant latency for large images.
+The issue is tracked by rkt upstream at [#2937](https://github.com/coreos/rkt/issues/2937).
