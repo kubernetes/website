@@ -1,0 +1,19 @@
+apiVersion: batch/v2alpha1
+kind: ScheduledJob
+metadata:
+  name: pi
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: pi
+            image: perl
+            args:
+            - perl
+            - -Mbignum=bpi
+            - -wle
+            - print bpi(2000)
+          restartPolicy: OnFailure
+  schedule: 0/1 * * * ?

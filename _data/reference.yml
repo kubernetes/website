@@ -218,6 +218,8 @@ toc:
     path: /docs/user-guide/replication-controller/    
   - title: Resource Quotas
     path: /docs/admin/resource-quota/    
+  - title: Scheduled Jobs
+    path: /docs/user-guide/scheduled-jobs/
   - title: Secrets
     path: /docs/user-guide/secrets/
   - title: Security Context
