@@ -196,6 +196,8 @@ toc:
     path: /docs/user-guide/ingress/    
   - title: Jobs
     path: /docs/user-guide/jobs/    
+  - title: Scheduled Jobs
+    path: /docs/user-guide/scheduled-jobs/
   - title: Labels and Selectors
     path: /docs/user-guide/labels/
   - title: Names
