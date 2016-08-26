@@ -128,4 +128,4 @@ Some more thorough examples:
 
 ## Default values for container resource limits
 
-If cpu and memory limits are not specified for a container, the downward API will default to node's cpu and memory capacities.
+If cpu and memory limits are not specified for a container, the downward API will default to node allocatables for cpu and memory.
