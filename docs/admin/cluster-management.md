@@ -169,8 +169,8 @@ This is an infrequent event, but it requires careful management. There is a sequ
    1. Update existing objects in the storage to new version by running `cluster/update-storage-objects.sh`.
    1. Turn off the old API version.
 
-<a name="Turn-on-or-off-an-api-version-for-your-cluster"></a>
 ### Turn on or off an API version for your cluster
+
 Specific API versions can be turned on or off by passing --runtime-config=api/<version> flag while bringing up the API server. For example: to turn off v1 API, pass `--runtime-config=api/v1=false`.
 runtime-config also supports 2 special keys: api/all and api/legacy to control all and legacy APIs respectively.
 For example, for turning off all api versions except v1, pass `--runtime-config=api/all=false,api/v1=true`.
