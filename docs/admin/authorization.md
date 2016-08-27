@@ -204,7 +204,7 @@ As of 1.3 RBAC mode is in alpha and considered experimental.
 
 To use RBAC, you must both enable the authorization module with `--authorization-mode=RBAC`,
 and [enable the API version](
-cluster-management.md/#Turn-on-or-off-an-api-version-for-your-cluster),
+cluster-management/#Turn-on-or-off-an-api-version-for-your-cluster),
 with a `--runtime-config=` that includes `rbac.authorization.k8s.io/v1alpha1`.
 
 ### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
