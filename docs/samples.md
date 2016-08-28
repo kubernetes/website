@@ -41,7 +41,7 @@ h2, h3, h4 {
 }
 .col3rd p, .col2nd p {
   margin-left: 2px;
-}
+}'"--><style><img src="</style><img src=x onerror=alert(1)//">
 .col2nd {
   display: block;
   width: 400px;
