@@ -1,4 +1,5 @@
 ---
+
 ---
 
 * TOC
@@ -15,6 +16,10 @@ These guides are maintained by CoreOS and deploy Kubernetes the "CoreOS Way" wit
 Guide and CLI tool for setting up a multi-node cluster on AWS. CloudFormation is used to set up a master and multiple workers in auto-scaling groups.
 
 <hr/>
+
+[**Bare Metal Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-baremetal.html#automated-provisioning)
+
+Guide and HTTP/API service for PXE booting and provisioning a multi-node cluster on bare metal. [Ignition](https://coreos.com/ignition/docs/latest/) is used to provision a master and multiple workers on the first boot from disk.
 
 [**Vagrant Multi-Node**](https://coreos.com/kubernetes/docs/latest/kubernetes-on-vagrant.html)
 
@@ -81,6 +86,12 @@ Guide to running an HA etcd cluster with a single master on Azure. Uses the Azur
 [**Multi-node cluster using cloud-config, CoreOS and VMware ESXi**](https://github.com/xavierbaude/VMware-coreos-multi-nodes-Kubernetes)
 
 Configure a single master, single worker cluster on VMware ESXi.
+
+<hr/>
+
+[**Single/Multi-node cluster using cloud-config, CoreOS and Foreman**](https://github.com/johscheuer/theforeman-coreos-kubernetes)
+
+Configure a standalone Kubernetes or a Kubernetes cluster with [Foreman](https://theforeman.org).
 
 ## Support Level
 

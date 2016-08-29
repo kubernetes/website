@@ -1,4 +1,8 @@
 ---
+assignees:
+- mikedanese
+- thockin
+
 ---
 
 *This document is aimed at users who have worked through some of the examples,
@@ -28,7 +32,7 @@ spec:
 EOF
 $ kubectl create -f /tmp/original.yaml
 pods/original
-$ kubectl get pods/original -o yaml > /tmp/current.yaml
+$ kubectl get pods/foo -o yaml > /tmp/current.yaml
 pods/original
 $ wc -l /tmp/original.yaml /tmp/current.yaml
       51 /tmp/current.yaml

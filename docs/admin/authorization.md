@@ -1,9 +1,13 @@
 ---
+assignees:
+- erictune
+- lavalamp
+
 ---
 
 In Kubernetes, authorization happens as a separate step from authentication.
-See the [authentication documentation](/docs/admin/authentication) for an
-overview of authentication.
+See the [Accessing Control Overview](/docs/admin/accessing-the-api/) for an
+overview of how authentication and authorization are applied to requests.
 
 Authorization applies to all HTTP accesses on the main (secure) apiserver port.
 
@@ -16,36 +20,53 @@ The following implementations are available, and are selected by flag:
   - `--authorization-mode=AlwaysDeny` blocks all requests (used in tests).
   - `--authorization-mode=AlwaysAllow` allows all requests; use if you don't
 need authorization.
-  - `--authorization-mode=ABAC`allows for user-configured authorization policy.
-ABAC stands for
-  Attribute-Based Access Control.
+  - `--authorization-mode=ABAC` allows for a simple local-file-based user-configured
+authorization policy.  ABAC stands for Attribute-Based Access Control.
+authorization policy.
+  - `--authorization-mode=RBAC` is an experimental implementation which allows
+for authorization to be driven by the Kubernetes API.
+RBAC stands for Roles-Based Access Control.
   - `--authorization-mode=Webhook` allows for authorization to be driven by a
 remote service using REST.
 
-## ABAC Mode
+If multiple modes are provided the set is unioned, and only a single authorizer is required to admit the action.  This means the flag:
 
-### Request Attributes
+```
+--authorization-mode=AlwaysDeny,AlwaysAllow
+```
+
+will always allow.
+
+## Request Attributes
 
 A request has the following attributes that can be considered for authorization:
 
   - user (the user-string which a user was authenticated as).
   - group (the list of group names the authenticated user is a member of).
+  - "extra" (a map of arbitrary string keys to string values, provided by the authentication layer)
   - whether the request is for an API resource.
   - the request path.
-    - allows authorizing access to miscellaneous endpoints like `/api` or
-`/healthz` (see [kubectl](#kubectl)).
+    - allows authorizing access to miscellaneous non-resource endpoints like `/api` or `/healthz` (see [kubectl](#kubectl)).
   - the request verb.
-    - API verbs like `get`, `list`, `create`, `update`, `watch`, `delete`, and
-`deletecollection` are used for API requests
-    - HTTP verbs like `get`, `post`, `put`, and `delete` are used for non-API
-requests
-  - what resource is being accessed (for API requests only)
-  - the namespace of the object being accessed (for namespaced API requests
-only)
-  - the API group being accessed (for API requests only)
+    - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests
+    - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests
+  - what resource is being accessed (for resource requests only)
+  - what subresource is being accessed (for resource requests only)
+  - the namespace of the object being accessed (for namespaced resource requests only)
+  - the API group being accessed (for resource requests only)
 
-We anticipate adding more attributes to allow finer grained access control and
-to assist in policy management.
+The request verb for a resource API endpoint can be determined by the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
+
+HTTP verb | request verb
+----------|---------------
+POST      | create
+GET, HEAD | get (for individual resources), list (for collections)
+PUT       | update
+PATCH     | patch
+DELETE    | delete (for individual resources), deletecollection (for collections)
+
+
+## ABAC Mode
 
 ### Policy File Format
 
@@ -86,17 +107,17 @@ A request has attributes which correspond to the properties of a policy object.
 When a request is received, the attributes are determined.  Unknown attributes
 are set to the zero value of its type (e.g. empty string, 0, false).
 
-A property set to "*" will match any value of the corresponding attribute.
+A property set to `"*"` will match any value of the corresponding attribute.
 
 The tuple of attributes is checked for a match against every policy in the
 policy file. If at least one line matches the request attributes, then the
 request is authorized (but may fail later validation).
 
 To permit any user to do something, write a policy with the user property set to
-"*".
+`"*"`.
 
 To permit a user to do anything, write a policy with the apiGroup, namespace,
-resource, and nonResourcePath properties set to "*".
+resource, and nonResourcePath properties set to `"*"`.
 
 ### Kubectl
 
@@ -119,11 +140,31 @@ up the verbosity:
 
 ### Examples
 
- 1. Alice can do anything to all resources:                  `{"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "alice", "namespace": "*", "resource": "*", "apiGroup": "*"}}`
- 2. Kubelet can read any pods:                               `{"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "pods", "readonly": true}}`
- 3. Kubelet can read and write events:                       `{"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}`
- 4. Bob can just read pods in namespace "projectCaribou":    `{"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "bob", "namespace": "projectCaribou", "resource": "pods", "readonly": true}}`
- 5. Anyone can make read-only requests to all non-API paths: `{"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "*", "readonly": true, "nonResourcePath": "*"}}`
+ 1. Alice can do anything to all resources:
+
+    ```json
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "alice", "namespace": "*", "resource": "*", "apiGroup": "*"}}
+    ```
+ 2. Kubelet can read any pods:
+
+    ```json
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "pods", "readonly": true}}
+    ```
+ 3. Kubelet can read and write events:
+
+    ```json
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}
+    ```
+ 4. Bob can just read pods in namespace "projectCaribou":
+
+    ```json
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "bob", "namespace": "projectCaribou", "resource": "pods", "readonly": true}}
+    ```
+ 5. Anyone can make read-only requests to all non-resource paths:
+
+    ```json
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "*", "readonly": true, "nonResourcePath": "*"}}
+    ```
 
 [Complete file example](http://releases.k8s.io/{{page.githubbranch}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
@@ -136,7 +177,7 @@ according to the naming convention:
 system:serviceaccount:<namespace>:<serviceaccountname>
 ```
 Creating a new namespace also causes a new service account to be created, of
-this form:*
+this form:
 
 ```shell
 system:serviceaccount:<namespace>:default
@@ -147,10 +188,163 @@ kube-system full privilege to the API, you would add this line to your policy
 file:
 
 ```json
-{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}
+{"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}
 ```
 
 The apiserver will need to be restarted to pickup the new policy lines.
+
+## RBAC Mode
+
+When specified "RBAC" (Role-Based Access Control) uses the
+"rbac.authorization.k8s.io" API group to drive authorization decisions,
+allowing admins to dynamically configure permission policies through the
+Kubernetes API.
+
+As of 1.3 RBAC mode is in alpha and considered experimental.
+
+To use RBAC, you must both enable the authorization module with `--authorization-mode=RBAC`,
+and [enable the API version](
+docs/admin/cluster-management.md/#Turn-on-or-off-an-api-version-for-your-cluster),
+with a `--runtime-config=` that includes `rbac.authorization.k8s.io/v1alpha1`.
+
+### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
+
+The RBAC API Group declares four top level types which will be covered in this
+section. Users can interact with these resources as they would with any other
+API resource. Through `kubectl`, direct calls to the API, etc. For instance,
+`kubectl create -f (resource).yml` can be used with any of these examples,
+though readers who wish to follow along should review the following section on
+bootstrapping first.
+
+In the RBAC API Group, roles hold a logical grouping of permissions. These
+permissions map very closely to ABAC policies, but only contain information
+about requests being made. Permission are purely additive, rules may only omit
+permissions they do not wish to grant.
+
+Here's an example of a role which grants read access to pods within the
+"default" namespace.
+
+```yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  namespace: default
+  name: pod-reader
+rules:
+  - apiGroups: [""] # The API group "" indicates the default API Group.
+    resources: ["pods"]
+    verbs: ["get", "watch", "list"]
+    nonResourceURLs: []
+```
+
+`ClusterRoles` hold the same information as a `Role` but can apply to any
+namespace as well as non-namespaced resources (such as `Nodes`,
+`PersistentVolume`, etc.). The following `ClusterRole` can grant permissions to
+read secrets in any namespace.
+
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  # "namespace" omitted since ClusterRoles are not namespaced.
+  name: secret-reader
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "watch", "list"]
+    nonResourceURLs: []
+```
+
+`RoleBindings` perform the task of granting the permission to a user or set of
+users. They hold a list of subjects which they apply to, and a reference to the
+`Role` being assigned.
+
+The following `RoleBinding` assigns the "pod-reader" role to the user "jane"
+within the "default" namespace, and allows jane to read pods.
+
+```yaml
+# This role binding allows "jane" to read pods in the namespace "default"
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  name: read-pods
+  namespace: default
+subjects:
+  - kind: User # May be "User", "Group" or "ServiceAccount"
+    name: jane
+roleRef:
+  kind: Role
+  namespace: default
+  name: pod-reader
+  apiVersion: rbac.authorization.k8s.io/v1alpha1
+```
+
+`RoleBindings` may also refer to a `ClusterRole`. However, a `RoleBinding` that
+refers to a `ClusterRole` only applies in the `RoleBinding`'s namespace, not at
+the cluster level. This allows admins to define a set of common roles for the
+entire cluster, then reuse them in multiple namespaces.
+
+For instance, even though the following `RoleBinding` refers to a `ClusterRole`,
+"dave" (the subject) will only be able read secrets in the "development"
+namespace, the namespace of the `RoleBinding`.
+
+```yaml
+# This role binding allows "dave" to read secrets in the namespace "development"
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  name: read-secrets
+  namespace: development # This binding only applies in the "development" namespace
+subjects:
+  - kind: User # May be "User", "Group" or "ServiceAccount"
+    name: dave
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiVersion: rbac.authorization.k8s.io/v1alpha1
+```
+
+Finally a `ClusterRoleBinding` may be used to grant permissions in all
+namespaces. The following `ClusterRoleBinding` allows any user in the group
+"manager" to read secrets in any namepsace.
+
+```yaml
+# This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  name: read-secrets
+subjects:
+  - kind: Group # May be "User", "Group" or "ServiceAccount"
+    name: manager
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiVersion: rbac.authorization.k8s.io/v1alpha1
+```
+
+### Privilege Escalation Prevention and Bootstrapping
+
+The `rbac.authorization.k8s.io` API group inherently attempts to prevent users
+from escalating privileges. Simply put, __a user can't grant permissions they
+don't already have even when the RBAC authorizer it disabled__. If "user-1"
+does not have the ability to read secrets in "namespace-a", they cannot create
+a binding that would grant that permission to themselves or any other user.
+
+For bootstrapping the first roles, it becomes necessary for someone to get
+around these limitations. For the alpha release of RBAC, an API Server flag was
+added to allow one user to step around all RBAC authorization and privilege
+escalation checks. NOTE: _This is subject to change with future releases._
+
+```
+--authorization-rbac-super-user=admin
+```
+
+Once set the specified super user, in this case "admin", can be used to create
+the roles and role bindings to initialize the system.
+
+This flag is optional and once the initial bootstrapping is performed can be
+unset.
 
 ## Webhook Mode
 
@@ -285,7 +479,7 @@ restricting access to the REST api.
 For further documentation refer to the authorization.v1beta1 API objects and
 plugin/pkg/auth/authorizer/webhook/webhook.go.
 
-## Plugin Development
+## Module Development
 
 Other implementations can be developed fairly easily.
 The APIserver calls the Authorizer interface:

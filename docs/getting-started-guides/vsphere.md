@@ -1,4 +1,8 @@
 ---
+assignees:
+- erictune
+- jbeda
+
 ---
 
 The example below creates a Kubernetes cluster with 4 worker node Virtual
@@ -11,7 +15,7 @@ convenient).
 
 ### Prerequisites
 
-1. You need administrator credentials to an ESXi machine or vCenter instance.
+1. You need administrator credentials to an ESXi machine or vCenter instance with write mode api access enabled (not available on the free ESXi license).
 2. You must have Go (see [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/development.md#go-versions) for supported versions) installed: [www.golang.org](http://www.golang.org).
 3. You must have your `GOPATH` set up and include `$GOPATH/bin` in your `PATH`.
 
@@ -49,6 +53,7 @@ export GOVC_NETWORK='Network Name' # Name of the network the vms should join. Ma
 export GOVC_INSECURE=1 # If the host above uses a self-signed cert
 export GOVC_DATASTORE='target datastore'
 export GOVC_RESOURCE_POOL='resource pool or cluster with access to datastore'
+export GOVC_GUEST_LOGIN='kube:kube' # Used for logging into kube.vmdk during deployment.
 
 govc import.vmdk kube.vmdk ./kube/
 ```
@@ -58,9 +63,14 @@ Verify that the VMDK was correctly uploaded and expanded to ~3GiB:
 ```shell
 govc datastore.ls ./kube/
 ```
+If you need to debug any part of the deployment, the guest login for 
+the image that you imported is `kube:kube`. It is normally specified 
+in the GOVC_GUEST_LOGIN parameter above.
 
-Take a look at the file `cluster/vsphere/config-common.sh` fill in the required
-parameters. The guest login for the image that you imported is `kube:kube`.
+Also take a look at the file `cluster/vsphere/config-default.sh` and
+make any needed changes. You can configure the number of nodes
+as well as the IP subnets you have made available to Kubernetes, pods,
+and services.
 
 ### Starting a cluster
 
@@ -100,7 +110,7 @@ going on (find yourself authorized with your SSH key, or use the password
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Vmware               |              | Debian | OVS         | [docs](/docs/getting-started-guides/vsphere)                                |          | Community ([@pietern](https://github.com/pietern))
+Vmware vSphere       | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/vsphere)                                |          | Community ([@imkin](https://github.com/imkin))
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 

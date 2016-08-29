@@ -12,6 +12,10 @@
     "selector": {
       "app": "example"
     },
-    "type": "LoadBalancer"
+    "type": "LoadBalancer",
+    "loadBalancerSourceRanges": [
+      "10.180.0.0/16",
+      "10.245.0.0/24"
+    ]
   }
 }

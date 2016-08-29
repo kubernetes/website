@@ -1,10 +1,13 @@
 ---
+assignees:
+- mikedanese
+
 ---
 
 * TOC
 {:toc}
 
-Garbage collection is a helpful function of kubelet that will clean up unreferenced images and unused containers. kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
+Garbage collection is a helpful function of kubelet that will clean up unused images and unused containers. kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
 
 External garbage collection tools are not recommended as these tools can potentially break the behavior of kubelet by removing containers expected to exist.
 

@@ -1,4 +1,10 @@
 ---
+assignees:
+- jsafrane
+- mikedanese
+- saad-ali
+- thockin
+
 ---
 
 On-disk files in a container are ephemeral, which presents some problems for
@@ -64,12 +70,13 @@ Kubernetes supports several types of Volumes:
    * `flocker`
    * `glusterfs`
    * `rbd`
+   * `cephfs`
    * `gitRepo`
    * `secret`
    * `persistentVolumeClaim`
    * `downwardAPI`
    * `azureFileVolume`
-   * `vsphereVirtualDisk`
+   * `vsphereVolume`
 
 We welcome additional contributions.
 
@@ -117,6 +124,50 @@ Watch out when using this type of volume, because:
   behave differently on different nodes due to different files on the nodes
 * when Kubernetes adds resource-aware scheduling, as is planned, it will not be
   able to account for resources used by a `hostPath`
+* the directories created on the underlying hosts are only writable by root, you either need
+  to run your process as root in a priveleged container or modify the file permissions on
+  the host to be able to write to a `hostPath` volume
+
+#### Example pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: gcr.io/google_containers/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /test-pd
+      name: test-volume
+  volumes:
+  - name: test-volume
+    hostPath:
+      # directory location on host
+      path: /data
+```
+
+#### Example pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-hostpath
+spec:
+  containers:
+  - image: myimage
+    name: test-container
+    volumeMounts:
+    - mountPath: /test-hostpath
+      name: test-volume
+  volumes:
+  - name: test-volume
+    hostPath:
+      path: /path/to/my/dir
+```
 
 ### gcePersistentDisk
 
@@ -236,7 +287,7 @@ writers simultaneously.
 __Important: You must have your own NFS server running with the share exported
 before you can use it__
 
-See the [NFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/nfs/) for more details.
+See the [NFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/nfs) for more details.
 
 ### iscsi
 
@@ -255,7 +306,7 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/iscsi/) for more details.
+See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/iscsi) for more details.
 
 ### flocker
 
@@ -270,7 +321,7 @@ can be "handed off" between pods as required.
 
 __Important: You must have your own Flocker installation running before you can use it__
 
-See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/flocker/) for more details.
+See the [Flocker example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/flocker) for more details.
 
 ### glusterfs
 
@@ -285,7 +336,7 @@ simultaneously.
 __Important: You must have your own GlusterFS installation running before you
 can use it__
 
-See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/glusterfs/) for more details.
+See the [GlusterFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/glusterfs) for more details.
 
 ### rbd
 
@@ -305,7 +356,21 @@ and then serve it in parallel from as many pods as you need.  Unfortunately,
 RBD volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
-See the [RBD example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/rbd/) for more details.
+See the [RBD example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/rbd) for more details.
+
+### cephfs
+
+A `cephfs` volume allows an existing CephFS volume to be
+mounted into your pod. Unlike `emptyDir`, which is erased when a Pod is
+removed, the contents of a `cephfs` volume are preserved and the volume is merely
+unmounted.  This means that a CephFS volume can be pre-populated with data, and
+that data can be "handed off" between pods.  CephFS can be mounted by multiple
+writers simultaneously.
+
+__Important: You must have your own Ceph server running with the share exported
+before you can use it__
+
+See the [CephFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/cephfs/) for more details.
 
 ### gitRepo
 
@@ -371,18 +436,18 @@ A `FlexVolume` enables users to mount vendor volumes into a pod. It expects vend
 drivers are installed in the volume plugin path on each kubelet node. This is
 an alpha feature and may change in future.
 
-More details are in [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/flexvolume/README.md)
+More details are in [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/flexvolume/README.md)
 
 ### AzureFileVolume
 
 A `AzureFileVolume` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 3.0)
 into a Pod.
 
-More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/azure_file/README.md)
+More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_file/README.md)
 
-### vsphereVirtualDisk
+### vsphereVolume
 
-A `VSphereVirtualDisk` is used to mount a vSphere VMDK Volume into your Pod.  The contents
+A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
 of a volume are preserved when it is unmounted.
 
 __Important: You must create a VMDK volume using `vmware-vdiskmanager -c` or
@@ -413,7 +478,7 @@ spec:
   volumes:
   - name: test-volume
     # This VMDK volume must already exist.
-    vsphereVirtualDisk:
+    vsphereVolume:
       volumePath: myDisk
       fsType: ext4
 ```

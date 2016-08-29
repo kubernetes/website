@@ -1,15 +1,17 @@
 overrides:
 - path: docs/api-reference
 - path: docs/user-guide/kubectl
+- path: docs/admin/federation-apiserver.md
+- path: docs/admin/federation-controller-manager.md
 - path: docs/admin/kube-apiserver.md
 - path: docs/admin/kube-controller-manager.md
 - path: docs/admin/kube-proxy.md
 - path: docs/admin/kube-scheduler.md
 - path: docs/admin/kubelet.md
-- changedpath: docs/api-reference/extensions/v1beta1/definitions.html _includes/v1.2/extensions-v1beta1-definitions.html
-- changedpath: docs/api-reference/extensions/v1beta1/operations.html _includes/v1.2/extensions-v1beta1-operations.html
-- changedpath: docs/api-reference/v1/definitions.html _includes/v1.2/v1-definitions.html
-- changedpath: docs/api-reference/v1/operations.html _includes/v1.2/v1-operations.html
+- changedpath: docs/api-reference/extensions/v1beta1/definitions.html _includes/v1.3/extensions-v1beta1-definitions.html
+- changedpath: docs/api-reference/extensions/v1beta1/operations.html _includes/v1.3/extensions-v1beta1-operations.html
+- changedpath: docs/api-reference/v1/definitions.html _includes/v1.3/v1-definitions.html
+- changedpath: docs/api-reference/v1/operations.html _includes/v1.3/v1-operations.html
 - copypath: k8s/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml docs/getting-started-guides/fluentd-gcp.yaml
 - copypath: k8s/examples/blog-logging/counter-pod.yaml docs/getting-started-guides/counter-pod.yaml
 - copypath: k8s/examples/blog-logging/counter-pod.yaml docs/user-guide/counter-pod.yaml

@@ -1,4 +1,8 @@
 ---
+assignees:
+- mikedanese
+- thockin
+
 ---
 
 * TOC
@@ -9,7 +13,7 @@ container needs.  When containers have their resource requests specified, the sc
 able to make better decisions about which nodes to place pods on; and when containers have their
 limits specified, contention for resources on a node can be handled in a specified manner. For
 more details about the difference between requests and limits, please refer to
-[Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/resource-qos.md).
+[Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resource-qos.md).
 
 *CPU* and *memory* are each a *resource type*.  A resource type has a base unit.  CPU is specified
 in units of cores.  Memory is specified in units of bytes.
@@ -40,8 +44,34 @@ about pod resource requests/limits.  A *pod resource request/limit* for a partic
 type is the sum of the resource requests/limits of that type for each container in the pod, with
 unset values treated as zero (or equal to default values in some cluster configurations).
 
+### Meaning of CPU
+Limits and requests for `cpu` are measured in cpus.  
+One cpu, in Kubernetes, is equivalent to:
+
+- 1 AWS vCPU
+- 1 GCP Core
+- 1 Azure vCore
+- 1 *Hyperthread* on a bare-metal Intel processor with Hyperthreading
+
+Fractional requests are allowed.  A container with `spec.container[].resources.requests.cpu` of `0.5` will
+be guaranteed half as much CPU as one that asks for `1`.  The expression `0.1` is equivalent to the expression
+`100m`, which can be read as "one hundred millicpu" (some may say "one hundred millicores", and this is understood
+to mean the same thing when talking about Kubernetes).  A request with a decimal point, like `0.1` is converted to
+`100m` by the API, and precision finer than `1m` is not allowed.  For this reason, the form `100m` may be preferred.
+
+CPU is always requested as an absolute quantity, never as a relative quantity; 0.1 is the same amount of cpu on a single
+core, dual core, or 48 core machine.
+
+# Meaning of Memory
+
+Limits and requests for `memory` are measured in bytes.
+Memory can be expressed a plain integer or as fixed-point integers with one of these SI suffixes (E, P, T, G, M, K)
+or their power-of-two equivalents (Ei, Pi, Ti, Gi, Mi, Ki). For example, the following represent roughly the same value:
+`128974848`, `129e6`, `129M` , `123Mi`.
+
+### Example
 The following pod has two containers.  Each has a request of 0.25 core of cpu and 64MiB
-(2<sup>20</sup> bytes) of memory and a limit of 0.5 core of cpu and 128MiB of memory. The pod can
+(2<sup>26</sup> bytes) of memory and a limit of 0.5 core of cpu and 128MiB of memory. The pod can
 be said to have a request of 0.5 core and 128 MiB of memory and a limit of 1 core and 256MiB of
 memory.
 
@@ -91,10 +121,16 @@ runner (Docker or rkt).
 
 When using Docker:
 
-- The `spec.container[].resources.limits.cpu` is multiplied by 1024, converted to an integer, and
-  used as the value of the [`--cpu-shares`](
+- The `spec.container[].resources.requests.cpu` is converted to its core value (potentially fractional),
+  and multipled by 1024, and used as the value of the [`--cpu-shares`](
   https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
   command.
+- The `spec.container[].resources.limits.cpu` is converted to its millicore value,
+  multipled by 100000, and then divided by 1000, and used as the value of the [`--cpu-quota`](
+  https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
+  command.  The [`--cpu-period`] flag is set to 100000 which represents the default 100ms period
+  for measuring quota usage.  The kubelet enforces cpu limits if it was started with the
+  [`--cpu-cfs-quota`] flag set to true.  As of version 1.2, this flag will now default to true.
 - The `spec.container[].resources.limits.memory` is converted to an integer, and used as the value
   of the [`--memory`](https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag
   to the `docker run` command.
