@@ -1,4 +1,8 @@
 ---
+assignees:
+- mikedanese
+- thockin
+
 ---
 
 This example shows two types of pod [health checks](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks): HTTP checks and container execution checks.
@@ -23,6 +27,13 @@ The [http-liveness.yaml](/docs/user-guide/liveness/http-liveness.yaml) demonstra
 
 
 The Kubelet sends an HTTP request to the specified path and port to perform the health check. If you take a look at image/server.go, you will see the server starts to respond with an error code 500 after 10 seconds, so the check fails. The Kubelet sends probes to the container's IP address, unless overridden by the optional `host` field in httpGet. If the container listens on `127.0.0.1` and `hostNetwork` is `true` (i.e., it does not use the pod-specific network), then `host` should be specified as `127.0.0.1`. Be warned that, outside of less common cases like that, `host` does probably not result in what you would expect. If you set it to a non-existing hostname (or your competitor's!), probes will never reach the pod, defeating the whole point of health checks. If your pod relies on e.g. virtual hosts, which is probably the more common case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
+
+### Using a named port for liveness probes
+
+You can also use a named `ContainerPort` for HTTP liveness checks. 
+
+The [http-liveness-named-port.yaml](/docs/user-guide/liveness/http-liveness-named-port.yaml) demonstrates the named-port HTTP check.
+{% include code.html language="yaml" file="http-liveness-named-port.yaml" ghlink="/docs/user-guide/liveness/http-liveness-named-port.yaml" %}
 
 This [guide](/docs/user-guide/walkthrough/k8s201/#health-checking) has more information on health checks.
 

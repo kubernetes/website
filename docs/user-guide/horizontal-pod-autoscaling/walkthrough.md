@@ -1,25 +1,30 @@
 ---
+assignees:
+- fgrzadkowski
+- jszczepkowski
+- justinsb
+
 ---
 
-Horizontal pod autoscaling allows to automatically scale the number of pods
-in a replication controller, deployment or replica set based on observed CPU utilization.
-In the future also other metrics will be supported.
+Horizontal Pod Autoscaling automatically scales the number of pods
+in a replication controller, deployment or replica set based on observed CPU utilization
+(or, with alpha support, on some other, application-provided metrics).
 
-In this document we explain how this feature works by walking you through an example of enabling horizontal pod autoscaling for the php-apache server.
+In this document we explain how this feature works by walking you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.
 
 ## Prerequisites
 
-This example requires a running Kubernetes cluster and kubectl in the version at least 1.2.
+This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
 [Heapster](https://github.com/kubernetes/heapster) monitoring needs to be deployed in the cluster
-as horizontal pod autoscaler uses it to collect metrics
+as Horizontal Pod Autoscaler uses it to collect metrics
 (if you followed [getting started on GCE guide](/docs/getting-started-guides/gce),
 heapster monitoring will be turned-on by default).
 
 ## Step One: Run & expose php-apache server
 
-To demonstrate horizontal pod autoscaler we will use a custom docker image based on php-apache server.
+To demonstrate Horizontal Pod Autoscaler we will use a custom docker image based on the php-apache image.
 The image can be found [here](/docs/user-guide/horizontal-pod-autoscaling/image).
-It defines [index.php](/docs/user-guide/horizontal-pod-autoscaling/image/index.php) page which performs some CPU intensive computations.
+It defines an [index.php](/docs/user-guide/horizontal-pod-autoscaling/image/index.php) page which performs some CPU intensive computations.
 
 First, we will start a deployment running the image and expose it as a service:
 
@@ -29,15 +34,15 @@ service "php-apache" created
 deployment "php-apache" created
 ```
 
-## Step Two: Create horizontal pod autoscaler
+## Step Two: Create Horizontal Pod Autoscaler
 
 Now that the server is running, we will create the autoscaler using
 [kubectl autoscale](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/user-guide/kubectl/kubectl_autoscale.md).
-The following command will create a horizontal pod autoscaler that maintains between 1 and 10 replicas of the Pods
+The following command will create a Horizontal Pod Autoscaler that maintains between 1 and 10 replicas of the Pods
 controlled by the php-apache deployment we created in the first step of these instructions.
-Roughly speaking, the horizontal autoscaler will increase and decrease the number of replicas
+Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
-(since each pod requests 200 milli-cores by [kubectl run](#kubectl-run), this means average CPU usage of 100 milli-cores).
+(since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
 See [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
 
 ```shell
@@ -59,8 +64,8 @@ Please note that the current CPU consumption is 0% as we are not sending any req
 
 ## Step Three: Increase load
 
-Now, we will see how the autoscaler reacts on the increased load on the server.
-We will start a container with `busybox` image and an infinite loop of queries to our server inside (please run it in a different terminal):
+Now, we will see how the autoscaler reacts to increased load.
+We will start a container, and send an infinite loop of queries to the php-apache service (please run it in a different terminal):
 
 ```shell
 $ kubectl run -i --tty load-generator --image=busybox /bin/sh
@@ -70,7 +75,7 @@ Hit enter for command prompt
 $ while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
 ```
 
-We may examine, how CPU load was increased by executing (it usually takes 1 minute):
+Within a minute or so, we should see the higher CPU load by executing:
 
 ```shell
 $ kubectl get hpa
@@ -79,7 +84,7 @@ php-apache   Deployment/php-apache/scale   50%       305%      1         10     
 
 ```
 
-In the case presented here, it bumped CPU consumption to 305% of the request.
+Here, CPU consumption has increased to 305% of the request.
 As a result, the deployment was resized to 7 replicas:
 
 ```shell
@@ -88,7 +93,7 @@ NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7         7         7            7           19m
 ```
 
-**Warning!** Sometimes it may take few steps to stabilize the number of replicas.
+**Note** Sometimes it may take a few minutes to stabilize the number of replicas.
 Since the amount of load is not controlled in any way it may happen that the final number of replicas will
 differ from this example. 
 
@@ -96,11 +101,10 @@ differ from this example.
 
 We will finish our example by stopping the user load.
 
-In the terminal where we created container with `busybox` image we will terminate
-infinite ``while`` loop by sending `SIGINT` signal,
-which can be done using `<Ctrl> + C` combination.
+In the terminal where we created the container with `busybox` image, terminate
+the load generation by typing `<Ctrl> + C`.
 
-Then we will verify the result state:
+Then we will verify the result state (after a minute or so):
 
 ```shell
 $ kubectl get hpa
@@ -112,9 +116,9 @@ NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 php-apache   1         1         1            1           27m
 ```
 
-As we see, in the presented case CPU utilization dropped to 0, and the number of replicas dropped to 1.
+Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas back down to 1.
 
-**Warning!** Sometimes dropping number of replicas may take few steps.
+**Note** autoscaling the replicas may take a few minutes.
 
 ## Appendix: Other possible scenarios
 

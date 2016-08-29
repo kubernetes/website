@@ -1,4 +1,8 @@
 ---
+assignees:
+- caesarxuchao
+- thockin
+
 ---
 
 * TOC
@@ -24,7 +28,7 @@ spec:  # specification of the pod's contents
   containers:
   - name: hello
     image: "ubuntu:14.04"
-    command: ["/bin/echo","hello'?,'?world"]
+    command: ["/bin/echo", "hello", "world"]
 ```
 
 The value of `metadata.name`, `hello-world`, will be the name of the pod resource created, and must be unique within the cluster, whereas `containers[0].name` is just a nickname for the container within that pod. `image` is the name of the Docker image, which Kubernetes expects to be able to pull from a registry, the [Docker Hub](https://registry.hub.docker.com/) by default.
@@ -83,7 +87,7 @@ spec:  # specification of the pod’s contents
     args: ["/bin/echo \"${MESSAGE}\""]
 ```
 
-However, a shell isn't necessary just to expand environment variables. Kubernetes will do it for you if you use [`$(ENVVAR)` syntax](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/expansion):
+However, a shell isn't necessary just to expand environment variables. Kubernetes will do it for you if you use [`$(ENVVAR)` syntax](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/expansion.md):
 
 ```yaml
     command: ["/bin/echo"]

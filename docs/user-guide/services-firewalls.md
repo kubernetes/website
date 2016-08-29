@@ -1,10 +1,58 @@
 ---
+assignees:
+- bprashanth
+- davidopp
+
 ---
 
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent
 exposure to the internet.  When exposing a service to the external world, you may need to open up
 one or more ports in these firewalls to serve traffic.  This document describes this process, as
 well as any provider specific details that may be necessary.
+
+### Restrict Access For LoadBalancer Service
+
+ When using a Service with `spec.type: LoadBalancer`, you can specify the IP ranges that are allowed to access the load balancer
+ by using `spec.loadBalancerSourceRanges`. This field takes a list of IP CIDR ranges, which Kubernetes will use to configure firewall exceptions.
+ This feature is currently supported on Google Compute Engine, Google Container Engine and AWS. This field will be ignored if the cloud provider does not support the feature.
+
+ Assuming 10.0.0.0/8 is the internal subnet. In the following example, a load blancer will be created that is only accessible to cluster internal ips. 
+ This will not allow clients from outside of your Kubernetes cluster to access the load blancer.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+spec:
+  ports:
+    - port: 8765
+      targetPort: 9376
+  selector:
+    app: example
+  type: LoadBalancer
+  loadBalancerSourceRanges:
+  - 10.0.0.0/8
+```
+
+ In the following example, a load blancer will be created that is only accessible to clients with IP addresses from 130.211.204.1 and 130.211.204.2.
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+spec:
+  ports:
+    - port: 8765
+      targetPort: 9376
+  selector:
+    app: example
+  type: LoadBalancer
+  loadBalancerSourceRanges:
+  - 130.211.204.1/32
+  - 130.211.204.2/32
+```
 
 ### Google Compute Engine
 

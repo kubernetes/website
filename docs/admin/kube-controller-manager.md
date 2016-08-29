@@ -36,14 +36,20 @@ kube-controller-manager
       --concurrent-replicaset-syncs=5: The number of replica sets that are allowed to sync concurrently. Larger number = more responsive replica management, but more CPU (and network) load
       --concurrent-resource-quota-syncs=5: The number of resource quotas that are allowed to sync concurrently. Larger number = more responsive quota management, but more CPU (and network) load
       --concurrent_rc_syncs=5: The number of replication controllers that are allowed to sync concurrently. Larger number = more responsive replica management, but more CPU (and network) load
+      --configure-cloud-routes[=true]: Should CIDRs allocated by allocate-node-cidrs be configured on the cloud provider.
+      --controller-start-interval=0: Interval between starting controller managers.
       --daemonset-lookup-cache-size=1024: The the size of lookup cache for daemonsets. Larger number = more responsive daemonsets, but more MEM load.
-      --deleting-pods-burst=10: Number of nodes on which pods are bursty deleted in case of node failure. For more details look into RateLimiter.
+      --deleting-pods-burst=1: Number of nodes on which pods are bursty deleted in case of node failure. For more details look into RateLimiter.
       --deleting-pods-qps=0.1: Number of nodes per second on which pods are deleted in case of node failure.
       --deployment-controller-sync-period=30s: Period for syncing the deployments.
+      --enable-dynamic-provisioning[=true]: Enable dynamic provisioning for environments that support it.
+      --enable-garbage-collector[=false]: Enables the generic garbage collector. MUST be synced with the corresponding flag of the kube-apiserver. WARNING: the generic garbage collector is an alpha feature.
       --enable-hostpath-provisioner[=false]: Enable HostPath PV provisioning when running without a cloud provider. This allows testing and development of provisioning features.  HostPath provisioning is not supported in any way, won't work in a multi-node cluster, and should not be used for anything other than testing or development.
+      --flex-volume-plugin-dir="/usr/libexec/kubernetes/kubelet-plugins/volume/exec/": Full path of the directory in which the flex volume plugin should search for additional third party volume plugins.
       --google-json-key="": The Google Cloud Platform Service Account JSON Key to use for authentication.
       --horizontal-pod-autoscaler-sync-period=30s: The period for syncing the number of pods in horizontal pod autoscaler.
       --kube-api-burst=30: Burst to use while talking with kubernetes apiserver
+      --kube-api-content-type="application/vnd.kubernetes.protobuf": Content type of requests sent to apiserver.
       --kube-api-qps=20: QPS to use while talking with kubernetes apiserver
       --kubeconfig="": Path to kubeconfig file with authorization and master location information.
       --leader-elect[=false]: Start a leader election client and gain leadership before executing the main loop. Enable this when running replicated components for high availability.
@@ -54,6 +60,7 @@ kube-controller-manager
       --master="": The address of the Kubernetes API server (overrides any value in kubeconfig)
       --min-resync-period=12h0m0s: The resync period in reflectors will be random between MinResyncPeriod and 2*MinResyncPeriod
       --namespace-sync-period=5m0s: The period for syncing namespace life-cycle updates
+      --node-cidr-mask-size=24: Mask size for node cidr in cluster.
       --node-monitor-grace-period=40s: Amount of time which we allow running Node to be unresponsive before marking it unhealty. Must be N times more than kubelet's nodeStatusUpdateFrequency, where N means number of retries allowed for kubelet to post node status.
       --node-monitor-period=5s: The period for syncing NodeStatus in NodeController.
       --node-startup-grace-period=1m0s: Amount of time which we allow starting Node to be unresponsive before marking it unhealty.
@@ -67,14 +74,24 @@ kube-controller-manager
       --pv-recycler-pod-template-filepath-hostpath="": The file path to a pod definition used as a template for HostPath persistent volume recycling. This is for development and testing only and will not work in a multi-node cluster.
       --pv-recycler-pod-template-filepath-nfs="": The file path to a pod definition used as a template for NFS persistent volume recycling
       --pv-recycler-timeout-increment-hostpath=30: the increment of time added per Gi to ActiveDeadlineSeconds for a HostPath scrubber pod.  This is for development and testing only and will not work in a multi-node cluster.
-      --pvclaimbinder-sync-period=10m0s: The period for syncing persistent volumes and persistent volume claims
+      --pvclaimbinder-sync-period=15s: The period for syncing persistent volumes and persistent volume claims
       --replicaset-lookup-cache-size=4096: The the size of lookup cache for replicatsets. Larger number = more responsive replica management, but more MEM load.
       --replication-controller-lookup-cache-size=4096: The the size of lookup cache for replication controllers. Larger number = more responsive replica management, but more MEM load.
       --resource-quota-sync-period=5m0s: The period for syncing quota usage status in the system
       --root-ca-file="": If set, this root certificate authority will be included in service account's token secret. This must be a valid PEM-encoded CA bundle.
       --service-account-private-key-file="": Filename containing a PEM-encoded private RSA key used to sign service account tokens.
+      --service-cluster-ip-range="": CIDR Range for Services in cluster.
       --service-sync-period=5m0s: The period for syncing services with their external load balancers
       --terminated-pod-gc-threshold=12500: Number of terminated pods that can exist before the terminated pod garbage collector starts deleting terminated pods. If <= 0, the terminated pod garbage collector is disabled.
 ```
 
-###### Auto generated by spf13/cobra on 29-Feb-2016
+###### Auto generated by spf13/cobra on 12-Aug-2016
+
+
+
+
+
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/kube-controller-manager.md?pixel)]()
+<!-- END MUNGE: GENERATED_ANALYTICS -->

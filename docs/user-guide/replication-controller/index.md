@@ -1,4 +1,8 @@
 ---
+assignees:
+- bprashanth
+- janetkuo
+
 ---
 
 * TOC
@@ -15,7 +19,7 @@ replication controller are automatically replaced if they fail, get deleted, or 
 For example, your pods get re-created on a node after disruptive maintenance such as a kernel upgrade.
 For this reason, we recommend that you use a replication controller even if your application requires
 only a single pod. You can think of a replication controller as something similar to a process supervisor,
-but rather then individual processes on a single node, the replication controller supervises multiple pods
+but rather than individual processes on a single node, the replication controller supervises multiple pods
 across multiple nodes.
 
 Replication Controller is often abbreviated to "rc" or "rcs" in discussion, and as a shortcut in

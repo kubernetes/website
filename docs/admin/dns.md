@@ -1,8 +1,15 @@
 ---
+assignees:
+- ArtfulCoder
+- davidopp
+- lavalamp
+
 ---
 
-As of Kubernetes 0.8, DNS is offered as a [cluster add-on](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md).
-If enabled, a DNS Pod and Service will be scheduled on the cluster, and the kubelets will be
+## Introduction
+
+As of Kubernetes 1.3, DNS is a built-in service launched automatically using the addon manager [cluster add-on](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md).
+A DNS Pod and Service will be scheduled on the cluster, and the kubelets will be
 configured to tell individual containers to use the DNS Service's IP to resolve DNS names.
 
 Every Service defined in the cluster (including the DNS server itself) will be
@@ -15,25 +22,29 @@ in namespace `bar` can look up this service by simply doing a DNS query for
 `foo`.  A Pod running in namespace `quux` can look up this service by doing a
 DNS query for `foo.bar`.
 
-The cluster DNS server ([SkyDNS](https://github.com/skynetservices/skydns))
-supports forward lookups (A records) and service lookups (SRV records).
+The Kubernetes cluster DNS server (based off the [SkyDNS](https://github.com/skynetservices/skydns) library)
+supports forward lookups (A records), service lookups (SRV records) and reverse IP address lookups (PTR records).
+
 
 ## How it Works
 
-The running DNS pod holds 4 containers - skydns, etcd (a private instance which skydns uses),
-a Kubernetes-to-skydns bridge called kube2sky, and a health check called healthz. The kube2sky process
-watches the Kubernetes master for changes in Services, and then writes the
-information to etcd, which skydns reads.  This etcd instance is not linked to
-any other etcd clusters that might exist, including the Kubernetes master.
+The running Kubernetes DNS pod holds 3 containers - kubedns, dnsmasq and a health check called healthz.
+The kubedns process watches the Kubernetes master for changes in Services and Endpoints, and maintains
+in-memory lookup structures to service DNS requests. The dnsmasq container adds DNS caching to improve
+performance. The healthz container provides a single health check endpoint while performing dual healthchecks
+(for dnsmasq and kubedns).
 
-## Issues
+## Kubernetes Federation (Multiple Zone support)
 
-The skydns service is reachable directly from Kubernetes nodes (outside
-of any container) and DNS resolution works if the skydns service is targeted
-explicitly. However, nodes are not configured to use the cluster DNS service or
-to search the cluster's DNS domain by default.  This may be resolved at a later
-time.
+Release 1.3 introduced Cluster Federation support for multi-site
+Kubernetes installations. This required some minor
+(backward-compatible) changes to the way
+the Kubernetes cluster DNS server processes DNS queries, to facilitate
+the lookup of federated services (which span multiple Kubernetes clusters).
+See the [Cluster Federation Administrators' Guide](/docs/admin/federation/index.md) for more
+details on Cluster Federation and multi-site support.
 
-## For more information
+## References
 
-See [the docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).
+- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md)
+

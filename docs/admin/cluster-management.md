@@ -1,5 +1,12 @@
 ---
+assignees:
+- lavalamp
+- thockin
+
 ---
+
+* TOC
+{:toc}
 
 This document describes several topics related to the lifecycle of a cluster: creating a new cluster,
 upgrading your cluster's
@@ -66,78 +73,86 @@ Instance Group will take care of putting appropriate image on new machines and s
 In other environments you may need to configure the machine yourself and tell the Kubelet on which machine API server is running.
 
 
-### Horizontal auto-scaling of nodes (GCE)
+### Cluster autoscaling
 
-If you are using GCE, you can configure your cluster so that the number of nodes will be automatically scaled based on:
+If you are using GCE or GKE, you can configure your cluster so that it is automatically rescaled based on
+pod needs.
 
- * CPU and memory utilization.
- * Amount of of CPU and memory requested by the pods (called also reservation).
+As described in [Compute Resource](/docs/user-guide/compute-resources/), users can reserve how much CPU and memory is allocated to pods.
+This information is used by the Kubernetes scheduler to find a place to run the pod. If there is
+no node that has enough free capacity (or doesn't match other pod requirements) then the pod has
+to wait until some pods are terminated or a new node is added.
 
-Before setting up the cluster by `kube-up.sh`, you can set `KUBE_ENABLE_NODE_AUTOSCALER` environment variable to `true` and export it.
-The script will create an autoscaler for the instance group managing your nodes.
+Cluster autoscaler looks for the pods that cannot be scheduled and checks if adding a new node, similar
+to the other in the cluster, would help. If yes, then it resizes the cluster to accomodate the waiting pods.
 
-The autoscaler will try to maintain the average CPU/memory utilization and reservation of nodes within the cluster close to the target value.
-The target value can be configured by `KUBE_TARGET_NODE_UTILIZATION` environment variable (default: 0.7) for ``kube-up.sh`` when creating the cluster.
-Node utilization is the total node's CPU/memory usage (OS + k8s + user load) divided by the node's capacity.
-Node reservation is the total CPU/memory requested by pods that are running on the node divided by the node's capacity.
-If the desired numbers of nodes in the cluster resulting from CPU/memory utilization/reservation are different,
-the autoscaler will choose the bigger number. The number of nodes in the cluster set by the autoscaler will be limited from `KUBE_AUTOSCALER_MIN_NODES` (default: 1)
-to `KUBE_AUTOSCALER_MAX_NODES` (default: the initial number of nodes in the cluster).
+Cluster autoscaler also scales down the cluster if it notices that some node is not needed anymore for
+an extended period of time (10min but it may change in the future).
 
-The autoscaler is implemented as a Compute Engine Autoscaler.
-The initial values of the autoscaler parameters set by `kube-up.sh` and some more advanced options can be tweaked on
-`Compute > Compute Engine > Instance groups > your group > Edit group`[Google Cloud Console page](https://console.developers.google.com)
-or using gcloud CLI:
+Cluster autoscaler is configured per instance group (GCE) or node pool (GKE).
+
+If you are using GCE then you can either enable it while creating a cluster with kube-up.sh script. 
+To configure cluser autoscaler you have to set 3 environment variables:
+
+* `KUBE_ENABLE_CLUSTER_AUTOSCALER` - it enables cluster autoscaler if set to true.
+* `KUBE_AUTOSCALING_MIN_NODES` - minimum number of nodes in the cluster.
+* `KUBE_AUTOSCALING_MAX_NODES` - maximum number of nodes in the cluster.
+
+Example:
 
 ```shell
-gcloud alpha compute autoscaler --zone $ZONE <command>
+KUBE_ENABLE_CLUSTER_AUTOSCALER=true KUBE_AUTOSCALING_MIN_NODES=3 KUBE_AUTOSCALING_MAX_NODES=10 NUM_NODES=5 ./cluster/kube-up.sh
 ```
 
-Note that autoscaling will work properly only if node metrics are accessible in Google Cloud Monitoring.
-To make the metrics accessible, you need to create your cluster with `KUBE_ENABLE_CLUSTER_MONITORING`
-equal to `google` or `googleinfluxdb` (`googleinfluxdb` is the default value). Please also make sure
-that you have Google Cloud Monitoring API enabled in Google Developer Console.
+On GKE you configure cluster autoscaler either on cluster creation or update or when creating a particular node pool
+(which you want to be autoscaled) by passing flags `--enable-autoscaling` `--min-nodes` and `--max-nodes`
+to the corresponding `gcloud` commands.
+
+Examples:
+
+```shell
+gcloud container clusters create mytestcluster --zone=us-central1-b --enable-autoscaling=true --min-nodes=3 --max-nodes=10 --num-nodes=5
+```
+
+```shell
+gcloud container clusters update mytestcluster --enable-autoscaling=true --min-nodes=1 --max-nodes=15
+```
+
+**Cluster autoscaler expects that nodes have not been manually modified (e.g. by adding labels via kubectl) as those properties would not be propagated to the new nodes within the same instance group.**
 
 ## Maintenance on a Node
 
 If you need to reboot a node (such as for a kernel upgrade, libc upgrade, hardware repair, etc.), and the downtime is
-brief, then when the Kubelet restarts, it will attempt to restart the pods scheduled to it.  If the reboot takes longer,
+brief, then when the Kubelet restarts, it will attempt to restart the pods scheduled to it.  If the reboot takes longer
+(the default time is 5 minutes, controlled by `--pod-eviction-timeout` on the controller-manager),
 then the node controller will terminate the pods that are bound to the unavailable node.  If there is a corresponding
-replication controller, then a new copy of the pod will be started on a different node.  So, in the case where all
+replica set (or replication controller), then a new copy of the pod will be started on a different node.  So, in the case where all
 pods are replicated, upgrades can be done without special coordination, assuming that not all nodes will go down at the same time.
 
 If you want more control over the upgrading process, you may use the following workflow:
 
-Mark the node to be rebooted as unschedulable:
+Use `kubectl drain` to gracefully terminate all pods on the node while marking the node as unschedulable:
 
 ```shell
-kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedulable": true}}'
+kubectl drain $NODENAME
 ```
 
 This keeps new pods from landing on the node while you are trying to get them off.
 
-Get the pods off the machine, via any of the following strategies:
-   * Wait for finite-duration pods to complete.
-   * Delete pods with:
+For pods with a replica set, the pod will be replaced by a new pod which will be scheduled to a new node. Additionally, if the pod is part of a service, then clients will automatically be redirected to the new pod.
 
-```shell
-kubectl delete pods $PODNAME
-```
-
-For pods with a replication controller, the pod will eventually be replaced by a new pod which will be scheduled to a new node. Additionally, if the pod is part of a service, then clients will automatically be redirected to the new pod.
-
-For pods with no replication controller, you need to bring up a new copy of the pod, and assuming it is not part of a service, redirect clients to it.
+For pods with no replica set, you need to bring up a new copy of the pod, and assuming it is not part of a service, redirect clients to it.
 
 Perform maintenance work on the node.
 
 Make the node schedulable again:
 
 ```shell
-kubectl replace nodes $NODENAME --patch='{"apiVersion": "v1", "spec": {"unschedulable": false}}'
+kubectl uncordon $NODENAME
 ```
 
 If you deleted the node's VM instance and created a new one, then a new schedulable node resource will
-be created automatically when you create a new VM instance (if you're using a cloud provider that supports
+be created automatically (if you're using a cloud provider that supports
 node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register). See [Node](/docs/admin/node) for more details.
 
 ## Advanced Topics

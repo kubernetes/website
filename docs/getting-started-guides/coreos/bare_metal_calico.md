@@ -1,4 +1,5 @@
 ---
+
 ---
 
 This document describes how to deploy Kubernetes with Calico networking on _bare metal_ CoreOS. For more information on Project Calico, visit [projectcalico.org](http://projectcalico.org) and the [calico-containers repository](https://github.com/projectcalico/calico-containers).
@@ -168,7 +169,7 @@ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico-cni/k8s
 
 ## Launch other Services With Calico-Kubernetes
 
-At this point, you have a fully functioning cluster running on Kubernetes with a master and two nodes networked with Calico. You can now follow any of the [standard documentation](https://github.com/kubernetes/kubernetes/tree/{{page.version}}/examples/) to set up other services on your cluster.
+At this point, you have a fully functioning cluster running on Kubernetes with a master and two nodes networked with Calico. You can now follow any of the [standard documentation](https://github.com/kubernetes/kubernetes/tree/{{page.version}}.0/examples/) to set up other services on your cluster.
 
 ## Connectivity to outside the cluster
 
