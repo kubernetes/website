@@ -323,6 +323,69 @@ roleRef:
   apiVersion: rbac.authorization.k8s.io/v1alpha1
 ```
 
+### Referring to Subjects
+
+RoleBindings and ClusterRoleBindings bind "subjects" to "roles".
+Subjects can be groups, users or service accounts.
+
+Users are represented by strings.  These can be plain usernames, like
+"alice", or email style names, like "bob@example.com", or numeric ids
+as string.  It is up to the Kubernetes admin to configure
+the [authentication modules](/doc/admin/authentication/) to produce
+usernames in the desired format.  The RBAC authorization system does
+not require any particular format.  However, the prefix `system:` is
+reserved for Kubernetes system use, and so the admin should ensure
+usernames should not contain this prefix by accident.
+
+Groups information in Kubernetes is currently provided by the Authenticator
+modules.  (In the future we may add a separate way for the RBAC Authorizer
+to query groups information for users.)  Groups, like users, are represented
+by a string, and that string has no format requirements, other than that the
+prefix `system:` is reserved.
+
+Service Accounts have usernames with the `system:` prefix and belong
+to groups with the `system:` prefix.
+
+#### Role Binding Examples
+
+Only the `subjects` section of a RoleBinding object shown in the following examples.
+
+For a user called `alice@example.com`, specify
+```yaml
+subjects:
+  - kind: User
+    name: "alice@example.com"
+```
+
+For a group called `frontend-admins`, specify:
+```yaml
+subjects:
+  - kind: Group
+    name: "frontend-admins"
+```
+
+For the default service account in the kube-system namespace:
+```yaml
+subjects:
+ - kind: ServiceAccount
+  name: default
+  namespace: kube-system
+```
+
+For all service accounts in the `qa` namespace:
+```yaml
+subjects:
+- kind: Group
+  name: system:serviceaccounts:qa
+```
+
+For all service accounts everywhere:
+```yaml
+subjects:
+- kind: Group
+  name: system:serviceaccounts
+```
+
 ### Privilege Escalation Prevention and Bootstrapping
 
 The `rbac.authorization.k8s.io` API group inherently attempts to prevent users
