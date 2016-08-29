@@ -642,8 +642,6 @@ you must use `ls -la` to see them when listing directory contents.
 
 ### Use-case: Secret visible to one container in a pod
 
-<a name="use-case-two-containers"></a>
-
 Consider a program that needs to handle HTTP requests, do some complex business
 logic, and then sign some messages with an HMAC.  Because it has complex
 application logic, there might be an unnoticed remote file reading exploit in
@@ -688,7 +686,7 @@ Therefore, one Pod does not have access to the secrets of another pod.
 There may be several containers in a pod.  However, each container in a pod has
 to request the secret volume in its `volumeMounts` for it to be visible within
 the container.  This can be used to construct useful [security partitions at the
-Pod level](#use-case-two-containers).
+Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 
 ### Risks
 
