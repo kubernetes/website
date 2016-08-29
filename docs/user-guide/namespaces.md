@@ -1,4 +1,9 @@
 ---
+assignees:
+- derekwaynecarr
+- mikedanese
+- thockin
+
 ---
 
 Kubernetes supports multiple virtual clusters backed by the same physical cluster.
@@ -62,7 +67,7 @@ context.
 First get your current context:
 
 ```shell
-$ export CONTEXT=$(kubectl config view | grep current-context | awk '{print $2}')
+$ export CONTEXT=$(kubectl config view | awk '/current-context/ {print $2}')
 ```
 
 Then update the default namespace:

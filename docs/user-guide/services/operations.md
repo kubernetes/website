@@ -1,4 +1,8 @@
 ---
+assignees:
+- bprashanth
+- freehan
+
 ---
 * TOC
 {:toc}
@@ -51,7 +55,11 @@ YAML or as JSON, and supports the following fields:
     "selector": {
       string: string
     },
-    "type": "LoadBalancer"
+    "type": "LoadBalancer",
+    "loadBalancerSourceRanges": [
+      "10.180.0.0/16",
+      "10.245.0.0/24"
+    ]
   }
 }
 ```
@@ -71,6 +79,10 @@ Required fields are:
     * `type`: Optional. If the type is `LoadBalancer`, sets up a [network load balancer](/docs/user-guide/load-balancer/)
       for your service. This provides an externally-accessible IP address that
       sends traffic to the correct port on your cluster nodes. 
+    * `loadBalancerSourceRanges:`: Optional. Must use with `LoadBalancer` type. 
+      If specified and supported by the cloud provider, this will restrict traffic 
+      such that the load balancer will be accessible only to clients from the specified IP ranges.
+      This field will be ignored if the cloud-provider does not support the feature. 
 
 For the full `service` schema see the
 [Kubernetes api reference](/docs/api-reference/v1/definitions/#_v1_service).

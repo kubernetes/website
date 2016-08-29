@@ -1,4 +1,7 @@
 ---
+assignees:
+- bprashanth
+
 ---
 
 Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and they die, and they
@@ -149,8 +152,8 @@ this example).
 Every node in a Kubernetes cluster runs a `kube-proxy`.  This application
 is responsible for implementing a form of virtual IP for `Service`s.  In
 Kubernetes v1.0 the proxy was purely in userspace.  In Kubernetes v1.1 an
-iptables proxy was added, but was not the default operating mode.  In
-Kubernetes v1.2 we expect the iptables proxy to be the default.
+iptables proxy was added, but was not the default operating mode.  Since
+Kubernetes v1.2, the iptables proxy is the default.
 
 As of Kubernetes v1.0, `Services` are a "layer 3" (TCP/UDP over IP) construct.
 In Kubernetes v1.1 the `Ingress` API was added (beta) to represent "layer 7"
@@ -193,7 +196,10 @@ default is `"None"`).
 As with the userspace proxy, the net result is that any traffic bound for the
 `Service`'s IP:Port is proxied to an appropriate backend without the clients
 knowing anything about Kubernetes or `Services` or `Pods`. This should be
-faster and more reliable than the userspace proxy.
+faster and more reliable than the userspace proxy. However, unlike the
+userspace proxier, the iptables proxier cannot automatically retry another
+`Pod` if the one it initially selects does not respond, so it depends on
+having working [readiness probes](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks).
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
@@ -317,17 +323,27 @@ Sometimes you don't need or want load-balancing and a single service IP.  In
 this case, you can create "headless" services by specifying `"None"` for the
 cluster IP (`spec.clusterIP`).
 
-For such `Services`, a cluster IP is not allocated. DNS is configured to return
-multiple A records (addresses) for the `Service` name, which point directly to
-the `Pods` backing the `Service`.  Additionally, the kube proxy does not handle
-these services and there is no load balancing or proxying done by the platform
-for them.  The endpoints controller will still create `Endpoints` records in
-the API.
-
 This option allows developers to reduce coupling to the Kubernetes system, if
 they desire, but leaves them freedom to do discovery in their own way.
 Applications can still use a self-registration pattern and adapters for other
 discovery systems could easily be built upon this API.
+
+For such `Services` a cluster IP is not allocated, the kube proxy does not handle
+these services, and there is no load balancing or proxying done by the platform
+for them. How DNS is automatically configured depends on if the service has
+selectors or not.
+
+### With selectors
+
+For headless services that define selectors, the endpoints controller creates
+`Endpoints` records in the API, and modifies the DNS configuration to return A
+records (addresses) which point directly to the `Pods` backing the `Service`.
+
+### Without selectors
+
+For headless services that do not define selectors, the endpoints controller does
+not create `Endpoints` records. However, the DNS system looks for and configures
+A records for any `Endpoints` that share a name with the service.
 
 ## Publishing services - service types
 
@@ -422,6 +438,44 @@ the `loadBalancerIP` to be specified. In those cases, the load-balancer will be 
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
 an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is specified, but the
 cloud provider does not support the feature, the field will be ignored.
+
+#### SSL support on AWS
+For partial SSL support on clusters running on AWS, starting with 1.3 two
+annotations can be added to a `LoadBalancer` service:
+
+```
+    "metadata": {
+        "name": "my-service",
+        "annotations": {
+            "service.beta.kubernetes.io/aws-load-balancer-ssl-cert": "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
+        }
+    },
+```
+
+The first specifies which certificate to use. It can be either a
+certificate from a third party issuer that was uploaded to IAM or one created
+within AWS Certificate Manager.
+
+```
+    "metadata": {
+        "name": "my-service",
+        "annotations": {
+            "service.beta.kubernetes.io/aws-load-balancer-backend-protocol=": "(https|http|ssl|tcp)"
+        }
+    },
+```
+
+The second annotation specificies which protocol a pod speaks. For HTTPS and
+SSL, the ELB will expect the pod to authenticate itself over the encrypted
+connection.
+
+HTTP and HTTPS will select layer 7 proxying: the ELB will terminate
+the connection with the user, parse headers and inject the `X-Forwarded-For`
+header with the user's IP address (pods will only see the IP address of the
+ELB at the other end of its connection) when forwarding requests.
+
+TCP and SSL will select layer 4 proxying: the ELB will forward traffic without
+modifying the headers.
 
 ### External IPs
 

@@ -41,8 +41,8 @@ kubelet
       --cgroup-root="": Optional root cgroup to use for pods. This is handled by the container runtime on a best effort basis. Default: '', which means use the container runtime default.
       --chaos-chance=0: If > 0.0, introduce random client errors and latency. Intended for testing. [default=0.0]
       --cloud-config="": The path to the cloud provider configuration file.  Empty string for no configuration file.
-      --cloud-provider="": The provider for cloud services.  Empty string for no provider.
-      --cluster-dns="": IP address for a cluster DNS server.  If set, kubelet will configure all containers to use this for DNS resolution in addition to the host's DNS servers
+      --cloud-provider="auto-detect": The provider for cloud services. By default, kubelet will attempt to auto-detect the cloud provider. Specify empty string for running with no cloud provider. [default=auto-detect]
+      --cluster-dns="": IP address for a cluster DNS server.  This value is used for containers' DNS server in case of Pods with "dnsPolicy=ClusterFirst"
       --cluster-domain="": Domain for this cluster.  If set, kubelet will configure all containers to search this domain in addition to the host's search domains
       --config="": Path to the config file or directory of files
       --configure-cbr0[=false]: If true, kubelet will configure cbr0 based on Node.Spec.PodCIDR.
@@ -51,12 +51,20 @@ kubelet
       --cpu-cfs-quota[=true]: Enable CPU CFS quota enforcement for containers that specify CPU limits
       --docker-endpoint="": If non-empty, use this for the docker endpoint to communicate with
       --docker-exec-handler="native": Handler to use when executing a command in a container. Valid values are 'native' and 'nsenter'. Defaults to 'native'.
+      --enable-controller-attach-detach[=true]: Enables the Attach/Detach controller to manage attachment/detachment of volumes scheduled to this node, and disables kubelet from executing any attach/detach operations
       --enable-custom-metrics[=false]: Support for gathering custom metrics.
       --enable-debugging-handlers[=true]: Enables server endpoints for log collection and local running of containers and commands
       --enable-server[=true]: Enable the Kubelet's server
       --event-burst=10: Maximum size of a bursty event records, temporarily allows event records to burst to this number, while still not exceeding event-qps. Only used if --event-qps > 0
       --event-qps=5: If > 0, limit event creations per second to this value. If 0, unlimited.
+      --eviction-hard="": A set of eviction thresholds (e.g. memory.available<1Gi) that if met would trigger a pod eviction.
+      --eviction-max-pod-grace-period=0: Maximum allowed grace period (in seconds) to use when terminating pods in response to a soft eviction threshold being met.  If negative, defer to pod specified value.
+      --eviction-pressure-transition-period=5m0s: Duration for which the kubelet has to wait before transitioning out of an eviction pressure condition.
+      --eviction-soft="": A set of eviction thresholds (e.g. memory.available<1.5Gi) that if met over a corresponding grace period would trigger a pod eviction.
+      --eviction-soft-grace-period="": A set of eviction grace periods (e.g. memory.available=1m30s) that correspond to how long a soft eviction threshold must hold before triggering a pod eviction.
+      --exit-on-lock-contention[=false]: Whether kubelet should exit upon lock-file contention.
       --experimental-flannel-overlay[=false]: Experimental support for starting the kubelet with the default overlay network (flannel). Assumes flanneld is already running in client mode. [default=false]
+      --experimental-nvidia-gpus=0: Number of NVIDIA GPU devices on this node. Only 0 (default) and 1 are currently supported.
       --file-check-frequency=20s: Duration between checking config files for new data
       --google-json-key="": The Google Cloud Platform Service Account JSON Key to use for authentication.
       --hairpin-mode="promiscuous-bridge": How should the kubelet setup hairpin NAT. This allows endpoints of a Service to loadbalance back to themselves if they should try to access their own Service. Valid values are "promiscuous-bridge", "hairpin-veth" and "none".
@@ -70,8 +78,9 @@ kubelet
       --image-gc-high-threshold=90: The percent of disk usage after which image garbage collection is always run. Default: 90%
       --image-gc-low-threshold=80: The percent of disk usage before which image garbage collection is never run. Lowest disk usage to garbage collect to. Default: 80%
       --kube-api-burst=10: Burst to use while talking with kubernetes apiserver
+      --kube-api-content-type="application/vnd.kubernetes.protobuf": Content type of requests sent to apiserver.
       --kube-api-qps=5: QPS to use while talking with kubernetes apiserver
-      --kube-reserved=: A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=150G) pairs that describe resources reserved for kubernetes system components. Currently only cpu and memory are supported. See http://releases.k8s.io/HEAD/docs/user-guide/compute-resources.md for more detail. [default=none]
+      --kube-reserved=: A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=150G) pairs that describe resources reserved for kubernetes system components. Currently only cpu and memory are supported. See http://releases.k8s.io/release-1.3/docs/user-guide/compute-resources.md for more detail. [default=none]
       --kubeconfig="/var/lib/kubelet/kubeconfig": Path to a kubeconfig file, specifying how to authenticate to API server (the master location is set by the api-servers flag).
       --kubelet-cgroups="": Optional absolute name of cgroups to create and run the Kubelet in.
       --lock-file="": <Warning: Alpha feature> The path to file for kubelet to use as a lock file.
@@ -95,7 +104,8 @@ kubelet
       --oom-score-adj=-999: The oom-score-adj value for kubelet process. Values must be within the range [-1000, 1000]
       --outofdisk-transition-frequency=5m0s: Duration for which the kubelet has to wait before transitioning out of out-of-disk node condition status. Default: 5m0s
       --pod-cidr="": The CIDR to use for pod IP addresses, only used in standalone mode.  In cluster mode, this is obtained from the master.
-      --pod-infra-container-image="gcr.io/google_containers/pause:2.0": The image whose network/ipc namespaces containers in each pod will use.
+      --pod-infra-container-image="gcr.io/google_containers/pause-amd64:3.0": The image whose network/ipc namespaces containers in each pod will use.
+      --pods-per-core=0: Number of Pods per core that can run on this Kubelet. The total number of Pods on this Kubelet cannot exceed max-pods, so max-pods will be used if this calculation results in a larger number of Pods allowed on the Kubelet. A value of 0 disables this limit.
       --port=10250: The port for the Kubelet to serve on.
       --read-only-port=10255: The read-only port for the Kubelet to serve on with no authentication/authorization (set to 0 to disable)
       --really-crash-for-testing[=false]: If true, when panics occur crash. Intended for testing.
@@ -105,20 +115,31 @@ kubelet
       --registry-burst=10: Maximum size of a bursty pulls, temporarily allows pulls to burst to this number, while still not exceeding registry-qps.  Only used if --registry-qps > 0
       --registry-qps=5: If > 0, limit registry pull QPS to this value.  If 0, unlimited. [default=5.0]
       --resolv-conf="/etc/resolv.conf": Resolver configuration file used as the basis for the container DNS resolution configuration.
-      --rkt-path="": Path of rkt binary. Leave empty to use the first rkt in $PATH.  Only used if --container-runtime='rkt'
-      --rkt-stage1-image="": image to use as stage1. Local paths and http/https URLs are supported. If empty, the 'stage1.aci' in the same directory as '--rkt-path' will be used
+      --rkt-api-endpoint="localhost:15441": The endpoint of the rkt API service to communicate with. Only used if --container-runtime='rkt'.
+      --rkt-path="": Path of rkt binary. Leave empty to use the first rkt in $PATH.  Only used if --container-runtime='rkt'.
       --root-dir="/var/lib/kubelet": Directory path for managing kubelet files (volume mounts,etc).
       --runonce[=false]: If true, exit after spawning pods from local manifests or remote urls. Exclusive with --api-servers, and --enable-server
       --runtime-cgroups="": Optional absolute name of cgroups to create and run the runtime in.
+      --runtime-request-timeout=2m0s: Timeout of all runtime requests except long running request - pull, logs, exec and attach. When timeout exceeded, kubelet will cancel the request, throw out an error and retry later. Default: 2m0s
+      --seccomp-profile-root="/var/lib/kubelet/seccomp": Directory path for seccomp profiles.
       --serialize-image-pulls[=true]: Pull images one at a time. We recommend *not* changing the default value on nodes that run docker daemon with version < 1.9 or an Aufs storage backend. Issue #10959 has more details. [default=true]
       --streaming-connection-idle-timeout=4h0m0s: Maximum time a streaming connection can be idle before the connection is automatically closed. 0 indicates no timeout. Example: '5m'
       --sync-frequency=1m0s: Max period between synchronizing running containers and config
       --system-cgroups="": Optional absolute name of cgroups in which to place all non-kernel processes that are not already inside a cgroup under `/`. Empty for no container. Rolling back the flag requires a reboot. (Default: "").
-      --system-reserved=: A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=150G) pairs that describe resources reserved for non-kubernetes components. Currently only cpu and memory are supported. See http://releases.k8s.io/HEAD/docs/user-guide/compute-resources.md for more detail. [default=none]
+      --system-reserved=: A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=150G) pairs that describe resources reserved for non-kubernetes components. Currently only cpu and memory are supported. See http://releases.k8s.io/release-1.3/docs/user-guide/compute-resources.md for more detail. [default=none]
       --tls-cert-file="": File containing x509 Certificate for HTTPS.  (CA cert, if any, concatenated after server cert). If --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory passed to --cert-dir.
       --tls-private-key-file="": File containing x509 private key matching --tls-cert-file.
       --volume-plugin-dir="/usr/libexec/kubernetes/kubelet-plugins/volume/exec/": <Warning: Alpha feature> The full path of the directory in which to search for additional third party volume plugins
       --volume-stats-agg-period=1m0s: Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes.  To disable volume calculations, set to 0.  Default: '1m'
 ```
 
-###### Auto generated by spf13/cobra on 15-Mar-2016
+###### Auto generated by spf13/cobra on 12-Aug-2016
+
+
+
+
+
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/admin/kubelet.md?pixel)]()
+<!-- END MUNGE: GENERATED_ANALYTICS -->

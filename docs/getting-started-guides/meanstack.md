@@ -1,9 +1,10 @@
 ---
+
 ---
 
 **By: Sandeep Dinesh** - _July 29, 2015_
 
-![image](/images/docs/meanstack/image_0.png) 
+![image](/images/docs/meanstack/image_0.png)
 
 In [a recent post](http://blog.sandeepdinesh.com/2015/07/running-mean-web-application-in-docker.html), I talked about running a MEAN stack with [Docker Containers.](http://docker.com/)
 
@@ -14,14 +15,14 @@ Thankfully, there is a system we can use to manage our containers in a cluster e
 * TOC
 {:toc}
 
-## The Basics of Using Kubernetes 
+## The Basics of Using Kubernetes
 
 Before we jump in and start kube’ing it up, it’s important to understand some of the fundamentals of Kubernetes.
 
 * Containers: These are the Docker, rtk, AppC, or whatever Container you are running. You can think of these like subatomic particles; everything is made up of them, but you rarely (if ever) interact with them directly.
 * Pods: Pods are the basic component of Kubernetes. They are a group of Containers that are scheduled, live, and die together. Why would you want to have a group of containers instead of just a single container? Let’s say you had a log processor, a web server, and a database. If you couldn't use Pods, you would have to bundle the log processor in the web server and database containers, and each time you updated one you would have to update the other. With Pods, you can just reuse the same log processor for both the web server and database.
-* Replication Controllers: This is the management component of Kubernetes, and it’s pretty cool. You give it a set of Pods, tell it "I want three copies of this," and it creates those copies on your cluster. It will do its best to keep those copies always running, so if one crashes it will start another.
-* Services: This is the other side to Replication Controllers. A service is the single point of contact for a group of Pods. For example, let’s say you have a Replication Controller that creates four copies of a web server pod. A Service will split the traffic to each of the four copies. Services are "permanent" while the pods behind them can come and go, so it’s a good idea to use Services.
+* Deployments: A Deployment provides declarative updates for Pods. You can define Deployments to create new Pods, or replace existing Pods. You only need to describe the desired state in a Deployment object, and the deployment controller will change the actual state to the desired state at a controlled rate for you. You can define Deployments to create new resources, or replace existing ones by new ones.
+* Services: A service is the single point of contact for a group of Pods. For example, let’s say you have a Deployment that creates four copies of a web server pod. A Service will split the traffic to each of the four copies. Services are "permanent" while the pods behind them can come and go, so it’s a good idea to use Services.
 
 
 ## Step 1: Creating the Container
@@ -34,7 +35,7 @@ Instead, you have to build a custom container that has the code already inside i
 
 To do this, you need to use more Docker. Make sure you have the latest version installed for the rest of this tutorial.
 
-Getting the code: 
+Getting the code:
 
 Before starting, let’s get some code to run. You can follow along on your personal machine or a Linux VM in the cloud. I recommend using Linux or a Linux VM; running Docker on Mac and Windows is outside the scope of this tutorial.
 
@@ -72,7 +73,7 @@ Then, it creates a folder to store the code, `cd`s into that directory, copies t
 Finally, it specifies the command Docker should run when the container starts, which is to start the app.
 
 
-## Step 2: Building our Container 
+## Step 2: Building our Container
 
 Right now, the directory should look like this:
 
@@ -177,8 +178,8 @@ After a few minutes, you should see this in the console.
 Three things need to be created:
 
 1. Persistent Disk to store the data (pods are ephemeral, so we shouldn't save data locally)
-2. Replication Controller running MongoDB
-3. Service mapping to that Replication Controller
+2. Deployment running MongoDB
+3. Service mapping to that Deployment
 
 To create the disk, run this:
 
@@ -192,46 +193,45 @@ $ gcloud compute disks create \
 
 Pick the same zone as your cluster and an appropriate disk size for your application.
 
-Now, we need to create a Replication Controller that will run the database. I’m using a Replication Controller and not a Pod, because if a standalone Pod dies, it won't restart automatically.
+Now, we need to create a Deployment that will run the database. I’m using a Deployment and not a Pod, because if a standalone Pod dies, it won't restart automatically.
 
-### `db-controller.yml`
+### `db-deployment.yml`
 
 ```yaml
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
- labels:
-   name: mongo
- name: mongo-controller
+  name: mongo-deployment
 spec:
- replicas: 1
- template:
-   metadata:
-     labels:
-       name: mongo
-   spec:
-     containers:
-     - image: mongo
-       name: mongo
-       ports:
-       - name: mongo
-         containerPort: 27017
-         hostPort: 27017
-       volumeMounts:
-           - name: mongo-persistent-storage
-             mountPath: /data/db
-     volumes:
-       - name: mongo-persistent-storage
-         gcePersistentDisk:
-           pdName: mongo-disk
-           fsType: ext4
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: mongo
+    spec:
+      containers:
+      - image: mongo
+        name: mongo
+        ports:
+        - name: mongo
+          containerPort: 27017
+          hostPort: 27017
+        volumeMounts:
+          - name: mongo-persistent-storage
+            mountPath: /data/db
+      volumes:
+        - name: mongo-persistent-storage
+          gcePersistentDisk:
+            pdName: mongo-disk
+            fsType: ext4
+
 ```
 
-We call the controller `mongo-controller`, specify one replica, and open the appropriate ports. The image is `mongo`, which is the off the shelf MongoDB image.
+We call the deployment `mongo-deployment`, specify one replica, and open the appropriate ports. The image is `mongo`, which is the off the shelf MongoDB image.
 
 The `volumes` section creates the volume for Kubernetes to use. There is a Google Container Engine-specific `gcePersistentDisk` section that maps the disk we made into a Kubernetes volume, and we mount the volume into the `/data/db` directory (as described in the MongoDB Docker documentation)
 
-Now we have the Controller, let’s create the Service:
+Now we have the Deployment, let’s create the Service:
 
 ### `db-service.yml`
 
@@ -250,7 +250,7 @@ spec:
    name: mongo
 ```
 
-Again, pretty simple stuff. We "select" the mongo Controller to be served, open up the ports, and call the service `mongo`.
+Again, pretty simple stuff. We "select" the mongo Deployment to be served, open up the ports, and call the service `mongo`.
 
 This is just like the "link" command line option we used with Docker in my previous post. Instead of connecting to `localhost`, we connect to `mongo`, and Kubernetes redirects traffic to the mongo service!
 
@@ -261,7 +261,7 @@ $ ls
 
 Dockerfile
 app
-db-controller.yml
+db-deployment.yml
 db-service.yml
 ```
 
@@ -273,10 +273,10 @@ First, let’s "log in" to the cluster
 $ gcloud container clusters get-credentials mean-cluster
 ```
 
-Now create the controller.
+Now create the Deployment.
 
 ```shell
-$ kubectl create -f db-controller.yml
+$ kubectl create -f db-deployment.yml
 ```
 
 And the Service.
@@ -299,7 +299,7 @@ Once you see the mongo pod in running status, we are good to go!
 $ kubectl get pods
 
 NAME                    READY  REASON   RESTARTS AGE
-mongo-controller-xxxx   1/1    Running  0        3m
+mongo-deployment-xxxx   1/1    Running  0        3m
 ```
 
 
@@ -309,36 +309,35 @@ Now the database is running, let’s start the web server.
 
 We need two things:
 
-1. Replication Controller to spin up and down web server pods
+1. Deployment to spin up and down web server pods
 2. Service to expose our website to the interwebs
 
-Let’s look at the Replication Controller configuration:
+Let’s look at the Deployment configuration:
 
-### `web-controller.yml`
+### `web-deployment.yml`
 
 ```yaml
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
- labels:
-   name: web
- name: web-controller
+  name: web-deployment
 spec:
- replicas: 2
- template:
-   metadata:
-     labels:
-       name: web
-   spec:
-     containers:
-     - image: gcr.io/<YOUR-PROJECT-ID>/myapp
-       name: web
-       ports:
-       - containerPort: 3000
-         name: http-server
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: web
+    spec:
+      containers:
+      - image: gcr.io/<YOUR-PROJECT-ID>/myapp
+        name: web
+        ports:
+        - name: http-server
+          containerPort: 3000
+
 ```
 
-Here, we create a controller called `web-controller`, and we tell it to create two replicas. Replicas of what you ask? You may notice the `template` section looks just like a Pod configuration, and that's because it is. We are creating a Pod with our custom Node.js container and exposing port 3000.
+Here, we create a deployment called `web-deployment`, and we tell it to create two replicas. Replicas of what you ask? You may notice the `template` section looks just like a Pod configuration, and that's because it is. We are creating a Pod with our custom Node.js container and exposing port 3000.
 
 
 Now for the Service
@@ -372,16 +371,21 @@ At this point, the local directory looks like this
 ```shell
 $ ls
 
-Dockerfile app db-pod.yml db-service.yml web-service.yml web-controller.yml
+Dockerfile 
+app
+db-deployment.yml
+db-service.yml
+web-service.yml
+web-deployment.yml
 ```
 
 
 ## Step 8: Running the Web Server
 
-Create the Controller.
+Create the Deployment.
 
 ```shell
-$ kubectl create -f web-controller.yml
+$ kubectl create -f web-deployment.yml
 ```
 
 And the Service.
@@ -402,19 +406,19 @@ Once you see the web pods in running status, we are good to go!
 $ kubectl get pods
 
 NAME                   READY     REASON    RESTARTS   AGE
-mongo-controller-xxxx  1/1       Running   0          4m
-web-controller-xxxx    1/1       Running   0          1m
-web-controller-xxxx    1/1       Running   0          1m
+mongo-deployment-xxxx  1/1       Running   0          4m
+web-deployment-xxxx    1/1       Running   0          1m
+web-deployment-xxxx    1/1       Running   0          1m
 ```
 
 
 ## Step 9: Accessing the App
 
-At this point, everything is up and running. The architecture looks something like this: 
+At this point, everything is up and running. The architecture looks something like this:
 
-![image](/images/docs/meanstack/MEANstack_architecture.svg){: style="max-width:25%"} 
+![image](/images/docs/meanstack/MEANstack_architecture.svg){: style="max-width:25%"}
 
-By default, port 80 should be open on the load balancer. In order to find the IP address of our app, run this command: 
+By default, port 80 should be open on the load balancer. In order to find the IP address of our app, run this command:
 
 ```shell
 $ gcloud compute forwarding-rules list
@@ -436,7 +440,7 @@ And the Database works!
 
 By using Container Engine and Kubernetes, we have a very robust, container based MEAN stack running in production.
 
-[In anoter post](https://medium.com/google-cloud/mongodb-replica-sets-with-kubernetes-d96606bd9474#.e93x7kuq5), I cover how to setup a MongoDB replica set. This is very important for running in production.
+[In another post](https://medium.com/google-cloud/mongodb-replica-sets-with-kubernetes-d96606bd9474#.e93x7kuq5), I cover how to setup a MongoDB replica set. This is very important for running in production.
 
 Hopefully I can do some more posts about advanced Kubernetes topics such as changing the cluster size and number of Node.js web server replicas, using different environments (dev, staging, prod) on the same cluster, and doing rolling updates.
 

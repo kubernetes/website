@@ -1,4 +1,9 @@
 ---
+assignees:
+- bgrant0607
+- janetkuo
+- thockin
+
 ---
 
 You've seen [how to configure and deploy pods and containers](/docs/user-guide/configuring-containers), using some of the most common configuration parameters. This section dives into additional features that are especially useful for running applications in production.
@@ -179,6 +184,26 @@ A common way to probe an application is using HTTP, which can be specified as fo
 Other times, applications are only temporarily unable to serve, and will recover on their own. Typically in such cases you'd prefer not to kill the application, but don't want to send it requests, either, since the application won't respond correctly or at all. A common such scenario is loading large data or configuration files during application startup. Kubernetes provides *readiness probes* to detect and mitigate such situations. Readiness probes are configured similarly to liveness probes, just using the `readinessProbe` field. A pod with containers reporting that they are not ready will not receive traffic through Kubernetes [services](/docs/user-guide/connecting-applications).
 
 For more details (e.g., how to specify command-based probes), see the [example in the walkthrough](/docs/user-guide/walkthrough/k8s201/#health-checking), the [standalone example](/docs/user-guide/liveness/), and the [documentation](/docs/user-guide/pod-states/#container-probes).
+
+## Handling initialization
+
+Applications often need a set of initialization steps prior to performing their day job. This may include:
+
+* Waiting for other components (like a database or web service) to be available
+* Performing configuration templating from environment variables into a config file
+* Registering the pod into a central database, or fetching remote configuration from that database
+* Downloading application dependencies, seed data, or preconfiguring disk
+
+Kubernetes now includes an alpha feature known as **init containers**, which are one or more containers in a pod that get a chance to run and initialize shared volumes prior to the other application containers starting.  An init container is exactly like a regular container, except that it always runs to completion and each init container must complete successfully before the next one is started. If the init container fails (exits with a non-zero exit code) on a `RestartNever` pod the pod will fail - otherwise it will be restarted until it succeeds or the user deletes the pod.
+
+Since init containers are an alpha feature, they are specified by setting the `pod.alpha.kubernetes.io/init-containers` annotation on a pod (or replica set, deployment, daemon set, pet set, or job). The value of the annotation must be a string containing a JSON array of container definitions:
+
+{% include code.html language="yaml" file="nginx-init-containers.yaml" ghlink="/docs/user-guide/nginx-init-containers.yaml" %}
+
+The status of the init containers is returned as another annotation - `pod.alpha.kubernetes.io/init-container-statuses` -- as an array of the container statuses (similar to the `status.containerStatuses` field).
+
+Init containers support all of the same features as normal containers, including resource limits, volumes, and security settings. The resource requests and limits for an init container are handled slightly different than normal containers since init containers are run one at a time instead of all at once - any limits or quotas will be applied based on the largest init container resource quantity, rather than as the sum of quantities. Init containers do not support readiness probes since they will run to completion before the pod can be ready.
+
 
 ## Lifecycle hooks and termination notice
 

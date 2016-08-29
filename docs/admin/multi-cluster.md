@@ -1,13 +1,14 @@
 ---
+assignees:
+- davidopp
+
 ---
 
 You may want to set up multiple Kubernetes clusters, both to
 have clusters in different regions to be nearer to your users, and to tolerate failures and/or invasive maintenance.
 This document describes some of the issues to consider when making a decision about doing so.
 
-Note that at present,
-Kubernetes does not offer a mechanism to aggregate multiple clusters into a single virtual cluster. However,
-we [plan to do this in the future](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/federation.md).
+If you decide to have multiple clusters, kubernetes provides a way to [federate them](/docs/admin/federation/)
 
 ## Scope of a single cluster
 
@@ -56,8 +57,7 @@ users in the event of a cluster failure), then you need to have `R * (U + 1)` cl
 (`U + 1` in each of `R` regions).  In any case, try to put each cluster in a different zone.
 
 Finally, if any of your clusters would need more than the maximum recommended number of nodes for a Kubernetes cluster, then
-you may need even more clusters.  Kubernetes v1.0 currently supports clusters up to 100 nodes in size, but we are targeting
-1000-node clusters by early 2016.
+you may need even more clusters.  Kubernetes v1.3 supports clusters up to 1000 nodes in size.
 
 ## Working with multiple clusters
 

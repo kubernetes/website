@@ -1,4 +1,5 @@
 ---
+
 ---
 In the reference section, you can find reference documentation for Kubernetes APIs, CLIs, and tools, as well as our glossary and design docs. 
 
@@ -19,7 +20,7 @@ In the reference section, you can find reference documentation for Kubernetes AP
 
 ## Glossary
 
-Explore the glossary of essential Kubernetes concepts. Some good starting points are the entries for [Pods](/docs/user-guide/pods/), [Nodes](/docs/admin/nodes/), [Services](/docs/user-guide/services/), and [Replication Controllers](/docs/user-guide/replication-controller/).
+Explore the glossary of essential Kubernetes concepts. Some good starting points are the entries for [Pods](/docs/user-guide/pods/), [Nodes](/docs/admin/node/), [Services](/docs/user-guide/services/), and [Replication Controllers](/docs/user-guide/replication-controller/).
 
 ## Design Docs
 

@@ -1,7 +1,14 @@
 ---
+assignees:
+- david-mcmahon
+- jbeda
+
 ---
 
 You can either build a release from sources or download a pre-built release.  If you do not plan on developing Kubernetes itself, we suggest a pre-built release. 
+
+If you just want to run Kubernetes locally for development, we recommend using Minikube. You can download Minikube [here](https://github.com/kubernetes/minikube/releases/latest).
+Minikube sets up a local VM that runs a Kubernetes cluster securely, and makes it easy to work with that cluster.
 
 * TOC
 {:toc}

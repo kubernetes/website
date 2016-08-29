@@ -1,4 +1,9 @@
 ---
+assignees:
+- caesarxuchao
+- dchen1107
+- lavalamp
+
 ---
 
 * TOC
@@ -47,15 +52,15 @@ must have appropriate conditions, see below.
 
 ### Node Condition
 
-Node Condition describes the conditions of `Running` nodes. Currently the only
-node condition is Ready. The Status of this condition can be True, False, or
-Unknown. True means the Kubelet is healthy and ready to accept pods.
-False means the Kubelet is not healthy and is not accepting pods. Unknown
-means the Node Controller, which manages node lifecycle and is responsible for
-setting the Status of the condition, has not heard from the
-node recently (currently 40 seconds).
-Node condition is represented as a json object. For example,
-the following conditions mean the node is in sane state:
+The `conditions` field describes the status of all `Running` nodes.
+
+| Node Condition | Description |
+|----------------|-------------|
+| `OutOfDisk`    | `True` if insufficient free space on the node for adding new pods, otherwise `False` |
+| `Ready`        | `True` if the node is healthy ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the Node Controller has not heard from the node in the last 40 seconds |
+
+Node condition is represented as a JSON object. For example, the following response describes a healthy node:
+conditions mean the node is in sane state:
 
 ```json
 "conditions": [
