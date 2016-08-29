@@ -83,7 +83,7 @@ Example workloads for Pet Set:
 Before you start deploying applications as Pet Sets, there are a few limitations you should understand.
 
 * Pet Set is an *alpha* resource, not available in any Kubernetes release prior to 1.3.
-* As with all alpha/beta resources, it can be disable through the `--runtime-config` option passed to the apiserver, and in fact most likely will be disabled on hosted offerings of Kubernetes.
+* As with all alpha/beta resources, it can be disabled through the `--runtime-config` option passed to the apiserver, and in fact most likely will be disabled on hosted offerings of Kubernetes.
 * The only updatable field on a Pet Set is `replicas`
 * The storage for a given pet must either be provisioned by a [dynamic storage provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin. Note that dynamic volume provisioning is also currently in alpha.
 * Deleting the Pet Set  *will not*  delete any pets. You will either have to manually scale it down to 0 pets first, or delete the pets yourself.
@@ -145,7 +145,7 @@ Cluster Domain | Service (ns/name) | Pet Set (ns/name) | Pet Set Domain | Pet DN
 
 Note that Cluster Domain will be set to `cluster.local` unless [otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it).
 
-Lets verify our assertion with a simple test.
+Let's verify our assertion with a simple test.
 
 ```shell
 $ kubectl get svc
@@ -154,7 +154,7 @@ nginx         None           <none>            80/TCP    12m
 ...
 ```
 
-First, the PetSet gives provides a stable hostname:
+First, the PetSet provides a stable hostname:
 
 ```shell
 $ for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
@@ -181,7 +181,7 @@ Name:      web-1.nginx
 Address 1: 10.180.0.9
 ```
 
-The containers are running nginx webservers, which by default will look for an index.html file in `/usr/share/nginx/html/index.html`. That directory is backed by a `PersistentVolume` created by the Pet Set. So lets write our hostname there:
+The containers are running nginx webservers, which by default will look for an index.html file in `/usr/share/nginx/html/index.html`. That directory is backed by a `PersistentVolume` created by the Pet Set. So let's write our hostname there:
 
 ```shell
 $ for i in 0 1; do
