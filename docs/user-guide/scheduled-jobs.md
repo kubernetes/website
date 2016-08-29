@@ -27,7 +27,7 @@ A typical use case is:
 ### Prerequisites
 
 You need a working Kubernetes cluster at version >= 1.4, with batch/v2alpha1 API turned on by passing
-`--runtime-config=batch/v2alpha1` while brining up the API server (see [Turn on or off an API version
+`--runtime-config=batch/v2alpha1` while bringing up the API server (see [Turn on or off an API version
 for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster) for
 more). You cannot use Scheduled Jobs on a hosted Kubernetes provider that has disabled alpha resources.
 
@@ -41,22 +41,22 @@ Run the example scheduled job by downloading the example file and then running t
 
 ```shell
 $ kubectl create -f ./sj.yaml
-scheduledjob "pi" created
+scheduledjob "hello" created
 ```
 
 Alternatively, use `kubectl run` to create a scheduled job without writing full config:
 
 ```shell
-$ kubectl run pi --schedule="0/1 * * * ?" --image=perl --restart=OnFailure -- perl -Mbignum=bpi -wle 'print bpi(2000)'
-scheduledjob "pi" created
+$ kubectl run hello --schedule="0/1 * * * ?" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
+scheduledjob "hello" created
 ```
 
 After creating the scheduled job, get its status using this command:
 
 ```shell
-$ kubectl get scheduledjob pi
+$ kubectl get scheduledjob hello
 NAME      SCHEDULE      SUSPEND   ACTIVE    LAST-SCHEDULE
-pi        0/1 * * * ?   False     0         <none>
+hello     0/1 * * * ?   False     0         <none>
 ```
 
 As you can see above, there's no active job yet, and no job has been scheduled, either. 
@@ -65,15 +65,34 @@ Watch for the job to be created in around one minute:
 
 ```shell
 $ kubectl get jobs --watch
-NAME            DESIRED   SUCCESSFUL   AGE
-pi-3972638982   1         1            41s
+NAME               DESIRED   SUCCESSFUL   AGE
+hello-4111706356   1         1         2s
 ```
 
-Now you've seen one running job scheduled by "pi". We can stop watching it and get the scheduled job again:
+Now you've seen one running job scheduled by "hello". We can stop watching it and get the scheduled job again:
 
 ```shell
+$ kubectl get scheduledjob hello
 NAME      SCHEDULE      SUSPEND   ACTIVE    LAST-SCHEDULE
-pi        0/1 * * * ?   False     1         Fri, 26 Aug 2016 15:13:00 -0700
+hello     0/1 * * * ?   False     0         Mon, 29 Aug 2016 14:34:00 -0700
+```
+
+You should see that "hello" successfully scheduled a job at the time specified in `LAST-SCHEDULE`. There are
+currently 0 active jobs, meaning that the job that's scheduled is completed or failed. 
+
+Now, find the pods created by the job last scheduled and view the standard output of one of the pods. Note that
+your job name and pod name would be different.
+
+```shell
+# Replace "hello-4111706356" with the job name in your system
+$ pods=$(kubectl get pods --selector=job-name=hello-4111706356 --output=jsonpath={.items..metadata.name})
+
+$ echo $pods
+hello-4111706356-o9qcm
+
+$ kubectl logs $pods
+Mon Aug 29 21:34:09 UTC 2016
+Hello from the Kubernetes cluster
 ```
 
 ## Deleting a Scheduled Job 
@@ -81,8 +100,8 @@ pi        0/1 * * * ?   False     1         Fri, 26 Aug 2016 15:13:00 -0700
 Once you don't need a scheduled job anymore, simply delete it with `kubectl`:
 
 ```shell
-$ kubectl delete scheduledjob pi
-scheduledjob "pi" deleted
+$ kubectl delete scheduledjob hello
+scheduledjob "hello" deleted
 ```
 
 This stops new jobs from being created. However, running jobs won't be stopped, and no jobs or their pods will
@@ -90,20 +109,20 @@ be deleted. To clean up those jobs and pods, you need to list all jobs created b
 
 ```shell
 $ kubectl get jobs
-NAME            DESIRED   SUCCESSFUL   AGE
-pi-1063102732   1         1            7m
-pi-1133619459   1         1            4m
+NAME               DESIRED   SUCCESSFUL   AGE
+hello-1201907962   1         1            11m
+hello-1202039034   1         1            8m
 ...
 
-$ kubectl delete jobs pi-1063102732 pi-1133619459 ...
-job "pi-1063102732" deleted
-job "pi-1133619459" deleted
+$ kubectl delete jobs hello-1201907962 hello-1202039034 ...
+job "hello-1201907962" deleted
+job "hello-1202039034" deleted
 ...
 ```
 
 Once the jobs are deleted, the pods created by them are deleted as well. Note that all jobs created by scheduled
-job "pi" will be prefixed "pi-". You can delete them at once with `kubectl delete jobs --all`, if you want to 
-delete all jobs in the system (not just the ones created by "pi".)
+job "hello" will be prefixed "hello-". You can delete them at once with `kubectl delete jobs --all`, if you want to 
+delete all jobs in the system (not just the ones created by "hello".)
 
 ## Scheduled Job Limitations
 
@@ -142,12 +161,15 @@ there's no deadline.
 
 ### Concurrency Policy
 
-The `.spec.concurrencyPolicy` field is also optional. It specifies how to treat concurrent executions of a job.
-Only one of the following concurrent policies may be specified:
+The `.spec.concurrencyPolicy` field is also optional. It specifies how to treat concurrent executions of a job
+created by this scheduled job. Only one of the following concurrent policies may be specified:
 
-* `Allow` (default): allows concurrently running jobs 
+* `Allow` (default): allows concurrently running jobs
 * `Forbid`: forbids concurrent runs, skipping next run if previous hasn't finished yet
 * `Replace`: cancels currently running job and replaces it with a new one
+
+Note that concurrency policy only applies to the jobs created by the same scheduled job. If there are multiple
+scheduled jobs, their respective jobs are always allowed to run concurrently.
 
 ### Suspend
 
