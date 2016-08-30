@@ -31,7 +31,7 @@ $ sudo sysctl -a
 
 A number of sysctls are _namespaced_ in today's Linux kernels. This means that
 they can be set independently for each pod on a node. Being namespaced is a
-requirement for sysctls to be accessibly in a pod context within Kubernetes.
+requirement for sysctls to be accessible in a pod context within Kubernetes.
 
 The following sysctls are known to be _namespaced_:
 
@@ -42,7 +42,7 @@ The following sysctls are known to be _namespaced_:
 - `net.*`.
 
 Sysctls which are not namespaced are called _node-level_ and must be set
-manually by the cluster admin, either by means of the onderlying Linux
+manually by the cluster admin, either by means of the underlying Linux
 distribution of the nodes (e.g. via `/etc/sysctls.conf`) or using a DeamonSet
 with privileged containers.
 
@@ -59,7 +59,7 @@ node. This means that setting a _safe_ sysctl for one pod
 
 - must not have any influence on any other pod on the node
 - must not allow to harm the node's health
-- must not allow to gain cpu or memory resources outside of the resource limits
+- must not allow to gain CPU or memory resources outside of the resource limits
   of a pod.
 
 By far, most of the _namespaced_ sysctls are not necessarily considered _safe_.
