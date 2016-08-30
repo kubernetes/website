@@ -7,6 +7,8 @@ assignees:
 * TOC
 {:toc}
 
+This document describes how sysctls are used within a Kubernetes cluster.
+
 ## What is a _Sysctl_?
 
 In Linux, the sysctl interface allows an administrator to modify kernel parameters at runtime. Parameters are available via the `/proc/sys/` virtual process file system. The parameters cover various subsystems such as:
