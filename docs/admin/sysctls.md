@@ -41,7 +41,7 @@ Sysctls which are not namespaced are called _node-level_ and must be set manuall
 
 ## Safe vs. Unsafe Sysctls
 
-In addition, sysctls are grouped into _safe_ sysctls and _unsafe_ sysctls. In addition to proper namespacing a _safe_ sysctl must be properly _isolated_ between pods on the same node. This means that setting a _safe_ sysctl for one pod
+Sysctls are grouped into _safe_  and _unsafe_ sysctls. In addition to proper namespacing a _safe_ sysctl must be properly _isolated_ between pods on the same node. This means that setting a _safe_ sysctl for one pod
 
 - must not have any influence on any other pod on the node
 - must not allow to harm the node's health
