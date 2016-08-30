@@ -238,7 +238,7 @@ equal to `""` is always interpreted to be requesting a PV with no class, so it
 can only be bound to PVs with no class (no annotation or one set equal to
 `""`). A PVC with no annotation is not quite the same and is treated differently
 by the cluster depending on whether the
-[`DefaultStorageClass` admission plugin](docs/admin/admission-controllers/#defaultstorageclass)
+[`DefaultStorageClass` admission plugin](/docs/admin/admission-controllers/#defaultstorageclass)
 is turned on.
 
 * If the admission plugin is turned on, the administrator may specify a
@@ -301,7 +301,7 @@ be updated once they are created.
 
 Administrators can specify a default `StorageClass` just for PVCs that don't
 request any particular class to bind to: see the
-[`PersistentVolumeClaim` section](docs/user-guide/persistent-volumes/#class-1)
+[`PersistentVolumeClaim` section](#persistentvolumeclaims)
 for details.
 
 ```yaml
