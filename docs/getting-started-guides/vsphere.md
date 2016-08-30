@@ -63,8 +63,8 @@ Verify that the VMDK was correctly uploaded and expanded to ~3GiB:
 ```shell
 govc datastore.ls ./kube/
 ```
-If you need to debug any part of the deployment, the guest login for 
-the image that you imported is `kube:kube`. It is normally specified 
+If you need to debug any part of the deployment, the guest login for
+the image that you imported is `kube:kube`. It is normally specified
 in the GOVC_GUEST_LOGIN parameter above.
 
 Also take a look at the file `cluster/vsphere/config-default.sh` and

@@ -60,7 +60,7 @@ related thing (e.g. volume) is also destroyed and created anew.
 
 ![pod diagram](/images/docs/pod.svg){: style="max-width: 50%" }
 
-*A multi-container pod that contains a file puller and a 
+*A multi-container pod that contains a file puller and a
 web server that uses a persistent volume for shared storage between the containers.*
 
 ## Motivation for pods

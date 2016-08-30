@@ -100,7 +100,7 @@ $ sel=${sel%?} # Remove trailing comma
 $ pods=$(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})`
 
 # Check which nodes are ready
-$ kubectl get nodes -o jsonpath='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'| tr ';' "\n"  | grep "Ready=True" 
+$ kubectl get nodes -o jsonpath='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'| tr ';' "\n"  | grep "Ready=True"
 ```
 
 ## Modifying and Deleting Resources
@@ -122,6 +122,6 @@ $ kubectl run -i --tty busybox --image=busybox -- sh      # Run pod as interacti
 $ kubectl attach <podname> -i                             # Attach to Running Container
 $ kubectl port-forward <podname> <local-and-remote-port>  # Forward port of Pod to your local machine
 $ kubectl port-forward <servicename> <port>               # Forward port to service
-$ kubectl exec <pod-name> -- ls /                         # Run command in existing pod (1 container case) 
-$ kubectl exec <pod-name> -c <container-name> -- ls /     # Run command in existing pod (multi-container case) 
+$ kubectl exec <pod-name> -- ls /                         # Run command in existing pod (1 container case)
+$ kubectl exec <pod-name> -c <container-name> -- ls /     # Run command in existing pod (multi-container case)
 ```

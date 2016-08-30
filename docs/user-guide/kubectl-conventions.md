@@ -8,11 +8,11 @@ assignees:
 * TOC
 {:toc}
 
-## Using `kubectl` in Reusable Scripts 
+## Using `kubectl` in Reusable Scripts
 
 If you need stable output in a script, you should:
 
-* Request one of the machine-oriented output forms, such as `-o name`, `-o json`, `-o yaml`, `-o go-template`, or `-o jsonpath` 
+* Request one of the machine-oriented output forms, such as `-o name`, `-o json`, `-o yaml`, `-o go-template`, or `-o jsonpath`
 * Specify `--output-version`, since those output forms (other than `-o name`) output the resource using a particular API version
 * Specify `--generator` to pin to a specific behavior forever, if using generator-based commands (such as `kubectl run` or `kubectl expose`)
 * Don't rely on context, preferences, or other implicit state
@@ -31,4 +31,4 @@ In order for `kubectl run` to satisfy infrastructure as code:
 
 ### `kubectl apply`
 
-* To use `kubectl apply` to update resources, always create resources initially with `kubectl apply` or with `--save-config`. See [managing resources with kubectl apply](/docs/user-guide/managing-deployments/#kubectl-apply) for the reason behind it. 
+* To use `kubectl apply` to update resources, always create resources initially with `kubectl apply` or with `--save-config`. See [managing resources with kubectl apply](/docs/user-guide/managing-deployments/#kubectl-apply) for the reason behind it.

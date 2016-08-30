@@ -76,9 +76,9 @@ curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page
 curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/arm64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 #linux/ppc64le
 curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/ppc64le/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-# OS X/amd64 
+# OS X/amd64
 curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-# OS X/386 
+# OS X/386
 curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/386/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 ```
 
@@ -128,7 +128,7 @@ kubectl get nodes
 ```
 
 Minikube contains a built-in Docker daemon that for running containers.
-If you use another Docker daemon for building your containers, you will have to publish them to a registry before minikube can pull them. 
+If you use another Docker daemon for building your containers, you will have to publish them to a registry before minikube can pull them.
 You can use minikube's built in Docker daemon to avoid this extra step of pushing your images.
 Use the built-in Docker daemon with:
 

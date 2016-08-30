@@ -137,7 +137,7 @@ service on them. The only thing you need to do is to type the sudo password when
 ```shell
 Deploying node on machine 10.10.103.223
 ...
-[sudo] password to start node: 
+[sudo] password to start node:
 ```
 
 If everything works correctly, you will see the following message from console indicating the k8s cluster is up.
@@ -283,7 +283,7 @@ You can use the `kubectl` command to check if the newly upgraded kubernetes clus
 To make sure the version of the upgraded cluster is what you expect, you will find these commands helpful.
 
 * upgrade all components or master: `$ kubectl version`. Check the *Server Version*.
-* upgrade node `vcap@10.10.102.223`: `$ ssh -t vcap@10.10.102.223 'cd /opt/bin && sudo ./kubelet --version'`* 
+* upgrade node `vcap@10.10.102.223`: `$ ssh -t vcap@10.10.102.223 'cd /opt/bin && sudo ./kubelet --version'`*
 
 ## Support Level
 

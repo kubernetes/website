@@ -106,7 +106,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: build-robot-secret
-  annotations: 
+  annotations:
     kubernetes.io/service-account.name: build-robot
 type: kubernetes.io/service-account-token
 EOF
@@ -119,7 +119,7 @@ Now you can confirm that the newly built secret is populated with an API token f
 Any tokens for non-existent service accounts will be cleaned up by the token controller.
 
 ```shell
-$ kubectl describe secrets/build-robot-secret 
+$ kubectl describe secrets/build-robot-secret
 Name:   build-robot-secret
 Namespace:  default
 Labels:   <none>

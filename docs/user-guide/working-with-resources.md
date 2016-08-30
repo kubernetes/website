@@ -50,7 +50,7 @@ The system adds fields in several ways:
   - Some fields are set to default values.  Some defaults vary by cluster and some are fixed for the API at a certain version.  (Read more about [defaulting](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#defaulting)).
     - For example, `spec.containers[0].imagePullPolicy` always defaults to `IfNotPresent` in api v1.
     - For example, `spec.containers[0].resources.limits.cpu` may be defaulted to  `100m` on some clusters, to some other value on others, and not defaulted at all on others.
-    
+
 The API will generally not modify fields that you have set; it just sets ones which were unspecified.
 
 ## Finding Documentation on Resource Fields

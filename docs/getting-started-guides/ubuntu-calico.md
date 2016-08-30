@@ -39,7 +39,7 @@ The master requires the root CA public key, `ca.pem`; the apiserver certificate,
     [alt_names]
     DNS.1 = kubernetes
     DNS.2 = kubernetes.default
-    IP.1 = 10.100.0.1 
+    IP.1 = 10.100.0.1
     IP.2 = ${MASTER_IPV4}
     ```
 
@@ -65,7 +65,7 @@ The master requires the root CA public key, `ca.pem`; the apiserver certificate,
     # Move keys
     sudo mkdir -p /etc/kubernetes/ssl/
     sudo mv -t /etc/kubernetes/ssl/ ca.pem apiserver.pem apiserver-key.pem
-    
+
     # Set permissions
     sudo chmod 600 /etc/kubernetes/ssl/apiserver-key.pem
     sudo chown root:root /etc/kubernetes/ssl/apiserver-key.pem
@@ -332,7 +332,7 @@ On your compute nodes, it is important that you install Calico before Kubernetes
     $ calicoctl status
     calico-node container is running. Status: Up 15 hours
     Running felix version 1.3.0rc5
-    
+
     IPv4 BGP status
     +---------------+-------------------+-------+----------+-------------+
     |  Peer address |     Peer type     | State |  Since   |     Info    |
@@ -340,7 +340,7 @@ On your compute nodes, it is important that you install Calico before Kubernetes
     | 172.18.203.41 | node-to-node mesh |   up  | 17:32:26 | Established |
     | 172.18.203.42 | node-to-node mesh |   up  | 17:32:25 | Established |
     +---------------+-------------------+-------+----------+-------------+
-    
+
     IPv6 BGP status
     +--------------+-----------+-------+-------+------+
     | Peer address | Peer type | State | Since | Info |

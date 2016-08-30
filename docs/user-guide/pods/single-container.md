@@ -38,12 +38,12 @@ $ kubectl run NAME
 
 Where:
 
-* `kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead. If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
+* `kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead. If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details.
 * `NAME` (required) is the name of the container to create. This value is also
   applied as the name of the Deployment, and as the prefix of the
   pod name. For example:
-  
-  ```shell 
+
+  ```shell
   $ kubectl run example --image=nginx
   deployment "example" created
 
@@ -60,8 +60,8 @@ Where:
   addition to any labels specified here, `run` attaches a label of
   the format `run=NAME`. This is used by the Deployment
   to target the pods created by the command.
-  
-![image](/images/docs/pods/single-container_1.svg)  
+
+![image](/images/docs/pods/single-container_1.svg)
 
 There are additional flags that can be specified. For a complete list, run:
 
@@ -82,7 +82,7 @@ delete the pod, delete its Deployment.
 First, find the Deployment's name:
 
 ```shell
-$ kubectl get deployment 
+$ kubectl get deployment
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 example   1         1         1            1           1m
 ```

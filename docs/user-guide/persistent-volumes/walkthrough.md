@@ -37,14 +37,14 @@ PVs are created by posting them to the API server.
 ```shell
 $ kubectl create -f docs/user-guide/persistent-volumes/volumes/local-01.yaml
 NAME      LABELS       CAPACITY      ACCESSMODES   STATUS      CLAIM     REASON
-pv0001    type=local   10737418240   RWO           Available 
+pv0001    type=local   10737418240   RWO           Available
 ```
 
 ### Access Control
 Storage configured with GID will only allow writing by pods using the same GID.
 Mismatched or missing GIDs will cause `permission denied` errors. Annotating a
 `PersistentVolume` with a GID allows `Kubelet` to automatically add the GID to
-the pod that requires it. No coordination between an admin and end user is 
+the pod that requires it. No coordination between an admin and end user is
 required.
 
 To annotate the volume's with a GID you use the `pv.beta.kubernetes.io/gid`
@@ -61,7 +61,7 @@ metadata:
 ```
 
 When a pod consumes a PV with a GID annotation, the annotated GID is applied to
-all containers in the pod in the same way GIDs specified in the pod's 
+all containers in the pod in the same way GIDs specified in the pod's
 [security context](/docs/user-guide/security-context/) are. Every GID, whether
 it originates from a PV annotation or the pod's specification, is applied to
 the first process run in each container, in addition to the container's primary
@@ -80,9 +80,9 @@ $ kubectl create -f docs/user-guide/persistent-volumes/claims/claim-01.yaml
 
 $ kubectl get pvc
 NAME                LABELS              STATUS              VOLUME
-myclaim-1           map[]                                   
-           
-           
+myclaim-1           map[]
+
+
 # A background process will attempt to match this claim to a volume.
 # The eventual state of your claim will look something like this:
 
@@ -92,7 +92,7 @@ myclaim-1   map[]     Bound     pv0001
 
 $ kubectl get pv
 NAME      LABELS       CAPACITY      ACCESSMODES   STATUS    CLAIM               REASON
-pv0001    type=local   10737418240   RWO           Bound     default/myclaim-1 
+pv0001    type=local   10737418240   RWO           Bound     default/myclaim-1
 ```
 
 ## Using your claim as a volume

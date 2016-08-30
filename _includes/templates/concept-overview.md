@@ -74,7 +74,7 @@
 {: style="color:red" }
 
 This template requires a variable called `concept` that is simply the name of the
-concept for which you are giving an overview. This will be displayed in the 
+concept for which you are giving an overview. This will be displayed in the
 headings for the document.
 
 To get rid of this message and take advantage of this template, define `concept`:

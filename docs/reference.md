@@ -1,12 +1,12 @@
 ---
 
 ---
-In the reference section, you can find reference documentation for Kubernetes APIs, CLIs, and tools, as well as our glossary and design docs. 
+In the reference section, you can find reference documentation for Kubernetes APIs, CLIs, and tools, as well as our glossary and design docs.
 
 ## API References
 
 * [Kubernetes API](/docs/api/) - The core API for Kubernetes.
-* [Extensions API](/docs/api-reference/extensions/v1beta1/operations/) - Manages extensions resources such as Jobs, Ingress and HorizontalPodAutoscalers.	
+* [Extensions API](/docs/api-reference/extensions/v1beta1/operations/) - Manages extensions resources such as Jobs, Ingress and HorizontalPodAutoscalers.
 
 
 ## CLI References

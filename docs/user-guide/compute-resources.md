@@ -45,7 +45,7 @@ type is the sum of the resource requests/limits of that type for each container 
 unset values treated as zero (or equal to default values in some cluster configurations).
 
 ### Meaning of CPU
-Limits and requests for `cpu` are measured in cpus.  
+Limits and requests for `cpu` are measured in cpus.
 One cpu, in Kubernetes, is equivalent to:
 
 - 1 AWS vCPU
@@ -227,8 +227,8 @@ Image(s):                       saadali/simmemleak
 Node:                           kubernetes-node-tf0f/10.240.216.66
 Labels:                         name=simmemleak
 Status:                         Running
-Reason:             
-Message:            
+Reason:
+Message:
 IP:                             10.244.2.75
 Replication Controllers:        simmemleak (1/1 replicas created)
 Containers:

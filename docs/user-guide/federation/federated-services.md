@@ -111,7 +111,7 @@ Namespace:              default
 Labels:                 run=nginx
 Selector:               run=nginx
 Type:                   LoadBalancer
-IP:         
+IP:
 LoadBalancer Ingress:   104.197.246.190, 130.211.57.243, 104.196.14.231, 104.199.136.89, ...
 Port:                   http    80/TCP
 Endpoints:              <none>
@@ -170,7 +170,7 @@ this. For example, if your Federation is configured to use Google
 Cloud DNS, and a managed DNS domain 'example.com':
 
 ``` shell
-$ gcloud dns managed-zones describe example-dot-com 
+$ gcloud dns managed-zones describe example-dot-com
 creationTime: '2016-06-26T18:18:39.229Z'
 description: Example domain for Kubernetes Cluster Federation
 dnsName: example.com.
@@ -200,7 +200,7 @@ nginx.mynamespace.myfederation.svc.asia-east1-b.example.com.  CNAME 180     ngin
 nginx.mynamespace.myfederation.svc.asia-east1-c.example.com.       A    180     130.211.56.221
 nginx.mynamespace.myfederation.svc.asia-east1.example.com.           A    180     130.211.57.243, 130.211.56.221
 nginx.mynamespace.myfederation.svc.europe-west1.example.com.  CNAME    180   nginx.mynamespace.myfederation.svc.example.com.
-nginx.mynamespace.myfederation.svc.europe-west1-d.example.com.  CNAME   180     nginx.mynamespace.myfederation.svc.europe-west1.example.com. 
+nginx.mynamespace.myfederation.svc.europe-west1-d.example.com.  CNAME   180     nginx.mynamespace.myfederation.svc.europe-west1.example.com.
 ... etc.
 ```
 

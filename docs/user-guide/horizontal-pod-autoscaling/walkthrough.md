@@ -95,7 +95,7 @@ php-apache   7         7         7            7           19m
 
 **Note** Sometimes it may take a few minutes to stabilize the number of replicas.
 Since the amount of load is not controlled in any way it may happen that the final number of replicas will
-differ from this example. 
+differ from this example.
 
 ## Step Four: Stop load
 

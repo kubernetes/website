@@ -30,7 +30,7 @@ The Kubelet sends an HTTP request to the specified path and port to perform the 
 
 ### Using a named port for liveness probes
 
-You can also use a named `ContainerPort` for HTTP liveness checks. 
+You can also use a named `ContainerPort` for HTTP liveness checks.
 
 The [http-liveness-named-port.yaml](/docs/user-guide/liveness/http-liveness-named-port.yaml) demonstrates the named-port HTTP check.
 {% include code.html language="yaml" file="http-liveness-named-port.yaml" ghlink="/docs/user-guide/liveness/http-liveness-named-port.yaml" %}

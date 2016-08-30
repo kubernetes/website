@@ -22,7 +22,7 @@ $ docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 ngi
 a9ec34d9878748d2f33dc20cb25c714ff21da8d40558b45bfaec9955859075d0
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
-a9ec34d98787        nginx               "nginx -g 'daemon of   2 seconds ago       Up 2 seconds        0.0.0.0:80->80/tcp, 443/tcp   nginx-app 
+a9ec34d98787        nginx               "nginx -g 'daemon of   2 seconds ago       Up 2 seconds        0.0.0.0:80->80/tcp, 443/tcp   nginx-app
 ```
 
 With kubectl:
@@ -34,7 +34,7 @@ deployment "nginx-app" created
 ```
 
 `kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details.
 Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. Now, we can expose a new Service with the deployment created above:
 
 ```shell
@@ -137,7 +137,7 @@ $ docker exec -ti a9ec34d98787 /bin/sh
 With kubectl:
 
 ```shell
-$ kubectl exec -ti nginx-app-5jyvm -- /bin/sh      
+$ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 

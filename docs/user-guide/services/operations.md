@@ -78,11 +78,11 @@ Required fields are:
       target.
     * `type`: Optional. If the type is `LoadBalancer`, sets up a [network load balancer](/docs/user-guide/load-balancer/)
       for your service. This provides an externally-accessible IP address that
-      sends traffic to the correct port on your cluster nodes. 
-    * `loadBalancerSourceRanges:`: Optional. Must use with `LoadBalancer` type. 
-      If specified and supported by the cloud provider, this will restrict traffic 
+      sends traffic to the correct port on your cluster nodes.
+    * `loadBalancerSourceRanges:`: Optional. Must use with `LoadBalancer` type.
+      If specified and supported by the cloud provider, this will restrict traffic
       such that the load balancer will be accessible only to clients from the specified IP ranges.
-      This field will be ignored if the cloud-provider does not support the feature. 
+      This field will be ignored if the cloud-provider does not support the feature.
 
 For the full `service` schema see the
 [Kubernetes api reference](/docs/api-reference/v1/definitions/#_v1_service).

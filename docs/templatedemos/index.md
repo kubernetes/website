@@ -37,9 +37,9 @@ git fetch upstream
 git reset --hard upstream/docsv2
 ```
 
-### Step 3: Make sure you can serve rendered docs 
+### Step 3: Make sure you can serve rendered docs
 
-One option is to simply rename your fork's repo on GitHub.com to `yourusername.github.io`, which will auto-stage your commits at that URL. 
+One option is to simply rename your fork's repo on GitHub.com to `yourusername.github.io`, which will auto-stage your commits at that URL.
 
 Or, just use Docker! Run this from within your local `kubernetes.github.io` directory and you should be good:
 
@@ -58,7 +58,7 @@ Or, you can [follow the instructions](/editdocs/) for running a from-scratch sta
 - Concept Template
   - Introduce K8s Api Objects e.g. Pod
 - Task Template
-  - Step-by-step guide for "Doing X".  
+  - Step-by-step guide for "Doing X".
   - Useful for breaking down various ways of configuring Concepts into sub-topics
 - Landing Pages Template
   - Collection of click-able cards on a grid

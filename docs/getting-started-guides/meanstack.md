@@ -371,7 +371,7 @@ At this point, the local directory looks like this
 ```shell
 $ ls
 
-Dockerfile 
+Dockerfile
 app
 db-deployment.yml
 db-service.yml

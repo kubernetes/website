@@ -77,7 +77,7 @@ images in the ECR registry.
 
 The kubelet will fetch and periodically refresh ECR credentials.  It needs the following permissions to do this:
 
-- `ecr:GetAuthorizationToken` 
+- `ecr:GetAuthorizationToken`
 - `ecr:BatchCheckLayerAvailability`
 - `ecr:GetDownloadUrlForLayer`
 - `ecr:GetRepositoryPolicy`

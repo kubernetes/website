@@ -56,7 +56,7 @@ A Kubernetes Service is an abstraction which defines a logical set of Pods runni
 You can create a Service for your 2 nginx replicas with `kubectl expose`:
 
 ```shell
-$ kubectl expose deployment/my-nginx 
+$ kubectl expose deployment/my-nginx
 service "my-nginx" exposed
 ```
 

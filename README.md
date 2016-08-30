@@ -11,13 +11,13 @@ change the name of the fork to be:
 
     YOUR_GITHUB_USERNAME.github.io
 
-Then make your changes. 
+Then make your changes.
 
 When you visit [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io) you should see a special-to-you version of the site that contains the changes you just made.
 
 ## Staging the site locally (using Docker)
 
-Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
+Don't like installing stuff? Download and run a local staging server with a single `docker run` command.
 
     git clone https://github.com/kubernetes/kubernetes.github.io.git
     cd kubernetes.github.io
@@ -41,7 +41,7 @@ Install Ruby 2.2 or higher. If you're on Linux, run these commands:
     apt-get install ruby2.2
     apt-get install ruby2.2-dev
 
-* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). 
+* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/).
 * If you're on a Windows machine you can use the [Ruby Installer](http://rubyinstaller.org/downloads/). During the installation make sure to check the option for *Add Ruby executables to your PATH*.
 
 The remainder of the steps should work the same across operating systems.

@@ -203,7 +203,7 @@ If you scale the cluster, the new pods parent themselves to the same master. To 
 
 ```shell
 $ kubectl edit petset web
-... 
+...
 
 $ kubectl get po -l app=nginx
 NAME      READY     STATUS    RESTARTS   AGE

@@ -5,7 +5,7 @@ assignees:
 
 ---
 
-[Juju](https://jujucharms.com/docs/2.0/about-juju) encapsulates the 
+[Juju](https://jujucharms.com/docs/2.0/about-juju) encapsulates the
 operational knowledge of provisioning, installing, and securing a Kubernetes
 cluster into one step. Juju allows you to deploy a Kubernetes cluster on
 different cloud providers with a consistent, repeatable user experience.
@@ -33,7 +33,7 @@ and tag the issue with "juju" so we can find them.
 > This documentation focuses on the Juju 2.0 release which will be
 > promoted to stable during the April 2016 release cycle.
 
-To paraphrase, on your local Ubuntu system:  
+To paraphrase, on your local Ubuntu system:
 
 ```shell
 sudo add-apt-repository ppa:juju/devel
@@ -47,9 +47,9 @@ to install the Juju dependencies for your platform.
 
 ### With Docker
 
-If you prefer the isolation of Docker, you can run the Juju client in a 
+If you prefer the isolation of Docker, you can run the Juju client in a
 container. Create a local directory to store the Juju configuration, then
-volume mount the container:  
+volume mount the container:
 
 ```shell
 mkdir -p $HOME/.local/share/juju
@@ -66,8 +66,8 @@ docker run --rm -ti \
 ### Configure Juju to your favorite cloud provider
 
 At this point you have access to the Juju client. Before you can deploy a
-cluster you have to configure Juju with the 
-[cloud credentials](https://jujucharms.com/docs/2.0/credentials) for each 
+cluster you have to configure Juju with the
+[cloud credentials](https://jujucharms.com/docs/2.0/credentials) for each
 cloud provider you would like to use.
 
 Juju [supports a wide variety of public clouds](#cloud-compatibility) to set
@@ -75,14 +75,14 @@ up the credentials for your chosen cloud see the
 [cloud setup page](https://jujucharms.com/docs/devel/getting-started-general#2.-choose-a-cloud).
 
 After configuration is complete test your setup with a `juju bootstrap`
-command: `juju bootstrap $controllername $cloudtype` you are ready to launch 
+command: `juju bootstrap $controllername $cloudtype` you are ready to launch
 the Kubernetes cluster.
 
 ## Launch a Kubernetes cluster
 
-You can deploy a Kubernetes cluster with Juju from the `kubernetes` directory of 
-the [kubernetes github project](https://github.com/kubernetes/kubernetes.git). 
-Clone the repository on your local system. Export the `KUBERNETES_PROVIDER` 
+You can deploy a Kubernetes cluster with Juju from the `kubernetes` directory of
+the [kubernetes github project](https://github.com/kubernetes/kubernetes.git).
+Clone the repository on your local system. Export the `KUBERNETES_PROVIDER`
 environment variable before bringing up the cluster.
 
 ```shell
@@ -99,7 +99,7 @@ the units so containers on different hosts can communicate with each other.
 
 ## Exploring the cluster
 
-The `juju status` command provides information about each unit in the cluster:  
+The `juju status` command provides information about each unit in the cluster:
 
 ```shell
 $ juju status
@@ -121,9 +121,9 @@ kubernetes/0  active    idle   1        8088/tcp  13.67.219.76    Kubernetes run
 kubernetes/1  active    idle   2        6443/tcp  13.67.219.182   (master) Kubernetes running.
 
 MACHINE  STATE    DNS            INS-ID     SERIES  AZ
-0        started  13.67.217.11   machine-0  trusty  
-1        started  13.67.219.76   machine-1  trusty  
-2        started  13.67.219.182  machine-2  trusty 
+0        started  13.67.217.11   machine-0  trusty
+1        started  13.67.219.76   machine-1  trusty
+2        started  13.67.219.182  machine-2  trusty
 ```
 
 ## Run some containers!
@@ -132,9 +132,9 @@ The `kubectl` file, and the TLS certificates along with the configuration are
 all available on the Kubernetes master unit. Fetch the kubectl package so you
 can run commands on the new Kuberntetes cluster.
 
-Use the `juju status` command to figure out which unit is the master. In the 
-example above the "kubernetes/1" unit is the master. Use the `juju scp` 
-command to copy the file from the unit:  
+Use the `juju status` command to figure out which unit is the master. In the
+example above the "kubernetes/1" unit is the master. Use the `juju scp`
+command to copy the file from the unit:
 
 ```shell
 juju scp kubernetes/1:kubectl_package.tar.gz .
@@ -145,8 +145,8 @@ tar xvfz kubectl_package.tar.gz
 If you are not on a Linux amd64 host system, you will need to find or build a
 kubectl binary package for your architecture.
 
-Copy the `kubeconfig` file to the home directory so you don't have to specify 
-it on the command line each time. The default location is 
+Copy the `kubeconfig` file to the home directory so you don't have to specify
+it on the command line each time. The default location is
 `${HOME}/.kube/config`.
 
 No pods will be available before starting a container:
@@ -185,13 +185,13 @@ We'll follow the aws-coreos example. Create a pod manifest: `pod.json`
 }
 ```
 
-Create the pod with kubectl:  
+Create the pod with kubectl:
 
 ```shell
 kubectl create -f pod.json
 ```
 
-Get info on the pod:  
+Get info on the pod:
 
 ```shell
 kubectl get pods
@@ -221,7 +221,7 @@ sudo apt-get install curl
 curl $(juju status --format=oneline kubernetes/1 | cut -d' ' -f3)
 ```
 
-Finally delete the pod:  
+Finally delete the pod:
 
 ```shell
 juju ssh kubernetes/0
@@ -240,19 +240,19 @@ details.
 
 ## Scale out cluster
 
-Need more workers? Juju makes it easy to add units of a charm:   
+Need more workers? Juju makes it easy to add units of a charm:
 
 ```shell
 juju add-unit kubernetes
 ```
 
-Or multiple units at one time:  
+Or multiple units at one time:
 
 ```shell
 juju add-unit -n3 kubernetes
 ```
 
-You can also scale the etcd charm for more fault tolerant key/value storage:  
+You can also scale the etcd charm for more fault tolerant key/value storage:
 
 ```shell
 juju add-unit -n2 etcd
@@ -269,7 +269,7 @@ build directories.
 ```
 
 Alternately if you want stop the servers you can destroy the Juju model or the
-controller. Use the `juju switch` command to get the current controller name:  
+controller. Use the `juju switch` command to get the current controller name:
 
 ```shell
 juju switch
@@ -284,7 +284,7 @@ a layered approach to keep the code smaller and more focused on the operations
 of Kubernetes.
 
 The Kubernetes layer and bundles can be found in the `kubernetes`
-project on github.com:  
+project on github.com:
 
  - [Bundle location](https://github.com/kubernetes/kubernetes/tree/master/cluster/juju/bundles)
  - [Kubernetes charm layer location](https://github.com/kubernetes/kubernetes/tree/master/cluster/juju/layers/kubernetes)

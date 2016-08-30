@@ -19,7 +19,7 @@ kubectl exec POD [-c CONTAINER] -- COMMAND [args...]
 ```
 # Get output from running 'date' from pod 123456-7890, using the first container by default
 kubectl exec 123456-7890 date
-	
+
 # Get output from running 'date' in ruby-container from pod 123456-7890
 kubectl exec 123456-7890 -c ruby-container date
 

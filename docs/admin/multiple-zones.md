@@ -51,7 +51,7 @@ admission controller automatically adds zone labels to them.  The scheduler (via
 `VolumeZonePredicate` predicate) will then ensure that pods that claim a
 given volume are only placed into the same zone as that volume, as volumes
 cannot be attached across zones.
- 
+
 ## Limitations
 
 There are some important limitations of the multizone support:

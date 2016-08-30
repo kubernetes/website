@@ -83,7 +83,7 @@ $ kubectl run hostnames --image=gcr.io/google_containers/serve_hostname \
 deployment "hostnames" created
 ```
 
-`kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. 
+`kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
 Note that this is the same as if you had started the `Deployment` with
 the following YAML:
 

@@ -89,7 +89,7 @@ The cluster has to be started with `ENABLE_CUSTOM_METRICS` environment variable 
 
 ### Pod configuration
 
-The pods to be scaled must have cAdvisor-specific custom (aka application) metrics endpoint configured. The configuration format is described [here](https://github.com/google/cadvisor/blob/master/docs/application_metrics.md). Kubernetes expects the configuration to 
+The pods to be scaled must have cAdvisor-specific custom (aka application) metrics endpoint configured. The configuration format is described [here](https://github.com/google/cadvisor/blob/master/docs/application_metrics.md). Kubernetes expects the configuration to
   be placed in `definition.json` mounted via a [config map](/docs/user-guide/horizontal-pod-autoscaling/configmap/) in `/etc/custom-metrics`. A sample config map may look like this:
 
 ```yaml
@@ -99,7 +99,7 @@ metadata:
   name: cm-config
 data:
   definition.json: "{\"endpoint\" : \"http://localhost:8080/metrics\"}"
-``` 
+```
 
 **Warning**
 Due to the way cAdvisor currently works `localhost` refers to the node itself, not to the running pod. Thus the appropriate container in the pod must ask for a node port. Example:
@@ -113,19 +113,19 @@ Due to the way cAdvisor currently works `localhost` refers to the node itself, n
 ### Specifying target
 
 HPA for custom metrics is configured via an annotation. The value in the annotation is interpreted as a target metric value averaged over
-all running pods. Example: 
+all running pods. Example:
 
 ```yaml
     annotations:
       alpha/target.custom-metrics.podautoscaler.kubernetes.io: '{"items":[{"name":"qps", "value": "10"}]}'
 ```
 
-In this case if there are 4 pods running and each of them reports qps metric to be equal to 15 HPA will start 2 additional pods so there will be 6 pods in total. If there are multiple metrics passed in the annotation or CPU is configured as well then HPA will use the biggest 
+In this case if there are 4 pods running and each of them reports qps metric to be equal to 15 HPA will start 2 additional pods so there will be 6 pods in total. If there are multiple metrics passed in the annotation or CPU is configured as well then HPA will use the biggest
 number of replicas that comes from the calculations.
 
-At this moment even if target CPU utilization is not specified a default of 80% will be used. 
+At this moment even if target CPU utilization is not specified a default of 80% will be used.
 To calculate number of desired replicas based only on custom metrics CPU utilization
-target should be set to a very large value (e.g. 100000%). Then CPU-related logic 
+target should be set to a very large value (e.g. 100000%). Then CPU-related logic
 will want only 1 replica, leaving the decision about higher replica count to cusom metrics (and min/max limits).
 
 ## Further reading

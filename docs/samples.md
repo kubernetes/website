@@ -8,7 +8,7 @@ We have a wide variety of samples to choose from.
 ## Recently updated samples
 
 The Kubernetes team is highlighting these samples as being the most up-to-date. Active upkeep is being done or has recently been done
-on these samples to ensure they are high quality and work on Kubernetes {{page.version}}. 
+on these samples to ensure they are high quality and work on Kubernetes {{page.version}}.
 
 <p>&nbsp;</p>
 

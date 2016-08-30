@@ -127,7 +127,7 @@ condition back to `false`.
 ### Eviction of Pods
 
 If an eviction threshold has been met and the grace period has passed,
-the `kubelet` will initiate the process of evicting pods until it has observed 
+the `kubelet` will initiate the process of evicting pods until it has observed
 the signal has gone below its defined threshold.
 
 The `kubelet` ranks pods for eviction 1) by their quality of service,

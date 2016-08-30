@@ -347,7 +347,7 @@ using an existing deployment script or manually through `easyrsa` or `openssl.``
 #### Using an Existing Deployment Script
 
 **Using an existing deployment script** is implemented at
-`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.  
+`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.
 
 Execute this script with two parameters. The first is the IP address
 of API server. The second is a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.

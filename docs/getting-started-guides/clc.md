@@ -249,9 +249,9 @@ kubectl version
 kubectl cluster-info
 ```
 
-### Accessing the cluster programmatically 
+### Accessing the cluster programmatically
 
-It's possible to use the locally-stored client certificates to access the api server. For example, you may want to use any of the [Kubernetes API client libraries](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/client-libraries.md) to program against your Kubernetes cluster in the programming language of your choice. 
+It's possible to use the locally-stored client certificates to access the api server. For example, you may want to use any of the [Kubernetes API client libraries](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/client-libraries.md) to program against your Kubernetes cluster in the programming language of your choice.
 
 To demostrate how to use these locally stored certificates, we provide the folowing example of using ```curl``` to communicate to the master api server via https:
 

@@ -172,7 +172,7 @@ kubectl create -f ./job.yaml
 Now wait a bit, then check on the job.
 
 ```shell
-$ kubectl describe jobs/job-wq-2 
+$ kubectl describe jobs/job-wq-2
 Name:		job-wq-2
 Namespace:	default
 Image(s):	gcr.io/exampleproject/job-wq-2

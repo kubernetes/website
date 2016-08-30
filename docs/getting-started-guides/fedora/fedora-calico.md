@@ -295,10 +295,10 @@ KUBE_API_ROOT="http://kube-master:8080/api/v1"
 * Start Kubernetes on the node.
 
 ```shell
-for SERVICE in kube-proxy kubelet; do 
+for SERVICE in kube-proxy kubelet; do
     systemctl restart $SERVICE
     systemctl enable $SERVICE
-    systemctl status $SERVICE 
+    systemctl status $SERVICE
 done
 ```
 
