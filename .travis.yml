@@ -6,7 +6,7 @@ branches:
   - release-1.4
 script:
 - cd $HOME
-- git config --global user.email ${GIT_EMAIL}
+- git config --global user.email "${GIT_EMAIL}"
 - git config --global user.name "${GIT_NAME}"
 - git clone https://${GIT_USERNAME}:${GH_TOKEN}@github.com/kubernetes-v1-4/kubernetes-v1-4.github.io.git
 - cd kubernetes-v1-4.github.io
