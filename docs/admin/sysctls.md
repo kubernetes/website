@@ -110,8 +110,8 @@ kind: Pod
 metadata:
   name: sysctl-example
   annotations:
-    security.alpha.kubernetes.io/sysctls: kernel.shm_rmid_forced=1`
-    security.alpha.kubernetes.io/unsafe-sysctls: net.ipv4.route.min_pmtu=1000,kernel.msgmax=1 2 3`
+    security.alpha.kubernetes.io/sysctls: kernel.shm_rmid_forced=1
+    security.alpha.kubernetes.io/unsafe-sysctls: net.ipv4.route.min_pmtu=1000,kernel.msgmax=1 2 3
 spec:
   ...
 ```
