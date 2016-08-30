@@ -39,7 +39,7 @@ The following sysctls are known to be _namespaced_:
 
 Sysctls which are not namespaced are called _node-level_ and must be set manually by the cluster admin, either by means of the onderlying Linux distribution of the nodes (e.g. via `/etc/sysctls.conf`) or using a DeamonSet with privileged containers.
 
-**Note**: it is good practice to consider nodes with special sysctl settings as _tainted_ within a cluster, and only schedule pods onto them which need those sysctl settings. It is suggested to use the Kubernetes [_taints and toleration_ feature](../user-guide/kubectl/kubectl_taint.md) to implement this.
+**Note**: it is good practice to consider nodes with special sysctl settings as _tainted_ within a cluster, and only schedule pods onto them which need those sysctl settings. It is suggested to use the Kubernetes [_taints and toleration_ feature](/docs/user-guide/kubectl/kubectl_taint.md) to implement this.
 
 ## Safe vs. Unsafe Sysctls
 
@@ -78,7 +78,7 @@ Only _namespaced_ sysctls can be enabled this way.
 
 ## Setting Sysctls for a Pod
 
-The sysctl feature is an alpha API in Kubernetes 1.4. Therefore, sysctls are set using annotations on pods. They apply to all containers in the same pod. 
+The sysctl feature is an alpha API in Kubernetes 1.4. Therefore, sysctls are set using annotations on pods. They apply to all containers in the same pod.
 
 Here is an example, with different annotations for _safe_ and _unsafe_ sysctls:
 
@@ -94,4 +94,4 @@ spec:
   ...
 ```
 
-**Note**: a pod with the _unsafe_ sysctls specified above will fail to launch on any node which has not enabled those two _unsafe_ sysctls explicitly. As with _node-level_ sysctls it is recommended to use [_taints and toleration_ feature](../user-guide/kubectl/kubectl_taint.md) or [labels on nodes](../user-guide/labels.md) to schedule those pods onto the right nodes.
+**Note**: a pod with the _unsafe_ sysctls specified above will fail to launch on any node which has not enabled those two _unsafe_ sysctls explicitly. As with _node-level_ sysctls it is recommended to use [_taints and toleration_ feature](/docs/user-guide/kubectl/kubectl_taint.md) or [labels on nodes](/docs/user-guide/labels.md) to schedule those pods onto the right nodes.
