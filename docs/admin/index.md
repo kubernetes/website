@@ -80,3 +80,5 @@ project](/docs/admin/salt).
 * **Authorization** [authorization](/docs/admin/authorization)
 
 * **Admission Controllers** [admission_controllers](/docs/admin/admission-controllers)
+
+* **Sysctls** [sysctls](/docs/admin/sysctls.md)
