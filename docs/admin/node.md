@@ -120,25 +120,48 @@ Currently, there are three components that interact with the Kubernetes node int
 ### Node Controller
 
 Node controller is a component in Kubernetes master which manages Node
-objects. It performs two major functions: cluster-wide node synchronization
-and single node life-cycle management.
+objects.
 
-Node controller has a sync loop that deletes Nodes from Kubernetes
-based on all matching VM instances listed from the cloud provider. The sync period
-can be controlled via flag `--node-sync-period`. If a new VM instance
-gets created, Node Controller creates a representation for it. If an existing
-instance gets deleted, Node Controller deletes the representation. Note however,
-that Node Controller is unable to provision the node for you, i.e. it won't install
-any binary; therefore, to
-join a node to a Kubernetes cluster, you as an admin need to make sure proper services are
-running in the node. In the future, we plan to automatically provision some node
-services.
+Node controller has mutliple roles in Node's life. First is assigning a CIDR block to
+the Node when it is registered (if CIDR assignment is turned on). Second part is monitoring
+Node's health. Node controller is responsible for updating the NodeReady condition of node
+status to ConditionUnknown when a node becomes unreachable (i.e. Kubelet stopped sending heartbeats
+e.g. due to the node being down), and then later evicting all the pods from the node
+(using graceful termination) if the node continues to be unreachable (the current timeouts
+for those are 40s and 5m, respectively). Node controller checks the state of each node every
+`--node-monitor-period` seconds.
 
-In general, node controller is responsible for updating the NodeReady condition of node
-status to ConditionUnknown when a node becomes unreachable (e.g. due to the node being down),
-and then later evicting all the pods from the node (using graceful termination) if the node
-continues to be unreachable. (The current timeouts for those are 40s and 5m, respectively.)
-It also allocates CIDR blocks to the new nodes.
+In 1.4 release we updated the logic of node controller to better handle cases when a
+big number of Nodes have problems with reaching the master machine (e.g. because
+master machine has networking problem). Since 1.4 node controller will look at the
+state of all nodes in the cluster when making a decision about pod eviction. In previous
+releases if master machine got isolated from the cluster it would evict all running pods
+and after it would rejoin the cluster nodes would kill everything that was running.
+Since 1.4 this shouldn't happen.
+
+In normal circumstances (read: other than ones described in following paragraphs)
+node controller limits the eviction rate to `--node-eviction-rate` (default 0.1)
+per second, i.e. it won't evict pods from more than 1 node per 10 seconds.
+
+Nodes in the cluster are split into availablity zones. When a node in a given zone
+becomes unhealty node controller checks what percentage of nodes in this zone are
+unhealthy in the same time. If the percentage is bigger than `--unhealthy-zone-threshold`
+(default 55) then the eviction rate is reduced: if the cluster is small (i.e. has less than
+`--large-cluster-size-threshold` nodes - default 50) then evictions are stopped, if the
+cluster is big the eviction rate is reduced to `--secondary-node-eviction-rate` (default 0.01)
+per second.
+
+To allow correct failover to another zone when one is completely down, as this is why we can
+have multiple availability zones, if all nodes in the given zone are unhealthy node controller
+resumes eviction in the normal rate `--node-eviction-rate`. The corner case for that is when
+all zones are completely unhealthy (i.e. there's no healthy node in the cluster). In such case
+node controller assumes that there's some problem with master machine connectivity and stops
+all evictions until any connectivity is restored.
+
+Third responsibility of node controler is keeping the list of nodes up to date with
+the list of avialable machines. When running in cloud environment whenever the node is
+unhealthy node controller asks cloud provider if the VM for that node is still available.
+If not it deletes the node.
 
 ### Self-Registration of Nodes
 
