@@ -120,13 +120,13 @@ all running pods. Example:
       alpha/target.custom-metrics.podautoscaler.kubernetes.io: '{"items":[{"name":"qps", "value": "10"}]}'
 ```
 
-In this case if there are 4 pods running and each of them reports qps metric to be equal to 15 HPA will start 2 additional pods so there will be 6 pods in total. If there are multiple metrics passed in the annotation or CPU is configured as well then HPA will use the biggest 
+In this case, if there are 4 pods running and each of them reports qps metric to be equal to 15, HPA will start 2 additional pods so there will be 6 pods in total. If there are multiple metrics passed in the annotation or CPU is configured as well then HPA will use the biggest 
 number of replicas that comes from the calculations.
 
-At this moment even if target CPU utilization is not specified a default of 80% will be used. 
-To calculate number of desired replicas based only on custom metrics CPU utilization
-target should be set to a very large value (e.g. 100000%). Then CPU-related logic 
-will want only 1 replica, leaving the decision about higher replica count to cusom metrics (and min/max limits).
+At this moment, even if CPU utilization target is not specified, a default of 80% will be used. 
+To calculate number of desired replicas based only on custom metrics, CPU utilization
+target should be set to a very large value (e.g. 100000%).
+Then CPU utilization target will unlikely be reached, leaving the decision on desired number of replicas to the custom metrics (and min/max limits).
 
 ## Further reading
 
