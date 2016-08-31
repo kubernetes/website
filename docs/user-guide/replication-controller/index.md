@@ -114,7 +114,7 @@ for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 The replication controller can itself have labels (`.metadata.labels`).  Typically, you
 would set these the same as the `.spec.template.metadata.labels`; if `.metadata.labels` is not specified
 then it is defaulted to  `.spec.template.metadata.labels`.  However, they are allowed to be
-different, and the `.metadata.labels` do not affec the behavior of the replication controller.
+different, and the `.metadata.labels` do not affect the behavior of the replication controller.
 
 ### Pod Selector
 
