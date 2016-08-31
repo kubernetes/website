@@ -195,8 +195,6 @@ toc:
         path: /docs/getting-started-guides/openstack-heat/
       - title: CoreOS on Multinode Cluster
         path: /docs/getting-started-guides/coreos/coreos_multinode_cluster/
-      - title: Fedora With Calico Networking
-        path: /docs/getting-started-guides/fedora/fedora-calico/
       - title: rkt
         section:
         - title: Running Kubernetes with rkt
