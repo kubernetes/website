@@ -1,10 +1,6 @@
 * TOC
 {: toc}
 
-{% if page.concept_rankings %}{% else %}
-{% include templates/_errorthrower.md missing_block='concept_rankings' tagsblock='true' purpose='provides a list of associated concepts that pertain to this topic.' tagname='concept' tieroneexample='pod' tiertwoexample='container'%}
-{% endif %}
-
 {% if overview %}
 
 {{ overview }}
@@ -29,15 +25,6 @@
 {% endif %}
 
 
-{% if costs %}
-
-### Costs
-
-{{ costs }}
-
-{% endif %}
-
-
 {% if prerequisites %}
 
 ### Before you begin
@@ -53,11 +40,7 @@
 
 {% if lessoncontent %}
 
-### H3 Heading
-
-Lesson content
-
-{{ steps }}
+{{ lessoncontent }}
 
 {% else %}
 
@@ -82,20 +65,3 @@ Lesson content
 {{ whats_next }}
 
 {% endif %}
-
-<script language="JavaScript">
-$( document ).ready(function() {
-  // When the document loads, get the metadata JSON, and kick off tbl render
-  $.get("/metadata.txt", function(data, status) {
-    metadata = $.parseJSON(data);
-    mainLogic();
-  });
-});
-function mainLogic()
-{
-  topicsFilter("concept","pod","coretopics",1);
-  topicsFilter("concept","pod","advancedtopics",2);
-  showTags();
-}
-</script>
-{% include tagfooter.md %}

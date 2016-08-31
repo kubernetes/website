@@ -1,9 +1,6 @@
 * TOC
 {: toc}
 
-{% if page.concept_rankings %}{% else %}
-{% include templates/_errorthrower.md missing_block='concept_rankings' tagsblock='true' purpose='provides a list of associated concepts that pertain to this topic.' tagname='concept' tieroneexample='pod' tiertwoexample='container'%}
-{% endif %}
 
 {% if overview %}
 
@@ -31,13 +28,11 @@
 
 {% if steps %}
 
-### Steps
-
 {{ steps }}
 
 {% else %}
 
-{% include templates/_errorthrower.md missing_block='steps' heading='Steps' purpose='lists a sequence of numbered steps that accomplish the task.' %}
+{% include templates/_errorthrower.md missing_block='steps' purpose='lists a sequence of numbered steps that accomplish the task.' %}
 
 {% endif %}
 
@@ -58,20 +53,3 @@
 {{ whats_next }}
 
 {% endif %}
-
-<script language="JavaScript">
-$( document ).ready(function() {
-  // When the document loads, get the metadata JSON, and kick off tbl render
-  $.get("/metadata.txt", function(data, status) {
-    metadata = $.parseJSON(data);
-    mainLogic();
-  });
-});
-function mainLogic()
-{
-  topicsFilter("concept","pod","coretopics",1);
-  topicsFilter("concept","pod","advancedtopics",2);
-  showTags();
-}
-</script>
-{% include tagfooter.md %}
