@@ -3,7 +3,7 @@ abstract: "Abstract here"
 toc:
 
 - title: Tutorials Overview
-  path: /docs/
+  path: /docs/tutorials/
 
 - title: Bootcamp
   section:
