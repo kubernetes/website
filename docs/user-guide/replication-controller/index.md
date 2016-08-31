@@ -254,8 +254,8 @@ Use a [`Job`](/docs/user-guide/jobs/) instead of a replication controller for po
 ### DaemonSet
 
 Use a [`DaemonSet`](/docs/admin/daemons/) instead of a replication controller for pods that provide a
-machine-level function, such as machine monitoring or machine logging.  These pods have a lifetime is tied
-to machine lifetime: the pod needs to be running on the machine before other pods start, and are
+machine-level function, such as machine monitoring or machine logging.  These pods have a lifetime that is tied
+to a machine lifetime: the pod needs to be running on the machine before other pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
 ## For more information
