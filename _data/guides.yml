@@ -286,3 +286,5 @@ toc:
     path: /docs/admin/salt/
   - title: Monitoring Node Health
     path: /docs/admin/node-problem/
+  - title: AppArmor
+    path: /docs/admin/apparmor/
