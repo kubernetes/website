@@ -238,7 +238,7 @@ equal to `""` is always interpreted to be requesting a PV with no class, so it
 can only be bound to PVs with no class (no annotation or one set equal to
 `""`). A PVC with no annotation is not quite the same and is treated differently
 by the cluster depending on whether the
-[`DefaultStorageClass` admission plugin](docs/admin/admission-controllers/#defaultstorageclass)
+[`DefaultStorageClass` admission plugin](/docs/admin/admission-controllers/#defaultstorageclass)
 is turned on.
 
 * If the admission plugin is turned on, the administrator may specify a
@@ -256,7 +256,8 @@ same way as PVCs that have their annotation set to `""`.
 
 When a PVC specifies a `selector` in addition to requesting a `StorageClass`,
 the requirements are ANDed together: only a PV of the requested class and with
-the requested labels may be bound to the PVC.
+the requested labels may be bound to the PVC. Note that currently, a PVC with a
+non-empty `selector` can't have a PV dynamically provisioned for it.
 
 In the future after beta, the `volume.beta.kubernetes.io/storage-class`
 annotation will become an attribute.
@@ -295,13 +296,12 @@ dynamically provisioned.
 
 The name of a `StorageClass` object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
-of a class, all of which are opaque to users, when first creating
-`StorageClass` objects, and the objects cannot be updated once they are
-created.
+of a class when first creating `StorageClass` objects, and the objects cannot
+be updated once they are created.
 
 Administrators can specify a default `StorageClass` just for PVCs that don't
 request any particular class to bind to: see the
-[`PersistentVolumeClaim` section](docs/user-guide/persistent-volumes/#class-1)
+[`PersistentVolumeClaim` section](#persistentvolumeclaims)
 for details.
 
 ```yaml
@@ -373,16 +373,14 @@ provisioner: kubernetes.io/glusterfs
 parameters:
   endpoint: "glusterfs-cluster"
   resturl: "http://127.0.0.1:8081"
-  restauthenabled: "true"
   restuser: "admin"
   restuserkey: "password"
 ```
 
 * `endpoint`: `glusterfs-cluster` is the endpoint/service name which includes GlusterFS trusted pool IP addresses and this parameter is mandatory.
-* `resturl` : Gluster REST service url which provision gluster volumes on demand. The format should be `IPaddress:Port` and this is a mandatory parameter for GlusterFS dynamic provisioner.
-* `restauthenabled` : Gluster REST service authentication boolean is required if the authentication is enabled on the REST server. If this value is 'true', 'restuser' and 'restuserkey' have to be filled.
-* `restuser` : Gluster REST service user who has access to create volumes in the Gluster Trusted Pool.
-* `restuserkey` : Gluster REST service user's password which will be used for authentication to the REST server.
+* `resturl` : Gluster REST service url which provision gluster volumes on demand. The format should be a valid URL and this is a mandatory parameter for GlusterFS dynamic provisioner.
+* `restuser` : Gluster REST service user who has access to create volumes in the Gluster Trusted Pool. This parameter is optional, empty string will be used when omitted.
+* `restuserkey` : Gluster REST service user's password which will be used for authentication to the REST server. This parameter is optional, empty string will be used when omitted.
 
 #### OpenStack Cinder
 
