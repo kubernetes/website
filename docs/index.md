@@ -1,4 +1,8 @@
 ---
+assignees:
+- bgrant0607
+- thockin
+
 ---
 <style>
 h2, h3, h4 {
@@ -74,7 +78,7 @@ h2, h3, h4 {
   </div>
   <div class="col3rd">
     <h3>Hello Node!</h3>
-    <p>In this quickstart, we’ll be creating a Kubernetes instance on that stands up a simple “Hello World” app using Node.js. In just a few minutes you'll go from zero to deployed Kubernetes app on Google Container Engine.</p>
+    <p>In this quickstart, we’ll be creating a Kubernetes instance that stands up a simple “Hello World” app using Node.js. In just a few minutes you'll go from zero to deployed Kubernetes app on Google Container Engine.</p>
     <a href="/docs/hellonode/" class="button">Get Started</a>
   </div>
   <div class="col3rd">
@@ -93,7 +97,7 @@ h2, h3, h4 {
 <a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook" target="_blank" class="shadowbox">
   <img src="/images/docs/redis.svg"><br/>Guestbook + Redis
 </a>
-<a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/cassandra" target="_blank" class="shadowbox">
+<a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/storage/cassandra" target="_blank" class="shadowbox">
   <img src="/images/docs/cassandra.svg"><br/>Cloud Native Cassandra
 </a>
 <a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/mysql-wordpress-pd/" target="_blank" class="shadowbox">
@@ -112,7 +116,7 @@ h2, h3, h4 {
   </div>
   <div class="col2nd">
   <h3>Need Help?</h3>
-  <p>Try consulting our <a href="/docs/troubleshooting/">troubleshooting guides</a>, or <a href="https://github.com/kubernetes/kubernetes/wiki/User-FAQ">our FAQ</a>. Kubernetes is also supported by a great community of contributors and experts who hang out in <a href="http://slack.kubernetes.io/">our Slack channel</a>, <a href="https://groups.google.com/forum/#!forum/google-containers">our Google Group</a> and <a href="http://stackoverflow.com/questions/tagged/kubernetes">Stack Overflow</a>.</p>
+  <p>Try consulting our <a href="/docs/troubleshooting/">troubleshooting guides</a>, or <a href="https://github.com/kubernetes/kubernetes/wiki/User-FAQ">our FAQ</a>. Kubernetes is also supported by a great community of contributors and experts who hang out in <a href="http://slack.kubernetes.io/">our Slack channel</a>, <a href="https://groups.google.com/forum/#!forum/kubernetes-users">our Google Group</a> and <a href="http://stackoverflow.com/questions/tagged/kubernetes">Stack Overflow</a>.</p>
   <a href="/docs/troubleshooting/" class="button">Get Support</a>
   </div>
 </div>

@@ -1,4 +1,7 @@
 ---
+assignees:
+- caesarxuchao
+
 ---
 
 This guide will walk you through the process of getting a Kubernetes Fedora cluster running on Digital Ocean with networking powered by Calico networking.
@@ -94,7 +97,7 @@ KUBE_API_ADDRESS="--insecure-bind-address=0.0.0.0"
 KUBE_ETCD_SERVERS="--etcd-servers=http://kube-master:4001"
 
 # Remove ServiceAccount from this line to run without API Tokens
-KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ResourceQuota"
+KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ResourceQuota"
 ```
 
 * Create /var/run/kubernetes on master:

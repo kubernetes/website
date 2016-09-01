@@ -1,4 +1,8 @@
 ---
+assignees:
+- bgrant0607
+- janetkuo
+
 ---
 
 This guide will help you get oriented to Kubernetes and running your first containers on the cluster. If you are already familiar with the docker-cli, you can also checkout the docker-cli to kubectl migration guide [here](/docs/user-guide/docker-cli-to-kubectl).
@@ -21,7 +25,7 @@ deployment "my-nginx" created
 To expose your service to the public internet, run:
 
 ```shell
-$ kubectl expose rc my-nginx --target-port=80 --type=LoadBalancer
+$ kubectl expose deployment my-nginx --target-port=80 --type=LoadBalancer
 service "my-nginx" exposed
 ```
 

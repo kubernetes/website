@@ -101,3 +101,6 @@ This pod runs a `cat` command to print the value of one of the keys in the volum
 $ kubectl logs config-volume-test-pod
 value-1
 ```
+
+Alternatively you can use [`mount-file-pod.yaml`](mount-file-pod.yaml) file to mount
+only a file from ConfigMap, preserving original content of /etc directory.
