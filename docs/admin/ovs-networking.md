@@ -1,4 +1,8 @@
 ---
+assignees:
+- lavalamp
+- thockin
+
 ---
 
 This document describes how OpenVSwitch is used to setup networking between pods across nodes.

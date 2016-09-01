@@ -1,4 +1,8 @@
 ---
+assignees:
+- erictune
+- thockin
+
 ---
 
 Each container in a pod has its own image.  Currently, the only type of image supported is a [Docker Image](https://docs.docker.com/userguide/dockerimages/).
@@ -80,6 +84,21 @@ The kubelet will fetch and periodically refresh ECR credentials.  It needs the f
 - `ecr:DescribeRepositories`
 - `ecr:ListImages`
 - `ecr:BatchGetImage`
+
+Requirements:
+
+- You must be using kubelet version `v1.2.0` or newer.  (e.g. run `/usr/bin/kubelet --version=true`).
+- Your nodes must be in the same region as the registry you are using
+- ECR must be offered in your region
+
+Troubleshooting:
+
+- Verify all requirements above.
+- Get $REGION (e.g. `us-west-2`) credentials on your workstation. SSH into the host and run Docker manually with those creds. Does it work?
+- Verify kubelet is running with `--cloud-provider=aws`.
+- Check kubelet logs (e.g. `journalctl -t kubelet`) for log lines like:
+  - `plugins.go:56] Registering credential provider: aws-ecr-key`
+  - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
 
 ### Configuring Nodes to Authenticate to a Private Repository
 

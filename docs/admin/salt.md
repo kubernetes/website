@@ -1,4 +1,8 @@
 ---
+assignees:
+- davidopp
+- lavalamp
+
 ---
 
 The Kubernetes cluster can be configured using Salt.

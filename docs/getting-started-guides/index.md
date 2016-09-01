@@ -1,14 +1,16 @@
 ---
+assignees:
+- brendandburns
+- erictune
+- mikedanese
+
 ---
 
 Kubernetes can run on a range of platforms, from your laptop, to VMs on a cloud provider, to rack of
 bare metal servers.  The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster.  We'll guide you in picking a solution that fits for your needs.
 
-If you just want to "kick the tires" on Kubernetes, we recommend the [local Docker-based](/docs/getting-started-guides/docker) solution.
-
-The local Docker-based solution is one of several [Local cluster](#local-machine-solutions) solutions
-that are quick to set up, but are limited to running on one machine.
+If you just want to "kick the tires" on Kubernetes, we recommend the [local Docker-based solution using MiniKube](#local-machine-solutions).
 
 When you are ready to scale up to more machines and higher availability, a [Hosted](#hosted-solutions)
 solution is the easiest to create and maintain.
@@ -25,16 +27,9 @@ a Kubernetes cluster from scratch.
 
 ### Local-machine Solutions
 
-Local-machine solutions create a single cluster with one or more Kubernetes nodes on a single
-physical machine.  Setup is completely automated and doesn't require a cloud provider account.
-But their size and availability is limited to that of a single machine.
+[Minikube](/docs/getting-started-guides/minikube/) is the recommended method for you to create a single node kubernetes cluster locally for purposes of development and testing. Setup is completely automated and doesn't require a cloud provider account.  
 
-The local-machine solutions are:
-
-- [Minikube](/docs/getting-started-guides/minikube/) (recommended)
-- [Local Docker-based](/docs/getting-started-guides/docker) 
-- [No-VM local cluster](/docs/getting-started-guides/locally) (Linux only)
-- [Vagrant](/docs/getting-started-guides/vagrant)
+Use the [Minikube getting started guide](/docs/getting-started-guides/minikube/) to try it out.
 
 
 ### Hosted Solutions
@@ -101,6 +96,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 - [Centos](/docs/getting-started-guides/centos/centos_manual_config)
 - [Ubuntu](/docs/getting-started-guides/ubuntu)
 - [Docker Multi Node](/docs/getting-started-guides/docker-multinode)
+- [CoreOS](/docs/getting-started-guides/coreos)
 
 #### Integrations
 

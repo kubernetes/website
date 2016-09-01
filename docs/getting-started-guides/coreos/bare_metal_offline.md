@@ -1,4 +1,8 @@
 ---
+assignees:
+- erictune
+- thockin
+
 ---
 
 Deploy a CoreOS running Kubernetes environment. This particular guide is made to help those in an OFFLINE system, wither for testing a POC before the real deal, or you are restricted to be totally offline for your applications.
