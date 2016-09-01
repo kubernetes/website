@@ -116,7 +116,7 @@ Note that `kubectl run` creates a Deployment named "nginx" on Kubernetes cluster
 If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
 The Deployment manages 1 replica of single container Pod. Let's take a look at the Pod it manages. First, find the name of the Pod:
 
-```shell 
+```shell
 $ kubectl get pods --namespace=limit-example
 NAME                     READY     STATUS    RESTARTS   AGE
 nginx-2040093540-s8vzu   1/1       Running   0          11s
@@ -124,7 +124,7 @@ nginx-2040093540-s8vzu   1/1       Running   0          11s
 
 Let's print this Pod with yaml output format (using `-o yaml` flag), and then `grep` the `resources` field. Note that your pod name will be different. 
 
-``` shell
+```shell
 $ kubectl get pods nginx-2040093540-s8vzu --namespace=limit-example -o yaml | grep resources -C 8
   resourceVersion: "57"
   selfLink: /api/v1/namespaces/limit-example/pods/nginx-2040093540-ivimu
