@@ -1,4 +1,8 @@
 ---
+assignees:
+- caesarxuchao
+- mikedanese
+
 ---
 
 Developers can use `kubectl exec` to run commands in a container. This guide demonstrates two use cases.

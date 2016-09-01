@@ -1,4 +1,8 @@
 ---
+assignees:
+- david-mcmahon
+- jbeda
+
 ---
 
 You can either build a release from sources or download a pre-built release.  If you do not plan on developing Kubernetes itself, we suggest a pre-built release. 
