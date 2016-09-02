@@ -1,4 +1,8 @@
 ---
+assignees:
+- mikedanese
+- thockin
+
 ---
 
 This guide is to help users debug applications that are deployed into Kubernetes and not behaving correctly.

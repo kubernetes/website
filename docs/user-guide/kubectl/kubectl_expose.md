@@ -3,19 +3,24 @@
 
 ## kubectl expose
 
-Take a replication controller, service or pod and expose it as a new Kubernetes Service
+Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service
 
 ### Synopsis
 
 
-Take a replication controller, service, replica set or pod and expose it as a new Kubernetes service.
+Expose a resource as a new Kubernetes service.
 
-Looks up a replication controller, service, replica set or pod by name and uses the selector for that
-resource as the selector for a new service on the specified port. A replica set will be exposed as a
-service only if it's selector is convertible to a selector that service supports, i.e. when the
-replica set selector contains only the matchLabels component. Note that if no port is specified
-via --port and the exposed resource has multiple ports, all will be re-used by the new service. Also
-if no labels are specified, the new service will re-use the labels from the resource it exposes.
+Looks up a deployment, service, replica set, replication controller or pod by name and uses the selector
+for that resource as the selector for a new service on the specified port. A deployment or replica set
+will be exposed as a service only if its selector is convertible to a selector that service supports,
+i.e. when the selector contains only the matchLabels component. Note that if no port is specified via
+--port and the exposed resource has multiple ports, all will be re-used by the new service. Also if no
+labels are specified, the new service will re-use the labels from the resource it exposes.
+
+Possible resources include (case insensitive):
+  pod (po), service (svc), replicationcontroller (rc),
+  deployment, replicaset (rs)
+
 
 ```
 kubectl expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type]
@@ -41,13 +46,15 @@ kubectl expose rc streamer --port=4100 --protocol=udp --name=video-stream
 
 # Create a service for a replicated nginx using replica set, which serves on port 80 and connects to the containers on port 8000.
 kubectl expose rs nginx --port=80 --target-port=8000
+
+# Create a service for an nginx deployment, which serves on port 80 and connects to the containers on port 8000.
+kubectl expose deployment nginx --port=80 --target-port=8000
 ```
 
 ### Options
 
 ```
-      --container-port="": Synonym for --target-port
-      --dry-run[=false]: If true, only print the object that would be sent, without creating it.
+      --dry-run[=false]: If true, only print the object that would be sent, without sending it.
       --external-ip="": Additional external IP address (not managed by Kubernetes) to accept for the service. If this IP is routed to a node, the service can be accessed by this IP in addition to its generated service IP.
   -f, --filename=[]: Filename, directory, or URL to a file identifying the resource to expose a service
       --generator="service/v2": The name of the API generator to use. There are 2 generators: 'service/v1' and 'service/v2'. The only difference between them is that service port in v1 is named 'default', while it is left unnamed in v2. Default is 'service/v2'.
@@ -55,12 +62,13 @@ kubectl expose rs nginx --port=80 --target-port=8000
       --load-balancer-ip="": IP to assign to to the Load Balancer. If empty, an ephemeral IP will be created and used (cloud-provider specific).
       --name="": The name for the newly created object.
       --no-headers[=false]: When using the default output, don't print headers.
-  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.2/docs/user-guide/jsonpath.md].
+  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.3/docs/user-guide/jsonpath.md].
       --output-version="": Output the formatted object with the given group version (for ex: 'extensions/v1beta1').
       --overrides="": An inline JSON override for the generated object. If this is non-empty, it is used to override the generated object. Requires that the object supply a valid apiVersion field.
       --port="": The port that the service should serve on. Copied from the resource being exposed, if unspecified
-      --protocol="TCP": The network protocol for the service to be created. Default is 'tcp'.
+      --protocol="": The network protocol for the service to be created. Default is 'TCP'.
       --record[=false]: Record current kubectl command in the resource annotation.
+  -R, --recursive[=false]: Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
       --save-config[=false]: If true, the configuration of current object will be saved in its annotation. This is useful when you want to perform kubectl apply on this object in the future.
       --selector="": A label selector to use for this service. Only equality-based selector requirements are supported. If empty (the default) infer the selector from the replication controller or replica set.
       --session-affinity="": If non-empty, set the session affinity for the service to this; legal values: 'None', 'ClientIP'
@@ -76,6 +84,7 @@ kubectl expose rs nginx --port=80 --target-port=8000
 
 ```
       --alsologtostderr[=false]: log to standard error as well as files
+      --as="": Username to impersonate for the operation.
       --certificate-authority="": Path to a cert. file for the certificate authority.
       --client-certificate="": Path to a client certificate file for TLS.
       --client-key="": Path to a client key file for TLS.
@@ -101,7 +110,14 @@ kubectl expose rs nginx --port=80 --target-port=8000
 
 ### SEE ALSO
 
-* [kubectl](/docs/user-guide/kubectl/kubectl/)	 - kubectl controls the Kubernetes cluster manager
+* [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 
-###### Auto generated by spf13/cobra on 11-Mar-2016
+###### Auto generated by spf13/cobra on 12-Aug-2016
 
+
+
+
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_expose.md?pixel)]()
+<!-- END MUNGE: GENERATED_ANALYTICS -->

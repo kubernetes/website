@@ -1,4 +1,9 @@
 ---
+assignees:
+- fgrzadkowski
+- jszczepkowski
+- justinsb
+
 ---
 
 Horizontal Pod Autoscaling automatically scales the number of pods

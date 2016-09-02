@@ -1,4 +1,8 @@
 ---
+assignees:
+- erictune
+- lavalamp
+
 ---
 
 In Kubernetes, authorization happens as a separate step from authentication.
@@ -18,7 +22,7 @@ The following implementations are available, and are selected by flag:
 need authorization.
   - `--authorization-mode=ABAC` allows for a simple local-file-based user-configured
 authorization policy.  ABAC stands for Attribute-Based Access Control.
-authorization policy. 
+authorization policy.
   - `--authorization-mode=RBAC` is an experimental implementation which allows
 for authorization to be driven by the Kubernetes API.
 RBAC stands for Roles-Based Access Control.
@@ -33,30 +37,36 @@ If multiple modes are provided the set is unioned, and only a single authorizer 
 
 will always allow.
 
-## ABAC Mode
-
-### Request Attributes
+## Request Attributes
 
 A request has the following attributes that can be considered for authorization:
 
   - user (the user-string which a user was authenticated as).
   - group (the list of group names the authenticated user is a member of).
+  - "extra" (a map of arbitrary string keys to string values, provided by the authentication layer)
   - whether the request is for an API resource.
   - the request path.
-    - allows authorizing access to miscellaneous endpoints like `/api` or
-`/healthz` (see [kubectl](#kubectl)).
+    - allows authorizing access to miscellaneous non-resource endpoints like `/api` or `/healthz` (see [kubectl](#kubectl)).
   - the request verb.
-    - API verbs like `get`, `list`, `create`, `update`, `watch`, `delete`, and
-`deletecollection` are used for API requests
-    - HTTP verbs like `get`, `post`, `put`, and `delete` are used for non-API
-requests
-  - what resource is being accessed (for API requests only)
-  - the namespace of the object being accessed (for namespaced API requests
-only)
-  - the API group being accessed (for API requests only)
+    - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests
+    - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests
+  - what resource is being accessed (for resource requests only)
+  - what subresource is being accessed (for resource requests only)
+  - the namespace of the object being accessed (for namespaced resource requests only)
+  - the API group being accessed (for resource requests only)
 
-We anticipate adding more attributes to allow finer grained access control and
-to assist in policy management.
+The request verb for a resource API endpoint can be determined by the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
+
+HTTP verb | request verb
+----------|---------------
+POST      | create
+GET, HEAD | get (for individual resources), list (for collections)
+PUT       | update
+PATCH     | patch
+DELETE    | delete (for individual resources), deletecollection (for collections)
+
+
+## ABAC Mode
 
 ### Policy File Format
 
@@ -97,17 +107,17 @@ A request has attributes which correspond to the properties of a policy object.
 When a request is received, the attributes are determined.  Unknown attributes
 are set to the zero value of its type (e.g. empty string, 0, false).
 
-A property set to "*" will match any value of the corresponding attribute.
+A property set to `"*"` will match any value of the corresponding attribute.
 
 The tuple of attributes is checked for a match against every policy in the
 policy file. If at least one line matches the request attributes, then the
 request is authorized (but may fail later validation).
 
 To permit any user to do something, write a policy with the user property set to
-"*".
+`"*"`.
 
 To permit a user to do anything, write a policy with the apiGroup, namespace,
-resource, and nonResourcePath properties set to "*".
+resource, and nonResourcePath properties set to `"*"`.
 
 ### Kubectl
 
@@ -130,11 +140,31 @@ up the verbosity:
 
 ### Examples
 
- 1. Alice can do anything to all resources:                  `{"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "alice", "namespace": "*", "resource": "*", "apiGroup": "*"}}`
- 2. Kubelet can read any pods:                               `{"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "pods", "readonly": true}}`
- 3. Kubelet can read and write events:                       `{"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}`
- 4. Bob can just read pods in namespace "projectCaribou":    `{"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "bob", "namespace": "projectCaribou", "resource": "pods", "readonly": true}}`
- 5. Anyone can make read-only requests to all non-API paths: `{"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "*", "readonly": true, "nonResourcePath": "*"}}`
+ 1. Alice can do anything to all resources:
+
+    ```json
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "alice", "namespace": "*", "resource": "*", "apiGroup": "*"}}
+    ```
+ 2. Kubelet can read any pods:
+
+    ```json
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "pods", "readonly": true}}
+    ```
+ 3. Kubelet can read and write events:
+
+    ```json
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}
+    ```
+ 4. Bob can just read pods in namespace "projectCaribou":
+
+    ```json
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "bob", "namespace": "projectCaribou", "resource": "pods", "readonly": true}}
+    ```
+ 5. Anyone can make read-only requests to all non-resource paths:
+
+    ```json
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "*", "readonly": true, "nonResourcePath": "*"}}
+    ```
 
 [Complete file example](http://releases.k8s.io/{{page.githubbranch}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
@@ -147,7 +177,7 @@ according to the naming convention:
 system:serviceaccount:<namespace>:<serviceaccountname>
 ```
 Creating a new namespace also causes a new service account to be created, of
-this form:*
+this form:
 
 ```shell
 system:serviceaccount:<namespace>:default
@@ -174,7 +204,7 @@ As of 1.3 RBAC mode is in alpha and considered experimental.
 
 To use RBAC, you must both enable the authorization module with `--authorization-mode=RBAC`,
 and [enable the API version](
-docs/admin/cluster-management.md/#Turn-on-or-off-an-api-version-for-your-cluster),
+cluster-management.md/#Turn-on-or-off-an-API-version-for-your-cluster),
 with a `--runtime-config=` that includes `rbac.authorization.k8s.io/v1alpha1`.
 
 ### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings

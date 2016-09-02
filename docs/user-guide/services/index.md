@@ -1,4 +1,7 @@
 ---
+assignees:
+- bprashanth
+
 ---
 
 Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and they die, and they
@@ -149,8 +152,8 @@ this example).
 Every node in a Kubernetes cluster runs a `kube-proxy`.  This application
 is responsible for implementing a form of virtual IP for `Service`s.  In
 Kubernetes v1.0 the proxy was purely in userspace.  In Kubernetes v1.1 an
-iptables proxy was added, but was not the default operating mode.  In
-Kubernetes v1.2 we expect the iptables proxy to be the default.
+iptables proxy was added, but was not the default operating mode.  Since
+Kubernetes v1.2, the iptables proxy is the default.
 
 As of Kubernetes v1.0, `Services` are a "layer 3" (TCP/UDP over IP) construct.
 In Kubernetes v1.1 the `Ingress` API was added (beta) to represent "layer 7"

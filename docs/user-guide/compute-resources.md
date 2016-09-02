@@ -1,4 +1,8 @@
 ---
+assignees:
+- mikedanese
+- thockin
+
 ---
 
 * TOC
@@ -9,7 +13,7 @@ container needs.  When containers have their resource requests specified, the sc
 able to make better decisions about which nodes to place pods on; and when containers have their
 limits specified, contention for resources on a node can be handled in a specified manner. For
 more details about the difference between requests and limits, please refer to
-[Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/resource-qos.md).
+[Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resource-qos.md).
 
 *CPU* and *memory* are each a *resource type*.  A resource type has a base unit.  CPU is specified
 in units of cores.  Memory is specified in units of bytes.
