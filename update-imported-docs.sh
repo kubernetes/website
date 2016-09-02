@@ -3,14 +3,13 @@
 # Uncomment this to see the commands as they are run
 # set -x
 
-VERSION=1.3
+VERSION=1.4
 
 git clone --depth=1 -b release-$VERSION https://github.com/kubernetes/kubernetes.git k8s
 cd k8s
 git remote add upstream https://github.com/kubernetes/kubernetes.git
 git fetch upstream
 hack/generate-docs.sh
-hack/update-generated-swagger-docs.sh
 build/versionize-docs.sh release-$VERSION
 cd ..
 

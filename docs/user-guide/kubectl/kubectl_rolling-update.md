@@ -3,9 +3,10 @@
 
 ## kubectl rolling-update
 
-Perform a rolling update of the given ReplicationController.
+Perform a rolling update of the given ReplicationController
 
 ### Synopsis
+
 
 
 Perform a rolling update of the given ReplicationController.
@@ -21,6 +22,7 @@ kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CO
 ### Examples
 
 ```
+
 # Update pods of frontend-v1 using new replication controller data in frontend-v2.json.
 kubectl rolling-update frontend-v1 -f frontend-v2.json
 
@@ -42,61 +44,60 @@ kubectl rolling-update frontend-v1 frontend-v2 --rollback
 ### Options
 
 ```
-      --container="": Container name which will have its image upgraded. Only relevant when --image is specified, ignored otherwise. Required when using --image on a multi-container pod
-      --deployment-label-key="deployment": The key to use to differentiate between two different controllers, default 'deployment'.  Only relevant when --image is specified, ignored otherwise
-      --dry-run[=false]: If true, only print the object that would be sent, without sending it.
-  -f, --filename=[]: Filename or URL to file to use to create the new replication controller.
-      --image="": Image to use for upgrading the replication controller. Must be distinct from the existing image (either new image or new image tag).  Can not be used with --filename/-f
-      --image-pull-policy="": Explicit policy for when to pull container images. Required when --image is same as existing image, ignored otherwise.
-      --include-extended-apis[=true]: If true, include definitions of new APIs via calls to the API server. [default true]
-      --no-headers[=false]: When using the default output, don't print headers.
-  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.3/docs/user-guide/jsonpath.md].
-      --output-version="": Output the formatted object with the given group version (for ex: 'extensions/v1beta1').
-      --poll-interval=3s: Time delay between polling for replication controller status after the update. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
-      --rollback[=false]: If true, this is a request to abort an existing rollout that is partially rolled out. It effectively reverses current and next and runs a rollout
-      --schema-cache-dir="~/.kube/schema": If non-empty, load/store cached API schemas in this directory, default is '$HOME/.kube/schema'
-  -a, --show-all[=false]: When printing, show all resources (default hide terminated pods.)
-      --show-labels[=false]: When printing, show all labels as the last column (default hide labels column)
-      --sort-by="": If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
-      --template="": Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
-      --timeout=5m0s: Max time to wait for a replication controller to update before giving up. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
-      --update-period=1m0s: Time to wait between updating pods. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
-      --validate[=true]: If true, use a schema to validate the input before sending it
+      --container string              Container name which will have its image upgraded. Only relevant when --image is specified, ignored otherwise. Required when using --image on a multi-container pod
+      --deployment-label-key string   The key to use to differentiate between two different controllers, default 'deployment'.  Only relevant when --image is specified, ignored otherwise (default "deployment")
+      --dry-run                       If true, only print the object that would be sent, without sending it.
+  -f, --filename value                Filename or URL to file to use to create the new replication controller. (default [])
+      --image string                  Image to use for upgrading the replication controller. Must be distinct from the existing image (either new image or new image tag).  Can not be used with --filename/-f
+      --image-pull-policy string      Explicit policy for when to pull container images. Required when --image is same as existing image, ignored otherwise.
+      --include-extended-apis         If true, include definitions of new APIs via calls to the API server. [default true] (default true)
+      --no-headers                    When using the default or custom-column output format, don't print headers.
+  -o, --output string                 Output format. One of: json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See custom columns [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://kubernetes.io/docs/user-guide/jsonpath].
+      --output-version string         Output the formatted object with the given group version (for ex: 'extensions/v1beta1').
+      --poll-interval duration        Time delay between polling for replication controller status after the update. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". (default 3s)
+      --rollback                      If true, this is a request to abort an existing rollout that is partially rolled out. It effectively reverses current and next and runs a rollout
+      --schema-cache-dir string       If non-empty, load/store cached API schemas in this directory, default is '$HOME/.kube/schema' (default "~/.kube/schema")
+  -a, --show-all                      When printing, show all resources (default hide terminated pods.)
+      --show-labels                   When printing, show all labels as the last column (default hide labels column)
+      --sort-by string                If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
+      --template string               Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
+      --timeout duration              Max time to wait for a replication controller to update before giving up. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". (default 5m0s)
+      --update-period duration        Time to wait between updating pods. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h". (default 1m0s)
+      --validate                      If true, use a schema to validate the input before sending it (default true)
 ```
 
 ### Options inherited from parent commands
 
 ```
-      --alsologtostderr[=false]: log to standard error as well as files
-      --as="": Username to impersonate for the operation.
-      --certificate-authority="": Path to a cert. file for the certificate authority.
-      --client-certificate="": Path to a client certificate file for TLS.
-      --client-key="": Path to a client key file for TLS.
-      --cluster="": The name of the kubeconfig cluster to use
-      --context="": The name of the kubeconfig context to use
-      --insecure-skip-tls-verify[=false]: If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure.
-      --kubeconfig="": Path to the kubeconfig file to use for CLI requests.
-      --log-backtrace-at=:0: when logging hits line file:N, emit a stack trace
-      --log-dir="": If non-empty, write log files in this directory
-      --log-flush-frequency=5s: Maximum number of seconds between log flushes
-      --logtostderr[=true]: log to standard error instead of files
-      --match-server-version[=false]: Require server version to match client version
-      --namespace="": If present, the namespace scope for this CLI request.
-      --password="": Password for basic authentication to the API server.
-  -s, --server="": The address and port of the Kubernetes API server
-      --stderrthreshold=2: logs at or above this threshold go to stderr
-      --token="": Bearer token for authentication to the API server.
-      --user="": The name of the kubeconfig user to use
-      --username="": Username for basic authentication to the API server.
-      --v=0: log level for V logs
-      --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
+      --alsologtostderr value          log to standard error as well as files
+      --as string                      Username to impersonate for the operation
+      --certificate-authority string   Path to a cert. file for the certificate authority
+      --client-certificate string      Path to a client certificate file for TLS
+      --client-key string              Path to a client key file for TLS
+      --cluster string                 The name of the kubeconfig cluster to use
+      --context string                 The name of the kubeconfig context to use
+      --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string              Path to the kubeconfig file to use for CLI requests.
+      --log-backtrace-at value         when logging hits line file:N, emit a stack trace (default :0)
+      --log-dir value                  If non-empty, write log files in this directory
+      --logtostderr value              log to standard error instead of files
+      --match-server-version           Require server version to match client version
+  -n, --namespace string               If present, the namespace scope for this CLI request
+      --password string                Password for basic authentication to the API server
+  -s, --server string                  The address and port of the Kubernetes API server
+      --stderrthreshold value          logs at or above this threshold go to stderr (default 2)
+      --token string                   Bearer token for authentication to the API server
+      --user string                    The name of the kubeconfig user to use
+      --username string                Username for basic authentication to the API server
+  -v, --v value                        log level for V logs
+      --vmodule value                  comma-separated list of pattern=N settings for file-filtered logging
 ```
 
 ### SEE ALSO
 
 * [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 
-###### Auto generated by spf13/cobra on 12-Aug-2016
+###### Auto generated by spf13/cobra on 2-Sep-2016
 
 
 
