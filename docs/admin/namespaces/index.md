@@ -1,4 +1,8 @@
 ---
+assignees:
+- derekwaynecarr
+- janetkuo
+
 ---
 
 A Namespace is a mechanism to partition resources created by users into
@@ -99,17 +103,20 @@ metadata:
   name: <insert-namespace-name-here>
 ```
 
-Note that the name of your namespace must be a DNS compatible label.
-
-More information on the `finalizers` field can be found in the namespace [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md#finalizers).
-
 Then run:
 
 ```shell
 $ kubectl create -f ./my-namespace.yaml
 ```
 
-## Working in namespaces
+Note that the name of your namespace must be a DNS compatible label.
+
+There's an optional field `finalizers`, which allows observables to purge resources whenever the namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will be created but will get stuck in the `Terminating` state if the user tries to delete it.
+
+More information on `finalizers` can be found in the namespace [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md#finalizers).
+
+
+### Working in namespaces
 
 See [Setting the namespace for a request](/docs/user-guide/namespaces/#setting-the-namespace-for-a-request)
 and [Setting the namespace preference](/docs/user-guide/namespaces/#setting-the-namespace-preference).

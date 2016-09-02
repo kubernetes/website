@@ -1,4 +1,8 @@
 ---
+assignees:
+- aveshagarwal
+- erictune
+
 ---
 
 Configuring Kubernetes on Fedora via Ansible offers a simple way to quickly create a clustered environment with little effort.

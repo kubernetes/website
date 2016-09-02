@@ -1,4 +1,8 @@
 ---
+assignees:
+- bprashanth
+- quinton-hoole
+
 ---
 
 This guide explains how to use Kubernetes Federated Services to deploy
