@@ -212,6 +212,8 @@ toc:
     path: /docs/user-guide/petset/    
   - title: Pods
     path: /docs/user-guide/pods/
+  - title: Pod Security Policies
+    path: /docs/user-guide/pod-security-policy/
   - title: Replica Sets
     path: /docs/user-guide/replicasets/
   - title: Replication Controller
