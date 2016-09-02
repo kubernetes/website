@@ -1,4 +1,5 @@
 ---
+
 ---
 
 ## Introduction
@@ -183,6 +184,10 @@ So far we have set up state storage, and we have set up the API server, but we h
 cluster state, such as the controller manager and scheduler.  To achieve this reliably, we only want to have one actor modifying state at a time, but we want replicated
 instances of these actors, in case a machine dies.  To achieve this, we are going to use a lease-lock in the API to perform
 master election.  We will use the `--leader-elect` flag for each scheduler and controller-manager, using a lease in the API will ensure that only 1 instance of the scheduler and controller-manager are running at once.
+
+The scheduler and controller-manager can be configured to talk to the API server that is on the same node (i.e. 127.0.0.1), or it can be configured to communicate using the load balanced IP address of the API servers. Regardless of how they are configured, the scheduler and controller-manager will complete the leader election process mentioned above when using the `--leader-elect` flag. 
+
+In case of a failure accessing the API server, the elected leader will not be able to renew the lease, causing a new leader to be elected. This is especially relevant when configuring the scheduler and controller-manager to access the API server via 127.0.0.1, and the API server on the same node is unavailable. 
 
 ### Installing configuration files
 

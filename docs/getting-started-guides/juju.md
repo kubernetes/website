@@ -1,4 +1,8 @@
 ---
+assignees:
+- caesarxuchao
+- erictune
+
 ---
 
 [Juju](https://jujucharms.com/docs/2.0/about-juju) encapsulates the 

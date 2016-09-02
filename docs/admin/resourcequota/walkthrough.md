@@ -1,4 +1,8 @@
 ---
+assignees:
+- derekwaynecarr
+- janetkuo
+
 ---
 
 This example demonstrates a typical setup to control for resource usage in a namespace.
@@ -125,7 +129,6 @@ $ kubectl get pods --namespace=quota-example
 ```
 
 What happened?  I have no pods!  Let's describe the deployment to get a view of what is happening.
-<<<<<<< HEAD
 
 ```shell
 $ kubectl describe deployment nginx --namespace=quota-example

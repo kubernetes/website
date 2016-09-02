@@ -1,4 +1,8 @@
 ---
+assignees:
+- lavalamp
+- thockin
+
 ---
 
 Kubernetes approaches networking somewhat differently than Docker does by

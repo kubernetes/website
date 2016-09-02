@@ -1,4 +1,9 @@
 ---
+assignees:
+- dlorenc
+- janetkuo
+- jlowdermilk
+
 ---
 
 * TOC
@@ -122,7 +127,7 @@ List the nodes in your cluster by running:
 kubectl get nodes
 ```
 
-Minikube contains a built-in Docker daemon that for running containers.
+Minikube contains a built-in Docker daemon for running containers.
 If you use another Docker daemon for building your containers, you will have to publish them to a registry before minikube can pull them. 
 You can use minikube's built in Docker daemon to avoid this extra step of pushing your images.
 Use the built-in Docker daemon with:
@@ -131,7 +136,7 @@ Use the built-in Docker daemon with:
 eval $(minikube docker-env)
 ```
 This command sets up the Docker environment variables so a Docker client can communicate with the minikube Docker daemon.
-Minikube currently supports only docker version 1.11.1 on the server, which is what is supported by Kubernetes 1.3. With a newer docker version you'll get this [issue](https://github.com/kubernetes/minikube/issues/338).
+Minikube currently supports only docker version 1.11.1 on the server, which is what is supported by Kubernetes 1.3. With a newer docker version, you'll get this [issue](https://github.com/kubernetes/minikube/issues/338).
 
 ```shell
 docker ps
