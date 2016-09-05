@@ -114,7 +114,7 @@ for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 The replication controller can itself have labels (`.metadata.labels`).  Typically, you
 would set these the same as the `.spec.template.metadata.labels`; if `.metadata.labels` is not specified
 then it is defaulted to  `.spec.template.metadata.labels`.  However, they are allowed to be
-different, and the `.metadata.labels` do not affec the behavior of the replication controller.
+different, and the `.metadata.labels` do not affect the behavior of the replication controller.
 
 ### Pod Selector
 
@@ -254,8 +254,8 @@ Use a [`Job`](/docs/user-guide/jobs/) instead of a replication controller for po
 ### DaemonSet
 
 Use a [`DaemonSet`](/docs/admin/daemons/) instead of a replication controller for pods that provide a
-machine-level function, such as machine monitoring or machine logging.  These pods have a lifetime is tied
-to machine lifetime: the pod needs to be running on the machine before other pods start, and are
+machine-level function, such as machine monitoring or machine logging.  These pods have a lifetime that is tied
+to a machine lifetime: the pod needs to be running on the machine before other pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
 ## For more information

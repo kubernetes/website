@@ -117,21 +117,6 @@ When the plug-in sets a compute resource request, it annotates the pod with info
 
 See the [InitialResouces proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/initial-resources.md) for more details.
 
-### NamespaceExists (deprecated)
-
-This plug-in will observe all incoming requests that attempt to create a resource in a Kubernetes `Namespace`
-and reject the request if the `Namespace` was not previously created.  We strongly recommend running
-this plug-in to ensure integrity of your data.
-
-The functionality of this admission controller has been merged into `NamespaceLifecycle`
-
-### NamespaceAutoProvision (deprecated)
-
-This plug-in will observe all incoming requests that attempt to create a resource in a Kubernetes `Namespace`
-and create a new `Namespace` if one did not already exist previously.
-
-We strongly recommend `NamespaceLifecycle` over `NamespaceAutoProvision`.
-
 ### NamespaceLifecycle
 
 This plug-in enforces that a `Namespace` that is undergoing termination cannot have new objects created in it,
