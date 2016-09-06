@@ -120,7 +120,7 @@ all running pods. Example:
       alpha/target.custom-metrics.podautoscaler.kubernetes.io: '{"items":[{"name":"qps", "value": "10"}]}'
 ```
 
-In this case, if there are four pods running and each pods reports a QPS metric of 15 or higher, horizontal pod autoscaling will start two additional pods (for a total of six pods running).
+In this case, if there are four pods running and each pod reports a QPS metric of 15 or higher, horizontal pod autoscaling will start two additional pods (for a total of six pods running).
 
 If you specify multiple metrics in your annotation or if you set a target CPU utilization, horizontal pod autoscaling will scale to according to the metric that requires the highest number of replicas.
 
