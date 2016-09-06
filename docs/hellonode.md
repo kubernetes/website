@@ -423,7 +423,7 @@ gs://artifacts.<$PROJECT_ID>.appspot.com/
 And then to remove the all the images under this path, run:
 
 ```shell
-gsutil rm -r gs://artifacts.<$PROJECT_ID>.appspot.com/
+gsutil rm -r gs://artifacts.$PROJECT_ID.appspot.com/
 ```
 
 You can also delete the entire Google Cloud project but note that you must first disable billing on the project. Additionally, deleting a project will only happen after the current billing cycle ends.

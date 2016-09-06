@@ -95,17 +95,29 @@ potential issues with client/server version skew.
 
 You may find it useful to enable `kubectl` bash completion:
 
-```
-$ source ./contrib/completions/bash/kubectl
-```
+* If you're using kubectl with Kubernetes version 1.2 or earlier, you can source the kubectl completion script as follows:<br>
+  ```
+  $ source ./contrib/completions/bash/kubectl
+  ```
 
-**Note**: This will last for the duration of your bash session. If you want to make this permanent you need to add this line in your bash profile.
+* If you're using kubectl with Kubernetes version 1.3, use the `kubectl completion` command as follows:<br>
+  ```
+  $ source <(kubectl completion bash)
+  ```
 
-Alternatively, on most linux distributions you can also move the completions file to your bash_completions.d like this:
+**Note**: The above commands will last for the duration of your bash session. If you want to make this permanent you need to add corresponding command in your bash profile.
 
-```
-$ cp ./contrib/completions/bash/kubectl /etc/bash_completion.d/
-```
+Alternatively, on most linux distributions you can also add a completions file to your bash_completions.d as follows:
+
+* For kubectl with Kubernetes v1.2 or earlier:<br>
+  ```
+  $ cp ./contrib/completions/bash/kubectl /etc/bash_completion.d/
+  ```
+
+* For kubectl with Kubernetes v1.3:<br>
+  ```
+  $ kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl
+  ```
 
 but then you have to update it when you update kubectl.
 
