@@ -7,7 +7,7 @@ assignees:
 
 This guide explains how to use Kubernetes Federated Services to deploy
 a common Service across multiple Kubernetes clusters. This makes it
-easy to achieve cross-cluster service discovery and availibility zone
+easy to achieve cross-cluster service discovery and availability zone
 fault tolerance for your Kubernetes applications.
 
 
@@ -42,7 +42,7 @@ Once created, the Federated Service automatically:
 
 1. creates matching Kubernetes Services in every cluster underlying your Cluster Federation,
 2. monitors the health of those service "shards" (and the clusters in which they reside), and
-3. manages a set of DNS records in a public DNS provder (like Google Cloud DNS, or AWS Route 53), thus ensuring that clients
+3. manages a set of DNS records in a public DNS provider (like Google Cloud DNS, or AWS Route 53), thus ensuring that clients
 of your federated service can seamlessly locate an appropriate healthy service endpoint at all times, even in the event of cluster,
 availability zone or regional outages.
 
@@ -86,12 +86,12 @@ underlying your federation.
 You can verify this by checking in each of the underlying clusters, for example:
 
 ``` shell
-kubectl --context=gce-asia-east1a get services nginx
+kubectl --context=gce-Asia-east1a get services nginx
 NAME      CLUSTER-IP     EXTERNAL-IP      PORT(S)   AGE
 nginx     10.63.250.98   104.199.136.89   80/TCP    9m
 ```
 
-The above assumes that you have a context named 'gce-asia-east1a'
+The above assumes that you have a context named 'gce-Asia-east1a'
 configured in your client for your cluster in that zone. The name and
 namespace of the underlying services will automatically match those of
 the Federated Service that you created above (and if you happen to
@@ -146,8 +146,8 @@ command, to save you the trouble). For example, to create backend Pods
 in 13 underlying clusters:
 
 ``` shell
-for CLUSTER in asia-east1-c asia-east1-a asia-east1-b \
-                        europe-west1-d europe-west1-c europe-west1-b \
+for CLUSTER in Asia-east1-c Asia-east1-a Asia-east1-b \
+                        Europe-west1-d Europe-west1-c Europe-west1-b \
                         us-central1-f us-central1-a us-central1-b us-central1-c \
 						us-east1-d us-east1-c us-east1-b
 do
@@ -199,8 +199,8 @@ nginx.mynamespace.myfederation.svc.asia-east1-a.example.com.       A    180     
 nginx.mynamespace.myfederation.svc.asia-east1-b.example.com.  CNAME 180     nginx.mynamespace.myfederation.svc.asia-east1.example.com.
 nginx.mynamespace.myfederation.svc.asia-east1-c.example.com.       A    180     130.211.56.221
 nginx.mynamespace.myfederation.svc.asia-east1.example.com.           A    180     130.211.57.243, 130.211.56.221
-nginx.mynamespace.myfederation.svc.europe-west1.example.com.  CNAME    180   nginx.mynamespace.myfederation.svc.example.com.
-nginx.mynamespace.myfederation.svc.europe-west1-d.example.com.  CNAME   180     nginx.mynamespace.myfederation.svc.europe-west1.example.com. 
+nginx.mynamespace.myfederation.svc.Europe-west1.example.com.  CNAME    180   nginx.mynamespace.myfederation.svc.example.com.
+nginx.mynamespace.myfederation.svc.Europe-west1-d.example.com.  CNAME   180     nginx.mynamespace.myfederation.svc.Europe-west1.example.com. 
 ... etc.
 ```
 
@@ -224,10 +224,10 @@ due to caching by intermediate DNS servers.
 
 ### Some notes about the above example
 
-1. Notice that there is a normal ('A') record for each service shard that has at least one healthy backend endpoint. For example in us-central1-a, 104.197.247.191 is the external IP address of the service shard in that zone, and in asia-east1-a the address is 130.211.56.221.
+1. Notice that there is a normal ('A') record for each service shard that has at least one healthy backend endpoint. For example, in us-central1-a, 104.197.247.191 is the external IP address of the service shard in that zone, and in Asia-east1-a the address is 130.211.56.221.
 2. Similarly, there are regional 'A' records which include all healthy shards in that region. For example, 'us-central1'.  These regional records are useful for clients which do not have a particular zone preference, and as a building block for the automated locality and failover mechanism described below.
 2. For zones where there are currently no healthy backend endpoints, a CNAME ('Canonical Name') record is used to alias (automatically redirect) those queries to the next closest healthy zone.  In the example, the service shard in us-central1-f currently has no healthy backend endpoints (i.e. Pods), so a CNAME record has been created to automatically redirect queries to other shards in that region (us-central1 in this case).
-3. Similarly, if no healthy shards exist in the enclosing region, the search progresses further afield. In the europe-west1-d availability zone, there are no healthy backends, so queries are redirected to the broader europe-west1 region (which also has no healthy backends), and onward to the global set of healthy addresses (' nginx.mynamespace.myfederation.svc.example.com.')
+3. Similarly, if no healthy shards exist in the enclosing region, the search progresses further afield. In the Europe-west1-d availability zone, there are no healthy backends, so queries are redirected to the broader Europe-west1 region (which also has no healthy backends), and onward to the global set of healthy addresses (' nginx.mynamespace.myfederation.svc.example.com.')
 
 The above set of DNS records is automatically kept in sync with the
 current state of health of all service shards globally by the
@@ -294,7 +294,7 @@ It is of course possible to explicitly target service shards in
 availability zones and regions other than the ones local to a Pod by
 specifying the appropriate DNS names explicitly, and not relying on
 automatic DNS expansion. For example,
-"nginx.mynamespace.myfederation.svc.europe-west1.example.com" will
+"nginx.mynamespace.myfederation.svc.Europe-west1.example.com" will
 resolve to all of the currently healthy service shards in Europe, even
 if the Pod issuing the lookup is located in the U.S., and irrespective
 of whether or not there are healthy shards of the service in the U.S.
@@ -311,7 +311,7 @@ idea to manually configure additional static CNAME records in your
 service, for example:
 
 ``` shell
-eu.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.europe-west1.example.com.
+eu.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.Europe-west1.example.com.
 us.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.us-central1.example.com.
 nginx.acme.com             CNAME nginx.mynamespace.myfederation.svc.example.com.
 ```
@@ -366,7 +366,7 @@ Check that:
 1. Your federation name, DNS provider, DNS domain name are configured correctly.  Consult the [federation admin guide](/docs/admin/federation/) or  [tutorial](https://github.com/kelseyhightower/kubernetes-cluster-federation) to learn
 how to configure your Cluster Federation system's DNS provider (or have your cluster administrator do this for you).
 2. Confirm that the Cluster Federation's service-controller is successfully connecting to and authenticating against your selected DNS provider (look for `service-controller` errors or successes in the output of `kubectl logs federation-controller-manager --namespace federation`)
-3. Confirm that the Cluster Federation's service-controller is successfully creating DNS records in your DNS provider (or outputting errors in it's logs explaining in more detail what's failing).
+3. Confirm that the Cluster Federation's service-controller is successfully creating DNS records in your DNS provider (or outputting errors in its logs explaining in more detail what's failing).
 
 #### Matching DNS records are created in my DNS provider, but clients are unable to resolve against those names
 Check that:
