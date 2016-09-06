@@ -79,4 +79,6 @@ project](/docs/admin/salt).
 
 * **Authorization** [authorization](/docs/admin/authorization)
 
-* **Admission Controllers** [admission_controllers](/docs/admin/admission-controllers)
+* **Admission Controllers** [admission controllers](/docs/admin/admission-controllers)
+
+* **Audit** [audit](/docs/admin/audit)
