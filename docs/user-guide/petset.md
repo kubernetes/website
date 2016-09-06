@@ -226,7 +226,7 @@ It's not necessary to "discover" the governing Service of a Pet Set, since it's 
 
 Usually pets also need to find their peers. In the previous nginx example, we just used `kubectl` to get the names of existing pods, and as humans, we could tell which ones belonged to a given Pet Set. Another way to find peers is by contacting the API server, just like `kubectl`, but that has several disadvantages (you end up implementing a Kubernetes specific init system that runs as pid 1 in your application container).
 
-Pet Set gives you a way to disover your peers using DNS records. To illustrate this we can use the previous example (note: one usually doesn't `apt-get` in a container).
+Pet Set gives you a way to discover your peers using DNS records. To illustrate this we can use the previous example (note: one usually doesn't `apt-get` in a container).
 
 ```shell
 $ kubectl exec -it web-0 /bin/sh
