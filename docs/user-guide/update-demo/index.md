@@ -32,7 +32,7 @@ $ kubectl proxy --www=docs/user-guide/update-demo/local/ &
 I0218 15:18:31.623279   67480 proxy.go:36] Starting to serve on localhost:8001
 ```
 
-Now visit the the [demo website](http://localhost:8001/static).  You won't see anything much quite yet.
+Now visit the [demo website](http://localhost:8001/static).  You won't see anything much quite yet.
 
 ### Step Two: Run the replication controller
 

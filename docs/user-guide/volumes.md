@@ -125,7 +125,7 @@ Watch out when using this type of volume, because:
 * when Kubernetes adds resource-aware scheduling, as is planned, it will not be
   able to account for resources used by a `hostPath`
 * the directories created on the underlying hosts are only writable by root, you either need
-  to run your process as root in a priveleged container or modify the file permissions on
+  to run your process as root in a privileged container or modify the file permissions on
   the host to be able to write to a `hostPath` volume
 
 #### Example pod
@@ -244,7 +244,7 @@ There are some restrictions when using an awsElasticBlockStore volume:
 
 #### Creating an EBS volume
 
-Before you can use a EBS volume with a pod, you need to create it.
+Before you can use an EBS volume with a pod, you need to create it.
 
 ```shell
 aws ec2 create-volume --availability-zone eu-west-1a --size 10 --volume-type gp2
@@ -379,7 +379,7 @@ mounts an empty directory and clones a git repository into it for your pod to
 use.  In the future, such volumes may be moved to an even more decoupled model,
 rather than extending the Kubernetes API for every such use case.
 
-Here is a example for gitRepo volume:
+Here is an example for gitRepo volume:
 
 ```yaml
 apiVersion: v1
