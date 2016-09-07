@@ -39,7 +39,7 @@ Download the stable CoreOS bootable ISO from the [CoreOS website](https://coreos
 
 1.  Once you've downloaded the ISO image, burn the ISO to a CD/DVD/USB key and boot from it (if using a virtual machine you can boot directly from the ISO).  Once booted, you should be automatically logged in as the `core` user at the terminal. At this point CoreOS is running from the ISO and it hasn't been installed yet.
 
-2.  *On another machine*, download the the [master cloud-config template](https://raw.githubusercontent.com/projectcalico/calico-cni/k8s-1.1-docs/samples/kubernetes/cloud-config/master-config-template.yaml) and save it as `master-config.yaml`.
+2.  *On another machine*, download the [master cloud-config template](https://raw.githubusercontent.com/projectcalico/calico-cni/k8s-1.1-docs/samples/kubernetes/cloud-config/master-config-template.yaml) and save it as `master-config.yaml`.
 
 3.  Replace the following variables in the `master-config.yaml` file.
 
