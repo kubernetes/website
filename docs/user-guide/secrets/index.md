@@ -177,7 +177,7 @@ To consume a Secret in a volume in a Pod:
 1. Create a secret or use an existing one.  Multiple pods can reference the same secret.
 1. Modify your Pod definition to add a volume under `spec.volumes[]`.  Name the volume anything, and have a `spec.volumes[].secret.secretName` field equal to the name of the secret object.
 1. Add a `spec.containers[].volumeMounts[]` to each container that needs the secret.  Specify `spec.containers[].volumeMounts[].readOnly = true` and `spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the secrets to appear.
-1. Modify your image and/or command line so that the the program looks for files in that directory.  Each key in the secret `data` map becomes the filename under `mountPath`.
+1. Modify your image and/or command line so that the program looks for files in that directory.  Each key in the secret `data` map becomes the filename under `mountPath`.
 
 This is an example of a pod that mounts a secret in a volume:
 
@@ -293,7 +293,7 @@ To use a secret in an environment variable in a pod:
 
 1. Create a secret or use an existing one.  Multiple pods can reference the same secret.
 1. Modify your Pod definition in each container that you wish to consume the value of a secret key to add an environment variable for each secret key you wish to consume.  The environment variable that consumes the secret key should populate the secret's name and key in `env[x].valueFrom.secretKeyRef`.
-1. Modify your image and/or command line so that the the program looks for values in the specified environment variables
+1. Modify your image and/or command line so that the program looks for values in the specified environment variables
 
 This is an example of a pod that mounts a secret in a volume:
 
