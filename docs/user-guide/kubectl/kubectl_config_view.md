@@ -29,8 +29,8 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 ### Options
 
 ```
-      --flatten[=false]: flatten the resulting kubeconfig file into self contained output (useful for creating portable kubeconfig files)
-      --merge[=true]: merge together the full hierarchy of kubeconfig files
+      --flatten[=false]: flatten the resulting kubeconfig file into self-contained output (useful for creating portable kubeconfig files)
+      --merge[=true]: merge the full hierarchy of kubeconfig files
       --minify[=false]: remove all information not used by current-context from the output
       --no-headers[=false]: When using the default output, don't print headers.
   -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.3/docs/user-guide/jsonpath.md].
