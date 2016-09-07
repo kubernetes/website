@@ -76,6 +76,7 @@ Kubernetes supports several types of Volumes:
    * `persistentVolumeClaim`
    * `downwardAPI`
    * `azureFileVolume`
+   * `azureDisk`
    * `vsphereVolume`
 
 We welcome additional contributions.
@@ -444,6 +445,12 @@ A `AzureFileVolume` is used to mount a Microsoft Azure File Volume (SMB 2.1 and 
 into a Pod.
 
 More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_file/README.md)
+
+### AzureDiskVolume
+
+A `AzureDiskVolume` is used to mount a Microsoft Azure [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) into a Pod.
+
+More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_disk/README.md)
 
 ### vsphereVolume
 
