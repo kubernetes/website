@@ -64,7 +64,7 @@ RUN npm install
 CMD ["node", "app.js"]
 ```
 
-A `Dockerfile` is pretty self explanatory, and this one is dead simple.
+A `Dockerfile` is pretty self-explanatory, and this one is dead simple.
 
 First, it uses the official Node.js LTS image as the base image.
 

@@ -122,8 +122,7 @@ root@temp-loe07:/#
 ```
 
 In the last command, the `amqp-consume` tool takes one message (`-c 1`)
-from the queue, and passes that message to the standard input of an
-an arbitrary command.  In this case, the program `cat` is just printing
+from the queue, and passes that message to the standard input of an arbitrary command.  In this case, the program `cat` is just printing
 out what it gets on the standard input, and the echo is just to add a carriage
 return so the example is readable.
 
@@ -169,7 +168,7 @@ example program:
 
 {% include code.html language="python" file="worker.py" ghlink="/docs/user-guide/job/work-queue-1/worker.py" %}
 
-Now, build an an image.  If you are working in the source
+Now, build an image.  If you are working in the source
 tree, then change directory to `examples/job/work-queue-1`.
 Otherwise, make a temporary directory, change to it,
 download the [Dockerfile](Dockerfile?raw=true),
@@ -275,7 +274,7 @@ not all items will be processed.
 If the number of completions is set to more than the number of items in the queue,
 then the Job will not appear to be completed, even though all items in the queue
 have been processed.  It will start additional pods which will block waiting
-for a mesage.
+for a message.
 
 There is an unlikely race with this pattern.  If the container is killed in between the time
 that the message is acknowledged by the amqp-consume command and the time that the container
