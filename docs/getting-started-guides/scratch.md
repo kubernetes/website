@@ -57,6 +57,7 @@ on how flags are set on various components.
 
 ### Network
 
+#### Network Connectivity
 Kubernetes has a distinctive [networking model](/docs/admin/networking).
 
 Kubernetes allocates an IP address to each pod.  When creating a cluster, you
@@ -66,21 +67,25 @@ the node is added.  A process in one pod should be able to communicate with
 another pod using the IP of the second pod.  This connectivity can be
 accomplished in two ways:
 
-- Configure network to route Pod IPs
+- **Configure underlay network to route Pod IPs**
   - Harder to setup from scratch.
   - Google Compute Engine ([GCE](/docs/getting-started-guides/gce)) and [AWS](/docs/getting-started-guides/aws) guides use this approach.
-  - Need to make the Pod IPs routable by programming routers, switches, etc.
-  - Can be configured external to Kubernetes, or can implement in the "Routes" interface of a Cloud Provider module.
+  - Need to make the Pod IPs routable by programming routers, switches, etc.  
+    - This can be done in a few different ways:
+      - Implement in the "Routes" interface of a Cloud Provider module.
+      - Manually configure static routing external to Kubernetes.
   - Generally highest performance.
-- Create an Overlay network
+- **Use a network plugin**
   - Easier to setup
-  - Traffic is encapsulated, so per-pod IPs are routable.
+  - Pod IPs are made accessible through route distribution or encapsulation. 
   - Examples:
     - [Flannel](https://github.com/coreos/flannel)
+    - [Calico](http://https://github.com/projectcalico/calico-containers)
     - [Weave](http://weave.works/)
     - [Open vSwitch (OVS)](http://openvswitch.org/)
   - Does not require "Routes" portion of Cloud Provider module.
   - Reduced performance (exactly how much depends on your solution).
+  - More information on network plugins can be found [here](/docs/admin/networking#how-to-achieve-this).
 
 You need to select an address range for the Pod IPs.
 
@@ -115,6 +120,16 @@ Also, you need to pick a static IP for master node.
 - Call this `MASTER_IP`.
 - Open any firewalls to allow access to the apiserver ports 80 and/or 443.
 - Enable ipv4 forwarding sysctl, `net.ipv4.ip_forward = 1`
+
+#### Network Policy
+
+Kubernetes enables the definition of fine-grained network policy between Pods 
+using the [NetworkPolicy](/docs/user-guide/networkpolicy) resource.
+
+For clusters which choose to enable NetworkPolicy, the Calico 
+[policy controller addon](https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/calico-policy-controller) 
+can enforce the NetworkPolicy API on top of native cloud-provider networking, 
+Flannel, or Calico networking.
 
 ### Cluster Naming
 
