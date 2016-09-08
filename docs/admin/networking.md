@@ -160,7 +160,7 @@ Lars Kellogg-Stedman.
 
 ### Weave Net from Weaveworks
 
-[Weave Net](https://www.weave.works/documentation/net-1-6-0-introducing-weave/) is a 
+[Weave Net](https://www.weave.works/products/weave-net/) is a 
 resilient and simple to use network for Kubernetes and its hosted applications.  
 Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)  
 or stand-alone.  In either version, it doesn’t require any configuration or extra code 

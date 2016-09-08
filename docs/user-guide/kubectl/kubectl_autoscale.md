@@ -21,7 +21,6 @@ kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MA
 ### Examples
 
 ```
-
 # Auto scale a deployment "foo", with the number of pods between 2 and 10, target CPU utilization specified so a default autoscaling policy will be used:
 kubectl autoscale deployment foo --min=2 --max=10
 
