@@ -19,7 +19,7 @@ This example shows you how to "carry over" runtime state across Pet restart by s
 
 ### Background
 
-Applications that incrementally build state usually need strong guarantees that they will not restart for extended durations. This is tricky to achieve with containers, so instead, we will ensure that the results of previous computations are trasferred to future pets. Doing so is straight-forward using vanilla Persistent Volumes (which Pet Set already gives you), unless the volume mount point itself needs to be initialized for the Pet to start. This is exactly the case with "virtual machine" docker images, like those based on ubuntu or fedora. Such images embed the entier rootfs of the distro, including package managers like `apt-get` that assume a certain layout of the filesystem. Meaning:
+Applications that incrementally build state usually need strong guarantees that they will not restart for extended durations. This is tricky to achieve with containers, so instead, we will ensure that the results of previous computations are trasferred to future pets. Doing so is straightforward using vanilla Persistent Volumes (which Pet Set already gives you), unless the volume mount point itself needs to be initialized for the Pet to start. This is exactly the case with "virtual machine" docker images, like those based on ubuntu or fedora. Such images embed the entier rootfs of the distro, including package managers like `apt-get` that assume a certain layout of the filesystem. Meaning:
 
 * If you mount an empty volume under `/usr`, you won't be able to `apt-get`
 * If you mount an empty volume under `/lib`, all your `apt-gets` will fail because there are no system libraries
@@ -166,7 +166,7 @@ vm-1.ub.default.svc.cluster.local
 
 ### Nginx master/slave cluster
 
-Lets create a Pet Set that writes out its own config based on a list of peers at initalization time, as described above.
+Lets create a Pet Set that writes out its own config based on a list of peers at initialization time, as described above.
 
 Download and create [this](petset_peers.yaml) petset. It will setup 2 nginx webservers, but the second one will proxy all requests to the first:
 
@@ -192,7 +192,7 @@ web-0     1/1       Running   0          1m
 web-1     1/1       Running   0          47s
 ```
 
-web-1 will redirect all requests to it's "master":
+web-1 will redirect all requests to its "master":
 
 ```shell
 $ kubectl exec -it web-1 -- curl localhost

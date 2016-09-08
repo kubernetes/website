@@ -93,7 +93,7 @@ asks you to configure your view of the ingested logs. Select the option for
 timeseries values and select `@timestamp`. On the following page select the
 `Discover` tab and then you should be able to see the ingested logs.
 You can set the refresh interval to 5 seconds to have the logs
-regulary refreshed.
+regularly refreshed.
 
 Here is a typical view of ingested logs from the Kibana viewer:
 

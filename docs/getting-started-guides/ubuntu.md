@@ -59,7 +59,7 @@ $ export ETCD_VERSION=2.2.0
 For users who want to bring up a cluster with k8s version v1.1.1, `controller manager` may fail to start
 due to [a known issue](https://github.com/kubernetes/kubernetes/issues/17109). You could raise it
 up manually by using following command on the remote master server. Note that
-you should do this only after `api-server` is up. Moreover this issue is fixed in v1.1.2 and later.
+you should do this only after `api-server` is up. Moreover, this issue is fixed in v1.1.2 and later.
 
 ```shell
 $ sudo service kube-controller-manager start
