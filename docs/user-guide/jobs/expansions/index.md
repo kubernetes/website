@@ -54,7 +54,7 @@ job-banana.yaml
 job-cherry.yaml
 ```
 
-Here, we used `sed` to replace the string `$ITEM` with the the loop variable.
+Here, we used `sed` to replace the string `$ITEM` with the loop variable.
 You could use any type of template language (jinja2, erb) or write a program
 to generate the Job objects.
 
