@@ -92,14 +92,13 @@ function px(n){
 
 var kub = (function () {
 	var HEADER_HEIGHT;
-	var html, header, mainNav, quickstartButton, hero, encyclopedia, footer, wishField, headlineWrapper;
+	var html, header, mainNav, quickstartButton, hero, encyclopedia, footer, headlineWrapper;
 
 	$(document).ready(function () {
 		html = $('html');
 		body = $('body');
 		header = $('header');
 		mainNav = $('#mainNav');
-		wishField = $('#wishField');
 		quickstartButton = $('#quickstartButton');
 		hero = $('#hero');
 		encyclopedia = $('#encyclopedia');
@@ -112,13 +111,11 @@ var kub = (function () {
 		window.addEventListener('resize', resetTheView);
 		window.addEventListener('scroll', resetTheView);
 		window.addEventListener('keydown', handleKeystrokes);
-		wishField[0].addEventListener('keydown', handleKeystrokes);
 
 		document.onunload = function(){
 			window.removeEventListener('resize', resetTheView);
 			window.removeEventListener('scroll', resetTheView);
 			window.removeEventListener('keydown', handleKeystrokes);
-			wishField[0].removeEventListener('keydown', handleKeystrokes);
 		};
 
 		setInterval(setFooterType, 10);
@@ -189,24 +186,8 @@ var kub = (function () {
 		}
 	}
 
-	function submitWish(textfield) {
-		window.location.replace("https://github.com/kubernetes/kubernetes.github.io/issues/new?title=I%20wish%20" +
-			window.location.pathname + "%20" + textfield.value + "&body=I%20wish%20" +
-			window.location.pathname + "%20" + textfield.value);
-
-		textfield.value = '';
-		textfield.blur();
-	}
-
 	function handleKeystrokes(e) {
 		switch (e.which) {
-			case 13: {
-				if (e.currentTarget === wishField[0]) {
-					submitWish(wishField[0]);
-				}
-				break;
-			}
-
 			case 27: {
 				if (html.hasClass('open-nav')) {
 					toggleMenu();
