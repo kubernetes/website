@@ -161,6 +161,8 @@ toc:
       path: /docs/getting-started-guides/azure/
     - title: Running Kubernetes on CenturyLink Cloud
       path: /docs/getting-started-guides/clc/
+    - title: Running Kubernetes on IBM SoftLayer
+      path: https://github.com/patrocinio/kubernetes-softlayer
   - title: Running Kubernetes on Custom Solutions
     section:
     - title: Creating a Custom Cluster from Scratch
