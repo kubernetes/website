@@ -78,6 +78,7 @@ Kubernetes supports several types of Volumes:
    * `azureFileVolume`
    * `azureDisk`
    * `vsphereVolume`
+   * `Quobyte`
 
 We welcome additional contributions.
 
@@ -489,6 +490,15 @@ spec:
       volumePath: myDisk
       fsType: ext4
 ```
+
+### Quobyte
+
+A `Quobyte` volume allows an existing [Quobyte](http://www.quobyte.com) volume to be mounted into your pod.
+
+__Important: You must have your own Quobyte setup running with the volumes created
+before you can use it__
+
+See the [Quobyte example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/quobyte) for more details.
 
 ## Resources
 
