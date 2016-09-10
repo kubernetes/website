@@ -1,0 +1,8 @@
+bigheader: "Tasks"
+toc:
+- title: Tasks
+  path: /docs/tasks/
+- title: Accessing Applications in a Cluster
+  section:
+  - title: Using an HTTP Proxy to Access Applications in a Cluster
+    path: /docs/tasks/access-application-cluster/http-proxy-access-application-cluster/
