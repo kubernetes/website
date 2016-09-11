@@ -120,13 +120,14 @@ all running pods. Example:
       alpha/target.custom-metrics.podautoscaler.kubernetes.io: '{"items":[{"name":"qps", "value": "10"}]}'
 ```
 
-In this case if there are 4 pods running and each of them reports qps metric to be equal to 15 HPA will start 2 additional pods so there will be 6 pods in total. If there are multiple metrics passed in the annotation or CPU is configured as well then HPA will use the biggest 
-number of replicas that comes from the calculations.
+In this case, if there are four pods running and each pod reports a QPS metric of 15 or higher, horizontal pod autoscaling will start two additional pods (for a total of six pods running).
 
-At this moment even if target CPU utilization is not specified a default of 80% will be used. 
-To calculate number of desired replicas based only on custom metrics CPU utilization
-target should be set to a very large value (e.g. 100000%). Then CPU-related logic 
-will want only 1 replica, leaving the decision about higher replica count to cusom metrics (and min/max limits).
+If you specify multiple metrics in your annotation or if you set a target CPU utilization, horizontal pod autoscaling will scale to according to the metric that requires the highest number of replicas.
+
+If you do not specify a target for CPU utilization, Kubernetes defaults to an 80% utilization threshold for horizontal pod autoscaling.
+
+If you want to ensure that horizontal pod autoscaling calculates the number of required replicas based only on custom metrics, you should set the CPU utilization target to a very large value (such as 100000%). As this level of CPU utilization isn't possible, horizontal pod autoscaling will calculate based only on the custom metrics (and min/max limits).
+
 
 ## Further reading
 
