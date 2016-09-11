@@ -71,7 +71,7 @@ $ curl http://localhost:8080/api/
 
 #### Without kubectl proxy (before v1.3.x)
 
-It is also possible to avoid using kubectl proxy by passing an authentication token
+It is possible to avoid using kubectl proxy by passing an authentication token
 directly to the apiserver, like this:
 
 ```shell
@@ -87,7 +87,7 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 
 #### Without kubectl proxy (post v1.3.x)
 
-In recent versions of Kubernetes, `kubectl config view` no longer displays the token. Use `kubectl describe secret...` to get the token for the default service account, like this:
+In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the token. Use `kubectl describe secret...` to get the token for the default service account, like this:
 
 ``` shell
 $ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
