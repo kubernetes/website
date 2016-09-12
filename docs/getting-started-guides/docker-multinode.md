@@ -65,7 +65,7 @@ Each of these options are overridable by `export`ing the values before running t
 
 The first step in the process is to initialize the master node.
 
-Clone the `kube-deploy` repo, and run [master.sh](master.sh) on the master machine _with root_:
+Clone the `kube-deploy` repo, and run `master.sh` on the master machine _with root_:
 
 ```shell
 $ git clone https://github.com/kubernetes/kube-deploy
@@ -82,7 +82,7 @@ Lastly, it launches `kubelet` in the main docker daemon, and the `kubelet` in tu
 
 Once your master is up and running you can add one or more workers on different machines.
 
-Clone the `kube-deploy` repo, and run [worker.sh](worker.sh) on the worker machine _with root_:
+Clone the `kube-deploy` repo, and run `worker.sh` on the worker machine _with root_:
 
 ```shell
 $ git clone https://github.com/kubernetes/kube-deploy
