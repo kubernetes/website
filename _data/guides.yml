@@ -189,6 +189,7 @@ toc:
   - docs/admin/disruptions.md
   - docs/admin/resourcequota/index.md
   - docs/admin/resourcequota/walkthrough.md
+  - docs/admin/resourcequota/limitstorageconsumption.md
   - docs/admin/rescheduler.md
   - docs/admin/sysctls.md
   - docs/admin/cluster-components.md
