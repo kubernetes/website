@@ -44,13 +44,7 @@ It can be configured to give services externally-reachable urls, load balance tr
 
 Before you start using the Ingress resource, there are a few things you should understand. The Ingress is a beta resource, not available in any Kubernetes release prior to 1.1. You need an Ingress controller to satisfy an Ingress, simply creating the resource will have no effect.
 
-On GCE/GKE there should be a [L7 cluster addon](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/README.md), deployed into the `kube-system` namespace:
-
-```shell
-$ kubectl get pods --namespace=kube-system -l k8s-app=glbc
-NAME                            READY     STATUS    RESTARTS   AGE
-l7-lb-controller-v0.6.0-chnan   2/2       Running   0          1d
-```
+On GCE/GKE there should be a L7 cluster addon that runs on the master.
 
 Make sure you review the [beta limitations](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/gce/BETA_LIMITATIONS.md) of this controller. In environments other than GCE/GKE, you need to [deploy a controller](https://github.com/kubernetes/contrib/tree/master/ingress/controllers) as a pod.
 
