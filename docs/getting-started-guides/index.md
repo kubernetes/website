@@ -51,6 +51,7 @@ few commands, and have active community support.
 - [Azure](/docs/getting-started-guides/coreos/azure/) (Weave-based, contributed by WeaveWorks employees)
 - [Azure](/docs/getting-started-guides/azure/) (Flannel-based, contributed by Microsoft employee)
 - [CenturyLink Cloud](/docs/getting-started-guides/clc)
+- [IBM SoftLayer](https://github.com/patrocinio/kubernetes-softlayer)
 
 ### Custom Solutions
 
