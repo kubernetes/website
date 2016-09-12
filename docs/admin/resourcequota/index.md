@@ -52,8 +52,8 @@ Resource Quota is enforced in a particular namespace when there is a
 
 ## Compute Resource Quota
 
-The total sum of [compute resources](/docs/user-guide/compute-resources) requested by pods
-in a namespace can be limited.  The following compute resource types are supported:
+The total sum of [compute resources](/docs/user-guide/compute-resources) and [storage resources](/docs/user-guide/persistent-volumes)
+requested in a namespace can be limited.  The following compute resource types are supported:
 
 | Resource Name | Description |
 | ------------ | ----------- |
@@ -63,6 +63,7 @@ in a namespace can be limited.  The following compute resource types are support
 | `memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
 | `requests.cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `requests.memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
+| `requests.storage` | Across all persistent volume claims, the sum of storage requests cannot exceed this value. |
 
 ## Object Count Quota
 
