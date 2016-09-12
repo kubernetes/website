@@ -161,6 +161,8 @@ toc:
       path: /docs/getting-started-guides/azure/
     - title: Running Kubernetes on CenturyLink Cloud
       path: /docs/getting-started-guides/clc/
+    - title: Running Kubernetes on IBM SoftLayer
+      path: https://github.com/patrocinio/kubernetes-softlayer
   - title: Running Kubernetes on Custom Solutions
     section:
     - title: Creating a Custom Cluster from Scratch
@@ -195,8 +197,6 @@ toc:
         path: /docs/getting-started-guides/openstack-heat/
       - title: CoreOS on Multinode Cluster
         path: /docs/getting-started-guides/coreos/coreos_multinode_cluster/
-      - title: Fedora With Calico Networking
-        path: /docs/getting-started-guides/fedora/fedora-calico/
       - title: rkt
         section:
         - title: Running Kubernetes with rkt
