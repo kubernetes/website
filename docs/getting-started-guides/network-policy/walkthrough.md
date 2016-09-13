@@ -6,33 +6,11 @@ assignees:
 
 Kubernetes can be used to declare network policies which govern how Pods can communicate with each other.  This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/user-guide/networkpolicies), and provides a demonstration thereof. 
 
-In this article we assume that that a Kubernetes cluster has been created with network policy support.  It's easy to create such a cluster using the [GCE guide](/docs/getting-started-guides/gce), setting the `NETWORK_POLICY_PROVIDER=calico` environment variable.
+In this article we assume that a Kubernetes cluster has been created with network policy support.  There are a number of network providers which support NetworkPolicy (see the "Using X for NetworkPolicy" articles in this section).  The reference implementation is [Calico](/docs/getting-started-guides/network-policy/calico) running on GCE.
 
-e.g
-
-```shell
-export NETWORK_POLICY_PROVIDER=calico
-curl -sS https://get.k8s.io | bash
-```
+The following example walkthrough will work on a Kubernetes cluster using any of the listed providers.
 
 ## Using NetworkPolicy 
-
-Once your cluster is started, you should see a collection of pods running in the `kube-system` Namespace that support Kubernetes NetworkPolicy.
-
-```console
-$ kubectl get pods --namespace=kube-system
-NAME                                                 READY     STATUS    RESTARTS   AGE
-calico-node-kubernetes-minion-group-jck6             1/1       Running   0          46m
-calico-node-kubernetes-minion-group-k9jy             1/1       Running   0          46m
-calico-node-kubernetes-minion-group-szgr             1/1       Running   0          46m
-calico-policy-controller-65rw1                       1/1       Running   0          46m
-...
-```
-
-There are two main components to be aware of:
-
-- One `calico-node` Pod runs on each node in your cluster, and enforces network policy on the traffic to/from Pods on that machine by configuring iptables.
-- The `calico-policy-controller` Pod reads policy and label information from the Kubernetes API and configures Calico appropriately.
 
 To explain how Kubernetes network policy works let's start off by creating an `nginx` Deployment and expose it via a Service. 
 

@@ -48,7 +48,7 @@ To configure the annotation via `kubectl`:
 kubectl annotate ns <namespace> "net.beta.kubernetes.io/network-policy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"
 {% endraw %}```
 
-See the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy) for an example.
+See the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) for an example.
 
 ## The `NetworkPolicy` Resource
 
