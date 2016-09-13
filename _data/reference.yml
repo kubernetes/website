@@ -250,5 +250,13 @@ toc:
 
 - title: Federation
   section:
-  - title:  User guide
+  - title: User guide
     path: /docs/user-guide/federation/
+  - title: Federation API
+    path: /docs/federation/api-reference/README/
+  - title: Federation Components
+    section:
+    - title: federation-apiserver
+      path: /docs/admin/federation-apiserver.md
+    - title : federation-controller-mananger
+      path: /docs/admin/federation-controller-manager.md
