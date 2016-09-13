@@ -60,8 +60,12 @@ toc:
     path: /docs/user-guide/working-with-resources/
   - title: Garbage collection
     path: /docs/user-guide/garbage-collector/
-  - title: Using Calico NetworkPolicy
-    path: /docs/getting-started-guides/calico-network-policy/
+  - title: Using NetworkPolicy
+    section:
+    - title: Example Walkthrough
+      path: /docs/getting-started-guides/network-policy/walkthrough/
+    - title: Using Calico for NetworkPolicy 
+      path: /docs/getting-started-guides/network-policy/calico/
 
 - title: Batch Jobs
   section:
