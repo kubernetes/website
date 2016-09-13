@@ -125,9 +125,30 @@ and ensures that requests in a non-existent `Namespace` are rejected.
 A `Namespace` deletion kicks off a sequence of operations that remove all objects (pods, services, etc.) in that
 namespace.  In order to enforce integrity of that process, we strongly recommend running this plug-in.
 
+### DefaultStorageClass
+
+This plug-in observes creation of `PersistentVolumeClaim` objects that do not request any specific storage class
+and automatically adds a default storage class to them.
+This way, users that do not request any special storage class do no need to care about them at all and they
+will get the default one.
+
+This plug-in does not do anything when no default storage class is configured. When more than one storage
+class is marked as default, it rejects any creation of `PersistentVolumeClaim` with an error and administrator
+must revisit `StorageClass` objects and mark only one as default.
+This plugin ignores any `PersistentVolumeClaim` updates, it acts only on creation.
+
+See [persistent volume](/docs/user-guide/persistent-volumes) documentation about persistent volume claims and
+storage classes and how to mark a storage class as default.
+
 ## Is there a recommended set of plug-ins to use?
 
 Yes.
+
+For Kubernetes >= 1.4.0, we strongly recommend running the following set of admission control plug-ins (order matters):
+
+```shell
+--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota
+```
 
 For Kubernetes >= 1.2.0, we strongly recommend running the following set of admission control plug-ins (order matters):
 
