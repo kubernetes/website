@@ -365,7 +365,7 @@ parameters:
 #### GLUSTERFS
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: storage.k8s.io/v1beta1
 kind: StorageClass
 metadata:
   name: slow
@@ -373,14 +373,16 @@ provisioner: kubernetes.io/glusterfs
 parameters:
   endpoint: "glusterfs-cluster"
   resturl: "http://127.0.0.1:8081"
+  restauthenabled: "true"
   restuser: "admin"
   restuserkey: "password"
 ```
 
 * `endpoint`: `glusterfs-cluster` is the endpoint/service name which includes GlusterFS trusted pool IP addresses and this parameter is mandatory.
-* `resturl` : Gluster REST service url which provision gluster volumes on demand. The format should be a valid URL and this is a mandatory parameter for GlusterFS dynamic provisioner.
-* `restuser` : Gluster REST service user who has access to create volumes in the Gluster Trusted Pool. This parameter is optional, empty string will be used when omitted.
-* `restuserkey` : Gluster REST service user's password which will be used for authentication to the REST server. This parameter is optional, empty string will be used when omitted.
+* `resturl` : Gluster REST service url which provision gluster volumes on demand. The format should be `IPaddress:Port` and this is a mandatory parameter for GlusterFS dynamic provisioner.
+* `restauthenabled` : Gluster REST service authentication boolean is required if the authentication is enabled on the REST server. If this value is 'true', 'restuser' and 'restuserkey' have to be filled.
+* `restuser` : Gluster REST service user who has access to create volumes in the Gluster Trusted Pool.
+* `restuserkey` : Gluster REST service user's password which will be used for authentication to the REST server.
 
 #### OpenStack Cinder
 
