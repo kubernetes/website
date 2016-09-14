@@ -111,11 +111,11 @@ to the corresponding `gcloud` commands.
 Examples:
 
 ```shell
-gcloud container clusters create mytestcluster --zone=us-central1-b --enable-autoscaling=true --min-nodes=3 --max-nodes=10 --num-nodes=5
+gcloud container clusters create mytestcluster --zone=us-central1-b --enable-autoscaling --min-nodes=3 --max-nodes=10 --num-nodes=5
 ```
 
 ```shell
-gcloud container clusters update mytestcluster --enable-autoscaling=true --min-nodes=1 --max-nodes=15
+gcloud container clusters update mytestcluster --enable-autoscaling --min-nodes=1 --max-nodes=15
 ```
 
 **Cluster autoscaler expects that nodes have not been manually modified (e.g. by adding labels via kubectl) as those properties would not be propagated to the new nodes within the same instance group.**
