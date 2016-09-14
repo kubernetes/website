@@ -823,6 +823,9 @@ Notes for setting up each cluster service are given below:
 
 ### Running validate-cluster
 
+`cluster/validate-cluster.sh` is used by `cluster/kube-up.sh` to determine if
+the cluster start succeeded.
+
 Example usage and output:
 
 ```shell
