@@ -8,6 +8,7 @@ You can deploy a cluster using Calico for network policy in the default [GCE dep
 
 ```shell
 export NETWORK_POLICY_PROVIDER=calico
+export KUBE_NODE_OS_DISTRIBUTION=debian
 curl -sS https://get.k8s.io | bash
 ```
 
