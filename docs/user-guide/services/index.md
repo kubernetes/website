@@ -460,7 +460,7 @@ within AWS Certificate Manager.
     "metadata": {
         "name": "my-service",
         "annotations": {
-            "service.beta.kubernetes.io/aws-load-balancer-backend-protocol=": "(https|http|ssl|tcp)"
+            "service.beta.kubernetes.io/aws-load-balancer-backend-protocol": "(https|http|ssl|tcp)"
         }
     },
 ```
