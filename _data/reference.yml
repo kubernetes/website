@@ -247,3 +247,8 @@ toc:
     path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/security_context.md
   - title: Security in Kubernetes
     path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/security.md    
+
+- title: Federation
+  section:
+  - title:  User guide
+    path: /docs/user-guide/federation/
