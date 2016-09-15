@@ -10,8 +10,10 @@ toc:
     path: /docs/whatisk8s/
   - title: Downloading or Building Kubernetes
     path: /docs/getting-started-guides/binary_release/
-  - title: Hello World Walkthrough
+  - title: Hello World Walkthrough on GKE
     path: /docs/hellonode/
+  - title: Installing Kubernetes Easily on Linux
+    path: /docs/kubeadm/
   - title: Online Training Course
     path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
 
@@ -248,6 +250,8 @@ toc:
     path: /docs/admin/
   - title: Cluster Management Guide
     path: /docs/admin/cluster-management/
+  - title: Installing Addons
+    path: /docs/admin/addons/
   - title: Sharing a Cluster with Namespaces
     path: /docs/admin/namespaces/
   - title: Namespaces Walkthrough
