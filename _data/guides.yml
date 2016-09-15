@@ -58,8 +58,8 @@ toc:
     path: /docs/user-guide/config-best-practices/
   - title: Using kubectl to Manage Resources
     path: /docs/user-guide/working-with-resources/
-  - title: Garbage collection
-    path: /docs/user-guide/garbage-collector/
+  - title: Garbage Collection (Beta)
+    path: /docs/user-guide/garbage-collection/
   - title: Using NetworkPolicy
     section:
     - title: Example Walkthrough
