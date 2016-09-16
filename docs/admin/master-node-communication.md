@@ -83,3 +83,57 @@ cluster (connecting to the ssh server listening on port 22) and passes all
 traffic destined for a kubelet, node, pod, or service through the tunnel.
 This tunnel ensures that the traffic is not exposed outside of the private
 GCE network in which the cluster is running.
+
+### Kubelet TLS Bootstrap 
+
+The 1.4 release introduces an experimental API for requesting certificates from a cluster-level CA. The first supported use of this API is the provisioning of TLS client certificates for kubelets. The proposal can be found [here] and progress on the feature is being tracked as [feature #43](https://github.com/kubernetes/features/issues/43). 
+
+Workflow 
+
+##### apiserver configuration
+A token file specifies at least one token as a "bootstrap token" assigned to a kubelet boostrap-specific group. This group will later be used in the controller-manager configuration to scope approvals in the default approval controller. As this feature matures, this token should also be bound to an RBAC policy that limits requests using the bootstrap token to only be able to make requests related to certificate provisioning. When RBAC policy is in place, scoping the tokens to a group will allow great flexibility (e.g. you could disable a particular bootstrap group's access when you are done provisioning the nodes). 
+
+##### Token auth file 
+Tokens are arbitrary, but should represent at least 128 bits of entropy derived from a secure random number generator (such as /dev/urandom on most modern systems). There are lots of ways you could generate tokens; one is: 
+
+`head -c 16 /dev/urandom | od -An -t x | tr -d ' '` 
+
+which will generate tokens that look like `02b50b05283e98dd0fd71db496ef01e8` 
+
+The token file will look like this, where the first three values can be anything and the quoted group name should be as depicted: 
+
+```
+02b50b05283e98dd0fd71db496ef01e8,kubelet-bootstrap,10001,"system:kubelet-bootstrap"
+``` 
+
+Add the `--token-auth-file=FILENAME` flag to the apiserver command to enable the token file. See docs at http://kubernetes.io/docs/admin/authentication/#static-token-file for further details 
+
+#### controller-manager configuration
+The new feature adds a certificate-issuing control loop to the KCM. This takes the form of a [cfssl](https://blog.cloudflare.com/introducing-cfssl/) local signer using assets on disk. Currently, all certificates issued have one year validity and a default set of key usages. 
+
+##### Signing assets 
+These provide the signer with the cryptographic materials necessary to issue certificates. This CA should be trusted by the apiserver for authentication with the `--client-ca-file=SOMEFILE` flag. The management of the CA is beyond the scope of this document but it is recommended that you generate a dedicated CA for Kubernetes. Both certificate and key are assumed to be PEM-encoded. 
+
+The new controller-manager flags are: 
+```
+--cluster-signing-cert-file="/etc/path/to/kubernetes/ca/ca.crt" --cluster-signing-key-file="/etc/path/to/kubernetes/ca/ca.key"
+``` 
+
+##### Auto-approval 
+To ease deployment and testing, the alpha version of the feature includes a flag to approve all certificate requests made by users in a certain group. The intended use of this is to whitelist only the group corresponding to the bootstrap token in the token file above. Use of this flag circumvents makes the "approval" process described below and is not recommended for production use. 
+
+The flag is: 
+```
+--insecure-experimental-approve-all-kubelet-csrs-for-group="system:kubelet-bootstrap"
+``` 
+
+#### kubelet configuration 
+To use this API to request a client cert, the kubelet needs a path to a kubeconfig file that contains the bootstrap auth token. If the file specified by `--kubeconfig` does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On success, a kubeconfig file referencing the generated key and obtained certificate is written to the path specified by `--kubeconfig`. The certificate and key file will be stored in the directory pointed by `--cert-dir`. 
+
+The new flag is: 
+```
+--experimental-bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
+``` 
+
+#### kubectl approval 
+The signing controller does not immediately sign all certificate requests. Instead, it waits until they have been flagged with an "Approved" status by an appropriately-privileged user. This is intended to eventually be an automated process handled by an external approval controller, but for the alpha version of the API it can be done manually by a cluster administrator using kubectl. An administrator can list CSRs with `kubectl get csr`, describe one in detail with `kubectl describe <name>`. There are [currently no direct approve/deny commands] (https://github.com/kubernetes/kubernetes/issues/30163) so an approver will need to update the Status field directly. A rough example of how to do this in bash which should only be used until the porcelain merges is available at https://github.com/gtank/csrctl.
