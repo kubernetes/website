@@ -13,11 +13,11 @@ here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}
 
 ### Step Zero: Prerequisites
 
-This example assumes that you have forked the repository and [turned up a Kubernetes cluster](/docs/getting-started-guides/):
+This example assumes that you have forked the docs repository and [turned up a Kubernetes cluster](/docs/getting-started-guides/):
 
 ```shell
-$ cd kubernetes
-$ ./cluster/kube-up.sh
+$ git clone https://github.com/kubernetes/kubernetes.github.io
+$ cd kubernetes.github.io
 ```
 
 ### Step One: Turn up the UX for the demo
