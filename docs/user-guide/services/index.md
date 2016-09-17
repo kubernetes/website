@@ -317,6 +317,10 @@ Kubernetes also supports DNS SRV (service) records for named ports.  If the
 can do a DNS SRV query for `"_http._tcp.my-service.my-ns"` to discover the port
 number for `"http"`.
 
+The [DNS Admin guide](dns-admin) has further details.
+
+[dns-admin]: http://kubernetes.io/docs/admin/dns/
+
 ## Headless services
 
 Sometimes you don't need or want load-balancing and a single service IP.  In
