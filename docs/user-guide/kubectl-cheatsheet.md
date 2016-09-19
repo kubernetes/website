@@ -85,7 +85,7 @@ $ kubectl describe pods <rc-name>               # Lists pods created by <rc-name
 $ kubectl get services --sort-by=.metadata.name
 
 # List pods Sorted by Restart Count
-$ kubectl get pods --sort-by=.status.containerStatuses[0].restartCount
+$ kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
 # Get the version label of all pods with label app=cassandra
 $ kubectl get pods --selector=app=cassandra rc -o 'jsonpath={.items[*].metadata.labels.version}'
@@ -95,12 +95,13 @@ $ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="External
 
 # List Names of Pods that belong to Particular RC
 # "jq" command useful for transformations that are too complex for jsonpath
-$ sel=$(./kubectl get rc <rc-name> --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')
+$ sel=$(kubectl get rc <rc-name> --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')
 $ sel=${sel%?} # Remove trailing comma
-$ pods=$(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})`
+$ pods=$(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
+$ echo $pods
 
 # Check which nodes are ready
-$ kubectl get nodes -o jsonpath='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'| tr ';' "\n"  | grep "Ready=True" 
+$ kubectl get nodes -o jsonpath='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'| tr ';' "\n"  | grep "Ready=True"
 ```
 
 ## Modifying and Deleting Resources
@@ -122,6 +123,6 @@ $ kubectl run -i --tty busybox --image=busybox -- sh      # Run pod as interacti
 $ kubectl attach <podname> -i                             # Attach to Running Container
 $ kubectl port-forward <podname> <local-and-remote-port>  # Forward port of Pod to your local machine
 $ kubectl port-forward <servicename> <port>               # Forward port to service
-$ kubectl exec <pod-name> -- ls /                         # Run command in existing pod (1 container case) 
-$ kubectl exec <pod-name> -c <container-name> -- ls /     # Run command in existing pod (multi-container case) 
+$ kubectl exec <pod-name> -- ls /                         # Run command in existing pod (1 container case)
+$ kubectl exec <pod-name> -c <container-name> -- ls /     # Run command in existing pod (multi-container case)
 ```
