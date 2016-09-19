@@ -71,8 +71,6 @@ For each host in turn:
       # curl -s -L \
         "https://www.dropbox.com/s/n0ixps7aimj4paf/debs-65a843.txz?dl=1" | tar xJv -C .
       # dpkg -i debian/bin/*.deb
-      # # XXX https://github.com/kubernetes/release/issues/91
-      # systemctl enable kubelet && systemctl start kubelet
 
    If the machine is running Fedora 24, run:
 
