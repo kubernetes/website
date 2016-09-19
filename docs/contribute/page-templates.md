@@ -126,7 +126,6 @@ This page shows how to ...
 
 1. Do this.
 1. Do this next.
-{% endcapture %}
 
 ### Understanding the code
 Here's something interesting about the code you ran in the preceding steps.
