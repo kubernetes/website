@@ -188,8 +188,15 @@ some OAuth2 providers, notably Azure Active Directory, Salesforce, and Google.
 The protocol's main extension of OAuth2 is an additional field returned with
 the access token called an [ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken).
 This token is a JSON Web Token (JWT) with well known fields, such as a user's
-email, signed by the server. When used as a bearer token, the API server can
-verify ID token's signature and determine the end users identity.
+email, signed by the server.
+
+To identify the user, the authenticator uses the `id_token` (not the `access_token`)
+from the OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse)
+as a bearer token.
+
+```
+Authentication: Bearer (id_token)
+```
 
 To enable the plugin, pass the following required flags:
 
@@ -223,12 +230,12 @@ Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or [others](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
 Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak) or CloudFoundary [UAA](https://github.com/cloudfoundry/uaa).
 
-The provider needs to support [OpenID connect discovery]https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
+The provider needs to support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
 
 Setup instructions for specific systems:
 
-- [UAA]: http://apigee.com/about/blog/engineering/kubernetes-authentication-enterprise
-- [Dex]: https://speakerdeck.com/ericchiang/kubernetes-access-control-with-dex
+- [UAA](http://apigee.com/about/blog/engineering/kubernetes-authentication-enterprise)
+- [Dex](https://speakerdeck.com/ericchiang/kubernetes-access-control-with-dex)
 
 ### Webhook Token Authentication
 
