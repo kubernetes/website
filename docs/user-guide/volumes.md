@@ -370,7 +370,7 @@ writers simultaneously.
 __Important: You must have your own Ceph server running with the share exported
 before you can use it__
 
-See the [CephFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/cephfs/) for more details.
+See the [CephFS example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/cephfs/) for more details.
 
 ### gitRepo
 
