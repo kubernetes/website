@@ -823,7 +823,27 @@ Notes for setting up each cluster service are given below:
 
 ### Running validate-cluster
 
-**TODO** explain how to use `cluster/validate-cluster.sh`
+`cluster/validate-cluster.sh` is used by `cluster/kube-up.sh` to determine if
+the cluster start succeeded.
+
+Example usage and output:
+
+```shell
+KUBECTL_PATH=$(which kubectl) NUM_NODES=3 KUBERNETES_PROVIDER=local cluster/validate-cluster.sh
+Found 3 node(s).
+NAME                    STATUS    AGE
+node1.local             Ready     1h
+node2.local             Ready     1h
+node3.local             Ready     1h
+Validate output:
+NAME                 STATUS    MESSAGE              ERROR
+controller-manager   Healthy   ok
+scheduler            Healthy   ok
+etcd-1               Healthy   {"health": "true"}
+etcd-2               Healthy   {"health": "true"}
+etcd-0               Healthy   {"health": "true"}
+Cluster validation succeeded
+```
 
 ### Inspect pods and services
 
