@@ -40,7 +40,7 @@ That's all you will need to bootstrap a secure cluster!
 
 ## Installing Kubernetes
 
-### Installing kubelet and kubeadm on your hosts
+### (1/4) Installing kubelet and kubeadm on your hosts
 
 You will now install the following packages on all the machines:
 
@@ -93,7 +93,7 @@ The kubelet will now be restarting every few seconds, as it waits in a crashloop
 
 Optionally, see also [more details on installing Docker](https://docs.docker.com/engine/installation/#/on-linux).
 
-### Initializing your master
+### (2/4) Initializing your master
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 All of these components will run in containers started by `kubelet`.
@@ -138,7 +138,7 @@ The key included here is secret, keep it safe &mdash; anyone with this key will 
 
 The key is used for mutual authentication between the master and the joining nodes.
 
-### Joining your nodes
+### (3/4) Joining your nodes
 
 The nodes are where your containers (your workload) will run.
 To add a new machine as a node to your cluster, SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
@@ -147,24 +147,27 @@ For example:
     # kubeadm join --token f0c861.753c505740ecde4c 138.68.135.192
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
-Your cluster is now bootstrapped!
 
-But before you can deploy applications to it, you need to install a pod network.
+**YOUR CLUSTER IS NOT READY YET**
 
-### Installing a pod network
+Before you can deploy applications to it, you need to install a pod network.
 
-You must install a pod network add-on so that your pods can communicate with eachother on different hosts.
+### (4/4) Installing a pod network
+
+You must install a pod network add-on so that your pods can communicate with eachother when they are on different hosts.
 
 Several projects provide Kubernetes pod networks.
 A simple one with no infrastructure or database dependencies is Weave Net, which you can install by running, on the master:
 
     # kubectl apply -f https://git.io/weave-kube
 
+**You should run this on the master before you try to deploy any applications to your cluster.**
+
 You can learn more about Weave for Kubernetes on the project's [GitHub page](https://github.com/weaveworks/weave-kube).
 
 You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
 
-### Installing a sample application
+### (Optional) Installing a sample application
 
 As an example, you will now install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
@@ -221,7 +224,7 @@ See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, includi
 ## Limitations
 
 1. The cluster we create here won't have cloud-provider integrations, so for example won't work with (for example) [Load Balancers](/docs/user-guide/load-balancer/) (LBs) or [Persistent Volumes](/docs/user-guide/persistent-volumes/walkthrough/) (PVs).
-   
+
    Instead we will use the [NodePort feature of services](/docs/user-guide/services/) to demonstrate exposing the sample application on the internet.
    To easily obtain a cluster which works with LBs and PVs Kubernetes, try [the "hello world" GKE tutorial](/docs/hellonode) or [one of the other cloud-specific installation tutorials](/docs/getting-started-guides/).
 1. The cluster we create here will have a single master, with a single `etcd` database running on it.
