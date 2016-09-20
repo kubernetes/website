@@ -156,7 +156,7 @@ But before you can deploy applications to it, you need to install a pod network.
 You must install a pod network add-on so that your pods can communicate with eachother on different hosts.
 
 Several projects provide Kubernetes pod networks.
-A simple one with no infrastructure or database dependencies is Weave Net, which you can install with:
+A simple one with no infrastructure or database dependencies is Weave Net, which you can install by running, on the master:
 
     # kubectl apply -f https://git.io/weave-kube
 
