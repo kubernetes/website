@@ -76,7 +76,7 @@ For each host in turn:
 
    If the machine is running Fedora 24, CentOS 7 or RHEL 7, run:
 
-      # curl -sSL https://get.docker.com/ | sh
+      # # TODO 'curl -sSL https://get.docker.com/ | sh' as soon as @dgoodwin's packages refer to the new name
       # cat <<EOF > /etc/yum.repos.d/k8s.repo
       [kubelet]
       name=kubelet
