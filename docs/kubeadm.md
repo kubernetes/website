@@ -71,7 +71,7 @@ For each host in turn:
       # curl -s -L \
         "https://www.dropbox.com/s/shhs46bzhex7dxo/debs-9b4337.txz?dl=1" | tar xJv
       # dpkg -i debian/bin/*.deb
-      # # XXX Shouldn't be necessary, need to add this to the kubeadm configure step
+      # # XXX https://github.com/kubernetes/release/issues/98
       # systemctl daemon-reload && systemctl restart kubelet
 
    If the machine is running Fedora 24, run:
