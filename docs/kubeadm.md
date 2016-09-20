@@ -67,6 +67,7 @@ For each host in turn:
 * If the machine is running Ubuntu 16.04, run:
 
       # curl -sSL https://get.docker.com/ | sh
+      # # TODO better to set up the apt repo and then let the dependencies on the kubelet deb pull down the right version
       # apt-get install -y socat
       # curl -s -L \
         "https://www.dropbox.com/s/shhs46bzhex7dxo/debs-9b4337.txz?dl=1" | tar xJv
