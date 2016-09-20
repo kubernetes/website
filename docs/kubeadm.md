@@ -176,12 +176,23 @@ Here you will install the NodePort version of the Socks Shop, which doesn't depe
 You can then find out the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
     # kubectl describe svc front-end
-    ... XXX ...
+    root@ubuntu-2gb-lon1-01:~# kubectl describe svc front-end
+    Name:                   front-end
+    Namespace:              default
+    Labels:                 name=front-end
+    Selector:               name=front-end
+    Type:                   NodePort
+    IP:                     100.66.88.176
+    Port:                   <unset> 80/TCP
+    NodePort:               <unset> 31869/TCP
+    Endpoints:              <none>
+    Session Affinity:       None
 
 Then go to the IP address of your cluster's master node in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
+In the example above, this was `31869`, but it will be a different port for you.
 
-If there is a firewall, make sure it exposes the port to the internet before you try to access it.
+If there is a firewall, make sure it exposes this port to the internet before you try to access it.
 
 ### Explore other add-ons
 
