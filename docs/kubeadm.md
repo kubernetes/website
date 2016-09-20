@@ -85,6 +85,7 @@ For each host in turn:
       enabled=1
       gpgcheck=0
       EOF
+      # setenforce 0 # <- only temporary
       # yum install kubelet kubeadm kubectl kubernetes-cni
       # systemctl enable docker && systemctl start docker
       # systemctl enable kubelet && systemctl start kubelet
