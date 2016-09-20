@@ -130,7 +130,7 @@ The output should look like:
 
     You can connect any number of nodes by running:
 
-    kubeadm join --token f0c861.753c505740ecde4c 138.68.135.192
+    kubeadm join --token <token> <master-ip>
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs.
 You will need this in a moment.
@@ -141,10 +141,24 @@ The key is used for mutual authentication between the master and the joining nod
 ### (3/4) Joining your nodes
 
 The nodes are where your containers (your workload) will run.
-To add a new machine as a node to your cluster, SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
+If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
 For example:
 
-    # kubeadm join --token f0c861.753c505740ecde4c 138.68.135.192
+    # kubeadm join --token <token> <master-ip>
+    <util/tokens> validating provided token
+    <node/discovery> created cluster info discovery client, requesting info from "http://138.68.156.129:9898/cluster-info/v1/?token-id=0f8588"
+    <node/discovery> cluster info object received, verifying signature using given token
+    <node/discovery> cluster info signature and contents are valid, will use API endpoints [https://138.68.156.129:443]
+    <node/csr> created API client to obtain unique certificate for this node, generating keys and certificate signing request
+    <node/csr> received signed certificate from the API server, generating kubelet configuration
+    <util/kubeconfig> created "/etc/kubernetes/kubelet.conf"
+
+    Node join complete:
+    * Certificate signing request sent to master and response
+      received.
+    * Kubelet informed of new secure connection details.
+
+    Run 'kubectl get nodes' on the master to see this machine join.
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
