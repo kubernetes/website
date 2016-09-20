@@ -74,8 +74,9 @@ For each host in turn:
       # # XXX https://github.com/kubernetes/release/issues/98
       # systemctl daemon-reload && systemctl restart kubelet
 
-   If the machine is running Fedora 24, run:
+   If the machine is running Fedora 24, CentOS 7 or RHEL 7, run:
 
+      # curl -sSL https://get.docker.com/ | sh
       # cat <<EOF > /etc/yum.repos.d/k8s.repo
       [kubelet]
       name=kubelet
@@ -88,6 +89,8 @@ For each host in turn:
       # systemctl enable kubelet && systemctl start kubelet
 
 The kubelet will now be restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
+
+Optionally, see also [more details on installing Docker](https://docs.docker.com/engine/installation/#/on-linux).
 
 ### Initializing your master
 
