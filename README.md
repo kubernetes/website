@@ -152,6 +152,32 @@ http://kubernetes-v1-3.github.io/
 
 Editing of these branches will kick off a build using Travis CI that auto-updates these URLs; you can monitor the build progress at [https://travis-ci.org/kubernetes/kubernetes.github.io](https://travis-ci.org/kubernetes/kubernetes.github.io).
 
+## Config yaml guidelines
+
+Guidelines for config yamls that are included in the site docs. These
+are the yaml or json files that contain Kubernetes object
+configuration to be used with `kubectl create -f` Config yamls should
+be:
+
+* Separate deployable files, not embedded in the document, unless very
+  small variations of a full config.
+* Included in the doc with the include code
+  [above.](#include-code-from-another-file)
+* In the same directory as the doc that they are being used in
+  * If you are re-using a yaml from another doc, that is OK, just
+    leave it there, don't move it up to a higher level directory.
+* Tested in
+  [test/examples_test.go](https://github.com/kubernetes/kubernetes.github.io/blob/master/test/examples_test.go)
+* Follows
+  [best practices.](http://kubernetes.io/docs/user-guide/config-best-practices/)
+
+Don't assume the reader has this repository checked out, use `kubectl
+create -f https://github...` in example commands. For Docker images
+used in config yamls, try to use an image from an existing Kubernetes
+example. If creating an image for a doc, follow the
+[example guidelines](https://github.com/kubernetes/kubernetes/blob/master/examples/guidelines.md#throughout)
+section on "Docker images" from the Kubernetes repository.
+
 ## Partners
 Kubernetes partners refers to the companies who contribute to the Kubernetes core codebase and/or extend their platform to support Kubernetes. Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
 
