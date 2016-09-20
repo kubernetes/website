@@ -60,6 +60,8 @@ For each host in turn:
     EOF
     # apt-get update
     # apt-get install -y kubelet-kubeadm kubectl
+    # # OR
+    # apt-get install -y docker-engine=1.11.2-0~xenial socat
 -->
 
 
@@ -67,7 +69,6 @@ For each host in turn:
 * If the machine is running Ubuntu 16.04, run:
 
       # curl -sSL https://get.docker.com/ | sh
-      # # TODO better to set up the apt repo and then let the dependencies on the kubelet deb pull down the right version
       # apt-get install -y socat
       # curl -s -L \
         "https://www.dropbox.com/s/shhs46bzhex7dxo/debs-9b4337.txz?dl=1" | tar xJv
@@ -77,7 +78,6 @@ For each host in turn:
 
    If the machine is running Fedora 24, CentOS 7 or RHEL 7, run:
 
-      # # TODO 'curl -sSL https://get.docker.com/ | sh' as soon as @dgoodwin's packages refer to the new name
       # cat <<EOF > /etc/yum.repos.d/k8s.repo
       [kubelet]
       name=kubelet
@@ -85,7 +85,7 @@ For each host in turn:
       enabled=1
       gpgcheck=0
       EOF
-      # setenforce 0 # <- only temporary
+      # setenforce 0
       # yum install kubelet kubeadm kubectl kubernetes-cni
       # systemctl enable docker && systemctl start docker
       # systemctl enable kubelet && systemctl start kubelet
