@@ -176,7 +176,6 @@ Here you will install the NodePort version of the Socks Shop, which doesn't depe
 You can then find out the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
     # kubectl describe svc front-end
-    root@ubuntu-2gb-lon1-01:~# kubectl describe svc front-end
     Name:                   front-end
     Namespace:              default
     Labels:                 name=front-end
