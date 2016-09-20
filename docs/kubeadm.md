@@ -162,7 +162,7 @@ For example:
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
-**YOUR CLUSTER IS NOT READY YET**
+**YOUR CLUSTER IS NOT READY YET!**
 
 Before you can deploy applications to it, you need to install a pod network.
 
@@ -174,8 +174,11 @@ Several projects provide Kubernetes pod networks.
 A simple one with no infrastructure or database dependencies is Weave Net, which you can install by running, on the master:
 
     # kubectl apply -f https://git.io/weave-kube
+    daemonset "weave-net" created
 
 **You should run this on the master before you try to deploy any applications to your cluster.**
+
+Once the command has completed, a few seconds later you should see the `weave-net` pods and the `kube-dns` pod go into `Running` in the output of `kubectl get pods --all-namespaces`. **This signifies that your cluster is ready.**
 
 You can learn more about Weave for Kubernetes on the project's [GitHub page](https://github.com/weaveworks/weave-kube).
 
