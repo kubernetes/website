@@ -69,7 +69,7 @@ For each host in turn:
       # curl -sSL https://get.docker.com/ | sh
       # apt-get install -y socat
       # curl -s -L \
-        "https://www.dropbox.com/s/n0ixps7aimj4paf/debs-65a843.txz?dl=1" | tar xJv -C .
+        "https://www.dropbox.com/s/shhs46bzhex7dxo/debs-9b4337.txz?dl=1" | tar xJv
       # dpkg -i debian/bin/*.deb
       # # XXX Shouldn't be necessary, need to add this to the kubeadm configure step
       # systemctl daemon-reload && systemctl restart kubelet
@@ -83,7 +83,7 @@ For each host in turn:
       enabled=1
       gpgcheck=0
       EOF
-      # yum install kubelet kubeadm kubectl kubelet-plugin-cni
+      # yum install kubelet kubeadm kubectl kubernetes-cni
       # systemctl enable docker && systemctl start docker
       # systemctl enable kubelet && systemctl start kubelet
 
