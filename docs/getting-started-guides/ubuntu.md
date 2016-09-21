@@ -59,7 +59,7 @@ $ export ETCD_VERSION=2.2.0
 For users who want to bring up a cluster with k8s version v1.1.1, `controller manager` may fail to start
 due to [a known issue](https://github.com/kubernetes/kubernetes/issues/17109). You could raise it
 up manually by using following command on the remote master server. Note that
-you should do this only after `api-server` is up. Moreover this issue is fixed in v1.1.2 and later.
+you should do this only after `api-server` is up. Moreover, this issue is fixed in v1.1.2 and later.
 
 ```shell
 $ sudo service kube-controller-manager start
@@ -83,7 +83,7 @@ First configure the cluster information in cluster/ubuntu/config-default.sh, fol
 ```shell
 export nodes="vcap@10.10.103.250 vcap@10.10.103.162 vcap@10.10.103.223"
 
-export role="ai i i"
+export roles="ai i i"
 
 export NUM_NODES=${NUM_NODES:-3}
 
@@ -95,7 +95,7 @@ export FLANNEL_NET=172.16.0.0/16
 The first variable `nodes` defines all your cluster nodes, master node comes first and
 separated with blank space like `<user_1@ip_1> <user_2@ip_2> <user_3@ip_3> `
 
-Then the `role` variable defines the role of above machine in the same order, "ai" stands for machine
+Then the `roles` variable defines the roles of above machine in the same order, "ai" stands for machine
 acts as both master and node, "a" stands for master, "i" stands for node.
 
 The `NUM_NODES` variable defines the total number of nodes.
