@@ -16,7 +16,7 @@ So in order to easily switch between multiple clusters, for multiple users, a ku
 
 This file contains a series of authentication mechanisms and cluster connection information associated with nicknames.  It also introduces the concept of a tuple of authentication information (user) and cluster connection information called a context that is also associated with a nickname.
 
-Multiple kubeconfig files are allowed, if specified explicitly.  At runtime they are loaded and merged together along with override options specified from the command line (see [rules](#loading-and-merging) below).
+Multiple kubeconfig files are allowed, if specified explicitly.  At runtime they are loaded and merged along with override options specified from the command line (see [rules](#loading-and-merging) below).
 
 ## Related discussion
 
@@ -307,7 +307,7 @@ $ kubectl config use-context federal-context
 
 So, tying this all together, a quick start to creating your own kubeconfig file:
 
-- Take a good look and understand how you're api-server is being launched: You need to know YOUR security requirements and policies before you can design a kubeconfig file for convenient authentication.
+- Take a good look and understand how your api-server is being launched: You need to know YOUR security requirements and policies before you can design a kubeconfig file for convenient authentication.
 
 - Replace the snippet above with information for your cluster's api-server endpoint.
 
