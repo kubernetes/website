@@ -130,7 +130,7 @@ A pod must validate every field against the PSP.
 Here is an example Pod Security Policy. It has permissive settings for
 all fields
 
-{% include code.html language="yaml" file="sj.yaml" ghlink="/docs/user-guide/pod-security-policy/psp.yaml" %}
+{% include code.html language="yaml" file="psp.yaml" ghlink="/docs/user-guide/pod-security-policy/psp.yaml" %}
 
 Create the policy by downloading the example file and then running this command:
 
