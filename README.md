@@ -11,7 +11,7 @@ change the name of the fork to be:
 
     YOUR_GITHUB_USERNAME.github.io
 
-Then make your changes. 
+Then make your changes.
 
 When you visit [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io) you should see a special-to-you version of the site that contains the changes you just made.
 
@@ -21,11 +21,11 @@ Don't like installing stuff? Download and run a local staging server with a sing
 
     git clone https://github.com/kubernetes/kubernetes.github.io.git
     cd kubernetes.github.io
-    docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs
+    docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.0
 
 Then visit [http://localhost:4000](http://localhost:4000) to see our site. Any changes you make on your local machine will be automatically staged.
 
-If you're interested you can view [the Dockerfile for this image](https://gist.github.com/johndmulhausen/f8f0ab8d82d2c755af3a4709729e1859).
+If you're interested you can view [the Dockerfile for this image](https://github.com/kubernetes/kubernetes.github.io/blob/master/staging-container/Dockerfile).
 
 ## Staging the site locally (from scratch setup)
 
