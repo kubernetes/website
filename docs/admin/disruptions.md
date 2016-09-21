@@ -34,11 +34,13 @@ disruption budget to be violated.
 
 ## Specifying a PodDisruptionBudget
 
-A `PodDisruptionBudget` has two components: a selector to specify the set of
-pods, and a description of the minimum number of available pods for a disruption
-to be allowed.  The latter can be either an absolute number or a percentage.  In
-typical usage, a single budget would be used for a collection of pods managed by
-a controller—for example, the pods in a single ReplicaSet.
+Currently a `PodDisruptionBudget` has two components: a selector to specify the
+set of pods, and a description of the minimum number of available pods for a
+disruption to be allowed (i.e. an eviction will not be allowed if it will cause
+the number of available pods to fall below this threshold).  The latter can be
+either an absolute number or a percentage.  In typical usage, a single budget
+would be used for a collection of pods managed by a controller—for example, the
+pods in a single ReplicaSet.
 
 Note that a disruption budget does not truly guarantee that the specified
 number/percentage of pods will always be up.  For example, a node that hosts a
