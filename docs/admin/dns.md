@@ -41,7 +41,7 @@ Kubernetes installations. This required some minor
 (backward-compatible) changes to the way
 the Kubernetes cluster DNS server processes DNS queries, to facilitate
 the lookup of federated services (which span multiple Kubernetes clusters).
-See the [Cluster Federation Administrators' Guide](/docs/admin/federation/index.md) for more
+See the [Cluster Federation Administrators' Guide](/docs/admin/federation) for more
 details on Cluster Federation and multi-site support.
 
 ## References
