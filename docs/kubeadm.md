@@ -76,7 +76,7 @@ For each host in turn:
       # # XXX https://github.com/kubernetes/release/issues/98
       # systemctl daemon-reload && systemctl restart kubelet
 
-   If the machine is running Fedora 24, CentOS 7 or RHEL 7, run:
+   If the machine is running Fedora 24, run:
 
       # cat <<EOF > /etc/yum.repos.d/k8s.repo
       [kubelet]
