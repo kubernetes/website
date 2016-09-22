@@ -64,6 +64,9 @@ spec:
     role: db
  ingress:
   - from:
+     - namespaceSelector:
+       matchLabels:
+         project: myproject
      - podSelector:
         matchLabels:
          role: frontend
