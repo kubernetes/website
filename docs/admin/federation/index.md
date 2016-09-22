@@ -93,17 +93,16 @@ to the hyperkube image.
 
 ### Building and pushing images from HEAD
 
-To run the code from HEAD, you need to build and push your own images.
-Check out the
-[Kubernetes repository](https://github.com/kubernetes/kubernetes)
-and run the following commands from the root of the source directory.
-To build the binaries, run the following command:
+To build the binaries, check out the
+[Kubernetes repository](https://github.com/kubernetes/kubernetes) and
+run the following commands from the root of the source directory:
+
 
 ```shell
 $ federation/develop/develop.sh build_binaries
 ```
 
-To build the image and push it to the repository run:
+To build the image and push it to the repository, run:
 
 ```shell
 $ KUBE_REGISTRY="gcr.io/myrepository" federation/develop/develop.sh build_image
