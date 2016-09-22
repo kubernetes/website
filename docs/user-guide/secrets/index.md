@@ -291,7 +291,7 @@ For example, you can specify a default mode like this:
       "name": "foo",
       "secret": {
         "secretName": "mysecret",
-        "defaultMode": 0400
+        "defaultMode": 256
       }
     }]
   }
@@ -300,6 +300,10 @@ For example, you can specify a default mode like this:
 
 Then, the secret will be mounted on `/etc/foo` and all the files created by the
 secret volume mount will have permission `0400`.
+
+Note that the JSON spec doesn't support octal notation, so use the value 256 for
+0400 permissions. If you use yaml instead of json for the pod, you can use octal
+notation to specify permissions in a more natural way.
 
 You can also use mapping, as in the previous example, and specify different
 permission for different files like this:
@@ -328,7 +332,7 @@ permission for different files like this:
         "items": [{
           "key": "username",
           "path": "my-group/my-username",
-          "mode": 0777
+          "mode": 511
         }]
       }
     }]
@@ -337,7 +341,8 @@ permission for different files like this:
 ```
 
 In this case, the file resulting in `/etc/foo/my-group/my-username` will have
-permission `0777`.
+permission value of `0777`. Owing to JSON limitations, you must specify the mode
+in decimal notation.
 
 **Consuming Secret Values from Volumes**
 
