@@ -37,14 +37,14 @@ git fetch upstream
 git reset --hard upstream/docsv2
 ```
 
-### Step 3: Make sure you can serve rendered docs 
+### Step 3: Make sure you can serve rendered docs
 
 One option is to simply rename your fork's repo on GitHub.com to `yourusername.github.io`, which will auto-stage your commits at that URL. 
 
 Or, just use Docker! Run this from within your local `kubernetes.github.io` directory and you should be good:
 
 ```shell
-docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs
+docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.0
 ```
 
 The site will then be viewable at [http://localhost:4000/](http://localhost:4000/).
