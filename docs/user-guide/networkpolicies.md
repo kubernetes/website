@@ -66,7 +66,7 @@ spec:
  ingress:
   - from:
      - namespaceSelector:
-       matchLabels:
+        matchLabels:
          project: myproject
      - podSelector:
         matchLabels:
