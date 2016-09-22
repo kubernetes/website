@@ -56,6 +56,7 @@ A minimal `NetworkPolicy` might look like this:
 ```yaml
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
+namespace: default
 metadata:
  name: test-network-policy
 spec:
@@ -87,6 +88,6 @@ __ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules. 
 
 In plain language, this example NetworkPolicy:
 
-1. applies to all pods in the current (???) namespace with the label "role=db"
+1. applies to all pods in the default namespace with the label "role=db"
 2. allows tcp/6379 ingress traffic to the "role=db" pods from any pod in the current namespace with the label "role=frontend" (due to the podSelector list element)
 3. allows tcp/6379 ingress traffic to the "role=db" pods from any pod in the namespace "myproject" (due to the namespaceSelector list element)
