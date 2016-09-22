@@ -84,3 +84,9 @@ __spec__: `NetworkPolicy` [spec](https://github.com/kubernetes/kubernetes/tree/{
 __podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the `ingress` rules in the policy apply.
 
 __ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections.
+
+In plain language, this example NetworkPolicy:
+
+1. applies to all pods in the current (???) namespace with the label "role=db"
+2. allows tcp/6379 ingress traffic to the "role=db" pods from any pod in the current namespace with the label "role=frontend" (due to the podSelector list element)
+3. allows tcp/6379 ingress traffic to the "role=db" pods from any pod in the namespace "myproject" (due to the namespaceSelector list element)
