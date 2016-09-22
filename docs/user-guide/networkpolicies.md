@@ -56,9 +56,9 @@ A minimal `NetworkPolicy` might look like this:
 ```yaml
 apiVersion: extensions/v1beta1
 kind: NetworkPolicy
-namespace: default
 metadata:
  name: test-network-policy
+ namespace: default
 spec:
  podSelector:
   matchLabels:
