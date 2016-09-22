@@ -64,10 +64,10 @@ If you run into trouble, please see the section on [troubleshooting](/docs/getti
 
 The next few steps will show you:
 
-1. how to set up the command line client on your workstation to manage the cluster
-1. examples of how to use the cluster
-1. how to delete the cluster
-1. how to start clusters with non-default options (like larger clusters)
+1. How to set up the command line client on your workstation to manage the cluster
+1. Examples of how to use the cluster
+1. How to delete the cluster
+1. How to start clusters with non-default options (like larger clusters)
 
 ### Installing the Kubernetes command line tools on your workstation
 
