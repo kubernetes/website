@@ -68,13 +68,10 @@ For each host in turn:
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
 * If the machine is running Ubuntu 16.04, run:
 
-      # curl -sSL https://get.docker.com/ | sh
-      # apt-get install -y socat
+      # apt-get install -y docker.io socat
       # curl -s -L \
-        "https://www.dropbox.com/s/shhs46bzhex7dxo/debs-9b4337.txz?dl=1" | tar xJv
+        "https://www.dropbox.com/s/tso6dc7b94ch2sk/debs-5ab576.txz?dl=1" | tar xJv
       # dpkg -i debian/bin/*.deb
-      # # XXX https://github.com/kubernetes/release/issues/98
-      # systemctl daemon-reload && systemctl restart kubelet
 
    If the machine is running Fedora 24, run:
 
@@ -85,8 +82,7 @@ For each host in turn:
       enabled=1
       gpgcheck=0
       EOF
-      # setenforce 0
-      # yum install kubelet kubeadm kubectl kubernetes-cni
+      # yum install docker kubelet kubeadm kubectl kubernetes-cni
       # systemctl enable docker && systemctl start docker
       # systemctl enable kubelet && systemctl start kubelet
 
