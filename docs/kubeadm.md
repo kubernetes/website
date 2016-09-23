@@ -152,7 +152,7 @@ Before you can deploy applications to it, you need to install a pod network.
 ### (4/4) Installing a pod network
 
 You must install a pod network add-on so that your pods can communicate with each other when they are on different hosts.
-**You must do this before you try to deploy any applications to your cluster.**
+**It is necessary to do this before you try to deploy any applications to your cluster.**
 
 Several projects provide Kubernetes pod networks.
 You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
