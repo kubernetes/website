@@ -164,8 +164,7 @@ You can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging
 
 If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), please refer to their respective installation guides.
 
-Once a pod network command has run, a few seconds later you should see the `kube-dns` pod go into `Running` in the output of `kubectl get pods --all-namespaces`.
-
+Once a pod network has been installed, you can confirm that it is working by checking that the `kube-dns` pod is `Running` in the output of `kubectl get pods --all-namespaces`.
 **This signifies that your cluster is ready.**
 
 ### (Optional) Installing a sample application
