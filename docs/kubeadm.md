@@ -76,8 +76,6 @@ For each host in turn:
 
 The kubelet will now be restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
-Optionally, see also [more details on installing Docker](https://docs.docker.com/engine/installation/#/on-linux).
-
 ### (2/4) Initializing your master
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
