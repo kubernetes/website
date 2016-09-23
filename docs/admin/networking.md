@@ -197,6 +197,13 @@ Calico can also be run in policy enforcement mode in conjunction with other netw
 
 [Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](http://contiv.io) is all open sourced.
 
+
+### Nuage Networks VSP (Virtualized Services Platform)
+
+[Nuage](www.nuagenetworks.net) provides a highly scalable policy-based Software-Defined Networking (SDN) platform. Nuage uses the open source Open vSwitch for the data plane along with a feature rich SDN Controller built on open standards.
+
+The Nuage platform uses overlays to provide seamless policy-based networking between Kubernetes Pods and non-Kubernetes environments (VMs and bare metal servers). Nuage’s policy abstraction model is designed with applications in mind and makes it easy to declare fine-grained policies for applications.The platform’s real-time analytics engine enables visibility and security monitoring for Kubernetes applications.
+
 ## Other reading
 
 The early design of the networking model and its rationale, and some future
