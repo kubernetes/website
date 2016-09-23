@@ -152,22 +152,19 @@ Before you can deploy applications to it, you need to install a pod network.
 ### (4/4) Installing a pod network
 
 You must install a pod network add-on so that your pods can communicate with each other when they are on different hosts.
+**You must do this before you try to deploy any applications to your cluster.**
 
 Several projects provide Kubernetes pod networks.
 You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
 
-By way of example, you can install Weave Net by running on the master:
+By way of example, you can install Weave Net by running, on the master:
 
     # kubectl apply -f https://git.io/weave-kube
     daemonset "weave-net" created
 
-**You should install a pod network on the master before you try to deploy any applications to your cluster.**
-
 Once a pod network command has installed, a few seconds later you should see the `kube-dns` pod go into `Running` in the output of `kubectl get pods --all-namespaces`.
 
 **This signifies that your cluster is ready.**
-
-You can learn more about other available pod networks on the [add-ons page](/docs/admin/addons/).
 
 ### (Optional) Installing a sample application
 
