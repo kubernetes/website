@@ -157,12 +157,14 @@ You must install a pod network add-on so that your pods can communicate with eac
 Several projects provide Kubernetes pod networks.
 You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
 
-By way of example, you can install Weave Net by running, on the master:
+You can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
 
     # kubectl apply -f https://git.io/weave-kube
     daemonset "weave-net" created
 
-Once a pod network command has installed, a few seconds later you should see the `kube-dns` pod go into `Running` in the output of `kubectl get pods --all-namespaces`.
+If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), please refer to their respective installation guides.
+
+Once a pod network command has run, a few seconds later you should see the `kube-dns` pod go into `Running` in the output of `kubectl get pods --all-namespaces`.
 
 **This signifies that your cluster is ready.**
 
@@ -171,9 +173,8 @@ Once a pod network command has installed, a few seconds later you should see the
 As an example, you will now install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
 
-Here you will install the NodePort version of the Socks Shop, which doesn't depend on Load Balancer integration, since our cluster doesn't have that:
-
-    # kubectl apply -f https://raw.githubusercontent.com/lukemarsden/microservices-demo/master/deploy/kubernetes/definitions/wholeWeaveDemo-NodePort.yaml
+    # git clone https://github.com/microservices-demo/microservices-demo
+    # kubectl apply -f microservices-demo/deploy/kubernetes/manifests
 
 You can then find out the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
