@@ -7,7 +7,7 @@ li>.highlighter-rouge {position:relative; top:3px;}
 
 ## Overview
 
-This quickstart will show you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04 or CentOS 7, using a tool called `kubeadm` which is part of Kubernetes.
+This quickstart shows you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04 or CentOS 7, using a tool called `kubeadm` which is part of Kubernetes.
 
 This process should work with local VMs, physical servers and/or cloud servers.
 It is intended to be simple enough that you can easily integrate its use into your own automation (Terraform, Chef, Puppet, etc).
@@ -30,7 +30,7 @@ It is intended to be simple enough that you can easily integrate its use into yo
 
 ### (1/4) Installing kubelet and kubeadm on your hosts
 
-You will now install the following packages on all the machines:
+You will install the following packages on all the machines:
 
 * `docker`: the container runtime, which Kubernetes depends on.
 * `kubelet`: the most core component of Kubernetes.
@@ -74,12 +74,12 @@ For each host in turn:
       # systemctl enable docker && systemctl start docker
       # systemctl enable kubelet && systemctl start kubelet
 
-The kubelet will now be restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
+The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
 ### (2/4) Initializing your master
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
-All of these components will run in pods started by `kubelet`.
+All of these components run in pods started by `kubelet`.
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
@@ -117,13 +117,13 @@ The output should look like:
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs.
 You will need this in a moment.
-The key included here is secret, keep it safe &mdash; anyone with this key will be able to add authenticated nodes to your cluster.
+The key included here is secret, keep it safe &mdash; anyone with this key can add authenticated nodes to your cluster.
 
 The key is used for mutual authentication between the master and the joining nodes.
 
 ### (3/4) Joining your nodes
 
-The nodes are where your workloads (containers and pods, etc) will run.
+The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
 For example:
 
@@ -170,7 +170,7 @@ Once a pod network has been installed, you can confirm that it is working by che
 
 ### (Optional) Installing a sample application
 
-As an example, you will now install a sample microservices application, a socks shop, to put your cluster through its paces.
+As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
 
     # git clone https://github.com/microservices-demo/microservices-demo
@@ -190,11 +190,11 @@ You can then find out the port that the [NodePort feature of services](/docs/use
     Endpoints:              <none>
     Session Affinity:       None
 
-It will take several minutes to download and start all the containers, watch the output of `kubectl get pods` to see when they're all up and running.
+It takes several minutes to download and start all the containers, watch the output of `kubectl get pods` to see when they're all up and running.
 
 Then go to the IP address of your cluster's master node in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
-In the example above, this was `31869`, but it will be a different port for you.
+In the example above, this was `31869`, but it is a different port for you.
 
 If there is a firewall, make sure it exposes this port to the internet before you try to access it.
 
@@ -229,8 +229,8 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
    To easily obtain a cluster which works with LBs and PVs Kubernetes, try [the "hello world" GKE tutorial](/docs/hellonode) or [one of the other cloud-specific installation tutorials](/docs/getting-started-guides/).
 
    Workaround: use the [NodePort feature of services](/docs/user-guide/services/#type-nodeport) to demonstrate exposing the sample application on the internet.
-1. The cluster created here will have a single master, with a single `etcd` database running on it.
-   This means that if the master fails, your cluster will lose its configuration data and will need to be recreated from scratch.
+1. The cluster created here has a single master, with a single `etcd` database running on it.
+   This means that if the master fails, your cluster loses its configuration data and will need to be recreated from scratch.
    Adding HA support (multiple `etcd` servers, multiple API servers, etc) to `kubeadm` is still a work-in-progress.
 
    Workaround: regularly [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html).
