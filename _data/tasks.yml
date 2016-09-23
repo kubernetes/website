@@ -1,0 +1,13 @@
+bigheader: "Tasks"
+toc:
+- title: Tasks
+  path: /docs/tasks/
+- title: Accessing Applications in a Cluster
+  section:
+  - title: Using Port Forwarding to Access Applications in a Cluster
+    path: /docs/tasks/access-application-cluster/port-forward-access-application-cluster/
+- title: Accessing the Kubernetes API
+  section:
+  - title: Using an HTTP Proxy to Access the Kubernetes API
+    path: /docs/tasks/access-kubernetes-api/http-proxy-access-api/
+

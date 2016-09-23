@@ -1,0 +1,60 @@
+bigheader: "Tutorials"
+toc:
+- title: Tutorials
+  path: /docs/tutorials/
+- title: Getting Started
+  section:
+  - title: 1. Create a Cluster
+    section:
+    - title: Creating a Cluster
+      path: /docs/tutorials/getting-started/create-cluster/
+    - title: Using Minikube to Create a Cluster
+      path: /docs/tutorials/getting-started/cluster-intro/
+    - title: Interactive Tutorial - Creating a Cluster
+      path: /docs/tutorials/getting-started/cluster-interactive/
+  - title: 2. Deploy an App
+    section:
+    - title: Deploying an App
+      path: /docs/tutorials/getting-started/deploy-app/
+    - title: Using kubectl to Create a Deployment
+      path: /docs/tutorials/getting-started/deploy-intro/
+    - title: Interactive Tutorial - Deploying an App
+      path: /docs/tutorials/getting-started/deploy-interactive/
+  - title: 3. Explore Your App
+    section:
+    - title: Exploring Your App
+      path: /docs/tutorials/getting-started/explore-app/
+    - title: Viewing Pods and Nodes
+      path: /docs/tutorials/getting-started/explore-intro/
+    - title: Interactive Tutorial - Exploring Your App
+      path: /docs/tutorials/getting-started/explore-interactive/
+  - title: 4. Expose Your App Publicly
+    section:
+    - title: Exposing Your App Publicly
+      path: /docs/tutorials/getting-started/expose-app/
+    - title: Using a Service to Expose Your App
+      path: /docs/tutorials/getting-started/expose-intro/
+    - title: Interactive Tutorial - Exposing Your App
+      path: /docs/tutorials/getting-started/expose-interactive/
+  - title: 5. Scale Your App
+    section:
+    - title: Scaling Your App
+      path: /docs/tutorials/getting-started/scale-app/
+    - title: Running Multiple Instances of Your App
+      path: /docs/tutorials/getting-started/scale-intro/
+    - title: Interactive Tutorial - Scaling Your App
+      path: /docs/tutorials/getting-started/scale-interactive/
+  - title: 6. Update Your App
+    section:
+    - title: Updating Your App
+      path: /docs/tutorials/getting-started/update-app/
+    - title: Performing a Rolling Update
+      path: /docs/tutorials/getting-started/update-intro/
+    - title: Interactive Tutorial - Updating Your App
+      path: /docs/tutorials/getting-started/update-interactive/
+- title: Stateless Applications
+  section:
+  - title: Running a Stateless Application Using a Deployment
+    path: /docs/tutorials/stateless-application/run-stateless-application-deployment/
+  - title: Exposing an External IP Address Using a Service
+    path: /docs/tutorials/stateless-application/expose-external-ip-address-service/

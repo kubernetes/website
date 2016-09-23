@@ -42,7 +42,7 @@ kubectl get pod <name>
 
 | Return Value | Description |
 |--------------|-------------|
-| `READY` | Describes the number of containers that are ready to recieve traffic. |
+| `READY` | Describes the number of containers that are ready to receive traffic. |
 | `STATUS` | A value from the `PodPhase` enum describing the current status of the pod. Can be `Running`, `Pending`, `Succeeded`, `Failed`, and `Unknown`. |
 
 TODO: Link to refpage for `kubectl get pod`
