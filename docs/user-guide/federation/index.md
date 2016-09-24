@@ -34,11 +34,13 @@ and cloud providers.
 
 Once we have the control plane setup, we can start creating federation API
 resources.
-Following guides explain some of the resources in detail:
+The following guides explain some of the resources in detail:
 
-* [Services](/docs/user-guide/federation/federated-services/)
 * [Events](/docs/user-guide/federation/events/)
 * [Namespaces](/docs/user-guide/federation/namespaces/)
+* [ReplicaSets](/docs/user-guide/federation/replicasets/)
+* [Secrets](/docs/user-guide/federation/secrets/)
+* [Services](/docs/user-guide/federation/federated-services/)
 <!-- TODO: Add more guides here -->
 
 [API reference docs](/federation/docs/api-reference/readme/) lists all the
