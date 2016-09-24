@@ -480,7 +480,7 @@ start until all the pod's volumes are mounted.
 Create a secret containing some ssh keys:
 
 ```shell
-$ kubectl create secret generic my-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
+$ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
 **Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to have accessible to all the users with whom you share the kubernetes cluster, and can revoke if they are compromised.
