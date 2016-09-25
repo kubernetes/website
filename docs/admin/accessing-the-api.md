@@ -53,7 +53,9 @@ If the request cannot be authenticated, it is rejected with HTTP status code 401
 Otherwise, the user is authenticated as a specific `username`, and the user name
 is available to subsequent steps to use in their decisions.  Some authenticators
 may also provide the group memberships of the user, while other authenticators
-do not (and expect the authorizer to determine these).
+do not; an authorizer may determine as well as use groups (or any other
+auxiliary concepts), as a private detail of that authorizer (none of the standard
+authorizers determines groups).
 
 While Kubernetes uses "usernames" for access control decisions and in request logging,
 it does not have a `user` object nor does it store usernames or other information about
