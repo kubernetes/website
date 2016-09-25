@@ -33,7 +33,9 @@ plane, must authenticate when making requests to the the API server.
 ## Authentication strategies
 
 Kubernetes uses client certificates, bearer tokens, or HTTP basic auth to
-authenticate API requests through authentication plugins. As HTTP request are
+authenticate API requests through authentication plugins. A bearer token
+must be something that can be included in an HTTP header value without any
+more quoting or encoding than defined in HTTP.  As HTTP request are
 made to the API server plugins attempts to associate the following attributes
 with the request:
 
