@@ -59,13 +59,13 @@ The first step is to write the application. Save this code in a folder called "`
 #### server.js
 
 ```javascript
-var http = require('http');
-var handleRequest = function(request, response) {
+const http = require('http');
+const handleRequest = (request, response) => {
   console.log('Received request for URL: ' + request.url);
   response.writeHead(200);
   response.end('Hello World!');
 };
-var www = http.createServer(handleRequest);
+const www = http.createServer(handleRequest);
 www.listen(8080);
 ```
 
@@ -88,7 +88,7 @@ Next, create a file, also within `hellonode/` named `Dockerfile`. A Dockerfile d
 #### Dockerfile
 
 ```conf
-FROM node:4.4
+FROM node:4.5
 EXPOSE 8080
 COPY server.js .
 CMD node server.js
