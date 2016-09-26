@@ -132,7 +132,12 @@ var kub = (function () {
 			}
 
 			case 'home':
+			// case 'caseStudies':
 				bodyHeight = windowHeight;
+				break;
+			
+			case 'caseStudies':
+				bodyHeight = windowHeight * 2;
 				break;
 
 			default: {
