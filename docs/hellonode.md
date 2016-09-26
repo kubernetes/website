@@ -117,7 +117,7 @@ curl http://localhost:8080
 
 You should see `Hello World!`
 
-**Note:** *If you recieve a `Connection refused` message from Docker for Mac, ensure you are using the latest version of Docker (1.12 or later). Alternatively, if you are using Docker Toolbox on OSX, make sure you are using the VM's IP and not localhost:*
+**Note:** *If you receive a `Connection refused` message from Docker for Mac, ensure you are using the latest version of Docker (1.12 or later). Alternatively, if you are using Docker Toolbox on OSX, make sure you are using the VM's IP and not localhost:*
 
 ```shell
 curl "http://$(docker-machine ip YOUR-VM-MACHINE-NAME):8080"
