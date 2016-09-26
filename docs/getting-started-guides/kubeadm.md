@@ -59,8 +59,8 @@ For each host in turn:
 
       # apt-get install -y docker.io socat
       # curl -s -L \
-        "https://www.dropbox.com/s/tso6dc7b94ch2sk/debs-5ab576.txz?dl=1" | tar xJv
-      # dpkg -i debian/bin/unstable/xenial/*.deb
+        https://storage.googleapis.com/kubeadm/kubernetes-xenial-preview-bundle.txz | tar xJv
+      # dpkg -i kubernetes-xenial-preview-bundle/*.deb
 
    If the machine is running CentOS 7, run:
 
@@ -84,13 +84,7 @@ All of these components run in pods started by `kubelet`.
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
-* If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
-
-      # kubeadm init --schedule-pods-here
-
-* If you do not want to be able to schedule pods on the master (perhaps for security reasons), run:
-
-      # kubeadm init
+     # kubeadm init
 
 This will download and install the cluster database and "control plane" components.
 This may take several minutes.
@@ -121,6 +115,13 @@ You will need this in a moment.
 The key included here is secret, keep it safe &mdash; anyone with this key can add authenticated nodes to your cluster.
 
 The key is used for mutual authentication between the master and the joining nodes.
+
+By default, your cluster will not schedule pods on the master for security reasons.
+If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
+
+    # kubectl taint master-node -dedicated
+
+This will remove the "dedicated" taint from the master node, meaning that the scheduler will then be able to schedule pods there.
 
 ### (3/4) Joining your nodes
 
