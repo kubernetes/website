@@ -84,7 +84,7 @@ h2, h3, h4 {
   <div class="col3rd">
     <h3>Installing Kubernetes Easily on Linux</h3>
     <p>This quickstart will show you how to install a secure Kubernetes cluster on any computers running Linux, using a tool called <code>kubeadm</code> which is part of Kubernetes. It'll work with local VMs, physical servers and/or cloud servers, either manually or as part of your own automation. It is currently in alpha but please try it out and give us feedback!</p>
-    <a href="/docs/kubeadm/" class="button">Install Kubernetes Easily</a>
+    <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes Easily</a>
   </div>
   <div class="col3rd">
     <h3>Guided Tutorial</h3>

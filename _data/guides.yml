@@ -9,7 +9,7 @@ toc:
   - title: What is Kubernetes?
     path: /docs/whatisk8s/
   - title: Installing Kubernetes Easily on Linux
-    path: /docs/kubeadm/
+    path: /docs/getting-started-guides/kubeadm/
   - title: Hello World on Google Container Engine
     path: /docs/hellonode/
   - title: Downloading or Building Kubernetes
