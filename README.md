@@ -67,7 +67,7 @@ Your copy of the site will then be viewable at: [http://localhost:4000](http://l
 
 ## GitHub help
 
-If you're a bit rusty with git/GitHub, you might wanna read
+If you're a bit rusty with git/GitHub, you might want to read
 [this](http://readwrite.com/2013/10/02/github-for-beginners-part-2) for a refresher.
 
 ## Common Tasks
