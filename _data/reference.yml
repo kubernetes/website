@@ -252,17 +252,16 @@ toc:
   section:
   - title: Federation User guide
     path: /docs/user-guide/federation/
-    section:
-      - title: Federated Events
-        path: /docs/user-guide/federation/events/
-      - title: Federated Ingress
-        path: /docs/user-guide/federation/federated-ingress/
-      - title: Federated Namespaces
-        path: /docs/user-guide/federation/namespaces/
-      - title: Federated ReplicaSets
-        path: /docs/user-guide/federation/replicasets/
-      - title: Federated Secrets
-        path: /docs/user-guide/federation/secrets
+  - title: Federated Events
+    path: /docs/user-guide/federation/events/
+  - title: Federated Ingress
+    path: /docs/user-guide/federation/federated-ingress/
+  - title: Federated Namespaces
+    path: /docs/user-guide/federation/namespaces/
+  - title: Federated ReplicaSets
+    path: /docs/user-guide/federation/replicasets/
+  - title: Federated Secrets
+    path: /docs/user-guide/federation/secrets/
   - title: Federation API
     path: /docs/federation/api-reference/README/
   - title: Federation Components
