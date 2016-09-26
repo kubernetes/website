@@ -18,10 +18,10 @@ principal examples today are draining a node for maintenance or upgrade
 (`kubectl drain`), and cluster autoscaling down. In the future the
 [rescheduler](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/rescheduling.md)
 may also perform voluntary evictions.  By contrast, something like evicting pods
-because a node has become unreachable or reports NotReady, is not "voluntary."
+because a node has become unreachable or reports `NotReady`, is not "voluntary."
 
 For voluntary evictions, it can be useful for applications to be able to limit
-the number of pods that are down.  For example, a quorum-based application would
+the number of pods that are down simultaneously.  For example, a quorum-based application would
 like to ensure that the number of replicas running is never brought below the
 number needed for a quorum, even temporarily. Or a web front end might want to
 ensure that the number of replicas serving load never falls below a certain
@@ -34,9 +34,11 @@ disruption budget to be violated.
 
 ## Specifying a PodDisruptionBudget
 
-A `PodDisruptionBudget` has two components: a selector to specify the set of
-pods, and a description of the minimum number of available pods for a disruption
-to be allowed.  The latter can be either an absolute number or a percentage.  In
+A `PodDisruptionBudget` has two components: a label selector `selector` to specify the set of
+pods to which it applies, and `minAvailable` which is a description of the number of pods from that
+set that must still be available after the eviction, i.e. even in the absence
+of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
+So for example, 100% means no voluntary evictions from the set are permitted. In
 typical usage, a single budget would be used for a collection of pods managed by
 a controller—for example, the pods in a single ReplicaSet.
 
@@ -79,7 +81,7 @@ The API can respond in one of three ways.
  2. If the current state of affairs wouldn't allow an eviction by the rules set
     forth in the budget, you get back `429 Too Many Requests`.  This is
     typically used for generic rate limiting of *any* requests, but here we mean
-    that this request isn't allowed *right now*, but it may be allowed later.
+    that this request isn't allowed *right now* but it may be allowed later.
     Currently, callers do not get any `Retry-After` advice, but they may in
     future versions.
  3. If there is some kind of misconfiguration, like multiple budgets pointing at
@@ -89,5 +91,5 @@ For a given eviction request, there are two cases.
 
  1. There is no budget that matches this pod.  In this case, the server always
     returns `200 OK`.
- 2. There is at least one budget.  In this case, any of the three responses may
+ 2. There is at least one budget.  In this case, any of the three above responses may
     apply.
