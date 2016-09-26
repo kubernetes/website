@@ -157,7 +157,7 @@ parallelism, for a variety or reasons:
   remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.
 - For work queue jobs, no new pods are started after any pod has succeeded -- remaining pods are allowed to complete, however.
 - If the controller has not had time to react.
-- If the controller failed to create pods for any reason (lack of ResourceQuota, lack of permission, etc),
+- If the controller failed to create pods for any reason (lack of ResourceQuota, lack of permission, etc.),
   then there may be fewer pods than requested.
 - The controller may throttle new pod creation due to excessive previous pod failures in the same Job.
 - When a pod is gracefully shutdown, it make take time to stop.
