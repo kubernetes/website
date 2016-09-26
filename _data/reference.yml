@@ -250,7 +250,7 @@ toc:
 
 - title: Federation
   section:
-  - title: Federation User guide
+  - title: Federation User Guide
     path: /docs/user-guide/federation/
   - title: Federated Events
     path: /docs/user-guide/federation/events/
