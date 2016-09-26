@@ -4,6 +4,11 @@ toc:
 - title: Support
   path: /docs/troubleshooting/
 
+- title: Contributing to the Kubernetes Docs
+  section:
+  - title: Using Page Templates
+    path: /docs/contribute/page-templates/
+
 - title: Troubleshooting
   section:
   - title: Debugging Pods and Replication Controllers

@@ -57,6 +57,7 @@ on how flags are set on various components.
 
 ### Network
 
+#### Network Connectivity
 Kubernetes has a distinctive [networking model](/docs/admin/networking).
 
 Kubernetes allocates an IP address to each pod.  When creating a cluster, you
@@ -66,23 +67,35 @@ the node is added.  A process in one pod should be able to communicate with
 another pod using the IP of the second pod.  This connectivity can be
 accomplished in two ways:
 
-- Configure network to route Pod IPs
-  - Harder to setup from scratch.
-  - Google Compute Engine ([GCE](/docs/getting-started-guides/gce)) and [AWS](/docs/getting-started-guides/aws) guides use this approach.
-  - Need to make the Pod IPs routable by programming routers, switches, etc.
-  - Can be configured external to Kubernetes, or can implement in the "Routes" interface of a Cloud Provider module.
-  - Generally highest performance.
-- Create an Overlay network
-  - Easier to setup
-  - Traffic is encapsulated, so per-pod IPs are routable.
-  - Examples:
+- **Using an overlay network**
+  - An overlay network obscures the underlying network architecture from the 
+    pod network through traffic encapsulation (e.g vxlan).
+  - Encapsulation reduces performance, though exactly how much depends on your solution.
+- **Without an overlay network**
+  - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
+  - This does not require the encapsulation provided by an overlay, and so can achieve 
+    better performance.
+
+Which method you choose depends on your environment and requirements.  There are various ways 
+to implement one of the above options: 
+
+- **Use a network plugin which is called by Kubernetes**
+  - Kubernetes supports the [CNI](https://github.com/containernetworking/cni) network plugin interface.
+  - There are a number of solutions which provide plugins for Kubernetes: 
     - [Flannel](https://github.com/coreos/flannel)
+    - [Calico](http://https://github.com/projectcalico/calico-containers)
     - [Weave](http://weave.works/)
     - [Open vSwitch (OVS)](http://openvswitch.org/)
-  - Does not require "Routes" portion of Cloud Provider module.
-  - Reduced performance (exactly how much depends on your solution).
+    - [More found here](/docs/admin/networking#how-to-achieve-this)
+  - You can also write your own.
+- **Compile support directly into Kubernetes**
+  - This can be done by implementing the "Routes" interface of a Cloud Provider module.
+  - The Google Compute Engine ([GCE](/docs/getting-started-guides/gce)) and [AWS](/docs/getting-started-guides/aws) guides use this approach.
+- **Configure the network external to Kubernetes**
+  - This can be done by manually running commands, or through a set of externally maintained scripts.
+  - You have to implement this yourself, but it can give you an extra degree of flexibility.
 
-You need to select an address range for the Pod IPs.
+You will need to select an address range for the Pod IPs. Note that IPv6 is not yet supported for Pod IPs.
 
 - Various approaches:
   - GCE: each project has its own `10.0.0.0/8`.  Carve off a `/16` for each
@@ -90,10 +103,8 @@ You need to select an address range for the Pod IPs.
     Each node gets a further subdivision of this space.
   - AWS: use one VPC for whole organization, carve off a chunk for each
     cluster, or use different VPC for different clusters.
-  - IPv6 is not supported yet.
 - Allocate one CIDR subnet for each node's PodIPs, or a single large CIDR
-  from which smaller CIDRs are automatically allocated to each node (if nodes
-  are dynamically added).
+  from which smaller CIDRs are automatically allocated to each node.
   - You need max-pods-per-node * max-number-of-nodes IPs in total. A `/24` per
     node supports 254 pods per machine and is a common choice.  If IPs are
     scarce, a `/26` (62 pods per machine) or even a `/27` (30 pods) may be sufficient.
@@ -115,6 +126,17 @@ Also, you need to pick a static IP for master node.
 - Call this `MASTER_IP`.
 - Open any firewalls to allow access to the apiserver ports 80 and/or 443.
 - Enable ipv4 forwarding sysctl, `net.ipv4.ip_forward = 1`
+
+#### Network Policy
+
+Kubernetes enables the definition of fine-grained network policy between Pods 
+using the [NetworkPolicy](/docs/user-guide/networkpolicy) resource.
+
+Not all networking providers support the Kubernetes NetworkPolicy features.
+For clusters which choose to enable NetworkPolicy, the 
+[Calico policy controller addon](https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/calico-policy-controller) 
+can enforce the NetworkPolicy API on top of native cloud-provider networking, 
+Flannel, or Calico networking.
 
 ### Cluster Naming
 
@@ -492,9 +514,9 @@ availability.
 
 To run an etcd instance:
 
-1. copy `cluster/saltbase/salt/etcd/etcd.manifest`
-1. make any modifications needed
-1. start the pod by putting it into the kubelet manifest directory
+1. Copy `cluster/saltbase/salt/etcd/etcd.manifest`
+1. Make any modifications needed
+1. Start the pod by putting it into the kubelet manifest directory
 
 ### Apiserver, Controller Manager, and Scheduler
 
