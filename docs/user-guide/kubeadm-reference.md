@@ -12,9 +12,9 @@ Here we specify all the flags that can be used to customise the Kubernetes
 installation.
 
 - `--api-advertise-addresses` (multiple values are allowed by having multiple
-flag declarations or multiple values separated by comma)
+flag declarations or multiple values separated by commas)
 - `--api-external-dns-names` (multiple values are allowed by having multiple
-flag declarations or multiple values separated by comma)
+flag declarations or multiple values separated by commas)
 
 By default, `kubeadm` will automatically detect IP addresses and use
 these to generate certificates for the API server. If you would like
@@ -78,6 +78,7 @@ each new node. If you would like to manually specify this token, you can use the
 
 - `--use-kubernetes-version` (default 'v1.4.0') the kubernetes version to initialise
 
+`kubeadm` supports a minimum Kubernetes version of v1.4.0
 
 ### `kubeadm join`
 
