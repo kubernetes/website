@@ -1,8 +1,9 @@
 ---
 ---
 
-This guide explains how to use namespaces in Federation control plane.
+# Federated Namespaces
 
+This guide explains how to use namespaces in Federation control plane.
 
 * TOC
 {:toc}
