@@ -236,7 +236,7 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 1. The cluster created here doesn't have cloud-provider integrations, so for example won't work with (for example) [Load Balancers](/docs/user-guide/load-balancer/) (LBs) or [Persistent Volumes](/docs/user-guide/persistent-volumes/walkthrough/) (PVs).
    To easily obtain a cluster which works with LBs and PVs Kubernetes, try [the "hello world" GKE tutorial](/docs/hellonode) or [one of the other cloud-specific installation tutorials](/docs/getting-started-guides/).
 
-   Workaround: use the [NodePort feature of services](/docs/user-guide/services/#type-nodeport) to demonstrate exposing the sample application on the internet.
+   Workaround: use the [NodePort feature of services](/docs/user-guide/services/#type-nodeport) for exposing applications to the internet.
 1. The cluster created here has a single master, with a single `etcd` database running on it.
    This means that if the master fails, your cluster loses its configuration data and will need to be recreated from scratch.
    Adding HA support (multiple `etcd` servers, multiple API servers, etc) to `kubeadm` is still a work-in-progress.
