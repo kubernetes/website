@@ -8,10 +8,12 @@ toc:
   section:
   - title: What is Kubernetes?
     path: /docs/whatisk8s/
+  - title: Installing Kubernetes on Linux with kubeadm
+    path: /docs/getting-started-guides/kubeadm/
+  - title: Hello World on Google Container Engine
+    path: /docs/hellonode/
   - title: Downloading or Building Kubernetes
     path: /docs/getting-started-guides/binary_release/
-  - title: Hello World Walkthrough
-    path: /docs/hellonode/
   - title: Online Training Course
     path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
 
@@ -250,6 +252,8 @@ toc:
     path: /docs/admin/
   - title: Cluster Management Guide
     path: /docs/admin/cluster-management/
+  - title: Installing Addons
+    path: /docs/admin/addons/
   - title: Sharing a Cluster with Namespaces
     path: /docs/admin/namespaces/
   - title: Namespaces Walkthrough
