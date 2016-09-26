@@ -13,6 +13,19 @@
 {: toc}
 
 
+{% if objectives %}
+
+### Objectives
+
+{{ objectives }}
+
+{% else %}
+
+{% include templates/_errorthrower.md missing_block='objectives' heading='Objectives' purpose='lists the objectives for this tutorial.' %}
+
+{% endif %}
+
+
 {% if prerequisites %}
 
 ### Before you begin
@@ -26,22 +39,22 @@
 {% endif %}
 
 
-{% if steps %}
+{% if lessoncontent %}
 
-{{ steps }}
+{{ lessoncontent }}
 
 {% else %}
 
-{% include templates/_errorthrower.md missing_block='steps' purpose='lists a sequence of numbered steps that accomplish the task.' %}
+{% include templates/_errorthrower.md missing_block='lessoncontent' purpose='provides the lesson content for this tutorial.' %}
 
 {% endif %}
 
 
-{% if discussion %}
+{% if cleanup %}
 
-{{ discussion }}
+### Cleaning up
 
-{% else %}
+{{ cleanup }}
 
 {% endif %}
 
