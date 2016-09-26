@@ -1,6 +1,8 @@
 ---
 ---
 
+# Federated Ingress
+
 This guide explains how to use Kubernetes Federated Ingress to deploy
 a common HTTP(S) virtual IP load balancer across a federated service running in
 multiple Kubernetes clusters.  As of v1.4, clusters hosted in Google
