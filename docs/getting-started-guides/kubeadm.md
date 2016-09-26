@@ -118,8 +118,11 @@ By default, your cluster will not schedule pods on the master for security reaso
 If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
 
     # kubectl taint nodes --all dedicated-
+    node "test-01" tainted
+    taint key="dedicated" and effect="" not found.
+    taint key="dedicated" and effect="" not found.
 
-This will remove the "dedicated" taint from all nodes, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
+This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
 ### (3/4) Joining your nodes
 
