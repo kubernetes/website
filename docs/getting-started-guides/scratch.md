@@ -514,9 +514,9 @@ availability.
 
 To run an etcd instance:
 
-1. copy `cluster/saltbase/salt/etcd/etcd.manifest`
-1. make any modifications needed
-1. start the pod by putting it into the kubelet manifest directory
+1. Copy `cluster/saltbase/salt/etcd/etcd.manifest`
+1. Make any modifications needed
+1. Start the pod by putting it into the kubelet manifest directory
 
 ### Apiserver, Controller Manager, and Scheduler
 
