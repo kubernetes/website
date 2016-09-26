@@ -36,19 +36,7 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 
 ### Node Phase
 
-Node Phase is the current lifecycle phase of node, one of `Pending`,
-`Running` and `Terminated`.
-
-* Pending: New nodes are created in this state. A node stays in this state until it is configured.
-
-* Running: Node has been configured and the Kubernetes components are running
-
-* Terminated: Node has been removed from the cluster. It will not receive any scheduling requests,
-and any running pods will be removed from the node.
-
-Node with `Running` phase is necessary but not sufficient requirement for
-scheduling Pods. For a node to be considered a scheduling candidate, it
-must have appropriate conditions, see below.
+Deprecated: Node Phase is no longer used
 
 ### Node Condition
 
@@ -120,25 +108,48 @@ Currently, there are three components that interact with the Kubernetes node int
 ### Node Controller
 
 Node controller is a component in Kubernetes master which manages Node
-objects. It performs two major functions: cluster-wide node synchronization
-and single node life-cycle management.
+objects.
 
-Node controller has a sync loop that deletes Nodes from Kubernetes
-based on all matching VM instances listed from the cloud provider. The sync period
-can be controlled via flag `--node-sync-period`. If a new VM instance
-gets created, Node Controller creates a representation for it. If an existing
-instance gets deleted, Node Controller deletes the representation. Note however,
-that Node Controller is unable to provision the node for you, i.e. it won't install
-any binary; therefore, to
-join a node to a Kubernetes cluster, you as an admin need to make sure proper services are
-running in the node. In the future, we plan to automatically provision some node
-services.
+Node controller has mutliple roles in Node's life. First is assigning a CIDR block to
+the Node when it is registered (if CIDR assignment is turned on). Second is keeping the
+node controller's list of nodes up to date with the cloud provider's list of available
+machines. When running in cloud environment whenever a node is unhealthy node controller
+asks cloud provider if the VM for that node is still available. If not, the node
+controller deletes the node from its list of nodes.
 
-In general, node controller is responsible for updating the NodeReady condition of node
-status to ConditionUnknown when a node becomes unreachable (e.g. due to the node being down),
-and then later evicting all the pods from the node (using graceful termination) if the node
-continues to be unreachable. (The current timeouts for those are 40s and 5m, respectively.)
-It also allocates CIDR blocks to the new nodes.
+Third responsibiliy is monitoring Node's health. Node controller is responsible for updating
+the NodeReady condition of NodeStatus to ConditionUnknown when a node becomes unreachable
+(i.e. node controller stops receiving heartbeats e.g. due to the node being down), and then
+later evicting all the pods from the node (using graceful termination) if the node continues
+to be unreachable (the current timeouts are 40s to start reporting ConditionUnknown and 5m
+after that to start evicting pods). Node controller checks the state of each node every
+`--node-monitor-period` seconds.
+
+In 1.4 release we updated the logic of node controller to better handle cases when a
+big number of Nodes have problems with reaching the master machine (e.g. because
+master machine has networking problem). Starting with 1.4 node controller will look at the
+state of all Nodes in the cluster when making a decision about pod eviction.
+
+In most cases, node controller limits the eviction rate to `--node-eviction-rate` (default 0.1)
+per second, meaning it won't evict pods from more than 1 node per 10 seconds.
+
+The node eviction behavior changes when a node in a given availability zone becomes unhealthy,
+node controller checks what percentage of nodes in the zone are unhealthy (NodeReady condition
+is ConditionUnknown or ConditionFalse) at the same time. If the fraction of unhealthy nodes is
+at least `--unhealthy-zone-threshold` (default 0.55) then the eviction rate is  reduced: if
+the cluster is small (i.e. has less than or equal to `--large-cluster-size-threshold`
+nodes - default 50) then evictions are stopped, otherwise the eviction rate is reduced to
+`--secondary-node-eviction-rate` (default 0.01) per second. The reason these policies are
+implemented per availability zone is because one availability zone might become partitioned
+from the master while the others remain connected. If your cluster does not span multiple cloud
+provider availability zones, then there is only one availability zone, namely the whole cluster.
+
+A key reason for spreading your nodes across availability zones is so that workload can be
+shifted to healthy zones when one entire zone goes down. To enable this behavior, if all
+nodes in a zone are unhealthy then node controller evicts at the normal rate `--node-eviction-rate`.
+The corner case for that is when all zones are completely unhealthy (i.e. there's no healthy node in
+the cluster). In such case node controller assumes that there's some problem with master machine
+connectivity and stops all evictions until any connectivity is restored.
 
 ### Self-Registration of Nodes
 

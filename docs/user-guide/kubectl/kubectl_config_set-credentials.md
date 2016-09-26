@@ -8,6 +8,7 @@ Sets a user entry in kubeconfig
 ### Synopsis
 
 
+
 Sets a user entry in kubeconfig
 Specifying a name that already exists will merge new fields on top of existing values.
 
@@ -24,12 +25,13 @@ Specifying a name that already exists will merge new fields on top of existing v
 
 
 ```
-kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password]
+kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password] [--auth-provider=provider_name] [--auth-provider-arg=key=value]
 ```
 
 ### Examples
 
 ```
+
 # Set only the "client-key" field on the "cluster-admin"
 # entry, without touching other values:
 kubectl config set-credentials cluster-admin --client-key=~/.kube/admin.key
@@ -39,47 +41,57 @@ kubectl config set-credentials cluster-admin --username=admin --password=uXFGweU
 
 # Embed client certificate data in the "cluster-admin" entry
 kubectl config set-credentials cluster-admin --client-certificate=~/.kube/admin.crt --embed-certs=true
+
+# Enable the Google Compute Platform auth provider for the "cluster-admin" entry
+kubectl config set-credentials cluster-admin --auth-provider=gcp
+
+# Enable the OpenID Connect auth provider for the "cluster-admin" entry with additional args
+kubectl config set-credentials cluster-admin --auth-provider=oidc --auth-provider-arg=client-id=foo --auth-provider-arg=client-secret=bar
+
+# Remove the "client-secret" config value for the OpenID Connect auth provider for the "cluster-admin" entry
+kubectl config set-credentials cluster-admin --auth-provider=oidc --auth-provider-arg=client-secret-
 ```
 
 ### Options
 
 ```
-      --client-certificate="": path to client-certificate file for the user entry in kubeconfig
-      --client-key="": path to client-key file for the user entry in kubeconfig
-      --embed-certs[=false]: embed client cert/key for the user entry in kubeconfig
-      --password="": password for the user entry in kubeconfig
-      --token="": token for the user entry in kubeconfig
-      --username="": username for the user entry in kubeconfig
+      --auth-provider value        auth provider for the user entry in kubeconfig
+      --auth-provider-arg value    'key=value' arugments for the auth provider (default [])
+      --client-certificate value   path to client-certificate file for the user entry in kubeconfig
+      --client-key value           path to client-key file for the user entry in kubeconfig
+      --embed-certs value[=true]   embed client cert/key for the user entry in kubeconfig
+      --password value             password for the user entry in kubeconfig
+      --token value                token for the user entry in kubeconfig
+      --username value             username for the user entry in kubeconfig
 ```
 
 ### Options inherited from parent commands
 
 ```
-      --alsologtostderr[=false]: log to standard error as well as files
-      --as="": Username to impersonate for the operation.
-      --certificate-authority="": Path to a cert. file for the certificate authority.
-      --cluster="": The name of the kubeconfig cluster to use
-      --context="": The name of the kubeconfig context to use
-      --insecure-skip-tls-verify[=false]: If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure.
-      --kubeconfig="": use a particular kubeconfig file
-      --log-backtrace-at=:0: when logging hits line file:N, emit a stack trace
-      --log-dir="": If non-empty, write log files in this directory
-      --log-flush-frequency=5s: Maximum number of seconds between log flushes
-      --logtostderr[=true]: log to standard error instead of files
-      --match-server-version[=false]: Require server version to match client version
-      --namespace="": If present, the namespace scope for this CLI request.
-  -s, --server="": The address and port of the Kubernetes API server
-      --stderrthreshold=2: logs at or above this threshold go to stderr
-      --user="": The name of the kubeconfig user to use
-      --v=0: log level for V logs
-      --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
+      --alsologtostderr value          log to standard error as well as files
+      --as string                      Username to impersonate for the operation
+      --certificate-authority string   Path to a cert. file for the certificate authority
+      --cluster string                 The name of the kubeconfig cluster to use
+      --context string                 The name of the kubeconfig context to use
+      --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string              use a particular kubeconfig file
+      --log-backtrace-at value         when logging hits line file:N, emit a stack trace (default :0)
+      --log-dir value                  If non-empty, write log files in this directory
+      --logtostderr value              log to standard error instead of files
+      --match-server-version           Require server version to match client version
+  -n, --namespace string               If present, the namespace scope for this CLI request
+  -s, --server string                  The address and port of the Kubernetes API server
+      --stderrthreshold value          logs at or above this threshold go to stderr (default 2)
+      --user string                    The name of the kubeconfig user to use
+  -v, --v value                        log level for V logs
+      --vmodule value                  comma-separated list of pattern=N settings for file-filtered logging
 ```
 
 ### SEE ALSO
 
-* [kubectl config](kubectl_config.md)	 - config modifies kubeconfig files
+* [kubectl config](kubectl_config.md)	 - Modify kubeconfig files
 
-###### Auto generated by spf13/cobra on 12-Aug-2016
+###### Auto generated by spf13/cobra on 2-Sep-2016
 
 
 
