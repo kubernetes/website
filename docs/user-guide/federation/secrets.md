@@ -1,8 +1,9 @@
 ---
 ---
 
-This guide explains how to use secrets in Federation control plane.
+# Federated Secrets
 
+This guide explains how to use secrets in Federation control plane.
 
 * TOC
 {:toc}
