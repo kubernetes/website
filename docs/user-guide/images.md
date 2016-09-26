@@ -118,12 +118,12 @@ in the `$HOME` of user `root` on a kubelet, then docker will use it.
 Here are the recommended steps to configuring your nodes to use a private registry.  In this
 example, run these on your desktop/laptop:
 
-   1. run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json`.
-   1. view `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
-   1. get a list of your nodes, for example:
+   1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json`.
+   1. View `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
+   1. Get a list of your nodes, for example:
       - if you want the names: `nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
       - if you want to get the IPs: `nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
-   1. copy your local `.docker/config.json` to the home directory of root on each node.
+   1. Copy your local `.docker/config.json` to the home directory of root on each node.
       - for example: `for n in $nodes; do scp ~/.docker/config.json root@$n:/root/.docker/config.json; done`
 
 Verify by creating a pod that uses a private image, e.g.:

@@ -1131,7 +1131,7 @@ $feature-box-div-margin-bottom: 40px
 
 // Community
 
-#community
+#community, #caseStudies
 	&.open-nav, &.flip-nav
 		.logo
 			background-image: url(/images/nav_logo2.svg)
@@ -1281,14 +1281,31 @@ $feature-box-div-margin-bottom: 40px
 		padding: 30px 0
 
 	#bigSocial
+		text-align: center
+		
 		div
+			display: inline-block
+			float: none
 			padding-top: 125px
+			width: calc(90%)
+			
+			a
+				margin-top: 15px
+				font-size: 18px
+
+
+
+		//div:nth-child(1)
+		//	background-image: url(/images/community_logos/viacom_logo.png)
 
 		div:nth-child(1)
-			background-image: url(/images/community_logos/viacom_logo.png)
+			background-image: url(/images/community_logos/pearson_logo.png)
 
 		div:nth-child(2)
-			background-image: url(/images/community_logos/ebay_logo.png)
+			background-image: url(/images/community_logos/box_logo.png)
 
 		div:nth-child(3)
+			background-image: url(/images/community_logos/ebay_logo.png)
+
+		div:nth-child(4)
 			background-image: url(/images/community_logos/wikimedia_foundation_logo.png)
