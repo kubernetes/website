@@ -500,3 +500,42 @@ to a remote authorization service.  Authorization modules can implement
 their own caching to reduce the cost of repeated authorization calls with the
 same or similar arguments.  Developers should then consider the interaction
 between caching and revocation of permissions.
+
+
+### Checking API Access
+
+Kubernetes exposes the `subjectaccessreviews.v1beta1.authorization.k8s.io` resource as a
+normal resource that allows external access to API authorizer decisions.  No matter which authorizer
+you choose to use, you can issue a `POST` with a `SubjectAccessReview` just like the webhook
+authorizer to the `apis/authorization.k8s.io/v1beta1/subjectaccessreviews` endpoint and
+get back a response.  For instance:
+
+```bash
+kubectl create --v=8 -f -  << __EOF__
+{
+  "apiVersion": "authorization.k8s.io/v1beta1",
+  "kind": "SubjectAccessReview",
+  "spec": {
+    "resourceAttributes": {
+      "namespace": "kittensandponies",
+      "verb": "GET",
+      "group": "unicorn.example.org",
+      "resource": "pods"
+    },
+    "user": "jane",
+    "group": [
+      "group1",
+      "group2"
+    ]
+  }
+}
+__EOF__
+
+--- snip lots of output ---
+
+I0913 08:12:31.362873   27425 request.go:908] Response Body: {"kind":"SubjectAccessReview","apiVersion":"authorization.k8s.io/v1beta1","metadata":{"creationTimestamp":null},"spec":{"resourceAttributes":{"namespace":"kittensandponies","verb":"GET","group":"*","resource":"pods"},"user":"jane","group":["group1","group2"]},"status":{"allowed":true}}
+subjectaccessreview "" created
+```
+
+This is useful for debugging access problems, in that you can use this resource
+to determine what access an authorizer is granting.
