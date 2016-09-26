@@ -502,7 +502,7 @@ See the [Quobyte example](https://github.com/kubernetes/kubernetes/tree/{{page.g
 
 ## Resources
 
-The storage media (Disk, SSD, etc) of an `emptyDir` volume is determined by the
+The storage media (Disk, SSD, etc.) of an `emptyDir` volume is determined by the
 medium of the filesystem holding the kubelet root dir (typically
 `/var/lib/kubelet`).  There is no limit on how much space an `emptyDir` or
 `hostPath` volume can consume, and no isolation between containers or between

@@ -72,7 +72,7 @@ accomplished in two ways:
     pod network through traffic encapsulation (e.g vxlan).
   - Encapsulation reduces performance, though exactly how much depends on your solution.
 - **Without an overlay network**
-  - Configure the underlying network fabric (switches, routers, etc) to be aware of pod IP addresses.
+  - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
   - This does not require the encapsulation provided by an overlay, and so can achieve 
     better performance.
 
