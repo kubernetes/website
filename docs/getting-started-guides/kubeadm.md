@@ -215,12 +215,12 @@ See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, includi
 
 * To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then uninstall the packages.
   <details>
-     systemctl stop kubelet;
+     <pre><code>systemctl stop kubelet;
      docker rm -f $(docker ps -q); mount | grep "/var/lib/kubelet/*" | awk '{print $3}' | xargs umount 1>/dev/null 2>/dev/null;
      rm -rf /var/lib/kubelet /etc/kubernetes /var/lib/etcd /etc/cni;
      ip link set cbr0 down; ip link del cbr0;
      ip link set cni0 down; ip link del cni0;
-     systemctl start kubelet
+     systemctl start kubelet</code></pre>
   </details>
 
 ## Feedback
