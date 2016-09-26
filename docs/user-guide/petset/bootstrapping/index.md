@@ -19,7 +19,7 @@ This example shows you how to "carry over" runtime state across Pet restart by s
 
 ### Background
 
-Applications that incrementally build state usually need strong guarantees that they will not restart for extended durations. This is tricky to achieve with containers, so instead, we will ensure that the results of previous computations are trasferred to future pets. Doing so is straightforward using vanilla Persistent Volumes (which Pet Set already gives you), unless the volume mount point itself needs to be initialized for the Pet to start. This is exactly the case with "virtual machine" docker images, like those based on ubuntu or fedora. Such images embed the entier rootfs of the distro, including package managers like `apt-get` that assume a certain layout of the filesystem. Meaning:
+Applications that incrementally build state usually need strong guarantees that they will not restart for extended durations. This is tricky to achieve with containers, so instead, we will ensure that the results of previous computations are transferred to future pets. Doing so is straightforward using vanilla Persistent Volumes (which Pet Set already gives you), unless the volume mount point itself needs to be initialized for the Pet to start. This is exactly the case with "virtual machine" docker images, like those based on ubuntu or fedora. Such images embed the entire rootfs of the distro, including package managers like `apt-get` that assume a certain layout of the filesystem. Meaning:
 
 * If you mount an empty volume under `/usr`, you won't be able to `apt-get`
 * If you mount an empty volume under `/lib`, all your `apt-gets` will fail because there are no system libraries
@@ -130,7 +130,7 @@ Here's a tiny peer finder helper script that handles peer discovery, [available 
 
 * A DNS domain
 * An `on-start` script to run with the initial constituency of the given domain as input
-* An `on-change` script to run everytime the constituency of the given domain changes
+* An `on-change` script to run every time the constituency of the given domain changes
 
 The role of the peer finder:
 
