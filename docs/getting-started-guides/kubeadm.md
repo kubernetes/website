@@ -211,6 +211,7 @@ See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, includi
 
 * Learn more about [Kubernetes concepts and kubectl in Kubernetes 101](/docs/user-guide/walkthrough/).
 * Install Kubernetes with [a cloud provider configurations](/docs/getting-started-guides/) to add Load Balancer and Persistent Volume support.
+* Learn about `kubeadm`'s advanced usage on the [advanced reference doc](/docs/user-guide/kubeadm-reference/)
 
 
 ## Cleanup
