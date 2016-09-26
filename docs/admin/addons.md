@@ -3,7 +3,7 @@
 
 ## Overview
 
-Add-ons extend the functionality of Kubernetes in a pluggable way.
+Add-ons extend the functionality of Kubernetes.
 
 This page lists some of the available add-ons and links to their respective installation instructions.
 

@@ -7,10 +7,11 @@ li>.highlighter-rouge {position:relative; top:3px;}
 
 ## Overview
 
-This quickstart shows you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04 or CentOS 7, using a tool called `kubeadm` which is part of Kubernetes.
+This quickstart shows you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04 or CentOS 7.
+The installation uses a tool called `kubeadm` which is part of Kubernetes 1.4.
 
-This process should work with local VMs, physical servers and/or cloud servers.
-It is intended to be simple enough that you can easily integrate its use into your own automation (Terraform, Chef, Puppet, etc).
+This process works with local VMs, physical servers and/or cloud servers.
+It is simple enough that you can easily integrate its use into your own automation (Terraform, Chef, Puppet, etc).
 
 **The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/kubeadm/#feedback)!**
 
@@ -211,7 +212,7 @@ See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, includi
 
 ## Cleanup
 
-* To uninstall the socks shop, run `kubectl delete -f https://raw.githubusercontent.com/lukemarsden/microservices-demo/master/deploy/kubernetes/definitions/wholeWeaveDemo-NodePort.yaml`.
+* To uninstall the socks shop, run `kubectl delete -f microservices-demo/deploy/kubernetes/manifests` on the master.
 * To uninstall Kubernetes, simply delete the machines you created for this tutorial.
   Or alternatively, uninstall the `kubelet`, `kubeadm` and `kubectl` packages and then manually delete all the Docker container that were created by this process.
 
