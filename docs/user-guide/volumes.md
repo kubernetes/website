@@ -76,7 +76,9 @@ Kubernetes supports several types of Volumes:
    * `persistentVolumeClaim`
    * `downwardAPI`
    * `azureFileVolume`
+   * `azureDisk`
    * `vsphereVolume`
+   * `Quobyte`
 
 We welcome additional contributions.
 
@@ -445,6 +447,12 @@ into a Pod.
 
 More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_file/README.md)
 
+### AzureDiskVolume
+
+A `AzureDiskVolume` is used to mount a Microsoft Azure [Data Disk](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) into a Pod.
+
+More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/azure_disk/README.md)
+
 ### vsphereVolume
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
@@ -483,9 +491,18 @@ spec:
       fsType: ext4
 ```
 
+### Quobyte
+
+A `Quobyte` volume allows an existing [Quobyte](http://www.quobyte.com) volume to be mounted into your pod.
+
+__Important: You must have your own Quobyte setup running with the volumes created
+before you can use it__
+
+See the [Quobyte example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/quobyte) for more details.
+
 ## Resources
 
-The storage media (Disk, SSD, etc) of an `emptyDir` volume is determined by the
+The storage media (Disk, SSD, etc.) of an `emptyDir` volume is determined by the
 medium of the filesystem holding the kubelet root dir (typically
 `/var/lib/kubelet`).  There is no limit on how much space an `emptyDir` or
 `hostPath` volume can consume, and no isolation between containers or between

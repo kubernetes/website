@@ -11,7 +11,7 @@ change the name of the fork to be:
 
     YOUR_GITHUB_USERNAME.github.io
 
-Then make your changes. 
+Then make your changes.
 
 When you visit [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io) you should see a special-to-you version of the site that contains the changes you just made.
 
@@ -21,11 +21,11 @@ Don't like installing stuff? Download and run a local staging server with a sing
 
     git clone https://github.com/kubernetes/kubernetes.github.io.git
     cd kubernetes.github.io
-    docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 johndmulhausen/k8sdocs
+    docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.0
 
 Then visit [http://localhost:4000](http://localhost:4000) to see our site. Any changes you make on your local machine will be automatically staged.
 
-If you're interested you can view [the Dockerfile for this image](https://gist.github.com/johndmulhausen/f8f0ab8d82d2c755af3a4709729e1859).
+If you're interested you can view [the Dockerfile for this image](https://github.com/kubernetes/kubernetes.github.io/blob/master/staging-container/Dockerfile).
 
 ## Staging the site locally (from scratch setup)
 
@@ -67,7 +67,7 @@ Your copy of the site will then be viewable at: [http://localhost:4000](http://l
 
 ## GitHub help
 
-If you're a bit rusty with git/GitHub, you might wanna read
+If you're a bit rusty with git/GitHub, you might want to read
 [this](http://readwrite.com/2013/10/02/github-for-beginners-part-2) for a refresher.
 
 ## Common Tasks
@@ -151,6 +151,32 @@ Changes in the "release-1.3" branch (for k8s v1.3 docs) are automatically staged
 http://kubernetes-v1-3.github.io/
 
 Editing of these branches will kick off a build using Travis CI that auto-updates these URLs; you can monitor the build progress at [https://travis-ci.org/kubernetes/kubernetes.github.io](https://travis-ci.org/kubernetes/kubernetes.github.io).
+
+## Config yaml guidelines
+
+Guidelines for config yamls that are included in the site docs. These
+are the yaml or json files that contain Kubernetes object
+configuration to be used with `kubectl create -f` Config yamls should
+be:
+
+* Separate deployable files, not embedded in the document, unless very
+  small variations of a full config.
+* Included in the doc with the include code
+  [above.](#include-code-from-another-file)
+* In the same directory as the doc that they are being used in
+  * If you are re-using a yaml from another doc, that is OK, just
+    leave it there, don't move it up to a higher level directory.
+* Tested in
+  [test/examples_test.go](https://github.com/kubernetes/kubernetes.github.io/blob/master/test/examples_test.go)
+* Follows
+  [best practices.](http://kubernetes.io/docs/user-guide/config-best-practices/)
+
+Don't assume the reader has this repository checked out, use `kubectl
+create -f https://github...` in example commands. For Docker images
+used in config yamls, try to use an image from an existing Kubernetes
+example. If creating an image for a doc, follow the
+[example guidelines](https://github.com/kubernetes/kubernetes/blob/master/examples/guidelines.md#throughout)
+section on "Docker images" from the Kubernetes repository.
 
 ## Partners
 Kubernetes partners refers to the companies who contribute to the Kubernetes core codebase and/or extend their platform to support Kubernetes. Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.

@@ -1,7 +1,7 @@
 bigheader: "Tutorials"
 toc:
 - title: Tutorials
-  path: /docs/tutorials/getting-started/
+  path: /docs/tutorials/
 - title: Getting Started
   section:
   - title: 1. Create a Cluster
@@ -52,3 +52,9 @@ toc:
       path: /docs/tutorials/getting-started/update-intro/
     - title: Interactive Tutorial - Updating Your App
       path: /docs/tutorials/getting-started/update-interactive/
+- title: Stateless Applications
+  section:
+  - title: Running a Stateless Application Using a Deployment
+    path: /docs/tutorials/stateless-application/run-stateless-application-deployment/
+  - title: Exposing an External IP Address Using a Service
+    path: /docs/tutorials/stateless-application/expose-external-ip-address-service/
