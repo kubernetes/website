@@ -1,0 +1,22 @@
+{
+  "kind": "PodSecurityPolicy",
+  "apiVersion":"extensions/v1beta1",
+  "metadata": {
+    "name": "permissive"
+  },
+  "spec": {
+      "seLinux": {
+          "rule": "RunAsAny"
+      },
+      "supplementalGroups": {
+          "rule": "RunAsAny"
+      },
+      "runAsUser": {
+          "rule": "RunAsAny"
+      },
+      "fsGroup": {
+          "rule": "RunAsAny"
+      },
+      "volumes": ["*"]
+  }
+}
