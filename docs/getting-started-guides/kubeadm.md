@@ -33,7 +33,7 @@ It is simple enough that you can easily integrate its use into your own automati
 
 You will install the following packages on all the machines:
 
-* `docker`: the container runtime, which Kubernetes depends on.
+* `docker`: the container runtime, which Kubernetes depends on. [Get the latest version from Docker](https://docs.docker.com/engine/installation/).
 * `kubelet`: the most core component of Kubernetes.
   It runs on all of the machines in your cluster and does things like starting pods and containers.
 * `kubectl`: the command to control the cluster once it's running.
