@@ -90,7 +90,7 @@ All of these components run in pods started by `kubelet`.
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
-     # kubeadm init --use-kubernetes-version v1.4.0-beta.11
+     # kubeadm init
 
 This will download and install the cluster database and "control plane" components.
 This may take several minutes.
