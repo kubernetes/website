@@ -25,9 +25,9 @@ detected, or through a hostname, you can override these defaults with
 - `--cloud-provider`
 
 Currently, `kubeadm` does not provide autodetection of cloud provider.
-This means that networking and persistant volumes are not supported out
+This means that load balancing and persistent volumes are not supported out
 of the box. You can specify a cloud provider using `--cloud-provider`.
-Valid values are the ones support by `controller-manager`, namely `"aws"`,
+Valid values are the ones supported by `controller-manager`, namely `"aws"`,
 `"azure"`, `"cloudstack"`, `"gce"`, `"mesos"`, `"openstack"`, `"ovirt"`,
 `"rackspace"`, `"vsphere"`.
 
