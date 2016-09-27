@@ -33,14 +33,14 @@ It is simple enough that you can easily integrate its use into your own automati
 
 You will install the following packages on all the machines:
 
-* `docker`: the container runtime, which Kubernetes depends on.
+* `docker`: the container runtime, which Kubernetes depends on. [Get the latest version from Docker](https://docs.docker.com/engine/installation/).
 * `kubelet`: the most core component of Kubernetes.
   It runs on all of the machines in your cluster and does things like starting pods and containers.
 * `kubectl`: the command to control the cluster once it's running.
   You will only use this on the master.
 * `kubeadm`: the command to bootstrap the cluster.
 
-For each host in turn:
+For each host in turn, [install Docker](https://docs.docker.com/engine/installation/), and run:
 
 <!--
     # curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -48,21 +48,21 @@ For each host in turn:
     deb http://packages.cloud.google.com/apt kubernetes-xenial main
     EOF
     # apt-get update
-    # apt-get install -y kubeadm docker.io§
+    # apt-get install -y kubeadm§
 -->
 
 
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
-* If the machine is running Ubuntu 16.04, run:
+* If the machine is running Ubuntu 16.04, [install Docker](https://docs.docker.com/engine/installation/linux/ubuntulinux/), then run:
 
       # curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
       # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
       deb http://apt.kubernetes.io/ kubernetes-xenial main
       EOF
       # apt-get update
-      # apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni
+      # apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
-   If the machine is running CentOS 7, run:
+   If the machine is running CentOS 7, [install Docker](https://docs.docker.com/engine/installation/linux/centos/), then run:
 
       # cat <<EOF > /etc/yum.repos.d/kubernetes.repo
       [kubernetes]
@@ -75,7 +75,7 @@ For each host in turn:
              https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
       EOF
       # setenforce 0
-      # yum install -y docker kubelet kubeadm kubectl kubernetes-cni
+      # yum install -y kubelet kubeadm kubectl kubernetes-cni
       # systemctl enable docker && systemctl start docker
       # systemctl enable kubelet && systemctl start kubelet
 
