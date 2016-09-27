@@ -60,7 +60,7 @@ For each host in turn:
       deb http://apt.kubernetes.io/ kubernetes-xenial main
       EOF
       # apt-get update
-      # apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+      # apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni
 
    If the machine is running CentOS 7, run:
 
@@ -75,7 +75,7 @@ For each host in turn:
              https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
       EOF
       # setenforce 0
-      # yum install -y kubelet kubeadm kubectl kubernetes-cni
+      # yum install -y docker kubelet kubeadm kubectl kubernetes-cni
       # systemctl enable docker && systemctl start docker
       # systemctl enable kubelet && systemctl start kubelet
 
