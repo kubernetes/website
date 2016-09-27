@@ -55,25 +55,33 @@ For each host in turn:
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
 * If the machine is running Ubuntu 16.04, run:
 
-      # apt-get install -y docker.io socat apt-transport-https
-      # curl -s -L \
-        https://storage.googleapis.com/kubeadm/kubernetes-xenial-preview-bundle.txz | tar xJv
-      # dpkg -i kubernetes-xenial-preview-bundle/*.deb
+      # curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+      # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
+      deb http://apt.kubernetes.io/ kubernetes-xenial main
+      EOF
+      # apt-get update
+      # apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
    If the machine is running CentOS 7, run:
 
-      # cat <<EOF > /etc/yum.repos.d/k8s.repo
-      [kubelet]
-      name=kubelet
-      baseurl=http://files.rm-rf.ca/rpms/kubelet/
+      # cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+      [kubernetes]
+      name=Kubernetes
+      baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
       enabled=1
-      gpgcheck=0
+      gpgcheck=1
+      repo_gpgcheck=1
+      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+             https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
       EOF
-      # yum install docker kubelet kubeadm kubectl kubernetes-cni
+      # setenforce 0
+      # yum install -y kubelet kubeadm kubectl kubernetes-cni
       # systemctl enable docker && systemctl start docker
       # systemctl enable kubelet && systemctl start kubelet
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
+
+Note: `setenforce 0` will no longer be necessary on CentOS once [#33555](https://github.com/kubernetes/kubernetes/pull/33555) is included in a released version of `kubeadm`.
 
 ### (2/4) Initializing your master
 
@@ -82,7 +90,7 @@ All of these components run in pods started by `kubelet`.
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
-     # kubeadm init --use-kubernetes-version v1.4.0-beta.11
+     # kubeadm init
 
 This will download and install the cluster database and "control plane" components.
 This may take several minutes.
