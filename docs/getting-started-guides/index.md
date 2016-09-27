@@ -48,8 +48,8 @@ few commands, and have active community support.
 
 - [GCE](/docs/getting-started-guides/gce)
 - [AWS](/docs/getting-started-guides/aws)
+- [Azure](/docs/getting-started-guides/azure/)
 - [Azure](/docs/getting-started-guides/coreos/azure/) (Weave-based, contributed by WeaveWorks employees)
-- [Azure](/docs/getting-started-guides/azure/) (Flannel-based, contributed by Microsoft employee)
 - [CenturyLink Cloud](/docs/getting-started-guides/clc)
 - [IBM SoftLayer](https://github.com/patrocinio/kubernetes-softlayer)
 
@@ -122,7 +122,7 @@ Stackpoint.io        |              | multi-support       | multi-support   | [d
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) |    | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | ['œ“][1]   | Project
 Azure                | CoreOS       | CoreOS | Weave       | [docs](/docs/getting-started-guides/coreos/azure/)                    |          | Community ([@errordeveloper](https://github.com/errordeveloper), [@squillace](https://github.com/squillace), [@chanezon](https://github.com/chanezon), [@crossorigin](https://github.com/crossorigin))
-Azure                | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/azure)                    |          | Community ([@colemickens](https://github.com/colemickens))
+Azure                | Ignition     | Ubuntu | Azure       | [docs](/docs/getting-started-guides/azure)                    |          | Community (Microsoft: [@brendandburns](https://github.com/brendandburns), [@colemickens](https://github.com/colemickens))
 Docker Single Node   | custom       | N/A    | local       | [docs](/docs/getting-started-guides/docker)                                 |          | Project ([@brendandburns](https://github.com/brendandburns))
 Docker Multi Node    | custom       | N/A    | flannel     | [docs](/docs/getting-started-guides/docker-multinode)                       |          | Project ([@brendandburns](https://github.com/brendandburns))
 Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config)           |          | Project
