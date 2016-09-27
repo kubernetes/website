@@ -75,7 +75,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
 1. Display information about a pod:
 
-        kubectl display pod <pod-name>
+        kubectl describe pod <pod-name>
 
     where `<pod-name>` is the name of one of your pods.
 
