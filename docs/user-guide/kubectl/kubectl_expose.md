@@ -8,6 +8,7 @@ Take a replication controller, service, deployment or pod and expose it as a new
 ### Synopsis
 
 
+
 Expose a resource as a new Kubernetes service.
 
 Looks up a deployment, service, replica set, replication controller or pod by name and uses the selector
@@ -18,8 +19,8 @@ i.e. when the selector contains only the matchLabels component. Note that if no 
 labels are specified, the new service will re-use the labels from the resource it exposes.
 
 Possible resources include (case insensitive):
-  pod (po), service (svc), replicationcontroller (rc),
-  deployment, replicaset (rs)
+pod (po), service (svc), replicationcontroller (rc),
+deployment, replicaset (rs)
 
 
 ```
@@ -29,6 +30,7 @@ kubectl expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP] [--t
 ### Examples
 
 ```
+
 # Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000.
 kubectl expose rc nginx --port=80 --target-port=8000
 
@@ -54,65 +56,65 @@ kubectl expose deployment nginx --port=80 --target-port=8000
 ### Options
 
 ```
-      --dry-run[=false]: If true, only print the object that would be sent, without sending it.
-      --external-ip="": Additional external IP address (not managed by Kubernetes) to accept for the service. If this IP is routed to a node, the service can be accessed by this IP in addition to its generated service IP.
-  -f, --filename=[]: Filename, directory, or URL to a file identifying the resource to expose a service
-      --generator="service/v2": The name of the API generator to use. There are 2 generators: 'service/v1' and 'service/v2'. The only difference between them is that service port in v1 is named 'default', while it is left unnamed in v2. Default is 'service/v2'.
-  -l, --labels="": Labels to apply to the service created by this call.
-      --load-balancer-ip="": IP to assign to the Load Balancer. If empty, an ephemeral IP will be created and used (cloud-provider specific).
-      --name="": The name for the newly created object.
-      --no-headers[=false]: When using the default output, don't print headers.
-  -o, --output="": Output format. One of: json|yaml|wide|name|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://releases.k8s.io/release-1.3/docs/user-guide/jsonpath.md].
-      --output-version="": Output the formatted object with the given group version (for ex: 'extensions/v1beta1').
-      --overrides="": An inline JSON override for the generated object. If this is non-empty, it is used to override the generated object. Requires that the object supply a valid apiVersion field.
-      --port="": The port that the service should serve on. Copied from the resource being exposed, if unspecified
-      --protocol="": The network protocol for the service to be created. Default is 'TCP'.
-      --record[=false]: Record current kubectl command in the resource annotation.
-  -R, --recursive[=false]: Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
-      --save-config[=false]: If true, the configuration of current object will be saved in its annotation. This is useful when you want to perform kubectl apply on this object in the future.
-      --selector="": A label selector to use for this service. Only equality-based selector requirements are supported. If empty (the default) infer the selector from the replication controller or replica set.
-      --session-affinity="": If non-empty, set the session affinity for the service to this; legal values: 'None', 'ClientIP'
-  -a, --show-all[=false]: When printing, show all resources (default hide terminated pods.)
-      --show-labels[=false]: When printing, show all labels as the last column (default hide labels column)
-      --sort-by="": If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
-      --target-port="": Name or number for the port on the container that the service should direct traffic to. Optional.
-      --template="": Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
-      --type="": Type for this service: ClusterIP, NodePort, or LoadBalancer. Default is 'ClusterIP'.
+      --cluster-ip string         ClusterIP to be assigned to the service. Leave empty to auto-allocate, or set to 'None' to create a headless service.
+      --dry-run                   If true, only print the object that would be sent, without sending it.
+      --external-ip string        Additional external IP address (not managed by Kubernetes) to accept for the service. If this IP is routed to a node, the service can be accessed by this IP in addition to its generated service IP.
+  -f, --filename value            Filename, directory, or URL to a file identifying the resource to expose a service (default [])
+      --generator string          The name of the API generator to use. There are 2 generators: 'service/v1' and 'service/v2'. The only difference between them is that service port in v1 is named 'default', while it is left unnamed in v2. Default is 'service/v2'. (default "service/v2")
+  -l, --labels string             Labels to apply to the service created by this call.
+      --load-balancer-ip string   IP to assign to the Load Balancer. If empty, an ephemeral IP will be created and used (cloud-provider specific).
+      --name string               The name for the newly created object.
+      --no-headers                When using the default or custom-column output format, don't print headers.
+  -o, --output string             Output format. One of: json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See custom columns [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://kubernetes.io/docs/user-guide/jsonpath].
+      --output-version string     Output the formatted object with the given group version (for ex: 'extensions/v1beta1').
+      --overrides string          An inline JSON override for the generated object. If this is non-empty, it is used to override the generated object. Requires that the object supply a valid apiVersion field.
+      --port string               The port that the service should serve on. Copied from the resource being exposed, if unspecified
+      --protocol string           The network protocol for the service to be created. Default is 'TCP'.
+      --record                    Record current kubectl command in the resource annotation. If set to false, do not record the command. If set to true, record the command. If not set, default to updating the existing annotation value only if one already exists.
+  -R, --recursive                 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
+      --save-config               If true, the configuration of current object will be saved in its annotation. This is useful when you want to perform kubectl apply on this object in the future.
+      --selector string           A label selector to use for this service. Only equality-based selector requirements are supported. If empty (the default) infer the selector from the replication controller or replica set.
+      --session-affinity string   If non-empty, set the session affinity for the service to this; legal values: 'None', 'ClientIP'
+  -a, --show-all                  When printing, show all resources (default hide terminated pods.)
+      --show-labels               When printing, show all labels as the last column (default hide labels column)
+      --sort-by string            If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
+      --target-port string        Name or number for the port on the container that the service should direct traffic to. Optional.
+      --template string           Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
+      --type string               Type for this service: ClusterIP, NodePort, or LoadBalancer. Default is 'ClusterIP'.
 ```
 
 ### Options inherited from parent commands
 
 ```
-      --alsologtostderr[=false]: log to standard error as well as files
-      --as="": Username to impersonate for the operation.
-      --certificate-authority="": Path to a cert. file for the certificate authority.
-      --client-certificate="": Path to a client certificate file for TLS.
-      --client-key="": Path to a client key file for TLS.
-      --cluster="": The name of the kubeconfig cluster to use
-      --context="": The name of the kubeconfig context to use
-      --insecure-skip-tls-verify[=false]: If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure.
-      --kubeconfig="": Path to the kubeconfig file to use for CLI requests.
-      --log-backtrace-at=:0: when logging hits line file:N, emit a stack trace
-      --log-dir="": If non-empty, write log files in this directory
-      --log-flush-frequency=5s: Maximum number of seconds between log flushes
-      --logtostderr[=true]: log to standard error instead of files
-      --match-server-version[=false]: Require server version to match client version
-      --namespace="": If present, the namespace scope for this CLI request.
-      --password="": Password for basic authentication to the API server.
-  -s, --server="": The address and port of the Kubernetes API server
-      --stderrthreshold=2: logs at or above this threshold go to stderr
-      --token="": Bearer token for authentication to the API server.
-      --user="": The name of the kubeconfig user to use
-      --username="": Username for basic authentication to the API server.
-      --v=0: log level for V logs
-      --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
+      --alsologtostderr value          log to standard error as well as files
+      --as string                      Username to impersonate for the operation
+      --certificate-authority string   Path to a cert. file for the certificate authority
+      --client-certificate string      Path to a client certificate file for TLS
+      --client-key string              Path to a client key file for TLS
+      --cluster string                 The name of the kubeconfig cluster to use
+      --context string                 The name of the kubeconfig context to use
+      --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string              Path to the kubeconfig file to use for CLI requests.
+      --log-backtrace-at value         when logging hits line file:N, emit a stack trace (default :0)
+      --log-dir value                  If non-empty, write log files in this directory
+      --logtostderr value              log to standard error instead of files
+      --match-server-version           Require server version to match client version
+  -n, --namespace string               If present, the namespace scope for this CLI request
+      --password string                Password for basic authentication to the API server
+  -s, --server string                  The address and port of the Kubernetes API server
+      --stderrthreshold value          logs at or above this threshold go to stderr (default 2)
+      --token string                   Bearer token for authentication to the API server
+      --user string                    The name of the kubeconfig user to use
+      --username string                Username for basic authentication to the API server
+  -v, --v value                        log level for V logs
+      --vmodule value                  comma-separated list of pattern=N settings for file-filtered logging
 ```
 
 ### SEE ALSO
 
 * [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 
-###### Auto generated by spf13/cobra on 12-Aug-2016
+###### Auto generated by spf13/cobra on 2-Sep-2016
 
 
 

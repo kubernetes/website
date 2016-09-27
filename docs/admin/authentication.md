@@ -228,7 +228,7 @@ it must be an array of strings.
 
 Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or [others](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak) or CloudFoundary [UAA](https://github.com/cloudfoundry/uaa).
+Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak) or CloudFoundry [UAA](https://github.com/cloudfoundry/uaa).
 
 The provider needs to support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
 

@@ -3,14 +3,40 @@
 # Uncomment this to see the commands as they are run
 # set -x
 
-VERSION=1.3
+VERSION=1.4
+
+# Processes api reference docs.
+function process_api_ref_docs {
+  # Replace html preview links by relative links to let k8s.io render them.
+  local html_preview_prefix="https:\/\/htmlpreview.github.io\/?https:\/\/github.com\/kubernetes\/kubernetes\/blob\/"
+  find . -name '*.*' -type f -exec sed -i -e "s/${html_preview_prefix}HEAD//g" {} \;
+  find . -name '*.*' -type f -exec sed -i -e "s/${html_preview_prefix}release-$VERSION//g" {} \;
+
+  # Format html
+  find . -name '*.html' -type f -exec sed -i -e '/<style>/,/<\/style>/d' {} \;
+  find . -name '*.html' -type f -exec sed -i -e "s/http:\/\/kubernetes.io\/v$VERSION//g" {} \;
+  find . -name '*.html' -type f -exec sed -i -e '1 i\
+---' {} \;
+  find . -name '*.html' -type f -exec sed -i -e '1 i\
+---' {} \;
+
+  # Strip the munge comments
+  find . -name '*.md' -type f -exec sed -i -e '/<!-- BEGIN MUNGE: IS_VERSIONED -->/,/<!-- END MUNGE: IS_VERSIONED -->/d' {} \;
+  find . -name '*.md' -type f -exec sed -i -e '/<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->/,/<!-- END MUNGE: UNVERSIONED_WARNING -->/d' {} \;
+
+  # Add the expected headers to md files
+  find . -name '*.md' -type f -exec sed -i -e '1 i\
+---' {}  \;
+  find . -name '*.md' -type f -exec sed -i -e '1 i\
+---' {}  \;
+}
+
 
 git clone --depth=1 -b release-$VERSION https://github.com/kubernetes/kubernetes.git k8s
 cd k8s
 git remote add upstream https://github.com/kubernetes/kubernetes.git
 git fetch upstream
 hack/generate-docs.sh
-hack/update-generated-swagger-docs.sh
 build/versionize-docs.sh release-$VERSION
 cd ..
 
@@ -55,26 +81,19 @@ popd
 
 pushd .
 cd docs/api-reference
-  # Format html
-  find . -name '*.html' -type f -exec sed -i -e '/<style>/,/<\/style>/d' {} \;
-  find . -name '*.html' -type f -exec sed -i -e "s/http:\/\/kubernetes.io\/v$VERSION//g" {} \;
-  find . -name '*.html' -type f -exec sed -i -e '1 i\
----' {} \;
-  find . -name '*.html' -type f -exec sed -i -e '1 i\
----' {} \;
-
-  # Strip the munge comments
-  find . -name '*.md' -type f -exec sed -i -e '/<!-- BEGIN MUNGE: IS_VERSIONED -->/,/<!-- END MUNGE: IS_VERSIONED -->/d' {} \;
-  find . -name '*.md' -type f -exec sed -i -e '/<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->/,/<!-- END MUNGE: UNVERSIONED_WARNING -->/d' {} \;
-
-  # Add the expected headers to md files
-  find . -name '*.md' -type f -exec sed -i -e '1 i\
----' {}  \;
-  find . -name '*.md' -type f -exec sed -i -e '1 i\
----' {}  \;
+  process_api_ref_docs
 
   # Fix for bug in 1.3 release
   find . -name '*.md' -type f -exec sed -i -e "s/vv1.3.0-beta.0/v1.3/g" {} \;
+popd
+
+pushd .
+cd docs/federation/api-reference
+  process_api_ref_docs
+
+  # Update the links from federation/docs/api-reference to
+  # docs/federation/api-reference
+  find . -name '*.*' -type f -exec sed -i -e "s/federation\/docs\/api-reference/docs\/federation\/api-reference/g" {} \;
 popd
 
 pushd .

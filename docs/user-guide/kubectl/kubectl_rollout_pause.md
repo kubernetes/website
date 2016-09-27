@@ -8,6 +8,7 @@ Mark the provided resource as paused
 ### Synopsis
 
 
+
 Mark the provided resource as paused
 
 Paused resources will not be reconciled by a controller.
@@ -21,6 +22,7 @@ kubectl rollout pause RESOURCE
 ### Examples
 
 ```
+
 # Mark the nginx deployment as paused. Any current state of
 # the deployment will continue its function, new updates to the deployment will not
 # have an effect as long as the deployment is paused.
@@ -30,43 +32,42 @@ kubectl rollout pause deployment/nginx
 ### Options
 
 ```
-  -f, --filename=[]: Filename, directory, or URL to a file identifying the resource to get from a server.
-  -R, --recursive[=false]: Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
+  -f, --filename value   Filename, directory, or URL to a file identifying the resource to get from a server. (default [])
+  -R, --recursive        Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 ```
 
 ### Options inherited from parent commands
 
 ```
-      --alsologtostderr[=false]: log to standard error as well as files
-      --as="": Username to impersonate for the operation.
-      --certificate-authority="": Path to a cert. file for the certificate authority.
-      --client-certificate="": Path to a client certificate file for TLS.
-      --client-key="": Path to a client key file for TLS.
-      --cluster="": The name of the kubeconfig cluster to use
-      --context="": The name of the kubeconfig context to use
-      --insecure-skip-tls-verify[=false]: If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure.
-      --kubeconfig="": Path to the kubeconfig file to use for CLI requests.
-      --log-backtrace-at=:0: when logging hits line file:N, emit a stack trace
-      --log-dir="": If non-empty, write log files in this directory
-      --log-flush-frequency=5s: Maximum number of seconds between log flushes
-      --logtostderr[=true]: log to standard error instead of files
-      --match-server-version[=false]: Require server version to match client version
-      --namespace="": If present, the namespace scope for this CLI request.
-      --password="": Password for basic authentication to the API server.
-  -s, --server="": The address and port of the Kubernetes API server
-      --stderrthreshold=2: logs at or above this threshold go to stderr
-      --token="": Bearer token for authentication to the API server.
-      --user="": The name of the kubeconfig user to use
-      --username="": Username for basic authentication to the API server.
-      --v=0: log level for V logs
-      --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
+      --alsologtostderr value          log to standard error as well as files
+      --as string                      Username to impersonate for the operation
+      --certificate-authority string   Path to a cert. file for the certificate authority
+      --client-certificate string      Path to a client certificate file for TLS
+      --client-key string              Path to a client key file for TLS
+      --cluster string                 The name of the kubeconfig cluster to use
+      --context string                 The name of the kubeconfig context to use
+      --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string              Path to the kubeconfig file to use for CLI requests.
+      --log-backtrace-at value         when logging hits line file:N, emit a stack trace (default :0)
+      --log-dir value                  If non-empty, write log files in this directory
+      --logtostderr value              log to standard error instead of files
+      --match-server-version           Require server version to match client version
+  -n, --namespace string               If present, the namespace scope for this CLI request
+      --password string                Password for basic authentication to the API server
+  -s, --server string                  The address and port of the Kubernetes API server
+      --stderrthreshold value          logs at or above this threshold go to stderr (default 2)
+      --token string                   Bearer token for authentication to the API server
+      --user string                    The name of the kubeconfig user to use
+      --username string                Username for basic authentication to the API server
+  -v, --v value                        log level for V logs
+      --vmodule value                  comma-separated list of pattern=N settings for file-filtered logging
 ```
 
 ### SEE ALSO
 
-* [kubectl rollout](kubectl_rollout.md)	 - rollout manages a deployment
+* [kubectl rollout](kubectl_rollout.md)	 - Manage a deployment rollout
 
-###### Auto generated by spf13/cobra on 12-Aug-2016
+###### Auto generated by spf13/cobra on 2-Sep-2016
 
 
 

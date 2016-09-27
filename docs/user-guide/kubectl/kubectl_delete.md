@@ -3,9 +3,10 @@
 
 ## kubectl delete
 
-Delete resources by filenames, stdin, resources and names, or by resources and label selector.
+Delete resources by filenames, stdin, resources and names, or by resources and label selector
 
 ### Synopsis
+
 
 
 Delete resources by filenames, stdin, resources and names, or by resources and label selector.
@@ -25,6 +26,7 @@ kubectl delete ([-f FILENAME] | TYPE [(NAME | -l label | --all)])
 ### Examples
 
 ```
+
 # Delete a pod using the type and name specified in pod.json.
 kubectl delete -f ./pod.json
 
@@ -50,52 +52,51 @@ kubectl delete pods --all
 ### Options
 
 ```
-      --all[=false]: [-all] to select all the specified resources.
-      --cascade[=true]: If true, cascade the deletion of the resources managed by this resource (e.g. Pods created by a ReplicationController).  Default true.
-  -f, --filename=[]: Filename, directory, or URL to a file containing the resource to delete.
-      --grace-period=-1: Period of time in seconds given to the resource to terminate gracefully. Ignored if negative.
-      --ignore-not-found[=false]: Treat "resource not found" as a successful delete. Defaults to "true" when --all is specified.
-      --include-extended-apis[=true]: If true, include definitions of new APIs via calls to the API server. [default true]
-      --now[=false]: If true, resources are force terminated without graceful deletion (same as --grace-period=0).
-  -o, --output="": Output mode. Use "-o name" for shorter output (resource/name).
-  -R, --recursive[=false]: Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
-  -l, --selector="": Selector (label query) to filter on.
-      --timeout=0: The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
+      --all                     [-all] to select all the specified resources.
+      --cascade                 If true, cascade the deletion of the resources managed by this resource (e.g. Pods created by a ReplicationController).  Default true. (default true)
+  -f, --filename value          Filename, directory, or URL to a file containing the resource to delete. (default [])
+      --grace-period int        Period of time in seconds given to the resource to terminate gracefully. Ignored if negative. (default -1)
+      --ignore-not-found        Treat "resource not found" as a successful delete. Defaults to "true" when --all is specified.
+      --include-extended-apis   If true, include definitions of new APIs via calls to the API server. [default true] (default true)
+      --now                     If true, resources are force terminated without graceful deletion (same as --grace-period=0).
+  -o, --output string           Output mode. Use "-o name" for shorter output (resource/name).
+  -R, --recursive               Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
+  -l, --selector string         Selector (label query) to filter on.
+      --timeout duration        The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 ```
 
 ### Options inherited from parent commands
 
 ```
-      --alsologtostderr[=false]: log to standard error as well as files
-      --as="": Username to impersonate for the operation.
-      --certificate-authority="": Path to a cert. file for the certificate authority.
-      --client-certificate="": Path to a client certificate file for TLS.
-      --client-key="": Path to a client key file for TLS.
-      --cluster="": The name of the kubeconfig cluster to use
-      --context="": The name of the kubeconfig context to use
-      --insecure-skip-tls-verify[=false]: If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure.
-      --kubeconfig="": Path to the kubeconfig file to use for CLI requests.
-      --log-backtrace-at=:0: when logging hits line file:N, emit a stack trace
-      --log-dir="": If non-empty, write log files in this directory
-      --log-flush-frequency=5s: Maximum number of seconds between log flushes
-      --logtostderr[=true]: log to standard error instead of files
-      --match-server-version[=false]: Require server version to match client version
-      --namespace="": If present, the namespace scope for this CLI request.
-      --password="": Password for basic authentication to the API server.
-  -s, --server="": The address and port of the Kubernetes API server
-      --stderrthreshold=2: logs at or above this threshold go to stderr
-      --token="": Bearer token for authentication to the API server.
-      --user="": The name of the kubeconfig user to use
-      --username="": Username for basic authentication to the API server.
-      --v=0: log level for V logs
-      --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
+      --alsologtostderr value          log to standard error as well as files
+      --as string                      Username to impersonate for the operation
+      --certificate-authority string   Path to a cert. file for the certificate authority
+      --client-certificate string      Path to a client certificate file for TLS
+      --client-key string              Path to a client key file for TLS
+      --cluster string                 The name of the kubeconfig cluster to use
+      --context string                 The name of the kubeconfig context to use
+      --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string              Path to the kubeconfig file to use for CLI requests.
+      --log-backtrace-at value         when logging hits line file:N, emit a stack trace (default :0)
+      --log-dir value                  If non-empty, write log files in this directory
+      --logtostderr value              log to standard error instead of files
+      --match-server-version           Require server version to match client version
+  -n, --namespace string               If present, the namespace scope for this CLI request
+      --password string                Password for basic authentication to the API server
+  -s, --server string                  The address and port of the Kubernetes API server
+      --stderrthreshold value          logs at or above this threshold go to stderr (default 2)
+      --token string                   Bearer token for authentication to the API server
+      --user string                    The name of the kubeconfig user to use
+      --username string                Username for basic authentication to the API server
+  -v, --v value                        log level for V logs
+      --vmodule value                  comma-separated list of pattern=N settings for file-filtered logging
 ```
 
 ### SEE ALSO
 
 * [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 
-###### Auto generated by spf13/cobra on 12-Aug-2016
+###### Auto generated by spf13/cobra on 2-Sep-2016
 
 
 
