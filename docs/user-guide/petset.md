@@ -54,15 +54,7 @@ A PetSet, in contrast, is a group of stateful pods that require a stronger notio
 
 The co-ordinated deployment of clustered applications is notoriously hard. They require stronger notions of identity and membership, which they use in opaque internal protocols, and are especially prone to race conditions and deadlock. Traditionally administrators have deployed these applications by leveraging nodes as stable, long-lived entities with persistent storage and static ips.
 
-<<<<<<< Updated upstream
-The goal of Pet Set is to decouple this dependency by assigning identities to individual instances of an application that are not anchored to the underlying physical infrastructure. For the rest of this document we will refer to these entities as "Pets". Our use of this term is predated by the "Pets vs Cattle" analogy.
-=======
-<<<<<<< HEAD
 The goal of Pet Set is to decouple this dependency by assigning identities to individual instances of an application that are not anchored to the underlying physical infrastructure. For the rest of this document we will refer to these entities as "Pets". Our use of this term is predated by the "Pets vs. Cattle" analogy.
-=======
-The goal of PetSet is to decouple this dependency by assigning identities to individual instances of an application that are not anchored to the underlying physical infrastructure. For the rest of this document we will refer to these entities as "Pets". Our use of this term is predated by the "Pets vs Cattle" analogy.
->>>>>>> fda0238a36ee1f6bc11ed358af86973ff7f01596
->>>>>>> Stashed changes
 
 __Relationship between Pets and Pods__: PetSet requires there be {0..N-1} Pets. Each Pet has a deterministic name - PetSetName-Ordinal, and a unique identity. Each Pet has at most one pod, and each PetSet has at most one Pet with a given identity.
 
