@@ -238,11 +238,11 @@ considering one set of work items that the user wants to manage together &mdash;
 There are several different patterns for parallel computation, each with strengths and weaknesses.
 The tradeoffs are:
 
-- One Job object for each work item, vs a single Job object for all work items.  The latter is
+- One Job object for each work item, vs. a single Job object for all work items.  The latter is
   better for large numbers of work items.  The former creates some overhead for the user and for the
   system to manage large numbers of Job objects.  Also, with the latter, the resource usage of the job
   (number of concurrently running pods) can be easily adjusted using the `kubectl scale` command.
-- Number of pods created equals number of work items, vs each pod can process multiple work items.
+- Number of pods created equals number of work items, vs. each pod can process multiple work items.
   The former typically requires less modification to existing code and containers.  The latter
   is better for large numbers of work items, for similar reasons to the previous bullet.
 - Several approaches use a work queue.  This requires running a queue service,
