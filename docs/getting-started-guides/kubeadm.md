@@ -80,6 +80,7 @@ The kubelet is now restarting every few seconds, as it waits in a crashloop for 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 All of these components run in pods started by `kubelet`.
 
+Before initilizing the master, make sure that SELINUX is disabled.
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
      # kubeadm init --use-kubernetes-version v1.4.0-beta.11
