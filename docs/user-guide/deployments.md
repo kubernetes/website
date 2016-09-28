@@ -451,7 +451,8 @@ nginx-deployment-2035384211   0         0         1h
 nginx-deployment-3066724191   0         0         1h
 ```
 
-Note: A paused Deployment cannot be scaled at this moment, and we will add this feature in 1.3 release, see [issue #20853](https://github.com/kubernetes/kubernetes/issues/20853). You cannot rollback a paused Deployment either, and you should resume a Deployment first before doing a rollback. 
+Note: You cannot rollback a paused Deployment until you resume it.
+
 
 ## Use Cases 
 
