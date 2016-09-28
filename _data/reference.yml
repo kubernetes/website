@@ -63,7 +63,7 @@ toc:
   - title: kubectl Commands
     section:
     - title: kubectl
-      path: /docs/user-guide/kubectl/kubectl/
+      path: /docs/user-guide/kubectl/
     - title: kubectl annotate
       path: /docs/user-guide/kubectl/kubectl_annotate/
     - title: kubectl api-versions
