@@ -454,6 +454,142 @@ nginx-deployment-3066724191   0         0         1h
 Note: You cannot rollback a paused Deployment until you resume it.
 
 
+## Failed Deployment
+
+Your Deployment may get stuck trying to deploy its newest ReplicaSet without ever completing, due to:
+
+* insufficient quota
+
+* readiness probe failures
+
+* image pull error
+
+* insufficient permissions
+
+* limit ranges
+
+* application runtime misconfiguration
+
+In those cases you can specify a timeout parameter in the spec ([spec.progressDeadlineSeconds](#progress-deadline-seconds))
+that denotes the seconds you want to wait for your Deployment to report any progress. Once the deadline is exceeded, meaning
+your Deployment will not report any progress for more than progressDeadlineSeconds, the deployment controller will add a
+condition with `Type=Progressing`, `Status=False`, and `Reason=ProgressDeadlineExceeded` in the status of the Deployment.
+For more information on status conditions, see [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/devel/api-conventions.md#typical-status-properties). 
+Note that at the moment, Kubernetes will do nothing more than just report with a condition with `Reason=ProgressDeadlineExceeded`.
+
+Another thing to note is transient errors eg. your rollout times out and a condition with `Reason=ProgressDeadlineExceeded`
+is set to your Deployment because of insufficient quota. To fix this issue, scale down your Deployment, or scale down other
+controllers you may be running, or increase quota in your namespace. You can increase quota by either asking your administrator
+or doing it yourself assuming you have the right permissions. Once the deployment controller notices that your Deployment is
+complete, it will transition the status of the Progressing condition into a succeeded one (`Status=True` and
+`Reason=NewReplicaSetAvailable`).
+
+A complete Deployment for the controller is one that: 
+
+* has minimum availability, meaning its available replicas are more than those required by the Deployment strategy 
+(`status.availableReplicas >= spec.replicas - maxUnavailable` where `maxUnavailable` is the maximum unavailable replicas
+that a Deployment allows at any point in time. It depends on the deployment strategy: Recreate deployments don't use it whereas
+Rolling Update deployments specify it in [spec.strategy.rollingUpdate.maxUnavailable](#max-unavailable)).
+
+* has all of its replicas updated to the latest revision (`spec.replicas == status.updatedReplicas`).
+
+Note that clients should always take into account generation/observedGeneration for ensuring that the latest state of a
+Deployment has been observed by the controller. For example, `kubectl rollout status` expects the Deployment generation
+to equal the observed generation (`d.generation <= d.status.observedGeneration`) before reporting any information provided
+in the status of the Deployment.
+
+Progress for a Deployment is:
+
+* the creation of the new replica set.
+
+* scaling up new pods.
+
+* scaling down old pods.
+
+To make the controller report lack of progress for a Deployment after 10 minutes:
+
+```shell
+$ kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
+"nginx-deployment" patched
+```
+
+If you describe the Deployment, you will notice a Conditions section:
+
+```
+Conditions:
+  Type          Status  Reason
+  ----          ------  ------
+  Available     True    MinimumReplicasAvailable
+  Progressing   True    NewReplicaSetAvailable
+```
+
+`Type=Available` with `Status=True` means that your Deployment has minimum availability. Minimum availability is dictated
+by the parameters specified in the deployment strategy. `Type=Progressing` with `Status=True` means that your Deployment
+is either in the middle of a rollout and it is progressing or that it has successfully completed its progress and the minimum
+required new replicas are available (see the Reason of the condition for the particulars - in our case
+`Reason=NewReplicaSetAvailable` means that the deployment is complete).
+
+For example, if you have insufficient pod quota and your Deployment tries to create more pods than allowed then
+a new `ReplicaFailure` condition will show up in the Deployment status.
+
+```
+Conditions:
+  Type            Status  Reason
+  ----            ------  ------
+  Available       True    MinimumReplicasAvailable
+  Progressing     True    NewReplicaSetAvailable
+  ReplicaFailure  True    FailedCreate
+```
+
+This is how the status of the Deployment looks like if you would run `kubectl get deployment nginx-deployment -o yaml`
+(spec of the object is omitted for brevity):
+
+```
+status:
+  availableReplicas: 2
+  conditions:
+  - lastTransitionTime: 2016-10-04T12:25:39Z
+    lastUpdateTime: 2016-10-04T12:25:39Z
+    message: Replica set "nginx-deployment-4262182780" is progressing.
+    reason: ReplicaSetUpdated
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: 2016-10-04T12:25:42Z
+    lastUpdateTime: 2016-10-04T12:25:42Z
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: 2016-10-04T12:25:39Z
+    lastUpdateTime: 2016-10-04T12:25:39Z
+    message: 'Error creating: pods "nginx-deployment-4262182780-" is forbidden: exceeded quota:
+      object-counts, requested: pods=1, used: pods=3, limited: pods=2'
+    reason: FailedCreate
+    status: "True"
+    type: ReplicaFailure
+  observedGeneration: 3
+  replicas: 2
+  unavailableReplicas: 2
+```
+
+Eventually, once the Deployment progress deadline is exceeded, the status and reason of the Progressing condition
+will be switched:
+
+```
+Conditions:
+  Type            Status  Reason
+  ----            ------  ------
+  Available       True    MinimumReplicasAvailable
+  Progressing     False   ProgressDeadlineExceeded
+  ReplicaFailure  True    FailedCreate
+```
+
+All actions that apply to a complete Deployment also apply to a failed Deployment. You can scale it up/down, rollback
+to a previous revision, or even pause it if you need to apply multiple tweaks in the Deployment pod template. Note
+that progress for a Deployment is not estimated while the Deployment is paused so you can safely pause a Deployment
+in the middle of a rollout and resume it whenever you want without it failing accidentally because of an exceeded
+deadline.
+
 ## Use Cases 
 
 ### Canary Deployment
@@ -555,6 +691,16 @@ the rolling update starts, such that the total number of old and new Pods do not
 130% of desired Pods. Once old Pods have been killed,
 the new Replica Set can be scaled up further, ensuring that the total number of Pods running
 at any time during the update is at most 130% of desired Pods.
+
+### Progress Deadline Seconds
+
+`.spec.progressDeadlineSeconds` is an optional field that specifies the number of seconds you want
+to wait for your Deployment to progress before the system reports back that the Deployment has
+[failed progressing](#failed-deployment) - surfaced as a condition with `Type=Progressing`, `Status=False`.
+and `Reason=ProgressDeadlineExceeded` in the status of the resource. The deployment controller will keep
+retrying the Deployment. In the future, once automatic rollback will be implemented, the deployment
+controller will rollback a Deployment as soon as it observes such a condition. If specified, this field
+needs to be greater than `.spec.minReadySeconds`.
 
 ### Min Ready Seconds
 
