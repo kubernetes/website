@@ -11,6 +11,9 @@ The Tasks section of the Kubernetes documentation is a work in progress
 
 * [Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api)
 
+#### Administering a Cluster
+
+* [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
 
 ### What's next
 
