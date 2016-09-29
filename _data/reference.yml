@@ -230,6 +230,8 @@ toc:
     path: /docs/user-guide/services/
   - title: Service Accounts
     path: /docs/user-guide/service-accounts/
+  - title: Third Party Resources
+    path: /docs/user-guide/thirdpartyresources/
   - title: Volumes
     path: /docs/user-guide/volumes/
 
