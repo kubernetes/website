@@ -2,7 +2,7 @@
 ---
 
 {% capture overview %}
-This page shows how to assign a Kubernetes Pod to a particualr node in a
+This page shows how to assign a Kubernetes Pod to a particular node in a
 Kubernetes cluster.
 {% endcapture %}
 
