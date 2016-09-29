@@ -2,7 +2,8 @@
 ---
 
 {% capture overview %}
-This page shows how to use an HTTP proxy to access the Kubernetes API.
+This page shows how to assign a Kubernetes Pod to a particualr node in a
+Kubernetes cluster.
 {% endcapture %}
 
 {% capture prerequisites %}
