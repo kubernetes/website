@@ -10,4 +10,8 @@ toc:
   section:
   - title: Using an HTTP Proxy to Access the Kubernetes API
     path: /docs/tasks/access-kubernetes-api/http-proxy-access-api/
+- title: Administering a Cluster
+  section:
+  - title: Assigning Pods to Nodes
+    path: /docs/tasks/administer-cluster/assign-pods-nodes/
 
