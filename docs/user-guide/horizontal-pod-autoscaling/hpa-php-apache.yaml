@@ -1,14 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
   namespace: default
 spec:
-  scaleRef:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
     kind: Deployment
     name: php-apache
-    subresource: scale
   minReplicas: 1
   maxReplicas: 10
-  cpuUtilization:
-    targetPercentage: 50
+  targetCPUUtilizationPercentage: 50
