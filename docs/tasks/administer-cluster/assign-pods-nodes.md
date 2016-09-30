@@ -38,7 +38,7 @@ Kubernetes cluster.
 
         kubectl label nodes <your-node-name> disktype=ssd
 
-    where <your-node-name> is the name of your chosen node.
+    where `<your-node-name>` is the name of your chosen node.
 
 1. Verify that your chosen node has a `disktype=ssd` label:
 
