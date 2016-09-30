@@ -19,6 +19,8 @@ or used to store configuration data for system components such as controllers.  
 to [Secrets](/docs/user-guide/secrets/), but designed to more conveniently support working with strings that do not
 contain sensitive information.
 
+Note: ConfigMaps are not intended to act as a replacement for a properties file. ConfigMaps are more intended to act a reference to multipe propertie files. You can think of them as way to represent something similar to the /etc directory and all it's files on a Linux computer. This model for ConfigMaps becomes especially apparent when looking at creating Volumes from ConfigMaps. Each data item in the ConfigMap becomes a new file. 
+
 Let's look at a made-up example:
 
 ```yaml
