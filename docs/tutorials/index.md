@@ -7,7 +7,7 @@ The Tutorials section of the Kubernetes documentation is a work in progress.
 
 * [Running a Stateless Application Using a Deployment](/docs/tutorials/stateless-application/run-stateless-application-deployment/)
 
-* [Exposing an External IP Address Using a Service](/docs/tutorials/stateless-application/expose-external-ip-address-service/)
+* [Using a Service to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address-service/)
 
 ### What's next
 
