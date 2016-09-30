@@ -26,16 +26,16 @@
 </section>
 
 <section id="encyclopedia">
-	<div id="docsToc">
+  <div id="docsToc">
         <div class="pi-accordion">
         {% assign tree = site.data[foundTOC].toc %}{% include tree.html %}
         </div> <!-- /pi-accordion -->
-		<button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
-	</div> <!-- /docsToc -->
-	<div id="docsContent">
+    <button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
+  </div> <!-- /docsToc -->
+  <div id="docsContent">
         <p><a href="/editdocs#{{ page.path }}" id="editPageButton">Edit This Page</a></p>
-    	{% if notitle != "true" %}<h1>{{ title }}</h1>{% endif %}
-		{{ content }}
+      {% if notitle != "true" %}<h1>{{ title }}</h1>{% endif %}
+    {{ content }}
         <p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ page.path }}?pixel" alt="Analytics" /></a>
         {% if page.url != "/404.html" and page.url != "/docs/search/" %}<div id="pd_rating_holder_8345992"></div>
 		<script type="text/javascript">
@@ -60,23 +60,21 @@
 <button class="flyout-button" onclick="kub.toggleToc()"></button>
 
 <style>
-	.cse .gsc-control-cse, .gsc-control-cse, {
-		padding: 0;
-	}
-	.gsc-control-cse table, .gsc-control-cse-en table {
-		margin:0px !important;
-	}
-
-	.gsc-above-wrapper-area {
-		border-bottom: 0;
-	}
+  .cse .gsc-control-cse, .gsc-control-cse, {
+    padding: 0;
+  }
+  .gsc-control-cse table, .gsc-control-cse-en table {
+    margin:0px !important;
+  }
+  .gsc-above-wrapper-area {
+    border-bottom: 0;
+  }
 </style>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
   ga('create', 'UA-36037335-10', 'auto');
   ga('send', 'pageview');
 </script>
