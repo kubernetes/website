@@ -2,6 +2,28 @@
 
 This document specifies the advanced options of kubeadm.
 
+When run, `kubeadm init` will bootstrap a Kubernetes cluster. This is made up
+of a few steps, namely:
+
+1. Generating a token that additional nodes can use to register themselves with
+the master in future.
+
+1. Generating a self-signed CA using openssl in order to provision identities
+for each node in the cluster, and for the API server to secure communication
+with clients.
+
+1. Outputting a kubeconfig file for the kubelet to use to connect to the API server,
+as well as an additional kubeconfig file for administration.
+
+1. Generating Kubernetes resource manifests for the API server, controller manager
+and scheduler, and placing them in `/etc/kubernetes/manifests`. The kubelet watches
+this directory for static resources to create on startup. These are the core
+components of Kubernetes, and once they are up and running we can use `kubectl`
+to set up/manage any additional components.
+
+1. Any addon components (eg. DNS, discovery) are installed in the aformentioned manner,
+through the API server.
+
 ## Usage
 
 Fields that support multiple values will do so either with comma
