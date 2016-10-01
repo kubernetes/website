@@ -42,16 +42,6 @@ You will install the following packages on all the machines:
 
 For each host in turn:
 
-<!--
-    # curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-    # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
-    deb http://packages.cloud.google.com/apt kubernetes-xenial main
-    EOF
-    # apt-get update
-    # apt-get install -y kubeadm docker.io§
--->
-
-
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
 * If the machine is running Ubuntu 16.04, run:
 
@@ -60,7 +50,7 @@ For each host in turn:
       deb http://apt.kubernetes.io/ kubernetes-xenial main
       EOF
       # apt-get update
-      # apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+      # apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni
 
    If the machine is running CentOS 7, run:
 
@@ -75,7 +65,7 @@ For each host in turn:
              https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
       EOF
       # setenforce 0
-      # yum install -y kubelet kubeadm kubectl kubernetes-cni
+      # yum install -y docker kubelet kubeadm kubectl kubernetes-cni
       # systemctl enable docker && systemctl start docker
       # systemctl enable kubelet && systemctl start kubelet
 
@@ -91,6 +81,9 @@ All of these components run in pods started by `kubelet`.
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
      # kubeadm init
+
+**Note:** this will autodetect the network interface to advertise the master on as the interface with the default gateway.
+If you want to use a different interface, specify `--api-advertise-addresses=<ip-address>` argument to `kubeadm init`.
 
 This will download and install the cluster database and "control plane" components.
 This may take several minutes.
