@@ -134,7 +134,7 @@ export KUBERNETES_PROVIDER=libvirt-coreos; wget -q -O - https://get.k8s.io | bas
 Here is the curl version of this command:
 
 ```shell
-export KUBERNETES_PROVIDER=libvirt-coreos; curl -sS https://get.k8s.io | bash`
+export KUBERNETES_PROVIDER=libvirt-coreos; curl -sS https://get.k8s.io | bash
 ```
 
 This script downloads and unpacks the tarball, then spawns a Kubernetes cluster on CoreOS instances with the following characteristics:
