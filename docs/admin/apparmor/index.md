@@ -349,8 +349,8 @@ logs or through `journalctl`. More information is provided in
 
 Additional resources:
 
-- http://wiki.apparmor.net/index.php/QuickProfileLanguage
-- http://wiki.apparmor.net/index.php/ProfileLanguage
+- [Quick guide to the AppArmor profile language](http://wiki.apparmor.net/index.php/QuickProfileLanguage)
+- [AppArmor core policy reference](http://wiki.apparmor.net/index.php/ProfileLanguage)
 
 ## API Reference
 
