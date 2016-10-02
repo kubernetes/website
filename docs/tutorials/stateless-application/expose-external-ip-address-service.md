@@ -4,9 +4,8 @@
 {% capture overview %}
 
 This page shows how to create a Kubernetes Service object that external
-clients can use to access an application running in a cluster. The
-Service exposes a stable IP address and provides load balancing for
-an application that has two running instances.
+clients can use to access an application running in a cluster. The Service
+provides load balancing for an application that has two running instances.
 
 {% endcapture %}
 
@@ -28,7 +27,7 @@ an application that has two running instances.
 {% capture objectives %}
 
 * Run two instances of a Hello World application.
-* Create a Service object that exposes an external IP address.
+* Create a Service object that exposes a node port.
 * Use the Service object to access the running application.
 
 {% endcapture %}
@@ -55,63 +54,68 @@ an application that has two running instances.
         kubectl get deployments hello-world
         kubectl describe deployments hello-world
 
-1. Display information about the ReplicaSet:
+1. Display information about your ReplicaSet objects:
 
-        kubectl get replicasets hello-world
-        kubectl describe replicasets hello-world
-
-1. List the pods that are running the Hello World application:
-
-        kubectl get pods --selector="run=load-balancer-example"
-
-    The output is similar to this:
-
-        NAME                           READY     STATUS    RESTARTS   AGE
-        hello-world-2189936611-8fyp0   1/1       Running   0          6m
-        hello-world-2189936611-9isq8   1/1       Running   0          6m
+        kubectl get replicasets
+        kubectl describe replicasets
 
 1. Create a Service object that exposes the deployment:
 
-        kubectl expose deployment hello-world --type="LoadBalancer" --name="example-service"
+        kubectl expose deployment hello-world --type=NodePort --name=example-service
 
-1. Display the IP addresses for your service:
+1. Display information about the Service:
 
-        kubectl get services example-service
-
-   The output shows the internal IP address and the external IP address of
-   your service. If the external IP address shows as `<pending>`, repeat the
-   command.
-
-   Note: If you are using Minikube, you don't get an external IP address. The
-   external IP address remains in the pending state.
-
-       NAME              CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
-       example-service   10.0.0.160   <pending>     8080/TCP   40s
-
-1. Use your service to access the Hello World application:
-
-        curl <your-external-ip-address>:8080
-
-    where `<your-external-ip-address>` is the external IP address of your
-    service.
-
-    The output is a hello message from the application:
-
-        Hello Kubernetes!
-
-    Note: If you are using Minikube, enter these commands:
-
-        kubectl cluster-info
         kubectl describe services example-service
 
-    The output displays the IP address of your Minikube node and the NodePort
-    value for your service. Enter this command to access the Hello World
-    application:
+    The output is similar to this:
 
-        curl <minikube-node-ip-address>:<service-node-port>
+        Name:                   example-service
+        Namespace:              default
+        Labels:                 run=load-balancer-example
+        Selector:               run=load-balancer-example
+        Type:                   NodePort
+        IP:                     10.32.0.16
+        Port:                   <unset> 8080/TCP
+        NodePort:               <unset> 31496/TCP
+        Endpoints:              10.200.1.4:8080,10.200.2.5:8080
+        Session Affinity:       None
+        No events.
 
-    where `<minikube-node-ip-address>` us the IP address of your Minikube node,
-    and `<service-node-port>` is the NodePort value for your service.
+    Make a note of the NodePort value for the service. For example,
+    in the preceding output, the NodePort value is 31496.
+
+1. List the pods that are running the Hello World application:
+
+        kubectl get pods --selector="run=load-balancer-example" --output=wide
+
+    The output is similar to this:
+
+        NAME                           READY   STATUS    ...  IP           NODE
+        hello-world-2895499144-bsbk5   1/1     Running   ...  10.200.1.4   worker1
+        hello-world-2895499144-m1pwt   1/1     Running   ...  10.200.2.5   worker2
+
+1. Get the public IP address of one of your nodes that is running
+   a Hello World pod. How you get this address depends on how you set
+   up your cluster. For example, if you are using Minikube, you can
+   see the node address by running `kubectl cluster-info`. If you are
+   using Google Compute Engine instances, you can use the
+   `gcloud compute instances list` command to see the public addresses of your
+   nodes.
+
+1. On your chosen node, create a firewall rule that allows TCP traffic
+   on your node port. For example, if your Service has a NodePort value of
+   31568, create a firewall rule that allows TCP traffic on port 31568. 
+
+1. Use the node address and node port to access the Hello World application:
+
+        curl http://<public-node-ip>:<node-port>
+
+    where `<public-node-ip>` us the public IP address of your node,
+    and `<node-port>` is the NodePort value for your service.
+
+    The response to a successful request is a hello message:
+
+        Hello Kubernetes!
 
 ### Using a service configuration file
 
