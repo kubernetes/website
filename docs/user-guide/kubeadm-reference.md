@@ -114,8 +114,6 @@ each new node. If you would like to manually specify this token, you can use the
 
 - `--use-kubernetes-version` (default 'v1.4.0') the kubernetes version to initialise
 
-`kubeadm` supports a minimum Kubernetes version of v1.4.0
-
 `kubeadm` was originally built for Kubernetes version **v1.4.0**, older versions are not
 supported. With this flag you can try any future version, e.g. **v1.5.0-beta.1**
 whenever it comes out (check [releases page](https://github.com/kubernetes/kubernetes/releases)
