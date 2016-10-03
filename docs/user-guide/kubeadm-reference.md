@@ -44,7 +44,11 @@ these to generate certificates for the API server. This uses the IP address
 of the default network interface. If you would like to access the API server
 through a different IP address, or through a hostname, you can override these
 defaults with `--api-advertise-addresses` and `--api-external-dns-names`.
-Specifying `--api-advertise-addresses` will disable auto detection.
+For example, to generate certificates that verify the API server at addresses
+`10.100.245.1` and `100.123.121.1`, you could use
+`--api-advertise-addresses=10.100.245.1,100.123.121.1`. To allow it to be accessed
+with a hostname, `--api-external-dns-names=kubernetes.example.com,kube.example.com`
+Specifying `--api-advertise-addresses` will disable auto detection of IP addresses.
 
 - `--cloud-provider`
 
@@ -130,3 +134,13 @@ Here's an example on how to use it:
 
 By default, when `kubeadm init` runs, a token is generated and revealed in the output.
 That's the token you should use here.
+
+## Troubleshooting
+
+* Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your sysctl config, eg.
+
+```
+# cat /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+```
