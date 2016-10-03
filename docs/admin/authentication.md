@@ -66,8 +66,7 @@ See [APPENDIX](#appendix) for how to generate a client cert.
 
 ### Static Token File
 
-Token file is enabled by passing the `--token-auth-file=SOMEFILE` option to the
-API server.  Currently, tokens last indefinitely, and the token list cannot be
+The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
 changed without restarting API server.
 
 The token file format is implemented in `plugin/pkg/auth/authenticator/token/tokenfile/...`
@@ -78,8 +77,19 @@ optional group names. Note, if you have more than one group the column must be d
 token,user,uid,"group1,group2,group3"
 ```
 
-When using token authentication from an http client the API server expects an `Authorization`
-header with a value of `Bearer SOMETOKEN`.
+#### Putting a Bearer Token in a Request
+
+When using bearer token authentication from an http client, the API
+server expects an `Authorization` header with a value of `Bearer
+THETOKEN`.  The bearer token must be a character sequence that can be
+put in an HTTP header value using no more than the encoding and
+quoting facilities of HTTP.  For example: if the bearer token is
+`31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
+header as shown below.
+
+```http
+Authentication: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
+```
 
 ### Static Password File
 
@@ -171,7 +181,8 @@ type: kubernetes.io/service-account-token
 Note: values are base64 encoded because secrets are always base64 encoded.
 
 The signed JWT can be used as a bearer token to authenticate as the given service
-account. Normally these secrets are mounted into pods for in-cluster access to
+account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
+in a request.  Normally these secrets are mounted into pods for in-cluster access to
 the API server, but can be used from outside the cluster as well.
 
 Service accounts authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
@@ -192,11 +203,8 @@ email, signed by the server.
 
 To identify the user, the authenticator uses the `id_token` (not the `access_token`)
 from the OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse)
-as a bearer token.
-
-```
-Authentication: Bearer (id_token)
-```
+as a bearer token.  See [above](#putting-a-bearer-token-in-a-request) for how the token
+is included in a request.
 
 To enable the plugin, pass the following required flags:
 
@@ -272,10 +280,11 @@ contexts:
   name: webhook
 ```
 
-When a client attempts to authenticate with the API server using a bearer token,
-using the `Authorization: Bearer (TOKEN)` HTTP header the authentication webhook
+When a client attempts to authenticate with the API server using a bearer token
+as discussed [above](#putting-a-bearer-token-in-a-request),
+the authentication webhook
 queries the remote service with a review object containing the token. Kubernetes
-will not challenge request that lack such a header.
+will not challenge a request that lacks such a header.
 
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
 as other Kubernetes API objects. Implementers should be aware of looser
