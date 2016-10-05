@@ -7,23 +7,24 @@
 
 <body>
 
-<link href="/docs/tutorials/getting-started/public/css/styles.css" rel="stylesheet">
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 <div class="layout" id="top">
 
 	<main class="content">
 
 		<div class="row">
-			<div class="col-md-12 text-left">
-				<a class="btn btn-default" href="/docs/tutorials/getting-started/update-app.html" role="button"><span class="btn__prev">‹</span> Back</a>
+
+     <div class="col-md-8">
+      	<h3>Objectives</h3>
+				<ul>
+					<li>Perform a rolling update using kubectl.</li>
+				</ul>
 			</div>
-		</div>
 
-		<br>
-		<br>
-
-		<div class="row">
 			<div class="col-md-8">
+			<h3>Updating an application</h3>
+
 			<p>Users expect applications to be available all the time and developers are expected to deploy new versions of them several times a day. In Kubernetes this is done with rolling updates. <b>Rolling updates</b> allows Deployments to occur with zero downtime by incrementally updating Pods instances with new ones. The new Pods will be scheduled on Nodes with available resources.</p>
 
 			<p>In the previous module we scaled our application to run multiple instances. This is a requirement for performing updates without affecting application availability. By default, the maximum number of Pods that can be unavailable during the update and the maximum number of new Pods that can be created, is one. Both options can be configured to either numbers or percentages (of Pods).
@@ -61,19 +62,19 @@
 					</ol>
 					  <div class="carousel-inner" role="listbox">
 					    <div class="item active">
-					      <img src="/docs/tutorials/getting-started/public/images/module_06_rollingupdates1.svg" >
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
 					    </div>
 
 					    <div class="item">
-					      <img src="/docs/tutorials/getting-started/public/images/module_06_rollingupdates2.svg">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
 					    </div>
 
 					    <div class="item">
-					      <img src="/docs/tutorials/getting-started/public/images/module_06_rollingupdates3.svg">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
 					    </div>
 
 					    <div class="item">
-					      <img src="/docs/tutorials/getting-started/public/images/module_06_rollingupdates4.svg">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
 					    </div>
 					  </div>
 
@@ -121,7 +122,7 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<a class="btn btn-lg btn-success" href="/docs/tutorials/getting-started/update-interactive.html" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/update-interactive.html" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
 			</div>
 		</div>
 
