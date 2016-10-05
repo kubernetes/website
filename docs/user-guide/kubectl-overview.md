@@ -107,7 +107,6 @@ Resource type	| Abbreviated alias
 `replicasets` |`rs`
 `replicationcontrollers` |`rc`
 `resourcequotas` |`quota`
-`scheduledjobs` |
 `secrets` |
 `serviceaccounts` |`sa`
 `services` |`svc`
