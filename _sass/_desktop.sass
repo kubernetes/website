@@ -134,21 +134,21 @@ $video-section-height: 550px
 
 		#bigSocial
 			div
-				width: calc(25% - 15px)
+				width: calc(25% - 18px)
 
 			div + div
 				margin-left: 20px
+			//
+			//div:nth-child(3), div:nth-child(4)
+			//	margin-top: 0
 
-			div:nth-child(3), div:nth-child(4)
-				margin-top: 0
 
-
-	#home #bigSocial
-		div
-			width: calc(33% - 15px)
-
-		div:nth-child(3)
-			margin-top: inherit
+	//#home #bigSocial
+	//	div
+	//		width: calc(33% - 15px)
+	//
+	//	div:nth-child(3)
+	//		margin-top: inherit
 
 	// FOOTER
 	footer
@@ -164,7 +164,7 @@ $video-section-height: 550px
 			margin-bottom: 20px
 
 			a
-				width: 25%
+				width: 20%
 				float: left
 				font-size: 24px
 				font-weight: 300
@@ -270,7 +270,7 @@ $video-section-height: 550px
 
 
 
-	#community
+	#community, .gridPage
 		#hero
 			text-align: left
 
@@ -281,3 +281,16 @@ $video-section-height: 550px
 			width: auto
 			background-color: $blue
 			padding: 0 20px
+			
+
+
+
+	#bigSocial
+		div
+			width: calc(25% - 18px)
+
+
+	#home #caseStudiesWrapper
+		div
+			width: 24%
+			min-height: 260px

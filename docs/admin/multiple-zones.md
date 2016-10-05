@@ -39,7 +39,7 @@ or service across nodes in a single-zone cluster (to reduce the impact of
 failures.)  With multiple-zone clusters, this spreading behaviour is
 extended across zones (to reduce the impact of zone failures.)  (This is
 achieved via `SelectorSpreadPriority`).  This is a best-effort
-placement, and so if the zones in your cluster are heterogenous
+placement, and so if the zones in your cluster are heterogeneous
 (e.g. different numbers of nodes, different types of nodes, or
 different pod resource requirements), this might prevent perfectly
 even spreading of your pods across zones. If desired, you can use

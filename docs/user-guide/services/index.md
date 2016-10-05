@@ -147,11 +147,38 @@ Accessing a `Service` without a selector works the same as if it had selector.
 The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
 this example).
 
+An ExternalName service is a special case of service that does not have
+selectors. It does not define any ports or endpoints. Rather, it serves as a
+way to return an alias to an external service residing outside the cluster.
+
+```json
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "my-service",
+        "namespace": "prod"
+    },
+    "spec": {
+        "type": "ExternalName",
+        "externalName": "my.database.example.com"
+    }
+}
+```
+
+When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
+will return a `CNAME` record with the value `my.database.example.com`. Accessing
+such a service works in the same way as others, with the only difference that
+the redirection happens at the DNS level and no proxying or forwarding occurs.
+Should you later decide to move your database into your cluster, you can start
+its pods, add appropriate selectors or endpoints and change the service `type`.
+
 ## Virtual IPs and service proxies
 
-Every node in a Kubernetes cluster runs a `kube-proxy`.  This application
-is responsible for implementing a form of virtual IP for `Service`s.  In
-Kubernetes v1.0 the proxy was purely in userspace.  In Kubernetes v1.1 an
+Every node in a Kubernetes cluster runs a `kube-proxy`.  `kube-proxy` is
+responsible for implementing a form of virtual IP for `Service`s of type other
+than `ExternalName`.
+In Kubernetes v1.0 the proxy was purely in userspace.  In Kubernetes v1.1 an
 iptables proxy was added, but was not the default operating mode.  Since
 Kubernetes v1.2, the iptables proxy is the default.
 
@@ -317,6 +344,9 @@ Kubernetes also supports DNS SRV (service) records for named ports.  If the
 can do a DNS SRV query for `"_http._tcp.my-service.my-ns"` to discover the port
 number for `"http"`.
 
+The Kubernetes DNS server is the only way to access services of type
+`ExternalName`.
+
 ## Headless services
 
 Sometimes you don't need or want load-balancing and a single service IP.  In
@@ -343,7 +373,10 @@ records (addresses) which point directly to the `Pods` backing the `Service`.
 
 For headless services that do not define selectors, the endpoints controller does
 not create `Endpoints` records. However, the DNS system looks for and configures
-A records for any `Endpoints` that share a name with the service.
+either:
+  - CNAME records for `ExternalName`-type services
+  - A records for any `Endpoints` that share a name with the service, for all
+    other types
 
 ## Publishing services - service types
 
@@ -359,6 +392,10 @@ services to external traffic.
 
 Valid values for the `ServiceType` field are:
 
+   * `ExternalName`: map the service to the contents of the `externalName` field
+     (e.g. `foo.bar.example.com`), by returning a `CNAME` record with its value.
+     No proxying of any kind is set up. This requires version 1.7 or higher of
+     `kube-dns`.
    * `ClusterIP`: use a cluster-internal IP only - this is the default and is
      discussed above. Choosing this value means that you want this service to be
      reachable only from inside of the cluster.

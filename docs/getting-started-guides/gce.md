@@ -46,7 +46,7 @@ wget -q -O - https://get.k8s.io | bash
 
 Once this command completes, you will have a master VM and four worker VMs, running as a Kubernetes cluster.
 
-By default, some containers will already be running on your cluster. Containers like `kibana` and `elasticsearch` provide [logging](/docs/getting-started-guides/logging), while `heapster` provides [monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/README.md) services.
+By default, some containers will already be running on your cluster. Containers like `fluentd` provide [logging](/docs/getting-started-guides/logging), while `heapster` provides [monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/README.md) services.
 
 The script run by the commands above creates a cluster with the name/prefix "kubernetes". It defines one specific cluster config, so you can't run it more than once.
 
@@ -64,10 +64,10 @@ If you run into trouble, please see the section on [troubleshooting](/docs/getti
 
 The next few steps will show you:
 
-1. how to set up the command line client on your workstation to manage the cluster
-1. examples of how to use the cluster
-1. how to delete the cluster
-1. how to start clusters with non-default options (like larger clusters)
+1. How to set up the command line client on your workstation to manage the cluster
+1. Examples of how to use the cluster
+1. How to delete the cluster
+1. How to start clusters with non-default options (like larger clusters)
 
 ### Installing the Kubernetes command line tools on your workstation
 
