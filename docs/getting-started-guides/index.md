@@ -70,7 +70,7 @@ writing a new solution](https://github.com/kubernetes/kubernetes/tree/{{page.git
 
 These solutions are combinations of cloud provider and OS not covered by the above solutions.
 
-- [AWS + coreos](/docs/getting-started-guides/coreos)
+- [AWS + CoreOS](/docs/getting-started-guides/coreos)
 - [GCE + CoreOS](/docs/getting-started-guides/coreos)
 - [AWS + Ubuntu](/docs/getting-started-guides/juju)
 - [Joyent + Ubuntu](/docs/getting-started-guides/juju)
