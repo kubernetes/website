@@ -2,5 +2,3 @@ bigheader: "Tools"
 toc:
 - title: Tools
   path: /docs/tools/
-- title: Third-Party Tools
-  path: /docs/tools/third-party-tools/
