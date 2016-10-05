@@ -14,7 +14,7 @@ This document describes how to run Kubernetes using [rkt](https://github.com/cor
 
 * [Systemd](http://www.freedesktop.org/wiki/Software/systemd/) must be installed and enabled. The minimum systemd version required for Kubernetes v1.3 is `219`. Systemd is used to monitor and manage the pods on each node.
 
-* [Install the latest rkt release](https://coreos.com/rkt/docs/latest/trying-out-rkt.html). The minimum rkt version required is [v1.9.1](https://github.com/coreos/rkt/releases/tag/v1.9.1). The [CoreOS Linux alpha channel](https://coreos.com/releases/) ships with a recent rkt release, and you can easily [upgrade rkt on CoreOS](https://coreos.com/rkt/docs/latest/install-rkt-in-coreos.html), if necessary.
+* [Install the latest rkt release](https://coreos.com/rkt/docs/latest/trying-out-rkt.html). The minimum rkt version required is [v1.13.0](https://github.com/coreos/rkt/releases/tag/v1.13.0). The [CoreOS Linux alpha channel](https://coreos.com/releases/) ships with a recent rkt release, and you can easily [upgrade rkt on CoreOS](https://coreos.com/rkt/docs/latest/install-rkt-in-coreos.html), if necessary.
 
 * The [rkt API service](https://coreos.com/rkt/docs/latest/subcommands/api-service.html) must be running on the node.
 
@@ -129,7 +129,7 @@ $ export KUBE_CONTAINER_RUNTIME=rkt
 Optionally, set the version of rkt by setting `KUBE_RKT_VERSION`:
 
 ```shell
-$ export KUBE_RKT_VERSION=1.9.1
+$ export KUBE_RKT_VERSION=1.13.0
 ```
 
 Optionally, select an alternative [stage1 isolator](#modular-isolation-with-interchangeable-stage1-images) for the container runtime by setting `KUBE_RKT_STAGE1_IMAGE`:

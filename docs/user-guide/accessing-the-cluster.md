@@ -27,7 +27,7 @@ $ kubectl config view
 ```
 
 Many of the [examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/) provide an introduction to using
-kubectl and complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/kubectl).
+kubectl and complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
 
 ### Directly accessing the REST API
 
@@ -69,9 +69,9 @@ $ curl http://localhost:8080/api/
 }
 ```
 
-#### Without kubectl proxy
+#### Without kubectl proxy (before v1.3.x)
 
-It is also possible to avoid using kubectl proxy by passing an authentication token
+It is possible to avoid using kubectl proxy by passing an authentication token
 directly to the apiserver, like this:
 
 ```shell
@@ -85,7 +85,29 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 }
 ```
 
-The above example uses the `--insecure` flag.  This leaves it subject to MITM
+#### Without kubectl proxy (post v1.3.x)
+
+In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the token. Use `kubectl describe secret...` to get the token for the default service account, like this:
+
+``` shell
+$ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
+$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t')
+$ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
+{
+  "kind": "APIVersions",
+  "versions": [
+    "v1"
+  ],
+  "serverAddressByClientCIDRs": [
+    {
+      "clientCIDR": "0.0.0.0/0",
+      "serverAddress": "10.0.1.149:443"
+    }
+  ]
+}
+```
+
+The above examples use the `--insecure` flag.  This leaves it subject to MITM
 attacks.  When kubectl accesses the cluster it uses a stored root certificate
 and client certificates to access the server.  (These are installed in the
 `~/.kube` directory).  Since cluster certificates are typically self-signed, it

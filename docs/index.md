@@ -77,13 +77,18 @@ h2, h3, h4 {
     <a href="/docs/whatisk8s/" class="button">Read the Overview</a>
   </div>
   <div class="col3rd">
-    <h3>Hello Node!</h3>
-    <p>In this quickstart, we’ll be creating a Kubernetes instance that stands up a simple “Hello World” app using Node.js. In just a few minutes you'll go from zero to deployed Kubernetes app on Google Container Engine.</p>
-    <a href="/docs/hellonode/" class="button">Get Started</a>
+    <h3>Hello World on Google Container Engine</h3>
+    <p>In this quickstart, we’ll be creating a Kubernetes instance that stands up a simple “Hello World” app using Node.js. In just a few minutes you'll go from zero to deployed Kubernetes app on Google Container Engine (GKE), a hosted service from Google.</p>
+    <a href="/docs/hellonode/" class="button">Get Started on GKE</a>
+  </div>
+  <div class="col3rd">
+    <h3>Installing Kubernetes on Linux with kubeadm</h3>
+    <p>This quickstart will show you how to install a secure Kubernetes cluster on any computers running Linux, using a tool called <code>kubeadm</code> which is part of Kubernetes. It'll work with local VMs, physical servers and/or cloud servers, either manually or as part of your own automation. It is currently in alpha but please try it out and give us feedback!</p>
+    <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes with kubeadm</a>
   </div>
   <div class="col3rd">
     <h3>Guided Tutorial</h3>
-    <p>If you’ve completed the quickstart, a great next step is Kubernetes 101. You will follow a path through the various features of Kubernetes, with code examples along the way, learning all of the core concepts. There's also a <a href="/docs/user-guide/walkthrough/k8s201">Kubernetes 201</a>!</p>
+    <p>If you’ve completed one of the quickstarts, a great next step is Kubernetes 101. You will follow a path through the various features of Kubernetes, with code examples along the way, learning all of the core concepts. There's also a <a href="/docs/user-guide/walkthrough/k8s201">Kubernetes 201</a>!</p>
     <a href="/docs/user-guide/walkthrough/" class="button">Kubernetes 101</a>
   </div>
 </div>
