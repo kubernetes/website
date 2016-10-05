@@ -63,7 +63,17 @@ Client certificate authentication is enabled by passing the `--client-ca-file=SO
 option to API server. The referenced file must contain one or more certificates authorities
 to use to validate client certificates presented to the API server. If a client certificate
 is presented and verified, the common name of the subject is used as the user name for the
-request.
+request. As of Kubernetes 1.4, client certificates can also indicate a user's group memberships
+using the certificate's organization fields. To include multiple group memberships for a user,
+include multiple organization fields in the certificate.
+
+For example, using the `openssl` command line tool to generate a certificate signing request:
+
+``` bash
+openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app2"
+```
+
+This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
 
 See [APPENDIX](#appendix) for how to generate a client cert.
 
