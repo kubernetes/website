@@ -16,7 +16,7 @@ and a _worker_ node which receives work from the master. You can repeat the proc
 times to create larger clusters.
 
 Here's a diagram of what the final result will look like:
-![Kubernetes on Docker](https://github.com/kubernetes/kubernetes/blob/master/docs/getting-started-guides/k8s-docker.png)
+![Kubernetes on Docker](/images/docs/k8s-docker.png)
 
 ### Bootstrap Docker
 
