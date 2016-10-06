@@ -108,6 +108,25 @@ While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on
 machine reboot and any files you write will count against your container's
 memory limit.
 
+#### Example pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: gcr.io/google_containers/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /cache
+      name: cache-volume
+  volumes:
+  - name: cache-volume
+    emptyDir: {}
+```
+
 ### hostPath
 
 A `hostPath` volume mounts a file or directory from the host node's filesystem
