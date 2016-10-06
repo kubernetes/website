@@ -4,6 +4,8 @@ toc:
   path: /docs/tutorials/
 - title: Kubernetes Basics
   section:
+  - title: Overview
+    path: /docs/tutorials/kubernetes-basics/
   - title: 1. Create a Cluster
     section:
     - title: Using Minikube to Create a Cluster
