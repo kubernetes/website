@@ -11,11 +11,11 @@ assignees:
 
 ### Kubectl 
 
-[`kubectl`](docs/user-guide/kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
+[`kubectl`](/docs/user-guide/kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
 
 ### Dashboard 
 
-[Dashboard](docs/user-guide/ui/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
+[Dashboard](/docs/user-guide/ui/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
 to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself. 
 
 ## Third-Party Tools
