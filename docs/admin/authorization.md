@@ -323,6 +323,32 @@ roleRef:
   apiVersion: rbac.authorization.k8s.io/v1alpha1
 ```
 
+### Referring to Resources
+
+Most resources are represented by a string representation of their name, such as "pods", just as it
+appears in the URL for the relevant API endpoint. However, some Kubernetes APIs involve a
+"subresource" such as the logs for a pod. The URL for the pods logs endpoint is:
+
+```
+GET /api/v1/namespaces/{namespace}/pods/{name}/log
+```
+
+In this case, "pods" is the namespaced resource, and "log" is a subresource of pods. To represent
+this in an RBAC role, use a slash to delimit the resource and subresource names. To allow a subject
+to read both pods and pod logs, you would write:
+
+```yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  namespace: default
+  name: pod-and-pod-logs-reader
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list"]
+```
+
 ### Referring to Subjects
 
 RoleBindings and ClusterRoleBindings bind "subjects" to "roles".
@@ -351,6 +377,7 @@ to groups with the `system:` prefix.
 Only the `subjects` section of a RoleBinding object shown in the following examples.
 
 For a user called `alice@example.com`, specify
+
 ```yaml
 subjects:
   - kind: User
@@ -358,6 +385,7 @@ subjects:
 ```
 
 For a group called `frontend-admins`, specify:
+
 ```yaml
 subjects:
   - kind: Group
@@ -365,6 +393,7 @@ subjects:
 ```
 
 For the default service account in the kube-system namespace:
+
 ```yaml
 subjects:
  - kind: ServiceAccount
@@ -373,6 +402,7 @@ subjects:
 ```
 
 For all service accounts in the `qa` namespace:
+
 ```yaml
 subjects:
 - kind: Group
@@ -380,6 +410,7 @@ subjects:
 ```
 
 For all service accounts everywhere:
+
 ```yaml
 subjects:
 - kind: Group
