@@ -5,7 +5,7 @@ assignees:
 
 ---
 
-Use this overview of the `kubectl` command line interface to help you start running commands against Kubernetes clusters. This overview quickly covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation.
+Use this overview of the `kubectl` command line interface to help you start running commands against Kubernetes clusters. This overview quickly covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl) reference documentation.
 
 TODO: Auto-generate this file to ensure it's always in sync with any `kubectl` changes, see [#14177](http://pr.k8s.io/14177).
 
@@ -85,25 +85,33 @@ The following table includes a list of all the supported resource types and thei
 
 Resource type	| Abbreviated alias
 -------------------- | --------------------
-`componentstatuses`	|	`cs`
-`daemonsets` | `ds`
-`deployments` |
-`events` | `ev`
-`endpoints` | `ep`
-`horizontalpodautoscalers` | `hpa`
-`ingresses` | `ing`
+`clusters` |
+`componentstatuses` |`cs`
+`configmaps` |`cm`
+`daemonsets` |`ds`
+`deployments` |`deploy`
+`endpoints` |`ep`
+`events` |`ev`
+`horizontalpodautoscalers` |`hpa`
+`ingresses` |`ing`
 `jobs` |
-`limitranges` | `limits`
-`nodes` | `no`
-`namespaces` | `ns`
-`pods` | `po`
-`persistentvolumes` | `pv`
-`persistentvolumeclaims` | `pvc`
-`resourcequotas` | `quota`
-`replicationcontrollers` | `rc`
+`limitranges` |`limits`
+`namespaces` |`ns`
+`networkpolicies` |
+`nodes` |`no`
+`persistentvolumeclaims` |`pvc`
+`persistentvolumes` |`pv`
+`pods` |`po`
+`podsecuritypolicies` |`psp`
+`podtemplates` |
+`replicasets` |`rs`
+`replicationcontrollers` |`rc`
+`resourcequotas` |`quota`
 `secrets` |
-`serviceaccounts` |
-`services` | `svc`
+`serviceaccounts` |`sa`
+`services` |`svc`
+`storageclasses` |
+`thirdpartyresources` |
 
 ## Output options
 
