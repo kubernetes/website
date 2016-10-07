@@ -182,9 +182,9 @@ To learn more about the sample microservices app, see the [GitHub README](https:
 
 You can then find out the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
-    # kubectl describe svc front-end
+    # kubectl describe svc front-end -n sock-shop
     Name:                   front-end
-    Namespace:              default
+    Namespace:              sock-shop
     Labels:                 name=front-end
     Selector:               name=front-end
     Type:                   NodePort
@@ -194,7 +194,7 @@ You can then find out the port that the [NodePort feature of services](/docs/use
     Endpoints:              <none>
     Session Affinity:       None
 
-It takes several minutes to download and start all the containers, watch the output of `kubectl get pods` to see when they're all up and running.
+It takes several minutes to download and start all the containers, watch the output of `kubectl get pods -n sock-shop` to see when they're all up and running.
 
 Then go to the IP address of your cluster's master node in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
