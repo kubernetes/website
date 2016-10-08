@@ -194,13 +194,13 @@ Applications often need a set of initialization steps prior to performing their 
 * Registering the pod into a central database, or fetching remote configuration from that database
 * Downloading application dependencies, seed data, or preconfiguring disk
 
-Kubernetes now includes an alpha feature known as **init containers**, which are one or more containers in a pod that get a chance to run and initialize shared volumes prior to the other application containers starting.  An init container is exactly like a regular container, except that it always runs to completion and each init container must complete successfully before the next one is started. If the init container fails (exits with a non-zero exit code) on a `RestartNever` pod the pod will fail - otherwise it will be restarted until it succeeds or the user deletes the pod.
+Kubernetes now includes a beta feature known as **init containers**, which are one or more containers in a pod that get a chance to run and initialize shared volumes prior to the other application containers starting.  An init container is exactly like a regular container, except that it always runs to completion and each init container must complete successfully before the next one is started. If the init container fails (exits with a non-zero exit code) on a `RestartNever` pod the pod will fail - otherwise it will be restarted until it succeeds or the user deletes the pod.
 
-Since init containers are an alpha feature, they are specified by setting the `pod.alpha.kubernetes.io/init-containers` annotation on a pod (or replica set, deployment, daemon set, pet set, or job). The value of the annotation must be a string containing a JSON array of container definitions:
+Since init containers are a beta feature, they are specified by setting the `pod.beta.kubernetes.io/init-containers` annotation on a pod (or replica set, deployment, daemon set, pet set, or job). The value of the annotation must be a string containing a JSON array of container definitions:
 
 {% include code.html language="yaml" file="nginx-init-containers.yaml" ghlink="/docs/user-guide/nginx-init-containers.yaml" %}
 
-The status of the init containers is returned as another annotation - `pod.alpha.kubernetes.io/init-container-statuses` -- as an array of the container statuses (similar to the `status.containerStatuses` field).
+The status of the init containers is returned as another annotation - `pod.beta.kubernetes.io/init-container-statuses` -- as an array of the container statuses (similar to the `status.containerStatuses` field).
 
 Init containers support all of the same features as normal containers, including resource limits, volumes, and security settings. The resource requests and limits for an init container are handled slightly different than normal containers since init containers are run one at a time instead of all at once - any limits or quotas will be applied based on the largest init container resource quantity, rather than as the sum of quantities. Init containers do not support readiness probes since they will run to completion before the pod can be ready.
 
