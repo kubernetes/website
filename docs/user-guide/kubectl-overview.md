@@ -77,7 +77,7 @@ Operation       | Syntax	|       Description
 `stop`		| `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
 `version`		| `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
-Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation.
+Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl) reference documentation.
 
 ## Resource types
 
@@ -115,7 +115,7 @@ Resource type	| Abbreviated alias
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl) reference documentation.
 
 ### Formatting output
 
@@ -146,7 +146,7 @@ In this example, the following command outputs the details for a single pod as a
 
 `$ kubectl get pod web-pod-13je7 -o=yaml`
 
-Remember: See the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](/docs/user-guide/kubectl) reference documentation for details about which output format is supported by each command.
 
 #### Custom columns
 
