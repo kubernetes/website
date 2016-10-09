@@ -119,6 +119,7 @@ KUBE_API_ARGS=""
 ```
 
 * Configure ETCD to hold the network overlay configuration on master:
+**Warning** This network must be unused in your network infrastructure! `172.40.0.0/16` is free in our network.
 
 ```shell
 $ etcdctl mkdir /kube-centos/network
