@@ -17,7 +17,7 @@ It is simple enough that you can easily integrate its use into your own automati
 
 ## Prerequisites
 
-1. One or more machines running Ubuntu 16.04 or CentOS 7
+1. One or more machines running Ubuntu 16.04, CentOS 7 or HypriotOS
 1. 1GB or more of RAM per machine (any less will leave little room for your apps)
 1. Full network connectivity between all machines in the cluster (public or private network is fine)
 
@@ -37,20 +37,22 @@ You will install the following packages on all the machines:
 * `kubelet`: the most core component of Kubernetes.
   It runs on all of the machines in your cluster and does things like starting pods and containers.
 * `kubectl`: the command to control the cluster once it's running.
-  You will only use this on the master.
+  You will only need this on the master, but it can be useful to have on the other nodes as well.
 * `kubeadm`: the command to bootstrap the cluster.
 
 For each host in turn:
 
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
-* If the machine is running Ubuntu 16.04, run:
+* If the machine is running Ubuntu 16.04 or HypriotOS, run:
 
       # curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
       # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
       deb http://apt.kubernetes.io/ kubernetes-xenial main
       EOF
       # apt-get update
-      # apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni
+      # # Install docker if you don't have it already. Version 1.11.2 is recommended, but 1.10.3 and 1.12.1 are known to work as well.
+      # apt-get install -y docker.io
+      # apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
    If the machine is running CentOS 7, run:
 
@@ -77,6 +79,13 @@ Note: `setenforce 0` will no longer be necessary on CentOS once [#33555](https:/
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 All of these components run in pods started by `kubelet`.
+
+Before you run this, make sure nothing is listening on `2379`, `2380`, `8080`, `443` or `10250` and kubelet and docker is running (check with `systemctl status kubelet`).
+Also, check that `/etc/kubernetes`, `/var/etcd` and `/var/lib/kubelet` are empty directories or don't exist, otherwise `kubeadm init` may fail.
+
+Right now you can't run `kubeadm init` twice without turning down the cluster in between, see [Turndown](#turndown).
+
+If you are running this on HypriotOS (Raspberry Pi's), follow the slightly other [HypriotOS guide](#hypriotos-guide)
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
@@ -125,7 +134,27 @@ If you want to be able to schedule pods on the master, for example if you want a
 
 This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
-### (3/4) Joining your nodes
+### (3/4) Installing a pod network
+
+You must install a pod network add-on so that your pods can communicate with each other.
+**It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up.**
+
+Several projects provide Kubernetes pod networks.
+You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
+
+By way of example, you can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
+
+    # kubectl apply -f https://git.io/weave-kube
+    daemonset "weave-net" created
+
+If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), please refer to their respective installation guides.
+You can install _only one_ pod network per cluster.
+
+Once a pod network has been installed, you can confirm that it is working by checking that the `kube-dns` pod is `Running` in the output of `kubectl get pods --all-namespaces`.
+
+And once the `kube-dns` pod is up and running, you can continue by joining your nodes.
+
+### (4/4) Joining your nodes
 
 The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
@@ -149,28 +178,12 @@ For example:
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
-**YOUR CLUSTER IS NOT READY YET!**
+### (Optional) Control your cluster from machines other than the master
 
-Before you can deploy applications to it, you need to install a pod network.
+In order to get a kubectl on your laptop for example to talk to your cluster, you need to copy the `KubeConfig` file from your master to your laptop like this:
 
-### (4/4) Installing a pod network
-
-You must install a pod network add-on so that your pods can communicate with each other when they are on different hosts.
-**It is necessary to do this before you try to deploy any applications to your cluster.**
-
-Several projects provide Kubernetes pod networks.
-You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
-
-By way of example, you can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
-
-    # kubectl apply -f https://git.io/weave-kube
-    daemonset "weave-net" created
-
-If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), please refer to their respective installation guides.
-You should only install one pod network per cluster.
-
-Once a pod network has been installed, you can confirm that it is working by checking that the `kube-dns` pod is `Running` in the output of `kubectl get pods --all-namespaces`.
-**This signifies that your cluster is ready.**
+    # scp root@<master ip>:/etc/kubernetes/admin.conf .
+    # kubectl --kubeconfig ./admin.conf get nodes
 
 ### (Optional) Installing a sample application
 
@@ -202,30 +215,49 @@ In the example above, this was `31869`, but it is a different port for you.
 
 If there is a firewall, make sure it exposes this port to the internet before you try to access it.
 
-### Explore other add-ons
+## HypriotOS guide
+
+kubeadm will work fine on ARM, thanks to that sig-cluster-lifecycle has followed the [multi-platform proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/multi-platform.md).
+
+deb-packages are released for ARM and ARM 64-bit, but not RPMs (yet, reach out if there's interest).
+
+Anyway, ARM had some issues when making v1.4, see [#32517](https://github.com/kubernetes/kubernetes/pull/32517) [#33485](https://github.com/kubernetes/kubernetes/pull/33485), [#33117](https://github.com/kubernetes/kubernetes/pull/33117) and [#33376](https://github.com/kubernetes/kubernetes/pull/33376). 
+
+However, thanks to the PRs above, `kube-apiserver` works on ARM from the `v1.4.1` (`v1.4.1-beta.2` works as well) release, so make sure you're at least using `v1.4.1` when running on ARM 32-bit (this doesn't affect ARM 64-bit at all)
+
+Also, a pod network for ARM is required, and flannel is currently the only one that's providing multi-arch binaries and images.
+Therefore, when initializing the master, run this:
+
+    # kubeadm init --use-kubernetes-version=v1.4.1 --pod-network-cidr=10.244.0.0/16
+
+The `--pod-network-cidr` option is mandatory when using flannel as the pod network provider.
+
+And when installing the flannel pod network, run this:
+    # curl -sSL https://raw.githubusercontent.com/luxas/flannel/update-daemonset/Documentation/kube-flannel.yml | sed "s/amd64/arm/g" | kubectl create -f -
+
+The above command will download the flannel pod network manifest, replace the `amd64` references with `arm` ones and create the pod network.
+
+## Turndown
+
+* To uninstall the socks shop, run `kubectl delete -f microservices-demo/deploy/kubernetes/manifests` on the master.
+
+* To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then uninstall the packages.
+    systemctl stop kubelet;
+    docker rm -f $(docker ps -q); mount | grep "/var/lib/kubelet/*" | awk '{print $3}' | xargs umount 1>/dev/null 2>/dev/null;
+    rm -rf /var/lib/kubelet /etc/kubernetes /var/lib/etcd /etc/cni;
+    ip link set cni0 down; ip link del cni0;
+    systemctl start kubelet
+    <!-- *syntax-highlighting-hack -->
+
+
+## Explore other add-ons
 
 See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
-
 
 ## What's next
 
 * Learn more about [Kubernetes concepts and kubectl in Kubernetes 101](/docs/user-guide/walkthrough/).
 * Install Kubernetes with [a cloud provider configurations](/docs/getting-started-guides/) to add Load Balancer and Persistent Volume support.
-
-
-## Cleanup
-
-* To uninstall the socks shop, run `kubectl delete -f microservices-demo/deploy/kubernetes/manifests` on the master.
-
-* To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then uninstall the packages.
-  <details>
-     <pre><code>systemctl stop kubelet;
-  docker rm -f $(docker ps -q); mount | grep "/var/lib/kubelet/*" | awk '{print $3}' | xargs umount 1>/dev/null 2>/dev/null;
-  rm -rf /var/lib/kubelet /etc/kubernetes /var/lib/etcd /etc/cni;
-  ip link set cbr0 down; ip link del cbr0;
-  ip link set cni0 down; ip link del cni0;
-  systemctl start kubelet</code></pre>
-  </details> <!-- *syntax-highlighting-hack -->
 
 ## Feedback
 
@@ -250,6 +282,3 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 1. `kubectl logs` is broken with `kubeadm` clusters due to [#22770](https://github.com/kubernetes/kubernetes/issues/22770).
 
    Workaround: use `docker logs` on the nodes where the containers are running as a workaround.
-1. There is not yet an easy way to generate a `kubeconfig` file which can be used to authenticate to the cluster remotely with `kubectl` on, for example, your workstation.
-
-   Workaround: copy the kubelet's `kubeconfig` from the master: use `scp root@<master>:/etc/kubernetes/admin.conf .` and then e.g. `kubectl --kubeconfig ./admin.conf get nodes` from your workstation.
