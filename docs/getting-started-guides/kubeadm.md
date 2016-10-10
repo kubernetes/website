@@ -178,7 +178,7 @@ As an example, install a sample microservices application, a socks shop, to put 
 To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
 
     # git clone https://github.com/microservices-demo/microservices-demo
-    # kubectl apply -f microservices-demo/deploy/kubernetes/manifests
+    # kubectl apply -f microservices-demo/deploy/kubernetes/manifests/sock-shop-ns.yml -f microservices-demo/deploy/kubernetes/manifests
 
 You can then find out the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
