@@ -178,7 +178,7 @@ As an example, install a sample microservices application, a socks shop, to put 
 To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
 
     # git clone https://github.com/microservices-demo/microservices-demo
-    # kubectl apply -f microservices-demo/deploy/kubernetes/manifests
+    # kubectl apply -f microservices-demo/deploy/kubernetes/manifests/sock-shop-ns.yml -f microservices-demo/deploy/kubernetes/manifests
 
 You can then find out the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
@@ -211,6 +211,7 @@ See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, includi
 
 * Learn more about [Kubernetes concepts and kubectl in Kubernetes 101](/docs/user-guide/walkthrough/).
 * Install Kubernetes with [a cloud provider configurations](/docs/getting-started-guides/) to add Load Balancer and Persistent Volume support.
+* Learn about `kubeadm`'s advanced usage on the [advanced reference doc](/docs/user-guide/kubeadm-reference/)
 
 
 ## Cleanup
