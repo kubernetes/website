@@ -254,3 +254,9 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 1. There is not yet an easy way to generate a `kubeconfig` file which can be used to authenticate to the cluster remotely with `kubectl` on, for example, your workstation.
 
    Workaround: copy the kubelet's `kubeconfig` from the master: use `scp root@<master>:/etc/kubernetes/admin.conf .` and then e.g. `kubectl --kubeconfig ./admin.conf get nodes` from your workstation.
+
+1. If you are using VirtualBox (directly or via Vagrant), you will need to ensure that `hostname -i` returns a routable IP address (i.e. one on the second network interface, not the first one).
+   By default, it doesn't do this and kubelet ends-up using first non-loopback network interface, which is usually NATed.
+   Workaround: Modify `/etc/hosts`, take a look at this [`Vagrantfile`][ubuntu-vagrantfile] for how you this can be achieved.
+
+[ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11),
