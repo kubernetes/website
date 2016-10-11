@@ -45,7 +45,7 @@ For each host in turn:
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
 * If the machine is running Ubuntu 16.04, run:
 
-      # curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+      # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
       # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
       deb http://apt.kubernetes.io/ kubernetes-xenial main
       EOF
@@ -219,7 +219,8 @@ See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, includi
 * To uninstall the socks shop, run `kubectl delete -f microservices-demo/deploy/kubernetes/manifests` on the master.
 
 * To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then uninstall the packages.
-  <details>
+
+  <br><br><details>
      <pre><code>systemctl stop kubelet;
   docker rm -f $(docker ps -q); mount | grep "/var/lib/kubelet/*" | awk '{print $3}' | xargs umount 1>/dev/null 2>/dev/null;
   rm -rf /var/lib/kubelet /etc/kubernetes /var/lib/etcd /etc/cni;
