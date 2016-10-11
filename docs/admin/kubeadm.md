@@ -1,4 +1,11 @@
-# kubeadm reference
+---
+assignees:
+- mikedanese
+- luxas
+- errordeveloper
+
+---
+
 
 This document provides information on how to use kubeadm's advanced options.
 
