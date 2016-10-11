@@ -94,6 +94,30 @@ specifies that the deployment should be updated to use nginx 1.8.
 
         kubectl get pods -l app=nginx
 
+### Scaling the application by increasing the replica count
+
+You can increase the number of pods in your Deployment by applying a new YAML
+file. This YAML file sets `replicas` to 4, which specifies that the Deployment
+should have four pods:
+
+{% include code.html language="yaml" file="deployment-scale.yaml" ghlink="/docs/tutorials/stateless-application/deployment-scale.yaml" %}
+
+1. Apply the new YAML file:
+
+        kubectl apply -f $REPO/docs/tutorials/stateless-application/deployment-scale.yaml
+
+1. Verify that the Deployment has four pods:
+
+        kubectl get pods
+
+    The output is similar to this:
+
+        NAME                               READY     STATUS    RESTARTS   AGE
+        nginx-deployment-148880595-4zdqq   1/1       Running   0          25s
+        nginx-deployment-148880595-6zgi1   1/1       Running   0          25s
+        nginx-deployment-148880595-fxcez   1/1       Running   0          2m
+        nginx-deployment-148880595-rwovn   1/1       Running   0          2m
+
 ### Deleting a deployment
 
 Delete the deployment by name:
