@@ -165,7 +165,7 @@ NAME      READY     STATUS    RESTARTS   AGE
 busybox   1/1       Running   0          <some-time>
 ```
 
-### Validate DNS works
+### Validate DNS works.
 Once that pod is running, you can exec nslookup in that environment:
 ```
 kubectl exec busybox -- nslookup kubernetes.default
@@ -181,6 +181,111 @@ Address 1: 10.0.0.1
 ```
 
 If you see that, DNS is working correctly.
+
+### Troubleshooting tips.
+If above `nslookup` command does not work, here are some hints:
+
+#### Check the local DNS configuration first
+Take a look inside the resolv.conf file. (See "Inheriting DNS from the node" and "Known issues" sections for more information)
+```
+cat /etc/resolv.conf
+```
+
+You should see the search path and nameserver are set up like below: (search path may vary for different cloud providers)
+```
+search default.svc.cluster.local svc.cluster.local cluster.local google.internal c.gce_project_id.internal
+nameserver 10.0.0.10
+options ndots:5
+```
+
+#### DNS known issues
+If you are using `Alpine`(lower than 3.2) as base image, dns may not work properly because `Alpine` broke dns search paths but fixed it in some later release. Please take a look at [here](https://github.com/kubernetes/kubernetes/issues/30215) for more detail.
+
+#### Quick diagnosis
+If below appears, usually means something is wrong with kube-dns addon or Services
+```
+/ # nslookup kubernetes
+Server:    10.0.0.10
+Address 1: 10.0.0.10
+
+nslookup: can't resolve 'kubernetes'
+```
+
+or
+
+```
+/ # nslookup kubernetes
+Server:    10.0.0.10
+Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
+
+nslookup: can't resolve 'kubernetes'
+```
+
+Let's continue to debug it.
+
+#### Is dns pod running?
+`kubectl get pods` command could tell. (namespace may be "default" or others if you manually deploy it)
+```
+kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
+```
+
+You should see something like:
+```
+NAME                                                       READY     STATUS    RESTARTS   AGE
+...
+kube-dns-v19-ezo1y                                         3/3       Running   0           1h
+...
+```
+
+If no pod is running or failed/completed, then maybe because this dns addon would not be deployed by default in your current environment and you have not deployed it manually.
+
+Otherwise, please try next hint.
+
+#### Is dns pod working properly?
+Use `kubectl logs` command for detective work.
+```
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kubedns
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c healthz
+```
+
+See if you could find any suspicious log. If not, please continue.
+
+#### Is dns service up?
+Varify through `kubectl get service` command.
+```
+kubectl get svc --namespace=kube-system
+```
+
+You should see something like:
+```
+NAME                    CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
+...
+kube-dns                10.0.0.10      <none>        53/UDP,53/TCP        1h
+...
+```
+
+If you have created the service or in the case it should be created by default but it does not appear, goto this [debugging services page](http://kubernetes.io/docs/user-guide/debugging-services/) for more information.
+
+Otherwise, let's go ahead.
+
+#### Are dns endpoints exposed?
+Varify through `kubectl get endpoints` command.
+```
+kubectl get ep kube-dns --namespace=kube-system
+```
+
+You should see something like:
+```
+NAME       ENDPOINTS                       AGE
+kube-dns   10.180.3.17:53,10.180.3.17:53    1h
+```
+
+If not, again, goto this [debugging services page](http://kubernetes.io/docs/user-guide/debugging-services/) and look for the endpoints section.
+
+At last, if you reach here, the final suggestion is still goto this [debugging services page](http://kubernetes.io/docs/user-guide/debugging-services/) and look for the "Is the kube-proxy working?" section.
+
+Hopefully you would have got some meaningful clues now. For more Kubernetes DNS example go [here](https://github.com/kubernetes/kubernetes/tree/master/examples/cluster-dns).
 
 ## Kubernetes Federation (Multiple Zone support)
 
