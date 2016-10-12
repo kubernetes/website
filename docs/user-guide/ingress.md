@@ -271,6 +271,10 @@ test      -                       178.91.123.132
 
 You can achieve the same by invoking `kubectl replace -f` on a modified Ingress yaml file.
 
+## Failing across availability zones
+
+Techniques for spreading traffic across failure domains differs between cloud providers. Please check the documentation of the relevant Ingress controller for details. Please refer to the federation [doc](/docs/user-guide/federation/) for details on deploying Ingress in a federated cluster.
+
 ## Future Work
 
 * Various modes of HTTPS/TLS support (eg: SNI, re-encryption)

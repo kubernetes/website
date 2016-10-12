@@ -114,6 +114,10 @@ The downward API volume refreshes its data in step with the kubelet refresh loop
 
 In future, it will be possible to specify a specific annotation or label.
 
+#### Projecting keys to specific paths and file permissions
+
+You can project keys to specific paths and specific permissions on a per-file
+basis. The [Secrets](/docs/user-guide/secrets/) user guide explains the syntax.
 
 ### Example
 
@@ -132,4 +136,4 @@ Some more thorough examples:
 
 ## Default values for container resource limits
 
-If cpu and memory limits are not specified for a container, the downward API will default to node's cpu and memory capacities.
+If cpu and memory limits are not specified for a container, the downward API will default to the node allocatable value for cpu and memory.

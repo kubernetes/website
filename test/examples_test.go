@@ -29,6 +29,7 @@ import (
 	"k8s.io/kubernetes/pkg/api/testapi"
 	"k8s.io/kubernetes/pkg/api/validation"
 	"k8s.io/kubernetes/pkg/apis/batch"
+	batch_validation "k8s.io/kubernetes/pkg/apis/batch/validation"
 	"k8s.io/kubernetes/pkg/apis/extensions"
 	expvalidation "k8s.io/kubernetes/pkg/apis/extensions/validation"
 	"k8s.io/kubernetes/pkg/capabilities"
@@ -126,6 +127,11 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = expvalidation.ValidateDaemonSet(t)
+	case *batch.ScheduledJob:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = batch_validation.ValidateScheduledJob(t)
 	default:
 		errors = field.ErrorList{}
 		errors = append(errors, field.InternalError(field.NewPath(""), fmt.Errorf("no validation defined for %#v", obj)))
@@ -236,6 +242,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-resource-deployment":  &extensions.Deployment{},
 			"redis-secret-deployment":    &extensions.Deployment{},
 			"run-my-nginx":               &extensions.Deployment{},
+			"sj":                         &batch.ScheduledJob{},
 		},
 		"../docs/admin": {
 			"daemon": &extensions.DaemonSet{},
@@ -265,6 +272,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"../docs/user-guide/node-selection": {
 			"pod": &api.Pod{},
 			"pod-with-node-affinity": &api.Pod{},
+			"pod-with-pod-affinity": &api.Pod{},
 		},
 		"../docs/admin/resourcequota": {
 			"best-effort":       &api.ResourceQuota{},
