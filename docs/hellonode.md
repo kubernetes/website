@@ -150,6 +150,8 @@ gcloud docker push gcr.io/$PROJECT_ID/hello-node:v1
 
 If all goes well, you should be able to see the container image listed in the console: *Compute > Container Engine > Container Registry*. We now have a project-wide Docker image available which Kubernetes can access and orchestrate.
 
+If you get a __denied: Unable to create the repository, please check that you have access to do so.__ check whether you push as the right user. Use `gcloud auth list` and then `gcloud config set account example@gmail.com`
+
 ![image](/images/hellonode/image_10.png)
 
 ## Create your Kubernetes Cluster
