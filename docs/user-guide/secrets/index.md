@@ -284,7 +284,7 @@ For example, you can specify a default mode like this:
       "image": "redis",
       "volumeMounts": [{
         "name": "foo",
-        "mountPath": "/etc/foo",
+        "mountPath": "/etc/foo"
       }]
     }],
     "volumes": [{
@@ -322,7 +322,7 @@ permission for different files like this:
       "image": "redis",
       "volumeMounts": [{
         "name": "foo",
-        "mountPath": "/etc/foo",
+        "mountPath": "/etc/foo"
       }]
     }],
     "volumes": [{
