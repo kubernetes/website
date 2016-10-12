@@ -262,6 +262,88 @@ If `spec.volumes[].secret.items` is used, only keys specified in `items` are pro
 To consume all keys from the secret, all of them must be listed in the `items` field.
 All listed keys must exist in the corresponding secret. Otherwise, the volume is not created.
 
+**Secret files permissions**
+
+You can also specify the permission mode bits files part of a secret will have.
+If you don't specify any, `0644` is used by default. You can sepecify a default
+mode for the whole secret volume and override per key if needed.
+
+For example, you can specify a default mode like this:
+
+```json
+{
+ "apiVersion": "v1",
+ "kind": "Pod",
+  "metadata": {
+    "name": "mypod",
+    "namespace": "myns"
+  },
+  "spec": {
+    "containers": [{
+      "name": "mypod",
+      "image": "redis",
+      "volumeMounts": [{
+        "name": "foo",
+        "mountPath": "/etc/foo",
+      }]
+    }],
+    "volumes": [{
+      "name": "foo",
+      "secret": {
+        "secretName": "mysecret",
+        "defaultMode": 256
+      }
+    }]
+  }
+}
+```
+
+Then, the secret will be mounted on `/etc/foo` and all the files created by the
+secret volume mount will have permission `0400`.
+
+Note that the JSON spec doesn't support octal notation, so use the value 256 for
+0400 permissions. If you use yaml instead of json for the pod, you can use octal
+notation to specify permissions in a more natural way.
+
+You can also use mapping, as in the previous example, and specify different
+permission for different files like this:
+
+```json
+{
+ "apiVersion": "v1",
+ "kind": "Pod",
+  "metadata": {
+    "name": "mypod",
+    "namespace": "myns"
+  },
+  "spec": {
+    "containers": [{
+      "name": "mypod",
+      "image": "redis",
+      "volumeMounts": [{
+        "name": "foo",
+        "mountPath": "/etc/foo",
+      }]
+    }],
+    "volumes": [{
+      "name": "foo",
+      "secret": {
+        "secretName": "mysecret",
+        "items": [{
+          "key": "username",
+          "path": "my-group/my-username",
+          "mode": 511
+        }]
+      }
+    }]
+  }
+}
+```
+
+In this case, the file resulting in `/etc/foo/my-group/my-username` will have
+permission value of `0777`. Owing to JSON limitations, you must specify the mode
+in decimal notation.
+
 **Consuming Secret Values from Volumes**
 
 Inside the container that mounts a secret volume, the secret keys appear as
@@ -295,7 +377,7 @@ To use a secret in an environment variable in a pod:
 1. Modify your Pod definition in each container that you wish to consume the value of a secret key to add an environment variable for each secret key you wish to consume.  The environment variable that consumes the secret key should populate the secret's name and key in `env[x].valueFrom.secretKeyRef`.
 1. Modify your image and/or command line so that the program looks for values in the specified environment variables
 
-This is an example of a pod that mounts a secret in a volume:
+This is an example of a pod that uses secrets from environment variables:
 
 ```yaml
 apiVersion: v1
@@ -461,9 +543,9 @@ credentials.
 Make the secrets:
 
 ```shell
-$ kubectl create secret generic prod-db-secret --from-literal=user=produser --from-literal=password=Y4nys7f11
+$ kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
 secret "prod-db-secret" created
-$ kubectl create secret generic test-db-secret --from-literal=user=testuser --from-literal=password=iluvtests
+$ kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
 secret "test-db-secret" created
 ```
 

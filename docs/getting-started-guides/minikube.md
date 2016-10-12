@@ -94,7 +94,7 @@ To start a cluster, run the command:
 ```shell
 minikube start
 Starting local Kubernetes cluster...
-Kubernetes is available at https://192.168.99.100:443.
+Kubectl is now configured to use the cluster.
 ```
 
 This will build and start a lightweight local cluster, consisting of a master, etcd, Docker and a single node.

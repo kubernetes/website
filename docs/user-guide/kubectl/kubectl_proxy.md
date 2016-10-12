@@ -8,6 +8,7 @@ Run a proxy to the Kubernetes API server
 ### Synopsis
 
 
+
 To proxy all of the kubernetes api and nothing else, use:
 
 kubectl proxy --api-prefix=/
@@ -32,6 +33,7 @@ kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-pref
 ### Examples
 
 ```
+
 # Run a proxy to kubernetes apiserver on port 8011, serving static content from ./local/www/
 kubectl proxy --port=8011 --www=./local/www/
 
@@ -47,52 +49,49 @@ kubectl proxy --api-prefix=/k8s-api
 ### Options
 
 ```
-      --accept-hosts="^localhost$,^127\\.0\\.0\\.1$,^\\[::1\\]$": Regular expression for hosts that the proxy should accept.
-      --accept-paths="^/.*": Regular expression for paths that the proxy should accept.
-      --address="127.0.0.1": The IP address on which to serve on.
-      --api-prefix="/": Prefix to serve the proxied API under.
-      --disable-filter[=false]: If true, disable request filtering in the proxy. This is dangerous, and can leave you vulnerable to XSRF attacks, when used with an accessible port.
-  -p, --port=8001: The port on which to run the proxy. Set to 0 to pick a random port.
-      --reject-methods="POST,PUT,PATCH": Regular expression for HTTP methods that the proxy should reject.
-      --reject-paths="^/api/.*/exec,^/api/.*/run,^/api/.*/attach": Regular expression for paths that the proxy should reject.
-  -u, --unix-socket="": Unix socket on which to run the proxy.
-  -w, --www="": Also serve static files from the given directory under the specified prefix.
-  -P, --www-prefix="/static/": Prefix to serve static files under, if static file directory is specified.
+      --accept-hosts string     Regular expression for hosts that the proxy should accept. (default "^localhost$,^127\\.0\\.0\\.1$,^\\[::1\\]$")
+      --accept-paths string     Regular expression for paths that the proxy should accept. (default "^/.*")
+      --address string          The IP address on which to serve on. (default "127.0.0.1")
+      --api-prefix string       Prefix to serve the proxied API under. (default "/")
+      --disable-filter          If true, disable request filtering in the proxy. This is dangerous, and can leave you vulnerable to XSRF attacks, when used with an accessible port.
+  -p, --port int                The port on which to run the proxy. Set to 0 to pick a random port. (default 8001)
+      --reject-methods string   Regular expression for HTTP methods that the proxy should reject. (default "POST,PUT,PATCH")
+      --reject-paths string     Regular expression for paths that the proxy should reject. (default "^/api/.*/pods/.*/exec,^/api/.*/pods/.*/attach")
+  -u, --unix-socket string      Unix socket on which to run the proxy.
+  -w, --www string              Also serve static files from the given directory under the specified prefix.
+  -P, --www-prefix string       Prefix to serve static files under, if static file directory is specified. (default "/static/")
 ```
 
 ### Options inherited from parent commands
 
 ```
-      --alsologtostderr[=false]: log to standard error as well as files
-      --as="": Username to impersonate for the operation.
-      --certificate-authority="": Path to a cert. file for the certificate authority.
-      --client-certificate="": Path to a client certificate file for TLS.
-      --client-key="": Path to a client key file for TLS.
-      --cluster="": The name of the kubeconfig cluster to use
-      --context="": The name of the kubeconfig context to use
-      --insecure-skip-tls-verify[=false]: If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure.
-      --kubeconfig="": Path to the kubeconfig file to use for CLI requests.
-      --log-backtrace-at=:0: when logging hits line file:N, emit a stack trace
-      --log-dir="": If non-empty, write log files in this directory
-      --log-flush-frequency=5s: Maximum number of seconds between log flushes
-      --logtostderr[=true]: log to standard error instead of files
-      --match-server-version[=false]: Require server version to match client version
-      --namespace="": If present, the namespace scope for this CLI request.
-      --password="": Password for basic authentication to the API server.
-  -s, --server="": The address and port of the Kubernetes API server
-      --stderrthreshold=2: logs at or above this threshold go to stderr
-      --token="": Bearer token for authentication to the API server.
-      --user="": The name of the kubeconfig user to use
-      --username="": Username for basic authentication to the API server.
-      --v=0: log level for V logs
-      --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
+      --alsologtostderr value          log to standard error as well as files
+      --as string                      Username to impersonate for the operation
+      --certificate-authority string   Path to a cert. file for the certificate authority
+      --client-certificate string      Path to a client certificate file for TLS
+      --client-key string              Path to a client key file for TLS
+      --cluster string                 The name of the kubeconfig cluster to use
+      --context string                 The name of the kubeconfig context to use
+      --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string              Path to the kubeconfig file to use for CLI requests.
+      --log-backtrace-at value         when logging hits line file:N, emit a stack trace (default :0)
+      --log-dir value                  If non-empty, write log files in this directory
+      --logtostderr value              log to standard error instead of files
+      --match-server-version           Require server version to match client version
+  -n, --namespace string               If present, the namespace scope for this CLI request
+      --password string                Password for basic authentication to the API server
+  -s, --server string                  The address and port of the Kubernetes API server
+      --stderrthreshold value          logs at or above this threshold go to stderr (default 2)
+      --token string                   Bearer token for authentication to the API server
+      --user string                    The name of the kubeconfig user to use
+      --username string                Username for basic authentication to the API server
+  -v, --v value                        log level for V logs
+      --vmodule value                  comma-separated list of pattern=N settings for file-filtered logging
 ```
 
-### SEE ALSO
 
-* [kubectl](kubectl.md)	 - kubectl controls the Kubernetes cluster manager
 
-###### Auto generated by spf13/cobra on 12-Aug-2016
+###### Auto generated by spf13/cobra on 2-Sep-2016
 
 
 
