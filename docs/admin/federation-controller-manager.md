@@ -23,28 +23,28 @@ federation-controller-manager
 ### Options
 
 ```
-      --address=0.0.0.0: The IP address to serve on (set to 0.0.0.0 for all interfaces)
-      --cluster-monitor-period=40s: The period for syncing ClusterStatus in ClusterController.
-      --concurrent-service-syncs=10: The number of service syncing operations that will be done concurrently. Larger number = faster endpoint updating, but more CPU (and network) load
-      --dns-provider="": DNS provider. Valid values are: ["aws-route53" "google-clouddns"]
-      --dns-provider-config="": Path to config file for configuring DNS provider.
-      --federated-api-burst=30: Burst to use while talking with federation apiserver
-      --federated-api-qps=20: QPS to use while talking with federation apiserver
-      --federation-name="": Federation name.
-      --kube-api-content-type="": ContentType of requests sent to apiserver. Passing application/vnd.kubernetes.protobuf is an experimental feature now.
-      --kubeconfig="": Path to kubeconfig file with authorization and master location information.
-      --leader-elect[=false]: Start a leader election client and gain leadership before executing the main loop. Enable this when running replicated components for high availability.
-      --leader-elect-lease-duration=15s: The duration that non-leader candidates will wait after observing a leadership renewal until attempting to acquire leadership of a led but unrenewed leader slot. This is effectively the maximum duration that a leader can be stopped before it is replaced by another candidate. This is only applicable if leader election is enabled.
-      --leader-elect-renew-deadline=10s: The interval between attempts by the acting master to renew a leadership slot before it stops leading. This must be less than or equal to the lease duration. This is only applicable if leader election is enabled.
-      --leader-elect-retry-period=2s: The duration the clients should wait between attempting acquisition and renewal of a leadership. This is only applicable if leader election is enabled.
-      --log-flush-frequency=5s: Maximum number of seconds between log flushes
-      --master="": The address of the federation API server (overrides any value in kubeconfig)
-      --port=10253: The port that the controller-manager's http service runs on
-      --profiling[=true]: Enable profiling via web interface host:port/debug/pprof/
-      --zone-name="": Zone name, like example.com.
+      --address value                          The IP address to serve on (set to 0.0.0.0 for all interfaces) (default 0.0.0.0)
+      --cluster-monitor-period duration        The period for syncing ClusterStatus in ClusterController. (default 40s)
+      --concurrent-replicaset-syncs int        The number of ReplicaSets syncing operations that will be done concurrently. Larger number = faster endpoint updating, but more CPU (and network) load (default 10)
+      --concurrent-service-syncs int           The number of service syncing operations that will be done concurrently. Larger number = faster endpoint updating, but more CPU (and network) load (default 10)
+      --dns-provider string                    DNS provider. Valid values are: ["aws-route53" "google-clouddns"]
+      --dns-provider-config string             Path to config file for configuring DNS provider.
+      --federated-api-burst int                Burst to use while talking with federation apiserver (default 30)
+      --federated-api-qps value                QPS to use while talking with federation apiserver (default 20)
+      --federation-name string                 Federation name.
+      --kube-api-content-type string           ContentType of requests sent to apiserver. Passing application/vnd.kubernetes.protobuf is an experimental feature now.
+      --kubeconfig string                      Path to kubeconfig file with authorization and master location information.
+      --leader-elect                           Start a leader election client and gain leadership before executing the main loop. Enable this when running replicated components for high availability.
+      --leader-elect-lease-duration duration   The duration that non-leader candidates will wait after observing a leadership renewal until attempting to acquire leadership of a led but unrenewed leader slot. This is effectively the maximum duration that a leader can be stopped before it is replaced by another candidate. This is only applicable if leader election is enabled. (default 15s)
+      --leader-elect-renew-deadline duration   The interval between attempts by the acting master to renew a leadership slot before it stops leading. This must be less than or equal to the lease duration. This is only applicable if leader election is enabled. (default 10s)
+      --leader-elect-retry-period duration     The duration the clients should wait between attempting acquisition and renewal of a leadership. This is only applicable if leader election is enabled. (default 2s)
+      --master string                          The address of the federation API server (overrides any value in kubeconfig)
+      --port int                               The port that the controller-manager's http service runs on (default 10253)
+      --profiling                              Enable profiling via web interface host:port/debug/pprof/ (default true)
+      --zone-name string                       Zone name, like example.com.
 ```
 
-###### Auto generated by spf13/cobra on 12-Aug-2016
+###### Auto generated by spf13/cobra on 2-Sep-2016
 
 
 

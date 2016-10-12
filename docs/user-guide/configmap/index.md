@@ -414,6 +414,11 @@ When this pod is run, the output will be:
 very
 ```
 
+#### Projecting keys to specific paths and file permissions
+
+You can project keys to specific paths and specific permissions on a per-file
+basis. The [Secrets](/docs/user-guide/secrets/) user guide explains the syntax.
+
 ## Real World Example: Configuring Redis
 
 Let's take a look at a real-world example: configuring redis using ConfigMap.  Say we want to inject
