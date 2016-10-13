@@ -252,6 +252,8 @@ toc:
     path: /docs/admin/
   - title: Cluster Management Guide
     path: /docs/admin/cluster-management/
+  - title: kubeadm reference
+    path: /docs/admin/kubeadm/
   - title: Installing Addons
     path: /docs/admin/addons/
   - title: Sharing a Cluster with Namespaces
