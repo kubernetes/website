@@ -6,7 +6,7 @@ toc:
 
 - title: Contributing to the Kubernetes Docs
   section:
-  - title: Using Page Templates
+  - title: Using a Page Template
     path: /docs/contribute/page-templates/
 
 - title: Troubleshooting
