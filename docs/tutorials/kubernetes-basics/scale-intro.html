@@ -7,23 +7,24 @@
 
 <body>
 
-<link href="/docs/tutorials/getting-started/public/css/styles.css" rel="stylesheet">
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 <div class="layout" id="top">
 
 	<main class="content">
 
 		<div class="row">
-			<div class="col-md-12 text-left">
-				<a class="btn btn-default" href="/docs/tutorials/getting-started/scale-app.html" role="button"><span class="btn__prev">‹</span> Back</a>
+
+     <div class="col-md-8">
+      	<h3>Objectives</h3>
+				<ul>
+					<li>Scale an app using kubectl.</li>
+				</ul>
 			</div>
-		</div>
 
-		<br>
-		<br>
-
-		<div class="row">
 			<div class="col-md-8">
+       <h3>Scaling an application</h3>
+
 			<p>In the previous modules we created a <a href="http://kubernetes.io/docs/user-guide/deployments/"> Deployment</a>, and then exposed it publicly via a <a href="http://kubernetes.io/docs/user-guide/services/"> Service </a>. The Deployment created  only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with  user demand.</p>
 
 			<p><b>Scaling</b> is accomplished by changing the number of replicas in a Deployment</p>
@@ -59,11 +60,11 @@
 					</ol>
 					  <div class="carousel-inner" role="listbox">
 					    <div class="item active">
-					      <img src="/docs/tutorials/getting-started/public/images/module_05_scaling1.svg">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
 					    </div>
 
 					    <div class="item">
-					      <img src="/docs/tutorials/getting-started/public/images/module_05_scaling2.svg">
+					      <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
 					    </div>
 					  </div>
 
@@ -106,7 +107,7 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<a class="btn btn-lg btn-success" href="/docs/tutorials/getting-started/scale-interactive.html" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/scale-interactive.html" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
 			</div>
 		</div>
 
