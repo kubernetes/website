@@ -25,10 +25,11 @@ manually through API calls. Service accounts are tied to a set of credentials
 stored as `Secrets`, which are mounted into pods allowing in cluster processes
 to talk to the Kubernetes API.
 
-All API requests are tied to either a normal user or a service account. This
-means every process inside or outside the cluster, from a human user typing
-`kubectl` on a workstation, to `kubelets` on nodes, to members of the control
-plane, must authenticate when making requests to the the API server.
+API requests are tied to either a normal user or a service account, or are treated
+as anonymous requests. This means every process inside or outside the cluster, from 
+a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members 
+of the control plane, must authenticate when making requests to the the API server, 
+or be treated as an anonymous user.
 
 ## Authentication strategies
 
@@ -54,13 +55,25 @@ When multiple are enabled, the first authenticator module
 to successfully authenticate the request short-circuits evaluation.
 The API server does not guarantee the order authenticators run in.
 
+The `system:authenticated` group is included in the list of groups for all authenticated users. 
+
 ### X509 Client Certs
 
 Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
 option to API server. The referenced file must contain one or more certificates authorities
 to use to validate client certificates presented to the API server. If a client certificate
 is presented and verified, the common name of the subject is used as the user name for the
-request.
+request. As of Kubernetes 1.4, client certificates can also indicate a user's group memberships
+using the certificate's organization fields. To include multiple group memberships for a user,
+include multiple organization fields in the certificate.
+
+For example, using the `openssl` command line tool to generate a certificate signing request:
+
+``` bash
+openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app2"
+```
+
+This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
 
 See [APPENDIX](#appendix) for how to generate a client cert.
 
@@ -362,6 +375,22 @@ to change in subsequent releases.
 Please refer to the [discussion](https://github.com/kubernetes/kubernetes/pull/11798#issuecomment-129655212),
 [blueprint](https://github.com/kubernetes/kubernetes/issues/11626) and [proposed
 changes](https://github.com/kubernetes/kubernetes/pull/25536) for more details.
+
+## Anonymous requests
+
+Anonymous access is enabled by default, and can be disabled by passing `--anonymous-auth=false` 
+option to the API server during startup.
+
+When enabled, requests that are not rejected by other configured authentication methods are 
+treated as anonymous requests, and given a username of `system:anonymous` and a group of 
+`system:unauthenticated`.
+
+For example, on a server with token authentication configured, and anonymous access enabled,
+a request providing an invalid bearer token would receive a `401 Unauthorized` error. 
+A request providing no bearer token would be treated as an anonymous request. 
+
+If you rely on authentication alone to authorize access, either change to use an 
+authorization mode other than `AlwaysAllow`, or set `--anonymous-auth=false`.
 
 ## Plugin Development
 
