@@ -58,7 +58,7 @@ that can be requested in a given namespace.
 The following resource types are supported:
 
 | Resource Name | Description |
-| ------------ | ----------- |
+| --------------------- | ----------------------------------------------------------- |
 | `cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `limits.cpu` | Across all pods in a non-terminal state, the sum of CPU limits cannot exceed this value. |
 | `limits.memory` | Across all pods in a non-terminal state, the sum of memory limits cannot exceed this value. |
@@ -73,7 +73,7 @@ The number of objects of a given type can be restricted.  The following types
 are supported:
 
 | Resource Name | Description |
-| ------------ | ----------- |
+| ------------------------------- | ------------------------------------------------- |
 | `configmaps` | The total number of config maps that can exist in the namespace. |
 | `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `status.phase in (Failed, Succeeded)` is true.  |
