@@ -88,7 +88,7 @@ vm-1 # printf "GET / HTTP/1.0\r\n\r\n" | netcat vm-0.ub 80
 It's worth exploring what just happened. Init containers run sequentially *before* the application container. In this example we used the init container to copy shared libraries from the rootfs, while preserving user installed packages across container restart.
 
 ```yaml
-pod.alpha.kubernetes.io/init-containers: '[
+pod.beta.kubernetes.io/init-containers: '[
     {
         "name": "rootfs",
         "image": "ubuntu:15.10",
