@@ -30,7 +30,9 @@
 <section id="encyclopedia">
   <div id="docsToc">
         <div class="pi-accordion">
+        {% if site.data[foundTOC].bigheader != "Kubernetes Documentation" %}
         {% assign tree = site.data[foundTOC].toc %}{% include tree.html %}
+        {% endif %}
         </div> <!-- /pi-accordion -->
     <button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
   </div> <!-- /docsToc -->
