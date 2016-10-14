@@ -1,23 +1,2 @@
 bigheader: "Kubernetes Documentation"
-abstract: "Documentation for using and learning about Kubernetes"
-toc:
-- title: Kubernetes Documentation
-  path: /docs/
-
-- title: Guides
-  path: /docs/user-guide/
-- title: Tutorials
-  path: /docs/tutorials/
-- title: Tasks
-  path: /docs/tasks/
-- title: Concepts
-  path: /docs/concepts/
-- title: Reference
-  path: /docs/reference/
-- title: Tools
-  path: /docs/tools/
-- title: Samples
-  path: /docs/samples/
-- title: Support
-  path: /docs/support/
-
+abstract: "Documentation for using and learning about Kubernetes."
