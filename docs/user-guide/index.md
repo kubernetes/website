@@ -7,17 +7,16 @@ assignees:
 * TOC
 {:toc}
 
+The Kubernetes **Guides** can help you with various aspects of the Kubernetes system.
 
-The user guide is intended for anyone who wants to run programs and services on an existing Kubernetes cluster.  Setup and administration of a Kubernetes cluster is described in the [Cluster Admin Guide](/docs/admin/). The [Developer Guide](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel) is for anyone wanting to either write code which directly accesses the Kubernetes API, or to contribute directly to the Kubernetes project.
+* The Kubernetes [User Guide](#user-guide-internal) can help you run programs and services on an existing Kubernetes cluster.
+* The [Cluster Admin Guide](/docs/admin/) can help you set up and administrate your own Kubernetes cluster. 
+* The [Developer Guide](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel) can help you either write code to directly access the Kubernetes API, or to contribute directly to the Kubernetes project.
 
 Please ensure you have completed the [prerequisites for running examples from the user guide](/docs/user-guide/prereqs/).
 
-## Quick walkthrough
-
-1. [Kubernetes 101](/docs/user-guide/walkthrough/)
-1. [Kubernetes 201](/docs/user-guide/walkthrough/k8s201/)
-
-## Thorough walkthrough
+<a id="user-guide-internal"></a>
+## Kuberentes User Guide
 
 If you don't have any familiarity with Kubernetes, we recommend you read the following sections in order:
 

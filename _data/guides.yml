@@ -2,7 +2,7 @@ bigheader: "Guides"
 abstract: "How to get started, and achieve tasks, using Kubernetes"
 toc:
 - title: Guides
-  path: /docs/
+  path: /docs/user-guide/
 
 - title: Getting Started
   section:
