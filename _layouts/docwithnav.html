@@ -11,7 +11,8 @@
   <h5>{{ site.data[foundTOC].abstract }}</h5>
   <div id="vendorStrip" class="light-text">
     <ul>
-      <li><a href="/docs/" {% if site.data[foundTOC].bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
+      <li><a href="/docs/" {% if site.data[foundTOC].bigheader == "Kubernetes Documentation" %}class="YAH"{% endif %}>DOCS HOME</a></li>
+      <li><a href="/docs/user-guide" {% if site.data[foundTOC].bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
       <li><a href="/docs/tutorials/" {% if site.data[foundTOC].bigheader == "Tutorials" %}class="YAH"{% endif %}>TUTORIALS</a></li>
       <li><a href="/docs/tasks/" {% if site.data[foundTOC].bigheader == "Tasks" %}class="YAH"{% endif %}>TASKS</a></li>
       <li><a href="/docs/concepts/" {% if site.data[foundTOC].bigheader == "Concepts" %}class="YAH"{% endif %}>CONCEPTS</a></li>
