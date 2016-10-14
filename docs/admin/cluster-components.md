@@ -61,12 +61,12 @@ selects a node for them to run on.
 
 ### addons
 
-Addons are pods and services that implement cluster features. They don't run on
-the master VM, but currently the default setup scripts that make the API calls
-to create these pods and services does run on the master VM. See:
-[kube-master-addons](http://releases.k8s.io/HEAD/cluster/saltbase/salt/kube-master-addons/kube-master-addons.sh)
+Addons are resources like ReplicationContoller and Services that implement cluster features.
+They don't run on the master VM, but currently the program that makes the API calls
+to manage these addon resources does run on the master VM. See:
+[addon manager](http://releases.k8s.io/HEAD/cluster/addons/addon-manager)
 
-Addon objects are created in the "kube-system" namespace.
+Addon objects are created in the "kube-system" namespace except `PersistentVolumes`.
 
 #### DNS
 
