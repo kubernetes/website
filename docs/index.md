@@ -5,6 +5,10 @@ assignees:
 
 ---
 
+Kubernetes is an open source, production-ready cluster management and container orchestration system. With Kubernetes on your cluster, you can ensure that your containerized applications and other cloud-based workloads run where you want them, when you want them, and with the resources that they need.
+
+The Kubernetes system works with popular containerization solutions, such as Docker and rkt, and can run on cloud clusters from major cloud providers such as Amazon Web Services, Google Cloud Platform, and Microsoft Azure, as well as custom and on-premises clusters.
+
 <style>
 h2, h3, h4 {
   border-bottom: 0px !important;
@@ -86,11 +90,6 @@ h2, h3, h4 {
     <h3>Installing Kubernetes on Linux with kubeadm</h3>
     <p>This quickstart will show you how to install a secure Kubernetes cluster on any computers running Linux, using a tool called <code>kubeadm</code> which is part of Kubernetes. It'll work with local VMs, physical servers and/or cloud servers, either manually or as part of your own automation. It is currently in alpha but please try it out and give us feedback!</p>
     <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes with kubeadm</a>
-  </div>
-  <div class="col3rd">
-    <h3>Guided Tutorial</h3>
-    <p>If you’ve completed one of the quickstarts, a great next step is Kubernetes 101. You will follow a path through the various features of Kubernetes, with code examples along the way, learning all of the core concepts. There's also a <a href="/docs/user-guide/walkthrough/k8s201">Kubernetes 201</a>!</p>
-    <a href="/docs/user-guide/walkthrough/" class="button">Kubernetes 101</a>
   </div>
 </div>
 
