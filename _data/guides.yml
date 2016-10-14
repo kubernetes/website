@@ -1,5 +1,5 @@
 bigheader: "Guides"
-abstract: "How to get started, and achieve tasks, using Kubernetes"
+abstract: "How to get started, and accomplish tasks, using Kubernetes"
 toc:
 - title: Guides
   path: /docs/user-guide/
