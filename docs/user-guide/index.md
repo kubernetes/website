@@ -4,21 +4,15 @@ assignees:
 
 ---
 
-* TOC
-{:toc}
-
-The Kubernetes **Guides** can help you with various aspects of the Kubernetes system.
+The Kubernetes **Guides** can help you work with various aspects of the Kubernetes system.
 
 * The Kubernetes [User Guide](#user-guide-internal) can help you run programs and services on an existing Kubernetes cluster.
 * The [Cluster Admin Guide](/docs/admin/) can help you set up and administrate your own Kubernetes cluster. 
 * The [Developer Guide](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel) can help you either write code to directly access the Kubernetes API, or to contribute directly to the Kubernetes project.
 
-Please ensure you have completed the [prerequisites for running examples from the user guide](/docs/user-guide/prereqs/).
+## <a name="user-guide-internal"></a>Kuberentes User Guide
 
-<a id="user-guide-internal"></a>
-## Kuberentes User Guide
-
-If you don't have any familiarity with Kubernetes, we recommend you read the following sections in order:
+The following topics in the Kubernets User Guide can help you run applications and services on a Kubernetes cluster:
 
 1. [Quick start: launch and expose an application](/docs/user-guide/quick-start/)
 1. [Configuring and launching containers: configuring common container parameters](/docs/user-guide/configuring-containers/)
@@ -34,7 +28,9 @@ If you don't have any familiarity with Kubernetes, we recommend you read the fol
     1. [Connecting to containers via proxies](/docs/user-guide/connecting-to-applications-proxy/)
     1. [Connecting to containers via port forwarding](/docs/user-guide/connecting-to-applications-port-forward/)
 
-## Concept guide
+Before running examples in the user guides, please ensure you have completed the [prerequisites](/docs/user-guide/prereqs/).
+
+## Kubernetes Concepts
 
 [**Cluster**](/docs/admin/)
 : A cluster is a set of physical or virtual machines and other infrastructure resources used by Kubernetes to run your applications.
