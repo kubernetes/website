@@ -6,10 +6,10 @@ You can click the "Fork" button in the upper-right area of the screen to create 
 
 For more information about contributing to the Kubernetes documentation, see:
 
-* [Creating a Documentation Pull Request](/docs/contribute/create-pull-request/)
-* [Writing a New Topic](/docs/contribute/write-new-topic/)
-* [Staging Your Documentation Changes](/docs/contribute/stage-documentation-changes/)
-* [Using Page Templates](/docs/contribute/page-templates/)
+* [Creating a Documentation Pull Request](http://kubernetes.io/docs/contribute/create-pull-request/)
+* [Writing a New Topic](http://kubernetes.io/docs/contribute/write-new-topic/)
+* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/stage-documentation-changes/)
+* [Using Page Templates](http://kubernetes.io/docs/contribute/page-templates/)
 
 ## Release Branch Staging
 
@@ -85,6 +85,11 @@ Make any changes you want. Then, to see your changes locally:
 Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
 (or wherever Jekyll tells you).
 
+=======
+
+The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
+
+>>>>>>> contribution-guide-2
 ## GitHub help
 
 If you're a bit rusty with git/GitHub, you might want to read
