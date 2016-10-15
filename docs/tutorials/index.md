@@ -13,6 +13,8 @@ The Tutorials section of the Kubernetes documentation is a work in progress.
 
 * [Using a Service to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address-service/)
 
+* [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
+
 ### What's next
 
 If you would like to write a tutorial, see
