@@ -116,7 +116,13 @@ that conflicts with your own private network range.
 The `FLANNEL_NET` variable defines the IP range used for flannel overlay network,
 should not conflict with above `SERVICE_CLUSTER_IP_RANGE`.
 You can optionally provide additional Flannel network configuration
-through `FLANNEL_OTHER_NET_CONFIG`, as explained in `cluster/ubuntu/config-default.sh`.
+through `FLANNEL_BACKEND` and `FLANNEL_OTHER_NET_CONFIG`, as explained in `cluster/ubuntu/config-default.sh`.
+
+The default setting for `ADMISSION_CONTROL` is right for the latest
+release of Kubernetes, but if you choose an earlier release then you
+might want a different setting.  See
+[the admisson control doc](http://kubernetes.io/docs/admin/admission-controllers/#is-there-a-recommended-set-of-plug-ins-to-use)
+for the recommended settings for various releases.
 
 **Note:** When deploying, master needs to be connected to the Internet to download the necessary files.
 If your machines are located in a private network that need proxy setting to connect the Internet,
