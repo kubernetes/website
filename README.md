@@ -19,6 +19,72 @@ The staging site for the next upcoming Kubernetes release is here: [http://kuber
 
 The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
 
+## Automatic Staging for Pull Requests
+
+When you create a pull request (either against master or the upcoming release), your changes are staged in a custom subdomain on Netlify so that you can see your changes in rendered form before the PR is merged. You can use this to verify that everything is correct before the PR gets merged. To view your changes:
+
+- Scroll down to the PR's list of Automated Checks
+- Click "Show All Checks"
+- Look for "deploy/netlify"; you'll see "Deploy Preview Ready!" if staging was successful
+- Click "Details" to bring up the staged site and navigate to your changes
+
+## Release Branch Staging
+
+The Kubernetes site maintains staged versions at a subdomain provided by Netlify. Every PR for the Kubernetes site, either against the master branch or the upcoming release branch, is staged automatically.
+
+The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/)
+
+The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
+
+## Staging the site locally (using Docker)
+
+Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
+
+    git clone https://github.com/kubernetes/kubernetes.github.io.git
+    cd kubernetes.github.io
+    docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.0
+
+Then visit [http://localhost:4000](http://localhost:4000) to see our site. Any changes you make on your local machine will be automatically staged.
+
+If you're interested you can view [the Dockerfile for this image](https://github.com/kubernetes/kubernetes.github.io/blob/master/staging-container/Dockerfile).
+
+## Staging the site locally (from scratch setup)
+
+The below commands to setup your environment for running GitHub pages locally. Then, any edits you make will be viewable
+on a lightweight webserver that runs on your local machine.
+
+This will typically be the fastest way (by far) to iterate on docs changes and see them staged, once you get this set up, but it does involve several install steps that take awhile to complete, and makes system-wide modifications.
+
+Install Ruby 2.2 or higher. If you're on Linux, run these commands:
+
+    apt-get install software-properties-common
+    apt-add-repository ppa:brightbox/ruby-ng
+    apt-get install ruby2.2
+    apt-get install ruby2.2-dev
+
+* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). 
+* If you're on a Windows machine you can use the [Ruby Installer](http://rubyinstaller.org/downloads/). During the installation make sure to check the option for *Add Ruby executables to your PATH*.
+
+The remainder of the steps should work the same across operating systems.
+
+To confirm you've installed Ruby correctly, at the command prompt run `gem --version` and you should get a response with your version number. Likewise you can confirm you have Git installed properly by running `git --version`, which will respond with your version of Git.
+
+Install the GitHub Pages package, which includes Jekyll:
+
+	gem install github-pages
+
+Clone our site:
+
+	git clone https://github.com/kubernetes/kubernetes.github.io.git
+
+Make any changes you want. Then, to see your changes locally:
+
+	cd kubernetes.github.io
+	jekyll serve
+
+Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
+(or wherever Jekyll tells you).
+
 ## GitHub help
 
 If you're a bit rusty with git/GitHub, you might want to read
