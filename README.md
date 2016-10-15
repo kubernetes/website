@@ -4,66 +4,20 @@ Welcome! We are very pleased you want to contribute to the documentation and/or 
 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
 
-## Staging the site on GitHub Pages
+For more information about contributing to the Kubernetes documentation, see:
 
-If you want to see your changes staged without having to install anything locally, remove the CNAME file in this directory and
-change the name of the fork to be:
+* [Creating a Documentation Pull Request](/docs/contribute/create-pull-request/)
+* [Writing a New Topic](/docs/contribute/write-new-topic/)
+* [Staging Your Documentation Changes](/docs/contribute/stage-documentation-changes/)
+* [Using Page Templates](/docs/contribute/page-templates/)
 
-    YOUR_GITHUB_USERNAME.github.io
+## Release Branch Staging
 
-Then make your changes.
+The Kubernetes site maintains staged versions at a subdomain provided by Netlify. Every PR for the Kubernetes site, either against the master branch or the upcoming release branch, is staged automatically.
 
-When you visit [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io) you should see a special-to-you version of the site that contains the changes you just made.
+The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/)
 
-## Staging the site locally (using Docker)
-
-Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
-
-    git clone https://github.com/kubernetes/kubernetes.github.io.git
-    cd kubernetes.github.io
-    docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.0
-
-Then visit [http://localhost:4000](http://localhost:4000) to see our site. Any changes you make on your local machine will be automatically staged.
-
-If you're interested you can view [the Dockerfile for this image](https://github.com/kubernetes/kubernetes.github.io/blob/master/staging-container/Dockerfile).
-
-## Staging the site locally (from scratch setup)
-
-The below commands to setup your environment for running GitHub pages locally. Then, any edits you make will be viewable
-on a lightweight webserver that runs on your local machine.
-
-This will typically be the fastest way (by far) to iterate on docs changes and see them staged, once you get this set up, but it does involve several install steps that take awhile to complete, and makes system-wide modifications.
-
-Install Ruby 2.2 or higher. If you're on Linux, run these commands:
-
-    apt-get install software-properties-common
-    apt-add-repository ppa:brightbox/ruby-ng
-    apt-get install ruby2.2
-    apt-get install ruby2.2-dev
-
-* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). 
-* If you're on a Windows machine you can use the [Ruby Installer](http://rubyinstaller.org/downloads/). During the installation make sure to check the option for *Add Ruby executables to your PATH*.
-
-The remainder of the steps should work the same across operating systems.
-
-To confirm you've installed Ruby correctly, at the command prompt run `gem --version` and you should get a response with your version number. Likewise you can confirm you have Git installed properly by running `git --version`, which will respond with your version of Git.
-
-Install the GitHub Pages package, which includes Jekyll:
-
-	gem install github-pages
-
-Clone our site:
-
-	git clone https://github.com/kubernetes/kubernetes.github.io.git
-
-Make any changes you want. Then, to see your changes locally:
-
-	cd kubernetes.github.io
-	jekyll serve
-
-Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
-(or wherever Jekyll tells you).
-
+The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
 
 ## GitHub help
 
@@ -134,23 +88,6 @@ That, of course, will send users to:
 [http://releases.k8s.io/release-1.2/cluster/addons/README.md](http://releases.k8s.io/release-1.2/cluster/addons/README.md)
 
 (Or whatever Kubernetes release that docs branch is associated with.)
-
-## Branch structure
-
-The current version of the website is served out of the `master` branch.
-
-All versions of the site that relate to past and future versions will be named after their Kubernetes release number. For example, [the old branch for the 1.1 docs is called `release-1.1`](https://github.com/kubernetes/kubernetes.github.io/tree/release-1.1).
-
-Changes in the "docsv2" branch (where we are testing a revamp of the docs) are automatically staged here:
-http://k8sdocs.github.io/docs/tutorials/
-
-Changes in the "release-1.1" branch (for k8s v1.1 docs) are automatically staged here:
-http://kubernetes-v1-1.github.io/
-
-Changes in the "release-1.3" branch (for k8s v1.3 docs) are automatically staged here:
-http://kubernetes-v1-3.github.io/
-
-Editing of these branches will kick off a build using Travis CI that auto-updates these URLs; you can monitor the build progress at [https://travis-ci.org/kubernetes/kubernetes.github.io](https://travis-ci.org/kubernetes/kubernetes.github.io).
 
 ## Config yaml guidelines
 
