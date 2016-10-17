@@ -9,7 +9,8 @@ Kubernetes is an open source, production-ready cluster management and container 
 
 The Kubernetes system works with popular containerization solutions, such as Docker and rkt, and can run on cloud clusters from major cloud providers such as Amazon Web Services, Google Cloud Platform, and Microsoft Azure, as well as custom and on-premises clusters.
 
-<p>
+<p><a href="/docs/whatisk8s/" class="button">Read the Overview</a></p>
+
 <style>
 h2, h3, h4 {
   border-bottom: 0px !important;
@@ -76,12 +77,12 @@ h2, h3, h4 {
     max-height: 50px;
 }
 </style>
-<div class="colContainer">
-  <div class="col3rd">
-    <h3>What is Kubernetes?</h3>
-    <p>Kubernetes is an open-source platform for automating deployment, scaling, and operations of application containers across clusters of hosts. Learn more about what this means for your app.</p>
-    <a href="/docs/whatisk8s/" class="button">Read the Overview</a>
-  </div>
+
+## Quickstarts
+
+Some quick ways to get started with Kubernetes include:
+
+<div id="quickstarts" class="colContainer">
   <div class="col3rd">
     <h3>Kubernetes Basics Interactive Tutorial</h3>
     <p>The Kubernetes Basics interactive tutorials let you try out Kubernetes features right out of your web browser, in a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.</p>
