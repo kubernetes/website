@@ -167,6 +167,21 @@ While most of the tutorials for kubeadm are linear and involve copying the token
 
 Once the cluster is up, you can grab the admin credentials from the master node at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
 
+## Environment variables
+
+There are some environment variables that modify the way that `kubeadm` works.  Most users will have no need to set these.
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `KUBE_KUBERNETES_DIR` | `/etc/kubernetes` | Where most configuration files are written to and read from |
+| `KUBE_HOST_PKI_PATH` | `/etc/kubernetes/pki` | Directory for master PKI assets |
+| `KUBE_HOST_ETCD_PATH` | `/var/lib/etcd` | Local etcd state for Kubernetes cluster |
+| `KUBE_HYPERKUBE_IMAGE` | `` | If set, use a single hyperkube image with this name. If not set, individual images per server component will be used. |
+| `KUBE_DISCOVERY_IMAGE` | `gcr.io/google_containers/kube-discovery-<arch>:1.0` | The bootstrap discovery helper image to use. |
+| `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:2.2.5` | The etcd container image to use. |
+| `KUBE_COMPONENT_LOGLEVEL` | `--v=4` | Logging configuration for all Kubernetes components |
+
+
 ## Troubleshooting
 
 * Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your sysctl config, eg.
