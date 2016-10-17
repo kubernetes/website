@@ -12,7 +12,7 @@ assignees:
 <p><a href="/docs/whatisk8s/" class="button">Read the Overview</a></p>
 
 <style>
-h2, h3, h4 {
+  h3, h4 {
   border-bottom: 0px !important;
 }
 .colContainer {
