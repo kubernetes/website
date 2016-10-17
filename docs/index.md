@@ -81,6 +81,7 @@ h3, h4 {
 <h2>Quickstarts</h2>
 
 <p>Some quick ways to get started with Kubernetes include:</p>
+<p>&nbsp;</p>
 
 <div id="quickstarts" class="colContainer">
   <div class="col2nd">

@@ -28,14 +28,14 @@
 </section>
 
 <section id="encyclopedia">
-  {% if site.data[foundTOC].bigheader != "Kubernetes Documentation" %}
   <div id="docsToc">
         <div class="pi-accordion">
+        {% if site.data[foundTOC].bigheader != "Kubernetes Documentation" %}
         {% assign tree = site.data[foundTOC].toc %}{% include tree.html %}
+        {% endif %}
         </div> <!-- /pi-accordion -->
     <button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
   </div> <!-- /docsToc -->
-  {% endif %}
   <div id="docsContent">
         <p><a href="/editdocs#{{ page.path }}" id="editPageButton">Edit This Page</a></p>
       {% if notitle != "true" %}<h1>{{ title }}</h1>{% endif %}
