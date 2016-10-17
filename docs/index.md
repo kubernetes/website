@@ -90,7 +90,7 @@ h3, h4 {
   </div>
   <div class="col2nd">
     <h4>Installing Kubernetes on Linux with kubeadm</h4>
-    <p>This quickstart helps you install a secure Kubernetes cluster using the built-in <code>kubeadm</code> tool. You can use <code>kubeadm<code> to install Kubernetes on any computers running Linux&emdash;it works with local VMs, physical servers, or cloud servers. You can use <code>kubeadm</code> manually or as part of your own automation. <code>kubeadm</code> is currently an alpha feature, but we invite you to try it out and give us feedback!</p>
+    <p>This quickstart helps you install a secure Kubernetes cluster using the built-in <code>kubeadm</code> tool. You can use <code>kubeadm</code> to install Kubernetes on any computers running Linux&emdash;it works with local VMs, physical servers, or cloud servers. You can use <code>kubeadm</code> manually or as part of your own automation. <code>kubeadm</code> is currently an alpha feature, but we invite you to try it out and give us feedback!</p>
     <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes with kubeadm</a>
   </div>
 </div>
@@ -107,7 +107,7 @@ h3, h4 {
 
 <h2>API and Command References</h2>
 
-<p>The <a href="/docs/reference/">reference</a> documentation provides complete information on the Kubernetes APIs and the `kubectl` command-line interface.</p>
+<p>The <a href="/docs/reference/">reference</a> documentation provides complete information on the Kubernetes APIs and the <code>kubectl</code> command-line interface.</p>
 
 <h2>Tools</h2>
 
