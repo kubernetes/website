@@ -9,26 +9,38 @@ assignees:
 
 This document provides information on how to use kubeadm's advanced options.
 
-Running kubeadm init bootstraps a Kubernetes cluster. This consists of the
+Running `kubeadm init` bootstraps a Kubernetes cluster. This consists of the
 following steps:
 
-1. kubeadm generates a token that additional nodes can use to register themselves
-with the master in future.
+1. kubeadm generates a token that additional nodes can use to register
+themselves with the master in future.  Optionally, the user can provide a token.
 
 1. kubeadm generates a self-signed CA using openssl to provision identities
 for each node in the cluster, and for the API server to secure communication
 with clients.
 
-1. Outputting a kubeconfig file for the kubelet to use to connect to the API server,
-as well as an additional kubeconfig file for administration.
+1. Outputting a kubeconfig file for the kubelet to use to connect to the API
+server, as well as an additional kubeconfig file for administration.
 
-1. kubeadm generates Kubernetes resource manifests for the API server, controller manager
-and scheduler, and placing them in `/etc/kubernetes/manifests`. The kubelet watches
-this directory for static resources to create on startup. These are the core
-components of Kubernetes, and once they are up and running we can use `kubectl`
-to set up/manage any additional components.
+1. kubeadm generates Kubernetes resource manifests for the API server,
+controller manager and scheduler, and placing them in
+`/etc/kubernetes/manifests`. The kubelet watches this directory for static
+resources to create on startup. These are the core components of Kubernetes, and
+once they are up and running we can use `kubectl` to set up/manage any
+additional components.
 
-1. kubeadm installs any add-on components, such as DNS or discovery, via the API server.
+1. kubeadm installs any add-on components, such as DNS or discovery, via the API
+server.
+
+Running `kubeadm join` on each node in the cluster consists of the following steps:
+
+1. Use the token to talk to the API server and securely get the root CA
+certificate.
+
+1. Creates a local key pair.  Prepares a certificate signing request (CSR) and
+sends that off to the API server for signing.
+
+1. Configures the local kubelet to connect to the API server
 
 ## Usage
 
@@ -116,7 +128,7 @@ not function correctly.
 
 By default, `kubeadm init` automatically generates the token used to initialise
 each new node. If you would like to manually specify this token, you can use the
-`--token` flag. The token must be of the format '<6 character string>.<16 character string>'.
+`--token` flag. The token must be of the format `<6 character string>.<16 character string>`.
 
 - `--use-kubernetes-version` (default 'v1.4.1') the kubernetes version to initialise
 
@@ -127,8 +139,8 @@ for a full list of available versions).
 
 ### `kubeadm join`
 
-`kubeadm join` has one mandatory flag, the token used to secure cluster bootstrap,
-and one mandatory argument, the master IP address.
+`kubeadm join` has one mandatory flag, the token used to secure cluster
+bootstrap, and one mandatory argument, the master IP address.
 
 Here's an example on how to use it:
 
@@ -138,6 +150,22 @@ Here's an example on how to use it:
 
 By default, when `kubeadm init` runs, a token is generated and revealed in the output.
 That's the token you should use here.
+
+## Automating kubeadm
+
+While most of the tutorials for kubeadm are linear and involve copying the token from `kubeadm init` to each node, you can parallelize this for easier automation.  The only requirement is that you know the IP that master will have after it is started.
+
+1.  Generate a token.  This token must have the form  `<6 character string>.<16 character string>`
+
+    Here is a simple python one-liner for this:
+
+    ```
+    python -c 'import random; print "%0x.%0x" % (random.SystemRandom().getrandbits(3*8), random.SystemRandom().getrandbits(8*8))'
+    ```
+
+1. Start both the master node and the worker nodes concurrently with this token.  As they come up they should find each other and form the cluster.
+
+Once the cluster is up, you can grab the admin credentials from the master node at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
 
 ## Troubleshooting
 
