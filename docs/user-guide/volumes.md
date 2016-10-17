@@ -456,7 +456,7 @@ More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{
 ### vsphereVolume
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
-of a volume are preserved when it is unmounted.
+of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
 
 __Important: You must create a VMDK volume using `vmware-vdiskmanager -c` or
 the VSphere API before you can use it__
@@ -487,7 +487,7 @@ spec:
   - name: test-volume
     # This VMDK volume must already exist.
     vsphereVolume:
-      volumePath: myDisk
+      volumePath: "[Datastore] myDisk"
       fsType: ext4
 ```
 
