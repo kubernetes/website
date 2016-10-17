@@ -18,7 +18,7 @@ the selector support. Replica Set supports the new set-based selector requiremen
 as described in the [labels user guide](/docs/user-guide/labels/#label-selectors)
 whereas a Replication Controller only supports equality-based selector requirements.
 
-Most [`kubectl`](/docs/user-guide/kubectl/kubectl/) commands that support
+Most [`kubectl`](/docs/user-guide/kubectl/) commands that support
 Replication Controllers also support Replica Sets. One exception is the
 [`rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update/) command. If
 you want the rolling update functionality please consider using Deployments
