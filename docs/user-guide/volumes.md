@@ -456,18 +456,31 @@ More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{
 
 ### vsphereVolume
 
-A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
-of a volume are preserved when it is unmounted.
+__Prerequisite: Kubernetes with vSphere Cloud Provider configured. 
+For cloudprovider configuration please refer [vSphere getting started guide](http://kubernetes.io/docs/getting-started-guides/vsphere/).__
 
-__Important: You must create a VMDK volume using `vmware-vdiskmanager -c` or
-the VSphere API before you can use it__
+A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
+of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
+
+__Important: You must create a VMDK volume using either of following ways or
+the VSphere API before you can use it.__
 
 #### Creating a VMDK volume
 
 Before you can use a vSphere volume with a pod, you need to create it.
+You can create disk using **either** of the following ways,
+
+* Create using vmkfstools.
+   
+   First ssh into ESX and then use following command to create vmdk,
 
 ```shell
-vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
+    vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
+```
+
+* Create using vmware-vdiskmanager.
+```shell
+  vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
 ```
 
 #### vSphere VMDK Example configuration
@@ -488,9 +501,11 @@ spec:
   - name: test-volume
     # This VMDK volume must already exist.
     vsphereVolume:
-      volumePath: myDisk
+      volumePath: "[DatastoreName] volumes/myDisk"
       fsType: ext4
 ```
+More examples can be found [here](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere).
+
 
 ### Quobyte
 
