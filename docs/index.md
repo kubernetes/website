@@ -5,9 +5,9 @@ assignees:
 
 ---
 
-Kubernetes is an open source, production-ready cluster management and container orchestration system. With Kubernetes on your cluster, you can ensure that your containerized applications and other cloud-based workloads run where you want them, when you want them, and with the resources that they need.
+<p>Kubernetes is an open source, production-ready cluster management and container orchestration system. With Kubernetes on your cluster, you can ensure that your containerized applications and other cloud-based workloads run where you want them, when you want them, and with the resources that they need.</p>
 
-The Kubernetes system works with popular containerization solutions, such as Docker and rkt, and can run on cloud clusters from major cloud providers such as Amazon Web Services, Google Cloud Platform, and Microsoft Azure, as well as custom and on-premises clusters.
+<p>The Kubernetes system works with popular containerization solutions, such as Docker and rkt, and can run on cloud clusters from major cloud providers such as Amazon Web Services, Google Cloud Platform, and Microsoft Azure, as well as custom and on-premises clusters.</p>
 
 <p><a href="/docs/whatisk8s/" class="button">Read the Overview</a></p>
 
@@ -78,9 +78,9 @@ h2, h3, h4 {
 }
 </style>
 
-## Quickstarts
+<h2>Quickstarts</h2>
 
-Some quick ways to get started with Kubernetes include:
+<p>Some quick ways to get started with Kubernetes include:</p>
 
 <div id="quickstarts" class="colContainer">
   <div class="col3rd">
@@ -95,7 +95,9 @@ Some quick ways to get started with Kubernetes include:
   </div>
 </div>
 
-## Samples
+<h2>Samples</h2>
+
+View some sample projects built on Kubernetes:
 
 <div id="samples" class="colContainer">
 <a href="/docs/getting-started-guides/meanstack/" class="shadowbox">
