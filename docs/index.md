@@ -9,10 +9,10 @@ assignees:
 
 <p>The Kubernetes system works with popular containerization solutions, such as Docker and rkt, and can run on cloud clusters from major cloud providers such as Amazon Web Services, Google Cloud Platform, and Microsoft Azure, as well as custom and on-premises clusters.</p>
 
-<p><a href="/docs/whatisk8s/" class="button">Read the Overview</a></p>
+<p><a href="/docs/whatisk8s/" class="button">Read the full Overview</a></p>
 
 <style>
-  h3, h4 {
+h3, h4 {
   border-bottom: 0px !important;
 }
 .colContainer {
@@ -82,22 +82,45 @@ assignees:
 
 <p>Some quick ways to get started with Kubernetes include:</p>
 
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
 <div id="quickstarts" class="colContainer">
   <div class="col3rd">
-    <h3>Kubernetes Basics Interactive Tutorial</h3>
+    <h4>Kubernetes Basics Interactive Tutorial</h4>
     <p>The Kubernetes Basics interactive tutorials let you try out Kubernetes features right out of your web browser, in a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.</p>
     <a href="/docs/tutorials/kubernetes-basics/" class="button">Try the Interactive Tutorials</a>
   </div>
   <div class="col3rd">
-    <h3>Installing Kubernetes on Linux with kubeadm</h3>
+    <h4>Installing Kubernetes on Linux with kubeadm</h4>
     <p>This quickstart will show you how to install a secure Kubernetes cluster on any computers running Linux, using a tool called <code>kubeadm</code> which is part of Kubernetes. It'll work with local VMs, physical servers and/or cloud servers, either manually or as part of your own automation. It is currently in alpha but please try it out and give us feedback!</p>
     <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes with kubeadm</a>
   </div>
 </div>
 
+<h2>Tutorials, Tasks, Concepts, and Guides</h2>
+
+<p>The Kubernetes documentation contains a number of resources to help you understand and work with Kubernetes.</p>
+<ul>
+<li><b><a href="/docs/tutorials/">Tutorials</a></b> contain detailed walkthroughs of the Kubernetes workflow, both for working on existing Kubernetes clusters or setting up your own clusters.</li>
+<li><b><a href="/docs/tasks/">Tasks</a></b> contain step-by-step instructions for common Kubernetes tasks.</li>
+<li><b><a href="/docs/tutorials/">Concepts</a></b> provide a deep understanding of how Kubernetes works.</li>
+<li><b><a href="/docs/tutorials/">Guides</a></b> provide background information on Kubernetes features along with some instructions and usage examples.</li>
+
+<h2>API and Command References</h2>
+
+<p>The <a href="/docs/reference/">reference</a> documentation provides complete information on the Kubernetes APIs and the `kubectl` command-line interface.</p>
+
+<h2>Tools</h2>
+
+<p>The <a href="/docs/tools/">tools</a> page contains a list of native and third-party tools for Kubernetes.</p>
+
 <h2>Samples</h2>
 
-View some sample projects built on Kubernetes:
+<p>View some sample projects built on Kubernetes:</p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 <div id="samples" class="colContainer">
 <a href="/docs/getting-started-guides/meanstack/" class="shadowbox">
