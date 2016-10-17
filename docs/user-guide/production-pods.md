@@ -169,7 +169,7 @@ If no resource requirements are specified, a nominal amount of resources is assu
 
 {% include code.html language="yaml" file="redis-resource-deployment.yaml" ghlink="/docs/user-guide/redis-resource-deployment.yaml" %}
 
-The container will die due to OOM (out of memory) if it exceeds its specified limit, so specifying a value a little higher than expected generally improves reliability. By specifying request, pod is guaranteed to be able to use that much of resource when needed. See [Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/resource-qos.md) for the difference between resource limits and requests.
+The container will die due to OOM (out of memory) if it exceeds its specified limit, so specifying a value a little higher than expected generally improves reliability. By specifying request, pod is guaranteed to be able to use that much of resource when needed. See [Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resource-qos.md) for the difference between resource limits and requests.
 
 If you're not sure how much resources to request, you can first launch the application without specifying resources, and use [resource usage monitoring](/docs/user-guide/monitoring) to determine appropriate values.
 
