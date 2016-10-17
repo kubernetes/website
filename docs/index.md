@@ -106,6 +106,7 @@ h3, h4 {
 <li><b><a href="/docs/tasks/">Tasks</a></b> contain step-by-step instructions for common Kubernetes tasks.</li>
 <li><b><a href="/docs/tutorials/">Concepts</a></b> provide a deep understanding of how Kubernetes works.</li>
 <li><b><a href="/docs/tutorials/">Guides</a></b> provide background information on Kubernetes features along with some instructions and usage examples.</li>
+</ul>
 
 <h2>API and Command References</h2>
 
