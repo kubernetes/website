@@ -82,18 +82,15 @@ h3, h4 {
 
 <p>Some quick ways to get started with Kubernetes include:</p>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
 <div id="quickstarts" class="colContainer">
-  <div class="col3rd">
+  <div class="col2nd">
     <h4>Kubernetes Basics Interactive Tutorial</h4>
     <p>The Kubernetes Basics interactive tutorials let you try out Kubernetes features right out of your web browser, in a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.</p>
     <a href="/docs/tutorials/kubernetes-basics/" class="button">Try the Interactive Tutorials</a>
   </div>
-  <div class="col3rd">
+  <div class="col2nd">
     <h4>Installing Kubernetes on Linux with kubeadm</h4>
-    <p>This quickstart will show you how to install a secure Kubernetes cluster on any computers running Linux, using a tool called <code>kubeadm</code> which is part of Kubernetes. It'll work with local VMs, physical servers and/or cloud servers, either manually or as part of your own automation. It is currently in alpha but please try it out and give us feedback!</p>
+    <p>This quickstart helps you install a secure Kubernetes cluster using the built-in <code>kubeadm</code> tool. You can use <code>kubeadm<code> to install Kubernetes on any computers running Linux&emdash;it works with local VMs, physical servers, or cloud servers. You can use <code>kubeadm</code> manually or as part of your own automation. <code>kubeadm</code> is currently an alpha feature, but we invite you to try it out and give us feedback!</p>
     <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes with kubeadm</a>
   </div>
 </div>
@@ -120,7 +117,6 @@ h3, h4 {
 
 <p>View some sample projects built on Kubernetes:</p>
 
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 
 <div id="samples" class="colContainer">
