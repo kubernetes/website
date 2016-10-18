@@ -89,5 +89,5 @@ Pods and containers
   * [Images and registries](/docs/user-guide/images/)
   * [Migrating from docker-cli to kubectl](/docs/user-guide/docker-cli-to-kubectl/)
   * [Configuration Best Practices and Tips](/docs/user-guide/config-best-practices/)
-  * [Assign pods to selected nodes](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/node-selection/)
-  * [Perform a rolling update on a running group of pods](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/update-demo/)
+  * [Assign pods to selected nodes](/docs/user-guide/node-selection/)
+  * [Perform a rolling update on a running group of pods](/docs/user-guide/update-demo/)

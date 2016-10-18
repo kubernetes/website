@@ -7,7 +7,7 @@
 
 <body>
 
-<link href="/docs/tutorials/getting-started/public/css/styles.css" rel="stylesheet">
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 
 <div class="layout" id="top">
@@ -15,18 +15,19 @@
 	<main class="content">
 
 		<div class="row">
-			<div class="col-md-12 text-left">
-				<a class="btn btn-default" href="/docs/tutorials/getting-started/explore-app.html" role="button"><span class="btn__prev">‹</span> Back</a>
+
+     <div class="col-md-8">
+      	<h3>Objectives</h3>
+				<ul>
+					<li>Learn about Kubernetes Pods.</li>
+					<li>Learn about Kubernetes Nodes.</li>
+					<li>Troubleshoot deployed applications.</li>
+				</ul>
 			</div>
-		</div>
 
-		<br>
-		<br>
-
-		<div class="row">
 			<div class="col-md-8">
-				<h2>Pods</h2>
-				<p>When you created a Deployment in Module <a href="/docs/tutorials/getting-started/deploy-app.html">2</a>, Kubernetes created a <b>Pod</b> to host your application instance. A Pod is Kubernetes abstraction that represents a group of one or more application containers (such as Docker or rkt), and some shared resources for those containers. Those resources include:</p>
+				<h2>Kubernetes Pods</h2>
+				<p>When you created a Deployment in Module <a href="/docs/tutorials/kubernetes-basics/deploy-app.html">2</a>, Kubernetes created a <b>Pod</b> to host your application instance. A Pod is Kubernetes abstraction that represents a group of one or more application containers (such as Docker or rkt), and some shared resources for those containers. Those resources include:</p>
 				<ul>
 					<li>Shared storage, as Volumes</li>
 					<li>Networking, as a unique cluster IP address</li>
@@ -63,7 +64,7 @@
 
 		<div class="row">
 			<div class="col-md-8">
-				<p><img src="/docs/tutorials/getting-started/public/images/module_03_pods.svg"></p>
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
 			</div>
 		</div>
 		<br>
@@ -97,7 +98,7 @@
 
 		<div class="row">
 			<div class="col-md-8">
-				<p><img src="/docs/tutorials/getting-started/public/images/module_03_nodes.svg"></p>
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
 			</div>
 		</div>
 		<br>
@@ -128,7 +129,7 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<a class="btn btn-lg btn-success" href="/docs/tutorials/getting-started/explore-interactive.html" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/explore-interactive.html" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
 			</div>
 		</div>
 
