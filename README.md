@@ -4,16 +4,22 @@ Welcome! We are very pleased you want to contribute to the documentation and/or 
 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
 
-## Staging the site on GitHub Pages
+## Automatic Staging for Pull Requests
 
-If you want to see your changes staged without having to install anything locally, remove the CNAME file in this directory and
-change the name of the fork to be:
+When you create a pull request (either against master or the upcoming release), your changes are staged in a custom subdomain on Netlify so that you can see your changes in rendered form before the PR is merged. You can use this to verify that everything is correct before the PR gets merged. To view your changes:
 
-    YOUR_GITHUB_USERNAME.github.io
+- Scroll down to the PR's list of Automated Checks
+- Click "Show All Checks"
+- Look for "deploy/netlify"; you'll see "Deploy Preview Ready!" if staging was successful
+- Click "Details" to bring up the staged site and navigate to your changes
 
-Then make your changes.
+## Release Branch Staging
 
-When you visit [http://YOUR_GITHUB_USERNAME.github.io](http://YOUR_GITHUB_USERNAME.github.io) you should see a special-to-you version of the site that contains the changes you just made.
+The Kubernetes site maintains staged versions at a subdomain provided by Netlify. Every PR for the Kubernetes site, either against the master branch or the upcoming release branch, is staged automatically.
+
+The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/)
+
+The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
 
 ## Staging the site locally (using Docker)
 
@@ -63,7 +69,6 @@ Make any changes you want. Then, to see your changes locally:
 
 Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
 (or wherever Jekyll tells you).
-
 
 ## GitHub help
 
@@ -137,20 +142,13 @@ That, of course, will send users to:
 
 ## Branch structure
 
-The current version of the website is served out of the `master` branch.
+The current version of the website is served out of the `master` branch. To make changes to the live docs, such as bug fixes, broken links, typos, etc, **target your pull request to the master branch**.
 
-All versions of the site that relate to past and future versions will be named after their Kubernetes release number. For example, [the old branch for the 1.1 docs is called `release-1.1`](https://github.com/kubernetes/kubernetes.github.io/tree/release-1.1).
+The `release-1.x` branches store changes for **upcoming releases of Kubernetes**. For example, the `release-1.5` branch has changes for the upcoming 1.5 release. These changes target branches (and *not* master) to avoid publishing documentation updates prior to the release for which they're relevant. If you have a change for an upcoming release of Kubernetes, **target your pull request to the appropriate release branch**.
 
 Changes in the "docsv2" branch (where we are testing a revamp of the docs) are automatically staged here:
 http://k8sdocs.github.io/docs/tutorials/
 
-Changes in the "release-1.1" branch (for k8s v1.1 docs) are automatically staged here:
-http://kubernetes-v1-1.github.io/
-
-Changes in the "release-1.3" branch (for k8s v1.3 docs) are automatically staged here:
-http://kubernetes-v1-3.github.io/
-
-Editing of these branches will kick off a build using Travis CI that auto-updates these URLs; you can monitor the build progress at [https://travis-ci.org/kubernetes/kubernetes.github.io](https://travis-ci.org/kubernetes/kubernetes.github.io).
 
 ## Config yaml guidelines
 
