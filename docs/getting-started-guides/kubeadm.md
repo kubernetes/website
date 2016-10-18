@@ -47,8 +47,8 @@ For each host in turn:
 
       ```bash
         sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -`  
-        sudo cat <<EOF > /etc/apt/sources.list.d/kubernetes.list  
-        deb http://apt.kubernetes.io/ kubernetes-xenial main  
+        sudo touch /etc/apt/sources.list.d/kubernetes.list  
+        echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee --append /etc/apt/sources.list.d/kubernetes.list  
         EOF    
         sudo apt-get update  
         sudo apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni  
