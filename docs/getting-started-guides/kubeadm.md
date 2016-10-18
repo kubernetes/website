@@ -84,7 +84,7 @@ All of these components run in pods started by `kubelet`.
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
-     `sudo kubeadm init`
+     sudo kubeadm init
 
 **Note:** this will autodetect the network interface to advertise the master on as the interface with the default gateway.
 If you want to use a different interface, specify `--api-advertise-addresses=<ip-address>` argument to `kubeadm init`.
@@ -122,7 +122,7 @@ The key is used for mutual authentication between the master and the joining nod
 By default, your cluster will not schedule pods on the master for security reasons.
 If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
 
-    # kubectl taint nodes --all dedicated-
+    kubectl taint nodes --all dedicated-
     node "test-01" tainted
     taint key="dedicated" and effect="" not found.
     taint key="dedicated" and effect="" not found.
@@ -135,7 +135,8 @@ The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
 For example:
 
-    # kubeadm join --token <token> <master-ip>
+    kubeadm join --token <token> <master-ip>
+    
     <util/tokens> validating provided token
     <node/discovery> created cluster info discovery client, requesting info from "http://138.68.156.129:9898/cluster-info/v1/?token-id=0f8588"
     <node/discovery> cluster info object received, verifying signature using given token
