@@ -53,7 +53,7 @@ A request has the following attributes that can be considered for authorization:
   - what resource is being accessed (for resource requests only)
   - what subresource is being accessed (for resource requests only)
   - the namespace of the object being accessed (for namespaced resource requests only)
-  - the API group being accessed (for resource requests only)
+  - the API group being accessed (for resource requests only); an empty string designates the [core API group](../api.md#api-groups)
 
 The request verb for a resource API endpoint can be determined by the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
 
@@ -231,7 +231,7 @@ metadata:
   namespace: default
   name: pod-reader
 rules:
-  - apiGroups: [""] # The API group "" indicates the default API Group.
+  - apiGroups: [""] # The API group "" indicates the core API Group.
     resources: ["pods"]
     verbs: ["get", "watch", "list"]
     nonResourceURLs: []

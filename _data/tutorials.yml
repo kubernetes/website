@@ -4,6 +4,8 @@ toc:
   path: /docs/tutorials/
 - title: Kubernetes Basics
   section:
+  - title: Overview
+    path: /docs/tutorials/kubernetes-basics/
   - title: 1. Create a Cluster
     section:
     - title: Using Minikube to Create a Cluster
@@ -46,3 +48,5 @@ toc:
     path: /docs/tutorials/stateless-application/run-stateless-application-deployment/
   - title: Using a Service to Access an Application in a Cluster
     path: /docs/tutorials/stateless-application/expose-external-ip-address-service/
+  - title: Exposing an External IP Address to Access an Application in a Cluster
+    path: /docs/tutorials/stateless-application/expose-external-ip-address/
