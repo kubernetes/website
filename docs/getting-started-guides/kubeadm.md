@@ -42,19 +42,21 @@ You will install the following packages on all the machines:
 
 For each host in turn:
 
-* SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
+* SSH into the machine.
 * If the machine is running Ubuntu 16.04, run:
 
-      # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-      # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
+      `sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -`
+      `sudo cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
       deb http://apt.kubernetes.io/ kubernetes-xenial main
-      EOF
-      # apt-get update
-      # apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni
+      EOF`
+      `sudo apt-get update`
+      `sudo apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni`
+      `sudo systemctl enable docker && sudo systemctl start docker`
+      `sudo systemctl enable kubelet && sudo systemctl start kubelet`
 
-   If the machine is running CentOS 7, run:
+   If the machine is running CentOS 7,  become `root` if you are not already (for example, run `sudo su -`) and run:
 
-      # cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+      `cat <<EOF > /etc/yum.repos.d/kubernetes.repo
       [kubernetes]
       name=Kubernetes
       baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
@@ -63,11 +65,11 @@ For each host in turn:
       repo_gpgcheck=1
       gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
              https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-      EOF
-      # setenforce 0
-      # yum install -y docker kubelet kubeadm kubectl kubernetes-cni
-      # systemctl enable docker && systemctl start docker
-      # systemctl enable kubelet && systemctl start kubelet
+      EOF`
+      `setenforce 0`
+      `yum install -y docker kubelet kubeadm kubectl kubernetes-cni`
+      `systemctl enable docker && systemctl start docker`
+      `systemctl enable kubelet && systemctl start kubelet`
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
@@ -80,7 +82,7 @@ All of these components run in pods started by `kubelet`.
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
-     # kubeadm init
+     `sudo kubeadm init`
 
 **Note:** this will autodetect the network interface to advertise the master on as the interface with the default gateway.
 If you want to use a different interface, specify `--api-advertise-addresses=<ip-address>` argument to `kubeadm init`.
