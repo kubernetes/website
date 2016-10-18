@@ -3,7 +3,7 @@ kind: ScheduledJob
 metadata:
   name: hello
 spec:
-  schedule: 0/1 * * * ?
+  schedule: */1 * * * ?
   jobTemplate:
     spec:
       template:

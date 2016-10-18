@@ -19,6 +19,9 @@ A _Scheduled Job_ manages time based [Jobs](/docs/user-guide/jobs/), namely:
 One ScheduledJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
+NOTE: The question mark (`?`) in the schedule has the same meaning as an asterisk `*`,
+that is, it stands for any of available value for a given field.
+
 A typical use case is:
 
 * Schedule a job execution at a given point in time.
@@ -48,7 +51,7 @@ scheduledjob "hello" created
 Alternatively, use `kubectl run` to create a scheduled job without writing full config:
 
 ```shell
-$ kubectl run hello --schedule="0/1 * * * ?" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
+$ kubectl run hello --schedule="*/1 * * * ?" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
 scheduledjob "hello" created
 ```
 
@@ -57,10 +60,10 @@ After creating the scheduled job, get its status using this command:
 ```shell
 $ kubectl get scheduledjob hello
 NAME      SCHEDULE      SUSPEND   ACTIVE    LAST-SCHEDULE
-hello     0/1 * * * ?   False     0         <none>
+hello     */1 * * * ?   False     0         <none>
 ```
 
-As you can see above, there's no active job yet, and no job has been scheduled, either. 
+As you can see above, there's no active job yet, and no job has been scheduled, either.
 
 Watch for the job to be created in around one minute:
 
@@ -75,11 +78,11 @@ Now you've seen one running job scheduled by "hello". We can stop watching it an
 ```shell
 $ kubectl get scheduledjob hello
 NAME      SCHEDULE      SUSPEND   ACTIVE    LAST-SCHEDULE
-hello     0/1 * * * ?   False     0         Mon, 29 Aug 2016 14:34:00 -0700
+hello     */1 * * * ?   False     0         Mon, 29 Aug 2016 14:34:00 -0700
 ```
 
 You should see that "hello" successfully scheduled a job at the time specified in `LAST-SCHEDULE`. There are
-currently 0 active jobs, meaning that the job that's scheduled is completed or failed. 
+currently 0 active jobs, meaning that the job that's scheduled is completed or failed.
 
 Now, find the pods created by the job last scheduled and view the standard output of one of the pods. Note that
 your job name and pod name would be different.
@@ -96,7 +99,7 @@ Mon Aug 29 21:34:09 UTC 2016
 Hello from the Kubernetes cluster
 ```
 
-## Deleting a Scheduled Job 
+## Deleting a Scheduled Job
 
 Once you don't need a scheduled job anymore, simply delete it with `kubectl`:
 
@@ -122,7 +125,7 @@ job "hello-1202039034" deleted
 ```
 
 Once the jobs are deleted, the pods created by them are deleted as well. Note that all jobs created by scheduled
-job "hello" will be prefixed "hello-". You can delete them at once with `kubectl delete jobs --all`, if you want to 
+job "hello" will be prefixed "hello-". You can delete them at once with `kubectl delete jobs --all`, if you want to
 delete all jobs in the current namespace (not just the ones created by "hello".)
 
 ## Scheduled Job Limitations
@@ -137,7 +140,7 @@ of the set of pods. A scheduled job does not examine pods at all.
 ## Writing a Scheduled Job Spec
 
 As with all other Kubernetes configs, a scheduled job needs `apiVersion`, `kind`, and `metadata` fields. For general
-information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications), 
+information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications),
 [configuring containers](/docs/user-guide/configuring-containers), and
 [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
 
@@ -145,10 +148,10 @@ A scheduled job also needs a [`.spec` section](https://github.com/kubernetes/kub
 
 **Note:** All modifications to a scheduled job, especially its `.spec`, will be applied only to the next run.
 
-### Schedule 
+### Schedule
 
 The `.spec.schedule` is a required field of the `.spec`. It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format
-string, e.g. `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed. 
+string, e.g. `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
 
 ### Job Template
 
@@ -159,8 +162,8 @@ as a [Job](/docs/user-guide/jobs), except it is nested and does not have an `api
 ### Starting Deadline Seconds
 
 The `.spec.startingDeadlineSeconds` field is optional. It stands for the deadline (in seconds) for starting the job
-if it misses its scheduled time for any reason. Missed jobs executions will be counted as failed ones. If not specified, 
-there's no deadline.  
+if it misses its scheduled time for any reason. Missed jobs executions will be counted as failed ones. If not specified,
+there's no deadline.
 
 ### Concurrency Policy
 
@@ -176,5 +179,5 @@ scheduled jobs, their respective jobs are always allowed to run concurrently.
 
 ### Suspend
 
-The `.spec.suspend` field is also optional. If set to `true`, all subsequent executions will be suspended. It does not 
-apply to already started executions. Defaults to false. 
+The `.spec.suspend` field is also optional. If set to `true`, all subsequent executions will be suspended. It does not
+apply to already started executions. Defaults to false.
