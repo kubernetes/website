@@ -35,6 +35,6 @@ Use Helm to:
 
 ### Kompose 
 
-[`kompose`](https://github.com/skippbox/kompose) is a tool to help users familiar with `docker-compose`
+[Kompose](https://github.com/kubernetes-incubator/kompose) is a tool to help users familiar with `docker-compose`
 move to Kubernetes. It takes a Docker Compose file and translates it into Kubernetes objects. `kompose`
 is a convenient tool to go from local Docker development to managing your application with Kubernetes.
