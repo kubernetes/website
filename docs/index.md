@@ -77,9 +77,9 @@ h2, h3, h4 {
     <a href="/docs/whatisk8s/" class="button">Read the Overview</a>
   </div>
   <div class="col3rd">
-    <h3>Hello World on Google Container Engine</h3>
-    <p>In this quickstart, we’ll be creating a Kubernetes instance that stands up a simple “Hello World” app using Node.js. In just a few minutes you'll go from zero to deployed Kubernetes app on Google Container Engine (GKE), a hosted service from Google.</p>
-    <a href="/docs/hellonode/" class="button">Get Started on GKE</a>
+    <h3>Kubernetes Basics Interactive Tutorial</h3>
+    <p>The Kubernetes Basics interactive tutorials let you try out Kubernetes features using Minikube right out of your web browser in a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.</p>
+    <a href="/docs/tutorials/kubernetes-basics/" class="button">Try the Interactive Tutorials</a>
   </div>
   <div class="col3rd">
     <h3>Installing Kubernetes on Linux with kubeadm</h3>
