@@ -45,32 +45,34 @@ For each host in turn:
 * SSH into the machine.
 * If the machine is running Ubuntu 16.04, run:
 
-      `sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -`  
-      `sudo cat <<EOF > /etc/apt/sources.list.d/kubernetes.list  
-      deb http://apt.kubernetes.io/ kubernetes-xenial main  
-      EOF`  
-      `sudo apt-get update`  
-      `sudo apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni`  
-      `sudo systemctl enable docker && sudo systemctl start docker`  
-      `sudo systemctl enable kubelet && sudo systemctl start kubelet`  
-
+      ```bash
+        sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -`  
+        sudo cat <<EOF > /etc/apt/sources.list.d/kubernetes.list  
+        deb http://apt.kubernetes.io/ kubernetes-xenial main  
+        EOF    
+        sudo apt-get update  
+        sudo apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni  
+        sudo systemctl enable docker && sudo systemctl start docker  
+        sudo systemctl enable kubelet && sudo systemctl start kubelet  
+      ```
    If the machine is running CentOS 7,  become `root` if you are not already (for example, run `sudo su -`) and run:
 
-      `cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-      [kubernetes]
-      name=Kubernetes
-      baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
-      enabled=1
-      gpgcheck=1
-      repo_gpgcheck=1
-      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-             https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-      EOF`
-      `setenforce 0`
-      `yum install -y docker kubelet kubeadm kubectl kubernetes-cni`
-      `systemctl enable docker && systemctl start docker`
-      `systemctl enable kubelet && systemctl start kubelet`
-
+      ```bash
+        cat <<EOF > /etc/yum.repos.d/kubernetes.repo  
+        [kubernetes]
+        name=Kubernetes
+        baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
+        enabled=1
+        gpgcheck=1
+        repo_gpgcheck=1
+        gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+               https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+        EOF
+        setenforce 0
+        yum install -y docker kubelet kubeadm kubectl kubernetes-cni
+        systemctl enable docker && systemctl start docker
+        systemctl enable kubelet && systemctl start kubelet
+      ```
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
 Note: `setenforce 0` will no longer be necessary on CentOS once [#33555](https://github.com/kubernetes/kubernetes/pull/33555) is included in a released version of `kubeadm`.
