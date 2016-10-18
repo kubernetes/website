@@ -8,7 +8,7 @@ assignees:
 By default, pods run with unbounded CPU and memory limits.  This means that any pod in the
 system will be able to consume as much CPU and memory on the node that executes the pod.
 
-Users may want to impose restrictions on the amount of resource a single pod in the system may consume
+Users may want to impose restrictions on the amount of resources a single pod in the system may consume
 for a variety of reasons.
 
 For example:
