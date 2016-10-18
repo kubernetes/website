@@ -45,14 +45,14 @@ For each host in turn:
 * SSH into the machine.
 * If the machine is running Ubuntu 16.04, run:
 
-      `sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -`
-      `sudo cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
-      deb http://apt.kubernetes.io/ kubernetes-xenial main
-      EOF`
-      `sudo apt-get update`
-      `sudo apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni`
-      `sudo systemctl enable docker && sudo systemctl start docker`
-      `sudo systemctl enable kubelet && sudo systemctl start kubelet`
+      `sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -`  
+      `sudo cat <<EOF > /etc/apt/sources.list.d/kubernetes.list  
+      deb http://apt.kubernetes.io/ kubernetes-xenial main  
+      EOF`  
+      `sudo apt-get update`  
+      `sudo apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni`  
+      `sudo systemctl enable docker && sudo systemctl start docker`  
+      `sudo systemctl enable kubelet && sudo systemctl start kubelet`  
 
    If the machine is running CentOS 7,  become `root` if you are not already (for example, run `sudo su -`) and run:
 
