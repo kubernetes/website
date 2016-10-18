@@ -28,17 +28,20 @@ When you create a pull request (either against master or the upcoming release), 
 - Look for "deploy/netlify"; you'll see "Deploy Preview Ready!" if staging was successful
 - Click "Details" to bring up the staged site and navigate to your changes
 
-## Release Branch Staging
+## Branch structure and staging
 
-The Kubernetes site maintains staged versions at a subdomain provided by Netlify. Every PR for the Kubernetes site, either against the master branch or the upcoming release branch, is staged automatically.
+The current version of the website is served out of the `master` branch. To make changes to the live docs, such as bug fixes, broken links, typos, etc, **target your pull request to the master branch**
 
-The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/)
+The `release-1.x` branch stores changes for **upcoming releases of Kubernetes**. For example, the `release-1.5` branch has changes for the 1.5 release. These changes target branches (and *not* master) to avoid publishing documentation updates prior to the release for which they're relevant. If you have a change for an upcoming release of Kubernetes, **target your pull request to the appropriate release branch**.
 
-The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
+The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/). The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
+
+When you create a pull request, either against the master branch or the upcoming release branch, your changes are staged automatically.
+The Kubernetes site maintains staged versions at a subdomain provided by Netlify.
 
 ## Staging the site locally (using Docker)
 
-Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
+Don't like installing stuff? Download and run a local staging server with a single `docker run` command.
 
     git clone https://github.com/kubernetes/kubernetes.github.io.git
     cd kubernetes.github.io
@@ -62,7 +65,7 @@ Install Ruby 2.2 or higher. If you're on Linux, run these commands:
     apt-get install ruby2.2
     apt-get install ruby2.2-dev
 
-* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). 
+* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/).
 * If you're on a Windows machine you can use the [Ruby Installer](http://rubyinstaller.org/downloads/). During the installation make sure to check the option for *Add Ruby executables to your PATH*.
 
 The remainder of the steps should work the same across operating systems.
