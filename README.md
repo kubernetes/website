@@ -11,14 +11,6 @@ For more information about contributing to the Kubernetes documentation, see:
 * [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/stage-documentation-changes/)
 * [Using Page Templates](http://kubernetes.io/docs/contribute/page-templates/)
 
-## Release Branch Staging
-
-The Kubernetes site maintains staged versions at a subdomain provided by Netlify. Every PR for the Kubernetes site, either against the master branch or the upcoming release branch, is staged automatically.
-
-The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/)
-
-The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
-
 ## Automatic Staging for Pull Requests
 
 When you create a pull request (either against master or the upcoming release), your changes are staged in a custom subdomain on Netlify so that you can see your changes in rendered form before the PR is merged. You can use this to verify that everything is correct before the PR gets merged. To view your changes:
@@ -35,9 +27,6 @@ The current version of the website is served out of the `master` branch. To make
 The `release-1.x` branch stores changes for **upcoming releases of Kubernetes**. For example, the `release-1.5` branch has changes for the 1.5 release. These changes target branches (and *not* master) to avoid publishing documentation updates prior to the release for which they're relevant. If you have a change for an upcoming release of Kubernetes, **target your pull request to the appropriate release branch**.
 
 The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/). The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
-
-When you create a pull request, either against the master branch or the upcoming release branch, your changes are staged automatically.
-The Kubernetes site maintains staged versions at a subdomain provided by Netlify.
 
 ## Staging the site locally (using Docker)
 
