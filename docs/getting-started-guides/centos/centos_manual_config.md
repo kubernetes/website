@@ -10,7 +10,7 @@ assignees:
 
 ## Prerequisites
 
-You need a machine acting as master and as many CentOS 7 hosts as you would like, that act as cluster nodes.
+To configure Kubernetes with CentOS, you'll need a machine to act as a master, and one or more CentOS 7 hosts to act as cluster nodes.
 
 ## Starting a cluster
 
@@ -119,11 +119,11 @@ KUBE_API_ARGS=""
 ```
 
 * Configure ETCD to hold the network overlay configuration on master:
-**Warning** This network must be unused in your network infrastructure! `172.40.0.0/16` is free in our network.
+**Warning** This network must be unused in your network infrastructure! `172.30.0.0/16` is free in our network.
 
 ```shell
 $ etcdctl mkdir /kube-centos/network
-$ etcdclt mk /kube-centos/network/config "{ \"Network\": \"172.40.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
+$ etcdclt mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
 ```
 
 * Configure flannel to overlay Docker network in /etc/sysconfig/flanneld on the master (also in the nodes as we'll see):
