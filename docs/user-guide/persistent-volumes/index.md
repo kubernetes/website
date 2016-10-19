@@ -150,7 +150,7 @@ In the CLI, the access modes are abbreviated to:
 | HostPath             | x            | -           | -            |
 | iSCSI                | x            | x           | -            |
 | NFS                  | x            | x           | x            |
-| RDB                  | x            | x           | -            |
+| RBD                  | x            | x           | -            |
 | VsphereVolume        | x            | -           | -            |
 
 ### Class
