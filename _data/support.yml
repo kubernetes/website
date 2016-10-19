@@ -6,6 +6,12 @@ toc:
 
 - title: Contributing to the Kubernetes Docs
   section:
+  - title: Creating a Documentation Pull Request
+    path: /docs/contribute/create-pull-request/
+  - title: Writing a New Topic
+    path: /docs/contribute/write-new-topic/
+  - title: Staging Your Documentation Changes
+    path: /docs/contribute/stage-documentation-changes/
   - title: Using Page Templates
     path: /docs/contribute/page-templates/
 

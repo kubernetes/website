@@ -101,7 +101,7 @@ quoting facilities of HTTP.  For example: if the bearer token is
 header as shown below.
 
 ```http
-Authentication: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
+Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 ```
 
 ### Static Password File

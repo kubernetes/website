@@ -4,6 +4,13 @@ Welcome! We are very pleased you want to contribute to the documentation and/or 
 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
 
+For more information about contributing to the Kubernetes documentation, see:
+
+* [Creating a Documentation Pull Request](http://kubernetes.io/docs/contribute/create-pull-request/)
+* [Writing a New Topic](http://kubernetes.io/docs/contribute/write-new-topic/)
+* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/stage-documentation-changes/)
+* [Using Page Templates](http://kubernetes.io/docs/contribute/page-templates/)
+
 ## Automatic Staging for Pull Requests
 
 When you create a pull request (either against master or the upcoming release), your changes are staged in a custom subdomain on Netlify so that you can see your changes in rendered form before the PR is merged. You can use this to verify that everything is correct before the PR gets merged. To view your changes:
@@ -13,17 +20,17 @@ When you create a pull request (either against master or the upcoming release), 
 - Look for "deploy/netlify"; you'll see "Deploy Preview Ready!" if staging was successful
 - Click "Details" to bring up the staged site and navigate to your changes
 
-## Release Branch Staging
+## Branch structure and staging
 
-The Kubernetes site maintains staged versions at a subdomain provided by Netlify. Every PR for the Kubernetes site, either against the master branch or the upcoming release branch, is staged automatically.
+The current version of the website is served out of the `master` branch. To make changes to the live docs, such as bug fixes, broken links, typos, etc, **target your pull request to the master branch**
 
-The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/)
+The `release-1.x` branch stores changes for **upcoming releases of Kubernetes**. For example, the `release-1.5` branch has changes for the 1.5 release. These changes target branches (and *not* master) to avoid publishing documentation updates prior to the release for which they're relevant. If you have a change for an upcoming release of Kubernetes, **target your pull request to the appropriate release branch**.
 
-The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
+The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/). The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
 
 ## Staging the site locally (using Docker)
 
-Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
+Don't like installing stuff? Download and run a local staging server with a single `docker run` command.
 
     git clone https://github.com/kubernetes/kubernetes.github.io.git
     cd kubernetes.github.io
@@ -47,7 +54,7 @@ Install Ruby 2.2 or higher. If you're on Linux, run these commands:
     apt-get install ruby2.2
     apt-get install ruby2.2-dev
 
-* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). 
+* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/).
 * If you're on a Windows machine you can use the [Ruby Installer](http://rubyinstaller.org/downloads/). During the installation make sure to check the option for *Add Ruby executables to your PATH*.
 
 The remainder of the steps should work the same across operating systems.
@@ -139,16 +146,6 @@ That, of course, will send users to:
 [http://releases.k8s.io/release-1.2/cluster/addons/README.md](http://releases.k8s.io/release-1.2/cluster/addons/README.md)
 
 (Or whatever Kubernetes release that docs branch is associated with.)
-
-## Branch structure
-
-The current version of the website is served out of the `master` branch. To make changes to the live docs, such as bug fixes, broken links, typos, etc, **target your pull request to the master branch**.
-
-The `release-1.x` branches store changes for **upcoming releases of Kubernetes**. For example, the `release-1.5` branch has changes for the upcoming 1.5 release. These changes target branches (and *not* master) to avoid publishing documentation updates prior to the release for which they're relevant. If you have a change for an upcoming release of Kubernetes, **target your pull request to the appropriate release branch**.
-
-Changes in the "docsv2" branch (where we are testing a revamp of the docs) are automatically staged here:
-http://k8sdocs.github.io/docs/tutorials/
-
 
 ## Config yaml guidelines
 
