@@ -77,11 +77,6 @@ Make any changes you want. Then, to see your changes locally:
 Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
 (or wherever Jekyll tells you).
 
-=======
-
-The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
-
->>>>>>> contribution-guide-2
 ## GitHub help
 
 If you're a bit rusty with git/GitHub, you might want to read
