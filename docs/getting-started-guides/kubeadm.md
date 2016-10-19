@@ -14,13 +14,13 @@ This process works with local VMs, physical servers and/or cloud servers.
 It is simple enough that you can easily integrate its use into your own automation (Terraform, Chef, Puppet, etc).
 
 kubeadm is not a complete provisioning tool; it is designed as a part of a larger provisioning
-system (or just for easy manual provisioning).  kubeadm is a great choice where you have your
+system - or just for easy manual provisioning.  kubeadm is a great choice where you have your
 own infrastructure (e.g. bare metal), or where you have an existing orchestration system (e.g. Puppet)
-that you have to plug in to.
+that you have to integrate with.
 
 If you are not constrained, other tools build on kubeadm to give you complete clusters:
 
-* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you turnkey Kubernetes
+* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you turn-key Kubernetes
 * On AWS, [kops](kops) makes installation and cluster management easy (and supports high availability)
 
 **The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!
