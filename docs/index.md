@@ -117,7 +117,7 @@ h2, h3, h4 {
   <div class="col2nd">
   <h3>Contribute to Our Docs</h3>
   <p>The docs for Kubernetes are open-source, just like the code for Kubernetes itself. The docs are on GitHub Pages, so you can fork it and it will auto-stage on username.github.io, previewing your changes!</p>
-  <a href="/editdocs/" class="button">Write Docs for K8s</a>
+  <a href="/docs/contribute/create-pull-request/" class="button">Write Docs for K8s</a>
   </div>
   <div class="col2nd">
   <h3>Need Help?</h3>
