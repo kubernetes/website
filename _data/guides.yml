@@ -12,6 +12,8 @@ toc:
     path: /docs/getting-started-guides/kubeadm/
   - title: Hello World on Google Container Engine
     path: /docs/hellonode/
+  - title: Downloading kubectl
+    path: /docs/getting-started-guides/kubectl/
   - title: Downloading or Building Kubernetes
     path: /docs/getting-started-guides/binary_release/
   - title: Online Training Course
