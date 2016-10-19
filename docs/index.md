@@ -5,9 +5,9 @@ assignees:
 
 ---
 
-<p>Kubernetes is an open source, production-ready cluster management and container orchestration system. With Kubernetes on your cluster, you can ensure that your containerized applications and other cloud-based workloads run where you want them, when you want them, and with the resources that they need.</p>
+<p>Kubernetes helps you deploy and manage containerized applications and other cloud-based workloads on a cluster. With Kubernetes on your cluster, you can ensure that your containers run where you want them, when you want them, and with the resources that they need.</p>
 
-<p>The Kubernetes system works with popular containerization solutions, such as Docker and rkt, and can run on cloud clusters from major cloud providers such as Amazon Web Services, Google Cloud Platform, and Microsoft Azure, as well as custom and on-premises clusters.</p>
+<p>You can use Kubernetes with your own machines, or on clusters provided by popular cloud providers such as Amazon Web Services, Google Cloud Platform, and Microsoft Azure. Kubernetes can deploy and run common container images, such as Docker or rkt. Kubernetes is fully open-source and production ready.</p>
 
 <p><a href="/docs/whatisk8s/" class="button">Read the full Overview</a></p>
 
@@ -86,12 +86,12 @@ h3, h4 {
 <div id="quickstarts" class="colContainer">
   <div class="col2nd">
     <h4>Kubernetes Basics Interactive Tutorial</h4>
-    <p>The Kubernetes Basics interactive tutorials let you try out Kubernetes features right out of your web browser, in a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.</p>
+    <p>The Kubernetes Basics interactive tutorials let you try out Kubernetes right out of your web browser, using a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.</p>
     <a href="/docs/tutorials/kubernetes-basics/" class="button">Try the Interactive Tutorials</a>
   </div>
   <div class="col2nd">
     <h4>Installing Kubernetes on Linux with kubeadm</h4>
-    <p>This quickstart helps you install a secure Kubernetes cluster using the built-in <code>kubeadm</code> tool. You can use <code>kubeadm</code> to install Kubernetes on any computers running Linux&emdash;it works with local VMs, physical servers, or cloud servers. You can use <code>kubeadm</code> manually or as part of your own automation. <code>kubeadm</code> is currently an alpha feature, but we invite you to try it out and give us feedback!</p>
+    <p>This quickstart helps you install a secure Kubernetes cluster using the built-in <code>kubeadm</code> tool. You can use <code>kubeadm</code> to install Kubernetes on any pre-existing machines that are running Linux. <code>kubeadm</code> is currently an alpha feature, but we invite you to try it out and give us feedback!</p>
     <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes with kubeadm</a>
   </div>
 </div>
