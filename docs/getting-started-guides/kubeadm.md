@@ -8,12 +8,24 @@ li>.highlighter-rouge {position:relative; top:3px;}
 ## Overview
 
 This quickstart shows you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04 or CentOS 7.
-The installation uses a tool called `kubeadm` which is part of Kubernetes 1.4.
+The installation uses a tool called `kubeadm` which is alpha as of Kubernetes 1.4.
 
 This process works with local VMs, physical servers and/or cloud servers.
 It is simple enough that you can easily integrate its use into your own automation (Terraform, Chef, Puppet, etc).
 
-**The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!**
+kubeadm is not a complete provisioning tool; it is designed as a part of a larger provisioning
+system (or just for easy manual provisioning).  kubeadm is a great choice where you have your
+own infrastructure (e.g. bare metal), or where you have an existing orchestration system (e.g. Puppet)
+that you have to plug in to.
+
+If you are not constrained, other tools build on kubeadm to give you complete clusters:
+
+* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you turnkey Kubernetes
+* On AWS, [kops](kops) makes installation and cluster management easy (and supports high availability)
+
+**The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!
+Be sure to read the [limitations](#limitations); in particular note that kubeadm is not currently recommended
+for use with GCE or AWS due to its lack of cloudprovider integration.**
 
 ## Prerequisites
 
@@ -210,7 +222,6 @@ See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, includi
 ## What's next
 
 * Learn more about [Kubernetes concepts and kubectl in Kubernetes 101](/docs/user-guide/walkthrough/).
-* Install Kubernetes with [a cloud provider configurations](/docs/getting-started-guides/) to add Load Balancer and Persistent Volume support.
 * Learn about `kubeadm`'s advanced usage on the [advanced reference doc](/docs/admin/kubeadm/)
 
 
