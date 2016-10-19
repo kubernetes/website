@@ -80,9 +80,9 @@ curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page
 curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 # OS X/386 
 curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/386/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-# Windows (using curl; or use your browser "save link as...")
-curl -Lo kubectl.exe http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/windows/amd64/kubectl.exe
 ```
+
+For Windows, download [kubectl.exe](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/windows/amd64/kubectl.exe) and save it to a location on your PATH.
 
 The generic download path is:
 ```
