@@ -36,7 +36,9 @@ Place plugins in `network-plugin-dir/plugin-name/plugin-name`, i.e if you have a
 
 ### CNI
 
-The CNI plugin is selected by passing Kubelet the `--network-plugin=cni` command-line option.  Kubelet reads the first CNI configuration file from `--network-plugin-dir` and uses the CNI configuration from that file to set up each pod's network.  The CNI configuration file must match the [CNI specification](https://github.com/containernetworking/cni/blob/master/SPEC.md), and any required CNI plugins referenced by the configuration must be present in `/opt/cni/bin`.
+The CNI plugin is selected by passing Kubelet the `--network-plugin=cni` command-line option.  Kubelet reads a file from `--cni-conf-dir` (default `/etc/cni/net.d`) and uses the CNI configuration from that file to set up each pod's network.  The CNI configuration file must match the [CNI specification](https://github.com/containernetworking/cni/blob/master/SPEC.md), and any required CNI plugins referenced by the configuration must be present in `--cni-bin-dir` (default `/opt/cni/bin`).
+
+If there are multiple CNI configuration files in the directory, the first one in lexicographic order of file name is used.
 
 ### kubenet
 
@@ -66,6 +68,6 @@ This option is provided to the network-plugin; currently **only kubenet supports
 ## Usage Summary
 
 * `--network-plugin=exec` specifies that we use the `exec` plugin, with executables located in `--network-plugin-dir`.
-* `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `/opt/cni/bin` and CNI plugin configuration located in `network-plugin-dir`, config location defaults to `/etc/cni/net.d`.
+* `--network-plugin=cni` specifies that we use the `cni` network plugin with actual CNI plugin binaries located in `--cni-bin-dir` (default `/opt/cni/bin`) and CNI plugin configuration located in `--cni-conf-dir` (default `/etc/cni/net.d`).
 * `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge` and `host-local` plugins placed in `/opt/cni/bin` or `network-plugin-dir`.
 * `--network-plugin-mtu=9001` specifies the MTU to use, currently only used by the `kubenet` network plugin.
