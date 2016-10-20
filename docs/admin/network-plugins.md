@@ -44,11 +44,11 @@ In addition to the CNI plugin specified by the configuration file, Kubernetes re
 
 ### kubenet
 
-Kubenet is intended to be a very basic, simple network plugin, on Linux only.  It does not, of itself, implement more advanced features like cross-node networking or network policy.  It is typically used together with a cloud provider that sets up routing rules for communication between nodes, or in single-node environments.
+Kubenet is a very basic, simple network plugin, on Linux only.  It does not, of itself, implement more advanced features like cross-node networking or network policy.  It is typically used together with a cloud provider that sets up routing rules for communication between nodes, or in single-node environments.
 
 Kubenet creates a Linux bridge named `cbr0` and creates a veth pair for each pod with the host end of each pair connected to `cbr0`.  The pod end of the pair is assigned an IP address allocated from a range assigned to the node either through configuration or by the controller-manager.  `cbr0` is assigned an MTU matching the smallest MTU of an enabled normal interface on the host.
 
-The kubenet plugin is currently mutually exclusive with, and will eventually replace, the --configure-cbr0 option. It is also currently incompatible with the flannel experimental overlay.
+The kubenet plugin is mutually exclusive with the --configure-cbr0 option.
 
 The plugin requires a few things:
 
