@@ -3,25 +3,26 @@ assignees:
 - bgrant0607
 - erictune
 - krousey
+- clove
 
 ---
-A cheat sheet for `kubectl`.
 
-See also: [Kubectl overview](/docs/user-guide/kubectl-overview/) and [JsonPath guide](/docs/user-guide/jsonpath).
+See also: [Kubectl Overview](/docs/user-guide/kubectl-overview/) and [JsonPath Guide](/docs/user-guide/jsonpath).
 
 ## Kubectl Autocomplete
 
-```shell
+```console
 $ source <(kubectl completion bash) # setup autocomplete in bash
 $ source <(kubectl completion zsh)  # setup autocomplete in zsh
 ```
 
 ## Kubectl Context and Configuration
-Set which Kubernetes cluster `kubectl` communicates with and modifying configuration
+
+Set which Kubernetes cluster `kubectl` communicates with and modify configuration
 information. See [kubeconfig file](/docs/user-guide/kubeconfig-file/) documentation for
 detailed config file information.
 
-```shell
+```console
 $ kubectl config view # Show Merged kubeconfig settings.
 
 # use multiple kubeconfig files at the same time and view merged config
@@ -46,7 +47,7 @@ $ kubectl config set-context gce --user=cluster-admin --namespace=foo \
 Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
 
-```shell
+```console
 $ kubectl create -f ./my-manifest.yaml           # create resource(s)
 $ kubectl create -f ./my1.yaml -f ./my2.yaml     # create from multiple files
 $ kubectl create -f ./dir                        # create resource(s) in all manifest files in dir
@@ -97,7 +98,7 @@ EOF
 
 ## Viewing, Finding Resources
 
-```shell
+```console
 # Get commands with basic output
 $ kubectl get services                          # List all services in the namespace
 $ kubectl get pods --all-namespaces             # List all pods in all namespaces
@@ -132,21 +133,21 @@ $ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.
 
 ## Updating Resources
 
-```shell
+```console
 $ kubectl rolling-update frontend-v1 -f frontend-v2.json           # Rolling update pods of frontend-v1
 $ kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # Change the name of the resource and update the image
 $ kubectl rolling-update frontend --image=image:v2                 # Update the pods image of frontend
 $ kubectl rolling-update frontend-v1 frontend-v2 --rollback        # Abort existing rollout in progress
-$ cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin.
+$ cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin
 
 # Force replace, delete and then re-create the resource. Will cause a service outage.
 $ kubectl replace --force -f ./pod.json                            
 
-# Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000.
+# Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000
 $ kubectl expose rc nginx --port=80 --target-port=8000
 
 # Update a single-container pod's image version (tag) to v4
-kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
+$ kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
 $ kubectl label pods my-pod new-label=awesome                      # Add a Label
 $ kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
@@ -156,7 +157,7 @@ $ kubectl autoscale deployment foo --min=2 --max=10                # Auto scale 
 ## Patching Resources
 Patch a resource(s) with a strategic merge patch.
 
-```shell
+```console
 $ kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # Partially update a node
 
 # Update a container's image; spec.containers[*].name is required because it's a merge key
@@ -169,32 +170,32 @@ $ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spe
 ## Editing Resources
 The edit any API resource in an editor.
 
-```shell
+```console
 $ kubectl edit svc/docker-registry                      # Edit the service named docker-registry
 $ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use an alternative editor
 ```
 
 ## Scaling Resources
 
-```shell
-$ kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to 3.
-$ kubectl scale --replicas=3 -f foo.yaml                            # Scale a resource specified in "foo.yaml" to 3.
-$ kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # If the deployment named mysql's current size is 2, scale mysql to 3.
-$ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multiple replication controllers.
+```console
+$ kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to
+$ kubectl scale --replicas=3 -f foo.yaml                            # Scale a resource specified in "foo.yaml" to 3
+$ kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # If the deployment named mysql's current size is 2, scale mysql to 3
+$ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multiple replication controllers
 ```
 
 ## Deleting Resources
 
-```shell
-$ kubectl delete -f ./pod.json                      # Delete a pod using the type and name specified in pod.json.
+```console
+$ kubectl delete -f ./pod.json                      # Delete a pod using the type and name specified in pod.json
 $ kubectl delete pod,service baz foo                # Delete pods and services with same names "baz" and "foo"
-$ kubectl delete pods,services -l name=myLabel      # Delete pods and services with label name=myLabel.
+$ kubectl delete pods,services -l name=myLabel      # Delete pods and services with label name=myLabel
 $ kubectl -n my-ns delete po,svc --all              # Delete all pods and services in namespace my-ns
 ```
 
 ## Interacting with running Pods
 
-```shell
+```console
 $ kubectl logs my-pod                                 # dump pod logs (stdout)
 $ kubectl logs -f my-pod                              # stream pod logs (stdout)
 $ kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
@@ -208,10 +209,10 @@ $ kubectl top pod POD_NAME --containers               # Show metrics for a given
 
 ## Interacting with Nodes and Cluster
 
-```shell
+```console
 $ kubectl cordon my-node                                                # Mark my-node as unschedulable
-$ kubectl drain my-node                                                 # Drain my-node in preparation for maintenance.
-$ kubectl uncordon my-node                                              # Mark my-node as schedulable.
+$ kubectl drain my-node                                                 # Drain my-node in preparation for maintenance
+$ kubectl uncordon my-node                                              # Mark my-node as schedulable
 $ kubectl top node my-node                                              # Show metrics for a given node
 $ kubectl cluster-info                                                  # Display addresses of the master and services
 $ kubectl cluster-info dump                                             # Dump current cluster state to stdout
@@ -264,10 +265,10 @@ To output details to your terminal window in a specific format, you can add eith
 Output format | Description
 --------------| -----------
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of custom columns
-`-o=custom-columns-file=<filename>` | Print a table using the custom columns template in the `<filename>` file.
-`-o=json`     | Output a JSON formatted API object.
-`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/user-guide/jsonpath) expression.
-`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/user-guide/jsonpath) expression in the `<filename>` file.
-`-o=name`     | Print only the resource name and nothing else.
-`-o=wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
-`-o=yaml`     | Output a YAML formatted API object.
+`-o=custom-columns-file=<filename>` | Print a table using the custom columns template in the `<filename>` file
+`-o=json`     | Output a JSON formatted API object
+`-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/user-guide/jsonpath) expression
+`-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/user-guide/jsonpath) expression in the `<filename>` file
+`-o=name`     | Print only the resource name and nothing else
+`-o=wide`     | Output in the plain-text format with any additional information, and for pods, the node name is included
+`-o=yaml`     | Output a YAML formatted API object
