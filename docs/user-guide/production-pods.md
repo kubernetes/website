@@ -226,7 +226,8 @@ Here is a toy example:
 
 The message is recorded along with the other state of the last (i.e., most recent) termination:
 
-```shell{% raw %}
+```shell
+{% raw %}
 $ kubectl create -f ./pod-w-message.yaml
 pod "pod-w-message" created
 $ sleep 70
@@ -234,7 +235,8 @@ $ kubectl get pods/pod-w-message -o go-template="{{range .status.containerStatus
 Sleep expired
 $ kubectl get pods/pod-w-message -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.exitCode}}{{end}}"
 0
-{% endraw %}```
+{% endraw %}
+```
 
 ## What's next?
 
