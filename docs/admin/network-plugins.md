@@ -40,13 +40,15 @@ The CNI plugin is selected by passing Kubelet the `--network-plugin=cni` command
 
 If there are multiple CNI configuration files in the directory, the first one in lexicographic order of file name is used.
 
+In addition to the CNI plugin specified by the configuration file, Kubernetes requires the standard CNI `lo` plugin, at minimum version 0.2.0
+
 ### kubenet
 
 The Linux-only kubenet plugin provides functionality similar to the `--configure-cbr0` kubelet command-line option.  It creates a Linux bridge named `cbr0` and creates a veth pair for each pod with the host end of each pair connected to `cbr0`.  The pod end of the pair is assigned an IP address allocated from a range assigned to the node either through configuration or by the controller-manager.  `cbr0` is assigned an MTU matching the smallest MTU of an enabled normal interface on the host.  The kubenet plugin is currently mutually exclusive with, and will eventually replace, the --configure-cbr0 option.  It is also currently incompatible with the flannel experimental overlay.
 
 The plugin requires a few things:
 
-* The standard CNI `bridge` and `host-local` plugins are required. Kubenet will first search for them in `/opt/cni/bin`. Specify `network-plugin-dir` to supply additional search path. The first found match will take effect.
+* The standard CNI `bridge`, `lo` and `host-local` plugins are required, at minimum version 0.2.0. Kubenet will first search for them in `/opt/cni/bin`. Specify `network-plugin-dir` to supply additional search path. The first found match will take effect.
 * Kubelet must be run with the `--network-plugin=kubenet` argument to enable the plugin
 * Kubelet must also be run with the `--reconcile-cidr` argument to ensure the IP subnet assigned to the node by configuration or the controller-manager is propagated to the plugin
 * The node must be assigned an IP subnet through either the `--pod-cidr` kubelet command-line option or the `--allocate-node-cidrs=true --cluster-cidr=<cidr>` controller-manager command-line options.
