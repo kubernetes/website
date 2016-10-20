@@ -18,13 +18,19 @@ in a Kubernetes Pod.
 
 {% capture steps %}
 
-### Defining a command when you create a Pod
+### Defining a command and arguments when you create a Pod
 
-When you create a Pod, you can specify a command and arguments for the
-containers that run in the Pod. To specify a command, include the `command`
-field in the configuration file. To specify arguments for the command, include
-the `args` field in the configuration file. The command that you specify in the
-configuration file overrides the usual entry point for the container.
+When you create a Pod, you can define a command and arguments for the
+containers that run in the Pod. To define a command, include the `command`
+field in the configuration file. To define arguments for the command, include
+the `args` field in the configuration file. The command and arguments that
+you define cannot be changed after the Pod is created.
+
+The command and arguments that you define in the configuration file
+override the default command and arguments provided by the container image.
+If you define args, but do not define a command, the default command is used
+with your new arguments. For more information, see
+[Commands and Capabilities](/docs/user-guide/containers/).
 
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a command and two arguments:
@@ -53,6 +59,24 @@ from the Pod:
 
         command-demo
         tcp://10.3.240.1:443
+
+### Using environment variables to define arguments
+
+In the preceding example, you defined the arguments directly by
+providing strings. As an alternative to providing strings directly,
+you can define arguments by using environment variables.
+
+    env:
+    - name: MESSAGE
+      value: "hello world"
+    command: ["/bin/echo"]
+    args: ["$(MESSAGE)"]
+
+This means you can define an argument for a Pod using any of
+the techniques available for defining environment variables, including
+[ConfigMaps](/docs/user-guide/configmap/)
+and
+[Secrets](/docs/user-guide/secrets/).
 
 {% endcapture %}
 
