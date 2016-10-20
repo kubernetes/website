@@ -115,10 +115,10 @@ The tuple of attributes is checked for a match against every policy in the
 policy file. If at least one line matches the request attributes, then the
 request is authorized (but may fail later validation).
 
-To permit any authenticated user to do something, write a policy with the 
+To permit any authenticated user to do something, write a policy with the
 group property set to `"system:authenticated"`.
 
-To permit any unauthenticated user to do something, write a policy with the 
+To permit any unauthenticated user to do something, write a policy with the
 group property set to `"system:unauthenticated"`.
 
 To permit a user to do anything, write a policy with the apiGroup, namespace,
@@ -465,6 +465,7 @@ subjects:
   name: system:authenticated
 - kind: Group
   name: system:unauthenticated
+```
 
 ## Webhook Mode
 
