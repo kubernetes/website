@@ -8,15 +8,15 @@ li>.highlighter-rouge {position:relative; top:3px;}
 ## Overview
 
 This quickstart shows you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04 or CentOS 7.
-The installation uses a tool called `kubeadm` which is alpha as of Kubernetes 1.4.
+The installation uses a tool called `kubeadm` which is part of Kubernetes 1.4.
 
 This process works with local VMs, physical servers and/or cloud servers.
 It is simple enough that you can easily integrate its use into your own automation (Terraform, Chef, Puppet, etc).
 
-kubeadm is not a complete provisioning tool; it is designed as a part of a larger provisioning
-system - or just for easy manual provisioning.  kubeadm is a great choice where you have your
-own infrastructure (e.g. bare metal), or where you have an existing orchestration system (e.g. Puppet)
-that you have to integrate with.
+kubeadm assumes you have a set of machines (virtual or real) that are up and running.  It is designed
+to be part of a larger provisioning system - or just for easy manual provisioning.  kubeadm is a great
+choice where you have your own infrastructure (e.g. bare metal), or where you have an existing
+orchestration system (e.g. Puppet) that you have to integrate with.
 
 If you are not constrained, other tools build on kubeadm to give you complete clusters:
 

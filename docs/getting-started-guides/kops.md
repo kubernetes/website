@@ -81,7 +81,9 @@ that you have created, along with their configuration, the keys they are using e
 in an S3 bucket.  S3 permissions are used to control access to the bucket.
 
 Multiple clusters can use the same S3 bucket, and you can share an S3 bucket between your colleagues that
-administer the same clusters - this is much easier than passing around kubecfg files.
+administer the same clusters - this is much easier than passing around kubecfg files.  But anyone with access
+to the S3 bucket will have administrative access to all your clusters, so you don't want to share it beyond
+the operations team.
 
 So typically you have one S3 bucket for each ops team (and often the name will correspond
 to the name of the hosted zone above!)
@@ -103,7 +105,11 @@ Run "kops create cluster" to create your cluster configuration:
 
 `kops create cluster --zones=us-east-1c useast1.dev.example.com`
 
-kops will run and create the configuration for your cluster, and print commands you can use to explore further.
+kops will create the configuration for your cluster.  Note that it _only_ creates the configuration, it does
+not actually create the cloud resources - you'll do that in the next step with a `kops update cluster`.  This
+give you an opportunity to review the configuration or change it.
+
+It prints commands you can use to explore further:
 
 * List your clusters with: `kops get cluster`
 * Edit this cluster with: `kops edit cluster useast1.dev.example.com`
