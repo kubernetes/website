@@ -166,7 +166,7 @@ By way of example, you can install [Weave Net](https://github.com/weaveworks/wea
     # kubectl apply -f https://git.io/weave-kube
     daemonset "weave-net" created
 
-If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), please refer to their respective installation guides.
+If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), or [Romana](https://github.com/romana/romana/tree/master/containerize) please refer to their respective installation guides.
 You should only install one pod network per cluster.
 
 Once a pod network has been installed, you can confirm that it is working by checking that the `kube-dns` pod is `Running` in the output of `kubectl get pods --all-namespaces`.
