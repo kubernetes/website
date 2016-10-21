@@ -173,7 +173,13 @@
 	var isvContainer = document.getElementById('isvContainer')
 	var servContainer = document.getElementById('servContainer')
 	
-	partners.forEach(function (obj) {
+	var sorted = partners.sort(function (a, b) {
+		if (a.name > b.name) return 1
+		if (a.name < b.name) return -1
+		return 0
+	})
+	
+	sorted.forEach(function (obj) {
 		var box = document.createElement('div')
 		box.className = 'partner-box'
 
