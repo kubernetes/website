@@ -64,7 +64,7 @@ from the Pod:
 
 In the preceding example, you defined the arguments directly by
 providing strings. As an alternative to providing strings directly,
-you can define arguments by using environment variables.
+you can define arguments by using environment variables:
 
     env:
     - name: MESSAGE
@@ -77,6 +77,18 @@ the techniques available for defining environment variables, including
 [ConfigMaps](/docs/user-guide/configmap/)
 and
 [Secrets](/docs/user-guide/secrets/).
+
+NOTE: The environment variable appears in parentheses, `"$(VAR)"`. This is
+required for the variable to be expanded in the `command` or `args` field.
+
+### Running a command in a shell
+
+In some cases, you need your command to run in a shell. For example, your
+command might consist of several commands piped together, or it might be a shell
+script. To run your command in a shell, wrap it like this:
+
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do echo hello; sleep 10;done"]
 
 {% endcapture %}
 
