@@ -45,7 +45,7 @@ For each host in turn:
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
 * If the machine is running Ubuntu 16.04, run:
 
-      # curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+      # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
       # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
       deb http://apt.kubernetes.io/ kubernetes-xenial main
       EOF
@@ -178,13 +178,13 @@ As an example, install a sample microservices application, a socks shop, to put 
 To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
 
     # git clone https://github.com/microservices-demo/microservices-demo
-    # kubectl apply -f microservices-demo/deploy/kubernetes/manifests
+    # kubectl apply -f microservices-demo/deploy/kubernetes/manifests/sock-shop-ns.yml -f microservices-demo/deploy/kubernetes/manifests
 
 You can then find out the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
-    # kubectl describe svc front-end
+    # kubectl describe svc front-end -n sock-shop
     Name:                   front-end
-    Namespace:              default
+    Namespace:              sock-shop
     Labels:                 name=front-end
     Selector:               name=front-end
     Type:                   NodePort
@@ -194,7 +194,7 @@ You can then find out the port that the [NodePort feature of services](/docs/use
     Endpoints:              <none>
     Session Affinity:       None
 
-It takes several minutes to download and start all the containers, watch the output of `kubectl get pods` to see when they're all up and running.
+It takes several minutes to download and start all the containers, watch the output of `kubectl get pods -n sock-shop` to see when they're all up and running.
 
 Then go to the IP address of your cluster's master node in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
@@ -211,21 +211,24 @@ See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, includi
 
 * Learn more about [Kubernetes concepts and kubectl in Kubernetes 101](/docs/user-guide/walkthrough/).
 * Install Kubernetes with [a cloud provider configurations](/docs/getting-started-guides/) to add Load Balancer and Persistent Volume support.
+* Learn about `kubeadm`'s advanced usage on the [advanced reference doc](/docs/admin/kubeadm/)
 
 
 ## Cleanup
 
 * To uninstall the socks shop, run `kubectl delete -f microservices-demo/deploy/kubernetes/manifests` on the master.
 
-* To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then uninstall the packages.
-  <details>
-     <pre><code>systemctl stop kubelet;
-  docker rm -f $(docker ps -q); mount | grep "/var/lib/kubelet/*" | awk '{print $3}' | xargs umount 1>/dev/null 2>/dev/null;
-  rm -rf /var/lib/kubelet /etc/kubernetes /var/lib/etcd /etc/cni;
-  ip link set cbr0 down; ip link del cbr0;
-  ip link set cni0 down; ip link del cni0;
-  systemctl start kubelet</code></pre>
-  </details> <!-- *syntax-highlighting-hack -->
+* To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then start over or uninstall the packages.
+
+  <br>
+  Reset local state:
+  <pre><code>systemctl stop kubelet;
+  docker rm -f -v $(docker ps -q);
+  find /var/lib/kubelet | xargs -n 1 findmnt -n -t tmpfs -o TARGET -T | uniq | xargs -r umount -v;
+  rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
+  </code></pre>
+  If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init` or `kubeadm join`.
+  <!-- *syntax-highlighting-hack -->
 
 ## Feedback
 
@@ -253,3 +256,9 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 1. There is not yet an easy way to generate a `kubeconfig` file which can be used to authenticate to the cluster remotely with `kubectl` on, for example, your workstation.
 
    Workaround: copy the kubelet's `kubeconfig` from the master: use `scp root@<master>:/etc/kubernetes/admin.conf .` and then e.g. `kubectl --kubeconfig ./admin.conf get nodes` from your workstation.
+
+1. If you are using VirtualBox (directly or via Vagrant), you will need to ensure that `hostname -i` returns a routable IP address (i.e. one on the second network interface, not the first one).
+   By default, it doesn't do this and kubelet ends-up using first non-loopback network interface, which is usually NATed.
+   Workaround: Modify `/etc/hosts`, take a look at this [`Vagrantfile`][ubuntu-vagrantfile] for how you this can be achieved.
+
+[ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11),
