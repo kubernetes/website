@@ -102,6 +102,13 @@ cd docs/user-guide/kubectl
   find . -name '*.md' -type f -exec sed -i -e '/<!-- BEGIN MUNGE: IS_VERSIONED -->/,/<!-- END MUNGE: IS_VERSIONED -->/d' {} \;
   find . -name '*.md' -type f -exec sed -i -e '/<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->/,/<!-- END MUNGE: UNVERSIONED_WARNING -->/d' {} \;
 
+  # Rename kubectl.md to index.md
+  mv kubectl.md index.md
+  # Strip the "See Also" links. 
+  # These links in raw .md files are relative to current file location, but the website see them as relative to current url instead, and will return 404.
+  find . -name 'kubectl*.md' -type f -exec sed -i -e '/### SEE ALSO/d' {} \; 
+  find . -name 'kubectl*.md' -type f -exec sed -i -e '/\* \[kubectl/d' {} \; 
+
 # Add the expected headers to md files
   find . -name '*.md' -type f -exec sed -i -e '1 i\
 ---' {} \;

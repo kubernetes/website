@@ -7,23 +7,26 @@
 
 <body>
 
-<link href="/docs/tutorials/getting-started/public/css/styles.css" rel="stylesheet">
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 <div class="layout" id="top">
 
 	<main class="content">
 
 		<div class="row">
-			<div class="col-md-12 text-left">
-				<a class="btn btn-default" href="/docs/tutorials/getting-started/explore-app.html" role="button"><span class="btn__prev">‹</span> Back</a>
+
+     <div class="col-md-8">
+      	<h3>Objectives</h3>
+				<ul>
+					<li>Learn about Kubernetes Services.</li>
+					<li>Learn about Kubernetes Labels.</li>
+					<li>Expose an application outside Kubernetes.</li>
+				</ul>
 			</div>
-		</div>
 
-		<br>
-		<br>
-
-		<div class="row">
 			<div class="col-md-8">
+			<h3>Kubernetes Services</h3>
+
 			<p>While Pods do have their own unique IP across the cluster, those IP’s are not exposed outside  Kubernetes. Taking into account that over time Pods may be terminated, deleted or replaced by other Pods, we need a way to let other Pods and applications automatically discover each other. Kubernetes addresses this by grouping Pods in Services. A Kubernetes <b>Service</b> is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods.</p>
 
 			<p>This abstraction will allow us to expose Pods to traffic originating from outside the cluster. Services have their own unique cluster-private IP address and expose a port to receive traffic. If you choose to expose the service outside the cluster, the options are:</p>
@@ -58,7 +61,7 @@
 
 		<div class="row">
 			<div class="col-md-8">
-				<p><img src="/docs/tutorials/getting-started/public/images/module_04_services.svg"></p>
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg"></p>
 			</div>
 		</div>
 		<br>
@@ -106,7 +109,7 @@
 
 		<div class="row">
 			<div class="col-md-8">
-				<p><img src="/docs/tutorials/getting-started/public/images/module_04_labels.svg"></p>
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
 			</div>
 		</div>
 		<br>
@@ -122,7 +125,7 @@
 		<br>
 		<div class="row">
 			<div class="col-md-12">
-				<a class="btn btn-lg btn-success" href="/docs/tutorials/getting-started/expose-interactive.html" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/expose-interactive.html" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
 			</div>
 		</div>
 

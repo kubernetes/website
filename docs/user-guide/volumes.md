@@ -108,6 +108,25 @@ While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on
 machine reboot and any files you write will count against your container's
 memory limit.
 
+#### Example pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: gcr.io/google_containers/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /cache
+      name: cache-volume
+  volumes:
+  - name: cache-volume
+    emptyDir: {}
+```
+
 ### hostPath
 
 A `hostPath` volume mounts a file or directory from the host node's filesystem
@@ -126,9 +145,10 @@ Watch out when using this type of volume, because:
   behave differently on different nodes due to different files on the nodes
 * when Kubernetes adds resource-aware scheduling, as is planned, it will not be
   able to account for resources used by a `hostPath`
-* the directories created on the underlying hosts are only writable by root, you either need
-  to run your process as root in a privileged container or modify the file permissions on
-  the host to be able to write to a `hostPath` volume
+* the directories created on the underlying hosts are only writable by root. You
+  either need to run your process as root in a
+  [privileged container](/docs/user-guide/security-context) or modify the file
+  permissions on the host to be able to write to a `hostPath` volume
 
 #### Example pod
 
