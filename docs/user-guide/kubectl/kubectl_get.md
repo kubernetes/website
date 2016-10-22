@@ -12,6 +12,7 @@ Display one or many resources
 Display one or many resources.
 
 Valid resource types include:
+
    * clusters (valid only for federation apiservers)
    * componentstatuses (aka 'cs')
    * configmaps (aka 'cm')
@@ -68,7 +69,9 @@ kubectl get -o json pod web-pod-13je7
 kubectl get -f pod.yaml -o json
 
 # Return only the phase value of the specified pod.
+{% raw %}
 kubectl get -o template pod/web-pod-13je7 --template={{.status.phase}}
+{% endraw %}
 
 # List all replication controllers and services together in ps output format.
 kubectl get rc,services
