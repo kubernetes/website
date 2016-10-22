@@ -166,12 +166,15 @@ busybox   1/1       Running   0          <some-time>
 ```
 
 ### Validate DNS works
+
 Once that pod is running, you can exec nslookup in that environment:
+
 ```
 kubectl exec busybox -- nslookup kubernetes.default
 ```
 
 You should see something like:
+
 ```
 Server:    10.0.0.10
 Address 1: 10.0.0.10

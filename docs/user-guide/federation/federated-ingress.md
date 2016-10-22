@@ -18,7 +18,7 @@ automatically checks the health of the pods comprising the service,
 and avoids sending requests to unresponsive or slow pods (or entire
 unresponsive clusters).
 
-Federated Ingress is released as a beta feature, and supports Google Cloud (GKE,
+Federated Ingress is released as an alpha feature, and supports Google Cloud Platform (GKE,
 GCE and hybrid scenarios involving both) in Kubernetes v1.4.  Work is under way to support other cloud
 providers such as AWS, and other hybrid cloud scenarios (e.g. services
 spanning private on-premise as well as public cloud Kubernetes
