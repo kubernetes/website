@@ -102,6 +102,9 @@ source <(kubectl completion bash)
 To add kubectl autocompletion to your profile (so it is automatically loaded in future shells):
 
 ```shell
-echo "source $(brew --prefix)/etc/bash_completion" >> ~/.bashrc
-echo "source <(kubectl completion bash)" >> ~/.bashrc
+echo "source $(brew --prefix)/etc/bash_completion" >> ~/.bash_profile
+echo "source <(kubectl completion bash)" >> ~/.bash_profile
 ```
+
+Please note that this only appears to work currently if you install using `brew install kubectl`,
+and not if you downloaded kubectl directly.
