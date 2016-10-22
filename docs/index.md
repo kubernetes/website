@@ -84,7 +84,7 @@ h2, h3, h4 {
   <div class="col3rd">
     <h3>Installing Kubernetes on Linux with kubeadm</h3>
     <p>This quickstart will show you how to install a secure Kubernetes cluster on any computers running Linux, using a tool called <code>kubeadm</code>. It'll work with local VMs, physical servers and/or cloud servers, either manually or as a part of your own automation. It is currently in alpha but please try it out and give us feedback!</p>
-    <p>If you are looking for a complete production cluster, note that kubeadm is intended as a building block.  Tools such as GKE and kops build on kubeadm to provision a complete cluster.</p>
+    <p>If you are looking for a fully automated solution, note that kubeadm is intended as a building block.  Tools such as GKE and kops build on kubeadm to provision a complete cluster.</p>
     <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes with kubeadm</a>
   </div>
   <div class="col3rd">

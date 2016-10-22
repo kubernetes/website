@@ -62,10 +62,12 @@ you choose for organization reasons (e.g. you are allowed to create records unde
 but not under `example.com`).
 
 Let's assume you're using `dev.example.com` as your hosted zone.  You create that hosted zone using
-the [normal process](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html),
-and then you set up your NS records in the parent domain (here, you would create NS records in `example.com`
-for `dev`), or at your domain registrar if it is a root domain name (e.g. `example.com` would need to be configured
-where you bought `example.com`).
+the [normal process](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html), or
+with a command such as `aws route53 create-hosted-zone --name dev.example.com --caller-reference 1`.
+
+You must then set up your NS records in the parent domain, so that records in the domain will resolve.  Here,
+you would create NS records in `example.com` for `dev`.  If it is a root domain name you would configure the NS
+records at your domain registrar (e.g. `example.com` would need to be configured where you bought `example.com`).
 
 This step is easy to mess up (it is the #1 cause of problems!)  You can double-check that
 your cluster is configured correctly if you have the dig tool by running:

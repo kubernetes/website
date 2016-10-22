@@ -24,8 +24,9 @@ If you are not constrained, other tools build on kubeadm to give you complete cl
 * On AWS, [kops](kops) makes installation and cluster management easy (and supports high availability)
 
 **The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!
-Be sure to read the [limitations](#limitations); in particular note that kubeadm is not currently recommended
-for use with GCE or AWS due to its lack of cloudprovider integration.**
+Be sure to read the [limitations](#limitations); in particular note that kubeadm doesn't have great support for
+automatically configuring cloud providers.  Please refer to the specific cloud provider documentation or
+use another provisioning system.**
 
 ## Prerequisites
 
