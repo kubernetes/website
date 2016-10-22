@@ -29,6 +29,7 @@ Internet to download the necessary files, while worker nodes do not.
 Ubuntu 15 which uses systemd instead of upstart.
 4. Dependencies of this guide: etcd-2.2.1, flannel-0.5.5, k8s-1.2.0, may work with higher versions.
 5. All the remote servers can be ssh logged in without a password by using key authentication.
+6. The remote user on all machines is using /bin/bash as its login shell, and has sudo access.
 
 
 ## Starting a Cluster
