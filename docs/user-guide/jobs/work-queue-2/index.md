@@ -108,7 +108,7 @@ called rediswq.py ([Download](rediswq.py?raw=true)).
 The "worker" program in each Pod of the Job uses the work queue
 client library to get work.  Here it is:
 
-{% include code.html language="python" file="worker.py" ghlink="/docs/user-guide/job/work-queue-2/worker.py" %}
+{% include code.html language="python" file="worker.py" ghlink="/docs/user-guide/jobs/work-queue-2/worker.py" %}
 
 If you are working from the source tree,
 change directory to the `examples/job/work-queue-2` directory.
@@ -147,7 +147,7 @@ gcloud docker push gcr.io/<project>/job-wq-2
 
 Here is the job definition:
 
-{% include code.html language="yaml" file="job.yaml" ghlink="/docs/user-guide/job/work-queue-2/job.yaml" %}
+{% include code.html language="yaml" file="job.yaml" ghlink="/docs/user-guide/jobs/work-queue-2/job.yaml" %}
 
 Be sure to edit the job template to
 change `gcr.io/myproject` to your own path.
