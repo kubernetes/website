@@ -374,6 +374,6 @@ driver, and then cleans up.
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but complete control over what pods are created and how work is assigned to them.
 
-## Future work
+## Scheduled Jobs
 
-Support for creating Jobs at specified times/dates (i.e. cron) is expected in [1.4](https://github.com/kubernetes/kubernetes/pull/11980).
+Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [scheduled job documents](http://kubernetes.io/docs/user-guide/scheduled-jobs/)
