@@ -33,7 +33,7 @@ and tag the issue with "juju" so we can find them.
 > This documentation focuses on the Juju 2.0 release which will be
 > promoted to stable during the April 2016 release cycle.
 
-To paraphrase, on your local Ubuntu system:  
+To paraphrase, run the following on your local Ubuntu system:  
 
 ```shell
 sudo add-apt-repository ppa:juju/devel
@@ -65,17 +65,17 @@ docker run --rm -ti \
 
 ### Configure Juju to your favorite cloud provider
 
-At this point you have access to the Juju client. Before you can deploy a
+At this point, you have access to the Juju client. Before you can deploy a
 cluster you have to configure Juju with the 
 [cloud credentials](https://jujucharms.com/docs/2.0/credentials) for each 
 cloud provider you would like to use.
 
-Juju [supports a wide variety of public clouds](#cloud-compatibility) to set
-up the credentials for your chosen cloud see the
+Juju [supports a wide variety of public clouds](#cloud-compatibility). To set
+up the credentials for your chosen cloud, see the
 [cloud setup page](https://jujucharms.com/docs/devel/getting-started-general#2.-choose-a-cloud).
 
-After configuration is complete test your setup with a `juju bootstrap`
-command: `juju bootstrap $controllername $cloudtype` you are ready to launch 
+After your configuration is complete, test your setup with the `juju bootstrap`
+command: `juju bootstrap $cloudtype $controllername`. After that finishes, you are ready to launch 
 the Kubernetes cluster.
 
 ## Launch a Kubernetes cluster
