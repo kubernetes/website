@@ -13,6 +13,8 @@ The installation uses a tool called `kubeadm` which is part of Kubernetes 1.4.
 This process works with local VMs, physical servers and/or cloud servers.
 It is simple enough that you can easily integrate its use into your own automation (Terraform, Chef, Puppet, etc).
 
+See the full [`kubeadm` reference](/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
+
 **The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!**
 
 ## Prerequisites
