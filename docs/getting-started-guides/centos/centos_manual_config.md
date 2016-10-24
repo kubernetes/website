@@ -199,7 +199,7 @@ done
 * Configure kubectl
 
 ```shell
-kubectl config set-cluster default-cluster --server=http://kube-centos:8080
+kubectl config set-cluster default-cluster --server=http://centos-master:8080
 kubectl config set-context default-system --cluster=default-cluster --user=default-admin
 kubectl config use-context default-system
 ```
