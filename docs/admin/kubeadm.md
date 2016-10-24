@@ -12,6 +12,11 @@ This document provides information on how to use kubeadm's advanced options.
 Running kubeadm init bootstraps a Kubernetes cluster. This consists of the
 following steps:
 
+1. kubeadm runs a series of pre-flight checks to validate the system state
+before making changes. Some checks only trigger warnings, others are
+considered errors and will exit kubeadm until the problem is corrected or
+the user specifies `--skip-preflight-checks`.
+
 1. kubeadm generates a token that additional nodes can use to register themselves
 with the master in future.
 
@@ -112,6 +117,12 @@ to change the DNS name suffix. Again, you will need to update the
 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` file accordingly else DNS will
 not function correctly.
 
+- `--skip-preflight-checks`
+
+By default, `kubeadm` runs a series of preflight checks to validate the system
+before making any changes. Advanced users can use this flag to bypass these if
+necessary.
+
 - `--token`
 
 By default, `kubeadm init` automatically generates the token used to initialise
@@ -133,6 +144,12 @@ and one mandatory argument, the master IP address.
 Here's an example on how to use it:
 
 `kubeadm join --token=the_secret_token 192.168.1.1`
+
+- `--skip-preflight-checks`
+
+By default, `kubeadm` runs a series of preflight checks to validate the system
+before making any changes. Advanced users can use this flag to bypass these if
+necessary.
 
 - `--token=<token>`
 
