@@ -68,6 +68,8 @@ toc:
       path: /docs/getting-started-guides/network-policy/walkthrough/
     - title: Using Calico for NetworkPolicy 
       path: /docs/getting-started-guides/network-policy/calico/
+    - title: Using Romana for NetworkPolicy 
+      path: /docs/getting-started-guides/network-policy/romana/
 
 - title: Batch Jobs
   section:

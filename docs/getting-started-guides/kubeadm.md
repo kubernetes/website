@@ -160,15 +160,14 @@ Before you can deploy applications to it, you need to install a pod network.
 You must install a pod network add-on so that your pods can communicate with each other when they are on different hosts.
 **It is necessary to do this before you try to deploy any applications to your cluster.**
 
-Several projects provide Kubernetes pod networks.
-You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
+Several projects are available that enable Kubernetes pod networks including Calico, Romana and Weave. Some may also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
 
 By way of example, you can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
 
     # kubectl apply -f https://git.io/weave-kube
     daemonset "weave-net" created
 
-If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), please refer to their respective installation guides.
+If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), or [Romana](/docs/getting-started-guides/network-policy/romana/) please refer to their respective installation guides.
 You should only install one pod network per cluster.
 
 Once a pod network has been installed, you can confirm that it is working by checking that the `kube-dns` pod is `Running` in the output of `kubectl get pods --all-namespaces`.
