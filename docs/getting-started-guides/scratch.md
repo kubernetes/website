@@ -132,6 +132,7 @@ Also, you need to pick a static IP for master node.
 
 Kubernetes enables the definition of fine-grained network policy between Pods using the [NetworkPolicy](/docs/user-guide/network-policy) resource.
 
+Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/getting-started-guides/network-policy/walkthrough/) for more information.
 
 ### Cluster Naming
 
