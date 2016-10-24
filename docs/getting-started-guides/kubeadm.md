@@ -44,33 +44,37 @@ You will install the following packages on all the machines:
 
 For each host in turn:
 
-* SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
+* SSH into the machine.
 * If the machine is running Ubuntu 16.04, run:
 
-      # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-      # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
-      deb http://apt.kubernetes.io/ kubernetes-xenial main
-      EOF
-      # apt-get update
-      # apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni
+      ```bash
+        sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -`  
+        sudo touch /etc/apt/sources.list.d/kubernetes.list  
+        echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee --append /etc/apt/sources.list.d/kubernetes.list  
+        EOF    
+        sudo apt-get update  
+        sudo apt-get install -y docker.io kubelet kubeadm kubectl kubernetes-cni  
+        sudo systemctl enable docker && sudo systemctl start docker  
+        sudo systemctl enable kubelet && sudo systemctl start kubelet  
+      ```
+   If the machine is running CentOS 7,  become `root` if you are not already (for example, run `sudo su -`) and run:
 
-   If the machine is running CentOS 7, run:
-
-      # cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-      [kubernetes]
-      name=Kubernetes
-      baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
-      enabled=1
-      gpgcheck=1
-      repo_gpgcheck=1
-      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-             https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-      EOF
-      # setenforce 0
-      # yum install -y docker kubelet kubeadm kubectl kubernetes-cni
-      # systemctl enable docker && systemctl start docker
-      # systemctl enable kubelet && systemctl start kubelet
-
+      ```bash
+        cat <<EOF > /etc/yum.repos.d/kubernetes.repo  
+        [kubernetes]
+        name=Kubernetes
+        baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
+        enabled=1
+        gpgcheck=1
+        repo_gpgcheck=1
+        gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+               https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+        EOF
+        setenforce 0
+        yum install -y docker kubelet kubeadm kubectl kubernetes-cni
+        systemctl enable docker && systemctl start docker
+        systemctl enable kubelet && systemctl start kubelet
+      ```
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
 Note: `setenforce 0` will no longer be necessary on CentOS once [#33555](https://github.com/kubernetes/kubernetes/pull/33555) is included in a released version of `kubeadm`.
@@ -82,7 +86,7 @@ All of these components run in pods started by `kubelet`.
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
-     # kubeadm init
+     sudo kubeadm init
 
 **Note:** this will autodetect the network interface to advertise the master on as the interface with the default gateway.
 If you want to use a different interface, specify `--api-advertise-addresses=<ip-address>` argument to `kubeadm init`.
@@ -120,7 +124,7 @@ The key is used for mutual authentication between the master and the joining nod
 By default, your cluster will not schedule pods on the master for security reasons.
 If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
 
-    # kubectl taint nodes --all dedicated-
+    kubectl taint nodes --all dedicated-
     node "test-01" tainted
     taint key="dedicated" and effect="" not found.
     taint key="dedicated" and effect="" not found.
@@ -133,7 +137,8 @@ The nodes are where your workloads (containers and pods, etc) run.
 If you want to add any new machines as nodes to your cluster, for each machine: SSH to that machine, become root (e.g. `sudo su -`) and run the command that was output by `kubeadm init`.
 For example:
 
-    # kubeadm join --token <token> <master-ip>
+    kubeadm join --token <token> <master-ip>
+    
     <util/tokens> validating provided token
     <node/discovery> created cluster info discovery client, requesting info from "http://138.68.156.129:9898/cluster-info/v1/?token-id=0f8588"
     <node/discovery> cluster info object received, verifying signature using given token
