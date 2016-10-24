@@ -176,8 +176,8 @@ Once a pod network has been installed, you can confirm that it is working by che
 As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
 
-    # git clone https://github.com/microservices-demo/microservices-demo
-    # kubectl apply -f microservices-demo/deploy/kubernetes/manifests/sock-shop-ns.yml -f microservices-demo/deploy/kubernetes/manifests
+    # kubectl create namespace sock-shop
+    # kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
 
 You can then find out the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
@@ -215,7 +215,7 @@ See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, includi
 
 ## Cleanup
 
-* To uninstall the socks shop, run `kubectl delete -f microservices-demo/deploy/kubernetes/manifests` on the master.
+* To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the master.
 
 * To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then start over or uninstall the packages.
 
