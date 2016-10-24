@@ -13,6 +13,8 @@ The installation uses a tool called `kubeadm` which is part of Kubernetes 1.4.
 This process works with local VMs, physical servers and/or cloud servers.
 It is simple enough that you can easily integrate its use into your own automation (Terraform, Chef, Puppet, etc).
 
+See the full [`kubeadm` reference](/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
+
 **The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!**
 
 ## Prerequisites
@@ -177,8 +179,8 @@ Once a pod network has been installed, you can confirm that it is working by che
 As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
 To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
 
-    # git clone https://github.com/microservices-demo/microservices-demo
-    # kubectl apply -f microservices-demo/deploy/kubernetes/manifests/sock-shop-ns.yml -f microservices-demo/deploy/kubernetes/manifests
+    # kubectl create namespace sock-shop
+    # kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
 
 You can then find out the port that the [NodePort feature of services](/docs/user-guide/services/) allocated for the front-end service by running:
 
@@ -216,7 +218,7 @@ See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, includi
 
 ## Cleanup
 
-* To uninstall the socks shop, run `kubectl delete -f microservices-demo/deploy/kubernetes/manifests` on the master.
+* To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the master.
 
 * To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then start over or uninstall the packages.
 
