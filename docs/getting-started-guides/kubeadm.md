@@ -164,8 +164,8 @@ Several projects are available that enable Kubernetes pod networks. Some may als
 
 You can install a pod network add-on with the following command: 
 
-    # kubectl apply -f <add-on_spec.yaml>
-    daemonset "<add-on_name>" created
+    # kubectl apply -f <add-on.yaml>
+    daemonset "<add-on>" created
 
 If you prefer one of the other network providers please refer to their respective installation guides. You should only install one pod network per cluster.
 
