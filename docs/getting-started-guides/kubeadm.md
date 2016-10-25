@@ -162,10 +162,10 @@ You must install a pod network add-on so that your pods can communicate with eac
 
 Several projects are available that enable Kubernetes pod networks. Some may also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
 
-By way of example, you can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
+You can install a pod network add-on with the following command: 
 
-    # kubectl apply -f https://git.io/weave-kube
-    daemonset "weave-net" created
+    # kubectl apply -f <add-on_spec.yaml>
+    daemonset "<add-on_name>" created
 
 If you prefer one of the other network providers please refer to their respective installation guides. You should only install one pod network per cluster.
 
