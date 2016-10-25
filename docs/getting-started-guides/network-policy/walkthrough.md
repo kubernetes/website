@@ -6,7 +6,7 @@ assignees:
 
 Kubernetes can be used to declare network policies which govern how Pods can communicate with each other.  This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/user-guide/networkpolicies), and provides a demonstration thereof. 
 
-In this article, we assume a network provider that supports the NetworkPolicy API has been installed. Network providers can be installed as add-ons using [kubeadmin](/docs/getting-started-guides/kubeadm/), or any other suitable cluster installer.
+In this article, we assume a network provider that supports the NetworkPolicy API has been installed. Network providers can be installed as add-ons using [kubeadm](/docs/getting-started-guides/kubeadm/), or any other suitable cluster installer.
 
 There are a number of network providers which support NetworkPolicy including:
 
