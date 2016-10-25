@@ -3,40 +3,40 @@
 		margin-top: 1em !important;
 	}
 	
-	#caseStudies p {
+	.gridPage p {
 		color: rgb(26,26,26) !important;
 		margin-left: 0 !important;
 		padding-left: 0 !important;
 		font-weight: 300 !important;
 	}
 
-	#caseStudies #mainContent {
+	.gridPage #mainContent {
 		padding: 0;
 	}
 
-	#caseStudies #mainContent .content {
+	.gridPage #mainContent .content {
 		padding-top: 0;
 	}
 
-	#caseStudies main {
+	.gridPage main {
 		max-width: 1100px !important;
 	}
 
-	#caseStudies .content {
+	.gridPage .content {
 		position: relative;
 		margin: 0 auto 50px;
 		max-width: 90%;
 	}
 
-	#caseStudies .content p {
+	.gridPage .content p {
 		line-height: 24px !important;
 	}
 
-	#caseStudies .content h3 {
+	.gridPage .content h3 {
 		padding: 0 !important;
 	}
 	
-	#caseStudies #hero h5 {
+	.gridPage #hero h5 {
 		padding-left: 20px;
 		margin: 0;
 	}
@@ -67,7 +67,7 @@
 		left: 0;
 	}
 
-	#caseStudies #mainContent .content .case-study p {
+	.gridPage #mainContent .content .case-study p {
 		font-family: "Roboto", sans-serif;
 		font-size: 16px;
 		padding: 0;
@@ -77,13 +77,13 @@
 		font-style: italic;
 	}
 	
-	#caseStudies #video {
+	.gridPage #video {
 		background: #f9f9f9;
 		height: auto;
 		/*height: 340px;*/
 	}
 	
-	#caseStudies #video main {
+	.gridPage #video main {
 		position: relative;
 		max-width: 900px !important;
 		height: 100%;
@@ -93,19 +93,19 @@
 		padding: 50px 20px;
 	}
 
-	#caseStudies #video main > div {
+	.gridPage #video main > div {
 		width: 50%;
 	}
 
-	#caseStudies #video main #zulilyLogo {
+	.gridPage #video main #zulilyLogo {
 		width: 100px;
 	}
 
-	#caseStudies #video main img {
+	.gridPage #video main img {
 		max-width: 100%;
 	}
 
-	#caseStudies #video h3 {
+	.gridPage #video h3 {
 		font-size: 32px;
 		font-weight: 300;
 		line-height: 38px;
@@ -113,57 +113,57 @@
 		margin: 0 0 1em 0;
 	}
 
-	#caseStudies #video p {
+	.gridPage #video p {
 		margin: 0;
 	}
 
-	#caseStudies #video p.attrib {
+	.gridPage #video p.attrib {
 		margin-bottom: 20px;
 	}
 	
-	#caseStudies #video button > h6 {
+	.gridPage #video button > h6 {
 		font-size: 18px;
 		font-weight: 500;
 		margin: 1em 0;
 		color: #326de6;
 	}
 	
-	#caseStudies #users {
+	.gridPage #users {
 		padding: 50px;
 	}
 
-	#caseStudies #users main {
+	.gridPage #users main {
 		max-width: 1150px !important;
 	}
 
-	#caseStudies #users main h3 {
+	.gridPage #users main h3 {
 		padding-left: 20px;
 		margin-bottom: 20px;
 	}
 	
-	#caseStudies #usersGrid {
+	.gridPage #usersGrid {
 		position: relative;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
 	}
 
-	#caseStudies #usersGrid a {
+	.gridPage #usersGrid a {
 		display: inline-block;
 		margin: 5px;
 	}
 
-	#caseStudies #usersGrid a img {
+	.gridPage #usersGrid a img {
 		box-shadow: 1px 1px 2px transparent;
 		transition: box-shadow 0.25s;
 	}
 
-	#caseStudies #usersGrid a img:hover {
+	.gridPage #usersGrid a img:hover {
 		box-shadow: 1px 1px 2px #cccccc;
 	}
 
-	#caseStudies #usersGrid a:last-child img,
-	#caseStudies #usersGrid a:last-child img:hover {
+	.gridPage #usersGrid a:last-child img,
+	.gridPage #usersGrid a:last-child img:hover {
 		box-shadow: 1px 1px 2px transparent;
 	}
 	
@@ -173,12 +173,12 @@
 		box-shadow: 1px 2px 2px #dddddd;
 	}
 	
-	#caseStudies .feature {
+	.gridPage .feature {
 		position: relative;
 		padding: 20px 0 20px 242px;
 	}
 	
-	#caseStudies .feature img {
+	.gridPage .feature img {
 		position: absolute;
 		top: 20px;
 		left: 0;
@@ -225,7 +225,7 @@
 		margin-bottom: 0.5em;
 	}
 	
-	#caseStudies .feature p.quote {
+	.gridPage .feature p.quote {
 		font-size: 20px;
 		line-height: 28px !important;
 	}
@@ -250,20 +250,20 @@
 	}
 
 	@media screen and (max-width: 900px){
-		#caseStudies #video main {
+		.gridPage #video main {
 			flex-direction: column;
 			align-items: center;
 		}
 
-		#caseStudies #video main > div {
+		.gridPage #video main > div {
 			width: 400px;
 		}
 
-		#caseStudies #video main > div + div {
+		.gridPage #video main > div + div {
 			margin-top: 30px;
 		}
 
-		#caseStudies #video h3 {
+		.gridPage #video h3 {
 			max-width: 100%;
 		}
 	}
@@ -282,12 +282,12 @@
 			transform: translateX(-50%);
 		}
 
-		#caseStudies .feature {
+		.gridPage .feature {
 			margin-top: 50px;
 			padding: 180px 0 0;
 		}
 
-		#caseStudies .feature img {
+		.gridPage .feature img {
 			top: 0;
 			left: 50%;
 			transform: translateX(-50%);
@@ -295,12 +295,12 @@
 	}
 
 	@media screen and (max-width: 480px){
-		#caseStudies #hero {
+		.gridPage #hero {
 			padding-right: 20px;
 			padding-left: 20px;
 		}
 
-		#caseStudies #video main > div {
+		.gridPage #video main > div {
 			width: 80%;
 			min-width: 280px;
 		}
