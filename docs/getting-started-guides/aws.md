@@ -2,11 +2,30 @@
 assignees:
 - justinsb
 - lavalamp
+- clove
 
 ---
 
 * TOC
 {:toc}
+
+
+## Supported Production Grade Tools with High Availability Options
+
+* [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian and CentOS in AWS.
+
+* CoreOS maintains [a CLI tool](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html), `kube-aws` that will create and manage a Kubernetes cluster based on [CoreOS](http://www.coreos.com), using AWS tools: EC2, CloudFormation and Autoscaling.
+
+## Other Options
+
+* Other community projects exist that use tools such that use other configuration management tooling.
+
+TODO: add more options
+
+## Legacy Tooling
+
+`kube-up.sh` is a legacy tool that is an easy way to spin up a cluster.  This tool
+is being deprecated, and does not create a production ready environment.
 
 ## Prerequisites
 
@@ -97,12 +116,7 @@ If these already exist, make sure you want them to be used here.
 
 NOTE: If using an existing keypair named "kubernetes" then you must set the `AWS_SSH_KEY` key to point to your private key.
 
-### Alternatives
 
-* [kops](https://github.com/kubernetes/kops) "kubernetes-ops" is a complete Kubernetes cluster lifecycle management tool,
-  that supports AWS.
-
-* CoreOS maintains [a CLI tool](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html), `kube-aws` that will create and manage a Kubernetes cluster based on [CoreOS](http://www.coreos.com), using AWS tools: EC2, CloudFormation and Autoscaling.
 
 ## Getting started with your cluster
 
@@ -162,6 +176,3 @@ For support level information on all solutions, see the [Table of solutions](/do
 
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
-
-
-
