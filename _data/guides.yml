@@ -10,6 +10,8 @@ toc:
     path: /docs/whatisk8s/
   - title: Installing Kubernetes on Linux with kubeadm
     path: /docs/getting-started-guides/kubeadm/
+  - title: Installing Kubernetes on AWS with kops
+    path: /docs/getting-started-guides/kops/
   - title: Hello World on Google Container Engine
     path: /docs/hellonode/
   - title: Downloading or Building Kubernetes
