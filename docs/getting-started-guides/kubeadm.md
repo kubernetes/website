@@ -157,18 +157,19 @@ This will remove the "dedicated" taint from any nodes that have it, including th
 ### (3/4) Installing a pod network
 
 You must install a pod network add-on so that your pods can communicate with each other. 
-In the meantime, the kubenet network plugin doesn't work. Instead, CNI plugin networks are supported, those you see below.
+
+Note: Kubeadm only supports CNI based networks and therefore kubenet based networks will not work. 
+
 **It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up.**
 
-Several projects provide Kubernetes pod networks.
-You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
+Several CNI based network alternatives are available than enable Kubernetes pod networks. Some may also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
 
-By way of example, you can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
+You can install a pod network add-on with the following command: 
 
-    # kubectl apply -f https://git.io/weave-kube
-    daemonset "weave-net" created
+    # kubectl apply -f <add-on.yaml>
+    daemonset "<add-on>" created
 
-If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), please refer to their respective installation guides. 
+If you prefer one of the other network providers please refer to their respective installation guides. You should only install one pod network per cluster.
 
 If you are on another architecture than amd64, you should use the flannel overlay network as described in [the multi-platform section](#kubeadm-is-multi-platform)
 
@@ -202,29 +203,9 @@ For example:
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
-<<<<<<< HEAD
-**YOUR CLUSTER IS NOT READY YET!**
-
-Before you can deploy applications to it, you need to install a pod network.
-
-### (4/4) Installing a pod network
-
-You must install a pod network add-on so that your pods can communicate with each other when they are on different hosts.
-**It is necessary to do this before you try to deploy any applications to your cluster.**
-
-Several projects are available that enable Kubernetes pod networks. Some may also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
-
-You can install a pod network add-on with the following command: 
-
-    # kubectl apply -f <add-on.yaml>
-    daemonset "<add-on>" created
-
-If you prefer one of the other network providers please refer to their respective installation guides. You should only install one pod network per cluster.
-=======
 ### (Optional) Control your cluster from machines other than the master
 
 In order to get a kubectl on your laptop for example to talk to your cluster, you need to copy the `KubeConfig` file from your master to your laptop like this:
->>>>>>> refs/remotes/kubernetes/master
 
     # scp root@<master ip>:/etc/kubernetes/admin.conf .
     # kubectl --kubeconfig ./admin.conf get nodes
