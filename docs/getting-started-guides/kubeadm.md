@@ -158,6 +158,7 @@ This will remove the "dedicated" taint from any nodes that have it, including th
 
 You must install a pod network add-on so that your pods can communicate with each other. 
 
+ **It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up. Note also that `kubeadm` only supports CNI based networks and therefore kubenet based networks will not work.**
 
 Several projects provide Kubernetes pod networks using CNI, some of which 
 also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
