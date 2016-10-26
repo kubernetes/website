@@ -6,6 +6,7 @@ assignees:
 
 Kubernetes can be used to declare network policies which govern how Pods can communicate with each other.  This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/user-guide/networkpolicies), and provides a demonstration thereof. 
 
+In this article, we assume a Kubernetes cluster has been created with network policy support. There are a number of network providers that support NetworkPolicy including:
 
 * [Calico](/docs/getting-started-guides/network-policy/calico/)
 * [Romana](/docs/getting-started-guides/network-policy/romana/)
