@@ -167,6 +167,13 @@
 			logo: 'container_solutions',
 			link: 'http://container-solutions.com/resources/kubernetes/',
 			blurb: 'Container Solutions is a premium software consultancy that focuses on programmable infrastructure, offering our expertise in software development, strategy and operations to help you innovate at speed and scale.'
+		},
+		{
+			type: 1,
+			name: 'Jetstack',
+			logo: 'jetstack',
+			link: 'https://www.jetstack.io/',
+			blurb: 'Jetstack is an organisation focused entirely on Kubernetes. They will help you to get the most out of Kubernetes through expert professional services and open source tooling. Get in touch, and accelerate your project.'
 		}
 	]
 	
