@@ -157,7 +157,7 @@ parallelism, for a variety or reasons:
   remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.
 - For work queue jobs, no new pods are started after any pod has succeeded -- remaining pods are allowed to complete, however.
 - If the controller has not had time to react.
-- If the controller failed to create pods for any reason (lack of ResourceQuota, lack of permission, etc),
+- If the controller failed to create pods for any reason (lack of ResourceQuota, lack of permission, etc.),
   then there may be fewer pods than requested.
 - The controller may throttle new pod creation due to excessive previous pod failures in the same Job.
 - When a pod is gracefully shutdown, it make take time to stop.
@@ -238,11 +238,11 @@ considering one set of work items that the user wants to manage together &mdash;
 There are several different patterns for parallel computation, each with strengths and weaknesses.
 The tradeoffs are:
 
-- One Job object for each work item, vs a single Job object for all work items.  The latter is
+- One Job object for each work item, vs. a single Job object for all work items.  The latter is
   better for large numbers of work items.  The former creates some overhead for the user and for the
   system to manage large numbers of Job objects.  Also, with the latter, the resource usage of the job
   (number of concurrently running pods) can be easily adjusted using the `kubectl scale` command.
-- Number of pods created equals number of work items, vs each pod can process multiple work items.
+- Number of pods created equals number of work items, vs. each pod can process multiple work items.
   The former typically requires less modification to existing code and containers.  The latter
   is better for large numbers of work items, for similar reasons to the previous bullet.
 - Several approaches use a work queue.  This requires running a queue service,
@@ -374,6 +374,6 @@ driver, and then cleans up.
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but complete control over what pods are created and how work is assigned to them.
 
-## Future work
+## Scheduled Jobs
 
-Support for creating Jobs at specified times/dates (i.e. cron) is expected in [1.4](https://github.com/kubernetes/kubernetes/pull/11980).
+Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [scheduled job documents](http://kubernetes.io/docs/user-guide/scheduled-jobs/)

@@ -8,7 +8,7 @@
 
 This purpose of this guide is to help you become familiar with the runtime initialization of [Pet Sets](/docs/user-guide/petset). This guide assumes the same prerequisites, and uses the same terminology as the [Pet Set user document](/docs/user-guide/petset).
 
-The most common way to initialize the runtime in a containerized environment, is through a custom [entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint). While this is not necessarily bad, making your application pid 1, and treating containers as processes in general is good for a few reasons outside the scope of this document. Doing so allows you to run docker images from third-party vendors without modification. We will not be writing custom entrypoints for this example, but using a feature called [init containers](http://releases.k8s.io/{{page.githubbranch}}/docs/proposals/container-init.md), to explain 2 common patterns that come up deploying Pet Sets.
+The most common way to initialize the runtime in a containerized environment, is through a custom [entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint). While this is not necessarily bad, making your application pid 1, and treating containers as processes in general is good for a few reasons outside the scope of this document. Doing so allows you to run docker images from third-party vendors without modification. We will not be writing custom entrypoints for this example, but using a feature called [init containers](http://kubernetes.io/docs/user-guide/production-pods/#handling-initialization), to explain 2 common patterns that come up deploying Pet Sets.
 
 1. Transferring state across Pet restart, so that a future Pet is initialized with the computations of its past incarnation
 2. Initializing the runtime environment of a Pet based on existing conditions, like a list of currently healthy peers
@@ -19,7 +19,7 @@ This example shows you how to "carry over" runtime state across Pet restart by s
 
 ### Background
 
-Applications that incrementally build state usually need strong guarantees that they will not restart for extended durations. This is tricky to achieve with containers, so instead, we will ensure that the results of previous computations are trasferred to future pets. Doing so is straightforward using vanilla Persistent Volumes (which Pet Set already gives you), unless the volume mount point itself needs to be initialized for the Pet to start. This is exactly the case with "virtual machine" docker images, like those based on ubuntu or fedora. Such images embed the entier rootfs of the distro, including package managers like `apt-get` that assume a certain layout of the filesystem. Meaning:
+Applications that incrementally build state usually need strong guarantees that they will not restart for extended durations. This is tricky to achieve with containers, so instead, we will ensure that the results of previous computations are transferred to future pets. Doing so is straightforward using vanilla Persistent Volumes (which Pet Set already gives you), unless the volume mount point itself needs to be initialized for the Pet to start. This is exactly the case with "virtual machine" docker images, like those based on ubuntu or fedora. Such images embed the entire rootfs of the distro, including package managers like `apt-get` that assume a certain layout of the filesystem. Meaning:
 
 * If you mount an empty volume under `/usr`, you won't be able to `apt-get`
 * If you mount an empty volume under `/lib`, all your `apt-gets` will fail because there are no system libraries
@@ -130,7 +130,7 @@ Here's a tiny peer finder helper script that handles peer discovery, [available 
 
 * A DNS domain
 * An `on-start` script to run with the initial constituency of the given domain as input
-* An `on-change` script to run everytime the constituency of the given domain changes
+* An `on-change` script to run every time the constituency of the given domain changes
 
 The role of the peer finder:
 

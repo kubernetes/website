@@ -1,0 +1,84 @@
+---
+---
+
+## kubectl create quota
+
+Create a quota with the specified name.
+
+### Synopsis
+
+
+
+Create a resourcequota with the specified name, hard limits and optional scopes
+
+```
+kubectl create quota NAME [--hard=key1=value1,key2=value2] [--scopes=Scope1,Scope2] [--dry-run=bool]
+```
+
+### Examples
+
+```
+  // Create a new resourcequota named my-quota
+  $ kubectl create quota my-quota --hard=cpu=1,memory=1G,pods=2,services=3,replicationcontrollers=2,resourcequotas=1,secrets=5,persistentvolumeclaims=10
+
+  // Create a new resourcequota named best-effort
+  $ kubectl create quota best-effort --hard=pods=100 --scopes=BestEffort
+```
+
+### Options
+
+```
+      --dry-run                   If true, only print the object that would be sent, without sending it.
+      --generator string          The name of the API generator to use. (default "resourcequotas/v1")
+      --hard string               A comma-delimited set of resource=quantity pairs that define a hard limit.
+      --no-headers                When using the default or custom-column output format, don't print headers.
+  -o, --output string             Output format. One of: json|yaml|wide|name|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=... See custom columns [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://kubernetes.io/docs/user-guide/jsonpath].
+      --output-version string     Output the formatted object with the given group version (for ex: 'extensions/v1beta1').
+      --save-config               If true, the configuration of current object will be saved in its annotation. This is useful when you want to perform kubectl apply on this object in the future.
+      --schema-cache-dir string   If non-empty, load/store cached API schemas in this directory, default is '$HOME/.kube/schema' (default "~/.kube/schema")
+      --scopes string             A comma-delimited set of quota scopes that must all match each object tracked by the quota.
+  -a, --show-all                  When printing, show all resources (default hide terminated pods.)
+      --show-labels               When printing, show all labels as the last column (default hide labels column)
+      --sort-by string            If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string.
+      --template string           Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
+      --validate                  If true, use a schema to validate the input before sending it (default true)
+```
+
+### Options inherited from parent commands
+
+```
+      --alsologtostderr value          log to standard error as well as files
+      --as string                      Username to impersonate for the operation
+      --certificate-authority string   Path to a cert. file for the certificate authority
+      --client-certificate string      Path to a client certificate file for TLS
+      --client-key string              Path to a client key file for TLS
+      --cluster string                 The name of the kubeconfig cluster to use
+      --context string                 The name of the kubeconfig context to use
+      --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string              Path to the kubeconfig file to use for CLI requests.
+      --log-backtrace-at value         when logging hits line file:N, emit a stack trace (default :0)
+      --log-dir value                  If non-empty, write log files in this directory
+      --logtostderr value              log to standard error instead of files
+      --match-server-version           Require server version to match client version
+  -n, --namespace string               If present, the namespace scope for this CLI request
+      --password string                Password for basic authentication to the API server
+  -s, --server string                  The address and port of the Kubernetes API server
+      --stderrthreshold value          logs at or above this threshold go to stderr (default 2)
+      --token string                   Bearer token for authentication to the API server
+      --user string                    The name of the kubeconfig user to use
+      --username string                Username for basic authentication to the API server
+  -v, --v value                        log level for V logs
+      --vmodule value                  comma-separated list of pattern=N settings for file-filtered logging
+```
+
+
+
+###### Auto generated by spf13/cobra on 2-Sep-2016
+
+
+
+
+
+<!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
+[![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_create_quota.md?pixel)]()
+<!-- END MUNGE: GENERATED_ANALYTICS -->

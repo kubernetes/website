@@ -3,7 +3,7 @@
 
 ## kubectl cluster-info dump
 
-Dump lots of relevant info for debugging and diagnosis.
+Dump lots of relevant info for debugging and diagnosis
 
 ### Synopsis
 
@@ -27,13 +27,13 @@ kubectl cluster-info dump
 ```
 # Dump current cluster state to stdout
 kubectl cluster-info dump
-  
+
 # Dump current cluster state to /path/to/cluster-state
 kubectl cluster-info dump --output-directory=/path/to/cluster-state
-  
+
 # Dump all namespaces to stdout
 kubectl cluster-info dump --all-namespaces
-  
+
 # Dump a set of namespaces to /path/to/cluster-state
 kubectl cluster-info dump --namespaces default,kube-system --output-directory=/path/to/cluster-state
 ```
@@ -41,44 +41,41 @@ kubectl cluster-info dump --namespaces default,kube-system --output-directory=/p
 ### Options
 
 ```
-      --all-namespaces[=false]: If true, dump all namespaces.  If true, --namespaces is ignored.
-      --namespaces=[]: A comma separated list of namespaces to dump.
-      --output-directory="": Where to output the files.  If empty or '-' uses stdout, otherwise creates a directory hierarchy in that directory
+      --all-namespaces            If true, dump all namespaces.  If true, --namespaces is ignored.
+      --namespaces value          A comma separated list of namespaces to dump. (default [])
+      --output-directory string   Where to output the files.  If empty or '-' uses stdout, otherwise creates a directory hierarchy in that directory
 ```
 
 ### Options inherited from parent commands
 
 ```
-      --alsologtostderr[=false]: log to standard error as well as files
-      --as="": Username to impersonate for the operation.
-      --certificate-authority="": Path to a cert. file for the certificate authority.
-      --client-certificate="": Path to a client certificate file for TLS.
-      --client-key="": Path to a client key file for TLS.
-      --cluster="": The name of the kubeconfig cluster to use
-      --context="": The name of the kubeconfig context to use
-      --insecure-skip-tls-verify[=false]: If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure.
-      --kubeconfig="": Path to the kubeconfig file to use for CLI requests.
-      --log-backtrace-at=:0: when logging hits line file:N, emit a stack trace
-      --log-dir="": If non-empty, write log files in this directory
-      --log-flush-frequency=5s: Maximum number of seconds between log flushes
-      --logtostderr[=true]: log to standard error instead of files
-      --match-server-version[=false]: Require server version to match client version
-      --namespace="": If present, the namespace scope for this CLI request.
-      --password="": Password for basic authentication to the API server.
-  -s, --server="": The address and port of the Kubernetes API server
-      --stderrthreshold=2: logs at or above this threshold go to stderr
-      --token="": Bearer token for authentication to the API server.
-      --user="": The name of the kubeconfig user to use
-      --username="": Username for basic authentication to the API server.
-      --v=0: log level for V logs
-      --vmodule=: comma-separated list of pattern=N settings for file-filtered logging
+      --alsologtostderr value          log to standard error as well as files
+      --as string                      Username to impersonate for the operation
+      --certificate-authority string   Path to a cert. file for the certificate authority
+      --client-certificate string      Path to a client certificate file for TLS
+      --client-key string              Path to a client key file for TLS
+      --cluster string                 The name of the kubeconfig cluster to use
+      --context string                 The name of the kubeconfig context to use
+      --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string              Path to the kubeconfig file to use for CLI requests.
+      --log-backtrace-at value         when logging hits line file:N, emit a stack trace (default :0)
+      --log-dir value                  If non-empty, write log files in this directory
+      --logtostderr value              log to standard error instead of files
+      --match-server-version           Require server version to match client version
+  -n, --namespace string               If present, the namespace scope for this CLI request
+      --password string                Password for basic authentication to the API server
+  -s, --server string                  The address and port of the Kubernetes API server
+      --stderrthreshold value          logs at or above this threshold go to stderr (default 2)
+      --token string                   Bearer token for authentication to the API server
+      --user string                    The name of the kubeconfig user to use
+      --username string                Username for basic authentication to the API server
+  -v, --v value                        log level for V logs
+      --vmodule value                  comma-separated list of pattern=N settings for file-filtered logging
 ```
 
-### SEE ALSO
 
-* [kubectl cluster-info](kubectl_cluster-info.md)	 - Display cluster info
 
-###### Auto generated by spf13/cobra on 12-Aug-2016
+###### Auto generated by spf13/cobra on 2-Sep-2016
 
 
 

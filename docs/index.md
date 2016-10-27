@@ -77,13 +77,24 @@ h2, h3, h4 {
     <a href="/docs/whatisk8s/" class="button">Read the Overview</a>
   </div>
   <div class="col3rd">
-    <h3>Hello Node!</h3>
-    <p>In this quickstart, we’ll be creating a Kubernetes instance that stands up a simple “Hello World” app using Node.js. In just a few minutes you'll go from zero to deployed Kubernetes app on Google Container Engine.</p>
-    <a href="/docs/hellonode/" class="button">Get Started</a>
+    <h3>Kubernetes Basics Interactive Tutorial</h3>
+    <p>The Kubernetes Basics interactive tutorials let you try out Kubernetes features using Minikube right out of your web browser in a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.</p>
+    <a href="/docs/tutorials/kubernetes-basics/" class="button">Try the Interactive Tutorials</a>
+  </div>
+  <div class="col3rd">
+    <h3>Installing Kubernetes on Linux with kubeadm</h3>
+    <p>This quickstart will show you how to install a secure Kubernetes cluster on any computers running Linux, using a tool called <code>kubeadm</code>. It'll work with local VMs, physical servers and/or cloud servers, either manually or as a part of your own automation. It is currently in alpha but please try it out and give us feedback!</p>
+    <p>If you are looking for a fully automated solution, note that kubeadm is intended as a building block.  Tools such as GKE and kops build on kubeadm to provision a complete cluster.</p>
+    <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes with kubeadm</a>
+  </div>
+  <div class="col3rd">
+    <h3>Installing Kubernetes on AWS with kops</h3>
+    <p>This quickstart will show you how to bring up a complete Kubernetes cluster on AWS, using a tool called <code>kops</code>.</p>
+    <a href="/docs/getting-started-guides/kops/" class="button">Install Kubernetes with kops</a>
   </div>
   <div class="col3rd">
     <h3>Guided Tutorial</h3>
-    <p>If you’ve completed the quickstart, a great next step is Kubernetes 101. You will follow a path through the various features of Kubernetes, with code examples along the way, learning all of the core concepts. There's also a <a href="/docs/user-guide/walkthrough/k8s201">Kubernetes 201</a>!</p>
+    <p>If you’ve completed one of the quickstarts, a great next step is Kubernetes 101. You will follow a path through the various features of Kubernetes, with code examples along the way, learning all of the core concepts. There's also a <a href="/docs/user-guide/walkthrough/k8s201">Kubernetes 201</a>!</p>
     <a href="/docs/user-guide/walkthrough/" class="button">Kubernetes 101</a>
   </div>
 </div>
@@ -112,7 +123,7 @@ h2, h3, h4 {
   <div class="col2nd">
   <h3>Contribute to Our Docs</h3>
   <p>The docs for Kubernetes are open-source, just like the code for Kubernetes itself. The docs are on GitHub Pages, so you can fork it and it will auto-stage on username.github.io, previewing your changes!</p>
-  <a href="/editdocs/" class="button">Write Docs for K8s</a>
+  <a href="/docs/contribute/create-pull-request/" class="button">Write Docs for K8s</a>
   </div>
   <div class="col2nd">
   <h3>Need Help?</h3>
