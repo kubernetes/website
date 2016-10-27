@@ -21,7 +21,20 @@ It is simple enough that you can easily integrate its use into your own automati
 
 See the full [`kubeadm` reference](/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
-**The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!**
+**The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!
+Be sure to read the [limitations](#limitations); in particular note that kubeadm doesn't have great support for
+automatically configuring cloud providers.  Please refer to the specific cloud provider documentation or
+use another provisioning system.**
+
+kubeadm assumes you have a set of machines (virtual or real) that are up and running.  It is designed
+to be part of a larger provisioning system - or just for easy manual provisioning.  kubeadm is a great
+choice where you have your own infrastructure (e.g. bare metal), or where you have an existing
+orchestration system (e.g. Puppet) that you have to integrate with.
+
+If you are not constrained, other tools build on kubeadm to give you complete clusters:
+
+* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you turn-key Kubernetes
+* On AWS, [kops](kops) makes installation and cluster management easy (and supports high availability)
 
 ## Prerequisites
 
