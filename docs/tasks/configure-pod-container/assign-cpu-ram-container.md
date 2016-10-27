@@ -66,7 +66,7 @@ The RAM resource is measured in bytes. You can express RAM as a plain integer
 or a fixed-point integer with one of these suffixes: E, P, T, G, M, K, Ei, Pi,
 Ti, Gi, Mi, Ki. For example, the following represent approximately the same value:
 
-        128974848, 129e6, 129M , 123Mi
+    128974848, 129e6, 129M , 123Mi
 
 {% endcapture %}
 

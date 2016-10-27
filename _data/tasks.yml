@@ -8,7 +8,7 @@ toc:
     path: /docs/tasks/configure-pod-container/define-environment-variable-container/
   - title: Defining a Command and Arguments for a Container
     path: /docs/tasks/configure-pod-container/define-command-argument-container/
-  - title: Assigning CPU and RAM Resourecs to a Container
+  - title: Assigning CPU and RAM Resources to a Container
     path: /docs/tasks/configure-pod-container/assign-cpu-ram-container/
 - title: Accessing Applications in a Cluster
   section:
