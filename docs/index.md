@@ -84,12 +84,17 @@ h3, h4 {
 <p>&nbsp;</p>
 
 <div id="quickstarts" class="colContainer">
-  <div class="col2nd">
+  <div class="col3rd">
     <h4>Kubernetes Basics Interactive Tutorial</h4>
     <p>The Kubernetes Basics interactive tutorials let you try out Kubernetes right out of your web browser, using a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.</p>
     <a href="/docs/tutorials/kubernetes-basics/" class="button">Try the Interactive Tutorials</a>
   </div>
-  <div class="col2nd">
+  <div class="col3rd">
+    <h3>Installing Kubernetes on AWS with kops</h3>
+    <p>This quickstart will show you how to bring up a complete Kubernetes cluster on AWS, using a tool called <code>kops</code>.</p>
+    <a href="/docs/getting-started-guides/kops/" class="button">Install Kubernetes with kops</a>
+  </div>
+  <div class="col3rd">
     <h4>Installing Kubernetes on Linux with kubeadm</h4>
     <p>This quickstart helps you install a secure Kubernetes cluster using the built-in <code>kubeadm</code> tool. You can use <code>kubeadm</code> to install Kubernetes on any pre-existing machines that are running Linux. <code>kubeadm</code> is currently an alpha feature, but we invite you to try it out and give us feedback!</p>
     <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes with kubeadm</a>
