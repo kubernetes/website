@@ -110,7 +110,7 @@ To initialize the master, pick one of the machines you previously installed `kub
 **Note:** this will autodetect the network interface to advertise the master on as the interface with the default gateway.
 If you want to use a different interface, specify `--api-advertise-addresses=<ip-address>` argument to `kubeadm init`.
 
-If you want to use [flannel](https://github.com/coreos/flannel) as the pod network; specify `--pod-network-cidr=10.244.0.0/16` if you're using the daemonset manifest below. _However, please note that this is not required for any other networks, including Weave, which is the recommended pod network._
+If you want to use [flannel](https://github.com/coreos/flannel) as the pod network; specify `--pod-network-cidr=10.244.0.0/16` if you're using the daemonset manifest below. _However, please note that this is not required for any other networks._
 
 Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to read more about the flags `kubeadm init` provides.
 
