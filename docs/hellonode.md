@@ -152,6 +152,8 @@ If all goes well, you should be able to see the container image listed in the co
 
 ![image](/images/hellonode/image_10.png)
 
+**Note:** *Docker for Windows, Version 1.12 or 1.12.1, does not yet support this procedure. Instead, it replies with the message 'denied: Unable to access the repository; please check that you have permission to access it'. A bugfix is available at http://stackoverflow.com/questions/39277986/unable-to-push-to-google-container-registry-unable-to-access-the-repository?answertab=votes#tab-top.*
+
 ## Create your Kubernetes Cluster
 
 A cluster consists of a Master API server and a set of worker VMs called Nodes.
