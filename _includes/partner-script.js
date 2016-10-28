@@ -127,6 +127,20 @@
 			blurb: 'The Nuage SDN platform provides policy-based networking between Kubernetes Pods and non-Kubernetes environments with visibility and security monitoring.'
 		},
 		{
+			type: 0,
+			name: 'Sematext',
+			logo: 'sematext',
+			link: 'https://sematext.com/kubernetes/',
+			blurb: 'Logging & Monitoring: Automatic collection and processing of Metrics, Events and Logs for auto-discovered pods and Kubernetes nodes.'
+		},
+		{
+			type: 0,
+			name: 'Diamanti',
+			logo: 'diamanti',
+			link: 'https://www.diamanti.com/products/',
+			blurb: 'Diamanti deploys containers with guaranteed performance using Kubernetes in the first hyperconverged appliance purpose built for containerized applications.'
+		},
+		{
 			type: 1,
 			name: 'Apprenda',
 			logo: 'apprenda',
@@ -176,28 +190,28 @@
 			blurb: 'Jetstack is an organisation focused entirely on Kubernetes. They will help you to get the most out of Kubernetes through expert professional services and open source tooling. Get in touch, and accelerate your project.'
 		}
 	]
-	
+
 	var isvContainer = document.getElementById('isvContainer')
 	var servContainer = document.getElementById('servContainer')
-	
+
 	var sorted = partners.sort(function (a, b) {
 		if (a.name > b.name) return 1
 		if (a.name < b.name) return -1
 		return 0
 	})
-	
+
 	sorted.forEach(function (obj) {
 		var box = document.createElement('div')
 		box.className = 'partner-box'
 
 		var img = document.createElement('img')
 		img.src = '/images/square-logos/' + obj.logo + '.png'
-		
+
 		var div = document.createElement('div')
-		
+
 		var p = document.createElement('p')
 		p.textContent = obj.blurb
-		
+
 		var link = document.createElement('a')
 		link.href = obj.link
 		link.target = '_blank'
@@ -208,7 +222,7 @@
 
 		box.appendChild(img)
 		box.appendChild(div)
-		
+
 		var container = obj.type ? servContainer : isvContainer
 		container.appendChild(box)
 	})
