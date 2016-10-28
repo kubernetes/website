@@ -100,16 +100,16 @@ for `${NODE_IP}` on each machine.
 
 #### Validating your cluster
 
-Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate with
+Once you copy this into all three nodes, you should have a clustered etcd set up.  In case you run your pods on docker container you can validate with
 
 ```shell
-etcdctl member list
+docker exec -i -t < container_id > etcdctl member list
 ```
 
 and
 
 ```shell
-etcdctl cluster-health
+docker exec -i -t < container_id > etcdctl cluster-health
 ```
 
 You can also validate that this is working with `etcdctl set foo bar` on one node, and `etcdctl get foo`
