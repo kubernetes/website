@@ -219,7 +219,7 @@ toc:
   - title: Replication Controller
     path: /docs/user-guide/replication-controller/    
   - title: Resource Quotas
-    path: /docs/admin/resource-quota/    
+    path: /docs/admin/resourcequota/
   - title: Scheduled Jobs
     path: /docs/user-guide/scheduled-jobs/
   - title: Secrets
@@ -269,6 +269,6 @@ toc:
   - title: Federation Components
     section:
     - title: federation-apiserver
-      path: /docs/admin/federation-apiserver.md
+      path: /docs/admin/federation-apiserver
     - title : federation-controller-mananger
-      path: /docs/admin/federation-controller-manager.md
+      path: /docs/admin/federation-controller-manager
