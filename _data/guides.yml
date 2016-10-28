@@ -10,6 +10,8 @@ toc:
     path: /docs/whatisk8s/
   - title: Installing Kubernetes on Linux with kubeadm
     path: /docs/getting-started-guides/kubeadm/
+  - title: Installing Kubernetes on AWS with kops
+    path: /docs/getting-started-guides/kops/
   - title: Hello World on Google Container Engine
     path: /docs/hellonode/
   - title: Downloading or Building Kubernetes
@@ -68,6 +70,8 @@ toc:
       path: /docs/getting-started-guides/network-policy/walkthrough/
     - title: Using Calico for NetworkPolicy 
       path: /docs/getting-started-guides/network-policy/calico/
+    - title: Using Romana for NetworkPolicy 
+      path: /docs/getting-started-guides/network-policy/romana/
 
 - title: Batch Jobs
   section:

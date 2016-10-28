@@ -12,14 +12,7 @@ provides load balancing for an application that has two running instances.
 
 {% capture prerequisites %}
 
-* Install [kubectl](http://kubernetes.io/docs/user-guide/prereqs).
-
-* Create a Kubernetes cluster, including a running Kubernetes
-  API server. One way to create a new cluster is to use
-  [Minikube](/docs/getting-started-guides/minikube).
-
-* Configure `kubectl` to communicate with your Kubernetes API server. This
-  configuration is done automatically if you use Minikube.
+{% include task-tutorial-prereqs.md %}
 
 {% endcapture %}
 
@@ -104,7 +97,7 @@ provides load balancing for an application that has two running instances.
 
 1. On your chosen node, create a firewall rule that allows TCP traffic
    on your node port. For example, if your Service has a NodePort value of
-   31568, create a firewall rule that allows TCP traffic on port 31568. 
+   31568, create a firewall rule that allows TCP traffic on port 31568.
 
 1. Use the node address and node port to access the Hello World application:
 
