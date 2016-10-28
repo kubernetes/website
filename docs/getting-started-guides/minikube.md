@@ -136,7 +136,6 @@ Use the built-in Docker daemon with:
 eval $(minikube docker-env)
 ```
 This command sets up the Docker environment variables so a Docker client can communicate with the minikube Docker daemon.
-Minikube currently supports only docker version 1.11.1 on the server, which is what is supported by Kubernetes 1.3. With a newer docker version, you'll get this [issue](https://github.com/kubernetes/minikube/issues/338).
 
 ```shell
 docker ps
