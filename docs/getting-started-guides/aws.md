@@ -12,22 +12,18 @@ assignees:
 
 ## Supported Production Grade Tools with High Availability Options
 
-* [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian and CentOS in AWS.
+* [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
 
 * CoreOS maintains [a CLI tool](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html), `kube-aws` that will create and manage a Kubernetes cluster based on [CoreOS](http://www.coreos.com), using AWS tools: EC2, CloudFormation and Autoscaling.
 
-## Other Options
+---
 
-* Other community projects exist that use tools such that use other configuration management tooling.
+## kube-up bash script
 
-TODO: add more options
+> `kube-up.sh` is a legacy tool that is an easy way to spin up a cluster.  This tool is being deprecated, and does not create a production ready environment.
 
-## Legacy Tooling
 
-`kube-up.sh` is a legacy tool that is an easy way to spin up a cluster.  This tool
-is being deprecated, and does not create a production ready environment.
-
-## Prerequisites
+### Prerequisites
 
 1. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
 2. Install and configure the [AWS Command Line Interface](http://aws.amazon.com/cli)
@@ -40,9 +36,9 @@ You may explicitly set the AWS profile to use using the `AWS_DEFAULT_PROFILE` en
 export AWS_DEFAULT_PROFILE=myawsprofile
 ```
 
-## Cluster turnup
+### Cluster turnup
 
-### Supported procedure: `get-kube`
+#### Supported procedure: `get-kube`
 
 ```shell
 #Using wget
