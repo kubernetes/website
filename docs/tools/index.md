@@ -35,6 +35,11 @@ Use Helm to:
 
 ### Kompose 
 
-[`kompose`](https://github.com/skippbox/kompose) is a tool to help users familiar with `docker-compose`
-move to Kubernetes. It takes a Docker Compose file and translates it into Kubernetes objects. `kompose`
-is a convenient tool to go from local Docker development to managing your application with Kubernetes.
+[Kompose](https://github.com/kubernetes-incubator/kompose) is a tool to help users familiar with Docker Compose
+move to Kubernetes. 
+
+Use Kompose to:
+
+* Translate a Docker Compose file into Kubernetes objects
+* Go from local Docker development to managing your application via Kubernetes
+* Convert v1 or v2 Docker Compose `yaml` files or [Distributed Application Bundles](https://docs.docker.com/compose/bundles/)
