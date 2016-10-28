@@ -157,18 +157,17 @@ This will remove the "dedicated" taint from any nodes that have it, including th
 ### (3/4) Installing a pod network
 
 You must install a pod network add-on so that your pods can communicate with each other. 
-In the meantime, the kubenet network plugin doesn't work. Instead, CNI plugin networks are supported, those you see below.
-**It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up.**
 
-Several projects provide Kubernetes pod networks.
-You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
+ **It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up. Note also that `kubeadm` only supports CNI based networks and therefore kubenet based networks will not work.**
 
-By way of example, you can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
+Several projects provide Kubernetes pod networks using CNI, some of which 
+also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
 
-    # kubectl apply -f https://git.io/weave-kube
-    daemonset "weave-net" created
+You can install a pod network add-on with the following command: 
 
-If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), please refer to their respective installation guides. 
+    # kubectl apply -f <add-on.yaml>
+
+Please refer to the specific add-on installation guide for exact details. You should only install one pod network per cluster.
 
 If you are on another architecture than amd64, you should use the flannel overlay network as described in [the multi-platform section](#kubeadm-is-multi-platform)
 
