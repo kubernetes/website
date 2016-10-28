@@ -196,6 +196,13 @@ for SERVICES in kube-proxy kubelet flanneld docker; do
     systemctl status $SERVICES
 done
 ```
+* Configure kubectl
+
+```shell
+kubectl config set-cluster default-cluster --server=http://centos-master:8080
+kubectl config set-context default-context --cluster=default-cluster --user=default-admin
+kubectl config use-context default-context
+```
 
 *You should be finished!*
 
