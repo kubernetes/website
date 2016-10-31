@@ -148,6 +148,13 @@
 			blurb: 'Apprenda creates and supports modern, enterprise-ready application platforms for both cloud native and traditional application workloads.'
 		},
 		{
+			type: 0,
+			name: 'Aporeto',
+			logo: 'aporeto',
+			link: 'https://aporeto.com/trireme',
+			blurb: 'Aporeto makes cloud-native applications secure by default without impacting developer velocity and works at any scale, on any cloud.'
+		},
+		{
 			type: 1,
 			name: 'Apprenda',
 			logo: 'apprenda',
