@@ -141,6 +141,13 @@
 			blurb: 'Diamanti deploys containers with guaranteed performance using Kubernetes in the first hyperconverged appliance purpose built for containerized applications.'
 		},
 		{
+			type: 0,
+			name: 'Apprenda',
+			logo: 'apprenda',
+			link: 'https://apprenda.com/kubernetes-support/',
+			blurb: 'Apprenda creates and supports modern, enterprise-ready application platforms for both cloud native and traditional application workloads.'
+		},
+		{
 			type: 1,
 			name: 'Apprenda',
 			logo: 'apprenda',
