@@ -34,7 +34,7 @@ orchestration system (e.g. Puppet) that you have to integrate with.
 If you are not constrained, other tools build on kubeadm to give you complete clusters:
 
 * On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you turn-key Kubernetes
-* On AWS, [kops](kops) makes installation and cluster management easy (and supports high availability)
+* On AWS, [kops](https://github.com/kubernetes/kops) makes installation and cluster management easy (and supports high availability)
 
 ## Prerequisites
 
