@@ -16,6 +16,13 @@
 		},
 		{
 			type: 0,
+			name: 'StackPointCloud',
+			logo: 'stackpointio',
+			link: 'https://stackpoint.io',
+			blurb: 'StackPointCloud builds Stackpoint.io, the universal control plane for Kubernetes Anywhere -- compose and build your own infrastructure as easily as a DigitalOcean droplet at any public cloud provider.'
+		},
+		{
+			type: 0,
 			name: 'Sysdig Cloud',
 			logo: 'sys_dig',
 			link: 'https://sysdig.com/blog/monitoring-kubernetes-with-sysdig-cloud/',
@@ -202,6 +209,13 @@
 			logo: 'deis',
 			link: 'https://deis.com/services/',
 			blurb: 'Deis provides professional services and 24x7 operational support for any Kubernetes cluster managed by our global cluster operations team.'
+		},
+		{
+			type: 1,
+			name: 'StackPointCloud',
+			logo: 'stackpoint',
+			link: 'https://stackpoint.io',
+			blurb: 'StackPointCloud offers a wide range of support plans for managed Kubernetes clusters built through its universal control plane for Kubernetes Anywhere.'
 		},
 		{
 			type: 1,
