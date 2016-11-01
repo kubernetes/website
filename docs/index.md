@@ -5,11 +5,9 @@ assignees:
 
 ---
 
-<p>Kubernetes helps you deploy and manage containerized applications and other cloud-based workloads on a cluster. With Kubernetes on your cluster, you can ensure that your containers run where you want them, when you want them, and with the resources that they need.</p>
+<p>The Kubernetes documentation can help you set up Kubernetes, learn about the system, or get your applications and workloads running on Kubernetes.</p>
 
-<p>You can use Kubernetes with your own machines, or on clusters provided by popular cloud providers such as Amazon Web Services, Google Cloud Platform, and Microsoft Azure. Kubernetes can deploy and run common container images, such as Docker or rkt. Kubernetes is fully open-source and production ready.</p>
-
-<p><a href="/docs/whatisk8s/" class="button">Read the full Overview</a></p>
+<p><a href="/docs/whatisk8s/" class="button">Read the Kubernetes Overview</a></p>
 
 <style>
 h3, h4 {
