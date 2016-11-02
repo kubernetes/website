@@ -2,3 +2,13 @@ bigheader: "Tools"
 toc:
 - title: Tools
   path: /docs/tools/
+- title: Kompose
+  section:
+  - title: Kompose Overview
+    path: /docs/tools/kompose/
+  - title: User Guide
+    path: /docs/tools/kompose/user-guide/
+  - title: Architecture
+    path: /docs/tools/kompose/architecture/
+  - title: Development
+    path: /docs/tools/kompose/development/

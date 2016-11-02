@@ -4,6 +4,7 @@ assignees:
 
 ---
 
+
 * TOC
 {:toc}
 
@@ -20,6 +21,28 @@ to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resou
 
 ## Third-Party Tools
 
+### Kompose 
+
+[Kompose](https://github.com/kubernetes-incubator/kompose) is a tool to help users familiar with Docker Compose
+move to Kubernetes. 
+
+Use Kompose to:
+
+* Translate a Docker Compose file into Kubernetes objects
+* Go from local Docker development to managing your application via Kubernetes
+* Convert v1 or v2 Docker Compose `yaml` files or [Distributed Application Bundles](https://docs.docker.com/compose/bundles/)
+
+#### Kompose Documentation
+
+* [Kompose Overview](/docs/tools/kompose/)
+
+* [User Guide](/docs/tools/kompose/user-guide/)
+
+* [Architecture](/docs/tools/kompose/architecture/)
+
+* [Development](/docs/tools/kompose/development/)
+
+
 ### Helm
 
 [Kubernetes Helm](https://github.com/kubernetes/helm) is a tool for managing packages of pre-configured
@@ -33,13 +56,3 @@ Use Helm to:
 * Intelligently manage your Kubernetes manifest files
 * Manage releases of Helm packages
 
-### Kompose 
-
-[Kompose](https://github.com/kubernetes-incubator/kompose) is a tool to help users familiar with Docker Compose
-move to Kubernetes. 
-
-Use Kompose to:
-
-* Translate a Docker Compose file into Kubernetes objects
-* Go from local Docker development to managing your application via Kubernetes
-* Convert v1 or v2 Docker Compose `yaml` files or [Distributed Application Bundles](https://docs.docker.com/compose/bundles/)
