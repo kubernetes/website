@@ -17,7 +17,7 @@ assignees:
 
 <p><a href="/docs/getting-started-guides/">Picking the Right Solution</a> can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.</p>
 
-<p>Common ways to set up a Kubernetes cluster include:</p>
+<p>Other/newer ways to set up a Kubernetes cluster include:</p>
 <ul>
 <li><a href="/docs/getting-started-guides/minikube/">Minikube</a>: Install a single-node Kubernetes cluster on your local machine for development and testing.</li>
 <li><a href="/docs/getting-started-guides/kops/">Installing Kubernetes on AWS with kops</a>: Bring up a complete Kubernetes cluster on Amazon Web Services, using a tool called <code>kops</code>.</li>
@@ -28,10 +28,10 @@ assignees:
 
 <p>The Kubernetes documentation contains a number of resources to help you understand and work with Kubernetes.</p>
 <ul>
-<li><b><a href="/docs/tutorials/">Guides</a></b> provide background information on Kubernetes features along with some instructions and usage examples.</li>
-<li><b><a href="/docs/tutorials/">Tutorials</a></b> contain detailed walkthroughs of the Kubernetes workflow, both for working on existing Kubernetes clusters or setting up your own clusters.</li>
+<li><b><a href="/docs/guides/">Guides</a></b> provides documentation for Kubernetes features as well as administering and spinning up clusters, including usage examples.</li>
+<li><b><a href="/docs/tutorials/">Tutorials</a></b> contain detailed walkthroughs of the Kubernetes workflow.</li>
 <li><b><a href="/docs/tasks/">Tasks</a></b> contain step-by-step instructions for common Kubernetes tasks.</li>
-<li><b><a href="/docs/tutorials/">Concepts</a></b> provide a deep understanding of how Kubernetes works.</li>
+<li><b><a href="/docs/concepts/">Concepts</a></b> provide a deep understanding of how Kubernetes works.</li>
 </ul>
 
 <h2>API and Command References</h2>
