@@ -190,7 +190,7 @@
 			blurb: 'Jetstack is an organisation focused entirely on Kubernetes. They will help you to get the most out of Kubernetes through expert professional services and open source tooling. Get in touch, and accelerate your project.'
 		},
 		{
-			type: 1,
+			type: 0,
 			name: 'Tigera',
 			logo: 'tigera',
 			link: 'http://docs.projectcalico.org/v1.5/getting-started/kubernetes/',
