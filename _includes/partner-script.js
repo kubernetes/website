@@ -223,6 +223,13 @@
 			logo: 'jetstack',
 			link: 'https://www.jetstack.io/',
 			blurb: 'Jetstack is an organisation focused entirely on Kubernetes. They will help you to get the most out of Kubernetes through expert professional services and open source tooling. Get in touch, and accelerate your project.'
+		},
+		{
+			type: 1,
+			name: 'Skippbox',
+			logo: 'skippbox',
+			link: 'http://www.skippbox.com/services/',
+			blurb: 'Skippbox brings its Kubernetes expertise to help companies embrace Kubernetes on their way to digital transformation. Skippbox offers both professional services and expert training.'
 		}
 	]
 
