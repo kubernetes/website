@@ -28,7 +28,7 @@ assignees:
 
 <p>The Kubernetes documentation contains a number of resources to help you understand and work with Kubernetes.</p>
 <ul>
-<li><b><a href="/docs/guides/">Guides</a></b> provides documentation for Kubernetes features as well as administering and spinning up clusters, including usage examples.</li>
+<li><b><a href="/docs/user-guide/">Guides</a></b> provides documentation for Kubernetes features as well as administering and spinning up clusters, including usage examples.</li>
 <li><b><a href="/docs/tutorials/">Tutorials</a></b> contain detailed walkthroughs of the Kubernetes workflow.</li>
 <li><b><a href="/docs/tasks/">Tasks</a></b> contain step-by-step instructions for common Kubernetes tasks.</li>
 <li><b><a href="/docs/concepts/">Concepts</a></b> provide a deep understanding of how Kubernetes works.</li>
