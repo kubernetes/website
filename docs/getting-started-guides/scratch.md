@@ -381,7 +381,7 @@ The minimum version required is [v0.5.6](https://github.com/coreos/rkt/releases/
 minimum version required to match rkt v0.5.6 is
 [systemd 215](http://lists.freedesktop.org/archives/systemd-devel/2014-July/020903.html).
 
-[rkt metadata service](https://github.com/coreos/rkt/blob/master/Documentation/networking.md) is also required
+[rkt metadata service](https://github.com/coreos/rkt/blob/master/Documentation/networking/overview.md) is also required
 for rkt networking support.  You can start rkt metadata service by using command like
 `sudo systemd-run rkt metadata-service`
 
