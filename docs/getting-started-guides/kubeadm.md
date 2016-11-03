@@ -34,7 +34,7 @@ orchestration system (e.g. Puppet) that you have to integrate with.
 If you are not constrained, other tools build on kubeadm to give you complete clusters:
 
 * On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you turn-key Kubernetes
-* On AWS, [kops](kops) makes installation and cluster management easy (and supports high availability)
+* On AWS, [kops](https://github.com/kubernetes/kops) makes installation and cluster management easy (and supports high availability)
 
 ## Prerequisites
 
@@ -101,7 +101,7 @@ Note: `setenforce 0` will no longer be necessary on CentOS once [#33555](https:/
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 All of these components run in pods started by `kubelet`.
 
-Right now you can't run `kubeadm init` twice without turning down the cluster in between, see [Turndown](#turndown).
+Right now you can't run `kubeadm init` twice without tearing down the cluster in between, see [Tear down](#tear-down).
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 

@@ -83,8 +83,8 @@ to implement one of the above options:
   - Kubernetes supports the [CNI](https://github.com/containernetworking/cni) network plugin interface.
   - There are a number of solutions which provide plugins for Kubernetes: 
     - [Flannel](https://github.com/coreos/flannel)
-    - [Calico](http://https://github.com/projectcalico/calico-containers)
-    - [Weave](http://weave.works/)
+    - [Calico](https://github.com/projectcalico/calico-containers)
+    - [Weave](https://weave.works/)
     - [Romana](http://romana.io/)
     - [Open vSwitch (OVS)](http://openvswitch.org/)
     - [More found here](/docs/admin/networking#how-to-achieve-this)
