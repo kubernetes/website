@@ -3,19 +3,15 @@
 
 {% capture overview %}
 This page gives writing style guidelines for the Kubernetes documentation.  These are guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+
+For additional information on creating new content for Kubernetes, follow the instructions on [using page template](/docs/contribute/page-templates/) and creating a [creating a documentation pull request](/docs/contribute/create-pull-request/).
 {% endcapture %}
 
 {% capture body %}
 
-### Page templates
+## Documentation best practices
 
-Choose a
-[page template](/docs/contribute/page-templates/)
-that is a good fit for your content.
-
-### Present tense
-
-Use present tense.
+### Use present tense
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -25,9 +21,7 @@ Use present tense.
 Exception: Use future or past tense if it is required to convey the correct
 meaning.
 
-### Active voice
-
-Use active voice.
+### Use active voice
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -37,9 +31,9 @@ Use active voice.
 
 Exception: Use passive voice if active voice leads to an awkward construction.
 
-### Simple and direct
+### Use simple and direct language
 
-Use simple and direct language. Avoid saying "please."
+Use simple and direct language. Avoid using unnecessary phrases, such as saying "please."
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -57,14 +51,21 @@ Use simple and direct language. Avoid saying "please."
     <tr><td>In the preceding output, you can see...</td><td>In the preceding output, we can see ...</td></tr>
 </table>
 
-### Avoid referring to the Kubernetes developers as "we"
+
+## Documentation anti-patterns
+
+### Avoid using "we"
+
+Using "we" in a sentence can get very confusing, because the reader often doesn't know if they're part of the "we" you're describing. In most instances, you want to avoid using "we". 
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
   <tr><td>Version 1.4 includes ...</td><td>In version 1.4, we have added ...</td></tr>
+  <tr><td>Kubernetes provides a new feature for ...</td><td>We provide a new feature ...</td></tr>
+  <tr><td>In this page, we are going to learn about pods.</td><td>This page will teach you how to use pods.</td></tr>
 </table>
 
-### Jargon and idioms
+### Avoid jargon and idioms
 
 Some readers speak English as a second language. Avoid jargon and idioms to help make their understanding easier.
 
@@ -74,7 +75,25 @@ Some readers speak English as a second language. Avoid jargon and idioms to help
     <tr><td>Create a new cluster.</td><td>Turn up a new cluster.</td></tr>
 </table>
 
-### API objects
+### Avoid statements about the future
+
+Avoid making promises or giving hints about the future. If you need to talk about
+an alpha feature, put the text under a heading that identifies it as alpha
+information.
+
+### Be careful how you talk about time
+
+It's best to be explicit about time.  Avoid refering to features as "new" or using the word "currently". Content that mentions time in this way requires frequent updates.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>In version 1.4, ...</td><td>Currently, ...</td></tr>
+  <tr><td>With Federation, ...</td><td>With the new Federation feature, ...</td></tr>
+</table>
+
+## Documentation standards
+
+### Capitalize API objects
 
 Capitalize the names of API objects. Refer to API objects without saying
 "object."
@@ -85,7 +104,7 @@ Capitalize the names of API objects. Refer to API objects without saying
   <tr><td>The Deployment is responsible for ...</td><td>The Deployment object is responsible for ...</td></tr>
 </table>
 
-### Placeholders
+### Use angle brackets placeholders 
 
 Use angle brackets for placeholders. Tell the reader what a placeholder
 represents.
@@ -96,9 +115,7 @@ represents.
 
     where `<pod-name>` is the name of one of your pods.
 
-### Bold, italic, and code style
-
-Use bold for user interface elements.
+### Use bold for user interface elements
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -106,7 +123,7 @@ Use bold for user interface elements.
   <tr><td>Select <b>Other</b>.</td><td>Select 'Other'.</td></tr>
 </table>
 
-Use italic to define or introduce terms.
+### Use italics to define or introduce new term 
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -114,7 +131,7 @@ Use italic to define or introduce terms.
   <tr><td>These components form the <i>control plane.</i></td><td>These components form the <b>control plane.</b></td></tr>
 </table>
 
-Use ??? style for filenames and paths.
+### Use ??? style for filenames and paths
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -129,7 +146,7 @@ Use code style for inline code and commands.
   <tr><td>The <code>kubectl run</code> command creates a Deployment.</td><td>The "kubectl run" command creates a Deployment.</td></tr>
 </table>
 
-### Code snippets
+## Code snippet formatting
 
 Don't include the command prompt.
 
@@ -160,22 +177,6 @@ configuration file.
 
         export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
         kubectl create -f $REPO/docs/tasks/administer-cluster/pod.yaml
-
-### Statements about the present
-
-Don't assume that the document is being read in the same year that you wrote it.
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>In version 1.4, ...</td><td>Currently, ...</td></tr>
-  <tr><td>With Federation, ...</td><td>With the new Federation feature, ...</td></tr>
-</table>
-
-### Statements about the future
-
-Avoid making promises or giving hints about the future. If you need to talk about
-an alpha feature, put the text under a heading that identifies it as alph
-information.
 
 ### Word list
 
