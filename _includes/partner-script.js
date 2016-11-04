@@ -37,6 +37,27 @@
 		},
 		{
 			type: 0,
+			name: 'Cockroach Labs',
+			logo: 'cockroach_labs',
+			link: 'https://www.cockroachlabs.com/blog/running-cockroachdb-on-kubernetes/',
+			blurb: 'CockroachDB is a distributed SQL database whose built-in replication and survivability model pair with Kubernetes to truly make data easy.'
+		},
+		{
+			type: 0,
+			name: 'Skippbox',
+			logo: 'skippbox',
+			link: 'http://www.skippbox.com/tag/products/',
+			blurb: 'Creator of Cabin the first mobile application for Kubernetes, and kompose. Skippbox’s solutions distill all the power of k8s in simple easy to use interfaces.'
+		},
+		{
+			type: 0,
+			name: 'Weave Works',
+			logo: 'weave_works',
+			link: ' https://weave.works/kubernetes',
+			blurb: 'Weaveworks enables Developers and Dev/Ops teams to easily connect, deploy, secure, manage, and troubleshoot microservices in Kubernetes.'
+		},
+		{
+			type: 0,
 			name: 'Wercker',
 			logo: 'wercker',
 			link: 'http://wercker.com/workflows/partners/kubernetes/',
@@ -141,6 +162,20 @@
 			blurb: 'Diamanti deploys containers with guaranteed performance using Kubernetes in the first hyperconverged appliance purpose built for containerized applications.'
 		},
 		{
+			type: 0,
+			name: 'Apprenda',
+			logo: 'apprenda',
+			link: 'https://apprenda.com/kubernetes-support/',
+			blurb: 'Apprenda creates and supports modern, enterprise-ready application platforms for both cloud native and traditional application workloads.'
+		},
+		{
+			type: 0,
+			name: 'Aporeto',
+			logo: 'aporeto',
+			link: 'https://aporeto.com/trireme',
+			blurb: 'Aporeto makes cloud-native applications secure by default without impacting developer velocity and works at any scale, on any cloud.'
+		},
+		{
 			type: 1,
 			name: 'Apprenda',
 			logo: 'apprenda',
@@ -190,11 +225,18 @@
 			blurb: 'Jetstack is an organisation focused entirely on Kubernetes. They will help you to get the most out of Kubernetes through expert professional services and open source tooling. Get in touch, and accelerate your project.'
 		},
 		{
-			type: 1,
+			type: 0,
 			name: 'Tigera',
 			logo: 'tigera',
 			link: 'http://docs.projectcalico.org/v1.5/getting-started/kubernetes/',
 			blurb: 'Tigera builds high performance, policy driven, cloud native networking solutions for Kubernetes.'
+		},
+		{
+			type: 1,
+			name: 'Skippbox',
+			logo: 'skippbox',
+			link: 'http://www.skippbox.com/services/',
+			blurb: 'Skippbox brings its Kubernetes expertise to help companies embrace Kubernetes on their way to digital transformation. Skippbox offers both professional services and expert training.'
 		}
 	]
 
