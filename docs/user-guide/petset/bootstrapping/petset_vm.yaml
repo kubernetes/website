@@ -27,7 +27,7 @@ spec:
         app: ub
       annotations:
         pod.alpha.kubernetes.io/initialized: "true"
-        pod.alpha.kubernetes.io/init-containers: '[
+        pod.beta.kubernetes.io/init-containers: '[
             {
                 "name": "rootfs",
                 "image": "ubuntu:15.10",
