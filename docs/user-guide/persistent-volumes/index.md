@@ -419,6 +419,35 @@ parameters:
 
 * `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
 
+#### Ceph RBD
+
+```yaml
+  apiVersion: storage.k8s.io/v1beta1
+  kind: StorageClass
+  metadata:
+    name: fast
+  provisioner: kubernetes.io/rbd
+  parameters:
+    monitors: 10.16.153.105:6789
+    adminId: kube
+    adminSecretName: ceph-secret
+    adminSecretNamespace: kube-system
+    pool: kube
+    userId: kube
+    userSecretName: ceph-secret-user
+```
+
+* `monitors`: Ceph monitors, comma delimited. This parameter is required.
+* `adminId`: Ceph client ID that is capable of creating images in the pool. Default is "admin".
+* `adminSecretNamespace`: The namespace for `adminSecret`. Default is "default".
+* `adminSecret`: Secret Name for `adminId`. This parameter is required. The provided secret must have type "kubernetes.io/rbd".
+* `pool`: Ceph RBD pool. Default is "rbd".
+* `userId`: Ceph client ID that is used to map the RBD image. Default is the same as `adminId`.
+* `userSecretName`: The name of Ceph Secret for `userId` to map RBD image. It must exist in the same namespace as PVCs. This parameter is required. The provided secret must have type "kubernetes.io/rbd", e.g. created in this way:
+  ```
+  $ kubectl create secret ceph-secret --type="kubernetes.io/rbd" --from-literal=key='QVFEQ1pMdFhPUnQrSmhBQUFYaERWNHJsZ3BsMmNjcDR6RFZST0E9PQ==' --namespace=kube-system
+  ```
+
 ## Writing Portable Configuration
 
 If you're writing configuration templates or examples that run on a wide range of clusters
