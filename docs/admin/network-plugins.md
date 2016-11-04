@@ -42,6 +42,8 @@ If there are multiple CNI configuration files in the directory, the first one in
 
 In addition to the CNI plugin specified by the configuration file, Kubernetes requires the standard CNI [`lo`](https://github.com/containernetworking/cni/blob/master/plugins/main/loopback/loopback.go) plugin, at minimum version 0.2.0
 
+Limitation: Due to [#31307](https://github.com/kubernetes/kubernetes/issues/31307), `HostPort` won't work with CNI networking plugin at the moment. That means all `hostPort` attribute in pod would be simply ignored.
+
 ### kubenet
 
 Kubenet is a very basic, simple network plugin, on Linux only.  It does not, of itself, implement more advanced features like cross-node networking or network policy.  It is typically used together with a cloud provider that sets up routing rules for communication between nodes, or in single-node environments.
