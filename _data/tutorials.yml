@@ -1,4 +1,5 @@
 bigheader: "Tutorials"
+abstract: "Detailed walkthroughs of common Kubernetes operations and workflows."
 toc:
 - title: Tutorials
   path: /docs/tutorials/
