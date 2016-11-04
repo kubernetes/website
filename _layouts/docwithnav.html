@@ -11,13 +11,14 @@
   <h5>{{ site.data[foundTOC].abstract }}</h5>
   <div id="vendorStrip" class="light-text">
     <ul>
-      <li><a href="/docs/" {% if site.data[foundTOC].bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
+      <li><a href="/docs/" {% if site.data[foundTOC].bigheader == "Kubernetes Documentation" %}class="YAH"{% endif %}>DOCS HOME</a></li>
+      <li><a href="/docs/user-guide/" {% if site.data[foundTOC].bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
       <li><a href="/docs/tutorials/" {% if site.data[foundTOC].bigheader == "Tutorials" %}class="YAH"{% endif %}>TUTORIALS</a></li>
       <li><a href="/docs/tasks/" {% if site.data[foundTOC].bigheader == "Tasks" %}class="YAH"{% endif %}>TASKS</a></li>
       <li><a href="/docs/concepts/" {% if site.data[foundTOC].bigheader == "Concepts" %}class="YAH"{% endif %}>CONCEPTS</a></li>
-      <li><a href="/docs/reference" {% if site.data[foundTOC].bigheader == "Reference Documentation" %}class="YAH"{% endif %}>REFERENCE</a></li>
-      <li><a href="/docs/tools" {% if site.data[foundTOC].bigheader == "Tools" %}class="YAH"{% endif %}>TOOLS</a></li>
-      <li><a href="/docs/samples" {% if site.data[foundTOC].bigheader == "Samples" %}class="YAH"{% endif %}>SAMPLES</a></li>
+      <li><a href="/docs/reference/" {% if site.data[foundTOC].bigheader == "Reference Documentation" %}class="YAH"{% endif %}>REFERENCE</a></li>
+      <li><a href="/docs/tools/" {% if site.data[foundTOC].bigheader == "Tools" %}class="YAH"{% endif %}>TOOLS</a></li>
+      <li><a href="/docs/samples/" {% if site.data[foundTOC].bigheader == "Samples" %}class="YAH"{% endif %}>SAMPLES</a></li>
       <li><a href="/docs/troubleshooting/" {% if site.data[foundTOC].bigheader == "Support" %}class="YAH"{% endif %}>SUPPORT</a></li>
     </ul>
     <div id="searchBox">
@@ -29,7 +30,9 @@
 <section id="encyclopedia">
   <div id="docsToc">
         <div class="pi-accordion">
+        {% if site.data[foundTOC].bigheader != "Kubernetes Documentation" %}
         {% assign tree = site.data[foundTOC].toc %}{% include tree.html %}
+        {% endif %}
         </div> <!-- /pi-accordion -->
     <button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
   </div> <!-- /docsToc -->
