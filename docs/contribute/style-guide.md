@@ -2,7 +2,7 @@
 ---
 
 {% capture overview %}
-This page gives writing style guidelines for the Kubernetes documentation.
+This page gives writing style guidelines for the Kubernetes documentation.  These are guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 {% endcapture %}
 
 {% capture body %}
@@ -66,7 +66,7 @@ Use simple and direct language. Avoid saying "please."
 
 ### Jargon and idioms
 
-Some readers speak English as a second language. Avoid jargon and idioms.
+Some readers speak English as a second language. Avoid jargon and idioms to help make their understanding easier.
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
