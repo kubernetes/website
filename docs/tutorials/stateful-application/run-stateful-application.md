@@ -4,15 +4,15 @@
 {% capture overview %}
 
 This page shows you how to run a single-instance stateful application
-in Kubernetes using a Persistent Volume and a Deployment object. The
-application we will use is MySQL.
+in Kubernetes using a PersistentVolume and a Deployment. The
+application is MySQL.
 
 {% endcapture %}
 
 
 {% capture objectives %}
 
-* Create a Persistent Volume object referencing a disk in your environment.
+* Create a PersistentVolume referencing a disk in your environment.
 * Create a MySQL Deployment.
 * Expose MySQL to other pods in the cluster at a known DNS name.
 
@@ -21,50 +21,36 @@ application we will use is MySQL.
 
 {% capture prerequisites %}
 
-* To do this tutorial, you need a Kubernetes cluster, including a running
-  Kubernetes API server. You can use an existing cluster, or you can create a
-  new cluster. One way to create a new cluster is to use
-  [Minikube](/docs/getting-started-guides/minikube).
-
-* You also need to have `kubectl` installed on your local machine, and `kubectl`
-  must be configured to communicate with your Kubernetes API server. This
-  configuration is done automatically if you use Minikube.
-
-* For data persistence we will create a Persistent Volume that
-  references a disk in your
-  environment. See
-  [here](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes) for
-  the types of environments supported. This Tutorial will demonstrate
-  `GCEPersistentDisk` but any type will work. `GCEPersistentDisk`
-  volumes only work on Google Compute Engine.
+* {% include task-tutorial-prereqs.md %}
 
 {% endcapture %}
 
 
 {% capture lessoncontent %}
 
-### Setup a disk in your environment
+### Set up a disk in your environment
 
-You can use any type of persistent volume for you stateful app. See
-[here](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes) for
-a list of supported environment disks. For Google Compute Engine, run:
+You can use any type of persistent volume for your stateful app. See
+[Types of Persistent Volumes](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes)
+for a list of supported environment disks. For Google Compute Engine, run:
 
 ```
 gcloud compute disks create --size=20GB mysql-disk
 ```
 
-Next create a Persistent Volume object that points to the `mysql-disk`
-disk just created. Here is the config used for the GCE disk above:
+Next create a PersistentVolume that points to the `mysql-disk`
+disk just created. Here is a configuration file for a PersistentVolume
+that points to the Compute Engine disk above:
 
 {% include code.html language="yaml" file="gce-volume.yaml" ghlink="/docs/tutorials/stateful-application/gce-volume.yaml" %}
 
 Notice that the `pdName: mysql-disk` line matches the name of the disk
-in the GCE environment. See the
-[PV Docs](/docs/user-guide/persistent-volumes/)
-for details on writing a Persistent Volume config for other
+in the Compute Engine environment. See the
+[Persistent Volumes](/docs/user-guide/persistent-volumes/)
+for details on writing a PersistentVolume configuration file for other
 environments.
 
-Create with:
+Create the persistent volume:
 
 ```
 kubectl create -f http://k8s.io/docs/tutorials/stateful-application/gce-volume.yaml
@@ -74,20 +60,19 @@ kubectl create -f http://k8s.io/docs/tutorials/stateful-application/gce-volume.y
 ### Deploy MySQL
 
 You can run a stateful application by creating a Kubernetes Deployment
-object, and connecting it to an existing Persistent Volume using a
-Persistent Volume Claim.  For example, this YAML file describes a
-Deployment that runs MySQL and references the PVC. Note that we've
-defined a volume mount for /var/lib/mysql, and then created a
-Persistent Volume Claim that looks for a 20G volume. This claim is
-satisfied by any volume that meets the requirements, in our case the
-volume we created above.
+and connecting it to an existing PersistentVolume using a
+PersistentVolumeClaim.  For example, this YAML file describes a
+Deployment that runs MySQL and references the PersistentVolumeClaim. The file
+defines a volume mount for /var/lib/mysql, and then creates a
+PersistentVolumeClaim that looks for a 20G volume. This claim is
+satisfied by any volume that meets the requirements, in this case, the
+volume created above.
 
-Note: The password is defined in the config yaml. This is insecure,
-please look into
+Note: The password is defined in the config yaml, and this is insecure. See
 [Kubernetes Secrets](/docs/user-guide/secrets/)
 for a secure solution.
 
-{% include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tutorials/stateful-application/mysql-deployment.yaml" %}
+{% include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tutorials/stateful-application/mysql-deployment.yaml" %
 
 1. Deploy the contents of the YAML file:
 
@@ -112,13 +97,14 @@ for a secure solution.
           ---------	--------	-----	----				-------------	--------	------			-------
           33s		33s		1	{deployment-controller }			Normal		ScalingReplicaSet	Scaled up replica set mysql-63082529 to 1
 
-1. List the pods created by the deployment:
+1. List the pods created by the Deployment:
 
         kubectl get pods -l app=mysql
 
         NAME                   READY     STATUS    RESTARTS   AGE
         mysql-63082529-2z3ki   1/1       Running   0          3m
-2. Inspect the PV and PVC:
+        
+1. Inspect the Persistent Volume:
 
         kubectl describe pv mysql-pv
 
@@ -138,6 +124,8 @@ for a secure solution.
             ReadOnly:	false
         No events.
 
+1. Inspect the PersistentVolumeClaim:
+
         kubectl describe pvc mysql-pv-claim
 
         Name:		mysql-pv-claim
@@ -151,11 +139,11 @@ for a secure solution.
 
 ### Accessing the MySQL instance
 
-Look at the config yaml above. We have created a service that will
-allow other cluster pods to access the database. The service option
-`clusterIP: None` lets the service DNS name resolve directly to the
-Pod's IP address. This is optimal when you will only ever have 1 Pod
-behind a service.
+The preceding YAML file creates a service that
+allows other Pods in the cluster to access the database. The Service option
+`clusterIP: None` lets the Service DNS name resolve directly to the
+Pod's IP address. This is optimal when you have only one Pod
+behind a Service and you don't intend to increase the number of Pods.
 
 Run a MySQL client to connect to the server:
 
@@ -163,9 +151,9 @@ Run a MySQL client to connect to the server:
 kubectl run -it --rm --image=mysql:5.6 mysql-client -- mysql -h mysql -ppassword
 ```
 
-This command creates a new pod in the cluster running a mysql client
-and connects it to the server through the service. If it connects, you
-know your stateful MySQL db is up and running.
+This command creates a new Pod in the cluster running a mysql client
+and connects it to the server through the Service. If it connects, you
+know your stateful MySQL database is up and running.
 
 ```
 Waiting for pod default/mysql-client-274442439-zyp6i to be running, status is Pending, pod ready: false
@@ -176,18 +164,18 @@ mysql>
 
 ### Updating
 
-The image or any other part of the deployment can be updated as usual
-with the `kubectl apply` command. Some precautions to take that are
-specific to stateful apps are:
+The image or any other part of the Deployment can be updated as usual
+with the `kubectl apply` command. Here are some precautions that are
+specific to stateful apps:
 
 * Don't scale the app. This setup is for single-instance apps
-  only. The underlying persistent volume can only be mounted to one
-  pod. For clustered stateful apps, see the
+  only. The underlying PersistentVolume can only be mounted to one
+  Pod. For clustered stateful apps, see the
   [StatefulSet documentation](/docs/user-guide/petset/).
-* Use `strategy:` `type: Recreate` in the Deployment config
-  yaml. This instructs Kubernetes to _not_ use rolling
+* Use `strategy:` `type: Recreate` in the Deployment configuration
+  YAML file. This instructs Kubernetes to _not_ use rolling
   updates. Rolling updates will not work, as you cannot have more than
-  one pod running at a time. The `Recreate` strategy will stop the
+  one Pod running at a time. The `Recreate` strategy will stop the
   first pod before creating a new one with the updated configuration.
 
 ### Deleting a deployment
@@ -200,7 +188,7 @@ kubectl delete pvc mysql-pv-claim
 kubectl delete pv mysql-pv
 ```
 
-Also, if you are using GCE disks:
+Also, if you are using Compute Engine disks:
 
 ```
 gcloud compute disks delete mysql-disk
