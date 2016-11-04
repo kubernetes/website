@@ -367,6 +367,12 @@ option to the API server during startup. The plugin is implemented in
 `plugin/pkg/auth/authenticator/password/keystone/keystone.go` and currently uses
 basic auth to verify used by username and password.
 
+If you have configured self-signed certificates for Keystone server,
+`--experimental-keystone-ca-file=SOMEFIlE` option may be needed during the startup
+of the API server. If set, the Keystone server's certificate will be verified by
+one of the authorities in the `experimental-keystone-ca-file`, otherwise
+the host's root CA set will be used.
+
 For details on how to use keystone to manage projects and users, refer to the
 [Keystone documentation](http://docs.openstack.org/developer/keystone/). Please
 note that this plugin is still experimental, under active development, and likely
