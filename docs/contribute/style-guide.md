@@ -9,7 +9,95 @@ For additional information on creating new content for Kubernetes, follow the in
 
 {% capture body %}
 
-## Documentation best practices
+## Documentation formatting standards
+
+The following sections detail how to format API objects, code snippets, 
+
+### Capitalize API objects
+
+Capitalize the names of API objects. Refer to API objects without saying
+"object."
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>The Pod has two Containers.</td><td>The pod has two containers.</td></tr>
+  <tr><td>The Deployment is responsible for ...</td><td>The Deployment object is responsible for ...</td></tr>
+</table>
+
+### Use angle brackets placeholders 
+
+Use angle brackets for placeholders. Tell the reader what a placeholder
+represents.
+
+1. Display information about a pod:
+
+        kubectl describe pod <pod-name>
+
+    where `<pod-name>` is the name of one of your pods.
+
+### Use bold for user interface elements
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Click <b>Fork</b>.</td><td>Click "Fork".</td></tr>
+  <tr><td>Select <b>Other</b>.</td><td>Select 'Other'.</td></tr>
+</table>
+
+### Use italics to define or introduce new terms
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>A <i>cluster</i> is a set of nodes ...</td><td>A "cluster" is a set of nodes ...</td></tr>
+  <tr><td>These components form the <i>control plane.</i></td><td>These components form the <b>control plane.</b></td></tr>
+</table>
+
+### Use ??? style for filenames and paths
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>TODO</td><td>TODO</td></tr>
+</table>
+
+## Code snippet formatting
+
+### Use code style for inline code and commands.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Set the value of the <code>replicas</code> field in the configuration file.</td><td>Set the value of the "replicas" field in the configuration file.</td></tr>
+  <tr><td>The <code>kubectl run</code> command creates a Deployment.</td><td>The "kubectl run" command creates a Deployment.</td></tr>
+</table> 
+
+### Don't include the command prompt.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>kubectl get pods</td><td>$ kubectl get pods</td></tr>
+</table>
+
+### Separate commands from output.
+
+Verify that the pod is running on your chosen node:
+
+        kubectl get pods --output=wide
+
+    The output is similar to this:
+
+        NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
+        nginx    1/1       Running   0          13s    10.200.0.4   worker0
+
+## Kubernetes.io word list
+
+A list of Kubernetes-specific terms and words to be used consistently across the site. 
+<table>
+  <tr><th>Term</th><th>Useage</th></tr>
+  <tr><td>TBD</td><td>TBD</td></tr>
+</table>
+
+
+## Content best practices
+
+This section contains the suggested best practices for clear, concise, consistent content. 
 
 ### Use present tense
 
@@ -52,7 +140,7 @@ Use simple and direct language. Avoid using unnecessary phrases, such as saying 
 </table>
 
 
-## Documentation anti-patterns
+## Content anti-patterns
 
 ### Avoid using "we"
 
@@ -80,110 +168,6 @@ Some readers speak English as a second language. Avoid jargon and idioms to help
 Avoid making promises or giving hints about the future. If you need to talk about
 an alpha feature, put the text under a heading that identifies it as alpha
 information.
-
-### Be careful how you talk about time
-
-It's best to be explicit about time.  Avoid refering to features as "new" or using the word "currently". Content that mentions time in this way requires frequent updates.
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>In version 1.4, ...</td><td>Currently, ...</td></tr>
-  <tr><td>With Federation, ...</td><td>With the new Federation feature, ...</td></tr>
-</table>
-
-## Documentation standards
-
-### Capitalize API objects
-
-Capitalize the names of API objects. Refer to API objects without saying
-"object."
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>The Pod has two Containers.</td><td>The pod has two containers.</td></tr>
-  <tr><td>The Deployment is responsible for ...</td><td>The Deployment object is responsible for ...</td></tr>
-</table>
-
-### Use angle brackets placeholders 
-
-Use angle brackets for placeholders. Tell the reader what a placeholder
-represents.
-
-1. Display information about a pod:
-
-        kubectl describe pod <pod-name>
-
-    where `<pod-name>` is the name of one of your pods.
-
-### Use bold for user interface elements
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>Click <b>Fork</b>.</td><td>Click "Fork".</td></tr>
-  <tr><td>Select <b>Other</b>.</td><td>Select 'Other'.</td></tr>
-</table>
-
-### Use italics to define or introduce new term 
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>A <i>cluster</i> is a set of nodes ...</td><td>A "cluster" is a set of nodes ...</td></tr>
-  <tr><td>These components form the <i>control plane.</i></td><td>These components form the <b>control plane.</b></td></tr>
-</table>
-
-### Use ??? style for filenames and paths
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>TODO</td><td>TODO</td></tr>
-</table>
-
-Use code style for inline code and commands.
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>Set the value of the <code>replicas</code> field in the configuration file.</td><td>Set the value of the "replicas" field in the configuration file.</td></tr>
-  <tr><td>The <code>kubectl run</code> command creates a Deployment.</td><td>The "kubectl run" command creates a Deployment.</td></tr>
-</table>
-
-## Code snippet formatting
-
-Don't include the command prompt.
-
-<table>
-  <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>kubectl get pods</td><td>$ kubectl get pods</td></tr>
-</table>
-
-Separate commands from output.
-
-1. Verify that the pod is running on your chosen node:
-
-        kubectl get pods --output=wide
-
-    The output is similar to this:
-
-        NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
-        nginx    1/1       Running   0          13s    10.200.0.4   worker0
-
-### Configuration files
-
-Put configuration files in the documentation repository near the topics that
-use them. Use a `REPO` environment variable and a path to refer to a
-configuration file.
-
-1. Use the configuration file to create a pod that will get scheduled on your
-   chosen node:
-
-        export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
-        kubectl create -f $REPO/docs/tasks/administer-cluster/pod.yaml
-
-### Word list
-
-* frontend: Use as an adjective.
-* front end: Use as a noun.
-* backend: Use as an adjective.
-* back end: Use as a noun.
 
 {% endcapture %}
 
