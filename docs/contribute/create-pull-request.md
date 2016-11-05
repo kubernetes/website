@@ -1,6 +1,4 @@
 ---
-redirect_from:
-  - /editdocs/
 ---
 
 {% capture overview %}
