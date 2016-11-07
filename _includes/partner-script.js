@@ -23,6 +23,13 @@
 		},
 		{
 			type: 0,
+			name: 'Mirantis',
+			logo: 'mirantis',
+			link: 'https://content.mirantis.com/Containerizing-OpenStack-on-Kubernetes-Video-Landing-Page.html',
+			blurb: 'Mirantis builds and manages private clouds with open source software such as OpenStack, deployed as containers orchestrated by Kubernetes.'
+		},
+		{
+			type: 0,
 			name: 'Puppet',
 			logo: 'puppet',
 			link: 'https://puppet.com/blog/managing-kubernetes-configuration-puppet',
