@@ -44,7 +44,7 @@ choose the
 [page type](/docs/contribute/page-templates/)
 that is the best fit for your content.
 
-### Submitting a pull request to the master branch
+### Submitting a pull request to the master branch (Current Release)
 
 If you want your change to be published in the released version Kubernetes docs,
 create a pull request against the master branch of the Kubernetes
@@ -62,7 +62,7 @@ site where you can verify that your changes have rendered correctly.
 If needed, revise your pull request by committing changes to your
 new branch in your fork.
 
-### Submitting a pull request to the &lt;vnext&gt; branch
+### Submitting a pull request to the &lt;vnext&gt; branch (Upcoming Release)
 
 If your documentation change should not be released until the next release of
 the Kubernetes product, create a pull request against the &lt;vnext&gt; branch
