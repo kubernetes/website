@@ -23,6 +23,14 @@ application is MySQL.
 
 * {% include task-tutorial-prereqs.md %}
 
+* For data persistence we will create a Persistent Volume that
+  references a disk in your
+  environment. See
+  [here](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes) for
+  the types of environments supported. This Tutorial will demonstrate
+  `GCEPersistentDisk` but any type will work. `GCEPersistentDisk`
+  volumes only work on Google Compute Engine.
+
 {% endcapture %}
 
 
