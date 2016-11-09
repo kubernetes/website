@@ -1,5 +1,5 @@
 apiVersion: batch/v2alpha1
-kind: ScheduledJob
+kind: CronJob
 metadata:
   name: hello
 spec:
