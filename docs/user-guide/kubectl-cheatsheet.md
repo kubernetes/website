@@ -141,7 +141,7 @@ $ kubectl rolling-update frontend-v1 frontend-v2 --rollback        # Abort exist
 $ cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin
 
 # Force replace, delete and then re-create the resource. Will cause a service outage.
-$ kubectl replace --force -f ./pod.json                            
+$ kubectl replace --force -f ./pod.json
 
 # Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000
 $ kubectl expose rc nginx --port=80 --target-port=8000
@@ -251,7 +251,7 @@ Resource type   | Abbreviated alias
 `replicasets` |`rs`
 `replicationcontrollers` |`rc`
 `resourcequotas` |`quota`
-`scheduledjob` |
+`cronjob` |
 `secrets` |
 `serviceaccount` |`sa`
 `services` |`svc`
