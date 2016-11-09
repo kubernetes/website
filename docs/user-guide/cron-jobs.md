@@ -9,18 +9,21 @@ assignees:
 * TOC
 {:toc}
 
-## What is a _Scheduled Job_?
+## What is a _Cron Job_?
 
-A _Scheduled Job_ manages time based [Jobs](/docs/user-guide/jobs/), namely:
+A _Cron Job_ manages time based [Jobs](/docs/user-guide/jobs/), namely:
 
 * Once at a specified point in time
 * Repeatedly at a specified point in time
 
-One ScheduledJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
+One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
-NOTE: The question mark (`?`) in the schedule has the same meaning as an asterisk `*`,
+**Note:**: The question mark (`?`) in the schedule has the same meaning as an asterisk `*`,
 that is, it stands for any of available value for a given field.
+
+**Note:**: ScheduledJob resource was introduced in Kubernetes version 1.4, but starting
+from version 1.5 its current name is CronJob.
 
 A typical use case is:
 
@@ -29,36 +32,36 @@ A typical use case is:
 
 ### Prerequisites
 
-You need a working Kubernetes cluster at version >= 1.4, with batch/v2alpha1 API turned on by passing
-`--runtime-config=batch/v2alpha1` while bringing up the API server (see [Turn on or off an API version
-for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster) for
-more). You cannot use Scheduled Jobs on a hosted Kubernetes provider that has disabled alpha resources.
+You need a working Kubernetes cluster at version >= 1.4 (for ScheduledJob), >= 1.5 (for CronJobs),
+with batch/v2alpha1 API turned on by passing `--runtime-config=batch/v2alpha1` while bringing up
+the API server (see [Turn on or off an API version for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
+for more). You cannot use Cron Jobs on a hosted Kubernetes provider that has disabled alpha resources.
 
-## Creating a Scheduled Job
+## Creating a Cron Job
 
-Here is an example Scheduled Job. Every minute, it runs a simple job to print current time and then say
+Here is an example Cron Job. Every minute, it runs a simple job to print current time and then say
 hello.
 
-{% include code.html language="yaml" file="sj.yaml" ghlink="/docs/user-guide/sj.yaml" %}
+{% include code.html language="yaml" file="cronjob.yaml" ghlink="/docs/user-guide/cronjob.yaml" %}
 
-Run the example scheduled job by downloading the example file and then running this command:
+Run the example cron job by downloading the example file and then running this command:
 
 ```shell
-$ kubectl create -f ./sj.yaml
-scheduledjob "hello" created
+$ kubectl create -f ./cronjob.yaml
+cronjob "hello" created
 ```
 
-Alternatively, use `kubectl run` to create a scheduled job without writing full config:
+Alternatively, use `kubectl run` to create a cron job without writing full config:
 
 ```shell
 $ kubectl run hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
-scheduledjob "hello" created
+cronjob "hello" created
 ```
 
-After creating the scheduled job, get its status using this command:
+After creating the cron job, get its status using this command:
 
 ```shell
-$ kubectl get scheduledjob hello
+$ kubectl get cronjob hello
 NAME      SCHEDULE      SUSPEND   ACTIVE    LAST-SCHEDULE
 hello     */1 * * * *   False     0         <none>
 ```
@@ -73,10 +76,10 @@ NAME               DESIRED   SUCCESSFUL   AGE
 hello-4111706356   1         1         2s
 ```
 
-Now you've seen one running job scheduled by "hello". We can stop watching it and get the scheduled job again:
+Now you've seen one running job scheduled by "hello". We can stop watching it and get the cron job again:
 
 ```shell
-$ kubectl get scheduledjob hello
+$ kubectl get cronjob hello
 NAME      SCHEDULE      SUSPEND   ACTIVE    LAST-SCHEDULE
 hello     */1 * * * *   False     0         Mon, 29 Aug 2016 14:34:00 -0700
 ```
@@ -99,17 +102,17 @@ Mon Aug 29 21:34:09 UTC 2016
 Hello from the Kubernetes cluster
 ```
 
-## Deleting a Scheduled Job
+## Deleting a Cron Job
 
-Once you don't need a scheduled job anymore, simply delete it with `kubectl`:
+Once you don't need a cron job anymore, simply delete it with `kubectl`:
 
 ```shell
-$ kubectl delete scheduledjob hello
-scheduledjob "hello" deleted
+$ kubectl delete cronjob hello
+cronjob "hello" deleted
 ```
 
 This stops new jobs from being created. However, running jobs won't be stopped, and no jobs or their pods will
-be deleted. To clean up those jobs and pods, you need to list all jobs created by the scheduled job, and delete them all:
+be deleted. To clean up those jobs and pods, you need to list all jobs created by the cron job, and delete them all:
 
 ```shell
 $ kubectl get jobs
@@ -124,29 +127,29 @@ job "hello-1202039034" deleted
 ...
 ```
 
-Once the jobs are deleted, the pods created by them are deleted as well. Note that all jobs created by scheduled
+Once the jobs are deleted, the pods created by them are deleted as well. Note that all jobs created by cron
 job "hello" will be prefixed "hello-". You can delete them at once with `kubectl delete jobs --all`, if you want to
 delete all jobs in the current namespace (not just the ones created by "hello".)
 
-## Scheduled Job Limitations
+## Cron Job Limitations
 
-A scheduled job creates a job object _about_ once per execution time of its schedule. We say "about" because there
+A cron job creates a job object _about_ once per execution time of its schedule. We say "about" because there
 are certain circumstances where two jobs might be created, or no job might be created. We attempt to make these rare,
 but do not completely prevent them. Therefore, jobs should be _idempotent_.
 
 The job is responsible for retrying pods, parallelism among pods it creates, and determining the success or failure
-of the set of pods. A scheduled job does not examine pods at all.
+of the set of pods. A cron job does not examine pods at all.
 
-## Writing a Scheduled Job Spec
+## Writing a Cron Job Spec
 
-As with all other Kubernetes configs, a scheduled job needs `apiVersion`, `kind`, and `metadata` fields. For general
+As with all other Kubernetes configs, a cron job needs `apiVersion`, `kind`, and `metadata` fields. For general
 information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications),
 [configuring containers](/docs/user-guide/configuring-containers), and
 [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
 
-A scheduled job also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
+A cron job also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
 
-**Note:** All modifications to a scheduled job, especially its `.spec`, will be applied only to the next run.
+**Note:** All modifications to a cron job, especially its `.spec`, will be applied only to the next run.
 
 ### Schedule
 
@@ -168,14 +171,14 @@ there's no deadline.
 ### Concurrency Policy
 
 The `.spec.concurrencyPolicy` field is also optional. It specifies how to treat concurrent executions of a job
-created by this scheduled job. Only one of the following concurrent policies may be specified:
+created by this cron job. Only one of the following concurrent policies may be specified:
 
 * `Allow` (default): allows concurrently running jobs
 * `Forbid`: forbids concurrent runs, skipping next run if previous hasn't finished yet
 * `Replace`: cancels currently running job and replaces it with a new one
 
-Note that concurrency policy only applies to the jobs created by the same scheduled job. If there are multiple
-scheduled jobs, their respective jobs are always allowed to run concurrently.
+Note that concurrency policy only applies to the jobs created by the same cron job. If there are multiple
+cron jobs, their respective jobs are always allowed to run concurrently.
 
 ### Suspend
 
