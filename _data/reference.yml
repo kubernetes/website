@@ -40,13 +40,13 @@ toc:
     path: /docs/api-reference/batch/v1/operations/
   - title: Batch API Definitions
     path: /docs/api-reference/batch/v1/definitions/
-    
+
 - title: Extensions API
   section:
   - title: Extensions API Operations
     path: /docs/api-reference/extensions/v1beta1/operations/
   - title: Extensions API Definitions
-    path: /docs/api-reference/extensions/v1beta1/definitions/    
+    path: /docs/api-reference/extensions/v1beta1/definitions/
 
 - title: kubectl CLI
   section:
@@ -172,7 +172,7 @@ toc:
   - title: kube-apiserver
     path: /docs/admin/kube-apiserver/
   - title: kube-controller-manager
-    path: /docs/admin/kube-controller-manager/    
+    path: /docs/admin/kube-controller-manager/
   - title: kube-proxy
     path: /docs/admin/kube-proxy/
   - title: kube-scheduler
@@ -183,33 +183,33 @@ toc:
 - title: Glossary
   section:
   - title: Annotations
-    path: /docs/user-guide/annotations/  
+    path: /docs/user-guide/annotations/
   - title: Daemon Sets
     path: /docs/admin/daemons/
-  - title: Deployments    
+  - title: Deployments
     path: /docs/user-guide/deployments/
   - title: Horizontal Pod Autoscaling
-    path: /docs/user-guide/horizontal-pod-autoscaling/    
+    path: /docs/user-guide/horizontal-pod-autoscaling/
   - title: Images
     path: /docs/user-guide/images/
   - title: Ingress Resources
-    path: /docs/user-guide/ingress/    
+    path: /docs/user-guide/ingress/
   - title: Jobs
-    path: /docs/user-guide/jobs/    
+    path: /docs/user-guide/jobs/
   - title: Labels and Selectors
     path: /docs/user-guide/labels/
   - title: Names
     path: /docs/user-guide/identifiers/
   - title: Namespaces
     path: /docs/user-guide/namespaces/
-  - title: Network Policies 
-    path: /docs/user-guide/networkpolicies/    
+  - title: Network Policies
+    path: /docs/user-guide/networkpolicies/
   - title: Nodes
-    path: /docs/admin/node/    
+    path: /docs/admin/node/
   - title: Persistent Volumes
-    path: /docs/user-guide/persistent-volumes/    
+    path: /docs/user-guide/persistent-volumes/
   - title: Pet Sets
-    path: /docs/user-guide/petset/    
+    path: /docs/user-guide/petset/
   - title: Pods
     path: /docs/user-guide/pods/
   - title: Pod Security Policies
@@ -217,11 +217,11 @@ toc:
   - title: Replica Sets
     path: /docs/user-guide/replicasets/
   - title: Replication Controller
-    path: /docs/user-guide/replication-controller/    
+    path: /docs/user-guide/replication-controller/
   - title: Resource Quotas
-    path: /docs/admin/resource-quota/    
-  - title: Scheduled Jobs
-    path: /docs/user-guide/scheduled-jobs/
+    path: /docs/admin/resource-quota/
+  - title: Cron Jobs
+    path: /docs/user-guide/cron-jobs/
   - title: Secrets
     path: /docs/user-guide/secrets/
   - title: Security Context
@@ -244,11 +244,11 @@ toc:
   - title: Kubernetes Identity and Access Management
     path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/access.md
   - title: Kubernetes OpenVSwitch GRE/VxLAN networking
-    path: /docs/admin/ovs-networking/    
+    path: /docs/admin/ovs-networking/
   - title: Security Contexts
     path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/security_context.md
   - title: Security in Kubernetes
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/security.md    
+    path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/security.md
 
 - title: Federation
   section:
