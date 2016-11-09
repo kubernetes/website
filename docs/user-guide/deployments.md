@@ -453,6 +453,55 @@ nginx-deployment-3066724191   0         0         1h
 
 Note: You cannot rollback a paused Deployment until you resume it.
 
+## Proportional scaling
+
+Rolling deployments support running mulitple versions of an application at the same time. When there is a
+new rollout ongoing or it is paused (you have multiple running versions in both cases) and a scaling request
+is received (either user-initiated or by an autoscaler), then the deployment controller will balance the
+additional replicas in the existing active replica sets in order to mitigate risk.
+
+For example, you are running a Deployment with 10 replicas, maxSurge=3, maxUnavailable=2.
+```
+$ kubectl get deploy
+NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx     10        10        10           10          50s
+```
+
+You update to a new image which happens to be unresolvable from inside the cluster.
+```
+$ kubectl set image deploy/nginx nginx=nginx:sometag
+deployment "nginx" image updated
+```
+
+The image update starts a new rollout but it's blocked due to the maxUnavailable requirement that we
+mentioned above.
+```
+$ kubectl get rs
+NAME               DESIRED   CURRENT   READY     AGE
+nginx-1989198191   5         5         0         9s
+nginx-618515232    8         8         8         1m
+```
+
+Then a new scaling request comes along. An autoscaler increments the Deployment replicas to 15. The
+deployment controller needs to decide where to add these new 5 replicas. If we weren't using proportional
+scaling, all 5 of them would be added in the new replica set. With proportional scaling, we spread the
+additional replicas across all replica sets. Bigger proportions go to the replica sets with the most
+replicas and lower proportions go to replicas sets with less replicas. Any leftovers are added to the
+replica set with the most replicas. Replica sets with zero replicas are not scaled up.
+
+In our example above, 3 replicas will be added to the old replica set and 2 replicas will be added to the
+new replica set. The rollout process should eventually move all replicas to the new replica set, assuming
+the new replicas become healthy.
+```
+$ kubectl get deploy
+NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx     15        18        7            8           7m
+$ kubectl get rs
+NAME               DESIRED   CURRENT   READY     AGE
+nginx-1989198191   7         7         0         7m
+nginx-618515232    11        11        11        7m
+```
+
 
 ## Use Cases 
 
