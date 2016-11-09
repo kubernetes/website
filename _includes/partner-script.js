@@ -23,6 +23,13 @@
 		},
 		{
 			type: 0,
+			name: 'Giant Swarm',
+			logo: 'giant_swarm',
+			link: 'https://giantswarm.io',
+			blurb: 'Giant Swarm provides fully-managed Kubernetes Clusters in your location of choice, so you can focus on your product.'
+		},
+		{
+			type: 0,
 			name: 'Mirantis',
 			logo: 'mirantis',
 			link: 'https://content.mirantis.com/Containerizing-OpenStack-on-Kubernetes-Video-Landing-Page.html',
