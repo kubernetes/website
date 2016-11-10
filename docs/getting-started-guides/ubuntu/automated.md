@@ -9,7 +9,7 @@ Ubuntu 16.04 introduced the [Canonical Distribution of Kubernetes](https://jujuc
 
 - Kubernetes (automated deployment, operations, and scaling)
      - Three node Kubernetes cluster with one master and two worker nodes.
-     - TLS used for communication between nodes for security.
+     - TLS used for communication between units for security.
      - Flannel Software Defined Network (SDN) plugin
      - A load balancer for HA kubernetes-master (Experimental)
      - Optional Ingress Controller (on worker)
@@ -18,19 +18,19 @@ Ubuntu 16.04 introduced the [Canonical Distribution of Kubernetes](https://jujuc
      - Performs the role of a certificate authority serving self signed certificates
        to the requesting units of the cluster.
 - Etcd (distributed key value store)
-     - Three node cluster for reliability.
+     - Three unit cluster for reliability.
 - Elastic stack
-     - Two nodes for ElasticSearch
-     - One node for a Kibana dashboard
-     - Beats on every Kubernetes and Etcd node:
+     - Two units for ElasticSearch
+     - One units for a Kibana dashboard
+     - Beats on every Kubernetes and Etcd units:
           - Filebeat for forwarding logs to ElasticSearch
           - Topbeat for inserting server monitoring data to ElasticSearch
 
 
 The Juju Kubernetes work is curated by a dedicated team of community members,
 let us know how we are doing. If you find any problems please open an
-[issue on the kubernetes project](https://github.com/kubernetes/kubernetes/issues)
-and tag the issue with "juju" so we can find them.
+[issue on our tracker](https://github.com/juju-solutions/bundle-canonical-kubernetes)
+so we can find them.
 
 * TOC
 {:toc}
@@ -38,7 +38,7 @@ and tag the issue with "juju" so we can find them.
 ## Prerequisites
 
 - A working [Juju client](https://jujucharms.com/docs/2.0/getting-started-general); this does not have to be a Linux machine, it can also be Windows or OSX.
-- A [supported cloud](http://localhost:8090/#cloud-compatibility).
+- A [supported cloud](#cloud-compatibility).
 
 ### On Ubuntu
 
@@ -78,12 +78,13 @@ You can also just auto load credentials for popular clouds with the `juju autolo
 Next we need to bootstrap a controller to manage the cluster. You need to define the cloud you want to bootstrap on, the region, and then any name for your controller node:   
 
 ```shell
-juju bootstrap aws/us-east-2 example_cluster
+juju update-clouds # This command ensures all the latest regions are up to date on your client
+juju bootstrap aws/us-east-2 
 ```
 or, another example, this time on Azure: 
 
 ```shell
-juju bootstrap azure/centralus example_cluster_2
+juju bootstrap azure/centralus 
 ```
 
 You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.0/controllers) for more information.
@@ -183,25 +184,26 @@ details.
 Need more workers? We just add more units:    
 
 ```shell
-juju add-unit kubernetes
+juju add-unit kubernetes-worker
 ```
 
 Or multiple units at one time:  
 
 ```shell
-juju add-unit -n3 kubernetes
+juju add-unit -n3 kubernetes-worker
 ```
 You can also ask for specific instance types or other machine-specific constraints. See the [constraints documentation](https://jujucharms.com/docs/stable/reference-constraints) for more information. Here are some examples, note that generic constraints such as `cores` and `mem` are more portable between clouds. 
 
 ```shell
-juju add-unit kubernetes --constraints="instance-type=c4.large" 
-juju add-unit kubernetes --constraints="cores=4,mem=32G" 
+juju add-unit kubernetes-worker --constraints="instance-type=c4.large" 
+juju add-unit kubernetes-worker --constraints="cores=4,mem=32G" 
 ```
 You can also scale the etcd charm for more fault tolerant key/value storage:  
 
 ```shell
-juju add-unit -n2 etcd
+juju add-unit -n3 etcd
 ```
+It is strongly recommended to run an odd number of units for quorum. 
 
 ## Tear down cluster
 
@@ -216,7 +218,7 @@ This will shutdown and terminate all running instances on that cloud.
 
 ## More Info
 
-The code that stands up a Kubernetes cluster is done in the charm code. The charm is built from using a layered approach to keep the code smaller and more focused on the operations of Kubernetes.
+We stand up Kubernetes with open-source operations, or operations as code, known as charms. These charms are assembled from layers which keeps the code smaller and more focused on the operations of just Kubernetes and its components.
 
 The Kubernetes layer and bundles can be found in the `kubernetes`
 project on github.com:  
