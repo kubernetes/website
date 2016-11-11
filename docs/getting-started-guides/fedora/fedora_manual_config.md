@@ -76,7 +76,7 @@ systemctl stop iptables-services firewalld
 KUBE_API_ADDRESS="--address=0.0.0.0"
 
 # Comma separated list of nodes in the etcd cluster
-KUBE_ETCD_SERVERS="--etcd-servers=http://127.0.0.1:4001"
+KUBE_ETCD_SERVERS="--etcd-servers=http://127.0.0.1:2379"
 
 # Address range to use for services
 KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
@@ -85,10 +85,10 @@ KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
 KUBE_API_ARGS=""
 ```
 
-* Edit /etc/etcd/etcd.conf to let etcd listen on all available IPs instead of 127.0.0.1; If you have not done this, you might see an error such as "connection refused". Note that Fedora 22 uses etcd 2.0, One of the changes in etcd 2.0 is that now uses port 2379 and 2380 (as opposed to etcd 0.46 which userd 4001 and 7001).
+* Edit /etc/etcd/etcd.conf to let etcd listen on all available IPs instead of 127.0.0.1; If you have not done this, you might see an error such as "connection refused".
 
 ```shell
-ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:4001"
+ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
 ```
 
 * Create /var/run/kubernetes on master:
