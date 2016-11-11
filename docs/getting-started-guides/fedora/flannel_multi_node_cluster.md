@@ -148,7 +148,7 @@ bash-4.3#
 This will place you inside the container. Install iproute and iputils packages to install ip and ping utilities. Due to a [bug](https://bugzilla.redhat.com/show_bug.cgi?id=1142311), it is required to modify capabilities of ping binary to work around "Operation not permitted" error.
 
 ```shell
-bash-4.3# yum -y install iproute iputils
+bash-4.3# dnf -y install iproute iputils
 bash-4.3# setcap cap_net_raw-ep /usr/bin/ping
 ```
 
