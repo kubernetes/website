@@ -52,20 +52,12 @@ echo "192.168.121.9	fed-master
 192.168.121.65	fed-node" >> /etc/hosts
 ```
 
-* Edit /etc/kubernetes/config which will be the same on all hosts (master and node) to contain:
+* Edit /etc/kubernetes/config which will be the same on all hosts (master and node) to set
+the name of the master server:
 
 ```shell
 # Comma separated list of nodes in the etcd cluster
 KUBE_MASTER="--master=http://fed-master:8080"
-
-# logging to stderr means we get it in the systemd journal
-KUBE_LOGTOSTDERR="--logtostderr=true"
-
-# journal message level, 0 is debug
-KUBE_LOG_LEVEL="--v=0"
-
-# Should this cluster be allowed to run privileged docker containers
-KUBE_ALLOW_PRIV="--allow-privileged=false"
 ```
 
 * Disable the firewall on both the master and node, as docker does not play well with other firewall rule managers.  Please note that iptables-services does not exist on default fedora server install.
