@@ -49,6 +49,12 @@ etcdctl get /coreos.com/network/config
 
 **Perform following commands on all Kubernetes nodes**
 
+Install the flannel package
+
+```shell
+# dnf -y install flannel
+```
+
 Edit the flannel configuration file /etc/sysconfig/flanneld as follows:
 
 ```shell
