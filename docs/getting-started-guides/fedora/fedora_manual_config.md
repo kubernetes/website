@@ -33,18 +33,18 @@ fed-node = 192.168.121.65
 **Prepare the hosts:**
 
 * Install Kubernetes on all hosts - fed-{master,node}.  This will also pull in docker. Also install etcd on fed-master.  This guide has been tested with kubernetes-0.18 and beyond.
-* The [--enablerepo=updates-testing](https://fedoraproject.org/wiki/QA:Updates_Testing) directive in the yum command below will ensure that the most recent Kubernetes version that is scheduled for pre-release will be installed. This should be a more recent version than the Fedora "stable" release for Kubernetes that you would get without adding the directive.
-* If you want the very latest Kubernetes release [you can download and yum install the RPM directly from Fedora Koji](http://koji.fedoraproject.org/koji/packageinfo?packageID=19202) instead of using the yum install command below.
+* The [--enablerepo=updates-testing](https://fedoraproject.org/wiki/QA:Updates_Testing) directive in the dnf command below will ensure that the most recent Kubernetes version that is scheduled for pre-release will be installed. This should be a more recent version than the Fedora "stable" release for Kubernetes that you would get without adding the directive.
+* If you want the very latest Kubernetes release [you can download and dnf install the RPM directly from Fedora Koji](http://koji.fedoraproject.org/koji/packageinfo?packageID=19202) instead of using the dnf install command below.
 * Running on AWS EC2 with RHEL 7.2, you need to enable "extras" repository for yum by editing `/etc/yum.repos.d/redhat-rhui.repo` and changing the changing the `enable=0` to `enable=1` for extras.
 
 ```shell
-yum -y install --enablerepo=updates-testing kubernetes
+dnf -y install --enablerepo=updates-testing kubernetes
 ```
 
 * Install etcd and iptables
 
 ```shell
-yum -y install etcd iptables
+dnf -y install etcd iptables
 ```
 
 * Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS). Make sure that communication works between fed-master and fed-node by using a utility such as ping.
