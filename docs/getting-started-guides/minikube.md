@@ -129,7 +129,7 @@ kubectl get nodes
 
 Minikube contains a built-in Docker daemon for running containers.
 If you use another Docker daemon for building your containers, you will have to publish them to a registry before minikube can pull them. 
-You can use minikube's built in Docker daemon to avoid this extra step of pushing your images.
+You can use minikube's built in Docker daemon to avoid this extra step of pushing your images. If you are not using any registry, you have to add a version to your docker image, something other than 'latest'. 
 Use the built-in Docker daemon with:
 
 ```shell
