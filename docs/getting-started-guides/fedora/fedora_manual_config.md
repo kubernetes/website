@@ -39,10 +39,10 @@ fed-node = 192.168.121.65
 dnf -y install kubernetes
 ```
 
-* Install etcd and iptables
+* Install etcd
 
 ```shell
-dnf -y install etcd iptables
+dnf -y install etcd
 ```
 
 * Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS). Make sure that communication works between fed-master and fed-node by using a utility such as ping.
