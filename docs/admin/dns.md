@@ -94,13 +94,42 @@ Example:
 
 ```yaml
 apiVersion: v1
+kind: Service
+metadata:
+  name: default-subdomain
+spec:
+  selector:
+    name: busybox
+  ports:
+    - name: foo # Actually, no port is needed.
+      port: 1234 
+      targetPort: 1234
+---
+apiVersion: v1
 kind: Pod
 metadata:
-  name: busybox
-  namespace: default
+  name: busybox1
+  labels:
+    name: busybox
 spec:
   hostname: busybox-1
-  subdomain: default
+  subdomain: default-subdomain
+  containers:
+  - image: busybox
+    command:
+      - sleep
+      - "3600"
+    name: busybox
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox2
+  labels:
+    name: busybox
+spec:
+  hostname: busybox-2
+  subdomain: default-subdomain
   containers:
   - image: busybox
     command:
@@ -110,7 +139,7 @@ spec:
 ```
 
 If there exists a headless service in the same namespace as the pod and with the same name as the subdomain, the cluster's KubeDNS Server also returns an A record for the Pod's fully qualified hostname.
-Given a Pod with the hostname set to "foo" and the subdomain set to "bar", and a headless Service named "bar" in the same namespace, the pod will see it's own FQDN as "foo.bar.my-namespace.svc.cluster.local". DNS serves an A record at that name, pointing to the Pod's IP.
+Given a Pod with the hostname set to "busybox-1" and the subdomain set to "default-subdomain", and a headless Service named "default-subdomain" in the same namespace, the pod will see it's own FQDN as "busybox-1.default-subdomain.my-namespace.svc.cluster.local". DNS serves an A record at that name, pointing to the Pod's IP. Both pods "busybox1" and "busybox2" can have their distinct A records. 
 
 With v1.2, the Endpoints object also has a new annotation `endpoints.beta.kubernetes.io/hostnames-map`. Its value is the json representation of map[string(IP)][endpoints.HostRecord], for example: '{"10.245.1.6":{HostName: "my-webserver"}}'.
 If the Endpoints are for a headless service, an A record is created with the format <hostname>.<service name>.<pod namespace>.svc.<cluster domain>
