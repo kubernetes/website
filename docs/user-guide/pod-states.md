@@ -89,6 +89,40 @@ If a node dies or is disconnected from the rest of the cluster, some entity with
 
 ## Examples
 
+### Advanced livenessProbe example
+
+Liveness probes are executed by `kubelet`, so all requests will be made within kubelet network namespace.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-http
+spec:
+  containers:
+  - args:
+    - /server
+    image: gcr.io/google_containers/liveness
+    livenessProbe:
+      httpGet:
+        # when "host" is not defined, "PodIP" will be used
+        # host: my-host
+        # when "scheme" is not defined, "HTTP" scheme will be used. Only "HTTP" and "HTTPS" are allowed
+        # scheme: HTTPS
+        path: /healthz
+        port: 8080
+        httpHeaders:
+          - name: X-Custom-Header
+            value: Awesome
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+    name: liveness
+```
+
+### Example states
+
    * Pod is `Running`, 1 container, container exits success
      * Log completion event
      * If RestartPolicy is:
