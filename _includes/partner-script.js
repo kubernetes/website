@@ -251,6 +251,13 @@
 			logo: 'skippbox',
 			link: 'http://www.skippbox.com/services/',
 			blurb: 'Skippbox brings its Kubernetes expertise to help companies embrace Kubernetes on their way to digital transformation. Skippbox offers both professional services and expert training.'
+		},
+		{
+			type: 1,
+			name: 'Endocode',
+			logo: 'endocode',
+			link: 'https://endocode.com/kubernetes/',
+			blurb: 'Endocode practices and teaches the open source way. Kernel to cluster - Dev to Ops. We offer Kubernetes trainings, services and support.'
 		}
 	]
 
