@@ -224,12 +224,13 @@ Or multiple units at one time:
 ```shell
 juju add-unit -n3 kubernetes-worker
 ```
-You can also ask for specific instance types or other machine-specific constraints. See the [constraints documentation](https://jujucharms.com/docs/stable/reference-constraints) for more information. Here are some examples, note that generic constraints such as `cores` and `mem` are more portable between clouds. 
+You can also ask for specific instance types or other machine-specific constraints. See the [constraints documentation](https://jujucharms.com/docs/stable/reference-constraints) for more information. Here are some examples, note that generic constraints such as `cores` and `mem` are more portable between clouds. In this case we'll ask for a specific instance type from AWS: 
 
 ```shell
-juju add-unit kubernetes-worker --constraints="instance-type=c4.large" 
-juju add-unit kubernetes-worker --constraints="cores=4,mem=32G" 
+juju set-constraints kubernetes-worker instance-type=c4.large
+juju add-unit kubernetes-worker
 ```
+
 You can also scale the etcd charm for more fault tolerant key/value storage:  
 
 ```shell
