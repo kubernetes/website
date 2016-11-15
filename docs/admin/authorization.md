@@ -567,10 +567,10 @@ Access to non-resource paths are sent as:
 
 Non-resource paths include: `/api`, `/apis`, `/metrics`, `/resetMetrics`,
 `/logs`, `/debug`, `/healthz`, `/swagger-ui/`, `/swaggerapi/`, `/ui`, and
-`/version.` Clients require access to `/api`, `/api/*/`, `/apis/`, `/apis/*`,
-`/apis/*/*`, and `/version` to discover what resources and versions are present
-on the server. Access to other non-resource paths can be disallowed without
-restricting access to the REST api.
+`/version.` Clients require access to `/api`, `/api/*`, `/apis`, `/apis/*`,
+and `/version` to discover what resources and versions are present on the server.
+Access to other non-resource paths can be disallowed without restricting access
+to the REST api.
 
 For further documentation refer to the authorization.v1beta1 API objects and
 plugin/pkg/auth/authorizer/webhook/webhook.go.
