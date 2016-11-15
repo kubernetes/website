@@ -13,7 +13,7 @@ li>.highlighter-rouge {position:relative; top:3px;}
 
 ## Overview
 
-This quickstart shows you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04 or CentOS 7.
+This quickstart shows you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04, CentOS 7 or HypriotOS v1.0.1+.
 The installation uses a tool called `kubeadm` which is part of Kubernetes 1.4.
 
 This process works with local VMs, physical servers and/or cloud servers.
@@ -23,7 +23,7 @@ See the full [`kubeadm` reference](/docs/admin/kubeadm) for information on all `
 
 **The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!
 Be sure to read the [limitations](#limitations); in particular note that kubeadm doesn't have great support for
-automatically configuring cloud providers.  Please refer to the specific cloud provider documentation or
+automatically configuring cloud providers. Please refer to the specific cloud provider documentation or
 use another provisioning system.**
 
 kubeadm assumes you have a set of machines (virtual or real) that are up and running.  It is designed
@@ -34,11 +34,11 @@ orchestration system (e.g. Puppet) that you have to integrate with.
 If you are not constrained, other tools build on kubeadm to give you complete clusters:
 
 * On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you turn-key Kubernetes
-* On AWS, [kops](kops) makes installation and cluster management easy (and supports high availability)
+* On AWS, [kops](https://github.com/kubernetes/kops) makes installation and cluster management easy (and supports high availability)
 
 ## Prerequisites
 
-1. One or more machines running Ubuntu 16.04, CentOS 7 or HypriotOS v1.0.1
+1. One or more machines running Ubuntu 16.04, CentOS 7 or HypriotOS v1.0.1+
 1. 1GB or more of RAM per machine (any less will leave little room for your apps)
 1. Full network connectivity between all machines in the cluster (public or private network is fine)
 
@@ -60,6 +60,9 @@ You will install the following packages on all the machines:
 * `kubectl`: the command to control the cluster once it's running.
   You will only need this on the master, but it can be useful to have on the other nodes as well.
 * `kubeadm`: the command to bootstrap the cluster.
+
+NOTE: If you already have kubeadm installed, you should do a `apt-get update && apt-get upgrade` or `yum update` to get the latest version of kubeadm.
+See the reference doc if you want to read about the different [kubeadm releases](/docs/admin/kubeadm)
 
 For each host in turn:
 
@@ -94,14 +97,16 @@ For each host in turn:
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
-Note: `setenforce 0` will no longer be necessary on CentOS once [#33555](https://github.com/kubernetes/kubernetes/pull/33555) is included in a released version of `kubeadm`.
+Note: To disable SELinux by running `setenforce 0` is required in order to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until kubelet can handle SELinux better.
 
 ### (2/4) Initializing your master
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
 All of these components run in pods started by `kubelet`.
 
-Right now you can't run `kubeadm init` twice without turning down the cluster in between, see [Turndown](#turndown).
+Right now you can't run `kubeadm init` twice without tearing down the cluster in between, see [Tear down](#tear-down).
+
+If you try to run `kubeadm init` and your machine is in a state that is incompatible with starting a Kubernetes cluster, `kubeadm` will warn you about things that might not work or it will error out for unsatisfied mandatory requirements.
 
 To initialize the master, pick one of the machines you previously installed `kubelet` and `kubeadm` on, and run:
 
@@ -157,18 +162,17 @@ This will remove the "dedicated" taint from any nodes that have it, including th
 ### (3/4) Installing a pod network
 
 You must install a pod network add-on so that your pods can communicate with each other. 
-In the meantime, the kubenet network plugin doesn't work. Instead, CNI plugin networks are supported, those you see below.
-**It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up.**
 
-Several projects provide Kubernetes pod networks.
-You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
+ **It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up. Note also that `kubeadm` only supports CNI based networks and therefore kubenet based networks will not work.**
 
-By way of example, you can install [Weave Net](https://github.com/weaveworks/weave-kube) by logging in to the master and running:
+Several projects provide Kubernetes pod networks using CNI, some of which 
+also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
 
-    # kubectl apply -f https://git.io/weave-kube
-    daemonset "weave-net" created
+You can install a pod network add-on with the following command: 
 
-If you prefer [Calico](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes/manifests/kubeadm) or [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm), please refer to their respective installation guides. 
+    # kubectl apply -f <add-on.yaml>
+
+Please refer to the specific add-on installation guide for exact details. You should only install one pod network per cluster.
 
 If you are on another architecture than amd64, you should use the flannel overlay network as described in [the multi-platform section](#kubeadm-is-multi-platform)
 
@@ -202,16 +206,27 @@ For example:
 
 A few seconds later, you should notice that running `kubectl get nodes` on the master shows a cluster with as many machines as you created.
 
-### (Optional) Control your cluster from machines other than the master
+Note that there currently isn't a out-of-the-box way of connecting to the Master's API Server via `kubectl` from a node. Read issue [#35729](https://github.com/kubernetes/kubernetes/issues/35729) for more details.
+
+### (Optional) Controlling your cluster from machines other than the master
 
 In order to get a kubectl on your laptop for example to talk to your cluster, you need to copy the `KubeConfig` file from your master to your laptop like this:
 
     # scp root@<master ip>:/etc/kubernetes/admin.conf .
     # kubectl --kubeconfig ./admin.conf get nodes
 
+### (Optional) Connecting to the API Server
+
+If you want to connect to the API Server for viewing the dashboard (note: not deployed by default) from outside the cluster for example, you can use `kubectl proxy`:
+
+    # scp root@<master ip>:/etc/kubernetes/admin.conf .
+    # kubectl --kubeconfig ./admin.conf proxy
+
+You can now access the API Server locally at `http://localhost:8001/api/v1`
+
 ### (Optional) Installing a sample application
 
-As an example, install a sample microservices application, a socks shop, to put your cluster through its paces.
+As an example, install a sample microservices application, a socks shop, to put your cluster through its paces. Note that this demo does only work on `amd64`.
 To learn more about the sample microservices app, see the [GitHub README](https://github.com/microservices-demo/microservices-demo).
 
     # kubectl create namespace sock-shop
@@ -243,17 +258,11 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 * To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the master.
 
-* To undo what `kubeadm` did, simply delete the machines you created for this tutorial, or run the script below and then start over or uninstall the packages.
+* To undo what `kubeadm` did, simply run:
 
-  <br>
-  Reset local state:
-  <pre><code>systemctl stop kubelet;
-  docker rm -f -v $(docker ps -q);
-  find /var/lib/kubelet | xargs -n 1 findmnt -n -t tmpfs -o TARGET -T | uniq | xargs -r umount -v;
-  rm -r -f /etc/kubernetes /var/lib/kubelet /var/lib/etcd;
-  </code></pre>
+    # kubeadm reset
+
   If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init` or `kubeadm join`.
-  <!-- *syntax-highlighting-hack -->
 
 ## Explore other add-ons
 
@@ -276,19 +285,22 @@ kubeadm deb packages and binaries are built for amd64, arm and arm64, following 
 
 deb-packages are released for ARM and ARM 64-bit, but not RPMs (yet, reach out if there's interest).
 
-Anyway, ARM had some issues when making v1.4, see [#32517](https://github.com/kubernetes/kubernetes/pull/32517) [#33485](https://github.com/kubernetes/kubernetes/pull/33485), [#33117](https://github.com/kubernetes/kubernetes/pull/33117) and [#33376](https://github.com/kubernetes/kubernetes/pull/33376). 
+ARM had some issues when making v1.4, see [#32517](https://github.com/kubernetes/kubernetes/pull/32517) [#33485](https://github.com/kubernetes/kubernetes/pull/33485), [#33117](https://github.com/kubernetes/kubernetes/pull/33117) and [#33376](https://github.com/kubernetes/kubernetes/pull/33376).
 
 However, thanks to the PRs above, `kube-apiserver` works on ARM from the `v1.4.1` release, so make sure you're at least using `v1.4.1` when running on ARM 32-bit
 
-The multiarch flannel daemonset can be installed this way. Make sure you replace `ARCH=amd64` with `ARCH=arm` or `ARCH=arm64` if necessary.
+The multiarch flannel daemonset can be installed this way.
 
-    # ARCH=amd64 curl -sSL https://raw.githubusercontent.com/luxas/flannel/update-daemonset/Documentation/kube-flannel.yml | sed "s/amd64/${ARCH}/g" | kubectl create -f -
+    # export ARCH=amd64
+    # curl -sSL "https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml?raw=true" | sed "s/amd64/${ARCH}/g" | kubectl create -f -
 
-And obviously replace `ARCH=amd64` with `ARCH=arm` or `ARCH=arm64` depending on the platform you're running on.
+Replace `ARCH=amd64` with `ARCH=arm` or `ARCH=arm64` depending on the platform you're running on.
+Note that the Raspberry Pi 3 is in ARM 32-bit mode, so for RPi 3 you should set `ARCH` to `arm`, not `arm64`.
 
 ## Limitations
 
 Please note: `kubeadm` is a work in progress and these limitations will be addressed in due course.
+Also you can take a look at the troubleshooting section in the [reference document](/docs/admin/kubeadm/#troubleshooting)
 
 1. The cluster created here doesn't have cloud-provider integrations by default, so for example it doesn't work automatically with (for example) [Load Balancers](/docs/user-guide/load-balancer/) (LBs) or [Persistent Volumes](/docs/user-guide/persistent-volumes/walkthrough/) (PVs).
    To set up kubeadm with CloudProvider integrations (it's experimental, but try), refer to the [kubeadm reference](/docs/admin/kubeadm/) document.
@@ -303,6 +315,15 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 1. `kubectl logs` is broken with `kubeadm` clusters due to [#22770](https://github.com/kubernetes/kubernetes/issues/22770).
 
    Workaround: use `docker logs` on the nodes where the containers are running as a workaround.
+1. The HostPort functionality does not work with kubeadm due to that CNI networking is used, see issue [#31307](https://github.com/kubernetes/kubernetes/issues/31307).
+
+   Workaround: use the [NodePort feature of services](/docs/user-guide/services/#type-nodeport) instead, or use HostNetwork.
+1. A running `firewalld` service may conflict with kubeadm, so if you want to run `kubeadm`, you should disable `firewalld` until issue [#35535](https://github.com/kubernetes/kubernetes/issues/35535) is resolved.
+
+   Workaround: Disable `firewalld` or configure it to allow Kubernetes the pod and service cidrs.
+1. If you see errors like `etcd cluster unavailable or misconfigured`, it's because of high load on the machine which makes the `etcd` container a bit unresponsive (it might miss some requests) and therefore kubelet will restart it. This will get better with `etcd3`.
+
+   Workaround: Set `failureThreshold` in `/etc/kubernetes/manifests/etcd.json` to a larger value.
 
 1. If you are using VirtualBox (directly or via Vagrant), you will need to ensure that `hostname -i` returns a routable IP address (i.e. one on the second network interface, not the first one).
    By default, it doesn't do this and kubelet ends-up using first non-loopback network interface, which is usually NATed.
