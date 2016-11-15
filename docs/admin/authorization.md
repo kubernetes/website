@@ -2,6 +2,8 @@
 assignees:
 - erictune
 - lavalamp
+- deads2k
+- liggitt
 
 ---
 
