@@ -174,12 +174,12 @@ example. If creating an image for a doc, follow the
 section on "Docker images" from the Kubernetes repository.
 
 ## Partners
-Kubernetes partners refers to the companies who contribute to the Kubernetes core codebase and/or extend their platform to support Kubernetes. Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
+Kubernetes partners refers to the companies who contribute to the Kubernetes core codebase and/or extend their platform to support Kubernetes. Partners can get their logos added to the [partners page](http://k8s.io/partners) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
 
 * The partner product logo should be a transparent png image centered in a 215x125 px frame. (look at the existing logos for reference)
 * The logo must link to a URL that is specific to integrating with Kubernetes, hosted on the partner's site.
 * The logo should be named *product-name*_logo.png and placed in the `/images/community_logos` folder.
-* The image reference (including the link to the partner URL) should be added in `community.html` under `<div class="partner-logos" > ...</div>`.
+* The image reference (including the link to the partner URL) should be added in `_includes/partner-script.js`.
 * Please do not change the order of the existing partner images. Append your logo to the end of the list.
 * Once completed and tested the look and feel, submit the pull request.
 
