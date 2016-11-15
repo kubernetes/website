@@ -178,7 +178,15 @@ toc:
   - title: kube-scheduler
     path: /docs/admin/kube-scheduler/
   - title: kubelet
-    path: /docs/admin/kubelet/
+    section:
+    - title: Overview 
+      path: /docs/admin/kubelet/
+    - title: Master-Node communication
+      path: /docs/admin/master-node-communication/
+    - title: TLS bootstrapping
+      path: /docs/admin/kubelet-tls-bootstrapping/
+    - title: Kubelet authentication/authorization
+      path: /docs/admin/kubelet-authentication-authorization/ 
 
 - title: Glossary
   section:
