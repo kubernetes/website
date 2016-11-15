@@ -35,7 +35,7 @@ or be treated as an anonymous user.
 
 Kubernetes uses client certificates, bearer tokens, or HTTP basic auth to
 authenticate API requests through authentication plugins. As HTTP request are
-made to the API server plugins attempts to associate the following attributes
+made to the API server, plugins attempt to associate the following attributes
 with the request:
 
 * Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
