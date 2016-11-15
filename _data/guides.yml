@@ -1,8 +1,8 @@
 bigheader: "Guides"
-abstract: "How to get started, and achieve tasks, using Kubernetes"
+abstract: "How to get started, and accomplish tasks, using Kubernetes."
 toc:
 - title: Guides
-  path: /docs/
+  path: /docs/user-guide/
 
 - title: Getting Started
   section:
@@ -70,6 +70,8 @@ toc:
       path: /docs/getting-started-guides/network-policy/walkthrough/
     - title: Using Calico for NetworkPolicy 
       path: /docs/getting-started-guides/network-policy/calico/
+    - title: Using Romana for NetworkPolicy 
+      path: /docs/getting-started-guides/network-policy/romana/
 
 - title: Batch Jobs
   section:
