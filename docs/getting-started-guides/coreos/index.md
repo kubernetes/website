@@ -77,12 +77,6 @@ Guide to running a single master, multi-worker cluster controlled by an OS X men
 
 <hr/>
 
-[**Resizable multi-node cluster on Azure with Weave**](/docs/getting-started-guides/coreos/azure/)
-
-Guide to running an HA etcd cluster with a single master on Azure. Uses the Azure node.js CLI to resize the cluster.
-
-<hr/>
-
 [**Multi-node cluster using cloud-config, CoreOS and VMware ESXi**](https://github.com/xavierbaude/VMware-coreos-multi-nodes-Kubernetes)
 
 Configure a single master, single worker cluster on VMware ESXi.
