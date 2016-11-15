@@ -84,3 +84,7 @@ project](/docs/admin/salt).
 * **Sysctls** [sysctls](/docs/admin/sysctls.md)
 
 * **Audit** [audit](/docs/admin/audit)
+
+* **Securing the kubelet**
+  * [Master-Node communication](/docs/admin/master-node-communication/)
+  * [TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/)
