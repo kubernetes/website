@@ -23,6 +23,20 @@
 		},
 		{
 			type: 0,
+			name: 'Giant Swarm',
+			logo: 'giant_swarm',
+			link: 'https://giantswarm.io',
+			blurb: 'Giant Swarm provides fully-managed Kubernetes Clusters in your location of choice, so you can focus on your product.'
+		},
+		{
+			type: 0,
+			name: 'Mirantis',
+			logo: 'mirantis',
+			link: 'https://content.mirantis.com/Containerizing-OpenStack-on-Kubernetes-Video-Landing-Page.html',
+			blurb: 'Mirantis builds and manages private clouds with open source software such as OpenStack, deployed as containers orchestrated by Kubernetes.'
+		},
+		{
+			type: 0,
 			name: 'Puppet',
 			logo: 'puppet',
 			link: 'https://puppet.com/blog/managing-kubernetes-configuration-puppet',
@@ -237,6 +251,13 @@
 			logo: 'skippbox',
 			link: 'http://www.skippbox.com/services/',
 			blurb: 'Skippbox brings its Kubernetes expertise to help companies embrace Kubernetes on their way to digital transformation. Skippbox offers both professional services and expert training.'
+		},
+		{
+			type: 1,
+			name: 'Endocode',
+			logo: 'endocode',
+			link: 'https://endocode.com/kubernetes/',
+			blurb: 'Endocode practices and teaches the open source way. Kernel to cluster - Dev to Ops. We offer Kubernetes trainings, services and support.'
 		}
 	]
 
