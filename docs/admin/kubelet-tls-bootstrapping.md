@@ -7,9 +7,9 @@ assignees:
 * TOC
 {:toc}
 
-## Summary
+## Overview
 
-This document describes setting up TLS client certificate bootstrapping for kubelets.
+This document describes how to set up TLS client certificate boostrapping for kubelets.
 Kubernetes 1.4 introduces an experimental API for requesting certificates from a cluster-level 
 Certificate Authority (CA). The first supported use of this API is the provisioning of TLS client 
 certificates for kubelets. The proposal can be found [here](https://github.com/kubernetes/kubernetes/pull/20439)
@@ -92,5 +92,5 @@ approval controller, but for the alpha version of the API it can be done manuall
 An administrator can list CSRs with `kubectl get csr`, describe one in detail with `kubectl describe <name>`. There are 
 [currently no direct approve/deny commands](https://github.com/kubernetes/kubernetes/issues/30163) so an approver will need to update
 the Status field directly. A rough example of how to do this in bash which should only be used until the porcelain merges is available
-at https://github.com/gtank/csrctl.
+at [https://github.com/gtank/csrctl](https://github.com/gtank/csrctl).
 
