@@ -203,8 +203,6 @@ toc:
         path: /docs/getting-started-guides/ovirt/
       - title: OpenStack Heat
         path: /docs/getting-started-guides/openstack-heat/
-      - title: CoreOS on Multinode Cluster
-        path: /docs/getting-started-guides/coreos/coreos_multinode_cluster/
       - title: rkt
         section:
         - title: Running Kubernetes with rkt
