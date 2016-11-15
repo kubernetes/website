@@ -9,7 +9,7 @@ assignees:
 * TOC
 {:toc}
 
-## Summary
+## Overview
 
 This document catalogs the communication paths between the master (really the
 apiserver) and the Kubernetes cluster. The intent is to allow users to
@@ -23,7 +23,11 @@ All communication paths from the cluster to the master terminate at the
 apiserver (none of the other master components are designed to expose remote
 services). In a typical deployment, the apiserver is configured to listen for
 remote connections on a secure HTTPS port (443) with one or more forms of
-client [authentication](/docs/admin/authentication/) enabled.
+client [authentication](/docs/admin/authentication/) enabled. One or more forms
+of [authorization](/docs/admin/authorization/) should be enabled, especially
+if [anonymous requests](/docs/admin/authentication/#anonymous-requests) or 
+[service account tokens](/docs/admin/authentication/#service-account-tokens) 
+are allowed.
 
 Nodes should be provisioned with the public root certificate for the cluster
 such that they can connect securely to the apiserver along with valid client
@@ -58,16 +62,29 @@ cluster. The first is from the apiserver to the kubelet process which runs on
 each node in the cluster. The second is from the apiserver to any node, pod,
 or service through the apiserver's proxy functionality.
 
+### apiserver -> kubelet
+
 The connections from the apiserver to the kubelet are used for fetching logs
 for pods, attaching (through kubectl) to running pods, and using the kubelet's
-port-forwarding functionality. These connections terminate at the kubelet's
-HTTPS endpoint, which is typically using a self-signed certificate, and
-ignore the certificate presented by the kubelet (although you can override this
-behavior by specifying the `--kubelet-certificate-authority`,
-`--kubelet-client-certificate`, and `--kubelet-client-key` flags when starting
-the cluster apiserver). By default, these connections **are not currently safe**
-to run over untrusted and/or public networks as they are subject to
-man-in-the-middle attacks.
+port-forwarding functionality. These connections terminate at the kubelet's 
+HTTPS endpoint.
+
+By default, the apiserver does not verify the kubelet's serving certificate,
+which makes the connection subject to man-in-the-middle attacks, and 
+**unsafe** to run over untrusted and/or public networks.
+
+To verify this connection, use the `--kubelet-certificate-authority` flag to 
+provide the apiserver with a root certificates bundle to use to verify the 
+kubelet's serving certificate.
+
+If that is not possible, use [SSH tunneling](/docs/admin/master-node-communication/#ssh-tunnels)
+between the apiserver and kubelet if required to avoid connecting over an 
+untrusted or public network.
+
+Finally, [Kubelet authentication and/or authorization](/docs/admin/kubelet-authentication-authorization/)
+should be enabled to secure the kubelet API. 
+
+### apiserver -> nodes, pods, and services
 
 The connections from the apiserver to a node, pod, or service default to plain
 HTTP connections and are therefore neither authenticated nor encrypted. They
