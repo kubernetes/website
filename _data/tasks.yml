@@ -23,4 +23,7 @@ toc:
   section:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
-
+- title: Stateful Set
+  section:
+  - title: Upgrade from PetSet to Stateful Sets
+    path: /docs/tasks/stateful-set/upgrade-from-petsets-to-stateful-sets/
