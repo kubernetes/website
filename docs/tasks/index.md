@@ -29,6 +29,8 @@ single thing, typically by giving a short sequence of steps.
 
 #### Managing Stateful Applications
 
+* [Upgrading from PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
+
 ### What's next
 
 If you would like to write a task page, see
