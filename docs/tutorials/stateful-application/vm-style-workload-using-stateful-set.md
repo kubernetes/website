@@ -48,91 +48,77 @@ Since Stateful Set already gives each pod a consistent identity, all we need is 
 
 1. Download [this](statefulset_vm.yaml) Stateful Set into a file called statefulset_vm.yaml, and create it:
 
-```shell
-$ kubectl create -f statefulset_vm.yaml
-service "ub" created
-statefulset "vm" created
-```
+        $ kubectl create -f statefulset_vm.yaml
+        service "ub" created
+        statefulset "vm" created
 
 1. This should give you 2 pods.
 
-```shell
-$ kubectl get po
-NAME      READY     STATUS     RESTARTS   AGE
-vm-0      1/1       Running    0          37s
-vm-1      1/1       Running    0          2m
-```
+        $ kubectl get po
+        NAME      READY     STATUS     RESTARTS   AGE
+        vm-0      1/1       Running    0          37s
+        vm-1      1/1       Running    0          2m
 
 1. We can exec into one and install nginx:
 
-```shell
-$ kubectl exec -it vm-0 /bin/sh
-vm-0 # apt-get update
-...
-vm-0 # apt-get install nginx -y
-```
+        $ kubectl exec -it vm-0 /bin/sh
+        vm-0 # apt-get update
+        ...
+        vm-0 # apt-get install nginx -y
 
 1. On killing this pod we need it to come back with all the Stateful Set properties, as well as the installed nginx packages.
 
-```shell
-$ kubectl delete po vm-0
-pod "vm-0" deleted
+        $ kubectl delete po vm-0
+        pod "vm-0" deleted
 
-$ kubectl get po
-NAME      READY     STATUS    RESTARTS   AGE
-vm-0      1/1       Running   0          1m
-vm-1      1/1       Running   0          4m
-```
+        $ kubectl get po
+        NAME      READY     STATUS    RESTARTS   AGE
+        vm-0      1/1       Running   0          1m
+        vm-1      1/1       Running   0          4m
 
 1. Now you can exec back into vm-0 and start nginx
 
-```shell
-$ kubectl exec -it vm-0 /bin/sh
-vm-0 # mkdir -p /var/log/nginx /var/lib/nginx; nginx -g 'daemon off;'
+        $ kubectl exec -it vm-0 /bin/sh
+        vm-0 # mkdir -p /var/log/nginx /var/lib/nginx; nginx -g 'daemon off;'
 
-```
 
 1. And access it from anywhere in the cluster (and because this is an example that simulates vms, we're going to apt-get install netcat too)
 
-```shell
-$ kubectl exec -it vm-1 /bin/sh
-vm-1 # apt-get update
-...
-vm-1 # apt-get install netcat -y
-vm-1 # printf "GET / HTTP/1.0\r\n\r\n" | netcat vm-0.ub 80
-```
+        $ kubectl exec -it vm-1 /bin/sh
+        vm-1 # apt-get update
+        ...
+        vm-1 # apt-get install netcat -y
+        vm-1 # printf "GET / HTTP/1.0\r\n\r\n" | netcat vm-0.ub 80
 
 1. It's worth exploring what just happened. Init containers run sequentially *before* the application container. In this example we used the init container to copy shared libraries from the rootfs, while preserving user installed packages across container restart.
 
-```yaml
-pod.alpha.kubernetes.io/init-containers: '[
-    {
-        "name": "rootfs",
-        "image": "ubuntu:15.10",
-        "command": [
-            "/bin/sh",
-            "-c",
-            "for d in usr lib etc; do cp -vnpr /$d/* /${d}mnt; done;"
-        ],
-        "volumeMounts": [
+        pod.alpha.kubernetes.io/init-containers: '[
             {
-                "name": "usr",
-                "mountPath": "/usrmnt"
-            },
-            {
-                "name": "lib",
-                "mountPath": "/libmnt"
-            },
-            {
-                "name": "etc",
-                "mountPath": "/etcmnt"
+                "name": "rootfs",
+                "image": "ubuntu:15.10",
+                "command": [
+                    "/bin/sh",
+                    "-c",
+                    "for d in usr lib etc; do cp -vnpr /$d/* /${d}mnt; done;"
+                ],
+                "volumeMounts": [
+                    {
+                        "name": "usr",
+                        "mountPath": "/usrmnt"
+                    },
+                    {
+                        "name": "lib",
+                        "mountPath": "/libmnt"
+                    },
+                    {
+                        "name": "etc",
+                        "mountPath": "/etcmnt"
+                    }
+                ]
             }
-        ]
-    }
-]'
-```
+        ]'
 
-**It's important to note that the init container, when used this way, must be idempotent, or it'll end up clobbering data stored by a previous incarnation.**
+    **It's important to note that the init container, when used this way, must be idempotent, or it'll end up clobbering data stored by a previous incarnation.**
 
 
 ### Initializing state based on environment
@@ -189,73 +175,65 @@ Lets create a Stateful Set that writes out its own config based on a list of pee
 
 1. Download and create [this](statefulset_peers.yaml) Stateful Set. It will setup 2 nginx webservers, but the second one will proxy all requests to the first:
 
-```shell
-$ kubectl create -f statefulset_peers.yaml
-service "nginx" created
-statefulset "web" created
+        $ kubectl create -f statefulset_peers.yaml
+        service "nginx" created
+        statefulset "web" created
 
-$ kubectl get po --watch-only
-NAME      READY     STATUS    RESTARTS   AGE
-web-0     0/1       Pending   0          7s
-web-0     0/1       Init:0/1   0         18s
-web-0     0/1       PodInitializing   0         20s
-web-0     1/1       Running   0         21s
-web-1     0/1       Pending   0         0s
-web-1     0/1       Init:0/1   0         0s
-web-1     0/1       PodInitializing   0         20s
-web-1     1/1       Running   0         21s
+        $ kubectl get po --watch-only
+        NAME      READY     STATUS    RESTARTS   AGE
+        web-0     0/1       Pending   0          7s
+        web-0     0/1       Init:0/1   0         18s
+        web-0     0/1       PodInitializing   0         20s
+        web-0     1/1       Running   0         21s
+        web-1     0/1       Pending   0         0s
+        web-1     0/1       Init:0/1   0         0s
+        web-1     0/1       PodInitializing   0         20s
+        web-1     1/1       Running   0         21s
 
-$ kubectl get po
-NAME      READY     STATUS    RESTARTS   AGE
-web-0     1/1       Running   0          1m
-web-1     1/1       Running   0          47s
-```
+        $ kubectl get po
+        NAME      READY     STATUS    RESTARTS   AGE
+        web-0     1/1       Running   0          1m
+        web-1     1/1       Running   0          47s
 
 1. web-1 will redirect all requests to its "master":
 
-```shell
-$ kubectl exec -it web-1 -- curl localhost
-web-0
-```
+        $ kubectl exec -it web-1 -- curl localhost
+        web-0
 
 1. If you scale the cluster, the new pods parent themselves to the same master. To test this you can `kubectl edit` the statefulset and change the `replicas` field to 5:
 
-```shell
-$ kubectl edit statefulset web
-... 
+        $ kubectl edit statefulset web
+        ... 
 
-$ kubectl get po -l app=nginx
-NAME      READY     STATUS    RESTARTS   AGE
-web-0     1/1       Running   0          2h
-web-1     1/1       Running   0          2h
-web-2     1/1       Running   0          1h
-web-3     1/1       Running   0          1h
-web-4     1/1       Running   0          1h
+        $ kubectl get po -l app=nginx
+        NAME      READY     STATUS    RESTARTS   AGE
+        web-0     1/1       Running   0          2h
+        web-1     1/1       Running   0          2h
+        web-2     1/1       Running   0          1h
+        web-3     1/1       Running   0          1h
+        web-4     1/1       Running   0          1h
 
-$ for i in $(seq 0 4); do kubectl exec -it web-$i -- curl localhost; done | sort | uniq
-web-0
-```
+        $ for i in $(seq 0 4); do kubectl exec -it web-$i -- curl localhost; done | sort | uniq
+        web-0
 
 1. Understanding how we generated the nginx config is important, we did so by passing an init script to the peer finder:
 
-```shell
-echo `
-readarray PEERS;
-if [ 1 = ${#PEERS[@]} ]; then
-  echo \"events{} http { server{ } }\";
-else
-  echo \"events{} http { server{ location / { proxy_pass http://${PEERS[0]}; } } }\";
-fi;` > /conf/nginx.conf
-```
+        echo `
+        readarray PEERS;
+        if [ 1 = ${#PEERS[@]} ]; then
+          echo \"events{} http { server{ } }\";
+        else
+          echo \"events{} http { server{ location / { proxy_pass http://${PEERS[0]}; } } }\";
+        fi;` > /conf/nginx.conf
 
-All that does is:
+    All that does is:
 
-* read in a list of peers from stdin
-* if there's only 1, promote it to master
-* if there's more than 1, proxy requests to the 0th member of the list
-* write the config to a `hostPath` volume shared with the parent Stateful Set
+    * read in a list of peers from stdin
+    * if there's only 1, promote it to master
+    * if there's more than 1, proxy requests to the 0th member of the list
+    * write the config to a `hostPath` volume shared with the parent Stateful Set
 
-**It's important to note that in practice all pods should query their peers for the current master, instead of making assumptions based on the index.**
+    **It's important to note that in practice all pods should query their peers for the current master, instead of making assumptions based on the index.**
 
 
 {% endcapture %}
