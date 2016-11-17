@@ -51,3 +51,7 @@ toc:
     path: /docs/tutorials/stateless-application/expose-external-ip-address-service/
   - title: Exposing an External IP Address to Access an Application in a Cluster
     path: /docs/tutorials/stateless-application/expose-external-ip-address/
+- title: Stateful Applications
+  section:
+  - title: Running a VM-style workload using Stateful Set
+    path: /docs/tutorials/stateful-application/vm-style-workload-using-stateful-set/
