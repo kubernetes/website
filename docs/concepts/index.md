@@ -5,8 +5,9 @@ The Concepts section of the Kubernetes documentation is a work in progress.
 
 #### Object Metadata
 
-* [StatefulSets](/docs/concepts/object-metadata/statefulsets/)
+
 * [Annotations](/docs/concepts/object-metadata/annotations/)
+* [Stateful Sets](/docs/concepts/object-metadata/statefulsets/)
 
 
 ### What's next
