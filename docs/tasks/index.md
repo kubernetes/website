@@ -21,7 +21,7 @@ The Tasks section of the Kubernetes documentation is a work in progress
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
 
-#### Stateful Sets
+#### Managing Stateful Applications
 
 * [Upgrade from Pet Sets to Stateful Sets](/docs/tasks/stateful-sets/upgrade-pet-sets-to-stateful-sets/)
 

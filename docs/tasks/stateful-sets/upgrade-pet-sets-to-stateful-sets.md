@@ -22,8 +22,8 @@ Pet Set was introduced as an alpha resource in Kubernetes release 1.3, and was r
 Here are some notable changes:
 
 * **Stateful Set is the new Pet Set**: Pet Set is no longer available in any Kubernetes release >= 1.5. It becomes beta Stateful Set. To know why the name is changed, see this [discussion thread](https://github.com/kubernetes/kubernetes/issues/27430).
-* **Stateful Set fencing**: Fencing guards is implemented in >= 1.5 to prevent split brain scenarios for Stateful Sets. *TODO: Link to doc about fencing*
-* **Flipped debug hook behavior**: The behavior of debug hook for Pet Set, i.e. annotation `pod.alpha.kubernetes.io/initialized`, is now flipped for Stateful Sets. The absence of this annotation will pause the Pet Sets, but will NOT pause the Stateful Sets. In most cases, you no longer need this annotation in your Stateful Set manifests. 
+* **Stateful Set fencing**: Fencing guards are implemented in >= 1.5 to prevent split brain scenarios for Stateful Sets. *TODO: Link to doc about fencing*
+* **Flipped debug hook behavior**: The default value of the debug annotation (`pod.alpha.kubernetes.io/initialized`) is now `true`. The absence of this annotation will pause the Pet Sets, but will NOT pause the Stateful Sets. In most cases, you no longer need this annotation in your Stateful Set manifests. 
 
 
 ### Upgrading from Pet Sets to Stateful Sets
