@@ -7,3 +7,7 @@ toc:
   section:
   - title: Annotations
     path: /docs/concepts/object-metadata/annotations/
+- title: Controllers
+  section:
+  - title: Stateful Sets
+    path: /docs/concepts/controllers/statefulsets/
