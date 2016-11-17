@@ -4,7 +4,7 @@
 {% capture overview %}
 **Stateful Sets are a beta feature in 1.5. This feature replaces the deprecated 
 Pet Sets feature from 1.4. Users of Pet Sets are referred to the 1.5 
-[Upgrade Guide](/docs/tasks/stateful-set/upgrade-from-petsets-to-stateful-sets/)
+[Upgrade Guide](docs/tasks/stateful-sets/upgrade-pet-sets-to-stateful-sets.md)
 for further information on how to upgrade existing Pet Sets to Stateful Sets.**
 
 A Stateful Set is a Controller that ensures that, at most, a given number of
