@@ -19,7 +19,7 @@
 <h3 id="_get_available_resources">get available resources</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/certificates/v1alpha1</pre>
+<pre>GET /apis/storage.k8s.io/v1beta1</pre>
 </div>
 </div>
 <div class="sect3">
@@ -28,7 +28,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;"> 
+<col style="width:33%;">
 </colgroup>
 <thead>
 <tr>
@@ -84,17 +84,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apiscertificatesv1alpha1</p>
+<p>apisstorage.k8s.iov1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_list_or_watch_objects_of_kind_certificatesigningrequest">list or watch objects of kind CertificateSigningRequest</h3>
+<h3 id="_list_or_watch_objects_of_kind_storageclass">list or watch objects of kind StorageClass</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/certificates/v1alpha1/certificatesigningrequests</pre>
+<pre>GET /apis/storage.k8s.io/v1beta1/storageclasses</pre>
 </div>
 </div>
 <div class="sect3">
@@ -106,7 +106,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;"> 
+<col style="width:16%;">
 </colgroup>
 <thead>
 <tr>
@@ -177,7 +177,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;"> 
+<col style="width:33%;">
 </colgroup>
 <thead>
 <tr>
@@ -190,7 +190,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequestlist">v1alpha1.CertificateSigningRequestList</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_storageclasslist">v1beta1.StorageClassList</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -227,17 +227,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apiscertificatesv1alpha1</p>
+<p>apisstorage.k8s.iov1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_delete_collection_of_certificatesigningrequest">delete collection of CertificateSigningRequest</h3>
+<h3 id="_delete_collection_of_storageclass">delete collection of StorageClass</h3>
 <div class="listingblock">
 <div class="content">
-<pre>DELETE /apis/certificates/v1alpha1/certificatesigningrequests</pre>
+<pre>DELETE /apis/storage.k8s.io/v1beta1/storageclasses</pre>
 </div>
 </div>
 <div class="sect3">
@@ -249,7 +249,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;"> 
+<col style="width:16%;">
 </colgroup>
 <thead>
 <tr>
@@ -320,7 +320,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;"> 
+<col style="width:33%;">
 </colgroup>
 <thead>
 <tr>
@@ -370,17 +370,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apiscertificatesv1alpha1</p>
+<p>apisstorage.k8s.iov1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_a_certificatesigningrequest">create a CertificateSigningRequest</h3>
+<h3 id="_create_a_storageclass">create a StorageClass</h3>
 <div class="listingblock">
 <div class="content">
-<pre>POST /apis/certificates/v1alpha1/certificatesigningrequests</pre>
+<pre>POST /apis/storage.k8s.io/v1beta1/storageclasses</pre>
 </div>
 </div>
 <div class="sect3">
@@ -392,7 +392,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;"> 
+<col style="width:16%;">
 </colgroup>
 <thead>
 <tr>
@@ -418,7 +418,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequest">v1alpha1.CertificateSigningRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_storageclass">v1beta1.StorageClass</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -431,7 +431,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;"> 
+<col style="width:33%;">
 </colgroup>
 <thead>
 <tr>
@@ -444,7 +444,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequest">v1alpha1.CertificateSigningRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_storageclass">v1beta1.StorageClass</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -481,17 +481,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apiscertificatesv1alpha1</p>
+<p>apisstorage.k8s.iov1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_read_the_specified_certificatesigningrequest">read the specified CertificateSigningRequest</h3>
+<h3 id="_read_the_specified_storageclass">read the specified StorageClass</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/certificates/v1alpha1/certificatesigningrequests/{name}</pre>
+<pre>GET /apis/storage.k8s.io/v1beta1/storageclasses/{name}</pre>
 </div>
 </div>
 <div class="sect3">
@@ -503,7 +503,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;"> 
+<col style="width:16%;">
 </colgroup>
 <thead>
 <tr>
@@ -543,7 +543,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the CertificateSigningRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the StorageClass</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -558,7 +558,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;"> 
+<col style="width:33%;">
 </colgroup>
 <thead>
 <tr>
@@ -571,7 +571,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequest">v1alpha1.CertificateSigningRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_storageclass">v1beta1.StorageClass</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -608,17 +608,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apiscertificatesv1alpha1</p>
+<p>apisstorage.k8s.iov1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_replace_the_specified_certificatesigningrequest">replace the specified CertificateSigningRequest</h3>
+<h3 id="_replace_the_specified_storageclass">replace the specified StorageClass</h3>
 <div class="listingblock">
 <div class="content">
-<pre>PUT /apis/certificates/v1alpha1/certificatesigningrequests/{name}</pre>
+<pre>PUT /apis/storage.k8s.io/v1beta1/storageclasses/{name}</pre>
 </div>
 </div>
 <div class="sect3">
@@ -630,7 +630,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;"> 
+<col style="width:16%;">
 </colgroup>
 <thead>
 <tr>
@@ -656,13 +656,13 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequest">v1alpha1.CertificateSigningRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_storageclass">v1beta1.StorageClass</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the CertificateSigningRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the StorageClass</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -677,7 +677,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;"> 
+<col style="width:33%;">
 </colgroup>
 <thead>
 <tr>
@@ -690,7 +690,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequest">v1alpha1.CertificateSigningRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_storageclass">v1beta1.StorageClass</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -727,17 +727,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apiscertificatesv1alpha1</p>
+<p>apisstorage.k8s.iov1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_delete_a_certificatesigningrequest">delete a CertificateSigningRequest</h3>
+<h3 id="_delete_a_storageclass">delete a StorageClass</h3>
 <div class="listingblock">
 <div class="content">
-<pre>DELETE /apis/certificates/v1alpha1/certificatesigningrequests/{name}</pre>
+<pre>DELETE /apis/storage.k8s.io/v1beta1/storageclasses/{name}</pre>
 </div>
 </div>
 <div class="sect3">
@@ -749,7 +749,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;"> 
+<col style="width:16%;">
 </colgroup>
 <thead>
 <tr>
@@ -781,7 +781,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the CertificateSigningRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the StorageClass</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -796,7 +796,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;"> 
+<col style="width:33%;">
 </colgroup>
 <thead>
 <tr>
@@ -846,17 +846,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apiscertificatesv1alpha1</p>
+<p>apisstorage.k8s.iov1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_partially_update_the_specified_certificatesigningrequest">partially update the specified CertificateSigningRequest</h3>
+<h3 id="_partially_update_the_specified_storageclass">partially update the specified StorageClass</h3>
 <div class="listingblock">
 <div class="content">
-<pre>PATCH /apis/certificates/v1alpha1/certificatesigningrequests/{name}</pre>
+<pre>PATCH /apis/storage.k8s.io/v1beta1/storageclasses/{name}</pre>
 </div>
 </div>
 <div class="sect3">
@@ -868,7 +868,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;"> 
+<col style="width:16%;">
 </colgroup>
 <thead>
 <tr>
@@ -900,7 +900,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the CertificateSigningRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the StorageClass</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -915,7 +915,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;"> 
+<col style="width:33%;">
 </colgroup>
 <thead>
 <tr>
@@ -928,7 +928,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequest">v1alpha1.CertificateSigningRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_storageclass">v1beta1.StorageClass</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -971,17 +971,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apiscertificatesv1alpha1</p>
+<p>apisstorage.k8s.iov1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_replace_approval_of_the_specified_certificatesigningrequest">replace approval of the specified CertificateSigningRequest</h3>
+<h3 id="_watch_individual_changes_to_a_list_of_storageclass">watch individual changes to a list of StorageClass</h3>
 <div class="listingblock">
 <div class="content">
-<pre>PUT /apis/certificates/v1alpha1/certificatesigningrequests/{name}/approval</pre>
+<pre>GET /apis/storage.k8s.io/v1beta1/watch/storageclasses</pre>
 </div>
 </div>
 <div class="sect3">
@@ -993,7 +993,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;"> 
+<col style="width:16%;">
 </colgroup>
 <thead>
 <tr>
@@ -1015,19 +1015,43 @@
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BodyParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequest">v1alpha1.CertificateSigningRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">labelSelector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A selector to restrict the list of returned objects by their labels. Defaults to everything.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the CertificateSigningRequest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fieldSelector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A selector to restrict the list of returned objects by their fields. Defaults to everything.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">watch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resourceVersion</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">timeoutSeconds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Timeout for the list/watch call.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1040,7 +1064,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;"> 
+<col style="width:33%;">
 </colgroup>
 <thead>
 <tr>
@@ -1053,7 +1077,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequest">v1alpha1.CertificateSigningRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_*versioned_event">*versioned.Event</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1077,10 +1101,13 @@
 <p>application/json</p>
 </li>
 <li>
-<p>application/yaml</p>
+<p>application/json;stream=watch</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf</p>
+</li>
+<li>
+<p>application/vnd.kubernetes.protobuf;stream=watch</p>
 </li>
 </ul>
 </div>
@@ -1090,17 +1117,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apiscertificatesv1alpha1</p>
+<p>apisstorage.k8s.iov1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_replace_status_of_the_specified_certificatesigningrequest">replace status of the specified CertificateSigningRequest</h3>
+<h3 id="_watch_changes_to_an_object_of_kind_storageclass">watch changes to an object of kind StorageClass</h3>
 <div class="listingblock">
 <div class="content">
-<pre>PUT /apis/certificates/v1alpha1/certificatesigningrequests/{name}/status</pre>
+<pre>GET /apis/storage.k8s.io/v1beta1/watch/storageclasses/{name}</pre>
 </div>
 </div>
 <div class="sect3">
@@ -1112,7 +1139,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;"> 
+<col style="width:16%;">
 </colgroup>
 <thead>
 <tr>
@@ -1134,17 +1161,49 @@
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BodyParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">labelSelector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A selector to restrict the list of returned objects by their labels. Defaults to everything.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequest">v1alpha1.CertificateSigningRequest</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fieldSelector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A selector to restrict the list of returned objects by their fields. Defaults to everything.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">watch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resourceVersion</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">timeoutSeconds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Timeout for the list/watch call.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the CertificateSigningRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the StorageClass</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1159,7 +1218,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;"> 
+<col style="width:33%;">
 </colgroup>
 <thead>
 <tr>
@@ -1172,7 +1231,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_certificatesigningrequest">v1alpha1.CertificateSigningRequest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_*versioned_event">*versioned.Event</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1196,10 +1255,13 @@
 <p>application/json</p>
 </li>
 <li>
-<p>application/yaml</p>
+<p>application/json;stream=watch</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf</p>
+</li>
+<li>
+<p>application/vnd.kubernetes.protobuf;stream=watch</p>
 </li>
 </ul>
 </div>
@@ -1209,307 +1271,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apiscertificatesv1alpha1</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_watch_individual_changes_to_a_list_of_certificatesigningrequest">watch individual changes to a list of CertificateSigningRequest</h3>
-<div class="listingblock">
-<div class="content">
-<pre>GET /apis/certificates/v1alpha1/watch/certificatesigningrequests</pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_parameters_10">Parameters</h4>
-<table class="tableblock frame-all grid-all" style="width:100%; ">
-<colgroup>
-<col style="width:16%;">
-<col style="width:16%;">
-<col style="width:16%;">
-<col style="width:16%;">
-<col style="width:16%;">
-<col style="width:16%;"> 
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If <em>true</em>, then the output is pretty printed.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">labelSelector</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A selector to restrict the list of returned objects by their labels. Defaults to everything.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fieldSelector</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A selector to restrict the list of returned objects by their fields. Defaults to everything.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">watch</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">resourceVersion</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">timeoutSeconds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Timeout for the list/watch call.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-
-</div>
-<div class="sect3">
-<h4 id="_responses_11">Responses</h4>
-<table class="tableblock frame-all grid-all" style="width:100%; ">
-<colgroup>
-<col style="width:33%;">
-<col style="width:33%;">
-<col style="width:33%;"> 
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">HTTP Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Schema</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_*versioned_event">*versioned.Event</a></p></td>
-</tr>
-</tbody>
-</table>
-
-</div>
-<div class="sect3">
-<h4 id="_consumes_11">Consumes</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>/</strong></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_produces_11">Produces</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>application/json</p>
-</li>
-<li>
-<p>application/json;stream=watch</p>
-</li>
-<li>
-<p>application/vnd.kubernetes.protobuf</p>
-</li>
-<li>
-<p>application/vnd.kubernetes.protobuf;stream=watch</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_tags_11">Tags</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>apiscertificatesv1alpha1</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_watch_changes_to_an_object_of_kind_certificatesigningrequest">watch changes to an object of kind CertificateSigningRequest</h3>
-<div class="listingblock">
-<div class="content">
-<pre>GET /apis/certificates/v1alpha1/watch/certificatesigningrequests/{name}</pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_parameters_11">Parameters</h4>
-<table class="tableblock frame-all grid-all" style="width:100%; ">
-<colgroup>
-<col style="width:16%;">
-<col style="width:16%;">
-<col style="width:16%;">
-<col style="width:16%;">
-<col style="width:16%;">
-<col style="width:16%;"> 
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Schema</th>
-<th class="tableblock halign-left valign-top">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">pretty</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If <em>true</em>, then the output is pretty printed.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">labelSelector</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A selector to restrict the list of returned objects by their labels. Defaults to everything.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fieldSelector</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A selector to restrict the list of returned objects by their fields. Defaults to everything.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">watch</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">resourceVersion</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">timeoutSeconds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Timeout for the list/watch call.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the CertificateSigningRequest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-
-</div>
-<div class="sect3">
-<h4 id="_responses_12">Responses</h4>
-<table class="tableblock frame-all grid-all" style="width:100%; ">
-<colgroup>
-<col style="width:33%;">
-<col style="width:33%;">
-<col style="width:33%;"> 
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">HTTP Code</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Schema</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_*versioned_event">*versioned.Event</a></p></td>
-</tr>
-</tbody>
-</table>
-
-</div>
-<div class="sect3">
-<h4 id="_consumes_12">Consumes</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>/</strong></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_produces_12">Produces</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>application/json</p>
-</li>
-<li>
-<p>application/json;stream=watch</p>
-</li>
-<li>
-<p>application/vnd.kubernetes.protobuf</p>
-</li>
-<li>
-<p>application/vnd.kubernetes.protobuf;stream=watch</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_tags_12">Tags</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>apiscertificatesv1alpha1</p>
+<p>apisstorage.k8s.iov1beta1</p>
 </li>
 </ul>
 </div>
@@ -1520,7 +1282,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-07-29 20:29:11 UTC
+Last updated 2016-10-21 20:04:52 UTC
 </div>
 </div>
 </body>
