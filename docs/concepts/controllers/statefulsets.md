@@ -1,4 +1,12 @@
 ---
+assignees:
+- bprashanth
+- enisoc
+- erictune
+- foxish
+- janetkuo
+- kow3ns
+- smarterclayton
 ---
 
 {% capture overview %}
@@ -69,8 +77,6 @@ spec:
     metadata:
       labels:
         app: nginx
-      annotations:
-        pod.alpha.kubernetes.io/initialized: "true"
     spec:
       terminationGracePeriodSeconds: 10
       containers:
@@ -86,7 +92,7 @@ spec:
   - metadata:
       name: www
       annotations:
-        volume.alpha.kubernetes.io/storage-class: anything
+        volume.beta.kubernetes.io/storage-class: anything
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
@@ -127,17 +133,19 @@ Cluster Domain | Service (ns/name) | Stateful Set (ns/name)  | Stateful Set Doma
  cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
-Note that Cluster Domain will be set to `cluster.local` unless [otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it).
+Note that Cluster Domain will be set to `cluster.local` unless 
+[otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it).
 
 __Stable Storage__
 
 [Persistent Volumes](/docs/user-guide/volumes/), one for each Volume Claim Template, 
 are created based on the `volumeClaimTemplates` field of the Stateful Set. In the 
 example above, each Pod will receive a single persistent volume with a storage 
-class of anything and 1 Gib of provisioned storage. When a Pod is (re)scheduled,
-its volume(s) are available on the node on which it is launched. Note that, the 
-volumes associated with the Pods' Persistent Volume  Claims are not deleted when
-the Pods, or Stateful Set are deleted. This must be done manually.
+class of anything and 1 Gib of provisioned storage. When a Pod is (re) scheduled onto
+a node, its `volumeMounts` mount the Persistent Volumes associated with its 
+Persistent Volume Claims. That is, the Note that, the Persistent Volumes associated with the 
+Pods' Persistent Volume  Claims are not deleted when the Pods, or Stateful Set are deleted. 
+This must be done manually.
 
 ### Deployment and Scaling Guarantee
 
