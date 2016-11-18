@@ -20,6 +20,7 @@ The Tasks section of the Kubernetes documentation is a work in progress
 #### Administering a Cluster
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
+* [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 
 ### What's next
 
