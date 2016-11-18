@@ -23,4 +23,9 @@ toc:
   section:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
-
+- title: Managing Stateful Applications
+  section:
+  - title: Upgrade from Pet Sets to Stateful Sets
+    path: /docs/tasks/stateful-sets/upgrade-pet-sets-to-stateful-sets/
+  - title: Force Deleting Stateful Set Pods
+    path: /docs/tasks/stateful-sets/deleting-pods/
