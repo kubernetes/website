@@ -22,8 +22,8 @@ Pet Set was introduced as an alpha resource in Kubernetes release 1.3, and was r
 Here are some notable changes:
 
 * **Stateful Set is the new Pet Set**: Pet Set is no longer available in any Kubernetes release >= 1.5. It becomes beta Stateful Set. To know why the name is changed, see this [discussion thread](https://github.com/kubernetes/kubernetes/issues/27430).
-* **Stateful Set fencing**: Fencing guards are implemented in >= 1.5 to prevent split brain scenarios for Stateful Sets. *TODO: Link to doc about fencing*
-* **Flipped debug hook behavior**: The default value of the debug annotation (`pod.alpha.kubernetes.io/initialized`) is now `true`. The absence of this annotation will pause the Pet Sets, but will NOT pause the Stateful Sets. In most cases, you no longer need this annotation in your Stateful Set manifests. 
+* **Stateful Set guards against split brain**: Stateful Sets guarantee at-most-one semantics to ensure exactly one instance of each pod running anywhere in a cluster, in order to guard against split brain scenarios with distributed applications. *TODO: Link to doc about fencing*
+* **Flipped debug annotation behavior**: The default value of the debug annotation (`pod.alpha.kubernetes.io/initialized`) is now `true`. The absence of this annotation will pause Pet Set operations, but will NOT pause Stateful Set operations. In most cases, you no longer need this annotation in your Stateful Set manifests. 
 
 
 ### Upgrading from Pet Sets to Stateful Sets
@@ -54,7 +54,7 @@ Now, for every Pet Set manifest you have, prepare a corresponding Stateful Set m
 
 1. Change `apiVersion` from `apps/v1alpha1` to `apps/v1beta1`
 2. Change `kind` from `PetSet` to `StatefulSet`
-3. If you have the debug hook annotation `pod.alpha.kubernetes.io/initialized` set to `true`, you may remove it since it's redundant. If you don't have this annotation, you should add one, with the value set to `false`.
+3. If you have the debug hook annotation `pod.alpha.kubernetes.io/initialized` set to `true`, you may remove it since it's redundant. If you don't have this annotation, you should add one, with the value set to `false`, to pause Stateful Sets operations.
 
 It's recommended that you keep both Pet Set manifests and Stateful Set manifests, so that you may safely rollback and recreate your Pet Sets, 
 if you decide not to upgrade your cluster. 
@@ -84,13 +84,14 @@ Now, you may [upgrade your Kubernetes cluster](/docs/admin/cluster-management/#u
 
 #### Create Stateful Sets
 
-Now, you want to recreate all Pet Sets, but turning them into Stateful Sets. To do this, just create all Stateful Set manifests you generate in the previous step. 
+You need to create Stateful Sets to adopt the pods belonging to the deleted Pet Sets. 
+To do this, just create all Stateful Set manifests you generate in the previous step. 
 
 ```shell
 $ kubectl create -f <stateful-set-file>
 ```
 
-Now, you can find all Stateful Sets in the newly-upgraded cluster. 
+Then you'll find all Stateful Sets in the newly-upgraded cluster. 
 
 ```shell
 $ kubectl get statefulsets --all-namespaces
