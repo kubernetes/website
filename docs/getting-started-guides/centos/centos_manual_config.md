@@ -123,7 +123,7 @@ KUBE_API_ARGS=""
 
 ```shell
 $ etcdctl mkdir /kube-centos/network
-$ etcdclt mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
+$ etcdctl mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
 ```
 
 * Configure flannel to overlay Docker network in /etc/sysconfig/flanneld on the master (also in the nodes as we'll see):
@@ -195,6 +195,13 @@ for SERVICES in kube-proxy kubelet flanneld docker; do
     systemctl enable $SERVICES
     systemctl status $SERVICES
 done
+```
+* Configure kubectl
+
+```shell
+kubectl config set-cluster default-cluster --server=http://centos-master:8080
+kubectl config set-context default-context --cluster=default-cluster --user=default-admin
+kubectl config use-context default-context
 ```
 
 *You should be finished!*
