@@ -26,6 +26,7 @@ single thing, typically by giving a short sequence of steps.
 #### Administering a Cluster
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
+* [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 
 #### Managing Stateful Applications
 
