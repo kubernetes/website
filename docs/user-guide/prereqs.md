@@ -13,6 +13,15 @@ If you downloaded a pre-compiled [release](https://github.com/kubernetes/kuberne
 
 If you built from source, kubectl should be either under `_output/local/bin/<os>/<arch>` or `_output/dockerized/bin/<os>/<arch>`.
 
+If you don't have the source code checked out you can download the compiled kubectl binary for each release with curl
+
+```shell
+# Linux
+curl -LO https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl
+# OS X
+curl -LO https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/darwin/amd64/kubectl
+```
+
 The kubectl binary doesn't have to be installed to be executable, but the rest of the walkthrough will assume that it's in your PATH.
 
 The simplest way to install is to copy or move kubectl into a dir already in PATH (e.g. `/usr/local/bin`). For example:
