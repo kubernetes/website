@@ -10,13 +10,13 @@ assignees:
 ---
 
 {% capture overview %}
-**Stateful Sets are a beta feature in 1.5. This feature replaces the deprecated 
+**Stateful Sets are a beta feature in 1.5. This feature replaces the 
 Pet Sets feature from 1.4. Users of Pet Sets are referred to the 1.5 
 [Upgrade Guide](/docs/tasks/stateful-set/upgrade-from-petsets-to-stateful-sets/)
 for further information on how to upgrade existing Pet Sets to Stateful Sets.**
 
-A Stateful Set is a Controller that ensures that provides a unique identity to 
-its Pods, and provides garuantees about the ordering of deployment and scaling.
+A Stateful Set is a Controlle provides a unique identity to its Pods, and it provides
+guarantees about the ordering of deployment and scaling.
 {% endcapture %}
 
 {% capture body %}
@@ -30,6 +30,7 @@ following.
 * Ordered, graceful deployment and scaling.
 * Ordered, graceful deletion and termination.
 
+In the above, by stable, we mean persistent across Pod (re) schedulings.
 As it is generally easier to manage, if an application doesn't require any of 
 the above guarantees, and if it is feasible to do so, it should be deployed as 
 a set of stateless replicas.
@@ -38,7 +39,7 @@ a set of stateless replicas.
 * Stateful Set is a beta resource, not available in any Kubernetes release prior to 1.5.
 * As with all alpha/beta resources, it can be disabled through the `--runtime-config` option passed to the apiserver.
 * The storage for a given Pod must either be provisioned by a [Persistent Volume Provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
-* Deleting and/or scaling a Stateful Set down will *not* delete the volumes associated with the Stateful Set. This is done to ensure safety first, your data is more valuable than an auto purge of all related Stateful Set resources. **Deleting the Persistent Volume Claims will result in a deletion of the associated volumes**.
+* Deleting and/or scaling a Stateful Set down will *not* delete the volumes associated with the Stateful Set. This is done to ensure safety first, your data is more valuable than an auto purge of all related Stateful Set resources. 
 * Stateful Sets currently require a [Headless Service](/docs/user-guide/services/#headless-services) to be responsible for the network identity of the Pods. The user is responsible for this Service.
 * Updating an existing Stateful Set is currently a manual process, meaning you either need to deploy a new Stateful Set with the new image version, or orphan Pods one by one, update their image, and join them back to the cluster.
 
@@ -108,9 +109,9 @@ regardless of which node it's (re) scheduled on.
 __Ordinal Index__
 
 For a Stateful Set with N replicas, each Pod in the Stateful Set will be 
-assigned a integer ordinal, in the range [0,N), that is unique over the Set. 
+assigned an integer ordinal, in the range [0,N), that is unique over the Set. 
 
-__Stable Network Id__
+__Stable Network ID__
 
 The hostname of a Pod in a Stateful Set is derived from the name of the 
 Stateful Set and the ordinal of the Pod. The pattern for the constructed hostname 
@@ -141,9 +142,9 @@ __Stable Storage__
 [Persistent Volumes](/docs/user-guide/volumes/), one for each Volume Claim Template, 
 are created based on the `volumeClaimTemplates` field of the Stateful Set. In the 
 example above, each Pod will receive a single persistent volume with a storage 
-class of anything and 1 Gib of provisioned storage. When a Pod is (re) scheduled onto
+class of `anything` and 1 Gib of provisioned storage. When a Pod is (re) scheduled onto
 a node, its `volumeMounts` mount the Persistent Volumes associated with its 
-Persistent Volume Claims. That is, the Note that, the Persistent Volumes associated with the 
+Persistent Volume Claims. Note that, the Persistent Volumes associated with the 
 Pods' Persistent Volume  Claims are not deleted when the Pods, or Stateful Set are deleted. 
 This must be done manually.
 
