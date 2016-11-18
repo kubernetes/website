@@ -135,9 +135,9 @@ simplified management.
 
 ## Durability of pods (or lack thereof)
 
-Pods aren't intended to be treated as durable [pets](https://blog.engineyard.com/2014/pets-vs-cattle). They won't survive scheduling failures, node failures, or other evictions, such as due to lack of resources, or in the case of node maintenance.
+Pods aren't intended to be treated as durable [instances](https://blog.engineyard.com/2014/pets-vs-cattle). They won't survive scheduling failures, node failures, or other evictions, such as due to lack of resources, or in the case of node maintenance.
 
-In general, users shouldn't need to create pods directly. They should almost always use controllers (e.g., [replication controller](/docs/user-guide/replication-controller/)), even for singletons.  Controllers provide self-healing with a cluster scope, as well as replication and rollout management.
+In general, users shouldn't need to create pods directly. They should almost always use controllers (e.g., [Deployments](/docs/user-guide/deployments/)), even for singletons.  Controllers provide self-healing with a cluster scope, as well as replication and rollout management.
 
 The use of collective APIs as the primary user-facing primitive is relatively common among cluster scheduling systems, including [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/configuration-reference/#job-schema), and [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 
@@ -150,8 +150,10 @@ Pod is exposed as a primitive in order to facilitate:
 * clean composition of Kubelet-level functionality with cluster-level functionality &mdash; Kubelet is effectively the "pod controller"
 * high-availability applications, which will expect pods to be replaced in advance of their termination and certainly in advance of deletion, such as in the case of planned evictions, image prefetching, or live pod migration [#3949](http://issue.k8s.io/3949)
 
-There is new first-class support for pet-like pods with the [PetSet](/docs/user-guide/petset/) feature (currently in alpha).
-For prior versions of Kubernetes, best practice for pets is to create a replication controller with `replicas` equal to `1` and a corresponding service. 
+There is new first-class support for durable/stateful pods with the [Stateful Sets](/docs/user-guide/petset/) feature (currently in beta).
+For prior versions of Kubernetes, best practice for stateful pods is to create a Deployment with `replicas` equal to `1` and a corresponding service, see [this MySQL deployment example](/docs/tutorials/stateful-application/run-stateful-application/). 
+*TODO: link to stateful set concept instead*
+*TODO: link to Tutorial: Running a VM-style workload using StatefulSet*
 
 
 ## Termination of Pods
@@ -171,6 +173,8 @@ An example flow:
 7. The Kubelet will finish deleting the Pod on the API server by setting grace period 0 (immediate deletion). The Pod disappears from the API and is no longer visible from the client.
 
 By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports the `--grace-period=<seconds>` option which allows a user to override the default and specify their own value. The value `0` indicates that delete should be immediate, and removes the pod in the API immediately so a new pod can be created with the same name. On the node pods that are set to terminate immediately will still be given a small grace period before being force killed.
+
+*TODO: link to Task: Force Deleting a Pod*
 
 ## Privileged mode for pod containers
 
