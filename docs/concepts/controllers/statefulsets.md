@@ -29,7 +29,6 @@ a set of stateless replicas.
 ### Limitations
 * Stateful Set is a beta resource, not available in any Kubernetes release prior to 1.5.
 * As with all alpha/beta resources, it can be disabled through the `--runtime-config` option passed to the apiserver.
-* The only mutable field on a Stateful Set is `replicas`
 * The storage for a given Pod must either be provisioned by a [Persistent Volume Provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a Stateful Set down will *not* delete the volumes associated with the Stateful Set. This is done to ensure safety first, your data is more valuable than an auto purge of all related Stateful Set resources. **Deleting the Persistent Volume Claims will result in a deletion of the associated volumes**.
 * Stateful Sets currently require a [Headless Service](/docs/user-guide/services/#headless-services) to be responsible for the network identity of the Pods. The user is responsible for this Service.
