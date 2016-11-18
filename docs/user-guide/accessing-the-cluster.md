@@ -183,7 +183,7 @@ From within a pod the recommended ways to connect to API are:
     in any container of the pod can access it.  See this [example of using kubectl proxy
     in a pod](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/kubectl-container/).
   - use the Go client library, and create a client using the `client.NewInCluster()` factory.
-    This handles locating and authenticating to the apiserver. [example](https://github.com/kubernetes/client-go/examples/in-cluster.go)
+    This handles locating and authenticating to the apiserver. [example](https://github.com/kubernetes/client-go/blob/master/examples/in-cluster/main.go)
 
 In each case, the credentials of the pod are used to communicate securely with the apiserver.
 
