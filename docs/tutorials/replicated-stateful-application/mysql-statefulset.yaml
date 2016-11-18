@@ -23,6 +23,7 @@ spec:
               # Generate mysql server-id from pod ordinal index.\n
               [[ `hostname` =~ -([0-9]+)$ ]] || exit 1\n
               echo [mysqld] > /mnt/conf.d/server-id.cnf\n
+              # Add an offset to avoid reserved server-id=0 value.\n
               echo server-id=$((100 + ${BASH_REMATCH[1]})) >> /mnt/conf.d/server-id.cnf\n
             "],
             "volumeMounts": [
