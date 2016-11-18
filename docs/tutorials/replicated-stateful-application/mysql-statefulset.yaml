@@ -1,0 +1,144 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  serviceName: mysql
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: mysql
+      annotations:
+        pod.beta.kubernetes.io/init-containers: '[
+          {
+            "name": "init-mysql",
+            "image": "mysql:5.7",
+            "command": ["bash", "-c", "
+              set -ex\n
+              # mysqld --initialize expects an empty data dir.\n
+              rm -rf /mnt/data/lost+found\n
+              # Copy conf.d from config-map to emptyDir.\n
+              cp /mnt/config-map/* /mnt/conf.d/\n
+              # Generate mysql server-id from pod ordinal index.\n
+              [[ `hostname` =~ -([0-9]+)$ ]] || exit 1\n
+              echo [mysqld] > /mnt/conf.d/server-id.cnf\n
+              echo server-id=$((100 + ${BASH_REMATCH[1]})) >> /mnt/conf.d/server-id.cnf\n
+            "],
+            "volumeMounts": [
+              {"name": "data", "mountPath": "/mnt/data"},
+              {"name": "conf", "mountPath": "/mnt/conf.d"},
+              {"name": "config-map", "mountPath": "/mnt/config-map"}
+            ]
+          },
+          {
+            "name": "clone-mysql",
+            "image": "enisoc/xtrabackup",
+            "command": ["bash", "-c", "
+              set -ex\n
+              # Skip the clone if data already exists.\n
+              [[ -d /var/lib/mysql/mysql ]] && exit 0\n
+              # Skip the clone on master (ordinal index 0).\n
+              [[ `hostname` =~ -0$ ]] && exit 0\n
+              # Clone data from master.\n
+              ncat --recv-only mysql-0.mysql 3307 | xbstream -x -C /var/lib/mysql\n
+              # Prepare the backup.\n
+              xtrabackup --prepare --target-dir=/var/lib/mysql\n
+            "],
+            "volumeMounts": [
+              {"name": "data", "mountPath": "/var/lib/mysql"},
+              {"name": "conf", "mountPath": "/etc/mysql/conf.d"}
+            ]
+          }
+        ]'
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: "1"
+        ports:
+        - name: mysql
+          containerPort: 3306
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+        - name: conf
+          mountPath: /etc/mysql/conf.d
+        resources:
+          requests:
+            cpu: 1
+            memory: 1Gi
+        livenessProbe:
+          exec:
+            command: ["mysqladmin", "ping"]
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            # Check we can execute queries over TCP (skip-networking is off).
+            command: ["mysql", "-h", "127.0.0.1", "-e", "SELECT 1"]
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+      - name: xtrabackup
+        image: enisoc/xtrabackup:latest
+        ports:
+        - name: xtrabackup
+          containerPort: 3307
+        command:
+        - bash
+        - "-c"
+        - |
+          set -ex
+
+          # Check if we need to complete a clone by starting replication.
+          cd /var/lib/mysql
+          if [[ -f xtrabackup_binlog_info ]]; then
+            echo "Waiting for mysqld to accept connections"
+            until mysql -h 127.0.0.1 -e "SELECT 1"; do sleep 1; done
+
+            echo "Initializing replication from clone position"
+            [[ `cat xtrabackup_binlog_info` =~ ^(.*?)[[:space:]]+(.*?)$ ]] || exit 1
+            mv xtrabackup_binlog_info xtrabackup_binlog_info.orig
+            mysql -h 127.0.0.1 <<EOF
+          CHANGE MASTER TO
+            MASTER_HOST='mysql-0.mysql',
+            MASTER_USER='root',
+            MASTER_PASSWORD='',
+            MASTER_CONNECT_RETRY=10,
+            MASTER_LOG_FILE='${BASH_REMATCH[1]}',
+            MASTER_LOG_POS=${BASH_REMATCH[2]};
+          START SLAVE;
+          EOF
+          fi
+
+          # Start a server to send backups when requested.
+          exec ncat --listen --keep-open --send-only --max-conns=1 3307 -c \
+            "xtrabackup --backup --stream=xbstream --host=127.0.0.1 --user=root"
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+        - name: conf
+          mountPath: /etc/mysql/conf.d
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+      volumes:
+      - name: conf
+        emptyDir: {}
+      - name: config-map
+        configMap:
+          name: mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+      annotations:
+        volume.alpha.kubernetes.io/storage-class: default
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi
+
