@@ -389,6 +389,14 @@ footer
 		display: block
 		height: 0
 		overflow: hidden
+		
+	&.button
+		background-image: none
+		width: auto
+		height: auto
+		
+		&:hover
+			color: $blue
 
 a.twitter
 	background-position: 0 0
@@ -874,8 +882,19 @@ dd
 	img
 		max-width: 100%
 
+	a
+		font-weight: 700
+		text-decoration: underline
+
+	a:visited
+		color: blueviolet
+
 	a.button
 		border-radius: 2px
+		text-decoration: none
+		
+		&:visited
+			color: white
 
 	a.issue
 		margin-left: 20px
