@@ -45,3 +45,5 @@ toc:
     path: /docs/tasks/manage-stateful-set/debugging-a-statefulset/
   - title: Safely Draining a Node while Respecting Application SLOs
     path: /docs/tasks/administer-cluster/safely-drain-node/
+  - title: Force Deleting Stateful Set Pods
+    path: /docs/tasks/stateful-sets/deleting-pods/
