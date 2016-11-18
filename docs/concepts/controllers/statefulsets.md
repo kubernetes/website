@@ -15,7 +15,7 @@ Pet Sets feature from 1.4. Users of Pet Sets are referred to the 1.5
 [Upgrade Guide](/docs/tasks/stateful-set/upgrade-from-petsets-to-stateful-sets/)
 for further information on how to upgrade existing Pet Sets to Stateful Sets.**
 
-A Stateful Set is a Controlle provides a unique identity to its Pods, and it provides
+A Stateful Set is a Controller provides a unique identity to its Pods, and it provides
 guarantees about the ordering of deployment and scaling.
 {% endcapture %}
 
