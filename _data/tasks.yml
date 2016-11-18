@@ -23,4 +23,6 @@ toc:
   section:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
+  - title: Using DNS Horizontal Autoscaling
+    path: /docs/tasks/administer-cluster/dns-horizontal-autoscaling/
 
