@@ -81,7 +81,7 @@
   ga('create', 'UA-36037335-10', 'auto');
   ga('send', 'pageview');
 	
-  // hide docs nav area if no nav is present
+  // hide docs nav area if no nav is present, or if nav only contains a link to the current page
   (function () {
 	  window.addEventListener('DOMContentLoaded', init)
 	  
@@ -97,7 +97,8 @@
 		  
 		  // container is built dynamically, so it may not be present on the first runloop
 		  if (container) {
-			  if (container.childElementCount === 0) {
+			  if (container.childElementCount === 0 || toc.querySelectorAll('a.item').length === 1) {
+				  toc.style.display = 'none'
 				  document.getElementById('docsContent').style.width = '100%'
 			  }
 		  } else {
