@@ -233,12 +233,8 @@ toc:
         path: /docs/getting-started-guides/centos/centos_manual_config/
       - title: CoreOS
         path: /docs/getting-started-guides/coreos
-      - title: CoreOS with Calico
-        path: /docs/getting-started-guides/coreos/bare_metal_calico/
       - title: Ubuntu
         path: /docs/getting-started-guides/ubuntu/
-      - title: Ubuntu Nodes with Calico
-        path: /docs/getting-started-guides/ubuntu-calico/
     - title: Validate Node Setup
       path: /docs/admin/node-conformance
   - title: Portable Multi-Node Cluster
