@@ -18,13 +18,18 @@ spec:
               set -ex\n
               # mysqld --initialize expects an empty data dir.\n
               rm -rf /mnt/data/lost+found\n
-              # Copy conf.d from config-map to emptyDir.\n
-              cp /mnt/config-map/* /mnt/conf.d/\n
               # Generate mysql server-id from pod ordinal index.\n
               [[ `hostname` =~ -([0-9]+)$ ]] || exit 1\n
+              ordinal=${BASH_REMATCH[1]}\n
               echo [mysqld] > /mnt/conf.d/server-id.cnf\n
               # Add an offset to avoid reserved server-id=0 value.\n
-              echo server-id=$((100 + ${BASH_REMATCH[1]})) >> /mnt/conf.d/server-id.cnf\n
+              echo server-id=$((100 + $ordinal)) >> /mnt/conf.d/server-id.cnf\n
+              # Copy appropriate conf.d files from config-map to emptyDir.\n
+              if [[ $ordinal -eq 0 ]]; then\n
+                cp /mnt/config-map/master.cnf /mnt/conf.d/\n
+              else\n
+                cp /mnt/config-map/slave.cnf /mnt/conf.d/\n
+              fi\n
             "],
             "volumeMounts": [
               {"name": "data", "mountPath": "/mnt/data"},
@@ -102,7 +107,7 @@ spec:
             # because we're cloning from an existing slave.
             mv xtrabackup_slave_info change_master_to.sql.in
             # Ignore xtrabackup_binlog_info in this case (it's useless).
-            rm xtrabackup_binlog_info
+            rm -f xtrabackup_binlog_info
           elif [[ -f xtrabackup_binlog_info ]]; then
             # We're cloning directly from master. Parse binlog position.
             [[ `cat xtrabackup_binlog_info` =~ ^(.*?)[[:space:]]+(.*?)$ ]] || exit 1
