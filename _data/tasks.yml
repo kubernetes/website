@@ -23,4 +23,7 @@ toc:
   section:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
-
+- title: Managing Stateful Applications
+  section:
+  - title: Deleting a Stateful Set
+    path: /docs/tasks/stateful-sets/deleting-a-statefulset/
