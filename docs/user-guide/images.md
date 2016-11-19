@@ -39,6 +39,7 @@ Credentials can be provided in several ways:
   - Using AWS EC2 Container Registry (ECR)
     - use IAM roles and policies to control access to ECR repositories
     - automatically refreshes ECR login credentials
+  - Using Azure Container Registry (ACR)
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
@@ -99,6 +100,23 @@ Troubleshooting:
 - Check kubelet logs (e.g. `journalctl -t kubelet`) for log lines like:
   - `plugins.go:56] Registering credential provider: aws-ecr-key`
   - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
+
+### Using Azure Container Registry (ACR)
+When using Azure container registry you can authenticate using either an admin user or a service principal.
+In either case, authentication is done via standard Docker authentication.  These instructions assume the
+python based [az](https://github.com/azure/azure-cli) tooling.
+`
+```console
+# To generate new credentials
+az acr credential renew -n ${CLUSTER_NAME} -g ${CLUSTER_RESOURCE_GROUP}
+
+# To show existing credentials
+az acr credential show -n ${CLUSTER_NAME} -g ${CLUSTER_RESOURCE_GROUP}
+```
+
+Once you have those credentials you can [configure a Kubernetes Secret and use it to deploy a Pod]
+(http://kubernetes.io/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
+
 
 ### Configuring Nodes to Authenticate to a Private Repository
 
