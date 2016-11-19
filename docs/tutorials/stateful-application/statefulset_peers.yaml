@@ -67,7 +67,6 @@ spec:
             }
         ]'
     spec:
-      terminationGracePeriodSeconds: 0
       containers:
       - name: nginx
         image: gcr.io/google_containers/nginx-slim:0.8

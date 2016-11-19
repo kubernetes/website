@@ -52,7 +52,6 @@ spec:
             }
         ]'
     spec:
-      terminationGracePeriodSeconds: 0
       containers:
       - name: ub
         image: ubuntu:15.10
