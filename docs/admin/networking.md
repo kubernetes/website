@@ -177,7 +177,7 @@ complicated way to build an overlay network.  This is endorsed by several of the
 
 ### Project Calico
 
-[Project Calico](https://github.com/projectcalico/calico-containers/blob/master/docs/cni/kubernetes/README.md) is an open source container networking provider and network policy engine.
+[Project Calico](http://docs.projectcalico.org/) is an open source container networking provider and network policy engine.
 
 Calico provides a highly scalable networking and network policy solution for connecting Kubernetes pods based on the same IP networking principles as the internet.  Calico can be deployed without encapsulation or overlays to provide high-performance, high-scale data center networking.  Calico also provides fine-grained, intent based network security policy for Kubernetes pods via its distributed firewall.
 
