@@ -11,7 +11,7 @@ assignees:
 
 ## Prerequisites
 
-1. You need 2 or more machines with Fedora installed.
+1. You need 2 or more machines with Fedora installed. These can be either bare metal machines or virtual machines.
 
 ## Instructions
 
