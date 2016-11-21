@@ -71,7 +71,7 @@ Here's an interesting thing to know about the steps you just did.
 
 <p>Here's an example of a published topic that uses the task template:</p>
 
-<p><a href="/docs/tasks/access-application-cluster/http-proxy-access-application-cluster">Using an HTTP Proxy to Access Applications in a Cluster</a></p>
+<p><a href="/docs/tasks/access-kubernetes-api/http-proxy-access-api">Using an HTTP Proxy to Access the Kubernetes API</a></p>
 
 <h3 id="tutorial_template">Tutorial template</h3>
 
