@@ -8,14 +8,7 @@ Kubernetes cluster.
 
 {% capture prerequisites %}
 
-* Install [kubectl](http://kubernetes.io/docs/user-guide/prereqs).
-
-* Create a Kubernetes cluster, including a running Kubernetes
-  API server. One way to create a new cluster is to use
-  [Minikube](/docs/getting-started-guides/minikube).
-
-* Configure `kubectl` to communicate with your Kubernetes API server. This
-  configuration is done automatically if you use Minikube.
+{% include task-tutorial-prereqs.md %}
 
 {% endcapture %}
 

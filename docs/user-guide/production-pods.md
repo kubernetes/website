@@ -204,6 +204,8 @@ The status of the init containers is returned as another annotation - `pod.beta.
 
 Init containers support all of the same features as normal containers, including resource limits, volumes, and security settings. The resource requests and limits for an init container are handled slightly different than normal containers since init containers are run one at a time instead of all at once - any limits or quotas will be applied based on the largest init container resource quantity, rather than as the sum of quantities. Init containers do not support readiness probes since they will run to completion before the pod can be ready.
 
+[Complete Init Container Documentation](/docs/user-guide/pods/init-containers.md)
+
 
 ## Lifecycle hooks and termination notice
 
@@ -226,7 +228,8 @@ Here is a toy example:
 
 The message is recorded along with the other state of the last (i.e., most recent) termination:
 
-```shell{% raw %}
+```shell
+{% raw %}
 $ kubectl create -f ./pod-w-message.yaml
 pod "pod-w-message" created
 $ sleep 70
@@ -234,7 +237,8 @@ $ kubectl get pods/pod-w-message -o go-template="{{range .status.containerStatus
 Sleep expired
 $ kubectl get pods/pod-w-message -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.exitCode}}{{end}}"
 0
-{% endraw %}```
+{% endraw %}
+```
 
 ## What's next?
 
