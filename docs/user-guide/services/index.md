@@ -345,7 +345,7 @@ can do a DNS SRV query for `"_http._tcp.my-service.my-ns"` to discover the port
 number for `"http"`.
 
 The Kubernetes DNS server is the only way to access services of type
-`ExternalName`.
+`ExternalName`.  More information is available in the [DNS Admin Guide](http://kubernetes.io/docs/admin/dns/).
 
 ## Headless services
 
