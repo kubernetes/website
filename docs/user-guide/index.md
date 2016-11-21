@@ -10,9 +10,9 @@ The Kubernetes **Guides** can help you work with various aspects of the Kubernet
 * The [Cluster Admin Guide](/docs/admin/) can help you set up and administrate your own Kubernetes cluster. 
 * The [Developer Guide](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel) can help you either write code to directly access the Kubernetes API, or to contribute directly to the Kubernetes project.
 
-## <a name="user-guide-internal"></a>Kuberentes User Guide
+## <a name="user-guide-internal"></a>Kubernetes User Guide
 
-The following topics in the Kubernets User Guide can help you run applications and services on a Kubernetes cluster:
+The following topics in the Kubernetes User Guide can help you run applications and services on a Kubernetes cluster:
 
 1. [Quick start: launch and expose an application](/docs/user-guide/quick-start/)
 1. [Configuring and launching containers: configuring common container parameters](/docs/user-guide/configuring-containers/)
