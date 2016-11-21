@@ -35,7 +35,7 @@ The API for Federated Secret is 100% compatible with the
 API for traditional Kubernetes Secret. You can create a secret by sending
 a request to the federation apiserver.
 
-You can do that using [kubectl](/docs/user-guide/kubectl/kubectl/) by running:
+You can do that using [kubectl](/docs/user-guide/kubectl/) by running:
 
 ``` shell
 kubectl --context=federation-cluster create -f mysecret.yaml

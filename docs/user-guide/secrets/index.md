@@ -284,7 +284,7 @@ For example, you can specify a default mode like this:
       "image": "redis",
       "volumeMounts": [{
         "name": "foo",
-        "mountPath": "/etc/foo",
+        "mountPath": "/etc/foo"
       }]
     }],
     "volumes": [{
@@ -322,7 +322,7 @@ permission for different files like this:
       "image": "redis",
       "volumeMounts": [{
         "name": "foo",
-        "mountPath": "/etc/foo",
+        "mountPath": "/etc/foo"
       }]
     }],
     "volumes": [{
@@ -343,6 +343,9 @@ permission for different files like this:
 In this case, the file resulting in `/etc/foo/my-group/my-username` will have
 permission value of `0777`. Owing to JSON limitations, you must specify the mode
 in decimal notation.
+
+Note that this permission value might be displayed in decimal notation if you
+read it later.
 
 **Consuming Secret Values from Volumes**
 

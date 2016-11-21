@@ -108,6 +108,25 @@ While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on
 machine reboot and any files you write will count against your container's
 memory limit.
 
+#### Example pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pd
+spec:
+  containers:
+  - image: gcr.io/google_containers/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /cache
+      name: cache-volume
+  volumes:
+  - name: cache-volume
+    emptyDir: {}
+```
+
 ### hostPath
 
 A `hostPath` volume mounts a file or directory from the host node's filesystem
@@ -126,9 +145,10 @@ Watch out when using this type of volume, because:
   behave differently on different nodes due to different files on the nodes
 * when Kubernetes adds resource-aware scheduling, as is planned, it will not be
   able to account for resources used by a `hostPath`
-* the directories created on the underlying hosts are only writable by root, you either need
-  to run your process as root in a privileged container or modify the file permissions on
-  the host to be able to write to a `hostPath` volume
+* the directories created on the underlying hosts are only writable by root. You
+  either need to run your process as root in a
+  [privileged container](/docs/user-guide/security-context) or modify the file
+  permissions on the host to be able to write to a `hostPath` volume
 
 #### Example pod
 
@@ -455,18 +475,27 @@ More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{
 
 ### vsphereVolume
 
-A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
-of a volume are preserved when it is unmounted.
+__Prerequisite: Kubernetes with vSphere Cloud Provider configured. 
+For cloudprovider configuration please refer [vSphere getting started guide](http://kubernetes.io/docs/getting-started-guides/vsphere/).__
 
-__Important: You must create a VMDK volume using `vmware-vdiskmanager -c` or
-the VSphere API before you can use it__
+A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
+of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
+
+__Important: You must create VMDK using one of the following method before using with POD.__
 
 #### Creating a VMDK volume
 
-Before you can use a vSphere volume with a pod, you need to create it.
+* Create using vmkfstools.
+   
+   First ssh into ESX and then use following command to create vmdk,
 
 ```shell
-vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
+    vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
+```
+
+* Create using vmware-vdiskmanager.
+```shell
+  vmware-vdiskmanager -c -t 0 -s 40GB -a lsilogic myDisk.vmdk
 ```
 
 #### vSphere VMDK Example configuration
@@ -487,9 +516,11 @@ spec:
   - name: test-volume
     # This VMDK volume must already exist.
     vsphereVolume:
-      volumePath: myDisk
+      volumePath: "[DatastoreName] volumes/myDisk"
       fsType: ext4
 ```
+More examples can be found [here](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere).
+
 
 ### Quobyte
 
