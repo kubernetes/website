@@ -22,12 +22,13 @@ $ kubectl run my-nginx --image=nginx --replicas=2 --port=80
 deployment "my-nginx" created
 ```
 
-To expose your service to the public internet, run the following. Note, the type, LoadBalancer, is highly dependant upon the underlying platform that Kubernetes is running on. Type LoadBalancer may work in public cloud environments just fine but may require some additional configuration in a private cloud environment (ie. OpenStack). 
+To expose your service to the public internet, run the following:
 
 ```shell
 $ kubectl expose deployment my-nginx --target-port=80 --type=LoadBalancer
 service "my-nginx" exposed
 ```
+Note: The type, LoadBalancer, is highly dependant upon the underlying platform that Kubernetes is running on. If your cloudprovider doesn't have a loadbalancer implementation (e.g. OpenStack) for Kubernetes, you can simply use the allocated [nodePort](link to nodeport service) as a rudimentary form of loadblancing across your endpoints.
 
 You can see that they are running by:
 
