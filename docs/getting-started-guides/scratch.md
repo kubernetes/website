@@ -81,11 +81,12 @@ to implement one of the above options:
 
 - **Use a network plugin which is called by Kubernetes**
   - Kubernetes supports the [CNI](https://github.com/containernetworking/cni) network plugin interface.
-  - There are a number of solutions which provide plugins for Kubernetes: 
+  - There are a number of solutions which provide plugins for Kubernetes (listed alphabetically): 
+    - [Calico](http://docs.projectcalico.org/)
     - [Flannel](https://github.com/coreos/flannel)
-    - [Calico](http://https://github.com/projectcalico/calico-containers)
-    - [Weave](http://weave.works/)
     - [Open vSwitch (OVS)](http://openvswitch.org/)
+    - [Romana](http://romana.io/)
+    - [Weave](http://weave.works/)
     - [More found here](/docs/admin/networking#how-to-achieve-this)
   - You can also write your own.
 - **Compile support directly into Kubernetes**
@@ -129,14 +130,9 @@ Also, you need to pick a static IP for master node.
 
 #### Network Policy
 
-Kubernetes enables the definition of fine-grained network policy between Pods 
-using the [NetworkPolicy](/docs/user-guide/networkpolicy) resource.
+Kubernetes enables the definition of fine-grained network policy between Pods using the [NetworkPolicy](/docs/user-guide/network-policy) resource.
 
-Not all networking providers support the Kubernetes NetworkPolicy features.
-For clusters which choose to enable NetworkPolicy, the 
-[Calico policy controller addon](https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/calico-policy-controller) 
-can enforce the NetworkPolicy API on top of native cloud-provider networking, 
-Flannel, or Calico networking.
+Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/getting-started-guides/network-policy/walkthrough/) for more information.
 
 ### Cluster Naming
 
@@ -385,7 +381,7 @@ The minimum version required is [v0.5.6](https://github.com/coreos/rkt/releases/
 minimum version required to match rkt v0.5.6 is
 [systemd 215](http://lists.freedesktop.org/archives/systemd-devel/2014-July/020903.html).
 
-[rkt metadata service](https://github.com/coreos/rkt/blob/master/Documentation/networking.md) is also required
+[rkt metadata service](https://github.com/coreos/rkt/blob/master/Documentation/networking/overview.md) is also required
 for rkt networking support.  You can start rkt metadata service by using command like
 `sudo systemd-run rkt metadata-service`
 
