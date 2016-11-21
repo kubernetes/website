@@ -47,7 +47,7 @@ ephemeral (rather than durable) entities. As discussed in [life of a
 pod](/docs/user-guide/pod-states/), pods are created, assigned a unique ID (UID), and
 scheduled to nodes where they remain until termination (according to restart
 policy) or deletion. If a node dies, the pods scheduled to that node are
-deleted, after a timeout period. A given pod (as defined by a UID) is not
+scheduled for deletion, after a timeout period. A given pod (as defined by a UID) is not
 "rescheduled" to a new node; instead, it can be replaced by an identical pod,
 with even the same name if desired, but with a new UID (see [replication
 controller](/docs/user-guide/replication-controller/) for more details). (In the future, a
@@ -150,8 +150,7 @@ Pod is exposed as a primitive in order to facilitate:
 * clean composition of Kubelet-level functionality with cluster-level functionality &mdash; Kubelet is effectively the "pod controller"
 * high-availability applications, which will expect pods to be replaced in advance of their termination and certainly in advance of deletion, such as in the case of planned evictions, image prefetching, or live pod migration [#3949](http://issue.k8s.io/3949)
 
-There is new first-class support for pet-like pods with the [PetSet](/docs/user-guide/petset/) feature (currently in alpha).
-For prior versions of Kubernetes, best practice for pets is to create a replication controller with `replicas` equal to `1` and a corresponding service. 
+There is new first-class support for stateful pods with the [Stateful Set](/docs/concepts/controllers/statefulsets/) controller (currently in beta). The feature was alpha in 1.4 and was called [Pet Set](/docs/user-guide/petset/). For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service. 
 
 
 ## Termination of Pods
@@ -170,7 +169,19 @@ An example flow:
 6. When the grace period expires, any processes still running in the Pod are killed with SIGKILL.
 7. The Kubelet will finish deleting the Pod on the API server by setting grace period 0 (immediate deletion). The Pod disappears from the API and is no longer visible from the client.
 
-By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports the `--grace-period=<seconds>` option which allows a user to override the default and specify their own value. The value `0` indicates that delete should be immediate, and removes the pod in the API immediately so a new pod can be created with the same name. On the node pods that are set to terminate immediately will still be given a small grace period before being force killed.
+By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports the `--grace-period=<seconds>` option which allows a user to override the default and specify their own value. The value `0` [force deletes](/docs/user-guide/pods/#force-termination-of-pods) the pod.
+
+### Force deletion of pods
+
+Force deletion of a pod is defined as deletion of a pod from the cluster state and etcd immediately. When a force deletion is performed, the apiserver does not wait for confirmation from the kubelet that the pod has been terminated on the node it was running on. It removes the pod in the API immediately so a new pod can be created with the same name. On the node, pods that are set to terminate immediately will still be given a small grace period before being force killed.
+
+If a user wants to perform a force deletion, the way to do that is:
+
+```shell
+$ kubectl delete pods <pod> --grace-period=0
+```
+
+Force deletions can be potentially dangerous for some pods and should be performed with caution. In case of Stateful Set pods, please refer to [this](/docs/tasks/stateful-sets/deleting-pods/).
 
 ## Privileged mode for pod containers
 
