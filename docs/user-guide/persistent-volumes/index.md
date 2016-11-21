@@ -371,14 +371,12 @@ metadata:
   name: slow
 provisioner: kubernetes.io/glusterfs
 parameters:
-  endpoint: "glusterfs-cluster"
   resturl: "http://127.0.0.1:8081"
   restauthenabled: "true"
   restuser: "admin"
   restuserkey: "password"
 ```
 
-* `endpoint`: `glusterfs-cluster` is the endpoint/service name which includes GlusterFS trusted pool IP addresses and this parameter is mandatory.
 * `resturl` : Gluster REST service url which provisions gluster volumes on demand. The format should be `http://IPaddress:Port` and this parameter is mandatory when using the GlusterFS dynamic provisioner.
 * `restauthenabled` : A boolean value that indicates whether Gluster REST service authentication is enabled on the REST server. If this value is 'true', you must supply values for the 'restuser' and 'restuserkey' parameters."
 * `restuser` : Gluster REST service user, who has access to create volumes in the Gluster Trusted Pool.
