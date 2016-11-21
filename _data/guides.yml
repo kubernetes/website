@@ -1,8 +1,8 @@
 bigheader: "Guides"
-abstract: "How to get started, and achieve tasks, using Kubernetes"
+abstract: "How to get started, and accomplish tasks, using Kubernetes."
 toc:
 - title: Guides
-  path: /docs/
+  path: /docs/user-guide/
 
 - title: Getting Started
   section:
@@ -14,6 +14,8 @@ toc:
     path: /docs/getting-started-guides/kops/
   - title: Hello World on Google Container Engine
     path: /docs/hellonode/
+  - title: Installing kubectl
+    path: /docs/getting-started-guides/kubectl/
   - title: Downloading or Building Kubernetes
     path: /docs/getting-started-guides/binary_release/
   - title: Online Training Course
