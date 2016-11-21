@@ -29,6 +29,7 @@ Internet to download the necessary files, while worker nodes do not.
 Ubuntu 15 which uses systemd instead of upstart.
 4. Dependencies of this guide: etcd-2.2.1, flannel-0.5.5, k8s-1.2.0, may work with higher versions.
 5. All the remote servers can be ssh logged in without a password by using key authentication.
+6. The remote user on all machines is using /bin/bash as its login shell, and has sudo access.
 
 
 ## Starting a Cluster
@@ -116,7 +117,13 @@ that conflicts with your own private network range.
 The `FLANNEL_NET` variable defines the IP range used for flannel overlay network,
 should not conflict with above `SERVICE_CLUSTER_IP_RANGE`.
 You can optionally provide additional Flannel network configuration
-through `FLANNEL_OTHER_NET_CONFIG`, as explained in `cluster/ubuntu/config-default.sh`.
+through `FLANNEL_BACKEND` and `FLANNEL_OTHER_NET_CONFIG`, as explained in `cluster/ubuntu/config-default.sh`.
+
+The default setting for `ADMISSION_CONTROL` is right for the latest
+release of Kubernetes, but if you choose an earlier release then you
+might want a different setting.  See
+[the admisson control doc](http://kubernetes.io/docs/admin/admission-controllers/#is-there-a-recommended-set-of-plug-ins-to-use)
+for the recommended settings for various releases.
 
 **Note:** When deploying, master needs to be connected to the Internet to download the necessary files.
 If your machines are located in a private network that need proxy setting to connect the Internet,

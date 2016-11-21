@@ -14,47 +14,24 @@ title: Partners
 
 <section id="users">
 	<main>
-		<h5>We are working with a broad group of partners who contribute to the Kubernetes core codebase, making it stronger and richer, creating a vibrant Kubernetes ecosystem supporting a spectrum of complementing platforms, from open source solutions to market-leading technologies.</h5>
-		<h3>ISV Partners</h3>
-		<div id="usersGrid">
-			<a target="_blank" href="https://coreos.com/kubernetes"><img src="/images/community_logos/core_os_logo.png"></a>
-			<a target="_blank" href="https://deis.com"><img src="/images/community_logos/deis_logo.png"></a>
-			<a target="_blank" href="https://sysdig.com/blog/monitoring-kubernetes-with-sysdig-cloud"><img src="/images/community_logos/sysdig_cloud_logo.png"></a>
-			<a target="_blank" href="https://puppet.com/blog/managing-kubernetes-configuration-puppet"><img src="/images/community_logos/puppet_logo.png"></a>
-			<a target="_blank" href="https://www.microloadbalancer.com/docs/deploy-netscaler-cpx-kubernetes-environment"><img src="/images/community_logos/citrix_logo.png"></a>
-			<a target="_blank" href="http://wercker.com/workflows/partners/kubernetes/"><img src="/images/community_logos/wercker_logo.png"></a>
-			<a target="_blank" href="http://rancher.com/kubernetes/"><img src="/images/community_logos/rancher_logo.png"></a>
-			<a target="_blank" href="https://www.openshift.com/"><img src="/images/community_logos/red_hat_logo.png"></a>
-			<a target="_blank" href="https://tectonic.com/press/intel-coreos-collaborate-on-openstack-with-kubernetes.html"><img src="/images/community_logos/intel_logo.png"></a>
-			<a target="_blank" href="https://elasticbox.com/kubernetes/"><img src="/images/community_logos/elastickube_logo.png"></a>
-			<a target="_blank" href="https://platform9.com/blog/containers-as-a-service-kubernetes-docker"><img src="/images/community_logos/platform9_logo.png"></a>
-			<a target="_blank" href="http://www.appformix.com/solutions/appformix-for-kubernetes/"><img src="/images/community_logos/appformix_logo.png"></a>
-			<a target="_blank" href="http://kubernetes.io/docs/getting-started-guides/dcos"><img src="/images/community_logos/mesosphere_logo.png"></a>
-			<a target="_blank" href="http://docs.datadoghq.com/integrations/kubernetes/"><img src="/images/community_logos/datadog_logo.png"></a>
-			<a target="_blank" href="https://apprenda.com/kubernetes-support/"><img src="/images/community_logos/apprenda_logo.png"></a>
-			<a target="_blank" href="http://www.ibm.com/cloud-computing/"><img src="/images/community_logos/ibm_logo.png"></a>
-			<a target="_blank" href="http://info.crunchydata.com/blog/advanced-crunchy-containers-for-postgresql"><img src="/images/community_logos/crunchy_data_logo.png"></a>
-			<a target="_blank" href="https://content.mirantis.com/Containerizing-OpenStack-on-Kubernetes-Video-Landing-Page.html"><img src="/images/community_logos/mirantis_logo.png"></a>
-			<a target="_blank" href="http://blog.aquasec.com/security-best-practices-for-kubernetes-deployment"><img src="/images/community_logos/aqua_logo.png"></a>
-			<a target="_blank" href="https://jujucharms.com/canonical-kubernetes/"><img src="/images/community_logos/ubuntu_cannonical_logo.png"></a>
-		</div>
+		<h5>We are working with a broad group of partners who contribute to the Kubernetes core codebase, making it stronger and richer. There partners create a vibrant Kubernetes ecosystem supporting a spectrum of complementing platforms, from open source solutions to market-leading technologies.</h5>
+		<h3>Technology Partners</h3>
+		<div id="isvContainer"></div>
+		<h3>Services Partners</h3>
+		<div id="servContainer"></div>
 	</main>
 </section>
-<style>
-	h5 {
-		font-size: 18px;
-		line-height: 1.5em;
-		margin-bottom: 2em;
-	}
-	
-	#usersGrid a {
-		display: inline-block;
-		background-color: #f9f9f9;
-	}
-</style>
 
 {% include footer.html %}
 {% include case-study-styles.html %}
+
+<style>
+	{% include partner-style.css %}
+</style>
+
+<script>
+	{% include partner-script.js %}
+</script>
 
 </body>
 </html>
