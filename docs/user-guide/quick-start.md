@@ -22,7 +22,7 @@ $ kubectl run my-nginx --image=nginx --replicas=2 --port=80
 deployment "my-nginx" created
 ```
 
-To expose your service to the public internet, run the following:
+To expose your service to the public internet, run:
 
 ```shell
 $ kubectl expose deployment my-nginx --target-port=80 --type=LoadBalancer
