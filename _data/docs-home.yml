@@ -1,0 +1,5 @@
+bigheader: "Kubernetes Documentation"
+abstract: "Documentation for using and learning about Kubernetes."
+toc:
+- title: Kubernetes Documentation
+  path: /docs/
