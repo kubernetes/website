@@ -59,8 +59,16 @@ conditions mean the node is in sane state:
 ]
 ```
 
-If the Status of the Ready condition
-is Unknown or False for more than five minutes, then all of the Pods on the node are terminated by the Node Controller.
+If the Status of the Ready condition is Unknown or False for more than five minutes, then all of the Pods on the node are scheduled for deletion by the Node Controller.
+In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. 
+The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. 
+In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node. 
+
+In versions of Kubernetes prior to 1.5, we would force delete these unreachable pods from the apiserver.
+However, in 1.5 and higher, we do not force delete pods until we have confirmed that they have stopped running in our cluster. 
+When using a client of version >= 1.5, one can see these pods which may be running on an unreachable node as being in an "Unknown" state. 
+
+Deleting the node object from Kubernetes will cause the [Pod Garbage Collector](*TODO: add link to podGC*) to forcefully delete pods from the apiserver and free up their names.
 
 ### Node Capacity
 
