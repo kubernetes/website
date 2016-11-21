@@ -4,6 +4,13 @@ Welcome! We are very pleased you want to contribute to the documentation and/or 
 
 You can click the "Fork" button in the upper-right area of the screen to create a copy of our site on your GitHub account called a "fork." Make any changes you want in your fork, and when you are ready to send those changes to us, go to the index page for your fork and click "New Pull Request" to let us know about it.
 
+For more information about contributing to the Kubernetes documentation, see:
+
+* [Creating a Documentation Pull Request](http://kubernetes.io/docs/contribute/create-pull-request/)
+* [Writing a New Topic](http://kubernetes.io/docs/contribute/write-new-topic/)
+* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/stage-documentation-changes/)
+* [Using Page Templates](http://kubernetes.io/docs/contribute/page-templates/)
+
 ## Automatic Staging for Pull Requests
 
 When you create a pull request (either against master or the upcoming release), your changes are staged in a custom subdomain on Netlify so that you can see your changes in rendered form before the PR is merged. You can use this to verify that everything is correct before the PR gets merged. To view your changes:
@@ -13,17 +20,17 @@ When you create a pull request (either against master or the upcoming release), 
 - Look for "deploy/netlify"; you'll see "Deploy Preview Ready!" if staging was successful
 - Click "Details" to bring up the staged site and navigate to your changes
 
-## Release Branch Staging
+## Branch structure and staging
 
-The Kubernetes site maintains staged versions at a subdomain provided by Netlify. Every PR for the Kubernetes site, either against the master branch or the upcoming release branch, is staged automatically.
+The current version of the website is served out of the `master` branch. To make changes to the live docs, such as bug fixes, broken links, typos, etc, **target your pull request to the master branch**
 
-The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/)
+The `release-1.x` branch stores changes for **upcoming releases of Kubernetes**. For example, the `release-1.5` branch has changes for the 1.5 release. These changes target branches (and *not* master) to avoid publishing documentation updates prior to the release for which they're relevant. If you have a change for an upcoming release of Kubernetes, **target your pull request to the appropriate release branch**.
 
-The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
+The staging site for the next upcoming Kubernetes release is here: [http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/). The staging site reflects the current state of what's been merged in the release branch, or in other words, what the docs will look like for the next upcoming release. It's automatically updated as new PRs get merged.
 
 ## Staging the site locally (using Docker)
 
-Don't like installing stuff? Download and run a local staging server with a single `docker run` command. 
+Don't like installing stuff? Download and run a local staging server with a single `docker run` command.
 
     git clone https://github.com/kubernetes/kubernetes.github.io.git
     cd kubernetes.github.io
@@ -47,7 +54,7 @@ Install Ruby 2.2 or higher. If you're on Linux, run these commands:
     apt-get install ruby2.2
     apt-get install ruby2.2-dev
 
-* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/). 
+* If you're on a Mac, follow [these instructions](https://gorails.com/setup/osx/).
 * If you're on a Windows machine you can use the [Ruby Installer](http://rubyinstaller.org/downloads/). During the installation make sure to check the option for *Add Ruby executables to your PATH*.
 
 The remainder of the steps should work the same across operating systems.
@@ -140,16 +147,6 @@ That, of course, will send users to:
 
 (Or whatever Kubernetes release that docs branch is associated with.)
 
-## Branch structure
-
-The current version of the website is served out of the `master` branch. To make changes to the live docs, such as bug fixes, broken links, typos, etc, **target your pull request to the master branch**.
-
-The `release-1.x` branches store changes for **upcoming releases of Kubernetes**. For example, the `release-1.5` branch has changes for the upcoming 1.5 release. These changes target branches (and *not* master) to avoid publishing documentation updates prior to the release for which they're relevant. If you have a change for an upcoming release of Kubernetes, **target your pull request to the appropriate release branch**.
-
-Changes in the "docsv2" branch (where we are testing a revamp of the docs) are automatically staged here:
-http://k8sdocs.github.io/docs/tutorials/
-
-
 ## Config yaml guidelines
 
 Guidelines for config yamls that are included in the site docs. These
@@ -177,14 +174,7 @@ example. If creating an image for a doc, follow the
 section on "Docker images" from the Kubernetes repository.
 
 ## Partners
-Kubernetes partners refers to the companies who contribute to the Kubernetes core codebase and/or extend their platform to support Kubernetes. Partners can get their logos added to the partner section of the [community page](http://k8s.io/community) by following the below steps and meeting the below logo specifications. Partners will also need to have a URL that is specific to integrating with Kubernetes ready; this URL will be the destination when the logo is clicked.
-
-* The partner product logo should be a transparent png image centered in a 215x125 px frame. (look at the existing logos for reference)
-* The logo must link to a URL that is specific to integrating with Kubernetes, hosted on the partner's site.
-* The logo should be named *product-name*_logo.png and placed in the `/images/community_logos` folder.
-* The image reference (including the link to the partner URL) should be added in `community.html` under `<div class="partner-logos" > ...</div>`.
-* Please do not change the order of the existing partner images. Append your logo to the end of the list.
-* Once completed and tested the look and feel, submit the pull request.
+Kubernetes partners refers to the companies who contribute to the Kubernetes core codebase, extend their platform to support Kubernetes or provide managed services to users centered around the Kubernetes platform. Partners can get their services and offerings added to the [partner page](https://k8s.io/partners) by completing and submitting the [partner request form](https://goo.gl/qcSnZF). Once the information and assets are verified, the partner product/services will be listed in the partner page. This would typically take 7-10 days.
 
 ## Thank you!
 
