@@ -100,8 +100,19 @@ existence or non-existence of host ports.
 There are a number of ways that this network model can be implemented.  This
 document is not an exhaustive study of the various methods, but hopefully serves
 as an introduction to various technologies and serves as a jumping-off point.
-If some techniques become vastly preferable to others, we might detail them more
-here.
+
+The following networking options are sorted alphabetically - the order does not
+imply any preferential status.
+
+### Contiv
+
+[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](http://contiv.io) is all open sourced.
+
+### Flannel
+
+[Flannel](https://github.com/coreos/flannel#flannel) is a very simple overlay
+network that satisfies the Kubernetes requirements. Many
+people have reported success with Flannel and Kubernetes.
 
 ### Google Compute Engine (GCE)
 
@@ -158,28 +169,11 @@ Follow the "With Linux Bridge devices" section of [this very nice
 tutorial](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) from
 Lars Kellogg-Stedman.
 
-### Weave Net from Weaveworks
-
-[Weave Net](https://www.weave.works/products/weave-net/) is a 
-resilient and simple to use network for Kubernetes and its hosted applications.  
-Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)  
-or stand-alone.  In either version, it doesn't require any configuration or extra code
-to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
-
-
-### Flannel
-
-[Flannel](https://github.com/coreos/flannel#flannel) is a very simple overlay
-network that satisfies the Kubernetes requirements.  It installs in minutes and
-should get you up and running if the above techniques are not working.  Many
-people have reported success with Flannel and Kubernetes.
-
 ### OpenVSwitch
 
 [OpenVSwitch](/docs/admin/ovs-networking) is a somewhat more mature but also
 complicated way to build an overlay network.  This is endorsed by several of the
 "Big Shops" for networking.
-
 
 ### Project Calico
 
@@ -193,9 +187,13 @@ Calico can also be run in policy enforcement mode in conjunction with other netw
 
 [Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/user-guide/networkpolicies/) to provide isolation across network namespaces.
 
-### Contiv
+### Weave Net from Weaveworks
 
-[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](http://contiv.io) is all open sourced.
+[Weave Net](https://www.weave.works/products/weave-net/) is a 
+resilient and simple to use network for Kubernetes and its hosted applications.  
+Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)  
+or stand-alone.  In either version, it doesn't require any configuration or extra code
+to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
 ## Other reading
 
