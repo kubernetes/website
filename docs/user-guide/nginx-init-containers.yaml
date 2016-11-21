@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: nginx
   annotations:
-    pod.alpha.kubernetes.io/init-containers: '[
+    pod.beta.kubernetes.io/init-containers: '[
         {
             "name": "install",
             "image": "busybox",
