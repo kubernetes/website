@@ -29,7 +29,7 @@ spec:
         app: nginx
       annotations:
         pod.alpha.kubernetes.io/initialized: "true"
-        pod.alpha.kubernetes.io/init-containers: '[
+        pod.beta.kubernetes.io/init-containers: '[
             {
                 "name": "peerfinder",
                 "image": "gcr.io/google_containers/peer-finder:0.1",
