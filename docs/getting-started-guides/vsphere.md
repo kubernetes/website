@@ -65,6 +65,7 @@ export GOVC_DATACENTER='ha-datacenter' # The datacenter to be used by vSphere cl
 ```
 
 Sample environment
+
 ```shell
 export GOVC_URL='10.161.236.217'
 export GOVC_USERNAME='administrator'
@@ -79,6 +80,7 @@ export GOVC_DATACENTER='Datacenter'
 ```
 
 Import this VMDK into your vSphere datastore:
+
 ```shell
 govc import.vmdk kube.vmdk ./kube/
 ```
