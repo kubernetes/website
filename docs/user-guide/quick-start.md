@@ -22,7 +22,7 @@ $ kubectl run my-nginx --image=nginx --replicas=2 --port=80
 deployment "my-nginx" created
 ```
 
-To expose your service to the public internet, run:
+To expose your service to the public internet, run the following. Note, the type, LoadBalancer, is highly dependant upon the underlying platform that Kubernetes is running on. Type LoadBalancer may work in public cloud environments just fine but may require some additional configuration in a private cloud environment (ie. OpenStack). 
 
 ```shell
 $ kubectl expose deployment my-nginx --target-port=80 --type=LoadBalancer
