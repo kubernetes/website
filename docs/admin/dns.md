@@ -153,7 +153,7 @@ With v1.3, the following annotations are deprecated: `pod.beta.kubernetes.io/hos
 
 ## How do I test if it is working?
 
-### Create a simple Pod to use as a test environment.
+### Create a simple Pod to use as a test environment
 
 Create a file named busybox.yaml with the
 following contents:
@@ -181,7 +181,7 @@ Then create a pod using this file:
 kubectl create -f busybox.yaml
 ```
 
-### Wait for this pod to go into the running state.
+### Wait for this pod to go into the running state
 
 You can get its status with:
 ```
@@ -194,7 +194,7 @@ NAME      READY     STATUS    RESTARTS   AGE
 busybox   1/1       Running   0          <some-time>
 ```
 
-### Validate DNS works
+### Validate that DNS is working
 
 Once that pod is running, you can exec nslookup in that environment:
 
@@ -213,6 +213,115 @@ Address 1: 10.0.0.1
 ```
 
 If you see that, DNS is working correctly.
+
+### Troubleshooting Tips
+
+If the nslookup command fails, check the following:
+
+#### Check the local DNS configuration first
+Take a look inside the resolv.conf file. (See "Inheriting DNS from the node" and "Known issues" below for more information)
+
+```
+cat /etc/resolv.conf
+```
+
+Verify that the search path and name server are set up like the following (note that seach path may vary for different cloud providers):
+
+```
+search default.svc.cluster.local svc.cluster.local cluster.local google.internal c.gce_project_id.internal
+nameserver 10.0.0.10
+options ndots:5
+```
+
+#### Quick diagnosis
+
+Errors such as the following indicate a problem with the kube-dns add-on or associated Services:
+
+```
+$ kubectl exec busybox -- nslookup kubernetes.default
+Server:    10.0.0.10
+Address 1: 10.0.0.10
+
+nslookup: can't resolve 'kubernetes.default'
+```
+
+or
+
+```
+$ kubectl exec busybox -- nslookup kubernetes.default
+Server:    10.0.0.10
+Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
+
+nslookup: can't resolve 'kubernetes.default'
+```
+
+#### Check if the DNS pod is running
+
+Use the kubectl get pods command to verify that the DNS pod is running.
+
+```
+kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
+```
+
+You should see something like:
+
+```
+NAME                                                       READY     STATUS    RESTARTS   AGE
+...
+kube-dns-v19-ezo1y                                         3/3       Running   0           1h
+...
+```
+
+If you see that no pod is running or that the pod has failed/completed, the dns add-on may not be deployed by default in your current environment and you will have to deploy it manually.
+
+#### Check for Errors in the DNS pod
+
+Use `kubectl logs` command to see logs for the DNS daemons.
+
+```
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kubedns
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c healthz
+```
+
+See if there is any suspicious log. W, E, F letter at the beginning represent Warning, Error and Failure. Please search for entries that have these as the logging level and use [kubernetes issues](https://github.com/kubernetes/kubernetes/issues) to report unexpected errors.
+
+#### Is dns service up?
+
+Verify that the DNS service is up by using the `kubectl get service` command.
+
+```
+kubectl get svc --namespace=kube-system
+```
+
+You should see:
+
+```
+NAME                    CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
+...
+kube-dns                10.0.0.10      <none>        53/UDP,53/TCP        1h
+...
+```
+
+If you have created the service or in the case it should be created by default but it does not appear, see this [debugging services page](http://kubernetes.io/docs/user-guide/debugging-services/) for more information.
+
+#### Are dns endpoints exposed?
+
+You can verify that dns endpoints are exposed by using the `kubectl get endpoints` command.
+
+```
+kubectl get ep kube-dns --namespace=kube-system
+```
+
+You should see something like:
+```
+NAME       ENDPOINTS                       AGE
+kube-dns   10.180.3.17:53,10.180.3.17:53    1h
+```
+
+If you do not see the endpoints, see endpoints section in the [debugging services documentation](http://kubernetes.io/docs/user-guide/debugging-services/).
+
+For additional Kubernetes DNS examples, see the [cluster-dns examples](https://github.com/kubernetes/kubernetes/tree/master/examples/cluster-dns) in the Kubernetes GitHub repository.
 
 ## Kubernetes Federation (Multiple Zone support)
 
@@ -242,6 +351,34 @@ the flag `--cluster-domain=<default local domain>`
 The Kubernetes cluster DNS server (based off the [SkyDNS](https://github.com/skynetservices/skydns) library)
 supports forward lookups (A records), service lookups (SRV records) and reverse IP address lookups (PTR records).
 
+## Inheriting DNS from the node
+When running a pod, kubelet will prepend the cluster DNS server and search
+paths to the node's own DNS settings.  If the node is able to resolve DNS names
+specific to the larger environment, pods should be able to, also.  See "Known
+issues" below for a caveat.
+
+If you don't want this, or if you want a different DNS config for pods, you can
+use the kubelet's `--resolv-conf` flag.  Setting it to "" means that pods will
+not inherit DNS.  Setting it to a valid file path means that kubelet will use
+this file instead of `/etc/resolv.conf` for DNS inheritance.
+
+## Known issues
+Kubernetes installs do not configure the nodes' resolv.conf files to use the
+cluster DNS by default, because that process is inherently distro-specific.
+This should probably be implemented eventually.
+
+Linux's libc is impossibly stuck ([see this bug from
+2005](https://bugzilla.redhat.com/show_bug.cgi?id=168253)) with limits of just
+3 DNS `nameserver` records and 6 DNS `search` records.  Kubernetes needs to
+consume 1 `nameserver` record and 3 `search` records.  This means that if a
+local installation already uses 3 `nameserver`s or uses more than 3 `search`es,
+some of those settings will be lost.  As a partial workaround, the node can run
+`dnsmasq` which will provide more `nameserver` entries, but not more `search`
+entries.  You can also use kubelet's `--resolv-conf` flag.
+
+If you are using Alpine version 3.3 or earlier as your base image, dns may not
+work properly owing to a known issue with Alpine. Check [here](https://github.com/kubernetes/kubernetes/issues/30215)
+for more information.
 
 ## References
 
