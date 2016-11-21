@@ -11,13 +11,14 @@
   <h5>{{ site.data[foundTOC].abstract }}</h5>
   <div id="vendorStrip" class="light-text">
     <ul>
-      <li><a href="/docs/" {% if site.data[foundTOC].bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
+      <li><a href="/docs/" {% if site.data[foundTOC].bigheader == "Kubernetes Documentation" %}class="YAH"{% endif %}>DOCS HOME</a></li>
+      <li><a href="/docs/user-guide/" {% if site.data[foundTOC].bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
       <li><a href="/docs/tutorials/" {% if site.data[foundTOC].bigheader == "Tutorials" %}class="YAH"{% endif %}>TUTORIALS</a></li>
       <li><a href="/docs/tasks/" {% if site.data[foundTOC].bigheader == "Tasks" %}class="YAH"{% endif %}>TASKS</a></li>
       <li><a href="/docs/concepts/" {% if site.data[foundTOC].bigheader == "Concepts" %}class="YAH"{% endif %}>CONCEPTS</a></li>
-      <li><a href="/docs/reference" {% if site.data[foundTOC].bigheader == "Reference Documentation" %}class="YAH"{% endif %}>REFERENCE</a></li>
-      <li><a href="/docs/tools" {% if site.data[foundTOC].bigheader == "Tools" %}class="YAH"{% endif %}>TOOLS</a></li>
-      <li><a href="/docs/samples" {% if site.data[foundTOC].bigheader == "Samples" %}class="YAH"{% endif %}>SAMPLES</a></li>
+      <li><a href="/docs/reference/" {% if site.data[foundTOC].bigheader == "Reference Documentation" %}class="YAH"{% endif %}>REFERENCE</a></li>
+      <li><a href="/docs/tools/" {% if site.data[foundTOC].bigheader == "Tools" %}class="YAH"{% endif %}>TOOLS</a></li>
+      <li><a href="/docs/samples/" {% if site.data[foundTOC].bigheader == "Samples" %}class="YAH"{% endif %}>SAMPLES</a></li>
       <li><a href="/docs/troubleshooting/" {% if site.data[foundTOC].bigheader == "Support" %}class="YAH"{% endif %}>SUPPORT</a></li>
     </ul>
     <div id="searchBox">
@@ -29,7 +30,9 @@
 <section id="encyclopedia">
   <div id="docsToc">
         <div class="pi-accordion">
+        {% if site.data[foundTOC].bigheader != "Kubernetes Documentation" %}
         {% assign tree = site.data[foundTOC].toc %}{% include tree.html %}
+        {% endif %}
         </div> <!-- /pi-accordion -->
     <button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
   </div> <!-- /docsToc -->
@@ -49,8 +52,8 @@
 	        (function(d,c,j){if(!document.getElementById(j)){var pd=d.createElement(c),s;pd.id=j;pd.src=('https:'==document.location.protocol)?'https://polldaddy.com/js/rating/rating.js':'http://i0.poll.fm/js/rating/rating.js';s=document.getElementsByTagName(c)[0];s.parentNode.insertBefore(pd,s);}}(document,'script','pd-rating-js'));
 		</script>
 		<a href="" onclick="window.open('https://github.com/kubernetes/kubernetes.github.io/issues/new?title=Issue%20with%20' +
-		window.location.pathname)" class="button issue">Create Issue</a>
-		<a href="/editdocs#{{ page.path }}" class="button issue">Edit This Page</a>
+		window.location.pathname)" class="button issue">Create an Issue</a>
+		<a href="/editdocs#{{ page.path }}" class="button issue">Edit this Page</a>
 	{% endif %}
 	</div>
 </section>
@@ -77,6 +80,34 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-36037335-10', 'auto');
   ga('send', 'pageview');
+	
+  // hide docs nav area if no nav is present, or if nav only contains a link to the current page
+  (function () {
+	  window.addEventListener('DOMContentLoaded', init)
+	  
+	  // play nice with our neighbors
+	  function init() {
+		  window.removeEventListener('DOMContentLoaded', init)
+		  hideNav()
+	  }
+	  
+	  function hideNav(toc){
+		  if (!toc) toc = document.querySelector('#docsToc')
+		  var container = toc.querySelector('.container')
+		  
+		  // container is built dynamically, so it may not be present on the first runloop
+		  if (container) {
+			  if (container.childElementCount === 0 || toc.querySelectorAll('a.item').length === 1) {
+				  toc.style.display = 'none'
+				  document.getElementById('docsContent').style.width = '100%'
+			  }
+		  } else {
+			  requestAnimationFrame(function () {
+				  hideNav(toc)
+			  })
+		  }
+	  }
+  })();
 </script>
 <!-- Commenting out AnswerDash for now; we need to work on our list of questions/answers/design first
 <!-- Start of AnswerDash script <script>var AnswerDash;!function(e,t,n,s,a){if(!t.getElementById(s)){var i,r=t.createElement(n),c=t.getElementsByTagName(n)[0];e[a]||(i=e[a]=function(){i.__oninit.push(arguments)},i.__oninit=[]),r.type="text/javascript",r.async=!0,r.src="https://p1.answerdash.com/answerdash.min.js?siteid=756",r.setAttribute("id",s),c.parentNode.insertBefore(r,c)}}(window,document,"script","answerdash-script","AnswerDash");</script> <!-- End of AnswerDash script -->
