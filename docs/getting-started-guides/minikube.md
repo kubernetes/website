@@ -82,6 +82,8 @@ curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page
 curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/386/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 ```
 
+For Windows, download [kubectl.exe](http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/windows/amd64/kubectl.exe) and save it to a location on your PATH.
+
 The generic download path is:
 ```
 https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/${GOOS}/${GOARCH}/${K8S_BINARY}
@@ -136,7 +138,6 @@ Use the built-in Docker daemon with:
 eval $(minikube docker-env)
 ```
 This command sets up the Docker environment variables so a Docker client can communicate with the minikube Docker daemon.
-Minikube currently supports only docker version 1.11.1 on the server, which is what is supported by Kubernetes 1.3. With a newer docker version, you'll get this [issue](https://github.com/kubernetes/minikube/issues/338).
 
 ```shell
 docker ps
