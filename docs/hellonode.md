@@ -129,7 +129,7 @@ Let’s now stop the container. You can list the docker containers with:
 docker ps
 ```
 
-You should something like see:
+You should see something like this:
 
 ```shell
 CONTAINER ID        IMAGE                                 COMMAND                  NAMES
