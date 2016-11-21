@@ -121,7 +121,7 @@ setfacl -m g:kvm:--x ~
 
 By default, the libvirt-coreos setup will create a single Kubernetes master and 3 Kubernetes nodes. Because the VM drives use Copy-on-Write and because of memory ballooning and KSM, there is a lot of resource over-allocation.
 
-There is both an automated way and a manual, customizable way of setting up libvert Kubernetes clusters on CoreOS.
+There is both an automated way and a manual, customizable way of setting up libvirt Kubernetes clusters on CoreOS.
 
 #### Automated setup
 
