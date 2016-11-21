@@ -127,11 +127,11 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = expvalidation.ValidateDaemonSet(t)
-	case *batch.ScheduledJob:
+	case *batch.CronJob:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = batch_validation.ValidateScheduledJob(t)
+		errors = batch_validation.ValidateCronJob(t)
 	default:
 		errors = field.ErrorList{}
 		errors = append(errors, field.InternalError(field.NewPath(""), fmt.Errorf("no validation defined for %#v", obj)))
@@ -242,7 +242,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-resource-deployment":  &extensions.Deployment{},
 			"redis-secret-deployment":    &extensions.Deployment{},
 			"run-my-nginx":               &extensions.Deployment{},
-			"sj":                         &batch.ScheduledJob{},
+			"sj":                         &batch.CronJob{},
 		},
 		"../docs/admin": {
 			"daemon": &extensions.DaemonSet{},
@@ -272,7 +272,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"../docs/user-guide/node-selection": {
 			"pod": &api.Pod{},
 			"pod-with-node-affinity": &api.Pod{},
-			"pod-with-pod-affinity": &api.Pod{},
+			"pod-with-pod-affinity":  &api.Pod{},
 		},
 		"../docs/admin/resourcequota": {
 			"best-effort":       &api.ResourceQuota{},

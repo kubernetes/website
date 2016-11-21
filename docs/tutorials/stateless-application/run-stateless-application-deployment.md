@@ -19,14 +19,7 @@ This page shows how to run an application using a Kubernetes Deployment object.
 
 {% capture prerequisites %}
 
-* To do this tutorial, you need a Kubernetes cluster, including a running
-  Kubernetes API server. You can use an existing cluster, or you can create a
-  new cluster. One way to create a new cluster is to use
-  [Minikube](/docs/getting-started-guides/minikube).
-
-* You also need to have `kubectl` installed on your local machine, and `kubectl`
-  must be configured to communicate with your Kubernetes API server. This
-  configuration is done automatically if you use Minikube.
+{% include task-tutorial-prereqs.md %}
 
 {% endcapture %}
 
