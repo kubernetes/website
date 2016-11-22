@@ -265,7 +265,7 @@ All listed keys must exist in the corresponding secret. Otherwise, the volume is
 **Secret files permissions**
 
 You can also specify the permission mode bits files part of a secret will have.
-If you don't specify any, `0644` is used by default. You can sepecify a default
+If you don't specify any, `0644` is used by default. You can specify a default
 mode for the whole secret volume and override per key if needed.
 
 For example, you can specify a default mode like this:
