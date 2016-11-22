@@ -260,7 +260,7 @@ If there is a firewall, make sure it exposes this port to the internet before yo
 
 * To undo what `kubeadm` did, simply run:
 
-    # kubeadm reset
+      # kubeadm reset
 
   If you wish to start over, run `systemctl start kubelet` followed by `kubeadm init` or `kubeadm join`.
 
