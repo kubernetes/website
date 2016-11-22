@@ -362,7 +362,7 @@ parameters:
 * `type`: `pd-standard` or `pd-ssd`. Default: `pd-ssd`
 * `zone`: GCE zone. If not specified, a random zone in the same region as controller-manager will be chosen.
 
-#### GLUSTERFS
+#### Glusterfs
 
 ```yaml
 apiVersion: storage.k8s.io/v1beta1
@@ -374,13 +374,20 @@ parameters:
   resturl: "http://127.0.0.1:8081"
   restauthenabled: "true"
   restuser: "admin"
-  restuserkey: "password"
+  secretNamespace: "default"
+  secretName: "heketi-secret"
+
 ```
 
-* `resturl` : Gluster REST service url which provisions gluster volumes on demand. The format should be `http://IPaddress:Port` and this parameter is mandatory when using the GlusterFS dynamic provisioner.
-* `restauthenabled` : A boolean value that indicates whether Gluster REST service authentication is enabled on the REST server. If this value is 'true', you must supply values for the 'restuser' and 'restuserkey' parameters."
-* `restuser` : Gluster REST service user, who has access to create volumes in the Gluster Trusted Pool.
-* `restuserkey` : Gluster REST service user's password, will be used for authentication to the REST server.
+* `resturl`: Gluster REST service/Heketi service url which provision gluster volumes on demand. The general format should be `IPaddress:Port` and this is a mandatory parameter for GlusterFS dynamic provisioner. If Heketi service is exposed as a routable service in openshift/kubernetes setup, this can have a format similar to
+`http://heketi-storage-project.cloudapps.mystorage.com` where the fqdn is a resolvable heketi service url.
+* `restauthenabled` : Gluster REST service authentication boolean that enables authentication to the REST server. If this value is 'true', `restuser` and `restuserkey` or `secretNamespace` + `secretName` have to be filled. This option is deprecated, authentication is enabled when any of `restuser`, `restuserkey`, `secretName` or `secretNamespace` is specified.
+* `restuser` : Gluster REST service/Heketi user who has access to create volumes in the Gluster Trusted Pool.
+* `restuserkey` : Gluster REST service/Heketi user's password which will be used for authentication to the REST server. This parameter is deprecated in favor of `secretNamespace` + `secretName`.
+* `secretNamespace` + `secretName` : Identification of Secret instance that containes user password to use when talking to Gluster REST service. These parameters are optional, empty password will be used when both `secretNamespace` and `secretName` are omitted. The provided secret must have type "kubernetes.io/glusterfs", e.g. created in this way:
+  ```
+  $ kubectl create secret heketi-secret --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' --namespace=default
+  ```
 
 #### OpenStack Cinder
 
