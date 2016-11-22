@@ -102,20 +102,22 @@ Troubleshooting:
   - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
 
 ### Using Azure Container Registry (ACR)
-When using Azure container registry you can authenticate using either an admin user or a service principal.
+When using [Azure container registry](https://azure.microsoft.com/en-us/services/container-registry/)
+you can authenticate using either an admin user or a service principal.
 In either case, authentication is done via standard Docker authentication.  These instructions assume the
-python based [az](https://github.com/azure/azure-cli) tooling.
-`
-```console
-# To generate new credentials
-az acr credential renew -n ${CLUSTER_NAME} -g ${CLUSTER_RESOURCE_GROUP}
+[azure-cli](https://github.com/azure/azure-cli) command line tool.
 
-# To show existing credentials
-az acr credential show -n ${CLUSTER_NAME} -g ${CLUSTER_RESOURCE_GROUP}
-```
+You first need to create a registry and generate credentials, complete documentation for this can be found in
+the [Azure container registry documentation](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli)
 
-Once you have those credentials you can [configure a Kubernetes Secret and use it to deploy a Pod]
-(http://kubernetes.io/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
+Once you have created your container registry, you will use the following credentials to login:
+   * `DOCKER_USER` : service principal, or admin username
+   * `DOCKER_PASSWORD`: service principal password, or admin user password
+   * `DOCKER_REGISTRY_SERVER`: `${some-registry-name}.azurecr.io`
+   * `DOCKER_EMAIL`: `${some-email-address}`
+
+Once you have those variables filled in you can [configure a Kubernetes Secret and use it to deploy a Pod]
+(http://kubernetes.io/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod).
 
 
 ### Configuring Nodes to Authenticate to a Private Repository
