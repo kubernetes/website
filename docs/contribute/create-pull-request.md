@@ -14,10 +14,9 @@ repository. This page shows how to create a pull request.
 1. Create a [GitHub account](https://github.com){: target="_blank"}.
 
 1. Sign the
-[Google Contributor License Agreement](https://cla.developers.google.com/about/google-individual){: target="_blank"}.
+[Linux Foundation Contributor License Agreement](https://identity.linuxfoundation.org/projects/cncf){: target="_blank"}.
 
-1. Sign the
-[Linux Contributor License Agreement](https://identity.linuxfoundation.org/projects/cncf){: target="_blank"}.
+Documentation will be published under the [CC BY SA 4.0](https://github.com/kubernetes/kubernetes.github.io/blob/master/LICENSE) license.
 
 {% endcapture %}
 
