@@ -4,6 +4,9 @@ assignees:
 
 ---
 
+* TOC
+{:toc}
+
 This document describes how to deploy kubernetes on ubuntu nodes, 1 master and 3 nodes involved
 in the given examples. You can scale to **any number of nodes** by changing some settings with ease.
 The original idea was heavily inspired by @jainvipin 's ubuntu single node
