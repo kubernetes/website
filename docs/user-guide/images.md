@@ -102,7 +102,7 @@ Troubleshooting:
   - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
 
 ### Using Azure Container Registry (ACR)
-When using [Azure container registry](https://azure.microsoft.com/en-us/services/container-registry/)
+When using [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
 you can authenticate using either an admin user or a service principal.
 In either case, authentication is done via standard Docker authentication.  These instructions assume the
 [azure-cli](https://github.com/azure/azure-cli) command line tool.
