@@ -354,5 +354,5 @@ for more information.
 
 ## References
 
-- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md)
+- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build-tools/kube-dns/README.md)
 
