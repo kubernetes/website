@@ -12,8 +12,23 @@ assignees:
 
 {% capture overview %}
 
-This page helps you become familiar with the runtime initialization of [Stateful Sets](/docs/user-guide/petset). 
+This page shows you how to run virtual machine (VM) style workloads, and helps you become familiar with the runtime initialization of [Stateful Sets](/docs/user-guide/petset). 
 *TODO: replace this link with the new stateful set concept guide*
+
+{% endcapture %}
+
+
+{% capture objectives %}
+
+In Kubernetes, [pods](/docs/user-guide/pods/) are different from VMs, specifically:
+
+1. With VMs, you migrate; with pods, you start a replacement with a different IP. 
+1. VMs automatically get persistent storage; pods need to explicitly ask for it by name. 
+
+This tutorial shows you how to run a VM-style workload with Stateful Sets, using a feature called [init containers](http://kubernetes.io/docs/user-guide/production-pods/#handling-initialization). You will learn 2 common patterns that come up deploying Stateful Sets:
+
+1. Transferring state across stateful app restart, so that a future pod is initialized with the computations of its past incarnation
+1. Initializing the runtime environment of a stateful app based on existing conditions, like a list of currently healthy peers
 
 {% endcapture %}
 
@@ -27,21 +42,11 @@ This page helps you become familiar with the runtime initialization of [Stateful
 {% endcapture %}
 
 
-{% capture objectives %}
-
-The most common way to initialize the runtime in a containerized environment, is through a custom [entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint). While this is not necessarily bad, making your application pid 1, and treating containers as processes in general is good for a few reasons outside the scope of this document. Doing so allows you to run docker images from third-party vendors without modification. We will not be writing custom entrypoints for this example, but using a feature called [init containers](http://kubernetes.io/docs/user-guide/production-pods/#handling-initialization), to explain 2 common patterns that come up deploying Stateful Sets.
-
-1. Transferring state across stateful app restart, so that a future pod is initialized with the computations of its past incarnation
-2. Initializing the runtime environment of a stateful app based on existing conditions, like a list of currently healthy peers
-
-{% endcapture %}
-
-
 {% capture lessoncontent %}
 
 ### Transferring state across stateful app restart
 
-This example shows you how to "carry over" runtime state across stateful app restart by simulating virtual machines with a Stateful Set.
+This tutorial shows you how to "carry over" runtime state across stateful app restart by simulating virtual machines with a Stateful Set.
 
 #### Background
 
@@ -53,7 +58,7 @@ Applications that incrementally build state usually need strong guarantees that 
 
 #### Simulating Virtual Machines
 
-Since Stateful Set already gives each pod a consistent identity, all we need is a way to initialize the user environment before allowing tools like `kubectl exec` to enter the application container.
+Since Stateful Set already gives each pod a consistent identity, all you need is a way to initialize the user environment before allowing tools like `kubectl exec` to enter the application container.
 
 1. Download [this](statefulset_vm.yaml) Stateful Set into a file called statefulset_vm.yaml, and create it:
 
@@ -68,14 +73,14 @@ Since Stateful Set already gives each pod a consistent identity, all we need is 
         vm-0      1/1       Running    0          37s
         vm-1      1/1       Running    0          2m
 
-1. We can exec into one and install nginx:
+1. You can exec into one and install nginx:
 
         $ kubectl exec -it vm-0 /bin/sh
         vm-0 # apt-get update
         ...
         vm-0 # apt-get install nginx -y
 
-1. On killing this pod we need it to come back with all the Stateful Set properties, as well as the installed nginx packages.
+1. On killing this pod you need it to come back with all the Stateful Set properties, as well as the installed nginx packages.
 
         $ kubectl delete po vm-0
         pod "vm-0" deleted
@@ -91,7 +96,7 @@ Since Stateful Set already gives each pod a consistent identity, all we need is 
         vm-0 # mkdir -p /var/log/nginx /var/lib/nginx; nginx -g 'daemon off;'
 
 
-1. And access it from anywhere in the cluster (and because this is an example that simulates vms, we're going to apt-get install netcat too)
+1. And access it from anywhere in the cluster (and because this is a tutorial that simulates VMs, you need `apt-get install netcat` too)
 
         $ kubectl exec -it vm-1 /bin/sh
         vm-1 # apt-get update
@@ -99,7 +104,7 @@ Since Stateful Set already gives each pod a consistent identity, all we need is 
         vm-1 # apt-get install netcat -y
         vm-1 # printf "GET / HTTP/1.0\r\n\r\n" | netcat vm-0.ub 80
 
-1. It's worth exploring what just happened. Init containers run sequentially *before* the application container. In this example we used the init container to copy shared libraries from the rootfs, while preserving user installed packages across container restart.
+1. It's worth exploring what just happened. Init containers run sequentially *before* the application container. In this tutorial we used the init container to copy shared libraries from the rootfs, while preserving user installed packages across container restart.
 
         pod.alpha.kubernetes.io/init-containers: '[
             {
@@ -132,7 +137,7 @@ Since Stateful Set already gives each pod a consistent identity, all we need is 
 
 ### Initializing state based on environment
 
-In this example we are going to setup a cluster of nginx servers, just like we did in the Stateful Set [user guide](/docs/user-guide/petset), but make one of them a master. All the other nginx servers will simply proxy requests to the master. This is a common deployment pattern for databases like Mysql, but we're going to replace the database with a stateless webserver to simplify the problem.
+In this tutorial we are going to setup a cluster of nginx servers, just like we did in the Stateful Set [user guide](/docs/user-guide/petset), but make one of them a master. All the other nginx servers will simply proxy requests to the master. This is a common deployment pattern for databases like Mysql, but we're going to replace the database with a stateless webserver to simplify the problem.
 *TODO: replace this link with the new stateful set concept guide*
 
 #### Background
@@ -153,7 +158,7 @@ The role of the peer finder:
 * Exit with the appropriate error code if no `--on-change` script is specified
 * Loop invoking `--on-change` for every change
 
-You can invoke the peer finder inside the pods we created in the last example:
+You can invoke the peer finder inside the pods created in the previous tutorial:
 
 ```shell
 $ kubectl exec -it vm-0 /bin/sh
@@ -209,10 +214,10 @@ Lets create a Stateful Set that writes out its own config based on a list of pee
         $ kubectl exec -it web-1 -- curl localhost
         web-0
 
-1. If you scale the cluster, the new pods parent themselves to the same master. To test this you can `kubectl edit` the statefulset and change the `replicas` field to 5:
+1. If you scale the cluster, the new pods parent themselves to the same master. To test this you can `kubectl scale` the statefulset and change the `replicas` field to 5:
 
-        $ kubectl edit statefulset web
-        ... 
+        $ kubectl scale statefulset web --replicas=5
+        statefulset "web" scaled
 
         $ kubectl get po -l app=nginx
         NAME      READY     STATUS    RESTARTS   AGE
