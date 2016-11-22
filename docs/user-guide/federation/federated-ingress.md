@@ -229,6 +229,38 @@ kept running, the Federated Ingress ensures that user traffic is
 automatically redirected away from the failed cluster to other
 available clusters.
 
+## Known issue
+
+GCE L7 load balancer backends and healthchecks are known to flap due
+to the firewall rules from the underlying clusters in federation
+clobbering each other. In order to workaround this problem, you can
+install the firewall rules manually to expose the targets of all the
+underlying clusters in your federation for each Federated Ingress
+object so that the health checks can pass and GCE L7 load balancer
+is stable. This can be done using the `gcloud` command line tool as follows:
+
+```shell
+gcloud compute firewall-rules create <firewall-rule-name> \
+  --source-ranges 130.211.0.0/22 --allow [<service-nodeports>] \
+  --target-tags [<target-tags>] \
+  --network <network-name>
+```
+
+where:
+1. `firewall-rule-name` can be any name.
+2. `[<service-nodeports>]` is the comma separated list of node ports corresponding to the services that backs the Federated Ingress.
+3. [<target-tags>] is the comma separated list of the target tags assigned to the nodes in a kubernetes cluster.
+4. <network-name> is the name of the network where the firewall rule must be installed.
+
+Example:
+```shell
+gcloud compute firewall-rules create my-federated-ingress-firewall-rule \
+  --source-ranges 130.211.0.0/22 --allow tcp:30301, tcp:30061, tcp:34564 \
+  --target-tags my-cluster-1-minion, my-cluster-2-minion \
+  --network default
+```
+
+
 ## Troubleshooting
 
 #### I cannot connect to my cluster federation API
