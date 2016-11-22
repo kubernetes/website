@@ -95,13 +95,13 @@ If you are using GCE then you can either enable it while creating a cluster with
 To configure cluser autoscaler you have to set 3 environment variables:
 
 * `KUBE_ENABLE_CLUSTER_AUTOSCALER` - it enables cluster autoscaler if set to true.
-* `KUBE_AUTOSCALING_MIN_NODES` - minimum number of nodes in the cluster.
-* `KUBE_AUTOSCALING_MAX_NODES` - maximum number of nodes in the cluster.
+* `KUBE_AUTOSCALER_MIN_NODES` - minimum number of nodes in the cluster.
+* `KUBE_AUTOSCALER_MAX_NODES` - maximum number of nodes in the cluster.
 
 Example:
 
 ```shell
-KUBE_ENABLE_CLUSTER_AUTOSCALER=true KUBE_AUTOSCALING_MIN_NODES=3 KUBE_AUTOSCALING_MAX_NODES=10 NUM_NODES=5 ./cluster/kube-up.sh
+KUBE_ENABLE_CLUSTER_AUTOSCALER=true KUBE_AUTOSCALER_MIN_NODES=3 KUBE_AUTOSCALER_MAX_NODES=10 NUM_NODES=5 ./cluster/kube-up.sh
 ```
 
 On GKE you configure cluster autoscaler either on cluster creation or update or when creating a particular node pool
