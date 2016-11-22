@@ -28,6 +28,8 @@ import (
 	"k8s.io/kubernetes/pkg/api"
 	"k8s.io/kubernetes/pkg/api/testapi"
 	"k8s.io/kubernetes/pkg/api/validation"
+	"k8s.io/kubernetes/pkg/apis/apps"
+	apps_validation "k8s.io/kubernetes/pkg/apis/apps/validation"
 	"k8s.io/kubernetes/pkg/apis/batch"
 	batch_validation "k8s.io/kubernetes/pkg/apis/batch/validation"
 	"k8s.io/kubernetes/pkg/apis/extensions"
@@ -132,6 +134,16 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = batch_validation.ValidateCronJob(t)
+	case *api.ConfigMap:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = validation.ValidateConfigMap(t)
+	case *apps.StatefulSet:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = apps_validation.ValidateStatefulSet(t)
 	default:
 		errors = field.ErrorList{}
 		errors = append(errors, field.InternalError(field.NewPath(""), fmt.Errorf("no validation defined for %#v", obj)))
@@ -286,6 +298,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret-pod":     &api.Pod{},
 			"secret":         &api.Secret{},
 			"secret-env-pod": &api.Pod{},
+		},
+		"../docs/tutorials/replicated-stateful-application": {
+			"mysql-services":    &api.Service{},
+			"mysql-configmap":   &api.ConfigMap{},
+			"mysql-statefulset": &apps.StatefulSet{},
 		},
 	}
 
