@@ -38,7 +38,7 @@ In order for `kubectl run` to satisfy infrastructure as code:
 * Deployment - use `deployment/v1beta1`.
 * Job (using `extension/v1beta1` endpoint) - use `job/v1beta1`.
 * Job - use `job/v1`.
-* ScheduledJob - use `scheduledjob/v2alpha1`.
+* CronJob - use `cronjob/v2alpha1`.
 
 Additionally, if you didn't specify a generator flag, other flags will suggest using
 a specific generator.  Below table shows which flags force using specific generators,
@@ -50,7 +50,7 @@ depending on your cluster version:
 | Replication Controller | `--generator=run/v1`  | `--generator=run/v1`  | `--generator=run/v1`                       | `--restart=Always`                         |
 | Deployment             | `--restart=Always`    | `--restart=Always`    | `--restart=Always`                         | N/A                                        |
 | Job                    | `--restart=OnFailure` | `--restart=OnFailure` | `--restart=OnFailure` OR `--restart=Never` | N/A                                        |
-| Scheduled Job          | `--schedule=<cron>`   | N/A                   | N/A                                        | N/A                                        |
+| Cron Job               | `--schedule=<cron>`   | N/A                   | N/A                                        | N/A                                        |
 
 Note that these flags will use a default generator only when you have not specified
 any flag.  This also means that combining `--generator` with other flags won't
