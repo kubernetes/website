@@ -70,9 +70,9 @@ toc:
     section:
     - title: Example Walkthrough
       path: /docs/getting-started-guides/network-policy/walkthrough/
-    - title: Using Calico for NetworkPolicy 
+    - title: Using Calico for NetworkPolicy
       path: /docs/getting-started-guides/network-policy/calico/
-    - title: Using Romana for NetworkPolicy 
+    - title: Using Romana for NetworkPolicy
       path: /docs/getting-started-guides/network-policy/romana/
 
 - title: Batch Jobs
@@ -85,6 +85,8 @@ toc:
     path: /docs/user-guide/jobs/work-queue-1/
   - title: Fine Parallel Processing using a Work Queue
     path: /docs/user-guide/jobs/work-queue-2/
+  - title: Cron Jobs
+    path: /docs/user-guide/cron-jobs/
 
 - title: Service Discovery and Load Balancing
   section:
@@ -293,7 +295,7 @@ toc:
   - title: Configuring kubelet Garbage Collection
     path: /docs/admin/garbage-collection/
   - title: Configuring Out Of Resource Handling
-    path: /docs/admin/out-of-resource/    
+    path: /docs/admin/out-of-resource/
   - title: Configuring Kubernetes with Salt
     path: /docs/admin/salt/
   - title: Monitoring Node Health
