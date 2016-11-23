@@ -237,7 +237,13 @@ clobbering each other. In order to workaround this problem, you can
 install the firewall rules manually to expose the targets of all the
 underlying clusters in your federation for each Federated Ingress
 object so that the health checks can pass and GCE L7 load balancer
-is stable. This can be done using the `gcloud` command line tool as follows:
+can remain stable. These rules can be installed using the
+[`gcloud`](https://cloud.google.com/sdk/gcloud/) command line tool,
+[Google Cloud Console](https://console.cloud.google.com) or the
+[Google Compute Engine APIs](https://cloud.google.com/compute/docs/reference/latest/).
+
+You can install these rules using
+[`gcloud`](https://cloud.google.com/sdk/gcloud/) as follows:
 
 ```shell
 gcloud compute firewall-rules create <firewall-rule-name> \
@@ -247,8 +253,9 @@ gcloud compute firewall-rules create <firewall-rule-name> \
 ```
 
 where:
+
 1. `firewall-rule-name` can be any name.
-2. `[<service-nodeports>]` is the comma separated list of node ports corresponding to the services that backs the Federated Ingress.
+2. `[<service-nodeports>]` is the comma separated list of node ports corresponding to the services that back the Federated Ingress.
 3. [<target-tags>] is the comma separated list of the target tags assigned to the nodes in a kubernetes cluster.
 4. <network-name> is the name of the network where the firewall rule must be installed.
 
