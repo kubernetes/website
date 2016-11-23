@@ -23,6 +23,8 @@ The Tasks section of the Kubernetes documentation is a work in progress
 
 #### Managing Stateful Applications
 
+* [Scaling a Stateful Set](/docs/tasks/manage-stateful-set/scale-stateful-set/)
+
 ### What's next
 
 If you would like to write a task page, see

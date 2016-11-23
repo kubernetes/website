@@ -24,3 +24,6 @@ toc:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
 - title: Managing Stateful Applications
+  section:
+  - title: Scaling a Stateful Set
+    path: /docs/tasks/manage-stateful-set/scale-stateful-set/
