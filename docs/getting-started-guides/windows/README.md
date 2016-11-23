@@ -9,8 +9,9 @@ Windows Server Containers will be supported on Kubernetes as an alpha feature. K
 With the alpha release, we support Windows Server Containers for Kubernetes using the following:
 
 1. Kubernetes control plane running on existing Linux infrastructure (version 1.5 or later)
-2. Windows Server 2016 (RTM version 10.0.14393 or later)
-3. Docker Version 1.12.2-cs2-ws-beta or later
+2. Kubenet network plugin setup on the Linux nodes
+3. Windows Server 2016 (RTM version 10.0.14393 or later)
+4. Docker Version 1.12.2-cs2-ws-beta or later
 
 ## Networking
 Network is achieved using L3 routing. Because third-party networking plugins (e.g. flannel, calico, etc) don’t natively work on Windows Server, we relied on existing technology that is built into the Windows and Linux operating systems. In this L3 networking approach, we chose a /16 subnet for the cluster nodes, and we assign a /24 subnet to each worker node. All pods on a given worker node will be connected to the /24 subnet. This allows pods on the same node to communicate with each other. In order to enable networking between pods running on different nodes, routing features that are built into Windows Server 2016 and Linux are used.
@@ -124,8 +125,39 @@ Run the following in a PowerShell window with administrative privileges. Be awar
 2. Run *kube-proxy* executable using the below command
 `.\proxy.exe --v=3 --proxy-mode=userspace --hostname-override=<ip address/hostname of the windows node> --master=<api server location> --bind-address=<ip address of the windows node>`
 
+## Scheduling PODs on Windows
+As Kubernetes control plane currently runs on Linux, the resulting cluster will have both Linux and Windows nodes. TO schedule PODs on Windows, `nodeSelector` constraint has to be set with label `beta.kubernetes.io/os` having value `windows` as shown in the example below,
+```
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "name": "iis",
+    "labels": {
+      "name": "iis"
+    }
+  },
+  "spec": {
+    "containers": [
+      {
+        "name": "iis",
+        "image": "microsoft/iis",
+        "ports": [
+          {
+            "containerPort": 80
+          }
+        ]
+      }
+    ],
+    "nodeSelector": {
+      "beta.kubernetes.io/os": "windows"
+    }
+  }
+}
+```
+
 ## Known Limitations:
 1. There is no network namespace in Windows and as a result currently only one container per pod is supported
 2. Secrets currently do not work because of a bug in Windows Server Containers described [here](https://github.com/docker/docker/issues/28401)
 3. ConfigMaps have not been implemented yet.
-4. `kube-proxy` implementation uses `netsh portproxy` and as it only supports TCP, DNS currently works only if the client retries DNS query using TCP  
+4. `kube-proxy` implementation uses `netsh portproxy` and as it only supports TCP, DNS currently works only if the client retries DNS query using TCP
