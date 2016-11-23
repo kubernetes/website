@@ -21,6 +21,8 @@ The Tasks section of the Kubernetes documentation is a work in progress
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
 
+#### Managing Stateful Applications
+
 ### What's next
 
 If you would like to write a task page, see

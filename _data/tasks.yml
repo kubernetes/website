@@ -23,4 +23,4 @@ toc:
   section:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
-
+- title: Managing Stateful Applications
