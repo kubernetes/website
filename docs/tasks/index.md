@@ -27,6 +27,8 @@ single thing, typically by giving a short sequence of steps.
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
 
+#### Managing Stateful Applications
+
 ### What's next
 
 If you would like to write a task page, see
