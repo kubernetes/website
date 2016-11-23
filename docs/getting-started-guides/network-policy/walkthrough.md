@@ -10,6 +10,7 @@ In this article, we assume a Kubernetes cluster has been created with network po
 
 * [Calico](/docs/getting-started-guides/network-policy/calico/)
 * [Romana](/docs/getting-started-guides/network-policy/romana/)
+* [Weave Net](/docs/getting-started-guides/network-policy/weave/)
 
 Add-ons are sorted alphabetically - the ordering does not imply any preferential status.
 
