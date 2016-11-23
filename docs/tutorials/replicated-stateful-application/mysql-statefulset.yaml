@@ -39,7 +39,7 @@ spec:
           },
           {
             "name": "clone-mysql",
-            "image": "enisoc/xtrabackup",
+            "image": "gcr.io/google-samples/xtrabackup:1.0",
             "command": ["bash", "-c", "
               set -ex\n
               # Skip the clone if data already exists.\n
@@ -90,7 +90,7 @@ spec:
           initialDelaySeconds: 5
           timeoutSeconds: 1
       - name: xtrabackup
-        image: enisoc/xtrabackup:latest
+        image: gcr.io/google-samples/xtrabackup:1.0
         ports:
         - name: xtrabackup
           containerPort: 3307
