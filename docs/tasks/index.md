@@ -20,6 +20,8 @@ The Tasks section of the Kubernetes documentation is a work in progress
 #### Administering a Cluster
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
+* [Safely Draining a Node while Respecting Application SLOs](/docs/tasks/administer-cluster/safely-drain-node/)
+
 
 ### What's next
 
