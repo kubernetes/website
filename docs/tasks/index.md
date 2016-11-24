@@ -34,6 +34,8 @@ single thing, typically by giving a short sequence of steps.
 * [Scaling a StatefulSet](/docs/tasks/manage-stateful-set/scale-stateful-set/)
 * [Deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/)
 * [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
+* [Safely Draining a Node while Respecting Application SLOs](/docs/tasks/administer-cluster/safely-drain-node/)
+
 
 ### What's next
 
