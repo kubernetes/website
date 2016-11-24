@@ -213,7 +213,45 @@ cluster1   Ready               3m
 ## Updating KubeDNS
 
 Once the cluster is registered with the federation, you are all set to use it.
-But for the cluster to be able to route federation service requests, you need to restart
+But for the cluster to be able to route federation service requests, you need to
+pass federation domain information to it. This can be done by passing the
+`--federations` flag to kube-dns via kube-dns config map in a v1.5+ cluster and
+setting the `--federations` flag directly on kube-dns-rc on other clusters.
+
+### Passing federations flag via config map to kube-dns on v1.5+ cluster
+
+For kubernetes clusters of version 1.5+, you can pass the
+`--federations` flag to kube-dns via kube-dns config map.
+Format of the flag is like this:
+
+```
+--federations=${FEDERATION_NAME}=${DNS_DOMAIN_NAME}
+```
+
+To pass this flag to KubeDNS, create a config-map with name `kube-dns` in
+namespace `kube-system`. The configmap should look like:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-dns
+  namespace: kube-system
+data:
+  federations: <federation-name>=<dns-domain-name>
+```
+
+where `<federation-name>` should be replaced by the name you want to give to your
+federation; and
+`federation-domain-name` should be replaced by the domain name you want to use
+in your federation DNS.
+
+You can find more details about config maps in general at
+http://kubernetes.io/docs/user-guide/configmap/.
+
+### Setting federations flag on kube-dns-rc on clusters before v1.5
+
+For kubernetes clusters of version less than v1.5, you need to restart
 KubeDNS and pass it a `--federations` flag which tells it about valid federation DNS hostnames.
 Format of the flag is like this:
 
