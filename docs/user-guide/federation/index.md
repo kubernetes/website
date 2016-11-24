@@ -46,3 +46,14 @@ The following guides explain some of the resources in detail:
 
 [API reference docs](/federation/docs/api-reference/readme/) lists all the
 resources supported by federation apiserver.
+
+## Cascading deletion
+
+Kubernetes v1.5 includes alpha support for cascading deletion of federated
+ingresses, namespaces, replica sets, secrets, deployments and daemon sets
+using `orphanDepedents` delete options.
+This means that when any of these resources are deleted from federation
+control plane with `DeleteOptions.orphanDependents = false`,
+then the corresponding resources are also deleted from all underlying clusters.
+By default, deleting the resource from federation control plane does not delete
+the corresponding resources from underlying clusters.
