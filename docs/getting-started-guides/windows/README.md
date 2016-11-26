@@ -1,12 +1,8 @@
 # Running Windows Server Containers using Kubernetes
-Microsoft, in collaboration with Docker, is introducing a new feature called Windows Server Containers with Windows Server 2016, which enables Docker containers to run on Windows. We have enhanced Kubernetes to support Windows Server Containers (and Windows Server 2016 as a container host node).
-
-Windows Server and .NET still account for a significant portion of the workloads in the enterprise, and with this work, customers will be able to run Windows-based and .NET-based applications inside containers on Kubernetes, making Kubernetes the first fully functional cross-platform cluster manager. Services that span Windows-based and Linux-based containers are now a reality.
-
-Windows Server Containers will be supported on Kubernetes as an alpha feature. Kubernetes control plane (API Server, Scheduler, Controller Manager etc) continue to run on Linux, while the kubelet and kube-proxy can be run on Windows Server.
+Windows Server Containers are supported on Kubernetes as an alpha feature. Kubernetes control plane (API Server, Scheduler, Controller Manager etc) will continue to run on Linux, while the kubelet and kube-proxy can be run on Windows Server.
 
 ## Prerequisites
-With the alpha release, we support Windows Server Containers for Kubernetes using the following:
+With the alpha release, Windows Server Containers for Kubernetes is supported using the following:
 
 1. Kubernetes control plane running on existing Linux infrastructure (version 1.5 or later)
 2. Kubenet network plugin setup on the Linux nodes
@@ -14,15 +10,15 @@ With the alpha release, we support Windows Server Containers for Kubernetes usin
 4. Docker Version 1.12.2-cs2-ws-beta or later
 
 ## Networking
-Network is achieved using L3 routing. Because third-party networking plugins (e.g. flannel, calico, etc) don’t natively work on Windows Server, we relied on existing technology that is built into the Windows and Linux operating systems. In this L3 networking approach, we chose a /16 subnet for the cluster nodes, and we assign a /24 subnet to each worker node. All pods on a given worker node will be connected to the /24 subnet. This allows pods on the same node to communicate with each other. In order to enable networking between pods running on different nodes, routing features that are built into Windows Server 2016 and Linux are used.
+Network is achieved using L3 routing. Because third-party networking plugins (e.g. flannel, calico, etc) don’t natively work on Windows Server, existing technology that is built into the Windows and Linux operating systems is relied on. In this L3 networking approach, a /16 subnet is chosen for the cluster nodes, and a /24 subnet is assigned to each worker node. All pods on a given worker node will be connected to the /24 subnet. This allows pods on the same node to communicate with each other. In order to enable networking between pods running on different nodes, routing features that are built into Windows Server 2016 and Linux are used.
 
 ### Linux
 The above networking approach is already supported on Linux using a bridge interface, which essentially creates a private network local to the node. Similar to the Windows side, routes to all other pod CIDRs must be created in order to send packets via the “public” NIC.
 
 ### Windows
-To support networking requirements, we will need the following configuration on each Kubernetes Windows Server node:
+Each Window Server node should have the following configuration:
 
-1. Two NICs (virtual networking adapters) are required on each Windows Server node - The two Windows container networking modes we use (transparent and L2 bridge) use an external Hyper-V virtual switch. This means that one of the NICs is entirely allocated to the bridge, creating the need for the second NIC.
+1. Two NICs (virtual networking adapters) are required on each Windows Server node - The two Windows container networking modes of interest (transparent and L2 bridge) use an external Hyper-V virtual switch. This means that one of the NICs is entirely allocated to the bridge, creating the need for the second NIC.
 2. Transparent container network created - This is a manual configuration step and is shown in **_Route Setup_** section below
 3. RRAS (Routing) Windows feature enabled - Allows routing between NICs on the box, and also “captures” packets that have the destination IP of a POD running on the node. To enable, open “Server Manager”. Click on “Roles”, “Add Roles”. Click “Next”. Select “Network Policy and Access Services”. Click on “Routing and Remote Access Service” and the underlying checkboxes
 4. Routes defined pointing to the other pod CIDRs via the “public” NIC - These routes are added to the built-in routing table as shown in **_Route Setup_** section below
@@ -102,7 +98,7 @@ route add 192.168.1.0 mask 255.255.255.0 192.168.1.1 if <Interface Id of the Rou
 ```
 
 ## Starting the Cluster
-For now, the Kubernetes control plane continues to run on Linux and as a result we cannot have a Windows only Kubernetes Cluster. 
+For now, the Kubernetes control plane continues to run on Linux and as a result a Windows only Kubernetes Cluster is not possible. 
 ## Linux
 Use your preferred method to start Kubernetes cluster on Linux. Please note that Cluster CIDR might need to be updated.
 ## Windows
