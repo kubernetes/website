@@ -12,6 +12,7 @@ Display one or many resources
 Display one or many resources.
 
 Valid resource types include:
+
    * clusters (valid only for federation apiservers)
    * componentstatuses (aka 'cs')
    * configmaps (aka 'cm')
