@@ -43,6 +43,8 @@ clusters.
 
 [KCluster.io](https://kcluster.io) provides highly available and scalable managed Kubernetes clusters for AWS.
 
+[Platform9](https://platform9.com/products/kubernetes/) offers managed Kubernetes on-premises or any public cloud, and provides 24/7 health monitoring and alerting.
+
 ### Turn-key Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -74,8 +76,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 
 - [AWS + CoreOS](/docs/getting-started-guides/coreos)
 - [GCE + CoreOS](/docs/getting-started-guides/coreos)
-- [AWS + Ubuntu](/docs/getting-started-guides/juju)
-- [Joyent + Ubuntu](/docs/getting-started-guides/juju)
+- [AWS/GCE/Rackspace/Joyent + Ubuntu](/docs/getting-started-guides/ubuntu/automated)
 - [Rackspace + CoreOS](/docs/getting-started-guides/rackspace)
 
 #### On-Premises VMs
@@ -84,7 +85,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 - [CloudStack](/docs/getting-started-guides/cloudstack) (uses Ansible, CoreOS and flannel)
 - [Vmware vSphere](/docs/getting-started-guides/vsphere)  (uses Debian)
 - [Vmware Photon Controller](/docs/getting-started-guides/photon-controller)  (uses Debian)
-- [juju.md](/docs/getting-started-guides/juju) (uses Juju, Ubuntu and flannel)
+- [Vmware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/automated) (uses Juju, Ubuntu and flannel)
 - [Vmware](/docs/getting-started-guides/coreos)  (uses CoreOS and flannel)
 - [libvirt-coreos.md](/docs/getting-started-guides/libvirt-coreos)  (uses CoreOS)
 - [oVirt](/docs/getting-started-guides/ovirt)
@@ -99,7 +100,8 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 - [Fedora single node](/docs/getting-started-guides/fedora/fedora_manual_config)
 - [Fedora multi node](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)
 - [Centos](/docs/getting-started-guides/centos/centos_manual_config)
-- [Ubuntu](/docs/getting-started-guides/ubuntu)
+- [Bare Metal with Ubuntu](/docs/getting-started-guides/ubuntu/automated)
+- [Ubuntu Manual](/docs/getting-started-guides/ubuntu/manual)
 - [Docker Multi Node](/docs/getting-started-guides/docker-multinode)
 - [CoreOS](/docs/getting-started-guides/coreos)
 
@@ -123,6 +125,7 @@ GKE                  |              |        | GCE         | [docs](https://clou
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](http://www.stackpointcloud.com) |    | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) |    | Commercial
 KCluster.io          |              | multi-support | multi-support | [docs](https://kcluster.io) |    | Commercial
+Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/products/kubernetes/) |    | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | ['œ“][1]   | Project
 Azure                | CoreOS       | CoreOS | Weave       | [docs](/docs/getting-started-guides/coreos/azure/)                    |          | Community ([@errordeveloper](https://github.com/errordeveloper), [@squillace](https://github.com/squillace), [@chanezon](https://github.com/chanezon), [@crossorigin](https://github.com/crossorigin))
 Azure                | Ignition     | Ubuntu | Azure       | [docs](/docs/getting-started-guides/azure)                    |          | Community (Microsoft: [@brendandburns](https://github.com/brendandburns), [@colemickens](https://github.com/colemickens))
@@ -145,9 +148,11 @@ CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/gettin
 Vmware vSphere       | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/vsphere)                                |          | Community ([@imkin](https://github.com/imkin))
 Vmware Photon        | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/photon-controller)                      |          | Community ([@alainroy](https://github.com/alainroy))
 Bare-metal           | custom       | CentOS | _none_      | [docs](/docs/getting-started-guides/centos/centos_manual_config)            |          | Community ([@coolsvap](https://github.com/coolsvap))
-AWS                  | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/juju)                                   |          | [Community](https://github.com/whitmo/bundle-kubernetes) ( [@whit](https://github.com/whitmo), [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-OpenStack/HPCloud    | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/juju)                                   |          | [Community](https://github.com/whitmo/bundle-kubernetes) ( [@whit](https://github.com/whitmo), [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
-Joyent               | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/juju)                                   |          | [Community](https://github.com/whitmo/bundle-kubernetes) ( [@whit](https://github.com/whitmo), [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
+AWS                  | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/automated)                                  |          | [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck]*(https://github.com/chuckbutler) )
+GCE                  | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/automated)                                  |          | [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck]*(https://github.com/chuckbutler) )
+Bare Metal           | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/automated)                                  |          | [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck]*(https://github.com/chuckbutler) )
+Rackspace            | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/automated)                                  |          | [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck]*(https://github.com/chuckbutler) )
+Vmware vSphere       | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/automated)                                  |          | [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck]*(https://github.com/chuckbutler) )
 AWS                  | Saltstack    | Debian | AWS         | [docs](/docs/getting-started-guides/aws)                                    |          | Community ([@justinsb](https://github.com/justinsb))
 AWS                  | kops         | Debian | AWS         | [docs](https://github.com/kubernetes/kops)                                  |          | Community ([@justinsb](https://github.com/justinsb))
 Bare-metal           | custom       | Ubuntu | Calico      | [docs](/docs/getting-started-guides/ubuntu-calico)                          |          | Community ([@djosborne](https://github.com/djosborne))
@@ -161,7 +166,7 @@ any                  | any          | any    | any         | [docs](/docs/gettin
 
 *Note*: The above table is ordered by version test/used in notes followed by support level.
 
-Definition of columns:
+Definition of columns
 
 - **IaaS Provider** is who/what provides the virtual or physical machines (nodes) that Kubernetes runs on.
 - **OS** is the base operating system of the nodes.
