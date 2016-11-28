@@ -94,3 +94,24 @@ The relationship between Docker's capabilities and [Linux capabilities](http://m
 | SETFCAP |  CAP_SETFCAP |
 | WAKE_ALARM |  CAP_WAKE_ALARM |
 | BLOCK_SUSPEND |  CAP_BLOCK_SUSPEND |
+
+Capabilities are added/dropped in the [`SecurityContext`](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext), e.g.:
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+ name: hello-world
+spec:
+ containers:
+ - name: friendly-container
+   image: "alpine:3.4"
+   command:
+   - echo "hello"
+   securityContext:
+     capabilities:
+       add:
+       - SYS_NICE
+       drop:
+       - KILL
+```
