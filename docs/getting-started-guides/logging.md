@@ -1,6 +1,6 @@
 # Logging
 
-In most cases, it's useful to have a dedicated logging backend with the ability to store, analyze and search logs independently from the pods and containers lifecycle. It's sometimes called cluster level logging, because it follow the lifecycle of the whole cluster, not just one application or one node.
+In most cases, it's useful to have a dedicated logging backend with the ability to store, analyze and search logs independently from the pods and containers lifecycle. It's sometimes called cluster level logging, because logs in this backend have the lifecycle of the whole cluster, not just one application or one node.
 
 If you're not interested in the cluster level logging and just want to understand logging on the node level, you can skip directly to the section about node logging agent.
 
@@ -18,7 +18,7 @@ First of all, you can always push your logs directly from your application (or e
 
 Alternatively, you can use dedicated logging agent, which is essentially an application which sends logs to the logging backend (or exposes an edpoint in the pull model). One way of using the logging agent is to have a sidecar container in pod specs, containing only the configured agent.
 
-The concrete implementation of the agent, interface between agent and the application and the interface between agent and the backend are completely up to user. One example is fluentd side-car container for Stackdriver logging backend, which is described in details [there]().
+The concrete implementation of the agent, interface between agent and the application and the interface between agent and the backend are completely up to user. One example is fluentd side-car container for Stackdriver logging backend, which is described in details [there](https://github.com/kubernetes/contrib/tree/b70447aa59ea14468f4cd349760e45b6a0a9b15d/logging/fluentd-sidecar-gcp).
 
 ## Using node logging agent
 
@@ -30,7 +30,7 @@ Several main components can be extracted and highlighted
 
 1. Application and container engine
 
-	* Everything written to `stdout` and `stderr` by a containerized application goes to a container runtime. Currently, from the Docker runtime it goes to a file using standard [json logging driver](). __Note! It implies that each _line_ will be treatet as a separate message, no direct support for multiline messages, e.g. stacktraces.__
+	* Everything written to `stdout` and `stderr` by a containerized application goes to a container runtime. Currently, from the Docker runtime it goes to a file using standard [json logging driver](https://docs.docker.com/engine/admin/logging/overview). __Note! It implies that each _line_ will be treatet as a separate message, no direct support for multiline messages, e.g. stacktraces.__
 
 	* In case container restarts, kubelet keeps by default one terminated container with its logs.
 
@@ -38,7 +38,7 @@ Several main components can be extracted and highlighted
 
 1. Logrotate
 
-	Important question is how to achieve log rotations so that logs won't consume all available space on the node. Right now, logrotate tools solves this task. Detailed configuration can be found (there)[]. In short, we keep up to `5` rotation, rotation is performed daily or if log file grows beyond `10MB`. Rotations belong to a single container, that is if container dies several times or pod gets evited, all rotations are lost.
+	Important question is how to achieve log rotations so that logs won't consume all available space on the node. Right now, logrotate tools solves this task. Detailed configuration can be found [there](https://github.com/kubernetes/kubernetes/blob/release-1.5/cluster/gce/gci/configure-helper.sh#L96). In short, we keep up to `5` rotation, rotation is performed daily or if log file grows beyond `10MB`. Rotations belong to a single container, that is if container dies several times or pod gets evited, all rotations are lost.
 
 1. Logging agent
 
@@ -46,6 +46,6 @@ Several main components can be extracted and highlighted
 
 	Kubernetes doesn't specify logging agent, but it ships with two default options. Both use fluentd with custom configuration as an agent, both are shipped as manifest pods.
 
-	* Stackdriver Logging in Google Cloud, more information [there]()
+	* Stackdriver Logging in Google Cloud, more information [there](logging-gcp.md)
 
-	* Elasticsearch inside the cluster, more information [there]()
+	* Elasticsearch inside the cluster, more information [there](logging-elasticsearch.md)
