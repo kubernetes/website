@@ -22,30 +22,27 @@ This task shows you how to delete a Stateful Set.
 
 ### Deleting a StatefulSet
 
-A Stateful Set can be deleted like other resources in kubernetes. 
+A Stateful Set can be deleted like other resources in Kubernetes. 
 
 ```shell
-$ kubectl delete -f statefulset.yaml 
-statefulset "web" deleted
+kubectl delete -f statefulset.yaml 
 
 ```
 
 
 ```shell
-$ kubectl delete statefulsets web
-statefulset "web" deleted
+kubectl delete statefulsets web
 
 ```
 
 The associated headless service may need to be deleted separately after the Stateful Set itself is deleted.
 
 ```shell
-$ kubectl delete service web
-service "web" deleted
+kubectl delete service web
 
 ```
 
-Deleting a Stateful Set through kubectl will scale it down to 0, thereby deleting all pods that are a part of it. If you wish to delete just the Stateful Set and not the pods, please use --cascade=false.
+Deleting a Stateful Set through kubectl will scale it down to 0, thereby deleting all pods that are a part of it. If you wish to delete just the Stateful Set and not the pods, use `--cascade=false`.
 
 ```shell
 $ kubectl delete -f statefulset.yaml --cascade=false
@@ -63,7 +60,7 @@ pod "web-1" deleted
 
 #### Persistent Volumes
 
-Deleting the pods will *not* delete the volumes. Until we finalize the recycle policy for these volumes they will have to get cleaned up by an admin. This is to ensure that you have the chance to copy data off the volume before deleting it. Simply deleting the PVC after the pods have left the [terminating state](/docs/user-guide/pods/index#termination-of-pods) should trigger deletion of the backing Persistent Volumes. 
+Deleting the pods will *not* delete the volumes. This is to ensure that you have the chance to copy data off the volume before deleting it. Simply deleting the PVC after the pods have left the [terminating state](/docs/user-guide/pods/index#termination-of-pods) should trigger deletion of the backing Persistent Volumes. 
 
 **Note: you will lose all your data once the PVC is deleted, do this with caution.**
 
@@ -83,7 +80,7 @@ If you simply want to clean everything:
 
 ```shell{% raw %}
 $ grace=$(kubectl get po web-0 --template '{{.spec.terminationGracePeriodSeconds}}')
-$ kubectl delete petset,po -l app=nginx
+$ kubectl delete statefulset -l app=nginx
 $ sleep $grace
 $ kubectl delete pvc -l app=nginx
 {% endraw %}
