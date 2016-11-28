@@ -101,17 +101,16 @@ Capabilities are added/dropped in the [`SecurityContext`](http://kubernetes.io/d
 apiVersion: v1
 kind: Pod
 metadata:
- name: hello-world
+  name: hello-world
 spec:
- containers:
- - name: friendly-container
-   image: "alpine:3.4"
-   command:
-   - echo "hello"
-   securityContext:
-     capabilities:
-       add:
-       - SYS_NICE
-       drop:
-       - KILL
+  containers:
+  - name: friendly-container
+    image: "alpine:3.4"
+    command: ["/bin/echo", "hello", "world"]
+    securityContext:
+      capabilities:
+        add:
+        - SYS_NICE
+        drop:
+        - KILL
 ```
