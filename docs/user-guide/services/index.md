@@ -182,7 +182,7 @@ In Kubernetes v1.0 the proxy was purely in userspace.  In Kubernetes v1.1 an
 iptables proxy was added, but was not the default operating mode.  Since
 Kubernetes v1.2, the iptables proxy is the default.
 
-As of Kubernetes v1.0, `Services` are a "layer 3" (TCP/UDP over IP) construct.
+As of Kubernetes v1.0, `Services` are a "layer 4" (TCP/UDP over IP) construct.
 In Kubernetes v1.1 the `Ingress` API was added (beta) to represent "layer 7"
 (HTTP) services.
 
