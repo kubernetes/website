@@ -97,7 +97,7 @@ The relationship between Docker's capabilities and [Linux capabilities](http://m
 
 Capabilities are added/dropped in the [`SecurityContext`](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext), e.g.:
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
