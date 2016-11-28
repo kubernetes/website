@@ -105,6 +105,8 @@ toc:
     path: /docs/user-guide/pods/single-container/
   - title: Creating Multi-Container Pods
     path: /docs/user-guide/pods/multi-container/
+  - title: Initializing Pods with Init Containers
+    path: /docs/user-guide/pods/init-containers/
   - title: Configuring Containers
     path: /docs/user-guide/configuring-containers/
   - title: Working with Containers in Production
