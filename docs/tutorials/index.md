@@ -22,6 +22,7 @@ each of which has a sequence of steps.
 
 * [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/)
 * [Running a Replicated Stateful Application](/docs/tutorials/stateful-application/run-replicated-stateful-application/)
+* [Stateful Set Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
 
 ### What's next
 
