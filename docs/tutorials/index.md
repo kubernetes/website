@@ -15,6 +15,10 @@ The Tutorials section of the Kubernetes documentation is a work in progress.
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
+#### Stateful Applications
+
+* [Stateful Set Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
+
 ### What's next
 
 If you would like to write a tutorial, see
