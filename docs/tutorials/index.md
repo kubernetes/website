@@ -17,7 +17,7 @@ The Tutorials section of the Kubernetes documentation is a work in progress.
 
 #### Stateful Applications
 
-* [Stateful Set Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
+* [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
 
 ### What's next
 
