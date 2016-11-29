@@ -33,7 +33,9 @@ following.
 In the above, by stable, we mean persistent across Pod (re) schedulings.
 As it is generally easier to manage, if an application doesn't require any of 
 the above guarantees, and if it is feasible to do so, it should be deployed as 
-a set of stateless replicas.
+a set of stateless replicas. Before deciding to use a Stateful Set, you should 
+be certain that a [Deployment](/docs/user-guide/deployments/) or a
+[Replica Set](/docs/user-guide/replicasets/) is not better suited to your needs.
 
 ### Limitations
 * Stateful Set is a beta resource, not available in any Kubernetes release prior to 1.5.
@@ -41,15 +43,15 @@ a set of stateless replicas.
 * The storage for a given Pod must either be provisioned by a [Persistent Volume Provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a Stateful Set down will *not* delete the volumes associated with the Stateful Set. This is done to ensure safety first, your data is more valuable than an auto purge of all related Stateful Set resources. 
 * Stateful Sets currently require a [Headless Service](/docs/user-guide/services/#headless-services) to be responsible for the network identity of the Pods. The user is responsible for this Service.
-* Updating an existing Stateful Set is currently a manual process, meaning you either need to deploy a new Stateful Set with the new image version, or orphan Pods one by one, update their image, and join them back to the cluster.
+* Updating an existing Stateful Set is currently a manual process.
 
 ### Components
 The example below demonstrates the components of a Stateful Set. 
 
-* A [Headless Service](/docs/user-guide/services/#headless-services), named nginx, is used to control the network domain. 
+* A Headless Service, named nginx, is used to control the network domain. 
 * The Stateful Set, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
 * The volumeClaimTemplates, will provide stable storage using [Persistent Volumes](/docs/user-guide/volumes/) provisioned by a 
- [Persistent Volume Provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md).
+ Persistent Volume Provisioner.
 
 ```yaml
 ---
