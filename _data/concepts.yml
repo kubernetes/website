@@ -9,5 +9,5 @@ toc:
     path: /docs/concepts/object-metadata/annotations/
 - title: Controllers
   section:
-  - title: Stateful Sets
+  - title: StatefulSets
     path: /docs/concepts/controllers/statefulsets/
