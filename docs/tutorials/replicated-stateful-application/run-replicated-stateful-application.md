@@ -28,9 +28,11 @@ on general patterns for running stateful applications in Kubernetes.
 * {% include task-tutorial-prereqs.md %}
 * {% include default-storage-class-prereqs.md %}
 * This tutorial assumes you are familiar with
-[PersistentVolumes](/docs/user-guide/persistent-volumes/)
-and [StatefulSets](/docs/concepts/controllers/statefulsets/),
-as well as other core concepts like Pods, Services and ConfigMaps.
+  [PersistentVolumes](/docs/user-guide/persistent-volumes/)
+  and [StatefulSets](/docs/concepts/controllers/statefulsets/),
+  as well as other core concepts like [Pods](/docs/user-guide/pods/),
+  [Services](/docs/user-guide/services/), and
+  [ConfigMaps](/docs/user-guide/configmap/).
 * Some familiarity with MySQL will help, but this tutorial aims to present
   general patterns that should be useful for other systems.
 
