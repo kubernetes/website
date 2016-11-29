@@ -171,6 +171,10 @@ The script in the `init-mysql` container also applies either `master.cnf` or
 Because the example topology consists of a single master and any number of
 slaves, the script simply assigns ordinal `0` to be the master, and everyone
 else to be slaves.
+Combined with the StatefulSet controller's
+[deployment order guarantee](/docs/concepts/controllers/statefulsets/#deployment-and-scaling-guarantee),
+this ensures the master is Ready before creating slaves, so they can begin
+replicating.
 
 #### Cloning existing data
 
@@ -511,6 +515,11 @@ kubectl delete pvc data-mysql-4
   ```shell
   kubectl delete configmap,service,pvc -l app=mysql
   ```
+
+* If you manually provisioned PersistentVolumes, you will also need to manually
+  delete them. If you used a dynamic provisioner, it will automatically delete
+  the PersistentVolumes when it sees you have deleted the
+  PersistentVolumeClaims above.
 
 {% endcapture %}
 
