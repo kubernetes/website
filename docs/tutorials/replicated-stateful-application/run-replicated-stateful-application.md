@@ -13,7 +13,7 @@ assignees:
 {% capture overview %}
 
 This page shows how to run a replicated stateful application using a
-[Stateful Set](/docs/concepts/controllers/statefulsets/) controller.
+[StatefulSet](/docs/concepts/controllers/statefulsets/) controller.
 The example is a MySQL single-master topology with multiple slaves running
 asynchronous replication.
 
@@ -28,9 +28,9 @@ on general patterns for running stateful applications in Kubernetes.
 * {% include task-tutorial-prereqs.md %}
 * {% include default-storage-class-prereqs.md %}
 * This tutorial assumes you are familiar with
-[Persistent Volumes](/docs/user-guide/persistent-volumes/)
-and [Stateful Sets](/docs/concepts/controllers/statefulsets/),
-as well as other core concepts like Pods, Services and Config Maps.
+[PersistentVolumes](/docs/user-guide/persistent-volumes/)
+and [StatefulSets](/docs/concepts/controllers/statefulsets/),
+as well as other core concepts like Pods, Services and ConfigMaps.
 * Some familiarity with MySQL will help, but this tutorial aims to present
   general patterns that should be useful for other systems.
 
@@ -38,10 +38,10 @@ as well as other core concepts like Pods, Services and Config Maps.
 
 {% capture objectives %}
 
-* Deploy a replicated MySQL topology with a Stateful Set controller.
+* Deploy a replicated MySQL topology with a StatefulSet controller.
 * Send MySQL client traffic.
 * Observe resistance to downtime.
-* Scale the Stateful Set up and down.
+* Scale the StatefulSet up and down.
 
 {% endcapture %}
 
@@ -49,12 +49,12 @@ as well as other core concepts like Pods, Services and Config Maps.
 
 ### Deploying MySQL
 
-The example MySQL deployment consists of a Config Map, two Services,
-and a Stateful Set.
+The example MySQL deployment consists of a ConfigMap, two Services,
+and a StatefulSet.
 
-#### Config Map
+#### ConfigMap
 
-Create the Config Map by saving the following manifest to `mysql-configmap.yaml`
+Create the ConfigMap by saving the following manifest to `mysql-configmap.yaml`
 and running:
 
 ```shell
@@ -63,7 +63,7 @@ kubectl create -f mysql-configmap.yaml
 
 {% include code.html language="yaml" file="mysql-configmap.yaml" ghlink="/docs/tutorials/replicated-stateful-application/mysql-configmap.yaml" %}
 
-This Config Map provides `my.cnf` overrides that let you independently control
+This ConfigMap provides `my.cnf` overrides that let you independently control
 configuration on the master and the slaves.
 In this case, you want the master to be able to serve replication logs to slaves
 and you want slaves to reject any writes that don't come via replication.
@@ -71,7 +71,7 @@ and you want slaves to reject any writes that don't come via replication.
 There's nothing special about the ConfigMap itself that causes different
 portions to apply to different Pods.
 Each Pod will decide which portion to look at as it's initializing,
-based on information provided by the Stateful Set controller.
+based on information provided by the StatefulSet controller.
 
 #### Services
 
@@ -84,7 +84,7 @@ kubectl create -f mysql-services.yaml
 
 {% include code.html language="yaml" file="mysql-services.yaml" ghlink="/docs/tutorials/replicated-stateful-application/mysql-services.yaml" %}
 
-The Headless Service provides a home for the DNS entries that the Stateful Set
+The Headless Service provides a home for the DNS entries that the StatefulSet
 controller will create for each Pod that's part of the set.
 Since the Headless Service is named `mysql`, the Pods will be accessible by
 resolving `<pod-name>.mysql` from within any other Pod in the same Kubernetes
@@ -98,9 +98,9 @@ Note that only read queries can use the load-balanced Client Service.
 Since there is only one master, clients should connect directly to the master
 Pod (through its DNS entry within the Headless Service) to execute writes.
 
-#### Stateful Set
+#### StatefulSet
 
-Finally, create the Stateful Set by saving the following manifest to
+Finally, create the StatefulSet by saving the following manifest to
 `mysql-statefulset.yaml` and running:
 
 ```shell
@@ -125,16 +125,16 @@ mysql-2   2/2       Running   0          1m
 ```
 
 Press **Ctrl+C** to cancel the watch.
-If you don't see any progress, make sure you have a dynamic Persistent Volume
+If you don't see any progress, make sure you have a dynamic PersistentVolume
 provisioner enabled as mentioned in the [prerequisites](#before-you-begin).
 
 This manifest uses a variety of techniques for managing stateful Pods as part of
-a Stateful Set. The next section highlights some of these techniques to explain
-what happens as the Stateful Set creates Pods.
+a StatefulSet. The next section highlights some of these techniques to explain
+what happens as the StatefulSet creates Pods.
 
 ### Understanding stateful Pod initialization
 
-The Stateful Set controller starts Pods one at a time, in order by their
+The StatefulSet controller starts Pods one at a time, in order by their
 ordinal index.
 It waits until each Pod reports being Ready before starting the next one.
 
@@ -142,7 +142,7 @@ In addition, the controller assigns each Pod a unique, stable name of the form
 `<statefulset-name>-<ordinal-index>`.
 In this case, that results in Pods named `mysql-0`, `mysql-1`, and `mysql-2`.
 
-The Pod template in the above Stateful Set manifest takes advantage of these
+The Pod template in the above StatefulSet manifest takes advantage of these
 properties to perform orderly startup of MySQL replication.
 
 #### Generating configuration
@@ -150,7 +150,7 @@ properties to perform orderly startup of MySQL replication.
 Before starting any of the containers in the Pod spec, the Pod first runs any
 [Init Containers](/docs/user-guide/production-pods/#handling-initialization)
 in the order defined.
-In the Stateful Set manifest, you will find these defined within the
+In the StatefulSet manifest, you will find these defined within the
 `pod.beta.kubernetes.io/init-containers` annotation.
 
 The first Init Container, named `init-mysql`, generates special MySQL config
@@ -160,12 +160,12 @@ The script determines its own ordinal index by extracting it from the end of
 the Pod name, which is returned by the `hostname` command.
 Then it saves the ordinal (with a numeric offset to avoid reserved values)
 into a file called `server-id.cnf` in the MySQL `conf.d` directory.
-This translates the unique, stable identity provided by the Stateful Set
+This translates the unique, stable identity provided by the StatefulSet
 controller into the domain of MySQL server IDs, which require the same
 properties.
 
 The script in the `init-mysql` container also applies either `master.cnf` or
-`slave.cnf` from the Config Map by copying the contents into `conf.d`.
+`slave.cnf` from the ConfigMap by copying the contents into `conf.d`.
 Since the example topology consists of a single master and any number of slaves,
 the script simply assigns ordinal `0` to be the master, and everyone else to be
 slaves.
@@ -175,11 +175,11 @@ slaves.
 In general, when a new Pod joins the set as a slave, it must assume the master
 may already have data on it. It also must assume that the replication logs may
 not go all the way back to the beginning of time.
-These conservative assumptions are the key to allowing a running Stateful Set
+These conservative assumptions are the key to allowing a running StatefulSet
 to scale up and down over time, rather than being fixed at its initial size.
 
 The second Init Container, named `clone-mysql`, performs a clone operation on
-a slave Pod the first time it starts up on an empty Persistent Volume.
+a slave Pod the first time it starts up on an empty PersistentVolume.
 That means it copies all existing data from another running Pod,
 so its local state is consistent enough to begin replicating from the master.
 
@@ -188,7 +188,7 @@ popular open-source tool called Percona XtraBackup.
 During the clone, the source MySQL server may suffer reduced performance.
 To minimize impact on the master, the script instructs each Pod to clone from
 the Pod whose ordinal index is one lower.
-This works because the Stateful Set controller will always ensure Pod `N` is
+This works because the StatefulSet controller will always ensure Pod `N` is
 Ready before starting Pod `N+1`.
 
 #### Starting replication
@@ -212,8 +212,8 @@ being rescheduled.
 
 Lastly, after starting replication, the `xtrabackup` container listens for
 connections from other Pods requesting a data clone.
-This server remains up indefinitely in case the Stateful Set scales up, or in
-case the next Pod loses its Persistent Volume Claim and needs to redo the clone.
+This server remains up indefinitely in case the StatefulSet scales up, or in
+case the next Pod loses its PersistentVolumeClaim and needs to redo the clone.
 
 ### Sending client traffic
 
@@ -330,16 +330,16 @@ kubectl exec mysql-2 -c mysql -- mv /usr/bin/mysql.off /usr/bin/mysql
 
 #### Delete Pods
 
-The Stateful Set will also recreate Pods if they're deleted, similar to what a
-Replica Set does for stateless Pods.
+The StatefulSet will also recreate Pods if they're deleted, similar to what a
+ReplicaSet does for stateless Pods.
 
 ```shell
 kubectl delete pod mysql-2
 ```
 
-The Stateful Set controller will notice that no `mysql-2` Pod exists anymore,
+The StatefulSet controller will notice that no `mysql-2` Pod exists anymore,
 and will create a new one with the same name and linked to the same
-Persistent Volume Claim.
+PersistentVolumeClaim.
 You should see server ID `102` disappear from the loop output for a while
 and then return on its own.
 
@@ -405,7 +405,7 @@ kubectl uncordon <node-name>
 ### Scaling the number of slaves
 
 With MySQL replication, you can scale your read query capacity by adding slaves.
-With Stateful Set, you can do this with a single command:
+With StatefulSet, you can do this with a single command:
 
 ```shell
 kubectl scale --replicas=5 statefulset mysql
@@ -444,7 +444,7 @@ Scaling back down is also seamless:
 kubectl scale --replicas=3 statefulset mysql
 ```
 
-Note, however, that while scaling up creates new Persistent Volume Claims
+Note, however, that while scaling up creates new PersistentVolumeClaims
 automatically, scaling down does not automatically delete these PVCs.
 This gives you the choice to keep those initialized PVCs around to make
 scaling back up quicker, or to extract data before deleting them.
@@ -456,7 +456,7 @@ kubectl get pvc -l app=mysql
 ```
 
 Which will show that all 5 PVCs still exist, despite having scaled the
-Stateful Set down to 3:
+StatefulSet down to 3:
 
 ```
 NAME           STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
@@ -485,7 +485,7 @@ kubectl delete pvc data-mysql-4
   kubectl delete pod mysql-client-loop --now
   ```
 
-* Delete the Stateful Set. This will also begin terminating the Pods.
+* Delete the StatefulSet. This will also begin terminating the Pods.
 
   ```shell
   kubectl delete statefulset mysql
@@ -503,7 +503,7 @@ kubectl delete pvc data-mysql-4
   No resources found.
   ```
 
-* Delete the ConfigMap, Services, and Persistent Volume Claims.
+* Delete the ConfigMap, Services, and PersistentVolumeClaims.
 
   ```shell
   kubectl delete configmap,service,pvc -l app=mysql
