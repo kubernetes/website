@@ -88,7 +88,7 @@ kubectl create -f mysql-services.yaml
 
 The Headless Service provides a home for the DNS entries that the StatefulSet
 controller will create for each Pod that's part of the set.
-Since the Headless Service is named `mysql`, the Pods will be accessible by
+Because the Headless Service is named `mysql`, the Pods will be accessible by
 resolving `<pod-name>.mysql` from within any other Pod in the same Kubernetes
 cluster and namespace.
 
@@ -97,7 +97,7 @@ cluster IP that will distribute connections across all MySQL Pods that report
 being Ready. The set of endpoints will include the master and all slaves.
 
 Note that only read queries can use the load-balanced Client Service.
-Since there is only one master, clients should connect directly to the master
+Because there is only one master, clients should connect directly to the master
 Pod (through its DNS entry within the Headless Service) to execute writes.
 
 #### StatefulSet
@@ -168,15 +168,15 @@ properties.
 
 The script in the `init-mysql` container also applies either `master.cnf` or
 `slave.cnf` from the ConfigMap by copying the contents into `conf.d`.
-Since the example topology consists of a single master and any number of slaves,
-the script simply assigns ordinal `0` to be the master, and everyone else to be
-slaves.
+Because the example topology consists of a single master and any number of
+slaves, the script simply assigns ordinal `0` to be the master, and everyone
+else to be slaves.
 
 #### Cloning existing data
 
 In general, when a new Pod joins the set as a slave, it must assume the master
-may already have data on it. It also must assume that the replication logs may
-not go all the way back to the beginning of time.
+might already have data on it. It also must assume that the replication logs
+might not go all the way back to the beginning of time.
 These conservative assumptions are the key to allowing a running StatefulSet
 to scale up and down over time, rather than being fixed at its initial size.
 
@@ -187,7 +187,7 @@ so its local state is consistent enough to begin replicating from the master.
 
 MySQL itself does not provide a mechanism to do this, so the example uses a
 popular open-source tool called Percona XtraBackup.
-During the clone, the source MySQL server may suffer reduced performance.
+During the clone, the source MySQL server might suffer reduced performance.
 To minimize impact on the master, the script instructs each Pod to clone from
 the Pod whose ordinal index is one lower.
 This works because the StatefulSet controller will always ensure Pod `N` is
@@ -208,9 +208,9 @@ extracted from the XtraBackup clone files.
 
 Once a slave begins replication, by default it will remember its master and
 reconnect automatically if the server is restarted or the connection dies.
-Also, since slaves look for the master at its stable DNS name (`mysql-0.mysql`),
-they will automatically find the master even if it gets a new Pod IP due to
-being rescheduled.
+Also, because slaves look for the master at its stable DNS name
+(`mysql-0.mysql`), they will automatically find the master even if it gets a new
+Pod IP due to being rescheduled.
 
 Lastly, after starting replication, the `xtrabackup` container listens for
 connections from other Pods requesting a data clone.
@@ -260,8 +260,8 @@ kubectl run mysql-client-loop --image=mysql:5.7 -i -t --rm --restart=Never --\
   bash -ic "while sleep 1; do mysql -h mysql-read -e 'SELECT @@server_id,NOW()'; done"
 ```
 
-You should see the reported `@@server_id` change randomly, since a different
-endpoint may be selected upon each connection attempt:
+You should see the reported `@@server_id` change randomly, because a different
+endpoint might be selected upon each connection attempt:
 
 ```
 +-------------+---------------------+
@@ -368,7 +368,7 @@ Then drain the Node by running the following command, which will cordon it so
 no new Pods may schedule there, and then evict any existing Pods.
 Replace `<node-name>` with the name of the Node you found in the last step.
 
-This may impact other applications on the Node, so it's best to
+This might impact other applications on the Node, so it's best to
 **only do this in a test cluster**.
 
 ```shell
@@ -493,7 +493,8 @@ kubectl delete pvc data-mysql-4
   kubectl delete statefulset mysql
   ```
 
-* Verify that the Pods disappear. They may take some time to finish terminating.
+* Verify that the Pods disappear.
+  They might take some time to finish terminating.
 
   ```shell
   kubectl get pods -l app=mysql
