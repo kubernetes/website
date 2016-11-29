@@ -24,15 +24,20 @@ This task shows you how to debug a Stateful Set.
 
 ### Debugging a Stateful Set
 
-Stateful Sets provide a debug mechanism to pause all controller operations on Stateful Set Pods using an annotation. You can debug individual Pods in a Stateful Set using the [debugging Pods guide](docs/user-guide/debugging-pods-and-replication-controllers/#debugging-pods).
+In order to list all the pods which belong to a Stateful Set, which have a label `app=myapp` set on them, you can use the following: 
 
-Setting the `pod.alpha.kubernetes.io/initialized` annotation to `"false"` on any Stateful Set Pod will *pause* all operations of the Stateful Set. When paused, the Stateful Set will not perform any scaling operations. Once the debug hook is set, you can execute commands within the containers of Stateful Set pods without interference from scaling operations.
+```shell
+kubectl get pods -l app=myapp
+```
+If you find that any Pods listed are in `Unknown` or `Terminating` state for an extended period of time, refer to the [Deleting Stateful Set Pods](/docs/tasks/stateful-sets/deleting-pods/) task for instructions on how to deal with them. You can debug individual Pods in a Stateful Set using the [debugging Pods guide](docs/user-guide/debugging-pods-and-replication-controllers/#debugging-pods). 
+
+Stateful Sets provide a debug mechanism to pause all controller operations on Pods using an annotation. Setting the `pod.alpha.kubernetes.io/initialized` annotation to `"false"` on any Stateful Set Pod will *pause* all operations of the Stateful Set. When paused, the Stateful Set will not perform any scaling operations. Once the debug hook is set, you can execute commands within the containers of Stateful Set pods without interference from scaling operations.
 
 ```shell
 kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="false" --overwrite
 ```
 
-Note that when the annotation is set to `"false"`, the Stateful Set will not respond to its Pods becoming unhealthy or unavailable. It will not create replacement Pods till the annotation is removed from all Stateful Set Pods or set to `"true"`.
+Note that when the annotation is set to `"false"`, the Stateful Set will not respond to its Pods becoming unhealthy or unavailable. It will not create replacement Pods till the annotation is removed from all Stateful Set Pods or set to `"true"`. 
 
 #### Step-wise Initialization
 
@@ -67,7 +72,7 @@ kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="true" --ov
 {% endcapture %}
 
 {% capture whatsnext %}
-Learn more about deleting a Stateful Set. *TODO: Link to the task for deleting a Stateful Set*
+Learn more about debugging an init-container. *TODO: Link to Task: Debugging an init-container*
 {% endcapture %}
 
 {% include templates/task.md %}
