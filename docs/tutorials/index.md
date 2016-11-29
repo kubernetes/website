@@ -1,7 +1,10 @@
 ---
 ---
 
-The Tutorials section of the Kubernetes documentation is a work in progress.
+This section of the Kubernetes documentation contains tutorials.
+A tutorial shows how to accomplish a goal that is larger than a single
+[task](/docs/tasks/). Typically a tutorial has several sections,
+each of which has a sequence of steps.
 
 #### Kubernetes Basics
 
