@@ -200,3 +200,14 @@ toc:
     - docs/admin/federation-apiserver.md
     - title : federation-controller-mananger
       path: /docs/admin/federation-controller-manager
+
+- title: New Beta Docs - Kubernetes API Reference
+  section:
+  - title: Version 1.5
+    path: /docs/api-reference/1_5/
+
+- title: New Beta Docs - Kubectl Command Reference
+  section:
+  - title: Version 1.5
+    path: /docs/user-guide/kubectl/1_5
+
