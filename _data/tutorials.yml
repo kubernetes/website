@@ -57,5 +57,5 @@ toc:
     path: /docs/tutorials/stateful-application/run-stateful-application/
   - title: Running a Replicated Stateful Application
     path: /docs/tutorials/stateful-application/run-replicated-stateful-application/
-  - title: Stateful Set Basics
+  - title: StatefulSet Basics
     path: /docs/tutorials/stateful-application/basic-stateful-set/
