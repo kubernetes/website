@@ -7,7 +7,7 @@ assignees:
 ---
 
 
-Dashboard (the web-based user interface of Kubernetes) allows you to deploy containerized applications to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself. You can use it for getting an overview of applications running on the cluster, as well as for creating or modifying individual Kubernetes resources and workloads, such as Daemon Sets, Stateful Sets, Replica Sets, Jobs, Replication Controllers and corresponding Services, or Pods.
+Dashboard (the web-based user interface of Kubernetes) allows you to deploy containerized applications to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself. You can use it for getting an overview of applications running on the cluster, as well as for creating or modifying individual Kubernetes resources and workloads, such as Daemon Sets, Stateful Sets, Replica Sets, Jobs and corresponding Services, or Pods.
 
 Dashboard also provides information on the state of Deployments, Replica Sets, etc. and on any errors that might have occurred. You can inspect and manage the Kubernetes resources and applications deployed on the cluster. For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
 
@@ -55,7 +55,7 @@ To access the deploy wizard from the Welcome page, click the respective button. 
 
 The deploy wizard expects that you provide the following information:
 
-- **App name** (mandatory): Name for your application. A [label](/docs/user-guide/labels/) with the name will be added to the Replication Controller and Service, if any, that will be deployed.
+- **App name** (mandatory): Name for your application. A [label](/docs/user-guide/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
 
   The application name must be unique within the selected Kubernetes [namespace](/docs/admin/namespaces/). It must start and end with a lowercase character, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
 
@@ -73,7 +73,7 @@ The deploy wizard expects that you provide the following information:
 
 If needed, you can expand the **Advanced options** section where you can specify more settings:
 
-- **Description**: The text you enter here will be added as an [annotation](/docs/user-guide/annotations/) to the Replication Controller and displayed in the application's details.
+- **Description**: The text you enter here will be added as an [annotation](/docs/user-guide/annotations/) to the Deployment and displayed in the application's details.
 
 - **Labels**: Default [labels](/docs/user-guide/labels/) to be used for your application are application name and version. You can specify additional labels to be applied to the Deployment, Service (if any), and Pods, such as release, environment, tier, partition, and release track.
 
