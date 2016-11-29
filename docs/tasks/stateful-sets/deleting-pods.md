@@ -35,7 +35,7 @@ Manual force deletion is a maintenance task that must be undertaken with caution
 Graceful deletion may be performed using the following:
 
 ```shell
-$ kubectl delete pods <pod>
+kubectl delete pods <pod>
 ```
 
 For the above to lead to graceful termination, the pod **must not** specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. The practice of setting a `pod.Spec.TerminationGracePeriodSeconds` of 0 seconds is unsafe and strongly discouraged for Stateful Set Pods. Graceful deletion is safe and will ensure that the [Pod shuts down gracefully](/docs/user-guide/pods/#termination-of-pods) before the kubelet deletes the name from the apiserver. 
@@ -56,7 +56,7 @@ Force deletions do **not** wait for confirmation from the kubelet that the pod h
 If you want to delete a Pod forcibly, do the following.
 
 ```shell
-$ kubectl delete pods <pod> --grace-period=0
+kubectl delete pods <pod> --grace-period=0
 ```
 
 Always perform force deletion of Stateful Set Pods carefully and with complete knowledge of the risks involved.
