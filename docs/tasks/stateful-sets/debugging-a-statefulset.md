@@ -24,13 +24,13 @@ This task shows you how to debug a Stateful Set.
 
 ### Debugging a Stateful Set
 
-You can debug Pods in a Stateful Set using the [debugging Pods guide](docs/user-guide/debugging-pods-and-replication-controllers/#debugging-pods). Stateful Sets provide an additional mechanism to pause all controller operations on Stateful Set pods using a debug annotation. 
+Stateful Sets provide a debug mechanism to pause all controller operations on Stateful Set Pods using an annotation. You can debug individual Pods in a Stateful Set using the [debugging Pods guide](docs/user-guide/debugging-pods-and-replication-controllers/#debugging-pods).
+
+Setting the `pod.alpha.kubernetes.io/initialized` annotation to `"false"` on any Stateful Set Pod will *pause* all operations of the Stateful Set. When paused, the Stateful Set will not perform any scaling operations. Once the debug hook is set, you can execute commands within the containers of Stateful Set pods without interference from scaling operations.
 
 ```shell
 kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="false" --overwrite
 ```
-
-Setting the `pod.alpha.kubernetes.io/initialized` annotation to `"false"` on any Stateful Set Pod will *pause* all operations of the Stateful Set. When paused, the Stateful Set will not perform any scaling operations. Once the debug hook is set, you can execute commands within the containers of Stateful Set pods without interference from scaling operations.
 
 Note that when the annotation is set to `"false"`, the Stateful Set will not respond to its Pods becoming unhealthy or unavailable. It will not create replacement Pods till the annotation is removed from all Stateful Set Pods or set to `"true"`.
 
@@ -58,7 +58,7 @@ spec:
 
 ```
 
-After setting the annotation, if you create the Stateful Set, you can wait for each Pod to come up, verify it has initialized correctly. The Stateful Set will not create any subsequent Stateful Set Pods till the the debug annotation is set to `"true"` (or removed) on all other Pods.
+After setting the annotation, if you create the Stateful Set, you can wait for each Pod to come up and verify that it has initialized correctly. The Stateful Set will not create any subsequent Pods till the the debug annotation is set to `"true"` (or removed) on all Pods which have already been created.
  
 ```shell
 kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="true" --overwrite
