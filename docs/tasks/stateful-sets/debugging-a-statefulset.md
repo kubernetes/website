@@ -37,11 +37,11 @@ Stateful Sets provide a debug mechanism to pause all controller operations on Po
 kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="false" --overwrite
 ```
 
-Note that when the annotation is set to `"false"`, the Stateful Set will not respond to its Pods becoming unhealthy or unavailable. It will not create replacement Pods till the annotation is removed from all Stateful Set Pods or set to `"true"`. 
+Note that when the annotation is set to `"false"`, the Stateful Set will not respond to its Pods becoming unhealthy or unavailable. It will not create replacement Pods till the annotation is removed or set to `"true"` on each Stateful Set Pod. 
 
 #### Step-wise Initialization
 
-You can also use the same annotation to debug race conditions during bootstrapping of the Stateful Set by setting the `pod.alpha.kubernetes.io/initialized` annotation to `"false"` in the `.spec.template.metadata.annotations` field of the Stateful Set before creating it. 
+You can also use the same annotation to debug race conditions during bootstrapping of the Stateful Set by setting the `pod.alpha.kubernetes.io/initialized` annotation to `"false"` in the `.spec.template.metadata.annotations` field of the Stateful Set prior to creating it. 
 
 ```yaml
 apiVersion: apps/v1beta1
@@ -63,7 +63,7 @@ spec:
 
 ```
 
-After setting the annotation, if you create the Stateful Set, you can wait for each Pod to come up and verify that it has initialized correctly. The Stateful Set will not create any subsequent Pods till the the debug annotation is set to `"true"` (or removed) on all Pods which have already been created.
+After setting the annotation, if you create the Stateful Set, you can wait for each Pod to come up and verify that it has initialized correctly. The Stateful Set will not create any subsequent Pods till the the debug annotation is set to `"true"` (or removed) on each Pod that has already been created.
  
 ```shell
 kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="true" --overwrite
