@@ -25,70 +25,53 @@ This task shows you how to delete a Stateful Set.
 A Stateful Set can be deleted like other resources in Kubernetes. 
 
 ```shell
-kubectl delete -f statefulset.yaml 
-
+kubectl delete -f <file.yaml> 
 ```
 
+or
 
 ```shell
-kubectl delete statefulsets web
-
+kubectl delete statefulsets <statefulset-name>
 ```
 
 The associated headless service may need to be deleted separately after the Stateful Set itself is deleted.
 
 ```shell
-kubectl delete service web
-
+kubectl delete service <service-name>
 ```
 
 Deleting a Stateful Set through kubectl will scale it down to 0, thereby deleting all pods that are a part of it. If you wish to delete just the Stateful Set and not the pods, use `--cascade=false`.
 
 ```shell
-$ kubectl delete -f statefulset.yaml --cascade=false
-petset "web" deleted
+kubectl delete -f <file.yaml> --cascade=false
+```
+Setting `--cascade=false` causes the Pods managed by the Stateful Set to be left behind even after the Stateful Set object itself is deleted.
+If the pods have a label `app=myapp`, they can then be deleted as follows.
 
-$ kubectl get po -l app=myapp
-NAME      READY     STATUS    RESTARTS   AGE
-web-0     1/1       Running   0          21h
-web-1     1/1       Running   0          21h
-
-$ kubectl delete po -l app=myapp
-pod "web-0" deleted
-pod "web-1" deleted
+```shell
+kubectl delete pods -l app=myapp
 ```
 
 #### Persistent Volumes
 
-Deleting the pods will *not* delete the volumes. This is to ensure that you have the chance to copy data off the volume before deleting it. Simply deleting the PVC after the pods have left the [terminating state](/docs/user-guide/pods/index#termination-of-pods) should trigger deletion of the backing Persistent Volumes. 
+Deleting the pods will *not* delete the volumes. This is to ensure that you have the chance to copy data off the volume before deleting it. Deleting the PVC after the pods have left the [terminating state](/docs/user-guide/pods/index#termination-of-pods) may trigger deletion of the backing Persistent Volumes depending on the storage class and reclaim policy. You should never assume ability to access a volume after claim deletion.
 
-**Note: you will lose all your data once the PVC is deleted, do this with caution.**
-
-```shell
-$ kubectl get pvc -l app=myapp
-NAME        STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
-www-web-0   Bound     pvc-62d271cd-3822-11e6-b1b7-42010af00002   0                        21h
-www-web-1   Bound     pvc-62d6750e-3822-11e6-b1b7-42010af00002   0                        21h
-
-$ kubectl delete pvc -l app=myapp
-$ kubectl get pv
-```
+**Note: you may lose all your data once the PVC is deleted, do this with caution.**
 
 #### Complete deletion of a Stateful Set
 
-If you simply want to clean everything:
+If you simply want to clean everything in a Stateful Set containing pods which have the label `app=myapp`:
 
-```shell{% raw %}
-$ grace=$(kubectl get po web-0 --template '{{.spec.terminationGracePeriodSeconds}}')
-$ kubectl delete statefulset -l app=nginx
-$ sleep $grace
-$ kubectl delete pvc -l app=nginx
-{% endraw %}
+```shell
+grace=$(kubectl get pods <stateful-set-pod> --template '{{.spec.terminationGracePeriodSeconds}}')
+kubectl delete statefulset -l app=myapp
+sleep $grace
+kubectl delete pvc -l app=myapp
 ```
 
 #### Force deletion of Stateful Set pods
 
-If you find that some pods in your Stateful Set are stuck in the 'Terminating' or 'Unknown' states for an extended period of time, you may need to manually intervene to forcefully delete the pods from the apiserver. This is a potentially dangerous task. Please refer to *TODO: Link to the task for force deleting a Stateful Set pod* for details.
+If you find that some pods in your Stateful Set are stuck in the 'Terminating' or 'Unknown' states for an extended period of time, you may need to manually intervene to forcefully delete the pods from the apiserver. This is a potentially dangerous task. Refer to [deleting Stateful Set pods](/docs/tasks/stateful-sets/deleting-pods/) for details.
 
 {% endcapture %}
 
