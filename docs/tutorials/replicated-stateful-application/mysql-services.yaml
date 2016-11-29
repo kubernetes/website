@@ -1,4 +1,4 @@
-# Headless service for stable DNS entries of Stateful Set members.
+# Headless service for stable DNS entries of StatefulSet members.
 apiVersion: v1
 kind: Service
 metadata:
