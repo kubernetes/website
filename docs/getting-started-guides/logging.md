@@ -14,7 +14,11 @@ Everything written to `stdout` and `stderr` by a containerized application goes 
 
 Important question is how to achieve log rotations so that logs won't consume all available space on the node. Right now, logrotate tools solves this task. Detailed configuration can be found [there](https://github.com/kubernetes/kubernetes/blob/release-1.5/cluster/gce/gci/configure-helper.sh#L96). In short, up to `5` rotation are kept, rotation is performed daily or if log file grows beyond `10MB`. Rotations belong to a single container, that is if container dies several times or pod gets evited, all rotations for the container are lost.
 
-## Using node logging agent
+When user performs [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs), request ends up on the kubelet, which reads directly from the log file and returns its content in the response.
+
+## Cluster level logging architectures
+
+### Using node logging agent
 
 ![Using node level logging agent](/images/docs/getting-started-guides/logging/logging-with-node-agent.png)
 
@@ -28,7 +32,7 @@ Kubernetes doesn't specify logging agent, but it ships with two default options.
 
 	* Elasticsearch inside the cluster, more information [there](logging-elasticsearch.md)
 
-## Using side-container with the logging agent
+### Using side-container with the logging agent
 
 ![Using side-container with the logging agent](/images/docs/getting-started-guides/logging/logging-with-sidecar.png)
 
@@ -36,7 +40,7 @@ Alternatively, dedicated logging agent with it's own configuration for each appl
 
 The concrete implementation of the agent, interface between agent and the application and the interface between agent and the backend are completely up to a user. One example is fluentd side-car container for Stackdriver logging backend, which is described in details [there](https://github.com/kubernetes/contrib/tree/b70447aa59ea14468f4cd349760e45b6a0a9b15d/logging/fluentd-sidecar-gcp). __Note! This may lead to significant resource consumption!__
 
-## Exposing logs directly from the application
+### Exposing logs directly from the application
 
 ![Exposing logs directly from the application](/images/docs/getting-started-guides/logging/logging-from-application.png)
 
