@@ -5,7 +5,7 @@ assignees:
 
 ---
 
-Each container in a pod has its own image.  Currently, the only type of image supported is a [Docker Image](https://docs.docker.com/userguide/dockerimages/).
+Each container in a pod has its own image.  Currently, the only type of image supported is a [Docker Image](https://docs.docker.com/engine/tutorials/dockerimages/).
 
 You create your Docker image and push it to a registry before referring to it in a Kubernetes pod.
 
