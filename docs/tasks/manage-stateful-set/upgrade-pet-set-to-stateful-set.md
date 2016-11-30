@@ -106,7 +106,7 @@ However, since the Pods are not managed by PetSets anymore, they will be vulnera
 #### Upgrade master to Kubernetes version 1.5 or later
 
 Now, you can [upgrade your Kubernetes master](/docs/admin/cluster-management/#upgrading-a-cluster) to Kubernetes version 1.5 or later.
-Note that Kubernetes nodes should NOT be upgraded at this point, since the Pods
+Note that **you should NOT upgrade Nodes at this time**, because the Pods
 (that were once managed by PetSets) are now vulnerable to node failures. 
 
 #### Upgrade kubectl to Kubernetes version 1.5 or later
@@ -126,8 +126,8 @@ kubectl version
 The output is similar to this:
 
 ```shell
-Client Version: version.Info{Major:"1", Minor:"5+", GitVersion:"v1.5.0-beta.2.2+f64c9f2d999ceb-dirty", GitCommit:"f64c9f2d999ceb157d5672e9bba6639a4c456f6e", GitTreeState:"dirty", BuildDate:"2016-11-29T22:49:45Z", GoVersion:"go1.7.3", Compiler:"gc", Platform:"linux/amd64"}
-Server Version: version.Info{Major:"1", Minor:"5+", GitVersion:"v1.5.0-beta.2.2+f64c9f2d999ceb-dirty", GitCommit:"f64c9f2d999ceb157d5672e9bba6639a4c456f6e", GitTreeState:"dirty", BuildDate:"2016-11-29T22:47:39Z", GoVersion:"go1.7.3", Compiler:"gc", Platform:"linux/amd64"}
+Client Version: version.Info{Major:"1", Minor:"5", GitVersion:"v1.5.0", GitCommit:"0776eab45fe28f02bbeac0f05ae1a203051a21eb", GitTreeState:"clean", BuildDate:"2016-11-24T22:35:03Z", GoVersion:"go1.7.3", Compiler:"gc", Platform:"linux/amd64"}
+Server Version: version.Info{Major:"1", Minor:"5", GitVersion:"v1.5.0", GitCommit:"0776eab45fe28f02bbeac0f05ae1a203051a21eb", GitTreeState:"clean", BuildDate:"2016-11-24T22:30:23Z", GoVersion:"go1.7.3", Compiler:"gc", Platform:"linux/amd64"}
 ```
 
 If both `Client Version` (`kubectl` version) and `Server Version` (master
@@ -149,7 +149,7 @@ kubectl get statefulsets --all-namespaces
 
 #### Upgrade nodes to Kubernetes version 1.5 or later (optional)
 
-You can now [upgrading Kubernetes nodes](/docs/admin/cluster-management/#upgrading-a-cluster)
+You can now [upgrade Kubernetes nodes](/docs/admin/cluster-management/#upgrading-a-cluster)
 to Kubernetes version 1.5 or later. This step is optional, but needs to be done after all StatefulSets
 are created to adopt PetSets' Pods.
 
