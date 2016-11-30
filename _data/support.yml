@@ -14,6 +14,8 @@ toc:
     path: /docs/contribute/stage-documentation-changes/
   - title: Using Page Templates
     path: /docs/contribute/page-templates/
+  - title: Documentation Style Guide
+    path: /docs/contribute/style-guide/
 
 - title: Troubleshooting
   section:
@@ -51,5 +53,3 @@ toc:
     path: https://github.com/kubernetes/kubernetes/milestones/
   - title: Contributing to Kubernetes Documentation
     path: /editdocs/
-  - title: New Template Instructions
-    path: /docs/templatedemos/

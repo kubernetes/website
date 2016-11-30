@@ -207,6 +207,29 @@ and [enable the API version](
 /docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster),
 with a `--runtime-config=` that includes `rbac.authorization.k8s.io/v1alpha1`.
 
+### Privilege Escalation Prevention and Bootstrapping
+
+The `rbac.authorization.k8s.io` API group inherently attempts to prevent users
+from escalating privileges. Simply put, __a user can't grant permissions they
+don't already have even when the RBAC authorizer it disabled__. If "user-1"
+does not have the ability to read secrets in "namespace-a", they cannot create
+a binding that would grant that permission to themselves or any other user.
+
+For bootstrapping the first roles, it becomes necessary for someone to get
+around these limitations. For the alpha release of RBAC, an API Server flag was
+added to allow one user to step around all RBAC authorization and privilege
+escalation checks. NOTE: _This is subject to change with future releases._
+
+```
+--authorization-rbac-super-user=admin
+```
+
+Once set the specified super user, in this case "admin", can be used to create
+the roles and role bindings to initialize the system.
+
+This flag is optional and once the initial bootstrapping is performed can be
+unset.
+
 ### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
 
 The RBAC API Group declares four top level types which will be covered in this
@@ -416,29 +439,6 @@ subjects:
 - kind: Group
   name: system:serviceaccounts
 ```
-
-### Privilege Escalation Prevention and Bootstrapping
-
-The `rbac.authorization.k8s.io` API group inherently attempts to prevent users
-from escalating privileges. Simply put, __a user can't grant permissions they
-don't already have even when the RBAC authorizer it disabled__. If "user-1"
-does not have the ability to read secrets in "namespace-a", they cannot create
-a binding that would grant that permission to themselves or any other user.
-
-For bootstrapping the first roles, it becomes necessary for someone to get
-around these limitations. For the alpha release of RBAC, an API Server flag was
-added to allow one user to step around all RBAC authorization and privilege
-escalation checks. NOTE: _This is subject to change with future releases._
-
-```
---authorization-rbac-super-user=admin
-```
-
-Once set the specified super user, in this case "admin", can be used to create
-the roles and role bindings to initialize the system.
-
-This flag is optional and once the initial bootstrapping is performed can be
-unset.
 
 ## Webhook Mode
 
