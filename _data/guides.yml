@@ -274,8 +274,6 @@ toc:
     path: /docs/admin/cluster-components/
   - title: Configuring Kubernetes Use of etcd
     path: /docs/admin/etcd/
-  - title: Federating Clusters
-    path: /docs/admin/federation/
   - title: Using Multiple Clusters
     path: /docs/admin/multi-cluster/
   - title: Changing Cluster Size
@@ -304,3 +302,10 @@ toc:
     path: /docs/admin/node-problem/
   - title: AppArmor
     path: /docs/admin/apparmor/
+
+- title: Administering Federation
+  section:
+  - title: Using `kubefed`
+    path: /docs/admin/federation/kubfed/
+  - title: Using `federation-up` and `deploy.sh`
+    path: /docs/admin/federation/
