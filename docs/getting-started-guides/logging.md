@@ -1,51 +1,43 @@
 # Logging
 
-In most cases, it's useful to have a dedicated logging backend with the ability to store, analyze and search logs independently from the pods and containers lifecycle. It's sometimes called cluster level logging, because logs in this backend have the lifecycle of the whole cluster, not just one application or one node.
+Application and systems logs is the great way to understand, what is happenning inside the cluster, debug problems and monitor the activity. Most modern application have some kind of logging mechanism. Container engines are designed to support logging out of the box in some way. Easiest and the most embraced logging mechanism in the container world is to write to the standard output and standard error streams.
 
-If you're not interested in the cluster level logging and just want to understand logging on the node level, you can skip directly to the section about node logging agent.
+Obviosly, just that is not enough to provide a complete logging solution. For example, if container crashes, pod gets evicted or node dies, ususally it's still desired to be able to access application logs. Therefore logs should have a separate storage and a separate lifecycle from nodes, pods and containers. This concept is called __cluster level logging__ and required a separate backend to store, analyze and query logs. Kubernetes is not a logging storage solution, but it can be integrated with any of the existing ones.
 
-For now let's assume we have a logging backend, which a remote service, located somewhere inside a kubernetes or outside of it. There are several possible designs of the logging collecting solution, let's describe each one in more details.
+In the following sections firstly the node level logging will be described and then possible architectures of cluster level logging. If you're not interested in having cluster level logging, you might still be interested in the description how logs are stored and handled on the node. For the latter section the assumption is that there exists a logging backend, inside or outside of kubernetes cluster.
 
-## Exposing logs directly from the application
+## Logging one the node level
 
-![Exposing logs directly from the application](/images/docs/getting-started-guides/logging/logging-from-application.png)
+![Node level logging](/images/docs/getting-started-guides/logging/logging-node-level.png)
 
-First of all, you can always push your logs directly from your application (or expose an endpoint for a pull approach), then it's completely outside of the scope of kubernetes and the scope of this article.
+Everything written to `stdout` and `stderr` by a containerized application goes to a container runtime. Currently, from the Docker runtime it goes to a file using standard [json logging driver](https://docs.docker.com/engine/admin/logging/overview). __Note! It implies that each _line_ will be treatet as a separate message, no direct support for multiline messages, e.g. stacktraces.__ In case container restarts, kubelet keeps by default one terminated container with its logs. In case pod is evicted from the node, all corresponding containers are evicted too with their logs.
+
+Important question is how to achieve log rotations so that logs won't consume all available space on the node. Right now, logrotate tools solves this task. Detailed configuration can be found [there](https://github.com/kubernetes/kubernetes/blob/release-1.5/cluster/gce/gci/configure-helper.sh#L96). In short, up to `5` rotation are kept, rotation is performed daily or if log file grows beyond `10MB`. Rotations belong to a single container, that is if container dies several times or pod gets evited, all rotations for the container are lost.
+
+## Using node logging agent
+
+![Using node level logging agent](/images/docs/getting-started-guides/logging/logging-with-node-agent.png)
+
+Logging agent is a tool to expose or push logs to a backend. From high level perspective it's a container, which has access to a directory with log files from all containers. This container should be on every node, therefore it should be either manifest pod, shipped with a node, or a daemon set replica.
+
+This is the most common and encouraged approach, because only one logging agent per node is created and it doens't require any changes in the target application. __Note! Currently, it only works for application's standard output and standard error!__
+
+Kubernetes doesn't specify logging agent, but it ships with two default options. Both use fluentd with custom configuration as an agent, both are shipped as manifest pods.
+
+	* Stackdriver Logging in Google Cloud, more information [there](logging-gcp.md)
+
+	* Elasticsearch inside the cluster, more information [there](logging-elasticsearch.md)
 
 ## Using side-container with the logging agent
 
 ![Using side-container with the logging agent](/images/docs/getting-started-guides/logging/logging-with-sidecar.png)
 
-Alternatively, you can use dedicated logging agent, which is essentially an application which sends logs to the logging backend (or exposes an edpoint in the pull model). One way of using the logging agent is to have a sidecar container in pod specs, containing only the configured agent.
+Alternatively, dedicated logging agent with it's own configuration for each application may be used. One way of doing so is to have a sidecar container in pod specs, containing only the logging agent.
 
-The concrete implementation of the agent, interface between agent and the application and the interface between agent and the backend are completely up to user. One example is fluentd side-car container for Stackdriver logging backend, which is described in details [there](https://github.com/kubernetes/contrib/tree/b70447aa59ea14468f4cd349760e45b6a0a9b15d/logging/fluentd-sidecar-gcp).
+The concrete implementation of the agent, interface between agent and the application and the interface between agent and the backend are completely up to a user. One example is fluentd side-car container for Stackdriver logging backend, which is described in details [there](https://github.com/kubernetes/contrib/tree/b70447aa59ea14468f4cd349760e45b6a0a9b15d/logging/fluentd-sidecar-gcp). __Note! This may lead to significant resource consumption!__
 
-## Using node logging agent
+## Exposing logs directly from the application
 
-Using side-car containers multiplies number of containers running on a node which may lead to a big increase in resource consumption. Alternative solution is to have one logging agent per node for all applications running on this node. Kubernetes offers an interface for collecting logs from `stdout`/`stderr`. __Note! Currently, it only works for application's standard output and standard error!__
+![Exposing logs directly from the application](/images/docs/getting-started-guides/logging/logging-from-application.png)
 
-![Using node level logging agent](/images/docs/getting-started-guides/logging/logging-with-node-agent.png)
-
-Several main components can be extracted and highlighted
-
-1. Application and container engine
-
-	* Everything written to `stdout` and `stderr` by a containerized application goes to a container runtime. Currently, from the Docker runtime it goes to a file using standard [json logging driver](https://docs.docker.com/engine/admin/logging/overview). __Note! It implies that each _line_ will be treatet as a separate message, no direct support for multiline messages, e.g. stacktraces.__
-
-	* In case container restarts, kubelet keeps by default one terminated container with its logs.
-
-	* In case pod is evicted from the node, all corresponding containers are evicted too with their logs.
-
-1. Logrotate
-
-	Important question is how to achieve log rotations so that logs won't consume all available space on the node. Right now, logrotate tools solves this task. Detailed configuration can be found [there](https://github.com/kubernetes/kubernetes/blob/release-1.5/cluster/gce/gci/configure-helper.sh#L96). In short, we keep up to `5` rotation, rotation is performed daily or if log file grows beyond `10MB`. Rotations belong to a single container, that is if container dies several times or pod gets evited, all rotations are lost.
-
-1. Logging agent
-
-	As it was mentioed earlier, logging agent is a tool to expose or push logs to a backend. From high level perspective it's a container, which has access to a directory with log files from all containers. This container should be on every node, therefore it should be either manifest pod, shipped with a node, or a daemon set replica.
-
-	Kubernetes doesn't specify logging agent, but it ships with two default options. Both use fluentd with custom configuration as an agent, both are shipped as manifest pods.
-
-	* Stackdriver Logging in Google Cloud, more information [there](logging-gcp.md)
-
-	* Elasticsearch inside the cluster, more information [there](logging-elasticsearch.md)
+Of course, pushing logs to a backend (or exposing an endpoint for a pull approach) can always be performed by the application itself, but then it's completely outside of the scope of kubernetes and the scope of this article.
