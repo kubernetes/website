@@ -11,50 +11,52 @@ assignees:
 ---
 
 {% capture overview %}
-This page shows how to scale a Stateful Set.
+This page shows how to scale a StatefulSet.
 {% endcapture %}
 
 {% capture prerequisites %}
 
-* Stateful Sets are only available in Kubernetes release >= 1.5. 
-* Stateful Sets are previously known as Pet Sets in Kubernetes release 1.3-1.4. You can either upgrade your Pet Sets to Stateful Sets, 
-or just change all `statefulset` references to `petset`. *TODO: link to upgrade from Pet Sets to Stateful Sets.*
-* **Not all stateful applications scale nicely.** You need to understand your Stateful Sets well before continue. If you're unsure, remember that it may not be safe to scale your Stateful Sets. 
+* StatefulSets are only available in Kubernetes version 1.5 or later. 
+* **Not all stateful applications scale nicely.** You need to understand your StatefulSets well before continuing. If you're unsure, remember that it might not be safe to scale your StatefulSets. 
+* You should perform scaling only when you're sure that your stateful application
+  cluster is completely healthy.
 
 {% endcapture %}
 
 {% capture steps %}
 
-### Use `kubectl` to scale Stateful Sets
+### Use `kubectl` to scale StatefulSets
 
-#### `kubectl scale` (>= 1.4 release)
+Make sure you have `kubectl` upgraded to Kubernetes version 1.5 or later before
+continuing. If you're unsure, run `kubectl version` and check `Client Version`
+for which kubectl you're using.
 
-First, find the Stateful Set you want to scale. Remember, you need to first understand if you can scale it or not. 
+#### `kubectl scale`
+
+First, find the StatefulSet you want to scale. Remember, you need to first understand if you can scale it or not. 
 
 ```shell
 kubectl get statefulsets <stateful-set-name>
 ```
 
-If you wish to change the number of replicas of your Stateful Set, just use this command:
+Change the number of replicas of your StatefulSet:
 
 ```shell
 kubectl scale statefulsets <stateful-set-name> --replicas=<new-replicas>
 ```
 
-Note that `kubectl scale` only works on Stateful Set with Kubernetes release >= 1.4. 
+#### Alternative: `kubectl apply` / `kubectl edit` / `kubectl patch`
 
-#### Alternative: `kubectl apply` / `kubectl edit` / `kubectl patch` (>= 1.3 release) 
+Alternatively, you can do [in-place updates](/docs/user-guide/managing-deployments/#in-place-updates-of-resources) on your StatefulSets. 
 
-Alternatively, you may do [in-place updates](/docs/user-guide/managing-deployments/#in-place-updates-of-resources) on your Stateful Sets. 
-
-If your Stateful Set was initially created with `kubectl apply` or `kubectl create --save-config`, 
-you may update `.spec.replicas` of the Stateful Set manifests, and then do a `kubectl apply`:
+If your StatefulSet was initially created with `kubectl apply` or `kubectl create --save-config`, 
+update `.spec.replicas` of the StatefulSet manifests, and then do a `kubectl apply`:
 
 ```shell 
 kubectl apply -f <stateful-set-file-updated>
 ```
 
-Otherwise, you can just edit that field with `kubectl edit`:
+Otherwise, edit that field with `kubectl edit`:
 
 ```shell 
 kubectl edit statefulsets <stateful-set-name>
@@ -70,14 +72,28 @@ kubectl patch statefulsets <stateful-set-name> -p '{"spec":{"replicas":<new-repl
 
 #### Scaling down doesn't not work right
 
-You cannot scale down a Stateful Set when some of the stateful pods it manages are unhealthy. Scaling down only takes place
-after those stateful pods become running and ready. See discussions [here](https://github.com/kubernetes/kubernetes/issues/36333). 
+You cannot scale down a StatefulSet when any of the stateful Pods it manages is unhealthy. Scaling down only takes place
+after those stateful Pods become running and ready. 
+
+With a StatefulSet of size > 1, if there is an unhealthy Pod, there is no way 
+for Kubernetes to know (yet) if it is due to a permanent fault or a transient
+one (upgrade/maintenance/node reboot). If it were a permanent fault, scaling
+without paying heed to it may lead to a state where the StatefulSet membership
+drops below a certain minimum number of "replicas" that are needed to function
+correctly, leading to unavailability (or worse).
+
+If it were a transient one and the Pod were coming back up shortly, you won't
+want that to interleave with your scale-up/scale-down operation. Some distributed
+databases have issues when nodes join and leave at the same time. It is better
+to reason about scaling operations at the application level in these cases, and
+perform scaling only when you're sure that your stateful application cluster is
+completely healthy. 
 
 
 {% endcapture %}
 
 {% capture whatsnext %}
-*TODO: link to other docs about Stateful Set?*
+*TODO: link to other docs about StatefulSet?*
 {% endcapture %}
 
 {% include templates/task.md %}
