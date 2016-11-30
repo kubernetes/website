@@ -16,6 +16,13 @@
 		},
 		{
 			type: 0,
+			name: 'StackPointCloud',
+			logo: 'stackpoint',
+			link: 'https://stackpoint.io',
+			blurb: 'StackPointCloud builds Stackpoint.io, the universal control plane for Kubernetes Anywhere -- compose and build your own infrastructure as easily as a DigitalOcean droplet at any public cloud provider.'
+		},
+		{
+			type: 0,
 			name: 'Sysdig Cloud',
 			logo: 'sys_dig',
 			link: 'https://sysdig.com/blog/monitoring-kubernetes-with-sysdig-cloud/',
@@ -176,6 +183,20 @@
 			blurb: 'Aporeto makes cloud-native applications secure by default without impacting developer velocity and works at any scale, on any cloud.'
 		},
 		{
+  		type: 0,
+ 			name: 'Giant Swarm',
+ 			logo: 'giant_swarm',
+ 			link: 'https://giantswarm.io',
+ 			blurb: 'Giant Swarm provides fully-managed Kubernetes Clusters in your location of choice, so you can focus on your product.'
+ 		},
+		{
+ 			type: 0,
+ 			name: 'Mirantis',
+ 			logo: 'mirantis',
+ 			link: 'https://content.mirantis.com/Containerizing-OpenStack-on-Kubernetes-Video-Landing-Page.html',
+ 			blurb: 'Mirantis builds and manages private clouds with open source software such as OpenStack, deployed as containers orchestrated by Kubernetes.'
+ 		},
+		{
 			type: 1,
 			name: 'Apprenda',
 			logo: 'apprenda',
@@ -202,6 +223,13 @@
 			logo: 'deis',
 			link: 'https://deis.com/services/',
 			blurb: 'Deis provides professional services and 24x7 operational support for any Kubernetes cluster managed by our global cluster operations team.'
+		},
+		{
+			type: 1,
+			name: 'StackPointCloud',
+			logo: 'stackpoint',
+			link: 'https://stackpoint.io',
+			blurb: 'StackPointCloud offers a wide range of support plans for managed Kubernetes clusters built through its universal control plane for Kubernetes Anywhere.'
 		},
 		{
 			type: 1,
@@ -237,7 +265,14 @@
 			logo: 'skippbox',
 			link: 'http://www.skippbox.com/services/',
 			blurb: 'Skippbox brings its Kubernetes expertise to help companies embrace Kubernetes on their way to digital transformation. Skippbox offers both professional services and expert training.'
-		}
+		},
+		{
+ 			type: 1,
+ 			name: 'Endocode',
+ 			logo: 'endocode',
+ 			link: 'https://endocode.com/kubernetes/',
+ 			blurb: 'Endocode practices and teaches the open source way. Kernel to cluster - Dev to Ops. We offer Kubernetes trainings, services and support.'
+  	}
 	]
 
 	var isvContainer = document.getElementById('isvContainer')
