@@ -12,7 +12,7 @@ export KUBE_NODE_OS_DISTRIBUTION=debian
 curl -sS https://get.k8s.io | bash
 ```
 
-See the [Calico documentation](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes#getting-started) for more options to deploy Calico with Kubernetes.
+See the [Calico documentation](http://docs.projectcalico.org/) for more options to deploy Calico with Kubernetes.
 
 Once your cluster using Calico is running, you should see a collection of pods running in the `kube-system` Namespace that support Kubernetes NetworkPolicy.
 
