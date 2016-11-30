@@ -1,4 +1,10 @@
-# Logging
+---
+assignees:
+- crassirostris
+- piosz
+- aleksandra-malinowska
+
+---
 
 Application and systems logs is the great way to understand, what is happenning inside the cluster, debug problems and monitor the activity. Most modern application have some kind of logging mechanism. Container engines are designed to support logging out of the box in some way. Easiest and the most embraced logging mechanism in the container world is to write to the standard output and standard error streams.
 
