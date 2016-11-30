@@ -125,7 +125,7 @@ toc:
     - title: Custom Cloud Solutions
       section:
       - docs/getting-started-guides/coreos/index.md
-      - /docs/getting-started-guides/juju/
+      - docs/getting-started-guides/ubuntu/index.md
       - docs/getting-started-guides/rackspace.md
     - title: On-Premise VMs
       section:
@@ -133,7 +133,6 @@ toc:
       - docs/getting-started-guides/cloudstack.md
       - docs/getting-started-guides/vsphere.md
       - docs/getting-started-guides/photon-controller.md
-      - /docs/getting-started-guides/juju/
       - docs/getting-started-guides/dcos.md
       - docs/getting-started-guides/libvirt-coreos.md
       - docs/getting-started-guides/ovirt.md
@@ -152,10 +151,25 @@ toc:
       - docs/getting-started-guides/fedora/flannel_multi_node_cluster.md
       - docs/getting-started-guides/centos/centos_manual_config.md
       - docs/getting-started-guides/coreos/index.md
+      - docs/getting-started-guides/ubuntu/index.md
       - title: Ubuntu
         section:
-        - docs/getting-started-guides/ubuntu/automated.md
+        - docs/getting-started-guides/ubuntu/index.md
+        - docs/getting-started-guides/ubuntu/validation.md
+        - docs/getting-started-guides/ubuntu/backups.md
+        - docs/getting-started-guides/ubuntu/upgrades.md
+        - docs/getting-started-guides/ubuntu/scaling.md
+        - docs/getting-started-guides/ubuntu/installation.md
+        - docs/getting-started-guides/ubuntu/monitoring.md
+        - docs/getting-started-guides/ubuntu/networking.md
+        - docs/getting-started-guides/ubuntu/security.md
+        - docs/getting-started-guides/ubuntu/storage.md
+        - docs/getting-started-guides/ubuntu/troubleshooting.md
+        - docs/getting-started-guides/ubuntu/decommissioning.md
         - docs/getting-started-guides/ubuntu/calico.md
+        - docs/getting-started-guides/ubuntu/glossary.md
+        - docs/getting-started-guides/ubuntu/local.md
+        - docs/getting-started-guides/ubuntu/logging.md
         - docs/getting-started-guides/ubuntu/manual.md
       - docs/getting-started-guides/windows/index.md
     - docs/admin/node-conformance.md
