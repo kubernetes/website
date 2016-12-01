@@ -69,18 +69,18 @@ For each host in turn:
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
 * If the machine is running Ubuntu 16.04 or HypriotOS v1.0.1, run:
 
-      # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-      # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
+      curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+      cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
       deb http://apt.kubernetes.io/ kubernetes-xenial main
       EOF
-      # apt-get update
-      # # Install docker if you don't have it already.
-      # apt-get install -y docker.io
-      # apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+      apt-get update
+      # Install docker if you don't have it already.
+      apt-get install -y docker.io
+      apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
    If the machine is running CentOS 7, run:
 
-      # cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+      cat <<EOF > /etc/yum.repos.d/kubernetes.repo
       [kubernetes]
       name=Kubernetes
       baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
@@ -90,10 +90,10 @@ For each host in turn:
       gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
              https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
       EOF
-      # setenforce 0
-      # yum install -y docker kubelet kubeadm kubectl kubernetes-cni
-      # systemctl enable docker && systemctl start docker
-      # systemctl enable kubelet && systemctl start kubelet
+      setenforce 0
+      yum install -y docker kubelet kubeadm kubectl kubernetes-cni
+      systemctl enable docker && systemctl start docker
+      systemctl enable kubelet && systemctl start kubelet
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
