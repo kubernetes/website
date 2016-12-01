@@ -26,6 +26,7 @@ single thing, typically by giving a short sequence of steps.
 #### Administering a Cluster
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
+* [Changing reclaim policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
 
 ### What's next
 
