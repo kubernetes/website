@@ -440,28 +440,21 @@ subjects:
   name: system:serviceaccounts
 ```
 
-For all users eveywhere with Kube < 1.5:
-```yaml
-subjects:
-- kind: User
-  name: "*"
-```
-
-For all authenticated users with Kube > 1.5:
+For all authenticated users with Kube:
 ```yaml
 subjects:
 - kind: Group
   name: system:authenticated
 ```
 
-For all unauthenticated users with Kube > 1.5:
+For all unauthenticated users with Kube:
 ```yaml
 subjects:
 - kind: Group
   name: system:unauthenticated
 ```
 
-For all users eveywhere with Kube > 1.5:
+For all users:
 ```yaml
 subjects:
 - kind: Group
