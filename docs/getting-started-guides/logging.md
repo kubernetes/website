@@ -34,9 +34,9 @@ This is the most common and encouraged approach, because only one logging agent 
 
 Kubernetes doesn't specify logging agent, but it ships with two default options. Both use fluentd with custom configuration as an agent, both are shipped as manifest pods.
 
-	* Stackdriver Logging in Google Cloud, more information [there](logging-gcp.md)
+	* Stackdriver Logging in Google Cloud, more information [there](/docs/getting-started-guides/logging-gcp)
 
-	* Elasticsearch inside the cluster, more information [there](logging-elasticsearch.md)
+	* Elasticsearch inside the cluster, more information [there](/docs/getting-started-guides/logging-elasticsearch)
 
 ### Using side-container with the logging agent
 
