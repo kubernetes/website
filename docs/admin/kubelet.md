@@ -78,7 +78,7 @@ DynamicVolumeProvisioning=true|false (ALPHA - default=true)
       --google-json-key string                         The Google Cloud Platform Service Account JSON Key to use for authentication.
       --hairpin-mode string                            How should the kubelet setup hairpin NAT. This allows endpoints of a Service to loadbalance back to themselves if they should try to access their own Service. Valid values are "promiscuous-bridge", "hairpin-veth" and "none". (default "promiscuous-bridge")
       --healthz-bind-address value                     The IP address for the healthz server to serve on, defaulting to 127.0.0.1 (set to 0.0.0.0 for all interfaces) (default 127.0.0.1)
-      --healthz-port value                             (Deprected) The port of the localhost healthz endpoint (default 10248)
+      --healthz-port value                             (Deprecated) The port of the localhost healthz endpoint (default 10248)
       --host-ipc-sources value                         Comma-separated list of sources from which the Kubelet allows pods to use the host ipc namespace. [default="*"] (default [*])
       --host-network-sources value                     Comma-separated list of sources from which the Kubelet allows pods to use of host network. [default="*"] (default [*])
       --host-pid-sources value                         Comma-separated list of sources from which the Kubelet allows pods to use the host pid namespace. [default="*"] (default [*])
