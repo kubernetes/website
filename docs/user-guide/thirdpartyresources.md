@@ -22,7 +22,7 @@ Each `ThirdPartyResource` has the following:
    * `description` - A free text description of the resource.
    * `versions` - A list of the versions of the resource.
 
-The `kind` for a `ThirdPartyResource` takes the form `<kind name>.<domain>`. You are expected to provide a unique kind and domain name in order to avoid conflicts with other `ThirdPartyResource` objects. Kind names will be converted to CamelCase when creating instances of the `ThirdPartyResource`. Hypens in the `kind` are assumed to be word breaks. For instance the kind `camel-case` would be converted to `CamelCase` but `camelcase` would be converted to `Camelcase`.
+The `kind` for a `ThirdPartyResource` takes the form `<kind name>.<domain>`. You are expected to provide a unique kind and domain name in order to avoid conflicts with other `ThirdPartyResource` objects. Kind names will be converted to CamelCase when creating instances of the `ThirdPartyResource`. Hyphens in the `kind` are assumed to be word breaks. For instance the kind `camel-case` would be converted to `CamelCase` but `camelcase` would be converted to `Camelcase`.
 
 Other fields on the `ThirdPartyResource` are treated as custom data fields. These fields can hold arbitrary JSON data and have any structure.
 
