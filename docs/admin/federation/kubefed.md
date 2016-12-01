@@ -3,19 +3,21 @@ assignees:
 - madhusudancs
 
 ---
-Kubernetes v1.5 introduced a new command line tool called `kubefed`
-to facilitate the administration of cluster federations. `kubefed`
-stands for "Kubernetes Federate". It aids in both deploying a
-Kubernetes Cluster Federation control plane and adding/removing
-clusters from it. 
+Kubernetes version 1.5 includes a new command line tool called
+`kubefed` to help you administrate your federated clusters.
+`kubefed` helps you to deploy a new Kubernetes cluster federation
+control plane, and to add clusters to or remove clusters from an
+existing federation control plane.
 
 This guide explains how to administer a Kubernetes Cluster Federation
 using `kubefed`.
 
-`kubefed` is considered alpha in Kubernetes v1.5.
+> Note: `kubefed` is an alpha feature in Kubernetes 1.5.
+
 
 * TOC
 {:toc}
+
 
 ## Prerequisites
 
@@ -23,9 +25,11 @@ This guide assumes that you have a running Kubernetes cluster. Please
 see one of the [getting started](/docs/getting-started-guides/) guides
 for installation instructions for your platform.
 
+
 ## Getting `kubefed`
 
-Download the Kubernetes client tarball corresponding to a release
+Download the client tarball corresponding to Kubernetes version 1.5
+or later
 [from the release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md),
 extract the binaries in the tarball to one of the directories
 in your `$PATH` and set the executable permission on those binaries.
@@ -39,44 +43,61 @@ sudo cp kubernetes/client/bin/kubectl /usr/local/bin
 sudo chmod +x /usr/local/bin/kubectl
 ```
 
+
 ## Choosing a host cluster.
 
-Choose one of your Kubernetes clusters as a cluster where you want to
-host the federation control plane components. We refer to this cluster
-as a "host cluster" henceforth. Ensure that you have a kubeconfig entry
-in your local kubeconfig corresponding to this cluster. You can verify
-this by running:
+You'll need to choose one of your Kubernetes clusters to be the
+*host cluster*. The host cluster hosts the components that make up
+your federation control plane. Ensure that you have a `kubeconfig`
+entry in your local `kubeconfig` that corresponds to the host cluster.
+You can verify that you have the required `kubeconfig` entry by
+running:
 
 ```shell
 kubectl config get-contexts
 ```
 
-and ensuring that there is a context corresponding to your host
-cluster.
+The output should contain an entry corresponding to your host cluster,
+similar to the following:
 
-Please also make a note of this context because you will need it next.
+```
+CURRENT   NAME                                                               CLUSTER                                                            AUTHINFO                                                           NAMESPACE
+          gke_myproject_asia-east1-b_gce-asia-east1              gke_myproject_asia-east1-b_gce-asia-east1              gke_myproject_asia-east1-b_gce-asia-east1
+```
+
+
+You'll need to provide the `kubeconfig` context (called name in the
+entry above) for your host cluster when you deploy your federation
+control plane.
 
 
 ## Deploying a federation control plane.
 
-Deploying a federation control plane on your host cluster is as simple
-as running:
+"To deploy a federation control plane on your host cluster, run
+`kubefed init` command. When you use `kubefed init`, you must provide
+the following:
+
+* Federation name
+* `--host-cluster-context`, the `kubeconfig` context for the host cluster
+* `--dns-zone-name`, a domain name suffix for your federated services
+
+The following example command deploys a federation control plane with
+the name `fellowship`, a host cluster context `rivendell`, and the
+domain suffix `example.com`:
 
 ```shell
 kubefed init fellowship --host-cluster-context=rivendell  --dns-zone-name="example.com"
 ```
 
-where `fellowship` is the name of the federation, `rivendell` is the
-host cluster context from the previous step and `example.com` is the
-domain name suffix that you want for your federated services. This has
-to be a real domain that you control over and is programmable by your
-DNS provider.
+The domain suffix you specify in `--dns-zone-name` must be an existing
+domain that you control, and that is programmable by your DNS provider.
 
 `kubefed init` sets up the federation control plane in the host
 cluster and also adds an entry for the federation API server in your
-local kubeconfig. However, in this alpha release it does not
-automatically set the current context to the newly deployed federation.
-You can set this by running:
+local kubeconfig. Note that in the alpha release in Kubernetes 1.5,
+`kubefed init` does not automatically set the current context to the
+newly deployed federation. You can set the current context manually by
+running:
 
 ```shell
 kubectl config use-context fellowship
@@ -84,28 +105,29 @@ kubectl config use-context fellowship
 
 where `fellowship` is the name of your federation.
 
-## Joining a cluster
 
-Cluster Federation allows you to manage your workload across multiple
-clusters. In order to do that, a federation control plane must be
-aware of the clusters that it is responsible for managing. You can
-teach the federation control plane about a cluster by joining that
-cluster to the federation.
+## Adding a cluster to a federation
 
-To join a cluster to a federation run:
+Once you've deployed a federation control plane, you'll need to make
+that control plane aware of the clusters it should manage. You can add
+a cluster to your federation by using the `kubefed join` command.
+
+To use `kubefed join`, you'll need to provide the name of the cluster
+you want to add to the federation, and the `--host-cluster-context`
+for the federation control plane's host cluster.
+
+The following example command adds the cluster `gondor` to the
+federation with host cluster `rivendell`:
 
 ```
-kubfed join gondor --host-cluster-context=rivendell
+kubefed join gondor --host-cluster-context=rivendell
 ```
 
-where `gondor` is the name of the cluster you are joining and
-`rivendell` is the federation control plane's host cluster.
 
 ### Naming rules and customization
 
-#### Cluster name
-
-Cluster name supplied to `kubefed join` must be a valid RFC 1035 label.
+The cluster name you supply to `kubefed join` must be a valid RFC 1035
+label.
 
 Furthermore, federation control plane requires credentials of the
 joined clusters to operate on them. These credentials are obtained
@@ -114,16 +136,16 @@ specified as the argument to look for the cluster's context in the
 local kubeconfig. If it fails to find a matching context, it exits
 with an error.
 
-It is particularly a problem in the cases where context names
-for the clusters don't follow RFC 1035 label naming rules. In these
-cases, you could specify a cluster name that conforms to the RFC 1035
+This might cause issues in cases where context names for each cluster
+in the federation don't follow RFC 1035 label naming rules. In such
+cases, you can specify a cluster name that conforms to the RFC 1035
 label naming rules and specify the cluster context using the
 `--cluster-context` flag. For example, if context of the cluster your
 are joining is `gondor_needs-no_king`, then you can
 join the cluster by running:
 
 ```shell
-kubfed join gondor --host-cluster-context=rivendell --cluster-context=gondor_needs-no_king
+kubefed join gondor --host-cluster-context=rivendell --cluster-context=gondor_needs-no_king
 ```
 
 #### Secret name
@@ -140,19 +162,19 @@ the secret name is `11kingdom`, you can join the cluster by
 running:
 
 ```shell
-kubfed join noldor --host-cluster-context=rivendell --secret-name=11kingdom
+kubefed join noldor --host-cluster-context=rivendell --secret-name=11kingdom
 ```
 
-## Unjoining a cluster:
+## Removing a cluster from a federation
 
-Unjoining a cluster from federation is as simple as running:
+To remove a cluster from a federation, run the `kubefed unjoin`
+command with the cluster name and the federation's
+`--host-cluster-context`:
 
 ```
-kubfed unjoin gondor --host-cluster-context=rivendell
+kubefed unjoin gondor --host-cluster-context=rivendell
 ```
 
-where `gondor` is the cluster name you specified while joining the
-cluster and `rivendell` is the federation control plane's host cluster.
 
 ## Turning down the federation control plane:
 
@@ -160,13 +182,9 @@ Proper cleanup of federation control plane is not fully implemented in
 this alpha release of `kubefed`. However, for the time being, deleting
 the federation system namespace should remove all the resources except
 the persistent storage volume dynamically provisioned for the
-federation control plane's etcd. This can be accomplished by running:
+federation control plane's etcd. You can delete the federation
+namespace by running the following command:
 
 ```
 $ kubectl delete ns federation-system
 ```
-
-Also, you might not want to delete the storage volume that stores
-the state of your federation control plane. You can then use that
-storage volume to resume your federation control plane. We are
-evaluating various alternatives to handle this case correctly and that's the reason for not implementing federation control plane turn down in this alpha release.
