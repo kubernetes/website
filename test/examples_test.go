@@ -242,7 +242,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-resource-deployment":  &extensions.Deployment{},
 			"redis-secret-deployment":    &extensions.Deployment{},
 			"run-my-nginx":               &extensions.Deployment{},
-			"sj":                         &batch.CronJob{},
+			"cronjob":                    &batch.CronJob{},
 		},
 		"../docs/admin": {
 			"daemon": &extensions.DaemonSet{},

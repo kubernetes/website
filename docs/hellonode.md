@@ -145,7 +145,7 @@ docker stop hello_tutorial
 Now that the image works as intended and is all tagged with your `$PROJECT_ID`, we can push it to the [Google Container Registry](https://cloud.google.com/tools/container-registry/), a private repository for your Docker images accessible from every Google Cloud project (but also from outside Google Cloud Platform) :
 
 ```shell
-gcloud docker push gcr.io/$PROJECT_ID/hello-node:v1
+gcloud docker -- push gcr.io/$PROJECT_ID/hello-node:v1
 ```
 
 If all goes well, you should be able to see the container image listed in the console: *Compute > Container Engine > Container Registry*. We now have a project-wide Docker image available which Kubernetes can access and orchestrate.

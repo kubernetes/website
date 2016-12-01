@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /docs/templatedemos/
+  - /docs/templatedemos.html
 ---
 
 <!--<html>
