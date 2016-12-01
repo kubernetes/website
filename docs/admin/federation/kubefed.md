@@ -123,6 +123,11 @@ federation with host cluster `rivendell`:
 kubefed join gondor --host-cluster-context=rivendell
 ```
 
+> Note: Kubernetes requires that you manually join clusters to a
+federation because the federation control plane manages only those
+clusters that it is responsible for managing. Adding a cluster tells
+the federation control plane that it is responsible for managing that
+cluster.
 
 ### Naming rules and customization
 
