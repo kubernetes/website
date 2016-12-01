@@ -6,12 +6,12 @@ assignees:
 ---
 
 On the Google Compute Engine (GCE) platform, the default logging support targets
-[Google Cloud Logging](https://cloud.google.com/logging/) as described in the
+[Stackdriver Logging](https://cloud.google.com/logging/) as described in the
 [Logging](/docs/getting-started-guides/logging) getting-started guide. Here we
 describe how to set up a cluster to ingest logs into
 [Elasticsearch](https://github.com/elastic/elasticsearch) and view
 them using [Kibana](https://github.com/elastic/kibana) as an alternative to
-Google Cloud Logging when running on GCE (note that this will not work as
+Stackdriver Logging when running on GCE (note that this will not work as
 written for Google Container Engine).
 
 To use Elasticsearch and Kibana for cluster logging, you should set the

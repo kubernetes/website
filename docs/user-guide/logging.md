@@ -14,7 +14,7 @@ Kubernetes components, such as kubelet and apiserver, use the [glog](https://god
 
 The logs of a running container may be fetched using the command `kubectl logs`. For example, given
 this pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/counter-pod.yaml), which has a container which writes out some text to standard
-output every second. (You can find different pod specifications [here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/logging-demo/).)
+output every second.
 
 {% include code.html language="yaml" file="counter-pod.yaml" k8slink="/examples/blog-logging/counter-pod.yaml" %}
 
@@ -59,21 +59,21 @@ $ kubectl logs kube-dns-v3-7r1l9 etcd
 ...
 ```
 
-## Cluster level logging to Google Cloud Logging
+## Cluster-level logging to Stackdriver Logging
 
-The getting started guide [Cluster Level Logging to Google Cloud Logging](/docs/getting-started-guides/logging)
-explains how container logs are ingested into [Google Cloud Logging](https://cloud.google.com/logging/docs/)
+The getting started guide [Logging with Stackdriver Logging](/docs/getting-started-guides/logging-sdl)
+explains how container logs are ingested into [Stackdriver Logging](https://cloud.google.com/logging/docs/)
 and shows how to query the ingested logs.
 
-## Cluster level logging with Elasticsearch and Kibana
+## Cluster-level logging with Elasticsearch and Kibana
 
-The getting started guide [Cluster Level Logging with Elasticsearch and Kibana](/docs/getting-started-guides/logging-elasticsearch)
-describes how to ingest cluster level logs into Elasticsearch and view them using Kibana.
+The getting started guide [Logging with Elasticsearch and Kibana](/docs/getting-started-guides/logging-elasticsearch)
+describes how to ingest cluster-level logs into Elasticsearch and view them using Kibana.
 
 ## Ingesting Application Log Files
 
-Cluster level logging only collects the standard output and standard error output of the applications
-running in containers. The guide [Collecting log files from within containers with Fluentd and sending them to the Google Cloud Logging service](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-gcp/README.md) explains how the log files of applications can also be ingested into Google Cloud logging.
+Cluster-level logging only collects the standard output and standard error output of the applications
+running in containers. The [cluster-level logging overview](/docs/getting-started-guides/logging) explains alternative solutions.
 
 ## Known issues
 

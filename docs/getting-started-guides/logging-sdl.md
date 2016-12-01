@@ -5,9 +5,9 @@ assignees:
 
 ---
 
-Before reading this logs, it's recommended to take a look at [a general description](/docs/getting-started-guides/logging) of how logging works in kubernetes.
+Before reading this page, it's recommended to take a look at [a general description](/docs/getting-started-guides/logging) of how logging works in kubernetes.
 
-In this article we assume that a Kubernetes cluster has been created with cluster level logging support for sending logs to Google Cloud Logging.
+In this article we assume that a Kubernetes cluster has been created with cluster-level logging support for sending logs to Stackdriver Logging.
 
 ## Overview
 
@@ -28,10 +28,10 @@ Here is the same information in a picture which shows how the pods might be plac
 
 ![image](/images/blog-logging/diagrams/cloud-logging.png)
 
-This diagram shows four nodes created on a Google Compute Engine cluster with the name of each VM node on a purple background. The internal and public IPs of each node are shown on gray boxes and the pods running in each node are shown in green boxes. Each pod box shows the name of the pod and the namespace it runs in, the IP address of the pod and the images which are run as part of the pod's execution. Here we see that every node is running a fluentd-cloud-logging pod which is collecting the log output of the containers running on the same node and sending them to Google Cloud Logging. A pod which provides the
+This diagram shows four nodes created on a Google Compute Engine cluster with the name of each VM node on a purple background. The internal and public IPs of each node are shown on gray boxes and the pods running in each node are shown in green boxes. Each pod box shows the name of the pod and the namespace it runs in, the IP address of the pod and the images which are run as part of the pod's execution. Here we see that every node is running a fluentd-cloud-logging pod which is collecting the log output of the containers running on the same node and sending them to Stackdriver Logging. A pod which provides the
 [cluster DNS service](/docs/admin/dns) runs on one of the nodes and a pod which provides monitoring support runs on another node.
 
-To help explain how cluster level logging works let's start off with a synthetic log generator pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/counter-pod.yaml):
+To help explain how cluster-level logging works let's start off with a synthetic log generator pod specification [counter-pod.yaml](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/blog-logging/counter-pod.yaml):
 
 {% include code.html language="yaml" file="counter-pod.yaml" k8slink="/examples/blog-logging/counter-pod.yaml" %}
 
@@ -111,7 +111,7 @@ $ kubectl logs counter
 8: Tue Jun  2 21:51:48 UTC 2015
 ```
 
-As expected, we've lost the log lines from the first invocation of the container in this pod. Ideally, we want to preserve all the log lines from each invocation of each container in the pod. Furthermore, even if the pod is restarted we would still like to preserve all the log lines that were ever emitted by the containers in the pod. This is exactly the functionality provided by cluster level logging in Kubernetes.
+As expected, we've lost the log lines from the first invocation of the container in this pod. Ideally, we want to preserve all the log lines from each invocation of each container in the pod. Furthermore, even if the pod is restarted we would still like to preserve all the log lines that were ever emitted by the containers in the pod. This is exactly the functionality provided by cluster-level logging in Kubernetes.
 
 ## Viewing logs
 
@@ -125,7 +125,7 @@ When we view the logs in the Developer Console we observe the logs for both invo
 
 Note the first container counted to 108 and then it was terminated. When the next container image restarted the counting process resumed from 0. Similarly if we deleted the pod and restarted it we would capture the logs for all instances of the containers in the pod whenever the pod was running.
 
- Logs ingested into Google Cloud Logging may be exported to various other destinations including [Google Cloud Storage](https://cloud.google.com/storage/) buckets and [BigQuery](https://cloud.google.com/bigquery/). Use the Exports tab in the Cloud Logging console to specify where logs should be streamed to. You can also follow this link to the
+ Logs ingested into Stackdriver Logging may be exported to various other destinations including [Google Cloud Storage](https://cloud.google.com/storage/) buckets and [BigQuery](https://cloud.google.com/bigquery/). Use the Exports tab in the Cloud Logging console to specify where logs should be streamed to. You can also follow this link to the
  [settings tab](https://pantheon.corp.google.com/project/_/logs/settings).
 
  We could query the ingested logs from BigQuery using the SQL query which reports the counter log lines showing the newest lines first:
@@ -162,6 +162,6 @@ $ cat 21\:00\:00_21\:59\:59_S0.json | jq '.structPayload.log'
 ...
 ```
 
-This page has touched briefly on the underlying mechanisms that support gathering cluster level logs on a Kubernetes deployment. The approach here only works for gathering the standard output and standard error output of the processes running in the pod's containers. To gather other logs that are stored in files one can use a sidecar container to gather the required files as described at the page [Collecting log files within containers with Fluentd](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-gcp/README.md) and sending them to the Google Cloud Logging service.
+This page has touched briefly on the underlying mechanisms that support gathering cluster-level logs on a Kubernetes deployment. The approach here only works for gathering the standard output and standard error output of the processes running in the pod's containers. To gather other logs that are stored in files one can use a sidecar container to gather the required files as described at the page [Collecting log files within containers with Fluentd](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-gcp/README.md) and sending them to the Stackdriver Logging service.
 
-Some of the material in this section also appears in the blog article [Cluster Level Logging with Kubernetes](http://blog.kubernetes.io/2015/06/cluster-level-logging-with-kubernetes.html)
+Some of the material in this section also appears in the blog article [Cluster-level Logging with Kubernetes](http://blog.kubernetes.io/2015/06/cluster-level-logging-with-kubernetes.html)
