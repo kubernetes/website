@@ -2,7 +2,6 @@
 assignees:
 - crassirostris
 - piosz
-- aleksandra-malinowska
 
 ---
 
@@ -32,11 +31,13 @@ Logging agent is a tool to expose or push logs to a backend. From high level per
 
 This is the most common and encouraged approach, because only one logging agent per node is created and it doens't require any changes in the target application. __Note! Currently, it only works for application's standard output and standard error!__
 
+#### Default solutions
+
 Kubernetes doesn't specify logging agent, but it ships with two default options. Both use fluentd with custom configuration as an agent, both are shipped as manifest pods.
 
-	* Stackdriver Logging in Google Cloud, more information [there](/docs/getting-started-guides/logging-gcp)
+* Stackdriver Logging in Google Cloud, more information [there](/docs/getting-started-guides/logging-sdl)
 
-	* Elasticsearch inside the cluster, more information [there](/docs/getting-started-guides/logging-elasticsearch)
+* Elasticsearch inside the cluster, more information [there](/docs/getting-started-guides/logging-elasticsearch)
 
 ### Using side-container with the logging agent
 

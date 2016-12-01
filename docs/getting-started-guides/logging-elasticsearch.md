@@ -2,7 +2,6 @@
 assignees:
 - crassirostris
 - piosz
-- aleksandra-malinowska
 
 ---
 
