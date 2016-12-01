@@ -9,7 +9,7 @@ Application and systems logs is the great way to understand, what is happenning 
 
 Obviosly, just that is not enough to provide a complete logging solution. For example, if container crashes, pod gets evicted or node dies, ususally it's still desired to be able to access application logs. Therefore logs should have a separate storage and a separate lifecycle from nodes, pods and containers. This concept is called __cluster level logging__ and required a separate backend to store, analyze and query logs. Kubernetes is not a logging storage solution, but it can be integrated with any of the existing ones.
 
-In the following sections firstly the node level logging will be described and then possible architectures of cluster level logging. If you're not interested in having cluster level logging, you might still be interested in the description how logs are stored and handled on the node. For the latter section the assumption is that there exists a logging backend, inside or outside of kubernetes cluster.
+In the following sections firstly the node level logging will be described and then possible architectures of cluster level logging. If you're not interested in having cluster level logging, you might still find the description how logs are stored and handled on the node useful. For the latter section the assumption is that there exists a logging backend, inside or outside of kubernetes cluster.
 
 ## Logging one the node level
 
