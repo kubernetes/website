@@ -254,6 +254,12 @@ toc:
   section:
   - title: Federation User Guide
     path: /docs/user-guide/federation/
+  - title: Federated ConfigMap
+    path: /docs/user-guide/federation/configmap/
+  - title: Federated DaemonSet
+    path: /docs/user-guide/federation/daemonsets/
+  - title: Federated Deployment
+    path: /docs/user-guide/federation/deployment/
   - title: Federated Events
     path: /docs/user-guide/federation/events/
   - title: Federated Ingress
