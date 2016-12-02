@@ -32,12 +32,14 @@ The following diagram illustrates the Windows Server networking setup for Kubern
 To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows and setup Routes for Pod communication on different nodes
 ### Host Setup
 **Windows Host Setup**
+
 1. Windows Server container host running Windows Server 2016 and Docker v1.12. Follow the setup instructions outlined by this blog post: https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_server
 2. DNS support for Windows recently got merged to docker master and is currently not supported in a stable docker release. To use DNS build docker from master or download the binary from [Docker master](https://master.dockerproject.org/)
 3. Pull the `apprenda/pause` image from `https://hub.docker.com/r/apprenda/pause` 
 4. RRAS (Routing) Windows feature enabled
 
 **Linux Host Setup**
+
 1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using. 
 2. CNI network plugin installed.
 
@@ -48,6 +50,7 @@ Requirements
 * Important notes and other dependencies are listed [here](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/development.md#building-kubernetes-on-a-local-osshell-environment)
 
 **kubelet**
+
 To build the *kubelet*, run:
 
 1. `cd $GOPATH/src/k8s.io/kubernetes`
@@ -56,6 +59,7 @@ To build the *kubelet*, run:
    2. Windows: `go build cmd/kubelet/kubelet.go`
 
 **kube-proxy**
+
 To build *kube-proxy*, run:
 
 1. `cd $GOPATH/src/k8s.io/kubernetes`
