@@ -10,4 +10,4 @@ toc:
 - title: Controllers
   section:
   - title: StatefulSets
-    path: /docs/concepts/controllers/statefulsets/
+    path: /docs/concepts/abstractions/controllers/statefulsets/
