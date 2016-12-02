@@ -31,4 +31,9 @@ toc:
   section:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
-
+  - title: Autoscaling the DNS Service in a Cluster
+    path: /docs/tasks/administer-cluster/dns-horizontal-autoscaling/
+- title: Managing Stateful Applications
+  section:
+  - title: Upgrading from PetSets to StatefulSets
+    path: /docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/
