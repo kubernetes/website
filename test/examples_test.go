@@ -317,6 +317,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret-env-pod": {&api.Pod{}},
 		},
 		"../docs/tutorials/stateful-application": {
+			"gce-volume":        {&api.PersistentVolume{}},
+			"mysql-deployment":  {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
 			"mysql-services":    {&api.Service{}, &api.Service{}},
 			"mysql-configmap":   {&api.ConfigMap{}},
 			"mysql-statefulset": {&apps.StatefulSet{}},
