@@ -49,3 +49,8 @@ toc:
     path: /docs/tasks/manage-stateful-set/debugging-a-statefulset/
   - title: Force Deleting StatefulSet Pods
     path: /docs/tasks/manage-stateful-set/delete-pods/
+
+- title: Troubleshooting
+  section:
+  - title: Debugging Init Containers
+    path: /docs/tasks/troubleshoot/debug-init-containers/
