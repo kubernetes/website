@@ -63,7 +63,7 @@ and running:
 kubectl create -f mysql-configmap.yaml
 ```
 
-{% include code.html language="yaml" file="mysql-configmap.yaml" ghlink="/docs/tutorials/replicated-stateful-application/mysql-configmap.yaml" %}
+{% include code.html language="yaml" file="mysql-configmap.yaml" ghlink="/docs/tutorials/stateful-application/mysql-configmap.yaml" %}
 
 This ConfigMap provides `my.cnf` overrides that let you independently control
 configuration on the master and the slaves.
@@ -84,7 +84,7 @@ and running:
 kubectl create -f mysql-services.yaml
 ```
 
-{% include code.html language="yaml" file="mysql-services.yaml" ghlink="/docs/tutorials/replicated-stateful-application/mysql-services.yaml" %}
+{% include code.html language="yaml" file="mysql-services.yaml" ghlink="/docs/tutorials/stateful-application/mysql-services.yaml" %}
 
 The Headless Service provides a home for the DNS entries that the StatefulSet
 controller will create for each Pod that's part of the set.
@@ -109,7 +109,7 @@ Finally, create the StatefulSet by saving the following manifest to
 kubectl create -f mysql-statefulset.yaml
 ```
 
-{% include code.html language="yaml" file="mysql-statefulset.yaml" ghlink="/docs/tutorials/replicated-stateful-application/mysql-statefulset.yaml" %}
+{% include code.html language="yaml" file="mysql-statefulset.yaml" ghlink="/docs/tutorials/stateful-application/mysql-statefulset.yaml" %}
 
 You can watch the startup progress by running:
 
