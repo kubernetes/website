@@ -9,32 +9,31 @@ assignees:
 
 ## Node Conformance Test
 
-*Node conformance test* is a containerized test framework validating whether a
-node meets the minimum requirement of Kubernetes with a set of system
-verification and functionality test. A node which passes the test is qualified
-to join a Kubernetes cluster.
+*Node conformance test* is a containerized test framework that provides a system
+verification and functionality test for a node. The test validates whether the
+node meets the minimum requirements for Kubernetes; a node that passes the test
+is qualified to join a Kubernetes cluster.
 
 ## Limitations
 
-There are following limitations in the current implementation of node
-conformance test.
+In Kubernetes version 1.5, node conformance test has the following limitations:
 
 * Node conformance test only supports Docker as the container runtime.
 
-## Prerequisite
+## Node Prerequisite
 
-Node conformance test is used to test whether a node is ready to join a
-Kubernetes cluster, so the prerequisite is the same with a standard Kubernetes
-node. At least, the node should have installed:
+To run node conformance test, a node must satisfy the same prerequisites as a
+standard Kubernetes node. At a minimum, the node should have the following
+daemons installed:
 
 * Container Runtime (Docker)
 * Kubelet
 
-## Usage
+## Running Node Conformance Test
 
-### Run Node Conformance Test
+To run the node conformance test, perform the following steps:
 
-* **Step 1:** Point your Kubelet to localhost `--api-servers="http://localhost:8080"`,
+1. Point your Kubelet to localhost `--api-servers="http://localhost:8080"`,
 because the test framework starts a local master to test Kubelet. There are some
 other Kubelet flags you may care:
   * `--pod-cidr`: If you are using `kubenet`, you should specify an arbitrary CIDR
@@ -42,7 +41,7 @@ other Kubelet flags you may care:
   * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
     remove the flag to run the test.
 
-* **Step 2:** Run the node conformance test with command:
+2. Run the node conformance test with command:
 
 ```shell
 # $CONFIG_DIR is the pod manifest path of your Kubelet.
@@ -52,9 +51,10 @@ sudo docker run -it --rm --privileged --net=host \
   gcr.io/google_containers/node-test:0.2
 ```
 
-### Run Node Conformance Test for Other Architectures
+## Running Node Conformance Test for Other Architectures
 
-Find node conformance test docker images for other architectures:
+Kubernetes also provides node conformance test docker images for other
+architectures:
 
   Arch  |       Image       |
 --------|:-----------------:|
@@ -62,7 +62,7 @@ Find node conformance test docker images for other architectures:
   arm   |    node-test-arm  |
  arm64  |  node-test-arm64  |
 
-### Run Selected Test
+## Running Selected Test
 
 To run specific tests, overwrite the environment variable `FOCUS` with the
 regular expression of tests you want to run.
@@ -91,10 +91,10 @@ Theoretically, you can run any node e2e test if you configure the container and
 mount required volumes properly. But **it is strongly recommended to only run conformance
 test**, because it requires much more complex configuration to run non-conformance test.
 
-### Caveats
+## Caveats
 
 * The test leaves some docker images on the node, including the node conformance
   test image and images of containers used in the functionality
   test.
-* The test leaves dead containers on the node, these containers are created
+* The test leaves dead containers on the node. These containers are created
   during the functionality test.
