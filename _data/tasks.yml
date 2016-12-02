@@ -15,6 +15,14 @@ toc:
   section:
   - title: Using Port Forwarding to Access Applications in a Cluster
     path: /docs/tasks/access-application-cluster/port-forward-access-application-cluster/
+
+
+- title: Debugging Applications in a Cluster
+  section:
+  - title: Determining the Reason for Pod Failure
+    path: /docs/tasks/debug-application-cluster/determine-reason-pod-failure/
+
+
 - title: Accessing the Kubernetes API
   section:
   - title: Using an HTTP Proxy to Access the Kubernetes API
@@ -23,4 +31,9 @@ toc:
   section:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
-
+  - title: Autoscaling the DNS Service in a Cluster
+    path: /docs/tasks/administer-cluster/dns-horizontal-autoscaling/
+- title: Managing Stateful Applications
+  section:
+  - title: Upgrading from PetSets to StatefulSets
+    path: /docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/

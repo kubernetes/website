@@ -6,7 +6,8 @@ assignees:
 - deads2k
 
 ---
-
+* TOC
+{:toc}
 
 ## Users in Kubernetes
 
@@ -33,7 +34,7 @@ or be treated as an anonymous user.
 
 ## Authentication strategies
 
-Kubernetes uses client certificates, bearer tokens, or HTTP basic auth to
+Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to
 authenticate API requests through authentication plugins. As HTTP request are
 made to the API server plugins attempts to associate the following attributes
 with the request:
@@ -360,12 +361,33 @@ An unsuccessful request would return:
 
 HTTP status codes can be used to supply additional error context.
 
+
+### Authenticating Proxy
+
+The API server can be configured to identify users from request header values, such as `X-Remote-User`.
+It is designed for use in combination with an authenticating proxy, which sets the request header value.
+In order to prevent header spoofing, the authenticating proxy is required to present a valid client
+certificate to the API server for validation against the specified CA before the request headers are 
+checked.
+
+* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the identity.
+* `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
+* `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed. 
+
+
 ### Keystone Password
 
 Keystone authentication is enabled by passing the `--experimental-keystone-url=<AuthURL>`
 option to the API server during startup. The plugin is implemented in
 `plugin/pkg/auth/authenticator/password/keystone/keystone.go` and currently uses
 basic auth to verify used by username and password.
+
+If you have configured self-signed certificates for the Keystone server,
+you may need to set the `--experimental-keystone-ca-file=SOMEFILE` option when
+starting the Kubernetes API server. If you set the option, the Keystone
+server's certificate is verified by one of the authorities in the
+`experimental-keystone-ca-file`. Otherwise, the certificate is verified by
+the host's root Certificate Authority.
 
 For details on how to use keystone to manage projects and users, refer to the
 [Keystone documentation](http://docs.openstack.org/developer/keystone/). Please
