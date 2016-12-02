@@ -13,7 +13,7 @@ In the following sections firstly the node level logging will be described and t
 
 ## Logging one the node level
 
-![Node level logging](/images/docs/getting-started-guides/logging/logging-node-level.png)
+![Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
 
 Everything written to `stdout` and `stderr` by a containerized application goes to a container runtime. Currently, from the Docker runtime it goes to a file using standard [json logging driver](https://docs.docker.com/engine/admin/logging/overview). __Note! It implies that each _line_ will be treatet as a separate message, no direct support for multiline messages, e.g. stacktraces.__ In case container restarts, kubelet keeps by default one terminated container with its logs. In case pod is evicted from the node, all corresponding containers are evicted too with their logs.
 
@@ -25,7 +25,7 @@ When user performs [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs), requ
 
 ### Using node logging agent
 
-![Using node level logging agent](/images/docs/getting-started-guides/logging/logging-with-node-agent.png)
+![Using node level logging agent](/images/docs/user-guide/logging/logging-with-node-agent.png)
 
 Logging agent is a tool to expose or push logs to a backend. From high level perspective it's a container, which has access to a directory with log files from all containers. This container should be on every node, therefore it should be either manifest pod, shipped with a node, or a daemon set replica.
 
@@ -35,13 +35,13 @@ This is the most common and encouraged approach, because only one logging agent 
 
 Kubernetes doesn't specify logging agent, but it ships with two default options. Both use fluentd with custom configuration as an agent, both are shipped as manifest pods.
 
-* Stackdriver Logging in Google Cloud, more information [there](/docs/getting-started-guides/logging-sdl)
+* Stackdriver Logging in Google Cloud, more information [there](/docs/user-guide/logging/sdl)
 
-* Elasticsearch inside the cluster, more information [there](/docs/getting-started-guides/logging-elasticsearch)
+* Elasticsearch inside the cluster, more information [there](/docs/user-guide/logging/elasticsearch)
 
 ### Using side-container with the logging agent
 
-![Using side-container with the logging agent](/images/docs/getting-started-guides/logging/logging-with-sidecar.png)
+![Using side-container with the logging agent](/images/docs/user-guide/logging/logging-with-sidecar.png)
 
 Alternatively, dedicated logging agent with it's own configuration for each application may be used. One way of doing so is to have a sidecar container in pod specs, containing only the logging agent.
 
@@ -49,6 +49,6 @@ The concrete implementation of the agent, interface between agent and the applic
 
 ### Exposing logs directly from the application
 
-![Exposing logs directly from the application](/images/docs/getting-started-guides/logging/logging-from-application.png)
+![Exposing logs directly from the application](/images/docs/user-guide/logging/logging-from-application.png)
 
 Of course, pushing logs to a backend (or exposing an endpoint for a pull approach) can always be performed by the application itself, but then it's completely outside of the scope of kubernetes and the scope of this article.

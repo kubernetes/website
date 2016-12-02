@@ -143,11 +143,11 @@ toc:
   - title: Logging
     section:
     - title: Logging Overview
-      path: /docs/getting-started-guides/logging/
+      path: /docs/user-guide/logging/overview/
     - title: Logging with Stackdriver Logging
-      path: /docs/getting-started-guides/logging-sdl/
+      path: /docs/user-guide/logging/sdl/
     - title: Logging with Elasticsearch and Kibana
-      path: /docs/getting-started-guides/logging-elasticsearch/
+      path: /docs/user-guide/logging/elasticsearch/
   - title: Running Commands in a Container with kubectl exec
     path: /docs/user-guide/getting-into-containers/
   - title: Connect with Proxies
