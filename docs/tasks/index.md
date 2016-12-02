@@ -33,6 +33,7 @@ single thing, typically by giving a short sequence of steps.
 * [Upgrading from PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
 * [Scaling a StatefulSet](/docs/tasks/manage-stateful-set/scale-stateful-set/)
 * [Deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/)
+* [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
 
 ### What's next
 

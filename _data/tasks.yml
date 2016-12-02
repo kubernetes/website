@@ -41,3 +41,5 @@ toc:
     path: /docs/tasks/manage-stateful-set/scale-stateful-set/
   - title: Deleting a Stateful Set
     path: /docs/tasks/manage-stateful-set/deleting-a-statefulset/
+  - title: Debugging a StatefulSet
+    path: /docs/tasks/manage-stateful-set/debugging-a-statefulset/
