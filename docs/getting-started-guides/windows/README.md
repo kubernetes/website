@@ -1,8 +1,10 @@
 # Running Windows Server Containers using Kubernetes
-Windows Server Containers are supported on Kubernetes as an alpha feature. Kubernetes control plane (API Server, Scheduler, Controller Manager etc) will continue to run on Linux, while the kubelet and kube-proxy can be run on Windows Server.
+Kubernetes version 1.5 introduces support for Windows Server Containers. In version 1.5, the Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) continue to run on Linux, while the kubelet and kube-proxy can be run on Windows Server.
+
+**Note:** Windows Server Containers on Kubernetes is an Alpha feature in Kubernetes 1.5.
 
 ## Prerequisites
-With the alpha release, Windows Server Containers for Kubernetes is supported using the following:
+In Kubernetes version 1.5, Windows Server Containers for Kubernetes is supported using the following:
 
 1. Kubernetes control plane running on existing Linux infrastructure (version 1.5 or later)
 2. Kubenet network plugin setup on the Linux nodes
@@ -26,37 +28,35 @@ Each Window Server node should have the following configuration:
 The following diagram illustrates the Windows Server networking setup for Kubernetes Setup
 ![Windows Setup](windows-setup.png)
 
-## Setup
+## Setting up Windows Server Containers on Kubernetes
+To run Windows Server Containers on Kubernetes, you'll need to set up both your host machines and the Kubernetes node components for Windows and setup Routes for Pod communication on different nodes
 ### Host Setup
-#### Windows
-
+**Windows Host Setup**
 1. Windows Server container host running Windows Server 2016 and Docker v1.12. Follow the setup instructions outlined by this blog post: https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_server
 2. DNS support for Windows recently got merged to docker master and is currently not supported in a stable docker release. To use DNS build docker from master or download the binary from [Docker master](https://master.dockerproject.org/)
 3. Pull the `apprenda/pause` image from `https://hub.docker.com/r/apprenda/pause` 
 4. RRAS (Routing) Windows feature enabled
 
-#### Linux
-
-Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using. Linux hosts also require to have CNI Setup.
+**Linux Host Setup**
+1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using. 
+2. CNI network plugin installed.
 
 ### Component Setup
-In order to build the work node components, the *kubelet* and *kube-proxy* for Windows, the following needs to be installed on the host
+Requirements
 * Git, Go 1.7.1+ 
 * make (if using Linux or MacOS)
 * Important notes and other dependencies are listed [here](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/development.md#building-kubernetes-on-a-local-osshell-environment)
 
-#### kubelet
-
-In order to build the *kubelet*, run:
+**kubelet**
+To build the *kubelet*, run:
 
 1. `cd $GOPATH/src/k8s.io/kubernetes`
 2. Build *kubelet*
    1. Linux/MacOS: `KUBE_BUILD_PLATFORMS=windows/amd64 make WHAT=cmd/kubelet`
    2. Windows: `go build cmd/kubelet/kubelet.go`
 
-#### kube-proxy
-
-In order to build *kube-proxy*, run:
+**kube-proxy**
+To build *kube-proxy*, run:
 
 1. `cd $GOPATH/src/k8s.io/kubernetes`
 2. Build *kube-proxy*
@@ -64,7 +64,6 @@ In order to build *kube-proxy*, run:
    2. Windows: `go build cmd/kube-proxy/proxy.go`
 
 ### Route Setup
-
 The below example setup assumes one Linux and two Windows Server 2016 nodes and a cluster CIDR 192.168.0.0/16
 
 | Hostname | Routable IP address | Pod CIDR |
@@ -98,11 +97,11 @@ route add 192.168.1.0 mask 255.255.255.0 192.168.1.1 if <Interface Id of the Rou
 ```
 
 ## Starting the Cluster
-For now, the Kubernetes control plane continues to run on Linux and as a result a Windows only Kubernetes Cluster is not possible. 
-## Linux
+To start your cluster, you'll need to start both the Linux-based Kubernetes control plane, and the Windows Server-based Kubernetes node components. 
+## Starting the Linux-based Control Plane
 Use your preferred method to start Kubernetes cluster on Linux. Please note that Cluster CIDR might need to be updated.
-## Windows
-### kubelet
+## Starting the Windows Node Components
+To start kubelet on your Windows node:
 Run the following in a PowerShell window. Be aware that if the node reboots or the process exits, you will have to rerun the commands below to restart the kubelet
 
 1. Set environment variable *CONTAINER_NETWORK* value to the docker container network to use
@@ -111,7 +110,7 @@ Run the following in a PowerShell window. Be aware that if the node reboots or t
 2. Run *kubelet* executable using the below command
 `kubelet.exe --hostname-override=<ip address/hostname of the windows node>  --pod-infra-container-image="apprenda/pause" --resolv-conf="" --api_servers=<api server location>`
 
-### kube-proxy
+To start kube-proxy on your Windows node:
 
 Run the following in a PowerShell window with administrative privileges. Be aware that if the node reboots or the process exits, you will have to rerun the commands below to restart the kube-proxy.
 
@@ -121,8 +120,8 @@ Run the following in a PowerShell window with administrative privileges. Be awar
 2. Run *kube-proxy* executable using the below command
 `.\proxy.exe --v=3 --proxy-mode=userspace --hostname-override=<ip address/hostname of the windows node> --master=<api server location> --bind-address=<ip address of the windows node>`
 
-## Scheduling PODs on Windows
-As Kubernetes control plane currently runs on Linux, the resulting cluster will have both Linux and Windows nodes. TO schedule PODs on Windows, `nodeSelector` constraint has to be set with label `beta.kubernetes.io/os` having value `windows` as shown in the example below,
+## Scheduling Pods on Windows
+Because your cluster has both Linux and Windows nodes, you must explictly set the nodeSelector constraint to be able to schedule Pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
 ```
 {
   "apiVersion": "v1",
