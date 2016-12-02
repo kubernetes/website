@@ -316,7 +316,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"secret":         {&api.Secret{}},
 			"secret-env-pod": {&api.Pod{}},
 		},
-		"../docs/tutorials/replicated-stateful-application": {
+		"../docs/tutorials/stateful-application": {
 			"mysql-services":    {&api.Service{}, &api.Service{}},
 			"mysql-configmap":   {&api.ConfigMap{}},
 			"mysql-statefulset": {&apps.StatefulSet{}},

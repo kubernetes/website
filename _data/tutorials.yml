@@ -56,4 +56,4 @@ toc:
   - title: Running a Single-Instance Stateful Application
     path: /docs/tutorials/stateful-application/run-stateful-application/
   - title: Running a Replicated Stateful Application
-    path: /docs/tutorials/replicated-stateful-application/run-replicated-stateful-application/
+    path: /docs/tutorials/stateful-application/run-replicated-stateful-application/
