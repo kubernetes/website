@@ -7,19 +7,21 @@ assignees:
 ---
 
 
-Dashboard (the web-based user interface of Kubernetes) allows you to deploy containerized applications to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself. You can use it for getting an overview of applications running on the cluster, as well as for creating or modifying individual Kubernetes resources and workloads, such as Daemon Sets, Stateful Sets, Replica Sets, Jobs and corresponding Services, or Pods.
+Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster itself along with its attendant resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
 
-Dashboard also provides information on the state of Deployments, Replica Sets, etc. and on any errors that might have occurred. You can inspect and manage the Kubernetes resources and applications deployed on the cluster. For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
+Dashboard also provides information on the state of Kubernetes resources in your cluster, and on any errors that may have occurred.
 
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
 * TOC
 {:toc}
 
-## Accessing Dashboard UI
+## Accessing the Dashboard UI
+
+There are multiple ways you can access the Dashboard UI; either by using the kubectl command-line interface, or by accessing the Kubernetes master apiserver using your web browser.
 
 ### Command line proxy
-The easiest way to access Dashboard is to use kubectl. Run the following command in your desktop environment:
+You can access Dashboard using the kubectl command-line tool by running the following command:
 
 ```
 $ kubectl proxy
@@ -33,13 +35,13 @@ The UI can _only_ be accessed from the machine where the command is executed. Se
 You may access the UI directly via the Kubernetes master apiserver. Open a browser and navigate to `https://<kubernetes-master>/ui`, where `<kubernetes-master>` is IP address or domain name of the Kubernetes
 master.
 
-Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with the some setup tools (e.g., `kubeadm`). Refer to the  [documentation](docs/admin/authentication/) to configure it manually.
+Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with the some setup tools (e.g., `kubeadm`). Refer to the  [authentication admin documentation](docs/admin/authentication/) for information on how to configure authentication manually.
 
 If the username and password is configured but unknown to you, then use `kubectl config view` to find it.
 
 ## Welcome view
 
-When accessing Dashboard on an empty cluster, the welcome page is displayed. This page contains a link to this document as well as a button to deploy your first application. In addition, you can view which system applications are running by default in the `kube-system` [namespace](/docs/admin/namespaces/) of your cluster, for example the Dashboard itself.
+When you access Dashboard on an empty cluster, you'll see the welcome page. This page contains a link to this document as well as a button to deploy your first application. In addition, you can view which system applications are running by default in the `kube-system` [namespace](/docs/admin/namespaces/) of your cluster, for example the Dashboard itself.
 
 ![Kubernetes Dashboard welcome page](/images/docs/ui-dashboard-zerostate.png)
 
