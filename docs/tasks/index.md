@@ -31,6 +31,7 @@ single thing, typically by giving a short sequence of steps.
 #### Managing Stateful Applications
 
 * [Upgrading from PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
+* [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
 
 ### What's next
 
