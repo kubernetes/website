@@ -9,7 +9,7 @@ The Concepts section of the Kubernetes documentation is a work in progress.
 * [Annotations](/docs/concepts/object-metadata/annotations/)
 
 #### Controllers
-* [StatefulSets](/docs/concepts/controllers/statefulsets/)
+* [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 
 
 ### What's next
