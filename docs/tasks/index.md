@@ -27,6 +27,7 @@ single thing, typically by giving a short sequence of steps.
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
 * [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+* [Safely Draining a Node while Respecting Application SLOs](/docs/tasks/administer-cluster/safely-drain-node/)
 
 #### Managing Stateful Applications
 
@@ -35,7 +36,6 @@ single thing, typically by giving a short sequence of steps.
 * [Deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/)
 * [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
 * [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
-* [Safely Draining a Node while Respecting Application SLOs](/docs/tasks/administer-cluster/safely-drain-node/)
 
 ### What's next
 
