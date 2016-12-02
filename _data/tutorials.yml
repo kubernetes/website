@@ -55,3 +55,5 @@ toc:
   section:
   - title: StatefulSet Basics
     path: /docs/tutorials/stateful-application/basic-stateful-set/
+  - title: Running a Single-Instance Stateful Application
+    path: /docs/tutorials/stateful-application/run-stateful-application/
