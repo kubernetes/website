@@ -39,3 +39,5 @@ toc:
     path: /docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/
   - title: Scaling a StatefulSet
     path: /docs/tasks/manage-stateful-set/scale-stateful-set/
+  - title: Deleting a Stateful Set
+    path: /docs/tasks/manage-stateful-set/deleting-a-statefulset/
