@@ -5,11 +5,11 @@ assignees:
 
 ---
 
-Application and systems logs is the great way to understand, what is happenning inside the cluster, debug problems and monitor the activity. Most modern application have some kind of logging mechanism. Container engines are designed to support logging out of the box in some way. Easiest and the most embraced logging mechanism in the container world is to write to the standard output and standard error streams.
+Application and systems logs is the great way to understand, what is happening inside the cluster, debug problems and monitor the activity. Most modern application have some kind of logging mechanism. Container engines are designed to support logging out of the box in some way. Easiest and the most embraced logging mechanism in the container world is to write to the standard output and standard error streams.
 
-Obviosly, just that is not enough to provide a complete logging solution. For example, if container crashes, pod gets evicted or node dies, ususally it's still desired to be able to access application logs. Therefore logs should have a separate storage and a separate lifecycle from nodes, pods and containers. This concept is called __cluster-level logging__ and required a separate backend to store, analyze and query logs. Kubernetes is not a logging storage solution, but it can be integrated with any of the existing ones.
+Obviously, just that is not enough to provide a complete logging solution. For example, if container crashes, pod gets evicted or node dies, usually it's still desired to be able to access application logs. Therefore logs should have a separate storage and a separate lifecycle from nodes, pods and containers. This concept is called __cluster-level logging__ and required a separate backend to store, analyze and query logs. Kubernetes is not a logging storage solution, but it can be integrated with any of the existing ones.
 
-In the following sections firstly a basic demo of working with application logs is given. Then the node logging architecture is described in details. After that, several solutions for cluster-level logging are layed out. If you're not interested in having cluster-level logging, you might still find the description how logs are stored and handled on the node useful. For the latter section the assumption is that there exists a logging backend, inside or outside of kubernetes cluster.
+In the following sections firstly a basic demo of working with application logs is given. Then the node logging architecture is described in details. After that, several solutions for cluster-level logging are laid out. If you're not interested in having cluster-level logging, you might still find the description how logs are stored and handled on the node useful. For the latter section the assumption is that there exists a logging backend, inside or outside of kubernetes cluster.
 
 ## Logging demo
 
@@ -43,9 +43,9 @@ It's also possible to get logs from the previous instantiation of the container 
 
 ![Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
 
-Everything written to `stdout` and `stderr` by a containerized application goes to a container runtime. Currently, from the Docker runtime it goes to a file using standard [json logging driver](https://docs.docker.com/engine/admin/logging/overview). __Note! It implies that each _line_ will be treatet as a separate message, no direct support for multiline messages, e.g. stacktraces.__ In case container restarts, kubelet keeps by default one terminated container with its logs. In case pod is evicted from the node, all corresponding containers are evicted too with their logs.
+Everything written to `stdout` and `stderr` by a containerized application goes to a container runtime. Currently, from the Docker runtime it goes to a file using standard [json logging driver](https://docs.docker.com/engine/admin/logging/overview). __Note! It implies that each _line_ will be treated as a separate message, no direct support for multiline messages, e.g. stacktraces.__ In case container restarts, kubelet keeps by default one terminated container with its logs. In case pod is evicted from the node, all corresponding containers are evicted too with their logs.
 
-Important question is how to achieve log rotations so that logs won't consume all available space on the node. Right now, logrotate tools solves this task. Detailed configuration can be found [there](https://github.com/kubernetes/kubernetes/blob/release-1.5/cluster/gce/gci/configure-helper.sh#L96). In short, up to `5` rotation are kept, rotation is performed daily or if log file grows beyond `10MB`. Rotations belong to a single container, that is if container dies several times or pod gets evited, all rotations for the container are lost.
+Important question is how to achieve log rotations so that logs won't consume all available space on the node. Right now, logrotate tool solves this task. Detailed configuration can be found [there](https://github.com/kubernetes/kubernetes/blob/release-1.5/cluster/gce/gci/configure-helper.sh#L96). In short, up to `5` rotation are kept, rotation is performed daily or if log file grows beyond `10MB`. Rotations belong to a single container, that is if container dies several times or pod gets evicted, all rotations for the container are lost.
 
 When user performs [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs), as shown above, request ends up on the kubelet, which in turn reads directly from the log file and returns its content in the response. __Note! Only last rotation is returned, the rest should be extracted manually.__
 
@@ -53,7 +53,7 @@ When user performs [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs), as s
 
 The information above is only about application containers. There are several system components (for example, `kube-proxy`), which go around this mechanism and write directly to the files in `/var/log` directory in the host filesystem. These files are also rotated daily and based on size, but size retention for them is higher, `100MB` instead of `10MB`.
 
-System components use the [glog](https://godoc.org/github.com/golang/glog) logging library. Сonventions for logging severity for those components are described in [docs/devel/logging.md](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/logging.md).
+System components use the [glog](https://godoc.org/github.com/golang/glog) logging library. Conventions for logging severity for those components are described in [docs/devel/logging.md](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/logging.md).
 
 ## Cluster-level logging architectures
 
@@ -63,7 +63,7 @@ System components use the [glog](https://godoc.org/github.com/golang/glog) loggi
 
 Logging agent is a tool to expose or push logs to a backend. From high level perspective it's a container, which has access to a directory with log files from all containers. This container should be on every node, therefore it should be either manifest pod, shipped with a node, or a daemon set replica.
 
-This is the most common and encouraged approach, because only one logging agent per node is created and it doens't require any changes in the target application. __Note! Currently, it only works for application's standard output and standard error!__
+This is the most common and encouraged approach, because only one logging agent per node is created and it doesn't require any changes in the target application. __Note! Currently, it only works for application's standard output and standard error!__
 
 #### Default solutions
 
