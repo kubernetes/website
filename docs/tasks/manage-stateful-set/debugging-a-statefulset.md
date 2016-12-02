@@ -34,13 +34,13 @@ kubectl get pods -l app=myapp
 
 If you find that any Pods listed are in `Unknown` or `Terminating` state for an extended period of time, refer to the [Deleting StatefulSet Pods](/docs/tasks/stateful-sets/deleting-pods/) task for instructions on how to deal with them. You can debug individual Pods in a StatefulSet using the [Debugging Pods](docs/user-guide/debugging-pods-and-replication-controllers/#debugging-pods) guide. 
 
-StatefulSets provide a debug mechanism to pause all controller operations on Pods using an annotation. Setting the `pod.alpha.kubernetes.io/initialized` annotation to `"false"` on any StatefulSet Pod will *pause* all operations of the StatefulSet. When paused, the StatefulSet will not perform any scaling operations. Once the debug hook is set, you can execute commands within the containers of StatefulSet pods without interference from scaling operations.
+StatefulSets provide a debug mechanism to pause all controller operations on Pods using an annotation. Setting the `pod.alpha.kubernetes.io/initialized` annotation to `"false"` on any StatefulSet Pod will *pause* all operations of the StatefulSet. When paused, the StatefulSet will not perform any scaling operations. Once the debug hook is set, you can execute commands within the containers of StatefulSet pods without interference from scaling operations. You can set the annotation to `"false"` by executing the following:
 
 ```shell
 kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="false" --overwrite
 ```
 
-Note that when the annotation is set to `"false"`, the StatefulSet will not respond to its Pods becoming unhealthy or unavailable. It will not create replacement Pods till the annotation is removed or set to `"true"` on each StatefulSet Pod. 
+When the annotation is set to `"false"`, the StatefulSet will not respond to its Pods becoming unhealthy or unavailable. It will not create replacement Pods till the annotation is removed or set to `"true"` on each StatefulSet Pod. 
 
 #### Step-wise Initialization
 
@@ -66,7 +66,7 @@ spec:
 
 ```
 
-After setting the annotation, if you create the StatefulSet, you can wait for each Pod to come up and verify that it has initialized correctly. The StatefulSet will not create any subsequent Pods till the debug annotation is set to `"true"` (or removed) on each Pod that has already been created.
+After setting the annotation, if you create the StatefulSet, you can wait for each Pod to come up and verify that it has initialized correctly. The StatefulSet will not create any subsequent Pods till the debug annotation is set to `"true"` (or removed) on each Pod that has already been created. You can set the annotation to `"true"` by executing the following:
  
 ```shell
 kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="true" --overwrite
