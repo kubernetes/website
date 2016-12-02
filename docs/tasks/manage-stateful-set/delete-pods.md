@@ -29,7 +29,7 @@ Manual force deletion should be undertaken with caution, as it has the potential
 
 ### Deleting Pods
 
-Graceful deletion may be performed using the following:
+You can perform a graceful pod deletion with the following command:
 
 ```shell
 kubectl delete pods <pod>
@@ -50,7 +50,7 @@ Normally, the system completes the deletion once the Pod is no longer running on
 
 Force deletions **do not** wait for confirmation from the kubelet that the Pod has been terminated. Irrespective of whether a force deletion is successful in killing a Pod, it will immediately free up the name from the apiserver. This would let the StatefulSet controller create a replacement Pod with that same identity; this can lead to the duplication of a still-running Pod, and if said Pod can still communicate with the other members of the StatefulSet, will violate the at most one semantics that StatefulSet is designed to guarantee.
 
-Force deletion of a StatefulSet Pod is a user's assertion that the Pod in question will never again make contact with other Pods in the StatefulSet and its name can be safely freed up for a replacement to be created. 
+When you force delete a StatefulSet pod, you are asserting that the Pod in question will never again make contact with other Pods in the StatefulSet and its name can be safely freed up for a replacement to be created. 
 
 If you want to delete a Pod forcibly using kubectl version >= 1.5, do the following:
 
