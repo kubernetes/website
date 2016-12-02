@@ -77,13 +77,13 @@ after those stateful Pods become running and ready.
 
 With a StatefulSet of size > 1, if there is an unhealthy Pod, there is no way 
 for Kubernetes to know (yet) if it is due to a permanent fault or a transient
-one (upgrade/maintenance/node reboot). If it were a permanent fault, scaling
-without paying heed to it may lead to a state where the StatefulSet membership
+one (upgrade/maintenance/node reboot). If the Pod is unhealthy due to a permanent fault, scaling
+without correcting the fault may lead to a state where the StatefulSet membership
 drops below a certain minimum number of "replicas" that are needed to function
-correctly, leading to unavailability (or worse).
+correctly. This may cause your StatefulSet to become unavailable.
 
-If it were a transient one and the Pod were coming back up shortly, you won't
-want that to interleave with your scale-up/scale-down operation. Some distributed
+If the Pod is unhealthy due to a transient fault and the Pod might become available again,
+the transient error may interfere with your scale-up/scale-down operation. Some distributed
 databases have issues when nodes join and leave at the same time. It is better
 to reason about scaling operations at the application level in these cases, and
 perform scaling only when you're sure that your stateful application cluster is
