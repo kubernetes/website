@@ -31,6 +31,7 @@ single thing, typically by giving a short sequence of steps.
 #### Managing Stateful Applications
 
 * [Upgrading from PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
+* [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
 
 ### What's next
 
