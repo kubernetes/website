@@ -20,7 +20,7 @@ to match the observed average CPU utilization to the target specified by user.
 
 ## How does the Horizontal Pod Autoscaler work?
 
-![Horizontal Pod Autoscaler diagram](/images/docs/horizontal-pod-autoscaler.svg)
+![Horizontal Pod Autoscaler diagram](/images/docs/horizontal-pod-autoscaler.svg){:height="600" width="600"}
 
 The autoscaler is implemented as a control loop.
 It periodically queries CPU utilization for the pods it targets.

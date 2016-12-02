@@ -205,7 +205,7 @@ By default, the choice of backend is round robin.  Client-IP based session affin
 can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
 default is `"None"`).
 
-![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg)
+![Services overview diagram for userspace proxy](/images/docs/services-userspace-overview.svg){:height="500" width="500"}
 
 ### Proxy-mode: iptables
 
@@ -228,7 +228,7 @@ userspace proxier, the iptables proxier cannot automatically retry another
 `Pod` if the one it initially selects does not respond, so it depends on
 having working [readiness probes](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks).
 
-![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
+![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg){:height="500" width="500"}
 
 ## Multi-Port Services
 
