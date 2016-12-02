@@ -239,17 +239,19 @@ but the IP addresses associated with the Pods may have changed. In the cluster
 used for this tutorial, they have. This is why it is important not to configure 
 other applications to connect to Pods in a StatefulSet by IP address.
 
+
 If you need to find and connect to the active members of a StatefulSet, you 
 should query the CNAME of the Headless Service 
-(e.g. `nginx.default.svc.cluster.local`). The SRV records associated with the 
+(`nginx.default.svc.cluster.local`). The SRV records associated with the 
 CNAME will contain only the Pods in the StatefulSet that are Running and 
 Ready.
 
-Alternatively, if you only need a predefined set of addresses, for instance if 
-your application already implements connection logic that tests for 
-liveness and readiness, you should use the SRV records of the Pods in the 
-StatefulSet (e.g `web-0.nginx.default.svc.cluster.local`, 
-`web-1.nginx.default.svc.cluster.local`).
+If your application already implements connection logic that tests for 
+liveness and readiness, you can use the SRV records of the Pods ( 
+`web-0.nginx.default.svc.cluster.local`,
+`web-1.nginx.default.svc.cluster.local`), as they are stable, and your 
+application will be able to discover the Pods' addresses when they transition 
+to Running and Ready.
 
 #### Writing to Stable Storage
 
@@ -436,7 +438,10 @@ the StatefulSet's Pods are deleted. This is still true when Pod deletion is
 caused by scaling the StatefulSet down. This feature can be used to facilitate 
 upgrading the container images of Pods in a StatefulSet.
 
-### Upgrading Container Images
+### Updating Containers
+As demonstrated in the [Scaling a StatefulSet](#scaling-a-statefulset) section,
+the `replicas` field of a StatefulSet is mutable. The only other field of a 
+StatefulSet that can be updated is the `spec.template.containers` field. 
 
 StatefulSet currently *does not* support automated image upgrade. However, you 
 can update the `image` field of any container in the podTemplate and delete 
@@ -721,9 +726,10 @@ statefulset "web" deleted
 {% endcapture %}
 
 {% capture cleanup %}
-Whether your cluster was configured to use dynamic provisioning or you used 
-manually provisioned volumes, you will need to manually delete the five 1 GiB 
-PersistentVolumes that were provisioned for this tutorial. 
+You will need to delete the persistent storage media for the PersistentVolumes
+used in this tutorial. Follow the necessary steps, based on your environment, 
+storage configuration, and provisioning method, to ensure that all storage is 
+reclaimed.
 {% endcapture %}
 
 {% include templates/tutorial.md %}
