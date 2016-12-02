@@ -59,8 +59,7 @@ and a StatefulSet.
 Create the ConfigMap from the following YAML configuration file:
 
 ```shell
-export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/{{page.docsbranch}}
-kubectl create -f $REPO/docs/tutorials/stateful-application/mysql-configmap.yaml
+kubectl create -f http://k8s.io/docs/tutorials/stateful-application/mysql-configmap.yaml
 ```
 
 {% include code.html language="yaml" file="mysql-configmap.yaml" ghlink="/docs/tutorials/stateful-application/mysql-configmap.yaml" %}
@@ -80,8 +79,7 @@ based on information provided by the StatefulSet controller.
 Create the Services from the following YAML configuration file:
 
 ```shell
-export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/{{page.docsbranch}}
-kubectl create -f $REPO/docs/tutorials/stateful-application/mysql-services.yaml
+kubectl create -f http://k8s.io/docs/tutorials/stateful-application/mysql-services.yaml
 ```
 
 {% include code.html language="yaml" file="mysql-services.yaml" ghlink="/docs/tutorials/stateful-application/mysql-services.yaml" %}
@@ -107,8 +105,7 @@ writes.
 Finally, create the StatefulSet from the following YAML configuration file:
 
 ```shell
-export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/{{page.docsbranch}}
-kubectl create -f $REPO/docs/tutorials/stateful-application/mysql-statefulset.yaml
+kubectl create -f http://k8s.io/docs/tutorials/stateful-application/mysql-statefulset.yaml
 ```
 
 {% include code.html language="yaml" file="mysql-statefulset.yaml" ghlink="/docs/tutorials/stateful-application/mysql-statefulset.yaml" %}
