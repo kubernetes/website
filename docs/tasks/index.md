@@ -1,7 +1,9 @@
 ---
 ---
 
-The Tasks section of the Kubernetes documentation is a work in progress
+This section of the Kubernetes documentation contains pages that
+show how to do individual tasks. A task page shows how to do a
+single thing, typically by giving a short sequence of steps.
 
 #### Configuring Pods and Containers
 
@@ -12,6 +14,10 @@ The Tasks section of the Kubernetes documentation is a work in progress
 #### Accessing Applications in a Cluster
 
 * [Using Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+
+#### Debugging Applications in a Cluster
+
+* [Determining the Reason for Pod Failure](/docs/tasks/debug-application-cluster/determine-reason-pod-failure/)
 
 #### Accessing the Kubernetes API
 

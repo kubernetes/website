@@ -55,5 +55,3 @@ toc:
     path: https://github.com/kubernetes/kubernetes/milestones/
   - title: Contributing to Kubernetes Documentation
     path: /editdocs/
-  - title: New Template Instructions
-    path: /docs/templatedemos/
