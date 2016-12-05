@@ -731,5 +731,7 @@ used in this tutorial. Follow the necessary steps, based on your environment,
 storage configuration, and provisioning method, to ensure that all storage is 
 reclaimed.
 {% endcapture %}
-
+{% capture whatsnext %}
+Learn about running [replicated stateful applications](/docs/tutorials/stateful-application/run-replicated-stateful-application/).
+{% endcapture %}
 {% include templates/tutorial.md %}
