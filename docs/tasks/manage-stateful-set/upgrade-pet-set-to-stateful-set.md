@@ -157,7 +157,9 @@ are created to adopt PetSets' Pods.
 {% endcapture %}
 
 {% capture whatsnext %}
-Learn more about debugging a StatefulSet. *TODO: Link to the task for debugging a StatefulSet.*
+
+Learn more about [scaling a StatefulSet](/docs/tasks/manage-stateful-set/scale-stateful-set/).
+
 {% endcapture %}
 
 {% include templates/task.md %}

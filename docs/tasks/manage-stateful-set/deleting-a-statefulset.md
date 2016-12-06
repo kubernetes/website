@@ -78,7 +78,9 @@ If you find that some pods in your StatefulSet are stuck in the 'Terminating' or
 {% endcapture %}
 
 {% capture whatsnext %}
-Learn more about debugging a StatefulSet. *TODO: Link to the task for debugging a StatefulSet*
+
+Learn more about [force deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/).
+
 {% endcapture %}
 
 {% include templates/task.md %}
