@@ -264,7 +264,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-probe-deployment":     {&extensions.Deployment{}},
 			"nginx-secure-app":           {&api.Service{}, &extensions.Deployment{}},
 			"nginx-svc":                  {&api.Service{}},
-			"petset":                     {&api.Service{}, &apps.StatefulSet{}},
+			"petset":                     {&api.Service{}, nil},
 			"pod":                        {&api.Pod{}},
 			"pod-w-message":              {&api.Pod{}},
 			"redis-deployment":           {&extensions.Deployment{}},
