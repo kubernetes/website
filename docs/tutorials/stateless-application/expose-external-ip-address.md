@@ -64,7 +64,7 @@ external IP address.
         NAME         CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   10.3.245.137   104.198.205.71   8080/TCP   54s
 
-    Note: If the external IP address is shown as <pending>, wait for a minute
+    Note: If the external IP address is shown as \<pending\>, wait for a minute
     and enter the same command again.
 
 1. Display detailed information about the Service:
@@ -110,7 +110,7 @@ external IP address.
 
         curl http://<external-ip>:<port>
 
-    where `<external-ip>` us the external IP address of your Service,
+    where `<external-ip>` is the external IP address of your Service,
     and `<port>` is the value of `Port` in your Service description.
 
     The response to a successful request is a hello message:
