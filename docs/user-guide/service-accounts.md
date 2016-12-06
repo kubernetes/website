@@ -31,8 +31,8 @@ you get the raw json or yaml for a pod you have created (e.g. `kubectl get
 pods/podname -o yaml`), you can see the `spec.serviceAccount` field has been
 [automatically set](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
 
-You can access the API using a proxy or with a client library, as described in
-[Accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
+With service accounts, you can access the API inside the pod using a proxy or with a client library,
+as described in [Accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
 
 ## Using Multiple Service Accounts.
 
