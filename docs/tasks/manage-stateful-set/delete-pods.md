@@ -69,7 +69,9 @@ Always perform force deletion of StatefulSet Pods carefully and with complete kn
 {% endcapture %}
 
 {% capture whatsnext %}
-Learn more about debugging a StatefulSet. *TODO: Link to the task for debugging a StatefulSet*
+
+Learn more about [debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/). 
+
 {% endcapture %}
 
 {% include templates/task.md %}
