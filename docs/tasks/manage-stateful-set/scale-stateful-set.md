@@ -93,7 +93,9 @@ completely healthy.
 {% endcapture %}
 
 {% capture whatsnext %}
-*TODO: link to other docs about StatefulSet?*
+
+Learn more about [deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/).
+
 {% endcapture %}
 
 {% include templates/task.md %}
