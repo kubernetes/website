@@ -34,7 +34,7 @@ In order to list all the pods which belong to a StatefulSet, which have a label 
 kubectl get pods -l app=myapp
 ```
 
-If you find that any Pods listed are in `Unknown` or `Terminating` state for an extended period of time, refer to the [Deleting StatefulSet Pods](/docs/tasks/stateful-sets/deleting-pods/) task for instructions on how to deal with them. You can debug individual Pods in a StatefulSet using the [Debugging Pods](/docs/user-guide/debugging-pods-and-replication-controllers/#debugging-pods) guide. 
+If you find that any Pods listed are in `Unknown` or `Terminating` state for an extended period of time, refer to the [Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/) task for instructions on how to deal with them. You can debug individual Pods in a StatefulSet using the [Debugging Pods](/docs/user-guide/debugging-pods-and-replication-controllers/#debugging-pods) guide. 
 
 StatefulSets provide a debug mechanism to pause all controller operations on Pods using an annotation. Setting the `pod.alpha.kubernetes.io/initialized` annotation to `"false"` on any StatefulSet Pod will *pause* all operations of the StatefulSet. When paused, the StatefulSet will not perform any scaling operations. Once the debug hook is set, you can execute commands within the containers of StatefulSet pods without interference from scaling operations. You can set the annotation to `"false"` by executing the following:
 
@@ -77,7 +77,9 @@ kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="true" --ov
 {% endcapture %}
 
 {% capture whatsnext %}
-Learn more about debugging an init-container. *TODO: Link to Task: Debugging an init-container*
+
+Learn more about [debugging an init-container](/docs/tasks/troubleshoot/debug-init-containers/).
+
 {% endcapture %}
 
 {% include templates/task.md %}
