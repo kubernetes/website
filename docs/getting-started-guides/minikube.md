@@ -131,7 +131,7 @@ kubectl get nodes
 
 Minikube contains a built-in Docker daemon for running containers.
 If you use another Docker daemon for building your containers, you will have to publish them to a registry before minikube can pull them. 
-You can use minikube's built in Docker daemon to avoid this extra step of pushing your images.
+You can use minikube's built in Docker daemon to avoid this extra step of pushing your images. 
 Use the built-in Docker daemon with:
 
 ```shell
@@ -147,3 +147,4 @@ CONTAINER ID        IMAGE                                                       
 e9096501addf        gcr.io/google-containers/kube-addon-manager-amd64:v2         "/opt/kube-addons.sh"    3 minutes ago       Up 3 minutes                            k8s_kube-addon-manager.a1c58ca2_kube-addon-manager-127.0.0.1_kube-system_48abed82af93bb0b941173334110923f_82655b7d
 64748893cf7c        gcr.io/google_containers/pause-amd64:3.0                     "/pause"                 4 minutes ago       Up 4 minutes                            k8s_POD.d8dbe16c_kube-addon-manager-127.0.0.1_kube-system_48abed82af93bb0b941173334110923f_c67701c3
 ```
+If you are not using any registry, you have to add a version to your docker image something other than 'latest' and use that version while you pull the image. Otherwise, if you do not specify version of your image, it will be assumed as `:latest`, with pull image policy of `Always` correspondingly, which may eventually result in `ErrImagePull` as you may not have any versions of your Docker image out there in the DockerHub yet.
