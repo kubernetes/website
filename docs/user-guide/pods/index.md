@@ -152,8 +152,6 @@ Pod is exposed as a primitive in order to facilitate:
 
 There is new first-class support for stateful pods with the [StatefulSet](/docs/concepts/controllers/statefulsets/) controller (currently in beta). The feature was alpha in 1.4 and was called [PetSet](/docs/user-guide/petset/). For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service, see [this MySQL deployment example](/docs/tutorials/stateful-application/run-stateful-application/). 
 
-*TODO: link to Tutorial: Running a VM-style workload using StatefulSet*
-
 ## Termination of Pods
 
 Because pods represent running processes on nodes in the cluster, it is important to allow those processes to gracefully terminate when they are no longer needed (vs being violently killed with a KILL signal and having no chance to clean up). Users should be able to request deletion and know when processes terminate, but also be able to ensure that deletes eventually complete. When a user requests deletion of a pod the system records the intended grace period before the pod is allowed to be forcefully killed, and a TERM signal is sent to the main process in each container. Once the grace period has expired the KILL signal is sent to those processes and the pod is then deleted from the API server. If the Kubelet or the container manager is restarted while waiting for processes to terminate, the termination will be retried with the full grace period.
@@ -176,9 +174,7 @@ By default, all deletes are graceful within 30 seconds. The `kubectl delete` com
 
 Force deletion of a pod is defined as deletion of a pod from the cluster state and etcd immediately. When a force deletion is performed, the apiserver does not wait for confirmation from the kubelet that the pod has been terminated on the node it was running on. It removes the pod in the API immediately so a new pod can be created with the same name. On the node, pods that are set to terminate immediately will still be given a small grace period before being force killed.
 
-Force deletions can be potentially dangerous for some pods and should be performed with caution. In case of StatefulSet pods, please refer to [this](/docs/tasks/stateful-sets/deleting-pods/).
-
-*TODO: link to Task: Force Deleting a Pod*
+Force deletions can be potentially dangerous for some pods and should be performed with caution. In case of StatefulSet pods, please refer to the task documentation for [deleting Pods from a StatefulSet](/docs/tasks/stateful-sets/deleting-pods/).
 
 ## Privileged mode for pod containers
 
