@@ -179,6 +179,8 @@ toc:
       path: /docs/getting-started-guides/clc/
     - title: Running Kubernetes on IBM SoftLayer
       path: https://github.com/patrocinio/kubernetes-softlayer
+    - title: Running Kubernetes on Multiple Clouds with Stackpoint.io
+      path: /docs/getting-started-guides/stackpoint/
   - title: Running Kubernetes on Custom Solutions
     section:
     - title: Creating a Custom Cluster from Scratch
