@@ -322,6 +322,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"mysql-services":    {&api.Service{}, &api.Service{}},
 			"mysql-configmap":   {&api.ConfigMap{}},
 			"mysql-statefulset": {&apps.StatefulSet{}},
+			"web":               {&api.Service{}, &apps.StatefulSet{}},
 		},
 	}
 
