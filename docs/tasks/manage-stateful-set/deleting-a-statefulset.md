@@ -62,11 +62,12 @@ Deleting the Pods in a StatefulSet will not delete the associated volumes. This 
 
 To simply delete everything in a StatefulSet, including the associated pods, you can run a series of commands similar to the following:
 
-```shell
+```shell{% raw %}
 grace=$(kubectl get pods <stateful-set-pod> --template '{{.spec.terminationGracePeriodSeconds}}')
 kubectl delete statefulset -l app=myapp
 sleep $grace
 kubectl delete pvc -l app=myapp
+{% endraw %}
 ```
 
 In the example above, the Pods have the label `app=myapp`; substitute your own label as appropriate.
