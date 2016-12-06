@@ -9,8 +9,6 @@ assignees:
 - smarterclayton
 ---
 
-* PetSet is renamed to
-  [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets) in Kubernetes release 1.5 or later.
-* This document is deprecated.
-  Read how to [run replicated stateful application](/docs/tutorials/stateful-application/run-replicated-stateful-application) instead.
+* Starting in Kubernetes version 1.5, PetSet has been renamed to [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets).
+* This document has been deprecated. For information on working with StatefulSet, see the tutorial on [how to run replicated stateful applications](/docs/tutorials/stateful-application/run-replicated-stateful-application).
 
