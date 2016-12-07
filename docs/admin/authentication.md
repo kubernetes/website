@@ -420,7 +420,7 @@ enterprise directory, kerberos, etc.)
 ### Creating Certificates
 
 When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa` or `openssl.``
+using an existing deployment script or manually through `easyrsa` or `openssl.`
 
 #### Using an Existing Deployment Script
 
