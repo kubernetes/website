@@ -461,40 +461,38 @@ it can be [complete](#complete-deployment), or it can [fail to progress](#failed
 
 ### Progressing Deployment
 
-A Deployment is progressing when one of the following tasks is performed:
+Kubernetes marks a Deployment as _progressing_ when one of the following tasks is performed:
 
-* the creation of the new ReplicaSet.
-* scaling up the new ReplicaSet.
-* scaling down old ReplicaSets.
+* The Deployment is in the process of creating a new ReplicaSet.
+* The Deployment is scaling up an existing ReplicaSet.
+* The Deployment is scaling down an existing ReplicaSet.
 
 You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
 ### Complete Deployment
 
-A Deployment is complete when it has the following characteristics: 
+Kubernetes marks a Deployment as _complete_ when it has the following characteristics: 
 
 * The Deployment has minimum availability. Minimum availability means that the Deployment's number of available replicas
 equals or exceeds the number required by the Deployment strategy.
 * All of the replicas associated with the Deployment have been updated to the latest version you've specified, meaning any
 updates you've requested have been completed.
 
-TODO: Link to doc that references generation/observedGeneration
-
 ### Failed Deployment
 
-Your Deployment may get stuck trying to deploy its newest ReplicaSet without ever completing, due to:
+Your Deployment may get stuck trying to deploy its newest ReplicaSet without ever completing. This can occur due to some of the following factors:
 
-* insufficient quota
-* readiness probe failures
-* image pull error
-* insufficient permissions
-* limit ranges
-* application runtime misconfiguration
+* Insufficient quota
+* Readiness probe failures
+* Image pull errors
+* Insufficient permissions
+* Limit ranges
+* Application runtime misconfiguration
 
 In those cases, you can specify a timeout parameter in the spec ([spec.progressDeadlineSeconds](#progress-deadline-seconds))
 that denotes the number of seconds to wait for your Deployment to report any progress.
 
-To make the controller report lack of progress for a Deployment after 10 minutes:
+The following `kubectl` command sets the spec with `progressDeadlineSeconds` to make the controller report lack of progress for a Deployment after 10 minutes:
 
 ```shell
 $ kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
@@ -529,8 +527,7 @@ Conditions:
 <...>
 ```
 
-This is how the status of the Deployment looks like if you would run `kubectl get deployment nginx-deployment -o yaml`
-(spec of the object is omitted for brevity):
+If you run `kubectl get deployment nginx-deployment -o yaml`, the Deployement status might look like this:
 
 ```
 status:
@@ -560,8 +557,7 @@ status:
   unavailableReplicas: 2
 ```
 
-Eventually, once the Deployment progress deadline is exceeded, the status and reason of the Progressing condition
-will be switched:
+Eventually, once the Deployment progress deadline is exceeded, Kubernetes updates the status and the reason for the Progressing condition:
 
 ```
 Conditions:
