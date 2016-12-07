@@ -11,18 +11,16 @@ toc:
     path: /docs/tasks/configure-pod-container/define-command-argument-container/
   - title: Assigning CPU and RAM Resources to a Container
     path: /docs/tasks/configure-pod-container/assign-cpu-ram-container/
+  - title: Configuring a Pod to Use a Volume for Persistent Storage
+    path: /docs/tasks/configure-pod-container/configure-volume-persistent-storage/
 - title: Accessing Applications in a Cluster
   section:
   - title: Using Port Forwarding to Access Applications in a Cluster
     path: /docs/tasks/access-application-cluster/port-forward-access-application-cluster/
-
-
 - title: Debugging Applications in a Cluster
   section:
   - title: Determining the Reason for Pod Failure
     path: /docs/tasks/debug-application-cluster/determine-reason-pod-failure/
-
-
 - title: Accessing the Kubernetes API
   section:
   - title: Using an HTTP Proxy to Access the Kubernetes API
@@ -31,4 +29,5 @@ toc:
   section:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
-
+  - title: Configuring Access Control and Identity Management
+    path: /docs/tasks/administer-cluster/access-control-identity-management/
