@@ -10,7 +10,7 @@ assignees:
 
 ---
 
-Starting in Kubernetes version 1.5, PetSet has been renamed to
+__Warning:__ Starting in Kubernetes version 1.5, PetSet has been renamed to
 [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/).
 To use (or continue to use) PetSet in Kubernetes 1.5 or higher, you must
 [migrate your existing PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/).
