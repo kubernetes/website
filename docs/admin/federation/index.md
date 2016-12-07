@@ -14,11 +14,11 @@ This guide explains how to set up cluster federation that lets us control multip
 ## Prerequisites
 
 This guide assumes that you have a running Kubernetes cluster.
-If not, then head over to the [getting started guides](/docs/getting-started-guides/) to bring up a cluster.
+If you need to start a new cluster, see the [getting started guides](/docs/getting-started-guides/) for instructions on bringing a cluster up.
 
-This guide also assumes that you have a Kubernetes release
-[downloaded from here](/docs/getting-started-guides/binary_release/),
-extracted into a directory and all the commands in this guide are run from
+To use the commands in this guide, you must download a Kubernetes release from the 
+[getting started binary releases](/docs/getting-started-guides/binary_release/) and 
+extract into a directory; all the commands in this guide are run from
 that directory.
 
 ```shell
@@ -26,8 +26,8 @@ $ curl -L https://github.com/kubernetes/kubernetes/releases/download/v1.4.0/kube
 $ cd kubernetes
 ```
 
-This guide also assumes that you have an installation of Docker running
-locally, i.e. on the machine where you run the commands described in this
+You must also have a Docker installation running
+locally--meaning on the machine where you run the commands described in this
 guide.
 
 ## Setting up a federation control plane
@@ -212,24 +212,21 @@ cluster1   Ready               3m
 
 ## Updating KubeDNS
 
-Once the cluster is registered with the federation, you are all set to use it.
-But for the cluster to be able to route federation service requests, you need to
-pass federation domain information to it. This can be done by passing the
-`--federations` flag to kube-dns via kube-dns config map in a v1.5+ cluster and
-setting the `--federations` flag directly on kube-dns-rc on other clusters.
+Once you've registered your cluster with the federation, you'll need to update KubeDNS so that your cluster can route federation service requests. The update method varies depending on your Kubernetes version; on Kubernetes 1.5 or later, you must pass the
+`--federations` flag to kube-dns via the kube-dns config map. In version 1.4 or earlier, you must set the `--federations` flag directly on kube-dns-rc on other clusters.
 
-### Passing federations flag via config map to kube-dns on v1.5+ cluster
+### Kubernetes 1.5+: Passing federations flag via config map to kube-dns
 
 For kubernetes clusters of version 1.5+, you can pass the
-`--federations` flag to kube-dns via kube-dns config map.
-Format of the flag is like this:
+`--federations` flag to kube-dns via the kube-dns config map.
+The flag uses the following format:
 
 ```
 --federations=${FEDERATION_NAME}=${DNS_DOMAIN_NAME}
 ```
 
 To pass this flag to KubeDNS, create a config-map with name `kube-dns` in
-namespace `kube-system`. The configmap should look like:
+namespace `kube-system`. The configmap should look like the following:
 
 ```yaml
 apiVersion: v1
@@ -242,55 +239,54 @@ data:
 ```
 
 where `<federation-name>` should be replaced by the name you want to give to your
-federation; and
+federation, and
 `federation-domain-name` should be replaced by the domain name you want to use
 in your federation DNS.
 
 You can find more details about config maps in general at
 http://kubernetes.io/docs/user-guide/configmap/.
 
-### Setting federations flag on kube-dns-rc on clusters before v1.5
+### Kubernetes 1.4 and earlier: Setting federations flag on kube-dns-rc
 
-For kubernetes clusters of version less than v1.5, you need to restart
-KubeDNS and pass it a `--federations` flag which tells it about valid federation DNS hostnames.
-Format of the flag is like this:
+If your cluster is running Kubernetes version 1.4 or earlier, you must to restart
+KubeDNS and pass it a `--federations` flag, which tells it about valid federation DNS hostnames.
+The flag uses the following format:
 
 ```
 --federations=${FEDERATION_NAME}=${DNS_DOMAIN_NAME}
 ```
 
-To update KubeDNS with federations flag, you can edit the existing kubedns replication controller to
-include that flag in pod template spec and then delete the existing pod. Replication controller will
-recreate the pod with updated template.
+To update KubeDNS with the `--federations` flag, you can edit the existing kubedns replication controller to
+include that flag in pod template spec, and then delete the existing pod. The replication controller then
+recreates the pod with updated template.
 
-To find the name of existing kubedns replication controller, run
+To find the name of existing kubedns replication controller, run the following command:
 
 ```shell
 $ kubectl get rc --namespace=kube-system
 ```
 
-This will list all the replication controllers. Name of the kube-dns replication
-controller will look like `kube-dns-v18`. You can then edit it by running:
+You should see a list of all the replication controllers on the cluster. The kube-dns replication
+controller should have a name similar to `kube-dns-v18`. To edit the replication controller, specify it by name as follows:
 
 ```shell
 $ kubectl edit rc <rc-name> --namespace=kube-system
 ```
-Add the `--federations` flag as args to kube-dns container in the YAML file that
-pops up after running the above command.
+In the resulting YAML file for the kube-dns replication controller, add the `--federations` flag as an argument to kube-dns container.
 
-To delete the existing kube dns pod, you can first find it by running:
+Then, you must delete the existing kube dns pod. You can find the pod by running:
 
 ```shell
 $ kubectl get pods --namespace=kube-system
 ```
 
-And then delete it by running:
+And then delete the appropriate pod by running:
 
 ```shell
 $ kubectl delete pods <pod-name> --namespace=kube-system
 ```
 
-You are now all set to start using federation.
+Once you've completed the kube-dns configuration, your federation is ready for use.
 
 ## Turn down
 
