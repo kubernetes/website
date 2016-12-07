@@ -153,6 +153,7 @@ You can now [upgrade Kubernetes nodes](/docs/admin/cluster-management/#upgrading
 to Kubernetes version 1.5 or later. This step is optional, but needs to be done after all StatefulSets
 are created to adopt PetSets' Pods.
 
+You should be running Node version >= 1.1.0 to run StatefulSets safely. Older versions do not support features which allow the StatefulSet to guarantee that at any time, there is **at most** one Pod with a given identity running in a cluster.
 
 {% endcapture %}
 

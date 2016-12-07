@@ -155,6 +155,8 @@ This must be done manually.
 * Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready. 
 * Before a Pod is terminated, all of its successors must be completely shutdown.
 
+The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. The practice of setting a `pod.Spec.TerminationGracePeriodSeconds` of 0 seconds is unsafe and strongly discouraged. For further explanation, please refer to [force deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/#deleting-pods).
+
 When the web example above is created, three Pods will be deployed in the order 
 web-0, web-1, web-2. web-1 will not be deployed before web-0 is 
 [Running and Ready](/docs/user-guide/pod-states), and web-2 will not be deployed until 
