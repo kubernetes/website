@@ -50,7 +50,7 @@ a matching secret in all underlying kubernetes clusters.
 You can verify this by checking each of the underlying clusters, for example:
 
 ``` shell
-kubectl --context=gce-asia-east1a get rs myrs
+kubectl --context=gce-asia-east1a get secret mysecret
 ```
 
 The above assumes that you have a context named 'gce-asia-east1a'
@@ -77,7 +77,7 @@ the federation apiserver instead of sending it to a specific Kubernetes cluster.
 For example, you can do that using kubectl by running:
 
 ```shell
-kubectl --context=federation-cluster delete rs myrs
+kubectl --context=federation-cluster delete secret mysecret 
 ```
 
 Note that at this point, deleting a federated secret will not delete the

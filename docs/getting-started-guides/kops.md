@@ -26,6 +26,12 @@ a building block.  kops builds on the kubeadm work.
 
 ### (1/5) Install kops
 
+#### Requirements
+
+You must have [kubectl](http://kubernetes.io/docs/getting-started-guides/kubectl/) installed in order for kops to work.
+
+#### Installation
+
 Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also easy to build from source):
 
 On MacOS:

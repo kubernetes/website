@@ -39,8 +39,7 @@ file for the Pod defines a command and two arguments:
 
 1. Create a Pod based on the YAML configuration file:
 
-        export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
-        kubectl create -f $REPO/docs/tasks/configure-pod-container/commands.yaml
+        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/commands.yaml
 
 1. List the running Pods:
 
