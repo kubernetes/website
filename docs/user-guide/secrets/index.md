@@ -158,7 +158,7 @@ type: Opaque
 Decode the password field:
 
 ```shell
-$ echo "MWYyZDFlMmU2N2Rm" | base64 -d
+$ echo "MWYyZDFlMmU2N2Rm" | base64 -d  # Or base64 -D, depending on the version of base64
 1f2d1e2e67df
 ```
 
