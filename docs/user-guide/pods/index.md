@@ -135,9 +135,9 @@ simplified management.
 
 ## Durability of pods (or lack thereof)
 
-Pods aren't intended to be treated as durable [pets](https://blog.engineyard.com/2014/pets-vs-cattle). They won't survive scheduling failures, node failures, or other evictions, such as due to lack of resources, or in the case of node maintenance.
+Pods aren't intended to be treated as durable entities. They won't survive scheduling failures, node failures, or other evictions, such as due to lack of resources, or in the case of node maintenance.
 
-In general, users shouldn't need to create pods directly. They should almost always use controllers (e.g., [replication controller](/docs/user-guide/replication-controller/)), even for singletons.  Controllers provide self-healing with a cluster scope, as well as replication and rollout management.
+In general, users shouldn't need to create pods directly. They should almost always use controllers (e.g., [Deployments](/docs/user-guide/deployments/)), even for singletons.  Controllers provide self-healing with a cluster scope, as well as replication and rollout management.
 
 The use of collective APIs as the primary user-facing primitive is relatively common among cluster scheduling systems, including [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/configuration-reference/#job-schema), and [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 
@@ -150,8 +150,7 @@ Pod is exposed as a primitive in order to facilitate:
 * clean composition of Kubelet-level functionality with cluster-level functionality &mdash; Kubelet is effectively the "pod controller"
 * high-availability applications, which will expect pods to be replaced in advance of their termination and certainly in advance of deletion, such as in the case of planned evictions, image prefetching, or live pod migration [#3949](http://issue.k8s.io/3949)
 
-There is new first-class support for stateful pods with the [StatefulSet](/docs/concepts/controllers/statefulsets/) controller (currently in beta). The feature was alpha in 1.4 and was called [PetSet](/docs/user-guide/petset/). For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service. 
-
+There is new first-class support for stateful pods with the [StatefulSet](/docs/concepts/controllers/statefulsets/) controller (currently in beta). The feature was alpha in 1.4 and was called [PetSet](/docs/user-guide/petset/). For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service, see [this MySQL deployment example](/docs/tutorials/stateful-application/run-stateful-application/). 
 
 ## Termination of Pods
 
@@ -175,7 +174,7 @@ By default, all deletes are graceful within 30 seconds. The `kubectl delete` com
 
 Force deletion of a pod is defined as deletion of a pod from the cluster state and etcd immediately. When a force deletion is performed, the apiserver does not wait for confirmation from the kubelet that the pod has been terminated on the node it was running on. It removes the pod in the API immediately so a new pod can be created with the same name. On the node, pods that are set to terminate immediately will still be given a small grace period before being force killed.
 
-Force deletions can be potentially dangerous for some pods and should be performed with caution. In case of StatefulSet pods, please refer to [this](/docs/tasks/stateful-sets/deleting-pods/).
+Force deletions can be potentially dangerous for some pods and should be performed with caution. In case of StatefulSet pods, please refer to the task documentation for [deleting Pods from a StatefulSet](/docs/tasks/stateful-sets/deleting-pods/).
 
 ## Privileged mode for pod containers
 

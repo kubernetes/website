@@ -36,8 +36,8 @@ or be treated as an anonymous user.
 ## Authentication strategies
 
 Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to
-authenticate API requests through authentication plugins. As HTTP request are
-made to the API server plugins attempts to associate the following attributes
+authenticate API requests through authentication plugins. As HTTP requests are
+made to the API server, plugins attempt to associate the following attributes
 with the request:
 
 * Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
@@ -428,7 +428,7 @@ enterprise directory, kerberos, etc.)
 ### Creating Certificates
 
 When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa` or `openssl.``
+using an existing deployment script or manually through `easyrsa` or `openssl.`
 
 #### Using an Existing Deployment Script
 
