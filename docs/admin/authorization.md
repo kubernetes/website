@@ -341,7 +341,7 @@ subjects:
     name: manager
 roleRef:
   kind: ClusterRole
-  name: secret-reader-global
+  name: secret-reader
   apiGroup: rbac.authorization.k8s.io
 ```
 
