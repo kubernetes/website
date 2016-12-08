@@ -297,9 +297,8 @@ subjects:
     name: jane
 roleRef:
   kind: Role
-  namespace: default
   name: pod-reader
-  apiVersion: rbac.authorization.k8s.io/v1alpha1
+  apiGroup: rbac.authorization.k8s.io
 ```
 
 `RoleBindings` may also refer to a `ClusterRole`. However, a `RoleBinding` that
@@ -324,7 +323,7 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: secret-reader
-  apiVersion: rbac.authorization.k8s.io/v1alpha1
+  apiGroup: rbac.authorization.k8s.io
 ```
 
 Finally a `ClusterRoleBinding` may be used to grant permissions in all
@@ -336,14 +335,14 @@ namespaces. The following `ClusterRoleBinding` allows any user in the group
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1alpha1
 metadata:
-  name: read-secrets
+  name: read-secrets-global
 subjects:
   - kind: Group # May be "User", "Group" or "ServiceAccount"
     name: manager
 roleRef:
   kind: ClusterRole
-  name: secret-reader
-  apiVersion: rbac.authorization.k8s.io/v1alpha1
+  name: secret-reader-global
+  apiGroup: rbac.authorization.k8s.io
 ```
 
 ### Referring to Resources
