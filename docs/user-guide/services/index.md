@@ -176,7 +176,7 @@ its pods, add appropriate selectors or endpoints and change the service `type`.
 ## Virtual IPs and service proxies
 
 Every node in a Kubernetes cluster runs a `kube-proxy`.  `kube-proxy` is
-responsible for implementing a form of virtual IP for `Service`s of type other
+responsible for implementing a form of virtual IP for `Services` of type other
 than `ExternalName`.
 In Kubernetes v1.0 the proxy was purely in userspace.  In Kubernetes v1.1 an
 iptables proxy was added, but was not the default operating mode.  Since
