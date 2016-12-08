@@ -56,7 +56,7 @@ After this tutorial, you will know the following.
 * How to deploy a consistent, partition tolerant distributed system using a StatefulSet.
 * How to consistently configure a distributed system using ConfigMaps.
 * How to spread the Pods of a StatefulSet to tolerate node failure.
-* How to use PodDistruptionBugets to ensure service availability during planned maintenance.
+* How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
 {% endcapture %}
 
 {% capture lessoncontent %}
@@ -280,7 +280,7 @@ myid zk-2
 3
 ```
 
-Get the FQDN (Fully Qualified Domain Name) of each Pod in the `zk` StatelessSet.
+Get the FQDN (Fully Qualified Domain Name) of each Pod in the `zk` StatefulSet.
 
 ```shell
 for i in 0 1 2; do kubectl exec zk-$i -- hostname -f; done
@@ -295,7 +295,7 @@ zk-1.zk-headless.default.svc.cluster.local
 zk-2.zk-headless.default.svc.cluster.local
 ```
 
-A records in Kubernetes DNS reslove the FQDNS to the Pods' IP addresses. 
+A records in Kubernetes DNS resolve the FQDNs to the Pods' IP addresses. 
 If the Pods are rescheduled, the A records will be updated with the Pods' new IP 
 addresses, but the A record's names will not change.
 
@@ -376,7 +376,7 @@ zk-2.zk-headless.default.svc.cluster.local
 ```
 
 This ensures that the `servers` properties in the ZooKeepers' `zoo.cfg` files 
-respresents a correctly configured ensemble.
+represents a correctly configured ensemble.
 
 ```shell
 server.1=zk-0.zk-headless.default.svc.cluster.local:2888:3888
@@ -526,7 +526,7 @@ kubectl exec zk-2 zkCli.sh get /hello
 ```
 
 Even though all of the Pods in the `zk` StatefulSet have been terminated and 
-recreated, the ensmble still serves the original value.
+recreated, the ensemble still serves the original value.
 
 ```shell
 WATCHER::
@@ -598,7 +598,7 @@ servers' WALs, and all of its snapshots, remain durable.
 
 ### Ensuring Consistent Configuration
 
-As noted in the [Facilitaing Leader Election](#facilitating-leader-election) and
+As noted in the [Facilitating Leader Election](#facilitating-leader-election) and
 [Achieving Consensus](#achieving-consensus) sections, the servers in a 
 ZooKeeper ensemble require consistent configuration in order to elect a leader 
 and form a quorum. They also require consistent configuration of the Zab protocol
@@ -626,19 +626,19 @@ The table below describes how these properties relate to the ensemble's configur
 
 |Property|Description|
 |:-------|:----------|
-|client.cnxns|The maximum number of client connenctions a ZooKeeper server will accept.|
-|ensemble|A semi-colon seperated list of the ensemble's membership|
+|client.cnxns|The maximum number of client connections a ZooKeeper server will accept.|
+|ensemble|A semi-colon separated list of the ensemble's membership|
 |tick|The number of milliseconds that correspond to one tick of ZooKeepers internal clock.|
 |sync|The number of ticks by which a follower may lag behind the ensembles leader.|
 |init|The maximum number of ticks that a leader election round may take.|
-|jvm.heap|The size of the heap for the ZooKeeper servers's JVM.|
+|jvm.heap|The size of the heap for the ZooKeeper server's JVM.|
 |purge.interval|The delay, in hours, between ZooKeeper log and snapshot cleanups.|
 |snap.retain|The number of snapshots to retain after a cleanup.|
 
 
-The `env` field of the `zk` StatefulSets's Pod `template` reads the ConfigMap 
-into enviroment variables. These variables are injected into the containers 
-enviornment.
+The `env` field of the `zk` StatefulSet's Pod `template` reads the ConfigMap 
+into environment variables. These variables are injected into the containers 
+environment.
 
 ```yaml
 env:
@@ -686,7 +686,7 @@ env:
 
 The entry point of the container invokes a bash script, `zkConfig.sh`, prior to
 launching the ZooKeeper server process. This bash script generates the 
-ZooKeeper configuraiton files from the supplied environment variables.
+ZooKeeper configuration files from the supplied environment variables.
 
 ```yaml
  command:
@@ -695,13 +695,13 @@ ZooKeeper configuraiton files from the supplied environment variables.
         - zkGenConfig.sh && zkServer.sh start-foreground
 ```
 
-Examine the enviornment of all of the Pods in the `zk` StatefulSet.
+Examine the environment of all of the Pods in the `zk` StatefulSet.
 
 ```shell
 for i in 0 1 2; do kubectl exec zk-$i env | grep ZK_*;echo""; done
 ```
 
-All of the variables poplated from `zk-config` contain identical values. This 
+All of the variables populated from `zk-config` contain identical values. This 
 allows the `zkGenConfig.sh` script to create consistent configurations for all 
 of the ZooKeeper servers in the ensemble.
 
@@ -825,11 +825,11 @@ For cluster level log shipping and aggregation, you should consider deploying a
 [sidecar](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html) 
 container to rotate and ship your logs.
 
-#### Configuring a Non-Privaledged User
+#### Configuring a Non-Privileged User
 
-The best practices with respect to allowing an application to run as privaledged 
-user inside of a container is a matter of debate. If your organziation requires 
-that applications be run as a non-privaledged user you can use a 
+The best practices with respect to allowing an application to run as privileged 
+user inside of a container is a matter of debate. If your organization requires 
+that applications be run as a non-privileged user you can use a 
 [SecurityContext](/docs/user-guide/security-context/) to control the user that 
 the entry point runs as.
 
@@ -896,7 +896,7 @@ interaction."
 
 Utilizing a watchdog (supervisory process) to restart failed processes in a 
 distributed system is a common pattern. When deploying an application in 
-Kuberentes, rather than using an external utility as a supervisory 
+Kubernetes, rather than using an external utility as a supervisory 
 process, you should use Kubernetes as the watchdog for your application.
 
 
@@ -967,12 +967,12 @@ container when the process implementing the application's business logic fails.
 
 Configuring your application to restart failed processes is not sufficient to 
 keep a distributed system healthy. There are many scenarios where 
-a systems's processes can be both Alive and unresponsive, or otherwise 
-unhealthy. You should use LivenessChecks in order to notify Kubernetes 
+a system's processes can be both alive and unresponsive, or otherwise 
+unhealthy. You should use liveness probes in order to notify Kubernetes 
 that your application's processes are unhealthy and should be restarted.
 
 
-The Pod `template` for the `zk` StatefulSet specifies a LivenessProbe.
+The Pod `template` for the `zk` StatefulSet specifies a liveness probe.
 
 
 ```yaml
@@ -1016,7 +1016,7 @@ kubectl exec zk-0 -- rm /opt/zookeeper/bin/zkOk.sh
 ```
 
 
-When the liveness check for the ZooKeeper process fails, Kubernetes will 
+When the liveness probe for the ZooKeeper process fails, Kubernetes will 
 automatically restart the process for you, ensuring that unhealthy processes in
 the ensemble are restarted.
 
@@ -1037,15 +1037,15 @@ zk-0      1/1       Running   1         1h
 #### Testing for Readiness
 
 
-Readiness is not the same as Liveness. If a process is Alive, it is scheduled 
-and healthy. If a process is Ready, it is able to process input. Liveness is 
-a necessary, but not sufficient, condition for Readiness. There are many case,
+Readiness is not the same as liveness. If a process is alive, it is scheduled 
+and healthy. If a process is ready, it is able to process input. Liveness is 
+a necessary, but not sufficient, condition for readiness. There are many case,
 particularly during initialization and termination, when a process can be 
-Alive and not Ready.
+alive but not ready.
 
 
-If you specify a ReadinessProbe, Kubernetes will ensure that your application's
- processes will not receive network traffic until thier readiness checks pass.
+If you specify a readiness probe, Kubernetes will ensure that your application's
+ processes will not receive network traffic until their readiness checks pass.
 
 
 For a ZooKeeper server, liveness implies readiness.  Therefore, the readiness 
@@ -1072,8 +1072,8 @@ ensemble receive network traffic.
 ZooKeeper needs a quorum of servers in order to successfully commit mutations 
 to data. For a three server ensemble, two servers must be healthy in order for 
 writes to succeed. In quorum based systems, members are deployed across failure 
-domains to ensure avialability.In order to avoid an outage due to the loss of an 
-indvidual machine, best practices preclude co-locating multiple instances of the 
+domains to ensure availability.In order to avoid an outage due to the loss of an 
+individual machine, best practices preclude co-locating multiple instances of the 
 application on the same machine.
 
 By default, Kubernetes may co-locate Pods in a StatefulSet on the same node. 
@@ -1084,7 +1084,7 @@ an outage until at least one of the Pods can be rescheduled.
 You should always provision additional capacity to allow the processes of critical
 systems to be rescheduled in the event of node failures. If you do so, than the 
 outage will only last until the Kubernetes scheduler reschedules one of the ZooKeeper 
-servers. However, if you want your sevice to tolerate node fialures with no downtime,
+servers. However, if you want your service to tolerate node failures with no downtime,
 you should use a `PodAntiAffinity` annotation.
 
 Get the nodes for Pods in the `zk` Stateful Set.
@@ -1125,20 +1125,20 @@ scheduler.alpha.kubernetes.io/affinity: >
 The `requiredDuringSchedulingRequiredDuringExecution` field tells the 
 Kubernetes Scheduler that it should never co-locate two Pods from the `zk-headless`
 Service in the domain defined by the `topologyKey`. The `topologyKey`
-`kubernetes.io/hostname` indicates that the domain is an invidual node. Using 
-different rules, lables, and selectors, you can extend this technique to spread 
+`kubernetes.io/hostname` indicates that the domain is an individual node. Using 
+different rules, labels, and selectors, you can extend this technique to spread 
 your ensemble across physical, network, and power failure domains.
 
-### Surviving Maintence
+### Surviving Maintenance
 
 **In this section you will cordon and drain nodes. If you are using this tutorial
-on a shared cluster, be sure that this will not adversly affect other tenants.**
+on a shared cluster, be sure that this will not adversely affect other tenants.**
 
 The previous section showed you how to spread your Pods across nodes to survive 
 unplanned node failures, but you also need to plan for temporary node failures 
-that occur due to planned maintence.
+that occur due to planned maintenance.
 
-Get the `zk-budget` PodDistruptionBudget.
+Get the `zk-budget` PodDisruptionBudget.
 
 ```shell
 kubectl get poddisruptionbudget zk-budget
@@ -1168,8 +1168,8 @@ kubernetes-minion-group-ixsl
 kubernetes-minion-group-i4c4
 ```
 
-Use [`kubectl drain`](/docs/user-guide/kubectl/kubectl_drain/) to cordone and 
-drain the node where the `zk-0` Pod is scheduled.
+Use [`kubectl drain`](/docs/user-guide/kubectl/kubectl_drain/) to cordon and 
+drain the node on which the `zk-0` Pod is scheduled.
 
 ```shell
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
@@ -1178,8 +1178,8 @@ pod "zk-0" deleted
 node "kubernetes-minion-group-pb41" drained
 ```
 
-As there are four nodes in your cluster, `kubectl drain` succeeds and the 
-Pod running on the drained node is rescheduled to another node.
+As there are four nodes in your cluster, `kubectl drain`, succeeds and the 
+`zk-0` is rescheduled to another node.
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1198,7 +1198,7 @@ zk-0      0/1       Running   0         51s
 zk-0      1/1       Running   0         1m
 ```
 
-Keep watching the StatefulSet's Pods in the first window, and drain node on which 
+Keep watching the StatefulSet's Pods in the first terminal and drain node on which 
 `zk-1` is scheduled.
 
 ```shell
@@ -1237,7 +1237,7 @@ zk-1      0/1       Pending   0         0s
 ```
 
 Continue to watch the Pods of the stateful set, and drain the node on which 
-`zk-2` is scheculed.
+`zk-2` is scheduled.
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
@@ -1250,15 +1250,15 @@ pod/zk-2
 
 Use `CRTL-C` to send a `SIGTERM` to kubectl. 
 
-You can not drain the third node because eviciting `zk-2` would violate `zk-budget`. 
+You can not drain the third node because evicting `zk-2` would violate `zk-budget`. 
 
-Use `zkCli.sh` to retrieve the value you entered during the sanity test.
+Use `zkCli.sh` to retrieve the value you entered during the sanity test from `zk-0`.
 
 ```shell
 kubectl exec zk-0 zkCli.sh get /hello
 ```
 
-The service is still available because its PodDistruptionBudget is respected.
+The service is still available because its PodDisruptionBudget is respected.
 
 ```
 WatchedEvent state:SyncConnected type:None path:null
@@ -1283,7 +1283,7 @@ kubectl uncordon kubernetes-minion-group-pb41
 node "kubernetes-minion-group-pb41" uncordoned
 ```
 
-`zk-1` is now rescheduled on this node. Wait until `zk-1` is Running and Ready.
+`zk-1` is rescheduled on this node. Wait until `zk-1` is Running and Ready.
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -1313,7 +1313,7 @@ zk-1      0/1       Running   0         13m
 zk-1      1/1       Running   0         13m
 ```
 
-Attempt to drain the node on which `zk-2` is scheduled again.
+Attempt to drain the node on which `zk-2` is scheduled.
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
@@ -1325,16 +1325,26 @@ node "kubernetes-minion-group-i4c4" drained
 ```
 This time `kubectl drain` succeeds.
 
-Uncordone the second node to allow `zk-2` to be rescheduled.
+Uncordon the second node to allow `zk-2` to be rescheduled.
 
 ```shell
 kubectl uncordon kubernetes-minion-group-ixsl
 node "kubernetes-minion-group-ixsl" uncordoned
 ```
+
+You can use `kubectl drain` in conjunction with PodDisruptionBudgets to ensure that your service
+remains available during maintenance. If drain is used to cordon nodes and evict pods prior to 
+taking the node offline for maintenance, services that express a disruption budget will have that 
+budget respected. You should always allocate additional capacity for critical services so that 
+their Pods can be immediately rescheduled.
+
 {% endcapture %}
 
 {% capture cleanup %}
-* Delete this.
-* Stop this.
+* Use `kubectl uncordon` to uncordon all the nodes in your cluster.
+* You will need to delete the persistent storage media for the PersistentVolumes
+used in this tutorial. Follow the necessary steps, based on your environment, 
+storage configuration, and provisioning method, to ensure that all storage is 
+reclaimed.
 {% endcapture %}
 {% include templates/tutorial.md %}
