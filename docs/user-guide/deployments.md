@@ -478,6 +478,17 @@ equals or exceeds the number required by the Deployment strategy.
 * All of the replicas associated with the Deployment have been updated to the latest version you've specified, meaning any
 updates you've requested have been completed.
 
+You can check if a Deployment has completed by using `kubectl rollout status`. Zero exit code will be returned
+in case it has completed successfully.
+
+```
+$ kubectl rollout status deploy/nginx
+Waiting for rollout to finish: 2 of 3 updated replicas are available...
+deployment "nginx" successfully rolled out
+$ echo $?
+0
+```
+
 ### Failed Deployment
 
 Your Deployment may get stuck trying to deploy its newest ReplicaSet without ever completing. This can occur due to some of the following factors:
@@ -586,6 +597,17 @@ by the parameters specified in the deployment strategy. `Type=Progressing` with 
 is either in the middle of a rollout and it is progressing or that it has successfully completed its progress and the minimum
 required new replicas are available (see the Reason of the condition for the particulars - in our case
 `Reason=NewReplicaSetAvailable` means that the Deployment is complete).
+
+You can check if a Deployment has failed progressing by using `kubectl rollout status`. Non-zero exit code will be returned
+in case it has exceeded its deadline.
+
+```
+$ kubectl rollout status deploy/nginx
+Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
+error: deployment "nginx" exceeded its progress deadline
+$ echo $?
+1
+```
 
 ### Operating on a failed deployment
 
