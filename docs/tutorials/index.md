@@ -23,7 +23,10 @@ each of which has a sequence of steps.
 * [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
 
 * [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/)
+
 * [Running a Replicated Stateful Application](/docs/tutorials/stateful-application/run-replicated-stateful-application/)
+
+* [Running a Consistent, Partition Tolerant Distributed System](/docs/tutorials/stateful-application/cp-distributed-systems/)
 
 ### What's next
 
