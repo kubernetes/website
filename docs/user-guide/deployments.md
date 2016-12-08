@@ -478,8 +478,7 @@ equals or exceeds the number required by the Deployment strategy.
 * All of the replicas associated with the Deployment have been updated to the latest version you've specified, meaning any
 updates you've requested have been completed.
 
-You can check if a Deployment has completed by using `kubectl rollout status`. Zero exit code will be returned
-in case it has completed successfully.
+You can check if a Deployment has completed by using `kubectl rollout status`. If the rollout completed successfully, `kubectl rollout status` returns a zero exit code.
 
 ```
 $ kubectl rollout status deploy/nginx
@@ -500,9 +499,7 @@ Your Deployment may get stuck trying to deploy its newest ReplicaSet without eve
 * Limit ranges
 * Application runtime misconfiguration
 
-For any Pod creation or deletion failure, you will be notified with a Deployment status condition of `ReplicaFailure`
-type. You can also specify a deadline parameter in the spec ([spec.progressDeadlineSeconds](#progress-deadline-seconds))
-that denotes the number of seconds to wait for your Deployment to report any progress.
+One way you can detect this condition is to specify specify a deadline parameter in your Deployment spec: ([`spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `spec.progressDeadlineSeconds` denotes the number of seconds the Deployment controller waits before indicating (via the Deployment status) that the Deployment progress has stalled.
 
 The following `kubectl` command sets the spec with `progressDeadlineSeconds` to make the controller report lack of progress for a Deployment after 10 minutes:
 
@@ -510,9 +507,8 @@ The following `kubectl` command sets the spec with `progressDeadlineSeconds` to 
 $ kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
 "nginx-deployment" patched
 ```
-
 Once the deadline has been exceeded, the Deployment controller adds a DeploymentCondition with the following attributes to
-the Deployment's status.conditions:
+the Deployment's `status.conditions`:
 
 * Type=Progressing
 * Status=False
@@ -522,6 +518,8 @@ See the [Kubernetes API conventions](https://github.com/kubernetes/kubernetes/bl
 
 Note that in version 1.5, Kubernetes will take no action on a stalled Deployment other than to report a status condition with
 `Reason=ProgressDeadlineExceeded`.
+
+**Note:** If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can safely pause a Deployment in the middle of a rollout and resume without triggering a the condition for exceeding the deadline.
 
 You may experience transient errors with your Deployments, either due to a low timeout that you have set or due to any other kind
 of error that can be treated as transient. For example, let's suppose you have insufficient quota. If you describe the Deployment
@@ -598,8 +596,7 @@ is either in the middle of a rollout and it is progressing or that it has succes
 required new replicas are available (see the Reason of the condition for the particulars - in our case
 `Reason=NewReplicaSetAvailable` means that the Deployment is complete).
 
-You can check if a Deployment has failed progressing by using `kubectl rollout status`. Non-zero exit code will be returned
-in case it has exceeded its deadline.
+You can check if a Deployment has failed to progress by using `kubectl rollout status`. `kubectl rollout status` returns a non-zero exit code if the Deployment has exceeded the progression deadline.
 
 ```
 $ kubectl rollout status deploy/nginx
@@ -612,10 +609,7 @@ $ echo $?
 ### Operating on a failed deployment
 
 All actions that apply to a complete Deployment also apply to a failed Deployment. You can scale it up/down, roll back
-to a previous revision, or even pause it if you need to apply multiple tweaks in the Deployment pod template. Note
-that progress for a Deployment is not estimated while the Deployment is paused so you can safely pause a Deployment
-in the middle of a rollout and resume it whenever you want without it failing accidentally because of an exceeded
-deadline.
+to a previous revision, or even pause it if you need to apply multiple tweaks in the Deployment pod template.
 
 ## Use Cases 
 
