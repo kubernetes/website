@@ -176,13 +176,13 @@ its pods, add appropriate selectors or endpoints and change the service `type`.
 ## Virtual IPs and service proxies
 
 Every node in a Kubernetes cluster runs a `kube-proxy`.  `kube-proxy` is
-responsible for implementing a form of virtual IP for `Service`s of type other
+responsible for implementing a form of virtual IP for `Services` of type other
 than `ExternalName`.
 In Kubernetes v1.0 the proxy was purely in userspace.  In Kubernetes v1.1 an
 iptables proxy was added, but was not the default operating mode.  Since
 Kubernetes v1.2, the iptables proxy is the default.
 
-As of Kubernetes v1.0, `Services` are a "layer 3" (TCP/UDP over IP) construct.
+As of Kubernetes v1.0, `Services` are a "layer 4" (TCP/UDP over IP) construct.
 In Kubernetes v1.1 the `Ingress` API was added (beta) to represent "layer 7"
 (HTTP) services.
 
@@ -345,7 +345,7 @@ can do a DNS SRV query for `"_http._tcp.my-service.my-ns"` to discover the port
 number for `"http"`.
 
 The Kubernetes DNS server is the only way to access services of type
-`ExternalName`.
+`ExternalName`.  More information is available in the [DNS Admin Guide](http://kubernetes.io/docs/admin/dns/).
 
 ## Headless services
 
