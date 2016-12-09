@@ -334,9 +334,7 @@ same ordinal, two ZooKeeper servers would both identify themselves as the same s
 
 When you created the `zk` StatefulSet, the StatefulSet's controller created 
 each Pod sequentially, in the order defined by the Pods' ordinal indices, and it 
-waited for each Pod to be Running and Ready before creating the next Pod. Pod 
-creation is fenced, such that if two Pods are launched with the same index, one of 
-the Pods will fail.
+waited for each Pod to be Running and Ready before creating the next Pod. 
 
 ```shell
 kubectl get pods -w -l app=zk
