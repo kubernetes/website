@@ -181,7 +181,7 @@ kubectl create -f http://k8s.io/docs/tutorials/stateful-application/zookeeper.ya
 
 This creates the `zk-headless` Headless Service, the `zk-config` ConfigMap, 
 the `zk-budget` PodDisruptionBudget, and the `zk` StatefulSet.
-ZooKeeper Operation
+
 ```shell
 service "zk-headless" created
 configmap "zk-config" created
@@ -1229,7 +1229,7 @@ There are pending pods when an error occurred: Cannot evict pod as it would viol
 pod/zk-2
 {% endraw %}```
 
-Use `CRTL-C` to send a `SIGTERM` to kubectl. 
+Use `CRTL-C` to terminate to kubectl. 
 
 You can not drain the third node because evicting `zk-2` would violate `zk-budget`. However, 
 the node will remain cordoned.
