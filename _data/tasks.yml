@@ -15,7 +15,7 @@ toc:
   - title: Configuring a Pod to Use a Volume for Storage
     path: /docs/tasks/configure-pod-container/configure-volume-storage/
   - title: Distributing Credentials Securely
-    path: /docs/tasks/administer-cluster/distribute-credentials-secure/
+    path: /docs/tasks/configure-pod-container/distribute-credentials-secure/
 
 - title: Accessing Applications in a Cluster
   section:
@@ -36,6 +36,7 @@ toc:
   section:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
+
   - title: Autoscaling the DNS Service in a Cluster
     path: /docs/tasks/administer-cluster/dns-horizontal-autoscaling/
   - title: Safely Draining a Node while Respecting Application SLOs

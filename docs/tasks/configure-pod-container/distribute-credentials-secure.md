@@ -2,7 +2,8 @@
 ---
 
 {% capture overview %}
-This page shows how to create a Secret and a Pod that has access to the Secret.
+This page shows how to securely inject sensitive data, such as passwords and
+encryption keys, into Pods.
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -37,6 +38,11 @@ username and password:
 
         kubectl create -f http://k8s.io/docs/tasks/administer-cluster/secret.yaml
 
+    **Note:** If you want to skip the Base64 encoding step, you can create a Secret
+    by using the `kubectl create secret` command:
+
+        kubectl create secret generic test-secret --from-literal=username="my-app",password="39528$vdg7Jb"
+
 1. View information about the Secret:
 
         kubectl get secret test-secret
@@ -65,7 +71,7 @@ username and password:
         password:   13 bytes
         username:   7 bytes
 
-### Creating a Pod that has access to the secret data
+### Creating a Pod that has access to the secret data through a Volume
 
 Here is a configuration file you can use to create a Pod:
 
@@ -77,7 +83,7 @@ Here is a configuration file you can use to create a Pod:
 
 1. Verify that your Pod is running:
 
-        kubectl get pods
+        kubectl get pod secret-test-pod
 
     Output:
 
@@ -89,7 +95,9 @@ Here is a configuration file you can use to create a Pod:
 
         kubectl exec -it secret-test-pod -- /bin/bash
 
-1. In your shell, go to the directory where the secret data is exposed:
+1. The secret data is exposed to the Container through a Volume mounted under
+`/etc/secret-volume`. In your shell, go to the directory where the secret data
+is exposed:
 
         root@secret-test-pod:/# cd /etc/secret-volume
 
@@ -110,12 +118,52 @@ Here is a configuration file you can use to create a Pod:
         my-app
         39528$vdg7Jb
 
+### Creating a Pod that has access to the secret data through environment variables
+
+Here is a configuration file you can use to create a Pod:
+
+{% include code.html language="yaml" file="secret-envars-pod.yaml" ghlink="/docs/tasks/administer-cluster/secret-envars-pod.yaml" %}
+
+1. Create the Pod:
+
+        kubectl create -f http://k8s.io/docs/tasks/administer-cluster/secret-envars-pod.yaml
+
+1. Verify that your Pod is running:
+
+        kubectl get pod secret-envars-test-pod
+
+    Output:
+
+        NAME                     READY     STATUS    RESTARTS   AGE
+        secret-envars-test-pod   1/1       Running   0          4m
+
+1. Get a shell into the Container that is running in your Pod:
+
+        kubectl exec -it secret-envars-test-pod -- /bin/bash
+
+1. In your shell, display the environment variables:
+
+        root@secret-envars-test-pod:/# printenv
+
+    The output includes your username and password:
+
+        ...
+        SECRET_USERNAME=my-app
+        ...
+        SECRET_PASSWORD=39528$vdg7Jb
+
 {% endcapture %}
 
 {% capture whatsnext %}
 
-* Learn more about [secrets](/docs/user-guide/secrets/).
-* See [Secret](docs/api-reference/v1/definitions/#_v1_secret).
+* Learn more about [Secrets](/docs/user-guide/secrets/).
+* Learn about [Volumes](/docs/user-guide/volumes/).
+
+#### Reference
+
+* [Secret](docs/api-reference/v1/definitions/#_v1_secret)
+* [Volume](docs/api-reference/v1/definitions/#_v1_volume)
+* [Pod](docs/api-reference/v1/definitions/#_v1_pod)
 
 {% endcapture %}
 
