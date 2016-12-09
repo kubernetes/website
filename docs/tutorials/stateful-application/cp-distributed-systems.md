@@ -1142,7 +1142,7 @@ kubectl get pods -w -l app=zk
 
 In another terminal, get the nodes that the Pods are currently scheduled on.
 
-```shell {% raw %}
+```shell{% raw %}
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
 kubernetes-minion-group-pb41
 kubernetes-minion-group-ixsl
@@ -1182,7 +1182,7 @@ zk-0      1/1       Running   0         1m
 Keep watching the StatefulSet's Pods in the first terminal and drain the node on which 
 `zk-1` is scheduled.
 
-```shell {% raw %}
+```shell{% raw %}
 kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-minion-group-ixsl" cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-ixsl, kube-proxy-kubernetes-minion-group-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
@@ -1220,7 +1220,7 @@ zk-1      0/1       Pending   0         0s
 Continue to watch the Pods of the stateful set, and drain the node on which 
 `zk-2` is scheduled.
 
-```shell {% raw %}
+```shell{% raw %}
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
 node "kubernetes-minion-group-i4c4" cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
@@ -1297,7 +1297,7 @@ zk-1      1/1       Running   0         13m
 
 Attempt to drain the node on which `zk-2` is scheduled.
 
-```shell {% raw %}
+```shell{% raw %}
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
 node "kubernetes-minion-group-i4c4" already cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
