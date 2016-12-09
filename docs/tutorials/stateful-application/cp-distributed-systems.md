@@ -72,7 +72,7 @@ two of the following properties.
 |Partition Tolerance|The system continues to serve requests in the presence of an arbitrary number of dropped network packets.|
 
 Though it is popular to label distributed systems as being CP, AP, or CA, when
-Eric Brewer present the CAP theorem as a conjecture at the
+Eric Brewer presented the CAP theorem as a conjecture at the
 [2000 Symposium on Principles of Distributed Computing](https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf),
 it was in the context of discussing ACID (Atomic, Consistent, Isolated, Durable) 
 versus BASE (Basically Available, Soft-state Eventual consistency) 
@@ -171,19 +171,17 @@ and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/).
 
 {% include code.html language="yaml" file="zookeeper.yaml" ghlink="/docs/tutorials/stateful-application/zookeeper.yaml" %}
 
-Download the manifest and save it to a file named `zookeeper.yaml`
-
 Open a command terminal, and use 
 [`kubectl create`](/docs/user-guide/kubectl/kubectl_create/) to create the 
 manifest.
 
 ```shell
-kubectl create -f zookeeper.yaml
+kubectl create -f http://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
 ```
 
 This creates the `zk-headless` Headless Service, the `zk-config` ConfigMap, 
 the `zk-budget` PodDisruptionBudget, and the `zk` StatefulSet.
-
+ZooKeeper Operation
 ```shell
 service "zk-headless" created
 configmap "zk-config" created
@@ -198,8 +196,7 @@ StatefulSet controller create the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to send a `SIGTERM` to 
-kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to  terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -221,10 +218,7 @@ zk-2      1/1       Running   0         40s
 ```
 
 The StatefulSet controller creates three Pods, and each Pod has a container with 
-an [Ubuntu 16.04 LTS](http://releases.ubuntu.com/16.04/) image, running 
-[ZooKeeper 3.4.9](http://www-us.apache.org/dist/zookeeper/zookeeper-3.4.9/), 
-using the
-[OpenJDK 8u102](http://openjdk.java.net/projects/jdk8u/releases/8u102.html) JVM.
+a [ZooKeeper 3.4.9](http://www-us.apache.org/dist/zookeeper/zookeeper-3.4.9/) server.
 
 #### Facilitating Leader Election
 
@@ -295,7 +289,7 @@ zk-1.zk-headless.default.svc.cluster.local
 zk-2.zk-headless.default.svc.cluster.local
 ```
 
-A records in Kubernetes DNS resolve the FQDNs to the Pods' IP addresses. 
+The A records in Kubernetes DNS resolve the FQDNs to the Pods' IP addresses. 
 If the Pods are rescheduled, the A records will be updated with the Pods' new IP 
 addresses, but the A record's names will not change.
 
@@ -439,6 +433,7 @@ numChildren = 0
 
 #### Providing Durable Storage
 
+As mentioned in the [ZooKeeper Operation](#zooKeeper-operation) section,
 ZooKeeper commits all entries to a durable WAL, and periodically writes snapshots 
 in memory state, to storage media. Using WALs to provide durability is a common 
 technique for applications that use consensus protocols to achieve a replicated
@@ -546,7 +541,7 @@ dataLength = 5
 numChildren = 0
 ```
 
-The `volumesClaimTemplate` field, of the `zk` StatefulSet's `spec`, specifies a 
+The `volumesClaimTemplates` field, of the `zk` StatefulSet's `spec`, specifies a 
 PersistentVolume that will be provisioned for each Pod. 
 
 ```yaml
@@ -572,7 +567,7 @@ Get the StatefulSet's PersistentVolumeClaims.
 kubectl get pvc -l app=zk
 ```
 
-When the StatefulSet recreated its Pods, the Pods' PersistentVolumes where 
+When the StatefulSet recreated its Pods, the Pods' PersistentVolumes were 
 remounted.
 
 ```shell
@@ -621,20 +616,6 @@ data:
   sync: "5"
   tick: "2000"
 ```
-
-The table below describes how these properties relate to the ensemble's configuration.
-
-|Property|Description|
-|:-------|:----------|
-|client.cnxns|The maximum number of client connections a ZooKeeper server will accept.|
-|ensemble|A semi-colon separated list of the ensemble's membership|
-|tick|The number of milliseconds that correspond to one tick of ZooKeepers internal clock.|
-|sync|The number of ticks by which a follower may lag behind the ensembles leader.|
-|init|The maximum number of ticks that a leader election round may take.|
-|jvm.heap|The size of the heap for the ZooKeeper server's JVM.|
-|purge.interval|The delay, in hours, between ZooKeeper log and snapshot cleanups.|
-|snap.retain|The number of snapshots to retain after a cleanup.|
-
 
 The `env` field of the `zk` StatefulSet's Pod `template` reads the ConfigMap 
 into environment variables. These variables are injected into the containers 
@@ -827,8 +808,8 @@ container to rotate and ship your logs.
 
 #### Configuring a Non-Privileged User
 
-The best practices with respect to allowing an application to run as privileged 
-user inside of a container is a matter of debate. If your organization requires 
+The best practices with respect to allowing an application to run as a privileged 
+user inside of a container are a matter of debate. If your organization requires 
 that applications be run as a non-privileged user you can use a 
 [SecurityContext](/docs/user-guide/security-context/) to control the user that 
 the entry point runs as.
@@ -880,9 +861,8 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ### Managing the ZooKeeper Process
 
 
-From the [Apache ZooKeeper Documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision) 
-documentation,
-
+The [Apache ZooKeeper Documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision) 
+documentation indicates that 
 
 "You will want to have a supervisory process that manages each of your 
 ZooKeeper server processes (JVM). The ZK server is designed to be "fail fast" 
@@ -911,17 +891,16 @@ the default policy.
 
 
 Examine the process tree for the ZooKeeper server running in the `zk-0` Pod.
+
 ```shell
 kubectl exec zk-0 -- ps -ef
 ```
 
-
-The command used as the container's entry point 
-`sh -c zkGenConfig.sh && zkServer.sh start-foreground` has PID 1, and the 
+The command used as the container's entry point has PID 1, and the 
 the ZooKeeper process, a child of the entry point, has PID 23.
 
 
-```shell
+```
 UID        PID  PPID  C STIME TTY          TIME CMD
 zookeep+     1     0  0 15:03 ?        00:00:00 sh -c zkGenConfig.sh && zkServer.sh start-foreground
 zookeep+    27     1  0 15:03 ?        00:00:03 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dzookeeper.log.dir=/var/log/zookeeper -Dzookeeper.root.logger=INFO,CONSOLE -cp /usr/bin/../build/classes:/usr/bin/../build/lib/*.jar:/usr/bin/../share/zookeeper/zookeeper-3.4.9.jar:/usr/bin/../share/zookeeper/slf4j-log4j12-1.6.1.jar:/usr/bin/../share/zookeeper/slf4j-api-1.6.1.jar:/usr/bin/../share/zookeeper/netty-3.10.5.Final.jar:/usr/bin/../share/zookeeper/log4j-1.2.16.jar:/usr/bin/../share/zookeeper/jline-0.9.94.jar:/usr/bin/../src/java/lib/*.jar:/usr/bin/../etc/zookeeper: -Xmx2G -Xms2G -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=false org.apache.zookeeper.server.quorum.QuorumPeerMain /usr/bin/../etc/zookeeper/zoo.cfg
@@ -929,13 +908,15 @@ zookeep+    27     1  0 15:03 ?        00:00:03 /usr/lib/jvm/java-8-openjdk-amd6
 
 
 In one terminal watch the Pods in the `zk` StatefulSet.
+
 ```shell
 kubectl get pod -w -l app=zk
 ```
 
 
 In another terminal, kill the ZooKeeper process in Pod `zk-0`.
-```
+
+```shell
  kubectl exec zk-0 -- pkill java
 ```
 
@@ -1039,7 +1020,7 @@ zk-0      1/1       Running   1         1h
 
 Readiness is not the same as liveness. If a process is alive, it is scheduled 
 and healthy. If a process is ready, it is able to process input. Liveness is 
-a necessary, but not sufficient, condition for readiness. There are many case,
+a necessary, but not sufficient, condition for readiness. There are many cases,
 particularly during initialization and termination, when a process can be 
 alive but not ready.
 
@@ -1082,7 +1063,7 @@ node, and that node fails, the clients of your ZooKeeper service will experience
 an outage until at least one of the Pods can be rescheduled. 
 
 You should always provision additional capacity to allow the processes of critical
-systems to be rescheduled in the event of node failures. If you do so, than the 
+systems to be rescheduled in the event of node failures. If you do so, then the 
 outage will only last until the Kubernetes scheduler reschedules one of the ZooKeeper 
 servers. However, if you want your service to tolerate node failures with no downtime,
 you should use a `PodAntiAffinity` annotation.
@@ -1161,22 +1142,22 @@ kubectl get pods -w -l app=zk
 
 In another terminal, get the nodes that the Pods are currently scheduled on.
 
-```shell
+```shell {% raw %}
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
 kubernetes-minion-group-pb41
 kubernetes-minion-group-ixsl
 kubernetes-minion-group-i4c4
-```
+{% endraw %}```
 
 Use [`kubectl drain`](/docs/user-guide/kubectl/kubectl_drain/) to cordon and 
 drain the node on which the `zk-0` Pod is scheduled.
 
-```shell
+```shell {% raw %}
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-pb41, kube-proxy-kubernetes-minion-group-pb41; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-o5elz
 pod "zk-0" deleted
 node "kubernetes-minion-group-pb41" drained
-```
+{% endraw %}```
 
 As there are four nodes in your cluster, `kubectl drain`, succeeds and the 
 `zk-0` is rescheduled to another node.
@@ -1198,15 +1179,15 @@ zk-0      0/1       Running   0         51s
 zk-0      1/1       Running   0         1m
 ```
 
-Keep watching the StatefulSet's Pods in the first terminal and drain node on which 
+Keep watching the StatefulSet's Pods in the first terminal and drain the node on which 
 `zk-1` is scheduled.
 
-```shell
+```shell {% raw %}
 kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-minion-group-ixsl" cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-ixsl, kube-proxy-kubernetes-minion-group-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
 node "kubernetes-minion-group-ixsl" drained
-```
+{% endraw %}```
 
 The `zk-1` Pod can not be scheduled. As the `zk` StatefulSet contains a 
 `PodAntiAffinity` annotation preventing co-location of the Pods, and  as only 
@@ -1239,18 +1220,19 @@ zk-1      0/1       Pending   0         0s
 Continue to watch the Pods of the stateful set, and drain the node on which 
 `zk-2` is scheduled.
 
-```shell
+```shell {% raw %}
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
 node "kubernetes-minion-group-i4c4" cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
 WARNING: Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog; Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4
 There are pending pods when an error occurred: Cannot evict pod as it would violate the pod's disruption budget.
 pod/zk-2
-```
+{% endraw %}```
 
 Use `CRTL-C` to send a `SIGTERM` to kubectl. 
 
-You can not drain the third node because evicting `zk-2` would violate `zk-budget`. 
+You can not drain the third node because evicting `zk-2` would violate `zk-budget`. However, 
+the node will remain cordoned.
 
 Use `zkCli.sh` to retrieve the value you entered during the sanity test from `zk-0`.
 
@@ -1315,14 +1297,15 @@ zk-1      1/1       Running   0         13m
 
 Attempt to drain the node on which `zk-2` is scheduled.
 
-```shell
+```shell {% raw %}
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
 node "kubernetes-minion-group-i4c4" already cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
 pod "heapster-v1.2.0-2604621511-wht1r" deleted
 pod "zk-2" deleted
 node "kubernetes-minion-group-i4c4" drained
-```
+{% endraw %}```
+
 This time `kubectl drain` succeeds.
 
 Uncordon the second node to allow `zk-2` to be rescheduled.
