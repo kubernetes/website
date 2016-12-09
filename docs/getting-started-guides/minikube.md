@@ -129,10 +129,11 @@ List the nodes in your cluster by running:
 kubectl get nodes
 ```
 
-Minikube contains a built-in Docker daemon for running containers.
-If you use another Docker daemon for building your containers, you will have to publish them to a registry before minikube can pull them. 
-You can use minikube's built in Docker daemon to avoid this extra step of pushing your images.
-Use the built-in Docker daemon with:
+Minikube contains a built-in Docker daemon for running containers, which lets you use the containers directly instead of publishing them to a registry. If you use a separate Docker daemon to build your containers, you will have to publish your containers to a registry before Minikube can pull them.
+
+If you are using built-in Docker daemon for running containers instead of pulling from a registry, make sure to tag your Docker image with something other than 'latest' and use that version while you pull the image. Otherwise, if you do not specify version of your image, it will be assumed as `:latest`, with pull image policy of `Always` correspondingly, which may eventually result in `ErrImagePull` as you may not have any versions of your Docker image out there in the default docker registry (usually DockerHub) yet.
+
+You can use the built-in Docker daemon by running the following command:
 
 ```shell
 eval $(minikube docker-env)
