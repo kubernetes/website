@@ -3,11 +3,11 @@
 
 {% capture overview %}
 
-This page shows how to configure a Pod to use a Volume for persistent storage.
+This page shows how to configure a Pod to use a Volume for storage.
 
 A Container's file system lives only as long as the Container does, so when a
 Container terminates and restarts, changes to the filesystem are lost. For more
-consistent storage, outside the Container file system, you can use a
+consistent storage that lasts for the life of a Pod, you can use a
 [Volume](/docs/user-guide/volumes). This is especially important for stateful
 applications, such as key-value stores and databases. For example, Redis is a
 key-value cache and store.
