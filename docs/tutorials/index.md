@@ -31,6 +31,10 @@ each of which has a sequence of steps.
 
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
+#### Connecting Applications
+
+* [Connecting a Front End to a Back End Using a Service](/docs/tutorials/connecting-apps/connecting-apps/)
+
 #### Services
 
 * [Using SourceIP](/docs/tutorials/services/source-ip/)

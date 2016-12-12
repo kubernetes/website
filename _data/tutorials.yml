@@ -41,6 +41,9 @@ toc:
   - docs/tutorials/stateful-application/run-stateful-application.md
   - docs/tutorials/stateful-application/run-replicated-stateful-application.md
   - docs/tutorials/stateful-application/zookeeper.md
+- title: Connecting Applications
+  section:
+  - docs/tutorials/connecting-apps/connecting-apps.md
 - title: Services
   section:
   - docs/tutorials/services/source-ip.md
