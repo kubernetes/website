@@ -231,13 +231,12 @@ available clusters.
 
 ## Known issue
 
-GCE L7 load balancer backends and healthchecks are known to flap due
-to the firewall rules from the underlying clusters in federation
-clobbering each other. In order to workaround this problem, you can
+GCE L7 load balancer back-ends and health checks are known to "flap"; this is due
+to conflicting firewall rules in the federation's underlying clusters, which might override one another. To work around this problem, you can
 install the firewall rules manually to expose the targets of all the
 underlying clusters in your federation for each Federated Ingress
-object so that the health checks can pass and GCE L7 load balancer
-can remain stable. These rules can be installed using the
+object. This way, the health checks can consistently pass and the GCE L7 load balancer
+can remain stable. You install the rules using the
 [`gcloud`](https://cloud.google.com/sdk/gcloud/) command line tool,
 [Google Cloud Console](https://console.cloud.google.com) or the
 [Google Compute Engine APIs](https://cloud.google.com/compute/docs/reference/latest/).
