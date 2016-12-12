@@ -11,11 +11,11 @@ You've seen [how to configure and deploy pods and containers](/docs/user-guide/c
 * TOC
 {:toc}
 
-## Persistent storage
+## Using a Volume for storage
 
-The container file system only lives as long as the container does, so when a container crashes and restarts, changes to the filesystem will be lost and the container will restart from a clean slate. To access more-persistent storage, outside the container file system, you need a [*volume*](/docs/user-guide/volumes). This is especially important to stateful applications, such as key-value stores and databases.
+The container file system only lives as long as the container does, so when a container crashes and restarts, changes to the filesystem will be lost and the container will restart from a clean slate. For more consistent storage that lasts for the life of a Pod, you need a [*volume*](/docs/user-guide/volumes). This is especially important to stateful applications, such as key-value stores and databases.
 
-For example, [Redis](http://redis.io/) is a key-value cache and store, which we use in the [guestbook](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) and other examples. We can add a volume to it to store persistent data as follows:
+For example, [Redis](http://redis.io/) is a key-value cache and store, which we use in the [guestbook](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) and other examples. We can add a volume to it to store data as follows:
 
 {% include code.html language="yaml" file="redis-deployment.yaml" ghlink="/docs/user-guide/redis-deployment.yaml" %}
 
