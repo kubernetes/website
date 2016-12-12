@@ -12,7 +12,7 @@ assignees:
 {% capture overview %}
 **StatefulSets are a beta feature in 1.5. This feature replaces the 
 PetSets feature from 1.4. Users of PetSets are referred to the 1.5 
-[Upgrade Guide](/docs/tasks/stateful-set/upgrade-from-petsets-to-stateful-sets/)
+[Upgrade Guide](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
 for further information on how to upgrade existing PetSets to StatefulSets.**
 
 A StatefulSet is a Controller that provides a unique identity to its Pods. It provides
