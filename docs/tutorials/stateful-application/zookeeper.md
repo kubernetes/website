@@ -10,14 +10,10 @@ assignees:
 ---
 
 {% capture overview %}
-This tutorial demonstrates how to run a 
-[consistent, partition tolerant](https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf)
-distributed system on Kubernetes using 
-[StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/), 
+This tutorial demonstrates [Apache Zookeeper](https://zookeeper.apache.org) on 
+Kubernetes using [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/), 
 [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget), 
 and [PodAntiAffinity](/docs/user-guide/node-selection/).
-[Apache Zookeeper](https://zookeeper.apache.org) is used as an example 
-application throughout the tutorial.
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -36,7 +32,7 @@ Kubernetes concepts.
 * [PodAntiAffinity](/docs/user-guide/node-selection/)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
-You will require a cluster with exactly four nodes, and each node will require
+You will require a cluster with at least four nodes, and each node will require
 at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and 
 drain the cluster's nodes. **This means that all Pods on the cluster's nodes 
 will be terminated and evicted, and the nodes will, temporarily, become 
@@ -52,98 +48,26 @@ tutorial.
 
 {% capture objectives %}
 After this tutorial, you will know the following.
-
-* How to deploy a consistent, partition tolerant distributed system using a StatefulSet.
-* How to consistently configure a distributed system using ConfigMaps.
-* How to spread the Pods of a StatefulSet to tolerate node failure.
+* How to deploy a ZooKeeper ensemble using StatefulSet.
+* How to consistently configure the ensemble using ConfigMaps.
+* How to spread deploy each server in the ensemble to
 * How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
 {% endcapture %}
 
 {% capture lessoncontent %}
-### Consistent, Partition Tolerant Distributed Systems
-
-The CAP theorem states that a distributed computer system can have, at most, 
-two of the following properties.
-
-|Property|Description|
-|:-------|:---------|
-|Consistency|The system responds to every read request with the value of the most recently committed write or an error.|
-|Availability|Every request receives a response, but the response may not be the result of the most recent write.|
-|Partition Tolerance|The system continues to serve requests in the presence of an arbitrary number of dropped network packets.|
-
-Though it is popular to label distributed systems as being CP, AP, or CA, when
-Eric Brewer presented the CAP theorem as a conjecture at the
-[2000 Symposium on Principles of Distributed Computing](https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf),
-it was in the context of discussing ACID (Atomic, Consistent, Isolated, Durable) 
-versus BASE (Basically Available, Soft-state Eventual consistency) 
-distributed systems.
-
-In his presentation, he asserts his intuition that ACID and BASE are not 
-binary labels that can be applied to a system, and that systems lie on a spectrum
-between ACID and BASE. Today, many distributed storage applications offer tunable 
-consistency (e.g. [Apache Cassandra](http://docs.datastax.com/en/cassandra/3.x/cassandra/dml/dmlAboutDataConsistency.html) 
-and [Riak](http://docs.basho.com/riak/kv/2.2.0/developing/app-guide/replication-properties/)).
-
-The "CP" systems that are considered in this tutorial are systems that utilize 
-consensus protocols like [Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf), 
-[Raft](https://www.usenix.org/system/files/conference/atc14/atc14-paper-ongaro.pdf), 
-or [Multi-Paxos](http://research.microsoft.com/en-us/um/people/lamport/pubs/paxos-simple.pdf) 
-to achieve a replicated state machine. 
-
-Applications in this category are often used for coordination by other 
-distributed systems. For instance, [Apache ZooKeeper](https://zookeeper.apache.org/doc/current/),
-which uses Zab, is used to manage coordination and configuration for the 
-[Apache Hadoop](http://hadoop.apache.org/) ecosystem and the
-[Apache Kafka](https://kafka.apache.org/) project. 
-[etcd](https://coreos.com/etcd/docs/latest/), which uses Raft, is used for 
-strongly consistent, distributed storage in Kubernetes. As replicated state machines 
-provide a foundation upon which more complex distributed systems can be built, it is important 
-to understand how to run them on Kubernetes. You won't be able to run Kafka, unless you can 
-first deploy a healthy ZooKeeper ensemble.
-
-In this tutorial, you will deploy a ZooKeeper ensemble (a set of ZooKeeper servers),
-but you will learn techniques that are applicable to other replicated state machines 
-and for distributed systems in general.
 
 #### ZooKeeper Basics
 
-You do not need an in depth knowledge of 
-[Apache ZooKeeper](https://zookeeper.apache.org/doc/current/) to complete this 
-tutorial. However, a general understanding of ZooKeeper is required. After 
-reading this section, you should have a sufficient understanding of ZooKeeper to 
-complete the rest of the tutorial.
+[Apache ZooKeeper](https://zookeeper.apache.org/doc/current/) is a 
+distributed, open-source coordination service for distributed applications.
+ZooKeeper allows you to read, write, and observe updates to data. Data are 
+organized in a file system like hierarchy and replicated to all ZooKeeper 
+servers in the ensemble (A set of ZooKeeper servers). All operations on data 
+are atomic and sequentially consistent. ZooKeeper ensures this by using the 
+[Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf) 
+consesus protocol to replicate a state machine across all servers in the ensemble.
 
-##### What is ZooKeeper?
-
-From the 
-[Apache ZooKeeper Overview](https://zookeeper.apache.org/doc/current/zookeeperOver.html#ch_DesignOverview)
-,
-
- "ZooKeeper is a distributed, open-source coordination service for distributed 
-applications. It exposes a simple set of primitives that distributed 
-applications can build upon to implement higher level services for 
-synchronization, configuration maintenance, and groups and naming."
-
-In practice, ZooKeeper allows you to read, write, and observe updates 
-to data. Data are organized in a file system like hierarchy and
-replicated to all ZooKeeper servers in the ensemble. All operations on data are 
-consistent.
-
-##### ZooKeeper Guarantees
-
-The [Zookeeper Guarantees](https://zookeeper.apache.org/doc/current/zookeeperOver.html#Guarantees)
-documentation provides a precise definition for the consistency of ZooKeeper 
-operations. The guarantees are as follows.
-
-* Sequential Consistency - Updates from a client will be applied in the order that they were sent.
-* Atomicity - Updates either succeed or fail. No partial results.
-* Single System Image - A client will see the same view of the service regardless of the server that it connects to.
-* Reliability - Once an update has been applied, it will persist from that time forward until a client overwrites the update.
-* Timeliness - The client's view of the system is guaranteed to be up-to-date within a certain time bound.
-
-##### ZooKeeper Operation
-
-In a ZooKeeper ensemble, the servers use the Zab protocol to elect a leader, and
+The ensemble uses the Zab protocol to elect a leader, and
 data can not be written until a leader is elected. Once a leader is 
 elected, the ensemble uses Zab to ensure that all writes are replicated to a 
 quorum before they are acknowledged and made visible to clients. Without respect
@@ -157,9 +81,8 @@ is written to a durable WAL (Write Ahead Log) on storage media. When a server
 crashes, it can recover its previous state by replaying the WAL. In order to 
 prevent the WAL from growing without bound, ZooKeeper servers will periodically 
 snapshot their in memory state to storage media. These snapshots can be loaded 
-directly into memory, and all WAL entries that preceded the snapshot may be safely discarded.
-A ZooKeeper server requires durable, persistent storage media to recover after 
-a restart.
+directly into memory, and all WAL entries that preceded the snapshot may be 
+safely discarded.
 
 ### Creating a ZooKeeper Ensemble
 
@@ -222,15 +145,11 @@ a [ZooKeeper 3.4.9](http://www-us.apache.org/dist/zookeeper/zookeeper-3.4.9/) se
 
 #### Facilitating Leader Election
 
-Efficient consensus protocols often require the election of a stable leader. 
 As there is no terminating algorithm for electing a leader in an anonymous 
-network, and as the known probabilistic algorithms are expensive and complex 
-to implement, leadership election generally requires explicit membership 
-configuration. This is a common requirement for applications that use consensus 
-protocols to implement replicated state machines. For ZooKeeper, this means that 
-each server, in the ensemble, needs to have a unique identifier, all servers 
-need to know the global set of identifiers, and each identifier needs to be 
-associated with a network address.
+network, Zab requires explicit membership configuraiton in order to perform 
+leader elecdtion. Each server, in the ensemble, needs to have a unique 
+identifier, all servers need to know the global set of identifiers, and each
+identifier needs to be associated with a network address.
 
 Use [`kubectl exec`](/docs/user-guide/kubectl/kubectl_exec/) to get the hostnames 
 of the Pods in the `zk` StatefulSet.
@@ -241,8 +160,9 @@ for i in 0 1 2; do kubectl exec zk-$i -- hostname; done
 
 The StatefulSet controller provides each Pod with a unique hostname based on its 
 ordinal index. The hostnames take the form `<statefulset name>-<ordinal index>`. 
-As the `replicas` field of the `zk` StatefulSet is set to `3`, the Set's controller
-creates three Pods with their hostnames set to `zk-0`, `zk-1`, and `zk-2`. 
+As the `replicas` field of the `zk` StatefulSet is set to `3`, the Set's 
+controller creates three Pods with their hostnames set to `zk-0`, `zk-1`, and 
+`zk-2`. 
 
 ```shell
 zk-0
@@ -260,10 +180,8 @@ Examine the contents of the `myid` file for each server.
 for i in 0 1 2; do echo "myid zk-$i";kubectl exec zk-$i -- cat /var/lib/zookeeper/data/myid; done
 ```
 
-As the ordinal index in the Pods' hostnames is unique, you can use it to generate
-unique identifiers for the processes in a distributed system. For the ZooKeeper 
-ensemble, as the identifiers are natural numbers and the ordinal indices are 
-non-negative integers, you can generate an identifier by adding one to the ordinal.
+As the identifiers are natural numbers and the ordinal indices are non-negative 
+integers, you can generate an identifier by adding one to the ordinal.
 
 ```shell
 myid zk-0
@@ -303,9 +221,7 @@ kubectl exec zk-0 -- cat /opt/zookeeper/conf/zoo.cfg
 For the `server.1`, `server.2`, and `server.3` properties at the bottom of
 the file, the `1`, `2`, and `3` correspond to the identifiers in the
 ZooKeeper servers' `myid` files. They are set to the FQDNs for the Pods in 
-the `zk` StatefulSet. You can use the FQDNs of the Pods in a StatefulSet to 
-associate the unique identifier of a process in a distributed system with 
-a stable network identifier.
+the `zk` StatefulSet. 
 
 ```shell
 clientPort=2181
@@ -327,10 +243,11 @@ server.3=zk-2.zk-headless.default.svc.cluster.local:2888:3888
 #### Achieving Consensus
 
 Consensus protocols require that the identifiers of each participant be 
-unique. No two participants in the protocol should claim the same unique 
+unique. No two participants in the Zab protocol should claim the same unique 
 identifier. This is necessary to allow the processes in the system to agree on 
 which processes have committed which data. If two Pods were launched with the 
-same ordinal, two ZooKeeper servers would both identify themselves as the same server.
+same ordinal, two ZooKeeper servers would both identify themselves as the same
+ server.
 
 When you created the `zk` StatefulSet, the StatefulSet's controller created 
 each Pod sequentially, in the order defined by the Pods' ordinal indices, and it 
@@ -431,7 +348,7 @@ numChildren = 0
 
 #### Providing Durable Storage
 
-As mentioned in the [ZooKeeper Operation](#zooKeeper-operation) section,
+As mentioned in the [ZooKeeper Basics](#zookeeper-basics) section,
 ZooKeeper commits all entries to a durable WAL, and periodically writes snapshots 
 in memory state, to storage media. Using WALs to provide durability is a common 
 technique for applications that use consensus protocols to achieve a replicated
@@ -451,7 +368,7 @@ Watch the termination of the Pods in the StatefulSet.
 get pods -w -l app=zk
 ```
 
-When `zk-0` if fully terminated, use `CRTL-C` to send a `SIGTERM` to kubectl.
+When `zk-0` if fully terminated, use `CRTL-C` to terminate kubectl.
 
 ```shell
 zk-2      1/1       Terminating   0         9m
@@ -489,8 +406,7 @@ Watch the StatefulSet controller recreate the StatefulSet's Pods.
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to send a `SIGTERM` to 
-kubectl.
+Once the `zk-2` Pod is Running and Ready, use `CRTL-C` to terminate kubectl.
 
 ```shell
 NAME      READY     STATUS    RESTARTS   AGE
@@ -539,7 +455,7 @@ dataLength = 5
 numChildren = 0
 ```
 
-The `volumesClaimTemplates` field, of the `zk` StatefulSet's `spec`, specifies a 
+The `volumeClaimTemplates` field, of the `zk` StatefulSet's `spec`, specifies a 
 PersistentVolume that will be provisioned for each Pod. 
 
 ```yaml
@@ -587,7 +503,7 @@ volumeMounts:
 When a Pod in the `zk` StatefulSet is (re)scheduled, it will always have the 
 same PersistentVolume mounted to the ZooKeeper server's data directory. 
 Even when the Pods are rescheduled, all of the writes made to the ZooKeeper 
-servers' WALs, and all of its snapshots, remain durable.
+servers' WALs, and all of thier snapshots, remain durable.
 
 ### Ensuring Consistent Configuration
 
@@ -595,8 +511,7 @@ As noted in the [Facilitating Leader Election](#facilitating-leader-election) an
 [Achieving Consensus](#achieving-consensus) sections, the servers in a 
 ZooKeeper ensemble require consistent configuration in order to elect a leader 
 and form a quorum. They also require consistent configuration of the Zab protocol
-in order for the protocol to work correctly over a network.  Consistent 
-configuration is a common requirement for distributed systems. You can use 
+in order for the protocol to work correctly over a network. You can use 
 ConfigMaps to achieve this. 
 
 Get the `zk-config` ConfigMap.
@@ -736,7 +651,7 @@ ZK_LOG_DIR=/var/log/zookeeper
 
 #### Configuring Logging
 
-One the files generated by the `zkConfigGen.sh` script controls ZooKeeper's logging. 
+One of the files generated by the `zkConfigGen.sh` script controls ZooKeeper's logging. 
 ZooKeeper uses [Log4j](http://logging.apache.org/log4j/2.x/), and, by default, 
 it uses a time and size based rolling file appender for its logging configuration. 
 Get the logging configuration from one of Pods in the `zk` StatefulSet.
@@ -829,7 +744,7 @@ Get the ZooKeeper process information from the `zk-0` Pod.
 kubectl exec zk-0 -- ps -elf
 ```
 
-As the `runAsUser` field of the `securityContex` object is set to 1000, 
+As the `runAsUser` field of the `securityContext` object is set to 1000, 
 instead of running as root, the ZooKeeper process runs as the zookeeper user.
 
 ```shell
@@ -858,25 +773,13 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 
 ### Managing the ZooKeeper Process
 
-
-The [Apache ZooKeeper Documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision) 
-documentation indicates that 
-
-"You will want to have a supervisory process that manages each of your 
-ZooKeeper server processes (JVM). The ZK server is designed to be "fail fast" 
-meaning that it will shutdown (process exit) if an error occurs that it cannot 
-recover from. As a ZooKeeper serving cluster is highly reliable, this means 
-that while the server may go down the cluster as a whole is still active and 
-serving requests. Additionally, as the cluster is "self healing" the failed 
-server once restarted will automatically rejoin the ensemble w/o any manual 
-interaction."
-
-
-Utilizing a watchdog (supervisory process) to restart failed processes in a 
-distributed system is a common pattern. When deploying an application in 
-Kubernetes, rather than using an external utility as a supervisory 
-process, you should use Kubernetes as the watchdog for your application.
-
+The [ZooKeeper documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision) 
+documentation indicates that "You will want to have a supervisory process that 
+manages each of your ZooKeeper server processes (JVM)." Utilizing a watchdog 
+(supervisory process) to restart failed processes in a distributed system is a 
+common pattern. When deploying an application in Kubernetes, rather than using 
+an external utility as a supervisory process, you should use Kubernetes as the 
+watchdog for your application.
 
 #### Handling Process Failure 
 
@@ -1024,7 +927,7 @@ alive but not ready.
 
 
 If you specify a readiness probe, Kubernetes will ensure that your application's
- processes will not receive network traffic until their readiness checks pass.
+processes will not receive network traffic until their readiness checks pass.
 
 
 For a ZooKeeper server, liveness implies readiness.  Therefore, the readiness 
@@ -1051,7 +954,7 @@ ensemble receive network traffic.
 ZooKeeper needs a quorum of servers in order to successfully commit mutations 
 to data. For a three server ensemble, two servers must be healthy in order for 
 writes to succeed. In quorum based systems, members are deployed across failure 
-domains to ensure availability.In order to avoid an outage due to the loss of an 
+domains to ensure availability. In order to avoid an outage, due to the loss of an 
 individual machine, best practices preclude co-locating multiple instances of the 
 application on the same machine.
 
@@ -1068,9 +971,9 @@ you should use a `PodAntiAffinity` annotation.
 
 Get the nodes for Pods in the `zk` Stateful Set.
 
-```shell
+```shell{% raw %}
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
-```
+``` {% endraw %}
 
 All of the Pods in the `zk` StatefulSet are deployed on different nodes.
 
@@ -1116,6 +1019,19 @@ on a shared cluster, be sure that this will not adversely affect other tenants.*
 The previous section showed you how to spread your Pods across nodes to survive 
 unplanned node failures, but you also need to plan for temporary node failures 
 that occur due to planned maintenance.
+
+Get the nodes in your cluster.
+
+```shell
+kubectl get nodes
+```
+
+Use [`kubectl cordon`](/docs/user-guide/kubectl/kubectl_cordon/) to 
+cordon all but four of the nodes in your cluster.
+
+```shell{% raw %}
+kubectl cordon < node name >
+```{% endraw %}
 
 Get the `zk-budget` PodDisruptionBudget.
 
