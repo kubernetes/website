@@ -826,11 +826,9 @@ Notes for setting up each cluster service are given below:
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
   * [Admin Guide](/docs/admin/dns/)
 * Cluster-level Logging
-  * Multiple implementations with different storage backends and UIs.
-  * [Elasticsearch Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/)
-  * [Google Cloud Logging Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/).
-  * Both require running fluentd on each node.
-  * [User Guide](/docs/user-guide/logging/)
+  * [Cluster-level Logging Overview](/docs/user-guide/logging/overview)
+  * [Cluster-level Logging with Elasticsearch](/docs/user-guide/logging/elasticsearch)
+  * [Cluster-level Logging with Stackdriver Logging](/docs/user-guide/logging/stackdriver)
 * Container Resource Monitoring
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/)
 * GUI
