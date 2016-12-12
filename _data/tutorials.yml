@@ -61,3 +61,7 @@ toc:
     path: /docs/tutorials/stateful-application/run-replicated-stateful-application/
   - title: Running ZooKeeper, A CP Distributed System
     path: /docs/tutorials/stateful-application/zookeeper/
+- title: Connecting Applications
+  section:
+  - title: Connecting a Front End to a Back End Using a Service
+    path: /docs/tutorials/connecting-apps/connecting-apps/
