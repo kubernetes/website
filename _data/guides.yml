@@ -237,6 +237,8 @@ toc:
         path: /docs/getting-started-guides/coreos
       - title: Ubuntu
         path: /docs/getting-started-guides/ubuntu/
+      - title: Windows Server Containers
+        path: /docs/getting-started-guides/windows/
     - title: Validate Node Setup
       path: /docs/admin/node-conformance
   - title: Portable Multi-Node Cluster
