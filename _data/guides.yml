@@ -141,9 +141,13 @@ toc:
   - title: Resource Usage Monitoring
     path: /docs/user-guide/monitoring/
   - title: Logging
-    path: /docs/getting-started-guides/logging/
-  - title: Logging with Elasticsearch and Kibana
-    path: /docs/getting-started-guides/logging-elasticsearch/
+    section:
+    - title: Logging Overview
+      path: /docs/user-guide/logging/overview/
+    - title: Logging with Stackdriver Logging
+      path: /docs/user-guide/logging/sdl/
+    - title: Logging with Elasticsearch and Kibana
+      path: /docs/user-guide/logging/elasticsearch/
   - title: Running Commands in a Container with kubectl exec
     path: /docs/user-guide/getting-into-containers/
   - title: Connect with Proxies
