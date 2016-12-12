@@ -203,7 +203,7 @@ If you scale the cluster, the new pods parent themselves to the same master. To 
 
 ```shell
 $ kubectl edit petset web
-... 
+...
 
 $ kubectl get po -l app=nginx
 NAME      READY     STATUS    RESTARTS   AGE
@@ -237,6 +237,62 @@ All that does is:
 * write the config to a `hostPath` volume shared with the parent PetSet
 
 **It's important to note that in practice all Pets should query their peers for the current master, instead of making assumptions based on the index.**
+
+### Peer discovery
+
+In this section we compare a few peer finder deployment patterns so you can pick the one that best fits your needs.
+
+#### As an init container
+
+Prefer this method if your application can read its configuration from a command line argument pointing to a file path, and is capable of managing its own config after starting.
+* Run the peer finder in an init container
+* Supply an `on-start` script to the peer-finder that writes the complete config to a shared volume
+* Mount the volume in the app container
+* Pass the appropriate command line flags to the app so it reads the config
+
+Pros:
+
+1. Fewer external factors that can affect your app at runtime
+2. You can run an off-the-shelf app container in a pod without any modification
+
+Cons:
+
+1. System doesn't help you react to changes in peer membership
+
+The previous nginx example exhibits this pattern.
+
+#### As a sidcar in the pod
+
+Prefer this method if your application is *not* capable of managing its own config after starting, but doesn't need a notification (eg: HUP) on config change
+* Run the peer finder in an init container AND a sidecar container
+* Supply an `on-start` script to the init peer finder, so it writes the complete config to a shared volume
+* Mount the volume in the app container and the sidecar peer finder
+* Supply an `on-change` script to the sidecar peer finder, so it continuously updates the config
+
+Pros:
+
+1. You can run an off-the-shelf app container in a pod without any modification
+2. The system only records changes to peer-membership. The app is responsible for noticing the changes.
+
+Cons:
+
+1. More external factors that can affect your app at runtime (eg: a malformed config can stop the application at the wrong moment)
+
+#### In the app container
+
+Prefer this method if your application is *not* capable of managing its own config after starting, and requires a notification (eg: HUP) on config change
+* Supply an `on-start` script that writes a base config (optional, `on-change` is run at first change if no `on-start` is supplied)
+* Supply an `on-change` script to rewrite the config and send the HUP signal
+* Expose your application health as a liveness probe
+
+Pros:
+
+1. Complete control in the app container, since all namesapces are shared and the peer finder runs as pid-1
+
+Cons:
+
+1. Bugs and other resource leaks can have a cascading effect on your app
+2. You need to create a custom image that includes the peer-finder, for every application you deploy this way
 
 ## Next Steps
 
