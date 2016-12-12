@@ -6,10 +6,6 @@ $( document ).ready(function() {
     var forwardingURL=window.location.href;
 
     var redirects = [{
-        "from": "third_party/swagger-ui",
-        "to": "http://kubernetes.io/kubernetes/third_party/swagger-ui/"
-    },
-    {
         "from": "resource-quota",
         "to": "http://kubernetes.io/docs/admin/resourcequota/"
     },
