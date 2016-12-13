@@ -48,9 +48,10 @@ tutorial.
 
 {% capture objectives %}
 After this tutorial, you will know the following.
+
 * How to deploy a ZooKeeper ensemble using StatefulSet.
 * How to consistently configure the ensemble using ConfigMaps.
-* How to spread deploy each server in the ensemble to
+* How to spread the deployment of ZooKeeper servers in the ensemble.
 * How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
 {% endcapture %}
 
@@ -62,10 +63,10 @@ After this tutorial, you will know the following.
 distributed, open-source coordination service for distributed applications.
 ZooKeeper allows you to read, write, and observe updates to data. Data are 
 organized in a file system like hierarchy and replicated to all ZooKeeper 
-servers in the ensemble (A set of ZooKeeper servers). All operations on data 
+servers in the ensemble (a set of ZooKeeper servers). All operations on data 
 are atomic and sequentially consistent. ZooKeeper ensures this by using the 
 [Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf) 
-consesus protocol to replicate a state machine across all servers in the ensemble.
+consensus protocol to replicate a state machine across all servers in the ensemble.
 
 The ensemble uses the Zab protocol to elect a leader, and
 data can not be written until a leader is elected. Once a leader is 
@@ -146,8 +147,8 @@ a [ZooKeeper 3.4.9](http://www-us.apache.org/dist/zookeeper/zookeeper-3.4.9/) se
 #### Facilitating Leader Election
 
 As there is no terminating algorithm for electing a leader in an anonymous 
-network, Zab requires explicit membership configuraiton in order to perform 
-leader elecdtion. Each server, in the ensemble, needs to have a unique 
+network, Zab requires explicit membership configuration in order to perform 
+leader election. Each server in the ensemble needs to have a unique 
 identifier, all servers need to know the global set of identifiers, and each
 identifier needs to be associated with a network address.
 
@@ -207,7 +208,7 @@ zk-1.zk-headless.default.svc.cluster.local
 zk-2.zk-headless.default.svc.cluster.local
 ```
 
-The A records in Kubernetes DNS resolve the FQDNs to the Pods' IP addresses. 
+The A records in [Kubernetes DNS](/docs/admin/dns/) resolve the FQDNs to the Pods' IP addresses. 
 If the Pods are rescheduled, the A records will be updated with the Pods' new IP 
 addresses, but the A record's names will not change.
 
@@ -503,7 +504,7 @@ volumeMounts:
 When a Pod in the `zk` StatefulSet is (re)scheduled, it will always have the 
 same PersistentVolume mounted to the ZooKeeper server's data directory. 
 Even when the Pods are rescheduled, all of the writes made to the ZooKeeper 
-servers' WALs, and all of thier snapshots, remain durable.
+servers' WALs, and all of their snapshots, remain durable.
 
 ### Ensuring Consistent Configuration
 
