@@ -1,7 +1,7 @@
 ---
 ---
 <!-- needed for gh-pages to render html files when imported -->
-{% include <REPLACE-WITH-RELEASE-VERSION>/v1-operations.html %}
+{% include v1.5/v1-operations.html %}
 
 
 
