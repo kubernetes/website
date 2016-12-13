@@ -26,15 +26,6 @@ a simple way of running Kubernetes on your local workstation for free.
 
 * {% include task-tutorial-prereqs.md %}
 
-Since this tutorial uses Minikube, instead of pushing Docker images to a
-registry, you can simply build the image using the same Docker daemon as
-Minikube, so that the images are automatically present. To do so, make
-sure you are using the Minikube docker daemon
-
-```shell
-minikube start
-eval $(minikube docker-env)
-```
 
 {% endcapture %}
 
@@ -85,12 +76,23 @@ CMD node server.js
 This "recipe" for the Docker image will start from the official Node.js LTS image found on the Docker registry, 
 expose port 8080, copy our `server.js` file to the image and start the Node server.
 
+Since this tutorial uses Minikube, instead of pushing Docker images to a
+registry, you can simply build the image using the same Docker host as
+the Minikube VM, so that the images are automatically present. To do so, make
+sure you are using the Minikube docker daemon
+
+```shell
+eval $(minikube docker-env)
+```
+
+If you no longer with to use the Minikube host, you can undo this change by
+running the same command with the `-u` flag.
+
 Now build an image of your container by running `docker build`, tagging the 
 image your DockerHub username. Make sure you build the image using the 
 Minikube daemon.
 
 ```shell
-eval $(minikube docker-env)
 docker build -t $DOCKERHUB_USER/hello-node:v1 .
 ```
 Now there is a trusted source for getting an image of your containerized app.
@@ -196,32 +198,32 @@ kubectl config view
 
 Full documentation for kubectl commands is available **[here](/docs/user-guide/kubectl-overview/)**:
 
-At this point you should have our container running under the control of Kubernetes but we still have to make it accessible to the outside world.
-
 ## View your service
 
-By default, the pod is only accessible by its internal IP within the Kubernetes cluster. In order to make the `hello-node` container accessible from outside the Kubernetes virtual network, you have to expose the Pod as a Kubernetes **[Service](/docs/user-guide/services/)**.
+By default, the pod is only accessible by its internal IP within the Kubernetes cluster. 
+In order to make the `hello-node` container accessible from outside the 
+Kubernetes virtual network, you have to expose the Pod as a 
+Kubernetes **[Service](/docs/user-guide/services/)**.
 
 From our Development machine we can expose the pod to the public internet 
 using the `kubectl expose` command.  
 
 ```shell
-kubectl expose deployment hello-node
+kubectl expose deployment hello-node --type=LoadBalancer         
 ```
 
-![image](/images/hellonode/image_12.png)
-
-On a cloud provider, we would create a Service of type LoadBalancer and be
-given an external IP. However, on Minikube, there are no LoadBalancers or
-external IPs supported, and instead our service can be viewed with the
-`minikube service` command:
+The `--type=LoadBalancer` flag indicates that we want to expose our service 
+outside of the cluster. On a cloud providers that support Load Balancers, 
+an external IP would be provisioned to access the service. On Minikube, 
+the LoadBalancer type makes the Service accessible using the `minikube service`
+command. 
 
 ```shell
 minikube service hello-node
 ```
 
 This will automatically open up your browser window with a local IP that 
-will serve your app.
+will serve your app and show the "Hello World" message.
 
 Assuming you've sent requests to your new webservice via the browser or curl,
 you should now be able to see some logs by running:
