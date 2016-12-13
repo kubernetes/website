@@ -356,3 +356,5 @@ for more information.
 
 - [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build-tools/kube-dns/README.md)
 
+## What's next
+- [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).

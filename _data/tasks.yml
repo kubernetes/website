@@ -27,8 +27,30 @@ toc:
   section:
   - title: Using an HTTP Proxy to Access the Kubernetes API
     path: /docs/tasks/access-kubernetes-api/http-proxy-access-api/
+
 - title: Administering a Cluster
   section:
   - title: Assigning Pods to Nodes
     path: /docs/tasks/administer-cluster/assign-pods-nodes/
+  - title: Autoscaling the DNS Service in a Cluster
+    path: /docs/tasks/administer-cluster/dns-horizontal-autoscaling/
+  - title: Safely Draining a Node while Respecting Application SLOs
+    path: /docs/tasks/administer-cluster/safely-drain-node/
 
+- title: Managing Stateful Applications
+  section:
+  - title: Upgrading from PetSets to StatefulSets
+    path: /docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/
+  - title: Scaling a StatefulSet
+    path: /docs/tasks/manage-stateful-set/scale-stateful-set/
+  - title: Deleting a Stateful Set
+    path: /docs/tasks/manage-stateful-set/deleting-a-statefulset/
+  - title: Debugging a StatefulSet
+    path: /docs/tasks/manage-stateful-set/debugging-a-statefulset/
+  - title: Force Deleting StatefulSet Pods
+    path: /docs/tasks/manage-stateful-set/delete-pods/
+
+- title: Troubleshooting
+  section:
+  - title: Debugging Init Containers
+    path: /docs/tasks/troubleshoot/debug-init-containers/
