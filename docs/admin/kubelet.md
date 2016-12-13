@@ -78,7 +78,7 @@ DynamicVolumeProvisioning=true|false (ALPHA - default=true)
       --google-json-key string                         The Google Cloud Platform Service Account JSON Key to use for authentication.
       --hairpin-mode string                            How should the kubelet setup hairpin NAT. This allows endpoints of a Service to loadbalance back to themselves if they should try to access their own Service. Valid values are "promiscuous-bridge", "hairpin-veth" and "none". (default "promiscuous-bridge")
       --healthz-bind-address value                     The IP address for the healthz server to serve on, defaulting to 127.0.0.1 (set to 0.0.0.0 for all interfaces) (default 127.0.0.1)
-      --healthz-port value                             The port of the localhost healthz endpoint (default 10248)
+      --healthz-port value                             (Deprecated) The port of the localhost healthz endpoint (default 10248)
       --host-ipc-sources value                         Comma-separated list of sources from which the Kubelet allows pods to use the host ipc namespace. [default="*"] (default [*])
       --host-network-sources value                     Comma-separated list of sources from which the Kubelet allows pods to use of host network. [default="*"] (default [*])
       --host-pid-sources value                         Comma-separated list of sources from which the Kubelet allows pods to use the host pid namespace. [default="*"] (default [*])
@@ -119,7 +119,7 @@ DynamicVolumeProvisioning=true|false (ALPHA - default=true)
       --pods-per-core value                            Number of Pods per core that can run on this Kubelet. The total number of Pods on this Kubelet cannot exceed max-pods, so max-pods will be used if this calculation results in a larger number of Pods allowed on the Kubelet. A value of 0 disables this limit.
       --port value                                     The port for the Kubelet to serve on. (default 10250)
       --protect-kernel-defaults                        Default kubelet behaviour for kernel tuning. If set, kubelet errors if any of kernel tunables is different than kubelet defaults.
-      --read-only-port value                           The read-only port for the Kubelet to serve on with no authentication/authorization (set to 0 to disable) (default 10255)
+      --read-only-port value                           The read-only port for the Kubelet to serve on with no authentication/authorization, and for localhost healthz endpoint (set to 0 to disable) (default 10255)
       --really-crash-for-testing                       If true, when panics occur crash. Intended for testing.
       --reconcile-cidr                                 Reconcile node CIDR with the CIDR specified by the API server. No-op if register-node or configure-cbr0 is false. [default=true] (default true)
       --register-node                                  Register the node with the apiserver (defaults to true if --api-servers is set) (default true)
