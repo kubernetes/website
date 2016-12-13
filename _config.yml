@@ -33,3 +33,9 @@ gems:
   - jekyll-redirect-from
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO
+logo: /images/favicon.png
+twitter:
+  username: kubernetesio
