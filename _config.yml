@@ -1,4 +1,6 @@
 name: Kubernetes
+title: Kubernetes
+description: Production-Grade Container Orchestration
 markdown: kramdown
 kramdown:
   input: GFM
