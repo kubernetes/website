@@ -23,7 +23,7 @@ federation-apiserver
       --admission-control string                                Ordered list of plug-ins to do admission control of resources into cluster. Comma-delimited list of: AlwaysAdmit, AlwaysDeny, NamespaceLifecycle. (default "AlwaysAdmit")
       --admission-control-config-file string                    File with admission control configuration.
       --advertise-address value                                 The IP address on which to advertise the apiserver to members of the cluster. This address must be reachable by the rest of the cluster. If blank, the --bind-address will be used. If --bind-address is unspecified, the host's default interface will be used.
-      --apiserver-count int                                     The number of apiservers running in the cluster. (default 1)
+      --apiserver-count int                                     The number of apiservers running in the cluster, must be a positive number. (default 1)
       --audit-log-maxage int                                    The maximum number of days to retain old audit log files based on the timestamp encoded in their filename.
       --audit-log-maxbackup int                                 The maximum number of old audit log files to retain.
       --audit-log-maxsize int                                   The maximum size in megabytes of the audit log file before it gets rotated. Defaults to 100MB.
