@@ -45,6 +45,8 @@ toc:
       path: /docs/tutorials/kubernetes-basics/update-interactive/
 - title: Stateless Applications
   section:
+  - title: Hello World On Minikube
+    path: /docs/tutorials/hello-minikube/hello-minikube/
   - title: Running a Stateless Application Using a Deployment
     path: /docs/tutorials/stateless-application/run-stateless-application-deployment/
   - title: Using a Service to Access an Application in a Cluster
