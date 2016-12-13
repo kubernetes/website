@@ -20,16 +20,11 @@ the next one is started. If the init container fails, Kubernetes will restart
 the pod until the init container succeeds. If a pod is marked as `RestartNever`,
 the pod will fail if the init container fails.
 
-You specify a container as an init container by adding an annotation
-The annotation key is `pod.beta.kubernetes.io/init-containers`.  The annotation
-value is a JSON array of [objects of type `v1.Container`
-](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_container)
-
-Once the feature exits beta, the init containers will be specified on the Pod
-Spec alongside the app `containers` array.
-The status of the init containers is returned as another annotation -
-`pod.beta.kubernetes.io/init-container-statuses` -- as an array of the
-container statuses (similar to the `status.containerStatuses` field).
+Init containers are specified in `initContainers` field on the Pod Spec as array of
+[objects of type `v1.Container`](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_container) alongside the app `containers` array. The status of
+the init containers is returned in `status.initContainerStatuses`
+field as an array of the container statuses (similar to the `status.containerStatuses`
+field).
 
 Init containers support all of the same features as normal containers,
 including resource limits, volumes, and security settings. The resource
@@ -162,7 +157,7 @@ reasons:
 ## Support and compatibilty
 
 A cluster with Kubelet and Apiserver version 1.4.0 or greater supports init
-containers with the beta annotations.  Support varies for other combinations of
+containers with the beta annotations. In version 1.6.0 init containers were moved to stable. Support varies for other combinations of
 Kubelet and Apiserver version; see the [release notes
 ](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md) for details.
 
