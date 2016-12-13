@@ -8,6 +8,7 @@ assignees:
 - kow3ns
 - smarterclayton
 ---
+## Managing Stateful Services on Kubernetes
 
 {% capture overview %}
 **StatefulSets are a beta feature in 1.5. This feature replaces the 
