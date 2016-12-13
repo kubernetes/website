@@ -385,10 +385,10 @@ zk-0      0/1       Terminating   0         11m
 zk-0      0/1       Terminating   0         11m
 zk-0      0/1       Terminating   0         11m
 ```
-Recreate the manifest in `zookeeper.yaml`.
+Reapply the manifest in `zookeeper.yaml`.
 
 ```shell
-kubectl create -f zookeeper.yaml
+kubectl apply -f http://k8s.io/docs/tutorials/stateful-application/zookeeper.yaml
 ```
 
 The `zk` StatefulSet will be created, but, as they already exist, the other API 
