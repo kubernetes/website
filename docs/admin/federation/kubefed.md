@@ -3,6 +3,10 @@ assignees:
 - madhusudancs
 
 ---
+
+* TOC
+{:toc}
+
 Kubernetes version 1.5 includes a new command line tool called
 `kubefed` to help you administrate your federated clusters.
 `kubefed` helps you to deploy a new Kubernetes cluster federation
@@ -13,11 +17,6 @@ This guide explains how to administer a Kubernetes Cluster Federation
 using `kubefed`.
 
 > Note: `kubefed` is an alpha feature in Kubernetes 1.5.
-
-
-* TOC
-{:toc}
-
 
 ## Prerequisites
 
@@ -61,8 +60,8 @@ The output should contain an entry corresponding to your host cluster,
 similar to the following:
 
 ```
-CURRENT   NAME                                                               CLUSTER                                                            AUTHINFO                                                           NAMESPACE
-          gke_myproject_asia-east1-b_gce-asia-east1              gke_myproject_asia-east1-b_gce-asia-east1              gke_myproject_asia-east1-b_gce-asia-east1
+CURRENT   NAME                                          CLUSTER                                       AUTHINFO                                      NAMESPACE
+          gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1     gke_myproject_asia-east1-b_gce-asia-east1
 ```
 
 

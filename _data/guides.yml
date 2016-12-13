@@ -306,6 +306,6 @@ toc:
 - title: Administering Federation
   section:
   - title: Using `kubefed`
-    path: /docs/admin/federation/kubfed/
+    path: /docs/admin/federation/kubefed/
   - title: Using `federation-up` and `deploy.sh`
     path: /docs/admin/federation/
