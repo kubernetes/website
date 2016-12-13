@@ -299,6 +299,165 @@ bettern fault tolerance and greater scalability for your services. See
 the [Federated Services User Guide](/docs/user-guide/federation/federated-services/)
 for further information.
 
+## Loadbalancing multiple Services
+
+Till now we had restricted ourselves to a single Service, but Kubernetes has a resource called [Ingress](/docs/user-guide/ingress) that spans Services and loadbalances requests at [layer 7](https://en.wikipedia.org/wiki/OSI_model#Layer_7:_Application_Layer). This is useful for reasons like:
+
+* Cost saving, since the Ingress only needs one public IP, instead of 1 per Service of `Type=LoadBalancer`.
+* Centralized security configuration, instead of loading TLS certs as volumes in each Service backend.
+* Smarter routing, since the Ingress has visibility into layer 7 of the OSI model.
+
+For demonstration purposes we will deploy a second Service that simply echoes the HTTP Headers it receives:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: echoheaders
+  labels:
+    app: echoheaders
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: echoheaders
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: echoheaders
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: echoheaders
+    spec:
+      containers:
+      - name: echoheaders
+        image: gcr.io/google_containers/echoserver:1.2
+        ports:
+        - containerPort: 8080
+```
+
+To make use of the Ingress resource, you need to first deploy an Ingress controller. On GCE/GKE there should already be an l7-controller deployed into the `kube-system` namespace:
+
+```shell
+$ kubectl get pods --namespace=kube-system -l name=glbc
+NAME                            READY     STATUS    RESTARTS   AGE
+l7-lb-controller-v0.6.0-chnan   2/2       Running   0          1d
+```
+
+Since Ingress is still a beta resource, make sure you review the [beta limitations](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/gce/BETA_LIMITATIONS.md) of the controller. In particular, you need to create a single firewall-rule on your cloudprovider, to allow health checks. On GKE this would be:
+
+```shell
+$ export TAG=$(basename `gcloud container clusters describe ${CLUSTER_NAME} --zone ${ZONE} | grep gke | awk '{print $2}'` | sed -e s/group/node/)
+$ export NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services echoheaders)
+$ gcloud compute firewall-rules create allow-130-211-0-0-22 \
+  --source-ranges 130.211.0.0/22 \
+  --target-tags $TAG \
+  --allow tcp:$NODE_PORT
+```
+
+In environments other than GCE/GKE, you need to [deploy a controller](https://github.com/kubernetes/contrib/tree/master/ingress/controllers).
+Once your controller is Running, you can create an Ingress:
+
+```yaml
+kind: Ingress
+metadata:
+  name: test
+spec:
+  # Catchall default backend for requests that don't match a host/url
+  backend:
+    serviceName: echoheaders
+    servicePort: 80
+  rules:
+  # Everything with a host header of example.com
+  - host: example.com
+    http:
+      paths:
+      - backend:
+          serviceName: nginxsvc
+          servicePort: 80
+  # Everything that's not example.com goes to default backend unless the path
+  # ends in /nginx
+  - http:
+      paths:
+      - path: /nginx
+        backend:
+          serviceName: nginxsvc
+          servicePort: 80
+```
+
+And wait till it acquires an IP:
+
+```yaml
+$ kubectl get ing
+NAME      RULE          BACKEND          ADDRESS        AGE
+test      -             echoheaders:80   130.211.5.76   2m
+          example.com
+                        nginxsvc:80
+
+          /nginx        nginxsvc:80
+```
+
+You can get more detailed information about the state of the Ingress through `kubectl describe`. This output is controller specific. The GCE controller for example, will annotate the output of `kubectl describe` with information about the backend health checks. Requests will fail if backends are not healthy.
+
+```shell
+$ kubectl describe ing
+Name:			test
+Namespace:		default
+Address:		130.211.5.76
+Default backend:	echoheaders:80 (10.245.2.3:8080)
+Rules:
+  Host		Path	Backends
+  ----		----	--------
+  example.com
+    		 	nginxsvc:80 (10.245.3.5:80)
+
+    		/nginx 	nginxsvc:80 (10.245.3.5:80)
+Annotations:
+  forwarding-rule:	k8s-fw-default-test--uid
+  target-proxy:		k8s-tp-default-test--uid
+  url-map:		k8s-um-default-test--uid
+  backends:		{"k8s-be-31058--uid":"HEALTHY","k8s-be-32583--uid":"HEALTHY"}
+Events:
+  FirstSeen	LastSeen	Count	From				SubobjectPath	Type		Reason	Message
+  ---------	--------	-----	----				-------------	--------	------	-------
+  3m		3m		1	{loadbalancer-controller }			Normal		ADD	default/test
+  2m		2m		1	{loadbalancer-controller }			Normal		CREATE	ip: 130.211.5.76
+```
+
+Now you can try curling the endpoints:
+
+```shell
+$ curl 130.211.5.76 -H 'Host:example.com'
+...
+<p><em>Thank you for using nginx.</em></p>
+
+$ curl 130.211.5.76/nginx
+...
+<head><title>404 Not Found</title></head>
+<hr><center>nginx/1.9.1</center>
+```
+
+Note that the second url returned a 404. This is because the Ingress controller caught `/nginx` and passed that onto the backend (as `/nginx`), but nginx doesn't know how to handle that path. This is also evident from the `real path=` key in the output of the echoserver default backend:
+
+```shell
+$ curl 130.211.5.76/unknown-url
+CLIENT VALUES:
+client_address=10.240.0.3
+command=GET
+real path=/unknown-url
+...
+```
+
+You can learn more about different modes of Ingress [here](/docs/user-guide/ingress).
+
 ## What's next?
 
 [Learn about more Kubernetes features that will help you run containers reliably in production.](/docs/user-guide/production-pods)
