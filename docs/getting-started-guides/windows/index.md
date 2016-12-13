@@ -47,8 +47,11 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 2. CNI network plugin installed.
 
 ### Component Setup
+
 Requirements
-* Git, Go 1.7.1+ 
+
+* Git
+* Go 1.7.1+
 * make (if using Linux or MacOS)
 * Important notes and other dependencies are listed [here](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/development.md#building-kubernetes-on-a-local-osshell-environment)
 
