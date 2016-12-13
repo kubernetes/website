@@ -74,7 +74,13 @@ Make any changes you want. Then, to see your changes locally:
 	cd kubernetes.github.io
 	jekyll serve
 
-Your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
+If you do not want jekyll to interfere with your other globally installed gems, you can use bundler:
+
+	gem install bundler
+	bundle install
+	bundler exec jekyll serve
+
+Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)
 (or wherever Jekyll tells you).
 
 ## GitHub help
