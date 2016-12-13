@@ -1,11 +1,7 @@
 ---
 ---
 <!-- needed for gh-pages to render html files when imported -->
-{% include v1.4/extensions-v1beta1-operations.html %}
-
-
-
-
+{% include <REPLACE-WITH-RELEASE-VERSION>/extensions-v1beta1-operations.html %}
 
 
 
