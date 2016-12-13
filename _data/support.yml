@@ -6,6 +6,8 @@ toc:
 
 - title: Contributing to the Kubernetes Docs
   section:
+  - title: Contributing to the Kubernetes Documentation
+    path: /editdocs/
   - title: Creating a Documentation Pull Request
     path: /docs/contribute/create-pull-request/
   - title: Writing a New Topic
@@ -51,5 +53,3 @@ toc:
     path: https://github.com/kubernetes/kubernetes/releases/
   - title: Release Roadmap
     path: https://github.com/kubernetes/kubernetes/milestones/
-  - title: Contributing to Kubernetes Documentation
-    path: /editdocs/
