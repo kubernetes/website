@@ -3,6 +3,7 @@ abstract: "Step-by-step instructions for performing operations with Kuberentes."
 toc:
 - title: Tasks
   path: /docs/tasks/
+
 - title: Configuring Pods and Containers
   section:
   - title: Defining Environment Variables for a Container
@@ -11,17 +12,18 @@ toc:
     path: /docs/tasks/configure-pod-container/define-command-argument-container/
   - title: Assigning CPU and RAM Resources to a Container
     path: /docs/tasks/configure-pod-container/assign-cpu-ram-container/
+  - title: Configuring a Pod to Use a Volume for Storage
+    path: /docs/tasks/configure-pod-container/configure-volume-storage/
+
 - title: Accessing Applications in a Cluster
   section:
   - title: Using Port Forwarding to Access Applications in a Cluster
     path: /docs/tasks/access-application-cluster/port-forward-access-application-cluster/
 
-
 - title: Debugging Applications in a Cluster
   section:
   - title: Determining the Reason for Pod Failure
     path: /docs/tasks/debug-application-cluster/determine-reason-pod-failure/
-
 
 - title: Accessing the Kubernetes API
   section:
@@ -54,3 +56,5 @@ toc:
   section:
   - title: Debugging Init Containers
     path: /docs/tasks/troubleshoot/debug-init-containers/
+  - title: Configuring Access Control and Identity Management
+    path: /docs/tasks/administer-cluster/access-control-identity-management/
