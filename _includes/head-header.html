@@ -2,7 +2,6 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    {% if !page.no_canonical %}<link rel="canonical" href="{{ page.url | absolute_url }}" />{% endif %}
 	<link rel="shortcut icon" type="image/png" href="/images/favicon.png">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Roboto+Mono' type='text/css'>
@@ -14,7 +13,7 @@
 	<script src="/js/script.js"></script>
         <script src="/js/sweetalert.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
-	<title>Kubernetes - {{ title }}</title>
+	{% seo %}
 </head>
 <body>
 <div id="cellophane" onclick="kub.toggleMenu()"></div>
