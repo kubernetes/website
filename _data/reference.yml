@@ -41,6 +41,13 @@ toc:
   - title: Batch API Definitions
     path: /docs/api-reference/batch/v1/definitions/
 
+- title: Apps API
+  section:
+  - title: Apps API Operations
+    path: /docs/api-reference/apps/v1beta1/operations/
+  - title: Apps API Definitions
+    path: /docs/api-reference/apps/v1beta1/definitions/
+
 - title: Extensions API
   section:
   - title: Extensions API Operations
