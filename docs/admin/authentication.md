@@ -4,6 +4,7 @@ assignees:
 - lavalamp
 - ericchiang
 - deads2k
+- liggitt
 
 ---
 * TOC
@@ -382,6 +383,13 @@ option to the API server during startup. The plugin is implemented in
 `plugin/pkg/auth/authenticator/password/keystone/keystone.go` and currently uses
 basic auth to verify used by username and password.
 
+If you have configured self-signed certificates for the Keystone server,
+you may need to set the `--experimental-keystone-ca-file=SOMEFILE` option when
+starting the Kubernetes API server. If you set the option, the Keystone
+server's certificate is verified by one of the authorities in the
+`experimental-keystone-ca-file`. Otherwise, the certificate is verified by
+the host's root Certificate Authority.
+
 For details on how to use keystone to manage projects and users, refer to the
 [Keystone documentation](http://docs.openstack.org/developer/keystone/). Please
 note that this plugin is still experimental, under active development, and likely
@@ -420,7 +428,7 @@ enterprise directory, kerberos, etc.)
 ### Creating Certificates
 
 When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa` or `openssl.``
+using an existing deployment script or manually through `easyrsa` or `openssl.`
 
 #### Using an Existing Deployment Script
 
