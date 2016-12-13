@@ -18,14 +18,15 @@ a simple way of running Kubernetes on your local workstation for free.
 {% capture objectives %}
 
 * Run a hello world Node application in Docker
-* Deploy the application to Minikube. 
+* Deploy the application to Minikube.
+* View application logs
+* Update the application image
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
 * {% include task-tutorial-prereqs.md %}
-
 
 {% endcapture %}
 
@@ -93,49 +94,10 @@ image your DockerHub username. Make sure you build the image using the
 Minikube daemon.
 
 ```shell
-docker build -t $DOCKERHUB_USER/hello-node:v1 .
-```
-Now there is a trusted source for getting an image of your containerized app.
-
-Let's try your image out with Docker:
-
-```shell
-docker run -d -p 8080:8080 --name hello_tutorial $DOCKERHUB_USER/hello-node:v1
+docker build -t hello-node:v1 .
 ```
 
-Visit your app in the browser, or use `curl` or `wget` if you’d like :
-
-```shell
-curl http://localhost:8080
-```
-
-You should see `Hello World!`
-
-**Note:** *If you receive a `Connection refused` message from Docker for Mac, ensure you are using the latest version of Docker (1.12 or later). Alternatively, if you are using Docker Toolbox on OSX, make sure you are using the VM's IP and not localhost:*
-
-```shell
-curl "http://$(docker-machine ip YOUR-VM-MACHINE-NAME):8080"
-```
-
-Let’s now stop the container. You can list the docker containers with:
-
-```shell
-docker ps
-```
-
-You should see something like this:
-
-```shell
-CONTAINER ID        IMAGE                                 COMMAND                  NAMES
-c5b6d4b9f36d        $DOCKERHUB_USER/hello-node:v1      "/bin/sh -c 'node ser"   hello_tutorial
-```
-
-Now stop the running container with
-
-```
-docker stop hello_tutorial
-```
-
+Now the Minikube VM can run the image you built.
 
 ## Create your pod
 
@@ -146,7 +108,7 @@ single container or multiple.
 Create a Pod with the `kubectl run` command:
 
 ```shell
-kubectl run hello-node --image=$DOCKERHUB_USER/hello-node:v1 --port=8080
+kubectl run hello-node --image=hello-node:v1 --port=8080
 ```
 
 As shown in the output, the `kubectl run` created a **[Deployment](/docs/user-guide/deployments/)** object.  
@@ -212,6 +174,16 @@ using the `kubectl expose` command.
 kubectl expose deployment hello-node --type=LoadBalancer         
 ```
 
+To view the service you just created, run:
+
+```shell
+kubectl get services
+
+NAME         CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
+hello-node   10.0.0.71    <pending>     8080/TCP   6m
+kubernetes   10.0.0.1     <none>        443/TCP    14d
+```
+
 The `--type=LoadBalancer` flag indicates that we want to expose our service 
 outside of the cluster. On a cloud providers that support Load Balancers, 
 an external IP would be provisioned to access the service. On Minikube, 
@@ -232,12 +204,61 @@ you should now be able to see some logs by running:
 kubectl logs <POD-NAME>
 ```
 
+## Update Your App
+
+Edit your `server.js` file to return a new message:
+
+```javascript
+response.end('Hello World Again!');
+
+```
+
+Build a new version of your image:
+
+```shell
+docker build -t hello-node:v2 .
+```
+
+Update the image of your Deployment:
+
+```shell
+kubectl set image deployment/hello-node hello-node=hello-node:v2
+```
+
+Now you can again run:
+
+```shell
+minikube service hello-node
+```
+
+to view the new message in your web browser.
+
+
+## Clean Up
+
+Now, you can clean up the resources you created in your cluster.
+
+```shell
+kubectl delete service hello-node
+kubectl delete deployment hell-node
+```
+
+Optionally, stop Minikube.
+
+```shell
+minikube stop
+```
+
+
 {% endcapture %}
 
 
 {% capture whatsnext %}
 
 * Learn more about [Deployment objects](/docs/user-guide/deployments/).
+* Learn more about [Deploying applications](http://localhost:4000/docs/user-guide/deploying-applications/)
+* Learn more about [Service objects](/docs/user-guide/services/).
+
 
 {% endcapture %}
 
