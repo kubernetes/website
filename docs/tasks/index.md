@@ -26,6 +26,20 @@ single thing, typically by giving a short sequence of steps.
 #### Administering a Cluster
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
+* [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+* [Safely Draining a Node while Respecting Application SLOs](/docs/tasks/administer-cluster/safely-drain-node/)
+
+#### Managing Stateful Applications
+
+* [Upgrading from PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
+* [Scaling a StatefulSet](/docs/tasks/manage-stateful-set/scale-stateful-set/)
+* [Deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/)
+* [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
+* [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
+
+#### Troubleshooting
+
+* [Debugging Init Containers](/docs/tasks/troubleshoot/debug-init-containers/)
 
 ### What's next
 
