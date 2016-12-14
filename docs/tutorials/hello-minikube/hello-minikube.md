@@ -17,8 +17,8 @@ a simple way of running Kubernetes on your local workstation for free.
 
 {% capture objectives %}
 
-* Run a hello world Node application in Docker
-* Deploy the application to Minikube.
+* Run a hello world Node application
+* Deploy the application to Minikube
 * View application logs
 * Update the application image
 
