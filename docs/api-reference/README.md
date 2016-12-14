@@ -1,6 +1,5 @@
 ---
 ---
-
 # API Reference
 
 Use the following reference docs to understand the kubernetes REST API for various API group versions:
@@ -16,10 +15,6 @@ Use the following reference docs to understand the kubernetes REST API for vario
 * rbac.authorization.k8s.io/v1alpha1: [operations](/docs/api-reference/rbac.authorization.k8s.io/v1alpha1/operations.html), [model definitions](/docs/api-reference/rbac.authorization.k8s.io/v1alpha1/definitions.html)
 * storage.k8s.io/v1beta1: [operations](/docs/api-reference/storage.k8s.io/v1beta1/operations.html), [model definitions](/docs/api-reference/storage.k8s.io/v1beta1/definitions.html)
 * v1: [operations](/docs/api-reference/v1/operations.html), [model definitions](/docs/api-reference/v1/definitions.html)
-
-
-
-
 
 
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->

@@ -21,7 +21,8 @@ guarantees about the ordering of deployment and scaling.
 
 {% capture body %}
 
-### When to Use a StatefulSet
+### Using StatefulSets
+
 StatefulSets are valuable for applications that require one or more of the 
 following.
 
