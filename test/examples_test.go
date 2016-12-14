@@ -38,6 +38,8 @@ import (
 	"k8s.io/kubernetes/pkg/apis/extensions"
 	expvalidation "k8s.io/kubernetes/pkg/apis/extensions/validation"
 	"k8s.io/kubernetes/pkg/capabilities"
+	"k8s.io/kubernetes/pkg/apis/policy"
+	policyvalidation "k8s.io/kubernetes/pkg/apis/policy/validation"
 	"k8s.io/kubernetes/pkg/registry/batch/job"
 	"k8s.io/kubernetes/pkg/runtime"
 	"k8s.io/kubernetes/pkg/types"
@@ -147,6 +149,11 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = apps_validation.ValidateStatefulSet(t)
+	case *policy.PodDisruptionBudget:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = policyvalidation.ValidatePodDisruptionBudget(t)
 	default:
 		errors = field.ErrorList{}
 		errors = append(errors, field.InternalError(field.NewPath(""), fmt.Errorf("no validation defined for %#v", obj)))
@@ -323,6 +330,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"mysql-configmap":   {&api.ConfigMap{}},
 			"mysql-statefulset": {&apps.StatefulSet{}},
 			"web":               {&api.Service{}, &apps.StatefulSet{}},
+			"zookeeper":         {&api.Service{}, &api.ConfigMap{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
 	}
 
