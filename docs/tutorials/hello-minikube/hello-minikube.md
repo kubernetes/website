@@ -48,7 +48,7 @@ the [Minikube installation guide](https://github.com/kubernetes/minikube/release
 Use `curl` to download and install the latest Minikube release:
 
 ```shell
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.13.1/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
 
 Download the latest version of the `kubectl` command-line tool, which you can
