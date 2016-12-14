@@ -246,7 +246,7 @@ You can then find out the port that the [NodePort feature of services](/docs/use
     Endpoints:              <none>
     Session Affinity:       None
 
-It takes several minutes to download and start all the containers, watch the output of `kubectl get pods -n sock-shop` to see when they're all up and running.
+It takes several minutes to download and start all the containers, watch the output of `kubectl get pods --namespace sock-shop` to see when they're all up and running.
 
 Then go to the IP address of your cluster's master node in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
