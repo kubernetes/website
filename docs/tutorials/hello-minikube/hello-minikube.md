@@ -26,28 +26,68 @@ a simple way of running Kubernetes on your local workstation for free.
 
 {% capture prerequisites %}
 
-* {% include task-tutorial-prereqs.md %}
+* Install Docker. On OS X, we recommend 
+[Docker for Mac](https://docs.docker.com/engine/installation/mac/).
+
 
 {% endcapture %}
 
 {% capture lessoncontent %}
 
+## Create a Minikube cluster
+
+This tutorial uses [Minikube](https://github.com/kubernetes/minikube) to 
+create a local cluster. It assumes you are using [Docker for Mac](https://docs.docker.com/engine/installation/mac/)
+on OS X. If you are on a different platform like Linux, or using VirtualBox
+instead of Docker for Mac, the instructions to install Minikube may be
+slightly different. For general Minikube installation instructions, see
+the [Minikube installation guide](https://github.com/kubernetes/minikube/releases).
+
+### Download and install the Minikube release
+
+Use `curl` to download and install the latest Minikube release:
+
+```shell
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.13.1/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+```
+
+Download the latest version of the `kubectl` command-line tool, which you can
+use to interact with Kubernetes clusters.
+
+```shell
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+```
+
+Start the Minikube cluster:
+
+```shell
+minikube start --vm-driver=xhyve
+```
+
+The `--vm-driver=xyhve` flag specifies that we are using Docker for Mac. The
+default VM driver is VirtualBox. Now set the Minikube context:
+
+```shell
+kubectl config use-context minikube
+```
+
+Now you should be able to run:
+
+```shell
+kubectl cluster-info
+```
+
+to verify the cluster is running and view its metadata.
+
 ## Create your Node.js application
 
-The first step is to write the application. Save this code in a folder called "`hellonode/`" with the filename `server.js`:
+The next step is to write the application. Save this code in a folder called "`hellonode/`" with the filename `server.js`:
 
 #### server.js
 
-```javascript
-var http = require('http');
-var handleRequest = function(request, response) {
-  console.log('Received request for URL: ' + request.url);
-  response.writeHead(200);
-  response.end('Hello World!');
-};
-var www = http.createServer(handleRequest);
-www.listen(8080);
-```
+{% include code.html language="js" file="server.js" ghlink="/docs/tutorials/hello-minikube/server.js" %}
 
 Now run this simple command:
 
@@ -67,12 +107,7 @@ Next, create a file, also within `hellonode/` named `Dockerfile`. A Dockerfile d
 
 #### Dockerfile
 
-```conf
-FROM node:6.9.2
-EXPOSE 8080
-COPY server.js .
-CMD node server.js
-```
+{% include code.html language="conf" file="Dockerfile" ghlink="/docs/tutorials/hello-minikube/Dockerfile" %}
 
 This "recipe" for the Docker image will start from the official Node.js LTS image found on the Docker registry, 
 expose port 8080, copy our `server.js` file to the image and start the Node server.
@@ -138,12 +173,6 @@ To view the stdout / stderr from a Pod run (probably empty currently):
 
 ```shell
 kubectl logs <POD-NAME>
-```
-
-To view metadata about the cluster run:
-
-```shell
-kubectl cluster-info
 ```
 
 To view cluster events run:
