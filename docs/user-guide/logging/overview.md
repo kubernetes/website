@@ -26,7 +26,7 @@ In this section, you can see an example of basic logging in Kubernetes that outp
 To run this pod, use the following command:
 
 ```shell
-$ kubectl create -f ./counter-pod.yaml
+$ kubectl create -f counter-pod.yaml
 pod "counter" created
 ```
 
@@ -73,8 +73,8 @@ System components write directly to log files in the `/var/log` directory in the
 
 While Kubernetes does not provide a native solution for cluster-level logging, there are several common approaches you can consider:
 
-* You can use a node-level logging agent that runs on every node as a manifest pod or a DaemonSet replica.
-* You can include a dedicated sidecar container for logging in an application pod in your cluster.
+* You can use a node-level logging agent that runs on every node.
+* You can include a dedicated sidecar container for logging in an application pod.
 * You can push logs directly to a back-end, from within an application.
 
 ### Using a node logging agent
@@ -83,11 +83,11 @@ While Kubernetes does not provide a native solution for cluster-level logging, t
 
 You can implement cluster-level logging by including a _node-level logging agent_ on each node. The logging agent is a dedicated tool that exposes logs or pushes logs to a back-end. Commonly the logging agent is a container that has access to a directory with log files from all of the application containers on that node.
 
-Because the logging agent must run on every node, it's common to implement it as either a manifest pod, a dedicated native process on the node, or run it as a DaemonSet replica.
+Because the logging agent must run on every node, it's common to implement it as either a DaemonSet replica, a manifest pod or a dedicated native process on the node. However the latter two approaches are deprecated and highly discouraged.
 
 Using a node-level logging agent is the most common and encouraged approach for a Kubernetes cluster, since it creates only one agent per node and it doesn't require any changes to the applications running on the node. However, node-level logging _only works for applications' standard output and standard error_.
 
-Kubernetes doesn't specify a logging agent, but it ships with two default options: [Stackdriver Logging](/docs/user-guide/logging/stackdriver) for use with Google Cloud Platform, and [Elasticsearch](/docs/user-guide/logging/elasticsearch). Both use `fluentd` with custom configuration as an agent on the node, and both are shipped as manifest pods.
+Kubernetes doesn't specify a logging agent, but there are two options, packaged with the kubernetes release: [Stackdriver Logging](/docs/user-guide/logging/stackdriver) for use with Google Cloud Platform, and [Elasticsearch](/docs/user-guide/logging/elasticsearch). You can find more information and instructions in the dedicated documents. Both use [fluentd](http://www.fluentd.org/) with custom configuration as an agent on the node.
 
 ### Using a sidecar container with the logging agent
 
