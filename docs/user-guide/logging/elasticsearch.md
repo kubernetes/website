@@ -7,7 +7,7 @@ assignees:
 
 On the Google Compute Engine (GCE) platform, the default logging support targets
 [Stackdriver Logging](https://cloud.google.com/logging/), which is described in details
-in the [Logging With Stackdriver Logging](/docs/user-guide/logging/sdl).
+in the [Logging With Stackdriver Logging](/docs/user-guide/logging/stackdriver).
 
 In this article we describe how to set up a cluster to ingest logs into
 [Elasticsearch](https://www.elastic.co/products/elasticsearch) and view

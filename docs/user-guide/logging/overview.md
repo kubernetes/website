@@ -87,7 +87,7 @@ Because the logging agent must run on every node, it's common to implement it as
 
 Using a node-level logging agent is the most common and encouraged approach for a Kubernetes cluster, since it creates only one agent per node and it doesn't require any changes to the applications running on the node. However, node-level logging _only works for applications' standard output and standard error_.
 
-Kubernetes doesn't specify a logging agent, but it ships with two default options: [Stackdriver Logging](/docs/user-guide/logging/sdl) for use with Google Cloud Platform, and [Elasticsearch](/docs/user-guide/logging/elasticsearch). Both use `fluentd` with custom configuration as an agent on the node, and both are shipped as manifest pods.
+Kubernetes doesn't specify a logging agent, but it ships with two default options: [Stackdriver Logging](/docs/user-guide/logging/stackdriver) for use with Google Cloud Platform, and [Elasticsearch](/docs/user-guide/logging/elasticsearch). Both use `fluentd` with custom configuration as an agent on the node, and both are shipped as manifest pods.
 
 ### Using a sidecar container with the logging agent
 

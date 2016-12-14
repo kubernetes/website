@@ -828,7 +828,7 @@ Notes for setting up each cluster service are given below:
 * Cluster-level Logging
   * [Cluster-level Logging Overview](/docs/user-guide/logging/overview)
   * [Cluster-level Logging with Elasticsearch](/docs/user-guide/logging/elasticsearch)
-  * [Cluster-level Logging with Stackdriver Logging](/docs/user-guide/logging/sdl)
+  * [Cluster-level Logging with Stackdriver Logging](/docs/user-guide/logging/stackdriver)
 * Container Resource Monitoring
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/)
 * GUI

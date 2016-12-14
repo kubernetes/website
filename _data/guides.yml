@@ -145,7 +145,7 @@ toc:
     - title: Logging Overview
       path: /docs/user-guide/logging/overview/
     - title: Logging with Stackdriver Logging
-      path: /docs/user-guide/logging/sdl/
+      path: /docs/user-guide/logging/stackdriver/
     - title: Logging with Elasticsearch and Kibana
       path: /docs/user-guide/logging/elasticsearch/
   - title: Running Commands in a Container with kubectl exec
