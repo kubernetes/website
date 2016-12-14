@@ -26,6 +26,9 @@ a simple way of running Kubernetes on your local workstation for free.
 
 {% capture prerequisites %}
 
+* For OS X, you need [Homebrew](https://brew.sh) to install the xhyve
+driver.
+
 * Install Docker. On OS X, we recommend 
 [Docker for Mac](https://docs.docker.com/engine/installation/mac/).
 
@@ -49,6 +52,14 @@ Use `curl` to download and install the latest Minikube release:
 
 ```shell
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+```
+
+Use Homebrew to install the xhyve driver and set its permissions.
+
+```shell
+brew install docker-machine-driver-xhyve
+sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
+sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 ```
 
 Download the latest version of the `kubectl` command-line tool, which you can
