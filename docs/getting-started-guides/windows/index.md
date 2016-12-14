@@ -47,8 +47,11 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 2. CNI network plugin installed.
 
 ### Component Setup
+
 Requirements
-* Git, Go 1.7.1+ 
+
+* Git
+* Go 1.7.1+
 * make (if using Linux or MacOS)
 * Important notes and other dependencies are listed [here](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/development.md#building-kubernetes-on-a-local-osshell-environment)
 
@@ -80,12 +83,14 @@ The below example setup assumes one Linux and two Windows Server 2016 nodes and 
 | Win02 | `<IP of Win02 host>` | 192.168.2.0/24 |
 
 **Lin01**
+
 ```
 ip route add 192.168.1.0/24 via <IP of Win01 host>
 ip route add 192.168.2.0/24 via <IP of Win02 host>
 ```
 
 **Win01**
+
 ```
 docker network create -d transparent --gateway 192.168.1.1 --subnet 192.168.1.0/24 <network name>
 # A bridge is created with Adapter name "vEthernet (HNSTransparent)". Set its IP address to transparent network gateway
@@ -95,6 +100,7 @@ route add 192.168.2.0 mask 255.255.255.0 192.168.2.1 if <Interface Id of the Rou
 ```
 
 **Win02**
+
 ```
 docker network create -d transparent --gateway 192.168.2.1 --subnet 192.168.2.0/24 <network name>
 # A bridge is created with Adapter name "vEthernet (HNSTransparent)". Set its IP address to transparent network gateway
@@ -129,6 +135,7 @@ Run the following in a PowerShell window with administrative privileges. Be awar
 
 ## Scheduling Pods on Windows
 Because your cluster has both Linux and Windows nodes, you must explictly set the nodeSelector constraint to be able to schedule Pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
+
 ```
 {
   "apiVersion": "v1",
