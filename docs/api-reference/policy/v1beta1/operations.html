@@ -19,7 +19,7 @@
 <h3 id="_get_available_resources">get available resources</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/apps/v1alpha1</pre>
+<pre>GET /apis/policy/v1beta1</pre>
 </div>
 </div>
 <div class="sect3">
@@ -28,7 +28,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -84,17 +84,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_list_or_watch_objects_of_kind_petset">list or watch objects of kind PetSet</h3>
+<h3 id="_list_or_watch_objects_of_kind_poddisruptionbudget">list or watch objects of kind PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/apps/v1alpha1/namespaces/{namespace}/petsets</pre>
+<pre>GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets</pre>
 </div>
 </div>
 <div class="sect3">
@@ -106,7 +106,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -185,7 +185,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -198,7 +198,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petsetlist">v1alpha1.PetSetList</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudgetlist">v1beta1.PodDisruptionBudgetList</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -227,6 +227,12 @@
 <li>
 <p>application/vnd.kubernetes.protobuf</p>
 </li>
+<li>
+<p>application/json;stream=watch</p>
+</li>
+<li>
+<p>application/vnd.kubernetes.protobuf;stream=watch</p>
+</li>
 </ul>
 </div>
 </div>
@@ -235,17 +241,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_delete_collection_of_petset">delete collection of PetSet</h3>
+<h3 id="_delete_collection_of_poddisruptionbudget">delete collection of PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>DELETE /apis/apps/v1alpha1/namespaces/{namespace}/petsets</pre>
+<pre>DELETE /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets</pre>
 </div>
 </div>
 <div class="sect3">
@@ -257,7 +263,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -336,7 +342,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -386,17 +392,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_a_petset">create a PetSet</h3>
+<h3 id="_create_a_poddisruptionbudget">create a PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>POST /apis/apps/v1alpha1/namespaces/{namespace}/petsets</pre>
+<pre>POST /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets</pre>
 </div>
 </div>
 <div class="sect3">
@@ -408,7 +414,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -434,7 +440,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petset">v1alpha1.PetSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudget">v1beta1.PodDisruptionBudget</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -455,7 +461,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -468,7 +474,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petset">v1alpha1.PetSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudget">v1beta1.PodDisruptionBudget</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -505,17 +511,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_read_the_specified_petset">read the specified PetSet</h3>
+<h3 id="_read_the_specified_poddisruptionbudget">read the specified PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/apps/v1alpha1/namespaces/{namespace}/petsets/{name}</pre>
+<pre>GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}</pre>
 </div>
 </div>
 <div class="sect3">
@@ -527,7 +533,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -575,7 +581,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PetSet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PodDisruptionBudget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -590,7 +596,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -603,7 +609,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petset">v1alpha1.PetSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudget">v1beta1.PodDisruptionBudget</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -640,17 +646,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_replace_the_specified_petset">replace the specified PetSet</h3>
+<h3 id="_replace_the_specified_poddisruptionbudget">replace the specified PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>PUT /apis/apps/v1alpha1/namespaces/{namespace}/petsets/{name}</pre>
+<pre>PUT /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}</pre>
 </div>
 </div>
 <div class="sect3">
@@ -662,7 +668,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -688,7 +694,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petset">v1alpha1.PetSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudget">v1beta1.PodDisruptionBudget</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -702,7 +708,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PetSet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PodDisruptionBudget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -717,7 +723,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -730,7 +736,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petset">v1alpha1.PetSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudget">v1beta1.PodDisruptionBudget</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -767,17 +773,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_delete_a_petset">delete a PetSet</h3>
+<h3 id="_delete_a_poddisruptionbudget">delete a PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>DELETE /apis/apps/v1alpha1/namespaces/{namespace}/petsets/{name}</pre>
+<pre>DELETE /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}</pre>
 </div>
 </div>
 <div class="sect3">
@@ -789,7 +795,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -819,6 +825,22 @@
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gracePeriodSeconds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">integer (int32)</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryParameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">orphanDependents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object&#8217;s finalizers list.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">namespace</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">object name and auth scope, such as for teams and projects</p></td>
@@ -829,7 +851,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PetSet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PodDisruptionBudget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -844,7 +866,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -894,17 +916,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_partially_update_the_specified_petset">partially update the specified PetSet</h3>
+<h3 id="_partially_update_the_specified_poddisruptionbudget">partially update the specified PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>PATCH /apis/apps/v1alpha1/namespaces/{namespace}/petsets/{name}</pre>
+<pre>PATCH /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}</pre>
 </div>
 </div>
 <div class="sect3">
@@ -916,7 +938,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -956,7 +978,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PetSet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PodDisruptionBudget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -971,7 +993,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -984,7 +1006,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petset">v1alpha1.PetSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudget">v1beta1.PodDisruptionBudget</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1027,17 +1049,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_read_status_of_the_specified_petset">read status of the specified PetSet</h3>
+<h3 id="_read_status_of_the_specified_poddisruptionbudget">read status of the specified PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/apps/v1alpha1/namespaces/{namespace}/petsets/{name}/status</pre>
+<pre>GET /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status</pre>
 </div>
 </div>
 <div class="sect3">
@@ -1049,7 +1071,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1081,7 +1103,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PetSet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PodDisruptionBudget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1096,7 +1118,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1109,7 +1131,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petset">v1alpha1.PetSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudget">v1beta1.PodDisruptionBudget</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1146,17 +1168,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_replace_status_of_the_specified_petset">replace status of the specified PetSet</h3>
+<h3 id="_replace_status_of_the_specified_poddisruptionbudget">replace status of the specified PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>PUT /apis/apps/v1alpha1/namespaces/{namespace}/petsets/{name}/status</pre>
+<pre>PUT /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status</pre>
 </div>
 </div>
 <div class="sect3">
@@ -1168,7 +1190,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1194,7 +1216,7 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">body</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petset">v1alpha1.PetSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudget">v1beta1.PodDisruptionBudget</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
@@ -1208,7 +1230,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PetSet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PodDisruptionBudget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1223,7 +1245,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1236,7 +1258,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petset">v1alpha1.PetSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudget">v1beta1.PodDisruptionBudget</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1273,17 +1295,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_partially_update_status_of_the_specified_petset">partially update status of the specified PetSet</h3>
+<h3 id="_partially_update_status_of_the_specified_poddisruptionbudget">partially update status of the specified PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>PATCH /apis/apps/v1alpha1/namespaces/{namespace}/petsets/{name}/status</pre>
+<pre>PATCH /apis/policy/v1beta1/namespaces/{namespace}/poddisruptionbudgets/{name}/status</pre>
 </div>
 </div>
 <div class="sect3">
@@ -1295,7 +1317,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1335,7 +1357,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PetSet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PodDisruptionBudget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1350,7 +1372,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1363,7 +1385,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petset">v1alpha1.PetSet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudget">v1beta1.PodDisruptionBudget</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1406,17 +1428,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_list_or_watch_objects_of_kind_petset_2">list or watch objects of kind PetSet</h3>
+<h3 id="_list_or_watch_objects_of_kind_poddisruptionbudget_2">list or watch objects of kind PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/apps/v1alpha1/petsets</pre>
+<pre>GET /apis/policy/v1beta1/poddisruptionbudgets</pre>
 </div>
 </div>
 <div class="sect3">
@@ -1428,7 +1450,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1499,7 +1521,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1512,7 +1534,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1alpha1_petsetlist">v1alpha1.PetSetList</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_v1beta1_poddisruptionbudgetlist">v1beta1.PodDisruptionBudgetList</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1541,6 +1563,12 @@
 <li>
 <p>application/vnd.kubernetes.protobuf</p>
 </li>
+<li>
+<p>application/json;stream=watch</p>
+</li>
+<li>
+<p>application/vnd.kubernetes.protobuf;stream=watch</p>
+</li>
 </ul>
 </div>
 </div>
@@ -1549,17 +1577,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_watch_individual_changes_to_a_list_of_petset">watch individual changes to a list of PetSet</h3>
+<h3 id="_watch_individual_changes_to_a_list_of_poddisruptionbudget">watch individual changes to a list of PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/apps/v1alpha1/watch/namespaces/{namespace}/petsets</pre>
+<pre>GET /apis/policy/v1beta1/watch/namespaces/{namespace}/poddisruptionbudgets</pre>
 </div>
 </div>
 <div class="sect3">
@@ -1571,7 +1599,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1650,7 +1678,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1663,7 +1691,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_*versioned_event">*versioned.Event</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_versioned_event">versioned.Event</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1687,10 +1715,13 @@
 <p>application/json</p>
 </li>
 <li>
-<p>application/json;stream=watch</p>
+<p>application/yaml</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf</p>
+</li>
+<li>
+<p>application/json;stream=watch</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf;stream=watch</p>
@@ -1703,17 +1734,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_watch_changes_to_an_object_of_kind_petset">watch changes to an object of kind PetSet</h3>
+<h3 id="_watch_changes_to_an_object_of_kind_poddisruptionbudget">watch changes to an object of kind PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/apps/v1alpha1/watch/namespaces/{namespace}/petsets/{name}</pre>
+<pre>GET /apis/policy/v1beta1/watch/namespaces/{namespace}/poddisruptionbudgets/{name}</pre>
 </div>
 </div>
 <div class="sect3">
@@ -1725,7 +1756,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1797,7 +1828,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PathParameter</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PetSet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name of the PodDisruptionBudget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1812,7 +1843,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1825,7 +1856,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_*versioned_event">*versioned.Event</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_versioned_event">versioned.Event</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1849,10 +1880,13 @@
 <p>application/json</p>
 </li>
 <li>
-<p>application/json;stream=watch</p>
+<p>application/yaml</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf</p>
+</li>
+<li>
+<p>application/json;stream=watch</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf;stream=watch</p>
@@ -1865,17 +1899,17 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_watch_individual_changes_to_a_list_of_petset_2">watch individual changes to a list of PetSet</h3>
+<h3 id="_watch_individual_changes_to_a_list_of_poddisruptionbudget_2">watch individual changes to a list of PodDisruptionBudget</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /apis/apps/v1alpha1/watch/petsets</pre>
+<pre>GET /apis/policy/v1beta1/watch/poddisruptionbudgets</pre>
 </div>
 </div>
 <div class="sect3">
@@ -1887,7 +1921,7 @@
 <col style="width:16%;">
 <col style="width:16%;">
 <col style="width:16%;">
-<col style="width:16%;">
+<col style="width:16%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1958,7 +1992,7 @@
 <colgroup>
 <col style="width:33%;">
 <col style="width:33%;">
-<col style="width:33%;">
+<col style="width:33%;"> 
 </colgroup>
 <thead>
 <tr>
@@ -1971,7 +2005,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_*versioned_event">*versioned.Event</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_versioned_event">versioned.Event</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1995,10 +2029,13 @@
 <p>application/json</p>
 </li>
 <li>
-<p>application/json;stream=watch</p>
+<p>application/yaml</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf</p>
+</li>
+<li>
+<p>application/json;stream=watch</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf;stream=watch</p>
@@ -2011,7 +2048,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>apisappsv1alpha1</p>
+<p>apispolicyv1beta1</p>
 </li>
 </ul>
 </div>
@@ -2022,7 +2059,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-10-21 20:04:10 UTC
+Last updated 2016-11-03 23:34:29 UTC
 </div>
 </div>
 </body>
