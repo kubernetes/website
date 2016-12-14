@@ -37,7 +37,7 @@ a simple way of running Kubernetes on your local workstation for free.
 ## Create a Minikube cluster
 
 This tutorial uses [Minikube](https://github.com/kubernetes/minikube) to 
-create a local cluster. It assumes you are using [Docker for Mac](https://docs.docker.com/engine/installation/mac/)
+create a local cluster. This tutorial also assumes you are using [Docker for Mac](https://docs.docker.com/engine/installation/mac/)
 on OS X. If you are on a different platform like Linux, or using VirtualBox
 instead of Docker for Mac, the instructions to install Minikube may be
 slightly different. For general Minikube installation instructions, see
