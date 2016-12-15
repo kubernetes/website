@@ -2,7 +2,7 @@
 assignees:
 - erictune
 - thockin
-
+title: Images
 ---
 
 Each container in a pod has its own image.  Currently, the only type of image supported is a [Docker Image](https://docs.docker.com/engine/tutorials/dockerimages/).

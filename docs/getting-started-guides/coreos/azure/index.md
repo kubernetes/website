@@ -1,4 +1,5 @@
 ---
+title: Running Kubernetes on Azure (Weave-based)
 ---
 
 * TOC

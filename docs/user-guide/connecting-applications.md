@@ -3,7 +3,7 @@ assignees:
 - caesarxuchao
 - lavalamp
 - thockin
-
+title: Connecting Applications with Services
 ---
 
 * TOC
