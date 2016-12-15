@@ -1,4 +1,5 @@
 ---
+title: Running a Single-Instance Stateful Application
 ---
 
 {% capture overview %}

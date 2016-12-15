@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-
+title: Kubernetes API Overview
 ---
 
 Primary system and API concepts are documented in the [User guide](/docs/user-guide/).

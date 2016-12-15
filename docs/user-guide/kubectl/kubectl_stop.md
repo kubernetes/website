@@ -1,5 +1,7 @@
 ---
+title: kubectl stop
 ---
+
 ## kubectl stop
 
 Deprecated: Gracefully shut down a resource by name or filename.
