@@ -1,5 +1,7 @@
 ---
+title: kubectl rollout
 ---
+
 ## kubectl rollout
 
 Manage a deployment rollout

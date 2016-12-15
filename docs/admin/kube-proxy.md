@@ -1,5 +1,7 @@
 ---
+title: kube-proxy
 ---
+
 ## kube-proxy
 
 

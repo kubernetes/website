@@ -3,7 +3,7 @@ assignees:
 - erictune
 - lavalamp
 - thockin
-
+title: Creating a Custom Cluster from Scratch
 ---
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you

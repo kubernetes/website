@@ -2,7 +2,7 @@
 assignees:
 - lavalamp
 - thockin
-
+title: Networking in Kubernetes
 ---
 
 Kubernetes approaches networking somewhat differently than Docker does by

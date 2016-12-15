@@ -1,4 +1,5 @@
 ---
+title: Federated ConfigMap
 ---
 
 This guide explains how to use ConfigMaps in a Federation control plane.
