@@ -74,7 +74,7 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/node-selection).  
+selector](/docs/user-guide/node-selection/).  
 If you specify a `scheduler.alpha.kubernetes.io/affinity` annotation in `.spec.template.metadata.annotations`,
 then DaemonSet controller will create pods on nodes which match that [node affinity](../../user-guide/node-selection/#alpha-feature-in-kubernetes-v12-node-affinity).
 
