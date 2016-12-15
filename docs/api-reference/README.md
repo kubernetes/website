@@ -1,6 +1,5 @@
 ---
 ---
-
 # API Reference
 
 Use the following reference docs to understand the kubernetes REST API for various API group versions:
@@ -9,10 +8,6 @@ Use the following reference docs to understand the kubernetes REST API for vario
 * extensions/v1beta1: [operations](/docs/api-reference/extensions/v1beta1/operations.html), [model definitions](/docs/api-reference/extensions/v1beta1/definitions.html)
 * batch/v1: [operations](/docs/api-reference/batch/v1/operations.html), [model definitions](/docs/api-reference/batch/v1/definitions.html)
 * autoscaling/v1: [operations](/docs/api-reference/autoscaling/v1/operations.html), [model definitions](/docs/api-reference/autoscaling/v1/definitions.html)
-
-
-
-
 
 
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->

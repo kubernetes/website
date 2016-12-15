@@ -1,6 +1,6 @@
 ---
 assignees:
-- mml
+- davidopp
 
 ---
 This guide is for anyone wishing to specify safety constraints on pods or anyone
@@ -59,7 +59,7 @@ itself.  To attempt an eviction (perhaps more REST-precisely, to attempt to
 
 ```json
 {
-  "apiVersion": "policy/v1alpha1",
+  "apiVersion": "policy/v1beta1",
   "kind": "Eviction",
   "metadata": {
     "name": "quux",
