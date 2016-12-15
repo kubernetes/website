@@ -43,7 +43,7 @@ $ kubectl logs counter
 ...
 ```
 
-You can use `kubectl logs` to retrieve logs from a previous instantiation of a container, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/kubectl_logs) for more details.
+You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/kubectl_logs) for more details.
 
 ## Logging at the node level
 
