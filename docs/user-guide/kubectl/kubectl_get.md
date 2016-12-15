@@ -1,5 +1,7 @@
 ---
+title: kubectl get
 ---
+
 ## kubectl get
 
 Display one or many resources

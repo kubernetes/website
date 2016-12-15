@@ -2,7 +2,7 @@
 assignees:
 - colemickens
 - jeffmendoza
-
+title: Running Kubernetes on Azure
 ---
 
 The recommended approach for deploying a Kubernetes 1.4 cluster on Azure is the

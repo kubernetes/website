@@ -3,8 +3,9 @@ assignees:
 - madhusudancs
 - mml
 - nikhiljindal
-
+title: Using `federation-up` and `deploy.sh`
 ---
+
 This guide explains how to set up cluster federation that lets us control multiple Kubernetes clusters.
 
 

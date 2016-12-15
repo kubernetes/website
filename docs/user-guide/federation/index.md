@@ -1,4 +1,5 @@
 ---
+title: Federation User Guide
 ---
 
 This guide explains how we can manage multiple kubernetes clusters using
