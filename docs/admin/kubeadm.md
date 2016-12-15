@@ -82,7 +82,7 @@ of the box. You can specify a cloud provider using `--cloud-provider`.
 Valid values are the ones supported by `controller-manager`, namely `"aws"`,
 `"azure"`, `"cloudstack"`, `"gce"`, `"mesos"`, `"openstack"`, `"ovirt"`,
 `"rackspace"`, `"vsphere"`. In order to provide additional configuration for
-the cloud provider, you should create a `/etc/kubernetes/cloud-config.json`
+the cloud provider, you should create a `/etc/kubernetes/cloud-config`
 file manually, before running `kubeadm init`. `kubeadm` automatically
 picks those settings up and ensures other nodes are configured correctly.
 You must also set the `--cloud-provider` and `--cloud-config` parameters
