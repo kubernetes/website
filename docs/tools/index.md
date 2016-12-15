@@ -13,6 +13,12 @@ assignees:
 
 [`kubectl`](/docs/user-guide/kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
 
+### Kubefed
+
+[`kubefed`](/docs/admin/federation/kubefed/) is the command line tool
+to help you administrate your federated clusters.
+
+
 ### Dashboard 
 
 [Dashboard](/docs/user-guide/ui/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
