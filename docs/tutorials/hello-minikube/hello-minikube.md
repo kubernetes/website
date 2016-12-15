@@ -3,24 +3,21 @@
 
 {% capture overview %}
 
-The goal of this codelab is for you to turn a simple Hello World node.js app 
-into a replicated application running on Kubernetes. We will show you how to 
+The goal of this tutorial is for you to turn a simple Hello World Node.js app 
+into an application running on Kubernetes. We will show you how to 
 take code that you have developed on your machine, turn it into a Docker
 container image, and then run that image on [Minikube](/docs/getting-started-guides/minikube).
-
-Kubernetes is an open source project which can run on many different environments, 
-from laptops to high-availability multi-node clusters, from public clouds to 
-on-premise deployments, from virtual machines to bare metal. Minikube provides
-a simple way of running Kubernetes on your local workstation for free.
+Minikube provides a simple way of running Kubernetes on your local workstation for free.
 
 {% endcapture %}
 
 {% capture objectives %}
 
-* Run a hello world Node application
+* Run a hello world Node.js application
 * Deploy the application to Minikube
 * View application logs
 * Update the application image
+
 
 {% endcapture %}
 
@@ -28,6 +25,8 @@ a simple way of running Kubernetes on your local workstation for free.
 
 * For OS X, you need [Homebrew](https://brew.sh) to install the xhyve
 driver.
+
+* [NodeJS](https://nodejs.org/en/) is required to run the sample application.
 
 * Install Docker. On OS X, we recommend 
 [Docker for Mac](https://docs.docker.com/engine/installation/mac/).
@@ -78,7 +77,9 @@ minikube start --vm-driver=xhyve
 ```
 
 The `--vm-driver=xyhve` flag specifies that we are using Docker for Mac. The
-default VM driver is VirtualBox. Now set the Minikube context:
+default VM driver is VirtualBox. Now set the Minikube context. The context is
+what determines which cluster `kubectl` is interacting with. You can see
+all your available contexts in the `~/.kube/config` file.
 
 ```shell
 kubectl config use-context minikube
@@ -135,9 +136,12 @@ eval $(minikube docker-env)
 If you no longer with to use the Minikube host, you can undo this change by
 running the same command with the `-u` flag.
 
-Now build an image of your container by running `docker build`, tagging the 
-image your DockerHub username. Make sure you build the image using the 
-Minikube daemon.
+```shell
+eval $(minikube docker-env) -u
+```
+
+Now build an image of your container by running `docker build`, making sure you 
+build the image using the Minikube daemon.
 
 ```shell
 docker build -t hello-node:v1 .
@@ -145,13 +149,15 @@ docker build -t hello-node:v1 .
 
 Now the Minikube VM can run the image you built.
 
-## Create your pod
+## Create a deployment
 
 A Kubernetes **[pod](/docs/user-guide/pods/)** is a group of containers, tied 
-together for the purposes of administration and networking. It can contain a 
-single container or multiple.
+together for the purposes of administration and networking. A Kubernetes
+**[deployment](/docs/user-guide/deployments) checks on the health of your
+Pod, and restarts it if terminates. 
 
-Create a Pod with the `kubectl run` command:
+Create a Deployment for a Pod from the image yo ubuilt  with the `kubectl run` 
+command:
 
 ```shell
 kubectl run hello-node --image=hello-node:v1 --port=8080
@@ -280,7 +286,7 @@ Now, you can clean up the resources you created in your cluster.
 
 ```shell
 kubectl delete service hello-node
-kubectl delete deployment hell-node
+kubectl delete deployment hello-node
 ```
 
 Optionally, stop Minikube.
