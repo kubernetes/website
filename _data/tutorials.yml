@@ -53,5 +53,11 @@ toc:
     path: /docs/tutorials/stateless-application/expose-external-ip-address/
 - title: Stateful Applications
   section:
+  - title: StatefulSet Basics
+    path: /docs/tutorials/stateful-application/basic-stateful-set/
   - title: Running a Single-Instance Stateful Application
     path: /docs/tutorials/stateful-application/run-stateful-application/
+  - title: Running a Replicated Stateful Application
+    path: /docs/tutorials/stateful-application/run-replicated-stateful-application/
+  - title: Running ZooKeeper, A CP Distributed System
+    path: /docs/tutorials/stateful-application/zookeeper/
