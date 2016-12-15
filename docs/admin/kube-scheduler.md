@@ -1,5 +1,6 @@
 ---
 title: kube-scheduler
+notitle: true
 ---
 
 ## kube-scheduler
