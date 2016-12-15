@@ -77,9 +77,11 @@ minikube start --vm-driver=xhyve
 ```
 
 The `--vm-driver=xyhve` flag specifies that we are using Docker for Mac. The
-default VM driver is VirtualBox. Now set the Minikube context. The context is
-what determines which cluster `kubectl` is interacting with. You can see
-all your available contexts in the `~/.kube/config` file.
+default VM driver is VirtualBox. 
+
+Now set the Minikube context. The context is what determines which cluster 
+`kubectl` is interacting with. You can see all your available contexts in the 
+`~/.kube/config` file. 
 
 ```shell
 kubectl config use-context minikube
@@ -153,10 +155,10 @@ Now the Minikube VM can run the image you built.
 
 A Kubernetes **[pod](/docs/user-guide/pods/)** is a group of containers, tied 
 together for the purposes of administration and networking. A Kubernetes
-**[deployment](/docs/user-guide/deployments) checks on the health of your
+**[deployment](/docs/user-guide/deployments)** checks on the health of your
 Pod, and restarts it if terminates. 
 
-Create a Deployment for a Pod from the image yo ubuilt  with the `kubectl run` 
+Create a Deployment with Pod from the image you built  with the `kubectl run` 
 command:
 
 ```shell
@@ -184,12 +186,6 @@ kubectl get pods
 
 NAME                         READY     STATUS    RESTARTS   AGE
 hello-node-714049816-ztzrb   1/1       Running   0          6m
-```
-
-To view the stdout / stderr from a Pod run (probably empty currently):
-
-```shell
-kubectl logs <POD-NAME>
 ```
 
 To view cluster events run:
