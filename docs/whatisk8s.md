@@ -2,9 +2,8 @@
 assignees:
 - bgrant0607
 - mikedanese
-
+title: What is Kubernetes?
 ---
-
 
 Kubernetes is an [open-source platform for automating deployment, scaling, and operations of application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) across clusters of hosts, providing container-centric infrastructure.
 

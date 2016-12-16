@@ -2,7 +2,7 @@
 assignees:
 - caesarxuchao
 - mikedanese
-
+title: Running Commands in a Container with kubectl exec
 ---
 
 Developers can use `kubectl exec` to run commands in a container. This guide demonstrates two use cases.

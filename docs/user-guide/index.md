@@ -1,7 +1,7 @@
 ---
 assignees:
 - davidopp
-
+title: Guides
 ---
 
 The Kubernetes **Guides** can help you work with various aspects of the Kubernetes system.

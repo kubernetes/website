@@ -2,7 +2,7 @@
 assignees:
 - bgrant0607
 - mikedanese
-
+title: Using the Downward API to Convey Pod Properties
 ---
 
 It is sometimes useful for a container to have information about itself, but we
