@@ -49,9 +49,9 @@ You can use `kubectl logs` to retrieve logs from a previous instantiation of a c
 
 ![Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
 
-Everything a containerized application writes to `stdout` and `stderr` goes to a container runtime. Currently, in the Docker runtime, that output is written to a file using the standard [json logging driver](https://docs.docker.com/engine/admin/logging/overview).
+Everything a containerized application writes to `stdout` and `stderr` is handled and redirected somewhere by a container engine. For example, Docker container engine redirects those two streams to [a logging driver](https://docs.docker.com/engine/admin/logging/overview), which is configured in kubernetes to write to a file in json format.
 
-**Note:** The json logging driver treats each line as a separate message. There is no direct support for multi-line messages such as stack traces.
+**Note:** Docker json logging driver treats each line as a separate message. When it's used, there is no direct support for multi-line messages out of the box, it should be handled on the logging agent level or higher.
 
 By default, if a container restarts, kubelet keeps one terminated container with its logs. If a pod is evicted from the node, all corresponding containers are also evicted, along with their logs.
 
