@@ -50,7 +50,7 @@ kubectl get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file
 
 ### Examples
 
-```
+```{% raw %}
   # List all pods in ps output format.
   kubectl get pods
   
@@ -74,7 +74,7 @@ kubectl get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file
   
   # List one or more resources by their type and names.
   kubectl get rc/web service/frontend pods/web-pod-13je7
-```
+{% endraw %}```
 
 ### Options
 
