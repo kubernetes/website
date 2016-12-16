@@ -7,7 +7,7 @@ assignees:
 * TOC
 {:toc}
 
-## What is a _Daemon Set_?
+## What is a Daemon Set?
 
 A _Daemon Set_ ensures that all (or some) nodes run a copy of a pod.  As nodes are added to the
 cluster, pods are added to them.  As nodes are removed from the cluster, those pods are garbage
