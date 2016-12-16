@@ -181,6 +181,14 @@ The Nuage platform uses overlays to provide seamless policy-based networking bet
 complicated way to build an overlay network.  This is endorsed by several of the
 "Big Shops" for networking.
 
+### OVN (Open Virtual Networking)
+
+OVN is an opensource network virtualization solution developed by the
+Open vSwitch community.  It lets one create logical switches, logical routers,
+stateful ACLs, load-balancers etc to build different virtual networking
+topologies.  The project has a specific Kubernetes plugin and documentation
+at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
+
 ### Project Calico
 
 [Project Calico](http://docs.projectcalico.org/) is an open source container networking provider and network policy engine.
