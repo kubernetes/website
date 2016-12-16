@@ -10,7 +10,7 @@ assignees:
 _pods_ are the smallest deployable units of computing that can be created and
 managed in Kubernetes.
 
-## What is a _pod_?
+## What is a pod?
 
 A _pod_ (as in a pod of whales or pea pod) is a group of one or more containers
 (such as Docker containers), the shared storage for those containers, and
