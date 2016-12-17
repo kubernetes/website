@@ -171,10 +171,10 @@ toc:
       path: /docs/getting-started-guides/gce/
     - title: Running Kubernetes on AWS EC2
       path: /docs/getting-started-guides/aws/
+    - title: Running Kubernetes on Azure Container Service
+      path: https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough
     - title: Running Kubernetes on Azure
       path: /docs/getting-started-guides/azure/
-    - title: Running Kubernetes on Azure (Weave-based)
-      path: /docs/getting-started-guides/coreos/azure/
     - title: Running Kubernetes on CenturyLink Cloud
       path: /docs/getting-started-guides/clc/
     - title: Running Kubernetes on IBM SoftLayer
@@ -305,7 +305,7 @@ toc:
 
 - title: Administering Federation
   section:
-  - title: Using `kubefed`
-    path: /docs/admin/federation/kubfed/
-  - title: Using `federation-up` and `deploy.sh`
+  - title: Using kubefed
+    path: /docs/admin/federation/kubefed/
+  - title: Using federation-up and deploy.sh
     path: /docs/admin/federation/
