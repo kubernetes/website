@@ -76,7 +76,7 @@ In the second terminal, use
 Headless Service and StatefulSet defined in `web.yaml`.
 
 ```shell
-kubectl create -f web.yml 
+kubectl create -f web.yaml 
 service "nginx" created
 statefulset "web" created
 ```
