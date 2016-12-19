@@ -32,7 +32,7 @@ service "my-nginx" exposed
 You can see that they are running by:
 
 ```shell
-$ kubectl get po
+$ kubectl get pod
 NAME                                READY     STATUS    RESTARTS   AGE
 my-nginx-3800858182-h9v8d           1/1       Running   0          1m
 my-nginx-3800858182-wqafx           1/1       Running   0          1m
