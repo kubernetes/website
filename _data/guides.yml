@@ -105,8 +105,9 @@ toc:
       path: https://cloud.google.com/container-engine/docs/before-you-begin/
     - docs/getting-started-guides/gce.md
     - docs/getting-started-guides/aws.md
+    - title: Running Kubernetes on Azure Container Service
+      path: https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough
     - docs/getting-started-guides/azure.md
-    - docs/getting-started-guides/coreos/azure/index.md
     - docs/getting-started-guides/clc.md
     - title: Running Kubernetes on IBM SoftLayer
       path: https://github.com/patrocinio/kubernetes-softlayer
