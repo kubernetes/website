@@ -17,7 +17,7 @@ defaults:
     scope:
       path: ""
     values:
-      version: "v1.3"
+      version: "v1.5.1"
       githubbranch: "master"
       docsbranch: "master"
   -
