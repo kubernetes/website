@@ -34,8 +34,21 @@ gems:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-include-cache
 
 # SEO
 logo: /images/favicon.png
 twitter:
   username: kubernetesio
+
+# Tables of contents, stored in the _data folder, that control the sidebar nav
+tocs:
+  - docs-home
+  - guides
+  - tutorials
+  - tasks
+  - concepts
+  - reference
+  - tools
+  - samples
+  - support
