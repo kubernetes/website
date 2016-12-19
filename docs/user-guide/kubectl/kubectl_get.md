@@ -55,25 +55,25 @@ kubectl get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file
 ```
   # List all pods in ps output format.
   kubectl get pods
-  
+
   # List all pods in ps output format with more information (such as node name).
   kubectl get pods -o wide
-  
+
   # List a single replication controller with specified NAME in ps output format.
   kubectl get replicationcontroller web
-  
+
   # List a single pod in JSON output format.
   kubectl get -o json pod web-pod-13je7
-  
+
   # List a pod identified by type and name specified in "pod.yaml" in JSON output format.
   kubectl get -f pod.yaml -o json
-  
+
   # Return only the phase value of the specified pod.
-  kubectl get -o template pod/web-pod-13je7 --template={{.status.phase}}
-  
+  kubectl get -o template pod/web-pod-13je7 --template={% raw %}{{.status.phase}}{% endraw %}
+
   # List all replication controllers and services together in ps output format.
   kubectl get rc,services
-  
+
   # List one or more resources by their type and names.
   kubectl get rc/web service/frontend pods/web-pod-13je7
 ```
