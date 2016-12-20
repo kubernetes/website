@@ -1,5 +1,5 @@
 ---
-
+title: Windows Server Containers
 ---
 
 Kubernetes version 1.5 introduces support for Windows Server Containers. In version 1.5, the Kubernetes control plane (API Server, Scheduler, Controller Manager, etc) continue to run on Linux, while the kubelet and kube-proxy can be run on Windows Server.

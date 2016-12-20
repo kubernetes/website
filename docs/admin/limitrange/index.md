@@ -2,7 +2,7 @@
 assignees:
 - derekwaynecarr
 - janetkuo
-
+title: Setting Pod CPU and Memory Limits
 ---
 
 By default, pods run with unbounded CPU and memory limits.  This means that any pod in the

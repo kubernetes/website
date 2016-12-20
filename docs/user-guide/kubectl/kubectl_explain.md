@@ -1,5 +1,7 @@
 ---
+title: kubectl explain
 ---
+
 ## kubectl explain
 
 Documentation of resources

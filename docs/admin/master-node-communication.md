@@ -3,7 +3,7 @@ assignees:
 - dchen1107
 - roberthbailey
 - liggitt
-
+title: Master-Node communication
 ---
 
 * TOC

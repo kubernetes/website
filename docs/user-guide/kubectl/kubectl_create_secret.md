@@ -1,5 +1,7 @@
 ---
+title: kubectl create secret
 ---
+
 ## kubectl create secret
 
 Create a secret using specified subcommand

@@ -1,7 +1,7 @@
 ---
 assignees:
 - liggitt
-
+title: Kubelet authentication/authorization
 ---
 
 * TOC

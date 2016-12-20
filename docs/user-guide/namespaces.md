@@ -3,7 +3,7 @@ assignees:
 - derekwaynecarr
 - mikedanese
 - thockin
-
+title: Namespaces
 ---
 
 Kubernetes supports multiple virtual clusters backed by the same physical cluster.

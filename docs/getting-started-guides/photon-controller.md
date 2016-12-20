@@ -1,7 +1,7 @@
 ---
 assignees:
 - bprashanth
-
+title: VMware Photon Controller
 ---
 
 The example below creates a Kubernetes cluster using VMware's Photon

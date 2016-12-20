@@ -1,5 +1,5 @@
 ---
-
+title: CoreOS on AWS or GCE
 ---
 
 * TOC
