@@ -1,9 +1,8 @@
 ---
 assignees:
 - lavalamp
-
+title: Configuring Kubernetes Use of etcd
 ---
-
 
 [etcd](https://coreos.com/etcd/docs/2.2.1/) is a highly-available key value
 store which Kubernetes uses for persistent storage of all of its REST API

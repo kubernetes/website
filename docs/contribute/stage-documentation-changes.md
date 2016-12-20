@@ -1,4 +1,5 @@
 ---
+title: Staging Your Documentation Changes
 ---
 
 {% capture overview %}

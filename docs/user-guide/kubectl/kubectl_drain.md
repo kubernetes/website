@@ -1,5 +1,7 @@
 ---
+title: kubectl drain
 ---
+
 ## kubectl drain
 
 Drain node in preparation for maintenance

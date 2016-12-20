@@ -1,4 +1,5 @@
 ---
+title: Installing kubectl
 ---
 
 <style>
