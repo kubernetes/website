@@ -1,5 +1,7 @@
 ---
+title: kubectl create namespace
 ---
+
 ## kubectl create namespace
 
 Create a namespace with the specified name

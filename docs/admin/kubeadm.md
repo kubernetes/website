@@ -4,9 +4,8 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-
+title: kubeadm reference
 ---
-
 
 This document provides information on how to use kubeadm's advanced options.
 

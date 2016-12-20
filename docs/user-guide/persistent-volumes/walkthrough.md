@@ -2,7 +2,7 @@
 assignees:
 - jsafrane
 - saad-ali
-
+title: Persistent Volumes Walkthrough
 ---
 
 The purpose of this guide is to help you become familiar with [Kubernetes Persistent Volumes](/docs/user-guide/persistent-volumes/).  By the end of the guide, we'll have
