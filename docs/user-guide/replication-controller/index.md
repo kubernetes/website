@@ -8,7 +8,7 @@ assignees:
 * TOC
 {:toc}
 
-## What is a _replication controller_?
+## What is a replication controller?
 
 A _replication controller_ ensures that a specified number of pod "replicas" are running at any one
 time. In other words, a replication controller makes sure that a pod or homogeneous set of pods are
