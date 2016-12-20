@@ -1,0 +1,3 @@
+# Put files you want to skip table of contents entry check here:
+docs/search.md
+docs/sitemap.md
