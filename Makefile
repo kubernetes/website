@@ -9,7 +9,7 @@ build: ## Build site with production settings and put deliverables in _site.
 	jekyll build
 
 build-preview: ## Build site with drafts and future posts enabled.
-	jekyll build --drafts --future
+	DISABLE_WHITELIST=1 jekyll build --drafts --future
 
 serve: ## Boot the development server.
 	jekyll serve
