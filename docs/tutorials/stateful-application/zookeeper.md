@@ -7,6 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
+title: Running ZooKeeper, A CP Distributed System
 ---
 
 {% capture overview %}

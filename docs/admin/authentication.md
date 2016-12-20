@@ -5,8 +5,9 @@ assignees:
 - ericchiang
 - deads2k
 - liggitt
-
+title: Authenticating
 ---
+
 * TOC
 {:toc}
 

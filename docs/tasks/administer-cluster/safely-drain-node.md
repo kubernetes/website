@@ -1,9 +1,9 @@
 ---
 assignees:
 - davidopp
-
+title: Safely Draining a Node while Respecting Application SLOs
 ---
- 
+
 {% capture overview %}
 This page shows how to safely drain a machine, respecting the application-level
 disruption SLOs you have specified using PodDisruptionBudget.

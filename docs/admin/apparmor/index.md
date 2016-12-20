@@ -1,7 +1,7 @@
 ---
 assignees:
 - stclair
-
+title: AppArmor
 ---
 
 AppArmor is a Linux kernel enhancement that can reduce the potential attack surface of an

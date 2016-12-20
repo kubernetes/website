@@ -7,7 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
-
+title: Running a Replicated Stateful Application
 ---
 
 {% capture overview %}

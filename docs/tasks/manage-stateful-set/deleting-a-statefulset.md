@@ -5,7 +5,7 @@ assignees:
 - foxish
 - janetkuo
 - smarterclayton
-
+title: Deleting a Stateful Set
 ---
 
 {% capture overview %}

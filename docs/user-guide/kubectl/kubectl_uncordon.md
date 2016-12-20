@@ -1,5 +1,7 @@
 ---
+title: kubectl uncordon
 ---
+
 ## kubectl uncordon
 
 Mark node as schedulable
