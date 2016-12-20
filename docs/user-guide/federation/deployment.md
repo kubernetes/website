@@ -1,4 +1,5 @@
 ---
+title: Federated Deployment
 ---
 
 This guide explains how to use Deployments in the Federation control plane.

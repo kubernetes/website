@@ -2,7 +2,7 @@
 assignees:
 - janetkuo
 - thockin
-
+title: Application Introspection and Debugging
 ---
 
 Once your application is running, you'll inevitably need to debug problems with it.

@@ -1,4 +1,5 @@
 ---
+title: Writing a New Topic
 ---
 
 {% capture overview %}

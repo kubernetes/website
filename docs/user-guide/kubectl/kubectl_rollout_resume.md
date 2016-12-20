@@ -1,5 +1,7 @@
 ---
+title: kubectl rollout resume
 ---
+
 ## kubectl rollout resume
 
 Resume a paused resource

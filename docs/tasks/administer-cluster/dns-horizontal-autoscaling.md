@@ -1,4 +1,5 @@
 ---
+title: Autoscaling the DNS Service in a Cluster
 ---
 
 {% capture overview %}
