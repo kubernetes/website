@@ -4,7 +4,7 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-
+title: Installing Kubernetes on Linux with kubeadm
 ---
 
 <style>

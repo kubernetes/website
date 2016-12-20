@@ -2,7 +2,7 @@
 assignees:
 - derekwaynecarr
 - janetkuo
-
+title: Sharing a Cluster with Namespaces
 ---
 
 A Namespace is a mechanism to partition resources created by users into

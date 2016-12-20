@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Configuring kubelet Garbage Collection
 ---
 
 * TOC

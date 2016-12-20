@@ -1,4 +1,5 @@
 ---
+title: Assigning CPU and RAM Resources to a Container
 ---
 
 {% capture overview %}

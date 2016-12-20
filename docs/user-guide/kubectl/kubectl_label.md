@@ -1,5 +1,7 @@
 ---
+title: kubectl label
 ---
+
 ## kubectl label
 
 Update the labels on a resource

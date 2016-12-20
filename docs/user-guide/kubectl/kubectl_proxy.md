@@ -1,5 +1,7 @@
 ---
+title: kubectl proxy
 ---
+
 ## kubectl proxy
 
 Run a proxy to the Kubernetes API server

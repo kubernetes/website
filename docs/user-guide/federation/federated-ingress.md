@@ -1,4 +1,5 @@
 ---
+title: Federated Ingress
 ---
 
 This guide explains how to use Kubernetes Federated Ingress to deploy

@@ -1,7 +1,7 @@
 ---
 assignees:
 - pweil-
-
+title: Pod Security Policies
 ---
 
 Objects of type `podsecuritypolicy` govern the ability 
