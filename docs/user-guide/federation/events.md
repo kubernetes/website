@@ -1,4 +1,5 @@
 ---
+title: Federated Events
 ---
 
 This guide explains how to use events in federation control plane to help in debugging.

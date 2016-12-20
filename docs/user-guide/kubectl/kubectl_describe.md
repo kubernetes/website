@@ -1,5 +1,7 @@
 ---
+title: kubectl describe
 ---
+
 ## kubectl describe
 
 Show details of a specific resource or group of resources

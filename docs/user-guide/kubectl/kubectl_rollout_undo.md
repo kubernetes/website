@@ -1,5 +1,7 @@
 ---
+title: kubectl rollout undo
 ---
+
 ## kubectl rollout undo
 
 Undo a previous rollout

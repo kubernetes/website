@@ -1,5 +1,7 @@
 ---
+title: kubectl create configmap
 ---
+
 ## kubectl create configmap
 
 Create a configmap from a local file, directory or literal value
