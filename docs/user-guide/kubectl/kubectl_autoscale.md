@@ -1,5 +1,7 @@
 ---
+title: kubectl autoscale
 ---
+
 ## kubectl autoscale
 
 Auto-scale a Deployment, ReplicaSet, or ReplicationController

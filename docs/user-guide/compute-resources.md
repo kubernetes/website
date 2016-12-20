@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Managing Compute Resources
 ---
 
 * TOC

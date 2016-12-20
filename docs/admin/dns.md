@@ -3,7 +3,7 @@ assignees:
 - ArtfulCoder
 - davidopp
 - lavalamp
-
+title: Using DNS Pods and Services
 ---
 
 ## Introduction

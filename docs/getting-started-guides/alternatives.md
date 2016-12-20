@@ -1,6 +1,7 @@
 ---
 assignees:
 - pwittrock
+title: Deprecated Alternatives
 ---
 
 # *Stop.  These guides are superseded by [Minikube](../minikube/).  They are only listed here for completeness.*

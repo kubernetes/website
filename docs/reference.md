@@ -1,6 +1,7 @@
 ---
-
+title: Reference Documentation
 ---
+
 In the reference section, you can find reference documentation for Kubernetes APIs, CLIs, and tools, as well as our glossary and design docs. 
 
 ## API References
