@@ -8,7 +8,7 @@ assignees:
 * TOC
 {:toc}
 
-## What is a job?
+## What is a Job?
 
 A _job_ creates one or more pods and ensures that a specified number of them successfully terminate.
 As pods successfully complete, the _job_ tracks the successful completions.  When a specified number
