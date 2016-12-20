@@ -134,7 +134,7 @@ GPU and non-GPU instances.
 
 Run "kops update cluster" to create your cluster in AWS:
 
-`kops update cluster useast1.dev.awsdata.com --yes`
+`kops update cluster useast1.dev.example.com --yes`
 
 That takes a few seconds to run, but then your cluster will likely take a few minutes to actually be ready.
 `kops update cluster` will be the tool you'll use whenever you change the configuration of your cluster; it
