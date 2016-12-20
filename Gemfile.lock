@@ -197,7 +197,7 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
-  jekyll-include-cache
+  jekyll-include-cache (~> 0.1)
 
 BUNDLED WITH
    1.13.6
