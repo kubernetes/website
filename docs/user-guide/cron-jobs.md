@@ -9,7 +9,7 @@ assignees:
 * TOC
 {:toc}
 
-## What is a _Cron Job_?
+## What is a Cron Job?
 
 A _Cron Job_ manages time based [Jobs](/docs/user-guide/jobs/), namely:
 
