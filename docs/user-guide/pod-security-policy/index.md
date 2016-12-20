@@ -156,3 +156,8 @@ following
 1.  You have enabled the api type `extensions/v1beta1/podsecuritypolicy`
 1.  You have enabled the admission controller `PodSecurityPolicy`
 1.  You have defined your policies
+
+## Working With RBAC
+
+Use PodSecurityPolicy to control access to privileged containers based on role and groups.
+(see [more details](https://github.com/kubernetes/kubernetes/blob/master/examples/podsecuritypolicy/rbac/README.md)).
