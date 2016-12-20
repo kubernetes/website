@@ -1,4 +1,5 @@
 ---
+title: Documentation Style Guide
 ---
 
 {% capture overview %}

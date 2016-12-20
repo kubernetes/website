@@ -7,7 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
-
+title: Debugging a StatefulSet
 ---
 
 {% capture overview %}

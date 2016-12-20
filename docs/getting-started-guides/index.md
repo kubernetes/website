@@ -3,7 +3,7 @@ assignees:
 - brendandburns
 - erictune
 - mikedanese
-
+title: Picking the Right Solution
 ---
 
 Kubernetes can run on a range of platforms, from your laptop, to VMs on a cloud provider, to rack of
