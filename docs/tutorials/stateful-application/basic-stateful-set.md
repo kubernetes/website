@@ -7,6 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
+title: StatefulSet Basics
 ---
 
 {% capture overview %}

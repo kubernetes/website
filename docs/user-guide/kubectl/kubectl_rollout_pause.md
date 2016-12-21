@@ -1,5 +1,7 @@
 ---
+title: kubectl rollout pause
 ---
+
 ## kubectl rollout pause
 
 Mark the provided resource as paused

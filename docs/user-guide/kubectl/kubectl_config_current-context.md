@@ -1,5 +1,7 @@
 ---
+title: kubectl config current-context
 ---
+
 ## kubectl config current-context
 
 Displays the current-context

@@ -1,4 +1,5 @@
 ---
+title: Tasks
 ---
 
 This section of the Kubernetes documentation contains pages that
@@ -10,6 +11,7 @@ single thing, typically by giving a short sequence of steps.
 * [Defining Environment Variables for a Container](/docs/tasks/configure-pod-container/define-environment-variable-container/)
 * [Defining a Command and Arguments for a Container](/docs/tasks/configure-pod-container/define-command-argument-container/)
 * [Assigning CPU and RAM Resources to a Container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/)
+* [Distributing Credentials Securely](/docs/tasks/configure-pod-container/distribute-credentials-secure/)
 
 #### Accessing Applications in a Cluster
 

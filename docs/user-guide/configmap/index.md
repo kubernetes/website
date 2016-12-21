@@ -2,8 +2,9 @@
 assignees:
 - eparis
 - pmorie
-
+title: Using ConfigMap
 ---
+
 Many applications require configuration via some combination of config files, command line
 arguments, and environment variables.  These configuration artifacts should be decoupled from image
 content in order to keep containerized applications portable.  The ConfigMap API resource provides
