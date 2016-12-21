@@ -24,11 +24,13 @@ In our experience, any system that is successful needs to grow and change as new
 
 What constitutes a compatible change and how to change the API are detailed by the [API change document](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api_changes.md).
 
-## API Swagger definitions
+## OpenAPI and Swagger definitions
 
-Complete API details are documented using [Swagger v1.2](http://swagger.io/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger Kubernetes API spec located at `/swaggerapi`. You can also enable a UI to browse the API documentation at `/swagger-ui` by passing the `--enable-swagger-ui=true` flag to apiserver.
+Complete API details are documented using [Swagger v1.2](http://swagger.io/) and [OpenAPI](https://www.openapis.org/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`. You can also enable a UI to browse the API documentation at `/swagger-ui` by passing the `--enable-swagger-ui=true` flag to apiserver.
 
-We also host a version of the [latest API documentation](http://kubernetes.io/docs/api-reference/README/). This is updated with the latest release, so if you are using a different version of Kubernetes you will want to use the spec from your apiserver.
+We also host a version of the [latest v1.2 API documentation UI](http://kubernetes.io/kubernetes/third_party/swagger-ui/). This is updated with the latest release, so if you are using a different version of Kubernetes you will want to use the spec from your apiserver.
+
+Staring kubernetes 1.4, OpenAPI spec is also available at `/swagger.json`. While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
