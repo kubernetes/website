@@ -109,13 +109,13 @@ toc:
   - title: Running Kubernetes on Custom Solutions
     section:
     - docs/getting-started-guides/scratch.md
-    - docs/getting-started-guides/kubeadm/
+    - docs/getting-started-guides/kubeadm.md
     - title: Custom Cloud Solutions
       section:
       - docs/getting-started-guides/coreos/index.md
       - docs/getting-started-guides/ubuntu/index.md
       - docs/getting-started-guides/rackspace.md
-      - docs/getting-started-guides/kops/
+      - docs/getting-started-guides/kops.md
     - title: On-Premise VMs
       section:
       - docs/getting-started-guides/coreos/index.md
@@ -166,7 +166,7 @@ toc:
   - docs/admin/cluster-large.md
   - docs/admin/multiple-zones.md
   - docs/admin/high-availability/index.md
-  - docs/getting-started-guides/binary_release/
+  - docs/getting-started-guides/binary_release.md
 
 - title: Administering Clusters
   section:
