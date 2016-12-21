@@ -2,7 +2,7 @@
 assignees:
 - dchen1107
 - pwittrock
-
+title: Hello World on Google Container Engine
 ---
 
 * TOC
@@ -340,7 +340,7 @@ We can now build and publish a new container image to the registry with an incre
 
 ```shell
 docker build -t gcr.io/$PROJECT_ID/hello-node:v2 .
-gcloud docker push gcr.io/$PROJECT_ID/hello-node:v2
+gcloud docker -- push gcr.io/$PROJECT_ID/hello-node:v2
 ```
 
 Building and pushing this updated image should be much quicker as we take full advantage of the Docker cache.

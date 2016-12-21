@@ -2,13 +2,13 @@
 assignees:
 - erictune
 - soltysh
-
+title: Jobs
 ---
 
 * TOC
 {:toc}
 
-## What is a _job_?
+## What is a job?
 
 A _job_ creates one or more pods and ensures that a specified number of them successfully terminate.
 As pods successfully complete, the _job_ tracks the successful completions.  When a specified number
@@ -20,6 +20,12 @@ The Job object will start a new Pod if the first pod fails or is deleted (for ex
 due to a node hardware failure or a node reboot).
 
 A Job can also be used to run multiple pods in parallel.
+
+### extensions/v1beta1.Job is deprecated
+
+Starting from version 1.5 `extensions/v1beta1.Job` is being deprecated, with a plan to be removed in
+version 1.6 of kubernetes (see this [issue](https://github.com/kubernetes/kubernetes/issues/32763)).
+Please use `batch/v1.Job` instead.
 
 ## Running an example Job
 

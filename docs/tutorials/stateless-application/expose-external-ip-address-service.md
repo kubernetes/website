@@ -1,4 +1,5 @@
 ---
+title: Using a Service to Access an Application in a Cluster
 ---
 
 {% capture overview %}
@@ -103,7 +104,7 @@ provides load balancing for an application that has two running instances.
 
         curl http://<public-node-ip>:<node-port>
 
-    where `<public-node-ip>` us the public IP address of your node,
+    where `<public-node-ip>` is the public IP address of your node,
     and `<node-port>` is the NodePort value for your service.
 
     The response to a successful request is a hello message:

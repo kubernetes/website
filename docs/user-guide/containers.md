@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Commands and Capabilities
 ---
 
 * TOC

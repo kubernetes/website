@@ -1,4 +1,5 @@
 ---
+title: Federation API
 ---
 
 # API Reference
