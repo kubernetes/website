@@ -9,7 +9,7 @@ title: Replica Sets
 * TOC
 {:toc}
 
-## What is a _Replica Set_?
+## What is a Replica Set?
 
 Replica Set is the next-generation Replication Controller. The only difference
 between a _Replica Set_ and a
