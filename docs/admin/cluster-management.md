@@ -2,7 +2,7 @@
 assignees:
 - lavalamp
 - thockin
-
+title: Cluster Management Guide
 ---
 
 * TOC
