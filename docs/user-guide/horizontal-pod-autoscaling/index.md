@@ -2,7 +2,7 @@
 assignees:
 - fgrzadkowski
 - jszczepkowski
-
+title: Horizontal Pod Autoscaling
 ---
 
 This document describes the current state of Horizontal Pod Autoscaling in Kubernetes.

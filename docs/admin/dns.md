@@ -3,7 +3,7 @@ assignees:
 - ArtfulCoder
 - davidopp
 - lavalamp
-
+title: Using DNS Pods and Services
 ---
 
 ## Introduction
@@ -60,7 +60,7 @@ of the form `auto-generated-name.my-svc.my-namespace.svc.cluster.local`.
 
 ### Backwards compatibility
 
-Previous versions of kube-dns made names of the for
+Previous versions of kube-dns made names of the form
 `my-svc.my-namespace.cluster.local` (the 'svc' level was added later).  This
 is no longer supported.
 
@@ -114,7 +114,7 @@ Given a Pod with the hostname set to "foo" and the subdomain set to "bar", and a
 
 With v1.2, the Endpoints object also has a new annotation `endpoints.beta.kubernetes.io/hostnames-map`. Its value is the json representation of map[string(IP)][endpoints.HostRecord], for example: '{"10.245.1.6":{HostName: "my-webserver"}}'.
 If the Endpoints are for a headless service, an A record is created with the format <hostname>.<service name>.<pod namespace>.svc.<cluster domain>
-For the example json, if endpoints are for a headless service named "bar", and one of the endpoints has IP "10.245.1.6", an A is created with the name "my-webserver.bar.my-namespace.svc.cluster.local" and the A record lookup would return "10.245.1.6".
+For the example json, if endpoints are for a headless service named "bar", and one of the endpoints has IP "10.245.1.6", an A record is created with the name "my-webserver.bar.my-namespace.svc.cluster.local" and the A record lookup would return "10.245.1.6".
 This endpoints annotation generally does not need to be specified by end-users, but can used by the internal service controller to deliver the aforementioned feature.
 
 With v1.3, The Endpoints object can specify the `hostname` for any endpoint, along with its IP. The hostname field takes precedence over the hostname value
@@ -251,7 +251,7 @@ If you see that no pod is running or that the pod has failed/completed, the dns 
 Use `kubectl logs` command to see logs for the DNS daemons.
 
 ```
-kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kubedns
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kube-dns
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c healthz
 ```
@@ -356,3 +356,5 @@ for more information.
 
 - [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build-tools/kube-dns/README.md)
 
+## What's next
+- [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).

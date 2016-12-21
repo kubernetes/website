@@ -2,7 +2,7 @@
 assignees:
 - derekwaynecarr
 - janetkuo
-
+title: Applying Resource Quotas and Limits
 ---
 
 This example demonstrates a typical setup to control for resource usage in a namespace.
