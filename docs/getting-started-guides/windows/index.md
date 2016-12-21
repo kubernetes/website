@@ -134,7 +134,7 @@ Run the following in a PowerShell window with administrative privileges. Be awar
 `.\proxy.exe --v=3 --proxy-mode=userspace --hostname-override=<ip address/hostname of the windows node> --master=<api server location> --bind-address=<ip address of the windows node>`
 
 ## Scheduling Pods on Windows
-Because your cluster has both Linux and Windows nodes, you must explictly set the nodeSelector constraint to be able to schedule Pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
+Because your cluster has both Linux and Windows nodes, you must explicitly set the nodeSelector constraint to be able to schedule Pods to Windows nodes. You must set nodeSelector with the label beta.kubernetes.io/os to the value windows; see the following example:
 
 ```
 {
