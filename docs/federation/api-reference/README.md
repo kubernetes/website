@@ -1,5 +1,7 @@
 ---
+title: Federation API
 ---
+
 # API Reference
 
 Federation API server supports the following group versions:

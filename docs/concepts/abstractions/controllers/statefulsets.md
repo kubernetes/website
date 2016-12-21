@@ -7,6 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
+title: StatefulSets
 ---
 
 {% capture overview %}
@@ -31,12 +32,12 @@ following.
 * Ordered, graceful deployment and scaling.
 * Ordered, graceful deletion and termination.
 
-In the above, stable is synonymous with persistent across Pod (re) schedulings.
+In the above, stable is synonymous with persistence across Pod (re)schedulings.
 If an application doesn't require any stable identifiers or ordered deployment, 
 deletion, or scaling, you should deploy your application with a controller that 
-provides a set of stateless replicas. Such controllers, such as 
+provides a set of stateless replicas. Controllers such as 
 [Deployment](/docs/user-guide/deployments/) or 
-[ReplicaSet](/docs/user-guide/replicasets/) may be better suited to your needs.
+[ReplicaSet](/docs/user-guide/replicasets/) may be better suited to your stateless needs.
 
 ### Limitations
 * StatefulSet is a beta resource, not available in any Kubernetes release prior to 1.5.
@@ -51,7 +52,7 @@ The example below demonstrates the components of a StatefulSet.
 
 * A Headless Service, named nginx, is used to control the network domain. 
 * The StatefulSet, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The volumeClaimTemplates, will provide stable storage using [PersistentVolumes](/docs/user-guide/volumes/) provisioned by a 
+* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/user-guide/volumes/) provisioned by a 
  PersistentVolume Provisioner.
 
 ```yaml
@@ -105,7 +106,7 @@ spec:
 ### Pod Identity
 StatefulSet Pods have a unique identity that is comprised of an ordinal, a 
 stable network identity, and stable storage. The identity sticks to the Pod, 
-regardless of which node it's (re) scheduled on.
+regardless of which node it's (re)scheduled on.
 
 __Ordinal Index__
 
@@ -140,13 +141,12 @@ Note that Cluster Domain will be set to `cluster.local` unless
 
 __Stable Storage__
 
-Kubernetes creates one [PersistentVolumes](/docs/user-guide/volumes/) for each 
-VolumeClaimTemplate, as specified in the StatefulSet's volumeClaimTemplates field
-In the example above, each Pod will receive a single PersistentVolume with a storage 
-class of `anything` and 1 Gib of provisioned storage. When a Pod is (re) scheduled onto
-a node, its `volumeMounts` mount the PersistentVolumes associated with its 
+Kubernetes creates one [PersistentVolume](/docs/user-guide/volumes/) for each 
+VolumeClaimTemplate. In the nginx example above, each Pod will receive a single PersistentVolume 
+with a storage class of `anything` and 1 Gib of provisioned storage. When a Pod is (re)scheduled 
+onto a node, its `volumeMounts` mount the PersistentVolumes associated with its 
 PersistentVolume Claims. Note that, the PersistentVolumes associated with the 
-Pods' PersistentVolume  Claims are not deleted when the Pods, or StatefulSet are deleted. 
+Pods' PersistentVolume Claims are not deleted when the Pods, or StatefulSet are deleted. 
 This must be done manually.
 
 ### Deployment and Scaling Guarantee
@@ -156,9 +156,9 @@ This must be done manually.
 * Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready. 
 * Before a Pod is terminated, all of its successors must be completely shutdown.
 
-The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. The practice of setting a `pod.Spec.TerminationGracePeriodSeconds` of 0 seconds is unsafe and strongly discouraged. For further explanation, please refer to [force deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/#deleting-pods).
+The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. This practice is unsafe and strongly discouraged. For further explanation, please refer to [force deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/#deleting-pods).
 
-When the web example above is created, three Pods will be deployed in the order 
+When the nginx example above is created, three Pods will be deployed in the order 
 web-0, web-1, web-2. web-1 will not be deployed before web-0 is 
 [Running and Ready](/docs/user-guide/pod-states), and web-2 will not be deployed until 
 web-1 is Running and Ready. If web-0 should fail, after web-1 is Running and Ready, but before 

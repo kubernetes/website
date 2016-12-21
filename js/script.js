@@ -503,3 +503,21 @@ var pushmenu = (function(){
 		show: show
 	};
 })();
+
+$(function() {
+    
+	// Make global nav be active based on pathname
+	if ((location.pathname.split("/")[1]) !== ""){
+        $('.global-nav li a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+    }
+
+	// If vendor strip doesn't exist add className
+	if ( !$('#vendorStrip').length > 0 ) {
+		$('#hero').addClass('bot-bar');
+	}
+
+	// If is not homepage add class to hero section
+	if (!$('#home').length > 0 ) {
+		$('#hero').addClass('no-sub');
+	}
+});

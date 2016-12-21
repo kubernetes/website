@@ -2,7 +2,7 @@
 assignees:
 - caesarxuchao
 - mikedanese
-
+title: Connect with Port Forwarding
 ---
 
 kubectl port-forward forwards connections to a local port to a port on a pod. Its man page is available [here](/docs/user-guide/kubectl/kubectl_port-forward). Compared to [kubectl proxy](/docs/user-guide/accessing-the-cluster/#using-kubectl-proxy), `kubectl port-forward` is more generic as it can forward TCP traffic while `kubectl proxy` can only forward HTTP traffic. This guide demonstrates how to use `kubectl port-forward` to connect to a Redis database, which may be useful for database debugging.

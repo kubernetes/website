@@ -1,5 +1,7 @@
 ---
+title: kubectl config set-credentials
 ---
+
 ## kubectl config set-credentials
 
 Sets a user entry in kubeconfig

@@ -4,7 +4,7 @@ assignees:
 - erictune
 - foxish
 - smarterclayton
-
+title: Force Deleting StatefulSet Pods
 ---
 
 {% capture overview %}

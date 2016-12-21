@@ -3,7 +3,7 @@ assignees:
 - dlorenc
 - janetkuo
 - jlowdermilk
-
+title: Running Kubernetes Locally via Minikube
 ---
 
 Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
@@ -36,13 +36,13 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 **Kubectl for Linux/amd64**
 
 ```
-curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 ```
 
 **Kubectl for OS X/amd64**
 
 ```
-curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}.0/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 ```
 
 ### Instructions
@@ -308,11 +308,11 @@ Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmach
 For more information about minikube, see the [proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/local-cluster-ux.md).
 
 ## Additional Links:
-* **Goals and Non-Goals**: For the goals and non-goals of the minikube project, please see our [roadmap](./ROADMAP.md).
-* **Development Guide**: See [CONTRIBUTING.md](./CONTRIBUTING.md) for an overview of how to send pull requests.
-* **Building Minikube**: For instructions on how to build/test minikube from source, see the [build guide](./BUILD_GUIDE.md)
-* **Adding a New Dependency**: For instructions on how to add a new dependency to minikube see the [adding dependencies guide](./ADD_DEPENDENCY.md)
-* **Updating Kubernetes**: For instructions on how to add a new dependency to minikube see the [updating kubernetes guide](./UPDATE_KUBERNETES.md)
+* **Goals and Non-Goals**: For the goals and non-goals of the minikube project, please see our [roadmap](https://github.com/kubernetes/minikube/blob/master/ROADMAP.md).
+* **Development Guide**: See [CONTRIBUTING.md](https://github.com/kubernetes/minikube/blob/master/CONTRIBUTING.md) for an overview of how to send pull requests.
+* **Building Minikube**: For instructions on how to build/test minikube from source, see the [build guide](https://github.com/kubernetes/minikube/blob/master/BUILD_GUIDE.md)
+* **Adding a New Dependency**: For instructions on how to add a new dependency to minikube see the [adding dependencies guide](https://github.com/kubernetes/minikube/blob/master/ADD_DEPENDENCY.md)
+* **Updating Kubernetes**: For instructions on how to add a new dependency to minikube see the [updating kubernetes guide](https://github.com/kubernetes/minikube/blob/master/UPDATE_KUBERNETES.md)
 
 ## Community
 
