@@ -1,7 +1,7 @@
 ---
 assignees:
 - pweil-
-
+title: Pod Security Policies
 ---
 
 Objects of type `podsecuritypolicy` govern the ability 
@@ -13,7 +13,7 @@ See [PodSecurityPolicy proposal](https://github.com/kubernetes/kubernetes/blob/{
 * TOC
 {:toc}
 
-## What is a _Pod Security Policy_?
+## What is a Pod Security Policy?
 
 A _Pod Security Policy_ is a cluster-level resource that controls the 
 actions that a pod can perform and what it has the ability to access. The
@@ -156,3 +156,8 @@ following
 1.  You have enabled the api type `extensions/v1beta1/podsecuritypolicy`
 1.  You have enabled the admission controller `PodSecurityPolicy`
 1.  You have defined your policies
+
+## Working With RBAC
+
+Use PodSecurityPolicy to control access to privileged containers based on role and groups.
+(see [more details](https://github.com/kubernetes/kubernetes/blob/master/examples/podsecuritypolicy/rbac/README.md)).
