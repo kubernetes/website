@@ -8,7 +8,7 @@ title: Deployments
 * TOC
 {:toc}
 
-## What is a _Deployment_?
+## What is a Deployment?
 
 A _Deployment_ provides declarative updates for [Pods](/docs/user-guide/pods/) and [Replica Sets](/docs/user-guide/replicasets/) (the next-generation Replication Controller).
 You only need to describe the desired state in a Deployment object, and the Deployment
