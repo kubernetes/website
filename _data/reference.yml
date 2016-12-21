@@ -27,6 +27,13 @@ toc:
   - docs/api-reference/batch/v1/operations.html
   - docs/api-reference/batch/v1/definitions.html
 
+- title: Apps API
+  section:
+  - title: Apps API Operations
+    path: /docs/api-reference/apps/v1beta1/operations/
+  - title: Apps API Definitions
+    path: /docs/api-reference/apps/v1beta1/definitions/
+
 - title: Extensions API
   section:
   - docs/api-reference/extensions/v1beta1/operations.html
