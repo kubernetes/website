@@ -2,7 +2,7 @@
 assignees:
 - lavalamp
 - satnam6502
-
+title: Logging with Elasticsearch and Kibana
 ---
 
 On the Google Compute Engine (GCE) platform, the default logging support targets

@@ -1,4 +1,5 @@
 ---
+title: Tutorials
 ---
 
 This section of the Kubernetes documentation contains tutorials.

@@ -1,7 +1,7 @@
 ---
 assignees:
 - IanLewis
-
+title: Third Party Resources
 ---
 
 * TOC
