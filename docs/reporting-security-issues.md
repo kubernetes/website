@@ -2,7 +2,7 @@
 assignees:
 - eparis
 - erictune
-
+title: Report a Security Vulnerability
 ---
 
 If you believe you have discovered a vulnerability or a have a security incident to report, please follow the steps below. This applies to Kubernetes releases v1.0 or later.

@@ -1,7 +1,7 @@
 ---
 assignees:
 - lavalamp
-
+title: Kubernetes Components
 ---
 
 This document outlines the various binary components that need to run to
