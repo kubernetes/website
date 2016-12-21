@@ -91,7 +91,7 @@ about containers in a central database, and provides a UI for browsing that data
 
 #### Cluster-level Logging
 
-[Cluster-level logging](/docs/user-guide/logging/overview) mechanism is responsible for
+A [Cluster-level logging](/docs/user-guide/logging/overview) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 
 ## Node components
