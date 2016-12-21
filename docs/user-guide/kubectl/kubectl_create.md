@@ -1,5 +1,7 @@
 ---
+title: kubectl create
 ---
+
 ## kubectl create
 
 Create a resource by filename or stdin

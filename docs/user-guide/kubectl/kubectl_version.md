@@ -1,5 +1,7 @@
 ---
+title: kubectl version
 ---
+
 ## kubectl version
 
 Print the client and server version information

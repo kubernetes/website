@@ -1,4 +1,5 @@
 ---
+title: Federated DaemonSet
 ---
 
 This guide explains how to use DaemonSets in a federation control plane.

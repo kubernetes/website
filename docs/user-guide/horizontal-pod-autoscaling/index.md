@@ -2,7 +2,7 @@
 assignees:
 - fgrzadkowski
 - jszczepkowski
-
+title: Horizontal Pod Autoscaling
 ---
 
 This document describes the current state of Horizontal Pod Autoscaling in Kubernetes.
@@ -90,7 +90,7 @@ The cluster has to be started with `ENABLE_CUSTOM_METRICS` environment variable 
 ### Pod configuration
 
 The pods to be scaled must have cAdvisor-specific custom (aka application) metrics endpoint configured. The configuration format is described [here](https://github.com/google/cadvisor/blob/master/docs/application_metrics.md). Kubernetes expects the configuration to 
-  be placed in `definition.json` mounted via a [config map](/docs/user-guide/horizontal-pod-autoscaling/configmap/) in `/etc/custom-metrics`. A sample config map may look like this:
+  be placed in `definition.json` mounted via a [config map](/docs/user-guide/configmap/) in `/etc/custom-metrics`. A sample config map may look like this:
 
 ```yaml
 apiVersion: v1
