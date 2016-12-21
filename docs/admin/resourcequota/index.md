@@ -125,7 +125,7 @@ The quota can be configured to quota either value.
 
 If the quota has a value specified for `requests.cpu` or `requests.memory`, then it requires that every incoming
 container makes an explicit request for those resources.  If the quota has a value specified for `limits.cpu` or `limits.memory`,
-then it requires that every incoming container specifies an explict limit for those resources.
+then it requires that every incoming container specifies an explicit limit for those resources.
 
 ## Viewing and Setting Quotas
 

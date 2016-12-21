@@ -36,7 +36,7 @@ Each critical add-on has to tolerate it,
 the other pods shouldn't tolerate the taint. The tain is removed once the add-on is successfully scheduled.
 
 *Warning:* currently there is no guarantee which node is chosen and which pods are being killed
-in order to schedule crical pod, so if rescheduler is enabled you pods might be occasionally
+in order to schedule critical pods, so if rescheduler is enabled you pods might be occasionally
 killed for this purpose.
 
 ## Config
