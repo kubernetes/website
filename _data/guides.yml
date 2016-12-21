@@ -3,7 +3,7 @@ abstract: "How to get started, and accomplish tasks, using Kubernetes."
 toc:
 - docs/user-guide/index.md
 
-- docs/whatisk8s/
+- docs/whatisk8s.md
 
 - title: Accessing the Cluster
   section:
@@ -105,20 +105,20 @@ toc:
   - title: Running Kubernetes on Custom Solutions
     section:
     - docs/getting-started-guides/scratch.md
-    - docs/getting-started-guides/kubeadm/
+    - docs/getting-started-guides/kubeadm.md
     - title: Custom Cloud Solutions
       section:
       - docs/getting-started-guides/coreos/index.md
-      - /docs/getting-started-guides/juju/
+      - docs/getting-started-guides/juju.md
       - docs/getting-started-guides/rackspace.md
-      - docs/getting-started-guides/kops/
+      - docs/getting-started-guides/kops.md
     - title: On-Premise VMs
       section:
       - docs/getting-started-guides/coreos/index.md
       - docs/getting-started-guides/cloudstack.md
       - docs/getting-started-guides/vsphere.md
       - docs/getting-started-guides/photon-controller.md
-      - /docs/getting-started-guides/juju/
+      - docs/getting-started-guides/juju.md
       - docs/getting-started-guides/dcos.md
       - docs/getting-started-guides/libvirt-coreos.md
       - docs/getting-started-guides/ovirt.md
@@ -137,14 +137,14 @@ toc:
       - docs/getting-started-guides/fedora/flannel_multi_node_cluster.md
       - docs/getting-started-guides/centos/centos_manual_config.md
       - docs/getting-started-guides/coreos/index.md
-      - /docs/getting-started-guides/ubuntu/
+      - docs/getting-started-guides/ubuntu.md
       - docs/getting-started-guides/windows/index.md
     - docs/admin/node-conformance.md
   - docs/getting-started-guides/docker-multinode.md
   - docs/admin/cluster-large.md
   - docs/admin/multiple-zones.md
   - docs/admin/high-availability/index.md
-  - docs/getting-started-guides/binary_release/
+  - docs/getting-started-guides/binary_release.md
 
 - title: Administering Clusters
   section:
@@ -178,5 +178,5 @@ toc:
 
 - title: Administering Federation
   section:
-  - /docs/admin/federation/kubfed/
+  - docs/admin/federation/kubfed.md
   - docs/admin/federation/index.md
