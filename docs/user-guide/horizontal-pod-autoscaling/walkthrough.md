@@ -3,7 +3,7 @@ assignees:
 - fgrzadkowski
 - jszczepkowski
 - justinsb
-
+title: Horizontal Pod Autoscaling
 ---
 
 Horizontal Pod Autoscaling automatically scales the number of pods

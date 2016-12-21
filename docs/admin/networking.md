@@ -2,7 +2,7 @@
 assignees:
 - lavalamp
 - thockin
-
+title: Networking in Kubernetes
 ---
 
 Kubernetes approaches networking somewhat differently than Docker does by
@@ -168,6 +168,12 @@ perfect the process, please let us know.
 Follow the "With Linux Bridge devices" section of [this very nice
 tutorial](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) from
 Lars Kellogg-Stedman.
+
+### Nuage Networks VCS (Virtualized Cloud Services)
+
+[Nuage](http://www.nuagenetworks.net) provides a highly scalable policy-based Software-Defined Networking (SDN) platform. Nuage uses the open source Open vSwitch for the data plane along with a feature rich SDN Controller built on open standards.
+
+The Nuage platform uses overlays to provide seamless policy-based networking between Kubernetes Pods and non-Kubernetes environments (VMs and bare metal servers). Nuage’s policy abstraction model is designed with applications in mind and makes it easy to declare fine-grained policies for applications.The platform’s real-time analytics engine enables visibility and security monitoring for Kubernetes applications.
 
 ### OpenVSwitch
 

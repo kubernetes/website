@@ -1,4 +1,5 @@
 ---
+title: Using a Service to Expose Your App
 ---
 
 <!DOCTYPE html>
@@ -71,7 +72,7 @@
 
 				<p>A Service provides load balancing of traffic across the contained set of Pods. This is useful when a service is created to group all Pods from a specific Deployment (our application will make use of this in the next module, when we’ll have multiple instances running).</p>
 
-				<p>Services are also responsible for service-discovery within the cluster (covered in Module 6). This will for example allow a frontend service (like a web server) to receive traffic from a backend service (like a database) without worrying about Pods.</p>
+				<p>Services are also responsible for service-discovery within the cluster (covered in <a href="/docs/user-guide/connecting-applications/#accessing-the-service">Accessing the Service</a>). This will for example allow a frontend service (like a web server) to receive traffic from a backend service (like a database) without worrying about Pods.</p>
 
 				<p>Services match a set of Pods using Label Selectors, a grouping primitive that allows logical operation on Labels.</p>
 
@@ -119,7 +120,7 @@
 				<p>Labels can be attached to objects at the creation time or later and can be modified at any time.
 				The kubectl run command sets some default Labels/Label Selectors on the new Pods/ Deployment. The link between Labels and Label Selectors defines the relationship between the Deployment and the Pods it creates.</p>
 
-				<p>Let’s expose now our application with the help of a Service, and apply some new Labels.</p>
+				<p>Now let’s expose our application with the help of a Service, and apply some new Labels.</p>
 			</div>
 		</div>
 		<br>

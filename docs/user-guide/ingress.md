@@ -1,7 +1,7 @@
 ---
 assignees:
 - bprashanth
-
+title: Ingress Resources
 ---
 
 * TOC

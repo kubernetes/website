@@ -2,7 +2,7 @@
 assignees:
 - lavalamp
 - yifan-gu
-
+title: Running Kubernetes with rkt
 ---
 
 This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as the container runtime.

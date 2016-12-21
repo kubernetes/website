@@ -1,13 +1,13 @@
 ---
 assignees:
 - erictune
-
+title: Daemon Sets
 ---
 
 * TOC
 {:toc}
 
-## What is a _Daemon Set_?
+## What is a Daemon Set?
 
 A _Daemon Set_ ensures that all (or some) nodes run a copy of a pod.  As nodes are added to the
 cluster, pods are added to them.  As nodes are removed from the cluster, those pods are garbage
@@ -74,7 +74,7 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/node-selection).  
+selector](/docs/user-guide/node-selection/).  
 If you specify a `scheduler.alpha.kubernetes.io/affinity` annotation in `.spec.template.metadata.annotations`,
 then DaemonSet controller will create pods on nodes which match that [node affinity](../../user-guide/node-selection/#alpha-feature-in-kubernetes-v12-node-affinity).
 
