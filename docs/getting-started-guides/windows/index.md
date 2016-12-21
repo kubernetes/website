@@ -12,7 +12,7 @@ In Kubernetes version 1.5, Windows Server Containers for Kubernetes is supported
 1. Kubernetes control plane running on existing Linux infrastructure (version 1.5 or later)
 2. Kubenet network plugin setup on the Linux nodes
 3. Windows Server 2016 (RTM version 10.0.14393 or later)
-4. Docker Version 1.12.2-cs2-ws-beta or later
+4. Docker Version 1.12.2-cs2-ws-beta or later for Windows Server nodes (Linux nodes and Kubernetes control plane can run any Kubernetes supported Docker Version)
 
 ## Networking
 Network is achieved using L3 routing. Because third-party networking plugins (e.g. flannel, calico, etc) don’t natively work on Windows Server, existing technology that is built into the Windows and Linux operating systems is relied on. In this L3 networking approach, a /16 subnet is chosen for the cluster nodes, and a /24 subnet is assigned to each worker node. All pods on a given worker node will be connected to the /24 subnet. This allows pods on the same node to communicate with each other. In order to enable networking between pods running on different nodes, routing features that are built into Windows Server 2016 and Linux are used.
@@ -40,6 +40,7 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 2. DNS support for Windows recently got merged to docker master and is currently not supported in a stable docker release. To use DNS build docker from master or download the binary from [Docker master](https://master.dockerproject.org/)
 3. Pull the `apprenda/pause` image from `https://hub.docker.com/r/apprenda/pause` 
 4. RRAS (Routing) Windows feature enabled
+5. Install a VMSwitch of type `Internal`, by running `New-VMSwitch -Name KubeProxySwitch -SwitchType Internal` command in *PowerShell* window. This will create a new Network Interface with name `vEthernet (KubeProxySwitch)`. This interface will be used by kube-proxy to add Service IPs.
 
 **Linux Host Setup**
 
@@ -127,8 +128,8 @@ To start kube-proxy on your Windows node:
 
 Run the following in a PowerShell window with administrative privileges. Be aware that if the node reboots or the process exits, you will have to rerun the commands below to restart the kube-proxy.
 
-1. Set environment variable *INTERFACE_TO_ADD_SERVICE_IP* value to a node only network interface. The interface created when docker is installed should work
-`$env:INTERFACE_TO_ADD_SERVICE_IP = "vEthernet (HNS Internal NIC)"`
+1. Set environment variable *INTERFACE_TO_ADD_SERVICE_IP* value to `vEthernet (KubeProxySwitch)` which we created in **_Windows Host Setup_** above
+`$env:INTERFACE_TO_ADD_SERVICE_IP = "vEthernet (KubeProxySwitch)"`
 
 2. Run *kube-proxy* executable using the below command
 `.\proxy.exe --v=3 --proxy-mode=userspace --hostname-override=<ip address/hostname of the windows node> --master=<api server location> --bind-address=<ip address of the windows node>`
