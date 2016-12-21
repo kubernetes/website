@@ -29,6 +29,8 @@ toc:
     section:
     - docs/tutorials/kubernetes-basics/update-intro.html
     - docs/tutorials/kubernetes-basics/update-interactive.html
+- title: Online Training Course
+  path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
 - title: Stateless Applications
   section:
   - docs/tutorials/stateless-application/hello-minikube.md

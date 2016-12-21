@@ -3,17 +3,7 @@ abstract: "How to get started, and accomplish tasks, using Kubernetes."
 toc:
 - docs/user-guide/index.md
 
-- title: Getting Started
-  section:
-  - docs/whatisk8s.md
-  - docs/getting-started-guides/kubeadm.md
-  - docs/getting-started-guides/kops.md
-  - docs/getting-started-guides/kargo.md
-  - docs/hellonode.md
-  - docs/getting-started-guides/kubectl.md
-  - docs/getting-started-guides/binary_release.md
-  - title: Online Training Course
-    path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+- docs/whatisk8s.md
 
 - title: Accessing the Cluster
   section:
@@ -119,11 +109,13 @@ toc:
   - title: Running Kubernetes on Custom Solutions
     section:
     - docs/getting-started-guides/scratch.md
+    - docs/getting-started-guides/kubeadm/
     - title: Custom Cloud Solutions
       section:
       - docs/getting-started-guides/coreos/index.md
       - docs/getting-started-guides/ubuntu/index.md
       - docs/getting-started-guides/rackspace.md
+      - docs/getting-started-guides/kops/
     - title: On-Premise VMs
       section:
       - docs/getting-started-guides/coreos/index.md
@@ -174,6 +166,7 @@ toc:
   - docs/admin/cluster-large.md
   - docs/admin/multiple-zones.md
   - docs/admin/high-availability/index.md
+  - docs/getting-started-guides/binary_release/
 
 - title: Administering Clusters
   section:
