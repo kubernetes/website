@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Names
 ---
 
 All objects in the Kubernetes REST API are unambiguously identified by a Name and a UID.

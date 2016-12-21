@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-
+title: Overview
 ---
 
 This document describes how access to the Kubernetes API is controlled.
@@ -148,7 +148,7 @@ By default the Kubernetes APIserver serves HTTP on 2 ports:
           - default IP is first non-localhost network interface, change with `--bind-address` flag.
           - request handled by authentication and authorization modules.
           - request handled by admission control module(s).
-          - authentication and authoriation modules run.
+          - authentication and authorisation modules run.
 
 When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On

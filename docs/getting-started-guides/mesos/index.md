@@ -1,7 +1,7 @@
 ---
 assignees:
 - jdef
-
+title: Kubernetes on Mesos
 ---
 
 * TOC
