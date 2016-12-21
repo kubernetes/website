@@ -1,5 +1,7 @@
 ---
+title: kubectl config
 ---
+
 ## kubectl config
 
 Modify kubeconfig files
