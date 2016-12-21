@@ -17,6 +17,9 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s htt
 
 # Linux
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+
+# Windows
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/windows/amd64/kubectl.exe
 ```
 
 If you want to download a specific version of kubectl you can replace the nested curl command from above with the version you want. (e.g. v1.4.6, v1.5.0-beta.2)
