@@ -1,5 +1,7 @@
 ---
+title: kubectl attach
 ---
+
 ## kubectl attach
 
 Attach to a running container

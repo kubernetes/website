@@ -7,7 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
-
+title: Pet Sets
 ---
 
 __Warning:__ Starting in Kubernetes version 1.5, PetSet has been renamed to

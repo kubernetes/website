@@ -1,4 +1,5 @@
 ---
+title: Distributing Credentials Securely
 ---
 
 {% capture overview %}
