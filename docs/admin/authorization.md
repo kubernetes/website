@@ -345,7 +345,7 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: secret-reader
-  apiVersion: rbac.authorization.k8s.io/v1alpha1
+  apiGroup: ""
 ```
 
 ### Referring to Resources
