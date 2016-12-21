@@ -99,7 +99,7 @@ Some possible patterns for communicating with pods in a DaemonSet are:
 - **Push**: Pods in the Daemon Set are configured to send updates to another service, such
   as a stats database.  They do not have clients.
 - **NodeIP and Known Port**: Pods in the Daemon Set use a `hostPort`, so that the pods are reachable
-  via the node IPs.  Clients knows the the list of nodes ips somehow, and know the port by convention.
+  via the node IPs.  Clients knows the list of nodes ips somehow, and know the port by convention.
 - **DNS**: Create a [headless service](/docs/user-guide/services/#headless-services) with the same pod selector,
   and then discover DaemonSets using the `endpoints` resource or retrieve multiple A records from
   DNS.
