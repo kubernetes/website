@@ -13,7 +13,7 @@ See [PodSecurityPolicy proposal](https://github.com/kubernetes/kubernetes/blob/{
 * TOC
 {:toc}
 
-## What is a _Pod Security Policy_?
+## What is a Pod Security Policy?
 
 A _Pod Security Policy_ is a cluster-level resource that controls the 
 actions that a pod can perform and what it has the ability to access. The
