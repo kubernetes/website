@@ -1,13 +1,13 @@
 ---
 assignees:
 - erictune
-
+title: Daemon Sets
 ---
 
 * TOC
 {:toc}
 
-## What is a _Daemon Set_?
+## What is a Daemon Set?
 
 A _Daemon Set_ ensures that all (or some) nodes run a copy of a pod.  As nodes are added to the
 cluster, pods are added to them.  As nodes are removed from the cluster, those pods are garbage
@@ -74,7 +74,7 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/node-selection).  
+selector](/docs/user-guide/node-selection/).  
 If you specify a `scheduler.alpha.kubernetes.io/affinity` annotation in `.spec.template.metadata.annotations`,
 then DaemonSet controller will create pods on nodes which match that [node affinity](../../user-guide/node-selection/#alpha-feature-in-kubernetes-v12-node-affinity).
 
@@ -99,7 +99,7 @@ Some possible patterns for communicating with pods in a DaemonSet are:
 - **Push**: Pods in the Daemon Set are configured to send updates to another service, such
   as a stats database.  They do not have clients.
 - **NodeIP and Known Port**: Pods in the Daemon Set use a `hostPort`, so that the pods are reachable
-  via the node IPs.  Clients knows the the list of nodes ips somehow, and know the port by convention.
+  via the node IPs.  Clients knows the list of nodes ips somehow, and know the port by convention.
 - **DNS**: Create a [headless service](/docs/user-guide/services/#headless-services) with the same pod selector,
   and then discover DaemonSets using the `endpoints` resource or retrieve multiple A records from
   DNS.
