@@ -60,6 +60,7 @@ few commands, and have active community support.
 - [Azure](/docs/getting-started-guides/azure)
 - [CenturyLink Cloud](/docs/getting-started-guides/clc)
 - [IBM SoftLayer](https://github.com/patrocinio/kubernetes-softlayer)
+- [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
 
 ### Custom Solutions
 
