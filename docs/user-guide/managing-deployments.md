@@ -85,8 +85,8 @@ NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   10.0.0.208                 80/TCP       0s
 ```
 
-With the above commands, we first create resources under docs/user-guide/nginx/ and print the resources created with `-o name` output format
-(print each resource as resource/name). Then we `grep` only the "service", and then print it with `kubectl get`.
+With the above commands, we first create resources under docs/user-guide/nginx/ and print the resources created with `-o name` output format 
+(print each resource as resource/name). Then we `grep` only the "service", and then print it with `kubectl get`. 
 
 If you happen to organize your resources across several subdirectories within a particular directory, you can recursively perform the operations on the subdirectories also, by specifying `--recursive` or `-R` alongside the `--filename,-f` flag.
 
