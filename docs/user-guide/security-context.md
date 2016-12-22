@@ -11,7 +11,7 @@ A security context defines the operating system security settings (uid, gid, cap
 There are two levels of security context: pod level security context, and container level security context.
 
 ## Pod Level Security Context
-Setting security context at the pod applies those settings to all containers in the pod
+Setting security context at the pod applies those settings to all containers in the pod 
 
 ```yaml
 apiVersion: v1
@@ -82,6 +82,6 @@ spec:
 ```
 
 Please refer to the
-[API documentation](/docs/api-reference/v1/definitions/#_v1_securitycontext)
+[API documentation](/docs/api-reference/v1/definitions/#_v1_securitycontext) 
 for a detailed listing and description of all the fields available
 within the container security context.
