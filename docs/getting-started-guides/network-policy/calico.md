@@ -31,4 +31,4 @@ There are two main components to be aware of:
 - One `calico-node` Pod runs on each node in your cluster, and enforces network policy on the traffic to/from Pods on that machine by configuring iptables.
 - The `calico-policy-controller` Pod reads policy and label information from the Kubernetes API and configures Calico appropriately.
 
-Once your cluster is running, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
+Once your cluster is running, you can follow the [NetworkPolicy gettting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.

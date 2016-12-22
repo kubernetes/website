@@ -93,7 +93,7 @@ Note that each controller can host multiple Kubernetes clusters in a given cloud
 
 ## Launch a Kubernetes cluster
 
-The following command will deploy the initial 12-node starter cluster. The speed of execution is very dependent of the performance of the cloud you're deploying to, but 
+The following command will deploy the intial 12-node starter cluster. The speed of execution is very dependent of the performance of the cloud you're deploying to, but 
 
 ```shell
 juju deploy canonical-kubernetes

@@ -330,7 +330,7 @@ for eviction. Instead `DaemonSet` should ideally launch `Guaranteed` pods.
 `kubelet` has been freeing up disk space on demand to keep the node stable.
 
 As disk based eviction matures, the following `kubelet` flags will be marked for deprecation
-in favor of the simpler configuration supported around eviction.
+in favor of the simpler configuation supported around eviction.
 
 | Existing Flag | New Flag |
 | ------------- | -------- |
