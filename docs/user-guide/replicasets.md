@@ -35,7 +35,7 @@ their Replica Sets.
 
 ## When to use a Replica Set?
 
-A Replica Set ensures that a specified number of pod “replicas” are running at any given
+A Replica Set ensures that a specified number of pod "replicas" are running at any given
 time. However, a Deployment is a higher-level concept that manages Replica Sets and
 provides declarative updates to pods along with a lot of other useful features.
 Therefore, we recommend using Deployments instead of directly using Replica Sets, unless
