@@ -20,7 +20,9 @@ or used to store configuration data for system components such as controllers.  
 to [Secrets](/docs/user-guide/secrets/), but designed to more conveniently support working with strings that do not
 contain sensitive information.
 
-Let's look at a made-up example:
+Note: ConfigMaps are not intended to act as a replacement for a properties file. ConfigMaps are intended to act as a  reference to multiple properties files. You can think of them as way to represent something similar to the /etc directory, and the files within, on a Linux computer. One example of this model is creating Kubernetes Volumes from ConfigMaps, where each data item in the ConfigMap becomes a new file. 
+
+Consider the following example:
 
 ```yaml
 kind: ConfigMap
