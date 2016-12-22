@@ -76,7 +76,7 @@ frontend-dnjpy   1/1       Running   0          1m
 frontend-qhloh   1/1       Running   0          1m
 ```
 
-## Replica Set as an Horizontal Pod Autoscaler target
+## Replica Set as a Horizontal Pod Autoscaler target
 
 A Replica Set can also be a target for
 [Horizontal Pod Autoscalers (HPA)](/docs/user-guide/horizontal-pod-autoscaling/),
