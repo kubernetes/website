@@ -2,7 +2,7 @@
 assignees:
 - idvoretskyi
 - xsgordon
-
+title: OpenStack Heat
 ---
 
 * TOC

@@ -1,7 +1,7 @@
 ---
 assignees:
 - Random-Liu
-
+title: Validate Node Setup
 ---
 
 * TOC
@@ -9,54 +9,52 @@ assignees:
 
 ## Node Conformance Test
 
-*Node conformance test* is a test framework validating whether a node meets the
-minimum requirement of Kubernetes with a set of system verification and
-functionality test. A node which passes the tests is qualified to join a
-Kubernetes cluster.
+*Node conformance test* is a containerized test framework that provides a system
+verification and functionality test for a node. The test validates whether the
+node meets the minimum requirements for Kubernetes; a node that passes the test
+is qualified to join a Kubernetes cluster.
 
 ## Limitations
 
-There are following limitations in the current implementation of node
-conformance test. They'll be improved in future version.
+In Kubernetes version 1.5, node conformance test has the following limitations:
 
 * Node conformance test only supports Docker as the container runtime.
-* Node conformance test doesn't validate network related system configurations
-  and functionalities.
 
-## Prerequisite
+## Node Prerequisite
 
-Node conformance test is used to test whether a node is ready to join a
-Kubernetes cluster, so the prerequisite is the same with a standard Kubernetes
-node. At least, the node should have properly installed:
+To run node conformance test, a node must satisfy the same prerequisites as a
+standard Kubernetes node. At a minimum, the node should have the following
+daemons installed:
 
 * Container Runtime (Docker)
 * Kubelet
 
-Node conformance test validates kernel configurations. If the kenrel module
-`configs` is built as module in your environment, it must be loaded before the
-test. (See [Caveats #3](#caveats) for more information)
+## Running Node Conformance Test
 
-## Usage
+To run the node conformance test, perform the following steps:
 
-### Run Node Conformance Test
+1. Point your Kubelet to localhost `--api-servers="http://localhost:8080"`,
+because the test framework starts a local master to test Kubelet. There are some
+other Kubelet flags you may care:
+  * `--pod-cidr`: If you are using `kubenet`, you should specify an arbitrary CIDR
+    to Kubelet, for example `--pod-cidr=10.180.0.0/24`.
+  * `--cloud-provider`: If you are using `--cloud-provider=gce`, you should
+    remove the flag to run the test.
 
-* **Step 1:** Point your Kubelet to localhost `--api-servers="http://localhost:8080"`,
-because the test framework starts a local master to test Kubelet.
-
-* **Step 2:** Run the node conformance test with command:
+2. Run the node conformance test with command:
 
 ```shell
-# $CONFIG_DIR is the pod manifest path of your kubelet.
+# $CONFIG_DIR is the pod manifest path of your Kubelet.
 # $LOG_DIR is the test output path.
 sudo docker run -it --rm --privileged --net=host \
-  -v /:/rootfs:ro -v /var/run:/var/run \
-  -v $CONFIG_DIR:/etc/manifest -v $LOG_DIR:/var/result \
-  gcr.io/google_containers/node-test-amd64:v0.1
+  -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+  gcr.io/google_containers/node-test:0.2
 ```
 
-### Run Node Conformance Test for Other Architectures
+## Running Node Conformance Test for Other Architectures
 
-We also build node conformance test docker images for other architectures:
+Kubernetes also provides node conformance test docker images for other
+architectures:
 
   Arch  |       Image       |
 --------|:-----------------:|
@@ -64,25 +62,16 @@ We also build node conformance test docker images for other architectures:
   arm   |    node-test-arm  |
  arm64  |  node-test-arm64  |
 
-### Run Selected Test
-
-In fact, Node conformance test is a containerized version of [node e2e
-test](https://github.com/kubernetes/kubernetes/blob/release-1.4/docs/devel/e2e-node-tests.md).
-By default, it runs all conformance test.
-
-Theoretically, you can run any node e2e test if you configure the container and
-mount required volumes properly. But **it is strongly recommended to only run conformance
-test**, because the non-conformance test needs much more complex framework configuration.
+## Running Selected Test
 
 To run specific tests, overwrite the environment variable `FOCUS` with the
 regular expression of tests you want to run.
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
-  -v /:/rootfs:ro -v /var/run:/var/run \
-  -v $CONFIG_DIR:/etc/manifest -v $LOG_DIR:/var/result \
+  -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e FOCUS=MirrorPod \ # Only run MirrorPod test
-  gcr.io/google_containers/node-test-amd64:v0.1
+  gcr.io/google_containers/node-test:0.2
 ```
 
 To skip specific tests, overwrite the environment variable `SKIP` with the
@@ -90,25 +79,22 @@ regular expression of tests you want to skip.
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
-  -v /:/rootfs:ro -v /var/run:/var/run \
-  -v $CONFIG_DIR:/etc/manifest -v $LOG_DIR:/var/result \
-  -e SKIP=MirrorPod \ # Run all conformance test and skip MirrorPod test
-  gcr.io/google_containers/node-test-amd64:v0.1
+  -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
+  -e SKIP=MirrorPod \ # Run all conformance tests but skip MirrorPod test
+  gcr.io/google_containers/node-test:0.2
 ```
 
-### Caveats
+Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/devel/e2e-node-tests.md).
+By default, it runs all conformance tests.
 
-* The test will leave some docker images on the node, including the node
-  conformance test image and images of containers used in the functionality
+Theoretically, you can run any node e2e test if you configure the container and
+mount required volumes properly. But **it is strongly recommended to only run conformance
+test**, because it requires much more complex configuration to run non-conformance test.
+
+## Caveats
+
+* The test leaves some docker images on the node, including the node conformance
+  test image and images of containers used in the functionality
   test.
-* The test will leave dead containers on the node, these containers are created
+* The test leaves dead containers on the node. These containers are created
   during the functionality test.
-* Node conformance test validates kernel configuration. However, in some os
-  distro the kernel module `configs` may not be loaded by default, and you will get
-  the error `no config path in [POSSIBLE KERNEL CONFIG FILE PATHS] is
-  available`. In that case please do either of the followings:
-  * Manually load/unload `configs` kernel module: run `sudo modprobe configs` to
-    load the kernel module, and `sudo modprobe -r configs` to unload it after the test.
-  * Mount `modprobe` into the container: Add option `-v /bin/kmod:/bin/kmod
-    -v /sbin/modprobe:/sbin/modprobe -v /lib/modules:/lib/modules` when starting
-    the test container.
