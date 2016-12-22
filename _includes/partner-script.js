@@ -54,7 +54,7 @@
 			name: 'Skippbox',
 			logo: 'skippbox',
 			link: 'http://www.skippbox.com/tag/products/',
-			blurb: 'Creator of Cabin the first mobile application for Kubernetes, and kompose. Skippbox's solutions distill all the power of k8s in simple easy to use interfaces.'
+			blurb: 'Creator of Cabin the first mobile application for Kubernetes, and kompose. Skippbox’s solutions distill all the power of k8s in simple easy to use interfaces.'
 		},
 		{
 			type: 0,
@@ -89,7 +89,7 @@
 			name: 'Intel',
 			logo: 'intel',
 			link: 'https://tectonic.com/press/intel-coreos-collaborate-on-openstack-with-kubernetes.html',
-			blurb: 'Powering the GIFEE (Google's Infrastructure for Everyone Else), to run OpenStack deployments on Kubernetes.'
+			blurb: 'Powering the GIFEE (Google’s Infrastructure for Everyone Else), to run OpenStack deployments on Kubernetes.'
 		},
 		{
 			type: 0,
@@ -243,7 +243,7 @@
 			name: 'Samsung SDS',
 			logo: 'samsung_sds',
 			link: 'http://www.samsungsdsa.com/cloud-infrastructure_kubernetes',
-			blurb: 'Samsung SDS's Cloud Native Computing Team offers expert consulting across the range of technical aspects involved in building services targeted at a Kubernetes cluster.'
+			blurb: 'Samsung SDS’s Cloud Native Computing Team offers expert consulting across the range of technical aspects involved in building services targeted at a Kubernetes cluster.'
 		},
 		{
 			type: 1,
