@@ -207,7 +207,7 @@ Create a cluster with name of k8s_3, 1 master node, and 10 worker minions (on VM
 
 ## Cluster Features and Architecture
 
-We configure the Kubernetes cluster with the following features:
+We configue the Kubernetes cluster with the following features:
 
 * KubeDNS: DNS resolution and service discovery
 * Heapster/InfluxDB: For metric collection. Needed for Grafana and auto-scaling.

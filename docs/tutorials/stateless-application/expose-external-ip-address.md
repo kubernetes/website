@@ -4,7 +4,7 @@ title: Exposing an External IP Address to Access an Application in a Cluster
 
 {% capture overview %}
 
-This page shows how to create a Kubernetes Service object that exposes an
+This page shows how to create a Kubernetes Service object that exposees an
 external IP address.
 
 {% endcapture %}
