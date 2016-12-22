@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Container Lifecycle Hooks
 ---
 
 This document describes the environment for Kubelet managed containers on a Kubernetes node (kNode).  In contrast to the Kubernetes cluster API, which provides an API for creating and managing containers, the Kubernetes container environment provides the container access to information about what else is going on in the cluster.
