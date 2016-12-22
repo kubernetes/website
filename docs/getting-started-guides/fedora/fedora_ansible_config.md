@@ -37,7 +37,7 @@ master,etcd = kube-master.example.com
 If not
 
 ```shell
-yum install -y ansible git python-netaddr
+dnf install -y ansible git python-netaddr
 ```
 
 **Now clone down the Kubernetes repository**
