@@ -166,7 +166,7 @@ parallelism, for a variety or reasons:
 - If the controller failed to create pods for any reason (lack of ResourceQuota, lack of permission, etc.),
   then there may be fewer pods than requested.
 - The controller may throttle new pod creation due to excessive previous pod failures in the same Job.
-- When a pod is gracefully shutdown, it make take time to stop.
+- When a pod is gracefully shutdown, it makes take time to stop.
 
 ## Handling Pod and Container Failures
 

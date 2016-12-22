@@ -184,7 +184,7 @@ Note that this pod specifies explicit resource *limits* and *requests* so it did
 default values.
 
 Note: The *limits* for CPU resource are enforced in the default Kubernetes setup on the physical node
-that runs the container unless the administrator deploys the kubelet with the folllowing flag:
+that runs the container unless the administrator deploys the kubelet with the following flag:
 
 ```shell
 $ kubelet --help
