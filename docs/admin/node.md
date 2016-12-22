@@ -186,7 +186,7 @@ Modifications include setting labels on the node and marking it unschedulable.
 Labels on nodes can be used in conjunction with node selectors on pods to control scheduling,
 e.g. to constrain a pod to only be eligible to run on a subset of the nodes.
 
-Marking a node as unscheduleable will prevent new pods from being scheduled to that
+Marking a node as unschedulable will prevent new pods from being scheduled to that
 node, but will not affect any existing pods on the node. This is useful as a
 preparatory step before a node reboot, etc. For example, to mark a node
 unschedulable, run this command:
