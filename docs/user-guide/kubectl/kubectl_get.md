@@ -69,7 +69,7 @@ kubectl get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file
   kubectl get -f pod.yaml -o json
 
   # Return only the phase value of the specified pod.
-  kubectl get -o template pod/web-pod-13je7 --template={% raw %}{{.status.phase}}{% endraw %}
+  kubectl get -o template pod/web-pod-13je7 --template={{.status.phase}}
 
   # List all replication controllers and services together in ps output format.
   kubectl get rc,services

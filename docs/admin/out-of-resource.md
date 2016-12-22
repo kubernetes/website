@@ -349,7 +349,7 @@ in favor of the simpler configuation supported around eviction.
 The `kubelet` currently polls `cAdvisor` to collect memory usage stats at a regular interval.  If memory usage
 increases within that window rapidly, the `kubelet` may not observe `MemoryPressure` fast enough, and the `OOMKiller`
 will still be invoked.  We intend to integrate with the `memcg` notification API in a future release to reduce this
-latency, and instead have the kernel tell us when a threshold has been crossed immmediately.
+latency, and instead have the kernel tell us when a threshold has been crossed immediately.
 
 If you are not trying to achieve extreme utilization, but a sensible measure of overcommit, a viable workaround for
 this issue is to set eviction thresholds at approximately 75% capacity.  This increases the ability of this feature
