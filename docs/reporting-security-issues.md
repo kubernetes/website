@@ -5,7 +5,7 @@ assignees:
 title: Report a Security Vulnerability
 ---
 
-If you believe you have discovered a vulnerability or a have a security incident to report, please follow the steps below. This applies to Kubernetes releases v1.0 or later.
+If you believe you have discovered a vulnerability or have a security incident to report, please follow the steps below. This applies to Kubernetes releases v1.0 or later.
 
 To watch for security and major API announcements, please join our [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) group.
 
