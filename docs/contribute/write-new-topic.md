@@ -1,4 +1,5 @@
 ---
+title: Writing a New Topic
 ---
 
 {% capture overview %}
@@ -34,7 +35,7 @@ is the best fit for your content:
     <td>A concept page explains some aspect of Kubernetes. For example, a concept page might describe the Kubernetes Deployment object and explain the role it plays as an application is deployed, scaled, and updated. Typically, concept pages don't include sequences of steps, but instead provide links to tasks or tutorials.</td>
   </tr>
 
-</table> 
+</table>
 
 Each page type has a
 [template](/docs/contribute/page-templates/)
@@ -72,12 +73,56 @@ Depending page type, create an entry in one of these files:
 * /_data/tutorials.yaml
 * /_data/concepts.yaml
 
+### Including code from another file
+
+To include a code file in your topic, place the code file in the Kubernetes
+documentation repository, preferably in the same directory as your topic
+file. In your topic file, use the `include` tag:
+
+<pre>&#123;% include code.html language="&lt;LEXERVALUE&gt;" file="&lt;RELATIVEPATH&gt;" ghlink="/&lt;PATHFROMROOT&gt;" %&#125;</pre>
+
+where:
+
+* `<LEXERVALUE>` is the language in which the file was written. This must be
+[a value supported by Rouge](https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers).
+* `<RELATIVEPATH>` is the path to the file you're including, relative to the current file, for example, `gce-volume.yaml`.
+* `<PATHFROMROOT>` is the path to the file relative to root, for example, `docs/tutorials/stateful-application/gce-volume.yaml`.
+
+Here's an example of using the `include` tag:
+
+<pre>&#123;% include code.html language="yaml" file="gce-volume.yaml" ghlink="/docs/tutorials/stateful-application/gce-volume.yaml" %&#125;</pre>
+
+### Showing how to create an API object from a configuration file
+
+If you need to show the reader how to create an API object based on a
+configuration file, place the configuration file in the Kubernetes documentation
+repository, preferably in the same directory as your topic file.
+
+In your topic, show this command:
+
+    kubectl create -f http://k8s.io/<PATHFROMROOT>
+
+where `<PATHFROMROOT>` is the path to the configuration file relative to root,
+for example, `docs/tutorials/stateful-application/gce-volume.yaml`.
+
+Here's an example of a command that creates an API object from a configuration file:
+
+    kubectl create -f http://k8s.io/docs/tutorials/stateful-application/gce-volume.yaml
+
+For an example of a topic that uses this technique, see
+[Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/).
+
+### Adding images to a topic
+
+Put image files in the `/images` directory. The preferred
+image format is SVG.
+
 {% endcapture %}
 
 {% capture whatsnext %}
 * Learn about [using page templates](/docs/contribute/page-templates/).
 * Learn about [staging your changes](/docs/contribute/stage-documentation-changes).
-* Learn about [creating a pull request](/docs/contribute/write-new-topic).
+* Learn about [creating a pull request](/docs/contribute/create-pull-request/).
 {% endcapture %}
 
 {% include templates/task.md %}
