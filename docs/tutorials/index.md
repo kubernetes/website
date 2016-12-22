@@ -1,4 +1,5 @@
 ---
+title: Tutorials
 ---
 
 This section of the Kubernetes documentation contains tutorials.
@@ -20,7 +21,13 @@ each of which has a sequence of steps.
 
 #### Stateful Applications
 
+* [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
+
 * [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/)
+
+* [Running a Replicated Stateful Application](/docs/tutorials/stateful-application/run-replicated-stateful-application/)
+
+* [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
 ### What's next
 

@@ -3,7 +3,7 @@ assignees:
 - ArtfulCoder
 - davidopp
 - lavalamp
-
+title: Using DNS Pods and Services
 ---
 
 ## Introduction
@@ -60,7 +60,7 @@ of the form `auto-generated-name.my-svc.my-namespace.svc.cluster.local`.
 
 ### Backwards compatibility
 
-Previous versions of kube-dns made names of the for
+Previous versions of kube-dns made names of the form
 `my-svc.my-namespace.cluster.local` (the 'svc' level was added later).  This
 is no longer supported.
 
@@ -70,7 +70,7 @@ is no longer supported.
 
 When enabled, pods are assigned a DNS A record in the form of `pod-ip-address.my-namespace.pod.cluster.local`.
 
-For example, a pod with ip `1.2.3.4` in the namespace `default` with a dns name of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
+For example, a pod with ip `1.2.3.4` in the namespace `default` with a DNS name of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
 
 #### A Records and hostname based on Pod's hostname and subdomain fields
 
@@ -114,7 +114,7 @@ Given a Pod with the hostname set to "foo" and the subdomain set to "bar", and a
 
 With v1.2, the Endpoints object also has a new annotation `endpoints.beta.kubernetes.io/hostnames-map`. Its value is the json representation of map[string(IP)][endpoints.HostRecord], for example: '{"10.245.1.6":{HostName: "my-webserver"}}'.
 If the Endpoints are for a headless service, an A record is created with the format <hostname>.<service name>.<pod namespace>.svc.<cluster domain>
-For the example json, if endpoints are for a headless service named "bar", and one of the endpoints has IP "10.245.1.6", an A is created with the name "my-webserver.bar.my-namespace.svc.cluster.local" and the A record lookup would return "10.245.1.6".
+For the example json, if endpoints are for a headless service named "bar", and one of the endpoints has IP "10.245.1.6", an A record is created with the name "my-webserver.bar.my-namespace.svc.cluster.local" and the A record lookup would return "10.245.1.6".
 This endpoints annotation generally does not need to be specified by end-users, but can used by the internal service controller to deliver the aforementioned feature.
 
 With v1.3, The Endpoints object can specify the `hostname` for any endpoint, along with its IP. The hostname field takes precedence over the hostname value
@@ -171,7 +171,7 @@ busybox   1/1       Running   0          <some-time>
 Once that pod is running, you can exec nslookup in that environment:
 
 ```
-kubectl exec busybox -- nslookup kubernetes.default
+kubectl exec -ti busybox -- nslookup kubernetes.default
 ```
 
 You should see something like:
@@ -194,10 +194,10 @@ If the nslookup command fails, check the following:
 Take a look inside the resolv.conf file. (See "Inheriting DNS from the node" and "Known issues" below for more information)
 
 ```
-cat /etc/resolv.conf
+kubectl exec busybox cat /etc/resolv.conf
 ```
 
-Verify that the search path and name server are set up like the following (note that seach path may vary for different cloud providers):
+Verify that the search path and name server are set up like the following (note that search path may vary for different cloud providers):
 
 ```
 search default.svc.cluster.local svc.cluster.local cluster.local google.internal c.gce_project_id.internal
@@ -210,7 +210,7 @@ options ndots:5
 Errors such as the following indicate a problem with the kube-dns add-on or associated Services:
 
 ```
-$ kubectl exec busybox -- nslookup kubernetes.default
+$ kubectl exec -ti busybox -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10
 
@@ -220,7 +220,7 @@ nslookup: can't resolve 'kubernetes.default'
 or
 
 ```
-$ kubectl exec busybox -- nslookup kubernetes.default
+$ kubectl exec -ti busybox -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
@@ -244,21 +244,21 @@ kube-dns-v19-ezo1y                                         3/3       Running   0
 ...
 ```
 
-If you see that no pod is running or that the pod has failed/completed, the dns add-on may not be deployed by default in your current environment and you will have to deploy it manually.
+If you see that no pod is running or that the pod has failed/completed, the DNS add-on may not be deployed by default in your current environment and you will have to deploy it manually.
 
 #### Check for Errors in the DNS pod
 
 Use `kubectl logs` command to see logs for the DNS daemons.
 
 ```
-kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kubedns
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kube-dns
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c healthz
 ```
 
 See if there is any suspicious log. W, E, F letter at the beginning represent Warning, Error and Failure. Please search for entries that have these as the logging level and use [kubernetes issues](https://github.com/kubernetes/kubernetes/issues) to report unexpected errors.
 
-#### Is dns service up?
+#### Is DNS service up?
 
 Verify that the DNS service is up by using the `kubectl get service` command.
 
@@ -277,7 +277,7 @@ kube-dns                10.0.0.10      <none>        53/UDP,53/TCP        1h
 
 If you have created the service or in the case it should be created by default but it does not appear, see this [debugging services page](http://kubernetes.io/docs/user-guide/debugging-services/) for more information.
 
-#### Are dns endpoints exposed?
+#### Are DNS endpoints exposed?
 
 You can verify that dns endpoints are exposed by using the `kubectl get endpoints` command.
 
@@ -348,7 +348,7 @@ some of those settings will be lost.  As a partial workaround, the node can run
 `dnsmasq` which will provide more `nameserver` entries, but not more `search`
 entries.  You can also use kubelet's `--resolv-conf` flag.
 
-If you are using Alpine version 3.3 or earlier as your base image, dns may not
+If you are using Alpine version 3.3 or earlier as your base image, DNS may not
 work properly owing to a known issue with Alpine. Check [here](https://github.com/kubernetes/kubernetes/issues/30215)
 for more information.
 
@@ -356,3 +356,5 @@ for more information.
 
 - [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build-tools/kube-dns/README.md)
 
+## What's next
+- [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
