@@ -52,7 +52,7 @@ load-balanced access to an application running in a cluster.
         NAME                     DESIRED   CURRENT   AGE
         hello-world-2189936611   2         2         12m
 
-1. Create a Serivice object that exposes the replica set:
+1. Create a Service object that exposes the replica set:
 
         kubectl expose rs <your-replica-set-name> --type="LoadBalancer" --name="example-service"
 
