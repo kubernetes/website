@@ -2,14 +2,67 @@
 title: Federation User Guide
 ---
 
-This guide explains how we can manage multiple Kubernetes clusters using
+This guide explains why and how we can manage multiple Kubernetes clusters using
 federation.
-[Federation proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/federation.md)
-details the use cases motivating cluster federation.
 
 
 * TOC
 {:toc}
+
+
+## Why federation
+
+Federation makes it easy to manage multiple clusters. It does so by providing 2
+major building blocks:
+
+  * Sync resources across clusters: Federation provides the ability to keep
+    resources in multiple clusters in sync. If you want to ensure that a
+    resource exists in multiple clusters, use federation.
+  * Cross cluster discovery: It provides ability to auto-configure DNS servers
+    and load balancers with backends from all clusters. If you want a global VIP
+    or DNS record to access backends from all clusters, use federation.
+
+Some other use cases that federation enables are:
+
+* High Availability: By spreading load across clusters and auto configuring DNS
+  servers and load balancers, federation minimises the impact of cluster
+  failure.
+* Avoiding provider lock-in: By making it easier to migrate application across
+  clusters, federation prevents cluster provider lock-in.
+
+
+Federation is not helpful unless you have multiple clusters. Some of the reasons
+why you might want multiple clusters are:
+
+* Low latency: Have clusters in many regions so that users are served quickly
+  from a cluster that is close to them.
+* Fault isolation: It might be better to have multiple smaller clusters rather
+  than a single big cluster for fault isolation (for ex: multiple clusters in
+  different availability zones of a cloud provider).
+  [Multi cluster guide](/docs/admin/multi-cluster) has more details on this.
+* Scalability: There are scalability limits to a single kubernetes cluster (this
+  should not be the case for most users).
+* Hybrid cloud: You can have multiple clusters on different cloud providers or
+  on-prem data centers.
+
+
+### Caveats
+
+While there are a lot of attractive use cases for federation, there are also
+some caveats.
+
+* Increased network bandwidth and cost: Federation control plane watches all
+  clusters to ensure that the current state is as expected. This can lead to
+  significant network cost if the clusters are running in different regions on
+  a cloud provider or on different cloud providers.
+* Reduced cross cluster isolation: A bug in federation control plane can impact
+  all clusters. This is mitigated by keeping the logic in federation control
+  plane to a minimum. It mostly delegates to the control plane in kubernetes
+  clusters whenever it can.
+* Maturity: Federation project is relatively new and is not very mature. Not all
+  resources are available and many are still alpha. [Issue
+  38893](https://github.com/kubernetes/kubernetes/issues/38893) ennumerates
+  known issues with the system that the team is busy solving.
 
 ## Setup
 
@@ -70,3 +123,10 @@ The following Federated resources are affected by cascading deletion:
 
 Note: By default, deleting a resource from federation control plane does not
 delete the corresponding resources from underlying clusters.
+
+
+## For more information
+
+* [Federation
+  proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/federation.md)
+* [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
