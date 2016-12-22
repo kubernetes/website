@@ -83,7 +83,7 @@ $ ls
 Dockerfile app
 ```
 
-Le's build.
+Let's build.
 
 ```shell
 $ docker build -t myapp .
