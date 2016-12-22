@@ -15,18 +15,18 @@ In Kubernetes version 1.5, Windows Server Containers for Kubernetes is supported
 4. Docker Version 1.12.2-cs2-ws-beta or later
 
 ## Networking
-Network is achieved using L3 routing. Because third-party networking plugins (e.g. flannel, calico, etc) don’t natively work on Windows Server, existing technology that is built into the Windows and Linux operating systems is relied on. In this L3 networking approach, a /16 subnet is chosen for the cluster nodes, and a /24 subnet is assigned to each worker node. All pods on a given worker node will be connected to the /24 subnet. This allows pods on the same node to communicate with each other. In order to enable networking between pods running on different nodes, routing features that are built into Windows Server 2016 and Linux are used.
+Network is achieved using L3 routing. Because third-party networking plugins (e.g. flannel, calico, etc) don't natively work on Windows Server, existing technology that is built into the Windows and Linux operating systems is relied on. In this L3 networking approach, a /16 subnet is chosen for the cluster nodes, and a /24 subnet is assigned to each worker node. All pods on a given worker node will be connected to the /24 subnet. This allows pods on the same node to communicate with each other. In order to enable networking between pods running on different nodes, routing features that are built into Windows Server 2016 and Linux are used.
 
 ### Linux
-The above networking approach is already supported on Linux using a bridge interface, which essentially creates a private network local to the node. Similar to the Windows side, routes to all other pod CIDRs must be created in order to send packets via the “public” NIC.
+The above networking approach is already supported on Linux using a bridge interface, which essentially creates a private network local to the node. Similar to the Windows side, routes to all other pod CIDRs must be created in order to send packets via the "public" NIC.
 
 ### Windows
 Each Window Server node should have the following configuration:
 
 1. Two NICs (virtual networking adapters) are required on each Windows Server node - The two Windows container networking modes of interest (transparent and L2 bridge) use an external Hyper-V virtual switch. This means that one of the NICs is entirely allocated to the bridge, creating the need for the second NIC.
 2. Transparent container network created - This is a manual configuration step and is shown in **_Route Setup_** section below
-3. RRAS (Routing) Windows feature enabled - Allows routing between NICs on the box, and also “captures” packets that have the destination IP of a POD running on the node. To enable, open “Server Manager”. Click on “Roles”, “Add Roles”. Click “Next”. Select “Network Policy and Access Services”. Click on “Routing and Remote Access Service” and the underlying checkboxes
-4. Routes defined pointing to the other pod CIDRs via the “public” NIC - These routes are added to the built-in routing table as shown in **_Route Setup_** section below
+3. RRAS (Routing) Windows feature enabled - Allows routing between NICs on the box, and also "captures" packets that have the destination IP of a POD running on the node. To enable, open "Server Manager". Click on "Roles", "Add Roles". Click "Next". Select "Network Policy and Access Services". Click on "Routing and Remote Access Service" and the underlying checkboxes
+4. Routes defined pointing to the other pod CIDRs via the "public" NIC - These routes are added to the built-in routing table as shown in **_Route Setup_** section below
 
 The following diagram illustrates the Windows Server networking setup for Kubernetes Setup
 ![Windows Setup](windows-setup.png)
@@ -38,12 +38,12 @@ To run Windows Server Containers on Kubernetes, you'll need to set up both your 
 
 1. Windows Server container host running Windows Server 2016 and Docker v1.12. Follow the setup instructions outlined by this blog post: https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_server
 2. DNS support for Windows recently got merged to docker master and is currently not supported in a stable docker release. To use DNS build docker from master or download the binary from [Docker master](https://master.dockerproject.org/)
-3. Pull the `apprenda/pause` image from `https://hub.docker.com/r/apprenda/pause` 
+3. Pull the `apprenda/pause` image from `https://hub.docker.com/r/apprenda/pause`
 4. RRAS (Routing) Windows feature enabled
 
 **Linux Host Setup**
 
-1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using. 
+1. Linux hosts should be setup according to their respective distro documentation and the requirements of the Kubernetes version you will be using.
 2. CNI network plugin installed.
 
 ### Component Setup
@@ -110,7 +110,7 @@ route add 192.168.1.0 mask 255.255.255.0 192.168.1.1 if <Interface Id of the Rou
 ```
 
 ## Starting the Cluster
-To start your cluster, you'll need to start both the Linux-based Kubernetes control plane, and the Windows Server-based Kubernetes node components. 
+To start your cluster, you'll need to start both the Linux-based Kubernetes control plane, and the Windows Server-based Kubernetes node components.
 ## Starting the Linux-based Control Plane
 Use your preferred method to start Kubernetes cluster on Linux. Please note that Cluster CIDR might need to be updated.
 ## Starting the Windows Node Components

@@ -194,7 +194,7 @@ Ideally, the rolling update controller would take application readiness into acc
 The two replication controllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 
 Rolling update is implemented in the client tool
-[`kubectl rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update). Visit [`kubectl rolling-update` tutorial](/docs/user-guide/rolling-updates/) for more concrete examples. 
+[`kubectl rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update). Visit [`kubectl rolling-update` tutorial](/docs/user-guide/rolling-updates/) for more concrete examples.
 
 ### Multiple release tracks
 
@@ -233,13 +233,13 @@ object](/docs/api-reference/v1/definitions/#_v1_replicationcontroller).
 ### ReplicaSet
 
 [`ReplicaSet`](/docs/user-guide/replicasets/) is the next-generation Replication Controller that supports the new [set-based label selector](/docs/user-guide/labels/#set-based-requirement).
-It’s mainly used by [`Deployment`](/docs/user-guide/deployments/) as a mechanism to orchestrate pod creation, deletion and updates.
-Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don’t require updates at all.
+It's mainly used by [`Deployment`](/docs/user-guide/deployments/) as a mechanism to orchestrate pod creation, deletion and updates.
+Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don't require updates at all.
 
 ### Deployment (Recommended)
 
 [`Deployment`](/docs/user-guide/deployments/) is a higher-level API object that updates its underlying Replica Sets and their Pods
-in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want this rolling update functionality, 
+in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want this rolling update functionality,
 because unlike `kubectl rolling-update`, they are declarative, server-side, and have additional features.
 
 ### Bare Pods

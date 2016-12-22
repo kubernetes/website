@@ -12,7 +12,7 @@ title: Hello World on Google Container Engine
 
 The goal of this codelab is for you to turn a simple Hello World node.js app into a replicated application running on Kubernetes. We will show you how to take code that you have developed on your machine, turn it into a Docker container image, and then run that image on [Google Container Engine](https://cloud.google.com/container-engine/).
 
-Here’s a diagram of the various parts in play in this codelab to help you understand how pieces fit with one another. Use this as a reference as we progress through the codelab; it should all make sense by the time we get to the end.
+Here's a diagram of the various parts in play in this codelab to help you understand how pieces fit with one another. Use this as a reference as we progress through the codelab; it should all make sense by the time we get to the end.
 
 ![image](/images/hellonode/image_1.png)
 
@@ -38,7 +38,7 @@ export PROJECT_ID="your-project-id"
 
 Next, [enable billing](https://console.cloud.google.com/billing) in the Cloud Console in order to use Google Cloud resources and [enable the Container Engine API](https://console.cloud.google.com/project/_/kubernetes/list).
 
-New users of Google Cloud Platform receive a [$300 free trial](https://console.cloud.google.com/billing/freetrial?hl=en). Running through this codelab shouldn’t cost you more than a few dollars of that trial. Google Container Engine pricing is documented [here](https://cloud.google.com/container-engine/pricing).
+New users of Google Cloud Platform receive a [$300 free trial](https://console.cloud.google.com/billing/freetrial?hl=en). Running through this codelab shouldn't cost you more than a few dollars of that trial. Google Container Engine pricing is documented [here](https://cloud.google.com/container-engine/pricing).
 
 Next, make sure you [download Node.js](https://nodejs.org/en/download/). You can skip this and the steps for installing Docker and Cloud SDK if you're using Cloud Shell.
 
@@ -79,7 +79,7 @@ You should be able to see your "Hello World!" message at http://localhost:8080/.
 
 Stop the running node server by pressing Ctrl-C.
 
-Now let’s package this application in a Docker container.
+Now let's package this application in a Docker container.
 
 ## Create a Docker container image
 
@@ -109,7 +109,7 @@ Let's try your image out with Docker:
 docker run -d -p 8080:8080 --name hello_tutorial gcr.io/$PROJECT_ID/hello-node:v1
 ```
 
-Visit your app in the browser, or use `curl` or `wget` if you’d like :
+Visit your app in the browser, or use `curl` or `wget` if you'd like :
 
 ```shell
 curl http://localhost:8080
@@ -123,7 +123,7 @@ You should see `Hello World!`
 curl "http://$(docker-machine ip YOUR-VM-MACHINE-NAME):8080"
 ```
 
-Let’s now stop the container. You can list the docker containers with:
+Let's now stop the container. You can list the docker containers with:
 
 ```shell
 docker ps
@@ -180,7 +180,7 @@ You should get a Kubernetes cluster with three nodes, ready to receive your cont
 
 ![image](/images/hellonode/image_11.png)
 
-It’s now time to deploy your own containerized application to the Kubernetes cluster!
+It's now time to deploy your own containerized application to the Kubernetes cluster!
 
 ```shell
 gcloud container clusters get-credentials hello-world
@@ -258,7 +258,7 @@ kubectl expose deployment hello-node --type="LoadBalancer"
 
 **If this fails, make sure your client and server are both version 1.3.  See the [Create your cluster](#create-your-cluster) section for details.**
 
-The flag used in this command specifies that we’ll be using the load-balancer provided by the underlying infrastructure (in this case the [Compute Engine load balancer](https://cloud.google.com/compute/docs/load-balancing/)). Note that we expose the deployment, and not the pod directly.  This will cause the resulting service to load balance traffic across all pods managed by the deployment (in this case only 1 pod, but we will add more replicas later).
+The flag used in this command specifies that we'll be using the load-balancer provided by the underlying infrastructure (in this case the [Compute Engine load balancer](https://cloud.google.com/compute/docs/load-balancing/)). Note that we expose the deployment, and not the pod directly.  This will cause the resulting service to load balance traffic across all pods managed by the deployment (in this case only 1 pod, but we will add more replicas later).
 
 The Kubernetes master creates the load balancer and related Compute Engine forwarding rules, target pools, and firewall rules to make the service fully accessible from outside of Google Cloud Platform.
 
@@ -322,7 +322,7 @@ hello-node-714049816-ztzrb   1/1       Running   0          41m
 
 Note the **declarative approach** here - rather than starting or stopping new instances you declare how many instances you want to be running. Kubernetes reconciliation loops simply make sure the reality matches what you requested and take action if needed.
 
-Here’s a diagram summarizing the state of our Kubernetes cluster:
+Here's a diagram summarizing the state of our Kubernetes cluster:
 
 ![image](/images/hellonode/image_13.png)
 
@@ -330,7 +330,7 @@ Here’s a diagram summarizing the state of our Kubernetes cluster:
 
 As always, the application you deployed to production requires bug fixes or additional features. Kubernetes is here to help you deploy a new version to production without impacting your users.
 
-First, let’s modify the application. On the development machine, edit server.js and update the response message:
+First, let's modify the application. On the development machine, edit server.js and update the response message:
 
 ```javascript
   response.end('Hello Kubernetes World!');
@@ -345,7 +345,7 @@ gcloud docker -- push gcr.io/$PROJECT_ID/hello-node:v2
 
 Building and pushing this updated image should be much quicker as we take full advantage of the Docker cache.
 
-We’re now ready for Kubernetes to smoothly update our deployment to the new version of the application.  In order to change
+We're now ready for Kubernetes to smoothly update our deployment to the new version of the application.  In order to change
 the image label for our running container, we will need to edit the existing *hello-node deployment* and change the image from
 `gcr.io/$PROJECT_ID/hello-node:v1` to `gcr.io/$PROJECT_ID/hello-node:v2`.  To do this, we will use the `kubectl set image` command.
 
@@ -364,7 +364,7 @@ hello-node   4         5         4            3           1h
 
 While this is happening, the users of the services should not see any interruption. After a little while they will start accessing the new version of your application. You can find more details in the [deployment documentation](/docs/user-guide/deployments/).
 
-Hopefully with these deployment, scaling and update features you’ll agree that once you’ve setup your environment (your GKE/Kubernetes cluster here), Kubernetes is here to help you focus on the application rather than the infrastructure.
+Hopefully with these deployment, scaling and update features you'll agree that once you've setup your environment (your GKE/Kubernetes cluster here), Kubernetes is here to help you focus on the application rather than the infrastructure.
 
 ## Observe the Kubernetes Web UI (optional)
 
