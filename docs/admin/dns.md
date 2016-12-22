@@ -77,7 +77,7 @@ For example, a pod with ip `1.2.3.4` in the namespace `default` with a dns name 
 Currently when a pod is created, its hostname is the Pod's `metadata.name` value.
 
 With v1.2, users can specify a Pod annotation, `pod.beta.kubernetes.io/hostname`, to specify what the Pod's hostname should be.
-The Pod annotation, if specified, takes precendence over the Pod's name, to be the hostname of the pod.
+The Pod annotation, if specified, takes precedence over the Pod's name, to be the hostname of the pod.
 For example, given a Pod with annotation `pod.beta.kubernetes.io/hostname: my-pod-name`, the Pod will have its hostname set to "my-pod-name".
 
 With v1.3, the PodSpec has a `hostname` field, which can be used to specify the Pod's hostname. This field value takes precedence over the
