@@ -497,7 +497,7 @@ parameters:
 ```
 
 * `quobyteAPIServer`: API Server of Quobyte in the format `http(s)://api-server:7860`
-* `registry`: Quobyte registry to use to mount the volume. You can specifiy the registry as ``<host>:<port>`` pair or if you want to specify multiple registries you just have to put a comma between them e.q. ``<host1>:<port>,<host2>:<port>,<host3>:<port>``. The host can be an IP address or if you have a working DNS you can also provide the DNS names.
+* `registry`: Quobyte registry to use to mount the volume. You can specify the registry as ``<host>:<port>`` pair or if you want to specify multiple registries you just have to put a comma between them e.q. ``<host1>:<port>,<host2>:<port>,<host3>:<port>``. The host can be an IP address or if you have a working DNS you can also provide the DNS names.
 * `adminSecretNamespace`: The namespace for `adminSecretName`. Default is "default".
 * `adminSecretName`: secret that holds information about the Quobyte user and the password to authenticate agains the API server. The provided secret must have type "kubernetes.io/quobyte", e.g. created in this way:
   ```
