@@ -232,7 +232,7 @@ due to caching by intermediate DNS servers.
 The above set of DNS records is automatically kept in sync with the
 current state of health of all service shards globally by the
 Federated Service system. DNS resolver libraries (which are invoked by
-all clients) automatically traverse the hiearchy of 'CNAME' and 'A'
+all clients) automatically traverse the hierarchy of 'CNAME' and 'A'
 records to return the correct set of healthy IP addresses. Clients can
 then select any one of the returned addresses to initiate a network
 connection (and fail over automatically to one of the other equivalent
@@ -295,7 +295,7 @@ availability zones and regions other than the ones local to a Pod by
 specifying the appropriate DNS names explicitly, and not relying on
 automatic DNS expansion. For example,
 "nginx.mynamespace.myfederation.svc.europe-west1.example.com" will
-resolve to all of the currently healthy service shards in europe, even
+resolve to all of the currently healthy service shards in Europe, even
 if the Pod issuing the lookup is located in the U.S., and irrespective
 of whether or not there are healthy shards of the service in the U.S.
 This is useful for remote monitoring and other similar applications.
@@ -316,7 +316,7 @@ us.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.us-central1.ex
 nginx.acme.com             CNAME nginx.mynamespace.myfederation.svc.example.com.
 ```
 That way your clients can always use the short form on the left, and
-always be automatcally routed to the closest healthy shard on their
+always be automatically routed to the closest healthy shard on their
 home continent.  All of the required failover is handled for you
 automatically by Kubernetes Cluster Federation.  Future releases will
 improve upon this even further.
