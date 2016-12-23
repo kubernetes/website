@@ -319,8 +319,8 @@ edit the `kubeadm` dropin for the `kubelet` service (`/etc/systemd/system/kubele
 If your cloud provider requires any extra packages installed on host, for example for volume mounting/unmounting, install those packages.
 
 Specify the `--cloud-provider` flag to kubelet and set it to the cloud of your choice. If your cloudprovider requires a configuration
-file, create the file `/etc/kubernetes/cloud-config` on every node and set the values your cloud requires. Also append
-`--cloud-config=/etc/kubernetes/cloud-config` to the kubelet arguments.
+file, create the file `/etc/kubernetes/cloud-config` on every node. Format and content of that file depends on your cloud requirements.
+Append also to the kubelet arguments `--cloud-config=/etc/kubernetes/cloud-config` if this configuration file used.
 
 Lastly, run `kubeadm init --cloud-provider=xxx` to bootstrap your cluster with cloud provider features.
 
