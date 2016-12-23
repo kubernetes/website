@@ -151,7 +151,7 @@ An example request body:
 }
 ```
 
-The remote service is expected to fill the ImageReviewStatus field of the request and respond to either allow or disallow access. The response body’s "spec" field is ignored and may be omitted. A permissive response would return:
+The remote service is expected to fill the ImageReviewStatus field of the request and respond to either allow or disallow access. The response body's "spec" field is ignored and may be omitted. A permissive response would return:
 
 ```
 {

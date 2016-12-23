@@ -57,4 +57,3 @@ and have the following annotations specified:
 * `scheduler.alpha.kubernetes.io/tolerations` set to `[{"key":"CriticalAddonsOnly", "operator":"Exists"}]`
 
 The first one marks a pod a critical. The second one is required by Rescheduler algorithm.
-
