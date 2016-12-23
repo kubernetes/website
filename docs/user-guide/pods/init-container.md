@@ -159,7 +159,7 @@ reasons:
   * This is uncommon and would have to be done by someone with root access to nodes.
 * All containers in a pod are terminated, requiring a restart (RestartPolicyAlways) AND the record of init container completion has been lost due to garbage collection.
 
-## Support and compatibilty
+## Support and compatibility
 
 A cluster with Kubelet and Apiserver version 1.4.0 or greater supports init
 containers with the beta annotations.  Support varies for other combinations of
