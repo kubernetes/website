@@ -197,6 +197,13 @@
  			blurb: 'Mirantis builds and manages private clouds with open source software such as OpenStack, deployed as containers orchestrated by Kubernetes.'
  		},
 		{
+ 			type: 0,
+ 			name: 'Kubernetic',
+ 			logo: 'kubernetic',
+ 			link: 'https://kubernetic.com/',
+ 			blurb: 'Kubernetic is a Kubernetes Desktop client that simplifies and democratizes cluster management for DevOps.'
+ 		},
+		{
 			type: 1,
 			name: 'Apprenda',
 			logo: 'apprenda',
@@ -266,6 +273,13 @@
 			link: 'http://www.skippbox.com/services/',
 			blurb: 'Skippbox brings its Kubernetes expertise to help companies embrace Kubernetes on their way to digital transformation. Skippbox offers both professional services and expert training.'
 		},
+		{
+ 			type: 1,
+ 			name: 'Harbur',
+ 			logo: 'harbur',
+ 			link: 'https://harbur.io/',
+ 			blurb: 'Based in Barcelona, Harbur is a consulting firm that helps companies deploy self-healing solutions empowered by Container technologies'
+  	},
 		{
  			type: 1,
  			name: 'Endocode',

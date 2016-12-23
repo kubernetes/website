@@ -1,9 +1,22 @@
 ---
 assignees:
 - bprashanth
+- enisoc
+- erictune
 - foxish
-
+- janetkuo
+- kow3ns
+- smarterclayton
+title: Pet Sets
 ---
+
+__Warning:__ Starting in Kubernetes version 1.5, PetSet has been renamed to
+[StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/).
+To use (or continue to use) PetSet in Kubernetes 1.5 or higher, you must
+[migrate your existing PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/).
+
+__This document has been deprecated__, but can still apply if you're using
+  Kubernetes version 1.4 or earlier.
 
 * TOC
 {:toc}
@@ -424,4 +437,8 @@ Deploying one RC of size 1/Service per pod is a popular alternative, as is simpl
 
 ## Next steps
 
-The deployment and maintenance of stateful applications is a vast topic. The next step is to explore cluster bootstrapping and initialization, [here](/docs/user-guide/petset/bootstrapping/).
+* Learn about [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/),
+  the replacement for PetSet introduced in Kubernetes version 1.5.
+* [Migrate your existing PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
+  when upgrading to Kubernetes version 1.5 or higher.
+

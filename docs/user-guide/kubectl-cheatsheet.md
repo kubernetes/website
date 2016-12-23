@@ -4,7 +4,7 @@ assignees:
 - erictune
 - krousey
 - clove
-
+title: kubectl Cheat Sheet
 ---
 
 See also: [Kubectl Overview](/docs/user-guide/kubectl-overview/) and [JsonPath Guide](/docs/user-guide/jsonpath).
@@ -141,7 +141,7 @@ $ kubectl rolling-update frontend-v1 frontend-v2 --rollback        # Abort exist
 $ cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into stdin
 
 # Force replace, delete and then re-create the resource. Will cause a service outage.
-$ kubectl replace --force -f ./pod.json                            
+$ kubectl replace --force -f ./pod.json
 
 # Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000
 $ kubectl expose rc nginx --port=80 --target-port=8000
@@ -178,7 +178,7 @@ $ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use an alternative edi
 ## Scaling Resources
 
 ```console
-$ kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to
+$ kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to 3
 $ kubectl scale --replicas=3 -f foo.yaml                            # Scale a resource specified in "foo.yaml" to 3
 $ kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # If the deployment named mysql's current size is 2, scale mysql to 3
 $ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multiple replication controllers
@@ -251,7 +251,7 @@ Resource type   | Abbreviated alias
 `replicasets` |`rs`
 `replicationcontrollers` |`rc`
 `resourcequotas` |`quota`
-`scheduledjob` |
+`cronjob` |
 `secrets` |
 `serviceaccount` |`sa`
 `services` |`svc`

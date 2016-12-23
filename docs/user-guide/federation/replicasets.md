@@ -1,4 +1,5 @@
 ---
+title: Federated ReplicaSets
 ---
 
 This guide explains how to use replica sets in the Federation control plane.

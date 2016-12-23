@@ -1,9 +1,10 @@
 ---
+title: Exposing an External IP Address to Access an Application in a Cluster
 ---
 
 {% capture overview %}
 
-This page shows how to create a Kubernetes Service object that exposees an
+This page shows how to create a Kubernetes Service object that exposes an
 external IP address.
 
 {% endcapture %}
@@ -11,7 +12,15 @@ external IP address.
 
 {% capture prerequisites %}
 
-{% include task-tutorial-prereqs.md %}
+ * Install [kubectl](http://kubernetes.io/docs/user-guide/prereqs).
+
+ * Use a cloud provider like Google Container Engine or Amazon Web Services to
+ create a Kubernetes cluster. This tutorial creates an
+ [external load balancer](/docs/user-guide/load-balancer/),
+ which requires a cloud provider.
+
+ * Configure `kubectl` to communicate with your Kubernetes API server. For
+ instructions, see the documentation for your cloud provider.
 
 {% endcapture %}
 
@@ -64,7 +73,7 @@ external IP address.
         NAME         CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   10.3.245.137   104.198.205.71   8080/TCP   54s
 
-    Note: If the external IP address is shown as <pending>, wait for a minute
+    Note: If the external IP address is shown as \<pending\>, wait for a minute
     and enter the same command again.
 
 1. Display detailed information about the Service:
@@ -110,7 +119,7 @@ external IP address.
 
         curl http://<external-ip>:<port>
 
-    where `<external-ip>` us the external IP address of your Service,
+    where `<external-ip>` is the external IP address of your Service,
     and `<port>` is the value of `Port` in your Service description.
 
     The response to a successful request is a hello message:

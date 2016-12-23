@@ -1,11 +1,7 @@
 ---
 ---
 <!-- needed for gh-pages to render html files when imported -->
-{% include v1.4/extensions-v1beta1-definitions.html %}
-
-
-
-
+{% include v1.5/extensions-v1beta1-definitions.html %}
 
 
 
