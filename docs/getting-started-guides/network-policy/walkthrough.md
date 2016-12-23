@@ -1,7 +1,7 @@
 ---
 assignees:
 - caseydavenport
-
+title: Example Walkthrough
 ---
 
 Kubernetes can be used to declare network policies which govern how Pods can communicate with each other.  This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/user-guide/networkpolicies), and provides a demonstration thereof. 
@@ -10,8 +10,9 @@ In this article, we assume a Kubernetes cluster has been created with network po
 
 * [Calico](/docs/getting-started-guides/network-policy/calico/)
 * [Romana](/docs/getting-started-guides/network-policy/romana/)
+* [Weave Net](/docs/getting-started-guides/network-policy/weave/)
 
-The reference implementation is [Calico](/docs/getting-started-guides/network-policy/calico) running on GCE.
+Add-ons are sorted alphabetically - the ordering does not imply any preferential status.
 
 The following example walkthrough will work on a Kubernetes cluster using any of the listed providers.
 

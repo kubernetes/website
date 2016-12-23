@@ -1,4 +1,5 @@
 ---
+title: Assigning CPU and RAM Resources to a Container
 ---
 
 {% capture overview %}
@@ -43,8 +44,7 @@ for the `Pod`:
 
 1. Create a Pod based on the YAML configuration file:
 
-        export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
-        kubectl create -f $REPO/docs/tasks/configure-pod-container/cpu-ram.yaml
+        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/cpu-ram.yaml
 
 1. Display information about the pod:
 
