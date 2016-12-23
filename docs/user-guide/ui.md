@@ -15,6 +15,14 @@ Dashboard also provides information on the state of Kubernetes resources in your
 * TOC
 {:toc}
 
+## Deploying the Dashboard UI
+
+The Dashboard UI is not deployed by default. To deploy it, run the following command:
+
+```
+kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+```
+
 ## Accessing the Dashboard UI
 
 There are multiple ways you can access the Dashboard UI; either by using the kubectl command-line interface, or by accessing the Kubernetes master apiserver using your web browser.

@@ -69,7 +69,7 @@ accomplished in two ways:
 
 - **Using an overlay network**
   - An overlay network obscures the underlying network architecture from the 
-    pod network through traffic encapsulation (e.g vxlan).
+    pod network through traffic encapsulation (e.g. vxlan).
   - Encapsulation reduces performance, though exactly how much depends on your solution.
 - **Without an overlay network**
   - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
@@ -180,7 +180,7 @@ we recommend that you run these as containers, so you need an image to be built.
 You have several choices for Kubernetes images:
 
 - Use images hosted on Google Container Registry (GCR):
-  - e.g `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
+  - e.g. `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
     release tag, which can be found on the [latest releases page](https://github.com/kubernetes/kubernetes/releases/latest).
   - Ensure $TAG is the same tag as the release tag you are using for kubelet and kube-proxy.
   - The [hyperkube](https://releases.k8s.io/{{page.githubbranch}}/cmd/hyperkube) binary is an all in one binary

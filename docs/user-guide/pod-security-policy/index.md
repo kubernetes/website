@@ -6,7 +6,7 @@ title: Pod Security Policies
 
 Objects of type `podsecuritypolicy` govern the ability 
 to make requests on a pod that affect the `SecurityContext` that will be 
-applied to a pod and container.  
+applied to a pod and container.
 
 See [PodSecurityPolicy proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/security-context-constraints.md) for more information.
 
