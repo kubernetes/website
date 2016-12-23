@@ -45,7 +45,7 @@ On the other hand, `libvirt-coreos` might be useful for people investigating low
 3. Install [qemu](http://wiki.qemu.org/Main_Page)
 4. Install [libvirt](http://libvirt.org/)
 5. Install [openssl](http://openssl.org/)
-6. Enable and start the libvirt daemon, e.g:
+6. Enable and start the libvirt daemon, e.g.:
    * ``systemctl enable libvirtd && systemctl start libvirtd`` # for systemd-based systems
    * ``/etc/init.d/libvirt-bin start`` # for init.d-based systems
 7. [Grant libvirt access to your user¹](https://libvirt.org/aclpolkit.html)
