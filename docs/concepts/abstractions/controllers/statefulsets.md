@@ -170,4 +170,7 @@ is fully shutdown and deleted. If web-0 were to fail after web-2 has been termin
 is completely shutdown, but prior to web-1's termination, web-1 would not be terminated 
 until web-0 is Running and Ready.
 {% endcapture %}
+{% capture whatsnext %}
+Learn more about [StatefulSets](/docs/tutorials/stateful-application/basic-stateful-set/).
+{% endcapture %}
 {% include templates/concept.md %}
