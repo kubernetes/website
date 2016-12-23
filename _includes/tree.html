@@ -11,7 +11,6 @@
       {% if item.path %}
         {% assign path   = item.path %}
         {% assign title  = item.title %}
-        {% assign target = " target='_blank'" %}
       {% else %}
         {% assign page  = site.pages | where: "path", item | first %}
         {% assign title = page.title %}
@@ -20,7 +19,7 @@
     {% endcapture %}
 
     {% if path %}
-      <a class="item" data-title="{{ title }}" href="{{ path }}"{{ target }}></a>
+      <a class="item" data-title="{{ title }}" href="{{ path }}"></a>
     {% endif %}
   {% endif %}
 {% endfor %}

@@ -20,7 +20,15 @@ architecture design doc for more details.
 
 ## Node Status
 
-A node's status is comprised of the following information.
+A node's status contains the following information:
+
+* [Addresses](#Addresses)
+* ~~[Phase](#Phase)~~ **deprecated**
+* [Condition](#Condition)
+* [Capacity](#Capacity)
+* [Info](#Info)
+
+Each section is described in detail below.
 
 ### Addresses
 
