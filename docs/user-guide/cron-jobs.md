@@ -9,7 +9,7 @@ title: Cron Jobs
 * TOC
 {:toc}
 
-## What is a Cron Job?
+## What is a cron job?
 
 A _Cron Job_ manages time based [Jobs](/docs/user-guide/jobs/), namely:
 
