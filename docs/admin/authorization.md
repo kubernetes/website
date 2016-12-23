@@ -330,7 +330,7 @@ roleRef:
 
 Finally a `ClusterRoleBinding` may be used to grant permissions in all
 namespaces. The following `ClusterRoleBinding` allows any user in the group
-"manager" to read secrets in any namepsace.
+"manager" to read secrets in any namespace.
 
 ```yaml
 # This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
