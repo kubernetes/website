@@ -233,8 +233,8 @@ object](/docs/api-reference/v1/definitions/#_v1_replicationcontroller).
 ### ReplicaSet
 
 [`ReplicaSet`](/docs/user-guide/replicasets/) is the next-generation Replication Controller that supports the new [set-based label selector](/docs/user-guide/labels/#set-based-requirement).
-It’s mainly used by [`Deployment`](/docs/user-guide/deployments/) as a mechanism to orchestrate pod creation, deletion and updates.
-Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don’t require updates at all.
+It's mainly used by [`Deployment`](/docs/user-guide/deployments/) as a mechanism to orchestrate pod creation, deletion and updates.
+Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don't require updates at all.
 
 ### Deployment (Recommended)
 

@@ -28,7 +28,7 @@ title: Using a Service to Expose Your App
 			<div class="col-md-8">
 			<h3>Kubernetes Services</h3>
 
-			<p>While Pods do have their own unique IP across the cluster, those IP’s are not exposed outside  Kubernetes. Taking into account that over time Pods may be terminated, deleted or replaced by other Pods, we need a way to let other Pods and applications automatically discover each other. Kubernetes addresses this by grouping Pods in Services. A Kubernetes <b>Service</b> is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods.</p>
+			<p>While Pods do have their own unique IP across the cluster, those IP's are not exposed outside  Kubernetes. Taking into account that over time Pods may be terminated, deleted or replaced by other Pods, we need a way to let other Pods and applications automatically discover each other. Kubernetes addresses this by grouping Pods in Services. A Kubernetes <b>Service</b> is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods.</p>
 
 			<p>This abstraction will allow us to expose Pods to traffic originating from outside the cluster. Services have their own unique cluster-private IP address and expose a port to receive traffic. If you choose to expose the service outside the cluster, the options are:</p>
 			<ul>
@@ -70,7 +70,7 @@ title: Using a Service to Expose Your App
 		<div class="row">
 			<div class="col-md-8">
 
-				<p>A Service provides load balancing of traffic across the contained set of Pods. This is useful when a service is created to group all Pods from a specific Deployment (our application will make use of this in the next module, when we’ll have multiple instances running).</p>
+				<p>A Service provides load balancing of traffic across the contained set of Pods. This is useful when a service is created to group all Pods from a specific Deployment (our application will make use of this in the next module, when we'll have multiple instances running).</p>
 
 				<p>Services are also responsible for service-discovery within the cluster (covered in <a href="/docs/user-guide/connecting-applications/#accessing-the-service">Accessing the Service</a>). This will for example allow a frontend service (like a web server) to receive traffic from a backend service (like a database) without worrying about Pods.</p>
 
@@ -120,7 +120,7 @@ title: Using a Service to Expose Your App
 				<p>Labels can be attached to objects at the creation time or later and can be modified at any time.
 				The kubectl run command sets some default Labels/Label Selectors on the new Pods/ Deployment. The link between Labels and Label Selectors defines the relationship between the Deployment and the Pods it creates.</p>
 
-				<p>Now let’s expose our application with the help of a Service, and apply some new Labels.</p>
+				<p>Now let's expose our application with the help of a Service, and apply some new Labels.</p>
 			</div>
 		</div>
 		<br>
