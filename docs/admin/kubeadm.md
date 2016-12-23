@@ -242,7 +242,7 @@ Once the cluster is up, you can grab the admin credentials from the master node 
 ## Environment variables
 
 There are some environment variables that modify the way that `kubeadm` works.  Most users will have no need to set these.
-These enviroment variables are a short-term solution, eventually they will be integrated in the kubeadm configuration file.
+These environment variables are a short-term solution, eventually they will be integrated in the kubeadm configuration file.
 
 | Variable | Default | Description |
 | --- | --- | --- |

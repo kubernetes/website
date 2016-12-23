@@ -413,7 +413,7 @@ $ kubectl autoscale deployment nginx-deployment --min=10 --max=15 --cpu-percent=
 deployment "nginx-deployment" autoscaled
 ```
 
-RollingUpdate Deployments support running multitple versions of an application at the same time. When you
+RollingUpdate Deployments support running multiple versions of an application at the same time. When you
 or an autoscaler scales a RollingUpdate Deployment that is in the middle of a rollout (either in progress
 or paused), then the Deployment controller will balance the additional replicas in the existing active
 ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *proportional scaling*.
@@ -568,7 +568,7 @@ Your Deployment may get stuck trying to deploy its newest ReplicaSet without eve
 * Limit ranges
 * Application runtime misconfiguration
 
-One way you can detect this condition is to specify specify a deadline parameter in your Deployment spec: ([`spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `spec.progressDeadlineSeconds` denotes the number of seconds the Deployment controller waits before indicating (via the Deployment status) that the Deployment progress has stalled.
+One way you can detect this condition is to specify a deadline parameter in your Deployment spec: ([`spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `spec.progressDeadlineSeconds` denotes the number of seconds the Deployment controller waits before indicating (via the Deployment status) that the Deployment progress has stalled.
 
 The following `kubectl` command sets the spec with `progressDeadlineSeconds` to make the controller report lack of progress for a Deployment after 10 minutes:
 
