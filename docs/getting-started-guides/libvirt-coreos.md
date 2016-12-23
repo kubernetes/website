@@ -30,7 +30,7 @@ Another difference is that no security is enforced on `libvirt-coreos` at all. F
 * Kubernetes secrets are not protected as securely as they are on production environments;
 * etc.
 
-So, an k8s application developer should not validate its interaction with Kubernetes on `libvirt-coreos` because he might technically succeed in doing things that are prohibited on a production environment like:
+So, a k8s application developer should not validate its interaction with Kubernetes on `libvirt-coreos` because he might technically succeed in doing things that are prohibited on a production environment like:
 
 * un-authenticated access to Kube API server;
 * Access to Kubernetes private data structures inside etcd;

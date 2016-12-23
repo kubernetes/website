@@ -30,7 +30,7 @@ given the pods that are already running in the cluster
 the rescheduler tries to free up space for the add-on by evicting some pods; then the scheduler will schedule the add-on pod.
 
 To avoid situation when another pod is scheduled into the space prepared for the critical add-on,
-the chosen node gets a temporary taint “CriticalAddonsOnly” before the eviction(s)
+the chosen node gets a temporary taint "CriticalAddonsOnly" before the eviction(s)
 (see [more details](https://github.com/kubernetes/kubernetes/blob/master/docs/design/taint-toleration-dedicated.md)).
 Each critical add-on has to tolerate it,
 the other pods shouldn't tolerate the taint. The tain is removed once the add-on is successfully scheduled.

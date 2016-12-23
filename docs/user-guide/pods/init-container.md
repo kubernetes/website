@@ -105,7 +105,7 @@ If the pod is [restarted](#pod-restart-reasons) all init containers must
 execute again.
 
 Changes to the init container spec are limited to the container image field.
-Altering a init container image field is equivalent to restarting the pod.
+Altering an init container image field is equivalent to restarting the pod.
 
 Because init containers can be restarted, retried, or reexecuted, init container
 code should be idempotent.  In particular, code that writes to files on EmptyDirs
