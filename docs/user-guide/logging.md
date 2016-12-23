@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Retrieving Logs
 ---
 
 This page is designed to help you use logs to troubleshoot issues with your Kubernetes solution.

@@ -2,10 +2,8 @@
 assignees:
 - davidopp
 - kevin-wangzefeng
-
+title: Assigning Pods to Nodes
 ---
-
-# Constraining pods to run on particular nodes
 
 You can constrain a [pod](/docs/user-guide/pods/) to only be able to run on particular [nodes](/docs/admin/node/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use

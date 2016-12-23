@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Secrets
 ---
 
 Objects of type `secret` are intended to hold sensitive information, such as
@@ -158,7 +158,7 @@ type: Opaque
 Decode the password field:
 
 ```shell
-$ echo "MWYyZDFlMmU2N2Rm" | base64 -d
+$ echo "MWYyZDFlMmU2N2Rm" | base64 --decode
 1f2d1e2e67df
 ```
 

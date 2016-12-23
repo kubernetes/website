@@ -3,7 +3,7 @@ assignees:
 - erictune
 - lavalamp
 - thockin
-
+title: Creating a Custom Cluster from Scratch
 ---
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
@@ -646,7 +646,7 @@ This pod mounts several node file system directories using the  `hostPath` volum
 
 Apiserver supports several cloud providers.
 
-- options for `--cloud-provider` flag are `aws`, `gce`, `mesos`, `openshift`, `ovirt`, `rackspace`, `vagrant`, or unset.
+- options for `--cloud-provider` flag are `aws`, `azure`, `cloudstack`, `fake`, `gce`, `mesos`, `openstack`, `ovirt`, `photon`, `rackspace`, `vsphere`, or unset.
 - unset used for e.g. bare metal setups.
 - support for new IaaS is added by contributing code [here](https://releases.k8s.io/{{page.githubbranch}}/pkg/cloudprovider/providers)
 

@@ -1,7 +1,11 @@
 ---
+title: Tutorials
 ---
 
-The Tutorials section of the Kubernetes documentation is a work in progress.
+This section of the Kubernetes documentation contains tutorials.
+A tutorial shows how to accomplish a goal that is larger than a single
+[task](/docs/tasks/). Typically a tutorial has several sections,
+each of which has a sequence of steps.
 
 #### Kubernetes Basics
 
@@ -17,7 +21,13 @@ The Tutorials section of the Kubernetes documentation is a work in progress.
 
 #### Stateful Applications
 
+* [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
+
 * [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/)
+
+* [Running a Replicated Stateful Application](/docs/tutorials/stateful-application/run-replicated-stateful-application/)
+
+* [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
 ### What's next
 
