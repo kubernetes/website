@@ -32,7 +32,7 @@ By default if no kubelet network plugin is specified, the `noop` plugin is used,
 
 ### Exec
 
-Place plugins in `network-plugin-dir/plugin-name/plugin-name`, i.e if you have a bridge plugin and `network-plugin-dir` is `/usr/lib/kubernetes`, you'd place the bridge plugin executable at `/usr/lib/kubernetes/bridge/bridge`. See [this comment](https://github.com/kubernetes/kubernetes/tree/{{page.version}}/pkg/kubelet/network/exec/exec.go) for more details.
+Place plugins in `network-plugin-dir/plugin-name/plugin-name`, i.e. if you have a bridge plugin and `network-plugin-dir` is `/usr/lib/kubernetes`, you'd place the bridge plugin executable at `/usr/lib/kubernetes/bridge/bridge`. See [this comment](https://github.com/kubernetes/kubernetes/tree/{{page.version}}/pkg/kubelet/network/exec/exec.go) for more details.
 
 ### CNI
 
