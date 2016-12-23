@@ -444,7 +444,7 @@ The script will generate three files: `ca.crt`, `server.crt`, and `server.key`.
 Finally, add the following parameters into API server start parameters:
 
 - `--client-ca-file=/srv/kubernetes/ca.crt`
-- `--tls-cert-file=/srv/kubernetes/server.cert`
+- `--tls-cert-file=/srv/kubernetes/server.crt`
 - `--tls-private-key-file=/srv/kubernetes/server.key`
 
 #### easyrsa
@@ -468,7 +468,7 @@ Finally, add the following parameters into API server start parameters:
 1.  Fill in and add the following parameters into the API server start parameters:
 
           --client-ca-file=/yourdirectory/ca.crt
-          --tls-cert-file=/yourdirectory/server.cert
+          --tls-cert-file=/yourdirectory/server.crt
           --tls-private-key-file=/yourdirectory/server.key
 
 #### openssl
