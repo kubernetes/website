@@ -207,7 +207,7 @@ Create a cluster with name of k8s_3, 1 master node, and 10 worker minions (on VM
 
 ## Cluster Features and Architecture
 
-We configue the Kubernetes cluster with the following features:
+We configure the Kubernetes cluster with the following features:
 
 * KubeDNS: DNS resolution and service discovery
 * Heapster/InfluxDB: For metric collection. Needed for Grafana and auto-scaling.
@@ -218,7 +218,7 @@ We configue the Kubernetes cluster with the following features:
 We use the following to create the kubernetes cluster:
 
 * Kubernetes 1.1.7
-* Unbuntu 14.04
+* Ubuntu 14.04
 * Flannel 0.5.4
 * Docker 1.9.1-0~trusty
 * Etcd 2.2.2

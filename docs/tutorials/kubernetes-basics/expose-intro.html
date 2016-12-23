@@ -32,7 +32,7 @@ title: Using a Service to Expose Your App
 
 			<p>This abstraction will allow us to expose Pods to traffic originating from outside the cluster. Services have their own unique cluster-private IP address and expose a port to receive traffic. If you choose to expose the service outside the cluster, the options are:</p>
 			<ul>
-				<li>LoadBalancer - provides a public IP address (what you would typically use when you run Kubernetes on GKE or AWS)</li>
+				<li>LoadBalancer - provides a public IP address (what you would typically use when you run Kubernetes on GCP or AWS)</li>
 				<li>NodePort - exposes the Service on the same port on each Node of the cluster using NAT (available on all Kubernetes clusters, and in Minikube)</li>
 			</ul>
 			</div>
