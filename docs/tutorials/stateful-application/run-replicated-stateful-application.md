@@ -180,7 +180,7 @@ replicating.
 In general, when a new Pod joins the set as a slave, it must assume the MySQL
 master might already have data on it. It also must assume that the replication
 logs might not go all the way back to the beginning of time.
-These conservative assumptions are the key to allowing a running StatefulSet
+These conservative assumptions are the key to allow a running StatefulSet
 to scale up and down over time, rather than being fixed at its initial size.
 
 The second Init Container, named `clone-mysql`, performs a clone operation on
