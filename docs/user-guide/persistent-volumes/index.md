@@ -70,7 +70,11 @@ When a user is done with their volume, they can delete the PVC objects from the 
 
 ### Reclaiming
 
-The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim.  Currently, volumes can either be Retained, Recycled or Deleted.  Retention allows for manual reclamation of the resource.  For those volume plugins that support it, deletion removes both the `PersistentVolume` object from Kubernetes as well as deletes associated storage asset in external infrastructure such as AWS EBS, GCE PD, Azure Disk, or Cinder volume.  Volumes that were dynamically provisioned are always deleted.  If supported by appropriate volume plugin, recycling performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
+The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim.  Currently, volumes can either be _Retained_, _Deleted_, or _Recycled_. Note that not all Volume plugins may support Deletion or Recycling.
+
+* _Retention_  allows you to manually reclaim the resource. 
+* _Deletion_ removes the `PersistentVolume` object from Kubernetes as well as deleting associated storage assets in external infrastructure (such as AWS EBS, GCE PD, Azure Disk, or Cinder volumes). Note that Volumes that were dynamically provisioned are always deleted. 
+* _Recycling_ performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
 
 ## Types of Persistent Volumes
 
