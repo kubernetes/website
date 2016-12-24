@@ -88,7 +88,7 @@ Only use PetSet if your application requires some or all of these properties. Ma
 
 Example workloads for PetSet:
 
-* Databases like MySQL or PostgreSQL that require a single instance attached to a NFS persistent volume at any time
+* Databases like MySQL or PostgreSQL that require a single instance attached to an NFS persistent volume at any time
 * Clustered software like Zookeeper, Etcd, or Elasticsearch that require stable membership.
 
 ## Alpha limitations
