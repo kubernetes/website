@@ -384,7 +384,7 @@ Specifying the default profile to apply to containers when none is provided:
 - **key**: `apparmor.security.beta.kubernetes.io/defaultProfileName`
 - **value**: a profile reference, described above
 
-Specifying the list of profiles Pod containers are allowed to specify:
+Specifying the list of profiles Pod containers is allowed to specify:
 
 - **key**: `apparmor.security.beta.kubernetes.io/allowedProfileNames`
 - **value**: a comma-separated list of profile references (described above)
