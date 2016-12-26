@@ -95,7 +95,7 @@ The relationship between Docker's capabilities and [Linux capabilities](http://m
 | WAKE_ALARM |  CAP_WAKE_ALARM |
 | BLOCK_SUSPEND |  CAP_BLOCK_SUSPEND |
 
-You can add/drop capabilities in the [`SecurityContext`](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext), e.g.:
+You can add or drop capabilities in the [`SecurityContext`](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext), e.g.:
 
 ```yaml
 apiVersion: v1
