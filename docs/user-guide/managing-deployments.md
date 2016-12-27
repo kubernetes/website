@@ -80,7 +80,7 @@ service "my-nginx-svc" deleted
 Because `kubectl` outputs resource names in the same syntax it accepts, it's easy to chain operations using `$()` or `xargs`:
 
 ```shell
-$ kubectl get $(k create -f docs/user-guide/nginx/ -o name | grep service)
+$ kubectl get $(kubectl create -f docs/user-guide/nginx/ -o name | grep service)
 NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   10.0.0.208                 80/TCP       0s
 ```

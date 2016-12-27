@@ -44,11 +44,13 @@ down its physical machine or, if running on a cloud platform, deleting its
 virtual machine.
 
 First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
+
 ```shell
 kubectl get nodes
 ```
 
 Next, tell Kubernetes to drain the node:
+
 ```shell
 kubectl drain <node name>
 ```
@@ -56,6 +58,7 @@ kubectl drain <node name>
 Once it returns (without giving an error), you can power down the node
 (or equivalently, if on a cloud platform, delete the virtual machine backing the node).
 If you leave the node in the cluster during the maintenance operation, you need to run
+
 ```shell
 kubectl uncordon <node name>
 ```
