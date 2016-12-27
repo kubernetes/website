@@ -296,7 +296,7 @@ will be merged.  This approach will work on Google Container Engine (GKE).
 There are a number of solutions for configuring private registries.  Here are some
 common use cases and suggested solutions.
 
-1. Cluster running only non-proprietary (e.g open-source) images.  No need to hide images.
+1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
    - Use public images on the Docker hub.
      - no configuration required
      - on GCE/GKE, a local mirror is automatically used for improved speed and availability

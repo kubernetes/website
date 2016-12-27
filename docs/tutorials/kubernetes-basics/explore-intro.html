@@ -34,7 +34,7 @@ title: Viewing Pods and Nodes
 					<li>Networking, as a unique cluster IP address</li>
 					<li>Information about how to run each container, such as the container image version or specific ports to use</li>
 				</ul>
-				<p>A Pod models an application-specific “logical host” and can contain different application containers which are relatively tightly coupled. For example, a Pod might include both the container with your Node.js app as well as a different container that feeds the data to be published by the Node.js webserver. The containers in a Pod share an IP Address and port space, are always co-located and co-scheduled, and run in a shared context on the same Node.</p>
+				<p>A Pod models an application-specific "logical host" and can contain different application containers which are relatively tightly coupled. For example, a Pod might include both the container with your Node.js app as well as a different container that feeds the data to be published by the Node.js webserver. The containers in a Pod share an IP Address and port space, are always co-located and co-scheduled, and run in a shared context on the same Node.</p>
 
 			<p>Pods are the atomic unit on the Kubernetes platform. When we create a Deployment on Kubernetes, that Deployment creates Pods with containers inside them (as opposed to creating containers directly). Each Pod is tied to the Node where it is scheduled, and remains there until termination (according to restart policy) or deletion. In case of a Node failure, identical Pods are scheduled on other available Nodes in the cluster.</p>
 
@@ -117,7 +117,7 @@ title: Viewing Pods and Nodes
 
 				<p>You can use these commands to see when applications were deployed, what their current statuses are, where they are running and what their configurations are.</p>
 
-				<p>Now that we know more about our cluster components and the command line, let’s explore our application.</p>
+				<p>Now that we know more about our cluster components and the command line, let's explore our application.</p>
 
 			</div>
 			<div class="col-md-4">

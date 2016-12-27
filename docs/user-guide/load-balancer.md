@@ -93,7 +93,7 @@ Due to the implementation of this feature, the source IP for sessions as seen in
 that will preserve the client Source IP for GCE/GKE environments. This feature will be phased in for other cloud providers in subsequent releases.
 
 ## Annotation to modify the LoadBalancer behavior for preservation of Source IP
-In 1.5, an Beta feature has been added that changes the behavior of the external LoadBalancer feature.
+In 1.5, a Beta feature has been added that changes the behavior of the external LoadBalancer feature.
 
 This feature can be activated by adding the beta annotation below to the metadata section of the Service Configuration file.
 
