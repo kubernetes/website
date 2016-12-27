@@ -99,6 +99,7 @@ Resource type	| Abbreviated alias
 `nodes` |`no`
 `persistentvolumeclaims` |`pvc`
 `persistentvolumes` |`pv`
+`poddisruptionbudget` |`pdb`
 `pods` |`po`
 `podsecuritypolicies` |`psp`
 `podtemplates` |
