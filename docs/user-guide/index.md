@@ -1,13 +1,13 @@
 ---
 assignees:
 - davidopp
-
+title: User Guide
 ---
 
 The Kubernetes **Guides** can help you work with various aspects of the Kubernetes system.
 
 * The Kubernetes [User Guide](#user-guide-internal) can help you run programs and services on an existing Kubernetes cluster.
-* The [Cluster Admin Guide](/docs/admin/) can help you set up and administrate your own Kubernetes cluster. 
+* The [Cluster Admin Guide](/docs/admin/) can help you set up and administrate your own Kubernetes cluster.
 * The [Developer Guide](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel) can help you either write code to directly access the Kubernetes API, or to contribute directly to the Kubernetes project.
 
 ## <a name="user-guide-internal"></a>Kubernetes User Guide

@@ -2,7 +2,7 @@
 assignees:
 - aveshagarwal
 - erictune
-
+title: Fedora via Ansible
 ---
 
 Configuring Kubernetes on Fedora via Ansible offers a simple way to quickly create a clustered environment with little effort.
@@ -37,7 +37,7 @@ master,etcd = kube-master.example.com
 If not
 
 ```shell
-yum install -y ansible git python-netaddr
+dnf install -y ansible git python-netaddr
 ```
 
 **Now clone down the Kubernetes repository**

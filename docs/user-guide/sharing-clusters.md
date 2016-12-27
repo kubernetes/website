@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Sharing Cluster Access with kubeconfig
 ---
 
 Client access to a running Kubernetes cluster can be shared by copying

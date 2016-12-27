@@ -1,5 +1,5 @@
 ---
-
+title: CoreOS on AWS or GCE
 ---
 
 * TOC
@@ -68,12 +68,6 @@ Guide to running a solo cluster (master + worker) controlled by an OS X menubar 
 [**Multi-node cluster with Vagrant and fleet units using a small OS X App**](https://github.com/rimusz/coreos-osx-gui-kubernetes-cluster/blob/master/README.md)
 
 Guide to running a single master, multi-worker cluster controlled by an OS X menubar application. Uses Vagrant under the hood.
-
-<hr/>
-
-[**Resizable multi-node cluster on Azure with Weave**](/docs/getting-started-guides/coreos/azure/)
-
-Guide to running an HA etcd cluster with a single master on Azure. Uses the Azure node.js CLI to resize the cluster.
 
 <hr/>
 
