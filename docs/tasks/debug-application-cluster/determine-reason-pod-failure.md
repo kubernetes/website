@@ -1,4 +1,5 @@
 ---
+title: Determining the Reason for Pod Failure
 ---
 
 {% capture overview %}
@@ -32,12 +33,11 @@ In this exercise, you create a Pod that runs one container.
 The configuration file specifies a command that runs when
 the container starts.
 
-{% include code.html language="yaml" file="termination.yaml" ghlink="/docs/tasks/debug-pod-container/termination.yaml" %}
+{% include code.html language="yaml" file="termination.yaml" ghlink="/docs/tasks/debug-application-cluster/termination.yaml" %}
 
 1. Create a Pod based on the YAML configuration file:
 
-        export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
-        kubectl create -f $REPO/docs/tasks/debug-pod-container/termination.yaml
+        kubectl create -f http://k8s.io/docs/tasks/debug-application-cluster/termination.yaml
 
     In the YAML file, in the `cmd` and `args` fields, you can see that the
     container sleeps for 10 seconds and then writes "Sleep expired" to
@@ -70,7 +70,7 @@ the container starts.
 
 1. Use a Go template to filter the output so that it includes
 only the termination message:
-        
+
 ```
 {% raw %}    kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"{% endraw %}
 ```
@@ -99,7 +99,7 @@ Set `terminationMessagePath` as shown here:
 
 {% capture whatsnext %}
 
-* See the `terminationMessagePath` field in 
+* See the `terminationMessagePath` field in
   [Container](/docs/api-reference/v1/definitions#_v1_container).
 * Learn about [retrieving logs](/docs/user-guide/logging/).
 * Learn about [Go templates](https://golang.org/pkg/text/template/).

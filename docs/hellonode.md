@@ -2,7 +2,7 @@
 assignees:
 - dchen1107
 - pwittrock
-
+title: Hello World on Google Container Engine
 ---
 
 * TOC
@@ -59,13 +59,13 @@ The first step is to write the application. Save this code in a folder called "`
 #### server.js
 
 ```javascript
-var http = require('http');
-var handleRequest = function(request, response) {
+const http = require('http');
+const handleRequest = (request, response) => {
   console.log('Received request for URL: ' + request.url);
   response.writeHead(200);
   response.end('Hello World!');
 };
-var www = http.createServer(handleRequest);
+const www = http.createServer(handleRequest);
 www.listen(8080);
 ```
 
@@ -88,7 +88,7 @@ Next, create a file, also within `hellonode/` named `Dockerfile`. A Dockerfile d
 #### Dockerfile
 
 ```conf
-FROM node:4.4
+FROM node:4.5
 EXPOSE 8080
 COPY server.js .
 CMD node server.js
@@ -340,7 +340,7 @@ We can now build and publish a new container image to the registry with an incre
 
 ```shell
 docker build -t gcr.io/$PROJECT_ID/hello-node:v2 .
-gcloud docker push gcr.io/$PROJECT_ID/hello-node:v2
+gcloud docker -- push gcr.io/$PROJECT_ID/hello-node:v2
 ```
 
 Building and pushing this updated image should be much quicker as we take full advantage of the Docker cache.

@@ -1,7 +1,7 @@
 ---
 assignees:
 - erictune
-
+title: CoreOS on Rackspace
 ---
 
 * Supported Version: v0.18.1

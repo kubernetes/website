@@ -1,4 +1,5 @@
 ---
+title: Creating a Documentation Pull Request
 ---
 
 {% capture overview %}
@@ -79,6 +80,12 @@ site where you can verify that your changes have rendered correctly.
 1. During the next few days, check your pull request for reviewer comments.
 If needed, revise your pull request by committing changes to your
 new branch in your fork.
+
+The staging site for the upcoming Kubernetes release is here:
+[http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/).
+The staging site reflects the current state of what's been merged in the
+release branch, or in other words, what the docs will look like for the
+next upcoming release. It's automatically updated as new PRs get merged.
 
 {% endcapture %}
 

@@ -36,21 +36,23 @@ Each critical add-on has to tolerate it,
 the other pods shouldn't tolerate the taint. The tain is removed once the add-on is successfully scheduled.
 
 *Warning:* currently there is no guarantee which node is chosen and which pods are being killed
-in order to schedule crical pod, so if rescheduler is enabled you pods might be occasionally
+in order to schedule critical pods, so if rescheduler is enabled you pods might be occasionally
 killed for this purpose.
 
 ## Config
 
 Rescheduler doesn't have any user facing configuration (component config) or API.
 It's enabled by default. It can be disabled:
+
 * during cluster setup by setting `ENABLE_RESCHEDULER` flag to `false`
 * on running cluster by deleting its manifest from master node
 (default path `/etc/kubernetes/manifests/rescheduler.manifest`)
 
 ### Marking add-on as critical
 
-To be critical an add-on has to run in `kube-system` namespace (cofigurable via flag)
+To be critical an add-on has to run in `kube-system` namespace (configurable via flag)
 and have the following annotations specified:
+
 * `scheduler.alpha.kubernetes.io/critical-pod` set to empty string
 * `scheduler.alpha.kubernetes.io/tolerations` set to `[{"key":"CriticalAddonsOnly", "operator":"Exists"}]`
 
