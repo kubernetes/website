@@ -129,7 +129,7 @@ Support for updating DaemonSets and controlled updating of nodes is planned.
 
 ### Init Scripts
 
-It is certainly possible to run daemon processes by directly starting them on a node (e.g using
+It is certainly possible to run daemon processes by directly starting them on a node (e.g. using
 `init`, `upstartd`, or `systemd`).  This is perfectly fine.  However, there are several advantages to
 running such processes via a DaemonSet:
 

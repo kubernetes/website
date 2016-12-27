@@ -86,7 +86,7 @@ For version 1.2, clusters created by `kube-up.sh` are configured so that no auth
 required for any request.
 
 As of version 1.3, clusters created by `kube-up.sh` are configured so that the ABAC authorization
-modules is enabled.  However, its input file is initially set to allow all users to do all
+modules are enabled.  However, its input file is initially set to allow all users to do all
 operations.  The cluster administrator needs to edit that file, or configure a different authorizer
 to restrict what users can do.
 
