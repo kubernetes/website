@@ -236,6 +236,7 @@ object](/docs/api-reference/v1/definitions/#_v1_replicationcontroller).
 It’s mainly used by [`Deployment`](/docs/user-guide/deployments/) as a mechanism to orchestrate pod creation, deletion and updates.
 Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don’t require updates at all.
 
+
 ### Deployment (Recommended)
 
 [`Deployment`](/docs/user-guide/deployments/) is a higher-level API object that updates its underlying Replica Sets and their Pods

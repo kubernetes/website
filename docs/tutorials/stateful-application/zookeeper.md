@@ -173,7 +173,7 @@ zk-2
 ```
 
 The servers in a ZooKeeper ensemble use natural numbers as unique identifiers, and 
-each server's identifier is stored in a file called `myid` in the server’s 
+each server's identifier is stored in a file called `myid` in the server's 
 data directory. 
 
 Examine the contents of the `myid` file for each server.
