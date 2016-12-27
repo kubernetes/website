@@ -26,7 +26,7 @@ and build the source.
 ```shell
 git clone https://github.com/kubernetes/kubernetes.git
 cd kubernetes
-hack/build-go.sh
+make
 ```
 
 Create a container image containing the kube-scheduler binary. Here is the `Dockerfile`
@@ -34,7 +34,7 @@ to build the image:
 
 ```docker
 FROM busybox
-ADD _output/local/go/bin/kube-scheduler /usr/local/bin/kube-scheduler
+ADD ./_output/dockerized/bin/linux/amd64/kube-scheduler /usr/local/bin/kube-scheduler
 ```
 
 Save the file as `Dockerfile`, build the image and push it to a registry. This example
@@ -45,7 +45,7 @@ For more details, please read the GCR
 
 ```shell
 docker build -t my-kube-scheduler:1.0 .
-gcloud docker push gcr.io/my-gcp-project/my-kube-scheduler:1.0
+gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0
 ```
 
 ### 2. Define a Kubernetes Deployment for the scheduler
