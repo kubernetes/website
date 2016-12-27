@@ -57,7 +57,7 @@ kops uses DNS for discovery, both inside the cluster and so that you can reach t
 from clients.
 
 kops has a strong opinion on the cluster name: it should be a valid DNS name.  By doing so you will
-no longer get your clusters confused, you can share clusters with your colleagues unambigiously,
+no longer get your clusters confused, you can share clusters with your colleagues unambiguously,
 and you can reach them without relying on remembering an IP address. 
 
 You can, and probably should, use subdomains to divide your clusters.  As our example we will use

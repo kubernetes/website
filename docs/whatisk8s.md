@@ -52,7 +52,7 @@ Summary of container benefits:
 * **Cloud and OS distribution portability**:
     Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Container Engine, and anywhere else.
 * **Application-centric management**:
-    Raises the level of abstraction from running an OS on virtual hardware to running an application on an OS using logical resources.
+    Raises the level of abstraction from running an OS on virtual hardware to run an application on an OS using logical resources.
 * **Loosely coupled, distributed, elastic, liberated [micro-services](http://martinfowler.com/articles/microservices.html)**:
     Applications are broken into smaller, independent pieces and can be deployed and managed dynamically -- not a fat monolithic stack running on one big single-purpose machine.
 * **Resource isolation**:
