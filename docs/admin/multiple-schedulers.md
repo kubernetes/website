@@ -104,9 +104,9 @@ scheduler as an annotation in that pod spec. Let's look at three examples.
 
   Save this file as `pod1.yaml` and submit it to the Kubernetes cluster.
 
-  ```shell
-  kubectl create -f pod1.yaml
-  ```
+```shell
+kubectl create -f pod1.yaml
+```
 2. Pod spec with `default-scheduler` annotation
 
   {% include code.html language="yaml" file="multiple-schedulers/pod2.yaml" ghlink="/docs/admin/multiple-schedulers/pod2.yaml" %}
@@ -117,9 +117,9 @@ scheduler as an annotation in that pod spec. Let's look at three examples.
 
   Save this file as `pod2.yaml` and submit it to the Kubernetes cluster.
 
-  ```shell
-  kubectl create -f pod2.yaml
-  ```
+```shell
+kubectl create -f pod2.yaml
+```
 3. Pod spec with `my-scheduler` annotation
 
   {% include code.html language="yaml" file="multiple-schedulers/pod3.yaml" ghlink="/docs/admin/multiple-schedulers/pod3.yaml" %}
@@ -131,15 +131,15 @@ scheduler as an annotation in that pod spec. Let's look at three examples.
 
   Save this file as `pod3.yaml` and submit it to the Kubernetes cluster.
 
-  ```shell
-  kubectl create -f pod3.yaml
-  ```
+```shell
+kubectl create -f pod3.yaml
+```
 
   Verify that all three pods are running.
 
-  ```shell
-  kubectl get pods
-  ```
+```shell
+kubectl get pods
+```
 
 ### Verifying that the pods were scheduled using the desired schedulers
 
