@@ -109,6 +109,7 @@ Resource type	| Abbreviated alias
 `secrets` |
 `serviceaccounts` |`sa`
 `services` |`svc`
+`statefulsets` |
 `storageclasses` |
 `thirdpartyresources` |
 
