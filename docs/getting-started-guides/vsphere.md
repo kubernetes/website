@@ -5,13 +5,47 @@ assignees:
 title: VMware vSphere
 ---
 
+* TOC
+{:toc}
+
+## vSphere Cloud Provider
+
+On a vSphere cluster it is recommended to use the vSphere cloud provider. vSphere cloud provider currently supports 
+
+1. [Volumes](http://kubernetes.io/docs/user-guide/volumes)
+2. [Persistent Volumes](http://kubernetes.io/docs/user-guide/persistent-volumes/)
+   1. [Static](http://kubernetes.io/docs/user-guide/persistent-volumes/#static)
+   2. [Dynamic](http://kubernetes.io/docs/user-guide/persistent-volumes/#dynamic)
+3. [Storage Class](http://kubernetes.io/docs/user-guide/persistent-volumes/#storageclasses)
+
+## Configuring vSphere Cloud Provider
+
+To use the vSphere cloud provider set ```--cloud-config=vsphere``` for the APIServer, kubelet and Kube Controller.
+The vCenter details are passed into the cloud provider via ```--cloud-config=<Path to config file Ex:/etc/cloud.conf>```
+
+```
+[Global]
+        user = admin
+        password = password
+        server = 10.10.20.21
+        port = 443
+        insecure-flag = 1
+        datacenter = Datacenter
+        datastore = datastore1
+[Disk]
+	scsicontrollertype = pvscsi
+```
+## Using vSphere Cloud Provider
+The Volume usage is covered as part of [Volume](http://kubernetes.io/docs/user-guide/volumes/) and [Persistent Volume](http://kubernetes.io/docs/user-guide/persistent-volumes/) documentation
+
+## Kube-up
+
 The example below creates a Kubernetes cluster with 4 worker node Virtual
 Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This
 cluster is set up and controlled from your workstation (or wherever you find
 convenient).
 
-* TOC
-{:toc}
+
 
 ### Prerequisites
 
@@ -109,6 +143,18 @@ This process takes about ~20-30 minutes depending on your network.
 
 ```shell
 cd kubernetes
+```
+For 1.4.0 and 1.4.1 to work around https://github.com/kubernetes/kubernetes/issues/34847 (1.3.x should be the same)
+```
+curl -OL https://raw.githubusercontent.com/vmware/kubernetes/fix-kube-vsphere.kerneltime/cluster/vsphere/templates/salt-master.sh
+curl -OL https://raw.githubusercontent.com/vmware/kubernetes/fix-kube-vsphere.kerneltime/cluster/vsphere/templates/salt-minion.sh
+mv salt-master.sh cluster/vsphere/templates/
+mv salt-minion.sh cluster/vsphere/templates/
+chmod u+x cluster/vsphere/templates/salt-master.sh
+chmod u+x cluster/vsphere/templates/salt-minion.sh
+```
+
+```
 KUBERNETES_PROVIDER=vsphere cluster/kube-up.sh
 ```
 
@@ -138,7 +184,7 @@ going on (find yourself authorized with your SSH key, or use the password
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Vmware vSphere       | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/vsphere)                                |          | Community ([@imkin](https://github.com/imkin)), ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@kerneltime](https://github.com/luomiao))
+Vmware vSphere       | Saltstack    | Debian | flannel         | [docs](/docs/getting-started-guides/vsphere)                                |          | Community ([@imkin](https://github.com/imkin)), ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)))
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
