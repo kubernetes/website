@@ -799,7 +799,7 @@ Examine the process tree for the ZooKeeper server running in the `zk-0` Pod.
 kubectl exec zk-0 -- ps -ef
 ```
 
-The command used as the container's entry point has PID 1, and the 
+The command used as the container's entry point has PID 1, and 
 the ZooKeeper process, a child of the entry point, has PID 23.
 
 
