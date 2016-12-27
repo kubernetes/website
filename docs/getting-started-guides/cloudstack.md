@@ -66,7 +66,7 @@ Some variables can be edited in the `k8s.yml` file.
       k8s_instance_type: Tiny
 
 This will start a Kubernetes master node and a number of compute nodes (by default 2).
-The `instance_type` and `template` by default are specific to [exoscale](http://exoscale.ch), edit them to specify your CloudStack cloud specific template and instance type (i.e service offering).
+The `instance_type` and `template` by default are specific to [exoscale](http://exoscale.ch), edit them to specify your CloudStack cloud specific template and instance type (i.e. service offering).
 
 Check the tasks and templates in `roles/k8s` if you want to modify anything.
 

@@ -206,7 +206,7 @@ Congratulations, you've now set up a Kubernetes cluster!
 Want larger Kubernetes nodes? It is easy to request different sizes of cloud
 resources from Juju by using **constraints**. You can increase the amount of
 CPU or memory (RAM) in any of the systems requested by Juju. This allows you
-to fine tune th Kubernetes cluster to fit your workload. Use flags on the
+to fine tune the Kubernetes cluster to fit your workload. Use flags on the
 bootstrap command or as a separate `juju constraints` command. Look to the
 [Juju documentation for machine](https://jujucharms.com/docs/2.0/charms-constraints)
 details.
