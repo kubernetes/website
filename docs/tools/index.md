@@ -1,7 +1,7 @@
 ---
 assignees:
 - janetkuo
-
+title: Tools
 ---
 
 * TOC
@@ -12,6 +12,12 @@ assignees:
 ### Kubectl 
 
 [`kubectl`](/docs/user-guide/kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
+
+### Kubefed
+
+[`kubefed`](/docs/admin/federation/kubefed/) is the command line tool
+to help you administrate your federated clusters.
+
 
 ### Dashboard 
 
