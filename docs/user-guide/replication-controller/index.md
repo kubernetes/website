@@ -224,7 +224,7 @@ The ReplicationController is intended to be a composable building-block primitiv
 
 ## API Object
 
-Replication controller is a top-level resource in the kubernetes REST API. More details about the
+Replication controller is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [ReplicationController API
 object](/docs/api-reference/v1/definitions/#_v1_replicationcontroller).
 

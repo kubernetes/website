@@ -89,7 +89,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 ## Not All Objects are in a Namespace
 
-Most kubernetes resources (e.g. pods, services, replication controllers, and others) are
+Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
 in some namespace.  However namespace resources are not themselves in a namespace.
 And low-level resources, such as [nodes](/docs/admin/node) and
 persistentVolumes, are not in any namespace. Events are an exception: they may or may not
