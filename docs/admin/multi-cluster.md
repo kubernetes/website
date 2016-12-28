@@ -8,7 +8,7 @@ You may want to set up multiple Kubernetes clusters, both to
 have clusters in different regions to be nearer to your users, and to tolerate failures and/or invasive maintenance.
 This document describes some of the issues to consider when making a decision about doing so.
 
-If you decide to have multiple clusters, kubernetes provides a way to [federate them](/docs/admin/federation/)
+If you decide to have multiple clusters, Kubernetes provides a way to [federate them](/docs/admin/federation/)
 
 ## Scope of a single cluster
 

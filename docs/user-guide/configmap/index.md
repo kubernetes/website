@@ -294,7 +294,7 @@ SPECIAL_TYPE_KEY=charm
 ### Use-Case: Set command-line arguments with ConfigMap
 
 ConfigMaps can also be used to set the value of the command or arguments in a container.  This is
-accomplished using the kubernetes substitution syntax `$(VAR_NAME)`.  Consider the ConfigMap:
+accomplished using the Kubernetes substitution syntax `$(VAR_NAME)`.  Consider the ConfigMap:
 
 ```yaml
 apiVersion: v1

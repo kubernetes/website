@@ -73,7 +73,7 @@ There are additional flags that can be specified. For a complete list, run:
 
 ## Deleting a pod
 
-If your pod was created using the `run` command, kubernetes creates a
+If your pod was created using the `run` command, Kubernetes creates a
 [Deployment](/docs/user-guide/deployments/)
 to manage the pod. Pods managed by a Deployment are rescheduled if
 they go away, including being deleted by `kubectl delete pod`. To permanently

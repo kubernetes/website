@@ -5,7 +5,7 @@ assignees:
 title: Authenticating Across Clusters with kubeconfig
 ---
 
-Authentication in kubernetes can differ for different individuals.
+Authentication in Kubernetes can differ for different individuals.
 
 - A running kubelet might have one way of authenticating (i.e. certificates).
 - Users might have a different way of authenticating (i.e. tokens).
@@ -82,8 +82,8 @@ clusters:
   name: pig-cluster
 ```
 
-A `cluster` contains endpoint data for a kubernetes cluster. This includes the fully
-qualified url for the kubernetes apiserver, as well as the cluster's certificate
+A `cluster` contains endpoint data for a Kubernetes cluster. This includes the fully
+qualified url for the Kubernetes apiserver, as well as the cluster's certificate
 authority or `insecure-skip-tls-verify: true`, if the cluster's serving
 certificate is not signed by a system trusted certificate authority.
 A `cluster` has a name (nickname) which acts as a dictionary key for the cluster
@@ -103,7 +103,7 @@ users:
     client-key: path/to/my/client/key
 ```
 
-A `user` defines client credentials for authenticating to a kubernetes cluster. A
+A `user` defines client credentials for authenticating to a Kubernetes cluster. A
 `user` has a name (nickname) which acts as its key within the list of user entries
 after kubeconfig is loaded/merged. Available credentials are `client-certificate`,
 `client-key`, `token`, and `username/password`. `username/password` and `token`

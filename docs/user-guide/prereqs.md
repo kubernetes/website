@@ -32,7 +32,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 
 If you downloaded a pre-compiled [release](https://github.com/kubernetes/kubernetes/releases), kubectl will be under `platforms/<os>/<arch>` from the tar bundle.
 
-If you compiled kubernetes from source, kubectl should be either under `_output/local/bin/<os>/<arch>` or `_output/dockerized/bin/<os>/<arch>`.
+If you compiled Kubernetes from source, kubectl should be either under `_output/local/bin/<os>/<arch>` or `_output/dockerized/bin/<os>/<arch>`.
 
 Copy or move kubectl into a directory already in your PATH (e.g. `/usr/local/bin`). For example:
 
