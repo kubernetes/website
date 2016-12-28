@@ -188,7 +188,7 @@ If you have a large number of job objects, you may find that:
   concurrent requests to a shared resource, such as a database,
   used by all the pods in the job.
 - very large numbers of jobs created at once overload the
-  kubernetes apiserver, controller, or scheduler.
+  Kubernetes apiserver, controller, or scheduler.
 
 In this case, you can consider one of the
 other [job patterns](/docs/user-guide/jobs/#job-patterns).
