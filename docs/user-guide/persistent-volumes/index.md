@@ -195,9 +195,9 @@ class and can only be bound to PVCs that request no particular class.
 In the future after beta, the `volume.beta.kubernetes.io/storage-class`
 annotation will become an attribute.
 
-### Recycling Policy
+### Reclaiming Policy
 
-Current recycling policies are:
+Current reclaiming policies are:
 
 * Retain -- manual reclamation
 * Recycle -- basic scrub ("rm -rf /thevolume/*")
