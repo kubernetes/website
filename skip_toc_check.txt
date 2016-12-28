@@ -1,3 +1,5 @@
 # Put files you want to skip table of contents entry check here:
 docs/search.md
 docs/sitemap.md
+docs/user-guide/pods/_viewing-a-pod.md
+docs/user-guide/simple-yaml.md
