@@ -6,7 +6,7 @@ title: Pod Security Policies
 
 Objects of type `podsecuritypolicy` govern the ability 
 to make requests on a pod that affect the `SecurityContext` that will be 
-applied to a pod and container.  
+applied to a pod and container.
 
 See [PodSecurityPolicy proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/security-context-constraints.md) for more information.
 
@@ -26,7 +26,7 @@ administrator to control the following:
 1. The SELinux context of the container.
 1. The user ID.
 1. The use of host namespaces and networking.
-1. Allocating an FSGroup that owns the pod’s volumes
+1. Allocating an FSGroup that owns the pod's volumes
 1. Configuring allowable supplemental groups
 1. Requiring the use of a read only root file system
 1. Controlling the usage of volume types

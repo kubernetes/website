@@ -126,7 +126,7 @@ For additional HTTP configuration, refer to the [kubeconfig](/docs/user-guide/ku
 
 When faced with an admission decision, the API Server POSTs a JSON serialized api.imagepolicy.v1alpha1.ImageReview object describing the action. This object contains fields describing the containers being admitted, as well as any pod annotations that match `*.image-policy.k8s.io/*`.
 
-Note that webhook API objects are subject to the same versioning compatibility rules as other Kubernetes API objects. Implementers should be aware of looser compatibility promises for alpha objects and check the “apiVersion” field of the request to ensure correct deserialization. Additionally, the API Server must enable the imagepolicy.k8s.io/v1alpha1 API extensions group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
+Note that webhook API objects are subject to the same versioning compatibility rules as other Kubernetes API objects. Implementers should be aware of looser compatibility promises for alpha objects and check the "apiVersion" field of the request to ensure correct deserialization. Additionally, the API Server must enable the imagepolicy.k8s.io/v1alpha1 API extensions group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 
 An example request body:
 
@@ -151,7 +151,7 @@ An example request body:
 }
 ```
 
-The remote service is expected to fill the ImageReviewStatus field of the request and respond to either allow or disallow access. The response body’s “spec” field is ignored and may be omitted. A permissive response would return:
+The remote service is expected to fill the ImageReviewStatus field of the request and respond to either allow or disallow access. The response body's "spec" field is ignored and may be omitted. A permissive response would return:
 
 ```
 {

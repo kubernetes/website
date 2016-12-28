@@ -28,8 +28,8 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 * Node: A single virtual or physical machine in a Kubernetes cluster.
 * Cluster: A group of nodes in a single failure domain, unless mentioned otherwise.
 * Persistent Volume Claim (PVC): A request for storage, typically a [persistent volume](/docs/user-guide/persistent-volumes/walkthrough/).
-* Host name: The hostname attached to the UTS namespace of the pod, i.e the output of `hostname` in the pod.
-* DNS/Domain name: A *cluster local* domain name resolvable using standard methods (eg: [gethostbyname](http://linux.die.net/man/3/gethostbyname)).
+* Host name: The hostname attached to the UTS namespace of the pod, i.e. the output of `hostname` in the pod.
+* DNS/Domain name: A *cluster local* domain name resolvable using standard methods (e.g.: [gethostbyname](http://linux.die.net/man/3/gethostbyname)).
 * Ordinality: the property of being "ordinal", or occupying a position in a sequence.
 * Pet: a single member of a PetSet; more generally, a stateful application.
 * Peer: a process running a server, capable of communicating with other such processes.
@@ -88,7 +88,7 @@ Only use PetSet if your application requires some or all of these properties. Ma
 
 Example workloads for PetSet:
 
-* Databases like MySQL or PostgreSQL that require a single instance attached to a NFS persistent volume at any time
+* Databases like MySQL or PostgreSQL that require a single instance attached to an NFS persistent volume at any time
 * Clustered software like Zookeeper, Etcd, or Elasticsearch that require stable membership.
 
 ## Alpha limitations
@@ -303,7 +303,7 @@ NAME      DESIRED   CURRENT   AGE
 web       5         5         30m
 ```
 
-Note however, that scaling up to N and back down to M *will not* delete the volumes of the M-N pets, as described in the section on [deletion](#deleting-a-petset), i.e scaling back up to M creates new pets that use the same volumes. To see this in action, scale the PetSet back down to 3:
+Note however, that scaling up to N and back down to M *will not* delete the volumes of the M-N pets, as described in the section on [deletion](#deleting-a-petset), i.e. scaling back up to M creates new pets that use the same volumes. To see this in action, scale the PetSet back down to 3:
 
 ```shell
 $ kubectl get po --watch-only
