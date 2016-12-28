@@ -7,6 +7,8 @@ no_entry=false
 for file in `find docs -name "*.md" -type f`; do 
   if ! grep -q "${file}" skip_toc_check.txt; then
     path=${file%.*}
+    # abc/index.md should point to abc, not abc/index
+    path=${path%%index}
     if ! grep -q "${path}" _data/*.yml; then
       echo "Error: ${file} doesn't have an entry in the table of contents under _data/*.yml" 
       no_entry=true
