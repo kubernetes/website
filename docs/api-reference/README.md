@@ -2,7 +2,7 @@
 ---
 # API Reference
 
-Use the following reference docs to understand the kubernetes REST API for various API group versions:
+Use the following reference docs to understand the Kubernetes REST API for various API group versions:
 
 * v1: [operations](/docs/api-reference/v1/operations.html), [model definitions](/docs/api-reference/v1/definitions.html)
 * extensions/v1beta1: [operations](/docs/api-reference/extensions/v1beta1/operations.html), [model definitions](/docs/api-reference/extensions/v1beta1/definitions.html)

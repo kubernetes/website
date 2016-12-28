@@ -62,9 +62,9 @@ StreamingProxyRedirects=true|false (ALPHA - default=false)
       --google-json-key string                                            The Google Cloud Platform Service Account JSON Key to use for authentication.
       --horizontal-pod-autoscaler-sync-period duration                    The period for syncing the number of pods in horizontal pod autoscaler. (default 30s)
       --insecure-experimental-approve-all-kubelet-csrs-for-group string   The group for which the controller-manager will auto approve all CSRs for kubelet client certificates.
-      --kube-api-burst int32                                              Burst to use while talking with kubernetes apiserver (default 30)
+      --kube-api-burst int32                                              Burst to use while talking with Kubernetes apiserver (default 30)
       --kube-api-content-type string                                      Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf")
-      --kube-api-qps float32                                              QPS to use while talking with kubernetes apiserver (default 20)
+      --kube-api-qps float32                                              QPS to use while talking with Kubernetes apiserver (default 20)
       --kubeconfig string                                                 Path to kubeconfig file with authorization and master location information.
       --large-cluster-size-threshold int32                                Number of nodes from which NodeController treats the cluster as large for the eviction logic purposes. --secondary-node-eviction-rate is implicitly overridden to 0 for clusters this size or smaller. (default 50)
       --leader-elect                                                      Start a leader election client and gain leadership before executing the main loop. Enable this when running replicated components for high availability. (default true)

@@ -27,7 +27,7 @@ general.
 Events in federation control plane (referred to as "federation events" in
 this guide) are very similar to the traditional Kubernetes
 Events providing the same functionality.
-Federation Events are stored only in federation control plane and are not passed on to the underlying kubernetes clusters.
+Federation Events are stored only in federation control plane and are not passed on to the underlying Kubernetes clusters.
 
 Federation controllers create events as they process API resources to surface to the
 user, the state that they are in.
