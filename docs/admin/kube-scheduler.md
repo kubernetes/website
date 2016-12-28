@@ -38,9 +38,9 @@ ExperimentalHostUserNamespaceDefaulting=true|false (ALPHA - default=false)
 StreamingProxyRedirects=true|false (ALPHA - default=false)
       --google-json-key string                   The Google Cloud Platform Service Account JSON Key to use for authentication.
       --hard-pod-affinity-symmetric-weight int   RequiredDuringScheduling affinity is not symmetric, but there is an implicit PreferredDuringScheduling affinity rule corresponding to every RequiredDuringScheduling affinity rule. --hard-pod-affinity-symmetric-weight represents the weight of implicit PreferredDuringScheduling affinity rule. (default 1)
-      --kube-api-burst int32                     Burst to use while talking with kubernetes apiserver (default 100)
+      --kube-api-burst int32                     Burst to use while talking with Kubernetes apiserver (default 100)
       --kube-api-content-type string             Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf")
-      --kube-api-qps float32                     QPS to use while talking with kubernetes apiserver (default 50)
+      --kube-api-qps float32                     QPS to use while talking with Kubernetes apiserver (default 50)
       --kubeconfig string                        Path to kubeconfig file with authorization and master location information.
       --leader-elect                             Start a leader election client and gain leadership before executing the main loop. Enable this when running replicated components for high availability. (default true)
       --leader-elect-lease-duration duration     The duration that non-leader candidates will wait after observing a leadership renewal until attempting to acquire leadership of a led but unrenewed leader slot. This is effectively the maximum duration that a leader can be stopped before it is replaced by another candidate. This is only applicable if leader election is enabled. (default 15s)
