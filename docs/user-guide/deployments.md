@@ -2,13 +2,13 @@
 assignees:
 - bgrant0607
 - janetkuo
-
+title: Deployments
 ---
 
 * TOC
 {:toc}
 
-## What is a _Deployment_?
+## What is a Deployment?
 
 A _Deployment_ provides declarative updates for [Pods](/docs/user-guide/pods/) and [Replica Sets](/docs/user-guide/replicasets/) (the next-generation Replication Controller).
 You only need to describe the desired state in a Deployment object, and the Deployment
@@ -86,23 +86,55 @@ After creating or updating a Deployment, you would want to confirm whether it su
 
 ```shell
 $ kubectl rollout status deployment/nginx-deployment
-deployment nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 ```
 
 This verifies the Deployment's `.status.observedGeneration` >= `.metadata.generation`, and its up-to-date replicas
-(`.status.updatedReplicas`) matches the desired replicas (`.spec.replicas`) to determine if the rollout succeeded. 
-If the rollout is still in progress, it watches for Deployment status changes and prints related messages. 
-
-Note that it's impossible to know whether a Deployment will ever succeed, so if the above command doesn't return success, 
-you'll need to timeout and give up at some point.
-
-Additionally, if you set `.spec.minReadySeconds`, you would also want to check if the available replicas (`.status.availableReplicas`) matches the desired replicas too.
+(`.status.updatedReplicas`) matches the desired replicas (`.spec.replicas`) to determine if the rollout succeeded.
+It also expects that the available replicas running (`.spec.availableReplicas`) will be at least the minimum required
+based on the Deployment strategy. If the rollout is still in progress, it watches for Deployment status changes and
+prints related messages. 
 
 ```shell
-$ kubectl get deployments
-NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-nginx-deployment   3         3         3            3           20s
+$ kubectl rollout status deployment/nginx-deployment
+Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 2 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 3 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 4 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 5 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 6 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 7 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 8 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 9 out of 10 new replicas have been updated...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 1 old replicas are pending termination...
+Waiting for rollout to finish: 9 of 10 updated replicas are available...
+deployment "nginx-deployment" successfully rolled out
 ```
+
+For more information about the status of a Deployment [read more here](#deployment-status).
+
 
 ## Updating a Deployment
 
@@ -129,7 +161,7 @@ To see its rollout status, simply run:
 ```shell
 $ kubectl rollout status deployment/nginx-deployment
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-deployment nginx-deployment successfully rolled out
+deployment "nginx-deployment" successfully rolled out
 ```
 
 After the rollout succeeds, you may want to `get` the Deployment:
@@ -244,12 +276,12 @@ deployment "nginx-deployment" image updated
 
 The rollout will be stuck.
 
-```
+```shell
 $ kubectl rollout status deployments nginx-deployment 
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 ```
 
-Press Ctrl-C to stop the above rollout status watch.
+Press Ctrl-C to stop the above rollout status watch. For more information on stuck rollouts, [read more here](#deployment-status).
 
 You will also see that both the number of old replicas (nginx-deployment-1564180365 and nginx-deployment-2035384211) and new replicas (nginx-deployment-3066724191) are 2.
 
@@ -413,7 +445,7 @@ $ kubectl autoscale deployment nginx-deployment --min=10 --max=15 --cpu-percent=
 deployment "nginx-deployment" autoscaled
 ```
 
-RollingUpdate Deployments support running multitple versions of an application at the same time. When you
+RollingUpdate Deployments support running multiple versions of an application at the same time. When you
 or an autoscaler scales a RollingUpdate Deployment that is in the middle of a rollout (either in progress
 or paused), then the Deployment controller will balance the additional replicas in the existing active
 ReplicaSets (ReplicaSets with Pods) in order to mitigate risk. This is called *proportional scaling*.
@@ -549,7 +581,7 @@ updates you've requested have been completed.
 
 You can check if a Deployment has completed by using `kubectl rollout status`. If the rollout completed successfully, `kubectl rollout status` returns a zero exit code.
 
-```
+```shell
 $ kubectl rollout status deploy/nginx
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
 deployment "nginx" successfully rolled out
@@ -568,7 +600,7 @@ Your Deployment may get stuck trying to deploy its newest ReplicaSet without eve
 * Limit ranges
 * Application runtime misconfiguration
 
-One way you can detect this condition is to specify specify a deadline parameter in your Deployment spec: ([`spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `spec.progressDeadlineSeconds` denotes the number of seconds the Deployment controller waits before indicating (via the Deployment status) that the Deployment progress has stalled.
+One way you can detect this condition is to specify a deadline parameter in your Deployment spec: ([`spec.progressDeadlineSeconds`](#progress-deadline-seconds)). `spec.progressDeadlineSeconds` denotes the number of seconds the Deployment controller waits before indicating (via the Deployment status) that the Deployment progress has stalled.
 
 The following `kubectl` command sets the spec with `progressDeadlineSeconds` to make the controller report lack of progress for a Deployment after 10 minutes:
 
@@ -594,7 +626,7 @@ You may experience transient errors with your Deployments, either due to a low t
 of error that can be treated as transient. For example, let's suppose you have insufficient quota. If you describe the Deployment
 you will notice the following section:
 
-```
+```shell
 $ kubectl describe deployment nginx-deployment
 <...>
 Conditions:
@@ -667,7 +699,7 @@ required new replicas are available (see the Reason of the condition for the par
 
 You can check if a Deployment has failed to progress by using `kubectl rollout status`. `kubectl rollout status` returns a non-zero exit code if the Deployment has exceeded the progression deadline.
 
-```
+```shell
 $ kubectl rollout status deploy/nginx
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline

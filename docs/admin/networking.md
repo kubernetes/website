@@ -2,7 +2,7 @@
 assignees:
 - lavalamp
 - thockin
-
+title: Networking in Kubernetes
 ---
 
 Kubernetes approaches networking somewhat differently than Docker does by
@@ -173,13 +173,21 @@ Lars Kellogg-Stedman.
 
 [Nuage](http://www.nuagenetworks.net) provides a highly scalable policy-based Software-Defined Networking (SDN) platform. Nuage uses the open source Open vSwitch for the data plane along with a feature rich SDN Controller built on open standards.
 
-The Nuage platform uses overlays to provide seamless policy-based networking between Kubernetes Pods and non-Kubernetes environments (VMs and bare metal servers). Nuage’s policy abstraction model is designed with applications in mind and makes it easy to declare fine-grained policies for applications.The platform’s real-time analytics engine enables visibility and security monitoring for Kubernetes applications.
+The Nuage platform uses overlays to provide seamless policy-based networking between Kubernetes Pods and non-Kubernetes environments (VMs and bare metal servers). Nuage's policy abstraction model is designed with applications in mind and makes it easy to declare fine-grained policies for applications.The platform's real-time analytics engine enables visibility and security monitoring for Kubernetes applications.
 
 ### OpenVSwitch
 
 [OpenVSwitch](/docs/admin/ovs-networking) is a somewhat more mature but also
 complicated way to build an overlay network.  This is endorsed by several of the
 "Big Shops" for networking.
+
+### OVN (Open Virtual Networking)
+
+OVN is an opensource network virtualization solution developed by the
+Open vSwitch community.  It lets one create logical switches, logical routers,
+stateful ACLs, load-balancers etc to build different virtual networking
+topologies.  The project has a specific Kubernetes plugin and documentation
+at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 
 ### Project Calico
 

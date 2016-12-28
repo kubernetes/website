@@ -7,6 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
+title: Running ZooKeeper, A CP Distributed System
 ---
 
 {% capture overview %}
@@ -172,7 +173,7 @@ zk-2
 ```
 
 The servers in a ZooKeeper ensemble use natural numbers as unique identifiers, and 
-each server's identifier is stored in a file called `myid` in the server’s 
+each server's identifier is stored in a file called `myid` in the server's 
 data directory. 
 
 Examine the contents of the `myid` file for each server.
@@ -798,7 +799,7 @@ Examine the process tree for the ZooKeeper server running in the `zk-0` Pod.
 kubectl exec zk-0 -- ps -ef
 ```
 
-The command used as the container's entry point has PID 1, and the 
+The command used as the container's entry point has PID 1, and 
 the ZooKeeper process, a child of the entry point, has PID 23.
 
 

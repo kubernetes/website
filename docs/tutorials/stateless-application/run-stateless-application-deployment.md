@@ -1,4 +1,5 @@
 ---
+title: Running a Stateless Application Using a Deployment
 ---
 
 {% capture overview %}
@@ -100,7 +101,7 @@ should have four pods:
 
 1. Verify that the Deployment has four pods:
 
-        kubectl get pods
+        kubectl get pods -l app=nginx
 
     The output is similar to this:
 

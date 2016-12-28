@@ -1,9 +1,10 @@
 ---
+title: Exposing an External IP Address to Access an Application in a Cluster
 ---
 
 {% capture overview %}
 
-This page shows how to create a Kubernetes Service object that exposees an
+This page shows how to create a Kubernetes Service object that exposes an
 external IP address.
 
 {% endcapture %}
@@ -11,7 +12,15 @@ external IP address.
 
 {% capture prerequisites %}
 
-{% include task-tutorial-prereqs.md %}
+ * Install [kubectl](http://kubernetes.io/docs/user-guide/prereqs).
+
+ * Use a cloud provider like Google Container Engine or Amazon Web Services to
+ create a Kubernetes cluster. This tutorial creates an
+ [external load balancer](/docs/user-guide/load-balancer/),
+ which requires a cloud provider.
+
+ * Configure `kubectl` to communicate with your Kubernetes API server. For
+ instructions, see the documentation for your cloud provider.
 
 {% endcapture %}
 

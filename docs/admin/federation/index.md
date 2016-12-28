@@ -3,8 +3,9 @@ assignees:
 - madhusudancs
 - mml
 - nikhiljindal
-
+title: Using `federation-up` and `deploy.sh`
 ---
+
 This guide explains how to set up cluster federation that lets us control multiple Kubernetes clusters.
 
 
@@ -109,7 +110,7 @@ $ KUBE_REGISTRY="gcr.io/myrepository" federation/develop/develop.sh build_image
 $ KUBE_REGISTRY="gcr.io/myrepository" federation/develop/develop.sh push
 ```
 
-Note: This is going to overwite the values you might have set for
+Note: This is going to overwrite the values you might have set for
 `apiserverRegistry`, `apiserverVersion`, `controllerManagerRegistry` and
 `controllerManagerVersion` in your `${FEDERATION_OUTPUT_ROOT}/values.yaml`
 file. Hence, it is not recommend to customize these values in
