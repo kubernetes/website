@@ -3,10 +3,6 @@ assignees:
 - janetkuo
 title: Tools
 ---
-
-* TOC
-{:toc}
-
 ## Native Tools
 
 ### Kubectl 
