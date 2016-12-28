@@ -2,3 +2,17 @@ bigheader: "Tools"
 abstract: "Tools to help you use and enhance Kubernetes."
 toc:
 - docs/tools/index.md
+
+- title: Native Tools
+  section:
+  - docs/user-guide/kubectl/
+  - docs/admin/federation/kubefed/
+  - docs/user-guide/ui/
+  
+- title: Third-Party Tools
+  section:
+  - title: Helm
+    path: https://github.com/kubernetes/helm
+  - title: Kompose
+    path: https://github.com/kubernetes-incubator/kompose
+  
