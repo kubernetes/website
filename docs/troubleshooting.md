@@ -43,7 +43,7 @@ You may also find the Stack Overflow topics relevant:
 
 Someone else from the community may have already asked a similar question or may
 be able to help with your problem. The Kubernetes team will also monitor
-[posts tagged kubernetes](http://stackoverflow.com/questions/tagged/kubernetes).
+[posts tagged Kubernetes](http://stackoverflow.com/questions/tagged/kubernetes).
 If there aren't any existing questions that help, please [ask a new one](http://stackoverflow.com/questions/ask?tags=kubernetes)!
 
 ### Slack
