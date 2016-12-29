@@ -222,44 +222,103 @@ from the OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_
 as a bearer token.  See [above](#putting-a-bearer-token-in-a-request) for how the token
 is included in a request.
 
-To enable the plugin, pass the following required flags:
+![Kubernetes OpenID Connect Flow](https://www.gliffy.com/go/publish/image/11149637/L.png)
 
-* `--oidc-issuer-url` URL of the provider which allows the API server to discover
-public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically
-the provider's URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
+1.  Login to your identity provider
+2.  Your identity provider will provide you with an access_token, id_token and a refresh_token
+3.  When using kubectl, use your id_token with the --token flag or add it directly to your kubeconfig
+4.  Kubectl sends your id_token in a header called Authorization to the API Server
+5.  The api server will make sure the JWT signature is valid by checking against the certificate named in the configuration
+6.  Check to make sure the id_token hasn't expired
+7.  Make sure the user is authorized
+8.  Once authorized the API server returns a response to kubectl
+9.  Kubectl provides feedback to the user
 
-* `--oidc-client-id` A client id that all tokens must be issued for.
+Since all of the data needed to validate who you are is in the id_token, Kubernetes doesn't need to
+"phone home" to the identity provider.  In a model where every request is stateless this provides a very scalable
+solution for authentication.  It does offer a few challenges:
+
+1.  Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
+2.  The id_token can't be revoked, its like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes
+3.  There's no easy way to authenticate to the Kubernetes dashboard without using the kubectl -proxy command
+
+
+#### Configuring the API Server
+
+To enable the plugin, configure the following flags on the API Server:
+
+| Parameter | Description | Example | Required |
+| --------- | ----------- | ------- | ------- |
+| --oidc-issuer-url | URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".  This URL should point to the level below .well-known/openid-configuration | If the discovery URL is https://accounts.google.com/.well-known/openid-configuration the value should be https://accounts.google.com | Yes |
+| --oidc-client-id |  A client id that all tokens must be issued for. | kubernetes | Yes |
+| --oidc-username-claim | JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email`, depending on their provider. | sub | No |
+| --oidc-groups-claim | JWT claim to use as the user's group. If the claim is present it must be an array of strings. | user_roles | No |
+| --oidc-ca-file | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | /etc/kubernetes/ssl/kc-ca.pem | No |
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
-configured to trust a single client. This allows the use of public providers,
+configured to trust a single issuer. This allows the use of public providers,
 such as Google, without trusting credentials issued to third parties. Admins who
 wish utilize multiple OAuth clients should explore providers which support the
 `azp` (authorized party) claim, a mechanism for allowing one client to issue
 tokens on behalf of another.
 
-The plugin also accepts the following optional flags:
-
-* `--oidc-ca-file` Used by the API server to establish and verify the secure
-connection to the issuer. Defaults to the host's root CAs.
-
-And experimental flags:
-
-* `--oidc-username-claim` JWT claim to use as the user name. By default `sub`,
-which is expected to be a unique identifier of the end user. Admins can choose
-other claims, such as `email`, depending on their provider.
-* `--oidc-groups-claim` JWT claim to use as the user's group. If the claim is present
-it must be an array of strings.
-
 Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or [others](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak) or CloudFoundry [UAA](https://github.com/cloudfoundry/uaa).
+Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak), CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or Tremolo Secutity's [OpenUnison](https://github.com/tremolosecurity/openunison).
 
-The provider needs to support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
+For an identity provider to work with Kubernetes it must:
+
+1.  Support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
+2.  Run in TLS with non-obsolete ciphers
+3.  Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
+
+A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as apposed to one of the cloud providers like Goolge or Microsoft) you MUST have your identity provider's web server certificate signed by a CA.  This is an issue with GoLang's TLS client implementation not being able to verify a self-signed certificate.  If you don't have a CA handy, you can use this script from the CoreOS team to create a simple CA and a signed certificate and key pair - https://github.com/coreos/dex/blob/1ee5920c54f5926d6468d2607c728b71cfe98092/examples/k8s/gencert.sh or this script based on it that will generate sha256 certs with a longer life and larger keysize https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/makecerts.sh.
 
 Setup instructions for specific systems:
 
 - [UAA](http://apigee.com/about/blog/engineering/kubernetes-authentication-enterprise)
 - [Dex](https://speakerdeck.com/ericchiang/kubernetes-access-control-with-dex)
+- [OpenUnison](https://github.com/TremoloSecurity/openunison-qs-kubernetes)
+
+#### Using kubectl
+
+##### Option 1 - OIDC Authenticator
+
+The first option is to use a new feature in 1.4 called a custom authenticator.  In this case, the oidc authenticator.  This authenticator takes your id_token, refresh_token and your OIDC client_secret and will refresh your token automatically.  Once you have authenticated to your identity provider:
+
+```
+$ kubectl config set-credentials USER_NAME --auth-provider=oidc
+$ kubectl config set-credentials USER_NAME --auth-provider-arg=idp-issuer-url=( issuer url )
+$ kubectl config set-credentials USER_NAME --auth-provider-arg=client-id=( your client id )
+$ kubectl config set-credentials USER_NAME --auth-provider-arg=client-secret=( your client secret )
+$ kubectl config set-credentials USER_NAME --auth-provider-arg=refresh-token=( your refresh token )
+```
+In addition, you can add these configuration options manually to your ~/.kube/config:
+```
+users:
+- name: USER_NAME
+  user:
+    auth-provider:
+      config:
+        client-id: kubernetes
+        client-secret: 76d19a54-d855-4c1c-8a35-b4b2306b1210
+        id-token: eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo4MDQzL2F1dGgvaWRwL29pZGMiLCJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNDc2OTY5OTYwLCJqdGkiOiJodTYxLWpiS2ZYM2lXdkZqMWF0eTdBIiwiaWF0IjoxNDc2OTY5OTAwLCJuYmYiOjE0NzY5Njk3ODAsInN1YiI6Im1tb3NsZXkiLCJ1c2VyX3JvbGUiOlsiYWRtaW4iLCJ1c2VycyIsImFwcHJvdmVycyJdLCJlbWFpbCI6Im1tb3NsZXlAZG9lc250ZXhpc3QuY29tIn0.U1CfKDZPZFx6HIiNZtmwLFCfa2Mn3OddFf7uAQe9XhN1BInRHFwaw-u3O-wrhuBAxcGQWahuzC9BruvlYrzktI8_AcjYH6sykUp_g6YtFxSaQd9PvJxRE6Ez4AZcbVhwgO5yCpNyIp_4DdR1n3xWVzJYzx2p5FH3amqxPekzrSikZ_UCdXs7S4ltWDjfjmCSCcDt9Z9HITe5clKtRkftgqGFccIs3xI_gpqu76rXuxwIdn-FSQ3Llj0VnN3UrXmSINPJKEtYqDfkDtIe5WpFOjCHZ1-SLqScF9maMeFY1Pn1kEz2a0f6LPMYPeZbM070PtETKQGMtJ4IDXcsbOee4Q
+        idp-certificate-authority: /path/to/ca.pem
+        idp-issuer-url: https://mlb.tremolo.lan:8043/auth/idp/oidc/
+        refresh-token: q1bKLFOyUko2LkqNjMouiww0MMowMq10N8tJCyyPKTUwME6BkEo6Sql5yUWVBSWpKUGphaWpxSVAfZH+jublPj6VpllZOUGOJd4VRQG5iUEFFQV5JYlF2mHZ/lkZ5fm5Hqbh2YaVfkbBaUUhoUHllUGJ5ZkBee5+EUZKtQA=
+      name: oidc
+```
+Once your id_token expires, kubectl will attempt to refresh your id_token using your refresh_token and client_secret storing the new values for the refresh_token and id_token in your kube/.config.
+
+
+##### Option 2 - Use the --token Option
+
+The kubectl command lets you pass in a token using the --token option.  Simply copy and paste the id_token into this option:
+
+```
+$ kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo4MDQzL2F1dGgvaWRwL29pZGMiLCJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNDc0NTk2NjY5LCJqdGkiOiI2RDUzNXoxUEpFNjJOR3QxaWVyYm9RIiwiaWF0IjoxNDc0NTk2MzY5LCJuYmYiOjE0NzQ1OTYyNDksInN1YiI6Im13aW5kdSIsInVzZXJfcm9sZSI6WyJ1c2VycyIsIm5ldy1uYW1lc3BhY2Utdmlld2VyIl0sImVtYWlsIjoibXdpbmR1QG5vbW9yZWplZGkuY29tIn0.f2As579n9VNoaKzoF-dOQGmXkFKf1FMyNV0-va_B63jn-_n9LGSCca_6IVMP8pO-Zb4KvRqGyTP0r3HkHxYy5c81AnIh8ijarruczl-TK_yF5akjSTHFZD-0gRzlevBDiH8Q79NAr-ky0P4iIXS8lY9Vnjch5MF74Zx0c3alKJHJUnnpjIACByfF2SCaYzbWFMUNat-K1PaUk5-ujMBG7yYnr95xD-63n8CO8teGUAAEMx6zRjzfhnhbzX-ajwZLGwGUBT4WqjMs70-6a7_8gZmLZb2az1cZynkFRj2BaCkVT3A2RrjeEwZEtGXlMqKJ1_I2ulrOVsYx01_yD35-rw get nodes
+```
+
 
 ### Webhook Token Authentication
 
