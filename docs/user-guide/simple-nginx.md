@@ -14,7 +14,7 @@ From this point onwards, it is assumed that `kubectl` is on your path from one o
 
 The [`kubectl run`](/docs/user-guide/kubectl/kubectl_run) line below will create a [`Deployment`](/docs/user-guide/deployments) named `my-nginx`, and 
 two [nginx](https://registry.hub.docker.com/_/nginx/) [pods](/docs/user-guide/pods) listening on port 80. The `Deployment` will ensure that there are 
-always exactly two pod running as specified in its spec. 
+always exactly two pods running as specified in its spec. 
 
 ```shell
 kubectl run my-nginx --image=nginx --replicas=2 --port=80

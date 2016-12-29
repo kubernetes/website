@@ -13,7 +13,7 @@ External garbage collection tools are not recommended as these tools can potenti
 
 ### Image Collection
 
-kubernetes manages lifecycle of all images through imageManager, with the cooperation
+Kubernetes manages lifecycle of all images through imageManager, with the cooperation
 of cadvisor.
 
 The policy for garbage collecting images takes two factors into consideration:

@@ -500,7 +500,7 @@ within AWS Certificate Manager.
     },
 ```
 
-The second annotation specificies which protocol a pod speaks. For HTTPS and
+The second annotation specifies which protocol a pod speaks. For HTTPS and
 SSL, the ELB will expect the pod to authenticate itself over the encrypted
 connection.
 
@@ -655,7 +655,7 @@ through a load-balancer, though in those cases the client IP does get altered.
 
 ## API Object
 
-Service is a top-level resource in the kubernetes REST API. More details about the
+Service is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Service API
 object](/docs/api-reference/v1/definitions/#_v1_service).
 

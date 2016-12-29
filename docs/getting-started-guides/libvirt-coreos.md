@@ -30,7 +30,7 @@ Another difference is that no security is enforced on `libvirt-coreos` at all. F
 * Kubernetes secrets are not protected as securely as they are on production environments;
 * etc.
 
-So, an k8s application developer should not validate its interaction with Kubernetes on `libvirt-coreos` because he might technically succeed in doing things that are prohibited on a production environment like:
+So, a k8s application developer should not validate its interaction with Kubernetes on `libvirt-coreos` because he might technically succeed in doing things that are prohibited on a production environment like:
 
 * un-authenticated access to Kube API server;
 * Access to Kubernetes private data structures inside etcd;
@@ -45,7 +45,7 @@ On the other hand, `libvirt-coreos` might be useful for people investigating low
 3. Install [qemu](http://wiki.qemu.org/Main_Page)
 4. Install [libvirt](http://libvirt.org/)
 5. Install [openssl](http://openssl.org/)
-6. Enable and start the libvirt daemon, e.g:
+6. Enable and start the libvirt daemon, e.g.:
    * ``systemctl enable libvirtd && systemctl start libvirtd`` # for systemd-based systems
    * ``/etc/init.d/libvirt-bin start`` # for init.d-based systems
 7. [Grant libvirt access to your user¹](https://libvirt.org/aclpolkit.html)

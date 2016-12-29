@@ -75,7 +75,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: hello-world
-spec:  # specification of the pod’s contents
+spec:  # specification of the pod's contents
   restartPolicy: Never
   containers:
   - name: hello
