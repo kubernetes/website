@@ -24,7 +24,7 @@ If true, reads will be directed to leader etcd replica.
 Setting this value to true is optional: reads will be more reliable but will also be slower.
 
 Optionally, you can specify a GCE zone where the first master replica is to be created.
-Set the the following flag:
+Set the following flag:
 
 * `KUBE_GCE_ZONE=zone` - zone where the first master replica will run.
 

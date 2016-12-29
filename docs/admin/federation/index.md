@@ -110,7 +110,7 @@ $ KUBE_REGISTRY="gcr.io/myrepository" federation/develop/develop.sh build_image
 $ KUBE_REGISTRY="gcr.io/myrepository" federation/develop/develop.sh push
 ```
 
-Note: This is going to overwite the values you might have set for
+Note: This is going to overwrite the values you might have set for
 `apiserverRegistry`, `apiserverVersion`, `controllerManagerRegistry` and
 `controllerManagerVersion` in your `${FEDERATION_OUTPUT_ROOT}/values.yaml`
 file. Hence, it is not recommend to customize these values in
@@ -218,7 +218,7 @@ Once you've registered your cluster with the federation, you'll need to update K
 
 ### Kubernetes 1.5+: Passing federations flag via config map to kube-dns
 
-For kubernetes clusters of version 1.5+, you can pass the
+For Kubernetes clusters of version 1.5+, you can pass the
 `--federations` flag to kube-dns via the kube-dns config map.
 The flag uses the following format:
 
@@ -352,7 +352,7 @@ $ KUBERNETES_PROVIDER=gce FEDERATION_DNS_PROVIDER=google-clouddns FEDERATION_NAM
 set appropriately if it is missing and `KUBERNETES_PROVIDER` is one of `gce`, `gke` and `aws`.
 This is used to resolve DNS requests for federation services. The service
 controller keeps DNS records with the provider updated as services/pods are
-updated in underlying kubernetes clusters.
+updated in underlying Kubernetes clusters.
 
 `FEDERATION_NAME` is a name you can choose for your federation. This is the name that will appear in DNS routes.
 
