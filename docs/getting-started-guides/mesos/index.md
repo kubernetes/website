@@ -229,7 +229,7 @@ We assume that kube-dns will use
 
 Note that we have passed these two values already as parameter to the apiserver above.
 
-A template for an replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/skydns-rc.yaml.in][11] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
+A template for a replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/skydns-rc.yaml.in][11] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
 
 - replace `{% raw %}{{ pillar['dns_replicas'] }}{% endraw %}`  with `1`
 - replace `{% raw %}{{ pillar['dns_domain'] }}{% endraw %}` with `cluster.local.`

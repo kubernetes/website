@@ -43,11 +43,11 @@ kubectl --context=federation-cluster create -f myns.yaml
 ```
 
 The '--context=federation-cluster' flag tells kubectl to submit the
-request to the Federation apiserver instead of sending it to a kubernetes
+request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
 Once a federated namespace is created, the federation control plane will create
-a matching namespace in all underlying kubernetes clusters.
+a matching namespace in all underlying Kubernetes clusters.
 You can verify this by checking each of the underlying clusters, for example:
 
 ``` shell
@@ -64,7 +64,7 @@ the Federated Namespace that you created above.
 
 You can update a federated namespace as you would update a Kubernetes
 namespace, just send the request to federation apiserver instead of sending it
-to a specific kubernetes cluster.
+to a specific Kubernetes cluster.
 Federation control plan will ensure that whenever the federated namespace is
 updated, it updates the corresponding namespaces in all underlying clusters to
 match it.
@@ -73,7 +73,7 @@ match it.
 
 You can delete a federated namespace as you would delete a Kubernetes
 namespace, just send the request to federation apiserver instead of sending it
-to a specific kubernetes cluster.
+to a specific Kubernetes cluster.
 
 For example, you can do that using kubectl by running:
 
