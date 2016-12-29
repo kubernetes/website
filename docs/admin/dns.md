@@ -100,6 +100,7 @@ metadata:
 spec:
   selector:
     name: busybox
+  clusterIP: None
   ports:
     - name: foo # Actually, no port is needed.
       port: 1234 
