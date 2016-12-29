@@ -222,7 +222,7 @@ from the OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_
 as a bearer token.  See [above](#putting-a-bearer-token-in-a-request) for how the token
 is included in a request.
 
-![Kubernetes OpenID Connect Flow](https://www.gliffy.com/go/publish/image/11149637/L.png)
+![Kubernetes OpenID Connect Flow](/images/docs/admin/k8s_oidc_login.svg)
 
 1.  Login to your identity provider
 2.  Your identity provider will provide you with an access_token, id_token and a refresh_token
