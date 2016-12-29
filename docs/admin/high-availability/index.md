@@ -1,5 +1,5 @@
 ---
-
+title: Building High-Availability Clusters
 ---
 
 ## Introduction

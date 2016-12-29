@@ -1,7 +1,7 @@
 ---
 assignees:
-- mml
-
+- davidopp
+title: Pod Disruption Budget
 ---
 This guide is for anyone wishing to specify safety constraints on pods or anyone
 wishing to write software (typically automation software) that respects those
@@ -59,7 +59,7 @@ itself.  To attempt an eviction (perhaps more REST-precisely, to attempt to
 
 ```json
 {
-  "apiVersion": "policy/v1alpha1",
+  "apiVersion": "policy/v1beta1",
   "kind": "Eviction",
   "metadata": {
     "name": "quux",

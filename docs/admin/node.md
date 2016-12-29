@@ -3,7 +3,7 @@ assignees:
 - caesarxuchao
 - dchen1107
 - lavalamp
-
+title: Nodes
 ---
 
 * TOC
@@ -20,7 +20,15 @@ architecture design doc for more details.
 
 ## Node Status
 
-A node's status is comprised of the following information.
+A node's status contains the following information:
+
+* [Addresses](#Addresses)
+* ~~[Phase](#Phase)~~ **deprecated**
+* [Condition](#Condition)
+* [Capacity](#Capacity)
+* [Info](#Info)
+
+Each section is described in detail below.
 
 ### Addresses
 
@@ -54,10 +62,9 @@ The node condition is represented as a JSON object. For example, the following r
 ]
 ```
 
-If the Status of the Ready condition is Unknown or False for more than five
-minutes, then all of the pods on the node are terminated by the node
-controller. (The timeout length is configurable by the `--pod-eviction-timeout`
-parameter on the controller manager.)
+If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument passed to the [kube-controller-manager](docs/admin/kube-controller-manager/), all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node. 
+
+In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/user-guide/pods/#force-deletion-of-pods) these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
 
 ### Capacity
 
@@ -187,7 +194,7 @@ Modifications include setting labels on the node and marking it unschedulable.
 Labels on nodes can be used in conjunction with node selectors on pods to control scheduling,
 e.g. to constrain a pod to only be eligible to run on a subset of the nodes.
 
-Marking a node as unscheduleable will prevent new pods from being scheduled to that
+Marking a node as unschedulable will prevent new pods from being scheduled to that
 node, but will not affect any existing pods on the node. This is useful as a
 preparatory step before a node reboot, etc. For example, to mark a node
 unschedulable, run this command:
@@ -237,6 +244,6 @@ on each kubelet where you want to reserve resources.
 
 ## API Object
 
-Node is a top-level resource in the kubernetes REST API. More details about the
+Node is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Node API
 object](/docs/api-reference/v1/definitions/#_v1_node).

@@ -4,7 +4,7 @@ assignees:
 
 ---
 
-This document describes how to deploy kubernetes on ubuntu nodes, 1 master and 3 nodes involved
+This document describes how to deploy Kubernetes on ubuntu nodes, 1 master and 3 nodes involved
 in the given examples. You can scale to **any number of nodes** by changing some settings with ease.
 The original idea was heavily inspired by @jainvipin 's ubuntu single node
 work, which has been merge into this document.
@@ -36,7 +36,7 @@ Ubuntu 15 which uses systemd instead of upstart.
 
 ### Set up working directory
 
-Clone the kubernetes github repo locally
+Clone the Kubernetes github repo locally
 
 ```shell
 $ git clone --depth 1 https://github.com/kubernetes/kubernetes.git
@@ -101,7 +101,7 @@ acts as both master and node, "a" stands for master, "i" stands for node.
 
 The `NUM_NODES` variable defines the total number of nodes.
 
-The `SERVICE_CLUSTER_IP_RANGE` variable defines the kubernetes service IP range. Please make sure
+The `SERVICE_CLUSTER_IP_RANGE` variable defines the Kubernetes service IP range. Please make sure
 that you do have a valid private ip range defined here, because some IaaS provider may reserve private ips.
 You can use below three private network range according to rfc1918. Besides you'd better not choose the one
 that conflicts with your own private network range.
@@ -122,7 +122,7 @@ through `FLANNEL_BACKEND` and `FLANNEL_OTHER_NET_CONFIG`, as explained in `clust
 The default setting for `ADMISSION_CONTROL` is right for the latest
 release of Kubernetes, but if you choose an earlier release then you
 might want a different setting.  See
-[the admisson control doc](http://kubernetes.io/docs/admin/admission-controllers/#is-there-a-recommended-set-of-plug-ins-to-use)
+[the admission control doc](http://kubernetes.io/docs/admin/admission-controllers/#is-there-a-recommended-set-of-plug-ins-to-use)
 for the recommended settings for various releases.
 
 **Note:** When deploying, master needs to be connected to the Internet to download the necessary files.
@@ -138,7 +138,7 @@ bring up the whole cluster.
 $ KUBERNETES_PROVIDER=ubuntu ./kube-up.sh
 ```
 
-The scripts automatically copy binaries and config files to all the machines via `scp` and start kubernetes
+The scripts automatically copy binaries and config files to all the machines via `scp` and start Kubernetes
 service on them. The only thing you need to do is to type the sudo password when promoted.
 
 ```shell
@@ -211,7 +211,7 @@ After some time, you can use `$ kubectl get pods --namespace=kube-system` to see
 
 We are working on these features which we'd like to let everybody know:
 
-1. Run kubernetes binaries in Docker using [kube-in-docker](https://github.com/ZJU-SEL/kube-in-docker/tree/baremetal-kube),
+1. Run Kubernetes binaries in Docker using [kube-in-docker](https://github.com/ZJU-SEL/kube-in-docker/tree/baremetal-kube),
 to eliminate OS-distro differences.
 2. Tearing Down scripts: clear and re-create the whole stack by one click.
 
@@ -239,7 +239,7 @@ $ KUBERNETES_PROVIDER=ubuntu ./kube-up.sh
 
 ## Upgrading a Cluster
 
-If you already have a kubernetes cluster, and want to upgrade to a new version,
+If you already have a Kubernetes cluster, and want to upgrade to a new version,
 you can use following command in `cluster/` directory to update the whole cluster
 or a specified node to a new version.
 
@@ -285,7 +285,7 @@ The script will not delete any resources of your cluster, it just replaces the b
 
 ### Test it out
 
-You can use the `kubectl` command to check if the newly upgraded kubernetes cluster is working correctly.
+You can use the `kubectl` command to check if the newly upgraded Kubernetes cluster is working correctly.
 
 To make sure the version of the upgraded cluster is what you expect, you will find these commands helpful.
 

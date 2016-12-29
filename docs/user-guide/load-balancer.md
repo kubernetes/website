@@ -1,5 +1,5 @@
 ---
-
+title: Creating an External Load Balancer
 ---
 
 * TOC
@@ -89,13 +89,13 @@ The IP address is listed next to `LoadBalancer Ingress`.
 
 ## Loss of client source IP for external traffic
 
-Due to the implementation of this feature, the source IP for sessions as seen in the target container will *not be the original source IP* of the client. This is the default behavior as of Kubernetes v1.4. However, starting in v1.4, an optional alpha feature has been added
+Due to the implementation of this feature, the source IP for sessions as seen in the target container will *not be the original source IP* of the client. This is the default behavior as of Kubernetes v1.5. However, starting in v1.5, an optional beta feature has been added
 that will preserve the client Source IP for GCE/GKE environments. This feature will be phased in for other cloud providers in subsequent releases.
 
 ## Annotation to modify the LoadBalancer behavior for preservation of Source IP
-In 1.4, an Alpha feature has been added that changes the behavior of the external LoadBalancer feature.
+In 1.5, a Beta feature has been added that changes the behavior of the external LoadBalancer feature.
 
-This feature can be activated by adding the alpha annotation below to the metadata section of the Service Configuration file.
+This feature can be activated by adding the beta annotation below to the metadata section of the Service Configuration file.
 
 ```json
     {
@@ -104,7 +104,7 @@ This feature can be activated by adding the alpha annotation below to the metada
       "metadata": {
         "name": "example-service",
         "annotations": {
-            "service.alpha.kubernetes.io/external-traffic": "OnlyLocal"
+            "service.beta.kubernetes.io/external-traffic": "OnlyLocal"
         }
       },
       "spec": {
@@ -120,18 +120,7 @@ This feature can be activated by adding the alpha annotation below to the metada
     }
 ```
 
-### Alpha Feature Gate for the 'service.alpha.kubernetes.io/external-traffic' annotation
-
-Alpha features are not enabled by default, they must be enabled using the release gate command line flags
-for kube-controller-manager and kube-proxy.
-See [https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/runtimeconfig.md](Runtime feature flags proposal) for more details on feature gate flags.
-
-If this feature is not enabled in your cluster, this annotation in your service configuration will be rejected.
-
-### Implementation across different cloudproviders/environments
-
-Note that this feature is not currently implemented for all cloudproviders/environments.
-This feature does not work for nodePorts yet, so environments/cloud providers with proxy-style load-balancers cannot use it yet.
+**Note that this feature is not currently implemented for all cloudproviders/environments.**
 
 ### Caveats and Limitations when preserving source IPs
 

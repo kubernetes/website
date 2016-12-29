@@ -2,7 +2,7 @@
 assignees:
 - bgrant0607
 - hw-qiaolei
-
+title: kubectl Overview
 ---
 
 `kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl) reference documentation. For installation instructions see [prerequisites](/docs/user-guide/prereqs).
@@ -18,7 +18,6 @@ kubectl [command] [TYPE] [NAME] [flags]
 ```
 
 where `command`, `TYPE`, `NAME`, and `flags` are:
-
 * `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
@@ -27,11 +26,9 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
     $ kubectl get pods pod1
     $ kubectl get po pod1
    ```
-
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
 
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
-
    * To specify resources by type and name:
         * To group resources if they are all the same type: `TYPE1 name1 name2 name<#>`<br/>
         Example: `$ kubectl get pod example-pod1 example-pod2`
@@ -102,6 +99,7 @@ Resource type	| Abbreviated alias
 `nodes` |`no`
 `persistentvolumeclaims` |`pvc`
 `persistentvolumes` |`pv`
+`poddisruptionbudget` |`pdb`
 `pods` |`po`
 `podsecuritypolicies` |`psp`
 `podtemplates` |
@@ -111,6 +109,7 @@ Resource type	| Abbreviated alias
 `secrets` |
 `serviceaccounts` |`sa`
 `services` |`svc`
+`statefulsets` |
 `storageclasses` |
 `thirdpartyresources` |
 

@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Authenticating Across Clusters with kubeconfig
 ---
 
 Authentication in kubernetes can differ for different individuals.
