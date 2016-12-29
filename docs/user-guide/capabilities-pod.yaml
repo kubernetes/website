@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: capabilities-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      securityContext:
+        capabilities:
+          add:
+            - SYS_ADMIN
+      command: [ "/bin/sh", "-c" ]
+      args:
+        - |
+           hostname;
+           hostname over-ridden-hostname;
+           hostname;
+  restartPolicy: Never
