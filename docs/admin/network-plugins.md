@@ -32,7 +32,7 @@ By default if no kubelet network plugin is specified, the `noop` plugin is used,
 
 ### Exec
 
-Place plugins in `network-plugin-dir/plugin-name/plugin-name`, i.e if you have a bridge plugin and `network-plugin-dir` is `/usr/lib/kubernetes`, you'd place the bridge plugin executable at `/usr/lib/kubernetes/bridge/bridge`. See [this comment](https://github.com/kubernetes/kubernetes/tree/{{page.version}}/pkg/kubelet/network/exec/exec.go) for more details.
+Place plugins in `network-plugin-dir/plugin-name/plugin-name`, i.e. if you have a bridge plugin and `network-plugin-dir` is `/usr/lib/kubernetes`, you'd place the bridge plugin executable at `/usr/lib/kubernetes/bridge/bridge`. See [this comment](https://github.com/kubernetes/kubernetes/tree/{{page.version}}/pkg/kubelet/network/exec/exec.go) for more details.
 
 ### CNI
 
@@ -50,13 +50,10 @@ Kubenet is a very basic, simple network plugin, on Linux only.  It does not, of 
 
 Kubenet creates a Linux bridge named `cbr0` and creates a veth pair for each pod with the host end of each pair connected to `cbr0`.  The pod end of the pair is assigned an IP address allocated from a range assigned to the node either through configuration or by the controller-manager.  `cbr0` is assigned an MTU matching the smallest MTU of an enabled normal interface on the host.
 
-The kubenet plugin is mutually exclusive with the --configure-cbr0 option.
-
 The plugin requires a few things:
 
 * The standard CNI `bridge`, `lo` and `host-local` plugins are required, at minimum version 0.2.0. Kubenet will first search for them in `/opt/cni/bin`. Specify `network-plugin-dir` to supply additional search path. The first found match will take effect.
 * Kubelet must be run with the `--network-plugin=kubenet` argument to enable the plugin
-* Kubelet must also be run with the `--reconcile-cidr` argument to ensure the IP subnet assigned to the node by configuration or the controller-manager is propagated to the plugin
 * Kubelet should also be run with the `--non-masquerade-cidr=<clusterCidr>` argumment to ensure traffic to IPs outside this range will use IP masquerade.
 * The node must be assigned an IP subnet through either the `--pod-cidr` kubelet command-line option or the `--allocate-node-cidrs=true --cluster-cidr=<cidr>` controller-manager command-line options.
 

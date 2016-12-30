@@ -31,6 +31,7 @@ toc:
     - docs/tutorials/kubernetes-basics/update-interactive.html
 - title: Stateless Applications
   section:
+  - docs/tutorials/stateless-application/hello-minikube.md
   - docs/tutorials/stateless-application/run-stateless-application-deployment.md
   - docs/tutorials/stateless-application/expose-external-ip-address-service.md
   - docs/tutorials/stateless-application/expose-external-ip-address.md

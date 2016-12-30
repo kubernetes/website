@@ -224,7 +224,7 @@ The ReplicationController is intended to be a composable building-block primitiv
 
 ## API Object
 
-Replication controller is a top-level resource in the kubernetes REST API. More details about the
+Replication controller is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [ReplicationController API
 object](/docs/api-reference/v1/definitions/#_v1_replicationcontroller).
 
@@ -235,6 +235,7 @@ object](/docs/api-reference/v1/definitions/#_v1_replicationcontroller).
 [`ReplicaSet`](/docs/user-guide/replicasets/) is the next-generation ReplicationController that supports the new [set-based label selector](/docs/user-guide/labels/#set-based-requirement).
 It’s mainly used by [`Deployment`](/docs/user-guide/deployments/) as a mechanism to orchestrate pod creation, deletion and updates.
 Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don’t require updates at all.
+
 
 ### Deployment (Recommended)
 

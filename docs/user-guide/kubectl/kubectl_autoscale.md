@@ -9,7 +9,7 @@ Auto-scale a Deployment, ReplicaSet, or ReplicationController
 ### Synopsis
 
 
-Creates an autoscaler that automatically chooses and sets the number of pods that run in a kubernetes cluster.
+Creates an autoscaler that automatically chooses and sets the number of pods that run in a Kubernetes cluster.
 
 Looks up a Deployment, ReplicaSet, or ReplicationController by name and creates an autoscaler that uses the given resource as a reference. An autoscaler can automatically increase or decrease number of pods deployed within the system as needed.
 
