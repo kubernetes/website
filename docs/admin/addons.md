@@ -14,7 +14,7 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 
 * [Calico](http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/) is a secure L3 networking and network policy provider.
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm) unites Flannel and Calico, providing networking and network policy.
-* [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml) is a overlay network provider that can be used with Kubernetes.
+* [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml) is an overlay network provider that can be used with Kubernetes.
 * [Romana](http://romana.io) is a Layer 3 networking solution for pod networks that also supports the [NetworkPolicy API](/docs/user-guide/networkpolicies/). Kubeadm add-on installation details available [here](https://github.com/romana/romana/tree/master/containerize).
 * [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/) provides networking and network policy, will carry on working on both sides of a network partition, and does not require an external database.
 

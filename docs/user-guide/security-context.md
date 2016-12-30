@@ -20,7 +20,7 @@ metadata:
   name: hello-world
 spec:
   containers:
-  # specification of the pod’s containers
+  # specification of the pod's containers
   # ...
   securityContext:
     fsGroup: 1234
@@ -85,4 +85,3 @@ Please refer to the
 [API documentation](/docs/api-reference/v1/definitions/#_v1_securitycontext) 
 for a detailed listing and description of all the fields available
 within the container security context.
-
