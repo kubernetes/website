@@ -18,7 +18,7 @@ Managing storage is a distinct problem from managing compute. The `PersistentVol
 
 A `PersistentVolume` (PV) is a piece of networked storage in the cluster that has been provisioned by an administrator.  It is a resource in the cluster just like a node is a cluster resource.   PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV.  This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
-A `PersistentVolumeClaim` (PVC) is a request for storage by a user.  It is similar to a pod.  Pods consume node resources and PVCs consume PV resources.  Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g, can be mounted once read/write or many times read-only).
+A `PersistentVolumeClaim` (PVC) is a request for storage by a user.  It is similar to a pod.  Pods consume node resources and PVCs consume PV resources.  Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
 
 While `PersistentVolumeClaims` allow a user to consume abstract storage
 resources, it is common that users need `PersistentVolumes` with varying
@@ -70,7 +70,7 @@ When a user is done with their volume, they can delete the PVC objects from the 
 
 ### Reclaiming
 
-The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim.  Currently, volumes can either be Retained, Recycled or Deleted.  Retention allows for manual reclamation of the resource.  For those volume plugins that support it, deletion removes both the `PersistentVolume` object from Kubernetes as well as deletes associated storage asset in external infrastructure such as AWS EBS, GCE PD or Cinder volume.  Volumes that were dynamically provisioned are always deleted.
+The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim.  Currently, volumes can either be Retained, Recycled or Deleted.  Retention allows for manual reclamation of the resource.  For those volume plugins that support it, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume).  Volumes that were dynamically provisioned are always deleted.
 
 #### Recycling
 
@@ -108,6 +108,7 @@ However, the particular path specified in the custom recycler pod template in th
 * GCEPersistentDisk
 * AWSElasticBlockStore
 * AzureFile
+* AzureDisk
 * FC (Fibre Channel)
 * NFS
 * iSCSI
@@ -170,6 +171,7 @@ In the CLI, the access modes are abbreviated to:
 | :---                 |     :---:    |    :---:    |    :---:     |
 | AWSElasticBlockStore | x            | -           | -            |
 | AzureFile            | x            | x           | x            |
+| AzureDisk            | x            | -           | -            |
 | CephFS               | x            | x           | x            |
 | Cinder               | x            | -           | -            |
 | FC                   | x            | x           | -            |
@@ -193,15 +195,15 @@ class and can only be bound to PVCs that request no particular class.
 In the future after beta, the `volume.beta.kubernetes.io/storage-class`
 annotation will become an attribute.
 
-### Recycling Policy
+### Reclaim Policy
 
-Current recycling policies are:
+Current reclaim policies are:
 
 * Retain -- manual reclamation
 * Recycle -- basic scrub ("rm -rf /thevolume/*")
-* Delete -- associated storage asset such as AWS EBS, GCE PD or OpenStack Cinder volume is deleted
+* Delete -- associated storage asset such as AWS EBS, GCE PD, Azure Disk, or OpenStack Cinder volume is deleted
 
-Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD and Cinder volumes support deletion.
+Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk, and Cinder volumes support deletion.
 
 ### Phase
 
@@ -507,6 +509,24 @@ parameters:
 * `group`: maps all access to this group. Default is "nfsnobody".
 * `quobyteConfig`: use the specified configuration to create the volume. You can create a new configuration or modify an existing one with the Web console or the quobyte CLI. Default is "BASE".
 * `quobyteTenant`: use the specified tenant ID to create/delete the volume. This Quobyte tenant has to be already present in Quobyte. Default is "DEFAULT".
+
+#### Azure Disk
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: slow
+provisioner: kubernetes.io/azure-disk
+parameters:
+  skuName: Standard_LRS
+  location: eastus
+  storageAccount: azure_storage_account_name
+```
+
+* `skuName`: Azure storage account Sku tier. Default is empty.
+* `location`: Azure storage account location. Default is empty.
+* `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, `skuName` and `location` are ignored.
 
 
 ## Writing Portable Configuration

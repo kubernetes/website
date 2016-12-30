@@ -101,6 +101,7 @@ Resource type	| Abbreviated alias
 `nodes` |`no`
 `persistentvolumeclaims` |`pvc`
 `persistentvolumes` |`pv`
+`poddisruptionbudget` |`pdb`
 `pods` |`po`
 `podsecuritypolicies` |`psp`
 `podtemplates` |
@@ -112,6 +113,7 @@ Resource type	| Abbreviated alias
 `secrets` |
 `serviceaccounts` |`sa`
 `services` |`svc`
+`statefulsets` |
 `storageclasses` |
 `thirdpartyresources` |
 

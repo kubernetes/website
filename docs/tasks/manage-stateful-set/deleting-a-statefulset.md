@@ -24,7 +24,7 @@ This task shows you how to delete a StatefulSet.
 
 ### Deleting a StatefulSet
 
-You can delete a StatefulSet in the same way you delete other resources in kubernetes: use the `kubectl delete` command, and specify the StatefulSet either by file or by name.
+You can delete a StatefulSet in the same way you delete other resources in Kubernetes: use the `kubectl delete` command, and specify the StatefulSet either by file or by name.
 
 ```shell
 kubectl delete -f <file.yaml> 
