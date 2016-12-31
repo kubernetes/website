@@ -19,6 +19,10 @@ Kubernetes contains the following built-in tools:
 [`kubefed`](/docs/admin/federation/kubefed/) is the command line tool
 to help you administrate your federated clusters.
 
+##### Kubeadm
+
+[`kubeadm`](/docs/admin/kubeadm/) is the command line tool to help you create a Kubernetes cluster. It bootstraps all necessary components to setup the "control plane" elements of a Kubernetes master, and provides the capability for joining additional nodes to a master, in order to create a cluster. 
+
 ##### Dashboard 
 
 [Dashboard](/docs/user-guide/ui/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
