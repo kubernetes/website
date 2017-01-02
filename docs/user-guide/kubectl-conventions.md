@@ -36,9 +36,6 @@ In order for `kubectl run` to satisfy infrastructure as code:
 * Pod - use `run-pod/v1`.
 * Replication controller - use `run/v1`.
 * Deployment - use `deployment/v1beta1`.
-* Job (using `extension/v1beta1` endpoint) - use `job/v1beta1`. Starting from
-  version 1.5 of kuberentes this generator is deprecated, with a plan to be
-  removed in 1.6. Please use `job/v1` instead.
 * Job - use `job/v1`.
 * CronJob - use `cronjob/v2alpha1`.
 
