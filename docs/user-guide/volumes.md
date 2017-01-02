@@ -108,6 +108,10 @@ While tmpfs is very fast, be aware that unlike disks, tmpfs is cleared on
 machine reboot and any files you write will count against your container's
 memory limit.
 
+For monitoring and reference purposes: The default location where `emptyDir` 
+stores the data is in `/var/lib/kubelet/pods`.
+
+
 #### Example pod
 
 ```yaml
