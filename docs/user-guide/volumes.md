@@ -531,6 +531,39 @@ before you can use it__
 
 See the [Quobyte example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/quobyte) for more details.
 
+## Using subPath
+
+Sometimes, it is useful to share one volume for multiple uses in a single pod. The `volumeMounts.subPath`
+property can be used to specify a sub-path inside the referenced volume instead of its root.
+
+Here is an example of a pod with a LAMP stack (Linux Apache Mysql PHP) using a single, shared volume.
+The HTML contents are mapped to its `html` folder, and the databases will be stored in its `mysql` folder:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-lamp-site
+spec:
+    containers:
+    - name: mysql
+      image: mysql
+      volumeMounts:
+      - mountPath: /var/lib/mysql
+        name: site-data
+        subPath: mysql
+    - name: php
+      image: php
+      volumeMounts:
+      - mountPath: /var/www/html
+        name: site-data
+        subPath: html
+    volumes:
+    - name: site-data
+      persistentVolumeClaim:
+        claimName: my-lamp-site-data
+```
+
 ## Resources
 
 The storage media (Disk, SSD, etc.) of an `emptyDir` volume is determined by the
