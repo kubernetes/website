@@ -7,7 +7,9 @@ metadata:
 spec:
   containers:
 
-  - args:
+  - name: liveness
+
+    args:
     - /server
 
     image: gcr.io/google_containers/liveness
@@ -21,5 +23,3 @@ spec:
             value: Awesome
       initialDelaySeconds: 3
       periodSeconds: 3
-
-    name: liveness
