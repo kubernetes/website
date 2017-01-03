@@ -31,14 +31,14 @@ Here is the same information in a picture which shows how the pods might be plac
 This diagram shows four nodes created on a Google Compute Engine cluster with the name of each VM node on a purple background. The internal and public IPs of each node are shown on gray boxes and the pods running in each node are shown in green boxes. Each pod box shows the name of the pod and the namespace it runs in, the IP address of the pod and the images which are run as part of the pod's execution. Here we see that every node is running a fluentd-cloud-logging pod which is collecting the log output of the containers running on the same node and sending them to Stackdriver Logging. A pod which provides the
 [cluster DNS service](/docs/admin/dns) runs on one of the nodes and a pod which provides monitoring support runs on another node.
 
-To help explain how cluster-level logging works, consider the following synthetic log generator pod specification [counter-pod.yaml](/docs/user-guide/logging/counter-pod.yaml):
+To help explain how cluster-level logging works, consider the following synthetic log generator pod specification [counter-pod.yaml](/docs/user-guide/logging/examples/counter-pod.yaml):
 
-{% include code.html language="yaml" file="counter-pod.yaml" %}
+{% include code.html language="yaml" file="examples/counter-pod.yaml" %}
 
 This pod specification has one container which runs a bash script when the container is born. This script simply writes out the value of a counter and the date once per second and runs indefinitely. Let's create the pod in the default namespace.
 
 ```shell
-$ kubectl create -f examples/blog-logging/counter-pod.yaml
+$ kubectl create -f counter-pod.yaml
  pods/counter
 ```
 
@@ -93,7 +93,7 @@ pods/counter
 Now let's restart the counter.
 
 ```shell
-$ kubectl create -f examples/blog-logging/counter-pod.yaml
+$ kubectl create -f counter-pod.yaml
 pods/counter
 ```
 
