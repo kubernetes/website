@@ -36,6 +36,7 @@ $(document).ready(function() {
 
     var prevSectionToken;
     var prevSubsectionToken;
+    var activeTokensObj = {};
 
     function scrollActions(scrollPosition) {
         var activeSection = checkNodePositions(toc, tocFlat, scrollPosition);
@@ -44,8 +45,9 @@ $(document).ready(function() {
             currL1Nav,
             prevL2Nav,
             currL2Nav;
+
         if (!activeSection) {
-            return;
+            return activeTokensObj;
         }
         if (!prevSectionToken) {
             prevSectionToken = activeSection.token;
@@ -58,24 +60,27 @@ $(document).ready(function() {
             currL1Nav.show('fast');
             prevSectionToken = activeSection.token;
         }
-        if (activeSection.subsections) {
+        if (activeSection.subsections && activeSection.subsections.length !== 0) {
             activeSubSection = checkNodePositions(activeSection.subsections, tocFlat, scrollPosition);
-            if (!activeSubSection) {
-                return;
-            }
-            if (!prevSubsectionToken) {
-                prevSubsectionToken = activeSubSection.token;
-                currL2Nav = getNavNode(activeSubSection.token);
-                currL2Nav.show('fast');
-            } else if (activeSubSection.token !== prevSubsectionToken) {
-                prevL2Nav = getNavNode(prevSubsectionToken);
-                currL2Nav = getNavNode(activeSubSection.token);
-                prevL2Nav.hide('fast');
-                currL2Nav.show('fast');
-                prevSubsectionToken = activeSubSection.token;
+            if (activeSubSection) {
+                if (!prevSubsectionToken) {
+                    prevSubsectionToken = activeSubSection.token;
+                    currL2Nav = getNavNode(activeSubSection.token);
+                    currL2Nav.show('fast');
+                } else if (activeSubSection.token !== prevSubsectionToken) {
+                    prevL2Nav = getNavNode(prevSubsectionToken);
+                    currL2Nav = getNavNode(activeSubSection.token);
+                    prevL2Nav.hide('fast');
+                    currL2Nav.show('fast');
+                    prevSubsectionToken = activeSubSection.token;
+                }
+            } else {
+                prevSubsectionToken = null;
             }
         }
-        return {L1: prevSectionToken, L2: prevSubsectionToken};
+        activeTokensObj.L1 = prevSectionToken;
+        activeTokensObj.L2 = prevSubsectionToken;
+        return activeTokensObj;
     }
 
     var prevElemToken;
@@ -122,9 +127,10 @@ $(document).ready(function() {
         for (var i = 0; i < nodes.length; i++) {
             var item = nodes[i];
             var node = flatNodeMap[item.section];
-            var nodeTop = node.offset().top;
+            var nodeTop = node.offset().top - 50;
             if (scrollPosition >= nodeTop) {
                 activeNode = {token: item.section, node: node};
+
                 if (item.subsections) {
                     activeNode.subsections = item.subsections;
                 }
@@ -134,6 +140,23 @@ $(document).ready(function() {
         return activeNode;
     }
 
+    function scrollToNav(token) {
+        setTimeout(function() {
+            var scrollPosition = $(window).scrollTop();
+            var activeSectionTokens = scrollActions(scrollPosition);
+            var activeElemToken = checkActiveElement(flatToc, scrollPosition);
+            var navNode = $('#sidebar-wrapper > ul a[href="#' + token + '"]');
+            $('#sidebar-wrapper').scrollTo(navNode, {duration: 'fast', axis: 'y'});
+        }, 200);
+    }
+
+    $(window).on('hashchange', function(event) {
+        var scrollPosition = $(window).scrollTop();
+        var activeSectionTokens = scrollActions(scrollPosition);
+        // scrollToNav(activeSectionTokens.L1);
+        var token = location.hash.slice(1);
+    });
+
     var scrollPosition = $(window).scrollTop();
     scrollActions(scrollPosition);
     checkActiveElement(flatToc, scrollPosition);
@@ -142,6 +165,5 @@ $(document).ready(function() {
         var scrollPosition = $(window).scrollTop();
         var activeSectionTokens = scrollActions(scrollPosition);
         var activeElemToken = checkActiveElement(flatToc, scrollPosition);
-        // window.location.hash = activeSectionTokens[0];
     });
 });

@@ -1,7 +1,7 @@
 {
   "docs": [
     {
-      "filename": "_generated_category_getting_started.md"
+      "filename": "_getting_started.md"
     },
     {
       "filename": "_generated_run.md"
@@ -10,7 +10,7 @@
       "filename": "_generated_expose.md"
     },
     {
-      "filename": "_generated_category_app_management.md"
+      "filename": "_app_management.md"
     },
     {
       "filename": "_generated_annotate.md"
@@ -61,10 +61,13 @@
       "filename": "_generated_apply.md"
     },
     {
-      "filename": "_generated_category_troubleshooting_and_debugging.md"
+      "filename": "_working_with_apps.md"
     },
     {
       "filename": "_generated_attach.md"
+    },
+    {
+      "filename": "_generated_cp.md"
     },
     {
       "filename": "_generated_describe.md"
@@ -89,6 +92,9 @@
     },
     {
       "filename": "_generated_api-versions.md"
+    },
+    {
+      "filename": "_generated_certificate.md"
     },
     {
       "filename": "_generated_cluster-info.md"
@@ -122,6 +128,12 @@
     },
     {
       "filename": "_generated_version.md"
+    },
+    {
+      "filename": "_generated_category_deprecated_commands.md"
+    },
+    {
+      "filename": "_generated_stop.md"
     }
   ],
   "title": "Kubectl Reference Docs",

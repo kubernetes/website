@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Core | v1beta1 | NetworkPolicyList
+Extensions | v1beta1 | NetworkPolicyList
 
 
 

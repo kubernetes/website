@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-RbacAuthorization | v1alpha1 | ClusterRoleList
+Core | v1alpha1 | ClusterRoleList
 
 
 

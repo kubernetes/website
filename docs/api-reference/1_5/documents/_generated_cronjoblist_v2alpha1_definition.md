@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Core | v2alpha1 | CronJobList
+Batch | v2alpha1 | CronJobList
 
 
 

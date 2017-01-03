@@ -1,6 +1,6 @@
 # <strong>DISCOVERY & LOAD BALANCING</strong>
 
-These are responsible for stitching your workloads together into an accessible Loadbalanced Service.  By default,
+Discovery and Load Balancing resources are responsible for stitching your workloads together into an accessible Loadbalanced Service.  By default,
 [Workloads](#workloads) are only accessible within the cluster, and they must be exposed externally using a either
 a *LoadBalancer* or *NodePort* [Service](#service-v1).  For development, internally accessible
 Workloads can be accessed via proxy through the api master using the `kubectl proxy` command.

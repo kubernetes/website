@@ -21,23 +21,21 @@ kubectl proxy --api-prefix=/k8s-api
 ```
 
 
+To proxy all of the kubernetes api and nothing else, use: 
 
-To proxy all of the kubernetes api and nothing else, use:
+  $ kubectl proxy --api-prefix=/
+  
+To proxy only part of the kubernetes api and also some static files: 
 
-kubectl proxy --api-prefix=/
+  $ kubectl proxy --www=/my/files --www-prefix=/static/ --api-prefix=/api/
+  
+The above lets you 'curl localhost:8001/api/v1/pods'. 
 
-To proxy only part of the kubernetes api and also some static files:
+To proxy the entire kubernetes api at a different root, use: 
 
-kubectl proxy --www=/my/files --www-prefix=/static/ --api-prefix=/api/
-
-The above lets you 'curl localhost:8001/api/v1/pods'.
-
-To proxy the entire kubernetes api at a different root, use:
-
-kubectl proxy --api-prefix=/custom/
-
+  $ kubectl proxy --api-prefix=/custom/
+  
 The above lets you 'curl localhost:8001/custom/api/v1/pods'
-
 
 ### Usage
 

@@ -33,15 +33,11 @@ kubectl rolling-update frontend-v1 frontend-v2 --rollback
 ```
 
 
+Perform a rolling update of the given ReplicationController. 
 
-Perform a rolling update of the given ReplicationController.
+Replaces the specified replication controller with a new replication controller by updating one pod at a time to use the new PodTemplate. The new-controller.json must specify the same namespace as the existing replication controller and overwrite at least one (common) label in its replicaSelector. 
 
-Replaces the specified replication controller with a new replication controller by updating one pod at a time to use the
-new PodTemplate. The new-controller.json must specify the same namespace as the
-existing replication controller and overwrite at least one (common) label in its replicaSelector.
-
-![Workflow](http://kubernetes.io/images/docs/kubectl_rollingupdate.svg)
-
+! http://kubernetes.io/images/docs/kubectl_rollingupdate.svg
 
 ### Usage
 
