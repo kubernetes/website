@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - lavalamp
 - thockin
-
+title: Kubernetes Deprecation Policy
 ---
 
 Kubernetes is a large system with many components and many contributors.  As
