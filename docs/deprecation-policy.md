@@ -6,8 +6,6 @@ assignees:
 
 ---
 
-# Kubernetes Deprecation Policy
-
 Kubernetes is a large system with many components and many contributors.  As
 with any such software, the feature set naturally evolves over time, and
 sometimes a feature may need to be removed. This could include an API, a flag,
