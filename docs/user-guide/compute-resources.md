@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Managing Compute Resources
 ---
 
 * TOC
@@ -28,10 +28,10 @@ server.
 
 Each container of a pod can optionally specify one or more of the following:
 
-* `spec.container[].resources.limits.cpu`
-* `spec.container[].resources.limits.memory`
-* `spec.container[].resources.requests.cpu`
-* `spec.container[].resources.requests.memory`.
+* `spec.containers[].resources.limits.cpu`
+* `spec.containers[].resources.limits.memory`
+* `spec.containers[].resources.requests.cpu`
+* `spec.containers[].resources.requests.memory`.
 
 Specifying resource requests and/or limits is optional. In some clusters, unset limits or requests
 may be replaced with default values when a pod is created or updated. The default value depends on
@@ -53,7 +53,7 @@ One cpu, in Kubernetes, is equivalent to:
 - 1 Azure vCore
 - 1 *Hyperthread* on a bare-metal Intel processor with Hyperthreading
 
-Fractional requests are allowed.  A container with `spec.container[].resources.requests.cpu` of `0.5` will
+Fractional requests are allowed.  A container with `spec.containers[].resources.requests.cpu` of `0.5` will
 be guaranteed half as much CPU as one that asks for `1`.  The expression `0.1` is equivalent to the expression
 `100m`, which can be read as "one hundred millicpu" (some may say "one hundred millicores", and this is understood
 to mean the same thing when talking about Kubernetes).  A request with a decimal point, like `0.1` is converted to
@@ -121,17 +121,17 @@ runner (Docker or rkt).
 
 When using Docker:
 
-- The `spec.container[].resources.requests.cpu` is converted to its core value (potentially fractional),
+- The `spec.containers[].resources.requests.cpu` is converted to its core value (potentially fractional),
   and multiplied by 1024, and used as the value of the [`--cpu-shares`](
   https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
   command.
-- The `spec.container[].resources.limits.cpu` is converted to its millicore value,
+- The `spec.containers[].resources.limits.cpu` is converted to its millicore value,
   multiplied by 100000, and then divided by 1000, and used as the value of the [`--cpu-quota`](
   https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
   command.  The [`--cpu-period`] flag is set to 100000 which represents the default 100ms period
   for measuring quota usage.  The kubelet enforces cpu limits if it was started with the
   [`--cpu-cfs-quota`] flag set to true.  As of version 1.2, this flag will now default to true.
-- The `spec.container[].resources.limits.memory` is converted to an integer, and used as the value
+- The `spec.containers[].resources.limits.memory` is converted to an integer, and used as the value
   of the [`--memory`](https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag
   to the `docker run` command.
 
@@ -268,6 +268,91 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 ```
 
 We can see that this container was terminated because `reason:OOM Killed`, where *OOM* stands for Out Of Memory.
+
+## Opaque Integer Resources (Alpha Feature)
+
+Kubernetes version 1.5 introduces Opaque integer resources. Opaque
+integer resources allow cluster operators to advertise new node-level
+resources that would be otherwise unknown to the system.
+
+Users can consume these resources in pod specs just like CPU and memory.
+The scheduler takes care of the resource accounting so that no more than the
+available amount is simultaneously allocated to pods.
+
+**Note:** Opaque integer resources are Alpha in Kubernetes version 1.5.
+Only resource accounting is implemented; node-level isolation is still
+under active development.
+
+Opaque integer resources are resources that begin with the prefix
+`pod.alpha.kubernetes.io/opaque-int-resource-`. The API server
+restricts quantities of these resources to whole numbers. Examples of
+_valid_ quantities are `3`, `3000m` and `3Ki`. Examples of _invalid_
+quantities are `0.5` and `1500m`.
+
+There are two steps required to use opaque integer resources. First, the
+cluster operator must advertise a per-node opaque resource on one or more
+nodes. Second, users must request the opaque resource in pods.
+
+To advertise a new opaque integer resource, the cluster operator should
+submit a `PATCH` HTTP request to the API server to specify the available
+quantity in the `status.capacity` for a node in the cluster. After this
+operation, the node's `status.capacity` will include a new resource. The
+`status.allocatable` field is updated automatically with the new resource
+asychronously by the Kubelet. Note that since the scheduler uses the
+node `status.allocatable` value when evaluating pod fitness, there may
+be a short delay between patching the node capacity with a new resource and the
+first pod that requests the resource to be scheduled on that node.
+
+**Example:**
+
+The HTTP request below advertises 5 "foo" resources on node `k8s-node-1`.
+
+_NOTE: `~1` is the encoding for the character `/` in the patch path.
+The operation path value in JSON-Patch is interpreted as a JSON-Pointer.
+For more details, please refer to
+[IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3)._
+
+```http
+PATCH /api/v1/nodes/k8s-node-1/status HTTP/1.1
+Accept: application/json
+Content-Type: application/json-patch+json
+Host: k8s-master:8080
+
+[
+  {
+    "op": "add",
+    "path": "/status/capacity/pod.alpha.kubernetes.io~1opaque-int-resource-foo",
+    "value": "5"
+  }
+]
+```
+
+To consume opaque resources in pods, include the name of the opaque
+resource as a key in the `spec.containers[].resources.requests` map.
+
+The pod will be scheduled only if all of the resource requests are
+satisfied (including cpu, memory and any opaque resources.) The pod will
+remain in the `PENDING` state while the resource request cannot be met by any
+node.
+
+**Example:**
+
+The pod below requests 2 cpus and 1 "foo" (an opaque resource.)
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: my-container
+    image: myimage
+    resources:
+      requests:
+        cpu: 2
+        pod.alpha.kubernetes.io/opaque-int-resource-foo: 1
+```
 
 ## Planned Improvements
 

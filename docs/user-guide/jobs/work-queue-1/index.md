@@ -1,4 +1,5 @@
 ---
+title: Coarse Parallel Processing using a Work Queue
 ---
 
 * TOC

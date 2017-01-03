@@ -3,7 +3,7 @@ assignees:
 - erictune
 - lavalamp
 - thockin
-
+title: Creating a Custom Cluster from Scratch
 ---
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
@@ -69,7 +69,7 @@ accomplished in two ways:
 
 - **Using an overlay network**
   - An overlay network obscures the underlying network architecture from the 
-    pod network through traffic encapsulation (e.g vxlan).
+    pod network through traffic encapsulation (e.g. vxlan).
   - Encapsulation reduces performance, though exactly how much depends on your solution.
 - **Without an overlay network**
   - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
@@ -180,7 +180,7 @@ we recommend that you run these as containers, so you need an image to be built.
 You have several choices for Kubernetes images:
 
 - Use images hosted on Google Container Registry (GCR):
-  - e.g `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
+  - e.g. `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
     release tag, which can be found on the [latest releases page](https://github.com/kubernetes/kubernetes/releases/latest).
   - Ensure $TAG is the same tag as the release tag you are using for kubelet and kube-proxy.
   - The [hyperkube](https://releases.k8s.io/{{page.githubbranch}}/cmd/hyperkube) binary is an all in one binary
@@ -646,7 +646,7 @@ This pod mounts several node file system directories using the  `hostPath` volum
 
 Apiserver supports several cloud providers.
 
-- options for `--cloud-provider` flag are `aws`, `gce`, `mesos`, `openshift`, `ovirt`, `rackspace`, `vagrant`, or unset.
+- options for `--cloud-provider` flag are `aws`, `azure`, `cloudstack`, `fake`, `gce`, `mesos`, `openstack`, `ovirt`, `photon`, `rackspace`, `vsphere`, or unset.
 - unset used for e.g. bare metal setups.
 - support for new IaaS is added by contributing code [here](https://releases.k8s.io/{{page.githubbranch}}/pkg/cloudprovider/providers)
 
@@ -822,7 +822,7 @@ of their purpose is in the admin guide](/docs/admin/cluster-components/#addons).
 Notes for setting up each cluster service are given below:
 
 * Cluster DNS:
-  * required for many kubernetes examples
+  * required for many Kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
   * [Admin Guide](/docs/admin/dns/)
 * Cluster-level Logging

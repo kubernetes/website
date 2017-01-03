@@ -2,7 +2,7 @@
 assignees:
 - derekwaynecarr
 - janetkuo
-
+title: Namespaces Walkthrough
 ---
 
 Kubernetes _namespaces_ help different projects, teams, or customers to share a Kubernetes cluster.
@@ -151,7 +151,7 @@ Let's create some content.
 $ kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2
 ```
 We have just created a deployment whose replica size is 2 that is running the pod called snowflake with a basic container that just serves the hostname. 
-Note that `kubectl run` creates deployments only on kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
+Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
 If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
 
 ```shell

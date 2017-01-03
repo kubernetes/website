@@ -2,7 +2,7 @@
 assignees:
 - erictune
 - thockin
-
+title: Images
 ---
 
 Each container in a pod has its own image.  Currently, the only type of image supported is a [Docker Image](https://docs.docker.com/engine/tutorials/dockerimages/).
@@ -39,6 +39,7 @@ Credentials can be provided in several ways:
   - Using AWS EC2 Container Registry (ECR)
     - use IAM roles and policies to control access to ECR repositories
     - automatically refreshes ECR login credentials
+  - Using Azure Container Registry (ACR)
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
@@ -99,6 +100,25 @@ Troubleshooting:
 - Check kubelet logs (e.g. `journalctl -t kubelet`) for log lines like:
   - `plugins.go:56] Registering credential provider: aws-ecr-key`
   - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
+
+### Using Azure Container Registry (ACR)
+When using [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
+you can authenticate using either an admin user or a service principal.
+In either case, authentication is done via standard Docker authentication.  These instructions assume the
+[azure-cli](https://github.com/azure/azure-cli) command line tool.
+
+You first need to create a registry and generate credentials, complete documentation for this can be found in
+the [Azure container registry documentation](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli).
+
+Once you have created your container registry, you will use the following credentials to login:
+   * `DOCKER_USER` : service principal, or admin username
+   * `DOCKER_PASSWORD`: service principal password, or admin user password
+   * `DOCKER_REGISTRY_SERVER`: `${some-registry-name}.azurecr.io`
+   * `DOCKER_EMAIL`: `${some-email-address}`
+
+Once you have those variables filled in you can [configure a Kubernetes Secret and use it to deploy a Pod]
+(http://kubernetes.io/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod).
+
 
 ### Configuring Nodes to Authenticate to a Private Repository
 
@@ -276,7 +296,7 @@ will be merged.  This approach will work on Google Container Engine (GKE).
 There are a number of solutions for configuring private registries.  Here are some
 common use cases and suggested solutions.
 
-1. Cluster running only non-proprietary (e.g open-source) images.  No need to hide images.
+1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
    - Use public images on the Docker hub.
      - no configuration required
      - on GCE/GKE, a local mirror is automatically used for improved speed and availability

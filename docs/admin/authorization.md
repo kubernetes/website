@@ -2,7 +2,9 @@
 assignees:
 - erictune
 - lavalamp
-
+- deads2k
+- liggitt
+title: Using Authorization Plugins
 ---
 
 In Kubernetes, authorization happens as a separate step from authentication.
@@ -297,9 +299,8 @@ subjects:
     name: jane
 roleRef:
   kind: Role
-  namespace: default
   name: pod-reader
-  apiVersion: rbac.authorization.k8s.io/v1alpha1
+  apiGroup: rbac.authorization.k8s.io
 ```
 
 `RoleBindings` may also refer to a `ClusterRole`. However, a `RoleBinding` that
@@ -324,26 +325,26 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: secret-reader
-  apiVersion: rbac.authorization.k8s.io/v1alpha1
+  apiGroup: rbac.authorization.k8s.io
 ```
 
 Finally a `ClusterRoleBinding` may be used to grant permissions in all
 namespaces. The following `ClusterRoleBinding` allows any user in the group
-"manager" to read secrets in any namepsace.
+"manager" to read secrets in any namespace.
 
 ```yaml
 # This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1alpha1
 metadata:
-  name: read-secrets
+  name: read-secrets-global
 subjects:
   - kind: Group # May be "User", "Group" or "ServiceAccount"
     name: manager
 roleRef:
   kind: ClusterRole
-  name: secret-reader
-  apiVersion: rbac.authorization.k8s.io/v1alpha1
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
 ```
 
 ### Referring to Resources
@@ -565,10 +566,10 @@ Access to non-resource paths are sent as:
 
 Non-resource paths include: `/api`, `/apis`, `/metrics`, `/resetMetrics`,
 `/logs`, `/debug`, `/healthz`, `/swagger-ui/`, `/swaggerapi/`, `/ui`, and
-`/version.` Clients require access to `/api`, `/api/*/`, `/apis/`, `/apis/*`,
-`/apis/*/*`, and `/version` to discover what resources and versions are present
-on the server. Access to other non-resource paths can be disallowed without
-restricting access to the REST api.
+`/version.` Clients require access to `/api`, `/api/*`, `/apis`, `/apis/*`,
+and `/version` to discover what resources and versions are present on the server.
+Access to other non-resource paths can be disallowed without restricting access
+to the REST api.
 
 For further documentation refer to the authorization.v1beta1 API objects and
 plugin/pkg/auth/authorizer/webhook/webhook.go.

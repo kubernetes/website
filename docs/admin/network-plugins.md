@@ -3,7 +3,7 @@ assignees:
 - dcbw
 - freehan
 - thockin
-
+title: Network Plugins
 ---
 
 * TOC
@@ -26,13 +26,13 @@ The kubelet has a single default network plugin, and a default network common to
 
 ## Network Plugin Requirements
 
-Besides providing the [`NetworkPlugin` interface](https://github.com/kubernetes/kubernetes/tree/{{page.version}}.0/pkg/kubelet/network/plugins.go) to configure and clean up pod networking, the plugin may also need specific support for kube-proxy.  The iptables proxy obviously depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.  For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.  If the plugin does not use a Linux bridge (but instead something like Open vSwitch or some other mechanism) it should ensure container traffic is appropriately routed for the proxy.
+Besides providing the [`NetworkPlugin` interface](https://github.com/kubernetes/kubernetes/tree/{{page.version}}/pkg/kubelet/network/plugins.go) to configure and clean up pod networking, the plugin may also need specific support for kube-proxy.  The iptables proxy obviously depends on iptables, and the plugin may need to ensure that container traffic is made available to iptables.  For example, if the plugin connects containers to a Linux bridge, the plugin must set the `net/bridge/bridge-nf-call-iptables` sysctl to `1` to ensure that the iptables proxy functions correctly.  If the plugin does not use a Linux bridge (but instead something like Open vSwitch or some other mechanism) it should ensure container traffic is appropriately routed for the proxy.
 
 By default if no kubelet network plugin is specified, the `noop` plugin is used, which sets `net/bridge/bridge-nf-call-iptables=1` to ensure simple configurations (like docker with a bridge) work correctly with the iptables proxy.
 
 ### Exec
 
-Place plugins in `network-plugin-dir/plugin-name/plugin-name`, i.e if you have a bridge plugin and `network-plugin-dir` is `/usr/lib/kubernetes`, you'd place the bridge plugin executable at `/usr/lib/kubernetes/bridge/bridge`. See [this comment](https://github.com/kubernetes/kubernetes/tree/{{page.version}}.0/pkg/kubelet/network/exec/exec.go) for more details.
+Place plugins in `network-plugin-dir/plugin-name/plugin-name`, i.e. if you have a bridge plugin and `network-plugin-dir` is `/usr/lib/kubernetes`, you'd place the bridge plugin executable at `/usr/lib/kubernetes/bridge/bridge`. See [this comment](https://github.com/kubernetes/kubernetes/tree/{{page.version}}/pkg/kubelet/network/exec/exec.go) for more details.
 
 ### CNI
 
@@ -50,13 +50,11 @@ Kubenet is a very basic, simple network plugin, on Linux only.  It does not, of 
 
 Kubenet creates a Linux bridge named `cbr0` and creates a veth pair for each pod with the host end of each pair connected to `cbr0`.  The pod end of the pair is assigned an IP address allocated from a range assigned to the node either through configuration or by the controller-manager.  `cbr0` is assigned an MTU matching the smallest MTU of an enabled normal interface on the host.
 
-The kubenet plugin is mutually exclusive with the --configure-cbr0 option.
-
 The plugin requires a few things:
 
 * The standard CNI `bridge`, `lo` and `host-local` plugins are required, at minimum version 0.2.0. Kubenet will first search for them in `/opt/cni/bin`. Specify `network-plugin-dir` to supply additional search path. The first found match will take effect.
 * Kubelet must be run with the `--network-plugin=kubenet` argument to enable the plugin
-* Kubelet must also be run with the `--reconcile-cidr` argument to ensure the IP subnet assigned to the node by configuration or the controller-manager is propagated to the plugin
+* Kubelet should also be run with the `--non-masquerade-cidr=<clusterCidr>` argumment to ensure traffic to IPs outside this range will use IP masquerade.
 * The node must be assigned an IP subnet through either the `--pod-cidr` kubelet command-line option or the `--allocate-node-cidrs=true --cluster-cidr=<cidr>` controller-manager command-line options.
 
 ### Customizing the MTU (with kubenet)
