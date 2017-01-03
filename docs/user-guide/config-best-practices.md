@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Best Practices for Configuration
 ---
 
 This document is meant to highlight and consolidate in one place configuration best practices that are introduced throughout the user-guide and getting-started documentation and examples. This is a living document so if you think of something that is not on this list but might be useful to others, please don't hesitate to file an issue or submit a PR.
@@ -21,7 +21,7 @@ This document is meant to highlight and consolidate in one place configuration b
 - Don't specify default values unnecessarily, in order to simplify and minimize configs, and to
   reduce error. For example, omit the selector and labels in a `ReplicationController` if you want
   them to be the same as the labels in its `podTemplate`, since those fields are populated from the
-  `podTemplate` labels by default. See the [guestbook app's](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) .yaml files for some [examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/frontend-controller.yaml) of this.
+  `podTemplate` labels by default. See the [guestbook app's](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) .yaml files for some [examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/frontend-deployment.yaml) of this.
 
 - Put an object description in an annotation to allow better introspection.
 

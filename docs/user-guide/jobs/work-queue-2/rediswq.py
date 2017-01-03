@@ -95,7 +95,7 @@ class RedisWQ(object):
             # Record that we (this session id) are working on a key.  Expire that
             # note after the lease timeout.
             # Note: if we crash at this line of the program, then GC will see no lease
-            # for this item an later return it to the main queue.
+            # for this item a later return it to the main queue.
             itemkey = self._itemkey(item)
             self._db.setex(self._lease_key_prefix + itemkey, lease_secs, self._session)
         return item

@@ -1,4 +1,5 @@
 ---
+title: Concepts
 ---
 
 The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your cluster, and helps you obtain a deeper understanding of how Kubernetes works.
@@ -58,7 +59,12 @@ The nodes in a cluster are the machines (VMs, physical servers, etc) that run yo
 
 #### Object Metadata
 
-[Annotations](/docs/concepts/object-metadata/annotations/)
+
+* [Annotations](/docs/concepts/object-metadata/annotations/)
+
+#### Controllers
+* [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
+
 
 ### What's next
 

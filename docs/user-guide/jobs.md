@@ -2,13 +2,13 @@
 assignees:
 - erictune
 - soltysh
-
+title: Jobs
 ---
 
 * TOC
 {:toc}
 
-## What is a _job_?
+## What is a Job?
 
 A _job_ creates one or more pods and ensures that a specified number of them successfully terminate.
 As pods successfully complete, the _job_ tracks the successful completions.  When a specified number
@@ -20,6 +20,12 @@ The Job object will start a new Pod if the first pod fails or is deleted (for ex
 due to a node hardware failure or a node reboot).
 
 A Job can also be used to run multiple pods in parallel.
+
+### extensions/v1beta1.Job is deprecated
+
+Starting from version 1.5 `extensions/v1beta1.Job` is being deprecated, with a plan to be removed in
+version 1.6 of Kubernetes (see this [issue](https://github.com/kubernetes/kubernetes/issues/32763)).
+Please use `batch/v1.Job` instead.
 
 ## Running an example Job
 
@@ -160,7 +166,7 @@ parallelism, for a variety or reasons:
 - If the controller failed to create pods for any reason (lack of ResourceQuota, lack of permission, etc.),
   then there may be fewer pods than requested.
 - The controller may throttle new pod creation due to excessive previous pod failures in the same Job.
-- When a pod is gracefully shutdown, it make take time to stop.
+- When a pod is gracefully shutdown, it takes time to stop.
 
 ## Handling Pod and Container Failures
 
@@ -374,6 +380,6 @@ driver, and then cleans up.
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but complete control over what pods are created and how work is assigned to them.
 
-## Scheduled Jobs
+## Cron Jobs
 
-Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [scheduled job documents](http://kubernetes.io/docs/user-guide/scheduled-jobs/)
+Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [cron job documents](http://kubernetes.io/docs/user-guide/cron-jobs/)

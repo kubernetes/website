@@ -1,4 +1,5 @@
 ---
+title: Fine Parallel Processing using a Work Queue
 ---
 
 * TOC

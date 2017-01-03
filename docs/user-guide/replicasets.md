@@ -3,23 +3,23 @@ assignees:
 - Kashomon
 - bprashanth
 - madhusudancs
-
+title: Replica Sets
 ---
 
 * TOC
 {:toc}
 
-## What is a _Replica Set_?
+## What is a ReplicaSet?
 
-Replica Set is the next-generation Replication Controller. The only difference
-between a _Replica Set_ and a
+ReplicaSet is the next-generation Replication Controller. The only difference
+between a _ReplicaSet_ and a
 [_Replication Controller_](/docs/user-guide/replication-controller/) right now is
-the selector support. Replica Set supports the new set-based selector requirements
+the selector support. ReplicaSet supports the new set-based selector requirements
 as described in the [labels user guide](/docs/user-guide/labels/#label-selectors)
 whereas a Replication Controller only supports equality-based selector requirements.
 
 Most [`kubectl`](/docs/user-guide/kubectl/) commands that support
-Replication Controllers also support Replica Sets. One exception is the
+Replication Controllers also support ReplicaSets. One exception is the
 [`rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update/) command. If
 you want the rolling update functionality please consider using Deployments
 instead. Also, the
@@ -27,21 +27,22 @@ instead. Also, the
 imperative whereas Deployments are declarative, so we recommend using Deployments
 through the [`rollout`](/docs/user-guide/kubectl/kubectl_rollout/) command.
 
-While Replica Sets can be used independently, today it's mainly used by
+While ReplicaSets can be used independently, today it's mainly used by
 [Deployments](/docs/user-guide/deployments/) as a mechanism to orchestrate pod
 creation, deletion and updates. When you use Deployments you don't have to worry
-about managing the Replica Sets that they create. Deployments own and manage
-their Replica Sets.
+about managing the ReplicaSets that they create. Deployments own and manage
+their ReplicaSets.
 
-## When to use a Replica Set?
+## When to use a ReplicaSet?
 
-A Replica Set ensures that a specified number of pod “replicas” are running at any given
-time. However, a Deployment is a higher-level concept that manages Replica Sets and
+A ReplicaSet ensures that a specified number of pod “replicas” are running at any given
+time. However, a Deployment is a higher-level concept that manages ReplicaSets and
+
 provides declarative updates to pods along with a lot of other useful features.
-Therefore, we recommend using Deployments instead of directly using Replica Sets, unless
+Therefore, we recommend using Deployments instead of directly using ReplicaSets, unless
 you require custom update orchestration or don't require updates at all.
 
-This actually means that you may never need to manipulate Replica Set objects:
+This actually means that you may never need to manipulate ReplicaSet objects:
 use directly a Deployment and define your application in the spec section.
 
 ## Example
@@ -49,7 +50,7 @@ use directly a Deployment and define your application in the spec section.
 {% include code.html language="yaml" file="replicasets/frontend.yaml" ghlink="/docs/user-guide/replicasets/frontend.yaml" %}
 
 Saving this config into `frontend.yaml` and submitting it to a Kubernetes cluster should
-create the defined Replica Set and the pods that it manages.
+create the defined ReplicaSet and the pods that it manages.
 
 ```shell
 $ kubectl create -f frontend.yaml
@@ -76,18 +77,18 @@ frontend-dnjpy   1/1       Running   0          1m
 frontend-qhloh   1/1       Running   0          1m
 ```
 
-## Replica Set as an Horizontal Pod Autoscaler target
+## ReplicaSet as an Horizontal Pod Autoscaler target
 
-A Replica Set can also be a target for
+A ReplicaSet can also be a target for
 [Horizontal Pod Autoscalers (HPA)](/docs/user-guide/horizontal-pod-autoscaling/),
-i.e. a Replica Set can be auto-scaled by an HPA. Here is an example HPA targeting
-the Replica Set we created in the previous example.
+i.e. a ReplicaSet can be auto-scaled by an HPA. Here is an example HPA targeting
+the ReplicaSet we created in the previous example.
 
 {% include code.html language="yaml" file="replicasets/hpa-rs.yaml" ghlink="/docs/user-guide/replicasets/hpa-rs.yaml" %}
 
 
 Saving this config into `hpa-rs.yaml` and submitting it to a Kubernetes cluster should
-create the defined HPA that autoscales the target Replica Set depending on the CPU usage
+create the defined HPA that autoscales the target ReplicaSet depending on the CPU usage
 of the replicated pods.
 
 ```shell

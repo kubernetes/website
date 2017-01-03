@@ -1,7 +1,7 @@
 ---
 assignees:
 - lavalamp
-
+title: Kubernetes Components
 ---
 
 This document outlines the various binary components that need to run to
@@ -61,12 +61,12 @@ selects a node for them to run on.
 
 ### addons
 
-Addons are pods and services that implement cluster features. They don't run on
-the master VM, but currently the default setup scripts that make the API calls
-to create these pods and services does run on the master VM. See:
-[kube-master-addons](http://releases.k8s.io/HEAD/cluster/saltbase/salt/kube-master-addons/kube-master-addons.sh)
+Addons are pods and services that implement cluster features. The pods may be managed
+by Deployments, ReplicationContollers, etc. Namespaced addon objects are created in
+the "kube-system" namespace.
 
-Addon objects are created in the "kube-system" namespace.
+Addon manager takes the responsibility for creating and maintaining addon resources.
+See [here](http://releases.k8s.io/HEAD/cluster/addons) for more details.
 
 #### DNS
 
