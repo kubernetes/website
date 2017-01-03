@@ -55,16 +55,22 @@
       "filename": "_generated_set.md"
     },
     {
+      "filename": "_generated_stop.md"
+    },
+    {
       "filename": "_generated_category_declarative_app_management.md"
     },
     {
       "filename": "_generated_apply.md"
     },
     {
-      "filename": "_generated_category_troubleshooting_and_debugging.md"
+      "filename": "_generated_category_working_with_apps.md"
     },
     {
       "filename": "_generated_attach.md"
+    },
+    {
+      "filename": "_generated_cp.md"
     },
     {
       "filename": "_generated_describe.md"
@@ -89,6 +95,9 @@
     },
     {
       "filename": "_generated_api-versions.md"
+    },
+    {
+      "filename": "_generated_certificate.md"
     },
     {
       "filename": "_generated_cluster-info.md"

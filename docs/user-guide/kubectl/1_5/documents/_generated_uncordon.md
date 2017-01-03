@@ -9,9 +9,7 @@ $ kubectl uncordon foo
 ```
 
 
-
 Mark node as schedulable.
-
 
 ### Usage
 

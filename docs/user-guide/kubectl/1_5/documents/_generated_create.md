@@ -14,9 +14,14 @@ kubectl create -f ./pod.json
 cat pod.json | kubectl create -f -
 ```
 
+>bdocs-tab:example Edit the data in docker-registry.yaml in JSON using the v1 API format then create the resource using the edited data.
+
+```bdocs-tab:example_shell
+kubectl create -f docker-registry.yaml --edit --output-version=v1 -o json
+```
 
 
-Create a resource by filename or stdin.
+Create a resource by filename or stdin. 
 
 JSON and YAML formats are accepted.
 
@@ -30,14 +35,23 @@ JSON and YAML formats are accepted.
 
 Name | Shorthand | Default | Usage
 ---- | --------- | ------- | ----- 
+dry-run |  | false | If true, only print the object that would be sent, without sending it. 
+edit |  | false | Edit the API resource before creating 
 filename | f | [] | Filename, directory, or URL to files to use to create the resource 
 include-extended-apis |  | true | If true, include definitions of new APIs via calls to the API server. [default true] 
-output | o |  | Output mode. Use "-o name" for shorter output (resource/name). 
+no-headers |  | false | When using the default or custom-column output format, don't print headers. 
+output | o |  | Output format. One of: json&#124;yaml&#124;wide&#124;name&#124;custom-columns=...&#124;custom-columns-file=...&#124;go-template=...&#124;go-template-file=...&#124;jsonpath=...&#124;jsonpath-file=... See custom columns [http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns], golang template [http://golang.org/pkg/text/template/#pkg-overview] and jsonpath template [http://kubernetes.io/docs/user-guide/jsonpath]. 
+output-version |  |  | Output the formatted object with the given group version (for ex: 'extensions/v1beta1'). 
 record |  | false | Record current kubectl command in the resource annotation. If set to false, do not record the command. If set to true, record the command. If not set, default to updating the existing annotation value only if one already exists. 
 recursive | R | false | Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory. 
 save-config |  | false | If true, the configuration of current object will be saved in its annotation. This is useful when you want to perform kubectl apply on this object in the future. 
 schema-cache-dir |  | ~/.kube/schema | If non-empty, load/store cached API schemas in this directory, default is '$HOME/.kube/schema' 
+show-all | a | false | When printing, show all resources (default hide terminated pods.) 
+show-labels |  | false | When printing, show all labels as the last column (default hide labels column) 
+sort-by |  |  | If non-empty, sort list types using this field specification.  The field specification is expressed as a JSONPath expression (e.g. '{.metadata.name}'). The field in the API resource specified by this JSONPath expression must be an integer or a string. 
+template |  |  | Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview]. 
 validate |  | true | If true, use a schema to validate the input before sending it 
+windows-line-endings |  | false | Only relevant if --edit=true. Use Windows line-endings (default Unix line-endings) 
 
 
 ------------
@@ -63,18 +77,13 @@ kubectl create configmap my-config --from-literal=key1=config1 --from-literal=ke
 ```
 
 
+Create a configmap based on a file, directory, or specified literal value. 
 
-Create a configmap based on a file, directory, or specified literal value.
+A single configmap may package one or more key/value pairs. 
 
-A single configmap may package one or more key/value pairs.
+When creating a configmap based on a file, the key will default to the basename of the file, and the value will default to the file content.  If the basename is an invalid key, you may specify an alternate key. 
 
-When creating a configmap based on a file, the key will default to the basename of the file, and the value will
-default to the file content.  If the basename is an invalid key, you may specify an alternate key.
-
-When creating a configmap based on a directory, each file whose basename is a valid key in the directory will be
-packaged into the configmap.  Any directory entries except regular files are ignored (e.g. subdirectories,
-symlinks, devices, pipes, etc).
-
+When creating a configmap based on a directory, each file whose basename is a valid key in the directory will be packaged into the configmap.  Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).
 
 ### Usage
 
@@ -112,7 +121,6 @@ validate |  | true | If true, use a schema to validate the input before sending 
 ```bdocs-tab:example_shell
 kubectl create deployment my-dep --image=busybox
 ```
-
 
 
 Create a deployment with the specified name.
@@ -154,7 +162,6 @@ kubectl create namespace my-namespace
 ```
 
 
-
 Create a namespace with the specified name.
 
 ### Usage
@@ -186,15 +193,17 @@ validate |  | true | If true, use a schema to validate the input before sending 
 
 ## <em>quota</em>
 
-
+>bdocs-tab:example Create a new resourcequota named my-quota
 
 ```bdocs-tab:example_shell
-// Create a new resourcequota named my-quota
 $ kubectl create quota my-quota --hard=cpu=1,memory=1G,pods=2,services=3,replicationcontrollers=2,resourcequotas=1,secrets=5,persistentvolumeclaims=10
-// Create a new resourcequota named best-effort
-$ kubectl create quota best-effort --hard=pods=100 --scopes=BestEffort
 ```
 
+>bdocs-tab:example Create a new resourcequota named best-effort
+
+```bdocs-tab:example_shell
+$ kubectl create quota best-effort --hard=pods=100 --scopes=BestEffort
+```
 
 
 Create a resourcequota with the specified name, hard limits and optional scopes
@@ -252,19 +261,17 @@ kubectl create secret docker-registry my-secret --docker-server=DOCKER_REGISTRY_
 ```
 
 
+Create a new secret for use with Docker registries. 
 
-Create a new secret for use with Docker registries.
+Dockercfg secrets are used to authenticate against Docker registries. 
 
-Dockercfg secrets are used to authenticate against Docker registries.
+When using the Docker command line to push images, you can authenticate to a given registry by running 
 
-When using the Docker command line to push images, you can authenticate to a given registry by running
-  'docker login DOCKER_REGISTRY_SERVER --username=DOCKER_USER --password=DOCKER_PASSWORD --email=DOCKER_EMAIL'.
-That produces a ~/.dockercfg file that is used by subsequent 'docker push' and 'docker pull' commands to
-authenticate to the registry.
+  $ docker login DOCKER_REGISTRY_SERVER --username=DOCKER_USER --password=DOCKER_PASSWORD --email=DOCKER_EMAIL'.
+  
+That produces a ~/.dockercfg file that is used by subsequent 'docker push' and 'docker pull' commands to authenticate to the registry. 
 
-When creating applications, you may have a Docker registry that requires authentication.  In order for the
-nodes to pull images on your behalf, they have to have the credentials.  You can provide this information
-by creating a dockercfg secret and attaching it to your service account.
+When creating applications, you may have a Docker registry that requires authentication.  In order for the nodes to pull images on your behalf, they have to have the credentials.  You can provide this information by creating a dockercfg secret and attaching it to your service account.
 
 ### Usage
 
@@ -319,18 +326,13 @@ kubectl create secret generic my-secret --from-literal=key1=supersecret --from-l
 ```
 
 
+Create a secret based on a file, directory, or specified literal value. 
 
-Create a secret based on a file, directory, or specified literal value.
+A single secret may package one or more key/value pairs. 
 
-A single secret may package one or more key/value pairs.
+When creating a secret based on a file, the key will default to the basename of the file, and the value will default to the file content.  If the basename is an invalid key, you may specify an alternate key. 
 
-When creating a secret based on a file, the key will default to the basename of the file, and the value will
-default to the file content.  If the basename is an invalid key, you may specify an alternate key.
-
-When creating a secret based on a directory, each file whose basename is a valid key in the directory will be
-packaged into the secret.  Any directory entries except regular files are ignored (e.g. subdirectories,
-symlinks, devices, pipes, etc).
-
+When creating a secret based on a directory, each file whose basename is a valid key in the directory will be packaged into the secret.  Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).
 
 ### Usage
 
@@ -371,8 +373,7 @@ kubectl create secret tls tls-secret --cert=path/to/tls.cert --key=path/to/tls.k
 ```
 
 
-
-Create a TLS secret from the given public/private key pair.
+Create a TLS secret from the given public/private key pair. 
 
 The public/private key pair must exist before hand. The public key certificate must be .PEM encoded and match the given private key.
 
@@ -435,7 +436,6 @@ kubectl create service clusterip my-cs --clusterip="None"
 ```
 
 
-
 Create a clusterIP service with the specified name.
 
 ### Usage
@@ -469,12 +469,11 @@ validate |  | true | If true, use a schema to validate the input before sending 
 
 ## <em>service loadbalancer</em>
 
->bdocs-tab:example Create a new nodeport service named my-lbs
+>bdocs-tab:example Create a new LoadBalancer service named my-lbs
 
 ```bdocs-tab:example_shell
 kubectl create service loadbalancer my-lbs --tcp=5678:8080
 ```
-
 
 
 Create a LoadBalancer service with the specified name.
@@ -516,7 +515,6 @@ kubectl create service nodeport my-ns --tcp=5678:8080
 ```
 
 
-
 Create a nodeport service with the specified name.
 
 ### Usage
@@ -555,7 +553,6 @@ validate |  | true | If true, use a schema to validate the input before sending 
 ```bdocs-tab:example_shell
 $ kubectl create serviceaccount my-service-account
 ```
-
 
 
 Create a service account with the specified name.

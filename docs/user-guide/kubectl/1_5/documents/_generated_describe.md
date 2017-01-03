@@ -39,42 +39,42 @@ kubectl describe pods frontend
 ```
 
 
+Show details of a specific resource or group of resources. This command joins many API calls together to form a detailed description of a given resource or group of resources. 
 
-Show details of a specific resource or group of resources.
-This command joins many API calls together to form a detailed description of a
-given resource or group of resources.
+  $ kubectl describe TYPE NAME_PREFIX
+  
+will first check for an exact match on TYPE and NAME PREFIX. If no such resource exists, it will output details for every resource that has a name prefixed with NAME PREFIX. 
 
-$ kubectl describe TYPE NAME_PREFIX
+Valid resource types include: 
 
-will first check for an exact match on TYPE and NAME_PREFIX. If no such resource
-exists, it will output details for every resource that has a name prefixed with NAME_PREFIX.
-
-Valid resource types include:
-* clusters (valid only for federation apiservers)
-* componentstatuses (aka 'cs')
-* configmaps (aka 'cm')
-* daemonsets (aka 'ds')
-* deployments (aka 'deploy')
-* events (aka 'ev')
-* endpoints (aka 'ep')
-* horizontalpodautoscalers (aka 'hpa')
-* ingress (aka 'ing')
-* jobs
-* limitranges (aka 'limits')
-* nodes (aka 'no')
-* namespaces (aka 'ns')
-* petsets (alpha feature, may be unstable)
-* pods (aka 'po')
-* persistentvolumes (aka 'pv')
-* persistentvolumeclaims (aka 'pvc')
-* quota
-* resourcequotas (aka 'quota')
-* replicasets (aka 'rs')
-* replicationcontrollers (aka 'rc')
-* secrets
-* serviceaccounts (aka 'sa')
-* services (aka 'svc')
-
+  * clusters (valid only for federation apiservers)  
+  * componentstatuses (aka 'cs')  
+  * configmaps (aka 'cm')  
+  * daemonsets (aka 'ds')  
+  * deployments (aka 'deploy')  
+  * endpoints (aka 'ep')  
+  * events (aka 'ev')  
+  * horizontalpodautoscalers (aka 'hpa')  
+  * ingresses (aka 'ing')  
+  * jobs  
+  * limitranges (aka 'limits')  
+  * namespaces (aka 'ns')  
+  * networkpolicies  
+  * nodes (aka 'no')  
+  * persistentvolumeclaims (aka 'pvc')  
+  * persistentvolumes (aka 'pv')  
+  * pods (aka 'po')  
+  * podsecuritypolicies (aka 'psp')  
+  * podtemplates  
+  * replicasets (aka 'rs')  
+  * replicationcontrollers (aka 'rc')  
+  * resourcequotas (aka 'quota')  
+  * secrets  
+  * serviceaccounts (aka 'sa')  
+  * services (aka 'svc')  
+  * statefulsets  
+  * storageclasses  
+  * thirdpartyresources
 
 ### Usage
 

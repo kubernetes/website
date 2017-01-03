@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Core | v1beta1 | HorizontalPodAutoscalerList
+Extensions | v1beta1 | HorizontalPodAutoscalerList
 
 <aside class="notice">Other api versions of this object exist: <a href="#horizontalpodautoscalerlist-v1">v1</a> </aside>
 

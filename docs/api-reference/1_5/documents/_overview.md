@@ -1,21 +1,21 @@
 # <strong>API OVERVIEW</strong>
 
-Welcome to the Kubernetes API.  You can use our API to access Kubernetes API endpoints to read and write Kubernetes
-resource objects.
+Welcome to the Kubernetes API.  You can use the Kubernetes API to read
+and write Kubernetes resource objects via a Kubernetes API endpoint.
 
 ## Resource Categories
 
-This is a highlevel overview of the basic types of resources provide by the Kubernetes API and their primary functions.
+This is a high-level overview of the basic types of resources provide by the Kubernetes API and their primary functions.
 
-**Workloads** *Run your containers*: These are responsible for managing and running your containers on the cluster.
+**Workloads** are objects you use to manage and run your containers on the cluster.
 
-**Discovery & LB Resources** *Access your containers*: These are responsible for stitching your workloads together into an externally accessible Loadbalanced Service.
+**Discovery & LB** resources are objects you use to "stitch" your workloads together into an externally accessible, load-balanced Service.
 
-**Config & Storage Resources** *Inject initialization data into your containers*: These are responsible for injecting data into your applications and persisting data externally to your container.
+**Config & Storage** resources are objects you use to inject initialization data into your applications, and to persist data that is external to your container.
 
-**Cluster Resources** *Manage your cluster*: These are responsible for defining configuration of the cluster itself, and are generally only used by cluster operators.
+**Cluster** resources objects define how the cluster itself is configured; these are typically used only by cluster operators.
 
-**Metadata Resources** *Configure resource meta behavior*: These are responsible for configuring behavior of your other Resources within the Cluster.
+**Metadata** resources are objects you use to configure the behavior of other resources within the cluster, such as... (Fill in "such as" here)
 
 ------------
 

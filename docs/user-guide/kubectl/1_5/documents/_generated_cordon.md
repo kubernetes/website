@@ -9,9 +9,7 @@ kubectl cordon foo
 ```
 
 
-
 Mark node as unschedulable.
-
 
 ### Usage
 

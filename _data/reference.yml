@@ -3,6 +3,16 @@ abstract: "Design docs, concept definitions, and references for APIs and CLIs."
 toc:
 - docs/reference.md
 
+- title: "Kubernetes API (New Docs Style)"
+  section:
+  - title: Version 1.5
+    path: /docs/api-reference/1_5/
+
+- title: "Kubectl Commands (New Docs Style)"
+  section:
+  - title: Version 1.5
+    path: /docs/user-guide/kubectl/1_5/
+
 - title: Kubernetes API
   section:
   - docs/api.md
@@ -200,14 +210,3 @@ toc:
     - docs/admin/federation-apiserver.md
     - title : federation-controller-mananger
       path: /docs/admin/federation-controller-manager
-
-- title: New Beta Docs - Kubernetes API Reference
-  section:
-  - title: Version 1.5
-    path: /docs/api-reference/1_5/
-
-- title: New Beta Docs - Kubectl Command Reference
-  section:
-  - title: Version 1.5
-    path: /docs/user-guide/kubectl/1_5
-

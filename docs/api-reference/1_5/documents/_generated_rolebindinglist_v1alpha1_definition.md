@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Core | v1alpha1 | RoleBindingList
+RbacAuthorization | v1alpha1 | RoleBindingList
 
 
 

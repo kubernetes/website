@@ -1,39 +1,42 @@
-/* Github CSS overrides */
-ul, li {
+/*
+Kubernetes colors
+
+kubernetes blue - rgb(50, 109, 230)
+dark blue - rgb(51, 113, 227)
+dark grey - rgb(48, 48, 48)
+light grey - rgb(161, 160, 158)
+*/
+
+/* User agent CSS overrides */
+#sidebar-wrapper ul, #sidebar-wrapper li {
     margin-left: 10px;
-    padding-left: 0
+    padding-left: 0;
 }
 
-/* Slate CSS */
+/* Inspired by Slate CSS */
 .body-content aside {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    padding-left: 1em;
-    text-shadow: 0 1px 0 #c6dde9;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    background: #8fbcd4;
+    padding: 1.6em;
+    margin: 1.8em 0;
+    background: lightsteelblue;
     line-height: 1.6;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .body-content aside.warning {
-    background-color: #c97a7e;
-    text-shadow: 0 1px 0 #dfb0b3;
+    background-color: peachpuff;
 }
 
 .body-content aside.success {
-    background-color: #6ac174;
-    text-shadow: 0 1px 0 #a0d7a6;
+    background-color: olivedrab;
 }
 
 .body-content aside:before {
     vertical-align: middle;
-    padding-right: 0.5em;
-    font-size: 14px;
+    padding-right: 1em;
+    font-size: 16px;
 }
 
-.body-content aside.warning:before,.body-content aside.notice:before,.body-content aside.success:before {
+.body-content aside.warning:before, .body-content aside.notice:before, .body-content aside.success:before {
     font-family: 'FontAwesome';
     font-style: normal;
     font-weight: normal;
@@ -52,8 +55,8 @@ ul, li {
 
 .body-content hr {
     margin: 2em 0;
-    border-top: 2px solid #576575;
-    border-bottom: 2px solid #eaf2f6;
+    border-top: 2px solid dimgrey;
+    border-bottom: 2px solid antiquewhite;
 }
 
 .body-content table {
@@ -61,15 +64,15 @@ ul, li {
     overflow: auto;
 }
 
-.body-content table th,.body-content table td {
+.body-content table th, .body-content table td {
     text-align: left;
     vertical-align: top;
     line-height: 1.6;
 }
 
 .body-content table th {
-    padding: 5px 10px;
-    border-bottom: 1px solid #ccc;
+    padding: 15px 20px;
+    border-bottom: 1px solid lightsteelblue;
     vertical-align: bottom;
 }
 
@@ -78,15 +81,15 @@ ul, li {
 }
 
 .body-content table tr:last-child {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid lightsteelblue;
 }
 
-.body-content table tr:nth-child(odd)>td {
-    background-color: #f9fbfc;
+.body-content table tr:nth-child(odd) > td {
+    background-color: whitesmoke;
 }
 
-.body-content table tr:nth-child(even)>td {
-    background-color: #f3f7fa;
+.body-content table tr:nth-child(even) > td {
+    background-color: lightsteelblue;
 }
 
 .body-content dt {
@@ -97,39 +100,31 @@ ul, li {
     margin-left: 15px;
 }
 
-.body-content p,.body-content li,.body-content dt,.body-content dd {
+.body-content p, .body-content li, .body-content dt, .body-content dd {
     line-height: 1.6;
-    margin-top: 0
+    margin-top: 0;
 }
 
 /* Brodoc CSS */
 
-/* Kubernetes colors */
-/*
-kubernetes blue - rgb(50, 109, 230)
-dark blue - rgb(51, 113, 227)
-dark grey - rgb(48, 48, 48)
-light grey - rgb(161, 160, 158)
-*/
-
 body > #wrapper {
     display: block;
     padding-bottom: 500px;
+    background-image: linear-gradient(90deg, #FFFFFF 63%, rgb(48, 48, 48) 63%);
 }
 
 #sidebar-wrapper {
     display: block;
-    height: 100%; /* 100% Full-height */
-    width: 20%; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    z-index: 1;
     top: 0;
     left: 0;
     background-color: whitesmoke;
     border-right: 2px solid slategrey;
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    overflow-x: hidden;
+    padding-top: 60px;
 }
 
 #sidebar-wrapper a {
@@ -171,35 +166,26 @@ body > #wrapper {
 #page-content-wrapper {
     margin-left: 20%;
     padding-top: 60px;
-    /*width: 65%;*/
-}
-
-body {
-    /*height: 100%;*/
-    background: linear-gradient(90deg, #FFFFFF 63%, rgb(48, 48, 48) 37%);
 }
 
 .body-content h1, .body-content h2 {
-    width: 45%;
+    width: 52%;
     clear: both;
     border-bottom: 3px solid lightslategrey;
-    /*border-image: linear-gradient(90deg, dimgrey 65%, #FFFFFF 35%);*/
 }
 
 .body-content > h3, .body-content > h4, .body-content > h5, .body-content > h6, .body-content > p, .body-content > aside, .body-content > ul > li, .body-content > ul > li {
-    width: 45%;
+    width: 52%;
     padding-top: 20px;
 }
 
 .body-content table {
-    /*table-layout: fixed;*/
-    width: 45%;
+    width: 52%;
 }
 
-.body-content table tr td {
+.body-content table tr td:not(:first-child) {
     overflow-wrap: break-word;
     word-wrap: break-word;
-    /*word-break: break-word;*/
 }
 
 .body-content table tr td a {

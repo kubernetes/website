@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Core | v1alpha1 | ClusterRoleBindingList
+RbacAuthorization | v1alpha1 | ClusterRoleBindingList
 
 
 

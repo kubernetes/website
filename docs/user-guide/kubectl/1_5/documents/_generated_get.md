@@ -51,41 +51,42 @@ kubectl get rc/web service/frontend pods/web-pod-13je7
 ```
 
 
+Display one or many resources. 
 
-Display one or many resources.
+Valid resource types include: 
 
-Valid resource types include:
-* clusters (valid only for federation apiservers)
-* componentstatuses (aka 'cs')
-* configmaps (aka 'cm')
-* daemonsets (aka 'ds')
-* deployments (aka 'deploy')
-* events (aka 'ev')
-* endpoints (aka 'ep')
-* horizontalpodautoscalers (aka 'hpa')
-* ingress (aka 'ing')
-* jobs
-* limitranges (aka 'limits')
-* nodes (aka 'no')
-* namespaces (aka 'ns')
-* petsets (alpha feature, may be unstable)
-* pods (aka 'po')
-* persistentvolumes (aka 'pv')
-* persistentvolumeclaims (aka 'pvc')
-* quota
-* resourcequotas (aka 'quota')
-* replicasets (aka 'rs')
-* replicationcontrollers (aka 'rc')
-* secrets
-* serviceaccounts (aka 'sa')
-* services (aka 'svc')
+  * clusters (valid only for federation apiservers)  
+  * componentstatuses (aka 'cs')  
+  * configmaps (aka 'cm')  
+  * daemonsets (aka 'ds')  
+  * deployments (aka 'deploy')  
+  * endpoints (aka 'ep')  
+  * events (aka 'ev')  
+  * horizontalpodautoscalers (aka 'hpa')  
+  * ingresses (aka 'ing')  
+  * jobs  
+  * limitranges (aka 'limits')  
+  * namespaces (aka 'ns')  
+  * networkpolicies  
+  * nodes (aka 'no')  
+  * persistentvolumeclaims (aka 'pvc')  
+  * persistentvolumes (aka 'pv')  
+  * pods (aka 'po')  
+  * podsecuritypolicies (aka 'psp')  
+  * podtemplates  
+  * replicasets (aka 'rs')  
+  * replicationcontrollers (aka 'rc')  
+  * resourcequotas (aka 'quota')  
+  * secrets  
+  * serviceaccounts (aka 'sa')  
+  * services (aka 'svc')  
+  * statefulsets  
+  * storageclasses  
+  * thirdpartyresources  
 
+This command will hide resources that have completed. For instance, pods that are in the Succeeded or Failed phases. You can see the full results for any resource by providing the '--show-all' flag. 
 
-This command will hide resources that have completed. For instance, pods that are in the Succeeded or Failed phases.
-You can see the full results for any resource by providing the '--show-all' flag.
-
-By specifying the output as 'template' and providing a Go template as the value
-of the --template flag, you can filter the attributes of the fetched resource(s).
+By specifying the output as 'template' and providing a Go template as the value of the --template flag, you can filter the attributes of the fetched resource(s).
 
 ### Usage
 

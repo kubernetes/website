@@ -33,13 +33,11 @@ kubectl scale --replicas=3 job/cron
 ```
 
 
+Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job. 
 
-Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job.
+Scale also allows users to specify one or more preconditions for the scale action. 
 
-Scale also allows users to specify one or more preconditions for the scale action.
-If --current-replicas or --resource-version is specified, it is validated before the
-scale is attempted, and it is guaranteed that the precondition holds true when the
-scale is sent to the server.
+If --current-replicas or --resource-version is specified, it is validated before the scale is attempted, and it is guaranteed that the precondition holds true when the scale is sent to the server.
 
 ### Usage
 

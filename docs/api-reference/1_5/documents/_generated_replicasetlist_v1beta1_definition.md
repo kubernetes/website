@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Core | v1beta1 | ReplicaSetList
+Extensions | v1beta1 | ReplicaSetList
 
 
 

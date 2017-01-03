@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Core | v1alpha1 | CertificateSigningRequestStatus
+Certificates | v1alpha1 | CertificateSigningRequestStatus
 
 
 
