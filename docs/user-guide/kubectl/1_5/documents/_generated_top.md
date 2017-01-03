@@ -4,8 +4,7 @@
 
 
 
-
-Display Resource (CPU/Memory/Storage) usage.
+Display Resource (CPU/Memory/Storage) usage. 
 
 The top command allows you to see the resource consumption for nodes or pods.
 
@@ -32,8 +31,7 @@ kubectl top node NODE_NAME
 ```
 
 
-
-Display Resource (CPU/Memory/Storage) usage of nodes.
+Display Resource (CPU/Memory/Storage) usage of nodes. 
 
 The top-node command allows you to see the resource consumption of nodes.
 
@@ -80,13 +78,11 @@ kubectl top pod -l name=myLabel
 ```
 
 
+Display Resource (CPU/Memory/Storage) usage of pods. 
 
-Display Resource (CPU/Memory/Storage) usage of pods.
+The 'top pod' command allows you to see the resource consumption of pods. 
 
-The 'top pod' command allows you to see the resource consumption of pods.
-
-Due to the metrics pipeline delay, they may be unavailable for a few minutes
-since pod creation.
+Due to the metrics pipeline delay, they may be unavailable for a few minutes since pod creation.
 
 ### Usage
 

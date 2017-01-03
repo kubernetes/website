@@ -1,3 +1,3 @@
 # <strong>DEFINITIONS</strong>
 
-These are Definitions for objects used by the above APIs
+This section contains definitions for objects used in the Kubernetes APIs.

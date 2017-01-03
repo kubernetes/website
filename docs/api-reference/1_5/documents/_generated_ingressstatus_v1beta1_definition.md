@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Extensions | v1beta1 | IngressStatus
+Core | v1beta1 | IngressStatus
 
 
 

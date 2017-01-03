@@ -21,17 +21,11 @@ kubectl convert -f . | kubectl create -f -
 ```
 
 
+Convert config files between different API versions. Both YAML and JSON formats are accepted. 
 
-Convert config files between different API versions. Both YAML
-and JSON formats are accepted.
+The command takes filename, directory, or URL as input, and convert it into format of version specified by --output-version flag. If target version is not specified or not supported, convert to latest version. 
 
-The command takes filename, directory, or URL as input, and convert it into format
-of version specified by --output-version flag. If target version is not specified or
-not supported, convert to latest version.
-
-The default output will be printed to stdout in YAML format. One can use -o option
-to change to output destination.
-
+The default output will be printed to stdout in YAML format. One can use -o option to change to output destination.
 
 ### Usage
 

@@ -21,14 +21,13 @@ kubectl taint nodes foo dedicated-
 ```
 
 
+Update the taints on one or more nodes. 
 
-Update the taints on one or more nodes.
-
-A taint consists of a key, value, and effect. As an argument here, it is expressed as key=value:effect.
-The key must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to 253 characters.
-The value must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to 253 characters.
-The effect must be NoSchedule or PreferNoSchedule.
-Currently taint can only apply to node.
+  * A taint consists of a key, value, and effect. As an argument here, it is expressed as key=value:effect.  
+  * The key must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  253 characters.  
+  * The value must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  253 characters.  
+  * The effect must be NoSchedule or PreferNoSchedule.  
+  * Currently taint can only apply to node.
 
 ### Usage
 

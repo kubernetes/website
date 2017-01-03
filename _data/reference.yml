@@ -3,15 +3,15 @@ abstract: "Design docs, concept definitions, and references for APIs and CLIs."
 toc:
 - docs/reference.md
 
-- title: Kubernetes API Reference (New Beta Docs)
+- title: "Kubernetes API (New Docs Style)"
   section:
   - title: Version 1.5
     path: /docs/api-reference/1_5/
 
-- title: Kubectl Command Reference (New Beta Docs)
+- title: "Kubectl Commands (New Docs Style)"
   section:
   - title: Version 1.5
-    path: /docs/user-guide/kubectl/1_5
+    path: /docs/user-guide/kubectl/1_5/
 
 - title: Kubernetes API
   section:

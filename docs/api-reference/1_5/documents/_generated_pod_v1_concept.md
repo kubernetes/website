@@ -1956,7 +1956,7 @@ timestamps  | If true, add an RFC3339 or RFC3339Nano timestamp at the beginning 
 
 Code         | Description
 ------------ | -----------
-200 <br /> *[Pod](#pod-v1)*  | OK
+200 <br /> *string*  | OK
 
 
 

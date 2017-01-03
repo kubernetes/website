@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Core | v1beta1 | DeploymentStatus
+Extensions | v1beta1 | DeploymentStatus
 
 
 
