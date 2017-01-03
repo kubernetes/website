@@ -37,7 +37,6 @@ their ReplicaSets.
 
 A ReplicaSet ensures that a specified number of pod “replicas” are running at any given
 time. However, a Deployment is a higher-level concept that manages ReplicaSets and
-
 provides declarative updates to pods along with a lot of other useful features.
 Therefore, we recommend using Deployments instead of directly using ReplicaSets, unless
 you require custom update orchestration or don't require updates at all.
