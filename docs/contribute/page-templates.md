@@ -1,4 +1,8 @@
 ---
+redirect_from:
+- "/docs/templatedemos/"
+- "/docs/templatedemos.html"
+title: Using Page Templates
 ---
 
 <!--<html>

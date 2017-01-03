@@ -1,8 +1,9 @@
 ---
 assignees:
 - bgrant0607
-
+title: Samples
 ---
+
 We have a wide variety of samples to choose from.
 
 ## Recently updated samples

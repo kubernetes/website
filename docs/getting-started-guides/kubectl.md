@@ -1,4 +1,5 @@
 ---
+title: Installing kubectl
 ---
 
 <style>
@@ -62,7 +63,7 @@ If you are on MacOS and using brew, you can install with:
 brew install kubectl
 ```
 
-The homebrew project is independent from kubernetes, so do check that the version is
+The homebrew project is independent from Kubernetes, so do check that the version is
 sufficiently up-to-date using `kubectl version`.
 
 

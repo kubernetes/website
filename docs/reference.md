@@ -1,12 +1,16 @@
 ---
-
+title: Reference Documentation
 ---
+
 In the reference section, you can find reference documentation for Kubernetes APIs, CLIs, and tools, as well as our glossary and design docs. 
 
 ## API References
 
 * [Kubernetes API](/docs/api/) - The core API for Kubernetes.
-* [Extensions API](/docs/api-reference/extensions/v1beta1/operations/) - Manages extensions resources such as Jobs, Ingress and HorizontalPodAutoscalers.	
+* [Autoscaling API](/docs/api-reference/autoscaling/v1/operations/) - Manages autoscaling resources such as HorizontalPodAutoscalers.
+* [Batch API](/docs/api-reference/batch/v1/operations/) - Manages batch resources such as Jobs.
+* [Apps API](/docs/api-reference/apps/v1beta1/operations/) - Manages apps resources such as StatefulSets.
+* [Extensions API](/docs/api-reference/extensions/v1beta1/operations/) - Manages extensions resources such as Ingress, Deployments, and ReplicaSets.
 
 
 ## CLI References

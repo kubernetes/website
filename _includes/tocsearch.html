@@ -1,1 +1,15 @@
-{% for item in tree %}{% if item.section %}{% assign tree = item.section %}{% include tocsearch.html %}{% else %}{% if item.path == page.url %}{% assign foundTOC = thistoc %}{% assign title = item.title %}{% break %}{% endif %}{% endif %}{% endfor %}
+{% capture whitespace %}
+  {% for item in include.tree %}
+    {% if found_toc %}
+      {% break %}
+    {% endif %}
+    {% if item.section %}
+      {% include tocsearch.html tree=item.section toc=include.toc %}
+    {% else %}
+      {% if item == page.path %}
+        {% assign found_toc = include.toc %}
+        {% break %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endcapture %}

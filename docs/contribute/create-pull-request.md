@@ -1,4 +1,5 @@
 ---
+title: Creating a Documentation Pull Request
 ---
 
 {% capture overview %}
@@ -14,10 +15,9 @@ repository. This page shows how to create a pull request.
 1. Create a [GitHub account](https://github.com){: target="_blank"}.
 
 1. Sign the
-[Google Contributor License Agreement](https://cla.developers.google.com/about/google-individual){: target="_blank"}.
+[Linux Foundation Contributor License Agreement](https://identity.linuxfoundation.org/projects/cncf){: target="_blank"}.
 
-1. Sign the
-[Linux Contributor License Agreement](https://identity.linuxfoundation.org/projects/cncf){: target="_blank"}.
+Documentation will be published under the [CC BY SA 4.0](https://github.com/kubernetes/kubernetes.github.io/blob/master/LICENSE) license.
 
 {% endcapture %}
 
@@ -80,6 +80,12 @@ site where you can verify that your changes have rendered correctly.
 1. During the next few days, check your pull request for reviewer comments.
 If needed, revise your pull request by committing changes to your
 new branch in your fork.
+
+The staging site for the upcoming Kubernetes release is here:
+[http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/).
+The staging site reflects the current state of what's been merged in the
+release branch, or in other words, what the docs will look like for the
+next upcoming release. It's automatically updated as new PRs get merged.
 
 {% endcapture %}
 

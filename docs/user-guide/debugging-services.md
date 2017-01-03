@@ -3,12 +3,12 @@ assignees:
 - bprashanth
 - janetkuo
 - thockin
-
+title: Debugging Services
 ---
 
 An issue that comes up rather frequently for new installations of Kubernetes is
-that `Services` are not working properly.  You've run all your `Pod`s and
-`Deployment`s, but you get no response when you try to access them.
+that `Services` are not working properly.  You've run all your `Pods` and
+`Deployments`, but you get no response when you try to access them.
 This document will hopefully help you to figure out what's going wrong.
 
 * TOC
@@ -17,7 +17,7 @@ This document will hopefully help you to figure out what's going wrong.
 ## Conventions
 
 Throughout this doc you will see various commands that you can run.  Some
-commands need to be run within `Pod`, others on a Kubernetes `Node`, and others
+commands need to be run within a `Pod`, others on a Kubernetes `Node`, and others
 can run anywhere you have `kubectl` and credentials for the cluster.  To make it
 clear what is expected, this document will use the following conventions.
 
@@ -71,7 +71,7 @@ $ kubectl exec -ti <POD-NAME> -c <CONTAINER-NAME> sh
 
 ## Setup
 
-For the purposes of this walk-through, let's run some `Pod`s.  Since you're
+For the purposes of this walk-through, let's run some `Pods`.  Since you're
 probably debugging your own `Service` you can substitute your own details, or you
 can follow along and get a second data point.
 
@@ -109,7 +109,7 @@ spec:
           protocol: TCP
 ```
 
-Confirm your `Pod`s are running:
+Confirm your `Pods` are running:
 
 ```shell
 $ kubectl get pods -l app=hostnames
@@ -196,7 +196,7 @@ Address: 10.0.1.175
 ```
 
 If this fails, perhaps your `Pod` and `Service` are in different
-`Namespace`s, try a namespace-qualified name:
+`Namespaces`, try a namespace-qualified name:
 
 ```shell
 u@pod$ nslookup hostnames.default
@@ -207,7 +207,7 @@ Name:   hostnames.default
 Address: 10.0.1.175
 ```
 
-If this works, you'll need to ensure that `Pod`s and `Service`s run in the same
+If this works, you'll need to ensure that `Pods` and `Services` run in the same
 `Namespace`.  If this still fails, try a fully-qualified name:
 
 ```shell
@@ -326,18 +326,18 @@ $ kubectl get service hostnames -o json
 ```
 
 Is the port you are trying to access in `spec.ports[]`?  Is the `targetPort`
-correct for your `Pod`s?  If you meant it to be a numeric port, is it a number
-(9376) or a string "9376"?  If you meant it to be a named port, do your `Pod`s
+correct for your `Pods`?  If you meant it to be a numeric port, is it a number
+(9376) or a string "9376"?  If you meant it to be a named port, do your `Pods`
 expose a port with the same name?  Is the port's `protocol` the same as the
 `Pod`'s?
 
 ## Does the Service have any Endpoints?
 
 If you got this far, we assume that you have confirmed that your `Service`
-exists and resolves by DNS.  Now let's check that the `Pod`s you ran are
+exists and is resolved by DNS.  Now let's check that the `Pods` you ran are
 actually being selected by the `Service`.
 
-Earlier we saw that the `Pod`s were running.  We can re-check that:
+Earlier we saw that the `Pods` were running.  We can re-check that:
 
 ```shell
 $ kubectl get pods -l app=hostnames
@@ -347,7 +347,7 @@ hostnames-bvc05   1/1       Running   0          1h
 hostnames-yp2kp   1/1       Running   0          1h
 ```
 
-The "AGE" column says that these `Pod`s are about an hour old, which implies that
+The "AGE" column says that these `Pods` are about an hour old, which implies that
 they are running fine and not crashing.
 
 The `-l app=hostnames` argument is a label selector - just like our `Service`
@@ -360,16 +360,16 @@ NAME        ENDPOINTS
 hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
 ```
 
-This confirms that the control loop has found the correct `Pod`s for your
+This confirms that the control loop has found the correct `Pods` for your
 `Service`.  If the `hostnames` row is blank, you should check that the
 `spec.selector` field of your `Service` actually selects for `metadata.labels`
-values on your `Pod`s.
+values on your `Pods`.
 
 ## Are the Pods working?
 
-At this point, we know that your `Service` exists and has selected your `Pod`s.
-Let's check that the `Pod`s are actually working - we can bypass the `Service`
-mechanism and go straight to the `Pod`s.
+At this point, we know that your `Service` exists and has selected your `Pods`.
+Let's check that the `Pods` are actually working - we can bypass the `Service`
+mechanism and go straight to the `Pods`.
 
 ```shell
 u@pod$ wget -qO- 10.244.0.5:9376
@@ -384,19 +384,19 @@ hostnames-yp2kp
 
 We expect each `Pod` in the `Endpoints` list to return its own hostname.  If
 this is not what happens (or whatever the correct behavior is for your own
-`Pod`s), you should investigate what's happening there.  You might find
-`kubectl logs` to be useful or `kubectl exec` directly to your `Pod`s and check
+`Pods`), you should investigate what's happening there.  You might find
+`kubectl logs` to be useful or `kubectl exec` directly to your `Pods` and check
 service from there.
 
 ## Is the kube-proxy working?
 
-If you get here, your `Service` is running, has `Endpoints`, and your `Pod`s
+If you get here, your `Service` is running, has `Endpoints`, and your `Pods`
 are actually serving.  At this point, the whole `Service` proxy mechanism is
 suspect.  Let's confirm it, piece by piece.
 
 ### Is kube-proxy running?
 
-Confirm that `kube-proxy` is running on your `Node`s.  You should get something
+Confirm that `kube-proxy` is running on your `Nodes`.  You should get something
 like the below:
 
 ```shell
@@ -429,7 +429,7 @@ should double-check your `Node` configuration and installation steps.
 ### Is kube-proxy writing iptables rules?
 
 One of the main responsibilities of `kube-proxy` is to write the `iptables`
-rules which implement `Service`s.  Let's check that those rules are getting
+rules which implement `Services`.  Let's check that those rules are getting
 written.
 
 The kube-proxy can run in either "userspace" mode or "iptables" mode.
@@ -620,7 +620,7 @@ UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1460  Metric:1
 ## Seek help
 
 If you get this far, something very strange is happening.  Your `Service` is
-running, has `Endpoints`, and your `Pod`s are actually serving.  You have DNS
+running, has `Endpoints`, and your `Pods` are actually serving.  You have DNS
 working, `iptables` rules installed, and `kube-proxy` does not seem to be
 misbehaving.  And yet your `Service` is not working.  You should probably let
 us know, so we can help investigate!
