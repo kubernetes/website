@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Extensions | v1beta1 | DaemonSetStatus
+Core | v1beta1 | DaemonSetStatus
 
 
 

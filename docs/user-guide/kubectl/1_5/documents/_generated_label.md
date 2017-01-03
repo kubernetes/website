@@ -39,12 +39,11 @@ kubectl label pods foo bar-
 ```
 
 
+Update the labels on a resource. 
 
-Update the labels on a resource.
-
-A label must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to 63 characters.
-If --overwrite is true, then existing labels can be overwritten, otherwise attempting to overwrite a label will result in an error.
-If --resource-version is specified, then updates will use this resource version, otherwise the existing resource-version will be used.
+  * A label must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  63 characters.  
+  * If --overwrite is true, then existing labels can be overwritten, otherwise attempting to overwrite a label will result in an error.  
+  * If --resource-version is specified, then updates will use this resource version, otherwise the existing resource-version will be used.
 
 ### Usage
 

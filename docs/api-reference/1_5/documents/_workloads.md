@@ -1,6 +1,6 @@
 # <strong>WORKLOADS</strong>
 
-These are responsible for managing and running your containers on the cluster.  [Containers](#container-v1) are created
+Worloads resources are responsible for managing and running your containers on the cluster.  [Containers](#container-v1) are created
 by Controllers through [Pods](#pod-v1).  Pods run Containers and provide environmental dependencies such as shared or
 persistent storage [Volumes](#volume-v1) and [Configuration](#configmap-v1) or [Secret](#secret-v1) data injected into the
 container.

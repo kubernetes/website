@@ -195,6 +195,7 @@ function generateDoc(navContent, bodyContent, codeTabContent) {
 <div id="page-content-wrapper" class="body-content container-fluid">${bodyContent}</div>
 </div>
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/jquery.scrollto/jquery.scrollTo.min.js"></script>
 <script src="navData.js"></script>
 <script src="scroll.js"></script>
 <!--<script src="actions.js"></script>-->

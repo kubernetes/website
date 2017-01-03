@@ -27,13 +27,12 @@ kubectl replace --force -f ./pod.json
 ```
 
 
+Replace a resource by filename or stdin. 
 
-Replace a resource by filename or stdin.
+JSON and YAML formats are accepted. If replacing an existing resource, the complete resource spec must be provided. This can be obtained by 
 
-JSON and YAML formats are accepted. If replacing an existing resource, the
-complete resource spec must be provided. This can be obtained by
-$ kubectl get TYPE NAME -o yaml
-
+  $ kubectl get TYPE NAME -o yaml
+  
 Please refer to the models in https://htmlpreview.github.io/?https://github.com/kubernetes/kubernetes/blob/HEAD/docs/api-reference/v1/definitions.html to find if a field is mutable.
 
 ### Usage

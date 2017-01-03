@@ -4,8 +4,7 @@
 
 
 
-Display addresses of the master and services with label kubernetes.io/cluster-service=true
-To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+Display addresses of the master and services with label kubernetes.io/cluster-service=true To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
 ### Usage
 
@@ -49,15 +48,9 @@ kubectl cluster-info dump --namespaces default,kube-system --output-directory=/p
 ```
 
 
+Dumps cluster info out suitable for debugging and diagnosing cluster problems.  By default, dumps everything to stdout. You can optionally specify a directory with --output-directory.  If you specify a directory, kubernetes will build a set of files in that directory.  By default only dumps things in the 'kube-system' namespace, but you can switch to a different namespace with the --namespaces flag, or specify --all-namespaces to dump all namespaces. 
 
-Dumps cluster info out suitable for debugging and diagnosing cluster problems.  By default, dumps everything to
-stdout. You can optionally specify a directory with --output-directory.  If you specify a directory, kubernetes will
-build a set of files in that directory.  By default only dumps things in the 'kube-system' namespace, but you can
-switch to a different namespace with the --namespaces flag, or specify --all-namespaces to dump all namespaces.
-
-The command also dumps the logs of all of the pods in the cluster, these logs are dumped into different directories
-based on namespace and pod name.
-
+The command also dumps the logs of all of the pods in the cluster, these logs are dumped into different directories based on namespace and pod name.
 
 ### Usage
 

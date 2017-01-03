@@ -9,7 +9,6 @@ kubectl rollout undo deployment/abc
 ```
 
 
-
 Manage a deployment using subcommands like "kubectl rollout undo deployment/abc"
 
 ### Usage
@@ -33,7 +32,6 @@ kubectl rollout history deployment/abc
 ```bdocs-tab:example_shell
 kubectl rollout history deployment/abc --revision=3
 ```
-
 
 
 View previous rollout revisions and configurations.
@@ -65,12 +63,9 @@ kubectl rollout pause deployment/nginx
 ```
 
 
+Mark the provided resource as paused 
 
-Mark the provided resource as paused
-
-Paused resources will not be reconciled by a controller.
-Use \"kubectl rollout resume\" to resume a paused resource.
-Currently only deployments support being paused.
+Paused resources will not be reconciled by a controller. Use \"kubectl rollout resume \" to resume a paused resource. Currently only deployments support being paused.
 
 ### Usage
 
@@ -98,12 +93,9 @@ kubectl rollout resume deployment/nginx
 ```
 
 
+Resume a paused resource 
 
-Resume a paused resource
-
-Paused resources will not be reconciled by a controller. By resuming a
-resource, we allow it to be reconciled again.
-Currently only deployments support being resumed.
+Paused resources will not be reconciled by a controller. By resuming a resource, we allow it to be reconciled again. Currently only deployments support being resumed.
 
 ### Usage
 
@@ -131,15 +123,9 @@ kubectl rollout status deployment/nginx
 ```
 
 
+Show the status of the rollout. 
 
-Show the status of the rollout.
-
-By default 'rollout status' will watch the status of the latest rollout
-until it's done. If you don't want to wait for the rollout to finish then
-you can use --watch=false. Note that if a new rollout starts in-between, then
-'rollout status' will continue watching the latest revision. If you want to
-pin to a specific revision and abort if it is rolled over by another revision,
-use --revision=N where N is the revision you need to watch for.
+By default 'rollout status' will watch the status of the latest rollout until it's done. If you don't want to wait for the rollout to finish then you can use --watch=false. Note that if a new rollout starts in-between, then 'rollout status' will continue watching the latest revision. If you want to pin to a specific revision and abort if it is rolled over by another revision, use --revision=N where N is the revision you need to watch for.
 
 ### Usage
 
@@ -179,7 +165,6 @@ kubectl rollout undo deployment/abc --to-revision=3
 ```bdocs-tab:example_shell
 kubectl rollout undo --dry-run=true deployment/abc
 ```
-
 
 
 Rollback to a previous rollout.

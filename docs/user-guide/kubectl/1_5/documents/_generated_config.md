@@ -4,13 +4,13 @@
 
 
 
-Modify kubeconfig files using subcommands like "kubectl config set current-context my-context"
+Modify kubeconfig files using subcommands like "kubectl config set current-context my-context" 
 
-The loading order follows these rules:
-1. If the --kubeconfig flag is set, then only that file is loaded.  The flag may only be set once and no merging takes place.
-2. If $KUBECONFIG environment variable is set, then it is used a list of paths (normal path delimitting rules for your system).  These paths are merged.  When a value is modified, it is modified in the file that defines the stanza.  When a value is created, it is created in the first file that exists.  If no files in the chain exist, then it creates the last file in the list.
-3. Otherwise, ${HOME}/.kube/config is used and no merging takes place.
+The loading order follows these rules: 
 
+  1. If the --kubeconfig flag is set, then only that file is loaded.  The flag may only be set once and no merging takes place.  
+  2. If $KUBECONFIG environment variable is set, then it is used a list of paths (normal path delimitting rules for your system).  These paths are merged.  When a value is modified, it is modified in the file that defines the stanza.  When a value is created, it is created in the first file that exists.  If no files in the chain exist, then it creates the last file in the list.  
+  3. Otherwise, ${HOME}/.kube/config is used and no merging takes place.
 
 ### Usage
 
@@ -34,7 +34,6 @@ kubeconfig |  |  | use a particular kubeconfig file
 ```bdocs-tab:example_shell
 kubectl config current-context
 ```
-
 
 
 Displays the current-context
@@ -131,10 +130,11 @@ output | o |  | Output format. One of: json&#124;yaml&#124;wide&#124;name&#124;c
 
 
 
+Sets an individual value in a kubeconfig file 
 
-Sets an individual value in a kubeconfig file
-PROPERTY_NAME is a dot delimited name where each token represents either an attribute name or a map key.  Map keys may not contain dots.
-PROPERTY_VALUE is the new value you wish to set. Binary fields such as 'certificate-authority-data' expect a base64 encoded string unless the --set-raw-bytes flag is used.
+PROPERTY _NAME is a dot delimited name where each token represents either an attribute name or a map key.  Map keys may not contain dots. 
+
+PROPERTY _VALUE is the new value you wish to set. Binary fields such as 'certificate-authority-data' expect a base64 encoded string unless the --set-raw-bytes flag is used.
 
 ### Usage
 
@@ -173,8 +173,8 @@ kubectl config set-cluster e2e --insecure-skip-tls-verify=true
 ```
 
 
+Sets a cluster entry in kubeconfig. 
 
-Sets a cluster entry in kubeconfig.
 Specifying a name that already exists will merge new fields on top of existing values for those fields.
 
 ### Usage
@@ -206,8 +206,8 @@ kubectl config set-context gce --user=cluster-admin
 ```
 
 
+Sets a context entry in kubeconfig 
 
-Sets a context entry in kubeconfig
 Specifying a name that already exists will merge new fields on top of existing values for those fields.
 
 ### Usage
@@ -267,21 +267,20 @@ kubectl config set-credentials cluster-admin --auth-provider=oidc --auth-provide
 ```
 
 
+Sets a user entry in kubeconfig 
 
-Sets a user entry in kubeconfig
-Specifying a name that already exists will merge new fields on top of existing values.
+Specifying a name that already exists will merge new fields on top of existing values. 
 
   Client-certificate flags:
-    --client-certificate=certfile --client-key=keyfile
-
+  --client-certificate=certfile --client-key=keyfile
+  
   Bearer token flags:
     --token=bearer_token
-
+  
   Basic auth flags:
     --username=basic_user --password=basic_password
-
-  Bearer token and basic auth are mutually exclusive.
-
+  
+Bearer token and basic auth are mutually exclusive.
 
 ### Usage
 
@@ -310,9 +309,9 @@ username |  |  | username for the user entry in kubeconfig
 
 
 
+Unsets an individual value in a kubeconfig file 
 
-Unsets an individual value in a kubeconfig file
-PROPERTY_NAME is a dot delimited name where each token represents either an attribute name or a map key.  Map keys may not contain dots.
+PROPERTY _NAME is a dot delimited name where each token represents either an attribute name or a map key.  Map keys may not contain dots.
 
 ### Usage
 
@@ -353,8 +352,7 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 ```
 
 
-
-Display merged kubeconfig settings or a specified kubeconfig file.
+Display merged kubeconfig settings or a specified kubeconfig file. 
 
 You can use --output jsonpath={...} to extract specific values using a jsonpath expression.
 

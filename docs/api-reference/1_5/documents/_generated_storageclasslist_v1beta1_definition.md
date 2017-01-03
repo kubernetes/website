@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Storage | v1beta1 | StorageClassList
+Core | v1beta1 | StorageClassList
 
 
 

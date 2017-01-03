@@ -62,15 +62,15 @@ kubectl run nginx --image=nginx --command -- <cmd> <arg1> ... <argN>
 kubectl run pi --image=perl --restart=OnFailure -- perl -Mbignum=bpi -wle 'print bpi(2000)'
 ```
 
->bdocs-tab:example Start the scheduled job to compute π to 2000 places and print it out every 5 minutes.
+>bdocs-tab:example Start the cron job to compute π to 2000 places and print it out every 5 minutes.
 
 ```bdocs-tab:example_shell
 kubectl run pi --schedule="0/5 * * * ?" --image=perl --restart=OnFailure -- perl -Mbignum=bpi -wle 'print bpi(2000)'
 ```
 
 
+Create and run a particular image, possibly replicated. 
 
-Create and run a particular image, possibly replicated.
 Creates a deployment or job to manage the created container(s).
 
 ### Usage
@@ -88,7 +88,7 @@ command |  | false | If true and extra arguments are present, use them as the 'c
 dry-run |  | false | If true, only print the object that would be sent, without sending it. 
 env |  | [] | Environment variables to set in the container 
 expose |  | false | If true, a public, external service is created for the container(s) which are run 
-generator |  |  | The name of the API generator to use.  Default is 'deployment/v1beta1' if --restart=Always, 'job/v1' for OnFailure and 'run-pod/v1' for Never.  This will happen only for cluster version at least 1.3, for 1.2 we will fallback to 'deployment/v1beta1' for --restart=Always, 'job/v1' for others, for olders we will fallback to 'run/v1' for --restart=Always, 'run-pod/v1' for others. 
+generator |  |  | The name of the API generator to use, see http://kubernetes.io/docs/user-guide/kubectl-conventions/#generators for a list. 
 hostport |  | -1 | The host port mapping for the container port. To demonstrate a single-machine container. 
 image |  |  | The image for the container to run. 
 image-pull-policy |  |  | The image pull policy for the container. If left empty, this value will not be specified by the client and defaulted by the server 
@@ -105,7 +105,7 @@ quiet |  | false | If true, suppress prompt messages.
 record |  | false | Record current kubectl command in the resource annotation. If set to false, do not record the command. If set to true, record the command. If not set, default to updating the existing annotation value only if one already exists. 
 replicas | r | 1 | Number of replicas to create for this container. Default is 1. 
 requests |  |  | The resource requirement requests for this container.  For example, 'cpu=100m,memory=256Mi'.  Note that server side components may assign requests depending on the server configuration, such as limit ranges. 
-restart |  | Always | The restart policy for this Pod.  Legal values [Always, OnFailure, Never].  If set to 'Always' a deployment is created for this pod, if set to 'OnFailure', a job is created for this pod, if set to 'Never', a regular pod is created. For the latter two --replicas must be 1.  Default 'Always' 
+restart |  | Always | The restart policy for this Pod.  Legal values [Always, OnFailure, Never].  If set to 'Always' a deployment is created, if set to 'OnFailure' a job is created, if set to 'Never', a regular pod is created. For the latter two --replicas must be 1.  Default 'Always', for ScheduledJobs `Never`. 
 rm |  | false | If true, delete resources created in this command for attached containers. 
 save-config |  | false | If true, the configuration of current object will be saved in its annotation. This is useful when you want to perform kubectl apply on this object in the future. 
 schedule |  |  | A schedule in the Cron format the job should be run with. 

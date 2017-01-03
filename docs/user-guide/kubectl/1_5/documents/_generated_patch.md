@@ -27,10 +27,9 @@ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/
 ```
 
 
+Update field(s) of a resource using strategic merge patch 
 
-Update field(s) of a resource using strategic merge patch
-
-JSON and YAML formats are accepted.
+JSON and YAML formats are accepted. 
 
 Please refer to the models in https://htmlpreview.github.io/?https://github.com/kubernetes/kubernetes/blob/HEAD/docs/api-reference/v1/definitions.html to find if a field is mutable.
 
