@@ -8,7 +8,7 @@ assignees:
 
 # Kubernetes Deprecation Policy
 
-Kubernetes is a large system with many components and many contributors.  As
+Kubernetes is a large system with many components and many contributors.  As
 with any such software, the feature set naturally evolves over time, and
 sometimes a feature may need to be removed. This could include an API, a flag,
 or even an entire feature. To avoid breaking existing users, Kubernetes follows
@@ -20,7 +20,7 @@ This document details the deprecation policy for various facets of the system.
 
 Since Kubernetes is an API-driven system, the API has evolved over time to
 reflect the evolving understanding of the problem space. The Kubernetes API is
-actually a set of APIs, called “API groups”, and each API group is
+actually a set of APIs, called "API groups", and each API group is
 independently versioned.  [API versions](http://kubernetes.io/docs/api/) fall
 into 3 main tracks, each of which has different policies for deprecation:
 
@@ -33,7 +33,7 @@ into 3 main tracks, each of which has different policies for deprecation:
 A given release of Kubernetes can support any number of API groups and any
 number of versions of each.
 
-The following rules govern the deprecation of elements of the API.  This
+The following rules govern the deprecation of elements of the API.  This
 includes:
 
    * REST resources (aka API objects)
@@ -51,8 +51,8 @@ Once an API element has been added to an API group at a particular version, it
 can not be removed from that version or have its behavior significantly
 changed, regardless of track.
 
-Note: For historical reasons, there are 2 “monolithic” API groups - “core” (no
-group name) and “extensions”.  Resources will incrementally be moved from these
+Note: For historical reasons, there are 2 "monolithic" API groups - "core" (no
+group name) and "extensions".  Resources will incrementally be moved from these
 legacy API groups into more domain-specific API groups.
 
 **Rule #2: API objects must be able to round-trip between API versions in a given
@@ -61,7 +61,7 @@ that do not exist in some versions.**
 
 For example, an object can be written as v1 and then read back as v2 and
 converted to v1, and the resulting v1 resource will be identical to the
-original.  The representation in v2 might be different from v1, but the system
+original.  The representation in v2 might be different from v1, but the system
 knows how to convert between them in both directions.  Additionally, any new
 field added in v2 must be able to round-trip to v1 and back, which means v1
 might have to add an equivalent field or represent it as an annotation.
@@ -79,43 +79,43 @@ no less than:**
    * **Beta: 3 months or 1 release (whichever is longer)**
    * **Alpha: 0 releases**
 
-This is best illustrated by example.  Imagine a Kubernetes release, version X,
-which supports a particular API group.  A new Kubernetes release is made every
-approximately 3 months (4 per year).  The following table describes which API
+This is best illustrated by example.  Imagine a Kubernetes release, version X,
+which supports a particular API group.  A new Kubernetes release is made every
+approximately 3 months (4 per year).  The following table describes which API
 versions are supported in a series of subsequent releases.
 
 | Release | API versions | Notes |
 |---------|--------------|-------|
 | X       | v1           |       |
 | X+1     | v1, v2alpha1 |       |
-| X+2     | v1, v2alpha2 | * v2alpha1 is removed, “action required” relnote |
-| X+3     | v1, v2beta1  | * v2alpha2 is removed, “action required” relnote |
-| X+4     | v1, v2beta1, v2beta2 | * v2beta1 is deprecated, “action required” relnote |
-| X+5     | v1, v2, v2beta2      | * v2beta1 is removed, “action required” relnote<br> * v2beta2 is deprecated, “action required” relnote<br> * v1 is deprecated, “action required” relnote |
-| X+6     | v1, v2               | * v2beta2 is removed, “action required” relnote |
+| X+2     | v1, v2alpha2 | * v2alpha1 is removed, "action required" relnote |
+| X+3     | v1, v2beta1  | * v2alpha2 is removed, "action required" relnote |
+| X+4     | v1, v2beta1, v2beta2 | * v2beta1 is deprecated, "action required" relnote |
+| X+5     | v1, v2, v2beta2      | * v2beta1 is removed, "action required" relnote<br> * v2beta2 is deprecated, "action required" relnote<br> * v1 is deprecated, "action required" relnote |
+| X+6     | v1, v2               | * v2beta2 is removed, "action required" relnote |
 | X+7     | v1, v2               | |
 | X+8     | v1, v2               | |
-| X+9     | v2                   | * v1 is removed, “action required” relnote |
+| X+9     | v2                   | * v1 is removed, "action required" relnote |
 
 ### REST resources (aka API objects)
 
 Consider a hypothetical REST resource named Widget, which was present in API v1
-in the above timeline, and which needs to be deprecated.  We
+in the above timeline, and which needs to be deprecated.  We
 [document](http://kubernetes.io/docs/deprecated/) and
 [announce](https://groups.google.com/forum/#!forum/kubernetes-announce) the
-deprecation in sync with release X+1.  The Widget resource still exists in API
-version v1 (deprecated) but not in v2alpha1.  The Widget resource continues to
-exist and function in releases up to and including X+8.  Only in release X+9,
+deprecation in sync with release X+1.  The Widget resource still exists in API
+version v1 (deprecated) but not in v2alpha1.  The Widget resource continues to
+exist and function in releases up to and including X+8.  Only in release X+9,
 when API v1 has aged out, does the Widget resource cease to exist, and the
 behavior get removed.
 
 ### Fields of REST resources
 
 As with whole REST resources, an individual field which was present in API v1
-must exist and function until API v1 is removed.  Unlike whole resources, the
+must exist and function until API v1 is removed.  Unlike whole resources, the
 v2 APIs may choose a different representation for the field, as long as it can
-be round-tripped.  For example a v1 field named “magnitude” which was
-deprecated might be named “deprecatedMagnitude” in API v2.  When v1 is
+be round-tripped.  For example a v1 field named "magnitude" which was
+deprecated might be named "deprecatedMagnitude" in API v2.  When v1 is
 eventually removed, the deprecated field can be removed from v2.
 
 ### Enumerated or constant values
@@ -136,10 +136,10 @@ point these rules will be adjusted as needed.
 
 The Kubernetes system is comprised of several different programs cooperating.
 Sometimes, a Kubernetes release might remove flags or CLI commands
-(collectively “CLI elements”) in these programs.  The individual programs
+(collectively "CLI elements") in these programs.  The individual programs
 naturally sort into two main groups - user-facing and admin-facing programs,
-which vary slightly in their deprecation policies.  Unless a flag is explicitly
-prefixed or documented as “alpha” or “beta”, it is considered GA.
+which vary slightly in their deprecation policies.  Unless a flag is explicitly
+prefixed or documented as "alpha" or "beta", it is considered GA.
 
 CLI elements are effectively part of the API to the system, but since they are
 not versioned in the same way as the REST API, the rules for deprecation are as
@@ -163,7 +163,7 @@ when used.**
 ## Deprecating a feature or behavior
 
 Occasionally a Kubernetes release needs to deprecate some feature or behavior
-of the system that is not controlled by the API or CLI.  In this case, the
+of the system that is not controlled by the API or CLI.  In this case, the
 rules for deprecation are as follows:
 
 **Rule #7: Deprecated behaviors must function for no less than 1 year after their
@@ -176,10 +176,10 @@ administration of Kubernetes clusters, and which are being removed entirely.
 
 ## Exceptions
 
-No policy can cover every possible situation.  This policy is a living
-document, and will evolve over time.  In practice, there will be situations
+No policy can cover every possible situation.  This policy is a living
+document, and will evolve over time.  In practice, there will be situations
 that do not fit neatly into this policy, or for which this policy becomes a
-serious impediment.  Such situations should be discussed with SIGs and project
+serious impediment.  Such situations should be discussed with SIGs and project
 leaders to find the best solutions for those specific cases, always bearing in
 mind that Kubernetes is committed to being a stable system that, as much as
 possible, never breaks users. Exceptions will always be announced in all
