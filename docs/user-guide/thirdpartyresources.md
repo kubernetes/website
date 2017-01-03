@@ -1,7 +1,7 @@
 ---
 assignees:
 - IanLewis
-
+title: Third Party Resources
 ---
 
 * TOC
@@ -34,9 +34,9 @@ $ kubectl explain thirdpartyresource
 
 ## Creating a ThirdPartyResource
 
-When you user create a new `ThirdPartyResource`, the Kubernetes API Server reacts by creating a new, namespaced RESTful resource path. For now, non-namespaced objects are not supported. As with existing built-in objects, deleting a namespace deletes all custom objects in that namespace. `ThirdPartyResources` themselves are non-namespaced and are available to all namespaces.
+When you create a new `ThirdPartyResource`, the Kubernetes API Server reacts by creating a new, namespaced RESTful resource path. For now, non-namespaced objects are not supported. As with existing built-in objects, deleting a namespace deletes all custom objects in that namespace. `ThirdPartyResources` themselves are non-namespaced and are available to all namespaces.
 
-For example, if a save the following `ThirdPartyResource` to `resource.yaml`:
+For example, if you save the following `ThirdPartyResource` to `resource.yaml`:
 
 ```yaml
 apiVersion: extensions/v1beta1
