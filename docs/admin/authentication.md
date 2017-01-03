@@ -5,8 +5,9 @@ assignees:
 - ericchiang
 - deads2k
 - liggitt
-
+title: Authenticating
 ---
+
 * TOC
 {:toc}
 
@@ -30,7 +31,7 @@ to talk to the Kubernetes API.
 API requests are tied to either a normal user or a service account, or are treated
 as anonymous requests. This means every process inside or outside the cluster, from 
 a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members 
-of the control plane, must authenticate when making requests to the the API server, 
+of the control plane, must authenticate when making requests to the API server, 
 or be treated as an anonymous user.
 
 ## Authentication strategies
@@ -443,7 +444,7 @@ The script will generate three files: `ca.crt`, `server.crt`, and `server.key`.
 Finally, add the following parameters into API server start parameters:
 
 - `--client-ca-file=/srv/kubernetes/ca.crt`
-- `--tls-cert-file=/srv/kubernetes/server.cert`
+- `--tls-cert-file=/srv/kubernetes/server.crt`
 - `--tls-private-key-file=/srv/kubernetes/server.key`
 
 #### easyrsa
@@ -467,7 +468,7 @@ Finally, add the following parameters into API server start parameters:
 1.  Fill in and add the following parameters into the API server start parameters:
 
           --client-ca-file=/yourdirectory/ca.crt
-          --tls-cert-file=/yourdirectory/server.cert
+          --tls-cert-file=/yourdirectory/server.crt
           --tls-private-key-file=/yourdirectory/server.key
 
 #### openssl

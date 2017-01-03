@@ -1,7 +1,7 @@
 ---
 assignees:
 - bprashanth
-
+title: VMware Photon Controller
 ---
 
 The example below creates a Kubernetes cluster using VMware's Photon
@@ -163,7 +163,7 @@ balancer. Specifically:
 Configure your service with the NodePort option. For example, this
 service uses the NodePort option. All Kubernetes nodes will listen on
 a port and forward network traffic to any pods in the service. In this
-case, Kubernets will choose a random port, but it will be the same
+case, Kubernetes will choose a random port, but it will be the same
 port on all nodes.
 
 ```yaml

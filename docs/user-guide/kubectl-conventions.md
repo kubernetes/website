@@ -2,7 +2,7 @@
 assignees:
 - bgrant0607
 - janetkuo
-
+title: kubectl Usage Conventions
 ---
 
 * TOC

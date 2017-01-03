@@ -1,7 +1,7 @@
 ---
 assignees:
 - davidopp
-
+title: Troubleshooting Clusters
 ---
 
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
@@ -89,7 +89,7 @@ Mitigations:
   - Mitigates: Apiserver VM shutdown or apiserver crashing
   - Mitigates: Supporting services VM shutdown or crashes
 
-- Action use IaaS providers reliable storage (e.g GCE PD or AWS EBS volume) for VMs with apiserver+etcd
+- Action use IaaS providers reliable storage (e.g. GCE PD or AWS EBS volume) for VMs with apiserver+etcd
   - Mitigates: Apiserver backing storage lost
 
 - Action: Use (experimental) [high-availability](/docs/admin/high-availability) configuration

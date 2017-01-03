@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Configuring kubelet Garbage Collection
 ---
 
 * TOC
@@ -13,11 +13,11 @@ External garbage collection tools are not recommended as these tools can potenti
 
 ### Image Collection
 
-kubernetes manages lifecycle of all images through imageManager, with the cooperation
+Kubernetes manages lifecycle of all images through imageManager, with the cooperation
 of cadvisor.
 
 The policy for garbage collecting images takes two factors into consideration:
-`HighThresholdPercent` and `LowThresholdPercent`. Disk usage above the the high threshold
+`HighThresholdPercent` and `LowThresholdPercent`. Disk usage above the high threshold
 will trigger garbage collection. The garbage collection will delete least recently used images until the low
 threshold has been met.
 

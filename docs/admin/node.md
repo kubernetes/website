@@ -3,7 +3,7 @@ assignees:
 - caesarxuchao
 - dchen1107
 - lavalamp
-
+title: Nodes
 ---
 
 * TOC
@@ -20,7 +20,15 @@ architecture design doc for more details.
 
 ## Node Status
 
-A node's status is comprised of the following information.
+A node's status contains the following information:
+
+* [Addresses](#Addresses)
+* ~~[Phase](#Phase)~~ **deprecated**
+* [Condition](#Condition)
+* [Capacity](#Capacity)
+* [Info](#Info)
+
+Each section is described in detail below.
 
 ### Addresses
 
@@ -186,7 +194,7 @@ Modifications include setting labels on the node and marking it unschedulable.
 Labels on nodes can be used in conjunction with node selectors on pods to control scheduling,
 e.g. to constrain a pod to only be eligible to run on a subset of the nodes.
 
-Marking a node as unscheduleable will prevent new pods from being scheduled to that
+Marking a node as unschedulable will prevent new pods from being scheduled to that
 node, but will not affect any existing pods on the node. This is useful as a
 preparatory step before a node reboot, etc. For example, to mark a node
 unschedulable, run this command:
@@ -236,6 +244,6 @@ on each kubelet where you want to reserve resources.
 
 ## API Object
 
-Node is a top-level resource in the kubernetes REST API. More details about the
+Node is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Node API
 object](/docs/api-reference/v1/definitions/#_v1_node).
