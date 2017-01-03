@@ -39,3 +39,5 @@ toc:
     path: https://github.com/kubernetes/kubernetes/releases/
   - title: Release Roadmap
     path: https://github.com/kubernetes/kubernetes/milestones/
+  - title: Deprecation Policy
+    path: docs/deprecation-policy.md
