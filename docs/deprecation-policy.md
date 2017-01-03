@@ -83,87 +83,91 @@ approximately 3 months (4 per year).  The following table describes which API
 versions are supported in a series of subsequent releases.
 
 <table>
-  <tr>
-  <th>Release</th>
-  <th>API Versions</th>
-  <th>Notes</th>
-  </tr>
-  <tr>
-  <td>X</td>
-  <td>v1</td>
-  <td></td>
-  </tr>
-  <tr>
-  <td>X+1</td>
-  <td>v1, v2alpha1</td>
-  <td></td>
-  </tr>
-  <tr>
-  <td>X+2</td>
-  <td>v1, v2alpha2</td>
-  <td>
-    <ul>
-       <li>v2alpha1 is removed, "action required" relnote</li>
-    </ul>
-  </td>
-  </tr>
-  <tr>
-  <td>X+3</td>
-  <td>v1, v2beta1</td>
-  <td>
-    <ul>
-      <li>v2alpha2 is removed, "action required" relnote</li>
-    </ul>
-  </td>
-  </tr>
-  <tr>
-  <td>X+4</td>
-  <td>v1, v2beta1, v2beta2</td>
-  <td>
-    <ul>
-      <li>v2beta1 is deprecated, "action required" relnote</li>
-    </ul>
-  </td>
-  </tr>
-  <tr>
-  <td>X+5</td>
-  <td>v1, v2, v2beta2</td>
-  <td>
-    <ul>
-      <li>v2beta1 is removed, "action required" relnote</li>
-      <li>v2beta2 is deprecated, "action required" relnote</li>
-      <li>v1 is deprecated, "action required" relnote</li>
-    </ul>
-  </td>
-  </tr>
-  <tr>
-  <td>X+6</td>
-  <td>v1, v2</td>
-  <td>
-    <ul>
-      <li>v2beta2 is removed, "action required" relnote</li>
-    </ul>
-  </td>
-  </tr>
-  <tr>
-  <td>X+7</td>
-  <td>v1, v2</td>
-  <td></td>
-  </tr>
-  <tr>
-  <td>X+8</td>
-  <td>v1, v2</td>
-  <td></td>
-  </tr>
-  <tr>
-  <td>X+9</td>
-  <td>v1, v2</td>
-  <td>
-    <ul>
-      <li>v1 is removed, "action required" relnote</li>
-    </ul>
-  </td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Release</th>
+      <th>API Versions</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>X</td>
+      <td>v1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>X+1</td>
+      <td>v1, v2alpha1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>X+2</td>
+      <td>v1, v2alpha2</td>
+      <td>
+        <ul>
+           <li>v2alpha1 is removed, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+3</td>
+      <td>v1, v2beta1</td>
+      <td>
+        <ul>
+          <li>v2alpha2 is removed, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+4</td>
+      <td>v1, v2beta1, v2beta2</td>
+      <td>
+        <ul>
+          <li>v2beta1 is deprecated, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+5</td>
+      <td>v1, v2, v2beta2</td>
+      <td>
+        <ul>
+          <li>v2beta1 is removed, "action required" relnote</li>
+          <li>v2beta2 is deprecated, "action required" relnote</li>
+          <li>v1 is deprecated, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+6</td>
+      <td>v1, v2</td>
+      <td>
+        <ul>
+          <li>v2beta2 is removed, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>X+7</td>
+      <td>v1, v2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>X+8</td>
+      <td>v1, v2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>X+9</td>
+      <td>v1, v2</td>
+      <td>
+        <ul>
+          <li>v1 is removed, "action required" relnote</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 ### REST resources (aka API objects)
