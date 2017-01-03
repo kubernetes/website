@@ -7,4 +7,6 @@ spec:
   - name: count
     image: busybox
     args: [bash, -c, 
-           'for ((i = 0; ; i++)); do echo "$i: $(date)"; sleep 1; done']
+           'for ((i = 0; ; i++)); do echo "$i: $(date)" > 1.log; echo "$(date) INFO $i" > 2.log; sleep 1; done']
+
+

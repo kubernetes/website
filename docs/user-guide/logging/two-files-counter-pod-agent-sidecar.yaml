@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: counter
+spec:
+  containers:
+  - name: count
+    image: busybox
+    args: [bash, -c, 
+           'for ((i = 0; ; i++)); do echo "$i: $(date)" > /var/log/1.log; echo "$(date) INFO $i" > /var/log/2.log; sleep 1; done']
+    volumeMounts:
+    - name: varlog
+      mountPath: /var/log
+  - name: count-agent
+    image: gcr.io/google_containers/fluentd-gcp:1.30
+    volumeMounts:
+    - name: varlog
+      mountPath: /var/log
+  volumes:
+  - name: varlog
+    hostPath:
+      path: /var/log
+
