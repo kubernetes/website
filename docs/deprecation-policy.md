@@ -3,10 +3,8 @@ assignees:
 - bgrant0607
 - lavalamp
 - thockin
-
+title: Kubernetes Deprecation Policy
 ---
-
-# Kubernetes Deprecation Policy
 
 Kubernetes is a large system with many components and many contributors.  As
 with any such software, the feature set naturally evolves over time, and
@@ -84,18 +82,89 @@ which supports a particular API group.  A new Kubernetes release is made every
 approximately 3 months (4 per year).  The following table describes which API
 versions are supported in a series of subsequent releases.
 
-| Release | API versions | Notes |
-|---------|--------------|-------|
-| X       | v1           |       |
-| X+1     | v1, v2alpha1 |       |
-| X+2     | v1, v2alpha2 | * v2alpha1 is removed, "action required" relnote |
-| X+3     | v1, v2beta1  | * v2alpha2 is removed, "action required" relnote |
-| X+4     | v1, v2beta1, v2beta2 | * v2beta1 is deprecated, "action required" relnote |
-| X+5     | v1, v2, v2beta2      | * v2beta1 is removed, "action required" relnote<br> * v2beta2 is deprecated, "action required" relnote<br> * v1 is deprecated, "action required" relnote |
-| X+6     | v1, v2               | * v2beta2 is removed, "action required" relnote |
-| X+7     | v1, v2               | |
-| X+8     | v1, v2               | |
-| X+9     | v2                   | * v1 is removed, "action required" relnote |
+<table>
+  <tr>
+  <th>Release</th>
+  <th>API Versions</th>
+  <th>Notes</th>
+  </tr>
+  <tr>
+  <td>X</td>
+  <td>v1</td>
+  <td></td>
+  </tr>
+  <tr>
+  <td>X+1</td>
+  <td>v1, v2alpha1</td>
+  <td></td>
+  </tr>
+  <tr>
+  <td>X+2</td>
+  <td>v1, v2alpha2</td>
+  <td>
+    <ul>
+       <li>v2alpha1 is removed, "action required" relnote</li>
+    </ul>
+  </td>
+  </tr>
+  <tr>
+  <td>X+3</td>
+  <td>v1, v2beta1</td>
+  <td>
+    <ul>
+      <li>v2alpha2 is removed, "action required" relnote</li>
+    </ul>
+  </td>
+  </tr>
+  <tr>
+  <td>X+4</td>
+  <td>v1, v2beta1, v2beta2</td>
+  <td>
+    <ul>
+      <li>v2beta1 is deprecated, "action required" relnote</li>
+    </ul>
+  </td>
+  </tr>
+  <tr>
+  <td>X+5</td>
+  <td>v1, v2, v2beta2</td>
+  <td>
+    <ul>
+      <li>v2beta1 is removed, "action required" relnote</li>
+      <li>v2beta2 is deprecated, "action required" relnote</li>
+      <li>v1 is deprecated, "action required" relnote</li>
+    </ul>
+  </td>
+  </tr>
+  <tr>
+  <td>X+6</td>
+  <td>v1, v2</td>
+  <td>
+    <ul>
+      <li>v2beta2 is removed, "action required" relnote</li>
+    </ul>
+  </td>
+  </tr>
+  <tr>
+  <td>X+7</td>
+  <td>v1, v2</td>
+  <td></td>
+  </tr>
+  <tr>
+  <td>X+8</td>
+  <td>v1, v2</td>
+  <td></td>
+  </tr>
+  <tr>
+  <td>X+9</td>
+  <td>v1, v2</td>
+  <td>
+    <ul>
+      <li>v1 is removed, "action required" relnote</li>
+    </ul>
+  </td>
+  </tr>
+</table>
 
 ### REST resources (aka API objects)
 
