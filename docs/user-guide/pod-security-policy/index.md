@@ -8,7 +8,7 @@ Objects of type `podsecuritypolicy` govern the ability
 to make requests on a pod that affect the `SecurityContext` that will be 
 applied to a pod and container.
 
-See [PodSecurityPolicy proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/security-context-constraints.md) for more information.
+See [PodSecurityPolicy proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security-context-constraints.md) for more information.
 
 * TOC
 {:toc}
@@ -39,7 +39,7 @@ into three categories:
 restrictive value. 
 - *Controlled by an allowable set*: Fields of this type are checked 
 against the set to ensure their value is allowed.
-- *Controlled by a strategy*: Items that have a strategy to generate a value provide
+- *Controlled by a strategy*: Items that have a strategy to provide
 a mechanism to generate the value and a mechanism to ensure that a 
 specified value falls into the set of allowable values.
 
