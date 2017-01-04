@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Labels and Selectors
 ---
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.

@@ -29,7 +29,7 @@ This document makes use of the following terms:
 
 You must have a working Kubernetes 1.5 cluster to run the examples in this
 document. The examples use a small nginx webserver that echoes back the source
-IP of requests it receives through a HTTP header. You can create it as follows:
+IP of requests it receives through an HTTP header. You can create it as follows:
 
 ```console
 $ kubectl run source-ip-app --image=gcr.io/google_containers/echoserver:1.4

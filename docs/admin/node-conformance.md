@@ -1,7 +1,7 @@
 ---
 assignees:
 - Random-Liu
-
+title: Validate Node Setup
 ---
 
 * TOC

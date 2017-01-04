@@ -1,9 +1,9 @@
 $( document ).ready(function() {
-    var oldURLs=["/README.md","/README.html",".html",".md","/v1.1/","/v1.0/"];
-    var fwdDirs=["examples/","cluster/","docs/devel","docs/design"];
+    var oldURLs = ["/README.md","/README.html",".html",".md","/v1.1/","/v1.0/"];
+    var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
     var doRedirect = false;
     var notHere = false;
-    var forwardingURL=window.location.href;
+    var forwardingURL = window.location.href;
 
     var redirects = [{
         "from": "resource-quota",
@@ -26,14 +26,14 @@ $( document ).ready(function() {
         "to": "http://kubernetes.io/docs/whatisk8s/"
     }];
 
-    for (i=0;i<redirects.length;i++) {
+    for (var i = 0; i < redirects.length; i++) {
         if (forwardingURL.indexOf(redirects[i].from) > -1){
             notHere = true;
             window.location.replace(redirects[i].to);
         }
     }
 
-    for (i=0;i<fwdDirs.length;i++) {
+    for (var i = 0; i < fwdDirs.length; i++) {
         if (forwardingURL.indexOf(fwdDirs[i]) > -1){
             var urlPieces = forwardingURL.split(fwdDirs[i]);
             var newURL = "https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/" + fwdDirs[i] + urlPieces[1];
@@ -42,11 +42,11 @@ $( document ).ready(function() {
         }
     }
     if (!notHere) {
-        for (i=0;i<oldURLs.length;i++) {
+        for (var i = 0; i < oldURLs.length; i++) {
             if (forwardingURL.indexOf(oldURLs[i]) > -1 &&
                     forwardingURL.indexOf("404.html") < 0){
-                doRedirect=true;
-                forwardingURL=forwardingURL.replace(oldURLs[i],"/");
+                doRedirect = true;
+                forwardingURL = forwardingURL.replace(oldURLs[i],"/");
             }
         }
         if (doRedirect){

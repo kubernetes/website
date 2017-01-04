@@ -4,9 +4,8 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-
+title: kubeadm reference
 ---
-
 
 This document provides information on how to use kubeadm's advanced options.
 
@@ -82,9 +81,12 @@ of the box. You can specify a cloud provider using `--cloud-provider`.
 Valid values are the ones supported by `controller-manager`, namely `"aws"`,
 `"azure"`, `"cloudstack"`, `"gce"`, `"mesos"`, `"openstack"`, `"ovirt"`,
 `"rackspace"`, `"vsphere"`. In order to provide additional configuration for
-the cloud provider, you should create a `/etc/kubernetes/cloud-config.json`
+the cloud provider, you should create a `/etc/kubernetes/cloud-config`
 file manually, before running `kubeadm init`. `kubeadm` automatically
 picks those settings up and ensures other nodes are configured correctly.
+The exact format and content of the file `/etc/kubernetes/cloud-config` depends
+on the type you specified for `--cloud-provider`; see the appropriate documentation
+for your cloud provider for details.
 You must also set the `--cloud-provider` and `--cloud-config` parameters
 yourself by editing the `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
 file appropriately.
@@ -141,10 +143,10 @@ By default, `kubeadm init` automatically generates the token used to initialise
 each new node. If you would like to manually specify this token, you can use the
 `--token` flag. The token must be of the format `<6 character string>.<16 character string>`.
 
-- `--use-kubernetes-version` (default 'v1.4.4') the kubernetes version to initialise
+- `--use-kubernetes-version` (default 'v1.5.1') the kubernetes version to initialise
 
 `kubeadm` was originally built for Kubernetes version **v1.4.0**, older versions are not
-supported. With this flag you can try any future version, e.g. **v1.5.0-beta.1**
+supported. With this flag you can try any future version, e.g. **v1.6.0-beta.1**
 whenever it comes out (check [releases page](https://github.com/kubernetes/kubernetes/releases)
 for a full list of available versions).
 
@@ -168,6 +170,59 @@ necessary.
 By default, when `kubeadm init` runs, a token is generated and revealed in the output.
 That's the token you should use here.
 
+
+## Using kubeadm with a configuration file
+
+WARNING: kubeadm is in alpha and the configuration API syntax will likely change before GA.
+
+It's possible to configure kubeadm with a configuration file instead of command line flags, and some more advanced features may only be
+available as configuration file options.
+
+### Sample Master Configuration
+
+    ```yaml
+    apiVersion: kubeadm.k8s.io/v1alpha1
+    kind: MasterConfiguration
+    api:
+      advertiseAddresses:
+      - <address1|string>
+      - <address2|string>
+      bindPort: <int>
+      externalDNSNames:
+      - <dnsname1|string>
+      - <dnsname2|string>
+    cloudProvider: <string>
+    discovery:
+      bindPort: <int>
+    etcd:
+      endpoints:
+      - <endpoint1|string>
+      - <endpoint2|string>
+      caFile: <path|string>
+      certFile: <path|string>
+      keyFile: <path|string>
+    kubernetesVersion: <string>
+    networking:
+      dnsDomain: <string>
+      serviceSubnet: <cidr>
+      podSubnet: <cidr>
+    secrets:
+      givenToken: <token|string>
+    ```
+
+### Sample Node Configuration
+
+    ```yaml
+    apiVersion: kubeadm.k8s.io/v1alpha1
+    kind: NodeConfiguration
+    apiPort: <int>
+    discoveryPort: <int>
+    masterAddresses:
+    - <master1>
+    secrets:
+      givenToken: <token|string>
+    ```
+
 ## Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
@@ -175,13 +230,12 @@ in the basic `kubeadm` tutorials, you can parallelize the token distribution for
 easier automation. To implement this automation, you must know the IP address
 that the master will have after it is started.
 
-1.  Generate a token.  This token must have the form  `<6 character string>.<16
-character string>`
+1.  Generate a token.  This token must have the form  `<6 character string>.<16 character string>`.
 
-    Here is a simple python one-liner for this:
+    Kubeadm can pre-generate a token for you:
 
-    ```
-    python -c 'import random; print "%0x.%0x" % (random.SystemRandom().getrandbits(3*8), random.SystemRandom().getrandbits(8*8))'
+    ```console
+    $ kubeadm token generate
     ```
 
 1. Start both the master node and the worker nodes concurrently with this token.  As they come up they should find each other and form the cluster.
@@ -191,6 +245,7 @@ Once the cluster is up, you can grab the admin credentials from the master node 
 ## Environment variables
 
 There are some environment variables that modify the way that `kubeadm` works.  Most users will have no need to set these.
+These environment variables are a short-term solution, eventually they will be integrated in the kubeadm configuration file.
 
 | Variable | Default | Description |
 | --- | --- | --- |
@@ -200,36 +255,10 @@ There are some environment variables that modify the way that `kubeadm` works.  
 | `KUBE_HYPERKUBE_IMAGE` | `` | If set, use a single hyperkube image with this name. If not set, individual images per server component will be used. |
 | `KUBE_DISCOVERY_IMAGE` | `gcr.io/google_containers/kube-discovery-<arch>:1.0` | The bootstrap discovery helper image to use. |
 | `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:2.2.5` | The etcd container image to use. |
-| `KUBE_COMPONENT_LOGLEVEL` | `--v=4` | Logging configuration for all Kubernetes components |
-
+| `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |
 
 ## Releases and release notes
 
 If you already have kubeadm installed and want to upgrade, run `apt-get update && apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
- - Second release between v1.4 and v1.5: `v1.5.0-alpha.2.421+a6bea3d79b8bba`
-   - Switch to the 10.96.0.0/12 subnet: [#35290](https://github.com/kubernetes/kubernetes/pull/35290)
-   - Fix kubeadm on AWS by including /etc/ssl/certs in the controller-manager [#33681](https://github.com/kubernetes/kubernetes/pull/33681)
-   - The API was refactored and is now componentconfig: [#33728](https://github.com/kubernetes/kubernetes/pull/33728), [#34147](https://github.com/kubernetes/kubernetes/pull/34147) and [#34555](https://github.com/kubernetes/kubernetes/pull/34555)
-   - Allow kubeadm to get config options from a file: [#34501](https://github.com/kubernetes/kubernetes/pull/34501), [#34885](https://github.com/kubernetes/kubernetes/pull/34885) and [#34891](https://github.com/kubernetes/kubernetes/pull/34891)
-   - Implement preflight checks: [#34341](https://github.com/kubernetes/kubernetes/pull/34341) and [#35843](https://github.com/kubernetes/kubernetes/pull/35843)
-   - Using kubernetes v1.4.4 by default: [#34419](https://github.com/kubernetes/kubernetes/pull/34419) and [#35270](https://github.com/kubernetes/kubernetes/pull/35270)
-   - Make api and discovery ports configurable and default to 6443: [#34719](https://github.com/kubernetes/kubernetes/pull/34719)
-   - Implement kubeadm reset: [#34807](https://github.com/kubernetes/kubernetes/pull/34807)
-   - Make kubeadm poll/wait for endpoints instead of directly fail when the master isn't available [#34703](https://github.com/kubernetes/kubernetes/pull/34703) and [#34718](https://github.com/kubernetes/kubernetes/pull/34718)
-   - Allow empty directories in the directory preflight check: [#35632](https://github.com/kubernetes/kubernetes/pull/35632)
-   - Started adding unit tests: [#35231](https://github.com/kubernetes/kubernetes/pull/35231), [#35326](https://github.com/kubernetes/kubernetes/pull/35326) and [#35332](https://github.com/kubernetes/kubernetes/pull/35332)
-   - Various enhancements: [#35075](https://github.com/kubernetes/kubernetes/pull/35075), [#35111](https://github.com/kubernetes/kubernetes/pull/35111), [#35119](https://github.com/kubernetes/kubernetes/pull/35119), [#35124](https://github.com/kubernetes/kubernetes/pull/35124), [#35265](https://github.com/kubernetes/kubernetes/pull/35265) and [#35777](https://github.com/kubernetes/kubernetes/pull/35777)
-   - Bug fixes: [#34352](https://github.com/kubernetes/kubernetes/pull/34352), [#34558](https://github.com/kubernetes/kubernetes/pull/34558), [#34573](https://github.com/kubernetes/kubernetes/pull/34573), [#34834](https://github.com/kubernetes/kubernetes/pull/34834), [#34607](https://github.com/kubernetes/kubernetes/pull/34607), [#34907](https://github.com/kubernetes/kubernetes/pull/34907) and [#35796](https://github.com/kubernetes/kubernetes/pull/35796)
- - Initial v1.4 release: `v1.5.0-alpha.0.1534+cf7301f16c0363`
-
-
-## Troubleshooting
-
-* Some users on RHEL/CentOS 7 have reported issues with traffic being routed incorrectly due to iptables being bypassed. You should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your sysctl config, eg.
-
-```
-# cat /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-```
+Refer to the [CHANGELOG.md](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md) for more information.
