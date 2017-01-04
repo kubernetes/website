@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Managing Compute Resources
 ---
 
 * TOC
@@ -328,7 +328,7 @@ Host: k8s-master:8080
 ```
 
 To consume opaque resources in pods, include the name of the opaque
-resource as a key in the the `spec.containers[].resources.requests` map.
+resource as a key in the `spec.containers[].resources.requests` map.
 
 The pod will be scheduled only if all of the resource requests are
 satisfied (including cpu, memory and any opaque resources.) The pod will
