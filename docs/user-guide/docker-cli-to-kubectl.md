@@ -172,7 +172,7 @@ $ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-See [Logging](/docs/user-guide/logging) for more information.
+See [Logging Overview](/docs/user-guide/logging/overview) for more information.
 
 #### docker stop and docker rm
 
