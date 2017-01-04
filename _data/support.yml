@@ -1,38 +1,27 @@
 bigheader: "Support"
 abstract: "Troubleshooting resources, frequently asked questions, and community support channels."
 toc:
-- title: Support
-  path: /docs/troubleshooting/
+- docs/troubleshooting.md
 
 - title: Contributing to the Kubernetes Docs
   section:
-  - title: Creating a Documentation Pull Request
-    path: /docs/contribute/create-pull-request/
-  - title: Writing a New Topic
-    path: /docs/contribute/write-new-topic/
-  - title: Staging Your Documentation Changes
-    path: /docs/contribute/stage-documentation-changes/
-  - title: Using Page Templates
-    path: /docs/contribute/page-templates/
-  - title: Reviewing Documentation Issues
-    path: /docs/contribute/review-issues/
-  - title: Documentation Style Guide
-    path: /docs/contribute/style-guide/
+  - editdocs.md
+  - docs/contribute/create-pull-request.md
+  - docs/contribute/write-new-topic.md
+  - docs/contribute/stage-documentation-changes.md
+  - docs/contribute/page-templates.md
+  - docs/contribute/review-issues/
+  - docs/contribute/style-guide.md
+
 
 - title: Troubleshooting
   section:
-  - title: Debugging Pods and Replication Controllers
-    path: /docs/user-guide/debugging-pods-and-replication-controllers/
-  - title: Application Introspection and Debugging
-    path: /docs/user-guide/introspection-and-debugging/
-  - title: Retrieving Logs
-    path: /docs/user-guide/logging/
-  - title: Troubleshooting Applications
-    path: /docs/user-guide/application-troubleshooting/
-  - title: Troubleshooting Clusters
-    path: /docs/admin/cluster-troubleshooting/
-  - title: Debugging Services
-    path: /docs/user-guide/debugging-services/
+  - docs/user-guide/debugging-pods-and-replication-controllers.md
+  - docs/user-guide/introspection-and-debugging.md
+  - docs/user-guide/logging.md
+  - docs/user-guide/application-troubleshooting.md
+  - docs/admin/cluster-troubleshooting.md
+  - docs/user-guide/debugging-services.md
 
 - title: Frequently Asked Questions
   section:
@@ -47,11 +36,11 @@ toc:
   section:
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues/
-  - title: Report a Security Vulnerability
-    path: /docs/reporting-security-issues/
+  - docs/reporting-security-issues.md
   - title: Release Notes
     path: https://github.com/kubernetes/kubernetes/releases/
   - title: Release Roadmap
     path: https://github.com/kubernetes/kubernetes/milestones/
-  - title: Contributing to Kubernetes Documentation
-    path: /editdocs/
+  
+- title: Deprecation Policy
+  path: /docs/deprecation-policy.md

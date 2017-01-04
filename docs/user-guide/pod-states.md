@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: The Lifecycle of a Pod
 ---
 
 Updated: 4/14/2015
