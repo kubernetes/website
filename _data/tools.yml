@@ -17,5 +17,4 @@ toc:
   - title: Helm
     path: https://github.com/kubernetes/helm
   - title: Kompose
-    path: https://github.com/kubernetes-incubator/kompose
-  
+    path: /docs/tools/kompose/
