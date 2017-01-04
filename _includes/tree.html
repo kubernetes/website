@@ -12,9 +12,9 @@
         {% assign path   = item.path %}
         {% assign title  = item.title %}
       {% else %}
-        {% assign page  = site.pages | where: "path", item | first %}
-        {% assign title = page.title %}
-        {% assign path  = page.url %}
+        {% assign found_page = site.pages | where: "path", item | first %}
+        {% assign title = found_page.title %}
+        {% assign path  = found_page.url %}
       {% endif %}
     {% endcapture %}
 
