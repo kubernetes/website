@@ -132,11 +132,11 @@ $ etcdctl mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"Su
 
 ```shell
 # etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD="http://centos-master:2379"
+FLANNEL_ETCD_ENDPOINTS="http://centos-master:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
-FLANNEL_ETCD_KEY="/kube-centos/network"
+FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
 # Any additional options that you want to pass
 FLANNEL_OPTIONS=""
@@ -180,11 +180,11 @@ KUBELET_ARGS=""
 
 ```shell
 # etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD="http://centos-master:2379"
+FLANNEL_ETCD_ENDPOINTS="http://centos-master:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
-FLANNEL_ETCD_KEY="/kube-centos/network"
+FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
 # Any additional options that you want to pass
 FLANNEL_OPTIONS=""
