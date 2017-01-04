@@ -286,26 +286,45 @@ Setup instructions for specific systems:
 
 The first option is to use the oidc authenticator.  This authenticator takes your `id_token`, `refresh_token` and your OIDC `client_secret` and will refresh your token automatically.  Once you have authenticated to your identity provider:
 
+```bash
+kubectl config set-credentials USER_NAME \
+   --auth-provider=oidc
+   --auth-provider-arg=idp-issuer-url=( issuer url ) \
+   --auth-provider-arg=client-id=( your client id ) \
+   --auth-provider-arg=client-secret=( your client secret ) \
+   --auth-provider-arg=refresh-token=( your refresh token ) \
+   --auth-provider-arg=idp-certificate-authority=( path to your ca certificate ) \
+   --auth-provider-arg=id-token=( your id_token )
 ```
-kubectl config set-credentials USER_NAME --auth-provider=oidc
-kubectl config set-credentials USER_NAME --auth-provider-arg=idp-issuer-url=( issuer url )
-kubectl config set-credentials USER_NAME --auth-provider-arg=client-id=( your client id )
-kubectl config set-credentials USER_NAME --auth-provider-arg=client-secret=( your client secret )
-kubectl config set-credentials USER_NAME --auth-provider-arg=refresh-token=( your refresh token )
+
+As an example, running the below command after authenticating to your identity provider:
+
+```bash
+kubectl config set-credentials mmosley  \
+        --auth-provider=oidc  \
+        --auth-provider-arg=idp-issuer-url=https://oidcidp.tremolo.lan:8443/auth/idp/OidcIdP  \
+        --auth-provider-arg=client-id=kubernetes  \
+        --auth-provider-arg=client-secret=1db158f6-177d-4d9c-8a8b-d36869918ec5  \
+        --auth-provider-arg=refresh-token=q1bKLFOyUiosTfawzA93TzZIDzH2TNa2SMm0zEiPKTUwME6BkEo6Sql5yUWVBSWpKUGphaWpxSVAfekBOZbBhaEW+VlFUeVRGcluyVF5JT4+haZmPsluFoFu5XkpXk5BXqHega4GAXlF+ma+vmYpFcHe5eZR+slBFpZKtQA= \
+        --auth-provider-arg=idp-certificate-authority=/root/ca.pem \
+        --auth-provider-arg=id-token=eyJraWQiOiJDTj1vaWRjaWRwLnRyZW1vbG8ubGFuLCBPVT1EZW1vLCBPPVRybWVvbG8gU2VjdXJpdHksIEw9QXJsaW5ndG9uLCBTVD1WaXJnaW5pYSwgQz1VUy1DTj1rdWJlLWNhLTEyMDIxNDc5MjEwMzYwNzMyMTUyIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL29pZGNpZHAudHJlbW9sby5sYW46ODQ0My9hdXRoL2lkcC9PaWRjSWRQIiwiYXVkIjoia3ViZXJuZXRlcyIsImV4cCI6MTQ4MzU0OTUxMSwianRpIjoiMm96US15TXdFcHV4WDlHZUhQdy1hZyIsImlhdCI6MTQ4MzU0OTQ1MSwibmJmIjoxNDgzNTQ5MzMxLCJzdWIiOiI0YWViMzdiYS1iNjQ1LTQ4ZmQtYWIzMC0xYTAxZWU0MWUyMTgifQ.w6p4J_6qQ1HzTG9nrEOrubxIMb9K5hzcMPxc9IxPx2K4xO9l-oFiUw93daH3m5pluP6K7eOE6txBuRVfEcpJSwlelsOsW8gb8VJcnzMS9EnZpeA0tW_p-mnkFc3VcfyXuhe5R3G7aa5d8uHv70yJ9Y3-UhjiN9EhpMdfPAoEB9fYKKkJRzF7utTTIPGrSaSU6d2pcpfYKaxIwePzEkT4DfcQthoZdy9ucNvvLoi1DIC-UocFD8HLs8LYKEqSxQvOcvnThbObJ9af71EwmuE21fO5KzMW20KtAeget1gnldOosPtz1G5EwvaQ401-RPQzPGMVBld0_zMCAwZttJ4knw
+
 ```
-Alternatively, you can add these configuration options manually to your `~/.kube/config`:
-```
+
+Which would produce the below configuration:
+
+```yaml
 users:
-- name: USER_NAME
+- name: mmosley
   user:
     auth-provider:
       config:
         client-id: kubernetes
-        client-secret: 76d19a54-d855-4c1c-8a35-b4b2306b1210
-        id-token: eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo4MDQzL2F1dGgvaWRwL29pZGMiLCJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNDc2OTY5OTYwLCJqdGkiOiJodTYxLWpiS2ZYM2lXdkZqMWF0eTdBIiwiaWF0IjoxNDc2OTY5OTAwLCJuYmYiOjE0NzY5Njk3ODAsInN1YiI6Im1tb3NsZXkiLCJ1c2VyX3JvbGUiOlsiYWRtaW4iLCJ1c2VycyIsImFwcHJvdmVycyJdLCJlbWFpbCI6Im1tb3NsZXlAZG9lc250ZXhpc3QuY29tIn0.U1CfKDZPZFx6HIiNZtmwLFCfa2Mn3OddFf7uAQe9XhN1BInRHFwaw-u3O-wrhuBAxcGQWahuzC9BruvlYrzktI8_AcjYH6sykUp_g6YtFxSaQd9PvJxRE6Ez4AZcbVhwgO5yCpNyIp_4DdR1n3xWVzJYzx2p5FH3amqxPekzrSikZ_UCdXs7S4ltWDjfjmCSCcDt9Z9HITe5clKtRkftgqGFccIs3xI_gpqu76rXuxwIdn-FSQ3Llj0VnN3UrXmSINPJKEtYqDfkDtIe5WpFOjCHZ1-SLqScF9maMeFY1Pn1kEz2a0f6LPMYPeZbM070PtETKQGMtJ4IDXcsbOee4Q
-        idp-certificate-authority: /path/to/ca.pem
-        idp-issuer-url: https://mlb.tremolo.lan:8043/auth/idp/oidc/
-        refresh-token: q1bKLFOyUko2LkqNjMouiww0MMowMq10N8tJCyyPKTUwME6BkEo6Sql5yUWVBSWpKUGphaWpxSVAfZH+jublPj6VpllZOUGOJd4VRQG5iUEFFQV5JYlF2mHZ/lkZ5fm5Hqbh2YaVfkbBaUUhoUHllUGJ5ZkBee5+EUZKtQA=
+        client-secret: 1db158f6-177d-4d9c-8a8b-d36869918ec5
+        id-token: eyJraWQiOiJDTj1vaWRjaWRwLnRyZW1vbG8ubGFuLCBPVT1EZW1vLCBPPVRybWVvbG8gU2VjdXJpdHksIEw9QXJsaW5ndG9uLCBTVD1WaXJnaW5pYSwgQz1VUy1DTj1rdWJlLWNhLTEyMDIxNDc5MjEwMzYwNzMyMTUyIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL29pZGNpZHAudHJlbW9sby5sYW46ODQ0My9hdXRoL2lkcC9PaWRjSWRQIiwiYXVkIjoia3ViZXJuZXRlcyIsImV4cCI6MTQ4MzU0OTUxMSwianRpIjoiMm96US15TXdFcHV4WDlHZUhQdy1hZyIsImlhdCI6MTQ4MzU0OTQ1MSwibmJmIjoxNDgzNTQ5MzMxLCJzdWIiOiI0YWViMzdiYS1iNjQ1LTQ4ZmQtYWIzMC0xYTAxZWU0MWUyMTgifQ.w6p4J_6qQ1HzTG9nrEOrubxIMb9K5hzcMPxc9IxPx2K4xO9l-oFiUw93daH3m5pluP6K7eOE6txBuRVfEcpJSwlelsOsW8gb8VJcnzMS9EnZpeA0tW_p-mnkFc3VcfyXuhe5R3G7aa5d8uHv70yJ9Y3-UhjiN9EhpMdfPAoEB9fYKKkJRzF7utTTIPGrSaSU6d2pcpfYKaxIwePzEkT4DfcQthoZdy9ucNvvLoi1DIC-UocFD8HLs8LYKEqSxQvOcvnThbObJ9af71EwmuE21fO5KzMW20KtAeget1gnldOosPtz1G5EwvaQ401-RPQzPGMVBld0_zMCAwZttJ4knw
+        idp-certificate-authority: /root/ca.pem
+        idp-issuer-url: https://oidcidp.tremolo.lan:8443/auth/idp/OidcIdP
+        refresh-token: q1bKLFOyUiosTfawzA93TzZIDzH2TNa2SMm0zEiPKTUwME6BkEo6Sql5yUWVBSWpKUGphaWpxSVAfekBOZbBhaEW+VlFUeVRGcluyVF5JT4+haZmPsluFoFu5XkpXk5BXq
       name: oidc
 ```
 Once your `id_token` expires, `kubectl` will attempt to refresh your `id_token` using your `refresh_token` and `client_secret` storing the new values for the `refresh_token` and `id_token` in your `kube/.config`.
