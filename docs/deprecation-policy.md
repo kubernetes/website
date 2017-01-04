@@ -161,7 +161,7 @@ versions are supported in a series of subsequent releases.
     </tr>
     <tr>
       <td>X+9</td>
-      <td>v1, v2</td>
+      <td>v2</td>
       <td>
         <ul>
           <li>v1 is removed, "action required" relnote</li>
