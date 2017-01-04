@@ -10,13 +10,13 @@ Kubernetes contains several built-in tools to help you work with the Kubernetes 
 
 Kubernetes contains the following built-in tools:
 
-##### Kubeadm 
-
-[`kubeadm`](/docs/getting-started-guides/kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines.
-
 ##### Kubectl 
 
 [`kubectl`](/docs/user-guide/kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
+
+##### Kubeadm 
+
+[`kubeadm`](/docs/getting-started-guides/kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines.
 
 ##### Kubefed
 
