@@ -220,7 +220,7 @@ The specification of a pre-stop hook is similar to that of probes, but without t
 
 ## Termination message
 
-In order to achieve a reasonably high level of availability, especially for actively developed applications, it's important to debug failures quickly. Kubernetes can speed debugging by surfacing causes of fatal errors in a way that can be display using [`kubectl`](/docs/user-guide/kubectl/) or the [UI](/docs/user-guide/ui), in addition to general [log collection](/docs/user-guide/logging). It is possible to specify a `terminationMessagePath` where a container will write its 'death rattle'?, such as assertion failure messages, stack traces, exceptions, and so on. The default path is `/dev/termination-log`.
+In order to achieve a reasonably high level of availability, especially for actively developed applications, it's important to debug failures quickly. Kubernetes can speed debugging by surfacing causes of fatal errors in a way that can be display using [`kubectl`](/docs/user-guide/kubectl/) or the [UI](/docs/user-guide/ui), in addition to general [log collection](/docs/user-guide/logging/overview). It is possible to specify a `terminationMessagePath` where a container will write its 'death rattle'?, such as assertion failure messages, stack traces, exceptions, and so on. The default path is `/dev/termination-log`.
 
 Here is a toy example:
 
