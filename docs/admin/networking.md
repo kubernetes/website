@@ -130,7 +130,7 @@ We start Docker with:
 DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
 ```
 
-This bridge is created by Kubelet (controlled by the `--configure-cbr0=true`
+This bridge is created by Kubelet (controlled by the `--network-plugin=kubenet`
 flag) according to the `Node`'s `spec.podCIDR`.
 
 Docker will now allocate IPs from the `cbr-cidr` block.  Containers can reach
