@@ -20,7 +20,7 @@ might also help you create a Federated Kubernetes cluster.
 
 You should also have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and [Deployment](/docs/user-guide/deployment.md) in particular.
+general and [Deployment](/docs/user-guide/deployments) in particular.
 
 ## Overview
 
@@ -47,11 +47,11 @@ kubectl --context=federation-cluster create -f mydeployment.yaml
 ```
 
 The '--context=federation-cluster' flag tells kubectl to submit the
-request to the Federation apiserver instead of sending it to a kubernetes
+request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
 Once a Federated Deployment is created, the federation control plane will create
-a Deployment in all underlying kubernetes clusters.
+a Deployment in all underlying Kubernetes clusters.
 You can verify this by checking each of the underlying clusters, for example:
 
 ``` shell

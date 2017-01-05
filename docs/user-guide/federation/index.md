@@ -2,7 +2,7 @@
 title: Federation User Guide
 ---
 
-This guide explains how we can manage multiple kubernetes clusters using
+This guide explains how we can manage multiple Kubernetes clusters using
 federation.
 [Federation proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/federation.md)
 details the use cases motivating cluster federation.

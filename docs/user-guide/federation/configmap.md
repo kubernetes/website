@@ -43,11 +43,11 @@ kubectl --context=federation-cluster create -f myconfigmap.yaml
 ```
 
 The `--context=federation-cluster` flag tells kubectl to submit the
-request to the Federation apiserver instead of sending it to a kubernetes
+request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
 Once a Federated ConfigMap is created, the federation control plane will create
-a matching ConfigMap in all underlying kubernetes clusters.
+a matching ConfigMap in all underlying Kubernetes clusters.
 You can verify this by checking each of the underlying clusters, for example:
 
 ``` shell
