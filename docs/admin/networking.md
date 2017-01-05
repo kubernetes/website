@@ -5,18 +5,8 @@ assignees:
 title: Networking in Kubernetes
 ---
 
-Kubernetes approaches networking somewhat differently than Docker does by
-default.  There are 4 distinct networking problems to solve:
-
-1. Highly-coupled container-to-container communications: this is solved by
-   [pods](/docs/user-guide/pods/) and `localhost` communications.
-2. Pod-to-Pod communications: this is the primary focus of this document.
-3. Pod-to-Service communications: this is covered by [services](/docs/user-guide/services/).
-4. External-to-Service communications: this is covered by [services](/docs/user-guide/services/).
-
 * TOC
 {:toc}
-
 
 ## Summary
 
@@ -25,8 +15,8 @@ which host they land on.  We give every pod its own IP address so you do not
 need to explicitly create links between pods and you almost never need to deal
 with mapping container ports to host ports.  This creates a clean,
 backwards-compatible model where pods can be treated much like VMs or physical
-hosts from the perspectives of port allocation, naming, service discovery, load
-balancing, application configuration, and migration.
+hosts from the perspectives of port allocation, naming, service discovery, 
+load balancing, application configuration, and migration.
 
 To achieve this we must impose some requirements on how you set up your cluster
 networking.
@@ -55,6 +45,15 @@ coordinate which ports they use very carefully or else be allocated ports
 dynamically.
 
 ## Kubernetes model
+
+Kubernetes approaches networking somewhat differently than Docker does by
+default.  There are 4 distinct networking problems to solve:
+
+1. Highly-coupled container-to-container communications: this is solved by
+   [pods](/docs/user-guide/pods/) and `localhost` communications.
+2. Pod-to-Pod communications: this is the primary focus of this document.
+3. Pod-to-Service communications: this is covered by [services](/docs/user-guide/services/).
+4. External-to-Service communications: this is covered by [services](/docs/user-guide/services/).
 
 Coordinating ports across multiple developers is very difficult to do at
 scale and exposes users to cluster-level issues outside of their control.
