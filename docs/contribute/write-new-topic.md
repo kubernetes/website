@@ -1,4 +1,5 @@
 ---
+title: Writing a New Topic
 ---
 
 {% capture overview %}
@@ -121,7 +122,7 @@ image format is SVG.
 {% capture whatsnext %}
 * Learn about [using page templates](/docs/contribute/page-templates/).
 * Learn about [staging your changes](/docs/contribute/stage-documentation-changes).
-* Learn about [creating a pull request](/docs/contribute/write-new-topic).
+* Learn about [creating a pull request](/docs/contribute/create-pull-request/).
 {% endcapture %}
 
 {% include templates/task.md %}

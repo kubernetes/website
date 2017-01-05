@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Using Environment Variables
 ---
 
 This example demonstrates running pods, replication controllers, and

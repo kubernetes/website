@@ -4,9 +4,8 @@ assignees:
 - jbeda
 - mikedanese
 - thockin
-
+title: Running Kubernetes on Google Compute Engine
 ---
-
 
 The example below creates a Kubernetes cluster with 4 worker node Virtual Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
 
@@ -47,7 +46,7 @@ wget -q -O - https://get.k8s.io | bash
 
 Once this command completes, you will have a master VM and four worker VMs, running as a Kubernetes cluster.
 
-By default, some containers will already be running on your cluster. Containers like `fluentd` provide [logging](/docs/getting-started-guides/logging), while `heapster` provides [monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/README.md) services.
+By default, some containers will already be running on your cluster. Containers like `fluentd` provide [logging](/docs/user-guide/logging/overview), while `heapster` provides [monitoring](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/README.md) services.
 
 The script run by the commands above creates a cluster with the name/prefix "kubernetes". It defines one specific cluster config, so you can't run it more than once.
 

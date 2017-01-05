@@ -7,7 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
-
+title: Scaling a StatefulSet
 ---
 
 {% capture overview %}

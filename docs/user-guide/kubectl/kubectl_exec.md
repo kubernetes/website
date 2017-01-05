@@ -1,5 +1,7 @@
 ---
+title: kubectl exec
 ---
+
 ## kubectl exec
 
 Execute a command in a container

@@ -3,7 +3,7 @@ assignees:
 - justinsb
 - lavalamp
 - clove
-
+title: Running Kubernetes on AWS EC2
 ---
 
 * TOC

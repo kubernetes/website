@@ -1,5 +1,7 @@
 ---
+title: kubectl edit
 ---
+
 ## kubectl edit
 
 Edit a resource on the server

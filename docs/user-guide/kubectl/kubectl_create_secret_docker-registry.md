@@ -1,5 +1,7 @@
 ---
+title: kubectl create secret docker-registry
 ---
+
 ## kubectl create secret docker-registry
 
 Create a secret for use with a Docker registry

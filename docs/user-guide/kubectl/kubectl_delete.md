@@ -1,5 +1,7 @@
 ---
+title: kubectl delete
 ---
+
 ## kubectl delete
 
 Delete resources by filenames, stdin, resources and names, or by resources and label selector

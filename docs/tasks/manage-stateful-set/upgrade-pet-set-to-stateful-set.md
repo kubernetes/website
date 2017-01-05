@@ -7,7 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
-
+title: Upgrading from PetSets to StatefulSets
 ---
 
 {% capture overview %}

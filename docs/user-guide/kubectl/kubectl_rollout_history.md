@@ -1,5 +1,7 @@
 ---
+title: kubectl rollout history
 ---
+
 ## kubectl rollout history
 
 View rollout history

@@ -1,5 +1,7 @@
 ---
+title: kubectl annotate
 ---
+
 ## kubectl annotate
 
 Update the annotations on a resource

@@ -1,5 +1,7 @@
 ---
+title: kubectl cluster-info
 ---
+
 ## kubectl cluster-info
 
 Display cluster info

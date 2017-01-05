@@ -1,4 +1,5 @@
 ---
+title: Defining Environment Variables for a Container
 ---
 
 {% capture overview %}

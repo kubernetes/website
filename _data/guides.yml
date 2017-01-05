@@ -1,311 +1,193 @@
 bigheader: "Guides"
 abstract: "How to get started, and accomplish tasks, using Kubernetes."
 toc:
-- title: Guides
-  path: /docs/user-guide/
+- docs/user-guide/index.md
 
 - title: Getting Started
   section:
-  - title: What is Kubernetes?
-    path: /docs/whatisk8s/
-  - title: Installing Kubernetes on Linux with kubeadm
-    path: /docs/getting-started-guides/kubeadm/
-  - title: Installing Kubernetes on AWS with kops
-    path: /docs/getting-started-guides/kops/
-  - title: Hello World on Google Container Engine
-    path: /docs/hellonode/
-  - title: Installing kubectl
-    path: /docs/getting-started-guides/kubectl/
-  - title: Downloading or Building Kubernetes
-    path: /docs/getting-started-guides/binary_release/
+  - docs/whatisk8s.md
+  - docs/getting-started-guides/kubeadm.md
+  - docs/getting-started-guides/kops.md
+  - docs/hellonode.md
+  - docs/getting-started-guides/kubectl.md
+  - docs/getting-started-guides/binary_release.md
   - title: Online Training Course
     path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
 
 - title: Accessing the Cluster
   section:
-  - title: Installing and Setting up kubectl
-    path: /docs/user-guide/prereqs/
-  - title: Accessing Clusters
-    path: /docs/user-guide/accessing-the-cluster/
-  - title: Sharing Cluster Access with kubeconfig
-    path: /docs/user-guide/sharing-clusters/
-  - title: Authenticating Across Clusters with kubeconfig
-    path: /docs/user-guide/kubeconfig-file/
+  - docs/user-guide/prereqs.md
+  - docs/user-guide/accessing-the-cluster.md
+  - docs/user-guide/sharing-clusters.md
+  - docs/user-guide/kubeconfig-file.md
 
-- title: User Guide
-  path: /docs/user-guide/
+- docs/user-guide/index.md
 
-- title: Web UI (Dashboard)
-  path: /docs/user-guide/ui/
+- docs/user-guide/ui.md
 
 - title: Workload Deployment and Management
   section:
-  - title: Launching, Exposing, and Killing Applications
-    path: /docs/user-guide/quick-start/
-  - title: Deploying Applications
-    path: /docs/user-guide/deploying-applications/
-  - title: Managing Resources
-    path: /docs/user-guide/managing-deployments/
-  - title: Replication Controller Operations
-    path: /docs/user-guide/replication-controller/operations/
-  - title: Resizing a Replication Controller
-    path: /docs/user-guide/resizing-a-replication-controller/
-  - title: Rolling Updates
-    path: /docs/user-guide/rolling-updates/
-  - title: Rolling Update Demo
-    path: /docs/user-guide/update-demo/
-  - title: Secrets Walkthrough
-    path: /docs/user-guide/secrets/walkthrough/
-  - title: Using ConfigMap
-    path: /docs/user-guide/configmap/
-  - title: Horizontal Pod Autoscaling
-    path: /docs/user-guide/horizontal-pod-autoscaling/walkthrough/
-  - title: Best Practices for Configuration
-    path: /docs/user-guide/config-best-practices/
-  - title: Using kubectl to Manage Resources
-    path: /docs/user-guide/working-with-resources/
-  - title: Garbage Collection (Beta)
-    path: /docs/user-guide/garbage-collection/
+  - docs/user-guide/quick-start.md
+  - docs/user-guide/deploying-applications.md
+  - docs/user-guide/managing-deployments.md
+  - docs/user-guide/replication-controller/operations.md
+  - docs/user-guide/resizing-a-replication-controller.md
+  - docs/user-guide/rolling-updates.md
+  - docs/user-guide/update-demo/index.md
+  - docs/user-guide/secrets/walkthrough.md
+  - docs/user-guide/configmap/index.md
+  - docs/user-guide/horizontal-pod-autoscaling/walkthrough.md
+  - docs/user-guide/config-best-practices.md
+  - docs/user-guide/working-with-resources.md
+  - docs/user-guide/garbage-collection.md
   - title: Using NetworkPolicy
     section:
-    - title: Example Walkthrough
-      path: /docs/getting-started-guides/network-policy/walkthrough/
-    - title: Using Calico for NetworkPolicy
-      path: /docs/getting-started-guides/network-policy/calico/
-    - title: Using Romana for NetworkPolicy
-      path: /docs/getting-started-guides/network-policy/romana/
+    - docs/getting-started-guides/network-policy/walkthrough.md
+    - docs/getting-started-guides/network-policy/calico.md
+    - docs/getting-started-guides/network-policy/romana.md
 
 - title: Batch Jobs
   section:
-  - title: Jobs
-    path: /docs/user-guide/jobs/
-  - title: Parallel Processing using Expansions
-    path: /docs/user-guide/jobs/expansions/
-  - title: Coarse Parallel Processing using a Work Queue
-    path: /docs/user-guide/jobs/work-queue-1/
-  - title: Fine Parallel Processing using a Work Queue
-    path: /docs/user-guide/jobs/work-queue-2/
-  - title: Cron Jobs
-    path: /docs/user-guide/cron-jobs/
+  - docs/user-guide/jobs.md
+  - docs/user-guide/jobs/expansions/index.md
+  - docs/user-guide/jobs/work-queue-1/index.md
+  - docs/user-guide/jobs/work-queue-2/index.md
+  - docs/user-guide/cron-jobs.md
 
 - title: Service Discovery and Load Balancing
   section:
-  - title: Connecting Applications with Services
-    path: /docs/user-guide/connecting-applications/
-  - title: Service Operations
-    path: /docs/user-guide/services/operations/
-  - title: Creating an External Load Balancer
-    path: /docs/user-guide/load-balancer/
-  - title: Configuring Your Cloud Provider's Firewalls
-    path: /docs/user-guide/services-firewalls/
-  - title: Cross-cluster Service Discovery using Federated Services
-    path: /docs/user-guide/federation/federated-services/
+  - docs/user-guide/connecting-applications.md
+  - docs/user-guide/services/operations.md
+  - docs/user-guide/load-balancer.md
+  - docs/user-guide/services-firewalls.md
+  - docs/user-guide/federation/federated-services.md
 
 - title: Containers and Pods
   section:
-  - title: Running Your First Containers
-    path: /docs/user-guide/simple-nginx/
-  - title: Creating Single-Container Pods
-    path: /docs/user-guide/pods/single-container/
-  - title: Creating Multi-Container Pods
-    path: /docs/user-guide/pods/multi-container/
-  - title: Configuring Containers
-    path: /docs/user-guide/configuring-containers/
-  - title: Working with Containers in Production
-    path: /docs/user-guide/production-pods/
-  - title: Commands and Capabilities
-    path: /docs/user-guide/containers/
-  - title: Using Environment Variables
-    path: /docs/user-guide/environment-guide/
-  - title: Managing Compute Resources
-    path: /docs/user-guide/compute-resources/
-  - title: The Lifecycle of a Pod
-    path: /docs/user-guide/pod-states/
-  - title: Checking Pod Health
-    path: /docs/user-guide/liveness/
-  - title: Container Lifecycle Hooks
-    path: /docs/user-guide/container-environment/
-  - title: Assigning Pods to Nodes
-    path: /docs/user-guide/node-selection/
-  - title: Using the Downward API to Convey Pod Properties
-    path: /docs/user-guide/downward-api/
-  - title: Downward API Volumes
-    path: /docs/user-guide/downward-api/volume
-  - title: Persistent Volumes Walkthrough
-    path: /docs/user-guide/persistent-volumes/walkthrough/
-  - title: Bootstrapping Pet Sets
-    path: /docs/user-guide/petset/bootstrapping/
+  - docs/user-guide/simple-nginx.md
+  - docs/user-guide/pods/single-container.md
+  - docs/user-guide/pods/multi-container.md
+  - docs/user-guide/configuring-containers.md
+  - docs/user-guide/production-pods.md
+  - docs/user-guide/containers.md
+  - docs/user-guide/environment-guide/index.md
+  - docs/user-guide/compute-resources.md
+  - docs/user-guide/pod-states.md
+  - docs/user-guide/liveness/index.md
+  - docs/user-guide/container-environment.md
+  - docs/user-guide/node-selection/index.md
+  - docs/user-guide/downward-api/index.md
+  - docs/user-guide/downward-api/volume/index.md
+  - docs/user-guide/persistent-volumes/walkthrough.md
+  - docs/user-guide/petset/bootstrapping/index.md
 
 - title: Monitoring, Logging, and Debugging Containers
   section:
-  - title: Resource Usage Monitoring
-    path: /docs/user-guide/monitoring/
+  - docs/user-guide/monitoring.md
   - title: Logging
-    path: /docs/getting-started-guides/logging/
-  - title: Logging with Elasticsearch and Kibana
-    path: /docs/getting-started-guides/logging-elasticsearch/
-  - title: Running Commands in a Container with kubectl exec
-    path: /docs/user-guide/getting-into-containers/
-  - title: Connect with Proxies
-    path: /docs/user-guide/connecting-to-applications-proxy/
-  - title: Connect with Port Forwarding
-    path: /docs/user-guide/connecting-to-applications-port-forward/
+    section:
+    - docs/user-guide/logging/overview.md
+    - docs/user-guide/logging/stackdriver.md
+    - docs/user-guide/logging/elasticsearch.md
+  - docs/user-guide/getting-into-containers.md
+  - docs/user-guide/connecting-to-applications-proxy.md
+  - docs/user-guide/connecting-to-applications-port-forward.md
   - title: Using Explorer to Examine the Runtime Environment
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/explorer
 
 - title: Creating a Cluster
   section:
-  - title: Picking the Right Solution
-    path: /docs/getting-started-guides/
+  - docs/getting-started-guides/index.md
   - title: Running Kubernetes on Your Local Machine
     section:
-    - title: Running Kubernetes Locally via Minikube
-      path: /docs/getting-started-guides/minikube/
-    - title: Deprecated Alternatives
-      path: /docs/getting-started-guides/alternatives/
+    - docs/getting-started-guides/minikube.md
+    - docs/getting-started-guides/alternatives.md
   - title: Running Kubernetes on Turn-key Cloud Solutions
     section:
     - title: Running Kubernetes on Google Container Engine
       path: https://cloud.google.com/container-engine/docs/before-you-begin/
-    - title: Running Kubernetes on Google Compute Engine
-      path: /docs/getting-started-guides/gce/
-    - title: Running Kubernetes on AWS EC2
-      path: /docs/getting-started-guides/aws/
-    - title: Running Kubernetes on Azure
-      path: /docs/getting-started-guides/azure/
-    - title: Running Kubernetes on Azure (Weave-based)
-      path: /docs/getting-started-guides/coreos/azure/
-    - title: Running Kubernetes on CenturyLink Cloud
-      path: /docs/getting-started-guides/clc/
+    - docs/getting-started-guides/gce.md
+    - docs/getting-started-guides/aws.md
+    - title: Running Kubernetes on Azure Container Service
+      path: https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough
+    - docs/getting-started-guides/azure.md
+    - docs/getting-started-guides/clc.md
     - title: Running Kubernetes on IBM SoftLayer
       path: https://github.com/patrocinio/kubernetes-softlayer
+    - title: Running Kubernetes on Multiple Clouds with Stackpoint.io
+      path: /docs/getting-started-guides/stackpoint/
   - title: Running Kubernetes on Custom Solutions
     section:
-    - title: Creating a Custom Cluster from Scratch
-      path: /docs/getting-started-guides/scratch/
+    - docs/getting-started-guides/scratch.md
     - title: Custom Cloud Solutions
       section:
-      - title: CoreOS on AWS or GCE
-        path: /docs/getting-started-guides/coreos/
-      - title: Ubuntu on AWS or Joyent
-        path: /docs/getting-started-guides/juju/
-      - title: CoreOS on Rackspace
-        path: /docs/getting-started-guides/rackspace/
+      - docs/getting-started-guides/coreos/index.md
+      - /docs/getting-started-guides/juju/
+      - docs/getting-started-guides/rackspace.md
     - title: On-Premise VMs
       section:
-      - title: CoreOS on Vagrant
-        path: /docs/getting-started-guides/coreos/
-      - title: Cloudstack
-        path: /docs/getting-started-guides/cloudstack/
-      - title: VMware vSphere
-        path: /docs/getting-started-guides/vsphere/
-      - title: VMware Photon Controller
-        path: /docs/getting-started-guides/photon-controller/
-      - title: Juju
-        path: /docs/getting-started-guides/juju/
-      - title: DCOS
-        path: /docs/getting-started-guides/dcos/
-      - title: CoreOS on libvirt
-        path: /docs/getting-started-guides/libvirt-coreos/
-      - title: oVirt
-        path: /docs/getting-started-guides/ovirt/
-      - title: OpenStack Heat
-        path: /docs/getting-started-guides/openstack-heat/
+      - docs/getting-started-guides/coreos/index.md
+      - docs/getting-started-guides/cloudstack.md
+      - docs/getting-started-guides/vsphere.md
+      - docs/getting-started-guides/photon-controller.md
+      - /docs/getting-started-guides/juju/
+      - docs/getting-started-guides/dcos.md
+      - docs/getting-started-guides/libvirt-coreos.md
+      - docs/getting-started-guides/ovirt.md
+      - docs/getting-started-guides/openstack-heat.md
       - title: rkt
         section:
-        - title: Running Kubernetes with rkt
-          path: /docs/getting-started-guides/rkt/
-        - title: Known Issues when Using rkt
-          path: /docs/getting-started-guides/rkt/notes/
-      - title: Kubernetes on Mesos
-        path: /docs/getting-started-guides/mesos/
-      - title: Kubernetes on Mesos on Docker
-        path: /docs/getting-started-guides/mesos-docker/
+        - docs/getting-started-guides/rkt/index.md
+        - docs/getting-started-guides/rkt/notes.md
+      - docs/getting-started-guides/mesos/index.md
+      - docs/getting-started-guides/mesos-docker.md
     - title: Bare Metal
       section:
-      - title: Offline
-        path: /docs/getting-started-guides/coreos/bare_metal_offline/
-      - title: Fedora via Ansible
-        path: /docs/getting-started-guides/fedora/fedora_ansible_config/
-      - title: Fedora (Single Node)
-        path: /docs/getting-started-guides/fedora/fedora_manual_config/
-      - title: Fedora (Multi Node)
-        path: /docs/getting-started-guides/fedora/flannel_multi_node_cluster/
-      - title: CentOS
-        path: /docs/getting-started-guides/centos/centos_manual_config/
-      - title: CoreOS
-        path: /docs/getting-started-guides/coreos
-      - title: Ubuntu
-        path: /docs/getting-started-guides/ubuntu/
-      - title: Windows Server Containers
-        path: /docs/getting-started-guides/windows/
-    - title: Validate Node Setup
-      path: /docs/admin/node-conformance
-  - title: Portable Multi-Node Cluster
-    path: /docs/getting-started-guides/docker-multinode/
-  - title: Building Large Clusters
-    path: /docs/admin/cluster-large/
-  - title: Running in Multiple Zones
-    path: /docs/admin/multiple-zones/
-  - title: Building High-Availability Clusters
-    path: /docs/admin/high-availability/
+      - docs/getting-started-guides/coreos/bare_metal_offline.md
+      - docs/getting-started-guides/fedora/fedora_ansible_config.md
+      - docs/getting-started-guides/fedora/fedora_manual_config.md
+      - docs/getting-started-guides/fedora/flannel_multi_node_cluster.md
+      - docs/getting-started-guides/centos/centos_manual_config.md
+      - docs/getting-started-guides/coreos/index.md
+      - /docs/getting-started-guides/ubuntu/
+      - docs/getting-started-guides/windows/index.md
+    - docs/admin/node-conformance.md
+  - docs/getting-started-guides/docker-multinode.md
+  - docs/admin/cluster-large.md
+  - docs/admin/multiple-zones.md
+  - docs/admin/high-availability/index.md
 
 - title: Administering Clusters
   section:
-  - title: Admin Guide
-    path: /docs/admin/
-  - title: Cluster Management Guide
-    path: /docs/admin/cluster-management/
-  - title: kubeadm reference
-    path: /docs/admin/kubeadm/
-  - title: Installing Addons
-    path: /docs/admin/addons/
-  - title: Sharing a Cluster with Namespaces
-    path: /docs/admin/namespaces/
-  - title: Namespaces Walkthrough
-    path: /docs/admin/namespaces/walkthrough/
-  - title: Setting Pod CPU and Memory Limits
-    path: /docs/admin/limitrange/
-  - title: Understanding Resource Quotas
-    path: /docs/admin/resourcequota/
-  - title: Applying Resource Quotas and Limits
-    path: /docs/admin/resourcequota/walkthrough/
-  - title: Kubernetes Components
-    path: /docs/admin/cluster-components/
-  - title: Configuring Kubernetes Use of etcd
-    path: /docs/admin/etcd/
-  - title: Using Multiple Clusters
-    path: /docs/admin/multi-cluster/
+  - docs/admin/index.md
+  - docs/admin/cluster-management.md
+  - docs/admin/kubeadm.md
+  - docs/admin/addons.md
+  - docs/admin/namespaces/index.md
+  - docs/admin/namespaces/walkthrough.md
+  - docs/admin/limitrange/index.md
+  - docs/admin/resourcequota/index.md
+  - docs/admin/resourcequota/walkthrough.md
+  - docs/admin/cluster-components.md
+  - docs/admin/etcd.md
+  - docs/admin/multi-cluster.md
   - title: Changing Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
-  - title: Configuring Multiple Schedulers
-    path: /docs/admin/multiple-schedulers/
-  - title: Networking in Kubernetes
-    path: /docs/admin/networking/
-  - title: Using DNS Pods and Services
-    path: /docs/admin/dns/
+  - docs/admin/multiple-schedulers.md
+  - docs/admin/networking.md
+  - docs/admin/dns.md
   - title: Setting Up and Configuring DNS
     path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/cluster-dns
-  - title: Master <-> Node Communication
-    path: /docs/admin/master-node-communication/
-  - title: Network Plugins
-    path: /docs/admin/network-plugins/
-  - title: Static Pods
-    path: /docs/admin/static-pods/
-  - title: Configuring kubelet Garbage Collection
-    path: /docs/admin/garbage-collection/
-  - title: Configuring Out Of Resource Handling
-    path: /docs/admin/out-of-resource/
-  - title: Configuring Kubernetes with Salt
-    path: /docs/admin/salt/
-  - title: Monitoring Node Health
-    path: /docs/admin/node-problem/
-  - title: AppArmor
-    path: /docs/admin/apparmor/
+  - docs/admin/master-node-communication.md
+  - docs/admin/network-plugins.md
+  - docs/admin/static-pods.md
+  - docs/admin/garbage-collection.md
+  - docs/admin/out-of-resource.md
+  - docs/admin/salt.md
+  - docs/admin/node-problem.md
+  - docs/admin/apparmor/index.md
 
 - title: Administering Federation
   section:
-  - title: Using `kubefed`
-    path: /docs/admin/federation/kubfed/
-  - title: Using `federation-up` and `deploy.sh`
-    path: /docs/admin/federation/
+  - /docs/admin/federation/kubfed/
+  - docs/admin/federation/index.md

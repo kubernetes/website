@@ -1,5 +1,7 @@
 ---
+title: kubectl create secret generic
 ---
+
 ## kubectl create secret generic
 
 Create a secret from a local file, directory or literal value

@@ -37,7 +37,7 @@ Example: `beta.kubernetes.io/os=linux`
 Used on: Node
 
 Kubelet populates this with `runtime.GOOS` as defined by Go.  This can be handy if you are mixing operating systems
-in your cluster (although currently Linux is the only OS supported by kubernetes).
+in your cluster (although currently Linux is the only OS supported by Kubernetes).
 
 ## kubernetes.io/hostname
 
@@ -56,7 +56,7 @@ Used on: Node
 
 Kubelet populates this with the instance type as defined by the `cloudprovider`.  It will not be set if
 not using a cloudprovider.  This can be handy if you want to target certain workloads to certain instance
-types, but typically you want to rely on the kubernetes scheduler to perform resource-based scheduling,
+types, but typically you want to rely on the Kubernetes scheduler to perform resource-based scheduling,
 and you should aim to schedule based on properties rather than on instance types (e.g. require a GPU, instead
 of requiring a `g2.2xlarge`)
 
