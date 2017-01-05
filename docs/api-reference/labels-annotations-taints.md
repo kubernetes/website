@@ -1,6 +1,6 @@
 ---
+title: Well-Known Labels, Annotations and Taints
 ---
-# Well-Known Labels, Annotations and Taints
 
 Kubernetes reserves all labels and annotations in the kubernetes.io namespace.  This document describes
 the well-known kubernetes.io labels and annotations.
