@@ -65,18 +65,23 @@ When you run [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs), as in the 
 
 ### System components logs
 
-There are two types of system components: kubelet and container runtime (e.g. docker)
-is one and system containers like kube-proxy or scheduler is another.
-On a system with systemd kubelet and container runtime write to journald. If
+There are two types of system components depending on whether it runs
+outside or inside a container:
+
+* kubelet and container runtime, e.g. docker
+* system containers, e.g. kube-proxy or scheduler
+
+On machines with systemd kubelet and container runtime write to journald. If
 systemd is not present, they write to `.log` files in `/var/log` directory.
 System components inside containers always write to `/var/log` directory,
 bypassing default logging mechanism. They use the [glog](https://godoc.org/github.com/golang/glog)
 logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
 
-Similarly to the container logs, system component logs in `/var/log` directory
-are rotated daily and based on size. However, system component logs have a
-higher size retention: by default, they can store up to 100MB.
+Similarly to the container logs, system component's logs in `/var/log`
+directory are rotated daily and based on the log size. However,
+system component's logs have a higher size retention: by default,
+they can store up to 100MB.
 
 ## Cluster-level logging architectures
 

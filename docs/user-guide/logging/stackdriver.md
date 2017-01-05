@@ -13,17 +13,16 @@ Following guide describes gathering container's standard output and standard err
 
 ## Overview
 
-After creation, your cluster has a collection of pods with logging agent
-running in the `kube-system` namespace on each node. You can see those
-system pods in the output of the following command:
+After creation, you can discover logging agent's pods in `kube-system` namespace,
+one per node, by running the following command:
 
 ```shell
 $ kubectl get pods --namespace=kube-system
-NAME                                           READY     REASON    RESTARTS   AGE
-fluentd-cloud-logging-kubernetes-node-0f64     1/1       Running   0          32m
-fluentd-cloud-logging-kubernetes-node-27gf     1/1       Running   0          32m
-fluentd-cloud-logging-kubernetes-node-pk22     1/1       Running   0          31m
-fluentd-cloud-logging-kubernetes-node-20ej     1/1       Running   0          31m
+NAME                                           READY     STATUS    RESTARTS   AGE
+...
+fluentd-gcp-v1.30-50gnc                        1/1       Running   0          5d
+fluentd-gcp-v1.30-v255c                        1/1       Running   0          5d
+fluentd-gcp-v1.30-f02l5                        1/1       Running   0          5d
 ...
 ```
 
@@ -49,8 +48,8 @@ NAME                                           READY     STATUS    RESTARTS   AG
 counter                                        1/1       Running   0          5m
 ```
 
-For a few minutes you can observe 'Pending' pod status, because kubelet has to
-download the container image first. When the pod status changes to `Running`
+For a short period of time you can observe 'Pending' pod status because kubelet
+has to download the container image first. When the pod status changes to `Running`
 you can use the `kubectl logs` command to view the output of this counter pod.
 
 ```shell
@@ -118,9 +117,10 @@ log names:
 
 You can learn more about viewing logs on [the dedicated Stackdriver page](https://cloud.google.com/logging/docs/view/logs_viewer).
 
-One of the possible ways to view logs in using [gcloud](https://cloud.google.com/sdk/gcloud/)
-– command line tool from a Google Cloud SDK. It uses Stackdriver Logging
-[filtering syntax](https://cloud.google.com/logging/docs/view/advanced_filters)
+One of the possible ways to view logs is using the
+[`gcloud logging`](https://cloud.google.com/logging/docs/api/gcloud-logging)
+command line interface from the [Google Cloud SDK](https://cloud.google.com/sdk/).
+It uses Stackdriver Logging [filtering syntax](https://cloud.google.com/logging/docs/view/advanced_filters)
 to query specific logs. For example, you can run the following command
 
 ```shell
@@ -141,8 +141,8 @@ logs for the first container.
 
 ### Exporting logs
 
-You can export logs to the [Google Cloud Storage](https://cloud.google.com/storage/)
-or to the [BigQuery](https://cloud.google.com/bigquery/) to run further
-analysis. Stackdriver logging offers the concept of sinks, where you can
+You can export logs to [Google Cloud Storage](https://cloud.google.com/storage/)
+or to [BigQuery](https://cloud.google.com/bigquery/) to run further
+analysis. Stackdriver Logging offers the concept of sinks, where you can
 specify the destination of log entries. More information is available on
 the Stackdriver [Exporting Logs page](https://cloud.google.com/logging/docs/export/configure_export_v2).
