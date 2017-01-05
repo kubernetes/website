@@ -181,15 +181,17 @@ KUBELET_ARGS=""
 * Configure flannel to overlay Docker network in /etc/sysconfig/flanneld (in all the nodes)
 
 ```shell
+# Flanneld configuration options
+
 # etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD="http://centos-master:2379"
+FLANNEL_ETCD_ENDPOINTS="http://centos-master:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
-FLANNEL_ETCD_KEY="/kube-centos/network"
+FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
 # Any additional options that you want to pass
-FLANNEL_OPTIONS=""
+#FLANNEL_OPTIONS=""
 ```
 
 * Start the appropriate services on node (centos-minion-n).
