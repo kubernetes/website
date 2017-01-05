@@ -31,14 +31,18 @@ In the configuration file, you can see that the Pod has a Volume named
 `shared-data`.
 
 The first container listed in the configuration file runs an nginx server. The
-second container, which is based on the debian image, runs this one command and
-then terminates.
+mount path for the shared Volume is `/usr/share/nginx/html`.
+The second container is based on the debian image, and has a mount path of
+`/pod-data`. The second container runs the following command and then terminates.
 
-    echo Hello from the debian container > /pod-data/test-file
+    echo Hello from the debian container > /pod-data/index.html
+
+Notice that the second container writes the `index.html` file in the root
+directory of the nginx server.
 
 Create the Pod and the two Containers:
 
-    kubectl create -f k8s.io//docs/tasks/configure-pod-container/two-container-pod.yaml
+    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/two-container-pod.yaml
 
 View information about the Pod and the Containers:
 
@@ -91,13 +95,14 @@ The output is similar to this:
     USER       PID  ...  STAT START   TIME COMMAND
     root         1  ...  Ss   21:12   0:00 nginx: master process nginx -g daemon off;
 
-Recall that the debian Container created a file named `test-file` in the Pod's
-shared Volume. In your shell to the nginx Container, view the contents of
-`test-file`:
+Recall that the debian Container created the `index.html` file in the nginx root
+directory. Use `curl` to send a GET request to the nginx server:
 
-    root@two-containers:/# cat /pod-data/test-file
+    root@two-containers:/# apt-get update
+    root@two-containers:/# apt-get install curl
+    root@two-containers:/# curl localhost
 
-The output is the message written by the debian Container:
+The output shows that nginx serves a web page written by the debian container:
 
     Hello from the debian container
 
@@ -111,9 +116,10 @@ The output is the message written by the debian Container:
 The primary reason that Pods can have multiple containers is to support
 helper applications that assist a primary application. Typical examples of
 helper applications are data pullers, data pushers, and proxies.
-Helper and primary applications typically need to communicate with each other,
-often through the file system. An example of this pattern would be a web server
-along with a helper program that polls a Git repository for new updates.
+Helper and primary applications often need to communicate with each other.
+Typically this is done through a shared filesystem, as shown in this exercise,
+or through the loopback network interface, localhost. An example of this pattern is a
+web server along with a helper program that polls a Git repository for new updates.
 
 The Volume in this exercise provides a way for Containers to communicate during
 the life of the Pod. If the Pod is deleted and recreated, any data stored in
