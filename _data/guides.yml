@@ -213,7 +213,7 @@ toc:
     - docs/user-guide/federation/namespaces.md
     - docs/user-guide/federation/replicasets.md
     - docs/user-guide/federation/secrets.md
-    - docs/federation/api-reference/README.md
+    - docs/federation/api-reference/index.md
   - title: Federation Components
     section:
     - docs/admin/federation-apiserver.md
