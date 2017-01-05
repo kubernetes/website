@@ -7,10 +7,11 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
+title: StatefulSet Basics
 ---
 
 {% capture overview %}
-This tutorial provides an introduction to managing applications with
+This tutorial provides an introduction to manage applications with
 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/). It 
 demonstrates how to create, delete, scale, and update the container image of a 
 StatefulSet.
@@ -76,7 +77,7 @@ In the second terminal, use
 Headless Service and StatefulSet defined in `web.yaml`.
 
 ```shell
-kubectl create -f web.yml 
+kubectl create -f web.yaml 
 service "nginx" created
 statefulset "web" created
 ```
@@ -121,7 +122,7 @@ launching `web-1`. In fact, `web-1` is not launched until `web-0` is
 [Running and Ready](/docs/user-guide/pod-states). 
 
 ### Pods in a StatefulSet
-Unlike Pods in other controllers, the Pods in a StatefulSet have a unqiue 
+Unlike Pods in other controllers, the Pods in a StatefulSet have a unique 
 ordinal index and a stable network identity.
 
 #### Examining the Pod's Ordinal Index
@@ -176,7 +177,7 @@ Name:      web-1.nginx
 Address 1: 10.244.2.6
 ```
 
-The CNAME of the headless serivce points to SRV records (one for each Pod that 
+The CNAME of the headless service points to SRV records (one for each Pod that 
 is Running and Ready). The SRV records point to A record entries that 
 contain the Pods' IP addresses. 
 

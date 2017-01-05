@@ -1,5 +1,7 @@
 ---
+title: kubectl cordon
 ---
+
 ## kubectl cordon
 
 Mark node as unschedulable

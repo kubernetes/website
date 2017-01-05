@@ -1,5 +1,7 @@
 ---
+title: kubectl config set
 ---
+
 ## kubectl config set
 
 Sets an individual value in a kubeconfig file

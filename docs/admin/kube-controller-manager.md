@@ -1,5 +1,8 @@
 ---
+title: kube-controller-manager
+notitle: true
 ---
+
 ## kube-controller-manager
 
 
@@ -42,7 +45,7 @@ kube-controller-manager
       --concurrent_rc_syncs int32                                         The number of replication controllers that are allowed to sync concurrently. Larger number = more responsive replica management, but more CPU (and network) load (default 5)
       --configure-cloud-routes                                            Should CIDRs allocated by allocate-node-cidrs be configured on the cloud provider. (default true)
       --controller-start-interval duration                                Interval between starting controller managers.
-      --daemonset-lookup-cache-size int32                                 The the size of lookup cache for daemonsets. Larger number = more responsive daemonsets, but more MEM load. (default 1024)
+      --daemonset-lookup-cache-size int32                                 The size of lookup cache for daemonsets. Larger number = more responsive daemonsets, but more MEM load. (default 1024)
       --deployment-controller-sync-period duration                        Period for syncing the deployments. (default 30s)
       --enable-dynamic-provisioning                                       Enable dynamic provisioning for environments that support it. (default true)
       --enable-garbage-collector                                          Enables the generic garbage collector. MUST be synced with the corresponding flag of the kube-apiserver. (default true)
@@ -59,9 +62,9 @@ StreamingProxyRedirects=true|false (ALPHA - default=false)
       --google-json-key string                                            The Google Cloud Platform Service Account JSON Key to use for authentication.
       --horizontal-pod-autoscaler-sync-period duration                    The period for syncing the number of pods in horizontal pod autoscaler. (default 30s)
       --insecure-experimental-approve-all-kubelet-csrs-for-group string   The group for which the controller-manager will auto approve all CSRs for kubelet client certificates.
-      --kube-api-burst int32                                              Burst to use while talking with kubernetes apiserver (default 30)
+      --kube-api-burst int32                                              Burst to use while talking with Kubernetes apiserver (default 30)
       --kube-api-content-type string                                      Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf")
-      --kube-api-qps float32                                              QPS to use while talking with kubernetes apiserver (default 20)
+      --kube-api-qps float32                                              QPS to use while talking with Kubernetes apiserver (default 20)
       --kubeconfig string                                                 Path to kubeconfig file with authorization and master location information.
       --large-cluster-size-threshold int32                                Number of nodes from which NodeController treats the cluster as large for the eviction logic purposes. --secondary-node-eviction-rate is implicitly overridden to 0 for clusters this size or smaller. (default 50)
       --leader-elect                                                      Start a leader election client and gain leadership before executing the main loop. Enable this when running replicated components for high availability. (default true)
@@ -86,8 +89,8 @@ StreamingProxyRedirects=true|false (ALPHA - default=false)
       --pv-recycler-pod-template-filepath-nfs string                      The file path to a pod definition used as a template for NFS persistent volume recycling
       --pv-recycler-timeout-increment-hostpath int32                      the increment of time added per Gi to ActiveDeadlineSeconds for a HostPath scrubber pod.  This is for development and testing only and will not work in a multi-node cluster. (default 30)
       --pvclaimbinder-sync-period duration                                The period for syncing persistent volumes and persistent volume claims (default 15s)
-      --replicaset-lookup-cache-size int32                                The the size of lookup cache for replicatsets. Larger number = more responsive replica management, but more MEM load. (default 4096)
-      --replication-controller-lookup-cache-size int32                    The the size of lookup cache for replication controllers. Larger number = more responsive replica management, but more MEM load. (default 4096)
+      --replicaset-lookup-cache-size int32                                The size of lookup cache for replicatsets. Larger number = more responsive replica management, but more MEM load. (default 4096)
+      --replication-controller-lookup-cache-size int32                    The size of lookup cache for replication controllers. Larger number = more responsive replica management, but more MEM load. (default 4096)
       --resource-quota-sync-period duration                               The period for syncing quota usage status in the system (default 5m0s)
       --root-ca-file string                                               If set, this root certificate authority will be included in service account's token secret. This must be a valid PEM-encoded CA bundle.
       --route-reconciliation-period duration                              The period for reconciling routes created for Nodes by cloud provider. (default 10s)

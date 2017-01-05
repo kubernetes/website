@@ -4,9 +4,8 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-
+title: kubeadm reference
 ---
-
 
 This document provides information on how to use kubeadm's advanced options.
 
@@ -85,6 +84,9 @@ Valid values are the ones supported by `controller-manager`, namely `"aws"`,
 the cloud provider, you should create a `/etc/kubernetes/cloud-config`
 file manually, before running `kubeadm init`. `kubeadm` automatically
 picks those settings up and ensures other nodes are configured correctly.
+The exact format and content of the file `/etc/kubernetes/cloud-config` depends
+on the type you specified for `--cloud-provider`; see the appropriate documentation
+for your cloud provider for details.
 You must also set the `--cloud-provider` and `--cloud-config` parameters
 yourself by editing the `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
 file appropriately.
@@ -243,7 +245,7 @@ Once the cluster is up, you can grab the admin credentials from the master node 
 ## Environment variables
 
 There are some environment variables that modify the way that `kubeadm` works.  Most users will have no need to set these.
-These enviroment variables are a short-term solution, eventually they will be integrated in the kubeadm configuration file.
+These environment variables are a short-term solution, eventually they will be integrated in the kubeadm configuration file.
 
 | Variable | Default | Description |
 | --- | --- | --- |

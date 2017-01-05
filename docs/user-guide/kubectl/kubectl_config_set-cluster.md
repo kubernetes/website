@@ -1,5 +1,7 @@
 ---
+title: kubectl config set-cluster
 ---
+
 ## kubectl config set-cluster
 
 Sets a cluster entry in kubeconfig

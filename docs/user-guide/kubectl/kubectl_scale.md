@@ -1,5 +1,7 @@
 ---
+title: kubectl scale
 ---
+
 ## kubectl scale
 
 Set a new size for a Deployment, ReplicaSet, Replication Controller, or Job

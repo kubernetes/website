@@ -1,5 +1,7 @@
 ---
+title: kubectl replace
 ---
+
 ## kubectl replace
 
 Replace a resource by filename or stdin

@@ -3,7 +3,7 @@ assignees:
 - erictune
 - mikedanese
 - thockin
-
+title: Security Context
 ---
 
 A security context defines the operating system security settings (uid, gid, capabilities, SELinux role, etc..) applied to a container. See [security context design](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/security_context.md) for more details.
@@ -20,7 +20,7 @@ metadata:
   name: hello-world
 spec:
   containers:
-  # specification of the pod’s containers
+  # specification of the pod's containers
   # ...
   securityContext:
     fsGroup: 1234
@@ -85,4 +85,3 @@ Please refer to the
 [API documentation](/docs/api-reference/v1/definitions/#_v1_securitycontext) 
 for a detailed listing and description of all the fields available
 within the container security context.
-

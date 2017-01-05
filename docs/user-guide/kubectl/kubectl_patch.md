@@ -1,5 +1,7 @@
 ---
+title: kubectl patch
 ---
+
 ## kubectl patch
 
 Update field(s) of a resource using strategic merge patch

@@ -1,5 +1,7 @@
 ---
+title: kubectl config view
 ---
+
 ## kubectl config view
 
 Display merged kubeconfig settings or a specified kubeconfig file

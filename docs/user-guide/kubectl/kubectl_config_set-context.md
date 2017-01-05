@@ -1,5 +1,7 @@
 ---
+title: kubectl config set-context
 ---
+
 ## kubectl config set-context
 
 Sets a context entry in kubeconfig

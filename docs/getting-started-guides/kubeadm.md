@@ -4,7 +4,7 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-
+title: Installing Kubernetes on Linux with kubeadm
 ---
 
 <style>
@@ -19,7 +19,7 @@ The installation uses a tool called `kubeadm` which is part of Kubernetes.
 This process works with local VMs, physical servers and/or cloud servers.
 It is simple enough that you can easily integrate its use into your own automation (Terraform, Chef, Puppet, etc).
 
-See the full [`kubeadm` reference](/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
+See the full `kubeadm` [reference](/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
 **The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!
 Be sure to read the [limitations](#limitations); in particular note that kubeadm doesn't have great support for
@@ -69,18 +69,18 @@ For each host in turn:
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
 * If the machine is running Ubuntu or HypriotOS, run:
 
-      # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-      # cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
+      curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+      cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
       deb http://apt.kubernetes.io/ kubernetes-xenial main
       EOF
-      # apt-get update
-      # # Install docker if you don't have it already.
-      # apt-get install -y docker.io
-      # apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+      apt-get update
+      # Install docker if you don't have it already.
+      apt-get install -y docker.io
+      apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
    If the machine is running CentOS, run:
 
-      # cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+      cat <<EOF > /etc/yum.repos.d/kubernetes.repo
       [kubernetes]
       name=Kubernetes
       baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
@@ -90,10 +90,10 @@ For each host in turn:
       gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
              https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
       EOF
-      # setenforce 0
-      # yum install -y docker kubelet kubeadm kubectl kubernetes-cni
-      # systemctl enable docker && systemctl start docker
-      # systemctl enable kubelet && systemctl start kubelet
+      setenforce 0
+      yum install -y docker kubelet kubeadm kubectl kubernetes-cni
+      systemctl enable docker && systemctl start docker
+      systemctl enable kubelet && systemctl start kubelet
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
@@ -319,8 +319,9 @@ edit the `kubeadm` dropin for the `kubelet` service (`/etc/systemd/system/kubele
 If your cloud provider requires any extra packages installed on host, for example for volume mounting/unmounting, install those packages.
 
 Specify the `--cloud-provider` flag to kubelet and set it to the cloud of your choice. If your cloudprovider requires a configuration
-file, create the file `/etc/kubernetes/cloud-config` on every node and set the values your cloud requires. Also append
-`--cloud-config=/etc/kubernetes/cloud-config` to the kubelet arguments.
+file, create the file `/etc/kubernetes/cloud-config` on every node. The exact format and content of that file depends on the requirements imposed by your cloud provider.
+If you use the `/etc/kubernetes/cloud-config` file, you must append it to the `kubelet` arguments as follows:
+`--cloud-config=/etc/kubernetes/cloud-config`
 
 Lastly, run `kubeadm init --cloud-provider=xxx` to bootstrap your cluster with cloud provider features.
 

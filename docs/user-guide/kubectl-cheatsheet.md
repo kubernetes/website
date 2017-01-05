@@ -4,7 +4,7 @@ assignees:
 - erictune
 - krousey
 - clove
-
+title: kubectl Cheat Sheet
 ---
 
 See also: [Kubectl Overview](/docs/user-guide/kubectl-overview/) and [JsonPath Guide](/docs/user-guide/jsonpath).

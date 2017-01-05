@@ -1,5 +1,7 @@
 ---
+title: kubectl apply
 ---
+
 ## kubectl apply
 
 Apply a configuration to a resource by filename or stdin

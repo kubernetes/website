@@ -2,7 +2,7 @@
 assignees:
 - bgrant0607
 - hw-qiaolei
-
+title: kubectl Overview
 ---
 
 `kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl) reference documentation. For installation instructions see [prerequisites](/docs/user-guide/prereqs).
@@ -84,6 +84,8 @@ The following table includes a list of all the supported resource types and thei
 Resource type	| Abbreviated alias
 -------------------- | --------------------
 `clusters` |
+`clusterrolebindings` |
+`clusterroles` |
 `componentstatuses` |`cs`
 `configmaps` |`cm`
 `daemonsets` |`ds`
@@ -99,15 +101,19 @@ Resource type	| Abbreviated alias
 `nodes` |`no`
 `persistentvolumeclaims` |`pvc`
 `persistentvolumes` |`pv`
+`poddisruptionbudget` |`pdb`
 `pods` |`po`
 `podsecuritypolicies` |`psp`
 `podtemplates` |
 `replicasets` |`rs`
 `replicationcontrollers` |`rc`
 `resourcequotas` |`quota`
+`rolebindings` |
+`roles` |
 `secrets` |
 `serviceaccounts` |`sa`
 `services` |`svc`
+`statefulsets` |
 `storageclasses` |
 `thirdpartyresources` |
 

@@ -1,5 +1,7 @@
 ---
+title: kubectl config unset
 ---
+
 ## kubectl config unset
 
 Unsets an individual value in a kubeconfig file

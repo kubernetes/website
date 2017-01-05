@@ -385,7 +385,7 @@ On your compute nodes, it is important that you install Calico before Kubernetes
 
 ## Configure kubectl remote access
 
-To administer your cluster from a separate host (e.g your laptop), you will need the root CA generated earlier, as well as an admin public/private keypair (`ca.pem`, `admin.pem`, `admin-key.pem`). Run the following steps on the machine which you will use to control your cluster.
+To administer your cluster from a separate host (e.g. your laptop), you will need the root CA generated earlier, as well as an admin public/private keypair (`ca.pem`, `admin.pem`, `admin-key.pem`). Run the following steps on the machine which you will use to control your cluster.
 
 1. Download the kubectl binary.
 

@@ -1,5 +1,7 @@
 ---
+title: kubectl rolling-update
 ---
+
 ## kubectl rolling-update
 
 Perform a rolling update of the given ReplicationController
