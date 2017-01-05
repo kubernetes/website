@@ -84,8 +84,11 @@ toc:
 - title: Monitoring, Logging, and Debugging Containers
   section:
   - docs/user-guide/monitoring.md
-  - docs/getting-started-guides/logging.md
-  - docs/getting-started-guides/logging-elasticsearch.md
+  - title: Logging
+    section:
+    - docs/user-guide/logging/overview.md
+    - docs/user-guide/logging/stackdriver.md
+    - docs/user-guide/logging/elasticsearch.md
   - docs/user-guide/getting-into-containers.md
   - docs/user-guide/connecting-to-applications-proxy.md
   - docs/user-guide/connecting-to-applications-port-forward.md
