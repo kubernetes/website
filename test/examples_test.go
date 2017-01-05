@@ -301,10 +301,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"namespace":   {&api.Namespace{}},
 			"valid-pod":   {&api.Pod{}},
 		},
-		"../docs/user-guide/logging-demo": {
-			"synthetic_0_25lps": {&api.Pod{}},
-			"synthetic_10lps":   {&api.Pod{}},
-		},
 		"../docs/user-guide/node-selection": {
 			"pod": {&api.Pod{}},
 			"pod-with-node-affinity": {&api.Pod{}},
