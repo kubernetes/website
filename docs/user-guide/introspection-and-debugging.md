@@ -347,7 +347,7 @@ status:
 
 Learn about additional debugging tools, including:
 
-* [Logging](/docs/user-guide/logging)
+* [Logging](/docs/user-guide/logging/overview)
 * [Monitoring](/docs/user-guide/monitoring)
 * [Getting into containers via `exec`](/docs/user-guide/getting-into-containers)
 * [Connecting to containers via proxies](/docs/user-guide/connecting-to-applications-proxy)
