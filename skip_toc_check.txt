@@ -5,3 +5,4 @@ docs/user-guide/pods/_viewing-a-pod.md
 docs/user-guide/simple-yaml.md
 docs/user-guide/walkthrough/index.md
 docs/user-guide/walkthrough/k8s201.md
+docs/user-guide/logging-demo/README.md
