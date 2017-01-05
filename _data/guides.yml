@@ -154,7 +154,6 @@ toc:
       - docs/getting-started-guides/coreos/index.md
       - title: Ubuntu
         section:
-        - docs/getting-started-guides/ubuntu/
         - docs/getting-started-guides/ubuntu/automated.md
         - docs/getting-started-guides/ubuntu/calico.md
         - docs/getting-started-guides/ubuntu/manual.md
