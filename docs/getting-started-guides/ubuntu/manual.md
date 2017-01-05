@@ -1,7 +1,7 @@
 ---
 assignees:
 - thockin
-
+title: Manually Deploying Kubernetes on Ubuntu Nodes
 ---
 
 This document describes how to deploy Kubernetes on ubuntu nodes, 1 master and 3 nodes involved
