@@ -48,7 +48,7 @@ for more details.
 
 #### `selinuxOptions`
 
-Volumes which support SELinux labeling are relabled to be accessible
+Volumes which support SELinux labeling are relabeled to be accessible
 by the label specified unders `seLinuxOptions`. Usually you will only
 need to set the `level` section. This sets the SELinux MCS label given
 to all containers within the pod as well as the volume.
