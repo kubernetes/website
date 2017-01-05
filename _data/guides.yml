@@ -154,10 +154,10 @@ toc:
       - docs/getting-started-guides/coreos/index.md
       - title: Ubuntu
         section:
-        - /docs/getting-started-guides/ubuntu/
-        - /docs/getting-started-guides/ubuntu/automated.md
-        - /docs/getting-started-guides/ubuntu/calico.md
-        - /docs/getting-started-guides/ubuntu/manual.md
+        - docs/getting-started-guides/ubuntu/
+        - docs/getting-started-guides/ubuntu/automated.md
+        - docs/getting-started-guides/ubuntu/calico.md
+        - docs/getting-started-guides/ubuntu/manual.md
       - docs/getting-started-guides/windows/index.md
     - docs/admin/node-conformance.md
   - docs/getting-started-guides/docker-multinode.md
@@ -203,18 +203,18 @@ toc:
 - title: Administering Federation
   section:
   - docs/admin/federation/kubefed.md
-  title: Federated Kubernetes Objects
-  section:
-  - docs/user-guide/federation/index.md
-  - docs/user-guide/federation/configmap.md
-  - docs/user-guide/federation/daemonsets.md
-  - docs/user-guide/federation/deployment.md
-  - docs/user-guide/federation/events.md
-  - docs/user-guide/federation/federated-ingress.md
-  - docs/user-guide/federation/namespaces.md
-  - docs/user-guide/federation/replicasets.md
-  - docs/user-guide/federation/secrets.md
-  - docs/federation/api-reference/README.md
+  - title: Federated Kubernetes Objects
+    section:
+    - docs/user-guide/federation/index.md
+    - docs/user-guide/federation/configmap.md
+    - docs/user-guide/federation/daemonsets.md
+    - docs/user-guide/federation/deployment.md
+    - docs/user-guide/federation/events.md
+    - docs/user-guide/federation/federated-ingress.md
+    - docs/user-guide/federation/namespaces.md
+    - docs/user-guide/federation/replicasets.md
+    - docs/user-guide/federation/secrets.md
+    - docs/federation/api-reference/README.md
   - title: Federation Components
     section:
     - docs/admin/federation-apiserver.md
