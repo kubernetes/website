@@ -55,9 +55,10 @@ export GOVC_INSECURE=1
 govc vm.change -e="disk.enableUUID=1" -vm=<VMNAME>
 ```
 
-* Provide the cloud config file to each instance of kubelet, apiserver and controller manager via ```--cloud-config=<path to file>``` flag. Cloud config [template can be found at Kubernetes-Anywhere] (https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
+* Provide the cloud config file to each instance of kubelet, apiserver and controller manager via ```--cloud-config=<path to file>``` flag. Cloud config [template can be found at Kubernetes-Anywhere](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
 
 Sample Config:
+
 ```
 [Global]
         user = <User name for vCenter>

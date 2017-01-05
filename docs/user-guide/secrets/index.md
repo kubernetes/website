@@ -113,8 +113,8 @@ metadata:
   name: mysecret
 type: Opaque
 data:
-  password: MWYyZDFlMmU2N2Rm
   username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 ```
 
 The data field is a map.  Its keys must match
@@ -142,8 +142,8 @@ Get back the secret created in the previous section:
 $ kubectl get secret mysecret -o yaml
 apiVersion: v1
 data:
-  password: MWYyZDFlMmU2N2Rm
   username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 kind: Secret
 metadata:
   creationTimestamp: 2016-01-22T18:41:56Z
@@ -486,7 +486,7 @@ Create a secret containing some ssh keys:
 $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
-**Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to have accessible to all the users with whom you share the kubernetes cluster, and can revoke if they are compromised.
+**Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to have accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
 
 
 Now we can create a pod which references the secret with the ssh key and

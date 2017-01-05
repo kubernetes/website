@@ -43,11 +43,11 @@ kubectl --context=federation-cluster create -f mysecret.yaml
 ```
 
 The '--context=federation-cluster' flag tells kubectl to submit the
-request to the Federation apiserver instead of sending it to a kubernetes
+request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
 Once a federated secret is created, the federation control plane will create
-a matching secret in all underlying kubernetes clusters.
+a matching secret in all underlying Kubernetes clusters.
 You can verify this by checking each of the underlying clusters, for example:
 
 ``` shell

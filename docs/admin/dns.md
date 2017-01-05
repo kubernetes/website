@@ -100,6 +100,7 @@ metadata:
 spec:
   selector:
     name: busybox
+  clusterIP: None
   ports:
     - name: foo # Actually, no port is needed.
       port: 1234 
@@ -383,7 +384,7 @@ for more information.
 
 ## References
 
-- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build-tools/kube-dns/README.md)
+- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md)
 
 ## What's next
 - [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
