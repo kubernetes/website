@@ -202,8 +202,7 @@ toc:
 
 - title: Administering Federation
   section:
-  - title: Setting Up Federation with kubefed
-    path: - /docs/admin/federation/kubefed.md
+  - docs/admin/federation/kubefed.md
   title: Federated Kubernetes Objects
   section:
   - docs/user-guide/federation/index.md
