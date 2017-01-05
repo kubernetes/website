@@ -16,7 +16,6 @@ toc:
   section:
   - docs/user-guide/debugging-pods-and-replication-controllers.md
   - docs/user-guide/introspection-and-debugging.md
-  - docs/user-guide/logging.md
   - docs/user-guide/application-troubleshooting.md
   - docs/admin/cluster-troubleshooting.md
   - docs/user-guide/debugging-services.md
