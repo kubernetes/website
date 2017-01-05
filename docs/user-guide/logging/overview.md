@@ -61,13 +61,22 @@ Kubernetes performs log rotation daily, or if the log file grows beyond 10MB in 
 
 The Kubernetes logging configuration differs depending on the node type. For example, you can find detailed information for GCI in the corresponding [configure helper](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/cluster/gce/gci/configure-helper.sh#L96).
 
-When you run [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs), as in the basic logging example, the kubelet on the node handles the request and reads directly from the log file, returning the contents in the response. Note that `kubectl logs` **only returns the last rotation**; you must manually extract prior rotations, if desired.
+When you run [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs), as in the basic logging example, the kubelet on the node handles the request and reads directly from the log file, returning the contents in the response. Note that `kubectl logs` **only returns the last rotation**; you must manually extract prior rotations, if desired and cluster-level logging is not enabled.
 
 ### System components logs
 
-Kubernetes system components use a different logging mechanism than the application containers in pods. Components such as `kube-proxy` (among others) use the [glog](https://godoc.org/github.com/golang/glog) logging library. You can find the conventions for logging severity for those components in the [development docs on logging](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/logging.md).
+There are two types of system components: kubelet and container runtime (e.g. docker)
+is one and system containers like kube-proxy or scheduler is another.
+On a system with systemd kubelet and container runtime write to journald. If
+systemd is not present, they write to `.log` files in `/var/log` directory.
+System components inside containers always write to `/var/log` directory,
+bypassing default logging mechanism. They use the [glog](https://godoc.org/github.com/golang/glog)
+logging library. You can find the conventions for logging severity for those
+components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
 
-System components write directly to log files in the `/var/log` directory in the node's host filesystem. Like container logs, system component logs are rotated daily and based on size. However, system component logs have a higher size retention: by default, they store 100MB.
+Similarly to the container logs, system component logs in `/var/log` directory
+are rotated daily and based on size. However, system component logs have a
+higher size retention: by default, they can store up to 100MB.
 
 ## Cluster-level logging architectures
 
