@@ -5,7 +5,7 @@ title: Running Kubernetes on CenturyLink Cloud
 * TOC
 {: toc}
 
-These scripts handle the creation, deletion and expansion of kubernetes clusters on CenturyLink Cloud.
+These scripts handle the creation, deletion and expansion of Kubernetes clusters on CenturyLink Cloud.
 
 You can accomplish all these tasks with a single command. We have made the Ansible playbooks used to perform these tasks available [here](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md).
 
@@ -13,7 +13,7 @@ You can accomplish all these tasks with a single command. We have made the Ansib
 
 If you run into any problems or want help with anything, we are here to help. Reach out to use via any of the following ways:
 - Submit a github issue
-- Send an email to kubernetes AT ctl DOT io
+- Send an email to Kubernetes AT ctl DOT io
 - Visit http://info.ctl.io/kubernetes
 
 ## Clusters of VMs or Physical Servers, your choice.
@@ -212,10 +212,10 @@ We configure the Kubernetes cluster with the following features:
 * KubeDNS: DNS resolution and service discovery
 * Heapster/InfluxDB: For metric collection. Needed for Grafana and auto-scaling.
 * Grafana: Kubernetes/Docker metric dashboard
-* KubeUI: Simple web interface to view kubernetes state
+* KubeUI: Simple web interface to view Kubernetes state
 * Kube Dashboard: New web interface to interact with your cluster
 
-We use the following to create the kubernetes cluster:
+We use the following to create the Kubernetes cluster:
 
 * Kubernetes 1.1.7
 * Ubuntu 14.04
@@ -233,7 +233,7 @@ We use the following to create the kubernetes cluster:
 
 ## Cluster management
 
-The most widely used tool for managing a kubernetes cluster is the command-line
+The most widely used tool for managing a Kubernetes cluster is the command-line
 utility ```kubectl```.  If you do not already have a copy of this binary on your
 administrative machine, you may run the script ```install_kubectl.sh``` which will
 download it and install it in ```/usr/bin/local```.

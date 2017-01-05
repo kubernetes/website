@@ -107,9 +107,9 @@ StreamingProxyRedirects=true|false (ALPHA - default=false)
       --image-service-endpoint string                           [Experimental] The unix socket endpoint of remote image service. If not specified, it will be the same with container-runtime-endpoint by default. The endpoint is used only when CRI integration is enabled (--experimental-cri)
       --iptables-drop-bit int32                                 The bit of the fwmark space to mark packets for dropping. Must be within the range [0, 31]. (default 15)
       --iptables-masquerade-bit int32                           The bit of the fwmark space to mark packets for SNAT. Must be within the range [0, 31]. Please match this parameter with corresponding parameter in kube-proxy. (default 14)
-      --kube-api-burst int32                                    Burst to use while talking with kubernetes apiserver (default 10)
+      --kube-api-burst int32                                    Burst to use while talking with Kubernetes apiserver (default 10)
       --kube-api-content-type string                            Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf")
-      --kube-api-qps int32                                      QPS to use while talking with kubernetes apiserver (default 5)
+      --kube-api-qps int32                                      QPS to use while talking with Kubernetes apiserver (default 5)
       --kube-reserved mapStringString                           A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=150G) pairs that describe resources reserved for kubernetes system components. Currently only cpu and memory are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none]
       --kubeconfig string                                       Path to a kubeconfig file, specifying how to connect to the API server. --api-servers will be used for the location unless --require-kubeconfig is set. (default "/var/lib/kubelet/kubeconfig")
       --kubelet-cgroups string                                  Optional absolute name of cgroups to create and run the Kubelet in.
@@ -118,7 +118,7 @@ StreamingProxyRedirects=true|false (ALPHA - default=false)
       --make-iptables-util-chains                               If true, kubelet will ensure iptables utility rules are present on host. (default true)
       --manifest-url string                                     URL for accessing the container manifest
       --manifest-url-header string                              HTTP header to use when accessing the manifest URL, with the key separated from the value with a ':', as in 'key:value'
-      --master-service-namespace string                         The namespace from which the kubernetes master services should be injected into pods (default "default")
+      --master-service-namespace string                         The namespace from which the Kubernetes master services should be injected into pods (default "default")
       --max-open-files int                                      Number of files that can be opened by Kubelet process. [default=1000000] (default 1000000)
       --max-pods int32                                          Number of Pods that can run on this Kubelet. (default 110)
       --minimum-image-ttl-duration duration                     Minimum age for an unused image before it is garbage collected.  Examples: '300ms', '10s' or '2h45m'. Default: '2m' (default 2m0s)
