@@ -87,6 +87,12 @@ web server:
 
         jekyll serve
 
+NOTE: If you do not want jekyll to interfere with your other globally installed gems, you can use bundler:
+ 
+ 	gem install bundler
+ 	bundle install
+ 	bundler exec jekyll serve
+
 1. View your staged content at
 [http://localhost:4000](http://localhost:4000){: target="_blank"}.
 
