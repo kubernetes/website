@@ -29,6 +29,10 @@ each of which has a sequence of steps.
 
 * [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
+#### Services
+
+* [Using SourceIP](/docs/tutorials/services/source-ip/)
+
 ### What's next
 
 If you would like to write a tutorial, see
