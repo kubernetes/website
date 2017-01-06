@@ -11,14 +11,7 @@ load-balanced access to an application running in a cluster.
 
 {% capture prerequisites %}
 
-* Install [kubectl](http://kubernetes.io/docs/user-guide/prereqs).
-
-* Create a Kubernetes cluster, including a running Kubernetes
-  API server. One way to create a new cluster is to use
-  [Minikube](/docs/getting-started-guides/minikube).
-
-* Configure `kubectl` to communicate with your Kubernetes API server. This
-  configuration is done automatically if you use Minikube.
+{% include task-tutorial-prereqs.md %}
 
 {% endcapture %}
 
@@ -59,7 +52,7 @@ load-balanced access to an application running in a cluster.
         NAME                     DESIRED   CURRENT   AGE
         hello-world-2189936611   2         2         12m
 
-1. Create a Serivice object that exposes the replica set:
+1. Create a Service object that exposes the replica set:
 
         kubectl expose rs <your-replica-set-name> --type="LoadBalancer" --name="example-service"
 

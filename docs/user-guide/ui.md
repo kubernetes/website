@@ -2,60 +2,61 @@
 assignees:
 - bryk
 - mikedanese
-
+- rf232
+title: Web UI (Dashboard)
 ---
 
+Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster itself along with its attendant resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
 
-Dashboard (the web-based user interface of Kubernetes) allows you to deploy containerized applications to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself. You can use it for getting an overview of applications running on the cluster, as well as for creating or modifying individual Kubernetes resources and workloads, such as Daemon sets, Pet sets, Replica sets, Jobs, Replication controllers and corresponding Services, or Pods.
+Dashboard also provides information on the state of Kubernetes resources in your cluster, and on any errors that may have occurred.
 
-Dashboard also provides information on the state of Pods, Replication controllers, etc. and on any errors that might have occurred. You can inspect and manage the Kubernetes resources, as well as your deployed containerized applications. You can also change the number of replicated Pods, delete Pods, and deploy new applications using a deploy wizard.
-
-By default, Dashboard is installed as a cluster addon. It is enabled by default as of Kubernetes 1.2 clusters.
+![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
 * TOC
 {:toc}
 
-## Dashboard access
+## Deploying the Dashboard UI
 
-Navigate in your Browser to the following URL:
-```
-https://<kubernetes-master>/ui
-```
-This redirects to the following URL:
-```
-https://<kubernetes-master>/api/v1/proxy/namespaces/kube-system/services/kubernetes-dashboard
-```
-The Dashboard UI lives in the `kube-system` [namespace](/docs/admin/namespaces/), but shows all resources from all namespaces in your environment.
-
-If you find that you are not able to access Dashboard, you can install and open the latest stable release by running the following command:
+The Dashboard UI is not deployed by default. To deploy it, run the following command:
 
 ```
 kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
 ```
 
-Then, navigate to
+## Accessing the Dashboard UI
+
+There are multiple ways you can access the Dashboard UI; either by using the kubectl command-line interface, or by accessing the Kubernetes master apiserver using your web browser.
+
+### Command line proxy
+You can access Dashboard using the kubectl command-line tool by running the following command:
 
 ```
-https://<kubernetes-master>/ui
+$ kubectl proxy
 ```
 
-In case you have to provide a password, use the following command to find it out:
+kubectl will handle authentication with apiserver and make Dashboard available at [http://localhost:8001/ui](http://localhost:8001/ui)
 
-```
-kubectl config view
-```
+The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
 
-## Welcome page
+### Master server
+You may access the UI directly via the Kubernetes master apiserver. Open a browser and navigate to `https://<kubernetes-master>/ui`, where `<kubernetes-master>` is IP address or domain name of the Kubernetes
+master.
 
-When accessing Dashboard on an empty cluster for the first time, the Welcome page is displayed. This page contains a link to this document as well as a button to deploy your first application. In addition, you can view which system applications are running by **default** in the `kube-system` [namespace](/docs/admin/namespaces/) of your cluster, for example monitoring applications such as Heapster.
+Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with the some setup tools (e.g., `kubeadm`). Refer to the  [authentication admin documentation](/docs/admin/authentication/) for information on how to configure authentication manually.
+
+If the username and password is configured but unknown to you, then use `kubectl config view` to find it.
+
+## Welcome view
+
+When you access Dashboard on an empty cluster, you'll see the welcome page. This page contains a link to this document as well as a button to deploy your first application. In addition, you can view which system applications are running by default in the `kube-system` [namespace](/docs/admin/namespaces/) of your cluster, for example the Dashboard itself.
 
 ![Kubernetes Dashboard welcome page](/images/docs/ui-dashboard-zerostate.png)
 
 ## Deploying containerized applications
 
-Dashboard lets you create and deploy a containerized application as a Replication Controller and corresponding Service with a simple wizard. You can either manually specify application details, or upload a YAML or JSON file containing the required information.
+Dashboard lets you create and deploy a containerized application as a Deployment and optional Service with a simple wizard. You can either manually specify application details, or upload a YAML or JSON file containing application configuration.
 
-To access the deploy wizard from the Welcome page, click the respective button. To access the wizard at a later point in time, click the **DEPLOY APP** or **UPLOAD YAML** link in the upper right corner of any page listing workloads.
+To access the deploy wizard from the Welcome page, click the respective button. To access the wizard at a later point in time, click the **CREATE** button in the upper right corner of any page.
 
 ![Deploy wizard](/images/docs/ui-dashboard-deploy-simple.png)
 
@@ -63,7 +64,7 @@ To access the deploy wizard from the Welcome page, click the respective button. 
 
 The deploy wizard expects that you provide the following information:
 
-- **App name** (mandatory): Name for your application. A [label](/docs/user-guide/labels/) with the name will be added to the Replication Controller and Service, if any, that will be deployed.
+- **App name** (mandatory): Name for your application. A [label](/docs/user-guide/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
 
   The application name must be unique within the selected Kubernetes [namespace](/docs/admin/namespaces/). It must start and end with a lowercase character, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
 
@@ -71,7 +72,7 @@ The deploy wizard expects that you provide the following information:
 
 - **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in. The value must be a positive integer.
 
-  A [Replication Controller](/docs/user-guide/replication-controller/) will be created to maintain the desired number of Pods across your cluster.
+  A [Deployment](/docs/user-guide/deployment/) will be created to maintain the desired number of Pods across your cluster.
 
 - **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](http://kubernetes.io/docs/user-guide/services/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/user-guide/services-firewalls/).
 
@@ -81,11 +82,9 @@ The deploy wizard expects that you provide the following information:
 
 If needed, you can expand the **Advanced options** section where you can specify more settings:
 
-![Deploy wizard advanced options](/images/docs/ui-dashboard-deploy-more.png)
+- **Description**: The text you enter here will be added as an [annotation](/docs/user-guide/annotations/) to the Deployment and displayed in the application's details.
 
-- **Description**: The text you enter here will be added as an [annotation](/docs/user-guide/annotations/) to the Replication Controller and displayed in the application's details.
-
-- **Labels**: Default [labels](/docs/user-guide/labels/) to be used for your application are application name and version. You can specify additional labels to be applied to the Replication Controller, Service (if any), and Pods, such as release, environment, tier, partition, and release track.
+- **Labels**: Default [labels](/docs/user-guide/labels/) to be used for your application are application name and version. You can specify additional labels to be applied to the Deployment, Service (if any), and Pods, such as release, environment, tier, partition, and release track.
 
   Example:
 
@@ -118,89 +117,54 @@ track=stable
 
 ### Uploading a YAML or JSON file
 
-Kubernetes supports declarative configuration. In this style, all configuration is stored in YAML or JSON configuration files using the Kubernetes' [API](http://kubernetes.io/docs/api/) resource schemas as the configuration schemas.
+Kubernetes supports declarative configuration. In this style, all configuration is stored in YAML or JSON configuration files using the Kubernetes [API](http://kubernetes.io/docs/api/) resource schemas.
 
-As an alternative to specifying application details in the deploy wizard, you can define your Replication Controllers and Services in YAML or JSON files, and upload the files to your Pods:
+As an alternative to specifying application details in the deploy wizard, you can define your application in YAML or JSON files, and upload the files using Dashboard:
 
 ![Deploy wizard file upload](/images/docs/ui-dashboard-deploy-file.png)
 
-## Managing resources
+## Using Dashboard
+Following sections describe views of the Kubernetes Dashboard UI; what they provide and how can they be used.
 
-### List view
+### Navigation
 
-As soon as applications are running on your cluster, Dashboard's initial view defaults to showing all resources available in all namespaces in a list view, for example:
+When there are Kubernetes objects defined in the cluster, Dashboard shows them in the initial view. By default only objects from the _default_ namespace are shown and this can be changed using the namespace selector located in the navigation menu.
+
+Dashboard shows most Kubernetes object kinds and groups them in a few menu categories.
+
+#### Admin
+View for cluster and namespace administrators. It lists Nodes, Namespaces and Persistent Volumes and has detail views for them. Node list view contains CPU and memory usage metrics aggregated across all Nodes. The details view shows the metrics for a Node, its specification, status, allocated resources, events and pods running on the node.
+
+![Node detail view](/images/docs/ui-dashboard-node.png)
+
+#### Workloads
+Entry point view that shows all applications running in the selected namespace. The view lists applications by workload kind (e.g., Deployments, Replica Sets, Stateful Sets, etc.) and each workload kind can be viewed separately. The lists summarize actionable information about the workloads, such as the number of ready pods for a Replica Set or current memory usage for a Pod.
 
 ![Workloads view](/images/docs/ui-dashboard-workloadview.png)
 
-For every resource, the list view shows the following information:
+Detail views for workloads show status and specification information and surface relationships between objects. For example, Pods that Replica Set is controlling or New Replica Sets and Horizontal Pod Autoscalers for Deployments.
 
-* Name of the resource
-* All labels assigned to the resource
-* Number of pods assigned to the resource
-* Age, i.e. amount of time passed since the resource has been created
-* Docker container image
+![Deployment detail view](/images/docs/ui-dashboard-deployment-detail.png)
 
-To filter the resources and only show those of a specific namespace, select it from the dropdown list in the right corner of the title bar:
+#### Services and discovery
+Services and discovery view shows Kubernetes resources that allow for exposing services to external world and discovering them within a cluster. For that reason, Service and Ingress views show Pods targeted by them, internal endpoints for cluster connections and endpoints for external users.
 
-![Namespace selector](/images/docs/ui-dashboard-namespace.png)
+![Service list partial view](/images/docs/ui-dashboard-service-list.png)
 
-### Details view
+#### Storage
+Storage view shows Persistent Volume Claim resources which are used by applications for storing data.
 
-When clicking a resource, the details view is opened, for example:
+#### Config
+Config view show all Kubernetes resources that are used for live configuration of applications running in clusters. This is now Config Maps and Secrets. Thie views allows for editing and managing config objects and displays secrets hidden by default.
 
-![Details view](/images/docs/ui-dashboard-detailsview.png)
+![Secret detail view](/images/docs/ui-dashboard-secret-detail.png)
 
-The **OVERVIEW** tab shows the actual resource details as well as the Pods the resource is running in.
+#### Logs viewer
+Pod lists and detail pages link to logs viewer that is built into Dashboard. The viewer allows for drilling down logs from containers belonging to a single Pod.
 
-The **EVENTS** tab can be useful for debugging applications.
-
-To go back to the workloads overview, click the Kubernetes logo.
-
-### Workload categories
-
-Workloads are categorized as follows:
-
-* [Daemon Sets](http://kubernetes.io/docs/admin/daemons/) which ensure that all or some of the nodes in your cluster run a copy of a Pod.  
-* [Deployments](http://kubernetes.io/docs/user-guide/deployments/) which provide declarative updates for Pods and Replica Sets (the next-generation [Replication Controller](http://kubernetes.io/docs/user-guide/replication-controller/))
-  The Details page for a Deployment lists resource details, as well as new and old Replica Sets. The resource details also include information on the [RollingUpdate](http://kubernetes.io/docs/user-guide/rolling-updates/) strategy, if any.
-* [Pet Sets](http://kubernetes.io/docs/user-guide/load-balancer/) (nominal Services, also known as load-balanced Services) for legacy application support.
-* [Replica Sets](http://kubernetes.io/docs/user-guide/replicasets/) for using label selectors.
-* [Jobs](http://kubernetes.io/docs/user-guide/jobs/) for creating one or more Pods, ensuring that a specified number of them successfully terminate, and tracking the completions.
-* [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/)
-* [Pods](http://kubernetes.io/docs/user-guide/pods/)
-
-You can display the resources of a specific category in two ways:
-
-* Click the category name, e.g. **Deployments**
-* Edit the Dashboard URL and add the name of a desired category. For example, to display the list of Replication Controllers, specify the following URL:
-
-  ```
-http://<your_host>:9090/#/replicationcontroller
-```
-
-### Actions
-
-Every list view offers an action menu to the right of the listed resources. The related details view provides the same actions as buttons in the upper right corner of the page.
-
-* **Edit**
-
-  Opens a text editor so that you can instantly view or update the JSON or YAML file of the respective resource.
-
-* **Delete**
-
-  After confirmation, deletes the respective resource.
-
-  When deleting a Replication Controller, the Pods managed by it are also deleted. You have the option to also delete Services related to the Replication Controller.
-
-* **View details**
-
-  For Replication Controllers only. Takes you to the details page where you can view more information about the Pods that make up your application.
-
-* **Scale**
-
-  For Replication Controllers only. Changes the number of Pods your application runs in. The respective Replication Controller will be updated to reflect the newly specified number. Be aware that setting a high number of Pods may result in a decrease of performance of the cluster or Dashboard itself.
+![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
 
 ## More information
 
 For more information, see the
-[Kubernetes Dashboard repository](https://github.com/kubernetes/dashboard).
+[Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).

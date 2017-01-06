@@ -2,7 +2,7 @@
 assignees:
 - dchen1107
 - yifan-gu
-
+title: Known Issues when Using rkt
 ---
 
 The following features either are not supported or have large caveats when using the rkt container runtime. Increasing support for these items and others, including reasonable feature parity with the default container engine, is planned through future releases.
@@ -59,7 +59,7 @@ Under rktnetes, `kubectl get logs` currently cannot get logs from applications t
 
 ## Init containers
 
-The alpha [init container](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/container-init.md) feature is currently not supported.
+The beta [init container](/docs/user-guide/pods/init-containers.md) feature is currently not supported.
 
 ## Container restart back-off
 

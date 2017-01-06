@@ -1,7 +1,7 @@
 ---
 assignees:
 - bprashanth
-
+title: Ingress Resources
 ---
 
 * TOC
@@ -53,18 +53,18 @@ Make sure you review the [beta limitations](https://github.com/kubernetes/contri
 A minimal Ingress might look like:
 
 ```yaml
-01. apiVersion: extensions/v1beta1
-02. kind: Ingress
-03. metadata:
-04.  name: test-ingress
-05. spec:
-06.  rules:
-07.  - http:
-08.      paths:
-09.      - path: /testpath
-10.        backend:
-11.          serviceName: test
-12.          servicePort: 80
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /testpath
+        backend:
+          serviceName: test
+          servicePort: 80
 ```
 
 *POSTing this to the API server will have no effect if you have not configured an [Ingress controller](#ingress-controllers).*
@@ -73,7 +73,7 @@ __Lines 1-4__: As with all other Kubernetes config, an Ingress needs `apiVersion
 
 __Lines 5-7__: Ingress [spec](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) has all the information needed to configure a loadbalancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Currently the Ingress resource only supports http rules.
 
-__Lines 8-9__: Each http rule contains the following information: A host (eg: foo.bar.com, defaults to * in this example), a list of paths (eg: /testpath) each of which has an associated backend (test:80). Both the host and path must match the content of an incoming request before the loadbalancer directs traffic to the backend.
+__Lines 8-9__: Each http rule contains the following information: A host (e.g.: foo.bar.com, defaults to * in this example), a list of paths (e.g.: /testpath) each of which has an associated backend (test:80). Both the host and path must match the content of an incoming request before the loadbalancer directs traffic to the backend.
 
 __Lines 10-12__: A backend is a service:port combination as described in the [services doc](/docs/user-guide/services). Ingress traffic is typically sent directly to the endpoints matching a backend.
 
@@ -185,7 +185,7 @@ __Default Backends__: An Ingress with no rules, like the one shown in the previo
 
 ### TLS
 
-You can secure an Ingress by specifying a [secret](/docs/user-guide/secrets) that contains a TLS private key and certificate. Currently the Ingress only supports a single TLS port, 443, and assumes TLS termination. If the TLS configuration section in an Ingress specifies different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret must contain keys named `tls.crt` and `tls.key` that contain the certificate and private key to use for TLS, eg:
+You can secure an Ingress by specifying a [secret](/docs/user-guide/secrets) that contains a TLS private key and certificate. Currently the Ingress only supports a single TLS port, 443, and assumes TLS termination. If the TLS configuration section in an Ingress specifies different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret must contain keys named `tls.crt` and `tls.key` that contain the certificate and private key to use for TLS, e.g.:
 
 ```yaml
 apiVersion: v1
@@ -218,7 +218,7 @@ Note that there is a gap between TLS features supported by various Ingress contr
 
 ### Loadbalancing
 
-An Ingress controller is bootstrapped with some loadbalancing policy settings that it applies to all Ingress, such as the loadbalancing algorithm, backend weight scheme etc. More advanced loadbalancing concepts (eg: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer). With time, we plan to distill loadbalancing patterns that are applicable cross platform into the Ingress resource.
+An Ingress controller is bootstrapped with some loadbalancing policy settings that it applies to all Ingress, such as the loadbalancing algorithm, backend weight scheme etc. More advanced loadbalancing concepts (e.g.: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer). With time, we plan to distill loadbalancing patterns that are applicable cross platform into the Ingress resource.
 
 It's also worth noting that even though health checks are not exposed directly through the Ingress, there exist parallel concepts in Kubernetes such as [readiness probes](https://github.com/kubernetes/kubernetes/blob/release-1.0/docs/user-guide/production-pods.md#liveness-and-readiness-probes-aka-health-checks) which allow you to achieve the same end result. Please review the controller specific docs to see how they handle health checks ([nginx](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/nginx/README.md), [GCE](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/README.md#health-checks)).
 
@@ -277,7 +277,7 @@ Techniques for spreading traffic across failure domains differs between cloud pr
 
 ## Future Work
 
-* Various modes of HTTPS/TLS support (eg: SNI, re-encryption)
+* Various modes of HTTPS/TLS support (e.g.: SNI, re-encryption)
 * Requesting an IP or Hostname via claims
 * Combining L4 and L7 Ingress
 * More Ingress controllers

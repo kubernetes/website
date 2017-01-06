@@ -1,4 +1,5 @@
 ---
+title: kubectl expose
 ---
 
 ## kubectl expose
@@ -8,20 +9,13 @@ Take a replication controller, service, deployment or pod and expose it as a new
 ### Synopsis
 
 
-
 Expose a resource as a new Kubernetes service.
 
-Looks up a deployment, service, replica set, replication controller or pod by name and uses the selector
-for that resource as the selector for a new service on the specified port. A deployment or replica set
-will be exposed as a service only if its selector is convertible to a selector that service supports,
-i.e. when the selector contains only the matchLabels component. Note that if no port is specified via
---port and the exposed resource has multiple ports, all will be re-used by the new service. Also if no
-labels are specified, the new service will re-use the labels from the resource it exposes.
+Looks up a deployment, service, replica set, replication controller or pod by name and uses the selector for that resource as the selector for a new service on the specified port. A deployment or replica set will be exposed as a service only if its selector is convertible to a selector that service supports, i.e. when the selector contains only the matchLabels component. Note that if no port is specified via --port and the exposed resource has multiple ports, all will be re-used by the new service. Also if no labels are specified, the new service will re-use the labels from the resource it exposes.
 
 Possible resources include (case insensitive):
-pod (po), service (svc), replicationcontroller (rc),
-deployment, replicaset (rs)
 
+pod (po), service (svc), replicationcontroller (rc), deployment (deploy), replicaset (rs)
 
 ```
 kubectl expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type]
@@ -30,27 +24,26 @@ kubectl expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP] [--t
 ### Examples
 
 ```
-
-# Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000.
-kubectl expose rc nginx --port=80 --target-port=8000
-
-# Create a service for a replication controller identified by type and name specified in "nginx-controller.yaml", which serves on port 80 and connects to the containers on port 8000.
-kubectl expose -f nginx-controller.yaml --port=80 --target-port=8000
-
-# Create a service for a pod valid-pod, which serves on port 444 with the name "frontend"
-kubectl expose pod valid-pod --port=444 --name=frontend
-
-# Create a second service based on the above service, exposing the container port 8443 as port 443 with the name "nginx-https"
-kubectl expose service nginx --port=443 --target-port=8443 --name=nginx-https
-
-# Create a service for a replicated streaming application on port 4100 balancing UDP traffic and named 'video-stream'.
-kubectl expose rc streamer --port=4100 --protocol=udp --name=video-stream
-
-# Create a service for a replicated nginx using replica set, which serves on port 80 and connects to the containers on port 8000.
-kubectl expose rs nginx --port=80 --target-port=8000
-
-# Create a service for an nginx deployment, which serves on port 80 and connects to the containers on port 8000.
-kubectl expose deployment nginx --port=80 --target-port=8000
+  # Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000.
+  kubectl expose rc nginx --port=80 --target-port=8000
+  
+  # Create a service for a replication controller identified by type and name specified in "nginx-controller.yaml", which serves on port 80 and connects to the containers on port 8000.
+  kubectl expose -f nginx-controller.yaml --port=80 --target-port=8000
+  
+  # Create a service for a pod valid-pod, which serves on port 444 with the name "frontend"
+  kubectl expose pod valid-pod --port=444 --name=frontend
+  
+  # Create a second service based on the above service, exposing the container port 8443 as port 443 with the name "nginx-https"
+  kubectl expose service nginx --port=443 --target-port=8443 --name=nginx-https
+  
+  # Create a service for a replicated streaming application on port 4100 balancing UDP traffic and named 'video-stream'.
+  kubectl expose rc streamer --port=4100 --protocol=udp --name=video-stream
+  
+  # Create a service for a replicated nginx using replica set, which serves on port 80 and connects to the containers on port 8000.
+  kubectl expose rs nginx --port=80 --target-port=8000
+  
+  # Create a service for an nginx deployment, which serves on port 80 and connects to the containers on port 8000.
+  kubectl expose deployment nginx --port=80 --target-port=8000
 ```
 
 ### Options
@@ -59,7 +52,7 @@ kubectl expose deployment nginx --port=80 --target-port=8000
       --cluster-ip string         ClusterIP to be assigned to the service. Leave empty to auto-allocate, or set to 'None' to create a headless service.
       --dry-run                   If true, only print the object that would be sent, without sending it.
       --external-ip string        Additional external IP address (not managed by Kubernetes) to accept for the service. If this IP is routed to a node, the service can be accessed by this IP in addition to its generated service IP.
-  -f, --filename value            Filename, directory, or URL to a file identifying the resource to expose a service (default [])
+  -f, --filename stringSlice      Filename, directory, or URL to files identifying the resource to expose a service
       --generator string          The name of the API generator to use. There are 2 generators: 'service/v1' and 'service/v2'. The only difference between them is that service port in v1 is named 'default', while it is left unnamed in v2. Default is 'service/v2'. (default "service/v2")
   -l, --labels string             Labels to apply to the service created by this call.
       --load-balancer-ip string   IP to assign to the Load Balancer. If empty, an ephemeral IP will be created and used (cloud-provider specific).
@@ -86,37 +79,34 @@ kubectl expose deployment nginx --port=80 --target-port=8000
 ### Options inherited from parent commands
 
 ```
-      --alsologtostderr value          log to standard error as well as files
-      --as string                      Username to impersonate for the operation
-      --certificate-authority string   Path to a cert. file for the certificate authority
-      --client-certificate string      Path to a client certificate file for TLS
-      --client-key string              Path to a client key file for TLS
-      --cluster string                 The name of the kubeconfig cluster to use
-      --context string                 The name of the kubeconfig context to use
-      --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
-      --kubeconfig string              Path to the kubeconfig file to use for CLI requests.
-      --log-backtrace-at value         when logging hits line file:N, emit a stack trace (default :0)
-      --log-dir value                  If non-empty, write log files in this directory
-      --logtostderr value              log to standard error instead of files
-      --match-server-version           Require server version to match client version
-  -n, --namespace string               If present, the namespace scope for this CLI request
-      --password string                Password for basic authentication to the API server
-  -s, --server string                  The address and port of the Kubernetes API server
-      --stderrthreshold value          logs at or above this threshold go to stderr (default 2)
-      --token string                   Bearer token for authentication to the API server
-      --user string                    The name of the kubeconfig user to use
-      --username string                Username for basic authentication to the API server
-  -v, --v value                        log level for V logs
-      --vmodule value                  comma-separated list of pattern=N settings for file-filtered logging
+      --alsologtostderr                  log to standard error as well as files
+      --as string                        Username to impersonate for the operation
+      --certificate-authority string     Path to a cert. file for the certificate authority
+      --client-certificate string        Path to a client certificate file for TLS
+      --client-key string                Path to a client key file for TLS
+      --cluster string                   The name of the kubeconfig cluster to use
+      --context string                   The name of the kubeconfig context to use
+      --insecure-skip-tls-verify         If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string                Path to the kubeconfig file to use for CLI requests.
+      --log-backtrace-at traceLocation   when logging hits line file:N, emit a stack trace (default :0)
+      --log-dir string                   If non-empty, write log files in this directory
+      --logtostderr                      log to standard error instead of files
+      --match-server-version             Require server version to match client version
+  -n, --namespace string                 If present, the namespace scope for this CLI request
+      --password string                  Password for basic authentication to the API server
+      --request-timeout string           The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests. (default "0")
+  -s, --server string                    The address and port of the Kubernetes API server
+      --stderrthreshold severity         logs at or above this threshold go to stderr (default 2)
+      --token string                     Bearer token for authentication to the API server
+      --user string                      The name of the kubeconfig user to use
+      --username string                  Username for basic authentication to the API server
+  -v, --v Level                          log level for V logs
+      --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging
 ```
 
 
 
-###### Auto generated by spf13/cobra on 2-Sep-2016
-
-
-
-
+###### Auto generated by spf13/cobra on 13-Dec-2016
 
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
 [![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl_expose.md?pixel)]()

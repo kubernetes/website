@@ -3,7 +3,7 @@ assignees:
 - derekwaynecarr
 - vishh
 - timstclair
-
+title: Configuring Out Of Resource Handling
 ---
 
 * TOC
@@ -29,7 +29,7 @@ table below.  The value of each signal is described in the description column ba
 summary API.
 
 | Eviction Signal  | Description                                                                     |
-|------------------|---------------------------------------------------------------------------------|
+|----------------------------|-----------------------------------------------------------------------|
 | `memory.available` | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |
 | `nodefs.available` | `nodefs.available` := `node.stats.fs.available` |
 | `nodefs.inodesFree` | `nodefs.inodesFree` := `node.stats.fs.inodesFree` |
@@ -128,7 +128,7 @@ reflects the node is under pressure.
 The following node conditions are defined that correspond to the specified eviction signal.
 
 | Node Condition | Eviction Signal  | Description                                                      |
-|----------------|------------------|------------------------------------------------------------------|
+|-------------------------|-------------------------------|--------------------------------------------|
 | `MemoryPressure` | `memory.available` | Available memory on the node has satisfied an eviction threshold |
 | `DiskPressure` | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesytem or image filesystem has satisfied an eviction threshold |
 
@@ -270,7 +270,7 @@ the node depends on the [oom_killer](https://lwn.net/Articles/391222/) to respon
 The `kubelet` sets a `oom_score_adj` value for each container based on the quality of service for the pod.
 
 | Quality of Service | oom_score_adj |
-| -----------------  | ------------- |
+|----------------------------|-----------------------------------------------------------------------|
 | `Guaranteed` | -998 |
 | `BestEffort` | 1000 |
 | `Burstable` | min(max(2, 1000 - (1000 * memoryRequestBytes) / machineMemoryCapacityBytes), 999) |
@@ -330,7 +330,7 @@ for eviction. Instead `DaemonSet` should ideally launch `Guaranteed` pods.
 `kubelet` has been freeing up disk space on demand to keep the node stable.
 
 As disk based eviction matures, the following `kubelet` flags will be marked for deprecation
-in favor of the simpler configuation supported around eviction.
+in favor of the simpler configuration supported around eviction.
 
 | Existing Flag | New Flag |
 | ------------- | -------- |
@@ -349,7 +349,7 @@ in favor of the simpler configuation supported around eviction.
 The `kubelet` currently polls `cAdvisor` to collect memory usage stats at a regular interval.  If memory usage
 increases within that window rapidly, the `kubelet` may not observe `MemoryPressure` fast enough, and the `OOMKiller`
 will still be invoked.  We intend to integrate with the `memcg` notification API in a future release to reduce this
-latency, and instead have the kernel tell us when a threshold has been crossed immmediately.
+latency, and instead have the kernel tell us when a threshold has been crossed immediately.
 
 If you are not trying to achieve extreme utilization, but a sensible measure of overcommit, a viable workaround for
 this issue is to set eviction thresholds at approximately 75% capacity.  This increases the ability of this feature

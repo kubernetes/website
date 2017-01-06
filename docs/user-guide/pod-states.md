@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: The Lifecycle of a Pod
 ---
 
 Updated: 4/14/2015
@@ -66,8 +66,8 @@ The possible values for RestartPolicy are `Always`, `OnFailure`, or `Never`. If 
 Three types of controllers are currently available:
 
 - Use a [`Job`](/docs/user-guide/jobs/) for pods which are expected to terminate (e.g. batch computations).
-- Use a [`ReplicationController`](/docs/user-guide/replication-controller/) for pods which are not expected to
-  terminate (e.g. web servers).
+- Use a [`ReplicationController`](/docs/user-guide/replication-controller/) or  [`Deployment`](/docs/user-guide/deployments/)
+  for pods which are not expected to terminate (e.g. web servers).
 - Use a [`DaemonSet`](/docs/admin/daemons/): Use for pods which need to run 1 per machine because they provide a
   machine-specific system service.
 If you are unsure whether to use ReplicationController or Daemon, then see [Daemon Set versus
@@ -88,6 +88,40 @@ In general, pods which are created do not disappear until someone destroys them.
 If a node dies or is disconnected from the rest of the cluster, some entity within the system (call it the NodeController for now) is responsible for applying policy (e.g. a timeout) and marking any pods on the lost node as `Failed`.
 
 ## Examples
+
+### Advanced livenessProbe example
+
+Liveness probes are executed by `kubelet`, so all requests will be made within kubelet network namespace.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-http
+spec:
+  containers:
+  - args:
+    - /server
+    image: gcr.io/google_containers/liveness
+    livenessProbe:
+      httpGet:
+        # when "host" is not defined, "PodIP" will be used
+        # host: my-host
+        # when "scheme" is not defined, "HTTP" scheme will be used. Only "HTTP" and "HTTPS" are allowed
+        # scheme: HTTPS
+        path: /healthz
+        port: 8080
+        httpHeaders:
+          - name: X-Custom-Header
+            value: Awesome
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+    name: liveness
+```
+
+### Example states
 
    * Pod is `Running`, 1 container, container exits success
      * Log completion event

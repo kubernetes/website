@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-
+title: Overview
 ---
 
 This document describes how access to the Kubernetes API is controlled.
@@ -24,7 +24,7 @@ following diagram:
 In a typical Kubernetes cluster, the API served on port 443.  A TLS connection is
 established.  The API server presents a certificate.  This certificate is
 often self-signed, so `$USER/.kube/config` on the user's machine typically
-contains the root certficate for the API server's certificate, which when specified
+contains the root certificate for the API server's certificate, which when specified
 is used in place of the system default root certificates.  This certificate is typically
 automatically written into your `$USER/.kube/config` when you create a cluster yourself
 using `kube-up.sh`.  If the cluster has multiple users, then the creator needs to share
@@ -52,8 +52,8 @@ On GCE, Client Certificates, Password, Plain Tokens, and JWT Tokens are all enab
 If the request cannot be authenticated, it is rejected with HTTP status code 401.
 Otherwise, the user is authenticated as a specific `username`, and the user name
 is available to subsequent steps to use in their decisions.  Some authenticators
-may also provide the group memberships of the user, while other authenticators
-do not (and expect the authorizer to determine these).
+also provide the group memberships of the user, while other authenticators
+do not.
 
 While Kubernetes uses "usernames" for access control decisions and in request logging,
 it does not have a `user` object nor does it store usernames or other information about
@@ -86,7 +86,7 @@ For version 1.2, clusters created by `kube-up.sh` are configured so that no auth
 required for any request.
 
 As of version 1.3, clusters created by `kube-up.sh` are configured so that the ABAC authorization
-modules is enabled.  However, its input file is initially set to allow all users to do all
+modules are enabled.  However, its input file is initially set to allow all users to do all
 operations.  The cluster administrator needs to edit that file, or configure a different authorizer
 to restrict what users can do.
 
@@ -148,7 +148,7 @@ By default the Kubernetes APIserver serves HTTP on 2 ports:
           - default IP is first non-localhost network interface, change with `--bind-address` flag.
           - request handled by authentication and authorization modules.
           - request handled by admission control module(s).
-          - authentication and authoriation modules run.
+          - authentication and authorisation modules run.
 
 When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On

@@ -1,9 +1,22 @@
 ---
 assignees:
 - bprashanth
+- enisoc
+- erictune
 - foxish
-
+- janetkuo
+- kow3ns
+- smarterclayton
+title: Pet Sets
 ---
+
+__Warning:__ Starting in Kubernetes version 1.5, PetSet has been renamed to
+[StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/).
+To use (or continue to use) PetSet in Kubernetes 1.5 or higher, you must
+[migrate your existing PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/).
+
+__This document has been deprecated__, but can still apply if you're using
+  Kubernetes version 1.4 or earlier.
 
 * TOC
 {:toc}
@@ -15,9 +28,9 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 * Node: A single virtual or physical machine in a Kubernetes cluster.
 * Cluster: A group of nodes in a single failure domain, unless mentioned otherwise.
 * Persistent Volume Claim (PVC): A request for storage, typically a [persistent volume](/docs/user-guide/persistent-volumes/walkthrough/).
-* Host name: The hostname attached to the UTS namespace of the pod, i.e the output of `hostname` in the pod.
-* DNS/Domain name: A *cluster local* domain name resolvable using standard methods (eg: [gethostbyname](http://linux.die.net/man/3/gethostbyname)).
-* Ordinality: the proprety of being "ordinal", or occupying a position in a sequence.
+* Host name: The hostname attached to the UTS namespace of the pod, i.e. the output of `hostname` in the pod.
+* DNS/Domain name: A *cluster local* domain name resolvable using standard methods (e.g.: [gethostbyname](http://linux.die.net/man/3/gethostbyname)).
+* Ordinality: the property of being "ordinal", or occupying a position in a sequence.
 * Pet: a single member of a PetSet; more generally, a stateful application.
 * Peer: a process running a server, capable of communicating with other such processes.
 
@@ -29,7 +42,7 @@ This doc assumes familiarity with the following Kubernetes concepts:
 * [Cluster DNS](/docs/admin/dns/)
 * [Headless Services](/docs/user-guide/services/#headless-services)
 * [Persistent Volumes](/docs/user-guide/volumes/)
-* [Dynamic volume provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md)
+* [Persistent Volume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md)
 
 You need a working Kubernetes cluster at version >= 1.3, with a healthy DNS [cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md) at version >= 15. You cannot use PetSet on a hosted Kubernetes provider that has disabled `alpha` resources.
 
@@ -75,7 +88,7 @@ Only use PetSet if your application requires some or all of these properties. Ma
 
 Example workloads for PetSet:
 
-* Databases like MySQL or PostgreSQL that require a single instance attached to a NFS persistent volume at any time
+* Databases like MySQL or PostgreSQL that require a single instance attached to an NFS persistent volume at any time
 * Clustered software like Zookeeper, Etcd, or Elasticsearch that require stable membership.
 
 ## Alpha limitations
@@ -85,7 +98,7 @@ Before you start deploying applications as PetSets, there are a few limitations 
 * PetSet is an *alpha* resource, not available in any Kubernetes release prior to 1.3.
 * As with all alpha/beta resources, it can be disabled through the `--runtime-config` option passed to the apiserver, and in fact most likely will be disabled on hosted offerings of Kubernetes.
 * The only updatable field on a PetSet is `replicas`
-* The storage for a given pet must either be provisioned by a [dynamic storage provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin. Note that dynamic volume provisioning is also currently in alpha.
+* The storage for a given pet must either be provisioned by a [persistent volume provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin. Note that persistent volume provisioning is also currently in alpha.
 * Deleting and/or scaling a PetSet down will *not* delete the volumes associated with the PetSet. This is done to ensure safety first, your data is more valuable than an auto purge of all related PetSet resources. **Deleting the Persistent Volume Claims will result in a deletion of the associated volumes**.
 * All PetSets currently require a "governing service", or a Service responsible for the network identity of the pets. The user is responsible for this Service.
 * Updating an existing PetSet is currently a manual process, meaning you either need to deploy a new PetSet with the new image version, or orphan Pets one by one, update their image, and join them back to the cluster.
@@ -290,7 +303,7 @@ NAME      DESIRED   CURRENT   AGE
 web       5         5         30m
 ```
 
-Note however, that scaling up to N and back down to M *will not* delete the volumes of the M-N pets, as described in the section on [deletion](#deleting-a-petset), i.e scaling back up to M creates new pets that use the same volumes. To see this in action, scale the PetSet back down to 3:
+Note however, that scaling up to N and back down to M *will not* delete the volumes of the M-N pets, as described in the section on [deletion](#deleting-a-petset), i.e. scaling back up to M creates new pets that use the same volumes. To see this in action, scale the PetSet back down to 3:
 
 ```shell
 $ kubectl get po --watch-only
@@ -392,7 +405,8 @@ $ grace=$(kubectl get po web-0 --template '{{.spec.terminationGracePeriodSeconds
 $ kubectl delete petset,po -l app=nginx
 $ sleep $grace
 $ kubectl delete pvc -l app=nginx
-{% endraw %}```
+{% endraw %}
+```
 
 ## Troubleshooting
 
@@ -423,4 +437,8 @@ Deploying one RC of size 1/Service per pod is a popular alternative, as is simpl
 
 ## Next steps
 
-The deployment and maintenance of stateful applications is a vast topic. The next step is to explore cluster bootstrapping and initialization, [here](/docs/user-guide/petset/bootstrapping/).
+* Learn about [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/),
+  the replacement for PetSet introduced in Kubernetes version 1.5.
+* [Migrate your existing PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
+  when upgrading to Kubernetes version 1.5 or higher.
+

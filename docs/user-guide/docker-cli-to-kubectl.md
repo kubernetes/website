@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - brendandburns
 - thockin
-
+title: kubectl for Docker Users
 ---
 
 In this doc, we introduce the Kubernetes command line for interacting with the api to docker-cli users. The tool, kubectl, is designed to be familiar to docker-cli users but there are a few necessary differences. Each section of this doc highlights a docker subcommand explains the kubectl equivalent.

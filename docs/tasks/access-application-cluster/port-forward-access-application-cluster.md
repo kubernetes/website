@@ -1,4 +1,5 @@
 ---
+title: Using Port Forwarding to Access Applications in a Cluster
 ---
 
 {% capture overview %}
@@ -12,14 +13,7 @@ for database debugging.
 
 {% capture prerequisites %}
 
-* Install [kubectl](http://kubernetes.io/docs/user-guide/prereqs).
-
-* Create a Kubernetes cluster, including a running Kubernetes
-  API server. One way to create a new cluster is to use
-  [Minikube](/docs/getting-started-guides/minikube).
-
-* Configure `kubectl` to communicate with your Kubernetes API server. This
-  configuration is done automatically if you use Minikube.
+* {% include task-tutorial-prereqs.md %}
 
 * Install [redis-cli](http://redis.io/topics/rediscli).
 
@@ -32,8 +26,7 @@ for database debugging.
 
 1. Create a pod:
 
-        export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
-        kubectl create -f $REPO/docs/tasks/access-application-cluster/redis-master.yaml
+        kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
 
     The output of a successful command verifies that the pod was created:
 

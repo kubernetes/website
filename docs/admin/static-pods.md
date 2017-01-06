@@ -1,7 +1,7 @@
 ---
 assignees:
 - jsafrane
-
+title: Static Pods
 ---
 
 **If you are running clustered Kubernetes and are using static pods to run a pod on every node, you should probably be using a [DaemonSet](/docs/admin/daemons/)!**
@@ -16,7 +16,7 @@ Static pod can be created in two ways: either by using configuration file(s) or 
 
 ### Configuration files
 
-The configuration files are just standard pod definition in json or yaml format in specific directory. Use `kubelet --config=<the directory>` to start kubelet daemon, which periodically scans the directory and creates/deletes static pods as yaml/json files appear/disappear there.
+The configuration files are just standard pod definition in json or yaml format in specific directory. Use `kubelet --pod-manifest-path=<the directory>` to start kubelet daemon, which periodically scans the directory and creates/deletes static pods as yaml/json files appear/disappear there.
 
 For example, this is how to start a simple web server as a static pod:
 
@@ -48,10 +48,10 @@ For example, this is how to start a simple web server as a static pod:
     EOF
     ```
 
-2. Configure your kubelet daemon on the node to use this directory by running it with `--config=/etc/kubelet.d/` argument.  On Fedora edit `/etc/kubernetes/kubelet` to include this line:
+2. Configure your kubelet daemon on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument.  On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 
     ```conf
-    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --config=/etc/kubelet.d/"
+    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
     ```
 
     Instructions for other distributions or Kubernetes installations may vary.
@@ -64,11 +64,11 @@ For example, this is how to start a simple web server as a static pod:
 
 ## Pods created via HTTP
 
-Kubelet periodically downloads a file specified by `--manifest-url=<URL>` argument and interprets it as a json/yaml file with a pod definition. It works the same as `--config=<directory>`, i.e. it's reloaded every now and then and changes are applied to running static pods (see below).
+Kubelet periodically downloads a file specified by `--manifest-url=<URL>` argument and interprets it as a json/yaml file with a pod definition. It works the same as `--pod-manifest-path=<directory>`, i.e. it's reloaded every now and then and changes are applied to running static pods (see below).
 
 ## Behavior of static pods
 
-When kubelet starts, it automatically starts all pods defined in directory specified in `--config=` or `--manifest-url=` arguments, i.e. our static-web.  (It may take some time to pull nginx image, be patient…):
+When kubelet starts, it automatically starts all pods defined in directory specified in `--pod-manifest-path=` or `--manifest-url=` arguments, i.e. our static-web.  (It may take some time to pull nginx image, be patient…):
 
 ```shell
 [joe@my-node1 ~] $ docker ps
@@ -88,7 +88,7 @@ static-web-my-node1     172.17.0.3                              my-node1/192.168
 
 Labels from the static pod are propagated into the mirror-pod and can be used as usual for filtering.
 
-Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/docs/user-guide/kubectl/kubectl/) command), kubelet simply won't remove it.
+Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/docs/user-guide/kubectl/) command), kubelet simply won't remove it.
 
 ```shell
 [joe@my-master ~] $ kubectl delete pod static-web-my-node1
