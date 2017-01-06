@@ -45,6 +45,7 @@ toc:
     - docs/getting-started-guides/network-policy/walkthrough.md
     - docs/getting-started-guides/network-policy/calico.md
     - docs/getting-started-guides/network-policy/romana.md
+    - docs/getting-started-guides/network-policy/weave.md
 
 - title: Batch Jobs
   section:
@@ -67,7 +68,9 @@ toc:
   - docs/user-guide/simple-nginx.md
   - docs/user-guide/pods/single-container.md
   - docs/user-guide/pods/multi-container.md
+  - docs/user-guide/pods/init-container.md
   - docs/user-guide/configuring-containers.md
+  - docs/user-guide/pod-templates.md
   - docs/user-guide/production-pods.md
   - docs/user-guide/containers.md
   - docs/user-guide/environment-guide/index.md
@@ -84,8 +87,11 @@ toc:
 - title: Monitoring, Logging, and Debugging Containers
   section:
   - docs/user-guide/monitoring.md
-  - docs/getting-started-guides/logging.md
-  - docs/getting-started-guides/logging-elasticsearch.md
+  - title: Logging
+    section:
+    - docs/user-guide/logging/overview.md
+    - docs/user-guide/logging/stackdriver.md
+    - docs/user-guide/logging/elasticsearch.md
   - docs/user-guide/getting-into-containers.md
   - docs/user-guide/connecting-to-applications-proxy.md
   - docs/user-guide/connecting-to-applications-port-forward.md
@@ -146,7 +152,11 @@ toc:
       - docs/getting-started-guides/fedora/flannel_multi_node_cluster.md
       - docs/getting-started-guides/centos/centos_manual_config.md
       - docs/getting-started-guides/coreos/index.md
-      - /docs/getting-started-guides/ubuntu/
+      - title: Ubuntu
+        section:
+        - docs/getting-started-guides/ubuntu/automated.md
+        - docs/getting-started-guides/ubuntu/calico.md
+        - docs/getting-started-guides/ubuntu/manual.md
       - docs/getting-started-guides/windows/index.md
     - docs/admin/node-conformance.md
   - docs/getting-started-guides/docker-multinode.md
@@ -160,11 +170,16 @@ toc:
   - docs/admin/cluster-management.md
   - docs/admin/kubeadm.md
   - docs/admin/addons.md
+  - docs/admin/audit.md
+  - docs/admin/ha-master-gce.md
   - docs/admin/namespaces/index.md
   - docs/admin/namespaces/walkthrough.md
   - docs/admin/limitrange/index.md
+  - docs/admin/disruptions.md
   - docs/admin/resourcequota/index.md
   - docs/admin/resourcequota/walkthrough.md
+  - docs/admin/rescheduler.md
+  - docs/admin/sysctls.md
   - docs/admin/cluster-components.md
   - docs/admin/etcd.md
   - docs/admin/multi-cluster.md
@@ -186,5 +201,21 @@ toc:
 
 - title: Administering Federation
   section:
-  - /docs/admin/federation/kubfed/
-  - docs/admin/federation/index.md
+  - docs/admin/federation/kubefed.md
+  - title: Federated Kubernetes Objects
+    section:
+    - docs/user-guide/federation/index.md
+    - docs/user-guide/federation/configmap.md
+    - docs/user-guide/federation/daemonsets.md
+    - docs/user-guide/federation/deployment.md
+    - docs/user-guide/federation/events.md
+    - docs/user-guide/federation/federated-ingress.md
+    - docs/user-guide/federation/namespaces.md
+    - docs/user-guide/federation/replicasets.md
+    - docs/user-guide/federation/secrets.md
+    - docs/federation/api-reference/index.md
+  - title: Federation Components
+    section:
+    - docs/admin/federation-apiserver.md
+    - title : federation-controller-mananger
+      path: /docs/admin/federation-controller-manager
