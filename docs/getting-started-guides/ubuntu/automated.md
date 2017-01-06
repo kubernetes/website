@@ -2,7 +2,7 @@
 assignees:
 - caesarxuchao
 - erictune
-
+title: Setting up Kubernetes with Juju
 ---
 
 Ubuntu 16.04 introduced the [Canonical Distribution of Kubernetes](https://jujucharms.com/canonical-kubernetes/), a pure upstream distribution of Kubernetes designed for production usage. Out of the box it comes with the following components on 12 machines:

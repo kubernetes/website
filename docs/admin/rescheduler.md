@@ -3,15 +3,13 @@ assignees:
 - davidopp
 - filipg
 - piosz
-
+title: Guaranteed Scheduling For Critical Add-On Pods
 ---
 
 * TOC
 {:toc}
 
-# "Guaranteed" scheduling of critical add-on pods
-
-## Critical add-ons
+## Overview
 
 In addition to Kubernetes core components like api-server, scheduler, controller-manager running on a master machine
 there are a number of add-ons which, for various reasons, must run on a regular cluster node (rather than the Kubernetes master).
