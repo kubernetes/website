@@ -1,4 +1,5 @@
 ---
+title: Federated Ingress
 ---
 
 This guide explains how to use Kubernetes Federated Ingress to deploy
@@ -18,7 +19,7 @@ automatically checks the health of the pods comprising the service,
 and avoids sending requests to unresponsive or slow pods (or entire
 unresponsive clusters).
 
-Federated Ingress is released as a beta feature, and supports Google Cloud (GKE,
+Federated Ingress is released as an alpha feature, and supports Google Cloud Platform (GKE,
 GCE and hybrid scenarios involving both) in Kubernetes v1.4.  Work is under way to support other cloud
 providers such as AWS, and other hybrid cloud scenarios (e.g. services
 spanning private on-premise as well as public cloud Kubernetes
@@ -64,12 +65,12 @@ healthy backend service endpoint at all times, even in the event of
 pod, cluster,
 availability zone or regional outages.
 
-Note that in the
-   case of Google Cloud, the logical L7 load balancer is not a single physical device (which
-   would present both a single point of failure, and a single global
-   network routing choke point), but rather a [truly global, highly available
-   load balancing managed service](https://cloud.google.com/load-balancing/),
-   globally reachable via a single, static IP address.
+Note that in the case of Google Cloud, the logical L7 load balancer is
+not a single physical device (which would present both a single point
+of failure, and a single global network routing choke point), but
+rather a
+[truly global, highly available load balancing managed service](https://cloud.google.com/load-balancing/),
+globally reachable via a single, static IP address.
 
 Clients inside your federated Kubernetes clusters (i.e. Pods) will be 
 automatically  routed to the cluster-local shard of the Federated Service
@@ -86,13 +87,13 @@ You can create a federated ingress in any of the usual ways, for example using k
 ``` shell
 kubectl --context=federation-cluster create -f myingress.yaml
 ```
-
+For example ingress YAML configurations, see the [Ingress User Guide](/docs/user-guide/ingress/)
 The '--context=federation-cluster' flag tells kubectl to submit the
 request to the Federation API endpoint, with the appropriate
 credentials. If you have not yet configured such a context, visit the
 [federation admin guide](/docs/admin/federation/) or one of the
 [administration tutorials](https://github.com/kelseyhightower/kubernetes-cluster-federation)
-to find out how to do so.  TODO: Update links
+to find out how to do so.
 
 As described above, the Federated Ingress will automatically create
 and maintain matching Kubernetes ingresses in all of the clusters
@@ -147,17 +148,28 @@ Events:
   2m        2m      1   {loadbalancer-controller }          Normal      CREATE  ip: 130.211.5.194
 ```
 
-Note the address of your Federated Ingress
+Note that:
+
+1. the address of your Federated Ingress
 corresponds with the address of all of the
 underlying Kubernetes ingresses (once these have been allocated - this
 may take up to a few minutes).
-
-Note also that we have not yet provisioned any backend Pods to receive
+2. we have not yet provisioned any backend Pods to receive
 the network traffic directed to this ingress (i.e. 'Service
 Endpoints' behind the service backing the Ingress), so the Federated Ingress does not yet consider these to
 be healthy shards and will not direct traffic to any of these clusters.
+3. the federation control system will
+automatically reconfigure the load balancer controllers in all of the
+clusters in your federation to make them consistent, and allow
+them to share global load balancers.  But this reconfiguration can
+only complete successfully if there are no pre-existing Ingresses in
+those clusters (this is a safety feature to prevent accidental
+breakage of existing ingresses).  So to ensure that your federated
+ingresses function correctly, either start with new, empty clusters, or make
+sure that you delete (and recreate if necessary) all pre-existing
+Ingresses in the clusters comprising your federation.
 
-## Adding backend services and pods
+#Adding backend services and pods
 
 To render the underlying ingress shards healthy, we need to add
 backend Pods behind the service upon which the Ingress is based.  There are several ways to achieve this, but
@@ -175,6 +187,16 @@ kubectl --context=federation-cluster create -f services/nginx.yaml
   kubectl --context=federation-cluster create -f myreplicaset.yaml
 ```
 
+Note that in order for your federated ingress to work correctly on
+Google Cloud, the node ports of all of the underlying cluster-local
+services need to be identical.  If you're using a federated service
+this is easy to do.  Simply pick a node port that is not already
+being used in any of your clusters, and add that to the spec of your
+federated service.  If you do not specify a node port for your
+federated service, each cluster will choose it's own node port for
+its cluster-local shard of the service, and these will probably end
+up being different, which is not what you want.
+  
 You can verify this by checking in each of the underlying clusters, for example:
 
 ``` shell
@@ -229,6 +251,44 @@ kept running, the Federated Ingress ensures that user traffic is
 automatically redirected away from the failed cluster to other
 available clusters.
 
+## Known issue
+
+GCE L7 load balancer back-ends and health checks are known to "flap"; this is due
+to conflicting firewall rules in the federation's underlying clusters, which might override one another. To work around this problem, you can
+install the firewall rules manually to expose the targets of all the
+underlying clusters in your federation for each Federated Ingress
+object. This way, the health checks can consistently pass and the GCE L7 load balancer
+can remain stable. You install the rules using the
+[`gcloud`](https://cloud.google.com/sdk/gcloud/) command line tool,
+[Google Cloud Console](https://console.cloud.google.com) or the
+[Google Compute Engine APIs](https://cloud.google.com/compute/docs/reference/latest/).
+
+You can install these rules using
+[`gcloud`](https://cloud.google.com/sdk/gcloud/) as follows:
+
+```shell
+gcloud compute firewall-rules create <firewall-rule-name> \
+  --source-ranges 130.211.0.0/22 --allow [<service-nodeports>] \
+  --target-tags [<target-tags>] \
+  --network <network-name>
+```
+
+where:
+
+1. `firewall-rule-name` can be any name.
+2. `[<service-nodeports>]` is the comma separated list of node ports corresponding to the services that back the Federated Ingress.
+3. [<target-tags>] is the comma separated list of the target tags assigned to the nodes in a Kubernetes cluster.
+4. <network-name> is the name of the network where the firewall rule must be installed.
+
+Example:
+```shell
+gcloud compute firewall-rules create my-federated-ingress-firewall-rule \
+  --source-ranges 130.211.0.0/22 --allow tcp:30301, tcp:30061, tcp:34564 \
+  --target-tags my-cluster-1-minion, my-cluster-2-minion \
+  --network default
+```
+
+
 ## Troubleshooting
 
 #### I cannot connect to my cluster federation API
@@ -258,6 +318,35 @@ Check that:
    `service-controller` or `replicaset-controller`,
    errors in the output of `kubectl logs federation-controller-manager --namespace federation`).
 
+#### I can create a federated ingress successfully, but request load is not correctly distributed across the underlying clusters
+
+Check that:
+
+1. the services underlying your federated ingress in each cluster have
+    identical node ports.  See [above](#creating_a_federated_ingress) for further explanation.
+2. the load balancer controllers in each of your clusters are of the
+   correct type ("GLBC") and have been correctly reconfigured by the
+   federation control plane to share a global GCE load balancer (this
+   should happen automatically).  If they of the correct type, and
+   have been correctly reconfigured, the UID data item in the GLBC
+   configmap in each cluster will be identical across all clusters.
+   See
+   [the GLBC docs](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/BETA_LIMITATIONS.md#changing-the-cluster-uid)
+   for further details.
+   If this is not the case, check the logs of your federation
+   controller manager to determine why this automated reconfiguration
+   might be failing.
+3. no ingresses have been manually created in any of your clusters before the above
+    reconfiguration of the load balancer controller completed
+    successfully.  Ingresses created before the reconfiguration of
+    your GLBC will interfere with the behavior of your federated
+    ingresses created after the reconfiguration (see
+    [the GLBC docs](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/BETA_LIMITATIONS.md#changing-the-cluster-uid)
+    for further information. To remedy this,
+    delete any ingresses created before the cluster joined the
+    federation (and had it's GLBC reconfigured), and recreate them if
+    necessary.
+	
 #### This troubleshooting guide did not help me solve my problem
 
 Please use one of our  [support channels](http://kubernetes.io/docs/troubleshooting/) to seek assistance.

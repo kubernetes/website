@@ -1,11 +1,12 @@
 name: Kubernetes
+title: Kubernetes
+description: Production-Grade Container Orchestration
 markdown: kramdown
 kramdown:
   input: GFM
   html_to_native: true
   hard_wrap: false
   syntax_highlighter: rouge
-baseurl: /
 incremental: true
 
 safe: false
@@ -16,9 +17,9 @@ defaults:
     scope:
       path: ""
     values:
-      version: "v1.3"
+      version: "v1.5.1"
       githubbranch: "master"
-      docsbranch: "release-1.3"
+      docsbranch: "master"
   -
     scope:
       path: "docs"
@@ -27,3 +28,27 @@ defaults:
       showedit: true
 
 permalink: pretty
+
+gems:
+  - jekyll-redirect-from
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-include-cache
+
+# SEO
+logo: /images/favicon.png
+twitter:
+  username: kubernetesio
+
+# Tables of contents, stored in the _data folder, that control the sidebar nav
+tocs:
+  - docs-home
+  - guides
+  - tutorials
+  - tasks
+  - concepts
+  - reference
+  - tools
+  - samples
+  - support

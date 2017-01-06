@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Using kubectl to Manage Resources
 ---
 
 *This document is aimed at users who have worked through some of the examples,
@@ -46,7 +46,7 @@ The system adds fields in several ways:
 
   - Some fields are added synchronously with creation of the resource and some are set asynchronously.
     - For example: `metadata.uid` is set synchronously.  (Read more about [metadata](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#metadata)).
-    - For example, `status.hostIP` is set only after the pod has been scheduled.  This often happens fast, but you may notice pods which do not have this set yet.  This is called Late Initialization.  (Read mode about [status](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) and [late initialization](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#late-initialization) ).
+    - For example, `status.hostIP` is set only after the pod has been scheduled.  This often happens fast, but you may notice pods which do not have this set yet.  This is called Late Initialization.  (Read more about [status](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) and [late initialization](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#late-initialization)).
   - Some fields are set to default values.  Some defaults vary by cluster and some are fixed for the API at a certain version.  (Read more about [defaulting](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#defaulting)).
     - For example, `spec.containers[0].imagePullPolicy` always defaults to `IfNotPresent` in api v1.
     - For example, `spec.containers[0].resources.limits.cpu` may be defaulted to  `100m` on some clusters, to some other value on others, and not defaulted at all on others.

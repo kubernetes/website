@@ -3,5 +3,7 @@ User-agent: *
 Disallow: /legacy/
 Disallow: /v1.0/
 Disallow: /v1.1/
+Disallow: /404/
+Disallow: 404.html
 
 SITEMAP: http://kubernetes.io/sitemap.xml

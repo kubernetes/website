@@ -1,4 +1,5 @@
 ---
+title: Federated Secrets
 ---
 
 This guide explains how to use secrets in Federation control plane.
@@ -35,22 +36,22 @@ The API for Federated Secret is 100% compatible with the
 API for traditional Kubernetes Secret. You can create a secret by sending
 a request to the federation apiserver.
 
-You can do that using [kubectl](/docs/user-guide/kubectl/kubectl/) by running:
+You can do that using [kubectl](/docs/user-guide/kubectl/) by running:
 
 ``` shell
 kubectl --context=federation-cluster create -f mysecret.yaml
 ```
 
 The '--context=federation-cluster' flag tells kubectl to submit the
-request to the Federation apiserver instead of sending it to a kubernetes
+request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
 Once a federated secret is created, the federation control plane will create
-a matching secret in all underlying kubernetes clusters.
+a matching secret in all underlying Kubernetes clusters.
 You can verify this by checking each of the underlying clusters, for example:
 
 ``` shell
-kubectl --context=gce-asia-east1a get rs myrs
+kubectl --context=gce-asia-east1a get secret mysecret
 ```
 
 The above assumes that you have a context named 'gce-asia-east1a'
@@ -77,7 +78,7 @@ the federation apiserver instead of sending it to a specific Kubernetes cluster.
 For example, you can do that using kubectl by running:
 
 ```shell
-kubectl --context=federation-cluster delete rs myrs
+kubectl --context=federation-cluster delete secret mysecret 
 ```
 
 Note that at this point, deleting a federated secret will not delete the

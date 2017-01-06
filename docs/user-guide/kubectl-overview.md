@@ -2,10 +2,10 @@
 assignees:
 - bgrant0607
 - hw-qiaolei
-
+title: kubectl Overview
 ---
 
-Use this overview of the `kubectl` command line interface to help you start running commands against Kubernetes clusters. This overview quickly covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation.
+`kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl) reference documentation. For installation instructions see [prerequisites](/docs/user-guide/prereqs).
 
 TODO: Auto-generate this file to ensure it's always in sync with any `kubectl` changes, see [#14177](http://pr.k8s.io/14177).
 
@@ -18,7 +18,6 @@ kubectl [command] [TYPE] [NAME] [flags]
 ```
 
 where `command`, `TYPE`, `NAME`, and `flags` are:
-
 * `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-sensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
@@ -27,11 +26,9 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
     $ kubectl get pods pod1
     $ kubectl get po pod1
    ```
-
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `$ kubectl get pods`.
 
    When performing an operation on multiple resources, you can specify each resource by type and name or specify one or more files:
-
    * To specify resources by type and name:
         * To group resources if they are all the same type: `TYPE1 name1 name2 name<#>`<br/>
         Example: `$ kubectl get pod example-pod1 example-pod2`
@@ -55,14 +52,15 @@ Operation       | Syntax	|       Description
 `api-versions`	| `kubectl api-versions [flags]` | List the API versions that are available.
 `apply`			| `kubectl apply -f FILENAME [flags]`| Apply a configuration change to a resource from a file or stdin.
 `attach`		| `kubectl attach POD -c CONTAINER [-i] [-t] [flags]` | Attach to a running container either to view the output stream or interact with the container (stdin).
-`autoscale`	| `autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]` | Automatically scale the set of pods that are managed by a replication controller.
+`autoscale`	| `kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]` | Automatically scale the set of pods that are managed by a replication controller.
 `cluster-info`	| `kubectl cluster-info [flags]` | Display endpoint information about the master and services in the cluster.
 `config`		| `kubectl config SUBCOMMAND [flags]` | Modifies kubeconfig files. See the individual subcommands for details.
 `create`		| `kubectl create -f FILENAME [flags]` | Create one or more resources from a file or stdin.
 `delete`		| `kubectl delete (-f FILENAME | TYPE [NAME | /NAME | -l label | --all]) [flags]` | Delete resources either from a file, stdin, or specifying label selectors, names, resource selectors, or resources.
 `describe`	| `kubectl describe (-f FILENAME | TYPE [NAME_PREFIX | /NAME | -l label]) [flags]` | Display the detailed state of one or more resources.
 `edit`		| `kubectl edit (-f FILENAME | TYPE NAME | TYPE/NAME) [flags]` | Edit and update the definition of one or more resources on the server by using the default editor.
-`exec`		| `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod.
+`exec`		| `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Execute a command against a container in a pod,
+`explain`	| `kubectl explain [--include-extended-apis=true] [--recursive=false] [flags]` | Get documentation of various resources. For instance pods, nodes, services, etc.
 `expose`		| `kubectl expose (-f FILENAME | TYPE NAME | TYPE/NAME) [--port=port] [--protocol=TCP|UDP] [--target-port=number-or-name] [--name=name] [----external-ip=external-ip-of-service] [--type=type] [flags]` | Expose a replication controller, service, or pod as a new Kubernetes service.
 `get`		| `kubectl get (-f FILENAME | TYPE [NAME | /NAME | -l label]) [--watch] [--sort-by=FIELD] [[-o | --output]=OUTPUT_FORMAT] [flags]` | List one or more resources.
 `label`		| `kubectl label (-f FILENAME | TYPE NAME | TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]` | Add or update the labels of one or more resources.
@@ -77,7 +75,7 @@ Operation       | Syntax	|       Description
 `stop`		| `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
 `version`		| `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 
-Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation.
+Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl) reference documentation.
 
 ## Resource types
 
@@ -85,29 +83,39 @@ The following table includes a list of all the supported resource types and thei
 
 Resource type	| Abbreviated alias
 -------------------- | --------------------
-`componentstatuses`	|	`cs`
-`daemonsets` | `ds`
-`deployments` |
-`events` | `ev`
-`endpoints` | `ep`
-`horizontalpodautoscalers` | `hpa`
-`ingresses` | `ing`
+`clusters` |
+`componentstatuses` |`cs`
+`configmaps` |`cm`
+`daemonsets` |`ds`
+`deployments` |`deploy`
+`endpoints` |`ep`
+`events` |`ev`
+`horizontalpodautoscalers` |`hpa`
+`ingresses` |`ing`
 `jobs` |
-`limitranges` | `limits`
-`nodes` | `no`
-`namespaces` | `ns`
-`pods` | `po`
-`persistentvolumes` | `pv`
-`persistentvolumeclaims` | `pvc`
-`resourcequotas` | `quota`
-`replicationcontrollers` | `rc`
+`limitranges` |`limits`
+`namespaces` |`ns`
+`networkpolicies` |
+`nodes` |`no`
+`persistentvolumeclaims` |`pvc`
+`persistentvolumes` |`pv`
+`poddisruptionbudget` |`pdb`
+`pods` |`po`
+`podsecuritypolicies` |`psp`
+`podtemplates` |
+`replicasets` |`rs`
+`replicationcontrollers` |`rc`
+`resourcequotas` |`quota`
 `secrets` |
-`serviceaccounts` |
-`services` | `svc`
+`serviceaccounts` |`sa`
+`services` |`svc`
+`statefulsets` |
+`storageclasses` |
+`thirdpartyresources` |
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl) reference documentation.
 
 ### Formatting output
 
@@ -138,7 +146,7 @@ In this example, the following command outputs the details for a single pod as a
 
 `$ kubectl get pod web-pod-13je7 -o=yaml`
 
-Remember: See the [kubectl](/docs/user-guide/kubectl/kubectl) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](/docs/user-guide/kubectl) reference documentation for details about which output format is supported by each command.
 
 #### Custom columns
 
@@ -273,4 +281,4 @@ $ kubectl logs -f <pod-name>
 
 ## Next steps
 
-Start using the [kubectl](/docs/user-guide/kubectl/kubectl) commands.
+Start using the [kubectl](/docs/user-guide/kubectl) commands.

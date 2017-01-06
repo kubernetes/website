@@ -2,7 +2,7 @@
 assignees:
 - caesarxuchao
 - thockin
-
+title: Configuring Containers
 ---
 
 * TOC
@@ -12,7 +12,7 @@ assignees:
 
 In addition to the imperative-style commands, such as `kubectl run` and `kubectl expose`, described [elsewhere](/docs/user-guide/quick-start), Kubernetes supports declarative configuration. Oftentimes, configuration files are preferable to imperative commands, since they can be checked into version control and changes to the files can be code reviewed, which is especially important for more complex configurations, producing a more robust, reliable and archival system.
 
-In the declarative style, all configuration is stored in YAML or JSON configuration files using Kubernetes's API resource schemas as the configuration schemas. `kubectl` can create, update, delete, and get API resources. The `apiVersion` (currently 'v1'?), resource `kind`, and resource `name` are used by `kubectl` to construct the appropriate API path to invoke for the specified operation.
+In the declarative style, all configuration is stored in YAML or JSON configuration files using Kubernetes's API resource schemas as the configuration schemas. `kubectl` can create, update, delete, and get API resources. The `apiVersion` (currently `v1`?), resource `kind`, and resource `name` are used by `kubectl` to construct the appropriate API path to invoke for the specified operation.
 
 ## Launching a container using a configuration file
 
@@ -75,7 +75,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: hello-world
-spec:  # specification of the pod’s contents
+spec:  # specification of the pod's contents
   restartPolicy: Never
   containers:
   - name: hello

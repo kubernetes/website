@@ -2,126 +2,40 @@
 assignees:
 - bgrant0607
 - thockin
-
+title: Kubernetes Documentation
 ---
-<style>
-h2, h3, h4 {
-  border-bottom: 0px !important;
-}
-.colContainer {
-  padding-top:2px;
-  padding-left: 2px;
-  overflow: auto;
-}
-#samples a {
-  color: #000;
-}
-.col3rd {
-  display: block;
-  width: 250px;
-  float: left;
-  margin-right: 30px;
-  margin-bottom: 30px;
-  overflow: hidden;
-}
-.col3rd h3, .col2nd h3 {
-  margin-bottom: 0px !important;
-}
-.col3rd .button, .col2nd .button {
-  margin-top: 20px;
-  border-radius: 2px;
-}
-.col3rd p, .col2nd p {
-  margin-left: 2px;
-}
-.col2nd {
-  display: block;
-  width: 400px;
-  float: left;
-  margin-right: 30px;
-  margin-bottom: 30px;
-  overflow: hidden;
-}
-.shadowbox {
-  display: inline;
-  float: left;
-  text-transform: none;
-  font-weight: bold;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  line-height: 24px;
-  position: relative;
-  display: block;
-  cursor: pointer;
-  box-shadow: 0 2px 2px rgba(0,0,0,.24),0 0 2px rgba(0,0,0,.12);
-  border-radius: 10px;
-  background: #fff;
-  transition: all .3s;
-  padding: 16px;
-  margin: 0 16px 16px 0;
-  text-decoration: none;
-  letter-spacing: .01em;
-}
-.shadowbox img {
-    min-width: 150px;
-    max-width: 150px;
-    max-height: 50px;
-}
-</style>
-<div class="colContainer">
-  <div class="col3rd">
-    <h3>What is Kubernetes?</h3>
-    <p>Kubernetes is an open-source platform for automating deployment, scaling, and operations of application containers across clusters of hosts. Learn more about what this means for your app.</p>
-    <a href="/docs/whatisk8s/" class="button">Read the Overview</a>
-  </div>
-  <div class="col3rd">
-    <h3>Hello World on Google Container Engine</h3>
-    <p>In this quickstart, we’ll be creating a Kubernetes instance that stands up a simple “Hello World” app using Node.js. In just a few minutes you'll go from zero to deployed Kubernetes app on Google Container Engine (GKE), a hosted service from Google.</p>
-    <a href="/docs/hellonode/" class="button">Get Started on GKE</a>
-  </div>
-  <div class="col3rd">
-    <h3>Installing Kubernetes on Linux with kubeadm</h3>
-    <p>This quickstart will show you how to install a secure Kubernetes cluster on any computers running Linux, using a tool called <code>kubeadm</code> which is part of Kubernetes. It'll work with local VMs, physical servers and/or cloud servers, either manually or as part of your own automation. It is currently in alpha but please try it out and give us feedback!</p>
-    <a href="/docs/getting-started-guides/kubeadm/" class="button">Install Kubernetes with kubeadm</a>
-  </div>
-  <div class="col3rd">
-    <h3>Guided Tutorial</h3>
-    <p>If you’ve completed one of the quickstarts, a great next step is Kubernetes 101. You will follow a path through the various features of Kubernetes, with code examples along the way, learning all of the core concepts. There's also a <a href="/docs/user-guide/walkthrough/k8s201">Kubernetes 201</a>!</p>
-    <a href="/docs/user-guide/walkthrough/" class="button">Kubernetes 101</a>
-  </div>
-</div>
 
-## Samples
+<p>Kubernetes documentation can help you set up Kubernetes, learn about the system, or get your applications and workloads running on Kubernetes. To learn the basics of what Kubernetes is and how it works, read "<a href="/docs/whatisk8s/">What is Kubernetes</a>". </p>
 
-<div id="samples" class="colContainer">
-<a href="/docs/getting-started-guides/meanstack/" class="shadowbox">
-  <img src="/images/docs/meanstack/image_0.png"><br/>MEAN Stack
-</a>
-<a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook" target="_blank" class="shadowbox">
-  <img src="/images/docs/redis.svg"><br/>Guestbook + Redis
-</a>
-<a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/storage/cassandra" target="_blank" class="shadowbox">
-  <img src="/images/docs/cassandra.svg"><br/>Cloud Native Cassandra
-</a>
-<a href="https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/mysql-wordpress-pd/" target="_blank" class="shadowbox">
-  <img src="/images/docs/wordpress.svg"><br/>WordPress + MySQL
-</a>
-</div>
+<h2>Interactive Tutorial</h2>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<p>The <a href="/docs/tutorials/kubernetes-basics/">Kubernetes Basics interactive tutorial</a> lets you try out Kubernetes right out of your web browser, using a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.</p>
 
-<div class="colContainer">
-  <div class="col2nd">
-  <h3>Contribute to Our Docs</h3>
-  <p>The docs for Kubernetes are open-source, just like the code for Kubernetes itself. The docs are on GitHub Pages, so you can fork it and it will auto-stage on username.github.io, previewing your changes!</p>
-  <a href="/editdocs/" class="button">Write Docs for K8s</a>
-  </div>
-  <div class="col2nd">
-  <h3>Need Help?</h3>
-  <p>Try consulting our <a href="/docs/troubleshooting/">troubleshooting guides</a>, or <a href="https://github.com/kubernetes/kubernetes/wiki/User-FAQ">our FAQ</a>. Kubernetes is also supported by a great community of contributors and experts who hang out in <a href="http://slack.kubernetes.io/">our Slack channel</a>, <a href="https://groups.google.com/forum/#!forum/kubernetes-users">our Google Group</a> and <a href="http://stackoverflow.com/questions/tagged/kubernetes">Stack Overflow</a>.</p>
-  <a href="/docs/troubleshooting/" class="button">Get Support</a>
-  </div>
-</div>
+<h2>Installing/Setting Up Kubernetes</h2>
+
+<p><a href="/docs/getting-started-guides/">Picking the Right Solution</a> can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.</p>
+
+<p>Other/newer ways to set up a Kubernetes cluster include:</p>
+<ul>
+<li><a href="/docs/getting-started-guides/minikube/">Minikube</a>: Install a single-node Kubernetes cluster on your local machine for development and testing.</li>
+<li><a href="/docs/getting-started-guides/kops/">Installing Kubernetes on AWS with kops</a>: Bring up a complete Kubernetes cluster on Amazon Web Services, using a tool called <code>kops</code>.</li>
+<li><a href="/docs/getting-started-guides/kubeadm/">Installing Kubernetes on Linux with kubeadm</a> (Alpha): Install a secure Kubernetes cluster on any pre-existing machines running Linux, using the built-in <code>kubeadm</code> tool.</li>
+</ul>
+
+<h2>Guides, Tutorials, Tasks, and Concepts</h2>
+
+<p>The Kubernetes documentation contains a number of resources to help you understand and work with Kubernetes.</p>
+<ul>
+<li><b><a href="/docs/user-guide/">Guides</a></b> provides documentation for Kubernetes features as well as administering and spinning up clusters, including usage examples.</li>
+<li><b><a href="/docs/tutorials/">Tutorials</a></b> contain detailed walkthroughs of the Kubernetes workflow.</li>
+<li><b><a href="/docs/tasks/">Tasks</a></b> contain step-by-step instructions for common Kubernetes tasks.</li>
+<li><b><a href="/docs/concepts/">Concepts</a></b> provide a deep understanding of how Kubernetes works.</li>
+</ul>
+
+<h2>API and Command References</h2>
+
+<p>The <a href="/docs/reference/">reference</a> documentation provides complete information on the Kubernetes APIs and the <code>kubectl</code> command-line interface.</p>
+
+<h2>Tools</h2>
+
+<p>The <a href="/docs/tools/">tools</a> page contains a list of native and third-party tools for Kubernetes.</p>

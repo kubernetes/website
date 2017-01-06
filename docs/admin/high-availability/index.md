@@ -1,5 +1,5 @@
 ---
-
+title: Building High-Availability Clusters
 ---
 
 ## Introduction
@@ -100,16 +100,15 @@ for `${NODE_IP}` on each machine.
 
 #### Validating your cluster
 
-Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate with
-
+Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate on master with
 ```shell
-etcdctl member list
+kubectl exec < pod_name > etcdctl member list
 ```
 
 and
 
 ```shell
-etcdctl cluster-health
+kubectl exec < pod_name > etcdctl cluster-health
 ```
 
 You can also validate that this is working with `etcdctl set foo bar` on one node, and `etcdctl get foo`

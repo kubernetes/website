@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-
+title: Kubernetes API Overview
 ---
 
 Primary system and API concepts are documented in the [User guide](/docs/user-guide/).
@@ -24,11 +24,13 @@ In our experience, any system that is successful needs to grow and change as new
 
 What constitutes a compatible change and how to change the API are detailed by the [API change document](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api_changes.md).
 
-## API Swagger definitions
+## OpenAPI and Swagger definitions
 
-Complete API details are documented using [Swagger v1.2](http://swagger.io/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger Kubernetes API spec, by default at located at `/swaggerapi`, and a UI to browse the API documentation at `/swagger-ui`.
+Complete API details are documented using [Swagger v1.2](http://swagger.io/) and [OpenAPI](https://www.openapis.org/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`. You can also enable a UI to browse the API documentation at `/swagger-ui` by passing the `--enable-swagger-ui=true` flag to apiserver.
 
-We also host a version of the [latest API documentation UI](http://kubernetes.io/kubernetes/third_party/swagger-ui/). This is updated with the latest release, so if you are using a different version of Kubernetes you will want to use the spec from your apiserver.
+We also host a version of the [latest v1.2 API documentation UI](http://kubernetes.io/kubernetes/third_party/swagger-ui/). This is updated with the latest release, so if you are using a different version of Kubernetes you will want to use the spec from your apiserver.
+
+Staring kubernetes 1.4, OpenAPI spec is also available at `/swagger.json`. While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
@@ -95,46 +97,3 @@ DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets
 Other extensions resources can be enabled by setting runtime-config on
 apiserver. runtime-config accepts comma separated values. For ex: to disable deployments and jobs, set
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`
-
-## v1beta1, v1beta2, and v1beta3 are deprecated; please move to v1 ASAP
-
-As of June 4, 2015, the Kubernetes v1 API has been enabled by default. The v1beta1 and v1beta2 APIs were deleted on June 1, 2015. v1beta3 is planned to be deleted on July 6, 2015.
-
-### v1 conversion tips (from v1beta3)
-
-We're working to convert all documentation and examples to v1. Use `kubectl create --validate` in order to validate your json or yaml against our Swagger spec.
-
-Changes to services are the most significant difference between v1beta3 and v1.
-
-* The `service.spec.portalIP` property is renamed to `service.spec.clusterIP`.
-* The `service.spec.createExternalLoadBalancer` property is removed. Specify `service.spec.type: "LoadBalancer"` to create an external load balancer instead.
-* The `service.spec.publicIPs` property is deprecated and now called `service.spec.deprecatedPublicIPs`. This property will be removed entirely when v1beta3 is removed. The vast majority of users of this field were using it to expose services on ports on the node. Those users should specify `service.spec.type: "NodePort"` instead. Read [External Services](/docs/user-guide/services/#external-services) for more info. If this is not sufficient for your use case, please file an issue or contact @thockin.
-
-Some other difference between v1beta3 and v1:
-
-* The `pod.spec.containers[*].privileged` and `pod.spec.containers[*].capabilities` properties are now nested under the `pod.spec.containers[*].securityContext` property. See [Security Contexts](/docs/user-guide/security-context).
-* The `pod.spec.host` property is renamed to `pod.spec.nodeName`.
-* The `endpoints.subsets[*].addresses.IP` property is renamed to `endpoints.subsets[*].addresses.ip`.
-* The `pod.status.containerStatuses[*].state.termination` and `pod.status.containerStatuses[*].lastState.termination` properties are renamed to `pod.status.containerStatuses[*].state.terminated` and `pod.status.containerStatuses[*].lastState.terminated` respectively.
-* The `pod.status.Condition` property is renamed to `pod.status.conditions`.
-* The `status.details.id` property is renamed to `status.details.name`.
-
-### v1beta3 conversion tips (from v1beta1/2)
-
-Some important differences between v1beta1/2 and v1beta3:
-
-* The resource `id` is now called `name`.
-* `name`, `labels`, `annotations`, and other metadata are now nested in a map called `metadata`
-* `desiredState` is now called `spec`, and `currentState` is now called `status`
-* `/minions` has been moved to `/nodes`, and the resource has kind `Node`
-* The namespace is required (for all namespaced resources) and has moved from a URL parameter to the path: `/api/v1beta3/namespaces/{namespace}/{resource_collection}/{resource_name}`. If you were not using a namespace before, use `default` here.
-* The names of all resource collections are now lower cased - instead of `replicationControllers`, use `replicationcontrollers`.
-* To watch for changes to a resource, open an HTTP or Websocket connection to the collection query and provide the `?watch=true` query parameter along with the desired `resourceVersion` parameter to watch from.
-* The `labels` query parameter has been renamed to `labelSelector`.
-* The `fields` query parameter has been renamed to `fieldSelector`.
-* The container `entrypoint` has been renamed to `command`, and `command` has been renamed to `args`.
-* Container, volume, and node resources are expressed as nested maps (e.g., `resources{cpu:1}`) rather than as individual fields, and resource values support [scaling suffixes](/docs/user-guide/compute-resources/#specifying-resource-quantities) rather than fixed scales (e.g., milli-cores).
-* Restart policy is represented simply as a string (e.g., `"Always"`) rather than as a nested map (`always{}`).
-* Pull policies changed from `PullAlways`, `PullNever`, and `PullIfNotPresent` to `Always`, `Never`, and `IfNotPresent`.
-* The volume `source` is inlined into `volume` rather than nested.
-* Host volumes have been changed from `hostDir` to `hostPath` to better reflect that they can be files or directories.

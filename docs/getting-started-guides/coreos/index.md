@@ -1,5 +1,5 @@
 ---
-
+title: CoreOS on AWS or GCE
 ---
 
 * TOC
@@ -41,12 +41,6 @@ A generic guide to setting up an HA cluster on any cloud or bare metal, with ful
 
 These guides are maintained by community members, cover specific platforms and use cases, and experiment with different ways of configuring Kubernetes on CoreOS.
 
-[**Multi-node Cluster**](/docs/getting-started-guides/coreos/coreos_multinode_cluster)
-
-Set up a single master, multi-worker cluster on your choice of platform: AWS, GCE, or VMware Fusion.
-
-<hr/>
-
 [**Easy Multi-node Cluster on Google Compute Engine**](https://github.com/rimusz/coreos-multi-node-k8s-gce/blob/master/README.md)
 
 Scripted installation of a single master, multi-worker cluster on GCE. Kubernetes components are managed by [fleet](https://github.com/coreos/fleet).
@@ -74,12 +68,6 @@ Guide to running a solo cluster (master + worker) controlled by an OS X menubar 
 [**Multi-node cluster with Vagrant and fleet units using a small OS X App**](https://github.com/rimusz/coreos-osx-gui-kubernetes-cluster/blob/master/README.md)
 
 Guide to running a single master, multi-worker cluster controlled by an OS X menubar application. Uses Vagrant under the hood.
-
-<hr/>
-
-[**Resizable multi-node cluster on Azure with Weave**](/docs/getting-started-guides/coreos/azure/)
-
-Guide to running an HA etcd cluster with a single master on Azure. Uses the Azure node.js CLI to resize the cluster.
 
 <hr/>
 

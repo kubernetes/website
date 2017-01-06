@@ -2,35 +2,57 @@
 assignees:
 - bgrant0607
 - mikedanese
-
+title: Installing and Setting up kubectl
 ---
 
-To deploy and manage applications on Kubernetes, you’ll use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/kubectl/). It lets you inspect your cluster resources, create, delete, and update components, and much more. You will use it to look at your new cluster and bring up example apps.
+To deploy and manage applications on Kubernetes, you'll use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/). It lets you inspect your cluster resources, create, delete, and update components, and much more. You will use it to look at your new cluster and bring up example apps.
 
-## Installing kubectl
+## Install kubectl Binary Via curl
 
-If you downloaded a pre-compiled [release](https://github.com/kubernetes/kubernetes/releases), kubectl should be under `platforms/<os>/<arch>` from the tar bundle.
-
-If you built from source, kubectl should be either under `_output/local/bin/<os>/<arch>` or `_output/dockerized/bin/<os>/<arch>`.
-
-The kubectl binary doesn't have to be installed to be executable, but the rest of the walkthrough will assume that it's in your PATH.
-
-The simplest way to install is to copy or move kubectl into a dir already in PATH (e.g. `/usr/local/bin`). For example:
+Download the latest release with the command:
 
 ```shell
 # OS X
-$ sudo cp kubernetes/platforms/darwin/amd64/kubectl /usr/local/bin/kubectl
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+
 # Linux
-$ sudo cp kubernetes/platforms/linux/amd64/kubectl /usr/local/bin/kubectl
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 ```
 
-You also need to ensure it's executable:
+If you want to download a specific version of kubectl you can replace the nested curl command from above with the version you want. (e.g. v1.4.6, v1.5.0-beta.2)
+
+Make the kubectl binary executable and move it to your PATH (e.g. `/usr/local/bin`):
 
 ```shell
-$ sudo chmod +x /usr/local/bin/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
-If you prefer not to copy kubectl, you need to ensure the tool is in your path:
+## Extract kubectl from Release .tar.gz or Compiled Source
+
+If you downloaded a pre-compiled [release](https://github.com/kubernetes/kubernetes/releases), kubectl will be under `platforms/<os>/<arch>` from the tar bundle.
+
+If you compiled Kubernetes from source, kubectl should be either under `_output/local/bin/<os>/<arch>` or `_output/dockerized/bin/<os>/<arch>`.
+
+Copy or move kubectl into a directory already in your PATH (e.g. `/usr/local/bin`). For example:
+
+```shell
+# OS X
+sudo cp platforms/darwin/amd64/kubectl /usr/local/bin/kubectl
+
+# Linux
+sudo cp platforms/linux/amd64/kubectl /usr/local/bin/kubectl
+```
+
+Next make it executable with the following command:
+
+```shell
+sudo chmod +x /usr/local/bin/kubectl
+```
+
+The kubectl binary doesn't have to be installed to be executable, but the rest of the walkthrough will assume that it's in your PATH.
+
+If you prefer not to copy kubectl, you need to ensure it is in your path:
 
 ```shell
 # OS X

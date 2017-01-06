@@ -3,7 +3,7 @@ assignees:
 - erictune
 - lavalamp
 - thockin
-
+title: Creating a Custom Cluster from Scratch
 ---
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
@@ -69,7 +69,7 @@ accomplished in two ways:
 
 - **Using an overlay network**
   - An overlay network obscures the underlying network architecture from the 
-    pod network through traffic encapsulation (e.g vxlan).
+    pod network through traffic encapsulation (e.g. vxlan).
   - Encapsulation reduces performance, though exactly how much depends on your solution.
 - **Without an overlay network**
   - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
@@ -81,11 +81,12 @@ to implement one of the above options:
 
 - **Use a network plugin which is called by Kubernetes**
   - Kubernetes supports the [CNI](https://github.com/containernetworking/cni) network plugin interface.
-  - There are a number of solutions which provide plugins for Kubernetes: 
+  - There are a number of solutions which provide plugins for Kubernetes (listed alphabetically): 
+    - [Calico](http://docs.projectcalico.org/)
     - [Flannel](https://github.com/coreos/flannel)
-    - [Calico](http://https://github.com/projectcalico/calico-containers)
-    - [Weave](http://weave.works/)
     - [Open vSwitch (OVS)](http://openvswitch.org/)
+    - [Romana](http://romana.io/)
+    - [Weave](http://weave.works/)
     - [More found here](/docs/admin/networking#how-to-achieve-this)
   - You can also write your own.
 - **Compile support directly into Kubernetes**
@@ -129,14 +130,9 @@ Also, you need to pick a static IP for master node.
 
 #### Network Policy
 
-Kubernetes enables the definition of fine-grained network policy between Pods 
-using the [NetworkPolicy](/docs/user-guide/networkpolicy) resource.
+Kubernetes enables the definition of fine-grained network policy between Pods using the [NetworkPolicy](/docs/user-guide/network-policy) resource.
 
-Not all networking providers support the Kubernetes NetworkPolicy features.
-For clusters which choose to enable NetworkPolicy, the 
-[Calico policy controller addon](https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/calico-policy-controller) 
-can enforce the NetworkPolicy API on top of native cloud-provider networking, 
-Flannel, or Calico networking.
+Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/getting-started-guides/network-policy/walkthrough/) for more information.
 
 ### Cluster Naming
 
@@ -184,7 +180,7 @@ we recommend that you run these as containers, so you need an image to be built.
 You have several choices for Kubernetes images:
 
 - Use images hosted on Google Container Registry (GCR):
-  - e.g `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
+  - e.g. `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
     release tag, which can be found on the [latest releases page](https://github.com/kubernetes/kubernetes/releases/latest).
   - Ensure $TAG is the same tag as the release tag you are using for kubelet and kube-proxy.
   - The [hyperkube](https://releases.k8s.io/{{page.githubbranch}}/cmd/hyperkube) binary is an all in one binary
@@ -385,7 +381,7 @@ The minimum version required is [v0.5.6](https://github.com/coreos/rkt/releases/
 minimum version required to match rkt v0.5.6 is
 [systemd 215](http://lists.freedesktop.org/archives/systemd-devel/2014-July/020903.html).
 
-[rkt metadata service](https://github.com/coreos/rkt/blob/master/Documentation/networking.md) is also required
+[rkt metadata service](https://github.com/coreos/rkt/blob/master/Documentation/networking/overview.md) is also required
 for rkt networking support.  You can start rkt metadata service by using command like
 `sudo systemd-run rkt metadata-service`
 
@@ -650,7 +646,7 @@ This pod mounts several node file system directories using the  `hostPath` volum
 
 Apiserver supports several cloud providers.
 
-- options for `--cloud-provider` flag are `aws`, `gce`, `mesos`, `openshift`, `ovirt`, `rackspace`, `vagrant`, or unset.
+- options for `--cloud-provider` flag are `aws`, `azure`, `cloudstack`, `fake`, `gce`, `mesos`, `openstack`, `ovirt`, `photon`, `rackspace`, `vsphere`, or unset.
 - unset used for e.g. bare metal setups.
 - support for new IaaS is added by contributing code [here](https://releases.k8s.io/{{page.githubbranch}}/pkg/cloudprovider/providers)
 
@@ -826,7 +822,7 @@ of their purpose is in the admin guide](/docs/admin/cluster-components/#addons).
 Notes for setting up each cluster service are given below:
 
 * Cluster DNS:
-  * required for many kubernetes examples
+  * required for many Kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
   * [Admin Guide](/docs/admin/dns/)
 * Cluster-level Logging

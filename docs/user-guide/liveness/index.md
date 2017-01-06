@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Checking Pod Health
 ---
 
 This example shows two types of pod [health checks](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks): HTTP checks and container execution checks.

@@ -1,4 +1,5 @@
 ---
+title: Using an HTTP Proxy to Access the Kubernetes API
 ---
 
 {% capture overview %}
@@ -7,14 +8,7 @@ This page shows how to use an HTTP proxy to access the Kubernetes API.
 
 {% capture prerequisites %}
 
-* Install [kubectl](http://kubernetes.io/docs/user-guide/prereqs).
-
-* Create a Kubernetes cluster, including a running Kubernetes
-  API server. One way to create a new cluster is to use
-  [Minikube](/docs/getting-started-guides/minikube).
-
-* Configure `kubectl` to communicate with your Kubernetes API server. This
-  configuration is done automatically if you use Minikube.
+* {% include task-tutorial-prereqs.md %}
 
 * If you do not already have an application running in your cluster, start
   a Hello world application by entering this command:

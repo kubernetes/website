@@ -2,7 +2,9 @@
 assignees:
 - erictune
 - lavalamp
-
+- deads2k
+- liggitt
+title: Using Authorization Plugins
 ---
 
 In Kubernetes, authorization happens as a separate step from authentication.
@@ -53,7 +55,7 @@ A request has the following attributes that can be considered for authorization:
   - what resource is being accessed (for resource requests only)
   - what subresource is being accessed (for resource requests only)
   - the namespace of the object being accessed (for namespaced resource requests only)
-  - the API group being accessed (for resource requests only)
+  - the API group being accessed (for resource requests only); an empty string designates the [core API group](../api.md#api-groups)
 
 The request verb for a resource API endpoint can be determined by the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
 
@@ -207,6 +209,29 @@ and [enable the API version](
 /docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster),
 with a `--runtime-config=` that includes `rbac.authorization.k8s.io/v1alpha1`.
 
+### Privilege Escalation Prevention and Bootstrapping
+
+The `rbac.authorization.k8s.io` API group inherently attempts to prevent users
+from escalating privileges. Simply put, __a user can't grant permissions they
+don't already have even when the RBAC authorizer it disabled__. If "user-1"
+does not have the ability to read secrets in "namespace-a", they cannot create
+a binding that would grant that permission to themselves or any other user.
+
+For bootstrapping the first roles, it becomes necessary for someone to get
+around these limitations. For the alpha release of RBAC, an API Server flag was
+added to allow one user to step around all RBAC authorization and privilege
+escalation checks. NOTE: _This is subject to change with future releases._
+
+```
+--authorization-rbac-super-user=admin
+```
+
+Once set the specified super user, in this case "admin", can be used to create
+the roles and role bindings to initialize the system.
+
+This flag is optional and once the initial bootstrapping is performed can be
+unset.
+
 ### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
 
 The RBAC API Group declares four top level types which will be covered in this
@@ -231,7 +256,7 @@ metadata:
   namespace: default
   name: pod-reader
 rules:
-  - apiGroups: [""] # The API group "" indicates the default API Group.
+  - apiGroups: [""] # The API group "" indicates the core API Group.
     resources: ["pods"]
     verbs: ["get", "watch", "list"]
     nonResourceURLs: []
@@ -274,9 +299,8 @@ subjects:
     name: jane
 roleRef:
   kind: Role
-  namespace: default
   name: pod-reader
-  apiVersion: rbac.authorization.k8s.io/v1alpha1
+  apiGroup: rbac.authorization.k8s.io
 ```
 
 `RoleBindings` may also refer to a `ClusterRole`. However, a `RoleBinding` that
@@ -301,26 +325,52 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: secret-reader
-  apiVersion: rbac.authorization.k8s.io/v1alpha1
+  apiGroup: rbac.authorization.k8s.io
 ```
 
 Finally a `ClusterRoleBinding` may be used to grant permissions in all
 namespaces. The following `ClusterRoleBinding` allows any user in the group
-"manager" to read secrets in any namepsace.
+"manager" to read secrets in any namespace.
 
 ```yaml
 # This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1alpha1
 metadata:
-  name: read-secrets
+  name: read-secrets-global
 subjects:
   - kind: Group # May be "User", "Group" or "ServiceAccount"
     name: manager
 roleRef:
   kind: ClusterRole
-  name: secret-reader
-  apiVersion: rbac.authorization.k8s.io/v1alpha1
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
+```
+
+### Referring to Resources
+
+Most resources are represented by a string representation of their name, such as "pods", just as it
+appears in the URL for the relevant API endpoint. However, some Kubernetes APIs involve a
+"subresource" such as the logs for a pod. The URL for the pods logs endpoint is:
+
+```
+GET /api/v1/namespaces/{namespace}/pods/{name}/log
+```
+
+In this case, "pods" is the namespaced resource, and "log" is a subresource of pods. To represent
+this in an RBAC role, use a slash to delimit the resource and subresource names. To allow a subject
+to read both pods and pod logs, you would write:
+
+```yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  namespace: default
+  name: pod-and-pod-logs-reader
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list"]
 ```
 
 ### Referring to Subjects
@@ -351,6 +401,7 @@ to groups with the `system:` prefix.
 Only the `subjects` section of a RoleBinding object shown in the following examples.
 
 For a user called `alice@example.com`, specify
+
 ```yaml
 subjects:
   - kind: User
@@ -358,6 +409,7 @@ subjects:
 ```
 
 For a group called `frontend-admins`, specify:
+
 ```yaml
 subjects:
   - kind: Group
@@ -365,6 +417,7 @@ subjects:
 ```
 
 For the default service account in the kube-system namespace:
+
 ```yaml
 subjects:
  - kind: ServiceAccount
@@ -373,6 +426,7 @@ subjects:
 ```
 
 For all service accounts in the `qa` namespace:
+
 ```yaml
 subjects:
 - kind: Group
@@ -380,34 +434,12 @@ subjects:
 ```
 
 For all service accounts everywhere:
+
 ```yaml
 subjects:
 - kind: Group
   name: system:serviceaccounts
 ```
-
-### Privilege Escalation Prevention and Bootstrapping
-
-The `rbac.authorization.k8s.io` API group inherently attempts to prevent users
-from escalating privileges. Simply put, __a user can't grant permissions they
-don't already have even when the RBAC authorizer it disabled__. If "user-1"
-does not have the ability to read secrets in "namespace-a", they cannot create
-a binding that would grant that permission to themselves or any other user.
-
-For bootstrapping the first roles, it becomes necessary for someone to get
-around these limitations. For the alpha release of RBAC, an API Server flag was
-added to allow one user to step around all RBAC authorization and privilege
-escalation checks. NOTE: _This is subject to change with future releases._
-
-```
---authorization-rbac-super-user=admin
-```
-
-Once set the specified super user, in this case "admin", can be used to create
-the roles and role bindings to initialize the system.
-
-This flag is optional and once the initial bootstrapping is performed can be
-unset.
 
 ## Webhook Mode
 
@@ -534,10 +566,10 @@ Access to non-resource paths are sent as:
 
 Non-resource paths include: `/api`, `/apis`, `/metrics`, `/resetMetrics`,
 `/logs`, `/debug`, `/healthz`, `/swagger-ui/`, `/swaggerapi/`, `/ui`, and
-`/version.` Clients require access to `/api`, `/api/*/`, `/apis/`, `/apis/*`,
-`/apis/*/*`, and `/version` to discover what resources and versions are present
-on the server. Access to other non-resource paths can be disallowed without
-restricting access to the REST api.
+`/version.` Clients require access to `/api`, `/api/*`, `/apis`, `/apis/*`,
+and `/version` to discover what resources and versions are present on the server.
+Access to other non-resource paths can be disallowed without restricting access
+to the REST api.
 
 For further documentation refer to the authorization.v1beta1 API objects and
 plugin/pkg/auth/authorizer/webhook/webhook.go.

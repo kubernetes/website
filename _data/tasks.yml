@@ -1,17 +1,44 @@
 bigheader: "Tasks"
+abstract: "Step-by-step instructions for performing operations with Kuberentes."
 toc:
-- title: Tasks
-  path: /docs/tasks/
+- docs/tasks/index.md
+
+- title: Configuring Pods and Containers
+  section:
+  - docs/tasks/configure-pod-container/define-environment-variable-container.md
+  - docs/tasks/configure-pod-container/define-command-argument-container.md
+  - docs/tasks/configure-pod-container/assign-cpu-ram-container.md
+  - docs/tasks/configure-pod-container/configure-volume-storage.md
+  - docs/tasks/configure-pod-container/distribute-credentials-secure.md
+
 - title: Accessing Applications in a Cluster
   section:
-  - title: Using Port Forwarding to Access Applications in a Cluster
-    path: /docs/tasks/access-application-cluster/port-forward-access-application-cluster/
+  - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md
+
+- title: Debugging Applications in a Cluster
+  section:
+  - docs/tasks/debug-application-cluster/determine-reason-pod-failure.md
+
 - title: Accessing the Kubernetes API
   section:
-  - title: Using an HTTP Proxy to Access the Kubernetes API
-    path: /docs/tasks/access-kubernetes-api/http-proxy-access-api/
+  - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
+
 - title: Administering a Cluster
   section:
-  - title: Assigning Pods to Nodes
-    path: /docs/tasks/administer-cluster/assign-pods-nodes/
+  - docs/tasks/administer-cluster/assign-pods-nodes.md
 
+  - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
+  - docs/tasks/administer-cluster/safely-drain-node.md
+
+- title: Managing Stateful Applications
+  section:
+  - docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set.md
+  - docs/tasks/manage-stateful-set/scale-stateful-set.md
+  - docs/tasks/manage-stateful-set/deleting-a-statefulset.md
+  - docs/tasks/manage-stateful-set/debugging-a-statefulset.md
+  - docs/tasks/manage-stateful-set/delete-pods.md
+
+- title: Troubleshooting
+  section:
+  - docs/tasks/troubleshoot/debug-init-containers.md
+  - /docs/tasks/administer-cluster/access-control-identity-management/

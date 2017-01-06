@@ -1,4 +1,5 @@
 ---
+title: Federated ReplicaSets
 ---
 
 This guide explains how to use replica sets in the Federation control plane.
@@ -35,18 +36,18 @@ The API for Federated Replica Set is 100% compatible with the
 API for traditional Kubernetes Replica Set. You can create a replica set by sending
 a request to the federation apiserver.
 
-You can do that using [kubectl](/docs/user-guide/kubectl/kubectl/) by running:
+You can do that using [kubectl](/docs/user-guide/kubectl/) by running:
 
 ``` shell
 kubectl --context=federation-cluster create -f myrs.yaml
 ```
 
 The '--context=federation-cluster' flag tells kubectl to submit the
-request to the Federation apiserver instead of sending it to a kubernetes
+request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
 Once a federated replica set is created, the federation control plane will create
-a replica set in all underlying kubernetes clusters.
+a replica set in all underlying Kubernetes clusters.
 You can verify this by checking each of the underlying clusters, for example:
 
 ``` shell
