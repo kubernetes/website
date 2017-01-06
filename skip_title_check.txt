@@ -1,0 +1,2 @@
+# Put files you want to skip "titles:" check here:
+docs/sitemap.md
