@@ -107,7 +107,7 @@ Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
 
 ### Simple fanout
 
-As described previously, pods within kubernetes have ips only visible on the cluster network, so we need something at the edge accepting ingress traffic and proxying it to the right endpoints. This component is usually a highly available loadbalancer/s. An Ingress allows you to keep the number of loadbalancers down to a minimum, for example, a setup like:
+As described previously, pods within kubernetes have IPs only visible on the cluster network, so we need something at the edge accepting ingress traffic and proxying it to the right endpoints. This component is usually a highly available loadbalancer/s. An Ingress allows you to keep the number of loadbalancers down to a minimum, for example, a setup like:
 
 ```shell
 foo.bar.com -> 178.91.123.132 -> / foo    s1:80
