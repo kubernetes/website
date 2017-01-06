@@ -3,13 +3,13 @@ assignees:
 - caesarxuchao
 - lavalamp
 - thockin
-
+title: Connecting Applications with Services
 ---
 
 * TOC
 {:toc}
 
-# The Kubernetes model for connecting containers
+## The Kubernetes model for connecting containers
 
 Now that you have a continuously running, replicated application you can expose it on a network. Before discussing the Kubernetes approach to networking, it is worthwhile to contrast it with the "normal" way networking works with Docker.
 
@@ -43,7 +43,7 @@ $ kubectl get pods -l run=my-nginx -o yaml | grep podIP
     podIP: 10.244.2.5
 ```
 
-You should be able to ssh into any node in your cluster and curl both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same containerPort and access them from any other pod or node in your cluster using IP. Like Docker, ports can still be published to the host node's interface(s), but the need for this is radically diminished because of the networking model.
+You should be able to ssh into any node in your cluster and curl both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same containerPort and access them from any other pod or node in your cluster using IP. Like Docker, ports can still be published to the host node's interfaces, but the need for this is radically diminished because of the networking model.
 
 You can read more about [how we achieve this](/docs/admin/networking/#how-to-achieve-this) if you're curious.
 
@@ -181,7 +181,7 @@ default-token-il9rc   kubernetes.io/service-account-token   1
 nginxsecret           Opaque                                2
 ```
 
-Now modify your nginx replicas to start a https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
+Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
 
 {% include code.html language="yaml" file="nginx-secure-app.yaml" ghlink="/docs/user-guide/nginx-secure-app" %}
 
@@ -295,7 +295,7 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 
 Kubernetes also supports Federated Services, which can span multiple
 clusters and cloud providers, to provide increased availability,
-bettern fault tolerance and greater scalability for your services. See
+better fault tolerance and greater scalability for your services. See
 the [Federated Services User Guide](/docs/user-guide/federation/federated-services/)
 for further information.
 

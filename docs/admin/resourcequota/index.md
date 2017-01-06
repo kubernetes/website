@@ -1,7 +1,7 @@
 ---
 assignees:
 - derekwaynecarr
-
+title: Resource Quotas
 ---
 
 When several users or teams share a cluster with a fixed number of nodes,
@@ -52,20 +52,37 @@ Resource Quota is enforced in a particular namespace when there is a
 
 ## Compute Resource Quota
 
-You can limit the total sum of [compute resources](/docs/user-guide/compute-resources) and [storage resources](/docs/user-guide/persistent-volumes)
-that can be requested in a given namespace.
+You can limit the total sum of [compute resources](/docs/user-guide/compute-resources) that can be requested in a given namespace.
  
 The following resource types are supported:
 
 | Resource Name | Description |
-| ------------ | ----------- |
+| --------------------- | ----------------------------------------------------------- |
 | `cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `limits.cpu` | Across all pods in a non-terminal state, the sum of CPU limits cannot exceed this value. |
 | `limits.memory` | Across all pods in a non-terminal state, the sum of memory limits cannot exceed this value. |
 | `memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
 | `requests.cpu` | Across all pods in a non-terminal state, the sum of CPU requests cannot exceed this value. |
 | `requests.memory` | Across all pods in a non-terminal state, the sum of memory requests cannot exceed this value. |
+
+## Storage Resource Quota
+
+You can limit the total sum of [storage resources](/docs/user-guide/persistent-volumes) that can be requested in a given namespace. 
+
+In addition, you can limit consumption of storage resources based on associated storage-class.
+
+| Resource Name | Description |
+| --------------------- | ----------------------------------------------------------- |
 | `requests.storage` | Across all persistent volume claims, the sum of storage requests cannot exceed this value. |
+| `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | Across all persistent volume claims associated with the storage-class-name, the sum of storage requests cannot exceed this value. |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the storage-class-name, the total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+
+For example, if an operator wants to quota storage with `gold` storage class separate from `bronze` storage class, the operator can
+define a quota as follows:
+
+* `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
+* `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
 
 ## Object Count Quota
 
@@ -73,7 +90,7 @@ The number of objects of a given type can be restricted.  The following types
 are supported:
 
 | Resource Name | Description |
-| ------------ | ----------- |
+| ------------------------------- | ------------------------------------------------- |
 | `configmaps` | The total number of config maps that can exist in the namespace. |
 | `persistentvolumeclaims` | The total number of [persistent volume claims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `pods` | The total number of pods in a non-terminal state that can exist in the namespace.  A pod is in a terminal state if `status.phase in (Failed, Succeeded)` is true.  |
@@ -125,7 +142,7 @@ The quota can be configured to quota either value.
 
 If the quota has a value specified for `requests.cpu` or `requests.memory`, then it requires that every incoming
 container makes an explicit request for those resources.  If the quota has a value specified for `limits.cpu` or `limits.memory`,
-then it requires that every incoming container specifies an explict limit for those resources.
+then it requires that every incoming container specifies an explicit limit for those resources.
 
 ## Viewing and Setting Quotas
 

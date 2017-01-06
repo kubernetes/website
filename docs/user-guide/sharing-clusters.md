@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Sharing Cluster Access with kubeconfig
 ---
 
 Client access to a running Kubernetes cluster can be shared by copying
@@ -115,12 +115,12 @@ make all four clusters available on both hosts by running
 # on host2, copy host1's default kubeconfig, and merge it from env
 $ scp host1:/path/to/home1/.kube/config /path/to/other/.kube/config
 
-$ export $KUBECONFIG=/path/to/other/.kube/config
+$ export KUBECONFIG=/path/to/other/.kube/config
 
 # on host1, copy host2's default kubeconfig and merge it from env
 $ scp host2:/path/to/home2/.kube/config /path/to/other/.kube/config
 
-$ export $KUBECONFIG=/path/to/other/.kube/config
+$ export KUBECONFIG=/path/to/other/.kube/config
 ```
 
 Detailed examples and explanation of `kubeconfig` loading/merging rules can be found in [kubeconfig-file](/docs/user-guide/kubeconfig-file).

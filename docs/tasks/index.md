@@ -1,11 +1,25 @@
 ---
+title: Tasks
 ---
 
-The Tasks section of the Kubernetes documentation is a work in progress
+This section of the Kubernetes documentation contains pages that
+show how to do individual tasks. A task page shows how to do a
+single thing, typically by giving a short sequence of steps.
+
+#### Configuring Pods and Containers
+
+* [Defining Environment Variables for a Container](/docs/tasks/configure-pod-container/define-environment-variable-container/)
+* [Defining a Command and Arguments for a Container](/docs/tasks/configure-pod-container/define-command-argument-container/)
+* [Assigning CPU and RAM Resources to a Container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/)
+* [Distributing Credentials Securely](/docs/tasks/configure-pod-container/distribute-credentials-secure/)
 
 #### Accessing Applications in a Cluster
 
 * [Using Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+
+#### Debugging Applications in a Cluster
+
+* [Determining the Reason for Pod Failure](/docs/tasks/debug-application-cluster/determine-reason-pod-failure/)
 
 #### Accessing the Kubernetes API
 
@@ -14,9 +28,22 @@ The Tasks section of the Kubernetes documentation is a work in progress
 #### Administering a Cluster
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
+* [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+* [Safely Draining a Node while Respecting Application SLOs](/docs/tasks/administer-cluster/safely-drain-node/)
+
+#### Managing Stateful Applications
+
+* [Upgrading from PetSets to StatefulSets](/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/)
+* [Scaling a StatefulSet](/docs/tasks/manage-stateful-set/scale-stateful-set/)
+* [Deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/)
+* [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
+* [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
+
+#### Troubleshooting
+
+* [Debugging Init Containers](/docs/tasks/troubleshoot/debug-init-containers/)
 
 ### What's next
 
 If you would like to write a task page, see
-[Using Page Templates](/docs/contribute/page-templates/)
-for information about the task page type and the task template.
+[Creating a Documentation Pull Request](/docs/create-pull-request/).

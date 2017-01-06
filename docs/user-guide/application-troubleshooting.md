@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Troubleshooting Applications
 ---
 
 This guide is to help users debug applications that are deployed into Kubernetes and not behaving correctly.

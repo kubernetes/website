@@ -1,7 +1,7 @@
 ---
 assignees:
-- mml
-
+- davidopp
+title: Pod Disruption Budget
 ---
 This guide is for anyone wishing to specify safety constraints on pods or anyone
 wishing to write software (typically automation software) that respects those
@@ -59,19 +59,19 @@ itself.  To attempt an eviction (perhaps more REST-precisely, to attempt to
 
 ```json
 {
-  "apiVersion": "policy/v1alpha1",
+  "apiVersion": "policy/v1beta1",
   "kind": "Eviction",
-  "name": "quux",
-  "namespace": "default"
+  "metadata": {
+    "name": "quux",
+    "namespace": "default"
+  }
 }
 ```
 
-and here is how you would attempt this with `curl`
+You can attempt an eviction using `curl`:
 
 ```bash
-curl -v -X POST -H 'Content-type: application/json'
-http://127.0.0.1:8080/api/v1/namespaces/default/pods/quux/eviction -d
-eviction.json
+$ curl -v -H 'Content-type: application/json' http://127.0.0.1:8080/api/v1/namespaces/default/pods/quux/eviction -d @eviction.json
 ```
 
 The API can respond in one of three ways.

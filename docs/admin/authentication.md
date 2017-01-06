@@ -4,9 +4,12 @@ assignees:
 - lavalamp
 - ericchiang
 - deads2k
-
+- liggitt
+title: Authenticating
 ---
 
+* TOC
+{:toc}
 
 ## Users in Kubernetes
 
@@ -25,16 +28,17 @@ manually through API calls. Service accounts are tied to a set of credentials
 stored as `Secrets`, which are mounted into pods allowing in cluster processes
 to talk to the Kubernetes API.
 
-All API requests are tied to either a normal user or a service account. This
-means every process inside or outside the cluster, from a human user typing
-`kubectl` on a workstation, to `kubelets` on nodes, to members of the control
-plane, must authenticate when making requests to the the API server.
+API requests are tied to either a normal user or a service account, or are treated
+as anonymous requests. This means every process inside or outside the cluster, from 
+a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members 
+of the control plane, must authenticate when making requests to the API server, 
+or be treated as an anonymous user.
 
 ## Authentication strategies
 
-Kubernetes uses client certificates, bearer tokens, or HTTP basic auth to
-authenticate API requests through authentication plugins. As HTTP request are
-made to the API server plugins attempts to associate the following attributes
+Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to
+authenticate API requests through authentication plugins. As HTTP requests are
+made to the API server, plugins attempt to associate the following attributes
 with the request:
 
 * Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
@@ -54,13 +58,25 @@ When multiple are enabled, the first authenticator module
 to successfully authenticate the request short-circuits evaluation.
 The API server does not guarantee the order authenticators run in.
 
+The `system:authenticated` group is included in the list of groups for all authenticated users. 
+
 ### X509 Client Certs
 
 Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
 option to API server. The referenced file must contain one or more certificates authorities
 to use to validate client certificates presented to the API server. If a client certificate
 is presented and verified, the common name of the subject is used as the user name for the
-request.
+request. As of Kubernetes 1.4, client certificates can also indicate a user's group memberships
+using the certificate's organization fields. To include multiple group memberships for a user,
+include multiple organization fields in the certificate.
+
+For example, using the `openssl` command line tool to generate a certificate signing request:
+
+``` bash
+openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app2"
+```
+
+This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
 
 See [APPENDIX](#appendix) for how to generate a client cert.
 
@@ -88,7 +104,7 @@ quoting facilities of HTTP.  For example: if the bearer token is
 header as shown below.
 
 ```http
-Authentication: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
+Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 ```
 
 ### Static Password File
@@ -347,12 +363,33 @@ An unsuccessful request would return:
 
 HTTP status codes can be used to supply additional error context.
 
+
+### Authenticating Proxy
+
+The API server can be configured to identify users from request header values, such as `X-Remote-User`.
+It is designed for use in combination with an authenticating proxy, which sets the request header value.
+In order to prevent header spoofing, the authenticating proxy is required to present a valid client
+certificate to the API server for validation against the specified CA before the request headers are 
+checked.
+
+* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the identity.
+* `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
+* `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed. 
+
+
 ### Keystone Password
 
 Keystone authentication is enabled by passing the `--experimental-keystone-url=<AuthURL>`
 option to the API server during startup. The plugin is implemented in
 `plugin/pkg/auth/authenticator/password/keystone/keystone.go` and currently uses
 basic auth to verify used by username and password.
+
+If you have configured self-signed certificates for the Keystone server,
+you may need to set the `--experimental-keystone-ca-file=SOMEFILE` option when
+starting the Kubernetes API server. If you set the option, the Keystone
+server's certificate is verified by one of the authorities in the
+`experimental-keystone-ca-file`. Otherwise, the certificate is verified by
+the host's root Certificate Authority.
 
 For details on how to use keystone to manage projects and users, refer to the
 [Keystone documentation](http://docs.openstack.org/developer/keystone/). Please
@@ -362,6 +399,22 @@ to change in subsequent releases.
 Please refer to the [discussion](https://github.com/kubernetes/kubernetes/pull/11798#issuecomment-129655212),
 [blueprint](https://github.com/kubernetes/kubernetes/issues/11626) and [proposed
 changes](https://github.com/kubernetes/kubernetes/pull/25536) for more details.
+
+## Anonymous requests
+
+Anonymous access is enabled by default, and can be disabled by passing `--anonymous-auth=false` 
+option to the API server during startup.
+
+When enabled, requests that are not rejected by other configured authentication methods are 
+treated as anonymous requests, and given a username of `system:anonymous` and a group of 
+`system:unauthenticated`.
+
+For example, on a server with token authentication configured, and anonymous access enabled,
+a request providing an invalid bearer token would receive a `401 Unauthorized` error. 
+A request providing no bearer token would be treated as an anonymous request. 
+
+If you rely on authentication alone to authorize access, either change to use an 
+authorization mode other than `AlwaysAllow`, or set `--anonymous-auth=false`.
 
 ## Plugin Development
 
@@ -376,7 +429,7 @@ enterprise directory, kerberos, etc.)
 ### Creating Certificates
 
 When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa` or `openssl.``
+using an existing deployment script or manually through `easyrsa` or `openssl.`
 
 #### Using an Existing Deployment Script
 
@@ -391,7 +444,7 @@ The script will generate three files: `ca.crt`, `server.crt`, and `server.key`.
 Finally, add the following parameters into API server start parameters:
 
 - `--client-ca-file=/srv/kubernetes/ca.crt`
-- `--tls-cert-file=/srv/kubernetes/server.cert`
+- `--tls-cert-file=/srv/kubernetes/server.crt`
 - `--tls-private-key-file=/srv/kubernetes/server.key`
 
 #### easyrsa
@@ -415,7 +468,7 @@ Finally, add the following parameters into API server start parameters:
 1.  Fill in and add the following parameters into the API server start parameters:
 
           --client-ca-file=/yourdirectory/ca.crt
-          --tls-cert-file=/yourdirectory/server.cert
+          --tls-cert-file=/yourdirectory/server.crt
           --tls-private-key-file=/yourdirectory/server.key
 
 #### openssl

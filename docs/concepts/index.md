@@ -1,11 +1,17 @@
 ---
+title: Concepts
 ---
 
 The Concepts section of the Kubernetes documentation is a work in progress.
 
 #### Object Metadata
 
-[Annotations](/docs/concepts/object-metadata/annotations/)
+
+* [Annotations](/docs/concepts/object-metadata/annotations/)
+
+#### Controllers
+* [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
+
 
 ### What's next
 
