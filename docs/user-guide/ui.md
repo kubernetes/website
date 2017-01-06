@@ -17,17 +17,20 @@ Dashboard also provides information on the state of Kubernetes resources in your
 
 ## Deploying the Dashboard UI
 
-The Dashboard UI is not deployed by default. To deploy it on amd64 servers, run the following command:
+The Dashboard UI is not deployed by default. To deploy it on amd64-based servers, run the following command::
 
 ```
 kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
 ```
 
-When deploying to platforms other than amd64 consider execute this command instead. This example replaces the default amd64 docker image for the arm one on the fly:
+If you want to deploy Dashboard on a platform other than amd64 (such as ARM), use the following command:
 
 ```
 curl -sSL 'https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml' | sed 's/amd64/arm/g' | kubectl create -f -
 ```
+
+The above command replaces the default amd64 Docker image with an ARM Docker image.
+
 ## Accessing the Dashboard UI
 
 There are multiple ways you can access the Dashboard UI; either by using the kubectl command-line interface, or by accessing the Kubernetes master apiserver using your web browser.
