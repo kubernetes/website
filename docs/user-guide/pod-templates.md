@@ -1,8 +1,9 @@
 ---
 assignees:
 - erictune
-
+title: Pod Templates
 ---
+
 Pod templates are [pod](/docs/user-guide/pods/) specifications which are included in other objects, such as
 [Replication Controllers](/docs/user-guide/replication-controller/), [Jobs](/docs/user-guide/jobs/), and
 [DaemonSets](/docs/admin/daemons/).  Controllers use Pod Templates to make actual pods.
