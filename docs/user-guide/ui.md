@@ -26,7 +26,7 @@ kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kube
 When deploying to platforms other than amd64 consider execute this command instead. This example replaces the default amd64 docker image for the arm one on the fly:
 
 ```
-curl -sSL 'https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml?raw=true' | sed 's/amd64/arm/g' | kubectl create -f -
+curl -sSL 'https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml' | sed 's/amd64/arm/g' | kubectl create -f -
 ```
 ## Accessing the Dashboard UI
 
