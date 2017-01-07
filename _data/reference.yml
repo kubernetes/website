@@ -3,6 +3,11 @@ abstract: "Design docs, concept definitions, and references for APIs and CLIs."
 toc:
 - docs/reference.md
 
+- title: "Kubernetes Resource Types (New Docs Style)"
+  section:
+  - title: Version 1.5
+    path: /docs/resources-reference/1_5/
+
 - title: "Kubernetes API (New Docs Style)"
   section:
   - title: Version 1.5
