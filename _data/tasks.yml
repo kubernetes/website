@@ -32,6 +32,7 @@ toc:
   - docs/tasks/administer-cluster/assign-pods-nodes.md
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
   - docs/tasks/administer-cluster/safely-drain-node.md
+  - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
 
 - title: Managing Stateful Applications
   section:
