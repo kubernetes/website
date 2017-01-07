@@ -7,13 +7,13 @@ title: Logging with Stackdriver Logging
 
 Before reading this page, it's highly recommended to familiarize yourself with the [overview of logging in Kubernetes](/docs/user-guide/logging/overview).
 
-This article assumes that you have created a Kubernetes cluster with cluster-level logging support for sending logs to Stackdriver Logging. You can do this either by selecting "Enable Stackdriver Logging" checkbox in create cluster dialogue in [GKE](https://cloud.google.com/container-engine/) or by setting flag `KUBE_LOGGING_DESTINATION` to `gcp` when manually starting cluster using `kube-up.sh`.
+This article assumes that you have created a Kubernetes cluster with cluster-level logging support for sending logs to Stackdriver Logging. You can do this either by selecting the  **Enable Stackdriver Logging** checkbox in the create cluster dialogue in [GKE](https://cloud.google.com/container-engine/), or by setting the `KUBE_LOGGING_DESTINATION` flag to `gcp` when manually starting a cluster using `kube-up.sh`.
 
-Following guide describes gathering container's standard output and standard error. To gather logs written by an application to a file, you can use [a sidecar approach](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-gcp/README.md).
+The following guide describes gathering a container's standard output and standard error. To gather logs written by an application to a file, you can use [a sidecar approach](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-gcp/README.md).
 
 ## Overview
 
-After creation, you can discover logging agent's pods in `kube-system` namespace,
+After creation, you can discover logging agent pods in the `kube-system` namespace,
 one per node, by running the following command:
 
 ```shell
@@ -26,14 +26,14 @@ fluentd-gcp-v1.30-f02l5                        1/1       Running   0          5d
 ...
 ```
 
-To help explain how logging with Stackdriver works, consider the following
+To understand how logging with Stackdriver works, consider the following
 synthetic log generator pod specification [counter-pod.yaml](/docs/user-guide/logging/counter-pod.yaml):
 
-{% include code.html language="yaml" file="counter-pod.yaml" %}
+{% include code.html language="yaml" file="counter-pod.yaml" ghlink="/docs/user-guide/counter-pod.yaml" %}
 
-This pod specification has one container which runs a bash script,
-which writes out the value of a counter and the date once per
-second and runs indefinitely. Let's create this pod in the default namespace.
+This pod specification has one container that runs a bash script
+that writes out the value of a counter and the date once per
+second, and runs indefinitely. Let's create this pod in the default namespace.
 
 ```shell
 $ kubectl create -f counter-pod.yaml
@@ -48,7 +48,7 @@ NAME                                           READY     STATUS    RESTARTS   AG
 counter                                        1/1       Running   0          5m
 ```
 
-For a short period of time you can observe 'Pending' pod status because kubelet
+For a short period of time you can observe the 'Pending' pod status, because the kubelet
 has to download the container image first. When the pod status changes to `Running`
 you can use the `kubectl logs` command to view the output of this counter pod.
 
@@ -61,24 +61,24 @@ $ kubectl logs counter
 ```
 
 As described in the logging overview, this command fetches log entries
-from the container log file. If container is killed and then restarted by
+from the container log file. If the container is killed and then restarted by
 Kubernetes, you can still access logs from the previous container. However,
-if pod is evicted from the node, log files are lost. Let's demonstrate this
-by deleting the currently running counter container
+if the pod is evicted from the node, log files are lost. Let's demonstrate this
+by deleting the currently running counter container:
 
 ```shell
 $ kubectl delete pod counter
 pods/counter
 ```
 
-and then recreating it
+and then recreating it:
 
 ```shell
 $ kubectl create -f counter-pod.yaml
 pods/counter
 ```
 
-After some time you can access logs from the counter pod again
+After some time, you can access logs from the counter pod again:
 
 ```shell
 $ kubectl logs counter
@@ -90,23 +90,23 @@ $ kubectl logs counter
 
 As expected, only recent log lines are present. However, for a real-world
 application you will likely want to be able to access logs from all containers,
-especially for the debug purposes. This is exactly when enabled earlier
+especially for the debug purposes. This is exactly when the previously enabled
 Stackdriver Logging can help.
 
 ## Viewing logs
 
-Stackdriver logging agents attaches metadata to each log entry, for you later
-to use in queries to select only messages you're interested in, e.g. from
+Stackdriver logging agents attach metadata to each log entry, for you to use later
+in queries to select only the messages you're interested in: for example, the messages from
 a particular pod.
 
 The most important pieces of metadata are the resource type and log name.
-Resource type of container logs is `container` and it's also named
+The resource type of a container log is `container`, which is named
 `GKE Containers` in the UI (even if the Kubernetes cluster is not on GKE).
-Log name is the name of the container, so that if you have a pod with
-two containers, named in specs `container_1` and `container_2`, their logs
+The log name is the name of the container, so that if you have a pod with
+two containers, named `container_1` and `container_2` in the spec, their logs
 will have log names `container_1` and `container_2` respectively.
 
-System components have different resource type, `compute`, named
+System components have resource type `compute`, which is named
 `GCE VM Instance` in the interface. Log names for system components are fixed.
 For a GKE node, every log entry from a system component has one the following
 log names:
@@ -121,7 +121,7 @@ One of the possible ways to view logs is using the
 [`gcloud logging`](https://cloud.google.com/logging/docs/api/gcloud-logging)
 command line interface from the [Google Cloud SDK](https://cloud.google.com/sdk/).
 It uses Stackdriver Logging [filtering syntax](https://cloud.google.com/logging/docs/view/advanced_filters)
-to query specific logs. For example, you can run the following command
+to query specific logs. For example, you can run the following command:
 
 ```shell
 $ gcloud beta logging read 'logName="projects/$YOUR_PROJECT_ID/logs/count"' --format json | jq '.[].textPayload'
@@ -136,8 +136,8 @@ $ gcloud beta logging read 'logName="projects/$YOUR_PROJECT_ID/logs/count"' --fo
 ```
 
 As you can see, it outputs messages for the count container from both
-first and second runs, despite the fact that kubelet already deleted
-logs for the first container.
+the first and second runs, despite the fact that the kubelet already deleted
+the logs for the first container.
 
 ### Exporting logs
 
