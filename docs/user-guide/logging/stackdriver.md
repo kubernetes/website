@@ -95,9 +95,9 @@ Stackdriver Logging can help.
 
 ## Viewing logs
 
-Stackdriver logging agents attach metadata to each log entry, for you to use later
-in queries to select only the messages you're interested in: for example, the messages from
-a particular pod.
+Stackdriver Logging agent attaches metadata to each log entry, for you to use later
+in queries to select only the messages you're interested in: for example,
+the messages from a particular pod.
 
 The most important pieces of metadata are the resource type and log name.
 The resource type of a container log is `container`, which is named
