@@ -1,3 +1,7 @@
+---
+title: Hello Minikube
+---
+
 {% capture overview %}
 
 The goal of this tutorial is for you to turn a simple Hello World Node.js app
