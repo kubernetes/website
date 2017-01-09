@@ -1,6 +1,5 @@
 ---
 assignees:
-- lavalamp
 - yifan-gu
 title: Running Kubernetes with rkt
 ---
