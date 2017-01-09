@@ -71,7 +71,7 @@ that do not run in a container. For example:
 * The Kubernets scheduler and kube-proxy run in a container.
 * The kubelet and container runtime, for example Docker, do not run in containers.
 
-On machines with systemd, th kubelet and container runtime write to journald. If
+On machines with systemd, the kubelet and container runtime write to journald. If
 systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
 bypassing the default logging mechanism. They use the [glog](https://godoc.org/github.com/golang/glog)
