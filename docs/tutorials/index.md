@@ -13,6 +13,8 @@ each of which has a sequence of steps.
 
 #### Stateless Applications
 
+* [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
+
 * [Running a Stateless Application Using a Deployment](/docs/tutorials/stateless-application/run-stateless-application-deployment/)
 
 * [Using a Service to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address-service/)
