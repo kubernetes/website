@@ -16,6 +16,7 @@ single thing, typically by giving a short sequence of steps.
 * [Pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry/)
 * [Configuring Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
 * [Communicating Between Pods Running in the Same Container](/docs/tasks/configure-pod-container/communicate-containers-same-pod/)
+* [Configuring Pod Initialization](/docs/tasks/configure-pod-container/configure-pod-initialization/)
 
 #### Accessing Applications in a Cluster
 
