@@ -441,6 +441,55 @@ subjects:
   name: system:serviceaccounts
 ```
 
+### `system:*` prefixed RBAC resources
+
+If an RBAC resource (`ClusterRole`, `ClusterRoleBinding`, etc) is prefixed with `system:*`, that indicates that
+the resource is "owned" by the infrastructure.  Modifications to these resources can result in non-functional clusters.
+
+Once example is the `clusterrole/system:nodes`.  This role is used to provide limited permissions to kubelets.  If the
+role is modified, its possible to prevent your kubelet from working.
+
+### Default ClusterRoles and ClusterRoleBindings
+
+When starting up an API server without any ClusterRoles or ClusterRoleBindings, the API server will bootstrap itself
+with a set of default ClusterRoles and ClusterRoleBindings.  Most of these are `system:*` prefixed, but some are not.
+They are all labeled with `kubernetes.io/bootstrapping=rbac-defaults`.  These are the most commonly used:
+
+|Default Role |Description
+
+|*admin* |A project manager. If used in a `RoleBinding`, an *admin* user will have
+rights to view any Kubernetes resource in the project and modify any resource in the
+project except for quota.
+
+|*cluster-admin* |A super-user role that can perform any action in any project. When
+granted to a user within a local policy, they have full control over quota and
+roles and every action on every resource in the project.
+
+|*cluster-status* |A role that can get basic cluster status information.
+
+|*edit* |A role that can modify most objects in a project, but does not have the
+power to view or modify roles or bindings.
+
+|*view* |A role who cannot make any modifications, but can see most objects in a
+project. They cannot view or modify roles or bindings. They cannot view secrets,
+since those are escalating.
+
+|*system:auth-delegator*|A role which allows delegated authentication and authorization
+checks.  This is commonly used by add-on API servers for a unified authentication and
+authorization experience.
+
+|*system:basic-user* |A role that can get basic information about himself.
+
+|*system:discovery*|A role which provides just enough power to access discovery and 
+negotiate an API level. 
+
+### CLI helpers
+
+In order to ease the binding of `ClusterRoles`, two CLI helpers were created.  `kubectl create rolebinding` and
+`kubectl create clusterrolebinding`.  See the CLI help for detailed usage, but they allow for usage like
+`kubectl create clusterrolebinding cluster-admins --clusterrole=cluster-admin --user=root` and 
+`kubectl create rolebinding -n my-namespace viewers --clusterrole=view --user=collaborator --serviceaccount=other-ns:default`.
+
 ## Webhook Mode
 
 When specified, mode `Webhook` causes Kubernetes to query an outside REST
