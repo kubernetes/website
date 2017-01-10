@@ -104,7 +104,6 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 - [fedora/fedora_ansible_config.md](/docs/getting-started-guides/fedora/fedora_ansible_config)
 - [Fedora single node](/docs/getting-started-guides/fedora/fedora_manual_config)
 - [Fedora multi node](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)
-- [Centos](/docs/getting-started-guides/centos/centos_manual_config)
 - [Bare Metal with Ubuntu](/docs/getting-started-guides/ubuntu/automated)
 - [Ubuntu Manual](/docs/getting-started-guides/ubuntu/manual)
 - [Docker Multi Node](/docs/getting-started-guides/docker-multinode)
