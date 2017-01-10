@@ -10,10 +10,10 @@ no_title_counter=0
 # (docs/api-reference/1_5, docs/user-guide/kubectl/1_5, and
 # docs/resources-reference/1_5)
 for file in `find docs -name "*.md" -type f`; do 
+  # Skip checking all files in the following folders 
   if [[ "${file}" == "docs/api-reference/1_"* ]] || 
      [[ "${file}" == "docs/user-guide/kubectl/1_"* ]] ||
      [[ "${file}" == "docs/resources-reference/1_"* ]]; then 
-    # Skip checking files in the above folders 
     continue
   fi 
 
@@ -38,6 +38,10 @@ for file in `find docs -name "*.md" -type f`; do
   #    non-space/tab content. They should also be inside the markdown header.
   #    For example, "title:", " title: abc", and "title:" aren't valid, 
   #    but "title: abc", "title:def" and "title:    def ghi" are both valid.
+  if [[ "${file}" == "docs/user-guide/kubectl/kubectl"* ]]; then 
+    # Skip checking auto-generated kubectl docs since its first heading matches title 
+    continue
+  fi 
   if ! grep -q "${file}" skip_title_check.txt; then
     if ! grep -q "^title:\s*[^\s]" ${file}; then 
       echo "Error: ${file} doesn't have a proper title defined!"
