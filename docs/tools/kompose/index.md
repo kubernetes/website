@@ -17,17 +17,17 @@ If you have a Docker Compose `docker-compose.yml` or a Docker Distributed Applic
 ```console
 $ kompose --bundle docker-compose-bundle.dab convert
 WARN[0000]: Unsupported key networks - ignoring
-file "redis-svc.json" created
-file "web-svc.json" created
-file "web-deployment.json" created
-file "redis-deployment.json" created
+file "redis-svc.yaml" created
+file "web-svc.yaml" created
+file "web-deployment.yaml" created
+file "redis-deployment.yaml" created
 
 $ kompose -f docker-compose.yml convert
 WARN[0000]: Unsupported key networks - ignoring
-file "redis-svc.json" created
-file "web-svc.json" created
-file "web-deployment.json" created
-file "redis-deployment.json" created
+file "redis-svc.yaml" created
+file "web-svc.yaml" created
+file "web-deployment.yaml" created
+file "redis-deployment.yaml" created
 ```
 
 ## Installation 
