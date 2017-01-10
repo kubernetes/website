@@ -1,5 +1,5 @@
 bigheader: "Tasks"
-abstract: "Step-by-step instructions for performing operations with Kuberentes."
+abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
