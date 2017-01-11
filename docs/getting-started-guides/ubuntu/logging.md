@@ -1,5 +1,5 @@
 ---
-Title: Logging
+title: Logging
 ---
 
 {% capture overview %}
