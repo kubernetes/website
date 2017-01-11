@@ -1,5 +1,5 @@
 ---
-Title: Kubernetes on Ubuntu
+title: Kubernetes on Ubuntu
 ---
 
 {% capture overview %}

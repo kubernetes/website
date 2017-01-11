@@ -1,5 +1,5 @@
 ---
-Title: Decommissioning
+title: Decommissioning
 ---
 
 {% capture overview %}
