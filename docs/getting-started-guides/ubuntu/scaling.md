@@ -1,5 +1,5 @@
 ---
-Title: Scaling
+title: Scaling
 ---
 
 {% capture overview %}
