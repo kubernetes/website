@@ -46,7 +46,7 @@ create a local cluster. This tutorial also assumes you are using
 on OS X. If you are on a different platform like Linux, or using VirtualBox
 instead of Docker for Mac, the instructions to install Minikube may be
 slightly different. For general Minikube installation instructions, see
-the [Minikube installation guide](docs/getting-started-guides/minikube/).
+the [Minikube installation guide](/docs/getting-started-guides/minikube/).
 
 Use `curl` to download and install the latest Minikube release:
 
