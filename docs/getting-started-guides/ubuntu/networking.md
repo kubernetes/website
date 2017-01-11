@@ -9,7 +9,7 @@ This page shows how to the various network portions of a cluster work, and how t
 This page assumes you have a working Juju deployed cluster.
 {% endcapture %}
 
-Kubernetes supports the [Container Network Interface (CNI)]](https://github.com/containernetworking/cni).
+Kubernetes supports the [Container Network Interface (CNI)](https://github.com/containernetworking/cni).
 This is a network plugin architecture that allows you to use whatever
 Kubernetes-friendly SDN you want. Currently this means support for Flannel.  
 
