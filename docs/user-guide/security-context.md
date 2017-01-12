@@ -43,7 +43,7 @@ those settings to volumes where applicable. Specifically `fsGroup` and
 
 Volumes which support ownership management are modified to be owned
 and writable by the GID specified in `fsGroup`. See the
-[Ownership Management design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/volume-ownership-management.md)
+[Ownership Management design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/volume-ownership-management.md)
 for more details.
 
 #### `selinuxOptions`
