@@ -249,7 +249,7 @@ http://kubernetes.io/docs/user-guide/configmap/.
 
 ### Kubernetes 1.4 and earlier: Setting federations flag on kube-dns-rc
 
-If your cluster is running Kubernetes version 1.4 or earlier, you must to restart
+If your cluster is running Kubernetes version 1.4 or earlier, you must restart
 KubeDNS and pass it a `--federations` flag, which tells it about valid federation DNS hostnames.
 The flag uses the following format:
 
