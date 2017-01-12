@@ -116,10 +116,11 @@ authentication is currently supported for convenience while we finish making the
 more secure modes described above easier to use.
 
 The basic auth file format is implemented in `plugin/pkg/auth/authenticator/password/passwordfile/...`
-and is a csv file with 3 columns: password, user name, user id.
+and is a csv file with 3 columns: password, user name, user id, followed by
+optional group names. Note, if you have more than one group the column must be double quoted e.g.
 
 ```conf
-password,user,uid
+password,user,uid,"group1,group2,group3"
 ```
 
 When using basic authentication from an http client, the API server expects an `Authorization` header
