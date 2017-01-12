@@ -72,26 +72,31 @@ in more detail in the [API Changes documentation](https://github.com/kubernetes/
 
 ## API groups
 
-To make it easier to extend the Kubernetes API, we are in the process of implementing [*API
-groups*](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/api-group.md).  These are simply different interfaces to read and/or modify the
-same underlying resources.  The API group is specified in a REST path and in the `apiVersion` field
-of a serialized object.
+To make it easier to extend the Kubernetes API, we implemented [*API groups*](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/api-group.md).
+These are simply different interfaces to read and/or modify the same underlying resources.
+The API group is specified in a REST path and in the `apiVersion` field of a serialized object.
 
-Currently there are two API groups in use:
+Currently there are are several API groups in use:
 
-1. the "core" group, which is at REST path `/api/v1` and is not specified as part of the `apiVersion` field, e.g.
-   `apiVersion: v1`.
-1. the "extensions" group, which is at REST path `/apis/extensions/$VERSION`, and which uses
-  `apiVersion: extensions/$VERSION` (e.g. currently `apiVersion: extensions/v1beta1`).
-  This holds types which will probably move to another API group eventually.
-1. the "componentconfig" and "metrics" API groups.
+1. the "core" (oftentimes called "legacy", due to not having explicit group name) group, which is at
+   REST path `/api/v1` and is not specified as part of the `apiVersion` field, e.g. `apiVersion: v1`.
+1. the named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
+   (e.g. `apiVersion: batch/v1`).  Full list of supported API groups can be seen in [Kubernetes API reference](/docs/api-reference/1_5/).
 
 
-In the future we expect that there will be more API groups, all at REST path `/apis/$API_GROUP` and
-using `apiVersion: $API_GROUP/$VERSION`.  We expect that there will be a way for [third parties to
-create their own API groups](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md), and to avoid naming collisions.
+In the future we expect that there will be a way for [third parties to create their own API groups](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md), and to avoid naming collisions.
 
-## Enabling resources in the extensions group
+## Enabling API groups
+
+Certain resources and API groups are enabled by default.  Other, can be enabled or disabled by setting runtime-config on
+apiserver. runtime-config accepts comma separated values. For ex: to disable batch/v1, set
+`--runtime-config=batch/v1=false`, to enable batch/v2alpha1, set `--runtime-config=batch/v2alpha1`.
+The flag accepts comma separated set of key=value pairs describing runtime configuration of the apiserver.
+
+IMPORTANT: Enabling or disabling groups or resources requires restarting apiserver and controller-manager
+to pick up the runtime-config changes.
+
+## Enabling resources in the groups
 
 DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
 Other extensions resources can be enabled by setting runtime-config on
