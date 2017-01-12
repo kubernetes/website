@@ -14,3 +14,4 @@ install:
 script:
 - go test -v k8s.io/kubernetes.github.io/test
 - $GOPATH/bin/md-check --root-dir=$HOME/gopath/src/k8s.io/kubernetes.github.io
+- ./verify-docs-format.sh
