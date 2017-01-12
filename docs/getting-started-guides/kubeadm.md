@@ -90,14 +90,14 @@ For each host in turn:
       gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
              https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
       EOF
-      setenforce 0
+      setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
       yum install -y docker kubelet kubeadm kubectl kubernetes-cni
       systemctl enable docker && systemctl start docker
       systemctl enable kubelet && systemctl start kubelet
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
-Note: Disabling SELinux by running `setenforce 0` is required in order to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until kubelet can handle SELinux better.
+Note: Disabling SELinux by running `setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config` is required in order to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until kubelet can handle SELinux better.
 
 ### (2/4) Initializing your master
 
