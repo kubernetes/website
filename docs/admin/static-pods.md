@@ -44,7 +44,7 @@ spec:
       ports:
         - name: web
           containerPort: 80
-          protocol: tcp
+          protocol: TCP
 EOF
 ```
 
