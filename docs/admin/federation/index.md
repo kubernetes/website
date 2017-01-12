@@ -236,7 +236,7 @@ metadata:
   name: kube-dns
   namespace: kube-system
 data:
-  federations: <federation-name>=<dns-domain-name>
+  federations: <federation-name>=<federation-domain-name>
 ```
 
 where `<federation-name>` should be replaced by the name you want to give to your
