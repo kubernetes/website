@@ -269,7 +269,7 @@ It takes several minutes to download and start all the containers, watch the out
 
 Then go to the IP address of your cluster's master node in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
-In the example above, this was `31869`, but it is a different port for you.
+In the example above, this was `30001`, but it is a different port for you.
 
 If there is a firewall, make sure it exposes this port to the internet before you try to access it.
 
