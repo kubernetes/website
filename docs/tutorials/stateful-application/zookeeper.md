@@ -1063,13 +1063,15 @@ for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo "";
 kubernetes-minion-group-pb41
 kubernetes-minion-group-ixsl
 kubernetes-minion-group-i4c4
-{% endraw %}```
+{% endraw %}
+```
 
 Use [`kubectl drain`](/docs/user-guide/kubectl/kubectl_drain/) to cordon and 
 drain the node on which the `zk-0` Pod is scheduled.
 
 ```shell {% raw %}
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+node "kubernetes-minion-group-pb41" cordoned
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-pb41, kube-proxy-kubernetes-minion-group-pb41; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-o5elz
 pod "zk-0" deleted
 node "kubernetes-minion-group-pb41" drained
