@@ -8,7 +8,7 @@
 ```bdocs-tab:kubectl_yaml
 
 apiVersion: v1
-kind: Pob
+kind: Pod
 metadata:
   name: pod-example
 spec:
