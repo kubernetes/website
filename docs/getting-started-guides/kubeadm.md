@@ -90,14 +90,11 @@ For each host in turn:
       gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
              https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
       EOF
-      setenforce 0
       yum install -y docker kubelet kubeadm kubectl kubernetes-cni
       systemctl enable docker && systemctl start docker
       systemctl enable kubelet && systemctl start kubelet
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
-
-Note: To disable SELinux by running `setenforce 0` is required in order to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until kubelet can handle SELinux better.
 
 ### (2/4) Initializing your master
 
@@ -177,10 +174,10 @@ You must install a pod network add-on so that your pods can communicate with eac
 
 **It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up. Note also that `kubeadm` only supports CNI based networks and therefore kubenet based networks will not work.**
 
-Several projects provide Kubernetes pod networks using CNI, some of which 
+Several projects provide Kubernetes pod networks using CNI, some of which
 also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
 
-You can install a pod network add-on with the following command: 
+You can install a pod network add-on with the following command:
 
     # kubectl apply -f <add-on.yaml>
 
@@ -314,8 +311,8 @@ Note that the Raspberry Pi 3 is in ARM 32-bit mode, so for RPi 3 you should set 
 
 ## Cloudprovider integrations (experimental)
 
-Enabling specific cloud providers is a common request, this currently requires manual configuration and is therefore not yet supported. If you wish to do so, 
-edit the `kubeadm` dropin for the `kubelet` service (`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`) on all nodes, including the master. 
+Enabling specific cloud providers is a common request, this currently requires manual configuration and is therefore not yet supported. If you wish to do so,
+edit the `kubeadm` dropin for the `kubelet` service (`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`) on all nodes, including the master.
 If your cloud provider requires any extra packages installed on host, for example for volume mounting/unmounting, install those packages.
 
 Specify the `--cloud-provider` flag to kubelet and set it to the cloud of your choice. If your cloudprovider requires a configuration
@@ -325,13 +322,13 @@ If you use the `/etc/kubernetes/cloud-config` file, you must append it to the `k
 
 Lastly, run `kubeadm init --cloud-provider=xxx` to bootstrap your cluster with cloud provider features.
 
-This workflow is not yet fully supported, however we hope to make it extremely easy to spin up clusters with cloud providers in the future. 
+This workflow is not yet fully supported, however we hope to make it extremely easy to spin up clusters with cloud providers in the future.
 (See [this proposal](https://github.com/kubernetes/community/pull/128) for more information) The [Kubelet Dynamic Settings](https://github.com/kubernetes/kubernetes/pull/29459) feature may also help to fully automate this process in the future.
 
 ## Limitations
 
 Please note: `kubeadm` is a work in progress and these limitations will be addressed in due course.
-    
+
 1. The cluster created here has a single master, with a single `etcd` database running on it.
    This means that if the master fails, your cluster loses its configuration data and will need to be recreated from scratch.
    Adding HA support (multiple `etcd` servers, multiple API servers, etc) to `kubeadm` is still a work-in-progress.
