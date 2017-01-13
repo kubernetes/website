@@ -15,8 +15,8 @@ metadata:
 spec:
   # 3 Pods should exist at all times.
   replicas: 3
-  # Keep record of 10 revisions for rollback
-  revisionHistoryLimit: 10
+  # Keep record of 2 revisions for rollback
+  revisionHistoryLimit: 2
   template:
     metadata:
       labels:
@@ -50,6 +50,8 @@ Appears In <a href="#deploymentlist-v1beta1">DeploymentList</a> </aside>
 
 Field        | Description
 ------------ | -----------
+apiVersion <br /> *string*  | APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#resources
+kind <br /> *string*  | Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds
 metadata <br /> *[ObjectMeta](#objectmeta-v1)*  | Standard object metadata.
 spec <br /> *[DeploymentSpec](#deploymentspec-v1beta1)*  | Specification of the desired behavior of the Deployment.
 status <br /> *[DeploymentStatus](#deploymentstatus-v1beta1)*  | Most recently observed status of the Deployment.
@@ -92,7 +94,9 @@ updatedReplicas <br /> *integer*  | Total number of non-terminated pods targeted
 
 Field        | Description
 ------------ | -----------
+apiVersion <br /> *string*  | APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#resources
 items <br /> *[Deployment](#deployment-v1beta1) array*  | Items is the list of Deployments.
+kind <br /> *string*  | Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds
 metadata <br /> *[ListMeta](#listmeta-unversioned)*  | Standard list metadata.
 
 ### DeploymentStrategy v1beta1
@@ -111,6 +115,8 @@ type <br /> *string*  | Type of deployment. Can be "Recreate" or "RollingUpdate"
 
 Field        | Description
 ------------ | -----------
+apiVersion <br /> *string*  | APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#resources
+kind <br /> *string*  | Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds
 name <br /> *string*  | Required: This must match the Name of a deployment.
 rollbackTo <br /> *[RollbackConfig](#rollbackconfig-v1beta1)*  | The config of this deployment rollback.
 updatedAnnotations <br /> *object*  | The annotations to be updated to a deployment

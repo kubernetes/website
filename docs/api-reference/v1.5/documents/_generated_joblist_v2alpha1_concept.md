@@ -21,7 +21,9 @@ JobList is a collection of jobs.
 
 Field        | Description
 ------------ | -----------
+apiVersion <br /> *string*  | APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#resources
 items <br /> *[Job](#job-v2alpha1) array*  | Items is the list of Job.
+kind <br /> *string*  | Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds
 metadata <br /> *[ListMeta](#listmeta-unversioned)*  | Standard list metadata More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
 
 
@@ -77,9 +79,14 @@ watch individual changes to a list of Job
 
 Parameter    | Description
 ------------ | -----------
+namespace  | object name and auth scope, such as for teams and projects
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 fieldSelector  | A selector to restrict the list of returned objects by their fields. Defaults to everything.
 labelSelector  | A selector to restrict the list of returned objects by their labels. Defaults to everything.
-namespace  | object name and auth scope, such as for teams and projects
 pretty  | If 'true', then the output is pretty printed.
 resourceVersion  | When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.
 timeoutSeconds  | Timeout for the list/watch call.
