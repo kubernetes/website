@@ -4,10 +4,12 @@ assignees:
 title: Manually Deploying Kubernetes on Ubuntu Nodes
 ---
 
+{% capture overview %}
 This document describes how to deploy Kubernetes on ubuntu nodes, 1 master and 3 nodes involved
 in the given examples. You can scale to **any number of nodes** by changing some settings with ease.
 The original idea was heavily inspired by @jainvipin 's ubuntu single node
 work, which has been merge into this document.
+{% endcapture %}
 
 The scripting referenced here can be used to deploy Kubernetes with
 networking based either on Flannel or on a CNI plugin that you supply.
@@ -17,9 +19,7 @@ use a CNI plugin instead.
 
 [Cloud team from Zhejiang University](https://github.com/ZJU-SEL) will maintain this work.
 
-* TOC
-{:toc}
-
+{% capture prerequisites %}
 ## Prerequisites
 
 1. The nodes have installed docker version 1.2+ and bridge-utils to manipulate linux bridge.
@@ -30,8 +30,9 @@ Ubuntu 15 which uses systemd instead of upstart.
 4. Dependencies of this guide: etcd-2.2.1, flannel-0.5.5, k8s-1.2.0, may work with higher versions.
 5. All the remote servers can be ssh logged in without a password by using key authentication.
 6. The remote user on all machines is using /bin/bash as its login shell, and has sudo access.
+{% endcapture %}
 
-
+{% capture steps %}
 ## Starting a Cluster
 
 ### Set up working directory
@@ -290,7 +291,9 @@ You can use the `kubectl` command to check if the newly upgraded Kubernetes clus
 To make sure the version of the upgraded cluster is what you expect, you will find these commands helpful.
 
 * upgrade all components or master: `$ kubectl version`. Check the *Server Version*.
-* upgrade node `vcap@10.10.102.223`: `$ ssh -t vcap@10.10.102.223 'cd /opt/bin && sudo ./kubelet --version'`* 
+* upgrade node `vcap@10.10.102.223`: `$ ssh -t vcap@10.10.102.223 'cd /opt/bin && sudo ./kubelet --version'`*
+{% endcapture %}
+
 
 ## Support Level
 
@@ -301,3 +304,5 @@ Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/gettin
 
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+
+{% include templates/task.md %}

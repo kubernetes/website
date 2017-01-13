@@ -13,6 +13,7 @@ toc:
   - docs/tasks/configure-pod-container/pull-image-private-registry.md
   - docs/tasks/configure-pod-container/configure-liveness-readiness-probes.md
   - docs/tasks/configure-pod-container/communicate-containers-same-pod.md
+  - docs/tasks/configure-pod-container/configure-pod-initialization.md 
 
 - title: Accessing Applications in a Cluster
   section:
@@ -32,6 +33,7 @@ toc:
   - docs/tasks/administer-cluster/assign-pods-nodes.md
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
   - docs/tasks/administer-cluster/safely-drain-node.md
+  - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
 
 - title: Managing Stateful Applications
   section:

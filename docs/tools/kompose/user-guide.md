@@ -28,7 +28,7 @@ $ cd examples/
 $ ls
 docker-compose.yml  docker-compose-bundle.dab  docker-gitlab.yml  docker-voting.yml
 
-$ kompose -f docker-gitlab.yml convert -y
+$ kompose -f docker-gitlab.yml convert 
 file "redisio-svc.yaml" created
 file "gitlab-svc.yaml" created
 file "postgresql-svc.yaml" created
@@ -47,31 +47,56 @@ You can try with a Docker Compose version 2 like this:
 $ kompose --file docker-voting.yml convert
 WARN[0000]: Unsupported key networks - ignoring
 WARN[0000]: Unsupported key build - ignoring
-file "worker-svc.json" created
-file "db-svc.json" created
-file "redis-svc.json" created
-file "result-svc.json" created
-file "vote-svc.json" created
-file "redis-deployment.json" created
-file "result-deployment.json" created
-file "vote-deployment.json" created
-file "worker-deployment.json" created
-file "db-deployment.json" created
+file "worker-svc.yaml" created
+file "db-svc.yaml" created
+file "redis-svc.yaml" created
+file "result-svc.yaml" created
+file "vote-svc.yaml" created
+file "redis-deployment.yaml" created
+file "result-deployment.yaml" created
+file "vote-deployment.yaml" created
+file "worker-deployment.yaml" created
+file "db-deployment.yaml" created
 
 $ ls
-db-deployment.json  docker-compose.yml         docker-gitlab.yml  redis-deployment.json  result-deployment.json  vote-deployment.json  worker-deployment.json
-db-svc.json         docker-compose-bundle.dab  docker-voting.yml  redis-svc.json         result-svc.json         vote-svc.json         worker-svc.json
+db-deployment.yaml  docker-compose.yml         docker-gitlab.yml  redis-deployment.yaml  result-deployment.yaml  vote-deployment.yaml  worker-deployment.yaml
+db-svc.yaml         docker-compose-bundle.dab  docker-voting.yml  redis-svc.yaml         result-svc.yaml         vote-svc.yaml         worker-svc.yaml
 ```
 
+You can also provide multiple docker-compose files at the same time:
+
+```console
+$ kompose -f docker-compose.yml -f docker-guestbook.yml convert
+file "frontend-service.yaml" created         
+file "mlbparks-service.yaml" created         
+file "mongodb-service.yaml" created          
+file "redis-master-service.yaml" created     
+file "redis-slave-service.yaml" created      
+file "frontend-deployment.yaml" created      
+file "mlbparks-deployment.yaml" created      
+file "mongodb-deployment.yaml" created       
+file "mongodb-claim0-persistentvolumeclaim.yaml" created 
+file "redis-master-deployment.yaml" created  
+file "redis-slave-deployment.yaml" created   
+
+$ ls
+mlbparks-deployment.yaml  mongodb-service.yaml                       redis-slave-service.jsonmlbparks-service.yaml  
+frontend-deployment.yaml  mongodb-claim0-persistentvolumeclaim.yaml  redis-master-service.yaml
+frontend-service.yaml     mongodb-deployment.yaml                    redis-slave-deployment.yaml
+redis-master-deployment.yaml
+``` 
+
+When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be over ridden by subsequent file.
+ 
 Using `--bundle, --dab` to specify a DAB file as below:
 
 ```console
 $ kompose --bundle docker-compose-bundle.dab convert
 WARN[0000]: Unsupported key networks - ignoring
-file "redis-svc.json" created
-file "web-svc.json" created
-file "web-deployment.json" created
-file "redis-deployment.json" created
+file "redis-svc.yaml" created
+file "web-svc.yaml" created
+file "web-deployment.yaml" created
+file "redis-deployment.yaml" created
 ```
 
 ### OpenShift
@@ -79,33 +104,46 @@ file "redis-deployment.json" created
 ```console
 $ kompose --provider openshift --file docker-voting.yml convert
 WARN[0000] [worker] Service cannot be created because of missing port.
-INFO[0000] file "vote-service.json" created             
-INFO[0000] file "db-service.json" created               
-INFO[0000] file "redis-service.json" created            
-INFO[0000] file "result-service.json" created           
-INFO[0000] file "vote-deploymentconfig.json" created    
-INFO[0000] file "vote-imagestream.json" created         
-INFO[0000] file "worker-deploymentconfig.json" created  
-INFO[0000] file "worker-imagestream.json" created       
-INFO[0000] file "db-deploymentconfig.json" created      
-INFO[0000] file "db-imagestream.json" created           
-INFO[0000] file "redis-deploymentconfig.json" created   
-INFO[0000] file "redis-imagestream.json" created        
-INFO[0000] file "result-deploymentconfig.json" created  
-INFO[0000] file "result-imagestream.json" created  
+INFO[0000] file "vote-service.yaml" created             
+INFO[0000] file "db-service.yaml" created               
+INFO[0000] file "redis-service.yaml" created            
+INFO[0000] file "result-service.yaml" created           
+INFO[0000] file "vote-deploymentconfig.yaml" created    
+INFO[0000] file "vote-imagestream.yaml" created         
+INFO[0000] file "worker-deploymentconfig.yaml" created  
+INFO[0000] file "worker-imagestream.yaml" created       
+INFO[0000] file "db-deploymentconfig.yaml" created      
+INFO[0000] file "db-imagestream.yaml" created           
+INFO[0000] file "redis-deploymentconfig.yaml" created   
+INFO[0000] file "redis-imagestream.yaml" created        
+INFO[0000] file "result-deploymentconfig.yaml" created  
+INFO[0000] file "result-imagestream.yaml" created  
 ```
 
 In similar way you can convert DAB files to OpenShift.
 ```console$
 $ kompose --bundle docker-compose-bundle.dab --provider openshift convert
 WARN[0000]: Unsupported key networks - ignoring
-INFO[0000] file "redis-svc.json" created
-INFO[0000] file "web-svc.json" created
-INFO[0000] file "web-deploymentconfig.json" created
-INFO[0000] file "web-imagestream.json" created           
-INFO[0000] file "redis-deploymentconfig.json" created
-INFO[0000] file "redis-imagestream.json" created
+INFO[0000] file "redis-svc.yaml" created
+INFO[0000] file "web-svc.yaml" created
+INFO[0000] file "web-deploymentconfig.yaml" created
+INFO[0000] file "web-imagestream.yaml" created           
+INFO[0000] file "redis-deploymentconfig.yaml" created
+INFO[0000] file "redis-imagestream.yaml" created
 ```
+
+It also supports creating buildconfig for build directive in a service. By default, it uses the remote repo for the current git branch as the source repo, and the current branch as the source branch for the build. You can specify a different source repo and branch using ``--build-repo`` and ``--build-branch`` options respectively.
+
+```console
+kompose --provider openshift --file buildconfig/docker-compose.yml convert
+WARN[0000] [foo] Service cannot be created because of missing port. 
+INFO[0000] Buildconfig using git@github.com:rtnpro/kompose.git::master as source. 
+INFO[0000] file "foo-deploymentconfig.yaml" created     
+INFO[0000] file "foo-imagestream.yaml" created          
+INFO[0000] file "foo-buildconfig.yaml" created 
+```
+
+**Note**: If you are manually pushing the Openshift artifacts using ``oc create -f``, you need to ensure that you push the imagestream artifact before the buildconfig artifact, to workaround this Openshift issue: https://github.com/openshift/origin/issues/4518 .
 
 ## Kompose up
 
@@ -202,29 +240,29 @@ Note:
 
 ## Alternate formats
 
-The default `kompose` transformation will generate Kubernetes [Deployments](http://kubernetes.io/docs/user-guide/deployments/) and [Services](http://kubernetes.io/docs/user-guide/services/), in json format. You have alternative option to generate yaml with `-y`. Also, you can alternatively generate [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/) objects, [Deamon Sets](http://kubernetes.io/docs/admin/daemons/), or [Helm](https://github.com/helm/helm) charts.
+The default `kompose` transformation will generate Kubernetes [Deployments](http://kubernetes.io/docs/user-guide/deployments/) and [Services](http://kubernetes.io/docs/user-guide/services/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/) objects, [Deamon Sets](http://kubernetes.io/docs/admin/daemons/), or [Helm](https://github.com/helm/helm) charts.
 
 ```console
 $ kompose convert
-file "redis-svc.json" created
-file "web-svc.json" created
-file "redis-deployment.json" created
-file "web-deployment.json" created
+file "redis-svc.yaml" created
+file "web-svc.yaml" created
+file "redis-deployment.yaml" created
+file "web-deployment.yaml" created
 ```
 The `*-deployment.json` files contain the Deployment objects.
 
 ```console
-$ kompose convert --rc -y
+$ kompose convert --rc
 file "redis-svc.yaml" created
 file "web-svc.yaml" created
 file "redis-rc.yaml" created
 file "web-rc.yaml" created
 ```
 
-The `*-rc.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `$ kompose convert --rc --replicas 3 -y`
+The `*-rc.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `$ kompose convert --rc --replicas 3`
 
 ```console
-$ kompose convert --ds -y
+$ kompose convert --ds
 file "redis-svc.yaml" created
 file "web-svc.yaml" created
 file "redis-daemonset.yaml" created
@@ -236,7 +274,7 @@ The `*-daemonset.yaml` files contain the Daemon Set objects
 If you want to generate a Chart to be used with [Helm](https://github.com/kubernetes/helm) simply do:
 
 ```console
-$ kompose convert -c -y
+$ kompose convert -c
 file "web-svc.yaml" created
 file "redis-svc.yaml" created
 file "web-deployment.yaml" created
@@ -284,16 +322,11 @@ WARN[0000] Unsupported key dockerfile - ignoring
 
 ## Labels
 
-`kompose` supports Kompose-specific labels within the `docker-compose.yml` file in order to explicitly imply a service type upon conversion.
+`kompose` supports Kompose-specific labels within the `docker-compose.yml` file in order to explicitly define a service's behavior upon conversion.
 
-The currently supported options are:
+- kompose.service.type defines the type of service to be created.
 
-| Key                  | Value                               |
-|----------------------|-------------------------------------|
-| kompose.service.type | nodeport / clusterip / loadbalancer |
-
-
-Here is a brief example that uses the annotations / labels feature to specify a service type:
+For example:
 
 ```yaml
 version: "2"
@@ -307,4 +340,59 @@ services:
     container_name: foobar
     labels: 
       kompose.service.type: nodeport
+```
+
+- kompose.service.expose defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
+    - For the Kubernetes provider, an ingress resource is created and it is assumed that an ingress controller has already been configured.
+    - For the OpenShift provider, a route is created.
+
+For example:
+
+```yaml
+version: "2"
+services:
+  web:
+    image: tuna/docker-counter23
+    ports:
+     - "5000:5000"
+    links:
+     - redis
+    labels:
+      kompose.service.expose: "counter.example.com"
+  redis:
+    image: redis:3.0
+    ports:
+     - "6379"
+```
+
+The currently supported options are:
+
+| Key                  | Value                               |
+|----------------------|-------------------------------------|
+| kompose.service.type | nodeport / clusterip / loadbalancer |
+| kompose.service.expose| true / hostname |
+
+
+## Restart
+
+If you want to create normal pods without controllers you can use `restart` construct of docker-compose to define that. Follow table below to see what heppens on the `restart` value.
+
+| `docker-compose` `restart` | object created    | Pod `restartPolicy` |
+|----------------------------|-------------------|---------------------|
+| `""`                       | controller object | `Always`            |
+| `always`                   | controller object | `Always`            |
+| `on-failure`               | Pod               | `OnFailure`         |
+| `no`                       | Pod               | `Never`             |
+
+**Note**: controller object could be `deployment` or `replicationcontroller`, etc.
+
+For e.g. `mariadb` service will become pod down here.
+
+```yaml
+version: "2"
+
+services:
+  mariadb:
+    image: centos/mariadb
+    restart: "no"
 ```

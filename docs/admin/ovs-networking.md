@@ -1,6 +1,5 @@
 ---
 assignees:
-- lavalamp
 - thockin
 title: Kubernetes OpenVSwitch GRE/VxLAN networking
 ---

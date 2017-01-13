@@ -2,7 +2,7 @@
 assignees:
 - eparis
 - mikedanese
-
+title: Kubernetes 101
 ---
 
 ## Kubectl CLI and Pods
