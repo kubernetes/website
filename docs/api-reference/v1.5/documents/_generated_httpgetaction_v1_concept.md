@@ -18,7 +18,7 @@ Core | v1 | HTTPGetAction
 HTTPGetAction describes an action based on HTTP Get requests.
 
 <aside class="notice">
-Appears In <a href="#handler-v1">Handler</a> </aside>
+Appears In <a href="#handler-v1">Handler</a> <a href="#probe-v1">Probe</a> </aside>
 
 Field        | Description
 ------------ | -----------
