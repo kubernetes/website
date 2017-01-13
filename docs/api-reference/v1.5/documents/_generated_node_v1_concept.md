@@ -22,6 +22,8 @@ Appears In <a href="#nodelist-v1">NodeList</a> </aside>
 
 Field        | Description
 ------------ | -----------
+apiVersion <br /> *string*  | APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#resources
+kind <br /> *string*  | Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds
 metadata <br /> *[ObjectMeta](#objectmeta-v1)*  | Standard object's metadata. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
 spec <br /> *[NodeSpec](#nodespec-v1)*  | Spec defines the behavior of a node. http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#spec-and-status
 status <br /> *[NodeStatus](#nodestatus-v1)*  | Most recently observed status of the node. Populated by the system. Read-only. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#spec-and-status
@@ -63,7 +65,9 @@ volumesInUse <br /> *string array*  | List of attachable volumes in use (mounted
 
 Field        | Description
 ------------ | -----------
+apiVersion <br /> *string*  | APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#resources
 items <br /> *[Node](#node-v1) array*  | List of nodes
+kind <br /> *string*  | Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds
 metadata <br /> *[ListMeta](#listmeta-unversioned)*  | Standard list metadata. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds
 
 
@@ -114,13 +118,14 @@ create a Node
 
 `POST /api/v1/nodes`
 
-### Path Parameters
+
+### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
 pretty  | If 'true', then the output is pretty printed.
 
-### Query Parameters
+### Body Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -179,9 +184,14 @@ replace the specified Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
+
+Parameter    | Description
+------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
+
+### Body Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -240,9 +250,14 @@ partially update the specified Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
+
+Parameter    | Description
+------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
+
+### Body Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -301,15 +316,20 @@ delete a Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
-body <br /> *[DeleteOptions](#deleteoptions-v1)*  | 
+pretty  | If 'true', then the output is pretty printed.
 gracePeriodSeconds  | The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 orphanDependents  | Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list.
+
+### Body Parameters
+
+Parameter    | Description
+------------ | -----------
+body <br /> *[DeleteOptions](#deleteoptions-v1)*  | 
 
 ### Response
 
@@ -359,21 +379,18 @@ delete collection of Node
 
 `DELETE /api/v1/nodes`
 
-### Path Parameters
-
-Parameter    | Description
------------- | -----------
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
 fieldSelector  | A selector to restrict the list of returned objects by their fields. Defaults to everything.
 labelSelector  | A selector to restrict the list of returned objects by their labels. Defaults to everything.
 resourceVersion  | When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.
 timeoutSeconds  | Timeout for the list/watch call.
 watch  | Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+
 
 ### Response
 
@@ -433,14 +450,15 @@ read the specified Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
 exact  | Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'
 export  | Should this value be exported.  Export strips fields that a user can not specify.
+
 
 ### Response
 
@@ -490,21 +508,18 @@ list or watch objects of kind Node
 
 `GET /api/v1/nodes`
 
-### Path Parameters
-
-Parameter    | Description
------------- | -----------
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
 fieldSelector  | A selector to restrict the list of returned objects by their fields. Defaults to everything.
 labelSelector  | A selector to restrict the list of returned objects by their labels. Defaults to everything.
 resourceVersion  | When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.
 timeoutSeconds  | Timeout for the list/watch call.
 watch  | Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+
 
 ### Response
 
@@ -558,64 +573,9 @@ watch changes to an object of kind Node
 
 Parameter    | Description
 ------------ | -----------
-fieldSelector  | A selector to restrict the list of returned objects by their fields. Defaults to everything.
-labelSelector  | A selector to restrict the list of returned objects by their labels. Defaults to everything.
 name  | name of the Node
-pretty  | If 'true', then the output is pretty printed.
-resourceVersion  | When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.
-timeoutSeconds  | Timeout for the list/watch call.
-watch  | Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
 
-
-### Response
-
-Code         | Description
------------- | -----------
-200 <br /> *[Event](#event-versioned)*  | OK
-
-
-## Watch List
-
->bdocs-tab:kubectl `kubectl` Command
-
-```bdocs-tab:kubectl_shell
-
-Coming Soon
-
-```
-
->bdocs-tab:curl `curl` Command (*requires `kubectl proxy` to be running*)
-
-```bdocs-tab:curl_shell
-
-Coming Soon
-
-```
-
->bdocs-tab:kubectl Output
-
-```bdocs-tab:kubectl_json
-
-Coming Soon
-
-```
->bdocs-tab:curl Response Body
-
-```bdocs-tab:curl_json
-
-Coming Soon
-
-```
-
-
-
-watch individual changes to a list of Node
-
-### HTTP Request
-
-`GET /api/v1/watch/nodes`
-
-### Path Parameters
+### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -685,6 +645,11 @@ connect POST requests to proxy of Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 path  | Path is the URL path to use for the current proxy request to node.
 
 
@@ -742,6 +707,11 @@ Parameter    | Description
 ------------ | -----------
 name  | name of the Node
 path  | path to the resource
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 path  | Path is the URL path to use for the current proxy request to node.
 
 
@@ -800,6 +770,7 @@ Parameter    | Description
 name  | name of the Node
 
 
+
 ### Response
 
 Code         | Description
@@ -856,6 +827,7 @@ name  | name of the Node
 path  | path to the resource
 
 
+
 ### Response
 
 Code         | Description
@@ -909,6 +881,11 @@ connect DELETE requests to proxy of Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 path  | Path is the URL path to use for the current proxy request to node.
 
 
@@ -966,6 +943,11 @@ Parameter    | Description
 ------------ | -----------
 name  | name of the Node
 path  | path to the resource
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 path  | Path is the URL path to use for the current proxy request to node.
 
 
@@ -1024,6 +1006,7 @@ Parameter    | Description
 name  | name of the Node
 
 
+
 ### Response
 
 Code         | Description
@@ -1080,6 +1063,7 @@ name  | name of the Node
 path  | path to the resource
 
 
+
 ### Response
 
 Code         | Description
@@ -1133,6 +1117,11 @@ connect GET requests to proxy of Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 path  | Path is the URL path to use for the current proxy request to node.
 
 
@@ -1190,6 +1179,11 @@ Parameter    | Description
 ------------ | -----------
 name  | name of the Node
 path  | path to the resource
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 path  | Path is the URL path to use for the current proxy request to node.
 
 
@@ -1248,6 +1242,7 @@ Parameter    | Description
 name  | name of the Node
 
 
+
 ### Response
 
 Code         | Description
@@ -1304,6 +1299,7 @@ name  | name of the Node
 path  | path to the resource
 
 
+
 ### Response
 
 Code         | Description
@@ -1357,6 +1353,11 @@ connect HEAD requests to proxy of Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 path  | Path is the URL path to use for the current proxy request to node.
 
 
@@ -1414,6 +1415,11 @@ Parameter    | Description
 ------------ | -----------
 name  | name of the Node
 path  | path to the resource
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 path  | Path is the URL path to use for the current proxy request to node.
 
 
@@ -1470,6 +1476,11 @@ connect PUT requests to proxy of Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 path  | Path is the URL path to use for the current proxy request to node.
 
 
@@ -1527,6 +1538,11 @@ Parameter    | Description
 ------------ | -----------
 name  | name of the Node
 path  | path to the resource
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 path  | Path is the URL path to use for the current proxy request to node.
 
 
@@ -1585,6 +1601,7 @@ Parameter    | Description
 name  | name of the Node
 
 
+
 ### Response
 
 Code         | Description
@@ -1639,6 +1656,7 @@ Parameter    | Description
 ------------ | -----------
 name  | name of the Node
 path  | path to the resource
+
 
 
 ### Response

@@ -9,7 +9,7 @@ Core | v1 | ExecAction
 ExecAction describes a "run in container" action.
 
 <aside class="notice">
-Appears In  <a href="#handler-v1">Handler</a> </aside>
+Appears In  <a href="#handler-v1">Handler</a>  <a href="#probe-v1">Probe</a> </aside>
 
 Field        | Description
 ------------ | -----------

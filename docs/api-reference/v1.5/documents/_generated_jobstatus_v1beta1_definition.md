@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Core | v1beta1 | JobStatus
+Extensions | v1beta1 | JobStatus
 
 <aside class="notice">Other api versions of this object exist: <a href="#jobstatus-v1">v1</a> <a href="#jobstatus-v2alpha1">v2alpha1</a> </aside>
 
