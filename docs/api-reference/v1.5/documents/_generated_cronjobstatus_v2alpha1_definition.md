@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Batch | v2alpha1 | CronJobStatus
+Core | v2alpha1 | CronJobStatus
 
 
 

@@ -9,7 +9,7 @@ Core | v1 | TCPSocketAction
 TCPSocketAction describes an action based on opening a socket
 
 <aside class="notice">
-Appears In  <a href="#handler-v1">Handler</a> </aside>
+Appears In  <a href="#handler-v1">Handler</a>  <a href="#probe-v1">Probe</a> </aside>
 
 Field        | Description
 ------------ | -----------

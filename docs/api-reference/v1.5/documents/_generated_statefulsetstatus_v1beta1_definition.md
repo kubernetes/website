@@ -2,7 +2,7 @@
 
 Group        | Version     | Kind
 ------------ | ---------- | -----------
-Apps | v1beta1 | StatefulSetStatus
+Core | v1beta1 | StatefulSetStatus
 
 
 

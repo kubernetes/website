@@ -152,7 +152,16 @@
       "filename": "_generated_apiversions_unversioned_definition.md"
     },
     {
+      "filename": "_generated_awselasticblockstorevolumesource_v1_definition.md"
+    },
+    {
       "filename": "_generated_attachedvolume_v1_definition.md"
+    },
+    {
+      "filename": "_generated_azurediskvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_azurefilevolumesource_v1_definition.md"
     },
     {
       "filename": "_generated_cputargetutilization_v1beta1_definition.md"
@@ -161,13 +170,22 @@
       "filename": "_generated_capabilities_v1_definition.md"
     },
     {
+      "filename": "_generated_cephfsvolumesource_v1_definition.md"
+    },
+    {
       "filename": "_generated_certificatesigningrequestcondition_v1alpha1_definition.md"
+    },
+    {
+      "filename": "_generated_cindervolumesource_v1_definition.md"
     },
     {
       "filename": "_generated_componentcondition_v1_definition.md"
     },
     {
       "filename": "_generated_configmapkeyselector_v1_definition.md"
+    },
+    {
+      "filename": "_generated_configmapvolumesource_v1_definition.md"
     },
     {
       "filename": "_generated_containerimage_v1_definition.md"
@@ -200,6 +218,15 @@
       "filename": "_generated_deploymentcondition_v1beta1_definition.md"
     },
     {
+      "filename": "_generated_downwardapivolumefile_v1_definition.md"
+    },
+    {
+      "filename": "_generated_downwardapivolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_emptydirvolumesource_v1_definition.md"
+    },
+    {
       "filename": "_generated_endpointaddress_v1_definition.md"
     },
     {
@@ -224,6 +251,24 @@
       "filename": "_generated_execaction_v1_definition.md"
     },
     {
+      "filename": "_generated_fcvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_flexvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_flockervolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_gcepersistentdiskvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_gitrepovolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_glusterfsvolumesource_v1_definition.md"
+    },
+    {
       "filename": "_generated_groupversionfordiscovery_unversioned_definition.md"
     },
     {
@@ -233,7 +278,19 @@
       "filename": "_generated_httpheader_v1_definition.md"
     },
     {
+      "filename": "_generated_httpingresspath_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_httpingressrulevalue_v1beta1_definition.md"
+    },
+    {
       "filename": "_generated_handler_v1_definition.md"
+    },
+    {
+      "filename": "_generated_hostpathvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_iscsivolumesource_v1_definition.md"
     },
     {
       "filename": "_generated_info_version_definition.md"
@@ -255,6 +312,9 @@
     },
     {
       "filename": "_generated_jobtemplatespec_v2alpha1_definition.md"
+    },
+    {
+      "filename": "_generated_keytopath_v1_definition.md"
     },
     {
       "filename": "_generated_labelselector_unversioned_definition.md"
@@ -279,6 +339,9 @@
     },
     {
       "filename": "_generated_localobjectreference_v1_definition.md"
+    },
+    {
+      "filename": "_generated_nfsvolumesource_v1_definition.md"
     },
     {
       "filename": "_generated_networkpolicyingressrule_v1beta1_definition.md"
@@ -320,6 +383,12 @@
       "filename": "_generated_patch_unversioned_definition.md"
     },
     {
+      "filename": "_generated_persistentvolumeclaimvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_photonpersistentdiskvolumesource_v1_definition.md"
+    },
+    {
       "filename": "_generated_podcondition_v1_definition.md"
     },
     {
@@ -336,6 +405,12 @@
     },
     {
       "filename": "_generated_quantity_resource_definition.md"
+    },
+    {
+      "filename": "_generated_quobytevolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_rbdvolumesource_v1_definition.md"
     },
     {
       "filename": "_generated_rawextension_runtime_definition.md"
@@ -369,6 +444,9 @@
     },
     {
       "filename": "_generated_secretkeyselector_v1_definition.md"
+    },
+    {
+      "filename": "_generated_secretvolumesource_v1_definition.md"
     },
     {
       "filename": "_generated_securitycontext_v1_definition.md"
@@ -405,6 +483,9 @@
     },
     {
       "filename": "_generated_volumemount_v1_definition.md"
+    },
+    {
+      "filename": "_generated_vspherevirtualdiskvolumesource_v1_definition.md"
     },
     {
       "filename": "_oldversions.md"
