@@ -55,7 +55,7 @@ A request has the following attributes that can be considered for authorization:
   - what resource is being accessed (for resource requests only)
   - what subresource is being accessed (for resource requests only)
   - the namespace of the object being accessed (for namespaced resource requests only)
-  - the API group being accessed (for resource requests only); an empty string designates the [core API group](../api.md#api-groups)
+  - the API group being accessed (for resource requests only); an empty string designates the [core API group](/docs/api/)
 
 The request verb for a resource API endpoint can be determined by the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
 
@@ -381,7 +381,7 @@ Subjects can be groups, users or service accounts.
 Users are represented by strings.  These can be plain usernames, like
 "alice", or email style names, like "bob@example.com", or numeric ids
 as string.  It is up to the Kubernetes admin to configure
-the [authentication modules](/doc/admin/authentication/) to produce
+the [authentication modules](/docs/admin/authentication/) to produce
 usernames in the desired format.  The RBAC authorization system does
 not require any particular format.  However, the prefix `system:` is
 reserved for Kubernetes system use, and so the admin should ensure

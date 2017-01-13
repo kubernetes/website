@@ -1,8 +1,7 @@
 ---
 assignees:
-- ArtfulCoder
 - davidopp
-- lavalamp
+- thockin
 title: Using DNS Pods and Services
 ---
 
