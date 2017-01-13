@@ -79,7 +79,7 @@ Run the final post processing steps to automatically configure your Kubernetes e
 
 Review the final summary screen:
 
-[!Final Summary](/images/docs/ubuntu/05-final-summary.png)
+![Final Summary](/images/docs/ubuntu/05-final-summary.png)
 
 ### Accessing the Cluster 
 
