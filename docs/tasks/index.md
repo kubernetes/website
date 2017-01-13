@@ -1,5 +1,8 @@
 ---
 title: Tasks
+redirect_from:
+- "/docs/user-guide/production-pods/"
+- "/docs/user-guide/production-pods.html"
 ---
 
 This section of the Kubernetes documentation contains pages that
