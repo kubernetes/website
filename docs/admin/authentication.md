@@ -227,8 +227,8 @@ is included in a request.
 1.  Login to your identity provider
 2.  Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
 3.  When using `kubectl`, use your `id_token` with the `--token` flag or add it directly to your `kubeconfig`
-4.  `kubectl` sends your `id_token` in a header called Authorization to the API Server
-5.  The api server will make sure the JWT signature is valid by checking against the certificate named in the configuration
+4.  `kubectl` sends your `id_token` in a header called Authorization to the API server
+5.  The API server will make sure the JWT signature is valid by checking against the certificate named in the configuration
 6.  Check to make sure the `id_token` hasn't expired
 7.  Make sure the user is authorized
 8.  Once authorized the API server returns a response to `kubectl`
@@ -245,7 +245,7 @@ solution for authentication.  It does offer a few challenges:
 
 #### Configuring the API Server
 
-To enable the plugin, configure the following flags on the API Server:
+To enable the plugin, configure the following flags on the API server:
 
 | Parameter | Description | Example | Required |
 | --------- | ----------- | ------- | ------- |
@@ -264,7 +264,7 @@ tokens on behalf of another.
 
 Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or [others](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak), CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or Tremolo Secutity's [OpenUnison](https://github.com/tremolosecurity/openunison).
+Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak), CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
 
 For an identity provider to work with Kubernetes it must:
 
