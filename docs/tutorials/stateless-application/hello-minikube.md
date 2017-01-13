@@ -302,7 +302,7 @@ minikube stop
 {% capture whatsnext %}
 
 * Learn more about [Deployment objects](/docs/user-guide/deployments/).
-* Learn more about [Deploying applications](http://localhost:4000/docs/user-guide/deploying-applications/).
+* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
 * Learn more about [Service objects](/docs/user-guide/services/).
 
 {% endcapture %}
