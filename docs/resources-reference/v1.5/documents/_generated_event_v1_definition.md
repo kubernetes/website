@@ -13,9 +13,11 @@ Appears In  <a href="#eventlist-v1">EventList</a> </aside>
 
 Field        | Description
 ------------ | -----------
+apiVersion <br /> *string*  | APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#resources
 count <br /> *integer*  | The number of times this event has occurred.
 firstTimestamp <br /> *[Time](#time-unversioned)*  | The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
 involvedObject <br /> *[ObjectReference](#objectreference-v1)*  | The object that this event is about.
+kind <br /> *string*  | Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds
 lastTimestamp <br /> *[Time](#time-unversioned)*  | The time at which the most recent occurrence of this event was recorded.
 message <br /> *string*  | A human-readable description of the status of this operation.
 metadata <br /> *[ObjectMeta](#objectmeta-v1)*  | Standard object's metadata. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata

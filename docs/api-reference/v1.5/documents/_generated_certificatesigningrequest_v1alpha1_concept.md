@@ -22,6 +22,8 @@ Appears In <a href="#certificatesigningrequestlist-v1alpha1">CertificateSigningR
 
 Field        | Description
 ------------ | -----------
+apiVersion <br /> *string*  | APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#resources
+kind <br /> *string*  | Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds
 metadata <br /> *[ObjectMeta](#objectmeta-v1)*  | 
 spec <br /> *[CertificateSigningRequestSpec](#certificatesigningrequestspec-v1alpha1)*  | The certificate request itself and any additional information.
 status <br /> *[CertificateSigningRequestStatus](#certificatesigningrequeststatus-v1alpha1)*  | Derived information about the request.
@@ -55,7 +57,9 @@ conditions <br /> *[CertificateSigningRequestCondition](#certificatesigningreque
 
 Field        | Description
 ------------ | -----------
+apiVersion <br /> *string*  | APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#resources
 items <br /> *[CertificateSigningRequest](#certificatesigningrequest-v1alpha1) array*  | 
+kind <br /> *string*  | Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds
 metadata <br /> *[ListMeta](#listmeta-unversioned)*  | 
 
 
@@ -106,13 +110,14 @@ create a CertificateSigningRequest
 
 `POST /apis/certificates.k8s.io/v1alpha1/certificatesigningrequests`
 
-### Path Parameters
+
+### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
 pretty  | If 'true', then the output is pretty printed.
 
-### Query Parameters
+### Body Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -171,9 +176,14 @@ replace the specified CertificateSigningRequest
 Parameter    | Description
 ------------ | -----------
 name  | name of the CertificateSigningRequest
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
+
+Parameter    | Description
+------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
+
+### Body Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -232,9 +242,14 @@ partially update the specified CertificateSigningRequest
 Parameter    | Description
 ------------ | -----------
 name  | name of the CertificateSigningRequest
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
+
+Parameter    | Description
+------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
+
+### Body Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -293,15 +308,20 @@ delete a CertificateSigningRequest
 Parameter    | Description
 ------------ | -----------
 name  | name of the CertificateSigningRequest
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
-body <br /> *[DeleteOptions](#deleteoptions-v1)*  | 
+pretty  | If 'true', then the output is pretty printed.
 gracePeriodSeconds  | The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 orphanDependents  | Should the dependent objects be orphaned. If true/false, the "orphan" finalizer will be added to/removed from the object's finalizers list.
+
+### Body Parameters
+
+Parameter    | Description
+------------ | -----------
+body <br /> *[DeleteOptions](#deleteoptions-v1)*  | 
 
 ### Response
 
@@ -351,21 +371,18 @@ delete collection of CertificateSigningRequest
 
 `DELETE /apis/certificates.k8s.io/v1alpha1/certificatesigningrequests`
 
-### Path Parameters
-
-Parameter    | Description
------------- | -----------
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
 fieldSelector  | A selector to restrict the list of returned objects by their fields. Defaults to everything.
 labelSelector  | A selector to restrict the list of returned objects by their labels. Defaults to everything.
 resourceVersion  | When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.
 timeoutSeconds  | Timeout for the list/watch call.
 watch  | Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+
 
 ### Response
 
@@ -425,14 +442,15 @@ read the specified CertificateSigningRequest
 Parameter    | Description
 ------------ | -----------
 name  | name of the CertificateSigningRequest
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
 exact  | Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'
 export  | Should this value be exported.  Export strips fields that a user can not specify.
+
 
 ### Response
 
@@ -482,21 +500,18 @@ list or watch objects of kind CertificateSigningRequest
 
 `GET /apis/certificates.k8s.io/v1alpha1/certificatesigningrequests`
 
-### Path Parameters
-
-Parameter    | Description
------------- | -----------
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
 
 Parameter    | Description
 ------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
 fieldSelector  | A selector to restrict the list of returned objects by their fields. Defaults to everything.
 labelSelector  | A selector to restrict the list of returned objects by their labels. Defaults to everything.
 resourceVersion  | When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.
 timeoutSeconds  | Timeout for the list/watch call.
 watch  | Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+
 
 ### Response
 
@@ -550,9 +565,14 @@ watch changes to an object of kind CertificateSigningRequest
 
 Parameter    | Description
 ------------ | -----------
+name  | name of the CertificateSigningRequest
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 fieldSelector  | A selector to restrict the list of returned objects by their fields. Defaults to everything.
 labelSelector  | A selector to restrict the list of returned objects by their labels. Defaults to everything.
-name  | name of the CertificateSigningRequest
 pretty  | If 'true', then the output is pretty printed.
 resourceVersion  | When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history.
 timeoutSeconds  | Timeout for the list/watch call.

@@ -86,9 +86,14 @@ Parameter    | Description
 ------------ | -----------
 name  | name of the Pod
 namespace  | object name and auth scope, such as for teams and projects
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
+
+Parameter    | Description
+------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
+
+### Body Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -148,9 +153,14 @@ Parameter    | Description
 ------------ | -----------
 name  | name of the Pod
 namespace  | object name and auth scope, such as for teams and projects
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
+
+Parameter    | Description
+------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
+
+### Body Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -215,6 +225,11 @@ Parameter    | Description
 ------------ | -----------
 name  | name of the Pod
 namespace  | object name and auth scope, such as for teams and projects
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 pretty  | If 'true', then the output is pretty printed.
 
 
