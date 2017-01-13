@@ -78,10 +78,19 @@ replace status of the specified CertificateSigningRequest
 
 Parameter    | Description
 ------------ | -----------
-body <br /> *[CertificateSigningRequest](#certificatesigningrequest-v1alpha1)*  | 
 name  | name of the CertificateSigningRequest
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 pretty  | If 'true', then the output is pretty printed.
 
+### Body Parameters
+
+Parameter    | Description
+------------ | -----------
+body <br /> *[CertificateSigningRequest](#certificatesigningrequest-v1alpha1)*  | 
 
 ### Response
 

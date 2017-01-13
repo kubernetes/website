@@ -9,7 +9,7 @@ Core | v1 | ObjectFieldSelector
 ObjectFieldSelector selects an APIVersioned field of an object.
 
 <aside class="notice">
-Appears In  <a href="#envvarsource-v1">EnvVarSource</a> </aside>
+Appears In  <a href="#downwardapivolumefile-v1">DownwardAPIVolumeFile</a>  <a href="#envvarsource-v1">EnvVarSource</a> </aside>
 
 Field        | Description
 ------------ | -----------

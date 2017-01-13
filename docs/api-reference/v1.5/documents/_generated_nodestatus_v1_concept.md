@@ -87,9 +87,14 @@ replace status of the specified Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
+
+Parameter    | Description
+------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
+
+### Body Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -148,9 +153,14 @@ partially update status of the specified Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
-pretty  | If 'true', then the output is pretty printed.
 
 ### Query Parameters
+
+Parameter    | Description
+------------ | -----------
+pretty  | If 'true', then the output is pretty printed.
+
+### Body Parameters
 
 Parameter    | Description
 ------------ | -----------
@@ -214,6 +224,11 @@ read status of the specified Node
 Parameter    | Description
 ------------ | -----------
 name  | name of the Node
+
+### Query Parameters
+
+Parameter    | Description
+------------ | -----------
 pretty  | If 'true', then the output is pretty printed.
 
 
