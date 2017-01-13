@@ -258,7 +258,7 @@ To enable the plugin, configure the following flags on the API server:
 Importantly, the API server is not an OAuth2 client, rather it can only be
 configured to trust a single issuer. This allows the use of public providers,
 such as Google, without trusting credentials issued to third parties. Admins who
-wish utilize multiple OAuth clients should explore providers which support the
+wish to utilize multiple OAuth clients should explore providers which support the
 `azp` (authorized party) claim, a mechanism for allowing one client to issue
 tokens on behalf of another.
 
