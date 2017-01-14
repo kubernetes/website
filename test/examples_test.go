@@ -257,6 +257,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"../docs/user-guide": {
 			"bad-nginx-deployment":       {&extensions.Deployment{}},
+			"capabilities-pod":           {&api.Pod{}},
 			"counter-pod":                {&api.Pod{}},
 			"curlpod":                    {&extensions.Deployment{}},
 			"deployment":                 {&extensions.Deployment{}},
