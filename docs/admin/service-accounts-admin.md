@@ -4,7 +4,7 @@ assignees:
 - davidopp
 - lavalamp
 - liggitt
-
+title: Managing Service Accounts
 ---
 
 *This is a Cluster Administrator guide to service accounts.  It assumes knowledge of

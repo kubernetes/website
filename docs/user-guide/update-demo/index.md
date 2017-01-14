@@ -1,10 +1,8 @@
 ---
 assignees:
-- lavalamp
 - mikedanese
-
+title: Rolling Update Demo
 ---
-
 
 This example demonstrates the usage of Kubernetes to perform a [rolling update](/docs/user-guide/kubectl/kubectl_rolling-update/) on a running group of [pods](/docs/user-guide/pods/). See [here](/docs/user-guide/managing-deployments/#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) for more information.
 

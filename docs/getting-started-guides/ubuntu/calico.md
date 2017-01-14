@@ -1,13 +1,16 @@
 ---
-
+title: Deploying Kubernetes with Calico Networking on Ubuntu
 ---
 
+{% capture overview %}
 This document describes how to deploy Kubernetes with Calico networking from scratch on _bare metal_ Ubuntu. For more information on Project Calico, visit [projectcalico.org](http://projectcalico.org) and the [calico-containers repository](https://github.com/projectcalico/calico-containers).
 
 To install Calico on an existing Kubernetes cluster, or for more information on deploying Calico with Kubernetes in a number of other environments take a look at our supported [deployment guides](https://github.com/projectcalico/calico-containers/tree/master/docs/cni/kubernetes).
 
 This guide will set up a simple Kubernetes cluster with a single Kubernetes master and two Kubernetes nodes.  We'll run Calico's etcd cluster on the master and install the Calico daemon on the master and nodes.
+{% endcapture %}
 
+{% capture prerequisites %}
 ## Prerequisites and Assumptions
 
 - This guide uses `systemd` for process management. Ubuntu 15.04 supports systemd natively as do a number of other Linux distributions.
@@ -18,7 +21,9 @@ This guide will set up a simple Kubernetes cluster with a single Kubernetes mast
 - This guide uses `192.168.0.0/16` as the subnet from which pod IP addresses are assigned.  If this overlaps with your host subnet, you will need to configure Calico to use a different [IP pool](https://github.com/projectcalico/calico-containers/blob/master/docs/calicoctl/pool.md#calicoctl-pool-commands).
 - This guide assumes that none of the hosts have been configured with any Kubernetes or Calico software.
 - This guide will set up a secure, TLS-authenticated API server.
+{% endcapture %}
 
+{% capture steps %}
 ## Set up the master
 
 ### Configure TLS
@@ -385,7 +390,7 @@ On your compute nodes, it is important that you install Calico before Kubernetes
 
 ## Configure kubectl remote access
 
-To administer your cluster from a separate host (e.g your laptop), you will need the root CA generated earlier, as well as an admin public/private keypair (`ca.pem`, `admin.pem`, `admin-key.pem`). Run the following steps on the machine which you will use to control your cluster.
+To administer your cluster from a separate host (e.g. your laptop), you will need the root CA generated earlier, as well as an admin public/private keypair (`ca.pem`, `admin.pem`, `admin-key.pem`). Run the following steps on the machine which you will use to control your cluster.
 
 1. Download the kubectl binary.
 
@@ -472,6 +477,8 @@ ETCD_AUTHORITY=<master_ip:6666> calicoctl pool show
 In a data center environment, it is recommended to configure Calico to peer with the border routers over BGP. This means that the container IPs will be routable anywhere in the data center, and so NAT is not needed on the nodes (though it may be enabled at the data center edge to allow outbound-only internet connectivity).
 
 The Calico documentation contains more information on how to configure Calico to [peer with existing infrastructure](https://github.com/projectcalico/calico-containers/blob/master/docs/ExternalConnectivity.md).
+{% endcapture %}
+
 
 ## Support Level
 
@@ -481,4 +488,6 @@ IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs               
 Bare-metal           | custom       | Ubuntu | Calico      | [docs](/docs/getting-started-guides/ubuntu-calico)                          |          | Community ([@djosborne](https://github.com/djosborne))
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
+
+{% include templates/task.md %}
 

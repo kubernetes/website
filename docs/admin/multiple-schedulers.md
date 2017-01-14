@@ -2,7 +2,7 @@
 assignees:
 - davidopp
 - madhusudancs
-
+title: Configuring Multiple Schedulers
 ---
 
 Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).

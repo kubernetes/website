@@ -1,8 +1,7 @@
 ---
 assignees:
 - davidopp
-- lavalamp
-
+title: Configuring Kubernetes with Salt
 ---
 
 The Kubernetes cluster can be configured using Salt.

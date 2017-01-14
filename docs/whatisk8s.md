@@ -2,9 +2,8 @@
 assignees:
 - bgrant0607
 - mikedanese
-
+title: What is Kubernetes?
 ---
-
 
 Kubernetes is an [open-source platform for automating deployment, scaling, and operations of application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) across clusters of hosts, providing container-centric infrastructure.
 
@@ -53,7 +52,7 @@ Summary of container benefits:
 * **Cloud and OS distribution portability**:
     Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Container Engine, and anywhere else.
 * **Application-centric management**:
-    Raises the level of abstraction from running an OS on virtual hardware to running an application on an OS using logical resources.
+    Raises the level of abstraction from running an OS on virtual hardware to run an application on an OS using logical resources.
 * **Loosely coupled, distributed, elastic, liberated [micro-services](http://martinfowler.com/articles/microservices.html)**:
     Applications are broken into smaller, independent pieces and can be deployed and managed dynamically -- not a fat monolithic stack running on one big single-purpose machine.
 * **Resource isolation**:
@@ -77,7 +76,7 @@ Kubernetes satisfies a number of common needs of applications running in product
 * [load balancing](/docs/user-guide/services/),
 * [rolling updates](/docs/user-guide/update-demo/),
 * [resource monitoring](/docs/user-guide/monitoring/),
-* [log access and ingestion](/docs/user-guide/logging/),
+* [log access and ingestion](/docs/user-guide/logging/overview/),
 * [support for introspection and debugging](/docs/user-guide/introspection-and-debugging/), and
 * [identity and authorization](/docs/admin/authorization/).
 
@@ -107,7 +106,7 @@ Kubernetes is not a traditional, all-inclusive PaaS (Platform as a Service) syst
 * Kubernetes does not provide nor mandate a comprehensive application configuration language/system (e.g., [jsonnet](https://github.com/google/jsonnet)).
 * Kubernetes does not provide nor adopt any comprehensive machine configuration, maintenance, management, or self-healing systems.
 
-On the other hand, a number of PaaS systems run *on* Kubernetes, such as [Openshift](https://github.com/openshift/origin), [Deis](http://deis.io/), and [Gondor](https://gondor.io/). You could also roll your own custom PaaS, integrate with a CI system of your choice, or get along just fine with just Kubernetes: bring your container images and deploy them on Kubernetes.
+On the other hand, a number of PaaS systems run *on* Kubernetes, such as [Openshift](https://github.com/openshift/origin), [Deis](http://deis.io/), and [Eldarion](http://eldarion.cloud/). You could also roll your own custom PaaS, integrate with a CI system of your choice, or get along just fine with just Kubernetes: bring your container images and deploy them on Kubernetes.
 
 Since Kubernetes operates at the application level rather than at just the hardware level, it provides some generally applicable features common to PaaS offerings, such as deployment, scaling, load balancing, logging, monitoring, etc. However, Kubernetes is not monolithic, and these default solutions are optional and pluggable.
 

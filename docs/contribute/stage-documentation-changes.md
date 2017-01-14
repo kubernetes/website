@@ -1,4 +1,5 @@
 ---
+title: Staging Your Documentation Changes
 ---
 
 {% capture overview %}
@@ -33,16 +34,18 @@ the master branch.
 
 ### Staging a pull request
 
-When you create pull request against the Kubernetes documentation
-repository, you can see your changes on a staging server.
+When you create a pull request, either against the master or &lt;vnext&gt;
+branch, your changes are staged in a custom subdomain on Netlify so that
+you can see your changes in rendered form before the pull request is merged.
 
 1. In your GitHub account, in your new branch, submit a pull request to the
 kubernetes/kubernetes.github.io repository. This opens a page that shows the
 status of your pull request.
 
-1. Click **Show all checks**. Wait for the **deploy/netlify** check to complete.
-To the right of **deploy/netlify**, click **Details**. This opens a staging
-site where you see your changes.
+1. Scroll down to the list of automated checks. Click **Show all checks**.
+Wait for the **deploy/netlify** check to complete. To the right of
+**deploy/netlify**, click **Details**. This opens a staging site where you
+can see your changes.
 
 ### Staging locally using Docker
 

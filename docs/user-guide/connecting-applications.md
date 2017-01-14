@@ -3,7 +3,7 @@ assignees:
 - caesarxuchao
 - lavalamp
 - thockin
-
+title: Connecting Applications with Services
 ---
 
 * TOC
@@ -43,7 +43,7 @@ $ kubectl get pods -l run=my-nginx -o yaml | grep podIP
     podIP: 10.244.2.5
 ```
 
-You should be able to ssh into any node in your cluster and curl both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same containerPort and access them from any other pod or node in your cluster using IP. Like Docker, ports can still be published to the host node's interface(s), but the need for this is radically diminished because of the networking model.
+You should be able to ssh into any node in your cluster and curl both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same containerPort and access them from any other pod or node in your cluster using IP. Like Docker, ports can still be published to the host node's interfaces, but the need for this is radically diminished because of the networking model.
 
 You can read more about [how we achieve this](/docs/admin/networking/#how-to-achieve-this) if you're curious.
 
@@ -174,28 +174,25 @@ You can acquire all these from the [nginx https example](https://github.com/kube
 ```shell
 $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.json
 $ kubectl create -f /tmp/secret.json
-secrets/nginxsecret
+secret "nginxsecret" created
 $ kubectl get secrets
 NAME                  TYPE                                  DATA
 default-token-il9rc   kubernetes.io/service-account-token   1
 nginxsecret           Opaque                                2
 ```
 
-Now modify your nginx replicas to start a https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
+Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
 
-{% include code.html language="yaml" file="nginx-secure-app.yaml" ghlink="/docs/user-guide/nginx-secure-app" %}
+{% include code.html language="yaml" file="nginx-secure-app.yaml" ghlink="/docs/user-guide/nginx-secure-app.yaml" %}
 
 Noteworthy points about the nginx-secure-app manifest:
 
-- It contains both rc and service specification in the same file
+- It contains both Deployment and Service specification in the same file
 - The [nginx server](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/https-nginx/default.conf) serves http traffic on port 80 and https traffic on 443, and nginx Service exposes both ports.
 - Each container has access to the keys through a volume mounted at /etc/nginx/ssl. This is setup *before* the nginx server is started.
 
 ```shell
-$ kubectl apply -f ./nginx-secure-app.yaml
-$ kubectl delete rc,svc -l app=nginx; kubectl create -f ./nginx-app.yaml
-service "my-nginx" configured
-deployment "my-nginx" configured
+$ kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml
 ```
 
 At this point you can reach the nginx server from any node.
@@ -216,11 +213,10 @@ Lets test this from a pod (the same secret is being reused for simplicity, the p
 
 ```shell
 $ kubectl create -f ./curlpod.yaml
-$ kubectl get pods
-NAME             READY     STATUS    RESTARTS   AGE
-curlpod          1/1       Running   0          2m
-
-$ kubectl exec curlpod -- curl https://my-nginx --cacert /etc/nginx/ssl/nginx.crt
+$ kubectl get pods -l app=curlpod 
+NAME                               READY     STATUS    RESTARTS   AGE
+curl-deployment-1515033274-1410r   1/1       Running   0          1m
+$ kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert /etc/nginx/ssl/nginx.crt
 ...
 <title>Welcome to nginx!</title>
 ...
@@ -291,11 +287,12 @@ $ kubectl describe service my-nginx
 LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.elb.amazonaws.com
 ...
 ```
+
 ## Further reading
 
 Kubernetes also supports Federated Services, which can span multiple
 clusters and cloud providers, to provide increased availability,
-bettern fault tolerance and greater scalability for your services. See
+better fault tolerance and greater scalability for your services. See
 the [Federated Services User Guide](/docs/user-guide/federation/federated-services/)
 for further information.
 

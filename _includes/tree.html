@@ -1,6 +1,25 @@
-{% for item in tree %}{% if item.section %}
-<div class="item" data-title="{{ item.title }}">
-  <div class="container">{% assign tree = item.section %}{% include tree.html %}
-  </div>
-</div>{% else %}{% assign prefix = item.path | slice: 0, 4 %}{% if prefix == "http" %}{% assign target=" target='_blank'" %}{% else %}{% assign target="" %}{% endif %}
-    <a class="item" data-title="{{ item.title }}" href="{{ item.path }}"{{ target }}></a>{% endif %}{% endfor %}
+{% for item in include.tree %}
+  {% if item.section %}
+    <div class="item" data-title="{{ item.title }}">
+      <div class="container">
+        {% include_cached tree.html tree=item.section %}
+      </div>
+    </div>
+  {% else %}
+
+    {% capture whitespace %}
+      {% if item.path %}
+        {% assign path   = item.path %}
+        {% assign title  = item.title %}
+      {% else %}
+        {% assign found_page = site.pages | where: "path", item | first %}
+        {% assign title = found_page.title %}
+        {% assign path  = found_page.url %}
+      {% endif %}
+    {% endcapture %}
+
+    {% if path %}
+      <a class="item" data-title="{{ title }}" href="{{ path }}"></a>
+    {% endif %}
+  {% endif %}
+{% endfor %}

@@ -3,7 +3,7 @@ assignees:
 - erictune
 - mikedanese
 - thockin
-
+title: Security Context
 ---
 
 A security context defines the operating system security settings (uid, gid, capabilities, SELinux role, etc..) applied to a container. See [security context design](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/security_context.md) for more details.
@@ -20,7 +20,7 @@ metadata:
   name: hello-world
 spec:
   containers:
-  # specification of the pod’s containers
+  # specification of the pod's containers
   # ...
   securityContext:
     fsGroup: 1234
@@ -43,12 +43,12 @@ those settings to volumes where applicable. Specifically `fsGroup` and
 
 Volumes which support ownership management are modified to be owned
 and writable by the GID specified in `fsGroup`. See the
-[Ownership Management design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/volume-ownership-management.md)
+[Ownership Management design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/volume-ownership-management.md)
 for more details.
 
 #### `selinuxOptions`
 
-Volumes which support SELinux labeling are relabled to be accessible
+Volumes which support SELinux labeling are relabeled to be accessible
 by the label specified unders `seLinuxOptions`. Usually you will only
 need to set the `level` section. This sets the SELinux MCS label given
 to all containers within the pod as well as the volume.
@@ -85,4 +85,3 @@ Please refer to the
 [API documentation](/docs/api-reference/v1/definitions/#_v1_securitycontext) 
 for a detailed listing and description of all the fields available
 within the container security context.
-

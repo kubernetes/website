@@ -1,7 +1,7 @@
 ---
 assignees:
 - erictune
-
+title: Init Containers
 ---
 
 * TOC
@@ -105,7 +105,7 @@ If the pod is [restarted](#pod-restart-reasons) all init containers must
 execute again.
 
 Changes to the init container spec are limited to the container image field.
-Altering a init container image field is equivalent to restarting the pod.
+Altering an init container image field is equivalent to restarting the pod.
 
 Because init containers can be restarted, retried, or reexecuted, init container
 code should be idempotent.  In particular, code that writes to files on EmptyDirs
@@ -159,7 +159,7 @@ reasons:
   * This is uncommon and would have to be done by someone with root access to nodes.
 * All containers in a pod are terminated, requiring a restart (RestartPolicyAlways) AND the record of init container completion has been lost due to garbage collection.
 
-## Support and compatibilty
+## Support and compatibility
 
 A cluster with Kubelet and Apiserver version 1.4.0 or greater supports init
 containers with the beta annotations.  Support varies for other combinations of
