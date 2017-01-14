@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - janetkuo
 - thockin
-
+title: Working with Containers in Production
 ---
 
 You've seen [how to configure and deploy pods and containers](/docs/user-guide/configuring-containers), using some of the most common configuration parameters. This section dives into additional features that are especially useful for running applications in production.
@@ -11,11 +11,11 @@ You've seen [how to configure and deploy pods and containers](/docs/user-guide/c
 * TOC
 {:toc}
 
-## Persistent storage
+## Using a Volume for storage
 
-The container file system only lives as long as the container does, so when a container crashes and restarts, changes to the filesystem will be lost and the container will restart from a clean slate. To access more-persistent storage, outside the container file system, you need a [*volume*](/docs/user-guide/volumes). This is especially important to stateful applications, such as key-value stores and databases.
+The container file system only lives as long as the container does, so when a container crashes and restarts, changes to the filesystem will be lost and the container will restart from a clean slate. For more consistent storage that lasts for the life of a Pod, you need a [*volume*](/docs/user-guide/volumes). This is especially important to stateful applications, such as key-value stores and databases.
 
-For example, [Redis](http://redis.io/) is a key-value cache and store, which we use in the [guestbook](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) and other examples. We can add a volume to it to store persistent data as follows:
+For example, [Redis](http://redis.io/) is a key-value cache and store, which we use in the [guestbook](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) and other examples. We can add a volume to it to store data as follows:
 
 {% include code.html language="yaml" file="redis-deployment.yaml" ghlink="/docs/user-guide/redis-deployment.yaml" %}
 
@@ -204,7 +204,7 @@ The status of the init containers is returned as another annotation - `pod.beta.
 
 Init containers support all of the same features as normal containers, including resource limits, volumes, and security settings. The resource requests and limits for an init container are handled slightly different than normal containers since init containers are run one at a time instead of all at once - any limits or quotas will be applied based on the largest init container resource quantity, rather than as the sum of quantities. Init containers do not support readiness probes since they will run to completion before the pod can be ready.
 
-[Complete Init Container Documentation](/docs/user-guide/pods/init-containers.md)
+[Complete Init Container Documentation](/docs/user-guide/pods/init-container/)
 
 
 ## Lifecycle hooks and termination notice
@@ -220,7 +220,7 @@ The specification of a pre-stop hook is similar to that of probes, but without t
 
 ## Termination message
 
-In order to achieve a reasonably high level of availability, especially for actively developed applications, it's important to debug failures quickly. Kubernetes can speed debugging by surfacing causes of fatal errors in a way that can be display using [`kubectl`](/docs/user-guide/kubectl/) or the [UI](/docs/user-guide/ui), in addition to general [log collection](/docs/user-guide/logging). It is possible to specify a `terminationMessagePath` where a container will write its 'death rattle'?, such as assertion failure messages, stack traces, exceptions, and so on. The default path is `/dev/termination-log`.
+In order to achieve a reasonably high level of availability, especially for actively developed applications, it's important to debug failures quickly. Kubernetes can speed debugging by surfacing causes of fatal errors in a way that can be display using [`kubectl`](/docs/user-guide/kubectl/) or the [UI](/docs/user-guide/ui), in addition to general [log collection](/docs/user-guide/logging/overview). It is possible to specify a `terminationMessagePath` where a container will write its 'death rattle'?, such as assertion failure messages, stack traces, exceptions, and so on. The default path is `/dev/termination-log`.
 
 Here is a toy example:
 

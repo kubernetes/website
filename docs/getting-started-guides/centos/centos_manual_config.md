@@ -1,8 +1,7 @@
 ---
 assignees:
-- lavalamp
 - thockin
-
+title: CentOS
 ---
 
 * TOC
@@ -78,9 +77,10 @@ KUBE_ALLOW_PRIV="--allow-privileged=false"
 KUBE_MASTER="--master=http://centos-master:8080"
 ```
 
-* Disable the firewall on the master and all the nodes, as docker does not play well with other firewall rule managers
+* Disable the firewall on the master and all the nodes, as docker does not play well with other firewall rule managers. CentOS won't let you disable the firewall as long as SELinux is enforcing, so that needs to be disabled first.
 
 ```shell
+setenforce 0
 systemctl disable iptables-services firewalld
 systemctl stop iptables-services firewalld
 ```
@@ -118,10 +118,11 @@ KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
 KUBE_API_ARGS=""
 ```
 
-* Configure ETCD to hold the network overlay configuration on master:
+* Start ETCD and configure it to hold the network overlay configuration on master:
 **Warning** This network must be unused in your network infrastructure! `172.30.0.0/16` is free in our network.
 
 ```shell
+$ systemctl start etcd
 $ etcdctl mkdir /kube-centos/network
 $ etcdctl mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
 ```
@@ -129,15 +130,17 @@ $ etcdctl mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"Su
 * Configure flannel to overlay Docker network in /etc/sysconfig/flanneld on the master (also in the nodes as we'll see):
 
 ```shell
+# Flanneld configuration options
+
 # etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD="http://centos-master:2379"
+FLANNEL_ETCD_ENDPOINTS="http://centos-master:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
-FLANNEL_ETCD_KEY="/kube-centos/network"
+FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
 # Any additional options that you want to pass
-FLANNEL_OPTIONS=""
+#FLANNEL_OPTIONS=""
 ```
 
 * Start the appropriate services on master:
@@ -164,7 +167,8 @@ KUBELET_ADDRESS="--address=0.0.0.0"
 KUBELET_PORT="--port=10250"
 
 # You may leave this blank to use the actual hostname
-KUBELET_HOSTNAME="--hostname-override=centos-minion-n" # Check the node number!
+# Check the node number!
+KUBELET_HOSTNAME="--hostname-override=centos-minion-n"
 
 # Location of the api-server
 KUBELET_API_SERVER="--api-servers=http://centos-master:8080"
@@ -176,15 +180,17 @@ KUBELET_ARGS=""
 * Configure flannel to overlay Docker network in /etc/sysconfig/flanneld (in all the nodes)
 
 ```shell
+# Flanneld configuration options
+
 # etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD="http://centos-master:2379"
+FLANNEL_ETCD_ENDPOINTS="http://centos-master:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
-FLANNEL_ETCD_KEY="/kube-centos/network"
+FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
 # Any additional options that you want to pass
-FLANNEL_OPTIONS=""
+#FLANNEL_OPTIONS=""
 ```
 
 * Start the appropriate services on node (centos-minion-n).
@@ -228,4 +234,3 @@ IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs               
 Bare-metal           | custom       | CentOS | flannel     | [docs](/docs/getting-started-guides/centos/centos_manual_config)            |          | Community ([@coolsvap](https://github.com/coolsvap))
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
-

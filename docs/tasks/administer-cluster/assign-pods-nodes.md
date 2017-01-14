@@ -1,4 +1,5 @@
 ---
+title: Assigning Pods to Nodes
 ---
 
 {% capture overview %}
@@ -59,8 +60,7 @@ a `disktype=ssd` label.
 1. Use the configuration file to create a pod that will get scheduled on your
    chosen node:
 
-        export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
-        kubectl create -f $REPO/docs/tasks/administer-cluster/pod.yaml
+        kubectl create -f http://k8s.io/docs/tasks/administer-cluster/pod.yaml
 
 1. Verify that the pod is running on your chosen node:
 

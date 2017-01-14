@@ -234,6 +234,40 @@ header
 			color: $blue
 			text-decoration: none
 
+// Global Nav - 12/9/2016 Update
+
+ul.global-nav
+	display: none
+
+	li
+		display: inline-block
+		margin-right: 14px
+
+		a
+			color: #fff
+			font-weight: 400
+			padding: 0
+			position: relative
+
+			&.active:after
+				position: absolute
+				width: 100%
+				height: 2px
+				content: ''
+				bottom: -4px
+				left: 0
+				background: #fff
+
+
+.flip-nav ul.global-nav li a,
+.open-nav ul.global-nav li a,
+	color: #333
+
+.flip-nav ul.global-nav li a.active:after,
+.open-nav ul.global-nav li a.active:after,
+
+	background: $blue
+
 // FLIP NAV
 .flip-nav
 	header
@@ -301,6 +335,26 @@ header
 	padding-left: 0
 	padding-right: 0
 	margin-bottom: 0
+	position: relative
+
+	&.bot-bar:after
+		display: block
+		margin-bottom: -20px
+		height: 8px
+		width: 100%
+		background-color: transparentize(white, 0.9)
+		content: ''
+	
+	&.no-sub
+		
+		h5
+			display: none
+		
+		h1
+			margin-bottom: 20px
+
+#home #hero:after
+	display: none
 
 // VENDOR STRIP
 #vendorStrip
@@ -482,6 +536,19 @@ section
 			margin: 0 auto
 			height: 44px
 			line-height: 44px
+			position: relative
+			
+			&:before
+				position: absolute
+				width: 15px
+				height: 15px
+				content: ''
+				right: 8px
+				top: 7px
+				background-image: url(/images/search-icon.svg)
+				background-repeat: no-repeat
+				background-size: 100% 100%
+				z-index: 1
 
 		#search
 			width: 100%
@@ -490,6 +557,10 @@ section
 			line-height: 30px
 			font-size: 16px
 			vertical-align: top
+			background: #fff
+			border: none
+			border-radius: 4px
+			position: relative
 
 
 #encyclopedia
@@ -712,7 +783,6 @@ dd
 		font-weight: 500
 		margin-bottom: 30px
 		padding-bottom: 10px
-		border-bottom: 1px solid #cccccc
 
 		// Make sure anchor links aren't hidden by the header
 		&:before
@@ -722,6 +792,9 @@ dd
 			height: $header-clearance
 			visibility: hidden
 
+	h1,h2
+		border-bottom: 1px solid #cccccc
+		
 	h1
 		font-size: 32px
 		padding-right: 60px
@@ -731,9 +804,12 @@ dd
 
 	h3
 		font-size: 24px
+		font-weight: 300
+		margin-bottom: 5px
 
 	h4
 		font-size: 20px
+		margin-bottom: 0px
 
 	h5, h6
 		font-size: 16px
@@ -753,7 +829,7 @@ dd
 		background-color: $light-grey
 		color: $dark-grey
 		font-family: $mono-font
-		vertical-align: bottom
+		vertical-align: baseline
 		font-size: 14px
 		font-weight: bold
 		padding: 2px 4px
@@ -1008,7 +1084,7 @@ $feature-box-div-margin-bottom: 40px
 #video
 	width: 100%
 	position: relative
-	background-image: url(/images/kub_video_thm.jpg)
+	background-image: url(/images/kub_video_banner.jpg)
 	background-position: center center
 	background-size: cover
 

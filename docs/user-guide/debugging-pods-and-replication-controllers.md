@@ -1,7 +1,7 @@
 ---
 assignees:
 - bprashanth
-
+title: Debugging Pods and Replication Controllers
 ---
 
 * TOC

@@ -1,4 +1,5 @@
 ---
+title: Tutorials
 ---
 
 This section of the Kubernetes documentation contains tutorials.
@@ -12,6 +13,8 @@ each of which has a sequence of steps.
 
 #### Stateless Applications
 
+* [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
+
 * [Running a Stateless Application Using a Deployment](/docs/tutorials/stateless-application/run-stateless-application-deployment/)
 
 * [Using a Service to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address-service/)
@@ -20,7 +23,17 @@ each of which has a sequence of steps.
 
 #### Stateful Applications
 
+* [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
+
 * [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/)
+
+* [Running a Replicated Stateful Application](/docs/tutorials/stateful-application/run-replicated-stateful-application/)
+
+* [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
+
+#### Services
+
+* [Using SourceIP](/docs/tutorials/services/source-ip/)
 
 ### What's next
 
