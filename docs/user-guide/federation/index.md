@@ -45,7 +45,7 @@ The following guides explain some of the resources in detail:
 * [Services](/docs/user-guide/federation/federated-services/)
 <!-- TODO: Add more guides here -->
 
-[API reference docs](/federation/docs/api-reference/readme/) lists all the
+[API reference docs](/docs/federation/api-reference/) lists all the
 resources supported by federation apiserver.
 
 ## Cascading deletion
