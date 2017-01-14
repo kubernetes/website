@@ -1,7 +1,7 @@
 ---
 assignees:
 - caseydavenport
-
+title: Example Walkthrough
 ---
 
 Kubernetes can be used to declare network policies which govern how Pods can communicate with each other.  This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/user-guide/networkpolicies), and provides a demonstration thereof. 

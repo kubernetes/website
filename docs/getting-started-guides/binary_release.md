@@ -2,7 +2,7 @@
 assignees:
 - david-mcmahon
 - jbeda
-
+title: Downloading or Building Kubernetes
 ---
 
 You can either build a release from sources or download a pre-built release.  If you do not plan on developing Kubernetes itself, we suggest a pre-built release. 
@@ -33,7 +33,7 @@ cd kubernetes
 make release
 ```
 
-For more details on the release process see the [`build/`](http://releases.k8s.io/{{page.githubbranch}}/build/) directory
+For more details on the release process see the [`build-tools/`](http://releases.k8s.io/{{page.githubbranch}}/build-tools/) directory
 
 ### Download Kubernetes and automatically set up a default cluster
 

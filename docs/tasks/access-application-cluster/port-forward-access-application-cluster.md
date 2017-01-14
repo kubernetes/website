@@ -1,4 +1,5 @@
 ---
+title: Using Port Forwarding to Access Applications in a Cluster
 ---
 
 {% capture overview %}
@@ -25,8 +26,7 @@ for database debugging.
 
 1. Create a pod:
 
-        export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
-        kubectl create -f $REPO/docs/tasks/access-application-cluster/redis-master.yaml
+        kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
 
     The output of a successful command verifies that the pod was created:
 

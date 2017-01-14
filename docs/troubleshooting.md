@@ -2,7 +2,7 @@
 assignees:
 - brendandburns
 - davidopp
-
+title: Support
 ---
 
 ## Troubleshooting
@@ -43,7 +43,7 @@ You may also find the Stack Overflow topics relevant:
 
 Someone else from the community may have already asked a similar question or may
 be able to help with your problem. The Kubernetes team will also monitor
-[posts tagged kubernetes](http://stackoverflow.com/questions/tagged/kubernetes).
+[posts tagged Kubernetes](http://stackoverflow.com/questions/tagged/kubernetes).
 If there aren't any existing questions that help, please [ask a new one](http://stackoverflow.com/questions/ask?tags=kubernetes)!
 
 ### Slack
@@ -58,6 +58,13 @@ Once registered, browse the growing list of channels for various subjects of
 interest. For example, people new to Kubernetes may also want to join the
 `#kubernetes-novice` channel. As another example, developers should join the
 `#kubernetes-dev` channel.
+
+There are also many country specific/local language channels. Feel free to join
+these channels for localized support and info:
+
+- France: `#fr-users`, `#fr-events`
+- Germany: `#de-users`, `#de-events`
+- Japan: `#jp-users`, `#jp-events`
 
 ### Mailing List
 

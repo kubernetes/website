@@ -2,7 +2,7 @@
 assignees:
 - janetkuo
 - thockin
-
+title: Application Introspection and Debugging
 ---
 
 Once your application is running, you'll inevitably need to debug problems with it.
@@ -108,7 +108,7 @@ The container state is one of Waiting, Running, or Terminated. Depending on the 
 
 Ready tells you whether the container passed its last readiness probe. (In this case, the container does not have a readiness probe configured; the container is assumed to be ready if no readiness probe is configured.)
 
-Restart Count tells you how many times the container has restarted; this information can be useful for detecting crash loops in containers that are configured with a restart policy of 'always.'?
+Restart Count tells you how many times the container has been restarted; this information can be useful for detecting crash loops in containers that are configured with a restart policy of 'always.'
 
 Currently the only Condition associated with a Pod is the binary Ready condition, which indicates that the pod is able to service requests and should be added to the load balancing pools of all matching services.
 
@@ -347,7 +347,7 @@ status:
 
 Learn about additional debugging tools, including:
 
-* [Logging](/docs/user-guide/logging)
+* [Logging](/docs/user-guide/logging/overview)
 * [Monitoring](/docs/user-guide/monitoring)
 * [Getting into containers via `exec`](/docs/user-guide/getting-into-containers)
 * [Connecting to containers via proxies](/docs/user-guide/connecting-to-applications-proxy)

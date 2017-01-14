@@ -3,7 +3,7 @@
 # Uncomment this to see the commands as they are run
 # set -x
 
-VERSION=1.4
+VERSION=1.5
 
 # Processes api reference docs.
 function process_api_ref_docs {
@@ -37,7 +37,6 @@ cd k8s
 git remote add upstream https://github.com/kubernetes/kubernetes.git
 git fetch upstream
 hack/generate-docs.sh
-build/versionize-docs.sh release-$VERSION
 cd ..
 
 rm -rf _includes/v$VERSION

@@ -2,7 +2,7 @@
 assignees:
 - derekwaynecarr
 - janetkuo
-
+title: Applying Resource Quotas and Limits
 ---
 
 This example demonstrates a typical setup to control for resource usage in a namespace.
@@ -232,7 +232,7 @@ services.loadbalancers 0      2
 services.nodeports     0      0
 ```
 
-As you can see, the pod that was created is consuming explict amounts of compute resources, and the usage is being
+As you can see, the pod that was created is consuming explicit amounts of compute resources, and the usage is being
 tracked by Kubernetes properly.
 
 ## Step 5: Advanced quota scopes
