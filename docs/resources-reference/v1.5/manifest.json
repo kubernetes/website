@@ -1,0 +1,517 @@
+{
+  "table_of_contents": {},
+  "docs": [
+    {
+      "filename": "_workloads.md"
+    },
+    {
+      "filename": "_generated_container_v1_concept.md"
+    },
+    {
+      "filename": "_generated_cronjob_v2alpha1_concept.md"
+    },
+    {
+      "filename": "_generated_daemonset_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_deployment_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_job_v1_concept.md"
+    },
+    {
+      "filename": "_generated_pod_v1_concept.md"
+    },
+    {
+      "filename": "_generated_replicaset_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_replicationcontroller_v1_concept.md"
+    },
+    {
+      "filename": "_generated_statefulset_v1beta1_concept.md"
+    },
+    {
+      "filename": "_servicediscovery.md"
+    },
+    {
+      "filename": "_generated_endpoints_v1_concept.md"
+    },
+    {
+      "filename": "_generated_ingress_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_service_v1_concept.md"
+    },
+    {
+      "filename": "_config.md"
+    },
+    {
+      "filename": "_generated_configmap_v1_concept.md"
+    },
+    {
+      "filename": "_generated_secret_v1_concept.md"
+    },
+    {
+      "filename": "_generated_persistentvolumeclaim_v1_concept.md"
+    },
+    {
+      "filename": "_generated_storageclass_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_volume_v1_concept.md"
+    },
+    {
+      "filename": "_meta.md"
+    },
+    {
+      "filename": "_generated_event_v1_concept.md"
+    },
+    {
+      "filename": "_generated_limitrange_v1_concept.md"
+    },
+    {
+      "filename": "_generated_horizontalpodautoscaler_v1_concept.md"
+    },
+    {
+      "filename": "_generated_podtemplate_v1_concept.md"
+    },
+    {
+      "filename": "_generated_poddisruptionbudget_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_thirdpartyresource_v1beta1_concept.md"
+    },
+    {
+      "filename": "_cluster.md"
+    },
+    {
+      "filename": "_generated_binding_v1_concept.md"
+    },
+    {
+      "filename": "_generated_certificatesigningrequest_v1alpha1_concept.md"
+    },
+    {
+      "filename": "_generated_clusterrole_v1alpha1_concept.md"
+    },
+    {
+      "filename": "_generated_clusterrolebinding_v1alpha1_concept.md"
+    },
+    {
+      "filename": "_generated_componentstatus_v1_concept.md"
+    },
+    {
+      "filename": "_generated_localsubjectaccessreview_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_namespace_v1_concept.md"
+    },
+    {
+      "filename": "_generated_node_v1_concept.md"
+    },
+    {
+      "filename": "_generated_persistentvolume_v1_concept.md"
+    },
+    {
+      "filename": "_generated_resourcequota_v1_concept.md"
+    },
+    {
+      "filename": "_generated_role_v1alpha1_concept.md"
+    },
+    {
+      "filename": "_generated_rolebinding_v1alpha1_concept.md"
+    },
+    {
+      "filename": "_generated_selfsubjectaccessreview_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_serviceaccount_v1_concept.md"
+    },
+    {
+      "filename": "_generated_subjectaccessreview_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_tokenreview_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_networkpolicy_v1beta1_concept.md"
+    },
+    {
+      "filename": "_definitions.md"
+    },
+    {
+      "filename": "_generated_apigroup_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_apiresource_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_apiversion_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_apiversions_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_awselasticblockstorevolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_attachedvolume_v1_definition.md"
+    },
+    {
+      "filename": "_generated_azurediskvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_azurefilevolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_cputargetutilization_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_capabilities_v1_definition.md"
+    },
+    {
+      "filename": "_generated_cephfsvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_certificatesigningrequestcondition_v1alpha1_definition.md"
+    },
+    {
+      "filename": "_generated_cindervolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_componentcondition_v1_definition.md"
+    },
+    {
+      "filename": "_generated_configmapkeyselector_v1_definition.md"
+    },
+    {
+      "filename": "_generated_configmapvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_containerimage_v1_definition.md"
+    },
+    {
+      "filename": "_generated_containerport_v1_definition.md"
+    },
+    {
+      "filename": "_generated_containerstate_v1_definition.md"
+    },
+    {
+      "filename": "_generated_containerstaterunning_v1_definition.md"
+    },
+    {
+      "filename": "_generated_containerstateterminated_v1_definition.md"
+    },
+    {
+      "filename": "_generated_containerstatewaiting_v1_definition.md"
+    },
+    {
+      "filename": "_generated_crossversionobjectreference_v1_definition.md"
+    },
+    {
+      "filename": "_generated_daemonendpoint_v1_definition.md"
+    },
+    {
+      "filename": "_generated_deleteoptions_v1_definition.md"
+    },
+    {
+      "filename": "_generated_deploymentcondition_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_downwardapivolumefile_v1_definition.md"
+    },
+    {
+      "filename": "_generated_downwardapivolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_emptydirvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_endpointaddress_v1_definition.md"
+    },
+    {
+      "filename": "_generated_endpointport_v1_definition.md"
+    },
+    {
+      "filename": "_generated_endpointsubset_v1_definition.md"
+    },
+    {
+      "filename": "_generated_envvar_v1_definition.md"
+    },
+    {
+      "filename": "_generated_envvarsource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_eventsource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_eviction_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_execaction_v1_definition.md"
+    },
+    {
+      "filename": "_generated_fcvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_flexvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_flockervolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_gcepersistentdiskvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_gitrepovolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_glusterfsvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_groupversionfordiscovery_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_httpgetaction_v1_definition.md"
+    },
+    {
+      "filename": "_generated_httpheader_v1_definition.md"
+    },
+    {
+      "filename": "_generated_httpingresspath_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_httpingressrulevalue_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_handler_v1_definition.md"
+    },
+    {
+      "filename": "_generated_hostpathvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_iscsivolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_info_version_definition.md"
+    },
+    {
+      "filename": "_generated_ingressbackend_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_ingressrule_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_ingresstls_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_intorstring_intstr_definition.md"
+    },
+    {
+      "filename": "_generated_jobcondition_v1_definition.md"
+    },
+    {
+      "filename": "_generated_jobtemplatespec_v2alpha1_definition.md"
+    },
+    {
+      "filename": "_generated_keytopath_v1_definition.md"
+    },
+    {
+      "filename": "_generated_labelselector_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_labelselectorrequirement_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_lifecycle_v1_definition.md"
+    },
+    {
+      "filename": "_generated_limitrangeitem_v1_definition.md"
+    },
+    {
+      "filename": "_generated_listmeta_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_loadbalanceringress_v1_definition.md"
+    },
+    {
+      "filename": "_generated_loadbalancerstatus_v1_definition.md"
+    },
+    {
+      "filename": "_generated_localobjectreference_v1_definition.md"
+    },
+    {
+      "filename": "_generated_nfsvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_networkpolicyingressrule_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_networkpolicypeer_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_networkpolicyport_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_nodeaddress_v1_definition.md"
+    },
+    {
+      "filename": "_generated_nodecondition_v1_definition.md"
+    },
+    {
+      "filename": "_generated_nodedaemonendpoints_v1_definition.md"
+    },
+    {
+      "filename": "_generated_nodesysteminfo_v1_definition.md"
+    },
+    {
+      "filename": "_generated_nonresourceattributes_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_objectfieldselector_v1_definition.md"
+    },
+    {
+      "filename": "_generated_objectmeta_v1_definition.md"
+    },
+    {
+      "filename": "_generated_objectreference_v1_definition.md"
+    },
+    {
+      "filename": "_generated_ownerreference_v1_definition.md"
+    },
+    {
+      "filename": "_generated_patch_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_persistentvolumeclaimvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_photonpersistentdiskvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_podcondition_v1_definition.md"
+    },
+    {
+      "filename": "_generated_podsecuritycontext_v1_definition.md"
+    },
+    {
+      "filename": "_generated_policyrule_v1alpha1_definition.md"
+    },
+    {
+      "filename": "_generated_preconditions_v1_definition.md"
+    },
+    {
+      "filename": "_generated_probe_v1_definition.md"
+    },
+    {
+      "filename": "_generated_quantity_resource_definition.md"
+    },
+    {
+      "filename": "_generated_quobytevolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_rbdvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_rawextension_runtime_definition.md"
+    },
+    {
+      "filename": "_generated_replicasetcondition_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_replicationcontrollercondition_v1_definition.md"
+    },
+    {
+      "filename": "_generated_resourceattributes_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_resourcefieldselector_v1_definition.md"
+    },
+    {
+      "filename": "_generated_resourcerequirements_v1_definition.md"
+    },
+    {
+      "filename": "_generated_roleref_v1alpha1_definition.md"
+    },
+    {
+      "filename": "_generated_rollbackconfig_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_selinuxoptions_v1_definition.md"
+    },
+    {
+      "filename": "_generated_scale_v1_definition.md"
+    },
+    {
+      "filename": "_generated_secretkeyselector_v1_definition.md"
+    },
+    {
+      "filename": "_generated_secretvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_generated_securitycontext_v1_definition.md"
+    },
+    {
+      "filename": "_generated_serveraddressbyclientcidr_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_serviceport_v1_definition.md"
+    },
+    {
+      "filename": "_generated_status_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_statuscause_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_statusdetails_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_subject_v1alpha1_definition.md"
+    },
+    {
+      "filename": "_generated_subresourcereference_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_tcpsocketaction_v1_definition.md"
+    },
+    {
+      "filename": "_generated_time_unversioned_definition.md"
+    },
+    {
+      "filename": "_generated_userinfo_v1beta1_definition.md"
+    },
+    {
+      "filename": "_generated_volumemount_v1_definition.md"
+    },
+    {
+      "filename": "_generated_vspherevirtualdiskvolumesource_v1_definition.md"
+    },
+    {
+      "filename": "_oldversions.md"
+    },
+    {
+      "filename": "_generated_event_versioned_concept.md"
+    },
+    {
+      "filename": "_generated_horizontalpodautoscaler_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_job_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_job_v2alpha1_concept.md"
+    },
+    {
+      "filename": "_generated_jobcondition_v1beta1_concept.md"
+    },
+    {
+      "filename": "_generated_jobcondition_v2alpha1_concept.md"
+    },
+    {
+      "filename": "_generated_scale_v1beta1_concept.md"
+    }
+  ],
+  "title": "Kubernetes Resource Reference Docs",
+  "copyright": "\u003ca href=\"https://github.com/kubernetes/kubernetes\"\u003eCopyright 2016 The Kubernetes Authors.\u003c/a\u003e"
+}
