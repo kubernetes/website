@@ -1,7 +1,6 @@
 ---
 assignees:
 - davidopp
-- lavalamp
 title: Configuring Kubernetes with Salt
 ---
 

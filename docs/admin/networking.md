@@ -1,6 +1,5 @@
 ---
 assignees:
-- lavalamp
 - thockin
 title: Networking in Kubernetes
 ---
