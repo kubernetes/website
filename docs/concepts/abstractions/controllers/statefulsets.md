@@ -22,7 +22,7 @@ guarantees about the ordering of deployment and scaling.
 
 {% capture body %}
 
-### Using StatefulSets
+## Using StatefulSets
 
 StatefulSets are valuable for applications that require one or more of the 
 following.
@@ -47,7 +47,7 @@ provides a set of stateless replicas. Controllers such as
 * StatefulSets currently require a [Headless Service](/docs/user-guide/services/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
 * Updating an existing StatefulSet is currently a manual process.
 
-### Components
+## Components
 The example below demonstrates the components of a StatefulSet. 
 
 * A Headless Service, named nginx, is used to control the network domain. 
@@ -103,17 +103,17 @@ spec:
           storage: 1Gi
 ```
 
-### Pod Identity
+## Pod Identity
 StatefulSet Pods have a unique identity that is comprised of an ordinal, a 
 stable network identity, and stable storage. The identity sticks to the Pod, 
 regardless of which node it's (re)scheduled on.
 
-__Ordinal Index__
+### Ordinal Index
 
 For a StatefulSet with N replicas, each Pod in the StatefulSet will be 
 assigned an integer ordinal, in the range [0,N), that is unique over the Set. 
 
-__Stable Network ID__
+### Stable Network ID
 
 Each Pod in a StatefulSet derives its hostname from the name of the StatefulSet 
 and the ordinal of the Pod. The pattern for the constructed hostname 
@@ -139,7 +139,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
 Note that Cluster Domain will be set to `cluster.local` unless 
 [otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it).
 
-__Stable Storage__
+### Stable Storage
 
 Kubernetes creates one [PersistentVolume](/docs/user-guide/volumes/) for each 
 VolumeClaimTemplate. In the nginx example above, each Pod will receive a single PersistentVolume 
@@ -149,7 +149,7 @@ PersistentVolume Claims. Note that, the PersistentVolumes associated with the
 Pods' PersistentVolume Claims are not deleted when the Pods, or StatefulSet are deleted. 
 This must be done manually.
 
-### Deployment and Scaling Guarantee
+## Deployment and Scaling Guarantee
 
 * For a StatefulSet with N replicas, when Pods are being deployed, they are created sequentially, in order from {0..N-1}. 
 * When Pods are being deleted, they are terminated in reverse order, from {N-1..0}.
