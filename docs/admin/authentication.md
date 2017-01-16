@@ -29,9 +29,9 @@ stored as `Secrets`, which are mounted into pods allowing in cluster processes
 to talk to the Kubernetes API.
 
 API requests are tied to either a normal user or a service account, or are treated
-as anonymous requests. This means every process inside or outside the cluster, from 
-a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members 
-of the control plane, must authenticate when making requests to the API server, 
+as anonymous requests. This means every process inside or outside the cluster, from
+a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members
+of the control plane, must authenticate when making requests to the API server,
 or be treated as an anonymous user.
 
 ## Authentication strategies
@@ -58,7 +58,7 @@ When multiple are enabled, the first authenticator module
 to successfully authenticate the request short-circuits evaluation.
 The API server does not guarantee the order authenticators run in.
 
-The `system:authenticated` group is included in the list of groups for all authenticated users. 
+The `system:authenticated` group is included in the list of groups for all authenticated users.
 
 ### X509 Client Certs
 
@@ -447,12 +447,12 @@ HTTP status codes can be used to supply additional error context.
 The API server can be configured to identify users from request header values, such as `X-Remote-User`.
 It is designed for use in combination with an authenticating proxy, which sets the request header value.
 In order to prevent header spoofing, the authenticating proxy is required to present a valid client
-certificate to the API server for validation against the specified CA before the request headers are 
+certificate to the API server for validation against the specified CA before the request headers are
 checked.
 
 * `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the identity.
 * `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
-* `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed. 
+* `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed.
 
 
 ### Keystone Password
@@ -480,18 +480,18 @@ changes](https://github.com/kubernetes/kubernetes/pull/25536) for more details.
 
 ## Anonymous requests
 
-Anonymous access is enabled by default, and can be disabled by passing `--anonymous-auth=false` 
+Anonymous access is enabled by default, and can be disabled by passing `--anonymous-auth=false`
 option to the API server during startup.
 
-When enabled, requests that are not rejected by other configured authentication methods are 
-treated as anonymous requests, and given a username of `system:anonymous` and a group of 
+When enabled, requests that are not rejected by other configured authentication methods are
+treated as anonymous requests, and given a username of `system:anonymous` and a group of
 `system:unauthenticated`.
 
 For example, on a server with token authentication configured, and anonymous access enabled,
-a request providing an invalid bearer token would receive a `401 Unauthorized` error. 
-A request providing no bearer token would be treated as an anonymous request. 
+a request providing an invalid bearer token would receive a `401 Unauthorized` error.
+A request providing no bearer token would be treated as an anonymous request.
 
-If you rely on authentication alone to authorize access, either change to use an 
+If you rely on authentication alone to authorize access, either change to use an
 authorization mode other than `AlwaysAllow`, or set `--anonymous-auth=false`.
 
 ## Plugin Development
