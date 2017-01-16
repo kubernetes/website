@@ -38,7 +38,7 @@ An Ingress is a collection of rules that allow inbound connections to reach the 
    [ Services ]
 ```
 
-It can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. Users request ingress by POSTing the Ingress resource to the API server. An [Ingress controller](#ingress-controllers) is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic in an HA manner.
+It can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. Users request ingress by posting the Ingress resource to the API server. An [Ingress controller](#ingress-controllers) is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic in an HA manner.
 
 ## Prerequisites
 
@@ -67,7 +67,7 @@ spec:
           servicePort: 80
 ```
 
-*POSTing this to the API server will have no effect if you have not configured an [Ingress controller](#ingress-controllers).*
+*Posting this to the API server will have no effect if you have not configured an [Ingress controller](#ingress-controllers).*
 
 __Lines 1-4__: As with all other Kubernetes config, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](/docs/user-guide/simple-yaml), [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
 
@@ -107,7 +107,7 @@ Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
 
 ### Simple fanout
 
-As described previously, pods within kubernetes have IPs only visible on the cluster network, so we need something at the edge accepting ingress traffic and proxying it to the right endpoints. This component is usually a highly available loadbalancer/s. An Ingress allows you to keep the number of loadbalancers down to a minimum, for example, a setup like:
+As described previously, pods within kubernetes have IPs only visible on the cluster network, so we need something at the edge accepting ingress traffic and proxying it to the right endpoints. This component is usually a highly available loadbalancers. An Ingress allows you to keep the number of loadbalancers down to a minimum, for example, a setup like:
 
 ```shell
 foo.bar.com -> 178.91.123.132 -> / foo    s1:80
