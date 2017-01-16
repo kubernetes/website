@@ -763,7 +763,7 @@ make that key begin with a dot.  For example, when the following secret is mount
       {
         "name": "dotfile-test-container",
         "image": "gcr.io/google_containers/busybox",
-        "command": "ls -l /etc/secret-volume",
+        "command": [ "ls", "-l", "/etc/secret-volume" ],
         "volumeMounts": [
           {
             "name": "secret-volume",
