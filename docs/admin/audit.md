@@ -2,13 +2,11 @@
 assignees:
 - soltysh
 - sttts
-
+title: Audit in Kubernetes
 ---
 
 * TOC
 {:toc}
-
-## Audit in Kubernetes
 
 Kubernetes Audit provides a security-relevant chronological set of records documenting
 the sequence of activities that have affected system by individual users, administrators

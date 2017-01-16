@@ -1,13 +1,11 @@
 ---
 assignees:
 - jszczepkowski
-
+title: Setting up High-Availability Kubernetes Masters
 ---
 
 * TOC
 {:toc}
-
-## Introduction
 
 Kubernetes version 1.5 adds alpha support for replicating Kubernetes masters in `kube-up` or `kube-down` scripts for Google Compute Engine.
 This document describes how to use kube-up/down scripts to manage highly available (HA) masters and how HA masters are implemented for use with GCE.
