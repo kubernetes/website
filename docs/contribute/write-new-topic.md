@@ -54,6 +54,17 @@ URL for the topic, for example:
 
        http://kubernetes.io/docs/tasks/access-kubernetes-api/http-proxy-access-api/
 
+### Adding the topic title to the front matter
+
+In your topic, put a `title` field in the
+[front matter](https://jekyllrb.com/docs/frontmatter/).
+The front matter is the YAML block that is between the 
+triple-dashed lines at the top of the page. Here's an example:
+
+    ---
+    title: Using an HTTP Proxy to Access the Kubernetes API
+    ---
+
 ### Choosing a directory
 
 Depending on your page type, put your new file in a subdirectory of one of these:
@@ -72,6 +83,10 @@ Depending page type, create an entry in one of these files:
 * /_data/tasks.yaml
 * /_data/tutorials.yaml
 * /_data/concepts.yaml
+
+Here's an example of an entry in /_data/tasks.yaml:
+
+    - docs/tasks/configure-pod-container/configure-volume-storage.md
 
 ### Including code from another file
 

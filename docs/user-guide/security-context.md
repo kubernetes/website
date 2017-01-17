@@ -43,12 +43,12 @@ those settings to volumes where applicable. Specifically `fsGroup` and
 
 Volumes which support ownership management are modified to be owned
 and writable by the GID specified in `fsGroup`. See the
-[Ownership Management design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/volume-ownership-management.md)
+[Ownership Management design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/volume-ownership-management.md)
 for more details.
 
 #### `selinuxOptions`
 
-Volumes which support SELinux labeling are relabled to be accessible
+Volumes which support SELinux labeling are relabeled to be accessible
 by the label specified unders `seLinuxOptions`. Usually you will only
 need to set the `level` section. This sets the SELinux MCS label given
 to all containers within the pod as well as the volume.
