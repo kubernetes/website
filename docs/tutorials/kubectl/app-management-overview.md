@@ -49,20 +49,20 @@ to mix-and-match styles for the same resource will result in undefined behavior.
 Run an instance of the *nginx* container by creating a Deployment Resource
 
 ```sh
-kubectl run --image nginx nginx
+kubectl run nginx --image nginx
 ```
 
 Same as above with different syntax (specifies resource type)
 
 ```sh
-kubectl create deployment --image nginx
+kubectl create deployment nginx --image nginx
 ```
 
 ## Command Overview
 
 *Kubectl* supports creating, updating, and deleting applications directly
 using the command line.  In this mode, the Kubernetes resources are
-defined through commandline flags.  This is the simplest way to get
+configured through commandline flags.  This is the simplest way to get
 started or to run a one-off tasks in a cluster.  Because it does
 not provide an audit record or source of record outside what is live
 in the cluster, it may not be well suited for large production
@@ -113,27 +113,21 @@ Advantages over *Imperative Commands*
 
 Disadvantages over *Imperative Commands*
 
-- Config requires understanding of resource definitions
-- Config has a longer learning curve
+- Config requires understanding resource definitions
+- Initial creation of resource requires additional step of creating the defintion in a file
 
 Advantages over *Yaml Config with `apply`*
 
-- Simpler and easier to understand
+- Behavior is simpler and easier to understand
 - Better support for ThirdPartyResources
-- More mature
+- Fewer edge cases
 
 Disadvantages over *Yaml Config with `apply`*
 
-- Works best on files since must specify whether creating, replacing or deleting a resource
+- Works best on files, since it requires specify the operation (create, replace, delete)
   - Cannot mix create, replace, delete for different resources
 - Updates to live resources must be reflected in config or will be lost during next replace.
-
-## Important Considerations
-
-**This will not preserve changes made to the spec that are not present
-in the config.**  If the resource spec in the cluster is written to by
-sources without updating the yaml config, those changes will be
-lost when replacing the resource spec.
+  - **If the resource spec in the cluster is written to by sources without updating the yaml config, those changes will be lost when replacing the resource spec.**
 
 <!---
 For a tutorial on how to use Yaml Config for app management, see:
@@ -156,20 +150,19 @@ do not support.
 
 Advantages over basic *Yaml Config*:
 
-- Keeps changes made directly to the live resource without updating the backing config.
-- Operates on directories and automatically detect the operation type per-resources *(create, patch, delete)*
+- Retains changes made directly to the live resource even if they are not written to the backing config.
+- Operates on directories and automatically detects the operation type per-resources *(create, patch, delete)*
 
 Disadvantages over basic *Yaml Config*:
 
 - Working on directories and doing patches is more complicated
-- Still under development.  Known issues with specific resources exist.
+- Still under development.  Known issues with specific resource types exist.
 - Limited support for ThirdPartyResources
 
 ## Keeping changes without updating the config
 
-This is done by **only** applying the deltas in the new config to the last config
-during updates.  **Fields updated without updating the config, must be omitted from the
-config so that they are ignored when `apply`ing changes.**
+This is done by applying **only** the deltas between the new config and the last config
+to the live resource.
 
 An example of this use case would be when using a *HorizonalPodAutoscaler*
 to write the controller replica count, and omitting the replica count
