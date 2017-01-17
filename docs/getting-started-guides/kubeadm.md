@@ -239,7 +239,7 @@ In order to get a kubectl on your laptop for example to talk to your cluster, yo
 If you want to connect to the API Server for viewing the dashboard (note: the dashboard isn't deployed by default) from outside the cluster for example, you can use `kubectl proxy`:
 
     # scp root@<master ip>:/etc/kubernetes/admin.conf .
-    # kubectl --kubeconfig ./admin.conf proxy
+    # kubectl --kubeconfig=./admin.conf proxy
 
 You can now access the API Server locally at `http://localhost:8001/api/v1`
 
