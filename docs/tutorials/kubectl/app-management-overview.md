@@ -31,16 +31,34 @@ suited towards.
 
 {% capture lessoncontent %}
 
+# App Management Styles Table
+
+**Currently, a given resource should be managed using only 1 style.  Attempting
+to mix-and-match styles for the same resource will result in undefined behavior.**
+
 | Management Style          | Environment             | Writers  | Operates Best On     | Learning Curve |
 |---------------------------|-------------------------|----------|----------------------|----------------|
 | Imperative Commands       | Dev or Small Clusters   | 1+       | Live Resources       | Lowest         |
 | Basic Yaml Config         | Production Clusters     | 1        | Individual Files     | Moderate       |
 | Yaml Config with Apply    | Production Clusters     | 1+       | Directories of Files | Highest        |
 
-**Currently, a given resource should be managed using only 1 style.  Attempting
-to mix-and-match styles for the same resource will result in undefined behavior.**
-
 # Imperative Commands
+
+## Command Examples
+
+Run an instance of the *nginx* container by creating a Deployment Resource
+
+```sh
+kubectl run --image nginx nginx
+```
+
+Same as above with different syntax (specifies resource type)
+
+```sh
+kubectl create deployment --image nginx
+```
+
+## Command Overview
 
 *Kubectl* supports creating, updating, and deleting applications directly
 using the command line.  In this mode, the Kubernetes resources are
@@ -68,6 +86,16 @@ For a tutorial on how to use Imperative Commands for app management, see:
 -->
 
 # Basic Yaml Config
+
+## Config Example
+
+Create the resource defined in the configuration file.
+
+```sh
+kubectl create -f nginx_deployment.yaml
+```
+
+## Config Overview
 
 *Kubectl* supports creating, updating, and deleting applications by defining
 their configuration locally in a yaml or json config file, and using
@@ -113,6 +141,14 @@ For a tutorial on how to use Yaml Config for app management, see:
 -->
 
 # Yaml Config with `apply`
+
+## Apply Example
+
+```sh
+kubectl apply -f configs/
+```
+
+## Apply Overview
 
 *Kubectl* has a declarative config management mode called `apply`.  This
 supports several capabilities that the basic yaml config
