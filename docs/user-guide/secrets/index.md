@@ -113,8 +113,8 @@ metadata:
   name: mysecret
 type: Opaque
 data:
-  password: MWYyZDFlMmU2N2Rm
   username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 ```
 
 The data field is a map.  Its keys must match
@@ -142,8 +142,8 @@ Get back the secret created in the previous section:
 $ kubectl get secret mysecret -o yaml
 apiVersion: v1
 data:
-  password: MWYyZDFlMmU2N2Rm
   username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 kind: Secret
 metadata:
   creationTimestamp: 2016-01-22T18:41:56Z
@@ -364,7 +364,7 @@ $ cat /etc/foo/password
 1f2d1e2e67df
 ```
 
-The program in a container is responsible for reading the secret(s) from the
+The program in a container is responsible for reading the secrets from the
 files.
 
 **Mounted Secrets are updated automatically**

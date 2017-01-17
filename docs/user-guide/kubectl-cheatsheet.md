@@ -12,7 +12,7 @@ See also: [Kubectl Overview](/docs/user-guide/kubectl-overview/) and [JsonPath G
 ## Kubectl Autocomplete
 
 ```console
-$ source <(kubectl completion bash) # setup autocomplete in bash
+$ source <(kubectl completion bash) # setup autocomplete in bash, bash-completion package should be installed first.
 $ source <(kubectl completion zsh)  # setup autocomplete in zsh
 ```
 
