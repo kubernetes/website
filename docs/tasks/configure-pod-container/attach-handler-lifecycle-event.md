@@ -5,7 +5,7 @@ title: Attaching Handlers to Container Lifecycle Events
 {% capture overview %}
 
 This page shows how to attach handlers to Container lifecycle events. Kubernetes supports
-the postStart event and the preStop event. Kubernetes sends the postStart event immediately
+the postStart and preStop events. Kubernetes sends the postStart event immediately
 after a Container is started, and it sends the preStop event immediately before the
 Container is terminated.
 
@@ -57,15 +57,37 @@ The output shows the text written by the postStart handler:
 {% endcapture %}
 
 
+
+{% capture discussion %}
+
+### Discussion
+
+Kubernetes sends the postStart event immediately after the Container is created.
+There is no guarantee, however, that the postStart handler is called before
+the Container's entrypoint is called. The postStart handler runs asynchronously
+relative to the Container's code, but Kubernetes' management of the container
+blocks until the postStart handler completes. The Container's status is not
+set to RUNNING until the postStart handler completes.
+
+Kubernetes sends the preStop event immediately before the Container is terminated.
+Kubernetes' management of the Container blocks until the preStop handler completes,
+unless the Pod's grace period expires. For more details, see
+[Termination of Pods](/docs/user-guide/pods/#termination-of-pods).
+
+{% endcapture %}
+
+
 {% capture whatsnext %}
 
 * Learn more about [Container lifecycle hooks](/docs/user-guide/container-environment/.)
 * Learn more about the [lifecycle of a Pod](https://kubernetes.io/docs/user-guide/pod-states/).
 
-#### Reference
 
+#### Reference
+ 
 * [Lifecycle](https://kubernetes.io/docs/resources-reference/1_5/#lifecycle-v1)
 * [Container](https://kubernetes.io/docs/resources-reference/1_5/#container-v1)
+* See `terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/v1.5/#podspec-v1)
 
 {% endcapture %}
 
