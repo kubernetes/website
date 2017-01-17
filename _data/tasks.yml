@@ -9,6 +9,7 @@ toc:
   - docs/tasks/configure-pod-container/define-command-argument-container.md
   - docs/tasks/configure-pod-container/assign-cpu-ram-container.md
   - docs/tasks/configure-pod-container/configure-volume-storage.md
+  - docs/tasks/configure-pod-container/configure-persistent-volume-storage.md
   - docs/tasks/configure-pod-container/distribute-credentials-secure.md
   - docs/tasks/configure-pod-container/pull-image-private-registry.md
   - docs/tasks/configure-pod-container/configure-liveness-readiness-probes.md
