@@ -1,5 +1,5 @@
 ---
-title: Overview of Managing Apps with Kubectl
+title: App Management Overview
 ---
 
 {% capture overview %}
