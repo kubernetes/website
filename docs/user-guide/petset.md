@@ -42,7 +42,7 @@ This doc assumes familiarity with the following Kubernetes concepts:
 * [Cluster DNS](/docs/admin/dns/)
 * [Headless Services](/docs/user-guide/services/#headless-services)
 * [Persistent Volumes](/docs/user-guide/volumes/)
-* [Persistent Volume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md)
+* [Persistent Volume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/README.md)
 
 You need a working Kubernetes cluster at version >= 1.3, with a healthy DNS [cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md) at version >= 15. You cannot use PetSet on a hosted Kubernetes provider that has disabled `alpha` resources.
 
@@ -98,7 +98,7 @@ Before you start deploying applications as PetSets, there are a few limitations 
 * PetSet is an *alpha* resource, not available in any Kubernetes release prior to 1.3.
 * As with all alpha/beta resources, it can be disabled through the `--runtime-config` option passed to the apiserver, and in fact most likely will be disabled on hosted offerings of Kubernetes.
 * The only updatable field on a PetSet is `replicas`
-* The storage for a given pet must either be provisioned by a [persistent volume provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/experimental/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin. Note that persistent volume provisioning is also currently in alpha.
+* The storage for a given pet must either be provisioned by a [persistent volume provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin. Note that persistent volume provisioning is also currently in alpha.
 * Deleting and/or scaling a PetSet down will *not* delete the volumes associated with the PetSet. This is done to ensure safety first, your data is more valuable than an auto purge of all related PetSet resources. **Deleting the Persistent Volume Claims will result in a deletion of the associated volumes**.
 * All PetSets currently require a "governing service", or a Service responsible for the network identity of the pets. The user is responsible for this Service.
 * Updating an existing PetSet is currently a manual process, meaning you either need to deploy a new PetSet with the new image version, or orphan Pets one by one, update their image, and join them back to the cluster.
