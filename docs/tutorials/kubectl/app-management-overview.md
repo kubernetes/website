@@ -227,10 +227,12 @@ No changes required.  Stop using the yaml config.
 
 {% capture whatsnext %}
 - [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
+
 <!---
 - [App Management Using Yaml Config](/docs/tutorials/kubectl/declarative-app-management-using-yaml-config/)
 - [App Management Using Yaml Config With Multiple Writers](/docs/tutorials/kubectl/declarative-app-management-using-yaml-config-multiple-writers/)
 -->
+
 {% endcapture %}
 
 {% include templates/tutorial.md %}
