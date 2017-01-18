@@ -69,7 +69,7 @@ spec:
 
 *POSTing this to the API server will have no effect if you have not configured an [Ingress controller](#ingress-controllers).*
 
-__Lines 1-4__: As with all other Kubernetes config, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](docs/user-guide/deploying-applications), [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
+__Lines 1-4__: As with all other Kubernetes config, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](/docs/user-guide/deploying-applications), [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
 
 __Lines 5-7__: Ingress [spec](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) has all the information needed to configure a loadbalancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Currently the Ingress resource only supports http rules.
 
