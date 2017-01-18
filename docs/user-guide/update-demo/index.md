@@ -1,6 +1,5 @@
 ---
 assignees:
-- lavalamp
 - mikedanese
 title: Rolling Update Demo
 ---

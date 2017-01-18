@@ -1,4 +1,5 @@
 ---
+title: Providing Load-Balanced Access to an Application in a Cluster
 ---
 
 {% capture overview %}
