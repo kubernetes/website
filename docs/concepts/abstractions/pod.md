@@ -6,7 +6,6 @@ title: Pods
 This page provides an overview of `Pod`, the smallest deployable object in the Kubernetes object model.
 {% endcapture %}
 
-* TOC
 {:toc}
 
 {% capture body %}
@@ -58,7 +57,7 @@ You'll rarely create individual Pods directly in Kubernetes--even singleton Pods
 
 Pods do not, by themselves, self-heal. If a Pod is scheduled to a node that fails, or if the scheduling operation itself fails, the Pod is deleted; likewise, a Pod won't survive an eviction due to a lack of resources or node maintenance. Kubernetes uses a higher-level abstraction, called a *Controller*, that handles the work of managing the relatively disposable Pod instances. Thus, while it is possible to use Pod directly, it's far more common in Kubernetes to manage your pods using a Controller. See [Pods and Controllers](#pods-and-controllers) for more information on how Kubernetes uses Controllers to implement Pod scaling and healing.
 
-#### <a name="pods-and-controllers"></a> Pods and Controllers
+#### Pods and Controllers
 
 A Controller can create and manage multiple Pods for you, handling replication and rollout and providing self-healing capabilities at cluster scope. For example, if a node fails, the Controller might automatically replace the Pod by scheduling an identical replacement on a different node). 
 
