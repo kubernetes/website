@@ -3,6 +3,12 @@ title: Tasks
 redirect_from:
 - "/docs/user-guide/production-pods/"
 - "/docs/user-guide/production-pods.html"
+- "/docs/user-guide/simple-nginx/"
+- "/docs/user-guide/simple-nginx.html"
+- "/docs/user-guide/pods/single-container/"
+- "/docs/user-guide/pods/single-container.html"
+- "/docs/user-guide/configuring-containers/"
+- "/docs/user-guide/configuring-containers.html"
 ---
 
 This section of the Kubernetes documentation contains pages that
