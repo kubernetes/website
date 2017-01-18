@@ -30,7 +30,7 @@ In addition, Kubernetes contains a number of higher-level abstractions called Co
 
 * ReplicaSet
 * Deployment
-* [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/))
+* [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)
 * DaemonSet
 * Job
 
