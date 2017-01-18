@@ -4,7 +4,7 @@ title: Reviewing Documentation Issues
 
 {% capture overview %}
 
-This page explains how you should review and prioritize documentation issues made for the [kubernetes/kubernetes.github.io](https://github.com/kubernetes/kubernetes.github.io){: target="_blank"} repository. The purpose is to provide a way to organize issues and make it easier to contribute to Kubernetes documentation. The following should be used as the standard way of prioritizing, labeling, and interacting with issues.
+This page explains how documentation issues are reviewed and prioritized for the [kubernetes/kubernetes.github.io](https://github.com/kubernetes/kubernetes.github.io){: target="_blank"} repository. The purpose is to provide a way to organize issues and make it easier to contribute to Kubernetes documentation. The following should be used as the standard way of prioritizing, labeling, and interacting with issues.
 {% endcapture %}
 
 {% capture body %}
@@ -25,6 +25,9 @@ Issues should be sorted into different buckets of work using the following label
 #### Needs Docs Review
 * Issues that are suggestions for better processes or site improvements that require community agreement to be implemented
 * Topics can be brought to SIG meetings as agenda items
+
+#### Needs UX Review
+* Issues that are suggestions for improving the user interface of the site or fixing a broken UX. 
 
 
 ### Prioritizing Issues
