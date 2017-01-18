@@ -154,6 +154,17 @@ The [minikube start](./docs/minikube_start.md) command can be used to start your
 This command creates and configures a virtual machine that runs a single-node Kubernetes cluster.
 This command also configures your [kubectl](http://kubernetes.io/docs/user-guide/kubectl-overview/) installation to communicate with this cluster.
 
+If you are behind a web proxy, you will need to pass this information in e.g. via
+
+```
+https_proxy=<my proxy> minikube start --docker-env HTTP_PROXY=<my proxy> --docker-env HTTPS_PROXY=<my proxy> --docker-env NO_PROXY=192.168.99.0/24
+```
+
+Unfortunately just setting the environment variables will not work.
+
+Minikube will also create a "minikube" context, and set it to default in kubectl.
+To switch back to this context later, run this command: `kubectl config use-context minikube`.
+
 ### Configuring Kubernetes
 
 Minikube has a "configurator" feature that allows users to configure the Kubernetes components with arbitrary values.
