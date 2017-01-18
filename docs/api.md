@@ -77,7 +77,7 @@ groups*](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/doc
 same underlying resources.  The API group is specified in a REST path and in the `apiVersion` field
 of a serialized object.
 
-Currently there are two API groups in use:
+Currently there are several API groups in use:
 
 1. the "core" group, which is at REST path `/api/v1` and is not specified as part of the `apiVersion` field, e.g.
    `apiVersion: v1`.
