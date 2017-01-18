@@ -24,7 +24,7 @@
 
 {% if whatsnext %}
 
-### What's next
+## What's next
 
 {{ whatsnext }}
 
