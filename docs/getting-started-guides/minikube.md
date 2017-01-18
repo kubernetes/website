@@ -225,7 +225,7 @@ Any services of type `NodePort` can be accessed over that IP address, on the Nod
 
 To determine the NodePort for your service, you can use a `kubectl` command like this:
 
-`kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].NodePort}"'`
+`kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
 ## Persistent Volumes
 Minikube supports [PersistentVolumes](http://kubernetes.io/docs/user-guide/persistent-volumes/) of type `hostPath`.
