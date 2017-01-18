@@ -10,6 +10,7 @@ This page provides an overview of `Pod`, the smallest deployable object in the K
 {:toc}
 
 {% capture body %}
+### Understanding Pods
 
 A *Pod* is the basic building block of Kubernetes--the smallest and simplest unit in the Kubernetes object model that you create or deploy. A Pod represents a running process on your cluster.
 
@@ -71,11 +72,10 @@ In general, Controllers use a Pod Template that you provide to create the Pods f
 
 {% endcapture %}
 
+{% capture whatsnext %}
+* Learn more about Pod behavior:
+  * Pod Termination
+  * Other Pod Topics
+{% endcapture %}
 
-{% if whatsnext %}
-
-### What's next
-
-{{ whatsnext }}
-
-{% endif %}
+{% include templates/concept.md %}
