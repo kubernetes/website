@@ -99,7 +99,7 @@ kubectl cluster-info
 The next step is to write the application. Save this code in a folder named `hellonode`
 with the filename `server.js`:
 
-{% include code.html language="js" file="server.js" ghlink="docs/tutorials/stateless-application/server.js" %}
+{% include code.html language="js" file="server.js" ghlink="/docs/tutorials/stateless-application/server.js" %}
 
 Run your application:
 
