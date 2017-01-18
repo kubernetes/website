@@ -1,7 +1,7 @@
 ---
 assignees:
 - bboreham
-
+title: Weave Net Addon
 ---
 
 The [Weave Net Addon](https://www.weave.works/docs/net/latest/kube-addon/) for Kubernetes comes with a Network Policy Controller.
