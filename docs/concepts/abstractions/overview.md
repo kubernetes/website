@@ -1,4 +1,5 @@
 ---
+title: Kubernetes Objects
 ---
 
 {% capture overview %}
