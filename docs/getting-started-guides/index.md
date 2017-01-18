@@ -18,16 +18,14 @@ solution is the easiest to create and maintain.
 [Turn-key cloud solutions](#turn-key-cloud-solutions) require only a few commands to create
 and cover a wider range of cloud providers.
 
-[Custom solutions](#custom-solutions) require more effort to setup but cover and even
-they vary from step-by-step instructions to general advice for setting up
-a Kubernetes cluster from scratch.
+[Custom solutions](#custom-solutions) require more effort to setup but may cover a broader or specific set of use cases. The guidance for these solutions varies from step-by-step instructions to general advice for setting up one of these Kubernetes clusters from scratch.
 
 * TOC
 {:toc}
 
 ### Local-machine Solutions
 
-[Minikube](/docs/getting-started-guides/minikube/) is the recommended method for you to create a single node kubernetes cluster locally for purposes of development and testing. Setup is completely automated and doesn't require a cloud provider account.
+[Minikube](/docs/getting-started-guides/minikube/) is the recommended method for you to create a single node Kubernetes cluster locally for purposes of development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
 Use the [Minikube getting started guide](/docs/getting-started-guides/minikube/) to try it out.
 
@@ -53,7 +51,7 @@ clusters.
 
 ### Turn-key Cloud Solutions
 
-These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
+These solutions allow you to create Kubernetes clusters on a range of cloud IaaS providers with only a
 few commands, and have active community support.
 
 - [GCE](/docs/getting-started-guides/gce)
@@ -65,27 +63,27 @@ few commands, and have active community support.
 
 ### Custom Solutions
 
-Kubernetes can run on a wide range of Cloud providers and bare-metal environments, and with many
+Kubernetes can run on a wide range of cloud providers and bare-metal environments, and with many
 base operating systems.
 
-If you can find a guide below that matches your needs, use it.  It may be a little out of date, but
-it will be easier than starting from scratch.  If you do want to start from scratch because you
-have special requirements or just because you want to understand what is underneath a Kubernetes
+If you can find a guide below that matches your needs, use it.  It may be a little out of date but
+it will be easier then starting from scratch.  If you do want to start from scratch because you
+have special requirements or just because you want to understand the technical underpinnings of Kubernetes
 cluster, try the [Getting Started from Scratch](/docs/getting-started-guides/scratch) guide.
 
 If you are interested in supporting Kubernetes on a new platform, check out our [advice for
 writing a new solution](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/writing-a-getting-started-guide.md).
 
-#### Cloud
+#### Private or Public Cloud
 
-These solutions are combinations of cloud provider and OS not covered by the above solutions.
+These solutions are combinations of cloud provider and OS (i.e. custom solutions) not provided as hosted offerings or turn-key solutions:
 
 - [AWS + CoreOS](/docs/getting-started-guides/coreos)
 - [GCE + CoreOS](/docs/getting-started-guides/coreos)
 - [Ubuntu + AWS/GCE/Rackspace/Joyent](/docs/getting-started-guides/ubuntu/)
 - [Rackspace + CoreOS](/docs/getting-started-guides/rackspace)
 
-#### On-Premises VMs
+#### On-Premise VMs
 
 - [Vagrant](/docs/getting-started-guides/coreos) (uses CoreOS and flannel)
 - [CloudStack](/docs/getting-started-guides/cloudstack) (uses Ansible, CoreOS and flannel)
@@ -99,7 +97,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 - [libvirt](/docs/getting-started-guides/fedora/flannel_multi_node_cluster) (uses Fedora and flannel)
 - [KVM](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)  (uses Fedora and flannel)
 
-#### Bare Metal
+#### Bare-Metal
 
 - [Offline](/docs/getting-started-guides/coreos/bare_metal_offline) (no internet required.  Uses CoreOS and Flannel)
 - [fedora/fedora_ansible_config.md](/docs/getting-started-guides/fedora/fedora_ansible_config)
@@ -113,7 +111,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 
 #### Integrations
 
-These solutions provide integration with 3rd party schedulers, resource managers, and/or lower level platforms.
+These solutions provide integration with third-party schedulers, resource managers, and/or low-level platforms.
 
 - [Kubernetes on Mesos](/docs/getting-started-guides/mesos)
   - Instructions specify GCE, but are generic enough to be adapted to most existing Mesos clusters
