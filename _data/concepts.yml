@@ -2,6 +2,8 @@ bigheader: "Concepts"
 abstract: "Detailed explanations of Kubernetes system concepts and abstractions."
 toc:
 - docs/concepts/index.md
+
+- title: Kubernetes Objects
   section:
   - docs/concepts/abstractions/overview.md
   - docs/concepts/abstractions/pod.md
