@@ -157,11 +157,11 @@ This command also configures your [kubectl](http://kubernetes.io/docs/user-guide
 If you are behind a web proxy, you will need to pass this information in e.g. via
 
 ```
-
 https_proxy=<my proxy> minikube start --docker-env HTTP_PROXY=<my proxy> --docker-env HTTPS_PROXY=<my proxy> --docker-env NO_PROXY=192.168.99.0/24
+```
 
 Unfortunately just setting the environment variables will not work.
-```
+
 Minikube will also create a "minikube" context, and set it to default in kubectl.
 To switch back to this context later, run this command: `kubectl config use-context minikube`.
 
