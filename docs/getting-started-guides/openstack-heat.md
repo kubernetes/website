@@ -183,7 +183,7 @@ First, set your environment variables:
 To get all information about your cluster, use heat:
 
 ```sh
-heat stack-show $STACK_NAME
+openstack stack show $STACK_NAME
 ```
 
 To see a list of nodes, use nova:
