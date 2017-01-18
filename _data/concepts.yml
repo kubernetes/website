@@ -6,7 +6,7 @@ section:
 - title: Kubernetes Objects
   section:
   - docs/concepts/abstractions/overview.md
-  - docs/concepts/pod.md
+  - docs/concepts/abstractions/pod.md
   - title: Controllers
     section:
     - docs/concepts/abstractions/controllers/statefulsets.md
