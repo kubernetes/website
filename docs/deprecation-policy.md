@@ -73,6 +73,7 @@ version.  Beta API versions *may not* replace GA API versions.
 **Rule #4: Other than the most recent API version in each track, older API
 versions must be supported after their announced deprecation for a duration of
 no less than:**
+
    * **GA: 1 year or 2 releases (whichever is longer)**
    * **Beta: 3 months or 1 release (whichever is longer)**
    * **Alpha: 0 releases**
@@ -160,7 +161,7 @@ versions are supported in a series of subsequent releases.
     </tr>
     <tr>
       <td>X+9</td>
-      <td>v1, v2</td>
+      <td>v2</td>
       <td>
         <ul>
           <li>v1 is removed, "action required" relnote</li>
@@ -220,12 +221,14 @@ follows:
 
 **Rule #5a: CLI elements of user-facing components (e.g. kubectl) must function
 after their announced deprecation for no less than:**
+
    * **GA: 1 year or 2 releases (whichever is longer)**
    * **Beta: 3 months or 1 release (whichever is longer)**
    * **Alpha: 0 releases**
 
 **Rule #5b: CLI elements of admin-facing components (e.g. kubelet) must function
 after their announced deprecation for no less than:**
+
    * **GA: 6 months or 1 release (whichever is longer)**
    * **Beta: 3 months or 1 release (whichever is longer)**
    * **Alpha: 0 releases**

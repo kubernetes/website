@@ -25,8 +25,12 @@ for your platform.
 
 ## Optional: Build your own containers
 
-The code for the containers is under
-[containers/](/docs/user-guide/containers/)
+These are the configuration files for the containers:
+
+* [backend-rc.yaml](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/user-guide/environment-guide/backend-rc.yaml)
+* [backend-srv.yaml](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/user-guide/environment-guide/backend-srv.yaml)
+* [show-rc.yaml](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/user-guide/environment-guide/show-rc.yaml)
+* [show-srv.yaml](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/user-guide/environment-guide/show-srv.yaml)
 
 ## Get everything running
 

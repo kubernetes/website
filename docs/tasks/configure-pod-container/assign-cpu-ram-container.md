@@ -76,6 +76,19 @@ Ti, Gi, Mi, Ki. For example, the following represent approximately the same valu
 
     128974848, 129e6, 129M , 123Mi
 
+If you're not sure how much resources to request, you can first launch the
+application without specifying resources, and use
+[resource usage monitoring](/docs/user-guide/monitoring) to determine
+appropriate values.
+
+If a Container exceeds its RAM limit, it dies from an out-of-memory condition.
+You can improve reliability by specifying a value that is a little higher
+than what you expect to use.
+
+If you specify a request, a Pod is guaranteed to be able to use that much
+of the resource. See
+[Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resource-qos.md) for the difference between resource limits and requests.
+
 ### If you don't specify limits or requests
 
 If you don't specify a RAM limit, Kubernetes places no upper bound on the
@@ -83,6 +96,10 @@ amount of RAM a Container can use. A Container could use all the RAM
 available on the Node where the Container is running. Similarly, if you don't
 specify a CPU limit, Kubernetes places no upper bound on CPU resources, and a
 Container could use all of the CPU resources available on the Node.
+
+Default limits are applied according to a limit range for the default
+[namespace](/docs/user-guide/namespaces). You can use `kubectl describe limitrange limits`
+to see the default limits.
 
 For information about why you would want to specify limits, see
 [Setting Pod CPU and Memory Limits](/docs/admin/limitrange/).
