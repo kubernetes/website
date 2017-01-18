@@ -9,3 +9,4 @@ docs/api-reference/v1/definitions.md
 docs/api-reference/v1/operations.md
 docs/user-guide/pods/_viewing-a-pod.md
 docs/user-guide/simple-yaml.md
+docs/concepts/abstractions/pod-termination.md
