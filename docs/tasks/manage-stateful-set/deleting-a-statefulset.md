@@ -22,7 +22,7 @@ This task shows you how to delete a StatefulSet.
 
 {% capture steps %}
 
-### Deleting a StatefulSet
+## Deleting a StatefulSet
 
 You can delete a StatefulSet in the same way you delete other resources in Kubernetes: use the `kubectl delete` command, and specify the StatefulSet either by file or by name.
 
@@ -52,13 +52,13 @@ By passing `--cascade=false` to `kubectl delete`, the Pods managed by the Statef
 kubectl delete pods -l app=myapp
 ```
 
-#### Persistent Volumes
+### Persistent Volumes
 
 Deleting the Pods in a StatefulSet will not delete the associated volumes. This is to ensure that you have the chance to copy data off the volume before deleting it. Deleting the PVC after the pods have left the [terminating state](/docs/user-guide/pods/index#termination-of-pods) might trigger deletion of the backing Persistent Volumes depending on the storage class and reclaim policy. You should never assume ability to access a volume after claim deletion.
 
 **Note: Use caution when deleting a PVC, as it may lead to data loss.**
 
-#### Complete deletion of a StatefulSet
+### Complete deletion of a StatefulSet
 
 To simply delete everything in a StatefulSet, including the associated pods, you can run a series of commands similar to the following:
 
@@ -72,7 +72,7 @@ kubectl delete pvc -l app=myapp
 
 In the example above, the Pods have the label `app=myapp`; substitute your own label as appropriate.
 
-#### Force deletion of StatefulSet pods
+### Force deletion of StatefulSet pods
 
 If you find that some pods in your StatefulSet are stuck in the 'Terminating' or 'Unknown' states for an extended period of time, you may need to manually intervene to forcefully delete the pods from the apiserver. This is a potentially dangerous task. Refer to [Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/) for details.
 
