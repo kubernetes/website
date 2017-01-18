@@ -1,13 +1,12 @@
 ---
 assignees:
 - davidopp
-- lavalamp
 title: Configuring Kubernetes with Salt
 ---
 
 The Kubernetes cluster can be configured using Salt.
 
-The Salt scripts are shared across multiple hosting providers, so it's important to understand some background information prior to making a modification to ensure your changes do not break hosting Kubernetes across multiple environments.  Depending on where you host your Kubernetes cluster, you may be using different operating systems and different networking configurations.  As a result, it's important to understand some background information before making Salt changes in order to minimize introducing failures for other hosting providers.
+The Salt scripts are shared across multiple hosting providers and depending on where you host your Kubernetes cluster, you may be using different operating systems and different networking configurations. As a result, it's important to understand some background information before making Salt changes in order to minimize introducing failures for other hosting providers.
 
 ## Salt cluster setup
 
