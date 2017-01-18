@@ -1,3 +1,8 @@
+---
+
+title: Hello Minikube
+---
+
 {% capture overview %}
 
 The goal of this tutorial is for you to turn a simple Hello World Node.js app
@@ -41,7 +46,7 @@ create a local cluster. This tutorial also assumes you are using
 on OS X. If you are on a different platform like Linux, or using VirtualBox
 instead of Docker for Mac, the instructions to install Minikube may be
 slightly different. For general Minikube installation instructions, see
-the [Minikube installation guide](docs/getting-started-guides/minikube/).
+the [Minikube installation guide](/docs/getting-started-guides/minikube/).
 
 Use `curl` to download and install the latest Minikube release:
 
@@ -297,7 +302,7 @@ minikube stop
 {% capture whatsnext %}
 
 * Learn more about [Deployment objects](/docs/user-guide/deployments/).
-* Learn more about [Deploying applications](http://localhost:4000/docs/user-guide/deploying-applications/).
+* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
 * Learn more about [Service objects](/docs/user-guide/services/).
 
 {% endcapture %}

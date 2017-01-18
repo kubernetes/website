@@ -18,11 +18,11 @@ Issues should be sorted into different buckets of work using the following label
 * Allows contributors to have easy to find issues to work on 
 
 
-#### Tech Review Needed
+#### Needs Tech Review 
 * Issues that need more information in order to be worked on (the proposed solution needs to be proven, a subject matter expert needs to be involved, work needs to be done to understand the problem/resolution and if the issue is still relevant)
 * Promotes transparency about level of work needed for the issue and that issue is in progress 
 
-#### Docs Review Needed
+#### Needs Docs Review
 * Issues that are suggestions for better processes or site improvements that require community agreement to be implemented
 * Topics can be brought to SIG meetings as agenda items
 
