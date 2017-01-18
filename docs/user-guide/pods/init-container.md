@@ -79,8 +79,8 @@ Here are some ideas for how to use init containers:
   to generate a configuration file to be consumed by the main app contianer.
 ```
 
-Complete usage examples can be found in the [PetSets
-guide](docs/user-guide/petset/bootstrapping/index.md) and the [Production Pods
+Complete usage examples can be found in the [StatefulSets
+documentation](/docs/concepts/abstractions/controllers/statefulsets/) and the [Production Pods
 guide](/docs/user-guide/production-pods.md#handling-initialization).
 
 

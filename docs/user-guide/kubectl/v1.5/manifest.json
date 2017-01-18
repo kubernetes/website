@@ -1,0 +1,141 @@
+{
+  "docs": [
+    {
+      "filename": "_getting_started.md"
+    },
+    {
+      "filename": "_generated_run.md"
+    },
+    {
+      "filename": "_generated_expose.md"
+    },
+    {
+      "filename": "_app_management.md"
+    },
+    {
+      "filename": "_generated_annotate.md"
+    },
+    {
+      "filename": "_generated_autoscale.md"
+    },
+    {
+      "filename": "_generated_convert.md"
+    },
+    {
+      "filename": "_generated_create.md"
+    },
+    {
+      "filename": "_generated_delete.md"
+    },
+    {
+      "filename": "_generated_edit.md"
+    },
+    {
+      "filename": "_generated_get.md"
+    },
+    {
+      "filename": "_generated_label.md"
+    },
+    {
+      "filename": "_generated_patch.md"
+    },
+    {
+      "filename": "_generated_replace.md"
+    },
+    {
+      "filename": "_generated_rolling-update.md"
+    },
+    {
+      "filename": "_generated_rollout.md"
+    },
+    {
+      "filename": "_generated_scale.md"
+    },
+    {
+      "filename": "_generated_set.md"
+    },
+    {
+      "filename": "_generated_category_declarative_app_management.md"
+    },
+    {
+      "filename": "_generated_apply.md"
+    },
+    {
+      "filename": "_working_with_apps.md"
+    },
+    {
+      "filename": "_generated_attach.md"
+    },
+    {
+      "filename": "_generated_cp.md"
+    },
+    {
+      "filename": "_generated_describe.md"
+    },
+    {
+      "filename": "_generated_exec.md"
+    },
+    {
+      "filename": "_generated_logs.md"
+    },
+    {
+      "filename": "_generated_port-forward.md"
+    },
+    {
+      "filename": "_generated_proxy.md"
+    },
+    {
+      "filename": "_generated_top.md"
+    },
+    {
+      "filename": "_generated_category_cluster_management.md"
+    },
+    {
+      "filename": "_generated_api-versions.md"
+    },
+    {
+      "filename": "_generated_certificate.md"
+    },
+    {
+      "filename": "_generated_cluster-info.md"
+    },
+    {
+      "filename": "_generated_cordon.md"
+    },
+    {
+      "filename": "_generated_drain.md"
+    },
+    {
+      "filename": "_generated_taint.md"
+    },
+    {
+      "filename": "_generated_uncordon.md"
+    },
+    {
+      "filename": "_generated_category_kubectl_settings_and_usage.md"
+    },
+    {
+      "filename": "_generated_completion.md"
+    },
+    {
+      "filename": "_generated_config.md"
+    },
+    {
+      "filename": "_generated_explain.md"
+    },
+    {
+      "filename": "_generated_options.md"
+    },
+    {
+      "filename": "_generated_version.md"
+    },
+    {
+      "filename": "_generated_category_deprecated_commands.md"
+    },
+    {
+      "filename": "_generated_stop.md"
+    }
+  ],
+  "title": "Kubectl Reference Docs",
+  "copyright": "\u003ca href=\"https://github.com/kubernetes/kubernetes\"\u003eCopyright 2016 The Kubernetes Authors.\u003c/a\u003e"
+}
