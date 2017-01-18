@@ -27,7 +27,9 @@ The [Kubernetes Blog](http://blog.kubernetes.io) has some additional information
 * [The Distributed System Toolkit: Patterns for Composite Containers](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html)
 * [Container Design Patterns](http://blog.kubernetes.io/2016/06/container-design-patterns.html)
 
-Note that each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run muliple instances), you should use multiple Pods, one for each instance. In Kubernetes, such Pods are usually managed by a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
+Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run muliple instances), you should use multiple Pods, one for each instance. In Kubernetes, such Pods are usually managed by a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
+
+> Note: Restarting a container in a Pod should not be confused with _restarting_ the Pod itself.  The Pod itself does not run, but is an environment the containers run in and persists until it is deleted.
 
 #### How Pods Manage Multiple Containers
 
@@ -45,11 +47,11 @@ Each Pod is assigned a unique IP address. Every the container in a pod shares th
 
 ##### Storage
 
-A Pod can specify a set of shared storage *volumes*. All containers in the pod can access the shared volumes, allowing those containers to share data. Volumes also allow persistent data in a pod to survive in case one of the containers within needs to be restarted. See [Volumes]() for more information on how Kubernetes implements shared storage in a Pod.
+A Pod can specify a set of shared storage *volumes*. All containers in the pod can access the shared volumes, allowing those containers to share data. Volumes also allow persistent data in a pod to survive in case one of the containers within needs to be restarted. See Volumes for more information on how Kubernetes implements shared storage in a Pod.
 
 ### Working with Pods
 
-You'll rarely create individual Pods directly in Kubernetes--even singleton Pods. This is because Pods are designed as relatively ephemeral, disposable entities. When a Pod gets created (directly by you, or indirectly by a Controller), it is scheduled to run on a [node]() in your cluster. The Pod remains on that node until the process is terminated, the pod object is deleted, or the pod is *evicted* for lack of resources.
+You'll rarely create individual Pods directly in Kubernetes--even singleton Pods. This is because Pods are designed as relatively ephemeral, disposable entities. When a Pod gets created (directly by you, or indirectly by a Controller), it is scheduled to run on a node in your your cluster. The Pod remains on that node until the process is terminated, the pod object is deleted, or the pod is *evicted* for lack of resources.
 
 > Note: Restarting a container in a Pod should not be confused with restarting the Pod. The Pod itself does not run, but is an environment the containers run in and persists until it is deleted.
 
@@ -61,11 +63,11 @@ A Controller can create and manage multiple Pods for you, handling replication a
 
 Some examples of Controllers that contain one or more pods include:
 
-* [Deployment]()
-* [StatefulSet]()
-* [DaemonSet]()
+* Deployment
+* [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/)
+* DaemonSet
 
-In general, Controllers use a [Pod Template]() that you provide to create the Pods for which it is responsible.
+In general, Controllers use a Pod Template that you provide to create the Pods for which it is responsible.
 
 {% endcapture %}
 

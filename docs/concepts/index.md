@@ -26,11 +26,11 @@ The basic Kubernetes objects include:
 * Volume
 * Namespace
 
-In addition, Kubernetes contains a number of higher-level abstractions that build upon the basic objects, and provide additional functionality and convenience features. They include:
+In addition, Kubernetes contains a number of higher-level abstractions called Controllers. Controllers build upon the basic objects, and provide additional functionality and convenience features. They include:
 
 * ReplicaSet
 * Deployment
-* StatefulSet
+* [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/))
 * DaemonSet
 * Job
 
@@ -42,28 +42,18 @@ For example, When you use the Kubernetes API to create a Deployment object, for 
 
 ### Kubernetes Master
 
-The Kubernetes master is responsible for maintaining the desired state for your cluster. The Kubernetes master(s) runs the following processes:
+The Kubernetes master is responsible for maintaining the desired state for your cluster. When you interact with Kubernetes, such as by using the `kubectl` command-line interface, you're communicating with your cluster's Kubernetes master.
 
-* API Server
-* Scheduler
-* Etcd
-* Controller Manager
+> The "master" refers to a collection of processes managing the cluster state.  Typically these processes are all run on a single node in the cluster, and this node is also referred to as the master. The master can also be replicated for availability and redundnacy.
 
 ### Kubernetes Nodes
 
-The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. These nodes are controlled by the Kubernetes master. The following processes run on each node in a Kubernetes cluster:
-
-* Kubelet
-* Docker-daemon
-* kube-proxy
+The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. The Kubernetes master controls each node; you'll rarely interact with nodes directly.
 
 #### Object Metadata
 
 
 * [Annotations](/docs/concepts/object-metadata/annotations/)
-
-#### Controllers
-* [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 
 
 ### What's next
