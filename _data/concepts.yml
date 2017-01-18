@@ -3,13 +3,11 @@ abstract: "Detailed explanations of Kubernetes system concepts and abstractions.
 toc:
 - docs/concepts/index.md
   section:
-  - title: Kubernetes Objects
+  - docs/concepts/abstractions/overview.md
+  - docs/concepts/abstractions/pod.md
+  - title: Controllers
     section:
-    - docs/concepts/abstractions/overview.md
-    - docs/concepts/abstractions/pod.md
-    - title: Controllers
-      section:
-      - docs/concepts/abstractions/controllers/statefulsets.md
+    - docs/concepts/abstractions/controllers/statefulsets.md
 
 - title: Object Metadata
   section:
