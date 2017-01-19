@@ -82,7 +82,7 @@ If NO proxy is required, start the Minikube cluster:
 ```shell
 minikube start --vm-driver=xhyve
 ```
-If a proxy server is required, use below way to start Minikube cluster with proxy setting:
+If a proxy server is required, use the following method to start Minikube cluster with proxy setting:
 
 ```shell
 minikube start --vm-driver=xhyve --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
