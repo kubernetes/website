@@ -80,16 +80,23 @@ configuration file, the operations are imperative - create, replace, delete.
 
 ## Imperative object configuration example
 
-Create the objects defined in the object configuration file.
+Create the objects defined in the object configuration file
 
     ```sh
     kubectl create -f nginx.yaml
     ```
 
-Delete the objects defined in the object configuration files.
+Delete the objects defined in the object configuration files
 
     ```sh
     kubectl delete -f nginx.yaml -f redis.yaml
+    ```
+
+Update the objects defined in the object configuration files by overwriting
+the live configuration.
+
+    ```sh
+    kubectl replace -f nginx.yaml
     ```
 
 ## Imperative object configuration trade-offs
@@ -129,7 +136,7 @@ per-object by `kubectl`.  This enables working on directories, where
 different operations may be needed for different objects.
 
 **Note:** Declarative object configuration retains changes made by other
-writers, even if the changes are not written back to the object configuration file.
+writers, even if the changes are not merged back to the object configuration file.
 This is possible by using the *patch* API operation to write only
 observed differences, instead of using the *replace*
 API operation to replace the entire object configuration.
@@ -144,7 +151,7 @@ API operation to replace the entire object configuration.
 
 Advantages compared to *imperative object configuration*:
 
-- Updates keep changes made directly to live objects, even if they are not written back to the object config
+- Updates keep changes made directly to live objects, even if they are not merged back to the object config
 - Better support for operating on directories and automatically detecting operation types per-object *(create, patch, delete)*
 
 Disadvantages compared to *imperative object configuration*:
