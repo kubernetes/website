@@ -21,7 +21,7 @@ application-level disruption SLOs you want the system to enforce.
 
 {% capture steps %}
 
-### Use `kubectl drain` to remove a node from service
+## Use `kubectl drain` to remove a node from service
 
 You can use `kubectl drain` to safely evict all of your pods from a
 node before you perform maintenance on the node (e.g. kernel upgrade,
@@ -64,7 +64,7 @@ kubectl uncordon <node name>
 ```
 afterwards to tell Kubernetes that it can resume scheduling new pods onto the node.
 
-### Draining multiple nodes in parallel
+## Draining multiple nodes in parallel
 
 The `kubectl drain` command should only be issued to a single node at a
 time. However, you can run multiple `kubectl drain` commands for
