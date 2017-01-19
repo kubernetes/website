@@ -4,7 +4,7 @@ toc:
 - docs/concepts/index.md
 - title: Kubectl CLI
   section:
-  - docs/concepts/kubectl/app-management-overview.md
+  - docs/concepts/kubectl/object-management-overview.md
 - title: Object Metadata
   section:
   - docs/concepts/object-metadata/annotations.md
