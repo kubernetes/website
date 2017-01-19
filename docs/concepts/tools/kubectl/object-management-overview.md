@@ -57,7 +57,7 @@ Disadvantages compared to *object configuration*
 - Commands do not integrate with change review processes
 - Commands do not provide an audit trail associated with changes
 - Commands do not provide a source of record beside what is live
-- Commands do not provide a template for bootstrapping new applications
+- Commands do not provide a template for bootstrapping new objects
 
 <!---
 For a tutorial on how to use Imperative Commands for app management, see:
@@ -98,7 +98,7 @@ Advantages compared to *imperative commands*
 
 - Object configuration can be stored in a source control system such as *git*
 - Can integrate with processes such as reviewing changes before push and audit trails
-- Provides template for bootstrapping new applications
+- Provides template for bootstrapping new objects
 
 Disadvantages compared to *imperative commands*
 
