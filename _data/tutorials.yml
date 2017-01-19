@@ -29,9 +29,6 @@ toc:
     section:
     - docs/tutorials/kubernetes-basics/update-intro.html
     - docs/tutorials/kubernetes-basics/update-interactive.html
-- title: Kubectl CLI
-  section:
-  - docs/tutorials/kubectl/app-management-overview.md
 - title: Stateless Applications
   section:
   - docs/tutorials/stateless-application/hello-minikube.md
