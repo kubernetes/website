@@ -1,1 +1,0 @@
-# <strong>DEPRECATED COMMANDS</strong>
