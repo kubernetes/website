@@ -42,9 +42,9 @@ The UI can _only_ be accessed from the machine where the command is executed. Se
 You may access the UI directly via the Kubernetes master apiserver. Open a browser and navigate to `https://<kubernetes-master>/ui`, where `<kubernetes-master>` is IP address or domain name of the Kubernetes
 master.
 
-Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with the some setup tools (e.g., `kubeadm`). Refer to the  [authentication admin documentation](/docs/admin/authentication/) for information on how to configure authentication manually.
+Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with some setup tools (e.g., `kubeadm`). Refer to the  [authentication admin documentation](/docs/admin/authentication/) for information on how to configure authentication manually.
 
-If the username and password is configured but unknown to you, then use `kubectl config view` to find it.
+If the username and password are configured but unknown to you, then use `kubectl config view` to find it.
 
 ## Welcome view
 
