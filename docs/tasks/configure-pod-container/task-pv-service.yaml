@@ -1,9 +1,0 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: task-pv-service
-spec:
-  ports:
-  - protocol: TCP
-    port: 3000
-    targetPort: http-server
