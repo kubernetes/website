@@ -27,7 +27,7 @@ the general
 
 {% capture steps %}
 
-### Writing and reading a termination message
+## Writing and reading a termination message
 
 In this exercise, you create a Pod that runs one container.
 The configuration file specifies a command that runs when
@@ -75,7 +75,7 @@ only the termination message:
 {% raw %}    kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"{% endraw %}
 ```
 
-### Setting the termination log file
+## Setting the termination log file
 
 By default Kubernetes retrieves termination messages from
 `/dev/termination-log`. To change this to a different file,
