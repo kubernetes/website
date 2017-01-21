@@ -135,7 +135,7 @@ eval $(minikube docker-env)
 ```
 
 **Note:** Later, when you no longer wish to use the Minikube host, you can undo
-this change by running `eval $(minikube docker-env) -u`.
+this change by running `eval $(minikube docker-env -u)`.
 
 Build your Docker image, using the Minikube Docker daemon:
 
