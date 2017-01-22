@@ -1,5 +1,14 @@
 ---
 title: Tasks
+redirect_from:
+- "/docs/user-guide/production-pods/"
+- "/docs/user-guide/production-pods.html"
+- "/docs/user-guide/simple-nginx/"
+- "/docs/user-guide/simple-nginx.html"
+- "/docs/user-guide/pods/single-container/"
+- "/docs/user-guide/pods/single-container.html"
+- "/docs/user-guide/configuring-containers/"
+- "/docs/user-guide/configuring-containers.html"
 ---
 
 This section of the Kubernetes documentation contains pages that
@@ -16,6 +25,8 @@ single thing, typically by giving a short sequence of steps.
 * [Pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry/)
 * [Configuring Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
 * [Communicating Between Pods Running in the Same Container](/docs/tasks/configure-pod-container/communicate-containers-same-pod/)
+* [Configuring Pod Initialization](/docs/tasks/configure-pod-container/configure-pod-initialization/)
+* [Attaching Handlers to Container Lifecycle Events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
 
 #### Accessing Applications in a Cluster
 

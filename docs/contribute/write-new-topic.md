@@ -13,7 +13,7 @@ Create a fork of the Kubernetes documentation repository as described in
 
 {% capture steps %}
 
-### Choosing a page type
+## Choosing a page type
 
 As you prepare to write a new topic, think about which of these page types
 is the best fit for your content:
@@ -42,7 +42,7 @@ Each page type has a
 that you can use as you write your topic.
 Using templates helps ensure consistency among topics of a given type.
 
-### Choosing a title and filename
+## Choosing a title and filename
 
 Choose a title that has the keywords you want search engines to find.
 Create a filename that uses the words in your title separated by hyphens.
@@ -54,7 +54,18 @@ URL for the topic, for example:
 
        http://kubernetes.io/docs/tasks/access-kubernetes-api/http-proxy-access-api/
 
-### Choosing a directory
+## Adding the topic title to the front matter
+
+In your topic, put a `title` field in the
+[front matter](https://jekyllrb.com/docs/frontmatter/).
+The front matter is the YAML block that is between the
+triple-dashed lines at the top of the page. Here's an example:
+
+    ---
+    title: Using an HTTP Proxy to Access the Kubernetes API
+    ---
+
+## Choosing a directory
 
 Depending on your page type, put your new file in a subdirectory of one of these:
 
@@ -65,7 +76,7 @@ Depending on your page type, put your new file in a subdirectory of one of these
 You can put your file in an existing subdirectory, or you can create a new
 subdirectory.
 
-### Creating an entry in the table of contents
+## Creating an entry in the table of contents
 
 Depending page type, create an entry in one of these files:
 
@@ -73,7 +84,11 @@ Depending page type, create an entry in one of these files:
 * /_data/tutorials.yaml
 * /_data/concepts.yaml
 
-### Including code from another file
+Here's an example of an entry in /_data/tasks.yaml:
+
+    - docs/tasks/configure-pod-container/configure-volume-storage.md
+
+## Including code from another file
 
 To include a code file in your topic, place the code file in the Kubernetes
 documentation repository, preferably in the same directory as your topic
@@ -92,7 +107,7 @@ Here's an example of using the `include` tag:
 
 <pre>&#123;% include code.html language="yaml" file="gce-volume.yaml" ghlink="/docs/tutorials/stateful-application/gce-volume.yaml" %&#125;</pre>
 
-### Showing how to create an API object from a configuration file
+## Showing how to create an API object from a configuration file
 
 If you need to show the reader how to create an API object based on a
 configuration file, place the configuration file in the Kubernetes documentation
@@ -112,7 +127,7 @@ Here's an example of a command that creates an API object from a configuration f
 For an example of a topic that uses this technique, see
 [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/).
 
-### Adding images to a topic
+## Adding images to a topic
 
 Put image files in the `/images` directory. The preferred
 image format is SVG.

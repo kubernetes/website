@@ -1,4 +1,5 @@
 ---
+
 title: Hello Minikube
 ---
 
@@ -37,7 +38,7 @@ driver.
 
 {% capture lessoncontent %}
 
-### Create a Minikube cluster
+## Create a Minikube cluster
 
 This tutorial uses [Minikube](https://github.com/kubernetes/minikube) to
 create a local cluster. This tutorial also assumes you are using
@@ -45,7 +46,7 @@ create a local cluster. This tutorial also assumes you are using
 on OS X. If you are on a different platform like Linux, or using VirtualBox
 instead of Docker for Mac, the instructions to install Minikube may be
 slightly different. For general Minikube installation instructions, see
-the [Minikube installation guide](docs/getting-started-guides/minikube/).
+the [Minikube installation guide](/docs/getting-started-guides/minikube/).
 
 Use `curl` to download and install the latest Minikube release:
 
@@ -93,12 +94,12 @@ Verify that `kubectl` is configured to communicate with your cluster:
 kubectl cluster-info
 ```
 
-### Create your Node.js application
+## Create your Node.js application
 
 The next step is to write the application. Save this code in a folder named `hellonode`
 with the filename `server.js`:
 
-{% include code.html language="js" file="server.js" ghlink="docs/tutorials/stateless-application/server.js" %}
+{% include code.html language="js" file="server.js" ghlink="/docs/tutorials/stateless-application/server.js" %}
 
 Run your application:
 
@@ -112,7 +113,7 @@ Stop the running Node.js server by pressing **Ctrl-C**.
 
 The next step is to package your application in a Docker container.
 
-### Create a Docker container image
+## Create a Docker container image
 
 Create a file, also in the `hellonode` folder, named `Dockerfile`. A Dockerfile describes
 the image that you want to build. You can build a Docker container image by extending an
@@ -144,7 +145,7 @@ docker build -t hello-node:v1 .
 
 Now the Minikube VM can run the image you built.
 
-### Create a Deployment
+## Create a Deployment
 
 A Kubernetes [*Pod*](/docs/user-guide/pods/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
@@ -205,7 +206,7 @@ kubectl config view
 For more information about `kubectl`commands, see the
 [kubectl overview](/docs/user-guide/kubectl-overview/).
 
-### Create a Service
+## Create a Service
 
 By default, the Pod is only accessible by its internal IP address within the
 Kubernetes cluster. To make the `hello-node` Container accessible from outside the
@@ -253,7 +254,7 @@ you should now be able to see some logs:
 kubectl logs <POD-NAME>
 ```
 
-### Update your app
+## Update your app
 
 Edit your `server.js` file to return a new message:
 
@@ -280,7 +281,7 @@ Run your app again to view the new message:
 minikube service hello-node
 ```
 
-### Clean up
+## Clean up
 
 Now you can clean up the resources you created in your cluster:
 
@@ -301,7 +302,7 @@ minikube stop
 {% capture whatsnext %}
 
 * Learn more about [Deployment objects](/docs/user-guide/deployments/).
-* Learn more about [Deploying applications](http://localhost:4000/docs/user-guide/deploying-applications/).
+* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
 * Learn more about [Service objects](/docs/user-guide/services/).
 
 {% endcapture %}

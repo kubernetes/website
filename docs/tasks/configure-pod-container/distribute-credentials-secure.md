@@ -15,7 +15,7 @@ encryption keys, into Pods.
 
 {% capture steps %}
 
-### Converting your secret data to a base-64 representation
+## Converting your secret data to a base-64 representation
 
 Suppose you want to have two pieces of secret data: a username `my-app` and a password
 `39528$vdg7Jb`. First, use [Base64 encoding](https://www.base64encode.org/) to
@@ -28,7 +28,7 @@ example:
 The output shows that the base-64 representation of your username is `bXktYXBwCg==`,
 and the base-64 representation of your password is `Mzk1MjgkdmRnN0piCg==`.
 
-### Creating a Secret
+## Creating a Secret
 
 Here is a configuration file you can use to create a Secret that holds your
 username and password:
@@ -72,7 +72,7 @@ username and password:
         password:   13 bytes
         username:   7 bytes
 
-### Creating a Pod that has access to the secret data through a Volume
+## Creating a Pod that has access to the secret data through a Volume
 
 Here is a configuration file you can use to create a Pod:
 
@@ -119,7 +119,7 @@ is exposed:
         my-app
         39528$vdg7Jb
 
-### Creating a Pod that has access to the secret data through environment variables
+## Creating a Pod that has access to the secret data through environment variables
 
 Here is a configuration file you can use to create a Pod:
 
@@ -160,7 +160,7 @@ Here is a configuration file you can use to create a Pod:
 * Learn more about [Secrets](/docs/user-guide/secrets/).
 * Learn about [Volumes](/docs/user-guide/volumes/).
 
-#### Reference
+### Reference
 
 * [Secret](docs/api-reference/v1/definitions/#_v1_secret)
 * [Volume](docs/api-reference/v1/definitions/#_v1_volume)
