@@ -15,7 +15,7 @@ of Services, and how you can toggle this behavior according to your needs.
 
 {% include task-tutorial-prereqs.md %}
 
-### Terminology
+## Terminology
 
 This document makes use of the following terms:
 
@@ -26,7 +26,7 @@ This document makes use of the following terms:
 * [Kube-proxy](/docs/user-guide/services/#virtual-ips-and-service-proxies): a network daemon that orchestrates Service VIP management on every node
 
 
-### Prerequisites
+## Prerequisites
 
 You must have a working Kubernetes 1.5 cluster to run the examples in this
 document. The examples use a small nginx webserver that echoes back the source
@@ -50,7 +50,7 @@ deployment "source-ip-app" created
 
 {% capture lessoncontent %}
 
-### Source IP for Services with Type=ClusterIP
+## Source IP for Services with Type=ClusterIP
 
 Packets sent to ClusterIP from within the cluster are never source NAT'd if
 you're running kube-proxy in [iptables mode](/docs/user-guide/services/#proxy-mode-iptables),
@@ -107,7 +107,7 @@ command=GET
 ...
 ```
 
-### Source IP for Services with Type=NodePort
+## Source IP for Services with Type=NodePort
 
 As of Kubernetes 1.5, packets sent to Services with [Type=NodePort](/docs/user-guide/services/#type-nodeport)
 are source NAT'd by default. You can test this by creating a `NodePort` Service:
@@ -204,7 +204,7 @@ Visually:
 
 
 
-### Source IP for Services with Type=LoadBalancer
+## Source IP for Services with Type=LoadBalancer
 
 As of Kubernetes 1.5, packets sent to Services with [Type=LoadBalancer](/docs/user-guide/services/#type-loadbalancer) are
 source NAT'd by default, because all schedulable Kubernetes nodes in the
