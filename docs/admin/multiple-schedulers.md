@@ -26,7 +26,7 @@ and build the source.
 ```shell
 git clone https://github.com/kubernetes/kubernetes.git
 cd kubernetes
-hack/build-go.sh
+make
 ```
 
 Create a container image containing the kube-scheduler binary. Here is the `Dockerfile`
