@@ -26,7 +26,7 @@ This task shows you how to debug a StatefulSet.
 
 {% capture steps %}
 
-### Debugging a StatefulSet
+## Debugging a StatefulSet
 
 In order to list all the pods which belong to a StatefulSet, which have a label `app=myapp` set on them, you can use the following: 
 
@@ -44,7 +44,7 @@ kubectl annotate pods <pod-name> pod.alpha.kubernetes.io/initialized="false" --o
 
 When the annotation is set to `"false"`, the StatefulSet will not respond to its Pods becoming unhealthy or unavailable. It will not create replacement Pods till the annotation is removed or set to `"true"` on each StatefulSet Pod. 
 
-#### Step-wise Initialization
+### Step-wise Initialization
 
 You can also use the same annotation to debug race conditions during bootstrapping of the StatefulSet by setting the `pod.alpha.kubernetes.io/initialized` annotation to `"false"` in the `.spec.template.metadata.annotations` field of the StatefulSet prior to creating it. 
 

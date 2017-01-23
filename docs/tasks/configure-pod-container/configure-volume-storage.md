@@ -23,7 +23,7 @@ key-value cache and store.
 
 {% capture steps %}
 
-### Configuring a volume for a Pod
+## Configuring a volume for a Pod
 
 In this exercise, you create a Pod that runs one Container. This Pod has a
 Volume of type
