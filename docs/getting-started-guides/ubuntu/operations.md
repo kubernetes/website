@@ -120,7 +120,7 @@ juju show-status kubernetes-worker --format json | \
 	jq --raw-output '.applications."kubernetes-worker".units | keys[]' | \
 	xargs -I UNIT juju ssh UNIT "sudo sed -i 's/KUBELET_ARGS=\"/KUBELET_ARGS=\"--allow-privileged\ /' /etc/default/kubelet && sudo systemctl restart kubelet.service"
 ```
-
+ 
 
 {% endcapture %}
 
