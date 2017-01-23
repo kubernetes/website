@@ -19,14 +19,17 @@ The guidance for cluster-level logging assumes that a logging backend is present
 
 ## Basic logging in Kubernetes
 
-In this section, you can see an example of basic logging in Kubernetes that outputs data to the standard output stream. This demonstration uses a [pod specification](/docs/user-guide/logging/counter-pod.yaml) with a container that writes some text to standard output once per second.
+In this section, you can see an example of basic logging in Kubernetes that
+outputs data to the standard output stream. This demonstration uses
+a [pod specification](/docs/user-guide/logging/examples/counter-pod.yaml) with
+a container that writes some text to standard output once per second.
 
-{% include code.html language="yaml" file="counter-pod.yaml" ghlink="/docs/user-guide/counter-pod.yaml" %}
+{% include code.html language="yaml" file="examples/counter-pod.yaml" ghlink="/docs/user-guide/logging/examples/counter-pod.yaml" %}
 
 To run this pod, use the following command:
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/user-guide/counter-pod.yaml
+$ kubectl create -f http://k8s.io/docs/user-guide/logging/examples/counter-pod.yaml
 pod "counter" created
 ```
 
@@ -34,12 +37,9 @@ To fetch the logs, use the `kubectl logs` command, as follows
 
 ```shell
 $ kubectl logs counter
-0: Tue Jun  2 21:37:31 UTC 2015
-1: Tue Jun  2 21:37:32 UTC 2015
-2: Tue Jun  2 21:37:33 UTC 2015
-3: Tue Jun  2 21:37:34 UTC 2015
-4: Tue Jun  2 21:37:35 UTC 2015
-5: Tue Jun  2 21:37:36 UTC 2015
+0: Mon Jan  1 00:00:00 UTC 2001
+1: Mon Jan  1 00:00:01 UTC 2001
+2: Mon Jan  1 00:00:02 UTC 2001
 ...
 ```
 
@@ -105,17 +105,112 @@ Kubernetes doesn't specify a logging agent, but two optional logging agents are 
 
 ### Using a sidecar container with the logging agent
 
-![Using a sidecar container with the logging agent](/images/docs/user-guide/logging/logging-with-sidecar.png)
+You can use a sidecar container in one of the following ways:
 
-You can implement cluster-level logging by including a dedicated logging agent for each application on your cluster. You can include this logging agent as a _sidecar container_ in the pod spec for each application; the sidecar container should contain only the logging agent.
+* Sidecar container streams application logs to it's own `stdout`.
+* Sidecar container contains a logging agent, which is configured to pick up logs from an application container.
 
-The concrete implementation of the logging agent, the interface between agent and the application, and the interface between the logging agent and the logs backend are completely up to a you. For an example implementation, see the [fluentd sidecar container](https://github.com/kubernetes/contrib/tree/b70447aa59ea14468f4cd349760e45b6a0a9b15d/logging/fluentd-sidecar-gcp) for the Stackdriver logging backend.
+#### Streaming sidecar container
 
-**Note:** Using a sidecar container for logging may lead to significant resource consumption.
+![Sidecar container with a streaming container](/images/docs/user-guide/logging/logging-with-streaming-sidecar.png)
+
+Using this approach you can re-use per-node agent and kubelet log handling
+mechanisms. A separate container should contain simple piece of software that
+reads logs from a file, a socket or the journald and prints it to the
+`stdout` or `stderr`. This solution also allows to separate several log streams
+from different parts of an application, some of which can lack support
+for writing to stdout or stderr. Since the logic behind redirecting logs
+is minimal, it's hardly a significant overhead. Additionally, since
+stdout and stderr are handled by the kubelet, you have the ability
+to use tools like `kubectl logs` out of the box.
+
+Consider the following example: there is an application, writing to two files
+in different formats, with the following specification:
+
+{% include code.html language="yaml" file="examples/two-files-counter-pod.yaml" ghlink="/docs/user-guide/logging/examples/two-files-counter-pod.yaml" %}
+
+It would be a mess to have log entries of different formats in the same log
+stream, even if you managed to redirect both components to the stdout of
+a container. Instead, let's use the described earlier approach, introducing
+two container, tailing a log file from a shared volume and redirecting it
+to a standard output.
+
+{% include code.html language="yaml" file="examples/two-files-counter-pod-streaming-sidecar.yaml" ghlink="/docs/user-guide/logging/examples/two-files-counter-pod-streaming-sidecar.yaml" %}
+
+Now, if you run this pod, you can access each log stream separately by
+running the following commands:
+
+```shell
+$ kubectl logs counter count-log-1
+0: Mon Jan  1 00:00:00 UTC 2001
+1: Mon Jan  1 00:00:01 UTC 2001
+2: Mon Jan  1 00:00:02 UTC 2001
+...
+```
+
+```shell
+$ kubectl logs counter count-log-2
+Mon Jan  1 00:00:00 UTC 2001 INFO 0
+Mon Jan  1 00:00:01 UTC 2001 INFO 1
+Mon Jan  1 00:00:02 UTC 2001 INFO 2
+...
+```
+
+Node-level agent, installed in your cluster will pick those log streams
+automatically without any further configuration. Agent then can be
+configured to parse log lines depending on the source container.
+
+Note, that despite low cpu and memory usage (order or couple of millicores
+for cpu and order of several megabytes for memory), writing logs to a file and
+then streaming them to stdout can double disk usage. If you have
+an application which writes to a single file, it's generally better to set
+`/dev/stdout` as destination rather than implementing streaming sidecar
+container approach.
+
+Sidecar container can also be used to rotate log files which cannot be
+rotated by the application itself. [An example](https://github.com/samsung-cnct/logrotate)
+of this approach is a small container running logrotate periodically.
+However, it's recommended to use stdout and sterr directly and leave rotation
+and retention policies to kubelet.
+
+#### Sidecar container with a logging agent
+
+![Sidecar container with a logging agent](/images/docs/user-guide/logging/logging-with-sidecar-agent.png)
+
+If node-level agent is not flexible enought, there is an option to create
+a side-container with a separate logging agent, which you configured
+specifically to run with the given application.
+
+**Note**, however, that using a logging agent in a sidecar container may lead
+to significant resource consumption. Moreover, you won't be able to access
+those logs using `kubectl logs` command, since they are not controlled
+by the kubelet.
+
+As an example, let's use [Stackdriver logging agent](/docs/user-guide/logging/stackdriver/)
+with the same application as above.
+
+Logging agent inside a container should be configured. One good way to
+configure container is using [Config Maps](/docs/user-guide/configmap/).
+Let's create a config map with the agent configuration. Explaining the
+configuration of fluentd, used as a Stackdriver logging agent is not
+the purpose of this article, you can learn more in
+[the official fluentd documentation](http://docs.fluentd.org/).
+
+{% include code.html language="yaml" file="examples/fluentd-sidecar-config.yaml" ghlink="/docs/user-guide/logging/examples/fluentd-sidecar-config.yaml" %}
+
+Now you can add a sidecar container to the original pod, mounting this
+configuration to a place from where fluentd picks it up.
+
+{% include code.html language="yaml" file="examples/two-files-counter-pod-agent-sidecar.yaml" ghlink="/docs/user-guide/logging/examples/two-files-counter-pod-agent-sidecar.yaml" %}
+
+After some time you can find log messages in the Stackdriver interface.
+
+Remember, that this is just an example and you can actually replace fluentd
+with any logging agent, reading from any source inside an application
+container.
 
 ### Exposing logs directly from the application
 
 ![Exposing logs directly from the application](/images/docs/user-guide/logging/logging-from-application.png)
 
 You can implement cluster-level logging by exposing or pushing logs directly from every application itself; however, the implementation for such a logging mechanism is outside the scope of Kubernetes.
-
