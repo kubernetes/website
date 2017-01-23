@@ -22,7 +22,7 @@ $ kubectl run my-nginx --image=nginx --replicas=2 --port=80
 deployment "my-nginx" created
 ```
 
-To expose your service to the public internet, run:
+To expose your service to the public Internet, run:
 
 ```shell
 $ kubectl expose deployment my-nginx --target-port=80 --type=LoadBalancer
@@ -49,7 +49,7 @@ NAME         CLUSTER_IP       EXTERNAL_IP       PORT(S)                AGE
 my-nginx     10.179.240.1     25.1.2.3          80/TCP                 8s
 ```
 
-You may need to wait for a minute or two for the external ip address to be provisioned.
+You may need to wait for a minute or two for the external IP address to be provisioned.
 
 In order to access your nginx landing page, you also have to make sure that traffic from external IPs is allowed. Do this by opening a [firewall to allow traffic on port 80](/docs/user-guide/services-firewalls).
 
