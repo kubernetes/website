@@ -27,6 +27,7 @@ Supports AWS, GCE, Azure, Joyent, OpenStack, Bare Metal and local workstation de
   - [Storage](/docs/getting-started-guides/ubuntu/storage)
   - [Troubleshooting](/docs/getting-started-guides/ubuntu/troubleshooting)
   - [Decommissioning](/docs/getting-started-guides/ubuntu/decommissioning)
+  - [Operational Considerations](/docs/getting-started-guides/ubuntu/operational-considerations)
   - [Glossary](/docs/getting-started-guides/ubuntu/glossary)
 
 ## Developer Guides
