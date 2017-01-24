@@ -145,9 +145,9 @@ spec:
     volumeMounts:
 ```
 
-Note that our nginx container has picked up the namespace default cpu and memory resource *limits* and *requests*.
+Note that our nginx container has picked up the namespace default CPU and memory resource *limits* and *requests*.
 
-Let's create a pod that exceeds our allowed limits by having it have a container that requests 3 cpu cores.
+Let's create a pod that exceeds our allowed limits by having it have a container that requests 3 CPU cores.
 
 ```shell
 $ kubectl create -f docs/admin/limitrange/invalid-pod.yaml --namespace=limit-example
