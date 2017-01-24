@@ -6,17 +6,17 @@ toc:
 - title: "Kubernetes Resource Types (New Docs Style)"
   section:
   - title: Version 1.5
-    path: /docs/resources-reference/1_5/
+    path: /docs/resources-reference/v1.5/
 
 - title: "Kubernetes API (New Docs Style)"
   section:
   - title: Version 1.5
-    path: /docs/api-reference/1_5/
+    path: /docs/api-reference/v1.5/
 
 - title: "Kubectl Commands (New Docs Style)"
   section:
   - title: Version 1.5
-    path: /docs/user-guide/kubectl/1_5/
+    path: /docs/user-guide/kubectl/v1.5/
 
 - title: Kubernetes API
   section:

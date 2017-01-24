@@ -18,7 +18,7 @@ title: Using Page Templates
 
 <p>The page templates are in the <a href="https://github.com/kubernetes/kubernetes.github.io/tree/master/_includes/templates" target="_blank">_includes/templates</a> directory of the <a href="https://github.com/kubernetes/kubernetes.github.io">kubernetes.github.io</a> repository.
 
-<h3 id="task_template">Task template</h3>
+<h2 id="task_template">Task template</h2>
 
 <p>A task page shows how to do a single thing, typically by giving a short
 sequence of steps. Task pages have minimal explanation, but often provide links
@@ -36,10 +36,15 @@ variables, and then include templates/task.md:</p>
     <li>whatsnext - optional</li>
 </ul>
 
+<p>In the <code>steps</code> section, use <code>##</code> to start with a level-two heading. For subheadings,
+use <code>###</code> and <code>####</code> as needed. Similarly, if you choose to have a <code>discussion</code> section,
+start the section with a level-two heading.</p>
+
 <p>Here's an example of a Markdown file that uses the task template:</p>
 
 {% raw %}
 <pre>---
+title: Configuring This Thing
 ---
 
 {% capture overview %}
@@ -52,14 +57,14 @@ This page shows how to ...
 {% endcapture %}
 
 {% capture steps %}
-### Doing ...
+## Doing ...
 
 1. Do this.
 1. Do this next. Possibly read this [related explanation](...).
 {% endcapture %}
 
 {% capture discussion %}
-### Understanding ...
+## Understanding ...
 
 Here's an interesting thing to know about the steps you just did.
 {% endcapture %}
@@ -77,7 +82,7 @@ Here's an interesting thing to know about the steps you just did.
 
 <p><a href="/docs/tasks/access-kubernetes-api/http-proxy-access-api">Using an HTTP Proxy to Access the Kubernetes API</a></p>
 
-<h3 id="tutorial_template">Tutorial template</h3>
+<h2 id="tutorial_template">Tutorial template</h2>
 
 <p>A tutorial page shows how to accomplish a goal that is larger than a single
 task. Typically a tutorial page has several sections, each of which has a
@@ -99,10 +104,14 @@ variables, and then include templates/tutorial.md:</p>
     <li>whatsnext - optional</li>
 </ul>
 
+<p>In the <code>lessoncontent</code> section, use <code>##</code> to start with a level-two heading. For subheadings,
+use <code>###</code> and <code>####</code> as needed.
+
 <p>Here's an example of a Markdown file that uses the tutorial template:</p>
 
 {% raw %}
 <pre>---
+title: Running a Thing
 ---
 
 {% capture overview %}
@@ -121,17 +130,17 @@ This page shows how to ...
 {% endcapture %}
 
 {% capture lessoncontent %}
-### Building ...
+## Building ...
 
 1. Do this.
 1. Do this next. Possibly read this [related explanation](...).
 
-### Running ...
+## Running ...
 
 1. Do this.
 1. Do this next.
 
-### Understanding the code
+## Understanding the code
 Here's something interesting about the code you ran in the preceding steps.
 {% endcapture %}
 
@@ -153,7 +162,7 @@ Here's something interesting about the code you ran in the preceding steps.
 
 <p><a href="/docs/tutorials/stateless-application/run-stateless-application-deployment/">Running a Stateless Application Using a Deployment</a></p>
 
-<h3 id="concept_template">Concept template</h3>
+<h2 id="concept_template">Concept template</h2>
 
 <p>A concept page explains some aspect of Kubernetes. For example, a concept
 page might describe the Kubernetes Deployment object and explain the role it
@@ -171,10 +180,14 @@ variables, and then include templates/concept.md:</p>
     <li>whatsnext - optional</li>
 </ul>
 
+<p>In the <code>body</code> section, use <code>##</code> to start with a level-two heading. For subheadings,
+use <code>###</code> and <code>####</code> as needed.
+
 <p>Here's an example of a page that uses the concept template:</p>
 
 {% raw %}
 <pre>---
+title: Understanding this Thing
 ---
 
 {% capture overview %}
@@ -182,11 +195,11 @@ This page explains ...
 {% endcapture %}
 
 {% capture body %}
-### Understanding ...
+## Understanding ...
 
 Kubernetes provides ...
 
-### Using ...
+## Using ...
 
 To use ...
 {% endcapture %}
