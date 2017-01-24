@@ -15,7 +15,7 @@ PersistentVolume.
 
 {% capture steps %}
 
-### Why change reclaim policy of a PersistentVolume
+## Why change reclaim policy of a PersistentVolume
 
 `PersistentVolumes` can have various reclaim policies, including "Retain",
 "Recycle", and "Delete". For dynamically provisioned `PersistentVolumes`, 
@@ -27,7 +27,7 @@ policy. With the "Retain" policy, if a user deletes a `PeristentVolumeClaim`,
 the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to the
 `Released` phase, where all of its data can be manually recovered.
 
-### Changing the reclaim policy of a PersistentVolume
+## Changing the reclaim policy of a PersistentVolume
 
 1. List the PersistentVolumes in your cluster:
 
@@ -70,7 +70,7 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 * Learn more about [PersistentVolumes](/docs/user-guide/persistent-volumes/).
 * Learn more about [PersistentVolumeClaims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims).
 
-#### Reference
+### Reference
 
 * [PersistentVolume](/docs/api-reference/v1/definitions/#_v1_persistentvolume)
 * [PersistentVolumeClaim](/docs/api-reference/v1/definitions/#_v1_persistentvolumeclaim)

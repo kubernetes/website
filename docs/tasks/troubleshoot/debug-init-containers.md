@@ -30,7 +30,7 @@ Init Containers.
 
 {% capture steps %}
 
-### Checking the status of Init Containers
+## Checking the status of Init Containers
 
 The Pod status will give you an overview of Init Container execution:
 
@@ -49,7 +49,7 @@ NAME         READY     STATUS     RESTARTS   AGE
 See [Understanding Pod status](#understanding-pod-status) for more examples of
 status values and their meanings.
 
-### Getting details about Init Containers
+## Getting details about Init Containers
 
 You can see detailed information about Init Container execution by running:
 
@@ -98,7 +98,7 @@ kubectl get pod <pod-name> --template '{{index .metadata.annotations "pod.beta.k
 
 This will return the same information as above, but in raw JSON format.
 
-### Accessing logs from Init Containers
+## Accessing logs from Init Containers
 
 You can access logs for an Init Container by passing its Container name along
 with the Pod name:
@@ -115,7 +115,7 @@ commands as they're executed. For example, you can do this in Bash by running
 
 {% capture discussion %}
 
-### Understanding Pod status
+## Understanding Pod status
 
 A Pod status beginning with `Init:` summarizes the status of Init Container
 execution. The table below describes some example status values that you might
