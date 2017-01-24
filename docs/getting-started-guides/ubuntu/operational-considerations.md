@@ -27,21 +27,90 @@ To bootstrap a controller with constraints run the following command:
 juju bootstrap --contraints "mem=8GB cpu-cores=4 root-disk=128G"
 ```
 
-Juju will elect the cheapest instance type matching your constraints on your target cloud. You can also use the ```instance-type``` constraint in conjunction with ```root-disk``` for strict control. For more information about the constraints available, refer to the [official documentation](https://jujucharms.com/docs/stable/reference-constraints)
+Juju will select the cheapest instance type matching your constraints on your target cloud. You can also use the ```instance-type``` constraint in conjunction with ```root-disk``` for strict control. For more information about the constraints available, refer to the [official documentation](https://jujucharms.com/docs/stable/reference-constraints)
 
 Additional information about logging can be found in the [logging section](/docs/getting-started-guides/ubuntu/logging)
 
-### Connecting on the Controller Node
+### SSHing into the Controller Node
 
-By default, Juju will create a pair of SSH key that it will use to automate the connection to units. They are stored on the client node in ```~/.local/share/juju/ssh/```
+By default, Juju will create a pair of SSH keys that it will use to automate the connection to units. They are stored on the client node in ```~/.local/share/juju/ssh/```
 
-After deployment, Juju Controller is a "silent unit" that acts as a proxy between the client and the deployed applications. Nevertheless it can be useful to SSH into it. To do so run the following command from your client node: 
+After deployment, Juju Controller is a "silent unit" that acts as a proxy between the client and the deployed applications. Nevertheless it can be useful to SSH into it. 
+
+First you need to understand your environment, especially if you run several Juju models and controllers. Run
 
 ```
-ssh -i ./.local/share/juju/ssh/juju_id_rsa ubuntu@<public-ip-of-juju-controller>
+juju list-models --all
+$ juju models --all
+Controller: k8s
+
+Model             Cloud/Region   Status     Machines  Cores  Access  Last connection
+admin/controller  lxd/localhost  available         1      -  admin   just now
+admin/default     lxd/localhost  available         0      -  admin   2017-01-23
+admin/whale*      lxd/localhost  available         6      -  admin   3 minutes ago
+
 ```
 
-where ```public-ip-of-juju-controller``` can be found in ```~/.local/share/juju/controllers.yaml``` in the ```api-endpoints``` section. 
+The first line ```Controller: k8s``` refers to how you bootstrapped. 
+
+Then you will see 2, 3 or more models listed below. 
+
+* admin/controller is the default model that hosts all controller units of juju
+* admin/default is created by default as the primary model to host the user application, such as the Kubernetes cluster
+* admin/whale is an additional model created if you use conjure-up as an overlay on top of Juju. 
+
+Now to ssh into a controller node, you first ask Juju to switch context, then ssh as you would with a normal unit: 
+
+```
+juju switch controller
+```
+
+At this stage, you can query the controller model as well: 
+
+```
+juju status
+Model       Controller  Cloud/Region   Version
+controller  k8s		   lxd/localhost  2.0.2
+
+App  Version  Status  Scale  Charm  Store  Rev  OS  Notes
+
+Unit  Workload  Agent  Machine  Public address  Ports  Message
+
+Machine  State    DNS           Inst id        Series  AZ
+0        started  10.191.22.15  juju-2a5ed8-0  xenial  
+```
+
+Note that if you had bootstrapped in HA mode, you would see several machines listed. 
+
+Now ssh-ing into the controller follows the same semantic as classic Juju commands: 
+
+```
+$ juju ssh 0
+Welcome to Ubuntu 16.04.1 LTS (GNU/Linux 4.8.0-34-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+0 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Tue Jan 24 16:38:13 2017 from 10.191.22.1
+ubuntu@juju-2a5ed8-0:~$ 
+```
+
+When you are done and want to come back to your initial model, exit the controller and
+
+
+Then if you need to switch back to your cluster and ssh into the units, run
+
+```
+juju switch default
+```
 
 ## Managing your Kubernetes cluster
 
