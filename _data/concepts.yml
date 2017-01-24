@@ -2,9 +2,16 @@ bigheader: "Concepts"
 abstract: "Detailed explanations of Kubernetes system concepts and abstractions."
 toc:
 - docs/concepts/index.md
+- title: Kubectl Command Line
+  section:
+  - docs/concepts/tools/kubectl/object-management-overview.md
+- title: Kubernetes Objects
+  section:
+  - docs/concepts/abstractions/overview.md
+  - docs/concepts/abstractions/pod.md
+  - title: Controllers
+    section:
+    - docs/concepts/abstractions/controllers/statefulsets.md
 - title: Object Metadata
   section:
   - docs/concepts/object-metadata/annotations.md
-- title: Controllers
-  section:
-  - docs/concepts/abstractions/controllers/statefulsets.md

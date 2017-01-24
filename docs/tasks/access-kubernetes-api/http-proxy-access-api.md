@@ -19,13 +19,13 @@ This page shows how to use an HTTP proxy to access the Kubernetes API.
 
 {% capture steps %}
 
-### Using kubectl to start a proxy server
+## Using kubectl to start a proxy server
 
 This command starts a proxy to the Kubernetes API server:
 
     kubectl proxy --port=8080
 
-### Exploring the Kubernetes API
+## Exploring the Kubernetes API
 
 When the proxy server is running, you can explore the API using `curl`, `wget`,
 or a browser.
