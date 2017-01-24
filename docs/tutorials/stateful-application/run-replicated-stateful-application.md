@@ -49,12 +49,12 @@ on general patterns for running stateful applications in Kubernetes.
 
 {% capture lessoncontent %}
 
-### Deploying MySQL
+## Deploying MySQL
 
 The example MySQL deployment consists of a ConfigMap, two Services,
 and a StatefulSet.
 
-#### ConfigMap
+### ConfigMap
 
 Create the ConfigMap from the following YAML configuration file:
 
@@ -74,7 +74,7 @@ portions to apply to different Pods.
 Each Pod decides which portion to look at as it's initializing,
 based on information provided by the StatefulSet controller.
 
-#### Services
+### Services
 
 Create the Services from the following YAML configuration file:
 
@@ -100,7 +100,7 @@ Because there is only one MySQL master, clients should connect directly to the
 MySQL master Pod (through its DNS entry within the Headless Service) to execute
 writes.
 
-#### StatefulSet
+### StatefulSet
 
 Finally, create the StatefulSet from the following YAML configuration file:
 
@@ -133,7 +133,7 @@ This manifest uses a variety of techniques for managing stateful Pods as part of
 a StatefulSet. The next section highlights some of these techniques to explain
 what happens as the StatefulSet creates Pods.
 
-### Understanding stateful Pod initialization
+## Understanding stateful Pod initialization
 
 The StatefulSet controller starts Pods one at a time, in order by their
 ordinal index.
@@ -146,7 +146,7 @@ In this case, that results in Pods named `mysql-0`, `mysql-1`, and `mysql-2`.
 The Pod template in the above StatefulSet manifest takes advantage of these
 properties to perform orderly startup of MySQL replication.
 
-#### Generating configuration
+### Generating configuration
 
 Before starting any of the containers in the Pod spec, the Pod first runs any
 [Init Containers](/docs/user-guide/production-pods/#handling-initialization)
@@ -175,7 +175,7 @@ Combined with the StatefulSet controller's
 this ensures the MySQL master is Ready before creating slaves, so they can begin
 replicating.
 
-#### Cloning existing data
+### Cloning existing data
 
 In general, when a new Pod joins the set as a slave, it must assume the MySQL
 master might already have data on it. It also must assume that the replication
@@ -196,7 +196,7 @@ from the Pod whose ordinal index is one lower.
 This works because the StatefulSet controller always ensures Pod `N` is
 Ready before starting Pod `N+1`.
 
-#### Starting replication
+### Starting replication
 
 After the Init Containers complete successfully, the regular containers run.
 The MySQL Pods consist of a `mysql` container that runs the actual `mysqld`
@@ -220,7 +220,7 @@ connections from other Pods requesting a data clone.
 This server remains up indefinitely in case the StatefulSet scales up, or in
 case the next Pod loses its PersistentVolumeClaim and needs to redo the clone.
 
-### Sending client traffic
+## Sending client traffic
 
 You can send test queries to the MySQL master (hostname `mysql-0.mysql`)
 by running a temporary container with the `mysql:5.7` image and running the
@@ -287,13 +287,13 @@ endpoint might be selected upon each connection attempt:
 You can press **Ctrl+C** when you want to stop the loop, but it's useful to keep
 it running in another window so you can see the effects of the following steps.
 
-### Simulating Pod and Node downtime
+## Simulating Pod and Node downtime
 
 To demonstrate the increased availability of reading from the pool of slaves
 instead of a single server, keep the `SELECT @@server_id` loop from above
 running while you force a Pod out of the Ready state.
 
-#### Break the Readiness Probe
+### Break the Readiness Probe
 
 The [readiness probe](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks)
 for the `mysql` container runs the command `mysql -h 127.0.0.1 -e 'SELECT 1'`
@@ -333,7 +333,7 @@ after a few seconds:
 kubectl exec mysql-2 -c mysql -- mv /usr/bin/mysql.off /usr/bin/mysql
 ```
 
-#### Delete Pods
+### Delete Pods
 
 The StatefulSet also recreates Pods if they're deleted, similar to what a
 ReplicaSet does for stateless Pods.
@@ -348,7 +348,7 @@ PersistentVolumeClaim.
 You should see server ID `102` disappear from the loop output for a while
 and then return on its own.
 
-#### Drain a Node
+### Drain a Node
 
 If your Kubernetes cluster has multiple Nodes, you can simulate Node downtime
 (such as when Nodes are upgraded) by issuing a
@@ -407,7 +407,7 @@ Now uncordon the Node to return it to a normal state:
 kubectl uncordon <node-name>
 ```
 
-### Scaling the number of slaves
+## Scaling the number of slaves
 
 With MySQL replication, you can scale your read query capacity by adding slaves.
 With StatefulSet, you can do this with a single command:

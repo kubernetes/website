@@ -21,7 +21,7 @@ Container is terminated.
 
 {% capture steps %}
 
-### Defining postStart and preStop handlers
+## Defining postStart and preStop handlers
 
 In this exercise, you create a Pod that has one Container. The Container has handlers
 for the postStart and preStop events.
@@ -60,7 +60,7 @@ The output shows the text written by the postStart handler:
 
 {% capture discussion %}
 
-### Discussion
+## Discussion
 
 Kubernetes sends the postStart event immediately after the Container is created.
 There is no guarantee, however, that the postStart handler is called before
@@ -83,7 +83,7 @@ unless the Pod's grace period expires. For more details, see
 * Learn more about the [lifecycle of a Pod](https://kubernetes.io/docs/user-guide/pod-states/).
 
 
-#### Reference
+### Reference
  
 * [Lifecycle](https://kubernetes.io/docs/resources-reference/1_5/#lifecycle-v1)
 * [Container](https://kubernetes.io/docs/resources-reference/1_5/#container-v1)
