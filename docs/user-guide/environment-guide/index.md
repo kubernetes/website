@@ -79,7 +79,7 @@ First the frontend pod's information is printed. The pod name and
 [namespace](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md) are retrieved from the
 [Downward API](/docs/user-guide/downward-api). Next, `USER_VAR` is the name of
 an environment variable set in the [pod
-definition](/docs/user-guide/environment-guide/show-rc.yaml). Then, the dynamic Kubernetes environment
+definition](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/user-guide/environment-guide/show-rc.yaml). Then, the dynamic Kubernetes environment
 variables are scanned and printed. These are used to find the backend
 service, named `backend-srv`. Finally, the frontend pod queries the
 backend service and prints the information returned. Again the backend
