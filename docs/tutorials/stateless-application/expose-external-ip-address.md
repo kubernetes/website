@@ -36,7 +36,7 @@ external IP address.
 
 {% capture lessoncontent %}
 
-### Creating a service for an application running in five pods
+## Creating a service for an application running in five pods
 
 1. Run a Hello World application in your cluster:
 

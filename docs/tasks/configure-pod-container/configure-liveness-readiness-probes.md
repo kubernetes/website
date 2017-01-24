@@ -30,7 +30,7 @@ When a Pod is not ready, it is removed from Service load balancers.
 
 {% capture steps %}
 
-### Defining a liveness command
+## Defining a liveness command
 
 Many applications running for long periods of time eventually transition to
 broken states, and cannot recover except by being restarted. Kubernetes provides
@@ -117,7 +117,7 @@ NAME            READY     STATUS    RESTARTS   AGE
 liveness-exec   1/1       Running   1          1m
 ```
 
-### Defining a liveness HTTP request
+## Defining a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
 file for a Pod that runs a container based on the `gcr.io/google_containers/liveness`
@@ -173,7 +173,7 @@ the Container has been restarted:
 kubectl describe pod liveness-http
 ```
 
-### Using a named port
+## Using a named port
 
 You can use a named
 [ContainerPort](/docs/api-reference/v1/definitions/#_v1_containerport)
@@ -191,7 +191,7 @@ livenessProbe:
   port: liveness-port
 ```
 
-### Defining readiness probes
+## Defining readiness probes
 
 Sometimes, applications are temporarily unable to serve traffic.
 For example, an application might need to load large data or configuration
@@ -219,7 +219,7 @@ readinessProbe:
 
 {% capture discussion %}
 
-### Discussion
+## Discussion
 
 {% comment %}
 Eventually, some of this Discussion section could be moved to a concept topic.
@@ -260,7 +260,7 @@ In addition to command probes and HTTP probes, Kubenetes supports
 * Learn more about
 [Health Checking section](/docs/user-guide/walkthrough/k8s201/#health-checking).
 
-#### Reference
+### Reference
 
 * [Pod](http://kubernetes.io/docs/api-reference/v1/definitions#_v1_pod)
 * [Container](/docs/api-reference/v1/definitions/#_v1_container)

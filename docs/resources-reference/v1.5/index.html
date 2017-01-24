@@ -202,7 +202,7 @@ Appears In <a href="#podstatus-v1">PodStatus</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Batch</td>
 <td>v2alpha1</td>
 <td>CronJob</td>
 </tr>
@@ -373,7 +373,7 @@ Appears In <a href="#cronjob-v2alpha1">CronJob</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Extensions</td>
 <td>v1beta1</td>
 <td>DaemonSet</td>
 </tr>
@@ -530,7 +530,7 @@ Appears In <a href="#daemonset-v1beta1">DaemonSet</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Extensions</td>
 <td>v1beta1</td>
 <td>Deployment</td>
 </tr>
@@ -794,7 +794,7 @@ apiVersion:</span> batch/v1
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Batch</td>
 <td>v1</td>
 <td>Job</td>
 </tr>
@@ -947,7 +947,7 @@ Appears In <a href="#job-v1">Job</a> </aside>
 </blockquote>
 <pre class="code-block example"><code class="lang-yaml">
 <span class="hljs-attribute">apiVersion</span>: v1
-<span class="hljs-attribute">kind</span>: Pob
+<span class="hljs-attribute">kind</span>: Pod
 <span class="hljs-attribute">metadata</span>:
   <span class="hljs-attribute">name</span>: pod-example
 <span class="hljs-attribute">spec</span>:
@@ -1201,7 +1201,7 @@ Appears In <a href="#pod-v1">Pod</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Extensions</td>
 <td>v1beta1</td>
 <td>ReplicaSet</td>
 </tr>
@@ -1529,7 +1529,7 @@ Appears In <a href="#replicationcontroller-v1">ReplicationController</a> </aside
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Apps</td>
 <td>v1beta1</td>
 <td>StatefulSet</td>
 </tr>
@@ -1766,7 +1766,7 @@ Appears In <a href="#endpointslist-v1">EndpointsList</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Extensions</td>
 <td>v1beta1</td>
 <td>Ingress</td>
 </tr>
@@ -2371,7 +2371,7 @@ Appears In <a href="#persistentvolumeclaim-v1">PersistentVolumeClaim</a> </aside
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Storage</td>
 <td>v1beta1</td>
 <td>StorageClass</td>
 </tr>
@@ -2788,7 +2788,7 @@ Appears In <a href="#limitrange-v1">LimitRange</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Autoscaling</td>
 <td>v1</td>
 <td>HorizontalPodAutoscaler</td>
 </tr>
@@ -3031,7 +3031,7 @@ Appears In <a href="#daemonsetspec-v1beta1">DaemonSetSpec</a> <a href="#deployme
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Policy</td>
 <td>v1beta1</td>
 <td>PodDisruptionBudget</td>
 </tr>
@@ -3170,7 +3170,7 @@ Appears In <a href="#poddisruptionbudget-v1beta1">PodDisruptionBudget</a> </asid
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Extensions</td>
 <td>v1beta1</td>
 <td>ThirdPartyResource</td>
 </tr>
@@ -3297,7 +3297,7 @@ Appears In <a href="#thirdpartyresourcelist-v1beta1">ThirdPartyResourceList</a> 
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Certificates</td>
 <td>v1alpha1</td>
 <td>CertificateSigningRequest</td>
 </tr>
@@ -3428,7 +3428,7 @@ Appears In <a href="#certificatesigningrequest-v1alpha1">CertificateSigningReque
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>RbacAuthorization</td>
 <td>v1alpha1</td>
 <td>ClusterRole</td>
 </tr>
@@ -3503,7 +3503,7 @@ Appears In <a href="#clusterrolelist-v1alpha1">ClusterRoleList</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>RbacAuthorization</td>
 <td>v1alpha1</td>
 <td>ClusterRoleBinding</td>
 </tr>
@@ -3657,7 +3657,7 @@ Appears In <a href="#componentstatuslist-v1">ComponentStatusList</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Authorization</td>
 <td>v1beta1</td>
 <td>LocalSubjectAccessReview</td>
 </tr>
@@ -4315,7 +4315,7 @@ Appears In <a href="#resourcequota-v1">ResourceQuota</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>RbacAuthorization</td>
 <td>v1alpha1</td>
 <td>Role</td>
 </tr>
@@ -4390,7 +4390,7 @@ Appears In <a href="#rolelist-v1alpha1">RoleList</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>RbacAuthorization</td>
 <td>v1alpha1</td>
 <td>RoleBinding</td>
 </tr>
@@ -4469,7 +4469,7 @@ Appears In <a href="#rolebindinglist-v1alpha1">RoleBindingList</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Authorization</td>
 <td>v1beta1</td>
 <td>SelfSubjectAccessReview</td>
 </tr>
@@ -4619,7 +4619,7 @@ Appears In <a href="#serviceaccountlist-v1">ServiceAccountList</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Authorization</td>
 <td>v1beta1</td>
 <td>SubjectAccessReview</td>
 </tr>
@@ -4728,7 +4728,7 @@ Appears In <a href="#localsubjectaccessreview-v1beta1">LocalSubjectAccessReview<
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Authentication</td>
 <td>v1beta1</td>
 <td>TokenReview</td>
 </tr>
@@ -4821,7 +4821,7 @@ Appears In <a href="#tokenreview-v1beta1">TokenReview</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Extensions</td>
 <td>v1beta1</td>
 <td>NetworkPolicy</td>
 </tr>
@@ -10173,7 +10173,7 @@ Appears In  <a href="#persistentvolumespec-v1">PersistentVolumeSpec</a>  <a href
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Extensions</td>
 <td>v1beta1</td>
 <td>HorizontalPodAutoscaler</td>
 </tr>
@@ -10319,7 +10319,7 @@ Appears In <a href="#horizontalpodautoscaler-v1beta1">HorizontalPodAutoscaler</a
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Extensions</td>
 <td>v1beta1</td>
 <td>Job</td>
 </tr>
@@ -10477,7 +10477,7 @@ Appears In <a href="#job-v1beta1">Job</a> </aside>
 </thead>
 <tbody>
 <tr>
-<td>Core</td>
+<td>Batch</td>
 <td>v2alpha1</td>
 <td>Job</td>
 </tr>
