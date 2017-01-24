@@ -1,8 +1,8 @@
 ---
 assignees:
 - dlorenc
-- janetkuo
-- jlowdermilk
+- r2d4 
+- aaron-prindle
 title: Running Kubernetes Locally via Minikube
 ---
 
@@ -31,19 +31,7 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 * Linux
     * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [KVM](http://www.linux-kvm.org/) installation,
 * VT-x/AMD-v virtualization must be enabled in BIOS
-* `kubectl` must be on your path. To install kubectl:
-
-**Kubectl for Linux/amd64**
-
-```
-curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-```
-
-**Kubectl for OS X/amd64**
-
-```
-curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/{{page.version}}/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-```
+* `kubectl` See the [kubectl installation instructions](/docs/getting-started-guides/kubectl/) for more details.
 
 ### Instructions
 
@@ -175,7 +163,7 @@ This flag is repeated, so you can pass it several times with several different v
 This flag takes a string of the form `component.key=value`, where `component` is one of the strings from the above list, `key` is a value on the
 configuration struct and `value` is the value to set.
 
-Valid `key`s can be found by examining the documentation for the Kubernetes `componentconfigs` for each component. 
+Valid `key`s can be found by examining the documentation for the Kubernetes `componentconfigs` for each component.
 Here is the documentation for each supported configuration:
 
 * [kubelet](https://godoc.org/k8s.io/kubernetes/pkg/apis/componentconfig#KubeletConfiguration)
@@ -191,7 +179,7 @@ To change the `MaxPods` setting to 5 on the Kubelet, pass this flag: `--extra-co
 
 This feature also supports nested structs. To change the `LeaderElection.LeaderElect` setting to `true` on the scheduler, pass this flag: `--extra-config=scheduler.LeaderElection.LeaderElect=true`.
 
-To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.AuthorizationMode=RBAC`. 
+To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.AuthorizationMode=RBAC`.
 
 ### Stopping a Cluster
 The [minikube stop](https://github.com/kubernetes/minikube/blob/master/docs/minikube_stop.md) command can be used to stop your cluster.
