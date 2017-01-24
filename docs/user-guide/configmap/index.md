@@ -317,10 +317,7 @@ spec:
   restartPolicy: Never
 ```
 
-When this pod is run, its output will include the lines:
-
-```shell
-```
+When this pod is run, the output will be empty.
 
 ### Use-Case: Set command-line arguments with ConfigMap
 
