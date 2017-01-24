@@ -9,7 +9,7 @@ There are multiple ways to run a Kubernetes cluster with Ubuntu. These pages exp
 {% capture body %}
 ## Official Ubuntu Guides
 
-- [The Canonical Distribution of Kubernetes](/docs/getting-started-guides/ubuntu)
+- [The Canonical Distribution of Kubernetes](https://www.ubuntu.com/cloud/kubernetes)
 
 Supports AWS, GCE, Azure, Joyent, OpenStack, Bare Metal and local workstation deployment.
 

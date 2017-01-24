@@ -20,7 +20,7 @@ the next one is started. If the init container fails, Kubernetes will restart
 the pod until the init container succeeds. If a pod is marked as `RestartNever`,
 the pod will fail if the init container fails.
 
-You specify a container as an init container by adding an annotation
+You specify a container as an init container by adding an annotation. 
 The annotation key is `pod.beta.kubernetes.io/init-containers`.  The annotation
 value is a JSON array of [objects of type `v1.Container`
 ](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_container)
@@ -155,7 +155,7 @@ reasons:
 
 * An init container image is changed by a user updating the Pod Spec.
   * App container image changes only restart the app container.
-* The pod infrastructure container is restarted
+* The pod infrastructure container is restarted.
   * This is uncommon and would have to be done by someone with root access to nodes.
 * All containers in a pod are terminated, requiring a restart (RestartPolicyAlways) AND the record of init container completion has been lost due to garbage collection.
 
