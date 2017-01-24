@@ -23,7 +23,7 @@ to 512MB of memory.  The cluster operator creates a separate namespace for each 
 each namespace.
 3. Users may create a pod which consumes resources just below the capacity of a machine.  The left over space
 may be too small to be useful, but big enough for the waste to be costly over the entire cluster.  As a result,
-the cluster operator may want to set limits that a pod must consume at least 20% of the memory and cpu of their
+the cluster operator may want to set limits that a pod must consume at least 20% of the memory and CPU of their
 average node size in order to provide for more uniform scheduling and to limit waste.
 
 This example demonstrates how limits can be applied to a Kubernetes [namespace](/docs/admin/namespaces/walkthrough/) to control
@@ -101,7 +101,7 @@ The limits enumerated in a namespace are only enforced when a pod is created or 
 the cluster.  If you change the limits to a different value range, it does not affect pods that
 were previously created in a namespace.
 
-If a resource (cpu or memory) is being restricted by a limit, the user will get an error at time
+If a resource (CPU or memory) is being restricted by a limit, the user will get an error at time
 of creation explaining why.
 
 Let's first spin up a [Deployment](/docs/user-guide/deployments) that creates a single container Pod to demonstrate
