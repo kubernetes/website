@@ -102,7 +102,7 @@ A two-replica cluster is thus inferior, in terms of HA, to a single replica clus
 
 * When you add a master replica, cluster state (etcd) is copied to a new instance.
 If the cluster is large, it may take a long time to duplicate its state.
-This operation may be speed up by migrating etcd data directory, as described [here](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration) 
+This operation may be sped up by migrating etcd data directory, as described [here](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration) 
 (we are considering adding support for etcd data dir migration in future).
 
 ## Implementation notes
