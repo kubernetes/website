@@ -87,6 +87,7 @@ a *Namespace*.
 See [Admission control: Limit Range](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_limit_range.md)
 
 A namespace can be in one of two phases:
+
    * `Active` the namespace is in use
    * `Terminating` the namespace is being deleted, and can not be used for new objects
 
