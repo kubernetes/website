@@ -8,3 +8,4 @@ docs/user-guide/walkthrough/k8s201.md
 docs/user-guide/logging-demo/README.md
 docs/user-guide/downward-api/README.md
 docs/user-guide/configmap/README.md
+docs/concepts/abstractions/pod-termination.md
