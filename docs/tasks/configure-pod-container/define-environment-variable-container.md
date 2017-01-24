@@ -19,7 +19,7 @@ in a Kubernetes Pod.
 
 {% capture steps %}
 
-### Defining an environment variable for a container
+## Defining an environment variable for a container
 
 When you create a Pod, you can set environment variables for the containers
 that run in the Pod. To set environment variables, include the `env` or

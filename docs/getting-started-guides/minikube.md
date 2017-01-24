@@ -27,7 +27,7 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 ### Requirements
 
 * OS X
-    * [xhyve driver](./DRIVERS.md#xhyve-driver), [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [VMware Fusion](https://www.vmware.com/products/fusion) installation
+    * [xhyve driver](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#xhyve-driver), [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [VMware Fusion](https://www.vmware.com/products/fusion) installation
 * Linux
     * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [KVM](http://www.linux-kvm.org/) installation,
 * VT-x/AMD-v virtualization must be enabled in BIOS
@@ -57,8 +57,8 @@ the following drivers:
 
 * virtualbox
 * vmwarefusion
-* kvm ([driver installation](./DRIVERS.md#kvm-driver))
-* xhyve ([driver installation](./DRIVERS.md#xhyve-driver))
+* kvm ([driver installation](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#kvm-driver))
+* xhyve ([driver installation](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#xhyve-driver))
 
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 
@@ -111,7 +111,7 @@ This will use an alternative minikube ISO image containing both rkt, and Docker,
 
 ### Driver plugins
 
-See [DRIVERS](./DRIVERS.md) for details on supported drivers and how to install
+See [DRIVERS](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md) for details on supported drivers and how to install
 plugins, if required.
 
 ### Reusing the Docker daemon
@@ -150,9 +150,20 @@ Remember to turn off the imagePullPolicy:Always, as otherwise Kubernetes won't u
 
 ### Starting a Cluster
 
-The [minikube start](./docs/minikube_start.md) command can be used to start your cluster.
+The [minikube start](https://github.com/kubernetes/minikube/blob/master/docs/minikube_start.md) command can be used to start your cluster.
 This command creates and configures a virtual machine that runs a single-node Kubernetes cluster.
 This command also configures your [kubectl](http://kubernetes.io/docs/user-guide/kubectl-overview/) installation to communicate with this cluster.
+
+If you are behind a web proxy, you will need to pass this information in e.g. via
+
+```
+https_proxy=<my proxy> minikube start --docker-env HTTP_PROXY=<my proxy> --docker-env HTTPS_PROXY=<my proxy> --docker-env NO_PROXY=192.168.99.0/24
+```
+
+Unfortunately just setting the environment variables will not work.
+
+Minikube will also create a "minikube" context, and set it to default in kubectl.
+To switch back to this context later, run this command: `kubectl config use-context minikube`.
 
 ### Configuring Kubernetes
 
@@ -183,12 +194,12 @@ This feature also supports nested structs. To change the `LeaderElection.LeaderE
 To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.AuthorizationMode=RBAC`. 
 
 ### Stopping a Cluster
-The [minikube stop](./docs/minikube_stop.md) command can be used to stop your cluster.
+The [minikube stop](https://github.com/kubernetes/minikube/blob/master/docs/minikube_stop.md) command can be used to stop your cluster.
 This command shuts down the minikube virtual machine, but preserves all cluster state and data.
 Starting the cluster again will restore it to it's previous state.
 
 ### Deleting a Cluster
-The [minikube delete](./docs/minikube_delete.md) command can be used to delete your cluster.
+The [minikube delete](https://github.com/kubernetes/minikube/blob/master/docs/minikube_delete.md) command can be used to delete your cluster.
 This command shuts down and deletes the minikube virtual machine. No data or state is preserved.
 
 ## Interacting With your Cluster
@@ -225,7 +236,7 @@ Any services of type `NodePort` can be accessed over that IP address, on the Nod
 
 To determine the NodePort for your service, you can use a `kubectl` command like this:
 
-`kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].NodePort}"'`
+`kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
 ## Persistent Volumes
 Minikube supports [PersistentVolumes](http://kubernetes.io/docs/user-guide/persistent-volumes/) of type `hostPath`.
@@ -277,7 +288,7 @@ In order to have minikube properly start/restart custom addons, place the addon(
 
 ## Documentation
 
-For a list of minikube's available commands see the [full CLI docs](./docs/minikube.md).
+For a list of minikube's available commands see the [full CLI docs](https://github.com/kubernetes/minikube/blob/master/docs/minikube.md).
 
 ## Using Minikube with an HTTP Proxy
 

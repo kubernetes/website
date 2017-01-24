@@ -1,6 +1,6 @@
 language: go
 go:
-  - 1.6.2
+  - 1.7.3
 
 # Don't want default ./... here:
 install:
@@ -10,7 +10,14 @@ install:
 - go get -t -v k8s.io/kubernetes.github.io/test
 - git clone --depth=50 --branch=master https://github.com/kubernetes/md-check $HOME/gopath/src/k8s.io/md-check
 - go get -t -v k8s.io/md-check
+- rm $GOPATH/src/k8s.io/kubernetes/vendor/k8s.io/apimachinery
+- rm $GOPATH/src/k8s.io/kubernetes/vendor/k8s.io/apiserver
+- rm $GOPATH/src/k8s.io/kubernetes/vendor/k8s.io/client-go
+- cp -r $GOPATH/src/k8s.io/kubernetes/vendor/* $GOPATH/src/
+- rm -rf $GOPATH/src/k8s.io/kubernetes/vendor/*
+- cp -r $GOPATH/src/k8s.io/kubernetes/staging/src/* $GOPATH/src/
 
 script:
 - go test -v k8s.io/kubernetes.github.io/test
 - $GOPATH/bin/md-check --root-dir=$HOME/gopath/src/k8s.io/kubernetes.github.io
+- ./verify-docs-format.sh

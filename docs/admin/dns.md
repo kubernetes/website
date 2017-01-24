@@ -1,8 +1,7 @@
 ---
 assignees:
-- ArtfulCoder
 - davidopp
-- lavalamp
+- thockin
 title: Using DNS Pods and Services
 ---
 
@@ -48,8 +47,8 @@ selection from the set.
 
 ### SRV records
 
-SRV Records are created for named ports that are part of normal or Headless
-Services.
+SRV Records are created for named ports that are part of normal or [Headless
+Services](http://releases.k8s.io/docs/user-guide/services/#headless-services).
 For each named port, the SRV record would have the form
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
 For a regular service, this resolves to the port number and the CNAME:
@@ -384,7 +383,7 @@ for more information.
 
 ## References
 
-- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md)
+- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md)
 
 ## What's next
 - [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
