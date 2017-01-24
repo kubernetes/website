@@ -1,8 +1,8 @@
 ---
 assignees:
 - dlorenc
-- janetkuo
-- jlowdermilk
+- r2d4 
+- aaron-prindle
 title: Running Kubernetes Locally via Minikube
 ---
 
