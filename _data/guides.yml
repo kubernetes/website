@@ -164,6 +164,7 @@ toc:
         - docs/getting-started-guides/ubuntu/troubleshooting.md
         - docs/getting-started-guides/ubuntu/decommissioning.md
         - docs/getting-started-guides/ubuntu/calico.md
+        - docs/getting-started-guides/ubuntu/operational-considerations.md
         - docs/getting-started-guides/ubuntu/glossary.md
         - docs/getting-started-guides/ubuntu/local.md
         - docs/getting-started-guides/ubuntu/logging.md
