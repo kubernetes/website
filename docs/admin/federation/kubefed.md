@@ -33,6 +33,12 @@ or later
 extract the binaries in the tarball to one of the directories
 in your `$PATH` and set the executable permission on those binaries.
 
+Note: The URL in the curl command below downloads the binaries for
+Linux amd64. If you are on a different platform, please use the URL
+for the binaries appropriate for your platform. You can find the list
+of available binaries on the [release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#client-binaries-3)
+
+
 ```shell
 curl -O https://storage.googleapis.com/kubernetes-release/release/v1.5.0/kubernetes-client-linux-amd64.tar.gz
 tar -xzvf kubernetes-client-linux-amd64.tar.gz
@@ -141,12 +147,13 @@ local kubeconfig. If it fails to find a matching context, it exits
 with an error.
 
 This might cause issues in cases where context names for each cluster
-in the federation don't follow RFC 1035 label naming rules. In such
-cases, you can specify a cluster name that conforms to the RFC 1035
-label naming rules and specify the cluster context using the
-`--cluster-context` flag. For example, if context of the cluster your
-are joining is `gondor_needs-no_king`, then you can
-join the cluster by running:
+in the federation don't follow
+[RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) label naming rules.
+In such cases, you can specify a cluster name that conforms to the
+[RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) label naming rules
+and specify the cluster context using the `--cluster-context` flag.
+For example, if context of the cluster your are joining is
+`gondor_needs-no_king`, then you can join the cluster by running:
 
 ```shell
 kubefed join gondor --host-cluster-context=rivendell --cluster-context=gondor_needs-no_king
@@ -159,8 +166,9 @@ described above are stored as a secret in the host cluster. The name
 of the secret is also derived from the cluster name.
 
 However, the name of a secret object in Kubernetes should conform
-to the subdomain name specification described in RFC 1123. If this
-isn't case, you can pass the secret name to `kubefed join` using the
+to the DNS subdomain name specification described in
+[RFC 1123](https://tools.ietf.org/html/rfc1123). If this isn't the
+case, you can pass the secret name to `kubefed join` using the
 `--secret-name` flag. For example, if the cluster name is `noldor` and
 the secret name is `11kingdom`, you can join the cluster by
 running:
@@ -168,6 +176,12 @@ running:
 ```shell
 kubefed join noldor --host-cluster-context=rivendell --secret-name=11kingdom
 ```
+
+Note: If your cluster name does not conform to the DNS subdomain name
+specification, all you need to do is supply the secret name via the
+`--secret-name` flag. `kubefed join` automatically creates the secret
+for you.
+
 
 ## Removing a cluster from a federation
 
