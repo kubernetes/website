@@ -69,7 +69,7 @@ is no longer supported.
 
 When enabled, pods are assigned a DNS A record in the form of `pod-ip-address.my-namespace.pod.cluster.local`.
 
-For example, a pod with ip `1.2.3.4` in the namespace `default` with a DNS name of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
+For example, a pod with IP `1.2.3.4` in the namespace `default` with a DNS name of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
 
 #### A Records and hostname based on Pod's hostname and subdomain fields
 
@@ -308,7 +308,7 @@ If you have created the service or in the case it should be created by default b
 
 #### Are DNS endpoints exposed?
 
-You can verify that dns endpoints are exposed by using the `kubectl get endpoints` command.
+You can verify that DNS endpoints are exposed by using the `kubectl get endpoints` command.
 
 ```
 kubectl get ep kube-dns --namespace=kube-system
