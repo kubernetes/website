@@ -38,7 +38,7 @@ to [kubeadm](../kubeadm) and [kops](../kops).
   A way to achieve that is to use the
   [kargo-cli tool](https://github.com/kubernetes-incubator/kargo/blob/master/docs/getting-started.md).
 * Or provision baremetal hosts with a tool-of-your-choice or launch cloud instances,
-  then create an inventory file for Ansible with this [tool](https://github.com/kubernetes-incubator/kargo/blob/master/contrib/inventory_generator/inventory_generator.py).
+  then create an inventory file for Ansible with this [tool](https://github.com/kubernetes-incubator/kargo/blob/master/contrib/inventory_builder/inventory.py).
 
 ### (2/4) Compose the deployment
 
