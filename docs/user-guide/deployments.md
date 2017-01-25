@@ -567,6 +567,7 @@ Kubernetes marks a Deployment as _progressing_ when one of the following tasks i
 * The Deployment is in the process of creating a new ReplicaSet.
 * The Deployment is scaling up an existing ReplicaSet.
 * The Deployment is scaling down an existing ReplicaSet.
+* New pods become available.
 
 You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
@@ -578,6 +579,7 @@ Kubernetes marks a Deployment as _complete_ when it has the following characteri
 equals or exceeds the number required by the Deployment strategy.
 * All of the replicas associated with the Deployment have been updated to the latest version you've specified, meaning any
 updates you've requested have been completed.
+* No old pods for the Deployment are running.
 
 You can check if a Deployment has completed by using `kubectl rollout status`. If the rollout completed successfully, `kubectl rollout status` returns a zero exit code.
 
