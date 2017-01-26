@@ -71,29 +71,6 @@ the other source in step 2 are lost.
 If you need to support multiple writers to the same object, you can use
 `kubectl apply` to manage the object.
 
-## Defining controller selectors and PodTemplate labels
-
-TODO: Come into this more gently with some context. Consider moving this
-section to the end of the document. It seems like the most specialized
-of the scenarios.
-
-**Warning**: Updating selectors on controllers is strongly discouraged. 
-
-The recommended approach is to define a single, immutable PodTemplate label
-used only by the controller selector with no other semantic meaning.
-
-Example label:
-
-```yaml
-selector:
-  matchLabels:
-      controller-selector: "v1beta1/deployment/nginx"
-template:
-  metadata:
-    labels:
-      controller-selector: "v1beta1/deployment/nginx"
-```
-
 ## Creating and editing an object from a URL without saving the configuration
 
 Suppose you have the URL of an object configuration file. You can use
@@ -119,6 +96,26 @@ several manual steps.
 1. For subsequent object management, use `replace` exclusively.
 
         kubectl replace -f <kind>_<name>.yaml
+
+
+## Defining controller selectors and PodTemplate labels
+
+**Warning**: Updating selectors on controllers is strongly discouraged.
+
+The recommended approach is to define a single, immutable PodTemplate label
+used only by the controller selector with no other semantic meaning.
+
+Example label:
+
+```yaml
+selector:
+  matchLabels:
+      controller-selector: "v1beta1/deployment/nginx"
+template:
+  metadata:
+    labels:
+      controller-selector: "v1beta1/deployment/nginx"
+```
 
 {% endcapture %}
 
