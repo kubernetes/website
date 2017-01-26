@@ -9,6 +9,9 @@ title: Third Party Resources
 
 ## What is ThirdPartyResource?
 
+**WARNING: ThirdPartyResources are not yet considered stable, and the API and/or storage could change before GA.
+Development and outstanding issues are tracked at [https://github.com/kubernetes/features/issues/95](https://github.com/kubernetes/features/issues/95).**
+
 Kubernetes comes with many built-in API objects. However, there are often times when you might need to extend Kubernetes with their own API objects in order to do custom automation.
 
 `ThirdPartyResource` objects are a way to extend the Kubernetes API with a new API object type. The new API object type will be given an API endpoint URL and support CRUD operations, and watch API. You can then create custom objects using this API endpoint. You can think of `ThirdPartyResources` as being much like the schema for a database table. Once you have created the table, you can then start storing rows in the table. Once created, `ThirdPartyResources` can act as the data model behind custom controllers or automation programs.
