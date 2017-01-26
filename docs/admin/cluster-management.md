@@ -159,11 +159,11 @@ node discovery; currently this is only Google Compute Engine, not including Core
 
 ### Upgrading to a different API version
 
-When a new API version is released, you may need to upgrade a cluster to support the new API version (e.g. switching from 'v1' to 'v2' when 'v2' is launched)
+When a new API version is released, you may need to upgrade a cluster to support the new API version (e.g. switching from 'v1' to 'v2' when 'v2' is launched).
 
 This is an infrequent event, but it requires careful management. There is a sequence of steps to upgrade to a new API version.
 
-   1. Turn on the new api version.
+   1. Turn on the new API version.
    1. Upgrade the cluster's storage to use the new version.
    1. Upgrade all config files. Identify users of the old API version endpoints.
    1. Update existing objects in the storage to new version by running `cluster/update-storage-objects.sh`.
@@ -171,9 +171,9 @@ This is an infrequent event, but it requires careful management. There is a sequ
 
 ### Turn on or off an API version for your cluster
 
-Specific API versions can be turned on or off by passing --runtime-config=api/<version> flag while bringing up the API server. For example: to turn off v1 API, pass `--runtime-config=api/v1=false`.
+Specific API versions can be turned on or off by passing `--runtime-config=api/<version>` flag while bringing up the API server. For example: to turn off v1 API, pass `--runtime-config=api/v1=false`.
 runtime-config also supports 2 special keys: api/all and api/legacy to control all and legacy APIs respectively.
-For example, for turning off all api versions except v1, pass `--runtime-config=api/all=false,api/v1=true`.
+For example, for turning off all API versions except v1, pass `--runtime-config=api/all=false,api/v1=true`.
 For the purposes of these flags, _legacy_ APIs are those APIs which have been explicitly deprecated (e.g. `v1beta3`).
 
 ### Switching your cluster's storage API version

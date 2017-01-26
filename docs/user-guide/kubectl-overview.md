@@ -84,6 +84,8 @@ The following table includes a list of all the supported resource types and thei
 Resource type	| Abbreviated alias
 -------------------- | --------------------
 `clusters` |
+`clusterrolebindings` |
+`clusterroles` |
 `componentstatuses` |`cs`
 `configmaps` |`cm`
 `daemonsets` |`ds`
@@ -106,6 +108,8 @@ Resource type	| Abbreviated alias
 `replicasets` |`rs`
 `replicationcontrollers` |`rc`
 `resourcequotas` |`quota`
+`rolebindings` |
+`roles` |
 `secrets` |
 `serviceaccounts` |`sa`
 `services` |`svc`

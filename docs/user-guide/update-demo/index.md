@@ -1,6 +1,5 @@
 ---
 assignees:
-- lavalamp
 - mikedanese
 title: Rolling Update Demo
 ---
@@ -68,7 +67,7 @@ The rolling-update command in kubectl will do 2 things:
 
 Watch the [demo website](http://localhost:8001/static/index.html), it will update one pod every 10 seconds until all of the pods have the new image.
 Note that the new replication controller definition does not include the replica count, so the current replica count of the old replication controller is preserved.
-But if the replica count had been specified, the final replica count of the new replication controller will be equal this number.
+But if the replica count had been specified, the final replica count of the new replication controller will be equal to this number.
 
 ### Step Five: Bring down the pods
 

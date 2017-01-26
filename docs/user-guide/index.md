@@ -22,7 +22,7 @@ The following topics in the Kubernetes User Guide can help you run applications 
 1. [Managing deployments](/docs/user-guide/managing-deployments/)
 1. [Application introspection and debugging](/docs/user-guide/introspection-and-debugging/)
     1. [Using the Kubernetes web user interface](/docs/user-guide/ui/)
-    1. [Logging](/docs/user-guide/logging/)
+    1. [Logging](/docs/user-guide/logging/overview/)
     1. [Monitoring](/docs/user-guide/monitoring/)
     1. [Getting into containers via `exec`](/docs/user-guide/getting-into-containers/)
     1. [Connecting to containers via proxies](/docs/user-guide/connecting-to-applications-proxy/)
