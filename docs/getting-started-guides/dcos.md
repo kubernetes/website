@@ -32,7 +32,7 @@ Explore the following resources for more information about Kubernetes, Kubernete
 - [DCOS Documentation](https://docs.mesosphere.com/)
 - [Managing DCOS Services](https://docs.mesosphere.com/services/kubernetes/)
 - [Kubernetes Examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/)
-- [Kubernetes on Mesos Documentation](https://releases.k8s.io/{{page.githubbranch}}/contrib/mesos/README.md)
+- [Kubernetes on Mesos Documentation](https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/README.md)
 - [Kubernetes on Mesos Release Notes](https://github.com/mesosphere/kubernetes-mesos/releases)
 - [Kubernetes on DCOS Package Source](https://github.com/mesosphere/kubernetes-mesos)
 
