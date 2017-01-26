@@ -68,11 +68,10 @@ that must be set:
 - `annotate`: Add or remove an annotation from an object.
 - `label`: Add or remove a label from an object.
 
-The `kubectl` command also supports update commands driven by field name.
-These commands require the user to know the names of the fields
-they want to update:
+The `kubectl` command also supports update commands driven by an aspect of the object.
+Setting this aspect may set different fields for different object types:
 
-- `set` <field>: Set the value of a specific field of an object.
+- `set` <field>: Set an aspect of an object.
 
 **Note**: In Kubernetes version 1.5, not every verb-driven command has an
 associated field-driven command.
@@ -102,17 +101,22 @@ kubectl delete deployment/nginx
 
 ## How to view an object
 
+{% comment %}
+TODO(pwittrock): Uncomment this when implemented.
+
 You can use `kubectl view` to print specific fields of an object.
 
 - `view`: Prints the value of a specific field of an object.
 
-There are several more commands for printing additional information about
-an object:
+{% endcomment %}
+
+
+
+There are several commands for printing information about an object:
 
 - `get`: Prints basic information about matching objects.  Use `get -h` to see a list of options.
 - `describe`: Prints aggregated detailed information about matching objects.
 - `logs`: Prints the stdout and stderr for a container running in a Pod.
-- `top`: Print machine resource usage (cpu, memory) for a Kubernetes object.
 
 ## Using `set` commands to modify objects before creation
 
