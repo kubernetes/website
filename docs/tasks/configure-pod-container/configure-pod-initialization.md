@@ -16,7 +16,7 @@ application Container runs.
 
 {% capture steps %}
 
-### Creating a Pod that has an init Container
+## Creating a Pod that has an init Container
 
 In this exercise you create a Pod that has one application Container and one
 init Container. The init Container runs to completion before the application

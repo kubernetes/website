@@ -20,7 +20,7 @@ private Docker registry or repository.
 
 {% capture steps %}
 
-### Logging in to Docker
+## Logging in to Docker
 
     docker login
 
@@ -43,7 +43,7 @@ The output contains a section similar to this:
         }
     }
 
-### Creating a Secret that holds your authorization token
+## Creating a Secret that holds your authorization token
 
 Create a Secret named `regsecret`:
 
@@ -55,7 +55,7 @@ where:
 * `<your-pword>` is your Docker password.
 * `<your-email>` is your Docker email.
 
-### Understanding your Secret
+## Understanding your Secret
 
 To understand what's in the Secret you just created, start by viewing the
 Secret in YAML format:
@@ -92,7 +92,7 @@ The output is similar to this:
 Notice that the secret data contains the authorization token from your
 `config.json` file.
 
-### Creating a Pod that uses your Secret
+## Creating a Pod that uses your Secret
 
 Here is a configuration file for a Pod that needs access to your secret data:
 

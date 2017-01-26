@@ -291,6 +291,34 @@ SPECIAL_LEVEL_KEY=very
 SPECIAL_TYPE_KEY=charm
 ```
 
+#### Optional ConfigMap in environment variables
+
+There might be situations where environment variables are not
+always required. These environment variables can be marked as optional in a
+pod like so:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      env:
+        - name: SPECIAL_LEVEL_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: a-config
+              key: akey
+              optional: true
+  restartPolicy: Never
+```
+
+When this pod is run, the output will be empty.
+
 ### Use-Case: Set command-line arguments with ConfigMap
 
 ConfigMaps can also be used to set the value of the command or arguments in a container.  This is
@@ -422,6 +450,38 @@ very
 You can project keys to specific paths and specific permissions on a per-file
 basis. The [Secrets](/docs/user-guide/secrets/) user guide explains the syntax.
 
+#### Optional ConfigMap via volume plugin
+
+Volumes and files provided by a ConfigMap can be also be marked as optional.
+The ConfigMap or the key specified does not have to exist. The mount path for
+such items will always be created.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "ls /etc/config" ]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: no-config
+        optional: true
+  restartPolicy: Never
+```
+
+When this pod is run, the output will be:
+
+```shell
+```
+
 ## Real World Example: Configuring Redis
 
 Let's take a look at a real-world example: configuring redis using ConfigMap.  Say we want to inject
@@ -517,9 +577,10 @@ $ kubectl exec -it redis redis-cli
 
 ## Restrictions
 
-ConfigMaps must be created before they are consumed in pods.  Controllers may be written to tolerate
-missing configuration data; consult individual components configured via ConfigMap on a case-by-case
-basis.
+ConfigMaps must be created before they are consumed in pods unless they are
+marked as optional.  Controllers may be written to tolerate missing
+configuration data; consult individual components configured via ConfigMap on
+a case-by-case basis.
 
 ConfigMaps reside in a namespace.   They can only be referenced by pods in the same namespace.
 
