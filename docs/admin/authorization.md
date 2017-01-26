@@ -85,8 +85,8 @@ properties:
     - `kind`, type string: valid values are "Policy". Allows versioning and conversion of the policy format.
   - `spec` property set to a map with the following properties:
     - Subject-matching properties:
-      - `user`, type string; the user-string from `--token-auth-file`. If you specify `user`, it must match the username of the authenticated user. `*` matches all requests.
-      - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user. `*` matches all requests.
+      - `user`, type string; the user-string from `--token-auth-file`. If you specify `user`, it must match the username of the authenticated user.
+      - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user. `system:authenticated` matches all authenticated requests. `system:unauthenticated` matches all unauthenticated requests.
     - `readonly`, type boolean, when true, means that the policy only applies to get, list, and watch operations.
     - Resource-matching properties:
       - `apiGroup`, type string; an API group, such as `extensions`. `*` matches all API groups.
@@ -115,8 +115,11 @@ The tuple of attributes is checked for a match against every policy in the
 policy file. If at least one line matches the request attributes, then the
 request is authorized (but may fail later validation).
 
-To permit any user to do something, write a policy with the user property set to
-`"*"`.
+To permit any authenticated user to do something, write a policy with the 
+group property set to `"system:authenticated"`.
+
+To permit any unauthenticated user to do something, write a policy with the 
+group property set to `"system:unauthenticated"`.
 
 To permit a user to do anything, write a policy with the apiGroup, namespace,
 resource, and nonResourcePath properties set to `"*"`.
@@ -165,7 +168,8 @@ up the verbosity:
  5. Anyone can make read-only requests to all non-resource paths:
 
     ```json
-    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "*", "readonly": true, "nonResourcePath": "*"}}
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"group": "system:authenticated", "readonly": true, "nonResourcePath": "*"}}
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"group": "system:unauthenticated", "readonly": true, "nonResourcePath": "*"}}
     ```
 
 [Complete file example](http://releases.k8s.io/{{page.githubbranch}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
@@ -259,7 +263,6 @@ rules:
   - apiGroups: [""] # The API group "" indicates the core API Group.
     resources: ["pods"]
     verbs: ["get", "watch", "list"]
-    nonResourceURLs: []
 ```
 
 `ClusterRoles` hold the same information as a `Role` but can apply to any
@@ -505,7 +508,7 @@ An example request body:
     "resourceAttributes": {
       "namespace": "kittensandponies",
       "verb": "GET",
-      "group": "*",
+      "group": "unicorn.example.org",
       "resource": "pods"
     },
     "user": "jane",
@@ -628,7 +631,7 @@ __EOF__
 
 --- snip lots of output ---
 
-I0913 08:12:31.362873   27425 request.go:908] Response Body: {"kind":"SubjectAccessReview","apiVersion":"authorization.k8s.io/v1beta1","metadata":{"creationTimestamp":null},"spec":{"resourceAttributes":{"namespace":"kittensandponies","verb":"GET","group":"*","resource":"pods"},"user":"jane","group":["group1","group2"]},"status":{"allowed":true}}
+I0913 08:12:31.362873   27425 request.go:908] Response Body: {"kind":"SubjectAccessReview","apiVersion":"authorization.k8s.io/v1beta1","metadata":{"creationTimestamp":null},"spec":{"resourceAttributes":{"namespace":"kittensandponies","verb":"GET","group":"unicorn.example.org","resource":"pods"},"user":"jane","group":["group1","group2"]},"status":{"allowed":true}}
 subjectaccessreview "" created
 ```
 

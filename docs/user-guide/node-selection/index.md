@@ -91,7 +91,7 @@ rather than against labels on the node itself, which allows rules about which po
 The affinity feature consists of two types of affinity, "node affinity" and "inter-pod affinity/anti-affinity."
 Node affinity is like the existing `nodeSelector` (but with the first two benefits listed above),
 while inter-pod affinity/anti-affinity constrains against pod labels rather than node labels, as
-described in the three item listed above, in addition to having the first and second properties listed above.
+described in the third item listed above, in addition to having the first and second properties listed above.
 
 `nodeSelector` continues to work as usual, but will eventually be deprecated, as node affinity can express
 everything that `nodeSelector` can express.

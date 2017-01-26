@@ -110,6 +110,7 @@ However, the particular path specified in the custom recycler pod template in th
 * AzureFile
 * AzureDisk
 * FC (Fibre Channel)
+* Flocker
 * NFS
 * iSCSI
 * RBD (Ceph Block Device)
@@ -117,7 +118,9 @@ However, the particular path specified in the custom recycler pod template in th
 * Cinder (OpenStack block storage)
 * Glusterfs
 * VsphereVolume
+* Quobyte Volumes
 * HostPath (single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
+* VMware Photon
 
 
 ## Persistent Volumes
@@ -176,10 +179,13 @@ In the CLI, the access modes are abbreviated to:
 | Cinder               | x            | -           | -            |
 | FC                   | x            | x           | -            |
 | FlexVolume           | x            | x           | -            |
+| Flocker              | x            | -           | -            |
 | GCEPersistentDisk    | x            | x           | -            |
 | Glusterfs            | x            | x           | x            |
 | HostPath             | x            | -           | -            |
 | iSCSI                | x            | x           | -            |
+| PhotonPersistentDisk | x            | -           | -            |
+| Quobyte              | x            | x           | x            |
 | NFS                  | x            | x           | x            |
 | RBD                  | x            | x           | -            |
 | VsphereVolume        | x            | -           | -            |

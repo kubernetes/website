@@ -405,7 +405,7 @@ Arguments to consider:
   - `--cluster-domain=` to the dns domain prefix to use for cluster DNS addresses.
   - `--docker-root=`
   - `--root-dir=`
-  - `--configure-cbr0=` (described above)
+  - `--configure-cbr0=` (described below)
   - `--register-node` (described in [Node](/docs/admin/node) documentation.)
 
 ### kube-proxy
@@ -774,10 +774,8 @@ Template for controller manager pod:
 Flags to consider using with controller manager:
 
  - `--cluster-name=$CLUSTER_NAME`
- - `--cluster-cidr=`
-   - *TODO*: explain this flag.
- - `--allocate-node-cidrs=`
-   - *TODO*: explain when you want controller to do this and when you want to do it another way.
+ - `--cluster-cidr=`, the CIDR range for pods in cluster.
+ - `--allocate-node-cidrs=`, if you are using `--cloud-provider=`, allocate and set the CIDRs for pods on the cloud provider.
  - `--cloud-provider=` and `--cloud-config` as described in apiserver section.
  - `--service-account-private-key-file=/srv/kubernetes/server.key`, used by the [service account](/docs/user-guide/service-accounts) feature.
  - `--master=127.0.0.1:8080`
