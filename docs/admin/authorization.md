@@ -444,6 +444,28 @@ subjects:
   name: system:serviceaccounts
 ```
 
+For all authenticated users:
+```yaml
+subjects:
+- kind: Group
+  name: system:authenticated
+```
+
+For all unauthenticated users:
+```yaml
+subjects:
+- kind: Group
+  name: system:unauthenticated
+```
+
+For all users:
+```yaml
+subjects:
+- kind: Group
+  name: system:authenticated
+- kind: Group
+  name: system:unauthenticated
+
 ## Webhook Mode
 
 When specified, mode `Webhook` causes Kubernetes to query an outside REST
