@@ -1,7 +1,7 @@
 ---
 assignees:
 - madhusudancs
-
+title: Setting up Cluster Federation with Kubefed
 ---
 
 * TOC

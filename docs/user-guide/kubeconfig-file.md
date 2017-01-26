@@ -16,7 +16,7 @@ So in order to easily switch between multiple clusters, for multiple users, a ku
 
 This file contains a series of authentication mechanisms and cluster connection information associated with nicknames.  It also introduces the concept of a tuple of authentication information (user) and cluster connection information called a context that is also associated with a nickname.
 
-Multiple kubeconfig files are allowed, if specified explicitly.  At runtime they are loaded and merged along with override options specified from the command line (see [rules](#loading-and-merging) below).
+Multiple kubeconfig files are allowed, if specified explicitly.  At runtime they are loaded and merged along with override options specified from the command line (see [rules](#loading-and-merging-rules) below).
 
 ## Related discussion
 
