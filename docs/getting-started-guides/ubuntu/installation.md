@@ -38,7 +38,8 @@ so we can find them.
   - OpenStack deployments are currently only tested on Icehouse and newer.
 - Network access to the following domains
   - *.jujucharms.com
-  - gcr.io 
+  - gcr.io
+  - github.com
   - Access to an Ubuntu mirror (public or private)
 
 
