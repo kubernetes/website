@@ -2,7 +2,7 @@
 assignees:
 - aveshagarwal
 - erictune
-
+title: Fedora via Ansible
 ---
 
 Configuring Kubernetes on Fedora via Ansible offers a simple way to quickly create a clustered environment with little effort.
@@ -12,7 +12,7 @@ Configuring Kubernetes on Fedora via Ansible offers a simple way to quickly crea
 
 ## Prerequisites
 
-1. Host able to run ansible and able to clone the following repo: [kubernetes](https://github.com/kubernetes/kubernetes.git)
+1. Host able to run ansible and able to clone the following repo: [Kubernetes](https://github.com/kubernetes/kubernetes.git)
 2. A Fedora 21+ host to act as cluster master
 3. As many Fedora 21+ hosts as you would like, that act as cluster nodes
 
@@ -37,7 +37,7 @@ master,etcd = kube-master.example.com
 If not
 
 ```shell
-yum install -y ansible git python-netaddr
+dnf install -y ansible git python-netaddr
 ```
 
 **Now clone down the Kubernetes repository**
@@ -101,9 +101,9 @@ Although the default value of variables in `~/contrib/ansible/group_vars/all.yml
 edit: ~/contrib/ansible/group_vars/all.yml
 ```
 
-**Configure access to kubernetes packages**
+**Configure access to Kubernetes packages**
 
-Modify `source_type` as below to access kubernetes packages through the package manager.
+Modify `source_type` as below to access Kubernetes packages through the package manager.
 
 ```yaml
 source_type: packageManager
@@ -156,7 +156,7 @@ cd ~/contrib/ansible/
 
 That's all there is to it.  It's really that easy.  At this point you should have a functioning Kubernetes cluster.
 
-**Show kubernetes nodes**
+**Show Kubernetes nodes**
 
 Run the following on the kube-master:
 

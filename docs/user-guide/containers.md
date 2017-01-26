@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Commands and Capabilities
 ---
 
 * TOC
@@ -14,8 +14,8 @@ should run in a container.  In this case, Kubernetes runs the image's default co
 to run a particular command or override the image's defaults, there are two additional fields that
 we can use:
 
-1.  `Command`: Controls the actual command run by the image
-2.  `Args`: Controls the arguments passed to the command
+1.  `command`: Controls the actual command run by the image
+2.  `args`: Controls the arguments passed to the command
 
 ### How docker handles command and arguments
 
@@ -28,20 +28,20 @@ fields as either a string array or a string and there are subtle differences in 
 handled.  We encourage the curious to check out Docker's documentation for this feature.
 
 Kubernetes allows you to override both the image's default command (docker `Entrypoint`) and args
-(docker `Cmd`) with the `Command` and `Args` fields of `Container`.  The rules are:
+(docker `Cmd`) with the `command` and `args` fields of `container`.  The rules are:
 
-1.  If you do not supply a `Command` or `Args` for a container, the defaults defined by the image
-    will be used
-2.  If you supply a `Command` but no `Args` for a container, only the supplied `Command` will be
-    used; the image's default arguments are ignored
-3.  If you supply only `Args`, the image's default command will be used with the arguments you
-    supply
-4.  If you supply a `Command` **and** `Args`, the image's defaults will be ignored and the values
-    you supply will be used
+1.  If you do not supply a `command` or `args` for a container, the defaults defined by the image
+    will be used.
+2.  If you supply a `command` but no `args` for a container, only the supplied `command` will be
+    used; the image's default arguments are ignored.
+3.  If you supply only `args`, the image's default command will be used with the arguments you
+    supply.
+4.  If you supply a `command` **and** `args`, the image's defaults will be ignored and the values
+    you supply will be used.
 
 Here are examples for these rules in table format
 
-| Image `Entrypoint` |    Image `Cmd`   | Container `Command` |  Container `Args`  |    Command Run   |
+| Image `Entrypoint` |    Image `Cmd`   | Container `command` |  Container `args`  |    Command Run   |
 |--------------------|------------------|---------------------|--------------------|------------------|
 |     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |   &lt;not set&gt;  | `[ep-1 foo bar]` |
 |     `[/ep-1]`      |   `[foo bar]`    |      `[/ep-2]`      |   &lt;not set&gt;  |     `[ep-2]`     |
@@ -94,3 +94,23 @@ The relationship between Docker's capabilities and [Linux capabilities](http://m
 | SETFCAP |  CAP_SETFCAP |
 | WAKE_ALARM |  CAP_WAKE_ALARM |
 | BLOCK_SUSPEND |  CAP_BLOCK_SUSPEND |
+
+You can add or drop capabilities in the [`SecurityContext`](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext), e.g.:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-world
+spec:
+  containers:
+  - name: friendly-container
+    image: "alpine:3.4"
+    command: ["/bin/echo", "hello", "world"]
+    securityContext:
+      capabilities:
+        add:
+        - SYS_NICE
+        drop:
+        - KILL
+```

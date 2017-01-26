@@ -1,8 +1,7 @@
-﻿---
+---
 assignees:
-- lavalamp
 - thockin
-
+title: Networking in Kubernetes
 ---
 
 Kubernetes approaches networking somewhat differently than Docker does by
@@ -100,8 +99,19 @@ existence or non-existence of host ports.
 There are a number of ways that this network model can be implemented.  This
 document is not an exhaustive study of the various methods, but hopefully serves
 as an introduction to various technologies and serves as a jumping-off point.
-If some techniques become vastly preferable to others, we might detail them more
-here.
+
+The following networking options are sorted alphabetically - the order does not
+imply any preferential status.
+
+### Contiv
+
+[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](http://contiv.io) is all open sourced.
+
+### Flannel
+
+[Flannel](https://github.com/coreos/flannel#flannel) is a very simple overlay
+network that satisfies the Kubernetes requirements. Many
+people have reported success with Flannel and Kubernetes.
 
 ### Google Compute Engine (GCE)
 
@@ -119,7 +129,7 @@ We start Docker with:
 DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
 ```
 
-This bridge is created by Kubelet (controlled by the `--configure-cbr0=true`
+This bridge is created by Kubelet (controlled by the `--network-plugin=kubenet`
 flag) according to the `Node`'s `spec.podCIDR`.
 
 Docker will now allocate IPs from the `cbr-cidr` block.  Containers can reach
@@ -158,21 +168,11 @@ Follow the "With Linux Bridge devices" section of [this very nice
 tutorial](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/) from
 Lars Kellogg-Stedman.
 
-### Weave Net from Weaveworks
+### Nuage Networks VCS (Virtualized Cloud Services)
 
-[Weave Net](https://www.weave.works/products/weave-net/) is a 
-resilient and simple to use network for Kubernetes and its hosted applications.  
-Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)  
-or stand-alone.  In either version, it doesn't require any configuration or extra code
-to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
+[Nuage](http://www.nuagenetworks.net) provides a highly scalable policy-based Software-Defined Networking (SDN) platform. Nuage uses the open source Open vSwitch for the data plane along with a feature rich SDN Controller built on open standards.
 
-
-### Flannel
-
-[Flannel](https://github.com/coreos/flannel#flannel) is a very simple overlay
-network that satisfies the Kubernetes requirements.  It installs in minutes and
-should get you up and running if the above techniques are not working.  Many
-people have reported success with Flannel and Kubernetes.
+The Nuage platform uses overlays to provide seamless policy-based networking between Kubernetes Pods and non-Kubernetes environments (VMs and bare metal servers). Nuage's policy abstraction model is designed with applications in mind and makes it easy to declare fine-grained policies for applications.The platform's real-time analytics engine enables visibility and security monitoring for Kubernetes applications.
 
 ### OpenVSwitch
 
@@ -180,10 +180,17 @@ people have reported success with Flannel and Kubernetes.
 complicated way to build an overlay network.  This is endorsed by several of the
 "Big Shops" for networking.
 
+### OVN (Open Virtual Networking)
+
+OVN is an opensource network virtualization solution developed by the
+Open vSwitch community.  It lets one create logical switches, logical routers,
+stateful ACLs, load-balancers etc to build different virtual networking
+topologies.  The project has a specific Kubernetes plugin and documentation
+at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 
 ### Project Calico
 
-[Project Calico](https://github.com/projectcalico/calico-containers/blob/master/docs/cni/kubernetes/README.md) is an open source container networking provider and network policy engine.
+[Project Calico](http://docs.projectcalico.org/) is an open source container networking provider and network policy engine.
 
 Calico provides a highly scalable networking and network policy solution for connecting Kubernetes pods based on the same IP networking principles as the internet.  Calico can be deployed without encapsulation or overlays to provide high-performance, high-scale data center networking.  Calico also provides fine-grained, intent based network security policy for Kubernetes pods via its distributed firewall.
 
@@ -193,9 +200,13 @@ Calico can also be run in policy enforcement mode in conjunction with other netw
 
 [Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/user-guide/networkpolicies/) to provide isolation across network namespaces.
 
-### Contiv
+### Weave Net from Weaveworks
 
-[Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](http://contiv.io) is all open sourced.
+[Weave Net](https://www.weave.works/products/weave-net/) is a 
+resilient and simple to use network for Kubernetes and its hosted applications.  
+Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)  
+or stand-alone.  In either version, it doesn't require any configuration or extra code
+to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
 ## Other reading
 

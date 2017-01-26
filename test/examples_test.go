@@ -17,7 +17,10 @@ limitations under the License.
 package examples_test
 
 import (
+	"bufio"
+	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -25,19 +28,23 @@ import (
 	"strings"
 	"testing"
 
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/validation/field"
+	"k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/kubernetes/pkg/api"
 	"k8s.io/kubernetes/pkg/api/testapi"
 	"k8s.io/kubernetes/pkg/api/validation"
+	"k8s.io/kubernetes/pkg/apis/apps"
+	apps_validation "k8s.io/kubernetes/pkg/apis/apps/validation"
 	"k8s.io/kubernetes/pkg/apis/batch"
 	batch_validation "k8s.io/kubernetes/pkg/apis/batch/validation"
 	"k8s.io/kubernetes/pkg/apis/extensions"
 	expvalidation "k8s.io/kubernetes/pkg/apis/extensions/validation"
+	"k8s.io/kubernetes/pkg/apis/policy"
+	policyvalidation "k8s.io/kubernetes/pkg/apis/policy/validation"
 	"k8s.io/kubernetes/pkg/capabilities"
 	"k8s.io/kubernetes/pkg/registry/batch/job"
-	"k8s.io/kubernetes/pkg/runtime"
-	"k8s.io/kubernetes/pkg/types"
-	"k8s.io/kubernetes/pkg/util/validation/field"
-	"k8s.io/kubernetes/pkg/util/yaml"
 	schedulerapilatest "k8s.io/kubernetes/plugin/pkg/scheduler/api/latest"
 )
 
@@ -132,6 +139,21 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = batch_validation.ValidateCronJob(t)
+	case *api.ConfigMap:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = validation.ValidateConfigMap(t)
+	case *apps.StatefulSet:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = apps_validation.ValidateStatefulSet(t)
+	case *policy.PodDisruptionBudget:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = policyvalidation.ValidatePodDisruptionBudget(t)
 	default:
 		errors = field.ErrorList{}
 		errors = append(errors, field.InternalError(field.NewPath(""), fmt.Errorf("no validation defined for %#v", obj)))
@@ -141,7 +163,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 
 // Walks inDir for any json/yaml files. Converts yaml to json, and calls fn for
 // each file found with the contents in data.
-func walkConfigFiles(inDir string, fn func(name, path string, data []byte)) error {
+func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) error {
 	return filepath.Walk(inDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -160,132 +182,151 @@ func walkConfigFiles(inDir string, fn func(name, path string, data []byte)) erro
 			}
 			name := strings.TrimSuffix(file, ext)
 
+			var docs [][]byte
 			if ext == ".yaml" {
-				out, err := yaml.ToJSON(data)
-				if err != nil {
-					return fmt.Errorf("%s: %v", path, err)
+				// YAML can contain multiple documents.
+				splitter := yaml.NewYAMLReader(bufio.NewReader(bytes.NewBuffer(data)))
+				for {
+					doc, err := splitter.Read()
+					if err == io.EOF {
+						break
+					}
+					if err != nil {
+						return fmt.Errorf("%s: %v", path, err)
+					}
+					out, err := yaml.ToJSON(doc)
+					if err != nil {
+						return fmt.Errorf("%s: %v", path, err)
+					}
+					docs = append(docs, out)
 				}
-				data = out
+			} else {
+				docs = append(docs, data)
 			}
 
-			fn(name, path, data)
+			fn(name, path, docs)
 		}
 		return nil
 	})
 }
 
 func TestExampleObjectSchemas(t *testing.T) {
-	cases := map[string]map[string]runtime.Object{
+	cases := map[string]map[string][]runtime.Object{
 		"../docs/user-guide/walkthrough": {
-			"deployment":                &extensions.Deployment{},
-			"deployment-update":         &extensions.Deployment{},
-			"pod-nginx":                 &api.Pod{},
-			"pod-nginx-with-label":      &api.Pod{},
-			"pod-redis":                 &api.Pod{},
-			"pod-with-http-healthcheck": &api.Pod{},
-			"podtemplate":               &api.PodTemplate{},
-			"service":                   &api.Service{},
+			"deployment":                {&extensions.Deployment{}},
+			"deployment-update":         {&extensions.Deployment{}},
+			"pod-nginx":                 {&api.Pod{}},
+			"pod-nginx-with-label":      {&api.Pod{}},
+			"pod-redis":                 {&api.Pod{}},
+			"pod-with-http-healthcheck": {&api.Pod{}},
+			"podtemplate":               {&api.PodTemplate{}},
+			"service":                   {&api.Service{}},
 		},
 		"../docs/user-guide/update-demo": {
-			"kitten-rc":   &api.ReplicationController{},
-			"nautilus-rc": &api.ReplicationController{},
+			"kitten-rc":   {&api.ReplicationController{}},
+			"nautilus-rc": {&api.ReplicationController{}},
 		},
 		"../docs/user-guide/persistent-volumes/volumes": {
-			"local-01": &api.PersistentVolume{},
-			"local-02": &api.PersistentVolume{},
-			"gce":      &api.PersistentVolume{},
-			"nfs":      &api.PersistentVolume{},
+			"local-01": {&api.PersistentVolume{}},
+			"local-02": {&api.PersistentVolume{}},
+			"gce":      {&api.PersistentVolume{}},
+			"nfs":      {&api.PersistentVolume{}},
 		},
 		"../docs/user-guide/persistent-volumes/claims": {
-			"claim-01": &api.PersistentVolumeClaim{},
-			"claim-02": &api.PersistentVolumeClaim{},
-			"claim-03": &api.PersistentVolumeClaim{},
+			"claim-01": {&api.PersistentVolumeClaim{}},
+			"claim-02": {&api.PersistentVolumeClaim{}},
+			"claim-03": {&api.PersistentVolumeClaim{}},
 		},
 		"../docs/user-guide/persistent-volumes/simpletest": {
-			"namespace": &api.Namespace{},
-			"pod":       &api.Pod{},
-			"service":   &api.Service{},
+			"namespace": {&api.Namespace{}},
+			"pod":       {&api.Pod{}},
+			"service":   {&api.Service{}},
 		},
 		"../docs/user-guide/liveness": {
-			"exec-liveness":            &api.Pod{},
-			"http-liveness":            &api.Pod{},
-			"http-liveness-named-port": &api.Pod{},
+			"exec-liveness":            {&api.Pod{}},
+			"http-liveness":            {&api.Pod{}},
+			"http-liveness-named-port": {&api.Pod{}},
 		},
 		"../docs/user-guide/jobs/work-queue-1": {
-			"job": &batch.Job{},
+			"job": {&batch.Job{}},
 		},
 		"../docs/user-guide/jobs/work-queue-2": {
-			"job":           &batch.Job{},
-			"redis-pod":     &api.Pod{},
-			"redis-service": &api.Service{},
+			"job":           {&batch.Job{}},
+			"redis-pod":     {&api.Pod{}},
+			"redis-service": {&api.Service{}},
 		},
 		"../docs/user-guide": {
-			"bad-nginx-deployment":       &extensions.Deployment{},
-			"counter-pod":                &api.Pod{},
-			"curlpod":                    &extensions.Deployment{},
-			"deployment":                 &extensions.Deployment{},
-			"ingress":                    &extensions.Ingress{},
-			"job":                        &batch.Job{},
-			"multi-pod":                  &api.Pod{},
-			"new-nginx-deployment":       &extensions.Deployment{},
-			"nginx-app":                  &api.Service{},
-			"nginx-deployment":           &extensions.Deployment{},
-			"nginx-init-containers":      &api.Pod{},
-			"nginx-lifecycle-deployment": &extensions.Deployment{},
-			"nginx-probe-deployment":     &extensions.Deployment{},
-			"nginx-secure-app":           &api.Service{},
-			"nginx-svc":                  &api.Service{},
-			"petset":                     &api.Service{},
-			"pod":                        &api.Pod{},
-			"pod-w-message":              &api.Pod{},
-			"redis-deployment":           &extensions.Deployment{},
-			"redis-resource-deployment":  &extensions.Deployment{},
-			"redis-secret-deployment":    &extensions.Deployment{},
-			"run-my-nginx":               &extensions.Deployment{},
-			"sj":                         &batch.CronJob{},
+			"bad-nginx-deployment":       {&extensions.Deployment{}},
+			"counter-pod":                {&api.Pod{}},
+			"curlpod":                    {&extensions.Deployment{}},
+			"deployment":                 {&extensions.Deployment{}},
+			"ingress":                    {&extensions.Ingress{}},
+			"job":                        {&batch.Job{}},
+			"multi-pod":                  {&api.Pod{}, &api.Pod{}},
+			"new-nginx-deployment":       {&extensions.Deployment{}},
+			"nginx-app":                  {&api.Service{}, &extensions.Deployment{}},
+			"nginx-deployment":           {&extensions.Deployment{}},
+			"nginx-init-containers":      {&api.Pod{}},
+			"nginx-lifecycle-deployment": {&extensions.Deployment{}},
+			"nginx-probe-deployment":     {&extensions.Deployment{}},
+			"nginx-secure-app":           {&api.Service{}, &extensions.Deployment{}},
+			"nginx-svc":                  {&api.Service{}},
+			"petset":                     {&api.Service{}, nil},
+			"pod":                        {&api.Pod{}},
+			"pod-w-message":              {&api.Pod{}},
+			"redis-deployment":           {&extensions.Deployment{}},
+			"redis-resource-deployment":  {&extensions.Deployment{}},
+			"redis-secret-deployment":    {&extensions.Deployment{}},
+			"run-my-nginx":               {&extensions.Deployment{}},
+			"cronjob":                    {&batch.CronJob{}},
 		},
 		"../docs/admin": {
-			"daemon": &extensions.DaemonSet{},
+			"daemon": {&extensions.DaemonSet{}},
 		},
 		"../docs/user-guide/downward-api": {
-			"dapi-pod":                 &api.Pod{},
-			"dapi-container-resources": &api.Pod{},
+			"dapi-pod":                 {&api.Pod{}},
+			"dapi-container-resources": {&api.Pod{}},
 		},
 		"../docs/user-guide/downward-api/volume/": {
-			"dapi-volume":           &api.Pod{},
-			"dapi-volume-resources": &api.Pod{},
+			"dapi-volume":           {&api.Pod{}},
+			"dapi-volume-resources": {&api.Pod{}},
 		},
 		"../docs/admin/namespaces": {
-			"namespace-dev":  &api.Namespace{},
-			"namespace-prod": &api.Namespace{},
+			"namespace-dev":  {&api.Namespace{}},
+			"namespace-prod": {&api.Namespace{}},
 		},
 		"../docs/admin/limitrange": {
-			"invalid-pod": &api.Pod{},
-			"limits":      &api.LimitRange{},
-			"namespace":   &api.Namespace{},
-			"valid-pod":   &api.Pod{},
-		},
-		"../docs/user-guide/logging-demo": {
-			"synthetic_0_25lps": &api.Pod{},
-			"synthetic_10lps":   &api.Pod{},
+			"invalid-pod": {&api.Pod{}},
+			"limits":      {&api.LimitRange{}},
+			"namespace":   {&api.Namespace{}},
+			"valid-pod":   {&api.Pod{}},
 		},
 		"../docs/user-guide/node-selection": {
-			"pod": &api.Pod{},
-			"pod-with-node-affinity": &api.Pod{},
-			"pod-with-pod-affinity":  &api.Pod{},
+			"pod": {&api.Pod{}},
+			"pod-with-node-affinity": {&api.Pod{}},
+			"pod-with-pod-affinity":  {&api.Pod{}},
 		},
 		"../docs/admin/resourcequota": {
-			"best-effort":       &api.ResourceQuota{},
-			"compute-resources": &api.ResourceQuota{},
-			"limits":            &api.LimitRange{},
-			"namespace":         &api.Namespace{},
-			"not-best-effort":   &api.ResourceQuota{},
-			"object-counts":     &api.ResourceQuota{},
+			"best-effort":       {&api.ResourceQuota{}},
+			"compute-resources": {&api.ResourceQuota{}},
+			"limits":            {&api.LimitRange{}},
+			"namespace":         {&api.Namespace{}},
+			"not-best-effort":   {&api.ResourceQuota{}},
+			"object-counts":     {&api.ResourceQuota{}},
 		},
 		"../docs/user-guide/secrets": {
-			"secret-pod":     &api.Pod{},
-			"secret":         &api.Secret{},
-			"secret-env-pod": &api.Pod{},
+			"secret-pod":     {&api.Pod{}},
+			"secret":         {&api.Secret{}},
+			"secret-env-pod": {&api.Pod{}},
+		},
+		"../docs/tutorials/stateful-application": {
+			"gce-volume":        {&api.PersistentVolume{}},
+			"mysql-deployment":  {&api.Service{}, &api.PersistentVolumeClaim{}, &extensions.Deployment{}},
+			"mysql-services":    {&api.Service{}, &api.Service{}},
+			"mysql-configmap":   {&api.ConfigMap{}},
+			"mysql-statefulset": {&apps.StatefulSet{}},
+			"web":               {&api.Service{}, &apps.StatefulSet{}},
+			"zookeeper":         {&api.Service{}, &api.ConfigMap{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
 	}
 
@@ -295,43 +336,52 @@ func TestExampleObjectSchemas(t *testing.T) {
 
 	for path, expected := range cases {
 		tested := 0
-		err := walkConfigFiles(path, func(name, path string, data []byte) {
-			expectedType, found := expected[name]
+		numExpected := 0
+		err := walkConfigFiles(path, func(name, path string, docs [][]byte) {
+			expectedTypes, found := expected[name]
 			if !found {
 				t.Errorf("%s: %s does not have a test case defined", path, name)
 				return
 			}
-			tested++
-			if expectedType == nil {
-				t.Logf("skipping : %s/%s\n", path, name)
+			numExpected += len(expectedTypes)
+			if len(expectedTypes) != len(docs) {
+				t.Errorf("%s: number of expected types (%v) doesn't match number of docs in YAML (%v)", path, len(expectedTypes), len(docs))
 				return
 			}
-			if strings.Contains(name, "scheduler-policy-config") {
-				if err := runtime.DecodeInto(schedulerapilatest.Codec, data, expectedType); err != nil {
-					t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(data))
+			for i, data := range docs {
+				expectedType := expectedTypes[i]
+				tested++
+				if expectedType == nil {
+					t.Logf("skipping : %s/%s\n", path, name)
 					return
 				}
-				// TODO: Add validate method for
-				// &schedulerapi.Policy, and remove this
-				// special case
-			} else {
-				codec, err := testapi.GetCodecForObject(expectedType)
-				if err != nil {
-					t.Errorf("Could not get codec for %s: %s", expectedType, err)
-				}
-				if err := runtime.DecodeInto(codec, data, expectedType); err != nil {
-					t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(data))
-					return
-				}
-				if errors := validateObject(expectedType); len(errors) > 0 {
-					t.Errorf("%s did not validate correctly: %v", path, errors)
+				if strings.Contains(name, "scheduler-policy-config") {
+					if err := runtime.DecodeInto(schedulerapilatest.Codec, data, expectedType); err != nil {
+						t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(data))
+						return
+					}
+					// TODO: Add validate method for
+					// &schedulerapi.Policy, and remove this
+					// special case
+				} else {
+					codec, err := testapi.GetCodecForObject(expectedType)
+					if err != nil {
+						t.Errorf("Could not get codec for %s: %s", expectedType, err)
+					}
+					if err := runtime.DecodeInto(codec, data, expectedType); err != nil {
+						t.Errorf("%s did not decode correctly: %v\n%s", path, err, string(data))
+						return
+					}
+					if errors := validateObject(expectedType); len(errors) > 0 {
+						t.Errorf("%s did not validate correctly: %v", path, errors)
+					}
 				}
 			}
 		})
 		if err != nil {
 			t.Errorf("Expected no error, Got %v on Path %v", err, path)
 		}
-		if tested != len(expected) {
+		if tested != numExpected {
 			t.Errorf("Directory %v: Expected %d examples, Got %d", path, len(expected), tested)
 		}
 	}

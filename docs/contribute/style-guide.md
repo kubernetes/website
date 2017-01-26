@@ -1,4 +1,5 @@
 ---
+title: Documentation Style Guide
 ---
 
 {% capture overview %}
@@ -16,15 +17,26 @@ docs, follow the instructions on
 
 ## Documentation formatting standards
 
-### Capitalize API objects
+### Use Camel Case for API objects
 
-Capitalize the names of API objects. Refer to API objects without saying
-"object."
+When you refer to an API object, use the same uppercase and lowercase letters
+that are used in the actual object name. Typically, the names of API
+objects use
+[camel case](https://en.wikipedia.org/wiki/Camel_case).
+
+Don't split the API object name into separate words. For example, use
+PodTemplateList, not Pod Template List.
+
+Refer to API objects without saying "object," unless omitting "object"
+leads to an awkward construction.
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
   <tr><td>The Pod has two Containers.</td><td>The pod has two containers.</td></tr>
   <tr><td>The Deployment is responsible for ...</td><td>The Deployment object is responsible for ...</td></tr>
+  <tr><td>A PodList is a list of Pods.</td><td>A Pod List is a list of pods.</td></tr>
+  <tr><td>The two ContainerPorts ...</td><td>The two ContainerPort objects ...</td></tr>
+  <tr><td>The two ContainerStateTerminated objects ...</td><td>The two ContainerStateTerminateds ...</td></tr>
 </table>
 
 ### Use angle brackets for placeholders

@@ -1,30 +1,30 @@
 ---
 assignees:
 - mikedanese
-
+title: Configuring kubelet Garbage Collection
 ---
 
 * TOC
 {:toc}
 
-Garbage collection is a helpful function of kubelet that will clean up unused images and unused containers. kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
+Garbage collection is a helpful function of kubelet that will clean up unused images and unused containers. Kubelet will perform garbage collection for containers every minute and garbage collection for images every five minutes.
 
 External garbage collection tools are not recommended as these tools can potentially break the behavior of kubelet by removing containers expected to exist.
 
 ### Image Collection
 
-kubernetes manages lifecycle of all images through imageManager, with the cooperation
+Kubernetes manages lifecycle of all images through imageManager, with the cooperation
 of cadvisor.
 
 The policy for garbage collecting images takes two factors into consideration:
-`HighThresholdPercent` and `LowThresholdPercent`. Disk usage above the the high threshold
+`HighThresholdPercent` and `LowThresholdPercent`. Disk usage above the high threshold
 will trigger garbage collection. The garbage collection will delete least recently used images until the low
 threshold has been met.
 
 ### Container Collection
 
 The policy for garbage collecting containers considers three user-defined variables. `MinAge` is the minimum age at which a container can be garbage collected. `MaxPerPodContainer` is the maximum number of dead containers any single
-pod (UID, container name) pair is allowed to have. `MaxContainers` is the maximum number of total dead containers. These variables can be individually disabled by setting 'Min Age' to zero and setting 'MaxPerPodContainer' and 'MaxContainers' respectively to less than zero.
+pod (UID, container name) pair is allowed to have. `MaxContainers` is the maximum number of total dead containers. These variables can be individually disabled by setting 'MinAge' to zero and setting 'MaxPerPodContainer' and 'MaxContainers' respectively to less than zero.
 
 Kubelet will act on containers that are unidentified, deleted, or outside of the boundaries set by the previously mentioned flags. The oldest containers will generally be removed first. 'MaxPerPodContainer' and 'MaxContainer' may potentially conflict with each other in situations where retaining the maximum number of containers per pod ('MaxPerPodContainer') would go outside the allowable range of global dead containers ('MaxContainers'). 'MaxPerPodContainer' would be adjusted in this situation: A worst case scenario would be to downgrade 'MaxPerPodContainer' to 1 and evict the oldest containers. Additionally, containers owned by pods that have been deleted are removed once they are older than `MinAge`.
 

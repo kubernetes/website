@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Using Environment Variables
 ---
 
 This example demonstrates running pods, replication controllers, and
@@ -25,8 +25,12 @@ for your platform.
 
 ## Optional: Build your own containers
 
-The code for the containers is under
-[containers/](/docs/user-guide/containers/)
+These are the configuration files for the containers:
+
+* [backend-rc.yaml](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/user-guide/environment-guide/backend-rc.yaml)
+* [backend-srv.yaml](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/user-guide/environment-guide/backend-srv.yaml)
+* [show-rc.yaml](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/user-guide/environment-guide/show-rc.yaml)
+* [show-srv.yaml](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/user-guide/environment-guide/show-srv.yaml)
 
 ## Get everything running
 
@@ -75,7 +79,7 @@ First the frontend pod's information is printed. The pod name and
 [namespace](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md) are retrieved from the
 [Downward API](/docs/user-guide/downward-api). Next, `USER_VAR` is the name of
 an environment variable set in the [pod
-definition](/docs/user-guide/environment-guide/show-rc.yaml). Then, the dynamic Kubernetes environment
+definition](https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master/docs/user-guide/environment-guide/show-rc.yaml). Then, the dynamic Kubernetes environment
 variables are scanned and printed. These are used to find the backend
 service, named `backend-srv`. Finally, the frontend pod queries the
 backend service and prints the information returned. Again the backend

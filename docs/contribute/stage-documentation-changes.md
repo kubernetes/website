@@ -1,4 +1,5 @@
 ---
+title: Staging Your Documentation Changes
 ---
 
 {% capture overview %}
@@ -13,7 +14,7 @@ Create a fork of the Kubernetes documentation repository as described in
 
 {% capture steps %}
 
-### Staging from your GitHub account
+## Staging from your GitHub account
 
 GitHub provides staging of content in your master branch. Note that you
 might not want to merge your changes into your master branch. If that is
@@ -31,20 +32,22 @@ the master branch.
 
         https://<your-username>.github.io
 
-### Staging a pull request
+## Staging a pull request
 
-When you create pull request against the Kubernetes documentation
-repository, you can see your changes on a staging server.
+When you create a pull request, either against the master or &lt;vnext&gt;
+branch, your changes are staged in a custom subdomain on Netlify so that
+you can see your changes in rendered form before the pull request is merged.
 
 1. In your GitHub account, in your new branch, submit a pull request to the
 kubernetes/kubernetes.github.io repository. This opens a page that shows the
 status of your pull request.
 
-1. Click **Show all checks**. Wait for the **deploy/netlify** check to complete.
-To the right of **deploy/netlify**, click **Details**. This opens a staging
-site where you see your changes.
+1. Scroll down to the list of automated checks. Click **Show all checks**.
+Wait for the **deploy/netlify** check to complete. To the right of
+**deploy/netlify**, click **Details**. This opens a staging site where you
+can see your changes.
 
-### Staging locally using Docker
+## Staging locally using Docker
 
 You can use the k8sdocs Docker image to run a local staging server. If you're
 interested, you can view the
@@ -63,7 +66,7 @@ web server:
 1. View your staged content at
 [http://localhost:4000](http://localhost:4000){: target="_blank"}.
 
-### Staging locally without Docker
+## Staging locally without Docker
 
 1. [Install Ruby 2.2 or later](https://www.ruby-lang.org){: target="_blank"}.
 

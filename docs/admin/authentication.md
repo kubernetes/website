@@ -4,9 +4,12 @@ assignees:
 - lavalamp
 - ericchiang
 - deads2k
-
+- liggitt
+title: Authenticating
 ---
 
+* TOC
+{:toc}
 
 ## Users in Kubernetes
 
@@ -26,16 +29,16 @@ stored as `Secrets`, which are mounted into pods allowing in cluster processes
 to talk to the Kubernetes API.
 
 API requests are tied to either a normal user or a service account, or are treated
-as anonymous requests. This means every process inside or outside the cluster, from 
-a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members 
-of the control plane, must authenticate when making requests to the the API server, 
+as anonymous requests. This means every process inside or outside the cluster, from
+a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members
+of the control plane, must authenticate when making requests to the API server,
 or be treated as an anonymous user.
 
 ## Authentication strategies
 
-Kubernetes uses client certificates, bearer tokens, or HTTP basic auth to
-authenticate API requests through authentication plugins. As HTTP request are
-made to the API server plugins attempts to associate the following attributes
+Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to
+authenticate API requests through authentication plugins. As HTTP requests are
+made to the API server, plugins attempt to associate the following attributes
 with the request:
 
 * Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
@@ -55,7 +58,7 @@ When multiple are enabled, the first authenticator module
 to successfully authenticate the request short-circuits evaluation.
 The API server does not guarantee the order authenticators run in.
 
-The `system:authenticated` group is included in the list of groups for all authenticated users. 
+The `system:authenticated` group is included in the list of groups for all authenticated users.
 
 ### X509 Client Certs
 
@@ -113,10 +116,11 @@ authentication is currently supported for convenience while we finish making the
 more secure modes described above easier to use.
 
 The basic auth file format is implemented in `plugin/pkg/auth/authenticator/password/passwordfile/...`
-and is a csv file with 3 columns: password, user name, user id.
+and is a csv file with a minimum of 3 columns: password, user name, user id, followed by
+optional group names. Note, if you have more than one group the column must be double quoted e.g.
 
 ```conf
-password,user,uid
+password,user,uid,"group1,group2,group3"
 ```
 
 When using basic authentication from an http client, the API server expects an `Authorization` header
@@ -219,44 +223,121 @@ from the OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_
 as a bearer token.  See [above](#putting-a-bearer-token-in-a-request) for how the token
 is included in a request.
 
-To enable the plugin, pass the following required flags:
+![Kubernetes OpenID Connect Flow](/images/docs/admin/k8s_oidc_login.svg)
 
-* `--oidc-issuer-url` URL of the provider which allows the API server to discover
-public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically
-the provider's URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
+1.  Login to your identity provider
+2.  Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
+3.  When using `kubectl`, use your `id_token` with the `--token` flag or add it directly to your `kubeconfig`
+4.  `kubectl` sends your `id_token` in a header called Authorization to the API server
+5.  The API server will make sure the JWT signature is valid by checking against the certificate named in the configuration
+6.  Check to make sure the `id_token` hasn't expired
+7.  Make sure the user is authorized
+8.  Once authorized the API server returns a response to `kubectl`
+9.  `kubectl` provides feedback to the user
 
-* `--oidc-client-id` A client id that all tokens must be issued for.
+Since all of the data needed to validate who you are is in the `id_token`, Kubernetes doesn't need to
+"phone home" to the identity provider.  In a model where every request is stateless this provides a very scalable
+solution for authentication.  It does offer a few challenges:
+
+1.  Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
+2.  The `id_token` can't be revoked, its like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes
+3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl -proxy` command or a reverse proxy that injects the `id_token`
+
+
+#### Configuring the API Server
+
+To enable the plugin, configure the following flags on the API server:
+
+| Parameter | Description | Example | Required |
+| --------- | ----------- | ------- | ------- |
+| --oidc-issuer-url | URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".  This URL should point to the level below .well-known/openid-configuration | If the discovery URL is https://accounts.google.com/.well-known/openid-configuration the value should be https://accounts.google.com | Yes |
+| --oidc-client-id |  A client id that all tokens must be issued for. | kubernetes | Yes |
+| --oidc-username-claim | JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email`, depending on their provider. | sub | No |
+| --oidc-groups-claim | JWT claim to use as the user's group. If the claim is present it must be an array of strings. | groups | No |
+| --oidc-ca-file | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
-configured to trust a single client. This allows the use of public providers,
+configured to trust a single issuer. This allows the use of public providers,
 such as Google, without trusting credentials issued to third parties. Admins who
-wish utilize multiple OAuth clients should explore providers which support the
+wish to utilize multiple OAuth clients should explore providers which support the
 `azp` (authorized party) claim, a mechanism for allowing one client to issue
 tokens on behalf of another.
 
-The plugin also accepts the following optional flags:
-
-* `--oidc-ca-file` Used by the API server to establish and verify the secure
-connection to the issuer. Defaults to the host's root CAs.
-
-And experimental flags:
-
-* `--oidc-username-claim` JWT claim to use as the user name. By default `sub`,
-which is expected to be a unique identifier of the end user. Admins can choose
-other claims, such as `email`, depending on their provider.
-* `--oidc-groups-claim` JWT claim to use as the user's group. If the claim is present
-it must be an array of strings.
-
 Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or [others](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak) or CloudFoundry [UAA](https://github.com/cloudfoundry/uaa).
+Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak), CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
 
-The provider needs to support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
+For an identity provider to work with Kubernetes it must:
+
+1.  Support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
+2.  Run in TLS with non-obsolete ciphers
+3.  Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
+
+A note about requirement #3 above, requiring a CA signed certificate.  If you deploy your own identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST have your identity provider's web server certificate signed by a certificate with the `CA` flag set to `TRUE`, even if it is self signed.  This is due to GoLang's TLS client implementation being very strict to the standards around certificate validation.  If you don't have a CA handy, you can use this script from the CoreOS team to create a simple CA and a signed certificate and key pair - https://github.com/coreos/dex/blob/1ee5920c54f5926d6468d2607c728b71cfe98092/examples/k8s/gencert.sh or this script based on it that will generate SHA256 certs with a longer life and larger key size https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/makecerts.sh.
 
 Setup instructions for specific systems:
 
 - [UAA](http://apigee.com/about/blog/engineering/kubernetes-authentication-enterprise)
 - [Dex](https://speakerdeck.com/ericchiang/kubernetes-access-control-with-dex)
+- [OpenUnison](https://github.com/TremoloSecurity/openunison-qs-kubernetes)
+
+#### Using kubectl
+
+##### Option 1 - OIDC Authenticator
+
+The first option is to use the `oidc` authenticator.  This authenticator takes your `id_token`, `refresh_token` and your OIDC `client_secret` and will refresh your token automatically.  Once you have authenticated to your identity provider:
+
+```bash
+kubectl config set-credentials USER_NAME \
+   --auth-provider=oidc
+   --auth-provider-arg=idp-issuer-url=( issuer url ) \
+   --auth-provider-arg=client-id=( your client id ) \
+   --auth-provider-arg=client-secret=( your client secret ) \
+   --auth-provider-arg=refresh-token=( your refresh token ) \
+   --auth-provider-arg=idp-certificate-authority=( path to your ca certificate ) \
+   --auth-provider-arg=id-token=( your id_token )
+```
+
+As an example, running the below command after authenticating to your identity provider:
+
+```bash
+kubectl config set-credentials mmosley  \
+        --auth-provider=oidc  \
+        --auth-provider-arg=idp-issuer-url=https://oidcidp.tremolo.lan:8443/auth/idp/OidcIdP  \
+        --auth-provider-arg=client-id=kubernetes  \
+        --auth-provider-arg=client-secret=1db158f6-177d-4d9c-8a8b-d36869918ec5  \
+        --auth-provider-arg=refresh-token=q1bKLFOyUiosTfawzA93TzZIDzH2TNa2SMm0zEiPKTUwME6BkEo6Sql5yUWVBSWpKUGphaWpxSVAfekBOZbBhaEW+VlFUeVRGcluyVF5JT4+haZmPsluFoFu5XkpXk5BXqHega4GAXlF+ma+vmYpFcHe5eZR+slBFpZKtQA= \
+        --auth-provider-arg=idp-certificate-authority=/root/ca.pem \
+        --auth-provider-arg=id-token=eyJraWQiOiJDTj1vaWRjaWRwLnRyZW1vbG8ubGFuLCBPVT1EZW1vLCBPPVRybWVvbG8gU2VjdXJpdHksIEw9QXJsaW5ndG9uLCBTVD1WaXJnaW5pYSwgQz1VUy1DTj1rdWJlLWNhLTEyMDIxNDc5MjEwMzYwNzMyMTUyIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL29pZGNpZHAudHJlbW9sby5sYW46ODQ0My9hdXRoL2lkcC9PaWRjSWRQIiwiYXVkIjoia3ViZXJuZXRlcyIsImV4cCI6MTQ4MzU0OTUxMSwianRpIjoiMm96US15TXdFcHV4WDlHZUhQdy1hZyIsImlhdCI6MTQ4MzU0OTQ1MSwibmJmIjoxNDgzNTQ5MzMxLCJzdWIiOiI0YWViMzdiYS1iNjQ1LTQ4ZmQtYWIzMC0xYTAxZWU0MWUyMTgifQ.w6p4J_6qQ1HzTG9nrEOrubxIMb9K5hzcMPxc9IxPx2K4xO9l-oFiUw93daH3m5pluP6K7eOE6txBuRVfEcpJSwlelsOsW8gb8VJcnzMS9EnZpeA0tW_p-mnkFc3VcfyXuhe5R3G7aa5d8uHv70yJ9Y3-UhjiN9EhpMdfPAoEB9fYKKkJRzF7utTTIPGrSaSU6d2pcpfYKaxIwePzEkT4DfcQthoZdy9ucNvvLoi1DIC-UocFD8HLs8LYKEqSxQvOcvnThbObJ9af71EwmuE21fO5KzMW20KtAeget1gnldOosPtz1G5EwvaQ401-RPQzPGMVBld0_zMCAwZttJ4knw
+```
+
+Which would produce the below configuration:
+
+```yaml
+users:
+- name: mmosley
+  user:
+    auth-provider:
+      config:
+        client-id: kubernetes
+        client-secret: 1db158f6-177d-4d9c-8a8b-d36869918ec5
+        id-token: eyJraWQiOiJDTj1vaWRjaWRwLnRyZW1vbG8ubGFuLCBPVT1EZW1vLCBPPVRybWVvbG8gU2VjdXJpdHksIEw9QXJsaW5ndG9uLCBTVD1WaXJnaW5pYSwgQz1VUy1DTj1rdWJlLWNhLTEyMDIxNDc5MjEwMzYwNzMyMTUyIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL29pZGNpZHAudHJlbW9sby5sYW46ODQ0My9hdXRoL2lkcC9PaWRjSWRQIiwiYXVkIjoia3ViZXJuZXRlcyIsImV4cCI6MTQ4MzU0OTUxMSwianRpIjoiMm96US15TXdFcHV4WDlHZUhQdy1hZyIsImlhdCI6MTQ4MzU0OTQ1MSwibmJmIjoxNDgzNTQ5MzMxLCJzdWIiOiI0YWViMzdiYS1iNjQ1LTQ4ZmQtYWIzMC0xYTAxZWU0MWUyMTgifQ.w6p4J_6qQ1HzTG9nrEOrubxIMb9K5hzcMPxc9IxPx2K4xO9l-oFiUw93daH3m5pluP6K7eOE6txBuRVfEcpJSwlelsOsW8gb8VJcnzMS9EnZpeA0tW_p-mnkFc3VcfyXuhe5R3G7aa5d8uHv70yJ9Y3-UhjiN9EhpMdfPAoEB9fYKKkJRzF7utTTIPGrSaSU6d2pcpfYKaxIwePzEkT4DfcQthoZdy9ucNvvLoi1DIC-UocFD8HLs8LYKEqSxQvOcvnThbObJ9af71EwmuE21fO5KzMW20KtAeget1gnldOosPtz1G5EwvaQ401-RPQzPGMVBld0_zMCAwZttJ4knw
+        idp-certificate-authority: /root/ca.pem
+        idp-issuer-url: https://oidcidp.tremolo.lan:8443/auth/idp/OidcIdP
+        refresh-token: q1bKLFOyUiosTfawzA93TzZIDzH2TNa2SMm0zEiPKTUwME6BkEo6Sql5yUWVBSWpKUGphaWpxSVAfekBOZbBhaEW+VlFUeVRGcluyVF5JT4+haZmPsluFoFu5XkpXk5BXq
+      name: oidc
+```
+Once your `id_token` expires, `kubectl` will attempt to refresh your `id_token` using your `refresh_token` and `client_secret` storing the new values for the `refresh_token` and `id_token` in your `kube/.config`.
+
+
+##### Option 2 - Use the `--token` Option
+
+The `kubectl` command lets you pass in a token using the `--token` option.  Simply copy and paste the `id_token` into this option:
+
+```
+kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo4MDQzL2F1dGgvaWRwL29pZGMiLCJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNDc0NTk2NjY5LCJqdGkiOiI2RDUzNXoxUEpFNjJOR3QxaWVyYm9RIiwiaWF0IjoxNDc0NTk2MzY5LCJuYmYiOjE0NzQ1OTYyNDksInN1YiI6Im13aW5kdSIsInVzZXJfcm9sZSI6WyJ1c2VycyIsIm5ldy1uYW1lc3BhY2Utdmlld2VyIl0sImVtYWlsIjoibXdpbmR1QG5vbW9yZWplZGkuY29tIn0.f2As579n9VNoaKzoF-dOQGmXkFKf1FMyNV0-va_B63jn-_n9LGSCca_6IVMP8pO-Zb4KvRqGyTP0r3HkHxYy5c81AnIh8ijarruczl-TK_yF5akjSTHFZD-0gRzlevBDiH8Q79NAr-ky0P4iIXS8lY9Vnjch5MF74Zx0c3alKJHJUnnpjIACByfF2SCaYzbWFMUNat-K1PaUk5-ujMBG7yYnr95xD-63n8CO8teGUAAEMx6zRjzfhnhbzX-ajwZLGwGUBT4WqjMs70-6a7_8gZmLZb2az1cZynkFRj2BaCkVT3A2RrjeEwZEtGXlMqKJ1_I2ulrOVsYx01_yD35-rw get nodes
+```
+
 
 ### Webhook Token Authentication
 
@@ -360,12 +441,33 @@ An unsuccessful request would return:
 
 HTTP status codes can be used to supply additional error context.
 
+
+### Authenticating Proxy
+
+The API server can be configured to identify users from request header values, such as `X-Remote-User`.
+It is designed for use in combination with an authenticating proxy, which sets the request header value.
+In order to prevent header spoofing, the authenticating proxy is required to present a valid client
+certificate to the API server for validation against the specified CA before the request headers are
+checked.
+
+* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the identity.
+* `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
+* `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed.
+
+
 ### Keystone Password
 
 Keystone authentication is enabled by passing the `--experimental-keystone-url=<AuthURL>`
 option to the API server during startup. The plugin is implemented in
 `plugin/pkg/auth/authenticator/password/keystone/keystone.go` and currently uses
 basic auth to verify used by username and password.
+
+If you have configured self-signed certificates for the Keystone server,
+you may need to set the `--experimental-keystone-ca-file=SOMEFILE` option when
+starting the Kubernetes API server. If you set the option, the Keystone
+server's certificate is verified by one of the authorities in the
+`experimental-keystone-ca-file`. Otherwise, the certificate is verified by
+the host's root Certificate Authority.
 
 For details on how to use keystone to manage projects and users, refer to the
 [Keystone documentation](http://docs.openstack.org/developer/keystone/). Please
@@ -378,18 +480,18 @@ changes](https://github.com/kubernetes/kubernetes/pull/25536) for more details.
 
 ## Anonymous requests
 
-Anonymous access is enabled by default, and can be disabled by passing `--anonymous-auth=false` 
+Anonymous access is enabled by default, and can be disabled by passing `--anonymous-auth=false`
 option to the API server during startup.
 
-When enabled, requests that are not rejected by other configured authentication methods are 
-treated as anonymous requests, and given a username of `system:anonymous` and a group of 
+When enabled, requests that are not rejected by other configured authentication methods are
+treated as anonymous requests, and given a username of `system:anonymous` and a group of
 `system:unauthenticated`.
 
 For example, on a server with token authentication configured, and anonymous access enabled,
-a request providing an invalid bearer token would receive a `401 Unauthorized` error. 
-A request providing no bearer token would be treated as an anonymous request. 
+a request providing an invalid bearer token would receive a `401 Unauthorized` error.
+A request providing no bearer token would be treated as an anonymous request.
 
-If you rely on authentication alone to authorize access, either change to use an 
+If you rely on authentication alone to authorize access, either change to use an
 authorization mode other than `AlwaysAllow`, or set `--anonymous-auth=false`.
 
 ## Plugin Development
@@ -405,7 +507,7 @@ enterprise directory, kerberos, etc.)
 ### Creating Certificates
 
 When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa` or `openssl.``
+using an existing deployment script or manually through `easyrsa` or `openssl.`
 
 #### Using an Existing Deployment Script
 
@@ -420,7 +522,7 @@ The script will generate three files: `ca.crt`, `server.crt`, and `server.key`.
 Finally, add the following parameters into API server start parameters:
 
 - `--client-ca-file=/srv/kubernetes/ca.crt`
-- `--tls-cert-file=/srv/kubernetes/server.cert`
+- `--tls-cert-file=/srv/kubernetes/server.crt`
 - `--tls-private-key-file=/srv/kubernetes/server.key`
 
 #### easyrsa
@@ -444,7 +546,7 @@ Finally, add the following parameters into API server start parameters:
 1.  Fill in and add the following parameters into the API server start parameters:
 
           --client-ca-file=/yourdirectory/ca.crt
-          --tls-cert-file=/yourdirectory/server.cert
+          --tls-cert-file=/yourdirectory/server.crt
           --tls-private-key-file=/yourdirectory/server.key
 
 #### openssl

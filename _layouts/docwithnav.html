@@ -1,25 +1,36 @@
-{% for thistoc in site.data.globals.tocs %}{% if foundTOC %}{% break %}{% else %}{% assign tree = site.data[thistoc].toc %}{% include tocsearch.html %}{% endif %}{% endfor %}
-{% for override in site.data.overrides.overrides %}{% if page.path contains override.path %}{% assign notitle = "true" %}{% endif %}{% endfor %}
-<!Doctype html>
-<html id="docs" class="{{site.data[foundTOC].bigheader}}">
+{% for current_toc in site.tocs %}
+  {% if found_toc %}
+    {% break %}
+  {% else %}
+    {% assign toc=site.data[current_toc] %}
+    {% include tocsearch.html tree=toc.toc toc=toc %}
+  {% endif %}
+{% endfor %}
 
-{% include head-header.html %}
+<!Doctype html>
+<html id="docs" class="{{ toc.bigheader }}">
+
+{% include head.html %}
+
+<body>
+
+{% include header.html %}
 
 <!--  HERO  -->
 <section id="hero" class="light-text">
-  <h1>{{ site.data[foundTOC].bigheader }}</h1>
-  <h5>{{ site.data[foundTOC].abstract }}</h5>
+  <h1>{{ toc.bigheader }}</h1>
+  <h5>{{ toc.abstract }}</h5>
   <div id="vendorStrip" class="light-text">
     <ul>
-      <li><a href="/docs/" {% if site.data[foundTOC].bigheader == "Kubernetes Documentation" %}class="YAH"{% endif %}>DOCS HOME</a></li>
-      <li><a href="/docs/user-guide/" {% if site.data[foundTOC].bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
-      <li><a href="/docs/tutorials/" {% if site.data[foundTOC].bigheader == "Tutorials" %}class="YAH"{% endif %}>TUTORIALS</a></li>
-      <li><a href="/docs/tasks/" {% if site.data[foundTOC].bigheader == "Tasks" %}class="YAH"{% endif %}>TASKS</a></li>
-      <li><a href="/docs/concepts/" {% if site.data[foundTOC].bigheader == "Concepts" %}class="YAH"{% endif %}>CONCEPTS</a></li>
-      <li><a href="/docs/reference/" {% if site.data[foundTOC].bigheader == "Reference Documentation" %}class="YAH"{% endif %}>REFERENCE</a></li>
-      <li><a href="/docs/tools/" {% if site.data[foundTOC].bigheader == "Tools" %}class="YAH"{% endif %}>TOOLS</a></li>
-      <li><a href="/docs/samples/" {% if site.data[foundTOC].bigheader == "Samples" %}class="YAH"{% endif %}>SAMPLES</a></li>
-      <li><a href="/docs/troubleshooting/" {% if site.data[foundTOC].bigheader == "Support" %}class="YAH"{% endif %}>SUPPORT</a></li>
+      <li><a href="/docs/" {% if toc.bigheader == "Kubernetes Documentation" %}class="YAH"{% endif %}>DOCS HOME</a></li>
+      <li><a href="/docs/user-guide/" {% if toc.bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
+      <li><a href="/docs/tutorials/" {% if toc.bigheader == "Tutorials" %}class="YAH"{% endif %}>TUTORIALS</a></li>
+      <li><a href="/docs/tasks/" {% if toc.bigheader == "Tasks" %}class="YAH"{% endif %}>TASKS</a></li>
+      <li><a href="/docs/concepts/" {% if toc.bigheader == "Concepts" %}class="YAH"{% endif %}>CONCEPTS</a></li>
+      <li><a href="/docs/reference/" {% if toc.bigheader == "Reference Documentation" %}class="YAH"{% endif %}>REFERENCE</a></li>
+      <li><a href="/docs/tools/" {% if toc.bigheader == "Tools" %}class="YAH"{% endif %}>TOOLS</a></li>
+      <li><a href="/docs/samples/" {% if toc.bigheader == "Samples" %}class="YAH"{% endif %}>SAMPLES</a></li>
+      <li><a href="/docs/troubleshooting/" {% if toc.bigheader == "Support" %}class="YAH"{% endif %}>SUPPORT</a></li>
     </ul>
     <div id="searchBox">
       <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)">
@@ -30,24 +41,30 @@
 <section id="encyclopedia">
   <div id="docsToc">
         <div class="pi-accordion">
-        {% if site.data[foundTOC].bigheader != "Kubernetes Documentation" %}
-        {% assign tree = site.data[foundTOC].toc %}{% include tree.html %}
+        {% if toc.bigheader != "Kubernetes Documentation" %}
+          {% include_cached tree.html tree=toc.toc %}
         {% endif %}
         </div> <!-- /pi-accordion -->
     <button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
   </div> <!-- /docsToc -->
+
   <div id="docsContent">
         <p><a href="/editdocs#{{ page.path }}" id="editPageButton">Edit This Page</a></p>
-      {% if notitle != "true" %}<h1>{{ title }}</h1>{% endif %}
-    {{ content }}
+
+        {% unless page.notitle %}
+          <h1>{{ page.title }}</h1>
+        {% endunless %}
+
+        {{ content }}
+
         <p><a href=""><img src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ page.path }}?pixel" alt="Analytics" /></a>
-        {% if page.url != "/404.html" and page.url != "/docs/search/" %}<div id="pd_rating_holder_8345992"></div>
+        {% if page.url != "/404.html" and page.url != "/docs/search/" %}
 		<script type="text/javascript">
 	        PDRTJS_settings_8345992 = {
 		        "id" : "8345992",
-		        "unique_id" : "{{page.url}}",
-		        "title" : "{{title}}",
-		        "permalink" : "http://kubernetes.github.io{{page.url}}"
+		        "unique_id" : "{{ page.url }}",
+		        "title" : "{{ page.title }}",
+		        "permalink" : "http://kubernetes.github.io{{ page.url }}"
 	        };
 	        (function(d,c,j){if(!document.getElementById(j)){var pd=d.createElement(c),s;pd.id=j;pd.src=('https:'==document.location.protocol)?'https://polldaddy.com/js/rating/rating.js':'http://i0.poll.fm/js/rating/rating.js';s=document.getElementsByTagName(c)[0];s.parentNode.insertBefore(pd,s);}}(document,'script','pd-rating-js'));
 		</script>
@@ -58,30 +75,8 @@
 	</div>
 </section>
 
-{% include footer.html %}
+{% include_cached footer.html %}
+{% include footer-scripts.html %}
 
-<button class="flyout-button" onclick="kub.toggleToc()"></button>
-
-<style>
-  .cse .gsc-control-cse, .gsc-control-cse, {
-    padding: 0;
-  }
-  .gsc-control-cse table, .gsc-control-cse-en table {
-    margin:0px !important;
-  }
-  .gsc-above-wrapper-area {
-    border-bottom: 0;
-  }
-</style>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-36037335-10', 'auto');
-  ga('send', 'pageview');
-</script>
-<!-- Commenting out AnswerDash for now; we need to work on our list of questions/answers/design first
-<!-- Start of AnswerDash script <script>var AnswerDash;!function(e,t,n,s,a){if(!t.getElementById(s)){var i,r=t.createElement(n),c=t.getElementsByTagName(n)[0];e[a]||(i=e[a]=function(){i.__oninit.push(arguments)},i.__oninit=[]),r.type="text/javascript",r.async=!0,r.src="https://p1.answerdash.com/answerdash.min.js?siteid=756",r.setAttribute("id",s),c.parentNode.insertBefore(r,c)}}(window,document,"script","answerdash-script","AnswerDash");</script> <!-- End of AnswerDash script -->
 </body>
 </html>

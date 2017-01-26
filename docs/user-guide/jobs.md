@@ -2,13 +2,13 @@
 assignees:
 - erictune
 - soltysh
-
+title: Jobs
 ---
 
 * TOC
 {:toc}
 
-## What is a _job_?
+## What is a Job?
 
 A _job_ creates one or more pods and ensures that a specified number of them successfully terminate.
 As pods successfully complete, the _job_ tracks the successful completions.  When a specified number
@@ -20,6 +20,12 @@ The Job object will start a new Pod if the first pod fails or is deleted (for ex
 due to a node hardware failure or a node reboot).
 
 A Job can also be used to run multiple pods in parallel.
+
+### extensions/v1beta1.Job is deprecated
+
+Starting from version 1.5 `extensions/v1beta1.Job` is being deprecated, with a plan to be removed in
+version 1.6 of Kubernetes (see this [issue](https://github.com/kubernetes/kubernetes/issues/32763)).
+Please use `batch/v1.Job` instead.
 
 ## Running an example Job
 
@@ -160,26 +166,26 @@ parallelism, for a variety or reasons:
 - If the controller failed to create pods for any reason (lack of ResourceQuota, lack of permission, etc.),
   then there may be fewer pods than requested.
 - The controller may throttle new pod creation due to excessive previous pod failures in the same Job.
-- When a pod is gracefully shutdown, it make take time to stop.
+- When a pod is gracefully shutdown, it takes time to stop.
 
 ## Handling Pod and Container Failures
 
 A Container in a Pod may fail for a number of reasons, such as because the process in it exited with
 a non-zero exit code, or the Container was killed for exceeding a memory limit, etc.  If this
-happens, and the `.spec.template.containers[].restartPolicy = "OnFailure"`, then the Pod stays
+happens, and the `.spec.template.spec.restartPolicy = "OnFailure"`, then the Pod stays
 on the node, but the Container is re-run.  Therefore, your program needs to handle the case when it is
-restarted locally, or else specify `.spec.template.containers[].restartPolicy = "Never"`.
+restarted locally, or else specify `.spec.template.spec.restartPolicy = "Never"`.
 See [pods-states](/docs/user-guide/pod-states) for more information on `restartPolicy`.
 
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node
 (node is upgraded, rebooted, deleted, etc.), or if a container of the Pod fails and the
-`.spec.template.containers[].restartPolicy = "Never"`.  When a Pod fails, then the Job controller
+`.spec.template.spec.restartPolicy = "Never"`.  When a Pod fails, then the Job controller
 starts a new Pod.  Therefore, your program needs to handle the case when it is restarted in a new
 pod.  In particular, it needs to handle temporary files, locks, incomplete output and the like
 caused by previous runs.
 
 Note that even if you specify `.spec.parallelism = 1` and `.spec.completions = 1` and
-`.spec.template.containers[].restartPolicy = "Never"`, the same program may
+`.spec.template.spec.restartPolicy = "Never"`, the same program may
 sometimes be started twice.
 
 If you do specify `.spec.parallelism` and `.spec.completions` both greater than 1, then there may be
@@ -374,6 +380,6 @@ driver, and then cleans up.
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but complete control over what pods are created and how work is assigned to them.
 
-## Scheduled Jobs
+## Cron Jobs
 
-Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [scheduled job documents](http://kubernetes.io/docs/user-guide/scheduled-jobs/)
+Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [cron job documents](http://kubernetes.io/docs/user-guide/cron-jobs/)

@@ -3,7 +3,7 @@ assignees:
 - erictune
 - lavalamp
 - thockin
-
+title: Creating a Custom Cluster from Scratch
 ---
 
 This guide is for people who want to craft a custom Kubernetes cluster.  If you
@@ -69,7 +69,7 @@ accomplished in two ways:
 
 - **Using an overlay network**
   - An overlay network obscures the underlying network architecture from the 
-    pod network through traffic encapsulation (e.g vxlan).
+    pod network through traffic encapsulation (e.g. vxlan).
   - Encapsulation reduces performance, though exactly how much depends on your solution.
 - **Without an overlay network**
   - Configure the underlying network fabric (switches, routers, etc.) to be aware of pod IP addresses.
@@ -81,12 +81,12 @@ to implement one of the above options:
 
 - **Use a network plugin which is called by Kubernetes**
   - Kubernetes supports the [CNI](https://github.com/containernetworking/cni) network plugin interface.
-  - There are a number of solutions which provide plugins for Kubernetes: 
+  - There are a number of solutions which provide plugins for Kubernetes (listed alphabetically): 
+    - [Calico](http://docs.projectcalico.org/)
     - [Flannel](https://github.com/coreos/flannel)
-    - [Calico](https://github.com/projectcalico/calico-containers)
-    - [Weave](https://weave.works/)
-    - [Romana](http://romana.io/)
     - [Open vSwitch (OVS)](http://openvswitch.org/)
+    - [Romana](http://romana.io/)
+    - [Weave](http://weave.works/)
     - [More found here](/docs/admin/networking#how-to-achieve-this)
   - You can also write your own.
 - **Compile support directly into Kubernetes**
@@ -180,7 +180,7 @@ we recommend that you run these as containers, so you need an image to be built.
 You have several choices for Kubernetes images:
 
 - Use images hosted on Google Container Registry (GCR):
-  - e.g `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
+  - e.g. `gcr.io/google_containers/hyperkube:$TAG`, where `TAG` is the latest
     release tag, which can be found on the [latest releases page](https://github.com/kubernetes/kubernetes/releases/latest).
   - Ensure $TAG is the same tag as the release tag you are using for kubelet and kube-proxy.
   - The [hyperkube](https://releases.k8s.io/{{page.githubbranch}}/cmd/hyperkube) binary is an all in one binary
@@ -405,7 +405,7 @@ Arguments to consider:
   - `--cluster-domain=` to the dns domain prefix to use for cluster DNS addresses.
   - `--docker-root=`
   - `--root-dir=`
-  - `--configure-cbr0=` (described above)
+  - `--configure-cbr0=` (described below)
   - `--register-node` (described in [Node](/docs/admin/node) documentation.)
 
 ### kube-proxy
@@ -646,7 +646,7 @@ This pod mounts several node file system directories using the  `hostPath` volum
 
 Apiserver supports several cloud providers.
 
-- options for `--cloud-provider` flag are `aws`, `gce`, `mesos`, `openshift`, `ovirt`, `rackspace`, `vagrant`, or unset.
+- options for `--cloud-provider` flag are `aws`, `azure`, `cloudstack`, `fake`, `gce`, `mesos`, `openstack`, `ovirt`, `photon`, `rackspace`, `vsphere`, or unset.
 - unset used for e.g. bare metal setups.
 - support for new IaaS is added by contributing code [here](https://releases.k8s.io/{{page.githubbranch}}/pkg/cloudprovider/providers)
 
@@ -774,10 +774,8 @@ Template for controller manager pod:
 Flags to consider using with controller manager:
 
  - `--cluster-name=$CLUSTER_NAME`
- - `--cluster-cidr=`
-   - *TODO*: explain this flag.
- - `--allocate-node-cidrs=`
-   - *TODO*: explain when you want controller to do this and when you want to do it another way.
+ - `--cluster-cidr=`, the CIDR range for pods in cluster.
+ - `--allocate-node-cidrs=`, if you are using `--cloud-provider=`, allocate and set the CIDRs for pods on the cloud provider.
  - `--cloud-provider=` and `--cloud-config` as described in apiserver section.
  - `--service-account-private-key-file=/srv/kubernetes/server.key`, used by the [service account](/docs/user-guide/service-accounts) feature.
  - `--master=127.0.0.1:8080`
@@ -822,15 +820,13 @@ of their purpose is in the admin guide](/docs/admin/cluster-components/#addons).
 Notes for setting up each cluster service are given below:
 
 * Cluster DNS:
-  * required for many kubernetes examples
+  * required for many Kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
   * [Admin Guide](/docs/admin/dns/)
 * Cluster-level Logging
-  * Multiple implementations with different storage backends and UIs.
-  * [Elasticsearch Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/)
-  * [Google Cloud Logging Backend Setup Instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/).
-  * Both require running fluentd on each node.
-  * [User Guide](/docs/user-guide/logging/)
+  * [Cluster-level Logging Overview](/docs/user-guide/logging/overview)
+  * [Cluster-level Logging with Elasticsearch](/docs/user-guide/logging/elasticsearch)
+  * [Cluster-level Logging with Stackdriver Logging](/docs/user-guide/logging/stackdriver)
 * Container Resource Monitoring
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/)
 * GUI

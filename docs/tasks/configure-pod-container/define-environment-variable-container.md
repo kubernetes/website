@@ -1,4 +1,5 @@
 ---
+title: Defining Environment Variables for a Container
 ---
 
 {% capture overview %}
@@ -18,7 +19,7 @@ in a Kubernetes Pod.
 
 {% capture steps %}
 
-### Defining an environment variable for a container
+## Defining an environment variable for a container
 
 When you create a Pod, you can set environment variables for the containers
 that run in the Pod. To set environment variables, include the `env` field in
@@ -33,12 +34,11 @@ Pod:
 
 1. Create a Pod based on the YAML configuration file:
 
-        export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
-        kubectl create -f $REPO/docs/tasks/configure-pod-container/envars.yaml
+        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/envars.yaml
 
 1. List the running Pods:
 
-        kubectl get pods
+        kubectl get pods -l purpose=demonstrate-envars
 
     The output is similar to this:
 

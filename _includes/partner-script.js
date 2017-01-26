@@ -16,6 +16,13 @@
 		},
 		{
 			type: 0,
+			name: 'StackPointCloud',
+			logo: 'stackpoint',
+			link: 'https://stackpoint.io',
+			blurb: 'StackPointCloud builds Stackpoint.io, the universal control plane for Kubernetes Anywhere -- compose and build your own infrastructure as easily as a DigitalOcean droplet at any public cloud provider.'
+		},
+		{
+			type: 0,
 			name: 'Sysdig Cloud',
 			logo: 'sys_dig',
 			link: 'https://sysdig.com/blog/monitoring-kubernetes-with-sysdig-cloud/',
@@ -190,6 +197,13 @@
  			blurb: 'Mirantis builds and manages private clouds with open source software such as OpenStack, deployed as containers orchestrated by Kubernetes.'
  		},
 		{
+ 			type: 0,
+ 			name: 'Kubernetic',
+ 			logo: 'kubernetic',
+ 			link: 'https://kubernetic.com/',
+ 			blurb: 'Kubernetic is a Kubernetes Desktop client that simplifies and democratizes cluster management for DevOps.'
+ 		},
+		{
 			type: 1,
 			name: 'Apprenda',
 			logo: 'apprenda',
@@ -216,6 +230,13 @@
 			logo: 'deis',
 			link: 'https://deis.com/services/',
 			blurb: 'Deis provides professional services and 24x7 operational support for any Kubernetes cluster managed by our global cluster operations team.'
+		},
+		{
+			type: 1,
+			name: 'StackPointCloud',
+			logo: 'stackpoint',
+			link: 'https://stackpoint.io',
+			blurb: 'StackPointCloud offers a wide range of support plans for managed Kubernetes clusters built through its universal control plane for Kubernetes Anywhere.'
 		},
 		{
 			type: 1,
@@ -252,6 +273,13 @@
 			link: 'http://www.skippbox.com/services/',
 			blurb: 'Skippbox brings its Kubernetes expertise to help companies embrace Kubernetes on their way to digital transformation. Skippbox offers both professional services and expert training.'
 		},
+		{
+ 			type: 1,
+ 			name: 'Harbur',
+ 			logo: 'harbur',
+ 			link: 'https://harbur.io/',
+ 			blurb: 'Based in Barcelona, Harbur is a consulting firm that helps companies deploy self-healing solutions empowered by Container technologies'
+  	},
 		{
  			type: 1,
  			name: 'Endocode',

@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: The Lifecycle of a Pod
 ---
 
 Updated: 4/14/2015
@@ -66,8 +66,8 @@ The possible values for RestartPolicy are `Always`, `OnFailure`, or `Never`. If 
 Three types of controllers are currently available:
 
 - Use a [`Job`](/docs/user-guide/jobs/) for pods which are expected to terminate (e.g. batch computations).
-- Use a [`ReplicationController`](/docs/user-guide/replication-controller/) for pods which are not expected to
-  terminate (e.g. web servers).
+- Use a [`ReplicationController`](/docs/user-guide/replication-controller/) or  [`Deployment`](/docs/user-guide/deployments/)
+  for pods which are not expected to terminate (e.g. web servers).
 - Use a [`DaemonSet`](/docs/admin/daemons/): Use for pods which need to run 1 per machine because they provide a
   machine-specific system service.
 If you are unsure whether to use ReplicationController or Daemon, then see [Daemon Set versus

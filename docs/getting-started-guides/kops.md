@@ -1,4 +1,5 @@
 ---
+title: Installing Kubernetes on AWS with kops
 ---
 
 <style>
@@ -26,6 +27,12 @@ a building block.  kops builds on the kubeadm work.
 
 ### (1/5) Install kops
 
+#### Requirements
+
+You must have [kubectl](http://kubernetes.io/docs/getting-started-guides/kubectl/) installed in order for kops to work.
+
+#### Installation
+
 Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also easy to build from source):
 
 On MacOS:
@@ -50,7 +57,7 @@ kops uses DNS for discovery, both inside the cluster and so that you can reach t
 from clients.
 
 kops has a strong opinion on the cluster name: it should be a valid DNS name.  By doing so you will
-no longer get your clusters confused, you can share clusters with your colleagues unambigiously,
+no longer get your clusters confused, you can share clusters with your colleagues unambiguously,
 and you can reach them without relying on remembering an IP address. 
 
 You can, and probably should, use subdomains to divide your clusters.  As our example we will use
@@ -128,7 +135,7 @@ GPU and non-GPU instances.
 
 Run "kops update cluster" to create your cluster in AWS:
 
-`kops update cluster useast1.dev.awsdata.com --yes`
+`kops update cluster useast1.dev.example.com --yes`
 
 That takes a few seconds to run, but then your cluster will likely take a few minutes to actually be ready.
 `kops update cluster` will be the tool you'll use whenever you change the configuration of your cluster; it

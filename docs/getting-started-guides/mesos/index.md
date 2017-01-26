@@ -1,7 +1,7 @@
 ---
 assignees:
 - jdef
-
+title: Kubernetes on Mesos
 ---
 
 * TOC
@@ -11,7 +11,7 @@ assignees:
 
 <!-- TODO: Update, clean up. -->
 
-Mesos allows dynamic sharing of cluster resources between Kubernetes and other first-class Mesos frameworks such as [Hadoop][1], [Spark][2], and [Chronos][3].
+Mesos allows dynamic sharing of cluster resources between Kubernetes and other first-class Mesos frameworks such as [HDFS][1], [Spark][2], and [Chronos][3].
 Mesos also ensures applications from different frameworks running on your cluster are isolated and that resources are allocated fairly among them.
 
 Mesos clusters can be deployed on nearly every IaaS cloud provider infrastructure or in your own physical datacenter. Kubernetes on Mesos runs on-top of that and therefore allows you to easily move Kubernetes workloads from one of these environments to the other.
@@ -229,7 +229,7 @@ We assume that kube-dns will use
 
 Note that we have passed these two values already as parameter to the apiserver above.
 
-A template for an replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/skydns-rc.yaml.in][11] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
+A template for a replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/skydns-rc.yaml.in][11] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
 
 - replace `{% raw %}{{ pillar['dns_replicas'] }}{% endraw %}`  with `1`
 - replace `{% raw %}{{ pillar['dns_domain'] }}{% endraw %}` with `cluster.local.`
@@ -325,16 +325,16 @@ Future work will add instructions to this guide to enable support for Kubernetes
 
 **NOTE:** Please be aware that there are [known issues with the current Kubernetes-Mesos implementation][7].
 
-[1]: http://mesosphere.com/docs/tutorials/run-hadoop-on-mesos-using-installer
-[2]: http://mesosphere.com/docs/tutorials/run-spark-on-mesos
-[3]: http://mesosphere.com/docs/tutorials/run-chronos-on-mesos
+[1]: https://docs.mesosphere.com/latest/usage/service-guides/hdfs/
+[2]: https://docs.mesosphere.com/latest/usage/service-guides/spark/
+[3]: https://docs.mesosphere.com/latest/usage/service-guides/chronos/
 [4]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md
-[5]: http://open.mesosphere.com/getting-started/cloud/google/mesosphere/
+[5]: https://dcos.io/docs/latest/administration/installing/cloud/gce/
 [6]: http://mesos.apache.org/
-[7]: https://releases.k8s.io/{{page.githubbranch}}/contrib/mesos/docs/issues.md
+[7]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/docs/issues.md
 [8]: https://github.com/mesosphere/kubernetes-mesos/issues
 [9]: https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples
 [10]: http://open.mesosphere.com/getting-started/cloud/google/mesosphere/#vpn-setup
 [11]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/skydns-rc.yaml.in
 [12]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/skydns-svc.yaml.in
-[13]: https://releases.k8s.io/{{page.githubbranch}}/contrib/mesos/README.md
+[13]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/README.md

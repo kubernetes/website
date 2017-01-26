@@ -2,10 +2,8 @@
 assignees:
 - davidopp
 - kevin-wangzefeng
-
+title: Assigning Pods to Nodes
 ---
-
-# Constraining pods to run on particular nodes
 
 You can constrain a [pod](/docs/user-guide/pods/) to only be able to run on particular [nodes](/docs/admin/node/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
@@ -93,7 +91,7 @@ rather than against labels on the node itself, which allows rules about which po
 The affinity feature consists of two types of affinity, "node affinity" and "inter-pod affinity/anti-affinity."
 Node affinity is like the existing `nodeSelector` (but with the first two benefits listed above),
 while inter-pod affinity/anti-affinity constrains against pod labels rather than node labels, as
-described in the three item listed above, in addition to having the first and second properties listed above.
+described in the third item listed above, in addition to having the first and second properties listed above.
 
 `nodeSelector` continues to work as usual, but will eventually be deprecated, as node affinity can express
 everything that `nodeSelector` can express.
@@ -173,7 +171,7 @@ on node N if node N has a label with key `failure-domain.beta.kubernetes.io/zone
 such that there is at least one node in the cluster with key `failure-domain.beta.kubernetes.io/zone` and
 value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
 rule says that the pod cannot schedule onto a node if that node is already running a pod with label
-having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kuberntes.io/zone` then
+having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot schedule onto a node if that node is in the same zone as a pod with
 label having key "security" and value "S2".) See the [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/podaffinity.md).
 for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
