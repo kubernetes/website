@@ -27,16 +27,16 @@ fluentd-gcp-v1.30-f02l5                        1/1       Running   0          5d
 ```
 
 To understand how logging with Stackdriver works, consider the following
-synthetic log generator pod specification [counter-pod.yaml](/docs/user-guide/logging/counter-pod.yaml):
+synthetic log generator pod specification [counter-pod.yaml](/docs/user-guide/logging/examples/counter-pod.yaml):
 
-{% include code.html language="yaml" file="counter-pod.yaml" ghlink="/docs/user-guide/counter-pod.yaml" %}
+{% include code.html language="yaml" file="examples/counter-pod.yaml" ghlink="/docs/user-guide/logging/examples/counter-pod.yaml" %}
 
 This pod specification has one container that runs a bash script
 that writes out the value of a counter and the date once per
 second, and runs indefinitely. Let's create this pod in the default namespace.
 
 ```shell
-$ kubectl create -f counter-pod.yaml
+$ kubectl create -f http://k8s.io/docs/user-guide/logging/examples/counter-pod.yaml
 pod "counter" created
 ```
 
@@ -68,14 +68,14 @@ by deleting the currently running counter container:
 
 ```shell
 $ kubectl delete pod counter
-pods/counter
+pod "counter" deleted
 ```
 
 and then recreating it:
 
 ```shell
-$ kubectl create -f counter-pod.yaml
-pods/counter
+$ kubectl create -f http://k8s.io/docs/user-guide/logging/examples/counter-pod.yaml
+pod "counter" created
 ```
 
 After some time, you can access logs from the counter pod again:

@@ -61,7 +61,7 @@ project](/docs/admin/salt).
 * **DNS Integration with SkyDNS** ([dns.md](/docs/admin/dns)):
   Resolving a DNS name directly to a Kubernetes service.
 
-* [**Cluster-level logging**](/docs/user-guide/logging/overview)
+* [**Cluster-level logging**](/docs/user-guide/logging/overview):
   Saving container logs to a central log store with search/browsing interface.
 
 ## Multi-tenant support
