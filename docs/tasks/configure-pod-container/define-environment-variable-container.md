@@ -38,7 +38,7 @@ Pod:
 
 1. List the running Pods:
 
-        kubectl get pods
+        kubectl get pods -l purpose=demonstrate-envars
 
     The output is similar to this:
 
