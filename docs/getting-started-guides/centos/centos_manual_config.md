@@ -122,9 +122,9 @@ KUBE_API_ARGS=""
 **Warning** This network must be unused in your network infrastructure! `172.30.0.0/16` is free in our network.
 
 ```shell
-$ systemctl start etcd
-$ etcdctl mkdir /kube-centos/network
-$ etcdctl mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
+systemctl start etcd
+etcdctl mkdir /kube-centos/network
+etcdctl mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
 ```
 
 * Configure flannel to overlay Docker network in /etc/sysconfig/flanneld on the master (also in the nodes as we'll see):
