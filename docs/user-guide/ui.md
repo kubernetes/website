@@ -42,9 +42,9 @@ The UI can _only_ be accessed from the machine where the command is executed. Se
 You may access the UI directly via the Kubernetes master apiserver. Open a browser and navigate to `https://<kubernetes-master>/ui`, where `<kubernetes-master>` is IP address or domain name of the Kubernetes
 master.
 
-Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with the some setup tools (e.g., `kubeadm`). Refer to the  [authentication admin documentation](/docs/admin/authentication/) for information on how to configure authentication manually.
+Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with some setup tools (e.g., `kubeadm`). Refer to the  [authentication admin documentation](/docs/admin/authentication/) for information on how to configure authentication manually.
 
-If the username and password is configured but unknown to you, then use `kubectl config view` to find it.
+If the username and password are configured but unknown to you, then use `kubectl config view` to find it.
 
 ## Welcome view
 
@@ -66,7 +66,7 @@ The deploy wizard expects that you provide the following information:
 
 - **App name** (mandatory): Name for your application. A [label](/docs/user-guide/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
 
-  The application name must be unique within the selected Kubernetes [namespace](/docs/admin/namespaces/). It must start and end with a lowercase character, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
+  The application name must be unique within the selected Kubernetes [namespace](/docs/admin/namespaces/). It must start with a lowercase character, and end with a lowercase character or a number, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
 
 - **Container image** (mandatory): The URL of a public Docker [container image](/docs/user-guide/images/) on any registry, or a private image (commonly hosted on the Google Container Registry or Docker Hub). The container image specification must end with a colon.
 

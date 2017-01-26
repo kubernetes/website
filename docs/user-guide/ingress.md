@@ -14,8 +14,8 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 * Node: A single virtual or physical machine in a Kubernetes cluster.
 * Cluster: A group of nodes firewalled from the internet, that are the primary compute resources managed by Kubernetes.
 * Edge router: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloudprovider or a physical piece of hardware.
-* Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the [Kubernetes networking model](https://github.com/kubernetes/kubernetes/blob/release-1.0/docs/admin/networking.md). Examples of a Cluster network include Overlays such as [flannel](https://github.com/coreos/flannel#flannel) or SDNs such as [OVS](https://github.com/kubernetes/kubernetes/blob/release-1.0/docs/admin/ovs-networking.md).
-* Service: A Kubernetes [Service](https://github.com/kubernetes/kubernetes/blob/release-1.0/docs/user-guide/services.md) that identifies a set of pods using label selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
+* Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the [Kubernetes networking model](/docs/admin/networking/). Examples of a Cluster network include Overlays such as [flannel](https://github.com/coreos/flannel#flannel) or SDNs such as [OVS](/docs/admin/ovs-networking/).
+* Service: A Kubernetes [Service](/docs/user-guide/services/) that identifies a set of pods using label selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
 
 ## What is Ingress?
 
@@ -69,7 +69,7 @@ spec:
 
 *POSTing this to the API server will have no effect if you have not configured an [Ingress controller](#ingress-controllers).*
 
-__Lines 1-4__: As with all other Kubernetes config, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](/docs/user-guide/simple-yaml), [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
+__Lines 1-4__: As with all other Kubernetes config, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](/docs/user-guide/deploying-applications), [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
 
 __Lines 5-7__: Ingress [spec](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) has all the information needed to configure a loadbalancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Currently the Ingress resource only supports http rules.
 
@@ -107,7 +107,7 @@ Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
 
 ### Simple fanout
 
-As described previously, pods within kubernetes have ips only visible on the cluster network, so we need something at the edge accepting ingress traffic and proxying it to the right endpoints. This component is usually a highly available loadbalancer/s. An Ingress allows you to keep the number of loadbalancers down to a minimum, for example, a setup like:
+As described previously, pods within kubernetes have IPs only visible on the cluster network, so we need something at the edge accepting ingress traffic and proxying it to the right endpoints. This component is usually a highly available loadbalancer. An Ingress allows you to keep the number of loadbalancers down to a minimum, for example, a setup like:
 
 ```shell
 foo.bar.com -> 178.91.123.132 -> / foo    s1:80

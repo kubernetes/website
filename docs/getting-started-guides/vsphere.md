@@ -55,9 +55,10 @@ export GOVC_INSECURE=1
 govc vm.change -e="disk.enableUUID=1" -vm=<VMNAME>
 ```
 
-* Provide the cloud config file to each instance of kubelet, apiserver and controller manager via ```--cloud-config=<path to file>``` flag. Cloud config [template can be found at Kubernetes-Anywhere] (https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
+* Provide the cloud config file to each instance of kubelet, apiserver and controller manager via ```--cloud-config=<path to file>``` flag. Cloud config [template can be found at Kubernetes-Anywhere](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
 
 Sample Config:
+
 ```
 [Global]
         user = <User name for vCenter>
@@ -78,7 +79,7 @@ Sample Config:
 #### Known issues
 
 * [Volumes are not removed from a VM configuration if the VM is down](https://github.com/kubernetes/kubernetes/issues/33061). The workaround is to manually remove the disk from VM settings before powering it up.
-* [FS groups are not supported in 1.4.7](https://github.com/kubernetes/kubernetes/issues/34039)
+* [FS groups are not supported in 1.4.7](https://github.com/kubernetes/kubernetes/issues/34039) - This issue is fixed in 1.4.8
 
 ### Kube-up (Deprecated)
 

@@ -22,9 +22,11 @@ the Pod's name, for example, and inject it into this well-known variable.
 
 The following information is available to a `Pod` through the downward API:
 
-*   The pod's name
+*   The node's name 
+*   The pod's name
 *   The pod's namespace
 *   The pod's IP
+*   The pod's service account name 
 *   A container's cpu limit
 *   A container's cpu request
 *   A container's memory limit
@@ -101,10 +103,12 @@ In future, it will be possible to specify an output format option.
 
 Downward API volumes can expose:
 
+*   The node's name
 *   The pod's name
 *   The pod's namespace
 *   The pod's labels
 *   The pod's annotations
+*   The pod's service account name 
 *   A container's cpu limit
 *   A container's cpu request
 *   A container's memory limit
@@ -129,10 +133,8 @@ This is an example of a pod that consumes its container's resources via the down
 
 {% include code.html language="yaml" file="volume/dapi-volume-resources.yaml" ghlink="/docs/user-guide/downward-api/volume/dapi-volume-resources.yaml" %}
 
-Some more thorough examples:
-
-   * [environment variables](/docs/user-guide/environment-guide/)
-   * [downward API](/docs/user-guide/downward-api/)
+For a more thorough example, see
+[environment variables](/docs/user-guide/environment-guide/).
 
 ## Default values for container resource limits
 

@@ -27,14 +27,14 @@ automatically configuring cloud providers. Please refer to the specific cloud pr
 use another provisioning system.**
 
 kubeadm assumes you have a set of machines (virtual or real) that are up and running.  It is designed
-to be part of a larger provisioning system - or just for easy manual provisioning.  kubeadm is a great
+to be part of a large provisioning system - or just for easy manual provisioning.  kubeadm is a great
 choice where you have your own infrastructure (e.g. bare metal), or where you have an existing
 orchestration system (e.g. Puppet) that you have to integrate with.
 
-If you are not constrained, other tools build on kubeadm to give you complete clusters:
+If you are not constrained, there are some other tools built to give you complete clusters:
 
-* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you turn-key Kubernetes
-* On AWS, [kops](https://github.com/kubernetes/kops) makes installation and cluster management easy (and supports high availability)
+* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you one-click Kubernetes clusters
+* On AWS, [kops](https://github.com/kubernetes/kops) makes cluster installation and management easy (and supports high availability)
 
 ## Prerequisites
 
@@ -97,7 +97,7 @@ For each host in turn:
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
-Note: To disable SELinux by running `setenforce 0` is required in order to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until kubelet can handle SELinux better.
+Note: Disabling SELinux by running `setenforce 0` is required in order to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until kubelet can handle SELinux better.
 
 ### (2/4) Initializing your master
 
@@ -319,8 +319,9 @@ edit the `kubeadm` dropin for the `kubelet` service (`/etc/systemd/system/kubele
 If your cloud provider requires any extra packages installed on host, for example for volume mounting/unmounting, install those packages.
 
 Specify the `--cloud-provider` flag to kubelet and set it to the cloud of your choice. If your cloudprovider requires a configuration
-file, create the file `/etc/kubernetes/cloud-config` on every node and set the values your cloud requires. Also append
-`--cloud-config=/etc/kubernetes/cloud-config` to the kubelet arguments.
+file, create the file `/etc/kubernetes/cloud-config` on every node. The exact format and content of that file depends on the requirements imposed by your cloud provider.
+If you use the `/etc/kubernetes/cloud-config` file, you must append it to the `kubelet` arguments as follows:
+`--cloud-config=/etc/kubernetes/cloud-config`
 
 Lastly, run `kubeadm init --cloud-provider=xxx` to bootstrap your cluster with cloud provider features.
 
