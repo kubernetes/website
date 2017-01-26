@@ -17,7 +17,7 @@ This is a getting started guide for CentOS.  It is a manual configuration so you
 
 The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: /etc/kubernetes. We will break the services up between the hosts.  The first host, centos-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager and kube-scheduler.  In addition, the master will also run _etcd_.  The remaining hosts, centos-minion-n will be the nodes and run kubelet, proxy, cadvisor and docker.
 
-All of then run flanneld as networking overlay.
+All of them run flanneld as networking overlay.
 
 **System Information:**
 
