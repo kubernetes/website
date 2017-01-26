@@ -1,5 +1,5 @@
 bigheader: "Tasks"
-abstract: "Step-by-step instructions for performing operations with Kuberentes."
+abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
@@ -13,7 +13,8 @@ toc:
   - docs/tasks/configure-pod-container/pull-image-private-registry.md
   - docs/tasks/configure-pod-container/configure-liveness-readiness-probes.md
   - docs/tasks/configure-pod-container/communicate-containers-same-pod.md
-  - docs/tasks/configure-pod-container/configure-pod-initialization.md 
+  - docs/tasks/configure-pod-container/configure-pod-initialization.md
+  - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
 
 - title: Accessing Applications in a Cluster
   section:
