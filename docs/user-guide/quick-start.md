@@ -13,7 +13,7 @@ This guide will help you get oriented to Kubernetes and running your first conta
 ## Launching a simple application, and exposing it to the Internet
 
 Once your application is packaged into a container and pushed to an image registry, you're ready to deploy it to Kubernetes.
-Through integration with some cloud providers (for example Google Compute Engine, AWS EC2, Azure ACS), Kubernetes also enables you to request it to provision a public IP address for your application.
+Through integration with some cloud providers (for example Google Compute Engine, AWS EC2, and Azure ACS), Kubernetes also enables you to request it to provision a public IP address for your application.
 
 For example, [nginx](http://wiki.nginx.org/Main) is a popular HTTP server, with a [pre-built container on Docker hub](https://registry.hub.docker.com/_/nginx/). The [`kubectl run`](/docs/user-guide/kubectl/kubectl_run) commands below will create two nginx replicas, listening on port 80, and a public IP address for your application.
 
@@ -70,4 +70,4 @@ service "my-nginx" deleted
 
 ## What's next?
 
-[Learn about how to configure common container parameters, such as commands and environment variables.](/docs/user-guide/configuring-containers)
+* [Learn about how to configure common container parameters, such as commands and environment variables.](/docs/user-guide/configuring-containers)
