@@ -421,34 +421,6 @@ For fields defaulted by the server, this will trigger re-defaulting
 the values.
 {% endcomment %}
 
-## **Warning:** defining Controller Selectors and PodTemplate Labels
-
-{% comment %}
-TODO(pwittrock): We need to support a flag to auto generate these labels + selectors for users.
-{% endcomment %}
-
-Updating selector on controllers is strongly advised against.  Instead,
-the recommended approach is to define a single immutable PodTemplate label
-used only by the controller selector with no other semantic meaning.
-
-Example label:
-
-```yaml
-selector:
-  matchLabels:
-      controller-selector: "v1beta1/deployment/nginx"
-template:
-  metadata:
-    labels:
-      controller-selector: "v1beta1/deployment/nginx"
-```
-
-## Notes on ThirdPartyResources
-
-As of Kubernetes 1.5, ThirdPartyResources are not supported by `apply`.
-The recommended approach for ThirdPartyResources is to use [imperative
-object configuration](/docs/concepts/tools/kubectl/object-management-using-imperative-config/) methodologies.
-
 ## How to change ownership of a field between configuration and live writers
 
 Individual object fields should be owned by a single writer.
@@ -488,8 +460,7 @@ fields to the annotation, and instead.  Then add this bullet point.
 - using imperative commands with declarative configuration to manage where each manages different fields.
 {% endcomment %}
 
-
-## Migrating objects from imperative command management to declarative object configuration
+### Migrating objects from imperative command management to declarative object configuration
 
 Migrating objects from imperative command management to declarative object
 configuration involves several manual steps.
@@ -505,12 +476,35 @@ configuration involves several manual steps.
 TODO(pwittrock): Why doesn't export remove the status field?  Seems like it should.
 {% endcomment %}
 
-## Migrating objects from imperative object configuration to declarative object configuration
+### Migrating objects from imperative object configuration to declarative object configuration
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object
   - `kubectl replace --save-config -f <kind>_<name>.yaml`
 2. Change processes to use `apply` for managing the object exclusively
 
+## Defining controller selectors and PodTemplate labels
+
+**Warning**: Updating selectors on controllers is strongly discouraged.
+
+The recommended approach is to define a single, immutable PodTemplate label
+used only by the controller selector with no other semantic meaning.
+
+Example label:
+
+```yaml
+selector:
+  matchLabels:
+      controller-selector: "v1beta1/deployment/nginx"
+template:
+  metadata:
+    labels:
+      controller-selector: "v1beta1/deployment/nginx"
+```
+
+## Support for ThirdPartyResources
+
+As of Kubernetes 1.5, ThirdPartyResources are not supported by `apply`.
+The recommended approach for ThirdPartyResources is to use [imperative object configuration](/docs/concepts/tools/kubectl/object-management-using-imperative-config/) methods.
 {% endcapture %}
 
 {% capture whatsnext %}
