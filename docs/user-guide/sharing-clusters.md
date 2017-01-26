@@ -105,8 +105,7 @@ and/or run `kubectl config -h`.
 
 1. `--kubeconfig=/path/to/.kube/config` command line flag
 2. `KUBECONFIG=/path/to/.kube/config` env variable
-3. `$PWD/.kube/config`
-4. `$HOME/.kube/config`
+3. `$HOME/.kube/config`
 
 If you create clusters A, B on host1, and clusters C, D on host2, you can
 make all four clusters available on both hosts by running
