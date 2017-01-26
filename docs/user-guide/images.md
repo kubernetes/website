@@ -89,7 +89,7 @@ The kubelet will fetch and periodically refresh ECR credentials.  It needs the f
 Requirements:
 
 - You must be using kubelet version `v1.2.0` or newer.  (e.g. run `/usr/bin/kubelet --version=true`).
-- Your nodes must be in the same region as the registry you are using
+- If your nodes are in region A and your registry in a different region B, you need version `v1.3.0`.
 - ECR must be offered in your region
 
 Troubleshooting:
