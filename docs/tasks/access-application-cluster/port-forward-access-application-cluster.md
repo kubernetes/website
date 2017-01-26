@@ -1,4 +1,5 @@
 ---
+title: Using Port Forwarding to Access Applications in a Cluster
 ---
 
 {% capture overview %}
@@ -21,12 +22,11 @@ for database debugging.
 
 {% capture steps %}
 
-### Creating a pod to run a Redis server
+## Creating a pod to run a Redis server
 
 1. Create a pod:
 
-        export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
-        kubectl create -f $REPO/docs/tasks/access-application-cluster/redis-master.yaml
+        kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
 
     The output of a successful command verifies that the pod was created:
 
@@ -51,7 +51,7 @@ for database debugging.
 
         6379
 
-### Forward a local port to a port on the pod
+## Forward a local port to a port on the pod
 
 1. Forward port 6379 on the local workstation to port 6379 of redis-master pod:
 
@@ -77,7 +77,7 @@ for database debugging.
 
 {% capture discussion %}
 
-### Discussion
+## Discussion
 
 Connections made to local port 6379 are forwarded to port 6379 of the pod that
 is running the Redis server. With this connection in place you can use your

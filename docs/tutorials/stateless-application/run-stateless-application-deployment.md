@@ -1,4 +1,5 @@
 ---
+title: Running a Stateless Application Using a Deployment
 ---
 
 {% capture overview %}
@@ -26,7 +27,7 @@ This page shows how to run an application using a Kubernetes Deployment object.
 
 {% capture lessoncontent %}
 
-### Creating and exploring an nginx deployment
+## Creating and exploring an nginx deployment
 
 You can run an application by creating a Kubernetes Deployment object, and you
 can describe a Deployment in a YAML file. For example, this YAML file describes
@@ -37,8 +38,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
 1. Create a Deployment based on the YAML file:
 
-        export REPO=https://raw.githubusercontent.com/kubernetes/kubernetes.github.io/master
-        kubectl create -f $REPO/docs/tutorials/stateless-application/deployment.yaml
+        kubectl create -f http://k8s.io/docs/tutorials/stateless-application/deployment.yaml
 
 1. Display information about the Deployment:
 
@@ -72,7 +72,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
     where `<pod-name>` is the name of one of your pods.
 
-### Updating the deployment
+## Updating the deployment
 
 You can update the deployment by applying a new YAML file. This YAML file
 specifies that the deployment should be updated to use nginx 1.8.
@@ -81,13 +81,13 @@ specifies that the deployment should be updated to use nginx 1.8.
 
 1. Apply the new YAML file:
 
-        kubectl apply -f $REPO/docs/tutorials/stateless-application/deployment-update.yaml
+        kubectl apply -f http://k8s.io/docs/tutorials/stateless-application/deployment-update.yaml
 
 1. Watch the deployment create pods with new names and delete the old pods:
 
         kubectl get pods -l app=nginx
 
-### Scaling the application by increasing the replica count
+## Scaling the application by increasing the replica count
 
 You can increase the number of pods in your Deployment by applying a new YAML
 file. This YAML file sets `replicas` to 4, which specifies that the Deployment
@@ -97,11 +97,11 @@ should have four pods:
 
 1. Apply the new YAML file:
 
-        kubectl apply -f $REPO/docs/tutorials/stateless-application/deployment-scale.yaml
+        kubectl apply -f http://k8s.io/docs/tutorials/stateless-application/deployment-scale.yaml
 
 1. Verify that the Deployment has four pods:
 
-        kubectl get pods
+        kubectl get pods -l app=nginx
 
     The output is similar to this:
 
@@ -111,7 +111,7 @@ should have four pods:
         nginx-deployment-148880595-fxcez   1/1       Running   0          2m
         nginx-deployment-148880595-rwovn   1/1       Running   0          2m
 
-### Deleting a deployment
+## Deleting a deployment
 
 Delete the deployment by name:
 

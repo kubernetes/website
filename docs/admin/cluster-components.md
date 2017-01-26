@@ -1,7 +1,7 @@
 ---
 assignees:
 - lavalamp
-
+title: Kubernetes Components
 ---
 
 This document outlines the various binary components that need to run to
@@ -61,12 +61,12 @@ selects a node for them to run on.
 
 ### addons
 
-Addons are pods and services that implement cluster features. They don't run on
-the master VM, but currently the default setup scripts that make the API calls
-to create these pods and services does run on the master VM. See:
-[kube-master-addons](http://releases.k8s.io/HEAD/cluster/saltbase/salt/kube-master-addons/kube-master-addons.sh)
+Addons are pods and services that implement cluster features. The pods may be managed
+by Deployments, ReplicationContollers, etc. Namespaced addon objects are created in
+the "kube-system" namespace.
 
-Addon objects are created in the "kube-system" namespace.
+Addon manager takes the responsibility for creating and maintaining addon resources.
+See [here](http://releases.k8s.io/HEAD/cluster/addons) for more details.
 
 #### DNS
 
@@ -91,15 +91,8 @@ about containers in a central database, and provides a UI for browsing that data
 
 #### Cluster-level Logging
 
-[Container Logging](/docs/user-guide/monitoring) saves container logs
-to a central log store with search/browsing interface.  There are two
-implementations:
-
-* [Cluster-level logging to Google Cloud Logging](
-/docs/user-guide/logging/#cluster-level-logging-to-google-cloud-logging)
-
-* [Cluster-level Logging with Elasticsearch and Kibana](
-/docs/getting-started-guides/logging-elasticsearch/)
+A [Cluster-level logging](/docs/user-guide/logging/overview) mechanism is responsible for
+saving container logs to a central log store with search/browsing interface.
 
 ## Node components
 
@@ -114,7 +107,7 @@ the Kubernetes runtime environment.
   or via local configuration file) and:
 * Mounts the pod's required volumes
 * Downloads the pod's secrets
-* Run the pod's containers via docker (or, experimentally, rkt).
+* Runs the pod's containers via docker (or, experimentally, rkt).
 * Periodically executes any requested container liveness probes.
 * Reports the status of the pod back to the rest of the system, by creating a
   "mirror pod" if necessary.

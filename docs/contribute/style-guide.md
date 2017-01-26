@@ -1,4 +1,5 @@
 ---
+title: Documentation Style Guide
 ---
 
 {% capture overview %}
@@ -14,9 +15,9 @@ docs, follow the instructions on
 
 {% capture body %}
 
-### Documentation formatting standards
+## Documentation formatting standards
 
-#### Use Camel Case for API objects
+### Use Camel Case for API objects
 
 When you refer to an API object, use the same uppercase and lowercase letters
 that are used in the actual object name. Typically, the names of API
@@ -38,7 +39,7 @@ leads to an awkward construction.
   <tr><td>The two ContainerStateTerminated objects ...</td><td>The two ContainerStateTerminateds ...</td></tr>
 </table>
 
-#### Use angle brackets for placeholders
+### Use angle brackets for placeholders
 
 Use angle brackets for placeholders. Tell the reader what a placeholder
 represents.
@@ -49,7 +50,7 @@ represents.
 
     where `<pod-name>` is the name of one of your pods.
 
-#### Use bold for user interface elements
+### Use bold for user interface elements
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -57,7 +58,7 @@ represents.
   <tr><td>Select <b>Other</b>.</td><td>Select 'Other'.</td></tr>
 </table>
 
-#### Use italics to define or introduce new terms
+### Use italics to define or introduce new terms
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -65,7 +66,7 @@ represents.
   <tr><td>These components form the <i>control plane.</i></td><td>These components form the <b>control plane.</b></td></tr>
 </table>
 
-#### Use code style for filenames, directories, and paths
+### Use code style for filenames, directories, and paths
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -74,9 +75,9 @@ represents.
   <tr><td>Open the <code>/_data/concepts.yaml</code> file.</td><td>Open the /_data/concepts.yaml file.</td></tr>
 </table>
 
-### Code snippet formatting
+## Code snippet formatting
 
-#### Use code style for inline code and commands
+### Use code style for inline code and commands
 
 For inline code in an HTML document, use the `<code>` tag. In a Markdown
 document, use the backtick (`).
@@ -87,14 +88,14 @@ document, use the backtick (`).
   <tr><td>The <code>kubectl run</code> command creates a Deployment.</td><td>The "kubectl run" command creates a Deployment.</td></tr>
 </table>
 
-#### Don't include the command prompt
+### Don't include the command prompt
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
   <tr><td>kubectl get pods</td><td>$ kubectl get pods</td></tr>
 </table>
 
-#### Separate commands from output
+### Separate commands from output
 
 Verify that the pod is running on your chosen node:
 
@@ -116,11 +117,11 @@ A list of Kubernetes-specific terms and words to be used consistently across the
 </table>{% endcomment %}
 
 
-### Content best practices
+## Content best practices
 
 This section contains suggested best practices for clear, concise, and consistent content.
 
-#### Use present tense
+### Use present tense
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -130,7 +131,7 @@ This section contains suggested best practices for clear, concise, and consisten
 Exception: Use future or past tense if it is required to convey the correct
 meaning.
 
-#### Use active voice
+### Use active voice
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -140,7 +141,7 @@ meaning.
 
 Exception: Use passive voice if active voice leads to an awkward construction.
 
-#### Use simple and direct language
+### Use simple and direct language
 
 Use simple and direct language. Avoid using unnecessary phrases, such as saying "please."
 
@@ -152,7 +153,7 @@ Use simple and direct language. Avoid using unnecessary phrases, such as saying 
 
 </table>
 
-#### Address the reader as "you"
+### Address the reader as "you"
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
@@ -160,9 +161,9 @@ Use simple and direct language. Avoid using unnecessary phrases, such as saying 
     <tr><td>In the preceding output, you can see...</td><td>In the preceding output, we can see ...</td></tr>
 </table>
 
-### Patterns to avoid
+## Patterns to avoid
 
-#### Avoid using "we"
+### Avoid using "we"
 
 Using "we" in a sentence can be confusing, because the reader might not know
 whether they're part of the "we" you're describing.
@@ -174,7 +175,7 @@ whether they're part of the "we" you're describing.
   <tr><td>This page teaches you how to use pods.</td><td>In this page, we are going to learn about pods.</td></tr>
 </table>
 
-#### Avoid jargon and idioms
+### Avoid jargon and idioms
 
 Some readers speak English as a second language. Avoid jargon and idioms to help make their understanding easier.
 
@@ -184,13 +185,13 @@ Some readers speak English as a second language. Avoid jargon and idioms to help
     <tr><td>Create a new cluster.</td><td>Turn up a new cluster.</td></tr>
 </table>
 
-#### Avoid statements about the future
+### Avoid statements about the future
 
 Avoid making promises or giving hints about the future. If you need to talk about
 an alpha feature, put the text under a heading that identifies it as alpha
 information.
 
-#### Avoid statements that will soon be out of date
+### Avoid statements that will soon be out of date
 
 Avoid words like "currently" and "new." A feature that is new today might not be
 considered new in a few months.

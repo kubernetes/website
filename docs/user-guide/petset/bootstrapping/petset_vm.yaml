@@ -14,8 +14,8 @@ spec:
   selector:
     app: ub
 ---
-apiVersion: apps/v1alpha1
-kind: PetSet
+apiVersion: apps/v1beta1
+kind: StatefulSet
 metadata:
   name: vm
 spec:
@@ -26,7 +26,6 @@ spec:
       labels:
         app: ub
       annotations:
-        pod.alpha.kubernetes.io/initialized: "true"
         pod.beta.kubernetes.io/init-containers: '[
             {
                 "name": "rootfs",
@@ -53,7 +52,6 @@ spec:
             }
         ]'
     spec:
-      terminationGracePeriodSeconds: 0
       containers:
       - name: ub
         image: ubuntu:15.10

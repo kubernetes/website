@@ -4,7 +4,7 @@ assignees:
 - erictune
 - krousey
 - clove
-
+title: kubectl Cheat Sheet
 ---
 
 See also: [Kubectl Overview](/docs/user-guide/kubectl-overview/) and [JsonPath Guide](/docs/user-guide/jsonpath).
@@ -12,7 +12,7 @@ See also: [Kubectl Overview](/docs/user-guide/kubectl-overview/) and [JsonPath G
 ## Kubectl Autocomplete
 
 ```console
-$ source <(kubectl completion bash) # setup autocomplete in bash
+$ source <(kubectl completion bash) # setup autocomplete in bash, bash-completion package should be installed first.
 $ source <(kubectl completion zsh)  # setup autocomplete in zsh
 ```
 
@@ -178,7 +178,7 @@ $ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use an alternative edi
 ## Scaling Resources
 
 ```console
-$ kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to
+$ kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to 3
 $ kubectl scale --replicas=3 -f foo.yaml                            # Scale a resource specified in "foo.yaml" to 3
 $ kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # If the deployment named mysql's current size is 2, scale mysql to 3
 $ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multiple replication controllers
@@ -200,7 +200,7 @@ $ kubectl logs my-pod                                 # dump pod logs (stdout)
 $ kubectl logs -f my-pod                              # stream pod logs (stdout)
 $ kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
 $ kubectl attach my-pod -i                            # Attach to Running Container
-$ kubectl port-forward my-pod 5000 6000               # Forward port 6000 of Pod to your to 5000 on your local machine
+$ kubectl port-forward my-pod 5000:6000               # Forward port 6000 of Pod to your to 5000 on your local machine
 $ kubectl port-forward my-svc 6000                    # Forward port to service
 $ kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
 $ kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)

@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-
+title: Kubernetes API Overview
 ---
 
 Primary system and API concepts are documented in the [User guide](/docs/user-guide/).
@@ -24,11 +24,13 @@ In our experience, any system that is successful needs to grow and change as new
 
 What constitutes a compatible change and how to change the API are detailed by the [API change document](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api_changes.md).
 
-## API Swagger definitions
+## OpenAPI and Swagger definitions
 
-Complete API details are documented using [Swagger v1.2](http://swagger.io/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger Kubernetes API spec, by default at located at `/swaggerapi`, and a UI to browse the API documentation at `/swagger-ui`.
+Complete API details are documented using [Swagger v1.2](http://swagger.io/) and [OpenAPI](https://www.openapis.org/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`. You can also enable a UI to browse the API documentation at `/swagger-ui` by passing the `--enable-swagger-ui=true` flag to apiserver.
 
-We also host a version of the [latest API documentation UI](http://kubernetes.io/kubernetes/third_party/swagger-ui/). This is updated with the latest release, so if you are using a different version of Kubernetes you will want to use the spec from your apiserver.
+We also host a version of the [latest v1.2 API documentation UI](http://kubernetes.io/kubernetes/third_party/swagger-ui/). This is updated with the latest release, so if you are using a different version of Kubernetes you will want to use the spec from your apiserver.
+
+Staring kubernetes 1.4, OpenAPI spec is also available at `/swagger.json`. While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
@@ -70,28 +72,38 @@ in more detail in the [API Changes documentation](https://github.com/kubernetes/
 
 ## API groups
 
-To make it easier to extend the Kubernetes API, we are in the process of implementing [*API
-groups*](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/api-group.md).  These are simply different interfaces to read and/or modify the
-same underlying resources.  The API group is specified in a REST path and in the `apiVersion` field
-of a serialized object.
+To make it easier to extend the Kubernetes API, we implemented [*API groups*](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-group.md).
+The API group is specified in a REST path and in the `apiVersion` field of a serialized object.
 
-Currently there are two API groups in use:
+Currently there are several API groups in use:
 
-1. the "core" group, which is at REST path `/api/v1` and is not specified as part of the `apiVersion` field, e.g.
-   `apiVersion: v1`.
-1. the "extensions" group, which is at REST path `/apis/extensions/$VERSION`, and which uses
-  `apiVersion: extensions/$VERSION` (e.g. currently `apiVersion: extensions/v1beta1`).
-  This holds types which will probably move to another API group eventually.
-1. the "componentconfig" and "metrics" API groups.
+1. the "core" (oftentimes called "legacy", due to not having explicit group name) group, which is at
+   REST path `/api/v1` and is not specified as part of the `apiVersion` field, e.g. `apiVersion: v1`.
+1. the named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
+   (e.g. `apiVersion: batch/v1`).  Full list of supported API groups can be seen in [Kubernetes API reference](/docs/reference/).
 
 
-In the future we expect that there will be more API groups, all at REST path `/apis/$API_GROUP` and
-using `apiVersion: $API_GROUP/$VERSION`.  We expect that there will be a way for [third parties to
-create their own API groups](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md), and to avoid naming collisions.
+There are two supported paths to extending the API.
+1. [Third Party Resources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/extending-api.md)
+   are for users with very basic CRUD needs.
+1. Coming soon: users needing the full set of Kubernetes API semantics can implement their own apiserver
+   and use the [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/aggregated-api-servers.md)
+   to make it seamless for clients.
 
-## Enabling resources in the extensions group
+
+## Enabling API groups
+
+Certain resources and API groups are enabled by default.  They can be enabled or disabled by setting `--runtime-config`
+on apiserver. `--runtime-config` accepts comma separated values. For ex: to disable batch/v1, set
+`--runtime-config=batch/v1=false`, to enable batch/v2alpha1, set `--runtime-config=batch/v2alpha1`.
+The flag accepts comma separated set of key=value pairs describing runtime configuration of the apiserver.
+
+IMPORTANT: Enabling or disabling groups or resources requires restarting apiserver and controller-manager
+to pick up the `--runtime-config` changes.
+
+## Enabling resources in the groups
 
 DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
-Other extensions resources can be enabled by setting runtime-config on
-apiserver. runtime-config accepts comma separated values. For ex: to disable deployments and jobs, set
+Other extensions resources can be enabled by setting `--runtime-config` on
+apiserver. `--runtime-config` accepts comma separated values. For ex: to disable deployments and jobs, set
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`

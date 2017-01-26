@@ -1,4 +1,5 @@
 ---
+title: Annotations
 ---
 
 {% capture overview %}
@@ -7,7 +8,7 @@ to objects. Clients such as tools and libraries can retrieve this metadata.
 {% endcapture %}
 
 {% capture body %}
-### Attaching metadata to objects
+## Attaching metadata to objects
 
 You can use either labels or annotations to attach metadata to Kubernetes
 objects. Labels can be used to select objects and to find

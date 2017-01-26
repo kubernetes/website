@@ -1,4 +1,5 @@
 ---
+title: Running a Single-Instance Stateful Application
 ---
 
 {% capture overview %}
@@ -36,7 +37,7 @@ application is MySQL.
 
 {% capture lessoncontent %}
 
-### Set up a disk in your environment
+## Set up a disk in your environment
 
 You can use any type of persistent volume for your stateful app. See
 [Types of Persistent Volumes](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes)
@@ -65,7 +66,7 @@ kubectl create -f http://k8s.io/docs/tutorials/stateful-application/gce-volume.y
 ```
 
 
-### Deploy MySQL
+## Deploy MySQL
 
 You can run a stateful application by creating a Kubernetes Deployment
 and connecting it to an existing PersistentVolume using a
@@ -145,7 +146,7 @@ for a secure solution.
         Access Modes:	RWO
         No events.
 
-### Accessing the MySQL instance
+## Accessing the MySQL instance
 
 The preceding YAML file creates a service that
 allows other Pods in the cluster to access the database. The Service option
@@ -170,7 +171,7 @@ If you don't see a command prompt, try pressing enter.
 mysql> 
 ```
 
-### Updating
+## Updating
 
 The image or any other part of the Deployment can be updated as usual
 with the `kubectl apply` command. Here are some precautions that are
@@ -186,7 +187,7 @@ specific to stateful apps:
   one Pod running at a time. The `Recreate` strategy will stop the
   first pod before creating a new one with the updated configuration.
 
-### Deleting a deployment
+## Deleting a deployment
 
 Delete the deployed objects by name:
 

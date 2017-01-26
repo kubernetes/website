@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-
+title: Using kubectl to Manage Resources
 ---
 
 *This document is aimed at users who have worked through some of the examples,

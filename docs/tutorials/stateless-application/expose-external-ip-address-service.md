@@ -1,4 +1,5 @@
 ---
+title: Using a Service to Access an Application in a Cluster
 ---
 
 {% capture overview %}
@@ -28,7 +29,7 @@ provides load balancing for an application that has two running instances.
 
 {% capture lessoncontent %}
 
-### Creating a service for an application running in two pods
+## Creating a service for an application running in two pods
 
 1. Run a Hello World application in your cluster:
 
@@ -103,14 +104,14 @@ provides load balancing for an application that has two running instances.
 
         curl http://<public-node-ip>:<node-port>
 
-    where `<public-node-ip>` us the public IP address of your node,
+    where `<public-node-ip>` is the public IP address of your node,
     and `<node-port>` is the NodePort value for your service.
 
     The response to a successful request is a hello message:
 
         Hello Kubernetes!
 
-### Using a service configuration file
+## Using a service configuration file
 
 As an alternative to using `kubectl expose`, you can use a
 [service configuration file](/docs/user-guide/services/operations)

@@ -1,7 +1,7 @@
 ---
 assignees:
 - erictune
-
+title: Init Containers
 ---
 
 * TOC
@@ -20,7 +20,7 @@ the next one is started. If the init container fails, Kubernetes will restart
 the pod until the init container succeeds. If a pod is marked as `RestartNever`,
 the pod will fail if the init container fails.
 
-You specify a container as an init container by adding an annotation
+You specify a container as an init container by adding an annotation. 
 The annotation key is `pod.beta.kubernetes.io/init-containers`.  The annotation
 value is a JSON array of [objects of type `v1.Container`
 ](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_container)
@@ -79,8 +79,8 @@ Here are some ideas for how to use init containers:
   to generate a configuration file to be consumed by the main app contianer.
 ```
 
-Complete usage examples can be found in the [PetSets
-guide](docs/user-guide/petset/bootstrapping/index.md) and the [Production Pods
+Complete usage examples can be found in the [StatefulSets
+documentation](/docs/concepts/abstractions/controllers/statefulsets/) and the [Production Pods
 guide](/docs/user-guide/production-pods.md#handling-initialization).
 
 
@@ -105,7 +105,7 @@ If the pod is [restarted](#pod-restart-reasons) all init containers must
 execute again.
 
 Changes to the init container spec are limited to the container image field.
-Altering a init container image field is equivalent to restarting the pod.
+Altering an init container image field is equivalent to restarting the pod.
 
 Because init containers can be restarted, retried, or reexecuted, init container
 code should be idempotent.  In particular, code that writes to files on EmptyDirs
@@ -155,11 +155,11 @@ reasons:
 
 * An init container image is changed by a user updating the Pod Spec.
   * App container image changes only restart the app container.
-* The pod infrastructure container is restarted
+* The pod infrastructure container is restarted.
   * This is uncommon and would have to be done by someone with root access to nodes.
 * All containers in a pod are terminated, requiring a restart (RestartPolicyAlways) AND the record of init container completion has been lost due to garbage collection.
 
-## Support and compatibilty
+## Support and compatibility
 
 A cluster with Kubelet and Apiserver version 1.4.0 or greater supports init
 containers with the beta annotations.  Support varies for other combinations of

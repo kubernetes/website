@@ -1,7 +1,7 @@
 ---
 assignees:
 - caesarxuchao
-
+title: Garbage Collection (Beta)
 ---
 
 * TOC
@@ -27,7 +27,7 @@ You can set up owner-dependent relationships among other objects by manually set
 
 When deleting an object, you can request the GC to ***asynchronously*** delete its dependents by ***explicitly*** specifying `deleteOptions.orphanDependents=false` in the deletion request that you send to the API server. A 200 OK response from the API server indicates the owner is deleted.
 
-Synchronous garbage collection will be supported in 1.5 (tracking [issue](https://github.com/kubernetes/kubernetes/issues/29891)).
+In Kubernetes version 1.5, synchronous garbage collection is under active development. See the tracking [issue](https://github.com/kubernetes/kubernetes/issues/29891) for more details.
 
 If you specify `deleteOptions.orphanDependents=true`, or leave it blank, then the GC will first reset the `ownerReferences` in the dependents, then delete the owner. Note that the deletion of the owner object is asynchronous, that is, a 200 OK response will be sent by the API server before the owner object gets deleted.
 
