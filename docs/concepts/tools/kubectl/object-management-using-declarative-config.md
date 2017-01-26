@@ -518,7 +518,7 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-commands/)
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
-- [Kubernetes Object Schema Reference](/docs/objects-reference/v1.5/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)
 {% endcapture %}
 
 {% include templates/concept.md %}
