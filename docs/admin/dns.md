@@ -1,8 +1,7 @@
 ---
 assignees:
-- ArtfulCoder
 - davidopp
-- lavalamp
+- thockin
 title: Using DNS Pods and Services
 ---
 
@@ -48,8 +47,8 @@ selection from the set.
 
 ### SRV records
 
-SRV Records are created for named ports that are part of normal or Headless
-Services.
+SRV Records are created for named ports that are part of normal or [Headless
+Services](http://releases.k8s.io/docs/user-guide/services/#headless-services).
 For each named port, the SRV record would have the form
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
 For a regular service, this resolves to the port number and the CNAME:
@@ -70,7 +69,7 @@ is no longer supported.
 
 When enabled, pods are assigned a DNS A record in the form of `pod-ip-address.my-namespace.pod.cluster.local`.
 
-For example, a pod with ip `1.2.3.4` in the namespace `default` with a DNS name of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
+For example, a pod with IP `1.2.3.4` in the namespace `default` with a DNS name of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
 
 #### A Records and hostname based on Pod's hostname and subdomain fields
 
@@ -100,6 +99,7 @@ metadata:
 spec:
   selector:
     name: busybox
+  clusterIP: None
   ports:
     - name: foo # Actually, no port is needed.
       port: 1234 
@@ -280,7 +280,7 @@ If you see that no pod is running or that the pod has failed/completed, the DNS 
 Use `kubectl logs` command to see logs for the DNS daemons.
 
 ```
-kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kube-dns
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kubedns
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c healthz
 ```
@@ -308,7 +308,7 @@ If you have created the service or in the case it should be created by default b
 
 #### Are DNS endpoints exposed?
 
-You can verify that dns endpoints are exposed by using the `kubectl get endpoints` command.
+You can verify that DNS endpoints are exposed by using the `kubectl get endpoints` command.
 
 ```
 kubectl get ep kube-dns --namespace=kube-system
@@ -383,7 +383,7 @@ for more information.
 
 ## References
 
-- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/build-tools/kube-dns/README.md)
+- [Docs for the DNS cluster addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md)
 
 ## What's next
 - [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).

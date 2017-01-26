@@ -122,17 +122,16 @@ runner (Docker or rkt).
 When using Docker:
 
 - The `spec.containers[].resources.requests.cpu` is converted to its core value (potentially fractional),
-  and multiplied by 1024, and used as the value of the [`--cpu-shares`](
-  https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
-  command.
+  and multiplied by 1024, and used as the value of the [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint) 
+  flag to the `docker run` command.
 - The `spec.containers[].resources.limits.cpu` is converted to its millicore value,
   multiplied by 100000, and then divided by 1000, and used as the value of the [`--cpu-quota`](
-  https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag to the `docker run`
+  https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint) flag to the `docker run`
   command.  The [`--cpu-period`] flag is set to 100000 which represents the default 100ms period
   for measuring quota usage.  The kubelet enforces cpu limits if it was started with the
   [`--cpu-cfs-quota`] flag set to true.  As of version 1.2, this flag will now default to true.
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and used as the value
-  of the [`--memory`](https://docs.docker.com/reference/run/#runtime-constraints-on-resources) flag
+  of the [`--memory`](https://docs.docker.com/engine/reference/run/#/user-memory-constraints) flag
   to the `docker run` command.
 
 **TODO: document behavior for rkt**
@@ -362,7 +361,7 @@ such as [EmptyDir volumes](/docs/user-guide/volumes/#emptydir).
 
 The current system only supports container requests and limits for CPU and Memory.
 It is planned to add new resource types, including a node disk space
-resource, and a framework for adding custom [resource types](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resources.md#resource-types).
+resource, and a framework for adding custom [resource types](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/resources.md).
 
 Kubernetes supports overcommitment of resources by supporting multiple levels of [Quality of Service](http://issue.k8s.io/168).
 
