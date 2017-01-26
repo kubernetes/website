@@ -13,15 +13,14 @@ back into the local object configuration.
 {% capture body %}
 ## Trade-offs
 
-Advantages compared to imperative object configuration:
+The `kubectl` tool supports three kinds of object management:
 
-- Changes made directly to live objects are retained, even if they are not merged back into the configuration files.
-- Declarative object configuration has better support for operating on directories and automatically detecting operation types (create, patch, delete) per-object.
+* Imperative commands
+* Imperative object configuration
+* Declarative object configuration
 
-Disadvantages compared to imperative object configuration:
-
-- Declarative object configuration is harder to debug and understand results when they are unexpected.
-- Partial updates using diffs create complex merge and patch operations.
+See [Kubernetes Object Management](/docs/concepts/tools/kubectl/object-management-overview/)
+for a discussion of the advantages and disadvantage of each kind of object management.
 
 ## How to create objects
 
