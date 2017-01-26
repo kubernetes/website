@@ -89,6 +89,7 @@ toc:
     - docs/user-guide/logging/overview.md
     - docs/user-guide/logging/stackdriver.md
     - docs/user-guide/logging/elasticsearch.md
+  - docs/user-guide/sematext-logging-monitoring.md
   - docs/user-guide/getting-into-containers.md
   - docs/user-guide/connecting-to-applications-proxy.md
   - docs/user-guide/connecting-to-applications-port-forward.md
