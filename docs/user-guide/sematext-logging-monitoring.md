@@ -8,7 +8,7 @@ title: Logging and Monitoring with Sematext
 
 Logging on Kubernetes requires either Elasticsearch running in the cluster or Google Cloud Logging. 
 
-An easier alternative is the integration of hosted Log Management and Performance Monitoring solutions like [Logsene](https:sematext.com/logsene) and [SPM](https://sematext.com/docker) by Sematext.
+An easier alternative is to just use the integration of Sematext [Logsene Log Management](https:sematext.com/logsene) and [SPM Performance Monitoring](https://sematext.com/docker) services.
 
 ## Agent for Kubernetes Metrics and Logs
 
