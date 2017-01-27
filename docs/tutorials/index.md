@@ -1,8 +1,5 @@
 ---
 title: Tutorials
-redirect_from:
-- "/docs/hellonode/"
-- "/docs/hellonode.html"
 ---
 
 This section of the Kubernetes documentation contains tutorials.

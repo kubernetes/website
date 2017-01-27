@@ -1,6 +1,9 @@
 ---
 
 title: Hello Minikube
+redirect_from:
+- "/docs/hellonode/"
+- "/docs/hellonode.html"
 ---
 
 {% capture overview %}
