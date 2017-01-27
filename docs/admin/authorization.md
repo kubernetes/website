@@ -516,7 +516,7 @@ request, and either details about the resource being accessed or requests
 attributes.
 
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
-as other Kubernetes API objects. Implementers should be aware of loser
+as other Kubernetes API objects. Implementers should be aware of looser
 compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must
 enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-config=authorization.k8s.io/v1beta1=true`).
