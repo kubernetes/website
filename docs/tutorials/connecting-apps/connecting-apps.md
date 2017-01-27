@@ -4,18 +4,18 @@ title: Connecting a Front End to a Back End Using a Service
 
 {% capture overview %}
 
-In this tutorial you will create a frontend service and a backend
-hello greeter microservice. You will connect the two using a
-Kubernetes Service object.
+This tutorial shows how to create a frontend service and a backend microservice.
+The backend microservice is a hello greeter. The frontend and backend are connected
+using a Kubernetes Service object.
 
 {% endcapture %}
 
 
 {% capture objectives %}
 
-* Create and run microservices using Deployment objects.
+* Create and run a microservice using a Deployment object.
 * Route traffic to the backend using a frontend microservice.
-* Use Service objects to connect the frontend application to the
+* Use a Service object to connect the frontend application to the
   backend application.
 
 {% endcapture %}
@@ -25,34 +25,39 @@ Kubernetes Service object.
 
 * {% include task-tutorial-prereqs.md %}
 
-* This tutorial
-  uses
-  [Services with external Load Balancers](/docs/user-guide/load-balancer/) which
+* This tutorial uses
+  [Services with external load balancers](/docs/user-guide/load-balancer/), which
   require a supported environment. If your environment does not
-  support this, you may
-  use [Node Port](/docs/user-guide/services/#type-nodeport) instead.
+  support this, you can use a Service of type
+  [NodePort](/docs/user-guide/services/#type-nodeport) instead.
 
 {% endcapture %}
 
 
 {% capture lessoncontent %}
 
-### Creating the backends using Deployments
+### Creating the backend using a Deployment
 
-The backend is a simple hello greeter microservice. Create the `hello`
-backend:
+The backend is a simple hello greeter microservice. Here is the configuration
+file for the backend Deployment:
 
 {% include code.html language="yaml" file="hello.yaml" ghlink="/docs/tutorials/connecting-apps/hello.yaml" %}
 
+Create the backend Deployment:
+
 ```
 kubectl create -f http://k8s.io/docs/tutorials/connecting-apps/hello.yaml
-
-deployment "hello" created
 ```
+
+View information about the backend Deployment:
 
 ```
 kubectl describe deployment hello
+```
 
+The output is similar to this:
+
+```
 Name:                   		hello
 Namespace:              		default
 CreationTimestamp:      		Mon, 24 Oct 2016 14:21:02 -0700
@@ -73,97 +78,109 @@ Events:
 ### Creating the backend service
 
 The key to connecting a frontend to a backend is the backend
-service. A Service creates a persistant IP address and DNS name entry
-so that our backend microservices can always be reached. Services use
-selector labels to find the pods they route traffic to.
+Service. A Service creates a persistent IP address and DNS name entry
+so that the backend microservice can always be reached. A Service uses
+selector labels to find the Pods that it routes traffic to. 
 
-First, explore the service configuration file:
+First, explore the Service configuration file:
 
 {% include code.html language="yaml" file="hello-service.yaml" ghlink="/docs/tutorials/connecting-apps/hello-service.yaml" %}
 
-Create the `hello` Service using kubectl:
+In the configuration file, you can see that the Service routes traffic to Pods
+that have the labels `app: hello` and `tier: backend`.
+
+Create the `hello` Service:
 
 ```
 kubectl create -f http://k8s.io/docs/tutorials/connecting-apps/hello-service.yaml
-
-service "hello" created
 ```
 
-At this point, we have a backend Deployment running and we have a
-Services that will route traffic to it.
+At this point, you have a backend Deployment running, and you have a
+Service that can route traffic to it.
 
 ### Creating the frontend
 
-Now that we have our backend, we will create a frontend that needs to
-be able to connect to the backend service.  We will configure our
-frontend to connect to the backend workers using the DNS name given to
-the backend service. This is the `name` attribute in the service
-configuration above. Our frontend is nginx, and the configuration to
-find the hello service is below.
+Now that you have your backend, you can create a frontend that connects to the backend.
+The frontend connects to the backend worker Pods by using the DNS name
+given to the backend Service. The DNS name is "hello", which is the value
+of the `name` field in the preceding Service configuration file.
+
+The Pods in the frontend Deployment run an nginx image that is configured
+to find the hello backend service. Here is the nginx configuration file:
 
 {% include code.html file="frontend/frontend.conf" ghlink="/docs/tutorials/connecting-apps/frontend/frontend.conf" %}
 
-To create the frontend we will use a Deployment and Service, similar
-to how we create our backend objects. Since we want to create an
-External IP address, we’ve added the `type: LoadBalancer` field to our
-frontend.yaml file.  This uses the default load balancer for a cloud
-provider.
+Similar to the backend, the frontend has a Deployment and a Service. The
+configuration for the Service has `type: LoadBalancer`, which means that
+the Service uses the default load balancer of your cloud provider.
 
 {% include code.html language="yaml" file="frontend.yaml" ghlink="/docs/tutorials/connecting-apps/frontend.yaml" %}
 
+Create the frontend Deployment and Service:
+
 ```
 kubectl create -f http://k8s.io/docs/tutorials/connecting-apps/frontend.yaml
+```
 
+The output verifies that both resources were created:
+
+```
 deployment "frontend" created
 service "frontend" created
 ```
 
-> Note: We have the nginx configuration baked into the container
-> image. A better way to do this would be to use
-> a [ConfigMap](http://kubernetes.io/docs/user-guide/configmap/), so
-> that you can change this more easily.
+**Note**: The nginx configuration is baked into the
+[container image](/docs/tutorials/connecting-apps/frontend/Dockerfile).
+A better way to do this would be to use a
+[ConfigMap](/docs/user-guide/configmap/), so
+that you can change the configuration more easily.
 
 ### Interact with the frontend Service
 
-Once you’ve created an external load balancer, we’ll use the following
+Once you’ve created a Service of type LoadBalancer, you can use this
 command to find the external IP:
 
 ```
 kubectl get service frontend
-
-NAME       CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
-frontend   10.51.252.116     <pending>         80/TCP   10s
 ```
 
 The external IP field may take some time to populate.  If this is the
 case, the external IP is listed as `<pending>`.
 
 ```
-kubectl get service frontend
+NAME       CLUSTER-IP      EXTERNAL-IP   PORT(S)  AGE
+frontend   10.51.252.116   <pending>     80/TCP   10s
+```
 
-NAME       CLUSTER-IP      EXTERNAL-IP           PORT(S)   AGE
-frontend   10.51.252.116     XXX.XXX.XXX.XXX    80/TCP   1m
+Repeat the same command again until it shows an external IP address:
+
+```
+NAME       CLUSTER-IP      EXTERNAL-IP        PORT(S)  AGE
+frontend   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
 ```
 
 ### Send traffic through the frontend
 
-The frontend and backend services are now connected.  You can hit the
-endpoint by using the curl command on the external IP you found above.
+The frontend and backend services are now connected. You can hit the
+endpoint by using the curl command on the external IP of your frontend Service.
 
 ```
 curl http://<EXTERNAL-IP>
-
-{"message":"Hello"}
 ```
 
+The output shows the message generated by the backend:
+
+```
+{"message":"Hello"}
+```
 
 {% endcapture %}
 
 
 {% capture whatsnext %}
 
-* Learn more about [Services](http://kubernetes.io/docs/user-guide/services/)
-* Learn more about [ConfigMaps](http://kubernetes.io/docs/user-guide/configmap/)
+* Learn more about [Services](/docs/user-guide/services/)
+* Learn more about [ConfigMaps](/docs/user-guide/configmap/)
 
 {% endcapture %}
 
