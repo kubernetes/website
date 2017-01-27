@@ -69,7 +69,7 @@ is no longer supported.
 
 When enabled, pods are assigned a DNS A record in the form of `pod-ip-address.my-namespace.pod.cluster.local`.
 
-For example, a pod with ip `1.2.3.4` in the namespace `default` with a DNS name of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
+For example, a pod with IP `1.2.3.4` in the namespace `default` with a DNS name of `cluster.local` would have an entry: `1-2-3-4.default.pod.cluster.local`.
 
 #### A Records and hostname based on Pod's hostname and subdomain fields
 
@@ -280,7 +280,7 @@ If you see that no pod is running or that the pod has failed/completed, the DNS 
 Use `kubectl logs` command to see logs for the DNS daemons.
 
 ```
-kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kube-dns
+kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kubedns
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
 kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c healthz
 ```
@@ -308,7 +308,7 @@ If you have created the service or in the case it should be created by default b
 
 #### Are DNS endpoints exposed?
 
-You can verify that dns endpoints are exposed by using the `kubectl get endpoints` command.
+You can verify that DNS endpoints are exposed by using the `kubectl get endpoints` command.
 
 ```
 kubectl get ep kube-dns --namespace=kube-system
