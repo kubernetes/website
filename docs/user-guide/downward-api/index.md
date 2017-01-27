@@ -22,9 +22,11 @@ the Pod's name, for example, and inject it into this well-known variable.
 
 The following information is available to a `Pod` through the downward API:
 
-*   The pod's name
+*   The node's name 
+*   The pod's name
 *   The pod's namespace
 *   The pod's IP
+*   The pod's service account name 
 *   A container's cpu limit
 *   A container's cpu request
 *   A container's memory limit
@@ -101,10 +103,12 @@ In future, it will be possible to specify an output format option.
 
 Downward API volumes can expose:
 
+*   The node's name
 *   The pod's name
 *   The pod's namespace
 *   The pod's labels
 *   The pod's annotations
+*   The pod's service account name 
 *   A container's cpu limit
 *   A container's cpu request
 *   A container's memory limit

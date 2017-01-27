@@ -31,7 +31,7 @@ See more information
 kernel log now. It doesn't support log tools like journald.
 
 * The kernel issue detection of node problem detector has assumption on kernel
-log format, now it only works on Ubuntu and Debian. However, it is easy to extend
+log format, and now it only works on Ubuntu and Debian. However, it is easy to extend
 it to [support other log format](/docs/admin/node-problem/#support-other-log-format).
 
 ## Enable/Disable in GCE cluster
@@ -194,7 +194,7 @@ and detects known kernel issues following predefined rules.
 
 The Kernel Monitor matches kernel issues according to a set of predefined rule list in
 [`config/kernel-monitor.json`](https://github.com/kubernetes/node-problem-detector/blob/v0.1/config/kernel-monitor.json).
-The rule list is extensible, you can always extend it by [overwriting the
+The rule list is extensible, and you can always extend it by [overwriting the
 configuration](/docs/admin/node-problem/#overwrite-the-configuration).
 
 ### Add New NodeConditions
