@@ -188,13 +188,13 @@ toc:
 - title: Kubernetes Design Docs
   section:
   - title: Kubernetes Architecture
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/architecture.md
+    path: https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/design/architecture.md
   - title: Kubernetes Design Overview
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/
+    path: https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/design/
   - title: Kubernetes Identity and Access Management
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/access.md
+    path: https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/design/access.md
   - docs/admin/ovs-networking.md
   - title: Security Contexts
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/security_context.md
+    path: https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/design/security_context.md
   - title: Security in Kubernetes
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.3/docs/design/security.md
+    path: https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/design/security.md
