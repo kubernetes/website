@@ -4,9 +4,9 @@ title: Connecting a Front End to a Back End Using a Service
 
 {% capture overview %}
 
-This tutorial shows how to create a frontend service and a backend microservice.
-The backend microservice is a hello greeter. The frontend and backend are connected
-using a Kubernetes Service object.
+This tutorial shows how to create a frontend and a backend
+microservice. The backend microservice is a hello greeter. The
+frontend and backend are connected using a Kubernetes Service object.
 
 {% endcapture %}
 
@@ -14,7 +14,7 @@ using a Kubernetes Service object.
 {% capture objectives %}
 
 * Create and run a microservice using a Deployment object.
-* Route traffic to the backend using a frontend microservice.
+* Route traffic to the backend using a frontend.
 * Use a Service object to connect the frontend application to the
   backend application.
 
@@ -75,12 +75,12 @@ Events:
 ...
 ```
 
-### Creating the backend service
+### Creating the backend Service object
 
 The key to connecting a frontend to a backend is the backend
 Service. A Service creates a persistent IP address and DNS name entry
 so that the backend microservice can always be reached. A Service uses
-selector labels to find the Pods that it routes traffic to. 
+selector labels to find the Pods that it routes traffic to.
 
 First, explore the Service configuration file:
 
@@ -106,7 +106,7 @@ given to the backend Service. The DNS name is "hello", which is the value
 of the `name` field in the preceding Service configuration file.
 
 The Pods in the frontend Deployment run an nginx image that is configured
-to find the hello backend service. Here is the nginx configuration file:
+to find the hello backend Service. Here is the nginx configuration file:
 
 {% include code.html file="frontend/frontend.conf" ghlink="/docs/tutorials/connecting-apps/frontend/frontend.conf" %}
 
@@ -161,8 +161,8 @@ frontend   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
 
 ### Send traffic through the frontend
 
-The frontend and backend services are now connected. You can hit the
-endpoint by using the curl command on the external IP of your frontend Service.
+The frontend and backends are now connected. You can hit the endpoint
+by using the curl command on the external IP of your frontend Service.
 
 ```
 curl http://<EXTERNAL-IP>
