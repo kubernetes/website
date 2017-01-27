@@ -1,6 +1,9 @@
 ---
+assignees:
+- derekwaynecarr
+- janetkuo
+title: Limiting Storage Consumption
 ---
-
 This example demonstrates an easy way to limit the amount of storage consumed in a namespace.
 
 The following resources are used in the demonstration:
@@ -11,7 +14,7 @@ The following resources are used in the demonstration:
 
 This example assumes you have a functional Kubernetes setup.
 
-## Scenario
+## Limiting Storage Consumption
 
 The cluster-admin is operating a cluster on behalf of a user population and the admin wants to control
 how much storage a single namespace can consume in order to control cost.
