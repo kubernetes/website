@@ -370,7 +370,10 @@ files.
 **Mounted Secrets are updated automatically**
 
 When a secret being already consumed in a volume is updated, projected keys are eventually updated as well.
-The update time depends on the kubelet syncing period.
+Kubelet is checking whether the mounted secret is fresh on every periodic sync.
+However, it is using its local ttl-based cache for getting the current value of the secret.
+As a result, the total delay from the moment when the secret is update to the moment when new keys are
+projected to the pod can be as long as kubelet sync period + ttl of secrets cache in kubelet.
 
 #### Optional Secrets as Files from a Pod
 
