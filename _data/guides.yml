@@ -93,7 +93,7 @@ toc:
   - docs/user-guide/connecting-to-applications-proxy.md
   - docs/user-guide/connecting-to-applications-port-forward.md
   - title: Using Explorer to Examine the Runtime Environment
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/explorer
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
 - title: Creating a Cluster
   section:
@@ -200,7 +200,7 @@ toc:
   - docs/admin/networking.md
   - docs/admin/dns.md
   - title: Setting Up and Configuring DNS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/cluster-dns
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
   - docs/admin/master-node-communication.md
   - docs/admin/network-plugins.md
   - docs/admin/static-pods.md
