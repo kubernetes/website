@@ -33,7 +33,7 @@ each of which has a sequence of steps.
 
 #### Connecting Applications
 
-* [Connecting a Front End to a Back End Using a Service](/docs/tutorials/connecting-apps/connecting-apps/)
+* [Connecting a Front End to a Back End Using a Service](/docs/tutorials/connecting-apps/connecting-frontend-backend/)
 
 #### Services
 

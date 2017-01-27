@@ -43,7 +43,7 @@ toc:
   - docs/tutorials/stateful-application/zookeeper.md
 - title: Connecting Applications
   section:
-  - docs/tutorials/connecting-apps/connecting-apps.md
+  - docs/tutorials/connecting-apps/connecting-frontend-backend.md
 - title: Services
   section:
   - docs/tutorials/services/source-ip.md
