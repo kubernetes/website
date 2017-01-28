@@ -70,9 +70,43 @@ Print the live configuration using `kubectl get` with the following command.
 
 Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written to the live configuration and matches the configuration file.
 
-`kubectl.kubernetes.io/last-applied-configuration`:
+`kubectl.kubernetes.io/last-applied-configuration`
 
-> {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx","ports":[{"containerPort":80}]}]}}}}
+```json
+{
+	"apiVersion": "extensions/v1beta1",
+	"kind": "Deployment",
+	"metadata": {
+		"annotations": {
+		},
+		"name": "nginx-deployment",
+		"namespace": "default"
+	},
+	"spec": {
+		"minReadySeconds": 5,
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "nginx"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"image": "nginx:1.7.9",
+						"name": "nginx",
+						"ports": [
+							{
+								"containerPort": 80
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+}
+```
 
 {% include code.html language="yaml" file="applied_deployment.yaml" ghlink="/docs/concepts/tools/applied_deployment.yaml" %}
 
@@ -103,7 +137,41 @@ Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written 
 
 `kubectl.kubernetes.io/last-applied-configuration`:
 
-> {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx","ports":[{"containerPort":80}]}]}}}}
+```json
+{
+	"apiVersion": "extensions/v1beta1",
+	"kind": "Deployment",
+	"metadata": {
+		"annotations": {
+		},
+		"name": "nginx-deployment",
+		"namespace": "default"
+	},
+	"spec": {
+		"minReadySeconds": 5,
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "nginx"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"image": "nginx:1.7.9",
+						"name": "nginx",
+						"ports": [
+							{
+								"containerPort": 80
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+}
+```
 
 {% include code.html language="yaml" file="applied_deployment.yaml" ghlink="/docs/concepts/tools/applied_deployment.yaml" %}
 
@@ -123,7 +191,41 @@ Observe the following changes to the live configuration:
 
 `kubectl.kubernetes.io/last-applied-configuration`:
 
-> {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx","ports":[{"containerPort":80}]}]}}}}
+```json
+{
+	"apiVersion": "extensions/v1beta1",
+	"kind": "Deployment",
+	"metadata": {
+		"annotations": {
+		},
+		"name": "nginx-deployment",
+		"namespace": "default"
+	},
+	"spec": {
+		"minReadySeconds": 5,
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "nginx"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"image": "nginx:1.7.9",
+						"name": "nginx",
+						"ports": [
+							{
+								"containerPort": 80
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+}
+```
 
 {% include code.html language="yaml" file="applied_scaled_deployment.yaml" ghlink="/docs/concepts/tools/applied_scaled_deployment.yaml" %}
 
@@ -149,7 +251,40 @@ Observe the following changes to the live configuration:
 
 `kubectl.kubernetes.io/last-applied-configuration`:
 
-> {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx","ports":[{"containerPort":80}]}]}}}}
+```json
+{
+	"apiVersion": "extensions/v1beta1",
+	"kind": "Deployment",
+	"metadata": {
+		"annotations": {
+		},
+		"name": "nginx-deployment",
+		"namespace": "default"
+	},
+	"spec": {
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "nginx"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"image": "nginx:1.11.9",
+						"name": "nginx",
+						"ports": [
+							{
+								"containerPort": 80
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+}
+```
 
 {% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/applied_update_deployment.yaml" %}
 
@@ -243,7 +378,41 @@ Live configuration:
 
 Last applied configuration annotation:
 
-> {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx","ports":[{"containerPort":80}]}]}}}}
+```json
+{
+	"apiVersion": "extensions/v1beta1",
+	"kind": "Deployment",
+	"metadata": {
+		"annotations": {
+		},
+		"name": "nginx-deployment",
+		"namespace": "default"
+	},
+	"spec": {
+		"minReadySeconds": 5,
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "nginx"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"image": "nginx:1.7.9",
+						"name": "nginx",
+						"ports": [
+							{
+								"containerPort": 80
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+}
+```
 
 Merge calculations performed by `kubectl apply` when run against the
 configuration file and a cluster containing the live object configuration.
