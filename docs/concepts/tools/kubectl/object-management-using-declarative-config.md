@@ -226,22 +226,26 @@ Live configuration:
 
 {% include code.html language="yaml" file="applied_scaled_deployment.yaml" ghlink="/docs/concepts/tools/applied_scaled_deployment.yaml" %}
 
-Merge calculations performed by `kubectl apply` when run against the
+**Observe:** Merge calculations performed by `kubectl apply` when run against the
 configuration file and a cluster containing the live object configuration.
 
-1. Calculate fields to delete by reading values from
-   `last-applied-configuration` and comparing them to values in the
-   configuration file.
-  - `minReadySeconds` appears in the `last-applied-configuration` annotation,
-    but is not present in the configuration file.
-    **Action:** clear `minReadySeconds` from the live configuration.
-2. Calculate fields to set by reading values from the configuration
-   file and comparing them to values in the live configuration.
-  - the value of `image` in the configuration file does not match
-    the value in the live configuration.  **Action:** set the value of `image`.
-3. Set the `last-applied-configuration` annotation to match the value
-   of the configuration file.
-4. Merge the results from 1, 2, 3 into a single patch request to the apiserver.
+    1. Calculate fields to delete by reading values from
+       `last-applied-configuration` and comparing them to values in the
+       configuration file.
+      - `minReadySeconds` appears in the `last-applied-configuration` annotation,
+        but is not present in the configuration file.
+        **Action:** clear `minReadySeconds` from the live configuration.
+    2. Calculate fields to set by reading values from the configuration
+       file and comparing them to values in the live configuration.
+      - the value of `image` in the configuration file does not match
+        the value in the live configuration.  **Action:** set the value of `image`.
+    3. Set the `last-applied-configuration` annotation to match the value
+       of the configuration file.
+    4. Merge the results from 1, 2, 3 into a single patch request to the apiserver.
+
+Result:
+
+{% include code.html language="yaml" file="applied_update_deployment.yaml" ghlink="/docs/concepts/tools/applied_update_deployment.yaml" %}
 
 {% comment %}
 TODO(1.6): For 1.6, add the following bullet point to 1.
