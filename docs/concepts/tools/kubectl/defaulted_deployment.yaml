@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+# ...
+spec:
+  minReadySeconds: 5
+  replicas: 1 # defaulted by apiserver
+  selector:
+    matchLabels: # defaulted by apiserver - default value derived from template.metadata.labels
+      app: nginx
+  strategy:
+    rollingUpdate: # defaulted by apiserver - default value derived from type
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate # defaulted apiserver
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx:1.7.9
+        imagePullPolicy: IfNotPresent # defaulted by apiserver
+        name: nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP # defaulted by apiserver
+        resources: {} # defaulted by apiserver
+        terminationMessagePath: /dev/termination-log # defaulted by apiserver
+      dnsPolicy: ClusterFirst # defaulted by apiserver
+      restartPolicy: Always # defaulted by apiserver
+      securityContext: {} # defaulted by apiserver
+      terminationGracePeriodSeconds: 30 # defaulted by apiserver
+# ...
