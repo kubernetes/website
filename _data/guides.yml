@@ -8,6 +8,7 @@ toc:
   - docs/whatisk8s.md
   - docs/getting-started-guides/kubeadm.md
   - docs/getting-started-guides/kops.md
+  - docs/getting-started-guides/kargo.md
   - docs/hellonode.md
   - docs/getting-started-guides/kubectl.md
   - docs/getting-started-guides/binary_release.md
@@ -92,7 +93,7 @@ toc:
   - docs/user-guide/connecting-to-applications-proxy.md
   - docs/user-guide/connecting-to-applications-port-forward.md
   - title: Using Explorer to Examine the Runtime Environment
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/explorer
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
 - title: Creating a Cluster
   section:
@@ -188,6 +189,7 @@ toc:
   - docs/admin/disruptions.md
   - docs/admin/resourcequota/index.md
   - docs/admin/resourcequota/walkthrough.md
+  - docs/admin/resourcequota/limitstorageconsumption.md
   - docs/admin/rescheduler.md
   - docs/admin/sysctls.md
   - docs/admin/cluster-components.md
@@ -199,7 +201,7 @@ toc:
   - docs/admin/networking.md
   - docs/admin/dns.md
   - title: Setting Up and Configuring DNS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/cluster-dns
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
   - docs/admin/master-node-communication.md
   - docs/admin/network-plugins.md
   - docs/admin/static-pods.md

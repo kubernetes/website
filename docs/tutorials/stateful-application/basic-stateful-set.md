@@ -25,6 +25,7 @@ following Kubernetes concepts.
 * [Cluster DNS](/docs/admin/dns/)
 * [Headless Services](/docs/user-guide/services/#headless-services)
 * [PersistentVolumes](/docs/user-guide/volumes/)
+* [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
@@ -51,7 +52,7 @@ After this tutorial, you will be familiar with the following.
 {% endcapture %}
 
 {% capture lessoncontent %}
-### Creating a StatefulSet 
+## Creating a StatefulSet 
 
 Begin by creating a StatefulSet using the example below. It is similar to the 
 example presented in the
@@ -95,7 +96,7 @@ NAME      DESIRED   CURRENT   AGE
 web       2         1         20s
 ```
 
-#### Ordered Pod Creation
+### Ordered Pod Creation
 
 For a StatefulSet with N replicas, when Pods are being deployed, they are 
 created sequentially, in order from {0..N-1}. Examine the output of the 
@@ -120,11 +121,11 @@ Notice that the `web-0` Pod is launched and set to Pending prior to
 launching `web-1`. In fact, `web-1` is not launched until `web-0` is 
 [Running and Ready](/docs/user-guide/pod-states). 
 
-### Pods in a StatefulSet
+## Pods in a StatefulSet
 Unlike Pods in other controllers, the Pods in a StatefulSet have a unique 
 ordinal index and a stable network identity.
 
-#### Examining the Pod's Ordinal Index
+### Examining the Pod's Ordinal Index
 
 Get the StatefulSet's Pods.
 
@@ -143,7 +144,7 @@ Set controller. The Pods' names take the form
 `<statefulset name>-<ordinal index>`. Since the `web` StatefulSet has two 
 replicas, it creates two Pods, `web-0` and `web-1`.
 
-#### Using Stable Network Identities
+### Using Stable Network Identities
 Each Pod has a stable hostname based on its ordinal index. Use
 [`kubectl exec`](/docs/user-guide/kubectl/kubectl_exec/) to execute the 
 `hostname` command in each Pod. 
@@ -253,7 +254,7 @@ liveness and readiness, you can use the SRV records of the Pods (
 application will be able to discover the Pods' addresses when they transition 
 to Running and Ready.
 
-#### Writing to Stable Storage
+### Writing to Stable Storage
 
 Get the PersistentVolumeClaims for `web-0` and `web-1`.
 
@@ -283,6 +284,16 @@ for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
 web-0
 web-1
 ```
+
+Note, if you instead see 403 Forbidden responses for the above curl command,
+you will need to fix the permissions of the directory mounted by the `volumeMounts`
+(due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)) with:
+
+```shell
+for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done
+```
+
+before retrying the curl command above.
 
 In one terminal, watch the StatefulSet's Pods.
 
@@ -326,14 +337,14 @@ Volume Claims are remounted to their `volumeMount`s. No matter what node `web-0`
 and `web-1` are scheduled on, their PersistentVolumes will be mounted to the 
 appropriate mount points.
 
-### Scaling a StatefulSet
+## Scaling a StatefulSet
 Scaling a StatefulSet refers to increasing or decreasing the number of replicas. 
 This is accomplished by updating the `replicas` field. You can use either
 [`kubectl scale`](/docs/user-guide/kubectl/kubectl_scale/) or
 [`kubectl patch`](/docs/user-guide/kubectl/kubectl_patch/) to scale a Stateful 
 Set.
 
-#### Scaling Up
+### Scaling Up
 
 In one terminal window, watch the Pods in the StatefulSet.
 
@@ -378,7 +389,7 @@ created each Pod sequentially with respect to its ordinal index, and it
 waited for each Pod's predecessor to be Running and Ready before launching the 
 subsequent Pod.
 
-#### Scaling Down
+### Scaling Down
 
 In one terminal, watch the StatefulSet's Pods.
 
@@ -412,7 +423,7 @@ web-3     1/1       Terminating   0         42s
 web-3     1/1       Terminating   0         42s
 ```
 
-#### Ordered Pod Termination
+### Ordered Pod Termination
 
 The controller deleted one Pod at a time, with respect to its ordinal index, 
 in reverse order, and it waited for each to be completely shutdown before 
@@ -438,7 +449,7 @@ the StatefulSet's Pods are deleted. This is still true when Pod deletion is
 caused by scaling the StatefulSet down. This feature can be used to facilitate 
 upgrading the container images of Pods in a StatefulSet.
 
-### Updating Containers
+## Updating Containers
 As demonstrated in the [Scaling a StatefulSet](#scaling-a-statefulset) section,
 the `replicas` field of a StatefulSet is mutable. The only other field of a 
 StatefulSet that can be updated is the `spec.template.containers` field. 
@@ -530,14 +541,14 @@ gcr.io/google_containers/nginx-slim:0.7
 
 All the Pods in the StatefulSet are now running a new container image.
 
-### Deleting StatefulSets
+## Deleting StatefulSets
 
 StatefulSet supports both Non-Cascading and Cascading deletion. In a 
 Non-Cascading Delete, the StatefulSet's Pods are not deleted when the Stateful
 Set is deleted. In a Cascading Delete, both the StatefulSet and its Pods are 
 deleted.
 
-#### Non-Cascading Delete
+### Non-Cascading Delete
 
 In one terminal window, watch the Pods in the StatefulSet.
 
@@ -643,7 +654,7 @@ because the StatefulSet never deletes the PersistentVolumes associated with a
 Pod. When you recreated the StatefulSet and it relaunched `web-0`, its original 
 PersistentVolume was remounted.
 
-#### Cascading Delete
+### Cascading Delete
 
 In one terminal window, watch the Pods in the StatefulSet.
 
