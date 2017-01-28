@@ -1,7 +1,7 @@
 kind: Deployment
 metadata:
   annotations:
-    ...
+    # ...
     # This is the json representation of simple_deployment.yaml
     # It was written by kubectl apply when the object was created
     kubectl.kubernetes.io/last-applied-configuration: |
