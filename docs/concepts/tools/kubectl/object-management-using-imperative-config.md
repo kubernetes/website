@@ -120,7 +120,7 @@ template:
 {% endcapture %}
 
 {% capture whatsnext %}
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-commands/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/tools/kubectl/object-management-using-declarative-config/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
 - [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)

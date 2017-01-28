@@ -29,7 +29,7 @@ Declarative object configuration requires a firm understanding of
 the Kubernetes object definitions and configuration.  Read and complete
 the following documents if you have not already.
 
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-commands/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
 
 Following are definitions for terms used in this document.
@@ -658,7 +658,7 @@ The recommended approach for ThirdPartyResources is to use [imperative object co
 {% endcapture %}
 
 {% capture whatsnext %}
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-commands/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
 - [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)
