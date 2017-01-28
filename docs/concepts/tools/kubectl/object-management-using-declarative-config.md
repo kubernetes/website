@@ -57,7 +57,7 @@ This sets the `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
 annotation on each object, which contains the contents of the object configuration file
 used to create the object.
 
-Example:
+**Example:**
 
 {% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/simple_deployment.yaml" %}
 
@@ -84,7 +84,7 @@ Update any objects defined in a directory that already exist:
 
 - `kubectl apply -f <directory/>`
 
-Example:
+**Example:**
 
 {% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/simple_deployment.yaml" %}
 
@@ -216,7 +216,7 @@ file and need to be cleared from the live configuration.
 1. Calculate fields to delete: Fields present in `last-applied-configuration` and missing from the configuration file
 2. Calculate fields to add or set: Fields present in the configuration file whose values don't match the live configuration
 
-Example:
+**Example:**
 
 Configuration file:
 
@@ -229,19 +229,19 @@ Live configuration:
 **Observe:** Merge calculations performed by `kubectl apply` when run against the
 configuration file and a cluster containing the live object configuration.
 
-    1. Calculate fields to delete by reading values from
-       `last-applied-configuration` and comparing them to values in the
-       configuration file.
-      - `minReadySeconds` appears in the `last-applied-configuration` annotation,
-        but is not present in the configuration file.
-        **Action:** clear `minReadySeconds` from the live configuration.
-    2. Calculate fields to set by reading values from the configuration
-       file and comparing them to values in the live configuration.
-      - the value of `image` in the configuration file does not match
-        the value in the live configuration.  **Action:** set the value of `image`.
-    3. Set the `last-applied-configuration` annotation to match the value
-       of the configuration file.
-    4. Merge the results from 1, 2, 3 into a single patch request to the apiserver.
+1. Calculate fields to delete by reading values from
+   `last-applied-configuration` and comparing them to values in the
+   configuration file.
+  - `minReadySeconds` appears in the `last-applied-configuration` annotation,
+    but is not present in the configuration file.
+    **Action:** clear `minReadySeconds` from the live configuration.
+2. Calculate fields to set by reading values from the configuration
+   file and comparing them to values in the live configuration.
+  - the value of `image` in the configuration file does not match
+    the value in the live configuration.  **Action:** set the value of `image`.
+3. Set the `last-applied-configuration` annotation to match the value
+   of the configuration file.
+4. Merge the results from 1, 2, 3 into a single patch request to the apiserver.
 
 Result:
 
@@ -300,11 +300,12 @@ Fields that represent maps or complex-types are merged by comparing each of the 
 Merging changes to lists uses one of 3 strategies.  The strategy is controlled
 per-field on the Kubernetes object definition.
 
-- Replace the list (either elements of primitive types or complex-types):
-  Treat the list the same as a primitive field.  Replace or delete the
-  entire list.  Preserves ordering.
+#### Replace the list (either elements of primitive types or complex-types)
 
-Example: Using apply to update the `args` field of a PodSpec sets
+Treat the list the same as a primitive field.  Replace or delete the
+entire list.  Preserves ordering.
+
+**Example:** Using apply to update the `args` field of a PodSpec sets
 the value of `args` to the value in the configuration file.  Any elements
 added to the live configuration are lost.  Ordering of `args` defined
 in the configuration file is retained in the live configuration.
@@ -324,13 +325,14 @@ in the configuration file is retained in the live configuration.
 
 ```
 
-    Explanation:
+**Explanation:**
 
-    - The merge accepted the configuration file value as the new list value
+    - The merge used the configuration file value as the new list value
 
-- Merge list of complex-type elements:
-  Treat the list as a map and treat a specific field of the entries as a key.
-  Add, delete, or update individual entries.  Does not preserve ordering.
+#### Merge list of complex-type elements:
+
+Treat the list as a map and treat a specific field of the entries as a key.
+Add, delete, or update individual entries.  Does not preserve ordering.
 
 This merge strategy uses a special tag on the field called a `mergeKey`.  The
 `mergeKey` is defined for each field in the Kubernetes source code:
@@ -338,7 +340,7 @@ This merge strategy uses a special tag on the field called a `mergeKey`.  The
 When merging a list of complex-types, the field specified as the `mergeKey`
 is used like a map-key for each element.
 
-Example: Using apply to update the `containers` field of a PodSpec
+**Example:** Using apply to update the `containers` field of a PodSpec
 merges the list as though `containers` was a map where each element is keyed
 by `name`.
 
@@ -387,24 +389,25 @@ by `name`.
       image: helper:1.3
 ```
 
-    Explanation:
+**Explanation:**
 
-    - The container named "nginx-helper-a" was deleted because a no container
-      named "nginx-helper-a" appeared in the configuration file
-    - The container named "nginx-helper-b" retained the changes to `args`
-      in the live configuration.  `kubectl apply` was able to identify
-      that "nginx-helper-b" in the live configuration was the same
-      "nginx-helper-b" as in the configuration file even though their fields
-      had different values (no `args` in the configuration file).  This is
-      because the `mergeKey` field value (name) was identical in both.
-    - The container named "nginx-helper-c" was added because no container
-      with that name appeared in the live configuration, but one with
-      that name was present in the configuration file.
-    - The container named "nginx-helper-d" was retained because
-      no element with that name appeared in the last-applied-configuration.
+- The container named "nginx-helper-a" was deleted because a no container
+  named "nginx-helper-a" appeared in the configuration file
+- The container named "nginx-helper-b" retained the changes to `args`
+  in the live configuration.  `kubectl apply` was able to identify
+  that "nginx-helper-b" in the live configuration was the same
+  "nginx-helper-b" as in the configuration file even though their fields
+  had different values (no `args` in the configuration file).  This is
+  because the `mergeKey` field value (name) was identical in both.
+- The container named "nginx-helper-c" was added because no container
+  with that name appeared in the live configuration, but one with
+  that name was present in the configuration file.
+- The container named "nginx-helper-d" was retained because
+  no element with that name appeared in the last-applied-configuration.
 
-- Merge list of primitive type elements:
-  - As of Kubernetes 1.5, lists of primitive types do not support the merge strategy.
+#### Merge list of primitive type elements:
+
+As of Kubernetes 1.5, lists of primitive types do not support the merge strategy.
 
 **Note:** Which of the above strategies is chosen for a given field is controlled by
 the `patchStrategy` tag in [types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go#L2119)
@@ -417,7 +420,7 @@ TODO(pwittrock): Uncomment this for 1.6
 - Treat the list as a set of primitives.  Replace or delete individual
   elements.  Does not preserve ordering.  Does not preserve duplicates.
 
-Example: Using apply to update the `finalizers` field of ObjectMeta
+**Example:** Using apply to update the `finalizers` field of ObjectMeta
 keeps elements added to the live configuration.  Ordering of finalizers
 is lost.
 {% endcomment %}
@@ -427,7 +430,7 @@ is lost.
 Certain optional fields will be set by the apiserver on the live object
 iff they are not specified when creating the object.
 
-Example:
+**Example:**
 
 Create a Deployment from a configuration file without specifying the `strategy` or `selector` in the configuration.
 
@@ -464,7 +467,7 @@ if the desired values match the server defaults.  This will make it
 easier to recognize conflicting values that will not be re-defaulted
 by the server.
 
-Example:
+**Example:**
 
 ```yaml
 # last-applied-configuration
@@ -532,14 +535,14 @@ spec:
         - containerPort: 80
 ```
 
-    Explanation:
+**Explanation:**
 
-    1. User creates a Deployment without defining `strategy.type`
-    2. Server defaults `strategy.type` to `RollingUpdate` and defaults `strategy.rollingUpdate` values
-    3. User changes `strategy.type` to `Recreate`.  The `strategy.rollingUpdate` values remain at their defaulted values, though the server expects them to be cleared.
-      - If the `strategy.rollingUpdate` was defined in the config initially, it would have been more clear that it needed to be deleted.
-    4. Apply fails because `strategy.rollingUpdate` is not cleared
-      - `strategy.rollingupdate` can not be used with a `strategy.type` of `Recreate`
+1. User creates a Deployment without defining `strategy.type`
+2. Server defaults `strategy.type` to `RollingUpdate` and defaults `strategy.rollingUpdate` values
+3. User changes `strategy.type` to `Recreate`.  The `strategy.rollingUpdate` values remain at their defaulted values, though the server expects them to be cleared.
+  - If the `strategy.rollingUpdate` was defined in the config initially, it would have been more clear that it needed to be deleted.
+4. Apply fails because `strategy.rollingUpdate` is not cleared
+  - `strategy.rollingupdate` can not be used with a `strategy.type` of `Recreate`
 
 Recommendations for fields to explicitly define in the object configuration field:
 
@@ -636,7 +639,7 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 The recommended approach is to define a single, immutable PodTemplate label
 used only by the controller selector with no other semantic meaning.
 
-Example label:
+**Example:**
 
 ```yaml
 selector:
