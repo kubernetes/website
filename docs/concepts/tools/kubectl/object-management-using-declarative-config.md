@@ -11,6 +11,7 @@ back into the local object configuration.
 {% endcapture %}
 
 {% capture body %}
+
 ## Trade-offs
 
 The `kubectl` tool supports three kinds of object management:
@@ -68,9 +69,9 @@ Print the live configuration using `kubectl get` with the following command.
 
         kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
 
-{% include code.html language="yaml" file="applied_deployment.yaml" ghlink="/docs/concepts/tools/applied_deployment.yaml" %}
-
 Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written to the live configuration and matches the configuration file:
+
+{% include code.html language="yaml" file="applied_deployment.yaml" ghlink="/docs/concepts/tools/applied_deployment.yaml" %}
 
 ## How to update objects
 
@@ -95,9 +96,9 @@ Print the live configuration using `kubectl get` with the following command.
 
         kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
 
-{% include code.html language="yaml" file="applied_deployment.yaml" ghlink="/docs/concepts/tools/applied_deployment.yaml" %}
-
 Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written to the live configuration and matches the configuration file:
+
+{% include code.html language="yaml" file="applied_deployment.yaml" ghlink="/docs/concepts/tools/applied_deployment.yaml" %}
 
 Update the `replicas` on the live configuration directly using `kubectl scale`.  This does not use `kubectl apply`.
 
@@ -108,12 +109,12 @@ command.
 
         kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
 
-{% include code.html language="yaml" file="applied_scaled_deployment.yaml" ghlink="/docs/concepts/tools/applied_scaled_deployment.yaml" %}
-
 Observe the following changes to the live configuration:
 
 - the `replicas` field has been set to 1
 - the `last-applied-configuration` annotation does not contain the replicas
+
+{% include code.html language="yaml" file="applied_scaled_deployment.yaml" ghlink="/docs/concepts/tools/applied_scaled_deployment.yaml" %}
 
 Update the simple_deployment.yaml to change the image from `nginx:1.7.9` to `nginx:1.11.9` and delete the `minReadySeconds` field.
 
@@ -126,8 +127,6 @@ command.
 
         kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
 
-{% include code.html language="yaml" file="applied_update_deployment.yaml" ghlink="/docs/concepts/tools/applied_update_deployment.yaml" %}
-
 Observe the following changes to the live configuration:
 
 - the `replicas` field retains the value of 2 set by `kubectl scale` -
@@ -136,6 +135,8 @@ Observe the following changes to the live configuration:
 - the `last-applied-configuration` annotation has been updated with the new image
 - the `minReadySeconds` field has been cleared
 - the `last-applied-configuration` annotation no longer contains the `minReadySeconds` field
+
+{% include code.html language="yaml" file="applied_update_deployment.yaml" ghlink="/docs/concepts/tools/applied_update_deployment.yaml" %}
 
 **Warning**: mixing `kubectl apply` with the imperative object configuration commands
 `create` and `replace` is not supported.  This is because `create`
@@ -471,11 +472,11 @@ Print the live configuration using `kubectl get` with the following command.
 
         kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
 
-{% include code.html language="yaml" file="defaulted_deployment.yaml" ghlink="/docs/concepts/tools/defaulted_deployment.yaml" %}
-
 Observe that many fields have been set to default values in the live
 configuration by the apiserver.  These fields were not specified in the
 configuration file.
+
+{% include code.html language="yaml" file="defaulted_deployment.yaml" ghlink="/docs/concepts/tools/defaulted_deployment.yaml" %}
 
 **Note:** some of the fields default values have been derived from
 the values of other fields that were specified in the configuration file,
