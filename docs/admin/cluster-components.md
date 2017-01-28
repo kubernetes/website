@@ -107,7 +107,7 @@ the Kubernetes runtime environment.
   or via local configuration file) and:
 * Mounts the pod's required volumes
 * Downloads the pod's secrets
-* Run the pod's containers via docker (or, experimentally, rkt).
+* Runs the pod's containers via docker (or, experimentally, rkt).
 * Periodically executes any requested container liveness probes.
 * Reports the status of the pod back to the rest of the system, by creating a
   "mirror pod" if necessary.

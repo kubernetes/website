@@ -9,7 +9,7 @@ This page provides an overview of `Pod`, the smallest deployable object in the K
 {:toc}
 
 {% capture body %}
-### Understanding Pods
+## Understanding Pods
 
 A *Pod* is the basic building block of Kubernetes--the smallest and simplest unit in the Kubernetes object model that you create or deploy. A Pod represents a running process on your cluster.
 
@@ -29,9 +29,9 @@ The [Kubernetes Blog](http://blog.kubernetes.io) has some additional information
 
 Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run muliple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
 
-#### How Pods Manage Multiple Containers
+### How Pods Manage Multiple Containers
 
-Pods are designed to support multiple cooperating processes (as containers) that form a cohesive unit of service. The containers in a Pod are automatically co-located and co-scheduled on the same phyiscal or virtual machine in the cluster. The containers can share resources and dependencies, communicate with one another, and coordinate when and how they are terminated.
+Pods are designed to support multiple cooperating processes (as containers) that form a cohesive unit of service. The containers in a Pod are automatically co-located and co-scheduled on the same physical or virtual machine in the cluster. The containers can share resources and dependencies, communicate with one another, and coordinate when and how they are terminated.
 
 Note that grouping multiple co-located and co-managed containers in a single Pod is a relatively advanced use case. You should use this pattern only in specific instances in which your containers are tightly coupled. For example, you might have a container that acts as a web server for files in a shared volume, and a separate "sidecar" container that updates those files from a remote source, as in the following diagram:
 
@@ -39,15 +39,15 @@ Note that grouping multiple co-located and co-managed containers in a single Pod
 
 Pods provide two kinds of shared resources for their constituent containers: *networking* and *storage*.
 
-##### Networking
+#### Networking
 
 Each Pod is assigned a unique IP address. Every the container in a Pod shares the network namespace, including the IP address and network ports. Containers *inside a Pod* can communicate with one another using `localhost`. When containers in a Pod communicate with entities *outside the Pod*, they must coordinate how they use the shared network resources (such as ports).
 
-##### Storage
+#### Storage
 
 A Pod can specify a set of shared storage *volumes*. All containers in the Pod can access the shared volumes, allowing those containers to share data. Volumes also allow persistent data in a Pod to survive in case one of the containers within needs to be restarted. See Volumes for more information on how Kubernetes implements shared storage in a Pod.
 
-### Working with Pods
+## Working with Pods
 
 You'll rarely create individual Pods directly in Kubernetes--even singleton Pods. This is because Pods are designed as relatively ephemeral, disposable entities. When a Pod gets created (directly by you, or indirectly by a Controller), it is scheduled to run on a Node in your your cluster. The Pod remains on that Node until the process is terminated, the pod object is deleted, or the pod is *evicted* for lack of resources, or the Node fails.
 
@@ -55,7 +55,7 @@ You'll rarely create individual Pods directly in Kubernetes--even singleton Pods
 
 Pods do not, by themselves, self-heal. If a Pod is scheduled to a Node that fails, or if the scheduling operation itself fails, the Pod is deleted; likewise, a Pod won't survive an eviction due to a lack of resources or Node maintenance. Kubernetes uses a higher-level abstraction, called a *Controller*, that handles the work of managing the relatively disposable Pod instances. Thus, while it is possible to use Pod directly, it's far more common in Kubernetes to manage your pods using a Controller. See [Pods and Controllers](#pods-and-controllers) for more information on how Kubernetes uses Controllers to implement Pod scaling and healing.
 
-#### Pods and Controllers
+### Pods and Controllers
 
 A Controller can create and manage multiple Pods for you, handling replication and rollout and providing self-healing capabilities at cluster scope. For example, if a Node fails, the Controller might automatically replace the Pod by scheduling an identical replacement on a different Node). 
 
