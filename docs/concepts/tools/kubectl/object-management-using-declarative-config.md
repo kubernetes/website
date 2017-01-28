@@ -68,7 +68,11 @@ Print the live configuration using `kubectl get` with the following command.
 
         kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
 
-Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written the object.
+Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written to the live configuration and matches the configuration file.
+
+`kubectl.kubernetes.io/last-applied-configuration`:
+
+> {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx","ports":[{"containerPort":80}]}]}}}}
 
 {% include code.html language="yaml" file="applied_deployment.yaml" ghlink="/docs/concepts/tools/applied_deployment.yaml" %}
 
@@ -76,11 +80,8 @@ Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written 
 
 Update any objects defined in a directory that already exist:
 
-1. Set fields to match the values in the configuration file if they are
-   missing or differ from the live configuration.  Ignores fields omitted
-   from the configuration file, file even if they are set in the live configuration.
-2. Clear fields previously set with apply have since been removed from
-   the configuration file.
+1. Set fields that appear in the configuration file in the live configuration.
+2. Clear fields removed from the configuration file in the live configuration.
 
 **Note**: Add the `-R` flag to recursively process directories.
 
@@ -98,7 +99,11 @@ Print the live configuration using `kubectl get` with the following command.
 
         kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
 
-Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written the object.
+Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written to the live configuration and matches the configuration file.
+
+`kubectl.kubernetes.io/last-applied-configuration`:
+
+> {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx","ports":[{"containerPort":80}]}]}}}}
 
 {% include code.html language="yaml" file="applied_deployment.yaml" ghlink="/docs/concepts/tools/applied_deployment.yaml" %}
 
@@ -107,11 +112,18 @@ Update the `replicas` on the live configuration directly using `kubectl scale`. 
         kubectl scale deployment/nginx-deployment --replicas 2
 
 Print the live configuration using `kubectl get` with the following
-command.  Observe the following changes to the live configuration:
+command.
+
+        kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+
+Observe the following changes to the live configuration:
+
 - the `replicas` field has been set to 1
 - the `last-applied-configuration` annotation does not contain the replicas
 
-        kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+`kubectl.kubernetes.io/last-applied-configuration`:
+
+> {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx","ports":[{"containerPort":80}]}]}}}}
 
 {% include code.html language="yaml" file="applied_scaled_deployment.yaml" ghlink="/docs/concepts/tools/applied_scaled_deployment.yaml" %}
 
@@ -122,7 +134,12 @@ Update the simple_deployment.yaml to change the image from `nginx:1.7.9` to `ngi
         kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/updated_deployment.yaml
 
 Print the live configuration using `kubectl get` with the following
-command.  Observe the following changes to the live configuration:
+command.
+
+        kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+
+Observe the following changes to the live configuration:
+
 - the `replicas` field retains the value of 2 set by `kubectl scale` -
   this is possible because it is omitted from the configuration file
 - the `image` field has been updated to `nginx:1.11.9` from `nginx:1.7.9`
@@ -130,7 +147,9 @@ command.  Observe the following changes to the live configuration:
 - the `minReadySeconds` field has been cleared
 - the `last-applied-configuration` annotation no longer contains the `minReadySeconds` field
 
-        kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+`kubectl.kubernetes.io/last-applied-configuration`:
+
+> {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx","ports":[{"containerPort":80}]}]}}}}
 
 {% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/applied_update_deployment.yaml" %}
 
@@ -155,13 +174,11 @@ to result in the user to deleting something unintentionally.
 
 - `delete -f <filename>`
 
-### Alternative: `kubectl apply -f <directory/> --prune -l app=nginx`
+### Alternative: `kubectl apply -f <directory/> --prune -l your=label`
 
-{% comment %}
-TODO(pwittrock): We need a better way of supporting prune without making it easy for users to unintentionally delete a bunch of their objects.
-{% endcomment %}
+Only use this if you know what you are doing.
 
-**Warning:** `kubectl apply --prune` is alpha, and backwards incompatible
+**Warning:** `kubectl apply --prune`  alpha, and backwards incompatible
 changes may be introduced in subsequent releases.
 
 **Warning**: The user must be careful when using this command so as not
@@ -193,9 +210,9 @@ do not appear in the subdirectory.
 ## How apply calculates differences and merges changes
 
 **Definition:** Patch: An update operation that is scoped to specific
-fields of an object instead of updating the entire object thing.
+fields of an object instead of updating the entire object.
 This enables updating on a specific set of fields on an object without
-doing a read-then-write.
+reading the object first.
 
 When `kubectl apply` updates the live configuration for an object,
 it does so by sending a patch request to the apiserver.  The
@@ -211,14 +228,8 @@ annotation `kubectl.kubernetes.io/last-applied-configuration`.  This
 is used to identify fields that have been removed from the configuration
 file and need to be cleared from the live configuration.
 
-1. Calculate fields to delete:
-  - *last-applied-configuration - local object configuration*
-  - clear fields present in the last-applied-configuration that are missing from the local object configuration file
-2. Calculate fields to add or set:
-  - *local object configuration - live object*
-  - set fields present in the local object configuration file whose values are missing or differ from the live object
-3. Calculate the merged patch: *fields to delete + fields to add*
-  - Merge the results of 1. and 2. into a single patch request
+1. Calculate fields to delete: Fields present in `last-applied-configuration` and missing from the configuration file
+2. Calculate fields to add or set: Fields present in the configuration file whose values don't match the live configuration
 
 Example:
 
@@ -229,6 +240,10 @@ Configuration file:
 Live configuration:
 
 {% include code.html language="yaml" file="applied_scaled_deployment.yaml" ghlink="/docs/concepts/tools/applied_scaled_deployment.yaml" %}
+
+Last applied configuration annotation:
+
+> {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},"spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},"spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx","ports":[{"containerPort":80}]}]}}}}
 
 Merge calculations performed by `kubectl apply` when run against the
 configuration file and a cluster containing the live object configuration.
@@ -256,17 +271,17 @@ TODO(1.6): For 1.6, add the following bullet point to 1.
 ### Types of fields to be merged
 
 How a particular field on an object is updated with changes depends on the underlying
-type of the field.
+type of the field.  Several types of fields exist:
 
 - primitive fields: fields of type string, integer, boolean: e.g. `image`, `replicas`
 - map / object fields: fields of type map or complex-types containing sub fields: e.g. `labels`, `spec`, `metadata`
-- list fields: fields containing an list of items that may be either primitive types, maps, or complex-types: e.g. `containers`, `ports`
+- list fields: fields containing a list of items that may be either primitive types, maps, or complex-types: e.g. `containers`, `ports`, `args`
 
-When `kubectl apply` updates a map / object or list field, it often does
-not replace the entire field, but instead updates individual elements.
+When `kubectl apply` updates a map / object or list field, it typically does
+not replace the entire field, but instead updates individual sub elements.
 For instance, updating the `spec.replicas` on a Deployment does not
 result in the entire `spec` field being replaced, but only the `replicas`
-sub field on `spec`.
+sub field of the `spec` field.
 
 ### Merging changes to primitive fields
 
@@ -274,14 +289,16 @@ Fields that represent primitive types are set to a new primitive value or cleare
 
 | Field in object configuration file  | Field in live object configuration | Field in last-applied-configuration | Action                                    |
 |-------------------------------------|------------------------------------|-------------------------------------|-------------------------------------------|
-| Yes                                 | Yes                                | -                                   | Conflict! Set live to configuration file  |
+| Yes                                 | Yes                                | -                                   | Set live to configuration file value  |
 | Yes                                 | No                                 | -                                   | Set live to local configuration           |
-| No                                  | -                                  | Yes                                 | Delete from live configuration            |
+| No                                  | -                                  | Yes                                 | Clear from live configuration            |
 | No                                  | -                                  | No                                  | Do nothing / Keep live value              |
+
+**Note:** In the above table '-' mean not applicable because its value doesn't matter.
 
 ### Merging changes to map (object) fields
 
-Fields that represent maps or complex-types are added, cleared, or have each sub field of the configuration file and live configuration compared:
+Fields that represent maps or complex-types are compared by comparing the sub fields of each:
 
 | Key in object configuration file    | Key in live object configuration   | Field in last-applied-configuration | Action                           |
 |-------------------------------------|------------------------------------|-------------------------------------|----------------------------------|
@@ -290,12 +307,14 @@ Fields that represent maps or complex-types are added, cleared, or have each sub
 | No                                  | -                                  | Yes                                 | Delete from live configuration   |
 | No                                  | -                                  | No                                  | Do nothing / Keep live value     |
 
+**Note:** In the above table '-' mean not applicable because its value doesn't matter.
+
 ### Merging changes for list fields
 
 Merging changes to lists uses one of 3 strategies.  The strategy is controlled
 per-field on the Kubernetes object definition.
 
-- Replace list (either primitive types or complex-types):
+- Replace list (either elements of primitive types or complex-types):
   Treat the list the same as a primitive field.  Replace or delete the
   entire list.  Preserves ordering.
 
@@ -304,13 +323,13 @@ the value of `args` to the value in the configuration file.  Any elements
 added to the live configuration are lost.  Ordering of `args` defined
 in the configuration file is retained in the live configuration.
 
-- Merge list of complex-types:
+- Merge list of complex-type elements:
   Treat the list as a map and treat a specific field of the entries as a key.
   Add, delete, or update individual entries.  Does not preserve ordering.
 
 This merge strategy uses a special tag on the field called a `mergeKey`.  The
 `mergeKey` is defined for each field in the Kubernetes source code:
-[types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go)
+[types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go#L2119)
 When merging a list of complex-types, the field specified as the `mergeKey`
 is used like a map-key for each element.
 
@@ -318,11 +337,13 @@ Example: Using apply to update the `containers` field of a PodSpec
 merges the list as though `containers` was a map where each element is keyed
 by `name`.
 
-- Merge list of primitive types:
+- Merge list of primitive type elements:
   - As of Kubernetes 1.5, lists of primitive types do not support the merge strategy.
 
 **Note:** How which of the above strategies is chosen for a given field is controlled by
-the `patchStrategy` tag in [types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go)
+the `patchStrategy` tag in [types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go#L2119)
+If no `patchStrategy` is specified for a field of type list, then
+the list is replaced.
 
 {% comment %}
 TODO(pwittrock): Uncomment this for 1.6
@@ -335,7 +356,7 @@ keeps elements added to the live configuration.  Ordering of finalizers
 is lost.
 {% endcomment %}
 
-### Example list with merge strategy
+### Example: list merge
 
 `last-applied-configuration`
 
@@ -400,7 +421,7 @@ spec:
       containers:
       - name: nginx
         image: nginx:1.10
-      - name: nginx-helper-a # Element "nginx-helper-a" will be deleted from live configuration
+      - name: nginx-helper-a # Element "nginx-helper-a" will be deleted
         image: helper:1.3
       - name: nginx-helper-b
         image: helper:1.3
@@ -428,10 +449,10 @@ spec:
         image: nginx:1.10
       - name: nginx-helper-b
         image: helper:1.3
-        args: ["run"] # Field was retained even though it does not appear in the configuration file
-      - name: nginx-helper-c # Element was added by the configuration file
+        args: ["run"] # Field was retained
+      - name: nginx-helper-c # Element was added
         image: helper:1.3
-      - name: nginx-helper-d # Element was ignored by the configuration file
+      - name: nginx-helper-d # Element was ignored
         image: helper:1.3
 ```
 
@@ -454,7 +475,9 @@ Explanation:
 ## **Warning:** considerations around defaulting performed in the server
 
 Certain optional fields will be set by the apiserver on the live object
-if they are not specified when creating the object.  Example:
+if they are not specified when creating the object.
+
+Example:
 
 Create a Deployment from a configuration file without specifying the `strategy` or `selector` in the configuration.
 
@@ -479,7 +502,7 @@ the values of other fields that were specified in the configuration file,
 such as the `selector` field.
 
 Defaulted fields are *not* re-defaulted unless they are explicitly cleared
-as part of the patch request.  This may cause unexpected behavior for a fields defaulted to based
+as part of the patch request.  This may cause unexpected behavior for a fields defaulted based
 on the values of other fields.  When the other fields are later changed
 the values defaulted from them will not be updated unless they are
 explicitly cleared.
@@ -495,25 +518,27 @@ Example:
 1. User creates a Deployment without defining `strategy.type`
 2. Server defaults `strategy.type` to `RollingUpdate` and defaults `strategy.rollingUpdate` values
 3. User changes `strategy.type` to `Recreate`.  The `strategy.rollingUpdate` values remain at their defaulted values, though the server expects them to be cleared.
-  - If the strategy.rollingUpdate was defined in the config initially, it would have been more clear that it needed to be deleted.
+  - If the `strategy.rollingUpdate` was defined in the config initially, it would have been more clear that it needed to be deleted.
 4. Apply fails because `strategy.rollingUpdate` is not cleared
   - `strategy.rollingupdate` can not be used with a `strategy.type` of `Recreate`
 
 Recommendations for fields to explicitly define in the object configuration field:
 
-- Selectors and PodTemplate Labels on any workload managed by a controller
+- Selectors and PodTemplate Labels on workloads such as Deployment, StatefulSet, Job, DaemonSet, ReplicaSet, ReplicationController
 - Deployment RolloutStrategy
 
 ### How to clear server defaulted fields or fields set by other writers
 
 As of Kubernetes 1.5, fields that do not appear in the configuration file cannot be
-cleared.  For lists that are merged, this means elements of the list
-that do not appear in the configuration file cannot be deleted.  The
-following workaround exist:
+cleared.  The following workaround exist:
 
-Option 1: remove the field by directly editing the live object
+Option 1: remove the field by directly modifying the live object
+
+**Note:** As of Kubernetes 1.5, `kubectl edit` does not work with `kubectl apply`
+and will cause unexpected behavior if used together.
 
 Option 2: remove the field through the configuration file
+
 - Add the field to the configuration file to match the live object
 - Apply the configuration file - updates the annotation to include the field
 - Delete the field from the configuration file
@@ -562,9 +587,9 @@ fields to the annotation, and instead.  Then add this bullet point.
 - using imperative commands with declarative configuration to manage where each manages different fields.
 {% endcomment %}
 
-### Migrating objects from imperative command management to declarative object configuration
+### Migrating object management from imperative command management to declarative object configuration
 
-Migrating objects from imperative command management to declarative object
+Migrating object management from imperative command management to declarative object
 configuration involves several manual steps.
 
 1. Export live object to a local object configuration file
@@ -579,7 +604,7 @@ configuration involves several manual steps.
 TODO(pwittrock): Why doesn't export remove the status field?  Seems like it should.
 {% endcomment %}
 
-### Migrating objects from imperative object configuration to declarative object configuration
+### Migrating object management from imperative object configuration to declarative object configuration
 
 1. Set the `kubectl.kubernetes.io/last-applied-configuration` annotation on the object
   - `kubectl replace --save-config -f <kind>_<name>.yaml`

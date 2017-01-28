@@ -5,10 +5,10 @@ spec:
   minReadySeconds: 5
   replicas: 1 # defaulted by apiserver
   selector:
-    matchLabels: # defaulted by apiserver - default value derived from template.metadata.labels
+    matchLabels: # defaulted by apiserver - value derived from template.metadata.labels
       app: nginx
   strategy:
-    rollingUpdate: # defaulted by apiserver - default value derived from type
+    rollingUpdate: # defaulted by apiserver - value derived from strategy.type
       maxSurge: 1
       maxUnavailable: 1
     type: RollingUpdate # defaulted apiserver
