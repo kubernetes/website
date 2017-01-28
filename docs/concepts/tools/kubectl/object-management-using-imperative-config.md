@@ -1,5 +1,5 @@
 ---
-title: Managing Kubernetes Objects Using Object Configuration (Imperative)
+title: Managing Kubernetes Objects Using Object Configuration Files (Imperative)
 ---
 
 {% capture overview %}

@@ -1,5 +1,5 @@
 ---
-title: Managing Kubernetes Objects Using Object Configuration (Declarative)
+title: Managing Kubernetes Objects Using Object Configuration Files (Declarative)
 ---
 
 {% capture overview %}
@@ -7,7 +7,7 @@ Kubernetes objects can be created, updated, and deleted storing multiple
 object configuration files in a directory and using `kubectl` to
 recursively create and update those objects as needed.  This method
 retains writes made to live objects without merging the changes
-back into the local object configuration.
+back into the object configuration file.
 {% endcapture %}
 
 {% capture body %}
@@ -519,8 +519,8 @@ spec:
 # result after merge - ERROR!
 spec:
   strategy:
-    type: Recreate # updated value
-    rollingUpdate: # defaulted value - incompatible with Recreate
+    type: Recreate # updated value: incompatible with rollingUpdate
+    rollingUpdate: # defaulted value: incompatible with "type: Recreate"
       maxSurge : 1
       maxUnavailable: 1
   template:
@@ -538,11 +538,15 @@ spec:
 **Explanation:**
 
 1. User creates a Deployment without defining `strategy.type`
-2. Server defaults `strategy.type` to `RollingUpdate` and defaults `strategy.rollingUpdate` values
-3. User changes `strategy.type` to `Recreate`.  The `strategy.rollingUpdate` values remain at their defaulted values, though the server expects them to be cleared.
-  - If the `strategy.rollingUpdate` was defined in the config initially, it would have been more clear that it needed to be deleted.
+2. Server defaults `strategy.type` to `RollingUpdate` and defaults
+   `strategy.rollingUpdate` values
+3. User changes `strategy.type` to `Recreate`.  The `strategy.rollingUpdate`
+   values remain at their defaulted values, though the server expects
+   them to be cleared.
+  - If the `strategy.rollingUpdate` was defined in the config initially,
+    it would have been more clear that it needed to be deleted.
 4. Apply fails because `strategy.rollingUpdate` is not cleared
-  - `strategy.rollingupdate` can not be used with a `strategy.type` of `Recreate`
+  - `strategy.rollingupdate` can not be defined with a `strategy.type` of `Recreate`
 
 Recommendations for fields to explicitly define in the object configuration field:
 
