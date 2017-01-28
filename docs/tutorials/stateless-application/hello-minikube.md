@@ -38,7 +38,7 @@ driver.
 
 {% capture lessoncontent %}
 
-### Create a Minikube cluster
+## Create a Minikube cluster
 
 This tutorial uses [Minikube](https://github.com/kubernetes/minikube) to
 create a local cluster. This tutorial also assumes you are using
@@ -70,11 +70,22 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s htt
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
+Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
+```shell
+export http_proxy=""
+export https_proxy=""
+curl https://cloud.google.com/container-registry/ 
+```
 
-Start the Minikube cluster:
+If NO proxy is required, start the Minikube cluster: 
 
 ```shell
 minikube start --vm-driver=xhyve
+```
+If a proxy server is required, use the following method to start Minikube cluster with proxy setting:
+
+```shell
+minikube start --vm-driver=xhyve --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
 ```
 
 The `--vm-driver=xyhve` flag specifies that you are using Docker for Mac. The
@@ -94,7 +105,7 @@ Verify that `kubectl` is configured to communicate with your cluster:
 kubectl cluster-info
 ```
 
-### Create your Node.js application
+## Create your Node.js application
 
 The next step is to write the application. Save this code in a folder named `hellonode`
 with the filename `server.js`:
@@ -113,7 +124,7 @@ Stop the running Node.js server by pressing **Ctrl-C**.
 
 The next step is to package your application in a Docker container.
 
-### Create a Docker container image
+## Create a Docker container image
 
 Create a file, also in the `hellonode` folder, named `Dockerfile`. A Dockerfile describes
 the image that you want to build. You can build a Docker container image by extending an
@@ -135,7 +146,7 @@ eval $(minikube docker-env)
 ```
 
 **Note:** Later, when you no longer wish to use the Minikube host, you can undo
-this change by running `eval $(minikube docker-env) -u`.
+this change by running `eval $(minikube docker-env -u)`.
 
 Build your Docker image, using the Minikube Docker daemon:
 
@@ -145,7 +156,7 @@ docker build -t hello-node:v1 .
 
 Now the Minikube VM can run the image you built.
 
-### Create a Deployment
+## Create a Deployment
 
 A Kubernetes [*Pod*](/docs/user-guide/pods/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
@@ -206,7 +217,7 @@ kubectl config view
 For more information about `kubectl`commands, see the
 [kubectl overview](/docs/user-guide/kubectl-overview/).
 
-### Create a Service
+## Create a Service
 
 By default, the Pod is only accessible by its internal IP address within the
 Kubernetes cluster. To make the `hello-node` Container accessible from outside the
@@ -254,7 +265,7 @@ you should now be able to see some logs:
 kubectl logs <POD-NAME>
 ```
 
-### Update your app
+## Update your app
 
 Edit your `server.js` file to return a new message:
 
@@ -281,7 +292,7 @@ Run your app again to view the new message:
 minikube service hello-node
 ```
 
-### Clean up
+## Clean up
 
 Now you can clean up the resources you created in your cluster:
 

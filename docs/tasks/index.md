@@ -24,7 +24,7 @@ single thing, typically by giving a short sequence of steps.
 * [Distributing Credentials Securely](/docs/tasks/configure-pod-container/distribute-credentials-secure/)
 * [Pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry/)
 * [Configuring Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
-* [Communicating Between Pods Running in the Same Container](/docs/tasks/configure-pod-container/communicate-containers-same-pod/)
+* [Communicating Between Containers Running in the Same Pod](/docs/tasks/configure-pod-container/communicate-containers-same-pod/)
 * [Configuring Pod Initialization](/docs/tasks/configure-pod-container/configure-pod-initialization/)
 * [Attaching Handlers to Container Lifecycle Events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
 

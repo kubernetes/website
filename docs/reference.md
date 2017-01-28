@@ -28,4 +28,4 @@ Explore the glossary of essential Kubernetes concepts. Some good starting points
 
 ## Design Docs
 
-An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/design/architecture.md) and [Kubernetes Design Overview](https://github.com/kubernetes/kubernetes/tree/release-1.1/docs/design).
+An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://github.com/kubernetes/kubernetes/blob/{{page.version}}/docs/design/architecture.md) and [Kubernetes Design Overview](https://github.com/kubernetes/kubernetes/tree/{{page.version}}/docs/design).

@@ -13,7 +13,7 @@ This guide will help you get oriented to Kubernetes and running your first conta
 ## Launching a simple application, and exposing it to the Internet
 
 Once your application is packaged into a container and pushed to an image registry, you're ready to deploy it to Kubernetes.
-Through integration with some cloud providers (for example Google Compute Engine and AWS EC2), Kubernetes also enables you to request it to provision a public IP address for your application.
+Through integration with some cloud providers (for example Google Compute Engine, AWS EC2, and Azure ACS), Kubernetes also enables you to request it to provision a public IP address for your application.
 
 For example, [nginx](http://wiki.nginx.org/Main) is a popular HTTP server, with a [pre-built container on Docker hub](https://registry.hub.docker.com/_/nginx/). The [`kubectl run`](/docs/user-guide/kubectl/kubectl_run) commands below will create two nginx replicas, listening on port 80, and a public IP address for your application.
 
@@ -22,7 +22,7 @@ $ kubectl run my-nginx --image=nginx --replicas=2 --port=80
 deployment "my-nginx" created
 ```
 
-To expose your service to the public internet, run:
+To expose your service to the public Internet, run:
 
 ```shell
 $ kubectl expose deployment my-nginx --target-port=80 --type=LoadBalancer
@@ -49,7 +49,7 @@ NAME         CLUSTER_IP       EXTERNAL_IP       PORT(S)                AGE
 my-nginx     10.179.240.1     25.1.2.3          80/TCP                 8s
 ```
 
-You may need to wait for a minute or two for the external ip address to be provisioned.
+You may need to wait for a minute or two for the external IP address to be provisioned.
 
 In order to access your nginx landing page, you also have to make sure that traffic from external IPs is allowed. Do this by opening a [firewall to allow traffic on port 80](/docs/user-guide/services-firewalls).
 
@@ -70,4 +70,4 @@ service "my-nginx" deleted
 
 ## What's next?
 
-[Learn about how to configure common container parameters, such as commands and environment variables.](/docs/user-guide/configuring-containers)
+* [Learn about how to configure common container parameters, such as commands and environment variables.](/docs/user-guide/configuring-containers)
