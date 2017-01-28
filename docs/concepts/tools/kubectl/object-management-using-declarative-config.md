@@ -72,44 +72,6 @@ Print the live configuration using `kubectl get` with the following command.
 
 Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written to the live configuration and matches the configuration file:
 
-Formatted `last-applied-configuration`:
-
-```json
-{
-	"apiVersion": "extensions/v1beta1",
-	"kind": "Deployment",
-	"metadata": {
-		"annotations": {
-		},
-		"name": "nginx-deployment",
-		"namespace": "default"
-	},
-	"spec": {
-		"minReadySeconds": 5,
-		"template": {
-			"metadata": {
-				"labels": {
-					"app": "nginx"
-				}
-			},
-			"spec": {
-				"containers": [
-					{
-						"image": "nginx:1.7.9",
-						"name": "nginx",
-						"ports": [
-							{
-								"containerPort": 80
-							}
-						]
-					}
-				]
-			}
-		}
-	}
-}
-```
-
 ## How to update objects
 
 Update any objects defined in a directory that already exist:
@@ -137,44 +99,6 @@ Print the live configuration using `kubectl get` with the following command.
 
 Observe that the `kubectl.kubernetes.io/last-applied-configuration` was written to the live configuration and matches the configuration file:
 
-Formatted `last-applied-configuration`:
-
-```json
-{
-	"apiVersion": "extensions/v1beta1",
-	"kind": "Deployment",
-	"metadata": {
-		"annotations": {
-		},
-		"name": "nginx-deployment",
-		"namespace": "default"
-	},
-	"spec": {
-		"minReadySeconds": 5,
-		"template": {
-			"metadata": {
-				"labels": {
-					"app": "nginx"
-				}
-			},
-			"spec": {
-				"containers": [
-					{
-						"image": "nginx:1.7.9",
-						"name": "nginx",
-						"ports": [
-							{
-								"containerPort": 80
-							}
-						]
-					}
-				]
-			}
-		}
-	}
-}
-```
-
 Update the `replicas` on the live configuration directly using `kubectl scale`.  This does not use `kubectl apply`.
 
         kubectl scale deployment/nginx-deployment --replicas 2
@@ -191,44 +115,6 @@ Observe the following changes to the live configuration:
 - the `replicas` field has been set to 1
 - the `last-applied-configuration` annotation does not contain the replicas
 
-Formatted `last-applied-configuration`:
-
-```json
-{
-	"apiVersion": "extensions/v1beta1",
-	"kind": "Deployment",
-	"metadata": {
-		"annotations": {
-		},
-		"name": "nginx-deployment",
-		"namespace": "default"
-	},
-	"spec": {
-		"minReadySeconds": 5,
-		"template": {
-			"metadata": {
-				"labels": {
-					"app": "nginx"
-				}
-			},
-			"spec": {
-				"containers": [
-					{
-						"image": "nginx:1.7.9",
-						"name": "nginx",
-						"ports": [
-							{
-								"containerPort": 80
-							}
-						]
-					}
-				]
-			}
-		}
-	}
-}
-```
-
 Update the simple_deployment.yaml to change the image from `nginx:1.7.9` to `nginx:1.11.9` and delete the `minReadySeconds` field.
 
 {% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/concepts/tools/update_deployment.yaml" %}
@@ -240,7 +126,7 @@ command.
 
         kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/applied_update_deployment.yaml" %}
+{% include code.html language="yaml" file="applied_update_deployment.yaml" ghlink="/docs/concepts/tools/applied_update_deployment.yaml" %}
 
 Observe the following changes to the live configuration:
 
@@ -250,43 +136,6 @@ Observe the following changes to the live configuration:
 - the `last-applied-configuration` annotation has been updated with the new image
 - the `minReadySeconds` field has been cleared
 - the `last-applied-configuration` annotation no longer contains the `minReadySeconds` field
-
-Formatted `last-applied-configuration`:
-
-```json
-{
-	"apiVersion": "extensions/v1beta1",
-	"kind": "Deployment",
-	"metadata": {
-		"annotations": {
-		},
-		"name": "nginx-deployment",
-		"namespace": "default"
-	},
-	"spec": {
-		"template": {
-			"metadata": {
-				"labels": {
-					"app": "nginx"
-				}
-			},
-			"spec": {
-				"containers": [
-					{
-						"image": "nginx:1.11.9",
-						"name": "nginx",
-						"ports": [
-							{
-								"containerPort": 80
-							}
-						]
-					}
-				]
-			}
-		}
-	}
-}
-```
 
 **Warning**: mixing `kubectl apply` with the imperative object configuration commands
 `create` and `replace` is not supported.  This is because `create`
@@ -375,44 +224,6 @@ Configuration file:
 Live configuration:
 
 {% include code.html language="yaml" file="applied_scaled_deployment.yaml" ghlink="/docs/concepts/tools/applied_scaled_deployment.yaml" %}
-
-Formatted `last-applied-configuration`:
-
-```json
-{
-	"apiVersion": "extensions/v1beta1",
-	"kind": "Deployment",
-	"metadata": {
-		"annotations": {
-		},
-		"name": "nginx-deployment",
-		"namespace": "default"
-	},
-	"spec": {
-		"minReadySeconds": 5,
-		"template": {
-			"metadata": {
-				"labels": {
-					"app": "nginx"
-				}
-			},
-			"spec": {
-				"containers": [
-					{
-						"image": "nginx:1.7.9",
-						"name": "nginx",
-						"ports": [
-							{
-								"containerPort": 80
-							}
-						]
-					}
-				]
-			}
-		}
-	}
-}
-```
 
 Merge calculations performed by `kubectl apply` when run against the
 configuration file and a cluster containing the live object configuration.
