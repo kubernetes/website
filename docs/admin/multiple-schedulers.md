@@ -61,7 +61,7 @@ config. Save it as `my-scheduler.yaml`:
 {% include code.html language="yaml" file="multiple-schedulers/my-scheduler.yaml" ghlink="/docs/admin/multiple-schedulers/my-scheduler.yaml" %}
 
 An important thing to note here is that the name of the scheduler specified as an
-argument to the scheduler command in the container spec should be unique. This is the name that is matched against the value of the optional `scheduler.alpha.kubernetes.io/name` annotation on pods, to determine whether this scheduler is responsible for scheduling a particular pod.
+argument to the scheduler command in the container spec should be unique. This is the name that is matched against the value of the optional `spec.schedulername` on pods, to determine whether this scheduler is responsible for scheduling a particular pod.
 
 Please see the
 [kube-scheduler documentation](/docs/admin/kube-scheduler/) for
@@ -92,14 +92,14 @@ pod in this list.
 ### 4. Specify schedulers for pods
 
 Now that our second scheduler is running, let's create some pods, and direct them to be scheduled by either the default scheduler or the one we just deployed. In order to schedule a given pod using a specific scheduler, we specify the name of the
-scheduler as an annotation in that pod spec. Let's look at three examples.
+scheduler in that pod spec. Let's look at three examples.
 
 
-1. Pod spec without any scheduler annotation
+1. Pod spec without any scheduler name
 
   {% include code.html language="yaml" file="multiple-schedulers/pod1.yaml" ghlink="/docs/admin/multiple-schedulers/pod1.yaml" %}
 
-  When no scheduler annotation is supplied, the pod is automatically scheduled using the
+  When no scheduler name is supplied, the pod is automatically scheduled using the
   default-scheduler.
 
   Save this file as `pod1.yaml` and submit it to the Kubernetes cluster.
@@ -108,12 +108,11 @@ scheduler as an annotation in that pod spec. Let's look at three examples.
   kubectl create -f pod1.yaml
   ```
 
-2. Pod spec with `default-scheduler` annotation
+2. Pod spec with `default-scheduler`
 
   {% include code.html language="yaml" file="multiple-schedulers/pod2.yaml" ghlink="/docs/admin/multiple-schedulers/pod2.yaml" %}
 
-  A scheduler is specified by supplying the scheduler name as a value to the annotation
-  with key `scheduler.alpha.kubernetes.io/name`. In this case, we supply the name of the
+  A scheduler is specified by supplying the scheduler name as a value to `spec.schedulername`. In this case, we supply the name of the
   default scheduler which is `default-scheduler`.
 
   Save this file as `pod2.yaml` and submit it to the Kubernetes cluster.
@@ -122,13 +121,12 @@ scheduler as an annotation in that pod spec. Let's look at three examples.
   kubectl create -f pod2.yaml
   ```
 
-3. Pod spec with `my-scheduler` annotation
+3. Pod spec with `my-scheduler`
 
   {% include code.html language="yaml" file="multiple-schedulers/pod3.yaml" ghlink="/docs/admin/multiple-schedulers/pod3.yaml" %}
 
   In this case, we specify that this pod should be scheduled using the scheduler that we
-  deployed - `my-scheduler`. Note that the value of the annotation with key
-  `scheduler.alpha.kubernetes.io/name` should match the name supplied to the scheduler
+  deployed - `my-scheduler`. Note that the value of `spec.schedulername` should match the name supplied to the scheduler
   command as an argument in the deployment config for the scheduler.
 
   Save this file as `pod3.yaml` and submit it to the Kubernetes cluster.
@@ -149,9 +147,9 @@ In order to make it easier to work through these examples, we did not verify tha
 pods were actually scheduled using the desired schedulers. We can verify that by
 changing the order of pod and deployment config submissions above. If we submit all the
 pod configs to a Kubernetes cluster before submitting the scheduler deployment config,
-we see that the pod `annotation-second-scheduler` remains in "Pending" state forever
+we see that the pod `second-scheduler` remains in "Pending" state forever
 while the other two pods get scheduled. Once we submit the scheduler deployment config
-and our new scheduler starts running, the `annotation-second-scheduler` pod gets
+and our new scheduler starts running, the `second-scheduler` pod gets
 scheduled as well.
 
 Alternatively, one could just look at the "Scheduled" entries in the event logs to
