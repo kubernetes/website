@@ -26,7 +26,7 @@ general and [Deployment](/docs/user-guide/deployments) in particular.
 
 Deployments in federation control plane (referred to as "Federated Deployments" in
 this guide) are very similar to the traditional [Kubernetes
-Deployment](/docs/user-guide/deployment.md), and provide the same functionality.
+Deployment](/docs/user-guide/deployments/), and provide the same functionality.
 Creating them in the federation control plane ensures that the desired number of
 replicas exist across the registered clusters.
 
