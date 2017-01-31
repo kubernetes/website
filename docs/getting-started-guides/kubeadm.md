@@ -177,12 +177,43 @@ You must install a pod network add-on so that your pods can communicate with eac
 
 **It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up. Note also that `kubeadm` only supports CNI based networks and therefore kubenet based networks will not work.**
 
-Several projects provide Kubernetes pod networks using CNI, some of which 
-also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
+Several projects provide Kubernetes pod networks using CNI, some of which also support [Network Policy](/docs/user-guide/networkpolicies/).
 
-You can install a pod network add-on with the following command: 
+You must select a network addon from the drop-down menu below, and correct instructions will appear below.
 
-    # kubectl apply -f <add-on.yaml>
+See the [add-ons page](/docs/admin/addons/) to learn more about each of the available network add-ons.
+
+<script>
+  var networkAddons = {
+    "Calico": "kubectl apply -f \"http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/calico.yaml\"",
+    "Flannel": "kubeclt apply -f \"https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml?raw=true\"",
+    "Weave Net": "kubectl apply -f \"https://git.io/weave-kube\"",
+  };
+
+  $(document).ready(function(){
+    var code = $('#networkAddonInstallCommand')
+      .children('pre')
+      .children('code');
+    var menu = $('#pickNetworkAddon').first();
+    for( var val in networkAddons ) {
+      $('<option />', { text: val, value: networkAddons[val] }).appendTo(menu);
+    }
+    menu.change(function(ev) {
+      code.text("# " + ev.target.value);
+    });
+  });
+</script>
+
+<p>
+  <select id="pickNetworkAddon" style="margin:1em;font-size:1.2em;">
+    <option>Please select a network addon...</option>
+  </select>
+</p>
+
+```
+# kubectl apply -f <selected-add-on.yaml>
+```
+{: #networkAddonInstallCommand}
 
 Please refer to the specific add-on installation guide for exact details. You should only install one pod network per cluster.
 
