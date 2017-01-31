@@ -115,10 +115,10 @@ The tuple of attributes is checked for a match against every policy in the
 policy file. If at least one line matches the request attributes, then the
 request is authorized (but may fail later validation).
 
-To permit any authenticated user to do something, write a policy with the 
+To permit any authenticated user to do something, write a policy with the
 group property set to `"system:authenticated"`.
 
-To permit any unauthenticated user to do something, write a policy with the 
+To permit any unauthenticated user to do something, write a policy with the
 group property set to `"system:unauthenticated"`.
 
 To permit a user to do anything, write a policy with the apiGroup, namespace,
@@ -465,6 +465,7 @@ subjects:
   name: system:authenticated
 - kind: Group
   name: system:unauthenticated
+```
 
 ## Webhook Mode
 
@@ -515,7 +516,7 @@ request, and either details about the resource being accessed or requests
 attributes.
 
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
-as other Kubernetes API objects. Implementers should be aware of loser
+as other Kubernetes API objects. Implementers should be aware of looser
 compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must
 enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-config=authorization.k8s.io/v1beta1=true`).
