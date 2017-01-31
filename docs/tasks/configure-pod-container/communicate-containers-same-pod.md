@@ -137,7 +137,7 @@ the shared Volume is lost.
 [composite containers for modular architecture](http://www.slideshare.net/Docker/slideshare-burns).
 
 * See
-[Configuring a Pod to Use a Volume for Storage](http://localhost:4000/docs/tasks/configure-pod-container/configure-volume-storage/).
+[Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
 
 * See [Volume](/docs/api-reference/v1/definitions/#_v1_volume).
 
