@@ -173,16 +173,47 @@ This will remove the "dedicated" taint from any nodes that have it, including th
 
 ### (3/4) Installing a pod network
 
-You must install a pod network add-on so that your pods can communicate with each other.
+You must install a pod network add-on so that your pods can communicate with each other, a cluster without a network add-on should not be considered fully-functional.
 
-**It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up. Note also that `kubeadm` only supports CNI based networks and therefore kubenet based networks will not work.**
+**It is necessary to do this before you try to deploy any applications to your cluster.**
 
-Several projects provide Kubernetes pod networks using CNI, some of which 
-also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
 
-You can install a pod network add-on with the following command: 
+Several projects provide Kubernetes pod networks using CNI, some of which also support [Network Policy](/docs/user-guide/networkpolicies/).
+The dropdown below includes some common network add-ons. Select one from the dropdown to view its installation instructions.
 
-    # kubectl apply -f <add-on.yaml>
+See the [add-ons page](/docs/admin/addons/) to learn more about each of the available network add-ons.
+
+<script>
+  var networkAddons = {
+    "Calico": "kubectl apply -f \"http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml\"",
+    "Flannel": "kubectl apply -f \"https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml?raw=true\"",
+    "Weave Net": "kubectl apply -f \"https://git.io/weave-kube\"",
+  };
+
+  $(document).ready(function(){
+    var code = $('#networkAddonInstallCommand')
+      .children('pre')
+      .children('code');
+    var menu = $('#pickNetworkAddon').first();
+    for( var val in networkAddons ) {
+      $('<option />', { text: val, value: networkAddons[val] }).appendTo(menu);
+    }
+    menu.change(function(ev) {
+      code.text("# " + ev.target.value);
+    });
+  });
+</script>
+
+<p>
+  <select id="pickNetworkAddon" style="margin:1em;font-size:1.2em;">
+    <option value="kubectl apply -f &lt;network-add-on-manifest.yaml&gt;">Please select a network addon...</option>
+  </select>
+</p>
+
+```
+# kubectl apply -f <network-add-on-manifest.yaml>
+```
+{: #networkAddonInstallCommand}
 
 Please refer to the specific add-on installation guide for exact details. You should only install one pod network per cluster.
 
@@ -358,5 +389,7 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 1. If you are using VirtualBox (directly or via Vagrant), you will need to ensure that `hostname -i` returns a routable IP address (i.e. one on the second network interface, not the first one).
    By default, it doesn't do this and kubelet ends-up using first non-loopback network interface, which is usually NATed.
    Workaround: Modify `/etc/hosts`, take a look at this [`Vagrantfile`][ubuntu-vagrantfile] for how this can be achieved.
+
+1. Only [CNI-based networks](https://kubernetes.io/docs/admin/network-plugins/#cni) are supported with `kubeadm`, [kubenet-based networks](https://kubernetes.io/docs/admin/network-plugins/#kubenet) will not work.
 
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11),
