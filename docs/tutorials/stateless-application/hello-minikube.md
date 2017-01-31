@@ -88,7 +88,7 @@ If a proxy server is required, use the following method to start Minikube cluste
 minikube start --vm-driver=xhyve --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
 ```
 
-The `--vm-driver=xyhve` flag specifies that you are using Docker for Mac. The
+The `--vm-driver=xhyve` flag specifies that you are using Docker for Mac. The
 default VM driver is VirtualBox.
 
 Now set the Minikube context. The context is what determines which cluster
