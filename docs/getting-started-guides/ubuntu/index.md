@@ -43,6 +43,7 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
   - [Storage](/docs/getting-started-guides/ubuntu/storage)
   - [Troubleshooting](/docs/getting-started-guides/ubuntu/troubleshooting)
   - [Decommissioning](/docs/getting-started-guides/ubuntu/decommissioning)
+  - [Operational Considerations](/docs/getting-started-guides/ubuntu/operational-considerations)
   - [Glossary](/docs/getting-started-guides/ubuntu/glossary)
 
 ## Developer Guides
