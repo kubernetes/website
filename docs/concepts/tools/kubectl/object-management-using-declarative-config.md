@@ -574,10 +574,10 @@ retained in the live configuration.
 Treat the list as a map, and treat a specific field of each element as a key.
 Add, delete, or update individual elements. This does not preserve ordering.
 
-This merge strategy uses a special tag on each field called a `mergeKey`. The
-`mergeKey` is defined for each field in the Kubernetes source code:
+This merge strategy uses a special tag on each field called a `patchMergeKey`. The
+`patchMergeKey` is defined for each field in the Kubernetes source code:
 [types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go#L2119)
-When merging a list of complex elements, the field specified as the `mergeKey` for a given element
+When merging a list of complex elements, the field specified as the `patchMergeKey` for a given element
 is used like a map key for that element.
 
 **Example:** Use `kubectl apply` to update the `containers` field of a PodSpec.
@@ -638,7 +638,7 @@ by `name`.
   that "nginx-helper-b" in the live configuration was the same
   "nginx-helper-b" as in the configuration file, even though their fields
   had different values (no `args` in the configuration file). This is
-  because the `mergeKey` field value (name) was identical in both.
+  because the `patchMergeKey` field value (name) was identical in both.
 - The container named "nginx-helper-c" was added because no container
   with that name appeared in the live configuration, but one with
   that name appeared in the configuration file.
