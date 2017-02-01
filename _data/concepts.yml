@@ -6,7 +6,10 @@ toc:
 - title: Kubectl Command Line
   section:
   - docs/concepts/tools/kubectl/object-management-overview.md
-
+  - docs/concepts/tools/kubectl/object-management-using-imperative-commands.md
+  - docs/concepts/tools/kubectl/object-management-using-imperative-config.md
+  - docs/concepts/tools/kubectl/object-management-using-declarative-config.md
+  
 - title: Kubernetes Objects
   section:
   - docs/concepts/abstractions/overview.md
