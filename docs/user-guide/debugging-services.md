@@ -566,11 +566,11 @@ This mostly happens when `kube-proxy` is running in `iptables` mode and Pods
 are connected with bridge network. The `Kubelet` exposes a `hairpin-mode`
 [flag](http://kubernetes.io/docs/admin/kubelet/) that allows endpoints of a Service to loadbalance back to themselves
 if they try to access their own Service VIP. The `hairpin-mode` flag must either be
-set to `haripin-veth` or `promiscuous-bridge`.
+set to `hairpin-veth` or `promiscuous-bridge`.
 
 The common steps to trouble shoot this are as follows:
 
-* Confirm `hairpin-mode` is set to `haripin-veth` or `promiscuous-bridge`.
+* Confirm `hairpin-mode` is set to `hairpin-veth` or `promiscuous-bridge`.
 You should see something like the below. `hairpin-mode` is set to
 `promiscuous-bridge` in the following example.
 
