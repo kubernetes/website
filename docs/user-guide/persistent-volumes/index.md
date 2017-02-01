@@ -128,21 +128,21 @@ However, the particular path specified in the custom recycler pod template in th
 Each PV contains a spec and status, which is the specification and status of the volume.
 
 ```yaml
-  apiVersion: v1
-  kind: PersistentVolume
-  metadata:
-    name: pv0003
-    annotations:
-      volume.beta.kubernetes.io/storage-class: "slow"
-  spec:
-    capacity:
-      storage: 5Gi
-    accessModes:
-      - ReadWriteOnce
-    persistentVolumeReclaimPolicy: Recycle
-    nfs:
-      path: /tmp
-      server: 172.17.0.2
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv0003
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "slow"
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  nfs:
+    path: /tmp
+    server: 172.17.0.2
 ```
 
 ### Capacity
