@@ -33,7 +33,7 @@ cd kubernetes
 make release
 ```
 
-For more details on the release process see the [`build-tools/`](http://releases.k8s.io/{{page.githubbranch}}/build-tools/) directory
+For more details on the release process see the [`build`](http://releases.k8s.io/{{page.githubbranch}}/build/) directory
 
 ### Download Kubernetes and automatically set up a default cluster
 
