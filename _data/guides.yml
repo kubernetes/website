@@ -76,6 +76,7 @@ toc:
   - docs/user-guide/liveness/index.md
   - docs/user-guide/container-environment.md
   - docs/user-guide/node-selection/index.md
+  - docs/user-guide/node-selection/node-selection.md
   - docs/user-guide/downward-api/index.md
   - docs/user-guide/downward-api/volume/index.md
   - docs/user-guide/persistent-volumes/walkthrough.md
