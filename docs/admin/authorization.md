@@ -221,20 +221,20 @@ don't already have even when the RBAC authorizer it disabled__. If "user-1"
 does not have the ability to read secrets in "namespace-a", they cannot create
 a binding that would grant that permission to themselves or any other user.
 
-For bootstrapping the first roles, it becomes necessary for someone to get
-around these limitations. For the alpha release of RBAC, an API Server flag was
-added to allow one user to step around all RBAC authorization and privilege
-escalation checks. NOTE: _This is subject to change with future releases._
+When bootstrapping, super user credentials should be placed in the
+`system:masters` group, for example by creating a client cert with
+`/O=system:masters`. This gives those credentials full access to the API and
+allows an admin to then set up bindings for other users.
+
+In Kubernetes versions 1.4 and 1.5, there was a similar flag that gave a user
+full access:
 
 ```
 --authorization-rbac-super-user=admin
 ```
 
-Once set the specified super user, in this case "admin", can be used to create
-the roles and role bindings to initialize the system.
-
-This flag is optional and once the initial bootstrapping is performed can be
-unset.
+__This flag will be removed in 1.6__. Admins should prefer the `system:masters`
+group when setting up clusters.
 
 ### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
 
