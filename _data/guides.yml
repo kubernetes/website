@@ -56,9 +56,13 @@ toc:
 
 - title: Containers and Pods
   section:
+  - docs/user-guide/simple-nginx.md
+  - docs/user-guide/pods/single-container.md
   - docs/user-guide/pods/multi-container.md
   - docs/user-guide/pods/init-container.md
+  - docs/user-guide/configuring-containers.md
   - docs/user-guide/pod-templates.md
+  - docs/user-guide/production-pods.md
   - docs/user-guide/containers.md
   - docs/user-guide/environment-guide/index.md
   - docs/user-guide/compute-resources.md
