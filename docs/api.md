@@ -30,7 +30,7 @@ Complete API details are documented using [Swagger v1.2](http://swagger.io/) and
 
 We also host a version of the [latest v1.2 API documentation UI](http://kubernetes.io/kubernetes/third_party/swagger-ui/). This is updated with the latest release, so if you are using a different version of Kubernetes you will want to use the spec from your apiserver.
 
-Staring kubernetes 1.4, OpenAPI spec is also available at `/swagger.json`. While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
+Staring with kubernetes 1.4, OpenAPI spec is also available at `/swagger.json`. While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
