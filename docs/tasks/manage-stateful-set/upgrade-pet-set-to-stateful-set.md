@@ -23,7 +23,7 @@ This page shows how to upgrade from PetSets (Kubernetes version 1.3 or 1.4) to *
 
 {% capture steps %}
 
-### Differences between alpha PetSets and beta StatefulSets
+## Differences between alpha PetSets and beta StatefulSets
 
 PetSet was introduced as an alpha resource in Kubernetes release 1.3, and was renamed to StatefulSet as a beta resource in 1.5. 
 Here are some notable changes:
@@ -33,13 +33,13 @@ Here are some notable changes:
 * **Flipped debug annotation behavior**: The default value of the debug annotation (`pod.alpha.kubernetes.io/initialized`) is now `true`. The absence of this annotation will pause PetSet operations, but will NOT pause StatefulSet operations. In most cases, you no longer need this annotation in your StatefulSet manifests. 
 
 
-### Upgrading from PetSets to StatefulSets
+## Upgrading from PetSets to StatefulSets
 
 Note that these steps need to be done in the specified order. You **should
 NOT upgrade your Kubernetes master, nodes, or `kubectl` to Kubernetes version
 1.5 or later**, until told to do so.
 
-#### Find all PetSets and their manifests 
+### Find all PetSets and their manifests 
 
 First, find all existing PetSets in your cluster:
 
@@ -60,7 +60,7 @@ Here's an example command for you to save all existing PetSets as one file.
 kubectl get petsets --all-namespaces -o yaml > all-petsets.yaml
 ```
 
-#### Prepare StatefulSet manifests 
+### Prepare StatefulSet manifests 
 
 Now, for every PetSet manifest you have, prepare a corresponding StatefulSet manifest: 
 
@@ -71,7 +71,7 @@ Now, for every PetSet manifest you have, prepare a corresponding StatefulSet man
 It's recommended that you keep both PetSet manifests and StatefulSet manifests, so that you can safely roll back and recreate your PetSets, 
 if you decide not to upgrade your cluster. 
 
-#### Delete all PetSets without cascading
+### Delete all PetSets without cascading
 
 If you find existing PetSets in your cluster in the previous step, you need to delete all PetSets *without cascading*. You can do this from `kubectl` with `--cascade=false`. 
 Note that if the flag isn't set, **cascading deletion will be performed by default**, and all Pods managed by your PetSets will be gone. 
@@ -103,18 +103,18 @@ kubectl get petsets --all-namespaces
 At this moment, you've deleted all PetSets in your cluster, but not their Pods, Persistent Volumes, or Persistent Volume Claims. 
 However, since the Pods are not managed by PetSets anymore, they will be vulnerable to node failures until you finish the master upgrade and recreate StatefulSets.
 
-#### Upgrade your master to Kubernetes version 1.5 or later
+### Upgrade your master to Kubernetes version 1.5 or later
 
 Now, you can [upgrade your Kubernetes master](/docs/admin/cluster-management/#upgrading-a-cluster) to Kubernetes version 1.5 or later.
 Note that **you should NOT upgrade Nodes at this time**, because the Pods
 (that were once managed by PetSets) are now vulnerable to node failures. 
 
-#### Upgrade kubectl to Kubernetes version 1.5 or later
+### Upgrade kubectl to Kubernetes version 1.5 or later
 
 Upgrade `kubectl` to Kubernetes version 1.5 or later, following [the steps for installing and setting up 
 kubectl](/docs/user-guide/prereqs/).
 
-#### Create StatefulSets
+### Create StatefulSets
 
 Make sure you have both master and `kubectl` upgraded to Kubernetes version 1.5
 or later before continuing:
@@ -147,7 +147,7 @@ newly-upgraded cluster:
 kubectl get statefulsets --all-namespaces
 ```
 
-#### Upgrade nodes to Kubernetes version 1.5 or later (optional)
+### Upgrade nodes to Kubernetes version 1.5 or later (optional)
 
 You can now [upgrade Kubernetes nodes](/docs/admin/cluster-management/#upgrading-a-cluster)
 to Kubernetes version 1.5 or later. This step is optional, but needs to be done after all StatefulSets
