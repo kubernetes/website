@@ -222,9 +222,9 @@ does not have the ability to read secrets in "namespace-a", they cannot create
 a binding that would grant that permission to themselves or any other user.
 
 For bootstrapping the first roles, it becomes necessary for someone to get
-around these limitations. For the alpha release of RBAC, an API Server flag was
-added to allow one user to step around all RBAC authorization and privilege
-escalation checks. NOTE: _This is subject to change with future releases._
+around these limitations. A user in the `system:masters` group will have full 
+access to the API.  The existing API Server flag `--authorization-rbac-super-user`,
+was removed.
 
 ```
 --authorization-rbac-super-user=admin
