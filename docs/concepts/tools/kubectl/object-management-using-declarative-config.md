@@ -242,7 +242,7 @@ Update the `simple_deployment.yaml` configuration file to change the image from
 Apply the changes made to the configuration file:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/updated_deployment.yaml
+kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/update_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
