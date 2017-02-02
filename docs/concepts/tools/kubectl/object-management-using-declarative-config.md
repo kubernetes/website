@@ -242,7 +242,7 @@ Update the `simple_deployment.yaml` configuration file to change the image from
 Apply the changes made to the configuration file:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/updated_deployment.yaml
+kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/update_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
@@ -494,10 +494,10 @@ type of the field. There are several types of fields:
 - *primitive*: A field of type string, integer, or boolean.
   For example, `image` and `replicas` are primitive fields. **Action:** Replace.
 
-- *map*, also called *object*: A field of type map or a complex type that contains subfields. For example `labels`
-  and `annotations` are maps; `spec` and `metadata` are complex types. **Action:** Merge elements or subfields.
+- *map*, also called *object*: A field of type map or a complex type that contains subfields. For example, `labels`,
+  `annotations`,`spec` and `metadata` are all maps. **Action:** Merge elements or subfields.
 
-- *list*: A field containing a list of items that can be either primitive types, maps, or complex types.
+- *list*: A field containing a list of items that can be either primitive types or maps.
   For example, `containers`, `ports`, and `args` are lists. **Action:** Varies.
 
 When `kubectl apply` updates a map or list field, it typically does
@@ -508,7 +508,7 @@ and merged.
 
 ### Merging changes to primitive fields
 
-Primative fieldss are replaced or cleared.
+Primitive fields are replaced or cleared.
 
 **Note:** '-' is used for "not applicable" because the value is not used.
 
@@ -519,9 +519,9 @@ Primative fieldss are replaced or cleared.
 | No                                  | -                                  | Yes                                 | Clear from live configuration.            |
 | No                                  | -                                  | No                                  | Do nothing. Keep live value.             |
 
-### Merging changes to map or complex fields
+### Merging changes to map fields
 
-Fields that represent maps or complex-types are merged by comparing each of the sub fields or elements of of the map / complex-type:
+Fields that represent maps are merged by comparing each of the subfields or elements of of the map:
 
 **Note:** '-' is used for "not applicable" because the value is not used.
 
@@ -574,14 +574,14 @@ retained in the live configuration.
 Treat the list as a map, and treat a specific field of each element as a key.
 Add, delete, or update individual elements. This does not preserve ordering.
 
-This merge strategy uses a special tag on each field called a `mergeKey`. The
-`mergeKey` is defined for each field in the Kubernetes source code:
+This merge strategy uses a special tag on each field called a `patchMergeKey`. The
+`patchMergeKey` is defined for each field in the Kubernetes source code:
 [types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go#L2119)
-When merging a list of complex elements, the field specified as the `mergeKey` for a given element
+When merging a list of maps, the field specified as the `patchMergeKey` for a given element
 is used like a map key for that element.
 
 **Example:** Use `kubectl apply` to update the `containers` field of a PodSpec.
-This merges the list as though `containers` was a map where each element is keyed
+This merges the list as though it was a map where each element is keyed
 by `name`.
 
 ```yaml
@@ -638,7 +638,7 @@ by `name`.
   that "nginx-helper-b" in the live configuration was the same
   "nginx-helper-b" as in the configuration file, even though their fields
   had different values (no `args` in the configuration file). This is
-  because the `mergeKey` field value (name) was identical in both.
+  because the `patchMergeKey` field value (name) was identical in both.
 - The container named "nginx-helper-c" was added because no container
   with that name appeared in the live configuration, but one with
   that name appeared in the configuration file.
@@ -935,11 +935,11 @@ used only by the controller selector with no other semantic meaning.
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "v1beta1/deployment/nginx"
+      controller-selector: "extensions/v1beta1/deployment/nginx"
 template:
   metadata:
     labels:
-      controller-selector: "v1beta1/deployment/nginx"
+      controller-selector: "extensions/v1beta1/deployment/nginx"
 ```
 
 ## Support for ThirdPartyResources
