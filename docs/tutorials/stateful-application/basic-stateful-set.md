@@ -25,6 +25,7 @@ following Kubernetes concepts.
 * [Cluster DNS](/docs/admin/dns/)
 * [Headless Services](/docs/user-guide/services/#headless-services)
 * [PersistentVolumes](/docs/user-guide/volumes/)
+* [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
@@ -283,6 +284,16 @@ for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
 web-0
 web-1
 ```
+
+Note, if you instead see 403 Forbidden responses for the above curl command,
+you will need to fix the permissions of the directory mounted by the `volumeMounts`
+(due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)) with:
+
+```shell
+for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done
+```
+
+before retrying the curl command above.
 
 In one terminal, watch the StatefulSet's Pods.
 

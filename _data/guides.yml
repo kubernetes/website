@@ -3,17 +3,7 @@ abstract: "How to get started, and accomplish tasks, using Kubernetes."
 toc:
 - docs/user-guide/index.md
 
-- title: Getting Started
-  section:
-  - docs/whatisk8s.md
-  - docs/getting-started-guides/kubeadm.md
-  - docs/getting-started-guides/kops.md
-  - docs/getting-started-guides/kargo.md
-  - docs/hellonode.md
-  - docs/getting-started-guides/kubectl.md
-  - docs/getting-started-guides/binary_release.md
-  - title: Online Training Course
-    path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+- docs/whatisk8s.md
 
 - title: Accessing the Cluster
   section:
@@ -66,9 +56,13 @@ toc:
 
 - title: Containers and Pods
   section:
+  - docs/user-guide/simple-nginx.md
+  - docs/user-guide/pods/single-container.md
   - docs/user-guide/pods/multi-container.md
   - docs/user-guide/pods/init-container.md
+  - docs/user-guide/configuring-containers.md
   - docs/user-guide/pod-templates.md
+  - docs/user-guide/production-pods.md
   - docs/user-guide/containers.md
   - docs/user-guide/environment-guide/index.md
   - docs/user-guide/compute-resources.md
@@ -93,7 +87,7 @@ toc:
   - docs/user-guide/connecting-to-applications-proxy.md
   - docs/user-guide/connecting-to-applications-port-forward.md
   - title: Using Explorer to Examine the Runtime Environment
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/explorer
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
 - title: Creating a Cluster
   section:
@@ -119,11 +113,14 @@ toc:
   - title: Running Kubernetes on Custom Solutions
     section:
     - docs/getting-started-guides/scratch.md
+    - docs/getting-started-guides/kubeadm.md
     - title: Custom Cloud Solutions
       section:
       - docs/getting-started-guides/coreos/index.md
       - docs/getting-started-guides/ubuntu/index.md
       - docs/getting-started-guides/rackspace.md
+      - docs/getting-started-guides/kops.md
+      - docs/getting-started-guides/kargo.md
     - title: On-Premise VMs
       section:
       - docs/getting-started-guides/coreos/index.md
@@ -164,6 +161,7 @@ toc:
         - docs/getting-started-guides/ubuntu/troubleshooting.md
         - docs/getting-started-guides/ubuntu/decommissioning.md
         - docs/getting-started-guides/ubuntu/calico.md
+        - docs/getting-started-guides/ubuntu/operational-considerations.md
         - docs/getting-started-guides/ubuntu/glossary.md
         - docs/getting-started-guides/ubuntu/local.md
         - docs/getting-started-guides/ubuntu/logging.md
@@ -174,6 +172,7 @@ toc:
   - docs/admin/cluster-large.md
   - docs/admin/multiple-zones.md
   - docs/admin/high-availability/index.md
+  - docs/getting-started-guides/binary_release.md
 
 - title: Administering Clusters
   section:
@@ -189,6 +188,7 @@ toc:
   - docs/admin/disruptions.md
   - docs/admin/resourcequota/index.md
   - docs/admin/resourcequota/walkthrough.md
+  - docs/admin/resourcequota/limitstorageconsumption.md
   - docs/admin/rescheduler.md
   - docs/admin/sysctls.md
   - docs/admin/cluster-components.md
@@ -200,7 +200,7 @@ toc:
   - docs/admin/networking.md
   - docs/admin/dns.md
   - title: Setting Up and Configuring DNS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/cluster-dns
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
   - docs/admin/master-node-communication.md
   - docs/admin/network-plugins.md
   - docs/admin/static-pods.md
