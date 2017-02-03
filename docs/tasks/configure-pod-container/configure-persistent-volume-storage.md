@@ -1,7 +1,4 @@
 ---
-redirect_from:
-- "/docs/user-guide/persistent-volumes/walkthrough/"
-- "/docs/user-guide/persistent-volumes/walkthrough.html"
 title: Configuring a Pod to Use a PersistentVolume for Storage
 ---
 
