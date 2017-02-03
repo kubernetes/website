@@ -1,0 +1,11 @@
+# Put files you want to skip table of contents entry check here:
+docs/search.md
+docs/sitemap.md
+docs/user-guide/pods/_viewing-a-pod.md
+docs/user-guide/simple-yaml.md
+docs/user-guide/walkthrough/index.md
+docs/user-guide/walkthrough/k8s201.md
+docs/user-guide/logging-demo/README.md
+docs/user-guide/downward-api/README.md
+docs/user-guide/configmap/README.md
+docs/concepts/abstractions/pod-termination.md

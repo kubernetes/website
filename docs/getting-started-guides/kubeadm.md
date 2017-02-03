@@ -27,14 +27,14 @@ automatically configuring cloud providers. Please refer to the specific cloud pr
 use another provisioning system.**
 
 kubeadm assumes you have a set of machines (virtual or real) that are up and running.  It is designed
-to be part of a larger provisioning system - or just for easy manual provisioning.  kubeadm is a great
+to be part of a large provisioning system - or just for easy manual provisioning.  kubeadm is a great
 choice where you have your own infrastructure (e.g. bare metal), or where you have an existing
 orchestration system (e.g. Puppet) that you have to integrate with.
 
-If you are not constrained, other tools build on kubeadm to give you complete clusters:
+If you are not constrained, there are some other tools built to give you complete clusters:
 
-* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you turn-key Kubernetes
-* On AWS, [kops](https://github.com/kubernetes/kops) makes installation and cluster management easy (and supports high availability)
+* On GCE, [Google Container Engine](https://cloud.google.com/container-engine/) gives you one-click Kubernetes clusters
+* On AWS, [kops](https://github.com/kubernetes/kops) makes cluster installation and management easy (and supports high availability)
 
 ## Prerequisites
 
@@ -97,7 +97,7 @@ For each host in turn:
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for `kubeadm` to tell it what to do.
 
-Note: To disable SELinux by running `setenforce 0` is required in order to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until kubelet can handle SELinux better.
+Note: Disabling SELinux by running `setenforce 0` is required in order to allow containers to access the host filesystem, which is required by pod networks for example. You have to do this until kubelet can handle SELinux better.
 
 ### (2/4) Initializing your master
 
@@ -113,9 +113,9 @@ To initialize the master, pick one of the machines you previously installed `kub
      # kubeadm init
 
 **Note:** this will autodetect the network interface to advertise the master on as the interface with the default gateway.
-If you want to use a different interface, specify `--api-advertise-addresses=<ip-address>` argument to `kubeadm init`.
+If you want to use a different interface, specify `--api-advertise-addresses <ip-address>` argument to `kubeadm init`.
 
-If you want to use [flannel](https://github.com/coreos/flannel) as the pod network, specify `--pod-network-cidr=10.244.0.0/16` if you're using the daemonset manifest below. _However, please note that this is not required for any other networks besides Flannel._
+If you want to use [flannel](https://github.com/coreos/flannel) as the pod network, specify `--pod-network-cidr 10.244.0.0/16` if you're using the daemonset manifest below. _However, please note that this is not required for any other networks besides Flannel._
 
 Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to read more about the flags `kubeadm init` provides.
 
@@ -319,8 +319,9 @@ edit the `kubeadm` dropin for the `kubelet` service (`/etc/systemd/system/kubele
 If your cloud provider requires any extra packages installed on host, for example for volume mounting/unmounting, install those packages.
 
 Specify the `--cloud-provider` flag to kubelet and set it to the cloud of your choice. If your cloudprovider requires a configuration
-file, create the file `/etc/kubernetes/cloud-config` on every node and set the values your cloud requires. Also append
-`--cloud-config=/etc/kubernetes/cloud-config` to the kubelet arguments.
+file, create the file `/etc/kubernetes/cloud-config` on every node. The exact format and content of that file depends on the requirements imposed by your cloud provider.
+If you use the `/etc/kubernetes/cloud-config` file, you must append it to the `kubelet` arguments as follows:
+`--cloud-config=/etc/kubernetes/cloud-config`
 
 Lastly, run `kubeadm init --cloud-provider=xxx` to bootstrap your cluster with cloud provider features.
 
@@ -351,7 +352,7 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 1. There is no built-in way of fetching the token easily once the cluster is up and running, but here is a `kubectl` command you can copy and paste that will print out the token for you:
 
     ```console
-    # kubectl -n kube-system get secret clusterinfo -o yaml | grep token-map | awk '{print $2}' | base64 -d | sed "s|{||g;s|}||g;s|:|.|g;s/\"//g;" | xargs echo
+    # kubectl -n kube-system get secret clusterinfo -o yaml | grep token-map | awk '{print $2}' | base64 -D | sed "s|{||g;s|}||g;s|:|.|g;s/\"//g;" | xargs echo
     ```
 
 1. If you are using VirtualBox (directly or via Vagrant), you will need to ensure that `hostname -i` returns a routable IP address (i.e. one on the second network interface, not the first one).

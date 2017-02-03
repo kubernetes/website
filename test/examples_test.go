@@ -28,6 +28,10 @@ import (
 	"strings"
 	"testing"
 
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/validation/field"
+	"k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/kubernetes/pkg/api"
 	"k8s.io/kubernetes/pkg/api/testapi"
 	"k8s.io/kubernetes/pkg/api/validation"
@@ -37,14 +41,10 @@ import (
 	batch_validation "k8s.io/kubernetes/pkg/apis/batch/validation"
 	"k8s.io/kubernetes/pkg/apis/extensions"
 	expvalidation "k8s.io/kubernetes/pkg/apis/extensions/validation"
-	"k8s.io/kubernetes/pkg/capabilities"
 	"k8s.io/kubernetes/pkg/apis/policy"
 	policyvalidation "k8s.io/kubernetes/pkg/apis/policy/validation"
+	"k8s.io/kubernetes/pkg/capabilities"
 	"k8s.io/kubernetes/pkg/registry/batch/job"
-	"k8s.io/kubernetes/pkg/runtime"
-	"k8s.io/kubernetes/pkg/types"
-	"k8s.io/kubernetes/pkg/util/validation/field"
-	"k8s.io/kubernetes/pkg/util/yaml"
 	schedulerapilatest "k8s.io/kubernetes/plugin/pkg/scheduler/api/latest"
 )
 
@@ -300,10 +300,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"limits":      {&api.LimitRange{}},
 			"namespace":   {&api.Namespace{}},
 			"valid-pod":   {&api.Pod{}},
-		},
-		"../docs/user-guide/logging-demo": {
-			"synthetic_0_25lps": {&api.Pod{}},
-			"synthetic_10lps":   {&api.Pod{}},
 		},
 		"../docs/user-guide/node-selection": {
 			"pod": {&api.Pod{}},

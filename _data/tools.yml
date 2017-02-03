@@ -7,6 +7,8 @@ toc:
   section:
   - title: Kubectl
     path: /docs/user-guide/kubectl/
+  - title: Kubeadm
+    path: /docs/getting-started-guides/kubeadm
   - title: Kubefed
     path: /docs/admin/federation/kubefed/
   - title: Kubernetes Dashboard
@@ -14,8 +16,7 @@ toc:
   
 - title: Third-Party Tools
   section:
+  - docs/tools/kompose/index.md
+  - docs/tools/kompose/user-guide.md
   - title: Helm
     path: https://github.com/kubernetes/helm
-  - title: Kompose
-    path: https://github.com/kubernetes-incubator/kompose
-  

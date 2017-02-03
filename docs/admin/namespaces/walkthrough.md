@@ -63,7 +63,7 @@ Create the development namespace using kubectl.
 $ kubectl create -f docs/admin/namespaces/namespace-dev.json
 ```
 
-And then lets create the production namespace using kubectl.
+And then let's create the production namespace using kubectl.
 
 ```shell
 $ kubectl create -f docs/admin/namespaces/namespace-prod.json
