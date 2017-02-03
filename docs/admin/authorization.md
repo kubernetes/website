@@ -85,8 +85,8 @@ properties:
     - `kind`, type string: valid values are "Policy". Allows versioning and conversion of the policy format.
   - `spec` property set to a map with the following properties:
     - Subject-matching properties:
-      - `user`, type string; the user-string from `--token-auth-file`. If you specify `user`, it must match the username of the authenticated user. `*` matches all requests.
-      - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user. `*` matches all requests.
+      - `user`, type string; the user-string from `--token-auth-file`. If you specify `user`, it must match the username of the authenticated user.
+      - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user. `system:authenticated` matches all authenticated requests. `system:unauthenticated` matches all unauthenticated requests.
     - `readonly`, type boolean, when true, means that the policy only applies to get, list, and watch operations.
     - Resource-matching properties:
       - `apiGroup`, type string; an API group, such as `extensions`. `*` matches all API groups.
@@ -115,8 +115,11 @@ The tuple of attributes is checked for a match against every policy in the
 policy file. If at least one line matches the request attributes, then the
 request is authorized (but may fail later validation).
 
-To permit any user to do something, write a policy with the user property set to
-`"*"`.
+To permit any authenticated user to do something, write a policy with the
+group property set to `"system:authenticated"`.
+
+To permit any unauthenticated user to do something, write a policy with the
+group property set to `"system:unauthenticated"`.
 
 To permit a user to do anything, write a policy with the apiGroup, namespace,
 resource, and nonResourcePath properties set to `"*"`.
@@ -165,7 +168,8 @@ up the verbosity:
  5. Anyone can make read-only requests to all non-resource paths:
 
     ```json
-    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "*", "readonly": true, "nonResourcePath": "*"}}
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"group": "system:authenticated", "readonly": true, "nonResourcePath": "*"}}
+    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"group": "system:unauthenticated", "readonly": true, "nonResourcePath": "*"}}
     ```
 
 [Complete file example](http://releases.k8s.io/{{page.githubbranch}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
@@ -217,20 +221,20 @@ don't already have even when the RBAC authorizer it disabled__. If "user-1"
 does not have the ability to read secrets in "namespace-a", they cannot create
 a binding that would grant that permission to themselves or any other user.
 
-For bootstrapping the first roles, it becomes necessary for someone to get
-around these limitations. For the alpha release of RBAC, an API Server flag was
-added to allow one user to step around all RBAC authorization and privilege
-escalation checks. NOTE: _This is subject to change with future releases._
+When bootstrapping, superuser credentials should include the `system:masters`
+group, for example by creating a client cert with `/O=system:masters`. This
+gives those credentials full access to the API and allows an admin to then set
+up bindings for other users.
+
+In Kubernetes versions 1.4 and 1.5, there was a similar flag that gave a user
+full access:
 
 ```
 --authorization-rbac-super-user=admin
 ```
 
-Once set the specified super user, in this case "admin", can be used to create
-the roles and role bindings to initialize the system.
-
-This flag is optional and once the initial bootstrapping is performed can be
-unset.
+__This flag will be removed in 1.6__. Admins should prefer the `system:masters`
+group when setting up clusters.
 
 ### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
 
@@ -440,6 +444,29 @@ subjects:
   name: system:serviceaccounts
 ```
 
+For all authenticated users:
+```yaml
+subjects:
+- kind: Group
+  name: system:authenticated
+```
+
+For all unauthenticated users:
+```yaml
+subjects:
+- kind: Group
+  name: system:unauthenticated
+```
+
+For all users:
+```yaml
+subjects:
+- kind: Group
+  name: system:authenticated
+- kind: Group
+  name: system:unauthenticated
+```
+
 ## Webhook Mode
 
 When specified, mode `Webhook` causes Kubernetes to query an outside REST
@@ -489,7 +516,7 @@ request, and either details about the resource being accessed or requests
 attributes.
 
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
-as other Kubernetes API objects. Implementers should be aware of loser
+as other Kubernetes API objects. Implementers should be aware of looser
 compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must
 enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-config=authorization.k8s.io/v1beta1=true`).
@@ -504,7 +531,7 @@ An example request body:
     "resourceAttributes": {
       "namespace": "kittensandponies",
       "verb": "GET",
-      "group": "*",
+      "group": "unicorn.example.org",
       "resource": "pods"
     },
     "user": "jane",
@@ -627,7 +654,7 @@ __EOF__
 
 --- snip lots of output ---
 
-I0913 08:12:31.362873   27425 request.go:908] Response Body: {"kind":"SubjectAccessReview","apiVersion":"authorization.k8s.io/v1beta1","metadata":{"creationTimestamp":null},"spec":{"resourceAttributes":{"namespace":"kittensandponies","verb":"GET","group":"*","resource":"pods"},"user":"jane","group":["group1","group2"]},"status":{"allowed":true}}
+I0913 08:12:31.362873   27425 request.go:908] Response Body: {"kind":"SubjectAccessReview","apiVersion":"authorization.k8s.io/v1beta1","metadata":{"creationTimestamp":null},"spec":{"resourceAttributes":{"namespace":"kittensandponies","verb":"GET","group":"unicorn.example.org","resource":"pods"},"user":"jane","group":["group1","group2"]},"status":{"allowed":true}}
 subjectaccessreview "" created
 ```
 

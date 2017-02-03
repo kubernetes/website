@@ -107,6 +107,7 @@ scheduler as an annotation in that pod spec. Let's look at three examples.
   ```shell
   kubectl create -f pod1.yaml
   ```
+
 2. Pod spec with `default-scheduler` annotation
 
   {% include code.html language="yaml" file="multiple-schedulers/pod2.yaml" ghlink="/docs/admin/multiple-schedulers/pod2.yaml" %}
@@ -120,6 +121,7 @@ scheduler as an annotation in that pod spec. Let's look at three examples.
   ```shell
   kubectl create -f pod2.yaml
   ```
+
 3. Pod spec with `my-scheduler` annotation
 
   {% include code.html language="yaml" file="multiple-schedulers/pod3.yaml" ghlink="/docs/admin/multiple-schedulers/pod3.yaml" %}

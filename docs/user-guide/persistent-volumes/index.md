@@ -532,7 +532,7 @@ parameters:
 
 * `skuName`: Azure storage account Sku tier. Default is empty.
 * `location`: Azure storage account location. Default is empty.
-* `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, `skuName` and `location` are ignored.
+* `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
 
 ## Writing Portable Configuration
@@ -543,7 +543,7 @@ and need persistent storage, we recommend that you use the following pattern:
 - Do include PersistentVolumeClaim objects in your bundle of config (alongside Deployments, ConfigMaps, etc).
 - Do not include PersistentVolume objects in the config, since the user instantiating the config may not have
   permission to create PersistentVolumes.
-- Give the user the option of providing a storage class name when instantating the template.
+- Give the user the option of providing a storage class name when instantiating the template.
   - If the user provides a storage class name, and the cluster is version 1.4 or newer, put that value into the `volume.beta.kubernetes.io/storage-class` annotation of the PVC.
     This will cause the PVC to match the right storage class if the cluster has StorageClasses enabled by the admin.
   - If the user does not provide a storage class name or the cluster is version 1.3, then instead put a `volume.alpha.kubernetes.io/storage-class: default` annotation on the PVC.
