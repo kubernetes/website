@@ -9,7 +9,7 @@ toc:
   - docs/concepts/tools/kubectl/object-management-using-imperative-commands.md
   - docs/concepts/tools/kubectl/object-management-using-imperative-config.md
   - docs/concepts/tools/kubectl/object-management-using-declarative-config.md
-  
+
 - title: Kubernetes Objects
   section:
   - docs/concepts/abstractions/overview.md
@@ -22,6 +22,12 @@ toc:
 - title: Object Metadata
   section:
   - docs/concepts/object-metadata/annotations.md
+
+- title: Workloads
+  section:
+  - title: Pods
+    section:
+    - docs/concepts/workloads/pods/pod-lifecycle.md
 
 - title: Configuration
   section:
