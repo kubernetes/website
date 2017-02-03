@@ -59,12 +59,6 @@ Disadvantages compared to object configuration:
 - Commands do not provide a source of records except for what is live.
 - Commands do not provide a template for creating new objects.
 
-{% comment %}
-If we use Markdown comments instead of HTML comments, they won't appear in the built HTML files.
-For a tutorial on how to use Imperative Commands for app management, see:
-[App Management Using Comands](/docs/tutorials/kubectl/app-management-using-commands/)
-{% endcomment %}
-
 ## Imperative object configuration
 
 When using imperative object configuration, a user operates on object
@@ -124,11 +118,6 @@ Disadvantages compared to declarative object configuration:
 - Imperative object configuration works best on files, not directories.
 - Updates to live objects must be reflected in configuration files, or they will be lost during the next replacement.
 
-{% comment %}
-For a tutorial on how to use Yaml Config for app management, see:
-[App Management Yaml Config](/docs/tutorials/kubectl/app-management-using-yaml-config/)
-{% endcomment %}
-
 ## Declarative object configuration
 
 When using declarative object configuration, a user operates on object
@@ -170,20 +159,16 @@ Disadvantages compared to imperative object configuration:
 - Declarative object configuration is harder to debug and understand results when they are unexpected.
 - Partial updates using diffs create complex merge and patch operations.
 
-{% comment %}
-For a tutorial on how to use Yaml Config with multiple writers, see:
-[App Management Yaml Config](/docs/tutorials/kubectl/app-management-using-yaml-config-multiple-writers/)
-{% endcomment %}
-
 {% endcapture %}
 
 {% capture whatsnext %}
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
+- [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
+- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/tools/kubectl/object-management-using-declarative-config/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
 - [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)
 
 {% comment %}
-- [App Management Using Yaml Config](/docs/tutorials/kubectl/declarative-app-management-using-yaml-config/)
-- [App Management Using Yaml Config With Multiple Writers](/docs/tutorials/kubectl/declarative-app-management-using-yaml-config-multiple-writers/)
 {% endcomment %}
 {% endcapture %}
 

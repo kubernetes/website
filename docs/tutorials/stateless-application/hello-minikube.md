@@ -1,6 +1,9 @@
 ---
 
 title: Hello Minikube
+redirect_from:
+- "/docs/hellonode/"
+- "/docs/hellonode.html"
 ---
 
 {% capture overview %}
@@ -70,14 +73,25 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s htt
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
+Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
+```shell
+export http_proxy=""
+export https_proxy=""
+curl https://cloud.google.com/container-registry/ 
+```
 
-Start the Minikube cluster:
+If NO proxy is required, start the Minikube cluster: 
 
 ```shell
 minikube start --vm-driver=xhyve
 ```
+If a proxy server is required, use the following method to start Minikube cluster with proxy setting:
 
-The `--vm-driver=xyhve` flag specifies that you are using Docker for Mac. The
+```shell
+minikube start --vm-driver=xhyve --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
+```
+
+The `--vm-driver=xhyve` flag specifies that you are using Docker for Mac. The
 default VM driver is VirtualBox.
 
 Now set the Minikube context. The context is what determines which cluster
@@ -135,7 +149,7 @@ eval $(minikube docker-env)
 ```
 
 **Note:** Later, when you no longer wish to use the Minikube host, you can undo
-this change by running `eval $(minikube docker-env) -u`.
+this change by running `eval $(minikube docker-env -u)`.
 
 Build your Docker image, using the Minikube Docker daemon:
 
