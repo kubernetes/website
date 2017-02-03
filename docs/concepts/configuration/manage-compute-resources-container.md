@@ -41,7 +41,7 @@ Each Container of a Pod can specify one or more of the following:
 
 Specifying resource requests and limits is optional. In some clusters, unset
 limits or requests might be replaced with default values when a Pod is created
-or updated. The default values depends on how the cluster is configured. If the
+or updated. The default values depend on how the cluster is configured. If the
 request values are not specified, they are set to be equal to the limit values
 by default. Note that limits must always be greater than or equal to requests.
 
@@ -54,7 +54,7 @@ configurations).
 
 ## Meaning of CPU
 
-Limits and requests for CPU are measured in cpus.
+Limits and requests for CPU resources are measured in *cpu* units.
 One cpu, in Kubernetes, is equivalent to:
 
 - 1 AWS vCPU
