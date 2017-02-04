@@ -30,7 +30,7 @@ This example demonstrates how limits can be applied to a Kubernetes [namespace](
 min/max resource limits per pod.  In addition, this example demonstrates how you can
 apply default resource limits to pods in the absence of an end-user specified value.
 
-See [LimitRange design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_limit_range.md) for more information. For a detailed description of the Kubernetes resource model, see [Resources](/docs/user-guide/compute-resources/)
+See [LimitRange design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/admission_control_limit_range.md) for more information. For a detailed description of the Kubernetes resource model, see [Resources](/docs/user-guide/compute-resources/)
 
 ## Step 0: Prerequisites
 
