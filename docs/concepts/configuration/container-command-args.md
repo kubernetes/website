@@ -13,7 +13,7 @@ fields to override the default Entrypoint and Cmd of the the Container's image.
 
 ## Container entry points and arguments
 
-The configuration file for a Container has an `image` field that specifies the
+The configuration file for a Container has an `image` field that specifies
 the Docker image to be run in the Container. A Docker image has metadata that includes
 a default Entrypoint and a default Cmd.
 
