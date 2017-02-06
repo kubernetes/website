@@ -26,7 +26,7 @@ general and [Deployment](/docs/user-guide/deployments) in particular.
 
 Deployments in federation control plane (referred to as "Federated Deployments" in
 this guide) are very similar to the traditional [Kubernetes
-Deployment](/docs/user-guide/deployment.md), and provide the same functionality.
+Deployment](/docs/user-guide/deployments/), and provide the same functionality.
 Creating them in the federation control plane ensures that the desired number of
 replicas exist across the registered clusters.
 
@@ -75,7 +75,7 @@ if you have 3 registered clusters and you create a Federated Deployment with
 `spec.replicas=3`.
 To modify the number of replicas in each cluster, you can specify
 [FederatedReplicaSetPreference](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/federation/apis/federation/types.go)
-as an annotation with key `federation.kubernetes.io/replica-set-preferences`
+as an annotation with key `federation.kubernetes.io/deployment-preferences`
 on Federated Deployment.
 
 

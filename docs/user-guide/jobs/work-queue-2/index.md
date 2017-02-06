@@ -37,11 +37,13 @@ of deploying Redis scalably and redundantly.
 Start a temporary Pod running Redis and a service so we can find it.
 
 ```shell
-$ kubectl create -f examples/job/work-queue-2/redis-pod.yaml
+$ kubectl create -f docs/user-guide/jobs/work-queue-2/redis-pod.yaml
 pod "redis-master" created
-$ kubectl create -f examples/job/work-queue-2/redis-service.yaml
+$ kubectl create -f docs/user-guide/jobs/work-queue-2/redis-service.yaml
 service "redis" created
 ```
+
+If you're not working from the source tree, you could also download [`redis-pod.yaml`](redis-pod.yaml?raw=true) and [`redis-service.yaml`](redis-service.yaml?raw=true) directly.
 
 ## Filling the Queue with tasks
 
@@ -112,7 +114,7 @@ client library to get work.  Here it is:
 {% include code.html language="python" file="worker.py" ghlink="/docs/user-guide/jobs/work-queue-2/worker.py" %}
 
 If you are working from the source tree,
-change directory to the `examples/job/work-queue-2` directory.
+change directory to the `docs/user-guide/jobs/work-queue-2/` directory.
 Otherwise, download [`worker.py`](worker.py?raw=true), [`rediswq.py`](rediswq.py?raw=true), and [`Dockerfile`](Dockerfile?raw=true)
 using above links. Then build the image:
 
