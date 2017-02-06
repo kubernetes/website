@@ -97,7 +97,7 @@ track=stable
 
 - **Namespace**: Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called [namespaces](/docs/admin/namespaces/). They let you partition resources into logically named groups.
 
-  Dashboard offers all available namespaces in a dropdown list, and allows you to create a new namespace. The namespace name may contain a maximum of 63 alphanumeric characters and dashes (-).
+  Dashboard offers all available namespaces in a dropdown list, and allows you to create a new namespace. The namespace name may contain a maximum of 63 alphanumeric characters and dashes (-), can not contain capital letters.
 
   In case the creation of the namespace is successful, it is selected by default. If the creation fails, the first namespace is selected.
 
@@ -147,7 +147,7 @@ Detail views for workloads show status and specification information and surface
 ![Deployment detail view](/images/docs/ui-dashboard-deployment-detail.png)
 
 #### Services and discovery
-Services and discovery view shows Kubernetes resources that allow for exposing services to external world and discovering them within a cluster. For that reason, Service and Ingress views show Pods targeted by them, internal endpoints for cluster connections and endpoints for external users.
+Services and discovery view shows Kubernetes resources that allow for exposing services to external world and discovering them within a cluster. For that reason, Service and Ingress views show Pods targeted by them, internal endpoints for cluster connections and external endpoints for external users.
 
 ![Service list partial view](/images/docs/ui-dashboard-service-list.png)
 
