@@ -16,7 +16,7 @@ toc:
   - title: Pods
     section:
     - docs/concepts/abstractions/pod.md
-    - docs/concepts/abstractions/init-containers/
+    - docs/concepts/abstractions/init-containers.md
   - title: Controllers
     section:
     - docs/concepts/abstractions/controllers/statefulsets.md
