@@ -2,6 +2,6 @@
 title: Init Containers
 ---
 
-{% include redirection-note.md %}
+{% include user-guide-content-moved.md %}
 
 * [Init Containers](/docs/concepts/abstractions/init-containers/)
