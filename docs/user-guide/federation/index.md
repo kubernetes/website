@@ -43,7 +43,7 @@ why you might want multiple clusters are:
   [Multi cluster guide](/docs/admin/multi-cluster) has more details on this.
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
-  https://github.com/kubernetes/community/blob/master/sig-scalability/goals.md).
+  [Kubernetes Scaling and Performance Goals](https://github.com/kubernetes/community/blob/master/sig-scalability/goals.md)).
 * Hybrid cloud: You can have multiple clusters on different cloud providers or
   on-premises data centers.
 
@@ -53,7 +53,7 @@ why you might want multiple clusters are:
 While there are a lot of attractive use cases for federation, there are also
 some caveats.
 
-* Increased network bandwidth and cost: The dederation control plane watches all
+* Increased network bandwidth and cost: The federation control plane watches all
   clusters to ensure that the current state is as expected. This can lead to
   significant network cost if the clusters are running in different regions on
   a cloud provider or on different cloud providers.
@@ -93,15 +93,15 @@ Once we have the control plane setup, we can start creating federation API
 resources.
 The following guides explain some of the resources in detail:
 
-* [ConfigMap](/docs/user-guide/federation/configmap/)
-* [DaemonSets](/docs/user-guide/federation/daemonsets/)
-* [Deployment](/docs/user-guide/federation/deployment/)
-* [Events](/docs/user-guide/federation/events/)
-* [Ingress](/docs/user-guide/federation/federated-ingress/)
-* [Namespaces](/docs/user-guide/federation/namespaces/)
-* [ReplicaSets](/docs/user-guide/federation/replicasets/)
-* [Secrets](/docs/user-guide/federation/secrets/)
-* [Services](/docs/user-guide/federation/federated-services/)
+* [ConfigMap](https://kubernetes.io/docs/user-guide/federation/configmap/)
+* [DaemonSets](https://kubernetes.io/docs/user-guide/federation/daemonsets/)
+* [Deployment](https://kubernetes.io/docs/user-guide/federation/deployment/)
+* [Events](https://kubernetes.io/docs/user-guide/federation/events/)
+* [Ingress](https://kubernetes.io/docs/user-guide/federation/federated-ingress/)
+* [Namespaces](https://kubernetes.io/docs/user-guide/federation/namespaces/)
+* [ReplicaSets](https://kubernetes.io/docs/user-guide/federation/replicasets/)
+* [Secrets](https://kubernetes.io/docs/user-guide/federation/secrets/)
+* [Services](https://kubernetes.io/docs/user-guide/federation/federated-services/)
 
 [API reference docs](/docs/federation/api-reference/) lists all the
 resources supported by federation apiserver.
@@ -119,12 +119,12 @@ federation control plane.
 
 The following Federated resources are affected by cascading deletion:
 
-* Ingress
-* Namespace
-* ReplicaSet
-* Secret
-* Deployment
-* DaemonSet
+* [Ingress](https://kubernetes.io/docs/user-guide/federation/federated-ingress/)
+* [Namespaces](https://kubernetes.io/docs/user-guide/federation/namespaces/)
+* [ReplicaSets](https://kubernetes.io/docs/user-guide/federation/replicasets/)
+* [Secrets](https://kubernetes.io/docs/user-guide/federation/secrets/)
+* [Deployment](https://kubernetes.io/docs/user-guide/federation/deployment/)
+* [DaemonSets](https://kubernetes.io/docs/user-guide/federation/daemonsets/)
 
 Note: By default, deleting a resource from federation control plane does not
 delete the corresponding resources from underlying clusters.
@@ -133,5 +133,5 @@ delete the corresponding resources from underlying clusters.
 ## For more information
 
 * [Federation
-  proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/federation.md)
+  proposal](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/federation.md)
 * [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
