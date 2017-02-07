@@ -76,6 +76,7 @@ delay the startup of app Containers until some set of preconditions are met.
 
 ## Examples
 Here are some ideas for how to use Init Containers:
+
 * Wait for a service to be created with a shell command like:
   `for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; exit 1`
 * Register this Pod with a remote server with a command like:
