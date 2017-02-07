@@ -74,7 +74,7 @@ Setting this aspect may set different fields for different object types:
 - `set` <field>: Set an aspect of an object.
 
 **Note**: In Kubernetes version 1.5, not every verb-driven command has an
-associated field-driven command.
+associated aspect-driven command.
 
 The `kubectl` tool supports these additional ways to update a live object directly,
 however they require a better understanding of the Kubernetes object schema.
