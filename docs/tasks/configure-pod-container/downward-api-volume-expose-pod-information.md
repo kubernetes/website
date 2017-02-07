@@ -1,5 +1,5 @@
 ---
-title: Exposing Pod Information Using a DownwardApiVolume
+title: Exposing Pod Information Using a DownwardApiVolumeFile
 ---
 
 {% capture overview %}
