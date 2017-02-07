@@ -32,6 +32,8 @@ To specify a container as an Init Container, add the annotation key
 JSON array of objects of type
 [`v1.Container`](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_container).
 
+{% include 1-5-beta.md %}
+
 **Once the feature exits beta, Init Containers will be specified in the Pod
 Spec alongside the app `containers` array.**
 
@@ -74,14 +76,14 @@ delay the startup of app Containers until some set of preconditions are met.
 
 ## Examples
 Here are some ideas for how to use Init Containers:
-- Wait for a service to be created with a shell command like:
+* Wait for a service to be created with a shell command like:
   `for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; exit 1`
-- Register this Pod with a remote server with a command like:
+* Register this Pod with a remote server with a command like:
   `curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(POD_NAME)&ip=$(POD_IP)'`
   using `POD_NAME` and `POD_IP` from the downward API.
-- Wait for some time before starting the app container with a command like `sleep 60`.
-- Clone a git repository into a volume
-- Place values like a POD_IP into a configuration file, and run a template tool (e.g. jinja)
+* Wait for some time before starting the app container with a command like `sleep 60`.
+* Clone a git repository into a volume
+* Place values like a POD_IP into a configuration file, and run a template tool (e.g. jinja)
   to generate a configuration file to be consumed by the main app contianer.
 
 Complete usage examples can be found in the [StatefulSets documentation](/docs/concepts/abstractions/controllers/statefulsets/)
