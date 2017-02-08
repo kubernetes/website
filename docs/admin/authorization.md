@@ -445,6 +445,7 @@ subjects:
 ```
 
 For all authenticated users:
+
 ```yaml
 subjects:
 - kind: Group
@@ -452,6 +453,7 @@ subjects:
 ```
 
 For all unauthenticated users:
+
 ```yaml
 subjects:
 - kind: Group
@@ -459,6 +461,7 @@ subjects:
 ```
 
 For all users:
+
 ```yaml
 subjects:
 - kind: Group
