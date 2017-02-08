@@ -101,7 +101,7 @@ Next we will verify we can create a queue, and publish and consume messages.
 # In the next line, rabbitmq-service is the hostname where the rabbitmq-service
 # can be reached.  5672 is the standard port for rabbitmq.
 
-root@temp-loe07:/# BROKER_URL=amqp://guest:guest@rabbitmq-service:5672
+root@temp-loe07:/# export BROKER_URL=amqp://guest:guest@rabbitmq-service:5672
 # If you could not resolve "rabbitmq-service" in the previous step,
 # then use this command instead:
 # root@temp-loe07:/# BROKER_URL=amqp://guest:guest@$RABBITMQ_SERVICE_SERVICE_HOST:5672
