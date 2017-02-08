@@ -4,7 +4,7 @@ title: Assigning CPU and RAM Resources to a Container
 
 {% capture overview %}
 
-This page shows how assign CPU and RAM resources to containers running
+This page shows how to assign CPU and RAM resources to containers running
 in a Kubernetes Pod.
 
 {% endcapture %}
