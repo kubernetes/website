@@ -352,7 +352,7 @@ they are running fine and not crashing.
 
 The `-l app=hostnames` argument is a label selector - just like our `Service`
 has.  Inside the Kubernetes system is a control loop which evaluates the
-selector of every `Service` and save the results into an `Endpoints` object.
+selector of every `Service` and saves the results into an `Endpoints` object.
 
 ```shell
 $ kubectl get endpoints hostnames
