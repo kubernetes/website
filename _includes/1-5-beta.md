@@ -1,1 +1,1 @@
-***NOTE: This feature is beta in 1.5.***
+***NOTE: This feature is beta in Kubernetes 1.5.***
