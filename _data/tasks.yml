@@ -3,6 +3,10 @@ abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
+- title: Using the Kubectl Command-Line
+  section:
+  - docs/tasks/kubectl/list-all-running-container-images.md
+
 - title: Configuring Pods and Containers
   section:
   - docs/tasks/configure-pod-container/define-environment-variable-container.md
