@@ -191,6 +191,7 @@ available as configuration file options.
       externalDNSNames:
       - <dnsname1|string>
       - <dnsname2|string>
+    authorizationMode: <string>
     cloudProvider: <string>
     discovery:
       bindPort: <int>
