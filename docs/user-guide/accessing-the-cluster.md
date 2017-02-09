@@ -125,6 +125,7 @@ with future high-availability support.
 The Kubernetes project-supported Go client library is at [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go).
 
 To use it, 
+
 * To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes` See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
 
