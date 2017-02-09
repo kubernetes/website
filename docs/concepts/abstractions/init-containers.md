@@ -46,7 +46,7 @@ container statuses similar to the `status.containerStatuses` field.
 Init Containers support all the fields and features of app Containers,
 including resource limits, volumes, and security settings. However, the
 resource requests and limits for an Init Container are handled slightly
-differently, xx [Resources](#resources).  Also, Init Containers do not
+differently, which are documented in [Resources](#resources) below.  Also, Init Containers do not
 support readiness probes because they must run to completion before the Pod can
 be ready.
 
