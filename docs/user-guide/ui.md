@@ -98,7 +98,7 @@ track=stable
 - **Namespace**: Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called [namespaces](/docs/admin/namespaces/). They let you partition resources into logically named groups.
 
   Dashboard offers all available namespaces in a dropdown list, and allows you to create a new namespace. The namespace name may contain a maximum of 63 alphanumeric characters and dashes (-) but can not contain capital letters.
-  When the namespace name only contains number, such as "10", the pod can't be created in this kind of namespace, the pod will be put in default namespace.
+  Namespace names should not consist of only numbers. If the name is set as a number, such as 10, the pod will be put in the default namespace.
 
   In case the creation of the namespace is successful, it is selected by default. If the creation fails, the first namespace is selected.
 
