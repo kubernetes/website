@@ -9,12 +9,14 @@ toc:
   - docs/concepts/tools/kubectl/object-management-using-imperative-commands.md
   - docs/concepts/tools/kubectl/object-management-using-imperative-config.md
   - docs/concepts/tools/kubectl/object-management-using-declarative-config.md
-  
+
 - title: Kubernetes Objects
   section:
   - docs/concepts/abstractions/overview.md
-  - docs/concepts/abstractions/pod.md
-
+  - title: Pods
+    section:
+    - docs/concepts/abstractions/pod.md
+    - docs/concepts/abstractions/init-containers.md
   - title: Controllers
     section:
     - docs/concepts/abstractions/controllers/statefulsets.md

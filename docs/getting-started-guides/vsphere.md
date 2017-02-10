@@ -69,6 +69,7 @@ Sample Config:
         datacenter = <Datacenter to be used>
         datastore = <Datastore to use for provisioning volumes using storage classes/dynamic provisioning>
         working-dir = <Folder in which VMs are provisioned, can be null>
+        vm-uuid = <VM Instance UUID of virtual machine which can be retrieved from instanceUuid property in VmConfigInfo, or also set as vc.uuid in VMX file. If empty, will be retrieved from sysfs (requires root)>
 [Disk]
 	scsicontrollertype = pvscsi
 ```
