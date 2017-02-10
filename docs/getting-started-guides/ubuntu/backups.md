@@ -3,7 +3,7 @@ title: Backups
 ---
 
 {% capture overview %}
-This pages shows you how to backup and restore data from the different deployed services in a given cluster.
+This page shows you how to backup and restore data from the different deployed services in a given cluster.
 {% endcapture %}
 
 {% capture prerequisites %}
