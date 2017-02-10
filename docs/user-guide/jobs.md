@@ -63,7 +63,7 @@ Events:
 
 To view completed pods of a job, use `kubectl get pods --show-all`.  The `--show-all` will show completed pods too.
 
-To list all the pods that belong to job in a machine readable form, you can use a command like this:
+To list all the pods that belong to a job in a machine readable form, you can use a command like this:
 
 ```shell
 $ pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath={.items..metadata.name})
@@ -100,7 +100,7 @@ the same schema as a [pod](/docs/user-guide/pods), except it is nested and does 
 In addition to required fields for a Pod, a pod template in a job must specify appropriate
 labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](/docs/user-guide/pod-states/#restartpolicy) equal to `Never` or `OnFailure` are allowed.
+Only a [`RestartPolicy`](/docs/user-guide/pod-states/#restartpolicy) equal to `Never` or `OnFailure` is allowed.
 
 ### Pod Selector
 
