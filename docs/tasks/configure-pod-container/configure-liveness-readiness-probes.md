@@ -84,7 +84,7 @@ FirstSeen    LastSeen    Count   From            SubobjectPath           Type   
 23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
 ```
 
-After 30 seconds, view the Pod events again:
+After 35 seconds, view the Pod events again:
 
 ```shell
 kubectl describe pod liveness-exec
