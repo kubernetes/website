@@ -36,7 +36,7 @@ in your `$PATH` and set the executable permission on those binaries.
 Note: The URL in the curl command below downloads the binaries for
 Linux amd64. If you are on a different platform, please use the URL
 for the binaries appropriate for your platform. You can find the list
-of available binaries on the [release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#client-binaries-3)
+of available binaries on the [release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#client-binaries-3).
 
 
 ```shell
