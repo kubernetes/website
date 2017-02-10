@@ -7,10 +7,13 @@ spec:
     - name: test-container
       image: gcr.io/google_containers/busybox:1.24
       command: [ "sh", "-c"]
-      args: ["while true; do echo -en '\n'; \
-            printenv MY_CPU_REQUEST MY_CPU_LIMIT \
-            MY_MEM_REQUEST MY_MEM_LIMIT; \
-            sleep 10; done"]
+      args:
+      - while true; do
+          echo -en '\n';
+          printenv MY_CPU_REQUEST MY_CPU_LIMIT;
+          printenv MY_MEM_REQUEST MY_MEM_LIMIT;
+          sleep 10;
+        done;
       resources:
         requests:
           memory: "32Mi"

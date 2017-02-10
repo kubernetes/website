@@ -1,5 +1,5 @@
 ---
-title: Exposing Pod Information Through Environment Variables
+title: Exposing Pod Information to Containers Through Environment Variables
 ---
 
 {% capture overview %}
@@ -84,7 +84,7 @@ kubectl exec -it dapi-envars-fieldref -- sh
 In your shell, view the environment variables:
 
 ```
-/ # printenv
+/# printenv
 ```
 
 The output shows that certain environment variables have been assigned the
