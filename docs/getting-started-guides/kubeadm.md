@@ -352,7 +352,7 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 1. There is no built-in way of fetching the token easily once the cluster is up and running, but here is a `kubectl` command you can copy and paste that will print out the token for you:
 
     ```console
-    # kubectl -n kube-system get secret clusterinfo -o yaml | grep token-map | awk '{print $2}' | base64 -D | sed "s|{||g;s|}||g;s|:|.|g;s/\"//g;" | xargs echo
+    # kubectl -n kube-system get secret clusterinfo -o yaml | grep token-map | awk '{print $2}' | base64 --decode | sed "s|{||g;s|}||g;s|:|.|g;s/\"//g;" | xargs echo
     ```
 
 1. If you are using VirtualBox (directly or via Vagrant), you will need to ensure that `hostname -i` returns a routable IP address (i.e. one on the second network interface, not the first one).
