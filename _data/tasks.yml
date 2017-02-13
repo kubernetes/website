@@ -6,6 +6,7 @@ toc:
 - title: Using the Kubectl Command-Line
   section:
   - docs/tasks/kubectl/list-all-running-container-images.md
+  - docs/tasks/kubectl/get-shell-running-container.md
 
 - title: Configuring Pods and Containers
   section:
