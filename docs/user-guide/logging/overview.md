@@ -68,7 +68,7 @@ When you run [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs), as in the 
 There are two types of system components: those that run in a container and those
 that do not run in a container. For example:
 
-* The Kubernets scheduler and kube-proxy run in a container.
+* The Kubernetes scheduler and kube-proxy run in a container.
 * The kubelet and container runtime, for example Docker, do not run in containers.
 
 On machines with systemd, the kubelet and container runtime write to journald. If
