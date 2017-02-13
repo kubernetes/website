@@ -227,7 +227,7 @@ Name:		job-wq-1
 Namespace:	default
 Image(s):	gcr.io/causal-jigsaw-637/job-wq-1
 Selector:	app in (job-wq-1)
-Parallelism:	4
+Parallelism:	2
 Completions:	8
 Labels:		app=job-wq-1
 Pods Statuses:	0 Running / 8 Succeeded / 0 Failed
