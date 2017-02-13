@@ -19,10 +19,10 @@ A _Cron Job_ manages time based [Jobs](/docs/user-guide/jobs/), namely:
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
-**Note:**: The question mark (`?`) in the schedule has the same meaning as an asterisk `*`,
+**Note:** The question mark (`?`) in the schedule has the same meaning as an asterisk `*`,
 that is, it stands for any of available value for a given field.
 
-**Note:**: ScheduledJob resource was introduced in Kubernetes version 1.4, but starting
+**Note:** ScheduledJob resource was introduced in Kubernetes version 1.4, but starting
 from version 1.5 its current name is CronJob.
 
 A typical use case is:
