@@ -42,15 +42,15 @@ to free. Default is 80%.
 We also allow users to customize garbage collection policy through the following kubelet flags:
 
 1. `minimum-container-ttl-duration`, minimum age for a finished container before it is
-garbage collected. Default is 0 minute, means any finshed container will be GC.
+garbage collected. Default is 0 minute, which means any finished container will be garbaged collected.
 2. `maximum-dead-containers-per-container`, maximum number of old instances to retain
 per container. Default is 1.
 3. `maximum-dead-containers`, maximum number of old instances of containers to retain globally.
-Default is -1, means this flag is disabled.
+Default is -1, which means there is no global limit.
 
 Containers can potentially be garbage collected before their usefulness has expired. These containers
 can contain logs and other data that can be useful for troubleshooting. A sufficiently large value for
-`maximum-dead-containers-per-container` is highly recommended to allow at least 1 dead containers to be
+`maximum-dead-containers-per-container` is highly recommended to allow at least 1 dead container to be
 retained per expected container. A higher value for `maximum-dead-containers` is also recommended for a
 similar reason.
 See [this issue](https://github.com/kubernetes/kubernetes/issues/13287) for more details.
@@ -64,12 +64,12 @@ Including:
 
 | Existing Flag | New Flag | Rationale |
 | ------------- | -------- | --------- |
-| `--image-gc-high-threshold` | `--eviction-hard` or `eviction-soft` | existing eviction signals can capture image garbage collection |
+| `--image-gc-high-threshold` | `--eviction-hard` or `eviction-soft` | existing eviction signals can trigger image garbage collection |
 | `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | eviction reclaims achieve the same behavior |
 | `--maximum-dead-containers` | | deprecated once old logs are stored outside of container's context |
 | `--maximum-dead-containers-per-container` | | deprecated once old logs are stored outside of container's context |
 | `--minimum-container-ttl-duration` | | deprecated once old logs are stored outside of container's context |
-| `--low-diskspace-threshold-mb` | `--eviction-hard` or `eviction-soft` | this use case is better handled by this proposal |
-| `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | make the flag generic to suit all compute resources |
+| `--low-diskspace-threshold-mb` | `--eviction-hard` or `eviction-soft` | eviction generalizes disk thresholds to other resources |
+| `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | eviction generalizes disk pressure transition to other resources |
 
 See [kubelet eviction design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/kubelet-eviction.md) for more details.
