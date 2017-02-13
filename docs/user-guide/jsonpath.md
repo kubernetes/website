@@ -6,8 +6,8 @@ JSONPath template is composed of JSONPath expressions enclosed by {}.
 And we add three functions in addition to the original JSONPath syntax:
 
 1. The `$` operator is optional since the expression always start from the root object by default.
-2. We can use `""` to quote text inside JSONPath expression.
-3. We can use `range` operator to iterate list.
+2. We can use `""` to quote text inside JSONPath expressions.
+3. We can use `range` operator to iterate lists.
 
 The result object is printed as its String() function.
 
