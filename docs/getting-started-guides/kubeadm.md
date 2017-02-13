@@ -187,7 +187,8 @@ See the [add-ons page](/docs/admin/addons/) to learn more about each of the avai
   var networkAddons = {
     "Calico": "kubectl apply -f \"http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml\"",
     "Flannel": "kubectl apply -f \"https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml?raw=true\"",
-    "Romana": "kubectl apply -f \"https://raw.githubusercontent.com/romana/romana/master/containerize/specs/romana-kubeadm.yml\"","Weave Net": "kubectl apply -f \"https://git.io/weave-kube\"",
+    "Romana": "kubectl apply -f \"https://raw.githubusercontent.com/romana/romana/master/containerize/specs/romana-kubeadm.yml\"",
+    "Weave Net": "kubectl apply -f \"https://git.io/weave-kube\"",
   };
 
   $(document).ready(function(){
