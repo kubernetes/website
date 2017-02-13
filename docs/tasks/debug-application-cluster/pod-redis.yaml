@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      purpose: kubectl-exec-demo
+
+  template:
+
+    metadata:
+      labels:
+        purpose: kubectl-exec-demo
+
+    volumes:
+    - name: redis-persistent-storage
+      emptyDir: {}
+
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - name: redis-persistent-storage
+          mountPath: /data/redis

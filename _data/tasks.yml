@@ -30,6 +30,7 @@ toc:
 - title: Debugging Applications in a Cluster
   section:
   - docs/tasks/debug-application-cluster/determine-reason-pod-failure.md
+  - docs/tasks/debug-application-cluster/run-command-container-kubectl-exec.md
 
 - title: Accessing the Kubernetes API
   section:

@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+
+spec:
+  replicas: 1
+
+  template:
+    spec:
+
+      volumes:
+      - name: redis-persistent-storage
+        emptyDir: {}
+
+      containers:
+      - name: redis
+        image: redis
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - name: redis-persistent-storage
+          mountPath: /data/redis
+
+
