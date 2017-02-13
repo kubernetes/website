@@ -111,7 +111,7 @@ In the first example, each instance of the template had one parameter, and that 
 used as a label.  However label keys are limited in [what characters they can
 contain](/docs/user-guide/labels/#syntax-and-character-set).
 
-This slightly more complex example uses a the jinja2 template language to generate our objects.
+This slightly more complex example uses the jinja2 template language to generate our objects.
 We will use a one-line python script to convert the template to a file.
 
 First, copy and paste the following template of a Job object, into a file called `job.yaml.jinja2`:
@@ -179,6 +179,7 @@ cat job.yaml.jinja2 | render_template | kubectl create -f -
 ## Alternatives
 
 If you have a large number of job objects, you may find that:
+
 - even using labels, managing so many Job objects is cumbersome.
 - You exceed resource quota when creating all the Jobs at once,
   and do not want to wait to create them incrementally.
