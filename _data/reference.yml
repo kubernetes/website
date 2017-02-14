@@ -25,7 +25,7 @@ toc:
     section:
     - docs/admin/accessing-the-api.md
     - docs/admin/authentication.md
-    - docs/admin/authorization.md
+    - docs/admin/authorization/index.md
     - docs/admin/admission-controllers.md
     - docs/admin/service-accounts-admin.md
   - docs/api-reference/v1/operations.html
