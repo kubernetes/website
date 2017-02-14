@@ -3,11 +3,20 @@ kind: Deployment
 metadata:
   name: redis
 
-spec:
+spec:         # DeploymentSec
   replicas: 1
 
-  template:
-    spec:
+  selector:   # LabelSelector
+    matchLabels:
+      controller-selector: kubectl-exec-demo
+ 
+  template:   # PodTemplate
+
+    metadata:
+      labels:
+        controller-selector: kubectl-exec-demo
+
+    spec:     # PodSpec
 
       volumes:
       - name: redis-persistent-storage
