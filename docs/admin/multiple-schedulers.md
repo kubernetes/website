@@ -95,7 +95,7 @@ Now that our second scheduler is running, let's create some pods, and direct the
 scheduler in that pod spec. Let's look at three examples.
 
 
-1. Pod spec without any scheduler name
+- Pod spec without any scheduler name
 
   {% include code.html language="yaml" file="multiple-schedulers/pod1.yaml" ghlink="/docs/admin/multiple-schedulers/pod1.yaml" %}
 
@@ -108,7 +108,7 @@ scheduler in that pod spec. Let's look at three examples.
   kubectl create -f pod1.yaml
   ```
 
-2. Pod spec with `default-scheduler`
+- Pod spec with `default-scheduler`
 
   {% include code.html language="yaml" file="multiple-schedulers/pod2.yaml" ghlink="/docs/admin/multiple-schedulers/pod2.yaml" %}
 
@@ -121,7 +121,7 @@ scheduler in that pod spec. Let's look at three examples.
   kubectl create -f pod2.yaml
   ```
 
-3. Pod spec with `my-scheduler`
+- Pod spec with `my-scheduler`
 
   {% include code.html language="yaml" file="multiple-schedulers/pod3.yaml" ghlink="/docs/admin/multiple-schedulers/pod3.yaml" %}
 
