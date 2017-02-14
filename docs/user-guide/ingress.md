@@ -222,6 +222,8 @@ An Ingress controller is bootstrapped with some loadbalancing policy settings th
 
 It's also worth noting that even though health checks are not exposed directly through the Ingress, there exist parallel concepts in Kubernetes such as [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) which allow you to achieve the same end result. Please review the controller specific docs to see how they handle health checks ([nginx](https://github.com/kubernetes/ingress/blob/master/controllers/nginx/README.md), [GCE](https://github.com/kubernetes/ingress/blob/master/controllers/gce/README.md#health-checks)).
 
+In some situations it is desired for ingress to use reserved IP address that already exists in the infrastrucutre instead of reserving a new one. The Google Container Engine supports the __kubernetes.io/ingress.global-static-ip-name__ annotation where you can specify the name of the static IP address that has been reserved beforehand and is not used by another service.
+
 ## Updating an Ingress
 
 Say you'd like to add a new Host to an existing Ingress, you can update it by editing the resource:
