@@ -66,7 +66,7 @@ To view completed pods of a job, use `kubectl get pods --show-all`.  The `--show
 To list all the pods that belong to a job in a machine readable form, you can use a command like this:
 
 ```shell
-$ pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath={.items..metadata.name})
+$ pods=$(kubectl get pods --show-all --selector=job-name=pi --output=jsonpath={.items..metadata.name})
 echo $pods
 pi-aiw0a
 ```
