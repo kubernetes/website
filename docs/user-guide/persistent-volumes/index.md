@@ -396,7 +396,7 @@ parameters:
   zone: us-central1-a
 ```
 
-* `type`: `pd-standard` or `pd-ssd`. Default: `pd-ssd`
+* `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
 * `zone`: GCE zone. If not specified, a random zone in the same region as controller-manager will be chosen.
 
 #### Glusterfs
