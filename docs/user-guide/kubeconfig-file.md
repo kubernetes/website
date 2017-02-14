@@ -305,7 +305,7 @@ $ kubectl config use-context federal-context
 
 ### Final notes for tying it all together
 
-So, tying this all together, a quick start to creating your own kubeconfig file:
+So, tying this all together, a quick start to create your own kubeconfig file:
 
 - Take a good look and understand how your api-server is being launched: You need to know YOUR security requirements and policies before you can design a kubeconfig file for convenient authentication.
 
