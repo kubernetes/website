@@ -590,3 +590,5 @@ Kubelet only supports use of ConfigMap for pods it gets from the API server.  Th
 created using kubectl, or indirectly via a replication controller.  It does not include pods created
 via the Kubelet's `--manifest-url` flag, its `--config` flag, or its REST API (these are not common
 ways to create pods.)
+
+The key-value "optional:true" will be work after kubernetes 1.5.2.
