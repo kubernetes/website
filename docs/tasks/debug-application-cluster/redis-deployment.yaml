@@ -1,34 +1,31 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: redis
+  name: redis-deployment
 
-spec:         # DeploymentSec
-  replicas: 1
+spec:              # DeploymentSpec
+  replicas: 2
 
-  selector:   # LabelSelector
-    matchLabels:
-      controller-selector: kubectl-exec-demo
- 
-  template:   # PodTemplate
-
+  template:        # PodTemplateSpec
     metadata:
       labels:
-        controller-selector: kubectl-exec-demo
+        pod-is-for: kubectl-exec-demo
 
-    spec:     # PodSpec
+    spec:          # PodSpec
 
       volumes:
       - name: redis-persistent-storage
         emptyDir: {}
 
       containers:
-      - name: redis
+      - name: redis-container
         image: redis
         ports:
         - containerPort: 6379
         volumeMounts:
         - name: redis-persistent-storage
           mountPath: /data/redis
+
+        command: ["/bin/sh", "-c", "echo Hello > /data/redis/testfile"]
 
 

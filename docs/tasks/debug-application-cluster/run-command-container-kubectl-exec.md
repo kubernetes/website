@@ -26,11 +26,27 @@ Kubernetes exposes
 [services](/docs/user-guide/services/#environment-variables) through environment variables.
 It is convenient to check these environment variables using `kubectl exec`.
 
-In this exercise, you create a Deployment that has a single Pod. The pod has
-one Container that runs the `redis` image. Here is the configuration file for the
-Deployment:
+In this exercise, you create a Service and a Deployment. Here is the
+configuration file for the Service:
+
+{% include code.html language="yaml" file="redis-service.yaml" ghlink="/docs/tasks/debug-application-cluster/redis-service.yaml" %}
+
+In the configuration file, you can see that the Service provides access to
+Pods that have the the label `pod-is-for: kubectl-exec-demo`.
+
+Create the Service:
+
+```shell
+kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/redis-service.yaml
+```
+
+The next step is to create a Deployment. The Deployment has a one Pod, and the
+Pod has one Container that runs the `redis` image. Here is the configuration
+file for the Deployment:
 
 {% include code.html language="yaml" file="redis-deployment.yaml" ghlink="/docs/tasks/debug-application-cluster/redis-deployment.yaml" %}
+
+In the configuration file, you can see that the Pod has the label `pod-is-for: kubectl-exec-demo`.
 
 Create the Deployment:
 
@@ -38,32 +54,32 @@ Create the Deployment:
 kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/redis-deployment.yaml
 ```
 
-Next, create the Service:
-
-```
-kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/redis-service.yaml
-```
-
 Check to see whether the Pod is running:
 
 ```shell
-$ kubectl get pod
+kubectl get pods
 ```
 
 Repeat the preceding command until the Pod is running and ready:
 
-NAME                 READY     REASON       RESTARTS   AGE
-redis-master-ft9ex   1/1       Running      0          12s
 ```
+NAME                              READY     STATUS    RESTARTS   AGE
+redis-deployment-84379565-3z9t7   1/1       Running   0          6s
+```
+
+Note the name of your Pod. In the preceding output, the Pod name is
+`redis-deployment-84379565-3z9t7`
 
 View the environment variables of the Container running in the Pod:
 
 ```shell
-$ kubectl exec redis-master-ft9ex env
-
+kubectl exec <your-pod-name> env
 ```
 
-The output includes environment variables related to the Service:
+where `<your-pod-name>` is the name of your Pod.
+
+The output includes environment variables that hold the port and IP address
+of your Service.
 
 ```
 REDIS_MASTER_SERVICE_PORT=6379
@@ -72,50 +88,42 @@ REDIS_MASTER_SERVICE_HOST=10.0.0.219
 
 ## Using kubectl exec to check the mounted volumes
 
-It is convenient to use `kubectl exec` to see whether volumes are mounted as expected.
+It is convenient to use `kubectl exec` to see whether volumes are mounted as
+expected.
 
+In the configuration file for your Deployment, you can see that the Pod has an
+`emptyDir` volume, and the Container mounts the volume at `/data/redis`.
+When the Container starts, it writes Hello to `/data/redis/testfile`.
 
-We first create a Pod with a volume mounted at /data/redis,
-
-```shell
-kubectl create -f docs/user-guide/walkthrough/pod-redis.yaml
-```
-
-wait until the pod is Running and Ready,
+View the contents `testfile` in the `data/redis` directory:
 
 ```shell
-$ kubectl get pods
-NAME      READY     REASON    RESTARTS   AGE
-storage   1/1       Running   0          1m
+kubectl exec <your-pod-name> cat /data/redis/testfile
 ```
 
-we then use `kubectl exec` to verify that the volume is mounted at /data/redis,
-
-```shell
-$ kubectl exec storage ls /data
-redis
-```
+The output shows that the `redis` directory exists as expected:
 
 ## Using kubectl exec to open a bash terminal in a pod
 
-After all, open a terminal in a pod is the most direct way to introspect the pod. Assuming the pod/storage is still running, run
+Open a shell to the running Container:
 
 ```shell
-$ kubectl exec -ti storage -- bash
+kubectl exec -ti storage -- bash
 root@storage:/data#
 ```
 
-This gets you a terminal.
+In your shell, experiment with commands:
+
+```shell
+TODO
+```
 
 {% endcapture %}
 
 
 {% capture whatsnext %}
 
-* See the `terminationMessagePath` field in
-  [Container](/docs/api-reference/v1/definitions#_v1_container).
-* Learn about [retrieving logs](/docs/user-guide/logging/).
-* Learn about [Go templates](https://golang.org/pkg/text/template/).
+* TODO
 
 {% endcapture %}
 
