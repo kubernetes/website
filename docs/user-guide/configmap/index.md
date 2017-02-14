@@ -244,7 +244,7 @@ metadata:
 
 ### Use-Case: Consume ConfigMap in environment variables
 
-ConfigMaps can be used to populate individual environment variables or used in
+ConfigMaps can be used to populate individual environment variables or be used in
 its entirety.  As an example, consider the following ConfigMaps:
 
 ```yaml
