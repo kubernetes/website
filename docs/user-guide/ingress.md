@@ -44,9 +44,9 @@ It can be configured to give services externally-reachable urls, load balance tr
 
 Before you start using the Ingress resource, there are a few things you should understand. The Ingress is a beta resource, not available in any Kubernetes release prior to 1.1. You need an Ingress controller to satisfy an Ingress, simply creating the resource will have no effect.
 
-GCE/GKE deploys an ingress controller on the master. You can deploy any number of custom ingress controllers in a pod. You must annotate each ingress with the appropriate class, as indicated [here](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx#running-multiple-ingress-controllers) and [here](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/BETA_LIMITATIONS.md#disabling-glbc).
+GCE/GKE deploys an ingress controller on the master. You can deploy any number of custom ingress controllers in a pod. You must annotate each ingress with the appropriate class, as indicated [here](https://github.com/kubernetes/ingress/tree/master/controllers/nginx#running-multiple-ingress-controllers) and [here](https://github.com/kubernetes/ingress/blob/master/controllers/gce/BETA_LIMITATIONS.md#disabling-glbc).
 
-Make sure you review the [beta limitations](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/gce/BETA_LIMITATIONS.md) of this controller. In environments other than GCE/GKE, you need to [deploy a controller](https://github.com/kubernetes/contrib/tree/master/ingress/controllers) as a pod.
+Make sure you review the [beta limitations](https://github.com/kubernetes/ingress/blob/master/controllers/gce/BETA_LIMITATIONS.md) of this controller. In environments other than GCE/GKE, you need to [deploy a controller](https://github.com/kubernetes/ingress/tree/master/controllers) as a pod.
 
 ## The Ingress Resource
 
@@ -71,7 +71,7 @@ spec:
 
 __Lines 1-4__: As with all other Kubernetes config, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.  For general information about working with config files, see [here](/docs/user-guide/deploying-applications), [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
 
-__Lines 5-7__: Ingress [spec](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) has all the information needed to configure a loadbalancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Currently the Ingress resource only supports http rules.
+__Lines 5-7__: Ingress [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#spec-and-status) has all the information needed to configure a loadbalancer or proxy server. Most importantly, it contains a list of rules matched against all incoming requests. Currently the Ingress resource only supports http rules.
 
 __Lines 8-9__: Each http rule contains the following information: A host (e.g.: foo.bar.com, defaults to * in this example), a list of paths (e.g.: /testpath) each of which has an associated backend (test:80). Both the host and path must match the content of an incoming request before the loadbalancer directs traffic to the backend.
 
@@ -81,11 +81,11 @@ __Global Parameters__: For the sake of simplicity the example Ingress has no glo
 
 ## Ingress controllers
 
-In order for the Ingress resource to work, the cluster must have an Ingress controller running. This is unlike other types of controllers, which typically run as part of the `kube-controller-manager` binary, and which are typically started automatically as part of cluster creation. You need to choose the ingress controller implementation that is the best fit for your cluster, or implement one.  Examples and instructions can be found [here](https://github.com/kubernetes/contrib/tree/master/ingress/controllers).
+In order for the Ingress resource to work, the cluster must have an Ingress controller running. This is unlike other types of controllers, which typically run as part of the `kube-controller-manager` binary, and which are typically started automatically as part of cluster creation. You need to choose the ingress controller implementation that is the best fit for your cluster, or implement one.  Examples and instructions can be found [here](https://github.com/kubernetes/ingress/tree/master/controllers).
 
 ## Before you begin
 
-The following document describes a set of cross platform features exposed through the Ingress resource. Ideally, all Ingress controllers should fulfill this specification, but we're not there yet. The docs for the GCE and nginx controllers are [here](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/README.md) and [here](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/nginx/README.md) respectively. **Make sure you review controller specific docs so you understand the caveats of each one**.
+The following document describes a set of cross platform features exposed through the Ingress resource. Ideally, all Ingress controllers should fulfill this specification, but we're not there yet. The docs for the GCE and nginx controllers are [here](https://github.com/kubernetes/ingress/blob/master/controllers/gce/README.md) and [here](https://github.com/kubernetes/ingress/blob/master/controllers/nginx/README.md) respectively. **Make sure you review controller specific docs so you understand the caveats of each one**.
 
 ## Types of Ingress
 
@@ -214,13 +214,13 @@ spec:
     servicePort: 80
 ```
 
-Note that there is a gap between TLS features supported by various Ingress controllers. Please refer to documentation on [nginx](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx#https), [GCE](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/gce#tls), or any other platform specific Ingress controller to understand how TLS works in your environment.
+Note that there is a gap between TLS features supported by various Ingress controllers. Please refer to documentation on [nginx](https://github.com/kubernetes/ingress/blob/master/controllers/nginx/README.md#https), [GCE](https://github.com/kubernetes/ingress/blob/master/controllers/gce/README.md#tls), or any other platform specific Ingress controller to understand how TLS works in your environment.
 
 ### Loadbalancing
 
 An Ingress controller is bootstrapped with some loadbalancing policy settings that it applies to all Ingress, such as the loadbalancing algorithm, backend weight scheme etc. More advanced loadbalancing concepts (e.g.: persistent sessions, dynamic weights) are not yet exposed through the Ingress. You can still get these features through the [service loadbalancer](https://github.com/kubernetes/contrib/tree/master/service-loadbalancer). With time, we plan to distill loadbalancing patterns that are applicable cross platform into the Ingress resource.
 
-It's also worth noting that even though health checks are not exposed directly through the Ingress, there exist parallel concepts in Kubernetes such as [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) which allow you to achieve the same end result. Please review the controller specific docs to see how they handle health checks ([nginx](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/nginx/README.md), [GCE](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/README.md#health-checks)).
+It's also worth noting that even though health checks are not exposed directly through the Ingress, there exist parallel concepts in Kubernetes such as [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) which allow you to achieve the same end result. Please review the controller specific docs to see how they handle health checks ([nginx](https://github.com/kubernetes/ingress/blob/master/controllers/nginx/README.md), [GCE](https://github.com/kubernetes/ingress/blob/master/controllers/gce/README.md#health-checks)).
 
 ## Updating an Ingress
 
@@ -282,7 +282,7 @@ Techniques for spreading traffic across failure domains differs between cloud pr
 * Combining L4 and L7 Ingress
 * More Ingress controllers
 
-Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kubernetes/pull/12827) for more details on the evolution of the resource, and the [Ingress sub-repository](https://github.com/kubernetes/contrib/tree/master/ingress) for more details on the evolution of various Ingress controllers.
+Please track the [L7 and Ingress proposal](https://github.com/kubernetes/kubernetes/pull/12827) for more details on the evolution of the resource, and the [Ingress repository](https://github.com/kubernetes/ingress/tree/master) for more details on the evolution of various Ingress controllers.
 
 ## Alternatives
 

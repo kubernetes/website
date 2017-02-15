@@ -5,14 +5,14 @@ toc:
 
 - docs/whatisk8s.md
 
+- docs/user-guide/index.md
+
 - title: Accessing the Cluster
   section:
   - docs/user-guide/prereqs.md
   - docs/user-guide/accessing-the-cluster.md
   - docs/user-guide/sharing-clusters.md
   - docs/user-guide/kubeconfig-file.md
-
-- docs/user-guide/index.md
 
 - docs/user-guide/ui.md
 
