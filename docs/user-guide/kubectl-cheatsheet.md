@@ -197,7 +197,9 @@ $ kubectl -n my-ns delete po,svc --all              # Delete all pods and servic
 
 ```console
 $ kubectl logs my-pod                                 # dump pod logs (stdout)
+$ kubectl logs my-pod -c my-container                 # dump pod container logs (stdout, multi-container case)
 $ kubectl logs -f my-pod                              # stream pod logs (stdout)
+$ kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 $ kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
 $ kubectl attach my-pod -i                            # Attach to Running Container
 $ kubectl port-forward my-pod 5000:6000               # Forward port 6000 of Pod to your to 5000 on your local machine
