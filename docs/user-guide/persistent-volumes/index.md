@@ -172,23 +172,23 @@ In the CLI, the access modes are abbreviated to:
 
 | Volume Plugin        | ReadWriteOnce| ReadOnlyMany| ReadWriteMany|
 | :---                 |     :---:    |    :---:    |    :---:     |
-| AWSElasticBlockStore | x            | -           | -            |
-| AzureFile            | x            | x           | x            |
-| AzureDisk            | x            | -           | -            |
-| CephFS               | x            | x           | x            |
-| Cinder               | x            | -           | -            |
-| FC                   | x            | x           | -            |
-| FlexVolume           | x            | x           | -            |
-| Flocker              | x            | -           | -            |
-| GCEPersistentDisk    | x            | x           | -            |
-| Glusterfs            | x            | x           | x            |
-| HostPath             | x            | -           | -            |
-| iSCSI                | x            | x           | -            |
-| PhotonPersistentDisk | x            | -           | -            |
-| Quobyte              | x            | x           | x            |
-| NFS                  | x            | x           | x            |
-| RBD                  | x            | x           | -            |
-| VsphereVolume        | x            | -           | -            |
+| AWSElasticBlockStore | &#x2713;     | -           | -            |
+| AzureFile            | &#x2713;     | &#x2713;    | &#x2713;     |
+| AzureDisk            | &#x2713;     | -           | -            |
+| CephFS               | &#x2713;     | &#x2713;    | &#x2713;     |
+| Cinder               | &#x2713;     | -           | -            |
+| FC                   | &#x2713;     | &#x2713;    | -            |
+| FlexVolume           | &#x2713;     | &#x2713;    | -            |
+| Flocker              | &#x2713;     | -           | -            |
+| GCEPersistentDisk    | &#x2713;     | &#x2713;    | -            |
+| Glusterfs            | &#x2713;     | &#x2713;    | &#x2713;     |
+| HostPath             | &#x2713;     | -           | -            |
+| iSCSI                | &#x2713;     | &#x2713;    | -            |
+| PhotonPersistentDisk | &#x2713;     | -           | -            |
+| Quobyte              | &#x2713;     | &#x2713;    | &#x2713;     |
+| NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
+| RBD                  | &#x2713;     | &#x2713;    | -            |
+| VsphereVolume        | &#x2713;     | -           | -            |
 
 ### Class
 
@@ -396,7 +396,7 @@ parameters:
   zone: us-central1-a
 ```
 
-* `type`: `pd-standard` or `pd-ssd`. Default: `pd-ssd`
+* `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
 * `zone`: GCE zone. If not specified, a random zone in the same region as controller-manager will be chosen.
 
 #### Glusterfs

@@ -233,7 +233,7 @@ after their announced deprecation for no less than:**
    * **Beta: 3 months or 1 release (whichever is longer)**
    * **Alpha: 0 releases**
 
-**Rule #6: Deprecated CLI elements must emit warnings (optionally disableable)
+**Rule #6: Deprecated CLI elements must emit warnings (optionally disable)
 when used.**
 
 ## Deprecating a feature or behavior

@@ -62,8 +62,8 @@ This indicates that the Deployment has created all three replicas, and all repli
 
 ```shell
 $ kubectl get rs
-NAME                          DESIRED   CURRENT   AGE
-nginx-deployment-2035384211   3         3         18s 
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-2035384211   3         3         0       18s 
 ```
 
 You may notice that the name of the Replica Set is always `<the name of the Deployment>-<hash value of the pod template>`. 
@@ -180,9 +180,9 @@ We can run `kubectl get rs` to see that the Deployment updated the Pods by creat
 
 ```shell
 $ kubectl get rs
-NAME                          DESIRED   CURRENT   AGE
-nginx-deployment-1564180365   3         3         6s
-nginx-deployment-2035384211   0         0         36s
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-1564180365   3         3         0       6s
+nginx-deployment-2035384211   0         0         0       36s
 ```
 
 Running `get pods` should now show only the new Pods:
@@ -287,10 +287,10 @@ You will also see that both the number of old replicas (nginx-deployment-1564180
 
 ```shell
 $ kubectl get rs
-NAME                          DESIRED   CURRENT   AGE
-nginx-deployment-1564180365   2         2         25s
-nginx-deployment-2035384211   0         0         36s
-nginx-deployment-3066724191   2         2         6s
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-1564180365   2         2         0       25s
+nginx-deployment-2035384211   0         0         0       36s
+nginx-deployment-3066724191   2         2         2       6s
 ```
 
 Looking at the Pods created, you will see that the 2 Pods created by new Replica Set are stuck in an image pull loop.
@@ -514,10 +514,10 @@ The Deployment was still in progress when we paused it, so the actions of scalin
 
 ```shell
 $ kubectl get rs 
-NAME                          DESIRED   CURRENT   AGE
-nginx-deployment-1564180365   2         2         1h
-nginx-deployment-2035384211   2         2         1h
-nginx-deployment-3066724191   0         0         1h
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-1564180365   2         2         2       1h
+nginx-deployment-2035384211   2         2         0       1h
+nginx-deployment-3066724191   0         0         0       1h
 ```
 
 In a separate terminal, watch for rollout status changes and you'll see the rollout won't continue:
@@ -546,10 +546,10 @@ deployment nginx-deployment successfully rolled out
 
 ```shell
 $ kubectl get rs 
-NAME                          DESIRED   CURRENT   AGE
-nginx-deployment-1564180365   3         3         1h
-nginx-deployment-2035384211   0         0         1h
-nginx-deployment-3066724191   0         0         1h
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-1564180365   3         3         3       1h
+nginx-deployment-2035384211   0         0         0       1h
+nginx-deployment-3066724191   0         0         0       1h
 ```
 
 Note: You cannot rollback a paused Deployment until you resume it.
