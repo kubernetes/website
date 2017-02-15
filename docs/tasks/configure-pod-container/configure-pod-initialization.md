@@ -3,7 +3,7 @@ title: Configuring Pod Initialization
 ---
 
 {% capture overview %}
-This page shows how to use an init Container to initialize a Pod before the
+This page shows how to use an Init Container to initialize a Pod before an
 application Container runs.
 
 {% endcapture %}
@@ -16,10 +16,10 @@ application Container runs.
 
 {% capture steps %}
 
-## Creating a Pod that has an init Container
+## Creating a Pod that has an Init Container
 
 In this exercise you create a Pod that has one application Container and one
-init Container. The init Container runs to completion before the application
+Init Container. The init container runs to completion before the application
 container starts.
 
 Here is the configuration file for the Pod:
@@ -27,32 +27,32 @@ Here is the configuration file for the Pod:
 {% include code.html language="yaml" file="init-containers.yaml" ghlink="/docs/tasks/configure-pod-container/init-containers.yaml" %}
 
 In the configuration file, you can see that the Pod has a Volume that the init
-Container and the application Container share.
+container and the application container share.
 
-The init Container mounts the
-shared Volume at `/work-dir`, and the application Container mounts the shared
-Volume at `/usr/share/nginx/html`. The init Container runs the following command
+The init container mounts the
+shared Volume at `/work-dir`, and the application container mounts the shared
+Volume at `/usr/share/nginx/html`. The init container runs the following command
 and then terminates:
 
      wget -O /work-dir/index.html http://kubernetes.io
 
-Notice that the init Container writes the `index.html` file in the root directory
+Notice that the init container writes the `index.html` file in the root directory
 of the nginx server.
 
 Create the Pod:
 
     kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/init-containers.yaml
 
-Verify that the nginx Container is running:
+Verify that the nginx container is running:
 
     kubectl get pod init-demo
 
-The output shows that the nginx Container is running:
+The output shows that the nginx container is running:
 
     NAME      READY     STATUS    RESTARTS   AGE
     nginx     1/1       Running   0          43m
 
-Get a shell into nginx the Container running in the init-demo Pod:
+Get a shell into the nginx container running in the init-demo Pod:
 
     kubectl exec -it init-demo -- /bin/bash
 
@@ -82,7 +82,7 @@ The output shows that nginx is serving the web page that was written by the init
 
 * Learn more about
 [communicating between Containers running in the same Pod](/docs/tasks/configure-pod-container/communicate-containers-same-pod/).
-* Learn more about [init Containers](/docs/user-guide/pods/init-container/).
+* Learn more about [Init Containers](/docs/user-guide/pods/init-container/).
 * Learn more about [Volumes](/docs/user-guide/volumes/).
 
 {% endcapture %}
