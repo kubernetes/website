@@ -172,23 +172,23 @@ In the CLI, the access modes are abbreviated to:
 
 | Volume Plugin        | ReadWriteOnce| ReadOnlyMany| ReadWriteMany|
 | :---                 |     :---:    |    :---:    |    :---:     |
-| AWSElasticBlockStore | x            | -           | -            |
-| AzureFile            | x            | x           | x            |
-| AzureDisk            | x            | -           | -            |
-| CephFS               | x            | x           | x            |
-| Cinder               | x            | -           | -            |
-| FC                   | x            | x           | -            |
-| FlexVolume           | x            | x           | -            |
-| Flocker              | x            | -           | -            |
-| GCEPersistentDisk    | x            | x           | -            |
-| Glusterfs            | x            | x           | x            |
-| HostPath             | x            | -           | -            |
-| iSCSI                | x            | x           | -            |
-| PhotonPersistentDisk | x            | -           | -            |
-| Quobyte              | x            | x           | x            |
-| NFS                  | x            | x           | x            |
-| RBD                  | x            | x           | -            |
-| VsphereVolume        | x            | -           | -            |
+| AWSElasticBlockStore | &#x2713;     | -           | -            |
+| AzureFile            | &#x2713;     | &#x2713;    | &#x2713;     |
+| AzureDisk            | &#x2713;     | -           | -            |
+| CephFS               | &#x2713;     | &#x2713;    | &#x2713;     |
+| Cinder               | &#x2713;     | -           | -            |
+| FC                   | &#x2713;     | &#x2713;    | -            |
+| FlexVolume           | &#x2713;     | &#x2713;    | -            |
+| Flocker              | &#x2713;     | -           | -            |
+| GCEPersistentDisk    | &#x2713;     | &#x2713;    | -            |
+| Glusterfs            | &#x2713;     | &#x2713;    | &#x2713;     |
+| HostPath             | &#x2713;     | -           | -            |
+| iSCSI                | &#x2713;     | &#x2713;    | -            |
+| PhotonPersistentDisk | &#x2713;     | -           | -            |
+| Quobyte              | &#x2713;     | &#x2713;    | &#x2713;     |
+| NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
+| RBD                  | &#x2713;     | &#x2713;    | -            |
+| VsphereVolume        | &#x2713;     | -           | -            |
 
 ### Class
 
@@ -396,7 +396,7 @@ parameters:
   zone: us-central1-a
 ```
 
-* `type`: `pd-standard` or `pd-ssd`. Default: `pd-ssd`
+* `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
 * `zone`: GCE zone. If not specified, a random zone in the same region as controller-manager will be chosen.
 
 #### Glusterfs
@@ -423,7 +423,7 @@ parameters:
 * `restuserkey` : Gluster REST service/Heketi user's password which will be used for authentication to the REST server. This parameter is deprecated in favor of `secretNamespace` + `secretName`.
 * `secretNamespace` + `secretName` : Identification of Secret instance that containes user password to use when talking to Gluster REST service. These parameters are optional, empty password will be used when both `secretNamespace` and `secretName` are omitted. The provided secret must have type "kubernetes.io/glusterfs", e.g. created in this way:
   ```
-  $ kubectl create secret heketi-secret --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' --namespace=default
+  $ kubectl create secret generic heketi-secret --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' --namespace=default
   ```
 
 #### OpenStack Cinder
@@ -482,7 +482,7 @@ parameters:
 * `userId`: Ceph client ID that is used to map the RBD image. Default is the same as `adminId`.
 * `userSecretName`: The name of Ceph Secret for `userId` to map RBD image. It must exist in the same namespace as PVCs. This parameter is required. The provided secret must have type "kubernetes.io/rbd", e.g. created in this way:
   ```
-  $ kubectl create secret ceph-secret --type="kubernetes.io/rbd" --from-literal=key='QVFEQ1pMdFhPUnQrSmhBQUFYaERWNHJsZ3BsMmNjcDR6RFZST0E9PQ==' --namespace=kube-system
+  $ kubectl create secret generic ceph-secret --type="kubernetes.io/rbd" --from-literal=key='QVFEQ1pMdFhPUnQrSmhBQUFYaERWNHJsZ3BsMmNjcDR6RFZST0E9PQ==' --namespace=kube-system
   ```
 
 #### Quobyte
@@ -509,7 +509,7 @@ parameters:
 * `adminSecretNamespace`: The namespace for `adminSecretName`. Default is "default".
 * `adminSecretName`: secret that holds information about the Quobyte user and the password to authenticate agains the API server. The provided secret must have type "kubernetes.io/quobyte", e.g. created in this way:
   ```
-  $ kubectl create secret quobyte-admin-secret --type="kubernetes.io/quobyte" --from-literal=key='opensesame' --namespace=kube-system
+  $ kubectl create secret generic quobyte-admin-secret --type="kubernetes.io/quobyte" --from-literal=key='opensesame' --namespace=kube-system
   ```
 * `user`: maps all access to this user. Default is "root".
 * `group`: maps all access to this group. Default is "nfsnobody".
@@ -532,7 +532,7 @@ parameters:
 
 * `skuName`: Azure storage account Sku tier. Default is empty.
 * `location`: Azure storage account location. Default is empty.
-* `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, `skuName` and `location` are ignored.
+* `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
 
 ## Writing Portable Configuration

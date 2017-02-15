@@ -36,11 +36,11 @@ in your `$PATH` and set the executable permission on those binaries.
 Note: The URL in the curl command below downloads the binaries for
 Linux amd64. If you are on a different platform, please use the URL
 for the binaries appropriate for your platform. You can find the list
-of available binaries on the [release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#client-binaries-3)
+of available binaries on the [release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#client-binaries-1).
 
 
 ```shell
-curl -O https://storage.googleapis.com/kubernetes-release/release/v1.5.0/kubernetes-client-linux-amd64.tar.gz
+curl -O https://storage.googleapis.com/kubernetes-release/release/v1.5.2/kubernetes-client-linux-amd64.tar.gz
 tar -xzvf kubernetes-client-linux-amd64.tar.gz
 sudo cp kubernetes/client/bin/kubefed /usr/local/bin
 sudo chmod +x /usr/local/bin/kubefed
@@ -78,7 +78,7 @@ control plane.
 
 ## Deploying a federation control plane.
 
-"To deploy a federation control plane on your host cluster, run
+To deploy a federation control plane on your host cluster, run
 `kubefed init` command. When you use `kubefed init`, you must provide
 the following:
 
@@ -94,7 +94,7 @@ domain suffix `example.com`:
 kubefed init fellowship --host-cluster-context=rivendell  --dns-zone-name="example.com"
 ```
 
-The domain suffix you specify in `--dns-zone-name` must be an existing
+The domain suffix specified in `--dns-zone-name` must be an existing
 domain that you control, and that is programmable by your DNS provider.
 
 `kubefed init` sets up the federation control plane in the host

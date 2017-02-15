@@ -269,7 +269,7 @@ It takes several minutes to download and start all the containers, watch the out
 
 Then go to the IP address of your cluster's master node in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
-In the example above, this was `31869`, but it is a different port for you.
+In the example above, this was `30001`, but it is a different port for you.
 
 If there is a firewall, make sure it exposes this port to the internet before you try to access it.
 
@@ -352,11 +352,11 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 1. There is no built-in way of fetching the token easily once the cluster is up and running, but here is a `kubectl` command you can copy and paste that will print out the token for you:
 
     ```console
-    # kubectl -n kube-system get secret clusterinfo -o yaml | grep token-map | awk '{print $2}' | base64 -D | sed "s|{||g;s|}||g;s|:|.|g;s/\"//g;" | xargs echo
+    # kubectl -n kube-system get secret clusterinfo -o yaml | grep token-map | awk '{print $2}' | base64 --decode | sed "s|{||g;s|}||g;s|:|.|g;s/\"//g;" | xargs echo
     ```
 
 1. If you are using VirtualBox (directly or via Vagrant), you will need to ensure that `hostname -i` returns a routable IP address (i.e. one on the second network interface, not the first one).
    By default, it doesn't do this and kubelet ends-up using first non-loopback network interface, which is usually NATed.
-   Workaround: Modify `/etc/hosts`, take a look at this [`Vagrantfile`][ubuntu-vagrantfile] for how you this can be achieved.
+   Workaround: Modify `/etc/hosts`, take a look at this [`Vagrantfile`][ubuntu-vagrantfile] for how this can be achieved.
 
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11),
