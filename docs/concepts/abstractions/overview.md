@@ -9,7 +9,7 @@ This page explains how Kubernetes objects are represented in the Kubernetes API,
 {% capture body %}
 ## Understanding Kubernetes Objects
 
-*Kubernetes Objects* are persistent entities in the Kubernetes system. Kubenetes uses these entities to represent the state of your cluster. Specifically, they can describe:
+*Kubernetes Objects* are persistent entities in the Kubernetes system. Kubernetes uses these entities to represent the state of your cluster. Specifically, they can describe:
 
 * What containerized applications are running (and on which nodes)
 * The resources available to those applications
@@ -25,7 +25,7 @@ Every Kubernetes object includes two nested object fields that govern the object
 
 For example, a Kubernetes Deployment is an object that can represent an application running on your cluster. When you create the Deployment, you might set the Deployment spec to specify that you want three replicas of the application to be running. The Kubernetes system reads the Deployment spec and starts three instances of your desired application--updating the status to match your spec. If any of those instances should fail (a status change), the Kubernetes system responds to the difference between spec and status by making a correction--in this case, starting a replacement instance.
 
-For more information on the object spec, status, and metadata, see the [Kubernetes API Conventions](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/api-conventions.md#spec-and-status).
+For more information on the object spec, status, and metadata, see the [Kubernetes API Conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md).
 
 ### Describing a Kubernetes Object
 
