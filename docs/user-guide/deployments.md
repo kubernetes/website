@@ -567,6 +567,7 @@ Kubernetes marks a Deployment as _progressing_ when one of the following tasks i
 * The Deployment is in the process of creating a new ReplicaSet.
 * The Deployment is scaling up an existing ReplicaSet.
 * The Deployment is scaling down an existing ReplicaSet.
+* New pods become available.
 
 You can monitor the progress for a Deployment by using `kubectl rollout status`.
 

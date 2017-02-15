@@ -244,8 +244,8 @@ metadata:
 
 ### Use-Case: Consume ConfigMap in environment variables
 
-ConfigMaps can be used to populate environment variables.  As an example, consider
-the following ConfigMap:
+ConfigMaps can be used to populate individual environment variables or be used in
+its entirety.  As an example, consider the following ConfigMaps:
 
 ```yaml
 apiVersion: v1
@@ -256,6 +256,16 @@ metadata:
 data:
   special.how: very
   special.type: charm
+```
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+  namespace: default
+data:
+  log_level: INFO
 ```
 
 We can consume the keys of this ConfigMap in a pod like so:
@@ -281,6 +291,9 @@ spec:
             configMapKeyRef:
               name: special-config
               key: special.type
+      envFrom:
+        - configMapRef:
+            name: env-config
   restartPolicy: Never
 ```
 
@@ -289,6 +302,7 @@ When this pod is run, its output will include the lines:
 ```shell
 SPECIAL_LEVEL_KEY=very
 SPECIAL_TYPE_KEY=charm
+log_level=INFO
 ```
 
 #### Optional ConfigMap in environment variables
