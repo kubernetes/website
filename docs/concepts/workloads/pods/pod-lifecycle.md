@@ -20,9 +20,6 @@ A Pod's `status` field is a
 [PodStatus](/docs/resources-reference/v1.5/#podstatus-v1)
 object, which has a `phase` field.
 
-Pod phases are consistent with the overall Kubernetes
-[API convention](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md).
-
 The phase of a Pod is a simple, high-level summary of where the Pod is in its
 lifecycle. The phase is not intended to be a comprehensive rollup of observations
 of Container or Pod state, nor is it intended to be a comprehensive state machine.
@@ -54,14 +51,18 @@ Here are the possible values for `phase`:
 
 ## Pod conditions
 
-If any Container in a Pod specifies a readiness probe, the Pod reports a
-[PodCondition](/docs/resources-reference/v1.5/#podcondition-v1).
-A PodCondition has a `status` field that can be True, False, or Unknown.
+A Pod has a PodStatus, which has an array of
+[PodConditions](docs/resources-reference/v1.5/#podcondition). Each element
+of the PodCondition array has a `type` field and a `status` field. The `type`
+field is a string, with possible values PodScheduled, Ready, Initialized, and
+Unschedulable. The `status` field is a string, with possible values True, False,
+and Unknown.
 
 ## Container probes
 
 A [Probe](/docs/resources-reference/v1.5/#probe-v1) is a diagnostic
-performed periodically by the kubelet on a Container. To perform a diagnostic,
+performed periodically by the [kubelet](/docs/admin/kubelet/)
+on a Container. To perform a diagnostic,
 the kublet calls a
 [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) implemented by
 the Container. There are three types of handlers:
@@ -97,7 +98,7 @@ Containers:
    If the readiness probe fails, the endpoints controller removes the Pod's IP
    address from the endpoints of all Services that match the Pod. The default
    state of readiness before the initial delay is `Failure`. If a Container does
-   not provide a readiness probe, the dfault state is `Success`.
+   not provide a readiness probe, the default state is `Success`.
 
 ### When should you use liveness or readiness probes?
 
@@ -141,13 +142,19 @@ and Never. The default value is Always.
 `restartPolicy` applies to all Containers in the Pod. `restartPolicy` only
 refers to restarts of the Containers by the kubelet on the same node. Failed
 Containers that are restarted by the kubelet are restarted with an exponential
-back-off delay. The delay is in multiples of sync-frequency (
-0, 1x, 2x, 4x, 8x ...) capped at five minutes, and is reset after ten minutes of
-successful execution. As discussed in the
+back-off delay (10s, 20s, 40s ...) capped at five minutes, and is reset after ten
+minutes of successful execution. As discussed in the
 [Pods document](/docs/user-guide/pods/#durability-of-pods-or-lack-thereof),
-once bound to a node, a Pod will never be rebound to another node. This means
-that some kind of controller is necessary for a Pod to survive node failure,
-even if just a single Pod at a time is desired.
+once bound to a node, a Pod will never be rebound to another node.
+
+
+
+## Pod lifetime
+
+In general, Pods do not disappear until someone destroys them. This might be a
+human or a controller. The only exception to
+this rule is that Pods with a `phase` of Succeeded or Failed for more than some
+duration (determined by the master) will expire and be automatically destroyed.
 
 Three types of controllers are available:
 
@@ -155,7 +162,8 @@ Three types of controllers are available:
   for example, batch computations. Jobs are appropriate only for Pods with
   `restartPolicy` equal to OnFailure or Never.
 
-- Use a [ReplicationController](/docs/user-guide/replication-controller/) or
+- Use a [ReplicationController](/docs/user-guide/replication-controller/),
+  [ReplicaSet](/docs/user-guide/replicasets/), or
   [Deployment](/docs/user-guide/deployments/)
   for Pods that are not expected to terminate, for example, web servers.
   ReplicationControllers are appropriate only for Pods with a `restartPolicy` of
@@ -164,17 +172,10 @@ Three types of controllers are available:
 - Use a [DaemonSet](/docs/admin/daemons/) for Pods that need to run one per
   machine, because they provide a machine-specific system service.
 
-All three types of controllers contain a PodTemplate, which is also in a Pod. It
+All three types of controllers contain a PodTemplate. It
 is recommended to create the appropriate controller and let
 it create Pods, rather than directly create Pods yourself. That is because Pods
 alone are not resilient to machine failures, but controllers are.
-
-## Pod lifetime
-
-In general, Pods do not disappear until someone destroys them. This might be a
-human or a ReplicationController, or another controller. The only exception to
-this rule is that Pods with a `phase` of Succeeded or Failed for more than some
-duration (determined by the master) will expire and be automatically destroyed.
 
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
