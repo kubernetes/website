@@ -59,7 +59,7 @@ Under rktnetes, `kubectl get logs` currently cannot get logs from applications t
 
 ## Init containers
 
-[Init container](/docs/user-guide/pods/init-containers.md) feature is currently not supported.
+[Init Container](/docs/user-guide/pods/init-containers.md) feature is currently not supported.
 
 ## Container restart back-off
 
