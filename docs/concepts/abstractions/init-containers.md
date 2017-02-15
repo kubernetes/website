@@ -32,7 +32,7 @@ Init Containers are exactly like regular Containers, except:
 If an Init Container fails for a Pod, Kubernetes restarts the Pod repeatedly until the Init
 Container succeeds. However, if the Pod has a `restartPolicy` of Never, it is not restarted.
 
-To specify a Container as an Init Container, add the `initContainers` field on the Pod Spec as array of [objects of type `v1.Container`](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_container)  alongside the app `containers` array.
+To specify a Container as an Init Container, add the `initContainers` field on the PodSpec as a JSON array of objects of type [v1.Container](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_container) alongside the app `containers` array.
 The status of the init containers is returned in `status.initContainerStatuses`
 field as an array of the container statuses (similar to the `status.containerStatuses`
 field).
@@ -163,12 +163,12 @@ reasons:
 
 ## Support and compatibility
 
-A cluster with Apiserver version 1.6.0 or greater supports init containers
-using the spec.initContainers field. Previous versions support init containers
-using the alpha or beta annotations. The spec.initContainers field is also mirrored
+A cluster with Apiserver version 1.6.0 or greater supports Init Containers
+using the `spec.initContainers` field. Previous versions support Init Containers
+using the alpha or beta annotations. The `spec.initContainers` field is also mirrored
 into alpha and beta annotations so that Kubelets version 1.3.0 or greater can execute
-init containers, and so that a version 1.6 apiserver can safely be rolled back to version
-1.5.x without losing init container function for existing created pods.
+Init Containers, and so that a version 1.6 apiserver can safely be rolled back to version
+1.5.x without losing Init Container functionality for existing created pods.
 
 {% endcapture %}
 
