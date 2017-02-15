@@ -27,8 +27,7 @@ Here is the configuration file for the Pod:
 {% include code.html language="yaml" file="init-containers.yaml" ghlink="/docs/tasks/configure-pod-container/init-containers.yaml" %}
 
 In the configuration file, you can see that the Pod has a Volume that the init
-Container and the application Container share. Notice that the init Container
-is a beta feature and is specified as an annotation.
+Container and the application Container share.
 
 The init Container mounts the
 shared Volume at `/work-dir`, and the application Container mounts the shared

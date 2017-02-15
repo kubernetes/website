@@ -88,11 +88,11 @@ Init Containers:
 ```
 
 You can also access the Init Container statuses programmatically by reading the
-`pod.beta.kubernetes.io/init-container-status` annotation on the Pod:
+`status.initContainerStatuses` field on the Pod Spec:
 
 {% raw %}
 ```shell
-kubectl get pod <pod-name> --template '{{index .metadata.annotations "pod.beta.kubernetes.io/init-container-statuses"}}'
+kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
 ```
 {% endraw %}
 
