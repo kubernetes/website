@@ -16,7 +16,6 @@ toc:
   - title: Pods
     section:
     - docs/concepts/abstractions/pod.md
-    - docs/concepts/abstractions/init-containers.md
   - title: Controllers
     section:
     - docs/concepts/abstractions/controllers/statefulsets.md
@@ -25,11 +24,20 @@ toc:
   section:
   - docs/concepts/object-metadata/annotations.md
 
+- title: Storage
+  section:
+  - docs/concepts/storage/volumes.md
+
 - title: Workloads
   section:
   - title: Pods
     section:
     - docs/concepts/workloads/pods/pod-lifecycle.md
+  - title: Containers
+    section:
+    - docs/concepts/workloads/containers/container-lifecycle-hooks.md
+    - docs/concepts/abstractions/init-containers.md
+    - docs/concepts/workloads/containers/images.md
 
 - title: Configuration
   section:
