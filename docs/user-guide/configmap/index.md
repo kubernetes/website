@@ -591,4 +591,3 @@ created using kubectl, or indirectly via a replication controller.  It does not 
 via the Kubelet's `--manifest-url` flag, its `--config` flag, or its REST API (these are not common
 ways to create pods.)
 
-NOTE: The key-value optional:true is supported for kubernetes 1.5.3 and above.
