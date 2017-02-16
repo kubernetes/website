@@ -42,7 +42,7 @@ There are also two types of information that are available within the Container 
 The *hostname* of the container is the name of the pod in which the container is running. 
 It is available through the `hostname` command or the [`gethostname`](http://man7.org/linux/man-pages/man2/gethostname.2.html) function call in libc.
 
-The pod name and namespace are also available as environment variables through the [downward API](docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information).  
+The pod name and namespace are also available as environment variables through the [downward API](docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information). 
 Additionally, user defined environment variables from the pod definition are also available to the container, 
 as are any environment variables specified statically in the Docker image.
 
@@ -87,7 +87,7 @@ It is not guaranteed that the hook will execute before the container entrypoint.
 
 This hook is called immediately before a container is terminated. 
 No parameters are passed to the handler. 
-This event handler is blocking and must complete before the call to delete the container is sent to the Docker daemon.  
+This event handler is blocking and must complete before the call to delete the container is sent to the Docker daemon. 
 The `SIGTERM` notification sent by Docker is also sent. 
 A more complete description of the termination behavior can be found in [Termination of Pods](/docs/user-guide/pods/#termination-of-pods).
 
@@ -119,7 +119,7 @@ It is up to the hook implementation to handle this correctly.
 
 Generally, only single deliveries are made. 
 If, for example, an http hook receiver is down and is unable to take traffic, 
-there is no attempt to resend.  
+there is no attempt to resend. 
 In some rare cases, however, double delivery may occur.
 For instance, if a Kubelet restarts in the middle of sending a hook, 
 the hook may be resent after the Kubelet comes back up.
@@ -157,6 +157,7 @@ Events:
   38s		37s		2	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}				Warning		FailedSync	Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
   1m 		22s 		2 	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Warning		FailedPostStartHook	
 ``` 
+
 {% endcapture %}
 
 
