@@ -159,15 +159,17 @@ juju scp kubernetes-master/0:config ~/.kube/config
 
 Fetch a binary for the architecture you have deployed. If your client is a
 different architecture you will need to get the appropriate `kubectl` binary
-through other means.
+through other means. In this example we copy kubectl to `~/bin` for convenience, 
+by default this should be in your $PATH. 
 
 ```
-juju scp kubernetes-master/0:kubectl ./kubectl
+mkdir -p ~/bin
+juju scp kubernetes-master/0:kubectl ~/bin/kubectl
 ```
 
 Query the cluster:
 
-    ./kubectl cluster-info
+    kubectl cluster-info
 
 Output: 
 
