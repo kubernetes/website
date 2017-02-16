@@ -161,7 +161,7 @@ Events:
 {% endcapture %}
 
 
-{% capture whatsnext %}
-{% endcapture %}
+[//]: #{% capture whatsnext %}
+[//]: #{% endcapture %}
 
 {% include templates/concept.md %}
