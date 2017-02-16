@@ -639,7 +639,7 @@ Conditions:
 <...>
 ```
 
-If you run `kubectl get deployment nginx-deployment -o yaml`, the Deployement status might look like this:
+If you run `kubectl get deployment nginx-deployment -o yaml`, the Deployment status might look like this:
 
 ```
 status:
