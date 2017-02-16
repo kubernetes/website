@@ -7,9 +7,17 @@ install:
 - export PATH=$GOPATH/bin:$PATH
 - mkdir -p $HOME/gopath/src/k8s.io
 - mv $TRAVIS_BUILD_DIR $HOME/gopath/src/k8s.io/kubernetes.github.io
+
+# (1) Fetch dependencies for us to run the tests in test/examples_test.go
 - go get -t -v k8s.io/kubernetes.github.io/test
-- git clone --depth=50 --branch=master https://github.com/kubernetes/md-check $HOME/gopath/src/k8s.io/md-check
-- go get -t -v k8s.io/md-check
+
+# The dependencies are complicated for test/examples_test.go
+# k8s.io/kubernetes/pkg is a dependency, which in turn depends on apimachinery
+# but we also have apimachinery directly as one of our dependencies, which causes a conflict.
+# Additionally, we get symlinks when we clone the directory. The below steps do the following:
+
+# (a) Replace the symlink with the actual dependencies from kubernetes/staging/src/
+# (b) copy all the vendored files to $GOPATH/src
 - rm $GOPATH/src/k8s.io/kubernetes/vendor/k8s.io/apimachinery
 - rm $GOPATH/src/k8s.io/kubernetes/vendor/k8s.io/apiserver
 - rm $GOPATH/src/k8s.io/kubernetes/vendor/k8s.io/client-go
@@ -18,6 +26,12 @@ install:
 - cp -r $GOPATH/src/k8s.io/kubernetes/vendor/* $GOPATH/src/
 - rm -rf $GOPATH/src/k8s.io/kubernetes/vendor/*
 - cp -r $GOPATH/src/k8s.io/kubernetes/staging/src/* $GOPATH/src/
+
+# (2) Fetch md-check along with all its dependencies.
+- git clone --depth=50 --branch=master https://github.com/kubernetes/md-check $HOME/gopath/src/k8s.io/md-check
+- go get -t -v k8s.io/md-check
+
+# (3) Fetch mungedocs
 - go get -v k8s.io/kubernetes/cmd/mungedocs
 
 script:
