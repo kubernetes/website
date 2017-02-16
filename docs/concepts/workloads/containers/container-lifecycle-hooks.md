@@ -160,8 +160,4 @@ Events:
 
 {% endcapture %}
 
-
-[//]: #{% capture whatsnext %}
-[//]: #{% endcapture %}
-
 {% include templates/concept.md %}
