@@ -163,5 +163,6 @@ following
 
 ## Working With RBAC
 
-Use PodSecurityPolicy to control access to privileged containers based on role and groups.
-(see [more details](https://github.com/kubernetes/kubernetes/blob/master/examples/podsecuritypolicy/rbac/README.md)).
+Kubernetes supports role based PodSecurityPolicy to control various privileges on deployed containers. To enable the use of RBAC with PodSecurityPolicy for objects e.g. Deployment, ReplicaSet, it is required to run [Controller Manager](https://kubernetes.io/docs/admin/kube-controller-manager/) against APIServer's secured port and have `--use-service-account-credentials` option added to its command line arguments. PodSecurityPolicy uses the union of all accessible policies and apply the highest privileges avaiblable during the pod deployment. In general, when you run a Deployment object, it is Controller Manager who deploys the pod, so if it is running against unsecured port, it will have access to all the policies and you will not be able to effectively apply RBAC model.
+
+Another thing to remember is when a user running e.g. Deployment object, Controller manager will not use his/her access rights to decide which policy to apply. It will do so only in when deploying using ServiceAccount not as a user. This is by design in current implementation. [Here](https://github.com/kubernetes/kubernetes/blob/master/examples/podsecuritypolicy/rbac/README.md)) is the example of applying PodSecurityPolicy to control access to privileged containers based on role and groups when deploying Pods directly.
