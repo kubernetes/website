@@ -79,7 +79,7 @@ Sample Config:
 
 #### Known issues
 
-* [Volumes are not removed from a VM configuration if the VM is down](https://github.com/kubernetes/kubernetes/issues/33061). The workaround is to manually remove the disk from VM settings before powering it up.
+* [Volumes are not removed from a VM configuration if the VM is down](https://github.com/kubernetes/kubernetes/issues/33061). The workaround is to manually remove the disk from VM settings before powering it up. - This issue is fixed in 1.5.3
 * [FS groups are not supported in 1.4.7](https://github.com/kubernetes/kubernetes/issues/34039) - This issue is fixed in 1.4.8
 
 ### Kube-up (Deprecated)
