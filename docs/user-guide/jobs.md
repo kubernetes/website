@@ -63,10 +63,10 @@ Events:
 
 To view completed pods of a job, use `kubectl get pods --show-all`.  The `--show-all` will show completed pods too.
 
-To list all the pods that belong to job in a machine readable form, you can use a command like this:
+To list all the pods that belong to a job in a machine readable form, you can use a command like this:
 
 ```shell
-$ pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath={.items..metadata.name})
+$ pods=$(kubectl get pods  --show-all --selector=job-name=pi --output=jsonpath={.items..metadata.name})
 echo $pods
 pi-aiw0a
 ```
@@ -100,7 +100,7 @@ the same schema as a [pod](/docs/user-guide/pods), except it is nested and does 
 In addition to required fields for a Pod, a pod template in a job must specify appropriate
 labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](/docs/user-guide/pod-states/#restartpolicy) equal to `Never` or `OnFailure` are allowed.
+Only a [`RestartPolicy`](/docs/user-guide/pod-states/#restartpolicy) equal to `Never` or `OnFailure` is allowed.
 
 ### Pod Selector
 
@@ -172,20 +172,20 @@ parallelism, for a variety or reasons:
 
 A Container in a Pod may fail for a number of reasons, such as because the process in it exited with
 a non-zero exit code, or the Container was killed for exceeding a memory limit, etc.  If this
-happens, and the `.spec.template.containers[].restartPolicy = "OnFailure"`, then the Pod stays
+happens, and the `.spec.template.spec.restartPolicy = "OnFailure"`, then the Pod stays
 on the node, but the Container is re-run.  Therefore, your program needs to handle the case when it is
-restarted locally, or else specify `.spec.template.containers[].restartPolicy = "Never"`.
+restarted locally, or else specify `.spec.template.spec.restartPolicy = "Never"`.
 See [pods-states](/docs/user-guide/pod-states) for more information on `restartPolicy`.
 
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node
 (node is upgraded, rebooted, deleted, etc.), or if a container of the Pod fails and the
-`.spec.template.containers[].restartPolicy = "Never"`.  When a Pod fails, then the Job controller
+`.spec.template.spec.restartPolicy = "Never"`.  When a Pod fails, then the Job controller
 starts a new Pod.  Therefore, your program needs to handle the case when it is restarted in a new
 pod.  In particular, it needs to handle temporary files, locks, incomplete output and the like
 caused by previous runs.
 
 Note that even if you specify `.spec.parallelism = 1` and `.spec.completions = 1` and
-`.spec.template.containers[].restartPolicy = "Never"`, the same program may
+`.spec.template.spec.restartPolicy = "Never"`, the same program may
 sometimes be started twice.
 
 If you do specify `.spec.parallelism` and `.spec.completions` both greater than 1, then there may be

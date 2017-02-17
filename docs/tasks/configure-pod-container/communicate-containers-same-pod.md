@@ -19,7 +19,7 @@ in the same Pod.
 
 {% capture steps %}
 
-###  Creating a Pod that runs two Containers
+##  Creating a Pod that runs two Containers
 
 In this exercise, you create a Pod that runs two Containers. The two containers
 share a Volume that they can use to communicate. Here is the configuration file
@@ -111,7 +111,7 @@ The output shows that nginx serves a web page written by the debian container:
 
 {% capture discussion %}
 
-### Discussion
+## Discussion
 
 The primary reason that Pods can have multiple containers is to support
 helper applications that assist a primary application. Typical examples of
@@ -137,7 +137,7 @@ the shared Volume is lost.
 [composite containers for modular architecture](http://www.slideshare.net/Docker/slideshare-burns).
 
 * See
-[Configuring a Pod to Use a Volume for Storage](http://localhost:4000/docs/tasks/configure-pod-container/configure-volume-storage/).
+[Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/).
 
 * See [Volume](/docs/api-reference/v1/definitions/#_v1_volume).
 

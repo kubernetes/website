@@ -29,7 +29,7 @@ provides load balancing for an application that has two running instances.
 
 {% capture lessoncontent %}
 
-### Creating a service for an application running in two pods
+## Creating a service for an application running in two pods
 
 1. Run a Hello World application in your cluster:
 
@@ -111,7 +111,7 @@ provides load balancing for an application that has two running instances.
 
         Hello Kubernetes!
 
-### Using a service configuration file
+## Using a service configuration file
 
 As an alternative to using `kubectl expose`, you can use a
 [service configuration file](/docs/user-guide/services/operations)
