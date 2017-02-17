@@ -26,11 +26,11 @@ For example, this is how to start a simple web server as a static pod:
 [joe@host ~] $ ssh my-node1
 ```
 
-2. Choose a directory, say `/etc/kubelet.d` and place a web server pod definition there, e.g. `/etc/kubernetes.d/static-web.yaml`:
+2. Choose a directory, say `/etc/kubelet.d` and place a web server pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
 
 ```shell
-[root@my-node1 ~] $ mkdir /etc/kubernetes.d/
-[root@my-node1 ~] $ cat <<EOF >/etc/kubernetes.d/static-web.yaml
+[root@my-node1 ~] $ mkdir /etc/kubelet.d/
+[root@my-node1 ~] $ cat <<EOF >/etc/kubelet.d/static-web.yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -114,11 +114,11 @@ CONTAINER ID        IMAGE         COMMAND                CREATED       ...
 Running kubelet periodically scans the configured directory (`/etc/kubelet.d` in our example) for changes and adds/removes pods as files appear/disappear in this directory.
 
 ```shell
-[joe@my-node1 ~] $ mv /etc/kubernetes.d/static-web.yaml /tmp
+[joe@my-node1 ~] $ mv /etc/kubelet.d/static-web.yaml /tmp
 [joe@my-node1 ~] $ sleep 20
 [joe@my-node1 ~] $ docker ps
 // no nginx container is running
-[joe@my-node1 ~] $ mv /tmp/static-web.yaml  /etc/kubernetes.d/
+[joe@my-node1 ~] $ mv /tmp/static-web.yaml  /etc/kubelet.d/
 [joe@my-node1 ~] $ sleep 20
 [joe@my-node1 ~] $ docker ps
 CONTAINER ID        IMAGE         COMMAND                CREATED           ...
