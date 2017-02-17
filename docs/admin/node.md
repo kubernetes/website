@@ -176,6 +176,9 @@ For self-registration, the kubelet is started with the following options:
   - `--kubeconfig=` - Path to credentials to authenticate itself to the apiserver.
   - `--cloud-provider=` - How to talk to a cloud provider to read metadata about itself.
   - `--register-node` - Automatically register with the API server.
+  - `--node-ip`   IP address of the node.
+  - `--node-labels` - Labels to add when registering the node in the cluster.
+  - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.
 
 Currently, any kubelet is authorized to create/modify any node resource, but in practice it only creates/modifies
 its own. (In the future, we plan to only allow a kubelet to modify its own node resource.)
