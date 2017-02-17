@@ -12,6 +12,8 @@ single thing, typically by giving a short sequence of steps.
 * [Defining a Command and Arguments for a Container](/docs/tasks/configure-pod-container/define-command-argument-container/)
 * [Assigning CPU and RAM Resources to a Container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/)
 * [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/)
+* [Exposing Pod Information to Containers Through Environment Variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/)
+* [Exposing Pod Information to Containers Using a DownwardAPIVolumeFile](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/)
 * [Distributing Credentials Securely](/docs/tasks/configure-pod-container/distribute-credentials-secure/)
 * [Pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry/)
 * [Configuring Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
@@ -55,3 +57,4 @@ single thing, typically by giving a short sequence of steps.
 
 If you would like to write a task page, see
 [Creating a Documentation Pull Request](/docs/contribute/create-pull-request/).
+
