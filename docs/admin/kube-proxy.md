@@ -41,7 +41,6 @@ DynamicKubeletConfig=true|false (ALPHA - default=false)
 DynamicVolumeProvisioning=true|false (ALPHA - default=true)
 ExperimentalHostUserNamespaceDefaulting=true|false (ALPHA - default=false)
 StreamingProxyRedirects=true|false (ALPHA - default=false)
-      --google-json-key string                       The Google Cloud Platform Service Account JSON Key to use for authentication.
       --healthz-bind-address ip                      The IP address for the health check server to serve on, defaulting to 127.0.0.1 (set to 0.0.0.0 for all interfaces) (default 127.0.0.1)
       --healthz-port int32                           The port to bind the health check server. Use 0 to disable. (default 10249)
       --hostname-override string                     If non-empty, will use this string as identification instead of the actual hostname.
