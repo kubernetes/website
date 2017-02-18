@@ -20,7 +20,7 @@ Data Reliability: for reasonable safety, either etcd needs to be run as a
 etcd) or etcd's data directory should be located on durable storage (e.g., GCE's
 persistent disk). In either case, if high availability is required--as it might
 be in a production cluster--the data directory ought to be [backed up
-periodically](https://coreos.com/etcd/docs/2.2.1/admin_guide.html#disaster-recovery),
+periodically](https://coreos.com/etcd/docs/latest/op-guide/recovery.html),
 to reduce downtime in case of corruption.
 
 ## Default configuration
