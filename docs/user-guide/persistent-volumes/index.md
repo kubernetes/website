@@ -421,7 +421,7 @@ parameters:
 * `restauthenabled` : Gluster REST service authentication boolean that enables authentication to the REST server. If this value is 'true', `restuser` and `restuserkey` or `secretNamespace` + `secretName` have to be filled. This option is deprecated, authentication is enabled when any of `restuser`, `restuserkey`, `secretName` or `secretNamespace` is specified.
 * `restuser` : Gluster REST service/Heketi user who has access to create volumes in the Gluster Trusted Pool.
 * `restuserkey` : Gluster REST service/Heketi user's password which will be used for authentication to the REST server. This parameter is deprecated in favor of `secretNamespace` + `secretName`.
-* `secretNamespace` + `secretName` : Identification of Secret instance that containes user password to use when talking to Gluster REST service. These parameters are optional, empty password will be used when both `secretNamespace` and `secretName` are omitted. The provided secret must have type "kubernetes.io/glusterfs", e.g. created in this way:
+* `secretNamespace` + `secretName` : Identification of Secret instance that contains user password to use when talking to Gluster REST service. These parameters are optional, empty password will be used when both `secretNamespace` and `secretName` are omitted. The provided secret must have type "kubernetes.io/glusterfs", e.g. created in this way:
   ```
   $ kubectl create secret generic heketi-secret --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' --namespace=default
   ```
@@ -507,7 +507,7 @@ parameters:
 * `quobyteAPIServer`: API Server of Quobyte in the format `http(s)://api-server:7860`
 * `registry`: Quobyte registry to use to mount the volume. You can specify the registry as ``<host>:<port>`` pair or if you want to specify multiple registries you just have to put a comma between them e.q. ``<host1>:<port>,<host2>:<port>,<host3>:<port>``. The host can be an IP address or if you have a working DNS you can also provide the DNS names.
 * `adminSecretNamespace`: The namespace for `adminSecretName`. Default is "default".
-* `adminSecretName`: secret that holds information about the Quobyte user and the password to authenticate agains the API server. The provided secret must have type "kubernetes.io/quobyte", e.g. created in this way:
+* `adminSecretName`: secret that holds information about the Quobyte user and the password to authenticate against the API server. The provided secret must have type "kubernetes.io/quobyte", e.g. created in this way:
   ```
   $ kubectl create secret generic quobyte-admin-secret --type="kubernetes.io/quobyte" --from-literal=key='opensesame' --namespace=kube-system
   ```
