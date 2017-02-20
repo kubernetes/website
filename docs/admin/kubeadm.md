@@ -180,49 +180,49 @@ available as configuration file options.
 
 ### Sample Master Configuration
 
-    ```yaml
-    apiVersion: kubeadm.k8s.io/v1alpha1
-    kind: MasterConfiguration
-    api:
-      advertiseAddresses:
-      - <address1|string>
-      - <address2|string>
-      bindPort: <int>
-      externalDNSNames:
-      - <dnsname1|string>
-      - <dnsname2|string>
-    authorizationMode: <string>
-    cloudProvider: <string>
-    discovery:
-      bindPort: <int>
-    etcd:
-      endpoints:
-      - <endpoint1|string>
-      - <endpoint2|string>
-      caFile: <path|string>
-      certFile: <path|string>
-      keyFile: <path|string>
-    kubernetesVersion: <string>
-    networking:
-      dnsDomain: <string>
-      serviceSubnet: <cidr>
-      podSubnet: <cidr>
-    secrets:
-      givenToken: <token|string>
-    ```
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+api:
+  advertiseAddresses:
+  - <address1|string>
+  - <address2|string>
+  bindPort: <int>
+  externalDNSNames:
+  - <dnsname1|string>
+  - <dnsname2|string>
+authorizationMode: <string>
+cloudProvider: <string>
+discovery:
+  bindPort: <int>
+etcd:
+  endpoints:
+  - <endpoint1|string>
+  - <endpoint2|string>
+  caFile: <path|string>
+  certFile: <path|string>
+  keyFile: <path|string>
+kubernetesVersion: <string>
+networking:
+  dnsDomain: <string>
+  serviceSubnet: <cidr>
+  podSubnet: <cidr>
+secrets:
+  givenToken: <token|string>
+```
 
 ### Sample Node Configuration
 
-    ```yaml
-    apiVersion: kubeadm.k8s.io/v1alpha1
-    kind: NodeConfiguration
-    apiPort: <int>
-    discoveryPort: <int>
-    masterAddresses:
-    - <master1>
-    secrets:
-      givenToken: <token|string>
-    ```
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: NodeConfiguration
+apiPort: <int>
+discoveryPort: <int>
+masterAddresses:
+- <master1>
+secrets:
+  givenToken: <token|string>
+```
 
 ## Automating kubeadm
 
