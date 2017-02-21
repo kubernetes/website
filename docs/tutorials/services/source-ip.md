@@ -132,7 +132,7 @@ client_address=10.240.0.5
 client_address=10.240.0.3
 ```
 
-Note that these are not your IPs, they're cluster internal IPs. This is what happens:
+Note that these are not right client IPs, they're cluster internal IPs. This is what happens:
 
 * Client sends packet to `node2:nodePort`
 * `node2` replaces the source IP address (SNAT) in the packet with its own IP address
