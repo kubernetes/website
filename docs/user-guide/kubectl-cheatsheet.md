@@ -244,7 +244,7 @@ Resource type   | Abbreviated alias
 `namespaces` |`ns`
 `networkpolicies` |
 `nodes` |`no`
-`petset` |
+`statefulsets` |
 `persistentvolumeclaims` |`pvc`
 `persistentvolumes` |`pv`
 `pods` |`po`
