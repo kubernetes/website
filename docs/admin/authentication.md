@@ -85,9 +85,9 @@ See [APPENDIX](#appendix) for how to generate a client cert.
 The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
 changed without restarting API server.
 
-The token file format is implemented in `plugin/pkg/auth/authenticator/token/tokenfile/...`
-and is a csv file with a minimum of 3 columns: token, user name, user uid, followed by
-optional group names. Note, if you have more than one group the column must be double quoted e.g.
+The token file is a csv file with a minimum of 3 columns: token, user name, user uid,
+followed by optional group names. Note, if you have more than one group the column must be
+double quoted e.g.
 
 ```conf
 token,user,uid,"group1,group2,group3"
@@ -115,9 +115,9 @@ and the password cannot be changed without restarting API server. Note that basi
 authentication is currently supported for convenience while we finish making the
 more secure modes described above easier to use.
 
-The basic auth file format is implemented in `plugin/pkg/auth/authenticator/password/passwordfile/...`
-and is a csv file with a minimum of 3 columns: password, user name, user id, followed by
-optional group names. Note, if you have more than one group the column must be double quoted e.g.
+The basic auth file is a csv file with a minimum of 3 columns: password,
+user name, user id, followed by optional group names. Note, if you have more than
+one group the column must be double quoted e.g.
 
 ```conf
 password,user,uid,"group1,group2,group3"
