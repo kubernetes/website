@@ -157,7 +157,7 @@ boostrap as a mandatory flag, and the master IP address as a mandatory argument.
 
 Here's an example on how to use it:
 
-`kubeadm join --token=the_secret_token 192.168.1.1`
+`kubeadm join --discovery token://<the_secret_token>@ip:port`
 
 - `--skip-preflight-checks`
 
@@ -165,7 +165,7 @@ By default, `kubeadm` runs a series of preflight checks to validate the system
 before making any changes. Advanced users can use this flag to bypass these if
 necessary.
 
-- `--token=<token>`
+- `--discovery token://<the_secret_token>@ip:port`
 
 By default, when `kubeadm init` runs, a token is generated and revealed in the output.
 That's the token you should use here.
