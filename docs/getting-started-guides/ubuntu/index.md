@@ -15,7 +15,7 @@ Supports AWS, GCE, Azure, Joyent, OpenStack, Bare Metal and local workstation de
 
 ### Quick Start
 
-[conjure-up](http://conjure-up.io/) provides quick wasy to deploy Kubernetes on multiple clouds and bare metal. It provides a user-friendly UI that prompts you for cloud credentials and configuration options:  
+[conjure-up](http://conjure-up.io/) provides quick ways to deploy Kubernetes on multiple clouds and bare metal. It provides a user-friendly UI that prompts you for cloud credentials and configuration options:  
 
 Available for Ubuntu 16.04 and newer: 
 
