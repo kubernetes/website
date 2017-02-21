@@ -19,9 +19,9 @@ The installation uses a tool called `kubeadm` which is part of Kubernetes.
 This process works with local VMs, physical servers and/or cloud servers.
 It is simple enough that you can easily integrate its use into your own automation (Terraform, Chef, Puppet, etc).
 
-See the full `kubeadm` [reference](/docs/admin/kubeadm) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
+See the full `kubeadm` [reference](/docs/admin/kubeadm.md) for information on all `kubeadm` command-line flags and for advice on automating `kubeadm` itself.
 
-**The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm/#feedback)!
+**The `kubeadm` tool is currently in alpha but please try it out and give us [feedback](/docs/getting-started-guides/kubeadm.md/#feedback)!
 Be sure to read the [limitations](#limitations); in particular note that kubeadm doesn't have great support for
 automatically configuring cloud providers. Please refer to the specific cloud provider documentation or
 use another provisioning system.**
@@ -117,7 +117,7 @@ If you want to use a different interface, specify `--api-advertise-addresses <ip
 
 If you want to use [flannel](https://github.com/coreos/flannel) as the pod network, specify `--pod-network-cidr 10.244.0.0/16` if you're using the daemonset manifest below. _However, please note that this is not required for any other networks besides Flannel._
 
-Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to read more about the flags `kubeadm init` provides.
+Please refer to the [kubeadm reference doc](/docs/admin/kubeadm.md) if you want to read more about the flags `kubeadm init` provides.
 
 This will download and install the cluster database and "control plane" components.
 This may take several minutes.
@@ -178,7 +178,7 @@ You must install a pod network add-on so that your pods can communicate with eac
 **It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up. Note also that `kubeadm` only supports CNI based networks and therefore kubenet based networks will not work.**
 
 Several projects provide Kubernetes pod networks using CNI, some of which 
-also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
+also support [Network Policy](/docs/user-guide/networkpolicies.md). See the [add-ons page](/docs/admin/addons.md) for a complete list of available network add-ons.
 
 You can install a pod network add-on with the following command: 
 
