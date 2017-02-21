@@ -13,7 +13,7 @@ Perform a rolling update of the given ReplicationController.
 
 Replaces the specified replication controller with a new replication controller by updating one pod at a time to use the new PodTemplate. The new-controller.json must specify the same namespace as the existing replication controller and overwrite at least one (common) label in its replicaSelector.
 
-! http://kubernetes.io/images/docs/kubectl_rollingupdate.svg
+![kubectl_rollingupdate](http://kubernetes.io/images/docs/kubectl_rollingupdate.svg)
 
 ```
 kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE | -f NEW_CONTROLLER_SPEC)
