@@ -37,20 +37,12 @@ Each Container of a Pod can specify one or more of the following:
 * `spec.containers[].resources.limits.cpu`
 * `spec.containers[].resources.limits.memory`
 * `spec.containers[].resources.requests.cpu`
-* `spec.containers[].resources.requests.memory`.
-
-Specifying resource requests and limits is optional. In some clusters, unset
-limits or requests might be replaced with default values when a Pod is created
-or updated. The default values depend on how the cluster is configured. If the
-request values are not specified, they are set to be equal to the limit values
-by default. Note that limits must always be greater than or equal to requests.
+* `spec.containers[].resources.requests.memory`
 
 Although requests and limits can only be specified on individual Containers, it
 is convenient to talk about Pod resource requests and limits. A
 *Pod resource request/limit* for a particular resource type is the sum of the
-resource requests/limits of that type for each Container in the Pod, with
-unset values treated as zero (or equal to default values in some cluster
-configurations).
+resource requests/limits of that type for each Container in the Pod.
 
 ## Meaning of CPU
 
@@ -133,7 +125,7 @@ daily peak in request rate.
 ## How Pods with resource limits are run
 
 When the kubelet starts a Container of a Pod, it passes the CPU and memory limits
-to the container runner: Docker or rkt.
+to the container runtime.
 
 When using Docker:
 
@@ -160,6 +152,9 @@ When using Docker:
 If a Container exceeds its memory limit, it might be terminated. If it is
 restartable, the kubelet will restart it, as with any other type of runtime
 failure.
+
+If a Container exceeds its memory request, it is likely that its Pod will
+be evicted whenever the node runs out of memory.
 
 A Container might or might not be allowed to exceed its CPU limit for extended
 periods of time. However, it will not be killed for excessive CPU usage.
@@ -235,6 +230,12 @@ will not fit on the node.
 
 By looking at the `Pods` section, you can see which Pods are taking up space on
 the node.
+
+The amount of resources available to Pods is less than the node capacity, because
+system daemons use a portion of the available resources. The `allocatable` field
+[NodeStatus](/docs/resources-reference/v1.5/#nodestatus-v1)
+gives the amount of resources that are available to Pods. For more information, see
+[Node Allocatable Resources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node-allocatable.md).
 
 The [resource quota](/docs/admin/resourcequota/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
