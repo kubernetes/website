@@ -64,7 +64,7 @@ Including:
 
 | Existing Flag | New Flag | Rationale |
 | ------------- | -------- | --------- |
-| `--image-gc-high-threshold` | `--eviction-hard` or `eviction-soft` | existing eviction signals can trigger image garbage collection |
+| `--image-gc-high-threshold` | `--eviction-hard` or `--eviction-soft` | existing eviction signals can trigger image garbage collection |
 | `--image-gc-low-threshold` | `--eviction-minimum-reclaim` | eviction reclaims achieve the same behavior |
 | `--maximum-dead-containers` | | deprecated once old logs are stored outside of container's context |
 | `--maximum-dead-containers-per-container` | | deprecated once old logs are stored outside of container's context |
