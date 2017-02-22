@@ -375,41 +375,6 @@ However, it is using its local ttl-based cache for getting the current value of 
 As a result, the total delay from the moment when the secret is updated to the moment when new keys are
 projected to the pod can be as long as kubelet sync period + ttl of secrets cache in kubelet.
 
-#### Optional Secrets as Files from a Pod
-
-Volumes and files provided by a Secret can be also be marked as optional.
-The Secret or the key within a Secret does not have to exist. The mount path for
-such items will always be created.
-
-```json
-{
- "apiVersion": "v1",
- "kind": "Pod",
-  "metadata": {
-    "name": "mypod",
-    "namespace": "myns"
-  },
-  "spec": {
-    "containers": [{
-      "name": "mypod",
-      "image": "redis",
-      "volumeMounts": [{
-        "name": "foo",
-        "mountPath": "/etc/foo"
-      }]
-    }],
-    "volumes": [{
-      "name": "foo",
-      "secret": {
-        "secretName": "mysecret",
-        "defaultMode": 256,
-        "optional": true
-      }
-    }]
-  }
-}
-```
-
 #### Using Secrets as Environment Variables
 
 To use a secret in an environment variable in a pod:
@@ -456,30 +421,6 @@ $ echo $SECRET_PASSWORD
 1f2d1e2e67df
 ```
 
-#### Optional Secrets from Environment Variables
-
-You may not want to require all your secrets to exist. They can be marked as
-optional as shown in the pod:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: optional-secret-env-pod
-spec:
-  containers:
-    - name: mycontainer
-      image: redis
-      env:
-        - name: OPTIONAL_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: mysecret
-              key: username
-              optional: true
-  restartPolicy: Never
-```
-
 #### Using imagePullSecrets
 
 An imagePullSecret is a way to pass a secret that contains a Docker (or other) image registry
@@ -511,8 +452,7 @@ can be automatically attached to pods based on their service account.
 
 Secret volume sources are validated to ensure that the specified object
 reference actually points to an object of type `Secret`.  Therefore, a secret
-needs to be created before any pods that depend on it, unless it is marked as
-optional.
+needs to be created before any pods that depend on it.
 
 Secret API objects reside in a namespace.   They can only be referenced by pods
 in that same namespace.
@@ -532,12 +472,12 @@ not common ways to create pods.)
 
 When a pod is created via the API, there is no check whether a referenced
 secret exists.  Once a pod is scheduled, the kubelet will try to fetch the
-secret value.  If a required secret cannot be fetched because it does not
-exist or because of a temporary lack of connection to the API server, the
-kubelet will periodically retry. It will report an event about the pod
-explaining the reason it is not started yet.  Once the secret is fetched, the
-kubelet will create and mount a volume containing it.  None of the pod's
-containers will start until all the pod's volumes are mounted.
+secret value.  If the secret cannot be fetched because it does not exist or
+because of a temporary lack of connection to the API server, kubelet will
+periodically retry.  It will report an event about the pod explaining the
+reason it is not started yet.  Once the secret is fetched, the kubelet will
+create and mount a volume containing it.  None of the pod's containers will
+start until all the pod's volumes are mounted.
 
 ## Use cases
 
@@ -594,8 +534,8 @@ consumes it in a volume:
 When the container's command runs, the pieces of the key will be available in:
 
 ```shell
-/etc/secret-volume/id-rsa.pub
-/etc/secret-volume/id-rsa
+/etc/secret-volume/ssh-publickey
+/etc/secret-volume/ssh-privatekey
 ```
 
 The container is then free to use the secret data to establish an ssh connection.

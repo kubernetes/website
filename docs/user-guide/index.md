@@ -54,7 +54,7 @@ Before running examples in the user guides, please ensure you have completed the
 : A service defines a set of pods and a means by which to access them, such as single stable IP address and corresponding DNS name.
 
 [**Volume**](/docs/user-guide/volumes/)
-: A volume is a directory, possibly with some data in it, which is accessible to a Container as part of its filesystem.  Kubernetes volumes build upon [Docker Volumes](https://docs.docker.com/userguide/dockervolumes/), adding provisioning of the volume directory and/or device.
+: A volume is a directory, possibly with some data in it, which is accessible to a Container as part of its filesystem.  Kubernetes volumes build upon [Docker Volumes](https://docs.docker.com/engine/tutorials/dockervolumes/), adding provisioning of the volume directory and/or device.
 
 [**Secret**](/docs/user-guide/secrets/)
 : A secret stores sensitive data, such as authentication tokens, which can be made available to containers upon request.
