@@ -70,7 +70,7 @@ Required fields are:
 * `apiVersion`: Currently `v1`.
 * `metadata`: An object containing:
     * `name`: Required if `generateName` is not specified. The name of this pod.
-      It must be an
+      It must be a
       [RFC1035](https://www.ietf.org/rfc/rfc1035.txt) compatible value and be
       unique within the namespace.
     * `labels`: Optional. Labels are arbitrary key:value pairs that can be used
