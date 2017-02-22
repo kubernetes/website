@@ -12,6 +12,8 @@ This page explains how documentation issues are reviewed and prioritized for the
 ## Categorizing issues
 Issues should be sorted into different buckets of work using the following labels and definitions. If an issue doesn't have enough information to identify a problem that can be researched, reviewed, or worked on (i.e. the issue doesn't fit into any of the categories below) you should close the issue with a comment explaining why it is being closed.
 
+### Needs Clarification
+* Issues that need more information from the original submitter to make them actionable.  Issues with this label that aren't followed up within a week may be closed. 
 
 ### Actionable
 * Issues that can be worked on with current information (or may need a comment to explain what needs to be done to make it more clear)
@@ -26,8 +28,9 @@ Issues should be sorted into different buckets of work using the following label
 * Issues that are suggestions for better processes or site improvements that require community agreement to be implemented
 * Topics can be brought to SIG meetings as agenda items
 
-#### Needs UX Review
-* Issues that are suggestions for improving the user interface of the site or fixing a broken UX. 
+### Needs UX Review
+* Issues that are suggestions for improving the user interface of the site.
+* Fixing broken site elements. 
 
 
 ## Prioritizing Issues
