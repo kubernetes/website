@@ -19,6 +19,7 @@ toc:
   - title: Controllers
     section:
     - docs/concepts/abstractions/controllers/statefulsets.md
+    - docs/concepts/abstractions/controllers/garbage-collection.md
 
 - title: Object Metadata
   section:
