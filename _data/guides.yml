@@ -228,5 +228,5 @@ toc:
   - title: Federation Components
     section:
     - docs/admin/federation-apiserver.md
-    - title : federation-controller-mananger
+    - title : federation-controller-manager
       path: /docs/admin/federation-controller-manager

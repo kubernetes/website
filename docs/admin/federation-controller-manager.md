@@ -1,5 +1,5 @@
 ---
-title: federation-controller-mananger
+title: federation-controller-manager
 notitle: true
 ---
 
