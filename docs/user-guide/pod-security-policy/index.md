@@ -163,5 +163,5 @@ following
 
 ## Working With RBAC
 
-Use PodSecurityPolicy to control access to privileged containers based on role and groups.
+In Kubernetes 1.5 and newer, you can use PodSecurityPolicy to control access to privileged containers based on user role and groups.
 (see [more details](https://github.com/kubernetes/kubernetes/blob/master/examples/podsecuritypolicy/rbac/README.md)).

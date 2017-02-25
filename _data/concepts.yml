@@ -20,10 +20,17 @@ toc:
   - title: Controllers
     section:
     - docs/concepts/abstractions/controllers/statefulsets.md
+    - docs/concepts/abstractions/controllers/garbage-collection.md
 
 - title: Object Metadata
   section:
   - docs/concepts/object-metadata/annotations.md
+
+- title: Workloads
+  section:
+  - title: Pods
+    section:
+    - docs/concepts/workloads/pods/pod-lifecycle.md
 
 - title: Configuration
   section:

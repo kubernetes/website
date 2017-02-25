@@ -10,11 +10,11 @@ The Salt scripts are shared across multiple hosting providers and depending on w
 
 ## Salt cluster setup
 
-The **salt-master** service runs on the kubernetes-master [(except on the default GCE setup)](#standalone-salt-configuration-on-gce).
+The **salt-master** service runs on the kubernetes-master [(except on the default GCE and OpenStack-Heat setup)](#standalone-salt-configuration-on-gce-and-others).
 
 The **salt-minion** service runs on the kubernetes-master and each kubernetes-node in the cluster.
 
-Each salt-minion service is configured to interact with the **salt-master** service hosted on the kubernetes-master via the **master.conf** file [(except on GCE)](#standalone-salt-configuration-on-gce).
+Each salt-minion service is configured to interact with the **salt-master** service hosted on the kubernetes-master via the **master.conf** file [(except on GCE and OpenStack-Heat)](#standalone-salt-configuration-on-gce-and-others).
 
 ```shell
 [root@kubernetes-master] $ cat /etc/salt/minion.d/master.conf
@@ -25,15 +25,15 @@ The salt-master is contacted by each salt-minion and depending upon the machine 
 
 If you are running the Vagrant based environment, the **salt-api** service is running on the kubernetes-master.  It is configured to enable the vagrant user to introspect the salt cluster in order to find out about machines in the Vagrant environment via a REST API.
 
-## Standalone Salt Configuration on GCE
+## Standalone Salt Configuration on GCE and others
 
-On GCE, the master and nodes are all configured as [standalone minions](http://docs.saltstack.com/en/latest/topics/tutorials/standalone_minion.html). The configuration for each VM is derived from the VM's [instance metadata](https://cloud.google.com/compute/docs/metadata) and then stored in Salt grains (`/etc/salt/minion.d/grains.conf`) and pillars (`/srv/salt-overlay/pillar/cluster-params.sls`) that local Salt uses to enforce state.
+On GCE and OpenStack, using the Openstack-Heat provider, the master and nodes are all configured as [standalone minions](http://docs.saltstack.com/en/latest/topics/tutorials/standalone_minion.html). The configuration for each VM is derived from the VM's [instance metadata](https://cloud.google.com/compute/docs/metadata) and then stored in Salt grains (`/etc/salt/minion.d/grains.conf`) and pillars (`/srv/salt-overlay/pillar/cluster-params.sls`) that local Salt uses to enforce state.
 
-All remaining sections that refer to master/minion setups should be ignored for GCE. One fallout of the GCE setup is that the Salt mine doesn't exist - there is no sharing of configuration amongst nodes.
+All remaining sections that refer to master/minion setups should be ignored for GCE and OpenStack. One fallout of this setup is that the Salt mine doesn't exist - there is no sharing of configuration amongst nodes.
 
 ## Salt security
 
-*(Not applicable on default GCE setup.)*
+*(Not applicable on default GCE and OpenStack-Heat setup.)*
 
 Security is not enabled on the salt-master, and the salt-master is configured to auto-accept incoming requests from minions.  It is not recommended to use this security configuration in production environments without deeper study.  (In some environments this isn't as bad as it might sound if the salt master port isn't externally accessible and you trust everyone on your network.)
 
