@@ -6,6 +6,9 @@ assignees:
 title: Using RBAC Authorization
 ---
 
+* TOC
+{:toc}
+
 Role-Based Access Control ("RBAC") uses the "rbac.authorization.k8s.io" API group 
 to drive authorization decisions, allowing admins to dynamically configure policies
 through the Kubernetes API.
@@ -20,12 +23,12 @@ The RBAC API Group declares four top level types which will be covered in this
 section. Users can interact with these resources as they would with any other
 API resource. Through `kubectl`, direct calls to the API, etc. For instance,
 `kubectl create -f (resource).yml` can be used with any of these examples,
-though readers who wish to follow along should review the following section on
+though readers who wish to follow along should review the section on
 bootstrapping first.
 
 In the RBAC API Group, roles hold a logical grouping of permissions. These
 permissions map very closely to ABAC policies, but only contain information
-about requests being made. Permission are purely additive, rules may only omit
+about requests being made. Permissions are purely additive, rules may only omit
 permissions they do not wish to grant.
 
 Here's an example of a role which grants read access to pods within the
@@ -165,16 +168,16 @@ the [authentication modules](/docs/admin/authentication/) to produce
 usernames in the desired format.  The RBAC authorization system does
 not require any particular format.  However, the prefix `system:` is
 reserved for Kubernetes system use, and so the admin should ensure
-usernames should not contain this prefix by accident.
+usernames do not contain this prefix by accident.
 
 Group information in Kubernetes is currently provided by the Authenticator
 modules.  (In the future we may add a separate way for the RBAC Authorizer
-to query groups information for users.)  Groups, like users, are represented
+to query group information for users.)  Groups, like users, are represented
 by a string, and that string has no format requirements, other than that the
 prefix `system:` is reserved.
 
-Service Accounts have usernames with the `system:` prefix and belong
-to groups with the `system:` prefix.
+Service Accounts have usernames with the `system:serviceaccount` prefix and belong
+to groups with the `system:serviceaccounts` prefix.
 
 ### Role Binding Examples
 
@@ -221,7 +224,7 @@ subjects:
   name: system:serviceaccounts
 ```
 
-For all authenticated users:
+For all authenticated users (1.5 and newer):
 
 ```yaml
 subjects:
@@ -229,7 +232,7 @@ subjects:
   name: system:authenticated
 ```
 
-For all unauthenticated users:
+For all unauthenticated users (1.5 and newer):
 
 ```yaml
 subjects:
@@ -237,7 +240,7 @@ subjects:
   name: system:unauthenticated
 ```
 
-For all users:
+For all users (1.5 and newer):
 
 ```yaml
 subjects:
@@ -246,110 +249,241 @@ subjects:
 - kind: Group
   name: system:unauthenticated
 ```
-
-## `system:*` prefixed RBAC resources
-
-If an RBAC resource (`ClusterRole`, `ClusterRoleBinding`, etc) is prefixed with `system:*`, that indicates that
-the resource is "owned" by the infrastructure.  Modifications to these resources can result in non-functional clusters.
-
-One example is the `clusterrole/system:nodes`.  This role is used to provide limited permissions to kubelets.  If the
-role is modified, it's possible to prevent your kubelet from working.
 
 ## Default ClusterRoles and ClusterRoleBindings
 
-When starting an API server without any ClusterRoles or ClusterRoleBindings, the API server will bootstrap itself
-with a set of default ClusterRoles and ClusterRoleBindings.  Most of these are `system:*` prefixed, but some are not.
-They are all labeled with `kubernetes.io/bootstrapping=rbac-defaults`.  These are the most commonly used:
+API servers create a set of default ClusterRoles and ClusterRoleBindings.
+Many of these are `system:` prefixed, which indicates that the resource is "owned" by the infrastructure.
+Modifications to these resources can result in non-functional clusters. One example is the `system:node` ClusterRole.
+This role defines permissions for kubelets. If the role is modified, it can prevent kubelets from working.
+
+All of the default cluster roles and rolebindings are labeled with `kubernetes.io/bootstrapping=rbac-defaults`.
+
+### Auto-reconciliation
+
+At each start-up, the API server updates default cluster roles with any missing permissions,
+and updates default cluster role bindings with any missing subjects.
+This allows the cluster to repair accidental modifications,
+and to keep roles and rolebindings up-to-date as permissions and subjects change in new releases.
+
+To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate` 
+annotation on a default cluster role or rolebinding to `false`.
+Be aware that missing default permissions and subjects can result in non-functional clusters.
+
+Auto-reconciliation is enabled in Kubernetes version 1.6+.
+
+### Discovery roles
 
 <table>
-<colgroup><col width="25%"><col width="25%"><col>
+<colgroup><col width="25%"><col width="25%"><col></colgroup>
 <tr>
-<th>Default ClusterRole
-<th>Default ClusterRoleBinding
-<th>Description
-
+<th>Default ClusterRole</th>
+<th>Default ClusterRoleBinding</th>
+<th>Description</th>
+</tr>
 <tr>
-<td>*cluster-admin*
-<td>`system:masters` group
-<td>A super-user role that allows performing any action on any resource.
-When used in a `ClusterRoleBinding`, it gives full control over every resource in the cluster and in all namespaces.
-When used in a `RoleBinding`, if gives full control over every resource in the rolebinding's namespace.
-
+<td><b>system:basic-user</b></td>
+<td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
+<td>Allows a user read-only access to basic information about themselves.</td>
+</tr>
 <tr>
-<td>*cluster-status*
-<td>None
-<td>A role that allows read-only access to basic cluster status information.
-
-<tr>
-<td>*admin*
-<td>None
-<td>A role for a namespace manager, intended to be granted within a namespace using a `RoleBinding`.
-If used in a `RoleBinding`, allows read/write access to most resources in a namespace,
-including the ability to create roles and rolebindings within the namespace.
-It does not allow write access to resource quota.
-
-<tr>
-<td>*edit*
-<td>None
-<td>A role that allows read/write access to most objects in a namespace.
-It does not allow viewing or modifying roles or rolebindings.
-
-<tr>
-<td>*view*
-<td>None
-<td>A role that allows read-only access to see most objects in a namespace.
-It does not allow viewing roles or rolebindings.
-It does not allow viewing secrets, since those are escalating.
-
-<tr>
-<td>*system:basic-user*
-<td>`system:authenticated` and `system:unauthenticated` groups
-<td>A role that allows a user read-only access to basic information about themselves.
-
-<tr>
-<td>*system:discovery*
-<td>`system:authenticated` and `system:unauthenticated` groups
-<td>A role that allows read-only access to API discovery endpoints needed to discover
-and negotiate an API level.
-
-<tr>
-<td>*system:auth-delegator*
-<td>None
-<td>A role which allows delegated authentication and authorization checks.
-This is commonly used by add-on API servers for unified authentication and authorization.
-
+<td><b>system:discovery</b></td>
+<td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
+<td>Allows read-only access to API discovery endpoints needed to discover and negotiate an API level.</td>
+</tr>
 </table>
+
+### User-facing roles
+
+Some of the default roles are not `system:` prefixed. These are intended to be user-facing roles.
+They include superuser roles (`cluster-admin`),
+roles intended to be granted cluster-wide using ClusterRoleBindings (`cluster-status`),
+and roles intended to be granted within particular namespaces using RoleBindings (`admin`, `edit`, `view`).
+
+<table>
+<colgroup><col width="25%"><col width="25%"><col></colgroup>
+<tr>
+<th>Default ClusterRole</th>
+<th>Default ClusterRoleBinding</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><b>cluster-admin</b></td>
+<td><b>system:masters</b> group</td>
+<td>Allows super-user access to perform any action on any resource.
+When used in a <b>ClusterRoleBinding</b>, it gives full control over every resource in the cluster and in all namespaces.
+When used in a <b>RoleBinding</b>, it gives full control over every resource in the rolebinding's namespace, including the namespace itself.</td>
+</tr>
+<tr>
+<td><b>cluster-status</b></td>
+<td>None</td>
+<td>Allows read-only access to basic cluster status information.</td>
+</tr>
+<tr>
+<td><b>admin</b></td>
+<td>None</td>
+<td>Allows admin access, intended to be granted within a namespace using a <b>RoleBinding</b>.
+If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
+including the ability to create roles and rolebindings within the namespace.
+It does not allow write access to resource quota or to the namespace itself.</td>
+</tr>
+<tr>
+<td><b>edit</b></td>
+<td>None</td>
+<td>Allows read/write access to most objects in a namespace.
+It does not allow viewing or modifying roles or rolebindings.</td>
+</tr>
+<tr>
+<td><b>view</b></td>
+<td>None</td>
+<td>Allows read-only access to see most objects in a namespace.
+It does not allow viewing roles or rolebindings.
+It does not allow viewing secrets, since those are escalating.</td>
+</tr>
+</table>
+
+### Core component roles
+
+<table>
+<colgroup><col width="25%"><col width="25%"><col></colgroup>
+<tr>
+<th>Default ClusterRole</th>
+<th>Default ClusterRoleBinding</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><b>system:kube-scheduler</b></td>
+<td><b>system:kube-scheduler</b> user</td>
+<td>Allows access to the resources required by the kube-scheduler component.</td>
+</tr>
+<tr>
+<td><b>system:kube-controller-manager</b></td>
+<td><b>system:kube-controller-manager</b> user</td>
+<td>Allows access to the resources required by the kube-controller-manager component.
+The permissions required by individual control loops are contained in the <a href="#controller-roles">controller roles</a>.</td>
+</tr>
+<tr>
+<td><b>system:node</b></td>
+<td><b>system:nodes</b> group</td>
+<td>Allows access to resources required by the kubelet component, <b>including read access to secrets, and write access to pods</b>.
+In the future, read access to secrets and write access to pods will be restricted to objects scheduled to the node.
+To maintain permissions in the future, Kubelets must identify themselves with a username in the form <b>system:node:&lt;node-name&gt;</b>.
+See <a href="https://pr.k8s.io/40476">https://pr.k8s.io/40476</a> for details.
+</td>
+</tr>
+<tr>
+<td><b>system:node-proxier</b></td>
+<td><b>system:kube-proxy</b> user</td>
+<td>Allows access to the resources required by the kube-proxy component.</td>
+</tr>
+</table>
+
+### Other component roles
+
+<table>
+<colgroup><col width="25%"><col width="25%"><col></colgroup>
+<tr>
+<th>Default ClusterRole</th>
+<th>Default ClusterRoleBinding</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><b>system:auth-delegator</b></td>
+<td>None</td>
+<td>Allows delegated authentication and authorization checks.
+This is commonly used by add-on API servers for unified authentication and authorization.</td>
+</tr>
+<tr>
+<td><b>system:heapster</b></td>
+<td>None</td>
+<td>Role for the <a href="https://github.com/kubernetes/heapster">Heapster</a> component.</td>
+</tr>
+<tr>
+<td><b>system:kube-aggregator</b></td>
+<td>None</td>
+<td>Role for the <a href="https://github.com/kubernetes/kube-aggregator">kube-aggregator</a> component.</td>
+</tr>
+<tr>
+<td><b>system:kube-dns</b></td>
+<td><b>kube-dns</b> service account in the <b>kube-system</b> namespace</td>
+<td>Role for the <a href="/docs/admin/dns/">kube-dns</a> component.</td>
+</tr>
+<tr>
+<td><b>system:node-bootstrapper</b></td>
+<td>None</td>
+<td>Allows access to the resources required to perform <a href="/docs/admin/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.</td>
+</tr>
+<tr>
+<td><b>system:node-problem-detector</b></td>
+<td>None</td>
+<td>Role for the <a href="https://github.com/kubernetes/node-problem-detector">node-problem-detector</a> component.</td>
+</tr>
+<tr>
+<td><b>system:persistent-volume-provisioner</b></td>
+<td>None</td>
+<td>Allows access to the resources required by most <a href="/docs/user-guide/persistent-volumes/#provisioner">dynamic volume provisioners</a>.</td>
+</tr>
+</table>
+
+### Controller roles
+
+The [Kubernetes controller manager](/docs/admin/kube-controller-manager/) runs core control loops.
+When invoked with `--use-service-account-credentials`, each control loop is started using a separate service account.
+Corresponding roles exist for each control loop, prefixed with `system:controller:`.
+These roles include:
+
+* system:controller:attachdetach-controller
+* system:controller:certificate-controller
+* system:controller:cronjob-controller
+* system:controller:daemon-set-controller
+* system:controller:deployment-controller
+* system:controller:disruption-controller
+* system:controller:endpoint-controller
+* system:controller:generic-garbage-collector
+* system:controller:horizontal-pod-autoscaler
+* system:controller:job-controller
+* system:controller:namespace-controller
+* system:controller:node-controller
+* system:controller:persistent-volume-binder
+* system:controller:pod-garbage-collector
+* system:controller:replicaset-controller
+* system:controller:replication-controller
+* system:controller:resourcequota-controller
+* system:controller:route-controller
+* system:controller:service-account-controller
+* system:controller:service-controller
+* system:controller:statefulset-controller
+* system:controller:ttl-controller
 
 ## Privilege Escalation Prevention and Bootstrapping
 
-The `rbac.authorization.k8s.io` API inherently prevents users
-from escalating privileges by editing roles or role bindings.
-Simply put, __a user can't grant permissions they
-don't already have even when the RBAC authorizer it disabled__. If "user-1"
-does not have the ability to read secrets in "namespace-a", they cannot create
-a binding that would grant that permission to themselves or any other user.
+The RBAC API inherently prevents users from escalating privileges by editing roles or role bindings.
+Simply put, a user __can't grant permissions they don't already have__ via an RBAC role.
+Because this is enforced at the API level, it applies even when the RBAC authorizer is not in use.
+If "user-1" does not have the ability to read secrets in "namespace-a", they cannot create
+a role binding that would grant that permission to themselves or any other user.
 
 For bootstrapping the first roles, it becomes necessary for someone to get around these limitations.
 To bootstrap initial roles and role bindings:
 
-* Use a credential with the `system:masters` group, which is bound to the `cluster-admin` superuser role by the default bootstrap bindings.
-* If your API server serves with the insecure port enabled (--insecure-port), you can also make API calls via that port, which does not enforce authentication or authorization.
+* Use a credential with the `system:masters` group, which is bound to the `cluster-admin` superuser role by the default bindings.
+* If your API server serves with the insecure port enabled (`--insecure-port`), you can also make API calls via that port, which does not enforce authentication or authorization.
 
-To allow a user to create/modify roles:
+To allow a user to create/update roles:
 
-1. Grant them a role that allows them to create/update `Role` or `ClusterRole` resources, as desired.
-2. Grant them a role that includes all the permissions you would want them to be able to include in a `Role` or `ClusterRole`. If they attempt to create or modify a `Role` or `ClusterRole` to include permissions they themselves have not been granted, they will be rejected.
+1. Grant them a role that allows them to create/update `Role` or `ClusterRole` objects, as desired.
+2. Grant them a role that includes all the permissions you would want them to be able to include in a `Role` or `ClusterRole`. If they attempt to create or modify a `Role` or `ClusterRole` to include permissions they themselves have not been granted, the API request will be forbidden.
 
-To allow a user to create/modify role bindings:
+To allow a user to create/update role bindings:
 
-1. Grant them a role that allows them to create/update `RoleBinding` or `ClusterRoleBinding` resources, as desired.
+1. Grant them a role that allows them to create/update `RoleBinding` or `ClusterRoleBinding` objects, as desired.
 2. Grant them permissions needed to bind particular roles:
     * implicitly, by giving them the permissions contained in the roles
-    * explicitly, by giving them permission to perform the "bind" verb on the particular roles or clusterroles desired.
+    * explicitly, by giving them permission to perform the `bind` verb on the particular roles or cluster roles desired.
 
-## CLI helpers
+## Command-line utilities
 
-In order to ease the binding of `ClusterRoles`, two CLI helpers exist:
+Two `kubectl` commands exist to grant roles to users, within a namespace, or across the entire cluster.
 
 ### `kubectl create rolebinding`
 
@@ -384,7 +518,7 @@ including granting full API access to all service accounts.
 
 The default RBAC policies grant scoped permissions to control-plane components, nodes,
 and controllers, and grant *no permissions* to service accounts outside the `kube-system` namespace
-(beyond those given to unauthenticated users).
+(beyond discovery permissions given to all authenticated users).
 
 This allows the cluster administrator to grant particular roles to particular service accounts as needed.
 

@@ -4,7 +4,7 @@ assignees:
 - lavalamp
 - deads2k
 - liggitt
-title: Authorization Plugin Overview
+title: Overview
 ---
 
 In Kubernetes, authorization happens as a separate step from authentication.
