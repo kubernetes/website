@@ -37,7 +37,7 @@ username and password:
 
 1. Create the Secret
 
-        kubectl create -f http://k8s.io/docs/tasks/administer-cluster/secret.yaml
+        kubectl create -f secret.yaml
 
     **Note:** If you want to skip the Base64 encoding step, you can create a Secret
     by using the `kubectl create secret` command:
@@ -80,7 +80,7 @@ Here is a configuration file you can use to create a Pod:
 
 1. Create the Pod:
 
-        kubectl create -f http://k8s.io/docs/tasks/administer-cluster/secret-pod.yaml
+        kubectl create -f secret-pod.yaml
 
 1. Verify that your Pod is running:
 
@@ -127,7 +127,7 @@ Here is a configuration file you can use to create a Pod:
 
 1. Create the Pod:
 
-        kubectl create -f http://k8s.io/docs/tasks/administer-cluster/secret-envars-pod.yaml
+        kubectl create -f secret-envars-pod.yaml
 
 1. Verify that your Pod is running:
 
