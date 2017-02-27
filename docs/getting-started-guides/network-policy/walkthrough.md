@@ -31,12 +31,13 @@ This will run two nginx Pods in the default Namespace, and expose them through a
 
 ```console
 $ kubectl get svc,pod
-NAME                    CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
-kubernetes              10.100.0.1    <none>        443/TCP    46m
-nginx                   10.100.0.16   <none>        80/TCP     33s
-NAME                    READY         STATUS        RESTARTS   AGE
-nginx-701339712-e0qfq   1/1           Running       0          35s
-nginx-701339712-o00ef   1/1           Running       0          35s
+NAME                        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+svc/kubernetes              10.100.0.1    <none>        443/TCP    46m
+svc/nginx                   10.100.0.16   <none>        80/TCP     33s
+
+NAME                        READY         STATUS        RESTARTS   AGE
+po/nginx-701339712-e0qfq    1/1           Running       0          35s
+po/nginx-701339712-o00ef    1/1           Running       0          35s
 ```
 
 We should be able to access our new nginx Service from other Pods.  Let's try to access it from another Pod 

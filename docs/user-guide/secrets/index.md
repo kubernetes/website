@@ -534,8 +534,8 @@ consumes it in a volume:
 When the container's command runs, the pieces of the key will be available in:
 
 ```shell
-/etc/secret-volume/id-rsa.pub
-/etc/secret-volume/id-rsa
+/etc/secret-volume/ssh-publickey
+/etc/secret-volume/ssh-privatekey
 ```
 
 The container is then free to use the secret data to establish an ssh connection.
