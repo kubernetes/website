@@ -112,7 +112,7 @@ is exposed:
 
 1. In your shell, display the contents of the `username` and `password` files:
 
-        root@secret-test-pod:/etc/secret-volume# cat username password
+        root@secret-test-pod:/etc/secret-volume# cat username; echo; cat password; echo
 
     The output is your username and password:
 
