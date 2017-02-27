@@ -258,6 +258,8 @@ These environment variables are a short-term solution, eventually they will be i
 | `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:2.2.5` | The etcd container image to use. |
 | `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |
 
+If you want to use kubeadm with an http proxy, you may need to set it. support `http_proxy`, `https_proxy`, `no_proxy`.
+
 ## Releases and release notes
 
 If you already have kubeadm installed and want to upgrade, run `apt-get update && apt-get upgrade` or `yum update` to get the latest version of kubeadm.
