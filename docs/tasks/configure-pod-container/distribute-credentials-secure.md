@@ -42,7 +42,7 @@ username and password:
     **Note:** If you want to skip the Base64 encoding step, you can create a Secret
     by using the `kubectl create secret` command:
 
-        kubectl create secret generic test-secret --from-literal=username="my-app",password="39528$vdg7Jb"
+        kubectl create secret generic test-secret --from-literal=username='my-app',password='39528$vdg7Jb'
 
 1. View information about the Secret:
 
@@ -69,8 +69,8 @@ username and password:
 
         Data
         ====
-        password:   13 bytes
-        username:   7 bytes
+        password:   12 bytes
+        username:   6 bytes
 
 ## Creating a Pod that has access to the secret data through a Volume
 
