@@ -22,11 +22,11 @@ Suppose you want to have two pieces of secret data: a username `my-app` and a pa
 convert your username and password to a base-64 representation. Here's a Linux
 example:
 
-    echo 'my-app' | base64
-    echo '39528$vdg7Jb' | base64
+    echo -n 'my-app' | base64
+    echo -n '39528$vdg7Jb' | base64
 
-The output shows that the base-64 representation of your username is `bXktYXBwCg==`,
-and the base-64 representation of your password is `Mzk1MjgkdmRnN0piCg==`.
+The output shows that the base-64 representation of your username is `bXktYXBw`,
+and the base-64 representation of your password is `Mzk1MjgkdmRnN0pi`.
 
 ## Creating a Secret
 
