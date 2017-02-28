@@ -20,47 +20,48 @@ The configuration files are just standard pod definition in json or yaml format 
 
 For example, this is how to start a simple web server as a static pod:
 
-1.Choose a node where we want to run the static pod. In this example, it's `my-node1`.
+1. Choose a node where we want to run the static pod. In this example, it's `my-node1`.
 
-```shell
-[joe@host ~] $ ssh my-node1
-```
+    ```
+    [joe@host ~] $ ssh my-node1
+    ```
 
-2.Choose a directory, say `/etc/kubelet.d` and place a web server pod definition there, e.g. `/etc/kubernetes.d/static-web.yaml`:
+2. Choose a directory, say `/etc/kubelet.d` and place a web server pod definition there, e.g. `/etc/kubernetes.d/static-web.yaml`:
 
-```shell
-[root@my-node1 ~] $ mkdir /etc/kubernetes.d/
-[root@my-node1 ~] $ cat <<EOF >/etc/kubernetes.d/static-web.yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: static-web
-  labels:
-    role: myrole
-spec:
-  containers:
-    - name: web
-      image: nginx
-      ports:
+    ```
+    [root@my-node1 ~] $ mkdir /etc/kubernetes.d/
+    [root@my-node1 ~] $ cat <<EOF >/etc/kubernetes.d/static-web.yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: static-web
+      labels:
+        role: myrole
+    spec:
+      containers:
         - name: web
-          containerPort: 80
-          protocol: TCP
-EOF
-```
+          image: nginx
+          ports:
+            - name: web
+              containerPort: 80
+              protocol: TCP
+    EOF
+    ```
 
-3.Configure your kubelet daemon on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument.  On Fedora edit `/etc/kubernetes/kubelet` to include this line:
+3. Configure your kubelet daemon on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument.
+    On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 
-```conf
-KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
-```
+    ```conf
+    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
+    ```
 
-Instructions for other distributions or Kubernetes installations may vary.
+    Instructions for other distributions or Kubernetes installations may vary.
 
-4.Restart kubelet. On Fedora, this is:
+4. Restart kubelet. On Fedora, this is:
 
-```shell
-[root@my-node1 ~] $ systemctl restart kubelet
-```
+    ```
+    [root@my-node1 ~] $ systemctl restart kubelet
+    ```
 
 ## Pods created via HTTP
 
