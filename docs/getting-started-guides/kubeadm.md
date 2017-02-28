@@ -195,37 +195,47 @@ Once a pod network has been installed, you can confirm that it is working by che
 
 And once the `kube-dns` pod is up and running, you can continue by joining your nodes.
 
-If you see following status 
+If you see the following status 
 ```
 NAMESPACE     NAME                              READY     STATUS              RESTARTS   AGE
 kube-system   canal-node-f0lqp                  2/3       RunContainerError   2          48s
 ```
+
 Or 
 
 ```
 kube-system   canal-node-77d0h                  2/3       CrashLoopBackOff    3          3m
 kube-system   kube-dns-2924299975-7q1vq         0/4       ContainerCreating   0          15m
 ```
-The three status ```RunContainerError``` and ```CrashLoopBackOff``` and ```ContainerCreating``` very common. 
+The three statuses ```RunContainerError``` and ```CrashLoopBackOff``` and ```ContainerCreating``` are very common. 
 
-You may have trouble in configure. to diagnose what happened. you can using ```kubectl describe -n kube-system po {YOUR_POD_NAME}``` to check what's in logs. do not using kubectl logs. you will got
+You may have trouble in the configuration. To help diagnose what happened, you can use the following command to check what is in the logs:
+
+```bash
+kubectl describe -n kube-system po {YOUR_POD_NAME}
+```
+
+Do not using kubectl logs. you will got the following error:
+
 ```
 # kubectl logs -n kube-system canal-node-f0lqp
 Error from server (BadRequest): the server rejected our request for an unknown reason (get pods canal-node-f0lqp)
 ```
-The kubectl describe will gave you more details about the logs
+
+The ```kubectl describe``` gives you more details about the logs
 
 ```
 # kubectl describe -n kube-system po kube-dns-2924299975-1l2t7
   2m		2m		1	{kubelet nac}	spec.containers{flannel}		Warning		Failed		Failed to start container with docker id 927e7ccdc32b with error: Error response from daemon: {"message":"chown /etc/resolv.conf: operation not permitted"}
 
 ```
+
 Or
 ```
   6m	1m	191	{kubelet nac}		Warning	FailedSync	Error syncing pod, skipping: failed to "SetupNetwork" for "kube-dns-2924299975-1l2t7_kube-system" with SetupNetworkError: "Failed to setup network for pod \"kube-dns-2924299975-1l2t7_kube-system(dee8ef21-fbcb-11e6-ba19-38d547e0006a)\" using network plugins \"cni\": open /run/flannel/subnet.env: no such file or directory; Skipping pod"
 ```
 
-Then you can do some search with google, and you will find solutions.
+You can then do some Google searches on the error messages, which may help you to find some solutions.
 
 ### (4/4) Joining your nodes
 
