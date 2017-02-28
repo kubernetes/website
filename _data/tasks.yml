@@ -3,7 +3,7 @@ abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
-- title: Using the Kubectl Command-Line
+- title: Using the kubectl Command-Line
   section:
   - docs/tasks/kubectl/list-all-running-container-images.md
   - docs/tasks/kubectl/get-shell-running-container.md
