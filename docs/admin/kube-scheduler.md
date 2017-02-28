@@ -36,7 +36,6 @@ DynamicKubeletConfig=true|false (ALPHA - default=false)
 DynamicVolumeProvisioning=true|false (ALPHA - default=true)
 ExperimentalHostUserNamespaceDefaulting=true|false (ALPHA - default=false)
 StreamingProxyRedirects=true|false (ALPHA - default=false)
-      --google-json-key string                   The Google Cloud Platform Service Account JSON Key to use for authentication.
       --hard-pod-affinity-symmetric-weight int   RequiredDuringScheduling affinity is not symmetric, but there is an implicit PreferredDuringScheduling affinity rule corresponding to every RequiredDuringScheduling affinity rule. --hard-pod-affinity-symmetric-weight represents the weight of implicit PreferredDuringScheduling affinity rule. (default 1)
       --kube-api-burst int32                     Burst to use while talking with Kubernetes apiserver (default 100)
       --kube-api-content-type string             Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf")

@@ -49,7 +49,7 @@ The plugin requires a few things:
 
 * The standard CNI `bridge`, `lo` and `host-local` plugins are required, at minimum version 0.2.0. Kubenet will first search for them in `/opt/cni/bin`. Specify `network-plugin-dir` to supply additional search path. The first found match will take effect.
 * Kubelet must be run with the `--network-plugin=kubenet` argument to enable the plugin
-* Kubelet should also be run with the `--non-masquerade-cidr=<clusterCidr>` argumment to ensure traffic to IPs outside this range will use IP masquerade.
+* Kubelet should also be run with the `--non-masquerade-cidr=<clusterCidr>` argument to ensure traffic to IPs outside this range will use IP masquerade.
 * The node must be assigned an IP subnet through either the `--pod-cidr` kubelet command-line option or the `--allocate-node-cidrs=true --cluster-cidr=<cidr>` controller-manager command-line options.
 
 ### Customizing the MTU (with kubenet)
