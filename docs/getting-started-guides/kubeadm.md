@@ -195,34 +195,32 @@ Once a pod network has been installed, you can confirm that it is working by che
 
 And once the `kube-dns` pod is up and running, you can continue by joining your nodes.
 
-If you see the following status 
+
+You may have trouble in the configuration if you see the following statuses
+
 ```
 NAMESPACE     NAME                              READY     STATUS              RESTARTS   AGE
 kube-system   canal-node-f0lqp                  2/3       RunContainerError   2          48s
-```
-
-Or 
-
-```
 kube-system   canal-node-77d0h                  2/3       CrashLoopBackOff    3          3m
 kube-system   kube-dns-2924299975-7q1vq         0/4       ContainerCreating   0          15m
 ```
+
 The three statuses ```RunContainerError``` and ```CrashLoopBackOff``` and ```ContainerCreating``` are very common. 
 
-You may have trouble in the configuration. To help diagnose what happened, you can use the following command to check what is in the logs:
+To help diagnose what happened, you can use the following command to check what is in the logs:
 
 ```bash
 kubectl describe -n kube-system po {YOUR_POD_NAME}
 ```
 
-Do not using kubectl logs. you will got the following error:
+Do not using kubectl logs. You will got the following error:
 
 ```
 # kubectl logs -n kube-system canal-node-f0lqp
 Error from server (BadRequest): the server rejected our request for an unknown reason (get pods canal-node-f0lqp)
 ```
 
-The ```kubectl describe``` gives you more details about the logs
+The ```kubectl describe``` comand gives you more details about the logs
 
 ```
 # kubectl describe -n kube-system po kube-dns-2924299975-1l2t7
