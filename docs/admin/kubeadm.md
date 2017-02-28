@@ -31,7 +31,7 @@ server, as well as an additional kubeconfig file for administration.
 controller manager and scheduler, and placing them in
 `/etc/kubernetes/manifests`. The kubelet watches this directory for static
 resources to create on startup. These are the core components of Kubernetes, and
-once they are up and running we can use `kubectl` to set up/manage any
+once they are up and running we can use `kubectl` to set up or manage any
 additional components.
 
 1. kubeadm installs any add-on components, such as DNS or discovery, via the API
