@@ -5,14 +5,14 @@ toc:
 
 - docs/whatisk8s.md
 
+- docs/user-guide/index.md
+
 - title: Accessing the Cluster
   section:
   - docs/user-guide/prereqs.md
   - docs/user-guide/accessing-the-cluster.md
   - docs/user-guide/sharing-clusters.md
   - docs/user-guide/kubeconfig-file.md
-
-- docs/user-guide/index.md
 
 - docs/user-guide/ui.md
 
@@ -228,5 +228,5 @@ toc:
   - title: Federation Components
     section:
     - docs/admin/federation-apiserver.md
-    - title : federation-controller-mananger
+    - title : federation-controller-manager
       path: /docs/admin/federation-controller-manager

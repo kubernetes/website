@@ -180,48 +180,49 @@ available as configuration file options.
 
 ### Sample Master Configuration
 
-    ```yaml
-    apiVersion: kubeadm.k8s.io/v1alpha1
-    kind: MasterConfiguration
-    api:
-      advertiseAddresses:
-      - <address1|string>
-      - <address2|string>
-      bindPort: <int>
-      externalDNSNames:
-      - <dnsname1|string>
-      - <dnsname2|string>
-    cloudProvider: <string>
-    discovery:
-      bindPort: <int>
-    etcd:
-      endpoints:
-      - <endpoint1|string>
-      - <endpoint2|string>
-      caFile: <path|string>
-      certFile: <path|string>
-      keyFile: <path|string>
-    kubernetesVersion: <string>
-    networking:
-      dnsDomain: <string>
-      serviceSubnet: <cidr>
-      podSubnet: <cidr>
-    secrets:
-      givenToken: <token|string>
-    ```
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+api:
+  advertiseAddresses:
+  - <address1|string>
+  - <address2|string>
+  bindPort: <int>
+  externalDNSNames:
+  - <dnsname1|string>
+  - <dnsname2|string>
+authorizationMode: <string>
+cloudProvider: <string>
+discovery:
+  bindPort: <int>
+etcd:
+  endpoints:
+  - <endpoint1|string>
+  - <endpoint2|string>
+  caFile: <path|string>
+  certFile: <path|string>
+  keyFile: <path|string>
+kubernetesVersion: <string>
+networking:
+  dnsDomain: <string>
+  serviceSubnet: <cidr>
+  podSubnet: <cidr>
+secrets:
+  givenToken: <token|string>
+```
 
 ### Sample Node Configuration
 
-    ```yaml
-    apiVersion: kubeadm.k8s.io/v1alpha1
-    kind: NodeConfiguration
-    apiPort: <int>
-    discoveryPort: <int>
-    masterAddresses:
-    - <master1>
-    secrets:
-      givenToken: <token|string>
-    ```
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: NodeConfiguration
+apiPort: <int>
+discoveryPort: <int>
+masterAddresses:
+- <master1>
+secrets:
+  givenToken: <token|string>
+```
 
 ## Automating kubeadm
 
@@ -256,6 +257,8 @@ These environment variables are a short-term solution, eventually they will be i
 | `KUBE_DISCOVERY_IMAGE` | `gcr.io/google_containers/kube-discovery-<arch>:1.0` | The bootstrap discovery helper image to use. |
 | `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:2.2.5` | The etcd container image to use. |
 | `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |
+
+If you want to use kubeadm with an http proxy, you may need to configure it to support http_proxy, https_proxy, or no_proxy.
 
 ## Releases and release notes
 

@@ -27,7 +27,7 @@ The [Kubernetes Blog](http://blog.kubernetes.io) has some additional information
 * [The Distributed System Toolkit: Patterns for Composite Containers](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html)
 * [Container Design Patterns](http://blog.kubernetes.io/2016/06/container-design-patterns.html)
 
-Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run muliple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
+Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run multiple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
 
 ### How Pods Manage Multiple Containers
 
@@ -41,7 +41,7 @@ Pods provide two kinds of shared resources for their constituent containers: *ne
 
 #### Networking
 
-Each Pod is assigned a unique IP address. Every the container in a Pod shares the network namespace, including the IP address and network ports. Containers *inside a Pod* can communicate with one another using `localhost`. When containers in a Pod communicate with entities *outside the Pod*, they must coordinate how they use the shared network resources (such as ports).
+Each Pod is assigned a unique IP address. Every container in a Pod shares the network namespace, including the IP address and network ports. Containers *inside a Pod* can communicate with one another using `localhost`. When containers in a Pod communicate with entities *outside the Pod*, they must coordinate how they use the shared network resources (such as ports).
 
 #### Storage
 
@@ -57,7 +57,7 @@ Pods do not, by themselves, self-heal. If a Pod is scheduled to a Node that fail
 
 ### Pods and Controllers
 
-A Controller can create and manage multiple Pods for you, handling replication and rollout and providing self-healing capabilities at cluster scope. For example, if a Node fails, the Controller might automatically replace the Pod by scheduling an identical replacement on a different Node). 
+A Controller can create and manage multiple Pods for you, handling replication and rollout and providing self-healing capabilities at cluster scope. For example, if a Node fails, the Controller might automatically replace the Pod by scheduling an identical replacement on a different Node. 
 
 Some examples of Controllers that contain one or more pods include:
 

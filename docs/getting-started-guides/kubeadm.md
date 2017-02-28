@@ -69,6 +69,7 @@ For each host in turn:
 * SSH into the machine and become `root` if you are not already (for example, run `sudo su -`).
 * If the machine is running Ubuntu or HypriotOS, run:
 
+      apt-get update && apt-get install -y apt-transport-https
       curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
       cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
       deb http://apt.kubernetes.io/ kubernetes-xenial main
@@ -194,6 +195,46 @@ Once a pod network has been installed, you can confirm that it is working by che
 
 And once the `kube-dns` pod is up and running, you can continue by joining your nodes.
 
+
+You may have trouble in the configuration if you see the following statuses
+
+```
+NAMESPACE     NAME                              READY     STATUS              RESTARTS   AGE
+kube-system   canal-node-f0lqp                  2/3       RunContainerError   2          48s
+kube-system   canal-node-77d0h                  2/3       CrashLoopBackOff    3          3m
+kube-system   kube-dns-2924299975-7q1vq         0/4       ContainerCreating   0          15m
+```
+
+The three statuses ```RunContainerError``` and ```CrashLoopBackOff``` and ```ContainerCreating``` are very common. 
+
+To help diagnose what happened, you can use the following command to check what is in the logs:
+
+```bash
+kubectl describe -n kube-system po {YOUR_POD_NAME}
+```
+
+Do not using kubectl logs. You will got the following error:
+
+```
+# kubectl logs -n kube-system canal-node-f0lqp
+Error from server (BadRequest): the server rejected our request for an unknown reason (get pods canal-node-f0lqp)
+```
+
+The ```kubectl describe``` comand gives you more details about the logs
+
+```
+# kubectl describe -n kube-system po kube-dns-2924299975-1l2t7
+  2m		2m		1	{kubelet nac}	spec.containers{flannel}		Warning		Failed		Failed to start container with docker id 927e7ccdc32b with error: Error response from daemon: {"message":"chown /etc/resolv.conf: operation not permitted"}
+
+```
+
+Or
+```
+  6m	1m	191	{kubelet nac}		Warning	FailedSync	Error syncing pod, skipping: failed to "SetupNetwork" for "kube-dns-2924299975-1l2t7_kube-system" with SetupNetworkError: "Failed to setup network for pod \"kube-dns-2924299975-1l2t7_kube-system(dee8ef21-fbcb-11e6-ba19-38d547e0006a)\" using network plugins \"cni\": open /run/flannel/subnet.env: no such file or directory; Skipping pod"
+```
+
+You can then do some Google searches on the error messages, which may help you to find some solutions.
+
 ### (4/4) Joining your nodes
 
 The nodes are where your workloads (containers and pods, etc) run.
@@ -269,7 +310,7 @@ It takes several minutes to download and start all the containers, watch the out
 
 Then go to the IP address of your cluster's master node in your browser, and specify the given port.
 So for example, `http://<master_ip>:<port>`.
-In the example above, this was `31869`, but it is a different port for you.
+In the example above, this was `30001`, but it is a different port for you.
 
 If there is a firewall, make sure it exposes this port to the internet before you try to access it.
 
@@ -352,11 +393,11 @@ Please note: `kubeadm` is a work in progress and these limitations will be addre
 1. There is no built-in way of fetching the token easily once the cluster is up and running, but here is a `kubectl` command you can copy and paste that will print out the token for you:
 
     ```console
-    # kubectl -n kube-system get secret clusterinfo -o yaml | grep token-map | awk '{print $2}' | base64 -D | sed "s|{||g;s|}||g;s|:|.|g;s/\"//g;" | xargs echo
+    # kubectl -n kube-system get secret clusterinfo -o yaml | grep token-map | awk '{print $2}' | base64 --decode | sed "s|{||g;s|}||g;s|:|.|g;s/\"//g;" | xargs echo
     ```
 
 1. If you are using VirtualBox (directly or via Vagrant), you will need to ensure that `hostname -i` returns a routable IP address (i.e. one on the second network interface, not the first one).
    By default, it doesn't do this and kubelet ends-up using first non-loopback network interface, which is usually NATed.
-   Workaround: Modify `/etc/hosts`, take a look at this [`Vagrantfile`][ubuntu-vagrantfile] for how you this can be achieved.
+   Workaround: Modify `/etc/hosts`, take a look at this [`Vagrantfile`][ubuntu-vagrantfile] for how this can be achieved.
 
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11),
