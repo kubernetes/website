@@ -71,8 +71,9 @@ account. To create additional API tokens for a service account, create a secret
 of type `ServiceAccountToken` with an annotation referencing the service
 account, and the controller will update it with a generated token:
 
-```json
 secret.json:
+
+```json
 {
     "kind": "Secret",
     "apiVersion": "v1",

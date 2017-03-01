@@ -20,14 +20,22 @@ toc:
   - title: Controllers
     section:
     - docs/concepts/abstractions/controllers/statefulsets.md
+    - docs/concepts/abstractions/controllers/garbage-collection.md
 
 - title: Object Metadata
   section:
   - docs/concepts/object-metadata/annotations.md
 
+- title: Workloads
+  section:
+  - title: Pods
+    section:
+    - docs/concepts/workloads/pods/pod-lifecycle.md
+
 - title: Configuration
   section:
   - docs/concepts/configuration/container-command-args.md
+  - docs/concepts/configuration/manage-compute-resources-container.md
 
 - title: Policies
   section:

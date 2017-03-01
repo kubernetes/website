@@ -26,7 +26,7 @@ For example, this is how to start a simple web server as a static pod:
     [joe@host ~] $ ssh my-node1
     ```
 
-2. Choose a directory, say `/etc/kubelet.d` and place a web server pod definition there, e.g. `/etc/kubernetes.d/static-web.yaml`:
+2. Choose a directory, say `/etc/kubelet.d` and place a web server pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
 
     ```
     [root@my-node1 ~] $ mkdir /etc/kubernetes.d/
@@ -51,7 +51,7 @@ For example, this is how to start a simple web server as a static pod:
 3. Configure your kubelet daemon on the node to use this directory by running it with `--pod-manifest-path=/etc/kubelet.d/` argument.
     On Fedora edit `/etc/kubernetes/kubelet` to include this line:
 
-    ```conf
+    ```
     KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
     ```
 
@@ -73,8 +73,8 @@ When kubelet starts, it automatically starts all pods defined in directory speci
 
 ```shell
 [joe@my-node1 ~] $ docker ps
-CONTAINER ID IMAGE         COMMAND  CREATED        STATUS              NAMES
-f6d05272b57e nginx:latest  "nginx"  8 minutes ago  Up 8 minutes        k8s_web.6f802af4_static-web-fk-node1_default_67e24ed9466ba55986d120c867395f3c_378e5f3c
+CONTAINER ID IMAGE         COMMAND  CREATED        STATUS         PORTS     NAMES
+f6d05272b57e nginx:latest  "nginx"  8 minutes ago  Up 8 minutes             k8s_web.6f802af4_static-web-fk-node1_default_67e24ed9466ba55986d120c867395f3c_378e5f3c
 ```
 
 If we look at our Kubernetes API server (running on host `my-master`), we see that a new mirror-pod was created there too:
@@ -82,9 +82,9 @@ If we look at our Kubernetes API server (running on host `my-master`), we see th
 ```shell
 [joe@host ~] $ ssh my-master
 [joe@my-master ~] $ kubectl get pods
-POD                     IP           CONTAINER(S)   IMAGE(S)    HOST                        LABELS       STATUS    CREATED         MESSAGE
-static-web-my-node1     172.17.0.3                              my-node1/192.168.100.71     role=myrole  Running   11 minutes
-                                     web            nginx                                                Running   11 minutes
+NAME                       READY     STATUS    RESTARTS   AGE
+static-web-my-node1        1/1       Running   0          2m
+
 ```
 
 Labels from the static pod are propagated into the mirror-pod and can be used as usual for filtering.
@@ -95,8 +95,9 @@ Notice we cannot delete the pod with the API server (e.g. via [`kubectl`](/docs/
 [joe@my-master ~] $ kubectl delete pod static-web-my-node1
 pods/static-web-my-node1
 [joe@my-master ~] $ kubectl get pods
-POD                     IP           CONTAINER(S)   IMAGE(S)    HOST                        ...
-static-web-my-node1     172.17.0.3                              my-node1/192.168.100.71     ...
+NAME                       READY     STATUS    RESTARTS   AGE
+static-web-my-node1        1/1       Running   0          12s
+
 ```
 
 Back to our `my-node1` host, we can try to stop the container manually and see, that kubelet automatically restarts it in a while:
@@ -115,11 +116,11 @@ CONTAINER ID        IMAGE         COMMAND                CREATED       ...
 Running kubelet periodically scans the configured directory (`/etc/kubelet.d` in our example) for changes and adds/removes pods as files appear/disappear in this directory.
 
 ```shell
-[joe@my-node1 ~] $ mv /etc/kubernetes.d/static-web.yaml /tmp
+[joe@my-node1 ~] $ mv /etc/kubelet.d/static-web.yaml /tmp
 [joe@my-node1 ~] $ sleep 20
 [joe@my-node1 ~] $ docker ps
 // no nginx container is running
-[joe@my-node1 ~] $ mv /tmp/static-web.yaml  /etc/kubernetes.d/
+[joe@my-node1 ~] $ mv /tmp/static-web.yaml  /etc/kubelet.d/
 [joe@my-node1 ~] $ sleep 20
 [joe@my-node1 ~] $ docker ps
 CONTAINER ID        IMAGE         COMMAND                CREATED           ...
