@@ -9,7 +9,7 @@ title: Setting up Kubernetes with Juju
 Ubuntu 16.04 introduced the [Canonical Distribution of Kubernetes](https://www.ubuntu.com/cloud/kubernetes), a pure upstream distribution of Kubernetes designed for production usage. This page shows you how to deploy a cluster.
 {% endcapture %}
 
-Out of the box it comes with the following components on 9 machines:
+Out of the box Juju Kubernetes comes with the following components on 9 machines:
 
 - Kubernetes (automated deployment, operations, and scaling)
      - Three node Kubernetes cluster with one master and two worker nodes.
