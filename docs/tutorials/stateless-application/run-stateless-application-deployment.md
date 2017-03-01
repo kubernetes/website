@@ -1,5 +1,8 @@
 ---
 title: Running a Stateless Application Using a Deployment
+redirect_from:
+- "/docs/user-guide/simple-nginx/"
+- "/docs/user-guide/simple-nginx.html"
 ---
 
 {% capture overview %}
