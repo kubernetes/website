@@ -11,7 +11,6 @@ This page assumes you have a working Juju deployed cluster.
 {% endcapture %}
 
 {% capture steps %}
-
 ## Exporting cluster data
 
 Exporting of cluster data is not supported at this time. 
