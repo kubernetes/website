@@ -32,7 +32,7 @@ kubectl apply -f FILENAME
   # Apply the configuration in manifest.yaml that matches label app=nginx and delete all the other resources that are not in the file and match label app=nginx.
   kubectl apply --prune -f manifest.yaml -l app=nginx
   
-  # Apply the configuration in manifest.yaml and delete all the other configmaps that are not in the file.
+  # Apply the configuration in manifest.yaml and delete all the other configmaps with the same label key that are not in the file.
   kubectl apply --prune -f manifest.yaml --all --prune-whitelist=core/v1/ConfigMap
 ```
 

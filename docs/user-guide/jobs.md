@@ -66,7 +66,7 @@ To view completed pods of a job, use `kubectl get pods --show-all`.  The `--show
 To list all the pods that belong to a job in a machine readable form, you can use a command like this:
 
 ```shell
-$ pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath={.items..metadata.name})
+$ pods=$(kubectl get pods  --show-all --selector=job-name=pi --output=jsonpath={.items..metadata.name})
 echo $pods
 pi-aiw0a
 ```
@@ -120,7 +120,7 @@ There are three main types of jobs:
   - the job is complete when there is one successful pod for each value in the range 1 to `.spec.completions`.
   - **not implemented yet:** each pod passed a different index in the range 1 to `.spec.completions`.
 1. Parallel Jobs with a *work queue*:
-  - do not specify `.spec.completions`
+  - do not specify `.spec.completions`, default to `.spec.Parallelism`
   - the pods must coordinate with themselves or an external service to determine what each should work on
   - each pod is independently capable of determining whether or not all its peers are done, thus the entire Job is done.
   - when _any_ pod terminates with success, no new pods are created.

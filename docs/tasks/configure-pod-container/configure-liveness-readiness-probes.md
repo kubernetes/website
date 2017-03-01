@@ -247,7 +247,7 @@ where you would set it. Suppose the Container listens on 127.0.0.1 and the Pod's
 If your pod relies on virtual hosts, which is probably the more common case,
 you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
-In addition to command probes and HTTP probes, Kubenetes supports
+In addition to command probes and HTTP probes, Kubernetes supports
 [TCP probes](/docs/api-reference/v1/definitions/#_v1_tcpsocketaction).
 
 {% endcapture %}
@@ -255,7 +255,7 @@ In addition to command probes and HTTP probes, Kubenetes supports
 {% capture whatsnext %}
 
 * Learn more about
-[Container Probes](/docs/user-guide/pod-states/#container-probes).
+[Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 * Learn more about
 [Health Checking section](/docs/user-guide/walkthrough/k8s201/#health-checking).

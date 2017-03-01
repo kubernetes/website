@@ -26,6 +26,17 @@ Together, these two ways of exposing Pod and Container fields are called the
 
 {% capture steps %}
 
+## The Downward API
+
+There are two ways to expose Pod and Container fields to a running Container:
+
+* Environment variables
+* [DownwardAPIVolumeFiles](/docs/resources-reference/v1.5/#downwardapivolumefile-v1)
+
+Together, these two ways of exposing Pod and Container fields are called the
+*Downward API*.
+
+
 ## Using Pod fields as values for environment variables
 
 In this exercise, you create a Pod that has one Container. Here is the
@@ -161,3 +172,4 @@ The output shows the values of selected environment variables:
 
 
 {% include templates/task.md %}
+
