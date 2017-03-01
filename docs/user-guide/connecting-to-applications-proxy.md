@@ -7,4 +7,4 @@ title: Connect with Proxies
 
 {% include user-guide-content-moved.md %}
 
-[Using an HTTP Proxy to Access the Kubernetes API](https://github.com/kubernetes/kubernetes.github.io/pull/2662)
+[Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
