@@ -210,6 +210,18 @@ networking:
   podSubnet: <cidr>
 secrets:
   givenToken: <token|string>
+apiServerExtraArgs: {
+  <argument>: <value|string>,
+  <argument>: <value|string>,
+}
+controllerManagerExtraArgs: {
+  <argument>: <value|string>,
+  <argument>: <value|string>,
+}
+schedulerExtraArgs: {
+  <argument>: <value|string>,
+  <argument>: <value|string>,
+}
 ```
 
 ### Sample Node Configuration
