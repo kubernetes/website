@@ -1,5 +1,5 @@
 ---
-title: Listing all Container images running in the cluster
+title: Listing All Container Images Running in a Cluster
 ---
 
 {% capture overview %}
