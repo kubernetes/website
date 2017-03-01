@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: with-pod-affinity
+  annotations:
+    scheduler.alpha.kubernetes.io/affinity: >
+        {
+          "podAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": [
+              {
+                "labelSelector": {
+                  "matchExpressions": [
+                    {
+                      "key": "security",
+                      "operator": "In",
+                      "values": ["S1"]
+                    }
+                  ]
+                },
+                "topologyKey": "failure-domain.beta.kubernetes.io/zone"
+             }
+            ]
+           },
+          "podAntiAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": [
+              {
+                "labelSelector": {
+                  "matchExpressions": [
+                    {
+                      "key": "security",
+                      "operator": "In",
+                      "values": ["S2"]
+                    }
+                  ]
+                },
+                "topologyKey": "kubernetes.io/hostname"
+             }
+            ]
+           }
+         }
+spec:
+  containers:
+  - name: with-pod-affinity
+    image: gcr.io/google_containers/pause:2.0
