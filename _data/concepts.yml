@@ -36,6 +36,7 @@ toc:
   section:
   - docs/concepts/configuration/container-command-args.md
   - docs/concepts/configuration/manage-compute-resources-container.md
+  - docs/concepts/configuration/assigning-pods-to-nodes.md
 
 - title: Policies
   section:
