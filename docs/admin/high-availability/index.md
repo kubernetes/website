@@ -9,7 +9,7 @@ Users who merely want to experiment with Kubernetes are encouraged to use config
 the simple [Docker based single node cluster instructions](/docs/getting-started-guides/docker),
 or try [Google Container Engine](https://cloud.google.com/container-engine/) for hosted Kubernetes.
 
-Also, at this time high availability support for Kubernetes is not continuously tested in our end-to-end (e2e) testing.  We will
+Also, at this time high availability supports for Kubernetes is not continuously tested in our end-to-end (e2e) testing.  We will
 be working to add this continuous testing, but for now the single-node master installations are more heavily tested.
 
 * TOC

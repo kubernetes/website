@@ -13,15 +13,15 @@ added in Kubernetes v1.4.
 
 ## What is AppArmor
 
-AppArmor is a Linux kernel security module that supplements the standard Linux user and group based
-permissions to confine programs to a limited set of resources. AppArmor can be configured for any
+AppArmor is a Linux kernel security module that supplements the standard Linux user and group based 
+on permissions to confine programs to a limited set of resources. AppArmor can be configured for any
 application to reduce its potential attack surface and provide greater defense in depth. It is
 configured through profiles tuned to whitelist the access needed by a specific program or container,
 such as Linux capabilities, network access, file permissions, etc. Each profile can be run in either
 enforcing mode, which blocks access to disallowed resources, or complain mode, which only reports
 violations.
 
-AppArmor can help you to run a more secure deployment by restricting what containers are allowed to
+AppArmor can help you to run a more secure deployment by restricting what containers is allowed to
 do, and /or providing better auditing through system logs. However, it is important to keep in mind
 that AppArmor is not a silver bullet, and can only do so much to protect against exploits in your
 application code. It is important to provide good, restrictive profiles, and harden your
@@ -69,7 +69,7 @@ AppArmor support in Kubernetes is currently in beta.
     options if the runtime is not Docker.
 
 4. **Profile is loaded**. AppArmor is applied to a Pod by specifying an AppArmor profile that each
-   container should be run with. If any of the specified profiles is not already loaded in the
+   container should be run with. If any of the specified profiles is not already loaded into the
    kernel, the Kubelet (>= v1.4) will reject the Pod. You can view which profiles are loaded on a
    node by checking the `/sys/kernel/security/apparmor/profiles` file. For example:
 
@@ -98,7 +98,7 @@ later release):
 general availability, the annotations will be replaced with first-class fields (more details in
 [Upgrade path to GA](#upgrade-path-to-general-availability)).*
 
-AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod
+AppArmor profiles are specified *per-container*. To specify the AppArmor profiles to run a Pod
 container with, add an annotation to the Pod's metadata:
 
     container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
@@ -112,7 +112,7 @@ specifies the profile to apply. The `profile_ref` can be one of:
 See the [API Reference](#api-reference) for the full details on the annotation and profile name formats.
 
 The Kubernetes AppArmor enforcement works by first checking that all the prerequisites have been
-met, and then forwarding the profile selection to the container runtime for enforcement. If the
+met, and then forwarding the profile selection of the container runtime for enforcement. If the
 prerequisites have not been met, the Pod will be rejected, and will not run.
 
 To verify that the profile was applied, you can expect to see the AppArmor security option listed in the container created event:
@@ -316,7 +316,7 @@ No action is required with respect to AppArmor to upgrade your cluster to v1.4. 
 existing pods had an AppArmor annotation, they will not go through validation (or PodSecurityPolicy
 admission). If permissive profiles are loaded on the nodes, a malicious user could pre-apply a
 permissive profile to escalate the pod privileges above the docker-default. If this is a concern, it
-is recommended to scrub the cluster of any pods containing an annotation with
+is recommended to scrubbing the cluster of any pods containing an annotation with
 `apparmor.security.beta.kubernetes.io`.
 
 ### Upgrade path to General Availability
@@ -338,7 +338,7 @@ tools to help with that:
 - [bane](https://github.com/jfrazelle/bane) is an AppArmor profile generator for Docker that uses a
   simplified profile language.
 
-It is recommended to run your application through Docker on a development workstation to generate
+It is recommended to running your application through Docker on a development workstation to generate
 the profiles, but there is nothing preventing running the tools on the Kubernetes node where your
 Pod is running.
 
@@ -349,7 +349,7 @@ logs or through `journalctl`. More information is provided in
 
 Additional resources:
 
-- [Quick guide to the AppArmor profile language](http://wiki.apparmor.net/index.php/QuickProfileLanguage)
+- [Quick guided to the AppArmor profile language](http://wiki.apparmor.net/index.php/QuickProfileLanguage)
 - [AppArmor core policy reference](http://wiki.apparmor.net/index.php/ProfileLanguage)
 
 ## API Reference

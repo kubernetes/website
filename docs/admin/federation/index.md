@@ -48,7 +48,7 @@ at the end of this guide.
 Create a directory to store the configs required to turn up federation
 and export that directory path in the environment variable
 `FEDERATION_OUTPUT_ROOT`. This can be an existing directory, but it is
-highly recommended to create a separate directory so that it is easier
+highly recommended to creating a separate directory so that it is easier
 to clean up later.
 
 ```shell
