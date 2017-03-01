@@ -180,6 +180,7 @@ toc:
   - docs/admin/cluster-management.md
   - docs/admin/kubeadm.md
   - docs/admin/addons.md
+  - docs/admin/node-allocatable.md
   - docs/admin/audit.md
   - docs/admin/ha-master-gce.md
   - docs/admin/namespaces/index.md
