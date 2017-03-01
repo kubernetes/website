@@ -83,8 +83,8 @@ test   50M          RWO       Available                              10s
 ```
 
 To consume these Persistent Volumes, your pods will need an associated
-Persistant Volume Claim with them, and is outside the scope of this README. See the
-[Persistant Volumes](http://kubernetes.io/docs/user-guide/persistent-volumes/)
+Persistent Volume Claim with them, and is outside the scope of this README. See the
+[Persistent Volumes](http://kubernetes.io/docs/user-guide/persistent-volumes/)
 documentation for more information.
 {% endcapture %}
 
