@@ -255,7 +255,7 @@ In addition to command probes and HTTP probes, Kubernetes supports
 {% capture whatsnext %}
 
 * Learn more about
-[Container Probes](/docs/user-guide/pod-states/#container-probes).
+[Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 * Learn more about
 [Health Checking section](/docs/user-guide/walkthrough/k8s201/#health-checking).
