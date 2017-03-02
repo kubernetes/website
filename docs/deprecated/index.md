@@ -18,10 +18,10 @@ Listed below are links to the current proposed features for deprecation:
 
 [Persistent Storage Recycler](pv-recycler.md)
 
-### Deprecated Elements
+## Deprecated Features
 
 
-### How do I get started?
+## How do I get started?
 
 - Read the [deprecation policy](https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/deprecation-policy.md) to 
 understand the rules that govern deprecation of elements of the API.
