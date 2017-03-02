@@ -16,7 +16,7 @@ Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernete
 
 Listed below are links to the current proposed features for deprecation:
 
-[Persistent Storage Recycler](https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/deprecated/pv-recycler.md)
+[Persistent Storage Recycler](pv-recycler.md)
 
 ### Deprecated Elements
 
