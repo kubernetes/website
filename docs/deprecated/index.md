@@ -1,10 +1,11 @@
 ---
 layout: docwithnav
 title: Kubernetes Deprecation listing
-permalink: /decprecated/
+permalink: /deprecated/
 assignees:
-- eboyd
-- bgrant
+- thockin
+- lavalamp
+- bgrant0607
 ---
 
 ## Deprecation Announcements
@@ -15,11 +16,12 @@ Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernete
 
 Listed below are links to the current proposed features for deprecation:
 
-[Presistent Storage Recycler](https://github.com/kubernetes/kubernetes.github.io/tree/master/docs/deprecated/pv-recycler.md)
+[Persistent Storage Recycler](https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/deprecated/pv-recycler.md)
 
-### Deprecated features
+### Deprecated Elements
 
 
 ### How do I get started?
 
-- Read the deprecation policy to ensure the proper process
+- Read the [deprecation policy](https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/deprecation-policy.md) to 
+understand the rules that govern deprecation of elements of the API.
