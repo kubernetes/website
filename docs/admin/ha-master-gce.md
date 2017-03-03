@@ -107,7 +107,7 @@ This operation may be sped up by migrating etcd data directory, as described [he
 
 ## Implementation notes
 
-![ha-master-gce](http://kubernetes.io/images/docs/ha-master-gce.png)
+![ha-master-gce](/images/docs/ha-master-gce.png)
 
 ### Overview
 
