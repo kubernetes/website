@@ -25,7 +25,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 10251   
+            port: 10251
           initialDelaySeconds: 15
         name: kube-second-scheduler
         readinessProbe:
