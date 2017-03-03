@@ -260,7 +260,7 @@ These environment variables are a short-term solution, eventually they will be i
 
 If you want to use kubeadm with an http proxy, you may need to configure it to support http_proxy, https_proxy, or no_proxy.
 
-For example, your kube master node ip is 10.18.17.16, and you have a proxy support both http/https on 10.18.17.16 port 8080
+For example, if your kube master node IP address is 10.18.17.16 and you have proxy support both http/https on 10.18.17.16 port 8080, you can use the following command:
 
 You can using following command 
 
@@ -274,7 +274,7 @@ export HTTPS_PROXY=$http_proxy
 export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,example.com,10.18.17.16"
 ```
 
-Remember change ```proxy_ip``` and add kube master node ip to ```no_proxy```
+Remember to change ```proxy_ip``` and add a kube master node IP address to ```no_proxy```.
 
 ## Releases and release notes
 
