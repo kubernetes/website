@@ -54,8 +54,3 @@ toc:
   - docs/tasks/manage-stateful-set/deleting-a-statefulset.md
   - docs/tasks/manage-stateful-set/debugging-a-statefulset.md
   - docs/tasks/manage-stateful-set/delete-pods.md
-
-- title: Troubleshooting
-  section:
-  - docs/tasks/troubleshoot/debug-init-containers.md
-  - docs/tasks/administer-cluster/access-control-identity-management/
