@@ -12,6 +12,7 @@ Disallow: /docs/user-guide/liveness/index
 Disallow: /docs/user-guide/simple-nginx
 Disallow: /docs/user-guide/production-pods
 
+Disallow: /docs/user-guide/persistent-volumes/walkthrough
 Disallow: /docs/user-guide/pods/single-container
 
 SITEMAP: http://kubernetes.io/sitemap.xml
