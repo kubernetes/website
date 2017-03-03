@@ -541,8 +541,8 @@ Finally, add the following parameters into API server start parameters:
 1.  Generate server certificate and key.
     (build-server-full [filename]: Generate a keypair and sign locally for a client or server)
 
-          ./easyrsa --subject-alt-name="IP:${MASTER_IP}" build-server-full kubernetes-master nopass
-1.  Copy `pki/ca.crt`, `pki/issued/kubernetes-master.crt`, and `pki/private/kubernetes-master.key` to your directory.
+          ./easyrsa --subject-alt-name="IP:${MASTER_IP}" build-server-full server nopass
+1.  Copy `pki/ca.crt`, `pki/issued/server.crt`, and `pki/private/server.key` to your directory.
 1.  Fill in and add the following parameters into the API server start parameters:
 
           --client-ca-file=/yourdirectory/ca.crt
