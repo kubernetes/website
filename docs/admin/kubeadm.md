@@ -34,7 +34,7 @@ resources to create on startup. These are the core components of Kubernetes, and
 once they are up and running we can use `kubectl` to set up or manage any
 additional components.
 
-1. kubeadm installs any add-on components, such as DNS or discovery, via the API
+1. kubeadm installs some add-on components, such as DNS or discovery, via the API
 server.
 
 Running `kubeadm join` on each node in the cluster consists of the following steps:
