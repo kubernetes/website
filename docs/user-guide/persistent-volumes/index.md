@@ -132,14 +132,13 @@ Each PV contains a spec and status, which is the specification and status of the
   kind: PersistentVolume
   metadata:
     name: pv0003
-    annotations:
-      volume.beta.kubernetes.io/storage-class: "slow"
   spec:
     capacity:
       storage: 5Gi
     accessModes:
       - ReadWriteOnce
     persistentVolumeReclaimPolicy: Recycle
+    storageClassName: slow
     nfs:
       path: /tmp
       server: 172.17.0.2
@@ -193,13 +192,14 @@ In the CLI, the access modes are abbreviated to:
 ### Class
 
 A PV can have a class, which is specified by setting the
-`volume.beta.kubernetes.io/storage-class` annotation to the name of a
+`storageClassName` attribute to the name of a
 `StorageClass`. A PV of a particular class can only be bound to PVCs requesting
-that class. A PV with no annotation or its class annotation set to `""` has no
-class and can only be bound to PVCs that request no particular class.
+that class. A PV with no `storageClassName` has no class and can only be bound
+to PVCs that request no particular class.
 
-In the future after beta, the `volume.beta.kubernetes.io/storage-class`
-annotation will become an attribute.
+In the past, annotation `volume.beta.kubernetes.io/storage-class` was used instead
+of `storageClassName` attribute. This annotation is still working, however
+it won't be supported in a future Kubernetes release.
 
 ### Reclaim Policy
 
@@ -231,14 +231,13 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: myclaim
-  annotations:
-    volume.beta.kubernetes.io/storage-class: "slow"
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 8Gi
+  storageClassName: slow
   selector:
     matchLabels:
       release: "stable"
@@ -266,38 +265,39 @@ All of the requirements, from both `matchLabels` and `matchExpressions` are ANDe
 ### Class
 
 A claim can request a particular class by specifying the name of a
-`StorageClass`using the annotation `volume.beta.kubernetes.io/storage-class`.
-Only PVs of the requested class, ones with the same annotation as the PVC, can
+`StorageClass`using the attribute `storageClassName`.
+Only PVs of the requested class, ones with the same `storageClassName` as the PVC, can
 be bound to the PVC.
 
-PVCs don't necessarily have to request a class. A PVC with its annotation set
+PVCs don't necessarily have to request a class. A PVC with its `storageClasName` set
 equal to `""` is always interpreted to be requesting a PV with no class, so it
 can only be bound to PVs with no class (no annotation or one set equal to
-`""`). A PVC with no annotation is not quite the same and is treated differently
+`""`). A PVC with no `storageClassName` is not quite the same and is treated differently
 by the cluster depending on whether the
 [`DefaultStorageClass` admission plugin](/docs/admin/admission-controllers/#defaultstorageclass)
 is turned on.
 
 * If the admission plugin is turned on, the administrator may specify a
-default `StorageClass`. All PVCs that have no annotation can be bound only to
+default `StorageClass`. All PVCs that have no `storageClassName` can be bound only to
 PVs of that default. Specifying a default `StorageClass` is done by setting the
-annotation `storageclass.beta.kubernetes.io/is-default-class` equal to "true" in
+annotation `storageclass.kubernetes.io/is-default-class` equal to "true" in
 a `StorageClass` object. If the administrator does not specify a default, the
 cluster responds to PVC creation as if the admission plugin were turned off. If
 more than one default is specified, the admission plugin forbids the creation of
 all PVCs.
 * If the admission plugin is turned off, there is no notion of a default
-`StorageClass`. All PVCs that have no annotation can be bound only to PVs that
-have no class. In this case the PVCs that have no annotation are treated the
-same way as PVCs that have their annotation set to `""`.
+`StorageClass`. All PVCs that have no `storageClassName` can be bound only to PVs that
+have no class. In this case the PVCs that have no `storageClassName` are treated the
+same way as PVCs that have their `storageClassName` set to `""`.
 
 When a PVC specifies a `selector` in addition to requesting a `StorageClass`,
 the requirements are ANDed together: only a PV of the requested class and with
 the requested labels may be bound to the PVC. Note that currently, a PVC with a
 non-empty `selector` can't have a PV dynamically provisioned for it.
 
-In the future after beta, the `volume.beta.kubernetes.io/storage-class`
-annotation will become an attribute.
+In the past, annotation `volume.beta.kubernetes.io/storage-class` was used instead
+of `storageClassName` attribute. This annotation is still working, however
+it won't be supported in a future Kubernetes release.
 
 ## Claims As Volumes
 
@@ -343,7 +343,7 @@ for details.
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: standard
 provisioner: kubernetes.io/aws-ebs
@@ -353,8 +353,7 @@ parameters:
 
 ### Provisioner
 Storage classes have a provisioner that determines what volume plugin is used
-for provisioning PVs. This field must be specified. During beta, the available
-provisioner types are `kubernetes.io/aws-ebs` and `kubernetes.io/gce-pd`.
+for provisioning PVs. This field must be specified.
 
 ### Parameters
 Storage classes have parameters that describe volumes belonging to the storage
@@ -367,7 +366,7 @@ used.
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: slow
 provisioner: kubernetes.io/aws-ebs
@@ -387,7 +386,7 @@ parameters:
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: slow
 provisioner: kubernetes.io/gce-pd
@@ -402,7 +401,7 @@ parameters:
 #### Glusterfs
 
 ```yaml
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: slow
@@ -430,7 +429,7 @@ parameters:
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: gold
 provisioner: kubernetes.io/cinder
@@ -446,7 +445,7 @@ parameters:
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: fast
 provisioner: kubernetes.io/vsphere-volume
@@ -459,7 +458,7 @@ parameters:
 #### Ceph RBD
 
 ```yaml
-  apiVersion: storage.k8s.io/v1beta1
+  apiVersion: storage.k8s.io/v1
   kind: StorageClass
   metadata:
     name: fast
@@ -488,7 +487,7 @@ parameters:
 #### Quobyte
 
 ```yaml
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
    name: slow
@@ -520,7 +519,7 @@ parameters:
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: slow
 provisioner: kubernetes.io/azure-disk
@@ -547,7 +546,7 @@ and need persistent storage, we recommend that you use the following pattern:
   - If the user provides a storage class name, and the cluster is version 1.4 or newer, put that value into the `volume.beta.kubernetes.io/storage-class` annotation of the PVC.
     This will cause the PVC to match the right storage class if the cluster has StorageClasses enabled by the admin.
   - If the user does not provide a storage class name or the cluster is version 1.3, then instead put a `volume.alpha.kubernetes.io/storage-class: default` annotation on the PVC.
-    - This will cause a PV to be automatically provisioned for the user with sane default characteristics on some clusters.  
+    - This will cause a PV to be automatically provisioned for the user with sane default characteristics on some clusters.
     - Despite the word `alpha` in the name, the code behind this annotation has `beta` level support.
     - Do not use `volume.beta.kubernetes.io/storage-class:` with any value including the empty string since it will prevent DefaultStorageClass admission controller
       from running if enabled.
