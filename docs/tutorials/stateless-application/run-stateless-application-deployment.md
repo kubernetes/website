@@ -5,6 +5,8 @@ redirect_from:
 - "/docs/user-guide/simple-nginx.html"
 - "/docs/user-guide/pods/single-container/"
 - "/docs/user-guide/pods/single-container.html"
+- "/docs/user-guide/deploying-applications/"
+- "/docs/user-guide/deploying-applications.html"
 ---
 
 {% capture overview %}
