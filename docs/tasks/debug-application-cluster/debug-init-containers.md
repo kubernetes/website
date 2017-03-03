@@ -8,6 +8,9 @@ assignees:
 - kow3ns
 - smarterclayton
 title: Debugging Init Containers
+redirect_from:
+- "/docs/tasks/troubleshoot/debug-init-containers/"
+- "/docs/tasks/troubleshoot/debug-init-containers.html"
 ---
 
 {% capture overview %}
