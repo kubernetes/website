@@ -33,6 +33,10 @@ toc:
     section:
     - docs/concepts/workloads/pods/pod-lifecycle.md
 
+- title: Clusters
+  section:
+  - docs/concepts/clusters/logging.md
+
 - title: Configuration
   section:
   - docs/concepts/configuration/container-command-args.md
