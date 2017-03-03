@@ -5,6 +5,7 @@ Disallow: /v1.0/
 Disallow: /v1.1/
 Disallow: /404/
 Disallow: 404.html
-Disallow: /docs/user-guide/docs/user-guide/simple-nginx/
+Disallow: /docs/user-guide/simple-nginx
+Disallow: /docs/user-guide/liveness/index
 
 SITEMAP: http://kubernetes.io/sitemap.xml
