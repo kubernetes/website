@@ -218,7 +218,7 @@ Once you've registered your cluster with the federation, you'll need to update K
 
 ### Kubernetes 1.5+: Passing federations flag via config map to kube-dns
 
-For kubernetes clusters of version 1.5+, you can pass the
+For Kubernetes clusters of version 1.5+, you can pass the
 `--federations` flag to kube-dns via the kube-dns config map.
 The flag uses the following format:
 
@@ -236,7 +236,7 @@ metadata:
   name: kube-dns
   namespace: kube-system
 data:
-  federations: <federation-name>=<dns-domain-name>
+  federations: <federation-name>=<federation-domain-name>
 ```
 
 where `<federation-name>` should be replaced by the name you want to give to your
@@ -249,7 +249,7 @@ http://kubernetes.io/docs/user-guide/configmap/.
 
 ### Kubernetes 1.4 and earlier: Setting federations flag on kube-dns-rc
 
-If your cluster is running Kubernetes version 1.4 or earlier, you must to restart
+If your cluster is running Kubernetes version 1.4 or earlier, you must restart
 KubeDNS and pass it a `--federations` flag, which tells it about valid federation DNS hostnames.
 The flag uses the following format:
 
@@ -352,7 +352,7 @@ $ KUBERNETES_PROVIDER=gce FEDERATION_DNS_PROVIDER=google-clouddns FEDERATION_NAM
 set appropriately if it is missing and `KUBERNETES_PROVIDER` is one of `gce`, `gke` and `aws`.
 This is used to resolve DNS requests for federation services. The service
 controller keeps DNS records with the provider updated as services/pods are
-updated in underlying kubernetes clusters.
+updated in underlying Kubernetes clusters.
 
 `FEDERATION_NAME` is a name you can choose for your federation. This is the name that will appear in DNS routes.
 

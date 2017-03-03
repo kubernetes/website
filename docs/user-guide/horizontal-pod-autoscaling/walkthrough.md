@@ -10,7 +10,7 @@ Horizontal Pod Autoscaling automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
 (or, with alpha support, on some other, application-provided metrics).
 
-In this document we explain how this feature works by walking you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.
+This document walks you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.  For more information on how Horizontal Pod Autoscaling behaves, see the [Horizontal Pod Autoscaling glossary entry](/docs/user-guide/horizontal-pod-autoscaling/). 
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ heapster monitoring will be turned-on by default).
 ## Step One: Run & expose php-apache server
 
 To demonstrate Horizontal Pod Autoscaler we will use a custom docker image based on the php-apache image.
-The image can be found [here](/docs/user-guide/horizontal-pod-autoscaling/image).
+The Dockerfile can be found [here](/docs/user-guide/horizontal-pod-autoscaling/image/Dockerfile).
 It defines an [index.php](/docs/user-guide/horizontal-pod-autoscaling/image/index.php) page which performs some CPU intensive computations.
 
 First, we will start a deployment running the image and expose it as a service:

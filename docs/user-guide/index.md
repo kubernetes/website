@@ -8,7 +8,7 @@ The Kubernetes **Guides** can help you work with various aspects of the Kubernet
 
 * The Kubernetes [User Guide](#user-guide-internal) can help you run programs and services on an existing Kubernetes cluster.
 * The [Cluster Admin Guide](/docs/admin/) can help you set up and administrate your own Kubernetes cluster.
-* The [Developer Guide](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel) can help you either write code to directly access the Kubernetes API, or to contribute directly to the Kubernetes project.
+* The [Developer Guide] can help you either write code to directly access the Kubernetes API, or to contribute directly to the Kubernetes project.
 
 ## <a name="user-guide-internal"></a>Kubernetes User Guide
 
@@ -22,7 +22,7 @@ The following topics in the Kubernetes User Guide can help you run applications 
 1. [Managing deployments](/docs/user-guide/managing-deployments/)
 1. [Application introspection and debugging](/docs/user-guide/introspection-and-debugging/)
     1. [Using the Kubernetes web user interface](/docs/user-guide/ui/)
-    1. [Logging](/docs/user-guide/logging/)
+    1. [Logging](/docs/user-guide/logging/overview/)
     1. [Monitoring](/docs/user-guide/monitoring/)
     1. [Getting into containers via `exec`](/docs/user-guide/getting-into-containers/)
     1. [Connecting to containers via proxies](/docs/user-guide/connecting-to-applications-proxy/)
@@ -54,7 +54,7 @@ Before running examples in the user guides, please ensure you have completed the
 : A service defines a set of pods and a means by which to access them, such as single stable IP address and corresponding DNS name.
 
 [**Volume**](/docs/user-guide/volumes/)
-: A volume is a directory, possibly with some data in it, which is accessible to a Container as part of its filesystem.  Kubernetes volumes build upon [Docker Volumes](https://docs.docker.com/userguide/dockervolumes/), adding provisioning of the volume directory and/or device.
+: A volume is a directory, possibly with some data in it, which is accessible to a Container as part of its filesystem.  Kubernetes volumes build upon [Docker Volumes](https://docs.docker.com/engine/tutorials/dockervolumes/), adding provisioning of the volume directory and/or device.
 
 [**Secret**](/docs/user-guide/secrets/)
 : A secret stores sensitive data, such as authentication tokens, which can be made available to containers upon request.
@@ -86,3 +86,5 @@ Pods and containers
   * [Configuration Best Practices and Tips](/docs/user-guide/config-best-practices/)
   * [Assign pods to selected nodes](/docs/user-guide/node-selection/)
   * [Perform a rolling update on a running group of pods](/docs/user-guide/update-demo/)
+
+[Developer Guide]: https://github.com/kubernetes/community/blob/master/contributors/devel/README.md

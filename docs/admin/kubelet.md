@@ -96,7 +96,7 @@ StreamingProxyRedirects=true|false (ALPHA - default=false)
       --google-json-key string                                  The Google Cloud Platform Service Account JSON Key to use for authentication.
       --hairpin-mode string                                     How should the kubelet setup hairpin NAT. This allows endpoints of a Service to loadbalance back to themselves if they should try to access their own Service. Valid values are "promiscuous-bridge", "hairpin-veth" and "none". (default "promiscuous-bridge")
       --healthz-bind-address ip                                 The IP address for the healthz server to serve on, defaulting to 127.0.0.1 (set to 0.0.0.0 for all interfaces) (default 127.0.0.1)
-      --healthz-port int32                                      The port of the localhost healthz endpoint (default 10248)
+      --healthz-port int32                                      (Deprecated) The port of the localhost healthz endpoint (default 10248)
       --host-ipc-sources stringSlice                            Comma-separated list of sources from which the Kubelet allows pods to use the host ipc namespace. [default="*"] (default [*])
       --host-network-sources stringSlice                        Comma-separated list of sources from which the Kubelet allows pods to use of host network. [default="*"] (default [*])
       --host-pid-sources stringSlice                            Comma-separated list of sources from which the Kubelet allows pods to use the host pid namespace. [default="*"] (default [*])
@@ -107,9 +107,9 @@ StreamingProxyRedirects=true|false (ALPHA - default=false)
       --image-service-endpoint string                           [Experimental] The unix socket endpoint of remote image service. If not specified, it will be the same with container-runtime-endpoint by default. The endpoint is used only when CRI integration is enabled (--experimental-cri)
       --iptables-drop-bit int32                                 The bit of the fwmark space to mark packets for dropping. Must be within the range [0, 31]. (default 15)
       --iptables-masquerade-bit int32                           The bit of the fwmark space to mark packets for SNAT. Must be within the range [0, 31]. Please match this parameter with corresponding parameter in kube-proxy. (default 14)
-      --kube-api-burst int32                                    Burst to use while talking with kubernetes apiserver (default 10)
+      --kube-api-burst int32                                    Burst to use while talking with Kubernetes apiserver (default 10)
       --kube-api-content-type string                            Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf")
-      --kube-api-qps int32                                      QPS to use while talking with kubernetes apiserver (default 5)
+      --kube-api-qps int32                                      QPS to use while talking with Kubernetes apiserver (default 5)
       --kube-reserved mapStringString                           A set of ResourceName=ResourceQuantity (e.g. cpu=200m,memory=150G) pairs that describe resources reserved for kubernetes system components. Currently only cpu and memory are supported. See http://kubernetes.io/docs/user-guide/compute-resources for more detail. [default=none]
       --kubeconfig string                                       Path to a kubeconfig file, specifying how to connect to the API server. --api-servers will be used for the location unless --require-kubeconfig is set. (default "/var/lib/kubelet/kubeconfig")
       --kubelet-cgroups string                                  Optional absolute name of cgroups to create and run the Kubelet in.
@@ -118,7 +118,7 @@ StreamingProxyRedirects=true|false (ALPHA - default=false)
       --make-iptables-util-chains                               If true, kubelet will ensure iptables utility rules are present on host. (default true)
       --manifest-url string                                     URL for accessing the container manifest
       --manifest-url-header string                              HTTP header to use when accessing the manifest URL, with the key separated from the value with a ':', as in 'key:value'
-      --master-service-namespace string                         The namespace from which the kubernetes master services should be injected into pods (default "default")
+      --master-service-namespace string                         The namespace from which the Kubernetes master services should be injected into pods (default "default")
       --max-open-files int                                      Number of files that can be opened by Kubelet process. [default=1000000] (default 1000000)
       --max-pods int32                                          Number of Pods that can run on this Kubelet. (default 110)
       --minimum-image-ttl-duration duration                     Minimum age for an unused image before it is garbage collected.  Examples: '300ms', '10s' or '2h45m'. Default: '2m' (default 2m0s)
@@ -137,7 +137,7 @@ StreamingProxyRedirects=true|false (ALPHA - default=false)
       --pods-per-core int32                                     Number of Pods per core that can run on this Kubelet. The total number of Pods on this Kubelet cannot exceed max-pods, so max-pods will be used if this calculation results in a larger number of Pods allowed on the Kubelet. A value of 0 disables this limit.
       --port int32                                              The port for the Kubelet to serve on. (default 10250)
       --protect-kernel-defaults                                 Default kubelet behaviour for kernel tuning. If set, kubelet errors if any of kernel tunables is different than kubelet defaults.
-      --read-only-port int32                                    The read-only port for the Kubelet to serve on with no authentication/authorization (set to 0 to disable) (default 10255)
+      --read-only-port int32                                    The read-only port for the Kubelet to serve on with no authentication/authorization, and for localhost healthz endpoint (set to 0 to disable) (default 10255)
       --really-crash-for-testing                                If true, when panics occur crash. Intended for testing.
       --register-node                                           Register the node with the apiserver (defaults to true if --api-servers is set) (default true)
       --register-schedulable                                    Register the node as schedulable. Won't have any effect if register-node is false. [default=true] (default true)

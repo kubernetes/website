@@ -1,13 +1,11 @@
 ---
 assignees:
 - jszczepkowski
-
+title: Setting up High-Availability Kubernetes Masters
 ---
 
 * TOC
 {:toc}
-
-## Introduction
 
 Kubernetes version 1.5 adds alpha support for replicating Kubernetes masters in `kube-up` or `kube-down` scripts for Google Compute Engine.
 This document describes how to use kube-up/down scripts to manage highly available (HA) masters and how HA masters are implemented for use with GCE.
@@ -86,7 +84,7 @@ The following sample commands demonstrate this process:
 $ KUBE_DELETE_NODES=false KUBE_GCE_ZONE=replica_zone KUBE_REPLICA_NAME=replica_name ./cluster/kube-down.sh
 ```
 
-2. Add a new replica in place of the old one:
+<ol start="2"><li>Add a new replica in place of the old one:</li></ol>
 
 ```shell
 $ KUBE_GCE_ZONE=replica-zone KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up.sh
@@ -104,12 +102,12 @@ A two-replica cluster is thus inferior, in terms of HA, to a single replica clus
 
 * When you add a master replica, cluster state (etcd) is copied to a new instance.
 If the cluster is large, it may take a long time to duplicate its state.
-This operation may be speed up by migrating etcd data directory, as described [here](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration) here
+This operation may be sped up by migrating etcd data directory, as described [here](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration) 
 (we are considering adding support for etcd data dir migration in future).
 
 ## Implementation notes
 
-![](ha-master-gce.png)
+![ha-master-gce](/images/docs/ha-master-gce.png)
 
 ### Overview
 

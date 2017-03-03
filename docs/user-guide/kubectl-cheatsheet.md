@@ -12,7 +12,7 @@ See also: [Kubectl Overview](/docs/user-guide/kubectl-overview/) and [JsonPath G
 ## Kubectl Autocomplete
 
 ```console
-$ source <(kubectl completion bash) # setup autocomplete in bash
+$ source <(kubectl completion bash) # setup autocomplete in bash, bash-completion package should be installed first.
 $ source <(kubectl completion zsh)  # setup autocomplete in zsh
 ```
 
@@ -197,11 +197,12 @@ $ kubectl -n my-ns delete po,svc --all              # Delete all pods and servic
 
 ```console
 $ kubectl logs my-pod                                 # dump pod logs (stdout)
+$ kubectl logs my-pod -c my-container                 # dump pod container logs (stdout, multi-container case)
 $ kubectl logs -f my-pod                              # stream pod logs (stdout)
+$ kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 $ kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
 $ kubectl attach my-pod -i                            # Attach to Running Container
-$ kubectl port-forward my-pod 5000 6000               # Forward port 6000 of Pod to your to 5000 on your local machine
-$ kubectl port-forward my-svc 6000                    # Forward port to service
+$ kubectl port-forward my-pod 5000:6000               # Forward port 6000 of Pod to your to 5000 on your local machine
 $ kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
 $ kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 $ kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
@@ -242,7 +243,7 @@ Resource type   | Abbreviated alias
 `namespaces` |`ns`
 `networkpolicies` |
 `nodes` |`no`
-`petset` |
+`statefulsets` |
 `persistentvolumeclaims` |`pvc`
 `persistentvolumes` |`pv`
 `pods` |`po`

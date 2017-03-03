@@ -41,16 +41,15 @@ DynamicKubeletConfig=true|false (ALPHA - default=false)
 DynamicVolumeProvisioning=true|false (ALPHA - default=true)
 ExperimentalHostUserNamespaceDefaulting=true|false (ALPHA - default=false)
 StreamingProxyRedirects=true|false (ALPHA - default=false)
-      --google-json-key string                       The Google Cloud Platform Service Account JSON Key to use for authentication.
       --healthz-bind-address ip                      The IP address for the health check server to serve on, defaulting to 127.0.0.1 (set to 0.0.0.0 for all interfaces) (default 127.0.0.1)
       --healthz-port int32                           The port to bind the health check server. Use 0 to disable. (default 10249)
       --hostname-override string                     If non-empty, will use this string as identification instead of the actual hostname.
       --iptables-masquerade-bit int32                If using the pure iptables proxy, the bit of the fwmark space to mark packets requiring SNAT with.  Must be within the range [0, 31]. (default 14)
       --iptables-min-sync-period duration            The minimum interval of how often the iptables rules can be refreshed as endpoints and services change (e.g. '5s', '1m', '2h22m').
       --iptables-sync-period duration                The maximum interval of how often iptables rules are refreshed (e.g. '5s', '1m', '2h22m').  Must be greater than 0. (default 30s)
-      --kube-api-burst int32                         Burst to use while talking with kubernetes apiserver (default 10)
+      --kube-api-burst int32                         Burst to use while talking with Kubernetes apiserver (default 10)
       --kube-api-content-type string                 Content type of requests sent to apiserver. (default "application/vnd.kubernetes.protobuf")
-      --kube-api-qps float32                         QPS to use while talking with kubernetes apiserver (default 5)
+      --kube-api-qps float32                         QPS to use while talking with Kubernetes apiserver (default 5)
       --kubeconfig string                            Path to kubeconfig file with authorization information (the master location is set by the master flag).
       --masquerade-all                               If using the pure iptables proxy, SNAT everything
       --master string                                The address of the Kubernetes API server (overrides any value in kubeconfig)

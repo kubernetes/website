@@ -62,8 +62,8 @@ This indicates that the Deployment has created all three replicas, and all repli
 
 ```shell
 $ kubectl get rs
-NAME                          DESIRED   CURRENT   AGE
-nginx-deployment-2035384211   3         3         18s 
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-2035384211   3         3         0       18s 
 ```
 
 You may notice that the name of the Replica Set is always `<the name of the Deployment>-<hash value of the pod template>`. 
@@ -180,9 +180,9 @@ We can run `kubectl get rs` to see that the Deployment updated the Pods by creat
 
 ```shell
 $ kubectl get rs
-NAME                          DESIRED   CURRENT   AGE
-nginx-deployment-1564180365   3         3         6s
-nginx-deployment-2035384211   0         0         36s
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-1564180365   3         3         0       6s
+nginx-deployment-2035384211   0         0         0       36s
 ```
 
 Running `get pods` should now show only the new Pods:
@@ -287,10 +287,10 @@ You will also see that both the number of old replicas (nginx-deployment-1564180
 
 ```shell
 $ kubectl get rs
-NAME                          DESIRED   CURRENT   AGE
-nginx-deployment-1564180365   2         2         25s
-nginx-deployment-2035384211   0         0         36s
-nginx-deployment-3066724191   2         2         6s
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-1564180365   2         2         0       25s
+nginx-deployment-2035384211   0         0         0       36s
+nginx-deployment-3066724191   2         2         2       6s
 ```
 
 Looking at the Pods created, you will see that the 2 Pods created by new Replica Set are stuck in an image pull loop.
@@ -514,10 +514,10 @@ The Deployment was still in progress when we paused it, so the actions of scalin
 
 ```shell
 $ kubectl get rs 
-NAME                          DESIRED   CURRENT   AGE
-nginx-deployment-1564180365   2         2         1h
-nginx-deployment-2035384211   2         2         1h
-nginx-deployment-3066724191   0         0         1h
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-1564180365   2         2         2       1h
+nginx-deployment-2035384211   2         2         0       1h
+nginx-deployment-3066724191   0         0         0       1h
 ```
 
 In a separate terminal, watch for rollout status changes and you'll see the rollout won't continue:
@@ -546,10 +546,10 @@ deployment nginx-deployment successfully rolled out
 
 ```shell
 $ kubectl get rs 
-NAME                          DESIRED   CURRENT   AGE
-nginx-deployment-1564180365   3         3         1h
-nginx-deployment-2035384211   0         0         1h
-nginx-deployment-3066724191   0         0         1h
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-1564180365   3         3         3       1h
+nginx-deployment-2035384211   0         0         0       1h
+nginx-deployment-3066724191   0         0         0       1h
 ```
 
 Note: You cannot rollback a paused Deployment until you resume it.
@@ -578,6 +578,7 @@ Kubernetes marks a Deployment as _complete_ when it has the following characteri
 equals or exceeds the number required by the Deployment strategy.
 * All of the replicas associated with the Deployment have been updated to the latest version you've specified, meaning any
 updates you've requested have been completed.
+* No old pods for the Deployment are running.
 
 You can check if a Deployment has completed by using `kubectl rollout status`. If the rollout completed successfully, `kubectl rollout status` returns a zero exit code.
 
@@ -615,12 +616,12 @@ the Deployment's `status.conditions`:
 * Status=False
 * Reason=ProgressDeadlineExceeded
 
-See the [Kubernetes API conventions](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
+See the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
 
 Note that in version 1.5, Kubernetes will take no action on a stalled Deployment other than to report a status condition with
 `Reason=ProgressDeadlineExceeded`.
 
-**Note:** If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can safely pause a Deployment in the middle of a rollout and resume without triggering a the condition for exceeding the deadline.
+**Note:** If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can safely pause a Deployment in the middle of a rollout and resume without triggering the condition for exceeding the deadline.
 
 You may experience transient errors with your Deployments, either due to a low timeout that you have set or due to any other kind
 of error that can be treated as transient. For example, let's suppose you have insufficient quota. If you describe the Deployment
@@ -725,7 +726,7 @@ As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, a
 `metadata` fields.  For general information about working with config files,
 see [deploying applications](/docs/user-guide/deploying-applications), [configuring containers](/docs/user-guide/configuring-containers), and [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
 
-A Deployment also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
+A Deployment also needs a [`.spec` section](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 

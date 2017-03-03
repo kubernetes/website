@@ -113,8 +113,8 @@ metadata:
   name: mysecret
 type: Opaque
 data:
-  password: MWYyZDFlMmU2N2Rm
   username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 ```
 
 The data field is a map.  Its keys must match
@@ -142,8 +142,8 @@ Get back the secret created in the previous section:
 $ kubectl get secret mysecret -o yaml
 apiVersion: v1
 data:
-  password: MWYyZDFlMmU2N2Rm
   username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 kind: Secret
 metadata:
   creationTimestamp: 2016-01-22T18:41:56Z
@@ -364,13 +364,16 @@ $ cat /etc/foo/password
 1f2d1e2e67df
 ```
 
-The program in a container is responsible for reading the secret(s) from the
+The program in a container is responsible for reading the secrets from the
 files.
 
 **Mounted Secrets are updated automatically**
 
 When a secret being already consumed in a volume is updated, projected keys are eventually updated as well.
-The update time depends on the kubelet syncing period.
+Kubelet is checking whether the mounted secret is fresh on every periodic sync.
+However, it is using its local ttl-based cache for getting the current value of the secret.
+As a result, the total delay from the moment when the secret is updated to the moment when new keys are
+projected to the pod can be as long as kubelet sync period + ttl of secrets cache in kubelet.
 
 #### Using Secrets as Environment Variables
 
@@ -486,7 +489,7 @@ Create a secret containing some ssh keys:
 $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
-**Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to have accessible to all the users with whom you share the kubernetes cluster, and can revoke if they are compromised.
+**Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to have accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
 
 
 Now we can create a pod which references the secret with the ssh key and
@@ -531,8 +534,8 @@ consumes it in a volume:
 When the container's command runs, the pieces of the key will be available in:
 
 ```shell
-/etc/secret-volume/id-rsa.pub
-/etc/secret-volume/id-rsa
+/etc/secret-volume/ssh-publickey
+/etc/secret-volume/ssh-privatekey
 ```
 
 The container is then free to use the secret data to establish an ssh connection.
@@ -700,7 +703,7 @@ make that key begin with a dot.  For example, when the following secret is mount
       {
         "name": "dotfile-test-container",
         "image": "gcr.io/google_containers/busybox",
-        "command": "ls -l /etc/secret-volume",
+        "command": [ "ls", "-l", "/etc/secret-volume" ],
         "volumeMounts": [
           {
             "name": "secret-volume",

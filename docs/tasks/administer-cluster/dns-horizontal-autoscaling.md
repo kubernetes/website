@@ -19,7 +19,7 @@ Kubernetes cluster.
 
 {% capture steps %}
 
-### Determining whether DNS horizontal autoscaling is already enabled
+## Determining whether DNS horizontal autoscaling is already enabled
 
 List the Deployments in your cluster in the kube-system namespace:
 
@@ -36,7 +36,7 @@ If you see "kube-dns-autoscaler" in the output, DNS horizontal autoscaling is
 already enabled, and you can skip to
 [Tuning autoscaling parameters](#tuning-autoscaling-parameters).
 
-### Getting the name of your DNS Deployment or ReplicationController
+## Getting the name of your DNS Deployment or ReplicationController
 
 List the Deployments in your cluster in the kube-system namespace:
 
@@ -63,7 +63,7 @@ The output is similar to this:
     kube-dns-v20    1         1         1         ...
     ...
 
-### Determining your scale target
+## Determining your scale target
 
 If you have a DNS Deployment, your scale target is:
 
@@ -80,7 +80,7 @@ where <your-rc-name> is the name of your DNS ReplicationController. For example,
 if your DNS ReplicationController name is kube-dns-v20, your scale target is
 ReplicationController/kube-dns-v20.
 
-### Enabling DNS horizontal autoscaling
+## Enabling DNS horizontal autoscaling
 
 In this section, you create a Deployment. The Pods in the Deployment run a
 container based on the `cluster-proportional-autoscaler-amd64` image.
@@ -102,7 +102,7 @@ The output of a successful command is:
 
 DNS horizontal autoscaling is now enabled.
 
-### Tuning autoscaling parameters
+## Tuning autoscaling parameters
 
 Verify that the kube-dns-autoscaler ConfigMap exists:
 
@@ -139,12 +139,12 @@ cores, `nodesPerReplica` dominates.
 There are other supported scaling patterns. For details, see
 [cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
 
-### Disable DNS horizontal autoscaling
+## Disable DNS horizontal autoscaling
 
 There are a few options for turning DNS horizontal autoscaling. Which option to
 use depends on different conditions.
 
-#### Option 1: Scale down the kube-dns-autoscaler deployment to 0 replicas
+### Option 1: Scale down the kube-dns-autoscaler deployment to 0 replicas
 
 This option works for all situations. Enter this command:
 
@@ -156,7 +156,7 @@ The output is:
 
 Verify that the replica count is zero:
 
-    kubectl get deployment --namespace-kube-system
+    kubectl get deployment --namespace=kube-system
 
 The output displays 0 in the DESIRED and CURRENT columns:
 
@@ -165,7 +165,7 @@ The output displays 0 in the DESIRED and CURRENT columns:
     kube-dns-autoscaler   0         0         0            0           ...
     ...
 
-#### Option 2: Delete the kube-dns-autoscaler deployment
+### Option 2: Delete the kube-dns-autoscaler deployment
 
 This option works if kube-dns-autoscaler is under your own control, which means
 no one will re-create it:
@@ -176,7 +176,7 @@ The output is:
 
     deployment "kube-dns-autoscaler" deleted
 
-#### Option 3: Delete the kube-dns-autoscaler manifest file from the master node
+### Option 3: Delete the kube-dns-autoscaler manifest file from the master node
 
 This option works if kube-dns-autoscaler is under control of the
 [Addon Manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/README.md)'s
@@ -194,7 +194,7 @@ kube-dns-autoscaler Deployment.
 
 {% capture discussion %}
 
-### Understanding how DNS horizontal autoscaling works
+## Understanding how DNS horizontal autoscaling works
 
 * The cluster-proportional-autoscaler application is deployed separately from
 the DNS service.
@@ -215,7 +215,7 @@ the autoscaler Pod.
 * The autoscaler provides a controller interface to support two control
 patterns: *linear* and *ladder*.
 
-### Future enhancements
+## Future enhancements
 
 Control patterns, in addition to linear and ladder, that consider custom metrics
 are under consideration as a future development.

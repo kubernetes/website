@@ -294,7 +294,7 @@ SPECIAL_TYPE_KEY=charm
 ### Use-Case: Set command-line arguments with ConfigMap
 
 ConfigMaps can also be used to set the value of the command or arguments in a container.  This is
-accomplished using the kubernetes substitution syntax `$(VAR_NAME)`.  Consider the ConfigMap:
+accomplished using the Kubernetes substitution syntax `$(VAR_NAME)`.  Consider the ConfigMap:
 
 ```yaml
 apiVersion: v1
@@ -529,3 +529,4 @@ Kubelet only supports use of ConfigMap for pods it gets from the API server.  Th
 created using kubectl, or indirectly via a replication controller.  It does not include pods created
 via the Kubelet's `--manifest-url` flag, its `--config` flag, or its REST API (these are not common
 ways to create pods.)
+

@@ -1,5 +1,10 @@
 ---
 title: Running a Stateless Application Using a Deployment
+redirect_from:
+- "/docs/user-guide/simple-nginx/"
+- "/docs/user-guide/simple-nginx.html"
+- "/docs/user-guide/pods/single-container/"
+- "/docs/user-guide/pods/single-container.html"
 ---
 
 {% capture overview %}
@@ -27,7 +32,7 @@ This page shows how to run an application using a Kubernetes Deployment object.
 
 {% capture lessoncontent %}
 
-### Creating and exploring an nginx deployment
+## Creating and exploring an nginx deployment
 
 You can run an application by creating a Kubernetes Deployment object, and you
 can describe a Deployment in a YAML file. For example, this YAML file describes
@@ -72,7 +77,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
     where `<pod-name>` is the name of one of your pods.
 
-### Updating the deployment
+## Updating the deployment
 
 You can update the deployment by applying a new YAML file. This YAML file
 specifies that the deployment should be updated to use nginx 1.8.
@@ -87,7 +92,7 @@ specifies that the deployment should be updated to use nginx 1.8.
 
         kubectl get pods -l app=nginx
 
-### Scaling the application by increasing the replica count
+## Scaling the application by increasing the replica count
 
 You can increase the number of pods in your Deployment by applying a new YAML
 file. This YAML file sets `replicas` to 4, which specifies that the Deployment
@@ -111,7 +116,7 @@ should have four pods:
         nginx-deployment-148880595-fxcez   1/1       Running   0          2m
         nginx-deployment-148880595-rwovn   1/1       Running   0          2m
 
-### Deleting a deployment
+## Deleting a deployment
 
 Delete the deployment by name:
 

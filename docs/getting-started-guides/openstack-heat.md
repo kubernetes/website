@@ -23,7 +23,7 @@ This guide assumes you have access to a working OpenStack cluster with the follo
 - Heat
 - DNS resolution of instance names
 
-By default this provider provisions 4 m1.medium instances. If you do not have resources available, please see the [Set additional configuration values](#set-additional-configuration-values) section for information on reducing the footprint of your cluster.
+By default this provider provisions 4 `m1.medium` instances. If you do not have resources available, please see the [Set additional configuration values](#set-additional-configuration-values) section for information on reducing the footprint of your cluster.
 
 ## Pre-Requisites
 If you already have the required versions of the OpenStack CLI tools installed and configured, you can move on to the [Starting a cluster](#starting-a-cluster) section.
@@ -92,7 +92,7 @@ Please see the contents of these files for documentation regarding each variable
 
 ## Starting a cluster
 
-Once Kubernetes version 1.3 is released, and you've installed the OpenStack CLI tools and have set your OpenStack environment variables, issue this command:
+Once you've installed the OpenStack CLI tools and have set your OpenStack environment variables, issue this command:
 
 ```sh
 export KUBERNETES_PROVIDER=openstack-heat; curl -sS https://get.k8s.io | bash
@@ -183,7 +183,7 @@ First, set your environment variables:
 To get all information about your cluster, use heat:
 
 ```sh
-heat stack-show $STACK_NAME
+openstack stack show $STACK_NAME
 ```
 
 To see a list of nodes, use nova:
@@ -193,6 +193,11 @@ nova list --name=$STACK_NAME
 ```
 
 See the [OpenStack CLI Reference](http://docs.openstack.org/cli-reference/) for more details.
+
+### Salt
+
+The OpenStack-Heat provider uses a [standalone Salt configuration](/docs/admin/salt/#standalone-salt-configuration-on-gce-and-others).  
+It only uses Salt for bootstraping the machines and creates no salt-master and does not auto-start the salt-minion service on the nodes.
 
 ## SSHing to your nodes
 

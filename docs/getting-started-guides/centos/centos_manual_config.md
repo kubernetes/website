@@ -1,6 +1,5 @@
 ---
 assignees:
-- lavalamp
 - thockin
 title: CentOS
 ---
@@ -18,7 +17,7 @@ This is a getting started guide for CentOS.  It is a manual configuration so you
 
 The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: /etc/kubernetes. We will break the services up between the hosts.  The first host, centos-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager and kube-scheduler.  In addition, the master will also run _etcd_.  The remaining hosts, centos-minion-n will be the nodes and run kubelet, proxy, cadvisor and docker.
 
-All of then run flanneld as networking overlay.
+All of them run flanneld as networking overlay.
 
 **System Information:**
 
@@ -62,9 +61,6 @@ echo "192.168.121.9	centos-master
 * Edit /etc/kubernetes/config which will be the same on all hosts to contain:
 
 ```shell
-# Comma separated list of nodes in the etcd cluster
-KUBE_ETCD_SERVERS="--etcd-servers=http://centos-master:2379"
-
 # logging to stderr means we get it in the systemd journal
 KUBE_LOGTOSTDERR="--logtostderr=true"
 
@@ -112,6 +108,9 @@ KUBE_API_PORT="--port=8080"
 # Port kubelets listen on
 KUBELET_PORT="--kubelet-port=10250"
 
+# Comma separated list of nodes in the etcd cluster
+KUBE_ETCD_SERVERS="--etcd-servers=http://centos-master:2379"
+
 # Address range to use for services
 KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.254.0.0/16"
 
@@ -123,23 +122,25 @@ KUBE_API_ARGS=""
 **Warning** This network must be unused in your network infrastructure! `172.30.0.0/16` is free in our network.
 
 ```shell
-$ systemctl start etcd
-$ etcdctl mkdir /kube-centos/network
-$ etcdctl mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
+systemctl start etcd
+etcdctl mkdir /kube-centos/network
+etcdctl mk /kube-centos/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
 ```
 
 * Configure flannel to overlay Docker network in /etc/sysconfig/flanneld on the master (also in the nodes as we'll see):
 
 ```shell
+# Flanneld configuration options
+
 # etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD="http://centos-master:2379"
+FLANNEL_ETCD_ENDPOINTS="http://centos-master:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
-FLANNEL_ETCD_KEY="/kube-centos/network"
+FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
 # Any additional options that you want to pass
-FLANNEL_OPTIONS=""
+#FLANNEL_OPTIONS=""
 ```
 
 * Start the appropriate services on master:
@@ -179,15 +180,17 @@ KUBELET_ARGS=""
 * Configure flannel to overlay Docker network in /etc/sysconfig/flanneld (in all the nodes)
 
 ```shell
+# Flanneld configuration options
+
 # etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD="http://centos-master:2379"
+FLANNEL_ETCD_ENDPOINTS="http://centos-master:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
-FLANNEL_ETCD_KEY="/kube-centos/network"
+FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
 # Any additional options that you want to pass
-FLANNEL_OPTIONS=""
+#FLANNEL_OPTIONS=""
 ```
 
 * Start the appropriate services on node (centos-minion-n).

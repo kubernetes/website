@@ -3,20 +3,10 @@ abstract: "Troubleshooting resources, frequently asked questions, and community 
 toc:
 - docs/troubleshooting.md
 
-- title: Contributing to the Kubernetes Docs
-  section:
-  - editdocs.md
-  - docs/contribute/create-pull-request.md
-  - docs/contribute/write-new-topic.md
-  - docs/contribute/stage-documentation-changes.md
-  - docs/contribute/page-templates.md
-  - docs/contribute/style-guide.md
-
 - title: Troubleshooting
   section:
   - docs/user-guide/debugging-pods-and-replication-controllers.md
   - docs/user-guide/introspection-and-debugging.md
-  - docs/user-guide/logging.md
   - docs/user-guide/application-troubleshooting.md
   - docs/admin/cluster-troubleshooting.md
   - docs/user-guide/debugging-services.md
@@ -30,6 +20,16 @@ toc:
   - title: Services FAQ
     path: https://github.com/kubernetes/kubernetes/wiki/Services-FAQ/
 
+- title: Contributing to the Kubernetes Docs
+  section:
+  - editdocs.md
+  - docs/contribute/create-pull-request.md
+  - docs/contribute/write-new-topic.md
+  - docs/contribute/stage-documentation-changes.md
+  - docs/contribute/page-templates.md
+  - docs/contribute/review-issues.md
+  - docs/contribute/style-guide.md
+
 - title: Other Resources
   section:
   - title: Kubernetes Issue Tracker on GitHub
@@ -39,3 +39,6 @@ toc:
     path: https://github.com/kubernetes/kubernetes/releases/
   - title: Release Roadmap
     path: https://github.com/kubernetes/kubernetes/milestones/
+
+- title: Deprecation Policy
+  path: /docs/deprecation-policy.md

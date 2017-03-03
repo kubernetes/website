@@ -1,5 +1,5 @@
 ---
-assignees: 
+assignees:
 title: Pods
 ---
 
@@ -60,7 +60,7 @@ related thing (e.g. volume) is also destroyed and created anew.
 
 ![pod diagram](/images/docs/pod.svg){: style="max-width: 50%" }
 
-*A multi-container pod that contains a file puller and a 
+*A multi-container pod that contains a file puller and a
 web server that uses a persistent volume for shared storage between the containers.*
 
 ## Motivation for pods
@@ -150,7 +150,7 @@ Pod is exposed as a primitive in order to facilitate:
 * clean composition of Kubelet-level functionality with cluster-level functionality &mdash; Kubelet is effectively the "pod controller"
 * high-availability applications, which will expect pods to be replaced in advance of their termination and certainly in advance of deletion, such as in the case of planned evictions, image prefetching, or live pod migration [#3949](http://issue.k8s.io/3949)
 
-There is new first-class support for stateful pods with the [StatefulSet](/docs/concepts/controllers/statefulsets/) controller (currently in beta). The feature was alpha in 1.4 and was called [PetSet](/docs/user-guide/petset/). For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service, see [this MySQL deployment example](/docs/tutorials/stateful-application/run-stateful-application/). 
+There is new first-class support for stateful pods with the [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) controller (currently in beta). The feature was alpha in 1.4 and was called [PetSet](/docs/user-guide/petset/). For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service, see [this MySQL deployment example](/docs/tutorials/stateful-application/run-stateful-application/). 
 
 ## Termination of Pods
 
@@ -168,7 +168,7 @@ An example flow:
 6. When the grace period expires, any processes still running in the Pod are killed with SIGKILL.
 7. The Kubelet will finish deleting the Pod on the API server by setting grace period 0 (immediate deletion). The Pod disappears from the API and is no longer visible from the client.
 
-By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports the `--grace-period=<seconds>` option which allows a user to override the default and specify their own value. The value `0` [force deletes](/docs/user-guide/pods/#force-termination-of-pods) the pod. In kubectl version >= 1.5, you must specify an additional flag `--force` along with `--grace-period=0` in order to perform force deletions. 
+By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports the `--grace-period=<seconds>` option which allows a user to override the default and specify their own value. The value `0` [force deletes](/docs/user-guide/pods/#force-termination-of-pods) the pod. In kubectl version >= 1.5, you must specify an additional flag `--force` along with `--grace-period=0` in order to perform force deletions.
 
 ### Force deletion of pods
 
@@ -178,9 +178,9 @@ Force deletions can be potentially dangerous for some pods and should be perform
 
 ## Privileged mode for pod containers
 
-From kubernetes v1.1, any container in a pod can enable privileged mode, using the `privileged` flag on the `SecurityContext` of the container spec. This is useful for containers that want to use linux capabilities like manipulating the network stack and accessing devices. Processes within the container get almost the same privileges that are available to processes outside a container. With privileged mode, it should be easier to write network and volume plugins as separate pods that don't need to be compiled into the kubelet.
+From Kubernetes v1.1, any container in a pod can enable privileged mode, using the `privileged` flag on the `SecurityContext` of the container spec. This is useful for containers that want to use linux capabilities like manipulating the network stack and accessing devices. Processes within the container get almost the same privileges that are available to processes outside a container. With privileged mode, it should be easier to write network and volume plugins as separate pods that don't need to be compiled into the kubelet.
 
-If the master is running kubernetes v1.1 or higher, and the nodes are running a version lower than v1.1, then new privileged pods will be accepted by api-server, but will not be launched. They will be pending state.
+If the master is running Kubernetes v1.1 or higher, and the nodes are running a version lower than v1.1, then new privileged pods will be accepted by api-server, but will not be launched. They will be pending state.
 If user calls `kubectl describe pod FooPodName`, user can see the reason why the pod is in pending state. The events table in the describe command output will say:
 `Error validating pod "FooPodName"."FooPodNamespace" from api, ignoring: spec.containers[0].securityContext.privileged: forbidden '<*>(0xc2089d3248)true'`
 
@@ -191,6 +191,6 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 
 ## API Object
 
-Pod is a top-level resource in the kubernetes REST API. More details about the
+Pod is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Pod API
 object](/docs/api-reference/v1/definitions/#_v1_pod).

@@ -40,7 +40,7 @@ $ kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
 replicationController "rabbitmq-controller" created
 ```
 
-We will only use the rabbitmq part from the celery-rabbitmq example.
+We will only use the rabbitmq part from the [celery-rabbitmq example](https://github.com/kubernetes/kubernetes/tree/release-1.3/examples/celery-rabbitmq).
 
 ## Testing the message queue service
 
@@ -101,7 +101,7 @@ Next we will verify we can create a queue, and publish and consume messages.
 # In the next line, rabbitmq-service is the hostname where the rabbitmq-service
 # can be reached.  5672 is the standard port for rabbitmq.
 
-root@temp-loe07:/# BROKER_URL=amqp://guest:guest@rabbitmq-service:5672
+root@temp-loe07:/# export BROKER_URL=amqp://guest:guest@rabbitmq-service:5672
 # If you could not resolve "rabbitmq-service" in the previous step,
 # then use this command instead:
 # root@temp-loe07:/# BROKER_URL=amqp://guest:guest@$RABBITMQ_SERVICE_SERVICE_HOST:5672
@@ -227,7 +227,7 @@ Name:		job-wq-1
 Namespace:	default
 Image(s):	gcr.io/causal-jigsaw-637/job-wq-1
 Selector:	app in (job-wq-1)
-Parallelism:	4
+Parallelism:	2
 Completions:	8
 Labels:		app=job-wq-1
 Pods Statuses:	0 Running / 8 Succeeded / 0 Failed

@@ -2,9 +2,46 @@ bigheader: "Concepts"
 abstract: "Detailed explanations of Kubernetes system concepts and abstractions."
 toc:
 - docs/concepts/index.md
+
+- title: Kubectl Command Line
+  section:
+  - docs/concepts/tools/kubectl/object-management-overview.md
+  - docs/concepts/tools/kubectl/object-management-using-imperative-commands.md
+  - docs/concepts/tools/kubectl/object-management-using-imperative-config.md
+  - docs/concepts/tools/kubectl/object-management-using-declarative-config.md
+
+- title: Kubernetes Objects
+  section:
+  - docs/concepts/abstractions/overview.md
+  - title: Pods
+    section:
+    - docs/concepts/abstractions/pod.md
+    - docs/concepts/abstractions/init-containers.md
+  - title: Controllers
+    section:
+    - docs/concepts/abstractions/controllers/statefulsets.md
+    - docs/concepts/abstractions/controllers/petsets.md
+    - docs/concepts/abstractions/controllers/garbage-collection.md
+
 - title: Object Metadata
   section:
   - docs/concepts/object-metadata/annotations.md
-- title: Controllers
+
+- title: Workloads
   section:
-  - docs/concepts/abstractions/controllers/statefulsets.md
+  - title: Pods
+    section:
+    - docs/concepts/workloads/pods/pod-lifecycle.md
+
+- title: Clusters
+  section:
+  - docs/concepts/clusters/logging.md
+
+- title: Configuration
+  section:
+  - docs/concepts/configuration/container-command-args.md
+  - docs/concepts/configuration/manage-compute-resources-container.md
+
+- title: Policies
+  section:
+  - docs/concepts/policy/container-capabilities.md
