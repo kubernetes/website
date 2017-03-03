@@ -94,7 +94,7 @@ A Job also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tr
 The `.spec.template` is the only required field of the `.spec`.
 
 The `.spec.template` is a [pod template](/docs/user-guide/replication-controller/#pod-template).  It has exactly
-the same schema as a [pod](/docs/user-guide/pods), except it is nested and does not have an `apiVersion` or
+the same schema as a [pod](/docs/user-guide/pods), except it is nested and does not have an `apiVersion` and a
 `kind`.
 
 In addition to required fields for a Pod, a pod template in a job must specify appropriate
