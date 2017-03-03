@@ -18,8 +18,6 @@ toc:
 
 - title: Workload Deployment and Management
   section:
-  - docs/user-guide/quick-start.md
-  - docs/user-guide/deploying-applications.md
   - docs/user-guide/managing-deployments.md
   - docs/user-guide/replication-controller/operations.md
   - docs/user-guide/resizing-a-replication-controller.md
