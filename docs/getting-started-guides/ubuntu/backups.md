@@ -10,6 +10,7 @@ This page shows you how to backup and restore data from the different deployed s
 This page assumes you have a working Juju deployed cluster.
 {% endcapture %}
 
+{% capture steps %}
 ## Exporting cluster data
 
 Exporting of cluster data is not supported at this time. 
@@ -18,7 +19,6 @@ Exporting of cluster data is not supported at this time.
 
 Importing of cluster data is not supported at this time. 
 
-{% capture steps %}
 ## Exporting etcd data
 
 Migrating etcd is a fairly easy task.

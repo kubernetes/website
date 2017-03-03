@@ -31,7 +31,7 @@ server, as well as an additional kubeconfig file for administration.
 controller manager and scheduler, and placing them in
 `/etc/kubernetes/manifests`. The kubelet watches this directory for static
 resources to create on startup. These are the core components of Kubernetes, and
-once they are up and running we can use `kubectl` to set up/manage any
+once they are up and running we can use `kubectl` to set up or manage any
 additional components.
 
 1. kubeadm installs any add-on components, such as DNS or discovery, via the API
@@ -257,6 +257,8 @@ These environment variables are a short-term solution, eventually they will be i
 | `KUBE_DISCOVERY_IMAGE` | `gcr.io/google_containers/kube-discovery-<arch>:1.0` | The bootstrap discovery helper image to use. |
 | `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:2.2.5` | The etcd container image to use. |
 | `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |
+
+If you want to use kubeadm with an http proxy, you may need to configure it to support http_proxy, https_proxy, or no_proxy.
 
 ## Releases and release notes
 
