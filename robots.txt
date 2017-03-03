@@ -15,4 +15,6 @@ Disallow: /docs/user-guide/production-pods
 Disallow: /docs/user-guide/persistent-volumes/walkthrough
 Disallow: /docs/user-guide/pods/single-container
 
+Disallow: /docs/user-guide/secrets/walkthrough
+
 SITEMAP: http://kubernetes.io/sitemap.xml
