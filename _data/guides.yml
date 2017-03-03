@@ -25,7 +25,6 @@ toc:
   - docs/user-guide/resizing-a-replication-controller.md
   - docs/user-guide/rolling-updates.md
   - docs/user-guide/update-demo/index.md
-  - docs/user-guide/secrets/walkthrough.md
   - docs/user-guide/configmap/index.md
   - docs/user-guide/horizontal-pod-autoscaling/walkthrough.md
   - docs/user-guide/config-best-practices.md
