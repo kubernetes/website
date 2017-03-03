@@ -67,7 +67,6 @@ toc:
   - docs/user-guide/node-selection/index.md
   - docs/user-guide/downward-api/index.md
   - docs/user-guide/downward-api/volume/index.md
-  - docs/user-guide/persistent-volumes/walkthrough.md
   - docs/user-guide/petset/bootstrapping/index.md
 
 - title: Monitoring, Logging, and Debugging Containers
