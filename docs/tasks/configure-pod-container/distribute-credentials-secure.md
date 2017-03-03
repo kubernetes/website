@@ -1,5 +1,8 @@
 ---
 title: Distributing Credentials Securely
+redirect_from:
+- "/docs/user-guide/secrets/walkthrough/"
+- "/docs/user-guide/secrets/walkthrough.html"
 ---
 
 {% capture overview %}
