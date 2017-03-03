@@ -87,7 +87,8 @@ The ImagePolicyWebhook plug-in allows a backend webhook to make admission decisi
 ```
 
 #### Configuration File Format
-ImagePolicyWebhook uses the admission controller config file (`--admission-controller-config-file`) to set configuration options for the behavior of the backend. This file may be json or yaml and has the following format:
+ImagePolicyWebhook uses the admission 
+config file (`--admission-control-config-file`) to set configuration options for the behavior of the backend. This file may be json or yaml and has the following format:
 
 ```javascript
 {
