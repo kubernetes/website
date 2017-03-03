@@ -5,7 +5,13 @@ Disallow: /v1.0/
 Disallow: /v1.1/
 Disallow: /404/
 Disallow: 404.html
-Disallow: /docs/user-guide/simple-nginx
+
+Disallow: /docs/user-guide/configuring-containers
+Disallow: /docs/user-guide/containers
 Disallow: /docs/user-guide/liveness/index
+Disallow: /docs/user-guide/simple-nginx
+Disallow: /docs/user-guide/production-pods
+
+Disallow: /docs/user-guide/pods/single-container
 
 SITEMAP: http://kubernetes.io/sitemap.xml
