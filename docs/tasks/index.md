@@ -37,9 +37,12 @@ single thing, typically by giving a short sequence of steps.
 * [Using Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * [Providing Load-Balanced Access to an Application in a Cluster](/docs/tasks/access-application-cluster/load-balance-access-application-cluster/)
 
-#### Debugging Applications in a Cluster
+#### Monitoring, Logging, and Debugging
 
 * [Determining the Reason for Pod Failure](/docs/tasks/debug-application-cluster/determine-reason-pod-failure/)
+* [Debugging Init Containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* [Logging Using Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)
+* [Logging Using ElasticSearch and Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)
 
 #### Accessing the Kubernetes API
 
@@ -59,10 +62,6 @@ single thing, typically by giving a short sequence of steps.
 * [Deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/)
 * [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
 * [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
-
-#### Troubleshooting
-
-* [Debugging Init Containers](/docs/tasks/troubleshoot/debug-init-containers/)
 
 ### What's next
 
