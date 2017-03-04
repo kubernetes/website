@@ -67,7 +67,7 @@ have some advantages for start-up related code:
   `sed`, `awk`, `python`, or `dig` during setup.
 * The application image builder and deployer roles can work independently without
   the need to jointly build a single app image.
-* They use Linux namespaces so they have a different filesystem view from app Containers.
+* They use Linux namespaces so that they have a different filesystem view from app Containers.
   Consequently, they can be given access to Secrets that app Containers are not able to
   access.
 * They run to completion before any app Containers start, whereas app
