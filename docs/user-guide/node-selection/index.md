@@ -77,7 +77,7 @@ with a standard set of labels. As of Kubernetes v1.4 these labels are
 * `beta.kubernetes.io/os`
 * `beta.kubernetes.io/arch`
 
-## Beta features: affinity and anti-affinity
+## Affinity and anti-affinity
 
 `nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity
 feature, currently in beta, greatly expands the types of constraints you can express. The key enhancements are
@@ -98,7 +98,7 @@ everything that `nodeSelector` can express.
 
 ### Node affinity (beta feature)
 
-Node affinity was introduced in Kubernetes 1.2.
+Node affinity was introduced as alpha in Kubernetes 1.2.
 Node affinity is conceptually similar to `nodeSelector` -- it allows you to constrain which nodes your
 pod is eligible to schedule on, based on labels on the node.
 
@@ -116,7 +116,7 @@ Thus an example of `requiredDuringSchedulingIgnoredDuringExecution` would be "on
 and an example `preferredDuringSchedulingIgnoredDuringExecution` would be "try to run this set of pods in availability
 zone XYZ, but if it's not possible, then allow some to run elsewhere".
 
-Node affinity is specified as field `nodeAffinity` of `affinity` in the PodSpec.
+Node affinity is specified as field `nodeAffinity` of field `affinity` in the PodSpec.
 
 Here's an example of a pod that uses node affinity:
 
@@ -157,8 +157,8 @@ in the same zone, since they communicate a lot with each other"
 and an example `preferredDuringSchedulingIgnoredDuringExecution` anti-affinity would be "spread the pods from this service across zones"
 (a hard requirement wouldn't make sense, since you probably have more pods than zones).
 
-Inter-pod affinity is specified as field `podAffinity` of `affinity` in the PodSpec.
-And inter-pod anti-affinity is specified as field `podAntiAffinity` of `affinity`.
+Inter-pod affinity is specified as field `podAffinity` of field `affinity` in the PodSpec.
+And inter-pod anti-affinity is specified as field `podAntiAffinity` of field `affinity` in the PodSpec.
 
 Here's an example of a pod that uses pod affinity:
 
