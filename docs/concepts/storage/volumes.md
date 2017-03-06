@@ -7,6 +7,8 @@ assignees:
 title: Volumes
 ---
 
+{% capture overview %}
+
 On-disk files in a container are ephemeral, which presents some problems for
 non-trivial applications when running in containers.  First, when a container
 crashes kubelet will restart it, but the files will be lost - the
@@ -16,9 +18,11 @@ Kubernetes `Volume` abstraction solves both of these problems.
 
 Familiarity with [pods](/docs/user-guide/pods) is suggested.
 
-* TOC
+{% endcapture %}
+
 {:toc}
 
+{% capture body %}
 
 ## Background
 
@@ -576,3 +580,7 @@ In the future, we expect that `emptyDir` and `hostPath` volumes will be able to
 request a certain amount of space using a [resource](/docs/user-guide/compute-resources)
 specification, and to select the type of media to use, for clusters that have
 several media types.
+
+{% endcapture %}
+
+{% include templates/concept.md %}
