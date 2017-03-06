@@ -103,7 +103,15 @@ Note: Disabling SELinux by running `setenforce 0` is required in order to allow 
 ### (2/4) Initializing your master
 
 The master is the machine where the "control plane" components run, including `etcd` (the cluster database) and the API server (which the `kubectl` CLI communicates with).
-All of these components run in pods started by `kubelet`.
+All of these components run in pods started by `kubelet` and the following images are required and will be automatically pulled by `kubelet` if they are absent while `kubeadm init` is initializing your master:
+
+    gcr.io/google_containers/kube-proxy-amd64                v1.5.3         
+    gcr.io/google_containers/kube-controller-manager-amd64   v1.5.3         
+    gcr.io/google_containers/kube-scheduler-amd64            v1.5.3         
+    gcr.io/google_containers/kube-apiserver-amd64            v1.5.3         
+    gcr.io/google_containers/etcd-amd64                      3.0.14-kubeadm 
+    gcr.io/google_containers/kube-discovery-amd64            1.0            
+    gcr.io/google_containers/pause-amd64                     3.0 
 
 Right now you can't run `kubeadm init` twice without tearing down the cluster in between, see [Tear down](#tear-down).
 

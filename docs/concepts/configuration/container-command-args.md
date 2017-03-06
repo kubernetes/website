@@ -1,5 +1,8 @@
 ---
 title: Container Command and Arguments
+redirect_from:
+- "/docs/user-guide/containers/"
+- "/docs/user-guide/containers.html"
 ---
 
 {% capture overview %}
