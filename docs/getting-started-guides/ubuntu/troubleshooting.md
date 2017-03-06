@@ -42,9 +42,9 @@ Machine  State    DNS            Inst id              Series  AZ
 
 In this example we can glean some information. The `Workload` column will show the status of a given service. The `Message` section will show you the health of a given service in the cluster. During deployment and maintenance these workload statuses will update to reflect what a given node is doing. For example the workload my say `maintenance` while message will describe this maintenance as `Installing docker`.
 
-During normal oprtation the Workload should read `active`, the Agent column (which reflects what the Juju agent is doing) should read `idle`, and the messages will either say `Ready` or another descriptive term. `juju status --color` will also return all green results when a cluster's deployment is healthy. 
+During normal operation the Workload should read `active`, the Agent column (which reflects what the Juju agent is doing) should read `idle`, and the messages will either say `Ready` or another descriptive term. `juju status --color` will also return all green results when a cluster's deployment is healthy. 
 
-Status can become unweildly for large clusters, it is then recommended to check status on individual services, for example to check the status on the workers only:
+Status can become unwieldy for large clusters, it is then recommended to check status on individual services, for example to check the status on the workers only:
 
     juju status kubernetes-workers
 
