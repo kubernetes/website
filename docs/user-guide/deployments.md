@@ -622,7 +622,7 @@ See the [Kubernetes API conventions](https://github.com/kubernetes/community/blo
 Note that in version 1.5, Kubernetes will take no action on a stalled Deployment other than to report a status condition with
 `Reason=ProgressDeadlineExceeded`.
 
-**Note:** If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can safely pause a Deployment in the middle of a rollout and resume without triggering a the condition for exceeding the deadline.
+**Note:** If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can safely pause a Deployment in the middle of a rollout and resume without triggering the condition for exceeding the deadline.
 
 You may experience transient errors with your Deployments, either due to a low timeout that you have set or due to any other kind
 of error that can be treated as transient. For example, let's suppose you have insufficient quota. If you describe the Deployment

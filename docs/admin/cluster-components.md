@@ -15,7 +15,7 @@ cluster (e.g., scheduling), and detecting and responding to cluster events
 (e.g., starting up a new pod when a replication controller's 'replicas' field is
 unsatisfied).
 
-Master components could in theory be run on any node in the cluster. However,
+In theory, Master components can be run on any node in the cluster. However,
 for simplicity, current set up scripts typically start all master components on
 the same VM, and does not run user containers on this VM. See
 [high-availability.md](/docs/admin/high-availability) for an example multi-master-VM setup.
