@@ -37,6 +37,7 @@ toc:
     - docs/concepts/workloads/pods/pod-lifecycle.md
   - title: Containers
     section:
+    - docs/concepts/workloads/containers/container-environment.md
     - docs/concepts/workloads/containers/container-lifecycle-hooks.md
     - docs/concepts/abstractions/init-containers.md
     - docs/concepts/workloads/containers/images.md

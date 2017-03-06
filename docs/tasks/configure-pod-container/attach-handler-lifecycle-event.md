@@ -79,7 +79,7 @@ unless the Pod's grace period expires. For more details, see
 
 {% capture whatsnext %}
 
-* Learn more about [Container lifecycle hooks](/docs/user-guide/container-environment/.)
+* Learn more about [Container lifecycle hooks](/docs/concepts/workloads/containers/container-lifecycle-hooks.md).
 * Learn more about the [lifecycle of a Pod](https://kubernetes.io/docs/user-guide/pod-states/).
 
 
