@@ -3,6 +3,7 @@ assignees:
 - fgrzadkowski
 - jszczepkowski
 - justinsb
+- directxman12
 title: Horizontal Pod Autoscaling
 ---
 
@@ -10,7 +11,7 @@ Horizontal Pod Autoscaling automatically scales the number of pods
 in a replication controller, deployment or replica set based on observed CPU utilization
 (or, with alpha support, on some other, application-provided metrics).
 
-This document walks you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.  For more information on how Horizontal Pod Autoscaling behaves, see the [Horizontal Pod Autoscaling glossary entry](/docs/user-guide/horizontal-pod-autoscaling/). 
+This document walks you through an example of enabling Horizontal Pod Autoscaling for the php-apache server.  For more information on how Horizontal Pod Autoscaling behaves, see the [Horizontal Pod Autoscaling user guide](/docs/user-guide/horizontal-pod-autoscaling/).
 
 ## Prerequisites
 
@@ -19,6 +20,11 @@ This example requires a running Kubernetes cluster and kubectl, version 1.2 or l
 as Horizontal Pod Autoscaler uses it to collect metrics
 (if you followed [getting started on GCE guide](/docs/getting-started-guides/gce),
 heapster monitoring will be turned-on by default).
+
+To specify multiple resource metrics for a Horizontal Pod Autoscaler, you must have a Kubernetes cluster
+and kubectl at version 1.6 or later.  Furthermore, in order to make use of custom metrics, your cluster
+must be able to communicate with the API server providing the custom metrics API.
+See the [Horizontal Pod Autoscaling user guide](/docs/user-guide/horizontal-pod-autoscaling/#support-for-custom-metrics) for more details.
 
 ## Step One: Run & expose php-apache server
 
@@ -95,7 +101,7 @@ php-apache   7         7         7            7           19m
 
 **Note** Sometimes it may take a few minutes to stabilize the number of replicas.
 Since the amount of load is not controlled in any way it may happen that the final number of replicas will
-differ from this example. 
+differ from this example.
 
 ## Step Four: Stop load
 
@@ -119,6 +125,146 @@ php-apache   1         1         1            1           27m
 Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas back down to 1.
 
 **Note** autoscaling the replicas may take a few minutes.
+
+## Autoscaling on multiple metrics and custom metrics
+
+You can introduce additional metrics to use when autoscaling the `php-apache` Deployment
+by making use of the `autoscaling/v2alpha1` API version.
+
+First, get the YAML of your HorizontalPodAutoscaler in the `autoscaling/v2alpha1` form:
+
+```shell
+$ kubectl get hpa.autoscaling.v2alpha1 -o yaml > /tmp/hpa-v2.yaml
+```
+
+Open the `/tmp/hpa-v2.yaml` file in an editor, and you should see YAML which looks like this:
+
+```yaml
+apiVersion: autoscaling/v2alpha1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 50
+status:
+  observedGeneration: 1
+  lastScaleTime: <some-time>
+  currentReplicas: 1
+  desiredReplicas: 1
+  currentMetrics:
+  - type: Resource
+    resource:
+      name: cpu
+      currentAverageUtilization: 0
+      currentAverageValue: 0
+```
+
+Notice that the `targetCPUUtilizationPercentage` field has been replaced with an array called `metrics`.
+The CPU utilization metric is a *resource metric*, since it is represented as a percentage of a resource
+specified on pod containers.  Notice that you can specify other resource metrics besides CPU.  By default,
+the only other supported resource metric is memory.  These resources do not change names from cluster
+to cluster, and should always be available, as long as Heapster is deployed.
+
+You can also specify resource metrics in terms of direct values, instead of as percentages of the
+requested value.  To do so, use the `targetAverageValue` field insted of the `targetAverageUtilization`
+field.
+
+There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
+object metrics.  These metrics may have names which are cluster specific, and require a more
+advanced cluster monitoring setup.
+
+The first of these alternative metric types is *pod metrics*.  These metrics describe pods, and
+are averaged together across pods and compared with a target value to determine the replica count.
+They work much like resource metrics, except that they *only* have the `targetAverageValue` field.
+
+Pod metrics are specified using a metric block like this:
+```yaml
+type: Pods
+pods:
+  metricName: packets-per-second
+  targetAverageValue: 1k
+```
+
+The second alternative metric type is *object metrics*.  These metrics describe a different
+object in the same namespace, instead of describing pods.  Note that the metrics are not
+fetched from the object -- they simply describe it.  Object metrics do not involve averaging,
+and look like this:
+
+```yaml
+type: Object
+object:
+  metricName: requests-per-second
+  target:
+    apiVersion: extensions/v1beta1
+    kind: Ingress
+    name: main-route
+  targetValue: 2k
+```
+
+If you provide multiple such metric blocks, the HorizontalPodAutoscaler will consider each metric in turn.
+The HorizontalPodAutoscaler will calculate proposed replica counts for each metric, and then choose the
+one with the highest replica count.
+
+For example, if you had your monitoring system collecting metrics about network traffic,
+you could update the definition above using `kubectl edit` to look like this:
+
+```yaml
+apiVersion: autoscaling/v2alpha1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 50
+  - type: Pods
+    pods:
+      metricName: packets-per-second
+      targetAverageValue: 1k
+  - type: Object
+    object:
+      metricName: requests-per-second
+      target:
+        apiVersion: extensions/v1beta1
+        kind: Ingress
+        name: main-route
+      targetValue: 10k
+status:
+  observedGeneration: 1
+  lastScaleTime: <some-time>
+  currentReplicas: 1
+  desiredReplicas: 1
+  currentMetrics:
+  - type: Resource
+    resource:
+      name: cpu
+      currentAverageUtilization: 0
+      currentAverageValue: 0
+```
+
+Then, your HorizontalPodAutoscaler would attempt to ensure that each pod was consuming roughly
+50% of its requested CPU, serving 1000 packets per second, and that all pods behind the main-route
+Ingress were serving a total of 10000 requests per second.
 
 ## Appendix: Other possible scenarios
 
