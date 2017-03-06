@@ -43,7 +43,7 @@ We also allow users to customize garbage collection policy through the following
 
 1. `minimum-container-ttl-duration`, minimum age for a finished container before it is
 garbage collected. Default is 0 minute, which means every finished container will be garbaged collected.
-2. `maximum-dead-containers-per-container`, maximum number of old instances to retain
+2. `maximum-dead-containers-per-container`, maximum number of old instances to be retained
 per container. Default is 1.
 3. `maximum-dead-containers`, maximum number of old instances of containers to retain globally.
 Default is -1, which means there is no global limit.
