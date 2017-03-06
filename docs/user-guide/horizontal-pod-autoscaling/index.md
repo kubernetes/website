@@ -2,6 +2,7 @@
 assignees:
 - fgrzadkowski
 - jszczepkowski
+- directxman12
 title: Horizontal Pod Autoscaling
 ---
 
@@ -22,19 +23,41 @@ to match the observed average CPU utilization to the target specified by user.
 
 ![Horizontal Pod Autoscaler diagram](/images/docs/horizontal-pod-autoscaler.svg)
 
-The autoscaler is implemented as a control loop.
-It periodically queries CPU utilization for the pods it targets.
+The autoscaler is implemented as a control loop
 (The period of the autoscaler is controlled by `--horizontal-pod-autoscaler-sync-period` flag of controller manager.
 The default value is 30 seconds).
-Then, it compares the arithmetic mean of the pod's CPU utilization with the target and adjust the number of replicas if needed.
 
-CPU utilization is the recent CPU usage of a pod divided by the sum of CPU requested by the pod's containers.
-Please note that if some of the pod's containers do not have CPU request set,
-CPU utilization for the pod will not be defined and the autoscaler will not take any action.
-Further details of the autoscaling algorithm are given [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm).
+For each HorizontalPodAutoscaler, the controller fetches the metrics that
+it targets from either the resource metrics API (for per-pod resource metrics),
+or the custom metrics API (for all other metrics).
 
-The autoscaler uses heapster to collect CPU utilization.
-Therefore, it is required to deploy heapster monitoring in your cluster for autoscaling to work.
+For per-pod resource metrics (like CPU), the controller fetches the metrics
+from the resource metrics API for each pod targeted by the HorizontalPodAutoscaler.
+Then, if a target utilization value is set, the controller calculates the utilization
+value as a percentage of the equivalent resource request on the containers in
+each pod.  If a target raw value is set, the raw metric values are used directly.
+It then takes the mean of the utilization or the raw value (depending on the type
+of target specified) across all targeted pods, and produces a ratio used to scale
+the number of desired replicas.
+
+Please note that if some of the pod's containers do not have the relevant resource request set,
+CPU utilization for the pod will not be defined and the autoscaler will not take any action
+for that metric. Further details of the autoscaling algorithm are given [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm).
+
+Per-pod custom metrics work similarly to per-pod resource metrics, except that they only
+work with raw values, not utilization values.
+
+Finally, for object metrics, a single metric is fetched (which describes the object
+in question), and compared to the target value, to produce a ratio as above.
+
+The HorizontalPodAutoscaler controller can fetch metrics in two different ways: direct Heapster
+access, and REST client access.
+
+In the former case, the HorizontalPodAutoscaler queries Heapster directly through the API server's
+service proxy subresource.  Heapster needs to be deployed on the cluster, running in the
+kube-system namespace.
+
+More details in the latter case can be found in the section [Support for custom metrics](#prerequisites).
 
 The autoscaler accesses corresponding replication controller, deployment or replica set by scale sub-resource.
 Scale is an interface which allows to dynamically set the number of replicas and to learn the current state of them.
@@ -43,12 +66,13 @@ More details on scale sub-resource can be found [here](https://github.com/kubern
 
 ## API Object
 
-Horizontal Pod Autoscaler is a top-level resource in the Kubernetes REST API.
-In Kubernetes 1.2 HPA was graduated from beta to stable (more details about [api versioning](/docs/api/#api-versioning)) with compatibility between versions.
-The stable version is available in the `autoscaling/v1` api group whereas the beta vesion is available in the `extensions/v1beta1` api group as before.
-The transition plan is to deprecate beta version of HPA in Kubernetes 1.3, and get it rid off completely in Kubernetes 1.4.
+The Horizontal Pod Autoscaler is an API resource in the Kubernetes `autoscaling` API group.
+The current stable version, which only includes support for CPU autoscaling,
+can be found in the `autoscaling/v1` API version.
 
-**Warning!** Please have in mind that all Kubernetes components still use HPA in `extensions/v1beta1` in Kubernetes 1.2.
+The alpha version, which includes support for scaling on memory and custom metrics,
+can be found in `autoscaling/v2alpha1`. The new fields introduced in `autoscaling/v2alpha1`
+are preserved as annotations when working with `autoscaling/v1`.
 
 More details about the API object can be found at
 [HorizontalPodAutoscaler Object](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
@@ -79,55 +103,35 @@ i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and
 The reason this doesn't work is that when rolling update creates a new replication controller,
 the Horizontal Pod Autoscaler will not be bound to the new replication controller.
 
+## Support for multiple metrics
+
+Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2alpha1` API
+version to specify multiple metrics for the Horizontal Pod Autoscaler to scale on. Then, the Horizontal Pod
+Autoscaler controller will evaluate each metric, and propose a new scale based on that metric. The largest of the
+proposed scales will be used as the new scale.
+
 ## Support for custom metrics
 
-Kubernetes 1.2 adds alpha support for scaling based on application-specific metrics like QPS (queries per second) or average request latency.
+**Note**: Kubernetes 1.2 added alpha support for scaling based on application-specific metrics using special annotations.
+Support for this was removed in Kubernetes 1.6 in favor of the `autoscaling/v2alpha1` API.  While the old method for collecting
+custom metrics is still available, these metrics will not be available for use by the Horizontal Pod Autoscaler, and the former
+annotations for specifying which custom metrics to scale on are no longer honored by the Horizontal Pod Autoscaler controller.
+
+Kubernetes 1.6 adds supports for making use of custom metrics in the Horizontal Pod Autoscaler.
+You can custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2alpha1` API.
+Kubernetes then queries the new custom metrics API to fetch the values of the appropriate custom metrics.
 
 ### Prerequisites
 
-The cluster has to be started with `ENABLE_CUSTOM_METRICS` environment variable set to `true`.
+In order to use custom metrics in the Horizontal Pod Autoscaler, you must have deployed the cluster with the
+`--horizontal-pod-autoscaler-use-rest-clients` flag on the controller manager set to true.  You must then configure
+your controller manager to speak to the API server through the API server aggregator.  The resource metrics API and
+custom metrics API must also be registered with the API server aggregator, and must be served by API servers running
+on the cluster.
 
-### Pod configuration
-
-The pods to be scaled must have cAdvisor-specific custom (aka application) metrics endpoint configured. The configuration format is described [here](https://github.com/google/cadvisor/blob/master/docs/application_metrics.md). Kubernetes expects the configuration to 
-  be placed in `definition.json` mounted via a [configMap](/docs/user-guide/configmap/) in `/etc/custom-metrics`. A sample config map may look like this:
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cm-config
-data:
-  definition.json: "{\"endpoint\" : \"http://localhost:8080/metrics\"}"
-``` 
-
-**Warning**
-Due to the way cAdvisor currently works `localhost` refers to the node itself, not to the running pod. Thus the appropriate container in the pod must ask for a node port. Example:
-
-```yaml
-    ports:
-    - hostPort: 8080
-      containerPort: 8080
-```
-
-### Specifying target
-
-HPA for custom metrics is configured via an annotation. The value in the annotation is interpreted as a target metric value averaged over
-all running pods. Example: 
-
-```yaml
-    annotations:
-      alpha/target.custom-metrics.podautoscaler.kubernetes.io: '{"items":[{"name":"qps", "value": "10"}]}'
-```
-
-In this case, if there are four pods running and each pod reports a QPS metric of 15 or higher, horizontal pod autoscaling will start two additional pods (for a total of six pods running).
-
-If you specify multiple metrics in your annotation or if you set a target CPU utilization, horizontal pod autoscaling will scale to according to the metric that requires the highest number of replicas.
-
-If you do not specify a target for CPU utilization, Kubernetes defaults to an 80% utilization threshold for horizontal pod autoscaling.
-
-If you want to ensure that horizontal pod autoscaling calculates the number of required replicas based only on custom metrics, you should set the CPU utilization target to a very large value (such as 100000%). As this level of CPU utilization isn't possible, horizontal pod autoscaling will calculate based only on the custom metrics (and min/max limits).
-
+Currently, Heapster provides an implementation of the resource metrics API when run with the `--api-server` flag set
+to true. A separate component must provide the custom metrics API (more information on the custom metrics API is
+available at [the k8s.io/metrics repository](https://github.com.com/kubernetes/metrics)).
 
 ## Further reading
 
