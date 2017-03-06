@@ -8,7 +8,7 @@ The Kubernetes **Guides** can help you work with various aspects of the Kubernet
 
 * The Kubernetes [User Guide](#user-guide-internal) can help you run programs and services on an existing Kubernetes cluster.
 * The [Cluster Admin Guide](/docs/admin/) can help you set up and administrate your own Kubernetes cluster.
-* The [Developer Guide](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel) can help you either write code to directly access the Kubernetes API, or to contribute directly to the Kubernetes project.
+* The [Developer Guide] can help you either write code to directly access the Kubernetes API, or to contribute directly to the Kubernetes project.
 
 ## <a name="user-guide-internal"></a>Kubernetes User Guide
 
@@ -86,3 +86,5 @@ Pods and containers
   * [Configuration Best Practices and Tips](/docs/user-guide/config-best-practices/)
   * [Assign pods to selected nodes](/docs/user-guide/node-selection/)
   * [Perform a rolling update on a running group of pods](/docs/user-guide/update-demo/)
+
+[Developer Guide]: https://github.com/kubernetes/community/blob/master/contributors/devel/README.md

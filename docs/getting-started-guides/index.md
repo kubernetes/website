@@ -61,6 +61,7 @@ few commands, and have active community support.
 - [GCE](/docs/getting-started-guides/gce)
 - [AWS](/docs/getting-started-guides/aws)
 - [Azure](/docs/getting-started-guides/azure)
+- [Tectonic by CoreOS](https://coreos.com/tectonic)
 - [CenturyLink Cloud](/docs/getting-started-guides/clc)
 - [IBM SoftLayer](https://github.com/patrocinio/kubernetes-softlayer)
 - [Stackpoint.io](/docs/getting-started-guides/stackpoint/)

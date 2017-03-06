@@ -19,6 +19,7 @@ toc:
   - title: Controllers
     section:
     - docs/concepts/abstractions/controllers/statefulsets.md
+    - docs/concepts/abstractions/controllers/petsets.md
     - docs/concepts/abstractions/controllers/garbage-collection.md
 
 - title: Object Metadata
@@ -39,6 +40,10 @@ toc:
     - docs/concepts/workloads/containers/container-lifecycle-hooks.md
     - docs/concepts/abstractions/init-containers.md
     - docs/concepts/workloads/containers/images.md
+
+- title: Clusters
+  section:
+  - docs/concepts/clusters/logging.md
 
 - title: Configuration
   section:

@@ -16,7 +16,7 @@ This page assumes you have a working Juju deployed cluster.
 
 controller - The management node of a cloud environment. Typically you have one controller per cloud region, or more in HA environments. The controller is responsible for managing all subsequent models in a given environment. It contains the Juju API server and its underlying database. 
 
-model - A collection of charms and their relationships that define a deployment. This includes machines and units. A controller can host multiple models. It is recommended to seperate Kubernetes clusters into individual models for management and isolation reasons.  
+model - A collection of charms and their relationships that define a deployment. This includes machines and units. A controller can host multiple models. It is recommended to separate Kubernetes clusters into individual models for management and isolation reasons.
 
 charm - The definition of a service, including its metadata, dependencies with other services, required packages, and application management logic. It contains all the operational knowledge of deploying a Kubernetes cluster. Included charm examples are  `kubernetes-core`, `easy-rsa`, `kibana`, and `etcd`. 
 

@@ -174,7 +174,7 @@ service "nodeport" annotated
 Now, re-run the test:
 
 ```console
-$ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; do
+$ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
 client_address=104.132.1.79
 ```
 
