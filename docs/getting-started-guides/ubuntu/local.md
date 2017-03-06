@@ -49,7 +49,7 @@ Now you're ready to install conjure-up and deploy Kubernetes.
     
 ```
 
-Note: During this set up phase cojure-up will ask you to "Setup an ipv6 subnet" with LXD, ensure you answer NO. ipv6 with Juju/LXD is currently unsupported.
+Note: During this set up phase conjure-up will ask you to "Setup an ipv6 subnet" with LXD, ensure you answer NO. ipv6 with Juju/LXD is currently unsupported.
 
 ### Walkthrough
 
