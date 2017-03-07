@@ -122,13 +122,16 @@ $ kubectl get pods --selector=app=cassandra rc -o \
 $ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 
 # List Names of Pods that belong to Particular RC
-# "jq" command useful for transformations that are too complex for jsonpath
+# "jq" command useful for transformations that are too complex for jsonpath, it can be found at https://stedolan.github.io/jq/
 $ sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 $ echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
 
 # Check which nodes are ready
 $ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
  && kubectl get nodes -o jsonpath=$JSONPATH | grep "Ready=True"
+
+# List all Secrets currently in use by a pod
+$ kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 ```
 
 ## Updating Resources
