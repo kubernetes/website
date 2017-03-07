@@ -92,7 +92,7 @@ an extended period of time (10min but it may change in the future).
 Cluster autoscaler is configured per instance group (GCE) or node pool (GKE).
 
 If you are using GCE then you can either enable it while creating a cluster with kube-up.sh script. 
-To configure cluster autoscaler you have to set 3 environment variables:
+To configure cluster autoscaler you have to set three environment variables:
 
 * `KUBE_ENABLE_CLUSTER_AUTOSCALER` - it enables cluster autoscaler if set to true.
 * `KUBE_AUTOSCALER_MIN_NODES` - minimum number of nodes in the cluster.
