@@ -43,26 +43,18 @@ REST objects, a `Service` definition can be POSTed to the apiserver to create a
 new instance.  For example, suppose you have a set of `Pods` that each expose
 port 9376 and carry a label `"app=MyApp"`.
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "spec": {
-        "selector": {
-            "app": "MyApp"
-        },
-        "ports": [
-            {
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort": 9376
-            }
-        ]
-    }
-}
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
 This specification will create a new `Service` object named "my-service" which
@@ -98,46 +90,31 @@ abstract other kinds of backends.  For example:
 
 In any of these scenarios you can define a service without a selector:
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "spec": {
-        "ports": [
-            {
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort": 9376
-            }
-        ]
-    }
-}
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
 Because this service has no selector, the corresponding `Endpoints` object will not be
 created. You can manually map the service to your own specific endpoints:
 
-```json
-{
-    "kind": "Endpoints",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "subsets": [
-        {
-            "addresses": [
-                { "ip": "1.2.3.4" }
-            ],
-            "ports": [
-                { "port": 9376 }
-            ]
-        }
-    ]
-}
+```yaml
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: my-service
+subsets:
+  - addresses:
+      - ip: 1.2.3.4
+    ports:
+      - port: 9376
 ```
 
 NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
@@ -151,19 +128,15 @@ An ExternalName service is a special case of service that does not have
 selectors. It does not define any ports or endpoints. Rather, it serves as a
 way to return an alias to an external service residing outside the cluster.
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service",
-        "namespace": "prod"
-    },
-    "spec": {
-        "type": "ExternalName",
-        "externalName": "my.database.example.com"
-    }
-}
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+  namespace: prod
+spec:
+  type: ExternalName
+  externalName: my.database.example.com
 ```
 
 When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
@@ -237,33 +210,23 @@ supports multiple port definitions on a `Service` object.  When using multiple
 ports you must give all of your ports names, so that endpoints can be
 disambiguated.  For example:
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "spec": {
-        "selector": {
-            "app": "MyApp"
-        },
-        "ports": [
-            {
-                "name": "http",
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort": 9376
-            },
-            {
-                "name": "https",
-                "protocol": "TCP",
-                "port": 443,
-                "targetPort": 9377
-            }
-        ]
-    }
-}
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+    selector:
+      app: MyApp
+    ports:
+      - name: http
+        protocol: TCP
+        port: 80
+        targetPort: 9376
+      - name: https
+        protocol: TCP
+        port: 443
+        targetPort: 9377
 ```
 
 ## Choosing your own IP address
@@ -432,39 +395,26 @@ The actual creation of the load balancer happens asynchronously, and
 information about the provisioned balancer will be published in the `Service`'s
 `status.loadBalancer` field.  For example:
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "spec": {
-        "selector": {
-            "app": "MyApp"
-        },
-        "ports": [
-            {
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort": 9376,
-                "nodePort": 30061
-            }
-        ],
-        "clusterIP": "10.0.171.239",
-        "loadBalancerIP": "78.11.24.19",
-        "type": "LoadBalancer"
-    },
-    "status": {
-        "loadBalancer": {
-            "ingress": [
-                {
-                    "ip": "146.148.47.155"
-                }
-            ]
-        }
-    }
-}
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+      nodePort: 30061
+  clusterIP: 10.0.171.239
+  loadBalancerIP: 78.11.24.19
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+      - ip: 146.148.47.155
 ```
 
 Traffic from the external load balancer will be directed at the backend `Pods`,
@@ -479,25 +429,21 @@ For partial SSL support on clusters running on AWS, starting with 1.3 two
 annotations can be added to a `LoadBalancer` service:
 
 ```
-    "metadata": {
-        "name": "my-service",
-        "annotations": {
-            "service.beta.kubernetes.io/aws-load-balancer-ssl-cert": "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
-        }
-    },
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
 ```
 
 The first specifies which certificate to use. It can be either a
 certificate from a third party issuer that was uploaded to IAM or one created
 within AWS Certificate Manager.
 
-```
-    "metadata": {
-        "name": "my-service",
-        "annotations": {
-            "service.beta.kubernetes.io/aws-load-balancer-backend-protocol": "(https|http|ssl|tcp)"
-        }
-    },
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
 ```
 
 The second annotation specifies which protocol a pod speaks. For HTTPS and
@@ -522,30 +468,21 @@ of the cluster administrator.
 In the ServiceSpec, `externalIPs` can be specified along with any of the `ServiceTypes`.
 In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "spec": {
-        "selector": {
-            "app": "MyApp"
-        },
-        "ports": [
-            {
-                "name": "http",
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort": 9376
-            }
-        ],
-        "externalIPs" : [
-            "80.11.12.10"
-        ]
-    }
-}
+```yaml
+kind: Service,
+apiVersion: v1,
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - name: http,
+      protocol: TCP,
+      port: 80,
+      targetPort: 9376
+  externalIPs: 
+    - 80.11.12.10
 ```
 
 ## Shortcomings
