@@ -11,7 +11,7 @@ title: Volumes
 
 On-disk files in a container are ephemeral, which presents some problems for
 non-trivial applications when running in containers.  First, when a container
-crashes kubelet will restart it, but the files will be lost - the
+crashes, kubelet will restart it, but the files will be lost - the
 container starts with a clean state.  Second, when running containers together
 in a `Pod` it is often necessary to share files between those containers.  The
 Kubernetes `Volume` abstraction solves both of these problems.

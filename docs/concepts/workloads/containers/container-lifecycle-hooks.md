@@ -43,38 +43,38 @@ A more detailed description of the termination behavior can be found in
 ### Hook handler implementations
 
 Containers can access a hook by implementing and registering a handler for that hook.
-There are two types of Hook handlers that can be implemented for Containers:
+There are two types of hook handlers that can be implemented for Containers:
 
-* Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the container.
-Resources consumed by the command are counted against the container.
-* HTTP - Executes an HTTP request against a specific endpoint on the container.
+* Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
+Resources consumed by the command are counted against the Container.
+* HTTP - Executes an HTTP request against a specific endpoint on the Container.
 
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
-the Kubernetes management system executes the handler in the container registered for that hook.  
+the Kubernetes management system executes the handler in the Container registered for that hook.  
 
-Hook handler calls are synchronous within the context of the Pod containing the container.
+Hook handler calls are synchronous within the context of the Pod containing the Container.
 This means that for a `PostStart` hook,
-the container ENTRYPOINT and hook fire asynchronously.
+the Container ENTRYPOINT and hook fire asynchronously.
 However, if the hook takes too long to run or hangs,
-the container cannot reach a `running` state. 
+the Container cannot reach a `running` state. 
 
 The behavior is similar for a `PreStop` hook.
 If the hook hangs during execution,
 the Pod phase stays in a `running` state and never reaches `failed`.
 If a `PostStart` or `PreStop` hook fails,
-it kills the container.
+it kills the Container.
 
 Users should make their hook handlers as lightweight as possible.
 There are cases, however, when long running commands make sense,
-such as when saving state prior to stopping a container.
+such as when saving state prior to stopping a Container.
 
 ### Hook delivery guarantees
 
 Hook delivery is intended to be *at least once*,
 which means that a hook may be called multiple times for any given event,
-such as for `start` or `stop`.
+such as for `PostStart` or `PreStop`.
 It is up to the hook implementation to handle this correctly.
 
 Generally, only single deliveries are made.
@@ -82,7 +82,7 @@ If, for example, an HTTP hook receiver is down and is unable to take traffic,
 there is no attempt to resend.
 In some rare cases, however, double delivery may occur.
 For instance, if a kubelet restarts in the middle of sending a hook, 
-the hook may be resent after the kubelet comes back up.
+the hook might be resent after the kubelet comes back up.
 
 ### Debugging Hook handlers
 
