@@ -17,8 +17,7 @@ If either resource is exhausted, the node would become unstable.
 
 ## Eviction Policy
 
-The `kubelet` can pro-actively monitor for and prevent against total starvation of a compute resource.  In
-case that it appears to occur, the `kubelet` can pro-actively fail one or more pods in order to reclaim
+The `kubelet` can pro-actively monitor for and prevent against total starvation of a compute resource.  In those cases, the `kubelet` can pro-actively fail one or more pods in order to reclaim
 the starved resource.  When the `kubelet` fails a pod, it terminates all containers in the pod, and the `PodPhase`
 is transitioned to `Failed`.
 
