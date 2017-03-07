@@ -13,7 +13,7 @@ single thing, typically by giving a short sequence of steps.
 
 #### Using the kubectl Command Line
 
-* [Listing Alll Container Images Running in a Cluster](/docs/tasks/kubectl/list-all-running-container-images/)
+* [Listing All Container Images Running in a Cluster](/docs/tasks/kubectl/list-all-running-container-images/)
 * [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/)
 
 #### Configuring Pods and Containers
@@ -53,7 +53,7 @@ single thing, typically by giving a short sequence of steps.
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
 * [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 * [Safely Draining a Node while Respecting Application SLOs](/docs/tasks/administer-cluster/safely-drain-node/)
-* [Changing reclaim policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+* [Changing Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
 
 #### Managing Stateful Applications
 
