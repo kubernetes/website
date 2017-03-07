@@ -224,7 +224,7 @@ validation error is thrown for any Container sharing a name with another.
 ### Resources
 
 Given the ordering and execution for Init Containers, the following rules
-for resource usage apply:
+for resource usage application:
 
 * The highest of any particular resource request or limit defined on all Init
   Containers is the *effective init request/limit*
