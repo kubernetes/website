@@ -72,4 +72,4 @@ Including:
 | `--low-diskspace-threshold-mb` | `--eviction-hard` or `eviction-soft` | eviction generalizes disk thresholds to other resources |
 | `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | eviction generalizes disk pressure transition to other resources |
 
-See [Configuring Out Of Resource Handling](https://kubernetes.io/docs/admin/out-of-resource/) for more details.
+See [Configuring Out Of Resource Handling](/docs/admin/out-of-resource/) for more details.
