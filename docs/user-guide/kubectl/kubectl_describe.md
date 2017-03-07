@@ -10,9 +10,9 @@ Show details of a specific resource or group of resources
 
 
 Show details of a specific resource or group of resources. This command joins many API calls together to form a detailed description of a given resource or group of resources.
-
+```
   $ kubectl describe TYPE NAME_PREFIX
-
+```
 will first check for an exact match on TYPE and NAME PREFIX. If no such resource exists, it will output details for every resource that has a name prefixed with NAME PREFIX.
 
 Valid resource types include:
