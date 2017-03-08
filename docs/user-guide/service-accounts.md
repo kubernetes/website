@@ -154,7 +154,7 @@ Automated version using json and the jq utility:
 kubectl get serviceaccounts default -o json |
      jq  'del(.metadata.resourceVersion)'|
      jq 'setpath(["imagePullSecrets"];[{"name":"myregistrykey"}])' |
-     kubectl replace serviceaccount default -f -
+     kubectl apply -f -
 
 ```
 
@@ -190,7 +190,7 @@ secrets:
 - name: default-token-uudge
 imagePullSecrets:
 - name: myregistrykey
-$ kubectl replace serviceaccount default -f ./sa.yaml
+$ kubectl apply -f ./sa.yaml
 serviceaccounts/default
 ```
 
