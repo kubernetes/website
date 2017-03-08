@@ -42,11 +42,8 @@ Next, apply those kernel parameters (you should see the above options echoed bac
 Now you're ready to install conjure-up and deploy Kubernetes.
     
 ```
-    sudo apt-add-repository ppa:juju/stable
-    sudo apt-add-repository ppa:conjure-up/next
-    sudo apt update
-    sudo apt install conjure-up
-    
+    sudo snap install conjure-up --classic
+    conjure-up kubernetes
 ```
 
 Note: During this set up phase conjure-up will ask you to "Setup an ipv6 subnet" with LXD, ensure you answer NO. ipv6 with Juju/LXD is currently unsupported.

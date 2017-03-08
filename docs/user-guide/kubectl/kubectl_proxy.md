@@ -11,19 +11,26 @@ Run a proxy to the Kubernetes API server
 
 To proxy all of the Kubernetes api and nothing else, use:
 
+```
   $ kubectl proxy --api-prefix=/
+```
 
 To proxy only part of the Kubernetes api and also some static files:
 
+```
   $ kubectl proxy --www=/my/files --www-prefix=/static/ --api-prefix=/api/
+```
 
 The above lets you 'curl localhost:8001/api/v1/pods'.
 
 To proxy the entire Kubernetes api at a different root, use:
 
+```
   $ kubectl proxy --api-prefix=/custom/
+```
 
-The above lets you 'curl localhost:8001/custom/api/v1/pods'
+The above lets you `curl localhost:8001/custom/api/v1/pods`
+
 
 ```
 kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix]

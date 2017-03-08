@@ -87,15 +87,25 @@ properties:
     - Subject-matching properties:
       - `user`, type string; the user-string from `--token-auth-file`. If you specify `user`, it must match the username of the authenticated user.
       - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user. `system:authenticated` matches all authenticated requests. `system:unauthenticated` matches all unauthenticated requests.
-    - `readonly`, type boolean, when true, means that the policy only applies to get, list, and watch operations.
     - Resource-matching properties:
-      - `apiGroup`, type string; an API group, such as `extensions`. `*` matches all API groups.
-      - `namespace`, type string; a namespace string. `*` matches all resource requests.
-      - `resource`, type string; a resource, such as `pods`. `*` matches all resource requests.
+      - `apiGroup`, type string; an API group.
+        - Ex: `extensions`
+        - Wildard: `*` matches all API groups.
+      - `namespace`, type string; a namespace.
+        - Ex: `kube-system`
+        - Wildard: `*` matches all resource requests.
+      - `resource`, type string; a resource type
+        - Ex: `pods`
+        - Wildcard: `*` matches all resource requests.
     - Non-resource-matching properties:
-    - `nonResourcePath`, type string; matches the non-resource request paths (like `/version` and `/apis`). `*` matches all non-resource requests. `/foo/*` matches `/foo/` and all of its subpaths.
+      - `nonResourcePath`, type string; non-resource request paths.
+        - Ex: `/version` or `/apis`
+        - Wildcard: 
+          - `*` matches all non-resource requests.
+          - `/foo/*` matches `/foo/` and all of its subpaths.
+    - `readonly`, type boolean, when true, means that the policy only applies to get, list, and watch operations.
 
-An unset property is the same as a property set to the zero value for its type
+**NOTES:** An unset property is the same as a property set to the zero value for its type
 (e.g. empty string, 0, false). However, unset should be preferred for
 readability.
 
