@@ -76,7 +76,7 @@ A soft eviction threshold pairs an eviction threshold with a required
 administrator specified grace period.  No action is taken by the `kubelet`
 to reclaim resources associated with the eviction signal until that grace
 period has been exceeded.  If no grace period is provided, the `kubelet` will
-error on startup.
+run error on startup.
 
 In addition, if a soft eviction threshold has been met, an operator can
 specify a maximum allowed pod termination grace period to use when evicting
