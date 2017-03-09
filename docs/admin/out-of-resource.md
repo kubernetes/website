@@ -35,7 +35,7 @@ summary API.
 | `imagefs.available` | `imagefs.available` := `node.stats.runtime.imagefs.available` |
 | `imagefs.inodesFree` | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree` |
 
-Each of the above signals support either a literal or percentage based value.  The percentage based value
+Each of the above signals supports either a literal or percentage based value.  The percentage based value
 is calculated relative to the total capacity associated with each signal.
 
 `kubelet` supports only two filesystem partitions.
