@@ -121,7 +121,7 @@ However, the particular path specified in the custom recycler pod template in th
 * Quobyte Volumes
 * HostPath (single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
 * VMware Photon
-
+* ScaleIO Volumes
 
 ## Persistent Volumes
 
@@ -189,6 +189,7 @@ In the CLI, the access modes are abbreviated to:
 | NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
 | RBD                  | &#x2713;     | &#x2713;    | -            |
 | VsphereVolume        | &#x2713;     | -           | -            |
+| ScaleIO              | &#x2713;     | &#x2713;    | -            |
 
 ### Class
 
@@ -534,6 +535,33 @@ parameters:
 * `location`: Azure storage account location. Default is empty.
 * `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
+#### ScaleIO
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: slow
+provisioner: kubernetes.io/scaleio
+parameters:
+  gateway: https://192.168.99.200:443/api
+  system: scaleio
+  protectionDomain: default
+  storagePool: default
+  storageMode: ThinProvisionned
+  secretRef: sio-secret
+  readOnly: false
+  fsType: xfs
+```
+
+* `provisioner`: attribute is set to `kubernetes.io/scaleio`
+* `gateway`: address to a ScaleIO API gateway
+* `system`: the name of the ScaleIO system
+* `protectionDomain`: the name of the ScaleIO protection domain
+* `storagePool`: the name of the volume storage pool
+* `storageMode`: the way storage is provisioned (ThinProvisionned or ThickProvisionned)
+* `secretRef`: name reference to a configuered Secret object
+* `readOnly`: specifies the access mode to the mounted volume
+* `fsType`: the file system to use for the volume
 
 ## Writing Portable Configuration
 
