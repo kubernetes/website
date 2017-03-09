@@ -121,7 +121,7 @@ However, the particular path specified in the custom recycler pod template in th
 * Quobyte Volumes
 * HostPath (single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
 * VMware Photon
-
+* ScaleIO Volumes
 
 ## Persistent Volumes
 
@@ -189,6 +189,7 @@ In the CLI, the access modes are abbreviated to:
 | NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
 | RBD                  | &#x2713;     | &#x2713;    | -            |
 | VsphereVolume        | &#x2713;     | -           | -            |
+| ScaleIO              | &#x2713;     | &#x2713;    | -            |
 
 ### Class
 
@@ -534,6 +535,41 @@ parameters:
 * `location`: Azure storage account location. Default is empty.
 * `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
+#### ScaleIO
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: slow
+provisioner: kubernetes.io/scaleio
+parameters:
+  gateway: https://192.168.99.200:443/api
+  system: scaleio
+  protectionDomain: default
+  storagePool: default
+  storageMode: ThinProvisionned
+  secretRef: sio-secret
+  readOnly: false
+  fsType: xfs
+```
+
+* `provisioner`: attribute is set to `kubernetes.io/scaleio`
+* `gateway`: address to a ScaleIO API gateway (required)
+* `system`: the name of the ScaleIO system (required)
+* `protectionDomain`: the name of the ScaleIO protection domain
+* `storagePool`: the name of the volume storage pool
+* `storageMode`: the storage provision mode: `ThinProvisionned` (default) or `ThickProvisionned`
+* `secretRef`: reference to a configuered Secret object (required, see detail below)
+* `readOnly`: specifies the access mode to the mounted volume
+* `fsType`: the file system to use for the volume
+
+The ScaleIO Kubernetes volume plugin requires a configuered Secret object. 
+The secret must be created with type `kubernetes.io/scaleio` and use the same namespace value as that of the PVC where it is referenced
+as shown in the following command:
+
+```
+$> kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" --from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== --namespace=default
+```
 
 ## Writing Portable Configuration
 
