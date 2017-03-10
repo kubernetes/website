@@ -79,6 +79,7 @@ Kubernetes supports several types of Volumes:
    * `azureDisk`
    * `vsphereVolume`
    * `Quobyte`
+   * `portworxVolume`
 
 We welcome additional contributions.
 
@@ -530,6 +531,15 @@ __Important: You must have your own Quobyte setup running with the volumes creat
 before you can use it__
 
 See the [Quobyte example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/quobyte) for more details.
+
+### Portworx Volume
+
+A `PortworxVolume` is an elastic block storage layer that runs hyperconverged with Kubernetes. Portworx fingerprints storage in a server, tiers
+based on capabilities, and aggregates capacity across multiple servers. Portworx runs in-guest in  virtual machines or on bare metal Linux nodes.
+
+A `PortworxVolume` can be dynamically created through Kubernetes or it can also be pre-provisioned and referenced inside a Kubernetes pod.
+
+More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/portworx/README.md)
 
 ## Using subPath
 
