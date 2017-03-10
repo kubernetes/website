@@ -25,6 +25,7 @@ toc:
     section:
     - docs/admin/accessing-the-api.md
     - docs/admin/authentication.md
+    - docs/admin/bootstrap-tokens.md
     - title: Authorization Plugins
       section:
       - docs/admin/authorization/index.md

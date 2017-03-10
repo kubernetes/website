@@ -107,6 +107,40 @@ header as shown below.
 Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 ```
 
+### Bootstrap Tokens
+
+This feature is currently in **alpha**.
+
+As a way to enable streamlined bootstrapping of new clusters (primarily via
+`kubeadm`) there is a dynamically managed Bearer token type.  This is refered to
+as a "Bootstrap Token".
+
+These tokens are stored as secrets in the `kube-system` namespace.  As such they
+can be dynamically created and managed.  There is a controller built into the
+Controller Manager that will delete tokens as they expire.
+
+Please see [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for in depth
+documentation on the Bootstrap Token authenticator and controllers along with
+how to manage these tokens with `kubeadm`.
+
+The tokens are of the form `[a-z0-9]{6}.[a-z0-9]{16}`.  The first component is a
+Token ID and the second component is the Token Secret.  The token is specified
+in an HTTP header as:
+
+```http
+Authorization: Bearer 781292.db7bc3a58fc5f07e
+```
+
+The Bootstrap Token Authenticator is enabled with the
+`--experimental-bootstrap-token-auth` flag on the API Server.  The expiration
+controller is enabled by specifying `tokencleaner` in the `--controllers` flag
+to the controller manager with something like `--controllers=*,tokencleaner`.
+
+The authenticator authenticates as `system:bootstrap:<Token ID>`.  It is
+included in the `system:bootstrappers` group.  The naming and groups are
+intentionally limited to discourage users from using these tokens past
+bootstrapping.
+
 ### Static Password File
 
 Basic authentication is enabled by passing the `--basic-auth-file=SOMEFILE`
@@ -512,7 +546,7 @@ using an existing deployment script or manually through `easyrsa` or `openssl.`
 #### Using an Existing Deployment Script
 
 **Using an existing deployment script** is implemented at
-`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.  
+`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.
 
 Execute this script with two parameters. The first is the IP address
 of API server. The second is a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.
