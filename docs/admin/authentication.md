@@ -107,6 +107,40 @@ header as shown below.
 Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 ```
 
+### Bootstrap Tokens
+
+This feature is currently in **alpha**.
+
+o allow for streamlined bootstrapping for new clusters, Kubernetes includes a
+dynamically-managed Bearer token type called a *Bootstrap Token*. These tokens
+are stored as Secrets in the `kube-system` namespace, where they can be
+dynamically managed and created. Controller Manager contains a TokenCleaner
+controller that deletes bootstrap tokens as they expire.
+
+The tokens are of the form `[a-z0-9]{6}.[a-z0-9]{16}`.  The first component is a
+Token ID and the second component is the Token Secret.  ThYou specify the token
+in an HTTP header as follows:
+
+```http
+Authorization: Bearer 781292.db7bc3a58fc5f07e
+```
+
+You must enable the Bootstrap Token Authenticator with the
+`--experimental-bootstrap-token-auth` flag on the API Server.  You must enable
+the TokenCleaner controller via the `--controllers` flag on the Controller
+Manager.  This is done with something like `--controllers=*,tokencleaner`.
+
+The authenticator authenticates as `system:bootstrap:<Token ID>`.  It is
+included in the `system:bootstrappers` group.  The naming and groups are
+intentionally limited to discourage users from using these tokens past
+bootstrapping.  The user names and group can be used (and are used by `kubeadm`)
+to craft the appropriate authorization policies to support bootstrapping a
+cluster.
+
+Please see [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for in depth
+documentation on the Bootstrap Token authenticator and controllers along with
+how to manage these tokens with `kubeadm`.
+
 ### Static Password File
 
 Basic authentication is enabled by passing the `--basic-auth-file=SOMEFILE`
@@ -512,7 +546,7 @@ using an existing deployment script or manually through `easyrsa` or `openssl.`
 #### Using an Existing Deployment Script
 
 **Using an existing deployment script** is implemented at
-`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.  
+`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.
 
 Execute this script with two parameters. The first is the IP address
 of API server. The second is a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.
