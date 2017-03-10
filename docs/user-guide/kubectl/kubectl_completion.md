@@ -9,7 +9,7 @@ Output shell completion code for the given shell (bash or zsh)
 
 Output shell completion code for the given shell (bash or zsh).
 
-This command prints shell code which must be evaluation to provide interactive completion of kubectl commands.
+This command prints shell code which must be evaluated to provide interactive completion of kubectl commands.
 
   `$ source <(kubectl completion bash)`
 
