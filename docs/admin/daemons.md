@@ -21,8 +21,8 @@ Some typical uses of a DaemonSet are:
   https://github.com/prometheus/node_exporter), `collectd`, New Relic agent, or Ganglia `gmond`.
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
-A more complex setup might use multiple DaemonSets would be used for a single type of daemon,
-but with different flags and/or different memory and cpu requests for different hardware types.
+A more complex setup might use multiple DaemonSets for a single type of daemon, but with
+different flags and/or different memory and cpu requests for different hardware types.
 
 ## Writing a DaemonSet Spec
 
