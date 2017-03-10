@@ -33,7 +33,7 @@ A typical use case is:
 ### Prerequisites
 
 You need a working Kubernetes cluster at version >= 1.4 (for ScheduledJob), >= 1.5 (for CronJob),
-with batch/v2alpha1 API turned on by passing `--runtime-config=batch/v2alpha1` while bringing up
+with batch/v2alpha1 API turned on by passing `--runtime-config=batch/v2alpha1=true` while bringing up
 the API server (see [Turn on or off an API version for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
 for more). You cannot use Cron Jobs on a hosted Kubernetes provider that has disabled alpha resources.
 
