@@ -106,6 +106,7 @@ to the volume sources that are defined when creating a volume:
 1. quobyte
 1. azureDisk
 1. photonPersistentDisk
+1. portworxVolume
 1. \* (allow all volumes)
 
 The recommended minimum set of allowed volumes for new PSPs are 
