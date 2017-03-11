@@ -25,14 +25,41 @@ When they do, they are authenticated as a particular Service Account (e.g.
 
 ## Using the Default Service Account to access the API server.
 
-When you create a pod, you do not need to specify a service account.  It is
-automatically assigned the `default` service account of the same namespace.  If
-you get the raw json or yaml for a pod you have created (e.g. `kubectl get
-pods/podname -o yaml`), you can see the `spec.serviceAccount` field has been
+When you create a pod, if you do not specify a service account, it is
+automatically assigned the `default` service account in the same namespace.
+If you get the raw json or yaml for a pod you have created (e.g. `kubectl get pods/podname -o yaml`),
+you can see the `spec.serviceAccountName` field has been
 [automatically set](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
 
-With service accounts, you can access the API inside the pod using a proxy or with a client library,
+You can access the API from inside a pod using automatically mounted service account credentials,
 as described in [Accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
+
+In version 1.6+, you can opt out of automounting API credentials for a service account by setting
+`automountServiceAccountToken: false` on the service account:
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-robot
+automountServiceAccountToken: false
+...
+```
+
+In version 1.6+, you can also opt out of automounting API credentials for a particular pod:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  serviceAccountName: build-robot
+  automountServiceAccountToken: false
+  ...
+```
+
+The pod spec takes precedence over the service account if both specify a `automountServiceAccountToken` value.
 
 ## Using Multiple Service Accounts.
 
@@ -45,7 +72,7 @@ NAME      SECRETS
 default   1
 ```
 
-You can create additional serviceAccounts like this:
+You can create additional ServiceAccount objects like this:
 
 ```shell
 $ cat > /tmp/serviceaccount.yaml <<EOF
@@ -77,9 +104,9 @@ secrets:
 
 then you will see that a token has automatically been created and is referenced by the service account.
 
-You may use the ABAC authorization plugin to [set permissions on service accounts](/docs/admin/authorization/#a-quick-note-on-service-accounts).
+You may use authorization plugins to [set permissions on service accounts](/docs/admin/authorization/#a-quick-note-on-service-accounts).
 
-To use a non-default service account, simply set the `spec.serviceAccount`
+To use a non-default service account, simply set the `spec.serviceAccountName`
 field of a pod to the name of the service account you wish to use.
 
 The service account has to exist at the time the pod is created, or it will be rejected.
@@ -92,8 +119,6 @@ You can clean up the service account from this example like this:
 $ kubectl delete serviceaccount/build-robot
 ```
 
-<!-- TODO: describe how to create a pod with no Service Account. -->
-Note that if a pod does not have a `ServiceAccount` set, the `ServiceAccount` will be set to `default`.
 
 ## Manually create a service account API token.
 
@@ -205,6 +230,3 @@ spec:
 ## Adding Secrets to a service account.
 
 TODO: Test and explain how to use additional non-K8s secrets with an existing service account.
-
-TODO explain:
-  - The token goes to: "/var/run/secrets/kubernetes.io/serviceaccount/$WHATFILENAME"
