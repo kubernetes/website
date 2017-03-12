@@ -165,6 +165,11 @@ completely unhealthy (i.e. there are no healthy nodes in the cluster). In such
 case, the node controller assumes that there's some problem with master
 connectivity and stops all evictions until some connectivity is restored.
 
+In Kubernetes 1.6, we introduced the logic for the node controller to handle
+`taints` and `tolerance`. Basically, `taints` go on nodes while `tolerations`
+go on pods. A taint on a node means `repel all pods that do not tolerate the
+taint`. Refer to [taints and tolerations] (TODO) for detail.
+
 ### Self-Registration of Nodes
 
 When the kubelet flag `--register-node` is true (the default), the kubelet will attempt to
