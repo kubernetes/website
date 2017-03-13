@@ -189,4 +189,4 @@ apply to already started executions. Defaults to false.
 
 The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional. These fields specify how many completed and failed jobs should be kept.
 
-By default, the last 3 completed jobs and the last failed job are kept. Setting a limit to `0` corresponds to keeping none of the corresponding kind of jobs after they finish.
+By default, there are no limits, and all successful and failed jobs are kept. However, jobs can pile up quickly when running a cron job, and setting these fields is recommended. Setting a limit to `0` corresponds to keeping none of the corresponding kind of jobs after they finish.
