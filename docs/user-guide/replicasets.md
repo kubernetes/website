@@ -94,7 +94,7 @@ of the replicated pods.
 kubectl create -f hpa-rs.yaml
 ```
 
-Alternatively, you can just use the `kubectl autoscale` command to acomplish the same
+Alternatively, you can just use the `kubectl autoscale` command to accomplish the same
 (and it's easier!)
 
 ```shell

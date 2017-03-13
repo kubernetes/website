@@ -87,7 +87,7 @@ The ImagePolicyWebhook plug-in allows a backend webhook to make admission decisi
 ```
 
 #### Configuration File Format
-ImagePolicyWebhook uses the admission controller config file (`--admission-controller-config-file`) to set configuration options for the behavior of the backend. This file may be json or yaml and has the following format:
+ImagePolicyWebhook uses the admission config file `--admission-controller-config-file` to set configuration options for the behavior of the backend. This file may be json or yaml and has the following format:
 
 ```javascript
 {
@@ -251,6 +251,11 @@ This plugin ignores any `PersistentVolumeClaim` updates, it acts only on creatio
 
 See [persistent volume](/docs/user-guide/persistent-volumes) documentation about persistent volume claims and
 storage classes and how to mark a storage class as default.
+
+### DefaultTolerationSeconds
+
+This plug-in sets the default forgiveness toleration for pods, which have no forgiveness tolerations, to tolerate
+the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes.
 
 ## Is there a recommended set of plug-ins to use?
 

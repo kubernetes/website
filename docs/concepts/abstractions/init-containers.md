@@ -67,7 +67,7 @@ have some advantages for start-up related code:
   `sed`, `awk`, `python`, or `dig` during setup.
 * The application image builder and deployer roles can work independently without
   the need to jointly build a single app image.
-* They use Linux namespaces so they have a different filesystem view from app Containers.
+* They use Linux namespaces so that they have different filesystem views from app Containers.
   Consequently, they can be given access to Secrets that app Containers are not able to
   access.
 * They run to completion before any app Containers start, whereas app
@@ -94,6 +94,98 @@ Here are some ideas for how to use Init Containers:
 
 More detailed usage examples can be found in the [StatefulSets documentation](/docs/concepts/abstractions/controllers/statefulsets/)
 and the [Production Pods guide](/docs/user-guide/production-pods.md#handling-initialization).
+
+### Init Containers in use
+
+The following yaml file outlines a simple Pod which has two Init Containers.
+The first waits for `myservice` and the second waits for `mydb`. Once both
+containers complete the Pod will begin.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+  annotations:
+    pod.beta.kubernetes.io/init-containers: '[
+        {
+            "name": "init-myservice",
+            "image": "busybox",
+            "command": ["sh", "-c", "until nslookup myservice; do echo waiting for myservice; sleep 2; done;"]
+        },
+        {
+            "name": "init-mydb",
+            "image": "busybox",
+            "command": ["sh", "-c", "until nslookup mydb; do echo waiting for mydb; sleep 2; done;"]
+        }
+    ]'
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox
+    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+```
+
+This Pod can be started and debugged with the following commands:
+
+```
+$ kubectl create -f myapp.yaml
+pod "myapp-pod" created
+$ kubectl get -f myapp.yaml
+NAME        READY     STATUS     RESTARTS   AGE
+myapp-pod   0/1       Init:0/2   0          6m
+$ kubectl describe -f myapp.yaml
+i11:32 $ kubectl describe -f examples/init-container.yaml 
+Name:		myapp-pod
+Namespace:	default
+[...]
+Labels:		app=myapp
+Status:		Pending
+[...]
+Init Containers:
+  init-myservice:
+[...]
+    State:		Running
+[...]
+  init-mydb:
+[...]
+    State:		Running
+[...]
+Containers:
+  myapp-container:
+[...]
+    State:		Waiting
+      Reason:		PodInitializing
+    Ready:		False
+[...]
+Events:
+  FirstSeen	LastSeen	Count	From			SubObjectPath				Type		Reason		Message
+  ---------	--------	-----	----			-------------				--------	------		-------
+  16s		16s		1	{default-scheduler }								Normal		Scheduled	Successfully assigned myapp-pod to 172.17.4.201
+  16s		16s		1	{kubelet 172.17.4.201}	spec.initContainers{init-myservice}	Normal		Pulling		pulling image "busybox"
+  13s		13s		1	{kubelet 172.17.4.201}	spec.initContainers{init-myservice}	Normal		Pulled		Successfully pulled image "busybox"
+  13s		13s		1	{kubelet 172.17.4.201}	spec.initContainers{init-myservice}	Normal		Created		Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
+  13s		13s		1	{kubelet 172.17.4.201}	spec.initContainers{init-myservice}	Normal		Started		Started container with docker id 5ced34a04634
+$ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
+$ kubectl logs myapp-pod -c init-mydd      # Inspect the second init container
+```
+
+Once we start the `mydb` and `myservice` Services we can see the Init Containers
+complete and the `myapp-pod` is created:
+
+```
+$ kubectl create -f services.yaml
+service "myservice" created
+service "mydb" created
+$ kubectl get -f myapp.yaml
+NAME        READY     STATUS    RESTARTS   AGE
+myapp-pod   1/1       Running   0          9m
+```
+
+This example is very simple but should provide some inspiration for you to
+create your own Init Containers.
 
 ## Detailed behavior
 

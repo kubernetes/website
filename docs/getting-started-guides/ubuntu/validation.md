@@ -31,7 +31,7 @@ users do, when unit and integration tests are insufficient.
 To deploy the end-to-end test suite, you need to relate the `kubernetes-e2e` charm to your existing kubernetes-master nodes and easyrsa:
 
 ```
-juju deploy kubernetes-e2e
+juju deploy cs:~containers/kubernetes-e2e
 juju add-relation kubernetes-e2e kubernetes-master
 juju add-relation kubernetes-e2e easyrsa
 ```
@@ -83,7 +83,7 @@ As an example, you can run a more limited set of tests for rapid validation of
 a deployed cluster. The following example will skip the `Flaky`, `Slow`, and
 `Feature` labeled tests:
 
-    juju run-action kubernetes-e2e/0 skip='\[(Flaky|Slow|Feature:.*)\]'
+    juju run-action kubernetes-e2e/0 test skip='\[(Flaky|Slow|Feature:.*)\]'
 
 > Note: the escaping of the regex due to how bash handles brackets.
 
@@ -120,13 +120,13 @@ Output:
 
     Action queued with id: 4ceed33a-d96d-465a-8f31-20d63442e51b
 
-Copy output to your local machine
+Copy output to your local machine:
 
     juju scp kubernetes-e2e/0:4ceed33a-d96d-465a-8f31-20d63442e51b.log .
 
 ##### Action result output
 
-Or you can just show the output inline::
+Or you can just show the output inline:
 
     juju run-action kubernetes-e2e/0 test
 
