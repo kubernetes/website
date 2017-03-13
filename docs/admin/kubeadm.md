@@ -13,127 +13,122 @@ Running `kubeadm init` bootstraps a Kubernetes cluster. This consists of the
 following steps:
 
 1. kubeadm runs a series of pre-flight checks to validate the system state
-before making changes. Some checks only trigger warnings, others are
-considered errors and will exit kubeadm until the problem is corrected or
-the user specifies `--skip-preflight-checks`.
+   before making changes. Some checks only trigger warnings, others are
+   considered errors and will exit kubeadm until the problem is corrected or the
+   user specifies `--skip-preflight-checks`.
 
 1. kubeadm generates a token that additional nodes can use to register
-themselves with the master in future.  Optionally, the user can provide a token.
+   themselves with the master in future.  Optionally, the user can provide a
+   token.
 
-1. kubeadm generates a self-signed CA using openssl to provision identities
-for each node in the cluster, and for the API server to secure communication
-with clients.
+1. kubeadm generates a self-signed CA using openssl to provision identities for
+   each node in the cluster, and for the API server to secure communication with
+   clients.
 
 1. Outputting a kubeconfig file for the kubelet to use to connect to the API
-server, as well as an additional kubeconfig file for administration.
+   server, as well as an additional kubeconfig file for administration.
 
 1. kubeadm generates Kubernetes resource manifests for the API server,
-controller manager and scheduler, and placing them in
-`/etc/kubernetes/manifests`. The kubelet watches this directory for static
-resources to create on startup. These are the core components of Kubernetes, and
-once they are up and running we can use `kubectl` to set up or manage any
-additional components.
+   controller manager and scheduler, and placing them in
+   `/etc/kubernetes/manifests`. The kubelet watches this directory for static
+   resources to create on startup. These are the core components of Kubernetes,
+   and once they are up and running we can use `kubectl` to set up or manage any
+   additional components.
 
-1. kubeadm installs some add-on components, such as DNS or discovery, via the API
-server.
+1. kubeadm installs some add-on components, such as DNS, via the API server.
 
-Running `kubeadm join` on each node in the cluster consists of the following steps:
+Running `kubeadm join` on each node in the cluster consists of the following
+steps:
 
-1. Use the token to talk to the API server and securely get the root CA
-certificate.
+1. Download root CA infromation from the API server.  Use the token to verify
+   the authenticity of that data..
 
 1. Creates a local key pair.  Prepares a certificate signing request (CSR) and
-sends that off to the API server for signing.
+   sends that off to the API server for signing.
 
 1. Configures the local kubelet to connect to the API server
 
 ## Usage
 
-Fields that support multiple values do so either with comma separation, or by specifying
-the flag multiple times.
+Fields that support multiple values do so either with comma separation, or by
+specifying the flag multiple times.
 
 ### `kubeadm init`
 
-It is usually sufficient to run `kubeadm init` without any flags,
-but in some cases you might like to override the default behaviour.
-Here we specify all the flags that can be used to customise the Kubernetes
-installation.
+It is usually sufficient to run `kubeadm init` without any flags, but in some
+cases you might like to override the default behaviour. Here we specify all the
+flags that can be used to customise the Kubernetes installation.
 
-- `--api-advertise-addresses` (multiple values are allowed)
-- `--api-external-dns-names` (multiple values are allowed)
+- `--api-advertise-address`
 
-By default, `kubeadm init` automatically detects IP addresses and uses
-these to generate certificates for the API server. This uses the IP address
-of the default network interface. If you would like to access the API server
-through a different IP address, or through a hostname, you can override these
-defaults with `--api-advertise-addresses` and `--api-external-dns-names`.
-For example, to generate certificates that verify the API server at addresses
-`10.100.245.1` and `100.123.121.1`, you could use
-`--api-advertise-addresses=10.100.245.1,100.123.121.1`. To allow it to be accessed
-with a hostname, `--api-external-dns-names=kubernetes.example.com,kube.example.com`
-Specifying `--api-advertise-addresses` disables auto detection of IP addresses.
+This is the address the API Server will advertise to other members of the
+cluster.  This is also the address used to construct the suggested `kubeadm
+join` line at the end of the init process.  If not set (or set to 0.0.0.0) then
+IP for the default interface will be used.
 
-- `--cloud-provider`
+This address is also added to the certifcate that the API Server uses.
 
-Currently, `kubeadm init` does not provide autodetection of cloud provider.
-This means that load balancing and persistent volumes are not supported out
-of the box. You can specify a cloud provider using `--cloud-provider`.
-Valid values are the ones supported by `controller-manager`, namely `"aws"`,
-`"azure"`, `"cloudstack"`, `"gce"`, `"mesos"`, `"openstack"`, `"ovirt"`,
-`"rackspace"`, `"vsphere"`. In order to provide additional configuration for
-the cloud provider, you should create a `/etc/kubernetes/cloud-config`
-file manually, before running `kubeadm init`. `kubeadm` automatically
-picks those settings up and ensures other nodes are configured correctly.
-The exact format and content of the file `/etc/kubernetes/cloud-config` depends
-on the type you specified for `--cloud-provider`; see the appropriate documentation
-for your cloud provider for details.
-You must also set the `--cloud-provider` and `--cloud-config` parameters
-yourself by editing the `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
-file appropriately.
+- `--apiserver-bind-port`
 
-- `--external-etcd-cafile` etcd certificate authority file
-- `--external-etcd-endpoints` (multiple values are allowed)
-- `--external-etcd-certfile` etcd client certificate file
-- `--external-etcd-keyfile` etcd client key file
+The port that the API server will bind on.  This defaults to 6443.
 
-By default, `kubeadm` deploys a single node etcd cluster on the master
-to store Kubernetes state. This means that any failure on the master node
-requires you to rebuild your cluster from scratch. Currently `kubeadm init`
-does not support automatic deployment of a highly available etcd cluster.
-If you would like to use your own etcd cluster, you can override this
-behaviour with `--external-etcd-endpoints`. `kubeadm` supports etcd client
-authentication using the `--external-etcd-cafile`, `--external-etcd-certfile`
-and `--external-etcd-keyfile` flags.
+- `--apiserver-cert-extra-sans`
+
+Additional hostnames or IP addresses that should be added to the Subject
+Alternate Name section for the certificate that the API Server will use.  If you
+expose the API Server through a load balancer and public DNS you could specify
+this with
+`--apiserver-cert-extra-sans=kubernetes.example.com,kube.example.com,10.100.245.1`.
+
+- `--cert-dir`
+
+The path where to save and store the certificates.  The default is
+"/etc/kubernetes/pki".
+
+- `--config`
+
+A kubeadm specific [config file](#config-file).  This can be used to specify an
+extended set of options including passing arbitrary command line flags to the
+control plane components.
+
+- `--kubernetes-version` (default 'latest') the kubernetes version to initialise
+
+The **v1.6** version of kubeadm only supports building clusters that are at
+least **v1.6.0**.  This requirement is due to kubeadm's use of RBAC. With this
+flag you can try any future version of Kubernetes.  Check [releases
+page](https://github.com/kubernetes/kubernetes/releases) for a full list of
+available versions.
 
 - `--pod-network-cidr`
 
 For certain networking solutions the Kubernetes master can also play a role in
-allocating network ranges (CIDRs) to each node. This includes many cloud providers
-and flannel. You can specify a subnet range that will be broken down and handed out
-to each node with the `--pod-network-cidr` flag. This should be a minimum of a /16 so
-controller-manager is able to assign /24 subnets to each node in the cluster.
-If you are using flannel with [this manifest](https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml)
-you should use `--pod-network-cidr=10.244.0.0/16`. Most CNI based networking solutions
-do not require this flag.
+allocating network ranges (CIDRs) to each node. This includes many cloud
+providers and flannel. You can specify a subnet range that will be broken down
+and handed out to each node with the `--pod-network-cidr` flag. This should be a
+minimum of a /16 so controller-manager is able to assign /24 subnets to each
+node in the cluster. If you are using flannel with [this
+manifest](https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml)
+you should use `--pod-network-cidr=10.244.0.0/16`. Most CNI based networking
+solutions do not require this flag.
 
 - `--service-cidr` (default '10.96.0.0/12')
 
 You can use the `--service-cidr` flag to override the subnet Kubernetes uses to
 assign pods IP addresses. If you do, you will also need to update the
-`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` file to reflect this change
-else DNS will not function correctly.
+`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` file to reflect this
+change else DNS will not function correctly.
 
 - `--service-dns-domain` (default 'cluster.local')
 
-By default, `kubeadm init` deploys a cluster that assigns services with DNS names
-`<service_name>.<namespace>.svc.cluster.local`. You can use the `--service-dns-domain`
-to change the DNS name suffix. Again, you will need to update the
-`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` file accordingly else DNS will
-not function correctly.
+By default, `kubeadm init` deploys a cluster that assigns services with DNS
+names `<service_name>.<namespace>.svc.cluster.local`. You can use the
+`--service-dns-domain` to change the DNS name suffix. Again, you will need to
+update the `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` file
+accordingly else DNS will not function correctly.
 
 - `--skip-preflight-checks`
 
-By default, `kubeadm` runs a series of preflight checks to validate the system
+By default, kubeadm runs a series of preflight checks to validate the system
 before making any changes. Advanced users can use this flag to bypass these if
 necessary.
 
@@ -141,43 +136,94 @@ necessary.
 
 By default, `kubeadm init` automatically generates the token used to initialise
 each new node. If you would like to manually specify this token, you can use the
-`--token` flag. The token must be of the format `<6 character string>.<16 character string>`.
+`--token` flag. The token must be of the format `[a-z0-9]{6}\.[a-z0-9]{16}`.  A
+compatible random token can be generated `kubeadm token generate`.  Tokens can
+be managed through the API after the cluster is created.  See the [section on
+managing tokens](#manage-tokens) below.
 
-- `--kubernetes-version` (default 'latest') the kubernetes version to initialise
+- `--token-ttl`
 
-`kubeadm` was originally built for Kubernetes version **v1.4.0**, older versions are not
-supported. The current version of `kubeadm` requires at least **v1.6.0-alpha.3** due to RBAC being enabled by default.
-With this flag you can try any future version, e.g. **v1.6.0-beta.1**
-whenever it comes out (check [releases page](https://github.com/kubernetes/kubernetes/releases)
-for a full list of available versions).
+This sets an expiration time for the token.  This is specified as a duration
+from the current time.  After this time the token will no longer be valid and
+will be removed. A value of 0 specifies that the token never expires.  0 is the
+default.
 
 ### `kubeadm join`
 
-When you use kubeadm join, you must supply the token used to secure cluster
-boostrap as a mandatory flag, and the master IP address as a mandatory argument.
+When joining a kubeadm initialized cluster, we need to establish bidirectional
+trust. This is split into discovery (having the Node trust the Kubernetes
+Master) and TLS bootstrap (having the Kubernetes master trust the Node).
+
+There are 2 main schemes for discovery. The first is to use a shared token along
+with the IP address of the API server. The second is to provide a file (a subset
+of the standard kubeconfig file). This file can be a local file or downloaded
+via an HTTPS URL. The forms are `kubeadm join --discovery-token
+abcdef.1234567890abcdef 1.2.3.4:6443`, `kubeadm join --discovery-file
+path/to/file.conf` or `kubeadm join --discovery-file https://url/file.conf`.
+Only one form can be used. If the discovery information is loaded from a URL,
+HTTPS must be used and the host installed CA bundle is used to verify the
+connection.
+
+The TLS bootstrap mechanism is also driven via a shared token. This is used to
+temporarily authenticate with the Kubernetes master to submit a certificate
+signing request (CSR) for a locally created key pair. By default kubeadm will
+set up the Kubernetes master to automatically approve these signing requests.
+This token is passed in with the `--tls-bootstrap-token abcdef.1234567890abcdef`
+flag.
+
+Often times the same token is use for both parts. In this case, the `--token` flag
+can be used instead of specifying the each token individually.
 
 Here's an example on how to use it:
 
-`kubeadm join --token=the_secret_token 192.168.1.1`
+`kubeadm join --token=abcdef.1234567890abcdef 192.168.1.1:6443`
+
+Specific options:
+
+- `--config`
+
+Extended options a specified in the [kubeadm specific config file](#config-file).
 
 - `--skip-preflight-checks`
 
-By default, `kubeadm` runs a series of preflight checks to validate the system
+By default, kubeadm runs a series of preflight checks to validate the system
 before making any changes. Advanced users can use this flag to bypass these if
 necessary.
 
+- `--discovery-file`
+
+A local file path or HTTPS URL.  The file specified must be a kubeconfig file
+with nothing but an unnamed cluster entry.  This is used to find both the
+location of the API server to join along with a root CA bundle to use when
+talking to that server.
+
+- `--discovery-token`
+
+The discovery token is used along with the address of the API server (as an
+unnamed argument) to download and verify information about the cluster.  The
+most critical part of the cluster information is the root CA bundle used to
+verify the identity of the server during subsequent TLS connections.
+
+- `--tls-bootstrap-token`
+
+The token used to authenticate to the API server for the purposes of TLS
+bootstrapping.
+
 - `--token=<token>`
 
-By default, when `kubeadm init` runs, a token is generated and revealed in the output.
-That's the token you should use here.
+Often times the same token is used for both `--discovery-token` and
+`--tls-bootstrap-token`.  This option specifies the same token for both.  Other
+flags override this flag if present.
 
+## Using kubeadm with a configuration file {#config-file}
 
-## Using kubeadm with a configuration file
+WARNING: While kubeadm is in beta, the config file is still considered alpha.
+All other command line options
 
-WARNING: kubeadm is in alpha and the configuration API syntax will likely change before GA.
-
-It's possible to configure kubeadm with a configuration file instead of command line flags, and some more advanced features may only be
-available as configuration file options.
+It's possible to configure kubeadm with a configuration file instead of command
+line flags, and some more advanced features may only be available as
+configuration file options.  This file is passed in to the `--config` option on
+both `kubeadm init` and `kubeadm join`.
 
 ### Sample Master Configuration
 
@@ -185,16 +231,7 @@ available as configuration file options.
 apiVersion: kubeadm.k8s.io/v1alpha1
 kind: MasterConfiguration
 api:
-  advertiseAddresses:
-  - <address1|string>
-  - <address2|string>
-  bindPort: <int>
-  externalDNSNames:
-  - <dnsname1|string>
-  - <dnsname2|string>
-authorizationMode: <string>
-cloudProvider: <string>
-discovery:
+  advertiseAddress: <address|string>
   bindPort: <int>
 etcd:
   endpoints:
@@ -203,25 +240,29 @@ etcd:
   caFile: <path|string>
   certFile: <path|string>
   keyFile: <path|string>
-kubernetesVersion: <string>
 networking:
   dnsDomain: <string>
   serviceSubnet: <cidr>
   podSubnet: <cidr>
-secrets:
-  givenToken: <token|string>
-apiServerExtraArgs: {
-  <argument>: <value|string>,
-  <argument>: <value|string>,
-}
-controllerManagerExtraArgs: {
-  <argument>: <value|string>,
-  <argument>: <value|string>,
-}
-schedulerExtraArgs: {
-  <argument>: <value|string>,
-  <argument>: <value|string>,
-}
+kubernetesVersion: <string>
+cloudProvider: <string>
+authorizationMode: <string>
+token: <string>
+tokenTTL: <time duration>
+selfHosted: <bool>
+apiServerExtraArgs:
+  <argument>: <value|string>
+  <argument>: <value|string>
+controllerManagerExtraArgs:
+  <argument>: <value|string>
+  <argument>: <value|string>
+schedulerExtraArgs:
+  <argument>: <value|string>
+  <argument>: <value|string>
+apiServerCertSANs:
+  - <name1|string>
+  - <name2|string>
+certificatesDir: <string>
 ```
 
 ### Sample Node Configuration
@@ -229,53 +270,90 @@ schedulerExtraArgs: {
 ```yaml
 apiVersion: kubeadm.k8s.io/v1alpha1
 kind: NodeConfiguration
-apiPort: <int>
-discoveryPort: <int>
-masterAddresses:
-- <master1>
-secrets:
-  givenToken: <token|string>
+caCertPath: <path|string>
+discoveryFile: <path|string>
+discoveryToken: <string>
+
+# Currently only the first server is supported.
+discoveryTokenAPIServers:
+  - <address|string>
+  - <address|string>
+
+tlsBootstrapToken: <string>
+token: <string>
 ```
+
+## Managing Tokens {#manage-tokens}
+
+The kubeadm tool can be used to manage tokens.  It will automatically grab the
+default admin credentials on a master from a kubeadm created cluster
+(`/etc/kubernetes/admin.conf`).  You can specify an alternate kubeconfig file
+for credentials with the `--kubeconfig` to the following commands.
+
+* `kubeadm token list` Lists the tokens along with when they expire and what the
+  approved usages are.
+* `kubeadm token create` Creates a new token.
+    * `--description` Set the description on the new token.
+    * `--ttl duration` Set expiration time of the token as a delta from "now".
+      Default is 0 for no expiration.
+    * `--usages` Set the ways that the token can be used.  The default is
+      `signing,authentication`.
+* `kubeadm token delete <token id>|<token id>.<token secret>` Delete a token.
+  The token can either be identified with just an ID or with the entire token
+  value.
+
+In addition, there is the `kubeadm token generate` command.  This locally
+creates a new token of the correct form for specifying with the `--token`
+argument to `kubeadm init`.
+
+For the gory details on how the tokens are implemented (including manaing them
+outside of kubeadm) see the [Bootstrap Token
+docs](/docs/admin/bootstrap-tokens/).
 
 ## Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the basic `kubeadm` tutorials, you can parallelize the token distribution for
+in the basic kubeadm tutorials, you can parallelize the token distribution for
 easier automation. To implement this automation, you must know the IP address
 that the master will have after it is started.
 
-1.  Generate a token.  This token must have the form  `<6 character string>.<16 character string>`.
+1.  Generate a token.  This token must have the form  `<6 character string>.<16
+    character string>`.
 
-    Kubeadm can pre-generate a token for you:
+    Kubeadm can generate a token for you:
 
-    ```console
-    $ kubeadm token generate
+    ``` bash
+    kubeadm token generate
     ```
 
-1. Start both the master node and the worker nodes concurrently with this token.  As they come up they should find each other and form the cluster.
+1. Start both the master node and the worker nodes concurrently with this token.
+   As they come up they should find each other and form the cluster.  The
+   `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
 
-Once the cluster is up, you can grab the admin credentials from the master node at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
+Once the cluster is up, you can grab the admin credentials from the master node
+at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
 
 ## Environment variables
 
-There are some environment variables that modify the way that `kubeadm` works.  Most users will have no need to set these.
-These environment variables are a short-term solution, eventually they will be integrated in the kubeadm configuration file.
+There are some environment variables that modify the way that kubeadm works.
+Most users will have no need to set these. These environment variables are a
+short-term solution, eventually they will be integrated in the kubeadm
+configuration file.
 
 | Variable | Default | Description |
 | --- | --- | --- |
 | `KUBE_KUBERNETES_DIR` | `/etc/kubernetes` | Where most configuration files are written to and read from |
-| `KUBE_HOST_PKI_PATH` | `/etc/kubernetes/pki` | Directory for master PKI assets |
 | `KUBE_HOST_ETCD_PATH` | `/var/lib/etcd` | Local etcd state for Kubernetes cluster |
 | `KUBE_HYPERKUBE_IMAGE` | `` | If set, use a single hyperkube image with this name. If not set, individual images per server component will be used. |
-| `KUBE_DISCOVERY_IMAGE` | `gcr.io/google_containers/kube-discovery-<arch>:1.0` | The bootstrap discovery helper image to use. |
 | `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:2.2.5` | The etcd container image to use. |
 | `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |
 
-If you want to use kubeadm with an http proxy, you may need to configure it to support http_proxy, https_proxy, or no_proxy.
+If you want to use kubeadm with an http proxy, you may need to configure it to
+support http_proxy, https_proxy, or no_proxy.
 
-For example, if your kube master node IP address is 10.18.17.16 and you have proxy support both http/https on 10.18.17.16 port 8080, you can use the following command:
-
-You can using following command 
+For example, if your kube master node IP address is 10.18.17.16 and you have
+proxy support both http/https on 10.18.17.16 port 8080, you can use the
+following command:
 
 ```bash
 export PROXY_PORT=8080
@@ -287,10 +365,14 @@ export HTTPS_PROXY=$http_proxy
 export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,example.com,10.18.17.16"
 ```
 
-Remember to change ```proxy_ip``` and add a kube master node IP address to ```no_proxy```.
+Remember to change `proxy_ip` and add a kube master node IP address to
+`no_proxy`.
 
 ## Releases and release notes
 
-If you already have kubeadm installed and want to upgrade, run `apt-get update && apt-get upgrade` or `yum update` to get the latest version of kubeadm.
+If you already have kubeadm installed and want to upgrade, run `apt-get update
+&& apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
-Refer to the [CHANGELOG.md](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md) for more information.
+Refer to the
+[CHANGELOG.md](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
+for more information.
