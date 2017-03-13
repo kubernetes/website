@@ -17,8 +17,7 @@ If either resource is exhausted, the node would become unstable.
 
 ## Eviction Policy
 
-The `kubelet` can pro-actively monitor for and prevent against total starvation of a compute resource.  In
-cases where it could appear to occur, the `kubelet` can pro-actively fail one or more pods in order to reclaim
+The `kubelet` can pro-actively monitor for and prevent against total starvation of a compute resource.  In those cases, the `kubelet` can pro-actively fail one or more pods in order to reclaim
 the starved resource.  When the `kubelet` fails a pod, it terminates all containers in the pod, and the `PodPhase`
 is transitioned to `Failed`.
 
@@ -36,7 +35,7 @@ summary API.
 | `imagefs.available` | `imagefs.available` := `node.stats.runtime.imagefs.available` |
 | `imagefs.inodesFree` | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree` |
 
-Each of the above signals support either a literal or percentage based value.  The percentage based value
+Each of the above signals supports either a literal or percentage based value.  The percentage based value
 is calculated relative to the total capacity associated with each signal.
 
 `kubelet` supports only two filesystem partitions.
