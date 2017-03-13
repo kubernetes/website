@@ -116,7 +116,7 @@ provides load balancing for an application that has two running instances.
 
 ## Using a service configuration file
 
-As an alternative to using `kubectl expose`, you can use a
+As an alternative to use `kubectl expose`, you can use a
 [service configuration file](/docs/user-guide/services/operations)
 to create a Service.
 
