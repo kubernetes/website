@@ -7,8 +7,6 @@ title: kubectl Overview
 
 `kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl) reference documentation. For installation instructions see [prerequisites](/docs/user-guide/prereqs).
 
-TODO: Auto-generate this file to ensure it's always in sync with any `kubectl` changes, see [#14177](http://pr.k8s.io/14177).
-
 ## Syntax
 
 Use the following syntax to run `kubectl` commands from your terminal window:
