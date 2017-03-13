@@ -24,7 +24,7 @@ simple enough that you can easily integrate its use into your own automation
 See the full [kubeadm reference](/docs/admin/kubeadm) for information on all
 kubeadm command-line flags and for advice on automating kubeadm itself.
 
-**The kubeadm tool is currently in alpha but please try it out and give us
+**The kubeadm tool is currently in beta but please try it out and give us
 [feedback](/docs/getting-started-guides/kubeadm/#feedback)! Be sure to read the
 [limitations](#limitations); in particular note that kubeadm doesn't have great
 support for automatically configuring cloud providers. Please refer to the
@@ -65,8 +65,9 @@ complete clusters:
 
 You will install the following packages on all the machines:
 
-* `docker`: the container runtime, which Kubernetes depends on. v1.11.2 is
-  recommended, but v1.10.3 and v1.12.1 are known to work as well.
+* `docker`: the container runtime, which Kubernetes depends on. v1.12 is
+  recommended, but v1.10 and v1.12 are known to work as well.  v1.13 and 17.03
+  have not been tested and verified by the Kubernetes node team.
 * `kubelet`: the most core component of Kubernetes. It runs on all of the
   machines in your cluster and does things like starting pods and containers.
 * `kubectl`: the command to control the cluster once it's running. You will only
@@ -74,7 +75,7 @@ You will install the following packages on all the machines:
   well.
 * `kubeadm`: the command to bootstrap the cluster.
 
-NOTE: If you already have kubeadm installed, you should do a `apt-get update &&
+**Note:** If you already have kubeadm installed, you should do a `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm. See the
 reference doc if you want to read about the different [kubeadm
 releases](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
@@ -88,7 +89,7 @@ For each host in turn:
   ``` bash
   apt-get update && apt-get install -y apt-transport-https
   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-  cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
+  cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
   deb http://apt.kubernetes.io/ kubernetes-xenial main
   EOF
   apt-get update
@@ -121,7 +122,7 @@ kubeadm to tell it what to do.
 
 Note: Disabling SELinux by running `setenforce 0` is required in order to allow
 containers to access the host filesystem, which is required by pod networks for
-example. You have to do this until kubelet can handle SELinux better.
+example. You have to do this until SELinux support is improved in the kubelet.
 
 ### (2/4) Initializing your master
 
@@ -133,21 +134,15 @@ if they are absent while `kubeadm init` is initializing your master:
 
 | Image Name | Version |
 |---|---|
-| gcr.io/google_containers/kube-proxy-amd64 | v1.5.3
-| gcr.io/google_containers/kube-controller-manager-amd64 | v1.5.3
-| gcr.io/google_containers/kube-scheduler-amd64 | v1.5.3
-| gcr.io/google_containers/kube-apiserver-amd64 | v1.5.3
-| gcr.io/google_containers/etcd-amd64 | 3.0.14-kubeadm
-| gcr.io/google_containers/kube-discovery-amd64 | 1.0
+| gcr.io/google_containers/kube-apiserver-amd64 | v1.6.0
+| gcr.io/google_containers/kube-controller-manager-amd64 | v1.6.0
+| gcr.io/google_containers/kube-scheduler-amd64 | v1.6.0
+| gcr.io/google_containers/kube-proxy-amd64 | v1.6.0
+| gcr.io/google_containers/etcd-amd64 | 3.0.17
 | gcr.io/google_containers/pause-amd64 | 3.0
-
-Right now you can't run `kubeadm init` twice without tearing down the cluster in
-between, see [Tear down](#tear-down).
-
-If you try to run `kubeadm init` and your machine is in a state that is
-incompatible with starting a Kubernetes cluster, kubeadm will warn you about
-things that might not work or it will error out for unsatisfied mandatory
-requirements.
+| gcr.io/google_containers/k8s-dns-sidecar-amd64 | 1.14.1
+| gcr.io/google_containers/k8s-dns-kube-dns-amd64 | 1.14.1
+| gcr.io/google_containers/k8s-dns-dnsmasq-nanny-amd64 | 1.14.1
 
 To initialize the master, pick one of the machines you previously installed
 kubelet and kubeadm on, and run:
@@ -161,64 +156,86 @@ as the interface with the default gateway. If you want to use a different
 interface, specify `--api-advertise-addresses <ip-address>` argument to `kubeadm
 init`.
 
-If you want to use [flannel](https://github.com/coreos/flannel) as the pod
-network, specify `--pod-network-cidr 10.244.0.0/16` if you're using the
-daemonset manifest below. _However, please note that this is not required for
-any other networks besides Flannel._
+When using [flannel](https://github.com/coreos/flannel) as the [pod
+network](#pod-network) (described in step 3), specify `--pod-network-cidr
+10.244.0.0/16`. _This is not required for any other networks besides Flannel._
 
 Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
 read more about the flags `kubeadm init` provides.
 
-This will download and install the cluster database and "control plane"
+`kubeadm init` will first run a series of prechecks to ensure that the machine
+is ready to run Kubernetes.  It will expose warnings and exit on errors.  It
+will then download and install the cluster database and "control plane"
 components. This may take several minutes.
+
+You can't run `kubeadm init` twice without tearing down the cluster in between,
+see [Tear Down](#tear-down).
 
 The output should look like:
 
 ```
-[kubeadm] WARNING: kubeadm is in alpha, please do not use it for production clusters.
+[kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
+[init] Using Kubernetes version: v1.6.0
+[init] Using Authorization mode: RBAC
 [preflight] Running pre-flight checks
-[init] Using Kubernetes version: v1.5.1
-[tokens] Generated token: "064158.548b9ddb1d3fad3e"
-[certificates] Generated Certificate Authority key and certificate.
-[certificates] Generated API Server key and certificate
-[certificates] Generated Service Account signing keys
-[certificates] Created keys and certificates in "/etc/kubernetes/pki"
-[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[preflight] Starting the kubelet service
+[certificates] Generated CA certificate and key.
+[certificates] Generated API server certificate and key.
+[certificates] API Server serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
+[certificates] Generated API server kubelet client certificate and key.
+[certificates] Generated service account token signing key and public key.
+[certificates] Generated front-proxy CA certificate and key.
+[certificates] Generated front-proxy client certificate and key.
+[certificates] Valid certificates and keys now exist in "/etc/kubernetes/pki"
 [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/admin.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/controller-manager.conf"
+[kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/scheduler.conf"
 [apiclient] Created API client, waiting for the control plane to become ready
-[apiclient] All control plane components are healthy after 61.317580 seconds
+[apiclient] All control plane components are healthy after 16.772251 seconds
 [apiclient] Waiting for at least one node to register and become ready
-[apiclient] First node is ready after 6.556101 seconds
-[apiclient] Creating a test deployment
+[apiclient] First node is ready after 5.002536 seconds
 [apiclient] Test deployment succeeded
-[token-discovery] Created the kube-discovery deployment, waiting for it to become ready
-[token-discovery] kube-discovery is ready after 6.020980 seconds
+[token] Using token: <token>
+[apiconfig] Created RBAC rules
 [addons] Created essential addon: kube-proxy
 [addons] Created essential addon: kube-dns
 
 Your Kubernetes master has initialized successfully!
 
+To start using your cluster, you need to run (as a regular user):
+
+  sudo cp /etc/kubernetes/admin.conf $HOME/
+  sudo chmod $(id -u):$(id -g) $HOME/admin.conf
+  export KUBECONFIG=$HOME/admin.conf
+
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-    http://kubernetes.io/docs/admin/addons/
+  http://kubernetes.io/docs/admin/addons/
 
-You can now join any number of machines by running the following on each node:
+You can now join any number of machines by running the following on each node
+as root:
 
-kubeadm join --token=<token> <master-ip>
+  kubeadm join --token edc833.65a928fca089fa8b 10.138.0.4:6443
 ```
 
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
-will need this in a moment. The key included here is secret, keep it safe
-&mdash; anyone with this key can add authenticated nodes to your cluster.
+will need this in a moment.
 
-The key is used for mutual authentication between the master and the joining nodes.
+The token is used for mutual authentication between the master and the joining
+nodes.  The token included here is secret, keep it safe &mdash; anyone with this
+token can add authenticated nodes to your cluster.  These tokens can be listed,
+created and deleted with the `kubeadm token` command.  See the [reference
+guide](/docs/admin/kubeadm/#manage-tokens).
+
+#### Master Isolation
 
 By default, your cluster will not schedule pods on the master for security
-reasons. If you want to be able to schedule pods on the master, for example if
-you want a single-machine Kubernetes cluster for development, run:
+reasons. If you want to be able to schedule pods on the master, e.g a
+single-machine Kubernetes cluster for development, run:
 
 ``` bash
-kubectl taint nodes --all dedicated-
+kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
 
 With output looking something like:
@@ -229,23 +246,27 @@ taint key="dedicated" and effect="" not found.
 taint key="dedicated" and effect="" not found.
 ```
 
-This will remove the "dedicated" taint from any nodes that have it, including
-the master node, meaning that the scheduler will then be able to schedule pods
-everywhere.
+This will remove the `node-role.kubernetes.io/master` taint from any nodes that
+have it, including the master node, meaning that the scheduler will then be able
+to schedule pods everywhere.
 
-### (3/4) Installing a pod network
+### (3/4) Installing a pod network {#pod-network}
 
 You must install a pod network add-on so that your pods can communicate with
 each other.
 
-**It is necessary to do this before you try to deploy any applications to your
-cluster.  Also, kube-dns, a helper service, will no start up before a network is
-installed. Note also that kubeadm only supports CNI based networks and therefore
-kubenet based networks will not work.**
+**The network must be deployed before any applications.  Also, kube-dns, a
+helper service, will not start up before a network is installed. kubeadm only
+supports CNI based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
 support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons
 page](/docs/admin/addons/) for a complete list of available network add-ons.
+
+**New for Kubernetes 1.6:** kubeadm 1.6 sets up a more secure cluster by
+default.  As such it uses RBAC to grant limited privledges to workloads running
+on the cluster.  This includes networking integrations.  As such, ensure that
+you are using a network system that has been updated to run with 1.6 and RBAC.
 
 You can install a pod network add-on with the following command:
 
@@ -263,122 +284,72 @@ section](#kubeadm-is-multi-platform)
 NOTE: You can install **only one** pod network per cluster.
 
 Once a pod network has been installed, you can confirm that it is working by
-checking that the kube-dns pod is `Running` in the output of `kubectl get pods
---all-namespaces`.
-
-And once the kube-dns pod is up and running, you can continue by joining your
+checking that the kube-dns pod is Running in the output of `kubectl get pods
+--all-namespaces`.  And once the kube-dns pod is up and running, you can continue by joining your
 nodes.
 
-You may have trouble in the configuration if you see the following statuses
-
-```
-NAMESPACE     NAME                              READY     STATUS              RESTARTS   AGE
-kube-system   canal-node-f0lqp                  2/3       RunContainerError   2          48s
-kube-system   canal-node-77d0h                  2/3       CrashLoopBackOff    3          3m
-kube-system   kube-dns-2924299975-7q1vq         0/4       ContainerCreating   0          15m
-```
-
-The three statuses ```RunContainerError``` and ```CrashLoopBackOff``` and
-```ContainerCreating``` are very common.
-
-To help diagnose what happened, you can use the following command to check what
-is in the logs:
-
-``` bash
-kubectl describe -n kube-system po {YOUR_POD_NAME}
-```
-
-Do not using kubectl logs. If you run:
-
-``` bash
-kubectl logs -n kube-system canal-node-f0lqp
-```
-
-You will got the following error:
-
-```
-Error from server (BadRequest): the server rejected our request for an unknown reason (get pods canal-node-f0lqp)
-```
-
-The ```kubectl describe``` comand gives you more details about what went wrong.
-
-``` bash
-kubectl describe -n kube-system po kube-dns-2924299975-1l2t7
-```
-
-The events should show something like this:
-
-```
-  2m		2m		1	{kubelet nac}	spec.containers{flannel}		Warning		Failed		Failed to start container with docker id 927e7ccdc32b with error: Error response from daemon: {"message":"chown /etc/resolv.conf: operation not permitted"}
-```
-
-Or this:
-
-```
-  6m	1m	191	{kubelet nac}		Warning	FailedSync	Error syncing pod, skipping: failed to "SetupNetwork" for "kube-dns-2924299975-1l2t7_kube-system" with SetupNetworkError: "Failed to setup network for pod \"kube-dns-2924299975-1l2t7_kube-system(dee8ef21-fbcb-11e6-ba19-38d547e0006a)\" using network plugins \"cni\": open /run/flannel/subnet.env: no such file or directory; Skipping pod"
-```
-
-You can then do some Google searches on the error messages, which may help you
-to find some solutions.
+If your network is not working or kube-dns is not in the Running state, check
+out [troubleshooting tips](#pod-network-trouble) below.
 
 ### (4/4) Joining your nodes
 
-The nodes are where your workloads (containers and pods, etc) run. If you want
-to add any new machines as nodes to your cluster, for each machine: SSH to that
-machine, become root (e.g. `sudo su -`) and run the command that was output by
-`kubeadm init`. For example:
+The nodes are where your workloads (containers and pods, etc) run. To add new nodes to your cluster do the following for each machine:
 
-``` bash
-kubeadm join --token <token> <master-ip>
-```
+* SSH to the machine
+* Become root (e.g. `sudo su -`)
+* Run the command that was output by `kubeadm init`. For example:
+
+  ``` bash
+  kubeadm join --token <token> <master-ip>
+  ```
 
 The output should look something like:
 
 ```
-[kubeadm] WARNING: kubeadm is in alpha, please do not use it for production clusters.
+[kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
 [preflight] Running pre-flight checks
-[preflight] Starting the kubelet service
-[tokens] Validating provided token
-[discovery] Created cluster info discovery client, requesting info from "http://192.168.x.y:9898/cluster-info/v1/?token-id=f11877"
-[discovery] Cluster info object received, verifying signature using given token
-[discovery] Cluster info signature and contents are valid, will use API endpoints [https://192.168.x.y:6443]
-[bootstrap] Trying to connect to endpoint https://192.168.x.y:6443
-[bootstrap] Detected server version: v1.5.1
-[bootstrap] Successfully established connection with endpoint "https://192.168.x.y:6443"
+[discovery] Trying to connect to API Server "10.138.0.4:6443"
+[discovery] Created cluster-info discovery client, requesting info from "https://10.138.0.4:6443"
+[discovery] Cluster info signature and contents are valid, will use API Server "https://10.138.0.4:6443"
+[discovery] Successfully established connection with API Server "10.138.0.4:6443"
+[bootstrap] Detected server version: v1.6.0-beta.3
+[bootstrap] The server supports the Certificates API (certificates.k8s.io/v1beta1)
 [csr] Created API client to obtain unique certificate for this node, generating keys and certificate signing request
-[csr] Received signed certificate from the API server:
-Issuer: CN=kubernetes | Subject: CN=system:node:yournode | CA: false
-Not before: 2016-12-15 19:44:00 +0000 UTC Not After: 2017-12-15 19:44:00 +0000 UTC
-[csr] Generating kubelet configuration
+[csr] Received signed certificate from the API server, generating KubeConfig...
 [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/kubelet.conf"
 
 Node join complete:
 * Certificate signing request sent to master and response
-    received.
+  received.
 * Kubelet informed of new secure connection details.
 
 Run 'kubectl get nodes' on the master to see this machine join.
 ```
 
-A few seconds later, you should notice that running `kubectl get nodes` on the
-master shows a cluster with as many machines as you created.
+A few seconds later, you should notice this node in the output from `kubectl get
+nodes` when run on the master.
 
 ### (Optional) Controlling your cluster from machines other than the master
 
-In order to get a kubectl on your laptop for example to talk to your cluster,
-you need to copy the `KubeConfig` file from your master to your laptop like
-this:
+In order to get a kubectl on some other computer (e.g. laptop) to talk to your
+cluster, you need to copy the kubeconfig file from your master to your
+workstation like this:
 
 ``` bash
 scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ```
 
+**Note:** By default GCE instances disable ssh access for root.  First log in to
+the machine, copy the file someplace that can be accessed and then use [`gcloud
+compute
+copy-files`](https://cloud.google.com/sdk/gcloud/reference/compute/copy-files)
+
 ### (Optional) Connecting to the API Server
 
 If you want to connect to the API Server for viewing the dashboard (note: the
-dashboard isn't deployed by default) from outside the cluster for example, you
-can use `kubectl proxy`:
+dashboard isn't deployed by default) from outside the cluster you can use
+`kubectl proxy`:
 
 ``` bash
 scp root@<master ip>:/etc/kubernetes/admin.conf .
@@ -389,10 +360,12 @@ You can now access the API Server locally at `http://localhost:8001/api/v1`
 
 ### (Optional) Installing a sample application
 
-As an example, install a sample microservices application, a socks shop, to put
-your cluster through its paces. Note that this demo does only work on `amd64`.
-To learn more about the sample microservices app, see the [GitHub
+Now it is time to take your new cluster for a test drive.  Sock Shop is a sample
+microservices application that shows how to run and connect a set of services on
+Kubernetes. To learn more about the sample microservices app, see the [GitHub
 README](https://github.com/microservices-demo/microservices-demo).
+
+Note that the Sock Shop demo only works on `amd64`.
 
 ``` bash
 kubectl create namespace sock-shop
@@ -430,21 +403,34 @@ Then go to the IP address of your cluster's master node in your browser, and
 specify the given port. So for example, `http://<master_ip>:<port>`. In the
 example above, this was `30001`, but it is a different port for you.
 
+You can also use
+
 If there is a firewall, make sure it exposes this port to the internet before
 you try to access it.
 
+To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the
+master.
+
 ## Tear down
 
-* To uninstall the socks shop, run `kubectl delete namespace sock-shop` on the
-  master.
-* To undo what  kubeadm did, simply run:
+To undo what kubeadm did, you should first [drain the
+node](https://kubernetes.io/docs/user-guide/kubectl/kubectl_drain/) and make
+sure that the node is empty before turning it down.
 
-  ``` bash
-  kubeadm reset
-  ```
+Talking to the master with the appropriate credentials, run:
 
-  If you wish to start over, run `systemctl start kubelet` followed by `kubeadm
-  init` or `kubeadm join`.
+``` bash
+kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
+kubectl delete node <node name>
+```
+
+Then, on the node being removed, reset all kubeadm installed state:
+
+``` bash
+kubeadm reset
+```
+
+If you wish to start over simply run `kubeadm init` or `kubeadm join`.
 
 ## Explore other add-ons
 
@@ -491,9 +477,9 @@ RPi 3 you should set `ARCH` to `arm`, not `arm64`.
 
 ## Cloudprovider integrations (experimental)
 
-Enabling specific cloud providers is a common request, this currently requires
-manual configuration and is therefore not yet supported. If you wish to do so,
-edit the kubeadm dropin for the kubelet service
+Enabling specific cloud providers is a common request. This currently requires
+manual configuration and is therefore not yet fully supported. If you wish to do
+so, edit the kubeadm dropin for the kubelet service
 (`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`) on all nodes,
 including the master. If your cloud provider requires any extra packages
 installed on host, for example for volume mounting/unmounting, install those
@@ -506,8 +492,15 @@ that file depends on the requirements imposed by your cloud provider. If you use
 the `/etc/kubernetes/cloud-config` file, you must append it to the kubelet
 arguments as follows: `--cloud-config=/etc/kubernetes/cloud-config`
 
-Lastly, run `kubeadm init --cloud-provider=xxx` to bootstrap your cluster with
-cloud provider features.
+Next, specify the cloud provider in the kubeadm config file.  Create a file called
+`kubeadm.conf` with the following contents:
+
+``` yaml
+cloudProvider: <cloud provider>
+```
+
+Lastly, run `kubeadm init --config=kubeadm.conf` to bootstrap your cluster with
+the cloud provider.
 
 This workflow is not yet fully supported, however we hope to make it extremely
 easy to spin up clusters with cloud providers in the future. (See [this
@@ -530,6 +523,7 @@ addressed in due course.
    Workaround: regularly [back up
    etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The etcd data
    directory configured by kubeadm is at `/var/lib/etcd` on the master.
+
 1. The `HostPort` and `HostIP` functionality does not work with kubeadm due to
    that CNI networking is used, see issue
    [#31307](https://github.com/kubernetes/kubernetes/issues/31307).
@@ -537,6 +531,7 @@ addressed in due course.
    Workaround: use the [NodePort feature of
    services](/docs/user-guide/services/#type-nodeport) instead, or use
    HostNetwork.
+
 1. Some users on RHEL/CentOS 7 have reported issues with traffic being routed
    incorrectly due to iptables being bypassed. You should ensure
    `net.bridge.bridge-nf-call-iptables` is set to 1 in your sysctl config, eg.
@@ -552,18 +547,8 @@ addressed in due course.
    net.bridge.bridge-nf-call-iptables = 1
    ```
 
-1. There is no built-in way of fetching the token easily once the cluster is up
-   and running, but here is a kubectl command you can copy and paste that will
-   print out the token for you:
-
-   ``` bash
-   kubectl -n kube-system get secret clusterinfo -o yaml | \
-       grep token-map | \
-       awk '{print $2}' | \
-       base64 --decode | \
-       sed "s|{||g;s|}||g;s|:|.|g;s/\"//g;" | \
-       xargs echo
-   ```
+1. Users can list, create and delete tokens using the `kubeadm token` command.
+   See the [reference guide](/docs/admin/kubeadm/#manage-tokens) for details.
 
 1. If you are using VirtualBox (directly or via Vagrant), you will need to
    ensure that `hostname -i` returns a routable IP address (i.e. one on the
@@ -573,3 +558,63 @@ addressed in due course.
    [`Vagrantfile`][ubuntu-vagrantfile] for how this can be achieved.
 
 [ubuntu-vagrantfile]: https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11),
+
+## Troubleshooting {#troubleshooting}
+
+### Pod Network Troubleshooting {#pod-network-trouble}
+
+You may have trouble in the configuration if you see the following statuses.
+This example is for canal but there may be similar errors for other pod network
+systems.
+
+```
+NAMESPACE     NAME                              READY     STATUS              RESTARTS   AGE
+kube-system   canal-node-f0lqp                  2/3       RunContainerError   2          48s
+kube-system   canal-node-77d0h                  2/3       CrashLoopBackOff    3          3m
+kube-system   kube-dns-2924299975-7q1vq         0/4       ContainerCreating   0          15m
+```
+
+The three statuses RunContainerError and CrashLoopBackOff and ContainerCreating
+are very common.
+
+To help diagnose what happened, you can use the following command to check what
+is in the logs:
+
+``` bash
+kubectl describe -n kube-system po {YOUR_POD_NAME}
+```
+
+Do not use kubectl logs as they only work with Pods that have started. If you run:
+
+``` bash
+kubectl logs -n kube-system canal-node-f0lqp
+```
+
+You will got the following error:
+
+```
+Error from server (BadRequest): the server rejected our request for an unknown reason (get pods canal-node-f0lqp)
+```
+
+The ```kubectl describe``` comand gives you more details about what went wrong.
+
+``` bash
+kubectl describe -n kube-system po kube-dns-2924299975-1l2t7
+```
+
+The events should show something like this:
+
+```
+  2m		2m		1	{kubelet nac}	spec.containers{flannel}		Warning		Failed		Failed to start container with docker id 927e7ccdc32b with error: Error response from daemon: {"message":"chown /etc/resolv.conf: operation not permitted"}
+```
+
+Or this:
+
+```
+  6m	1m	191	{kubelet nac}		Warning	FailedSync	Error syncing pod, skipping: failed to "SetupNetwork" for "kube-dns-2924299975-1l2t7_kube-system" with SetupNetworkError: "Failed to setup network for pod \"kube-dns-2924299975-1l2t7_kube-system(dee8ef21-fbcb-11e6-ba19-38d547e0006a)\" using network plugins \"cni\": open /run/flannel/subnet.env: no such file or directory; Skipping pod"
+```
+
+A web search on the error message may help narrow down the issue.  Or
+communicate the errors you are seeing to the community/company that provides the
+pod network implementation you are using.
+
