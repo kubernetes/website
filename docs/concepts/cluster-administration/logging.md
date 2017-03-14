@@ -3,6 +3,9 @@ assignees:
 - crassirostris
 - piosz
 title: Logging and Monitoring Cluster Activity
+redirect_from:
+- "/docs/concepts/clusters/logging/"
+- "/docs/concepts/clusters/logging.html"
 ---
 
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
@@ -21,7 +24,7 @@ The guidance for cluster-level logging assumes that a logging backend is present
 
 In this section, you can see an example of basic logging in Kubernetes that
 outputs data to the standard output stream. This demonstration uses
-a [pod specification](/docs/concepts/clusters/counter-pod.yaml) with
+a [pod specification](/docs/concepts/cluster-administration/counter-pod.yaml) with
 a container that writes some text to standard output once per second.
 
 {% include code.html language="yaml" file="counter-pod.yaml" ghlink="/docs/tasks/debug-application-cluster/counter-pod.yaml" %}
@@ -131,7 +134,7 @@ Consider the following example. A pod runs a single container, and the container
 writes to two different log files, using two different formats. Here's a
 configuration file for the Pod:
 
-{% include code.html language="yaml" file="two-files-counter-pod.yaml" ghlink="/docs/concepts/clusters/two-files-counter-pod.yaml" %}
+{% include code.html language="yaml" file="two-files-counter-pod.yaml" ghlink="/docs/concepts/cluster-administration/two-files-counter-pod.yaml" %}
 
 It would be a mess to have log entries of different formats in the same log
 stream, even if you managed to redirect both components to the `stdout` stream of
@@ -141,7 +144,7 @@ the logs to its own `stdout` stream.
 
 Here's a configuration file for a pod that has two sidecar containers:
 
-{% include code.html language="yaml" file="two-files-counter-pod-streaming-sidecar.yaml" ghlink="/docs/concepts/clusters/two-files-counter-pod-streaming-sidecar.yaml" %}
+{% include code.html language="yaml" file="two-files-counter-pod-streaming-sidecar.yaml" ghlink="/docs/concepts/cluster-administration/two-files-counter-pod-streaming-sidecar.yaml" %}
 
 Now when you run this pod, you can access each log stream separately by
 running the following commands:
@@ -197,7 +200,7 @@ which uses fluentd as a logging agent. Here are two configuration files that
 you can use to implement this approach. The first file contains
 a [ConfigMap](/docs/user-guide/configmap/) to configure fluentd.
 
-{% include code.html language="yaml" file="fluentd-sidecar-config.yaml" ghlink="/docs/concepts/clusters/fluentd-sidecar-config.yaml" %}
+{% include code.html language="yaml" file="fluentd-sidecar-config.yaml" ghlink="/docs/concepts/cluster-administration/fluentd-sidecar-config.yaml" %}
 
 **Note**: The configuration of fluentd is beyond the scope of this article. For
 information about configuring fluentd, see the
@@ -206,7 +209,7 @@ information about configuring fluentd, see the
 The second file describes a pod that has a sidecar container running fluentd.
 The pod mounts a volume where fluentd can pick up its configuration data.
 
-{% include code.html language="yaml" file="two-files-counter-pod-agent-sidecar.yaml" ghlink="/docs/concepts/clusters/two-files-counter-pod-agent-sidecar.yaml" %}
+{% include code.html language="yaml" file="two-files-counter-pod-agent-sidecar.yaml" ghlink="/docs/concepts/cluster-administration/two-files-counter-pod-agent-sidecar.yaml" %}
 
 After some time you can find log messages in the Stackdriver interface.
 
