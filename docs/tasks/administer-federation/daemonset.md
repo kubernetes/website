@@ -25,8 +25,8 @@ general and DaemonSets in particular.
 ## Overview
 
 DaemonSets in federation control plane ("Federated Daemonsets" in
-this guide) are very similar to the traditional [Kubernetes
-DaemonSets](/docs/user-guide/DaemonSets/) and provide the same functionality.
+this guide) are very similar to the traditional Kubernetes
+DaemonSets and provide the same functionality.
 Creating them in the federation control plane ensures that they are synchronized
 across all the clusters in federation.
 
