@@ -778,7 +778,8 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
 
 ### Risks
 
- - In the API server secret data is stored as plaintext in etcd; therefore:
+ - If the API server runs with argument "--storage-media-type=application/json", secret data is stored as
+   plaintext in etcd; therefore:
    - Administrators should limit access to etcd to admin users
    - Secret data in the API server is at rest on the disk that etcd uses; admins may want to wipe/shred disks
      used by etcd when no longer in use
@@ -789,8 +790,6 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
    run a pod which exposes the secret.
  - If multiple replicas of etcd are run, then the secrets will be shared between them.
    By default, etcd does not secure peer-to-peer communication with SSL/TLS, though this can be configured.
- - It is not possible currently to control which users of a Kubernetes cluster can
-   access a secret.  Support for this is planned.
  - Currently, anyone with root on any node can read any secret from the apiserver,
    by impersonating the kubelet.  It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a
