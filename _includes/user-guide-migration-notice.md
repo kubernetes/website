@@ -1,6 +1,6 @@
-***
+```
 
-*NOTICE*
+**NOTICE**
 
 As of March 14, 2017, the [@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers) have begun migration of the User Guide content as announced previously to the [SIG Docs community](https://github.com/kubernetes/community/tree/master/sig-docs) through the [kubernetes-sig-docs](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) group and [kubernetes.slack.com #sig-docs](https://kubernetes.slack.com/messages/sig-docs/) channel. 
 
@@ -8,4 +8,4 @@ The user guides within this section are being refactored into topics within Tuto
 
 For any questions, please contact: kubernetes-sig-docs@googlegroups.com
 
-***
+```
