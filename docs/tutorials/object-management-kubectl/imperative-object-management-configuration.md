@@ -1,5 +1,8 @@
 ---
 title: Imperative Management of Kubernetes Objects Using Configuration Files
+redirect_from:
+- "/docs/concepts/tools/kubectl/object-management-using-imperative-config/"
+- "/docs/concepts/tools/kubectl/object-management-using-imperative-config.html"
 ---
 
 {% capture overview %}
@@ -120,8 +123,8 @@ template:
 {% endcapture %}
 
 {% capture whatsnext %}
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
-- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/tools/kubectl/object-management-using-declarative-config/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
+- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
 - [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)
 {% endcapture %}
