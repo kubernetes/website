@@ -246,7 +246,7 @@ full access:
 __This flag will be removed in 1.6__. Admins should prefer the `system:masters`
 group when setting up clusters.
 
-### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
+### Roles, RoleBindings, ClusterRoles, and ClusterRoleBindings
 
 The RBAC API Group declares four top level types which will be covered in this
 section. Users can interact with these resources as they would with any other
