@@ -20,7 +20,7 @@ might also help you create a Federated Kubernetes cluster.
 
 You should also have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and [ConfigMaps](/docs/user-guide/ConfigMaps/) in particular.
+general and [ConfigMaps](/docs/user-guide/configmap/) in particular.
 
 ## Overview
 
