@@ -83,7 +83,7 @@ Note that Kubelet **does not** create `--system-reserved-cgroup` if it doesn't e
 
 Memory pressure at the node level leads to System OOMs which affects the entire node and all pods running on it.
 Nodes can go offline temporarily until memory has been reclaimed.
-To avoid (or reduce the probabilty) system OOMs kubelet provides [`Out of Resource`](./out-of-resource.md) management.
+To avoid (or reduce the probability) system OOMs kubelet provides [`Out of Resource`](./out-of-resource.md) management.
 Evictions are supported for `memory` and `storage` only.
 By reserving some memory via `--eviction-hard` flag, the `kubelet` attempts to `evict` pods whenever memory availability on the node drops below the reserved value.
 Hypothetically, if system daemons did not exist on a node, pods cannot use more than `capacity - eviction-hard`.
@@ -95,8 +95,9 @@ For this reason, resources reserved for evictions are not available for pods.
 
 The scheduler treats `Allocatable` as the available `capacity` for pods.
 
-`kubelet` enforce `Allocatable` across pods by default.
+`kubelet` enforce `Allocatable` across pods by default. Enforcement is performed by evicting pods whenever the overall usage across all pods exceeds `Allocatable`. More details on eviction policy can be found [here](./out-of-resource.md#eviction-policy)
 This enforcement is controlled by specifying `pods` value to the kubelet flag `--enforce-node-allocatable`.
+
 
 Optionally, `kubelet` can be made to enforce `kube-reserved` and `system-reserved` by specifying `kube-reserved` & `system-reserved` values in the same flag.
 Note that to enforce `kube-reserved` or `system-reserved`, `--kube-reserved-cgroup` or `--system-reserved-cgroup` needs to be specified respectively.
