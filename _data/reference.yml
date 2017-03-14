@@ -25,7 +25,10 @@ toc:
     section:
     - docs/admin/accessing-the-api.md
     - docs/admin/authentication.md
-    - docs/admin/authorization.md
+    - title: Authorization Plugins
+      section:
+      - docs/admin/authorization/index.md
+      - docs/admin/authorization/rbac.md
     - docs/admin/admission-controllers.md
     - docs/admin/service-accounts-admin.md
   - docs/api-reference/v1/operations.html

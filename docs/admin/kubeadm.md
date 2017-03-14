@@ -143,10 +143,11 @@ By default, `kubeadm init` automatically generates the token used to initialise
 each new node. If you would like to manually specify this token, you can use the
 `--token` flag. The token must be of the format `<6 character string>.<16 character string>`.
 
-- `--use-kubernetes-version` (default 'v1.5.1') the kubernetes version to initialise
+- `--kubernetes-version` (default 'latest') the kubernetes version to initialise
 
 `kubeadm` was originally built for Kubernetes version **v1.4.0**, older versions are not
-supported. With this flag you can try any future version, e.g. **v1.6.0-beta.1**
+supported. The current version of `kubeadm` requires at least **v1.6.0-alpha.3** due to RBAC being enabled by default.
+With this flag you can try any future version, e.g. **v1.6.0-beta.1**
 whenever it comes out (check [releases page](https://github.com/kubernetes/kubernetes/releases)
 for a full list of available versions).
 
@@ -209,6 +210,18 @@ networking:
   podSubnet: <cidr>
 secrets:
   givenToken: <token|string>
+apiServerExtraArgs: {
+  <argument>: <value|string>,
+  <argument>: <value|string>,
+}
+controllerManagerExtraArgs: {
+  <argument>: <value|string>,
+  <argument>: <value|string>,
+}
+schedulerExtraArgs: {
+  <argument>: <value|string>,
+  <argument>: <value|string>,
+}
 ```
 
 ### Sample Node Configuration

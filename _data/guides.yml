@@ -24,6 +24,7 @@ toc:
   - docs/user-guide/rolling-updates.md
   - docs/user-guide/update-demo/index.md
   - docs/user-guide/configmap/index.md
+  - docs/user-guide/projected-volume/index.md
   - docs/user-guide/horizontal-pod-autoscaling/walkthrough.md
   - docs/user-guide/config-best-practices.md
   - docs/user-guide/working-with-resources.md

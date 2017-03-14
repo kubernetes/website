@@ -77,16 +77,16 @@ with a standard set of labels. As of Kubernetes v1.4 these labels are
 * `beta.kubernetes.io/os`
 * `beta.kubernetes.io/arch`
 
-## Alpha features: affinity and anti-affinity
+## Affinity and anti-affinity
 
 `nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity
-feature, currently in alpha, greatly expands the types of constraints you can express. The key enhancements are
+feature, currently in beta, greatly expands the types of constraints you can express. The key enhancements are
 
 1. the language is more expressive (not just "AND of exact match")
-1. you can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler
-can't satisfy it, the pod will still be scheduled
-1. you can constrain against labels on other pods running on the node (or other topological domain),
-rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located 
+2. you can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler
+   can't satisfy it, the pod will still be scheduled
+3. you can constrain against labels on other pods running on the node (or other topological domain),
+   rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located
 
 The affinity feature consists of two types of affinity, "node affinity" and "inter-pod affinity/anti-affinity."
 Node affinity is like the existing `nodeSelector` (but with the first two benefits listed above),
@@ -96,9 +96,9 @@ described in the third item listed above, in addition to having the first and se
 `nodeSelector` continues to work as usual, but will eventually be deprecated, as node affinity can express
 everything that `nodeSelector` can express.
 
-### Node affinity (alpha feature)
+### Node affinity (beta feature)
 
-Node affinity was introduced in Kubernetes 1.2.
+Node affinity was introduced as alpha in Kubernetes 1.2.
 Node affinity is conceptually similar to `nodeSelector` -- it allows you to constrain which nodes your
 pod is eligible to schedule on, based on labels on the node.
 
@@ -116,7 +116,7 @@ Thus an example of `requiredDuringSchedulingIgnoredDuringExecution` would be "on
 and an example `preferredDuringSchedulingIgnoredDuringExecution` would be "try to run this set of pods in availability
 zone XYZ, but if it's not possible, then allow some to run elsewhere".
 
-Node affinity is currently expressed using an annotation on Pod. Once the feature goes to GA it will use a field of Pod.
+Node affinity is specified as field `nodeAffinity` of field `affinity` in the PodSpec.
 
 Here's an example of a pod that uses node affinity:
 
@@ -124,8 +124,8 @@ Here's an example of a pod that uses node affinity:
 
 This node affinity rule says the pod can only be placed on a node with a label whose key is
 `kubernetes.io/e2e-az-name` and whose value is either `e2e-az1` or `e2e-az2`. In addition,
-among nodes that meet that criteria, nodes with a label whose key is `another-annotation-key` and whose
-value is `another-annotation-value` should be preferred.
+among nodes that meet that criteria, nodes with a label whose key is `another-node-label-key` and whose
+value is `another-node-label-value` should be preferred.
 
 You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 There is no explicit "node anti-affinity" concept, but `NotIn` and `DoesNotExist` give that behavior.
@@ -136,7 +136,7 @@ to be scheduled onto a candidate node.
 For more information on node affinity, see the design doc
 [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/nodeaffinity.md).
 
-### Inter-pod affinity and anti-affinity (alpha feature)
+### Inter-pod affinity and anti-affinity (beta feature)
 
 Inter-pod affinity and anti-affinity were introduced in Kubernetes 1.4.
 Inter-pod affinity and anti-affinity allow you to constrain which nodes your pod is eligible to schedule on *based on
@@ -157,13 +157,14 @@ in the same zone, since they communicate a lot with each other"
 and an example `preferredDuringSchedulingIgnoredDuringExecution` anti-affinity would be "spread the pods from this service across zones"
 (a hard requirement wouldn't make sense, since you probably have more pods than zones).
 
-Inter-pod affinity and anti-affinity are currently expressed using an annotation on Pod. Once the feature goes to GA it will use a field.
+Inter-pod affinity is specified as field `podAffinity` of field `affinity` in the PodSpec.
+And inter-pod anti-affinity is specified as field `podAntiAffinity` of field `affinity` in the PodSpec.
 
 Here's an example of a pod that uses pod affinity:
 
 {% include code.html language="yaml" file="pod-with-pod-affinity.yaml" ghlink="/docs/user-guide/node-selection/pod-with-pod-affinity.yaml" %}
 
-The affinity annotation on this pod defines one pod affinity rule and one pod anti-affinity rule. Both
+The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. Both
 must be satisfied for the pod to schedule onto a node. The
 pod affinity rule says that the pod can schedule onto a node only if that node is in the same zone
 as at least one already-running pod that has a label with key "security" and value "S1". (More precisely, the pod is eligible to run
