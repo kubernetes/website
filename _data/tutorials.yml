@@ -52,3 +52,4 @@ toc:
 - title: Federated Cluster Administration
   section:
   - docs/tutorials/federation/set-up-cluster-federation-kubefed.md
+  - docs/tutorials/federation/set-up-coredns-provider-federation.md
