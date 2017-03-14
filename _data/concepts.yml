@@ -35,6 +35,7 @@ toc:
   - docs/concepts/cluster-administration/networking.md
   - docs/concepts/cluster-administration/network-plugins.md
   - docs/concepts/cluster-administration/logging.md
+  - docs/concepts/cluster-administration/out-of-resource.md
   - docs/concepts/cluster-administration/multiple-clusters.md
   - docs/concepts/cluster-administration/federation.md
   - docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods.md
