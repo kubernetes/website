@@ -8,4 +8,4 @@ title: Network Plugins
 
 {% include user-guide-content-moved.md %}
 
-[Network Plugins](/docs/concepts/cluster/administration/network-plugins/)
+[Network Plugins](/docs/concepts/cluster-administration/network-plugins/)
