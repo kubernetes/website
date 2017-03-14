@@ -33,9 +33,10 @@ toc:
     section:
     - docs/concepts/workloads/pods/pod-lifecycle.md
 
-- title: Clusters
+- title: Cluster Administration
   section:
   - docs/concepts/clusters/logging.md
+  - docs/concepts/cluster-administration/federation.md
 
 - title: Configuration
   section:
