@@ -1,3 +1,7 @@
+---
+title: Limiting Storage Consumption
+---
+
 This example demonstrates an easy way to limit the amount of storage consumed in a namespace.
 
 The following resources are used in the demonstration:
