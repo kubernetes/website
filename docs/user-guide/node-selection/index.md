@@ -247,13 +247,13 @@ A toleration "matches" a taint if the `key`s are the same and the `effect`s are 
 As a special case, an empty `key` with operator `Exists` matches all keys and all values.
 Also as a special case, empty `effect` matches all effects.
 
-The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`
-which is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
+The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
+This is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
 pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
 `NoExecute`, described later.
 
-You can put multiple taints and tolerations on the same node. The way Kubernetes processes multiple
-taints and tolerations is like a filter: start
+You can put multiple taints on the same node and multiple tolerations on the same pod.
+The way Kubernetes processes multiple taints and tolerations is like a filter: start
 with all of a node's taints, then ignore the ones for which the pod has a matching toleration; the
 remaining un-ignored taints have the indicated effects on the pod. In particular,
 
@@ -287,10 +287,10 @@ tolerations:
      effect: "NoExecute"
 ```
 
-In this case, the pod will not be able to shedule onto the node (because there is no
-toleration matching the third taint), but it will be able to continue running if it is
-already running on the node when the taint is added (because the third taint is the only
-one of the three that is not tolerated by the pod).
+In this case, the pod will not be able to shedule onto the node, because there is no
+toleration matching the third taint. But it will be able to continue running if it is
+already running on the node when the taint is added, because the third taint is the only
+one of the three that is not tolerated by the pod.
 
 Normally, if a taint with effect `NoExecute` is added to a node, then any pods that do
 not tolerate the taint will be evicted immediately, and any pods that do tolerate the
@@ -313,8 +313,8 @@ taint is removed before that time, the pod will not be evicted.
 
 ### Example use cases
 
-Taints and tolerations are a flexible way to steer pods away from nodes (or evict
-pods that shouldn't be running). A few of the use cases are
+Taints and tolerations are a flexible way to steer pods away from nodes or evict
+pods that shouldn't be running. A few of the use cases are
 
 * **dedicated nodes**: If you want to dedicate a set of nodes for exclusive use by
 a particular set of users, you can add a taint to those nodes (say, 
@@ -322,7 +322,7 @@ a particular set of users, you can add a taint to those nodes (say,
 toleration to their pods (this would be done most easily by writing a custom
 [admission controller](https://kubernetes.io/docs/admin/admission-controllers/)).
 The pods with the tolerations will then be allowed to use the tainted (dedicated) nodes as
-well as any other nodes in the cluster. If you want to dedicated the nodes to them *and*
+well as any other nodes in the cluster. If you want to dedicate the nodes to them *and*
 ensure they *only* use the dedicated nodes, then you should additionally add a label similar
 to the taint to the same set of nodes (e.g. `dedicated=groupName`), and the admission
 controller should additionally add a node affinity to require that the pods can only schedule
@@ -330,15 +330,17 @@ onto nodes labeled with `dedicated=groupName`.
 
 * **nodes with special hardware**: In a cluster where a small subset of nodes have specialized
 hardware (for example GPUs), it is desirable to keep pods that don't need the specialized
-hardware off of those nodes, so as to leave room for later-arriving pods that do need the
+hardware off of those nodes, thus leaving room for later-arriving pods that do need the
 specialized hardware. This can be done by tainting the nodes that have the specialized
 hardware (e.g. `kubectl taint nodes nodename special=true:NoSchedule` or
 `kubectl taint nodes nodename special=true:PreferNoSchedule`) and adding a corresponding
 toleration to pods that use the special hardware. As in the dedicated nodes use case,
 it is probably easiest to apply the tolerations using a custom
-[admission controller](https://kubernetes.io/docs/admin/admission-controllers/)) that
-uses some characteristic(s) of the pod to determine that it should be allowed to use
-the special nodes and hence add the toleration. To ensure that the pods that need
+[admission controller](https://kubernetes.io/docs/admin/admission-controllers/)).
+For example, the admission controller could use
+some characteristic(s) of the pod to determine that the pod should be allowed to use
+the special nodes and hence the admission controller should add the toleration.
+To ensure that the pods that need
 the special hardware *only* schedule onto the nodes that have the special hardware, you will need some
 additional mechanism, e.g. you could represent the special resource using
 [opaque integer resources](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#opaque-integer-resources-alpha-feature)
@@ -363,7 +365,7 @@ The above behavior is a beta feature. In addition, Kubernetes 1.6 has alpha
 support for representing node problems (currently only "node unreachable" and
 "node not ready", corresponding to the NodeCondition "Ready" being "Unknown" or
 "False" respectively) as taints. When the `TaintBasedEvictions` alpha feature
-is enabled (include `TaintBasedEvictions=true` in `--feature-gates`, such as
+is enabled (you can do this by including `TaintBasedEvictions=true` in `--feature-gates`, such as
 `--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
 added by the NodeController and the normal logic for evicting pods from nodes
 based on the Ready NodeCondition is disabled.
@@ -371,8 +373,9 @@ based on the Ready NodeCondition is disabled.
 behavior of pod evictions due to node problems, the system actually adds the taints
 in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.)
-Thus pods can request to stay bound to a node that has one
-or both of these problems, for a per-pod-configurable amount of time.
+This alpha feature, in combination with `tolerationSeconds`, allows a pod
+to specify how long it should stay bound to a node that has one or both of these problems.
+
 For example, an application with a lot of local state might want to stay
 bound to node for a long time in the event of network partition, in the hope
 that the partition will recover and thus the pod eviction can be avoided.
@@ -391,11 +394,15 @@ tolerations:
 Note that Kubernetes automatically adds a toleration for
 `node.alpha.kubernetes.io/notReady` with `tolerationSeconds=300`
 unless the pod configuration provided
-by the user already has a toleration for `node.alpha.kubernetes.io/notReady`,
-and likewise for `node.alpha.kubernetes.io/unknown`. This ensures that
+by the user already has a toleration for `node.alpha.kubernetes.io/notReady`.
+Likewise it adds a toleration for
+`node.alpha.kubernetes.io/unreachable` with `tolerationSeconds=300`
+unless the pod configuration provided
+by the user already has a toleration for `node.alpha.kubernetes.io/unreachable`.
+These automatically-added tolerations ensure that
 the default pod behavior of remaining bound for 5 minutes after one of these
-problems is detected is maintained whether or not the feature is enabled.
-These two default tolerations are added by the [DefaultTolerationSeconds
+problems is detected is maintained.
+The two default tolerations are added by the [DefaultTolerationSeconds
 admission controller](https://github.com/kubernetes/kubernetes/tree/master/plugin/pkg/admission/defaulttolerationseconds).
 
 [DaemonSet](https://kubernetes.io/docs/admin/daemons/) pods are created with
