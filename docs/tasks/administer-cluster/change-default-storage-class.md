@@ -18,21 +18,21 @@ provision volumes for PersistentVolumeClaims that have no special requirements.
 
 ## Why change default storage class
 
-Depending on the installation method, Kubernetes cluster may be deployed with
-existing StorageClass that is marked as default. This default StorageClass
+Depending on the installation method, your Kubernetes cluster may be deployed with
+an existing StorageClass that is marked as default. This default StorageClass
 is then used to dynamically provision storage for PersistentVolumeClaims
 that do not require any specific storage class. See
 [PersistentVolumeClaim documentation](/docs/user-guide/persistent-volumes/#class-1)
 for details.
 
 This pre-installed default StorageClass may not fit well with your expected work
-load, e.g. it can provision too expensive storage, and you may choose to either
-change the StorageClass or disable it completelly to avoid dynamic provisioning
+load, for example it might provision too expensive storage, and you may choose to either
+change the StorageClass or disable it completely to avoid dynamic provisioning
 of storage.
 
 Simply deleting the default StorageClass may not work, as it may be re-created
-automatically by addon manager running in your cluster. Consult installation
-guide for details about addon manager and how to disable individual addons.
+automatically by the addon manager running in your cluster. Please consult the docs for your installation
+for details about addon manager and how to disable individual addons.
 
 ## Changing default StorageClass
 
@@ -46,11 +46,11 @@ guide for details about addon manager and how to disable individual addons.
         default (default)   kubernetes.io/gce-pd
         gold                kubernetes.io/gce-pd
 
-    Default StorageClass is marked by `(default)`.
+   The default StorageClass is marked by `(default)`.
 
 1. Mark the default StorageClass as non-default:
 
-   Default StorageClass has annotation
+   The default StorageClass has an annotation
    `storageclass.beta.kubernetes.io/is-default-class` set to `true`. Any other value
    or absence of the annotation is interpreted as `false`.
 
@@ -60,19 +60,19 @@ guide for details about addon manager and how to disable individual addons.
 
     where `<your-class-name>` is the name of your chosen StorageClass.
 
-    Note that the name of the annotation that marks default StorageClass may
+    Note that the name of the annotation that marks the default StorageClass may
     change in the future.
 
 1. Mark a StorageClass as default:
 
-   Similarly to previous step, you need to add/set annotation
+   Similarly to the previous step, you need to add/set the annotation
    `storageclass.beta.kubernetes.io/is-default-class=true`.
 
         kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.beta.kubernetes.io/is-default-class":"true"}}}'
 
    Please note that at most one StorageClass can be marked as default. If two
    or more of them are marked as default, Kubernetes ignores the annotation,
-   i.e. it behaves as there is no default StorageClass.
+   i.e. it behaves as if there is no default StorageClass.
 
 1. Verify that your chosen StorageClass is default:
 
