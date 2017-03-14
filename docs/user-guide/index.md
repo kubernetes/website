@@ -4,6 +4,8 @@ assignees:
 title: User Guide
 ---
 
+{% include user-guide-migration-notice.md %}
+
 The Kubernetes **Guides** can help you work with various aspects of the Kubernetes system.
 
 * The Kubernetes [User Guide](#user-guide-internal) can help you run programs and services on an existing Kubernetes cluster.
