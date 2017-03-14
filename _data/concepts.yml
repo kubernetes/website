@@ -3,6 +3,10 @@ abstract: "Detailed explanations of Kubernetes system concepts and abstractions.
 toc:
 - docs/concepts/index.md
 
+- title: Overview
+  section:
+  - docs/concepts/overview/components.md
+
 - title: Kubernetes Objects
   section:
   - docs/concepts/abstractions/overview.md
@@ -29,7 +33,10 @@ toc:
 - title: Cluster Administration
   section:
   - docs/concepts/cluster-administration/logging.md
+  - docs/concepts/cluster-administration/multiple-clusters.md
   - docs/concepts/cluster-administration/federation.md
+  - docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods.md
+  - docs/concepts/cluster-administration/sysctl-cluster.md
 
 - title: Configuration
   section:
