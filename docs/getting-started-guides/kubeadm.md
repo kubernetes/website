@@ -109,9 +109,9 @@ All of these components run in pods started by `kubelet` and the following image
     gcr.io/google_containers/kube-controller-manager-amd64   v1.5.3         
     gcr.io/google_containers/kube-scheduler-amd64            v1.5.3         
     gcr.io/google_containers/kube-apiserver-amd64            v1.5.3         
-    gcr.io/google_containers/etcd-amd64                      3.0.14-kubeadm 
+    gcr.io/google_containers/etcd-amd64                      3.0.14-kubeadm
     gcr.io/google_containers/kube-discovery-amd64            1.0            
-    gcr.io/google_containers/pause-amd64                     3.0 
+    gcr.io/google_containers/pause-amd64                     3.0
 
 Right now you can't run `kubeadm init` twice without tearing down the cluster in between, see [Tear down](#tear-down).
 
@@ -173,10 +173,8 @@ The key is used for mutual authentication between the master and the joining nod
 By default, your cluster will not schedule pods on the master for security reasons.
 If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
 
-    # kubectl taint nodes --all dedicated-
+    # kubectl taint nodes --all node-role.kubernetes.io/master-
     node "test-01" tainted
-    taint key="dedicated" and effect="" not found.
-    taint key="dedicated" and effect="" not found.
 
 This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
@@ -186,10 +184,10 @@ You must install a pod network add-on so that your pods can communicate with eac
 
 **It is necessary to do this before you try to deploy any applications to your cluster, and before `kube-dns` will start up. Note also that `kubeadm` only supports CNI based networks and therefore kubenet based networks will not work.**
 
-Several projects provide Kubernetes pod networks using CNI, some of which 
+Several projects provide Kubernetes pod networks using CNI, some of which
 also support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons page](/docs/admin/addons/) for a complete list of available network add-ons.
 
-You can install a pod network add-on with the following command: 
+You can install a pod network add-on with the following command:
 
     # kubectl apply -f <add-on.yaml>
 
@@ -213,7 +211,7 @@ kube-system   canal-node-77d0h                  2/3       CrashLoopBackOff    3 
 kube-system   kube-dns-2924299975-7q1vq         0/4       ContainerCreating   0          15m
 ```
 
-The three statuses ```RunContainerError``` and ```CrashLoopBackOff``` and ```ContainerCreating``` are very common. 
+The three statuses ```RunContainerError``` and ```CrashLoopBackOff``` and ```ContainerCreating``` are very common.
 
 To help diagnose what happened, you can use the following command to check what is in the logs:
 
@@ -363,8 +361,8 @@ Note that the Raspberry Pi 3 is in ARM 32-bit mode, so for RPi 3 you should set 
 
 ## Cloudprovider integrations (experimental)
 
-Enabling specific cloud providers is a common request, this currently requires manual configuration and is therefore not yet supported. If you wish to do so, 
-edit the `kubeadm` dropin for the `kubelet` service (`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`) on all nodes, including the master. 
+Enabling specific cloud providers is a common request, this currently requires manual configuration and is therefore not yet supported. If you wish to do so,
+edit the `kubeadm` dropin for the `kubelet` service (`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`) on all nodes, including the master.
 If your cloud provider requires any extra packages installed on host, for example for volume mounting/unmounting, install those packages.
 
 Specify the `--cloud-provider` flag to kubelet and set it to the cloud of your choice. If your cloudprovider requires a configuration
@@ -374,13 +372,13 @@ If you use the `/etc/kubernetes/cloud-config` file, you must append it to the `k
 
 Lastly, run `kubeadm init --cloud-provider=xxx` to bootstrap your cluster with cloud provider features.
 
-This workflow is not yet fully supported, however we hope to make it extremely easy to spin up clusters with cloud providers in the future. 
+This workflow is not yet fully supported, however we hope to make it extremely easy to spin up clusters with cloud providers in the future.
 (See [this proposal](https://github.com/kubernetes/community/pull/128) for more information) The [Kubelet Dynamic Settings](https://github.com/kubernetes/kubernetes/pull/29459) feature may also help to fully automate this process in the future.
 
 ## Limitations
 
 Please note: `kubeadm` is a work in progress and these limitations will be addressed in due course.
-    
+
 1. The cluster created here has a single master, with a single `etcd` database running on it.
    This means that if the master fails, your cluster loses its configuration data and will need to be recreated from scratch.
    Adding HA support (multiple `etcd` servers, multiple API servers, etc) to `kubeadm` is still a work-in-progress.
