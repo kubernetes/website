@@ -11,7 +11,7 @@ originating from web clients around the globe on a single, static IP
 address.   Low
 network latency, high fault tolerance and easy administration are
 ensured through intelligent request routing and automatic replica
-relocation (using [Federated ReplicaSets](docs/user-guide/federation/federated-replicaset.md)).
+relocation (using [Federated ReplicaSets](/docs/tasks/administer-federation/replicaset/).
 Clients are automatically routed, via the shortest network path, to
 the cluster closest to them with available capacity (despite the fact
 that all clients use exactly the same static IP address).  The load balancer
@@ -173,8 +173,8 @@ Ingresses in the clusters comprising your federation.
 
 To render the underlying ingress shards healthy, we need to add
 backend Pods behind the service upon which the Ingress is based.  There are several ways to achieve this, but
-the easiest is to create a [Federated Service](federated-services.md) and 
-[Federated Replicaset](federated-replicasets.md).  Details of how those
+the easiest is to create a Federated Service and 
+Federated Replicaset.  Details of how those
 work are covered in the aforementioned user guides - here we'll simply use them, to
 create appropriately labelled pods and services in the 13 underlying clusters of
 our federation:
@@ -236,8 +236,7 @@ Europe, the request will be routed to the next closest cluster
 Ingresses are backed by Services, which are typically (but not always)
 backed by one or more ReplicaSets.  For Federated Ingresses, it is
 common practise to use the federated variants of Services and
-ReplicaSets (see [Federated Services](federated-services.md) and
-[Federated ReplicaSets](federated-replicasets.md)) for this purpose, as
+ReplicaSets for this purpose, as
 described above.
 
 In particular, Federated ReplicaSets ensure that the desired number of
@@ -331,7 +330,7 @@ Check that:
    have been correctly reconfigured, the UID data item in the GLBC
    configmap in each cluster will be identical across all clusters.
    See
-   [the GLBC docs](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/BETA_LIMITATIONS.md#changing-the-cluster-uid)
+   [the GLBC docs](https://github.com/kubernetes/ingress/blob/7dcb4ae17d5def23d3e9c878f3146ac6df61b09d/controllers/gce/README.md)
    for further details.
    If this is not the case, check the logs of your federation
    controller manager to determine why this automated reconfiguration
@@ -341,7 +340,7 @@ Check that:
     successfully.  Ingresses created before the reconfiguration of
     your GLBC will interfere with the behavior of your federated
     ingresses created after the reconfiguration (see
-    [the GLBC docs](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/BETA_LIMITATIONS.md#changing-the-cluster-uid)
+    [the GLBC docs](https://github.com/kubernetes/ingress/blob/7dcb4ae17d5def23d3e9c878f3146ac6df61b09d/controllers/gce/README.md)
     for further information. To remedy this,
     delete any ingresses created before the cluster joined the
     federation (and had it's GLBC reconfigured), and recreate them if
