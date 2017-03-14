@@ -80,7 +80,7 @@ The master requires the root CA public key, `ca.pem`; the apiserver certificate,
 
 Calico needs its own etcd cluster to store its state.  In this guide we install a single-node cluster on the master server.
 
-> Note: In a production deployment we recommend running a distributed etcd cluster for redundancy. In this guide, we use a single etcd for simplicitly.
+> Note: In a production deployment we recommend running a distributed etcd cluster for redundancy. In this guide, we use a single etcd for simplicity.
 
 1.  Download the template manifest file:
 

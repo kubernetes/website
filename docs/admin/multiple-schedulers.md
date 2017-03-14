@@ -34,7 +34,7 @@ to build the image:
 
 ```docker
 FROM busybox
-ADD _output/local/go/bin/kube-scheduler /usr/local/bin/kube-scheduler
+ADD ./_output/dockerized/bin/linux/amd64/kube-scheduler /usr/local/bin/kube-scheduler
 ```
 
 Save the file as `Dockerfile`, build the image and push it to a registry. This example
@@ -45,7 +45,7 @@ For more details, please read the GCR
 
 ```shell
 docker build -t my-kube-scheduler:1.0 .
-gcloud docker push gcr.io/my-gcp-project/my-kube-scheduler:1.0
+gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0
 ```
 
 ### 2. Define a Kubernetes Deployment for the scheduler
@@ -131,15 +131,15 @@ scheduler in that pod spec. Let's look at three examples.
 
   Save this file as `pod3.yaml` and submit it to the Kubernetes cluster.
 
-  ```shell
-  kubectl create -f pod3.yaml
-  ```
+```shell
+kubectl create -f pod3.yaml
+```
 
   Verify that all three pods are running.
 
-  ```shell
-  kubectl get pods
-  ```
+```shell
+kubectl get pods
+```
 
 ### Verifying that the pods were scheduled using the desired schedulers
 

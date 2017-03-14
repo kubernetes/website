@@ -3,7 +3,7 @@ abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
-- title: Using the Kubectl Command-Line
+- title: Using the kubectl Command-Line
   section:
   - docs/tasks/kubectl/list-all-running-container-images.md
   - docs/tasks/kubectl/get-shell-running-container.md
@@ -29,9 +29,12 @@ toc:
   - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md
   - docs/tasks/access-application-cluster/load-balance-access-application-cluster.md
 
-- title: Debugging Applications in a Cluster
+- title: Monitoring, Logging, and Debugging
   section:
   - docs/tasks/debug-application-cluster/determine-reason-pod-failure.md
+  - docs/tasks/debug-application-cluster/debug-init-containers.md
+  - docs/tasks/debug-application-cluster/logging-stackdriver.md
+  - docs/tasks/debug-application-cluster/logging-elasticsearch-kibana.md
 
 - title: Accessing the Kubernetes API
   section:
@@ -44,6 +47,17 @@ toc:
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
 
+- title: Administering Federation
+  section:
+  - docs/tasks/administer-federation/configmap.md
+  - docs/tasks/administer-federation/daemonset.md
+  - docs/tasks/administer-federation/deployment.md
+  - docs/tasks/administer-federation/events.md
+  - docs/tasks/administer-federation/ingress.md
+  - docs/tasks/administer-federation/namespaces.md
+  - docs/tasks/administer-federation/replicaset.md
+  - docs/tasks/administer-federation/secret.md
+
 - title: Managing Stateful Applications
   section:
   - docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set.md
@@ -51,8 +65,3 @@ toc:
   - docs/tasks/manage-stateful-set/deleting-a-statefulset.md
   - docs/tasks/manage-stateful-set/debugging-a-statefulset.md
   - docs/tasks/manage-stateful-set/delete-pods.md
-
-- title: Troubleshooting
-  section:
-  - docs/tasks/troubleshoot/debug-init-containers.md
-  - docs/tasks/administer-cluster/access-control-identity-management/
