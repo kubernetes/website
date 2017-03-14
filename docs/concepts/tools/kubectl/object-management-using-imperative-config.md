@@ -59,7 +59,7 @@ The `create`, `replace`, and `delete` commands work well when each object's
 configuration is fully defined and recorded in its configuration
 file. However when a live object is updated, and the updates are not merged
 into its configuration file, the updates will be lost the next time a `replace`
-is executed. This is can happen if a controller, such as
+is executed. This can happen if a controller, such as
 a HorizontalPodAutoscaler, makes updates directly to a live object. Here's 
 an example:
 
