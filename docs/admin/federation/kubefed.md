@@ -91,11 +91,12 @@ the name `fellowship`, a host cluster context `rivendell`, and the
 domain suffix `example.com`:
 
 ```shell
-kubefed init fellowship --host-cluster-context=rivendell  --dns-zone-name="example.com"
+kubefed init fellowship --host-cluster-context=rivendell  --dns-zone-name="example.com."
 ```
 
 The domain suffix specified in `--dns-zone-name` must be an existing
 domain that you control, and that is programmable by your DNS provider.
+It's important to have the trailing dot.
 
 `kubefed init` sets up the federation control plane in the host
 cluster and also adds an entry for the federation API server in your
