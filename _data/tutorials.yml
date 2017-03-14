@@ -49,3 +49,6 @@ toc:
 - title: Services
   section:
   - docs/tutorials/services/source-ip.md
+- title: Federated Cluster Administration
+  section:
+  - docs/tutorials/federation/set-up-cluster-federation-kubefed.md
