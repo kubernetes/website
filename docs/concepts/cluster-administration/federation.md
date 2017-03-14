@@ -1,3 +1,7 @@
+---
+title: Federation
+---
+
 This guide explains why and how to manage multiple Kubernetes clusters using
 federation.
 
