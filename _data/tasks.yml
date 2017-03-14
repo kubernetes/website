@@ -47,6 +47,17 @@ toc:
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
 
+- title: Administering Federation
+  section:
+  - docs/tasks/administer-federation/configmap.md
+  - docs/tasks/administer-federation/daemonset.md
+  - docs/tasks/administer-federation/deployment.md
+  - docs/tasks/administer-federation/events.md
+  - docs/tasks/administer-federation/ingress.md
+  - docs/tasks/administer-federation/namespaces.md
+  - docs/tasks/administer-federation/replicaset.md
+  - docs/tasks/administer-federation/secret.md
+
 - title: Managing Stateful Applications
   section:
   - docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set.md
