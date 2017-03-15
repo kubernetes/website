@@ -23,7 +23,7 @@ the default reclaim policy is "Delete". This means that a dynamically provisione
 volume is automatically deleted when a user deletes the corresponding
 `PeristentVolumeClaim`. This automatic behavior might be inappropriate if the volume
 contains precious data. In that case, it is more appropriate to use the "Retain"
-policy. With the "Retain" policy, if a user deletes a `PeristentVolumeClaim`,
+policy. With the "Retain" policy, if a user deletes a `PersistentVolumeClaim`,
 the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to the
 `Released` phase, where all of its data can be manually recovered.
 
