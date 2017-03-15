@@ -52,6 +52,9 @@ toc:
 - title: Connecting Applications
   section:
   - docs/tutorials/connecting-apps/connecting-frontend-backend.md
+- title: Clusters
+  section:
+  - docs/tutorials/clusters/apparmor.md
 - title: Services
   section:
   - docs/tutorials/services/source-ip.md
