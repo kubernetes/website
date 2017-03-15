@@ -43,6 +43,10 @@ toc:
   - docs/concepts/cluster-administration/static-pod.md
   - docs/concepts/cluster-administration/sysctl-cluster.md
 
+- title: Services, Load Balancing, and Networking
+  section:
+  - docs/concepts/services-networking/dns-pod-service.md
+
 - title: Configuration
   section:
   - docs/concepts/configuration/container-command-args.md
