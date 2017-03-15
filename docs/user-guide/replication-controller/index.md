@@ -261,4 +261,4 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
 ## For more information
 
-Read [ReplicationController Operations](/docs/user-guide/replication-controller/operations/).
+Read [Run Stateless AP Replication Controller](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
