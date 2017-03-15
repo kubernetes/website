@@ -6,10 +6,14 @@ toc:
 - title: Overview
   section:
   - docs/concepts/overview/components.md
+  - title: Working with Kubernetes Objects
+    section:
+    - docs/concepts/overview/working-with-objects/kubernetes-objects.md
+    - docs/concepts/overview/working-with-objects/labels.md
+    - docs/concepts/overview/working-with-objects/annotations.md
 
 - title: Kubernetes Objects
   section:
-  - docs/concepts/abstractions/overview.md
   - title: Pods
     section:
     - docs/concepts/abstractions/pod.md
@@ -19,10 +23,6 @@ toc:
     - docs/concepts/abstractions/controllers/statefulsets.md
     - docs/concepts/abstractions/controllers/petsets.md
     - docs/concepts/abstractions/controllers/garbage-collection.md
-
-- title: Object Metadata
-  section:
-  - docs/concepts/object-metadata/annotations.md
 
 - title: Workloads
   section:
