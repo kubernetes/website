@@ -718,7 +718,7 @@ to a previous revision, or even pause it if you need to apply multiple tweaks in
 ### Canary Deployment
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you can create multiple Deployments, one for each release,
-following the canary pattern described in [managing resources](/docs/concepts/cluster-administration/manage-deployment#canary-deployments). 
+following the canary pattern described in [managing resources](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments). 
 
 ## Writing a Deployment Spec
 
