@@ -99,7 +99,7 @@ as well as either:
   YAML format. The configuration file must specify a new top-level `id` value
   and include at least one of the existing `spec.selector` key:value pairs.
   See the
-  [Replication Controller Operations](/docs/user-guide/replication-controller/operations#replication-controller-configuration-file)
+  [Run Stateless AP Replication Controller](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/#replication-controller-configuration-file)
   page for details.
 <br>
 <br>

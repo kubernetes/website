@@ -71,4 +71,4 @@ flag, which will provide the object to be submitted to the cluster.
 
 ### `kubectl apply`
 
-* To use `kubectl apply` to update resources, always create resources initially with `kubectl apply` or with `--save-config`. See [managing resources with kubectl apply](/docs/user-guide/managing-deployments/#kubectl-apply) for the reason behind it.
+* To use `kubectl apply` to update resources, always create resources initially with `kubectl apply` or with `--save-config`. See [managing resources with kubectl apply](/docs/concepts/cluster-administration/manage-deployment/#kubectl-apply) for the reason behind it.
