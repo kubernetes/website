@@ -7,4 +7,4 @@ title: Monitoring Node Health
 
 {% include user-guide-content-moved.md %}
 
-[Monitoring Node Health](/docs/concepts/cluster-administration/monitor-node-health/)
+[Monitoring Node Health](/docs/tasks/debug-application-cluster/monitor-node-health/)
