@@ -35,7 +35,7 @@ Here's an example `.yaml` file that shows the required fields and object spec fo
 
 {% include code.html language="yaml" file="nginx-deployment.yaml" ghlink="/docs/concepts/abstractions/nginx-deployment.yaml" %}
 
-One way to create a Deployment using a `.yaml` file like the one above is to use the []`kubectl create`]() command in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
+One way to create a Deployment using a `.yaml` file like the one above is to use the [`kubectl create`](/docs/user-guide/kubectl/kubectl_create/) command in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 
 ```shell
 $ kubectl create -f docs/user-guide/nginx-deployment.yaml --record
