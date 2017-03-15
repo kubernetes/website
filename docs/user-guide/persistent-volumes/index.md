@@ -356,6 +356,16 @@ parameters:
 Storage classes have a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
 
+Administrators are not restricted to specifying the "internal" provisioners
+listed here (whose names are prefixed with "kubernetes.io" and shipped
+alongside Kubernetes), they can also run and specify external provisioners
+which are independent programs that follow a [specification](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/volume-provisioning.md)
+defined by Kubernetes. Authors of external provisioners have full discretion
+over where their code lives, how they're shipped, how they need to be run, what
+volume plugin they use (including Flex), etc. The repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage)
+houses a library for writing external provisioners that implements the bulk of
+the specification plus various community-maintained external provisioners.
+
 ### Parameters
 Storage classes have parameters that describe volumes belonging to the storage
 class. Different parameters may be accepted depending on the `provisioner`. For
