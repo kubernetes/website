@@ -21,7 +21,7 @@ The following topics in the Kubernetes User Guide can help you run applications 
 1. [Deploying continuously running applications](/docs/user-guide/deploying-applications/)
 1. [Connecting applications: exposing applications to clients and users](/docs/user-guide/connecting-applications/)
 1. [Working with containers in production](/docs/user-guide/production-pods/)
-1. [Managing deployments](/docs/user-guide/managing-deployments/)
+1. [Managing deployments](/docs/concepts/cluster-administration/manage-deployment/)
 1. [Application introspection and debugging](/docs/user-guide/introspection-and-debugging/)
     1. [Using the Kubernetes web user interface](/docs/user-guide/ui/)
     1. [Logging](/docs/user-guide/logging/overview/)
