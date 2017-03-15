@@ -291,6 +291,9 @@ all PVCs.
 have no class. In this case, the PVCs that have no `storageClassName` are treated the
 same way as PVCs that have their `storageClassName` set to `""`.
 
+Depending on installation method, a default StorageClass may be deployed
+to Kubernetes cluster by addon manager during installation.
+
 When a PVC specifies a `selector` in addition to requesting a `StorageClass`,
 the requirements are ANDed together: only a PV of the requested class and with
 the requested labels may be bound to the PVC. Note that currently, a PVC with a
