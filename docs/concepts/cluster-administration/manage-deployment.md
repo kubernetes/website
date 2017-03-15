@@ -415,7 +415,7 @@ deployment "my-nginx" replaced
 At some point, you'll eventually need to update your deployed application, typically by specifying a new image or image tag, as in the canary deployment scenario above. `kubectl` supports several update operations, each of which is applicable to different scenarios.
 
 We'll guide you through how to create and update applications with Deployments. If your deployed application is managed by Replication Controllers, 
-you should read [how to use `kubectl rolling-update`](/docs/user-guide/rolling-updates/) instead. 
+you should read [how to use `kubectl rolling-update`](/docs/tasks/run-application/rolling-update-replication-controller/) instead. 
 
 Let's say you were running version 1.7.9 of nginx:
 
