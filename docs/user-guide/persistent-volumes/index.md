@@ -281,7 +281,7 @@ is turned on.
 * If the admission plugin is turned on, the administrator may specify a
 default `StorageClass`. All PVCs that have no annotation can be bound only to
 PVs of that default. Specifying a default `StorageClass` is done by setting the
-annotation `storageclass.beta.kubernetes.io/is-default-class` equal to "true" in
+annotation `storageclass.kubernetes.io/is-default-class` equal to "true" in
 a `StorageClass` object. If the administrator does not specify a default, the
 cluster responds to PVC creation as if the admission plugin were turned off. If
 more than one default is specified, the admission plugin forbids the creation of
@@ -299,8 +299,10 @@ the requirements are ANDed together: only a PV of the requested class and with
 the requested labels may be bound to the PVC. Note that currently, a PVC with a
 non-empty `selector` can't have a PV dynamically provisioned for it.
 
-In the future after beta, the `volume.beta.kubernetes.io/storage-class`
-annotation will become an attribute.
+Note that the annotation `storageclass.beta.kubernetes.io/is-default-class` has
+been used in Kubernetes 1.5 to mark the default storage class.
+This annotation is still working, however it will be fully deprecated in
+a future Kubernetes release.
 
 ## Claims As Volumes
 
