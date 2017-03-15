@@ -2,6 +2,9 @@
 assignees:
 - mikedanese
 title: Labels and Selectors
+redirect_from:
+- "/docs/user-guide/labels/"
+- "/docs/user-guide/labels.html"
 ---
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.
