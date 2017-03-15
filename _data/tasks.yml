@@ -27,6 +27,10 @@ toc:
   - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
   - docs/tasks/configure-pod-container/configure-pod-disruption-budget.md
 
+- title: Running Applications
+  section:
+  - docs/tasks/run-application/rolling-update-replication-controller.md
+
 - title: Accessing Applications in a Cluster
   section:
   - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md
