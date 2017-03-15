@@ -281,7 +281,7 @@ is turned on.
 * If the admission plugin is turned on, the administrator may specify a
 default `StorageClass`. All PVCs that have no `storageClassName` can be bound only to
 PVs of that default. Specifying a default `StorageClass` is done by setting the
-annotation `storageclass.beta.kubernetes.io/is-default-class` equal to "true" in
+annotation `storageclass.kubernetes.io/is-default-class` equal to "true" in
 a `StorageClass` object. If the administrator does not specify a default, the
 cluster responds to PVC creation as if the admission plugin were turned off. If
 more than one default is specified, the admission plugin forbids the creation of
