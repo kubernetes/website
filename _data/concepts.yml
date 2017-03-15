@@ -51,3 +51,4 @@ toc:
 - title: Policies
   section:
   - docs/concepts/policy/container-capabilities.md
+  - docs/concepts/policy/resource-quotas.md
