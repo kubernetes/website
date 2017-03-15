@@ -140,6 +140,7 @@ In this example you'll see:
 First, we need to load the profile we want to use onto our nodes. The profile we'll use simply
 denies all file writes:
 
+
 {% include code.html language="text" file="deny-write.profile" ghlink="/docs/tutorials/clusters/deny-write.profile" %}
 
 Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
