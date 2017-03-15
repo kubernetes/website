@@ -34,6 +34,7 @@ toc:
   section:
   - docs/concepts/cluster-administration/networking.md
   - docs/concepts/cluster-administration/network-plugins.md
+  - docs/concepts/cluster-administration/monitor-node-health.md
   - docs/concepts/cluster-administration/logging.md
   - docs/concepts/cluster-administration/out-of-resource.md
   - docs/concepts/cluster-administration/multiple-clusters.md
