@@ -47,7 +47,7 @@ If you're not working from the source tree, you could also download [`redis-pod.
 
 ## Filling the Queue with tasks
 
-Now lets fill the queue with some "tasks".  In our example, our tasks are just strings to be
+Now let's fill the queue with some "tasks".  In our example, our tasks are just strings to be
 printed.
 
 Start a temporary interactive pod for running the Redis CLI

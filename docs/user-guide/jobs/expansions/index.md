@@ -71,7 +71,7 @@ job "process-item-cherry" created
 Now, check on the jobs:
 
 ```shell
-$ kubectl get jobs -l app=jobexample
+$ kubectl get jobs -l jobgroup=jobexample
 JOB                   CONTAINER(S)   IMAGE(S)   SELECTOR                               SUCCESSFUL
 process-item-apple    c              busybox    app in (jobexample),item in (apple)    1
 process-item-banana   c              busybox    app in (jobexample),item in (banana)   1
@@ -85,7 +85,7 @@ do not care to see.)
 We can check on the pods as well using the same label selector:
 
 ```shell
-$ kubectl get pods -l app=jobexample
+$ kubectl get pods -l jobgroup=jobexample --show-all
 NAME                        READY     STATUS      RESTARTS   AGE
 process-item-apple-kixwv    0/1       Completed   0          4m 
 process-item-banana-wrsf7   0/1       Completed   0          4m 
@@ -96,7 +96,7 @@ There is not a single command to check on the output of all jobs at once,
 but looping over all the pods is pretty easy:
 
 ```shell
-$ for p in $(kubectl get pods -l app=jobexample -o name)
+$ for p in $(kubectl get pods -l jobgroup=jobexample -o name)
 do
   kubectl logs $p
 done
@@ -111,7 +111,7 @@ In the first example, each instance of the template had one parameter, and that 
 used as a label.  However label keys are limited in [what characters they can
 contain](/docs/user-guide/labels/#syntax-and-character-set).
 
-This slightly more complex example uses a the jinja2 template language to generate our objects.
+This slightly more complex example uses the jinja2 template language to generate our objects.
 We will use a one-line python script to convert the template to a file.
 
 First, copy and paste the following template of a Job object, into a file called `job.yaml.jinja2`:
@@ -179,6 +179,7 @@ cat job.yaml.jinja2 | render_template | kubectl create -f -
 ## Alternatives
 
 If you have a large number of job objects, you may find that:
+
 - even using labels, managing so many Job objects is cumbersome.
 - You exceed resource quota when creating all the Jobs at once,
   and do not want to wait to create them incrementally.
