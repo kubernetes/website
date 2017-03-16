@@ -9,7 +9,7 @@ title: Rolling Update Replication Controller
 
 ## Overview
 
-To update a service without an outage, `kubectl` supports what is called ['rolling update'](/docs/user-guide/kubectl/kubectl_rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) and the [example of rolling update](/docs/user-guide/update-demo/) for more information.
+To update a service without an outage, `kubectl` supports what is called ['rolling update'](/docs/user-guide/kubectl/kubectl_rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) and the [example of rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) for more information.
 
 Note that `kubectl rolling-update` only supports Replication Controllers. However, if you deploy applications with Replication Controllers,
 consider switching them to [Deployments](/docs/user-guide/deployments/). A Deployment is a higher-level controller that automates rolling updates
@@ -242,7 +242,7 @@ Update succeeded. Deleting old controller: my-nginx
 replicationcontroller "my-nginx-v4" rolling updated
 ```
 
-You can also run the [update demo](/docs/user-guide/update-demo/) to see a visual representation of the rolling update process.
+You can also run the [update demo](/docs/tasks/run-application/rolling-update-replication-controller/) to see a visual representation of the rolling update process.
 
 ## Troubleshooting
 

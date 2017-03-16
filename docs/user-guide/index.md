@@ -87,6 +87,6 @@ Pods and containers
   * [Migrating from docker-cli to kubectl](/docs/user-guide/docker-cli-to-kubectl/)
   * [Configuration Best Practices and Tips](/docs/user-guide/config-best-practices/)
   * [Assign pods to selected nodes](/docs/user-guide/node-selection/)
-  * [Perform a rolling update on a running group of pods](/docs/user-guide/update-demo/)
+  * [Perform a rolling update on a running group of pods](/docs/tasks/run-application/rolling-update-replication-controller/)
 
 [Developer Guide]: https://github.com/kubernetes/community/blob/master/contributors/devel/README.md

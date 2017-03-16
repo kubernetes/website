@@ -74,7 +74,7 @@ Kubernetes satisfies a number of common needs of applications running in product
 * [horizontal auto-scaling](/docs/user-guide/horizontal-pod-autoscaling/),
 * [naming and discovery](/docs/user-guide/connecting-applications/),
 * [load balancing](/docs/user-guide/services/),
-* [rolling updates](/docs/user-guide/update-demo/),
+* [rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/),
 * [resource monitoring](/docs/user-guide/monitoring/),
 * [log access and ingestion](/docs/user-guide/logging/overview/),
 * [support for introspection and debugging](/docs/user-guide/introspection-and-debugging/), and
