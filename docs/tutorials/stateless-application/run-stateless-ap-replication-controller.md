@@ -158,7 +158,7 @@ controller should manage pods with the `frontend` label.
 
 ## Updating replication controller pods
 
-See [Rolling Updates](/docs/user-guide/rolling-updates/).
+See [Rolling Updates](/docs/tasks/run-application/rolling-update-replication-controller/).
 
 ## Resizing a replication controller
 
