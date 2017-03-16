@@ -31,6 +31,10 @@ toc:
   section:
   - docs/tasks/run-application/rolling-update-replication-controller.md
 
+- title: Running Jobs
+  section:
+  - docs/tasks/job/parallel-processing-expansion.md
+
 - title: Accessing Applications in a Cluster
   section:
   - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md

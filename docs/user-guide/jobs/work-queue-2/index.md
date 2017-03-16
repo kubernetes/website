@@ -9,7 +9,7 @@ title: Fine Parallel Processing using a Work Queue
 
 In this example, we will run a Kubernetes Job with multiple parallel
 worker processes.  You may want to be familiar with the basic,
-non-parallel, use of [Job](/docs/user-guide/jobs) first.
+non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) first.
 
 In this example, as each pod is created, it picks up one unit of work
 from a task queue, completes it, deletes it from the queue, and exits.
@@ -205,7 +205,7 @@ As you can see, one of our pods worked on several work units.
 ## Alternatives
 
 If running a queue service or modifying your containers to use a work queue is inconvenient, you may
-want to consider one of the other [job patterns](/docs/user-guide/jobs/#job-patterns).
+want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns).
 
 If you have a continuous stream of background processing work to run, then
 consider running your background workers with a `replicationController` instead,
