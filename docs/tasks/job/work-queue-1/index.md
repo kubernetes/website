@@ -259,12 +259,12 @@ want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-comp
 
 This approach creates a pod for every work item.  If your work items only take a few seconds,
 though, creating a Pod for every work item may add a lot of overhead.  Consider another
-[example](/docs/user-guide/jobs/work-queue-2/), that executes multiple work items per Pod.
+[example](/docs/tasks/job/fine-parallel-processing-work-queue/), that executes multiple work items per Pod.
 
 In this example, we used use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  This has the advantage that you
 do not need to modify your program to be aware of the queue.
-A [different example](/docs/user-guide/jobs/work-queue-2/), shows how to
+A [different example](/docs/tasks/job/fine-parallel-processing-work-queue/), shows how to
 communicate with the work queue using a client library.
 
 ## Caveats

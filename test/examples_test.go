@@ -250,7 +250,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"../docs/tasks/job/work-queue-1": {
 			"job": {&batch.Job{}},
 		},
-		"../docs/user-guide/jobs/work-queue-2": {
+		"../docs/tasks/job/fine-parallel-processing-work-queue": {
 			"job":           {&batch.Job{}},
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
