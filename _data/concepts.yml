@@ -14,20 +14,11 @@ toc:
     - docs/concepts/overview/working-with-objects/annotations.md
   - docs/concepts/overview/kubernetes-api.md
 
-- title: Kubernetes Objects
-  section:
-  - title: Pods
-    section:
-  - title: Controllers
-    section:
-    - docs/concepts/abstractions/controllers/statefulsets.md
-    - docs/concepts/abstractions/controllers/petsets.md
-    - docs/concepts/abstractions/controllers/garbage-collection.md
-
 - title: Containers
   section:
   - docs/concepts/containers/container-environment-variables.md
   - docs/concepts/containers/container-lifecycle-hooks.md
+
 - title: Workloads
   section:
   - title: Pods
@@ -38,6 +29,8 @@ toc:
   - title: Controllers
     section:
     - docs/concepts/workloads/controllers/statefulset.md
+    - docs/concepts/workloads/controllers/petset.md
+    - docs/concepts/workloads/controllers/garbage-collection.md
   - title: Jobs
     section:
     - docs/concepts/jobs/run-to-completion-finite-workloads.md
