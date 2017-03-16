@@ -30,7 +30,7 @@ steps that existing cluster setup scripts are making.
     This will help you become familiar with the CLI ([kubectl](/docs/user-guide/kubectl/kubectl)) and concepts ([pods](/docs/user-guide/pods), [services](/docs/user-guide/services), etc.) first.
   1. You should have `kubectl` installed on your desktop.  This will happen as a side
     effect of completing one of the other Getting Started Guides.  If not, follow the instructions
-    [here](/docs/user-guide/prereqs).
+    [here](/docs/tasks/kubectl/install/).
 
 ### Cloud Provider
 
