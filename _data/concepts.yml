@@ -18,7 +18,6 @@ toc:
   section:
   - title: Pods
     section:
-    - docs/concepts/abstractions/init-containers.md
   - title: Controllers
     section:
     - docs/concepts/abstractions/controllers/statefulsets.md
@@ -31,6 +30,7 @@ toc:
     section:
     - docs/concepts/workloads/pods/pod-overview.md
     - docs/concepts/workloads/pods/pod-lifecycle.md
+    - docs/concepts/workloads/pods/init-containers.md
   - title: Jobs
     section:
     - docs/concepts/jobs/run-to-completion-finite-workloads.md
