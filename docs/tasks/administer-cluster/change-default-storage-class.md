@@ -42,9 +42,9 @@ for details about addon manager and how to disable individual addons.
 
     The output is similar to this:
 
-        NAME                TYPE
-        default (default)   kubernetes.io/gce-pd
-        gold                kubernetes.io/gce-pd
+        NAME                 TYPE
+        standard (default)   kubernetes.io/gce-pd
+        gold                 kubernetes.io/gce-pd
 
    The default StorageClass is marked by `(default)`.
 
@@ -59,9 +59,6 @@ for details about addon manager and how to disable individual addons.
         kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
 
     where `<your-class-name>` is the name of your chosen StorageClass.
-
-    Note that the name of the annotation that marks the default StorageClass may
-    change in the future.
 
 1. Mark a StorageClass as default:
 
@@ -81,7 +78,7 @@ for details about addon manager and how to disable individual addons.
     The output is similar to this:
 
         NAME             TYPE
-        default          kubernetes.io/gce-pd
+        standard         kubernetes.io/gce-pd
         gold (default)   kubernetes.io/gce-pd
 
 {% endcapture %}
