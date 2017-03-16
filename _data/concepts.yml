@@ -25,20 +25,15 @@ toc:
     - docs/concepts/abstractions/controllers/garbage-collection.md
 
 - title: Workloads
-
   section:
   - title: Pods
     section:
     - docs/concepts/workloads/pods/pod-overview.md
     - docs/concepts/workloads/pods/pod-lifecycle.md
     - docs/concepts/workloads/pods/init-containers.md
-
-  section:
   - title: Controllers
     section:
     - docs/concepts/workloads/controllers/statefulset.md
-
-  section:
   - title: Jobs
     section:
     - docs/concepts/jobs/run-to-completion-finite-workloads.md
