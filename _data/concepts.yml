@@ -5,6 +5,7 @@ toc:
 
 - title: Overview
   section:
+  - docs/concepts/overview/what-is-kubernetes.md
   - docs/concepts/overview/components.md
   - title: Working with Kubernetes Objects
     section:
