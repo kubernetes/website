@@ -224,10 +224,11 @@ The CLI will show the name of the PVC bound to the PV.
 
 ### Mount Options
 
-Kubernetes administrator can specify additional mount option to be used when a Persistent Volume is
-being mounted on a node. 
+A Kubernetes administrator can specify additional mount options for when a Persistent Volume is being mounted on a node.
 
-Mount option can be specified via an annotation on PV - `volume.beta.kubernetes.io/mount-options`. 
+You can specify a mount option by using the annotation `volume.beta.kubernetes.io/mount-options` on
+your Persistent Volume.
+
 For example:
 
 ```yaml
@@ -247,10 +248,10 @@ spec:
     pdName: "gce-disk-1
 ```
 
-A mount option can be a string which will be cumulatively joined and used while mounting volume to the disk. 
+A mount option is a string which will be cumulatively joined and used while mounting volume to the disk. 
 
-Having said that, not all Persistent volume types support mount options. As of this writing - volume types that
-support mount options are:
+Note that not all Persistent volume types support mount options. In Kubernetes version 1.6, the following
+volume types support mount options.
 
 * GCEPersistentDisk
 * AWSElasticBlockStore
