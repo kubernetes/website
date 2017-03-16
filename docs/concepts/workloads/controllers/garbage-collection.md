@@ -1,5 +1,8 @@
 ---
 title: Garbage Collection
+redirect_from:
+- "/docs/concepts/abstractions/controllers/garbage-collection/"
+- "/docs/concepts/abstractions/controllers/garbage-collection.html"
 ---
 
 {% capture overview %}
