@@ -2,7 +2,7 @@
 assignees:
 - erictune
 - soltysh
-title: Jobs - Run to Completion Finite Workloads
+title: Run to Completion Finite Workloads
 ---
 
 * TOC
