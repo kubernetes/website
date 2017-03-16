@@ -274,7 +274,7 @@ spec:
 * Get hands-on experience
   [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
-* Learn more about [Container lifecycle hooks](/docs/concepts/workloads/containers/container-lifecycle-hooks/).
+* Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
 {% endcapture %}
 
