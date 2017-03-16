@@ -277,7 +277,7 @@ Here, `W` is the number of work items.
 
 |                             Pattern                                  | `.spec.completions` |  `.spec.parallelism` |
 | -------------------------------------------------------------------- |:-------------------:|:--------------------:|
-| [Job Template Expansion](/docs/user-guide/jobs/expansions/)           |          1          |     should be 1      |
+| [Job Template Expansion](/docs/tasks/job/parallel-processing-expansion/)           |          1          |     should be 1      |
 | [Queue with Pod Per Work Item](/docs/user-guide/jobs/work-queue-1/)   |          W          |        any           |
 | [Queue with Variable Pod Count](/docs/user-guide/jobs/work-queue-2/)  |          1          |        any           |
 | Single Job with Static Work Assignment                               |          W          |        any           |
