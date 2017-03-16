@@ -20,8 +20,6 @@ toc:
     section:
   - title: Controllers
     section:
-    - docs/concepts/abstractions/controllers/statefulsets.md
-    - docs/concepts/abstractions/controllers/petsets.md
     - docs/concepts/abstractions/controllers/garbage-collection.md
 
 - title: Workloads
@@ -34,6 +32,7 @@ toc:
   - title: Controllers
     section:
     - docs/concepts/workloads/controllers/statefulset.md
+    - docs/concepts/workloads/controllers/petset.md
   - title: Jobs
     section:
     - docs/concepts/jobs/run-to-completion-finite-workloads.md
