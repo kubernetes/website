@@ -43,7 +43,7 @@ toc:
   - docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods.md
   - docs/concepts/cluster-administration/static-pod.md
   - docs/concepts/cluster-administration/sysctl-cluster.md
-  - /docs/concepts/cluster-administration/access-cluster.md
+  - docs/concepts/cluster-administration/access-cluster.md
 
 - title: Services, Load Balancing, and Networking
   section:
