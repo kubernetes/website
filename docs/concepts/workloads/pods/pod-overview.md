@@ -1,4 +1,6 @@
 ---
+assignees:
+- erictune
 title: Pod Overview
 redirect_from:
 - "/docs/concepts/abstractions/pod/"
@@ -69,6 +71,14 @@ Some examples of Controllers that contain one or more pods include:
 * DaemonSet
 
 In general, Controllers use a Pod Template that you provide to create the Pods for which it is responsible.
+
+### Pod templates
+
+Pod templates are pod specifications which are included in other objects, such as
+[Replication Controllers](/docs/user-guide/replication-controller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), and
+[DaemonSets](/docs/admin/daemons/).  Controllers use Pod Templates to make actual pods.
+
+Rather than specifying the current desired state of all replicas, pod templates are like cookie cutters. Once a cookie has been cut, the cookie has no relationship to the cutter. There is no quantum entanglement. Subsequent changes to the template or even switching to a new template has no direct effect on the pods already created. Similarly, pods created by a replication controller may subsequently be updated directly. This is in deliberate contrast to pods, which do specify the current desired state of all containers belonging to the pod. This approach radically simplifies system semantics and increases the flexibility of the primitive.
 
 {% endcapture %}
 
