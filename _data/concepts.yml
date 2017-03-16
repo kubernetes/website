@@ -50,6 +50,7 @@ toc:
 - title: Services, Load Balancing, and Networking
   section:
   - docs/concepts/services-networking/dns-pod-service.md
+  - docs/concepts/services-networking/connect-applications-service.md
 
 - title: Configuration
   section:
