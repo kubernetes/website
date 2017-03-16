@@ -121,6 +121,7 @@ However, the particular path specified in the custom recycler pod template in th
 * Quobyte Volumes
 * HostPath (single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
 * VMware Photon
+* Portworx Volumes
 * ScaleIO Volumes
 
 ## Persistent Volumes
@@ -188,6 +189,7 @@ In the CLI, the access modes are abbreviated to:
 | NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
 | RBD                  | &#x2713;     | &#x2713;    | -            |
 | VsphereVolume        | &#x2713;     | -           | -            |
+| PortworxVolume       | &#x2713;     | -           | &#x2713;     |
 | ScaleIO              | &#x2713;     | &#x2713;    | -            |
 
 ### Class
@@ -533,6 +535,29 @@ parameters:
 * `skuName`: Azure storage account Sku tier. Default is empty.
 * `location`: Azure storage account location. Default is empty.
 * `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
+
+#### Portworx Volume
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: portworx-io-priority-high
+provisioner: kubernetes.io/portworx-volume
+parameters:
+  repl: "1"
+  snap_interval:   "70"
+  io_priority:  "high"
+
+```
+
+*  `fs`: filesystem to be laid out: [none/xfs/ext4] (default: `ext4`).
+*  `block_size`: block size in Kbytes (default: `32`).
+*  `repl`: number of synchronous replicas to be provided in the form of replication factor [1..3] (default: `1`) A string is expected here i.e.`"1"` and not `1`.
+*  `io_priority`: determines whether the volume will be created from higher performance or a lower priority storage [high/medium/low] (default: `low`).
+*  `snap_interval`: clock/time interval in minutes for when to trigger snapshots. snapshots are incremental based on difference with the prior snapshot, 0 disables snaps (default: `0`). A string is expected here i.e. `"70"` and not `70`.
+*  `aggregation_level`: specifies the number of chunks the volume would be distributed into, 0 indicates a non-aggregated volume (default: `0`). A string is expected here i.e. `"0"` and not `0`
+*  `ephemeral`: specifies whether the volume should be cleaned-up after unmount or should be persistent. `emptyDir` use case can set this value to true and `persistent volumes` use case such as for databases like Cassandra should set to false, [true/false] (default `false`). A string is expected here i.e. `"true"` and not `true`.
 
 #### ScaleIO
 ```yaml
