@@ -1,5 +1,9 @@
 ---
-title: Kubernetes Objects
+title: Understanding Kubernetes Objects
+
+redirect_from:
+- "/docs/concepts/abstractions/overview/"
+- "/docs/concepts/abstractions/overview.html"
 ---
 
 {% capture overview %}
@@ -23,6 +27,7 @@ To work with Kubernetes objects--whether to create, modify, or delete them--you'
 
 Every Kubernetes object includes two nested object fields that govern the object's configuration: the object *spec* and the object *status*. The *spec*, which you must provide, describes your *desired state* for the object--the characteristics that you want the object to have. The *status* describes the *actual state* for the object, and is supplied and updated by the Kubernetes system. At any given time, the Kubernetes Control Plane actively manages an object's actual state to match the desired state you supplied.
 
+
 For example, a Kubernetes Deployment is an object that can represent an application running on your cluster. When you create the Deployment, you might set the Deployment spec to specify that you want three replicas of the application to be running. The Kubernetes system reads the Deployment spec and starts three instances of your desired application--updating the status to match your spec. If any of those instances should fail (a status change), the Kubernetes system responds to the difference between spec and status by making a correction--in this case, starting a replacement instance.
 
 For more information on the object spec, status, and metadata, see the [Kubernetes API Conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md).
@@ -33,7 +38,7 @@ When you create an object in Kubernetes, you must provide the object spec that d
 
 Here's an example `.yaml` file that shows the required fields and object spec for a Kubernetes Deployment:
 
-{% include code.html language="yaml" file="nginx-deployment.yaml" ghlink="/docs/concepts/abstractions/nginx-deployment.yaml" %}
+{% include code.html language="yaml" file="nginx-deployment.yaml" ghlink="/docs/concepts/overview/working-with-objects/nginx-deployment.yaml" %}
 
 One way to create a Deployment using a `.yaml` file like the one above is to use the []`kubectl create`]() command in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 

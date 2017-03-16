@@ -718,7 +718,7 @@ to a previous revision, or even pause it if you need to apply multiple tweaks in
 ### Canary Deployment
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you can create multiple Deployments, one for each release,
-following the canary pattern described in [managing resources](/docs/user-guide/managing-deployments/#canary-deployments). 
+following the canary pattern described in [managing resources](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments). 
 
 ## Writing a Deployment Spec
 
@@ -778,7 +778,7 @@ All existing Pods are killed before new ones are created when
 
 #### Rolling Update Deployment
 
-The Deployment updates Pods in a [rolling update](/docs/user-guide/update-demo/) fashion
+The Deployment updates Pods in a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) fashion
 when `.spec.strategy.type==RollingUpdate`.
 You can specify `maxUnavailable` and `maxSurge` to control
 the rolling update process.
