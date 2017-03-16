@@ -34,7 +34,7 @@ toc:
 - title: Running Jobs
   section:
   - docs/tasks/job/parallel-processing-expansion.md
-  - docs/tasks/job/work-queue-1/index.md
+  - docs/tasks/job/coarse-parallel-processing-work-queue/index.md
   - docs/tasks/job/fine-parallel-processing-work-queue/index.md
 
 - title: Accessing Applications in a Cluster
