@@ -18,7 +18,6 @@ toc:
   section:
   - title: Pods
     section:
-    - docs/concepts/abstractions/pod.md
     - docs/concepts/abstractions/init-containers.md
   - title: Controllers
     section:
@@ -30,6 +29,7 @@ toc:
   section:
   - title: Pods
     section:
+    - docs/concepts/workloads/pods/pod-overview.md
     - docs/concepts/workloads/pods/pod-lifecycle.md
   - title: Jobs
     section:
