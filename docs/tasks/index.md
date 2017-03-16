@@ -63,6 +63,9 @@ single thing, typically by giving a short sequence of steps.
 * [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
 * [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
 
+#### Managing Cluster Daemons
+* [Performing a Rolling Update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
+
 ### What's next
 
 If you would like to write a task page, see

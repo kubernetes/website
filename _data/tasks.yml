@@ -54,3 +54,7 @@ toc:
   - docs/tasks/manage-stateful-set/deleting-a-statefulset.md
   - docs/tasks/manage-stateful-set/debugging-a-statefulset.md
   - docs/tasks/manage-stateful-set/delete-pods.md
+
+- title: Managing Cluster Daemons
+  section:
+  - docs/tasks/manage-daemon/update-daemon-set.md
