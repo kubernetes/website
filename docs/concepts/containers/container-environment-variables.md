@@ -6,12 +6,15 @@ title: Container Environment Variables
 ---
 
 {% capture overview %}
+
 This page describes the resources available to Containers in the Container environment. 
+
 {% endcapture %}
 
 {:toc}
 
 {% capture body %}
+
 ## Container environment
 
 The Kubernetes Container environment provides several important resources to Containers:

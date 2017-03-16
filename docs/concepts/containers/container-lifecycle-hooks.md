@@ -6,13 +6,16 @@ title: Container Lifecycle Hooks
 ---
 
 {% capture overview %}
+
 This page describes how kubelet managed Containers can use the Container lifecycle hook framework
 to run code triggered by events during their management lifecycle. 
+
 {% endcapture %}
 
 {:toc}
 
 {% capture body %}
+
 ## Overview
 Analogous to many programming language frameworks that have component lifecycle hooks, such as Angular,
 Kubernetes provides Containers with lifecycle hooks.
