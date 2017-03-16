@@ -167,7 +167,7 @@ We will use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  Here is a very simple
 example program:
 
-{% include code.html language="python" file="worker.py" ghlink="/docs/tasks/job/work-queue-1/worker.py" %}
+{% include code.html language="python" file="worker.py" ghlink="/docs/tasks/job/coarse-parallel-processing-work-queue/worker.py" %}
 
 Now, build an image.  If you are working in the source
 tree, then change directory to `examples/job/work-queue-1`.
@@ -205,7 +205,7 @@ Here is a job definition.  You'll need to make a copy of the Job and edit the
 image to match the name you used, and call it `./job.yaml`.
 
 
-{% include code.html language="yaml" file="job.yaml" ghlink="/docs/tasks/job/work-queue-1/job.yaml" %}
+{% include code.html language="yaml" file="job.yaml" ghlink="/docs/tasks/job/coarse-parallel-processing-work-queue/job.yaml" %}
 
 In this example, each pod works on one item from the queue and then exits.
 So, the completion count of the Job corresponds to the number of work items
