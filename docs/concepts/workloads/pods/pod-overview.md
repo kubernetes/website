@@ -1,8 +1,8 @@
 ---
 title: Pod Overview
 redirect_from:
-- "/docs/concepts/abstractions/pods/"
-- "/docs/concepts/abstractions/pods.html"
+- "/docs/concepts/abstractions/pod/"
+- "/docs/concepts/abstractions/pod.html"
 ---
 
 {% capture overview %}
