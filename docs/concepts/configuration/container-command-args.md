@@ -1,5 +1,8 @@
 ---
 title: Container Command and Arguments
+redirect_from:
+- "/docs/user-guide/containers/"
+- "/docs/user-guide/containers.html"
 ---
 
 {% capture overview %}
@@ -13,7 +16,7 @@ fields to override the default Entrypoint and Cmd of the the Container's image.
 
 ## Container entry points and arguments
 
-The configuration file for a Container has an `image` field that specifies the
+The configuration file for a Container has an `image` field that specifies
 the Docker image to be run in the Container. A Docker image has metadata that includes
 a default Entrypoint and a default Cmd.
 
@@ -66,6 +69,7 @@ Here are some examples:
 |     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |   &lt;not set&gt;  | `[ep-1 foo bar]` |
 |     `[/ep-1]`      |   `[foo bar]`    |      `[/ep-2]`      |   &lt;not set&gt;  |     `[ep-2]`     |
 |     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |     `[zoo boo]`    | `[ep-1 zoo boo]` |
+|     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
 
 {% endcapture %}
 

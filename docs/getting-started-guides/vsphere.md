@@ -69,6 +69,7 @@ Sample Config:
         datacenter = <Datacenter to be used>
         datastore = <Datastore to use for provisioning volumes using storage classes/dynamic provisioning>
         working-dir = <Folder in which VMs are provisioned, can be null>
+        vm-uuid = <VM Instance UUID of virtual machine which can be retrieved from instanceUuid property in VmConfigInfo, or also set as vc.uuid in VMX file. If empty, will be retrieved from sysfs (requires root)>
 [Disk]
 	scsicontrollertype = pvscsi
 ```
@@ -78,8 +79,7 @@ Sample Config:
 
 #### Known issues
 
-* [Volumes are not removed from a VM configuration if the VM is down](https://github.com/kubernetes/kubernetes/issues/33061). The workaround is to manually remove the disk from VM settings before powering it up.
-* [FS groups are not supported in 1.4.7](https://github.com/kubernetes/kubernetes/issues/34039) - This issue is fixed in 1.4.8
+* [Unable to execute command on pod container using kubectl exec](https://github.com/kubernetes/kubernetes-anywhere/issues/337)
 
 ### Kube-up (Deprecated)
 
@@ -215,7 +215,7 @@ going on (find yourself authorized with your SSH key, or use the password
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
-Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/getting-started-guides/vsphere)                                |          | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu))([@luomiao](https://github.com/luomiao))
+Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/getting-started-guides/vsphere)                                |          | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
