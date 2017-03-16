@@ -52,6 +52,7 @@ toc:
 
 - title: Configuration
   section:
+  - docs/concepts/configuration/overview.md
   - docs/concepts/configuration/container-command-args.md
   - docs/concepts/configuration/manage-compute-resources-container.md
 

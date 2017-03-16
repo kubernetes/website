@@ -435,4 +435,4 @@ That's it! The Deployment will declaratively update the deployed nginx applicati
 ## What's next?
 
 - [Learn about how to use `kubectl` for application introspection and debugging.](/docs/user-guide/introspection-and-debugging/)
-- [Configuration Best Practices and Tips](/docs/user-guide/config-best-practices/)
+- [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)
