@@ -31,6 +31,9 @@ toc:
     - docs/concepts/workloads/pods/pod-overview.md
     - docs/concepts/workloads/pods/pod-lifecycle.md
     - docs/concepts/workloads/pods/init-containers.md
+  - title: Controllers
+    section:
+    - docs/concepts/workloads/controllers/statefulset.md
   - title: Jobs
     section:
     - docs/concepts/jobs/run-to-completion-finite-workloads.md
