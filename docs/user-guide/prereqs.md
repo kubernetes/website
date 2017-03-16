@@ -45,6 +45,13 @@ Make the kubectl binary executable and move it to your PATH (e.g. `/usr/local/bi
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
+Windows: 
+```windows
+mkdir /c/Program\ Files\ \(x86\)/kubectl
+mv ${download_path}/kubectl.exe #${download_path} is where kubectl was downloaded
+Add C:\Program Files (x86)\Kubectl to path environment variable
+# Kubectl can be used from downloaded location as well without the above steps.
+```
 
 ## Extract kubectl from Release .tar.gz or Compiled Source
 
