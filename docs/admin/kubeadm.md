@@ -31,10 +31,10 @@ server, as well as an additional kubeconfig file for administration.
 controller manager and scheduler, and placing them in
 `/etc/kubernetes/manifests`. The kubelet watches this directory for static
 resources to create on startup. These are the core components of Kubernetes, and
-once they are up and running we can use `kubectl` to set up/manage any
+once they are up and running we can use `kubectl` to set up or manage any
 additional components.
 
-1. kubeadm installs any add-on components, such as DNS or discovery, via the API
+1. kubeadm installs some add-on components, such as DNS or discovery, via the API
 server.
 
 Running `kubeadm join` on each node in the cluster consists of the following steps:
@@ -180,48 +180,49 @@ available as configuration file options.
 
 ### Sample Master Configuration
 
-    ```yaml
-    apiVersion: kubeadm.k8s.io/v1alpha1
-    kind: MasterConfiguration
-    api:
-      advertiseAddresses:
-      - <address1|string>
-      - <address2|string>
-      bindPort: <int>
-      externalDNSNames:
-      - <dnsname1|string>
-      - <dnsname2|string>
-    cloudProvider: <string>
-    discovery:
-      bindPort: <int>
-    etcd:
-      endpoints:
-      - <endpoint1|string>
-      - <endpoint2|string>
-      caFile: <path|string>
-      certFile: <path|string>
-      keyFile: <path|string>
-    kubernetesVersion: <string>
-    networking:
-      dnsDomain: <string>
-      serviceSubnet: <cidr>
-      podSubnet: <cidr>
-    secrets:
-      givenToken: <token|string>
-    ```
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+api:
+  advertiseAddresses:
+  - <address1|string>
+  - <address2|string>
+  bindPort: <int>
+  externalDNSNames:
+  - <dnsname1|string>
+  - <dnsname2|string>
+authorizationMode: <string>
+cloudProvider: <string>
+discovery:
+  bindPort: <int>
+etcd:
+  endpoints:
+  - <endpoint1|string>
+  - <endpoint2|string>
+  caFile: <path|string>
+  certFile: <path|string>
+  keyFile: <path|string>
+kubernetesVersion: <string>
+networking:
+  dnsDomain: <string>
+  serviceSubnet: <cidr>
+  podSubnet: <cidr>
+secrets:
+  givenToken: <token|string>
+```
 
 ### Sample Node Configuration
 
-    ```yaml
-    apiVersion: kubeadm.k8s.io/v1alpha1
-    kind: NodeConfiguration
-    apiPort: <int>
-    discoveryPort: <int>
-    masterAddresses:
-    - <master1>
-    secrets:
-      givenToken: <token|string>
-    ```
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: NodeConfiguration
+apiPort: <int>
+discoveryPort: <int>
+masterAddresses:
+- <master1>
+secrets:
+  givenToken: <token|string>
+```
 
 ## Automating kubeadm
 
@@ -256,6 +257,24 @@ These environment variables are a short-term solution, eventually they will be i
 | `KUBE_DISCOVERY_IMAGE` | `gcr.io/google_containers/kube-discovery-<arch>:1.0` | The bootstrap discovery helper image to use. |
 | `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:2.2.5` | The etcd container image to use. |
 | `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |
+
+If you want to use kubeadm with an http proxy, you may need to configure it to support http_proxy, https_proxy, or no_proxy.
+
+For example, if your kube master node IP address is 10.18.17.16 and you have proxy support both http/https on 10.18.17.16 port 8080, you can use the following command:
+
+You can using following command 
+
+```bash
+export PROXY_PORT=8080
+export PROXY_IP=10.18.17.16
+export http_proxy=http://$PROXY_IP:$PROXY_PORT
+export HTTP_PROXY=$http_proxy
+export https_proxy=$http_proxy
+export HTTPS_PROXY=$http_proxy
+export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,example.com,10.18.17.16"
+```
+
+Remember to change ```proxy_ip``` and add a kube master node IP address to ```no_proxy```.
 
 ## Releases and release notes
 

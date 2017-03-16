@@ -47,6 +47,8 @@ clusters.
 
 [KCluster.io](https://kcluster.io) provides highly available and scalable managed Kubernetes clusters for AWS.
 
+[KUBE2GO.io](https://kube2go.io) get started with highly available Kubernetes clusters on multiple public clouds along with useful tools for development, debugging, monitoring.
+
 [Platform9](https://platform9.com/products/kubernetes/) offers managed Kubernetes on-premises or any public cloud, and provides 24/7 health monitoring and alerting.
 
 [OpenShift Dedicated](https://www.openshift.com/dedicated/) offers managed Kubernetes clusters powered by OpenShift and [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
@@ -59,9 +61,11 @@ few commands, and have active community support.
 - [GCE](/docs/getting-started-guides/gce)
 - [AWS](/docs/getting-started-guides/aws)
 - [Azure](/docs/getting-started-guides/azure)
+- [Tectonic by CoreOS](https://coreos.com/tectonic)
 - [CenturyLink Cloud](/docs/getting-started-guides/clc)
 - [IBM SoftLayer](https://github.com/patrocinio/kubernetes-softlayer)
 - [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
+- [KUBE2GO.io](https://kube2go.io/)
 
 ### Custom Solutions
 
@@ -131,6 +135,7 @@ GKE                  |              |        | GCE         | [docs](https://clou
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](http://www.stackpointcloud.com) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
 KCluster.io          |              | multi-support | multi-support | [docs](https://kcluster.io) | Commercial
+KUBE2GO.io          |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
 Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/products/kubernetes/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
