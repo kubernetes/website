@@ -247,7 +247,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"http-liveness":            {&api.Pod{}},
 			"http-liveness-named-port": {&api.Pod{}},
 		},
-		"../docs/user-guide/jobs/work-queue-1": {
+		"../docs/tasks/job/work-queue-1": {
 			"job": {&batch.Job{}},
 		},
 		"../docs/user-guide/jobs/work-queue-2": {
