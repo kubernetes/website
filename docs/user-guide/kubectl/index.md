@@ -11,7 +11,7 @@ kubectl controls the Kubernetes cluster manager
 
 kubectl controls the Kubernetes cluster manager.
 
-Find more information at https://github.com/kubernetes/kubernetes.
+Find more information at [https://github.com/kubernetes/kubernetes](https://github.com/kubernetes/kubernetes).
 
 ```
 kubectl
