@@ -121,7 +121,7 @@ the new DaemonSet with the different template will recognize all the existing po
 matching labels.  It will not modify or delete them despite a mismatch in the pod template.
 You will need to force new pod creation by deleting the pod or deleting the node.
 
-You cannot update a DaemonSet.
+Starting from Kubernetes version 1.6, you can [rolling update a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
 
 Support for updating DaemonSets and controlled updating of nodes is planned.
 
