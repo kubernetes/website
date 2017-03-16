@@ -34,7 +34,7 @@ The [Kubernetes Blog](http://blog.kubernetes.io) has some additional information
 
 Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run multiple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
 
-### How Pods Manage Multiple Containers
+### How Pods manage multiple Containers
 
 Pods are designed to support multiple cooperating processes (as containers) that form a cohesive unit of service. The containers in a Pod are automatically co-located and co-scheduled on the same physical or virtual machine in the cluster. The containers can share resources and dependencies, communicate with one another, and coordinate when and how they are terminated.
 
@@ -72,7 +72,7 @@ Some examples of Controllers that contain one or more pods include:
 
 In general, Controllers use a Pod Template that you provide to create the Pods for which it is responsible.
 
-### Pod templates
+## Pod Templates
 
 Pod templates are pod specifications which are included in other objects, such as
 [Replication Controllers](/docs/user-guide/replication-controller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), and
