@@ -1,4 +1,6 @@
 ---
+assignees:
+- erictune
 title: Pod Overview
 redirect_from:
 - "/docs/concepts/abstractions/pod/"
@@ -32,7 +34,7 @@ The [Kubernetes Blog](http://blog.kubernetes.io) has some additional information
 
 Each Pod is meant to run a single instance of a given application. If you want to scale your application horizontally (e.g., run multiple instances), you should use multiple Pods, one for each instance. In Kubernetes, this is generally referred to as _replication_. Replicated Pods are usually created and managed as a group by an abstraction called a Controller. See [Pods and Controllers](#pods-and-controllers) for more information.
 
-### How Pods Manage Multiple Containers
+### How Pods manage multiple Containers
 
 Pods are designed to support multiple cooperating processes (as containers) that form a cohesive unit of service. The containers in a Pod are automatically co-located and co-scheduled on the same physical or virtual machine in the cluster. The containers can share resources and dependencies, communicate with one another, and coordinate when and how they are terminated.
 
@@ -69,6 +71,14 @@ Some examples of Controllers that contain one or more pods include:
 * DaemonSet
 
 In general, Controllers use a Pod Template that you provide to create the Pods for which it is responsible.
+
+## Pod Templates
+
+Pod templates are pod specifications which are included in other objects, such as
+[Replication Controllers](/docs/user-guide/replication-controller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), and
+[DaemonSets](/docs/admin/daemons/).  Controllers use Pod Templates to make actual pods.
+
+Rather than specifying the current desired state of all replicas, pod templates are like cookie cutters. Once a cookie has been cut, the cookie has no relationship to the cutter. There is no quantum entanglement. Subsequent changes to the template or even switching to a new template has no direct effect on the pods already created. Similarly, pods created by a replication controller may subsequently be updated directly. This is in deliberate contrast to pods, which do specify the current desired state of all containers belonging to the pod. This approach radically simplifies system semantics and increases the flexibility of the primitive.
 
 {% endcapture %}
 
