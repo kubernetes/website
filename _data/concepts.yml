@@ -11,6 +11,7 @@ toc:
     - docs/concepts/overview/working-with-objects/kubernetes-objects.md
     - docs/concepts/overview/working-with-objects/labels.md
     - docs/concepts/overview/working-with-objects/annotations.md
+  - docs/concepts/overview/kubernetes-api.md
 
 - title: Kubernetes Objects
   section:
