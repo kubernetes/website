@@ -9,7 +9,7 @@ title: Parallel Processing using Expansions
 
 In this example, we will run multiple Kubernetes Jobs created from
 a common template.  You may want to be familiar with the basic,
-non-parallel, use of [Jobs](/docs/user-guide/jobs) first.
+non-parallel, use of [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/) first.
 
 ## Basic Template Expansion
 
@@ -192,4 +192,4 @@ If you have a large number of job objects, you may find that:
   Kubernetes apiserver, controller, or scheduler.
 
 In this case, you can consider one of the
-other [job patterns](/docs/user-guide/jobs/#job-patterns).
+other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns).
