@@ -263,7 +263,7 @@ The pattern names are also links to examples and more detailed description.
 | -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
 | [Job Template Expansion](/docs/user-guide/jobs/expansions)            |                   |                             |          ✓          |          ✓          |
 | [Queue with Pod Per Work Item](/docs/tasks/job/work-queue-1/)   |         ✓         |                             |      sometimes      |          ✓          |
-| [Queue with Variable Pod Count](/docs/user-guide/jobs/work-queue-2/)  |         ✓         |             ✓               |                     |          ✓          |
+| [Queue with Variable Pod Count](/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
 | Single Job with Static Work Assignment                               |         ✓         |                             |          ✓          |                     |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
@@ -279,7 +279,7 @@ Here, `W` is the number of work items.
 | -------------------------------------------------------------------- |:-------------------:|:--------------------:|
 | [Job Template Expansion](/docs/tasks/job/parallel-processing-expansion/)           |          1          |     should be 1      |
 | [Queue with Pod Per Work Item](/docs/tasks/job/work-queue-1/)   |          W          |        any           |
-| [Queue with Variable Pod Count](/docs/user-guide/jobs/work-queue-2/)  |          1          |        any           |
+| [Queue with Variable Pod Count](/docs/tasks/job/fine-parallel-processing-work-queue/)  |          1          |        any           |
 | Single Job with Static Work Assignment                               |          W          |        any           |
 
 
