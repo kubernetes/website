@@ -42,6 +42,7 @@ toc:
   section:
   - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md
   - docs/tasks/access-application-cluster/load-balance-access-application-cluster.md
+  - docs/tasks/access-application-cluster/create-external-load-balancer.md
   - docs/tasks/access-application-cluster/configure-cloud-provider-firewall.md
 
 - title: Monitoring, Logging, and Debugging
