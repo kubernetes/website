@@ -249,7 +249,7 @@ Unlike in the case where a user directly created pods, a ReplicationController r
 
 ### Job
 
-Use a [`Job`](/docs/user-guide/jobs/) instead of a ReplicationController for pods that are expected to terminate on their own
+Use a [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) instead of a ReplicationController for pods that are expected to terminate on their own
 (i.e. batch jobs).
 
 ### DaemonSet
