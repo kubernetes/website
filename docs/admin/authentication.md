@@ -256,6 +256,16 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-claim` | JWT claim to use as the user's group. If the claim is present it must be an array of strings. | groups | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
 
+If a claim other than `email` is chosen for `--oidc-username-claim`, the value
+will be prefixed with the `--oidc-issuer-url` to prevent clashes with existing
+Kubernetes names (such as the `system:` users). For example, if the provider
+URL is `https://accounts.google.com` and the username claim maps to `jane`, the
+plugin will authenticate the user as:
+
+```
+https://accounts.google.com#jane
+```
+
 Importantly, the API server is not an OAuth2 client, rather it can only be
 configured to trust a single issuer. This allows the use of public providers,
 such as Google, without trusting credentials issued to third parties. Admins who
