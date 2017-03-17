@@ -90,6 +90,14 @@ web server:
 1. View your staged content at
 [http://localhost:4000](http://localhost:4000){: target="_blank"}.
 
+<i>NOTE: If you do not want Jekyll to interfere with your other globally installed gems, you can use `bundler`:</i> 
+ 
+ 	gem install bundler
+ 	bundle install
+ 	bundler exec jekyll serve
+
+<i> Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)</i>
+
 {% endcapture %}
 
 {% capture whatsnext %}

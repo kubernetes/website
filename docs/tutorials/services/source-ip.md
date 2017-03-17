@@ -20,8 +20,8 @@ of Services, and how you can toggle this behavior according to your needs.
 This document makes use of the following terms:
 
 * [NAT](https://en.wikipedia.org/wiki/Network_address_translation): network address translation
-* [Source NAT](/docs/user-guide/services/#ips-and-vips): replacing the source IP on a packet, usually with a node's IP
-* [Destination NAT](/docs/user-guide/services/#ips-and-vips): replacing the destination IP on a packet, usually with a pod IP
+* [Source NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT): replacing the source IP on a packet, usually with a node's IP
+* [Destination NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT): replacing the destination IP on a packet, usually with a pod IP
 * [VIP](/docs/user-guide/services/#ips-and-vips): a virtual IP, such as the one assigned to every Kubernetes Service
 * [Kube-proxy](/docs/user-guide/services/#virtual-ips-and-service-proxies): a network daemon that orchestrates Service VIP management on every node
 
@@ -132,7 +132,7 @@ client_address=10.240.0.5
 client_address=10.240.0.3
 ```
 
-Note that these are not your IPs, they're cluster internal IPs. This is what happens:
+Note that these are not the correct client IPs, they're cluster internal IPs. This is what happens:
 
 * Client sends packet to `node2:nodePort`
 * `node2` replaces the source IP address (SNAT) in the packet with its own IP address
@@ -174,7 +174,7 @@ service "nodeport" annotated
 Now, re-run the test:
 
 ```console
-$ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; do
+$ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
 client_address=104.132.1.79
 ```
 

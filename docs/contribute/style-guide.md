@@ -17,7 +17,7 @@ docs, follow the instructions on
 
 ## Documentation formatting standards
 
-### Use Camel Case for API objects
+### Use camel case for API objects
 
 When you refer to an API object, use the same uppercase and lowercase letters
 that are used in the actual object name. Typically, the names of API
@@ -75,7 +75,7 @@ represents.
   <tr><td>Open the <code>/_data/concepts.yaml</code> file.</td><td>Open the /_data/concepts.yaml file.</td></tr>
 </table>
 
-## Code snippet formatting
+## Inline code formatting
 
 ### Use code style for inline code and commands
 
@@ -84,9 +84,30 @@ document, use the backtick (`).
 
 <table>
   <tr><th>Do</th><th>Don't</th></tr>
-  <tr><td>Set the value of the <code>replicas</code> field in the configuration file.</td><td>Set the value of the "replicas" field in the configuration file.</td></tr>
   <tr><td>The <code>kubectl run</code> command creates a Deployment.</td><td>The "kubectl run" command creates a Deployment.</td></tr>
+  <tr><td>For declarative management, use <code>kubectl apply</code>.</td><td>For declarative management, use "kubectl apply".</td></tr>
 </table>
+
+### Use code style for object field names
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Set the value of the <code>replicas</code> field in the configuration file.</td><td>Set the value of the "replicas" field in the configuration file.</td></tr>
+  <tr><td>The value of the <code>exec</code> field is an ExecAction object.</td><td>The value of the "exec" field is an ExecAction object.</td></tr>
+</table>
+
+### Use normal style for string and integer field values
+
+For field values of type string or integer, use normal style without quotation marks.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>Set the value of <code>imagePullPolicy</code> to Always.</td><td>Set the value of <code>imagePullPolicy</code> to "Always".</td></tr>
+  <tr><td>Set the value of <code>image</code> to nginx:1.8.</td><td>Set the value of <code>image</code> to <code>nginx:1.8</code>.</td></tr>
+  <tr><td>Set the value of the <code>replicas</code> field to 2.</td><td>Set the value of the <code>replicas</code> field to <code>2</code>.</td></tr>
+</table>
+
+## Code snippet formatting
 
 ### Don't include the command prompt
 

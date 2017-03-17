@@ -85,9 +85,9 @@ See [APPENDIX](#appendix) for how to generate a client cert.
 The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
 changed without restarting API server.
 
-The token file format is implemented in `plugin/pkg/auth/authenticator/token/tokenfile/...`
-and is a csv file with a minimum of 3 columns: token, user name, user uid, followed by
-optional group names. Note, if you have more than one group the column must be double quoted e.g.
+The token file is a csv file with a minimum of 3 columns: token, user name, user uid,
+followed by optional group names. Note, if you have more than one group the column must be
+double quoted e.g.
 
 ```conf
 token,user,uid,"group1,group2,group3"
@@ -115,9 +115,9 @@ and the password cannot be changed without restarting API server. Note that basi
 authentication is currently supported for convenience while we finish making the
 more secure modes described above easier to use.
 
-The basic auth file format is implemented in `plugin/pkg/auth/authenticator/password/passwordfile/...`
-and is a csv file with a minimum of 3 columns: password, user name, user id, followed by
-optional group names. Note, if you have more than one group the column must be double quoted e.g.
+The basic auth file is a csv file with a minimum of 3 columns: password,
+user name, user id, followed by optional group names. Note, if you have more than
+one group the column must be double quoted e.g.
 
 ```conf
 password,user,uid,"group1,group2,group3"
@@ -346,7 +346,7 @@ Webhook authentication is a hook for verifying bearer tokens.
 * `--authentication-token-webhook-config-file` a kubeconfig file describing how to access the remote webhook service.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
 
-The configuration file uses the [kubeconfig](/docs/user-guide/kubeconfig-file/)
+The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 file format. Within the file "users" refers to the API server webhook and
 "clusters" refers to the remote service. An example would be:
 
@@ -541,8 +541,8 @@ Finally, add the following parameters into API server start parameters:
 1.  Generate server certificate and key.
     (build-server-full [filename]: Generate a keypair and sign locally for a client or server)
 
-          ./easyrsa --subject-alt-name="IP:${MASTER_IP}" build-server-full kubernetes-master nopass
-1.  Copy `pki/ca.crt`, `pki/issued/kubernetes-master.crt`, and `pki/private/kubernetes-master.key` to your directory.
+          ./easyrsa --subject-alt-name="IP:${MASTER_IP}" build-server-full server nopass
+1.  Copy `pki/ca.crt`, `pki/issued/server.crt`, and `pki/private/server.key` to your directory.
 1.  Fill in and add the following parameters into the API server start parameters:
 
           --client-ca-file=/yourdirectory/ca.crt
