@@ -7,7 +7,7 @@ title: 联邦 Deployment
 * TOC
 {:toc}
 
-## 前指条件
+## 前提条件
 
 本指南假设您有一个正在运行的 Kubernetes 集群联邦的安装。如果没有，然后转到
 [联邦管理员指南](/docs/admin/federation/) 了解如何启动联邦集群 (或让集群管理员为您执行此操作)。
