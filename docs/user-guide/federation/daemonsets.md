@@ -1,82 +1,62 @@
 ---
-title: Federated DaemonSet
+title: 联邦 DaemonSet
 ---
 
-This guide explains how to use DaemonSets in a federation control plane.
+本指南介绍如何在联邦控制平台中使用 - DaemonSets[守护进程]。
 
 * TOC
 {:toc}
 
-## Prerequisites
+## 前指条件
 
-This guide assumes that you have a running Kubernetes Cluster
-Federation installation. If not, then head over to the
-[federation admin guide](/docs/admin/federation/) to learn how to
-bring up a cluster federation (or have your cluster administrator do
-this for you). 
-Other tutorials, such as Kelsey Hightower's 
-[Federated Kubernetes Tutorial](https://github.com/kelseyhightower/kubernetes-cluster-federation),
-might also help you create a Federated Kubernetes cluster.
+本指南假设您有一个正在运行的 Kubernetes 集群联邦的安装。如果没有，然后转到
+[联邦管理员指南](/docs/admin/federation/) 了解如何启动联邦集群 (或让集群管理员为您执行此操作)。
+其他教程，如 Kelsey Hightower 的
+[Kubernetes 联邦教程](https://github.com/kelseyhightower/kubernetes-cluster-federation),
+也可以帮助您创建一个联邦 Kubernetes 集群。
 
-You should also have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and DaemonSets in particular.
+您还应该有一些
+[Kubernetes 的基础工作知识](/docs/getting-started-guides/) ，特别是对 DaemonSets 要有些了解。
 
-## Overview
+## 概述
 
-DaemonSets in federation control plane ("Federated Daemonsets" in
-this guide) are very similar to the traditional [Kubernetes
-DaemonSets](/docs/user-guide/DaemonSets/) and provide the same functionality.
-Creating them in the federation control plane ensures that they are synchronized
-across all the clusters in federation.
+联邦控制平台的 DaemonSets ("联邦 Daemonsets" 本指南) 非常类似于传统的[Kubernetes
+DaemonSets](/docs/user-guide/DaemonSets/) 并提供相同的功能。
+在联邦控制平台中创建 DaemonSets 可以确保它们同步到联邦中的所有集群。
 
+## 创建联邦 Daemonset
 
-## Creating a Federated Daemonset
+联邦 Daemonset 的 API 100% 兼容传统 Kubernetes DaemonSet 的 API。您可以向联邦 apiserver 发送创建 DaemonSet的请求。
 
-The API for Federated Daemonset is 100% compatible with the
-API for traditional Kubernetes DaemonSet. You can create a DaemonSet by sending
-a request to the federation apiserver.
-
-You can do that using [kubectl](/docs/user-guide/kubectl/) by running:
+您可以使用 [kubectl](/docs/user-guide/kubectl/) 来运行:
 
 ``` shell
 kubectl --context=federation-cluster create -f mydaemonset.yaml
 ```
 
-The `--context=federation-cluster` flag tells kubectl to submit the
-request to the Federation apiserver instead of sending it to a Kubernetes
-cluster.
+此选项 `--context=federation-cluster` 标记告诉 kubectl 提交请求到联邦 apiserver 而不是发送它到 Kubernetes 集群。
 
-Once a Federated Daemonset is created, the federation control plane will create
-a matching DaemonSet in all underlying Kubernetes clusters.
-You can verify this by checking each of the underlying clusters, for example:
+一旦联邦的 Daemonset 被创建，联邦控制台将在所有基础集群中创建或匹配 DaemonSet。
+您可以通过检查每个基础集群来验证这一点，例如:
 
 ``` shell
 kubectl --context=gce-asia-east1a get daemonset mydaemonset
 ```
 
-The above assumes that you have a context named 'gce-asia-east1a'
-configured in your client for your cluster in that zone.
+以上假设您在您的客户端中为您的集群在该区域中配置了名为'gce-asia-east1a'的上下文。
 
-These DaemonSets in underlying clusters will match the Federated Daemonset.
+基础集群中的这些 DaemonSets 将匹配联邦 DaemonSets。
 
+## 更新联邦 Daemonset
 
-## Updating a Federated Daemonset
+您可以更新联邦 Daemonset 就像更新 Kubernetes 的 DaemonSet一样; 但是，对于联邦 Daemonset，你必须将请求发送到联邦 apiserver 而不是发送它到特定的 Kubernetes 集群。
+联邦控制台确保每当联邦 Daemonset 更新时，它将所有基础集群中的相应 DaemonSets 更新并匹配它。
 
-You can update a Federated Daemonset as you would update a Kubernetes
-DaemonSet; however, for a Federated Daemonset, you must send the request to
-the federation apiserver instead of sending it to a specific Kubernetes cluster.
-The federation control plane ensures that whenever the Federated Daemonset is
-updated, it updates the corresponding DaemonSets in all underlying clusters to
-match it.
+## 删除联邦 Daemonset
 
-## Deleting a Federated Daemonset
+您可以通过删除联邦 Daemonset 来删除 Kubernetes 集群的 Daemonset; 但是，对于联邦 Daemonset，你必须将请求发送到联邦 apiserver 而不是发送它到一个特定的 Kubernetes 集群。
 
-You can delete a Federated Daemonset as you would delete a Kubernetes
-DaemonSet; however, for a Federated Daemonset, you must send the request to
-the federation apiserver instead of sending it to a specific Kubernetes cluster.
-
-For example, you can do that using kubectl by running:
+例如， 您可以使用 kubectl 通过运行:
 
 ```shell
 kubectl --context=federation-cluster delete daemonset mydaemonset
