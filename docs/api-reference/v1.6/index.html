@@ -3289,7 +3289,7 @@ $ curl -X GET http:<span class="hljs-regexp">//</span><span class="hljs-number">
 <p> Deployment Config to run 3 nginx instances (max rollback set to 10 revisions).</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-yaml">
-<span class="hljs-attr">apiVersion:</span> extensions/v1beta1
+<span class="hljs-attr">apiVersion:</span> apps/v1beta1
 <span class="hljs-attr">kind:</span> Deployment
 <span class="hljs-attr">metadata:</span>
   <span class="hljs-comment"># Unique key of the Deployment instance</span>
@@ -3297,8 +3297,6 @@ $ curl -X GET http:<span class="hljs-regexp">//</span><span class="hljs-number">
 <span class="hljs-attr">spec:</span>
   <span class="hljs-comment"># 3 Pods should exist at all times.</span>
 <span class="hljs-attr">  replicas:</span> <span class="hljs-number">3</span>
-  <span class="hljs-comment"># Keep record of 2 revisions for rollback</span>
-<span class="hljs-attr">  revisionHistoryLimit:</span> <span class="hljs-number">2</span>
 <span class="hljs-attr">  template:</span>
 <span class="hljs-attr">    metadata:</span>
 <span class="hljs-attr">      labels:</span>
@@ -3315,7 +3313,7 @@ $ curl -X GET http:<span class="hljs-regexp">//</span><span class="hljs-number">
 <p> Deployment Config to run 3 nginx instances (max rollback set to 10 revisions).</p>
 </blockquote>
 <pre class="code-block curl"><code class="lang-yaml">
-<span class="hljs-attr">apiVersion:</span> extensions/v1beta1
+<span class="hljs-attr">apiVersion:</span> apps/v1beta1
 <span class="hljs-attr">kind:</span> Deployment
 <span class="hljs-attr">metadata:</span>
   <span class="hljs-comment"># Unique key of the Deployment instance</span>
@@ -3323,8 +3321,6 @@ $ curl -X GET http:<span class="hljs-regexp">//</span><span class="hljs-number">
 <span class="hljs-attr">spec:</span>
   <span class="hljs-comment"># 3 Pods should exist at all times.</span>
 <span class="hljs-attr">  replicas:</span> <span class="hljs-number">3</span>
-  <span class="hljs-comment"># Keep record of 2 revisions for rollback</span>
-<span class="hljs-attr">  revisionHistoryLimit:</span> <span class="hljs-number">2</span>
 <span class="hljs-attr">  template:</span>
 <span class="hljs-attr">    metadata:</span>
 <span class="hljs-attr">      labels:</span>
@@ -3588,7 +3584,7 @@ Appears In <a href="#deploymentstrategy-v1beta1">DeploymentStrategy</a> </aside>
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: extensions/v1beta1
+$ echo 'apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: deployment-example
@@ -3613,7 +3609,7 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X POST -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: deployment-example
@@ -3644,11 +3640,11 @@ spec:
 <pre class="code-block curl"><code class="lang-json">
 {
   <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
   <span class="hljs-attr">"metadata"</span>: {
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
     <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
     <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"4ccca349-9cb1-11e6-9c54-42010a800148"</span>,
     <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2118306"</span>,
     <span class="hljs-attr">"generation"</span>: <span class="hljs-number">1</span>,
@@ -3773,7 +3769,7 @@ spec:
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: extensions/v1beta1
+$ echo 'apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: deployment-example
@@ -3798,7 +3794,7 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X PUT -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: deployment-example
@@ -3829,11 +3825,11 @@ spec:
 <pre class="code-block curl"><code class="lang-json">
 {
   <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
   <span class="hljs-attr">"metadata"</span>: {
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
     <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
     <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"4ccca349-9cb1-11e6-9c54-42010a800148"</span>,
     <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2119082"</span>,
     <span class="hljs-attr">"generation"</span>: <span class="hljs-number">5</span>,
@@ -3991,11 +3987,11 @@ $ curl -X PATCH -H 'Content-Type: application/strategic-<span class="hljs-keywor
 <pre class="code-block curl"><code class="lang-json">
 {
   <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
   <span class="hljs-attr">"metadata"</span>: {
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
     <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
     <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"5dc3a8e6-b0ee-11e6-aef0-42010af00229"</span>,
     <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"164489"</span>,
     <span class="hljs-attr">"generation"</span>: <span class="hljs-number">11</span>,
@@ -4356,11 +4352,11 @@ $ curl -X GET http:<span class="hljs-regexp">//</span><span class="hljs-number">
 <pre class="code-block kubectl"><code class="lang-json">
 {
   <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
   <span class="hljs-attr">"metadata"</span>: {
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
     <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
     <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"1b33145a-9c63-11e6-9c54-42010a800148"</span>,
     <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2064726"</span>,
     <span class="hljs-attr">"generation"</span>: <span class="hljs-number">4</span>,
@@ -4430,11 +4426,11 @@ $ curl -X GET http:<span class="hljs-regexp">//</span><span class="hljs-number">
 <pre class="code-block curl"><code class="lang-json">
 {
   <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
   <span class="hljs-attr">"metadata"</span>: {
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
     <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
     <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"1b33145a-9c63-11e6-9c54-42010a800148"</span>,
     <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2064726"</span>,
     <span class="hljs-attr">"generation"</span>: <span class="hljs-number">4</span>,
@@ -4583,11 +4579,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment -o json
   <span class="hljs-attr">"items"</span>: [
     {
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"app/v1beta1"</span>,
       <span class="hljs-attr">"metadata"</span>: {
         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"docs"</span>,
         <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/docs"</span>,
+        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/app/v1beta1/namespaces/default/deployments/docs"</span>,
         <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"ef49e1d2-915e-11e6-be81-42010a80003f"</span>,
         <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"1924126"</span>,
         <span class="hljs-attr">"generation"</span>: <span class="hljs-number">21</span>,
@@ -4648,11 +4644,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment -o json
     },
     {
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"app/v1beta1"</span>,
       <span class="hljs-attr">"metadata"</span>: {
         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
         <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/app/v1beta1/namespaces/default/deployments/deployment-example"</span>,
         <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"1b33145a-9c63-11e6-9c54-42010a800148"</span>,
         <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2064726"</span>,
         <span class="hljs-attr">"generation"</span>: <span class="hljs-number">4</span>,
@@ -4729,11 +4725,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment -o json
   <span class="hljs-attr">"items"</span>: [
     {
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"app/v1beta1"</span>,
       <span class="hljs-attr">"metadata"</span>: {
         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"docs"</span>,
         <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/docs"</span>,
+        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/app/v1beta1/namespaces/default/deployments/docs"</span>,
         <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"ef49e1d2-915e-11e6-be81-42010a80003f"</span>,
         <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"1924126"</span>,
         <span class="hljs-attr">"generation"</span>: <span class="hljs-number">21</span>,
@@ -4794,11 +4790,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment -o json
     },
     {
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"app/v1beta1"</span>,
       <span class="hljs-attr">"metadata"</span>: {
         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
         <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/app/v1beta1/namespaces/default/deployments/deployment-example"</span>,
         <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"1b33145a-9c63-11e6-9c54-42010a800148"</span>,
         <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2064726"</span>,
         <span class="hljs-attr">"generation"</span>: <span class="hljs-number">4</span>,
@@ -5032,11 +5028,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment deployment-example <s
     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ADDED"</span>,
     <span class="hljs-attr">"object"</span>: {
         <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-        <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+        <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
         <span class="hljs-attr">"metadata"</span>: {
             <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
             <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-            <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+            <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
             <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"64c12290-9cbf-11e6-9c54-42010a800148"</span>,
             <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2128095"</span>,
             <span class="hljs-attr">"generation"</span>: <span class="hljs-number">2</span>,
@@ -5111,11 +5107,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment deployment-example <s
     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ADDED"</span>,
     <span class="hljs-attr">"object"</span>: {
         <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-        <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+        <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
         <span class="hljs-attr">"metadata"</span>: {
             <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
             <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-            <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+            <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
             <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"64c12290-9cbf-11e6-9c54-42010a800148"</span>,
             <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2128095"</span>,
             <span class="hljs-attr">"generation"</span>: <span class="hljs-number">2</span>,
@@ -57037,7 +57033,7 @@ Appears In <a href="#deploymentstrategy-v1beta1">DeploymentStrategy</a> </aside>
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: extensions/v1beta1
+$ echo 'apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: deployment-example
@@ -57062,7 +57058,7 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X POST -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: deployment-example
@@ -57093,11 +57089,11 @@ spec:
 <pre class="code-block curl"><code class="lang-json">
 {
   <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
   <span class="hljs-attr">"metadata"</span>: {
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
     <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
     <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"4ccca349-9cb1-11e6-9c54-42010a800148"</span>,
     <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2118306"</span>,
     <span class="hljs-attr">"generation"</span>: <span class="hljs-number">1</span>,
@@ -57222,7 +57218,7 @@ spec:
 <p> <code>kubectl</code> Command</p>
 </blockquote>
 <pre class="code-block kubectl"><code class="lang-shell">
-$ echo 'apiVersion: extensions/v1beta1
+$ echo 'apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: deployment-example
@@ -57247,7 +57243,7 @@ spec:
 <pre class="code-block curl"><code class="lang-shell">
 <span class="hljs-variable">$ </span>kubectl proxy
 <span class="hljs-variable">$ </span>curl -X PUT -H <span class="hljs-string">'Content-Type: application/yaml'</span> --data <span class="hljs-string">'
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: deployment-example
@@ -57278,11 +57274,11 @@ spec:
 <pre class="code-block curl"><code class="lang-json">
 {
   <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
   <span class="hljs-attr">"metadata"</span>: {
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
     <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
     <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"4ccca349-9cb1-11e6-9c54-42010a800148"</span>,
     <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2119082"</span>,
     <span class="hljs-attr">"generation"</span>: <span class="hljs-number">5</span>,
@@ -57440,11 +57436,11 @@ $ curl -X PATCH -H 'Content-Type: application/strategic-<span class="hljs-keywor
 <pre class="code-block curl"><code class="lang-json">
 {
   <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
   <span class="hljs-attr">"metadata"</span>: {
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
     <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
     <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"5dc3a8e6-b0ee-11e6-aef0-42010af00229"</span>,
     <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"164489"</span>,
     <span class="hljs-attr">"generation"</span>: <span class="hljs-number">11</span>,
@@ -57805,11 +57801,11 @@ $ curl -X GET http:<span class="hljs-regexp">//</span><span class="hljs-number">
 <pre class="code-block kubectl"><code class="lang-json">
 {
   <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
   <span class="hljs-attr">"metadata"</span>: {
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
     <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
     <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"1b33145a-9c63-11e6-9c54-42010a800148"</span>,
     <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2064726"</span>,
     <span class="hljs-attr">"generation"</span>: <span class="hljs-number">4</span>,
@@ -57879,11 +57875,11 @@ $ curl -X GET http:<span class="hljs-regexp">//</span><span class="hljs-number">
 <pre class="code-block curl"><code class="lang-json">
 {
   <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+  <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
   <span class="hljs-attr">"metadata"</span>: {
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
     <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+    <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
     <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"1b33145a-9c63-11e6-9c54-42010a800148"</span>,
     <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2064726"</span>,
     <span class="hljs-attr">"generation"</span>: <span class="hljs-number">4</span>,
@@ -58032,11 +58028,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment -o json
   <span class="hljs-attr">"items"</span>: [
     {
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"app/v1beta1"</span>,
       <span class="hljs-attr">"metadata"</span>: {
         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"docs"</span>,
         <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/docs"</span>,
+        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/app/v1beta1/namespaces/default/deployments/docs"</span>,
         <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"ef49e1d2-915e-11e6-be81-42010a80003f"</span>,
         <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"1924126"</span>,
         <span class="hljs-attr">"generation"</span>: <span class="hljs-number">21</span>,
@@ -58097,11 +58093,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment -o json
     },
     {
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"app/v1beta1"</span>,
       <span class="hljs-attr">"metadata"</span>: {
         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
         <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/app/v1beta1/namespaces/default/deployments/deployment-example"</span>,
         <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"1b33145a-9c63-11e6-9c54-42010a800148"</span>,
         <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2064726"</span>,
         <span class="hljs-attr">"generation"</span>: <span class="hljs-number">4</span>,
@@ -58178,11 +58174,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment -o json
   <span class="hljs-attr">"items"</span>: [
     {
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"app/v1beta1"</span>,
       <span class="hljs-attr">"metadata"</span>: {
         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"docs"</span>,
         <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/docs"</span>,
+        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/app/v1beta1/namespaces/default/deployments/docs"</span>,
         <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"ef49e1d2-915e-11e6-be81-42010a80003f"</span>,
         <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"1924126"</span>,
         <span class="hljs-attr">"generation"</span>: <span class="hljs-number">21</span>,
@@ -58243,11 +58239,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment -o json
     },
     {
       <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+      <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"app/v1beta1"</span>,
       <span class="hljs-attr">"metadata"</span>: {
         <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
         <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+        <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/app/v1beta1/namespaces/default/deployments/deployment-example"</span>,
         <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"1b33145a-9c63-11e6-9c54-42010a800148"</span>,
         <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2064726"</span>,
         <span class="hljs-attr">"generation"</span>: <span class="hljs-number">4</span>,
@@ -58481,11 +58477,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment deployment-example <s
     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ADDED"</span>,
     <span class="hljs-attr">"object"</span>: {
         <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-        <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+        <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
         <span class="hljs-attr">"metadata"</span>: {
             <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
             <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-            <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+            <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
             <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"64c12290-9cbf-11e6-9c54-42010a800148"</span>,
             <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2128095"</span>,
             <span class="hljs-attr">"generation"</span>: <span class="hljs-number">2</span>,
@@ -58560,11 +58556,11 @@ $ kubectl <span class="hljs-keyword">get</span> deployment deployment-example <s
     <span class="hljs-attr">"type"</span>: <span class="hljs-string">"ADDED"</span>,
     <span class="hljs-attr">"object"</span>: {
         <span class="hljs-attr">"kind"</span>: <span class="hljs-string">"Deployment"</span>,
-        <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"extensions/v1beta1"</span>,
+        <span class="hljs-attr">"apiVersion"</span>: <span class="hljs-string">"apps/v1beta1"</span>,
         <span class="hljs-attr">"metadata"</span>: {
             <span class="hljs-attr">"name"</span>: <span class="hljs-string">"deployment-example"</span>,
             <span class="hljs-attr">"namespace"</span>: <span class="hljs-string">"default"</span>,
-            <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/extensions/v1beta1/namespaces/default/deployments/deployment-example"</span>,
+            <span class="hljs-attr">"selfLink"</span>: <span class="hljs-string">"/apis/apps/v1beta1/namespaces/default/deployments/deployment-example"</span>,
             <span class="hljs-attr">"uid"</span>: <span class="hljs-string">"64c12290-9cbf-11e6-9c54-42010a800148"</span>,
             <span class="hljs-attr">"resourceVersion"</span>: <span class="hljs-string">"2128095"</span>,
             <span class="hljs-attr">"generation"</span>: <span class="hljs-number">2</span>,
