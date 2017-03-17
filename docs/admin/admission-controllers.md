@@ -87,7 +87,7 @@ The ImagePolicyWebhook plug-in allows a backend webhook to make admission decisi
 ```
 
 #### Configuration File Format
-ImagePolicyWebhook uses the admission controller config file (`--admission-controller-config-file`) to set configuration options for the behavior of the backend. This file may be json or yaml and has the following format:
+ImagePolicyWebhook uses the admission config file `--admission-controller-config-file` to set configuration options for the behavior of the backend. This file may be json or yaml and has the following format:
 
 ```javascript
 {
@@ -101,7 +101,7 @@ ImagePolicyWebhook uses the admission controller config file (`--admission-contr
 }
 ```
 
-The config file must reference a [kubeconfig](/docs/user-guide/kubeconfig-file/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
+The config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
 
 The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
 
@@ -120,7 +120,7 @@ users:
     client-certificate: /path/to/cert.pem # cert for the webhook plugin to use
     client-key: /path/to/key.pem          # key matching the cert
 ```
-For additional HTTP configuration, refer to the [kubeconfig](/docs/user-guide/kubeconfig-file/) documentation.
+For additional HTTP configuration, refer to the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation.
 
 #### Request Payloads
 
@@ -251,6 +251,11 @@ This plugin ignores any `PersistentVolumeClaim` updates, it acts only on creatio
 
 See [persistent volume](/docs/user-guide/persistent-volumes) documentation about persistent volume claims and
 storage classes and how to mark a storage class as default.
+
+### DefaultTolerationSeconds
+
+This plug-in sets the default forgiveness toleration for pods, which have no forgiveness tolerations, to tolerate
+the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes.
 
 ## Is there a recommended set of plug-ins to use?
 

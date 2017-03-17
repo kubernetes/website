@@ -816,9 +816,9 @@ dd
 		font-weight: 500
 
 	p
-		font-size: 14px
+		font-size: 16px
 		font-weight: 300
-		line-height: 1.25em
+		line-height: 1.75em
 
 	p + p
 		margin-top: 10px
@@ -856,6 +856,7 @@ dd
 		display: block
 		margin: 20px 0
 		padding: 15px
+		position: relative
 		overflow-x: auto
 
 	h1 code, h2 code, h3 code, h4 code, h5 code, h6 code
@@ -893,6 +894,8 @@ dd
 
 	li
 		margin-bottom: 0.75em
+		font-size: 16px
+		line-height: 1.75em
 
 	table
 		width: 100%
@@ -1277,13 +1280,21 @@ $feature-box-div-margin-bottom: 40px
 				background-color: $white
 				box-shadow: 0 5px 5px rgba(0,0,0,.24),0 0 5px rgba(0,0,0,.12)
 
-		#calendarWrapper
+		#calendarMeetings
 			position: relative
 			width: 80vw
 			height: 60vw
 			max-width: 1200px
 			max-height: 900px
 			margin: 20px auto
+
+		#calendarEvents
+			position: relative
+			width: 80vw
+			height: 30vw
+			max-width: 1200px
+			max-height: 450px
+			margin: 20px auto			
 
 		iframe
 			position: absolute

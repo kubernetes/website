@@ -156,7 +156,7 @@ The output is:
 
 Verify that the replica count is zero:
 
-    kubectl get deployment --namespace-kube-system
+    kubectl get deployment --namespace=kube-system
 
 The output displays 0 in the DESIRED and CURRENT columns:
 

@@ -87,15 +87,25 @@ properties:
     - Subject-matching properties:
       - `user`, type string; the user-string from `--token-auth-file`. If you specify `user`, it must match the username of the authenticated user.
       - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user. `system:authenticated` matches all authenticated requests. `system:unauthenticated` matches all unauthenticated requests.
-    - `readonly`, type boolean, when true, means that the policy only applies to get, list, and watch operations.
     - Resource-matching properties:
-      - `apiGroup`, type string; an API group, such as `extensions`. `*` matches all API groups.
-      - `namespace`, type string; a namespace string. `*` matches all resource requests.
-      - `resource`, type string; a resource, such as `pods`. `*` matches all resource requests.
+      - `apiGroup`, type string; an API group.
+        - Ex: `extensions`
+        - Wildard: `*` matches all API groups.
+      - `namespace`, type string; a namespace.
+        - Ex: `kube-system`
+        - Wildard: `*` matches all resource requests.
+      - `resource`, type string; a resource type
+        - Ex: `pods`
+        - Wildcard: `*` matches all resource requests.
     - Non-resource-matching properties:
-    - `nonResourcePath`, type string; matches the non-resource request paths (like `/version` and `/apis`). `*` matches all non-resource requests. `/foo/*` matches `/foo/` and all of its subpaths.
+      - `nonResourcePath`, type string; non-resource request paths.
+        - Ex: `/version` or `/apis`
+        - Wildcard: 
+          - `*` matches all non-resource requests.
+          - `/foo/*` matches `/foo/` and all of its subpaths.
+    - `readonly`, type boolean, when true, means that the policy only applies to get, list, and watch operations.
 
-An unset property is the same as a property set to the zero value for its type
+**NOTES:** An unset property is the same as a property set to the zero value for its type
 (e.g. empty string, 0, false). However, unset should be preferred for
 readability.
 
@@ -221,20 +231,20 @@ don't already have even when the RBAC authorizer it disabled__. If "user-1"
 does not have the ability to read secrets in "namespace-a", they cannot create
 a binding that would grant that permission to themselves or any other user.
 
-For bootstrapping the first roles, it becomes necessary for someone to get
-around these limitations. For the alpha release of RBAC, an API Server flag was
-added to allow one user to step around all RBAC authorization and privilege
-escalation checks. NOTE: _This is subject to change with future releases._
+When bootstrapping, superuser credentials should include the `system:masters`
+group, for example by creating a client cert with `/O=system:masters`. This
+gives those credentials full access to the API and allows an admin to then set
+up bindings for other users.
+
+In Kubernetes versions 1.4 and 1.5, there was a similar flag that gave a user
+full access:
 
 ```
 --authorization-rbac-super-user=admin
 ```
 
-Once set the specified super user, in this case "admin", can be used to create
-the roles and role bindings to initialize the system.
-
-This flag is optional and once the initial bootstrapping is performed can be
-unset.
+__This flag will be removed in 1.6__. Admins should prefer the `system:masters`
+group when setting up clusters.
 
 ### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
 
@@ -445,6 +455,7 @@ subjects:
 ```
 
 For all authenticated users:
+
 ```yaml
 subjects:
 - kind: Group
@@ -452,6 +463,7 @@ subjects:
 ```
 
 For all unauthenticated users:
+
 ```yaml
 subjects:
 - kind: Group
@@ -459,6 +471,7 @@ subjects:
 ```
 
 For all users:
+
 ```yaml
 subjects:
 - kind: Group
@@ -477,7 +490,7 @@ service when determining user privileges.
 Mode `Webhook` requires a file for HTTP configuration, specify by the
 `--authorization-webhook-config-file=SOME_FILENAME` flag.
 
-The configuration file uses the [kubeconfig](/docs/user-guide/kubeconfig-file/)
+The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 file format. Within the file "users" refers to the API Server webhook and
 "clusters" refers to the remote service.
 

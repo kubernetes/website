@@ -9,7 +9,7 @@ title: Kubernetes 101
 
 For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple containers
 
-In order for the kubectl usage examples to work, make sure you have an examples directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or [the source](https://github.com/kubernetes/kubernetes).
+In order for the kubectl usage examples to work, make sure you have an example directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or [the source](https://github.com/kubernetes/kubernetes).
 
 * TOC
 {:toc}
@@ -21,7 +21,7 @@ The easiest way to interact with Kubernetes is via the [kubectl](/docs/user-guid
 
 For more info about kubectl, including its usage, commands, and parameters, see the [kubectl CLI reference](/docs/user-guide/kubectl-overview/).
 
-If you haven't installed and configured kubectl, finish the [prerequisites](/docs/user-guide/prereqs/) before continuing.
+If you haven't installed and configured kubectl, finish [installing kubectl](/docs/tasks/kubectl/install/) before continuing.
 
 ## Pods
 
