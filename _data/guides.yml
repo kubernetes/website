@@ -112,6 +112,7 @@ toc:
       - docs/getting-started-guides/rackspace.md
       - docs/getting-started-guides/kops.md
       - docs/getting-started-guides/kargo.md
+      - docs/getting-started-guides/running-cloud-controller.md
     - title: On-Premise VMs
       section:
       - docs/getting-started-guides/coreos/index.md
