@@ -30,7 +30,7 @@ The following topics in the Kubernetes User Guide can help you run applications 
     1. [Connecting to containers via proxies](/docs/user-guide/connecting-to-applications-proxy/)
     1. [Connecting to containers via port forwarding](/docs/user-guide/connecting-to-applications-port-forward/)
 
-Before running examples in the user guides, please ensure you have completed the [prerequisites](/docs/user-guide/prereqs/).
+Before running examples in the user guides, please ensure you have completed [installing kubectl](/docs/tasks/kubectl/install/).
 
 ## Kubernetes Concepts
 

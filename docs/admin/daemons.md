@@ -51,7 +51,7 @@ A pod template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod
 ### Pod Selector
 
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
-a [Job](/docs/user-guide/jobs/) or other new resources.
+a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) or other new resources.
 
 The `spec.selector` is an object consisting of two fields:
 
