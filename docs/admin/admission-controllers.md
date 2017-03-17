@@ -101,7 +101,7 @@ ImagePolicyWebhook uses the admission config file `--admission-controller-config
 }
 ```
 
-The config file must reference a [kubeconfig](/docs/user-guide/kubeconfig-file/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
+The config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
 
 The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
 
@@ -120,7 +120,7 @@ users:
     client-certificate: /path/to/cert.pem # cert for the webhook plugin to use
     client-key: /path/to/key.pem          # key matching the cert
 ```
-For additional HTTP configuration, refer to the [kubeconfig](/docs/user-guide/kubeconfig-file/) documentation.
+For additional HTTP configuration, refer to the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation.
 
 #### Request Payloads
 
