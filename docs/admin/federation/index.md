@@ -3,8 +3,10 @@ assignees:
 - madhusudancs
 - mml
 - nikhiljindal
-title: Using `federation-up` and `deploy.sh`
+title: (Deprecated) Using `federation-up` and `deploy.sh`
 ---
+
+## The mechanisms explained in this doc to setup federation are deprecated. [`kubefed`](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) is now the recommended way to deploy federation.
 
 This guide explains how to set up cluster federation that lets us control multiple Kubernetes clusters.
 
