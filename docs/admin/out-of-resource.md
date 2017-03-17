@@ -9,23 +9,27 @@ title: Configuring Out Of Resource Handling
 * TOC
 {:toc}
 
-The `kubelet` needs to preserve node stability when available compute resources are low.
+The `kubelet` needs to preserve node stability when available compute resources
+are low.
 
-This is especially important when dealing with incompressible resources such as memory or disk.
+This is especially important when dealing with incompressible resources such as
+memory or disk.
 
 If either resource is exhausted, the node would become unstable.
 
 ## Eviction Policy
 
-The `kubelet` can pro-actively monitor for and prevent against total starvation of a compute resource.  In those cases, the `kubelet` can pro-actively fail one or more pods in order to reclaim
-the starved resource.  When the `kubelet` fails a pod, it terminates all containers in the pod, and the `PodPhase`
-is transitioned to `Failed`.
+The `kubelet` can pro-actively monitor for and prevent against total starvation
+of a compute resource.  In those cases, the `kubelet` can pro-actively fail one
+or more pods in order to reclaim the starved resource.  When the `kubelet` fails
+a pod, it terminates all containers in the pod, and the `PodPhase` is
+transitioned to `Failed`.
 
 ### Eviction Signals
 
-The `kubelet` can support the ability to trigger eviction decisions on the signals described in the
-table below.  The value of each signal is described in the description column based on the `kubelet`
-summary API.
+The `kubelet` can support the ability to trigger eviction decisions on the
+signals described in the table below.  The value of each signal is described in
+the description column based on the `kubelet` summary API.
 
 | Eviction Signal  | Description                                                                     |
 |----------------------------|-----------------------------------------------------------------------|
@@ -35,20 +39,68 @@ summary API.
 | `imagefs.available` | `imagefs.available` := `node.stats.runtime.imagefs.available` |
 | `imagefs.inodesFree` | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree` |
 
-Each of the above signals supports either a literal or percentage based value.  The percentage based value
-is calculated relative to the total capacity associated with each signal.
+The value for `memory.available` is derived from the cgroupfs instead of tools
+like `free -m`.  This is important because `free -m` does not work in a
+container, and if users use the [node
+allocatable](/docs/admin/node-allocatable.md) feature, out of resource decisions
+are made local to the end user pod part of the cgroup hierarchy as well as the
+root node.  The following script simulates the same set of steps that the
+`kubelet` performs to calculate `memory.available`.  The `kubelet` excludes
+inactive_file (i.e. # of bytes of file-backed memory on inactive LRU list) from
+its calculation as it assumes that memory is reclaimable under pressure.
+
+```sh
+#!/bin/bash
+#!/usr/bin/env bash
+
+# This script reproduces what the kubelet does
+# to calculate memory.available relative to root cgroup.
+
+# current memory usage
+memory_capacity_in_kb=$(cat /proc/meminfo | grep MemTotal | awk '{print $2}')
+memory_capacity_in_bytes=$((memory_capacity_in_kb * 1024))
+memory_usage_in_bytes=$(cat /sys/fs/cgroup/memory/memory.usage_in_bytes)
+memory_total_inactive_file=$(cat /sys/fs/cgroup/memory/memory.stat | grep total_inactive_file | awk '{print $2}')
+
+memory_working_set=$memory_usage_in_bytes
+if [ "$memory_working_set" -lt "$memory_total_inactive_file" ];
+then
+    memory_working_set=0
+else
+    memory_working_set=$((memory_usage_in_bytes - memory_total_inactive_file))
+fi
+
+memory_available_in_bytes=$((memory_capacity_in_bytes - memory_working_set))
+memory_available_in_kb=$((memory_available_in_bytes / 1024))
+memory_available_in_mb=$((memory_available_in_kb / 1024))
+
+echo "memory.capacity_in_bytes $memory_capacity_in_bytes"
+echo "memory.usage_in_bytes $memory_usage_in_bytes"
+echo "memory.total_inactive_file $memory_total_inactive_file"
+echo "memory.working_set $memory_working_set"
+echo "memory.available_in_bytes $memory_available_in_bytes"
+echo "memory.available_in_kb $memory_available_in_kb"
+echo "memory.available_in_mb $memory_available_in_mb"
+```
+
+Each of the above signals supports either a literal or percentage based value.
+The percentage based value is calculated relative to the total capacity
+associated with each signal.
 
 `kubelet` supports only two filesystem partitions.
 
 1. The `nodefs` filesystem that kubelet uses for volumes, daemon logs, etc.
-1. The `imagefs` filesystem that container runtimes uses for storing images and container writable layers.
+1. The `imagefs` filesystem that container runtimes uses for storing images and
+   container writable layers.
 
-`imagefs` is optional. `kubelet` auto-discovers these filesystems using cAdvisor.  `kubelet` does not care about any 
-other filesystems. Any other types of configurations are not currently supported by the kubelet. For example, it is
+`imagefs` is optional. `kubelet` auto-discovers these filesystems using
+cAdvisor.  `kubelet` does not care about any other filesystems. Any other types
+of configurations are not currently supported by the kubelet. For example, it is
 *not OK* to store volumes and logs in a dedicated `filesystem`.
 
-In future releases, the `kubelet` will deprecate the existing [garbage collection](/docs/admin/garbage-collection/)
-support in favor of eviction in response to disk pressure.
+In future releases, the `kubelet` will deprecate the existing [garbage
+collection](/docs/admin/garbage-collection/) support in favor of eviction in
+response to disk pressure.
 
 ### Eviction Thresholds
 
