@@ -67,7 +67,7 @@ Kubernetes 项目由 Google 公司在 2014 年启动。Kubernetes 建立在 [Goo
 
 Kubernetes 满足了生产中运行应用程序的许多常见的需求，例如：
 
-* [Pod](/docs/user-guide/pods/), 提供复合应用并保留一个应用一个容器的容器模型
+* [Pod](/docs/user-guide/pods/) 提供复合应用并保留一个应用一个容器的容器模型,
 * [安装存储系统](/docs/user-guide/volumes/),
 * [分发秘钥](/docs/user-guide/secrets/),
 * [应用健康检查](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks),
@@ -78,7 +78,7 @@ Kubernetes 满足了生产中运行应用程序的许多常见的需求，例如
 * [滚动更新](/docs/user-guide/update-demo/),
 * [资源监测](/docs/user-guide/monitoring/),
 * [日志访问和获取](/docs/user-guide/logging/overview/),
-* [支持自检和调试](/docs/user-guide/introspection-and-debugging/), and
+* [支持自检和调试](/docs/user-guide/introspection-and-debugging/),
 * [身份和授权](/docs/admin/authorization/).
 
 这提供了平台即服务 (PAAS) 的简单性以及基础架构即服务 (IAAS) 的灵活性，并促进跨基础设施供应商的可移植性。
