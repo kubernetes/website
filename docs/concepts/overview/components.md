@@ -54,6 +54,26 @@ These controllers include:
 * Service Account & Token Controllers: Create default accounts and API access tokens for new namespaces.
 * ... and others.
 
+### cloud-controller-manager
+
+cloud-controller-manager is a binary that runs controllers which interact with
+the underlying cloudproviders. This binary was introduced in kubernetes release 1.6 as a alpha feature. This binary exclusively 
+runs cloud specific controller loops only. Since this binary runs the cloudprovider specific controllers, these controller loops 
+need to be turned off in the kube-controller-manager. This can be done by setting the `--cloud-provider` flag to "external" when starting the
+kube-controller-manager. 
+
+This binary was introduced to allow cloud vendors and kubernetes core to evolve independent of each other. In the current model, kubernetes is 
+dependent on cloudprovider specific code to function. This code is a part of the core of kubernetes. In the future, cloud vendor specific code 
+will be maintained by the cloud vendor themselves and linked to the cloud-controller-manager while running kubernetes. 
+
+The following controller have cloudprovider dependencies:
+
+* Node Controller: Responsible for checking cloudprovider to determine if a node has been deleted in the cloud after it stops responding
+* Route Controller: Responsible for setting up routes in the underlying cloud infrastructure
+* Service Controller: Responsible for creating, updating and deleting cloudprovider loadbalancers
+* Volume Controller: Responsible for creating, attaching, and mounting volumes. These also interact with the cloudprovider
+  to orchestrate volumes
+
 ### kube-scheduler
 
 [kube-scheduler](/docs/admin/kube-scheduler) watches newly created pods that have no node assigned, and
