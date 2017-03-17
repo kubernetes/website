@@ -27,9 +27,12 @@ points to the owning object.
 
 Sometimes, Kubernetes sets the value of `ownerReference` automatically. For
 example, when you create a ReplicaSet, Kubernetes automatically sets the
-`ownerReference` field of each Pod in the ReplicaSet. You can also specify
-relationships between owners and dependents by manually setting the
-`ownerReference` field.
+`ownerReference` field of each Pod in the ReplicaSet. In 1.6, Kubernetes
+automatically sets the value of `ownerReference` for objects created by
+ReplicationController, Replicaset, StatefulSet, DaemonSet, and Deployment.
+
+You can also specify relationships between owners and dependents by manually
+setting the `ownerReference` field.
 
 Here's a configuration file for a ReplicaSet that has three Pods:
 
@@ -53,38 +56,67 @@ metadata:
   ownerReferences:
   - apiVersion: extensions/v1beta1
     controller: true
+    blockOwnerDeletion: true
     kind: ReplicaSet
     name: my-repset
     uid: d9607e19-f88f-11e6-a518-42010a800195
   ...
 ```
 
-## Controlling whether the garbage collector deletes dependents
+## Controlling whether and how the garbage collector deletes dependents
 
-When you delete object, you can specify whether the object's dependents
-are deleted automatically. Deleting dependents automatically is called
-*cascading deletion*. If you delete an object without deleting its
-dependents automatically, the dependents are said to be *orphaned*.
+When you delete object, you can specify whether the object's dependents are
+deleted automatically. If you delete an object without deleting its dependents
+automatically, the dependents are said to be *orphaned*. Deleting dependents
+automatically is called *cascading deletion*. Further, there are two modes of
+*cascading deletion*: if the object is deleted immediately and the garbage
+collector then deletes the dependents in the background, it is called
+*background cascading deletion*. In contrast, in *foreground cascading
+deletion*, the object first enters a "deletion in progress" state, where the
+object is still visible via the REST API, its `deletionTimestamp` is set, and
+its metadata.finalizers contains "foregroundDeletion". Then the garbage
+collector deletes the dependents. Once the garbage collector has deleted all
+dependents whose ownerReferences.blockOwnerDeletion=true, it will finally delete
+the object.
 
-To delete dependent objects automatically, set the `orphanDependents` query
-parameter to false in your request to delete the owner object.
+To control whether delete dependent objects or delete them in
+foreground/background, set the deleteOptions.propagationPolicy to "Orphan",
+"Foregound", or "Background" respectively.
 
-To orphan the dependents of an owner object, set the `orphanDependents` query
-parameter to true in your request to delete the owner object.
-
-The default value for `orphanDependents` is true. So unless you specify
+The default garbage collection policy for controller resources is `orphan`. So unless you specify
 otherwise, dependent objects are orphaned.
 
-Here's an example that deletes dependents automatically:
+Here's an example that deletes dependents in background:
 
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset?orphanDependents=false
+curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \
+-d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
+-H "Content-Type: application/json"
 ```
 
-To delete dependents automatically using kubectl, set `--cascade` to true.
-To orphan dependents, set `--cascade` to false. The default value for
-`--cascade` is true.
+Here's an example that deletes dependents in foreground:
+
+```shell
+kubectl proxy --port=8080
+curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \
+-d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
+-H "Content-Type: application/json"
+```
+
+Here's an example that orphans dependents:
+
+```shell
+kubectl proxy --port=8080
+curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \
+-d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
+-H "Content-Type: application/json"
+```
+
+kubectl also supports cascading deletion, though implemented in a different way.
+To delete dependents automatically using kubectl, set `--cascade` to true.  To
+orphan dependents, set `--cascade` to false. The default value for `--cascade`
+is true.
 
 Here's an example that orphans the dependents of a ReplicaSet:
 
@@ -92,20 +124,23 @@ Here's an example that orphans the dependents of a ReplicaSet:
 kubectl delete replicaset my-repset --cascade=false
 ```
 
-## Ongoing development
+## Known issues
+* In 1.6, garbage collection does not support non-core resources, e.g.,
+  resources added via ThirdPartyResource or via aggregated API servers. It will
+  support non-core resources in the future. When it does, garbage collector will
+  delete objects with ownerRefereneces referring to non-existent object of a
+  valid non-core resource.
 
-In Kubernetes version 1.5, synchronous garbage collection is under active
-development. See the tracking
-[issue](https://github.com/kubernetes/kubernetes/issues/29891) for more details.
+[Other known issues](https://github.com/kubernetes/kubernetes/issues/26120)
 
 {% endcapture %}
 
 
 {% capture whatsnext %}
 
-[Design Doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/garbage-collection.md)
+[Design Doc 1](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/garbage-collection.md)
 
-[Known issues](https://github.com/kubernetes/kubernetes/issues/26120)
+[Design Doc 2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/synchronous-garbage-collection.md)
 
 {% endcapture %}
 
