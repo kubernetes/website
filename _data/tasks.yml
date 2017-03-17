@@ -5,6 +5,7 @@ toc:
 
 - title: Using the kubectl Command-Line
   section:
+  - docs/tasks/kubectl/install.md
   - docs/tasks/kubectl/list-all-running-container-images.md
   - docs/tasks/kubectl/get-shell-running-container.md
 
@@ -41,6 +42,7 @@ toc:
   section:
   - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md
   - docs/tasks/access-application-cluster/load-balance-access-application-cluster.md
+  - docs/tasks/access-application-cluster/configure-cloud-provider-firewall.md
 
 - title: Monitoring, Logging, and Debugging
   section:
@@ -61,6 +63,7 @@ toc:
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
   - docs/tasks/administer-cluster/limit-storage-consumption.md
+  - docs/tasks/administer-cluster/share-configuration.md
 
 - title: Administering Federation
   section:
