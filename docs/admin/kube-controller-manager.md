@@ -28,6 +28,7 @@ kube-controller-manager
 ```
       --address ip                                                        The IP address to serve on (set to 0.0.0.0 for all interfaces) (default 0.0.0.0)
       --allocate-node-cidrs                                               Should CIDRs for Pods be allocated and set on the cloud provider.
+      --allow-verification-with-non-compliant-keys                        Allow a SignatureVerifier to use keys which are technically non-compliant with RFC6962.
       --cloud-config string                                               The path to the cloud provider configuration file.  Empty string for no configuration file.
       --cloud-provider string                                             The provider for cloud services.  Empty string for no provider.
       --cluster-cidr string                                               CIDR Range for Pods in cluster.
@@ -59,7 +60,6 @@ DynamicVolumeProvisioning=true|false (ALPHA - default=true)
 ExperimentalHostUserNamespaceDefaulting=true|false (ALPHA - default=false)
 StreamingProxyRedirects=true|false (ALPHA - default=false)
       --flex-volume-plugin-dir string                                     Full path of the directory in which the flex volume plugin should search for additional third party volume plugins. (default "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/")
-      --google-json-key string                                            The Google Cloud Platform Service Account JSON Key to use for authentication.
       --horizontal-pod-autoscaler-sync-period duration                    The period for syncing the number of pods in horizontal pod autoscaler. (default 30s)
       --insecure-experimental-approve-all-kubelet-csrs-for-group string   The group for which the controller-manager will auto approve all CSRs for kubelet client certificates.
       --kube-api-burst int32                                              Burst to use while talking with Kubernetes apiserver (default 30)

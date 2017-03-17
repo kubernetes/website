@@ -80,7 +80,7 @@ Copy the base64 representation of the secret data into a file named `secret64`.
 
 **Important**: Make sure there are no line breaks in your `secret64` file.
 
-To understand what is in the `dockercfg` field, convert the secret data to a
+To understand what is in the `.dockercfg` field, convert the secret data to a
 readable format:
 
     base64 -d secret64

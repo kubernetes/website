@@ -11,7 +11,7 @@ title: Cron Jobs
 
 ## What is a cron job?
 
-A _Cron Job_ manages time based [Jobs](/docs/user-guide/jobs/), namely:
+A _Cron Job_ manages time based [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), namely:
 
 * Once at a specified point in time
 * Repeatedly at a specified point in time
@@ -19,10 +19,10 @@ A _Cron Job_ manages time based [Jobs](/docs/user-guide/jobs/), namely:
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
-**Note:**: The question mark (`?`) in the schedule has the same meaning as an asterisk `*`,
+**Note:** The question mark (`?`) in the schedule has the same meaning as an asterisk `*`,
 that is, it stands for any of available value for a given field.
 
-**Note:**: ScheduledJob resource was introduced in Kubernetes version 1.4, but starting
+**Note:** ScheduledJob resource was introduced in Kubernetes version 1.4, but starting
 from version 1.5 its current name is CronJob.
 
 A typical use case is:
@@ -32,7 +32,7 @@ A typical use case is:
 
 ### Prerequisites
 
-You need a working Kubernetes cluster at version >= 1.4 (for ScheduledJob), >= 1.5 (for CronJobs),
+You need a working Kubernetes cluster at version >= 1.4 (for ScheduledJob), >= 1.5 (for CronJob),
 with batch/v2alpha1 API turned on by passing `--runtime-config=batch/v2alpha1` while bringing up
 the API server (see [Turn on or off an API version for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
 for more). You cannot use Cron Jobs on a hosted Kubernetes provider that has disabled alpha resources.
@@ -159,8 +159,8 @@ string, e.g. `0 * * * *` or `@hourly`, as schedule time of its jobs to be create
 ### Job Template
 
 The `.spec.jobTemplate` is another required field of the `.spec`. It is a job template. It has exactly the same schema
-as a [Job](/docs/user-guide/jobs), except it is nested and does not have an `apiVersion` or `kind`, see
-[Writing a Job Spec](/docs/user-guide/jobs/#writing-a-job-spec).
+as a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/), except it is nested and does not have an `apiVersion` or `kind`, see
+[Writing a Job Spec](/docs/concepts/jobs/run-to-completion-finite-workloads/#writing-a-job-spec).
 
 ### Starting Deadline Seconds
 
