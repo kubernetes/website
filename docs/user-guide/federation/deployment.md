@@ -72,7 +72,7 @@ kubectl --context=gce-asia-east1a get deployment mydep
 
 您可以通过删除联邦部署来删除 Kubernetes 集群的部署;但是，对于联邦部署，您必须将请求发送到联邦 apiserver 而不是发送它到一个特定的 Kubernetes 集群。
 
-例如，你可以使用 kubectl 通过运行:
+例如，您可以使用 kubectl 通过运行:
 
 ```shell
 kubectl --context=federation-cluster delete deployment mydep
