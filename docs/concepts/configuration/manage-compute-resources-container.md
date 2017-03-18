@@ -138,7 +138,7 @@ When using Docker:
 - The `spec.containers[].resources.limits.cpu` is converted to its millicore value,
   multiplied by 100000, and then divided by 1000. This number is used as the value
   of the [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint)
-  flag in the `docker run` command.  he [`--cpu-period`] flag is set to 100000,
+  flag in the `docker run` command.  The [`--cpu-period`] flag is set to 100000,
    which represents the default 100ms period for measuring quota usage. The
    kubelet enforces cpu limits if it is started with the
   [`--cpu-cfs-quota`] flag set to true. As of Kubernetes version 1.2, this flag
