@@ -28,8 +28,8 @@ points to the owning object.
 Sometimes, Kubernetes sets the value of `ownerReference` automatically. For
 example, when you create a ReplicaSet, Kubernetes automatically sets the
 `ownerReference` field of each Pod in the ReplicaSet. In 1.6, Kubernetes
-automatically sets the value of `ownerReference` for objects created by
-ReplicationController, Replicaset, StatefulSet, DaemonSet, and Deployment.
+automatically sets the value of `ownerReference` for objects created or adopted
+by ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and Deployment.
 
 You can also specify relationships between owners and dependents by manually
 setting the `ownerReference` field.
@@ -76,15 +76,24 @@ deletion*, the object first enters a "deletion in progress" state, where the
 object is still visible via the REST API, its `deletionTimestamp` is set, and
 its metadata.finalizers contains "foregroundDeletion". Then the garbage
 collector deletes the dependents. Once the garbage collector has deleted all
-dependents whose ownerReferences.blockOwnerDeletion=true, it will finally delete
+dependents whose ownerReference.blockOwnerDeletion=true, it will finally delete
 the object.
+
+Note that in the "foregroundDeletion", only dependents with
+ownerReference.blockOwnerDeletion block the deletion of the owner object. In
+1.7, we will add an admission controller that disallows a user without the delete
+permission of the owner object to set blockOwnerDeletion to true, so that such a
+user cannot delay the deletion of the owner. For ownerReferences set up
+by a controller, blockOwnerDeletion is set to true. So in most use cases, users
+do not need to manually modify this field.
 
 To control whether delete dependent objects or delete them in
 foreground/background, set the deleteOptions.propagationPolicy to "Orphan",
 "Foregound", or "Background" respectively.
 
-The default garbage collection policy for controller resources is `orphan`. So unless you specify
-otherwise, dependent objects are orphaned.
+The default garbage collection policy for many controller resources is `orphan`,
+including ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and
+Deployment. So unless you specify otherwise, dependent objects are orphaned.
 
 Here's an example that deletes dependents in background:
 
