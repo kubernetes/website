@@ -1,40 +1,33 @@
 ---
-title: Federated Events
+title: 联邦 Events
 ---
 
-This guide explains how to use events in federation control plane to help in debugging.
-
+本指南介绍如何在联邦控制平台中使用事件来帮助调试 - events。
 
 * TOC
 {:toc}
 
 ## Prerequisites
 
-This guide assumes that you have a running Kubernetes Cluster
-Federation installation. If not, then head over to the
-[federation admin guide](/docs/admin/federation/) to learn how to
-bring up a cluster federation (or have your cluster administrator do
-this for you). Other tutorials, for example
-[this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
-by Kelsey Hightower, are also available to help you.
+本指南假设您有一个正在运行的 Kubernetes 集群联邦的安装。如果没有，然后转到
+[联邦管理员指南](/docs/admin/federation/) 了解如何启动联邦集群 (或让集群管理员为您执行此操作)。
+其他教程，如 Kelsey Hightower 的
+[Kubernetes 联邦教程](https://github.com/kelseyhightower/kubernetes-cluster-federation),
+也可以帮助您创建一个联邦 Kubernetes 集群。
 
-You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general.
+您还应该有一些
+[Kubernetes 的基础工作知识](/docs/getting-started-guides/)。
 
-## Overview
+## 概述
 
-Events in federation control plane (referred to as "federation events" in
-this guide) are very similar to the traditional Kubernetes
-Events providing the same functionality.
-Federation Events are stored only in federation control plane and are not passed on to the underlying Kubernetes clusters.
+联邦控制平台中的事件 (参考"联邦事件"指南) 非常类似于传统 Kubernetes 中的事件，并提供相同功能。
+联邦事件仅存储在联邦控制台中，不会传递到底层的 Kubernetes 集群。
 
-Federation controllers create events as they process API resources to surface to the
-user, the state that they are in.
-You can get all events from federation apiserver by running:
+联邦控制器通过创建事件向用户展示 API 资源当前所处的状态。
+您可以通过运行以下命令从联邦 apiserver 获取所有事件:
 
 ```shell
 kubectl --context=federation-cluster get events
 ```
 
-The standard kubectl get, update, delete commands will all work.
+标准的 kubectl get, update, delete 命令都可以工作。
