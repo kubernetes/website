@@ -177,7 +177,7 @@ and passing the file's local filesystem path to `kubefed init`'s
 ```ini
 [Global]
 etcd-endpoints = http://etcd-cluster.ns:2379
-zones = example.com
+zones = example.com.
 ```
 
 And then pass this file to `kubefed init`:
@@ -218,7 +218,7 @@ kubefed init fellowship \
     --api-server-advertise-address="10.0.10.20"
 ```
 
-#### Dynamic provisioning of [`etcd`](https://coreos.com/etcd/docs/latest/) storage
+#### Dynamic provisioning of etcd storage
 
 Federation control plane stores its state in
 [`etcd`](https://coreos.com/etcd/docs/latest/).
