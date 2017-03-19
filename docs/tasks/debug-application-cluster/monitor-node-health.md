@@ -36,7 +36,7 @@ it to [support other log format](/docs/admin/node-problem/#support-other-log-for
 
 ## Enable/Disable in GCE cluster
 
-Node problem detector is [running as a cluster addon](cluster-large.md/#addon-resources) enabled by default in the
+Node problem detector is [running as a cluster addon](/docs/admin/cluster-large/#addon-resources) enabled by default in the
 gce cluster.
 
 You can enable/disable it by setting the environment variable
