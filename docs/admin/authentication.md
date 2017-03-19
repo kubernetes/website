@@ -346,7 +346,7 @@ Webhook authentication is a hook for verifying bearer tokens.
 * `--authentication-token-webhook-config-file` a kubeconfig file describing how to access the remote webhook service.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
 
-The configuration file uses the [kubeconfig](/docs/user-guide/kubeconfig-file/)
+The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 file format. Within the file "users" refers to the API server webhook and
 "clusters" refers to the remote service. An example would be:
 
