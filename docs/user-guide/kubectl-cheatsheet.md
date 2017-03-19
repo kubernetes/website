@@ -19,7 +19,7 @@ $ source <(kubectl completion zsh)  # setup autocomplete in zsh
 ## Kubectl Context and Configuration
 
 Set which Kubernetes cluster `kubectl` communicates with and modify configuration
-information. See [kubeconfig file](/docs/user-guide/kubeconfig-file/) documentation for
+information. See [Authenticating Across Clusters with kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation for
 detailed config file information.
 
 ```console
