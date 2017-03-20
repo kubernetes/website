@@ -230,7 +230,7 @@ service when determining user privileges.
 Mode `Webhook` requires a file for HTTP configuration, specify by the
 `--authorization-webhook-config-file=SOME_FILENAME` flag.
 
-The configuration file uses the [kubeconfig](/docs/user-guide/kubeconfig-file/)
+The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 file format. Within the file "users" refers to the API Server webhook and
 "clusters" refers to the remote service.
 
