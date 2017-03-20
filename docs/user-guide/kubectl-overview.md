@@ -7,8 +7,6 @@ title: kubectl Overview
 
 `kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl) reference documentation. For installation instructions see [prerequisites](/docs/user-guide/prereqs).
 
-TODO: Auto-generate this file to ensure it's always in sync with any `kubectl` changes, see [#14177](http://pr.k8s.io/14177).
-
 ## Syntax
 
 Use the following syntax to run `kubectl` commands from your terminal window:
@@ -35,7 +33,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
         * To specify multiple resource types individually: `TYPE1/name1 TYPE1/name2 TYPE2/name3 TYPE<#>/name<#>`<br/>
         Example: `$ kubectl get pod/example-pod1 replicationcontroller/example-rc1`
    * To specify resources with one or more files: `-f file1 -f file2 -f file<#>`
-     [Use YAML rather than JSON](/docs/user-guide/config-best-practices/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
+     [Use YAML rather than JSON](/docs/concepts/configuration/overview/#general-config-tips) since YAML tends to be more user-friendly, especially for configuration files.<br/>
      Example: `$ kubectl get pod -f ./pod.yaml`
 * `flags`: Specifies optional flags. For example, you can use the `-s` or `--server` flags to specify the address and port of the Kubernetes API server.<br/>
 **Important**: Flags that you specify from the command line override default values and any corresponding environment variables.

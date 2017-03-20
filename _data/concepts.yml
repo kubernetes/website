@@ -3,45 +3,63 @@ abstract: "Detailed explanations of Kubernetes system concepts and abstractions.
 toc:
 - docs/concepts/index.md
 
-- title: Kubectl Command Line
+- title: Overview
   section:
-  - docs/concepts/tools/kubectl/object-management-overview.md
-  - docs/concepts/tools/kubectl/object-management-using-imperative-commands.md
-  - docs/concepts/tools/kubectl/object-management-using-imperative-config.md
-  - docs/concepts/tools/kubectl/object-management-using-declarative-config.md
+  - docs/concepts/overview/what-is-kubernetes.md
+  - docs/concepts/overview/components.md
+  - title: Working with Kubernetes Objects
+    section:
+    - docs/concepts/overview/working-with-objects/kubernetes-objects.md
+    - docs/concepts/overview/working-with-objects/labels.md
+    - docs/concepts/overview/working-with-objects/annotations.md
+  - docs/concepts/overview/kubernetes-api.md
 
 - title: Kubernetes Objects
   section:
-  - docs/concepts/abstractions/overview.md
   - title: Pods
     section:
-    - docs/concepts/abstractions/pod.md
-    - docs/concepts/abstractions/init-containers.md
   - title: Controllers
     section:
     - docs/concepts/abstractions/controllers/statefulsets.md
     - docs/concepts/abstractions/controllers/petsets.md
     - docs/concepts/abstractions/controllers/garbage-collection.md
 
-- title: Object Metadata
-  section:
-  - docs/concepts/object-metadata/annotations.md
-
 - title: Workloads
   section:
   - title: Pods
     section:
+    - docs/concepts/workloads/pods/pod-overview.md
     - docs/concepts/workloads/pods/pod-lifecycle.md
+    - docs/concepts/workloads/pods/init-containers.md
+  - title: Jobs
+    section:
+    - docs/concepts/jobs/run-to-completion-finite-workloads.md
 
-- title: Clusters
+- title: Cluster Administration
   section:
-  - docs/concepts/clusters/logging.md
+  - docs/concepts/cluster-administration/manage-deployment.md
+  - docs/concepts/cluster-administration/networking.md
+  - docs/concepts/cluster-administration/network-plugins.md
+  - docs/concepts/cluster-administration/logging.md
+  - docs/concepts/cluster-administration/audit.md
+  - docs/concepts/cluster-administration/out-of-resource.md
+  - docs/concepts/cluster-administration/multiple-clusters.md
+  - docs/concepts/cluster-administration/federation.md
+  - docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods.md
+  - docs/concepts/cluster-administration/static-pod.md
+  - docs/concepts/cluster-administration/sysctl-cluster.md
+
+- title: Services, Load Balancing, and Networking
+  section:
+  - docs/concepts/services-networking/dns-pod-service.md
 
 - title: Configuration
   section:
+  - docs/concepts/configuration/overview.md
   - docs/concepts/configuration/container-command-args.md
   - docs/concepts/configuration/manage-compute-resources-container.md
 
 - title: Policies
   section:
   - docs/concepts/policy/container-capabilities.md
+  - docs/concepts/policy/resource-quotas.md
