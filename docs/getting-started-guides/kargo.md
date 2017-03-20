@@ -47,7 +47,7 @@ to [kubeadm](../kubeadm) and [kops](../kops).
 * Customize your deployment by usual Ansible meanings, which is
   [generating inventory](https://github.com/kubernetes-incubator/kargo/blob/master/docs/getting-started.md#building-your-own-inventory)
   and overriding default data [variables](https://github.com/kubernetes-incubator/kargo/blob/master/docs/vars.md).
-  Or just stick with default values (Kargo will choose calico networking plugin for you
+  Or just stick with default values (Kargo will choose Calico networking plugin for you
   then). This includes steps like deciding on the:
   * DNS [configuration options](https://github.com/kubernetes-incubator/kargo/blob/master/docs/dns-stack.md)
   * [Networking plugin](https://github.com/kubernetes-incubator/kargo#network-plugins) to use
