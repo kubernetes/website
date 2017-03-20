@@ -8,6 +8,9 @@ assignees:
 - kow3ns
 - smarterclayton
 title: StatefulSets
+redirect_from:
+- "/docs/concepts/abstractions/controllers/statefulsets/"
+- "/docs/concepts/abstractions/controllers/statefulsets.html"
 ---
 
 {% capture overview %}
