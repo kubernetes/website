@@ -16,7 +16,7 @@ existing federation control plane.
 This guide explains how to administer a Kubernetes Cluster Federation
 using `kubefed`.
 
-> Note: `kubefed` is in beta as of Kubernetes 1.6.
+> Note: `kubefed` is a beta feature in Kubernetes 1.6.
 
 ## Prerequisites
 
@@ -109,7 +109,7 @@ It must also end with a trailing dot.
 
 `kubefed init` sets up the federation control plane in the host
 cluster and also adds an entry for the federation API server in your
-local kubeconfig. Note that in the alpha release in Kubernetes 1.5,
+local kubeconfig. Note that in the beta release in Kubernetes 1.6,
 `kubefed init` does not automatically set the current context to the
 newly deployed federation. You can set the current context manually by
 running:
@@ -156,13 +156,13 @@ kubefed init fellowship \
     --host-cluster-context=rivendell \
     --dns-provider="google-clouddns" \
     --dns-zone-name="example.com." \
-    --apiserver-arg-overrides="--anonymous-auth=false, --v=4" \
+    --apiserver-arg-overrides="--anonymous-auth=false,--v=4" \
     --controllermanager-arg-overrides="--controllers=services=false"
 ```
 
-### Configuring DNS provider
+### Configuring a DNS provider
 
-Federated service controller programs a DNS provider to expose
+The Federated service controller programs a DNS provider to expose
 federated services via DNS names. Certain cloud providers
 automatically provide the configuration required to program the
 DNS provider if the host cluster's cloud provider is same as the DNS
@@ -218,7 +218,7 @@ kubefed init fellowship \
     --api-server-advertise-address="10.0.10.20"
 ```
 
-#### Dynamic provisioning of etcd storage
+#### Provisioning storage for etcd
 
 Federation control plane stores its state in
 [`etcd`](https://coreos.com/etcd/docs/latest/).
@@ -231,11 +231,43 @@ federation control plane restarts. On host clusters that support
 and binds it to a
 [`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
 to store [`etcd`](https://coreos.com/etcd/docs/latest/) data. If your
-host cluster doesn't support dynamic provisioning, then you pass
-`--etcd-persistent-storage=false` to `kubefed init` to disable
-storage provisioning and provide your own
-[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes) and
+host cluster doesn't support dynamic provisioning, you can also
+statically provision a
+[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes).
+`kubefed init` creates a
+[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+that has the following configuration:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    volume.alpha.kubernetes.io/storage-class: "yes"
+  labels:
+    app: federated-cluster
+  name: fellowship-federation-apiserver-etcd-claim
+  namespace: federation-system
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+To statically provision a
+[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes),
+you must ensure that the
+[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes)
+that you create has the matching storage class, access mode and
+at least as much capacity as the requested
 [`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims).
+
+Alternatively, you can disable persistent storage completely
+by passing `--etcd-persistent-storage=false` to `kubefed init`.
+However, we do not recommended this because your federation control
+plane cannot survive restarts in this mode.
 
 ```shell
 kubefed init fellowship \
@@ -382,7 +414,7 @@ kubefed unjoin gondor --host-cluster-context=rivendell
 ## Turning down the federation control plane:
 
 Proper cleanup of federation control plane is not fully implemented in
-this alpha release of `kubefed`. However, for the time being, deleting
+this beta release of `kubefed`. However, for the time being, deleting
 the federation system namespace should remove all the resources except
 the persistent storage volume dynamically provisioned for the
 federation control plane's etcd. You can delete the federation
