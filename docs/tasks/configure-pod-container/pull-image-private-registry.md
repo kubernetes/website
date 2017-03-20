@@ -122,7 +122,7 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
 
 * Learn more about [Secrets](/docs/user-guide/secrets/).
 * Learn more about
-[using a private registry](/docs/user-guide/images/#using-a-private-registry).
+[using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
 * See [kubectl create secret docker-registry](/docs/user-guide/kubectl/kubectl_create_secret_docker-registry/).
 * See [Secret](/docs/api-reference/v1/definitions/#_v1_secret)
 * See the `imagePullSecrets` field of
