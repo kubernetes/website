@@ -8,10 +8,9 @@ overrides:
 - path: docs/admin/kube-proxy.md
 - path: docs/admin/kube-scheduler.md
 - path: docs/admin/kubelet.md
-- changedpath: docs/api-reference/extensions/v1beta1/definitions.html _includes/v1.5/extensions-v1beta1-definitions.html
-- changedpath: docs/api-reference/extensions/v1beta1/operations.html _includes/v1.5/extensions-v1beta1-operations.html
-- changedpath: docs/api-reference/v1/definitions.html _includes/v1.5/v1-definitions.html
-- changedpath: docs/api-reference/v1/operations.html _includes/v1.5/v1-operations.html
+- changedpath: docs/api-reference/extensions/v1beta1/definitions.html _includes/v1.6/extensions-v1beta1-definitions.html
+- changedpath: docs/api-reference/extensions/v1beta1/operations.html _includes/v1.6/extensions-v1beta1-operations.html
+- changedpath: docs/api-reference/v1/definitions.html _includes/v1.6/v1-definitions.html
+- changedpath: docs/api-reference/v1/operations.html _includes/v1.6/v1-operations.html
 - copypath: k8s/federation/docs/api-reference/ docs/federation/
 - copypath: k8s/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml docs/getting-started-guides/fluentd-gcp.yaml
-

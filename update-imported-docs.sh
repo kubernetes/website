@@ -3,7 +3,7 @@
 # Uncomment this to see the commands as they are run
 # set -x
 
-VERSION=1.5
+VERSION=1.6
 
 # Processes api reference docs.
 function process_api_ref_docs {
