@@ -225,6 +225,52 @@ A volume will be in one of the following phases:
 
 The CLI will show the name of the PVC bound to the PV.
 
+### Mount Options
+
+A Kubernetes administrator can specify additional mount options for when a Persistent Volume is being mounted on a node.
+
+You can specify a mount option by using the annotation `volume.beta.kubernetes.io/mount-options` on
+your Persistent Volume.
+
+For example:
+
+```yaml
+apiVersion: "v1"
+kind: "PersistentVolume"
+metadata:
+  name: gce-disk-1
+  annotations:
+    volume.beta.kubernetes.io/mount-options: "discard"
+spec:
+  capacity:
+    storage: "10Gi"
+  accessModes:
+    - "ReadWriteOnce"
+  gcePersistentDisk:
+    fsType: "ext4"
+    pdName: "gce-disk-1
+```
+
+A mount option is a string which will be cumulatively joined and used while mounting volume to the disk. 
+
+Note that not all Persistent volume types support mount options. In Kubernetes version 1.6, the following
+volume types support mount options.
+
+* GCEPersistentDisk
+* AWSElasticBlockStore
+* AzureFile
+* AzureDisk
+* NFS
+* iSCSI
+* RBD (Ceph Block Device)
+* CephFS
+* Cinder (OpenStack block storage)
+* Glusterfs
+* VsphereVolume
+* Quobyte Volumes
+* VMware Photon
+
+
 ## PersistentVolumeClaims
 
 Each PVC contains a spec and status, which is the specification and status of the claim.
