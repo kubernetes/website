@@ -64,7 +64,7 @@ single thing, typically by giving a short sequence of steps.
 * [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
 
 #### Managing Cluster Daemons
-* [Rolling Updating a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
+* [Performing a Rolling Update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
 
 ### What's next
 

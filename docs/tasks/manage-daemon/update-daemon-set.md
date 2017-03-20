@@ -1,12 +1,12 @@
 ---
 assignees:
 - janetkuo
-title: Rolling Updating a DaemonSet
+title: Performing a Rolling Update on a DaemonSet
 ---
 
 {% capture overview %}
 
-This page shows how to rolling update a DaemonSet. 
+This page shows how to perform a rolling update on a DaemonSet. 
 
 {% endcapture %}
 
@@ -38,9 +38,13 @@ DaemonSet has two update strategy types :
 * DaemonSet rollout history is not supported yet. 
 * DaemonSet rollback is not directly supported in `kubectl` yet. You can rollback
   by updating DaemonSet template to match the previous version.
-* Once the template of a `RollingUpdate` DaemonSet is modified, a rolling update
-  will be triggered. All existing DaemonSet pods will be killed, even when the
-  pods are created from the same DaemonSet template. This causes restarts. 
+* Every time you modify the `RollingUpdate` template for a DaemonSet, Kubernetes
+  will trigger a rolling update for that DaemonSet. The rolling update will kill
+  all existing DaemonSet pods and create new DaemonSet pods. Note that existing
+  DaemonSet pods will be killed regardless of their pod spec, even when they are
+  created from the same template as current DaemonSet template, e.g. when you
+  quickly update a DaemonSet template and changed it back before the rollout is
+  complete.
 
 ## Caveat: Updating DaemonSet created from Kubernetes version 1.5 or before 
 
@@ -156,7 +160,7 @@ kubectl edit ds/<daemonset-name>
 kubectl patch ds/<daemonset-name> -p=<strategic-merge-patch>
 ```
 
-##### Update only the container image 
+##### Updating only the container image 
 
 If you just need to update the container image in the DaemonSet template, i.e.
 `.spec.template.spec.containers[*].image`, use `kubectl set image`:
@@ -165,7 +169,7 @@ If you just need to update the container image in the DaemonSet template, i.e.
 kubectl set image ds/<daemonset-name> <container-name>=<container-new-image>
 ```
 
-### Step 4: Watch the rolling update status
+### Step 4: Watching the rolling update status
 
 Finally, watch the rollout status of the latest DaemonSet rolling update:
 
@@ -214,6 +218,12 @@ DaemonSet rollout won't progress.
 
 To fix this, just update the DaemonSet template again. New rollout won't be
 blocked by previous unhealthy rollouts. 
+
+#### Clock skew
+
+If `.spec.minReadySeconds` is specified in the DaemonSet, clock skew between 
+master and nodes will make DaemonSet unable to detect the right rollout
+progress. 
 
 
 {% endcapture %}
