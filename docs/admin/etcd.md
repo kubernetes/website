@@ -10,7 +10,23 @@ title: Upgrading and Rolling Back etcd
 [etcd](https://coreos.com/etcd/docs/latest/) is a highly-available key value
 store which Kubernetes uses for persistent storage of all of its REST API
 objects.  For the mechanics behind how kubernetes builds, distributes and
-deploys Kubernetes, see _some doc_.
+deploys etcd, see _some doc_.
+
+### etcd for Kubernetes: high-level goals
+
+Access Control: give *only* kube-apiserver read/write access to etcd. You do not
+want apiserver's etcd exposed to every node in your cluster (or worse, to the
+internet at large), because access to etcd is equivalent to root in your
+cluster.
+
+Data Reliability: for reasonable safety, either etcd needs to be run as a
+[cluster](/docs/admin/high-availability/#clustering-etcd) (multiple machines
+each running etcd) or etcd's data directory should be located on durable storage
+(e.g., GCE's persistent disk). In either case, if high availability is
+required--as it might be in a production cluster--the data directory ought to be
+[backed up periodically](https://coreos.com/etcd/docs/latest/op-guide/recovery.html),
+to reduce downtime in case of corruption.
+
 
 ## Background
 
@@ -24,7 +40,7 @@ etcd binaries support both v2 and v3 API).
 
 This document describes how to do this migration.
 
-### Etcd upgrade limitations
+### etcd upgrade limitations
 
 The way etcd was designed introduces some significant limitations on how the
 upgrade can be done. These are the main limitations. 
@@ -35,7 +51,7 @@ It is possible to upgrade only by one minor release at a time (though, within
 patch releases you can switch versions at any time back and forth). That
 basically means, that we cannot upgrade directly e.g. from 2.1.x to 2.3.x.
 
-Fortunately, this limitation it is easy to workaround - it is enough to start a
+Fortunately, this limitation is easy to workaround - it is enough to start a
 cluster for any intermediate minor release, wait until it is healthy and
 functional and stop it then. This will do the migration itself underneath. 
 
@@ -45,17 +61,18 @@ etcd in 2.2.z version, wait until it is healthy, stop it and then start then
 
 #### No rollback
 
-Etcd doesn’t support rollback procedure at all (by design). That means, that if
+etcd doesn’t support rollback procedure at all (by design). That means, that if
 you migrate your cluster e.g. from 2.2.x to 2.3.y, there is no way to get back
 to 2.2.x (other than restoring from backup data from the moment when 2.2.x was
 running, though if we were running 2.3.y for some time, we will lose all data
-that were written in the meantime).
+written in the meantime).
 
-This is a very huge limitation - we really need a rollback procedure if we face
+This is a significant limitation - we really need a rollback procedure if we face
 some problems with the new release.
 
-To make things better, we were provided a custom rollback tool by CoreOS (etcd
-folks), but:
+To make things better, we were provided a
+[custom rollback tool](https://github.com/kubernetes/kubernetes/tree/master/cluster/images/etcd/rollback)
+by CoreOS (etcd folks), but:
 
 * This is a custom tool, which means it doesn’t have any guarantees and only
   best-effort support from etcd team (though they fixed some bugs that we found
@@ -97,8 +114,8 @@ works). So far the docker image for etcd in version X contained only etcd and
 etcdctl binaries in version X.
 
 Going forward, the docker image for etcd in version X will contain multiple
-versions of etcd. For example 3.0.14 image will contain all: 2.2.1, 2.3.7 and
-3.0.14 binaries of etcd and etcdctl. This will allow running etcd in multiple
+versions of etcd. For example 3.0.17 image will contain all: 2.2.1, 2.3.7 and
+3.0.17 binaries of etcd and etcdctl. This will allow running etcd in multiple
 different versions using exactly the same docker image.
 
 Additionally, the image will contain our custom script for doing migration
@@ -110,9 +127,9 @@ The migration script that will now be part of etcd docker image is a bash
 script, working as following:
 
 1. Detect which version of etcd we were previously running.
-   For that purpose, we have added a dedicated (metadata) file that will be
-   holding that information and will be stored in etcd-data-specific directory
-   (next to real etcd data). If the file doesn’t exist, we default it to 2.2.1
+   For that purpose, we have added a dedicated file (`version.txt`) that
+   holds that information and is stored in the etcd-data-specific directory
+   (next to the etcd data). If the file doesn’t exist, we default it to 2.2.1
    version.
 1. If we are in 2.2.1 version and are supposed to upgrade, backup
    data.
@@ -125,10 +142,12 @@ script, working as following:
    1. wait until it is healthy (healthy means that you can write some data to
       it)
    1. stop this etcd
-   The important thing here is that those etcd will not list on the default etcd
-   port.  They are hardcoded to listen on ports which the apiserver is not
+   The important thing here is that those etcd will not listen on the default
+   etcd port.  They are hardcoded to listen on ports which the apiserver is not
    configured to connect to, which means that apiserver won’t be able to connect
-   to those etcd's and no new data will be written in the meantime.
+   to those etcd's.  Assuming no other client goes out of its way to try to
+   connect and write to this obscure port, no new data will be written during
+   this period.
 1. If the desired api to use is v3 and detected on is v2, do the offline
    migration from v2 to v3 data format.
    For that we are using two tools:
@@ -161,3 +180,25 @@ Simply modify the command-line in etcd manifest to:
    If the previously run version is already in the desired version, this will be
    no-op.
 1. Start etcd (in the desired version)
+
+Starting in 1.6, this has been done in the manifests for new GCE clusters.  You
+should also specify these environment variables.  In particular, **you must keep
+`STORAGE_MEDIA_TYPE` set to application/json if you wish to preserve the option
+to roll back**.
+
+```
+TARGET_STORAGE=etcd3
+ETCD_IMAGE=3.0.17
+TARGET_VERSION=3.0.17
+STORAGE_MEDIA_TYPE=application/json
+```
+
+To roll back, use these:
+
+```
+TARGET_STORAGE=etcd2
+ETCD_IMAGE=3.0.17
+TARGET_VERSION=2.2.1
+STORAGE_MEDIA_TYPE=application/json
+```
+
