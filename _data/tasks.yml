@@ -34,6 +34,7 @@ toc:
   - docs/tasks/debug-application-cluster/determine-reason-pod-failure.md
   - docs/tasks/debug-application-cluster/debug-init-containers.md
   - docs/tasks/debug-application-cluster/logging-stackdriver.md
+  - docs/tasks/debug-application-cluster/monitor-node-health.md
   - docs/tasks/debug-application-cluster/logging-elasticsearch-kibana.md
 
 - title: Accessing the Kubernetes API
@@ -46,6 +47,18 @@ toc:
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
+  - docs/tasks/administer-cluster/limit-storage-consumption.md
+
+- title: Administering Federation
+  section:
+  - docs/tasks/administer-federation/configmap.md
+  - docs/tasks/administer-federation/daemonset.md
+  - docs/tasks/administer-federation/deployment.md
+  - docs/tasks/administer-federation/events.md
+  - docs/tasks/administer-federation/ingress.md
+  - docs/tasks/administer-federation/namespaces.md
+  - docs/tasks/administer-federation/replicaset.md
+  - docs/tasks/administer-federation/secret.md
 
 - title: Managing Stateful Applications
   section:

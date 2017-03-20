@@ -1,5 +1,8 @@
 ---
 title: Declarative Management of Kubernetes Objects Using Configuration Files
+redirect_from:
+- "/docs/concepts/tools/kubectl/object-management-using-declarative-config/"
+- "/docs/concepts/tools/kubectl/object-management-using-declarative-config.html"
 ---
 
 {% capture overview %}
@@ -949,8 +952,8 @@ The recommended approach for ThirdPartyResources is to use [imperative object co
 {% endcapture %}
 
 {% capture whatsnext %}
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
-- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
+- [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
 - [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)
 {% endcapture %}
