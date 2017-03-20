@@ -5,16 +5,87 @@ assignees:
 title: Logging Using Stackdriver
 ---
 
-Before reading this page, it's highly recommended to familiarize yourself with the [overview of logging in Kubernetes](/docs/user-guide/logging/overview).
+Before reading this page, it's highly recommended to familiarize yourself
+with the [overview of logging in Kubernetes](/docs/concepts/cluster-administration/logging).
 
-This article assumes that you have created a Kubernetes cluster with cluster-level logging support for sending logs to Stackdriver Logging. You can do this either by selecting the  **Enable Stackdriver Logging** checkbox in the create cluster dialogue in [GKE](https://cloud.google.com/container-engine/), or by setting the `KUBE_LOGGING_DESTINATION` flag to `gcp` when manually starting a cluster using `kube-up.sh`.
+**Note:** By default, Stackdriver logging collects only your container's standard output and
+standard error streams. To collect any logs your application writes to a file (for example),
+see the [sidecar approach](/docs/concepts/cluster-administration/logging/#using-a-sidecar-container-with-the-logging-agent)
+in the Kubernetes logging overview.
 
-The following guide describes gathering a container's standard output and standard error. To gather logs written by an application to a file, you can use [a sidecar approach](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-gcp/README.md).
+## Deploying
 
-## Overview
+To ingest logs, you must deploy the Stackdriver Logging agent to each node in your cluster.
+The agent is a configured `fluentd` instance, where the configuration is stored in a `ConfigMap`
+and the instances are managed using a Kubernetes `DaemonSet`. The actual deployment of the
+`ConfigMap` and `DaemonSet` for your cluster depends on your individual cluster setup.
 
-After creation, you can discover logging agent pods in the `kube-system` namespace,
-one per node, by running the following command:
+### GKE
+
+Stackdriver is the default logging solution for clusters deployed on Google Container Engine.
+Stackdriver Logging is deployed by default unless you explicitly opt-out.
+
+### Deploying with a new cluster
+
+To deploy Stackdriver Logging on a *new* cluster that you're
+creating using `kube-up.sh`, do the following:
+
+1. Set the `KUBE_LOGGING_DESTINATION` environment variable to `gcp`.
+1. **If not running on GCE**, include the `beta.kubernetes.io/fluentd-ds-ready=true`
+in the `KUBE_NODE_LABELS` variable.
+
+Once your cluster has started, each node should be running the Stackdriver Logging agent.
+The `DaemonSet` and `ConfigMap` are configured as addons.
+
+### Deploying to an existing cluster
+
+1. Apply a label on each node, if not already present.
+
+    The Stackdriver Logging agent deployment uses node labels to determine to which nodes
+    it should be allocated. You can ensure that your nodes are labelled properly
+    by running `kubectl describe` as follows:
+
+    ```shell
+    $ kubectl describe node $NODE_NAME
+    ...
+    Labels:         beta.kubernetes.io/fluentd-ds-ready=true
+    ...
+    ```
+
+    Ensure that the output contains the label `beta.kubernetes.io/fluentd-ds-ready=true`. If it
+    is not present, you can add it using the `kubectl label` command as follows, for each node:
+
+    ```shell
+    $ kubectl label node $NODE_NAME beta.kubernetes.io/fluentd-ds-ready=true
+    ```
+
+    **Note:** If a node fails and has to be recreated, you must re-apply the label to
+    the recreated node. To make this easier, you can use Kubelet's command-line parameter
+    for applying node labels in your node startup script.
+
+1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
+
+    ```shell
+    $ kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.6/cluster/addons/fluentd-gcp/fluentd-gcp-configmap.yaml
+    configmap "fluentd-gcp-config" created
+    ```
+
+    The command creates the `ConfigMap` in the `kube-system` namespace. You can download the file
+    manually and change it before creating the `ConfigMap` object.
+
+1. Deploy the logging agent `DaemonSet` by running the following command:
+
+    ```shell
+    $ kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.6/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml
+    daemonset "fluentd-gcp-v2.0" created
+    ```
+
+    You can download and edit this file before using it as well.
+
+## Verifying your Logging Agent Deployment
+
+After Stackdriver DaemonSet is deployed, you can discover logging agent pods
+in the `kube-system` namespace, one per node, by running the following command:
 
 ```shell
 $ kubectl get pods --namespace=kube-system
