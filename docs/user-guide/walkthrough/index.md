@@ -21,7 +21,7 @@ The easiest way to interact with Kubernetes is via the [kubectl](/docs/user-guid
 
 For more info about kubectl, including its usage, commands, and parameters, see the [kubectl CLI reference](/docs/user-guide/kubectl-overview/).
 
-If you haven't installed and configured kubectl, finish the [prerequisites](/docs/user-guide/prereqs/) before continuing.
+If you haven't installed and configured kubectl, finish [installing kubectl](/docs/tasks/kubectl/install/) before continuing.
 
 ## Pods
 
