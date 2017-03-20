@@ -43,7 +43,7 @@ This document describes how to do this migration.
 ### etcd upgrade limitations
 
 The way etcd was designed introduces some significant limitations on how the
-upgrade can be done. These are the main limitations. 
+upgrade can be done. These are the main limitations.
 
 #### One minor release at a time
 
@@ -53,33 +53,32 @@ basically means, that we cannot upgrade directly e.g. from 2.1.x to 2.3.x.
 
 Fortunately, this limitation is easy to workaround - it is enough to start a
 cluster for any intermediate minor release, wait until it is healthy and
-functional and stop it then. This will do the migration itself underneath. 
+functional and stop it then. This will do the migration itself underneath.
 
 As an example: to upgrade from 2.1.x to 2.3.y version, it is enough to start
 etcd in 2.2.z version, wait until it is healthy, stop it and then start then
 2.3.y version, wait until it is up and we are done.
 
-#### No rollback
+#### Rollback via special tool
 
-etcd doesn’t support rollback procedure at all (by design). That means, that if
-you migrate your cluster e.g. from 2.2.x to 2.3.y, there is no way to get back
-to 2.2.x (other than restoring from backup data from the moment when 2.2.x was
-running, though if we were running 2.3.y for some time, we will lose all data
-written in the meantime).
+etcd versions through 3.0 don’t support general rollback. That is, in general
+after migrating from M.N to M.N+1, there is no way to go back to M.N.
 
-This is a significant limitation - we really need a rollback procedure if we face
-some problems with the new release.
+This is a significant limitation - we really need a rollback procedure if we
+face some problems with the new release.
 
-To make things better, we were provided a
+To make things better, CoreOS has provided a
 [custom rollback tool](https://github.com/kubernetes/kubernetes/tree/master/cluster/images/etcd/rollback)
-by CoreOS (etcd folks), but:
+but:
 
-* This is a custom tool, which means it doesn’t have any guarantees and only
-  best-effort support from etcd team (though they fixed some bugs that we found
-  in the meantime).
+* This custom tool is not part of the etcd repo and does not receive the same
+  testing as the rest of etcd.  We are testing it in a couple of e2e tests.
+  There is only community support here.
 
 * The rollback can be done only from 3.0.x version (that is using v3 API) to
   2.2.1 version (that is using v2 API).
+
+* The tool only works if the data is still stored in `application/json` format.
 
 * Rollback doesn’t preserve “resource versions” of objects stored in etcd.
 
@@ -148,7 +147,7 @@ script, working as following:
    to those etcd's.  Assuming no other client goes out of its way to try to
    connect and write to this obscure port, no new data will be written during
    this period.
-1. If the desired api to use is v3 and detected on is v2, do the offline
+1. If the desired api to use is v3 and detected one is v2, do the offline
    migration from v2 to v3 data format.
    For that we are using two tools:
    1. ./etcdctl migrate - official tool for migration provided by CoreOS
