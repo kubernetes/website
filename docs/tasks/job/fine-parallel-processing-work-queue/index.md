@@ -134,7 +134,7 @@ docker push <username>/job-wq-2
 ```
 
 You need to push to a public repository or [configure your cluster to be able to access
-your private repository](/docs/user-guide/images).
+your private repository](/docs/concepts/containers/images/).
 
 If you are using [Google Container
 Registry](https://cloud.google.com/tools/container-registry/), tag
