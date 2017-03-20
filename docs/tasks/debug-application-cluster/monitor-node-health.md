@@ -194,8 +194,8 @@ and detects known kernel issues following predefined rules.
 
 The Kernel Monitor matches kernel issues according to a set of predefined rule list in
 [`config/kernel-monitor.json`](https://github.com/kubernetes/node-problem-detector/blob/v0.1/config/kernel-monitor.json).
-The rule list is extensible, and you can always extend it by [overwriting the
-configuration](/docs/admin/node-problem/#overwrite-the-configuration).
+The rule list is extensible, and you can always extend it by overwriting the
+configuration.
 
 ### Add New NodeConditions
 
