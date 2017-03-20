@@ -108,27 +108,20 @@ resources supported by federation apiserver.
 
 ## Cascading deletion
 
-Kubernetes version 1.5 includes support for cascading deletion of federated
+Kubernetes version 1.6 includes support for cascading deletion of federated
 resources. With cascading deletion, when you delete a resource from the
 federation control plane, the corresponding resources in all underlying clusters
 are also deleted.
 
-To enable cascading deletion, set the option
-`DeleteOptions.orphanDependents=false` when you delete a resource from the
-federation control plane.
+Cascading deletion is not enabled by default when using the REST API. To enable
+it, set the option `DeleteOptions.orphanDependents=false` when you delete a
+resource from the federation control plane using REST API. Using `kubectl
+delete`
+will enable cascading deletion by default. You can disable it by running `kubectl
+delete --cascade=false`
 
-The following Federated resources are affected by cascading deletion:
-
-* [Ingress](https://kubernetes.io/docs/user-guide/federation/federated-ingress/)
-* [Namespaces](https://kubernetes.io/docs/user-guide/federation/namespaces/)
-* [ReplicaSets](https://kubernetes.io/docs/user-guide/federation/replicasets/)
-* [Secrets](https://kubernetes.io/docs/user-guide/federation/secrets/)
-* [Deployment](https://kubernetes.io/docs/user-guide/federation/deployment/)
-* [DaemonSets](https://kubernetes.io/docs/user-guide/federation/daemonsets/)
-
-Note: By default, deleting a resource from federation control plane does not
-delete the corresponding resources from underlying clusters.
-
+Note: Kubernetes version 1.5 included cascading deletion support for a subset of
+federation resources.
 
 ## For more information
 
