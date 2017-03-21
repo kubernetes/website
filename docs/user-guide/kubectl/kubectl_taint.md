@@ -12,7 +12,7 @@ Update the taints on one or more nodes.
   * A taint consists of a key, value, and effect. As an argument here, it is expressed as key=value:effect.
   * The key must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  253 characters.
   * The value must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  253 characters.
-  * The effect must be NoSchedule or PreferNoSchedule.
+  * The effect must be `NoSchedule`, `PreferNoSchedule` or `NoExecute`.
   * Currently taint can only apply to node.
 
 ```
