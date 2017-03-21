@@ -143,6 +143,15 @@ toc:
       - /docs/user-guide/kubectl/kubectl_namespace/
       - docs/user-guide/kubectl/kubectl_stop.md
 
+- title: Kubeadm - Administrate Federations
+  section:
+  - docs/admin/federation/kubefed.md
+  - docs/admin/federation/kubefed_options.md
+  - docs/admin/federation/kubefed_init.md
+  - docs/admin/federation/kubefed_join.md
+  - docs/admin/federation/kubefed_unjoin.md
+  - docs/admin/federation/kubefed_version.md
+
 - title: Kubernetes Components
   section:
   - docs/admin/kube-apiserver.md

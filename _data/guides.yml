@@ -204,7 +204,7 @@ toc:
 
 - title: Administering Federation
   section:
-  - docs/admin/federation/kubefed.md
+  - docs/tutorials/federation/set-up-cluster-federation-kubefed.md
   - title: Federated Kubernetes Objects
     section:
     - docs/user-guide/federation/index.md
