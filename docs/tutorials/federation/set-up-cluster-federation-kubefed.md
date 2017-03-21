@@ -16,7 +16,7 @@ existing federation control plane.
 This guide explains how to administer a Kubernetes Cluster Federation
 using `kubefed`.
 
-> Note: `kubefed` is an alpha feature in Kubernetes 1.5.
+> Note: `kubefed` is a beta feature in Kubernetes 1.6.
 
 ## Prerequisites
 
@@ -27,21 +27,37 @@ for installation instructions for your platform.
 
 ## Getting `kubefed`
 
-Download the client tarball corresponding to Kubernetes version 1.5
-or later
-[from the release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md),
-extract the binaries in the tarball to one of the directories
-in your `$PATH` and set the executable permission on those binaries.
+Download the client tarball corresponding to the latest release and
+extract the binaries in the tarball with the commands:
 
-Note: The URL in the curl command below downloads the binaries for
-Linux amd64. If you are on a different platform, please use the URL
-for the binaries appropriate for your platform. You can find the list
-of available binaries on the [release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#client-binaries-1).
+```shell
+# Linux
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
+https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-linux-amd64.tar.gz
+tar -xzvf kubernetes-client-linux-amd64.tar.gz
+
+# OS X
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
+https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-darwin-amd64.tar.gz
+tar -xzvf kubernetes-client-darwin-amd64.tar.gz
+
+# Windows
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
+https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-windows-amd64.tar.gz
+tar -xzvf kubernetes-client-windows-amd64.tar.gz
+```
+
+> Note: The URLs in the curl commands above download the binaries for
+`amd64`. If you are on a different architecture, please use a URL
+appropriate for your architecture. You can find the list of available
+binaries on the
+[release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#client-binaries-1).
+
+Copy the extracted binaries to one of the directories in your `$PATH`
+and set the executable permission on those binaries.
 
 
 ```shell
-curl -O https://storage.googleapis.com/kubernetes-release/release/v1.5.2/kubernetes-client-linux-amd64.tar.gz
-tar -xzvf kubernetes-client-linux-amd64.tar.gz
 sudo cp kubernetes/client/bin/kubefed /usr/local/bin
 sudo chmod +x /usr/local/bin/kubefed
 sudo cp kubernetes/client/bin/kubectl /usr/local/bin
@@ -84,22 +100,32 @@ the following:
 
 * Federation name
 * `--host-cluster-context`, the `kubeconfig` context for the host cluster
+* `--dns-provider`, one of `'google-clouddns'`, `aws-route53` or `coredns`
 * `--dns-zone-name`, a domain name suffix for your federated services
+
+If your host cluster is running in a non-cloud environment or an
+environment that doesn't support common cloud primitives such as
+load balancers, you might need additional flags. Please see the
+[on-premises host clusters](#on-premises-host-clusters) section below.
 
 The following example command deploys a federation control plane with
 the name `fellowship`, a host cluster context `rivendell`, and the
-domain suffix `example.com`:
+domain suffix `example.com.`:
 
 ```shell
-kubefed init fellowship --host-cluster-context=rivendell  --dns-zone-name="example.com"
+kubefed init fellowship \
+    --host-cluster-context=rivendell \
+    --dns-provider="google-clouddns" \
+    --dns-zone-name="example.com."
 ```
 
 The domain suffix specified in `--dns-zone-name` must be an existing
 domain that you control, and that is programmable by your DNS provider.
+It must also end with a trailing dot.
 
 `kubefed init` sets up the federation control plane in the host
 cluster and also adds an entry for the federation API server in your
-local kubeconfig. Note that in the alpha release in Kubernetes 1.5,
+local kubeconfig. Note that in the beta release in Kubernetes 1.6,
 `kubefed init` does not automatically set the current context to the
 newly deployed federation. You can set the current context manually by
 running:
@@ -110,6 +136,190 @@ kubectl config use-context fellowship
 
 where `fellowship` is the name of your federation.
 
+### Basic and token authentication support
+
+`kubefed init` by default only generates TLS certificates and keys
+to authenticate with the federation API server and writes them to
+your local kubeconfig file. If you wish to enable basic authentication
+or token authentication for debugging purposes, you can enable them by
+passing the `--apiserver-enable-basic-auth` flag or the
+`--apiserver-enable-token-auth` flag.
+
+```shell
+kubefed init fellowship \
+    --host-cluster-context=rivendell \
+    --dns-provider="google-clouddns" \
+    --dns-zone-name="example.com." \
+    --apiserver-enable-basic-auth=true \
+    --apiserver-enable-token-auth=true
+```
+
+### Passing command line arguments to federation components
+
+`kubefed init` bootstraps a federation control plane with default
+arguments to federation API server and federation controller manager.
+Some of these arguments are derived from `kubefed init`'s flags.
+However, you can override these command line arguments by passing
+them via the appropriate override flags.
+
+You can override the federation API server arguments by passing them
+to `--apiserver-arg-overrides` and override the federation controller
+manager arguments by passing them to
+`--controllermanager-arg-overrides`.
+
+```shell
+kubefed init fellowship \
+    --host-cluster-context=rivendell \
+    --dns-provider="google-clouddns" \
+    --dns-zone-name="example.com." \
+    --apiserver-arg-overrides="--anonymous-auth=false,--v=4" \
+    --controllermanager-arg-overrides="--controllers=services=false"
+```
+
+### Configuring a DNS provider
+
+The Federated service controller programs a DNS provider to expose
+federated services via DNS names. Certain cloud providers
+automatically provide the configuration required to program the
+DNS provider if the host cluster's cloud provider is same as the DNS
+provider. In all other cases, you have to provide the DNS provider
+configuration to your federation controller manager which will in-turn
+be passed to the federated service controller. You can provide this
+configuration to federation controller manager by storing it in a file
+and passing the file's local filesystem path to `kubefed init`'s
+`--dns-provider-config` flag. For example, save the config below in
+`$HOME/coredns-provider.conf`.
+
+```ini
+[Global]
+etcd-endpoints = http://etcd-cluster.ns:2379
+zones = example.com.
+```
+
+And then pass this file to `kubefed init`:
+
+```shell
+kubefed init fellowship \
+    --host-cluster-context=rivendell \
+    --dns-provider="coredns" \
+    --dns-zone-name="example.com." \
+    --dns-provider-config="$HOME/coredns-provider.conf"
+```
+
+### On-premises host clusters
+
+#### API server service type
+
+`kubefed init` exposes the federation API server as a Kubernetes
+[service](/docs/user-guide/services/) on the host cluster. By default,
+this service is exposed as a
+[load balanced service](/docs/user-guide/services/#type-loadbalancer).
+Most on-premises and bare-metal enviroments, and some cloud
+environments lack support for load balanced services. `kubefed init`
+allows exposing the federation API server as a
+[`NodePort` service](/docs/user-guide/services/#type-nodeport) on
+such environments. This can be accomplished by passing
+the `--api-server-service-type=NodePort` flag. You can also specify
+the preferred address to advertise the federation API server by
+passing the `--api-server-advertise-address=<IP-address>`
+flag. Otherwise, one of the host cluster's node address is chosen as
+the default.
+
+```shell
+kubefed init fellowship \
+    --host-cluster-context=rivendell \
+    --dns-provider="google-clouddns" \
+    --dns-zone-name="example.com." \
+    --api-server-service-type="NodePort" \
+    --api-server-advertise-address="10.0.10.20"
+```
+
+#### Provisioning storage for etcd
+
+Federation control plane stores its state in
+[`etcd`](https://coreos.com/etcd/docs/latest/).
+[`etcd`](https://coreos.com/etcd/docs/latest/) data must be stored in
+a persistent storage volume to ensure correct operation across
+federation control plane restarts. On host clusters that support
+[dynamic provisioning of storage volumes](/docs/user-guide/persistent-volumes/#dynamic),
+`kubefed init` dynamically provisions a
+[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes)
+and binds it to a
+[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+to store [`etcd`](https://coreos.com/etcd/docs/latest/) data. If your
+host cluster doesn't support dynamic provisioning, you can also
+statically provision a
+[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes).
+`kubefed init` creates a
+[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+that has the following configuration:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    volume.alpha.kubernetes.io/storage-class: "yes"
+  labels:
+    app: federated-cluster
+  name: fellowship-federation-apiserver-etcd-claim
+  namespace: federation-system
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+To statically provision a
+[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes),
+you must ensure that the
+[`PersistentVolume`](/docs/user-guide/persistent-volumes/#persistent-volumes)
+that you create has the matching storage class, access mode and
+at least as much capacity as the requested
+[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims).
+
+Alternatively, you can disable persistent storage completely
+by passing `--etcd-persistent-storage=false` to `kubefed init`.
+However, we do not recommended this because your federation control
+plane cannot survive restarts in this mode.
+
+```shell
+kubefed init fellowship \
+    --host-cluster-context=rivendell \
+    --dns-provider="google-clouddns" \
+    --dns-zone-name="example.com." \
+    --etcd-persistent-storage=false
+```
+
+`kubefed init` still doesn't support attaching an existing
+[`PersistentVolumeClaim`](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)
+to the federation control plane that it bootstraps. We are planning to
+support this in a future version of `kubefed`.
+
+#### CoreDNS support
+
+Federated services now support [CoreDNS](https://coredns.io/) as one
+of the DNS providers. If you are running your clusters and federation
+in an environment that does not have access to cloud-based DNS
+providers, then you can run your own [CoreDNS](https://coredns.io/)
+instance and publish the federated service DNS names to that server.
+
+You can configure your federation to use
+[CoreDNS](https://coredns.io/), by passing appropriate values to
+`kubefed init`'s `--dns-provider` and `--dns-provider-config` flags.
+
+```shell
+kubefed init fellowship \
+    --host-cluster-context=rivendell \
+    --dns-provider="coredns" \
+    --dns-zone-name="example.com." \
+    --dns-provider-config="$HOME/coredns-provider.conf"
+```
+
+For more information see
+[Setting up CoreDNS as DNS provider for Cluster Federation](/docs/tutorials/federation/set-up-coredns-provider-federation/)
 
 ## Adding a cluster to a federation
 
@@ -121,8 +331,19 @@ To use `kubefed join`, you'll need to provide the name of the cluster
 you want to add to the federation, and the `--host-cluster-context`
 for the federation control plane's host cluster.
 
+> Note: The name that you provide to the `join` command is used as the
+joining cluster's identity in federation. This name should adhere to
+the rules described in the
+[identifiers doc](/docs/user-guide/identifiers/#names). If the context
+corresponding to your joining cluster conforms to these rules then you
+can use the same name in the join command. Otherwise, you will have to
+choose a different name for your cluster's identity. For more
+information, please see the
+[naming rules and customization](#naming-rules-and-customization)
+section below.
+
 The following example command adds the cluster `gondor` to the
-federation with host cluster `rivendell`:
+federation running on host cluster `rivendell`:
 
 ```
 kubefed join gondor --host-cluster-context=rivendell
@@ -136,8 +357,9 @@ cluster.
 
 ### Naming rules and customization
 
-The cluster name you supply to `kubefed join` must be a valid RFC 1035
-label.
+The cluster name you supply to `kubefed join` must be a valid
+[RFC 1035](https://www.ietf.org/rfc/rfc1035.txt) label and are
+enumerated in the [Identifiers doc](/docs/user-guide/identifiers/#names).
 
 Furthermore, federation control plane requires credentials of the
 joined clusters to operate on them. These credentials are obtained
@@ -182,6 +404,18 @@ specification, all you need to do is supply the secret name via the
 `--secret-name` flag. `kubefed join` automatically creates the secret
 for you.
 
+### `kube-dns` configuration
+
+`kube-dns` configuration must be updated in each joining cluster to
+enable federated service discovery. If the joining Kubernetes cluster
+is version 1.5 or newer and your `kubefed` is version 1.6 or newer,
+then this configuration is automatically managed for you when the
+clusters are joined or unjoined using `kubefed` `join` or `unjoin`
+commands.
+
+In all other cases, you must update `kube-dns` configuration manually
+as described in the
+[Updating KubeDNS section of the admin guide](/docs/admin/federation/)
 
 ## Removing a cluster from a federation
 
@@ -197,7 +431,7 @@ kubefed unjoin gondor --host-cluster-context=rivendell
 ## Turning down the federation control plane:
 
 Proper cleanup of federation control plane is not fully implemented in
-this alpha release of `kubefed`. However, for the time being, deleting
+this beta release of `kubefed`. However, for the time being, deleting
 the federation system namespace should remove all the resources except
 the persistent storage volume dynamically provisioned for the
 federation control plane's etcd. You can delete the federation
