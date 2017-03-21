@@ -1,9 +1,10 @@
 ---
 assignees:
-- davidopp
-- kevin-wangzefeng
-title: Assigning Pods to Nodes ( i.e. pod scheduling and the kubernetes scheduler )
+- jayunit100
+title: Pod Scheduling with node selectors
 ---
+
+## Node selection details
 
 You can constrain a [pod](/docs/user-guide/pods/) to only be able to run on particular [nodes](/docs/admin/node/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
@@ -197,81 +198,3 @@ must be satisfied for the pod to schedule onto a node.
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
 [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/podaffinity.md).
-
-### Diving deeper into the kubernetes pod scheduler
-
-There are many aspects to scheduling and understanding the mechanics of node selection is just a first step.
-
-The kubernetes scheduler documentation is currently distributed across various repositories, which we will
-
-describe below.
-
-## Documentation status
-
-As of 1/31/2017, this document is a first pass at providing a canonical integration point for all scheduling and pod placement
-
-documentation.  Please contribute to it heartily as we updating the links below !
-
-## Pod Scheduling: A 1000 foot overview
-
-The scheduler integraties a series of predicates (boolean matches) to filter a set of valid nodes, and then
-
-sorts those nodes by priority using a secondary set of filters, priorities (which are quantitative, rather then boolean).
-
-The end result is a host name, which is then updated on a pod.  Subsequently, that host will discover the pod's metadata
-
-matches it's name, and it will attempt to start the pod.
-
-These constraints become increasingly sophisticated when it comes to features such as affinity matching (wherein the
-
-placement of one pod directly influences the placement of another), rescheduling (wherein careful refactoring of the global
-
-scheduling pattern might occur on demand), and so on.
-
-The below resources describe some of these subtelties in further detail.
-
-Since code is always the ultimate truth, advanced users can navigate into the plugin/pkg/scheduler package.
-
-In that package, the daemon for the scheduler (scheduler.go) is launched, continuously using the logic from the generic
-
-scheduler algorithm (generic_scheduler.go).  The generic scheduling algorithm implementation finds nodes by filtering against
-
-predicates and then sorting them via priority, one at a time.
-
-## Diving deeper
-
-### Node Selection, Affinity, and Anti-affinity
-
-https://kubernetes.io/docs/user-guide/node-selection/node-selection.md
-
-https://kubernetes.io/docs/user-guide/compute-resources/
-
-### Admin documentation
-
-https://kubernetes.io/docs/admin/multiple-schedulers/
-
-### Developer documentation
-
-https://github.com/kubernetes/community/blob/master/contributors/devel/scheduler.md
-
-https://github.com/kubernetes/community/blob/master/contributors/devel/scheduler_algorithm.md
-
-### Design docs
-
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multiple-schedulers.md
-
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/nodeaffinity.md
-
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/podaffinity.md
-
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/taint-toleration-dedicated.md
-
-https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduler_extender.md
-
-### Contributing
-
-There is plenty of work that can be done to improve the kubernetes scheduler.
-
-Quality/pluggability improvements are always welcome, while more sophisticated improvements (i.e. to the algorithm) should
-
-be demonstrated as important using the test/integration/ scheduler_perf and associated pprof tooling.
