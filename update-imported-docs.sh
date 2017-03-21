@@ -109,6 +109,8 @@ pushd .
 cd docs/federation/api-reference
   process_api_ref_docs
 
+  # Rename README.md to index.md
+  mv README.md index.md
   # Update the links from federation/docs/api-reference to
   # docs/federation/api-reference
   find . -name '*.*' -type f -exec sed -i -e "s/federation\/docs\/api-reference/docs\/federation\/api-reference/g" {} \;
