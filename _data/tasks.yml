@@ -57,6 +57,10 @@ toc:
   section:
   - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
 
+- title: Using TLS
+  section:
+  - docs/tasks/tls/managing-tls-in-a-cluster.md
+
 - title: Administering a Cluster
   section:
   - docs/tasks/administer-cluster/overview.md
