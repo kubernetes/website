@@ -31,7 +31,9 @@ coming to the server. Each audit log contains two entries:
     - source ip of the request
     - HTTP method being invoked
     - original user invoking the operation
+    - original user's groups info
     - impersonated user for the operation
+    - impersonated groups info
     - namespace of the request or <none>
     - URI as requested
 2. The response line containing:
@@ -41,8 +43,8 @@ coming to the server. Each audit log contains two entries:
 Example output for user `admin` asking for a list of pods:
 
 ```
-2016-09-07T13:03:57.400333046Z AUDIT: id="5c3b8227-4af9-4322-8a71-542231c3887b" ip="127.0.0.1" method="GET" user="admin" as="<self>" namespace="default" uri="/api/v1/namespaces/default/pods"
-2016-09-07T13:03:57.400710987Z AUDIT: id="5c3b8227-4af9-4322-8a71-542231c3887b" response="200"
+2017-03-21T03:57:09.106841886-04:00 AUDIT: id="c939d2a7-1c37-4ef1-b2f7-4ba9b1e43b53" ip="127.0.0.1" method="GET" user="admin" groups="\"system:masters\",\"system:authenticated\"" as="<self>" asgroups="<lookup>" namespace="default" uri="/api/v1/namespaces/default/pods"
+2017-03-21T03:57:09.108403639-04:00 AUDIT: id="c939d2a7-1c37-4ef1-b2f7-4ba9b1e43b53" response="200"
 ```
 
 NOTE: The audit capabilities are available *only* for the secured endpoint of the API server.
