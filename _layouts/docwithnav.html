@@ -22,7 +22,7 @@
   <h5>{{ toc.abstract }}</h5>
   <div id="vendorStrip" class="light-text">
     <ul>
-      <li><a href="/docs/" {% if toc.bigheader == "Kubernetes Documentation" %}class="YAH"{% endif %}>DOCS HOME</a></li>
+      <li><a href="/docs/home/" {% if toc.bigheader == "Kubernetes Documentation" %}class="YAH"{% endif %}>HOME</a></li>
       <li><a href="/docs/user-guide/" {% if toc.bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
       <li><a href="/docs/tutorials/" {% if toc.bigheader == "Tutorials" %}class="YAH"{% endif %}>TUTORIALS</a></li>
       <li><a href="/docs/tasks/" {% if toc.bigheader == "Tasks" %}class="YAH"{% endif %}>TASKS</a></li>
@@ -40,9 +40,7 @@
 <section id="encyclopedia">
   <div id="docsToc">
         <div class="pi-accordion">
-        {% if toc.bigheader != "Kubernetes Documentation" %}
           {% include_cached tree.html tree=toc.toc %}
-        {% endif %}
         </div> <!-- /pi-accordion -->
     <button class="push-menu-close-button" onclick="kub.toggleToc()"></button>
   </div> <!-- /docsToc -->
