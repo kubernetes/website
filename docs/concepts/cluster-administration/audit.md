@@ -45,8 +45,6 @@ Example output for user `admin` asking for a list of pods:
 2016-09-07T13:03:57.400710987Z AUDIT: id="5c3b8227-4af9-4322-8a71-542231c3887b" response="200"
 ```
 
-NOTE: The audit capabilities are available *only* for the secured endpoint of the API server.
-
 ## Configuration
 
 [Kube-apiserver](/docs/admin/kube-apiserver) provides following options which are responsible
