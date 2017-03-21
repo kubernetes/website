@@ -112,7 +112,7 @@ different versions using exactly the same docker image.
 
 Additionally, the image will contain our custom script for doing migration
 between versions (written by Kubernetes team) and the custom rollback tool
-(provided by CoreOS folks).
+(provided by the etcd team).
 
 ### Migration script
 The migration script that will now be part of etcd docker image is a bash
@@ -143,7 +143,7 @@ script, working as following:
 1. If the desired api to use is v3 and detected one is v2, do the offline
    migration from v2 to v3 data format.
    For that we are using two tools:
-   1. ./etcdctl migrate - official tool for migration provided by CoreOS
+   1. ./etcdctl migrate - official tool for migration provided by the etcd team
    1. custom script that is attaching TTLs to events in the etcd (etcdctl
       migrate doesn’t support TTLs)
 1. After every successful step, update contents of “version file”.
