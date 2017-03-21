@@ -13,6 +13,8 @@ $( document ).ready(function() {
     	$("#continueEdit").show();
     	$("#continueEditButton").text("Edit " + forwarding);
     	$("#continueEditButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/edit/master/" + forwarding)
+    	$("#viewOnGithubButton").text("View " + forwarding + " on GitHub");
+    	$("#viewOnGithubButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/tree/master/" + forwarding)
     } else {
         $("#generalInstructions").show();
     	$("#continueEdit").hide();
@@ -26,6 +28,7 @@ $( document ).ready(function() {
 <p>Click the button below to edit the page you were just on. When you are done, click <b>Commit Changes</b> at the bottom of the screen. This creates a copy of our site in your GitHub account called a <i>fork</i>. You can make other changes in your fork after it is created, if you want. When you are ready to send us all your changes, go to the index page for your fork and click <b>New Pull Request</b> to let us know about it.</p>
 
 <p><a id="continueEditButton" class="button"></a></p>
+<p><a id="viewOnGithubButton" class="button"></a></p>
 
 </div>
 <div id="generalInstructions">
