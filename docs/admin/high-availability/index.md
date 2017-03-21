@@ -1,212 +1,130 @@
----
-
----
+# Running highly-available (HA) clusters
 
 ## Introduction
 
-This document describes how to build a high-availability (HA) Kubernetes cluster.  This is a fairly advanced topic.
-Users who merely want to experiment with Kubernetes are encouraged to use configurations that are simpler to set up such as
-the simple [Docker based single node cluster instructions](/docs/getting-started-guides/docker),
-or try [Google Container Engine](https://cloud.google.com/container-engine/) for hosted Kubernetes.
-
-Also, at this time high availability support for Kubernetes is not continuously tested in our end-to-end (e2e) testing.  We will
-be working to add this continuous testing, but for now the single-node master installations are more heavily tested.
+This document describes generic architecture of highly-available (HA) kubernetes
+clusters. We discuss here problems and challenges raised by HA setup that need
+to addressed regardless of cloud provider, and show how they were solved for
+GCE. If you are only interested in running HA cluster on GCE, please see
+[http://kubernetes.io/docs/admin/ha-master-gce/](http://kubernetes.io/docs/admin/ha-master-gce/)
+for details.
 
 * TOC
 {:toc}
 
 ## Overview
 
-Setting up a truly reliable, highly available distributed system requires a number of steps, it is akin to
-wearing underwear, pants, a belt, suspenders, another pair of underwear, and another pair of pants.  We go into each
-of these steps in detail, but a summary is given here to help guide and orient the user.
+The idea behind HA cluster is to create a number of master replicas, each
+preferably in a different failure zone. So that a failure of a single replica
+should not result in a failure of the whole cluster. Similarly, worker nodes
+should also be distributed among failure zones.
+
+![High availability Kubernetes diagram](/images/docs/ha-clusters.svg)
+
+## Master Replicas
+
+Each master replica runs a set of kubernetes components. Here, we identify them
+and briefly describe, how they should behave in HA cluster.
+
+### API server & etcd
+
+Each API server can work independently, reading & writing to a local etcd
+instance. All etcd instances should be clustered together. One of etcd instances
+will be elected a leader, but this information will be transparent for API
+servers: each etcd replica not being a leader will transparently direct request
+to the leader. Each modifications in etcd state will need quorum.
+
+Etcd instances in etcd cluster expose a port for inter-cluster communication.
+Such port should be secured by SSL.
+
+The solution described here (API servers talking with local etcd instances, etcd
+instances cooperate in one cluster) is a part of GCE implementation of HA
+master.
+
+### Controller manager, scheduler and cluster autoscaler
+
+Controller manager, scheduler and cluster autoscaler should use lease mechanism
+to guarantee, that exactly one instance will be active. Other instances will
+wait in standby mode.
+
+All component mentioned here support a leader election out-of-the-box. The
+leader election mechanism is used in GCE implementation of HA master.
+
+### Add-on manager
+
+Add-on manager observers the current state and tries to sync it with files on
+disk. Add-on managers are independent one from another. So, add-on managers should
+be active on all master replicas, which is also the case for GCE implementation
+for HA master.
+
+## Load balancing API servers
+
+In HA cluster we have a set of independent API servers. We need a way of
+accessing them. In addition, we should be able to migrate a multi-master cluster
+to a single-master cluster and vice-versa keeping the access-way.
+
+There are two main options how we can address the clusters:
+DNS name,
+external static IP address.
+
+In case A, we can either manually managed DNS entries for the API servers, or
+use specialized solutions like Route53 (AWS) or Google Cloud DNS (GCP). DNS
+entry can either point to the set of API servers and choose them using
+round-robin, or it can point to L4 load balancer created in front of the set of
+API servers.
+
+On GCE, we use external IP address for load balancing (case B). In a single
+master cluster, the IP address points to the single API server. When starting
+the second master replica, a load balancer containing the two replicas will be
+created and the IP address of the first replica will be promoted to IP address
+of the load balancer. Similarly, after removal of the penultimate master
+replica, the load balancer will be removed and its IP address will be assigned
+to the last remaining replica. Please note that creation and removal of load
+balancer are complex operations and it may take some time (~20 minutes) for them
+to propagate.
+
+## Master certificates
+
+All communication with master servers is protected using TLS certificates. We
+need to make sure that the certificates allow to access API servers by DNS name
+or external static IP address of the cluster (whichever is used for load
+balancing).
+
+On GCE, kubernetes generates master TLS certificates for the external public IP
+and local IP for each replica. There are no certificates for the ephemeral
+public IPs of replicas; to access a replica via its ephemeral public IP, you
+must skip TLS verification.
+
+## Kubernetes service
+
+Kubernetes maintains a special service called kubernetes. It is designed to keep
+IP addresses of all API servers. Each API server will add itself to the service,
+limiting the total numbers of endpoints in the service to apiserver-count given
+as a command line flag.
+To support HA cluster, apiserver-count needs be set on API servers in the
+cluster, and it needs to match the number of master replicas. Any
+addition/removal of a master replica should be reflected in changing
+apiserver-count.
+However, on GCE, a different solution is used. Instead of trying to keep an
+up-to-date list of Kubernetes apiserver in the kubernetes service, the
+kubernetes service directs all traffic to the external IP:
+in one master cluster the IP points to the single master,
+in multi-master cluster the IP points to the load balancer in-front of the
+masters.
+Similarly, the external IP will be used by kubelets to communicate with master.
+
+## Worker Nodes
+
+In addition to replicating masters, HA setup also requires keeping worker nodes
+in multiple failure zones. Therefore, failure of a single zone will not bring
+down all worker nodes in the cluster. Detailed documentation, how multi-nodes
+cluster are supported by Kubernetes and how they can be deployed on GCE and AWS,
+can be found in
+[Running in Multiple Zones](http://kubernetes.io/docs/admin/multiple-zones/) doc.
+
+## Additional reading
+* [HA master on GCE: user guide](http://kubernetes.io/docs/admin/ha-master-gce/),
+* [Running in Multiple Zones](http://kubernetes.io/docs/admin/multiple-zones/),
+* [Blog Post: Highly Available Kubernetes Clusters](http://blog.kubernetes.io/2017/02/highly-available-kubernetes-clusters.html),
+* [Automated HA master deployment](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/ha_master.md) - design doc, may be outdated.
 
-The steps involved are as follows:
-
-   * [Creating the reliable constituent nodes that collectively form our HA master implementation.](#reliable-nodes)
-   * [Setting up a redundant, reliable storage layer with clustered etcd.](#establishing-a-redundant-reliable-data-storage-layer)
-   * [Starting replicated, load balanced Kubernetes API servers](#replicated-api-servers)
-   * [Setting up master-elected Kubernetes scheduler and controller-manager daemons](#master-elected-components)
-
-Here's what the system should look like when it's finished:
-
-![High availability Kubernetes diagram](/images/docs/ha.svg)
-
-## Initial set-up
-
-The remainder of this guide assumes that you are setting up a 3-node clustered master, where each machine is running some flavor of Linux.
-Examples in the guide are given for Debian distributions, but they should be easily adaptable to other distributions.
-Likewise, this set up should work whether you are running in a public or private cloud provider, or if you are running
-on bare metal.
-
-The easiest way to implement an HA Kubernetes cluster is to start with an existing single-master cluster.  The
-instructions at [https://get.k8s.io](https://get.k8s.io)
-describe easy installation for single-master clusters on a variety of platforms.
-
-## Reliable nodes
-
-On each master node, we are going to run a number of processes that implement the Kubernetes API.  The first step in making these reliable is
-to make sure that each automatically restarts when it fails.  To achieve this, we need to install a process watcher.  We choose to use
-the `kubelet` that we run on each of the worker nodes.  This is convenient, since we can use containers to distribute our binaries, we can
-establish resource limits, and introspect the resource usage of each daemon.  Of course, we also need something to monitor the kubelet
-itself (insert who watches the watcher jokes here).  For Debian systems, we choose monit, but there are a number of alternate
-choices. For example, on systemd-based systems (e.g. RHEL, CentOS), you can run 'systemctl enable kubelet'.
-
-If you are extending from a standard Kubernetes installation, the `kubelet` binary should already be present on your system.  You can run
-`which kubelet` to determine if the binary is in fact installed.  If it is not installed,
-you should install the [kubelet binary](https://storage.googleapis.com/kubernetes-release/release/v0.19.3/bin/linux/amd64/kubelet), the
-[kubelet init file](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/kubelet/initd) and [default-kubelet](/docs/admin/high-availability/default-kubelet)
-scripts.
-
-If you are using monit, you should also install the monit daemon (`apt-get install monit`) and the [monit-kubelet](/docs/admin/high-availability/monit-kubelet) and
-[monit-docker](/docs/admin/high-availability/monit-docker) configs.
-
-On systemd systems you `systemctl enable kubelet` and `systemctl enable docker`.
-
-
-## Establishing a redundant, reliable data storage layer
-
-The central foundation of a highly available solution is a redundant, reliable storage layer.  The number one rule of high-availability is
-to protect the data.  Whatever else happens, whatever catches on fire, if you have the data, you can rebuild.  If you lose the data, you're
-done.
-
-Clustered etcd already replicates your storage to all master instances in your cluster.  This means that to lose data, all three nodes would need
-to have their physical (or virtual) disks fail at the same time.  The probability that this occurs is relatively low, so for many people
-running a replicated etcd cluster is likely reliable enough.  You can add additional reliability by increasing the
-size of the cluster from three to five nodes.  If that is still insufficient, you can add
-[even more redundancy to your storage layer](#even-more-reliable-storage).
-
-### Clustering etcd
-
-The full details of clustering etcd are beyond the scope of this document, lots of details are given on the
-[etcd clustering page](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md).  This example walks through
-a simple cluster set up, using etcd's built in discovery to build our cluster.
-
-First, hit the etcd discovery service to create a new token:
-
-```shell
-curl https://discovery.etcd.io/new?size=3
-```
-
-On each node, copy the [etcd.yaml](/docs/admin/high-availability/etcd.yaml) file into `/etc/kubernetes/manifests/etcd.yaml`
-
-The kubelet on each node actively monitors the contents of that directory, and it will create an instance of the `etcd`
-server from the definition of the pod specified in `etcd.yaml`.
-
-Note that in `etcd.yaml` you should substitute the token URL you got above for `${DISCOVERY_TOKEN}` on all three machines,
-and you should substitute a different name (e.g. `node-1`) for `${NODE_NAME}` and the correct IP address
-for `${NODE_IP}` on each machine.
-
-
-#### Validating your cluster
-
-Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate with
-
-```shell
-etcdctl member list
-```
-
-and
-
-```shell
-etcdctl cluster-health
-```
-
-You can also validate that this is working with `etcdctl set foo bar` on one node, and `etcdctl get foo`
-on a different node.
-
-### Even more reliable storage
-
-Of course, if you are interested in increased data reliability, there are further options which makes the place where etcd
-installs it's data even more reliable than regular disks (belts *and* suspenders, ftw!).
-
-If you use a cloud provider, then they usually provide this
-for you, for example [Persistent Disk](https://cloud.google.com/compute/docs/disks/persistent-disks) on the Google Cloud Platform.  These
-are block-device persistent storage that can be mounted onto your virtual machine. Other cloud providers provide similar solutions.
-
-If you are running on physical machines, you can also use network attached redundant storage using an iSCSI or NFS interface.
-Alternatively, you can run a clustered file system like Gluster or Ceph.  Finally, you can also run a RAID array on each physical machine.
-
-Regardless of how you choose to implement it, if you chose to use one of these options, you should make sure that your storage is mounted
-to each machine.  If your storage is shared between the three masters in your cluster, you should create a different directory on the storage
-for each node.  Throughout these instructions, we assume that this storage is mounted to your machine in `/var/etcd/data`
-
-
-## Replicated API Servers
-
-Once you have replicated etcd set up correctly, we will also install the apiserver using the kubelet.
-
-### Installing configuration files
-
-First you need to create the initial log file, so that Docker mounts a file instead of a directory:
-
-```shell
-touch /var/log/kube-apiserver.log
-```
-
-Next, you need to create a `/srv/kubernetes/` directory on each node.  This directory includes:
-
-   * basic_auth.csv  - basic auth user and password
-   * ca.crt - Certificate Authority cert
-   * known_tokens.csv - tokens that entities (e.g. the kubelet) can use to talk to the apiserver
-   * kubecfg.crt - Client certificate, public key
-   * kubecfg.key - Client certificate, private key
-   * server.cert - Server certificate, public key
-   * server.key - Server certificate, private key
-
-The easiest way to create this directory, may be to copy it from the master node of a working cluster, or you can manually generate these files yourself.
-
-### Starting the API Server
-
-Once these files exist, copy the [kube-apiserver.yaml](/docs/admin/high-availability/kube-apiserver.yaml) into `/etc/kubernetes/manifests/` on each master node.
-
-The kubelet monitors this directory, and will automatically create an instance of the `kube-apiserver` container using the pod definition specified
-in the file.
-
-### Load balancing
-
-At this point, you should have 3 apiservers all working correctly.  If you set up a network load balancer, you should
-be able to access your cluster via that load balancer, and see traffic balancing between the apiserver instances.  Setting
-up a load balancer will depend on the specifics of your platform, for example instructions for the Google Cloud
-Platform can be found [here](https://cloud.google.com/compute/docs/load-balancing/)
-
-Note, if you are using authentication, you may need to regenerate your certificate to include the IP address of the balancer,
-in addition to the IP addresses of the individual nodes.
-
-For pods that you deploy into the cluster, the `kubernetes` service/dns name should provide a load balanced endpoint for the master automatically.
-
-For external users of the API (e.g. the `kubectl` command line interface, continuous build pipelines, or other clients) you will want to configure
-them to talk to the external load balancer's IP address.
-
-## Master elected components
-
-So far we have set up state storage, and we have set up the API server, but we haven't run anything that actually modifies
-cluster state, such as the controller manager and scheduler.  To achieve this reliably, we only want to have one actor modifying state at a time, but we want replicated
-instances of these actors, in case a machine dies.  To achieve this, we are going to use a lease-lock in the API to perform
-master election.  We will use the `--leader-elect` flag for each scheduler and controller-manager, using a lease in the API will ensure that only 1 instance of the scheduler and controller-manager are running at once.
-
-The scheduler and controller-manager can be configured to talk to the API server that is on the same node (i.e. 127.0.0.1), or it can be configured to communicate using the load balanced IP address of the API servers. Regardless of how they are configured, the scheduler and controller-manager will complete the leader election process mentioned above when using the `--leader-elect` flag. 
-
-In case of a failure accessing the API server, the elected leader will not be able to renew the lease, causing a new leader to be elected. This is especially relevant when configuring the scheduler and controller-manager to access the API server via 127.0.0.1, and the API server on the same node is unavailable. 
-
-### Installing configuration files
-
-First, create empty log files on each node, so that Docker will mount the files not make new directories:
-
-```shell
-touch /var/log/kube-scheduler.log
-touch /var/log/kube-controller-manager.log
-```
-
-Next, set up the descriptions of the scheduler and controller manager pods on each node.
-by copying [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.yaml) and [kube-controller-manager.yaml](/docs/admin/high-availability/kube-controller-manager.yaml) into the `/etc/kubernetes/manifests/` directory.
-
-## Conclusion
-
-At this point, you are done (yeah!) with the master components, but you still need to add worker nodes (boo!).
-
-If you have an existing cluster, this is as simple as reconfiguring your kubelets to talk to the load-balanced endpoint, and
-restarting the kubelets on each node.
-
-If you are turning up a fresh cluster, you will need to install the kubelet and kube-proxy on each worker node, and
-set the `--apiserver` flag to your replicated endpoint.
