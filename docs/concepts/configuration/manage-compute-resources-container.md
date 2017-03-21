@@ -395,7 +395,7 @@ spec:
 Kubernetes version 1.5 only allows resource quantities to be specified on a
 Container. It is planned to improve accounting for resources that are shared by
 all Containers in a Pod, such as
-[emptyDir volumes](/docs/user-guide/volumes/#emptydir).
+[emptyDir volumes](/docs/concepts/storage/volumes/#emptydir).
 
 Kubernetes version 1.5 only supports Container requests and limits for CPU and
 memory. It is planned to add new resource types, including a node disk space
