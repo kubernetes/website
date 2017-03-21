@@ -48,6 +48,10 @@ single thing, typically by giving a short sequence of steps.
 
 * [Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api)
 
+#### Using TLS
+
+* [Managing TLS Certificates in a Cluster](/docs/tasks/tls/managing-tls-in-a-cluster)
+
 #### Administering a Cluster
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
