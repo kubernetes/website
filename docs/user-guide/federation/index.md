@@ -73,8 +73,7 @@ Kubernetes 集群联邦可以包括不同云提供商 (例如 Google Cloud, AWS)
 
 Kubernetes 版本1.5包括了对联邦级联资源删除的支持。使用级联删除，当从联邦控制平台中删除资源时，所有基础集群中的相应资源也将被删除。
 
-要启用级联删除，请设置选项
-`DeleteOptions.orphanDependents=false` 当您从联邦控制平台删除资源时。
+当您需要从联邦控制台删除资源时，请设置选项`DeleteOptions.orphanDependents=false` 启用级联删除。
 
 以是联邦资源受级联删除的影响:
 
