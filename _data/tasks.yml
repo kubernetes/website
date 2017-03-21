@@ -65,6 +65,7 @@ toc:
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
   - docs/tasks/administer-cluster/limit-storage-consumption.md
+  - docs/tasks/administer-cluster/change-default-storage-class.md
   - docs/tasks/administer-cluster/share-configuration.md
 
 - title: Administering Federation
