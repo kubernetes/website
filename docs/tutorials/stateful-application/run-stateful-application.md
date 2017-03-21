@@ -214,7 +214,7 @@ gcloud compute disks delete mysql-disk
 
 * [kubectl run documentation](/docs/user-guide/kubectl/kubectl_run/)
 
-* [Volumes](/docs/user-guide/volumes/) and [Persistent Volumes](/docs/user-guide/persistent-volumes/)
+* [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/user-guide/persistent-volumes/)
 
 {% endcapture %}
 
