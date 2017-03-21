@@ -169,6 +169,7 @@ toc:
   section:
   - docs/admin/index.md
   - docs/admin/cluster-management.md
+  - docs/admin/upgrade-1-6.md
   - docs/admin/kubeadm.md
   - docs/admin/addons.md
   - docs/admin/audit.md

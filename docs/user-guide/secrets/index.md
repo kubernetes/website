@@ -22,7 +22,7 @@ more control over how it is used, and reduces the risk of accidental exposure.
 Users can create secrets, and the system also creates some secrets.
 
 To use a secret, a pod needs to reference the secret.
-A secret can be used with a pod in two ways: as files in a [volume](/docs/user-guide/volumes) mounted on one or more of
+A secret can be used with a pod in two ways: as files in a [volume](/docs/concepts/storage/volumes/) mounted on one or more of
 its containers, or used by kubelet when pulling images for the pod.
 
 ### Built-in Secrets
@@ -428,7 +428,7 @@ password to the Kubelet so it can pull a private image on behalf of your Pod.
 
 **Manually specifying an imagePullSecret**
 
-Use of imagePullSecrets is described in the [images documentation](/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
+Use of imagePullSecrets is described in the [images documentation](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
 
 ### Arranging for imagePullSecrets to be Automatically Attached
 
