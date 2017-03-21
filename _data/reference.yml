@@ -3,18 +3,24 @@ abstract: "Design docs, concept definitions, and references for APIs and CLIs."
 toc:
 - docs/reference.md
 
-- title: "Kubernetes Resource Types (New Docs Style)"
+- title: "Kubernetes Resource Types"
   section:
+  - title: Version 1.6
+    path: /docs/resources-reference/v1.6/
   - title: Version 1.5
     path: /docs/resources-reference/v1.5/
 
-- title: "Kubernetes API (New Docs Style)"
+- title: "Kubernetes API"
   section:
+  - title: Version 1.6
+    path: /docs/api-reference/v1.6/
   - title: Version 1.5
     path: /docs/api-reference/v1.5/
 
-- title: "Kubectl Commands (New Docs Style)"
+- title: "Kubectl Commands"
   section:
+  - title: Version 1.6
+    path: /docs/user-guide/kubectl/v1.6/
   - title: Version 1.5
     path: /docs/user-guide/kubectl/v1.5/
 
