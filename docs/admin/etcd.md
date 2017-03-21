@@ -40,9 +40,9 @@ etcd binaries support both v2 and v3 API).
 
 This document describes how to do this migration.
 
-### etcd upgrade procedure
+### etcd upgrade requirements
 
-There are limits on how an etcd cluster upgrade can be performed; the primary considerations are
+There are requirements on how an etcd cluster upgrade can be performed; the primary considerations are
 - [upgrade between one minor release at a time](#one-minor-release-at-a-time)
 - [rollback supported through additional tooling](#rollback-via-additional-tooling)
 
@@ -94,7 +94,7 @@ volatile…_
 ## Design
 
 This section describes how we are going to do the migration given the [etcd upgrade
-requirements](#etcd-upgrade-procedure).
+requirements](#etcd-upgrade-requirements).
 
 Note that since the code changes in Kubernetes code needed
 to support etcd v3 API are pretty local and not very sophisticated, we will not
