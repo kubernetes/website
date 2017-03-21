@@ -34,7 +34,7 @@ Documentation for how to use vSphere managed storage can be found in the
 [persistent volumes user
 guide](http://kubernetes.io/docs/user-guide/persistent-volumes/#vsphere) and the
 [volumes user
-guide](http://kubernetes.io/docs/user-guide/volumes/#vspherevolume)
+guide](/docs/concepts/storage/volumes/#vspherevolume)
 
 Examples can be found
 [here](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere)
