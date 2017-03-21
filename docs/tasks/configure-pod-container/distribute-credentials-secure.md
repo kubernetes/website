@@ -161,7 +161,7 @@ Here is a configuration file you can use to create a Pod:
 {% capture whatsnext %}
 
 * Learn more about [Secrets](/docs/user-guide/secrets/).
-* Learn about [Volumes](/docs/user-guide/volumes/).
+* Learn about [Volumes](/docs/concepts/storage/volumes/).
 
 ### Reference
 

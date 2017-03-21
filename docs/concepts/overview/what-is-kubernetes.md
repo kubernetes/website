@@ -67,7 +67,7 @@ At a minimum, Kubernetes can schedule and run application containers on clusters
 Kubernetes satisfies a number of common needs of applications running in production, such as:
 
 * [co-locating helper processes](/docs/user-guide/pods/), facilitating composite applications and preserving the one-application-per-container model,
-* [mounting storage systems](/docs/user-guide/volumes/),
+* [mounting storage systems](/docs/concepts/storage/volumes/),
 * [distributing secrets](/docs/user-guide/secrets/),
 * [application health checking](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks),
 * [replicating application instances](/docs/user-guide/replication-controller/),
