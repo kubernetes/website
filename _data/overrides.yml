@@ -1,6 +1,4 @@
 overrides:
-- path: docs/api-reference
-- path: docs/user-guide/kubectl
 - path: docs/admin/federation-apiserver.md
 - path: docs/admin/federation-controller-manager.md
 - path: docs/admin/kube-apiserver.md
