@@ -14,6 +14,11 @@ toc:
     - docs/concepts/overview/working-with-objects/annotations.md
   - docs/concepts/overview/kubernetes-api.md
 
+- title: Containers
+  section:
+  - docs/concepts/containers/images.md
+  - docs/concepts/containers/container-lifecycle-hooks.md
+
 - title: Workloads
   section:
   - title: Pods
@@ -47,6 +52,10 @@ toc:
   - docs/concepts/cluster-administration/sysctl-cluster.md
   - docs/concepts/cluster-administration/access-cluster.md
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
+
+- title: Storage
+  section:
+  - docs/concepts/storage/volumes.md
 
 - title: Services, Load Balancing, and Networking
   section:
