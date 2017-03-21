@@ -55,7 +55,7 @@ The example below demonstrates the components of a StatefulSet.
 
 * A Headless Service, named nginx, is used to control the network domain. 
 * The StatefulSet, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/user-guide/volumes/) provisioned by a 
+* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/volumes/) provisioned by a 
  PersistentVolume Provisioner.
 
 ```yaml
@@ -144,7 +144,7 @@ Note that Cluster Domain will be set to `cluster.local` unless
 
 ### Stable Storage
 
-Kubernetes creates one [PersistentVolume](/docs/user-guide/volumes/) for each 
+Kubernetes creates one [PersistentVolume](/docs/concepts/storage/volumes/) for each 
 VolumeClaimTemplate. In the nginx example above, each Pod will receive a single PersistentVolume 
 with a storage class of `anything` and 1 Gib of provisioned storage. When a Pod is (re)scheduled 
 onto a node, its `volumeMounts` mount the PersistentVolumes associated with its 
