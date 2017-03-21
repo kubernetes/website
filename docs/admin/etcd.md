@@ -40,35 +40,26 @@ etcd binaries support both v2 and v3 API).
 
 This document describes how to do this migration.
 
-### etcd upgrade limitations
+### etcd upgrade procedure
 
-The way etcd was designed introduces some significant limitations on how the
-upgrade can be done. These are the main limitations.
+There are limits on how an etcd cluster upgrade can be performed; the primary considerations are
+- [upgrade between one minor release at a time](#one-minor-release-at-a-time)
+- [rollback supported through additional tooling](#rollback-via-additional-tooling)
 
 #### One minor release at a time
 
-It is possible to upgrade only by one minor release at a time (though, within
-patch releases you can switch versions at any time back and forth). That
-basically means, that we cannot upgrade directly e.g. from 2.1.x to 2.3.x.
-
-Fortunately, this limitation is easy to workaround - it is enough to start a
-cluster for any intermediate minor release, wait until it is healthy and
-functional and stop it then. This will do the migration itself underneath.
-
-As an example: to upgrade from 2.1.x to 2.3.y version, it is enough to start
-etcd in 2.2.z version, wait until it is healthy, stop it and then start then
+Upgrade only one minor release at a time, e.g. we cannot upgrade directly from 2.1.x to 2.3.x.
+Within patch releases it is possible to upgrade and downgrade between arbitrary versions.It is fairly 
+easy to start a cluster for any intermediate minor release, wait until it is healthy and functional and then
+shut the cluster down which will perform the migration. As an example: to upgrade from 2.1.x to 2.3.y version, 
+it is enough to start etcd in 2.2.z version, wait until it is healthy, stop it and then start then
 2.3.y version, wait until it is up and we are done.
 
-#### Rollback via special tool
+#### Rollback via additional tooling
 
-etcd versions through 3.0 don’t support general rollback. That is, in general
+etcd versions 3.0+ do not support general rollback. That is, in general
 after migrating from M.N to M.N+1, there is no way to go back to M.N.
-
-This is a significant limitation - we really need a rollback procedure if we
-face some problems with the new release.
-
-To make things better, CoreOS has provided a
-[custom rollback tool](https://github.com/kubernetes/kubernetes/tree/master/cluster/images/etcd/rollback)
+The etcd team has provided a [custom rollback tool](https://github.com/kubernetes/kubernetes/tree/master/cluster/images/etcd/rollback)
 but:
 
 * This custom tool is not part of the etcd repo and does not receive the same
@@ -102,8 +93,10 @@ volatile…_
 
 ## Design
 
-This section describes how we are going to do the migration given all the
-limitations we have. Note that since the code changes in Kubernetes code needed
+This section describes how we are going to do the migration given the [etcd upgrade
+requirements](#etcd-upgrade-procedure).
+
+Note that since the code changes in Kubernetes code needed
 to support etcd v3 API are pretty local and not very sophisticated, we will not
 focus on it at all. We are only focusing on the upgrade/rollback here.
 
