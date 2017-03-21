@@ -411,7 +411,7 @@ func TestReadme(t *testing.T) {
 		file         string
 		expectedType []runtime.Object
 	}{
-		{"../docs/user-guide/volumes.md", []runtime.Object{&api.Pod{}}},
+		{"../docs/concepts/storage/volumes.md", []runtime.Object{&api.Pod{}}},
 	}
 
 	for _, path := range paths {
