@@ -46,7 +46,7 @@ of configuration files.
 
 Configuration data can be consumed in pods in a variety of ways.  ConfigMaps can be used to:
 
-1.  Populate the value of environment variables
+1.  Populate the values of environment variables
 2.  Set command-line arguments in a container
 3.  Populate config files in a volume
 
