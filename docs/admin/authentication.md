@@ -481,11 +481,45 @@ HTTP status codes can be used to supply additional error context.
 
 The API server can be configured to identify users from request header values, such as `X-Remote-User`.
 It is designed for use in combination with an authenticating proxy, which sets the request header value.
+
+* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the username.
+* `--requestheader-group-headers` 1.6+. Optional, case-insensitive. "X-Remote-Group" is suggested. Header names to check, in order, for the user's groups. All values in all specified headers are used as group names.
+* `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed, the remainder of the header name becomes the extra key, and the header value is the extra value.
+
+For example, with this configuration:
+```
+--requestheader-username-headers=X-Remote-User
+--requestheader-group-headers=X-Remote-Group
+--requestheader-extra-headers-prefix=X-Remote-Extra-
+```
+
+this request:
+```
+GET / HTTP/1.1
+X-Remote-User: fido
+X-Remote-Group: dogs
+X-Remote-Group: dachshunds
+X-Remote-Extra-Scopes: openid
+X-Remote-Extra-Scopes: profile
+```
+
+would result in this user info:
+```yaml
+name: fido
+groups:
+- dogs
+- dachshunds
+extra:
+  scopes:
+  - openid
+  - profile
+```
+
+
 In order to prevent header spoofing, the authenticating proxy is required to present a valid client
 certificate to the API server for validation against the specified CA before the request headers are
 checked.
 
-* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the identity.
 * `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
 * `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed.
 
