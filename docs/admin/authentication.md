@@ -515,9 +515,6 @@ changes](https://github.com/kubernetes/kubernetes/pull/25536) for more details.
 
 ## Anonymous requests
 
-Anonymous access is enabled by default, and can be disabled by passing `--anonymous-auth=false`
-option to the API server during startup.
-
 When enabled, requests that are not rejected by other configured authentication methods are
 treated as anonymous requests, and given a username of `system:anonymous` and a group of
 `system:unauthenticated`.
@@ -526,8 +523,14 @@ For example, on a server with token authentication configured, and anonymous acc
 a request providing an invalid bearer token would receive a `401 Unauthorized` error.
 A request providing no bearer token would be treated as an anonymous request.
 
-If you rely on authentication alone to authorize access, either change to use an
-authorization mode other than `AlwaysAllow`, or set `--anonymous-auth=false`.
+In 1.5.1-1.5.x, anonymous access is disabled by default, and can be enabled by 
+passing the `--anonymous-auth=false` option to the API server.
+
+In 1.6+, anonymous access is enabled by default if an authorization mode other than `AlwaysAllow`
+is used, and can be disabled by passing the `--anonymous-auth=false` option to the API server.
+Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of the 
+`system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules 
+that grant access to the `*` user or `*` group do not include anonymous users.
 
 ## Plugin Development
 
