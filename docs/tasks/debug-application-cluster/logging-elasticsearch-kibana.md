@@ -75,7 +75,7 @@ Elasticsearch, and is part of a service named `kibana-logging`.
 
 The Elasticsearch and Kibana services are both in the `kube-system` namespace
 and are not directly exposed via a publicly reachable IP address. To reach them,
-follow the instructions for [Accessing services running in a cluster](/docs/user-guide/accessing-the-cluster/#accessing-services-running-on-the-cluster).
+follow the instructions for [Accessing services running in a cluster](/docs/concepts/cluster-administration/access-cluster/#accessing-services-running-on-the-cluster).
 
 If you try accessing the `elasticsearch-logging` service in your browser, you'll
 see a status page that looks something like this:
