@@ -173,10 +173,9 @@ The key is used for mutual authentication between the master and the joining nod
 By default, your cluster will not schedule pods on the master for security reasons.
 If you want to be able to schedule pods on the master, for example if you want a single-machine Kubernetes cluster for development, run:
 
-    # kubectl taint nodes --all dedicated-
-    node "test-01" tainted
-    taint key="dedicated" and effect="" not found.
-    taint key="dedicated" and effect="" not found.
+    # MASTER_NODE="actual_master_node_name"
+    # TAINT_KEY=$(kubectl get no ${MASTER_NODE} --template="{{(index .spec.taints 0).key}}")
+    # kubectl taint nodes ${MASTER_NODE} ${TAINT_KEY}-
 
 This will remove the "dedicated" taint from any nodes that have it, including the master node, meaning that the scheduler will then be able to schedule pods everywhere.
 
