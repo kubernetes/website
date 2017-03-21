@@ -71,10 +71,17 @@ DynamicKubeletConfig=true|false (ALPHA - default=false)
 DynamicVolumeProvisioning=true|false (ALPHA - default=true)
 ExperimentalHostUserNamespaceDefaulting=true|false (ALPHA - default=false)
 StreamingProxyRedirects=true|false (ALPHA - default=false)
-      --google-json-key string                                  The Google Cloud Platform Service Account JSON Key to use for authentication.
       --insecure-allow-any-token username/group1,group2         If set, your server will be INSECURE.  Any token will be allowed and user information will be parsed from the token as username/group1,group2
       --insecure-bind-address ip                                The IP address on which to serve the --insecure-port (set to 0.0.0.0 for all interfaces). Defaults to localhost. (default 127.0.0.1)
       --insecure-port int                                       The port on which to serve unsecured, unauthenticated access. Default 8080. It is assumed that firewall rules are set up such that this port is not reachable from outside of the cluster and that port 443 on the cluster's public address is proxied to this port. This is performed by nginx in the default setup. (default 8080)
+      --ir-data-source string                                   Data source used by InitialResources. Supported options: influxdb, gcm. (default "influxdb")
+      --ir-dbname string                                        InfluxDB database name which contains metrics required by InitialResources. (default "k8s")
+      --ir-hawkular string                                      Hawkular configuration URL.
+      --ir-influxdb-host string                                 Address of InfluxDB which contains metrics required by InitialResources. (default "localhost:8080/api/v1/proxy/namespaces/kube-system/services/monitoring-influxdb:api")
+      --ir-namespace-only                                       Whether the estimation should be made only based on data from the same namespace.
+      --ir-password string                                      Password used for connecting to InfluxDB. (default "root")
+      --ir-percentile int                                       Which percentile of samples should InitialResources use when estimating resources. For experiment purposes. (default 90)
+      --ir-user string                                          User used for connecting to InfluxDB. (default "root")
       --kubelet-certificate-authority string                    Path to a cert file for the certificate authority.
       --kubelet-client-certificate string                       Path to a client cert file for TLS.
       --kubelet-client-key string                               Path to a client key file for TLS.
