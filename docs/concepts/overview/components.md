@@ -56,22 +56,18 @@ These controllers include:
 
 ### cloud-controller-manager
 
-cloud-controller-manager is a binary that runs controllers which interact with
-the underlying cloudproviders. This binary was introduced in kubernetes release 1.6 as a alpha feature. This binary exclusively 
-runs cloud specific controller loops only. Since this binary runs the cloudprovider specific controllers, these controller loops 
-need to be turned off in the kube-controller-manager. This can be done by setting the `--cloud-provider` flag to "external" when starting the
-kube-controller-manager. 
+`cloud-controller-manager` is a binary that runs controllers that interact with the underlying cloud providers. The `cloud-controller-manager` binary is an alpha feature introduced in Kubernetes release 1.6. 
 
-This binary was introduced to allow cloud vendors and kubernetes core to evolve independent of each other. In the current model, kubernetes is 
-dependent on cloudprovider specific code to function. This code is a part of the core of kubernetes. In the future, cloud vendor specific code 
-will be maintained by the cloud vendor themselves and linked to the cloud-controller-manager while running kubernetes. 
+`cloud-controller-manager` runs cloud provider-specific controller loops only. As such, you must disable these controller loops in the `kube-controller-manager`. You can disable the controller loops by setting the `--cloud-provider` flag to `external` when starting the kube-controller-manager. 
 
-The following controller have cloudprovider dependencies:
+`cloud-controller-manager` allows cloud vendors and kubernetes core to evolve independent of each other. In prior releases, the core Kubernetes code was dependent upon cloud provider-specific code for functionality. In future releases, code specific to cloud vendors should be maintained by the cloud vendor themselves, and linked to `cloud-controller-manager` while running Kubernetes.
 
-* Node Controller: Responsible for checking cloudprovider to determine if a node has been deleted in the cloud after it stops responding
-* Route Controller: Responsible for setting up routes in the underlying cloud infrastructure
-* Service Controller: Responsible for creating, updating and deleting cloudprovider loadbalancers
-* Volume Controller: Responsible for creating, attaching, and mounting volumes. These also interact with the cloudprovider
+The following controllers have cloud provider dependencies:
+
+* Node Controller: For checking the cloud provider to determine if a node has been deleted in the cloud after it stops responding
+* Route Controller: For setting up routes in the underlying cloud infrastructure
+* Service Controller: For creating, updating and deleting cloud provider load balancers
+* Volume Controller: For creating, attaching, and mounting volumes, and interacting with the cloud provider
   to orchestrate volumes
 
 ### kube-scheduler
