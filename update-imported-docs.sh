@@ -3,7 +3,8 @@
 # Uncomment this to see the commands as they are run
 # set -x
 
-VERSION=1.5
+VERSION=1.6
+OLDVERSION=1.5
 
 # Processes api reference docs.
 function process_api_ref_docs {
@@ -31,6 +32,24 @@ function process_api_ref_docs {
 ---' {}  \;
 }
 
+# save old version new style reference docs
+APIREFPATH=docs/api-reference
+KUBECTLPATH=docs/user-guide/kubectl
+TMPDIR=/tmp/update_docs
+TMPAPIREFDIR=${TMPDIR}'/api_ref'
+TMPKUBECTLDIR=${TMPDIR}'/kubectl'
+
+rm -rf ${TMPDIR}
+mkdir ${TMPDIR}
+mkdir ${TMPAPIREFDIR}
+mkdir ${TMPKUBECTLDIR}
+
+APIREFSRCDIR=${APIREFPATH}'/v'${OLDVERSION}
+APIREFDESDIR=${TMPAPIREFDIR}'/v'${OLDVERSION}
+mv ${APIREFSRCDIR} ${APIREFDESDIR}
+KUBECTLSRCDIR=${KUBECTLPATH}'/v'${OLDVERSION}
+KUBECTLDESDIR=${TMPKUBECTLDIR}'/v'${OLDVERSION}
+mv ${KUBECTLSRCDIR} ${KUBECTLDESDIR}
 
 git clone --depth=1 -b release-$VERSION https://github.com/kubernetes/kubernetes.git k8s
 cd k8s
@@ -90,6 +109,8 @@ pushd .
 cd docs/federation/api-reference
   process_api_ref_docs
 
+  # Rename README.md to index.md
+  mv README.md index.md
   # Update the links from federation/docs/api-reference to
   # docs/federation/api-reference
   find . -name '*.*' -type f -exec sed -i -e "s/federation\/docs\/api-reference/docs\/federation\/api-reference/g" {} \;
@@ -103,10 +124,10 @@ cd docs/user-guide/kubectl
 
   # Rename kubectl.md to index.md
   mv kubectl.md index.md
-  # Strip the "See Also" links. 
+  # Strip the "See Also" links.
   # These links in raw .md files are relative to current file location, but the website see them as relative to current url instead, and will return 404.
-  find . -name 'kubectl*.md' -type f -exec sed -i -e '/### SEE ALSO/d' {} \; 
-  find . -name 'kubectl*.md' -type f -exec sed -i -e '/\* \[kubectl/d' {} \; 
+  find . -name 'kubectl*.md' -type f -exec sed -i -e '/### SEE ALSO/d' {} \;
+  find . -name 'kubectl*.md' -type f -exec sed -i -e '/\* \[kubectl/d' {} \;
 
 # Add the expected headers to md files
   find . -name '*.md' -type f -exec sed -i -e '1 i\
@@ -131,5 +152,9 @@ cd docs/admin
 popd
 
 rm -rf k8s
+
+mv ${APIREFDESDIR} ${APIREFSRCDIR}
+mv ${KUBECTLDESDIR} ${KUBECTLSRCDIR}
+rm -rf ${TMPDIR}
 
 echo "Docs imported! Run 'git add .' 'git commit -m <comment>' and 'git push' to upload them"
