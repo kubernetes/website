@@ -7,10 +7,6 @@ assignees:
 title: Installing Kubernetes on Linux with kubeadm
 ---
 
-<style>
-li>.highlighter-rouge {position:relative; top:3px;}
-</style>
-
 ## Overview
 
 This quickstart shows you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04, CentOS 7 or HypriotOS v1.0.1+.
@@ -220,14 +216,14 @@ To help diagnose what happened, you can use the following command to check what 
 kubectl describe -n kube-system po {YOUR_POD_NAME}
 ```
 
-Do not using kubectl logs. You will got the following error:
+Do not use kubectl logs. You will get the following error:
 
 ```
 # kubectl logs -n kube-system canal-node-f0lqp
 Error from server (BadRequest): the server rejected our request for an unknown reason (get pods canal-node-f0lqp)
 ```
 
-The ```kubectl describe``` comand gives you more details about the logs
+The ```kubectl describe``` command gives you more details about the logs
 
 ```
 # kubectl describe -n kube-system po kube-dns-2924299975-1l2t7
@@ -240,7 +236,7 @@ Or
   6m	1m	191	{kubelet nac}		Warning	FailedSync	Error syncing pod, skipping: failed to "SetupNetwork" for "kube-dns-2924299975-1l2t7_kube-system" with SetupNetworkError: "Failed to setup network for pod \"kube-dns-2924299975-1l2t7_kube-system(dee8ef21-fbcb-11e6-ba19-38d547e0006a)\" using network plugins \"cni\": open /run/flannel/subnet.env: no such file or directory; Skipping pod"
 ```
 
-You can then do some Google searches on the error messages, which may help you to find some solutions.
+You can then search Google for the error messages, which may help you find a solution.
 
 ### (4/4) Joining your nodes
 
