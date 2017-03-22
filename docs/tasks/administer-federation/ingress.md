@@ -123,13 +123,13 @@ The status of your Federated Ingress will automatically reflect the
 real-time status of the underlying Kubernetes ingresses, for example:
 
 ``` shell
-$kubectl --context=federation-cluster describe ingress myingress
+kubectl --context=federation-cluster describe ingress myingress
 
 Name:           myingress
 Namespace:      default
 Address:        130.211.5.194
 TLS:
-  tls-secret terminates 
+  tls-secret terminates
 Rules:
   Host  Path    Backends
   ----  ----    --------
@@ -249,44 +249,6 @@ cluster. While the Federated ReplicaSet ensures that sufficient replicas are
 kept running, the Federated Ingress ensures that user traffic is
 automatically redirected away from the failed cluster to other
 available clusters.
-
-## Known issue
-
-GCE L7 load balancer back-ends and health checks are known to "flap"; this is due
-to conflicting firewall rules in the federation's underlying clusters, which might override one another. To work around this problem, you can
-install the firewall rules manually to expose the targets of all the
-underlying clusters in your federation for each Federated Ingress
-object. This way, the health checks can consistently pass and the GCE L7 load balancer
-can remain stable. You install the rules using the
-[`gcloud`](https://cloud.google.com/sdk/gcloud/) command line tool,
-[Google Cloud Console](https://console.cloud.google.com) or the
-[Google Compute Engine APIs](https://cloud.google.com/compute/docs/reference/latest/).
-
-You can install these rules using
-[`gcloud`](https://cloud.google.com/sdk/gcloud/) as follows:
-
-```shell
-gcloud compute firewall-rules create <firewall-rule-name> \
-  --source-ranges 130.211.0.0/22 --allow [<service-nodeports>] \
-  --target-tags [<target-tags>] \
-  --network <network-name>
-```
-
-where:
-
-1. `firewall-rule-name` can be any name.
-2. `[<service-nodeports>]` is the comma separated list of node ports corresponding to the services that back the Federated Ingress.
-3. [<target-tags>] is the comma separated list of the target tags assigned to the nodes in a Kubernetes cluster.
-4. <network-name> is the name of the network where the firewall rule must be installed.
-
-Example:
-```shell
-gcloud compute firewall-rules create my-federated-ingress-firewall-rule \
-  --source-ranges 130.211.0.0/22 --allow tcp:30301, tcp:30061, tcp:34564 \
-  --target-tags my-cluster-1-minion, my-cluster-2-minion \
-  --network default
-```
-
 
 ## Troubleshooting
 
