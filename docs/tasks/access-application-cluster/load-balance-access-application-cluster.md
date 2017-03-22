@@ -4,7 +4,7 @@ title: Providing Load-Balanced Access to an Application in a Cluster
 
 {% capture overview %}
 
-This page shows how to create a Kubernetes Service object to that provides
+This page shows how to create a Kubernetes Service object that provides
 load-balanced access to an application running in a cluster.
 
 {% endcapture %}
