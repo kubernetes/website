@@ -252,9 +252,19 @@ To enable the plugin, configure the following flags on the API server:
 | --------- | ----------- | ------- | ------- |
 | `--oidc-issuer-url` | URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted.  This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".  This URL should point to the level below .well-known/openid-configuration | If the discovery URL is https://accounts.google.com/.well-known/openid-configuration the value should be https://accounts.google.com | Yes |
 | `--oidc-client-id` |  A client id that all tokens must be issued for. | kubernetes | Yes |
-| `--oidc-username-claim` | JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email`, depending on their provider. | sub | No |
+| `--oidc-username-claim` | JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent naming clashes with other plugins. | sub | No |
 | `--oidc-groups-claim` | JWT claim to use as the user's group. If the claim is present it must be an array of strings. | groups | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
+
+If a claim other than `email` is chosen for `--oidc-username-claim`, the value
+will be prefixed with the `--oidc-issuer-url` to prevent clashes with existing
+Kubernetes names (such as the `system:` users). For example, if the provider
+URL is `https://accounts.google.com` and the username claim maps to `jane`, the
+plugin will authenticate the user as:
+
+```
+https://accounts.google.com#jane
+```
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
 configured to trust a single issuer. This allows the use of public providers,
