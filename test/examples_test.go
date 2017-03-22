@@ -247,10 +247,10 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"http-liveness":            {&api.Pod{}},
 			"http-liveness-named-port": {&api.Pod{}},
 		},
-		"../docs/user-guide/jobs/work-queue-1": {
+		"../docs/tasks/job/coarse-parallel-processing-work-queue": {
 			"job": {&batch.Job{}},
 		},
-		"../docs/user-guide/jobs/work-queue-2": {
+		"../docs/tasks/job/fine-parallel-processing-work-queue": {
 			"job":           {&batch.Job{}},
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
@@ -411,7 +411,7 @@ func TestReadme(t *testing.T) {
 		file         string
 		expectedType []runtime.Object
 	}{
-		{"../docs/user-guide/volumes.md", []runtime.Object{&api.Pod{}}},
+		{"../docs/concepts/storage/volumes.md", []runtime.Object{&api.Pod{}}},
 	}
 
 	for _, path := range paths {

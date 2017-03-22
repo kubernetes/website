@@ -111,6 +111,9 @@ to the volume sources that are defined when creating a volume:
 The recommended minimum set of allowed volumes for new PSPs are 
 configMap, downwardAPI, emptyDir, persistentVolumeClaim, and secret.
 
+### Host Network
+ - *HostPorts*, default `empty`. List of `HostPortRange`, defined by `min`(inclusive) and `max`(inclusive), which define the allowed host ports.
+ 
 ## Admission
 
 _Admission control_ with `PodSecurityPolicy` allows for control over the creation of resources
@@ -163,5 +166,6 @@ following
 
 ## Working With RBAC
 
-In Kubernetes 1.5 and newer, you can use PodSecurityPolicy to control access to privileged containers based on user role and groups.
-(see [more details](https://github.com/kubernetes/kubernetes/blob/master/examples/podsecuritypolicy/rbac/README.md)).
+In Kubernetes 1.5 and newer, you can use PodSecurityPolicy to control access to privileged containers based on user role and groups. Access to different PodSecurityPolicy objects can be controlled via authorization. To limit access to PodSecurityPolicy objects for pods created via a Deployment, ReplicaSet, etc, the [Controller Manager](/docs/admin/kube-controller-manager/) must be run against the secured API port, and must not have superuser permissions.
+
+PodSecurityPolicy authorization uses the union of all policies available to the user creating the pod and the service account specified on the pod. When pods are created via a Deployment, ReplicaSet, etc, it is Controller Manager that creates the pod, so if it is running against the unsecured API port, all PodSecurityPolicy objects would be allowed, and you could not effectively subdivide access. Access to given PSP policies for a user will be effective only when deploying Pods directly. For more details, see the [PodSecurityPolicy RBAC example](https://github.com/kubernetes/kubernetes/blob/master/examples/podsecuritypolicy/rbac/README.md) of applying PodSecurityPolicy to control access to privileged containers based on role and groups when deploying Pods directly.

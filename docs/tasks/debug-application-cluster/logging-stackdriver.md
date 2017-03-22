@@ -5,7 +5,7 @@ assignees:
 title: Logging Using Stackdriver
 ---
 
-Before reading this page, it's highly recommended to familiasrize yourself with the [overview of logging in Kubernetes](/docs/user-guide/logging/overview).
+Before reading this page, it's highly recommended to familiarize yourself with the [overview of logging in Kubernetes](/docs/user-guide/logging/overview).
 
 This article assumes that you have created a Kubernetes cluster with cluster-level logging support for sending logs to Stackdriver Logging. You can do this either by selecting the  **Enable Stackdriver Logging** checkbox in the create cluster dialogue in [GKE](https://cloud.google.com/container-engine/), or by setting the `KUBE_LOGGING_DESTINATION` flag to `gcp` when manually starting a cluster using `kube-up.sh`.
 

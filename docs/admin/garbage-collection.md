@@ -51,7 +51,7 @@ Default is -1, which means there is no global limit.
 Containers can potentially be garbage collected before their usefulness has expired. These containers
 can contain logs and other data that can be useful for troubleshooting. A sufficiently large value for
 `maximum-dead-containers-per-container` is highly recommended to allow at least 1 dead container to be
-retained per expected container. A higher value for `maximum-dead-containers` is also recommended for a
+retained per expected container. A larger value for `maximum-dead-containers` is also recommended for a
 similar reason.
 See [this issue](https://github.com/kubernetes/kubernetes/issues/13287) for more details.
 
@@ -72,4 +72,4 @@ Including:
 | `--low-diskspace-threshold-mb` | `--eviction-hard` or `eviction-soft` | eviction generalizes disk thresholds to other resources |
 | `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | eviction generalizes disk pressure transition to other resources |
 
-See [kubelet eviction design doc](https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/admin/out-of-resource.md) for more details.
+See [Configuring Out Of Resource Handling](/docs/admin/out-of-resource/) for more details.

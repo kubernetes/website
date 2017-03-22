@@ -42,7 +42,7 @@ In this exercise, you create a Pod that runs a Container based on the
 {% include code.html language="yaml" file="exec-liveness.yaml" ghlink="/docs/tasks/configure-pod-container/exec-liveness.yaml" %}
 
 In the configuration file, you can see that the Pod has a single Container.
-The `livenessProbe` field specifies that the kubelet should perform a liveness
+The `periodSeconds` field specifies that the kubelet should perform a liveness
 probe every 5 seconds. The `initialDelaySeconds` field tells the kubelet that it
 should wait 5 second before performing the first probe. To perform a probe, the
 kubelet executes the command `cat /tmp/healthy` in the Container. If the
