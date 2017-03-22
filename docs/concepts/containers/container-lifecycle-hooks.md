@@ -27,7 +27,7 @@ Currently, the Pod name for the pod in which the container is running is set as 
 
 The Pod name and namespace are also available as environment variables via the [downward API](/docs/user-guide/downward-api).  Additionally, user-defined environment variables from the pod definition, are also available to the container, as are any environment variables specified statically in the Docker image.
 
-In the future, we anticipate expanding this information with richer information about the container.  Examples include available memory, number of restarts, and in general any state that you could get from the call to GET /pods on the API server.
+In the future, we anticipate expanding this information with richer information about the container.  Examples include available memory, number of restarts, and in general every state that you could get from the call to GET /pods on the API server.
 
 ### Cluster Information
 
