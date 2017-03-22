@@ -201,7 +201,7 @@ You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 
 ```shell
-$ kubectl.sh describe nodes e2e-test-minion-group-4lw4
+$ kubectl describe nodes e2e-test-minion-group-4lw4
 Name:			e2e-test-minion-group-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
