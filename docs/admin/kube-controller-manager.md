@@ -51,6 +51,7 @@ kube-controller-manager
       --enable-dynamic-provisioning                                       Enable dynamic provisioning for environments that support it. (default true)
       --enable-garbage-collector                                          Enables the generic garbage collector. MUST be synced with the corresponding flag of the kube-apiserver. (default true)
       --enable-hostpath-provisioner                                       Enable HostPath PV provisioning when running without a cloud provider. This allows testing and development of provisioning features.  HostPath provisioning is not supported in any way, won't work in a multi-node cluster, and should not be used for anything other than testing or development.
+      --enable-taint-manager                                              WARNING: Beta feature. If set to true, enables NoExecute Taints and will evict all not-tolerating Pods running on Nodes tainted with these kinds of Taints. (default true)
       --feature-gates mapStringBool                                       A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:
 AllAlpha=true|false (ALPHA - default=false)
 AllowExtTrafficLocalEndpoints=true|false (BETA - default=true)
