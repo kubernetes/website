@@ -383,7 +383,7 @@ The `kubectl apply` command writes the contents of the configuration file to the
 `kubectl.kubernetes.io/last-applied-configuration` annotation. This
 is used to identify fields that have been removed from the configuration
 file and need to be cleared from the live configuration. Here are the steps used
-to caluculate which fields should be deleted or set:
+to calculate which fields should be deleted or set:
 
 1. Calculate the fields to delete. These are the fields present in `last-applied-configuration` and missing from the configuration file.
 2. Calculate the fields to add or set. These are the fields present in the configuration file whose values don't match the live configuration.
