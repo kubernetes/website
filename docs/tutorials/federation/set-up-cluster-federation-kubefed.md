@@ -100,7 +100,7 @@ domain that you control, and that is programmable by your DNS provider.
 The machines in your host cluster must have the appropriate permissions
 to program the DNS service that you are using. For example, if your
 cluster is running on Google Compute Engine, you must enable the
-"Google Cloud DNS API" for your project.
+Google Cloud DNS API for your project.
 
 The machines in Google Container Engine (GKE) clusters are created
 without the Google Cloud DNS API scope by default. If you want to use a
