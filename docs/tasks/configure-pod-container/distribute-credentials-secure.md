@@ -1,5 +1,8 @@
 ---
 title: Distributing Credentials Securely
+redirect_from:
+- "/docs/user-guide/secrets/walkthrough/"
+- "/docs/user-guide/secrets/walkthrough.html"
 ---
 
 {% capture overview %}
@@ -22,11 +25,11 @@ Suppose you want to have two pieces of secret data: a username `my-app` and a pa
 convert your username and password to a base-64 representation. Here's a Linux
 example:
 
-    echo 'my-app' | base64
-    echo '39528$vdg7Jb' | base64
+    echo -n 'my-app' | base64
+    echo -n '39528$vdg7Jb' | base64
 
-The output shows that the base-64 representation of your username is `bXktYXBwCg==`,
-and the base-64 representation of your password is `Mzk1MjgkdmRnN0piCg==`.
+The output shows that the base-64 representation of your username is `bXktYXBw`,
+and the base-64 representation of your password is `Mzk1MjgkdmRnN0pi`.
 
 ## Creating a Secret
 
@@ -37,12 +40,12 @@ username and password:
 
 1. Create the Secret
 
-        kubectl create -f http://k8s.io/docs/tasks/administer-cluster/secret.yaml
+        kubectl create -f secret.yaml
 
     **Note:** If you want to skip the Base64 encoding step, you can create a Secret
     by using the `kubectl create secret` command:
 
-        kubectl create secret generic test-secret --from-literal=username="my-app",password="39528$vdg7Jb"
+        kubectl create secret generic test-secret --from-literal=username='my-app',password='39528$vdg7Jb'
 
 1. View information about the Secret:
 
@@ -69,8 +72,8 @@ username and password:
 
         Data
         ====
-        password:   13 bytes
-        username:   7 bytes
+        password:   12 bytes
+        username:   6 bytes
 
 ## Creating a Pod that has access to the secret data through a Volume
 
@@ -80,7 +83,7 @@ Here is a configuration file you can use to create a Pod:
 
 1. Create the Pod:
 
-        kubectl create -f http://k8s.io/docs/tasks/administer-cluster/secret-pod.yaml
+        kubectl create -f secret-pod.yaml
 
 1. Verify that your Pod is running:
 
@@ -112,7 +115,7 @@ is exposed:
 
 1. In your shell, display the contents of the `username` and `password` files:
 
-        root@secret-test-pod:/etc/secret-volume# cat username password
+        root@secret-test-pod:/etc/secret-volume# cat username; echo; cat password; echo
 
     The output is your username and password:
 
@@ -127,7 +130,7 @@ Here is a configuration file you can use to create a Pod:
 
 1. Create the Pod:
 
-        kubectl create -f http://k8s.io/docs/tasks/administer-cluster/secret-envars-pod.yaml
+        kubectl create -f secret-envars-pod.yaml
 
 1. Verify that your Pod is running:
 
@@ -158,7 +161,7 @@ Here is a configuration file you can use to create a Pod:
 {% capture whatsnext %}
 
 * Learn more about [Secrets](/docs/user-guide/secrets/).
-* Learn about [Volumes](/docs/user-guide/volumes/).
+* Learn about [Volumes](/docs/concepts/storage/volumes/).
 
 ### Reference
 

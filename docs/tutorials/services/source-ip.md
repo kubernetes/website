@@ -132,7 +132,7 @@ client_address=10.240.0.5
 client_address=10.240.0.3
 ```
 
-Note that these are not your IPs, they're cluster internal IPs. This is what happens:
+Note that these are not the correct client IPs, they're cluster internal IPs. This is what happens:
 
 * Client sends packet to `node2:nodePort`
 * `node2` replaces the source IP address (SNAT) in the packet with its own IP address
@@ -174,7 +174,7 @@ service "nodeport" annotated
 Now, re-run the test:
 
 ```console
-$ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; do
+$ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
 client_address=104.132.1.79
 ```
 

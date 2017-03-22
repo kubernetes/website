@@ -1,10 +1,20 @@
 ---
 title: Tasks
+redirect_from:
+- "/docs/user-guide/configuring-containers/"
+- "/docs/user-guide/configuring-containers.html"
+- "/docs/user-guide/production-pods/"
+- "/docs/user-guide/production-pods.html"
 ---
 
 This section of the Kubernetes documentation contains pages that
 show how to do individual tasks. A task page shows how to do a
 single thing, typically by giving a short sequence of steps.
+
+#### Using the kubectl Command Line
+
+* [Listing All Container Images Running in a Cluster](/docs/tasks/kubectl/list-all-running-container-images/)
+* [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/)
 
 #### Configuring Pods and Containers
 
@@ -12,6 +22,7 @@ single thing, typically by giving a short sequence of steps.
 * [Defining a Command and Arguments for a Container](/docs/tasks/configure-pod-container/define-command-argument-container/)
 * [Assigning CPU and RAM Resources to a Container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/)
 * [Configuring a Pod to Use a Volume for Storage](/docs/tasks/configure-pod-container/configure-volume-storage/)
+* [Configuring a Pod to Use a PersistentVolume for Storage](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
 * [Exposing Pod Information to Containers Through Environment Variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/)
 * [Exposing Pod Information to Containers Using a DownwardAPIVolumeFile](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/)
 * [Distributing Credentials Securely](/docs/tasks/configure-pod-container/distribute-credentials-secure/)
@@ -26,9 +37,12 @@ single thing, typically by giving a short sequence of steps.
 * [Using Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * [Providing Load-Balanced Access to an Application in a Cluster](/docs/tasks/access-application-cluster/load-balance-access-application-cluster/)
 
-#### Debugging Applications in a Cluster
+#### Monitoring, Logging, and Debugging
 
 * [Determining the Reason for Pod Failure](/docs/tasks/debug-application-cluster/determine-reason-pod-failure/)
+* [Debugging Init Containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* [Logging Using Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)
+* [Logging Using ElasticSearch and Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)
 
 #### Accessing the Kubernetes API
 
@@ -48,10 +62,6 @@ single thing, typically by giving a short sequence of steps.
 * [Deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/)
 * [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
 * [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
-
-#### Troubleshooting
-
-* [Debugging Init Containers](/docs/tasks/troubleshoot/debug-init-containers/)
 
 ### What's next
 

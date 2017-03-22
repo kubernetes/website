@@ -82,8 +82,8 @@ The output shows that nginx is serving the web page that was written by the init
 
 * Learn more about
 [communicating between Containers running in the same Pod](/docs/tasks/configure-pod-container/communicate-containers-same-pod/).
-* Learn more about [Init Containers](/docs/user-guide/pods/init-container/).
-* Learn more about [Volumes](/docs/user-guide/volumes/).
+* Learn more about [Init Containers](/docs/concepts/workloads/pods/init-containers/).
+* Learn more about [Volumes](/docs/concepts/storage/volumes/).
 
 {% endcapture %}
 
