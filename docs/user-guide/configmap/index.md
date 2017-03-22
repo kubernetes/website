@@ -525,7 +525,7 @@ ConfigMaps reside in a namespace.   They can only be referenced by pods in the s
 
 Quota for ConfigMap size is a planned feature.
 
-Kubelet only supports use of ConfigMap for pods it gets from the API server.  This includes any pods
+Kubelet only supports use of ConfigMap for pods it gets from the API server.  This includes every pod
 created using kubectl, or indirectly via a replication controller.  It does not include pods created
 via the Kubelet's `--manifest-url` flag, its `--config` flag, or its REST API (these are not common
 ways to create pods.)
