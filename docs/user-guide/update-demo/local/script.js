@@ -17,7 +17,7 @@ limitations under the License.
 var base = "/api/v1/";
 
 var updateImage = function($http, server) {
-  $http.get(base + "proxy/namespaces/default/pods/" + server.podName + "/data.json")
+  $http.get(base + "namespaces/default/pods/" + server.podName + "/proxy/data.json")
     .success(function(data) {
       console.log(data);
       server.image = data.image;
