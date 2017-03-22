@@ -2,10 +2,6 @@
 title: Installing Kubernetes on AWS with kops
 ---
 
-<style>
-li>.highlighter-rouge {position:relative; top:3px;}
-</style>
-
 ## Overview
 
 This quickstart shows you how to easily install a Kubernetes cluster on AWS.
