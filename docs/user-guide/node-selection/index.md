@@ -6,9 +6,6 @@ assignees:
 title: Assigning Pods to Nodes
 ---
 
-* TOC
-{:toc}
-
 You can constrain a [pod](/docs/user-guide/pods/) to only be able to run on particular [nodes](/docs/admin/node/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
 [label selectors](/docs/user-guide/labels/) to make the selection.
@@ -20,6 +17,9 @@ services that communicate a lot into the same availability zone.
 
 You can find all the files for these examples [in our docs
 repo here](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/node-selection).
+
+* TOC
+{:toc}
 
 ## nodeSelector
 
