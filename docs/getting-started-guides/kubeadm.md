@@ -7,10 +7,6 @@ assignees:
 title: Installing Kubernetes on Linux with kubeadm
 ---
 
-<style>
-li>.highlighter-rouge {position:relative; top:3px;}
-</style>
-
 ## Overview
 
 This quickstart shows you how to easily install a secure Kubernetes cluster on machines running Ubuntu 16.04, CentOS 7 or HypriotOS v1.0.1+.
