@@ -111,6 +111,7 @@ new node pool for your cluster and delete the old one. *Note that this
 will cause pods in the cluster to be rescheduled.*
 
 To add the new node pool, run:
+
 ```shell
 scopes="$(gcloud container node-pools describe --cluster=gke-cluster default-pool --format='value[delimiter=","](config.oauthScopes)')"
 gcloud container node-pools create new-np \
@@ -119,6 +120,7 @@ gcloud container node-pools create new-np \
 ```
 
 To delete the old node pool, run:
+
 ```shell
 gcloud container node-pools delete default-pool --cluster gke-cluster
 ```
