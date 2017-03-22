@@ -120,7 +120,6 @@ A common scenario that you can detect using events is when you've created a Pod 
 
 ```shell
 $ kubectl get pods
-NAME             READY     REASON    RESTARTS   AGE
 NAME                                READY     STATUS    RESTARTS   AGE
 nginx-deployment-1006230814-6winp   1/1       Running   0          7m
 nginx-deployment-1006230814-fmgu3   1/1       Running   0          7m
@@ -264,11 +263,11 @@ Sometimes when debugging it can be useful to look at the status of a node -- for
 
 ```shell
 $ kubectl get nodes
-NAME                     LABELS                                          STATUS
-kubernetes-node-861h     kubernetes.io/hostname=kubernetes-node-861h     NotReady
-kubernetes-node-bols     kubernetes.io/hostname=kubernetes-node-bols     Ready
-kubernetes-node-st6x     kubernetes.io/hostname=kubernetes-node-st6x     Ready
-kubernetes-node-unaj     kubernetes.io/hostname=kubernetes-node-unaj     Ready
+NAME                     STATUS        AGE
+kubernetes-node-861h     NotReady      1h
+kubernetes-node-bols     Ready         1h
+kubernetes-node-st6x     Ready         1h
+kubernetes-node-unaj     Ready         1h
 
 $ kubectl describe node kubernetes-node-861h
 Name:			kubernetes-node-861h
