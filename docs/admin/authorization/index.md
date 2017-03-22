@@ -65,6 +65,12 @@ PUT       | update
 PATCH     | patch
 DELETE    | delete (for individual resources), deletecollection (for collections)
 
+Some components perform authorization checks for additional permissions using specialized verbs. For example:
+
+* [PodSecurityPolicy](/docs/user-guide/pod-security-policy/) checks for authorization of the `use` verb on `podsecuritypolicies` resources in the `extensions` API group.
+* [RBAC](/docs/admin/authorization/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization 
+of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
+* [Authentication](/docs/admin/authentication/) layer checks for authorization of the `impersonate` verb on `users`, `groups`, and `userextras` in the `authentication.k8s.io` API group, and the `serviceaccounts` in the core API group.
 
 ## ABAC Mode
 
@@ -283,7 +289,7 @@ An example request body:
   "spec": {
     "resourceAttributes": {
       "namespace": "kittensandponies",
-      "verb": "GET",
+      "verb": "get",
       "group": "unicorn.example.org",
       "resource": "pods"
     },
@@ -332,7 +338,7 @@ Access to non-resource paths are sent as:
   "spec": {
     "nonResourceAttributes": {
       "path": "/debug",
-      "verb": "GET"
+      "verb": "get"
     },
     "user": "jane",
     "group": [
@@ -378,21 +384,21 @@ between caching and revocation of permissions.
 
 ### Checking API Access
 
-Kubernetes exposes the `subjectaccessreviews.v1beta1.authorization.k8s.io` resource as a
+Kubernetes exposes the `subjectaccessreviews.v1.authorization.k8s.io` resource as a
 normal resource that allows external access to API authorizer decisions.  No matter which authorizer
 you choose to use, you can issue a `POST` with a `SubjectAccessReview` just like the webhook
-authorizer to the `apis/authorization.k8s.io/v1beta1/subjectaccessreviews` endpoint and
+authorizer to the `apis/authorization.k8s.io/v1/subjectaccessreviews` endpoint and
 get back a response.  For instance:
 
 ```bash
 kubectl create --v=8 -f -  << __EOF__
 {
-  "apiVersion": "authorization.k8s.io/v1beta1",
+  "apiVersion": "authorization.k8s.io/v1",
   "kind": "SubjectAccessReview",
   "spec": {
     "resourceAttributes": {
       "namespace": "kittensandponies",
-      "verb": "GET",
+      "verb": "get",
       "group": "unicorn.example.org",
       "resource": "pods"
     },
@@ -400,14 +406,20 @@ kubectl create --v=8 -f -  << __EOF__
     "group": [
       "group1",
       "group2"
-    ]
+    ],
+    "extra": {
+      "scopes": [
+        "openid",
+        "profile"
+      ]
+    }
   }
 }
 __EOF__
 
 --- snip lots of output ---
 
-I0913 08:12:31.362873   27425 request.go:908] Response Body: {"kind":"SubjectAccessReview","apiVersion":"authorization.k8s.io/v1beta1","metadata":{"creationTimestamp":null},"spec":{"resourceAttributes":{"namespace":"kittensandponies","verb":"GET","group":"unicorn.example.org","resource":"pods"},"user":"jane","group":["group1","group2"]},"status":{"allowed":true}}
+I0913 08:12:31.362873   27425 request.go:908] Response Body: {"kind":"SubjectAccessReview","apiVersion":"authorization.k8s.io/v1","metadata":{"creationTimestamp":null},"spec":{"resourceAttributes":{"namespace":"kittensandponies","verb":"GET","group":"unicorn.example.org","resource":"pods"},"user":"jane","group":["group1","group2"],"extra":{"scopes":["openid","profile"]}},"status":{"allowed":true}}
 subjectaccessreview "" created
 ```
 
