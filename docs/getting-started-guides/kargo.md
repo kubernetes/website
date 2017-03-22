@@ -2,10 +2,6 @@
 title: Installing Kubernetes On-premise/Cloud Providers with Kargo
 ---
 
-<style>
-li>.highlighter-rouge {position:relative; top:3px;}
-</style>
-
 ## Overview
 
 This quickstart helps to install a Kubernetes cluster hosted
