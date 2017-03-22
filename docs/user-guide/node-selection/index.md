@@ -11,7 +11,7 @@ run on particular nodes. There are several ways to do this, and they all use
 [label selectors](/docs/user-guide/labels/) to make the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
 (e.g. spread your pods across nodes, not place the pod on a node with insufficient free resources, etc.)
-but there are some circumstances where you may want more control where a pod lands, e.g. to ensure
+but there are some circumstances where you may want more control on a node where a pod lands, e.g. to ensure
 that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
 services that communicate a lot into the same availability zone.
 
@@ -36,9 +36,7 @@ This example assumes that you have a basic understanding of Kubernetes pods and 
 
 ### Step One: Attach label to the node
 
-Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the one that you want to add a label to.
-
-Then, to add a label to the node you've chosen, run `kubectl label nodes <node-name> <label-key>=<label-value>`. For example, if my node name is 'kubernetes-foo-node-1.c.a-robinson.internal' and my desired label is 'disktype=ssd', then I can run `kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`.
+Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the one that you want to add a label to, and then run `kubectl label nodes <node-name> <label-key>=<label-value>` to add a label to the node you've chosen. For example, if my node name is 'kubernetes-foo-node-1.c.a-robinson.internal' and my desired label is 'disktype=ssd', then I can run `kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`.
 
 If this fails with an "invalid command" error, you're likely using an older version of kubectl that doesn't have the `label` command. In that case, see the [previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md) of this guide for instructions on how to manually set labels on a node.
 
