@@ -1,8 +1,8 @@
 ---
 assignees:
--vishh
--derekwaynecarr
--dashpole
+- vishh
+- derekwaynecarr
+- dashpole
 title: Reserving Compute Resources for System Daemons
 ---
 
