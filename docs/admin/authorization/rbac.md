@@ -375,7 +375,7 @@ Auto-reconciliation is enabled in Kubernetes version 1.6+.
 ### User-facing Roles
 
 Some of the default roles are not `system:` prefixed. These are intended to be user-facing roles.
-They include superuser roles (`cluster-admin`),
+They include super-user roles (`cluster-admin`),
 roles intended to be granted cluster-wide using ClusterRoleBindings (`cluster-status`),
 and roles intended to be granted within particular namespaces using RoleBindings (`admin`, `edit`, `view`).
 
@@ -591,7 +591,7 @@ subjects:
 When bootstrapping the first roles and role bindings, it is necessary for the initial user to grant permissions they do not yet have.
 To bootstrap initial roles and role bindings:
 
-* Use a credential with the `system:masters` group, which is bound to the `cluster-admin` superuser role by the default bindings.
+* Use a credential with the `system:masters` group, which is bound to the `cluster-admin` super-user role by the default bindings.
 * If your API server runs with the insecure port enabled (`--insecure-port`), you can also make API calls via that port, which does not enforce authentication or authorization.
 
 ## Command-line Utilities
@@ -628,16 +628,102 @@ Grants a `ClusterRole` across the entire cluster, including all namespaces. Exam
 
 See the CLI help for detailed usage
 
+## Service Account Permissions
+
+Default RBAC policies grant scoped permissions to control-plane components, nodes,
+and controllers, but grant *no permissions* to service accounts outside the "kube-system" namespace
+(beyond discovery permissions given to all authenticated users).
+
+This allows you to grant particular roles to particular service accounts as needed.
+Fine-grained role bindings provide greater security, but require more effort to administrate.
+Broader grants can give unnecessary (and potentially escalating) API access to service accounts, but are easier to administrate.
+
+In order from most secure to least secure, the approaches are:
+
+1. Grant a role to an application-specific service account (best practice)
+
+   This requires the application to specify a `serviceAccountName` in its pod spec,
+   and for the service account to be created (via the API, application manifest, `kubectl create serviceaccount`, etc.).
+
+   For example, grant read-only permission within "my-namespace" to the "my-sa" service account:
+   
+   ```shell
+   kubectl create rolebinding my-sa-view \
+     --clusterrole=view \
+     --serviceaccount=my-namespace:my-sa \
+     --namespace=my-namespace
+   ```
+
+2. Grant a role to the "default" service account in a namespace
+
+   If an application does not specify a `serviceAccountName`, it uses the "default" service account.
+
+   NOTE: Permissions given to the "default" service account are available to any pod in the namespace that does not specify a `serviceAccountName`.
+
+   For example, grant read-only permission within "my-namespace" to the "default" service account:
+   ```shell
+   kubectl create rolebinding default-view \
+     --clusterrole=view \
+     --serviceaccount=my-namespace:default \
+     --namespace=my-namespace
+   ```
+
+   Many [add-ons](/docs/admin/addons/) currently run as the "default" service account in the "kube-system" namespace.
+   To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the "kube-system" namespace.
+   NOTE: Enabling this means the "kube-system" namespace contains secrets that grant super-user access to the API.
+   
+   ```shell
+   kubectl create clusterrolebinding add-on-cluster-admin \
+     --clusterrole=cluster-admin \
+     --serviceaccount=kube-system:default
+   ```
+
+3. Grant a role to all service accounts in a namespace
+
+   If you want all applications in a namespace to have a role, no matter what service account they use,
+   you can grant a role to the service account group for that namespace.
+
+   For example, grant read-only permission within "my-namespace" to to all service accounts in that namespace:
+   
+   ```shell
+   kubectl create rolebinding serviceaccounts-view \
+     --clusterrole=view \
+     --group=system:serviceaccounts:my-namespace \
+     --namespace=my-namespace
+   ```
+
+4. Grant a limited role to all service accounts cluster-wide (discouraged)
+
+   If you don't want to manage permissions per-namespace, you can grant a cluster-wide role to all service accounts.
+
+   For example, grant read-only permission across all namespaces to all service accounts in the cluster:
+   
+   ```shell
+   kubectl create clusterrolebinding serviceaccounts-view \
+     --clusterrole=view \
+     --group=system:serviceaccounts
+   ```
+
+5. Grant super-user access to all service accounts cluster-wide (strongly discouraged)
+
+   If you don't care about partitioning permissions at all, you can grant super-user access to all service accounts.
+
+   WARNING: This allows any user with read access to secrets or the ability to create a pod to access super-user credentials.
+
+   ```shell
+   kubectl create clusterrolebinding serviceaccounts-cluster-admin \
+     --clusterrole=cluster-admin \
+     --group=system:serviceaccounts
+   ```
+
 ## Upgrading from 1.5
 
 Prior to Kubernetes 1.6, many deployments used very permissive ABAC policies,
 including granting full API access to all service accounts.
 
-The default RBAC policies grant scoped permissions to control-plane components, nodes,
-and controllers, and grant *no permissions* to service accounts outside the `kube-system` namespace
+Default RBAC policies grant scoped permissions to control-plane components, nodes,
+and controllers, but grant *no permissions* to service accounts outside the "kube-system" namespace
 (beyond discovery permissions given to all authenticated users).
-
-This allows the cluster administrator to grant particular roles to particular service accounts as needed.
 
 While far more secure, this can be disruptive to existing workloads expecting to automatically receive API permissions.
 Here are two approaches for managing this transition:
@@ -654,9 +740,10 @@ The RBAC authorizer will attempt to authorize requests first. If it denies an AP
 the ABAC authorizer is then run. This means that any request allowed by *either* the RBAC
 or ABAC policies is allowed.
 
-When run with a log level of 2 or higher (`--v=2`), you can see RBAC denials in the apiserver log.
-You can use that information to determine which roles need to be granted to which users or service accounts.
-Once normal workloads are running with no RBAC denial messages in the server logs, the ABAC authorizer can be removed.
+When run with a log level of 2 or higher (`--v=2`), you can see RBAC denials in the apiserver log (prefixed with `RBAC DENY:`).
+You can use that information to determine which roles need to be granted to which users, groups, or service accounts.
+Once you have [granted roles to service accounts](#service-account-permissions) and workloads are running with no RBAC denial messages
+in the server logs, you can remove the ABAC authorizer.
 
 ### Permissive RBAC Permissions
 
