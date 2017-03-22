@@ -182,6 +182,8 @@ the CSR and otherwise should deny the CSR.
 
 The ability to approve CSRs decides who trusts who within the cluster. This
 includes who the Kubernetes API trusts. The ability to approve CSRs should
-not be granted broadly or lightly. The requirements of the challenge noted in
-the previous section and the reprecussions of issuing a specific certificate
-should be fully understood before granting this permission.
+not be granted broadly or lightly. The requirements of the challenge
+noted in the previous section and the reprecussions of issuing a specific
+certificate should be fully understood before granting this permission. See
+[here](/docs/admin/authentication#x509-client-certs) for information on how
+certificates interact with authentication.
