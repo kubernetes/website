@@ -63,33 +63,50 @@ metadata:
   ...
 ```
 
-## Controlling whether and how the garbage collector deletes dependents
+## Controlling how the garbage collector deletes dependents
 
-When you delete object, you can specify whether the object's dependents are
-deleted automatically. If you delete an object without deleting its dependents
-automatically, the dependents are said to be *orphaned*. Deleting dependents
-automatically is called *cascading deletion*. Further, there are two modes of
-*cascading deletion*: if the object is deleted immediately and the garbage
-collector then deletes the dependents in the background, it is called
-*background cascading deletion*. In contrast, in *foreground cascading
-deletion*, the object first enters a "deletion in progress" state, where the
-object is still visible via the REST API, its `deletionTimestamp` is set, and
-its metadata.finalizers contains "foregroundDeletion". Then the garbage
-collector deletes the dependents. Once the garbage collector has deleted all
-dependents whose ownerReference.blockOwnerDeletion=true, it will finally delete
-the object.
+When you delete an object, you can specify whether the object's dependents are
+also deleted automatically. Deleting dependents automatically is called *cascading
+deletion*.  There are two modes of *cascading deletion*: *background* and *foreground*. 
+
+If you delete an object without deleting its dependents
+automatically, the dependents are said to be *orphaned*. 
+
+### Background cascading deletion
+
+In *background cascading deletion*, Kubernetes deletes the owner object 
+immediately and the garbage collector then deletes the dependents in 
+the background.
+
+### Foreground cascading deletion
+
+In *foreground cascading deletion*, the root object first
+enters a "deletion in progress" state. In the "deletion in progress" state,
+the following things are true:
+
+ * The object is still visible via the REST API
+ * The object's `deletionTimestamp` is set
+ * The object's `metadata.finalizers` contains the value "foregroundDeletion".
+ 
+Once the "deletion in progress" state is set, the the garbage
+collector deletes the object's dependents. Once the garbage collector has deleted all
+dependents (objects with `ownerReference.blockOwnerDeletion=true`), it delete
+the owner object.
 
 Note that in the "foregroundDeletion", only dependents with
-ownerReference.blockOwnerDeletion block the deletion of the owner object. In
-1.7, we will add an admission controller that disallows a user without the delete
-permission of the owner object to set blockOwnerDeletion to true, so that such a
-user cannot delay the deletion of the owner. For ownerReferences set up
-by a controller, blockOwnerDeletion is set to true. So in most use cases, users
-do not need to manually modify this field.
+`ownerReference.blockOwnerDeletion` block the deletion of the owner object.
+Kubernetes version 1.7, will add an admission controller that controls user access to set
+`blockOwnerDeletion` to true based on delete permissions on the owner object, so that
+unauthorized dependents cannot delay deletion of an owner object. 
 
-To control whether delete dependent objects or delete them in
-foreground/background, set the deleteOptions.propagationPolicy to "Orphan",
-"Foregound", or "Background" respectively.
+If an object's `ownerReferences` field is set by a controller (such as Deployment or ReplicaSet),
+blockOwnerDeletion is set automatically and you do not need to manually modify this field.
+
+### Setting the cascading deletion policy
+
+To control the cascading deletion policy, set the `deleteOptions.propagationPolicy`
+field on your owner object. Possible values include "Orphan",
+"Foregound", or "Background".
 
 The default garbage collection policy for many controller resources is `orphan`,
 including ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and
@@ -122,7 +139,7 @@ curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replica
 -H "Content-Type: application/json"
 ```
 
-kubectl also supports cascading deletion, though implemented in a different way.
+kubectl also supports cascading deletion.
 To delete dependents automatically using kubectl, set `--cascade` to true.  To
 orphan dependents, set `--cascade` to false. The default value for `--cascade`
 is true.
