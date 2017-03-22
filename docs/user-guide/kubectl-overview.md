@@ -81,11 +81,13 @@ The following table includes a list of all the supported resource types and thei
 
 Resource type	| Abbreviated alias
 -------------------- | --------------------
+`certificatesigningrequests` |`csr`
 `clusters` |
 `clusterrolebindings` |
 `clusterroles` |
 `componentstatuses` |`cs`
 `configmaps` |`cm`
+`cronjobs` |
 `daemonsets` |`ds`
 `deployments` |`deploy`
 `endpoints` |`ep`
