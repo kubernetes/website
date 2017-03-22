@@ -112,6 +112,9 @@ to the volume sources that are defined when creating a volume:
 The recommended minimum set of allowed volumes for new PSPs are 
 configMap, downwardAPI, emptyDir, persistentVolumeClaim, and secret.
 
+### Host Network
+ - *HostPorts*, default `empty`. List of `HostPortRange`, defined by `min`(inclusive) and `max`(inclusive), which define the allowed host ports.
+ 
 ## Admission
 
 _Admission control_ with `PodSecurityPolicy` allows for control over the creation of resources
