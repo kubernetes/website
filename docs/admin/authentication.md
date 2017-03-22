@@ -150,9 +150,10 @@ and the password cannot be changed without restarting API server. Note that basi
 authentication is currently supported for convenience while we finish making the
 more secure modes described above easier to use.
 
-The basic auth file is a csv file with a minimum of 3 columns: password,
-user name, user id, followed by optional group names. Note, if you have more than
-one group the column must be double quoted e.g.
+The basic auth file is a csv file with a minimum of 3 columns: password, user name, user id.
+In Kubernetes version 1.6 and later, you can specify an optional fourth column containing 
+comma-separated group names. If you have more than one group, you must enclose the fourth 
+column value in double quotes ("). See the following example:
 
 ```conf
 password,user,uid,"group1,group2,group3"
