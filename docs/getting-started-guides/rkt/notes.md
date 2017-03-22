@@ -51,15 +51,15 @@ Because of this, some flags in `kubectl run` are not supported, including:
 
 ## Volume relabeling
 
-Currently rkt supports only *per-pod* volume relabeling. After relabeling, the mounted volume is shared by all containers in the pod. There is not yet a way to make the relabeled volume accessible to only one, or some subset, of containers in the pod. [Kubernetes issue # 28187](https://github.com/kubernetes/kubernetes/issues/28187) has the details.
+Currently rkt supports only *per-pod* volume relabeling. After relabeling, the mounted volume is shared by all Containers in the pod. There is not yet a way to make the relabeled volume accessible to only one, or some subset, of Containers in the pod. [Kubernetes issue # 28187](https://github.com/kubernetes/kubernetes/issues/28187) has the details.
 
 ## kubectl get logs
 
 Under rktnetes, `kubectl get logs` currently cannot get logs from applications that write them to directly to `/dev/stdout`. Currently such log messages are printed on the node's console.
 
-## Init containers
+## Init Containers
 
-The beta [init container](/docs/user-guide/pods/init-containers.md) feature is currently not supported.
+[Init Container](/docs/user-guide/pods/init-containers.md) feature is currently not supported.
 
 ## Container restart back-off
 
@@ -71,7 +71,7 @@ The `--experimental-nvidia-gpus` flag, and related [GPU features](https://github
 
 ## QoS Classes
 
-Under rkt, QoS classes do not adjust the `OOM Score` of containers as occurs under Docker.
+Under rkt, QoS classes do not adjust the `OOM Score` of Containers as occurs under Docker.
 
 ## HostPID and HostIPC namespaces
 

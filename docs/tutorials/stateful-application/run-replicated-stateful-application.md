@@ -151,8 +151,6 @@ properties to perform orderly startup of MySQL replication.
 Before starting any of the containers in the Pod spec, the Pod first runs any
 [Init Containers](/docs/user-guide/production-pods/#handling-initialization)
 in the order defined.
-In the StatefulSet manifest, you can find these defined within the
-`pod.beta.kubernetes.io/init-containers` annotation.
 
 The first Init Container, named `init-mysql`, generates special MySQL config
 files based on the ordinal index.

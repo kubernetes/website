@@ -7,10 +7,6 @@ assignees:
 title: Installing Kubernetes on Linux with kubeadm
 ---
 
-<style>
-li>.highlighter-rouge {position:relative; top:3px;}
-</style>
-
 ## Overview
 
 This quickstart shows you how to easily install a Kubernetes cluster on machines
