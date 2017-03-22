@@ -21,7 +21,7 @@ This guide uses a simple nginx server to demonstrate proof of concept. The same 
 
 ## Exposing pods to the cluster
 
-We did this in a previous example, but lets do it once again and focus on the networking perspective. Create an nginx pod, and note that it has a container port specification:
+We did this in a previous example, but let's do it once again and focus on the networking perspective. Create an nginx pod, and note that it has a container port specification:
 
 {% include code.html language="yaml" file="run-my-nginx.yaml" ghlink="/docs/concepts/services-networking/run-my-nginx.yaml" %}
 
@@ -187,7 +187,7 @@ Now modify your nginx replicas to start an https server using the certificate in
 
 Noteworthy points about the nginx-secure-app manifest:
 
-- It contains both Deployment and Service specification in the same file
+- It contains both Deployment and Service specification in the same file.
 - The [nginx server](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/https-nginx/default.conf) serves http traffic on port 80 and https traffic on 443, and nginx Service exposes both ports.
 - Each container has access to the keys through a volume mounted at /etc/nginx/ssl. This is setup *before* the nginx server is started.
 
@@ -207,7 +207,7 @@ node $ curl -k https://10.244.3.5
 
 Note how we supplied the `-k` parameter to curl in the last step, this is because we don't know anything about the pods running nginx at certificate generation time,
 so we have to tell curl to ignore the CName mismatch. By creating a Service we linked the CName used in the certificate with the actual DNS name used by pods during Service lookup.
-Lets test this from a pod (the same secret is being reused for simplicity, the pod only needs nginx.crt to access the Service):
+Let's test this from a pod (the same secret is being reused for simplicity, the pod only needs nginx.crt to access the Service):
 
 {% include code.html language="yaml" file="curlpod.yaml" ghlink="/docs/concepts/services-networking/curlpod.yaml" %}
 
@@ -260,7 +260,7 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 <h1>Welcome to nginx!</h1>
 ```
 
-Lets now recreate the Service to use a cloud load balancer, just change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
+Let's now recreate the Service to use a cloud load balancer, just change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
 
 ```shell
 $ kubectl edit svc my-nginx
