@@ -69,8 +69,8 @@ Let's describe the quota to see what is currently being consumed in this namespa
 $ kubectl describe quota object-counts --namespace=quota-example
 Name:                  object-counts
 Namespace:             quota-example
-Resource               Used	Hard
---------               ----	----
+Resource               Used    Hard
+--------               ----    ----
 persistentvolumeclaims 0    2
 services.loadbalancers 0    2
 services.nodeports     0    0
@@ -162,8 +162,8 @@ Replicas:               0 current / 1 desired
 Pods Status:            0 Running / 0 Waiting / 0 Succeeded / 0 Failed
 No volumes.
 Events:
-  FirstSeen	LastSeen	Count From                    SubobjectPath Type      Reason        Message
-  ---------	--------  ----- ----                    -------------	--------  ------        -------
+  FirstSeen    LastSeen    Count From                    SubobjectPath Type      Reason        Message
+  ---------    --------  ----- ----                    -------------    --------  ------        -------
   4m        7s        11    {replicaset-controller }              Warning   FailedCreate  Error creating: pods "nginx-3137573019-" is forbidden: Failed quota: compute-resources: must specify limits.cpu,limits.memory,requests.cpu,requests.memory
 ```
 
@@ -257,7 +257,7 @@ Name:       best-effort
 Namespace:  quota-scopes
 Scopes:     BestEffort
  * Matches all pods that have best effort quality of service.
-Resource    Used	Hard
+Resource    Used    Hard
 --------    ----  ----
 pods        0     10
 

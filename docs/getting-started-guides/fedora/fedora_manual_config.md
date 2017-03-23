@@ -48,8 +48,8 @@ dnf -y install etcd
 * Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS). Make sure that communication works between fed-master and fed-node by using a utility such as ping.
 
 ```shell
-echo "192.168.121.9	fed-master
-192.168.121.65	fed-node" >> /etc/hosts
+echo "192.168.121.9    fed-master
+192.168.121.65    fed-node" >> /etc/hosts
 ```
 
 * Edit /etc/kubernetes/config (which should be the same on all hosts) to set
@@ -95,9 +95,9 @@ ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379"
 
 ```shell
 for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler; do
-	systemctl restart $SERVICES
-	systemctl enable $SERVICES
-	systemctl status $SERVICES
+    systemctl restart $SERVICES
+    systemctl enable $SERVICES
+    systemctl status $SERVICES
 done
 ```
 
