@@ -656,3 +656,9 @@ Finally, add the following parameters into API server start parameters:
           openssl x509  -noout -text -in ./server.crt
 
 Finally, do not forget to fill out and add the same parameters into the API server start parameters.
+
+#### Certificates API
+
+You can use the `certificates.k8s.io` API to provision
+x509 certificates to use for authentication as documented
+[here](/docs/tasks/tls/managing-tls-in-a-cluster).
