@@ -1,87 +1,66 @@
 ---
-title: Federated Secrets
+title: 联邦 Secrets
 ---
 
-This guide explains how to use secrets in Federation control plane.
+本指南介绍了如何在联邦控制层中使用秘密 - Secrets。
 
 * TOC
 {:toc}
 
-## Prerequisites
+## 前提条件
 
-This guide assumes that you have a running Kubernetes Cluster
-Federation installation. If not, then head over to the
-[federation admin guide](/docs/admin/federation/) to learn how to
-bring up a cluster federation (or have your cluster administrator do
-this for you). Other tutorials, for example
-[this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
-by Kelsey Hightower, are also available to help you.
+本指南假设您有一个正在运行的 Kubernetes 集群联邦的安装。如果没有，然后转到
+[联邦管理员指南](/docs/admin/federation/) 了解如何启动联邦集群 (或让集群管理员为您执行此操作)。
+其他教程，如 Kelsey Hightower 的
+[Kubernetes 联邦教程](https://github.com/kelseyhightower/kubernetes-cluster-federation),
+也可以帮助您创建一个联邦 Kubernetes 集群。
 
-You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and [Secrets](/docs/user-guide/secrets/) in particular.
+您还应该有一些
+[Kubernetes 的基础工作知识](/docs/getting-started-guides/) ，特别是对 [Secrets](/docs/user-guide/secrets/) 要有些了解。
 
-## Overview
+## 概述
 
-Secrets in federation control plane (referred to as "federated secrets" in
-this guide) are very similar to the traditional [Kubernetes
-Secrets](/docs/user-guide/secrets/) providing the same functionality.
-Creating them in the federation control plane ensures that they are synchronized
-across all the clusters in federation.
+联邦控制层的 Secrets (本指南简称 "联邦 secrets") 与传统的 [Kubernetes
+Secrets](/docs/user-guide/secrets/) 非常相似，并提供相同的功能。
+在联邦控制层中创建 Secrets 可确保它们在联邦中的所有集群之间同步。
 
+## 创建联邦 Secret
 
-## Creating a Federated Secret
+联邦 Secret 的 API 与传统的 Kubernetes Secret 的 API 是 100% 兼容的。您可以通过发送创建一个 secret 请求到联邦的 apiserver。
 
-The API for Federated Secret is 100% compatible with the
-API for traditional Kubernetes Secret. You can create a secret by sending
-a request to the federation apiserver.
-
-You can do that using [kubectl](/docs/user-guide/kubectl/) by running:
+您可以通过使用 [kubectl](/docs/user-guide/kubectl/) 运行:
 
 ``` shell
 kubectl --context=federation-cluster create -f mysecret.yaml
 ```
 
-The '--context=federation-cluster' flag tells kubectl to submit the
-request to the Federation apiserver instead of sending it to a Kubernetes
-cluster.
+此选项 '--context=federation-cluster' 标记告诉 kubectl 提交请求到联邦 apiserver 而不是发送到到  Kubernetes 集群。
 
-Once a federated secret is created, the federation control plane will create
-a matching secret in all underlying Kubernetes clusters.
-You can verify this by checking each of the underlying clusters, for example:
+一旦联邦 secret 被创建，联邦控制层就会在所有基础的 Kubernetes 集群中创建并匹配 secret。
+您可以通过检查每个基础集群来验证这一点，例如:
 
 ``` shell
 kubectl --context=gce-asia-east1a get secret mysecret
 ```
 
-The above assumes that you have a context named 'gce-asia-east1a'
-configured in your client for your cluster in that zone.
+以上假设您在您的客户端中为您的集群在该区域中配置了名为'gce-asia-east1a'的上下文。
 
-These secrets in underlying clusters will match the federated secret.
+底层集群中的这些 secret 将与联邦 secret 相匹配。
 
+## 更新联邦 Secret
 
-## Updating a Federated Secret
+您可以通过更新联邦 secret，来更新 Kubernetes secret。然而，对于联邦 secret，您必须将请求发送到联邦 apiserver 而不是发送到特定的 Kubernetes 集群。
+联邦控制层将确保每当联邦 secret 被更新，它会更新所有基础集群中相应 secrets 并匹配它。
 
-You can update a federated secret as you would update a Kubernetes
-secret; however, for a federated secret, you must send the request to
-the federation apiserver instead of sending it to a specific Kubernetes cluster.
-The Federation control plan ensures that whenever the federated secret is
-updated, it updates the corresponding secrets in all underlying clusters to
-match it.
+## 删除联邦 Secret
 
-## Deleting a Federated Secret
+您可以通过删除联邦 secret，来删除Kubernetes secret。然而，对于联邦 secret，您必须将请求发送到联邦 apiserver 而不是发送到特定的 Kubernetes 集群。
 
-You can delete a federated secret as you would delete a Kubernetes
-secret; however, for a federated secret, you must send the request to
-the federation apiserver instead of sending it to a specific Kubernetes cluster.
-
-For example, you can do that using kubectl by running:
+例如，您可以通过运行 kubectl 来执行此操作:
 
 ```shell
-kubectl --context=federation-cluster delete secret mysecret 
+kubectl --context=federation-cluster delete secret mysecret
 ```
 
-Note that at this point, deleting a federated secret will not delete the
-corresponding secrets from underlying clusters.
-You must delete the underlying secrets manually.
-We intend to fix this in the future.
+请注意，此时删除联邦 secret 将不会删除基础集群相应的 secrets。您必须手动删除底层 secrets。
+我们计划未来解决此问题。
