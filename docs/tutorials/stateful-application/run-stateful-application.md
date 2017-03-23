@@ -91,20 +91,20 @@ for a secure solution.
 
         kubectl describe deployment mysql
 
-        Name:            mysql
-        Namespace:        default
+        Name:                 mysql
+        Namespace:            default
         CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
-        Labels:            app=mysql
-        Selector:        app=mysql
-        Replicas:        1 updated | 1 total | 0 available | 1 unavailable
-        StrategyType:        Recreate
-        MinReadySeconds:    0
-        OldReplicaSets:        <none>
+        Labels:               app=mysql
+        Selector:             app=mysql
+        Replicas:             1 updated | 1 total | 0 available | 1 unavailable
+        StrategyType:         Recreate
+        MinReadySeconds:      0
+        OldReplicaSets:       <none>
         NewReplicaSet:        mysql-63082529 (1/1 replicas created)
         Events:
           FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
           ---------    --------    -----    ----                -------------    --------    ------            -------
-          33s        33s        1    {deployment-controller }            Normal        ScalingReplicaSet    Scaled up replica set mysql-63082529 to 1
+          33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
 
 1. List the pods created by the Deployment:
 
@@ -117,19 +117,19 @@ for a secure solution.
 
         kubectl describe pv mysql-pv
 
-        Name:        mysql-pv
-        Labels:        <none>
-        Status:        Bound
-        Claim:        default/mysql-pv-claim
-        Reclaim Policy:    Retain
+        Name:            mysql-pv
+        Labels:          <none>
+        Status:          Bound
+        Claim:           default/mysql-pv-claim
+        Reclaim Policy:  Retain
         Access Modes:    RWO
-        Capacity:    20Gi
+        Capacity:        20Gi
         Message:    
         Source:
-            Type:    GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
-            PDName:    mysql-disk
-            FSType:    ext4
-            Partition:    0
+            Type:        GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
+            PDName:      mysql-disk
+            FSType:      ext4
+            Partition:   0
             ReadOnly:    false
         No events.
 
@@ -137,13 +137,13 @@ for a secure solution.
 
         kubectl describe pvc mysql-pv-claim
 
-        Name:        mysql-pv-claim
+        Name:         mysql-pv-claim
         Namespace:    default
-        Status:        Bound
-        Volume:        mysql-pv
-        Labels:        <none>
-        Capacity:    20Gi
-        Access Modes:    RWO
+        Status:       Bound
+        Volume:       mysql-pv
+        Labels:       <none>
+        Capacity:     20Gi
+        Access Modes: RWO
         No events.
 
 ## Accessing the MySQL instance
