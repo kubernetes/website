@@ -222,27 +222,27 @@ kubectl create -f ./job.yaml
 Now wait a bit, then check on the job.
 
 ```shell
-$ kubectl describe jobs/job-wq-1 
-Name:        job-wq-1
-Namespace:    default
-Image(s):    gcr.io/causal-jigsaw-637/job-wq-1
-Selector:    app in (job-wq-1)
-Parallelism:    2
-Completions:    8
-Labels:        app=job-wq-1
+$ kubectl describe jobs/job-wq-1
+Name:             job-wq-1
+Namespace:        default
+Image(s):         gcr.io/causal-jigsaw-637/job-wq-1
+Selector:         app in (job-wq-1)
+Parallelism:      2
+Completions:      8
+Labels:           app=job-wq-1
 Pods Statuses:    0 Running / 8 Succeeded / 0 Failed
 No volumes.
 Events:
-  FirstSeen    LastSeen    Count    From    SubobjectPath    Reason            Message
-  ─────────    ────────    ─────    ────    ─────────────    ──────            ───────
-  27s        27s        1    {job }            SuccessfulCreate    Created pod: job-wq-1-hcobb
-  27s        27s        1    {job }            SuccessfulCreate    Created pod: job-wq-1-weytj
-  27s        27s        1    {job }            SuccessfulCreate    Created pod: job-wq-1-qaam5
-  27s        27s        1    {job }            SuccessfulCreate    Created pod: job-wq-1-b67sr
-  26s        26s        1    {job }            SuccessfulCreate    Created pod: job-wq-1-xe5hj
-  15s        15s        1    {job }            SuccessfulCreate    Created pod: job-wq-1-w2zqe
-  14s        14s        1    {job }            SuccessfulCreate    Created pod: job-wq-1-d6ppa
-  14s        14s        1    {job }            SuccessfulCreate    Created pod: job-wq-1-p17e0
+  FirstSeen  LastSeen   Count    From    SubobjectPath    Reason              Message
+  ─────────  ────────   ─────    ────    ─────────────    ──────              ───────
+  27s        27s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-hcobb
+  27s        27s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-weytj
+  27s        27s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-qaam5
+  27s        27s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-b67sr
+  26s        26s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-xe5hj
+  15s        15s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-w2zqe
+  14s        14s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-d6ppa
+  14s        14s        1        {job }                   SuccessfulCreate    Created pod: job-wq-1-p17e0
 ```
 
 All our pods succeeded.  Yay.
