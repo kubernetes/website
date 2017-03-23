@@ -45,20 +45,20 @@ Check on the status of the job using this command:
 
 ```shell
 $ kubectl describe jobs/pi
-Name:		pi
-Namespace:	default
-Image(s):	perl
-Selector:       controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
-Parallelism:	1
-Completions:	1
-Start Time:     Tue, 07 Jun 2016 10:56:16 +0200
-Labels:         controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495,job-name=pi
-Pods Statuses:	0 Running / 1 Succeeded / 0 Failed
+Name:             pi
+Namespace:        default
+Image(s):         perl
+Selector:         controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
+Parallelism:      1
+Completions:      1
+Start Time:       Tue, 07 Jun 2016 10:56:16 +0200
+Labels:           controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495,job-name=pi
+Pods Statuses:    0 Running / 1 Succeeded / 0 Failed
 No volumes.
 Events:
-  FirstSeen	LastSeen	Count	From			SubobjectPath	Type		Reason			Message
-  ---------	--------	-----	----			-------------	--------	------			-------
-  1m		1m		1	{job-controller }			Normal		SuccessfulCreate	Created pod: pi-dtn4q
+  FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
+  ---------    --------    -----    ----            -------------    --------    ------            -------
+  1m           1m          1        {job-controller }                Normal      SuccessfulCreate  Created pod: pi-dtn4q
 ```
 
 To view completed pods of a job, use `kubectl get pods --show-all`.  The `--show-all` will show completed pods too.

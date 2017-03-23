@@ -46,29 +46,25 @@ Check on the status of the ReplicationController using this command:
 
 ```shell
 $ kubectl describe replicationcontrollers/nginx
-Name:		nginx
-Namespace:	default
-Image(s):	nginx
-Selector:	app=nginx
-Labels:		app=nginx
-Replicas:	3 current / 3 desired
-Pods Status:	0 Running / 3 Waiting / 0 Succeeded / 0 Failed
+Name:        nginx
+Namespace:   default
+Image(s):    nginx
+Selector:    app=nginx
+Labels:      app=nginx
+Replicas:    3 current / 3 desired
+Pods Status: 0 Running / 3 Waiting / 0 Succeeded / 0 Failed
 Events:
-  FirstSeen				LastSeen			Count	From
-SubobjectPath	Reason			Message
-  Thu, 24 Sep 2015 10:38:20 -0700	Thu, 24 Sep 2015 10:38:20 -0700	1
-{replication-controller }			SuccessfulCreate	Created pod: nginx-qrm3m
-  Thu, 24 Sep 2015 10:38:20 -0700	Thu, 24 Sep 2015 10:38:20 -0700	1
-{replication-controller }			SuccessfulCreate	Created pod: nginx-3ntk0
-  Thu, 24 Sep 2015 10:38:20 -0700	Thu, 24 Sep 2015 10:38:20 -0700	1
-{replication-controller }			SuccessfulCreate	Created pod: nginx-4ok8v
+  FirstSeen                          LastSeen                           Count    From            SubobjectPath    Reason            Message
+  Thu, 24 Sep 2015 10:38:20 -0700    Thu, 24 Sep 2015 10:38:20 -0700    1        {replication-controller }        SuccessfulCreate    Created pod: nginx-qrm3m
+  Thu, 24 Sep 2015 10:38:20 -0700    Thu, 24 Sep 2015 10:38:20 -0700    1        {replication-controller }        SuccessfulCreate    Created pod: nginx-3ntk0
+  Thu, 24 Sep 2015 10:38:20 -0700    Thu, 24 Sep 2015 10:38:20 -0700    1        {replication-controller }        SuccessfulCreate    Created pod: nginx-4ok8v
 ```
 
 Here, 3 pods have been made, but none are running yet, perhaps because the image is being pulled.
 A little later, the same command may show:
 
 ```shell
-Pods Status:	3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 ```
 
 To list all the pods that belong to the rc in a machine readable form, you can use a command like this:
