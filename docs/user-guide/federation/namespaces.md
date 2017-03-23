@@ -1,90 +1,67 @@
 ---
-title: Federated Namespaces
+title: 联邦 Namespaces
 ---
 
-This guide explains how to use namespaces in Federation control plane.
+本指南介绍如何在联邦控制层使用命名空间。
 
 * TOC
 {:toc}
 
-## Prerequisites
+## 前提条件
 
-This guide assumes that you have a running Kubernetes Cluster
-Federation installation. If not, then head over to the
-[federation admin guide](/docs/admin/federation/) to learn how to
-bring up a cluster federation (or have your cluster administrator do
-this for you). Other tutorials, for example
-[this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
-by Kelsey Hightower, are also available to help you.
+本指南假设您有一个正在运行的 Kubernetes 集群联邦的安装。如果没有，然后转到
+[联邦管理员指南](/docs/admin/federation/) 了解如何启动联邦集群 (或让集群管理员为您执行此操作)。
+其他教程，如 Kelsey Hightower 的
+[Kubernetes 联邦教程](https://github.com/kelseyhightower/kubernetes-cluster-federation),
+也可以帮助您创建一个联邦 Kubernetes 集群。
 
-You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and [Namespaces](/docs/user-guide/namespaces/) in particular.
+您还应该有一些
+[Kubernetes 的基础工作知识](/docs/getting-started-guides/) ，特别是对 [Namespaces](/docs/user-guide/namespaces/) 要有些了解。
 
-## Overview
+## 概述
 
-Namespaces in federation control plane (referred to as "federated namespaces" in
-this guide) are very similar to the traditional [Kubernetes
-Namespaces](/docs/user-guide/namespaces/) providing the same functionality.
-Creating them in the federation control plane ensures that they are synchronized
-across all the clusters in federation.
+联邦控制层的 Namespaces (本指南中称为 "联邦 namespaces") 与传统的 [Kubernetes
+Namespaces](/docs/user-guide/namespaces/) 非常相似，并提供相同的功能。
+在联邦控制层创建 Namespaces 可确保它们在联邦中同步所有集群。
 
+## 创建联邦 Namespace
 
-## Creating a Federated Namespace
+联邦 Namespaces 的 API 与传统的 Kubernetes Namespaces 100% 兼容。您可以通过发送创建命名空间请求到联邦 apiserver。
 
-The API for Federated Namespaces is 100% compatible with the
-API for traditional Kubernetes Namespaces. You can create a namespace by sending
-a request to the federation apiserver.
-
-You can do that using kubectl by running:
+您可以通过运行 kubectl 来执行此操作:
 
 ``` shell
 kubectl --context=federation-cluster create -f myns.yaml
 ```
 
-The '--context=federation-cluster' flag tells kubectl to submit the
-request to the Federation apiserver instead of sending it to a Kubernetes
-cluster.
+此选项 '--context=federation-cluster' 标记告诉 kubectl 将请求提交给联邦 apiserver 而不是发送到 Kubernetes 集群。
 
-Once a federated namespace is created, the federation control plane will create
-a matching namespace in all underlying Kubernetes clusters.
-You can verify this by checking each of the underlying clusters, for example:
+一旦创建了联邦 namespace，联邦控制层将在所有底层的 Kubernetes 集群中创建一个匹配的 namespace。
+
+您可以通过检查每个基础集群来验证这一点，例如:
 
 ``` shell
 kubectl --context=gce-asia-east1a get namespaces myns
 ```
 
-The above assumes that you have a context named 'gce-asia-east1a'
-configured in your client for your cluster in that zone. The name and
-spec of the underlying namespace will match those of
-the Federated Namespace that you created above.
+以上假设您在您的客户端中为您的集群在该区域中配置了名为'gce-asia-east1a'的上下文。
+底层集群的 namespace 将与您上面创建的联邦 Namespace 相匹配。
 
+## 更新联邦 Namespace
 
-## Updating a Federated Namespace
+您可以通过更新联邦 namespace，来更新 Kubernetes namespace，只需将请求发送给联邦 apiserver，而不是将其发送到特定的 Kubernetes 集群。
+联邦控制层将确保联邦 namespace 被更新时，它将更新所有底层集群中的相应 namespaces，使之与之匹配。
 
-You can update a federated namespace as you would update a Kubernetes
-namespace, just send the request to federation apiserver instead of sending it
-to a specific Kubernetes cluster.
-Federation control plan will ensure that whenever the federated namespace is
-updated, it updates the corresponding namespaces in all underlying clusters to
-match it.
+## 删除联邦 Namespace
 
-## Deleting a Federated Namespace
+您可以通过删除联邦 namespace，来删除 Kubernetes namespace，只需发送请求到联邦 apiserver 而不是发送它到一个特定的 Kubernetes 集群。
 
-You can delete a federated namespace as you would delete a Kubernetes
-namespace, just send the request to federation apiserver instead of sending it
-to a specific Kubernetes cluster.
-
-For example, you can do that using kubectl by running:
+例如，您可以通过运行 kubectl 来执行此操作:
 
 ```shell
 kubectl --context=federation-cluster delete ns myns
 ```
 
-As in Kubernetes, deleting a federated namespace will delete all resources in that
-namespace from the federation control plane.
+与 Kubernetes 一样，删除联邦 namespace 将从联邦控制层中删除该 namespace 中的所有资源。
 
-Note that at this point, deleting a federated namespace will not delete the
-corresponding namespaces and resources in those namespaces from underlying clusters.
-Users are expected to delete them manually.
-We intend to fix this in the future.
+请注意一点，此时删除联邦 namespace 将不会删除来自基础集群的 namespace 中的相应 namespace 和资源。用户应用手动移除它们，我们打算在未来解决此问题。
