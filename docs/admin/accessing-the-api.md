@@ -68,7 +68,7 @@ diagram.
 The input to the Authorization step are attributes of the REST request, including:
   - the username determined by the Authentication step.
   - a `verb` associated with the API request.  Most object support these common operations: `list, watch, create, update, patch, delete`.  Some objects have "special verbs"; for example pods and services can be `proxy`-ed.
-  - any sub resource associated with the API request (e.g. `status`).
+  - any subresource associated with the API request (e.g. `status`).
   - the Group, Version, and Kind of the API resource (e.g. `v1 pod`, or `batch/v1 job`) being
     operated on.
   - the name and namespace of the object.
