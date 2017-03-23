@@ -56,7 +56,7 @@ A Kubernetes Service is an abstraction which defines a logical set of Pods runni
 You can create a Service for your 2 nginx replicas with `kubectl expose`:
 
 ```shell
-$ kubectl expose deployment/my-nginx 
+$ kubectl expose deployment/my-nginx
 service "my-nginx" exposed
 ```
 
@@ -77,14 +77,14 @@ As mentioned previously, a Service is backed by a group of pods. These pods are 
 
 ```shell
 $ kubectl describe svc my-nginx
-Name:            my-nginx
-Namespace:        default
-Labels:            run=my-nginx
-Selector:        run=my-nginx
-Type:            ClusterIP
-IP:            10.0.162.149
-Port:            <unset>    80/TCP
-Endpoints:        10.244.2.5:80,10.244.3.4:80
+Name:                my-nginx
+Namespace:           default
+Labels:              run=my-nginx
+Selector:            run=my-nginx
+Type:                ClusterIP
+IP:                  10.0.162.149
+Port:                <unset> 80/TCP
+Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
 No events.
 
@@ -213,7 +213,7 @@ Let's test this from a pod (the same secret is being reused for simplicity, the 
 
 ```shell
 $ kubectl create -f ./curlpod.yaml
-$ kubectl get pods -l app=curlpod 
+$ kubectl get pods -l app=curlpod
 NAME                               READY     STATUS    RESTARTS   AGE
 curl-deployment-1515033274-1410r   1/1       Running   0          1m
 $ kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert /etc/nginx/ssl/nginx.crt
