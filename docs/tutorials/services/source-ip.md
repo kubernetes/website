@@ -106,6 +106,7 @@ client_address=10.244.3.8
 command=GET
 ...
 ```
+If the client pod and server pod are in the same node, the client_address is the client pod's IP address. However, if the client pod and server pod are in different nodes, the client_address is the client pod's node flannel IP address.
 
 ## Source IP for Services with Type=NodePort
 
