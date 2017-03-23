@@ -227,13 +227,13 @@ The ```kubectl describe``` command gives you more details about the logs
 
 ```
 # kubectl describe -n kube-system po kube-dns-2924299975-1l2t7
-  2m		2m		1	{kubelet nac}	spec.containers{flannel}		Warning		Failed		Failed to start container with docker id 927e7ccdc32b with error: Error response from daemon: {"message":"chown /etc/resolv.conf: operation not permitted"}
+  2m        2m        1    {kubelet nac}    spec.containers{flannel}        Warning        Failed        Failed to start container with docker id 927e7ccdc32b with error: Error response from daemon: {"message":"chown /etc/resolv.conf: operation not permitted"}
 
 ```
 
 Or
 ```
-  6m	1m	191	{kubelet nac}		Warning	FailedSync	Error syncing pod, skipping: failed to "SetupNetwork" for "kube-dns-2924299975-1l2t7_kube-system" with SetupNetworkError: "Failed to setup network for pod \"kube-dns-2924299975-1l2t7_kube-system(dee8ef21-fbcb-11e6-ba19-38d547e0006a)\" using network plugins \"cni\": open /run/flannel/subnet.env: no such file or directory; Skipping pod"
+  6m    1m    191    {kubelet nac}        Warning    FailedSync    Error syncing pod, skipping: failed to "SetupNetwork" for "kube-dns-2924299975-1l2t7_kube-system" with SetupNetworkError: "Failed to setup network for pod \"kube-dns-2924299975-1l2t7_kube-system(dee8ef21-fbcb-11e6-ba19-38d547e0006a)\" using network plugins \"cni\": open /run/flannel/subnet.env: no such file or directory; Skipping pod"
 ```
 
 You can then search Google for the error messages, which may help you find a solution.
