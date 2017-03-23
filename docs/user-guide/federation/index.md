@@ -35,14 +35,14 @@ title: 联邦用户指南
 虽然联邦有很多有吸引力的用例，但也有一些注意事项。
 
 * 增加的网络带宽和成本: 联邦控制并监视所有集群，以确保当前状态与预期的一致。如果集群在云服务商或不同云服务商上的不同区域中运行，这可能会导致显著的网络成本的上升。
-* 降低跨集群隔离: 联邦控制平台中的错误会影响所有集群。这可以通过将联邦控制平台中的逻辑保持最小来缓解。它大多委托 Kubernetes 集群自己去调度，另外设计和实施在安全方面也面临挑战，应避免多集群的服务中断。
+* 降低跨集群隔离: 联邦控制层的错误会影响所有集群。这可以通过将联邦控制层的逻辑保持最小来缓解。它大多委托 Kubernetes 集群自己去调度，另外设计和实施在安全方面也面临挑战，应避免多集群的服务中断。
 * 成熟度: 联邦项目相对较新，不是很成熟。并不是所有的资源都可用，许多仍是alpha。 [问题
   38893](https://github.com/kubernetes/kubernetes/issues/38893) 列出了团队正忙于解决的系统已知问题。
 
 ## 开始
 
-为了能够联合多个集群，我们首先需要设置一个联邦控制平台。
-按照 [安装指南](/docs/admin/federation/) 设置联邦控制平台。
+为了能够联合多个集群，我们首先需要配置一个联邦控制层。
+按照 [安装指南](/docs/admin/federation/) 配置联邦控制层。
 
 ## 混合云功能
 
@@ -54,7 +54,7 @@ Kubernetes 集群联邦可以包括不同云提供商 (例如 Google Cloud, AWS)
 
 ## API 资源
 
-一旦我们设置了联邦控制台，我们就可以开始创建联邦 API 资源。
+一旦我们配置好了联邦控制层，我们就可以开始创建联邦 API 资源。
 以下指南详细解释了一些资源:
 
 * [ConfigMap](https://kubernetes.io/docs/user-guide/federation/configmap/)
@@ -71,9 +71,9 @@ Kubernetes 集群联邦可以包括不同云提供商 (例如 Google Cloud, AWS)
 
 ## 级联删除
 
-Kubernetes 版本1.5包括了对联邦级联资源删除的支持。使用级联删除，当从联邦控制平台中删除资源时，所有基础集群中的相应资源也将被删除。
+Kubernetes 版本1.5包括了对联邦级联资源删除的支持。使用级联删除，当从联邦控制层删除资源时，所有基础集群中的相应资源也将被删除。
 
-当您需要从联邦控制台删除资源时，请设置选项`DeleteOptions.orphanDependents=false` 启用级联删除。
+当您需要从联邦控制层删除资源时，请设置选项`DeleteOptions.orphanDependents=false` 启用级联删除。
 
 以是联邦资源受级联删除的影响:
 
@@ -84,7 +84,7 @@ Kubernetes 版本1.5包括了对联邦级联资源删除的支持。使用级联
 * [Deployment](https://kubernetes.io/docs/user-guide/federation/deployment/)
 * [DaemonSets](https://kubernetes.io/docs/user-guide/federation/daemonsets/)
 
-注意: 默认情况下，从联邦控制平台删除资源不会从基础集群中删除相应的资源。
+注意: 默认情况下，从联邦控制层删除资源不会从基础集群中删除相应的资源。
 
 ## 了解更多信息
 

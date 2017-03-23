@@ -199,7 +199,7 @@ gcloud compute firewall-rules create my-federated-ingress-firewall-rule \
 检查:
 
 1. 每个集群中的联邦 ingress 服务所在的节点端口是否相同。参见 [above](#creating_a_federated_ingress) 进一步解释。
-2. 每个集群中的负载均衡控制器都是正确类型 ("GLBC")，并已被正确重新配置到联邦控制台，共享全局 GCE 负载均衡器(这应该自动发生)。如果它们是正确的类型，并被正确重新配置，则每个集群中GLBC 配置映射中的UID数据项在所有集群中都是相同的。
+2. 每个集群中的负载均衡控制器都是正确类型 ("GLBC")，并已被正确重新配置到联邦控制层，共享全局 GCE 负载均衡器(这应该自动发生)。如果它们是正确的类型，并被正确重新配置，则每个集群中GLBC 配置映射中的UID数据项在所有集群中都是相同的。
    [看 GLBC 文档](https://github.com/kubernetes/contrib/blob/master/ingress/controllers/gce/BETA_LIMITATIONS.md#changing-the-cluster-uid)
    获取详细信息。
    如果不是这种情况，请检查联邦控制管理器的日志，以确定此自动重新配置可能失败的原因。

@@ -2,7 +2,7 @@
 title: 联邦 Deployment
 ---
 
-本指南介绍如何在联邦控制平台中使用 - Deployments[部署]。
+本指南介绍如何在联邦控制层中使用部署 - Deployments。
 
 * TOC
 {:toc}
@@ -20,9 +20,9 @@ title: 联邦 Deployment
 
 ## 概述
 
-联邦控制平台的 Deployments ("联邦 Deployments" 本指南) 非常类似于传统的[Kubernetes
+联邦控制层的 Deployments ("联邦 Deployments" 本指南) 非常类似于传统的[Kubernetes
 Deployments](/docs/user-guide/deployments/) 并提供相同的功能。
-在联邦控制平台中创建部署，可以确保期望的应用副本数存在于跨集群的注册。
+在联邦控制层创建部署，可以确保期望的应用副本数存在于跨集群的注册。
 
 **从Kubernetes 版本1.5开始， 联邦 Deployment 是一个 Alpha 特性。核心部署的功能是存在的，但一些功能
 (例如完全的兼容性) 仍在开发中。**
@@ -40,7 +40,7 @@ kubectl --context=federation-cluster create -f mydeployment.yaml
 此选项 '--context=federation-cluster' 标记告诉 kubectl 提交请求到联邦 apiserver 而不是发送到 Kubernetes
 集群。
 
-一旦联邦的 Deployment 被创建，联邦控制台将在所有基础集群中创建或匹配 Deployment。
+一旦联邦的 Deployment 被创建，联邦控制层将在所有基础集群中创建或匹配 Deployment。
 您可以通过检查每个基础集群来验证这一点，例如:
 
 ``` shell
@@ -50,7 +50,7 @@ kubectl --context=gce-asia-east1a get deployment mydep
 以上假设您在您的客户端中为您的集群在该区域中配置了名为'gce-asia-east1a'的上下文。
 
 底层集群中的这些部署将与联邦部署匹配，但副本数和修订相关的注释除外。
-联邦控制台确保每个集群中的副本总数与联邦部署中所需的副本数相匹配。
+联邦控制层将确保每个集群中的副本总数与联邦部署中所需的副本数相匹配。
 
 ### 在底层集群中分配副本
 
@@ -65,8 +65,8 @@ kubectl --context=gce-asia-east1a get deployment mydep
 ## 更新联邦 Deployment
 
 您可以更新联邦 Deployment 就像更新 Kubernetes 的 Deployment 一样; 但是，对于联邦 Deployment，你必须将请求发送到联邦 apiserver 而不是发送它到特定的 Kubernetes 集群。
-联邦控制台确保每当更新联邦部署时，它都会更新所有基础集群中的相应部署以与其匹配。因此，如果选择滚动更新策略，则底层集群将独立执行滚动更新，`maxSurge` 和 `maxUnavailable`将仅适用于单个集群。此行为可能在将来更改。
-如果更新包括副本数量的更改，联邦控制平台将底层集群中的副本数更改为确保其总数仍等于联邦部署中所需副本的数量。
+联邦控制层将确保更新联邦部署时，它都会更新所有基础集群中的相应部署以与其匹配。因此，如果选择滚动更新策略，则底层集群将独立执行滚动更新，`maxSurge` 和 `maxUnavailable`将仅适用于单个集群。此行为可能在将来更改。
+如果更新包括副本数量的更改，联邦控制层将底层集群中的副本数更改为确保其总数仍等于联邦部署中所需副本的数量。
 
 ## 删除联邦 Deployment
 

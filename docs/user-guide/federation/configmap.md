@@ -2,7 +2,7 @@
 title: 联邦 ConfigMaps
 ---
 
-本指南解释了如何在联邦控制台中使用 - ConfigMaps[配置映射]。
+本指南解释了如何在联邦控制层使用 - ConfigMaps[配置映射]。
 
 * TOC
 {:toc}
@@ -22,7 +22,7 @@ title: 联邦 ConfigMaps
 
 联邦 ConfigMaps 与传统的 [Kubernetes
 ConfigMaps](/docs/user-guide/configmap/) 非常类似，并提供相同的功能。
-在联邦控制台中创建它们，可确保它们同步到联邦中的所有集群。
+在联邦控制层创建它们，可确保它们同步到联邦中的所有集群。
 
 ## 创建联邦 ConfigMaps
 
@@ -36,7 +36,7 @@ kubectl --context=federation-cluster create -f myconfigmap.yaml
 
 此选项 `--context=federation-cluster` 标记告诉 kubectl 提交请求到联邦 apiserver 而不是发送它到 Kubernetes 集群。
 
-一旦联邦 ConfigMap 被创建, 联邦控制平台将在所有底层的 Kubernetes 集群中创建匹配 ConfigMap。
+一旦联邦 ConfigMap 被创建, 联邦控制层将在所有底层的 Kubernetes 集群中创建匹配 ConfigMap。
 您可以通过检查每一个基础集群来验证这一点，例如:
 
 ``` shell
@@ -51,7 +51,7 @@ kubectl --context=gce-asia-east1a get configmap myconfigmap
 ## 更新联邦 ConfigMaps
 
 您可以更新联邦的 ConfigMap，就像更新 Kubernetes 的ConfigMap一样;但是，对于联邦 ConfigMap，您必须将请求发送到联邦 apiserver 而不是发送它到一个特定的 Kubernetes 集群。
-联邦控制台确保每次联邦 ConfigMap 更新时，它将所有基础集群中的相应 ConfigMaps 更新并匹配它。
+联邦控制层会确保每次联邦 ConfigMap 更新时，它将所有基础集群中的相应 ConfigMaps 更新并匹配它。
 
 ## 删除联邦 ConfigMaps
 
