@@ -15,7 +15,7 @@ This guide will set up a simple Kubernetes cluster with a single Kubernetes mast
 
 - This guide uses `systemd` for process management. Ubuntu 15.04 supports systemd natively as do a number of other Linux distributions.
 - All machines should have Docker >= 1.7.0 installed.
-	- To install Docker on Ubuntu, follow [these instructions](https://docs.docker.com/installation/ubuntulinux/)
+    - To install Docker on Ubuntu, follow [these instructions](https://docs.docker.com/installation/ubuntulinux/)
 - All machines should have connectivity to each other and the internet.
 - This guide assumes a DHCP server on your network to assign server IPs.
 - This guide uses `192.168.0.0/16` as the subnet from which pod IP addresses are assigned.  If this overlaps with your host subnet, you will need to configure Calico to use a different [IP pool](https://github.com/projectcalico/calico-containers/blob/master/docs/calicoctl/pool.md#calicoctl-pool-commands).

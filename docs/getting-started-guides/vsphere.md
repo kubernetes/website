@@ -71,7 +71,7 @@ Sample Config:
         working-dir = <Folder in which VMs are provisioned, can be null>
         vm-uuid = <VM Instance UUID of virtual machine which can be retrieved from instanceUuid property in VmConfigInfo, or also set as vc.uuid in VMX file. If empty, will be retrieved from sysfs (requires root)>
 [Disk]
-	scsicontrollertype = pvscsi
+    scsicontrollertype = pvscsi
 ```
 
 * Set the cloud provider via ```--cloud-provider=vsphere``` flag for each instance of kubelet, apiserver and controller manager.

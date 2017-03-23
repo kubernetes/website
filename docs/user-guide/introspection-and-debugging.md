@@ -57,49 +57,49 @@ We can retrieve a lot more information about each of these pods using `kubectl d
 
 ```shell
 $ kubectl describe pod nginx-deployment-1006230814-6winp
-Name:		nginx-deployment-1006230814-6winp
-Namespace:	default
-Node:		kubernetes-node-wul5/10.240.0.9
-Start Time:	Thu, 24 Mar 2016 01:39:49 +0000
-Labels:		app=nginx,pod-template-hash=1006230814
-Status:		Running
-IP:		10.244.0.6
-Controllers:	ReplicaSet/nginx-deployment-1006230814
+Name:        nginx-deployment-1006230814-6winp
+Namespace:    default
+Node:        kubernetes-node-wul5/10.240.0.9
+Start Time:    Thu, 24 Mar 2016 01:39:49 +0000
+Labels:        app=nginx,pod-template-hash=1006230814
+Status:        Running
+IP:        10.244.0.6
+Controllers:    ReplicaSet/nginx-deployment-1006230814
 Containers:
   nginx:
-    Container ID:	docker://90315cc9f513c724e9957a4788d3e625a078de84750f244a40f97ae355eb1149
-    Image:		nginx
-    Image ID:		docker://6f62f48c4e55d700cf3eb1b5e33fa051802986b77b874cc351cce539e5163707
-    Port:		80/TCP
+    Container ID:    docker://90315cc9f513c724e9957a4788d3e625a078de84750f244a40f97ae355eb1149
+    Image:        nginx
+    Image ID:        docker://6f62f48c4e55d700cf3eb1b5e33fa051802986b77b874cc351cce539e5163707
+    Port:        80/TCP
     QoS Tier:
-      cpu:	Guaranteed
-      memory:	Guaranteed
+      cpu:    Guaranteed
+      memory:    Guaranteed
     Limits:
-      cpu:	500m
-      memory:	128Mi
+      cpu:    500m
+      memory:    128Mi
     Requests:
-      memory:		128Mi
-      cpu:		500m
-    State:		Running
-      Started:		Thu, 24 Mar 2016 01:39:51 +0000
-    Ready:		True
-    Restart Count:	0
+      memory:        128Mi
+      cpu:        500m
+    State:        Running
+      Started:        Thu, 24 Mar 2016 01:39:51 +0000
+    Ready:        True
+    Restart Count:    0
     Environment Variables:
 Conditions:
-  Type		Status
-  Ready 	True 
+  Type        Status
+  Ready     True 
 Volumes:
   default-token-4bcbi:
-    Type:	Secret (a volume populated by a Secret)
-    SecretName:	default-token-4bcbi
+    Type:    Secret (a volume populated by a Secret)
+    SecretName:    default-token-4bcbi
 Events:
-  FirstSeen	LastSeen	Count	From					SubobjectPath		Type		Reason		Message
-  ---------	--------	-----	----					-------------		--------	------		-------
-  54s		54s		1	{default-scheduler }						Normal		Scheduled	Successfully assigned nginx-deployment-1006230814-6winp to kubernetes-node-wul5
-  54s		54s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Pulling		pulling image "nginx"
-  53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Pulled		Successfully pulled image "nginx"
-  53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Created		Created container with docker id 90315cc9f513
-  53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Started		Started container with docker id 90315cc9f513
+  FirstSeen    LastSeen    Count    From                    SubobjectPath        Type        Reason        Message
+  ---------    --------    -----    ----                    -------------        --------    ------        -------
+  54s        54s        1    {default-scheduler }                        Normal        Scheduled    Successfully assigned nginx-deployment-1006230814-6winp to kubernetes-node-wul5
+  54s        54s        1    {kubelet kubernetes-node-wul5}    spec.containers{nginx}    Normal        Pulling        pulling image "nginx"
+  53s        53s        1    {kubelet kubernetes-node-wul5}    spec.containers{nginx}    Normal        Pulled        Successfully pulled image "nginx"
+  53s        53s        1    {kubelet kubernetes-node-wul5}    spec.containers{nginx}    Normal        Created        Created container with docker id 90315cc9f513
+  53s        53s        1    {kubelet kubernetes-node-wul5}    spec.containers{nginx}    Normal        Started        Started container with docker id 90315cc9f513
 ```
 
 Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.)
@@ -132,35 +132,35 @@ To find out why the nginx-deployment-1370807587-fz9sd pod is not running, we can
 
 ```shell
 $ kubectl describe pod nginx-deployment-1370807587-fz9sd
-  Name:		nginx-deployment-1370807587-fz9sd
-  Namespace:	default
-  Node:		/
-  Labels:		app=nginx,pod-template-hash=1370807587
-  Status:		Pending
-  IP:		
-  Controllers:	ReplicaSet/nginx-deployment-1370807587
+  Name:        nginx-deployment-1370807587-fz9sd
+  Namespace:    default
+  Node:        /
+  Labels:        app=nginx,pod-template-hash=1370807587
+  Status:        Pending
+  IP:        
+  Controllers:    ReplicaSet/nginx-deployment-1370807587
   Containers:
     nginx:
-      Image:	nginx
-      Port:	80/TCP
+      Image:    nginx
+      Port:    80/TCP
       QoS Tier:
-        memory:	Guaranteed
-        cpu:	Guaranteed
+        memory:    Guaranteed
+        cpu:    Guaranteed
       Limits:
-        cpu:	1
-        memory:	128Mi
+        cpu:    1
+        memory:    128Mi
       Requests:
-        cpu:	1
-        memory:	128Mi
+        cpu:    1
+        memory:    128Mi
       Environment Variables:
   Volumes:
     default-token-4bcbi:
-      Type:	Secret (a volume populated by a Secret)
-      SecretName:	default-token-4bcbi
+      Type:    Secret (a volume populated by a Secret)
+      SecretName:    default-token-4bcbi
   Events:
-    FirstSeen	LastSeen	Count	From			        SubobjectPath	Type		Reason			    Message
-    ---------	--------	-----	----			        -------------	--------	------			    -------
-    1m		    48s		    7	    {default-scheduler }			        Warning		FailedScheduling	pod (nginx-deployment-1370807587-fz9sd) failed to fit in any node
+    FirstSeen    LastSeen    Count    From                    SubobjectPath    Type        Reason                Message
+    ---------    --------    -----    ----                    -------------    --------    ------                -------
+    1m            48s            7        {default-scheduler }                    Warning        FailedScheduling    pod (nginx-deployment-1370807587-fz9sd) failed to fit in any node
   fit failure on node (kubernetes-node-6ta5): Node didn't have enough resource: CPU, requested: 1000, used: 1420, capacity: 2000
   fit failure on node (kubernetes-node-wul5): Node didn't have enough resource: CPU, requested: 1000, used: 1100, capacity: 2000
 ```
@@ -270,34 +270,34 @@ kubernetes-node-st6x     Ready         1h
 kubernetes-node-unaj     Ready         1h
 
 $ kubectl describe node kubernetes-node-861h
-Name:			kubernetes-node-861h
-Labels:			kubernetes.io/hostname=kubernetes-node-861h
-CreationTimestamp:	Fri, 10 Jul 2015 14:32:29 -0700
+Name:            kubernetes-node-861h
+Labels:            kubernetes.io/hostname=kubernetes-node-861h
+CreationTimestamp:    Fri, 10 Jul 2015 14:32:29 -0700
 Conditions:
-  Type		Status		LastHeartbeatTime			LastTransitionTime			Reason					Message
-  Ready 	Unknown 	Fri, 10 Jul 2015 14:34:32 -0700 	Fri, 10 Jul 2015 14:35:15 -0700 	Kubelet stopped posting node status. 	
-Addresses:	10.240.115.55,104.197.0.26
+  Type        Status        LastHeartbeatTime            LastTransitionTime            Reason                    Message
+  Ready     Unknown     Fri, 10 Jul 2015 14:34:32 -0700     Fri, 10 Jul 2015 14:35:15 -0700     Kubelet stopped posting node status.     
+Addresses:    10.240.115.55,104.197.0.26
 Capacity:
- cpu:		1
- memory:	3800808Ki
- pods:		100
+ cpu:        1
+ memory:    3800808Ki
+ pods:        100
 Version:
- Kernel Version:		3.16.0-0.bpo.4-amd64
- OS Image:			Debian GNU/Linux 7 (wheezy)
- Container Runtime Version:	docker://Unknown
- Kubelet Version:		v0.21.1-185-gffc5a86098dc01
- Kube-Proxy Version:		v0.21.1-185-gffc5a86098dc01
-PodCIDR:			10.244.0.0/24
-ExternalID:			15233045891481496305
-Pods:				(0 in total)
-  Namespace			Name
+ Kernel Version:        3.16.0-0.bpo.4-amd64
+ OS Image:            Debian GNU/Linux 7 (wheezy)
+ Container Runtime Version:    docker://Unknown
+ Kubelet Version:        v0.21.1-185-gffc5a86098dc01
+ Kube-Proxy Version:        v0.21.1-185-gffc5a86098dc01
+PodCIDR:            10.244.0.0/24
+ExternalID:            15233045891481496305
+Pods:                (0 in total)
+  Namespace            Name
 Events:
-  FirstSeen				LastSeen			Count	From					SubobjectPath	Reason		Message
-  Fri, 10 Jul 2015 14:32:28 -0700	Fri, 10 Jul 2015 14:32:28 -0700	1	{kubelet kubernetes-node-861h}				NodeNotReady	Node kubernetes-node-861h status is now: NodeNotReady
-  Fri, 10 Jul 2015 14:32:30 -0700	Fri, 10 Jul 2015 14:32:30 -0700	1	{kubelet kubernetes-node-861h}				NodeNotReady	Node kubernetes-node-861h status is now: NodeNotReady
-  Fri, 10 Jul 2015 14:33:00 -0700	Fri, 10 Jul 2015 14:33:00 -0700	1	{kubelet kubernetes-node-861h}				starting	Starting kubelet.
-  Fri, 10 Jul 2015 14:33:02 -0700	Fri, 10 Jul 2015 14:33:02 -0700	1	{kubelet kubernetes-node-861h}				NodeReady	Node kubernetes-node-861h status is now: NodeReady
-  Fri, 10 Jul 2015 14:35:15 -0700	Fri, 10 Jul 2015 14:35:15 -0700	1	{controllermanager }					NodeNotReady	Node kubernetes-node-861h status is now: NodeNotReady
+  FirstSeen                LastSeen            Count    From                    SubobjectPath    Reason        Message
+  Fri, 10 Jul 2015 14:32:28 -0700    Fri, 10 Jul 2015 14:32:28 -0700    1    {kubelet kubernetes-node-861h}                NodeNotReady    Node kubernetes-node-861h status is now: NodeNotReady
+  Fri, 10 Jul 2015 14:32:30 -0700    Fri, 10 Jul 2015 14:32:30 -0700    1    {kubelet kubernetes-node-861h}                NodeNotReady    Node kubernetes-node-861h status is now: NodeNotReady
+  Fri, 10 Jul 2015 14:33:00 -0700    Fri, 10 Jul 2015 14:33:00 -0700    1    {kubelet kubernetes-node-861h}                starting    Starting kubelet.
+  Fri, 10 Jul 2015 14:33:02 -0700    Fri, 10 Jul 2015 14:33:02 -0700    1    {kubelet kubernetes-node-861h}                NodeReady    Node kubernetes-node-861h status is now: NodeReady
+  Fri, 10 Jul 2015 14:35:15 -0700    Fri, 10 Jul 2015 14:35:15 -0700    1    {controllermanager }                    NodeNotReady    Node kubernetes-node-861h status is now: NodeNotReady
 
 
 $ kubectl get node kubernetes-node-861h -o yaml

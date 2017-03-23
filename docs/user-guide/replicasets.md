@@ -55,20 +55,20 @@ create the defined ReplicaSet and the pods that it manages.
 $ kubectl create -f frontend.yaml
 replicaset "frontend" created
 $ kubectl describe rs/frontend
-Name:		frontend
-Namespace:	default
-Image(s):	gcr.io/google_samples/gb-frontend:v3
-Selector:	tier=frontend,tier in (frontend)
-Labels:		app=guestbook,tier=frontend
-Replicas:	3 current / 3 desired
-Pods Status:	3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Name:        frontend
+Namespace:    default
+Image(s):    gcr.io/google_samples/gb-frontend:v3
+Selector:    tier=frontend,tier in (frontend)
+Labels:        app=guestbook,tier=frontend
+Replicas:    3 current / 3 desired
+Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 No volumes.
 Events:
-  FirstSeen	LastSeen	Count	From				SubobjectPath	Type		Reason			Message
-  ---------	--------	-----	----				-------------	--------	------			-------
-  1m		1m		1	{replicaset-controller }			Normal		SuccessfulCreate	Created pod: frontend-qhloh
-  1m		1m		1	{replicaset-controller }			Normal		SuccessfulCreate	Created pod: frontend-dnjpy
-  1m		1m		1	{replicaset-controller }			Normal		SuccessfulCreate	Created pod: frontend-9si5l
+  FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
+  ---------    --------    -----    ----                -------------    --------    ------            -------
+  1m        1m        1    {replicaset-controller }            Normal        SuccessfulCreate    Created pod: frontend-qhloh
+  1m        1m        1    {replicaset-controller }            Normal        SuccessfulCreate    Created pod: frontend-dnjpy
+  1m        1m        1    {replicaset-controller }            Normal        SuccessfulCreate    Created pod: frontend-9si5l
 $ kubectl get pods
 NAME             READY     STATUS    RESTARTS   AGE
 frontend-9si5l   1/1       Running   0          1m
