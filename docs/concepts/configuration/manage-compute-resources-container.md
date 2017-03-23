@@ -206,14 +206,14 @@ Name:            e2e-test-minion-group-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
  alpha.kubernetes.io/nvidia-gpu:    0
- cpu:                    2
- memory:                7679792Ki
- pods:                    110
+ cpu:                               2
+ memory:                            7679792Ki
+ pods:                              110
 Allocatable:
  alpha.kubernetes.io/nvidia-gpu:    0
- cpu:                    1800m
- memory:                7474992Ki
- pods:                    110
+ cpu:                               1800m
+ memory:                            7474992Ki
+ pods:                              110
 [ ... lines removed for clarity ...]
 Non-terminated Pods:        (5 in total)
   Namespace    Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits
@@ -227,7 +227,7 @@ Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
   CPU Requests    CPU Limits    Memory Requests    Memory Limits
   ------------    ----------    ---------------    -------------
-  680m (34%)    400m (20%)    920Mi (12%)    1070Mi (14%)
+  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
 ```
 
 In the preceding output, you can see that if a Pod requests more than 1120m
