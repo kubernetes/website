@@ -149,7 +149,7 @@ in 13 underlying clusters:
 for CLUSTER in asia-east1-c asia-east1-a asia-east1-b \
                         europe-west1-d europe-west1-c europe-west1-b \
                         us-central1-f us-central1-a us-central1-b us-central1-c \
-						us-east1-d us-east1-c us-east1-b
+                        us-east1-d us-east1-c us-east1-b
 do
   kubectl --context=$CLUSTER run nginx --image=nginx:1.11.1-alpine --port=80
 done

@@ -71,17 +71,17 @@ NAME                  TYPE                                  DATA      AGE
 db-user-pass          Opaque                                2         51s
 
 $ kubectl describe secrets/db-user-pass
-Name:		db-user-pass
-Namespace:	default
-Labels:		<none>
-Annotations:	<none>
+Name:            db-user-pass
+Namespace:       default
+Labels:          <none>
+Annotations:     <none>
 
-Type:	Opaque
+Type:            Opaque
 
 Data
 ====
-password.txt:	13 bytes
-username.txt:	6 bytes
+password.txt:    13 bytes
+username.txt:    6 bytes
 ```
 
 Note that neither `get` nor `describe` shows the contents of the file by default.
