@@ -123,6 +123,34 @@ The domain suffix specified in `--dns-zone-name` must be an existing
 domain that you control, and that is programmable by your DNS provider.
 It must also end with a trailing dot.
 
+The machines in your host cluster must have the appropriate permissions
+to program the DNS service that you are using. For example, if your
+cluster is running on Google Compute Engine, you must enable the
+Google Cloud DNS API for your project.
+
+The machines in Google Container Engine (GKE) clusters are created
+without the Google Cloud DNS API scope by default. If you want to use a
+GKE cluster as a Federation host, you must create it using the `gcloud`
+command with the appropriate value in the `--scopes` field. You cannot
+modify a GKE cluster directly to add this scope, but you can create a
+new node pool for your cluster and delete the old one. *Note that this
+will cause pods in the cluster to be rescheduled.*
+
+To add the new node pool, run:
+
+```shell
+scopes="$(gcloud container node-pools describe --cluster=gke-cluster default-pool --format='value[delimiter=","](config.oauthScopes)')"
+gcloud container node-pools create new-np \
+    --cluster=gke-cluster \
+    --scopes="${scopes},https://www.googleapis.com/auth/ndev.clouddns.readwrite"
+```
+
+To delete the old node pool, run:
+
+```shell
+gcloud container node-pools delete default-pool --cluster gke-cluster
+```
+
 `kubefed init` sets up the federation control plane in the host
 cluster and also adds an entry for the federation API server in your
 local kubeconfig. Note that in the beta release in Kubernetes 1.6,
