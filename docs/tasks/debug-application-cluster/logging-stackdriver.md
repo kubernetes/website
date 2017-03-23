@@ -46,8 +46,14 @@ The `DaemonSet` and `ConfigMap` are configured as addons.
     by running `kubectl describe` as follows:
 
     ```shell
-    $ kubectl describe node $NODE_NAME
-    ...
+    kubectl describe node $NODE_NAME
+    ```
+
+    The output should be similar to this:
+
+    ```
+    Name:           NODE_NAME
+    Role:
     Labels:         beta.kubernetes.io/fluentd-ds-ready=true
     ...
     ```
@@ -56,7 +62,7 @@ The `DaemonSet` and `ConfigMap` are configured as addons.
     is not present, you can add it using the `kubectl label` command as follows, for each node:
 
     ```shell
-    $ kubectl label node $NODE_NAME beta.kubernetes.io/fluentd-ds-ready=true
+    kubectl label node $NODE_NAME beta.kubernetes.io/fluentd-ds-ready=true
     ```
 
     **Note:** If a node fails and has to be recreated, you must re-apply the label to
@@ -66,8 +72,7 @@ The `DaemonSet` and `ConfigMap` are configured as addons.
 1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
 
     ```shell
-    $ kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.6/cluster/addons/fluentd-gcp/fluentd-gcp-configmap.yaml
-    configmap "fluentd-gcp-config" created
+    kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.6/cluster/addons/fluentd-gcp/fluentd-gcp-configmap.yaml
     ```
 
     The command creates the `ConfigMap` in the `kube-system` namespace. You can download the file
@@ -76,8 +81,7 @@ The `DaemonSet` and `ConfigMap` are configured as addons.
 1. Deploy the logging agent `DaemonSet` by running the following command:
 
     ```shell
-    $ kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.6/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml
-    daemonset "fluentd-gcp-v2.0" created
+    kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.6/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml
     ```
 
     You can download and edit this file before using it as well.
@@ -88,12 +92,17 @@ After Stackdriver DaemonSet is deployed, you can discover logging agent pods
 in the `kube-system` namespace, one per node, by running the following command:
 
 ```shell
-$ kubectl get pods --namespace=kube-system
+kubectl get pods --namespace=kube-system
+```
+
+The output should contain lines similar to these:
+
+```
 NAME                                           READY     STATUS    RESTARTS   AGE
 ...
-fluentd-gcp-v1.30-50gnc                        1/1       Running   0          5d
-fluentd-gcp-v1.30-v255c                        1/1       Running   0          5d
-fluentd-gcp-v1.30-f02l5                        1/1       Running   0          5d
+fluentd-gcp-v2.0-50gnc                         1/1       Running   0          5d
+fluentd-gcp-v2.0-v255c                         1/1       Running   0          5d
+fluentd-gcp-v2.0-f02l5                         1/1       Running   0          5d
 ...
 ```
 
@@ -107,8 +116,7 @@ that writes out the value of a counter and the date once per
 second, and runs indefinitely. Let's create this pod in the default namespace.
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/user-guide/logging/examples/counter-pod.yaml
-pod "counter" created
+kubectl create -f http://k8s.io/docs/user-guide/logging/examples/counter-pod.yaml
 ```
 
 You can observe the running pod:
