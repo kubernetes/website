@@ -345,7 +345,7 @@ Check that:
     delete any ingresses created before the cluster joined the
     federation (and had it's GLBC reconfigured), and recreate them if
     necessary.
-    
+
 #### This troubleshooting guide did not help me solve my problem
 
 Please use one of our  [support channels](http://kubernetes.io/docs/troubleshooting/) to seek assistance.
