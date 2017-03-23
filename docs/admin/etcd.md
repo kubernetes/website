@@ -49,9 +49,9 @@ There are requirements on how an etcd cluster upgrade can be performed; the prim
 #### One minor release at a time
 
 Upgrade only one minor release at a time, e.g. we cannot upgrade directly from 2.1.x to 2.3.x.
-Within patch releases it is possible to upgrade and downgrade between arbitrary versions.It is fairly 
-easy to start a cluster for any intermediate minor release, wait until it is healthy and functional and then
-shut the cluster down which will perform the migration. As an example: to upgrade from 2.1.x to 2.3.y version, 
+Within patch releases it is possible to upgrade and downgrade between arbitrary versions. Starting a cluster for 
+any intermediate minor release; waiting until the cluster is functional healthy; and then
+shutting down the cluster down will perform the migration. As an example: to upgrade from 2.1.x to 2.3.y version, 
 it is enough to start etcd in 2.2.z version, wait until it is healthy, stop it and then start then
 2.3.y version, wait until it is up and we are done.
 
@@ -69,7 +69,7 @@ but:
 * The rollback can be done only from 3.0.x version (that is using v3 API) to
   2.2.1 version (that is using v2 API).
 
-* The tool only works if the data is still stored in `application/json` format.
+* **The tool only works if the data is still stored in `application/json` format.**
 
 * Rollback doesn’t preserve “resource versions” of objects stored in etcd.
 
