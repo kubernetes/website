@@ -37,7 +37,7 @@ The autoscaler uses heapster to collect CPU utilization.
 Therefore, it is required to deploy heapster monitoring in your cluster for autoscaling to work.
 
 The autoscaler accesses corresponding replication controller, deployment or replica set by scale sub-resource.
-Scale is an interface which allows to dynamically set the number of replicas and to learn the current state of them.
+Scale is an interface which allows to dynamically set the number of replicas and to learn the current states of them.
 More details on scale sub-resource can be found [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#scale-subresource).
 
 
