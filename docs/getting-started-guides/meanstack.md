@@ -198,7 +198,7 @@ Now, we need to create a Deployment that will run the database. I'm using a Depl
 ### `db-deployment.yml`
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: mongo-deployment
@@ -317,7 +317,7 @@ Let's look at the Deployment configuration:
 ### `web-deployment.yml`
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: web-deployment
@@ -371,7 +371,7 @@ At this point, the local directory looks like this
 ```shell
 $ ls
 
-Dockerfile 
+Dockerfile
 app
 db-deployment.yml
 db-service.yml
