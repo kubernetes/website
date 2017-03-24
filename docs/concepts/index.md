@@ -1,32 +1,32 @@
 ---
-title: Concepts
+title: 概念
 ---
 
-The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your cluster, and helps you obtain a deeper understanding of how Kubernetes works.
+本概念章节帮助您了解 Kubernetes 系统和 Kubernetes 对您集群资源的抽象，并帮助您更深入地了解 Kubernetes 的工作原理。
 
-## Overview
+## 概述
 
-To work with Kubernetes, you use *Kubernetes API objects* to describe your cluster's *desired state*: what applications or other workloads you want to run, what container images they use, the number of replicas, what network and disk resources you want to make available, and more. You set your desired state by creating objects using the Kubernetes API, typically via the command-line interface, `kubectl`. You can also use the Kubernetes API directly to interact with the cluster and set or modify your desired state.
+要使用 Kubernetes，您可以使用 *Kubernetes API 对象* 来描述您集群的 *期望状态*: 您想要运行哪些应用程序或其他负载，它们使用什么容器镜像、幅本数量、要使其可用的网络和磁盘资源等等。您通过使用 Kubernetes API 创建对象来设置其所需的状态，通常使用命令行接口 `kubectl`。您还可以直接使用 Kubernetes API 与集群进行交互，并设置或修改所需的状态。
 
-Once you've set your desired state, the *Kubernetes Control Plane* works to make the cluster's current state match the desired state. To do so, Kuberentes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster: 
+一旦您设置了期望的状态， *Kubernetes 控制层* 可以使用集群的当前状态与期望状态相匹配。为此，Kuberentes 会自动执行各种任务，例如启动或重新启动容器、缩放给定应用程序的副本数等等。Kubernetes 控制层包括在您集群上运行的进程集合:
 
-* The **Kubernetes Master** is a collection of four processes that run on a single node in your cluster, which is designated as the master node.
-* Each individual non-master node in your cluster runs two processes:
-  * **kubelet**, which communicates with the Kubernetes Master.
-  * **kube-proxy**, a network proxy which reflects Kubernetes networking services on each node.
+* **Kubernetes Master** 是集群中某个节点上运行的四个进程的集合，该节点被指定为主节点。
+* 集群中的每个单独的非主节点都运行两个进程:
+  * **kubelet**, 它与 Kubernetes Master 进行通信，并管理容器运行时,如 Docker、Rkt。
+  * **kube-proxy**, 在每个节点上运行的 Kubernetes 网络代理服务。
 
-## Kubernetes Objects
+## Kubernetes 对象
 
-Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API; see the [Kubernetes Objects overview](/docs/concepts/abstractions/overview/) for more details. 
+Kubernetes 包含一些表示系统状态的抽象: 部署容器化应用程序和工作负载、关联的网络和磁盘资源以及有关集群当前工作的其他信息。这些抽象由 Kubernetes API 中的对象表示；请参阅 [Kubernetes 对象概述](/docs/concepts/abstractions/overview/) 获取更多信息。
 
-The basic Kubernetes objects include:
+基础的 Kubernetes 对象包括:
 
 * [Pod](/docs/concepts/abstractions/pod/)
 * Service
 * Volume
 * Namespace
 
-In addition, Kubernetes contains a number of higher-level abstractions called Controllers. Controllers build upon the basic objects, and provide additional functionality and convenience features. They include:
+此外，Kubernetes 包含一些称为控制器的更高级抽象。控制器基于基础对象，并提供额外的功能和便利性。它们包括:
 
 * ReplicaSet
 * Deployment
@@ -34,30 +34,30 @@ In addition, Kubernetes contains a number of higher-level abstractions called Co
 * DaemonSet
 * Job
 
-## Kubernetes Control Plane
+## Kubernetes 控制层
 
-The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system to the desired state that you provided.
+Kubernetes 控制层包含了几部分，如 Kubernetes Master 和 kubelet 进程，确定 Kubernetes 如何与您的集群通信。控制层维护系统中所有 Kubernetes 对象的记录，并运行连续的控制循环来管理这些对象的状态。在任何给定时间，控制层的控制循环将响应集群中的变化，并使系统中所有对象的实际状态达到您提供的期望状态。
 
-For example, when you use the Kubernetes API to create a Deployment object, you provide a new desired state for the system. The Kubernetes Control Plane records that object creation, and carries out your instructions by starting the required applications and scheduling them to cluster nodes--thus making the cluster's actual state match the desired state.
+例如，当您使用 Kubernetes API 创建 Deployment 对象时，您为系统提供了新的期望状态。 Kubernetes 控制层将记录对象创建，并通过启动所需的应用程序并将其调度到集群节点来执行指令，从而使集群的实际状态与所期望的状态相匹配。
 
 ### Kubernetes Master
 
-The Kubernetes master is responsible for maintaining the desired state for your cluster. When you interact with Kubernetes, such as by using the `kubectl` command-line interface, you're communicating with your cluster's Kubernetes master.
+Kubernetes master 负责维护您的集群期望的状态。当您与 Kubernetes 进行交互时，例如通过使用 `kubectl` 命令行工具，您正在与集群的 Kubernetes master 进行协调。
 
-> The "master" refers to a collection of processes managing the cluster state.  Typically these processes are all run on a single node in the cluster, and this node is also referred to as the master. The master can also be replicated for availability and redundancy.
+> 此 "master" 指的是管理集群状态的进程集合。通常，这些进程都在集群中的单个节点上运行，并且此节点也称为主节点。还可以有多个主节点以实现高可用和冗余 。
 
 ### Kubernetes Nodes
 
-The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. The Kubernetes master controls each node; you'll rarely interact with nodes directly.
+集群中的 nodes 是运行应用程序和云工作流的计算机 (物理机或虚拟机) Kubernetes master 控制每个 node，您很少会直接与 node 进行交互。
 
-#### Object Metadata
-
-
-* [Annotations](/docs/concepts/object-metadata/annotations/)
+#### 对象元数据
 
 
-### What's next
+* [注解](/docs/concepts/object-metadata/annotations/)
 
-If you would like to write a concept page, see
-[Using Page Templates](/docs/contribute/page-templates/)
-for information about the concept page type and the concept template.
+
+### 下一步做什么呢
+
+如果您想参与概念页面的编写，请参阅
+[使用页面模板](/docs/contribute/page-templates/)
+获取有关概念页面类型和概念模板的参考信息。
