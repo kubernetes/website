@@ -18,7 +18,7 @@ unsatisfied).
 In theory, Master components can be run on any node in the cluster. However,
 for simplicity, current set up scripts typically start all master components on
 the same VM, and does not run user containers on this VM. See
-[high-availability.md](/docs/admin/high-availability) for an example multi-master-VM setup.
+[Building High-Availability Clusters](/docs/admin/high-availability) for an example multi-master-VM setup.
 
 Even in the future, when Kubernetes is fully self-hosting, it will probably be
 wise to only allow master components to schedule on a subset of nodes, to limit
@@ -29,7 +29,7 @@ node-compromising security exploit.
 
 [kube-apiserver](/docs/admin/kube-apiserver) exposes the Kubernetes API; it is the front-end for the
 Kubernetes control plane. It is designed to scale horizontally (i.e., one scales
-it by running more of them-- [high-availability.md](/docs/admin/high-availability)).
+it by running more of them-- [Building High-Availability Clusters](/docs/admin/high-availability)).
 
 ### etcd
 
