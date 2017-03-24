@@ -35,7 +35,8 @@ In order for `kubectl run` to satisfy infrastructure as code:
 
 * Pod - use `run-pod/v1`.
 * Replication controller - use `run/v1`.
-* Deployment - use `deployment/v1beta1`.
+* Deployment, using `extensions/v1beta1` endpoint - use `deployment/v1beta1`.
+* Deployment, using `apps/v1beta1` endpoint - use `deployment/apps.v1beta1`.
 * Job - use `job/v1`.
 * CronJob - use `cronjob/v2alpha1`.
 
