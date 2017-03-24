@@ -183,6 +183,7 @@ toc:
   - docs/admin/sysctls.md
   - docs/admin/cluster-components.md
   - docs/admin/etcd.md
+  - docs/admin/etcd_upgrade.md
   - docs/admin/multi-cluster.md
   - title: Changing Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
