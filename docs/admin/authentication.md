@@ -151,8 +151,8 @@ authentication is currently supported for convenience while we finish making the
 more secure modes described above easier to use.
 
 The basic auth file is a csv file with a minimum of 3 columns: password, user name, user id.
-In Kubernetes version 1.6 and later, you can specify an optional fourth column containing 
-comma-separated group names. If you have more than one group, you must enclose the fourth 
+In Kubernetes version 1.6 and later, you can specify an optional fourth column containing
+comma-separated group names. If you have more than one group, you must enclose the fourth
 column value in double quotes ("). See the following example:
 
 ```conf
@@ -181,7 +181,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 NOTE: `serviceAccountName` is usually omitted because this is done automatically.
 
 ```
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -568,13 +568,13 @@ For example, on a server with token authentication configured, and anonymous acc
 a request providing an invalid bearer token would receive a `401 Unauthorized` error.
 A request providing no bearer token would be treated as an anonymous request.
 
-In 1.5.1-1.5.x, anonymous access is disabled by default, and can be enabled by 
+In 1.5.1-1.5.x, anonymous access is disabled by default, and can be enabled by
 passing the `--anonymous-auth=false` option to the API server.
 
 In 1.6+, anonymous access is enabled by default if an authorization mode other than `AlwaysAllow`
 is used, and can be disabled by passing the `--anonymous-auth=false` option to the API server.
-Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of the 
-`system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules 
+Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of the
+`system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules
 that grant access to the `*` user or `*` group do not include anonymous users.
 
 ## Plugin Development

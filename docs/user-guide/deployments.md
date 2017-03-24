@@ -19,9 +19,9 @@ by new ones.
 A typical use case is:
 
 * Create a Deployment to bring up a Replica Set and Pods.
-* Check the status of a Deployment to see if it succeeds or not. 
+* Check the status of a Deployment to see if it succeeds or not.
 * Later, update that Deployment to recreate the Pods (for example, to use a new image).
-* Rollback to an earlier Deployment revision if the current Deployment isn't stable. 
+* Rollback to an earlier Deployment revision if the current Deployment isn't stable.
 * Pause and resume a Deployment.
 
 ## Creating a Deployment
@@ -48,7 +48,7 @@ NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         0         0            0           1s
 ```
 
-This indicates that the Deployment's number of desired replicas is 3 (according to deployment's `.spec.replicas`), the number of current replicas (`.status.replicas`) is 0, the number of up-to-date replicas (`.status.updatedReplicas`) is 0, and the number of available replicas (`.status.availableReplicas`) is also 0. 
+This indicates that the Deployment's number of desired replicas is 3 (according to deployment's `.spec.replicas`), the number of current replicas (`.status.replicas`) is 0, the number of up-to-date replicas (`.status.updatedReplicas`) is 0, and the number of available replicas (`.status.availableReplicas`) is also 0.
 
 Running the `get` again a few seconds later, should give:
 
@@ -63,10 +63,10 @@ This indicates that the Deployment has created all three replicas, and all repli
 ```shell
 $ kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
-nginx-deployment-2035384211   3         3         0       18s 
+nginx-deployment-2035384211   3         3         0       18s
 ```
 
-You may notice that the name of the Replica Set is always `<the name of the Deployment>-<hash value of the pod template>`. 
+You may notice that the name of the Replica Set is always `<the name of the Deployment>-<hash value of the pod template>`.
 
 ```shell
 $ kubectl get pods --show-labels
@@ -83,8 +83,8 @@ The created Replica Set will ensure that there are three nginx Pods at all times
 
 ## Updating a Deployment
 
-**Note:** a Deployment's rollout is triggered if and only if the Deployment's pod template (i.e. `.spec.template`) is changed, 
-e.g. updating labels or container images of the template. Other updates, such as scaling the Deployment, will not trigger a rollout. 
+**Note:** a Deployment's rollout is triggered if and only if the Deployment's pod template (i.e. `.spec.template`) is changed,
+e.g. updating labels or container images of the template. Other updates, such as scaling the Deployment, will not trigger a rollout.
 
 Suppose that we now want to update the nginx Pods to start using the `nginx:1.9.1` image
 instead of the `nginx:1.7.9` image.
@@ -117,9 +117,9 @@ NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         3            3           36s
 ```
 
-The number of up-to-date replicas indicates that the Deployment has updated the replicas to the latest configuration. 
-The current replicas indicates the total replicas this Deployment manages, and the available replicas indicates the 
-number of current replicas that are available. 
+The number of up-to-date replicas indicates that the Deployment has updated the replicas to the latest configuration.
+The current replicas indicates the total replicas this Deployment manages, and the available replicas indicates the
+number of current replicas that are available.
 
 We can run `kubectl get rs` to see that the Deployment updated the Pods by creating a new Replica Set and scaling it up to 3 replicas, as well as scaling down the old Replica Set to 0 replicas.
 
@@ -143,10 +143,10 @@ nginx-deployment-1564180365-z9gth   1/1       Running   0          14s
 Next time we want to update these Pods, we only need to update the Deployment's pod template again.
 
 Deployment can ensure that only a certain number of Pods may be down while they are being updated. By
-default, it ensures that at least 1 less than the desired number of Pods are
-up (1 max unavailable).
+default, it ensures that at least 25% less than the desired number of Pods are
+up (25% max unavailable).
 
-Deployment can also ensure that only a certain number of Pods may be created above the desired number of Pods. By default, it ensures that at most 1 more than the desired number of Pods are up (1 max surge). 
+Deployment can also ensure that only a certain number of Pods may be created above the desired number of Pods. By default, it ensures that at most 25% more than the desired number of Pods are up (25% max surge).
 
 For example, if you look at the above Deployment closely, you will see that
 it first created a new Pod, then deleted some old Pods and created new ones. It
@@ -204,13 +204,13 @@ before changing course.
 ## Rolling Back a Deployment
 
 Sometimes you may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping.
-By default, all of the Deployment's rollout history is kept in the system so that you can rollback anytime you want 
-(you can change that by specifying [revision history limit](/docs/user-guide/deployments/#revision-history-limit)). 
+By default, two previous Deployment's rollout history are kept in the system so that you can rollback anytime you want
+(you can change that by modifying [revision history limit](/docs/user-guide/deployments/#revision-history-limit)).
 
-**Note:** a Deployment's revision is created when a Deployment's rollout is triggered. This means that the new revision is created 
-if and only if the Deployment's pod template (i.e. `.spec.template`) is changed, e.g. updating labels or container images of the template. 
+**Note:** a Deployment's revision is created when a Deployment's rollout is triggered. This means that the new revision is created
+if and only if the Deployment's pod template (i.e. `.spec.template`) is changed, e.g. updating labels or container images of the template.
 Other updates, such as scaling the Deployment, will not create a Deployment revision -- so that we can facilitate simultaneous manual- or
-auto-scaling. This implies that when you rollback to an earlier revision, only the Deployment's pod template part will be rolled back.  
+auto-scaling. This implies that when you rollback to an earlier revision, only the Deployment's pod template part will be rolled back.
 
 Suppose that we made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
 
@@ -222,7 +222,7 @@ deployment "nginx-deployment" image updated
 The rollout will be stuck.
 
 ```shell
-$ kubectl rollout status deployments nginx-deployment 
+$ kubectl rollout status deployments nginx-deployment
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 ```
 
@@ -241,7 +241,7 @@ nginx-deployment-3066724191   2         2         2       6s
 Looking at the Pods created, you will see that the 2 Pods created by new Replica Set are stuck in an image pull loop.
 
 ```shell
-$ kubectl get pods 
+$ kubectl get pods
 NAME                                READY     STATUS             RESTARTS   AGE
 nginx-deployment-1564180365-70iae   1/1       Running            0          25s
 nginx-deployment-1564180365-jbqqo   1/1       Running            0          25s
@@ -278,7 +278,7 @@ Events:
   13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 2
 ```
 
-To fix this, we need to rollback to a previous revision of Deployment that is stable. 
+To fix this, we need to rollback to a previous revision of Deployment that is stable.
 
 ### Checking Rollout History of a Deployment
 
@@ -293,7 +293,7 @@ REVISION    CHANGE-CAUSE
 3           kubectl set image deployment/nginx-deployment nginx=nginx:1.91
 ```
 
-Because we recorded the command while creating this Deployment using `--record`, we can easily see the changes we made in each revision. 
+Because we recorded the command while creating this Deployment using `--record`, we can easily see the changes we made in each revision.
 
 To further see the details of each revision, run:
 
@@ -330,16 +330,16 @@ $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 deployment "nginx-deployment" rolled back
 ```
 
-For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/kubectl_rollout/). 
+For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/kubectl_rollout/).
 
-The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event for rolling back to revision 2 is generated from Deployment controller. 
+The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event for rolling back to revision 2 is generated from Deployment controller.
 
 ```shell
-$ kubectl get deployment 
+$ kubectl get deployment
 NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         3            3           30m
 
-$ kubectl describe deployment 
+$ kubectl describe deployment
 Name:           nginx-deployment
 Namespace:      default
 CreationTimestamp:  Tue, 15 Mar 2016 14:48:04 -0700
@@ -369,8 +369,8 @@ Events:
 
 ### Clean up Policy
 
-You can set `.spec.revisionHistoryLimit` field to specify how much revision history of this deployment you want to keep. By default, 
-all revision history will be kept; explicitly setting this field to `0` disallows a deployment being rolled back. 
+You can set `.spec.revisionHistoryLimit` field to specify how much revision history of this deployment you want to keep. By default,
+all revision history will be kept; explicitly setting this field to `0` disallows a deployment being rolled back.
 
 ## Scaling a Deployment
 
@@ -441,9 +441,9 @@ nginx-deployment-1989198191   7         7         0         7m
 nginx-deployment-618515232    11        11        11        7m
 ```
 
-## Pausing and Resuming a Deployment 
+## Pausing and Resuming a Deployment
 
-You can also pause a Deployment mid-way and then resume it. A use case is to support canary deployment. 
+You can also pause a Deployment mid-way and then resume it. A use case is to support canary deployment.
 
 Update the Deployment again and then pause the Deployment with `kubectl rollout pause`:
 
@@ -453,12 +453,12 @@ deployment "nginx-deployment" image updated
 deployment "nginx-deployment" paused
 ```
 
-Note that any current state of the Deployment will continue its function, but new updates to the Deployment will not have an effect as long as the Deployment is paused. 
+Note that any current state of the Deployment will continue its function, but new updates to the Deployment will not have an effect as long as the Deployment is paused.
 
-The Deployment was still in progress when we paused it, so the actions of scaling up and down Replica Sets are paused too. 
+The Deployment was still in progress when we paused it, so the actions of scaling up and down Replica Sets are paused too.
 
 ```shell
-$ kubectl get rs 
+$ kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-1564180365   2         2         2       1h
 nginx-deployment-2035384211   2         2         0       1h
@@ -468,7 +468,7 @@ nginx-deployment-3066724191   0         0         0       1h
 In a separate terminal, watch for rollout status changes and you'll see the rollout won't continue:
 
 ```shell
-$ kubectl rollout status deployment/nginx-deployment 
+$ kubectl rollout status deployment/nginx-deployment
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 ```
 
@@ -482,7 +482,7 @@ deployment "nginx-deployment" resumed
 Then the Deployment will continue and finish the rollout:
 
 ```shell
-$ kubectl rollout status deployment/nginx-deployment 
+$ kubectl rollout status deployment/nginx-deployment
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 Waiting for deployment spec update to be observed...
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
@@ -490,7 +490,7 @@ deployment nginx-deployment successfully rolled out
 ```
 
 ```shell
-$ kubectl get rs 
+$ kubectl get rs
 NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-1564180365   3         3         3       1h
 nginx-deployment-2035384211   0         0         0       1h
@@ -518,7 +518,7 @@ You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
 ### Complete Deployment
 
-Kubernetes marks a Deployment as _complete_ when it has the following characteristics: 
+Kubernetes marks a Deployment as _complete_ when it has the following characteristics:
 
 * The Deployment has minimum availability. Minimum availability means that the Deployment's number of available replicas
 equals or exceeds the number required by the Deployment strategy.
@@ -659,12 +659,12 @@ $ echo $?
 All actions that apply to a complete Deployment also apply to a failed Deployment. You can scale it up/down, roll back
 to a previous revision, or even pause it if you need to apply multiple tweaks in the Deployment pod template.
 
-## Use Cases 
+## Use Cases
 
 ### Canary Deployment
 
 If you want to roll out releases to a subset of users or servers using the Deployment, you can create multiple Deployments, one for each release,
-following the canary pattern described in [managing resources](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments). 
+following the canary pattern described in [managing resources](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments).
 
 ## Writing a Deployment Spec
 
@@ -696,7 +696,7 @@ to 1.
 ### Selector
 
 `.spec.selector` is an optional field that specifies a [label selector](/docs/user-guide/labels/#label-selectors) for the Pods
-targeted by this deployment. 
+targeted by this deployment.
 
 If specified, `.spec.selector` must match `.spec.template.metadata.labels`, or it will
 be rejected by the API.  If `.spec.selector` is unspecified, `.spec.selector.matchLabels` will be defaulted to
@@ -774,32 +774,32 @@ If specified, this field needs to be greater than `.spec.minReadySeconds`.
 
 ### Min Ready Seconds
 
-`.spec.minReadySeconds` is an optional field that specifies the
+`.spec.minReadySeconds` is an optional field (with default value of 600s) that specifies the
 minimum number of seconds for which a newly created Pod should be ready
 without any of its containers crashing, for it to be considered available.
 This defaults to 0 (the Pod will be considered available as soon as it is ready).
 To learn more about when a Pod is considered ready, see [Container Probes](/docs/user-guide/pod-states/#container-probes).
 
-### Rollback To 
+### Rollback To
 
-`.spec.rollbackTo` is an optional field with the configuration the Deployment is rolling back to. Setting this field will trigger a rollback, and this field will be cleared every time a rollback is done. 
+`.spec.rollbackTo` is an optional field with the configuration the Deployment is rolling back to. Setting this field will trigger a rollback, and this field will be cleared every time a rollback is done.
 
 #### Revision
 
-`.spec.rollbackTo.revision` is an optional field specifying the revision to rollback to. This defaults to 0, meaning rollback to the last revision in history. 
+`.spec.rollbackTo.revision` is an optional field specifying the revision to rollback to. This defaults to 0, meaning rollback to the last revision in history.
 
 ### Revision History Limit
 
-A deployment's revision history is stored in the replica sets it controls. 
+A deployment's revision history is stored in the replica sets it controls.
 
-`.spec.revisionHistoryLimit` is an optional field that specifies the number of old Replica Sets to retain to allow rollback. Its ideal value depends on the frequency and stability of new deployments. All old Replica Sets will be kept by default, consuming resources in `etcd` and crowding the output of `kubectl get rs`, if this field is not set. The configuration of each Deployment revision is stored in its Replica Sets; therefore, once an old Replica Set is deleted, you lose the ability to rollback to that revision of Deployment. 
+`.spec.revisionHistoryLimit` is an optional field (with default value of two) that specifies the number of old Replica Sets to retain to allow rollback. Its ideal value depends on the frequency and stability of new deployments. All old Replica Sets will be kept by default, consuming resources in `etcd` and crowding the output of `kubectl get rs`, if this field is not set. The configuration of each Deployment revision is stored in its Replica Sets; therefore, once an old Replica Set is deleted, you lose the ability to rollback to that revision of Deployment.
 
-More specifically, setting this field to zero means that all old replica sets with 0 replica will be cleaned up. 
+More specifically, setting this field to zero means that all old replica sets with 0 replica will be cleaned up.
 In this case, a new deployment rollout cannot be undone, since its revision history is cleaned up.
 
 ### Paused
 
-`.spec.paused` is an optional boolean field for pausing and resuming a Deployment. It defaults to false (a Deployment is not paused). 
+`.spec.paused` is an optional boolean field for pausing and resuming a Deployment. It defaults to false (a Deployment is not paused).
 
 ## Alternative to Deployments
 
