@@ -85,8 +85,8 @@ NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   10.0.0.208                 80/TCP       0s
 ```
 
-With the above commands, we first create resources under docs/user-guide/nginx/ and print the resources created with `-o name` output format 
-(print each resource as resource/name). Then we `grep` only the "service", and then print it with `kubectl get`. 
+With the above commands, we first create resources under docs/user-guide/nginx/ and print the resources created with `-o name` output format
+(print each resource as resource/name). Then we `grep` only the "service", and then print it with `kubectl get`.
 
 If you happen to organize your resources across several subdirectories within a particular directory, you can recursively perform the operations on the subdirectories also, by specifying `--recursive` or `-R` alongside the `--filename,-f` flag.
 
@@ -102,7 +102,7 @@ project/k8s/development
     └── my-pvc.yaml
 ```
 
-By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we tried to create the resources in this directory using the following command, we'd encounter an error: 
+By default, performing a bulk operation on `project/k8s/development` will stop at the first level of the directory, not processing any subdirectories. If we tried to create the resources in this directory using the following command, we'd encounter an error:
 
 ```shell
 $ kubectl create -f project/k8s/development
@@ -131,7 +131,7 @@ deployment "my-deployment" created
 persistentvolumeclaim "my-pvc" created
 ```
 
-If you're interested in learning more about `kubectl`, go ahead and read [kubectl Overview](/docs/user-guide/kubectl-overview). 
+If you're interested in learning more about `kubectl`, go ahead and read [kubectl Overview](/docs/user-guide/kubectl-overview).
 
 ## Using labels effectively
 
@@ -185,9 +185,9 @@ guestbook-redis-slave-qgazl   1/1       Running   0          3m
 
 ## Canary deployments
 
-Another scenario where multiple labels are needed is to distinguish deployments of different releases or configurations of the same component. It is common practice to deploy a *canary* of a new application release (specified via image tag in the pod template) side by side with the previous release so that the new release can receive live production traffic before fully rolling it out. 
+Another scenario where multiple labels are needed is to distinguish deployments of different releases or configurations of the same component. It is common practice to deploy a *canary* of a new application release (specified via image tag in the pod template) side by side with the previous release so that the new release can receive live production traffic before fully rolling it out.
 
-For instance, you can use a `track` label to differentiate different releases. 
+For instance, you can use a `track` label to differentiate different releases.
 
 The primary, stable release would have a `track` label with value as `stable`:
 
@@ -227,13 +227,13 @@ The frontend service would span both sets of replicas by selecting the common su
 ```
 
 You can tweak the number of replicas of the stable and canary releases to determine the ratio of each release that will receive live production traffic (in this case, 3:1).
-Once you're confident, you can update the stable track to the new application release and remove the canary one. 
+Once you're confident, you can update the stable track to the new application release and remove the canary one.
 
 For a more concrete example, check the [tutorial of deploying Ghost](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
 
 ## Updating labels
 
-Sometimes existing pods and other resources need to be relabeled before creating new resources. This can be done with `kubectl label`. 
+Sometimes existing pods and other resources need to be relabeled before creating new resources. This can be done with `kubectl label`.
 For example, if you want to label all your nginx pods as frontend tier, simply run:
 
 ```shell
@@ -243,8 +243,8 @@ pod "my-nginx-2035384211-u2c7e" labeled
 pod "my-nginx-2035384211-u3t6x" labeled
 ```
 
-This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe". 
-To see the pods you just labeled, run: 
+This first filters all pods with the label "app=nginx", and then labels them with the "tier=fe".
+To see the pods you just labeled, run:
 
 ```shell
 $ kubectl get pods -l app=nginx -L tier
@@ -284,7 +284,7 @@ $ kubectl scale deployment/my-nginx --replicas=1
 deployment "my-nginx" scaled
 ```
 
-Now you only have one pod managed by the deployment. 
+Now you only have one pod managed by the deployment.
 
 ```shell
 $ kubectl get pods -l app=nginx
@@ -294,25 +294,25 @@ my-nginx-2035384211-j5fhi   1/1       Running   0          30m
 
 To have the system automatically choose the number of nginx replicas as needed, ranging from 1 to 3, do:
 
-```shell 
+```shell
 $ kubectl autoscale deployment/my-nginx --min=1 --max=3
 deployment "my-nginx" autoscaled
 ```
 
-Now your nginx replicas will be scaled up and down as needed, automatically. 
+Now your nginx replicas will be scaled up and down as needed, automatically.
 
 For more information, please see [kubectl scale](/docs/user-guide/kubectl/kubectl_scale/), [kubectl autoscale](/docs/user-guide/kubectl/kubectl_autoscale/) and [horizontal pod autoscaler](/docs/user-guide/horizontal-pod-autoscaler/) document.
 
 
 ## In-place updates of resources
 
-Sometimes it's necessary to make narrow, non-disruptive updates to resources you've created. 
+Sometimes it's necessary to make narrow, non-disruptive updates to resources you've created.
 
 ### kubectl apply
 
 It is suggested to maintain a set of configuration files in source control (see [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)),
 so that they can be maintained and versioned along with the code for the resources they configure.
-Then, you can use [`kubectl apply`](/docs/user-guide/kubectl/kubectl_apply/) to push your configuration changes to the cluster. 
+Then, you can use [`kubectl apply`](/docs/user-guide/kubectl/kubectl_apply/) to push your configuration changes to the cluster.
 
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
 
@@ -357,13 +357,13 @@ For more information, please see [kubectl edit](/docs/user-guide/kubectl/kubectl
 Suppose you want to fix a typo of the container's image of a Deployment. One way to do that is with `kubectl patch`:
 
 ```shell
-# Suppose you have a Deployment with a container named "nginx" and its image "nignx" (typo), 
+# Suppose you have a Deployment with a container named "nginx" and its image "nignx" (typo),
 # use container name "nginx" as a key to update the image from "nignx" (typo) to "nginx"
 $ kubectl get deployment my-nginx -o yaml
 ```
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 ...
 spec:
@@ -382,7 +382,7 @@ $ kubectl get pod my-nginx-1jgkf -o yaml
 ```
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 ...
 spec:
@@ -414,8 +414,8 @@ deployment "my-nginx" replaced
 
 At some point, you'll eventually need to update your deployed application, typically by specifying a new image or image tag, as in the canary deployment scenario above. `kubectl` supports several update operations, each of which is applicable to different scenarios.
 
-We'll guide you through how to create and update applications with Deployments. If your deployed application is managed by Replication Controllers, 
-you should read [how to use `kubectl rolling-update`](/docs/tasks/run-application/rolling-update-replication-controller/) instead. 
+We'll guide you through how to create and update applications with Deployments. If your deployed application is managed by Replication Controllers,
+you should read [how to use `kubectl rolling-update`](/docs/tasks/run-application/rolling-update-replication-controller/) instead.
 
 Let's say you were running version 1.7.9 of nginx:
 
@@ -424,7 +424,7 @@ $ kubectl run my-nginx --image=nginx:1.7.9 --replicas=3
 deployment "my-nginx" created
 ```
 
-To update to version 1.9.1, simply change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`, with the kubectl commands we learned above. 
+To update to version 1.9.1, simply change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`, with the kubectl commands we learned above.
 
 ```shell
 $ kubectl edit deployment/my-nginx
