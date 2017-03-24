@@ -10,7 +10,7 @@ To work with Kubernetes, you use *Kubernetes API objects* to describe your clust
 
 Once you've set your desired state, the *Kubernetes Control Plane* works to make the cluster's current state match the desired state. To do so, Kubernetes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster: 
 
-* The **Kubernetes Master** is a collection of four processes that run on a single node in your cluster, which is designated as the master node.
+* The **Kubernetes Master** is a collection of three processes that run on a single node in your cluster, which is designated as the master node.
 * Each individual non-master node in your cluster runs two processes:
   * **kubelet**, which communicates with the Kubernetes Master.
   * **kube-proxy**, a network proxy which reflects Kubernetes networking services on each node.
