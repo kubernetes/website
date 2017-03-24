@@ -62,7 +62,7 @@ cluster and running in the kube-system namespace.
 See [Support for custom metrics](#prerequisites) for more details on REST client access.
 
 The autoscaler accesses corresponding replication controller, deployment or replica set by scale sub-resource.
-Scale is an interface which allows to dynamically set the number of replicas and to learn the current state of them.
+Scale is an interface that allows you to dynamically set the number of replicas and examine each of their current states.
 More details on scale sub-resource can be found [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#scale-subresource).
 
 
