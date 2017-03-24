@@ -27,7 +27,7 @@ A typical use case is:
 ## Creating a Deployment
 
 Here is an example Deployment. It creates a Replica Set to
-bring up 3 nginx Pods.
+bring up three nginx Pods.
 
 {% include code.html language="yaml" file="nginx-deployment.yaml" ghlink="/docs/user-guide/nginx-deployment.yaml" %}
 
