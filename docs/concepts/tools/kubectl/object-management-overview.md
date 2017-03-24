@@ -1,172 +1,150 @@
 ---
-title: Kubernetes Object Management
+title: Kubernetes 对象管理
 ---
 
 {% capture overview %}
-The `kubectl` command-line tool supports several different ways to create and manage
-Kubernetes objects. This document provides an overview of the different
-approaches.
+`kubectl` 命令行工具支持创建和管理 Kubernetes 对象的几种不同的方法. 本文档概述了不同的方法。
 {% endcapture %}
 
 {% capture body %}
 
-## Management techniques
+## 管理技巧
 
-**Warning:** A Kubernetes object should be managed using only one technique. Mixing
-and matching techniques for the same object results in undefined behavior.
+**警告:** Kubernetes 对象应该只使用一种技术进行管理。混合使用不同的技术，会导致相同对象出现未定义的行为。
 
-| Management technique             | Operates on          |Recommended environment | Supported writers  | Learning curve |
+| 管理技术             | 操作         |推荐环境 | 支持撰写  | 学习曲线 |
 |----------------------------------|----------------------|------------------------|--------------------|----------------|
-| Imperative commands              | Live objects         | Development projects   | 1+                 | Lowest         |
-| Imperative object configuration  | Individual files     | Production projects    | 1                  | Moderate       |
-| Declarative object configuration | Directories of files | Production projects    | 1+                 | Highest        |
+| 命令式的命令              | 活动对象         | 开发项目   | 1+                 | 最低         |
+| 命令式对象配置  | 单文件     | 生产项目    | 1                  | 中等       |
+| 声明式对象配置 | 多文件目录 | 生产项目    | 1+                 | 最高        |
 
-## Imperative commands
+## 命令式的命令
 
-When using imperative commands, a user operates directly on live objects
-in a cluster. The user provides operations to
-the `kubectl` command as arguments or flags.
+当使用命令式的命令时，用户直接对集群中的活动对象进行操作。用户将 `kubectl` 命令作为参数或标记提供操作。
 
-This is the simplest way to get started or to run a one-off task in
-a cluster. Because this technique operates directly on live
-objects, it provides no history of previous configurations.
+这是在集群中启动或运行一次性任务的最简单的方法。因为这种技术直接在活动对象上运行，所以它没有提供以前配置的历史记录。
 
-### Examples
+### 例子
 
-Run an instance of the nginx container by creating a Deployment object:
+通过创建 Deployment 对象来运行 nginx 容器的实例:
 
 ```sh
 kubectl run nginx --image nginx
 ```
 
-Do the same thing using a different syntax:
+使用不同的语法做同样的事情:
 
 ```sh
 kubectl create deployment nginx --image nginx
 ```
 
-### Trade-offs
+### 权衡
 
-Advantages compared to object configuration:
+与对象配置相比的优点:
 
-- Commands are simple, easy to learn and easy to remember.
-- Commands require only a single step to make changes to the cluster.
+- 命令简单易学，易于记忆。
+- 命令只需要一个步骤即可对集群进行更改。
 
-Disadvantages compared to object configuration:
+与对象配置相比的缺点:
 
-- Commands do not integrate with change review processes.
-- Commands do not provide an audit trail associated with changes.
-- Commands do not provide a source of records except for what is live.
-- Commands do not provide a template for creating new objects.
+- 命令不与变更审核流程整合。
+- 命令不提供与更改相关联的审记跟踪。
+- 除了活动对象之处，命令不提供记录来源。
+- 命令不提供用于创建新对象的模板。
 
-## Imperative object configuration
+## 命令式对象配置
 
-When using imperative object configuration, a user operates on object
-configuration files stored locally. An object configuration file defines a full
-object in either YAML or JSON. 
+当使用命令式对象配置时，用户对本地存储的对象配置文件进行操作。对象配置文件定义 YAML 或 JSON 中的完整对象。
 
-The user provides an operation (create, replace, delete), one or more files,
-and flags to the `kubectl` command.
+用户通过向 `kubectl` 提交一个或多个文件和标记，进行创建、替换、删除等操作。
 
-This technique requires a deep understanding of the Kubernetes
-object definitions.
+使用此技术需要对 Kubernetes 对象定义有深入的了解。
 
-**Note:** While this technique defines the object itself through a declarative
-configuration file, the operations are imperative: create, replace, delete.
+**注意:** 虽然这种技术通过声明性配置文件来定义对象本身，但是操作还是必须的: 创建、替换、删除。
 
-### Examples
+### 例子
 
-Create the objects defined in a configuration file:
+创建对象定义配置文件:
 
 ```sh
 kubectl create -f nginx.yaml
 ```
 
-Delete the objects defined in two configuration files:
+删除两个配置文件中定义的对象:
 
 ```sh
 kubectl delete -f nginx.yaml -f redis.yaml
 ```
 
-Update the objects defined in a configuration file by overwriting
-the live configuration:
+通过覆写实时配置更新配置文件中定义的对象:
 
 ```sh
 kubectl replace -f nginx.yaml
 ```
 
-### Trade-offs
+### 权衡
 
-Advantages compared to imperative commands:
+与命令式的命令相比的优点:
 
-- Object configuration can be stored in a source control system such as Git.
-- Object configuration can integrate with processes such as reviewing changes before push and audit trails.
-- Object configuration provides a template for creating new objects.
+- 对象配置可以存储在源码控制系统中，如 Git。
+- 对象配置可以与进程集成，例如在推送和审计跟踪之前查看更改。
+- 对象配置提供了一个用于创建新对象的模板。
 
-Disadvantages compared to imperative commands:
+与命令式的命令相比的缺点:
 
-- Object configuration requires basic understanding of the object schema.
-- Object configuration requires the additional step of writing a YAML file.
+- 对象配置需要对对象模式有基本的了解。
+- 对象配置需要编写 YAML 文件
 
-Advantages compared to declarative object configuration:
+与声明式对象配置相比的优势:
 
-- Imperative object configuration behavior is simpler and easier to understand.
-- As of Kubernetes version 1.5, imperative object configuration is more mature.
+- 命令对象配置行为更简单易懂。
+- 在 Kubernetes 1.5版本，命令式对象配置更为成熟 imperative object configuration is more mature.
 
-Disadvantages compared to declarative object configuration:
+与声明式对象配置相比的缺点:
 
-- Imperative object configuration works best on files, not directories.
-- Updates to live objects must be reflected in configuration files, or they will be lost during the next replacement.
+- 命令式对象配置最适合于文件，而不是目录。
+- 活动对象的更新必须反映在配置文件中，否则在下次替换时将丢失。
 
-## Declarative object configuration
+## 声明式对象配置
 
-When using declarative object configuration, a user operates on object
-configuration files stored locally, however the user does not define the
-operations to be taken on the files. Create, update, and delete operations
-are automatically detected per-object by `kubectl`. This enables working on
-directories, where different operations might be needed for different objects.
+当使用声明式对象配置时，用户对本地存储的对象配置文件进行操作，但是用户没有定义要对文件执行的操作。通过 `kubectl` 自动每个对象的创建、更新和删除操作。这样可以在目录层级上工作，因为不同的对象可能需要不同的操作。
 
-**Note:** Declarative object configuration retains changes made by other
-writers, even if the changes are not merged back to the object configuration file.
-This is possible by using the `patch` API operation to write only
-observed differences, instead of using the `replace`
-API operation to replace the entire object configuration.
+**注意:** 声明式对象配置保留由其他对象进行的更改，即使更改未合并到对象配置文件中。这可以通过使用 `patch` API 操作来写入观察到的差异，而不是使用`replace` API 操作来替换整个对象的配置。
 
-### Examples
+### 例子
 
-Process all object configuration files in the `configs` directory, and
-create or patch the live objects:
+处理`configs` 目录中的所有对象配置文件，创建或修补(patch)活动对象:
 
 ```sh
 kubectl apply -f configs/
 ```
 
-Recursively process directories:
+递归处理目录:
 
 ```sh
 kubectl apply -R -f configs/
 ```
 
-### Trade-offs
+### 权衡
 
-Advantages compared to imperative object configuration:
+与命令式对象配置相比的优点:
 
-- Changes made directly to live objects are retained, even if they are not merged back into the configuration files.
-- Declarative object configuration has better support for operating on directories and automatically detecting operation types (create, patch, delete) per-object.
+- 直接对活动对象进行的更改将被保留，即使它们未被并入到配置文件中。
+- 声明式对象配置更好地支持目录操作，并自动检测每个对象的操作类型 (创建、修补，删除)。
 
-Disadvantages compared to imperative object configuration:
+与命令式对象配置相比的缺点:
 
-- Declarative object configuration is harder to debug and understand results when they are unexpected.
-- Partial updates using diffs create complex merge and patch operations.
+- 声明式对象配置在意外情况下难以调试和了解结果。
+- 使用差异的部分更新会创建复杂的合并和补丁操作。
 
 {% endcapture %}
 
 {% capture whatsnext %}
-- [Managing Kubernetes Objects Using Imperative Commands](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
-- [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
-- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/concepts/tools/kubectl/object-management-using-declarative-config/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)
+- [使用命令式的命令管理 Kubernetes 对象](/docs/concepts/tools/kubectl/object-management-using-imperative-commands/)
+- [使用对象配置管理 Kubernetes 对象 (命令式)](/docs/concepts/tools/kubectl/object-management-using-imperative-config/)
+- [使用对象配置管理 Kubernetes 对象 (声明式)](/docs/concepts/tools/kubectl/object-management-using-declarative-config/)
+- [Kubectl 命令参考](/docs/user-guide/kubectl/v1.5/)
+- [Kubernetes 对象模式参考](/docs/resources-reference/v1.5/)
 
 {% comment %}
 {% endcomment %}
