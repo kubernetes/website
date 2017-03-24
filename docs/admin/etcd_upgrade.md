@@ -23,7 +23,7 @@ see _some doc_.
 The upgrade procedure described in this document assumes that either:
 
 1. The etcd cluster has only a single node.
-1. The etcd cluster has multiple nodes. In this case, the upgrade proceedure requires shutting down the 
+1. The etcd cluster has multiple nodes. In this case, the upgrade procedure requires shutting down the 
    etcd cluster. During the time the etcd cluster is shutdown, the Kubernetes API Server
    will be read only.
 
@@ -116,7 +116,7 @@ This section describes how we are going to do the migration, given the
 [etcd upgrade requirements](#etcd-upgrade-requirements).
 
 Note that because the code changes in Kubernetes code needed
-to support the etcd v3 API are local and straight forward, we do not
+to support the etcd v3 API are local and straightforward, we do not
 focus on them at all. We focus only on the upgrade/rollback here.
 
 ### New etcd Docker image
@@ -189,7 +189,7 @@ Simply modify the command line in the etcd manifest to:
 Starting in Kubernetes version 1.6, this has been done in the manifests for new
 Google Compute Engine clusters. You should also specify these environment variables. 
 In particular,you must keep `STORAGE_MEDIA_TYPE` set to application/json if you wish
-to preserve the option o roll back.
+to preserve the option to roll back.
 
 ```
 TARGET_STORAGE=etcd3
