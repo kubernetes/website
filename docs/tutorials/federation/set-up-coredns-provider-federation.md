@@ -22,23 +22,23 @@ referenced as host cluster). Please see one of the
 [getting started](/docs/getting-started-guides/) guides for
 installation instructions for your platform.
 
-## Deploying CoreDNS and Etcd charts
+## Deploying CoreDNS and etcd charts
 
 To deploy CoreDNS we shall make use of helm charts. CoreDNS will be
-deployed with Etcd as the backend and should be pre-installed. Etcd
-also can be deployed using helm charts. Shown below are the
-instructions to deploy Etcd.
+deployed with [etcd](https://coreos.com/etcd) as the backend and should
+be pre-installed. etcd also can be deployed using helm charts. Shown
+below are the instructions to deploy etcd.
 
 ```shell
-$ helm install --name etcd-operator --namespace ns stable/etcd-operator
-$ helm upgrade --namespace ns --set cluster.enabled=true etcd-operator stable/etcd-operator
+$ helm install --namespace my-namespace --name etcd-operator stable/etcd-operator
+$ helm upgrade --namespace my-namespace --set cluster.enabled=true etcd-operator stable/etcd-operator
 ```
 
-> Note: Etcd default deployment configurations can be overridden, suiting the
+> Note: etcd default deployment configurations can be overridden, suiting the
 host cluster.
 
-After deployment succeeds, Etcd can be accessed with
-"http://etcd-cluster:2379" endpoint within the host cluster.
+After deployment succeeds, etcd can be accessed with
+http://etcd-cluster.my-namespace:2379 endpoint within the host cluster.
 
 CoreDNS default configuration should be customized to suit federation
 and shown below is the Values.yaml, which overrides the default
@@ -53,8 +53,8 @@ middleware:
   etcd:
     enabled: true
     zones:
-    - "example.com"
-    endpoint: "http://etcd-cluster:2379"
+    - "example.com."
+    endpoint: "http://etcd-cluster.my-namespace:2379"
 ```
 
 The above configuration file needs some explanation:
@@ -78,10 +78,10 @@ authoritative by setting `middleware.etcd.zones` as shown above.
 Now deploy CoreDNS by running
 
 ```shell
-$ helm install --name coredns --namespace ns -f Values.yaml stable/coredns
+$ helm install --namespace my-namespace --name coredns -f Values.yaml stable/coredns
 ```
 
-Verify that both Etcd and CoreDNS pods are running as expected.
+Verify that both etcd and CoreDNS pods are running as expected.
 
 ## Deploying Federation with CoreDNS as DNS provider
 
@@ -95,29 +95,31 @@ coredns-provider.conf has below format:
 
 ```shell
 [Global]
-etcd-endpoints = http://etcd-cluster.ns:2379
-zones = example.com
+etcd-endpoints = http://etcd-cluster.my-namespace:2379
+zones = example.com.
 ```
 
- - `etcd-endpoints` is the endpoint to access Etcd.
- - `zones` is the federation domain for which CoreDNS is authoritative.
+ - `etcd-endpoints` is the endpoint to access etcd.
+ - `zones` is the federation domain for which CoreDNS is authoritative and is same as --dns-zone-name flag of `kubefed init`.
 
-## Setup CoreDNS server in nameserver resolv chain
+> Note: middleware.etcd.zones in CoreDNS configuration and --dns-zone-name flag to kubefed init should match.
+
+## Setup CoreDNS server in nameserver resolv.conf chain
 
 Once the federation control plane is deployed and federated clusters
 are joined to the federation, you need to add the CoreDNS server to
-pod's nameserver resolv chain in all the federated clusters as this
+pod's nameserver resolv.conf chain in all the federated clusters as this
 self hosted CoreDNS server is not discoverable publicly. This can be
 achieved by adding the below line to `dnsmasq` container's arg in
 `kube-dns` deployment.
 
 ```shell
-        - --server=/example.com/<CoreDNS endpoint>
+        - --server=/example.com./<CoreDNS endpoint>
 ```
 
 Replace `example.com` above with federation domain.
 
-> Note: Adding CoreDNS server to pod's nameserver resolv chain will be
+> Note: Adding CoreDNS server to pod's nameserver resolv.conf chain will be
 automated in subsequent releases.
 
 
