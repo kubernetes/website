@@ -1,7 +1,7 @@
 ---
 assignees:
 - mml
-title: Cluster Management Guide
+title: Cluster should defaults set to etcd 3
 ---
 
 * TOC
