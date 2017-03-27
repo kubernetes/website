@@ -149,6 +149,28 @@ $ kubectl create -f ./psp.yaml
 podsecuritypolicy "permissive" created
 ```
 
+## Getting a list of Pod Security Policies
+
+To get a list of existing policies, use `kubectl get`:
+
+```shell
+$ kubectl get psp
+NAME        PRIV   CAPS  SELINUX   RUNASUSER         FSGROUP   SUPGROUP  READONLYROOTFS  VOLUMES
+permissive  false  []    RunAsAny  RunAsAny          RunAsAny  RunAsAny  false           [*]
+privileged  true   []    RunAsAny  RunAsAny          RunAsAny  RunAsAny  false           [*]
+restricted  false  []    RunAsAny  MustRunAsNonRoot  RunAsAny  RunAsAny  false           [emptyDir secret downwardAPI configMap persistentVolumeClaim]
+```
+
+## Editing a Pod Security Policy
+
+To modify policy interactively, use `kubectl edit`:
+
+```shell
+$ kubectl edit psp permissive
+```
+
+This command will open a default text editor where you will be ably to modify policy.
+
 ## Deleting a Pod Security Policy
 
 Once you don't need a policy anymore, simply delete it with `kubectl`:
