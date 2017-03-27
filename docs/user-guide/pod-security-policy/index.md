@@ -4,7 +4,7 @@ assignees:
 title: Pod Security Policies
 ---
 
-Objects of type `podsecuritypolicy` govern the ability 
+Objects of type `PodSecurityPolicy` govern the ability
 to make requests on a pod that affect the `SecurityContext` that will be 
 applied to a pod and container.
 
@@ -84,6 +84,7 @@ volumes field of the PSP. The allowable values of this field correspond
 to the volume sources that are defined when creating a volume:
 
 1. azureFile
+1. azureDisk
 1. flocker
 1. flexVolume
 1. hostPath
@@ -104,8 +105,10 @@ to the volume sources that are defined when creating a volume:
 1. configMap
 1. vsphereVolume
 1. quobyte
-1. azureDisk
 1. photonPersistentDisk
+1. projected
+1. portworxVolume
+1. scaleIO
 1. \* (allow all volumes)
 
 The recommended minimum set of allowed volumes for new PSPs are 
@@ -116,8 +119,8 @@ configMap, downwardAPI, emptyDir, persistentVolumeClaim, and secret.
  
 ## Admission
 
-_Admission control_ with `PodSecurityPolicy` allows for control over the creation of resources
-based on the capabilities allowed in the cluster.
+_Admission control_ with `PodSecurityPolicy` allows for control over the
+creation and modification of resources based on the capabilities allowed in the cluster.
 
 Admission uses the following approach to create the final security context for
 the pod:
