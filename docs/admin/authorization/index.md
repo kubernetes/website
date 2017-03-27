@@ -94,10 +94,10 @@ properties:
     - Resource-matching properties:
       - `apiGroup`, type string; an API group.
         - Ex: `extensions`
-        - Wildard: `*` matches all API groups.
+        - Wildcard: `*` matches all API groups.
       - `namespace`, type string; a namespace.
         - Ex: `kube-system`
-        - Wildard: `*` matches all resource requests.
+        - Wildcard: `*` matches all resource requests.
       - `resource`, type string; a resource type
         - Ex: `pods`
         - Wildcard: `*` matches all resource requests.
