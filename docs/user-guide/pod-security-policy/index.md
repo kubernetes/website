@@ -21,15 +21,22 @@ actions that a pod can perform and what it has the ability to access. The
 run with in order to be accepted into the system. They allow an 
 administrator to control the following:
 
-1. Running of privileged containers.
-1. Capabilities a container can request to be added.
-1. The SELinux context of the container.
-1. The user ID.
-1. The use of host namespaces and networking.
-1. Allocating an FSGroup that owns the pod's volumes
-1. Configuring allowable supplemental groups
-1. Requiring the use of a read only root file system
-1. Controlling the usage of volume types
+| Control Aspect                                                | Field Name                 |
+| ------------------------------------------------------------- | -------------------------- |
+| Running of privileged containers                              | `privileged`               |
+| Default set of capabilities that will be added to a container | `defaultAddCapabilities`   |
+| Capabilities that will be dropped from a container            | `requiredDropCapabilities` |
+| Capabilities a container can request to be added              | `allowedCapabilities`      |
+| Controlling the usage of volume types                         | `volumes`                  |
+| The use of host networking                                    | `hostNetwork`              |
+| The use of host ports                                         | `hostPorts`                |
+| The use of host's PID namespace                               | `hostPID`                  |
+| The use of host's IPC namespace                               | `hostIPC`                  |
+| The SELinux context of the container                          | `seLinux`                  |
+| The user ID                                                   | `runAsUser`                |
+| Configuring allowable supplemental groups                     | `supplementalGroups`       |
+| Allocating an FSGroup that owns the pod's volumes             | `fSGroup`                  |
+| Requiring the use of a read only root file system             | `readOnlyRootFilesystem`   |
 
 _Pod Security Policies_ are comprised of settings and strategies that 
 control the security features a pod has access to. These settings fall 
