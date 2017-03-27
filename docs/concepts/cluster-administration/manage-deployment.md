@@ -82,7 +82,7 @@ Because `kubectl` outputs resource names in the same syntax it accepts, it's eas
 ```shell
 $ kubectl get $(kubectl create -f docs/user-guide/nginx/ -o name | grep service)
 NAME           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
-my-nginx-svc   10.0.0.208   <none>        80/TCP       0s
+my-nginx-svc   10.0.0.208                 80/TCP       0s
 ```
 
 With the above commands, we first create resources under docs/user-guide/nginx/ and print the resources created with `-o name` output format 
