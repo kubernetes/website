@@ -92,6 +92,12 @@ when the pod is created, so it is ignored by the scheduler).  Therefore:
  - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
 
+## How Daemon Pods work with taints and tolerations
+
+Daemon pods will not be deleted by `NodeController` in case of node problems, such as when node turns to
+`Unreachable` or `NotReady`. The reason is that the `NodeController` added an infinite tolerations of
+`NoExecute` for `Unreachable` and `NotReady` taints, so the daemon pods will bound to those nodes forever.
+
 ## Communicating with DaemonSet Pods
 
 Some possible patterns for communicating with pods in a DaemonSet are:
