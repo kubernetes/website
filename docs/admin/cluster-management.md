@@ -196,7 +196,7 @@ for changes to this variable to take effect.
 You can use `kubectl convert` command to convert config files between different API versions.
 
 ```shell
-$ kubectl convert -f pod.yaml --output-version v1
+kubectl convert -f pod.yaml --output-version v1
 ```
 
 For more options, please refer to the usage of [kubectl convert](/docs/user-guide/kubectl/kubectl_convert/) command.
