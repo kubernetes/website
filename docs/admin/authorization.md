@@ -277,7 +277,8 @@ rules:
 
 `ClusterRoles` hold the same information as a `Role` but can apply to any
 namespace as well as non-namespaced resources (such as `Nodes`,
-`PersistentVolume`, etc.). The following `ClusterRole` can grant permissions to
+`PersistentVolume`, etc.). non-resource URLs only be used for ClusterRoles
+(not namespaced Roles). The following `ClusterRole` can grant permissions to
 read secrets in any namespace.
 
 ```yaml
@@ -290,7 +291,8 @@ rules:
   - apiGroups: [""]
     resources: ["secrets"]
     verbs: ["get", "watch", "list"]
-    nonResourceURLs: []
+  - nonResourceURLs: ["*"]
+    verbs: ["*"]
 ```
 
 `RoleBindings` perform the task of granting the permission to a user or set of
