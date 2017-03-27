@@ -79,6 +79,7 @@ Kubernetes supports several types of Volumes:
    * `azureDisk`
    * `vsphereVolume`
    * `Quobyte`
+   * `ScaleIO`
 
 We welcome additional contributions.
 
@@ -530,6 +531,42 @@ __Important: You must have your own Quobyte setup running with the volumes creat
 before you can use it__
 
 See the [Quobyte example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/quobyte) for more details.
+
+### ScaleIO
+ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable 
+shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO 
+volumes (or it can dynamically provision new volumes for persistent volume claims, see 
+[ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio)).
+
+__Important: You must have an existing ScaleIO cluster already setup and running with the volumes created
+before you can use them__
+
+The following is an example pod configuration with ScaleIO:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-0
+spec:
+  containers:
+  - image: gcr.io/google_containers/test-webserver
+    name: pod-0
+    volumeMounts:
+    - mountPath: /test-pd
+      name: vol-0
+  volumes:
+  - name: vol-0
+    scaleIO:
+      gateway: https://localhost:443/api
+      system: scaleio
+      volumeName: vol-0
+      secretRef:
+        name: sio-secret
+      fsType: xfs
+```
+
+For further detail, plese the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
 
 ## Using subPath
 
