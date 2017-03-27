@@ -516,7 +516,7 @@ current-context: webhook
 contexts:
 - context:
     cluster: name-of-remote-authz-service
-    user: name-of-api-sever
+    user: name-of-api-server
   name: webhook
 ```
 
