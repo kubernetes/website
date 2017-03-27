@@ -245,7 +245,7 @@ federation, and
 in your federation DNS.
 
 You can find more details about config maps in general at
-http://kubernetes.io/docs/user-guide/configmap/.
+[config map](http://kubernetes.io/docs/user-guide/configmap/).
 
 ### Kubernetes 1.4 and earlier: Setting federations flag on kube-dns-rc
 
