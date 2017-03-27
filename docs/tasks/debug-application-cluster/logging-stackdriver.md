@@ -5,24 +5,110 @@ assignees:
 title: Logging Using Stackdriver
 ---
 
-Before reading this page, it's highly recommended to familiarize yourself with the [overview of logging in Kubernetes](/docs/user-guide/logging/overview).
+Before reading this page, it's highly recommended to familiarize yourself
+with the [overview of logging in Kubernetes](/docs/concepts/cluster-administration/logging).
 
-This article assumes that you have created a Kubernetes cluster with cluster-level logging support for sending logs to Stackdriver Logging. You can do this either by selecting the  **Enable Stackdriver Logging** checkbox in the create cluster dialogue in [GKE](https://cloud.google.com/container-engine/), or by setting the `KUBE_LOGGING_DESTINATION` flag to `gcp` when manually starting a cluster using `kube-up.sh`.
+**Note:** By default, Stackdriver logging collects only your container's standard output and
+standard error streams. To collect any logs your application writes to a file (for example),
+see the [sidecar approach](/docs/concepts/cluster-administration/logging/#using-a-sidecar-container-with-the-logging-agent)
+in the Kubernetes logging overview.
 
-The following guide describes gathering a container's standard output and standard error. To gather logs written by an application to a file, you can use [a sidecar approach](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-gcp/README.md).
+## Deploying
 
-## Overview
+To ingest logs, you must deploy the Stackdriver Logging agent to each node in your cluster.
+The agent is a configured `fluentd` instance, where the configuration is stored in a `ConfigMap`
+and the instances are managed using a Kubernetes `DaemonSet`. The actual deployment of the
+`ConfigMap` and `DaemonSet` for your cluster depends on your individual cluster setup.
 
-After creation, you can discover logging agent pods in the `kube-system` namespace,
-one per node, by running the following command:
+### Deploying to a new cluster
+
+#### Google Container Engine
+
+Stackdriver is the default logging solution for clusters deployed on Google Container Engine.
+Stackdriver Logging is deployed to a new cluster by default unless you explicitly opt-out.
+
+#### Other platforms
+
+To deploy Stackdriver Logging on a *new* cluster that you're
+creating using `kube-up.sh`, do the following:
+
+1. Set the `KUBE_LOGGING_DESTINATION` environment variable to `gcp`.
+1. **If not running on GCE**, include the `beta.kubernetes.io/fluentd-ds-ready=true`
+in the `KUBE_NODE_LABELS` variable.
+
+Once your cluster has started, each node should be running the Stackdriver Logging agent.
+The `DaemonSet` and `ConfigMap` are configured as addons. If you're not using `kube-up.sh`,
+consider starting a cluster without a pre-configured logging solution and then deploying
+Stackdriver Logging agents to the running cluster.
+
+### Deploying to an existing cluster
+
+1. Apply a label on each node, if not already present.
+
+    The Stackdriver Logging agent deployment uses node labels to determine to which nodes
+    it should be allocated. These labels were introduced to distinguish nodes with the
+    Kubernetes version 1.6 or higher. If the cluster was created with Stackdriver Logging
+    configured and node has version 1.5.X or lower, it will have fluentd as static pod. Node
+    cannot have more than one instance of fluentd, therefore only apply labels to the nodes
+    that don't have fluentd pod allocated already. You can ensure that your node is labelled
+    properly by running `kubectl describe` as follows:
+
+    ```shell
+    kubectl describe node $NODE_NAME
+    ```
+
+    The output should be similar to this:
+
+    ```
+    Name:           NODE_NAME
+    Role:
+    Labels:         beta.kubernetes.io/fluentd-ds-ready=true
+    ...
+    ```
+
+    Ensure that the output contains the label `beta.kubernetes.io/fluentd-ds-ready=true`. If it
+    is not present, you can add it using the `kubectl label` command as follows:
+
+    ```shell
+    kubectl label node $NODE_NAME beta.kubernetes.io/fluentd-ds-ready=true
+    ```
+
+    **Note:** If a node fails and has to be recreated, you must re-apply the label to
+    the recreated node. To make this easier, you can use Kubelet's command-line parameter
+    for applying node labels in your node startup script.
+
+1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
+
+    ```shell
+    kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-configmap.yaml
+    ```
+
+    The command creates the `ConfigMap` in the default namespace. You can download the file
+    manually and change it before creating the `ConfigMap` object.
+
+1. Deploy the logging agent `DaemonSet` by running the following command:
+
+    ```shell
+    kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-ds.yaml
+    ```
+
+    You can download and edit this file before using it as well.
+
+## Verifying your Logging Agent Deployment
+
+After Stackdriver `DaemonSet` is deployed, you can discover logging agent deployment status
+by running the following command:
 
 ```shell
-$ kubectl get pods --namespace=kube-system
-NAME                                           READY     STATUS    RESTARTS   AGE
+kubectl get ds --all-namespaces
+```
+
+If you have 3 nodes in the cluster, the output should looks similar to this:
+
+```
+NAMESPACE     NAME               DESIRED   CURRENT   READY     NODE-SELECTOR                              AGE
 ...
-fluentd-gcp-v1.30-50gnc                        1/1       Running   0          5d
-fluentd-gcp-v1.30-v255c                        1/1       Running   0          5d
-fluentd-gcp-v1.30-f02l5                        1/1       Running   0          5d
+kube-system   fluentd-gcp-v2.0   3         3         3         beta.kubernetes.io/fluentd-ds-ready=true   6d
 ...
 ```
 
@@ -36,8 +122,7 @@ that writes out the value of a counter and the date once per
 second, and runs indefinitely. Let's create this pod in the default namespace.
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/user-guide/logging/examples/counter-pod.yaml
-pod "counter" created
+kubectl create -f http://k8s.io/docs/user-guide/logging/examples/counter-pod.yaml
 ```
 
 You can observe the running pod:
