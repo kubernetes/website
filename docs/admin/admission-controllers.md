@@ -197,7 +197,7 @@ We strongly recommend using this plug-in if you intend to make use of Kubernetes
 
 ### SecurityContextDeny
 
-This plug-in will deny any pod with a [SecurityContext](/docs/user-guide/security-context) that defines options that were not available on the `Container`.
+This plug-in will deny any pod that attempts to set certain escalating [SecurityContext](/docs/user-guide/security-context) fields. This should be enabled if a cluster doesn't utilize [pod security policies](/docs/user-guide/pod-security-policy) to restrict the set of values a security context can take.
 
 ### ResourceQuota
 
