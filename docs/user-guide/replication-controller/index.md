@@ -39,7 +39,7 @@ Run the example job by downloading the example file and then running this comman
 
 ```shell
 $ kubectl create -f ./replication.yaml
-replicationcontrollers/nginx
+replicationcontroller "nginx" created
 ```
 
 Check on the status of the ReplicationController using this command:
@@ -54,10 +54,11 @@ Labels:      app=nginx
 Replicas:    3 current / 3 desired
 Pods Status: 0 Running / 3 Waiting / 0 Succeeded / 0 Failed
 Events:
-  FirstSeen                          LastSeen                           Count    From            SubobjectPath    Reason            Message
-  Thu, 24 Sep 2015 10:38:20 -0700    Thu, 24 Sep 2015 10:38:20 -0700    1        {replication-controller }        SuccessfulCreate    Created pod: nginx-qrm3m
-  Thu, 24 Sep 2015 10:38:20 -0700    Thu, 24 Sep 2015 10:38:20 -0700    1        {replication-controller }        SuccessfulCreate    Created pod: nginx-3ntk0
-  Thu, 24 Sep 2015 10:38:20 -0700    Thu, 24 Sep 2015 10:38:20 -0700    1        {replication-controller }        SuccessfulCreate    Created pod: nginx-4ok8v
+  FirstSeen       LastSeen     Count    From                        SubobjectPath    Type      Reason              Message
+  ---------       --------     -----    ----                        -------------    ----      ------              -------
+  20s             20s          1        {replication-controller }                    Normal    SuccessfulCreate    Created pod: nginx-qrm3m
+  20s             20s          1        {replication-controller }                    Normal    SuccessfulCreate    Created pod: nginx-3ntk0
+  20s             20s          1        {replication-controller }                    Normal    SuccessfulCreate    Created pod: nginx-4ok8v
 ```
 
 Here, 3 pods have been made, but none are running yet, perhaps because the image is being pulled.
