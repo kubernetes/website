@@ -19,7 +19,7 @@ To install Kubernetes on a set of machines, consult one of the existing [Getting
 
 ## Upgrading a cluster
 
-The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.  
+The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
 
 * [Upgrading to 1.6](/docs/admin/upgrade-1-6)
 
@@ -58,12 +58,12 @@ The node upgrade process is user-initiated and is described in the [GKE document
 
 ### Upgrading clusters on other platforms
 
-Different providers, and tools, will manage upgrades differently.  It is recommended that you consult their main documentation regarding upgrades. 
+Different providers, and tools, will manage upgrades differently.  It is recommended that you consult their main documentation regarding upgrades.
 
 * [kops](https://github.com/kubernetes/kops)
 * [kargo](https://github.com/kubernetes-incubator/kargo)
 * [CoreOS Tectonic](https://coreos.com/tectonic/docs/latest/admin/upgrade.html)
-* ... 
+* ...
 
 ## Resizing a cluster
 
@@ -77,7 +77,6 @@ gcloud compute instance-groups managed resize kubernetes-minion-group --size 42 
 Instance Group will take care of putting appropriate image on new machines and start them, while Kubelet will register its Node with API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
 
 In other environments you may need to configure the machine yourself and tell the Kubelet on which machine API server is running.
-
 
 ### Cluster autoscaling
 
@@ -97,7 +96,7 @@ an extended period of time (10min but it may change in the future).
 
 Cluster autoscaler is configured per instance group (GCE) or node pool (GKE).
 
-If you are using GCE then you can either enable it while creating a cluster with kube-up.sh script. 
+If you are using GCE then you can either enable it while creating a cluster with kube-up.sh script.
 To configure cluster autoscaler you have to set three environment variables:
 
 * `KUBE_ENABLE_CLUSTER_AUTOSCALER` - it enables cluster autoscaler if set to true.
