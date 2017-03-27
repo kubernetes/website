@@ -44,9 +44,9 @@ medium that backs it, and the contents of it are determined by the particular
 volume type used.
 
 To use a volume, a pod specifies what volumes to provide for the pod (the
-[`spec.volumes`](http://kubernetes.io/kubernetes/third_party/swagger-ui/#!/v1/createPod)
+`spec.volumes`
 field) and where to mount those into containers(the
-[`spec.containers.volumeMounts`](http://kubernetes.io/kubernetes/third_party/swagger-ui/#!/v1/createPod)
+`spec.containers.volumeMounts`
 field).
 
 A process in a container sees a filesystem view composed from their Docker

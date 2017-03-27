@@ -205,8 +205,8 @@ A successful get command returns all replication controllers on the cluster in
 the specified or default namespace. For example:
 
 ```shell
-CONTROLLER            CONTAINER(S)   IMAGE(S)  SELECTOR        REPLICAS
-frontend              php-redis      redis     name=frontend   2
+NAME       DESIRED   CURRENT   READY     AGE
+frontend   2         2         2         1h
 ```
 
 You can also use `get rc NAME` to return information about a specific
