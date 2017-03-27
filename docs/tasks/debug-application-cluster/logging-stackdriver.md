@@ -20,12 +20,14 @@ The agent is a configured `fluentd` instance, where the configuration is stored 
 and the instances are managed using a Kubernetes `DaemonSet`. The actual deployment of the
 `ConfigMap` and `DaemonSet` for your cluster depends on your individual cluster setup.
 
-### GKE
+### Deploying to a new cluster
+
+#### Google Container Engine
 
 Stackdriver is the default logging solution for clusters deployed on Google Container Engine.
-Stackdriver Logging is deployed by default unless you explicitly opt-out.
+Stackdriver Logging is deployed to a new cluster by default unless you explicitly opt-out.
 
-### Deploying with a new cluster
+#### Other platforms
 
 To deploy Stackdriver Logging on a *new* cluster that you're
 creating using `kube-up.sh`, do the following:
@@ -35,15 +37,21 @@ creating using `kube-up.sh`, do the following:
 in the `KUBE_NODE_LABELS` variable.
 
 Once your cluster has started, each node should be running the Stackdriver Logging agent.
-The `DaemonSet` and `ConfigMap` are configured as addons.
+The `DaemonSet` and `ConfigMap` are configured as addons. If you're not using `kube-up.sh`,
+consider starting a cluster without a pre-configured logging solution and then deploying
+Stackdriver Logging agents to the running cluster.
 
 ### Deploying to an existing cluster
 
 1. Apply a label on each node, if not already present.
 
     The Stackdriver Logging agent deployment uses node labels to determine to which nodes
-    it should be allocated. You can ensure that your nodes are labelled properly
-    by running `kubectl describe` as follows:
+    it should be allocated. These labels were introduced to distinguish nodes with the
+    Kubernetes version 1.6 or higher. If the cluster was created with Stackdriver Logging
+    configured and node has version 1.5.X or lower, it will have fluentd as static pod. Node
+    cannot have more than one instance of fluentd, therefore only apply labels to the nodes
+    that don't have fluentd pod allocated already. You can ensure that your node is labelled
+    properly by running `kubectl describe` as follows:
 
     ```shell
     kubectl describe node $NODE_NAME
@@ -59,7 +67,7 @@ The `DaemonSet` and `ConfigMap` are configured as addons.
     ```
 
     Ensure that the output contains the label `beta.kubernetes.io/fluentd-ds-ready=true`. If it
-    is not present, you can add it using the `kubectl label` command as follows, for each node:
+    is not present, you can add it using the `kubectl label` command as follows:
 
     ```shell
     kubectl label node $NODE_NAME beta.kubernetes.io/fluentd-ds-ready=true
@@ -72,37 +80,35 @@ The `DaemonSet` and `ConfigMap` are configured as addons.
 1. Deploy a `ConfigMap` with the logging agent configuration by running the following command:
 
     ```shell
-    kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.6/cluster/addons/fluentd-gcp/fluentd-gcp-configmap.yaml
+    kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-configmap.yaml
     ```
 
-    The command creates the `ConfigMap` in the `kube-system` namespace. You can download the file
+    The command creates the `ConfigMap` in the default namespace. You can download the file
     manually and change it before creating the `ConfigMap` object.
 
 1. Deploy the logging agent `DaemonSet` by running the following command:
 
     ```shell
-    kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.6/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml
+    kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-ds.yaml
     ```
 
     You can download and edit this file before using it as well.
 
 ## Verifying your Logging Agent Deployment
 
-After Stackdriver DaemonSet is deployed, you can discover logging agent pods
-in the `kube-system` namespace, one per node, by running the following command:
+After Stackdriver `DaemonSet` is deployed, you can discover logging agent deployment status
+by running the following command:
 
 ```shell
-kubectl get pods --namespace=kube-system
+kubectl get ds --all-namespaces
 ```
 
-The output should contain lines similar to these:
+If you have 3 nodes in the cluster, the output should looks similar to this:
 
 ```
-NAME                                           READY     STATUS    RESTARTS   AGE
+NAMESPACE     NAME               DESIRED   CURRENT   READY     NODE-SELECTOR                              AGE
 ...
-fluentd-gcp-v2.0-50gnc                         1/1       Running   0          5d
-fluentd-gcp-v2.0-v255c                         1/1       Running   0          5d
-fluentd-gcp-v2.0-f02l5                         1/1       Running   0          5d
+kube-system   fluentd-gcp-v2.0   3         3         3         beta.kubernetes.io/fluentd-ds-ready=true   6d
 ...
 ```
 
