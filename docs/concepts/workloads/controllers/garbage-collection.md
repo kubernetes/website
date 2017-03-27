@@ -88,14 +88,14 @@ the following things are true:
  * The object's `deletionTimestamp` is set
  * The object's `metadata.finalizers` contains the value "foregroundDeletion".
  
-Once the "deletion in progress" state is set, the the garbage
+Once the "deletion in progress" state is set, the garbage
 collector deletes the object's dependents. Once the garbage collector has deleted all
-dependents (objects with `ownerReference.blockOwnerDeletion=true`), it delete
+"blocking" dependents (objects with `ownerReference.blockOwnerDeletion=true`), it delete
 the owner object.
 
 Note that in the "foregroundDeletion", only dependents with
 `ownerReference.blockOwnerDeletion` block the deletion of the owner object.
-Kubernetes version 1.7, will add an admission controller that controls user access to set
+Kubernetes version 1.7 will add an admission controller that controls user access to set
 `blockOwnerDeletion` to true based on delete permissions on the owner object, so that
 unauthorized dependents cannot delay deletion of an owner object. 
 
