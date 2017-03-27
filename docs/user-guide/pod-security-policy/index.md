@@ -21,15 +21,27 @@ actions that a pod can perform and what it has the ability to access. The
 run with in order to be accepted into the system. They allow an 
 administrator to control the following:
 
-1. Running of privileged containers.
-1. Capabilities a container can request to be added.
-1. The SELinux context of the container.
-1. The user ID.
-1. The use of host namespaces and networking.
-1. Allocating an FSGroup that owns the pod's volumes
-1. Configuring allowable supplemental groups
-1. Requiring the use of a read only root file system
-1. Controlling the usage of volume types
+| Control Aspect                                                | Type       | Attribute Name                    |
+| ------------------------------------------------------------- | ---------- | --------------------------------- |
+| Running of privileged containers                              | field      | `privileged`                      |
+| Default set of capabilities that will be added to a container | field      | `defaultAddCapabilities`          |
+| Capabilities that will be dropped from a container            | field      | `requiredDropCapabilities`        |
+| Capabilities a container can request to be added              | field      | `allowedCapabilities`             |
+| Controlling the usage of volume types                         | field      | [`volumes`](#controlling-volumes) |
+| The use of host networking                                    | field      | [`hostNetwork`](#host-network)    |
+| The use of host ports                                         | field      | `hostPorts`                       |
+| The use of host's PID namespace                               | field      | `hostPID`                         |
+| The use of host's IPC namespace                               | field      | `hostIPC`                         |
+| The SELinux context of the container                          | field      | [`seLinux`](#selinuxcontext)      |
+| The user ID                                                   | field      | [`runAsUser`](#runasuser)         |
+| Configuring allowable supplemental groups                     | field      | [`supplementalGroups`](#supplementalgroups) |
+| Allocating an FSGroup that owns the pod's volumes             | field      | [`fsGroup`](#fsgroup)             |
+| Requiring the use of a read only root file system             | field      | `readOnlyRootFilesystem`          |
+| Default AppArmor profile to apply to containers               | annotation | [`apparmor.security.beta.kubernetes.io/defaultProfileName`](/docs/tutorials/clusters/apparmor/)  |
+| AppArmor profiles that containers are allowed to be run with  | annotation | [`apparmor.security.beta.kubernetes.io/allowedProfileNames`](/docs/tutorials/clusters/apparmor/) |
+| Default seccomp profile to apply to containers                | annotation | [`seccomp.security.alpha.kubernetes.io/defaultProfileName`](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/seccomp.md) |
+| Seccomp profiles that containers are allowed to be run with  | annotation | [`seccomp.security.alpha.kubernetes.io/allowedProfileNames`](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/seccomp.md) |
+| Allowed safe and unsafe sysctls in a pod spec                | annotation | `security.alpha.kubernetes.io/sysctls` |
 
 _Pod Security Policies_ are comprised of settings and strategies that 
 control the security features a pod has access to. These settings fall 
