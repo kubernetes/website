@@ -3,10 +3,8 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-title: Overview
+title: Controlling Accessing to the Kubernetes API
 ---
-
-This document describes how access to the Kubernetes API is controlled.
 
 ## Overview
 
