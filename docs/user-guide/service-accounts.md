@@ -41,8 +41,8 @@ You can list this and any other serviceAccount resources in the namespace with t
 
 ```shell
 $ kubectl get serviceAccounts
-NAME      SECRETS
-default   1
+NAME      SECRETS    AGE
+default   1          1d
 ```
 
 You can create additional serviceAccounts like this:
