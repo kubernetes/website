@@ -20,7 +20,7 @@ Multiple kubeconfig files are allowed, if specified explicitly.  At runtime they
 
 ## Related discussion
 
-http://issue.k8s.io/1755
+https://github.com/kubernetes/kubernetes/issues/1755
 
 ## Components of a kubeconfig file
 
@@ -228,7 +228,7 @@ Any path in a kubeconfig file is resolved relative to the location of the kubeco
 ## Manipulation of kubeconfig via `kubectl config <subcommand>`
 
 In order to more easily manipulate kubeconfig files, there are a series of subcommands to `kubectl config` to help.
-See [kubectl/kubectl_config.md](/docs/user-guide/kubectl/kubectl_config) for help.
+See [kubectl/kubectl_config](/docs/user-guide/kubectl/kubectl_config) for help.
 
 ### Example
 
