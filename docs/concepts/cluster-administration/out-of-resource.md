@@ -106,7 +106,7 @@ To configure hard eviction thresholds, the following flag is supported:
 * `eviction-hard` describes a set of eviction thresholds (e.g. `memory.available<1Gi`) that if met
 would trigger a pod eviction.
 
-The `kubelet` has the following default hard eviction thresholds:
+The `kubelet` has the following default hard eviction threshold:
 
 * `--eviction-hard=memory.available<100Mi`
 

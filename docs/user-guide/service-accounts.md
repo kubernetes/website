@@ -138,7 +138,7 @@ namespace: 7 bytes
 
 ## Adding ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
+First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
 Next, verify it has been created.  For example:
 
 ```shell

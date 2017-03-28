@@ -37,7 +37,7 @@ The autoscaler uses heapster to collect CPU utilization.
 Therefore, it is required to deploy heapster monitoring in your cluster for autoscaling to work.
 
 The autoscaler accesses corresponding replication controller, deployment or replica set by scale sub-resource.
-Scale is an interface which allows to dynamically set the number of replicas and to learn the current state of them.
+Scale is an interface that allows you to dynamically set the number of replicas and examine each of their current states.
 More details on scale sub-resource can be found [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#scale-subresource).
 
 
@@ -69,7 +69,7 @@ The detailed documentation of `kubectl autoscale` can be found [here](/docs/user
 
 ## Autoscaling during rolling update
 
-Currently in Kubernetes, it is possible to perform a [rolling update](/docs/user-guide/rolling-updates/) by managing replication controllers directly,
+Currently in Kubernetes, it is possible to perform a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) by managing replication controllers directly,
 or by using the deployment object, which manages the underlying replication controllers for you.
 Horizontal Pod Autoscaler only supports the latter approach: the Horizontal Pod Autoscaler is bound to the deployment object,
 it sets the size for the deployment object, and the deployment is responsible for setting sizes of underlying replication controllers.

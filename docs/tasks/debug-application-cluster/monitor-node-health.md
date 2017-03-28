@@ -36,7 +36,7 @@ it to [support other log format](/docs/admin/node-problem/#support-other-log-for
 
 ## Enable/Disable in GCE cluster
 
-Node problem detector is [running as a cluster addon](cluster-large.md/#addon-resources) enabled by default in the
+Node problem detector is [running as a cluster addon](/docs/admin/cluster-large/#addon-resources) enabled by default in the
 gce cluster.
 
 You can enable/disable it by setting the environment variable
@@ -194,8 +194,8 @@ and detects known kernel issues following predefined rules.
 
 The Kernel Monitor matches kernel issues according to a set of predefined rule list in
 [`config/kernel-monitor.json`](https://github.com/kubernetes/node-problem-detector/blob/v0.1/config/kernel-monitor.json).
-The rule list is extensible, and you can always extend it by [overwriting the
-configuration](/docs/admin/node-problem/#overwrite-the-configuration).
+The rule list is extensible, and you can always extend it by overwriting the
+configuration.
 
 ### Add New NodeConditions
 

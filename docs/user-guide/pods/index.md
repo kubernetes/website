@@ -40,7 +40,7 @@ filesystem.
 
 In terms of [Docker](https://www.docker.com/) constructs, a pod is modelled as
 a group of Docker containers with shared namespaces and shared
-[volumes](/docs/user-guide/volumes/). PID namespace sharing is not yet implemented in Docker.
+[volumes](/docs/concepts/storage/volumes/). PID namespace sharing is not yet implemented in Docker.
 
 Like individual application containers, pods are considered to be relatively
 ephemeral (rather than durable) entities. As discussed in [life of a
@@ -162,7 +162,7 @@ An example flow:
 2. The Pod in the API server is updated with the time beyond which the Pod is considered "dead" along with the grace period.
 3. Pod shows up as "Terminating" when listed in client commands
 4. (simultaneous with 3) When the Kubelet sees that a Pod has been marked as terminating because the time in 2 has been set, it begins the pod shutdown process.
-  1. If the pod has defined a [preStop hook](/docs/user-guide/container-environment/#hook-details), it is invoked inside of the pod. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) extended grace period.
+  1. If the pod has defined a [preStop hook](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), it is invoked inside of the pod. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) extended grace period.
   2. The processes in the Pod are sent the TERM signal.
 5. (simultaneous with 3), Pod is removed from endpoints list for service, and are no longer considered part of the set of running pods for replication controllers. Pods that shutdown slowly can continue to serve traffic as load balancers (like the service proxy) remove them from their rotations.
 6. When the grace period expires, any processes still running in the Pod are killed with SIGKILL.

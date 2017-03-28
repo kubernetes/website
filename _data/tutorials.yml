@@ -43,6 +43,7 @@ toc:
   - docs/tutorials/stateless-application/run-stateless-application-deployment.md
   - docs/tutorials/stateless-application/expose-external-ip-address-service.md
   - docs/tutorials/stateless-application/expose-external-ip-address.md
+  - docs/tutorials/stateless-application/run-stateless-ap-replication-controller.md
 - title: Stateful Applications
   section:
   - docs/tutorials/stateful-application/basic-stateful-set.md

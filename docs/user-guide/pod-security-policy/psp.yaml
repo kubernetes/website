@@ -17,6 +17,12 @@
       "fsGroup": {
           "rule": "RunAsAny"
       },
+      "HostPorts": [
+          {
+          "min": 8000,
+          "max": 8080
+          }
+      ],
       "volumes": ["*"]
   }
 }

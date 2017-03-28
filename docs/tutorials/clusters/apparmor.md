@@ -140,7 +140,8 @@ In this example you'll see:
 First, we need to load the profile we want to use onto our nodes. The profile we'll use simply
 denies all file writes:
 
-{% include code.html language="text" file="deny-write.profile" ghlink="/docs/admin/apparmor/deny-write.profile" %}
+
+{% include code.html language="text" file="deny-write.profile" ghlink="/docs/tutorials/clusters/deny-write.profile" %}
 
 Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
 nodes. For this example we'll just use SSH to install the profiles, but other approaches are
@@ -167,7 +168,7 @@ discussed in [Setting up nodes with profiles](#setting-up-nodes-with-profiles).
 
 Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 
-{% include code.html language="yaml" file="hello-apparmor-pod.yaml" ghlink="/docs/admin/apparmor/hello-apparmor-pod.yaml" %}
+{% include code.html language="yaml" file="hello-apparmor-pod.yaml" ghlink="/docs/tutorials/clusters/hello-apparmor-pod.yaml" %}
 
     $ kubectl create -f /dev/stdin <<EOF
     apiVersion: v1
@@ -221,39 +222,39 @@ To wrap up, let's look at what happens if we try to specify a profile that hasn'
         command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
     EOF
     pod "hello-apparmor-2" created
-    
+
     $ kubectl describe pod hello-apparmor-2
-    Name:		hello-apparmor-2
-    Namespace:	default
-    Node:		gke-test-default-pool-239f5d02-x1kf/
-    Start Time:	Tue, 30 Aug 2016 17:58:56 -0700
-    Labels:		<none>
-    Status:		Failed
-    Reason:		AppArmor
-    Message:	Pod Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
-    IP:		
-    Controllers:	<none>
+    Name:          hello-apparmor-2
+    Namespace:     default
+    Node:          gke-test-default-pool-239f5d02-x1kf/
+    Start Time:    Tue, 30 Aug 2016 17:58:56 -0700
+    Labels:        <none>
+    Status:        Failed
+    Reason:        AppArmor
+    Message:       Pod Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
+    IP:
+    Controllers:   <none>
     Containers:
       hello:
-        Image:	busybox
-        Port:	
+        Image:     busybox
+        Port:
         Command:
           sh
           -c
           echo 'Hello AppArmor!' && sleep 1h
         Requests:
-          cpu:			100m
-        Environment Variables:	<none>
+          cpu:            100m
+        Environment Variables:    <none>
     Volumes:
       default-token-dnz7v:
-        Type:	Secret (a volume populated by a Secret)
-        SecretName:	default-token-dnz7v
-    QoS Tier:	Burstable
+        Type:    Secret (a volume populated by a Secret)
+        SecretName:    default-token-dnz7v
+    QoS Tier:    Burstable
     Events:
-      FirstSeen	LastSeen	Count	From						SubobjectPath	Type		Reason		Message
-      ---------	--------	-----	----						-------------	--------	------		-------
-      23s		23s		1	{default-scheduler }						Normal		Scheduled	Successfully assigned hello-apparmor-2 to e2e-test-stclair-minion-group-t1f5
-      23s		23s		1	{kubelet e2e-test-stclair-minion-group-t1f5}			Warning		AppArmor	Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
+      FirstSeen    LastSeen    Count    From                        SubobjectPath    Type        Reason        Message
+      ---------    --------    -----    ----                        -------------    --------    ------        -------
+      23s          23s         1        {default-scheduler }                         Normal      Scheduled     Successfully assigned hello-apparmor-2 to e2e-test-stclair-minion-group-t1f5
+      23s          23s         1        {kubelet e2e-test-stclair-minion-group-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 
 Note the pod status is Failed, with a helpful error message: `Pod Cannot enforce AppArmor: profile
 "k8s-apparmor-example-allow-write" is not loaded`. An event was also recorded with the same message.

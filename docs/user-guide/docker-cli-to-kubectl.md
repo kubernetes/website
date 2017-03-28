@@ -209,7 +209,7 @@ Notice that we don't delete the pod directly. With kubectl we want to delete the
 
 #### docker login
 
-There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/user-guide/images/#using-a-private-registry).
+There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 
 #### docker version
 

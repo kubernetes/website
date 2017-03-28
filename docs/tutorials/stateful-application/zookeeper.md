@@ -25,7 +25,7 @@ Kubernetes concepts.
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/admin/dns/)
 * [Headless Services](/docs/user-guide/services/#headless-services)
-* [PersistentVolumes](/docs/user-guide/volumes/)
+* [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
 * [ConfigMaps](/docs/user-guide/configmap/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
@@ -877,9 +877,9 @@ word to test the server's health.
 ZK_CLIENT_PORT=${ZK_CLIENT_PORT:-2181}
 OK=$(echo ruok | nc 127.0.0.1 $ZK_CLIENT_PORT)
 if [ "$OK" == "imok" ]; then
-	exit 0
+    exit 0
 else
-	exit 1
+    exit 1
 fi
 ```
 

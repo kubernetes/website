@@ -9,12 +9,20 @@ Disallow: 404.html
 Disallow: /docs/user-guide/configuring-containers
 Disallow: /docs/user-guide/containers
 Disallow: /docs/user-guide/deploying-applications
+Disallow: /docs/user-guide/getting-into-containers
+>>>>>>> fb2ab359... Remove from TOC/Search: pods/init-containers ...
 Disallow: /docs/user-guide/liveness/index
+Disallow: /docs/user-guide/pod-states
 Disallow: /docs/user-guide/simple-nginx
 Disallow: /docs/user-guide/production-pods
 Disallow: /docs/user-guide/quick-start
 
+Disallow: /docs/user-guide/downward-api/index
+Disallow: /docs/user-guide/downward-api/volume/index
+
 Disallow: /docs/user-guide/persistent-volumes/walkthrough
+
+Disallow: /docs/user-guide/pods/init-container
 Disallow: /docs/user-guide/pods/single-container
 
 Disallow: /docs/user-guide/secrets/walkthrough
