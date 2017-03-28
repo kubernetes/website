@@ -25,7 +25,7 @@ There are two types of information that are available within the container envir
 
 Currently, the Pod name for the pod in which the container is running is set as the hostname of the container, and is accessible through all calls to access the hostname within the container (e.g. the hostname command, or the [gethostname][1] function call in libc), but this is planned to change in the future and should not be used.
 
-The Pod name and namespace are also available as environment variables via the [downward API](/docs/user-guide/downward-api).  Additionally, user-defined environment variables from the pod definition, are also available to the container, as are any environment variables specified statically in the Docker image.
+The Pod name and namespace are also available as environment variables via [the downward API](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/#the-downward-api).  Additionally, user-defined environment variables from the pod definition, are also available to the container, as are any environment variables specified statically in the Docker image.
 
 In the future, we anticipate expanding this information with richer information about the container.  Examples include available memory, number of restarts, and in general any state that you could get from the call to GET /pods on the API server.
 
