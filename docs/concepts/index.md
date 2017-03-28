@@ -53,7 +53,7 @@ The nodes in a cluster are the machines (VMs, physical servers, etc) that run yo
 #### Object Metadata
 
 
-* [Annotations](/docs/concepts/object-metadata/annotations/)
+* [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
 
 
 ### What's next
