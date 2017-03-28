@@ -225,7 +225,7 @@ a future development. The current implementation, which uses the number of nodes
 and cores in cluster, is limited.
 
 Support for custom metrics, similar to that provided by
-[Horizontal Pod Autoscaling](http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/),
+[Horizontal Pod Autoscaling](/docs/user-guide/horizontal-pod-autoscaling/),
 is under consideration as a future development.
 
 {% endcapture %}
