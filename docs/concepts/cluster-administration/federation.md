@@ -93,15 +93,15 @@ Once we have the control plane setup, we can start creating federation API
 resources.
 The following guides explain some of the resources in detail:
 
-* [ConfigMap](/docs/user-guide/federation/configmap/)
-* [DaemonSets](/docs/user-guide/federation/daemonsets/)
-* [Deployment](/docs/user-guide/federation/deployment/)
-* [Events](/docs/user-guide/federation/events/)
-* [Ingress](/docs/user-guide/federation/federated-ingress/)
-* [Namespaces](/docs/user-guide/federation/namespaces/)
-* [ReplicaSets](/docs/user-guide/federation/replicasets/)
-* [Secrets](/docs/user-guide/federation/secrets/)
-* [Services](/docs/user-guide/federation/federated-services/)
+* [ConfigMap](/docs/tasks/administer-federation/configmap/)
+* [DaemonSets](/docs/tasks/administer-federation/daemonset/)
+* [Deployment](/docs/tasks/administer-federation/deployment/)
+* [Events](/docs/tasks/administer-federation/events/)
+* [Ingress](/docs/tasks/administer-federation/ingress/)
+* [Namespaces](/docs/tasks/administer-federation/namespaces/)
+* [ReplicaSets](/docs/tasks/administer-federation/replicaset/)
+* [Secrets](/docs/tasks/administer-federation/secret/)
+* [Services](/docs/concepts/cluster-administration/federation-service-discovery/)
 
 [API reference docs](/docs/federation/api-reference/) lists all the
 resources supported by federation apiserver.
