@@ -171,26 +171,6 @@ spec:
       path: /data
 ```
 
-#### Example pod
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-hostpath
-spec:
-  containers:
-  - image: myimage
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-hostpath
-      name: test-volume
-  volumes:
-  - name: test-volume
-    hostPath:
-      path: /path/to/my/dir
-```
-
 ### gcePersistentDisk
 
 A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE) [Persistent
