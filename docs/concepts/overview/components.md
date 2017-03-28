@@ -98,7 +98,7 @@ in their DNS searches.
 #### User interface
 
 The kube-ui provides a read-only overview of the cluster state.  Access
-[the UI using kubectl proxy](/docs/user-guide/connecting-to-applications-proxy/#connecting-to-the-kube-ui-service-from-your-local-workstation)
+[Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
 
 #### Container Resource Monitoring
 

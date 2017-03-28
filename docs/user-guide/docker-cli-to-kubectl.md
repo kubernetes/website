@@ -141,7 +141,7 @@ $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-For more information see [Getting into containers](/docs/user-guide/getting-into-containers).
+For more information see [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/).
 
 #### docker logs
 
@@ -172,7 +172,7 @@ $ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-See [Logging Overview](/docs/user-guide/logging/overview) for more information.
+See [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/) for more information.
 
 #### docker stop and docker rm
 
