@@ -76,6 +76,7 @@ Sample Config:
 
 * Set the cloud provider via ```--cloud-provider=vsphere``` flag for each instance of kubelet, apiserver and controller manager.
 
+* When upgrading to 1.6 install the default storage class addons, [click here for more details](https://github.com/kubernetes/kubernetes/issues/40070)
 
 #### Known issues
 

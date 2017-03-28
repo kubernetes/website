@@ -184,3 +184,9 @@ cron jobs, their respective jobs are always allowed to run concurrently.
 
 The `.spec.suspend` field is also optional. If set to `true`, all subsequent executions will be suspended. It does not
 apply to already started executions. Defaults to false.
+
+### Jobs History Limits
+
+The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional. These fields specify how many completed and failed jobs should be kept.
+
+By default, there are no limits, and all successful and failed jobs are kept. However, jobs can pile up quickly when running a cron job, and setting these fields is recommended. Setting a limit to `0` corresponds to keeping none of the corresponding kind of jobs after they finish.

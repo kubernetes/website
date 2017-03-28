@@ -107,6 +107,41 @@ header as shown below.
 Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 ```
 
+### Bootstrap Tokens
+
+This feature is currently in **alpha**.
+
+To allow for streamlined bootstrapping for new clusters, Kubernetes includes a
+dynamically-managed Bearer token type called a *Bootstrap Token*. These tokens
+are stored as Secrets in the `kube-system` namespace, where they can be
+dynamically managed and created. Controller Manager contains a TokenCleaner
+controller that deletes bootstrap tokens as they expire.
+
+The tokens are of the form `[a-z0-9]{6}.[a-z0-9]{16}`.  The first component is a
+Token ID and the second component is the Token Secret.  You specify the token
+in an HTTP header as follows:
+
+```http
+Authorization: Bearer 781292.db7bc3a58fc5f07e
+```
+
+You must enable the Bootstrap Token Authenticator with the
+`--experimental-bootstrap-token-auth` flag on the API Server.  You must enable
+the TokenCleaner controller via the `--controllers` flag on the Controller
+Manager.  This is done with something like `--controllers=*,tokencleaner`.
+`kubeadm` will do this for you if you are using it to bootstrapping a cluster.
+
+The authenticator authenticates as `system:bootstrap:<Token ID>`.  It is
+included in the `system:bootstrappers` group.  The naming and groups are
+intentionally limited to discourage users from using these tokens past
+bootstrapping.  The user names and group can be used (and are used by `kubeadm`)
+to craft the appropriate authorization policies to support bootstrapping a
+cluster.
+
+Please see [Bootstrap Tokens](/docs/admin/bootstrap-tokens/) for in depth
+documentation on the Bootstrap Token authenticator and controllers along with
+how to manage these tokens with `kubeadm`.
+
 ### Static Password File
 
 Basic authentication is enabled by passing the `--basic-auth-file=SOMEFILE`
@@ -115,9 +150,10 @@ and the password cannot be changed without restarting API server. Note that basi
 authentication is currently supported for convenience while we finish making the
 more secure modes described above easier to use.
 
-The basic auth file is a csv file with a minimum of 3 columns: password,
-user name, user id, followed by optional group names. Note, if you have more than
-one group the column must be double quoted e.g.
+The basic auth file is a csv file with a minimum of 3 columns: password, user name, user id.
+In Kubernetes version 1.6 and later, you can specify an optional fourth column containing
+comma-separated group names. If you have more than one group, you must enclose the fourth
+column value in double quotes ("). See the following example:
 
 ```conf
 password,user,uid,"group1,group2,group3"
@@ -145,7 +181,7 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 NOTE: `serviceAccountName` is usually omitted because this is done automatically.
 
 ```
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -459,11 +495,45 @@ HTTP status codes can be used to supply additional error context.
 
 The API server can be configured to identify users from request header values, such as `X-Remote-User`.
 It is designed for use in combination with an authenticating proxy, which sets the request header value.
+
+* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the username.
+* `--requestheader-group-headers` 1.6+. Optional, case-insensitive. "X-Remote-Group" is suggested. Header names to check, in order, for the user's groups. All values in all specified headers are used as group names.
+* `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed, the remainder of the header name becomes the extra key, and the header value is the extra value.
+
+For example, with this configuration:
+```
+--requestheader-username-headers=X-Remote-User
+--requestheader-group-headers=X-Remote-Group
+--requestheader-extra-headers-prefix=X-Remote-Extra-
+```
+
+this request:
+```
+GET / HTTP/1.1
+X-Remote-User: fido
+X-Remote-Group: dogs
+X-Remote-Group: dachshunds
+X-Remote-Extra-Scopes: openid
+X-Remote-Extra-Scopes: profile
+```
+
+would result in this user info:
+```yaml
+name: fido
+groups:
+- dogs
+- dachshunds
+extra:
+  scopes:
+  - openid
+  - profile
+```
+
+
 In order to prevent header spoofing, the authenticating proxy is required to present a valid client
 certificate to the API server for validation against the specified CA before the request headers are
 checked.
 
-* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the identity.
 * `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
 * `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed.
 
@@ -493,9 +563,6 @@ changes](https://github.com/kubernetes/kubernetes/pull/25536) for more details.
 
 ## Anonymous requests
 
-Anonymous access is enabled by default, and can be disabled by passing `--anonymous-auth=false`
-option to the API server during startup.
-
 When enabled, requests that are not rejected by other configured authentication methods are
 treated as anonymous requests, and given a username of `system:anonymous` and a group of
 `system:unauthenticated`.
@@ -504,8 +571,14 @@ For example, on a server with token authentication configured, and anonymous acc
 a request providing an invalid bearer token would receive a `401 Unauthorized` error.
 A request providing no bearer token would be treated as an anonymous request.
 
-If you rely on authentication alone to authorize access, either change to use an
-authorization mode other than `AlwaysAllow`, or set `--anonymous-auth=false`.
+In 1.5.1-1.5.x, anonymous access is disabled by default, and can be enabled by
+passing the `--anonymous-auth=false` option to the API server.
+
+In 1.6+, anonymous access is enabled by default if an authorization mode other than `AlwaysAllow`
+is used, and can be disabled by passing the `--anonymous-auth=false` option to the API server.
+Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of the
+`system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules
+that grant access to the `*` user or `*` group do not include anonymous users.
 
 ## Plugin Development
 
@@ -525,7 +598,7 @@ using an existing deployment script or manually through `easyrsa` or `openssl.`
 #### Using an Existing Deployment Script
 
 **Using an existing deployment script** is implemented at
-`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.  
+`cluster/saltbase/salt/generate-cert/make-ca-cert.sh`.
 
 Execute this script with two parameters. The first is the IP address
 of API server. The second is a list of subject alternate names in the form `IP:<ip-address> or DNS:<dns-name>`.
@@ -586,3 +659,9 @@ Finally, add the following parameters into API server start parameters:
           openssl x509  -noout -text -in ./server.crt
 
 Finally, do not forget to fill out and add the same parameters into the API server start parameters.
+
+#### Certificates API
+
+You can use the `certificates.k8s.io` API to provision
+x509 certificates to use for authentication as documented
+[here](/docs/tasks/tls/managing-tls-in-a-cluster).

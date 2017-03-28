@@ -233,30 +233,30 @@ with the `kubectl cluster-info` command:
 $ kubectl cluster-info
 
   Kubernetes master is running at https://104.197.5.247
-  elasticsearch-logging is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging
-  kibana-logging is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/kibana-logging
-  kube-dns is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/kube-dns
-  grafana is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-grafana
-  heapster is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-heapster
+  elasticsearch-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
+  kibana-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kibana-logging/proxy
+  kube-dns is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kube-dns/proxy
+  grafana is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+  heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 ```
 
 This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
-at `https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/` if suitable credentials are passed, or through a kubectl proxy at, for example:
-`http://localhost:8080/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/`.
+at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed, or through a kubectl proxy at, for example:
+`http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 (See [above](#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.)
 
 #### Manually constructing apiserver proxy URLs
 
 As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you simply append to the service's proxy URL:
-`http://`*`kubernetes_master_address`*`/api/v1/proxy/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*
+`http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
 If you haven't specified a name for your port, you don't have to specify *port_name* in the URL
 
 ##### Examples
 
- * To access the Elasticsearch service endpoint `_search?q=user:kimchy`, you would use:   `http://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy`
- * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:   `https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/_cluster/health?pretty=true`
+ * To access the Elasticsearch service endpoint `_search?q=user:kimchy`, you would use:   `http://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy`
+ * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:   `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true`
 
 ```json
   {

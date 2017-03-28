@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   labels:
@@ -10,7 +10,7 @@ spec:
   replicas: 1
   template:
     metadata:
-      labels: 
+      labels:
         component: scheduler
         tier: control-plane
         version: second

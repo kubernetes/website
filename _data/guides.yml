@@ -24,6 +24,7 @@ toc:
   - docs/user-guide/rolling-updates.md
   - docs/user-guide/update-demo/index.md
   - docs/user-guide/configmap/index.md
+  - docs/user-guide/projected-volume/index.md
   - docs/user-guide/horizontal-pod-autoscaling/walkthrough.md
   - docs/user-guide/config-best-practices.md
   - docs/user-guide/working-with-resources.md
@@ -107,6 +108,7 @@ toc:
       - docs/getting-started-guides/rackspace.md
       - docs/getting-started-guides/kops.md
       - docs/getting-started-guides/kargo.md
+      - docs/getting-started-guides/running-cloud-controller.md
     - title: On-Premise VMs
       section:
       - docs/getting-started-guides/coreos/index.md
@@ -167,6 +169,7 @@ toc:
   - docs/admin/upgrade-1-6.md
   - docs/admin/kubeadm.md
   - docs/admin/addons.md
+  - docs/admin/node-allocatable.md
   - docs/admin/audit.md
   - docs/admin/ha-master-gce.md
   - docs/admin/namespaces/index.md
@@ -180,6 +183,7 @@ toc:
   - docs/admin/sysctls.md
   - docs/admin/cluster-components.md
   - docs/admin/etcd.md
+  - docs/admin/etcd_upgrade.md
   - docs/admin/multi-cluster.md
   - title: Changing Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
