@@ -30,9 +30,9 @@ user
 ```shell
 $ kubectl create -f ./run-my-nginx.yaml
 $ kubectl get pods -l run=my-nginx -o wide
-NAME                        READY     STATUS    RESTARTS   AGE       NODE
-my-nginx-3800858182-jr4a2   1/1       Running   0          13s       kubernetes-minion-905m
-my-nginx-3800858182-kna2y   1/1       Running   0          13s       kubernetes-minion-ljyd
+NAME                        READY     STATUS    RESTARTS   AGE       IP            NODE
+my-nginx-3800858182-jr4a2   1/1       Running   0          13s       10.244.3.4    kubernetes-minion-905m
+my-nginx-3800858182-kna2y   1/1       Running   0          13s       10.244.2.5    kubernetes-minion-ljyd
 ```
 
 Check your pods' IPs:
@@ -176,9 +176,9 @@ $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.jso
 $ kubectl create -f /tmp/secret.json
 secret "nginxsecret" created
 $ kubectl get secrets
-NAME                  TYPE                                  DATA
-default-token-il9rc   kubernetes.io/service-account-token   1
-nginxsecret           Opaque                                2
+NAME                  TYPE                                  DATA      AGE
+default-token-il9rc   kubernetes.io/service-account-token   1         1d
+nginxsecret           Opaque                                2         1m     
 ```
 
 Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
