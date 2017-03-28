@@ -30,9 +30,9 @@ user
 ```shell
 $ kubectl create -f ./run-my-nginx.yaml
 $ kubectl get pods -l run=my-nginx -o wide
-NAME                        READY     STATUS    RESTARTS   AGE       NODE
-my-nginx-3800858182-jr4a2   1/1       Running   0          13s       kubernetes-minion-905m
-my-nginx-3800858182-kna2y   1/1       Running   0          13s       kubernetes-minion-ljyd
+NAME                        READY     STATUS    RESTARTS   AGE       IP            NODE
+my-nginx-3800858182-jr4a2   1/1       Running   0          13s       10.244.3.4    kubernetes-minion-905m
+my-nginx-3800858182-kna2y   1/1       Running   0          13s       10.244.2.5    kubernetes-minion-ljyd
 ```
 
 Check your pods' IPs:
@@ -45,7 +45,7 @@ $ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 
 You should be able to ssh into any node in your cluster and curl both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same containerPort and access them from any other pod or node in your cluster using IP. Like Docker, ports can still be published to the host node's interfaces, but the need for this is radically diminished because of the networking model.
 
-You can read more about [how we achieve this](/docs/admin/networking/#how-to-achieve-this) if you're curious.
+You can read more about [how we achieve this](/docs/concepts/cluster-administration/networking/#how-to-achieve-this) if you're curious.
 
 ## Creating a Service
 
@@ -56,7 +56,7 @@ A Kubernetes Service is an abstraction which defines a logical set of Pods runni
 You can create a Service for your 2 nginx replicas with `kubectl expose`:
 
 ```shell
-$ kubectl expose deployment/my-nginx 
+$ kubectl expose deployment/my-nginx
 service "my-nginx" exposed
 ```
 
@@ -77,15 +77,15 @@ As mentioned previously, a Service is backed by a group of pods. These pods are 
 
 ```shell
 $ kubectl describe svc my-nginx
-Name:			my-nginx
-Namespace:		default
-Labels:			run=my-nginx
-Selector:		run=my-nginx
-Type:			ClusterIP
-IP:			10.0.162.149
-Port:			<unset>	80/TCP
-Endpoints:		10.244.2.5:80,10.244.3.4:80
-Session Affinity:	None
+Name:                my-nginx
+Namespace:           default
+Labels:              run=my-nginx
+Selector:            run=my-nginx
+Type:                ClusterIP
+IP:                  10.0.162.149
+Port:                <unset> 80/TCP
+Endpoints:           10.244.2.5:80,10.244.3.4:80
+Session Affinity:    None
 No events.
 
 $ kubectl get ep my-nginx
@@ -176,9 +176,9 @@ $ make keys secret KEY=/tmp/nginx.key CERT=/tmp/nginx.crt SECRET=/tmp/secret.jso
 $ kubectl create -f /tmp/secret.json
 secret "nginxsecret" created
 $ kubectl get secrets
-NAME                  TYPE                                  DATA
-default-token-il9rc   kubernetes.io/service-account-token   1
-nginxsecret           Opaque                                2
+NAME                  TYPE                                  DATA      AGE
+default-token-il9rc   kubernetes.io/service-account-token   1         1d
+nginxsecret           Opaque                                2         1m     
 ```
 
 Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
@@ -213,7 +213,7 @@ Let's test this from a pod (the same secret is being reused for simplicity, the 
 
 ```shell
 $ kubectl create -f ./curlpod.yaml
-$ kubectl get pods -l app=curlpod 
+$ kubectl get pods -l app=curlpod
 NAME                               READY     STATUS    RESTARTS   AGE
 curl-deployment-1515033274-1410r   1/1       Running   0          1m
 $ kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert /etc/nginx/ssl/nginx.crt
@@ -293,7 +293,7 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 Kubernetes also supports Federated Services, which can span multiple
 clusters and cloud providers, to provide increased availability,
 better fault tolerance and greater scalability for your services. See
-the [Federated Services User Guide](/docs/user-guide/federation/federated-services/)
+the [Federated Services User Guide](/docs/concepts/cluster-administration/federation-service-discovery/)
 for further information.
 
 ## What's next?

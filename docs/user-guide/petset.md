@@ -246,11 +246,11 @@ web-0 # apt-get update && apt-get install -y dnsutils
 ...
 
 web-0 # nslookup -type=srv nginx.default
-Server:		10.0.0.10
-Address:	10.0.0.10#53
+Server:        10.0.0.10
+Address:    10.0.0.10#53
 
-nginx.default.svc.cluster.local	service = 10 50 0 web-1.ub.default.svc.cluster.local.
-nginx.default.svc.cluster.local	service = 10 50 0 web-0.ub.default.svc.cluster.local.
+nginx.default.svc.cluster.local    service = 10 50 0 web-1.ub.default.svc.cluster.local.
+nginx.default.svc.cluster.local    service = 10 50 0 web-0.ub.default.svc.cluster.local.
 ```
 
 ## Updating a PetSet

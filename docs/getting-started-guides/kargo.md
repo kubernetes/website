@@ -73,7 +73,7 @@ to [kubeadm](../kubeadm) and [kops](../kops).
 
 #### Checklist
 
-* Enusre the netchecker-agent's pods can resolve DNS requests and ping each over within the default namespace.
+* Ensure the netchecker-agent's pods can resolve DNS requests and ping each over within the default namespace.
   Those pods mimic similar behavior of the rest of the workloads and serve as cluster health indicators.
 
 ## Explore contributed add-ons

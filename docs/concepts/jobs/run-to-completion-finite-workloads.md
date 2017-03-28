@@ -45,20 +45,20 @@ Check on the status of the job using this command:
 
 ```shell
 $ kubectl describe jobs/pi
-Name:		pi
-Namespace:	default
-Image(s):	perl
-Selector:       controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
-Parallelism:	1
-Completions:	1
-Start Time:     Tue, 07 Jun 2016 10:56:16 +0200
-Labels:         controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495,job-name=pi
-Pods Statuses:	0 Running / 1 Succeeded / 0 Failed
+Name:             pi
+Namespace:        default
+Image(s):         perl
+Selector:         controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
+Parallelism:      1
+Completions:      1
+Start Time:       Tue, 07 Jun 2016 10:56:16 +0200
+Labels:           controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495,job-name=pi
+Pods Statuses:    0 Running / 1 Succeeded / 0 Failed
 No volumes.
 Events:
-  FirstSeen	LastSeen	Count	From			SubobjectPath	Type		Reason			Message
-  ---------	--------	-----	----			-------------	--------	------			-------
-  1m		1m		1	{job-controller }			Normal		SuccessfulCreate	Created pod: pi-dtn4q
+  FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
+  ---------    --------    -----    ----            -------------    --------    ------            -------
+  1m           1m          1        {job-controller }                Normal      SuccessfulCreate  Created pod: pi-dtn4q
 ```
 
 To view completed pods of a job, use `kubectl get pods --show-all`.  The `--show-all` will show completed pods too.
@@ -100,7 +100,7 @@ the same schema as a [pod](/docs/user-guide/pods), except it is nested and does 
 In addition to required fields for a Pod, a pod template in a job must specify appropriate
 labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](/docs/user-guide/pod-states/#restartpolicy) equal to `Never` or `OnFailure` is allowed.
+Only a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Never` or `OnFailure` is allowed.
 
 ### Pod Selector
 
@@ -261,7 +261,7 @@ The pattern names are also links to examples and more detailed description.
 
 |                            Pattern                                   | Single Job object | Fewer pods than work items? | Use app unmodified? |  Works in Kube 1.1? |
 | -------------------------------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|:-------------------:|
-| [Job Template Expansion](/docs/user-guide/jobs/expansions)            |                   |                             |          ✓          |          ✓          |
+| [Job Template Expansion](/docs/tasks/job/parallel-processing-expansion/)            |                   |                             |          ✓          |          ✓          |
 | [Queue with Pod Per Work Item](/docs/tasks/job/coarse-parallel-processing-work-queue/)   |         ✓         |                             |      sometimes      |          ✓          |
 | [Queue with Variable Pod Count](/docs/tasks/job/fine-parallel-processing-work-queue/)  |         ✓         |             ✓               |                     |          ✓          |
 | Single Job with Static Work Assignment                               |         ✓         |                             |          ✓          |                     |
@@ -363,7 +363,7 @@ Jobs are complementary to [Replication Controllers](/docs/user-guide/replication
 A Replication Controller manages pods which are not expected to terminate (e.g. web servers), and a Job
 manages pods that are expected to terminate (e.g. batch jobs).
 
-As discussed in [life of a pod](/docs/user-guide/pod-states), `Job` is *only* appropriate for pods with
+As discussed in [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/), `Job` is *only* appropriate for pods with
 `RestartPolicy` equal to `OnFailure` or `Never`.  (Note: If `RestartPolicy` is not set, the default
 value is `Always`.)
 

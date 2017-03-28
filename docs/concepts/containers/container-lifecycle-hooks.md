@@ -25,7 +25,7 @@ There are two types of information that are available within the container envir
 
 Currently, the Pod name for the pod in which the container is running is set as the hostname of the container, and is accessible through all calls to access the hostname within the container (e.g. the hostname command, or the [gethostname][1] function call in libc), but this is planned to change in the future and should not be used.
 
-The Pod name and namespace are also available as environment variables via the [downward API](/docs/user-guide/downward-api).  Additionally, user-defined environment variables from the pod definition, are also available to the container, as are any environment variables specified statically in the Docker image.
+The Pod name and namespace are also available as environment variables via [the downward API](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/#the-downward-api).  Additionally, user-defined environment variables from the pod definition, are also available to the container, as are any environment variables specified statically in the Docker image.
 
 In the future, we anticipate expanding this information with richer information about the container.  Examples include available memory, number of restarts, and in general any state that you could get from the call to GET /pods on the API server.
 
@@ -91,15 +91,15 @@ Currently, the logs for a hook handler are not exposed in the pod events. If you
 
 ```
 Events:
-  FirstSeen	LastSeen	Count	From							SubobjectPath		Type		Reason		Message
-  ---------	--------	-----	----							-------------		--------	------		-------
-  1m		1m		1	{default-scheduler }								Normal		Scheduled	Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
-  1m		1m		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Pulling		pulling image "test:1.0"
-  1m		1m		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Created		Created container with docker id 5c6a256a2567; Security:[seccomp=unconfined]
-  1m		1m		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Pulled		Successfully pulled image "test:1.0"
-  1m		1m		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Started		Started container with docker id 5c6a256a2567
-  38s		38s		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Killing		Killing container with docker id 5c6a256a2567: PostStart handler: Error executing in Docker Container: 1
-  37s		37s		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Killing		Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
-  38s		37s		2	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}				Warning		FailedSync	Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
-  1m 		22s 		2 	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Warning		FailedPostStartHook	
+  FirstSeen    LastSeen    Count    From                            SubobjectPath        Type        Reason        Message
+  ---------    --------    -----    ----                            -------------        --------    ------        -------
+  1m        1m        1    {default-scheduler }                                Normal        Scheduled    Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
+  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Pulling        pulling image "test:1.0"
+  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Created        Created container with docker id 5c6a256a2567; Security:[seccomp=unconfined]
+  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Pulled        Successfully pulled image "test:1.0"
+  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Started        Started container with docker id 5c6a256a2567
+  38s        38s        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Killing        Killing container with docker id 5c6a256a2567: PostStart handler: Error executing in Docker Container: 1
+  37s        37s        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Killing        Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
+  38s        37s        2    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}                Warning        FailedSync    Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
+  1m         22s         2     {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Warning        FailedPostStartHook    
 ``` 

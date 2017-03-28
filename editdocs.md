@@ -9,15 +9,15 @@ title: Contributing to the Kubernetes Documentation
 var forwarding=window.location.hash.replace("#","");
 $( document ).ready(function() {
     if(forwarding) {
-    	$("#generalInstructions").hide();
-    	$("#continueEdit").show();
-    	$("#continueEditButton").text("Edit " + forwarding);
-    	$("#continueEditButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/edit/master/" + forwarding)
-    	$("#viewOnGithubButton").text("View " + forwarding + " on GitHub");
-    	$("#viewOnGithubButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/tree/master/" + forwarding)
+        $("#generalInstructions").hide();
+        $("#continueEdit").show();
+        $("#continueEditButton").text("Edit " + forwarding);
+        $("#continueEditButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/edit/master/" + forwarding)
+        $("#viewOnGithubButton").text("View " + forwarding + " on GitHub");
+        $("#viewOnGithubButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/tree/master/" + forwarding)
     } else {
         $("#generalInstructions").show();
-    	$("#continueEdit").hide();
+        $("#continueEdit").hide();
     }
 });
 </script>

@@ -177,7 +177,7 @@ If it failed, then you will see:
 
 ```shell
 $ kubectl describe pods/private-image-test-1 | grep "Failed"
-  Fri, 26 Jun 2015 15:36:13 -0700	Fri, 26 Jun 2015 15:39:13 -0700	19	{kubelet node-i2hq}	spec.containers{uses-private-image}	failed		Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
+  Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
 

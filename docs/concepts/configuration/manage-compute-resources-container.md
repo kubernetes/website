@@ -202,20 +202,20 @@ You can check node capacities and amounts allocated with the
 
 ```shell
 $ kubectl.sh describe nodes e2e-test-minion-group-4lw4
-Name:			e2e-test-minion-group-4lw4
+Name:            e2e-test-minion-group-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
- alpha.kubernetes.io/nvidia-gpu:	0
- cpu:					2
- memory:				7679792Ki
- pods:					110
+ alpha.kubernetes.io/nvidia-gpu:    0
+ cpu:                               2
+ memory:                            7679792Ki
+ pods:                              110
 Allocatable:
- alpha.kubernetes.io/nvidia-gpu:	0
- cpu:					1800m
- memory:				7474992Ki
- pods:					110
+ alpha.kubernetes.io/nvidia-gpu:    0
+ cpu:                               1800m
+ memory:                            7474992Ki
+ pods:                              110
 [ ... lines removed for clarity ...]
-Non-terminated Pods:		(5 in total)
+Non-terminated Pods:        (5 in total)
   Namespace    Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits
   ---------    ----                                  ------------  ----------  ---------------  -------------
   kube-system  fluentd-gcp-v1.38-28bv1               100m (5%)     0 (0%)      200Mi (2%)       200Mi (2%)
@@ -225,9 +225,9 @@ Non-terminated Pods:		(5 in total)
   kube-system  node-problem-detector-v0.1-fj7m3      20m (1%)      200m (10%)  20Mi (0%)        100Mi (1%)
 Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
-  CPU Requests	CPU Limits	Memory Requests	Memory Limits
-  ------------	----------	---------------	-------------
-  680m (34%)	400m (20%)	920Mi (12%)	1070Mi (14%)
+  CPU Requests    CPU Limits    Memory Requests    Memory Limits
+  ------------    ----------    ---------------    -------------
+  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
 ```
 
 In the preceding output, you can see that if a Pod requests more than 1120m
