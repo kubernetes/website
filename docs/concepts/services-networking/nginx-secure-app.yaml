@@ -17,7 +17,7 @@ spec:
   selector:
     run: my-nginx
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: my-nginx

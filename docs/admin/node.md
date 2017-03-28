@@ -165,6 +165,13 @@ completely unhealthy (i.e. there are no healthy nodes in the cluster). In such
 case, the node controller assumes that there's some problem with master
 connectivity and stops all evictions until some connectivity is restored.
 
+Starting in Kubernetes 1.6, the NodeController is also responsible for evicting
+pods that are running on nodes with `NoExecute` taints, when the pods do not tolerate
+the taints. Additionally, as an alpha feature that is disabled by default, the
+NodeController is responsible for adding taints corresponding to node problems like
+node unreachable or not ready. See [this documentation](/docs/user-guide/node-selection/index.md#taints-and-tolerations-beta-feature)
+for details about `NoExecute` taints and the alpha feature.
+
 ### Self-Registration of Nodes
 
 When the kubelet flag `--register-node` is true (the default), the kubelet will attempt to
@@ -176,6 +183,7 @@ For self-registration, the kubelet is started with the following options:
   - `--kubeconfig` - Path to credentials to authenticate itself to the apiserver.
   - `--cloud-provider` - How to talk to a cloud provider to read metadata about itself.
   - `--register-node` - Automatically register with the API server.
+  - `--register-with-taints` - Register the node with the given list of taints (comma seperated `<key>=<value>:<effect>`). No-op if `register-node` is false.
   - `--node-ip`   IP address of the node.
   - `--node-labels` - Labels to add when registering the node in the cluster.
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.

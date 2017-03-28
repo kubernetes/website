@@ -74,12 +74,9 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](/docs/user-guide/node-selection/).
-If you specify a `scheduler.alpha.kubernetes.io/affinity` annotation in `.spec.template.metadata.annotations`,
-then DaemonSet controller will create pods on nodes which match that [node affinity](../../user-guide/node-selection/#alpha-feature-in-kubernetes-v12-node-affinity).
-
-If you do not specify a `.spec.template.spec.nodeSelector` nor `node affinity`, then the DaemonSet controller will
-create pods on all nodes.
+selector](/docs/user-guide/node-selection/). Likewise if you specify a `.spec.template.spec.affinity` 
+then DaemonSet controller will create pods on nodes which match that [node affinity](../../user-guide/node-selection/index.md).
+If you do not specify either, then the DaemonSet controller will create pods on all nodes.
 
 ## How Daemon Pods are Scheduled
 
@@ -91,8 +88,16 @@ when the pod is created, so it is ignored by the scheduler).  Therefore:
    by the DaemonSet controller.
  - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
+   
+Daemon pods do respect [taints and tolerations](/docs/user-guide/node-selection/index.md#taints-and-tolerations-beta-feature), but they are
+created with `NoExecute` tolerations for the `node.alpha.kubernetes.io/notReady` and `node.alpha.kubernetes.io/unreachable`
+taints with no `tolerationSeconds`. This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
+they will not be evicted when there are node problems such as a network partition. (When the
+`TaintBasedEvictions` feature is not enabled, they are also not evicted in these scenarios, but
+due to hard-coded behavior of the NodeController rather than due to tolerations).
 
-## Communicating with DaemonSet Pods
+
+## Communicating with Daemon Pods
 
 Some possible patterns for communicating with pods in a DaemonSet are:
 
@@ -121,9 +126,9 @@ the new DaemonSet with the different template will recognize all the existing po
 matching labels.  It will not modify or delete them despite a mismatch in the pod template.
 You will need to force new pod creation by deleting the pod or deleting the node.
 
-You cannot update a DaemonSet.
+In Kubernetes version 1.6 and later, you can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
-Support for updating DaemonSets and controlled updating of nodes is planned.
+Future releases of Kubernetes will support controlled updating of nodes.
 
 ## Alternatives to DaemonSet
 

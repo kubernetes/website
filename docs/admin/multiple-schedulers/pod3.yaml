@@ -5,7 +5,7 @@ metadata:
   labels:
     name: multischeduler-example
 spec:
-  schedulername: my-scheduler
+  schedulerName: my-scheduler
   containers:
   - name: pod-with-second-annotation-container
     image: gcr.io/google_containers/pause:2.0
