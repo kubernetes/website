@@ -61,7 +61,7 @@ for this image.
 1. In the root of your cloned repository, enter this command to start a local
 web server:
 
-        docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.0
+        docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.1
 
 1. View your staged content at
 [http://localhost:4000](http://localhost:4000){: target="_blank"}.
