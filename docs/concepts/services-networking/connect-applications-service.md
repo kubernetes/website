@@ -45,7 +45,7 @@ $ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 
 You should be able to ssh into any node in your cluster and curl both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same containerPort and access them from any other pod or node in your cluster using IP. Like Docker, ports can still be published to the host node's interfaces, but the need for this is radically diminished because of the networking model.
 
-You can read more about [how we achieve this](/docs/admin/networking/#how-to-achieve-this) if you're curious.
+You can read more about [how we achieve this](/docs/concepts/cluster-administration/networking/#how-to-achieve-this) if you're curious.
 
 ## Creating a Service
 
@@ -293,7 +293,7 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 Kubernetes also supports Federated Services, which can span multiple
 clusters and cloud providers, to provide increased availability,
 better fault tolerance and greater scalability for your services. See
-the [Federated Services User Guide](/docs/user-guide/federation/federated-services/)
+the [Federated Services User Guide](/docs/concepts/cluster-administration/federation-service-discovery/)
 for further information.
 
 ## What's next?
