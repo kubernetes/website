@@ -19,7 +19,7 @@ Enter `Services`.
 A Kubernetes `Service` is an abstraction which defines a logical set of `Pods`
 and a policy by which to access them - sometimes called a micro-service.  The
 set of `Pods` targeted by a `Service` is (usually) determined by a [`Label
-Selector`](/docs/user-guide/labels/#label-selectors) (see below for why you might want a
+Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors) (see below for why you might want a
 `Service` without a selector).
 
 As an example, consider an image-processing backend which is running with 3
@@ -226,7 +226,7 @@ knowing anything about Kubernetes or `Services` or `Pods`. This should be
 faster and more reliable than the userspace proxy. However, unlike the
 userspace proxier, the iptables proxier cannot automatically retry another
 `Pod` if the one it initially selects does not respond, so it depends on
-having working [readiness probes](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks).
+having working [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#defining-readiness-probes).
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
@@ -345,7 +345,7 @@ can do a DNS SRV query for `"_http._tcp.my-service.my-ns"` to discover the port
 number for `"http"`.
 
 The Kubernetes DNS server is the only way to access services of type
-`ExternalName`.  More information is available in the [DNS Admin Guide](http://kubernetes.io/docs/admin/dns/).
+`ExternalName`.  More information is available in the [DNS Pods and Services](/docs/concepts/services-networking/dns-pod-service/).
 
 ## Headless services
 
@@ -661,4 +661,4 @@ object](/docs/api-reference/v1/definitions/#_v1_service).
 
 ## For More Information
 
-Read [Service Operations](/docs/user-guide/services/operations/).
+Read [Connecting a Front End to a Back End Using a Service](/docs/tutorials/connecting-apps/connecting-frontend-backend/).

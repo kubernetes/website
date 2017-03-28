@@ -111,7 +111,7 @@ Namespace:              default
 Labels:                 run=nginx
 Selector:               run=nginx
 Type:                   LoadBalancer
-IP:         
+IP:                     10.63.250.98
 LoadBalancer Ingress:   104.197.246.190, 130.211.57.243, 104.196.14.231, 104.199.136.89, ...
 Port:                   http    80/TCP
 Endpoints:              <none>
