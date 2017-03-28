@@ -175,10 +175,10 @@ Output:
 
 ```
 Kubernetes master is running at https://52.15.104.227:443
-Heapster is running at https://52.15.104.227:443/api/v1/proxy/namespaces/kube-system/services/heapster
-KubeDNS is running at https://52.15.104.227:443/api/v1/proxy/namespaces/kube-system/services/kube-dns
-Grafana is running at https://52.15.104.227:443/api/v1/proxy/namespaces/kube-system/services/monitoring-grafana
-InfluxDB is running at https://52.15.104.227:443/api/v1/proxy/namespaces/kube-system/services/monitoring-influxdb
+Heapster is running at https://52.15.104.227:443/api/v1/namespaces/kube-system/services/heapster/proxy
+KubeDNS is running at https://52.15.104.227:443/api/v1/namespaces/kube-system/services/kube-dns/proxy
+Grafana is running at https://52.15.104.227:443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+InfluxDB is running at https://52.15.104.227:443/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
 
 Congratulations, you've now set up a Kubernetes cluster!  

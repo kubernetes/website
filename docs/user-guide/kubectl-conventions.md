@@ -35,10 +35,8 @@ In order for `kubectl run` to satisfy infrastructure as code:
 
 * Pod - use `run-pod/v1`.
 * Replication controller - use `run/v1`.
-* Deployment - use `deployment/v1beta1`.
-* Job (using `extension/v1beta1` endpoint) - use `job/v1beta1`. Starting from
-  version 1.5 of kuberentes this generator is deprecated, with a plan to be
-  removed in 1.6. Please use `job/v1` instead.
+* Deployment, using `extensions/v1beta1` endpoint - use `deployment/v1beta1` (default).
+* Deployment, using `apps/v1beta1` endpoint - use `deployment/apps.v1beta1` (recommended).
 * Job - use `job/v1`.
 * CronJob - use `cronjob/v2alpha1`.
 
@@ -46,13 +44,13 @@ Additionally, if you didn't specify a generator flag, other flags will suggest u
 a specific generator.  Below table shows which flags force using specific generators,
 depending on your cluster version:
 
-|   Generated Resource   | Cluster v1.4          | Cluster v1.3          | Cluster v1.2                               | Cluster v1.1 and eariler                   |
-|:----------------------:|-----------------------|-----------------------|--------------------------------------------|--------------------------------------------|
-| Pod                    | `--restart=Never`     | `--restart=Never`     | `--generator=run-pod/v1`                   | `--restart=OnFailure` OR `--restart=Never` |
-| Replication Controller | `--generator=run/v1`  | `--generator=run/v1`  | `--generator=run/v1`                       | `--restart=Always`                         |
-| Deployment             | `--restart=Always`    | `--restart=Always`    | `--restart=Always`                         | N/A                                        |
-| Job                    | `--restart=OnFailure` | `--restart=OnFailure` | `--restart=OnFailure` OR `--restart=Never` | N/A                                        |
-| Cron Job               | `--schedule=<cron>`   | N/A                   | N/A                                        | N/A                                        |
+|   Generated Resource   | Cluster v1.4 and later | Cluster v1.3          | Cluster v1.2                               | Cluster v1.1 and eariler                   |
+|:----------------------:|------------------------|-----------------------|--------------------------------------------|--------------------------------------------|
+| Pod                    | `--restart=Never`      | `--restart=Never`     | `--generator=run-pod/v1`                   | `--restart=OnFailure` OR `--restart=Never` |
+| Replication Controller | `--generator=run/v1`   | `--generator=run/v1`  | `--generator=run/v1`                       | `--restart=Always`                         |
+| Deployment             | `--restart=Always`     | `--restart=Always`    | `--restart=Always`                         | N/A                                        |
+| Job                    | `--restart=OnFailure`  | `--restart=OnFailure` | `--restart=OnFailure` OR `--restart=Never` | N/A                                        |
+| Cron Job               | `--schedule=<cron>`    | N/A                   | N/A                                        | N/A                                        |
 
 Note that these flags will use a default generator only when you have not specified
 any flag.  This also means that combining `--generator` with other flags won't

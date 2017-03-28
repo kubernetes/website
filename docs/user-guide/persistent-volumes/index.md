@@ -121,7 +121,8 @@ However, the particular path specified in the custom recycler pod template in th
 * Quobyte Volumes
 * HostPath (single node testing only -- local storage is not supported in any way and WILL NOT WORK in a multi-node cluster)
 * VMware Photon
-
+* Portworx Volumes
+* ScaleIO Volumes
 
 ## Persistent Volumes
 
@@ -132,14 +133,13 @@ Each PV contains a spec and status, which is the specification and status of the
   kind: PersistentVolume
   metadata:
     name: pv0003
-    annotations:
-      volume.beta.kubernetes.io/storage-class: "slow"
   spec:
     capacity:
       storage: 5Gi
     accessModes:
       - ReadWriteOnce
     persistentVolumeReclaimPolicy: Recycle
+    storageClassName: slow
     nfs:
       path: /tmp
       server: 172.17.0.2
@@ -189,17 +189,20 @@ In the CLI, the access modes are abbreviated to:
 | NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
 | RBD                  | &#x2713;     | &#x2713;    | -            |
 | VsphereVolume        | &#x2713;     | -           | -            |
+| PortworxVolume       | &#x2713;     | -           | &#x2713;     |
+| ScaleIO              | &#x2713;     | &#x2713;    | -            |
 
 ### Class
 
 A PV can have a class, which is specified by setting the
-`volume.beta.kubernetes.io/storage-class` annotation to the name of a
+`storageClassName` attribute to the name of a
 `StorageClass`. A PV of a particular class can only be bound to PVCs requesting
-that class. A PV with no annotation or its class annotation set to `""` has no
-class and can only be bound to PVCs that request no particular class.
+that class. A PV with no `storageClassName` has no class and can only be bound
+to PVCs that request no particular class.
 
-In the future after beta, the `volume.beta.kubernetes.io/storage-class`
-annotation will become an attribute.
+In the past, the annotation `volume.beta.kubernetes.io/storage-class` was used instead
+of the `storageClassName` attribute. This annotation is still working, however
+it will become fully deprecated in a future Kubernetes release.
 
 ### Reclaim Policy
 
@@ -222,6 +225,52 @@ A volume will be in one of the following phases:
 
 The CLI will show the name of the PVC bound to the PV.
 
+### Mount Options
+
+A Kubernetes administrator can specify additional mount options for when a Persistent Volume is being mounted on a node.
+
+You can specify a mount option by using the annotation `volume.beta.kubernetes.io/mount-options` on
+your Persistent Volume.
+
+For example:
+
+```yaml
+apiVersion: "v1"
+kind: "PersistentVolume"
+metadata:
+  name: gce-disk-1
+  annotations:
+    volume.beta.kubernetes.io/mount-options: "discard"
+spec:
+  capacity:
+    storage: "10Gi"
+  accessModes:
+    - "ReadWriteOnce"
+  gcePersistentDisk:
+    fsType: "ext4"
+    pdName: "gce-disk-1
+```
+
+A mount option is a string which will be cumulatively joined and used while mounting volume to the disk. 
+
+Note that not all Persistent volume types support mount options. In Kubernetes version 1.6, the following
+volume types support mount options.
+
+* GCEPersistentDisk
+* AWSElasticBlockStore
+* AzureFile
+* AzureDisk
+* NFS
+* iSCSI
+* RBD (Ceph Block Device)
+* CephFS
+* Cinder (OpenStack block storage)
+* Glusterfs
+* VsphereVolume
+* Quobyte Volumes
+* VMware Photon
+
+
 ## PersistentVolumeClaims
 
 Each PVC contains a spec and status, which is the specification and status of the claim.
@@ -231,14 +280,13 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: myclaim
-  annotations:
-    volume.beta.kubernetes.io/storage-class: "slow"
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 8Gi
+  storageClassName: slow
   selector:
     matchLabels:
       release: "stable"
@@ -266,38 +314,42 @@ All of the requirements, from both `matchLabels` and `matchExpressions` are ANDe
 ### Class
 
 A claim can request a particular class by specifying the name of a
-`StorageClass`using the annotation `volume.beta.kubernetes.io/storage-class`.
-Only PVs of the requested class, ones with the same annotation as the PVC, can
+`StorageClass` using the attribute `storageClassName`.
+Only PVs of the requested class, ones with the same `storageClassName` as the PVC, can
 be bound to the PVC.
 
-PVCs don't necessarily have to request a class. A PVC with its annotation set
+PVCs don't necessarily have to request a class. A PVC with its `storageClasName` set
 equal to `""` is always interpreted to be requesting a PV with no class, so it
 can only be bound to PVs with no class (no annotation or one set equal to
-`""`). A PVC with no annotation is not quite the same and is treated differently
+`""`). A PVC with no `storageClassName` is not quite the same and is treated differently
 by the cluster depending on whether the
 [`DefaultStorageClass` admission plugin](/docs/admin/admission-controllers/#defaultstorageclass)
 is turned on.
 
 * If the admission plugin is turned on, the administrator may specify a
-default `StorageClass`. All PVCs that have no annotation can be bound only to
+default `StorageClass`. All PVCs that have no `storageClassName` can be bound only to
 PVs of that default. Specifying a default `StorageClass` is done by setting the
-annotation `storageclass.beta.kubernetes.io/is-default-class` equal to "true" in
+annotation `storageclass.kubernetes.io/is-default-class` equal to "true" in
 a `StorageClass` object. If the administrator does not specify a default, the
 cluster responds to PVC creation as if the admission plugin were turned off. If
 more than one default is specified, the admission plugin forbids the creation of
 all PVCs.
 * If the admission plugin is turned off, there is no notion of a default
-`StorageClass`. All PVCs that have no annotation can be bound only to PVs that
-have no class. In this case the PVCs that have no annotation are treated the
-same way as PVCs that have their annotation set to `""`.
+`StorageClass`. All PVCs that have no `storageClassName` can be bound only to PVs that
+have no class. In this case, the PVCs that have no `storageClassName` are treated the
+same way as PVCs that have their `storageClassName` set to `""`.
+
+Depending on installation method, a default StorageClass may be deployed
+to Kubernetes cluster by addon manager during installation.
 
 When a PVC specifies a `selector` in addition to requesting a `StorageClass`,
 the requirements are ANDed together: only a PV of the requested class and with
 the requested labels may be bound to the PVC. Note that currently, a PVC with a
 non-empty `selector` can't have a PV dynamically provisioned for it.
 
-In the future after beta, the `volume.beta.kubernetes.io/storage-class`
-annotation will become an attribute.
+In the past, the annotation `volume.beta.kubernetes.io/storage-class` was used instead
+of `storageClassName` attribute. This annotation is still working, however
+it won't be supported in a future Kubernetes release.
 
 ## Claims As Volumes
 
@@ -343,7 +395,7 @@ for details.
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: standard
 provisioner: kubernetes.io/aws-ebs
@@ -353,8 +405,17 @@ parameters:
 
 ### Provisioner
 Storage classes have a provisioner that determines what volume plugin is used
-for provisioning PVs. This field must be specified. During beta, the available
-provisioner types are `kubernetes.io/aws-ebs` and `kubernetes.io/gce-pd`.
+for provisioning PVs. This field must be specified.
+
+You are not restricted to specifying the "internal" provisioners
+listed here (whose names are prefixed with "kubernetes.io" and shipped
+alongside Kubernetes). You can also run and specify external provisioners,
+which are independent programs that follow a [specification](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/volume-provisioning.md)
+defined by Kubernetes. Authors of external provisioners have full discretion
+over where their code lives, how the provisioner is shipped, how it needs to be
+run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage)
+houses a library for writing external provisioners that implements the bulk of
+the specification plus various community-maintained external provisioners.
 
 ### Parameters
 Storage classes have parameters that describe volumes belonging to the storage
@@ -367,7 +428,7 @@ used.
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: slow
 provisioner: kubernetes.io/aws-ebs
@@ -387,7 +448,7 @@ parameters:
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: slow
 provisioner: kubernetes.io/gce-pd
@@ -402,7 +463,7 @@ parameters:
 #### Glusterfs
 
 ```yaml
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: slow
@@ -430,7 +491,7 @@ parameters:
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: gold
 provisioner: kubernetes.io/cinder
@@ -446,7 +507,7 @@ parameters:
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: fast
 provisioner: kubernetes.io/vsphere-volume
@@ -459,7 +520,7 @@ parameters:
 #### Ceph RBD
 
 ```yaml
-  apiVersion: storage.k8s.io/v1beta1
+  apiVersion: storage.k8s.io/v1
   kind: StorageClass
   metadata:
     name: fast
@@ -488,7 +549,7 @@ parameters:
 #### Quobyte
 
 ```yaml
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
    name: slow
@@ -520,7 +581,7 @@ parameters:
 
 ```yaml
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
   name: slow
 provisioner: kubernetes.io/azure-disk
@@ -534,6 +595,64 @@ parameters:
 * `location`: Azure storage account location. Default is empty.
 * `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
+#### Portworx Volume
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: portworx-io-priority-high
+provisioner: kubernetes.io/portworx-volume
+parameters:
+  repl: "1"
+  snap_interval:   "70"
+  io_priority:  "high"
+
+```
+
+*  `fs`: filesystem to be laid out: [none/xfs/ext4] (default: `ext4`).
+*  `block_size`: block size in Kbytes (default: `32`).
+*  `repl`: number of synchronous replicas to be provided in the form of replication factor [1..3] (default: `1`) A string is expected here i.e.`"1"` and not `1`.
+*  `io_priority`: determines whether the volume will be created from higher performance or a lower priority storage [high/medium/low] (default: `low`).
+*  `snap_interval`: clock/time interval in minutes for when to trigger snapshots. snapshots are incremental based on difference with the prior snapshot, 0 disables snaps (default: `0`). A string is expected here i.e. `"70"` and not `70`.
+*  `aggregation_level`: specifies the number of chunks the volume would be distributed into, 0 indicates a non-aggregated volume (default: `0`). A string is expected here i.e. `"0"` and not `0`
+*  `ephemeral`: specifies whether the volume should be cleaned-up after unmount or should be persistent. `emptyDir` use case can set this value to true and `persistent volumes` use case such as for databases like Cassandra should set to false, [true/false] (default `false`). A string is expected here i.e. `"true"` and not `true`.
+
+#### ScaleIO
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: slow
+provisioner: kubernetes.io/scaleio
+parameters:
+  gateway: https://192.168.99.200:443/api
+  system: scaleio
+  protectionDomain: default
+  storagePool: default
+  storageMode: ThinProvisionned
+  secretRef: sio-secret
+  readOnly: false
+  fsType: xfs
+```
+
+* `provisioner`: attribute is set to `kubernetes.io/scaleio`
+* `gateway`: address to a ScaleIO API gateway (required)
+* `system`: the name of the ScaleIO system (required)
+* `protectionDomain`: the name of the ScaleIO protection domain
+* `storagePool`: the name of the volume storage pool
+* `storageMode`: the storage provision mode: `ThinProvisionned` (default) or `ThickProvisionned`
+* `secretRef`: reference to a configuered Secret object (required, see detail below)
+* `readOnly`: specifies the access mode to the mounted volume
+* `fsType`: the file system to use for the volume
+
+The ScaleIO Kubernetes volume plugin requires a configuered Secret object. 
+The secret must be created with type `kubernetes.io/scaleio` and use the same namespace value as that of the PVC where it is referenced
+as shown in the following command:
+
+```
+$> kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" --from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== --namespace=default
+```
 
 ## Writing Portable Configuration
 
@@ -547,7 +666,7 @@ and need persistent storage, we recommend that you use the following pattern:
   - If the user provides a storage class name, and the cluster is version 1.4 or newer, put that value into the `volume.beta.kubernetes.io/storage-class` annotation of the PVC.
     This will cause the PVC to match the right storage class if the cluster has StorageClasses enabled by the admin.
   - If the user does not provide a storage class name or the cluster is version 1.3, then instead put a `volume.alpha.kubernetes.io/storage-class: default` annotation on the PVC.
-    - This will cause a PV to be automatically provisioned for the user with sane default characteristics on some clusters.  
+    - This will cause a PV to be automatically provisioned for the user with sane default characteristics on some clusters.
     - Despite the word `alpha` in the name, the code behind this annotation has `beta` level support.
     - Do not use `volume.beta.kubernetes.io/storage-class:` with any value including the empty string since it will prevent DefaultStorageClass admission controller
       from running if enabled.
