@@ -20,7 +20,7 @@ Multiple kubeconfig files are allowed, if specified explicitly.  At runtime they
 
 ## Related discussion
 
-https://github.com/kubernetes/kubernetes/issues/1755
+[http://issue.k8s.io/1755](http://issue.k8s.io/1755)
 
 ## Components of a kubeconfig file
 
