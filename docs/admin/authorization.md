@@ -26,7 +26,7 @@ need authorization.
 authorization policy.  ABAC stands for Attribute-Based Access Control.
   - `--authorization-mode=RBAC` is an experimental implementation which allows
 for authorization to be driven by the Kubernetes API.
-RBAC stands for Roles-Based Access Control.
+RBAC stands for Role-Based Access Control.
   - `--authorization-mode=Webhook` allows for authorization to be driven by a
 remote service using REST.
 
