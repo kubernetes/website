@@ -48,7 +48,7 @@ selection from the set.
 ### SRV records
 
 SRV Records are created for named ports that are part of normal or [Headless
-Services](http://releases.k8s.io/docs/user-guide/services/#headless-services).
+Services](https://kubernetes.io/docs/user-guide/services/#headless-services).
 For each named port, the SRV record would have the form
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
 For a regular service, this resolves to the port number and the CNAME:
@@ -304,7 +304,7 @@ kube-dns                10.0.0.10      <none>        53/UDP,53/TCP        1h
 ...
 ```
 
-If you have created the service or in the case it should be created by default but it does not appear, see this [debugging services page](http://kubernetes.io/docs/user-guide/debugging-services/) for more information.
+If you have created the service or in the case it should be created by default but it does not appear, see this [debugging services page](/docs/user-guide/debugging-services/) for more information.
 
 #### Are DNS endpoints exposed?
 
@@ -320,7 +320,7 @@ NAME       ENDPOINTS                       AGE
 kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 ```
 
-If you do not see the endpoints, see endpoints section in the [debugging services documentation](http://kubernetes.io/docs/user-guide/debugging-services/).
+If you do not see the endpoints, see endpoints section in the [debugging services documentation](/docs/user-guide/debugging-services/).
 
 For additional Kubernetes DNS examples, see the [cluster-dns examples](https://github.com/kubernetes/kubernetes/tree/master/examples/cluster-dns) in the Kubernetes GitHub repository.
 
@@ -331,7 +331,7 @@ Kubernetes installations. This required some minor
 (backward-compatible) changes to the way
 the Kubernetes cluster DNS server processes DNS queries, to facilitate
 the lookup of federated services (which span multiple Kubernetes clusters).
-See the [Cluster Federation Administrators' Guide](/docs/admin/federation) for more
+See the [Cluster Federation Administrators' Guide](/docs/concepts/cluster-administration/federation/) for more
 details on Cluster Federation and multi-site support.
 
 ## How it Works
