@@ -25,8 +25,7 @@ seconds (configurable with a flag).
 HTTP endpoint: HTTP endpoint passed as a parameter on the command line. This endpoint
 is checked every 20 seconds (also configurable with a flag).
 
-HTTP server: The kubelet can also listen for HTTP and respond to a simple API
-(underspec'd currently) to submit a new manifest.
+HTTP server: The kubelet can also listen for HTTP requests and respond to a simple API call to submit a new manifest.
 
 ```
 kubelet
