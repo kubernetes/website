@@ -3,12 +3,8 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-title: Overview
+title: Controlling Accessing to the Kubernetes API
 ---
-
-This document describes how access to the Kubernetes API is controlled.
-
-## Overview
 
 Users [access the API](/docs/user-guide/accessing-the-cluster) using `kubectl`,
 client libraries, or by making REST requests.  Both human users and
