@@ -210,6 +210,8 @@ networking:
 secrets:
   givenToken: <token|string>
 ```
+In addition, If authorizationMode set to `ABAC`, you may need to write the config to `/etc/kubernetes/abac_policy.json`,
+If authorizationMode set to `Webhook`, you may need to write the config to `/etc/kubernetes/webhook_authz.conf`.
 
 ### Sample Node Configuration
 
