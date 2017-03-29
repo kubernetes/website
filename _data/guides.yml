@@ -48,18 +48,9 @@ toc:
   - docs/user-guide/liveness/index.md
   - docs/user-guide/container-environment.md
   - docs/user-guide/node-selection/index.md
-  - docs/user-guide/petset/bootstrapping/index.md
 
 - title: Monitoring, Logging, and Debugging Containers
   section:
-  - docs/user-guide/monitoring.md
-  - title: Logging
-    section:
-    - docs/user-guide/logging/overview.md
-    - docs/user-guide/logging/stackdriver.md
-    - docs/user-guide/logging/elasticsearch.md
-  - docs/user-guide/connecting-to-applications-proxy.md
-  - docs/user-guide/connecting-to-applications-port-forward.md
   - title: Using Explorer to Examine the Runtime Environment
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
@@ -157,18 +148,10 @@ toc:
   - docs/admin/kubeadm.md
   - docs/admin/addons.md
   - docs/admin/node-allocatable.md
-  - docs/admin/audit.md
   - docs/admin/ha-master-gce.md
   - docs/admin/namespaces/index.md
   - docs/admin/namespaces/walkthrough.md
   - docs/admin/limitrange/index.md
-  - docs/admin/disruptions.md
-  - docs/admin/resourcequota/index.md
-  - docs/admin/resourcequota/walkthrough.md
-  - docs/admin/resourcequota/limitstorageconsumption.md
-  - docs/admin/rescheduler.md
-  - docs/admin/sysctls.md
-  - docs/admin/cluster-components.md
   - docs/admin/etcd.md
   - docs/admin/etcd_upgrade.md
   - docs/admin/multi-cluster.md
