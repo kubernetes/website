@@ -9,7 +9,7 @@ title: Rolling Update Replication Controller
 
 ## Overview
 
-To update a service without an outage, `kubectl` supports what is called ['rolling update'](/docs/user-guide/kubectl/kubectl_rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) and the [example of rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) for more information.
+To update a service without an outage, `kubectl` supports what is called ['rolling update'](/docs/user-guide/kubectl/v1.6/#rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) and the [example of rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) for more information.
 
 Note that `kubectl rolling-update` only supports Replication Controllers. However, if you deploy applications with Replication Controllers,
 consider switching them to [Deployments](/docs/user-guide/deployments/). A Deployment is a higher-level controller that automates rolling updates
@@ -124,7 +124,7 @@ Optional fields are:
   is `1m0s`. Valid units are as described for `--poll-interval` above.
 
 Additional information about the `kubectl rolling-update` command is available
-from the [`kubectl` reference](/docs/user-guide/kubectl/kubectl_rolling-update/).
+from the [`kubectl` reference](/docs/user-guide/kubectl/v1.6/#rolling-update).
 
 ## Walkthrough
 
