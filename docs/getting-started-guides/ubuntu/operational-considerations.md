@@ -70,7 +70,7 @@ At this stage, you can query the controller model as well:
 ```
 juju status
 Model       Controller  Cloud/Region   Version
-controller  k8s		   lxd/localhost  2.0.2
+controller  k8s           lxd/localhost  2.0.2
 
 App  Version  Status  Scale  Charm  Store  Rev  OS  Notes
 
@@ -142,16 +142,16 @@ If the deployment is larger the following commands will run on all units success
 
 ```
 juju show-status kubernetes-master --format json | \
-	jq --raw-output '.applications."kubernetes-master".units | keys[]' | \
-	xargs -I UNIT juju ssh UNIT "sudo sed -i 's/KUBE_API_ARGS=\"/KUBE_API_ARGS=\"--allow-privileged\ /' /etc/default/kube-apiserver && sudo systemctl restart kube-apiserver.service"
+    jq --raw-output '.applications."kubernetes-master".units | keys[]' | \
+    xargs -I UNIT juju ssh UNIT "sudo sed -i 's/KUBE_API_ARGS=\"/KUBE_API_ARGS=\"--allow-privileged\ /' /etc/default/kube-apiserver && sudo systemctl restart kube-apiserver.service"
 ```
 
 2. Update all workers
 
 ```
 juju show-status kubernetes-worker --format json | \
-	jq --raw-output '.applications."kubernetes-worker".units | keys[]' | \
-	xargs -I UNIT juju ssh UNIT "sudo sed -i 's/KUBELET_ARGS=\"/KUBELET_ARGS=\"--allow-privileged\ /' /etc/default/kubelet && sudo systemctl restart kubelet.service"
+    jq --raw-output '.applications."kubernetes-worker".units | keys[]' | \
+    xargs -I UNIT juju ssh UNIT "sudo sed -i 's/KUBELET_ARGS=\"/KUBELET_ARGS=\"--allow-privileged\ /' /etc/default/kubelet && sudo systemctl restart kubelet.service"
 ```
 
 

@@ -20,11 +20,8 @@ Supports AWS, GCE, Azure, Joyent, OpenStack, Bare Metal and local workstation de
 Available for Ubuntu 16.04 and newer: 
 
 ```
-sudo apt-add-repository ppa:juju/stable
-sudo apt-add-repository ppa:conjure-up/next
-sudo apt update
-sudo apt install conjure-up
-conjure-up
+sudo snap install conjure-up --classic
+conjure-up kubernetes
 ```
 
 ### Operational Guides

@@ -34,7 +34,7 @@ Documentation for how to use vSphere managed storage can be found in the
 [persistent volumes user
 guide](http://kubernetes.io/docs/user-guide/persistent-volumes/#vsphere) and the
 [volumes user
-guide](http://kubernetes.io/docs/user-guide/volumes/#vspherevolume)
+guide](/docs/concepts/storage/volumes/#vspherevolume)
 
 Examples can be found
 [here](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere)
@@ -71,11 +71,12 @@ Sample Config:
         working-dir = <Folder in which VMs are provisioned, can be null>
         vm-uuid = <VM Instance UUID of virtual machine which can be retrieved from instanceUuid property in VmConfigInfo, or also set as vc.uuid in VMX file. If empty, will be retrieved from sysfs (requires root)>
 [Disk]
-	scsicontrollertype = pvscsi
+    scsicontrollertype = pvscsi
 ```
 
 * Set the cloud provider via ```--cloud-provider=vsphere``` flag for each instance of kubelet, apiserver and controller manager.
 
+* When upgrading to 1.6 install the default storage class addons, [click here for more details](https://github.com/kubernetes/kubernetes/issues/40070)
 
 #### Known issues
 

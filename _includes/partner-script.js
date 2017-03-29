@@ -311,9 +311,9 @@
 		{
  			type: 0,
  			name: 'ASM Technologies Limited',
- 			logo: 'asmtech',
+ 			logo: 'asm',
  			link: 'http://www.asmtech.com/',
- 			blurb: 'http://www.asmtech.com/audience-channels/software_publisher/'
+ 			blurb: 'Our technology supply chain portfolio enables your software products to be accessible, viable and available more effectively.'
   		},
 		{
  			type: 1,

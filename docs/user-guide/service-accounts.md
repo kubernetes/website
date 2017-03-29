@@ -41,8 +41,8 @@ You can list this and any other serviceAccount resources in the namespace with t
 
 ```shell
 $ kubectl get serviceAccounts
-NAME      SECRETS
-default   1
+NAME      SECRETS    AGE
+default   1          1d
 ```
 
 You can create additional serviceAccounts like this:
@@ -138,7 +138,7 @@ namespace: 7 bytes
 
 ## Adding ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
+First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
 Next, verify it has been created.  For example:
 
 ```shell

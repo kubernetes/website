@@ -32,11 +32,18 @@ toc:
 - title: Online Training Course
   path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
 - docs/tutorials/stateless-application/hello-minikube.md
+- title: Object Management Using kubectl
+  section:
+  - docs/tutorials/object-management-kubectl/object-management.md
+  - docs/tutorials/object-management-kubectl/imperative-object-management-command.md
+  - docs/tutorials/object-management-kubectl/imperative-object-management-configuration.md
+  - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
 - title: Stateless Applications
   section:
   - docs/tutorials/stateless-application/run-stateless-application-deployment.md
   - docs/tutorials/stateless-application/expose-external-ip-address-service.md
   - docs/tutorials/stateless-application/expose-external-ip-address.md
+  - docs/tutorials/stateless-application/run-stateless-ap-replication-controller.md
 - title: Stateful Applications
   section:
   - docs/tutorials/stateful-application/basic-stateful-set.md
@@ -46,6 +53,12 @@ toc:
 - title: Connecting Applications
   section:
   - docs/tutorials/connecting-apps/connecting-frontend-backend.md
+- title: Clusters
+  section:
+  - docs/tutorials/clusters/apparmor.md
 - title: Services
   section:
   - docs/tutorials/services/source-ip.md
+- title: Federated Cluster Administration
+  section:
+  - docs/tutorials/federation/set-up-cluster-federation-kubefed.md

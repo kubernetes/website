@@ -61,7 +61,7 @@ The node condition is represented as a JSON object. For example, the following r
 ]
 ```
 
-If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument passed to the [kube-controller-manager](docs/admin/kube-controller-manager/), all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node. 
+If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument passed to the [kube-controller-manager](/docs/admin/kube-controller-manager/), all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node. 
 
 In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/user-guide/pods/#force-deletion-of-pods) these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
 
@@ -165,6 +165,13 @@ completely unhealthy (i.e. there are no healthy nodes in the cluster). In such
 case, the node controller assumes that there's some problem with master
 connectivity and stops all evictions until some connectivity is restored.
 
+Starting in Kubernetes 1.6, the NodeController is also responsible for evicting
+pods that are running on nodes with `NoExecute` taints, when the pods do not tolerate
+the taints. Additionally, as an alpha feature that is disabled by default, the
+NodeController is responsible for adding taints corresponding to node problems like
+node unreachable or not ready. See [this documentation](/docs/user-guide/node-selection/index.md#taints-and-tolerations-beta-feature)
+for details about `NoExecute` taints and the alpha feature.
+
 ### Self-Registration of Nodes
 
 When the kubelet flag `--register-node` is true (the default), the kubelet will attempt to
@@ -172,10 +179,11 @@ register itself with the API server.  This is the preferred pattern, used by mos
 
 For self-registration, the kubelet is started with the following options:
 
-  - `--api-servers=` - Location of the apiservers.
-  - `--kubeconfig=` - Path to credentials to authenticate itself to the apiserver.
-  - `--cloud-provider=` - How to talk to a cloud provider to read metadata about itself.
+  - `--api-servers` - Location of the apiservers.
+  - `--kubeconfig` - Path to credentials to authenticate itself to the apiserver.
+  - `--cloud-provider` - How to talk to a cloud provider to read metadata about itself.
   - `--register-node` - Automatically register with the API server.
+  - `--register-with-taints` - Register the node with the given list of taints (comma seperated `<key>=<value>:<effect>`). No-op if `register-node` is false.
   - `--node-ip`   IP address of the node.
   - `--node-labels` - Labels to add when registering the node in the cluster.
   - `--node-status-update-frequency` - Specifies how often kubelet posts node status to master.

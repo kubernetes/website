@@ -19,7 +19,7 @@ title: Kubernetes Documentation
 <ul>
 <li><a href="/docs/getting-started-guides/minikube/">Minikube</a>: Install a single-node Kubernetes cluster on your local machine for development and testing.</li>
 <li><a href="/docs/getting-started-guides/kops/">Installing Kubernetes on AWS with kops</a>: Bring up a complete Kubernetes cluster on Amazon Web Services, using a tool called <code>kops</code>.</li>
-<li><a href="/docs/getting-started-guides/kubeadm/">Installing Kubernetes on Linux with kubeadm</a> (Alpha): Install a secure Kubernetes cluster on any pre-existing machines running Linux, using the built-in <code>kubeadm</code> tool.</li>
+<li><a href="/docs/getting-started-guides/kubeadm/">Installing Kubernetes on Linux with kubeadm</a> (Beta): Install a secure Kubernetes cluster on any pre-existing machines running Linux, using the built-in <code>kubeadm</code> tool.</li>
 <li><a href="/docs/getting-started-guides/kargo/">Installing Kubernetes On-premise/Cloud Providers with Kargo</a>: Deploy a Kubernetes cluster on-premise baremetal or hosted on cloud providers, with Ansible and <code>kargo</code> tools.</li>
 </ul>
 

@@ -50,7 +50,7 @@ Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending
 
 Hit enter for command prompt
 
-/ # wget -s --timeout=1 nginx
+/ # wget --spider --timeout=1 nginx
 Connecting to nginx (10.100.0.16:80)
 / #
 ```
@@ -96,7 +96,7 @@ Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending
 
 Hit enter for command prompt
 
-/ # wget -s --timeout=1 nginx 
+/ # wget --spider --timeout=1 nginx 
 Connecting to nginx (10.100.0.16:80)
 wget: download timed out
 / #
@@ -110,7 +110,7 @@ Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending
 
 Hit enter for command prompt
 
-/ # wget -s --timeout=1 nginx
+/ # wget --spider --timeout=1 nginx
 Connecting to nginx (10.100.0.16:80)
 / #
 ```

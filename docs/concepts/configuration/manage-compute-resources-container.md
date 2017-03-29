@@ -138,7 +138,7 @@ When using Docker:
 - The `spec.containers[].resources.limits.cpu` is converted to its millicore value,
   multiplied by 100000, and then divided by 1000. This number is used as the value
   of the [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint)
-  flag in the `docker run` command.  he [`--cpu-period`] flag is set to 100000,
+  flag in the `docker run` command.  The [`--cpu-period`] flag is set to 100000,
    which represents the default 100ms period for measuring quota usage. The
    kubelet enforces cpu limits if it is started with the
   [`--cpu-cfs-quota`] flag set to true. As of Kubernetes version 1.2, this flag
@@ -202,20 +202,20 @@ You can check node capacities and amounts allocated with the
 
 ```shell
 $ kubectl.sh describe nodes e2e-test-minion-group-4lw4
-Name:			e2e-test-minion-group-4lw4
+Name:            e2e-test-minion-group-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
- alpha.kubernetes.io/nvidia-gpu:	0
- cpu:					2
- memory:				7679792Ki
- pods:					110
+ alpha.kubernetes.io/nvidia-gpu:    0
+ cpu:                               2
+ memory:                            7679792Ki
+ pods:                              110
 Allocatable:
- alpha.kubernetes.io/nvidia-gpu:	0
- cpu:					1800m
- memory:				7474992Ki
- pods:					110
+ alpha.kubernetes.io/nvidia-gpu:    0
+ cpu:                               1800m
+ memory:                            7474992Ki
+ pods:                              110
 [ ... lines removed for clarity ...]
-Non-terminated Pods:		(5 in total)
+Non-terminated Pods:        (5 in total)
   Namespace    Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits
   ---------    ----                                  ------------  ----------  ---------------  -------------
   kube-system  fluentd-gcp-v1.38-28bv1               100m (5%)     0 (0%)      200Mi (2%)       200Mi (2%)
@@ -225,9 +225,9 @@ Non-terminated Pods:		(5 in total)
   kube-system  node-problem-detector-v0.1-fj7m3      20m (1%)      200m (10%)  20Mi (0%)        100Mi (1%)
 Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
-  CPU Requests	CPU Limits	Memory Requests	Memory Limits
-  ------------	----------	---------------	-------------
-  680m (34%)	400m (20%)	920Mi (12%)	1070Mi (14%)
+  CPU Requests    CPU Limits    Memory Requests    Memory Limits
+  ------------    ----------    ---------------    -------------
+  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
 ```
 
 In the preceding output, you can see that if a Pod requests more than 1120m
@@ -395,7 +395,7 @@ spec:
 Kubernetes version 1.5 only allows resource quantities to be specified on a
 Container. It is planned to improve accounting for resources that are shared by
 all Containers in a Pod, such as
-[emptyDir volumes](/docs/user-guide/volumes/#emptydir).
+[emptyDir volumes](/docs/concepts/storage/volumes/#emptydir).
 
 Kubernetes version 1.5 only supports Container requests and limits for CPU and
 memory. It is planned to add new resource types, including a node disk space

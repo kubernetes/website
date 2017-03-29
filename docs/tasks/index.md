@@ -1,5 +1,10 @@
 ---
 title: Tasks
+redirect_from:
+- "/docs/user-guide/configuring-containers/"
+- "/docs/user-guide/configuring-containers.html"
+- "/docs/user-guide/production-pods/"
+- "/docs/user-guide/production-pods.html"
 ---
 
 This section of the Kubernetes documentation contains pages that
@@ -8,7 +13,7 @@ single thing, typically by giving a short sequence of steps.
 
 #### Using the kubectl Command Line
 
-* [Listing Alll Container Images Running in a Cluster](/docs/tasks/kubectl/list-all-running-container-images/)
+* [Listing All Container Images Running in a Cluster](/docs/tasks/kubectl/list-all-running-container-images/)
 * [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/)
 
 #### Configuring Pods and Containers
@@ -32,20 +37,28 @@ single thing, typically by giving a short sequence of steps.
 * [Using Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * [Providing Load-Balanced Access to an Application in a Cluster](/docs/tasks/access-application-cluster/load-balance-access-application-cluster/)
 
-#### Debugging Applications in a Cluster
+#### Monitoring, Logging, and Debugging
 
 * [Determining the Reason for Pod Failure](/docs/tasks/debug-application-cluster/determine-reason-pod-failure/)
+* [Debugging Init Containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
+* [Logging Using Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/)
+* [Logging Using ElasticSearch and Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)
 
 #### Accessing the Kubernetes API
 
 * [Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api)
+
+#### Using TLS
+
+* [Managing TLS Certificates in a Cluster](/docs/tasks/tls/managing-tls-in-a-cluster)
 
 #### Administering a Cluster
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
 * [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 * [Safely Draining a Node while Respecting Application SLOs](/docs/tasks/administer-cluster/safely-drain-node/)
-* [Changing reclaim policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+* [Changing the Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+* [Changing the Default StorageClass](/docs/tasks/administer-cluster/change-default-storage-class/)
 
 #### Managing Stateful Applications
 
@@ -55,9 +68,8 @@ single thing, typically by giving a short sequence of steps.
 * [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
 * [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
 
-#### Troubleshooting
-
-* [Debugging Init Containers](/docs/tasks/troubleshoot/debug-init-containers/)
+#### Managing Cluster Daemons
+* [Performing a Rolling Update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
 
 ### What's next
 
