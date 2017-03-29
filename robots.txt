@@ -40,6 +40,22 @@ Disallow: /docs/user-guide/compute-resources/
 
 Disallow: /docs/whatisk8s/
 
+Disallow: /docs/user-guide/petset/bootstrapping/
+Disallow: /docs/user-guide/monitoring/
+Disallow: /docs/user-guide/logging/overview/
+Disallow: /docs/user-guide/logging/stackdriver/
+Disallow: /docs/user-guide/logging/elasticsearch/
+Disallow: /docs/user-guide/connecting-to-applications-proxy/
+Disallow: /docs/user-guide/connecting-to-applications-port-forward/
+Disallow: /docs/admin/audit/
+Disallow: /docs/admin/disruptions/
+Disallow: /docs/admin/resourcequota/
+Disallow: /docs/admin/resourcequota/walkthrough/
+Disallow: /docs/admin/resourcequota/limitstorageconsumption/
+Disallow: /docs/admin/rescheduler/
+Disallow: /docs/admin/sysctls/
+Disallow: /docs/admin/cluster-components
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 
