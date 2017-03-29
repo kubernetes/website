@@ -53,6 +53,11 @@ toc:
   - docs/tasks/debug-application-cluster/logging-stackdriver.md
   - docs/tasks/debug-application-cluster/monitor-node-health.md
   - docs/tasks/debug-application-cluster/logging-elasticsearch-kibana.md
+  - docs/tasks/debug-application-cluster/debug-application.md
+  - docs/tasks/debug-application-cluster/debug-application-introspection.md
+  - docs/tasks/debug-application-cluster/debug-cluster.md
+  - docs/tasks/debug-application-cluster/debug-pod-replication-controller.md
+  - docs/tasks/debug-application-cluster/debug-service.md
 
 - title: Accessing the Kubernetes API
   section:
