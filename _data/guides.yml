@@ -2,7 +2,6 @@ bigheader: "Guides"
 abstract: "How to get started, and accomplish tasks, using Kubernetes."
 toc:
 - docs/user-guide/index.md
-- docs/user-guide/index.md
 
 - title: Accessing the Cluster
   section:
