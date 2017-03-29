@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    var oldURLs = ["/README.md","/README.html",".html",".md","/v1.1/","/v1.0/"];
+    var oldURLs = ["/README.md","/README.html","/index.md",".html",".md","/v1.1/","/v1.0/"];
     var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
     var doRedirect = false;
     var notHere = false;
