@@ -106,7 +106,7 @@ Annotations:    <none>
 
 Data
 ====
-game.properties:        121 bytes
+game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
@@ -123,7 +123,7 @@ $ kubectl get configmaps game-config -o yaml
 ```yaml
 apiVersion: v1
 data:
-  game.properties: |-
+  game.properties: |
     enemies=aliens
     lives=3
     enemies.cheat=true
@@ -141,7 +141,7 @@ metadata:
   creationTimestamp: 2016-02-18T18:34:05Z
   name: game-config
   namespace: default
-  resourceVersion: "407"-
+  resourceVersion: "407"
   selfLink: /api/v1/namespaces/default/configmaps/game-config
   uid: 30944725-d66e-11e5-8cd0-68f728db1985
 ```
@@ -160,7 +160,7 @@ $ kubectl get configmaps game-config-2 -o yaml
 ```yaml
 apiVersion: v1
 data:
-  game.properties: |-
+  game.properties: |
     enemies=aliens
     lives=3
     enemies.cheat=true
@@ -195,7 +195,7 @@ $ kubectl get configmaps game-config-3 -o yaml
 ```yaml
 apiVersion: v1
 data:
-  game-special-key: |-
+  game-special-key: |
     enemies=aliens
     lives=3
     enemies.cheat=true
