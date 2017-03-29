@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - command: [/usr/local/bin/kube-scheduler, --address=0.0.0.0,
-                  --scheduler-name=my-scheduler]
+                  --scheduler-name=my-scheduler, --leader-elect=false]
         image: gcr.io/my-gcp-project/my-kube-scheduler:1.0
         livenessProbe:
           httpGet:

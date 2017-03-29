@@ -28,7 +28,7 @@ Configure Datadog with your api-key, found in the [Datadog dashboard](). Replace
 juju configure datadog api-key=XXXX
 ```
 
-Finally, attach `datadog` to all applications you wish to montior. For example, kubernetes-master, kubernetes-worker, and etcd:
+Finally, attach `datadog` to all applications you wish to monitor. For example, kubernetes-master, kubernetes-worker, and etcd:
 
 ```
 juju add-relation datadog kubernetes-worker
@@ -74,7 +74,7 @@ juju add-relation kubernetes-worker filebeat
 
 ### Existing ElasticSearch cluster
 
-In the event an ElasticSearch cluster already exists, the following can be used to connect and leverage it instead of creating a new, seprate, cluster. First deploy the two beats, filebeat and topbeat
+In the event an ElasticSearch cluster already exists, the following can be used to connect and leverage it instead of creating a new, separate, cluster. First deploy the two beats, filebeat and topbeat
 
 ```
 juju deploy filebeat
@@ -122,7 +122,7 @@ juju add-relation nrpe kubeapi-load-balancer
 
 ### Existing install of Nagios
 
-If you already have an exisiting Nagios installation, the `nrpe-external-master` charm can be used instead. This will allow you to supply configuration options that map your exisiting external Nagios installation to NRPE. Replace `255.255.255.255` with the IP address of the nagios instance.
+If you already have an existing Nagios installation, the `nrpe-external-master` charm can be used instead. This will allow you to supply configuration options that map your existing external Nagios installation to NRPE. Replace `255.255.255.255` with the IP address of the nagios instance.
 
 ```
 juju deploy nrpe-external-master

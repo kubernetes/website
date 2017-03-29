@@ -13,7 +13,7 @@ This page assumes you have a working Juju deployed cluster.
 {% endcapture %}
 
 {% capture steps %}
-It is recommended to deploy individual Kubernetes clusters in their own models, so that there is a clean seperation between environments. To remove a cluster first find out which model it's in with `juju list-models`. The controller reserves an `admin` model for itself. If you have chosen to not name your model it might show up as `default`. 
+It is recommended to deploy individual Kubernetes clusters in their own models, so that there is a clean separation between environments. To remove a cluster first find out which model it's in with `juju list-models`. The controller reserves an `admin` model for itself. If you have chosen to not name your model it might show up as `default`. 
 
 ```
 $ juju list-models
