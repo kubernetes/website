@@ -14,7 +14,7 @@ creating new clusters or joining new nodes to an existing cluster.  It was built
 to support [`kubeadm`](/docs/admin/kubeadm/), but can be used in other contexts
 for users that wish to start clusters without `kubeadm`. It is also built to
 work, via RBAC policy, with the [Kubelet TLS
-Bootstrap](/docs/admin/kubelet-tls-bootstrap/) system.
+Bootstrapping](/docs/admin/kubelet-tls-bootstrapping/) system.
 
 Bootstrap Tokens are defined with a specific type
 (`bootstrap.kubernetes.io/token`) of secrets that lives in the `kube-system`
