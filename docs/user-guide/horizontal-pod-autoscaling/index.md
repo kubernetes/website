@@ -134,7 +134,7 @@ on the cluster.
 
 You can use Heapster's implementation of the resource metrics API by running Heapster with the`--api-server` flag set
 to true. A separate component must provide the custom metrics API (more information on the custom metrics API is
-available at [the k8s.io/metrics repository](https://github.com.com/kubernetes/metrics)).
+available at [the k8s.io/metrics repository](https://github.com/kubernetes/metrics)).
 
 ## Further reading
 
