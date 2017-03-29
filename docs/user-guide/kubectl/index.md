@@ -2,13 +2,6 @@
 title: kubectl
 ---
 
-## kubectl
-
-kubectl controls the Kubernetes cluster manager
-
-### Synopsis
-
-
 kubectl controls the Kubernetes cluster manager.
 
 Find more information at [https://github.com/kubernetes/kubernetes](https://github.com/kubernetes/kubernetes).
