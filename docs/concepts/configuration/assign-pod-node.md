@@ -63,7 +63,7 @@ spec:
 
 Then add a nodeSelector like so:
 
-{% include code.html language="yaml" file="pod.yaml" ghlink="/docs/user-guide/node-selection/pod.yaml" %}
+{% include code.html language="yaml" file="pod.yaml" ghlink="/docs/concepts/configuration/pod.yaml" %}
 
 When you then run `kubectl create -f pod.yaml`, the pod will get scheduled on the node that you attached the label to! You can verify that it worked by running `kubectl get pods -o wide` and looking at the "NODE" that the pod was assigned to.
 
@@ -122,7 +122,7 @@ Node affinity is specified as field `nodeAffinity` of field `affinity` in the Po
 
 Here's an example of a pod that uses node affinity:
 
-{% include code.html language="yaml" file="pod-with-node-affinity.yaml" ghlink="/docs/user-guide/node-selection/pod-with-node-affinity.yaml" %}
+{% include code.html language="yaml" file="pod-with-node-affinity.yaml" ghlink="/docs/concepts/configuration/pod-with-node-affinity.yaml" %}
 
 This node affinity rule says the pod can only be placed on a node with a label whose key is
 `kubernetes.io/e2e-az-name` and whose value is either `e2e-az1` or `e2e-az2`. In addition,
@@ -164,7 +164,7 @@ And inter-pod anti-affinity is specified as field `podAntiAffinity` of field `af
 
 Here's an example of a pod that uses pod affinity:
 
-{% include code.html language="yaml" file="pod-with-pod-affinity.yaml" ghlink="/docs/user-guide/node-selection/pod-with-pod-affinity.yaml" %}
+{% include code.html language="yaml" file="pod-with-pod-affinity.yaml" ghlink="/docs/concepts/configuration/pod-with-pod-affinity.yaml" %}
 
 The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. Both
 must be satisfied for the pod to schedule onto a node. The
