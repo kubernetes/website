@@ -46,7 +46,7 @@ $ kubectl logs counter
 ...
 ```
 
-You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/kubectl_logs/) for more details.
+You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/v1.6/#logs) for more details.
 
 ## Logging at the node level
 
@@ -64,7 +64,7 @@ Kubernetes performs log rotation daily, or if the log file grows beyond 10MB in 
 
 The Kubernetes logging configuration differs depending on the node type. For example, you can find detailed information for GCI in the corresponding [configure helper](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/cluster/gce/gci/configure-helper.sh#L96).
 
-When you run [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs), as in the basic logging example, the kubelet on the node handles the request and reads directly from the log file, returning the contents in the response. Note that `kubectl logs` **only returns the last rotation**; you must manually extract prior rotations, if desired and cluster-level logging is not enabled.
+When you run [`kubectl logs`](/docs/user-guide/kubectl/v1.6/#logs), as in the basic logging example, the kubelet on the node handles the request and reads directly from the log file, returning the contents in the response. Note that `kubectl logs` **only returns the last rotation**; you must manually extract prior rotations, if desired and cluster-level logging is not enabled.
 
 ### System component logs
 
