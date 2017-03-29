@@ -38,6 +38,8 @@ Disallow: /docs/user-guide/pods/multi-container/
 Disallow: /docs/user-guide/environment-guide/
 Disallow: /docs/user-guide/compute-resources/
 
+Disallow: /docs/whatisk8s/
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 
