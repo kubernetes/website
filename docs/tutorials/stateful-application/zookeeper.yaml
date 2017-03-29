@@ -51,22 +51,18 @@ spec:
         app: zk
       annotations:
         pod.alpha.kubernetes.io/initialized: "true"
-        scheduler.alpha.kubernetes.io/affinity: >
-            {
-              "podAntiAffinity": {
-                "requiredDuringSchedulingRequiredDuringExecution": [{
-                  "labelSelector": {
-                    "matchExpressions": [{
-                      "key": "app",
-                      "operator": "In",
-                      "values": ["zk-headless"]
-                    }]
-                  },
-                  "topologyKey": "kubernetes.io/hostname"
-                }]
-              }
-            }
+        
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values: 
+                    - zk-headless
+              topologyKey: "kubernetes.io/hostname"
       containers:
       - name: k8szk
         imagePullPolicy: Always

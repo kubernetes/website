@@ -14,7 +14,7 @@ title: Running ZooKeeper, A CP Distributed System
 This tutorial demonstrates [Apache Zookeeper](https://zookeeper.apache.org) on 
 Kubernetes using [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/), 
 [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget), 
-and [PodAntiAffinity](/docs/user-guide/node-selection/).
+and [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature).
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -30,7 +30,7 @@ Kubernetes concepts.
 * [ConfigMaps](/docs/user-guide/configmap/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
-* [PodAntiAffinity](/docs/user-guide/node-selection/)
+* [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
 You will require a cluster with at least four nodes, and each node will require
@@ -969,7 +969,7 @@ You should always provision additional capacity to allow the processes of critic
 systems to be rescheduled in the event of node failures. If you do so, then the 
 outage will only last until the Kubernetes scheduler reschedules one of the ZooKeeper 
 servers. However, if you want your service to tolerate node failures with no downtime,
-you should use a `PodAntiAffinity` annotation.
+you should set `podAntiAffinity`.
 
 Get the nodes for Pods in the `zk` Stateful Set.
 
@@ -985,25 +985,19 @@ kubernetes-minion-group-a5aq
 kubernetes-minion-group-2g2d
 ```
 
-This is because the Pods in the `zk` StatefulSet contain a 
-[PodAntiAffinity](/docs/user-guide/node-selection/) annotation.
+This is because the Pods in the `zk` StatefulSet have a PodAntiAffinity specified.
 
 ```yaml
-scheduler.alpha.kubernetes.io/affinity: >
-            {
-              "podAntiAffinity": {
-                "requiredDuringSchedulingRequiredDuringExecution": [{
-                  "labelSelector": {
-                    "matchExpressions": [{
-                      "key": "app",
-                      "operator": "In",
-                      "values": ["zk-headless"]
-                    }]
-                  },
-                  "topologyKey": "kubernetes.io/hostname"
-                }]
-              }
-            }
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values: 
+                    - zk-headless
+              topologyKey: "kubernetes.io/hostname"
 ```
 
 The `requiredDuringSchedulingRequiredDuringExecution` field tells the 
@@ -1108,7 +1102,7 @@ node "kubernetes-minion-group-ixsl" drained
 {% endraw %}```
 
 The `zk-1` Pod can not be scheduled. As the `zk` StatefulSet contains a 
-`PodAntiAffinity` annotation preventing co-location of the Pods, and  as only 
+PodAntiAffinity rule preventing co-location of the Pods, and  as only 
 two nodes are schedulable, the Pod will remain in a Pending state.
 
 ```shell
