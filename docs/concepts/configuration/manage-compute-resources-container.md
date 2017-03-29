@@ -420,7 +420,7 @@ consistency across providers and platforms.
 * Get hands-on experience
 [assigning CPU and RAM resources to a container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/).
 
-* [Container](/docs/api-reference/v1/definitions/#_v1_container)
+* [Container](/docs/api-reference/v1.6/#container-v1-core)
 
 * [ResourceRequirements](/docs/resources-reference/v1.5/#resourcerequirements-v1)
 
