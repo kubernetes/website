@@ -94,7 +94,7 @@ spec:
 
 * [SecurityContext](/docs/resources-reference/v1.5/#securitycontext-v1)
 
-* [Container](/docs/api-reference/v1/definitions/#_v1_container)
+* [Container](/docs/api-reference/v1.6/#container-v1-core)
 
 {% endcapture %}
 
