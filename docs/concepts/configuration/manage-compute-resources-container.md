@@ -81,7 +81,7 @@ Here's an example.
 The following Pod has two Containers. Each Container has a request of 0.25 cpu
 and 64MiB (2<sup>26</sup> bytes) of memory Each Container has a limit of 0.5
 cpu and 128MiB of memory. You can say the Pod has a request of 0.5 cpu and 128
-MiB of memory, and a limit of 1 core and 256MiB of memory.
+MiB of memory, and a limit of 1 cpu and 256MiB of memory.
 
 ```yaml
 apiVersion: v1
@@ -201,7 +201,7 @@ You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 
 ```shell
-$ kubectl.sh describe nodes e2e-test-minion-group-4lw4
+$ kubectl describe nodes e2e-test-minion-group-4lw4
 Name:            e2e-test-minion-group-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
@@ -253,7 +253,7 @@ whether a Container is being killed because it is hitting a resource limit, call
 `kubectl describe pod` on the Pod of interest:
 
 ```shell
-[12:54:41] $ ./cluster/kubectl.sh describe pod simmemleak-hra99
+[12:54:41] $ kubectl describe pod simmemleak-hra99
 Name:                           simmemleak-hra99
 Namespace:                      default
 Image(s):                       saadali/simmemleak
@@ -293,11 +293,11 @@ Events:
 In the preceding example, the `Restart Count:  5` indicates that the `simmemleak`
 Container in the Pod was terminated and restarted five times.
 
-You can call `get pod` with the `-o go-template=...` option to fetch the status
+You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
 of previously terminated Containers:
 
 ```shell{% raw %}
-[13:59:01] $ ./cluster/kubectl.sh  get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
+[13:59:01] $ kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
 Container Name: simmemleak
 LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]{% endraw %}
 ```
