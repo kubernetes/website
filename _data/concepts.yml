@@ -52,6 +52,7 @@ toc:
   - docs/concepts/cluster-administration/sysctl-cluster.md
   - docs/concepts/cluster-administration/access-cluster.md
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
+  - docs/concepts/cluster-administration/master-node-communication.md
 
 - title: Storage
   section:
@@ -67,6 +68,7 @@ toc:
   - docs/concepts/configuration/overview.md
   - docs/concepts/configuration/container-command-args.md
   - docs/concepts/configuration/manage-compute-resources-container.md
+  - docs/concepts/configuration/assign-pod-node.md
 
 - title: Policies
   section:

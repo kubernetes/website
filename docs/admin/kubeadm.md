@@ -295,6 +295,8 @@ apiServerCertSANs:
   - <name2|string>
 certificatesDir: <string>
 ```
+In addition, if authorizationMode is set to `ABAC`, you should write the config to `/etc/kubernetes/abac_policy.json`.
+However, if authorizationMode is set to `Webhook`, you should write the config to `/etc/kubernetes/webhook_authz.conf`.
 
 ### Sample Node Configuration
 
