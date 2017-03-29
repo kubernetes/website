@@ -40,7 +40,7 @@ filesystem.
 
 In terms of [Docker](https://www.docker.com/) constructs, a pod is modelled as
 a group of Docker containers with shared namespaces and shared
-[volumes](/docs/user-guide/volumes/). PID namespace sharing is not yet implemented in Docker.
+[volumes](/docs/concepts/storage/volumes/). PID namespace sharing is not yet implemented in Docker.
 
 Like individual application containers, pods are considered to be relatively
 ephemeral (rather than durable) entities. As discussed in [life of a
@@ -162,7 +162,7 @@ An example flow:
 2. The Pod in the API server is updated with the time beyond which the Pod is considered "dead" along with the grace period.
 3. Pod shows up as "Terminating" when listed in client commands
 4. (simultaneous with 3) When the Kubelet sees that a Pod has been marked as terminating because the time in 2 has been set, it begins the pod shutdown process.
-  1. If the pod has defined a [preStop hook](/docs/user-guide/container-environment/#hook-details), it is invoked inside of the pod. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) extended grace period.
+  1. If the pod has defined a [preStop hook](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), it is invoked inside of the pod. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) extended grace period.
   2. The processes in the Pod are sent the TERM signal.
 5. (simultaneous with 3), Pod is removed from endpoints list for service, and are no longer considered part of the set of running pods for replication controllers. Pods that shutdown slowly can continue to serve traffic as load balancers (like the service proxy) remove them from their rotations.
 6. When the grace period expires, any processes still running in the Pod are killed with SIGKILL.
@@ -174,7 +174,7 @@ By default, all deletes are graceful within 30 seconds. The `kubectl delete` com
 
 Force deletion of a pod is defined as deletion of a pod from the cluster state and etcd immediately. When a force deletion is performed, the apiserver does not wait for confirmation from the kubelet that the pod has been terminated on the node it was running on. It removes the pod in the API immediately so a new pod can be created with the same name. On the node, pods that are set to terminate immediately will still be given a small grace period before being force killed.
 
-Force deletions can be potentially dangerous for some pods and should be performed with caution. In case of StatefulSet pods, please refer to the task documentation for [deleting Pods from a StatefulSet](/docs/tasks/stateful-sets/deleting-pods/).
+Force deletions can be potentially dangerous for some pods and should be performed with caution. In case of StatefulSet pods, please refer to the task documentation for [deleting Pods from a StatefulSet](/docs/tasks/manage-stateful-set/delete-pods/#deleting-pods).
 
 ## Privileged mode for pod containers
 

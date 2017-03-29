@@ -3,8 +3,10 @@ assignees:
 - madhusudancs
 - mml
 - nikhiljindal
-title: Using `federation-up` and `deploy.sh`
+title: (Deprecated) Using `federation-up` and `deploy.sh`
 ---
+
+## The mechanisms explained in this doc to setup federation are deprecated. [`kubefed`](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) is now the recommended way to deploy federation.
 
 This guide explains how to set up cluster federation that lets us control multiple Kubernetes clusters.
 
@@ -245,7 +247,7 @@ federation, and
 in your federation DNS.
 
 You can find more details about config maps in general at
-http://kubernetes.io/docs/user-guide/configmap/.
+[config map](http://kubernetes.io/docs/user-guide/configmap/).
 
 ### Kubernetes 1.4 and earlier: Setting federations flag on kube-dns-rc
 

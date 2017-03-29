@@ -61,6 +61,10 @@ a Deployment that runs the nginx:1.7.9 Docker image:
         StrategyType:   RollingUpdate
         MinReadySeconds:  0
         RollingUpdateStrategy:  1 max unavailable, 1 max surge
+        Conditions:
+          Type          Status  Reason
+          ----          ------  ------
+          Available     True    MinimumReplicasAvailable
         OldReplicaSets:   <none>
         NewReplicaSet:    nginx-deployment-1771418926 (2/2 replicas created)
         No events.

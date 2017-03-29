@@ -266,7 +266,7 @@ Some drivers will mount a host folder within the VM so that you can easily share
 
 ## Private Container Registries
 
-To access a private container registry, follow the steps on [this page](http://kubernetes.io/docs/user-guide/images/).
+To access a private container registry, follow the steps on [this page](/docs/concepts/containers/images/).
 
 We recommend you use ImagePullSecrets, but if you would like to configure access on the minikube VM you can place the `.dockercfg` in the `/home/docker` directory or the `config.json` in the `/home/docker/.docker` directory.
 

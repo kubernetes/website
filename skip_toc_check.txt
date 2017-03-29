@@ -9,3 +9,10 @@ docs/user-guide/logging-demo/README.md
 docs/user-guide/downward-api/README.md
 docs/user-guide/configmap/README.md
 docs/concepts/abstractions/pod-termination.md
+
+docs/user-guide/pods/init-container.md
+docs/user-guide/pod-states.md
+docs/user-guide/downward-api/index.md
+docs/user-guide/downward-api/volume/index.md
+docs/user-guide/getting-into-containers.md
+

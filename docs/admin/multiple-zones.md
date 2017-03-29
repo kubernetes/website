@@ -229,7 +229,7 @@ cross-zone attachments are not generally permitted by cloud providers:
 
 ```shell
 > kubectl describe pod mypod | grep Node
-Node:		kubernetes-minion-9vlv/10.240.0.5
+Node:        kubernetes-minion-9vlv/10.240.0.5
 > kubectl get node kubernetes-minion-9vlv --show-labels
 NAME                     STATUS    AGE       LABELS
 kubernetes-minion-9vlv   Ready     22m       beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
@@ -268,9 +268,9 @@ The pods should be spread across all 3 zones:
 
 ```shell
 >  kubectl describe pod -l app=guestbook | grep Node
-Node:		kubernetes-minion-9vlv/10.240.0.5
-Node:		kubernetes-minion-281d/10.240.0.8
-Node:		kubernetes-minion-olsh/10.240.0.11
+Node:        kubernetes-minion-9vlv/10.240.0.5
+Node:        kubernetes-minion-281d/10.240.0.8
+Node:        kubernetes-minion-olsh/10.240.0.11
 
  > kubectl get node kubernetes-minion-9vlv kubernetes-minion-281d kubernetes-minion-olsh --show-labels
 NAME                     STATUS    AGE       LABELS
