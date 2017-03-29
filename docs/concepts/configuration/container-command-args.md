@@ -79,7 +79,7 @@ Here are some examples:
 
 * [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/)
 
-* [Container](/docs/api-reference/v1.6/#container-v1)
+* [Container](/docs/api-reference/v1.6/#container-v1-core)
 
 * [Docker Entrypoint field](https://docs.docker.com/engine/reference/builder/)
 
