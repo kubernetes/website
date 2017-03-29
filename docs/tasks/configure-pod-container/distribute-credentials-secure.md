@@ -165,9 +165,9 @@ Here is a configuration file you can use to create a Pod:
 
 ### Reference
 
-* [Secret](docs/api-reference/v1/definitions/#_v1_secret)
-* [Volume](docs/api-reference/v1/definitions/#_v1_volume)
-* [Pod](docs/api-reference/v1/definitions/#_v1_pod)
+* [Secret](/docs/api-reference/v1.6/#secret-v1-core)
+* [Volume](/docs/api-reference/v1.6/#volume-v1-core)
+* [Pod](/docs/api-reference/v1.6/#pod-v1-core)
 
 {% endcapture %}
 
