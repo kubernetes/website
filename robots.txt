@@ -27,6 +27,17 @@ Disallow: /docs/user-guide/pods/single-container
 
 Disallow: /docs/user-guide/secrets/walkthrough
 
+Disallow: /docs/user-guide/accessing-the-cluster/
+Disallow: /docs/user-guide/working-with-resources/
+Disallow: /docs/user-guide/garbage-collection/
+Disallow: /docs/user-guide/services/operations/
+Disallow: /docs/user-guide/load-balancer/
+Disallow: /docs/user-guide/services-firewalls/
+Disallow: /docs/user-guide/federation/federated-services/
+Disallow: /docs/user-guide/pods/multi-container/
+Disallow: /docs/user-guide/environment-guide/
+Disallow: /docs/user-guide/compute-resources/
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 
