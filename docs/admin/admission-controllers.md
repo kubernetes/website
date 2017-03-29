@@ -257,6 +257,17 @@ storage classes and how to mark a storage class as default.
 This plug-in sets the default forgiveness toleration for pods, which have no forgiveness tolerations, to tolerate
 the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes.
 
+### PodSecurityPolicy
+
+This plug-in acts on creation and modification of the pod and determines if it should be admitted
+based on the requested security context and the available Pod Security Policies.
+
+For Kubernetes < 1.6.0, the API Server must enable the extensions/v1beta1/podsecuritypolicy API
+extensions group (`--runtime-config=extensions/v1beta1/podsecuritypolicy=true`).
+
+See also [Pod Security Policy documentation](/docs/user-guide/pod-security-policy/index.md)
+for more information.
+
 ## Is there a recommended set of plug-ins to use?
 
 Yes.
