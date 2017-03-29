@@ -12,7 +12,7 @@ title: Installing Kubernetes on Linux with kubeadm
 This quickstart shows you how to easily install a Kubernetes cluster on machines
 running Ubuntu 16.04, CentOS 7 or HypriotOS v1.0.1+. The installation uses a
 tool called _kubeadm_ which is part of Kubernetes.  As of v1.6, kubeadm aims to
-create a secure cluster of of the box via mechanisms such as RBAC.
+create a secure cluster out of the box via mechanisms such as RBAC.
 
 This process works with local VMs, physical servers and/or cloud servers. It is
 simple enough that you can easily integrate its use into your own automation
