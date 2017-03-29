@@ -27,4 +27,20 @@ docs/user-guide/pods/multi-container.md
 docs/user-guide/environment-guide/index.md
 docs/user-guide/compute-resources.md
 
+docs/user-guide/petset/bootstrapping/index.md
+docs/user-guide/monitoring.md
+docs/user-guide/logging/overview.md
+docs/user-guide/logging/stackdriver.md
+docs/user-guide/logging/elasticsearch.md
+docs/user-guide/connecting-to-applications-proxy.md
+docs/user-guide/connecting-to-applications-port-forward.md
+docs/admin/audit.md
+docs/admin/disruptions.md
+docs/admin/resourcequota/index.md
+docs/admin/resourcequota/walkthrough.md
+docs/admin/resourcequota/limitstorageconsumption.md
+docs/admin/rescheduler.md
+docs/admin/sysctls.md
+docs/admin/cluster-components.md
+
 docs/whatisk8s.md
