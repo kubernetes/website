@@ -185,7 +185,7 @@ podsecuritypolicy "permissive" deleted
 In order to use Pod Security Policies in your cluster you must ensure the 
 following
 
-1.  You have enabled the api type `extensions/v1beta1/podsecuritypolicy`
+1.  You have enabled the api type `extensions/v1beta1/podsecuritypolicy` (only for versions prior 1.6)
 1.  You have enabled the admission controller `PodSecurityPolicy`
 1.  You have defined your policies
 
