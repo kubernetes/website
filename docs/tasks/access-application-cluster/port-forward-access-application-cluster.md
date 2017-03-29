@@ -87,7 +87,7 @@ local workstation to debug the database that is running in the pod.
 
 
 {% capture whatsnext %}
-Learn more about [kubectl port-forward](/docs/user-guide/kubectl/kubectl_port-forward/).
+Learn more about [kubectl port-forward](/docs/user-guide/kubectl/v1.6/#port-forward).
 {% endcapture %}
 
 
