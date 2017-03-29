@@ -118,5 +118,4 @@ spec:
 **Note**: a pod with the _unsafe_ sysctls specified above will fail to launch on
 any node which has not enabled those two _unsafe_ sysctls explicitly. As with
 _node-level_ sysctls it is recommended to use [_taints and toleration_
-feature](/docs/user-guide/kubectl/kubectl_taint.md) or [labels on nodes](/docs
-/user-guide/labels.md) to schedule those pods onto the right nodes.
+feature](/docs/user-guide/kubectl/kubectl_taint.md) or [labels on nodes](/docs/user-guide/node-selection/) to schedule those pods onto the right nodes.

@@ -52,7 +52,7 @@ Here are the possible values for `phase`:
 ## Pod conditions
 
 A Pod has a PodStatus, which has an array of
-[PodConditions](docs/resources-reference/v1.5/#podcondition). Each element
+[PodConditions](/docs/resources-reference/v1.5/#podcondition). Each element
 of the PodCondition array has a `type` field and a `status` field. The `type`
 field is a string, with possible values PodScheduled, Ready, Initialized, and
 Unschedulable. The `status` field is a string, with possible values True, False,
