@@ -77,9 +77,9 @@ Here are some examples:
 
 * [Defining a Command and Arguments for a Container](/docs/tasks/configure-pod-container/define-command-argument-container/)
 
-* [Running Commands in a Container with kubectl exec](/docs/user-guide/getting-into-containers/)
+* [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/)
 
-* [Container](/docs/api-reference/v1/definitions/#_v1_container)
+* [Container](/docs/api-reference/v1.6/#container-v1-core)
 
 * [Docker Entrypoint field](https://docs.docker.com/engine/reference/builder/)
 
