@@ -15,7 +15,7 @@ kubectl
 ```
       --alsologtostderr                  log to standard error as well as files
       --as string                        Username to impersonate for the operation
-      --certificate-authority string     Path to a cert. file for the certificate authority
+      --certificate-authority string     Path to a cert file for the certificate authority
       --client-certificate string        Path to a client certificate file for TLS
       --client-key string                Path to a client key file for TLS
       --cluster string                   The name of the kubeconfig cluster to use
