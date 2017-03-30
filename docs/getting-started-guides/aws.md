@@ -9,7 +9,7 @@ title: Running Kubernetes on AWS EC2
 {:toc}
 
 
-## Supported Production Grade Tools with High Availability Options
+## Supported Production Grade Tools
 
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
 
@@ -17,16 +17,17 @@ title: Running Kubernetes on AWS EC2
 
 ---
 
-## kube-up bash script
+## kube-up is no longer supported in kubernetes 1.6
 
-> `kube-up.sh` is a legacy tool that is an easy way to spin up a cluster.  This tool is being deprecated, and does not create a production ready environment.
+> `kube-up.sh` is a legacy tool for launching clusters.  It is deprecated, and removed entirely from kubernetes 1.6.
 
 
 ### Prerequisites
 
-1. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
-2. Install and configure the [AWS Command Line Interface](http://aws.amazon.com/cli)
-3. We recommend installing using an account which has full access to the AWS APIs.
+1. This is only supported for kubernetes 1.5 and earlier.  Consider switching to one of the supported options.
+2. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
+3. Install and configure the [AWS Command Line Interface](http://aws.amazon.com/cli)
+4. We recommend installing using an account which has full access to the AWS APIs.
 
 NOTE: This script use the 'default' AWS profile by default.
 You may explicitly set the AWS profile to use using the `AWS_DEFAULT_PROFILE` environment variable:
@@ -161,7 +162,6 @@ cluster/kube-down.sh
 
 IaaS Provider        | Config. Mgmt | OS            | Networking  | Docs                                          | Conforms | Support Level
 -------------------- | ------------ | ------------- | ----------  | --------------------------------------------- | ---------| ----------------------------
-AWS                  | Saltstack    | Debian/Ubuntu | k8s (VPC)   | [docs](/docs/getting-started-guides/aws)      |          | Community ([@justinsb](https://github.com/justinsb))
 AWS                  | kops         | Debian        | k8s (VPC)   | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
 AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/getting-started-guides/aws)      |          | Community
 
