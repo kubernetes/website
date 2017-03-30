@@ -60,4 +60,8 @@ docs/user-guide/federation/namespaces.md
 docs/user-guide/federation/replicasets.md
 docs/user-guide/federation/secrets.md
 
+docs/home/security.md
+docs/home/deprecation-policy.md
+
+
 docs/whatisk8s.md
