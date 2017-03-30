@@ -29,7 +29,7 @@ spec:
       level: "s0:c123,c456"
 ```
 
-Please refer to the [API documentation](/docs/api-reference/v1/definitions/#_v1_podsecuritycontext) for a detailed listing and
+Please refer to the [API documentation](/docs/api-reference/v1.6/#pod-v1-coresecuritycontext) for a detailed listing and
 description of all the fields available within the pod security
 context.
 
@@ -82,6 +82,6 @@ spec:
 ```
 
 Please refer to the
-[API documentation](/docs/api-reference/v1/definitions/#_v1_securitycontext) 
+[API documentation](/docs/api-reference/v1.6/#securitycontext-v1-core) 
 for a detailed listing and description of all the fields available
 within the container security context.
