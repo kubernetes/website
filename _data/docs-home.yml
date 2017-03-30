@@ -4,7 +4,7 @@ toc:
 - docs/home/index.md
 
 - title: Kubernetes Documentation Home
-  path: index.md
+  path: https://kubernetes.io/docs/home/index.md
 
 - title: Release Notes
   path: https://github.com/kubernetes/kubernetes/releases/
