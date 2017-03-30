@@ -63,7 +63,7 @@ This table shows the relationship between Docker capabilities and
 | BLOCK_SUSPEND |  CAP_BLOCK_SUSPEND |
 
 In Kubernetes, you can add or drop capabilities in the
-[`SecurityContext`](/docs/resources-reference/v1.5/#securitycontext-v1)
+[`SecurityContext`](/docs/resources-reference/v1.6/#securitycontext-v1-core)
 field of a Container:
 
 ```yaml
@@ -92,7 +92,7 @@ spec:
 
 * [Pod Security Policy](/docs/user-guide/pod-security-policy/)
 
-* [SecurityContext](/docs/resources-reference/v1.5/#securitycontext-v1)
+* [SecurityContext](/docs/resources-reference/v1.6/#securitycontext-v1-core)
 
 * [Container](/docs/api-reference/v1.6/#container-v1-core)
 

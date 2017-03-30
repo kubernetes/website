@@ -72,8 +72,8 @@ username and password:
 
         Data
         ====
-        password:   12 bytes
-        username:   6 bytes
+        password:   13 bytes
+        username:   7 bytes
 
 ## Creating a Pod that has access to the secret data through a Volume
 

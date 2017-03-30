@@ -89,8 +89,8 @@ You can then manage our `CronTab` objects using kubectl. Note that resource name
 
 ```shell
 $ kubectl get crontab
-NAME                 LABELS    DATA
-my-new-cron-object   <none>    {"apiVersion":"stable.example.com/v1","cronSpec":"...
+NAME                 KIND
+my-new-cron-object   CronTab.v1.stable.example.com
 ```
 
 You can also view the raw JSON data. Here you can see that it contains the custom `cronSpec` and `image` fields from the yaml you used to create it:
@@ -98,9 +98,7 @@ You can also view the raw JSON data. Here you can see that it contains the custo
 ```yaml
 $ kubectl get crontab -o json
 {
-    "kind": "List",
     "apiVersion": "v1",
-    "metadata": {},
     "items": [
         {
             "apiVersion": "stable.example.com/v1",
@@ -117,5 +115,9 @@ $ kubectl get crontab -o json
             }
         }
     ]
+    "kind": "List",
+    "metadata": {},
+    "resourceVersion": "",
+    "selfLink": ""
 }
 ```

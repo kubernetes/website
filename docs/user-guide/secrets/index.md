@@ -80,8 +80,8 @@ Type:            Opaque
 
 Data
 ====
-password.txt:    13 bytes
-username.txt:    6 bytes
+password.txt:    12 bytes
+username.txt:    5 bytes
 ```
 
 Note that neither `get` nor `describe` shows the contents of the file by default.
