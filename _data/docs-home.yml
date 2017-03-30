@@ -6,6 +6,11 @@ toc:
 - title: Kubernetes Documentation Home
   path: index.md
 
+- title: Release Notes
+  path: https://github.com/kubernetes/kubernetes/releases/
+- title: Release Roadmap
+  path: https://github.com/kubernetes/kubernetes/milestones/
+
 - title: Contributing to the Kubernetes Docs
   section:
   - editdocs.md
@@ -15,12 +20,5 @@ toc:
   - docs/home/contribute/page-templates.md
   - docs/home/contribute/review-issues.md
   - docs/home/contribute/style-guide.md
-
-- title: Release Notes
-  path: https://github.com/kubernetes/kubernetes/releases/
-- title: Release Roadmap
-  path: https://github.com/kubernetes/kubernetes/milestones/
-- docs/home/deprecation-policy.md
-- docs/home/security.md
  
 
