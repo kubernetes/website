@@ -56,6 +56,23 @@ Disallow: /docs/admin/rescheduler/
 Disallow: /docs/admin/sysctls/
 Disallow: /docs/admin/cluster-components
 
+Disallow: /docs/admin/multi-cluster/
+Disallow: /docs/admin/networking/
+Disallow: /docs/admin/dns/
+Disallow: /docs/admin/network-plugins/
+Disallow: /docs/admin/static-pods/
+Disallow: /docs/admin/out-of-resource/
+Disallow: /docs/admin/node-problem/
+Disallow: /docs/admin/apparmor/
+Disallow: /docs/user-guide/federation/configmap/
+Disallow: /docs/user-guide/federation/daemonsets/
+Disallow: /docs/user-guide/federation/deployment/
+Disallow: /docs/user-guide/federation/events/
+Disallow: /docs/user-guide/federation/federated-ingress/
+Disallow: /docs/user-guide/federation/namespaces/
+Disallow: /docs/user-guide/federation/replicasets/
+Disallow: /docs/user-guide/federation/secrets/
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 

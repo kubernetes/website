@@ -117,7 +117,7 @@ toc:
         - docs/getting-started-guides/ubuntu/validation.md
         - docs/getting-started-guides/ubuntu/backups.md
         - docs/getting-started-guides/ubuntu/upgrades.md
-        - docs/getting-started-guides/ubuntu/scaling.md
+        - docs/getting-started-guides/ubuntu/scaling.mdfnet
         - docs/getting-started-guides/ubuntu/installation.md
         - docs/getting-started-guides/ubuntu/monitoring.md
         - docs/getting-started-guides/ubuntu/networking.md
@@ -153,22 +153,14 @@ toc:
   - docs/admin/limitrange/index.md
   - docs/admin/etcd.md
   - docs/admin/etcd_upgrade.md
-  - docs/admin/multi-cluster.md
   - title: Changing Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
   - docs/admin/multiple-schedulers.md
-  - docs/admin/networking.md
-  - docs/admin/dns.md
   - title: Setting Up and Configuring DNS
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
   - docs/admin/master-node-communication.md
-  - docs/admin/network-plugins.md
-  - docs/admin/static-pods.md
   - docs/admin/garbage-collection.md
-  - docs/admin/out-of-resource.md
   - docs/admin/salt.md
-  - docs/admin/node-problem.md
-  - docs/admin/apparmor/index.md
 
 - title: Administering Federation
   section:
@@ -176,14 +168,6 @@ toc:
   - title: Federated Kubernetes Objects
     section:
     - docs/user-guide/federation/index.md
-    - docs/user-guide/federation/configmap.md
-    - docs/user-guide/federation/daemonsets.md
-    - docs/user-guide/federation/deployment.md
-    - docs/user-guide/federation/events.md
-    - docs/user-guide/federation/federated-ingress.md
-    - docs/user-guide/federation/namespaces.md
-    - docs/user-guide/federation/replicasets.md
-    - docs/user-guide/federation/secrets.md
     - docs/federation/api-reference/index.md
   - title: Federation Components
     section:
