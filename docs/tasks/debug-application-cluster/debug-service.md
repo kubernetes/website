@@ -551,7 +551,7 @@ contact your pods.
 There are three things to check:
 
 * Are your pods working correctly?  Look for restart count, and
-  [debug pods](#debugging_pods).
+  [debug pods](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/#debugging-pods).
 
 * Can you connect to your pods directly?  Get the IP address for the pod, and
   try to connect directly to that IP.
