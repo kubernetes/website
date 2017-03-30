@@ -43,4 +43,21 @@ docs/admin/rescheduler.md
 docs/admin/sysctls.md
 docs/admin/cluster-components.md
 
+docs/admin/multi-cluster.md
+docs/admin/networking.md
+docs/admin/dns.md
+docs/admin/network-plugins.md
+docs/admin/static-pods.md
+docs/admin/out-of-resource.md
+docs/admin/node-problem.md
+docs/admin/apparmor/index.md
+docs/user-guide/federation/configmap.md
+docs/user-guide/federation/daemonsets.md
+docs/user-guide/federation/deployment.md
+docs/user-guide/federation/events.md
+docs/user-guide/federation/federated-ingress.md
+docs/user-guide/federation/namespaces.md
+docs/user-guide/federation/replicasets.md
+docs/user-guide/federation/secrets.md
+
 docs/whatisk8s.md
