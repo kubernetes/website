@@ -3,12 +3,8 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-title: Overview
+title: Controlling Accessing to the Kubernetes API
 ---
-
-This document describes how access to the Kubernetes API is controlled.
-
-## Overview
 
 Users [access the API](/docs/user-guide/accessing-the-cluster) using `kubectl`,
 client libraries, or by making REST requests.  Both human users and
@@ -42,7 +38,7 @@ The input to the authentication step is the entire HTTP request, however, it typ
 just examines the headers and/or client certificate.
 
 Authentication modules include Client Certificates, Password, and Plain Tokens,
-and JWT Tokens (used for service accounts).
+Bootstrap Tokens, and JWT Tokens (used for service accounts).
 
 Multiple authentication modules can be specified, in which case each one is tried in sequence,
 until one of them succeeds.
@@ -75,7 +71,7 @@ The input to the Authorization step are attributes of the REST request, includin
 
 There are multiple supported Authorization Modules.  The cluster creator configures the API
 server with which Authorization Modules should be used.  When multiple Authorization Modules
-are configured, each is checked in sequence, and if any Module authorizes the request, 
+are configured, each is checked in sequence, and if any Module authorizes the request,
 then the request can proceed.  If all deny the request, then the request is denied (HTTP status
 code 403).
 
@@ -142,7 +138,7 @@ By default the Kubernetes API server serves HTTP on 2 ports:
 
   2. `Secure Port`:
 
-          - use whenever possible 
+          - use whenever possible
           - uses TLS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
           - default is port 6443, change with `--secure-port` flag.
           - default IP is first non-localhost network interface, change with `--bind-address` flag.

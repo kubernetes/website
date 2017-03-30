@@ -58,7 +58,7 @@ project](/docs/admin/salt).
 
 ## Optional Cluster Services
 
-* **DNS Integration with SkyDNS** ([dns.md](/docs/admin/dns)):
+* **DNS Integration with SkyDNS** ([dns](/docs/admin/dns)):
   Resolving a DNS name directly to a Kubernetes service.
 
 * [**Cluster-level logging**](/docs/user-guide/logging/overview):
@@ -70,7 +70,7 @@ project](/docs/admin/salt).
 
 ## Security
 
-* **Kubernetes Container Environment** ([docs/user-guide/container-environment.md](/docs/concepts/containers/container-lifecycle-hooks/)):
+* **Kubernetes Container Environment** ([docs/user-guide/container-environment](/docs/concepts/containers/container-lifecycle-hooks/)):
   Describes the environment for Kubelet managed containers on a Kubernetes
   node.
 
@@ -82,7 +82,7 @@ project](/docs/admin/salt).
 
 * **Admission Controllers** [admission controllers](/docs/admin/admission-controllers)
 
-* **Sysctls** [sysctls](/docs/admin/sysctls.md)
+* **Sysctls** [sysctls](/docs/admin/sysctls)
 
 * **Audit** [audit](/docs/admin/audit)
 

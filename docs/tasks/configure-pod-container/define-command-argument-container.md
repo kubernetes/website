@@ -97,7 +97,7 @@ script. To run your command in a shell, wrap it like this:
 * Learn more about [containers and commands](/docs/user-guide/containers/).
 * Learn more about [configuring containers](/docs/user-guide/configuring-containers/).
 * Learn more about [running commands in a container](/docs/user-guide/getting-into-containers/).
-* See [Container](/docs/api-reference/v1/definitions/#_v1_container).
+* See [Container](/docs/api-reference/v1.6/#container-v1-core).
 
 {% endcapture %}
 

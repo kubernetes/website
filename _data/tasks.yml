@@ -27,6 +27,7 @@ toc:
   - docs/tasks/configure-pod-container/configure-pod-initialization.md
   - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
   - docs/tasks/configure-pod-container/configure-pod-disruption-budget.md
+  - docs/tools/kompose/user-guide.md
 
 - title: Running Applications
   section:
@@ -52,10 +53,19 @@ toc:
   - docs/tasks/debug-application-cluster/logging-stackdriver.md
   - docs/tasks/debug-application-cluster/monitor-node-health.md
   - docs/tasks/debug-application-cluster/logging-elasticsearch-kibana.md
+  - docs/tasks/debug-application-cluster/debug-application.md
+  - docs/tasks/debug-application-cluster/debug-application-introspection.md
+  - docs/tasks/debug-application-cluster/debug-cluster.md
+  - docs/tasks/debug-application-cluster/debug-pod-replication-controller.md
+  - docs/tasks/debug-application-cluster/debug-service.md
 
 - title: Accessing the Kubernetes API
   section:
   - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
+
+- title: Using TLS
+  section:
+  - docs/tasks/tls/managing-tls-in-a-cluster.md
 
 - title: Administering a Cluster
   section:
@@ -65,6 +75,7 @@ toc:
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
   - docs/tasks/administer-cluster/limit-storage-consumption.md
+  - docs/tasks/administer-cluster/change-default-storage-class.md
   - docs/tasks/administer-cluster/share-configuration.md
 
 - title: Administering Federation
@@ -85,3 +96,7 @@ toc:
   - docs/tasks/manage-stateful-set/deleting-a-statefulset.md
   - docs/tasks/manage-stateful-set/debugging-a-statefulset.md
   - docs/tasks/manage-stateful-set/delete-pods.md
+
+- title: Managing Cluster Daemons
+  section:
+  - docs/tasks/manage-daemon/update-daemon-set.md

@@ -176,7 +176,7 @@ kubectl describe pod liveness-http
 ## Using a named port
 
 You can use a named
-[ContainerPort](/docs/api-reference/v1/definitions/#_v1_containerport)
+[ContainerPort](/docs/api-reference/v1.6/#containerport-v1-core)
 for HTTP liveness checks:
 
 ```yaml
@@ -225,13 +225,13 @@ readinessProbe:
 Eventually, some of this Discussion section could be moved to a concept topic.
 {% endcomment %}
 
-[Probes](/docs/api-reference/v1/definitions/#_v1_probe) have these additional fields that you can use to more precisely control the behavior of liveness and readiness checks:
+[Probes](/docs/api-reference/v1.6/#probe-v1-core) have these additional fields that you can use to more precisely control the behavior of liveness and readiness checks:
 
 * timeoutSeconds
 * successThreshold
 * failureThreshold
 
-[HTTP probes](/docs/api-reference/v1/definitions/#_v1_httpgetaction)
+[HTTP probes](/docs/api-reference/v1.6/#httpgetaction-v1-core)
 have these additional fields:
 
 * host
@@ -248,7 +248,7 @@ If your pod relies on virtual hosts, which is probably the more common case,
 you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
 In addition to command probes and HTTP probes, Kubernetes supports
-[TCP probes](/docs/api-reference/v1/definitions/#_v1_tcpsocketaction).
+[TCP probes](/docs/api-reference/v1.6/#tcpsocketaction-v1-core).
 
 {% endcapture %}
 
@@ -262,9 +262,9 @@ In addition to command probes and HTTP probes, Kubernetes supports
 
 ### Reference
 
-* [Pod](http://kubernetes.io/docs/api-reference/v1/definitions#_v1_pod)
-* [Container](/docs/api-reference/v1/definitions/#_v1_container)
-* [Probe](/docs/api-reference/v1/definitions/#_v1_probe)
+* [Pod](/docs/api-reference/v1.6/#pod-v1-core)
+* [Container](/docs/api-reference/v1.6/#container-v1-core)
+* [Probe](/docs/api-reference/v1.6/#probe-v1-core)
 
 {% endcapture %}
 

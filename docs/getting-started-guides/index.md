@@ -31,7 +31,7 @@ a Kubernetes cluster from scratch.
 
 Use the [Minikube getting started guide](/docs/getting-started-guides/minikube/) to try it out.
 
-[Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local) - Ubuntu supports a 9-instance deployment on localhost via LXD. 
+[Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local) - Ubuntu supports a 9-instance deployment on localhost via LXD.
 
 ### Hosted Solutions
 
@@ -97,7 +97,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 - [Vmware Photon Controller](/docs/getting-started-guides/photon-controller)  (uses Debian)
 - [Vmware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
 - [Vmware](/docs/getting-started-guides/coreos)  (uses CoreOS and flannel)
-- [libvirt-coreos.md](/docs/getting-started-guides/libvirt-coreos)  (uses CoreOS)
+- [libvirt-coreos](/docs/getting-started-guides/libvirt-coreos)  (uses CoreOS)
 - [oVirt](/docs/getting-started-guides/ovirt)
 - [OpenStack Heat](/docs/getting-started-guides/openstack-heat) (uses CentOS and flannel)
 - [libvirt](/docs/getting-started-guides/fedora/flannel_multi_node_cluster) (uses Fedora and flannel)
@@ -106,7 +106,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 #### Bare Metal
 
 - [Offline](/docs/getting-started-guides/coreos/bare_metal_offline) (no internet required.  Uses CoreOS and Flannel)
-- [fedora/fedora_ansible_config.md](/docs/getting-started-guides/fedora/fedora_ansible_config)
+- [fedora/fedora_ansible_config](/docs/getting-started-guides/fedora/fedora_ansible_config)
 - [Fedora single node](/docs/getting-started-guides/fedora/fedora_manual_config)
 - [Fedora multi node](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)
 - [Centos](/docs/getting-started-guides/centos/centos_manual_config)

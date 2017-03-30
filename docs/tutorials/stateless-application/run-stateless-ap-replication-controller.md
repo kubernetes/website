@@ -205,8 +205,8 @@ A successful get command returns all replication controllers on the cluster in
 the specified or default namespace. For example:
 
 ```shell
-CONTROLLER            CONTAINER(S)   IMAGE(S)  SELECTOR        REPLICAS
-frontend              php-redis      redis     name=frontend   2
+NAME       DESIRED   CURRENT   READY     AGE
+frontend   2         2         2         1h
 ```
 
 You can also use `get rc NAME` to return information about a specific
@@ -230,6 +230,7 @@ Selector:       name=frontend
 Labels:        name=frontend
 Replicas:       2 current / 2 desired
 Pods Status:    2 Running / 0 Waiting / 0 Succeeded / 0 Failed
+No volumes.
 Events:
   FirstSeen                        LastSeen                        Count   From                         SubobjectPath  Reason            Message
   Fri, 06 Nov 2015 16:52:50 -0800  Fri, 06 Nov 2015 16:52:50 -0800 1       {replication-controller }                   SuccessfulCreate  Created pod: frontend-gyx2h

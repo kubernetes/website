@@ -33,7 +33,7 @@ This document is meant to highlight and consolidate in one place configuration b
   event of node failure.
 
   Replication controllers are almost always preferable to creating pods, except for some explicit
-  [`restartPolicy: Never`](/docs/user-guide/pod-states/#restartpolicy) scenarios.  A
+  [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) scenarios.  A
   [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) object (currently in Beta), may also be appropriate.
 
 
@@ -70,26 +70,26 @@ This document is meant to highlight and consolidate in one place configuration b
   frontend" pods, or all "test" phase components of app "myapp". See the
   [guestbook](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) app for an example of this approach.
 
-  A service can be made to span multiple deployments, such as is done across [rolling updates](/docs/user-guide/kubectl/kubectl_rolling-update/), by simply omitting release-specific labels from its selector, rather than updating a service's selector to match the replication controller's selector fully.
+  A service can be made to span multiple deployments, such as is done across [rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/), by simply omitting release-specific labels from its selector, rather than updating a service's selector to match the replication controller's selector fully.
 
 - To facilitate rolling updates, include version info in replication controller names, e.g. as a
   suffix to the name. It is useful to set a 'version' label as well. The rolling update creates a
   new controller as opposed to modifying the existing controller. So, there will be issues with
-  version-agnostic controller names. See the [documentation](/docs/user-guide/kubectl/kubectl_rolling-update/) on
+  version-agnostic controller names. See the [documentation](/docs/tasks/run-application/rolling-update-replication-controller/) on
   the rolling-update command for more detail.
 
   Note that the [Deployment](/docs/user-guide/deployments/) object obviates the need to manage replication
   controller 'version names'. A desired state of an object is described by a Deployment, and if
   changes to that spec are _applied_, the deployment controller changes the actual state to the
   desired state at a controlled rate. (Deployment objects are currently part of the [`extensions`
-  API Group](/docs/api/#api-groups).)
+  API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
 
 - You can manipulate labels for debugging. Because Kubernetes replication controllers and services
   match to pods using labels, this allows you to remove a pod from being considered by a
   controller, or served traffic by a service, by removing the relevant selector labels. If you
   remove the labels of an existing pod, its controller will create a new pod to take its place.
   This is a useful way to debug a previously "live" pod in a quarantine environment. See the
-  [`kubectl label`](/docs/user-guide/kubectl/kubectl_label/) command.
+  [`kubectl label`](/docs/concepts/overview/working-with-objects/labels/) command.
 
 ## Container Images
 
