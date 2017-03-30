@@ -4,7 +4,7 @@ toc:
 - docs/home/index.md
 
 - title: Kubernetes Documentation Home
-  path: docs/home/index.md
+  path: index.md
 
 - title: Contributing to the Kubernetes Docs
   section:
