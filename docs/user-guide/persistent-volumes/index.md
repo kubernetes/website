@@ -614,7 +614,7 @@ parameters:
 *  `block_size`: block size in Kbytes (default: `32`).
 *  `repl`: number of synchronous replicas to be provided in the form of replication factor [1..3] (default: `1`) A string is expected here i.e.`"1"` and not `1`.
 *  `io_priority`: determines whether the volume will be created from higher performance or a lower priority storage [high/medium/low] (default: `low`).
-*  `snap_interval`: clock/time interval in minutes for when to trigger snapshots. snapshots are incremental based on difference with the prior snapshot, 0 disables snaps (default: `0`). A string is expected here i.e. `"70"` and not `70`.
+*  `snap_interval`: clock/time interval in minutes for when to trigger snapshots. Snapshots are incremental based on difference with the prior snapshot, 0 disables snaps (default: `0`). A string is expected here i.e. `"70"` and not `70`.
 *  `aggregation_level`: specifies the number of chunks the volume would be distributed into, 0 indicates a non-aggregated volume (default: `0`). A string is expected here i.e. `"0"` and not `0`
 *  `ephemeral`: specifies whether the volume should be cleaned-up after unmount or should be persistent. `emptyDir` use case can set this value to true and `persistent volumes` use case such as for databases like Cassandra should set to false, [true/false] (default `false`). A string is expected here i.e. `"true"` and not `true`.
 
