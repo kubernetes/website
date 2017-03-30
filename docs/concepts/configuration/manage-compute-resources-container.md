@@ -238,7 +238,7 @@ the node.
 
 The amount of resources available to Pods is less than the node capacity, because
 system daemons use a portion of the available resources. The `allocatable` field
-[NodeStatus](/docs/resources-reference/v1.5/#nodestatus-v1)
+[NodeStatus](/docs/resources-reference/v1.6/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
 [Node Allocatable Resources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node-allocatable.md).
 
@@ -422,7 +422,7 @@ consistency across providers and platforms.
 
 * [Container](/docs/api-reference/v1.6/#container-v1-core)
 
-* [ResourceRequirements](/docs/resources-reference/v1.5/#resourcerequirements-v1)
+* [ResourceRequirements](/docs/resources-reference/v1.6/#resourcerequirements-v1-core)
 
 {% endcapture %}
 
