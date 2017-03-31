@@ -24,11 +24,9 @@ In our experience, any system that is successful needs to grow and change as new
 
 What constitutes a compatible change and how to change the API are detailed by the [API change document](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api_changes.md).
 
-## OpenAPI definition
+## OpenAPI and Swagger definitions
 
-Complete API details are documented using [OpenAPI](https://www.openapis.org/).
-
-We host a version of the [latest {{page.version}} API documentation UI](https://kubernetes.io/docs/api-reference/{{page.version}}/). This is updated with the latest release, so if you are using a different version of Kubernetes you will want to use the spec from your apiserver.
+Complete API details are documented using [Swagger v1.2](http://swagger.io/) and [OpenAPI](https://www.openapis.org/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`. You can also enable a UI to browse the API documentation at `/swagger-ui` by passing the `--enable-swagger-ui=true` flag to apiserver.
 
 We are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 
