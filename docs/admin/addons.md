@@ -12,7 +12,7 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 
 ## Networking and Network Policy
 
-* [Calico](http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/) is a secure L3 networking and network policy provider.
+* [Calico](http://docs.projectcalico.org/latest/getting-started/kubernetes/installation/hosted/) is a secure L3 networking and network policy provider.
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install/kubeadm) unites Flannel and Calico, providing networking and network policy.
 * [Contiv](http://contiv.github.io) provides configurable networking (native L3 using BGP, overlay using vxlan, classic L2, and Cisco-SDN/ACI) for various use cases and a rich policy framework. Contiv project is fully [open sourced](http://github.com/contiv). The [installer](http://github.com/contiv/install) provides both kubeadm and non-kubeadm based installation options.
 * [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml) is an overlay network provider that can be used with Kubernetes.
