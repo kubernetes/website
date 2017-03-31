@@ -58,6 +58,7 @@ toc:
 - title: Storage
   section:
   - docs/concepts/storage/volumes.md
+  - docs/concepts/storage/persistent-volumes.md
 
 - title: Services, Load Balancing, and Networking
   section:
