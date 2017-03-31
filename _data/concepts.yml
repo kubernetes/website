@@ -67,6 +67,7 @@ toc:
   section:
   - docs/concepts/services-networking/dns-pod-service.md
   - docs/concepts/services-networking/connect-applications-service.md
+  - docs/concepts/services-networking/ingress.md
 
 - title: Configuration
   section:
