@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     var oldURLs = ["/README.md","/README.html","/index.md",".html",".md","/v1.1/","/v1.0/"];
     var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
-    var apiv1 = [{
+    var forwardingRules = [{
         "from":"/docs/api-reference/v1/definitions",
         "pattern":"#_v1_(\\w+)",
         "to":"/docs/api-reference/v1.6",
@@ -38,18 +38,19 @@ $( document ).ready(function() {
         "to": "http://kubernetes.io/docs/whatisk8s/"
     }];
 
-    for (var i = 0; i < apiv1.length; i++) {
-        if (forwardingURL.indexOf(apiv1[i].from) > -1) {
-            var re = new RegExp(apiv1[i].pattern, 'g');
+    forwardingRules.forEach(function(rule) {
+        if (forwardingURL.indexOf(rule.from) > -1) {
+            var re = new RegExp(rule.pattern, 'g');
             var matchary = re.exec(forwardingURL);
-            var newURL = apiv1[i].to;
+            var newURL = rule.to;
             if (matchary !== null) {
-                newURL += apiv1[i].postfix.replace("<token>", matchary[1]);
+                newURL += rule.postfix.replace("<token>", matchary[1]);
             }
             notHere = true;
             window.location.replace(newURL);
         }
-    }
+
+    });
 
     for (var i = 0; i < redirects.length; i++) {
         if (forwardingURL.indexOf(redirects[i].from) > -1){
