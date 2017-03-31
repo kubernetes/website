@@ -10,6 +10,8 @@ toc:
   - title: Working with Kubernetes Objects
     section:
     - docs/concepts/overview/working-with-objects/kubernetes-objects.md
+    - docs/concepts/overview/working-with-objects/names.md
+    - docs/concepts/overview/working-with-objects/namespaces.md
     - docs/concepts/overview/working-with-objects/labels.md
     - docs/concepts/overview/working-with-objects/annotations.md
   - docs/concepts/overview/kubernetes-api.md
