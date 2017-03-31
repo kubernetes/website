@@ -2,15 +2,15 @@ $( document ).ready(function() {
     var oldURLs = ["/README.md","/README.html","/index.md",".html",".md","/v1.1/","/v1.0/"];
     var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
     var apiv1 = [{
-        "from":"docs/api-reference/v1/definitions",
+        "from":"/docs/api-reference/v1/definitions",
         "pattern":".*#_v1_(\w+)",
-        "to":"docs/api-reference/v1.6/#",
+        "to":"/docs/api-reference/v1.6/#",
         "postfix":"-v1-core"
     },
     {
-        "from":"docs/user-guide/kubectl/kubectl_",
+        "from":"/docs/user-guide/kubectl/kubectl_",
         "pattern":".*kubectl_(\w+)",
-        "to":"docs/user-guide/kubectl/v1.6/#",
+        "to":"/docs/user-guide/kubectl/v1.6/#",
         "postfix":""
     }];
     var doRedirect = false;
@@ -60,9 +60,10 @@ $( document ).ready(function() {
             var matchary = re.exec(forwardingURL);
             var newURL = apiv1[i].to;
             if (matchary !== null) {
-                newURL += matchary[1] + apiv1[i].postfix;
+                newURL = apiv1[i].to + matchary[1] + apiv1[i].postfix;
             }
             notHere = true;
+            console.log("newURL: " + newURL);
             window.location.replace(newURL);
         }
     }
