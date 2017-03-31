@@ -107,7 +107,7 @@ Before you start deploying applications as PetSets, there are a few limitations 
 
 We'll create a basic PetSet to demonstrate how Pets are assigned unique and "sticky" identities.
 
-{% include code.html language="yaml" file="petset.yaml" ghlink="/docs/user-guide/petset.yaml" %}
+{% include code.html language="yaml" file="petset.yaml" ghlink="/docs/concepts/workloads/controllers/petset.yaml" %}
 
 Saving this config into `petset.yaml` and submitting it to a Kubernetes cluster should create the defined PetSet and Pets it manages:
 
