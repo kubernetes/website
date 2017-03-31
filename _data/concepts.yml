@@ -30,6 +30,7 @@ toc:
     section:
     - docs/concepts/workloads/controllers/statefulset.md
     - docs/concepts/workloads/controllers/petset.md
+    - docs/concepts/workloads/controllers/daemonset.md
     - docs/concepts/workloads/controllers/garbage-collection.md
   - title: Jobs
     section:
