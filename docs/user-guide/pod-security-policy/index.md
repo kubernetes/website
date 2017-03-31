@@ -32,7 +32,7 @@ administrator to control the following:
 | The use of host ports                                         | field      | `hostPorts`                       |
 | The use of host's PID namespace                               | field      | `hostPID`                         |
 | The use of host's IPC namespace                               | field      | `hostIPC`                         |
-| The SELinux context of the container                          | field      | [`seLinux`](#selinuxcontext)      |
+| The SELinux context of the container                          | field      | [`seLinux`](#selinux)             |
 | The user ID                                                   | field      | [`runAsUser`](#runasuser)         |
 | Configuring allowable supplemental groups                     | field      | [`supplementalGroups`](#supplementalgroups) |
 | Allocating an FSGroup that owns the pod's volumes             | field      | [`fsGroup`](#fsgroup)             |
@@ -67,7 +67,7 @@ of the range as the default. Validates against the configured range.
 provided.
 - *RunAsAny* - No default provided. Allows any `*runAsUser*` to be specified.
 
-### SELinuxContext
+### SELinux
 
 - *MustRunAs* - Requires `*seLinuxOptions*` to be configured if not using
 pre-allocated values. Uses `*seLinuxOptions*` as the default. Validates against
