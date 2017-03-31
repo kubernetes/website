@@ -3,13 +3,13 @@ $( document ).ready(function() {
     var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
     var apiv1 = [{
         "from":"/docs/api-reference/v1/definitions",
-        "pattern":".*#_v1_(\w+)",
+        "pattern":"#_v1_(\w+)",
         "to":"/docs/api-reference/v1.6",
         "postfix":"-v1-core"
     },
     {
         "from":"/docs/user-guide/kubectl/kubectl_",
-        "pattern":".*kubectl_(\w+)",
+        "pattern":"kubectl_(\w+)",
         "to":"/docs/user-guide/kubectl/v1.6",
         "postfix":""
     }];
@@ -57,7 +57,7 @@ $( document ).ready(function() {
     for (var i = 0; i < apiv1.length; i++) {
         if (forwardingURL.indexOf(apiv1[i].from) > -1) {
             console.log("forwardingURL: " + forwardingURL);
-            var re = new RegExp(apiv1[i].pattern);
+            var re = new RegExp(apiv1[i].pattern, 'g');
             var matchary = re.exec(forwardingURL);
             console.log(matchary);
             var newURL = apiv1[i].to;
