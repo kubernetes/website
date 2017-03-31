@@ -40,6 +40,10 @@ toc:
     section:
     - docs/concepts/jobs/run-to-completion-finite-workloads.md
 
+- title: Nodes
+  section:
+  - docs/concepts/nodes/node.md
+
 - title: Cluster Administration
   section:
   - docs/concepts/cluster-administration/manage-deployment.md
