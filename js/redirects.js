@@ -1,15 +1,15 @@
 $( document ).ready(function() {
     var oldURLs = ["/README.md","/README.html","/index.md",".html",".md","/v1.1/","/v1.0/"];
     var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
-    var apirefsv1 = [{
+    var apiv1 = [{
         "from":"docs/api-reference/v1/definitions",
-        "pattern":"/^.*\/#_v1_(\w+)/",
+        "pattern":"/.*#_v1_(\w+)/",
         "to":"docs/api-reference/v1.6/#",
         "postfix":"-v1-core"
     },
     {
         "from":"docs/user-guide/kubectl/kubectl_",
-        "pattern":"/^.*\/kubectl_(\w+)/",
+        "pattern":"/.*kubectl_(\w+)/",
         "to":"docs/user-guide/kubectl/v1.6/#",
         "postfix":""
     }];
@@ -54,13 +54,13 @@ $( document ).ready(function() {
         }
     }
 
-    for (var i = 0; i < apirefsv1.length; i++) {
-        if (forwardingURL.indexOf(apirefsv1[i].from) > -1) {
-            var re = new RegExp(apirefsv1[i].pattern);
+    for (var i = 0; i < apiv1.length; i++) {
+        if (forwardingURL.indexOf(apiv1[i].from) > -1) {
+            var re = new RegExp(apiv1[i].pattern);
             var matchary = re.exec(forwardingURL);
-            var newURL = apirefsv1[i].to;
-            if (matchary.length > 1) {
-                newURL += matchary[1] + apirefsv1[i].postfix;
+            var newURL = apiv1[i].to;
+            if (matchary !== null) {
+                newURL += matchary[1] + apiv1[i].postfix;
             }
             notHere = true;
             window.location.replace(newURL);
