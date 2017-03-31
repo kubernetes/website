@@ -3,13 +3,13 @@ $( document ).ready(function() {
     var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
     var apiv1 = [{
         "from":"docs/api-reference/v1/definitions",
-        "pattern":"/.*#_v1_(\w+)/",
+        "pattern":".*#_v1_(\w+)",
         "to":"docs/api-reference/v1.6/#",
         "postfix":"-v1-core"
     },
     {
         "from":"docs/user-guide/kubectl/kubectl_",
-        "pattern":"/.*kubectl_(\w+)/",
+        "pattern":".*kubectl_(\w+)",
         "to":"docs/user-guide/kubectl/v1.6/#",
         "postfix":""
     }];
