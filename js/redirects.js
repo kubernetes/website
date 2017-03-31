@@ -12,6 +12,12 @@ $( document ).ready(function() {
         "pattern":"kubectl_(\\w+)",
         "to":"/docs/user-guide/kubectl/v1.6",
         "postfix":"/#<token>"
+    },
+    {
+        "from":"/docs/resources-reference/v1.5",
+        "pattern":"#(\\w+)-v1",
+        "to":"/docs/resources-reference/v1.6",
+        "postfix":"/#<token>-v1-core"
     }];
     var doRedirect = false;
     var notHere = false;
