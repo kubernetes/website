@@ -57,14 +57,6 @@ fixed_redirects = """# 301 redirects (301 is the default status when no other on
 /docs/user-guide/overview	/docs/whatisk8s/
 /docs/roadmap			https://github.com/kubernetes/kubernetes/milestones/
 /api-ref			https://github.com/kubernetes/kubernetes/milestones/
-/docs/api-reference/v1/definitions/#_v1_node					/docs/api-reference/v1.6/#node-v1-core
-/docs/api-reference/v1/definitions/#_v1_service					/docs/api-reference/v1.6/#service-v1-core
-/docs/api-reference/v1/definitions/#_v1_podspec					/docs/api-reference/v1.6/#podspec-v1-core
-/docs/api-reference/v1/definitions/#_v1_pod						/docs/api-reference/v1.6/#pod-v1-core
-/docs/api-reference/v1/definitions/#_v1_replicationcontroller	/docs/api-reference/v1.6/#replicationcontroller-v1-core
-/docs/api-reference/v1/definitions/#_v1_podsecuritycontext		/docs/api-reference/v1.6/#podsecuritycontext-v1-core
-/docs/api-reference/v1/definitions/#_v1_securitycontext			/docs/api-reference/v1.6/#securitycontext-v1-core
-/docs/api-reference/v1/definitions								/docs/api-reference/v1.6
 """
 
 branch_redirects = ["examples" , "cluster", "docs/devel", "docs/design"]

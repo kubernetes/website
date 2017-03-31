@@ -1,6 +1,18 @@
 $( document ).ready(function() {
     var oldURLs = ["/README.md","/README.html","/index.md",".html",".md","/v1.1/","/v1.0/"];
     var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
+    var apirefsv1 = [{
+        "from":"docs/api-reference/v1/definitions",
+        "pattern":"/^.*\/#_v1_(\w+)/",
+        "to":"docs/api-reference/v1.6/#",
+        "postfix":"-v1-core"
+    },
+    {
+        "from":"docs/user-guide/kubectl/kubectl_",
+        "pattern":"/^.*\/kubectl_(\w+)/",
+        "to":"docs/user-guide/kubectl/v1.6/#",
+        "postfix":""
+    }];
     var doRedirect = false;
     var notHere = false;
     var forwardingURL = window.location.href;
@@ -37,6 +49,19 @@ $( document ).ready(function() {
         if (forwardingURL.indexOf(fwdDirs[i]) > -1){
             var urlPieces = forwardingURL.split(fwdDirs[i]);
             var newURL = "https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/" + fwdDirs[i] + urlPieces[1];
+            notHere = true;
+            window.location.replace(newURL);
+        }
+    }
+
+    for (var i = 0; i < apirefsv1.length; i++) {
+        if (forwardingURL.indexOf(apirefsv1[i].from) > -1) {
+            var re = new RegExp(apirefsv1[i].pattern);
+            var matchary = re.exec(forwardingURL);
+            var newURL = apirefsv1[i].to;
+            if (matchary.length > 1) {
+                newURL += matchary[1] + apirefsv1[i].postfix;
+            }
             notHere = true;
             window.location.replace(newURL);
         }
