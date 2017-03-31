@@ -64,6 +64,11 @@ TokenController runs as part of controller-manager. It acts asynchronously. It:
 - observes secret addition, and ensures the referenced ServiceAccount exists, and adds a token to the secret if needed
 - observes secret deletion and removes a reference from the corresponding ServiceAccount if needed
 
+Note that token controller feature in controller-manager need a service account private key file passed by
+--service-account-private-key-file option. The private key will be used to sign generated service account tokens.
+And the corresponding public key should be passed to kube-apiserver with --service-account-key-file option.
+The public key will be used to verify the tokens during authentication.
+
 #### To create additional API tokens
 
 A controller loop ensures a secret with an API token exists for each service
