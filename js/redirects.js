@@ -3,15 +3,15 @@ $( document ).ready(function() {
     var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
     var apiv1 = [{
         "from":"/docs/api-reference/v1/definitions",
-        "pattern":'#_v1_([A-Za-z0-9_]+)',
+        "pattern":"#_v1_(\\w+)",
         "to":"/docs/api-reference/v1.6",
-        "postfix":"-v1-core"
+        "postfix":"/#<token>-v1-core"
     },
     {
         "from":"/docs/user-guide/kubectl/kubectl_",
-        "pattern":'kubectl_([A-Za-z0-9_]+)',
+        "pattern":"kubectl_(\\w+)",
         "to":"/docs/user-guide/kubectl/v1.6",
-        "postfix":""
+        "postfix":"/#<token>"
     }];
     var doRedirect = false;
     var notHere = false;
@@ -38,6 +38,19 @@ $( document ).ready(function() {
         "to": "http://kubernetes.io/docs/whatisk8s/"
     }];
 
+    for (var i = 0; i < apiv1.length; i++) {
+        if (forwardingURL.indexOf(apiv1[i].from) > -1) {
+            var re = new RegExp(apiv1[i].pattern, 'g');
+            var matchary = re.exec(forwardingURL);
+            var newURL = apiv1[i].to;
+            if (matchary !== null) {
+                newURL += apiv1[i].postfix.replace("<token>", matchary[1]);
+            }
+            notHere = true;
+            window.location.replace(newURL);
+        }
+    }
+
     for (var i = 0; i < redirects.length; i++) {
         if (forwardingURL.indexOf(redirects[i].from) > -1){
             notHere = true;
@@ -54,18 +67,6 @@ $( document ).ready(function() {
         }
     }
 
-    for (var i = 0; i < apiv1.length; i++) {
-        if (forwardingURL.indexOf(apiv1[i].from) > -1) {
-            var re = new RegExp(apiv1[i].pattern, 'g');
-            var matchary = re.exec(forwardingURL);
-            var newURL = apiv1[i].to;
-            if (matchary !== null) {
-                newURL = apiv1[i].to + "/#" + matchary[1] + apiv1[i].postfix;
-            }
-            notHere = true;
-            window.location.replace(newURL);
-        }
-    }
     if (!notHere) {
         for (var i = 0; i < oldURLs.length; i++) {
             if (forwardingURL.indexOf(oldURLs[i]) > -1 &&
