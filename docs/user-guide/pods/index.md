@@ -5,4 +5,4 @@ title: Pods
 
 {% include user-guide-content-moved.md %}
 
-[Pods](/docs/workloads/pods/pod/)
+[Pods](/docs/concepts/workloads/pods/pod/)
