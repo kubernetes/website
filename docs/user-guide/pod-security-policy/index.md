@@ -60,26 +60,26 @@ specified value falls into the set of allowable values.
 
 ### RunAsUser
 
-- *MustRunAs* - Requires a `*range*` to be configured. Uses the first value
+- *MustRunAs* - Requires a `range` to be configured. Uses the first value
 of the range as the default. Validates against the configured range.
 - *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
-`*runAsUser*` or have the `USER` directive defined in the image. No default
+`runAsUser` or have the `USER` directive defined in the image. No default
 provided.
-- *RunAsAny* - No default provided. Allows any `*runAsUser*` to be specified.
+- *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
 ### SELinux
 
-- *MustRunAs* - Requires `*seLinuxOptions*` to be configured if not using
-pre-allocated values. Uses `*seLinuxOptions*` as the default. Validates against
-`*seLinuxOptions*`.
-- *RunAsAny* - No default provided. Allows any `*seLinuxOptions*` to be
+- *MustRunAs* - Requires `seLinuxOptions` to be configured if not using
+pre-allocated values. Uses `seLinuxOptions` as the default. Validates against
+`seLinuxOptions`.
+- *RunAsAny* - No default provided. Allows any `seLinuxOptions` to be
 specified.
 
 ### SupplementalGroups
 
 - *MustRunAs* - Requires at least one range to be specified. Uses the 
 minimum value of the first range as the default. Validates against all ranges.
-- *RunAsAny* - No default provided. Allows any `*supplementalGroups*` to be
+- *RunAsAny* - No default provided. Allows any `supplementalGroups` to be
 specified.
 
 ### FSGroup
@@ -87,7 +87,7 @@ specified.
 - *MustRunAs* - Requires at least one range to be specified. Uses the 
 minimum value of the first range as the default. Validates against the 
 first ID in the first range.
-- *RunAsAny* - No default provided. Allows any `*fsGroup*` ID to be specified.
+- *RunAsAny* - No default provided. Allows any `fsGroup` ID to be specified.
 
 ### Controlling Volumes
 
