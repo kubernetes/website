@@ -28,6 +28,7 @@ toc:
     - docs/concepts/workloads/pods/init-containers.md
   - title: Controllers
     section:
+    - docs/concepts/workloads/controllers/deployment.md
     - docs/concepts/workloads/controllers/statefulset.md
     - docs/concepts/workloads/controllers/petset.md
     - docs/concepts/workloads/controllers/daemonset.md
