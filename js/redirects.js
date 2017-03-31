@@ -4,13 +4,13 @@ $( document ).ready(function() {
     var apiv1 = [{
         "from":"/docs/api-reference/v1/definitions",
         "pattern":".*#_v1_(\w+)",
-        "to":"/docs/api-reference/v1.6/#",
+        "to":"/docs/api-reference/v1.6",
         "postfix":"-v1-core"
     },
     {
         "from":"/docs/user-guide/kubectl/kubectl_",
         "pattern":".*kubectl_(\w+)",
-        "to":"/docs/user-guide/kubectl/v1.6/#",
+        "to":"/docs/user-guide/kubectl/v1.6",
         "postfix":""
     }];
     var doRedirect = false;
@@ -56,11 +56,13 @@ $( document ).ready(function() {
 
     for (var i = 0; i < apiv1.length; i++) {
         if (forwardingURL.indexOf(apiv1[i].from) > -1) {
+            console.log("forwardingURL: " + forwardingURL);
             var re = new RegExp(apiv1[i].pattern);
             var matchary = re.exec(forwardingURL);
+            console.log(matchary);
             var newURL = apiv1[i].to;
             if (matchary !== null) {
-                newURL = apiv1[i].to + matchary[1] + apiv1[i].postfix;
+                newURL = apiv1[i].to + "/#" + matchary[1] + apiv1[i].postfix;
             }
             notHere = true;
             console.log("newURL: " + newURL);
