@@ -49,6 +49,8 @@ The `conditions` field describes the status of all `Running` nodes.
 |----------------|-------------|
 | `OutOfDisk`    | `True` if there is insufficient free space on the node for adding new pods, otherwise `False` |
 | `Ready`        | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last 40 seconds |
+| `MemoryPressure`    | `True` if if node has no Memory pressure, otherwise `False` |
+| `DiskPressure`    | `True` if node has no disk pressure, otherwise `False` |
 
 The node condition is represented as a JSON object. For example, the following response describes a healthy node.
 
