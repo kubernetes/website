@@ -36,7 +36,7 @@ toc:
     path: https://github.com/kubernetes/kubernetes/issues/
   - docs/reporting-security-issues.md
   - title: Release Notes
-    path: https://github.com/kubernetes/kubernetes/releases/
+    path: https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md
   - title: Release Roadmap
     path: https://github.com/kubernetes/kubernetes/milestones/
 
