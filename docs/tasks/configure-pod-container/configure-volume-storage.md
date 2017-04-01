@@ -9,7 +9,7 @@ This page shows how to configure a Pod to use a Volume for storage.
 A Container's file system lives only as long as the Container does, so when a
 Container terminates and restarts, changes to the filesystem are lost. For more
 consistent storage that is independent of the Container, you can use a
-[Volume](/docs/user-guide/volumes). This is especially important for stateful
+[Volume](/docs/concepts/storage/volumes/). This is especially important for stateful
 applications, such as key-value stores and databases. For example, Redis is a
 key-value cache and store.
 
@@ -27,7 +27,7 @@ key-value cache and store.
 
 In this exercise, you create a Pod that runs one Container. This Pod has a
 Volume of type
-[emptyDir](/docs/user-guide/volumes/#emptydir)
+[emptyDir](/docs/concepts/storage/volumes/#emptydir)
 that lasts for the life of the Pod, even if the Container terminates and
 restarts. Here is the configuration file for the Pod:
 
@@ -82,7 +82,7 @@ you will see something like this:
 
 At this point, the Container has terminated and restarted. This is because the
 redis Pod has a
-[restartPolicy](http://kubernetes.io/docs/api-reference/v1/definitions#_v1_podspec)
+[restartPolicy](/docs/api-reference/v1.6/#podspec-v1-core)
 of `Always`.
 
 1. Get a shell into the restarted Container:
@@ -95,15 +95,15 @@ of `Always`.
 
 {% capture whatsnext %}
 
-* See [Volume](/docs/api-reference/v1/definitions/#_v1_volume).
+* See [Volume](/docs/api-reference/v1.6/#volume-v1-core).
 
-* See [Pod](http://kubernetes.io/docs/api-reference/v1/definitions#_v1_pod).
+* See [Pod](/docs/api-reference/v1.6/#pod-v1-core).
 
 * In addition to the local disk storage provided by `emptyDir`, Kubernetes
 supports many different network-attached storage solutions, including PD on
 GCE and EBS on EC2, which are preferred for critical data, and will handle
 details such as mounting and unmounting the devices on the nodes. See
-[Volumes](/docs/user-guide/volumes) for more details.
+[Volumes](/docs/concepts/storage/volumes/) for more details.
 
 {% endcapture %}
 

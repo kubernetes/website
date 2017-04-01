@@ -16,7 +16,7 @@ In the reference section, you can find reference documentation for Kubernetes AP
 ## CLI References
 
 * [kubectl](/docs/user-guide/kubectl-overview/) - Runs commands against Kubernetes clusters.
-	* [JSONPath](/docs/user-guide/jsonpath/) - Syntax 	guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
+    * [JSONPath](/docs/user-guide/jsonpath/) - Syntax     guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
 * [kube-apiserver](/docs/admin/kube-apiserver/) - REST API that validates and configures data for API objects such as  pods, services, replication controllers.
 * [kube-proxy](/docs/admin/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of backends.
 * [kube-scheduler](/docs/admin/kube-scheduler/) - A policy-rich, topology-aware, workload-specific function that significantly impacts availability, performance, and capacity.

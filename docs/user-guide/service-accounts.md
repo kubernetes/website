@@ -41,8 +41,8 @@ You can list this and any other serviceAccount resources in the namespace with t
 
 ```shell
 $ kubectl get serviceAccounts
-NAME      SECRETS
-default   1
+NAME      SECRETS    AGE
+default   1          1d
 ```
 
 You can create additional serviceAccounts like this:
@@ -55,7 +55,7 @@ metadata:
   name: build-robot
 EOF
 $ kubectl create -f /tmp/serviceaccount.yaml
-serviceaccounts/build-robot
+serviceaccount "build-robot" created
 ```
 
 If you get a complete dump of the service account object, like this:
@@ -111,7 +111,7 @@ metadata:
 type: kubernetes.io/service-account-token
 EOF
 $ kubectl create -f /tmp/build-robot-secret.yaml
-secrets/build-robot-secret
+secret "build-robot-secret" created
 ```
 
 Now you can confirm that the newly built secret is populated with an API token for the "build-robot" service account.
@@ -138,13 +138,13 @@ namespace: 7 bytes
 
 ## Adding ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
+First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
 Next, verify it has been created.  For example:
 
 ```shell
 $ kubectl get secrets myregistrykey
-NAME             TYPE                              DATA
-myregistrykey    kubernetes.io/.dockerconfigjson   1
+NAME             TYPE                              DATA    AGE
+myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
 ```
 
 Next, read/modify/write the service account for the namespace to use this secret as an imagePullSecret.

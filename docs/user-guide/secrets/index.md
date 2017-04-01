@@ -22,7 +22,7 @@ more control over how it is used, and reduces the risk of accidental exposure.
 Users can create secrets, and the system also creates some secrets.
 
 To use a secret, a pod needs to reference the secret.
-A secret can be used with a pod in two ways: as files in a [volume](/docs/user-guide/volumes) mounted on one or more of
+A secret can be used with a pod in two ways: as files in a [volume](/docs/concepts/storage/volumes/) mounted on one or more of
 its containers, or used by kubelet when pulling images for the pod.
 
 ### Built-in Secrets
@@ -71,17 +71,17 @@ NAME                  TYPE                                  DATA      AGE
 db-user-pass          Opaque                                2         51s
 
 $ kubectl describe secrets/db-user-pass
-Name:		db-user-pass
-Namespace:	default
-Labels:		<none>
-Annotations:	<none>
+Name:            db-user-pass
+Namespace:       default
+Labels:          <none>
+Annotations:     <none>
 
-Type:	Opaque
+Type:            Opaque
 
 Data
 ====
-password.txt:	13 bytes
-username.txt:	6 bytes
+password.txt:    12 bytes
+username.txt:    5 bytes
 ```
 
 Note that neither `get` nor `describe` shows the contents of the file by default.
@@ -428,7 +428,7 @@ password to the Kubelet so it can pull a private image on behalf of your Pod.
 
 **Manually specifying an imagePullSecret**
 
-Use of imagePullSecrets is described in the [images documentation](/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
+Use of imagePullSecrets is described in the [images documentation](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
 
 ### Arranging for imagePullSecrets to be Automatically Attached
 
@@ -789,8 +789,6 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
    run a pod which exposes the secret.
  - If multiple replicas of etcd are run, then the secrets will be shared between them.
    By default, etcd does not secure peer-to-peer communication with SSL/TLS, though this can be configured.
- - It is not possible currently to control which users of a Kubernetes cluster can
-   access a secret.  Support for this is planned.
  - Currently, anyone with root on any node can read any secret from the apiserver,
    by impersonating the kubelet.  It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a

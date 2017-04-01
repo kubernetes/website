@@ -19,7 +19,7 @@ Enter `Services`.
 A Kubernetes `Service` is an abstraction which defines a logical set of `Pods`
 and a policy by which to access them - sometimes called a micro-service.  The
 set of `Pods` targeted by a `Service` is (usually) determined by a [`Label
-Selector`](/docs/user-guide/labels/#label-selectors) (see below for why you might want a
+Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors) (see below for why you might want a
 `Service` without a selector).
 
 As an example, consider an image-processing backend which is running with 3
@@ -43,26 +43,18 @@ REST objects, a `Service` definition can be POSTed to the apiserver to create a
 new instance.  For example, suppose you have a set of `Pods` that each expose
 port 9376 and carry a label `"app=MyApp"`.
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "spec": {
-        "selector": {
-            "app": "MyApp"
-        },
-        "ports": [
-            {
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort": 9376
-            }
-        ]
-    }
-}
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
 This specification will create a new `Service` object named "my-service" which
@@ -98,46 +90,31 @@ abstract other kinds of backends.  For example:
 
 In any of these scenarios you can define a service without a selector:
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "spec": {
-        "ports": [
-            {
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort": 9376
-            }
-        ]
-    }
-}
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
 ```
 
 Because this service has no selector, the corresponding `Endpoints` object will not be
 created. You can manually map the service to your own specific endpoints:
 
-```json
-{
-    "kind": "Endpoints",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "subsets": [
-        {
-            "addresses": [
-                { "ip": "1.2.3.4" }
-            ],
-            "ports": [
-                { "port": 9376 }
-            ]
-        }
-    ]
-}
+```yaml
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: my-service
+subsets:
+  - addresses:
+      - ip: 1.2.3.4
+    ports:
+      - port: 9376
 ```
 
 NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
@@ -151,19 +128,15 @@ An ExternalName service is a special case of service that does not have
 selectors. It does not define any ports or endpoints. Rather, it serves as a
 way to return an alias to an external service residing outside the cluster.
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service",
-        "namespace": "prod"
-    },
-    "spec": {
-        "type": "ExternalName",
-        "externalName": "my.database.example.com"
-    }
-}
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+  namespace: prod
+spec:
+  type: ExternalName
+  externalName: my.database.example.com
 ```
 
 When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
@@ -226,7 +199,7 @@ knowing anything about Kubernetes or `Services` or `Pods`. This should be
 faster and more reliable than the userspace proxy. However, unlike the
 userspace proxier, the iptables proxier cannot automatically retry another
 `Pod` if the one it initially selects does not respond, so it depends on
-having working [readiness probes](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks).
+having working [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#defining-readiness-probes).
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
@@ -237,33 +210,23 @@ supports multiple port definitions on a `Service` object.  When using multiple
 ports you must give all of your ports names, so that endpoints can be
 disambiguated.  For example:
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "spec": {
-        "selector": {
-            "app": "MyApp"
-        },
-        "ports": [
-            {
-                "name": "http",
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort": 9376
-            },
-            {
-                "name": "https",
-                "protocol": "TCP",
-                "port": 443,
-                "targetPort": 9377
-            }
-        ]
-    }
-}
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+    selector:
+      app: MyApp
+    ports:
+      - name: http
+        protocol: TCP
+        port: 80
+        targetPort: 9376
+      - name: https
+        protocol: TCP
+        port: 443
+        targetPort: 9377
 ```
 
 ## Choosing your own IP address
@@ -345,7 +308,7 @@ can do a DNS SRV query for `"_http._tcp.my-service.my-ns"` to discover the port
 number for `"http"`.
 
 The Kubernetes DNS server is the only way to access services of type
-`ExternalName`.  More information is available in the [DNS Admin Guide](http://kubernetes.io/docs/admin/dns/).
+`ExternalName`.  More information is available in the [DNS Pods and Services](/docs/concepts/services-networking/dns-pod-service/).
 
 ## Headless services
 
@@ -432,39 +395,26 @@ The actual creation of the load balancer happens asynchronously, and
 information about the provisioned balancer will be published in the `Service`'s
 `status.loadBalancer` field.  For example:
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "spec": {
-        "selector": {
-            "app": "MyApp"
-        },
-        "ports": [
-            {
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort": 9376,
-                "nodePort": 30061
-            }
-        ],
-        "clusterIP": "10.0.171.239",
-        "loadBalancerIP": "78.11.24.19",
-        "type": "LoadBalancer"
-    },
-    "status": {
-        "loadBalancer": {
-            "ingress": [
-                {
-                    "ip": "146.148.47.155"
-                }
-            ]
-        }
-    }
-}
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+      nodePort: 30061
+  clusterIP: 10.0.171.239
+  loadBalancerIP: 78.11.24.19
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+      - ip: 146.148.47.155
 ```
 
 Traffic from the external load balancer will be directed at the backend `Pods`,
@@ -479,25 +429,21 @@ For partial SSL support on clusters running on AWS, starting with 1.3 two
 annotations can be added to a `LoadBalancer` service:
 
 ```
-    "metadata": {
-        "name": "my-service",
-        "annotations": {
-            "service.beta.kubernetes.io/aws-load-balancer-ssl-cert": "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
-        }
-    },
+    metadata:
+      name: my-service
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
 ```
 
 The first specifies which certificate to use. It can be either a
 certificate from a third party issuer that was uploaded to IAM or one created
 within AWS Certificate Manager.
 
-```
-    "metadata": {
-        "name": "my-service",
-        "annotations": {
-            "service.beta.kubernetes.io/aws-load-balancer-backend-protocol": "(https|http|ssl|tcp)"
-        }
-    },
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
 ```
 
 The second annotation specifies which protocol a pod speaks. For HTTPS and
@@ -522,30 +468,21 @@ of the cluster administrator.
 In the ServiceSpec, `externalIPs` can be specified along with any of the `ServiceTypes`.
 In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
 
-```json
-{
-    "kind": "Service",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "my-service"
-    },
-    "spec": {
-        "selector": {
-            "app": "MyApp"
-        },
-        "ports": [
-            {
-                "name": "http",
-                "protocol": "TCP",
-                "port": 80,
-                "targetPort": 9376
-            }
-        ],
-        "externalIPs" : [
-            "80.11.12.10"
-        ]
-    }
-}
+```yaml
+kind: Service,
+apiVersion: v1,
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - name: http,
+      protocol: TCP,
+      port: 80,
+      targetPort: 9376
+  externalIPs: 
+    - 80.11.12.10
 ```
 
 ## Shortcomings
@@ -657,8 +594,8 @@ through a load-balancer, though in those cases the client IP does get altered.
 
 Service is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Service API
-object](/docs/api-reference/v1/definitions/#_v1_service).
+object](/docs/api-reference/v1.6/#service-v1-core).
 
 ## For More Information
 
-Read [Service Operations](/docs/user-guide/services/operations/).
+Read [Connecting a Front End to a Back End Using a Service](/docs/tutorials/connecting-apps/connecting-frontend-backend/).

@@ -24,7 +24,7 @@ following Kubernetes concepts.
 * [Pods](/docs/user-guide/pods/single-container/)
 * [Cluster DNS](/docs/admin/dns/)
 * [Headless Services](/docs/user-guide/services/#headless-services)
-* [PersistentVolumes](/docs/user-guide/volumes/)
+* [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [kubectl CLI](/docs/user-guide/kubectl)
@@ -265,7 +265,7 @@ www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO 
 www-web-1   Bound     pvc-15c79307-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 ```
 The StatefulSet controller created two PersistentVolumeClaims that are 
-bound to two [PersistentVolumes](/docs/user-guide/volumes/). As the cluster used 
+bound to two [PersistentVolumes](/docs/concepts/storage/volumes/). As the cluster used 
 in this tutorial is configured to dynamically provision PersistentVolumes, the 
 PersistentVolumes were created and bound automatically.
 

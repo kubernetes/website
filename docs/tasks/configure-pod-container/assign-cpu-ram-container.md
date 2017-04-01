@@ -112,7 +112,7 @@ For information about what happens if you don't specify CPU and RAM requests, se
 {% capture whatsnext %}
 
 * Learn more about [managing compute resources](/docs/user-guide/compute-resources/).
-* See [ResourceRequirements](/docs/api-reference/v1/definitions/#_v1_resourcerequirements).
+* See [ResourceRequirements](/docs/api-reference/v1.6/#resourcerequirements-v1-core).
 
 {% endcapture %}
 

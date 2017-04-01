@@ -52,8 +52,8 @@ yum -y install --enablerepo=virt7-docker-common-release kubernetes etcd flannel
 * Add master and node to /etc/hosts on all machines (not needed if hostnames already in DNS)
 
 ```shell
-echo "192.168.121.9	centos-master
-192.168.121.65	centos-minion-1
+echo "192.168.121.9    centos-master
+192.168.121.65    centos-minion-1
 192.168.121.66  centos-minion-2
 192.168.121.67  centos-minion-3" >> /etc/hosts
 ```
@@ -147,9 +147,9 @@ FLANNEL_ETCD_PREFIX="/kube-centos/network"
 
 ```shell
 for SERVICES in etcd kube-apiserver kube-controller-manager kube-scheduler flanneld; do
-	systemctl restart $SERVICES
-	systemctl enable $SERVICES
-	systemctl status $SERVICES
+    systemctl restart $SERVICES
+    systemctl enable $SERVICES
+    systemctl status $SERVICES
 done
 ```
 

@@ -13,7 +13,7 @@ single thing, typically by giving a short sequence of steps.
 
 #### Using the kubectl Command Line
 
-* [Listing Alll Container Images Running in a Cluster](/docs/tasks/kubectl/list-all-running-container-images/)
+* [Listing All Container Images Running in a Cluster](/docs/tasks/kubectl/list-all-running-container-images/)
 * [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/)
 
 #### Configuring Pods and Containers
@@ -48,12 +48,17 @@ single thing, typically by giving a short sequence of steps.
 
 * [Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api)
 
+#### Using TLS
+
+* [Managing TLS Certificates in a Cluster](/docs/tasks/tls/managing-tls-in-a-cluster)
+
 #### Administering a Cluster
 
 * [Assigning Pods to Nodes](/docs/tasks/administer-cluster/assign-pods-nodes/)
 * [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 * [Safely Draining a Node while Respecting Application SLOs](/docs/tasks/administer-cluster/safely-drain-node/)
-* [Changing reclaim policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+* [Changing the Reclaim Policy of a PersistentVolume](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+* [Changing the Default StorageClass](/docs/tasks/administer-cluster/change-default-storage-class/)
 
 #### Managing Stateful Applications
 
@@ -62,6 +67,9 @@ single thing, typically by giving a short sequence of steps.
 * [Deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/)
 * [Debugging a StatefulSet](/docs/tasks/manage-stateful-set/debugging-a-statefulset/)
 * [Force Deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/)
+
+#### Managing Cluster Daemons
+* [Performing a Rolling Update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
 
 ### What's next
 

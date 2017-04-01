@@ -101,7 +101,7 @@ ImagePolicyWebhook uses the admission config file `--admission-controller-config
 }
 ```
 
-The config file must reference a [kubeconfig](/docs/user-guide/kubeconfig-file/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
+The config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
 
 The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
 
@@ -120,7 +120,7 @@ users:
     client-certificate: /path/to/cert.pem # cert for the webhook plugin to use
     client-key: /path/to/key.pem          # key matching the cert
 ```
-For additional HTTP configuration, refer to the [kubeconfig](/docs/user-guide/kubeconfig-file/) documentation.
+For additional HTTP configuration, refer to the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation.
 
 #### Request Payloads
 
@@ -256,6 +256,17 @@ storage classes and how to mark a storage class as default.
 
 This plug-in sets the default forgiveness toleration for pods, which have no forgiveness tolerations, to tolerate
 the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes.
+
+### PodSecurityPolicy
+
+This plug-in acts on creation and modification of the pod and determines if it should be admitted
+based on the requested security context and the available Pod Security Policies.
+
+For Kubernetes < 1.6.0, the API Server must enable the extensions/v1beta1/podsecuritypolicy API
+extensions group (`--runtime-config=extensions/v1beta1/podsecuritypolicy=true`).
+
+See also [Pod Security Policy documentation](/docs/user-guide/pod-security-policy/index.md)
+for more information.
 
 ## Is there a recommended set of plug-ins to use?
 

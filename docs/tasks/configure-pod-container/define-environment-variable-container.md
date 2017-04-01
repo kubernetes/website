@@ -22,8 +22,8 @@ in a Kubernetes Pod.
 ## Defining an environment variable for a container
 
 When you create a Pod, you can set environment variables for the containers
-that run in the Pod. To set environment variables, include the `env` field in
-the configuration file.
+that run in the Pod. To set environment variables, include the `env` or
+`envFrom` field in the configuration file.
 
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines an environment variable with name `DEMO_GREETING` and
@@ -69,7 +69,7 @@ Pod:
 
 * Learn more about [environment variables](/docs/user-guide/environment-guide/).
 * Learn about [using secrets as environment variables](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
-* See [EnvVarSource](/docs/api-reference/v1/definitions/#_v1_envvarsource).
+* See [EnvVarSource](/docs/api-reference/v1.6/#envvarsource-v1-core).
 
 {% endcapture %}
 

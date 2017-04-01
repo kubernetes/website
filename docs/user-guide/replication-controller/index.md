@@ -39,36 +39,33 @@ Run the example job by downloading the example file and then running this comman
 
 ```shell
 $ kubectl create -f ./replication.yaml
-replicationcontrollers/nginx
+replicationcontroller "nginx" created
 ```
 
 Check on the status of the ReplicationController using this command:
 
 ```shell
 $ kubectl describe replicationcontrollers/nginx
-Name:		nginx
-Namespace:	default
-Image(s):	nginx
-Selector:	app=nginx
-Labels:		app=nginx
-Replicas:	3 current / 3 desired
-Pods Status:	0 Running / 3 Waiting / 0 Succeeded / 0 Failed
+Name:        nginx
+Namespace:   default
+Image(s):    nginx
+Selector:    app=nginx
+Labels:      app=nginx
+Replicas:    3 current / 3 desired
+Pods Status: 0 Running / 3 Waiting / 0 Succeeded / 0 Failed
 Events:
-  FirstSeen				LastSeen			Count	From
-SubobjectPath	Reason			Message
-  Thu, 24 Sep 2015 10:38:20 -0700	Thu, 24 Sep 2015 10:38:20 -0700	1
-{replication-controller }			SuccessfulCreate	Created pod: nginx-qrm3m
-  Thu, 24 Sep 2015 10:38:20 -0700	Thu, 24 Sep 2015 10:38:20 -0700	1
-{replication-controller }			SuccessfulCreate	Created pod: nginx-3ntk0
-  Thu, 24 Sep 2015 10:38:20 -0700	Thu, 24 Sep 2015 10:38:20 -0700	1
-{replication-controller }			SuccessfulCreate	Created pod: nginx-4ok8v
+  FirstSeen       LastSeen     Count    From                        SubobjectPath    Type      Reason              Message
+  ---------       --------     -----    ----                        -------------    ----      ------              -------
+  20s             20s          1        {replication-controller }                    Normal    SuccessfulCreate    Created pod: nginx-qrm3m
+  20s             20s          1        {replication-controller }                    Normal    SuccessfulCreate    Created pod: nginx-3ntk0
+  20s             20s          1        {replication-controller }                    Normal    SuccessfulCreate    Created pod: nginx-4ok8v
 ```
 
 Here, 3 pods have been made, but none are running yet, perhaps because the image is being pulled.
 A little later, the same command may show:
 
 ```shell
-Pods Status:	3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 ```
 
 To list all the pods that belong to the rc in a machine readable form, you can use a command like this:
@@ -194,7 +191,7 @@ Ideally, the rolling update controller would take application readiness into acc
 The two ReplicationControllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 
 Rolling update is implemented in the client tool
-[`kubectl rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update). Visit [`kubectl rolling-update` tutorial](/docs/user-guide/rolling-updates/) for more concrete examples. 
+[`kubectl rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples. 
 
 ### Multiple release tracks
 
@@ -226,7 +223,7 @@ The ReplicationController is intended to be a composable building-block primitiv
 
 Replication controller is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [ReplicationController API
-object](/docs/api-reference/v1/definitions/#_v1_replicationcontroller).
+object](/docs/api-reference/v1.6/#replicationcontroller-v1-core).
 
 ## Alternatives to ReplicationController
 
@@ -249,7 +246,7 @@ Unlike in the case where a user directly created pods, a ReplicationController r
 
 ### Job
 
-Use a [`Job`](/docs/user-guide/jobs/) instead of a ReplicationController for pods that are expected to terminate on their own
+Use a [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) instead of a ReplicationController for pods that are expected to terminate on their own
 (i.e. batch jobs).
 
 ### DaemonSet
@@ -261,4 +258,4 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
 ## For more information
 
-Read [ReplicationController Operations](/docs/user-guide/replication-controller/operations/).
+Read [Run Stateless AP Replication Controller](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
