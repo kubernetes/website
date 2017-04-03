@@ -32,6 +32,7 @@ toc:
   - title: Controllers
     section:
     - docs/concepts/workloads/controllers/replicaset.md
+    - docs/concepts/workloads/controllers/replicationcontroller.md
     - docs/concepts/workloads/controllers/deployment.md
     - docs/concepts/workloads/controllers/statefulset.md
     - docs/concepts/workloads/controllers/petset.md
@@ -83,6 +84,7 @@ toc:
   - docs/concepts/configuration/container-command-args.md
   - docs/concepts/configuration/manage-compute-resources-container.md
   - docs/concepts/configuration/assign-pod-node.md
+  - docs/concepts/configuration/secret.md
 
 - title: Policies
   section:
