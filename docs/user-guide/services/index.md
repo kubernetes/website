@@ -425,7 +425,7 @@ an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is
 cloud provider does not support the feature, the field will be ignored.
 
 #### Internal load balancer
-In a mixed environment sometimes it is necessarry to route traffic from services inside the same VPC (or equivalent on non AWS platforms).
+In a mixed environment sometimes it is necessary to route traffic from services inside the same VPC (or equivalent on non AWS platforms).
 This can be achieved by adding the following annotation to the service:
 
 ```yaml
