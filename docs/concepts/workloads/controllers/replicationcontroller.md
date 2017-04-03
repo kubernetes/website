@@ -33,7 +33,7 @@ service, such as web servers.
 
 Here is an example ReplicationController config.  It runs 3 copies of the nginx web server.
 
-{% include code.html language="yaml" file="replication.yaml" ghlink="/docs/user-guide/replication.yaml" %}
+{% include code.html language="yaml" file="replication.yaml" ghlink="/docs/concepts/workloads/controllers/replication.yaml" %}
 
 Run the example job by downloading the example file and then running this command:
 
