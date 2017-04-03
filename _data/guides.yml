@@ -44,6 +44,7 @@ toc:
 - title: Containers and Pods
   section:
   - docs/user-guide/pod-templates.md
+  - docs/user-guide/gpus.md
   - docs/user-guide/liveness/index.md
   - docs/user-guide/container-environment.md
   - docs/user-guide/node-selection/index.md
