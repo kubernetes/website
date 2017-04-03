@@ -101,3 +101,7 @@ toc:
 - title: Managing Cluster Daemons
   section:
   - docs/tasks/manage-daemon/update-daemon-set.md
+
+- title: Managing GPUs
+  - docs/tasks/manage-gpus/scheduling-gpus.md
+
