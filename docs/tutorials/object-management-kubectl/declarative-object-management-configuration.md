@@ -954,8 +954,8 @@ The recommended approach for ThirdPartyResources is to use [imperative object co
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)
+- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.6/)
 {% endcapture %}
 
 {% include templates/concept.md %}

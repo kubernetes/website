@@ -102,7 +102,7 @@ below:
   section of the Creating Multi-Container Pods page covers required and
   frequently-used fields.
 * The entire `spec` schema is documented in the
-  [Kubernetes API reference](/docs/api-reference/v1/definitions/#_v1_podspec).
+  [Kubernetes API reference](/docs/api-reference/v1.6/#podspec-v1-core).
 
 ### Sample file
 
