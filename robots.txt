@@ -10,7 +10,6 @@ Disallow: /docs/user-guide/configuring-containers
 Disallow: /docs/user-guide/containers
 Disallow: /docs/user-guide/deploying-applications
 Disallow: /docs/user-guide/getting-into-containers
->>>>>>> fb2ab359... Remove from TOC/Search: pods/init-containers ...
 Disallow: /docs/user-guide/liveness/index
 Disallow: /docs/user-guide/pod-states
 Disallow: /docs/user-guide/simple-nginx

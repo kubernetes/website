@@ -1,10 +1,9 @@
-bigheader: "Kubernetes Documentation"
+bigheader: "Documentation Home"
 abstract: "Documentation for using and learning about Kubernetes."
 toc:
 - docs/home/index.md
 
-- title: Kubernetes Documentation Home
-  path: index.md
+- docs/home/index.md
 
 - title: Release Notes
   path: https://github.com/kubernetes/kubernetes/releases/
