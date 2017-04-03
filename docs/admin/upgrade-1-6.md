@@ -1,7 +1,7 @@
 ---
 assignees:
 - mml
-title: Cluster Management Guide
+title: Cluster Management Guide for Version 1.6
 ---
 
 * TOC
