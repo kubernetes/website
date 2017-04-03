@@ -90,3 +90,4 @@ toc:
   section:
   - docs/concepts/policy/container-capabilities.md
   - docs/concepts/policy/resource-quotas.md
+  - docs/concepts/policy/security-context.md
