@@ -10,6 +10,8 @@ toc:
   - title: Working with Kubernetes Objects
     section:
     - docs/concepts/overview/working-with-objects/kubernetes-objects.md
+    - docs/concepts/overview/working-with-objects/names.md
+    - docs/concepts/overview/working-with-objects/namespaces.md
     - docs/concepts/overview/working-with-objects/labels.md
     - docs/concepts/overview/working-with-objects/annotations.md
   - docs/concepts/overview/kubernetes-api.md
@@ -24,16 +26,25 @@ toc:
   - title: Pods
     section:
     - docs/concepts/workloads/pods/pod-overview.md
+    - docs/concepts/workloads/pods/pod.md
     - docs/concepts/workloads/pods/pod-lifecycle.md
     - docs/concepts/workloads/pods/init-containers.md
   - title: Controllers
     section:
+    - docs/concepts/workloads/controllers/replicaset.md
+    - docs/concepts/workloads/controllers/replicationcontroller.md
+    - docs/concepts/workloads/controllers/deployment.md
     - docs/concepts/workloads/controllers/statefulset.md
     - docs/concepts/workloads/controllers/petset.md
+    - docs/concepts/workloads/controllers/daemonset.md
     - docs/concepts/workloads/controllers/garbage-collection.md
   - title: Jobs
     section:
     - docs/concepts/jobs/run-to-completion-finite-workloads.md
+
+- title: Nodes
+  section:
+  - docs/concepts/nodes/node.md
 
 - title: Cluster Administration
   section:
@@ -44,6 +55,7 @@ toc:
   - docs/concepts/cluster-administration/audit.md
   - docs/concepts/cluster-administration/resource-usage-monitoring.md
   - docs/concepts/cluster-administration/out-of-resource.md
+  - docs/concepts/cluster-administration/cluster-management.md
   - docs/concepts/cluster-administration/multiple-clusters.md
   - docs/concepts/cluster-administration/federation.md
   - docs/concepts/cluster-administration/federation-service-discovery.md
@@ -57,11 +69,14 @@ toc:
 - title: Storage
   section:
   - docs/concepts/storage/volumes.md
+  - docs/concepts/storage/persistent-volumes.md
 
 - title: Services, Load Balancing, and Networking
   section:
   - docs/concepts/services-networking/dns-pod-service.md
   - docs/concepts/services-networking/connect-applications-service.md
+  - docs/concepts/services-networking/ingress.md
+  - docs/concepts/services-networking/networkpolicies.md
 
 - title: Configuration
   section:
@@ -69,6 +84,7 @@ toc:
   - docs/concepts/configuration/container-command-args.md
   - docs/concepts/configuration/manage-compute-resources-container.md
   - docs/concepts/configuration/assign-pod-node.md
+  - docs/concepts/configuration/secret.md
 
 - title: Policies
   section:

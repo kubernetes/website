@@ -29,7 +29,7 @@ When prompted, enter your Docker username and password.
 The login process creates or updates a `config.json` file that holds an
 authorization token.
 
-View the `configfile.json` file:
+View the `config.json` file:
 
     cat ~/.docker/config.json
 
