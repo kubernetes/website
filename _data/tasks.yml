@@ -103,5 +103,6 @@ toc:
   - docs/tasks/manage-daemon/update-daemon-set.md
 
 - title: Managing GPUs
+  section:
   - docs/tasks/manage-gpus/scheduling-gpus.md
 
