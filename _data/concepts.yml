@@ -32,6 +32,7 @@ toc:
   - title: Controllers
     section:
     - docs/concepts/workloads/controllers/replicaset.md
+    - docs/concepts/workloads/controllers/replicationcontroller.md
     - docs/concepts/workloads/controllers/deployment.md
     - docs/concepts/workloads/controllers/statefulset.md
     - docs/concepts/workloads/controllers/petset.md
