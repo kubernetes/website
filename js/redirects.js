@@ -18,7 +18,7 @@ $( document ).ready(function() {
     var forwardingURL = window.location.href;
 
     var redirects = [{
-        "from": "resource-quota",
+        "from": "/resource-quota",
         "to": "http://kubernetes.io/docs/admin/resourcequota/"
     },
     {
