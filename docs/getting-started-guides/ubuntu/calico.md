@@ -450,7 +450,7 @@ You can find the docs at [Kubernetes Dashboard](https://github.com/kubernetes/da
 
 ## Launch other Services With Calico-Kubernetes
 
-At this point, you have a fully functioning cluster running on Kubernetes with a master and two nodes networked with Calico. You can now follow any of the [standard documentation](https://github.com/kubernetes/kubernetes/tree/{{page.version}}.0/examples/) to set up other services on your cluster.
+At this point, you have a fully functioning cluster running on Kubernetes with a master and two nodes networked with Calico. You can now follow any of the [standard documentation](https://github.com/kubernetes/kubernetes/tree/{{page.fullversion}}/examples/) to set up other services on your cluster.
 
 ## Connectivity to outside the cluster
 
