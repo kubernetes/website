@@ -424,6 +424,21 @@ with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not s
 an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is specified, but the
 cloud provider does not support the feature, the field will be ignored.
 
+#### Internal load balancer
+In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC (or equivalent on non AWS platforms).
+This can be achieved by adding the following annotation to the service:
+
+```yaml
+[...]
+metadata: 
+    name: my-service
+    annotations: 
+        service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+[...]
+```
+In a split-horizon DNS environment you would need two services to be able to route both external and internal traffic to your endpoints.
+
+
 #### SSL support on AWS
 For partial SSL support on clusters running on AWS, starting with 1.3 two
 annotations can be added to a `LoadBalancer` service:
