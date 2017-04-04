@@ -1,0 +1,6 @@
+bigheader: "Setup"
+abstract: "Step-by-step instructions for setting up a Kubernetes cluster."
+toc:
+- /docs/getting-started-guides/index.md
+
+- /docs/getting-started-guides/docker-multinode.md
