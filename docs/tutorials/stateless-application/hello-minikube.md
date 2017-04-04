@@ -54,7 +54,9 @@ the [Minikube installation guide](/docs/getting-started-guides/minikube/).
 Use `curl` to download and install the latest Minikube release:
 
 ```shell
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && \
+  chmod +x minikube && \
+  sudo mv minikube /usr/local/bin/
 ```
 
 Use Homebrew to install the xhyve driver and set its permissions:
@@ -65,14 +67,13 @@ sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docke
 sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 ```
 
-Download the latest version of the `kubectl` command-line tool, which you can
+Use Homebrew to download the `kubectl` command-line tool, which you can
 use to interact with Kubernetes clusters:
 
 ```shell
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
-chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin/kubectl
+brew install kubectl
 ```
+
 Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
 
 ```shell
