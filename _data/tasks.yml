@@ -33,6 +33,7 @@ toc:
 - title: Running Applications
   section:
   - docs/tasks/run-application/rolling-update-replication-controller.md
+  - docs/tasks/run-application/podpreset.md
 
 - title: Running Jobs
   section:
