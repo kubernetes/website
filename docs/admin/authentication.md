@@ -580,6 +580,53 @@ Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of
 `system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules
 that grant access to the `*` user or `*` group do not include anonymous users.
 
+## User impersonation
+
+A user can act as another user through impersonation headers, which let requests
+manually override the user info they authenticate as. For example an admin could
+use this feature to debug an authorization policy by temporarily impersonating
+another user and seeing if a request was denied.
+
+The following HTTP headers can be used to performing an impersonation request:
+
+* `Impersonate-User`: The username to act as.
+* `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups.
+* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user.
+
+For example:
+
+```http
+Impersonate-User: jane.doe@example.com
+Impersonate-Group: developers
+Impersonate-Group: admins
+Impersonate-Extra-dn: cn=jane,ou=engineers,dc=example,dc=com
+Impersonate-Extra-scopes: view
+Impersonate-Extra-scopes: development
+```
+
+To impersonate a user, group, or set extra fields, the impersonating user must
+have the ability to perform the "impersonate" verb on the kind of attribute
+being impersonated ("user", "group", etc.). For clusters that enable the RBAC
+authorization plugin, The following ClusterRole encompasses the rules needed to
+set all impersonation headers:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: impersonator
+rules:
+# Impersonate users, groups, or service accounts.
+- apiGroups: [""]
+  resources: ["users", "groups", "serviceaccounts"]
+  verbs: ["impersonate"]
+
+# Allow setting extra fields.
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["userextras"]
+  verbs: ["impersonate"]
+```
+
 ## Plugin Development
 
 We plan for the Kubernetes API server to issue tokens after the user has been
