@@ -21,7 +21,7 @@ The nodes will automatically discover and expose all Nvidia GPUs as a schedulabl
 
 {% endcapture %}
 
-{% capture discussion %}
+{% capture steps %}
 
 ## API
 
