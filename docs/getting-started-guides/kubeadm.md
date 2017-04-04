@@ -387,8 +387,7 @@ README](https://github.com/microservices-demo/microservices-demo).
 Note that the Sock Shop demo only works on `amd64`.
 
 ``` bash
-kubectl create namespace sock-shop
-kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
+kubectl create -f "https://github.com/microservices-demo/microservices-demo/blob/master/deploy/kubernetes/complete-demo.yaml?raw=true"
 ```
 
 You can then find out the port that the [NodePort feature of
