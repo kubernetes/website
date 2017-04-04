@@ -1,4 +1,4 @@
 bigheader: "Setup"
-abstract: "Step-by-step instructions for setting up a Kubernetes cluster."
+abstract: "Instructions for setting up a Kubernetes cluster."
 toc:
 - /docs/setup/index.md
