@@ -38,8 +38,8 @@ following steps:
    run there.  It also sets up the RBAC authorization system and writes a
    special ConfigMap that is used to bootstrap trust with the kubelets.
 
-1. kubeadm installs installs add-on components via the API server.  Right now
-   this is the internal DNS server and the kube-proxy DaemonSet.
+1. kubeadm installs add-on components via the API server.  Right now this is
+   the internal DNS server and the kube-proxy DaemonSet.
 
 Running `kubeadm join` on each node in the cluster consists of the following
 steps:
@@ -295,6 +295,8 @@ apiServerCertSANs:
   - <name2|string>
 certificatesDir: <string>
 ```
+In addition, if authorizationMode is set to `ABAC`, you should write the config to `/etc/kubernetes/abac_policy.json`.
+However, if authorizationMode is set to `Webhook`, you should write the config to `/etc/kubernetes/webhook_authz.conf`.
 
 ### Sample Node Configuration
 

@@ -50,18 +50,17 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
 ## Community Ubuntu Guides
 
 - [Manual Installation](/docs/getting-started-guides/ubuntu/manual)
-- [Calico Configuration](/docs/getting-started-guides/ubuntu/calico)
 
-Please feel free to submit guides to this section. 
+Please feel free to submit guides to this section.
 
 ## Where to find us
 
-We're normally following the following Slack channels: 
+We're normally following the following Slack channels:
 
 - [sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
 - [sig-cluster-ops](https://kubernetes.slack.com/messages/sig-cluster-ops/)
 
-and we monitor the Kubernetes mailing lists. 
+and we monitor the Kubernetes mailing lists.
 {% endcapture %}
 
 {% include templates/concept.md %}

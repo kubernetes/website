@@ -72,7 +72,7 @@ title: Using a Service to Expose Your App
 
                 <p>A Service provides load balancing of traffic across the contained set of Pods. This is useful when a service is created to group all Pods from a specific Deployment (our application will make use of this in the next module, when we'll have multiple instances running).</p>
 
-                <p>Services are also responsible for service-discovery within the cluster (covered in <a href="/docs/user-guide/connecting-applications/#accessing-the-service">Accessing the Service</a>). This will for example allow a frontend service (like a web server) to receive traffic from a backend service (like a database) without worrying about Pods.</p>
+                <p>Services are also responsible for service-discovery within the cluster (covered in <a href="/docs/user-guide/connecting-applications/#accessing-the-service">Accessing the Service</a>). This will for example allow a frontend service (like a web server) to send traffic to a backend service (like a database) without worrying about Pods.</p>
 
                 <p>Services match a set of Pods using Label Selectors, a grouping primitive that allows logical operation on Labels.</p>
 

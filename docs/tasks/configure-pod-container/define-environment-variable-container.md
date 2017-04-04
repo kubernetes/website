@@ -69,7 +69,7 @@ Pod:
 
 * Learn more about [environment variables](/docs/user-guide/environment-guide/).
 * Learn about [using secrets as environment variables](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
-* See [EnvVarSource](/docs/api-reference/v1/definitions/#_v1_envvarsource).
+* See [EnvVarSource](/docs/api-reference/v1.6/#envvarsource-v1-core).
 
 {% endcapture %}
 

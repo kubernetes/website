@@ -29,7 +29,7 @@ When prompted, enter your Docker username and password.
 The login process creates or updates a `config.json` file that holds an
 authorization token.
 
-View the `configfile.json` file:
+View the `config.json` file:
 
     cat ~/.docker/config.json
 
@@ -124,9 +124,9 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
 * Learn more about
 [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
 * See [kubectl create secret docker-registry](/docs/user-guide/kubectl/kubectl_create_secret_docker-registry/).
-* See [Secret](/docs/api-reference/v1/definitions/#_v1_secret)
+* See [Secret](/docs/api-reference/v1.6/#secret-v1-core)
 * See the `imagePullSecrets` field of
-[PodSpec](/docs/api-reference/v1/definitions/#_v1_podspec).
+[PodSpec](/docs/api-reference/v1.6/#podspec-v1-core).
 
 {% endcapture %}
 

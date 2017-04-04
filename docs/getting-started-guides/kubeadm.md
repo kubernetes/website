@@ -251,7 +251,7 @@ while `kubeadm init` is initializing your master:
 #### Master Isolation
 
 By default, your cluster will not schedule pods on the master for security
-reasons. If you want to be able to schedule pods on the master, e.g a
+reasons. If you want to be able to schedule pods on the master, e.g. a
 single-machine Kubernetes cluster for development, run:
 
 ``` bash
