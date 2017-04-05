@@ -63,6 +63,7 @@ toc:
 - title: Glossary
   section:
   - docs/user-guide/annotations.md
+  - docs/user-guide/cron-jobs.md
   - docs/admin/daemons.md
   - docs/user-guide/deployments.md
   - docs/user-guide/horizontal-pod-autoscaling/index.md
@@ -82,7 +83,6 @@ toc:
   - docs/user-guide/replicasets.md
   - docs/user-guide/replication-controller/index.md
   - docs/admin/resourcequota/index.md
-  - docs/user-guide/cron-jobs.md
   - docs/user-guide/secrets/index.md
   - docs/user-guide/security-context.md
   - docs/user-guide/services/index.md
