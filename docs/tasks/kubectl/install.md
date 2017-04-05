@@ -19,7 +19,7 @@ older kubectl with a newer server you may see odd validation errors.
 
 Here are a few methods to install kubectl.
 
-## Install kubectl Binary Via curl
+## Install kubectl binary via curl
 
 Download the latest release with the command:
 
@@ -43,40 +43,6 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
-## Extract kubectl from Release .tar.gz or Compiled Source
-
-If you downloaded a pre-compiled [release](https://github.com/kubernetes/kubernetes/releases), kubectl will be under `platforms/<os>/<arch>` from the tar bundle.
-
-If you compiled Kubernetes from source, kubectl should be either under `_output/local/bin/<os>/<arch>` or `_output/dockerized/bin/<os>/<arch>`.
-
-Copy or move kubectl into a directory already in your PATH (e.g. `/usr/local/bin`). For example:
-
-```shell
-# OS X
-sudo cp platforms/darwin/amd64/kubectl /usr/local/bin/kubectl
-
-# Linux
-sudo cp platforms/linux/amd64/kubectl /usr/local/bin/kubectl
-```
-
-Next make it executable with the following command:
-
-```shell
-sudo chmod +x /usr/local/bin/kubectl
-```
-
-The kubectl binary doesn't have to be installed to be executable, but the rest of the walkthrough will assume that it's in your PATH.
-
-If you prefer not to copy kubectl, you need to ensure it is in your path:
-
-```shell
-# OS X
-export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
-
-# Linux
-export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
-```
-
 ## Download as part of the Google Cloud SDK
 
 kubectl can be installed as part of the Google Cloud SDK:
@@ -89,11 +55,11 @@ After Google Cloud SDK installs, run the following command to install `kubectl`:
 gcloud components install kubectl
 ```
 
-Do check that the version is sufficiently up-to-date using `kubectl version`.
+Check that the version is sufficiently up-to-date using `kubectl version`.
 
-## Install with brew
+## Install with Homebrew on macOS
 
-If you are on MacOS and using brew, you can install with:
+If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
 
 ```shell
 brew install kubectl
