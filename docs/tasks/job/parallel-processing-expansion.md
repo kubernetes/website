@@ -13,7 +13,7 @@ non-parallel, use of [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloa
 
 ## Basic Template Expansion
 
-First, download the following template of a job to a file called `job.yaml.txt`
+First, download the following template of a job to a file called `job.yaml`
 
 {% include code.html language="yaml" file="job.yaml" ghlink="/docs/tasks/job/parallel-processing-expansion/job.yaml" %}
 
