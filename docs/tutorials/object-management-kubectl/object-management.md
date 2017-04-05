@@ -71,11 +71,18 @@ object in either YAML or JSON.
 The user provides an operation (create, replace, delete), one or more files,
 and flags to the `kubectl` command.
 
-This technique requires a deep understanding of the Kubernetes
-object definitions.
+This technique requires understanding the Kubernetes
+object definitions to create and update them.
 
 **Note:** While this technique defines the object itself through a declarative
 configuration file, the operations are imperative: create, replace, delete.
+
+**Warning:** The imperative `replace` command replaces the existing
+spec with the newly provided one, dropping all changes to the object missing from
+the configuration file.  This approach should not be used with resource
+types whose specs are updated independently of the configuration file.
+LoadBalanced Services for example have their `externalIPs` spec field updated
+independently from the configuration by the cluster.
 
 ### Examples
 
