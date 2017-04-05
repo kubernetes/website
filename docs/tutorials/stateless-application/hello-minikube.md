@@ -74,10 +74,9 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
+
 ```shell
-export http_proxy=""
-export https_proxy=""
-curl https://cloud.google.com/container-registry/ 
+curl --proxy "" https://cloud.google.com/container-registry/ 
 ```
 
 If NO proxy is required, start the Minikube cluster: 

@@ -30,7 +30,7 @@ steps that existing cluster setup scripts are making.
     This will help you become familiar with the CLI ([kubectl](/docs/user-guide/kubectl/kubectl)) and concepts ([pods](/docs/user-guide/pods), [services](/docs/user-guide/services), etc.) first.
   1. You should have `kubectl` installed on your desktop.  This will happen as a side
     effect of completing one of the other Getting Started Guides.  If not, follow the instructions
-    [here](/docs/user-guide/prereqs).
+    [here](/docs/tasks/kubectl/install/).
 
 ### Cloud Provider
 
@@ -264,7 +264,7 @@ to read.  This guide uses `/var/lib/kube-apiserver/known_tokens.csv`.
 The format for this file is described in the [authentication documentation](/docs/admin/authentication).
 
 For distributing credentials to clients, the convention in Kubernetes is to put the credentials
-into a [kubeconfig file](/docs/user-guide/kubeconfig-file).
+into a [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/).
 
 The kubeconfig file for the administrator can be created as follows:
 

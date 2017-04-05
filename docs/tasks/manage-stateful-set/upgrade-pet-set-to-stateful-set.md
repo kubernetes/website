@@ -112,7 +112,7 @@ Note that **you should NOT upgrade Nodes at this time**, because the Pods
 ### Upgrade kubectl to Kubernetes version 1.5 or later
 
 Upgrade `kubectl` to Kubernetes version 1.5 or later, following [the steps for installing and setting up 
-kubectl](/docs/user-guide/prereqs/).
+kubectl](/docs/tasks/kubectl/install/).
 
 ### Create StatefulSets
 

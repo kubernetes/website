@@ -23,7 +23,7 @@ the default reclaim policy is "Delete". This means that a dynamically provisione
 volume is automatically deleted when a user deletes the corresponding
 `PeristentVolumeClaim`. This automatic behavior might be inappropriate if the volume
 contains precious data. In that case, it is more appropriate to use the "Retain"
-policy. With the "Retain" policy, if a user deletes a `PeristentVolumeClaim`,
+policy. With the "Retain" policy, if a user deletes a `PersistentVolumeClaim`,
 the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to the
 `Released` phase, where all of its data can be manually recovered.
 
@@ -72,9 +72,9 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 
 ### Reference
 
-* [PersistentVolume](/docs/api-reference/v1/definitions/#_v1_persistentvolume)
-* [PersistentVolumeClaim](/docs/api-reference/v1/definitions/#_v1_persistentvolumeclaim)
-* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_persistentvolumespec).
+* [PersistentVolume](/docs/api-reference/v1.6/#persistentvolume-v1-core)
+* [PersistentVolumeClaim](/docs/api-reference/v1.6/#persistentvolumeclaim-v1-core)
+* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](/docs/api-reference/v1.6/#persistentvolumeclaim-v1-core).
 {% endcapture %}
 
 {% include templates/task.md %}

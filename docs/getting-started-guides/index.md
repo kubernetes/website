@@ -31,7 +31,7 @@ a Kubernetes cluster from scratch.
 
 Use the [Minikube getting started guide](/docs/getting-started-guides/minikube/) to try it out.
 
-[Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local) - Ubuntu supports a 9-instance deployment on localhost via LXD. 
+[Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local) - Ubuntu supports a 9-instance deployment on localhost via LXD.
 
 ### Hosted Solutions
 
@@ -47,6 +47,8 @@ clusters.
 
 [KCluster.io](https://kcluster.io) provides highly available and scalable managed Kubernetes clusters for AWS.
 
+[KUBE2GO.io](https://kube2go.io) get started with highly available Kubernetes clusters on multiple public clouds along with useful tools for development, debugging, monitoring.
+
 [Platform9](https://platform9.com/products/kubernetes/) offers managed Kubernetes on-premises or any public cloud, and provides 24/7 health monitoring and alerting.
 
 [OpenShift Dedicated](https://www.openshift.com/dedicated/) offers managed Kubernetes clusters powered by OpenShift and [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
@@ -59,9 +61,11 @@ few commands, and have active community support.
 - [GCE](/docs/getting-started-guides/gce)
 - [AWS](/docs/getting-started-guides/aws)
 - [Azure](/docs/getting-started-guides/azure)
+- [Tectonic by CoreOS](https://coreos.com/tectonic)
 - [CenturyLink Cloud](/docs/getting-started-guides/clc)
 - [IBM SoftLayer](https://github.com/patrocinio/kubernetes-softlayer)
 - [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
+- [KUBE2GO.io](https://kube2go.io/)
 
 ### Custom Solutions
 
@@ -93,7 +97,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 - [Vmware Photon Controller](/docs/getting-started-guides/photon-controller)  (uses Debian)
 - [Vmware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
 - [Vmware](/docs/getting-started-guides/coreos)  (uses CoreOS and flannel)
-- [libvirt-coreos.md](/docs/getting-started-guides/libvirt-coreos)  (uses CoreOS)
+- [libvirt-coreos](/docs/getting-started-guides/libvirt-coreos)  (uses CoreOS)
 - [oVirt](/docs/getting-started-guides/ovirt)
 - [OpenStack Heat](/docs/getting-started-guides/openstack-heat) (uses CentOS and flannel)
 - [libvirt](/docs/getting-started-guides/fedora/flannel_multi_node_cluster) (uses Fedora and flannel)
@@ -102,7 +106,7 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 #### Bare Metal
 
 - [Offline](/docs/getting-started-guides/coreos/bare_metal_offline) (no internet required.  Uses CoreOS and Flannel)
-- [fedora/fedora_ansible_config.md](/docs/getting-started-guides/fedora/fedora_ansible_config)
+- [fedora/fedora_ansible_config](/docs/getting-started-guides/fedora/fedora_ansible_config)
 - [Fedora single node](/docs/getting-started-guides/fedora/fedora_manual_config)
 - [Fedora multi node](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)
 - [Centos](/docs/getting-started-guides/centos/centos_manual_config)
@@ -131,6 +135,7 @@ GKE                  |              |        | GCE         | [docs](https://clou
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](http://www.stackpointcloud.com) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
 KCluster.io          |              | multi-support | multi-support | [docs](https://kcluster.io) | Commercial
+KUBE2GO.io          |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
 Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/products/kubernetes/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial

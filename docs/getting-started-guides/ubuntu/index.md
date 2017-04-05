@@ -15,16 +15,13 @@ Supports AWS, GCE, Azure, Joyent, OpenStack, Bare Metal and local workstation de
 
 ### Quick Start
 
-[conjure-up](http://conjure-up.io/) provides quick wasy to deploy Kubernetes on multiple clouds and bare metal. It provides a user-friendly UI that prompts you for cloud credentials and configuration options:  
+[conjure-up](http://conjure-up.io/) provides a quick way to deploy Kubernetes on multiple clouds and bare metal. It provides a user-friendly UI that prompts you for cloud credentials and configuration options:  
 
 Available for Ubuntu 16.04 and newer: 
 
 ```
-sudo apt-add-repository ppa:juju/stable
-sudo apt-add-repository ppa:conjure-up/next
-sudo apt update
-sudo apt install conjure-up
-conjure-up
+sudo snap install conjure-up --classic
+conjure-up kubernetes
 ```
 
 ### Operational Guides
@@ -53,18 +50,17 @@ These are more in-depth guides for users choosing to run Kubernetes in productio
 ## Community Ubuntu Guides
 
 - [Manual Installation](/docs/getting-started-guides/ubuntu/manual)
-- [Calico Configuration](/docs/getting-started-guides/ubuntu/calico)
 
-Please feel free to submit guides to this section. 
+Please feel free to submit guides to this section.
 
 ## Where to find us
 
-We're normally following the following Slack channels: 
+We're normally following the following Slack channels:
 
 - [sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
 - [sig-cluster-ops](https://kubernetes.slack.com/messages/sig-cluster-ops/)
 
-and we monitor the Kubernetes mailing lists. 
+and we monitor the Kubernetes mailing lists.
 {% endcapture %}
 
 {% include templates/concept.md %}

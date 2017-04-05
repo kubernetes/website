@@ -16,7 +16,7 @@ In the reference section, you can find reference documentation for Kubernetes AP
 ## CLI References
 
 * [kubectl](/docs/user-guide/kubectl-overview/) - Runs commands against Kubernetes clusters.
-	* [JSONPath](/docs/user-guide/jsonpath/) - Syntax 	guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
+    * [JSONPath](/docs/user-guide/jsonpath/) - Syntax     guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
 * [kube-apiserver](/docs/admin/kube-apiserver/) - REST API that validates and configures data for API objects such as  pods, services, replication controllers.
 * [kube-proxy](/docs/admin/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of backends.
 * [kube-scheduler](/docs/admin/kube-scheduler/) - A policy-rich, topology-aware, workload-specific function that significantly impacts availability, performance, and capacity.
@@ -28,4 +28,4 @@ Explore the glossary of essential Kubernetes concepts. Some good starting points
 
 ## Design Docs
 
-An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://github.com/kubernetes/kubernetes/blob/{{page.version}}/docs/design/architecture.md) and [Kubernetes Design Overview](https://github.com/kubernetes/kubernetes/tree/{{page.version}}/docs/design).
+An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md) and [Kubernetes Design Overview](https://github.com/kubernetes/kubernetes/tree/{{page.fullversion}}/docs/design).

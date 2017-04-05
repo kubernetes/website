@@ -45,7 +45,7 @@ $ route | grep default | head -n 1 | awk {'print $8'}
 establishing networking setup with etcd. Ensure this network range is not active
 on layers 2/3 you're deploying to, as it will cause collisions and odd behavior
 if care is not taken when selecting a good CIDR range to assign to flannel. It's
-also good practice to ensure you alot yourself a large enough IP range to support
+also good practice to ensure you allot yourself a large enough IP range to support
 how large your cluster will potentially scale.  Class A IP ranges with /24 are
 a good option.
 {% endcapture %}

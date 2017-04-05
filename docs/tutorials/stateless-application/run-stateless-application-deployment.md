@@ -1,5 +1,12 @@
 ---
 title: Running a Stateless Application Using a Deployment
+redirect_from:
+- "/docs/user-guide/simple-nginx/"
+- "/docs/user-guide/simple-nginx.html"
+- "/docs/user-guide/pods/single-container/"
+- "/docs/user-guide/pods/single-container.html"
+- "/docs/user-guide/deploying-applications/"
+- "/docs/user-guide/deploying-applications.html"
 ---
 
 {% capture overview %}
@@ -54,6 +61,10 @@ a Deployment that runs the nginx:1.7.9 Docker image:
         StrategyType:   RollingUpdate
         MinReadySeconds:  0
         RollingUpdateStrategy:  1 max unavailable, 1 max surge
+        Conditions:
+          Type          Status  Reason
+          ----          ------  ------
+          Available     True    MinimumReplicasAvailable
         OldReplicaSets:   <none>
         NewReplicaSet:    nginx-deployment-1771418926 (2/2 replicas created)
         No events.

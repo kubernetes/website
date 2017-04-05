@@ -145,7 +145,7 @@ dev
 
 At this point, all requests we make to the Kubernetes cluster from the command line are scoped to the development namespace.
 
-Let's create some content.
+Let's create some contents.
 
 ```shell
 $ kubectl run snowflake --image=kubernetes/serve_hostname --replicas=2

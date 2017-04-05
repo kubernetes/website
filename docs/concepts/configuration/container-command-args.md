@@ -1,5 +1,8 @@
 ---
 title: Container Command and Arguments
+redirect_from:
+- "/docs/user-guide/containers/"
+- "/docs/user-guide/containers.html"
 ---
 
 {% capture overview %}
@@ -66,6 +69,7 @@ Here are some examples:
 |     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |   &lt;not set&gt;  | `[ep-1 foo bar]` |
 |     `[/ep-1]`      |   `[foo bar]`    |      `[/ep-2]`      |   &lt;not set&gt;  |     `[ep-2]`     |
 |     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |     `[zoo boo]`    | `[ep-1 zoo boo]` |
+|     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
 
 {% endcapture %}
 
@@ -73,9 +77,9 @@ Here are some examples:
 
 * [Defining a Command and Arguments for a Container](/docs/tasks/configure-pod-container/define-command-argument-container/)
 
-* [Running Commands in a Container with kubectl exec](/docs/user-guide/getting-into-containers/)
+* [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/)
 
-* [Container](/docs/api-reference/v1/definitions/#_v1_container)
+* [Container](/docs/api-reference/v1.6/#container-v1-core)
 
 * [Docker Entrypoint field](https://docs.docker.com/engine/reference/builder/)
 

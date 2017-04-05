@@ -5,4 +5,4 @@ assignees:
 title: Report a Security Vulnerability
 ---
 
-This document has moved to [http://kubernetes.io/security](http://kubernetes.io/security).
+This document has moved to [Report a Security Vulnerability](/security).

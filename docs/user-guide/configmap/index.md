@@ -46,7 +46,7 @@ of configuration files.
 
 Configuration data can be consumed in pods in a variety of ways.  ConfigMaps can be used to:
 
-1.  Populate the value of environment variables
+1.  Populate the values of environment variables
 2.  Set command-line arguments in a container
 3.  Populate config files in a volume
 
@@ -106,7 +106,7 @@ Annotations:    <none>
 
 Data
 ====
-game.properties:        121 bytes
+game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
@@ -123,7 +123,7 @@ $ kubectl get configmaps game-config -o yaml
 ```yaml
 apiVersion: v1
 data:
-  game.properties: |-
+  game.properties: |
     enemies=aliens
     lives=3
     enemies.cheat=true
@@ -141,7 +141,7 @@ metadata:
   creationTimestamp: 2016-02-18T18:34:05Z
   name: game-config
   namespace: default
-  resourceVersion: "407"-
+  resourceVersion: "407"
   selfLink: /api/v1/namespaces/default/configmaps/game-config
   uid: 30944725-d66e-11e5-8cd0-68f728db1985
 ```
@@ -160,7 +160,7 @@ $ kubectl get configmaps game-config-2 -o yaml
 ```yaml
 apiVersion: v1
 data:
-  game.properties: |-
+  game.properties: |
     enemies=aliens
     lives=3
     enemies.cheat=true
@@ -195,7 +195,7 @@ $ kubectl get configmaps game-config-3 -o yaml
 ```yaml
 apiVersion: v1
 data:
-  game-special-key: |-
+  game-special-key: |
     enemies=aliens
     lives=3
     enemies.cheat=true
@@ -244,8 +244,8 @@ metadata:
 
 ### Use-Case: Consume ConfigMap in environment variables
 
-ConfigMaps can be used to populate environment variables.  As an example, consider
-the following ConfigMap:
+ConfigMaps can be used to populate individual environment variables or be used in
+its entirety.  As an example, consider the following ConfigMaps:
 
 ```yaml
 apiVersion: v1
@@ -256,6 +256,16 @@ metadata:
 data:
   special.how: very
   special.type: charm
+```
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+  namespace: default
+data:
+  log_level: INFO
 ```
 
 We can consume the keys of this ConfigMap in a pod like so:
@@ -281,6 +291,9 @@ spec:
             configMapKeyRef:
               name: special-config
               key: special.type
+      envFrom:
+        - configMapRef:
+            name: env-config
   restartPolicy: Never
 ```
 
@@ -289,7 +302,36 @@ When this pod is run, its output will include the lines:
 ```shell
 SPECIAL_LEVEL_KEY=very
 SPECIAL_TYPE_KEY=charm
+log_level=INFO
 ```
+
+#### Optional ConfigMap in environment variables
+
+There might be situations where environment variables are not
+always required. These environment variables can be marked as optional in a
+pod like so:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      env:
+        - name: SPECIAL_LEVEL_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: a-config
+              key: akey
+              optional: true
+  restartPolicy: Never
+```
+
+When this pod is run, the output will be empty.
 
 ### Use-Case: Set command-line arguments with ConfigMap
 
@@ -422,9 +464,41 @@ very
 You can project keys to specific paths and specific permissions on a per-file
 basis. The [Secrets](/docs/user-guide/secrets/) user guide explains the syntax.
 
+#### Optional ConfigMap via volume plugin
+
+Volumes and files provided by a ConfigMap can be also be marked as optional.
+The ConfigMap or the key specified does not have to exist. The mount path for
+such items will always be created.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "ls /etc/config" ]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: no-config
+        optional: true
+  restartPolicy: Never
+```
+
+When this pod is run, the output will be:
+
+```shell
+```
+
 ## Real World Example: Configuring Redis
 
-Let's take a look at a real-world example: configuring redis using ConfigMap.  Say we want to inject
+Let's take a look at a real-world example: configuring redis using ConfigMap.  Say that we want to inject
 redis with the recommendation configuration for using redis as a cache.  The redis config file
 should contain:
 
@@ -517,16 +591,18 @@ $ kubectl exec -it redis redis-cli
 
 ## Restrictions
 
-ConfigMaps must be created before they are consumed in pods.  Controllers may be written to tolerate
-missing configuration data; consult individual components configured via ConfigMap on a case-by-case
-basis.
+ConfigMaps must be created before they are consumed in pods unless they are
+marked as optional.  Controllers may be written to tolerate missing
+configuration data; consult individual components configured via ConfigMap on
+a case-by-case basis.
 
 ConfigMaps reside in a namespace.   They can only be referenced by pods in the same namespace.
 
 Quota for ConfigMap size is a planned feature.
 
-Kubelet only supports use of ConfigMap for pods it gets from the API server.  This includes any pods
+Kubelet only supports use of ConfigMap for pods it gets from the API server.  This includes every pod
 created using kubectl, or indirectly via a replication controller.  It does not include pods created
 via the Kubelet's `--manifest-url` flag, its `--config` flag, or its REST API (these are not common
 ways to create pods.)
 
+**NOTE:** The key-value `optional:true` is supported for Kubernetes 1.6 and above.

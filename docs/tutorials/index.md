@@ -7,13 +7,13 @@ A tutorial shows how to accomplish a goal that is larger than a single
 [task](/docs/tasks/). Typically a tutorial has several sections,
 each of which has a sequence of steps.
 
-#### Kubernetes Basics
-
 * [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) is an in-depth interactive tutorial that helps you understand the Kubernetes system and try out some basic Kubernetes features.
 
-#### Stateless Applications
+* [Online Training Course](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
 * [Hello Minikube](/docs/tutorials/stateless-application/hello-minikube/)
+
+#### Stateless Applications
 
 * [Running a Stateless Application Using a Deployment](/docs/tutorials/stateless-application/run-stateless-application-deployment/)
 

@@ -44,9 +44,9 @@ You can list the current namespaces in a cluster using:
 
 ```shell
 $ kubectl get namespaces
-NAME          LABELS    STATUS
-default       <none>    Active
-kube-system   <none>    Active
+NAME          STATUS    AGE
+default       Active    11d
+kube-system   Active    11d
 ```
 
 Kubernetes starts with two initial namespaces:
@@ -64,16 +64,16 @@ Or you can get detailed information with:
 
 ```shell
 $ kubectl describe namespaces <name>
-Name:	   default
-Labels:	   <none>
-Status:	   Active
+Name:       default
+Labels:       <none>
+Status:       Active
 
 No resource quota.
 
 Resource Limits
- Type		Resource	Min	Max	Default
- ----				--------	---	---	---
- Container			cpu			-	-	100m
+ Type        Resource    Min    Max    Default
+ ----                --------    ---    ---    ---
+ Container            cpu            -    -    100m
 ```
 
 Note that these details show both resource quota (if present) as well as resource limit ranges.
