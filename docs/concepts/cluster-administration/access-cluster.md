@@ -119,9 +119,9 @@ with future high-availability support.
 
 ### Programmatic access to the API
 
-The Kubernetes project-supported Go client library is at [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go).
+Kubernetes supports [Go](#go-client) and [Python](#python-client) client libraries.
 
-To use it, 
+#### Go client
 
 * To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes` See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
@@ -148,6 +148,27 @@ import (
 ```
 
 If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod).
+
+#### Python client
+
+To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
+
+The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py):
+
+```python
+from kubernetes import client, config
+
+config.load_kube_config()
+
+v1=client.CoreV1Api()
+print("Listing pods with their IPs:")
+ret = v1.list_pod_for_all_namespaces(watch=False)
+for i in ret.items:
+    print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
+```
+
+#### Other languages
 
 There are [client libraries](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/client-libraries.md) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
 
