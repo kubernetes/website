@@ -64,18 +64,20 @@ Disadvantages compared to object configuration:
 
 ## Imperative object configuration
 
-When using imperative object configuration, a user operates on object
-configuration files stored locally. An object configuration file defines a full
-object in either YAML or JSON. 
+In imperative object configuration, the kubectl command specifies the
+operation (create, replace, etc.), optional flags and at least one file
+name. The file specified must contain a full definition of the object
+in YAML or JSON format.
 
-The user provides an operation (create, replace, delete), one or more files,
-and flags to the `kubectl` command.
+See the [resource reference](https://kubernetes.io/docs/resources-reference/v1.6/)
+for more details on object definitions.
 
-This technique requires a deep understanding of the Kubernetes
-object definitions.
-
-**Note:** While this technique defines the object itself through a declarative
-configuration file, the operations are imperative: create, replace, delete.
+**Warning:** The imperative `replace` command replaces the existing
+spec with the newly provided one, dropping all changes to the object missing from
+the configuration file.  This approach should not be used with resource
+types whose specs are updated independently of the configuration file.
+Services of type `LoadBalancer`, for example, have their `externalIPs` field updated
+independently from the configuration by the cluster.
 
 ### Examples
 
