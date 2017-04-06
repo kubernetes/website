@@ -348,7 +348,7 @@ docs](/docs/admin/bootstrap-tokens/).
 ## Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the [basic kubeadm tutorial](docs/getting-started-guides/kubeadm/), you can
+in the [basic kubeadm tutorial](/docs/getting-started-guides/kubeadm/), you can
 parallelize the token distribution for easier automation. To implement this
 automation, you must know the IP address that the master will have after it is
 started.
