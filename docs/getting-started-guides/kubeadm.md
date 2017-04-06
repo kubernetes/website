@@ -297,9 +297,9 @@ kubectl apply -f <add-on.yaml>
 Please refer to the specific add-on installation guide for exact details. You
 should only install one pod network per cluster.
 
-If you are on another architecture than amd64, you should use the flannel
-overlay network as described in [the multi-platform
-section](#multi-platform)
+If you are on another architecture than amd64, you should use the
+flannel or Weave Net overlay networks as described in [the
+multi-platform section](#multi-platform)
 
 NOTE: You can install **only one** pod network per cluster.
 
@@ -473,8 +473,10 @@ proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/mu
 deb-packages are released for ARM and ARM 64-bit, but not RPMs (yet, reach out
 if there's interest).
 
-Currently, only the pod network flannel is working on multiple architectures.
-You can install it this way:
+Currently, only the pod networks flannel and Weave Net work on multiple architectures.
+For Weave Net just use its [standard install](https://www.weave.works/docs/net/latest/kube-addon/).
+
+Flannel requires special installation instructions:
 
 ``` bash
 export ARCH=amd64
