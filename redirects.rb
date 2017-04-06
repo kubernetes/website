@@ -56,13 +56,9 @@ fixed_redirects = """# 301 redirects (301 is the default status when no other on
 /docs/user-guide/overview	/docs/whatisk8s/
 /docs/roadmap			https://github.com/kubernetes/kubernetes/milestones/
 /api-ref			https://github.com/kubernetes/kubernetes/milestones/
-#Apps API
 /docs/api-reference/apps/v1beta1/definitions/	/docs/api-reference/v1.6/#deployment-v1beta1-apps
-#Autoscaling API
 /docs/api-reference/autoscaling/v1/operations/	/docs/api-reference/v1.6/#horizontalpodautoscaler-v1-autoscaling
-#Batch API
 /docs/api-reference/batch/v1/operations/	/docs/api-reference/v1.6/#job-v1-batch
-#Extensions API
 /docs/api-reference/extensions/v1beta1/operations/	/docs/api-reference/extensions/v1beta1/definitions/
 """
 
