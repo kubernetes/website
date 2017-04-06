@@ -195,3 +195,11 @@ noted in the previous section and the reprecussions of issuing a specific
 certificate should be fully understood before granting this permission. See
 [here](/docs/admin/authentication#x509-client-certs) for information on how
 certificates interact with authentication.
+
+## A Note to Cluster Administrators
+
+This tutorial assumes that a signer is setup to serve the certificates API. The
+Kubernetes controller manager provides a default implementation of a signer. To
+enable it, pass the `--cluster-signing-cert-file` and
+`--cluster-signing-key-file` parameters to the controller manager with paths to
+your Certificate Authority's keypair.
