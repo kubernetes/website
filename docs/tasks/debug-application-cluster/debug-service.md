@@ -144,7 +144,7 @@ So the first thing to check is whether that `Service` actually exists:
 
 ```shell
 $ kubectl get svc hostnames
-Error from server: service "hostnames" not found
+Error from server (NotFound): services "hostnames" not found
 ```
 
 So we have a culprit, let's create the `Service`.  As before, this is for the

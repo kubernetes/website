@@ -468,6 +468,26 @@ controller.  It does not include pods created via the kubelets
 `--manifest-url` flag, its `--config` flag, or its REST API (these are
 not common ways to create pods.)
 
+Secrets must be created before they are consumed in pods as environment
+variables unless they are marked as optional.  References to Secrets that do not exist will prevent
+the pod from starting.
+
+References via `secretKeyRef` to keys that do not exist in a named Secret
+will prevent the pod from starting.
+
+Secrets used to populate environment variables via `envFrom` that have keys
+that are considered invalid environment variable names will have those keys
+skipped.  The pod will be allowed to start.  There will be an event whose
+reason is `InvalidVariableNames` and the message will contain the list of
+invalid keys that were skipped. The example shows a pod which refers to the
+default/mysecret ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
+
+```shell
+$ kubectl.sh get events
+LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
+0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
+```
+
 ### Secret and Pod Lifetime interaction
 
 When a pod is created via the API, there is no check whether a referenced

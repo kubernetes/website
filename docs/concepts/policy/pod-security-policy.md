@@ -21,15 +21,22 @@ actions that a pod can perform and what it has the ability to access. The
 run with in order to be accepted into the system. They allow an 
 administrator to control the following:
 
-1. Running of privileged containers.
-1. Capabilities a container can request to be added.
-1. The SELinux context of the container.
-1. The user ID.
-1. The use of host namespaces and networking.
-1. Allocating an FSGroup that owns the pod's volumes
-1. Configuring allowable supplemental groups
-1. Requiring the use of a read only root file system
-1. Controlling the usage of volume types
+| Control Aspect                                                | Field Name                        |
+| ------------------------------------------------------------- | --------------------------------- |
+| Running of privileged containers                              | `privileged`                      |
+| Default set of capabilities that will be added to a container | `defaultAddCapabilities`          |
+| Capabilities that will be dropped from a container            | `requiredDropCapabilities`        |
+| Capabilities a container can request to be added              | `allowedCapabilities`             |
+| Controlling the usage of volume types                         | [`volumes`](#controlling-volumes) |
+| The use of host networking                                    | [`hostNetwork`](#host-network)    |
+| The use of host ports                                         | `hostPorts`                       |
+| The use of host's PID namespace                               | `hostPID`                         |
+| The use of host's IPC namespace                               | `hostIPC`                         |
+| The SELinux context of the container                          | [`seLinux`](#selinux)             |
+| The user ID                                                   | [`runAsUser`](#runasuser)         |
+| Configuring allowable supplemental groups                     | [`supplementalGroups`](#supplementalgroups) |
+| Allocating an FSGroup that owns the pod's volumes             | [`fsGroup`](#fsgroup)             |
+| Requiring the use of a read only root file system             | `readOnlyRootFilesystem`          |
 
 _Pod Security Policies_ are comprised of settings and strategies that 
 control the security features a pod has access to. These settings fall 
@@ -48,26 +55,26 @@ specified value falls into the set of allowable values.
 
 ### RunAsUser
 
-- *MustRunAs* - Requires a `*range*` to be configured. Uses the first value
+- *MustRunAs* - Requires a `range` to be configured. Uses the first value
 of the range as the default. Validates against the configured range.
 - *MustRunAsNonRoot* - Requires that the pod be submitted with a non-zero
-`*runAsUser*` or have the `USER` directive defined in the image. No default
+`runAsUser` or have the `USER` directive defined in the image. No default
 provided.
-- *RunAsAny* - No default provided. Allows any `*runAsUser*` to be specified.
+- *RunAsAny* - No default provided. Allows any `runAsUser` to be specified.
 
-### SELinuxContext
+### SELinux
 
-- *MustRunAs* - Requires `*seLinuxOptions*` to be configured if not using
-pre-allocated values. Uses `*seLinuxOptions*` as the default. Validates against
-`*seLinuxOptions*`.
-- *RunAsAny* - No default provided. Allows any `*seLinuxOptions*` to be
+- *MustRunAs* - Requires `seLinuxOptions` to be configured if not using
+pre-allocated values. Uses `seLinuxOptions` as the default. Validates against
+`seLinuxOptions`.
+- *RunAsAny* - No default provided. Allows any `seLinuxOptions` to be
 specified.
 
 ### SupplementalGroups
 
 - *MustRunAs* - Requires at least one range to be specified. Uses the 
 minimum value of the first range as the default. Validates against all ranges.
-- *RunAsAny* - No default provided. Allows any `*supplementalGroups*` to be
+- *RunAsAny* - No default provided. Allows any `supplementalGroups` to be
 specified.
 
 ### FSGroup
@@ -75,7 +82,7 @@ specified.
 - *MustRunAs* - Requires at least one range to be specified. Uses the 
 minimum value of the first range as the default. Validates against the 
 first ID in the first range.
-- *RunAsAny* - No default provided. Allows any `*fsGroup*` ID to be specified.
+- *RunAsAny* - No default provided. Allows any `fsGroup` ID to be specified.
 
 ### Controlling Volumes
 
