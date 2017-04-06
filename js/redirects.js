@@ -34,6 +34,10 @@ $( document ).ready(function() {
         "to": "https://github.com/kubernetes/kubernetes/milestones/"
     },
     {
+        "from": "kubernetes/third_party/swagger-ui/",
+        "to": "/docs/reference"
+    },
+    {
         "from": "docs/user-guide/overview",
         "to": "http://kubernetes.io/docs/whatisk8s/"
     }];
