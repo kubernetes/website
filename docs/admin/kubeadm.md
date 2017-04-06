@@ -277,7 +277,9 @@ networking:
   podSubnet: <cidr>
 kubernetesVersion: <string>
 cloudProvider: <string>
-authorizationMode: <string>
+authorizationModes:
+- <authorizationMode1|string>
+- <authorizationMode2|string>
 token: <string>
 tokenTTL: <time duration>
 selfHosted: <bool>
