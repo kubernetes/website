@@ -297,10 +297,6 @@ kubectl apply -f <add-on.yaml>
 Please refer to the specific add-on installation guide for exact details. You
 should only install one pod network per cluster.
 
-If you are on another architecture than amd64, you should use the flannel
-overlay network as described in [the multi-platform
-section](#multi-platform)
-
 NOTE: You can install **only one** pod network per cluster.
 
 Once a pod network has been installed, you can confirm that it is working by
@@ -472,18 +468,6 @@ proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/mu
 
 deb-packages are released for ARM and ARM 64-bit, but not RPMs (yet, reach out
 if there's interest).
-
-Currently, only the pod network flannel is working on multiple architectures.
-You can install it this way:
-
-``` bash
-export ARCH=amd64
-curl -sSL "https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml?raw=true" | sed "s/amd64/${ARCH}/g" | kubectl create -f -
-```
-
-Replace `ARCH=amd64` with `ARCH=arm` or `ARCH=arm64` depending on the platform
-you're running on. Note that the Raspberry Pi 3 is in ARM 32-bit mode, so for
-RPi 3 you should set `ARCH` to `arm`, not `arm64`.
 
 ## Cloudprovider integrations (experimental)
 
