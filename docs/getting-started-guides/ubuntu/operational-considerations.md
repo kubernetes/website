@@ -116,7 +116,7 @@ juju switch default
 
 ### Running privileged containers
 
-By default juju-deployed clusters do not support running privileged containers.
+By default, juju-deployed clusters do not support running privileged containers.
 If you need them, you have to enable the ```allow-privileged``` config on both
 kubernetes-master and kubernetes-worker:
 
@@ -127,12 +127,11 @@ juju config kubernetes-worker allow-privileged=true
 
 ### Private registry
 
-With the "registry" action that is part for the kubernetes-worker charm, you
-can very easily create a private docker registry, with authentication, and
-available over TLS. Please note that the registry deployed with the action is
-not HA, and uses storage tied to the kubernetes node where the pod is running.
-So if the registry pod changes is migrated from one node to another for
-whatever reason, you will need to re-publish the images.
+With the registry action, you can easily create a private docker registry that
+uses TLS authentication. However, note that a registry deployed with that action
+is not HA; it uses storage tied to the kubernetes node where the pod is running.
+Consequently, if the registry pod is migrated from one node to another, you will
+need to re-publish the images.
 
 #### Example usage
 
@@ -146,9 +145,9 @@ htpasswd -c -b -B htpasswd userA passwordA
 
 (the `htpasswd` program comes with the ```apache2-utils``` package)
 
-Supposing your registry will be reachable at ```myregistry.company.com```, and
-that you already have your TLS key in the ```registry.key``` file, and your TLS
-certificate (with `myregistry.company.com` as Common Name) in the
+Assuming that your registry will be reachable at ```myregistry.company.com```,
+you already have your TLS key in the ```registry.key``` file, and your TLS
+certificate (with ```myregistry.company.com``` as Common Name) in the
 ```registry.crt``` file, you would then run:
 
 ```
