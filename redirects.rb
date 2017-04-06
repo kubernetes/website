@@ -51,12 +51,19 @@
 REPO_TMPL = "https://github.com/kubernetes/kubernetes/tree/%s/%s/:splat"
 
 fixed_redirects = """# 301 redirects (301 is the default status when no other one is provided for each line)
-/third_party/swagger-ui		/kubernetes/third_party/swagger-ui/
 /resource-quota			/docs/admin/resourcequota/
 /horizontal-pod-autoscaler	/docs/user-guide/horizontal-pod-autoscaling/
 /docs/user-guide/overview	/docs/whatisk8s/
 /docs/roadmap			https://github.com/kubernetes/kubernetes/milestones/
 /api-ref			https://github.com/kubernetes/kubernetes/milestones/
+#Apps API
+/docs/api-reference/apps/v1beta1/definitions/	/docs/api-reference/v1.6/#deployment-v1beta1-apps
+#Autoscaling API
+/docs/api-reference/autoscaling/v1/operations/	/docs/api-reference/v1.6/#horizontalpodautoscaler-v1-autoscaling
+#Batch API
+/docs/api-reference/batch/v1/operations/	/docs/api-reference/v1.6/#job-v1-batch
+#Extensions API
+/docs/api-reference/extensions/v1beta1/operations/	/docs/api-reference/extensions/v1beta1/definitions/
 """
 
 branch_redirects = ["examples" , "cluster", "docs/devel", "docs/design"]

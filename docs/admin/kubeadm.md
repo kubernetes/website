@@ -38,8 +38,8 @@ following steps:
    run there.  It also sets up the RBAC authorization system and writes a
    special ConfigMap that is used to bootstrap trust with the kubelets.
 
-1. kubeadm installs installs add-on components via the API server.  Right now
-   this is the internal DNS server and the kube-proxy DaemonSet.
+1. kubeadm installs add-on components via the API server.  Right now this is
+   the internal DNS server and the kube-proxy DaemonSet.
 
 Running `kubeadm join` on each node in the cluster consists of the following
 steps:
@@ -277,7 +277,9 @@ networking:
   podSubnet: <cidr>
 kubernetesVersion: <string>
 cloudProvider: <string>
-authorizationMode: <string>
+authorizationModes:
+- <authorizationMode1|string>
+- <authorizationMode2|string>
 token: <string>
 tokenTTL: <time duration>
 selfHosted: <bool>
@@ -348,7 +350,7 @@ docs](/docs/admin/bootstrap-tokens/).
 ## Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the [basic kubeadm tutorial](docs/getting-started-guides/kubeadm/), you can
+in the [basic kubeadm tutorial](/docs/getting-started-guides/kubeadm/), you can
 parallelize the token distribution for easier automation. To implement this
 automation, you must know the IP address that the master will have after it is
 started.

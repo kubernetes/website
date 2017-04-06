@@ -13,7 +13,7 @@ two sections:
    * [Troubleshooting your application](/docs/user-guide/application-troubleshooting) - Useful for users who are deploying code into Kubernetes and wondering why it is not working.
    * [Troubleshooting your cluster](/docs/admin/cluster-troubleshooting) - Useful for cluster administrators and people whose Kubernetes cluster is unhappy.
 
-You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md)
+You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)
 you're using.
 
 ### Getting help

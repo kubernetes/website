@@ -592,9 +592,26 @@ $ kubectl exec -it redis redis-cli
 ## Restrictions
 
 ConfigMaps must be created before they are consumed in pods unless they are
-marked as optional.  Controllers may be written to tolerate missing
+marked as optional.  References to ConfigMaps that do not exist will prevent
+the pod from starting.  Controllers may be written to tolerate missing
 configuration data; consult individual components configured via ConfigMap on
 a case-by-case basis.
+
+References via `configMapKeyRef` to keys that do not exist in a named ConfigMap
+will prevent the pod from starting.
+
+ConfigMaps used to populate environment variables via `envFrom` that have keys
+that are considered invalid environment variable names will have those keys
+skipped.  The pod will be allowed to start.  There will be an event whose
+reason is `InvalidVariableNames` and the message will contain the list of
+invalid keys that were skipped. The example shows a pod which refers to the
+default/myconfig ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
+
+```shell
+$ kubectl.sh get events
+LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
+0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
+```
 
 ConfigMaps reside in a namespace.   They can only be referenced by pods in the same namespace.
 
@@ -605,4 +622,3 @@ created using kubectl, or indirectly via a replication controller.  It does not 
 via the Kubelet's `--manifest-url` flag, its `--config` flag, or its REST API (these are not common
 ways to create pods.)
 
-**NOTE:** The key-value `optional:true` is supported for Kubernetes 1.6 and above.
