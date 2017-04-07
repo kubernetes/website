@@ -116,8 +116,8 @@ Once you have created your container registry, you will use the following creden
    * `DOCKER_REGISTRY_SERVER`: `${some-registry-name}.azurecr.io`
    * `DOCKER_EMAIL`: `${some-email-address}`
 
-Once you have those variables filled in you can [configure a Kubernetes Secret and use it to deploy a Pod]
-(/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+Once you have those variables filled in you can
+[configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
 
 ### Configuring Nodes to Authenticate to a Private Repository
