@@ -1,3 +1,12 @@
+#
+# Refactor requirements:
+# 
+# * Need to be able to have tab names with spaces in them (e.g. "Weave Net")
+# * Want to have no default selected, default should say "select one of the tabs"
+#   In particular, when no default is selected, it shouldn't be a code block
+# * One line doesn't require a file, nor a link to that file
+#
+
 {% assign tabsraw = tabspec | newline_to_br | split: '<br />' %}
 {% assign tabsetname = tabsraw[0] %}
 <script>$(function(){$("#{{tabsetname}}").tabs();});</script>
