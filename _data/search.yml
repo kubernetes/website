@@ -1,4 +1,4 @@
-bigheader: "Search"
-abstract: "Find topics within Kubernetes."
+bigheader: ""
+abstract: ""
 toc:
 - docs/search.md
