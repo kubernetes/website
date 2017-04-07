@@ -1,7 +1,6 @@
 ---
-layout: docwithnav
+layout: basic
 title: Search Results
-hideTOC: true
 ---
 <script>
 
