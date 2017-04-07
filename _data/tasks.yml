@@ -5,6 +5,7 @@ toc:
 
 - title: Using the kubectl Command-Line
   section:
+  - docs/tasks/test.md
   - docs/tasks/kubectl/install.md
   - docs/tasks/kubectl/list-all-running-container-images.md
   - docs/tasks/kubectl/get-shell-running-container.md
@@ -80,6 +81,7 @@ toc:
   - docs/tasks/administer-cluster/limit-storage-consumption.md
   - docs/tasks/administer-cluster/change-default-storage-class.md
   - docs/tasks/administer-cluster/share-configuration.md
+  - docs/tasks/administer-cluster/running-cloud-controller.md
 
 - title: Administering Federation
   section:
