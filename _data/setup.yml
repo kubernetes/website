@@ -9,6 +9,7 @@ toc:
   - docs/getting-started-guides/minikube.md
   - docs/getting-started-guides/kubeadm.md
   - docs/getting-started-guides/scratch.md
+  - docs/getting-started-guides/alternatives.md
 
 - title: Hosted Solutions
   section:
