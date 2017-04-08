@@ -26,8 +26,7 @@ toc:
   - docs/getting-started-guides/clc.md
   - title: Running Kubernetes on IBM SoftLayer
     path: https://github.com/patrocinio/kubernetes-softlayer
-  - title: Running Kubernetes on Multiple Clouds with Stackpoint.io
-    path: /docs/getting-started-guides/stackpoint/
+  - docs/getting-started-guides/stackpoint.md
 
 - title: Custom Solutions
 
@@ -76,7 +75,7 @@ toc:
         - docs/getting-started-guides/ubuntu/validation.md
         - docs/getting-started-guides/ubuntu/backups.md
         - docs/getting-started-guides/ubuntu/upgrades.md
-        - docs/getting-started-guides/ubuntu/scaling.mdfnet
+        - docs/getting-started-guides/ubuntu/scaling.md
         - docs/getting-started-guides/ubuntu/installation.md
         - docs/getting-started-guides/ubuntu/monitoring.md
         - docs/getting-started-guides/ubuntu/networking.md
