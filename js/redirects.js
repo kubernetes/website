@@ -15,7 +15,7 @@ $( document ).ready(function() {
     },
     {
         "from":"/docs/contribute/",
-        "pattern":"/contribute/(\\w+)",
+        "pattern":"\/contribute\/([0-9a-zA-Z\-\_]+)",
         "to":"/docs/home/contribute",
         "postfix":"/#<token>"
     }];
