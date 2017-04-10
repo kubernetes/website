@@ -39,9 +39,9 @@ is called a *fork*.
 a new branch to use for your contribution.
 
 1. In your new branch, make your changes and commit them. If you want to
-[write a new topic](/docs/contribute/write-new-topic/),
+[write a new topic](/docs/home/contribute/write-new-topic/),
 choose the
-[page type](/docs/contribute/page-templates/)
+[page type](/docs/home/contribute/page-templates/)
 that is the best fit for your content.
 
 ## Submitting a pull request to the master branch (Current Release)
@@ -90,9 +90,9 @@ next upcoming release. It's automatically updated as new PRs get merged.
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn about [writing a new topic](/docs/contribute/write-new-topic).
-* Learn about [using page templates](/docs/contribute/page-templates/).
-* Learn about [staging your changes](/docs/contribute/stage-documentation-changes).
+* Learn about [writing a new topic](/docs/home/contribute/write-new-topic).
+* Learn about [using page templates](/docs/home/contribute/page-templates/).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes).
 {% endcapture %}
 
 {% include templates/task.md %}

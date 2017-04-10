@@ -42,5 +42,5 @@ each of which has a sequence of steps.
 ### What's next
 
 If you would like to write a tutorial, see
-[Using Page Templates](/docs/contribute/page-templates/)
+[Using Page Templates](/docs/home/contribute/page-templates/)
 for information about the tutorial page type and the tutorial template.
