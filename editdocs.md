@@ -46,8 +46,8 @@ $( document ).ready(function() {
 
 For more information about contributing to the Kubernetes documentation, see:
 
-* [Creating a Documentation Pull Request](http://kubernetes.io/docs/contribute/create-pull-request/)
-* [Writing a New Topic](http://kubernetes.io/docs/contribute/write-new-topic/)
-* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/stage-documentation-changes/)
-* [Using Page Templates](http://kubernetes.io/docs/contribute/page-templates/)
-* [Documentation Style Guide](http://kubernetes.io/docs/contribute/style-guide/)
+* [Creating a Documentation Pull Request](http://kubernetes.io/docs/home/contribute/create-pull-request/)
+* [Writing a New Topic](http://kubernetes.io/docs/home/contribute/write-new-topic/)
+* [Staging Your Documentation Changes](http://kubernetes.io/docs/home/contribute/stage-documentation-changes/)
+* [Using Page Templates](http://kubernetes.io/docs/home/contribute/page-templates/)
+* [Documentation Style Guide](http://kubernetes.io/docs/home/contribute/style-guide/)
