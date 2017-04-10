@@ -60,7 +60,6 @@ fixed_redirects = """# 301 redirects (301 is the default status when no other on
 /docs/api-reference/autoscaling/v1/operations/	/docs/api-reference/v1.6/#horizontalpodautoscaler-v1-autoscaling
 /docs/api-reference/batch/v1/operations/	/docs/api-reference/v1.6/#job-v1-batch
 /docs/api-reference/extensions/v1beta1/operations/	/docs/api-reference/extensions/v1beta1/definitions/
-/docs/contribute/ /docs/home/contribute/
 """
 
 branch_redirects = ["examples" , "cluster", "docs/devel", "docs/design"]
