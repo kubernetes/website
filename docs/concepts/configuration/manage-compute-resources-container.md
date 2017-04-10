@@ -341,7 +341,7 @@ first pod that requests the resource to be scheduled on that node.
 
 **Example:**
 
-Here is an HTTP request that advertises five "foo" resources on node `k8s-node-1`.
+Here is an HTTP request that advertises five "foo" resources on node `k8s-node-1` whose master is `k8s-master`.
 
 ```http
 PATCH /api/v1/nodes/k8s-node-1/status HTTP/1.1
@@ -356,6 +356,13 @@ Host: k8s-master:8080
     "value": "5"
   }
 ]
+```
+
+```shell
+curl --header "Content-Type: application/json-patch+json" \
+--request PATCH \
+--data '[{"op": "add", "path": "/status/capacity/pod.alpha.kubernetes.io~1opaque-int-resource-foo", "value": "5"}]' \
+http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
 ```
 
 **Note**: In the preceding request, `~1` is the encoding for the character `/`
