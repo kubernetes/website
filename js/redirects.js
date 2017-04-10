@@ -17,7 +17,7 @@ $( document ).ready(function() {
         "from":"/docs/contribute/",
         "pattern":"/contribute/(\\w+)",
         "to":"/docs/home/contribute",
-        "postfix":"/<token
+        "postfix":"/<token>"
     }];
     var doRedirect = false;
     var notHere = false;
