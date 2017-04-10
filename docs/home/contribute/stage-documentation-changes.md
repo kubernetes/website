@@ -9,7 +9,7 @@ to the Kubernetes documentation.
 
 {% capture prerequisites %}
 Create a fork of the Kubernetes documentation repository as described in
-[Creating a Documentation Pull Request](/docs/contribute/create-pull-request/).
+[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
 {% endcapture %}
 
 {% capture steps %}
@@ -101,9 +101,9 @@ web server:
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn about [writing a new topic](/docs/contribute/write-new-topic/).
-* Learn about [using page templates](/docs/contribute/page-templates/).
-* Learn about [creating a pull request](/docs/contribute/create-pull-request/).
+* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
+* Learn about [using page templates](/docs/home/contribute/page-templates/).
+* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
 {% endcapture %}
 
 {% include templates/task.md %}

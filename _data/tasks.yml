@@ -5,6 +5,7 @@ toc:
 
 - title: Using the kubectl Command-Line
   section:
+  - docs/tasks/test.md
   - docs/tasks/kubectl/install.md
   - docs/tasks/kubectl/list-all-running-container-images.md
   - docs/tasks/kubectl/get-shell-running-container.md
@@ -28,6 +29,10 @@ toc:
   - docs/tasks/configure-pod-container/configure-pod-initialization.md
   - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
   - docs/tasks/configure-pod-container/configure-pod-disruption-budget.md
+  - docs/tasks/configure-pod-container/declare-network-policy.md
+  - docs/tasks/configure-pod-container/calico-network-policy.md
+  - docs/tasks/configure-pod-container/romana-network-policy.md
+  - docs/tasks/configure-pod-container/weave-network-policy.md
   - docs/tools/kompose/user-guide.md
 
 - title: Running Applications
@@ -80,6 +85,8 @@ toc:
   - docs/tasks/administer-cluster/limit-storage-consumption.md
   - docs/tasks/administer-cluster/change-default-storage-class.md
   - docs/tasks/administer-cluster/share-configuration.md
+  - docs/tasks/administer-cluster/running-cloud-controller.md
+  - docs/tasks/administer-cluster/highly-available-master.md
 
 - title: Administering Federation
   section:

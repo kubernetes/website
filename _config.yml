@@ -46,10 +46,11 @@ twitter:
 tocs:
   - docs-home
   - guides
+  - setup
   - tutorials
   - tasks
   - concepts
   - reference
-  - tools
   - samples
   - support
+  - search
