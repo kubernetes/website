@@ -86,6 +86,7 @@ toc:
   - docs/tasks/administer-cluster/change-default-storage-class.md
   - docs/tasks/administer-cluster/share-configuration.md
   - docs/tasks/administer-cluster/running-cloud-controller.md
+  - docs/tasks/administer-cluster/highly-available-master.md
 
 - title: Administering Federation
   section:
