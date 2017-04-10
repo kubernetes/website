@@ -11,13 +11,13 @@ $( document ).ready(function() {
         "from":"/docs/user-guide/kubectl/kubectl_",
         "pattern":"kubectl_(\\w+)",
         "to":"/docs/user-guide/kubectl/v1.6",
-        "postfix":"/<token>"
+        "postfix":"/#<token>"
     },
     {
         "from":"/docs/contribute/",
         "pattern":"\/contribute\/([0-9a-zA-Z\-\_]+)",
         "to":"/docs/home/contribute",
-        "postfix":"/#<token>"
+        "postfix":"/<token>"
     }];
     var doRedirect = false;
     var notHere = false;
