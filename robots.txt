@@ -72,7 +72,6 @@ Disallow: /docs/user-guide/federation/replicasets/
 Disallow: /docs/user-guide/federation/secrets/
 
 Disallow: /docs/getting-started-guides/kubectl.html
-Disallow: /docs/getting-started-guides/binary_release.html
 Disallow: /docs/user-guide/sharing-clusters.html
 Disallow: /docs/user-guide/kubeconfig-file.html
 Disallow: /docs/user-guide/prereqs.html
