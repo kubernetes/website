@@ -75,7 +75,6 @@ toc:
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
   - docs/admin/master-node-communication.md
   - docs/admin/garbage-collection.md
-  - docs/admin/salt.md
 
 - title: Administering Federation
   section:
