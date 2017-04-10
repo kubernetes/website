@@ -313,14 +313,14 @@ used together.
 
 There are two approaches to delete objects managed by `kubectl apply`.
 
-### Recommended: `delete -f <filename>`
+### Recommended: `kubectl delete -f <filename>`
 
 Manually deleting objects using the imperative command is the recommended
 approach, as it is more explicit about what is being deleted, and less likely
 to result in the user deleting something unintentionally:
 
 ```shell
-delete -f <filename>
+kubectl delete -f <filename>
 ```
 
 ### Alternative: `kubectl apply -f <directory/> --prune -l your=label`
