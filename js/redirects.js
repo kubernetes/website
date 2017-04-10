@@ -11,7 +11,7 @@ $( document ).ready(function() {
         "from":"/docs/user-guide/kubectl/kubectl_",
         "pattern":"kubectl_(\\w+)",
         "to":"/docs/user-guide/kubectl/v1.6",
-        "postfix":"/#<token>"
+        "postfix":"/<token>"
     },
     {
         "from":"/docs/contribute/",
