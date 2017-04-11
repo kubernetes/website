@@ -86,6 +86,11 @@ Disallow: /docs/user-guide/jobs.html
 Disallow: /docs/user-guide/jobs/work-queue-1/index.html
 Disallow: /docs/user-guide/jobs/work-queue-2/index.html
 
+Disallow: /docs/user-guide/container-environment.html
+Disallow: /docs/user-guide/images.html
+Disallow: /docs/user-guide/volumes.html
+Disallow: /docs/user-guide/node-selection/index.html
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 
