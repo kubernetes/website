@@ -41,7 +41,6 @@ toc:
   - docs/admin/ha-master-gce.md
   - docs/admin/namespaces/index.md
   - docs/admin/namespaces/walkthrough.md
-  - docs/admin/limitrange/index.md
   - docs/admin/etcd.md
   - docs/admin/etcd_upgrade.md
   - title: Changing Cluster Size
