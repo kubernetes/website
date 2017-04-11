@@ -10,7 +10,6 @@ toc:
   - docs/user-guide/configmap/index.md
   - docs/user-guide/projected-volume/index.md
   - docs/user-guide/horizontal-pod-autoscaling/walkthrough.md
-  - docs/user-guide/config-best-practices.md
   - title: Using NetworkPolicy
     section:
     - docs/getting-started-guides/network-policy/walkthrough.md
@@ -23,13 +22,8 @@ toc:
   - docs/user-guide/jobs/expansions/index.md
   - docs/user-guide/cron-jobs.md
 
-- title: Service Discovery and Load Balancing
-  section:
-  - docs/user-guide/connecting-applications.md
-
 - title: Containers and Pods
   section:
-  - docs/user-guide/pod-templates.md
   - docs/user-guide/gpus.md
   - docs/user-guide/liveness/index.md
 
