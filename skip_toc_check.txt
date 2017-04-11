@@ -78,5 +78,10 @@ docs/user-guide/resizing-a-replication-controller.md
 docs/user-guide/rolling-updates.md
 docs/user-guide/update-demo/index.md
 
+docs/user-guide/jobs.md
+docs/user-guide/jobs/work-queue-1/index.md
+docs/user-guide/jobs/work-queue-2/index.md
+
+
 
 

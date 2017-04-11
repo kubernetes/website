@@ -20,10 +20,7 @@ toc:
 
 - title: Batch Jobs
   section:
-  - docs/user-guide/jobs.md
   - docs/user-guide/jobs/expansions/index.md
-  - docs/user-guide/jobs/work-queue-1/index.md
-  - docs/user-guide/jobs/work-queue-2/index.md
   - docs/user-guide/cron-jobs.md
 
 - title: Service Discovery and Load Balancing
