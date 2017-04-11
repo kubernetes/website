@@ -56,7 +56,6 @@ toc:
   - title: kubelet
     section:
     - docs/admin/kubelet.md
-    - docs/admin/master-node-communication.md
     - docs/admin/kubelet-tls-bootstrapping.md
     - docs/admin/kubelet-authentication-authorization.md
 
