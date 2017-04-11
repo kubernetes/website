@@ -29,6 +29,7 @@ toc:
   - docs/tasks/configure-pod-container/configure-pod-initialization.md
   - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
   - docs/tasks/configure-pod-container/configure-pod-disruption-budget.md
+  - docs/tasks/configure-pod-container/configmap.md
   - docs/tasks/configure-pod-container/declare-network-policy.md
   - docs/tasks/configure-pod-container/calico-network-policy.md
   - docs/tasks/configure-pod-container/romana-network-policy.md
