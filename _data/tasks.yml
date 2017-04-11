@@ -40,6 +40,7 @@ toc:
   - docs/tasks/run-application/rolling-update-replication-controller.md
   - docs/tasks/run-application/podpreset.md
   - docs/tasks/run-application/horizontal-pod-autoscale.md
+  - docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md
 
 - title: Running Jobs
   section:
