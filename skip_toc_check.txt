@@ -78,5 +78,28 @@ docs/user-guide/resizing-a-replication-controller.md
 docs/user-guide/rolling-updates.md
 docs/user-guide/update-demo/index.md
 
+docs/user-guide/jobs.md
+docs/user-guide/jobs/work-queue-1/index.md
+docs/user-guide/jobs/work-queue-2/index.md
+
+docs/user-guide/container-environment.md
+docs/user-guide/images.md
+docs/user-guide/volumes.md
+docs/user-guide/node-selection/index.md
+
+docs/user-guide/config-best-practices.md
+docs/user-guide/connecting-applications.md
+docs/user-guide/pod-templates.md
+docs/user-guide/persistent-volumes/index.md
+
+docs/admin/index.md
+docs/admin/cluster-management.md
+docs/admin/limitrange/index.md
+docs/admin/multiple-schedulers.md
+docs/admin/master-node-communication.md
+
+docs/admin/federation/kubefed.md
+docs/user-guide/federation/index.md
+
 
 

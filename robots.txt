@@ -82,6 +82,29 @@ Disallow: /docs/user-guide/resizing-a-replication-controller.html
 Disallow: /docs/user-guide/rolling-updates.html
 Disallow: /docs/user-guide/update-demo/index.html
 
+Disallow: /docs/user-guide/jobs.html
+Disallow: /docs/user-guide/jobs/work-queue-1/index.html
+Disallow: /docs/user-guide/jobs/work-queue-2/index.html
+
+Disallow: /docs/user-guide/container-environment.html
+Disallow: /docs/user-guide/images.html
+Disallow: /docs/user-guide/volumes.html
+Disallow: /docs/user-guide/node-selection/index.html
+
+Disallow: /docs/user-guide/config-best-practices.html
+Disallow: /docs/user-guide/connecting-applications.html
+Disallow: /docs/user-guide/pod-templates.html
+Disallow: /docs/user-guide/persistent-volumes/index.html
+
+Disallow: /docs/admin/index.html
+Disallow: /docs/admin/cluster-management.html
+Disallow: /docs/admin/limitrange/index.html
+Disallow: /docs/admin/multiple-schedulers.html
+Disallow: /docs/admin/master-node-communication.html
+
+Disallow: /docs/admin/federation/kubefed.html
+Disallow: /docs/user-guide/federation/index.html
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 

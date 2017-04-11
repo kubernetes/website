@@ -10,7 +10,6 @@ toc:
   - docs/user-guide/configmap/index.md
   - docs/user-guide/projected-volume/index.md
   - docs/user-guide/horizontal-pod-autoscaling/walkthrough.md
-  - docs/user-guide/config-best-practices.md
   - title: Using NetworkPolicy
     section:
     - docs/getting-started-guides/network-policy/walkthrough.md
@@ -20,23 +19,13 @@ toc:
 
 - title: Batch Jobs
   section:
-  - docs/user-guide/jobs.md
   - docs/user-guide/jobs/expansions/index.md
-  - docs/user-guide/jobs/work-queue-1/index.md
-  - docs/user-guide/jobs/work-queue-2/index.md
   - docs/user-guide/cron-jobs.md
-
-- title: Service Discovery and Load Balancing
-  section:
-  - docs/user-guide/connecting-applications.md
 
 - title: Containers and Pods
   section:
-  - docs/user-guide/pod-templates.md
   - docs/user-guide/gpus.md
   - docs/user-guide/liveness/index.md
-  - docs/user-guide/container-environment.md
-  - docs/user-guide/node-selection/index.md
 
 - title: Monitoring, Logging, and Debugging Containers
   section:
@@ -45,8 +34,6 @@ toc:
 
 - title: Administering Clusters
   section:
-  - docs/admin/index.md
-  - docs/admin/cluster-management.md
   - docs/admin/upgrade-1-6.md
   - docs/admin/kubeadm.md
   - docs/admin/addons.md
@@ -54,23 +41,18 @@ toc:
   - docs/admin/ha-master-gce.md
   - docs/admin/namespaces/index.md
   - docs/admin/namespaces/walkthrough.md
-  - docs/admin/limitrange/index.md
   - docs/admin/etcd.md
   - docs/admin/etcd_upgrade.md
   - title: Changing Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
-  - docs/admin/multiple-schedulers.md
   - title: Setting Up and Configuring DNS
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
-  - docs/admin/master-node-communication.md
   - docs/admin/garbage-collection.md
 
 - title: Administering Federation
   section:
-  - docs/admin/federation/kubefed.md
   - title: Federated Kubernetes Objects
     section:
-    - docs/user-guide/federation/index.md
     - docs/federation/api-reference/index.md
   - title: Federation Components
     section:
