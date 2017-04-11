@@ -106,7 +106,6 @@ look like the example below.
 ```shell
 kubectl get pods -w -l app=nginx
 NAME      READY     STATUS    RESTARTS   AGE
-NAME      READY     STATUS    RESTARTS   AGE
 web-0     0/1       Pending   0          0s
 web-0     0/1       Pending   0         0s
 web-0     0/1       ContainerCreating   0         0s
