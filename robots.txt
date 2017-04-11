@@ -102,6 +102,9 @@ Disallow: /docs/admin/limitrange/index.html
 Disallow: /docs/admin/multiple-schedulers.html
 Disallow: /docs/admin/master-node-communication.html
 
+Disallow: /docs/admin/federation/kubefed.html
+Disallow: /docs/user-guide/federation/index.html
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 
