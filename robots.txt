@@ -82,6 +82,10 @@ Disallow: /docs/user-guide/resizing-a-replication-controller.html
 Disallow: /docs/user-guide/rolling-updates.html
 Disallow: /docs/user-guide/update-demo/index.html
 
+Disallow: /docs/user-guide/jobs.html
+Disallow: /docs/user-guide/jobs/work-queue-1/index.html
+Disallow: /docs/user-guide/jobs/work-queue-2/index.html
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 
