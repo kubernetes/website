@@ -55,6 +55,7 @@ toc:
   - docs/concepts/cluster-administration/audit.md
   - docs/concepts/cluster-administration/resource-usage-monitoring.md
   - docs/concepts/cluster-administration/out-of-resource.md
+  - docs/concepts/cluster-administration/kubelet-garbage-collection.md
   - docs/concepts/cluster-administration/cluster-management.md
   - docs/concepts/cluster-administration/multiple-clusters.md
   - docs/concepts/cluster-administration/federation.md
@@ -65,6 +66,7 @@ toc:
   - docs/concepts/cluster-administration/access-cluster.md
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
   - docs/concepts/cluster-administration/master-node-communication.md
+  - docs/concepts/cluster-administration/addons.md
 
 - title: Storage
   section:

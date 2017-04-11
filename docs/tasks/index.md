@@ -74,5 +74,5 @@ single thing, typically by giving a short sequence of steps.
 ### What's next
 
 If you would like to write a task page, see
-[Creating a Documentation Pull Request](/docs/contribute/create-pull-request/).
+[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
 

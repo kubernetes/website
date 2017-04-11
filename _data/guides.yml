@@ -3,21 +3,10 @@ abstract: "How to get started, and accomplish tasks, using Kubernetes."
 toc:
 - docs/user-guide/index.md
 
-- title: Accessing the Cluster
-  section:
-  - docs/user-guide/prereqs.md
-  - docs/user-guide/sharing-clusters.md
-  - docs/user-guide/kubeconfig-file.md
-
 - docs/user-guide/ui.md
 
 - title: Workload Deployment and Management
   section:
-  - docs/user-guide/managing-deployments.md
-  - docs/user-guide/replication-controller/operations.md
-  - docs/user-guide/resizing-a-replication-controller.md
-  - docs/user-guide/rolling-updates.md
-  - docs/user-guide/update-demo/index.md
   - docs/user-guide/configmap/index.md
   - docs/user-guide/projected-volume/index.md
   - docs/user-guide/horizontal-pod-autoscaling/walkthrough.md
@@ -75,7 +64,6 @@ toc:
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
   - docs/admin/master-node-communication.md
   - docs/admin/garbage-collection.md
-  - docs/admin/salt.md
 
 - title: Administering Federation
   section:
