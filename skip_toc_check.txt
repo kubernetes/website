@@ -98,3 +98,8 @@ docs/admin/limitrange/index.md
 docs/admin/multiple-schedulers.md
 docs/admin/master-node-communication.md
 
+docs/admin/federation/kubefed.md
+docs/user-guide/federation/index.md
+
+
+
