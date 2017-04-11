@@ -67,7 +67,6 @@ toc:
   - docs/admin/daemons.md
   - docs/user-guide/deployments.md
   - docs/user-guide/horizontal-pod-autoscaling/index.md
-  - docs/user-guide/images.md
   - docs/user-guide/ingress.md
   - docs/user-guide/labels.md
   - docs/user-guide/identifiers.md
@@ -87,7 +86,6 @@ toc:
   - docs/user-guide/services/index.md
   - docs/user-guide/service-accounts.md
   - docs/user-guide/thirdpartyresources.md
-  - docs/user-guide/volumes.md
 
 - title: Kubernetes Design Docs
   section:
