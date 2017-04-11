@@ -64,16 +64,16 @@ Or you can get detailed information with:
 
 ```shell
 $ kubectl describe namespaces <name>
-Name:	   default
-Labels:	   <none>
-Status:	   Active
+Name:       default
+Labels:       <none>
+Status:       Active
 
 No resource quota.
 
 Resource Limits
- Type		Resource	Min	Max	Default
- ----				--------	---	---	---
- Container			cpu			-	-	100m
+ Type        Resource    Min    Max    Default
+ ----                --------    ---    ---    ---
+ Container            cpu            -    -    100m
 ```
 
 Note that these details show both resource quota (if present) as well as resource limit ranges.

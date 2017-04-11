@@ -14,7 +14,7 @@ Kubernetes CLI, `kubectl`.
 
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
-though a [Getting started guide](/docs/getting-started-guides/),
+a [Getting started guide](/docs/getting-started-guides/),
 or someone else setup the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
@@ -53,7 +53,7 @@ Run it like this:
 $ kubectl proxy --port=8080 &
 ```
 
-See [kubectl proxy](/docs/user-guide/kubectl/kubectl_proxy) for more details.
+See [kubectl proxy](/docs/user-guide/kubectl/v1.6/#proxy) for more details.
 
 Then you can explore the API with curl, wget, or a browser, like so:
 
@@ -119,9 +119,9 @@ with future high-availability support.
 
 ### Programmatic access to the API
 
-The Kubernetes project-supported Go client library is at [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go).
+Kubernetes supports [Go](#go-client) and [Python](#python-client) client libraries.
 
-To use it, 
+#### Go client
 
 * To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes` See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
@@ -148,6 +148,27 @@ import (
 ```
 
 If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod).
+
+#### Python client
+
+To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
+
+The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py):
+
+```python
+from kubernetes import client, config
+
+config.load_kube_config()
+
+v1=client.CoreV1Api()
+print("Listing pods with their IPs:")
+ret = v1.list_pod_for_all_namespaces(watch=False)
+for i in ret.items:
+    print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
+```
+
+#### Other languages
 
 There are [client libraries](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/client-libraries.md) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
 
@@ -202,7 +223,7 @@ You have several options for connecting to nodes, pods and services from outside
   - Access services through public IPs.
     - Use a service with type `NodePort` or `LoadBalancer` to make the service reachable outside
       the cluster.  See the [services](/docs/user-guide/services) and
-      [kubectl expose](/docs/user-guide/kubectl/kubectl_expose) documentation.
+      [kubectl expose](/docs/user-guide/kubectl/v1.6/#expose) documentation.
     - Depending on your cluster environment, this may just expose the service to your corporate network,
       or it may expose it to the internet.  Think about whether the service being exposed is secure.
       Does it do its own authentication?
@@ -218,7 +239,7 @@ You have several options for connecting to nodes, pods and services from outside
     - Only works for HTTP/HTTPS.
     - Described [here](#manually-constructing-apiserver-proxy-urls).
   - Access from a node or pod in the cluster.
-    - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/user-guide/kubectl/kubectl_exec).
+    - Run a pod, and then connect to a shell in it using [kubectl exec](/docs/user-guide/kubectl/v1.6/#exec).
       Connect to other nodes, pods, and services from that shell.
     - Some clusters may allow you to ssh to a node in the cluster.  From there you may be able to
       access cluster services.  This is a non-standard method, and will work on some clusters but
@@ -233,30 +254,30 @@ with the `kubectl cluster-info` command:
 $ kubectl cluster-info
 
   Kubernetes master is running at https://104.197.5.247
-  elasticsearch-logging is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging
-  kibana-logging is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/kibana-logging
-  kube-dns is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/kube-dns
-  grafana is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-grafana
-  heapster is running at https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/monitoring-heapster
+  elasticsearch-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
+  kibana-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kibana-logging/proxy
+  kube-dns is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kube-dns/proxy
+  grafana is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+  heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 ```
 
 This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
-at `https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/` if suitable credentials are passed, or through a kubectl proxy at, for example:
-`http://localhost:8080/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/`.
+at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed, or through a kubectl proxy at, for example:
+`http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 (See [above](#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.)
 
 #### Manually constructing apiserver proxy URLs
 
 As mentioned above, you use the `kubectl cluster-info` command to retrieve the service's proxy URL. To create proxy URLs that include service endpoints, suffixes, and parameters, you simply append to the service's proxy URL:
-`http://`*`kubernetes_master_address`*`/api/v1/proxy/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*
+`http://`*`kubernetes_master_address`*`/api/v1/namespaces/`*`namespace_name`*`/services/`*`service_name[:port_name]`*`/proxy`
 
 If you haven't specified a name for your port, you don't have to specify *port_name* in the URL
 
 ##### Examples
 
- * To access the Elasticsearch service endpoint `_search?q=user:kimchy`, you would use:   `http://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/_search?q=user:kimchy`
- * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:   `https://104.197.5.247/api/v1/proxy/namespaces/kube-system/services/elasticsearch-logging/_cluster/health?pretty=true`
+ * To access the Elasticsearch service endpoint `_search?q=user:kimchy`, you would use:   `http://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy`
+ * To access the Elasticsearch cluster health information `_cluster/health?pretty=true`, you would use:   `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true`
 
 ```json
   {

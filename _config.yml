@@ -17,7 +17,8 @@ defaults:
     scope:
       path: ""
     values:
-      version: "v1.5.1"
+      fullversion: "v1.6.0"
+      version: "v1.6"
       githubbranch: "master"
       docsbranch: "master"
   -
@@ -45,10 +46,11 @@ twitter:
 tocs:
   - docs-home
   - guides
+  - setup
   - tutorials
   - tasks
   - concepts
   - reference
-  - tools
   - samples
   - support
+  - search

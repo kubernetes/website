@@ -35,14 +35,10 @@ Init Containers are exactly like regular Containers, except:
 If an Init Container fails for a Pod, Kubernetes restarts the Pod repeatedly until the Init
 Container succeeds. However, if the Pod has a `restartPolicy` of Never, it is not restarted.
 
-To specify a Container as an Init Container, add the `annotations` key
-`pod.beta.kubernetes.io/init-containers`.  Its value should be a
-JSON array of objects of type
-[Container](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_container).
-
-The status of an Init Container is returned as another annotation,
-`pod.beta.kubernetes.io/init-container-statuses`, which is an array of
-container statuses similar to the `status.containerStatuses` field.
+To specify a Container as an Init Container, add the `initContainers` field on the PodSpec as a JSON array of objects of type [v1.Container](/docs/api-reference/v1.6/#container-v1-core) alongside the app `containers` array.
+The status of the init containers is returned in `status.initContainerStatuses`
+field as an array of the container statuses (similar to the `status.containerStatuses`
+field).
 
 ### Differences from regular Containers
 
@@ -141,36 +137,36 @@ NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
 $ kubectl describe -f myapp.yaml
 i11:32 $ kubectl describe -f examples/init-container.yaml 
-Name:		myapp-pod
-Namespace:	default
+Name:          myapp-pod
+Namespace:     default
 [...]
-Labels:		app=myapp
-Status:		Pending
+Labels:        app=myapp
+Status:        Pending
 [...]
 Init Containers:
   init-myservice:
 [...]
-    State:		Running
+    State:         Running
 [...]
   init-mydb:
 [...]
-    State:		Running
+    State:         Running
 [...]
 Containers:
   myapp-container:
 [...]
-    State:		Waiting
-      Reason:		PodInitializing
-    Ready:		False
+    State:         Waiting
+      Reason:      PodInitializing
+    Ready:         False
 [...]
 Events:
-  FirstSeen	LastSeen	Count	From			SubObjectPath				Type		Reason		Message
-  ---------	--------	-----	----			-------------				--------	------		-------
-  16s		16s		1	{default-scheduler }								Normal		Scheduled	Successfully assigned myapp-pod to 172.17.4.201
-  16s		16s		1	{kubelet 172.17.4.201}	spec.initContainers{init-myservice}	Normal		Pulling		pulling image "busybox"
-  13s		13s		1	{kubelet 172.17.4.201}	spec.initContainers{init-myservice}	Normal		Pulled		Successfully pulled image "busybox"
-  13s		13s		1	{kubelet 172.17.4.201}	spec.initContainers{init-myservice}	Normal		Created		Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
-  13s		13s		1	{kubelet 172.17.4.201}	spec.initContainers{init-myservice}	Normal		Started		Started container with docker id 5ced34a04634
+  FirstSeen    LastSeen    Count    From                     SubObjectPath                Type        Reason        Message
+  ---------    --------    -----    ----                     -------------                --------    ------        -------
+  16s          16s         1        {default-scheduler }                                              Normal        Scheduled     Successfully assigned myapp-pod to 172.17.4.201
+  16s          16s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Pulling        pulling image "busybox"
+  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Pulled        Successfully pulled image "busybox"
+  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created        Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
+  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started        Started container with docker id 5ced34a04634
 $ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
 $ kubectl logs myapp-pod -c init-mydd      # Inspect the second init container
 ```
@@ -262,9 +258,12 @@ reasons:
 
 ## Support and compatibility
 
-A cluster with Kubelet and Apiserver version 1.4.0 or greater supports Init
-Containers with the beta annotations. Support varies for other combinations of
-Kubelet and Apiserver versions; see the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md) for details.
+A cluster with Apiserver version 1.6.0 or greater supports Init Containers
+using the `spec.initContainers` field. Previous versions support Init Containers
+using the alpha or beta annotations. The `spec.initContainers` field is also mirrored
+into alpha and beta annotations so that Kubelets version 1.3.0 or greater can execute
+Init Containers, and so that a version 1.6 apiserver can safely be rolled back to version
+1.5.x without losing Init Container functionality for existing created pods.
 
 {% endcapture %}
 

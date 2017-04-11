@@ -87,7 +87,7 @@ than what you expect to use.
 
 If you specify a request, a Pod is guaranteed to be able to use that much
 of the resource. See
-[Resource QoS](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resource-qos.md) for the difference between resource limits and requests.
+[Resource QoS](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-qos.md) for the difference between resource limits and requests.
 
 ## If you don't specify limits or requests
 
@@ -112,7 +112,7 @@ For information about what happens if you don't specify CPU and RAM requests, se
 {% capture whatsnext %}
 
 * Learn more about [managing compute resources](/docs/user-guide/compute-resources/).
-* See [ResourceRequirements](/docs/api-reference/v1/definitions/#_v1_resourcerequirements).
+* See [ResourceRequirements](/docs/api-reference/v1.6/#resourcerequirements-v1-core).
 
 {% endcapture %}
 

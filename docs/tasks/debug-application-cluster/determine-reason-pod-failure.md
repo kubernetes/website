@@ -100,8 +100,8 @@ Set `terminationMessagePath` as shown here:
 {% capture whatsnext %}
 
 * See the `terminationMessagePath` field in
-  [Container](/docs/api-reference/v1/definitions#_v1_container).
-* Learn about [retrieving logs](/docs/user-guide/logging/).
+  [Container](/docs/api-reference/v1.6/#container-v1-core).
+* Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
 * Learn about [Go templates](https://golang.org/pkg/text/template/).
 
 {% endcapture %}

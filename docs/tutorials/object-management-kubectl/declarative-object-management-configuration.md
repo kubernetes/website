@@ -89,7 +89,7 @@ metadata:
     # This is the json representation of simple_deployment.yaml
     # It was written by kubectl apply when the object was created
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
@@ -160,7 +160,7 @@ metadata:
     # This is the json representation of simple_deployment.yaml
     # It was written by kubectl apply when the object was created
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
@@ -204,7 +204,7 @@ The output shows that the `replicas` field has been set to 2, and the `last-appl
 annotation does not contain a `replicas` field:
 
 ```
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   annotations:
@@ -212,7 +212,7 @@ metadata:
     # note that the annotation does not contain replicas
     # because it was not updated through apply
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
@@ -264,7 +264,7 @@ The output shows the following changes to the live configuration:
 - The `last-applied-configuration` annotation no longer contains the `minReadySeconds` field.
 
 ```shell
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   annotations:
@@ -272,7 +272,7 @@ metadata:
     # The annotation contains the updated image to nginx 1.11.9,
     # but does not contain the updated replicas to 2
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
@@ -383,7 +383,7 @@ The `kubectl apply` command writes the contents of the configuration file to the
 `kubectl.kubernetes.io/last-applied-configuration` annotation. This
 is used to identify fields that have been removed from the configuration
 file and need to be cleared from the live configuration. Here are the steps used
-to caluculate which fields should be deleted or set:
+to calculate which fields should be deleted or set:
 
 1. Calculate the fields to delete. These are the fields present in `last-applied-configuration` and missing from the configuration file.
 2. Calculate the fields to add or set. These are the fields present in the configuration file whose values don't match the live configuration.
@@ -395,7 +395,7 @@ Here's an example. Suppose this is the configuration file for a Deployment objec
 Also, suppose this is the live configuration for the same Deployment object:
 
 ```shell
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   annotations:
@@ -403,7 +403,7 @@ metadata:
     # note that the annotation does not contain replicas
     # because it was not updated through apply
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
@@ -446,7 +446,7 @@ Here are the merge calculations that would be performed by `kubectl apply`:
 Here is the live configuration that is the result of the merge:
 
 ```shell
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   annotations:
@@ -454,7 +454,7 @@ metadata:
     # The annotation contains the updated image to nginx 1.11.9,
     # but does not contain the updated replicas to 2
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
@@ -693,7 +693,7 @@ The output shows that the API server set several fields to default values in the
 configuration. These fields were not specified in the configuration file.
 
 ```shell
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 # ...
 spec:
@@ -954,8 +954,8 @@ The recommended approach for ThirdPartyResources is to use [imperative object co
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)
+- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.6/)
 {% endcapture %}
 
 {% include templates/concept.md %}

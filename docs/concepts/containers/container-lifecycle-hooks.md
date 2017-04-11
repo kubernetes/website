@@ -17,11 +17,11 @@ to run code triggered by events during their management lifecycle.
 {% capture body %}
 
 ## Overview
+
 Analogous to many programming language frameworks that have component lifecycle hooks, such as Angular,
 Kubernetes provides Containers with lifecycle hooks.
 The hooks enable Containers to be aware of events in their management lifecycle
 and run code implemented in a handler when the corresponding lifecycle hook is executed.
-
 
 ## Container hooks
 
@@ -98,18 +98,18 @@ Here is some example output of events from running this command:
 
 ```
 Events:
-  FirstSeen	LastSeen	Count	From							SubobjectPath		Type		Reason		Message
-  ---------	--------	-----	----							-------------		--------	------		-------
-  1m		1m		1	{default-scheduler }								Normal		Scheduled	Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
-  1m		1m		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Pulling		pulling image "test:1.0"
-  1m		1m		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Created		Created container with docker id 5c6a256a2567; Security:[seccomp=unconfined]
-  1m		1m		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Pulled		Successfully pulled image "test:1.0"
-  1m		1m		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Started		Started container with docker id 5c6a256a2567
-  38s		38s		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Killing		Killing container with docker id 5c6a256a2567: PostStart handler: Error executing in Docker Container: 1
-  37s		37s		1	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Normal		Killing		Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
-  38s		37s		2	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}				Warning		FailedSync	Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
-  1m 		22s 		2 	{kubelet gke-test-cluster-default-pool-a07e5d30-siqd}	spec.containers{main}	Warning		FailedPostStartHook	
-``` 
+  FirstSeen    LastSeen    Count    From                            SubobjectPath        Type        Reason        Message
+  ---------    --------    -----    ----                            -------------        --------    ------        -------
+  1m        1m        1    {default-scheduler }                                Normal        Scheduled    Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
+  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Pulling        pulling image "test:1.0"
+  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Created        Created container with docker id 5c6a256a2567; Security:[seccomp=unconfined]
+  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Pulled        Successfully pulled image "test:1.0"
+  1m        1m        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Started        Started container with docker id 5c6a256a2567
+  38s        38s        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Killing        Killing container with docker id 5c6a256a2567: PostStart handler: Error executing in Docker Container: 1
+  37s        37s        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Killing        Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
+  38s        37s        2    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}                Warning        FailedSync    Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
+  1m         22s         2     {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Warning        FailedPostStartHook    
+```
 
 {% endcapture %}
 
