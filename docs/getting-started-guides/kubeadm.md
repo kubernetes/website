@@ -280,8 +280,8 @@ helper service, will not start up before a network is installed. kubeadm only
 supports CNI based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons
-page](/docs/admin/addons/) for a complete list of available network add-ons.
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons
+page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
 
 **New for Kubernetes 1.6:** kubeadm 1.6 sets up a more secure cluster by
 default.  As such it uses RBAC to grant limited privileges to workloads running
@@ -392,7 +392,7 @@ kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservic
 ```
 
 You can then find out the port that the [NodePort feature of
-services](/docs/user-guide/services/) allocated for the front-end service by
+services](/docs/concepts/services-networking/service/) allocated for the front-end service by
 running:
 
 ``` bash
@@ -444,7 +444,7 @@ appropriate arguments.
 
 ## Explore other add-ons
 
-See the [list of add-ons](/docs/admin/addons/) to explore other add-ons,
+See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons,
 including tools for logging, monitoring, network policy, visualization &amp;
 control of your Kubernetes cluster.
 
@@ -541,7 +541,7 @@ addressed in due course.
    [#31307](https://github.com/kubernetes/kubernetes/issues/31307).
 
    Workaround: use the [NodePort feature of
-   services](/docs/user-guide/services/#type-nodeport) instead, or use
+   services](/docs/concepts/services-networking/service/#type-nodeport) instead, or use
    HostNetwork.
 
 1. Some users on RHEL/CentOS 7 have reported issues with traffic being routed
