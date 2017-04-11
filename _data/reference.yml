@@ -69,7 +69,6 @@ toc:
   - docs/user-guide/horizontal-pod-autoscaling/index.md
   - docs/user-guide/images.md
   - docs/user-guide/ingress.md
-  - docs/user-guide/jobs.md
   - docs/user-guide/labels.md
   - docs/user-guide/identifiers.md
   - docs/user-guide/namespaces.md
