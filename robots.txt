@@ -91,6 +91,11 @@ Disallow: /docs/user-guide/images.html
 Disallow: /docs/user-guide/volumes.html
 Disallow: /docs/user-guide/node-selection/index.html
 
+Disallow: /docs/user-guide/config-best-practices.html
+Disallow: /docs/user-guide/connecting-applications.html
+Disallow: /docs/user-guide/pod-templates.html
+Disallow: /docs/user-guide/persistent-volumes/index.html
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 
