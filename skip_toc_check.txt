@@ -82,6 +82,12 @@ docs/user-guide/jobs.md
 docs/user-guide/jobs/work-queue-1/index.md
 docs/user-guide/jobs/work-queue-2/index.md
 
+docs/user-guide/container-environment.md
+docs/user-guide/images.md
+docs/user-guide/volumes.md
+docs/user-guide/node-selection/index.md
+
+
 
 
 
