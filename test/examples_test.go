@@ -134,6 +134,8 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = expvalidation.ValidateDaemonSet(t)
+	case *extensions.PodSecurityPolicy:
+		errors = expvalidation.ValidatePodSecurityPolicy(t)
 	case *batch.CronJob:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -225,6 +227,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"../docs/user-guide/update-demo": {
 			"kitten-rc":   {&api.ReplicationController{}},
 			"nautilus-rc": {&api.ReplicationController{}},
+		},
+		"../docs/user-guide/pod-security-policy": {
+			"psp": {&extensions.PodSecurityPolicy{}},
 		},
 		"../docs/user-guide/persistent-volumes/volumes": {
 			"local-01": {&api.PersistentVolume{}},
