@@ -8,7 +8,7 @@ This page shows how to create a new topic for the Kubernetes docs.
 
 {% capture prerequisites %}
 Create a fork of the Kubernetes documentation repository as described in
-[Creating a Documentation Pull Request](/docs/contribute/create-pull-request/).
+[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
 {% endcapture %}
 
 {% capture steps %}
@@ -38,7 +38,7 @@ is the best fit for your content:
 </table>
 
 Each page type has a
-[template](/docs/contribute/page-templates/)
+[template](/docs/home/contribute/page-templates/)
 that you can use as you write your topic.
 Using templates helps ensure consistency among topics of a given type.
 
@@ -135,9 +135,9 @@ image format is SVG.
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn about [using page templates](/docs/contribute/page-templates/).
-* Learn about [staging your changes](/docs/contribute/stage-documentation-changes).
-* Learn about [creating a pull request](/docs/contribute/create-pull-request/).
+* Learn about [using page templates](/docs/home/contribute/page-templates/).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes).
+* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
 {% endcapture %}
 
 {% include templates/task.md %}
