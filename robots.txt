@@ -76,6 +76,12 @@ Disallow: /docs/user-guide/sharing-clusters.html
 Disallow: /docs/user-guide/kubeconfig-file.html
 Disallow: /docs/user-guide/prereqs.html
 
+Disallow: /docs/user-guide/managing-deployments.html
+Disallow: /docs/user-guide/replication-controller/operations.html
+Disallow: /docs/user-guide/resizing-a-replication-controller.html
+Disallow: /docs/user-guide/rolling-updates.html
+Disallow: /docs/user-guide/update-demo/index.html
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 
