@@ -51,10 +51,8 @@ toc:
 
 - title: Administering Federation
   section:
-  - docs/admin/federation/kubefed.md
   - title: Federated Kubernetes Objects
     section:
-    - docs/user-guide/federation/index.md
     - docs/federation/api-reference/index.md
   - title: Federation Components
     section:
