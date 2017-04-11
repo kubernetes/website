@@ -91,3 +91,10 @@ docs/user-guide/config-best-practices.md
 docs/user-guide/connecting-applications.md
 docs/user-guide/pod-templates.md
 docs/user-guide/persistent-volumes/index.md
+
+docs/admin/index.md
+docs/admin/cluster-management.md
+docs/admin/limitrange/index.md
+docs/admin/multiple-schedulers.md
+docs/admin/master-node-communication.md
+
