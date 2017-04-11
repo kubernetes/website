@@ -12,7 +12,6 @@ Disallow: /docs/user-guide/deploying-applications
 Disallow: /docs/user-guide/getting-into-containers
 Disallow: /docs/user-guide/liveness/index
 Disallow: /docs/user-guide/pod-states
-Disallow: /docs/user-guide/simple-nginx
 Disallow: /docs/user-guide/production-pods
 Disallow: /docs/user-guide/quick-start
 
@@ -71,6 +70,11 @@ Disallow: /docs/user-guide/federation/federated-ingress/
 Disallow: /docs/user-guide/federation/namespaces/
 Disallow: /docs/user-guide/federation/replicasets/
 Disallow: /docs/user-guide/federation/secrets/
+
+Disallow: /docs/getting-started-guides/kubectl.html
+Disallow: /docs/user-guide/sharing-clusters.html
+Disallow: /docs/user-guide/kubeconfig-file.html
+Disallow: /docs/user-guide/prereqs.html
 
 SITEMAP: http://kubernetes.io/sitemap.xml
 
