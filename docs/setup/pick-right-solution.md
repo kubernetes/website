@@ -52,7 +52,7 @@ clusters.
 
 [KUBE2GO.io](https://kube2go.io) get started with highly available Kubernetes clusters on multiple public clouds along with useful tools for development, debugging, monitoring.
 
-[Madcore.Ai](https://madcore.ai) CLI tool to deploy Kubernetes infrastructure in AWS with focus on devops. Master, auto-scaling-group nodes with spot-instances, ingress-ssl-lego, heapster, grafana. Based on latest containers.
+[Madcore.Ai](https://madcore.ai) CLI tool to deploy Kubernetes infrastructure in AWS with focus on devops. Master, auto-scaling-group nodes with spot-instances, ingress-ssl-lego, Heapster, Grafana. Based on latest containers.
 
 [Platform9](https://platform9.com/products/kubernetes/) offers managed Kubernetes on-premises or any public cloud, and provides 24/7 health monitoring and alerting.
 
