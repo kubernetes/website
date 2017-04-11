@@ -66,3 +66,11 @@ docs/home/deprecation-policy.md
 docs/whatisk8s.md
 
 docs/contribute/README.md
+
+docs/getting-started-guides/kubectl.md
+docs/user-guide/sharing-clusters.md
+docs/user-guide/kubeconfig-file.md
+docs/user-guide/prereqs.md
+
+
+
