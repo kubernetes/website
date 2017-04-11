@@ -72,5 +72,11 @@ docs/user-guide/sharing-clusters.md
 docs/user-guide/kubeconfig-file.md
 docs/user-guide/prereqs.md
 
+docs/user-guide/managing-deployments.md
+docs/user-guide/replication-controller/operations.md
+docs/user-guide/resizing-a-replication-controller.md
+docs/user-guide/rolling-updates.md
+docs/user-guide/update-demo/index.md
+
 
 
