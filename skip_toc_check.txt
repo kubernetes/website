@@ -94,7 +94,7 @@ docs/user-guide/persistent-volumes/index.md
 
 docs/admin/index.md
 docs/admin/cluster-management.md
-docs/admin/audit.md
+docs/admin/limitrange/index.md
 docs/admin/multiple-schedulers.md
 docs/admin/master-node-communication.md
 

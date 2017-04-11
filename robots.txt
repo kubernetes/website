@@ -98,7 +98,7 @@ Disallow: /docs/user-guide/persistent-volumes/index.html
 
 Disallow: /docs/admin/index.html
 Disallow: /docs/admin/cluster-management.html
-Disallow: /docs/admin/audit.html
+Disallow: /docs/admin/limitrange/index.html
 Disallow: /docs/admin/multiple-schedulers.html
 Disallow: /docs/admin/master-node-communication.html
 
