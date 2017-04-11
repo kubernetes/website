@@ -73,7 +73,6 @@ toc:
   - docs/user-guide/namespaces.md
   - docs/user-guide/networkpolicies.md
   - docs/admin/node.md
-  - docs/user-guide/persistent-volumes/index.md
   - docs/user-guide/petset.md
   - docs/user-guide/pods/index.md
   - docs/user-guide/pod-security-policy/index.md
