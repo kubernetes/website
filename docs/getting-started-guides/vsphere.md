@@ -61,7 +61,7 @@ vSphere Cloud Provider requires the following minimal set of privileges to inter
 
 Please refer [vSphere Documentation Center](http://pubs.vmware.com/vsphere-65/index.jsp?topic=%2Fcom.vmware.vsphere.security.doc%2FGUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html&resultof=%22%43%72%65%61%74%65%22%20%22%63%72%65%61%74%22%20%22%43%75%73%74%6f%6d%22%20%22%63%75%73%74%6f%6d%22%20%22%52%6f%6c%65%22%20%22%72%6f%6c%65%22%20) to know about steps for creating a Custom Role, User and Role Assignment.
 
-Note: Assign Permissions at vCenter Level and make sure to check Propagate.
+Note: Assign Permissions at the vCenter Level and make sure to check Propagate.
 
 ```
 Datastore > Allocate space
@@ -71,7 +71,7 @@ Virtual Machine > Configuration > Add or remove device
 Virtual Machine > Configuration > Remove disk
 ```
 
-For VSAN policy based volume provisioning feature, following additional privileges are required.
+For the VSAN policy based volume provisioning feature, the following additional privileges are required.
 
 ```
 Network > Assign network
