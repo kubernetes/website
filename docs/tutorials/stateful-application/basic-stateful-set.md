@@ -330,7 +330,7 @@ web-0
 web-1
 ```
 
-Event though `web-0` and `web-1` were rescheduled, they continue to serve their 
+Even though `web-0` and `web-1` were rescheduled, they continue to serve their 
 hostnames because the PersistentVolumes associated with their Persistent 
 Volume Claims are remounted to their `volumeMount`s. No matter what node `web-0`
 and `web-1` are scheduled on, their PersistentVolumes will be mounted to the 
