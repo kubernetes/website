@@ -6,70 +6,70 @@ toc:
 - title: Storage / Database / KV
   section:
   - title: Apache Cassandra Database
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/storage/cassandra
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/storage/cassandra
   - title: Ceph
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/volumes/rbd/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/volumes/rbd/
   - title: CephFS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/volumes/cephfs/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/volumes/cephfs/
   - title: CockroachDB
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.4/examples/cockroachdb/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/cockroachdb/
   - title: GlusterFS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/volumes/glusterfs/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/volumes/glusterfs/
   - title: Hazelcast
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/storage/hazelcast
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/storage/hazelcast
   - title: iSCSI
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/volumes/iscsi/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/volumes/iscsi/
   - title: MySQL Galera
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/storage/mysql-galera
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/storage/mysql-galera
   - title: NFS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/volumes/nfs/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/volumes/nfs/
   - title: Redis
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/storage/redis/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/storage/redis/
   - title: RethinkDB
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/storage/rethinkdb/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/storage/rethinkdb/
   - title: Vitess
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/storage/vitess/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/storage/vitess/
 
 - title: Big Data
   section:
   - title: Apache Spark
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/spark
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/spark
   - title: Apache Storm
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/storm
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/storm
 
 - title: Messaging / Queueing
   section:
   - title: Hazelcast
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/storage/hazelcast
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/storage/hazelcast
 
 - title: Miscellaneous
   section:
   - title: Meteor Applications
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/meteor/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/meteor/
   - title: OpenShift Origin
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/openshift-origin/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/openshift-origin/
   - title: Selenium
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/selenium/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/selenium/
 
 - title: Monitoring and Logging
   section:
   - title: Elasticsearch
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/elasticsearch/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/elasticsearch/
   - title: NewRelic
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/newrelic
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/newrelic
 
 - title: Multi-tier Applications
   section:
   - title: Guestbook - Go Server
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/guestbook-go/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/guestbook-go/
   - title: GuestBook - PHP Server
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/guestbook/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/guestbook/
   - docs/getting-started-guides/meanstack.md
   - title: MySQL + Wordpress
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/mysql-wordpress-pd/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/mysql-wordpress-pd/
   - title: MySQL + Phabricator Server
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/phabricator/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/phabricator/
   - title: Nodejs + Mongo
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/nodesjs-mongodb
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/nodesjs-mongodb
   - title: Petstore
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/k8petstore/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/examples/k8petstore/
