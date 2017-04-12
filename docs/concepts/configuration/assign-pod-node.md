@@ -149,7 +149,7 @@ as a LabelSelector with an associated list of namespaces (or "all" namespaces); 
 a label selector over pod labels must specify which namespaces the selector should apply to. Conceptually X is a topology domain
 like node, rack, cloud provider zone, cloud provider region, etc. You express it using a `topologyKey` which is the
 key for the node label that the system uses to denote such a topology domain, e.g. see the label keys listed above
-in the section "Interlude: built-in node labels."
+in the section [Interlude: built-in node labels](#interlude-built-in-node-labels).
 
 As with node affinity, there are currently two types of pod affinity and anti-affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
 `preferredDuringSchedulingIgnoredDuringExecution` which denote "hard" vs. "soft" requirements.
