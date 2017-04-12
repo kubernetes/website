@@ -183,8 +183,8 @@ flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 As with node affinity, the legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 
 In principle, the `topologyKey` can be any legal label value. However,
-for performance reasons, only a limit set of topology keys are allowed;
-they are specified in the `--failure-domain` command-line argument to the scheduler. By default the allowed topology keys are
+for performance reasons, only a limited set of topology keys are allowed.
+By default the allowed topology keys are:
 
 * `kubernetes.io/hostname`
 * `failure-domain.beta.kubernetes.io/zone`
