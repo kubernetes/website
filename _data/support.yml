@@ -12,10 +12,6 @@ toc:
   - title: Services FAQ
     path: https://github.com/kubernetes/kubernetes/wiki/Services-FAQ/
 
-- title: Contributing to the Kubernetes Docs
-  section:
-  - editdocs.md
-
 - title: Other Resources
   section:
   - title: Kubernetes Issue Tracker on GitHub
