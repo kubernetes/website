@@ -69,7 +69,7 @@ Here's an example of an object configuration file:
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml
+kubectl apply -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
@@ -251,7 +251,7 @@ kubectl apply -f http://k8s.io/docs/tutorials/object-management-kubectl/update_d
 Print the live configuration using `kubectl get`:
 
 ```
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
@@ -313,14 +313,14 @@ used together.
 
 There are two approaches to delete objects managed by `kubectl apply`.
 
-### Recommended: `delete -f <filename>`
+### Recommended: `kubectl delete -f <filename>`
 
 Manually deleting objects using the imperative command is the recommended
 approach, as it is more explicit about what is being deleted, and less likely
 to result in the user deleting something unintentionally:
 
 ```shell
-delete -f <filename>
+kubectl delete -f <filename>
 ```
 
 ### Alternative: `kubectl apply -f <directory/> --prune -l your=label`
@@ -675,7 +675,7 @@ not specified when the object is created.
 
 Here's a configuration file for a Deployment. The file does not specify `strategy` or `selector`:
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/simple_deployment.yaml" %}
+{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/simple_deployment.yaml" %}
 
 Create the object using `kubectl apply`:
 
@@ -948,7 +948,7 @@ template:
 ## Support for ThirdPartyResources
 
 As of Kubernetes 1.5, ThirdPartyResources are not supported by `kubectl apply`.
-The recommended approach for ThirdPartyResources is to use [imperative object configuration](/docs/concepts/tools/kubectl/object-management-using-imperative-config/).
+The recommended approach for ThirdPartyResources is to use [imperative object configuration](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/).
 {% endcapture %}
 
 {% capture whatsnext %}
