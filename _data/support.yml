@@ -3,14 +3,6 @@ abstract: "Troubleshooting resources, frequently asked questions, and community 
 toc:
 - docs/troubleshooting.md
 
-- title: Troubleshooting
-  section:
-  - docs/user-guide/debugging-pods-and-replication-controllers.md
-  - docs/user-guide/introspection-and-debugging.md
-  - docs/user-guide/application-troubleshooting.md
-  - docs/admin/cluster-troubleshooting.md
-  - docs/user-guide/debugging-services.md
-
 - title: Frequently Asked Questions
   section:
   - title: User FAQ
@@ -23,12 +15,6 @@ toc:
 - title: Contributing to the Kubernetes Docs
   section:
   - editdocs.md
-  - docs/home/contribute/create-pull-request.md
-  - docs/home/contribute/write-new-topic.md
-  - docs/home/contribute/stage-documentation-changes.md
-  - docs/home/contribute/page-templates.md
-  - docs/home/contribute/review-issues.md
-  - docs/home/contribute/style-guide.md
 
 - title: Other Resources
   section:

@@ -61,6 +61,7 @@ docs/user-guide/federation/replicasets.md
 docs/user-guide/federation/secrets.md
 
 docs/home/security.md
+docs/deprecation-policy.md
 docs/home/deprecation-policy.md
 
 docs/whatisk8s.md
@@ -101,5 +102,15 @@ docs/admin/master-node-communication.md
 docs/admin/federation/kubefed.md
 docs/user-guide/federation/index.md
 
-
+docs/user-guide/debugging-pods-and-replication-controllers.md
+docs/user-guide/introspection-and-debugging.md
+docs/user-guide/application-troubleshooting.md
+docs/admin/cluster-troubleshooting.md
+docs/user-guide/debugging-services.md
+docs/contribute/create-pull-request.md
+docs/contribute/write-new-topic.md
+docs/contribute/stage-documentation-changes.md
+docs/contribute/page-templates.md
+docs/contribute/review-issues.md
+docs/contribute/style-guide.md
 
