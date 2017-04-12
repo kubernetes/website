@@ -209,7 +209,7 @@ NAME       DESIRED   CURRENT   READY     AGE
 frontend   2         2         2         1h
 ```
 
-You can also use `get rc NAME` to return information about a specific
+You can also use `kubectl get rc NAME` to return information about a specific
 replication controller.
 
 To view detailed information about a specific replication controller, use the
