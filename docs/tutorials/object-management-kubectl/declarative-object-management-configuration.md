@@ -64,18 +64,18 @@ configuration file that was used to create the object.
 
 Here's an example of an object configuration file:
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/simple_deployment.yaml" %}
+{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/simple_deployment.yaml" %}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml
+kubectl apply -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -132,12 +132,12 @@ kubectl apply -f <directory>/
 
 Here's an example configuration file:
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/simple_deployment.yaml" %}
+{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/simple_deployment.yaml" %}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml
+kubectl apply -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
 ```
 
 **Note:** For purposes of illustration, the preceding command refers to a single
@@ -146,7 +146,7 @@ configuration file instead of a directory.
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -197,7 +197,7 @@ kubectl scale deployment/nginx-deployment --replicas 2
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
@@ -240,18 +240,18 @@ spec:
 Update the `simple_deployment.yaml` configuration file to change the image from
 `nginx:1.7.9` to `nginx:1.11.9`, and delete the `minReadySeconds` field:
 
-{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/concepts/tools/update_deployment.yaml" %}
+{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/update_deployment.yaml" %}
 
 Apply the changes made to the configuration file:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/update_deployment.yaml
+kubectl apply -f http://k8s.io/docs/tutorials/object-management-kubectl/update_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
@@ -313,14 +313,14 @@ used together.
 
 There are two approaches to delete objects managed by `kubectl apply`.
 
-### Recommended: `delete -f <filename>`
+### Recommended: `kubectl delete -f <filename>`
 
 Manually deleting objects using the imperative command is the recommended
 approach, as it is more explicit about what is being deleted, and less likely
 to result in the user deleting something unintentionally:
 
 ```shell
-delete -f <filename>
+kubectl delete -f <filename>
 ```
 
 ### Alternative: `kubectl apply -f <directory/> --prune -l your=label`
@@ -390,7 +390,7 @@ to calculate which fields should be deleted or set:
 
 Here's an example. Suppose this is the configuration file for a Deployment object:
 
-{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/concepts/tools/update_deployment.yaml" %}
+{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/update_deployment.yaml" %}
 
 Also, suppose this is the live configuration for the same Deployment object:
 
@@ -675,18 +675,18 @@ not specified when the object is created.
 
 Here's a configuration file for a Deployment. The file does not specify `strategy` or `selector`:
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/simple_deployment.yaml" %}
+{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/simple_deployment.yaml" %}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml
+kubectl apply -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the API server set several fields to default values in the live
@@ -948,7 +948,7 @@ template:
 ## Support for ThirdPartyResources
 
 As of Kubernetes 1.5, ThirdPartyResources are not supported by `kubectl apply`.
-The recommended approach for ThirdPartyResources is to use [imperative object configuration](/docs/concepts/tools/kubectl/object-management-using-imperative-config/).
+The recommended approach for ThirdPartyResources is to use [imperative object configuration](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/).
 {% endcapture %}
 
 {% capture whatsnext %}
