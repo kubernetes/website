@@ -1,7 +1,7 @@
 ---
 assignees:
 - dlorenc
-- r2d4 
+- r2d4
 - aaron-prindle
 title: Running Kubernetes Locally via Minikube
 ---
@@ -29,7 +29,9 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 * OS X
     * [xhyve driver](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#xhyve-driver), [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [VMware Fusion](https://www.vmware.com/products/fusion) installation
 * Linux
-    * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [KVM](http://www.linux-kvm.org/) installation,
+    * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [KVM](http://www.linux-kvm.org/) installation
+* Windows
+    * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install) installation
 * VT-x/AMD-v virtualization must be enabled in BIOS
 * `kubectl` See the [kubectl installation instructions](/docs/getting-started-guides/kubectl/) for more details.
 
