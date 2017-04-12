@@ -76,7 +76,7 @@ The reclaim policy for a `PersistentVolume` tells the cluster what to do with th
 
 If supported by appropriate volume plugin, recycling performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
 
-However, an administrator can configure a custom recycler pod templates using the Kubernetes controller manager command line arguments as described [here](/docs/admin/kube-controller-manager/). The custom recycler pod template must contain a `volumes` specification, as shown in the example below:
+However, an administrator can configure a custom recycler pod template using the Kubernetes controller manager command line arguments as described [here](/docs/admin/kube-controller-manager/). The custom recycler pod template must contain a `volumes` specification, as shown in the example below:
 
 ```yaml
 apiVersion: v1
