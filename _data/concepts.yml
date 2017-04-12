@@ -41,6 +41,7 @@ toc:
   - title: Jobs
     section:
     - docs/concepts/jobs/run-to-completion-finite-workloads.md
+    - docs/concepts/jobs/cron-jobs.md
 
 - title: Nodes
   section:
