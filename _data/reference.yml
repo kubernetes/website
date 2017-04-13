@@ -53,6 +53,9 @@ toc:
   - docs/admin/kube-controller-manager.md
   - docs/admin/kube-proxy.md
   - docs/admin/kube-scheduler.md
+  - docs/admin/federation-apiserver.md
+  - docs/admin/federation-controller-manager.md
+  - docs/federation/api-reference/index.md
   - title: kubelet
     section:
     - docs/admin/kubelet.md
