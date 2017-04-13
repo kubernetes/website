@@ -30,7 +30,7 @@ value of 30 seconds).
 During each period, the controller manager queries the resource utiliuzation against the
 metrics specified in each HorizontalPodAutoscaler definition.  The controller manager
 obtains the metrics from either the resource metrics API (for per-pod resource metrics),
-or the custom metrics API (for all ofther metrics).
+or the custom metrics API (for all other metrics).
 
 * For per-pod resource metrics (like CPU), the controller fetches the metrics
   from the resource metrics API for each pod targeted by the HorizontalPodAutoscaler.
