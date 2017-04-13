@@ -76,7 +76,7 @@ The reclaim policy for a `PersistentVolume` tells the cluster what to do with th
 
 If supported by appropriate volume plugin, recycling performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
 
-However, an administrator can configure a custom recycler pod templates using the Kubernetes controller manager command line arguments as described [here](/docs/admin/kube-controller-manager/). The custom recycler pod template must contain a `volumes` specification, as shown in the example below:
+However, an administrator can configure a custom recycler pod template using the Kubernetes controller manager command line arguments as described [here](/docs/admin/kube-controller-manager/). The custom recycler pod template must contain a `volumes` specification, as shown in the example below:
 
 ```yaml
 apiVersion: v1
@@ -318,7 +318,7 @@ A claim can request a particular class by specifying the name of a
 Only PVs of the requested class, ones with the same `storageClassName` as the PVC, can
 be bound to the PVC.
 
-PVCs don't necessarily have to request a class. A PVC with its `storageClasName` set
+PVCs don't necessarily have to request a class. A PVC with its `storageClassName` set
 equal to `""` is always interpreted to be requesting a PV with no class, so it
 can only be bound to PVs with no class (no annotation or one set equal to
 `""`). A PVC with no `storageClassName` is not quite the same and is treated differently
