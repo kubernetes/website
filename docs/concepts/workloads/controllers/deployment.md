@@ -329,7 +329,7 @@ $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 deployment "nginx-deployment" rolled back
 ```
 
-For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/kubectl_rollout/).
+For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/v1.6/#rollout).
 
 The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event for rolling back to revision 2 is generated from Deployment controller.
 
@@ -380,7 +380,7 @@ $ kubectl scale deployment nginx-deployment --replicas 10
 deployment "nginx-deployment" scaled
 ```
 
-Assuming [horizontal pod autoscaling](/docs/user-guide/horizontal-pod-autoscaling/walkthrough.md) is enabled
+Assuming [horizontal pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) is enabled
 in your cluster, you can setup an autoscaler for your Deployment and choose the minimum and maximum number of
 Pods you want to run based on the CPU utilization of your existing Pods.
 
@@ -804,5 +804,5 @@ In this case, a new deployment rollout cannot be undone, since its revision hist
 
 ### kubectl rolling update
 
-[Kubectl rolling update](/docs/user-guide/kubectl/kubectl_rolling-update) updates Pods and Replication Controllers in a similar fashion.
+[Kubectl rolling update](/docs/user-guide/kubectl/v1.6/#rolling-update) updates Pods and Replication Controllers in a similar fashion.
 But Deployments are recommended, since they are declarative, server side, and have additional features, such as rolling back to any previous revision even after the rolling update is done.

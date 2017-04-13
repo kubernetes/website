@@ -34,7 +34,7 @@ You can access Dashboard using the kubectl command-line tool by running the foll
 $ kubectl proxy
 ```
 
-kubectl will handle authentication with apiserver and make Dashboard available at [http://localhost:8001/ui](http://localhost:8001/ui)
+kubectl will handle authentication with apiserver and make Dashboard available at http://localhost:8001/ui
 
 The UI can _only_ be accessed from the machine where the command is executed. See `kubectl proxy --help` for more options.
 
@@ -72,7 +72,7 @@ The deploy wizard expects that you provide the following information:
 
 - **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in. The value must be a positive integer.
 
-  A [Deployment](/docs/user-guide/deployment/) will be created to maintain the desired number of Pods across your cluster.
+  A [Deployment](/docs/concepts/workloads/controllers/deployment/) will be created to maintain the desired number of Pods across your cluster.
 
 - **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](http://kubernetes.io/docs/user-guide/services/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/user-guide/services-firewalls/).
 
