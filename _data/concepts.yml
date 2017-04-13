@@ -49,6 +49,7 @@ toc:
 
 - title: Cluster Administration
   section:
+  - docs/concepts/cluster-administration/etcd-upgrade.md
   - docs/concepts/cluster-administration/manage-deployment.md
   - docs/concepts/cluster-administration/networking.md
   - docs/concepts/cluster-administration/network-plugins.md
