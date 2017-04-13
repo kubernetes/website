@@ -215,7 +215,7 @@ To use ...
 
 <p>Here's an example of a published topic that uses the concept template:</p>
 
-<p><a href="/docs/concepts/object-metadata/annotations">Annotations</a></p>
+<p><a href="/docs/concepts/overview/working-with-objects/annotations/">Annotations</a></p>
 
 <!--</body>
 </html>-->
