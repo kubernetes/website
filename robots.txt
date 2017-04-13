@@ -105,6 +105,19 @@ Disallow: /docs/admin/master-node-communication.html
 Disallow: /docs/admin/federation/kubefed.html
 Disallow: /docs/user-guide/federation/index.html
 
+Disallow: /docs/user-guide/debugging-pods-and-replication-controllers.html
+Disallow: /docs/user-guide/introspection-and-debugging.html
+Disallow: /docs/user-guide/application-troubleshooting.html
+Disallow: /docs/admin/cluster-troubleshooting.html
+Disallow: /docs/user-guide/debugging-services.html
+Disallow: /docs/contribute/create-pull-request.html
+Disallow: /docs/contribute/write-new-topic.html
+Disallow: /docs/contribute/stage-documentation-changes.html
+Disallow: /docs/contribute/page-templates.html
+Disallow: /docs/contribute/review-issues.html
+Disallow: /docs/contribute/style-guide.html
+Disallow: /docs/deprecation-policy.md
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 
