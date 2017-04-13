@@ -212,7 +212,7 @@ gcloud compute disks delete mysql-disk
 
 * Learn more about [Deploying applications](/docs/user-guide/deploying-applications/)
 
-* [kubectl run documentation](/docs/user-guide/kubectl/kubectl_run/)
+* [kubectl run documentation](/docs/user-guide/kubectl/v1.6/#run)
 
 * [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/user-guide/persistent-volumes/)
 
