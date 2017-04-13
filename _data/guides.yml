@@ -38,10 +38,6 @@ toc:
   - docs/admin/namespaces/walkthrough.md
   - docs/admin/etcd.md
   - docs/admin/etcd_upgrade.md
-  - title: Changing Cluster Size
-    path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
-  - title: Setting Up and Configuring DNS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
   - docs/admin/garbage-collection.md
 
 - title: Administering Federation

@@ -58,6 +58,8 @@ toc:
   - docs/tasks/access-application-cluster/load-balance-access-application-cluster.md
   - docs/tasks/access-application-cluster/create-external-load-balancer.md
   - docs/tasks/access-application-cluster/configure-cloud-provider-firewall.md
+  - title: Setting Up and Configuring DNS
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
 
 - title: Monitoring, Logging, and Debugging
   section:
@@ -95,6 +97,8 @@ toc:
   - docs/tasks/administer-cluster/share-configuration.md
   - docs/tasks/administer-cluster/running-cloud-controller.md
   - docs/tasks/administer-cluster/highly-available-master.md
+  - title: Changing Cluster Size
+    path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
 
 - title: Administering Federation
   section:
