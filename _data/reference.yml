@@ -103,7 +103,7 @@ toc:
   section:
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues/
-  - docs/reporting-security-issues.md
+  - docs/home/security.md
   - docs/home/deprecation-policy.md
 
 
