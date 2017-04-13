@@ -146,7 +146,7 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 ### Deleting a ReplicationController and its Pods
 
 To delete a ReplicationController and all its pods, use [`kubectl
-delete`](/docs/user-guide/kubectl/kubectl_delete/).  Kubectl will scale the ReplicationController to zero and wait
+delete`](/docs/user-guide/kubectl/v1.6/#delete).  Kubectl will scale the ReplicationController to zero and wait
 for it to delete each pod before deleting the ReplicationController itself.  If this kubectl
 command is interrupted, it can be restarted.
 
@@ -157,7 +157,7 @@ When using the REST API or go client library, you need to do the steps explicitl
 
 You can delete a ReplicationController without affecting any of its pods.
 
-Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/user-guide/kubectl/kubectl_delete/).
+Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/user-guide/kubectl/v1.6/#delete).
 
 When using the REST API or go client library, simply delete the ReplicationController object.
 
@@ -191,7 +191,7 @@ Ideally, the rolling update controller would take application readiness into acc
 The two ReplicationControllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 
 Rolling update is implemented in the client tool
-[`kubectl rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples. 
+[`kubectl rolling-update`](/docs/user-guide/kubectl/v1.6/#rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples. 
 
 ### Multiple release tracks
 
