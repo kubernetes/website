@@ -3,6 +3,8 @@ abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
+- docs/tasks/web-ui-dashboard.md
+
 - title: Using the kubectl Command-Line
   section:
   - docs/tasks/test.md
