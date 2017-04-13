@@ -98,3 +98,12 @@ toc:
     path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security_context.md
   - title: Security in Kubernetes
     path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security.md
+
+- title: Issues and Security
+  section:
+  - title: Kubernetes Issue Tracker on GitHub
+    path: https://github.com/kubernetes/kubernetes/issues/
+  - docs/reporting-security-issues.md
+  - docs/home/deprecation-policy.md
+
+
