@@ -27,11 +27,6 @@ toc:
   - docs/user-guide/gpus.md
   - docs/user-guide/liveness/index.md
 
-- title: Monitoring, Logging, and Debugging Containers
-  section:
-  - title: Using Explorer to Examine the Runtime Environment
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
-
 - title: Administering Clusters
   section:
   - docs/admin/upgrade-1-6.md
