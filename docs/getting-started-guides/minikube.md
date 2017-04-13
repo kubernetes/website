@@ -275,7 +275,7 @@ We recommend you use ImagePullSecrets, but if you would like to configure access
 
 ## Add-ons
 
-In order to have minikube properly start/restart custom addons, place the addon(s) you wish to be launched with minikube in the `.minikube/addons` directory.  Addons in this folder will be moved to the minikubeVM and launched each time minikube is started/restarted.
+In order to have minikube properly start/restart custom addons, place the addons you wish to be launched with minikube in the `.minikube/addons` directory.  Addons in this folder will be moved to the minikubeVM and launched each time minikube is started/restarted.
 
 ## Documentation
 
