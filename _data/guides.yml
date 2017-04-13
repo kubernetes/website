@@ -30,7 +30,6 @@ toc:
 - title: Administering Clusters
   section:
   - docs/admin/upgrade-1-6.md
-  - docs/admin/kubeadm.md
   - docs/admin/addons.md
   - docs/admin/node-allocatable.md
   - docs/admin/ha-master-gce.md
