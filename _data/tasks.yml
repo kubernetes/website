@@ -72,6 +72,8 @@ toc:
   - docs/tasks/debug-application-cluster/debug-pod-replication-controller.md
   - docs/tasks/debug-application-cluster/debug-service.md
   - docs/tasks/debug-application-cluster/troubleshooting.md
+  - title: Using Explorer to Examine the Runtime Environment
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
 - title: Accessing the Kubernetes API
   section:
