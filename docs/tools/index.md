@@ -23,6 +23,12 @@ Kubernetes contains the following built-in tools:
 [`kubefed`](/docs/admin/federation/kubefed/) is the command line tool
 to help you administrate your federated clusters.
 
+##### Minikube
+
+[`minikube`](/docs/getting-started-guides/minikube/) is a tool that makes it
+easy to run a single-node Kubernetes cluster locally on your workstation for
+development and testing purposes.
+
 ##### Dashboard 
 
 [Dashboard](/docs/user-guide/ui/), the web-based user interface of Kubernetes, allows you to deploy containerized applications

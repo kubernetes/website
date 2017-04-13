@@ -423,7 +423,7 @@ master.
 ## Tear down
 
 To undo what kubeadm did, you should first [drain the
-node](https://kubernetes.io/docs/user-guide/kubectl/kubectl_drain/) and make
+node](/docs/user-guide/kubectl/v1.6/#drain) and make
 sure that the node is empty before shutting it down.
 
 Talking to the master with the appropriate credentials, run:

@@ -2,7 +2,7 @@
 assignees:
 - brendandburns
 - davidopp
-title: Support
+title: Troubleshooting
 ---
 
 ## Troubleshooting

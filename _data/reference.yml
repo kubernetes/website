@@ -56,7 +56,6 @@ toc:
   - title: kubelet
     section:
     - docs/admin/kubelet.md
-    - docs/admin/master-node-communication.md
     - docs/admin/kubelet-tls-bootstrapping.md
     - docs/admin/kubelet-authentication-authorization.md
 
@@ -99,3 +98,12 @@ toc:
     path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security_context.md
   - title: Security in Kubernetes
     path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security.md
+
+- title: Issues and Security
+  section:
+  - title: Kubernetes Issue Tracker on GitHub
+    path: https://github.com/kubernetes/kubernetes/issues/
+  - docs/home/security.md
+  - docs/home/deprecation-policy.md
+
+

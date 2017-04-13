@@ -29,6 +29,7 @@ toc:
   - docs/tasks/configure-pod-container/configure-pod-initialization.md
   - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
   - docs/tasks/configure-pod-container/configure-pod-disruption-budget.md
+  - docs/tasks/configure-pod-container/configmap.md
   - docs/tasks/configure-pod-container/declare-network-policy.md
   - docs/tasks/configure-pod-container/calico-network-policy.md
   - docs/tasks/configure-pod-container/romana-network-policy.md
@@ -40,6 +41,7 @@ toc:
   - docs/tasks/run-application/rolling-update-replication-controller.md
   - docs/tasks/run-application/podpreset.md
   - docs/tasks/run-application/horizontal-pod-autoscale.md
+  - docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md
 
 - title: Running Jobs
   section:
@@ -66,6 +68,7 @@ toc:
   - docs/tasks/debug-application-cluster/debug-cluster.md
   - docs/tasks/debug-application-cluster/debug-pod-replication-controller.md
   - docs/tasks/debug-application-cluster/debug-service.md
+  - docs/tasks/debug-application-cluster/troubleshooting.md
 
 - title: Accessing the Kubernetes API
   section:
