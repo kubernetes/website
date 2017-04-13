@@ -35,13 +35,12 @@ docs/contribute/review-issues.md
 docs/contribute/stage-documentation-changes.md
 docs/contribute/style-guide.md
 docs/contribute/write-new-topic.md
-docs/deprecation-policy.md
 docs/federation/api-reference/index.md
 docs/getting-started-guides/docker.md
 docs/getting-started-guides/docker-multinode.md
 docs/getting-started-guides/kubectl.md
-docs/home/deprecation-policy.md
 docs/home/security.md
+docs/reference/deprecation-policy.md
 docs/search.md
 docs/sitemap.md
 docs/user-guide/accessing-the-cluster.md
