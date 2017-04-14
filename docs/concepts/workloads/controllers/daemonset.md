@@ -75,7 +75,7 @@ a node for testing.
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
 selector](/docs/user-guide/node-selection/). Likewise if you specify a `.spec.template.spec.affinity` 
-then DaemonSet controller will create pods on nodes which match that [node affinity](../../user-guide/node-selection/index.md).
+then DaemonSet controller will create pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create pods on all nodes.
 
 ## How Daemon Pods are Scheduled

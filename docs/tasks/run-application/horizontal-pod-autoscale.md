@@ -27,7 +27,7 @@ The Horizontal Pod Autoscaler is implemented as a control loop, with a period co
 by the controller manager's `--horizontal-pod-autoscaler-sync-period` flag (with a default
 value of 30 seconds).
 
-During each period, the controller manager queries the resource utiliuzation against the
+During each period, the controller manager queries the resource utilization against the
 metrics specified in each HorizontalPodAutoscaler definition.  The controller manager
 obtains the metrics from either the resource metrics API (for per-pod resource metrics),
 or the custom metrics API (for all other metrics).
