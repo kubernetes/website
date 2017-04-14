@@ -46,6 +46,10 @@ $( document ).ready(function() {
     {
         "from": "docs/user-guide/overview",
         "to": "http://kubernetes.io/docs/whatisk8s/"
+    },
+    {
+        "from": "docs/admin/multiple-schedulers",
+        "to": "http://kubernetes.io/docs/tutorials/clusters/multiple-schedulers/"
     }];
 
     forwardingRules.forEach(function(rule) {
