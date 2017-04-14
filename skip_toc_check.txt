@@ -114,16 +114,17 @@ docs/contribute/page-templates.md
 docs/contribute/review-issues.md
 docs/contribute/style-guide.md
 
-docs/admin/daemons.mt
+docs/admin/daemons.md
 docs/user-guide/deployments.md
 docs/user-guide/replicasets.md
+docs/user-guide/replication-controller/index.md
 docs/user-guide/ingress.md
 docs/user-guide/namespaces.md
 docs/user-guide/identifiers.md
 docs/user-guide/networkpolicies.md
 docs/admin/node.md
 docs/user-guide/petset.md
-docs/user-guide/pods/intex.md
+docs/user-guide/pods/index.md
 
 
 

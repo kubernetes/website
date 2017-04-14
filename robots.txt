@@ -121,6 +121,7 @@ Disallow: /docs/deprecation-policy.html
 Disallow: /docs/admin/daemons.html
 Disallow: /docs/user-guide/deployments.html
 Disallow: /docs/user-guide/replicasets.html
+Disallow: /docs/user-guide/replication-controller/index.html
 Disallow: /docs/user-guide/ingress.html
 Disallow: /docs/user-guide/namespaces.html
 Disallow: /docs/user-guide/identifiers.html
