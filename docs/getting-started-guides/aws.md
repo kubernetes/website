@@ -131,7 +131,7 @@ export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 ```
 
-An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl/kubectl)
+An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl)
 
 By default, `kubectl` will use the `kubeconfig` file generated during the cluster startup for authenticating against the API.
 For more information, please read [kubeconfig files](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
