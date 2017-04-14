@@ -126,12 +126,13 @@ docs/admin/node.md
 docs/user-guide/petset.md
 docs/user-guide/pods/index.md
 
-
-
-
-
-
-
-
-
-
+docs/user-guide/replication-controller/index.md
+docs/user-guide/secrets/index.md
+docs/user-guide/security-context.md
+docs/user-guide/services/index.md
+docs/user-guide/service-accounts.md
+docs/user-guide/thirdpartyresources.md
+docs/user-guide/pod-preset/index.md
+docs/user-guide/pod-security-policy/index.md
+docs/user-guide/horizontal-pod-autoscaling/index.md
+docs/user-guide/annotations.md
