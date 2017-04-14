@@ -116,7 +116,19 @@ Disallow: /docs/contribute/stage-documentation-changes.html
 Disallow: /docs/contribute/page-templates.html
 Disallow: /docs/contribute/review-issues.html
 Disallow: /docs/contribute/style-guide.html
-Disallow: /docs/deprecation-policy.md
+Disallow: /docs/deprecation-policy.html
+
+Disallow: /docs/admin/daemons.html
+Disallow: /docs/user-guide/deployments.html
+Disallow: /docs/user-guide/replicasets.html
+Disallow: /docs/user-guide/replication-controller/index.html
+Disallow: /docs/user-guide/ingress.html
+Disallow: /docs/user-guide/namespaces.html
+Disallow: /docs/user-guide/identifiers.html
+Disallow: /docs/user-guide/networkpolicies.html
+Disallow: /docs/admin/node.html
+Disallow: /docs/user-guide/petset.html
+Disallow: /docs/user-guide/pods/intex.html
 
 SITEMAP: http://kubernetes.io/sitemap.xml
 
