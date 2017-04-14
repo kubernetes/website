@@ -6,70 +6,72 @@ Disallow: /v1.1/
 Disallow: /404/
 Disallow: 404.html
 
-Disallow: /docs/user-guide/configuring-containers
-Disallow: /docs/user-guide/containers
-Disallow: /docs/user-guide/deploying-applications
-Disallow: /docs/user-guide/getting-into-containers
-Disallow: /docs/user-guide/liveness/index
-Disallow: /docs/user-guide/pod-states
-Disallow: /docs/user-guide/production-pods
-Disallow: /docs/user-guide/quick-start
+Disallow: /docs/user-guide/configuring-containers.html
+Disallow: /docs/user-guide/containers.html
+Disallow: /docs/user-guide/deploying-applications.html
+Disallow: /docs/user-guide/getting-into-containers.html
+Disallow: /docs/user-guide/liveness/index.html
+Disallow: /docs/user-guide/pod-states.html
+Disallow: /docs/user-guide/production-pods.html
+Disallow: /docs/user-guide/quick-start.html
 
-Disallow: /docs/user-guide/downward-api/index
-Disallow: /docs/user-guide/downward-api/volume/index
+Disallow: /docs/user-guide/downward-api/index.html
+Disallow: /docs/user-guide/downward-api/volume/index.html
 
-Disallow: /docs/user-guide/persistent-volumes/walkthrough
+Disallow: /docs/user-guide/persistent-volumes/walkthrough.html
 
-Disallow: /docs/user-guide/pods/init-container
-Disallow: /docs/user-guide/pods/single-container
+Disallow: /docs/user-guide/pods/init-container.html
+Disallow: /docs/user-guide/pods/single-container.html
 
-Disallow: /docs/user-guide/secrets/walkthrough
+Disallow: /docs/user-guide/secrets/walkthrough.html
 
-Disallow: /docs/user-guide/accessing-the-cluster/
-Disallow: /docs/user-guide/working-with-resources/
-Disallow: /docs/user-guide/garbage-collection/
-Disallow: /docs/user-guide/services/operations/
-Disallow: /docs/user-guide/load-balancer/
-Disallow: /docs/user-guide/services-firewalls/
-Disallow: /docs/user-guide/federation/federated-services/
-Disallow: /docs/user-guide/pods/multi-container/
-Disallow: /docs/user-guide/environment-guide/
-Disallow: /docs/user-guide/compute-resources/
+Disallow: /docs/user-guide/accessing-the-cluster.html
+Disallow: /docs/user-guide/working-with-resources.html
+Disallow: /docs/user-guide/garbage-collection.html
+Disallow: /docs/user-guide/services/operations.html
+Disallow: /docs/user-guide/load-balancer.html
+Disallow: /docs/user-guide/services-firewalls.html
+Disallow: /docs/user-guide/federation/federated-services.html
+Disallow: /docs/user-guide/pods/multi-container.html
+Disallow: /docs/user-guide/environment-guide/index.html
+Disallow: /docs/user-guide/compute-resources.html
 
-Disallow: /docs/whatisk8s/
+Disallow: /docs/whatisk8s.html
 
-Disallow: /docs/user-guide/petset/bootstrapping/
-Disallow: /docs/user-guide/monitoring/
-Disallow: /docs/user-guide/logging/overview/
-Disallow: /docs/user-guide/logging/stackdriver/
-Disallow: /docs/user-guide/logging/elasticsearch/
-Disallow: /docs/user-guide/connecting-to-applications-proxy/
-Disallow: /docs/user-guide/connecting-to-applications-port-forward/
-Disallow: /docs/admin/audit/
-Disallow: /docs/admin/disruptions/
-Disallow: /docs/admin/resourcequota/
-Disallow: /docs/admin/resourcequota/walkthrough/
-Disallow: /docs/admin/resourcequota/limitstorageconsumption/
-Disallow: /docs/admin/rescheduler/
-Disallow: /docs/admin/sysctls/
-Disallow: /docs/admin/cluster-components
+Disallow: /docs/user-guide/petset/bootstrapping/index.html
+Disallow: /docs/user-guide/monitoring.html
+Disallow: /docs/user-guide/logging/overview.html
+Disallow: /docs/user-guide/logging/stackdriver.html
+Disallow: /docs/user-guide/logging/elasticsearch.html
+Disallow: /docs/user-guide/connecting-to-applications-proxy.html
+Disallow: /docs/user-guide/connecting-to-applications-port-forward.html
 
-Disallow: /docs/admin/multi-cluster/
-Disallow: /docs/admin/networking/
-Disallow: /docs/admin/dns/
-Disallow: /docs/admin/network-plugins/
-Disallow: /docs/admin/static-pods/
-Disallow: /docs/admin/out-of-resource/
-Disallow: /docs/admin/node-problem/
-Disallow: /docs/admin/apparmor/
-Disallow: /docs/user-guide/federation/configmap/
-Disallow: /docs/user-guide/federation/daemonsets/
-Disallow: /docs/user-guide/federation/deployment/
-Disallow: /docs/user-guide/federation/events/
-Disallow: /docs/user-guide/federation/federated-ingress/
-Disallow: /docs/user-guide/federation/namespaces/
-Disallow: /docs/user-guide/federation/replicasets/
-Disallow: /docs/user-guide/federation/secrets/
+Disallow: /docs/admin/audit.html
+Disallow: /docs/admin/disruptions.html
+Disallow: /docs/admin/resourcequota/index.html
+Disallow: /docs/admin/resourcequota/walkthrough.html
+Disallow: /docs/admin/resourcequota/limitstorageconsumption.html
+Disallow: /docs/admin/rescheduler.html
+Disallow: /docs/admin/sysctls.html
+Disallow: /docs/admin/cluster-components.html
+
+Disallow: /docs/admin/multi-cluster.html
+Disallow: /docs/admin/networking.html
+Disallow: /docs/admin/dns.html
+Disallow: /docs/admin/network-plugins.html
+Disallow: /docs/admin/static-pods.html
+Disallow: /docs/admin/out-of-resource.html
+Disallow: /docs/admin/node-problem.html
+Disallow: /docs/admin/apparmor/index.html
+
+Disallow: /docs/user-guide/federation/configmap.html
+Disallow: /docs/user-guide/federation/daemonsets.html
+Disallow: /docs/user-guide/federation/deployment.html
+Disallow: /docs/user-guide/federation/events.html
+Disallow: /docs/user-guide/federation/federated-ingress.html
+Disallow: /docs/user-guide/federation/namespaces.html
+Disallow: /docs/user-guide/federation/replicasets.html
+Disallow: /docs/user-guide/federation/secrets.html
 
 Disallow: /docs/getting-started-guides/kubectl.html
 Disallow: /docs/user-guide/sharing-clusters.html

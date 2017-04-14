@@ -68,6 +68,10 @@ $( document ).ready(function() {
         "pattern":"",
         "to":"/docs/concepts/overview/what-is-kubernetes/",
         "postfix":""
+    },
+    {
+        "from": "/docs/admin/multiple-schedulers",
+        "to": "/docs/tutorials/clusters/multiple-schedulers/"
     }];
 
     forwardingRules.forEach(function(rule) {
@@ -75,7 +79,7 @@ $( document ).ready(function() {
             var newURL = rule.to;
             var re = new RegExp(rule.pattern, 'g');
             var matchary = re.exec(forwardingURL);
-            if (matchary !== null && rule.postfix !== null) {
+            if (matchary !== null && rule.postfix) {
                 newURL += rule.postfix.replace("<token>", matchary[1]);
             }
             notHere = true;
