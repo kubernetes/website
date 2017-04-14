@@ -117,7 +117,7 @@ KUBERNETES_PROVIDER=openstack-heat ./cluster/kube-up.sh
 Once kube-up is finished, your cluster should be running:
 
 ```console
-./cluster/kubectl.sh get cs
+./cluster/$ kubectl get cs
 NAME                 STATUS    MESSAGE              ERROR
 controller-manager   Healthy   ok
 scheduler            Healthy   ok
@@ -128,7 +128,7 @@ etcd-0               Healthy   {"health": "true"}
 You can also list the nodes in your cluster:
 
 ```console
-./cluster/kubectl.sh get nodes
+./cluster/$ kubectl get nodes
 NAME                            STATUS    AGE
 kubernetesstack-node-ojszyjtr   Ready     42m
 kubernetesstack-node-tzotzcbp   Ready     46m
@@ -137,8 +137,8 @@ kubernetesstack-node-uah8pkju   Ready     47m
 Being a new cluster, there will be no pods or replication controllers in the default namespace:
 
 ```console
-./cluster/kubectl.sh get pods
-./cluster/kubectl.sh get replicationcontrollers
+./cluster/$ kubectl get pods
+./cluster/$ kubectl get replicationcontrollers
 ```
 
 You are now ready to create Kubernetes objects.
@@ -148,13 +148,13 @@ You are now ready to create Kubernetes objects.
 For a simple test, issue the following command:
 
 ```sh
-./cluster/kubectl.sh run nginx --image=nginx --generator=run-pod/v1
+./cluster/$ kubectl run nginx --image=nginx --generator=run-pod/v1
 ```
 
 Soon, you should have a running nginx pod:
 
 ```console
-./cluster/kubectl.sh get pods
+./cluster/$ kubectl get pods
 NAME      READY     STATUS    RESTARTS   AGE
 nginx     1/1       Running   0          5m
 ```
@@ -162,7 +162,7 @@ nginx     1/1       Running   0          5m
 Once the nginx pod is running, use the port-forward command to set up a proxy from your machine to the pod.
 
 ```sh
-./cluster/kubectl.sh port-forward nginx 8888:80
+./cluster/$ kubectl port-forward nginx 8888:80
 ```
 
 You should now see nginx on [http://localhost:8888]().
