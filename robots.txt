@@ -130,6 +130,17 @@ Disallow: /docs/admin/node.html
 Disallow: /docs/user-guide/petset.html
 Disallow: /docs/user-guide/pods/intex.html
 
+docs/user-guide/replication-controller/index.html
+docs/user-guide/secrets/index.html
+docs/user-guide/security-context.html
+docs/user-guide/services/index.html
+docs/user-guide/service-accounts.html
+docs/user-guide/thirdpartyresources.html
+docs/user-guide/pod-preset/index.html
+docs/user-guide/pod-security-policy/index.html
+docs/user-guide/horizontal-pod-autoscaling/index.html
+docs/user-guide/annotations.html
+
 SITEMAP: http://kubernetes.io/sitemap.xml
 
 
