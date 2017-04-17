@@ -18,7 +18,27 @@ toc:
     - title: Resource Types
       path: /docs/resources-reference/v1.5/
   - title: Federation
-    path: /docs/federation/api-reference/
+    path: /docs/federation/
+    section:
+      - title: federation/v1beta1
+        section:
+        - title: operations
+          path: /docs/reference/federation/v1beta1/operations.html
+        - title: model definitions
+          path: /docs/reference/federation/v1beta1/definitions.html
+      - title: v1
+        section:
+        - title: operations
+          path: /docs/reference/federation/v1/operations.html
+        - title: model definitions
+          path: /docs/reference/federation/v1/definitions.html
+      - title: extensions/v1beta1
+        section:
+        - title: operations
+          path: /docs/reference/federation/extensions/v1beta1/operations.html
+        - title: model definitions
+          path: /docs/reference/federation/extensions/v1beta1/definitions.html
+
   - title: OpenAPI Spec
     path: https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/
   - title: Swagger Spec
