@@ -242,7 +242,7 @@ system daemons use a portion of the available resources. The `allocatable` field
 gives the amount of resources that are available to Pods. For more information, see
 [Node Allocatable Resources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node-allocatable.md).
 
-The [resource quota](/docs/admin/resourcequota/) feature can be configured
+The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
 with namespaces, it can prevent one team from hogging all the resources.
 

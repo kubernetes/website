@@ -66,7 +66,7 @@ project](/docs/admin/salt).
 
 ## Multi-tenant support
 
-* **Resource Quota** ([resourcequota](/docs/admin/resourcequota/))
+* **Resource Quota** ([resourcequota](/docs/concepts/policy/resource-quotas/))
 
 ## Security
 
@@ -87,6 +87,6 @@ project](/docs/admin/salt).
 * **Audit** [audit](/docs/admin/audit)
 
 * **Securing the kubelet**
-  * [Master-Node communication](/docs/admin/master-node-communication/)
+  * [Master-Node communication](/docs/concepts/cluster-administration/master-node-communication/)
   * [TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/)
   * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)

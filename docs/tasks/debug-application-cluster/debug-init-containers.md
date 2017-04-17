@@ -24,7 +24,7 @@ Init Containers.
 
 * You should be familiar with the basics of
   [Init Containers](/docs/user-guide/pods/init-container/).
-* You should have a [Pod](/docs/user-guide/pods/) you want to debug that uses
+* You should have a [Pod](/docs/concepts/workloads/pods/pod/) you want to debug that uses
   Init Containers. The example command lines below refer to the Pod as
   `<pod-name>` and the Init Containers as `<init-container-1>` and
   `<init-container-2>`.

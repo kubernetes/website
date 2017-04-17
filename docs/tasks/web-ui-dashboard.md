@@ -74,7 +74,7 @@ The deploy wizard expects that you provide the following information:
 
   A [Deployment](/docs/concepts/workloads/controllers/deployment/) will be created to maintain the desired number of Pods across your cluster.
 
-- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](http://kubernetes.io/docs/user-guide/services/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/user-guide/services-firewalls/).
+- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](http://kubernetes.io/docs/user-guide/services/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
 
   Other Services that are only visible from inside the cluster are called internal Services.
 
@@ -82,7 +82,7 @@ The deploy wizard expects that you provide the following information:
 
 If needed, you can expand the **Advanced options** section where you can specify more settings:
 
-- **Description**: The text you enter here will be added as an [annotation](/docs/user-guide/annotations/) to the Deployment and displayed in the application's details.
+- **Description**: The text you enter here will be added as an [annotation](/docs/concepts/overview/working-with-objects/annotations/) to the Deployment and displayed in the application's details.
 
 - **Labels**: Default [labels](/docs/user-guide/labels/) to be used for your application are application name and version. You can specify additional labels to be applied to the Deployment, Service (if any), and Pods, such as release, environment, tier, partition, and release track.
 
@@ -102,13 +102,13 @@ track=stable
 
   In case the creation of the namespace is successful, it is selected by default. If the creation fails, the first namespace is selected.
 
-- **Image Pull Secret**: In case the specified Docker container image is private, it may require [pull secret](/docs/user-guide/secrets/) credentials.
+- **Image Pull Secret**: In case the specified Docker container image is private, it may require [pull secret](/docs/concepts/configuration/secret/) credentials.
 
   Dashboard offers all available secrets in a dropdown list, and allows you to create a new secret. The secret name must follow the DNS domain name syntax, e.g. `new.image-pull.secret`. The content of a secret must be base64-encoded and specified in a  [`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) file. The secret name may consist of a maximum of 253 characters.
 
   In case the creation of the image pull secret is successful, it is selected by default. If the creation fails, no secret is applied.
 
-- **CPU requirement (cores)** and **Memory requirement (MiB)**: You can specify the minimum [resource limits](/docs/admin/limitrange/) for the container. By default, Pods run with unbounded CPU and memory limits.
+- **CPU requirement (cores)** and **Memory requirement (MiB)**: You can specify the minimum [resource limits](/docs/tasks/configure-pod-container/limit-range/) for the container. By default, Pods run with unbounded CPU and memory limits.
 
 - **Run command** and **Run command arguments**: By default, your containers run the specified Docker image's default [entrypoint command](/docs/user-guide/containers/#containers-and-commands). You can use the command options and arguments to override the default.
 

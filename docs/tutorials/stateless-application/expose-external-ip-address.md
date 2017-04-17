@@ -16,7 +16,7 @@ external IP address.
 
  * Use a cloud provider like Google Container Engine or Amazon Web Services to
  create a Kubernetes cluster. This tutorial creates an
- [external load balancer](/docs/user-guide/load-balancer/),
+ [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/),
  which requires a cloud provider.
 
  * Configure `kubectl` to communicate with your Kubernetes API server. For
@@ -43,11 +43,11 @@ external IP address.
         kubectl run hello-world --replicas=5 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
 
     The preceding command creates a
-    [Deployment](/docs/user-guide/deployments/)
+    [Deployment](/docs/concepts/workloads/controllers/deployment/)
     object and an associated
-    [ReplicaSet](/docs/user-guide/replicasets/)
+    [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
     object. The ReplicaSet has five
-    [Pods](/docs/user-guide/pods/),
+    [Pods](/docs/concepts/workloads/pods/pod/),
     each of which runs the Hello World application.
 
 1. Display information about the Deployment:
@@ -146,7 +146,7 @@ the Hello World application, enter this command:
 {% capture whatsnext %}
 
 Learn more about
-[connecting applications with services](/docs/user-guide/connecting-applications/).
+[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 {% endcapture %}
 
 {% include templates/tutorial.md %}
