@@ -5,18 +5,10 @@ toc:
 
 - title: "API Reference"
   section:
-  - title: Version 1.6
-    section:
-    - title: API
-      path: /docs/api-reference/v1.6/
-    - title: Resource Types
-      path: /docs/resources-reference/v1.6/
-  - title: Version 1.5
-    section:
-    - title: API
-      path: /docs/api-reference/v1.5/
-    - title: Resource Types
-      path: /docs/resources-reference/v1.5/
+  - title: v1.6
+    path: /docs/api-reference/v1.6/
+  - title: V1.5
+    path: /docs/api-reference/v1.5/
   - title: Federation
     section:
       - title: federation/v1beta1
