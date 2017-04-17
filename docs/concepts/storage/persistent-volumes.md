@@ -505,6 +505,7 @@ parameters:
 
 #### vSphere
 
+1. Create a persistent volume with a user specified disk format.
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -515,7 +516,54 @@ parameters:
   diskformat: zeroedthick
 ```
 
-* `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
+-   `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
+
+2. Create a persistent volume with a disk format on a user specified datastore.
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: fast
+provisioner: kubernetes.io/vsphere-volume
+parameters:
+    diskformat: zeroedthick
+    datastore: VSANDatastore
+```
+
+-   `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
+-   `datastore`: The user can also specify the datastore in the Storageclass. The volume will be created on the datastore specified in the storage class which in this case is `VSANDatastore`. This field is optional. If not specified as in previous YAML description, the volume will be created on the datastore specified in the vsphere config file used to initialize the vSphere Cloud Provider.
+
+3. Create a persistent volume with user specified VSAN storage capabilities.
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: vsan-policy-fast
+provisioner: kubernetes.io/vsphere-volume
+parameters:
+  diskformat: thin
+  hostFailuresToTolerate: "1"
+  diskStripes: "2"
+  cacheReservation: "20"
+  datastore: VSANDatastore
+```
+
+-   Here, the user can specify VSAN storage capabilities for dynamic volume provisioning inside Kubernetes.
+-   Storage Policies capture storage requirements, such as performance and availability, for persistent volumes. These policies determine how the container volume storage objects are provisioned and allocated within the datastore to guarantee the requested Quality of Service. Storage policies are composed of storage capabilities, typically represented by a key-value pair. The key is a specific property that the datastore can offer and the value is a metric, or a range, that the datastore guarantees for a provisioned object, such as a container volume backed by a virtual disk.
+-   As described in [official documentation](https://pubs.vmware.com/vsphere-65/index.jsp?topic=%2Fcom.vmware.vsphere.virtualsan.doc%2FGUID-08911FD3-2462-4C1C-AE81-0D4DBC8F7990.html), VSAN exposes multiple storage capabilities. The below table lists VSAN storage capabilities that are currently supported by vSphere Cloud Provider.
+
+    Storage Capability Name       | Description
+    -------------------- | ------------
+    cacheReservation     | Flash read cache reservation
+    diskStripes          | Number of disk stripes per object
+    forceProvisioning     | Force provisioning
+    hostFailuresToTolerate     | Number of failures to tolerate
+    iopsLimit     | IOPS limit for object
+    objectSpaceReservation     | Object space reservation
+
+    vSphere Infrastructure(VI) administrator can specify storage requirements for applications in terms of storage capabilities while creating a storage class inside Kubernetes. Please note that while creating a StorageClass, administrator should specify storage capability names used in the table above as these names might differ from the ones used by VSAN. For example - Number of disk stripes per object is referred to as stripeWidth in VSAN documentation however vSphere Cloud Provider uses a friendly name diskStripes.
+
+You can see [vSphere example](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere) for more details.
 
 #### Ceph RBD
 
