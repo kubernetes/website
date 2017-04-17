@@ -2,8 +2,6 @@
 title: Federation API Reference
 ---
 
-# Federation API Reference
-
 Federation API server supports the following group versions:
 
 * federation/v1beta1: [operations](/docs/reference/federation/v1beta1/operations.html), [model definitions](/docs/reference/federation/v1beta1/definitions.html)

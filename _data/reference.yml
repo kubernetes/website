@@ -1,7 +1,7 @@
 bigheader: "Reference Documentation"
 abstract: "Design docs, concept definitions, and references for APIs and CLIs."
 toc:
-- docs/reference.md
+- docs/reference/index.md
 
 - title: "API Reference"
   section:
