@@ -3,26 +3,12 @@ abstract: "Design docs, concept definitions, and references for APIs and CLIs."
 toc:
 - docs/reference/index.md
 
-- title: "API Reference"
+- title: API Reference
   section:
   - title: v1.6
     path: /docs/api-reference/v1.6/
-  - title: V1.5
+  - title: v1.5
     path: /docs/api-reference/v1.5/
-  - title: Federation
-    section:
-      - title: federation/v1beta1
-        section:
-        - docs/reference/federation/v1beta1/operations.html
-        - docs/reference/federation/v1beta1/definitions.html
-      - title: v1
-        section:
-        - docs/reference/federation/v1/operations.html
-        - docs/reference/federation/v1/definitions.html
-      - title: extensions/v1beta1
-        section:
-        - docs/reference/federation/extensions/v1beta1/operations.html
-        - docs/reference/federation/extensions/v1beta1/definitions.html
   - docs/reference/extensions/v1beta1/definitions.html
   - docs/reference/labels-annotations-taints.md
   - title: OpenAPI and Swagger
@@ -31,6 +17,15 @@ toc:
       path: https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/
     - title: Swagger Spec
       path: https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/
+
+- title: Federation API
+  section:
+    - docs/reference/federation/v1/operations.html
+    - docs/reference/federation/v1/definitions.html
+    - docs/reference/federation/v1beta1/operations.html
+    - docs/reference/federation/v1beta1/definitions.html
+    - docs/reference/federation/extensions/v1beta1/operations.html
+    - docs/reference/federation/extensions/v1beta1/definitions.html
 
 - title: "Using the API"
   section:
@@ -42,7 +37,7 @@ toc:
     - docs/admin/bootstrap-tokens.md
     - docs/admin/admission-controllers.md
     - docs/admin/service-accounts-admin.md
-  - title: Authorization Plugins
+  - title: Authorization
     section:
     - docs/admin/authorization/index.md
     - docs/admin/authorization/rbac.md
@@ -50,12 +45,10 @@ toc:
 - title: kubectl CLI
   section:
   - docs/user-guide/kubectl-overview.md
-  - title: Commands
-    section:
-    - title: v1.6
-      path: /docs/user-guide/kubectl/v1.6/
-    - title: v1.5
-      path: /docs/user-guide/kubectl/v1.5/
+  - title: v1.6 Commands
+    path: /docs/user-guide/kubectl/v1.6/
+  - title: v1.5 Commands
+    path: /docs/user-guide/kubectl/v1.5/
   - docs/user-guide/docker-cli-to-kubectl.md
   - docs/user-guide/kubectl-conventions.md
   - docs/user-guide/jsonpath.md
