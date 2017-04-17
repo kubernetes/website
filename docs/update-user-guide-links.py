@@ -33,7 +33,7 @@ def doc_location(filename):
     else:
         return "/docs/" + filename[:-3] + "/"
 
-REDIRECT_REGEX = re.compile("^\[(.*)\]\((.*)\)$")
+REDIRECT_REGEX = re.compile("^.*\[(.*)\]\((.*)\)$")
 
 def get_desinations_for_doc(filename):
     destination_paths = []
