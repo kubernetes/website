@@ -31,13 +31,14 @@ toc:
         section:
         - docs/reference/federation/extensions/v1beta1/operations.html
         - docs/reference/federation/extensions/v1beta1/definitions.html
-
-  - title: OpenAPI Spec
-    path: https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/
-  - title: Swagger Spec
-    path: https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec
-  - docs/reference/labels-annotations-taints.md
   - docs/reference/extensions/v1beta1/definitions.html
+  - docs/reference/labels-annotations-taints.md
+  - title: OpenAPI and Swagger
+    section:
+    - title: OpenAPI Spec
+      path: https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/
+    - title: Swagger Spec
+      path: https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/
 
 - title: "Using the API"
   section:
@@ -54,7 +55,7 @@ toc:
     - docs/admin/authorization/index.md
     - docs/admin/authorization/rbac.md
 
-- title: Working with Kubernetes
+- title: kubectl: Working with Kubernetes
   section:
   - docs/user-guide/kubectl-overview.md
   - title: Commands
@@ -63,14 +64,7 @@ toc:
       path: /docs/user-guide/kubectl/v1.6/
     - title: Version 1.5
       path: /docs/user-guide/kubectl/v1.5/
-  - docs/user-guide/docker-cli-to-kubectl.md
-  - docs/user-guide/kubectl-conventions.md
-  - docs/user-guide/jsonpath.md
-  - docs/user-guide/kubectl-cheatsheet.md
-
-- title: Kubernetes Components
-  section:
-  - title: kubectl CLI Reference
+  - title: CLI Reference
     section:
     - docs/admin/kube-apiserver.md
     - docs/admin/kube-controller-manager.md
@@ -84,6 +78,10 @@ toc:
       - docs/admin/kubelet.md
       - docs/admin/kubelet-tls-bootstrapping.md
       - docs/admin/kubelet-authentication-authorization.md
+  - docs/user-guide/docker-cli-to-kubectl.md
+  - docs/user-guide/kubectl-conventions.md
+  - docs/user-guide/jsonpath.md
+  - docs/user-guide/kubectl-cheatsheet.md
 
 - title: Kubernetes Design Docs
   section:
