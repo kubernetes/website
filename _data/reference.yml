@@ -18,7 +18,6 @@ toc:
     - title: Resource Types
       path: /docs/resources-reference/v1.5/
   - title: Federation
-    path: /docs/federation/
     section:
       - title: federation/v1beta1
         section:
