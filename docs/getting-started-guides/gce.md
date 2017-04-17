@@ -20,9 +20,9 @@ If you want to use custom binaries or pure open source Kubernetes, please contin
 
 ### Prerequisites
 
-1. You need a Google Cloud Platform account with billing enabled. Visit the [Google Developers Console](http://cloud.google.com/console) for more details.
+1. You need a Google Cloud Platform account with billing enabled. Visit the [Google Developers Console](https://console.cloud.google.com) for more details.
 1. Install `gcloud` as necessary. `gcloud` can be installed as a part of the [Google Cloud SDK](https://cloud.google.com/sdk/).
-1. Enable the [Compute Engine Instance Group Manager API](https://developers.google.com/console/help/new/#activatingapis) in the [Google Cloud developers console](https://console.developers.google.com).
+1. Enable the [Compute Engine Instance Group Manager API](https://console.developers.google.com/apis/api/replicapool.googleapis.com/overview) in the [Google Cloud developers console](https://console.developers.google.com/apis/library).
 1. Make sure that gcloud is set to use the Google Cloud Platform project you want. You can check the current project using `gcloud config list project` and change it via `gcloud config set project <project-id>`.
 1. Make sure you have credentials for GCloud by running `gcloud auth login`.
 1. (Optional)  In order to make API calls against GCE, you must also run `gcloud auth application-default login`.
@@ -74,7 +74,7 @@ The next few steps will show you:
 The cluster startup script will leave you with a running cluster and a `kubernetes` directory on your workstation.
 The next step is to make sure the `kubectl` tool is in your path.
 
-The [kubectl](/docs/user-guide/kubectl/kubectl) tool controls the Kubernetes cluster manager.  It lets you inspect your cluster resources, create, delete, and update components, and much more.
+The [kubectl](/docs/user-guide/kubectl/) tool controls the Kubernetes cluster manager.  It lets you inspect your cluster resources, create, delete, and update components, and much more.
 You will use it to look at your new cluster and bring up example apps.
 
 Add the appropriate binary folder to your `PATH` to access kubectl:

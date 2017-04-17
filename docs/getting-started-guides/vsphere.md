@@ -29,6 +29,7 @@ vSphere Cloud Provider allows using vSphere managed storage within Kubernetes. I
 1. Volumes
 2. Persistent Volumes
 3. Storage Classes and provisioning of volumes.
+4. vSphere Storage Policy Based Management for Containers orchestrated by Kubernetes.
 
 Documentation for how to use vSphere managed storage can be found in the
 [persistent volumes user
@@ -241,6 +242,8 @@ going on (find yourself authorized with your SSH key, or use the password
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/getting-started-guides/vsphere)                                |          | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
+
+If you identify any issues/problems using the vSphere cloud provider, you can create an issue in our repo - [VMware Kubernetes](https://github.com/vmware/kubernetes).
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
