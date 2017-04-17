@@ -47,7 +47,7 @@ toc:
     - docs/admin/authorization/index.md
     - docs/admin/authorization/rbac.md
 
-- title: Working with Kubernetes using kubectl
+- title: kubectl CLI
   section:
   - docs/user-guide/kubectl-overview.md
   - title: Commands
