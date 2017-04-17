@@ -88,6 +88,8 @@ toc:
   section:
   - docs/tasks/administer-cluster/overview.md
   - docs/tasks/administer-cluster/upgrade-1-6.md
+  - docs/tasks/administer-cluster/namespaces.md
+  - docs/tasks/administer-cluster/namespaces-walkthrough.md
   - docs/tasks/administer-cluster/assign-pods-nodes.md
   - docs/tasks/administer-cluster/reserve-compute-resources.md
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
