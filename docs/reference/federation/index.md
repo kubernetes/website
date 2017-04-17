@@ -1,5 +1,8 @@
 ---
 title: Federation API Reference
+redirect_from:
+- "/docs/federation/api-reference/"
+- "/docs/federation/api-reference/index.md"
 ---
 
 Federation API server supports the following group versions:
