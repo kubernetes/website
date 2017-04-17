@@ -52,9 +52,9 @@ toc:
   - docs/user-guide/kubectl-overview.md
   - title: Commands
     section:
-    - title: Version 1.6
+    - title: v1.6
       path: /docs/user-guide/kubectl/v1.6/
-    - title: Version 1.5
+    - title: v1.5
       path: /docs/user-guide/kubectl/v1.5/
   - title: CLI Reference
     section:
