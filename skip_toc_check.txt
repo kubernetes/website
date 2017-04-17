@@ -24,6 +24,7 @@ docs/admin/resourcequota/limitstorageconsumption.md
 docs/admin/resourcequota/walkthrough.md
 docs/admin/static-pods.md
 docs/admin/sysctls.md
+docs/api-reference/labels-annotations-taints.md
 docs/concepts/abstractions/pod-termination.md
 docs/contribute/README.md
 docs/contribute/create-pull-request.md
