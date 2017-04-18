@@ -47,10 +47,11 @@ The output contains a section similar to this:
 
 Create a Secret named `regsecret`:
 
-    kubectl create secret docker-registry regsecret --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+    kubectl create secret docker-registry regsecret --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 
 where:
 
+* `<your-registry-server>` is your Private Docker Registry FQDN.
 * `<your-name>` is your Docker username.
 * `<your-pword>` is your Docker password.
 * `<your-email>` is your Docker email.
@@ -87,7 +88,7 @@ readable format:
 
 The output is similar to this:
 
-    {"https://index.docker.io/v1/":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3RldmU1MzpTdGV2ZURvY2tAIzE2"}}
+    {"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3RldmU1MzpTdGV2ZURvY2tAIzE2"}}
 
 Notice that the secret data contains the authorization token from your
 `config.json` file.
