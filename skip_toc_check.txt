@@ -9,6 +9,8 @@ docs/admin/disruptions.md
 docs/admin/dns.md
 docs/admin/federation/kubefed.md
 docs/admin/index.md
+docs/admin/kubelet-authentication-authorization.md
+docs/admin/kubelet-tls-bootstrapping.md
 docs/admin/limitrange/index.md
 docs/admin/master-node-communication.md
 docs/admin/multi-cluster.md
