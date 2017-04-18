@@ -74,9 +74,6 @@ toc:
   section:
   - docs/concepts/storage/volumes.md
   - docs/concepts/storage/persistent-volumes.md
-
-- title: Storage
-  section:
   - docs/concepts/storage/etcd-store-api-object.md
 
 - title: Services, Load Balancing, and Networking
