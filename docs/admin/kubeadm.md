@@ -70,7 +70,7 @@ It is usually sufficient to run `kubeadm init` without any flags, but in some
 cases you might like to override the default behaviour. Here we specify all the
 flags that can be used to customise the Kubernetes installation.
 
-- `--api-advertise-address`
+- `--apiserver-advertise-address`
 
 This is the address the API Server will advertise to other members of the
 cluster.  This is also the address used to construct the suggested `kubeadm
