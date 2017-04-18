@@ -9,7 +9,6 @@ toc:
     path: /docs/api-reference/v1.6/
   - title: v1.5
     path: /docs/api-reference/v1.5/
-  - docs/reference/extensions/v1beta1/definitions.html
   - docs/reference/labels-annotations-taints.md
   - title: OpenAPI and Swagger
     section:
