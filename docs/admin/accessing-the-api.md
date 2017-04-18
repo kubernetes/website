@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-title: Controlling Accessing to the Kubernetes API
+title: Controlling Access to the Kubernetes API
 ---
 
 Users [access the API](/docs/user-guide/accessing-the-cluster) using `kubectl`,
