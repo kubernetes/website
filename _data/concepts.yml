@@ -49,6 +49,7 @@ toc:
 
 - title: Cluster Administration
   section:
+  - docs/concepts/cluster-administration/configure-etcd.md
   - docs/concepts/cluster-administration/etcd-upgrade.md
   - docs/concepts/cluster-administration/manage-deployment.md
   - docs/concepts/cluster-administration/networking.md
@@ -74,7 +75,6 @@ toc:
   section:
   - docs/concepts/storage/volumes.md
   - docs/concepts/storage/persistent-volumes.md
-  - docs/concepts/storage/etcd-store-api-object.md
 
 - title: Services, Load Balancing, and Networking
   section:
