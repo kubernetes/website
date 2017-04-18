@@ -17,6 +17,7 @@ toc:
     section:
     - docs/admin/authorization/index.md
     - docs/admin/authorization/rbac.md
+  - docs/reference/deprecation-policy.md
 
 - title: API Reference
   section:
@@ -84,6 +85,5 @@ toc:
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues/
   - docs/reference/security.md
-  - docs/reference/deprecation-policy.md
 
 
