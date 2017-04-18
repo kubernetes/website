@@ -58,6 +58,8 @@ clusters.
 
 [OpenShift Dedicated](https://www.openshift.com/dedicated/) offers managed Kubernetes clusters powered by OpenShift and [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
 
+[IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters (currently in beta).
+
 ### Turn-key Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -68,7 +70,7 @@ few commands, and have active community support.
 - [Azure](/docs/getting-started-guides/azure)
 - [Tectonic by CoreOS](https://coreos.com/tectonic)
 - [CenturyLink Cloud](/docs/getting-started-guides/clc)
-- [IBM SoftLayer](https://github.com/patrocinio/kubernetes-softlayer)
+- [IBM Bluemix](https://github.com/patrocinio/kubernetes-softlayer)
 - [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
 - [KUBE2GO.io](https://kube2go.io/)
 - [Madcore.Ai](https://madcore.ai/)
