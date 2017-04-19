@@ -123,6 +123,20 @@ The domain suffix specified in `--dns-zone-name` must be an existing
 domain that you control, and that is programmable by your DNS provider.
 It must also end with a trailing dot.
 
+Once the federation control plane is initialized, query the namespaces:
+
+```shell
+kubectl get namespace --context=fellowship
+```
+
+If you do not see the `default` namespace listed (this is due to a
+[bug](https://github.com/kubernetes/kubernetes/issues/33292)). Create it
+yourself with the following command:
+
+```shell
+kubectl create namespace default --context=fellowship
+```
+
 The machines in your host cluster must have the appropriate permissions
 to program the DNS service that you are using. For example, if your
 cluster is running on Google Compute Engine, you must enable the
@@ -239,7 +253,7 @@ kubefed init fellowship \
 #### API server service type
 
 `kubefed init` exposes the federation API server as a Kubernetes
-[service](/docs/user-guide/services/) on the host cluster. By default,
+[service](/docs/concepts/services-networking/service/) on the host cluster. By default,
 this service is exposed as a
 [load balanced service](/docs/user-guide/services/#type-loadbalancer).
 Most on-premises and bare-metal enviroments, and some cloud

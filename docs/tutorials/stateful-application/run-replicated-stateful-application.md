@@ -28,11 +28,11 @@ on general patterns for running stateful applications in Kubernetes.
 * {% include task-tutorial-prereqs.md %}
 * {% include default-storage-class-prereqs.md %}
 * This tutorial assumes you are familiar with
-  [PersistentVolumes](/docs/user-guide/persistent-volumes/)
+  [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
   and [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/),
-  as well as other core concepts like [Pods](/docs/user-guide/pods/),
-  [Services](/docs/user-guide/services/), and
-  [ConfigMaps](/docs/user-guide/configmap/).
+  as well as other core concepts like [Pods](/docs/concepts/workloads/pods/pod/),
+  [Services](/docs/concepts/services-networking/service/), and
+  [ConfigMaps](/docs/tasks/configure-pod-container/configmap/).
 * Some familiarity with MySQL helps, but this tutorial aims to present
   general patterns that should be useful for other systems.
 
@@ -350,7 +350,7 @@ and then return on its own.
 
 If your Kubernetes cluster has multiple Nodes, you can simulate Node downtime
 (such as when Nodes are upgraded) by issuing a
-[drain](http://kubernetes.io/docs/user-guide/kubectl/kubectl_drain/).
+[drain](/docs/user-guide/kubectl/v1.6/#drain).
 
 First determine which Node one of the MySQL Pods is on:
 

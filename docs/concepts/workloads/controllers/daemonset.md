@@ -30,7 +30,7 @@ different flags and/or different memory and cpu requests for different hardware 
 
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
-[configuring containers](/docs/user-guide/configuring-containers/), and [working with resources](/docs/user-guide/working-with-resources/) documents.
+[configuring containers](/docs/user-guide/configuring-containers/), and [working with resources](/docs/concepts/tools/kubectl/object-management-overview/) documents.
 
 A DaemonSet also needs a [`.spec`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) section.
 
@@ -55,7 +55,7 @@ a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) or other new re
 
 The `spec.selector` is an object consisting of two fields:
 
-* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/docs/user-guide/replication-controller/)
+* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)
 * `matchExpressions` - allows to build more sophisticated selectors by specifying key,
   list of values and an operator that relates the key and values.
 
@@ -74,8 +74,8 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](/docs/user-guide/node-selection/). Likewise if you specify a `.spec.template.spec.affinity` 
-then DaemonSet controller will create pods on nodes which match that [node affinity](../../user-guide/node-selection/index.md).
+selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity` 
+then DaemonSet controller will create pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create pods on all nodes.
 
 ## How Daemon Pods are Scheduled
@@ -89,7 +89,7 @@ when the pod is created, so it is ignored by the scheduler).  Therefore:
  - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
    
-Daemon pods do respect [taints and tolerations](/docs/user-guide/node-selection/index.md#taints-and-tolerations-beta-feature), but they are
+Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature), but they are
 created with `NoExecute` tolerations for the `node.alpha.kubernetes.io/notReady` and `node.alpha.kubernetes.io/unreachable`
 taints with no `tolerationSeconds`. This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
 they will not be evicted when there are node problems such as a network partition. (When the
@@ -156,7 +156,7 @@ use a DaemonSet rather than creating individual pods.
 ### Static Pods
 
 It is possible to create pods by writing a file to a certain directory watched by Kubelet.  These
-are called [static pods](/docs/admin/static-pods/).
+are called [static pods](/docs/concepts/cluster-administration/static-pod/).
 Unlike DaemonSet, static pods cannot be managed with kubectl
 or other Kubernetes API clients.  Static pods do not depend on the apiserver, making them useful
 in cluster bootstrapping cases.  Also, static pods may be deprecated in the future.

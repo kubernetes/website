@@ -55,7 +55,7 @@ that points to the Compute Engine disk above:
 
 Notice that the `pdName: mysql-disk` line matches the name of the disk
 in the Compute Engine environment. See the
-[Persistent Volumes](/docs/user-guide/persistent-volumes/)
+[Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 for details on writing a PersistentVolume configuration file for other
 environments.
 
@@ -78,7 +78,7 @@ satisfied by any volume that meets the requirements, in this case, the
 volume created above.
 
 Note: The password is defined in the config yaml, and this is insecure. See
-[Kubernetes Secrets](/docs/user-guide/secrets/)
+[Kubernetes Secrets](/docs/concepts/configuration/secret/)
 for a secure solution.
 
 {% include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tutorials/stateful-application/mysql-deployment.yaml" %}
@@ -180,7 +180,7 @@ specific to stateful apps:
 * Don't scale the app. This setup is for single-instance apps
   only. The underlying PersistentVolume can only be mounted to one
   Pod. For clustered stateful apps, see the
-  [StatefulSet documentation](/docs/user-guide/petset/).
+  [StatefulSet documentation](/docs/concepts/workloads/controllers/petset/).
 * Use `strategy:` `type: Recreate` in the Deployment configuration
   YAML file. This instructs Kubernetes to _not_ use rolling
   updates. Rolling updates will not work, as you cannot have more than
@@ -208,13 +208,13 @@ gcloud compute disks delete mysql-disk
 
 {% capture whatsnext %}
 
-* Learn more about [Deployment objects](/docs/user-guide/deployments/).
+* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 
 * Learn more about [Deploying applications](/docs/user-guide/deploying-applications/)
 
-* [kubectl run documentation](/docs/user-guide/kubectl/kubectl_run/)
+* [kubectl run documentation](/docs/user-guide/kubectl/v1.6/#run)
 
-* [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/user-guide/persistent-volumes/)
+* [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 
 {% endcapture %}
 

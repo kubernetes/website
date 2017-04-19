@@ -103,3 +103,7 @@ Events:
   38s        37s        2    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}                Warning        FailedSync    Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
   1m         22s         2     {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Warning        FailedPostStartHook    
 ``` 
+
+## What's Next
+
+- See an example of [using container lifecycle hooks](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)

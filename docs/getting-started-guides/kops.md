@@ -16,7 +16,7 @@ kops is an opinionated provisioning system:
 * High-Availability support
 * Can directly provision, or generate terraform manifests
 
-If your opinions differ from these you may prefer to build your own cluster using [kubeadm](kubeadm) as
+If your opinions differ from these you may prefer to build your own cluster using [kubeadm](/docs/admin/kubeadm/) as
 a building block.  kops builds on the kubeadm work.
 
 ## Creating a cluster
@@ -145,7 +145,7 @@ for production clusters!
 
 ### Explore other add-ons
 
-See the [list of add-ons](/docs/admin/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
+See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
 
 ## What's next
 

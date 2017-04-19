@@ -580,6 +580,111 @@ Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of
 `system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules
 that grant access to the `*` user or `*` group do not include anonymous users.
 
+## User impersonation
+
+A user can act as another user through impersonation headers. These let requests
+manually override the user info a request authenticates as. For example, an admin
+could use this feature to debug an authorization policy by temporarily
+impersonating another user and seeing if a request was denied.
+
+Impersonation requests first authenticate as the requesting user, then switch
+to the impersonated user info.
+
+* A user makes an API call with their credentials _and_ impersonation headers.
+* API server authenticates the user.
+* API server ensures the authenticated users has impersonation privileges.
+* Request user info is replaced with impersonation values.
+* Request is evaluated, authorization acts on impersonated user info.
+
+The following HTTP headers can be used to performing an impersonation request:
+
+* `Impersonate-User`: The username to act as.
+* `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User"
+* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User"
+
+An example set of headers:
+
+```http
+Impersonate-User: jane.doe@example.com
+Impersonate-Group: developers
+Impersonate-Group: admins
+Impersonate-Extra-dn: cn=jane,ou=engineers,dc=example,dc=com
+Impersonate-Extra-scopes: view
+Impersonate-Extra-scopes: development
+```
+
+When using `kubectl` set the `--as` flag to configure the `Impersonate-User`
+header.
+
+```shell
+$ kubectl drain mynode
+Error from server (Forbidden): User "clark" cannot get nodes at the cluster scope. (get nodes mynode)
+
+$ kubectl drain mynode --as=superman
+node "mynode" cordoned
+node "mynode" drained
+```
+
+To impersonate a user, group, or set extra fields, the impersonating user must
+have the ability to perform the "impersonate" verb on the kind of attribute
+being impersonated ("user", "group", etc.). For clusters that enable the RBAC
+authorization plugin, the following ClusterRole encompasses the rules needed to
+set user and group impersonation headers:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: impersonator
+rules:
+- apiGroups: [""]
+  resources: ["users", "groups", "serviceaccounts"]
+  verbs: ["impersonate"]
+```
+
+Extra fields are evaluated as sub-resources of the resource "userextras". To
+allow a user to use impersonation headers for the extra field "scopes," a user
+should be granted the following role:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: scopes-impersonator
+# Can set "Impersonate-Extra-scopes" header.
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["userextras/scopes"]
+  verbs: ["impersonate"]
+```
+
+The values of impersonation headers can also be restricted by limiting the set
+of `resourceNames` a resource can take.
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: limited-impersonator
+rules:
+# Can impersonate the user "jane.doe@example.com"
+- apiGroups: [""]
+  resources: ["users"]
+  verbs: ["impersonate"]
+  resourceNames: ["jane.doe@example.com"]
+
+# Can impersonate the groups "developers" and "admins"
+- apiGroups: [""]
+  resources: ["groups"]
+- verbs: ["impersonate"]
+  resourceNames: ["developers","admins"]
+
+# Can impersonate the extras field "scopes" with the values "view" and "development"
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["userextras/scopes"]
+  verbs: ["impersonate"]
+  resourceNames: ["view", "development"]
+```
+
 ## Plugin Development
 
 We plan for the Kubernetes API server to issue tokens after the user has been

@@ -70,7 +70,7 @@ It is usually sufficient to run `kubeadm init` without any flags, but in some
 cases you might like to override the default behaviour. Here we specify all the
 flags that can be used to customise the Kubernetes installation.
 
-- `--api-advertise-address`
+- `--apiserver-advertise-address`
 
 This is the address the API Server will advertise to other members of the
 cluster.  This is also the address used to construct the suggested `kubeadm
@@ -277,7 +277,9 @@ networking:
   podSubnet: <cidr>
 kubernetesVersion: <string>
 cloudProvider: <string>
-authorizationMode: <string>
+authorizationModes:
+- <authorizationMode1|string>
+- <authorizationMode2|string>
 token: <string>
 tokenTTL: <time duration>
 selfHosted: <bool>
@@ -348,7 +350,7 @@ docs](/docs/admin/bootstrap-tokens/).
 ## Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the [basic kubeadm tutorial](/docs/getting-started-guides/kubeadm/), you can
+in the [basic kubeadm tutorial](/docs/admin/kubeadm/), you can
 parallelize the token distribution for easier automation. To implement this
 automation, you must know the IP address that the master will have after it is
 started.

@@ -88,9 +88,9 @@ spec:
 
 {% capture whatsnext %}
 
-* [Security Context](/docs/user-guide/security-context/)
+* [Security Context](/docs/concepts/policy/security-context/)
 
-* [Pod Security Policy](/docs/user-guide/pod-security-policy/)
+* [Pod Security Policy](/docs/concepts/policy/pod-security-policy/)
 
 * [SecurityContext](/docs/resources-reference/v1.6/#securitycontext-v1-core)
 
