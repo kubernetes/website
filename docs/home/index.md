@@ -43,3 +43,12 @@ redirect_from:
 <h2>Tools</h2>
 
 <p>The <a href="/docs/tools/">tools</a> page contains a list of native and third-party tools for Kubernetes.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+* <a href="https://github.com/kubernetes/kubernetes/wiki/User-FAQ">User FAQ</a>
+* <a href="https://github.com/kubernetes/kubernetes/wiki/Debugging-FAQ">Debugging FAQ</a>
+* <a href="https://github.com/kubernetes/kubernetes/wiki/Services-FAQ">Services FAQ</a>
+
+
+

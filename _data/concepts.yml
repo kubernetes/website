@@ -41,6 +41,7 @@ toc:
   - title: Jobs
     section:
     - docs/concepts/jobs/run-to-completion-finite-workloads.md
+    - docs/concepts/jobs/cron-jobs.md
 
 - title: Nodes
   section:
@@ -48,6 +49,8 @@ toc:
 
 - title: Cluster Administration
   section:
+  - docs/concepts/cluster-administration/configure-etcd.md
+  - docs/concepts/cluster-administration/etcd-upgrade.md
   - docs/concepts/cluster-administration/manage-deployment.md
   - docs/concepts/cluster-administration/networking.md
   - docs/concepts/cluster-administration/network-plugins.md

@@ -13,7 +13,7 @@ be easily retrieved and surfaced by tools like dashboards
 and monitoring software. In most cases, information that you
 put in a termination message should also be written to
 the general
-[Kubernetes logs](/docs/user-guide/logging/).
+[Kubernetes logs](/docs/concepts/cluster-administration/logging/).
 
 {% endcapture %}
 

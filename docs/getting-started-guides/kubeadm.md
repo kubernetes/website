@@ -280,8 +280,8 @@ helper service, will not start up before a network is installed. kubeadm only
 supports CNI based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/docs/user-guide/networkpolicies/). See the [add-ons
-page](/docs/admin/addons/) for a complete list of available network add-ons.
+support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons
+page](/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
 
 **New for Kubernetes 1.6:** kubeadm 1.6 sets up a more secure cluster by
 default.  As such it uses RBAC to grant limited privileges to workloads running
@@ -297,9 +297,9 @@ kubectl apply -f <add-on.yaml>
 Please refer to the specific add-on installation guide for exact details. You
 should only install one pod network per cluster.
 
-If you are on another architecture than amd64, you should use the flannel
-overlay network as described in [the multi-platform
-section](#multi-platform)
+If you are on another architecture than amd64, you should use the
+flannel or Weave Net overlay networks as described in [the
+multi-platform section](#multi-platform)
 
 NOTE: You can install **only one** pod network per cluster.
 
@@ -392,7 +392,7 @@ kubectl apply -n sock-shop -f "https://github.com/microservices-demo/microservic
 ```
 
 You can then find out the port that the [NodePort feature of
-services](/docs/user-guide/services/) allocated for the front-end service by
+services](/docs/concepts/services-networking/service/) allocated for the front-end service by
 running:
 
 ``` bash
@@ -423,7 +423,7 @@ master.
 ## Tear down
 
 To undo what kubeadm did, you should first [drain the
-node](https://kubernetes.io/docs/user-guide/kubectl/kubectl_drain/) and make
+node](/docs/user-guide/kubectl/v1.6/#drain) and make
 sure that the node is empty before shutting it down.
 
 Talking to the master with the appropriate credentials, run:
@@ -444,7 +444,7 @@ appropriate arguments.
 
 ## Explore other add-ons
 
-See the [list of add-ons](/docs/admin/addons/) to explore other add-ons,
+See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons,
 including tools for logging, monitoring, network policy, visualization &amp;
 control of your Kubernetes cluster.
 
@@ -473,8 +473,10 @@ proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/mu
 deb-packages are released for ARM and ARM 64-bit, but not RPMs (yet, reach out
 if there's interest).
 
-Currently, only the pod network flannel is working on multiple architectures.
-You can install it this way:
+Currently, only the pod networks flannel and Weave Net work on multiple architectures.
+For Weave Net just use its [standard install](https://www.weave.works/docs/net/latest/kube-addon/).
+
+Flannel requires special installation instructions:
 
 ``` bash
 export ARCH=amd64
@@ -541,7 +543,7 @@ addressed in due course.
    [#31307](https://github.com/kubernetes/kubernetes/issues/31307).
 
    Workaround: use the [NodePort feature of
-   services](/docs/user-guide/services/#type-nodeport) instead, or use
+   services](/docs/concepts/services-networking/service/#type-nodeport) instead, or use
    HostNetwork.
 
 1. Some users on RHEL/CentOS 7 have reported issues with traffic being routed

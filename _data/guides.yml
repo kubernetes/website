@@ -27,15 +27,9 @@ toc:
   - docs/user-guide/gpus.md
   - docs/user-guide/liveness/index.md
 
-- title: Monitoring, Logging, and Debugging Containers
-  section:
-  - title: Using Explorer to Examine the Runtime Environment
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
-
 - title: Administering Clusters
   section:
   - docs/admin/upgrade-1-6.md
-  - docs/admin/kubeadm.md
   - docs/admin/addons.md
   - docs/admin/node-allocatable.md
   - docs/admin/ha-master-gce.md
@@ -43,19 +37,4 @@ toc:
   - docs/admin/namespaces/walkthrough.md
   - docs/admin/etcd.md
   - docs/admin/etcd_upgrade.md
-  - title: Changing Cluster Size
-    path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
-  - title: Setting Up and Configuring DNS
-    path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
   - docs/admin/garbage-collection.md
-
-- title: Administering Federation
-  section:
-  - title: Federated Kubernetes Objects
-    section:
-    - docs/federation/api-reference/index.md
-  - title: Federation Components
-    section:
-    - docs/admin/federation-apiserver.md
-    - title : federation-controller-manager
-      path: /docs/admin/federation-controller-manager
