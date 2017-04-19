@@ -1,6 +1,6 @@
 ---
 title: Configuring Kubernetes Use of etcd
-redirec_from:
+redirect_from:
 - "/docs/concepts/storage/etcd-store-api-object/"
 - "/docs/concepts/storage/etcd-store-api-object.html"
 ---
