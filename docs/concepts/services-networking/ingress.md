@@ -273,7 +273,7 @@ You can achieve the same by invoking `kubectl replace -f` on a modified Ingress 
 
 ## Failing across availability zones
 
-Techniques for spreading traffic across failure domains differs between cloud providers. Please check the documentation of the relevant Ingress controller for details. Please refer to the federation [doc](/docs/concepts/cluster-administration/federation.md) for details on deploying Ingress in a federated cluster.
+Techniques for spreading traffic across failure domains differs between cloud providers. Please check the documentation of the relevant Ingress controller for details. Please refer to the federation [doc](/docs/concepts/cluster-administration/federation/) for details on deploying Ingress in a federated cluster.
 
 ## Future Work
 
