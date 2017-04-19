@@ -273,7 +273,7 @@ metadata:
 ...
 ```
 
-For more information, please see [annotations](/docs/user-guide/annotations/) and [kubectl annotate](/docs/user-guide/kubectl/v1.6/#annotate) document.
+For more information, please see [annotations](/docs/concepts/overview/working-with-objects/annotations/) and [kubectl annotate](/docs/user-guide/kubectl/v1.6/#annotate) document.
 
 ## Scaling your application
 
@@ -430,9 +430,9 @@ To update to version 1.9.1, simply change `.spec.template.spec.containers[0].ima
 $ kubectl edit deployment/my-nginx
 ```
 
-That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/user-guide/deployments/).
+That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).
 
 ## What's next?
 
-- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/user-guide/introspection-and-debugging/)
+- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
 - [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)

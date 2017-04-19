@@ -132,7 +132,7 @@ Also, you need to pick a static IP for master node.
 
 Kubernetes enables the definition of fine-grained network policy between Pods using the [NetworkPolicy](/docs/concepts/services-networking/networkpolicies/) resource.
 
-Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/getting-started-guides/network-policy/walkthrough/) for more information.
+Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/tasks/configure-pod-container/declare-network-policy/) for more information.
 
 ### Cluster Naming
 
@@ -822,7 +822,7 @@ Notes for setting up each cluster service are given below:
 * Cluster DNS:
   * required for many Kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
-  * [Admin Guide](/docs/admin/dns/)
+  * [Admin Guide](/docs/concepts/services-networking/dns-pod-service/)
 * Cluster-level Logging
   * [Cluster-level Logging Overview](/docs/user-guide/logging/overview)
   * [Cluster-level Logging with Elasticsearch](/docs/user-guide/logging/elasticsearch)

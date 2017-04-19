@@ -102,16 +102,16 @@ Default limits are applied according to a limit range for the default
 to see the default limits.
 
 For information about why you would want to specify limits, see
-[Setting Pod CPU and Memory Limits](/docs/admin/limitrange/).
+[Setting Pod CPU and Memory Limits](/docs/tasks/configure-pod-container/limit-range/).
 
 For information about what happens if you don't specify CPU and RAM requests, see
-[Resource Requests and Limits of Pod and Container](/docs/user-guide/compute-resources/).
+[Resource Requests and Limits of Pod and Container](/docs/concepts/configuration/manage-compute-resources-container/).
 
 {% endcapture %}
 
 {% capture whatsnext %}
 
-* Learn more about [managing compute resources](/docs/user-guide/compute-resources/).
+* Learn more about [managing compute resources](/docs/concepts/configuration/manage-compute-resources-container/).
 * See [ResourceRequirements](/docs/api-reference/v1.6/#resourcerequirements-v1-core).
 
 {% endcapture %}
