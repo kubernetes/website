@@ -39,8 +39,8 @@ In the above, stable is synonymous with persistence across Pod (re)schedulings.
 If an application doesn't require any stable identifiers or ordered deployment, 
 deletion, or scaling, you should deploy your application with a controller that 
 provides a set of stateless replicas. Controllers such as 
-[Deployment](/docs/user-guide/deployments/) or 
-[ReplicaSet](/docs/user-guide/replicasets/) may be better suited to your stateless needs.
+[Deployment](/docs/concepts/workloads/controllers/deployment/) or 
+[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
 
 ## Limitations
 * StatefulSet is a beta resource, not available in any Kubernetes release prior to 1.5.

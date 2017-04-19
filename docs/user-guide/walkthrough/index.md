@@ -27,7 +27,7 @@ If you haven't installed and configured kubectl, finish [installing kubectl](/do
 
 In Kubernetes, a group of one or more containers is called a _pod_. Containers in a pod are deployed together, and are started, stopped, and replicated as a group.
 
-See [pods](/docs/user-guide/pods/) for more details.
+See [pods](/docs/concepts/workloads/pods/pod/) for more details.
 
 
 #### Pod Definition
@@ -55,7 +55,7 @@ List all pods:
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/user-guide/getting-into-containers/) for details.
+On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/kubectl/get-shell-running-container/) for details.
 
 Provided the pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
 

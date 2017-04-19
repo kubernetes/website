@@ -253,7 +253,7 @@ kubefed init fellowship \
 #### API server service type
 
 `kubefed init` exposes the federation API server as a Kubernetes
-[service](/docs/user-guide/services/) on the host cluster. By default,
+[service](/docs/concepts/services-networking/service/) on the host cluster. By default,
 this service is exposed as a
 [load balanced service](/docs/user-guide/services/#type-loadbalancer).
 Most on-premises and bare-metal enviroments, and some cloud

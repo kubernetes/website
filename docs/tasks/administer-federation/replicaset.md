@@ -19,13 +19,13 @@ by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and [ReplicaSets](/docs/user-guide/replicasets/) in particular.
+general and [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) in particular.
 
 ## Overview
 
 Replica Sets in federation control plane (referred to as "federated replica sets" in
 this guide) are very similar to the traditional [Kubernetes
-ReplicaSets](/docs/user-guide/replicasets/), and provide the same functionality.
+ReplicaSets](/docs/concepts/workloads/controllers/replicaset/), and provide the same functionality.
 Creating them in the federation control plane ensures that the desired number of
 replicas exist across the registered clusters.
 

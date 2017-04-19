@@ -86,7 +86,7 @@ With docker:
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
 a9ec34d98787        nginx               "nginx -g 'daemon of   8 minutes ago       Up 8 minutes        0.0.0.0:80->80/tcp, 443/tcp   nginx-app
-$ docker attach -it a9ec34d98787
+$ docker attach a9ec34d98787
 ...
 ```
 

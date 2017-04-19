@@ -21,7 +21,7 @@ In the reference section, you can find reference documentation for Kubernetes AP
 
 ## Glossary
 
-Explore the glossary of essential Kubernetes concepts. Some good starting points are the entries for [Pods](/docs/user-guide/pods/), [Nodes](/docs/admin/node/), [Services](/docs/user-guide/services/), and [ReplicaSets](/docs/user-guide/replicasets/).
+Explore the glossary of essential Kubernetes concepts. Some good starting points are the entries for [Pods](/docs/concepts/workloads/pods/pod/), [Nodes](/docs/concepts/nodes/node/), [Services](/docs/concepts/services-networking/service/), and [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 
 ## Design Docs
 

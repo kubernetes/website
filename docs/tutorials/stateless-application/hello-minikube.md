@@ -161,7 +161,7 @@ Now the Minikube VM can run the image you built.
 
 ## Create a Deployment
 
-A Kubernetes [*Pod*](/docs/user-guide/pods/) is a group of one or more Containers,
+A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
 tutorial has only one Container. A Kubernetes
 [*Deployment*](/docs/user-guide/deployments) checks on the health of your
@@ -225,7 +225,7 @@ For more information about `kubectl`commands, see the
 By default, the Pod is only accessible by its internal IP address within the
 Kubernetes cluster. To make the `hello-node` Container accessible from outside the
 Kubernetes virtual network, you have to expose the Pod as a
-Kubernetes [*Service*](/docs/user-guide/services/).
+Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 From your development machine, you can expose the Pod to the public internet
 using the `kubectl expose` command:
@@ -315,9 +315,9 @@ minikube stop
 
 {% capture whatsnext %}
 
-* Learn more about [Deployment objects](/docs/user-guide/deployments/).
+* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 * Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
-* Learn more about [Service objects](/docs/user-guide/services/).
+* Learn more about [Service objects](/docs/concepts/services-networking/service/).
 
 {% endcapture %}
 

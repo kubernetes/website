@@ -247,7 +247,7 @@ Group information in Kubernetes is currently provided by the Authenticator
 modules. Groups, like users, are represented as strings, and that string 
 has no format requirements, other than that the prefix `system:` is reserved.
 
-[Service Accounts](/docs/user-guide/service-accounts/) have usernames with the `system:serviceaccount:` prefix and belong
+[Service Accounts](/docs/tasks/configure-pod-container/configure-service-account/) have usernames with the `system:serviceaccount:` prefix and belong
 to groups with the `system:serviceaccounts` prefix.
 
 #### Role Binding Examples
@@ -668,7 +668,7 @@ In order from most secure to least secure, the approaches are:
      --namespace=my-namespace
    ```
 
-   Many [add-ons](/docs/admin/addons/) currently run as the "default" service account in the "kube-system" namespace.
+   Many [add-ons](/docs/concepts/cluster-administration/addons/) currently run as the "default" service account in the "kube-system" namespace.
    To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the "kube-system" namespace.
    NOTE: Enabling this means the "kube-system" namespace contains secrets that grant super-user access to the API.
    
