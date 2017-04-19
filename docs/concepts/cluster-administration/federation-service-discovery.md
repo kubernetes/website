@@ -26,12 +26,12 @@ by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general, and [Services](/docs/user-guide/services/) in particular.
+general, and [Services](/docs/concepts/services-networking/service/) in particular.
 
 ## Overview
 
 Federated Services are created in much that same way as traditional
-[Kubernetes Services](/docs/user-guide/services/) by making an API
+[Kubernetes Services](/docs/concepts/services-networking/service/) by making an API
 call which specifies the desired properties of your service. In the
 case of Federated Services, this API call is directed to the
 Federation API endpoint, rather than a Kubernetes cluster API

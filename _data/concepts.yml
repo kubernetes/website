@@ -38,10 +38,8 @@ toc:
     - docs/concepts/workloads/controllers/petset.md
     - docs/concepts/workloads/controllers/daemonset.md
     - docs/concepts/workloads/controllers/garbage-collection.md
-  - title: Jobs
-    section:
-    - docs/concepts/jobs/run-to-completion-finite-workloads.md
-    - docs/concepts/jobs/cron-jobs.md
+    - docs/concepts/workloads/controllers/jobs-run-to-completion.md
+    - docs/concepts/workloads/controllers/cron-jobs.md
 
 - title: Nodes
   section:

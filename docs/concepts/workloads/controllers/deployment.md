@@ -9,7 +9,7 @@ title: Deployments
 
 ## What is a Deployment?
 
-A _Deployment_ provides declarative updates for [Pods](/docs/user-guide/pods/) and [Replica Sets](/docs/user-guide/replicasets/) (the next-generation Replication Controller).
+A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and [Replica Sets](/docs/concepts/workloads/controllers/replicaset/) (the next-generation Replication Controller).
 You only need to describe the desired state in a Deployment object, and the Deployment
 controller will change the actual state to the desired state at a controlled rate for you.
 You can define Deployments to create new resources, or replace existing ones
@@ -684,7 +684,7 @@ the same schema as a [Pod](/docs/user-guide/pods), except it is nested and does 
 In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate
 labels (i.e. don't overlap with other controllers, see [selector](#selector)) and an appropriate restart policy.
 
-Only a [`.spec.template.spec.restartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
+Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/) equal to `Always` is allowed, which is the default
 if not specified.
 
 ### Replicas

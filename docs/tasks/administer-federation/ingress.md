@@ -40,12 +40,12 @@ by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general, and [Ingress](/docs/user-guide/ingress/) in particular.
+general, and [Ingress](/docs/concepts/services-networking/ingress/) in particular.
 
 ## Overview
 
 Federated Ingresses are created in much that same way as traditional
-[Kubernetes Ingresses](/docs/user-guide/ingress/): by making an API
+[Kubernetes Ingresses](/docs/concepts/services-networking/ingress/): by making an API
 call which specifies the desired properties of your logical ingress point. In the
 case of Federated Ingress, this API call is directed to the
 Federation API endpoint, rather than a Kubernetes cluster API
@@ -87,7 +87,7 @@ You can create a federated ingress in any of the usual ways, for example using k
 ``` shell
 kubectl --context=federation-cluster create -f myingress.yaml
 ```
-For example ingress YAML configurations, see the [Ingress User Guide](/docs/user-guide/ingress/)
+For example ingress YAML configurations, see the [Ingress User Guide](/docs/concepts/services-networking/ingress/)
 The '--context=federation-cluster' flag tells kubectl to submit the
 request to the Federation API endpoint, with the appropriate
 credentials. If you have not yet configured such a context, visit the
