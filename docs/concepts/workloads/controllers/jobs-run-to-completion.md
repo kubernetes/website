@@ -2,7 +2,7 @@
 assignees:
 - erictune
 - soltysh
-title: Run to Completion Finite Workloads
+title: Jobs - Run to Completion
 redirect_from:
 - "/docs/concepts/jobs/run-to-completion-finite-workloads/"
 - "/docs/concepts/jobs/run-to-completion-finite-workloads.html"
