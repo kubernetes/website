@@ -38,10 +38,8 @@ toc:
     - docs/concepts/workloads/controllers/petset.md
     - docs/concepts/workloads/controllers/daemonset.md
     - docs/concepts/workloads/controllers/garbage-collection.md
-  - title: Jobs
-    section:
-    - docs/concepts/jobs/run-to-completion-finite-workloads.md
-    - docs/concepts/jobs/cron-jobs.md
+    - docs/concepts/workloads/controllers/jobs-run-to-completion.md
+    - docs/concepts/workloads/controllers/cron-jobs.md
 
 - title: Nodes
   section:
@@ -49,6 +47,7 @@ toc:
 
 - title: Cluster Administration
   section:
+  - docs/concepts/cluster-administration/configure-etcd.md
   - docs/concepts/cluster-administration/etcd-upgrade.md
   - docs/concepts/cluster-administration/manage-deployment.md
   - docs/concepts/cluster-administration/networking.md
@@ -74,10 +73,6 @@ toc:
   section:
   - docs/concepts/storage/volumes.md
   - docs/concepts/storage/persistent-volumes.md
-
-- title: Storage
-  section:
-  - docs/concepts/storage/etcd-store-api-object.md
 
 - title: Services, Load Balancing, and Networking
   section:

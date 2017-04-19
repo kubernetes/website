@@ -74,9 +74,9 @@ you can define arguments by using environment variables:
 
 This means you can define an argument for a Pod using any of
 the techniques available for defining environment variables, including
-[ConfigMaps](/docs/user-guide/configmap/)
+[ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
 and
-[Secrets](/docs/user-guide/secrets/).
+[Secrets](/docs/concepts/configuration/secret/).
 
 NOTE: The environment variable appears in parentheses, `"$(VAR)"`. This is
 required for the variable to be expanded in the `command` or `args` field.
@@ -96,7 +96,7 @@ script. To run your command in a shell, wrap it like this:
 
 * Learn more about [containers and commands](/docs/user-guide/containers/).
 * Learn more about [configuring containers](/docs/user-guide/configuring-containers/).
-* Learn more about [running commands in a container](/docs/user-guide/getting-into-containers/).
+* Learn more about [running commands in a container](/docs/tasks/kubectl/get-shell-running-container/).
 * See [Container](/docs/api-reference/v1.6/#container-v1-core).
 
 {% endcapture %}

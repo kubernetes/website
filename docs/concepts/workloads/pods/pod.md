@@ -44,13 +44,13 @@ a group of Docker containers with shared namespaces and shared
 
 Like individual application containers, pods are considered to be relatively
 ephemeral (rather than durable) entities. As discussed in [life of a
-pod](/docs/user-guide/pod-states/), pods are created, assigned a unique ID (UID), and
+pod](/docs/concepts/workloads/pods/pod-lifecycle/), pods are created, assigned a unique ID (UID), and
 scheduled to nodes where they remain until termination (according to restart
 policy) or deletion. If a node dies, the pods scheduled to that node are
 scheduled for deletion, after a timeout period. A given pod (as defined by a UID) is not
 "rescheduled" to a new node; instead, it can be replaced by an identical pod,
 with even the same name if desired, but with a new UID (see [replication
-controller](/docs/user-guide/replication-controller/) for more details). (In the future, a
+controller](/docs/concepts/workloads/controllers/replicationcontroller/) for more details). (In the future, a
 higher-level API may support pod migration.)
 
 When something is said to have the same lifetime as a pod, such as a volume,
@@ -86,7 +86,7 @@ Each pod has an IP address in a flat shared networking space that has full
 communication with other physical computers and pods across the network.
 
 The hostname is set to the pod's Name for the application containers within the
-pod. [More details on networking](/docs/admin/networking/).
+pod. [More details on networking](/docs/concepts/cluster-administration/networking/).
 
 In addition to defining the application containers that run in the pod, the pod
 specifies a set of shared storage volumes. Volumes enable data to survive
@@ -137,7 +137,7 @@ simplified management.
 
 Pods aren't intended to be treated as durable entities. They won't survive scheduling failures, node failures, or other evictions, such as due to lack of resources, or in the case of node maintenance.
 
-In general, users shouldn't need to create pods directly. They should almost always use controllers (e.g., [Deployments](/docs/user-guide/deployments/)), even for singletons.  Controllers provide self-healing with a cluster scope, as well as replication and rollout management.
+In general, users shouldn't need to create pods directly. They should almost always use controllers (e.g., [Deployments](/docs/concepts/workloads/controllers/deployment/)), even for singletons.  Controllers provide self-healing with a cluster scope, as well as replication and rollout management.
 
 The use of collective APIs as the primary user-facing primitive is relatively common among cluster scheduling systems, including [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/configuration-reference/#job-schema), and [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 
@@ -150,7 +150,7 @@ Pod is exposed as a primitive in order to facilitate:
 * clean composition of Kubelet-level functionality with cluster-level functionality &mdash; Kubelet is effectively the "pod controller"
 * high-availability applications, which will expect pods to be replaced in advance of their termination and certainly in advance of deletion, such as in the case of planned evictions, image prefetching, or live pod migration [#3949](http://issue.k8s.io/3949)
 
-There is new first-class support for stateful pods with the [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) controller (currently in beta). The feature was alpha in 1.4 and was called [PetSet](/docs/user-guide/petset/). For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service, see [this MySQL deployment example](/docs/tutorials/stateful-application/run-stateful-application/). 
+There is new first-class support for stateful pods with the [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) controller (currently in beta). The feature was alpha in 1.4 and was called [PetSet](/docs/concepts/workloads/controllers/petset/). For prior versions of Kubernetes, best practice for having stateful pods is to create a replication controller with `replicas` equal to `1` and a corresponding service, see [this MySQL deployment example](/docs/tutorials/stateful-application/run-stateful-application/). 
 
 ## Termination of Pods
 

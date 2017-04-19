@@ -28,7 +28,7 @@ do not already have a single-node cluster, you can create one by using
 [Minikube](/docs/getting-started-guides/minikube).
 
 * Familiarize yourself with the material in
-[Persistent Volumes](/docs/user-guide/persistent-volumes/).
+[Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 
 {% endcapture %}
 
@@ -196,7 +196,7 @@ PersistentVolume are not present on the Pod resource itself.
 
 {% capture whatsnext %}
 
-* Learn more about [PersistentVolumes](/docs/user-guide/persistent-volumes/).
+* Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Read the [Persistent Storage design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/persistent-storage.md).
 
 ### Reference
