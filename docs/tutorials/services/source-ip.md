@@ -334,7 +334,7 @@ $ kubectl delete deployment source-ip-app
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn more about [connecting applications via services](/docs/user-guide/connecting-applications/)
+* Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
 * Learn more about [loadbalancing](/docs/user-guide/load-balancer)
 {% endcapture %}
 

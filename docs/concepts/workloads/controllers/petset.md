@@ -39,7 +39,7 @@ __Prerequisites__
 This doc assumes familiarity with the following Kubernetes concepts:
 
 * [Pods](/docs/user-guide/pods/single-container/)
-* [Cluster DNS](/docs/admin/dns/)
+* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/user-guide/services/#headless-services)
 * [Persistent Volumes](/docs/concepts/storage/volumes/)
 * [Persistent Volume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/README.md)
@@ -230,7 +230,7 @@ web-1
 
 A pet can piece together its own identity:
 
-1. Use the [downward api](/docs/user-guide/downward-api/) to find its pod name
+1. Use the [downward api](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/) to find its pod name
 2. Run `hostname` to find its DNS name
 3. Run `mount` or `df` to find its volumes (usually this is unnecessary)
 

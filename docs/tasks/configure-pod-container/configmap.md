@@ -17,7 +17,7 @@ coarse-grained information like entire config files or JSON blobs.
 
 The ConfigMap API resource holds key-value pairs of configuration data that can be consumed in pods
 or used to store configuration data for system components such as controllers.  ConfigMap is similar
-to [Secrets](/docs/user-guide/secrets/), but designed to more conveniently support working with strings that do not
+to [Secrets](/docs/concepts/configuration/secret/), but designed to more conveniently support working with strings that do not
 contain sensitive information.
 
 Note: ConfigMaps are not intended to act as a replacement for a properties file. ConfigMaps are intended to act as a  reference to multiple properties files. You can think of them as way to represent something similar to the /etc directory, and the files within, on a Linux computer. One example of this model is creating Kubernetes Volumes from ConfigMaps, where each data item in the ConfigMap becomes a new file. 
@@ -462,7 +462,7 @@ very
 #### Projecting keys to specific paths and file permissions
 
 You can project keys to specific paths and specific permissions on a per-file
-basis. The [Secrets](/docs/user-guide/secrets/) user guide explains the syntax.
+basis. The [Secrets](/docs/concepts/configuration/secret/) user guide explains the syntax.
 
 #### Optional ConfigMap via volume plugin
 
