@@ -67,7 +67,7 @@ Pod:
 
 {% capture whatsnext %}
 
-* Learn more about [environment variables](/docs/user-guide/environment-guide/).
+* Learn more about [environment variables](/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/).
 * Learn about [using secrets as environment variables](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
 * See [EnvVarSource](/docs/api-reference/v1.6/#envvarsource-v1-core).
 
