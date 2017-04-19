@@ -133,7 +133,7 @@ Delete the deployment by name:
 
 {% capture whatsnext %}
 
-* Learn more about [Deployment objects](/docs/user-guide/deployments/).
+* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 
 * Learn more about [Deploying applications](/docs/user-guide/deploying-applications/)
 

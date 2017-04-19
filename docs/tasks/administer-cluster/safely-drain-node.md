@@ -14,7 +14,7 @@ disruption SLOs you have specified using PodDisruptionBudget.
 This task assumes that you have met the following prerequisites:
 
 * You are using Kubernetes release >= 1.5.
-* You have created [PodDisruptionBudget(s)](/docs/admin/disruptions/) to express the
+* You have created [PodDisruptionBudget(s)](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/) to express the
 application-level disruption SLOs you want the system to enforce.
 
 {% endcapture %}

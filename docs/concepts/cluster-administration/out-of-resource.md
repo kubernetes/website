@@ -67,7 +67,7 @@ of configurations are not currently supported by the kubelet. For example, it is
 *not OK* to store volumes and logs in a dedicated `filesystem`.
 
 In future releases, the `kubelet` will deprecate the existing [garbage
-collection](/docs/admin/garbage-collection/) support in favor of eviction in
+collection](/docs/concepts/cluster-administration/kubelet-garbage-collection/) support in favor of eviction in
 response to disk pressure.
 
 ### Eviction Thresholds

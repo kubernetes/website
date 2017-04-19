@@ -11,7 +11,7 @@ Kubernetes cluster.
 
 * {% include task-tutorial-prereqs.md %}
 
-* Make sure the [DNS feature](/docs/admin/dns/) itself is enabled.
+* Make sure the [DNS feature](/docs/concepts/services-networking/dns-pod-service/) itself is enabled.
 
 * Kubernetes version 1.4.0 or later is recommended.
 
@@ -225,7 +225,7 @@ a future development. The current implementation, which uses the number of nodes
 and cores in cluster, is limited.
 
 Support for custom metrics, similar to that provided by
-[Horizontal Pod Autoscaling](/docs/user-guide/horizontal-pod-autoscaling/),
+[Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/),
 is under consideration as a future development.
 
 {% endcapture %}
