@@ -1,7 +1,7 @@
 import subprocess
 import re
 
-# Finds the docuements to rewrite by for files that include user-guide-content-moved.md.
+# Finds the documents to rewrite for files that include user-guide-content-moved.md.
 # Then opens these files and processes the stuff after those lines to figure out where
 # the line should move to.
 # Returns a list of ('old/path', 'new/path') tuples.
