@@ -56,8 +56,6 @@ You can find an example of a pod disruption budget defined below. It matches pod
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  labels:
-    app: zookeeper
   name: zk-pdb
 spec:
   minAvailable: 2
