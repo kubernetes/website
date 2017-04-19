@@ -10,6 +10,8 @@ Primary system and API concepts are documented in the [User guide](/docs/user-gu
 
 Overall API conventions are described in the [API conventions doc](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md).
 
+API endpoints, resource types and samples are described in [API Reference](/docs/reference).
+
 Remote access to the API is discussed in the [access doc](/docs/admin/accessing-the-api).
 
 The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [Kubectl](/docs/user-guide/kubectl) command-line tool can be used to create, update, delete, and get API objects.

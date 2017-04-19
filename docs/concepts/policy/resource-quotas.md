@@ -26,7 +26,7 @@ Resource quotas work like this:
 - If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
   the LimitRange admission controller to force defaults for pods that make no compute resource requirements.
-  See the [walkthrough](/docs/admin/resourcequota/walkthrough/) for an example to avoid this problem.
+  See the [walkthrough](/docs/tasks/configure-pod-container/apply-resource-quota-limit/) for an example to avoid this problem.
 
 Examples of policies that could be created using namespaces and quotas are:
 
@@ -233,7 +233,7 @@ restrictions around nodes: pods from several namespaces may run on the same node
 
 ## Example
 
-See a [detailed example for how to use resource quota](/docs/admin/resourcequota/walkthrough/).
+See a [detailed example for how to use resource quota](/docs/tasks/configure-pod-container/apply-resource-quota-limit/).
 
 ## Read More
 
