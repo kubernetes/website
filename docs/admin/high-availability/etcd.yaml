@@ -18,7 +18,7 @@ spec:
     - --advertise-client-urls
     - http://${NODE_IP}:4001
     - --listen-client-urls
-    - http://127.0.0.1:4001
+    - http://${NODE_IP}:4001
     - --data-dir
     - /var/etcd/data
     - --discovery
