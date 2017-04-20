@@ -2,7 +2,7 @@
 assignees:
 - bgrant0607
 - hw-qiaolei
-title: kubectl Overview
+title: Overview of kubectl
 ---
 
 `kubectl` is a command line interface for running commands against Kubernetes clusters. This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/user-guide/kubectl) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
