@@ -1,5 +1,5 @@
 ---
-title: Exposing Pod Information to Containers Using a DownwardApiVolumeFile
+title: Exposing Pod Information to Containers Using the Downward API
 ---
 
 {% capture overview %}
