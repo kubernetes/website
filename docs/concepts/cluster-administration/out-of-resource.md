@@ -295,7 +295,7 @@ The `kubelet` sets a `oom_score_adj` value for each container based on the quali
 | `Burstable` | min(max(2, 1000 - (1000 * memoryRequestBytes) / machineMemoryCapacityBytes), 999) |
 
 If the `kubelet` is unable to reclaim memory prior to a node experiencing system OOM, the `oom_killer` will calculate
-an `oom_score` based on the percentage of memory its using on the node, and then add the `oom_score_adj` to get an
+an `oom_score` based on the percentage of memory it's using on the node, and then add the `oom_score_adj` to get an
 effective `oom_score` for the container, and then kills the container with the highest score.
 
 The intended behavior should be that containers with the lowest quality of service that
