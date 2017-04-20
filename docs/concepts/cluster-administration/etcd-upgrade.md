@@ -126,7 +126,7 @@ focus on them at all. We focus only on the upgrade/rollback here.
 
 ### New etcd Docker image
 
-We decided to completely change the the content of the etcd image and the way it works.
+We decided to completely change the content of the etcd image and the way it works.
 So far, the Docker image for etcd  in version X has contained only the etcd and
 etcdctl binaries.
 
