@@ -43,7 +43,7 @@ The output contains a section similar to this:
         }
     }
     
-If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
+NOTE: If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
 
 ## Creating a Secret that holds your authorization token
 
