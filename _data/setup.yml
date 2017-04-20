@@ -96,7 +96,6 @@ toc:
   - docs/admin/node-conformance.md
 
 - docs/admin/salt.md
-- docs/getting-started-guides/docker-multinode.md
 - docs/admin/cluster-large.md
 - docs/admin/multiple-zones.md
 - docs/admin/high-availability/index.md
