@@ -6,6 +6,8 @@ title: The Kubernetes API
 
 Overall API conventions are described in the [API conventions doc](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md).
 
+API endpoints, resource types and samples are described in [API Reference](/docs/reference).
+
 Remote access to the API is discussed in the [access doc](/docs/admin/accessing-the-api).
 
 The Kubernetes API also serves as the foundation for the declarative configuration schema for the system. The [Kubectl](/docs/user-guide/kubectl) command-line tool can be used to create, update, delete, and get API objects.
@@ -100,4 +102,4 @@ to pick up the `--runtime-config` changes.
 DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
 Other extensions resources can be enabled by setting `--runtime-config` on
 apiserver. `--runtime-config` accepts comma separated values. For ex: to disable deployments and jobs, set
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`
+`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`

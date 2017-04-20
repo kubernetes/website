@@ -19,13 +19,13 @@ by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and [Namespaces](/docs/user-guide/namespaces/) in particular.
+general and [Namespaces](/docs/concepts/overview/working-with-objects/namespaces/) in particular.
 
 ## Overview
 
 Namespaces in federation control plane (referred to as "federated namespaces" in
 this guide) are very similar to the traditional [Kubernetes
-Namespaces](/docs/user-guide/namespaces/) providing the same functionality.
+Namespaces](/docs/concepts/overview/working-with-objects/namespaces/) providing the same functionality.
 Creating them in the federation control plane ensures that they are synchronized
 across all the clusters in federation.
 

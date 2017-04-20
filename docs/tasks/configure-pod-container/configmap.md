@@ -17,7 +17,7 @@ coarse-grained information like entire config files or JSON blobs.
 
 The ConfigMap API resource holds key-value pairs of configuration data that can be consumed in pods
 or used to store configuration data for system components such as controllers.  ConfigMap is similar
-to [Secrets](/docs/user-guide/secrets/), but designed to more conveniently support working with strings that do not
+to [Secrets](/docs/concepts/configuration/secret/), but designed to more conveniently support working with strings that do not
 contain sensitive information.
 
 Note: ConfigMaps are not intended to act as a replacement for a properties file. ConfigMaps are intended to act as a  reference to multiple properties files. You can think of them as way to represent something similar to the /etc directory, and the files within, on a Linux computer. One example of this model is creating Kubernetes Volumes from ConfigMaps, where each data item in the ConfigMap becomes a new file. 
@@ -305,34 +305,6 @@ SPECIAL_TYPE_KEY=charm
 log_level=INFO
 ```
 
-#### Optional ConfigMap in environment variables
-
-There might be situations where environment variables are not
-always required. These environment variables can be marked as optional in a
-pod like so:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "-c", "env" ]
-      env:
-        - name: SPECIAL_LEVEL_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: a-config
-              key: akey
-              optional: true
-  restartPolicy: Never
-```
-
-When this pod is run, the output will be empty.
-
 ### Use-Case: Set command-line arguments with ConfigMap
 
 ConfigMaps can also be used to set the value of the command or arguments in a container.  This is
@@ -462,39 +434,7 @@ very
 #### Projecting keys to specific paths and file permissions
 
 You can project keys to specific paths and specific permissions on a per-file
-basis. The [Secrets](/docs/user-guide/secrets/) user guide explains the syntax.
-
-#### Optional ConfigMap via volume plugin
-
-Volumes and files provided by a ConfigMap can be also be marked as optional.
-The ConfigMap or the key specified does not have to exist. The mount path for
-such items will always be created.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "-c", "ls /etc/config" ]
-      volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
-  volumes:
-    - name: config-volume
-      configMap:
-        name: no-config
-        optional: true
-  restartPolicy: Never
-```
-
-When this pod is run, the output will be:
-
-```shell
-```
+basis. The [Secrets](/docs/concepts/configuration/secret/) user guide explains the syntax.
 
 ## Real World Example: Configuring Redis
 

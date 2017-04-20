@@ -2,7 +2,10 @@
 assignees:
 - erictune
 - soltysh
-title: Run to Completion Finite Workloads
+title: Jobs - Run to Completion
+redirect_from:
+- "/docs/concepts/jobs/run-to-completion-finite-workloads/"
+- "/docs/concepts/jobs/run-to-completion-finite-workloads.html"
 ---
 
 * TOC
@@ -21,18 +24,12 @@ due to a node hardware failure or a node reboot).
 
 A Job can also be used to run multiple pods in parallel.
 
-### extensions/v1beta1.Job is deprecated
-
-Starting from version 1.5 `extensions/v1beta1.Job` is being deprecated, with a plan to be removed in
-version 1.6 of Kubernetes (see this [issue](https://github.com/kubernetes/kubernetes/issues/32763)).
-Please use `batch/v1.Job` instead.
-
 ## Running an example Job
 
 Here is an example Job config.  It computes π to 2000 places and prints it out.
 It takes around 10s to complete.
 
-{% include code.html language="yaml" file="job.yaml" ghlink="/docs/user-guide/job.yaml" %}
+{% include code.html language="yaml" file="job.yaml" ghlink="/docs/concepts/workloads/controllers/job.yaml" %}
 
 Run the example job by downloading the example file and then running this command:
 

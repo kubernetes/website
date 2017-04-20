@@ -1,5 +1,8 @@
 ---
 title: Configuring Kubernetes Use of etcd
+redirect_from:
+- "/docs/concepts/storage/etcd-store-api-object/"
+- "/docs/concepts/storage/etcd-store-api-object.html"
 ---
 
 [etcd](https://coreos.com/etcd/docs/latest/) is a highly-available key value

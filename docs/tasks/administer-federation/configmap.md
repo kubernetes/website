@@ -20,12 +20,12 @@ might also help you create a Federated Kubernetes cluster.
 
 You should also have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and [ConfigMaps](/docs/user-guide/configmap/) in particular.
+general and [ConfigMaps](/docs/tasks/configure-pod-container/configmap/) in particular.
 
 ## Overview
 
 Federated ConfigMaps are very similar to the traditional [Kubernetes
-ConfigMaps](/docs/user-guide/configmap/) and provide the same functionality.
+ConfigMaps](/docs/tasks/configure-pod-container/configmap/) and provide the same functionality.
 Creating them in the federation control plane ensures that they are synchronized
 across all the clusters in federation.
 

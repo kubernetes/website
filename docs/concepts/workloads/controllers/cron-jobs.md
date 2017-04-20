@@ -4,6 +4,9 @@ assignees:
 - soltysh
 - janetkuo
 title: Cron Jobs
+redirect_from:
+- "/docs/concepts/jobs/cron-jobs/"
+- "/docs/concepts/jobs/cron-jobs.html"
 ---
 
 * TOC
@@ -42,7 +45,7 @@ for more). You cannot use Cron Jobs on a hosted Kubernetes provider that has dis
 Here is an example Cron Job. Every minute, it runs a simple job to print current time and then say
 hello.
 
-{% include code.html language="yaml" file="cronjob.yaml" ghlink="/docs/concepts/jobs/cronjob.yaml" %}
+{% include code.html language="yaml" file="cronjob.yaml" ghlink="/docs/concepts/workloads/controllers/cronjob.yaml" %}
 
 Run the example cron job by downloading the example file and then running this command:
 
