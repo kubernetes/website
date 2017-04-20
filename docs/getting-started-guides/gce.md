@@ -91,36 +91,6 @@ However the gcloud bundled kubectl version may be older than the one downloaded 
 get.k8s.io install script. We recommend you use the downloaded binary to avoid
 potential issues with client/server version skew.
 
-#### Enabling bash completion of the Kubernetes command line tools
-
-You may find it useful to enable `kubectl` bash completion:
-
-* If you're using kubectl with Kubernetes version 1.2 or earlier, you can source the kubectl completion script as follows:<br>
-  ```
-  $ source ./contrib/completions/bash/kubectl
-  ```
-
-* If you're using kubectl with Kubernetes version 1.3, use the `kubectl completion` command as follows:<br>
-  ```
-  $ source <(kubectl completion bash)
-  ```
-
-**Note**: The above commands will last for the duration of your bash session. If you want to make this permanent you need to add corresponding command in your bash profile.
-
-Alternatively, on most linux distributions you can also add a completions file to your bash_completions.d as follows:
-
-* For kubectl with Kubernetes v1.2 or earlier:<br>
-  ```
-  $ cp ./contrib/completions/bash/kubectl /etc/bash_completion.d/
-  ```
-
-* For kubectl with Kubernetes v1.3:<br>
-  ```
-  $ kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl
-  ```
-
-but then you have to update it when you update kubectl.
-
 ### Getting started with your cluster
 
 #### Inspect your cluster
