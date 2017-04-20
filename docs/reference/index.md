@@ -4,7 +4,10 @@ assignees:
 - chenopis
 ---
 
-In the reference section, you can find reference documentation for Kubernetes APIs, CLIs, and tools, as well as our glossary and design docs. 
+The Reference section contains detailed documentation on the Kubernetes [API](/docs/api-reference/{{page.version}}/),
+[kubectl](/docs/user-guide/kubectl-overview/) command-line interface (CLI),
+[kubeadm](/docs/admin/kubeadm/) setup tool,
+configuration reference for various Kubernetes components, design docs, and issues and security.
 
 ## API References
 
@@ -15,15 +18,11 @@ In the reference section, you can find reference documentation for Kubernetes AP
 
 ## CLI References
 
-* [kubectl](/docs/user-guide/kubectl-overview/) - Runs commands against Kubernetes clusters.
-    * [JSONPath](/docs/user-guide/jsonpath/) - Syntax     guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
+* [kubectl](/docs/user-guide/kubectl-overview) - Runs commands against Kubernetes clusters.
+    * [JSONPath](/docs/user-guide/jsonpath/) - Syntax guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
 * [kube-apiserver](/docs/admin/kube-apiserver/) - REST API that validates and configures data for API objects such as  pods, services, replication controllers.
 * [kube-proxy](/docs/admin/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of backends.
 * [kubelet](/docs/admin/kubelet/) - The primary "node agent" that runs on each node. The kubelet takes a set of PodSpecs and ensures that the described containers are running and healthy.
-
-## Glossary
-
-Explore the glossary of essential Kubernetes concepts. Some good starting points are the entries for [Pods](/docs/concepts/workloads/pods/pod/), [Nodes](/docs/concepts/nodes/node/), [Services](/docs/concepts/services-networking/service/), and [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 
 ## Design Docs
 
