@@ -76,7 +76,7 @@ Kubernetes satisfies a number of common needs of applications running in product
 * [load balancing](/docs/concepts/services-networking/service/),
 * [rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/),
 * [resource monitoring](/docs/concepts/cluster-administration/resource-usage-monitoring/),
-* [log access and ingestion](/docs/concepts/clusters/logging/),
+* [log access and ingestion](/docs/concepts/cluster-administration/logging/),
 * [support for introspection and debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/), and
 * [identity and authorization](/docs/admin/authorization/).
 
