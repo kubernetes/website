@@ -19,7 +19,7 @@ cluster and is distributed as a secret attached to default service accounts.
 Optionally, your workloads can use this CA to establish trust. Your application
 can request a certificate signing using the `certificates.k8s.io` API using a
 protocol that is similar to the
-[ACME draft](https://letsencrypt.github.io/acme-spec/).
+[ACME draft](https://github.com/ietf-wg-acme/acme/).
 
 ## Trusting TLS in a Cluster
 
