@@ -138,6 +138,10 @@ Note: Disabling SELinux by running `setenforce 0` is required in order to allow
 containers to access the host filesystem, which is required by pod networks for
 example. You have to do this until SELinux support is improved in the kubelet.
 
+While this guide is correct for kubeadm 1.6, the previous version is still
+available but can be a bit tricky to install.  [See below](#old-kubeadm) for
+details.
+
 ### (2/4) Initializing your master
 
 The master is the machine where the "control plane" components run, including
@@ -632,3 +636,75 @@ A web search on the error message may help narrow down the issue.  Or
 communicate the errors you are seeing to the community/company that provides the
 pod network implementation you are using.
 
+### Installing kubeadm 1.5 {#old-kubeadm}
+
+This section covers the previous version, kubeadm 1.5.  It is still available but is a little tricky to get to.  Also note that the command line options and other configuration parameters have changed.
+
+As root, run the following.  This is very similar to the regular instructions except for pinning the versions.  Note that, due to some unfortunate version strings, kubeadm isn't indexed in the repos and the packages must be downloaded and installed directly.
+
+#### Ubuntu
+
+```bash
+apt-get update && apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+apt-get update
+
+# 1.5.6 does exist in the repo but it has a hard depenedency on a newer kubernetes-cni.  Use 1.5.3 instead.
+sudo apt-get -y install kubectl=1.5.3-00 kubelet=1.5.3-00 kubernetes-cni=0.3.0.1-07a8a2-00
+
+# Versioning strangeness for how we packaged kubeadm pre-1.6 means that the version number
+# says 1.6.0-alpha even though it is the 1.5 version of kubeadm.  Because of how this sorts,
+# we cannot keep this deb in the repo.  Download it manually and install it.
+curl -Lo /tmp/old-kubeadm.deb https://apt.k8s.io/pool/kubeadm_1.6.0-alpha.0.2074-a092d8e0f95f52-00_amd64_0206dba536f698b5777c7d210444a8ace18f48e045ab78687327631c6c694f42.deb
+sudo dpkg -i /tmp/old-kubeadm.deb
+sudo apt-get install -f
+
+# Hold these packages back so that we don't accidentally upgrade them.
+sudo apt-mark hold kubeadm kubectl kubelet kubernetes-cni
+```
+
+#### CentOS
+
+```bash
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+setenforce 0
+
+# 1.5.4 is the latest previous version in the repo.  Because of messed up
+# versioning in the 1.5 release, kubeadm is no longer indexed in the repos
+# so we have to refer to the RPM directly.
+sudo yum -y install \
+  yum-versionlock \
+  docker \
+  kubectl-1.5.4-0 \
+  kubelet-1.5.4-0 \
+  kubernetes-cni-0.3.0.1-0.07a8a2 \
+  http://yum.kubernetes.io/pool/082436e6e6cad1852864438b8f98ee6fa3b86b597554720b631876db39b8ef04-kubeadm-1.6.0-0.alpha.0.2074.a092d8e0f95f52.x86_64.rpm
+
+# Lock the version of these packages so that we don't upgrade them accidentally.
+sudo yum versionlock add kubectl kubelet kubernetes-cni kubeadm
+
+# Enable and start up docker and the kubelet
+systemctl enable docker && systemctl start docker
+systemctl enable kubelet && systemctl start kubelet
+```
+
+#### Running `kubeadm init`
+
+Finally, when running `kubeadm init` you must specify the `--use-kubernetes-version` flag:
+
+```bash
+kubeadm init --use-kubernetes-version=v1.5.6
+```
