@@ -1,72 +1,70 @@
 bigheader: "Reference Documentation"
 abstract: "Design docs, concept definitions, and references for APIs and CLIs."
 toc:
-- docs/reference.md
+- docs/reference/index.md
 
-- title: "Kubernetes Resource Types"
+- title: Using the API
   section:
-  - title: Version 1.6
-    path: /docs/resources-reference/v1.6/
-  - title: Version 1.5
-    path: /docs/resources-reference/v1.5/
-
-- title: "Kubernetes API"
-  section:
-  - title: Overview
-    path: /docs/concepts/overview/kubernetes-api/
-  - title: Version 1.6
-    path: /docs/api-reference/v1.6/
-  - title: Version 1.5
-    path: /docs/api-reference/v1.5/
+  - docs/reference/api-overview.md
   - title: Accessing the API
     section:
     - docs/admin/accessing-the-api.md
     - docs/admin/authentication.md
     - docs/admin/bootstrap-tokens.md
-    - title: Authorization Plugins
-      section:
-      - docs/admin/authorization/index.md
-      - docs/admin/authorization/rbac.md
     - docs/admin/admission-controllers.md
     - docs/admin/service-accounts-admin.md
-  - docs/api-reference/labels-annotations-taints.md
-  - docs/api-reference/extensions/v1beta1/definitions.html
+  - title: Authorization
+    section:
+    - docs/admin/authorization/index.md
+    - docs/admin/authorization/rbac.md
+  - docs/reference/deprecation-policy.md
+
+- title: API Reference
+  section:
+  - title: v1.6
+    path: /docs/api-reference/v1.6/
+  - title: v1.5
+    path: /docs/api-reference/v1.5/
+  - docs/reference/labels-annotations-taints.md
+  - title: OpenAPI and Swagger
+    section:
+    - title: OpenAPI Spec
+      path: https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/
+    - title: Swagger Spec
+      path: https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/
+
+- title: Federation API
+  section:
+    - docs/reference/federation/v1/operations.html
+    - docs/reference/federation/v1/definitions.html
+    - docs/reference/federation/v1beta1/operations.html
+    - docs/reference/federation/v1beta1/definitions.html
+    - docs/reference/federation/extensions/v1beta1/operations.html
+    - docs/reference/federation/extensions/v1beta1/definitions.html
 
 - title: kubectl CLI
   section:
-  - title: Overview
-    path: /docs/user-guide/kubectl-overview/
-  - title: Commands
-    section:
-    - title: Version 1.6
-      path: /docs/user-guide/kubectl/v1.6/
-    - title: Version 1.5
-      path: /docs/user-guide/kubectl/v1.5/
+  - docs/user-guide/kubectl-overview.md
+  - title: v1.6 Commands
+    path: /docs/user-guide/kubectl/v1.6/
+  - title: v1.5 Commands
+    path: /docs/user-guide/kubectl/v1.5/
   - docs/user-guide/docker-cli-to-kubectl.md
   - docs/user-guide/kubectl-conventions.md
   - docs/user-guide/jsonpath.md
   - docs/user-guide/kubectl-cheatsheet.md
 
-- title: Kubernetes Components
+- docs/admin/kubeadm.md
+
+- title: Config Reference
   section:
+  - docs/admin/kubelet.md
   - docs/admin/kube-apiserver.md
   - docs/admin/kube-controller-manager.md
   - docs/admin/kube-proxy.md
   - docs/admin/kube-scheduler.md
-  - docs/admin/kubeadm.md
   - docs/admin/federation-apiserver.md
   - docs/admin/federation-controller-manager.md
-  - docs/federation/api-reference/index.md
-  - title: kubelet
-    section:
-    - docs/admin/kubelet.md
-    - docs/admin/kubelet-tls-bootstrapping.md
-    - docs/admin/kubelet-authentication-authorization.md
-
-- title: Glossary
-  section:
-  - docs/user-guide/cron-jobs.md
-  - docs/admin/resourcequota/index.md
 
 - title: Kubernetes Design Docs
   section:
@@ -82,11 +80,10 @@ toc:
   - title: Security in Kubernetes
     path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security.md
 
-- title: Issues and Security
+- title: Kubernetes Issues and Security
   section:
   - title: Kubernetes Issue Tracker on GitHub
     path: https://github.com/kubernetes/kubernetes/issues/
-  - docs/home/security.md
-  - docs/home/deprecation-policy.md
+  - docs/reference/security.md
 
 
