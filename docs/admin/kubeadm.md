@@ -4,7 +4,7 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-title: kubeadm reference
+title: kubeadm Setup Tool
 ---
 
 This document provides information on how to use kubeadm's advanced options.
