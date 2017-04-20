@@ -56,7 +56,7 @@ toc:
 
 - docs/admin/kubeadm.md
 
-- title: Configuration Reference
+- title: Config Reference
   section:
   - docs/admin/kubelet.md
   - docs/admin/kube-apiserver.md

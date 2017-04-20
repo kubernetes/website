@@ -4,25 +4,35 @@ assignees:
 - chenopis
 ---
 
-The Reference section contains detailed documentation on the Kubernetes [API](/docs/api-reference/{{page.version}}/),
-[kubectl](/docs/user-guide/kubectl-overview/) command-line interface (CLI),
-[kubeadm](/docs/admin/kubeadm/) setup tool,
-configuration reference for various Kubernetes components, design docs, and issues and security.
+## API Reference
 
-## API References
-
-* [Kubernetes API Overview](/docs/concepts/overview/kubernetes-api/) - Conceptual overview of the API for Kubernetes.
-* Versions
+* [Kubernetes API Overview](/docs/reference/api-overview/) - Overview of the API for Kubernetes.
+* Kubernetes API Versions
   * [1.6](/docs/api-reference/v1.6/)
   * [1.5](/docs/api-reference/v1.5/)
+* Federation API
+  * [v1 Operations](docs/reference/federation/v1/operations.html)
+  * [v1 Model Definitions](docs/reference/federation/v1/definitions.html)
+  * [federation/v1beta1 Operations](docs/reference/federation/v1beta1/operations.html)
+  * [federation/v1beta1 Model Definitions](docs/reference/federation/v1beta1/definitions.html)
+  * [extensions/v1beta1 Operations](docs/reference/federation/extensions/v1beta1/operations.html)
+  * [extensions/v1beta1 Model Definitions](docs/reference/federation/extensions/v1beta1/definitions.html)
 
-## CLI References
+## CLI Reference
 
-* [kubectl](/docs/user-guide/kubectl-overview) - Runs commands against Kubernetes clusters.
+* [kubectl](/docs/user-guide/kubectl-overview) - Main CLI tool for running commands and managing Kubernetes clusters.
     * [JSONPath](/docs/user-guide/jsonpath/) - Syntax guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
+* [kubeadm](/docs/admin/kubeadm/) - CLI tool to 
+
+## Config Reference
+
+* [kubelet](/docs/admin/kubelet/) - The primary *node agent* that runs on each node. The kubelet takes a set of PodSpecs and ensures that the described containers are running and healthy.
 * [kube-apiserver](/docs/admin/kube-apiserver/) - REST API that validates and configures data for API objects such as  pods, services, replication controllers.
-* [kube-proxy](/docs/admin/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of backends.
-* [kubelet](/docs/admin/kubelet/) - The primary "node agent" that runs on each node. The kubelet takes a set of PodSpecs and ensures that the described containers are running and healthy.
+* [kube-controller-manager](docs/admin/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
+* [kube-proxy](/docs/admin/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of back-ends.
+* [kube-scheduler](/docs/admin/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
+* [federation-apiserver](/docs/admin/federation-apiserver/) - API server for federated clusters.
+* [federation-controller-manager](/docs/admin/federation-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes federation.
 
 ## Design Docs
 
