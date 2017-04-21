@@ -313,7 +313,7 @@ checking that the kube-dns pod is Running in the output of `kubectl get pods
 nodes.
 
 If your network is not working or kube-dns is not in the Running state, check
-out the [troubleshooting secion](#pod-network-trouble) below.
+out the [troubleshooting section](#pod-network-trouble) below.
 
 ### (4/4) Joining your nodes
 
