@@ -173,11 +173,19 @@ the Container has been restarted:
 kubectl describe pod liveness-http
 ```
 
+## Defining a TCP liveness probe
+
+A third type of liveness probe uses a TCP Socket. With this configuration, the Kubelet will attempt to open a socket to your container on the specified port. If it can establish a connection, the container is considered healthy, if it can’t it is considered a failure.
+
+{% include code.html language="yaml" file="tcp-liveness.yaml" ghlink="/docs/tasks/configure-pod-container/tcp-liveness.yaml" %}
+
+As you can see, configuration for a TCP check is quite similar to a HTTP check. In this example, the kubelet will attempt to connect to the `goproxy` container on port 8080 15 seconds after the container starts. The kubelet will repeat this check every 20 seconds.
+
 ## Using a named port
 
 You can use a named
 [ContainerPort](/docs/api-reference/v1.6/#containerport-v1-core)
-for HTTP liveness checks:
+for HTTP or TCP liveness checks:
 
 ```yaml
 ports:
@@ -214,29 +222,50 @@ readinessProbe:
   periodSeconds: 5
 ```
 
+Configuration for HTTP and TCP readiness probes also remains identical to
+liveness probes.
+
+Readiness and liveness probes can be used in parallel for the same container.
+Using both can ensure that traffic does not reach a container that isnot ready
+for it, and that containers are restarted when they fail.
+
 {% endcapture %}
 
 
-{% capture discussion %}
+{% capture configuration %}
 
-## Discussion
+## Configuration
 
 {% comment %}
-Eventually, some of this Discussion section could be moved to a concept topic.
+Eventually, some of this section could be moved to a concept topic.
 {% endcomment %}
 
-[Probes](/docs/api-reference/v1.6/#probe-v1-core) have these additional fields that you can use to more precisely control the behavior of liveness and readiness checks:
+[Probes](/docs/api-reference/v1.6/#probe-v1-core) have a number of fields that
+you can use to more precisely control the behavior of liveness and readiness
+checks:
 
-* timeoutSeconds
-* successThreshold
-* failureThreshold
+* `initialDelaySeconds`: Number of seconds after the container has started
+before liveness probes are initiated.
+* `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
+seconds. Minimum value is 1.
+* `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
+to 1 second. Minimum value is 1.
+* `successThreshold`: Minimum consecutive successes for the probe to be
+considered successful after having failed. Defaults to 1. Must be 1 for
+liveness. Minimum value is 1.
+* `failureThreshold`: Minimum consecutive failures for the probe to be
+considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 
 [HTTP probes](/docs/api-reference/v1.6/#httpgetaction-v1-core)
-have these additional fields:
+have additional fields that can be set on `httpGet`:
 
-* host
-* scheme
-* httpHeaders
+* `host`: Host name to connect to, defaults to the pod IP. You probably want to
+set "Host" in httpHeaders instead.
+* `scheme`: Custom headers to set in the request. HTTP allows repeated headers.
+* `httpHeaders`: Path to access on the HTTP server.
+* `port`: Name or number of the port to access on the container. Number must be
+in the range 1 to 65535.
+* `scheme`: Scheme to use for connecting to the host. Defaults to HTTP.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified path and
 port to perform the check. The kubelet sends the probe to the container’s IP address,
@@ -247,9 +276,6 @@ where you would set it. Suppose the Container listens on 127.0.0.1 and the Pod's
 If your pod relies on virtual hosts, which is probably the more common case,
 you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
-In addition to command probes and HTTP probes, Kubernetes supports
-[TCP probes](/docs/api-reference/v1.6/#tcpsocketaction-v1-core).
-
 {% endcapture %}
 
 {% capture whatsnext %}
@@ -258,7 +284,7 @@ In addition to command probes and HTTP probes, Kubernetes supports
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 * Learn more about
-[Health Checking section](/docs/user-guide/walkthrough/k8s201/#health-checking).
+[Health Checking](/docs/user-guide/walkthrough/k8s201/#health-checking).
 
 ### Reference
 
