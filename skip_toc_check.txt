@@ -37,6 +37,8 @@ docs/contribute/style-guide.md
 docs/contribute/write-new-topic.md
 docs/deprecation-policy.md
 docs/federation/api-reference/index.md
+docs/getting-started-guides/docker.md
+docs/getting-started-guides/docker-multinode.md
 docs/getting-started-guides/kubectl.md
 docs/home/deprecation-policy.md
 docs/home/security.md
