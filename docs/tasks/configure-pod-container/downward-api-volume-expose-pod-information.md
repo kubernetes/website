@@ -156,7 +156,7 @@ DownwardAPIVolumeFile.
 
 The first element specifies that in the Container named `client-container`,
 the value of the `limits.cpu` field 
-`metadata.labels` field should be stored in a file named `cpu_limit`.
+should be stored in a file named `cpu_limit`.
 
 Create the Pod:
 
