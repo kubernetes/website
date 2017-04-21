@@ -175,11 +175,17 @@ kubectl describe pod liveness-http
 
 ## Defining a TCP liveness probe
 
-A third type of liveness probe uses a TCP Socket. With this configuration, the Kubelet will attempt to open a socket to your container on the specified port. If it can establish a connection, the container is considered healthy, if it can’t it is considered a failure.
+A third type of liveness probe uses a TCP Socket. With this configuration, the
+Kubelet will attempt to open a socket to your container on the specified port.
+If it can establish a connection, the container is considered healthy, if it
+can’t it is considered a failure.
 
 {% include code.html language="yaml" file="tcp-liveness.yaml" ghlink="/docs/tasks/configure-pod-container/tcp-liveness.yaml" %}
 
-As you can see, configuration for a TCP check is quite similar to a HTTP check. In this example, the kubelet will attempt to connect to the `goproxy` container on port 8080 15 seconds after the container starts. The kubelet will repeat this check every 20 seconds.
+As you can see, configuration for a TCP check is quite similar to a HTTP check.
+In this example, the kubelet will attempt to connect to the `goproxy` container
+on port 8080, with the first check happening 15 seconds after the container
+starts. The kubelet will repeat this check every 20 seconds.
 
 ## Using a named port
 
