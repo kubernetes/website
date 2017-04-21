@@ -235,12 +235,7 @@ Readiness and liveness probes can be used in parallel for the same container.
 Using both can ensure that traffic does not reach a container that isnot ready
 for it, and that containers are restarted when they fail.
 
-{% endcapture %}
-
-
-{% capture configuration %}
-
-## Configuration
+## Configuring Probes
 
 {% comment %}
 Eventually, some of this section could be moved to a concept topic.
