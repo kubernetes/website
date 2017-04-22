@@ -548,9 +548,9 @@ invalid keys that were skipped. The example shows a pod which refers to the
 default/myconfig ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
 
 ```shell
-$ kubectl.sh get events
-LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
-0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
+$ kubectl get events
+LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
+0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
 ```
 
 ConfigMaps reside in a namespace.   They can only be referenced by pods in the same namespace.
