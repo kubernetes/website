@@ -43,10 +43,10 @@ See the [design document](https://github.com/kubernetes/kubernetes/blob/{{page.g
 
 #### Pod Management
 
-Create a pod containing an nginx server ([pod-nginx.yaml](/docs/user-guide/walkthrough/pod-nginx.yaml)):
+Create a pod containing an nginx server ([pod-nginx.yaml](/test/fixtures/doc-yaml/user-guide/walkthrough/pod-nginx.yaml)):
 
 ```shell
-$ kubectl create -f docs/user-guide/walkthrough/pod-nginx.yaml
+$ kubectl create -f test/fixtures/doc-yaml/user-guide/walkthrough/pod-nginx.yaml
 ```
 
 List all pods:
