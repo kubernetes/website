@@ -55,7 +55,7 @@ that points to the Compute Engine disk above:
 
 Notice that the `pdName: mysql-disk` line matches the name of the disk
 in the Compute Engine environment. See the
-[Persistent Volumes](/docs/user-guide/persistent-volumes/)
+[Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 for details on writing a PersistentVolume configuration file for other
 environments.
 
@@ -78,7 +78,7 @@ satisfied by any volume that meets the requirements, in this case, the
 volume created above.
 
 Note: The password is defined in the config yaml, and this is insecure. See
-[Kubernetes Secrets](/docs/user-guide/secrets/)
+[Kubernetes Secrets](/docs/concepts/configuration/secret/)
 for a secure solution.
 
 {% include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tutorials/stateful-application/mysql-deployment.yaml" %}
@@ -91,20 +91,20 @@ for a secure solution.
 
         kubectl describe deployment mysql
 
-        Name:			mysql
-        Namespace:		default
-        CreationTimestamp:	Tue, 01 Nov 2016 11:18:45 -0700
-        Labels:			app=mysql
-        Selector:		app=mysql
-        Replicas:		1 updated | 1 total | 0 available | 1 unavailable
-        StrategyType:		Recreate
-        MinReadySeconds:	0
-        OldReplicaSets:		<none>
-        NewReplicaSet:		mysql-63082529 (1/1 replicas created)
+        Name:                 mysql
+        Namespace:            default
+        CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
+        Labels:               app=mysql
+        Selector:             app=mysql
+        Replicas:             1 updated | 1 total | 0 available | 1 unavailable
+        StrategyType:         Recreate
+        MinReadySeconds:      0
+        OldReplicaSets:       <none>
+        NewReplicaSet:        mysql-63082529 (1/1 replicas created)
         Events:
-          FirstSeen	LastSeen	Count	From				SubobjectPath	Type		Reason			Message
-          ---------	--------	-----	----				-------------	--------	------			-------
-          33s		33s		1	{deployment-controller }			Normal		ScalingReplicaSet	Scaled up replica set mysql-63082529 to 1
+          FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
+          ---------    --------    -----    ----                -------------    --------    ------            -------
+          33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
 
 1. List the pods created by the Deployment:
 
@@ -117,33 +117,33 @@ for a secure solution.
 
         kubectl describe pv mysql-pv
 
-        Name:		mysql-pv
-        Labels:		<none>
-        Status:		Bound
-        Claim:		default/mysql-pv-claim
-        Reclaim Policy:	Retain
-        Access Modes:	RWO
-        Capacity:	20Gi
-        Message:	
+        Name:            mysql-pv
+        Labels:          <none>
+        Status:          Bound
+        Claim:           default/mysql-pv-claim
+        Reclaim Policy:  Retain
+        Access Modes:    RWO
+        Capacity:        20Gi
+        Message:    
         Source:
-            Type:	GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
-            PDName:	mysql-disk
-            FSType:	ext4
-            Partition:	0
-            ReadOnly:	false
+            Type:        GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
+            PDName:      mysql-disk
+            FSType:      ext4
+            Partition:   0
+            ReadOnly:    false
         No events.
 
 1. Inspect the PersistentVolumeClaim:
 
         kubectl describe pvc mysql-pv-claim
 
-        Name:		mysql-pv-claim
-        Namespace:	default
-        Status:		Bound
-        Volume:		mysql-pv
-        Labels:		<none>
-        Capacity:	20Gi
-        Access Modes:	RWO
+        Name:         mysql-pv-claim
+        Namespace:    default
+        Status:       Bound
+        Volume:       mysql-pv
+        Labels:       <none>
+        Capacity:     20Gi
+        Access Modes: RWO
         No events.
 
 ## Accessing the MySQL instance
@@ -180,7 +180,7 @@ specific to stateful apps:
 * Don't scale the app. This setup is for single-instance apps
   only. The underlying PersistentVolume can only be mounted to one
   Pod. For clustered stateful apps, see the
-  [StatefulSet documentation](/docs/user-guide/petset/).
+  [StatefulSet documentation](/docs/concepts/workloads/controllers/petset/).
 * Use `strategy:` `type: Recreate` in the Deployment configuration
   YAML file. This instructs Kubernetes to _not_ use rolling
   updates. Rolling updates will not work, as you cannot have more than
@@ -208,13 +208,13 @@ gcloud compute disks delete mysql-disk
 
 {% capture whatsnext %}
 
-* Learn more about [Deployment objects](/docs/user-guide/deployments/).
+* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 
 * Learn more about [Deploying applications](/docs/user-guide/deploying-applications/)
 
-* [kubectl run documentation](/docs/user-guide/kubectl/kubectl_run/)
+* [kubectl run documentation](/docs/user-guide/kubectl/v1.6/#run)
 
-* [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/user-guide/persistent-volumes/)
+* [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 
 {% endcapture %}
 

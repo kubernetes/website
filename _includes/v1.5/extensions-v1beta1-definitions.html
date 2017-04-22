@@ -4613,10 +4613,10 @@ Populated by the system when a graceful deletion is requested. Read-only. More i
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">host</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the<br>
-	  IP in the Spec of the parent Ingress.<br>
+      IP in the Spec of the parent Ingress.<br>
 2. The <code>:</code> delimiter is not respected because ports are not allowed.<br>
-	  Currently the port of an Ingress is implicitly :80 for http and<br>
-	  :443 for https.<br>
+      Currently the port of an Ingress is implicitly :80 for http and<br>
+      :443 for https.<br>
 Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>

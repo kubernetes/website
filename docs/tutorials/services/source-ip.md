@@ -106,6 +106,7 @@ client_address=10.244.3.8
 command=GET
 ...
 ```
+If the client pod and server pod are in the same node, the client_address is the client pod's IP address. However, if the client pod and server pod are in different nodes, the client_address is the client pod's node flannel IP address.
 
 ## Source IP for Services with Type=NodePort
 
@@ -333,7 +334,7 @@ $ kubectl delete deployment source-ip-app
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn more about [connecting applications via services](/docs/user-guide/connecting-applications/)
+* Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
 * Learn more about [loadbalancing](/docs/user-guide/load-balancer)
 {% endcapture %}
 

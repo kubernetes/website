@@ -222,39 +222,39 @@ To wrap up, let's look at what happens if we try to specify a profile that hasn'
         command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
     EOF
     pod "hello-apparmor-2" created
-    
+
     $ kubectl describe pod hello-apparmor-2
-    Name:		hello-apparmor-2
-    Namespace:	default
-    Node:		gke-test-default-pool-239f5d02-x1kf/
-    Start Time:	Tue, 30 Aug 2016 17:58:56 -0700
-    Labels:		<none>
-    Status:		Failed
-    Reason:		AppArmor
-    Message:	Pod Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
-    IP:		
-    Controllers:	<none>
+    Name:          hello-apparmor-2
+    Namespace:     default
+    Node:          gke-test-default-pool-239f5d02-x1kf/
+    Start Time:    Tue, 30 Aug 2016 17:58:56 -0700
+    Labels:        <none>
+    Status:        Failed
+    Reason:        AppArmor
+    Message:       Pod Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
+    IP:
+    Controllers:   <none>
     Containers:
       hello:
-        Image:	busybox
-        Port:	
+        Image:     busybox
+        Port:
         Command:
           sh
           -c
           echo 'Hello AppArmor!' && sleep 1h
         Requests:
-          cpu:			100m
-        Environment Variables:	<none>
+          cpu:            100m
+        Environment Variables:    <none>
     Volumes:
       default-token-dnz7v:
-        Type:	Secret (a volume populated by a Secret)
-        SecretName:	default-token-dnz7v
-    QoS Tier:	Burstable
+        Type:    Secret (a volume populated by a Secret)
+        SecretName:    default-token-dnz7v
+    QoS Tier:    Burstable
     Events:
-      FirstSeen	LastSeen	Count	From						SubobjectPath	Type		Reason		Message
-      ---------	--------	-----	----						-------------	--------	------		-------
-      23s		23s		1	{default-scheduler }						Normal		Scheduled	Successfully assigned hello-apparmor-2 to e2e-test-stclair-minion-group-t1f5
-      23s		23s		1	{kubelet e2e-test-stclair-minion-group-t1f5}			Warning		AppArmor	Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
+      FirstSeen    LastSeen    Count    From                        SubobjectPath    Type        Reason        Message
+      ---------    --------    -----    ----                        -------------    --------    ------        -------
+      23s          23s         1        {default-scheduler }                         Normal      Scheduled     Successfully assigned hello-apparmor-2 to e2e-test-stclair-minion-group-t1f5
+      23s          23s         1        {kubelet e2e-test-stclair-minion-group-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 
 Note the pod status is Failed, with a helpful error message: `Pod Cannot enforce AppArmor: profile
 "k8s-apparmor-example-allow-write" is not loaded`. An event was also recorded with the same message.
@@ -266,7 +266,7 @@ Note the pod status is Failed, with a helpful error message: `Pod Cannot enforce
 Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
 nodes. There are lots of ways to setup the profiles though, such as:
 
-- Through a [DaemonSet](../daemons/) that runs a Pod on each node to
+- Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
   ensure the correct profiles are loaded. An example implementation can be found
   [here](https://github.com/kubernetes/contrib/tree/master/apparmor/loader).
 - At node initialization time, using your node initialization scripts (e.g. Salt, Ansible, etc.) or
@@ -277,7 +277,7 @@ nodes. There are lots of ways to setup the profiles though, such as:
 The scheduler is not aware of which profiles are loaded onto which node, so the full set of profiles
 must be loaded onto every node.  An alternative approach is to add a node label for each profile (or
 class of profiles) on the node, and use a
-[node selector](../../user-guide/node-selection/) to ensure the Pod is run on a
+[node selector](/docs/concepts/configuration/assign-pod-node/) to ensure the Pod is run on a
 node with the required profile.
 
 ### Restricting profiles with the PodSecurityPolicy

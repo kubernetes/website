@@ -18,7 +18,7 @@ unsatisfied).
 In theory, Master components can be run on any node in the cluster. However,
 for simplicity, current set up scripts typically start all master components on
 the same VM, and does not run user containers on this VM. See
-[high-availability.md](/docs/admin/high-availability) for an example multi-master-VM setup.
+[Building High-Availability Clusters](/docs/admin/high-availability) for an example multi-master-VM setup.
 
 Even in the future, when Kubernetes is fully self-hosting, it will probably be
 wise to only allow master components to schedule on a subset of nodes, to limit
@@ -29,7 +29,7 @@ node-compromising security exploit.
 
 [kube-apiserver](/docs/admin/kube-apiserver) exposes the Kubernetes API; it is the front-end for the
 Kubernetes control plane. It is designed to scale horizontally (i.e., one scales
-it by running more of them-- [high-availability.md](/docs/admin/high-availability)).
+it by running more of them-- [Building High-Availability Clusters](/docs/admin/high-availability)).
 
 ### etcd
 
@@ -54,6 +54,22 @@ These controllers include:
 * Service Account & Token Controllers: Create default accounts and API access tokens for new namespaces.
 * ... and others.
 
+### cloud-controller-manager
+
+`cloud-controller-manager` is a binary that runs controllers that interact with the underlying cloud providers. The `cloud-controller-manager` binary is an alpha feature introduced in Kubernetes release 1.6. 
+
+`cloud-controller-manager` runs cloud provider-specific controller loops only. As such, you must disable these controller loops in the `kube-controller-manager`. You can disable the controller loops by setting the `--cloud-provider` flag to `external` when starting the kube-controller-manager. 
+
+`cloud-controller-manager` allows cloud vendors and kubernetes core to evolve independent of each other. In prior releases, the core Kubernetes code was dependent upon cloud provider-specific code for functionality. In future releases, code specific to cloud vendors should be maintained by the cloud vendor themselves, and linked to `cloud-controller-manager` while running Kubernetes.
+
+The following controllers have cloud provider dependencies:
+
+* Node Controller: For checking the cloud provider to determine if a node has been deleted in the cloud after it stops responding
+* Route Controller: For setting up routes in the underlying cloud infrastructure
+* Service Controller: For creating, updating and deleting cloud provider load balancers
+* Volume Controller: For creating, attaching, and mounting volumes, and interacting with the cloud provider
+  to orchestrate volumes
+
 ### kube-scheduler
 
 [kube-scheduler](/docs/admin/kube-scheduler) watches newly created pods that have no node assigned, and
@@ -71,7 +87,7 @@ See [here](http://releases.k8s.io/HEAD/cluster/addons) for more details.
 #### DNS
 
 While the other addons are not strictly required, all Kubernetes
-clusters should have [cluster DNS](/docs/admin/dns/), as many examples rely on it.
+clusters should have [cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
 
 Cluster DNS is a DNS server, in addition to the other DNS server(s) in your
 environment, which serves DNS records for Kubernetes services.
@@ -82,7 +98,7 @@ in their DNS searches.
 #### User interface
 
 The kube-ui provides a read-only overview of the cluster state.  Access
-[the UI using kubectl proxy](/docs/user-guide/connecting-to-applications-proxy/#connecting-to-the-kube-ui-service-from-your-local-workstation)
+[Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
 
 #### Container Resource Monitoring
 

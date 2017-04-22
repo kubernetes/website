@@ -39,8 +39,8 @@ killed for this purpose.
 
 ## Config
 
-Rescheduler doesn't have any user facing configuration (component config) or API.
-It's enabled by default. It can be disabled:
+Rescheduler should be [enabled by default as a static pod](https://github.com/kubernetes/kubernetes/blob/master/cluster/saltbase/salt/rescheduler/rescheduler.manifest).
+It doesn't have any user facing configuration (component config) or API and can be disabled:
 
 * during cluster setup by setting `ENABLE_RESCHEDULER` flag to `false`
 * on running cluster by deleting its manifest from master node
@@ -48,10 +48,8 @@ It's enabled by default. It can be disabled:
 
 ### Marking add-on as critical
 
-To be critical an add-on has to run in `kube-system` namespace (configurable via flag)
-and have the following annotations specified:
-
-* `scheduler.alpha.kubernetes.io/critical-pod` set to empty string
-* `scheduler.alpha.kubernetes.io/tolerations` set to `[{"key":"CriticalAddonsOnly", "operator":"Exists"}]`
+To be critical an add-on has to run in `kube-system` namespace (configurable via flag) and
+* have the `scheduler.alpha.kubernetes.io/critical-pod` annotation set to empty string, and
+* have the PodSpec's `tolerations` field set to `[{"key":"CriticalAddonsOnly", "operator":"Exists"}]`
 
 The first one marks a pod a critical. The second one is required by Rescheduler algorithm.

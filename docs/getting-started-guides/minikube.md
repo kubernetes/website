@@ -1,7 +1,7 @@
 ---
 assignees:
 - dlorenc
-- r2d4 
+- r2d4
 - aaron-prindle
 title: Running Kubernetes Locally via Minikube
 ---
@@ -29,7 +29,9 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 * OS X
     * [xhyve driver](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#xhyve-driver), [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [VMware Fusion](https://www.vmware.com/products/fusion) installation
 * Linux
-    * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [KVM](http://www.linux-kvm.org/) installation,
+    * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [KVM](http://www.linux-kvm.org/) installation
+* Windows
+    * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install) installation
 * VT-x/AMD-v virtualization must be enabled in BIOS
 * `kubectl` See the [kubectl installation instructions](/docs/getting-started-guides/kubectl/) for more details.
 
@@ -194,7 +196,7 @@ This command shuts down and deletes the minikube virtual machine. No data or sta
 
 ### Kubectl
 
-The `minikube start` command creates a "[kubectl context](http://kubernetes.io/docs/user-guide/kubectl/kubectl_config_set-context/)" called "minikube".
+The `minikube start` command creates a "[kubectl context](/docs/user-guide/kubectl/v1.6/#-em-set-context-em-)" called "minikube".
 This context contains the configuration to communicate with your minikube cluster.
 
 Minikube sets this context to default automatically, but if you need to switch back to it in the future, run:
@@ -254,10 +256,11 @@ spec:
 ```
 
 ## Mounted Host Folders
-Some drivers will mount a host folder within the VM so that you can easily share files between the VM and host.  These are not configurable at the moment and different for the driver and OS you are using.  Note: Host folder sharing is not implemented on Linux yet.
+Some drivers will mount a host folder within the VM so that you can easily share files between the VM and host.  These are not configurable at the moment and different for the driver and OS you are using.  Note: Host folder sharing is not implemented in the KVM driver yet.
 
 | Driver | OS | HostFolder | VM |
 | --- | --- | --- | --- |
+| Virtualbox | Linux | /home | /hosthome |
 | Virtualbox | OSX | /Users | /Users |
 | Virtualbox | Windows | C://Users | /c/Users |
 | VMWare Fusion | OSX | /Users | /Users |
@@ -272,7 +275,7 @@ We recommend you use ImagePullSecrets, but if you would like to configure access
 
 ## Add-ons
 
-In order to have minikube properly start/restart custom addons, place the addon(s) you wish to be launched with minikube in the `.minikube/addons` directory.  Addons in this folder will be moved to the minikubeVM and launched each time minikube is started/restarted.
+In order to have minikube properly start/restart custom addons, place the addons you wish to be launched with minikube in the `.minikube/addons` directory.  Addons in this folder will be moved to the minikubeVM and launched each time minikube is started/restarted.
 
 ## Documentation
 

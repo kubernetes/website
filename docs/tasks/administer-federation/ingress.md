@@ -40,12 +40,12 @@ by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general, and [Ingress](/docs/user-guide/ingress/) in particular.
+general, and [Ingress](/docs/concepts/services-networking/ingress/) in particular.
 
 ## Overview
 
 Federated Ingresses are created in much that same way as traditional
-[Kubernetes Ingresses](/docs/user-guide/ingress/): by making an API
+[Kubernetes Ingresses](/docs/concepts/services-networking/ingress/): by making an API
 call which specifies the desired properties of your logical ingress point. In the
 case of Federated Ingress, this API call is directed to the
 Federation API endpoint, rather than a Kubernetes cluster API
@@ -87,7 +87,7 @@ You can create a federated ingress in any of the usual ways, for example using k
 ``` shell
 kubectl --context=federation-cluster create -f myingress.yaml
 ```
-For example ingress YAML configurations, see the [Ingress User Guide](/docs/user-guide/ingress/)
+For example ingress YAML configurations, see the [Ingress User Guide](/docs/concepts/services-networking/ingress/)
 The '--context=federation-cluster' flag tells kubectl to submit the
 request to the Federation API endpoint, with the appropriate
 credentials. If you have not yet configured such a context, visit the
@@ -123,13 +123,13 @@ The status of your Federated Ingress will automatically reflect the
 real-time status of the underlying Kubernetes ingresses, for example:
 
 ``` shell
-$kubectl --context=federation-cluster describe ingress myingress
+kubectl --context=federation-cluster describe ingress myingress
 
 Name:           myingress
 Namespace:      default
 Address:        130.211.5.194
 TLS:
-  tls-secret terminates 
+  tls-secret terminates
 Rules:
   Host  Path    Backends
   ----  ----    --------
@@ -250,44 +250,6 @@ kept running, the Federated Ingress ensures that user traffic is
 automatically redirected away from the failed cluster to other
 available clusters.
 
-## Known issue
-
-GCE L7 load balancer back-ends and health checks are known to "flap"; this is due
-to conflicting firewall rules in the federation's underlying clusters, which might override one another. To work around this problem, you can
-install the firewall rules manually to expose the targets of all the
-underlying clusters in your federation for each Federated Ingress
-object. This way, the health checks can consistently pass and the GCE L7 load balancer
-can remain stable. You install the rules using the
-[`gcloud`](https://cloud.google.com/sdk/gcloud/) command line tool,
-[Google Cloud Console](https://console.cloud.google.com) or the
-[Google Compute Engine APIs](https://cloud.google.com/compute/docs/reference/latest/).
-
-You can install these rules using
-[`gcloud`](https://cloud.google.com/sdk/gcloud/) as follows:
-
-```shell
-gcloud compute firewall-rules create <firewall-rule-name> \
-  --source-ranges 130.211.0.0/22 --allow [<service-nodeports>] \
-  --target-tags [<target-tags>] \
-  --network <network-name>
-```
-
-where:
-
-1. `firewall-rule-name` can be any name.
-2. `[<service-nodeports>]` is the comma separated list of node ports corresponding to the services that back the Federated Ingress.
-3. [<target-tags>] is the comma separated list of the target tags assigned to the nodes in a Kubernetes cluster.
-4. <network-name> is the name of the network where the firewall rule must be installed.
-
-Example:
-```shell
-gcloud compute firewall-rules create my-federated-ingress-firewall-rule \
-  --source-ranges 130.211.0.0/22 --allow tcp:30301, tcp:30061, tcp:34564 \
-  --target-tags my-cluster-1-minion, my-cluster-2-minion \
-  --network default
-```
-
-
 ## Troubleshooting
 
 #### I cannot connect to my cluster federation API
@@ -345,7 +307,7 @@ Check that:
     delete any ingresses created before the cluster joined the
     federation (and had it's GLBC reconfigured), and recreate them if
     necessary.
-	
+
 #### This troubleshooting guide did not help me solve my problem
 
 Please use one of our  [support channels](http://kubernetes.io/docs/troubleshooting/) to seek assistance.

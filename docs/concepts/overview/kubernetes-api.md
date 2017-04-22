@@ -1,14 +1,12 @@
 ---
 assignees:
-- bgrant0607
-- erictune
-- lavalamp
+- chenopis
 title: The Kubernetes API
 ---
 
-Primary system and API concepts are documented in the [User guide](/docs/user-guide/).
-
 Overall API conventions are described in the [API conventions doc](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md).
+
+API endpoints, resource types and samples are described in [API Reference](/docs/reference).
 
 Remote access to the API is discussed in the [access doc](/docs/admin/accessing-the-api).
 
@@ -28,9 +26,7 @@ What constitutes a compatible change and how to change the API are detailed by t
 
 Complete API details are documented using [Swagger v1.2](http://swagger.io/) and [OpenAPI](https://www.openapis.org/). The Kubernetes apiserver (aka "master") exposes an API that can be used to retrieve the Swagger v1.2 Kubernetes API spec located at `/swaggerapi`. You can also enable a UI to browse the API documentation at `/swagger-ui` by passing the `--enable-swagger-ui=true` flag to apiserver.
 
-We also host a version of the [latest v1.2 API documentation UI](http://kubernetes.io/kubernetes/third_party/swagger-ui/). This is updated with the latest release, so if you are using a different version of Kubernetes you will want to use the spec from your apiserver.
-
-Starting with kubernetes 1.4, OpenAPI spec is also available at `/swagger.json`. While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
+Starting with kubernetes 1.4, OpenAPI spec is also available at [`/swagger.json`](https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json). While we are transitioning from Swagger v1.2 to OpenAPI (aka Swagger v2.0), some of the tools such as kubectl and swagger-ui are still using v1.2 spec. OpenAPI spec is in Beta as of Kubernetes 1.5.
 
 Kubernetes implements an alternative Protobuf based serialization format for the API that is primarily intended for intra-cluster communication, documented in the [design proposal](https://github.com/kubernetes/kubernetes/blob/{{ page.githubbranch }}/docs/proposals/protobuf.md) and the IDL files for each schema are located in the Go packages that define the API objects.
 
@@ -106,4 +102,4 @@ to pick up the `--runtime-config` changes.
 DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
 Other extensions resources can be enabled by setting `--runtime-config` on
 apiserver. `--runtime-config` accepts comma separated values. For ex: to disable deployments and jobs, set
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`
+`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`

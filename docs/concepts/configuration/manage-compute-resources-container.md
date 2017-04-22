@@ -81,7 +81,7 @@ Here's an example.
 The following Pod has two Containers. Each Container has a request of 0.25 cpu
 and 64MiB (2<sup>26</sup> bytes) of memory Each Container has a limit of 0.5
 cpu and 128MiB of memory. You can say the Pod has a request of 0.5 cpu and 128
-MiB of memory, and a limit of 1 core and 256MiB of memory.
+MiB of memory, and a limit of 1 cpu and 256MiB of memory.
 
 ```yaml
 apiVersion: v1
@@ -138,7 +138,7 @@ When using Docker:
 - The `spec.containers[].resources.limits.cpu` is converted to its millicore value,
   multiplied by 100000, and then divided by 1000. This number is used as the value
   of the [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint)
-  flag in the `docker run` command.  he [`--cpu-period`] flag is set to 100000,
+  flag in the `docker run` command.  The [`--cpu-period`] flag is set to 100000,
    which represents the default 100ms period for measuring quota usage. The
    kubelet enforces cpu limits if it is started with the
   [`--cpu-cfs-quota`] flag set to true. As of Kubernetes version 1.2, this flag
@@ -201,21 +201,21 @@ You can check node capacities and amounts allocated with the
 `kubectl describe nodes` command. For example:
 
 ```shell
-$ kubectl.sh describe nodes e2e-test-minion-group-4lw4
-Name:			e2e-test-minion-group-4lw4
+$ kubectl describe nodes e2e-test-minion-group-4lw4
+Name:            e2e-test-minion-group-4lw4
 [ ... lines removed for clarity ...]
 Capacity:
- alpha.kubernetes.io/nvidia-gpu:	0
- cpu:					2
- memory:				7679792Ki
- pods:					110
+ alpha.kubernetes.io/nvidia-gpu:    0
+ cpu:                               2
+ memory:                            7679792Ki
+ pods:                              110
 Allocatable:
- alpha.kubernetes.io/nvidia-gpu:	0
- cpu:					1800m
- memory:				7474992Ki
- pods:					110
+ alpha.kubernetes.io/nvidia-gpu:    0
+ cpu:                               1800m
+ memory:                            7474992Ki
+ pods:                              110
 [ ... lines removed for clarity ...]
-Non-terminated Pods:		(5 in total)
+Non-terminated Pods:        (5 in total)
   Namespace    Name                                  CPU Requests  CPU Limits  Memory Requests  Memory Limits
   ---------    ----                                  ------------  ----------  ---------------  -------------
   kube-system  fluentd-gcp-v1.38-28bv1               100m (5%)     0 (0%)      200Mi (2%)       200Mi (2%)
@@ -225,9 +225,9 @@ Non-terminated Pods:		(5 in total)
   kube-system  node-problem-detector-v0.1-fj7m3      20m (1%)      200m (10%)  20Mi (0%)        100Mi (1%)
 Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
-  CPU Requests	CPU Limits	Memory Requests	Memory Limits
-  ------------	----------	---------------	-------------
-  680m (34%)	400m (20%)	920Mi (12%)	1070Mi (14%)
+  CPU Requests    CPU Limits    Memory Requests    Memory Limits
+  ------------    ----------    ---------------    -------------
+  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
 ```
 
 In the preceding output, you can see that if a Pod requests more than 1120m
@@ -238,11 +238,11 @@ the node.
 
 The amount of resources available to Pods is less than the node capacity, because
 system daemons use a portion of the available resources. The `allocatable` field
-[NodeStatus](/docs/resources-reference/v1.5/#nodestatus-v1)
+[NodeStatus](/docs/resources-reference/v1.6/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
 [Node Allocatable Resources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node-allocatable.md).
 
-The [resource quota](/docs/admin/resourcequota/) feature can be configured
+The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
 with namespaces, it can prevent one team from hogging all the resources.
 
@@ -253,7 +253,7 @@ whether a Container is being killed because it is hitting a resource limit, call
 `kubectl describe pod` on the Pod of interest:
 
 ```shell
-[12:54:41] $ ./cluster/kubectl.sh describe pod simmemleak-hra99
+[12:54:41] $ kubectl describe pod simmemleak-hra99
 Name:                           simmemleak-hra99
 Namespace:                      default
 Image(s):                       saadali/simmemleak
@@ -293,11 +293,11 @@ Events:
 In the preceding example, the `Restart Count:  5` indicates that the `simmemleak`
 Container in the Pod was terminated and restarted five times.
 
-You can call `get pod` with the `-o go-template=...` option to fetch the status
+You can call `kubectl get pod` with the `-o go-template=...` option to fetch the status
 of previously terminated Containers:
 
 ```shell{% raw %}
-[13:59:01] $ ./cluster/kubectl.sh  get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
+[13:59:01] $ kubectl get pod -o go-template='{{range.status.containerStatuses}}{{"Container Name: "}}{{.name}}{{"\r\nLastState: "}}{{.lastState}}{{end}}'  simmemleak-60xbc
 Container Name: simmemleak
 LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-07T20:58:43Z finishedAt:2015-07-07T20:58:43Z containerID:docker://0e4095bba1feccdfe7ef9fb6ebffe972b4b14285d5acdec6f0d3ae8a22fad8b2]]{% endraw %}
 ```
@@ -341,7 +341,7 @@ first pod that requests the resource to be scheduled on that node.
 
 **Example:**
 
-Here is an HTTP request that advertises five "foo" resources on node `k8s-node-1`.
+Here is an HTTP request that advertises five "foo" resources on node `k8s-node-1` whose master is `k8s-master`.
 
 ```http
 PATCH /api/v1/nodes/k8s-node-1/status HTTP/1.1
@@ -356,6 +356,13 @@ Host: k8s-master:8080
     "value": "5"
   }
 ]
+```
+
+```shell
+curl --header "Content-Type: application/json-patch+json" \
+--request PATCH \
+--data '[{"op": "add", "path": "/status/capacity/pod.alpha.kubernetes.io~1opaque-int-resource-foo", "value": "5"}]' \
+http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
 ```
 
 **Note**: In the preceding request, `~1` is the encoding for the character `/`
@@ -420,9 +427,9 @@ consistency across providers and platforms.
 * Get hands-on experience
 [assigning CPU and RAM resources to a container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/).
 
-* [Container](/docs/api-reference/v1/definitions/#_v1_container)
+* [Container](/docs/api-reference/v1.6/#container-v1-core)
 
-* [ResourceRequirements](/docs/resources-reference/v1.5/#resourcerequirements-v1)
+* [ResourceRequirements](/docs/resources-reference/v1.6/#resourcerequirements-v1-core)
 
 {% endcapture %}
 

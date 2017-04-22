@@ -68,14 +68,14 @@ monitoring-influx-grafana-v1-o79xf             2/2       Running   0          2h
 
 The `fluentd-elasticsearch` pods gather logs from each node and send them to
 the `elasticsearch-logging` pods, which are part of a
-[service](/docs/user-guide/services/) named `elasticsearch-logging`. These
+[service](/docs/concepts/services-networking/service/) named `elasticsearch-logging`. These
 Elasticsearch pods store the logs and expose them via a REST API.
 The `kibana-logging` pod provides a web UI for reading the logs stored in
 Elasticsearch, and is part of a service named `kibana-logging`.
 
 The Elasticsearch and Kibana services are both in the `kube-system` namespace
 and are not directly exposed via a publicly reachable IP address. To reach them,
-follow the instructions for [Accessing services running in a cluster](/docs/user-guide/accessing-the-cluster/#accessing-services-running-on-the-cluster).
+follow the instructions for [Accessing services running in a cluster](/docs/concepts/cluster-administration/access-cluster/#accessing-services-running-on-the-cluster).
 
 If you try accessing the `elasticsearch-logging` service in your browser, you'll
 see a status page that looks something like this:

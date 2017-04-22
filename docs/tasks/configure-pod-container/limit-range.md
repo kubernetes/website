@@ -26,11 +26,11 @@ may be too small to be useful, but big enough for the waste to be costly over th
 the cluster operator may want to set limits that a pod must consume at least 20% of the memory and CPU of their
 average node size in order to provide for more uniform scheduling and limit waste.
 
-This example demonstrates how limits can be applied to a Kubernetes [namespace](/docs/admin/namespaces/walkthrough/) to control
+This example demonstrates how limits can be applied to a Kubernetes [namespace](/docs/tasks/administer-cluster/namespaces-walkthrough/) to control
 min/max resource limits per pod.  In addition, this example demonstrates how you can
 apply default resource limits to pods in the absence of an end-user specified value.
 
-See [LimitRange design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/admission_control_limit_range.md) for more information. For a detailed description of the Kubernetes resource model, see [Resources](/docs/user-guide/compute-resources/)
+See [LimitRange design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/admission_control_limit_range.md) for more information. For a detailed description of the Kubernetes resource model, see [Resources](/docs/concepts/configuration/manage-compute-resources-container/)
 
 ## Step 0: Prerequisites
 
@@ -113,7 +113,7 @@ deployment "nginx" created
 ```
 
 Note that `kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/v1.6/#run) for more details. 
 The Deployment manages 1 replica of single container Pod. Let's take a look at the Pod it manages. First, find the name of the Pod:
 
 ```shell

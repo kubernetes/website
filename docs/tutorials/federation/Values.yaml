@@ -1,0 +1,10 @@
+isClusterService: false
+serviceType: "LoadBalancer"
+middleware:
+  kubernetes:
+    enabled: false
+  etcd:
+    enabled: true
+    zones:
+    - "example.com."
+    endpoint: "http://etcd-cluster.my-namespace:2379"

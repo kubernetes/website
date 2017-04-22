@@ -116,8 +116,8 @@ Once you have created your container registry, you will use the following creden
    * `DOCKER_REGISTRY_SERVER`: `${some-registry-name}.azurecr.io`
    * `DOCKER_EMAIL`: `${some-email-address}`
 
-Once you have those variables filled in you can [configure a Kubernetes Secret and use it to deploy a Pod]
-(/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+Once you have those variables filled in you can
+[configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
 
 ### Configuring Nodes to Authenticate to a Private Repository
@@ -177,7 +177,7 @@ If it failed, then you will see:
 
 ```shell
 $ kubectl describe pods/private-image-test-1 | grep "Failed"
-  Fri, 26 Jun 2015 15:36:13 -0700	Fri, 26 Jun 2015 15:39:13 -0700	19	{kubelet node-i2hq}	spec.containers{uses-private-image}	failed		Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
+  Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
 

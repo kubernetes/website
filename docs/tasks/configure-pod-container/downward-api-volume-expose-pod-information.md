@@ -1,5 +1,5 @@
 ---
-title: Exposing Pod Information to Containers Using a DownwardApiVolumeFile
+title: Exposing Pod Information to Containers Using the Downward API
 ---
 
 {% capture overview %}
@@ -40,7 +40,7 @@ In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
 and the Container mounts the Volume at `/etc`.
 
 Look at the `items` array under `downwardAPI`. Each element of the array is a
-[DownwardAPIVolumeFile](/docs/resources-reference/v1.5/#downwardapivolumefile-v1).
+[DownwardAPIVolumeFile](/docs/resources-reference/v1.6/#downwardapivolumefile-v1-core).
 The first element specifies that the value of the Pod's
 `metadata.labels` field should be stored in a file named `labels`.
 The second element specifies that the value of the Pod's `annotations` 
@@ -210,7 +210,7 @@ Downward API defaults to the node allocatable value for CPU and memory.
 
 You can project keys to specific paths and specific permissions on a per-file
 basis. For more information, see
-[Secrets](/docs/user-guide/secrets/).
+[Secrets](/docs/concepts/configuration/secret/).
 
 ## Motivation for the Downward API
 
@@ -230,11 +230,11 @@ inject the Pod's name into the well-known environment variable.
 
 {% capture whatsnext %}
 
-* [PodSpec](/docs/resources-reference/v1.5/#podspec-v1)
-* [Volume](/docs/resources-reference/v1.5/#volume-v1)
-* [DownwardAPIVolumeSource](/docs/resources-reference/v1.5/#downwardapivolumesource-v1)
-* [DownwardAPIVolumeFile](/docs/resources-reference/v1.5/#downwardapivolumefile-v1)
-* [ResourceFieldSelector](/docs/resources-reference/v1.5/#resourcefieldselector-v1)
+* [PodSpec](/docs/resources-reference/v1.6/#podspec-v1-core)
+* [Volume](/docs/resources-reference/v1.6/#volume-v1-core)
+* [DownwardAPIVolumeSource](/docs/resources-reference/v1.6/#downwardapivolumesource-v1-core)
+* [DownwardAPIVolumeFile](/docs/resources-reference/v1.6/#downwardapivolumefile-v1-core)
+* [ResourceFieldSelector](/docs/resources-reference/v1.6/#resourcefieldselector-v1-core)
 
 {% endcapture %}
 

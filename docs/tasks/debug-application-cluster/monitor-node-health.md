@@ -10,10 +10,10 @@ title: Monitoring Node Health
 
 ## Node Problem Detector
 
-*Node problem detector* is a [DaemonSet](/docs/admin/daemons/) monitoring the
+*Node problem detector* is a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) monitoring the
 node health. It collects node problems from various daemons and reports them
 to the apiserver as [NodeCondition](/docs/admin/node/#node-condition) and
-[Event](/docs/api-reference/v1/definitions/#_v1_event).
+[Event](/docs/api-reference/v1.6/#event-v1-core).
 
 It supports some known kernel issue detection now, and will detect more and
 more node problems over time.
@@ -36,7 +36,7 @@ it to [support other log format](/docs/admin/node-problem/#support-other-log-for
 
 ## Enable/Disable in GCE cluster
 
-Node problem detector is [running as a cluster addon](cluster-large.md/#addon-resources) enabled by default in the
+Node problem detector is [running as a cluster addon](/docs/admin/cluster-large/#addon-resources) enabled by default in the
 gce cluster.
 
 You can enable/disable it by setting the environment variable
@@ -120,7 +120,7 @@ Just create `node-problem-detector.yaml`, and put it under the addon pods direct
 The [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)
 is embedded when building the docker image of node problem detector.
 
-However, you can use [ConfigMap](/docs/user-guide/configmap/) to overwrite it
+However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configmap/) to overwrite it
 following the steps:
 
 * **Step 1:** Change the config files in `config/`.
@@ -194,8 +194,8 @@ and detects known kernel issues following predefined rules.
 
 The Kernel Monitor matches kernel issues according to a set of predefined rule list in
 [`config/kernel-monitor.json`](https://github.com/kubernetes/node-problem-detector/blob/v0.1/config/kernel-monitor.json).
-The rule list is extensible, and you can always extend it by [overwriting the
-configuration](/docs/admin/node-problem/#overwrite-the-configuration).
+The rule list is extensible, and you can always extend it by overwriting the
+configuration.
 
 ### Add New NodeConditions
 

@@ -72,8 +72,8 @@ username and password:
 
         Data
         ====
-        password:   12 bytes
-        username:   6 bytes
+        password:   13 bytes
+        username:   7 bytes
 
 ## Creating a Pod that has access to the secret data through a Volume
 
@@ -160,14 +160,14 @@ Here is a configuration file you can use to create a Pod:
 
 {% capture whatsnext %}
 
-* Learn more about [Secrets](/docs/user-guide/secrets/).
+* Learn more about [Secrets](/docs/concepts/configuration/secret/).
 * Learn about [Volumes](/docs/concepts/storage/volumes/).
 
 ### Reference
 
-* [Secret](docs/api-reference/v1/definitions/#_v1_secret)
-* [Volume](docs/api-reference/v1/definitions/#_v1_volume)
-* [Pod](docs/api-reference/v1/definitions/#_v1_pod)
+* [Secret](/docs/api-reference/v1.6/#secret-v1-core)
+* [Volume](/docs/api-reference/v1.6/#volume-v1-core)
+* [Pod](/docs/api-reference/v1.6/#pod-v1-core)
 
 {% endcapture %}
 

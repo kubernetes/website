@@ -56,9 +56,11 @@ toc:
 - title: Clusters
   section:
   - docs/tutorials/clusters/apparmor.md
+  - docs/tutorials/clusters/multiple-schedulers.md
 - title: Services
   section:
   - docs/tutorials/services/source-ip.md
 - title: Federated Cluster Administration
   section:
   - docs/tutorials/federation/set-up-cluster-federation-kubefed.md
+  - docs/tutorials/federation/set-up-coredns-provider-federation.md

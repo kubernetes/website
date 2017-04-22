@@ -5,16 +5,21 @@ assignees:
 title: Applying Resource Quotas and Limits
 ---
 
-This example demonstrates a typical setup to control for resource usage in a namespace.
+{% capture overview %}
 
-It demonstrates using the following resources:
+This example demonstrates a typical setup to control resource usage in a namespace.
 
-* [Namespace](/docs/admin/namespaces)
-* [Resource Quota](/docs/admin/resourcequota/)
-* [Limit Range](/docs/admin/limitrange/)
+It demonstrates using the following resources: [Namespace](/docs/admin/namespaces), [ResourceQuota](/docs/concepts/policy/resource-quotas/), and [LimitRange](/docs/tasks/configure-pod-container/limit-range/).
 
-This example assumes you have a functional Kubernetes setup.
+{% endcapture %}
 
+{% capture prerequisites %}
+
+* {% include task-tutorial-prereqs.md %}
+
+{% endcapture %}
+
+{% capture steps %}
 ## Scenario
 
 The cluster-admin is operating a cluster on behalf of a user population and the cluster-admin
@@ -29,14 +34,14 @@ The cluster-admin has the following goals:
 * Prevent the use of node ports to preserve scarce resources
 * Provide default compute resource requests to enable better scheduling decisions
 
-## Step 1: Create a namespace
+## Create a namespace
 
 This example will work in a custom namespace to demonstrate the concepts involved.
 
 Let's create a new namespace called quota-example:
 
 ```shell
-$ kubectl create -f docs/admin/resourcequota/namespace.yaml
+$ kubectl create namespace quota-example
 namespace "quota-example" created
 $ kubectl get namespaces
 NAME            STATUS    AGE
@@ -45,7 +50,7 @@ kube-system     Active    2m
 quota-example   Active    39s
 ```
 
-## Step 2: Apply an object-count quota to the namespace
+## Apply an object-count quota to the namespace
 
 The cluster-admin wants to control the following resources:
 
@@ -56,12 +61,12 @@ The cluster-admin wants to control the following resources:
 Let's create a simple quota that controls object counts for those resource types in this namespace.
 
 ```shell
-$ kubectl create -f docs/admin/resourcequota/object-counts.yaml --namespace=quota-example
+$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/rq-object-counts.yaml --namespace=quota-example
 resourcequota "object-counts" created
 ```
 
 The quota system will observe that a quota has been created, and will calculate consumption
-in the namespace in response.  This should happen quickly.
+in the namespace in response. This should happen quickly.
 
 Let's describe the quota to see what is currently being consumed in this namespace:
 
@@ -69,8 +74,8 @@ Let's describe the quota to see what is currently being consumed in this namespa
 $ kubectl describe quota object-counts --namespace=quota-example
 Name:                  object-counts
 Namespace:             quota-example
-Resource               Used	Hard
---------               ----	----
+Resource               Used    Hard
+--------               ----    ----
 persistentvolumeclaims 0    2
 services.loadbalancers 0    2
 services.nodeports     0    0
@@ -79,13 +84,13 @@ services.nodeports     0    0
 The quota system will now prevent users from creating more than the specified amount for each resource.
 
 
-## Step 3: Apply a compute-resource quota to the namespace
+## Apply a compute-resource quota to the namespace
 
 To limit the amount of compute resource that can be consumed in this namespace,
 let's create a quota that tracks compute resources.
 
 ```shell
-$ kubectl create -f docs/admin/resourcequota/compute-resources.yaml --namespace=quota-example
+$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/rq-compute-resources.yaml --namespace=quota-example
 resourcequota "compute-resources" created
 ```
 
@@ -108,7 +113,7 @@ The quota system will now prevent the namespace from having more than 4 non-term
 addition, it will enforce that each container in a pod makes a `request` and defines a `limit` for
 `cpu` and `memory`.
 
-## Step 4: Applying default resource requests and limits
+## Applying default resource requests and limits
 
 Pod authors rarely specify resource requests and limits for their pods.
 
@@ -162,8 +167,8 @@ Replicas:               0 current / 1 desired
 Pods Status:            0 Running / 0 Waiting / 0 Succeeded / 0 Failed
 No volumes.
 Events:
-  FirstSeen	LastSeen	Count From                    SubobjectPath Type      Reason        Message
-  ---------	--------  ----- ----                    -------------	--------  ------        -------
+  FirstSeen    LastSeen    Count From                    SubobjectPath Type      Reason        Message
+  ---------    --------  ----- ----                    -------------    --------  ------        -------
   4m        7s        11    {replicaset-controller }              Warning   FailedCreate  Error creating: pods "nginx-3137573019-" is forbidden: Failed quota: compute-resources: must specify limits.cpu,limits.memory,requests.cpu,requests.memory
 ```
 
@@ -173,7 +178,7 @@ do not specify `requests` or `limits` for `cpu` and `memory`.
 So let's set some default values for the amount of `cpu` and `memory` a pod can consume:
 
 ```shell
-$ kubectl create -f docs/admin/resourcequota/limits.yaml --namespace=quota-example
+$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/rq-limits.yaml --namespace=quota-example
 limitrange "limits" created
 $ kubectl describe limits limits --namespace=quota-example
 Name:           limits
@@ -235,7 +240,7 @@ services.nodeports     0      0
 As you can see, the pod that was created is consuming explicit amounts of compute resources, and the usage is being
 tracked by Kubernetes properly.
 
-## Step 5: Advanced quota scopes
+## Advanced quota scopes
 
 Let's imagine you did not want to specify default compute resource consumption in your namespace.
 
@@ -248,16 +253,16 @@ Let's create a new namespace with two quotas to demonstrate this behavior:
 ```shell
 $ kubectl create namespace quota-scopes
 namespace "quota-scopes" created
-$ kubectl create -f docs/admin/resourcequota/best-effort.yaml --namespace=quota-scopes
+$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/rq-best-effort.yaml --namespace=quota-scopes
 resourcequota "best-effort" created
-$ kubectl create -f docs/admin/resourcequota/not-best-effort.yaml --namespace=quota-scopes
+$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/rq-not-best-effort.yaml --namespace=quota-scopes
 resourcequota "not-best-effort" created
 $ kubectl describe quota --namespace=quota-scopes
 Name:       best-effort
 Namespace:  quota-scopes
 Scopes:     BestEffort
  * Matches all pods that have best effort quality of service.
-Resource    Used	Hard
+Resource    Used    Hard
 --------    ----  ----
 pods        0     10
 
@@ -357,6 +362,9 @@ where `spec.activeDeadlineSeconds is not nil`.  The `NotTerminating` scope will 
 where `spec.activeDeadlineSeconds is nil`.  These scopes allow you to quota pods based on their
 anticipated permanence on a node in your cluster.
 
+{% endcapture %}
+
+{% capture discussion %}
 ## Summary
 
 Actions that consume node resources for cpu and memory can be subject to hard quota limits defined by the namespace quota.
@@ -364,3 +372,7 @@ Actions that consume node resources for cpu and memory can be subject to hard qu
 Any action that consumes those resources can be tweaked, or can pick up namespace level defaults to meet your end goal.
 
 Quota can be apportioned based on quality of service and anticipated permanence on a node in your cluster.
+
+{% endcapture %}
+
+{% include templates/task.md %}

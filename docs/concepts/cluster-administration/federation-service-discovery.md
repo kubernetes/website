@@ -26,12 +26,12 @@ by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general, and [Services](/docs/user-guide/services/) in particular.
+general, and [Services](/docs/concepts/services-networking/service/) in particular.
 
 ## Overview
 
 Federated Services are created in much that same way as traditional
-[Kubernetes Services](/docs/user-guide/services/) by making an API
+[Kubernetes Services](/docs/concepts/services-networking/service/) by making an API
 call which specifies the desired properties of your service. In the
 case of Federated Services, this API call is directed to the
 Federation API endpoint, rather than a Kubernetes cluster API
@@ -111,7 +111,7 @@ Namespace:              default
 Labels:                 run=nginx
 Selector:               run=nginx
 Type:                   LoadBalancer
-IP:         
+IP:                     10.63.250.98
 LoadBalancer Ingress:   104.197.246.190, 130.211.57.243, 104.196.14.231, 104.199.136.89, ...
 Port:                   http    80/TCP
 Endpoints:              <none>
@@ -149,7 +149,7 @@ in 13 underlying clusters:
 for CLUSTER in asia-east1-c asia-east1-a asia-east1-b \
                         europe-west1-d europe-west1-c europe-west1-b \
                         us-central1-f us-central1-a us-central1-b us-central1-c \
-						us-east1-d us-east1-c us-east1-b
+                        us-east1-d us-east1-c us-east1-b
 do
   kubectl --context=$CLUSTER run nginx --image=nginx:1.11.1-alpine --port=80
 done

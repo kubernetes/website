@@ -44,9 +44,9 @@ medium that backs it, and the contents of it are determined by the particular
 volume type used.
 
 To use a volume, a pod specifies what volumes to provide for the pod (the
-[`spec.volumes`](http://kubernetes.io/kubernetes/third_party/swagger-ui/#!/v1/createPod)
+`spec.volumes`
 field) and where to mount those into containers(the
-[`spec.containers.volumeMounts`](http://kubernetes.io/kubernetes/third_party/swagger-ui/#!/v1/createPod)
+`spec.containers.volumeMounts`
 field).
 
 A process in a container sees a filesystem view composed from their Docker
@@ -79,6 +79,8 @@ Kubernetes supports several types of Volumes:
    * `azureDisk`
    * `vsphereVolume`
    * `Quobyte`
+   * `PortworxVolume`
+   * `ScaleIO`
 
 We welcome additional contributions.
 
@@ -169,26 +171,6 @@ spec:
     hostPath:
       # directory location on host
       path: /data
-```
-
-#### Example pod
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-hostpath
-spec:
-  containers:
-  - image: myimage
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-hostpath
-      name: test-volume
-  volumes:
-  - name: test-volume
-    hostPath:
-      path: /path/to/my/dir
 ```
 
 ### gcePersistentDisk
@@ -442,7 +424,7 @@ A `persistentVolumeClaim` volume is used to mount a
 way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 
-See the [PersistentVolumes example](/docs/user-guide/persistent-volumes/) for more
+See the [PersistentVolumes example](/docs/concepts/storage/persistent-volumes/) for more
 details.
 
 ### downwardAPI
@@ -450,7 +432,7 @@ details.
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
 
-See the [`downwardAPI` volume example](/docs/user-guide/downward-api/volume/)  for more details.
+See the [`downwardAPI` volume example](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/)  for more details.
 
 ### FlexVolume
 
@@ -530,6 +512,74 @@ __Important: You must have your own Quobyte setup running with the volumes creat
 before you can use it__
 
 See the [Quobyte example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/quobyte) for more details.
+
+### PortworxVolume
+A `PortworxVolume` is an elastic block storage layer that runs hyperconverged with Kubernetes. Portworx fingerprints storage in a
+server, tiers based on capabilities, and aggregates capacity across multiple servers. Portworx runs in-guest in  virtual machines or on bare metal
+Linux nodes.
+
+A `PortworxVolume` can be dynamically created through Kubernetes or it can also be pre-provisioned and referenced inside a Kubernetes pod.
+Here is an example pod referencing a pre-provisioned PortworxVolume:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-portworx-volume-pod
+spec:
+  containers:
+  - image: gcr.io/google_containers/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /mnt
+      name: pxvol
+  volumes:
+  - name: pxvol
+    # This Portworx volume must already exist.
+    portworxVolume:
+      volumeID: "pxvol"
+      fsType: "<fs-type>"
+```
+
+__Important: Make sure you have an existing PortworxVolume with name `pxvol` before using it in the pod__
+
+More details and examples can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/portworx/README.md)
+
+### ScaleIO
+ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable 
+shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO 
+volumes (or it can dynamically provision new volumes for persistent volume claims, see 
+[ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio)).
+
+__Important: You must have an existing ScaleIO cluster already setup and running with the volumes created
+before you can use them__
+
+The following is an example pod configuration with ScaleIO:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-0
+spec:
+  containers:
+  - image: gcr.io/google_containers/test-webserver
+    name: pod-0
+    volumeMounts:
+    - mountPath: /test-pd
+      name: vol-0
+  volumes:
+  - name: vol-0
+    scaleIO:
+      gateway: https://localhost:443/api
+      system: scaleio
+      volumeName: vol-0
+      secretRef:
+        name: sio-secret
+      fsType: xfs
+```
+
+For further detail, plese the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
 
 ## Using subPath
 
