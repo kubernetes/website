@@ -77,7 +77,7 @@ nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app
 
 The created Replica Set will ensure that there are three nginx Pods at all times.
 
-**Note:** You must specify appropriate selector and pod template labels of a Deployment (in this case, `app = nginx`), i.e. don't overlap with other controllers (including Deployments, Replica Sets, Replication Controllers, etc.) Kubernetes won't stop you from doing that, and if you end up with multiple controllers that have overlapping selectors, those controllers will fight with each other's and won't behave correctly.
+**Note:** You must specify appropriate selector and pod template labels of a Deployment (in this case, `app = nginx`), i.e. don't overlap with other controllers (including Deployments, Replica Sets, Replication Controllers, etc.) Kubernetes won't stop you from doing that, and if you end up with multiple controllers that have overlapping selectors, those controllers will fight with each other and won't behave correctly.
 
 
 ## Updating a Deployment
