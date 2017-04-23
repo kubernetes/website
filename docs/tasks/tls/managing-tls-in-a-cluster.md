@@ -33,7 +33,7 @@ in the [`tls.Config`](https://godoc.org/crypto/tls#Config) struct.
 The CA certificate bundle is automatically mounted into pods using the default
 service account at the path `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`.
 If you are not using the default service account, ask a cluster administrator to
-build a configmap containing the certificate bundle that you have access to use.
+build a secret containing the certificate bundle that you have access to use.
 
 ## Requesting a Certificate
 
