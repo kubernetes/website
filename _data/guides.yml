@@ -1,4 +1,0 @@
-bigheader: "Guides"
-abstract: "How to get started, and accomplish tasks, using Kubernetes."
-toc:
-- docs/user-guide/index.md
