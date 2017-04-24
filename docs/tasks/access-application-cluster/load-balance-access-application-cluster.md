@@ -111,7 +111,7 @@ to create a Service.
 {% capture whatsnext %}
 
 Learn more about
-[connecting applications with services](/docs/user-guide/connecting-applications/).
+[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 {% endcapture %}
 
 {% include templates/tutorial.md %}

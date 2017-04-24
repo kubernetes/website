@@ -6,7 +6,7 @@ assignees:
 title: Assigning Pods to Nodes
 ---
 
-You can constrain a [pod](/docs/user-guide/pods/) to only be able to run on particular [nodes](/docs/admin/node/) or to prefer to
+You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/nodes/node/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
 [label selectors](/docs/user-guide/labels/) to make the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement

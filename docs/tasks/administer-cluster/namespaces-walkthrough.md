@@ -9,7 +9,7 @@ Kubernetes _namespaces_ help different projects, teams, or customers to share a 
 
 It does this by providing the following:
 
-1. A scope for [Names](/docs/user-guide/identifiers/).
+1. A scope for [Names](/docs/concepts/overview/working-with-objects/names/).
 2. A mechanism to attach authorization and policy to a subsection of the cluster.
 
 Use of multiple namespaces is optional.
@@ -21,7 +21,7 @@ This example demonstrates how to use Kubernetes namespaces to subdivide your clu
 This example assumes the following:
 
 1. You have an [existing Kubernetes cluster](/docs/getting-started-guides/).
-2. You have a basic understanding of Kubernetes _[Pods](/docs/user-guide/pods/)_, _[Services](/docs/user-guide/services/)_, and _[Deployments](/docs/user-guide/deployments/)_.
+2. You have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
 
 ### Step One: Understand the default namespace
 
