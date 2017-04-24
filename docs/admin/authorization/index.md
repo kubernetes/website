@@ -67,7 +67,7 @@ DELETE    | delete (for individual resources), deletecollection (for collections
 
 Some components perform authorization checks for additional permissions using specialized verbs. For example:
 
-* [PodSecurityPolicy](/docs/user-guide/pod-security-policy/) checks for authorization of the `use` verb on `podsecuritypolicies` resources in the `extensions` API group.
+* [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) checks for authorization of the `use` verb on `podsecuritypolicies` resources in the `extensions` API group.
 * [RBAC](/docs/admin/authorization/rbac/#privilege-escalation-prevention-and-bootstrapping) checks for authorization 
 of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
 * [Authentication](/docs/admin/authentication/) layer checks for authorization of the `impersonate` verb on `users`, `groups`, and `userextras` in the `authentication.k8s.io` API group, and the `serviceaccounts` in the core API group.
@@ -106,7 +106,7 @@ properties:
         - Ex: `/version` or `/apis`
         - Wildcard: 
           - `*` matches all non-resource requests.
-          - `/foo/*` matches `/foo/` and all of its subpaths.
+          - `/foo/*` matches all subpaths of `/foo/`.
     - `readonly`, type boolean, when true, means that the policy only applies to get, list, and watch operations.
 
 **NOTES:** An unset property is the same as a property set to the zero value for its type

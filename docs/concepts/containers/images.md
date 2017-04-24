@@ -164,7 +164,7 @@ spec:
       command: [ "echo", "SUCCESS" ]
 EOF
 $ kubectl create -f /tmp/private-image-test-1.yaml
-pods/private-image-test-1
+pod "private-image-test-1" created
 $
 ```
 

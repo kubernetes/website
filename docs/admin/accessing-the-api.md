@@ -3,12 +3,12 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-title: Controlling Accessing to the Kubernetes API
+title: Controlling Access to the Kubernetes API
 ---
 
 Users [access the API](/docs/user-guide/accessing-the-cluster) using `kubectl`,
 client libraries, or by making REST requests.  Both human users and
-[Kubernetes service accounts](/docs/user-guide/service-accounts/) can be
+[Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) can be
 authorized for API access.
 When a request reaches the API, it goes through several stages, illustrated in the
 following diagram:
