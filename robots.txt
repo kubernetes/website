@@ -143,11 +143,25 @@ Disallow: /docs/user-guide/pod-security-policy/index.html
 Disallow: /docs/user-guide/horizontal-pod-autoscaling/index.html
 Disallow: /docs/user-guide/annotations.html
 
+Disallow: /docs/user-guide/configmap/index.html
+Disallow: /docs/user-guide/horizontal-pod-autoscaling/walkthrough.html
+Disallow: /docs/getting-started-guides/network-policy/walkthrough.html
+Disallow: /docs/getting-started-guides/network-policy/calico.html
+Disallow: /docs/getting-started-guides/network-policy/romana.html
+Disallow: /docs/getting-started-guides/network-policy/weave.html
+Disallow: /docs/user-guide/cron-jobs.html
+Disallow: /docs/user-guide/gpus.html
+Disallow: /docs/user-guide/projected-volume/index.html
+Disallow: /docs/admin/upgrade-1-6.html
+Disallow: /docs/admin/addons.html
+Disallow: /docs/admin/ha-master-gce.html
+Disallow: /docs/admin/namespaces/index.html
+Disallow: /docs/admin/namespaces/walkthrough.html
+Disallow: /docs/admin/etcd_upgrade.html
+Disallow: /docs/admin/etcd.html
+Disallow: /docs/admin/garbage-collection.html
+Disallow: /docs/admin/node-allocatable.html
+Disallow: /docs/user-guide/jobs/expansions/index.html
+Disallow: /docs/user-guide/ui/index.html
+
 SITEMAP: http://kubernetes.io/sitemap.xml
-
-
-
-
-
-
-
