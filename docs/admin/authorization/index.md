@@ -106,7 +106,7 @@ properties:
         - Ex: `/version` or `/apis`
         - Wildcard: 
           - `*` matches all non-resource requests.
-          - `/foo/*` matches `/foo/` and all of its subpaths.
+          - `/foo/*` matches all subpaths of `/foo/`.
     - `readonly`, type boolean, when true, means that the policy only applies to get, list, and watch operations.
 
 **NOTES:** An unset property is the same as a property set to the zero value for its type
