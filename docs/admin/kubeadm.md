@@ -387,6 +387,9 @@ configuration file.
 | `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:3.0.17` | The etcd container image to use. |
 | `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |
 
+If `KUBE_KUBERNETES_DIR` is specified, you may need to rewrite the arguments of the kubelet.
+(e.g. --kubeconfig, --pod-manifest-path)
+
 If you want to use kubeadm with an http proxy, you may need to configure it to
 support http_proxy, https_proxy, or no_proxy.
 
