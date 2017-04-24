@@ -67,7 +67,7 @@ of configurations are not currently supported by the kubelet. For example, it is
 *not OK* to store volumes and logs in a dedicated `filesystem`.
 
 In future releases, the `kubelet` will deprecate the existing [garbage
-collection](/docs/admin/garbage-collection/) support in favor of eviction in
+collection](/docs/concepts/cluster-administration/kubelet-garbage-collection/) support in favor of eviction in
 response to disk pressure.
 
 ### Eviction Thresholds
@@ -295,7 +295,7 @@ The `kubelet` sets a `oom_score_adj` value for each container based on the quali
 | `Burstable` | min(max(2, 1000 - (1000 * memoryRequestBytes) / machineMemoryCapacityBytes), 999) |
 
 If the `kubelet` is unable to reclaim memory prior to a node experiencing system OOM, the `oom_killer` will calculate
-an `oom_score` based on the percentage of memory its using on the node, and then add the `oom_score_adj` to get an
+an `oom_score` based on the percentage of memory it's using on the node, and then add the `oom_score_adj` to get an
 effective `oom_score` for the container, and then kills the container with the highest score.
 
 The intended behavior should be that containers with the lowest quality of service that

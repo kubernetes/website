@@ -58,6 +58,8 @@ clusters.
 
 [OpenShift Dedicated](https://www.openshift.com/dedicated/) offers managed Kubernetes clusters powered by OpenShift and [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
 
+[IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters (currently in beta).
+
 ### Turn-key Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -68,7 +70,7 @@ few commands, and have active community support.
 - [Azure](/docs/getting-started-guides/azure)
 - [Tectonic by CoreOS](https://coreos.com/tectonic)
 - [CenturyLink Cloud](/docs/getting-started-guides/clc)
-- [IBM SoftLayer](https://github.com/patrocinio/kubernetes-softlayer)
+- [IBM Bluemix](https://github.com/patrocinio/kubernetes-softlayer)
 - [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
 - [KUBE2GO.io](https://kube2go.io/)
 - [Madcore.Ai](https://madcore.ai/)
@@ -118,7 +120,6 @@ These solutions are combinations of cloud provider and OS not covered by the abo
 - [Centos](/docs/getting-started-guides/centos/centos_manual_config)
 - [Bare Metal with Ubuntu](/docs/getting-started-guides/ubuntu/)
 - [Ubuntu Manual](/docs/getting-started-guides/ubuntu/manual)
-- [Docker Multi Node](/docs/getting-started-guides/docker-multinode)
 - [CoreOS](/docs/getting-started-guides/coreos)
 
 #### Integrations
@@ -147,8 +148,6 @@ Platform9        |              | multi-support | multi-support | [docs](https:/
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
 Azure (IaaS)    |              | Ubuntu | Azure       | [docs](/docs/getting-started-guides/azure)                    |  [Community (Microsoft)](https://github.com/Azure/acs-engine)
-Docker Single Node   | custom       | N/A    | local       | [docs](/docs/getting-started-guides/docker)                                 |  Project ([@brendandburns](https://github.com/brendandburns))
-Docker Multi Node    | custom       | N/A    | flannel     | [docs](/docs/getting-started-guides/docker-multinode)                       |  Project ([@brendandburns](https://github.com/brendandburns))
 Bare-metal           | Ansible      | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/fedora_ansible_config)           |  Project
 Bare-metal           | custom       | Fedora | _none_      | [docs](/docs/getting-started-guides/fedora/fedora_manual_config)            |  Project
 Bare-metal           | custom       | Fedora | flannel     | [docs](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)      |  Community ([@aveshagarwal](https://github.com/aveshagarwal))

@@ -1,5 +1,5 @@
 ---
-title: Exposing Pod Information to Containers Using a DownwardApiVolumeFile
+title: Exposing Pod Information to Containers Using the Downward API
 ---
 
 {% capture overview %}
@@ -210,7 +210,7 @@ Downward API defaults to the node allocatable value for CPU and memory.
 
 You can project keys to specific paths and specific permissions on a per-file
 basis. For more information, see
-[Secrets](/docs/user-guide/secrets/).
+[Secrets](/docs/concepts/configuration/secret/).
 
 ## Motivation for the Downward API
 

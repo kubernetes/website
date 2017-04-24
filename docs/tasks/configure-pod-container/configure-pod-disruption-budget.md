@@ -49,6 +49,21 @@ specified in the budget, thus bringing the number of available pods from the
 collection below the specified size. The budget can only protect against
 voluntary evictions, not all causes of unavailability.
 
+You can find an example of a pod disruption budget defined below. It matches pods with the label 
+`app: zookeeper`.
+
+```yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: zk-pdb
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: zookeeper
+```
+
 ## Requesting an eviction
 
 If you are writing infrastructure software that wants to produce these voluntary

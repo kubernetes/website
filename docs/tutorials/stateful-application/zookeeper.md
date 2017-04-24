@@ -23,11 +23,11 @@ Before starting this tutorial, you should be familiar with the following
 Kubernetes concepts.
 
 * [Pods](/docs/user-guide/pods/single-container/)
-* [Cluster DNS](/docs/admin/dns/)
+* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/user-guide/services/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
-* [ConfigMaps](/docs/user-guide/configmap/)
+* [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
 * [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
@@ -90,7 +90,7 @@ safely discarded.
 
 The manifest below contains a 
 [Headless Service](/docs/user-guide/services/#headless-services), 
-a [ConfigMap](/docs/user-guide/configmap/), 
+a [ConfigMap](/docs/tasks/configure-pod-container/configmap/), 
 a [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget), 
 and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). 
 
@@ -209,7 +209,7 @@ zk-1.zk-headless.default.svc.cluster.local
 zk-2.zk-headless.default.svc.cluster.local
 ```
 
-The A records in [Kubernetes DNS](/docs/admin/dns/) resolve the FQDNs to the Pods' IP addresses. 
+The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) resolve the FQDNs to the Pods' IP addresses. 
 If the Pods are rescheduled, the A records will be updated with the Pods' new IP 
 addresses, but the A record's names will not change.
 
@@ -726,7 +726,7 @@ container to rotate and ship your logs.
 The best practices with respect to allowing an application to run as a privileged 
 user inside of a container are a matter of debate. If your organization requires 
 that applications be run as a non-privileged user you can use a 
-[SecurityContext](/docs/user-guide/security-context/) to control the user that 
+[SecurityContext](/docs/concepts/policy/security-context/) to control the user that 
 the entry point runs as.
 
 The `zk` StatefulSet's Pod `template` contains a SecurityContext.
