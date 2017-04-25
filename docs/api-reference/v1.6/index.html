@@ -39,7 +39,7 @@ fields that maybe updated both by the end user and the system (e.g. annotations)
 <h2 id="resource-operations">Resource Operations</h2>
 <p>Most resources provide the following Operations:</p>
 <h4 id="create-">Create:</h4>
-<p>Create operations will create the resource in the storage backend.  After a resource is create the system will apply
+<p>Create operations will create the resource in the storage backend.  After a resource is created the system will apply
 the desired state.</p>
 <h4 id="update-">Update:</h4>
 <p>Updates come in 2 forms: <strong>Replace</strong> and <strong>Patch</strong></p>
@@ -233,7 +233,7 @@ Appears In <a href="#podstatus-v1-core">PodStatus</a> </aside>
 <tbody>
 <tr>
 <td>containerID <br /> <em>string</em></td>
-<td>Container&#39;s ID in the format &#39;docker://<container_id>&#39;. More info: <a href="http://kubernetes.io/docs/user-guide/container-environment#container-information">http://kubernetes.io/docs/user-guide/container-environment#container-information</a></td>
+<td>Container&#39;s ID in the format &#39;docker://<container_id>&#39;. More info: <a href="http://kubernetes.io/docs/concepts/containers/container-environment-variables/#container-information">http://kubernetes.io/docs/concepts/containers/container-environment-variables/#container-information</a></td>
 </tr>
 <tr>
 <td>image <br /> <em>string</em></td>
@@ -7836,7 +7836,7 @@ Appears In <a href="#pod-v1-core">Pod</a> <a href="#podtemplatespec-v1-core">Pod
 </tr>
 <tr>
 <td>nodeSelector <br /> <em>object</em></td>
-<td>NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node&#39;s labels for the pod to be scheduled on that node. More info: <a href="http://kubernetes.io/docs/user-guide/node-selection/README">http://kubernetes.io/docs/user-guide/node-selection/README</a></td>
+<td>NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node&#39;s labels for the pod to be scheduled on that node. More info: <a href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector">https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector</a></td>
 </tr>
 <tr>
 <td>restartPolicy <br /> <em>string</em></td>
@@ -51409,11 +51409,11 @@ Appears In  <a href="#container-v1-core">Container</a> </aside>
 <tbody>
 <tr>
 <td>postStart <br /> <em><a href="#handler-v1-core">Handler</a></em></td>
-<td>PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: <a href="http://kubernetes.io/docs/user-guide/container-environment#hook-details">http://kubernetes.io/docs/user-guide/container-environment#hook-details</a></td>
+<td>PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: <a href="http://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details">http://kubernetes.io/concepts/containers/container-lifecycle-hooks/#hook-details</a></td>
 </tr>
 <tr>
 <td>preStop <br /> <em><a href="#handler-v1-core">Handler</a></em></td>
-<td>PreStop is called immediately before a container is terminated. The container is terminated after the handler completes. The reason for termination is passed to the handler. Regardless of the outcome of the handler, the container is eventually terminated. Other management of the container blocks until the hook completes. More info: <a href="http://kubernetes.io/docs/user-guide/container-environment#hook-details">http://kubernetes.io/docs/user-guide/container-environment#hook-details</a></td>
+<td>PreStop is called immediately before a container is terminated. The container is terminated after the handler completes. The reason for termination is passed to the handler. Regardless of the outcome of the handler, the container is eventually terminated. Other management of the container blocks until the hook completes. More info: <a href="http://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details">http://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#hook-details</a></td>
 </tr>
 </tbody>
 </table>
