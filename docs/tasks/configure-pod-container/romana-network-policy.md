@@ -2,6 +2,9 @@
 assignees:
 - chrismarino
 title: Using Romana for NetworkPolicy
+redirect_from:
+- "/docs/getting-started-guides/network-policy/romana/"
+- "/docs/getting-started-guides/network-policy/romana.html"
 ---
 
 # Installation with kubeadm

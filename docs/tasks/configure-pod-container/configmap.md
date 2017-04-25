@@ -3,6 +3,9 @@ assignees:
 - eparis
 - pmorie
 title: Configure Containers Using a ConfigMap
+redirect_from:
+- "/docs/user-guide/configmap/index/"
+- "/docs/user-guide/configmap/index.html"
 ---
 
 Many applications require configuration via some combination of config files, command line
