@@ -496,6 +496,27 @@
  			logo: 'easynube',
  			link: 'https://www.carrefour.es/supermercado/?ic_source=portal-home&ic_medium=menu-links&ic_content=section-home',
  			blurb: 'Provide consultancy, architecture and implementation'
+  		},
+		{
+ 			type: 1,
+ 			name: 'Opcito Technologies',
+ 			logo: 'opcito',
+ 			link: 'http://www.opcito.com/kubernetes/',
+ 			blurb: 'Opcito is a software consultancy that uses Kubernetes to help organisations build, architect & deploy highly scalable applications.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Huawei Technologies Co., Ltd.',
+ 			logo: 'huawei',
+ 			link: 'http://developer.huawei.com/ict/en/site-paas',
+ 			blurb: 'FusionStage is an enterprise-grade PaaS, the core of which is based on open source container technology including Kubernetes and Docker.'
+  		},
+		{
+ 			type: 0,
+ 			name: '{code} by Dell EMC',
+ 			logo: 'codedellemc',
+ 			link: 'https://blog.codedellemc.com',
+ 			blurb: 'Respected as a thought leader in storage persistence for containerized applications. Contributed significant work to K8 and Ecosystem'
   		}
 		
 	]
