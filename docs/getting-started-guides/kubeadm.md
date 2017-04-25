@@ -630,3 +630,30 @@ A web search on the error message may help narrow down the issue.  Or
 communicate the errors you are seeing to the community/company that provides the
 pod network implementation you are using.
 
+### Issues When Setting Up On Hosts With Both Public and Private IP Automatically Assigned
+
+In environments or providers that assign both public and private addresses to hosts automatically or by default and without DNS, you
+might run into an issue where one or more nodes join the master advertising their public IP (and thus all traffic is Internet-routed). Not only is this very insecure, but, given the slowness and latency of Internet-routed traffic, it will invariably cause issues with the integrity of the cluster. This issue can be fixed in Ubuntu systems by modifying `/etc/systemd/system/kubelet.service.d/##-kubeadm.conf` in the following manner:
+
+1) open the file in your favorite text editor
+
+```
+sudo $TEXT_EDITOR_OF_CHOICE /etc/systemd/system/kubelet.service.d/##-kubeadm.conf
+```
+
+2) Look for the following line and replace `<private_ip>` with the instance private IP
+
+```
+Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin --node-ip=<private_ip>"
+```
+
+3) Save
+
+4) Exit
+
+5) Finally reload the daemons and re-start the kubelet service.
+
+```
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet.service
+```
