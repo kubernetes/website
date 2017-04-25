@@ -2,6 +2,11 @@
 assignees:
 - bprashanth
 title: Run Stateless AP Replication Controller
+redirect_from:
+- "/docs/user-guide/replication-controller/operations/"
+- "/docs/user-guide/replication-controller/operations.html"
+- "/docs/user-guide/resizing-a-replication-controller/"
+- "/docs/user-guide/resizing-a-replication-controller.html"
 ---
 
 * TOC
