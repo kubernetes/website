@@ -7,6 +7,8 @@ title: Cron Jobs
 redirect_from:
 - "/docs/concepts/jobs/cron-jobs/"
 - "/docs/concepts/jobs/cron-jobs.html"
+- "/docs/user-guide/cron-jobs/"
+- "/ddocs/user-guide/cron-jobs.html"
 ---
 
 * TOC
