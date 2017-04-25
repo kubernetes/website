@@ -70,7 +70,7 @@ project](/docs/admin/salt).
 
 ## Security
 
-* **Kubernetes Container Environment** ([docs/user-guide/container-environment](/docs/concepts/containers/container-lifecycle-hooks/)):
+* **Kubernetes Container Environment** ([/docs/concepts/containers/container-environment-variables/](/docs/concepts/containers/container-environment-variables/)):
   Describes the environment for Kubelet managed containers on a Kubernetes
   node.
 
