@@ -1,5 +1,8 @@
 ---
 title: Parallel Processing using Expansions
+redirect_from:
+- "/docs/user-guide/jobs/"
+- "/docs/user-guide/jobs.html"
 ---
 
 * TOC
