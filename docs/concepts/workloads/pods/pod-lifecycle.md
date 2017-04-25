@@ -1,5 +1,8 @@
 ---
 title: Pod Lifecycle
+redirect_from:
+- "/docs/user-guide/pod-states/"
+- "/docs/user-guide/pod-states.html"
 ---
 
 {% capture overview %}
