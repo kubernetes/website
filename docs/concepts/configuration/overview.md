@@ -2,6 +2,9 @@
 assignees:
 - mikedanese
 title: Configuration Best Practices
+redirect_from:
+- "/docs/user-guide/config-best-practices/"
+- "/docs/user-guide/config-best-practices.html"
 ---
 
 This document is meant to highlight and consolidate in one place configuration best practices that are introduced throughout the user-guide and getting-started documentation and examples. This is a living document so if you think of something that is not on this list but might be useful to others, please don't hesitate to file an issue or submit a PR.
