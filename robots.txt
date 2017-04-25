@@ -6,6 +6,8 @@ Disallow: /v1.1/
 Disallow: /404/
 Disallow: 404.html
 
+# Site renders /topic.md into /topic/index.html
+
 Disallow: /docs/user-guide/configuring-containers.html
 Disallow: /docs/user-guide/containers.html
 Disallow: /docs/user-guide/deploying-applications.html
