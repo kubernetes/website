@@ -1,5 +1,8 @@
 ---
 title: Coarse Parallel Processing Using a Work Queue
+redirect_from:
+- "/docs/user-guide/jobs/work-queue-1/index/"
+- "/docs/user-guide/jobs/work-queue-1/index.html"
 ---
 
 * TOC
