@@ -7,7 +7,7 @@ title: Setting up Cluster Federation with Kubefed
 * TOC
 {:toc}
 
-Kubernetes version 1.5 includes a new command line tool called
+Kubernetes version 1.5 and above includes a new command line tool called
 `kubefed` to help you administrate your federated clusters.
 `kubefed` helps you to deploy a new Kubernetes cluster federation
 control plane, and to add clusters to or remove clusters from an
@@ -32,18 +32,15 @@ extract the binaries in the tarball with the commands:
 
 ```shell
 # Linux
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-linux-amd64.tar.gz
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-linux-amd64.tar.gz
 tar -xzvf kubernetes-client-linux-amd64.tar.gz
 
 # OS X
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-darwin-amd64.tar.gz
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-darwin-amd64.tar.gz
 tar -xzvf kubernetes-client-darwin-amd64.tar.gz
 
 # Windows
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-windows-amd64.tar.gz
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-windows-amd64.tar.gz
 tar -xzvf kubernetes-client-windows-amd64.tar.gz
 ```
 
@@ -92,7 +89,7 @@ entry above) for your host cluster when you deploy your federation
 control plane.
 
 
-## Deploying a federation control plane.
+## Deploying a federation control plane
 
 To deploy a federation control plane on your host cluster, run
 `kubefed init` command. When you use `kubefed init`, you must provide
@@ -452,7 +449,7 @@ for you.
 enable federated service discovery. If the joining Kubernetes cluster
 is version 1.5 or newer and your `kubefed` is version 1.6 or newer,
 then this configuration is automatically managed for you when the
-clusters are joined or unjoined using `kubefed` `join` or `unjoin`
+clusters are joined or unjoined using `kubefed join` or `unjoin`
 commands.
 
 In all other cases, you must update `kube-dns` configuration manually
@@ -470,7 +467,7 @@ kubefed unjoin gondor --host-cluster-context=rivendell
 ```
 
 
-## Turning down the federation control plane:
+## Turning down the federation control plane
 
 Proper cleanup of federation control plane is not fully implemented in
 this beta release of `kubefed`. However, for the time being, deleting
