@@ -129,10 +129,10 @@ You can also list the nodes in your cluster:
 
 ```console
 ./cluster/kubectl.sh get nodes
-NAME                            STATUS    AGE
-kubernetesstack-node-ojszyjtr   Ready     42m
-kubernetesstack-node-tzotzcbp   Ready     46m
-kubernetesstack-node-uah8pkju   Ready     47m
+NAME                            STATUS    AGE     VERSION
+kubernetesstack-node-ojszyjtr   Ready     42m     v1.6.0+fff5156
+kubernetesstack-node-tzotzcbp   Ready     46m     v1.6.0+fff5156
+kubernetesstack-node-uah8pkju   Ready     47m     v1.6.0+fff5156
 ```
 Being a new cluster, there will be no pods or replication controllers in the default namespace:
 
