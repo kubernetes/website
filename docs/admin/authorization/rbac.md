@@ -371,7 +371,7 @@ To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/aut
 annotation on a default cluster role or rolebinding to `false`.
 Be aware that missing default permissions and subjects can result in non-functional clusters.
 
-Auto-reconciliation is enabled in Kubernetes version 1.6+.
+Auto-reconciliation is enabled in Kubernetes version 1.6+ when the RBAC authorizer is active.
 
 ### Discovery Roles
 
