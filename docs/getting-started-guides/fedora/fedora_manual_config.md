@@ -125,8 +125,8 @@ Now create a node object internally in your Kubernetes cluster by running:
 $ kubectl create -f ./node.json
 
 $ kubectl get nodes
-NAME                LABELS              STATUS
-fed-node           name=fed-node-label     Unknown
+NAME            STATUS        AGE
+fed-node        Unknown       4h
 ```
 
 Please note that in the above, it only creates a representation for the node
@@ -172,8 +172,8 @@ done
 
 ```shell
 kubectl get nodes
-NAME                LABELS              STATUS
-fed-node          name=fed-node-label     Ready
+NAME            STATUS      AGE
+fed-node        Ready       4h
 ```
 
 * Deletion of nodes:
