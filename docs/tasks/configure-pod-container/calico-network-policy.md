@@ -2,6 +2,9 @@
 assignees:
 - caseydavenport
 title: Using Calico for NetworkPolicy
+redirect_from:
+- "/docs/getting-started-guides/network-policy/calico/"
+- "/docs/getting-started-guides/network-policy/calico.html"
 ---
 
 You can deploy a cluster using Calico for network policy in the default [GCE deployment](/docs/getting-started-guides/gce) using the following set of commands:
