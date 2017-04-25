@@ -263,11 +263,11 @@ Sometimes when debugging it can be useful to look at the status of a node -- for
 
 ```shell
 $ kubectl get nodes
-NAME                     STATUS        AGE
-kubernetes-node-861h     NotReady      1h
-kubernetes-node-bols     Ready         1h
-kubernetes-node-st6x     Ready         1h
-kubernetes-node-unaj     Ready         1h
+NAME                     STATUS        AGE     VERSION
+kubernetes-node-861h     NotReady      1h      v1.6.0+fff5156
+kubernetes-node-bols     Ready         1h      v1.6.0+fff5156
+kubernetes-node-st6x     Ready         1h      v1.6.0+fff5156
+kubernetes-node-unaj     Ready         1h      v1.6.0+fff5156
 
 $ kubectl describe node kubernetes-node-861h
 Name:			kubernetes-node-861h
