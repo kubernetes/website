@@ -19,6 +19,7 @@ toc:
 - title: Containers
   section:
   - docs/concepts/containers/images.md
+  - docs/concepts/containers/container-environment-variables.md
   - docs/concepts/containers/container-lifecycle-hooks.md
 
 - title: Workloads
