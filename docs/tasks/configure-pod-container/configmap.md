@@ -271,7 +271,7 @@ data:
   log_level: INFO
 ```
 
-We can consume the keys of this ConfigMap in a pod like so:
+`envFrom` is a feature introduced in Kubernetes 1.6. Consequently, if you are using v1.6 or above, you can consume the keys of that ConfigMap in a pod; otherwise, ignore `envFrom` in the following example:
 
 ```yaml
 apiVersion: v1
