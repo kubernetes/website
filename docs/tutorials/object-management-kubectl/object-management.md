@@ -3,6 +3,8 @@ title: Kubernetes Object Management
 redirect_from:
 - "/docs/concepts/tools/kubectl/object-management-overview/"
 - "/docs/concepts/tools/kubectl/object-management-overview.html"
+- "/docs/user-guide/working-with-resources/"
+- "/docs/user-guide/working-with-resources.html"
 ---
 
 {% capture overview %}
