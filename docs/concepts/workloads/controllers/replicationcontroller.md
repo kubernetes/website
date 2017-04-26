@@ -3,6 +3,9 @@ assignees:
 - bprashanth
 - janetkuo
 title: Replication Controller
+redirect_from:
+- "/docs/user-guide/replication-controller/"
+- "/docs/user-guide/replication-controller/index.html"
 ---
 
 * TOC
