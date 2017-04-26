@@ -1,5 +1,8 @@
 ---
 title: Federated Events
+redirect_from:
+- "/docs/user-guide/federation/events/"
+- "/docs/user-guide/federation/events.html"
 ---
 
 This guide explains how to use events in federation control plane to help in debugging.
