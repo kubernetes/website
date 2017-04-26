@@ -1,5 +1,8 @@
 ---
 title: Federation
+redirect_from:
+- "/docs/user-guide/federation/"
+- "/docs/user-guide/federation/index.html"
 ---
 
 This guide explains why and how to manage multiple Kubernetes clusters using
