@@ -4,6 +4,9 @@ assignees:
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
+redirect_from:
+- "/docs/user-guide/node-selection/"
+- "/docs/user-guide/node-selection/index.html"
 ---
 
 You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/nodes/node/) or to prefer to
