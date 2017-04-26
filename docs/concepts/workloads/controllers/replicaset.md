@@ -4,6 +4,9 @@ assignees:
 - bprashanth
 - madhusudancs
 title: Replica Sets
+redirect_from:
+- "/docs/user-guide/replicasets/"
+- "/docs/user-guide/replicasets.html"
 ---
 
 * TOC
