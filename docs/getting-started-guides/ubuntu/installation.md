@@ -106,11 +106,11 @@ default  aws-us-east-2  aws/us-east-2  2.0.1
 
 App                    Version  Status       Scale  Charm                  Store       Rev  OS      Notes
 easyrsa                3.0.1    active           1  easyrsa                jujucharms    3  ubuntu  
-etcd                   2.2.5    active           3  etcd                   jujucharms   14  ubuntu  
+etcd                   3.1.2    active           3  etcd                   jujucharms   14  ubuntu  
 flannel                0.6.1    maintenance      4  flannel                jujucharms    5  ubuntu  
 kubeapi-load-balancer  1.10.0   active           1  kubeapi-load-balancer  jujucharms    3  ubuntu  exposed
-kubernetes-master      1.4.5    active           1  kubernetes-master      jujucharms    6  ubuntu  
-kubernetes-worker      1.4.5    active           3  kubernetes-worker      jujucharms    8  ubuntu  exposed
+kubernetes-master      1.6.1    active           1  kubernetes-master      jujucharms    6  ubuntu  
+kubernetes-worker      1.6.1    active           3  kubernetes-worker      jujucharms    8  ubuntu  exposed
 topbeat                         active           3  topbeat                jujucharms    5  ubuntu  
 
 Unit                      Workload     Agent  Machine  Public address  Ports            Message
