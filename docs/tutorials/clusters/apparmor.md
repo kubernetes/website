@@ -2,6 +2,9 @@
 assignees:
 - stclair
 title: AppArmor
+redirect_from:
+- "/docs/admin/apparmor/index/"
+- "/docs/admin/apparmor/index.html"
 ---
 
 AppArmor is a Linux kernel enhancement that can reduce the potential attack surface of an
