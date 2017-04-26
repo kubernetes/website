@@ -3,6 +3,9 @@ assignees:
 - mikedanese
 - thockin
 title: Container Lifecycle Hooks
+redirect_from:
+- "/docs/user-guide/container-environment/"
+- "/docs/user-guide/container-environment.html"
 ---
 
 {% capture overview %}
