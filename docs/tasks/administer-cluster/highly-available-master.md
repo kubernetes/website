@@ -2,6 +2,9 @@
 assignees:
 - jszczepkowski
 title: Setting up High-Availability Kubernetes Masters
+redirect_from:
+- "/docs/admin/ha-master-gce/"
+- "/docs/admin/ha-master-gce.html"
 ---
 
 * TOC
