@@ -1,5 +1,8 @@
 ---
 title: Federated Secrets
+redirect_from:
+- "/docs/user-guide/federation/secrets/"
+- "/docs/user-guide/federation/secrets.html"
 ---
 
 This guide explains how to use secrets in Federation control plane.
