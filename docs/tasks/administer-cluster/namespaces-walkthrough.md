@@ -3,6 +3,9 @@ assignees:
 - derekwaynecarr
 - janetkuo
 title: Namespaces Walkthrough
+redirect_from:
+- "/docs/admin/namespaces/walkthrough/"
+- "/docs/admin/namespaces/walkthrough.html"
 ---
 
 Kubernetes _namespaces_ help different projects, teams, or customers to share a Kubernetes cluster.
