@@ -3,6 +3,9 @@ assignees:
 - derekwaynecarr
 - janetkuo
 title: Sharing a Cluster with Namespaces
+redirect_from:
+- "/docs/admin/namespaces/"
+- "/docs/admin/namespaces/index.html"
 ---
 
 A Namespace is a mechanism to partition resources created by users into
