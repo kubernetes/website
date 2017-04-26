@@ -2,6 +2,11 @@
 assignees:
 - janetkuo
 title: Rolling Update Replication Controller
+redirect_from:
+- "/docs/user-guide/rolling-updates/"
+- "/docs/user-guide/rolling-updates.html"
+- "/docs/user-guide/update-demo/index/"
+- "/docs/user-guide/update-demo/index.html"
 ---
 
 * TOC
@@ -12,7 +17,7 @@ title: Rolling Update Replication Controller
 To update a service without an outage, `kubectl` supports what is called ['rolling update'](/docs/user-guide/kubectl/v1.6/#rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) and the [example of rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) for more information.
 
 Note that `kubectl rolling-update` only supports Replication Controllers. However, if you deploy applications with Replication Controllers,
-consider switching them to [Deployments](/docs/user-guide/deployments/). A Deployment is a higher-level controller that automates rolling updates
+consider switching them to [Deployments](/docs/concepts/workloads/controllers/deployment/). A Deployment is a higher-level controller that automates rolling updates
 of applications declaratively, and therefore is recommended. If you still want to keep your Replication Controllers and use `kubectl rolling-update`, keep reading:
 
 A rolling update applies changes to the configuration of pods being managed by
@@ -48,7 +53,7 @@ The configuration file must:
 * Use the same `metadata.namespace`.
 
 Replication controller configuration files are described in
-[Creating Replication Controllers](/docs/user-guide/replication-controller/operations/).
+[Creating Replication Controllers](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
 
 ### Examples
 

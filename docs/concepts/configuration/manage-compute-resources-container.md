@@ -1,5 +1,8 @@
 ---
 title: Managing Compute Resources for Containers
+redirect_from:
+- "/docs/user-guide/compute-resources/"
+- "/docs/user-guide/compute-resources.html"
 ---
 
 {% capture overview %}
@@ -242,7 +245,7 @@ system daemons use a portion of the available resources. The `allocatable` field
 gives the amount of resources that are available to Pods. For more information, see
 [Node Allocatable Resources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node-allocatable.md).
 
-The [resource quota](/docs/admin/resourcequota/) feature can be configured
+The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
 with namespaces, it can prevent one team from hogging all the resources.
 
@@ -341,7 +344,7 @@ first pod that requests the resource to be scheduled on that node.
 
 **Example:**
 
-Here is an HTTP request that advertises five "foo" resources on node `k8s-node-1`.
+Here is an HTTP request that advertises five "foo" resources on node `k8s-node-1` whose master is `k8s-master`.
 
 ```http
 PATCH /api/v1/nodes/k8s-node-1/status HTTP/1.1
@@ -356,6 +359,13 @@ Host: k8s-master:8080
     "value": "5"
   }
 ]
+```
+
+```shell
+curl --header "Content-Type: application/json-patch+json" \
+--request PATCH \
+--data '[{"op": "add", "path": "/status/capacity/pod.alpha.kubernetes.io~1opaque-int-resource-foo", "value": "5"}]' \
+http://k8s-master:8080/api/v1/nodes/k8s-node-1/status
 ```
 
 **Note**: In the preceding request, `~1` is the encoding for the character `/`

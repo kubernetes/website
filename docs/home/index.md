@@ -6,6 +6,8 @@ title: Kubernetes Documentation
 redirect_from:
 - "/docs/"
 - "/docs/index.html"
+- "/docs/user-guide/"
+- "/docs/user-guide/index.html"
 ---
 
 <p>Kubernetes documentation can help you set up Kubernetes, learn about the system, or get your applications and workloads running on Kubernetes. To learn the basics of what Kubernetes is and how it works, read "<a href="/docs/whatisk8s/">What is Kubernetes</a>". </p>
@@ -43,3 +45,12 @@ redirect_from:
 <h2>Tools</h2>
 
 <p>The <a href="/docs/tools/">tools</a> page contains a list of native and third-party tools for Kubernetes.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+* <a href="https://github.com/kubernetes/kubernetes/wiki/User-FAQ">User FAQ</a>
+* <a href="https://github.com/kubernetes/kubernetes/wiki/Debugging-FAQ">Debugging FAQ</a>
+* <a href="https://github.com/kubernetes/kubernetes/wiki/Services-FAQ">Services FAQ</a>
+
+
+

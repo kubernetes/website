@@ -209,7 +209,7 @@ backend nodes
 
 #### Option 2: Ingress Controller
 
-Using an [ingress controller](docs/user-guide/ingress) may also be an
+Using an [ingress controller](/docs/concepts/services-networking/ingress/#ingress-controllers) may also be an
 appropriate solution. Note that it in a production environment it will
 also require an external load balancer. However, it may be simpler to
 manage because it will not require you to manually update the load

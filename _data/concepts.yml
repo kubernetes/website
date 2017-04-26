@@ -19,6 +19,7 @@ toc:
 - title: Containers
   section:
   - docs/concepts/containers/images.md
+  - docs/concepts/containers/container-environment-variables.md
   - docs/concepts/containers/container-lifecycle-hooks.md
 
 - title: Workloads
@@ -38,9 +39,8 @@ toc:
     - docs/concepts/workloads/controllers/petset.md
     - docs/concepts/workloads/controllers/daemonset.md
     - docs/concepts/workloads/controllers/garbage-collection.md
-  - title: Jobs
-    section:
-    - docs/concepts/jobs/run-to-completion-finite-workloads.md
+    - docs/concepts/workloads/controllers/jobs-run-to-completion.md
+    - docs/concepts/workloads/controllers/cron-jobs.md
 
 - title: Nodes
   section:
@@ -48,6 +48,8 @@ toc:
 
 - title: Cluster Administration
   section:
+  - docs/concepts/cluster-administration/configure-etcd.md
+  - docs/concepts/cluster-administration/etcd-upgrade.md
   - docs/concepts/cluster-administration/manage-deployment.md
   - docs/concepts/cluster-administration/networking.md
   - docs/concepts/cluster-administration/network-plugins.md
@@ -55,6 +57,7 @@ toc:
   - docs/concepts/cluster-administration/audit.md
   - docs/concepts/cluster-administration/resource-usage-monitoring.md
   - docs/concepts/cluster-administration/out-of-resource.md
+  - docs/concepts/cluster-administration/kubelet-garbage-collection.md
   - docs/concepts/cluster-administration/cluster-management.md
   - docs/concepts/cluster-administration/multiple-clusters.md
   - docs/concepts/cluster-administration/federation.md
@@ -65,6 +68,7 @@ toc:
   - docs/concepts/cluster-administration/access-cluster.md
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
   - docs/concepts/cluster-administration/master-node-communication.md
+  - docs/concepts/cluster-administration/addons.md
 
 - title: Storage
   section:

@@ -1,18 +1,28 @@
 ---
 title: Limiting Storage Consumption
+redirect_from:
+- "/docs/admin/resourcequota/limitstorageconsumption/"
+- "/docs/admin/resourcequota/limitstorageconsumption.html"
 ---
+
+{% capture overview %}
 
 This example demonstrates an easy way to limit the amount of storage consumed in a namespace.
 
-The following resources are used in the demonstration:
+The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/), 
+[LimitRange](/docs/tasks/configure-pod-container/limit-range/), 
+and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 
-* [Resource Quota](/docs/admin/resourcequota/)
-* [Limit Range](/docs/admin/limitrange/)
-* [Persistent Volume Claim](/docs/user-guide/persistent-volumes/)
+{% endcapture %}
 
-This example assumes you have a functional Kubernetes setup.
+{% capture prerequisites %}
 
-## Limiting Storage Consumption
+* {% include task-tutorial-prereqs.md %}
+
+{% endcapture %}
+
+{% capture steps %}
+## Scenario: Limiting Storage Consumption
 
 The cluster-admin is operating a cluster on behalf of a user population and the admin wants to control
 how much storage a single namespace can consume in order to control cost.
@@ -69,8 +79,16 @@ spec:
     requests.storage: "5Gi"
 ```
 
+{% endcapture %}
+
+{% capture discussion %}
+
 ## Summary 
 
 A limit range can put a ceiling on how much storage is requested while a resource quota can effectively cap the storage
 consumed by a namespace through claim counts and cumulative storage capacity. The allows a cluster-admin to plan their 
 cluster's storage budget without risk of any one project going over their allotment.
+
+{% endcapture %}
+
+{% include templates/task.md %}

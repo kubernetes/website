@@ -60,7 +60,7 @@ The jsonpath is interpreted as follows:
 - `.containers[*]`: for each container
 - `.image`: get the image
 
-**Note:** When fetching a single Pod by name, e.g. `kubect get pod nginx`,
+**Note:** When fetching a single Pod by name, e.g. `kubectl get pod nginx`,
 the `.items[*]` portion of the path should be omitted because a single
 Pod is returned instead of a list of items.
 

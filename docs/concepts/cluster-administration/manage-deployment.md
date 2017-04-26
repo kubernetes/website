@@ -4,6 +4,9 @@ assignees:
 - janetkuo
 - mikedanese
 title: Managing Resources
+redirect_from:
+- "/docs/user-guide/managing-deployments/"
+- "/docs/user-guide/managing-deployments.html"
 ---
 
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features we'll discuss in more depth are [configuration files](/docs/user-guide/configuring-containers/#configuration-in-kubernetes) and [labels](/docs/user-guide/deploying-applications/#labels).
@@ -256,7 +259,7 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 
 This outputs all "app=nginx" pods, with an additional label column of pods' tier (specified with `-L` or `--label-columns`).
 
-For more information, please see [labels](/docs/user-guide/labels/) and [kubectl label](/docs/user-guide/kubectl/kubectl_label/) document.
+For more information, please see [labels](/docs/user-guide/labels/) and [kubectl label](/docs/user-guide/kubectl/v1.6/#label) document.
 
 ## Updating annotations
 
@@ -273,7 +276,7 @@ metadata:
 ...
 ```
 
-For more information, please see [annotations](/docs/user-guide/annotations/) and [kubectl annotate](/docs/user-guide/kubectl/kubectl_annotate/) document.
+For more information, please see [annotations](/docs/concepts/overview/working-with-objects/annotations/) and [kubectl annotate](/docs/user-guide/kubectl/v1.6/#annotate) document.
 
 ## Scaling your application
 
@@ -301,7 +304,7 @@ deployment "my-nginx" autoscaled
 
 Now your nginx replicas will be scaled up and down as needed, automatically.
 
-For more information, please see [kubectl scale](/docs/user-guide/kubectl/kubectl_scale/), [kubectl autoscale](/docs/user-guide/kubectl/kubectl_autoscale/) and [horizontal pod autoscaler](/docs/user-guide/horizontal-pod-autoscaler/) document.
+For more information, please see [kubectl scale](/docs/user-guide/kubectl/v1.6/#scale), [kubectl autoscale](/docs/user-guide/kubectl/v1.6/#autoscale) and [horizontal pod autoscaler](/docs/user-guide/horizontal-pod-autoscaler/) document.
 
 
 ## In-place updates of resources
@@ -312,7 +315,7 @@ Sometimes it's necessary to make narrow, non-disruptive updates to resources you
 
 It is suggested to maintain a set of configuration files in source control (see [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)),
 so that they can be maintained and versioned along with the code for the resources they configure.
-Then, you can use [`kubectl apply`](/docs/user-guide/kubectl/kubectl_apply/) to push your configuration changes to the cluster.
+Then, you can use [`kubectl apply`](/docs/user-guide/kubectl/v1.6/#apply) to push your configuration changes to the cluster.
 
 This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
 
@@ -350,7 +353,7 @@ $ rm /tmp/nginx.yaml
 
 This allows you to do more significant changes more easily. Note that you can specify the editor with your `EDITOR` or `KUBE_EDITOR` environment variables.
 
-For more information, please see [kubectl edit](/docs/user-guide/kubectl/kubectl_edit/) document.
+For more information, please see [kubectl edit](/docs/user-guide/kubectl/v1.6/#edit) document.
 
 ### kubectl patch
 
@@ -398,7 +401,7 @@ The patch is specified using json.
 
 The system ensures that you don't clobber changes made by other users or components by confirming that the `resourceVersion` doesn't differ from the version you edited. If you want to update regardless of other changes, remove the `resourceVersion` field when you edit the resource. However, if you do this, don't use your original configuration file as the source since additional fields most likely were set in the live state.
 
-For more information, please see [kubectl patch](/docs/user-guide/kubectl/kubectl_patch/) document.
+For more information, please see [kubectl patch](/docs/user-guide/kubectl/v1.6/#patch) document.
 
 ## Disruptive updates
 
@@ -430,9 +433,9 @@ To update to version 1.9.1, simply change `.spec.template.spec.containers[0].ima
 $ kubectl edit deployment/my-nginx
 ```
 
-That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/user-guide/deployments/).
+That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).
 
 ## What's next?
 
-- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/user-guide/introspection-and-debugging/)
+- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
 - [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)

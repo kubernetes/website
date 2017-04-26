@@ -9,7 +9,7 @@ to the Kubernetes documentation.
 
 {% capture prerequisites %}
 Create a fork of the Kubernetes documentation repository as described in
-[Creating a Documentation Pull Request](/docs/contribute/create-pull-request/).
+[Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
 {% endcapture %}
 
 {% capture steps %}
@@ -64,7 +64,7 @@ web server:
         docker run -ti --rm -v "$PWD":/k8sdocs -p 4000:4000 gcr.io/google-samples/k8sdocs:1.1
 
 1. View your staged content at
-[http://localhost:4000](http://localhost:4000){: target="_blank"}.
+http://localhost:4000.
 
 ## Staging locally without Docker
 
@@ -88,7 +88,7 @@ web server:
         jekyll serve
 
 1. View your staged content at
-[http://localhost:4000](http://localhost:4000){: target="_blank"}.
+http://localhost:4000.
 
 <i>NOTE: If you do not want Jekyll to interfere with your other globally installed gems, you can use `bundler`:</i> 
  
@@ -96,14 +96,14 @@ web server:
  	bundle install
  	bundler exec jekyll serve
 
-<i> Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: [http://localhost:4000](http://localhost:4000)</i>
+<i> Regardless of whether you use `bundler` or not, your copy of the site will then be viewable at: http://localhost:4000</i>
 
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn about [writing a new topic](/docs/contribute/write-new-topic/).
-* Learn about [using page templates](/docs/contribute/page-templates/).
-* Learn about [creating a pull request](/docs/contribute/create-pull-request/).
+* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
+* Learn about [using page templates](/docs/home/contribute/page-templates/).
+* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
 {% endcapture %}
 
 {% include templates/task.md %}

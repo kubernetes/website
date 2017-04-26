@@ -3,6 +3,9 @@ assignees:
 - crassirostris
 - piosz
 title: Logging Using Stackdriver
+redirect_from:
+- "/docs/user-guide/logging/stackdriver/"
+- "/docs/user-guide/logging/stackdriver.html"
 ---
 
 Before reading this page, it's highly recommended to familiarize yourself
@@ -10,7 +13,7 @@ with the [overview of logging in Kubernetes](/docs/concepts/cluster-administrati
 
 **Note:** By default, Stackdriver logging collects only your container's standard output and
 standard error streams. To collect any logs your application writes to a file (for example),
-see the [sidecar approach](/docs/concepts/cluster-administration/logging/#using-a-sidecar-container-with-the-logging-agent)
+see the [sidecar approach](/docs/concepts/cluster-administration/logging#using-a-sidecar-container-with-the-logging-agent)
 in the Kubernetes logging overview.
 
 ## Deploying
@@ -83,7 +86,7 @@ Stackdriver Logging agents to the running cluster.
     kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/fluentd-gcp-configmap.yaml
     ```
 
-    The command creates the `ConfigMap` in the default namespace. You can download the file
+    The command creates the `ConfigMap` in the `default` namespace. You can download the file
     manually and change it before creating the `ConfigMap` object.
 
 1. Deploy the logging agent `DaemonSet` by running the following command:
@@ -231,3 +234,98 @@ or to [BigQuery](https://cloud.google.com/bigquery/) to run further
 analysis. Stackdriver Logging offers the concept of sinks, where you can
 specify the destination of log entries. More information is available on
 the Stackdriver [Exporting Logs page](https://cloud.google.com/logging/docs/export/configure_export_v2).
+
+## Configuring Stackdriver Logging Agents
+
+Sometimes the default installation of Stackdriver Logging may not suite your needs, for example:
+
+* You may want to add more resources because default performance doesn't suite your needs.
+* You may want to introduce additional parsing to extract more metadata from your log messages,
+like severity or source code reference.
+* You may want to send logs not only to Stackdriver or send it to Stackdriver only partially.
+
+In this case you need to be able to change the parameters of `DaemonSet` and `ConfigMap`.
+
+### Prerequisites
+
+If you're on GKE and Stackdriver Logging is enabled in your cluster, you cannot change its
+parameters. Likewise, if you're not on GKE, but Stackdriver Logging is installed as an addon,
+you won't be able to change deployment parameters using Kubernetes API. To make it possible
+to change parameters of Stackdriver Logging agents, you should switch to the API object
+deployment, when Stackdriver Logging is installed into a running cluster that didn't have any
+cluster logging solutions installed before that.
+
+You can find notes on how to install Stackdriver Logging agents into a running cluster in the
+[Deploying section](#deploying).
+
+### Changing `DaemonSet` parameters
+
+When you have the Stackdriver Logging `DaemonSet` in your cluster, you can just modify the
+`template` field in its spec, daemonset controller will update the pods for you. For example,
+let's assume you've just installed the Stackdriver Logging as described above. Now you want to
+change the memory limit to give fluentd more memory to safely process more logs.
+
+Get the spec of `DaemonSet` running in your cluster:
+
+```shell
+kubectl get ds fluentd-gcp-v2.0 --namespace kube-system -o yaml > fluentd-gcp-ds.yaml
+```
+
+Then edit resource requirements in the spec file and update the `DaemonSet` object
+in the apiserver using the following command:
+
+```shell
+kubectl replace -f fluentd-gcp-ds.yaml
+```
+
+After some time, Stackdriver Logging agent pods will be restarted with the new configuration.
+
+### Changing fluentd parameters
+
+Fluentd configuration is stored in the `ConfigMap` object. It is effectively a set of configuration
+files that are merged together. You can learn about fluentd configuration on the [official
+site](http://docs.fluentd.org).
+
+Imagine you want to add a new parsing logic to the configuration, so that fluentd can understand
+default Python logging format. An appropriate fluentd filter looks similar to this:
+
+```
+<filter reform.**>
+  type parser
+  format /^(?<severity>\w):(?<logger_name>\w):(?<log>.*)/
+  reserve_data true
+  suppress_parse_error_log true
+  key_name log
+</filter>
+```
+
+Now you have to put it in the configuration and make Stackdriver Logging agents pick it up.
+Get the current version of the Stackdriver Logging `ConfigMap` in your cluster
+by running the following command:
+
+```shell
+kubectl get ds fluentd-gcp-v2.0 --namespace kube-system -o yaml > fluentd-gcp-ds.yaml
+```
+
+Then in the value for the key `containers.input.conf` insert a new filter right after
+the `source` section. **Note:** order is important.
+
+Updating `ConfigMap` in the apiserver is more complicated than updating `DaemonSet`. It's better
+to consider `ConfigMap` to be immutable. Then, in order to update the configuration, you should
+create `ConfigMap` with a new name and then change `DaemonSet` to point to it
+using [guide above](#changing-daemonset-parameters).
+
+### Adding fluentd plugins
+
+Fluentd is written in Ruby and allows to extend its capabilities using
+[plugins](http://www.fluentd.org/plugins). If you want to use a plugin, which is not included
+in the default Stackdriver Logging container image, you have to build a custom image. Imagine
+you want to add Kafka sink for messages from a particular container for additional processing.
+You can re-use the default [container image sources](https://github.com/kubernetes/contrib/tree/master/fluentd/fluentd-gcp-image)
+with minor changes:
+
+* Change Makefile to point to your container repository, e.g. `PREFIX=gcr.io/<your-project-id>`.
+* Add your dependency to the Gemfile, for example `gem 'fluent-plugin-kafka'`.
+
+Then run `make build push` from this directory. After updating `DaemonSet` to pick up the
+new image, you can use the plugin you installed in the fluentd configuration.

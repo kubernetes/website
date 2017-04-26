@@ -3,6 +3,9 @@ assignees:
 - lavalamp
 - thockin
 title: Cluster Management
+redirect_from:
+- "/docs/admin/cluster-management/"
+- "/docs/admin/cluster-management.html"
 ---
 
 * TOC
@@ -83,7 +86,7 @@ In other environments you may need to configure the machine yourself and tell th
 If you are using GCE or GKE, you can configure your cluster so that it is automatically rescaled based on
 pod needs.
 
-As described in [Compute Resource](/docs/user-guide/compute-resources/), users can reserve how much CPU and memory is allocated to pods.
+As described in [Compute Resource](/docs/concepts/configuration/manage-compute-resources-container/), users can reserve how much CPU and memory is allocated to pods.
 This information is used by the Kubernetes scheduler to find a place to run the pod. If there is
 no node that has enough free capacity (or doesn't match other pod requirements) then the pod has
 to wait until some pods are terminated or a new node is added.

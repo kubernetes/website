@@ -5,13 +5,6 @@ assignees:
 title: Application Introspection and Debugging
 ---
 
----
-assignees:
-- janetkuo
-- thockin
-title: Application Introspection and Debugging
----
-
 Once your application is running, you'll inevitably need to debug problems with it.
 Earlier we described how you can use `kubectl get pods` to retrieve simple status information about
 your pods. But there are a number of ways to get even more information about your application.
@@ -270,11 +263,11 @@ Sometimes when debugging it can be useful to look at the status of a node -- for
 
 ```shell
 $ kubectl get nodes
-NAME                     STATUS        AGE
-kubernetes-node-861h     NotReady      1h
-kubernetes-node-bols     Ready         1h
-kubernetes-node-st6x     Ready         1h
-kubernetes-node-unaj     Ready         1h
+NAME                     STATUS        AGE     VERSION
+kubernetes-node-861h     NotReady      1h      v1.6.0+fff5156
+kubernetes-node-bols     Ready         1h      v1.6.0+fff5156
+kubernetes-node-st6x     Ready         1h      v1.6.0+fff5156
+kubernetes-node-unaj     Ready         1h      v1.6.0+fff5156
 
 $ kubectl describe node kubernetes-node-861h
 Name:			kubernetes-node-861h

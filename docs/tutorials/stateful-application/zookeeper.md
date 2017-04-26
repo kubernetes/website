@@ -23,11 +23,11 @@ Before starting this tutorial, you should be familiar with the following
 Kubernetes concepts.
 
 * [Pods](/docs/user-guide/pods/single-container/)
-* [Cluster DNS](/docs/admin/dns/)
+* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/user-guide/services/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
-* [ConfigMaps](/docs/user-guide/configmap/)
+* [ConfigMaps](/docs/tasks/configure-pod-container/configmap/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
 * [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
@@ -90,14 +90,14 @@ safely discarded.
 
 The manifest below contains a 
 [Headless Service](/docs/user-guide/services/#headless-services), 
-a [ConfigMap](/docs/user-guide/configmap/), 
+a [ConfigMap](/docs/tasks/configure-pod-container/configmap/), 
 a [PodDisruptionBudget](/docs/admin/disruptions/#specifying-a-poddisruptionbudget), 
 and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). 
 
 {% include code.html language="yaml" file="zookeeper.yaml" ghlink="/docs/tutorials/stateful-application/zookeeper.yaml" %}
 
 Open a command terminal, and use 
-[`kubectl create`](/docs/user-guide/kubectl/kubectl_create/) to create the 
+[`kubectl create`](/docs/user-guide/kubectl/v1.6/#create) to create the 
 manifest.
 
 ```shell
@@ -114,7 +114,7 @@ poddisruptionbudget "zk-budget" created
 statefulset "zk" created
 ```
 
-Use [`kubectl get`](/docs/user-guide/kubectl/kubectl_get/)  to watch the
+Use [`kubectl get`](/docs/user-guide/kubectl/v1.6/#get)  to watch the
 StatefulSet controller create the StatefulSet's Pods.
 
 ```shell
@@ -153,7 +153,7 @@ leader election. Each server in the ensemble needs to have a unique
 identifier, all servers need to know the global set of identifiers, and each
 identifier needs to be associated with a network address.
 
-Use [`kubectl exec`](/docs/user-guide/kubectl/kubectl_exec/) to get the hostnames 
+Use [`kubectl exec`](/docs/user-guide/kubectl/v1.6/#exec) to get the hostnames 
 of the Pods in the `zk` StatefulSet.
 
 ```shell
@@ -209,7 +209,7 @@ zk-1.zk-headless.default.svc.cluster.local
 zk-2.zk-headless.default.svc.cluster.local
 ```
 
-The A records in [Kubernetes DNS](/docs/admin/dns/) resolve the FQDNs to the Pods' IP addresses. 
+The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) resolve the FQDNs to the Pods' IP addresses. 
 If the Pods are rescheduled, the A records will be updated with the Pods' new IP 
 addresses, but the A record's names will not change.
 
@@ -356,7 +356,7 @@ in memory state, to storage media. Using WALs to provide durability is a common
 technique for applications that use consensus protocols to achieve a replicated
 state machine and for storage applications in general.
 
-Use [`kubectl delete`](/docs/user-guide/kubectl/kubectl_delete/) to delete the 
+Use [`kubectl delete`](/docs/user-guide/kubectl/v1.6/#delete) to delete the 
 `zk` StatefulSet.
 
 ```shell
@@ -681,7 +681,7 @@ log rotation for you. Kubernetes also implements a sane retention policy that
 ensures application logs written to standard out and standard error do not 
 exhaust local storage media.
 
-Use [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs/) to retrieve the last 
+Use [`kubectl logs`](/docs/user-guide/kubectl/v1.6/#logs) to retrieve the last 
 few log lines from one of the Pods.
 
 ```shell
@@ -715,8 +715,8 @@ using `kubectl logs` and from the Kubernetes Dashboard.
 ```
 
 Kubernetes also supports more powerful, but more complex, logging integrations 
-with [Google Cloud Logging](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-gcp/README.md) 
-and [ELK](https://github.com/kubernetes/contrib/blob/master/logging/fluentd-sidecar-es/README.md).
+with [Logging Using Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/) 
+and [Logging Using Elasticsearch and Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/).
 For cluster level log shipping and aggregation, you should consider deploying a
 [sidecar](http://blog.kubernetes.io/2015/06/the-distributed-system-toolkit-patterns.html) 
 container to rotate and ship your logs.
@@ -726,7 +726,7 @@ container to rotate and ship your logs.
 The best practices with respect to allowing an application to run as a privileged 
 user inside of a container are a matter of debate. If your organization requires 
 that applications be run as a non-privileged user you can use a 
-[SecurityContext](/docs/user-guide/security-context/) to control the user that 
+[SecurityContext](/docs/concepts/policy/security-context/) to control the user that 
 the entry point runs as.
 
 The `zk` StatefulSet's Pod `template` contains a SecurityContext.
@@ -1022,7 +1022,7 @@ Get the nodes in your cluster.
 kubectl get nodes
 ```
 
-Use [`kubectl cordon`](/docs/user-guide/kubectl/kubectl_cordon/) to 
+Use [`kubectl cordon`](/docs/user-guide/kubectl/v1.6/#cordon) to 
 cordon all but four of the nodes in your cluster.
 
 ```shell{% raw %}
@@ -1060,7 +1060,7 @@ kubernetes-minion-group-i4c4
 {% endraw %}
 ```
 
-Use [`kubectl drain`](/docs/user-guide/kubectl/kubectl_drain/) to cordon and 
+Use [`kubectl drain`](/docs/user-guide/kubectl/v1.6/#drain) to cordon and 
 drain the node on which the `zk-0` Pod is scheduled.
 
 ```shell {% raw %}
@@ -1170,7 +1170,7 @@ dataLength = 5
 numChildren = 0
 ```
 
-Use [`kubectl uncordon`](/docs/user-guide/kubectl/kubectl_uncordon/) to uncordon the first node.
+Use [`kubectl uncordon`](/docs/user-guide/kubectl/v1.6/#uncordon) to uncordon the first node.
 
 ```shell
 kubectl uncordon kubernetes-minion-group-pb41

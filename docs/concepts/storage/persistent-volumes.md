@@ -5,6 +5,9 @@ assignees:
 - saad-ali
 - thockin
 title: Persistent Volumes
+redirect_from:
+- "/docs/user-guide/persistent-volumes/"
+- "/docs/user-guide/persistent-volumes/index.html"
 ---
 
 This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
@@ -76,7 +79,7 @@ The reclaim policy for a `PersistentVolume` tells the cluster what to do with th
 
 If supported by appropriate volume plugin, recycling performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
 
-However, an administrator can configure a custom recycler pod templates using the Kubernetes controller manager command line arguments as described [here](/docs/admin/kube-controller-manager/). The custom recycler pod template must contain a `volumes` specification, as shown in the example below:
+However, an administrator can configure a custom recycler pod template using the Kubernetes controller manager command line arguments as described [here](/docs/admin/kube-controller-manager/). The custom recycler pod template must contain a `volumes` specification, as shown in the example below:
 
 ```yaml
 apiVersion: v1
@@ -318,7 +321,7 @@ A claim can request a particular class by specifying the name of a
 Only PVs of the requested class, ones with the same `storageClassName` as the PVC, can
 be bound to the PVC.
 
-PVCs don't necessarily have to request a class. A PVC with its `storageClasName` set
+PVCs don't necessarily have to request a class. A PVC with its `storageClassName` set
 equal to `""` is always interpreted to be requesting a PV with no class, so it
 can only be bound to PVs with no class (no annotation or one set equal to
 `""`). A PVC with no `storageClassName` is not quite the same and is treated differently
@@ -470,11 +473,14 @@ metadata:
 provisioner: kubernetes.io/glusterfs
 parameters:
   resturl: "http://127.0.0.1:8081"
+  clusterid: "630372ccdc720a92c681fb928f27b53f"
   restauthenabled: "true"
   restuser: "admin"
   secretNamespace: "default"
   secretName: "heketi-secret"
-
+  gidMin: "40000"
+  gidMax: "50000"
+  volumetype: "replicate:3"
 ```
 
 * `resturl`: Gluster REST service/Heketi service url which provision gluster volumes on demand. The general format should be `IPaddress:Port` and this is a mandatory parameter for GlusterFS dynamic provisioner. If Heketi service is exposed as a routable service in openshift/kubernetes setup, this can have a format similar to
@@ -482,10 +488,28 @@ parameters:
 * `restauthenabled` : Gluster REST service authentication boolean that enables authentication to the REST server. If this value is 'true', `restuser` and `restuserkey` or `secretNamespace` + `secretName` have to be filled. This option is deprecated, authentication is enabled when any of `restuser`, `restuserkey`, `secretName` or `secretNamespace` is specified.
 * `restuser` : Gluster REST service/Heketi user who has access to create volumes in the Gluster Trusted Pool.
 * `restuserkey` : Gluster REST service/Heketi user's password which will be used for authentication to the REST server. This parameter is deprecated in favor of `secretNamespace` + `secretName`.
-* `secretNamespace` + `secretName` : Identification of Secret instance that contains user password to use when talking to Gluster REST service. These parameters are optional, empty password will be used when both `secretNamespace` and `secretName` are omitted. The provided secret must have type "kubernetes.io/glusterfs", e.g. created in this way:
+* `secretNamespace`, `secretName` : Identification of Secret instance that contains user password to use when talking to Gluster REST service. These parameters are optional, empty password will be used when both `secretNamespace` and `secretName` are omitted. The provided secret must have type "kubernetes.io/glusterfs", e.g. created in this way:
   ```
   $ kubectl create secret generic heketi-secret --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' --namespace=default
   ```
+  Example of a secret can be found in [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/kubernetes/blob/master/examples/persistent-volume-provisioning/glusterfs-provisioning-secret.yaml).
+* `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster which will be used by Heketi when provisioning the volume. It can also be a list of clusterids, for ex:
+  "8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397". This is an optional parameter.
+* `gidMin`, `gidMax` : The minimum and maximum value of GID range for the storage class. A unique value (GID) in this range ( gidMin-gidMax ) will be used for dynamically provisioned volumes. These are optional values. If not specified, the volume will be provisioned with a value between 2000-2147483647 which are defaults for gidMin and gidMax respectively.
+* `volumetype` : The volume type and its parameters can be configured with this optional value. If the volume type is not mentioned, it's up to the provisioner to decide the volume type.
+  For example:
+    'Replica volume':
+      `volumetype: replicate:3` where '3' is replica count.
+    'Disperse/EC volume':
+      `volumetype: disperse:4:2` where '4' is data and '2' is the redundancy count.
+    'Distribute volume':
+      `volumetype: none`
+
+  For available volume types and administration options, refer to the [Administration Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
+
+  For further reference information, see [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
+
+  When persistent volumes are dynamically provisioned, the Gluster plugin automatically creates an endpoint and a headless service in the name `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically deleted when the persistent volume claim is deleted.
 
 #### OpenStack Cinder
 
@@ -505,6 +529,7 @@ parameters:
 
 #### vSphere
 
+1. Create a persistent volume with a user specified disk format.
 ```yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
@@ -515,7 +540,54 @@ parameters:
   diskformat: zeroedthick
 ```
 
-* `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
+-   `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
+
+2. Create a persistent volume with a disk format on a user specified datastore.
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: fast
+provisioner: kubernetes.io/vsphere-volume
+parameters:
+    diskformat: zeroedthick
+    datastore: VSANDatastore
+```
+
+-   `diskformat`: `thin`, `zeroedthick` and `eagerzeroedthick`. Default: `"thin"`.
+-   `datastore`: The user can also specify the datastore in the Storageclass. The volume will be created on the datastore specified in the storage class which in this case is `VSANDatastore`. This field is optional. If not specified as in previous YAML description, the volume will be created on the datastore specified in the vsphere config file used to initialize the vSphere Cloud Provider.
+
+3. Create a persistent volume with user specified VSAN storage capabilities.
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: vsan-policy-fast
+provisioner: kubernetes.io/vsphere-volume
+parameters:
+  diskformat: thin
+  hostFailuresToTolerate: "1"
+  diskStripes: "2"
+  cacheReservation: "20"
+  datastore: VSANDatastore
+```
+
+-   Here, the user can specify VSAN storage capabilities for dynamic volume provisioning inside Kubernetes.
+-   Storage Policies capture storage requirements, such as performance and availability, for persistent volumes. These policies determine how the container volume storage objects are provisioned and allocated within the datastore to guarantee the requested Quality of Service. Storage policies are composed of storage capabilities, typically represented by a key-value pair. The key is a specific property that the datastore can offer and the value is a metric, or a range, that the datastore guarantees for a provisioned object, such as a container volume backed by a virtual disk.
+-   As described in [official documentation](https://pubs.vmware.com/vsphere-65/index.jsp?topic=%2Fcom.vmware.vsphere.virtualsan.doc%2FGUID-08911FD3-2462-4C1C-AE81-0D4DBC8F7990.html), VSAN exposes multiple storage capabilities. The below table lists VSAN storage capabilities that are currently supported by vSphere Cloud Provider.
+
+    Storage Capability Name       | Description
+    -------------------- | ------------
+    cacheReservation     | Flash read cache reservation
+    diskStripes          | Number of disk stripes per object
+    forceProvisioning     | Force provisioning
+    hostFailuresToTolerate     | Number of failures to tolerate
+    iopsLimit     | IOPS limit for object
+    objectSpaceReservation     | Object space reservation
+
+    vSphere Infrastructure(VI) administrator can specify storage requirements for applications in terms of storage capabilities while creating a storage class inside Kubernetes. Please note that while creating a StorageClass, administrator should specify storage capability names used in the table above as these names might differ from the ones used by VSAN. For example - Number of disk stripes per object is referred to as stripeWidth in VSAN documentation however vSphere Cloud Provider uses a friendly name diskStripes.
+
+You can see [vSphere example](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere) for more details.
 
 #### Ceph RBD
 

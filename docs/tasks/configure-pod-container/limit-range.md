@@ -3,42 +3,30 @@ assignees:
 - derekwaynecarr
 - janetkuo
 title: Setting Pod CPU and Memory Limits
+redirect_from:
+- "/docs/admin/limitrange/"
+- "/docs/admin/limitrange/index.html"
 ---
 
+{% capture overview %}
+
 By default, pods run with unbounded CPU and memory limits.  This means that any pod in the
-system will be able to consume as much CPU and memory on the node that executes the pod.
+system will be able to consume as much CPU and memory as is on the node that executes the pod.
 
-Users may want to impose restrictions on the amount of resources a single pod in the system may consume
-for a variety of reasons.
-
-For example:
-
-1. Each node in the cluster has 2GB of memory.  The cluster operator does not want to accept pods
-that require more than 2GB of memory since no node in the cluster can support the requirement.  To prevent a
-pod from being permanently unscheduled to a node, the operator instead chooses to reject pods that exceed 2GB
-of memory as part of admission control.
-2. A cluster is shared by two communities in an organization that runs production and development workloads
-respectively.  Production workloads may consume up to 8GB of memory, but development workloads may consume up
-to 512MB of memory.  The cluster operator creates a separate namespace for each workload, and applies limits to
-each namespace.
-3. Users may create a pod which consumes resources just below the capacity of a machine.  The left over space
-may be too small to be useful, but big enough for the waste to be costly over the entire cluster.  As a result,
-the cluster operator may want to set limits that a pod must consume at least 20% of the memory and CPU of their
-average node size in order to provide for more uniform scheduling and limit waste.
-
-This example demonstrates how limits can be applied to a Kubernetes [namespace](/docs/admin/namespaces/walkthrough/) to control
+This example demonstrates how limits can be applied to a Kubernetes [namespace](/docs/tasks/administer-cluster/namespaces-walkthrough/) to control
 min/max resource limits per pod.  In addition, this example demonstrates how you can
 apply default resource limits to pods in the absence of an end-user specified value.
 
-See [LimitRange design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/admission_control_limit_range.md) for more information. For a detailed description of the Kubernetes resource model, see [Resources](/docs/user-guide/compute-resources/)
+{% endcapture %}
 
-## Step 0: Prerequisites
+{% capture prerequisites %}
 
-This example requires a running Kubernetes cluster.  See the [Getting Started guides](/docs/getting-started-guides/) for how to get started.
+* {% include task-tutorial-prereqs.md %}
 
-Change to the `<kubernetes>` directory if you're not already there.
+{% endcapture %}
 
-## Step 1: Create a namespace
+{% capture steps %}
+## Create a namespace
 
 This example will work in a custom namespace to demonstrate the concepts involved.
 
@@ -58,16 +46,16 @@ default         Active    51s
 limit-example   Active    45s
 ```
 
-## Step 2: Apply a limit to the namespace
+## Apply a limit to the namespace
 
 Let's create a simple limit in our namespace.
 
 ```shell
-$ kubectl create -f docs/admin/limitrange/limits.yaml --namespace=limit-example
+$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/limits.yaml --namespace=limit-example
 limitrange "mylimits" created
 ```
 
-Let's describe the limits that we have imposed in our namespace.
+Let's describe the limits that were imposed in the namespace.
 
 ```shell
 $ kubectl describe limits mylimits --namespace=limit-example
@@ -81,7 +69,7 @@ Container   cpu           100m     2        200m                 300m           
 Container   memory        3Mi      1Gi      100Mi                200Mi              -
 ```
 
-In this scenario, we have said the following:
+In this scenario, the following limits were specified:
 
 1. If a max constraint is specified for a resource (2 CPU and 1Gi memory in this case), then a limit
 must be specified for that resource across all containers. Failure to specify a limit will result in
@@ -95,7 +83,7 @@ set by *defaultRequest* in file `limits.yaml` (200m CPU and 100Mi memory).
 memory limits must be <= 1Gi; the sum of all containers CPU requests must be >= 200m and the sum of all
 containers CPU limits must be <= 2.
 
-## Step 3: Enforcing limits at point of creation
+## Enforcing limits at point of creation
 
 The limits enumerated in a namespace are only enforced when a pod is created or updated in
 the cluster.  If you change the limits to a different value range, it does not affect pods that
@@ -150,14 +138,14 @@ Note that our nginx container has picked up the namespace default CPU and memory
 Let's create a pod that exceeds our allowed limits by having it have a container that requests 3 CPU cores.
 
 ```shell
-$ kubectl create -f docs/admin/limitrange/invalid-pod.yaml --namespace=limit-example
-Error from server: error when creating "docs/admin/limitrange/invalid-pod.yaml": Pod "invalid-pod" is forbidden: [Maximum cpu usage per Pod is 2, but limit is 3., Maximum cpu usage per Container is 2, but limit is 3.]
+$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/invalid-pod.yaml --namespace=limit-example
+Error from server: error when creating "http://k8s.io/docs/tasks/configure-pod-container/invalid-pod.yaml": Pod "invalid-pod" is forbidden: [Maximum cpu usage per Pod is 2, but limit is 3., Maximum cpu usage per Container is 2, but limit is 3.]
 ```
 
 Let's create a pod that falls within the allowed limit boundaries.
 
 ```shell
-$ kubectl create -f docs/admin/limitrange/valid-pod.yaml --namespace=limit-example
+$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/valid-pod.yaml --namespace=limit-example
 pod "valid-pod" created
 ```
 
@@ -194,7 +182,7 @@ Usage of kubelet
 $ kubelet --cpu-cfs-quota=false ...
 ```
 
-## Step 4: Cleanup
+## Cleanup
 
 To remove the resources used by this example, you can just delete the limit-example namespace.
 
@@ -205,6 +193,28 @@ $ kubectl get namespaces
 NAME            STATUS        AGE
 default         Active        12m
 ```
+{% endcapture %}
+
+{% capture discussion %}
+## Motivation for setting resource limits
+
+Users may want to impose restrictions on the amount of resources a single pod in the system may consume
+for a variety of reasons.
+
+For example:
+
+1. Each node in the cluster has 2GB of memory.  The cluster operator does not want to accept pods
+that require more than 2GB of memory since no node in the cluster can support the requirement.  To prevent a
+pod from being permanently unscheduled to a node, the operator instead chooses to reject pods that exceed 2GB
+of memory as part of admission control.
+2. A cluster is shared by two communities in an organization that runs production and development workloads
+respectively.  Production workloads may consume up to 8GB of memory, but development workloads may consume up
+to 512MB of memory.  The cluster operator creates a separate namespace for each workload, and applies limits to
+each namespace.
+3. Users may create a pod which consumes resources just below the capacity of a machine.  The left over space
+may be too small to be useful, but big enough for the waste to be costly over the entire cluster.  As a result,
+the cluster operator may want to set limits that a pod must consume at least 20% of the memory and CPU of their
+average node size in order to provide for more uniform scheduling and limit waste.
 
 ## Summary
 
@@ -212,3 +222,11 @@ Cluster operators that want to restrict the amount of resources a single contain
 are able to define allowable ranges per Kubernetes namespace.  In the absence of any explicit assignments,
 the Kubernetes system is able to apply default resource *limits* and *requests* if desired in order to
 constrain the amount of resource a pod consumes on a node.
+{% endcapture %}
+
+{% capture whatsnext %}
+* See [LimitRange design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/admission_control_limit_range.md) for more information.
+* See [Resources](/docs/concepts/configuration/manage-compute-resources-container/) for a detailed description of the Kubernetes resource model.
+{% endcapture %}
+
+{% include templates/task.md %}

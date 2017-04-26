@@ -71,7 +71,7 @@ some caveats.
 
 To be able to federate multiple clusters, we first need to setup a federation
 control plane.
-Follow the [setup guide](/docs/admin/federation/) to setup the
+Follow the [setup guide](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) to setup the
 federation control plane.
 
 ## Hybrid cloud capabilities

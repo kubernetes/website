@@ -3,6 +3,9 @@ assignees:
 - crassirostris
 - piosz
 title: Logging Using Elasticsearch and Kibana
+redirect_from:
+- "/docs/user-guide/logging/elasticsearch/"
+- "/docs/user-guide/logging/elasticsearch.html"
 ---
 
 On the Google Compute Engine (GCE) platform, the default logging support targets
@@ -68,7 +71,7 @@ monitoring-influx-grafana-v1-o79xf             2/2       Running   0          2h
 
 The `fluentd-elasticsearch` pods gather logs from each node and send them to
 the `elasticsearch-logging` pods, which are part of a
-[service](/docs/user-guide/services/) named `elasticsearch-logging`. These
+[service](/docs/concepts/services-networking/service/) named `elasticsearch-logging`. These
 Elasticsearch pods store the logs and expose them via a REST API.
 The `kibana-logging` pod provides a web UI for reading the logs stored in
 Elasticsearch, and is part of a service named `kibana-logging`.
