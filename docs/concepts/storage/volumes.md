@@ -5,6 +5,9 @@ assignees:
 - saad-ali
 - thockin
 title: Volumes
+redirect_from:
+- "/docs/user-guide/volumes/"
+- "/docs/user-guide/volumes.html"
 ---
 
 {% capture overview %}
