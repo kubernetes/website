@@ -3,6 +3,9 @@ assignees:
 - mml
 - wojtek-t
 title: Upgrading and Rolling Back etcd
+redirect_from:
+- "/docs/admin/etcd_upgrade/"
+- "/docs/admin/etcd_upgrade.html"
 ---
 
 ## About etcd
