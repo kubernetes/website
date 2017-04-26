@@ -3,6 +3,9 @@ assignees:
 - crassirostris
 - piosz
 title: Logging Using Stackdriver
+redirect_from:
+- "/docs/user-guide/logging/stackdriver/"
+- "/docs/user-guide/logging/stackdriver.html"
 ---
 
 Before reading this page, it's highly recommended to familiarize yourself
