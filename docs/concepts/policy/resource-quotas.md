@@ -2,6 +2,9 @@
 assignees:
 - derekwaynecarr
 title: Resource Quotas
+redirect_from:
+- "/docs/admin/resourcequota/"
+- "/docs/admin/resourcequota/index.html"
 ---
 
 When several users or teams share a cluster with a fixed number of nodes,

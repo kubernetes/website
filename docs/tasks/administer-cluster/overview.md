@@ -3,6 +3,9 @@ assignees:
 - davidopp
 - lavalamp
 title: Cluster Administration Overview
+redirect_from:
+- "/docs/admin/"
+- "/docs/admin/index.html"
 ---
 
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.

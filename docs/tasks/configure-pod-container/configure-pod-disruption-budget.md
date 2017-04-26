@@ -2,7 +2,11 @@
 assignees:
 - davidopp
 title: Configuring a Pod Disruption Budget
+redirect_from:
+- "/docs/admin/disruptions/"
+- "/docs/admin/disruptions.html"
 ---
+
 This guide is for anyone wishing to specify safety constraints on pods or anyone
 wishing to write software (typically automation software) that respects those
 constraints.

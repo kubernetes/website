@@ -2,6 +2,9 @@
 assignees:
 - thockin
 title: Cluster Networking
+redirect_from:
+- "/docs/admin/networking/"
+- "/docs/admin/networking.html"
 ---
 
 Kubernetes approaches networking somewhat differently than Docker does by

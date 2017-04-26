@@ -3,6 +3,9 @@ assignees:
 - erictune
 - thockin
 title: Images
+redirect_from:
+- "/docs/user-guide/images/"
+- "/docs/user-guide/images.html"
 ---
 
 {% capture overview %}
