@@ -3,6 +3,9 @@ assignees:
 - soltysh
 - sttts
 title: Auditing
+redirect_from:
+- "/docs/admin/audit/"
+- "/docs/admin/audit.html"
 ---
 
 * TOC
