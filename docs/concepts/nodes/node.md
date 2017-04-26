@@ -3,6 +3,9 @@ assignees:
 - caesarxuchao
 - dchen1107
 title: Nodes
+redirect_from:
+- "/docs/admin/node/"
+- "/docs/admin/node.html"
 ---
 
 * TOC
