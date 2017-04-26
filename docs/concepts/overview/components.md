@@ -2,6 +2,9 @@
 assignees:
 - lavalamp
 title: Kubernetes Components
+redirect_from:
+- "/docs/admin/cluster-components/"
+- "/docs/admin/cluster-components.html"
 ---
 
 This document outlines the various binary components that need to run to
