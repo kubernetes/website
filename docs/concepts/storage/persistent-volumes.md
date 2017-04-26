@@ -5,6 +5,9 @@ assignees:
 - saad-ali
 - thockin
 title: Persistent Volumes
+redirect_from:
+- "/docs/user-guide/persistent-volumes/"
+- "/docs/user-guide/persistent-volumes/index.html"
 ---
 
 This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
