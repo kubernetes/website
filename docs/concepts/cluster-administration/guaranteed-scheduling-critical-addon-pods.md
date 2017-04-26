@@ -4,6 +4,9 @@ assignees:
 - filipg
 - piosz
 title: Guaranteed Scheduling For Critical Add-On Pods
+redirect_from:
+- "/docs/admin/rescheduler/"
+- "/docs/admin/rescheduler.html"
 ---
 
 * TOC
