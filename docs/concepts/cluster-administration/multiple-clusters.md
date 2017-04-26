@@ -2,6 +2,9 @@
 assignees:
 - davidopp
 title: Using Multiple Clusters
+redirect_from:
+- "/docs/admin/multi-cluster/"
+- "/docs/admin/multi-cluster.html"
 ---
 
 You may want to set up multiple Kubernetes clusters, both to
