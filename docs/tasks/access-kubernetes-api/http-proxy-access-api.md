@@ -1,5 +1,8 @@
 ---
 title: Using an HTTP Proxy to Access the Kubernetes API
+redirect_from:
+- "/docs/user-guide/connecting-to-applications-proxy/"
+- "/docs/user-guide/connecting-to-applications-proxy.html"
 ---
 
 {% capture overview %}
