@@ -4,6 +4,9 @@ assignees:
 - roberthbailey
 - liggitt
 title: Master-Node communication
+redirect_from:
+- "/docs/admin/master-node-communication/"
+- "/docs/admin/master-node-communication.html"
 ---
 
 * TOC

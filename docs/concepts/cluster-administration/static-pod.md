@@ -2,6 +2,9 @@
 assignees:
 - jsafrane
 title: Static Pods
+redirect_from:
+- "/docs/admin/static-pods/"
+- "/docs/admin/static-pods.html"
 ---
 
 **If you are running clustered Kubernetes and are using static pods to run a pod on every node, you should probably be using a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)!**
