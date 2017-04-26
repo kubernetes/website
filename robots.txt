@@ -6,7 +6,7 @@ Disallow: /v1.1/
 Disallow: /404/
 Disallow: 404.html
 
-# Site renders /topic.md into /topic/index.html
+# NOTE: site renders /topic.md into /topic/index.html, effectively /topic/
 
 Disallow: /docs/admin/*
 Disallow: /docs/admin/addons/*
