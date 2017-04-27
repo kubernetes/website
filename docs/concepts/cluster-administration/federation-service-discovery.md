@@ -3,6 +3,9 @@ assignees:
 - bprashanth
 - quinton-hoole
 title: Cross-cluster Service Discovery using Federated Services
+redirect_from:
+- "/docs/user-guide/federation/federated-services/"
+- "/docs/user-guide/federation/federated-services.html"
 ---
 
 This guide explains how to use Kubernetes Federated Services to deploy

@@ -3,6 +3,9 @@ assignees:
 - mikedanese
 - thockin
 title: Authenticating Across Clusters with kubeconfig
+redirect_from:
+- "/docs/user-guide/kubeconfig-file/"
+- "/docs/user-guide/kubeconfig-file.html"
 ---
 
 Authentication in Kubernetes can differ for different individuals.

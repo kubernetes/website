@@ -23,10 +23,10 @@ Kubernetes cluster.
 
     The output is similar to this:
 
-        NAME      STATUS    AGE
-        worker0   Ready     1d
-        worker1   Ready     1d
-        worker2   Ready     1d
+        NAME      STATUS    AGE     VERSION
+        worker0   Ready     1d      v1.6.0+fff5156
+        worker1   Ready     1d      v1.6.0+fff5156
+        worker2   Ready     1d      v1.6.0+fff5156
 
 1. Chose one of your nodes, and add a label to it:
 
@@ -41,10 +41,10 @@ Kubernetes cluster.
 
     The output is similar to this:
 
-        NAME      STATUS    AGE       LABELS
-        worker0   Ready     1d        ...,disktype=ssd,kubernetes.io/hostname=worker0
-        worker1   Ready     1d        ...,kubernetes.io/hostname=worker1
-        worker2   Ready     1d        ...,kubernetes.io/hostname=worker2
+        NAME      STATUS    AGE     VERSION            LABELS
+        worker0   Ready     1d      v1.6.0+fff5156     ...,disktype=ssd,kubernetes.io/hostname=worker0
+        worker1   Ready     1d      v1.6.0+fff5156     ...,kubernetes.io/hostname=worker1
+        worker2   Ready     1d      v1.6.0+fff5156     ...,kubernetes.io/hostname=worker2
 
     In the preceding output, you can see that the `worker0` node has a
     `disktype=ssd` label.

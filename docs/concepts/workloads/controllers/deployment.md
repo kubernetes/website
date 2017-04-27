@@ -3,6 +3,9 @@ assignees:
 - bgrant0607
 - janetkuo
 title: Deployments
+redirect_from:
+- "/docs/user-guide/deployments/"
+- "/docs/user-guide/deployments.html"
 ---
 
 {:toc}

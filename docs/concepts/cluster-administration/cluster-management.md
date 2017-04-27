@@ -3,6 +3,9 @@ assignees:
 - lavalamp
 - thockin
 title: Cluster Management
+redirect_from:
+- "/docs/admin/cluster-management/"
+- "/docs/admin/cluster-management.html"
 ---
 
 * TOC

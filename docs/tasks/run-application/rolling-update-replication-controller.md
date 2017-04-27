@@ -2,6 +2,11 @@
 assignees:
 - janetkuo
 title: Rolling Update Replication Controller
+redirect_from:
+- "/docs/user-guide/rolling-updates/"
+- "/docs/user-guide/rolling-updates.html"
+- "/docs/user-guide/update-demo/index/"
+- "/docs/user-guide/update-demo/index.html"
 ---
 
 * TOC

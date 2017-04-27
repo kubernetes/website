@@ -3,91 +3,101 @@ assignees:
 - mikedanese
 - thockin
 title: Container Lifecycle Hooks
+redirect_from:
+- "/docs/user-guide/container-environment/"
+- "/docs/user-guide/container-environment.html"
 ---
 
-This document describes the environment for Kubelet managed containers on a Kubernetes node (kNode).  In contrast to the Kubernetes cluster API, which provides an API for creating and managing containers, the Kubernetes container environment provides the container access to information about what else is going on in the cluster.
+{% capture overview %}
 
-This cluster information makes it possible to build applications that are *cluster aware*.
-Additionally, the Kubernetes container environment defines a series of hooks that are surfaced to optional hook handlers defined as part of individual containers.  Container hooks are somewhat analogous to operating system signals in a traditional process model.   However these hooks are designed to make it easier to build reliable, scalable cloud applications in the Kubernetes cluster.  Containers that participate in this cluster lifecycle become *cluster native*.
+This page describes how kubelet managed Containers can use the Container lifecycle hook framework
+to run code triggered by events during their management lifecycle. 
 
-Another important part of the container environment is the file system that is available to the container.  In Kubernetes, the filesystem is a combination of an [image](/docs/concepts/containers/images/) and one or more [volumes](/docs/concepts/storage/volumes/).
+{% endcapture %}
 
-The following sections describe both the cluster information provided to containers, as well as the hooks and life-cycle that allows containers to interact with the management system.
-
-* TOC
 {:toc}
 
-## Cluster Information
+{% capture body %}
 
-There are two types of information that are available within the container environment.  There is information about the container itself, and there is information about other objects in the system.
+## Overview
 
-### Container Information
+Analogous to many programming language frameworks that have component lifecycle hooks, such as Angular,
+Kubernetes provides Containers with lifecycle hooks.
+The hooks enable Containers to be aware of events in their management lifecycle
+and run code implemented in a handler when the corresponding lifecycle hook is executed.
 
-Currently, the Pod name for the pod in which the container is running is set as the hostname of the container, and is accessible through all calls to access the hostname within the container (e.g. the hostname command, or the [gethostname][1] function call in libc), but this is planned to change in the future and should not be used.
+## Container hooks
 
-The Pod name and namespace are also available as environment variables via [the downward API](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/#the-downward-api).  Additionally, user-defined environment variables from the pod definition, are also available to the container, as are any environment variables specified statically in the Docker image.
+There are two hooks that are exposed to Containers:
 
-In the future, we anticipate expanding this information with richer information about the container.  Examples include available memory, number of restarts, and in general any state that you could get from the call to GET /pods on the API server.
+`PostStart`
 
-### Cluster Information
+This hook executes immediately after a container is created.
+However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
+No parameters are passed to the handler. 
 
-Currently the list of all services that are running at the time when the container was created via the Kubernetes Cluster API are available to the container as environment variables.  The set of environment variables matches the syntax of Docker links.
+`PreStop`
 
-For a service named **foo** that maps to a container port named **bar**, the following variables are defined:
+This hook is called immediately before a container is terminated.
+It is blocking, meaning it is synchronous,
+so it must complete before the call to delete the container can be sent. 
+No parameters are passed to the handler. 
 
-```shell
-FOO_SERVICE_HOST=<the host the service is running on>
-FOO_SERVICE_PORT=<the port the service is running on>
-```
+A more detailed description of the termination behavior can be found in
+[Termination of Pods](/docs/user-guide/pods/#termination-of-pods).
 
-Services have dedicated IP address, and are also surfaced to the container via DNS (If [DNS addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/) is enabled).  Of course DNS is still not an enumerable protocol, so we will continue to provide environment variables so that containers can do discovery.
+### Hook handler implementations
 
-## Container Hooks
+Containers can access a hook by implementing and registering a handler for that hook.
+There are two types of hook handlers that can be implemented for Containers:
 
-Container hooks provide information to the container about events in its management lifecycle.  For example, immediately after a container is started, it receives a *PostStart* hook.  These hooks are broadcast *into* the container with information about the life-cycle of the container.  They are different from the events provided by Docker and other systems which are *output* from the container.  Output events provide a log of what has already happened.  Input hooks provide real-time notification about things that are happening, but no historical log.
+* Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
+Resources consumed by the command are counted against the Container.
+* HTTP - Executes an HTTP request against a specific endpoint on the Container.
 
-### Hook Details
+### Hook handler execution
 
-There are currently two container hooks that are surfaced to containers:
+When a Container lifecycle management hook is called,
+the Kubernetes management system executes the handler in the Container registered for that hook.  
 
-*PostStart*
+Hook handler calls are synchronous within the context of the Pod containing the Container.
+This means that for a `PostStart` hook,
+the Container ENTRYPOINT and hook fire asynchronously.
+However, if the hook takes too long to run or hangs,
+the Container cannot reach a `running` state. 
 
-This hook is sent immediately after a container is created.  It notifies the container that it has been created.  No parameters are passed to the handler. It is NOT guaranteed that the hook will execute before the container entrypoint.
+The behavior is similar for a `PreStop` hook.
+If the hook hangs during execution,
+the Pod phase stays in a `running` state and never reaches `failed`.
+If a `PostStart` or `PreStop` hook fails,
+it kills the Container.
 
-*PreStop*
-
-This hook is called immediately before a container is terminated. No parameters are passed to the handler. This event handler is blocking, and must complete before the call to delete the container is sent to the Docker daemon.  The SIGTERM notification sent by Docker is also still sent. A more complete description of termination behavior can be found in [Termination of Pods](/docs/user-guide/pods/#termination-of-pods).
-
-### Hook Handler Execution
-
-When a management hook occurs, the management system calls into any registered hook handlers in the container for that hook.  These hook handler calls are synchronous in the context of the pod containing the container. This means that for a `PostStart` hook, the container entrypoint and hook will fire asynchronously. However, if the hook takes a while to run or hangs, the container will never reach a "running" state. The behavior is similar for a `PreStop` hook. If the hook hangs during execution, the Pod phase will stay in a "running" state and never reach "failed." If a `PostStart` or `PreStop` hook fails, it will kill the container.
-
-Typically we expect that users will make their hook handlers as lightweight as possible, but there are cases where long running commands make sense (e.g. saving state prior to container stop).
+Users should make their hook handlers as lightweight as possible.
+There are cases, however, when long running commands make sense,
+such as when saving state prior to stopping a Container.
 
 ### Hook delivery guarantees
 
-Hook delivery is intended to be "at least once", which means that a hook may be called multiple times for any given event (e.g. "start" or "stop") and it is up to the hook implementer to be able to handle this
-correctly.
+Hook delivery is intended to be *at least once*,
+which means that a hook may be called multiple times for any given event,
+such as for `PostStart` or `PreStop`.
+It is up to the hook implementation to handle this correctly.
 
-We expect double delivery to be rare, but in some cases if the Kubelet restarts in the middle of sending a hook, the hook may be resent after the Kubelet comes back up.
+Generally, only single deliveries are made.
+If, for example, an HTTP hook receiver is down and is unable to take traffic,
+there is no attempt to resend.
+In some rare cases, however, double delivery may occur.
+For instance, if a kubelet restarts in the middle of sending a hook, 
+the hook might be resent after the kubelet comes back up.
 
-Likewise, we only make a single delivery attempt.  If (for example) an http hook receiver is down, and unable to take traffic, we do not make any attempts to resend.
+### Debugging Hook handlers
 
-Currently, there are (hopefully rare) scenarios where PostStart hooks may not be delivered.
-
-### Hook Handler Implementations
-
-Hook handlers are the way that hooks are surfaced to containers.  Containers can select the type of hook handler they would like to implement.  Kubernetes currently supports two different hook handler types:
-
-   * Exec - Executes a specific command (e.g. pre-stop.sh) inside the cgroups and namespaces of the container.  Resources consumed by the command are counted against the container.
-
-   * HTTP - Executes an HTTP request against a specific endpoint on the container.
-
-[1]: http://man7.org/linux/man-pages/man2/gethostname.2.html
-
-### Debugging Hook Handlers
-
-Currently, the logs for a hook handler are not exposed in the pod events. If your handler fails for some reason, it will emit an event. For `PostStart`, this is the `FailedPostStartHook` event. For `PreStop` this is the `FailedPreStopHook` event. You can see these events by running `kubectl describe pod <pod_name>`. An example output of events from runing this command is below:
+The logs for a Hook handler are not exposed in Pod events.
+If a handler fails for some reason, it broadcasts an event.
+For `PostStart`, this is the `FailedPostStartHook` event, 
+and for `PreStop`, this is the `FailedPreStopHook` event. 
+You can see these events by running `kubectl describe pod <pod_name>`. 
+Here is some example output of events from running this command:
 
 ```
 Events:
@@ -102,8 +112,16 @@ Events:
   37s        37s        1    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Normal        Killing        Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
   38s        37s        2    {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}                Warning        FailedSync    Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
   1m         22s         2     {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Warning        FailedPostStartHook    
-``` 
+```
 
-## What's Next
+{% endcapture %}
 
-- See an example of [using container lifecycle hooks](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
+{% capture whatsnext %}
+
+* Learn more about the [Container environment](/docs/concepts/containers/container-environment-variables.md).
+* Get hands-on experience
+  [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
+
+{% endcapture %}
+
+{% include templates/concept.md %}

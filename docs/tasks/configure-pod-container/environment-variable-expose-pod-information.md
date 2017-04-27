@@ -1,5 +1,8 @@
 ---
 title: Exposing Pod Information to Containers Through Environment Variables
+redirect_from:
+- "/docs/user-guide/environment-guide/"
+- "/docs/user-guide/environment-guide/index.html"
 ---
 
 {% capture overview %}

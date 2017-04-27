@@ -1,5 +1,8 @@
 ---
 title: Federated Ingress
+redirect_from:
+- "/docs/user-guide/federation/federated-ingress/"
+- "/docs/user-guide/federation/federated-ingress.html"
 ---
 
 This guide explains how to use Kubernetes Federated Ingress to deploy

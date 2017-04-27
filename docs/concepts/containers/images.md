@@ -3,17 +3,22 @@ assignees:
 - erictune
 - thockin
 title: Images
+redirect_from:
+- "/docs/user-guide/images/"
+- "/docs/user-guide/images.html"
 ---
 
-Each container in a pod has its own image.  Currently, the only type of image supported is a [Docker Image](https://docs.docker.com/engine/tutorials/dockerimages/).
+{% capture overview %}
 
 You create your Docker image and push it to a registry before referring to it in a Kubernetes pod.
 
 The `image` property of a container supports the same syntax as the `docker` command does, including private registries and tags.
 
-* TOC
+{% endcapture %}
+
 {:toc}
 
+{% capture body %}
 
 ## Updating Images
 
@@ -318,3 +323,7 @@ common use cases and suggested solutions.
    - run a private registry with authorization required.
    - generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
    - tenant adds that secret to imagePullSecrets of each namespace.
+
+{% endcapture %}
+
+{% include templates/concept.md %}

@@ -1,6 +1,10 @@
 ---
 title: Federated DaemonSet
+redirect_from:
+- "/docs/user-guide/federation/daemonsets/"
+- "/docs/user-guide/federation/daemonsets.html"
 ---
+
 {% capture overview %}
 This guide explains how to use DaemonSets in a federation control plane.
 

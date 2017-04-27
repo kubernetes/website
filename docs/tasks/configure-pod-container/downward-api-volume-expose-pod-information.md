@@ -1,5 +1,11 @@
 ---
 title: Exposing Pod Information to Containers Using the Downward API
+redirect_from:
+- "/docs/user-guide/downward-api/"
+- "/docs/user-guide/downward-api/index.html"
+redirect_from:
+- "/docs/user-guide/downward-api/volume/"
+- "/docs/user-guide/downward-api/volume/index.html"
 ---
 
 {% capture overview %}
