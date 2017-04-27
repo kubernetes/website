@@ -1,5 +1,8 @@
 ---
 title: Annotations
+redirect_from:
+- "/docs/user-guide/annotations/"
+- "/docs/user-guide/annotations.html"
 ---
 
 {% capture overview %}
