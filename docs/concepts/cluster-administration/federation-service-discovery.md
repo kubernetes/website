@@ -213,6 +213,7 @@ Note: If your Federation is configured to use AWS Route53, you can use one of th
 $ aws route53 list-hosted-zones
 ```
 and
+
 ``` shell
 $ aws route53 list-resource-record-sets --hosted-zone-id Z3ECL0L9QLOVBX
 ```
@@ -315,7 +316,7 @@ service, for example:
 ``` shell
 eu.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.europe-west1.example.com.
 us.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.us-central1.example.com.
-nginx.acme.com             CNAME nginx.mynamespace.myfederation.svc.example.com.
+nginx.acme.com           CNAME nginx.mynamespace.myfederation.svc.example.com.
 ```
 That way your clients can always use the short form on the left, and
 always be automatically routed to the closest healthy shard on their
