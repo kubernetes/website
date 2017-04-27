@@ -72,54 +72,19 @@ The next few steps will show you:
 ### Installing the Kubernetes command line tools on your workstation
 
 The cluster startup script will leave you with a running cluster and a `kubernetes` directory on your workstation.
-The next step is to make sure the `kubectl` tool is in your path.
 
-The [kubectl](/docs/user-guide/kubectl/) tool controls the Kubernetes cluster manager.  It lets you inspect your cluster resources, create, delete, and update components, and much more.
-You will use it to look at your new cluster and bring up example apps.
+The [kubectl](/docs/user-guide/kubectl/) tool controls the Kubernetes cluster
+manager.  It lets you inspect your cluster resources, create, delete, and update
+components, and much more. You will use it to look at your new cluster and bring
+up example apps.
 
-Add the appropriate binary folder to your `PATH` to access kubectl:
+You can use` gcloud` to install the `kubectl` command-line tool on your workstation:
 
-```shell
-# OS X
-export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
-# Linux
-export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
-```
+     gcloud components install kubectl
 
-**Note**: gcloud also ships with `kubectl`, which by default is added to your path.
-However the gcloud bundled kubectl version may be older than the one downloaded by the
-get.k8s.io install script. We recommend you use the downloaded binary to avoid
-potential issues with client/server version skew.
-
-#### Enabling bash completion of the Kubernetes command line tools
-
-You may find it useful to enable `kubectl` bash completion:
-
-* If you're using kubectl with Kubernetes version 1.2 or earlier, you can source the kubectl completion script as follows:<br>
-  ```
-  $ source ./contrib/completions/bash/kubectl
-  ```
-
-* If you're using kubectl with Kubernetes version 1.3, use the `kubectl completion` command as follows:<br>
-  ```
-  $ source <(kubectl completion bash)
-  ```
-
-**Note**: The above commands will last for the duration of your bash session. If you want to make this permanent you need to add corresponding command in your bash profile.
-
-Alternatively, on most linux distributions you can also add a completions file to your bash_completions.d as follows:
-
-* For kubectl with Kubernetes v1.2 or earlier:<br>
-  ```
-  $ cp ./contrib/completions/bash/kubectl /etc/bash_completion.d/
-  ```
-
-* For kubectl with Kubernetes v1.3:<br>
-  ```
-  $ kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl
-  ```
-
-but then you have to update it when you update kubectl.
+**Note:** The kubectl version bundled with `gcloud` may be older than the one
+downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/tasks/kubectl/install/)
+document to see how you can set up the latest `kubectl` on your workstation.
 
 ### Getting started with your cluster
 

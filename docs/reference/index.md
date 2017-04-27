@@ -10,13 +10,6 @@ assignees:
 * Kubernetes API Versions
   * [1.6](/docs/api-reference/v1.6/)
   * [1.5](/docs/api-reference/v1.5/)
-* Federation API
-  * [v1 Operations](docs/reference/federation/v1/operations.html)
-  * [v1 Model Definitions](docs/reference/federation/v1/definitions.html)
-  * [federation/v1beta1 Operations](docs/reference/federation/v1beta1/operations.html)
-  * [federation/v1beta1 Model Definitions](docs/reference/federation/v1beta1/definitions.html)
-  * [extensions/v1beta1 Operations](docs/reference/federation/extensions/v1beta1/operations.html)
-  * [extensions/v1beta1 Model Definitions](docs/reference/federation/extensions/v1beta1/definitions.html)
 
 ## CLI Reference
 
