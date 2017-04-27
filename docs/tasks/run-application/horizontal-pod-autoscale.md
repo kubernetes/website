@@ -4,6 +4,9 @@ assignees:
 - jszczepkowski
 - directxman12
 title: Horizontal Pod Autoscaling
+redirect_from:
+- "/docs/user-guide/horizontal-pod-autoscaling/"
+- "/docs/user-guide/horizontal-pod-autoscaling/index.html"
 ---
 
 This document describes the current state of Horizontal Pod Autoscaling in Kubernetes.
