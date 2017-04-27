@@ -3,9 +3,9 @@ assignees:
 - brendandburns
 - davidopp
 title: Troubleshooting
+redirect_from:
+- "/docs/troubleshooting/"
 ---
-
-## Troubleshooting
 
 Sometimes things go wrong. This guide is aimed at making them right. It has
 two sections:
