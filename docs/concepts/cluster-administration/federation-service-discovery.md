@@ -283,8 +283,7 @@ to this minor technical difference).
 
 But if the service does not exist in the local cluster (or it exists
 but has no healthy backend pods), the DNS query is automatically
-expanded to
-```"nginx.mynamespace.myfederation.svc.us-central1-f.example.com"```
+expanded to ```"nginx.mynamespace.myfederation.svc.us-central1-f.example.com"```
 (i.e. logically "find the external IP of one of the shards closest to
 my availability zone"). This expansion is performed automatically by
 KubeDNS, which returns the associated CNAME record. This results in
