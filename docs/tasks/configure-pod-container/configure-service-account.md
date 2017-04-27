@@ -4,6 +4,9 @@ assignees:
 - liggitt
 - thockin
 title: Configuring Service Accounts
+redirect_from:
+- "/docs/user-guide/service-accounts/"
+- "/docs/user-guide/service-accounts.html"
 ---
 
 A service account provides an identity for processes that run in a Pod.

@@ -4,6 +4,9 @@ assignees:
 - mikedanese
 - thockin
 title: Security Context
+redirect_from:
+- "/docs/user-guide/security-context/"
+- "/docs/user-guide/security-context.html"
 ---
 
 A security context defines the operating system security settings (uid, gid, capabilities, SELinux role, etc..) applied to a container. See [security context design](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security-context-constraints.md) for more details.
