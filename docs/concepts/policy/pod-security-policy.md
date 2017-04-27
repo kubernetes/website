@@ -2,6 +2,9 @@
 assignees:
 - pweil-
 title: Pod Security Policies
+redirect_from:
+- "/docs/user-guide/pod-security-policy/"
+- "/docs/user-guide/pod-security-policy/index.html"
 ---
 
 Objects of type `PodSecurityPolicy` govern the ability
