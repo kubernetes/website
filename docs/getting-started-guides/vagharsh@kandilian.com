@@ -701,6 +701,26 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
         https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 
+# since kubernetes is recommending Docker 1.12.x therefore 
+# to use the docker 1.12.6 which is the latest from the 1.12.x series
+# add the docker repo and install docker-engine-1.12.6
+
+cat >/etc/yum.repos.d/docker.repo <<-EOF
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+EOF
+
+yum makecache fast -y
+
+yum -y install docker-engine-1.12.6
+
+# exclude the docker package from the yum conf file so that it will not get updated while yum update
+echo "exclude=docker*" >> /etc/yum.conf
+
 setenforce 0
 
 # 1.5.4 is the latest previous version in the repo.  Because of messed up
