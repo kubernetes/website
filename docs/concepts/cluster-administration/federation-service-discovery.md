@@ -189,32 +189,33 @@ nameServers:
 
 ``` shell
 $ gcloud dns record-sets list --zone example-dot-com
-NAME                                                                                                 TYPE      TTL     DATA
-example.com.                                                                                       NS     21600  ns-cloud-e1.googledomains.com., ns-cloud-e2.googledomains.com.
-example.com.                                                                                      SOA     21600 ns-cloud-e1.googledomains.com. cloud-dns-hostmaster.google.com. 1 21600 3600 1209600 300
-nginx.mynamespace.myfederation.svc.example.com.                            A     180     104.197.246.190, 130.211.57.243, 104.196.14.231, 104.199.136.89,...
-nginx.mynamespace.myfederation.svc.us-central1-a.example.com.     A     180     104.197.247.191
-nginx.mynamespace.myfederation.svc.us-central1-b.example.com.     A     180     104.197.244.180
-nginx.mynamespace.myfederation.svc.us-central1-c.example.com.     A     180     104.197.245.170
-nginx.mynamespace.myfederation.svc.us-central1-f.example.com. CNAME 180     nginx.mynamespace.myfederation.svc.us-central1.example.com.
-nginx.mynamespace.myfederation.svc.us-central1.example.com.         A    180     104.197.247.191, 104.197.244.180, 104.197.245.170
-nginx.mynamespace.myfederation.svc.asia-east1-a.example.com.       A    180     130.211.57.243
-nginx.mynamespace.myfederation.svc.asia-east1-b.example.com.  CNAME 180     nginx.mynamespace.myfederation.svc.asia-east1.example.com.
-nginx.mynamespace.myfederation.svc.asia-east1-c.example.com.       A    180     130.211.56.221
-nginx.mynamespace.myfederation.svc.asia-east1.example.com.           A    180     130.211.57.243, 130.211.56.221
-nginx.mynamespace.myfederation.svc.europe-west1.example.com.  CNAME    180   nginx.mynamespace.myfederation.svc.example.com.
-nginx.mynamespace.myfederation.svc.europe-west1-d.example.com.  CNAME   180     nginx.mynamespace.myfederation.svc.europe-west1.example.com.
+NAME                                                            TYPE      TTL     DATA
+example.com.                                                    NS        21600   ns-cloud-e1.googledomains.com., ns-cloud-e2.googledomains.com.
+example.com.                                                    OA        21600   ns-cloud-e1.googledomains.com. cloud-dns-hostmaster.google.com. 1 21600 3600 1209600 300
+nginx.mynamespace.myfederation.svc.example.com.                 A         180     104.197.246.190, 130.211.57.243, 104.196.14.231, 104.199.136.89,...
+nginx.mynamespace.myfederation.svc.us-central1-a.example.com.   A         180     104.197.247.191
+nginx.mynamespace.myfederation.svc.us-central1-b.example.com.   A         180     104.197.244.180
+nginx.mynamespace.myfederation.svc.us-central1-c.example.com.   A         180     104.197.245.170
+nginx.mynamespace.myfederation.svc.us-central1-f.example.com.   CNAME     180     nginx.mynamespace.myfederation.svc.us-central1.example.com.
+nginx.mynamespace.myfederation.svc.us-central1.example.com.     A         180     104.197.247.191, 104.197.244.180, 104.197.245.170
+nginx.mynamespace.myfederation.svc.asia-east1-a.example.com.    A         180     130.211.57.243
+nginx.mynamespace.myfederation.svc.asia-east1-b.example.com.    CNAME     180     nginx.mynamespace.myfederation.svc.asia-east1.example.com.
+nginx.mynamespace.myfederation.svc.asia-east1-c.example.com.    A         180     130.211.56.221
+nginx.mynamespace.myfederation.svc.asia-east1.example.com.      A         180     130.211.57.243, 130.211.56.221
+nginx.mynamespace.myfederation.svc.europe-west1.example.com.    CNAME     180     nginx.mynamespace.myfederation.svc.example.com.
+nginx.mynamespace.myfederation.svc.europe-west1-d.example.com.  CNAME     180     nginx.mynamespace.myfederation.svc.europe-west1.example.com.
 ... etc.
 ```
 
 Note: If your Federation is configured to use AWS Route53, you can use one of the equivalent AWS tools, for example:
 
 ``` shell
-$aws route53 list-hosted-zones
+$ aws route53 list-hosted-zones
 ```
 and
+
 ``` shell
-$aws route53 list-resource-record-sets --hosted-zone-id Z3ECL0L9QLOVBX
+$ aws route53 list-resource-record-sets --hosted-zone-id Z3ECL0L9QLOVBX
 ```
 
 Whatever DNS provider you use, any DNS query tool (for example 'dig'
@@ -283,8 +284,7 @@ to this minor technical difference).
 
 But if the service does not exist in the local cluster (or it exists
 but has no healthy backend pods), the DNS query is automatically
-expanded to
-```"nginx.mynamespace.myfederation.svc.us-central1-f.example.com"```
+expanded to ```"nginx.mynamespace.myfederation.svc.us-central1-f.example.com"```
 (i.e. logically "find the external IP of one of the shards closest to
 my availability zone"). This expansion is performed automatically by
 KubeDNS, which returns the associated CNAME record. This results in
@@ -316,7 +316,7 @@ service, for example:
 ``` shell
 eu.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.europe-west1.example.com.
 us.nginx.acme.com        CNAME nginx.mynamespace.myfederation.svc.us-central1.example.com.
-nginx.acme.com             CNAME nginx.mynamespace.myfederation.svc.example.com.
+nginx.acme.com           CNAME nginx.mynamespace.myfederation.svc.example.com.
 ```
 That way your clients can always use the short form on the left, and
 always be automatically routed to the closest healthy shard on their
