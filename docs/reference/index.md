@@ -21,7 +21,7 @@ assignees:
 
 * [kubelet](/docs/admin/kubelet/) - The primary *node agent* that runs on each node. The kubelet takes a set of PodSpecs and ensures that the described containers are running and healthy.
 * [kube-apiserver](/docs/admin/kube-apiserver/) - REST API that validates and configures data for API objects such as  pods, services, replication controllers.
-* [kube-controller-manager](docs/admin/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
+* [kube-controller-manager](/docs/admin/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
 * [kube-proxy](/docs/admin/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of back-ends.
 * [kube-scheduler](/docs/admin/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
 * [federation-apiserver](/docs/admin/federation-apiserver/) - API server for federated clusters.
