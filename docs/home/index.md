@@ -43,6 +43,10 @@ The [Reference](/docs/reference/) documentation provides complete information on
 
 The [Tools](/docs/tools/) page contains a list of native and third-party tools for Kubernetes.
 
+## Troubleshooting
+
+The [Troubleshooting](/docs/tasks/debug-application-cluster/troubleshooting) page outlines some resources for troubleshooting and finding help.
+
 ## Frequently Asked Questions
 
 * [User FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ)
