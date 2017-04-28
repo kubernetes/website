@@ -301,10 +301,6 @@ kubectl apply -f <add-on.yaml>
 Please refer to the specific add-on installation guide for exact details. You
 should only install one pod network per cluster.
 
-If you are on another architecture than amd64, you should use the
-flannel or Weave Net overlay networks as described in [the
-multi-platform section](#multi-platform)
-
 NOTE: You can install **only one** pod network per cluster.
 
 Once a pod network has been installed, you can confirm that it is working by
