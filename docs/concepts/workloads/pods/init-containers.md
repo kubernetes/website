@@ -100,7 +100,7 @@ and the [Production Pods guide](/docs/user-guide/production-pods.md#handling-ini
 
 The following yaml file for Kubernetes 1.5 outlines a simple Pod which has two Init Containers.
 The first waits for `myservice` and the second waits for `mydb`. Once both
-containers complete the Pod will begin.
+containers complete, the Pod will begin.
 
 ```yaml
 apiVersion: v1
@@ -129,7 +129,7 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
-There is a slight change of syntax in Kubernetes 1.6. We move declaration of the init containers to `spec`:
+There is a slight change of syntax in Kubernetes 1.6. We moved the declaration of the Init Containers to `spec`:
 
 ```yaml
 apiVersion: v1
@@ -152,7 +152,7 @@ spec:
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
 ```
 
-1.5 syntax still works on 1.6, but we recommend using 1.6 syntax. In Kubernetes 1.6, init containers were made a field in the API. The beta annotation is still respected but will be deprecated in future releases.
+1.5 syntax still works on 1.6, but we recommend using 1.6 syntax. In Kubernetes 1.6, Init Containers were made a field in the API. The beta annotation is still respected but will be deprecated in future releases.
 
 Yaml file below outlines the `mydb` and `myservice` services:
 
@@ -221,7 +221,7 @@ $ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
 $ kubectl logs myapp-pod -c init-mydd      # Inspect the second init container
 ```
 
-Once we start the `mydb` and `myservice` services we can see the Init Containers
+Once we start the `mydb` and `myservice` services, we can see the Init Containers
 complete and the `myapp-pod` is created:
 
 ```
