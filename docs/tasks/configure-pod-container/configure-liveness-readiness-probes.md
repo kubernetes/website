@@ -292,9 +292,6 @@ you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 * Learn more about
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
-* Learn more about
-[Health Checking](/docs/user-guide/walkthrough/k8s201/#health-checking).
-
 ### Reference
 
 * [Pod](/docs/api-reference/v1.6/#pod-v1-core)

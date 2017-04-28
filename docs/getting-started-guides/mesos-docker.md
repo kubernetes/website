@@ -211,10 +211,10 @@ sudo route -n add -net 172.17.0.0 $(docker-machine ip kube-dev)
 
     After deploying the cluster, `~/.kube/config` will be created or updated to configure kubectl to target the new cluster.
 
-1. Explore examples
+1. Explore tutorials
 
     To learn more about Pods, Volumes, Labels, Services, and Replication Controllers, start with the
-    [Kubernetes Walkthrough](/docs/user-guide/walkthrough/).
+    [Kubernetes Tutorials](/docs/tutorials/).
 
     To skip to a more advanced example, see the [Guestbook Example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/)
 
