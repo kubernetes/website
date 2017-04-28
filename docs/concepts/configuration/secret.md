@@ -445,10 +445,9 @@ See [here](/docs/tasks/configure-pod-container/configure-service-account/#adding
 
 #### Automatic Mounting of Manually Created Secrets
 
-We plan to extend the service account behavior so that manually created
-secrets (e.g. one containing a token for accessing a github account)
+Manually created secrets (e.g. one containing a token for accessing a github account)
 can be automatically attached to pods based on their service account.
-*This is not implemented yet.  See [issue 9902](http://issue.k8s.io/9902).*
+See [here](/docs/tasks/run-application/podpreset/) for a detailed explanation of that process.
 
 ## Details
 
