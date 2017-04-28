@@ -98,11 +98,11 @@ and the [Production Pods guide](/docs/user-guide/production-pods.md#handling-ini
 
 ### Init Containers in use
 
-The following yaml file for Kubernetes version 1.5 outlines a simple Pod which has two Init Containers.
+The following yaml file for Kubernetes 1.5 outlines a simple Pod which has two Init Containers.
 The first waits for `myservice` and the second waits for `mydb`. Once both
 containers complete the Pod will begin.
 
-```yaml for version 1.5
+```yaml for Kubernetes 1.5
 apiVersion: v1
 kind: Pod
 metadata:
@@ -129,10 +129,10 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
-There is a slight change of syntax in Kubernetes version 1.6.
+There is a slight change of syntax in Kubernetes 1.6.
 We move declaration of the init containers to `spec`:
 
-```yaml for version 1.6
+```yaml for Kubernetes 1.6
 apiVersion: v1
 kind: Pod
 metadata:
@@ -151,6 +151,32 @@ spec:
   - name: init-mydb
     image: busybox
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+```
+
+1.5 syntax still works on 1.6, but we recommend using 1.6 syntax.
+
+Yaml file below outlines the `mydb` and `myservice` services:
+
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: myservice
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mydb
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9377
 ```
 
 This Pod can be started and debugged with the following commands:
@@ -194,30 +220,6 @@ Events:
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started        Started container with docker id 5ced34a04634
 $ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
 $ kubectl logs myapp-pod -c init-mydd      # Inspect the second init container
-```
-
-Yaml file below outlines `mydb` and `myservice` services:
-
-```
-kind: Service
-apiVersion: v1
-metadata:
-  name: myservice
-spec:
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: mydb
-spec:
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9377
 ```
 
 Once we start the `mydb` and `myservice` services we can see the Init Containers
