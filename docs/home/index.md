@@ -10,47 +10,41 @@ redirect_from:
 - "/docs/user-guide/index.html"
 ---
 
-<p>Kubernetes documentation can help you set up Kubernetes, learn about the system, or get your applications and workloads running on Kubernetes. To learn the basics of what Kubernetes is and how it works, read "<a href="/docs/whatisk8s/">What is Kubernetes</a>". </p>
+Kubernetes documentation can help you set up Kubernetes, learn about the system, or get your applications and workloads running on Kubernetes. To learn the basics of what Kubernetes is and how it works, read "[What is Kubernetes](/docs/concepts/overview/what-is-kubernetes/)".
 
-<h2>Interactive Tutorial</h2>
+## Interactive Tutorial
 
-<p>The <a href="/docs/tutorials/kubernetes-basics/">Kubernetes Basics interactive tutorial</a> lets you try out Kubernetes right out of your web browser, using a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.</p>
+The [Kubernetes Basics interactive tutorial](/docs/tutorials/kubernetes-basics/) lets you try out Kubernetes right out of your web browser, using a virtual terminal. Learn about the Kubernetes system and deploy, expose, scale, and upgrade a containerized application in just a few minutes.
 
-<h2>Installing/Setting Up Kubernetes</h2>
+## Installing/Setting Up Kubernetes
 
-<p><a href="/docs/getting-started-guides/">Picking the Right Solution</a> can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.</p>
+[Picking the Right Solution](/docs/getting-started-guides/) can help you get a Kubernetes cluster up and running, either for local development, or on your cloud provider of choice.
 
-<p>Other/newer ways to set up a Kubernetes cluster include:</p>
-<ul>
-<li><a href="/docs/getting-started-guides/minikube/">Minikube</a>: Install a single-node Kubernetes cluster on your local machine for development and testing.</li>
-<li><a href="/docs/getting-started-guides/kops/">Installing Kubernetes on AWS with kops</a>: Bring up a complete Kubernetes cluster on Amazon Web Services, using a tool called <code>kops</code>.</li>
-<li><a href="/docs/getting-started-guides/kubeadm/">Installing Kubernetes on Linux with kubeadm</a> (Beta): Install a secure Kubernetes cluster on any pre-existing machines running Linux, using the built-in <code>kubeadm</code> tool.</li>
-<li><a href="/docs/getting-started-guides/kargo/">Installing Kubernetes On-premise/Cloud Providers with Kargo</a>: Deploy a Kubernetes cluster on-premise baremetal or hosted on cloud providers, with Ansible and <code>kargo</code> tools.</li>
-</ul>
+Other/newer ways to set up a Kubernetes cluster include:
 
-<h2>Guides, Tutorials, Tasks, and Concepts</h2>
+* [Minikube](/docs/getting-started-guides/minikube/): Install a single-node Kubernetes cluster on your local machine for development and testing.
+* [Installing Kubernetes on AWS with kops](/docs/getting-started-guides/kops/): Bring up a complete Kubernetes cluster on Amazon Web Services, using a tool called `kops`.
+* [Installing Kubernetes on Linux with kubeadm](/docs/getting-started-guides/kubeadm/) (Beta): Install a secure Kubernetes cluster on any pre-existing machines running Linux, using the built-in `kubeadm` tool.
+* [Installing Kubernetes On-premise/Cloud Providers with Kargo](/docs/getting-started-guides/kargo/): Deploy a Kubernetes cluster on-premise baremetal or hosted on cloud providers, with Ansible and `kargo` tools.
 
-<p>The Kubernetes documentation contains a number of resources to help you understand and work with Kubernetes.</p>
-<ul>
-<li><b><a href="/docs/user-guide/">Guides</a></b> provides documentation for Kubernetes features as well as administering and spinning up clusters, including usage examples.</li>
-<li><b><a href="/docs/tutorials/">Tutorials</a></b> contain detailed walkthroughs of the Kubernetes workflow.</li>
-<li><b><a href="/docs/tasks/">Tasks</a></b> contain step-by-step instructions for common Kubernetes tasks.</li>
-<li><b><a href="/docs/concepts/">Concepts</a></b> provide a deep understanding of how Kubernetes works.</li>
-</ul>
+## Concepts, Tasks, and Tutorials
 
-<h2>API and Command References</h2>
+The Kubernetes documentation contains a number of resources to help you understand and work with Kubernetes.
 
-<p>The <a href="/docs/reference/">reference</a> documentation provides complete information on the Kubernetes APIs and the <code>kubectl</code> command-line interface.</p>
+* [Concepts](/docs/concepts/) provide a deep understanding of how Kubernetes works.
+* [Tasks](/docs/tasks/) contain step-by-step instructions for common Kubernetes tasks.
+* [Tutorials](/docs/tutorials/) contain detailed walkthroughs of the Kubernetes workflow.
 
-<h2>Tools</h2>
+## API and Command References
 
-<p>The <a href="/docs/tools/">tools</a> page contains a list of native and third-party tools for Kubernetes.</p>
+The [Reference](/docs/reference/) documentation provides complete information on the Kubernetes APIs and the `kubectl` command-line interface.
 
-<h2>Frequently Asked Questions</h2>
+## Tools
 
-* <a href="https://github.com/kubernetes/kubernetes/wiki/User-FAQ">User FAQ</a>
-* <a href="https://github.com/kubernetes/kubernetes/wiki/Debugging-FAQ">Debugging FAQ</a>
-* <a href="https://github.com/kubernetes/kubernetes/wiki/Services-FAQ">Services FAQ</a>
+The [Tools](/docs/tools/) page contains a list of native and third-party tools for Kubernetes.
 
+## Frequently Asked Questions
 
-
+* [User FAQ](https://github.com/kubernetes/kubernetes/wiki/User-FAQ)
+* [Debugging FAQ](https://github.com/kubernetes/kubernetes/wiki/Debugging-FAQ)
+* [Services FAQ](https://github.com/kubernetes/kubernetes/wiki/Services-FAQ)
