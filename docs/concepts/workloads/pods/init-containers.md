@@ -102,7 +102,7 @@ The following yaml file for Kubernetes 1.5 outlines a simple Pod which has two I
 The first waits for `myservice` and the second waits for `mydb`. Once both
 containers complete the Pod will begin.
 
-```yaml for Kubernetes 1.5
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -129,10 +129,9 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
-There is a slight change of syntax in Kubernetes 1.6.
-We move declaration of the init containers to `spec`:
+There is a slight change of syntax in Kubernetes 1.6. We move declaration of the init containers to `spec`:
 
-```yaml for Kubernetes 1.6
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -153,7 +152,7 @@ spec:
     command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
 ```
 
-1.5 syntax still works on 1.6, but we recommend using 1.6 syntax.
+1.5 syntax still works on 1.6, but we recommend using 1.6 syntax. In Kubernetes 1.6, init containers were made a field in the API. The beta annotation is still respected but will be deprecated in future releases.
 
 Yaml file below outlines the `mydb` and `myservice` services:
 
