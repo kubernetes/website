@@ -43,6 +43,8 @@ Disallow: /docs/admin/sysctls/
 Disallow: /docs/admin/upgrade-1-6/
 Disallow: /docs/api/
 Disallow: /docs/contribute/
+Disallow: /kubernetes/swagger-spec/
+Disallow: /kubernetes/third_party/swagger-ui/
 Disallow: /docs/getting-started-guides/kubectl/
 Disallow: /docs/getting-started-guides/network-policy/
 Disallow: /docs/getting-started-guides/running-cloud-controller/
