@@ -72,6 +72,10 @@ $( document ).ready(function() {
     {
         "from": "/docs/admin/multiple-schedulers",
         "to": "/docs/tutorials/clusters/multiple-schedulers/"
+    },
+    {
+        "from": "/docs/troubleshooting/",
+        "to": "/docs/tasks/debug-application-cluster/troubleshooting/"
     }];
 
     forwardingRules.forEach(function(rule) {

@@ -62,17 +62,16 @@ toc:
 
 - title: Monitoring, Logging, and Debugging
   section:
+  - docs/tasks/debug-application-cluster/monitor-node-health.md
+  - docs/tasks/debug-application-cluster/logging-stackdriver.md
+  - docs/tasks/debug-application-cluster/logging-elasticsearch-kibana.md
   - docs/tasks/debug-application-cluster/determine-reason-pod-failure.md
   - docs/tasks/debug-application-cluster/debug-init-containers.md
-  - docs/tasks/debug-application-cluster/logging-stackdriver.md
-  - docs/tasks/debug-application-cluster/monitor-node-health.md
-  - docs/tasks/debug-application-cluster/logging-elasticsearch-kibana.md
-  - docs/tasks/debug-application-cluster/debug-application.md
-  - docs/tasks/debug-application-cluster/debug-application-introspection.md
-  - docs/tasks/debug-application-cluster/debug-cluster.md
   - docs/tasks/debug-application-cluster/debug-pod-replication-controller.md
   - docs/tasks/debug-application-cluster/debug-service.md
-  - docs/tasks/debug-application-cluster/troubleshooting.md
+  - docs/tasks/debug-application-cluster/debug-cluster.md
+  - docs/tasks/debug-application-cluster/debug-application.md
+  - docs/tasks/debug-application-cluster/debug-application-introspection.md
   - title: Using Explorer to Examine the Runtime Environment
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 

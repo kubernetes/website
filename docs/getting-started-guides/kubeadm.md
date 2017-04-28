@@ -456,8 +456,7 @@ control of your Kubernetes cluster.
 
 * Learn about kubeadm's advanced usage on the [advanced reference
   doc](/docs/admin/kubeadm/)
-* Learn more about [Kubernetes concepts and kubectl in Kubernetes
-  101](/docs/user-guide/walkthrough/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 
 ## Feedback
 
