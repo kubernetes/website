@@ -224,8 +224,6 @@ centos-minion-3        Ready      3d      v1.6.0+fff5156
 
 **The cluster should be running! Launch a test pod.**
 
-You should have a functional cluster, check out [101](/docs/user-guide/walkthrough/)!
-
 ## Support Level
 
 
