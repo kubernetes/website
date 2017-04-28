@@ -136,7 +136,7 @@ encoded as base64 strings.  Newlines are not valid within these strings and must
 be omitted.  When using the `base64` utility on Darwin/OS X users should avoid
 using the `-b` option to split long lines.  Conversely Linux users *should* add
 the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
-`-w` option is not available. 
+`-w` option is not available.
 
 #### Decoding a Secret
 
@@ -440,7 +440,7 @@ You can manually create an imagePullSecret, and reference it from
 a serviceAccount.  Any pods created with that serviceAccount
 or that default to use that serviceAccount, will get their imagePullSecret
 field set to that of the service account.
-See [here](/docs/user-guide/service-accounts/#adding-imagepullsecrets-to-a-service-account)
+See [here](/docs/tasks/configure-pod-container/configure-service-account/#adding-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
 
 #### Automatic Mounting of Manually Created Secrets
