@@ -440,14 +440,14 @@ You can manually create an imagePullSecret, and reference it from
 a serviceAccount.  Any pods created with that serviceAccount
 or that default to use that serviceAccount, will get their imagePullSecret
 field set to that of the service account.
-See [here](/docs/tasks/configure-pod-container/configure-service-account/#adding-imagepullsecrets-to-a-service-account)
+See [Adding ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#adding-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
 
 #### Automatic Mounting of Manually Created Secrets
 
 Manually created secrets (e.g. one containing a token for accessing a github account)
 can be automatically attached to pods based on their service account.
-See [here](/docs/tasks/run-application/podpreset/) for a detailed explanation of that process.
+See [Injecting Information into Pods Using a PodPreset](/docs/tasks/run-application/podpreset/) for a detailed explanation of that process.
 
 ## Details
 
