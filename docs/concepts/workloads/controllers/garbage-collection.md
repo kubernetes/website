@@ -109,7 +109,7 @@ blockOwnerDeletion is set automatically and you do not need to manually modify t
 
 To control the cascading deletion policy, set the `deleteOptions.propagationPolicy`
 field on your owner object. Possible values include "Orphan",
-"Foregound", or "Background".
+"Foreground", or "Background".
 
 The default garbage collection policy for many controller resources is `orphan`,
 including ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and
