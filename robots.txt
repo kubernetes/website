@@ -109,6 +109,7 @@ Disallow: /docs/user-guide/thirdpartyresources/
 Disallow: /docs/user-guide/ui/
 Disallow: /docs/user-guide/update-demo/
 Disallow: /docs/user-guide/volumes/
+Disallow: /docs/user-guide/walkthrough/
 Disallow: /docs/user-guide/working-with-resources/
 Disallow: /docs/whatisk8s/
 
