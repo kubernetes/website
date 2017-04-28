@@ -3,28 +3,35 @@ assignees:
 - brendandburns
 - davidopp
 title: Troubleshooting
+redirect_from:
+- "/docs/troubleshooting/"
 ---
-
-## Troubleshooting
 
 Sometimes things go wrong. This guide is aimed at making them right. It has
 two sections:
 
-   * [Troubleshooting your application](/docs/user-guide/application-troubleshooting) - Useful for users who are deploying code into Kubernetes and wondering why it is not working.
-   * [Troubleshooting your cluster](/docs/admin/cluster-troubleshooting) - Useful for cluster administrators and people whose Kubernetes cluster is unhappy.
+   * [Troubleshooting your application](/docs/tasks/debug-application-cluster/debug-application/) - Useful for users who are deploying code into Kubernetes and wondering why it is not working.
+   * [Troubleshooting your cluster](/docs/tasks/debug-application-cluster/debug-cluster/) - Useful for cluster administrators and people whose Kubernetes cluster is unhappy.
 
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)
 you're using.
 
-### Getting help
+## Getting help
 
 If your problem isn't answered by any of the guides above, there are variety of
 ways for you to get help from the Kubernetes team.
 
 ### Questions
 
-If you aren't familiar with it, many of your questions may be answered by the
-[user guide](/docs/user-guide/).
+The documentation on this site has been structured to provide answers to a wide
+range of questions. [Concepts](/docs/concepts/) explain the Kubernetes
+architecture and how each component works, while [Setup](/docs/setup/) provides
+practical instructions for getting started. [Tasks](/docs/tasks/) show how to
+accomplish commonly used tasks, and [Tutorials](/docs/tutorials/) are more
+comprehensive walkthroughs of real-world, industry-specific, or end-to-end
+development scenarios. The [Reference](/docs/reference/) section provides
+detailed documentation on the [Kubernetes API](/docs/api-reference/{{page.version}}/)
+and command-line interfaces (CLIs), such as [`kubectl`](/docs/user-guide/kubectl-overview/).
 
 We also have a number of FAQ pages:
 
