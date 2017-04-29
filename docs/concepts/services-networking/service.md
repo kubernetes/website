@@ -354,7 +354,7 @@ Service onto an external (outside of your cluster) IP address.
 Kubernetes `ServiceTypes` allow you to specify what kind of service you want.
 The default is `ClusterIP`.
 
-`ServiceType` values and their behaviors are:
+`Type` values and their behaviors are:
 
    * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value 
      makes the service only reachable from within the cluster. This is the 
