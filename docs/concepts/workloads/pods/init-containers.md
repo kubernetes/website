@@ -129,7 +129,7 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
-There is a slight change of syntax in Kubernetes 1.6. We moved the declaration of the Init Containers to `spec`:
+There is a new syntax in Kubernetes 1.6, although the old annotation syntax still works. We have moved the declaration of init containers to `spec`:
 
 ```yaml
 apiVersion: v1
