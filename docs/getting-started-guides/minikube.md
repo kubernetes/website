@@ -33,7 +33,7 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 * Windows
     * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install) installation
 * VT-x/AMD-v virtualization must be enabled in BIOS
-* `kubectl` See the [kubectl installation instructions](/docs/getting-started-guides/kubectl/) for more details.
+* `kubectl` See the [kubectl installation instructions](/docs/tasks/kubectl/install/) for more details.
 
 ### Instructions
 
