@@ -98,6 +98,7 @@ For each host in turn:
 
 * SSH into the machine and become root if you are not already (for example,
   run `sudo su -`).
+
 * If the machine is running Ubuntu or HypriotOS, run:
 
   ``` bash
@@ -131,12 +132,12 @@ For each host in turn:
   systemctl enable kubelet && systemctl start kubelet
   ```
 
-The kubelet is now restarting every few seconds, as it waits in a crashloop for
-kubeadm to tell it what to do.
+  The kubelet is now restarting every few seconds, as it waits in a crashloop for
+  kubeadm to tell it what to do.
 
-Note: Disabling SELinux by running `setenforce 0` is required in order to allow
-containers to access the host filesystem, which is required by pod networks for
-example. You have to do this until SELinux support is improved in the kubelet.
+  Note: Disabling SELinux by running `setenforce 0` is required in order to allow
+  containers to access the host filesystem, which is required by pod networks for
+  example. You have to do this until SELinux support is improved in the kubelet.
 
 While this guide is correct for kubeadm 1.6, the previous version is still
 available but can be a bit tricky to install.  [See below](#old-kubeadm) for
