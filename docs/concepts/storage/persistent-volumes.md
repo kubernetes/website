@@ -113,6 +113,7 @@ However, the particular path specified in the custom recycler pod template in th
 * AzureFile
 * AzureDisk
 * FC (Fibre Channel)
+* FlexVolume
 * Flocker
 * NFS
 * iSCSI
