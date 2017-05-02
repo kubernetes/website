@@ -49,7 +49,7 @@ associated with each signal.
 The value for `memory.available` is derived from the cgroupfs instead of tools
 like `free -m`.  This is important because `free -m` does not work in a
 container, and if users use the [node
-allocatable](/docs/admin/node-allocatable.md) feature, out of resource decisions
+allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) feature, out of resource decisions
 are made local to the end user pod part of the cgroup hierarchy as well as the
 root node.  This
 [script](/docs/concepts/cluster-administration/out-of-resource/memory-available.sh)
