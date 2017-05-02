@@ -389,6 +389,17 @@ configuration file.
 If `KUBE_KUBERNETES_DIR` is specified, you may need to rewrite the arguments of the kubelet.
 (e.g. --kubeconfig, --pod-manifest-path)
 
+If `KUBE_REPO_PREFIX` is specified, you may need to set --pod-infra-container-image which is the pause image.
+
+```bash
+cat > /etc/systemd/system/kubelet.service.d/20-pod-infra-image.conf <<EOF
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--pod-infra-container-image=<your-image>"
+EOF
+systemctl daemon-reload
+systemctl restart kubelet
+```
+
 If you want to use kubeadm with an http proxy, you may need to configure it to
 support http_proxy, https_proxy, or no_proxy.
 
