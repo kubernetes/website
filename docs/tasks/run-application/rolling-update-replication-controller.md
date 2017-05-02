@@ -247,8 +247,6 @@ Update succeeded. Deleting old controller: my-nginx
 replicationcontroller "my-nginx-v4" rolling updated
 ```
 
-You can also run the [update demo](/docs/tasks/run-application/rolling-update-replication-controller/) to see a visual representation of the rolling update process.
-
 ## Troubleshooting
 
 If the `timeout` duration is reached during a rolling update, the operation will
