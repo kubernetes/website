@@ -99,6 +99,8 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: www
+      annotations:
+        volume.beta.kubernetes.io/storage-class: anything
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
