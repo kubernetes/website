@@ -304,7 +304,7 @@ deployment "my-nginx" autoscaled
 
 Now your nginx replicas will be scaled up and down as needed, automatically.
 
-For more information, please see [kubectl scale](/docs/user-guide/kubectl/v1.6/#scale), [kubectl autoscale](/docs/user-guide/kubectl/v1.6/#autoscale) and [horizontal pod autoscaler](/docs/user-guide/horizontal-pod-autoscaler/) document.
+For more information, please see [kubectl scale](/docs/user-guide/kubectl/v1.6/#scale), [kubectl autoscale](/docs/user-guide/kubectl/v1.6/#autoscale) and [horizontal pod autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) document.
 
 
 ## In-place updates of resources
