@@ -1,6 +1,20 @@
 $( document ).ready(function() {
+    var doRedirect = false;
+    var notHere = false;
+    var forwardingURL = window.location.href;
+
     var oldURLs = ["/README.md","/README.html","/index.md",".html",".md","/v1.1/","/v1.0/"];
-    var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
+
+    /* var:  forwardingRules
+     * type: array of objects
+     * example rule object:
+     * {
+     *   "from":    "/path/from/old/location", //search in incoming forwardingURL for this string
+     *   "pattern": "#([0-9a-zA-Z\-\_]+)",     //[optional] regex to parse out a token of digits, letters, hyphen, or underscore
+     *   "to":      "/path/to/new/location",   //base URL to forward to
+     *   "postfix": "/#<token>"                //[optional] append this to base URL w/ <token> found by "pattern"
+     * }
+     */
     var forwardingRules = [{
         "from":"/docs/api-reference/v1/definitions",
         "pattern":"#_v1_(\\w+)",
@@ -12,42 +26,64 @@ $( document ).ready(function() {
         "pattern":"kubectl_(\\w+)",
         "to":"/docs/user-guide/kubectl/v1.6",
         "postfix":"/#<token>"
-    }];
-    var doRedirect = false;
-    var notHere = false;
-    var forwardingURL = window.location.href;
-
-    var redirects = [{
-        "from": "/resource-quota",
-        "to": "http://kubernetes.io/docs/admin/resourcequota/"
     },
     {
-        "from": "horizontal-pod-autoscaler",
-        "to": "http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/"
+        "from":"/docs/contribute/",
+        "pattern":"\/contribute\/([0-9a-zA-Z\-\_]+)",
+        "to":"/docs/home/contribute",
+        "postfix":"/<token>"
     },
     {
-        "from": "docs/roadmap",
-        "to": "https://github.com/kubernetes/kubernetes/milestones/"
+        "from":"/resource-quota",
+        "pattern":"",
+        "to":"/docs/concepts/policy/resource-quotas/",
+        "postfix":""
     },
     {
-        "from": "api-ref/",
-        "to": "https://github.com/kubernetes/kubernetes/milestones/"
+        "from":"/horizontal-pod-autoscaler",
+        "pattern":"",
+        "to":"/docs/tasks/run-application/horizontal-pod-autoscale/",
+        "postfix":""
     },
     {
-        "from": "kubernetes/third_party/swagger-ui/",
-        "to": "/docs/reference"
+        "from":"/docs/roadmap",
+        "pattern":"",
+        "to":"https://github.com/kubernetes/kubernetes/milestones/",
+        "postfix":""
     },
     {
-        "from": "docs/user-guide/overview",
-        "to": "http://kubernetes.io/docs/whatisk8s/"
+        "from":"/api-ref/",
+        "pattern":"",
+        "to":"https://github.com/kubernetes/kubernetes/milestones/",
+        "postfix":""
+    },
+    {
+        "from":"/kubernetes/third_party/swagger-ui/",
+        "pattern":"",
+        "to":"/docs/reference",
+        "postfix":""
+    },
+    {
+        "from":"/docs/user-guide/overview",
+        "pattern":"",
+        "to":"/docs/concepts/overview/what-is-kubernetes/",
+        "postfix":""
+    },
+    {
+        "from": "/docs/admin/multiple-schedulers",
+        "to": "/docs/tutorials/clusters/multiple-schedulers/"
+    },
+    {
+        "from": "/docs/troubleshooting/",
+        "to": "/docs/tasks/debug-application-cluster/troubleshooting/"
     }];
 
     forwardingRules.forEach(function(rule) {
         if (forwardingURL.indexOf(rule.from) > -1) {
+            var newURL = rule.to;
             var re = new RegExp(rule.pattern, 'g');
             var matchary = re.exec(forwardingURL);
-            var newURL = rule.to;
-            if (matchary !== null) {
+            if (matchary !== null && rule.postfix) {
                 newURL += rule.postfix.replace("<token>", matchary[1]);
             }
             notHere = true;
@@ -55,22 +91,6 @@ $( document ).ready(function() {
         }
 
     });
-
-    for (var i = 0; i < redirects.length; i++) {
-        if (forwardingURL.indexOf(redirects[i].from) > -1){
-            notHere = true;
-            window.location.replace(redirects[i].to);
-        }
-    }
-
-    for (var i = 0; i < fwdDirs.length; i++) {
-        if (forwardingURL.indexOf(fwdDirs[i]) > -1){
-            var urlPieces = forwardingURL.split(fwdDirs[i]);
-            var newURL = "https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/" + fwdDirs[i] + urlPieces[1];
-            notHere = true;
-            window.location.replace(newURL);
-        }
-    }
 
     if (!notHere) {
         for (var i = 0; i < oldURLs.length; i++) {

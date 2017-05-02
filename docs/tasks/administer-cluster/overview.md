@@ -3,6 +3,9 @@ assignees:
 - davidopp
 - lavalamp
 title: Cluster Administration Overview
+redirect_from:
+- "/docs/admin/"
+- "/docs/admin/index.html"
 ---
 
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
@@ -66,11 +69,11 @@ project](/docs/admin/salt).
 
 ## Multi-tenant support
 
-* **Resource Quota** ([resourcequota](/docs/admin/resourcequota/))
+* **Resource Quota** ([resourcequota](/docs/concepts/policy/resource-quotas/))
 
 ## Security
 
-* **Kubernetes Container Environment** ([docs/user-guide/container-environment](/docs/concepts/containers/container-lifecycle-hooks/)):
+* **Kubernetes Container Environment** ([/docs/concepts/containers/container-environment-variables/](/docs/concepts/containers/container-environment-variables/)):
   Describes the environment for Kubelet managed containers on a Kubernetes
   node.
 
@@ -87,6 +90,6 @@ project](/docs/admin/salt).
 * **Audit** [audit](/docs/admin/audit)
 
 * **Securing the kubelet**
-  * [Master-Node communication](/docs/admin/master-node-communication/)
+  * [Master-Node communication](/docs/concepts/cluster-administration/master-node-communication/)
   * [TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/)
   * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)

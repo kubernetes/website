@@ -2,6 +2,9 @@
 assignees:
 - lavalamp
 title: Kubernetes Components
+redirect_from:
+- "/docs/admin/cluster-components/"
+- "/docs/admin/cluster-components.html"
 ---
 
 This document outlines the various binary components that need to run to
@@ -87,7 +90,7 @@ See [here](http://releases.k8s.io/HEAD/cluster/addons) for more details.
 #### DNS
 
 While the other addons are not strictly required, all Kubernetes
-clusters should have [cluster DNS](/docs/admin/dns/), as many examples rely on it.
+clusters should have [cluster DNS](/docs/concepts/services-networking/dns-pod-service/), as many examples rely on it.
 
 Cluster DNS is a DNS server, in addition to the other DNS server(s) in your
 environment, which serves DNS records for Kubernetes services.

@@ -17,7 +17,7 @@ defaults:
     scope:
       path: ""
     values:
-      fullversion: "v1.6.0"
+      fullversion: "v1.6.2"
       version: "v1.6"
       githubbranch: "master"
       docsbranch: "master"
@@ -45,11 +45,10 @@ twitter:
 # Tables of contents, stored in the _data folder, that control the sidebar nav
 tocs:
   - docs-home
-  - guides
-  - tutorials
+  - setup
   - tasks
+  - tutorials
   - concepts
   - reference
-  - tools
   - samples
-  - support
+  - search

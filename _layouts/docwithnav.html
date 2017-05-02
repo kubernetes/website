@@ -23,13 +23,12 @@
   <div id="vendorStrip" class="light-text">
     <ul>
       <li><a href="/docs/home/" {% if toc.bigheader == "Kubernetes Documentation" %}class="YAH"{% endif %}>HOME</a></li>
-      <li><a href="/docs/user-guide/" {% if toc.bigheader == "Guides" %}class="YAH"{% endif %}>GUIDES</a></li>
+      <li><a href="/docs/setup/" {% if toc.bigheader == "Setup" %}class="YAH"{% endif %}>SETUP</a></li>
       <li><a href="/docs/tasks/" {% if toc.bigheader == "Tasks" %}class="YAH"{% endif %}>TASKS</a></li>
       <li><a href="/docs/tutorials/" {% if toc.bigheader == "Tutorials" %}class="YAH"{% endif %}>TUTORIALS</a></li>
       <li><a href="/docs/concepts/" {% if toc.bigheader == "Concepts" %}class="YAH"{% endif %}>CONCEPTS</a></li>
       <li><a href="/docs/reference/" {% if toc.bigheader == "Reference Documentation" %}class="YAH"{% endif %}>REFERENCE</a></li>
       <li><a href="/docs/samples/" {% if toc.bigheader == "Samples" %}class="YAH"{% endif %}>SAMPLES</a></li>
-      <li><a href="/docs/troubleshooting/" {% if toc.bigheader == "Support" %}class="YAH"{% endif %}>SUPPORT</a></li>
     </ul>
     <div id="searchBox">
       <input type="text" id="search" placeholder="Search" onkeydown="if (event.keyCode==13) window.location.replace('/docs/search/?q=' + this.value)" autofocus="autofocus">

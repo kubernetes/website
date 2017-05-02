@@ -4,6 +4,9 @@ assignees:
 - vishh
 - timstclair
 title: Configuring Out Of Resource Handling
+redirect_from:
+- "/docs/admin/out-of-resource/"
+- "/docs/admin/out-of-resource.html"
 ---
 
 * TOC
@@ -46,7 +49,7 @@ associated with each signal.
 The value for `memory.available` is derived from the cgroupfs instead of tools
 like `free -m`.  This is important because `free -m` does not work in a
 container, and if users use the [node
-allocatable](/docs/admin/node-allocatable.md) feature, out of resource decisions
+allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) feature, out of resource decisions
 are made local to the end user pod part of the cgroup hierarchy as well as the
 root node.  This
 [script](/docs/concepts/cluster-administration/out-of-resource/memory-available.sh)
@@ -67,7 +70,7 @@ of configurations are not currently supported by the kubelet. For example, it is
 *not OK* to store volumes and logs in a dedicated `filesystem`.
 
 In future releases, the `kubelet` will deprecate the existing [garbage
-collection](/docs/admin/garbage-collection/) support in favor of eviction in
+collection](/docs/concepts/cluster-administration/kubelet-garbage-collection/) support in favor of eviction in
 response to disk pressure.
 
 ### Eviction Thresholds
@@ -295,7 +298,7 @@ The `kubelet` sets a `oom_score_adj` value for each container based on the quali
 | `Burstable` | min(max(2, 1000 - (1000 * memoryRequestBytes) / machineMemoryCapacityBytes), 999) |
 
 If the `kubelet` is unable to reclaim memory prior to a node experiencing system OOM, the `oom_killer` will calculate
-an `oom_score` based on the percentage of memory its using on the node, and then add the `oom_score_adj` to get an
+an `oom_score` based on the percentage of memory it's using on the node, and then add the `oom_score_adj` to get an
 effective `oom_score` for the container, and then kills the container with the highest score.
 
 The intended behavior should be that containers with the lowest quality of service that

@@ -2,6 +2,11 @@
 assignees:
 - bprashanth
 title: Run Stateless AP Replication Controller
+redirect_from:
+- "/docs/user-guide/replication-controller/operations/"
+- "/docs/user-guide/replication-controller/operations.html"
+- "/docs/user-guide/resizing-a-replication-controller/"
+- "/docs/user-guide/resizing-a-replication-controller.html"
 ---
 
 * TOC
@@ -209,7 +214,7 @@ NAME       DESIRED   CURRENT   READY     AGE
 frontend   2         2         2         1h
 ```
 
-You can also use `get rc NAME` to return information about a specific
+You can also use `kubectl get rc NAME` to return information about a specific
 replication controller.
 
 To view detailed information about a specific replication controller, use the

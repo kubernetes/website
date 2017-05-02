@@ -2,12 +2,15 @@
 assignees:
 - madhusudancs
 title: Setting up Cluster Federation with Kubefed
+redirect_from:
+- "/docs/admin/federation/kubefed/"
+- "/docs/admin/federation/kubefed.html"
 ---
 
 * TOC
 {:toc}
 
-Kubernetes version 1.5 includes a new command line tool called
+Kubernetes version 1.5 and above includes a new command line tool called
 `kubefed` to help you administrate your federated clusters.
 `kubefed` helps you to deploy a new Kubernetes cluster federation
 control plane, and to add clusters to or remove clusters from an
@@ -32,18 +35,15 @@ extract the binaries in the tarball with the commands:
 
 ```shell
 # Linux
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-linux-amd64.tar.gz
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-linux-amd64.tar.gz
 tar -xzvf kubernetes-client-linux-amd64.tar.gz
 
 # OS X
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-darwin-amd64.tar.gz
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-darwin-amd64.tar.gz
 tar -xzvf kubernetes-client-darwin-amd64.tar.gz
 
 # Windows
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
-https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-windows-amd64.tar.gz
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/kubernetes-client-windows-amd64.tar.gz
 tar -xzvf kubernetes-client-windows-amd64.tar.gz
 ```
 
@@ -92,7 +92,7 @@ entry above) for your host cluster when you deploy your federation
 control plane.
 
 
-## Deploying a federation control plane.
+## Deploying a federation control plane
 
 To deploy a federation control plane on your host cluster, run
 `kubefed init` command. When you use `kubefed init`, you must provide
@@ -122,6 +122,20 @@ kubefed init fellowship \
 The domain suffix specified in `--dns-zone-name` must be an existing
 domain that you control, and that is programmable by your DNS provider.
 It must also end with a trailing dot.
+
+Once the federation control plane is initialized, query the namespaces:
+
+```shell
+kubectl get namespace --context=fellowship
+```
+
+If you do not see the `default` namespace listed (this is due to a
+[bug](https://github.com/kubernetes/kubernetes/issues/33292)). Create it
+yourself with the following command:
+
+```shell
+kubectl create namespace default --context=fellowship
+```
 
 The machines in your host cluster must have the appropriate permissions
 to program the DNS service that you are using. For example, if your
@@ -239,7 +253,7 @@ kubefed init fellowship \
 #### API server service type
 
 `kubefed init` exposes the federation API server as a Kubernetes
-[service](/docs/user-guide/services/) on the host cluster. By default,
+[service](/docs/concepts/services-networking/service/) on the host cluster. By default,
 this service is exposed as a
 [load balanced service](/docs/user-guide/services/#type-loadbalancer).
 Most on-premises and bare-metal enviroments, and some cloud
@@ -438,7 +452,7 @@ for you.
 enable federated service discovery. If the joining Kubernetes cluster
 is version 1.5 or newer and your `kubefed` is version 1.6 or newer,
 then this configuration is automatically managed for you when the
-clusters are joined or unjoined using `kubefed` `join` or `unjoin`
+clusters are joined or unjoined using `kubefed join` or `unjoin`
 commands.
 
 In all other cases, you must update `kube-dns` configuration manually
@@ -456,7 +470,7 @@ kubefed unjoin gondor --host-cluster-context=rivendell
 ```
 
 
-## Turning down the federation control plane:
+## Turning down the federation control plane
 
 Proper cleanup of federation control plane is not fully implemented in
 this beta release of `kubefed`. However, for the time being, deleting

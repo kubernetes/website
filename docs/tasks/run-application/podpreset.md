@@ -2,6 +2,9 @@
 assignees:
 - jessfraz
 title: Injecting Information into Pods Using a PodPreset
+redirect_from:
+- "/docs/user-guide/pod-preset/index/"
+- "/docs/user-guide/pod-preset/index.html"
 ---
 
 You can use a `podpreset` object to inject certain information into pods at creation

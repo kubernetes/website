@@ -3,6 +3,9 @@ title: Garbage Collection
 redirect_from:
 - "/docs/concepts/abstractions/controllers/garbage-collection/"
 - "/docs/concepts/abstractions/controllers/garbage-collection.html"
+- "/docs/user-guide/garbage-collection/"
+- "/docs/user-guide/garbage-collection.html"
+
 ---
 
 {% capture overview %}
@@ -106,7 +109,7 @@ blockOwnerDeletion is set automatically and you do not need to manually modify t
 
 To control the cascading deletion policy, set the `deleteOptions.propagationPolicy`
 field on your owner object. Possible values include "Orphan",
-"Foregound", or "Background".
+"Foreground", or "Background".
 
 The default garbage collection policy for many controller resources is `orphan`,
 including ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and

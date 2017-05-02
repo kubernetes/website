@@ -3,13 +3,16 @@ assignees:
 - bgrant0607
 - janetkuo
 title: Deployments
+redirect_from:
+- "/docs/user-guide/deployments/"
+- "/docs/user-guide/deployments.html"
 ---
 
 {:toc}
 
 ## What is a Deployment?
 
-A _Deployment_ provides declarative updates for [Pods](/docs/user-guide/pods/) and [Replica Sets](/docs/user-guide/replicasets/) (the next-generation Replication Controller).
+A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and [Replica Sets](/docs/concepts/workloads/controllers/replicaset/) (the next-generation Replication Controller).
 You only need to describe the desired state in a Deployment object, and the Deployment
 controller will change the actual state to the desired state at a controlled rate for you.
 You can define Deployments to create new resources, or replace existing ones
@@ -77,7 +80,7 @@ nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app
 
 The created Replica Set will ensure that there are three nginx Pods at all times.
 
-**Note:** You must specify appropriate selector and pod template labels of a Deployment (in this case, `app = nginx`), i.e. don't overlap with other controllers (including Deployments, Replica Sets, Replication Controllers, etc.) Kubernetes won't stop you from doing that, and if you end up with multiple controllers that have overlapping selectors, those controllers will fight with each other's and won't behave correctly.
+**Note:** You must specify appropriate selector and pod template labels of a Deployment (in this case, `app = nginx`), i.e. don't overlap with other controllers (including Deployments, Replica Sets, Replication Controllers, etc.) Kubernetes won't stop you from doing that, and if you end up with multiple controllers that have overlapping selectors, those controllers will fight with each other and won't behave correctly.
 
 
 ## Updating a Deployment
@@ -329,7 +332,7 @@ $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 deployment "nginx-deployment" rolled back
 ```
 
-For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/kubectl_rollout/).
+For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/v1.6/#rollout).
 
 The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event for rolling back to revision 2 is generated from Deployment controller.
 
@@ -380,7 +383,7 @@ $ kubectl scale deployment nginx-deployment --replicas 10
 deployment "nginx-deployment" scaled
 ```
 
-Assuming [horizontal pod autoscaling](/docs/user-guide/horizontal-pod-autoscaling/walkthrough.md) is enabled
+Assuming [horizontal pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) is enabled
 in your cluster, you can setup an autoscaler for your Deployment and choose the minimum and maximum number of
 Pods you want to run based on the CPU utilization of your existing Pods.
 
@@ -684,7 +687,7 @@ the same schema as a [Pod](/docs/user-guide/pods), except it is nested and does 
 In addition to required fields for a Pod, a pod template in a Deployment must specify appropriate
 labels (i.e. don't overlap with other controllers, see [selector](#selector)) and an appropriate restart policy.
 
-Only a [`.spec.template.spec.restartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
+Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/) equal to `Always` is allowed, which is the default
 if not specified.
 
 ### Replicas
@@ -804,5 +807,5 @@ In this case, a new deployment rollout cannot be undone, since its revision hist
 
 ### kubectl rolling update
 
-[Kubectl rolling update](/docs/user-guide/kubectl/kubectl_rolling-update) updates Pods and Replication Controllers in a similar fashion.
+[Kubectl rolling update](/docs/user-guide/kubectl/v1.6/#rolling-update) updates Pods and Replication Controllers in a similar fashion.
 But Deployments are recommended, since they are declarative, server side, and have additional features, such as rolling back to any previous revision even after the rolling update is done.

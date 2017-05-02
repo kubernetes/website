@@ -173,11 +173,33 @@ the Container has been restarted:
 kubectl describe pod liveness-http
 ```
 
+## Defining a TCP liveness probe
+
+A third type of liveness probe uses a TCP Socket. With this configuration, the
+kubelet will attempt to open a socket to your container on the specified port.
+If it can establish a connection, the container is considered healthy, if it
+can’t it is considered a failure.
+
+{% include code.html language="yaml" file="tcp-liveness-readiness.yaml" ghlink="/docs/tasks/configure-pod-container/tcp-liveness-readiness.yaml" %}
+
+As you can see, configuration for a TCP check is quite similar to a HTTP check.
+This example uses both readiness and liveness probes. The kubelet will send the
+first readiness probe 5 seconds after the container starts. This will attempt to
+connect to the `goproxy` container on port 8080. If the probe succeeds, the pod
+will be marked as ready. The kubelet will continue to run this check every 10
+seconds.
+
+In addition to the readiness probe, this configuration includes a liveness probe.
+The kubelet will run the first liveness probe 15 seconds after the container
+starts. Just like the readiness probe, this will attempt to connect to the
+`goproxy` container on port 8080. If the liveness probe fails, the container
+will be restarted.
+
 ## Using a named port
 
 You can use a named
 [ContainerPort](/docs/api-reference/v1.6/#containerport-v1-core)
-for HTTP liveness checks:
+for HTTP or TCP liveness checks:
 
 ```yaml
 ports:
@@ -214,29 +236,45 @@ readinessProbe:
   periodSeconds: 5
 ```
 
-{% endcapture %}
+Configuration for HTTP and TCP readiness probes also remains identical to
+liveness probes.
 
+Readiness and liveness probes can be used in parallel for the same container.
+Using both can ensure that traffic does not reach a container that is not ready
+for it, and that containers are restarted when they fail.
 
-{% capture discussion %}
-
-## Discussion
+## Configuring Probes
 
 {% comment %}
-Eventually, some of this Discussion section could be moved to a concept topic.
+Eventually, some of this section could be moved to a concept topic.
 {% endcomment %}
 
-[Probes](/docs/api-reference/v1.6/#probe-v1-core) have these additional fields that you can use to more precisely control the behavior of liveness and readiness checks:
+[Probes](/docs/api-reference/v1.6/#probe-v1-core) have a number of fields that
+you can use to more precisely control the behavior of liveness and readiness
+checks:
 
-* timeoutSeconds
-* successThreshold
-* failureThreshold
+* `initialDelaySeconds`: Number of seconds after the container has started
+before liveness probes are initiated.
+* `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
+seconds. Minimum value is 1.
+* `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
+to 1 second. Minimum value is 1.
+* `successThreshold`: Minimum consecutive successes for the probe to be
+considered successful after having failed. Defaults to 1. Must be 1 for
+liveness. Minimum value is 1.
+* `failureThreshold`: Minimum consecutive failures for the probe to be
+considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 
 [HTTP probes](/docs/api-reference/v1.6/#httpgetaction-v1-core)
-have these additional fields:
+have additional fields that can be set on `httpGet`:
 
-* host
-* scheme
-* httpHeaders
+* `host`: Host name to connect to, defaults to the pod IP. You probably want to
+set "Host" in httpHeaders instead.
+* `scheme`: Scheme to use for connecting to the host. Defaults to HTTP.
+* `path`: Path to access on the HTTP server.
+* `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
+* `port`: Name or number of the port to access on the container. Number must be
+in the range 1 to 65535.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified path and
 port to perform the check. The kubelet sends the probe to the container’s IP address,
@@ -247,18 +285,12 @@ where you would set it. Suppose the Container listens on 127.0.0.1 and the Pod's
 If your pod relies on virtual hosts, which is probably the more common case,
 you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
-In addition to command probes and HTTP probes, Kubernetes supports
-[TCP probes](/docs/api-reference/v1.6/#tcpsocketaction-v1-core).
-
 {% endcapture %}
 
 {% capture whatsnext %}
 
 * Learn more about
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
-
-* Learn more about
-[Health Checking section](/docs/user-guide/walkthrough/k8s201/#health-checking).
 
 ### Reference
 

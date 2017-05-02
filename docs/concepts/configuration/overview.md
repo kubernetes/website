@@ -2,6 +2,9 @@
 assignees:
 - mikedanese
 title: Configuration Best Practices
+redirect_from:
+- "/docs/user-guide/config-best-practices/"
+- "/docs/user-guide/config-best-practices.html"
 ---
 
 This document is meant to highlight and consolidate in one place configuration best practices that are introduced throughout the user-guide and getting-started documentation and examples. This is a living document so if you think of something that is not on this list but might be useful to others, please don't hesitate to file an issue or submit a PR.
@@ -39,8 +42,8 @@ This document is meant to highlight and consolidate in one place configuration b
 
 ## Services
 
-- It's typically best to create a [service](/docs/user-guide/services/) before corresponding [replication
-  controllers](/docs/user-guide/replication-controller/), so that the scheduler can spread the pods comprising the
+- It's typically best to create a [service](/docs/concepts/services-networking/service/) before corresponding [replication
+  controllers](/docs/concepts/workloads/controllers/replicationcontroller/), so that the scheduler can spread the pods comprising the
   service. You can also create a replication controller without specifying replicas (this will set
   replicas=1), create a service, then scale up the replication controller. This can be useful in
   ensuring that one replica works before creating lots of them.
@@ -50,8 +53,8 @@ This document is meant to highlight and consolidate in one place configuration b
   number of places that pod can be scheduled, due to port conflicts— you can only schedule as many
   such Pods as there are nodes in your Kubernetes cluster.
 
-  If you only need access to the port for debugging purposes, you can use the [kubectl proxy and apiserver proxy](/docs/user-guide/connecting-to-applications-proxy/) or [kubectl port-forward](/docs/user-guide/connecting-to-applications-port-forward/).
-  You can use a [Service](/docs/user-guide/services/) object for external service access.
+  If you only need access to the port for debugging purposes, you can use the [kubectl proxy and apiserver proxy](/docs/tasks/access-kubernetes-api/http-proxy-access-api/) or [kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
+  You can use a [Service](/docs/concepts/services-networking/service/) object for external service access.
   If you do need to expose a pod's port on the host machine, consider using a [NodePort](/docs/user-guide/services/#type-nodeport) service before resorting to `hostPort`.
 
 - Avoid using `hostNetwork`, for the same reasons as `hostPort`.
@@ -78,7 +81,7 @@ This document is meant to highlight and consolidate in one place configuration b
   version-agnostic controller names. See the [documentation](/docs/tasks/run-application/rolling-update-replication-controller/) on
   the rolling-update command for more detail.
 
-  Note that the [Deployment](/docs/user-guide/deployments/) object obviates the need to manage replication
+  Note that the [Deployment](/docs/concepts/workloads/controllers/deployment/) object obviates the need to manage replication
   controller 'version names'. A desired state of an object is described by a Deployment, and if
   changes to that spec are _applied_, the deployment controller changes the actual state to the
   desired state at a controlled rate. (Deployment objects are currently part of the [`extensions`

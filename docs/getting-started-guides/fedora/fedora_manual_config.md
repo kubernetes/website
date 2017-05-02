@@ -17,7 +17,7 @@ title: Fedora (Single Node)
 
 This is a getting started guide for Fedora.  It is a manual configuration so you understand all the underlying packages / services / ports, etc...
 
-This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](/docs/admin/networking/) done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
+This guide will only get ONE node (previously minion) working.  Multiple nodes require a functional [networking configuration](/docs/concepts/cluster-administration/networking/) done outside of Kubernetes.  Although the additional Kubernetes configuration requirements should be obvious.
 
 The Kubernetes package provides a few services: kube-apiserver, kube-scheduler, kube-controller-manager, kubelet, kube-proxy.  These services are managed by systemd and the configuration resides in a central location: /etc/kubernetes.  We will break the services up between the hosts.  The first host, fed-master, will be the Kubernetes master.  This host will run the kube-apiserver, kube-controller-manager, and kube-scheduler.  In addition, the master will also run _etcd_ (not needed if _etcd_ runs on a different host but this guide assumes that _etcd_ and Kubernetes master run on the same host).  The remaining host, fed-node will be the node and run kubelet, proxy and docker.
 
@@ -125,8 +125,8 @@ Now create a node object internally in your Kubernetes cluster by running:
 $ kubectl create -f ./node.json
 
 $ kubectl get nodes
-NAME                LABELS              STATUS
-fed-node           name=fed-node-label     Unknown
+NAME            STATUS        AGE
+fed-node        Unknown       4h
 ```
 
 Please note that in the above, it only creates a representation for the node
@@ -172,8 +172,8 @@ done
 
 ```shell
 kubectl get nodes
-NAME                LABELS              STATUS
-fed-node          name=fed-node-label     Ready
+NAME            STATUS      AGE
+fed-node        Ready       4h
 ```
 
 * Deletion of nodes:
@@ -187,8 +187,6 @@ kubectl delete -f ./node.json
 *You should be finished!*
 
 **The cluster should be running! Launch a test pod.**
-
-You should have a functional cluster, check out [101](/docs/user-guide/walkthrough/)!
 
 ## Support Level
 

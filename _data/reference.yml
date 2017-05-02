@@ -1,210 +1,89 @@
 bigheader: "Reference Documentation"
 abstract: "Design docs, concept definitions, and references for APIs and CLIs."
 toc:
-- docs/reference.md
+- docs/reference/index.md
 
-- title: "Kubernetes Resource Types"
+- title: Using the API
   section:
-  - title: Version 1.6
-    path: /docs/resources-reference/v1.6/
-  - title: Version 1.5
-    path: /docs/resources-reference/v1.5/
-
-- title: "Kubernetes API"
-  section:
-  - title: Version 1.6
-    path: /docs/api-reference/v1.6/
-  - title: Version 1.5
-    path: /docs/api-reference/v1.5/
-
-- title: "Kubectl Commands"
-  section:
-  - title: Version 1.6
-    path: /docs/user-guide/kubectl/v1.6/
-  - title: Version 1.5
-    path: /docs/user-guide/kubectl/v1.5/
-
-- title: Kubernetes API
-  section:
-  - docs/api.md
+  - docs/reference/api-overview.md
   - title: Accessing the API
     section:
     - docs/admin/accessing-the-api.md
     - docs/admin/authentication.md
     - docs/admin/bootstrap-tokens.md
-    - title: Authorization Plugins
-      section:
-      - docs/admin/authorization/index.md
-      - docs/admin/authorization/rbac.md
     - docs/admin/admission-controllers.md
     - docs/admin/service-accounts-admin.md
-  - docs/api-reference/v1/operations.html
-  - docs/api-reference/v1/definitions.html
-  - docs/api-reference/labels-annotations-taints.md
+  - title: Authorization
+    section:
+    - docs/admin/authorization/index.md
+    - docs/admin/authorization/rbac.md
+  - docs/reference/deprecation-policy.md
 
-- title: Autoscaling API
+- title: API Reference
   section:
-  - docs/api-reference/autoscaling/v1/operations.html
-  - docs/api-reference/autoscaling/v1/definitions.html
+  - title: v1.6
+    path: /docs/api-reference/v1.6/
+  - title: v1.5
+    path: /docs/api-reference/v1.5/
+  - docs/reference/labels-annotations-taints.md
+  - title: OpenAPI and Swagger
+    section:
+    - title: OpenAPI Spec
+      path: https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/
+    - title: Swagger Spec
+      path: https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/
 
-- title: Batch API
+- title: Federation API
   section:
-  - docs/api-reference/batch/v1/operations.html
-  - docs/api-reference/batch/v1/definitions.html
-
-- title: Apps API
-  section:
-  - title: Apps API Operations
-    path: /docs/api-reference/apps/v1beta1/operations/
-  - title: Apps API Definitions
-    path: /docs/api-reference/apps/v1beta1/definitions/
-
-- title: Extensions API
-  section:
-  - docs/api-reference/extensions/v1beta1/operations.html
-  - docs/api-reference/extensions/v1beta1/definitions.html
+    - docs/reference/federation/v1/operations.html
+    - docs/reference/federation/v1/definitions.html
+    - docs/reference/federation/v1beta1/operations.html
+    - docs/reference/federation/v1beta1/definitions.html
+    - docs/reference/federation/extensions/v1beta1/operations.html
+    - docs/reference/federation/extensions/v1beta1/definitions.html
 
 - title: kubectl CLI
   section:
   - docs/user-guide/kubectl-overview.md
+  - title: v1.6 Commands
+    path: /docs/user-guide/kubectl/v1.6/
+  - title: v1.5 Commands
+    path: /docs/user-guide/kubectl/v1.5/
   - docs/user-guide/docker-cli-to-kubectl.md
   - docs/user-guide/kubectl-conventions.md
   - docs/user-guide/jsonpath.md
   - docs/user-guide/kubectl-cheatsheet.md
-  - title: kubectl Commands
-    section:
-    - docs/user-guide/kubectl/index.md
-    - docs/user-guide/kubectl/kubectl_annotate.md
-    - docs/user-guide/kubectl/kubectl_api-versions.md
-    - docs/user-guide/kubectl/kubectl_apply.md
-    - docs/user-guide/kubectl/kubectl_attach.md
-    - docs/user-guide/kubectl/kubectl_autoscale.md
-    - docs/user-guide/kubectl/kubectl_certificate.md
-    - docs/user-guide/kubectl/kubectl_certificate_approve.md
-    - docs/user-guide/kubectl/kubectl_certificate_deny.md
-    - docs/user-guide/kubectl/kubectl_cluster-info.md
-    - docs/user-guide/kubectl/kubectl_cluster-info_dump.md
-    - docs/user-guide/kubectl/kubectl_completion.md
-    - docs/user-guide/kubectl/kubectl_config.md
-    - docs/user-guide/kubectl/kubectl_config_current-context.md
-    - docs/user-guide/kubectl/kubectl_config_delete-cluster.md
-    - docs/user-guide/kubectl/kubectl_config_delete-context.md
-    - docs/user-guide/kubectl/kubectl_config_get-clusters.md
-    - docs/user-guide/kubectl/kubectl_config_get-contexts.md
-    - docs/user-guide/kubectl/kubectl_config_set-cluster.md
-    - docs/user-guide/kubectl/kubectl_config_set-context.md
-    - docs/user-guide/kubectl/kubectl_config_set-credentials.md
-    - docs/user-guide/kubectl/kubectl_config_set.md
-    - docs/user-guide/kubectl/kubectl_config_unset.md
-    - docs/user-guide/kubectl/kubectl_config_use-context.md
-    - docs/user-guide/kubectl/kubectl_config_view.md
-    - docs/user-guide/kubectl/kubectl_convert.md
-    - docs/user-guide/kubectl/kubectl_cordon.md
-    - docs/user-guide/kubectl/kubectl_cp.md
-    - docs/user-guide/kubectl/kubectl_create.md
-    - docs/user-guide/kubectl/kubectl_create_configmap.md
-    - docs/user-guide/kubectl/kubectl_create_deployment.md
-    - docs/user-guide/kubectl/kubectl_create_namespace.md
-    - docs/user-guide/kubectl/kubectl_create_quota.md
-    - docs/user-guide/kubectl/kubectl_create_secret_docker-registry.md
-    - docs/user-guide/kubectl/kubectl_create_secret.md
-    - docs/user-guide/kubectl/kubectl_create_secret_generic.md
-    - docs/user-guide/kubectl/kubectl_create_secret_tls.md
-    - docs/user-guide/kubectl/kubectl_create_serviceaccount.md
-    - docs/user-guide/kubectl/kubectl_create_service_clusterip.md
-    - docs/user-guide/kubectl/kubectl_create_service_loadbalancer.md
-    - docs/user-guide/kubectl/kubectl_create_service_nodeport.md
-    - docs/user-guide/kubectl/kubectl_delete.md
-    - docs/user-guide/kubectl/kubectl_describe.md
-    - docs/user-guide/kubectl/kubectl_drain.md
-    - docs/user-guide/kubectl/kubectl_edit.md
-    - docs/user-guide/kubectl/kubectl_exec.md
-    - docs/user-guide/kubectl/kubectl_explain.md
-    - docs/user-guide/kubectl/kubectl_expose.md
-    - docs/user-guide/kubectl/kubectl_get.md
-    - docs/user-guide/kubectl/kubectl_label.md
-    - docs/user-guide/kubectl/kubectl_logs.md
-    - docs/user-guide/kubectl/kubectl_options.md
-    - docs/user-guide/kubectl/kubectl_patch.md
-    - docs/user-guide/kubectl/kubectl_port-forward.md
-    - docs/user-guide/kubectl/kubectl_proxy.md
-    - docs/user-guide/kubectl/kubectl_replace.md
-    - docs/user-guide/kubectl/kubectl_rolling-update.md
-    - docs/user-guide/kubectl/kubectl_rollout.md
-    - docs/user-guide/kubectl/kubectl_rollout_history.md
-    - docs/user-guide/kubectl/kubectl_rollout_pause.md
-    - docs/user-guide/kubectl/kubectl_rollout_resume.md
-    - docs/user-guide/kubectl/kubectl_rollout_status.md
-    - docs/user-guide/kubectl/kubectl_rollout_undo.md
-    - docs/user-guide/kubectl/kubectl_run.md
-    - docs/user-guide/kubectl/kubectl_scale.md
-    - docs/user-guide/kubectl/kubectl_set.md
-    - docs/user-guide/kubectl/kubectl_set_image.md
-    - docs/user-guide/kubectl/kubectl_set_resources.md
-    - docs/user-guide/kubectl/kubectl_taint.md
-    - docs/user-guide/kubectl/kubectl_top.md
-    - docs/user-guide/kubectl/kubectl_top_node.md
-    - docs/user-guide/kubectl/kubectl_top_pod.md
-    - docs/user-guide/kubectl/kubectl_uncordon.md
-    - docs/user-guide/kubectl/kubectl_version.md
-    - title: Superseded and Deprecated Commands
-      section:
-      - /docs/user-guide/kubectl/kubectl_namespace/
-      - docs/user-guide/kubectl/kubectl_stop.md
 
-- title: Kubernetes Components
+- docs/admin/kubeadm.md
+
+- title: Config Reference
   section:
+  - docs/admin/kubelet.md
   - docs/admin/kube-apiserver.md
   - docs/admin/kube-controller-manager.md
   - docs/admin/kube-proxy.md
   - docs/admin/kube-scheduler.md
-  - title: kubelet
-    section:
-    - docs/admin/kubelet.md
-    - docs/admin/master-node-communication.md
-    - docs/admin/kubelet-tls-bootstrapping.md
-    - docs/admin/kubelet-authentication-authorization.md
-
-- title: Glossary
-  section:
-  - docs/user-guide/annotations.md
-  - docs/admin/daemons.md
-  - docs/user-guide/deployments.md
-  - docs/user-guide/horizontal-pod-autoscaling/index.md
-  - docs/user-guide/images.md
-  - docs/user-guide/ingress.md
-  - docs/user-guide/jobs.md
-  - docs/user-guide/labels.md
-  - docs/user-guide/identifiers.md
-  - docs/user-guide/namespaces.md
-  - docs/user-guide/networkpolicies.md
-  - docs/admin/node.md
-  - docs/user-guide/persistent-volumes/index.md
-  - docs/user-guide/petset.md
-  - docs/user-guide/pods/index.md
-  - docs/user-guide/pod-security-policy/index.md
-  - docs/user-guide/pod-preset/index.md
-  - docs/user-guide/replicasets.md
-  - docs/user-guide/replication-controller/index.md
-  - docs/admin/resourcequota/index.md
-  - docs/user-guide/cron-jobs.md
-  - docs/user-guide/secrets/index.md
-  - docs/user-guide/security-context.md
-  - docs/user-guide/services/index.md
-  - docs/user-guide/service-accounts.md
-  - docs/user-guide/thirdpartyresources.md
-  - docs/user-guide/volumes.md
+  - docs/admin/federation-apiserver.md
+  - docs/admin/federation-controller-manager.md
 
 - title: Kubernetes Design Docs
   section:
   - title: Kubernetes Architecture
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/design/architecture.md
+    path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md
   - title: Kubernetes Design Overview
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/design/
+    path: https://github.com/kubernetes/kubernetes/tree/release-1.6/docs/design
   - title: Kubernetes Identity and Access Management
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/design/access.md
+    path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/access.md
   - docs/admin/ovs-networking.md
   - title: Security Contexts
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/design/security_context.md
+    path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security_context.md
   - title: Security in Kubernetes
-    path: https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/design/security.md
+    path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security.md
+
+- title: Kubernetes Issues and Security
+  section:
+  - title: Kubernetes Issue Tracker on GitHub
+    path: https://github.com/kubernetes/kubernetes/issues/
+  - docs/reference/security.md
+
+

@@ -3,6 +3,9 @@ assignees:
 - caesarxuchao
 - mikedanese
 title: Getting a Shell to a Running Container
+redirect_from:
+- "/docs/user-guide/getting-into-containers/"
+- "/docs/user-guide/getting-into-containers.html"
 ---
 
 {% capture overview %}

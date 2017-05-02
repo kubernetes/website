@@ -1,39 +1,34 @@
 ---
 title: Federated ReplicaSets
+redirect_from:
+- "/docs/user-guide/federation/replicasets/"
+- "/docs/user-guide/federation/replicasets.html"
 ---
 
-This guide explains how to use replica sets in the Federation control plane.
+{% capture overview %}
+This guide explains how to use ReplicaSets in the Federation control plane.
 
-* TOC
-{:toc}
-
-## Prerequisites
-
-This guide assumes that you have a running Kubernetes Cluster
-Federation installation. If not, then head over to the
-[federation admin guide](/docs/admin/federation/) to learn how to
-bring up a cluster federation (or have your cluster administrator do
-this for you). Other tutorials, for example
-[this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
-by Kelsey Hightower, are also available to help you.
-
-You are also expected to have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and [ReplicaSets](/docs/user-guide/replicasets/) in particular.
-
-## Overview
-
-Replica Sets in federation control plane (referred to as "federated replica sets" in
+ReplicaSets in the federation control plane (referred to as "federated ReplicaSets" in
 this guide) are very similar to the traditional [Kubernetes
-ReplicaSets](/docs/user-guide/replicasets/), and provide the same functionality.
+ReplicaSets](/docs/concepts/workloads/controllers/replicaset/), and provide the same functionality.
 Creating them in the federation control plane ensures that the desired number of
 replicas exist across the registered clusters.
+{% endcapture %}
 
+{% capture prerequisites %}
 
-## Creating a Federated Replica Set
+* {% include federated-task-tutorial-prereqs.md %}
+* You are also expected to have a basic
+[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+general and [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) in particular.
+{% endcapture %}
 
-The API for Federated Replica Set is 100% compatible with the
-API for traditional Kubernetes Replica Set. You can create a replica set by sending
+{% capture steps %}
+
+## Creating a Federated ReplicaSet
+
+The API for Federated ReplicaSet is 100% compatible with the
+API for traditional Kubernetes ReplicaSet. You can create a ReplicaSet by sending
 a request to the federation apiserver.
 
 You can do that using [kubectl](/docs/user-guide/kubectl/) by running:
@@ -46,8 +41,8 @@ The '--context=federation-cluster' flag tells kubectl to submit the
 request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
-Once a federated replica set is created, the federation control plane will create
-a replica set in all underlying Kubernetes clusters.
+Once a federated ReplicaSet is created, the federation control plane will create
+a ReplicaSet in all underlying Kubernetes clusters.
 You can verify this by checking each of the underlying clusters, for example:
 
 ``` shell
@@ -57,40 +52,40 @@ kubectl --context=gce-asia-east1a get rs myrs
 The above assumes that you have a context named 'gce-asia-east1a'
 configured in your client for your cluster in that zone.
 
-These replica sets in underlying clusters will match the federation replica set
-except in the number of replicas. Federation control plane will ensure that the
-sum of replicas in each cluster match the desired number of replicas in the
-federation replica set.
+The ReplicaSets in the underlying clusters will match the federation ReplicaSet
+except in the number of replicas. The federation control plane will ensure that the
+sum of the replicas in each cluster match the desired number of replicas in the
+federation ReplicaSet.
 
 ### Spreading Replicas in Underlying Clusters
 
 By default, replicas are spread equally in all the underlying clusters. For ex:
-if you have 3 registered clusters and you create a federated replica set with
-`spec.replicas = 9`, then each replica set in the 3 clusters will have
+if you have 3 registered clusters and you create a federated ReplicaSet with
+`spec.replicas = 9`, then each ReplicaSet in the 3 clusters will have
 `spec.replicas=3`.
 To modify the number of replicas in each cluster, you can specify
 [FederatedReplicaSetPreference](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/federation/apis/federation/types.go)
 as an annotation with key `federation.kubernetes.io/replica-set-preferences`
-on federated replica set.
+on the federated ReplicaSet.
 
 
-## Updating a Federated Replica Set
+## Updating a Federated ReplicaSet
 
-You can update a federated replica set as you would update a Kubernetes
-replica set; however, for a federated replica set, you must send the request to
+You can update a federated ReplicaSet as you would update a Kubernetes
+ReplicaSet; however, for a federated ReplicaSet, you must send the request to
 the federation apiserver instead of sending it to a specific Kubernetes cluster.
-The Federation control plan ensures that whenever the federated replica set is
-updated, it updates the corresponding replica sets in all underlying clusters to
+The Federation control plane ensures that whenever the federated ReplicaSet is
+updated, it updates the corresponding ReplicaSet in all underlying clusters to
 match it.
 If your update includes a change in number of replicas, the federation
 control plane will change the number of replicas in underlying clusters to
 ensure that their sum remains equal to the number of desired replicas in
-federated replica set.
+federated ReplicaSet.
 
-## Deleting a Federated Replica Set
+## Deleting a Federated ReplicaSet
 
-You can delete a federated replica set as you would delete a Kubernetes
-replica set; however, for a federated replica set, you must send the request to
+You can delete a federated ReplicaSet as you would delete a Kubernetes
+ReplicaSet; however, for a federated ReplicaSet, you must send the request to
 the federation apiserver instead of sending it to a specific Kubernetes cluster.
 
 For example, you can do that using kubectl by running:
@@ -99,7 +94,11 @@ For example, you can do that using kubectl by running:
 kubectl --context=federation-cluster delete rs myrs
 ```
 
-Note that at this point, deleting a federated replica set will not delete the
-corresponding replica sets from underlying clusters.
-You must delete the underlying Replica Sets manually.
+Note that at this point, deleting a federated ReplicaSet will not delete the
+corresponding ReplicaSets from underlying clusters.
+You must delete the underlying ReplicaSets manually.
 We intend to fix this in the future.
+
+{% endcapture %}
+
+{% include templates/task.md %}

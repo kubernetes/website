@@ -2,6 +2,9 @@
 assignees:
 - vishh
 title: Scheduling GPUs
+redirect_from:
+- "/docs/user-guide/gpus/"
+- "/docs/user-guide/gpus.html"
 ---
 
 {% capture overview %}
@@ -62,7 +65,7 @@ KUBELET_OPTS="$KUBELET_OPTS --node-labels='alpha.kubernetes.io/nvidia-gpu-name=$
 echo "KUBELET_OPTS=$KUBELET_OPTS" > /etc/default/kubelet
 ```
 
-Specify the GPU types a pod can use via [Node Affinity](./node-selection) rules.
+Specify the GPU types a pod can use via [Node Affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) rules.
 
 ```yaml
 kind: pod

@@ -5,20 +5,27 @@ assignees:
 - saad-ali
 - thockin
 title: Volumes
+redirect_from:
+- "/docs/user-guide/volumes/"
+- "/docs/user-guide/volumes.html"
 ---
+
+{% capture overview %}
 
 On-disk files in a container are ephemeral, which presents some problems for
 non-trivial applications when running in containers.  First, when a container
-crashes kubelet will restart it, but the files will be lost - the
+crashes, kubelet will restart it, but the files will be lost - the
 container starts with a clean state.  Second, when running containers together
 in a `Pod` it is often necessary to share files between those containers.  The
 Kubernetes `Volume` abstraction solves both of these problems.
 
 Familiarity with [pods](/docs/user-guide/pods) is suggested.
 
-* TOC
+{% endcapture %}
+
 {:toc}
 
+{% capture body %}
 
 ## Background
 
@@ -424,7 +431,7 @@ A `persistentVolumeClaim` volume is used to mount a
 way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 
-See the [PersistentVolumes example](/docs/user-guide/persistent-volumes/) for more
+See the [PersistentVolumes example](/docs/concepts/storage/persistent-volumes/) for more
 details.
 
 ### downwardAPI
@@ -432,7 +439,7 @@ details.
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
 
-See the [`downwardAPI` volume example](/docs/user-guide/downward-api/volume/)  for more details.
+See the [`downwardAPI` volume example](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/)  for more details.
 
 ### FlexVolume
 
@@ -626,3 +633,7 @@ In the future, we expect that `emptyDir` and `hostPath` volumes will be able to
 request a certain amount of space using a [resource](/docs/user-guide/compute-resources)
 specification, and to select the type of media to use, for clusters that have
 several media types.
+
+{% endcapture %}
+
+{% include templates/concept.md %}

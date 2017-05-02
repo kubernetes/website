@@ -4,6 +4,9 @@ assignees:
 - filipg
 - piosz
 title: Guaranteed Scheduling For Critical Add-On Pods
+redirect_from:
+- "/docs/admin/rescheduler/"
+- "/docs/admin/rescheduler.html"
 ---
 
 * TOC
@@ -39,8 +42,8 @@ killed for this purpose.
 
 ## Config
 
-Rescheduler doesn't have any user facing configuration (component config) or API.
-It's enabled by default. It can be disabled:
+Rescheduler should be [enabled by default as a static pod](https://github.com/kubernetes/kubernetes/blob/master/cluster/saltbase/salt/rescheduler/rescheduler.manifest).
+It doesn't have any user facing configuration (component config) or API and can be disabled:
 
 * during cluster setup by setting `ENABLE_RESCHEDULER` flag to `false`
 * on running cluster by deleting its manifest from master node

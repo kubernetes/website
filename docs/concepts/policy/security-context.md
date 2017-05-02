@@ -4,9 +4,12 @@ assignees:
 - mikedanese
 - thockin
 title: Security Context
+redirect_from:
+- "/docs/user-guide/security-context/"
+- "/docs/user-guide/security-context.html"
 ---
 
-A security context defines the operating system security settings (uid, gid, capabilities, SELinux role, etc..) applied to a container. See [security context design](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/security_context.md) for more details.
+A security context defines the operating system security settings (uid, gid, capabilities, SELinux role, etc..) applied to a container. See [security context design](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security_context.md) for more details.
 
 There are two levels of security context: pod level security context, and container level security context.
 
@@ -29,7 +32,7 @@ spec:
       level: "s0:c123,c456"
 ```
 
-Please refer to the [API documentation](/docs/api-reference/v1.6/#pod-v1-coresecuritycontext) for a detailed listing and
+Please refer to the [API documentation](https://kubernetes.io/docs/api-reference/v1.6/#podsecuritycontext-v1-core) for a detailed listing and
 description of all the fields available within the pod security
 context.
 

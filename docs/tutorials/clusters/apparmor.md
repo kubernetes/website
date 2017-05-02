@@ -2,6 +2,9 @@
 assignees:
 - stclair
 title: AppArmor
+redirect_from:
+- "/docs/admin/apparmor/index/"
+- "/docs/admin/apparmor/index.html"
 ---
 
 AppArmor is a Linux kernel enhancement that can reduce the potential attack surface of an
@@ -266,7 +269,7 @@ Note the pod status is Failed, with a helpful error message: `Pod Cannot enforce
 Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
 nodes. There are lots of ways to setup the profiles though, such as:
 
-- Through a [DaemonSet](../daemons/) that runs a Pod on each node to
+- Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
   ensure the correct profiles are loaded. An example implementation can be found
   [here](https://github.com/kubernetes/contrib/tree/master/apparmor/loader).
 - At node initialization time, using your node initialization scripts (e.g. Salt, Ansible, etc.) or
@@ -277,7 +280,7 @@ nodes. There are lots of ways to setup the profiles though, such as:
 The scheduler is not aware of which profiles are loaded onto which node, so the full set of profiles
 must be loaded onto every node.  An alternative approach is to add a node label for each profile (or
 class of profiles) on the node, and use a
-[node selector](../../user-guide/node-selection/) to ensure the Pod is run on a
+[node selector](/docs/concepts/configuration/assign-pod-node/) to ensure the Pod is run on a
 node with the required profile.
 
 ### Restricting profiles with the PodSecurityPolicy
