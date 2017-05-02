@@ -7,6 +7,10 @@ title: CentOS
 * TOC
 {:toc}
 
+## Warning
+
+You shoud be aware of that this guide [has been deprecated](https://github.com/kubernetes/kubernetes.github.io/issues/1613). The version is  kubernetes-1.1.0 if you don't mind. Please check [the latest guide](https://kubernetes.io/docs/getting-started-guides/kubeadm/).
+
 ## Prerequisites
 
 To configure Kubernetes with CentOS, you'll need a machine to act as a master, and one or more CentOS 7 hosts to act as cluster nodes.
