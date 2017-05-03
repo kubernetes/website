@@ -13,7 +13,6 @@ toc:
 
 - title: Configuring Pods and Containers
   section:
-  - docs/tasks/configure-pod-container/define-environment-variable-container.md
   - docs/tasks/configure-pod-container/define-command-argument-container.md
   - docs/tasks/configure-pod-container/assign-cpu-ram-container.md
   - docs/tasks/configure-pod-container/limit-range.md
@@ -38,6 +37,10 @@ toc:
   - docs/tasks/configure-pod-container/romana-network-policy.md
   - docs/tasks/configure-pod-container/weave-network-policy.md
   - docs/tools/kompose/user-guide.md
+
+- title: Injecting Data Into Applications
+  section:
+  - docs/tasks/inject-data-application/define-environment-variable-container.md
 
 - title: Running Applications
   section:
