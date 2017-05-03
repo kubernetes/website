@@ -4,9 +4,6 @@ assignees:
 - erictune
 - mikedanese
 title: Setup
-redirect_from:
-- "/docs/getting-started-guides/index/"
-- "/docs/getting-started-guides/index.html"
 ---
 
 This section provides instructions for installing Kubernetes and setting
