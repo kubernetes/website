@@ -1,31 +1,3 @@
-#
-# Requirements:
-# 
-# * Need to be able to have tab names with spaces in them (e.g. "Weave Net")
-# * Want to have no default selected, default should say "select one of the tabs"
-#   In particular, when no default is selected, it shouldn't be a code block
-# * One line doesn't require a file, nor a link to that file
-#
-# Example Usage:
-#
-# {% assign tab_set_name = "name_of_tab_set" %}
-#
-# {% capture tab1_capture %}Lorem ipsum dolor{% endcapture %}
-# {% capture tab2_capture %}Consectetur adipiscing elit{% endcapture %}
-# ...
-# {% capture tabN_capture %}Praesent sed lacus augue{% endcapture %}
-#
-# {% assign tab_names[1] = "Tab1 Name" %}
-# {% assign tab_contents[1] = tab1_capture %}
-# {% assign tab_names[2] = "Tab2 Name" %}
-# {% assign tab_contents[2] = tab2_capture %}
-# {% assign tab_names[3] = "Tab3 Name" %}
-# {% assign tab_contents[3] = tab3_capture %}
-#
-# {% include tabs.html %}
-#
-#
-
 {% assign tab_set_id = tab_set_name | slugify %}
 <div id="{{tab_set_id}}" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
