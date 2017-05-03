@@ -1,5 +1,8 @@
 ---
 title: Defining Environment Variables for a Container
+redirect_from:
+- "/docs/tasks/configure-pod-container/define-environment-variable-container/"
+- "/docs/tasks/configure-pod-container/define-environment-variable-container.html"
 ---
 
 {% capture overview %}
