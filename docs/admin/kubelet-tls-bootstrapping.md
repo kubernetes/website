@@ -36,12 +36,12 @@ name should be as depicted:
 ```
 
 Add the `--token-auth-file=FILENAME` flag to the kube-apiserver command (in your systemd unit file perhaps) to enable the token file.
-See docs at http://kubernetes.io/docs/admin/authentication/#static-token-file for further details.
+See docs [here](http://kubernetes.io/docs/admin/authentication/#static-token-file) for further details.
 
 ### Client certificate CA bundle
 
 Add the `--client-ca-file=FILENAME` flag to the kube-apiserver command to enable client certificate authentication,
-referencing a certificate authority bundle containing the signing certificate (e.g. --client-ca-file=/var/lib/kubernetes/ca.pem).
+referencing a certificate authority bundle containing the signing certificate (e.g. `--client-ca-file=/var/lib/kubernetes/ca.pem`).
 
 ## kube-controller-manager configuration
 The API for requesting certificates adds a certificate-issuing control loop to the Kubernetes Controller Manager. This takes the form of a
@@ -49,11 +49,12 @@ The API for requesting certificates adds a certificate-issuing control loop to t
 
 ### Signing assets
 You must provide a Certificate Authority in order to provide the cryptographic materials necessary to issue certificates.
-This CA should be trusted by kube-apiserver for authentication with the `--client-ca-file=SOMEFILE` flag. The management
+This CA should be trusted by kube-apiserver for authentication with the `--client-ca-file=FILENAME` flag. The management
 of the CA is beyond the scope of this document but it is recommended that you generate a dedicated CA for Kubernetes.
 Both certificate and key are assumed to be PEM-encoded.
 
 The kube-controller-manager flags are:
+
 ```
 --cluster-signing-cert-file="/etc/path/to/kubernetes/ca/ca.crt" --cluster-signing-key-file="/etc/path/to/kubernetes/ca/ca.key"
 ```
@@ -65,6 +66,7 @@ token in the token file above. Use of this flag circumvents the approval process
 for production use.
 
 The flag is:
+
 ```
 --insecure-experimental-approve-all-kubelet-csrs-for-group="system:kubelet-bootstrap"
 ```
