@@ -41,11 +41,11 @@ toc:
   section:
   - docs/tasks/inject-data-application/define-environment-variable-container.md
   - docs/tasks/inject-data-application/distribute-credentials-secure.md
+  - docs/tasks/inject-data-application/podpreset.md
 
 - title: Running Applications
   section:
   - docs/tasks/run-application/rolling-update-replication-controller.md
-  - docs/tasks/run-application/podpreset.md
   - docs/tasks/run-application/horizontal-pod-autoscale.md
   - docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md
 
