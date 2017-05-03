@@ -56,7 +56,7 @@ if [DNS addon](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
 
 {% capture whatsnext %}
 
-* Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks.md).
+* Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 * Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 

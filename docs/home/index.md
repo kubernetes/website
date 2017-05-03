@@ -26,6 +26,7 @@ Other/newer ways to set up a Kubernetes cluster include:
 * [Installing Kubernetes on AWS with kops](/docs/getting-started-guides/kops/): Bring up a complete Kubernetes cluster on Amazon Web Services, using a tool called `kops`.
 * [Installing Kubernetes on Linux with kubeadm](/docs/getting-started-guides/kubeadm/) (Beta): Install a secure Kubernetes cluster on any pre-existing machines running Linux, using the built-in `kubeadm` tool.
 * [Installing Kubernetes On-premise/Cloud Providers with Kargo](/docs/getting-started-guides/kargo/): Deploy a Kubernetes cluster on-premise baremetal or hosted on cloud providers, with Ansible and `kargo` tools.
+* [Installing Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/): Deploy a Kubernetes cluster on-premise, baremetal, cloud providers, or localhost with Charms and `conjure-up`.
 
 ## Concepts, Tasks, and Tutorials
 
