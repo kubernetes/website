@@ -2,7 +2,7 @@
 assignees:
 - jpeeler
 - pmorie
-title: Using Projected volumes
+title: Configuring a Pod to Use a Projected Volume for Storage
 redirect_from:
 - "/docs/user-guide/projected-volume/"
 - "/docs/user-guide/projected-volume/index.html"
