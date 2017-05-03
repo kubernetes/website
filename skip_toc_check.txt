@@ -43,6 +43,7 @@ docs/home/security.md
 docs/reference/deprecation-policy.md
 docs/search.md
 docs/sitemap.md
+docs/tab-test.md
 docs/user-guide/accessing-the-cluster.md
 docs/user-guide/annotations.md
 docs/user-guide/application-troubleshooting.md
