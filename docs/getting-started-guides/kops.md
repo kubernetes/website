@@ -149,7 +149,7 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 ## What's next
 
-* Learn more about [Kubernetes concepts and kubectl in Kubernetes 101](/docs/user-guide/walkthrough/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Learn about `kops` [advanced usage](https://github.com/kubernetes/kops)
 
 ## Cleanup

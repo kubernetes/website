@@ -3,6 +3,9 @@ assignees:
 - eparis
 - pmorie
 title: Configure Containers Using a ConfigMap
+redirect_from:
+- "/docs/user-guide/configmap/index/"
+- "/docs/user-guide/configmap/index.html"
 ---
 
 Many applications require configuration via some combination of config files, command line
@@ -268,7 +271,7 @@ data:
   log_level: INFO
 ```
 
-We can consume the keys of this ConfigMap in a pod like so:
+`envFrom` is a feature introduced in Kubernetes 1.6. Consequently, if you are using v1.6 or above, you can consume the keys of that ConfigMap in a pod; otherwise, ignore `envFrom` in the following example:
 
 ```yaml
 apiVersion: v1
@@ -548,9 +551,9 @@ invalid keys that were skipped. The example shows a pod which refers to the
 default/myconfig ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
 
 ```shell
-$ kubectl.sh get events
-LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
-0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
+$ kubectl get events
+LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
+0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
 ```
 
 ConfigMaps reside in a namespace.   They can only be referenced by pods in the same namespace.

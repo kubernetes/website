@@ -3,6 +3,9 @@ assignees:
 - jpeeler
 - pmorie
 title: Using Projected volumes
+redirect_from:
+- "/docs/user-guide/projected-volume/"
+- "/docs/user-guide/projected-volume/index.html"
 ---
 
 The _projected volume_ is a volume that projects several existing volume sources

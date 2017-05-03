@@ -38,7 +38,7 @@ case you can try several things:
   to make room for pending pods.
 
 * Check that the pod is not larger than your nodes. For example, if all
-  nodes have a capacity of `cpu:1`, then a pod with a limit of `cpu: 1.1`
+  nodes have a capacity of `cpu:1`, then a pod with a request of `cpu: 1.1`
   will never be scheduled.
 
     You can check node capacities with the `kubectl get nodes -o <format>`

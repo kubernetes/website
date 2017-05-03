@@ -1,5 +1,8 @@
 ---
 title: Pod Lifecycle
+redirect_from:
+- "/docs/user-guide/pod-states/"
+- "/docs/user-guide/pod-states.html"
 ---
 
 {% capture overview %}
@@ -274,7 +277,7 @@ spec:
 * Get hands-on experience
   [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
-* [Container Lifecycle Hooks](/docs/concepts/containers/container-lifecycle-hooks/)
+* Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
 {% endcapture %}
 

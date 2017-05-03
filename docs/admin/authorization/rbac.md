@@ -168,6 +168,28 @@ rules:
   verbs: ["get", "list"]
 ```
 
+Resources can also be referred to by name for certain requests through the `resourceNames` list.
+When specified, requests using the "get", "delete", "update", and "patch" verbs can be restricted
+to individual instances of a resource. To restrict a subject to only "get" and "update" a single
+configmap, you would write:
+
+```yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  namespace: default
+  name: configmap-updater
+rules:
+- apiGroups: [""]
+  resources: ["configmap"]
+  resourceNames: ["my-configmap"]
+  verbs: ["update", "get"]
+```
+
+Notably, `resourceNames` can NOT be used to limit requests using the "create" verb because
+authorizers only have access to information that can be obtained from the request URL, method,
+and headers (resource names in a "create" request are part of the request body).
+
 #### Role Examples
 
 Only the `rules` section is shown in the following examples.

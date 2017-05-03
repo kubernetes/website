@@ -3,6 +3,9 @@ assignees:
 - davidopp
 - thockin
 title: DNS Pods and Services
+redirect_from:
+- "/docs/admin/dns/"
+- "/docs/admin/dns.html"
 ---
 
 ## Introduction

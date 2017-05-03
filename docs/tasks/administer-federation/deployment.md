@@ -1,5 +1,8 @@
 ---
 title: Federated Deployment
+redirect_from:
+- "/docs/user-guide/federation/deployment/"
+- "/docs/user-guide/federation/deployment.html"
 ---
 
 {% capture overview %}

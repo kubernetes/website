@@ -2,6 +2,11 @@
 assignees:
 - janetkuo
 title: Rolling Update Replication Controller
+redirect_from:
+- "/docs/user-guide/rolling-updates/"
+- "/docs/user-guide/rolling-updates.html"
+- "/docs/user-guide/update-demo/index/"
+- "/docs/user-guide/update-demo/index.html"
 ---
 
 * TOC
@@ -241,8 +246,6 @@ Scaling my-nginx-v4 up to 5
 Update succeeded. Deleting old controller: my-nginx
 replicationcontroller "my-nginx-v4" rolling updated
 ```
-
-You can also run the [update demo](/docs/tasks/run-application/rolling-update-replication-controller/) to see a visual representation of the rolling update process.
 
 ## Troubleshooting
 

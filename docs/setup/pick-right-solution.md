@@ -21,6 +21,10 @@ solution is the easiest to create and maintain.
 [Turn-key cloud solutions](#turn-key-cloud-solutions) require only a few commands to create
 and cover a wider range of cloud providers.
 
+If you already have a way to configure hosting resources, you can use
+[kubeadm](/docs/getting-started-guides/kubeadm/) to easily bring up a cluster
+with a single command per machine.
+
 [Custom solutions](#custom-solutions) require more effort to setup but cover and even
 they vary from step-by-step instructions to general advice for setting up
 a Kubernetes cluster from scratch.
@@ -88,6 +92,13 @@ cluster, try the [Getting Started from Scratch](/docs/getting-started-guides/scr
 If you are interested in supporting Kubernetes on a new platform, check out our [advice for
 writing a new solution](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/writing-a-getting-started-guide.md).
 
+#### Universal
+
+
+If you already have a way to configure hosting resources, you can use
+[kubeadm](/docs/getting-started-guides/kubeadm/) to easily bring up a cluster
+with a single command per machine.
+
 #### Cloud
 
 These solutions are combinations of cloud provider and OS not covered by the above solutions.
@@ -138,6 +149,7 @@ Here are all the solutions mentioned above in table form.
 
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
+any                  | any          | multi-support | any CNI | [docs](https://kubernetes.io/docs/getting-started-guides/kubeadm/) | Project ([SIG-cluster-lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle))
 GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](http://www.stackpointcloud.com) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
@@ -160,10 +172,10 @@ AWS                  | CoreOS       | CoreOS | flannel     | [docs](/docs/gettin
 GCE                  | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |  Community ([@pires](https://github.com/pires))
 Vagrant              | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos)                                 |  Community ([@pires](https://github.com/pires), [@AntonioMeireles](https://github.com/AntonioMeireles))
 Bare-metal (Offline) | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/coreos/bare_metal_offline)              |  Community ([@jeffbean](https://github.com/jeffbean))
-CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/getting-started-guides/cloudstack)                             |  Community ([@runseb](https://github.com/runseb))
+CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/getting-started-guides/cloudstack)                             |  Community ([@sebgoa](https://github.com/sebgoa))
 Vmware vSphere       | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/vsphere)                                |  Community ([@imkin](https://github.com/imkin))
 Vmware Photon        | Saltstack    | Debian | OVS         | [docs](/docs/getting-started-guides/photon-controller)                      |  Community ([@alainroy](https://github.com/alainroy))
-Bare-metal           | custom       | CentOS | _none_      | [docs](/docs/getting-started-guides/centos/centos_manual_config)            |  Community ([@coolsvap](https://github.com/coolsvap))
+Bare-metal           | custom       | CentOS | flannel      | [docs](/docs/getting-started-guides/centos/centos_manual_config)            |  Community ([@coolsvap](https://github.com/coolsvap))
 AWS                  | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
 GCE                  | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )
 Bare Metal           | Juju         | Ubuntu | flannel     | [docs](/docs/getting-started-guides/ubuntu/)                                |  [Commercial](http://www.ubuntu.com/cloud/kubernetes) and [Community](https://github.com/juju-solutions/bundle-canonical-kubernetes)  ( [@matt](https://github.com/mbruzek), [@chuck](https://github.com/chuckbutler) )

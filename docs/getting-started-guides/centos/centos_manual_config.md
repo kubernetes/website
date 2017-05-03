@@ -216,15 +216,13 @@ kubectl config use-context default-context
 
 ```shell
 $ kubectl get nodes
-NAME                   LABELS            STATUS
-centos-minion-1        <none>            Ready
-centos-minion-2        <none>            Ready
-centos-minion-3        <none>            Ready
+NAME                   STATUS     AGE     VERSION
+centos-minion-1        Ready      3d      v1.6.0+fff5156
+centos-minion-2        Ready      3d      v1.6.0+fff5156   
+centos-minion-3        Ready      3d      v1.6.0+fff5156
 ```
 
 **The cluster should be running! Launch a test pod.**
-
-You should have a functional cluster, check out [101](/docs/user-guide/walkthrough/)!
 
 ## Support Level
 

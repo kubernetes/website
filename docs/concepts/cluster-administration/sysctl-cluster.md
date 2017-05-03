@@ -2,6 +2,9 @@
 assignees:
 - sttts
 title: Using Sysctls in a Kubernetes Cluster
+redirect_from:
+- "/docs/admin/sysctls/"
+- "/docs/admin/sysctls.html"
 ---
 
 * TOC

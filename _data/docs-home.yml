@@ -10,6 +10,8 @@ toc:
 - title: Release Roadmap
   path: https://github.com/kubernetes/kubernetes/milestones/
 
+- docs/tasks/debug-application-cluster/troubleshooting.md
+
 - title: Contributing to the Kubernetes Docs
   section:
   - editdocs.md
@@ -19,5 +21,3 @@ toc:
   - docs/home/contribute/page-templates.md
   - docs/home/contribute/review-issues.md
   - docs/home/contribute/style-guide.md
- 
-
