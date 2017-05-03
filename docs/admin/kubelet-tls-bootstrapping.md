@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-title: TLS Bootstrapping
+title: TLS bootstrapping
 ---
 
 * TOC
