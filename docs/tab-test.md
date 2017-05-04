@@ -1,7 +1,9 @@
 ---
 title: tab test
 ---
-{% capture default_tab %}Select one of the tabs.{% endcapture %}
+{% capture default_tab %}
+Select one of the tabs.
+{% endcapture %}
 
 {% capture calico %}
 ```shell
