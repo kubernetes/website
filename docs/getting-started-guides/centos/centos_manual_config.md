@@ -9,7 +9,7 @@ title: CentOS
 
 ## Warning
 
-You shoud be aware of that this guide [has been deprecated](https://github.com/kubernetes/kubernetes.github.io/issues/1613). The version is  kubernetes-1.1.0 if you don't mind. Please check [the latest guide](https://kubernetes.io/docs/getting-started-guides/kubeadm/).
+This guide [has been deprecated](https://github.com/kubernetes/kubernetes.github.io/issues/1613). It was originally written for Kubernetes 1.1.0. Please check [the latest guide](https://kubernetes.io/docs/getting-started-guides/kubeadm/).
 
 ## Prerequisites
 
