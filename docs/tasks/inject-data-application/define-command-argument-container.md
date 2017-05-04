@@ -1,8 +1,8 @@
 ---
 title: Defining a Command and Arguments for a Container
 redirect_from:
-- "/docs/tasks/configure-pod-container/define-command-argument-container/"
-- "/docs/tasks/configure-pod-container/define-command-argument-container.html"
+- "/docs/concepts/configuration/container-command-args/"
+- "/docs/concepts/configuration/container-command-arg.html"
 ---
 
 {% capture overview %}
