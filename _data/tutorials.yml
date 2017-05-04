@@ -45,7 +45,6 @@ toc:
 - title: Stateful Applications
   section:
   - docs/tutorials/stateful-application/basic-stateful-set.md
-  - docs/tutorials/stateful-application/run-replicated-stateful-application.md
   - docs/tutorials/stateful-application/zookeeper.md
 - title: Connecting Applications
   section:
