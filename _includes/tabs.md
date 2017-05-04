@@ -6,7 +6,9 @@
 {% endfor %}
     </ul>
 {% for content in tab_contents %}
-    <div id="{{tab_set_id}}-{{forloop.index0}}" aria-labelledby="ui-id-{{forloop.index0}}" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-hidden="true" style="display: none;">{{ content }}</div>
+    <div id="{{tab_set_id}}-{{forloop.index0}}" aria-labelledby="ui-id-{{forloop.index0}}" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-hidden="true" style="display: none;">
+    {{ content }}
+    </div>
 {% endfor %}
 </div>
 <script>$(function(){$("#{{tab_set_id}}").tabs();});</script>
