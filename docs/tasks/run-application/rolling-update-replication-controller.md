@@ -19,7 +19,7 @@ redirect_from:
 which in turn uses a
 [ReplicaSet](/docs/api-reference/v1.6/#replicaset-v1beta1-extensions).
 For more information, see
-[Runnin a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
+[Running a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
 
 To update a service without an outage, `kubectl` supports what is called ['rolling update'](/docs/user-guide/kubectl/v1.6/#rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) and the [example of rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) for more information.
 
