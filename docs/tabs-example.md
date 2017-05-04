@@ -1,5 +1,5 @@
 ---
-title: tab test
+title: Tabs Example
 ---
 {% capture default_tab %}
 Select one of the tabs.
