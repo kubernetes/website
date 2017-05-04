@@ -1,11 +1,12 @@
 ---
-title: Exposing Pod Information to Containers Using the Downward API
+title: Exposing Pod Information to Containers Through Files
 redirect_from:
 - "/docs/user-guide/downward-api/"
 - "/docs/user-guide/downward-api/index.html"
-redirect_from:
 - "/docs/user-guide/downward-api/volume/"
 - "/docs/user-guide/downward-api/volume/index.html"
+- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/"
+- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information.html"
 ---
 
 {% capture overview %}
@@ -40,7 +41,7 @@ Together, these two ways of exposing Pod and Container fields are called the
 In this exercise, you create a Pod that has one Container.
 Here is the configuration file for the Pod:
 
-{% include code.html language="yaml" file="dapi-volume.yaml" ghlink="/docs/tasks/configure-pod-container/dapi-volume.yaml" %}
+{% include code.html language="yaml" file="dapi-volume.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume.yaml" %}
 
 In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
 and the Container mounts the Volume at `/etc`.
@@ -152,7 +153,7 @@ The preceding exercise, you stored Pod fields in a DownwardAPIVolumeFile.
 In this next exercise, you store Container fields. Here is the configuration
 file for a Pod that has one Container:
 
-{% include code.html language="yaml" file="dapi-volume-resources.yaml" ghlink="/docs/tasks/configure-pod-container/dapi-volume-resources.yaml" %}
+{% include code.html language="yaml" file="dapi-volume-resources.yaml" ghlink="/docs/tasks/inject-data-application/dapi-volume-resources.yaml" %}
 
 In the configuration file, you can see that the Pod has a `downwardAPI` Volume,
 and the Container mounts the Volume at `/etc`.
