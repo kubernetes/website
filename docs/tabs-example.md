@@ -4,10 +4,15 @@ assignees:
 title: Tabs Example
 ---
 
-In a markdown page (.md file), you can add a tab set to display multiple flavors of a given solution. 
+In a markdown page (.md file) on this site, you can add a tab set to display multiple flavors of a given solution. 
 
 ## Example Liquid code for tabs
 
+Below is an example of some [Liquid](https://shopify.github.io/liquid/) template code to illustrate how to specify the contents of each tab. The included [/_includes/tabs.md](https://github.com/kubernetes/kubernetes.github.io/tree/master/_includes/tabs.md) file at the end then uses those elements to render the actual tab set.
+
+The `capture [variable_name]` tags store markdown content and assign them to the specified variable.
+
+````liquid
 {{ "{% capture default_tab " }}%}
 Select one of the tabs.
 {{ "{% endcapture " }}%}
@@ -35,12 +40,25 @@ kubectl apply -f "https://raw.githubusercontent.com/romana/romana/master/contain
 kubectl apply -f "https://git.io/weave-kube"
 ```
 {{ "{% endcapture " }}%}
+````
 
-{{ "{% assign tab_names = "Default,Calico,Flannel,Romana,Weave Net" | split: ',' | compact " }}%}
+`assign tab_names` takes a list of labels to use for the tabs. Label text can include spaces. The given comma delimited string is split into an array and assigned to the `tab_names` variable. 
+
+````liquid
+{{ "{% assign tab_names = 'Default,Calico,Flannel,Romana,Weave Net' | split: ',' | compact " }}%}
+````
+
+`assign tab_contents` adds the contents of each tab pane, captured above, as elements to the `tab_contents` array.
+
+````liquid
 {{ "{% assign tab_contents = site.emptyArray | push: default_tab | push: calico | push: flannel | push: romana | push: weave_net " }}%}
+````
 
+`include tabs.md` pulls in the tabs template code, which uses the `tab_names` and `tab_contents` variables to render the tab set.
+
+````liquid
 {{ "{% include tabs.md " }}%}
-
+````
 
 ## Demo
 
