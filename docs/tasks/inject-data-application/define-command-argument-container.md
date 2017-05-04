@@ -1,5 +1,8 @@
 ---
 title: Defining a Command and Arguments for a Container
+redirect_from:
+- "/docs/tasks/configure-pod-container/define-command-argument-container/"
+- "/docs/tasks/configure-pod-container/define-command-argument-container.html"
 ---
 
 {% capture overview %}
@@ -36,7 +39,7 @@ with your new arguments. For more information, see
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a command and two arguments:
 
-{% include code.html language="yaml" file="commands.yaml" ghlink="/docs/tasks/configure-pod-container/commands.yaml" %}
+{% include code.html language="yaml" file="commands.yaml" ghlink="/docs/tasks/inject-data-application/commands.yaml" %}
 
 1. Create a Pod based on the YAML configuration file:
 

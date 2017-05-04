@@ -13,7 +13,6 @@ toc:
 
 - title: Configuring Pods and Containers
   section:
-  - docs/tasks/configure-pod-container/define-command-argument-container.md
   - docs/tasks/configure-pod-container/assign-cpu-ram-container.md
   - docs/tasks/configure-pod-container/limit-range.md
   - docs/tasks/configure-pod-container/apply-resource-quota-limit.md
@@ -38,6 +37,7 @@ toc:
 
 - title: Injecting Data Into Applications
   section:
+  - docs/tasks/inject-data-application/define-command-argument-container.md
   - docs/tasks/inject-data-application/define-environment-variable-container.md
   - docs/tasks/inject-data-application/downward-api-volume-expose-pod-information.md
   - docs/tasks/inject-data-application/distribute-credentials-secure.md
