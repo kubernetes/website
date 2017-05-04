@@ -40,7 +40,6 @@ toc:
   - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
 - title: Stateless Applications
   section:
-  - docs/tutorials/stateless-application/run-stateless-application-deployment.md
   - docs/tutorials/stateless-application/expose-external-ip-address-service.md
   - docs/tutorials/stateless-application/expose-external-ip-address.md
   - docs/tutorials/stateless-application/run-stateless-ap-replication-controller.md
