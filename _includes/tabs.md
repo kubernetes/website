@@ -1,3 +1,4 @@
+{% comment %} See /docs/tabs-example.md for usage example. {% endcomment %}
 {% assign tab_set_id = tab_set_name | default: "tabset" | slugify %}
 <div id="{{tab_set_id}}">
     <ul>
