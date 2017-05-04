@@ -39,7 +39,7 @@ toc:
 - title: Injecting Data Into Applications
   section:
   - docs/tasks/inject-data-application/define-environment-variable-container.md
-  - docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information.md
+  - docs/tasks/inject-data-application/downward-api-volume-expose-pod-information.md
   - docs/tasks/inject-data-application/distribute-credentials-secure.md
   - docs/tasks/inject-data-application/podpreset.md
 
