@@ -173,14 +173,15 @@ Here's an example of a pod that uses pod affinity:
 
 {% include code.html language="yaml" file="pod-with-pod-affinity.yaml" ghlink="/docs/concepts/configuration/pod-with-pod-affinity.yaml" %}
 
-The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. Both
-must be satisfied for the pod to schedule onto a node. The
+The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. In this example, the
+`podAffinity` is `requiredDuringSchedulingIgnoredDuringExecution`
+while the `podAntiAffinity` is `preferredDuringSchedulingIgnoredDuringExecution`. The
 pod affinity rule says that the pod can schedule onto a node only if that node is in the same zone
 as at least one already-running pod that has a label with key "security" and value "S1". (More precisely, the pod is eligible to run
 on node N if node N has a label with key `failure-domain.beta.kubernetes.io/zone` and some value V
 such that there is at least one node in the cluster with key `failure-domain.beta.kubernetes.io/zone` and
 value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
-rule says that the pod cannot schedule onto a node if that node is already running a pod with label
+rule says that the pod prefer not schedule onto a node if that node is already running a pod with label
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot schedule onto a node if that node is in the same zone as a pod with
 label having key "security" and value "S2".) See the [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/podaffinity.md).
