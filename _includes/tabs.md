@@ -2,7 +2,7 @@
 <div id="{{tab_set_id}}">
     <ul>
 {% for name in tab_names %}
-        <li><a href="#{{tab_set_id}}-{{forloop.index0}}" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-{{forloop.index0}}">{{ name | strip }}</a></li>
+        <li><a href="#{{tab_set_id}}-{{forloop.index0}}">{{ name | strip }}</a></li>
 {% endfor %}
     </ul>
 {% for content in tab_contents %}
