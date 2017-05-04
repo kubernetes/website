@@ -7,6 +7,8 @@ redirect_from:
 - "/docs/user-guide/pods/single-container.html"
 - "/docs/user-guide/deploying-applications/"
 - "/docs/user-guide/deploying-applications.html"
+- "/docs/tutorials/stateless-application/run-stateless-application-deployment/"
+- "/docs/tutorials/stateless-application/run-stateless-application-deployment.html"
 ---
 
 {% capture overview %}
