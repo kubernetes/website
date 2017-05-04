@@ -217,7 +217,7 @@ Kube-dns is an addon for Kubernetes which adds DNS-based service discovery to th
 The kube-dns addon runs as a pod inside the cluster. The pod consists of three co-located containers:
 
 - a local etcd instance
-- the [skydns][11] DNS server
+- the [kube-dns][11] DNS server
 - the kube2sky process to glue skydns to the state of the Kubernetes cluster.
 
 The skydns container offers DNS service via port 53 to the cluster. The etcd communication works via local 127.0.0.1 communication
@@ -229,13 +229,13 @@ We assume that kube-dns will use
 
 Note that we have passed these two values already as parameter to the apiserver above.
 
-A template for a replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/skydns-rc.yaml.in][11] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
+A template for a replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/kubedns-controller.yaml.in][12] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
 
 - replace `{% raw %}{{ pillar['dns_replicas'] }}{% endraw %}`  with `1`
 - replace `{% raw %}{{ pillar['dns_domain'] }}{% endraw %}` with `cluster.local.`
 - add `--kube_master_url=${KUBERNETES_MASTER}` parameter to the kube2sky container command.
 
-In addition the service template at [cluster/addons/dns/skydns-svc.yaml.in][12] needs the following replacement:
+In addition the service template at [cluster/addons/dns/kubedns-controller.yaml.in][12] needs the following replacement:
 
 - `{% raw %}{{ pillar['dns_server'] }}{% endraw %}` with `10.10.10.10`.
 
@@ -245,16 +245,16 @@ To do this automatically:
 sed -e "s/{{ pillar\['dns_replicas'\] }}/1/g;"\
 "s,\(command = \"/kube2sky\"\),\\1\\"$'\n'"        - --kube_master_url=${KUBERNETES_MASTER},;"\
 "s/{{ pillar\['dns_domain'\] }}/cluster.local/g" \
-  cluster/addons/dns/skydns-rc.yaml.in > skydns-rc.yaml
+  cluster/addons/dns/kubedns-controller.yaml.in > kubedns-controller.yaml
 sed -e "s/{{ pillar\['dns_server'\] }}/10.10.10.10/g" \
-  cluster/addons/dns/skydns-svc.yaml.in > skydns-svc.yaml{% endraw %}
+  cluster/addons/dns/kubedns-svc.yaml.in > kubedns-svc.yaml{% endraw %}
 ```
 
 Now the kube-dns pod and service are ready to be launched:
 
 ```shell
-kubectl create -f ./skydns-rc.yaml
-kubectl create -f ./skydns-svc.yaml
+kubectl create -f ./kubedns-controller-rc.yaml
+kubectl create -f ./kubedns-svc.yaml
 ```
 
 Check with `kubectl get pods --namespace=kube-system` that 3/3 containers of the pods are eventually up and running. Note that the kube-dns pods run in the `kube-system` namespace, not in  `default`.
@@ -335,6 +335,6 @@ Future work will add instructions to this guide to enable support for Kubernetes
 [8]: https://github.com/mesosphere/kubernetes-mesos/issues
 [9]: https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples
 [10]: http://open.mesosphere.com/getting-started/cloud/google/mesosphere/#vpn-setup
-[11]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/skydns-rc.yaml.in
-[12]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/skydns-svc.yaml.in
+[11]: https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/README.md#kube-dns
+[12]: https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/kubedns-controller.yaml.in
 [13]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/README.md
