@@ -1,5 +1,8 @@
 ---
 title: Defining a Command and Arguments for a Container
+redirect_from:
+- "/docs/concepts/configuration/container-command-args/"
+- "/docs/concepts/configuration/container-command-arg.html"
 ---
 
 {% capture overview %}
@@ -30,13 +33,12 @@ you define cannot be changed after the Pod is created.
 The command and arguments that you define in the configuration file
 override the default command and arguments provided by the container image.
 If you define args, but do not define a command, the default command is used
-with your new arguments. For more information, see
-[Commands and Capabilities](/docs/user-guide/containers/).
+with your new arguments.
 
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines a command and two arguments:
 
-{% include code.html language="yaml" file="commands.yaml" ghlink="/docs/tasks/configure-pod-container/commands.yaml" %}
+{% include code.html language="yaml" file="commands.yaml" ghlink="/docs/tasks/inject-data-application/commands.yaml" %}
 
 1. Create a Pod based on the YAML configuration file:
 
@@ -89,6 +91,41 @@ script. To run your command in a shell, wrap it like this:
 
     command: ["/bin/sh"]
     args: ["-c", "while true; do echo hello; sleep 10;done"]
+
+## Notes
+
+This table summarizes the field names used by Docker and Kubernetes.
+
+|              Description               |    Docker field name   | Kubernetes field name |
+|----------------------------------------|------------------------|-----------------------|
+|  The command run by the container      |   Entrypoint           |      command          |
+|  The arguments passed to the command   |   Cmd                  |      args             |
+
+When you override the default Entrypoint and Cmd, these rules apply:
+
+* If you do not supply `command` or `args` for a Container, the defaults defined
+in the Docker image are used.
+
+* If you supply a `command` but no `args` for a Container, only the supplied
+`command` is used. The default EntryPoint and the default Cmd defined in the Docker
+image are ignored.
+
+* If you supply only `args` for a Container, the default Entrypoint defined in
+the Docker image is run with the `args` that you supplied.
+
+* If you supply a `command` and `args`, the default Entrypoint and the default
+Cmd defined in the Docker image are ignored. Your `command` is run with your
+`args`.
+
+Here are some examples:
+
+| Image Entrypoint   |    Image Cmd     | Container command   |  Container args    |    Command run   |
+|--------------------|------------------|---------------------|--------------------|------------------|
+|     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |   &lt;not set&gt;  | `[ep-1 foo bar]` |
+|     `[/ep-1]`      |   `[foo bar]`    |      `[/ep-2]`      |   &lt;not set&gt;  |     `[ep-2]`     |
+|     `[/ep-1]`      |   `[foo bar]`    |   &lt;not set&gt;   |     `[zoo boo]`    | `[ep-1 zoo boo]` |
+|     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
+
 
 {% endcapture %}
 
