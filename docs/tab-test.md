@@ -2,12 +2,33 @@
 title: tab test
 ---
 {% capture default_tab %}Select one of the tabs.{% endcapture %}
-{% capture tab1 %}Lorem ipsum dolor{% endcapture %}
-{% capture tab2 %}Consectetur adipiscing elit{% endcapture %}
-{% capture tab3 %}Praesent sed lacus augue{% endcapture %}
+
+{% capture calico %}
+```shell
+kubectl apply -f "http://docs.projectcalico.org/v2.0/getting-started/kubernetes/installation/hosted/kubeadm/calico.yaml"
+```
+{% endcapture %}
+
+{% capture flannel %}
+```shell
+kubectl apply -f "https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml?raw=true"
+```
+{% endcapture %}
+
+{% capture romana %}
+```shell
+kubectl apply -f "https://raw.githubusercontent.com/romana/romana/master/containerize/specs/romana-kubeadm.yml"
+```
+{% endcapture %}
+
+{% capture weave_net %}
+```shell
+kubectl apply -f "https://git.io/weave-kube"
+```
+{% endcapture %}
 
 {% assign tab_set_name = "some_tabs" %}
 {% assign tab_names = "Default,Calico,Flannel,Weave Net" | split: ',' | compact %}
-{% assign tab_contents = "Select one of the tabs.;" | split: ';' | compact | push: tab1 | push: tab2 | push: tab3 %}
+{% assign tab_contents = "Select one of the tabs.;" | split: ';' | compact | push: calico | push: flannel | push: romana | push: weave_net %}
 
 {% include tabs.html %}
