@@ -1,4 +1,4 @@
-{% assign tab_set_id = tab_set_name | slugify %}
+{% assign tab_set_id = tab_set_name | default: "tabset" | slugify %}
 <div id="{{tab_set_id}}" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
 {% for name in tab_names %}
@@ -7,7 +7,7 @@
     </ul>
 {% for content in tab_contents %}
     <div id="{{tab_set_id}}-{{forloop.index0}}" aria-labelledby="ui-id-{{forloop.index0}}" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-hidden="true" style="display: none;">
-    {{ content }}
+    {{ content | markdownify }}
     </div>
 {% endfor %}
 </div>

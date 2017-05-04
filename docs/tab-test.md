@@ -27,7 +27,6 @@ kubectl apply -f "https://git.io/weave-kube"
 ```
 {% endcapture %}
 
-{% assign tab_set_name = "some_tabs" %}
 {% assign tab_names = "Default,Calico,Flannel,Weave Net" | split: ',' | compact %}
 {% assign tab_contents = site.emptyArray | push: default_tab | push: calico | push: flannel | push: romana | push: weave_net %}
 
