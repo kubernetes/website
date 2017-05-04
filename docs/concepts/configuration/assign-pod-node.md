@@ -173,9 +173,9 @@ Here's an example of a pod that uses pod affinity:
 
 {% include code.html language="yaml" file="pod-with-pod-affinity.yaml" ghlink="/docs/concepts/configuration/pod-with-pod-affinity.yaml" %}
 
-The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. Both
-must be satisfied for the pod to schedule onto a node. The
-pod affinity rule says that the pod can schedule onto a node only if that node is in the same zone
+The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. The `podAffinity` is `preferredDuringSchedulingIgnoredDuringExecution`
+while the `podAntiAffinity` is `requiredDuringSchedulingIgnoredDuringExecution`. The
+pod affinity rule says that the pod prefer to schedule onto a node only if that node is in the same zone
 as at least one already-running pod that has a label with key "security" and value "S1". (More precisely, the pod is eligible to run
 on node N if node N has a label with key `failure-domain.beta.kubernetes.io/zone` and some value V
 such that there is at least one node in the cluster with key `failure-domain.beta.kubernetes.io/zone` and
