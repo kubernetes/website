@@ -1,6 +1,6 @@
 {% assign tab_set_id = tab_set_name | default: "tabset" | slugify %}
-<div id="{{tab_set_id}}" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
-    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+<div id="{{tab_set_id}}">
+    <ul>
 {% for name in tab_names %}
         <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="{{tab_set_id}}-{{forloop.index0}}" aria-labelledby="ui-id-{{forloop.index0}}" aria-selected="false" aria-expanded="false"><a href="#{{tab_set_id}}-{{forloop.index0}}" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-{{forloop.index0}}">{{ name | strip }}</a></li>
 {% endfor %}
