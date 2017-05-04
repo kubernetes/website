@@ -86,7 +86,6 @@ toc:
 - title: Configuration
   section:
   - docs/concepts/configuration/overview.md
-  - docs/concepts/configuration/container-command-args.md
   - docs/concepts/configuration/manage-compute-resources-container.md
   - docs/concepts/configuration/assign-pod-node.md
   - docs/concepts/configuration/secret.md
