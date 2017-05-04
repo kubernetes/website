@@ -7,6 +7,10 @@ redirect_from:
 - "/docs/user-guide/pods/single-container.html"
 - "/docs/user-guide/deploying-applications/"
 - "/docs/user-guide/deploying-applications.html"
+- "/docs/tutorials/stateless-application/run-stateless-application-deployment/"
+- "/docs/tutorials/stateless-application/run-stateless-application-deployment.html"
+- "/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/"
+- "/docs/tutorials/stateless-application/run-stateless-ap-replication-controller.html"
 ---
 
 {% capture overview %}
@@ -127,6 +131,13 @@ should have four pods:
 Delete the deployment by name:
 
     kubectl delete deployment nginx-deployment
+
+## ReplicationControllers -- the Old Way
+
+The preferred way to create a replicated application is to use a Deployment,
+which in turn uses a ReplicaSet. Before the Deployment and ReplicaSet were
+added to Kubernetes, replicated applicatios were configured by using a
+[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
 
 {% endcapture %}
 

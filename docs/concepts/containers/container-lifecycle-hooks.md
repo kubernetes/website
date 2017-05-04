@@ -44,7 +44,7 @@ so it must complete before the call to delete the container can be sent.
 No parameters are passed to the handler. 
 
 A more detailed description of the termination behavior can be found in
-[Termination of Pods](/docs/user-guide/pods/#termination-of-pods).
+[Termination of Pods](/docs/concepts/workloads/pods/pod/#termination-of-pods).
 
 ### Hook handler implementations
 
@@ -118,7 +118,7 @@ Events:
 
 {% capture whatsnext %}
 
-* Learn more about the [Container environment](/docs/concepts/containers/container-environment-variables.md).
+* Learn more about the [Container environment](/docs/concepts/containers/container-environment-variables/).
 * Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 

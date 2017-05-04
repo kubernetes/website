@@ -4,7 +4,7 @@ assignees:
 title: Daemon Sets
 redirect_from:
 - "/docs/admin/daemons/"
-- "/docs/admin/daemons/.html"
+- "/docs/admin/daemons.html"
 ---
 
 * TOC
