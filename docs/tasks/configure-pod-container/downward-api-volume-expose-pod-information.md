@@ -1,5 +1,11 @@
 ---
-title: Exposing Pod Information to Containers Using a DownwardApiVolumeFile
+title: Exposing Pod Information to Containers Using the Downward API
+redirect_from:
+- "/docs/user-guide/downward-api/"
+- "/docs/user-guide/downward-api/index.html"
+redirect_from:
+- "/docs/user-guide/downward-api/volume/"
+- "/docs/user-guide/downward-api/volume/index.html"
 ---
 
 {% capture overview %}
@@ -156,7 +162,7 @@ DownwardAPIVolumeFile.
 
 The first element specifies that in the Container named `client-container`,
 the value of the `limits.cpu` field 
-`metadata.labels` field should be stored in a file named `cpu_limit`.
+should be stored in a file named `cpu_limit`.
 
 Create the Pod:
 
@@ -210,7 +216,7 @@ Downward API defaults to the node allocatable value for CPU and memory.
 
 You can project keys to specific paths and specific permissions on a per-file
 basis. For more information, see
-[Secrets](/docs/user-guide/secrets/).
+[Secrets](/docs/concepts/configuration/secret/).
 
 ## Motivation for the Downward API
 

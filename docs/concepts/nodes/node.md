@@ -3,6 +3,9 @@ assignees:
 - caesarxuchao
 - dchen1107
 title: Nodes
+redirect_from:
+- "/docs/admin/node/"
+- "/docs/admin/node.html"
 ---
 
 * TOC
@@ -171,7 +174,7 @@ Starting in Kubernetes 1.6, the NodeController is also responsible for evicting
 pods that are running on nodes with `NoExecute` taints, when the pods do not tolerate
 the taints. Additionally, as an alpha feature that is disabled by default, the
 NodeController is responsible for adding taints corresponding to node problems like
-node unreachable or not ready. See [this documentation](/docs/user-guide/node-selection/index.md#taints-and-tolerations-beta-feature)
+node unreachable or not ready. See [this documentation](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature)
 for details about `NoExecute` taints and the alpha feature.
 
 ### Self-Registration of Nodes

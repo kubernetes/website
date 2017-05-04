@@ -1,6 +1,10 @@
 ---
 title: Limiting Storage Consumption
+redirect_from:
+- "/docs/admin/resourcequota/limitstorageconsumption/"
+- "/docs/admin/resourcequota/limitstorageconsumption.html"
 ---
+
 {% capture overview %}
 
 This example demonstrates an easy way to limit the amount of storage consumed in a namespace.

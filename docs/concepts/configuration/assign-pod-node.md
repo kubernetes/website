@@ -4,9 +4,12 @@ assignees:
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
+redirect_from:
+- "/docs/user-guide/node-selection/"
+- "/docs/user-guide/node-selection/index.html"
 ---
 
-You can constrain a [pod](/docs/user-guide/pods/) to only be able to run on particular [nodes](/docs/admin/node/) or to prefer to
+You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/nodes/node/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
 [label selectors](/docs/user-guide/labels/) to make the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
@@ -135,6 +138,10 @@ There is no explicit "node anti-affinity" concept, but `NotIn` and `DoesNotExist
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
 to be scheduled onto a candidate node.
 
+If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types, then the pod can be scheduled onto a node **if one of** the `nodeSelectorTerms` is satisfied.
+
+If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
+
 For more information on node affinity, see the design doc
 [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/nodeaffinity.md).
 
@@ -183,8 +190,8 @@ flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 As with node affinity, the legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 
 In principle, the `topologyKey` can be any legal label value. However,
-for performance reasons, only a limit set of topology keys are allowed;
-they are specified in the `--failure-domain` command-line argument to the scheduler. By default the allowed topology keys are
+for performance reasons, only a limited set of topology keys are allowed.
+By default the allowed topology keys are:
 
 * `kubernetes.io/hostname`
 * `failure-domain.beta.kubernetes.io/zone`
@@ -213,7 +220,7 @@ marks that the node should not accept any pods that do not tolerate the taints.
 Tolerations are applied to pods, and allow (but do not require) the pods to schedule
 onto nodes with matching taints.
 
-You add a taint to a node using [kubectl taint](https://kubernetes.io/docs/user-guide/kubectl/kubectl_taint/).
+You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/v1.6/#taint).
 For example,
 
 ```shell

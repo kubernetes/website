@@ -3,6 +3,9 @@ assignees:
 - davidopp
 - thockin
 title: DNS Pods and Services
+redirect_from:
+- "/docs/admin/dns/"
+- "/docs/admin/dns.html"
 ---
 
 ## Introduction
@@ -304,7 +307,7 @@ kube-dns                10.0.0.10      <none>        53/UDP,53/TCP        1h
 ...
 ```
 
-If you have created the service or in the case it should be created by default but it does not appear, see this [debugging services page](/docs/user-guide/debugging-services/) for more information.
+If you have created the service or in the case it should be created by default but it does not appear, see this [debugging services page](/docs/tasks/debug-application-cluster/debug-service/) for more information.
 
 #### Are DNS endpoints exposed?
 
@@ -320,7 +323,7 @@ NAME       ENDPOINTS                       AGE
 kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 ```
 
-If you do not see the endpoints, see endpoints section in the [debugging services documentation](/docs/user-guide/debugging-services/).
+If you do not see the endpoints, see endpoints section in the [debugging services documentation](/docs/tasks/debug-application-cluster/debug-service/).
 
 For additional Kubernetes DNS examples, see the [cluster-dns examples](https://github.com/kubernetes/kubernetes/tree/master/examples/cluster-dns) in the Kubernetes GitHub repository.
 

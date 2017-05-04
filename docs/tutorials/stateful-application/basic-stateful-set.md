@@ -22,8 +22,8 @@ Before you begin this tutorial, you should familiarize yourself with the
 following Kubernetes concepts.
 
 * [Pods](/docs/user-guide/pods/single-container/)
-* [Cluster DNS](/docs/admin/dns/)
-* [Headless Services](/docs/user-guide/services/#headless-services)
+* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
+* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
@@ -330,7 +330,7 @@ web-0
 web-1
 ```
 
-Event though `web-0` and `web-1` were rescheduled, they continue to serve their 
+Even though `web-0` and `web-1` were rescheduled, they continue to serve their 
 hostnames because the PersistentVolumes associated with their Persistent 
 Volume Claims are remounted to their `volumeMount`s. No matter what node `web-0`
 and `web-1` are scheduled on, their PersistentVolumes will be mounted to the 

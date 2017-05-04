@@ -4,6 +4,9 @@ assignees:
 - bprashanth
 - madhusudancs
 title: Replica Sets
+redirect_from:
+- "/docs/user-guide/replicasets/"
+- "/docs/user-guide/replicasets.html"
 ---
 
 * TOC
@@ -13,22 +16,22 @@ title: Replica Sets
 
 ReplicaSet is the next-generation Replication Controller. The only difference
 between a _ReplicaSet_ and a
-[_Replication Controller_](/docs/user-guide/replication-controller/) right now is
+[_Replication Controller_](/docs/concepts/workloads/controllers/replicationcontroller/) right now is
 the selector support. ReplicaSet supports the new set-based selector requirements
 as described in the [labels user guide](/docs/user-guide/labels/#label-selectors)
 whereas a Replication Controller only supports equality-based selector requirements.
 
 Most [`kubectl`](/docs/user-guide/kubectl/) commands that support
 Replication Controllers also support ReplicaSets. One exception is the
-[`rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update/) command. If
+[`rolling-update`](/docs/user-guide/kubectl/v1.6/#rolling-update) command. If
 you want the rolling update functionality please consider using Deployments
 instead. Also, the
-[`rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update/) command is
+[`rolling-update`](/docs/user-guide/kubectl/v1.6/#rolling-update) command is
 imperative whereas Deployments are declarative, so we recommend using Deployments
-through the [`rollout`](/docs/user-guide/kubectl/kubectl_rollout/) command.
+through the [`rollout`](/docs/user-guide/kubectl/v1.6/#rollout) command.
 
 While ReplicaSets can be used independently, today it's mainly used by
-[Deployments](/docs/user-guide/deployments/) as a mechanism to orchestrate pod
+[Deployments](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate pod
 creation, deletion and updates. When you use Deployments you don't have to worry
 about managing the ReplicaSets that they create. Deployments own and manage
 their ReplicaSets.
@@ -79,7 +82,7 @@ frontend-qhloh   1/1       Running   0          1m
 ## ReplicaSet as an Horizontal Pod Autoscaler target
 
 A ReplicaSet can also be a target for
-[Horizontal Pod Autoscalers (HPA)](/docs/user-guide/horizontal-pod-autoscaling/),
+[Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/),
 i.e. a ReplicaSet can be auto-scaled by an HPA. Here is an example HPA targeting
 the ReplicaSet we created in the previous example.
 

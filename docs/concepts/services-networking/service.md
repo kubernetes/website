@@ -2,12 +2,15 @@
 assignees:
 - bprashanth
 title: Services
+redirect_from:
+- "/docs/user-guide/services/"
+- "/docs/user-guide/services/index.html"
 ---
 
 Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicationControllers`](/docs/user-guide/replication-controller) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
-or when doing [rolling updates](/docs/user-guide/kubectl/kubectl_rolling-update)).  While each `Pod` gets its own IP address, even
+or when doing [rolling updates](/docs/user-guide/kubectl/v1.6/#rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -351,7 +354,7 @@ Service onto an external (outside of your cluster) IP address.
 Kubernetes `ServiceTypes` allow you to specify what kind of service you want.
 The default is `ClusterIP`.
 
-`ServiceType` values and their behaviors are:
+`Type` values and their behaviors are:
 
    * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value 
      makes the service only reachable from within the cluster. This is the 

@@ -391,6 +391,132 @@
  			logo: 'avinetworks',
  			link: 'https://kb.avinetworks.com/avi-vantage-openshift-installation-guide/',
  			blurb: 'Avis elastic application services fabric provides scalable, feature rich & integrated L4-7 networking for K8S environments.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'codecrux web technologies pvt ltd',
+ 			logo: 'codecrux',
+ 			link: 'http://codecrux.com/kubernetes/',
+ 			blurb: 'At CodeCrux we help your organization get the most out of Containers and Kubernetes, regardless of where you are in your journey'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Greenqloud',
+ 			logo: 'qstack',
+ 			link: 'https://www.qstack.com/application-orchestration/',
+ 			blurb: 'Qstack provides self-serviceable on-site Kubernetes clusters with an intuitive User Interface for Infrastructure and Kubernetes management.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'StackOVerdrive.io',
+ 			logo: 'stackoverdrive',
+ 			link: 'http://www.stackoverdrive.net/kubernetes-consulting/',
+ 			blurb: 'We are a devops consulting firm and we do alot of work with containers and Kunbernetes is one of our go to tools.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'F5 Networks',
+ 			logo: 'f5networks',
+ 			link: 'https://f5.com/about-us/news/press-kit',
+ 			blurb: 'Integration of our ADC services with Kubernetes'
+  		},
+		{
+ 			type: 0,
+ 			name: 'StackIQ, Inc.',
+ 			logo: 'stackiq',
+ 			link: 'https://www.stackiq.com/kubernetes/',
+ 			blurb: 'With Stacki and the Stacki Pallet for Kubernetes, you can go from bare metal to containers in one step very quickly and easily.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Cobe',
+ 			logo: 'cobe',
+ 			link: 'https://cobe.io/blog/posts/problems-within-your-kubernetes-cluster/',
+ 			blurb: 'Manage Kubernetes clusters with a live, searchable model that captures all relationships and performance data in full visualised context.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Datawire',
+ 			logo: 'datawire',
+ 			link: 'http://www.datawire.io',
+ 			blurb: 'Datawires open source tools let your microservices developers be awesomely productive on Kubernetes, while letting ops sleep at night.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Mashape, Inc.',
+ 			logo: 'mashape',
+ 			link: 'https://getkong.org/install/kubernetes/',
+ 			blurb: 'Kong is a scalable open source API layer that runs in front of any RESTful API and can be provisioned to a Kubernetes cluster.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'F5 Networks',
+ 			logo: 'f5networks',
+ 			link: 'http://github.com/f5networks',
+ 			blurb: 'We have a LB integration into Kubernetes.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'Lovable Tech',
+ 			logo: 'lovable',
+ 			link: 'https://drive.google.com/file/d/0BxCnAyMK1pgBTUFOdEZsUndLa01xMGJYZWtUVmVOdldadk80/view?usp=sharing',
+ 			blurb: ''
+  		},
+		{
+ 			type: 0,
+ 			name: 'StackState',
+ 			logo: 'stackstate',
+ 			link: 'http://stackstate.com/platform/container-monitoring',
+ 			blurb: 'Operational Analytics across teams and tools. Includes topology visualization, root cause analysis and anomaly detection for Kubernetes.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'INEXCCO INC',
+ 			logo: 'inexcco',
+ 			link: 'https://www.inexcco.com/',
+ 			blurb: 'Strong DevOps and Cloud talent working with couple clients on kubernetes and helm implementations. '
+  		},
+		{
+ 			type: 0,
+ 			name: 'Bitnami',
+ 			logo: 'bitnami',
+ 			link: 'http://bitnami.com/kubernetes',
+ 			blurb: 'Bitnami brings a catalog of trusted, up to date, and easy to use applications and application building blocks to Kubernetes.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'Nebulaworks',
+ 			logo: 'nebulaworks',
+ 			link: 'http://www.nebulaworks.com/container-platforms',
+ 			blurb: 'Nebulaworks provides services to help the enterprise adopt modern container platforms and optimized processes to enable innovation at scale.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'EASYNUBE LTD',
+ 			logo: 'easynube',
+ 			link: 'https://www.carrefour.es/supermercado/?ic_source=portal-home&ic_medium=menu-links&ic_content=section-home',
+ 			blurb: 'Provide consultancy, architecture and implementation'
+  		},
+		{
+ 			type: 1,
+ 			name: 'Opcito Technologies',
+ 			logo: 'opcito',
+ 			link: 'http://www.opcito.com/kubernetes/',
+ 			blurb: 'Opcito is a software consultancy that uses Kubernetes to help organisations build, architect & deploy highly scalable applications.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Huawei Technologies Co., Ltd.',
+ 			logo: 'huawei',
+ 			link: 'http://developer.huawei.com/ict/en/site-paas',
+ 			blurb: 'FusionStage is an enterprise-grade PaaS, the core of which is based on open source container technology including Kubernetes and Docker.'
+  		},
+		{
+ 			type: 0,
+ 			name: '{code} by Dell EMC',
+ 			logo: 'codedellemc',
+ 			link: 'https://blog.codedellemc.com',
+ 			blurb: 'Respected as a thought leader in storage persistence for containerized applications. Contributed significant work to K8 and Ecosystem'
   		}
 		
 	]

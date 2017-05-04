@@ -2,6 +2,9 @@
 assignees:
 - bboreham
 title: Using Weave Net for NetworkPolicy
+redirect_from:
+- "/docs/getting-started-guides/network-policy/weave/"
+- "/docs/getting-started-guides/network-policy/weave.html"
 ---
 
 The [Weave Net Addon](https://www.weave.works/docs/net/latest/kube-addon/) for Kubernetes comes with a Network Policy Controller.

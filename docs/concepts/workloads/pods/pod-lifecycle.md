@@ -1,5 +1,8 @@
 ---
 title: Pod Lifecycle
+redirect_from:
+- "/docs/user-guide/pod-states/"
+- "/docs/user-guide/pod-states.html"
 ---
 
 {% capture overview %}
@@ -158,18 +161,18 @@ duration (determined by the master) will expire and be automatically destroyed.
 
 Three types of controllers are available:
 
-- Use a [Job](/docs/user-guide/jobs/) for Pods that are expected to terminate,
+- Use a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) for Pods that are expected to terminate,
   for example, batch computations. Jobs are appropriate only for Pods with
   `restartPolicy` equal to OnFailure or Never.
 
-- Use a [ReplicationController](/docs/user-guide/replication-controller/),
-  [ReplicaSet](/docs/user-guide/replicasets/), or
-  [Deployment](/docs/user-guide/deployments/)
+- Use a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/),
+  [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/), or
+  [Deployment](/docs/concepts/workloads/controllers/deployment/)
   for Pods that are not expected to terminate, for example, web servers.
   ReplicationControllers are appropriate only for Pods with a `restartPolicy` of
   Always.
 
-- Use a [DaemonSet](/docs/admin/daemons/) for Pods that need to run one per
+- Use a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) for Pods that need to run one per
   machine, because they provide a machine-specific system service.
 
 All three types of controllers contain a PodTemplate. It
@@ -274,7 +277,7 @@ spec:
 * Get hands-on experience
   [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
-* [Container Lifecycle Hooks](/docs/concepts/containers/container-lifecycle-hooks/)
+* Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
 {% endcapture %}
 

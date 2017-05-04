@@ -5,6 +5,8 @@ title: Init Containers
 redirect_from:
 - "/docs/concepts/abstractions/init-containers/"
 - "/docs/concepts/abstractions/init-containers.html"
+- "/docs/user-guide/pods/init-container/"
+- "/docs/user-guide/pods/init-container.html"
 ---
 
 {% capture overview %}
@@ -96,9 +98,9 @@ and the [Production Pods guide](/docs/user-guide/production-pods.md#handling-ini
 
 ### Init Containers in use
 
-The following yaml file outlines a simple Pod which has two Init Containers.
+The following yaml file for Kubernetes 1.5 outlines a simple Pod which has two Init Containers.
 The first waits for `myservice` and the second waits for `mydb`. Once both
-containers complete the Pod will begin.
+containers complete, the Pod will begin.
 
 ```yaml
 apiVersion: v1
@@ -127,6 +129,55 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
+There is a new syntax in Kubernetes 1.6, although the old annotation syntax still works. We have moved the declaration of init containers to `spec`:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox
+    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+  initContainers:
+  - name: init-myservice
+    image: busybox
+    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+  - name: init-mydb
+    image: busybox
+    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+```
+
+1.5 syntax still works on 1.6, but we recommend using 1.6 syntax. In Kubernetes 1.6, Init Containers were made a field in the API. The beta annotation is still respected but will be deprecated in future releases.
+
+Yaml file below outlines the `mydb` and `myservice` services:
+
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: myservice
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mydb
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9377
+```
+
 This Pod can be started and debugged with the following commands:
 
 ```
@@ -135,8 +186,7 @@ pod "myapp-pod" created
 $ kubectl get -f myapp.yaml
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
-$ kubectl describe -f myapp.yaml
-i11:32 $ kubectl describe -f examples/init-container.yaml 
+$ kubectl describe -f myapp.yaml 
 Name:          myapp-pod
 Namespace:     default
 [...]
@@ -171,7 +221,7 @@ $ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
 $ kubectl logs myapp-pod -c init-mydd      # Inspect the second init container
 ```
 
-Once we start the `mydb` and `myservice` Services we can see the Init Containers
+Once we start the `mydb` and `myservice` services, we can see the Init Containers
 complete and the `myapp-pod` is created:
 
 ```

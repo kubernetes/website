@@ -4,6 +4,9 @@ assignees:
 - jszczepkowski
 - directxman12
 title: Horizontal Pod Autoscaling
+redirect_from:
+- "/docs/user-guide/horizontal-pod-autoscaling/"
+- "/docs/user-guide/horizontal-pod-autoscaling/index.html"
 ---
 
 This document describes the current state of Horizontal Pod Autoscaling in Kubernetes.
@@ -27,10 +30,10 @@ The Horizontal Pod Autoscaler is implemented as a control loop, with a period co
 by the controller manager's `--horizontal-pod-autoscaler-sync-period` flag (with a default
 value of 30 seconds).
 
-During each period, the controller manager queries the resource utiliuzation against the
+During each period, the controller manager queries the resource utilization against the
 metrics specified in each HorizontalPodAutoscaler definition.  The controller manager
 obtains the metrics from either the resource metrics API (for per-pod resource metrics),
-or the custom metrics API (for all ofther metrics).
+or the custom metrics API (for all other metrics).
 
 * For per-pod resource metrics (like CPU), the controller fetches the metrics
   from the resource metrics API for each pod targeted by the HorizontalPodAutoscaler.
@@ -90,7 +93,7 @@ In addition, there is a special `kubectl autoscale` command for easy creation of
 For instance, executing `kubectl autoscale rc foo --min=2 --max=5 --cpu-percent=80`
 will create an autoscaler for replication controller *foo*, with target CPU utilization set to `80%`
 and the number of replicas between 2 and 5.
-The detailed documentation of `kubectl autoscale` can be found [here](/docs/user-guide/kubectl/kubectl_autoscale).
+The detailed documentation of `kubectl autoscale` can be found [here](/docs/user-guide/kubectl/v1.6/#autoscale).
 
 
 ## Autoscaling during rolling update
@@ -139,5 +142,5 @@ available at [the k8s.io/metrics repository](https://github.com/kubernetes/metri
 ## Further reading
 
 * Design documentation: [Horizontal Pod Autoscaling](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md).
-* kubectl autoscale command: [kubectl autoscale](/docs/user-guide/kubectl/kubectl_autoscale).
-* Usage example of [Horizontal Pod Autoscaler](/docs/user-guide/horizontal-pod-autoscaling/walkthrough/).
+* kubectl autoscale command: [kubectl autoscale](/docs/user-guide/kubectl/v1.6/#autoscale).
+* Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).

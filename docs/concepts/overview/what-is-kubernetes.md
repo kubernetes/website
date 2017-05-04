@@ -3,6 +3,9 @@ assignees:
 - bgrant0607
 - mikedanese
 title: What is Kubernetes?
+redirect_from:
+- "/docs/whatisk8s/"
+- "/docs/whatisk8s.html"
 ---
 
 Kubernetes is an [open-source platform for automating deployment, scaling, and operations of application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) across clusters of hosts, providing container-centric infrastructure.
@@ -66,18 +69,18 @@ At a minimum, Kubernetes can schedule and run application containers on clusters
 
 Kubernetes satisfies a number of common needs of applications running in production, such as:
 
-* [co-locating helper processes](/docs/user-guide/pods/), facilitating composite applications and preserving the one-application-per-container model,
+* [co-locating helper processes](/docs/concepts/workloads/pods/pod/), facilitating composite applications and preserving the one-application-per-container model,
 * [mounting storage systems](/docs/concepts/storage/volumes/),
-* [distributing secrets](/docs/user-guide/secrets/),
+* [distributing secrets](/docs/concepts/configuration/secret/),
 * [application health checking](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks),
-* [replicating application instances](/docs/user-guide/replication-controller/),
-* [horizontal auto-scaling](/docs/user-guide/horizontal-pod-autoscaling/),
-* [naming and discovery](/docs/user-guide/connecting-applications/),
-* [load balancing](/docs/user-guide/services/),
+* [replicating application instances](/docs/concepts/workloads/controllers/replicationcontroller/),
+* [horizontal auto-scaling](/docs/tasks/run-application/horizontal-pod-autoscale/),
+* [naming and discovery](/docs/concepts/services-networking/connect-applications-service/),
+* [load balancing](/docs/concepts/services-networking/service/),
 * [rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/),
-* [resource monitoring](/docs/user-guide/monitoring/),
-* [log access and ingestion](/docs/user-guide/logging/overview/),
-* [support for introspection and debugging](/docs/user-guide/introspection-and-debugging/), and
+* [resource monitoring](/docs/concepts/cluster-administration/resource-usage-monitoring/),
+* [log access and ingestion](/docs/concepts/cluster-administration/logging/),
+* [support for introspection and debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/), and
 * [identity and authorization](/docs/admin/authorization/).
 
 This provides the simplicity of Platform as a Service (PaaS) with the flexibility of Infrastructure as a Service (IaaS), and facilitates portability across infrastructure providers.
@@ -88,7 +91,7 @@ For more details, see the [user guide](/docs/user-guide/).
 
 Even though Kubernetes provides a lot of functionality, there are always new scenarios that would benefit from new features. Application-specific workflows can be streamlined to accelerate developer velocity. Ad hoc orchestration that is acceptable initially often requires robust automation at scale. This is why Kubernetes was also designed to serve as a platform for building an ecosystem of components and tools to make it easier to deploy, scale, and manage applications.
 
-[Labels](/docs/user-guide/labels/) empower users to organize their resources however they please. [Annotations](/docs/user-guide/annotations/) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
+[Labels](/docs/user-guide/labels/) empower users to organize their resources however they please. [Annotations](/docs/concepts/overview/working-with-objects/annotations/) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
 
 Additionally, the [Kubernetes control plane](/docs/admin/cluster-components) is built upon the same [APIs](/docs/api/) that are available to developers and users. Users can write their own controllers, [schedulers](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/scheduler.md), etc., if they choose, with [their own APIs](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
 

@@ -3,6 +3,9 @@ assignees:
 - davidopp
 - madhusudancs
 title: Configuring Multiple Schedulers
+redirect_from:
+- "/docs/admin/multiple-schedulers/"
+- "/docs/admin/multiple-schedulers.html"
 ---
 
 Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).
@@ -52,9 +55,9 @@ gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0
 
 Now that we have our scheduler in a container image, we can just create a pod
 config for it and run it in our Kubernetes cluster. But instead of creating a pod
-directly in the cluster, let's use a [Deployment](/docs/user-guide/deployments/)
-for this example. A [Deployment](/docs/user-guide/deployments/) manages a
-[Replica Set](/docs/user-guide/replicasets/) which in turn manages the pods,
+directly in the cluster, let's use a [Deployment](/docs/concepts/workloads/controllers/deployment/)
+for this example. A [Deployment](/docs/concepts/workloads/controllers/deployment/) manages a
+[Replica Set](/docs/concepts/workloads/controllers/replicaset/) which in turn manages the pods,
 thereby making the scheduler resilient to failures. Here is the deployment
 config. Save it as `my-scheduler.yaml`:
 

@@ -2,6 +2,9 @@
 assignees:
 - mikedanese
 title: Configuring kubelet Garbage Collection
+redirect_from:
+- "/docs/admin/garbage-collection/"
+- "/docs/admin/garbage-collection.html"
 ---
 
 * TOC
@@ -72,4 +75,4 @@ Including:
 | `--low-diskspace-threshold-mb` | `--eviction-hard` or `eviction-soft` | eviction generalizes disk thresholds to other resources |
 | `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | eviction generalizes disk pressure transition to other resources |
 
-See [Configuring Out Of Resource Handling](/docs/admin/out-of-resource/) for more details.
+See [Configuring Out Of Resource Handling](/docs/concepts/cluster-administration/out-of-resource/) for more details.

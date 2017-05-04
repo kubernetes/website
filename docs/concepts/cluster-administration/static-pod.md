@@ -2,9 +2,12 @@
 assignees:
 - jsafrane
 title: Static Pods
+redirect_from:
+- "/docs/admin/static-pods/"
+- "/docs/admin/static-pods.html"
 ---
 
-**If you are running clustered Kubernetes and are using static pods to run a pod on every node, you should probably be using a [DaemonSet](/docs/admin/daemons/)!**
+**If you are running clustered Kubernetes and are using static pods to run a pod on every node, you should probably be using a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)!**
 
 *Static pods* are managed directly by kubelet daemon on a specific node, without API server observing it. It does not have associated any replication controller, kubelet daemon itself watches it and restarts it when it crashes. There is no health check though. Static pods are always bound to one kubelet daemon and always run on the same node with it.
 

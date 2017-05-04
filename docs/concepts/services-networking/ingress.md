@@ -2,6 +2,9 @@
 assignees:
 - bprashanth
 title: Ingress Resources
+redirect_from:
+- "/docs/user-guide/ingress/"
+- "/docs/user-guide/ingress.html"
 ---
 
 * TOC
@@ -14,8 +17,8 @@ Throughout this doc you will see a few terms that are sometimes used interchange
 * Node: A single virtual or physical machine in a Kubernetes cluster.
 * Cluster: A group of nodes firewalled from the internet, that are the primary compute resources managed by Kubernetes.
 * Edge router: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloudprovider or a physical piece of hardware.
-* Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the [Kubernetes networking model](/docs/admin/networking/). Examples of a Cluster network include Overlays such as [flannel](https://github.com/coreos/flannel#flannel) or SDNs such as [OVS](/docs/admin/ovs-networking/).
-* Service: A Kubernetes [Service](/docs/user-guide/services/) that identifies a set of pods using label selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
+* Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the [Kubernetes networking model](/docs/concepts/cluster-administration/networking/). Examples of a Cluster network include Overlays such as [flannel](https://github.com/coreos/flannel#flannel) or SDNs such as [OVS](/docs/admin/ovs-networking/).
+* Service: A Kubernetes [Service](/docs/concepts/services-networking/service/) that identifies a set of pods using label selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
 
 ## What is Ingress?
 
@@ -273,7 +276,7 @@ You can achieve the same by invoking `kubectl replace -f` on a modified Ingress 
 
 ## Failing across availability zones
 
-Techniques for spreading traffic across failure domains differs between cloud providers. Please check the documentation of the relevant Ingress controller for details. Please refer to the federation [doc](/docs/user-guide/federation/) for details on deploying Ingress in a federated cluster.
+Techniques for spreading traffic across failure domains differs between cloud providers. Please check the documentation of the relevant Ingress controller for details. Please refer to the federation [doc](/docs/concepts/cluster-administration/federation/) for details on deploying Ingress in a federated cluster.
 
 ## Future Work
 

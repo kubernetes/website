@@ -3,6 +3,9 @@ assignees:
 - bprashanth
 - janetkuo
 title: Replication Controller
+redirect_from:
+- "/docs/user-guide/replication-controller/"
+- "/docs/user-guide/replication-controller/index.html"
 ---
 
 * TOC
@@ -85,7 +88,7 @@ specifies an expression that just gets the name from each pod in the returned li
 
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [here](/docs/user-guide/simple-yaml/),
-[here](/docs/user-guide/configuring-containers/), and [here](/docs/user-guide/working-with-resources/).
+[here](/docs/user-guide/configuring-containers/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
 
 A ReplicationController also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
 
@@ -94,13 +97,13 @@ A ReplicationController also needs a [`.spec` section](https://github.com/kubern
 The `.spec.template` is the only required field of the `.spec`.
 
 The `.spec.template` is a [pod template](#pod-template).  It has exactly
-the same schema as a [pod](/docs/user-guide/pods/), except it is nested and does not have an `apiVersion` or
+the same schema as a [pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an `apiVersion` or
 `kind`.
 
 In addition to required fields for a Pod, a pod template in a ReplicationController must specify appropriate
 labels (i.e. don't overlap with other controllers, see [pod selector](#pod-selector)) and an appropriate restart policy.
 
-Only a [`.spec.template.spec.restartPolicy`](/docs/user-guide/pod-states/) equal to `Always` is allowed, which is the default
+Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/) equal to `Always` is allowed, which is the default
 if not specified.
 
 For local container restarts, ReplicationControllers delegate to an agent on the node,
@@ -146,7 +149,7 @@ If you do not specify `.spec.replicas`, then it defaults to 1.
 ### Deleting a ReplicationController and its Pods
 
 To delete a ReplicationController and all its pods, use [`kubectl
-delete`](/docs/user-guide/kubectl/kubectl_delete/).  Kubectl will scale the ReplicationController to zero and wait
+delete`](/docs/user-guide/kubectl/v1.6/#delete).  Kubectl will scale the ReplicationController to zero and wait
 for it to delete each pod before deleting the ReplicationController itself.  If this kubectl
 command is interrupted, it can be restarted.
 
@@ -157,7 +160,7 @@ When using the REST API or go client library, you need to do the steps explicitl
 
 You can delete a ReplicationController without affecting any of its pods.
 
-Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/user-guide/kubectl/kubectl_delete/).
+Using kubectl, specify the `--cascade=false` option to [`kubectl delete`](/docs/user-guide/kubectl/v1.6/#delete).
 
 When using the REST API or go client library, simply delete the ReplicationController object.
 
@@ -191,7 +194,7 @@ Ideally, the rolling update controller would take application readiness into acc
 The two ReplicationControllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 
 Rolling update is implemented in the client tool
-[`kubectl rolling-update`](/docs/user-guide/kubectl/kubectl_rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples. 
+[`kubectl rolling-update`](/docs/user-guide/kubectl/v1.6/#rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples. 
 
 ### Multiple release tracks
 
@@ -229,14 +232,14 @@ object](/docs/api-reference/v1.6/#replicationcontroller-v1-core).
 
 ### ReplicaSet
 
-[`ReplicaSet`](/docs/user-guide/replicasets/) is the next-generation ReplicationController that supports the new [set-based label selector](/docs/user-guide/labels/#set-based-requirement).
-It’s mainly used by [`Deployment`](/docs/user-guide/deployments/) as a mechanism to orchestrate pod creation, deletion and updates.
+[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is the next-generation ReplicationController that supports the new [set-based label selector](/docs/user-guide/labels/#set-based-requirement).
+It’s mainly used by [`Deployment`](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate pod creation, deletion and updates.
 Note that we recommend using Deployments instead of directly using Replica Sets, unless you require custom update orchestration or don’t require updates at all.
 
 
 ### Deployment (Recommended)
 
-[`Deployment`](/docs/user-guide/deployments/) is a higher-level API object that updates its underlying Replica Sets and their Pods
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods
 in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want this rolling update functionality, 
 because unlike `kubectl rolling-update`, they are declarative, server-side, and have additional features.
 
@@ -251,7 +254,7 @@ Use a [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) instead o
 
 ### DaemonSet
 
-Use a [`DaemonSet`](/docs/admin/daemons/) instead of a ReplicationController for pods that provide a
+Use a [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) instead of a ReplicationController for pods that provide a
 machine-level function, such as machine monitoring or machine logging.  These pods have a lifetime that is tied
 to a machine lifetime: the pod needs to be running on the machine before other pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.

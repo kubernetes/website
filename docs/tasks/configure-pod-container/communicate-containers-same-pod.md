@@ -1,5 +1,8 @@
 ---
 title: Communicating Between Containers Running in the Same Pod
+redirect_from:
+- "/docs/user-guide/pods/multi-container/"
+- "/docs/user-guide/pods/multi-container.html"
 ---
 
 {% capture overview %}

@@ -1,5 +1,8 @@
 ---
 title: Federated Ingress
+redirect_from:
+- "/docs/user-guide/federation/federated-ingress/"
+- "/docs/user-guide/federation/federated-ingress.html"
 ---
 
 This guide explains how to use Kubernetes Federated Ingress to deploy
@@ -40,12 +43,12 @@ by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general, and [Ingress](/docs/user-guide/ingress/) in particular.
+general, and [Ingress](/docs/concepts/services-networking/ingress/) in particular.
 
 ## Overview
 
 Federated Ingresses are created in much that same way as traditional
-[Kubernetes Ingresses](/docs/user-guide/ingress/): by making an API
+[Kubernetes Ingresses](/docs/concepts/services-networking/ingress/): by making an API
 call which specifies the desired properties of your logical ingress point. In the
 case of Federated Ingress, this API call is directed to the
 Federation API endpoint, rather than a Kubernetes cluster API
@@ -57,7 +60,7 @@ Once created, the Federated Ingress automatically:
 1. creates matching Kubernetes Ingress objects in every cluster
 underlying your Cluster Federation,
 2. ensures that all of these in-cluster ingress objects share the same
-   logical global L7 (i.e. HTTP(S)) load balancer and IP address.  
+   logical global L7 (i.e. HTTP(S)) load balancer and IP address.
 3. monitors the health and capacity of the service "shards" (i.e. your
    pods) behind this ingress in each cluster
 4. ensures that all client connections are routed to an appropriate
@@ -72,7 +75,7 @@ rather a
 [truly global, highly available load balancing managed service](https://cloud.google.com/load-balancing/),
 globally reachable via a single, static IP address.
 
-Clients inside your federated Kubernetes clusters (i.e. Pods) will be 
+Clients inside your federated Kubernetes clusters (i.e. Pods) will be
 automatically  routed to the cluster-local shard of the Federated Service
 backing the Ingress in their
 cluster if it exists and is healthy, or the closest healthy shard in a
@@ -87,7 +90,7 @@ You can create a federated ingress in any of the usual ways, for example using k
 ``` shell
 kubectl --context=federation-cluster create -f myingress.yaml
 ```
-For example ingress YAML configurations, see the [Ingress User Guide](/docs/user-guide/ingress/)
+For example ingress YAML configurations, see the [Ingress User Guide](/docs/concepts/services-networking/ingress/)
 The '--context=federation-cluster' flag tells kubectl to submit the
 request to the Federation API endpoint, with the appropriate
 credentials. If you have not yet configured such a context, visit the
@@ -100,14 +103,14 @@ and maintain matching Kubernetes ingresses in all of the clusters
 underlying your federation.  These cluster-specific ingresses (and
 their associated ingress controllers) configure and manage the load
 balancing and health checking infrastructure that ensures that traffic
-is load balanced to each cluster appropriately. 
+is load balanced to each cluster appropriately.
 
 You can verify this by checking in each of the underlying clusters, for example:
 
 ``` shell
 kubectl --context=gce-asia-east1a get ingress myingress
 NAME        HOSTS     ADDRESS           PORTS     AGE
-myingress      *         130.211.5.194   80, 443   1m
+myingress   *         130.211.5.194     80, 443   1m
 ```
 
 The above assumes that you have a context named 'gce-asia-east1a'
@@ -169,11 +172,11 @@ ingresses function correctly, either start with new, empty clusters, or make
 sure that you delete (and recreate if necessary) all pre-existing
 Ingresses in the clusters comprising your federation.
 
-#Adding backend services and pods
+## Adding backend services and pods
 
 To render the underlying ingress shards healthy, we need to add
 backend Pods behind the service upon which the Ingress is based.  There are several ways to achieve this, but
-the easiest is to create a Federated Service and 
+the easiest is to create a Federated Service and
 Federated Replicaset.  Details of how those
 work are covered in the aforementioned user guides - here we'll simply use them, to
 create appropriately labelled pods and services in the 13 underlying clusters of
@@ -184,7 +187,7 @@ kubectl --context=federation-cluster create -f services/nginx.yaml
 ```
 
 ``` shell
-  kubectl --context=federation-cluster create -f myreplicaset.yaml
+kubectl --context=federation-cluster create -f myreplicaset.yaml
 ```
 
 Note that in order for your federated ingress to work correctly on
@@ -196,7 +199,7 @@ federated service.  If you do not specify a node port for your
 federated service, each cluster will choose it's own node port for
 its cluster-local shard of the service, and these will probably end
 up being different, which is not what you want.
-  
+
 You can verify this by checking in each of the underlying clusters, for example:
 
 ``` shell

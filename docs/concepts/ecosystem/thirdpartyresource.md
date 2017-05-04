@@ -2,6 +2,9 @@
 assignees:
 - IanLewis
 title: Third Party Resources
+redirect_from:
+- "/docs/user-guide/thirdpartyresources/"
+- "/docs/user-guide/thirdpartyresources.html"
 ---
 
 * TOC
@@ -63,11 +66,17 @@ Then a new RESTful API endpoint is created at:
 `/apis/stable.example.com/v1/namespaces/<namespace>/crontabs/...`
 
 This endpoint URL can then be used to create and manage custom objects.
+The `kind` of these objects will be `CronTab` following the camel case
+rules applied to the `metadata.name` of this `ThirdPartyResource` 
+(`cron-tab.stable.example.com`)
 
 ## Creating Custom Objects
 
 After the `ThirdPartyResource` object has been created you can create custom objects. Custom objects can contain custom fields. These fields can contain arbitrary JSON. 
-In the following example, a `cronSpec` and `image` custom fields are set to the custom `CronTab` object. If you save the following YAML to `my-crontab.yaml`:
+In the following example, a `cronSpec` and `image` custom fields are set to the custom object of kind `CronTab`.  The kind `CronTab` is derived from the
+`metadata.name` of the `ThirdPartyResource` object we created above.
+
+If you save the following YAML to `my-crontab.yaml`:
 
 ```yaml
 apiVersion: "stable.example.com/v1"

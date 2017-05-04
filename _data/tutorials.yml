@@ -40,10 +40,8 @@ toc:
   - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
 - title: Stateless Applications
   section:
-  - docs/tutorials/stateless-application/run-stateless-application-deployment.md
   - docs/tutorials/stateless-application/expose-external-ip-address-service.md
   - docs/tutorials/stateless-application/expose-external-ip-address.md
-  - docs/tutorials/stateless-application/run-stateless-ap-replication-controller.md
 - title: Stateful Applications
   section:
   - docs/tutorials/stateful-application/basic-stateful-set.md
@@ -63,3 +61,4 @@ toc:
 - title: Federated Cluster Administration
   section:
   - docs/tutorials/federation/set-up-cluster-federation-kubefed.md
+  - docs/tutorials/federation/set-up-coredns-provider-federation.md
