@@ -54,7 +54,7 @@ Next create a PersistentVolume that points to the `mysql-disk`
 disk just created. Here is a configuration file for a PersistentVolume
 that points to the Compute Engine disk above:
 
-{% include code.html language="yaml" file="gce-volume.yaml" ghlink="/docs/tutorials/stateful-application/gce-volume.yaml" %}
+{% include code.html language="yaml" file="gce-volume.yaml" ghlink="/docs/docs/tasks/run-application/gce-volume.yaml" %}
 
 Notice that the `pdName: mysql-disk` line matches the name of the disk
 in the Compute Engine environment. See the
@@ -65,7 +65,7 @@ environments.
 Create the persistent volume:
 
 ```
-kubectl create -f http://k8s.io/docs/tutorials/stateful-application/gce-volume.yaml
+kubectl create -f http://k8s.io/docs/tasks/run-application/gce-volume.yaml
 ```
 
 
@@ -84,11 +84,11 @@ Note: The password is defined in the config yaml, and this is insecure. See
 [Kubernetes Secrets](/docs/concepts/configuration/secret/)
 for a secure solution.
 
-{% include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tutorials/stateful-application/mysql-deployment.yaml" %}
+{% include code.html language="yaml" file="mysql-deployment.yaml" ghlink="/docs/tasks/run-application/mysql-deployment.yaml" %}
 
 1. Deploy the contents of the YAML file:
 
-        kubectl create -f http://k8s.io/docs/tutorials/stateful-application/mysql-deployment.yaml
+        kubectl create -f http://k8s.io/docs/tasks/run-application/mysql-deployment.yaml
 
 1. Display information about the Deployment:
 
