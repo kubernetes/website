@@ -3,8 +3,6 @@ abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
-- docs/tasks/web-ui-dashboard.md
-
 - title: Using the kubectl Command-Line
   section:
   - docs/tasks/kubectl/install.md
@@ -61,12 +59,14 @@ toc:
 
 - title: Accessing Applications in a Cluster
   section:
+  - docs/tasks/access-application-cluster/web-ui-dashboard.md
   - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md
   - docs/tasks/access-application-cluster/load-balance-access-application-cluster.md
+  - docs/tasks/access-application-cluster/service-access-application-cluster.md
   - docs/tasks/access-application-cluster/connecting-frontend-backend.md
   - docs/tasks/access-application-cluster/create-external-load-balancer.md
   - docs/tasks/access-application-cluster/configure-cloud-provider-firewall.md
-  - title: Setting Up and Configuring DNS
+  - title: Configuring DNS for a Cluster
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
 
 - title: Monitoring, Logging, and Debugging
