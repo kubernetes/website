@@ -427,8 +427,8 @@ with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not s
 an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is specified, but the
 cloud provider does not support the feature, the field will be ignored.
 
-#### Internal load balancer
-In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC (or equivalent on non AWS platforms).
+#### Internal load balancer on AWS
+In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
 This can be achieved by adding the following annotation to the service:
 
 ```yaml
