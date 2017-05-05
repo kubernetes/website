@@ -1,5 +1,8 @@
 ---
 title: Listing All Container Images Running in a Cluster
+redirect_from:
+- "/docs/tasks/kubectl/list-all-running-container-images/"
+- "/docs/tasks/kubectl/list-all-running-container-images.html"
 ---
 
 {% capture overview %}
