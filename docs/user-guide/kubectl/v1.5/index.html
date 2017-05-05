@@ -3926,7 +3926,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-comment">kubectl</span> <span class="hljs-comment">apply</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">prune</span> <span class="hljs-literal">-</span><span class="hljs-comment">f</span> <span class="hljs-comment">manifest</span><span class="hljs-string">.</span><span class="hljs-comment">yaml</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">all</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">prune</span><span class="hljs-literal">-</span><span class="hljs-comment">whitelist=core/v1/ConfigMap</span>
 </code></pre>
-<p>Apply a configuration to a resource by filename or stdin. This resource will be created if it doesn&#39;t exist yet. To use &#39;apply&#39;, always create the resource initially with either &#39;apply&#39; or &#39;create --save-config&#39;. </p>
+<p>Apply a configuration to a resource by filename or stdin. The resource name must be specified. This resource will be created if it doesn&#39;t exist yet. To use &#39;apply&#39;, always create the resource initially with either &#39;apply&#39; or &#39;create --save-config&#39;. </p>
 <p>JSON and YAML formats are accepted. </p>
 <p>Alpha Disclaimer: the --prune functionality is not yet complete. Do not use unless you are aware of what the current state is. See <a href="https://issues.k8s.io/34274">https://issues.k8s.io/34274</a>.</p>
 <h3 id="usage">Usage</h3>

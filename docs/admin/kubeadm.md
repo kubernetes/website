@@ -382,7 +382,6 @@ configuration file.
 | Variable | Default | Description |
 | --- | --- | --- |
 | `KUBE_KUBERNETES_DIR` | `/etc/kubernetes` | Where most configuration files are written to and read from |
-| `KUBE_HOST_ETCD_PATH` | `/var/lib/etcd` | Local etcd state for Kubernetes cluster |
 | `KUBE_HYPERKUBE_IMAGE` | | If set, use a single hyperkube image with this name. If not set, individual images per server component will be used. |
 | `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:3.0.17` | The etcd container image to use. |
 | `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |

@@ -138,6 +138,10 @@ There is no explicit "node anti-affinity" concept, but `NotIn` and `DoesNotExist
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
 to be scheduled onto a candidate node.
 
+If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types, then the pod can be scheduled onto a node **if one of** the `nodeSelectorTerms` is satisfied.
+
+If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
+
 For more information on node affinity, see the design doc
 [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/nodeaffinity.md).
 

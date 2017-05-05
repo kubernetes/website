@@ -17,7 +17,7 @@ defaults:
     scope:
       path: ""
     values:
-      fullversion: "v1.6.0"
+      fullversion: "v1.6.2"
       version: "v1.6"
       githubbranch: "master"
       docsbranch: "master"
@@ -41,6 +41,9 @@ gems:
 logo: /images/favicon.png
 twitter:
   username: kubernetesio
+
+# empty array for tabs
+emptyArray: []
 
 # Tables of contents, stored in the _data folder, that control the sidebar nav
 tocs:

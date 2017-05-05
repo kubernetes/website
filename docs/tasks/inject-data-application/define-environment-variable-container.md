@@ -1,5 +1,8 @@
 ---
 title: Defining Environment Variables for a Container
+redirect_from:
+- "/docs/tasks/configure-pod-container/define-environment-variable-container/"
+- "/docs/tasks/configure-pod-container/define-environment-variable-container.html"
 ---
 
 {% capture overview %}
@@ -30,11 +33,11 @@ file for the Pod defines an environment variable with name `DEMO_GREETING` and
 value `"Hello from the environment"`. Here is the configuration file for the
 Pod:
 
-{% include code.html language="yaml" file="envars.yaml" ghlink="/docs/tasks/configure-pod-container/envars.yaml" %}
+{% include code.html language="yaml" file="envars.yaml" ghlink="/docs/tasks/inject-data-application/envars.yaml" %}
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/envars.yaml
+        kubectl create -f http://k8s.io/docs/tasks/inject-data-application/envars.yaml
 
 1. List the running Pods:
 

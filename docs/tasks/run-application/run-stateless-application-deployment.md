@@ -7,6 +7,10 @@ redirect_from:
 - "/docs/user-guide/pods/single-container.html"
 - "/docs/user-guide/deploying-applications/"
 - "/docs/user-guide/deploying-applications.html"
+- "/docs/tutorials/stateless-application/run-stateless-application-deployment/"
+- "/docs/tutorials/stateless-application/run-stateless-application-deployment.html"
+- "/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/"
+- "/docs/tutorials/stateless-application/run-stateless-ap-replication-controller.html"
 ---
 
 {% capture overview %}
@@ -40,12 +44,12 @@ You can run an application by creating a Kubernetes Deployment object, and you
 can describe a Deployment in a YAML file. For example, this YAML file describes
 a Deployment that runs the nginx:1.7.9 Docker image:
 
-{% include code.html language="yaml" file="deployment.yaml" ghlink="/docs/tutorials/stateless-application/deployment.yaml" %}
+{% include code.html language="yaml" file="deployment.yaml" ghlink="/docs/tasks/run-application/deployment.yaml" %}
 
 
 1. Create a Deployment based on the YAML file:
 
-        kubectl create -f http://k8s.io/docs/tutorials/stateless-application/deployment.yaml
+        kubectl create -f http://k8s.io/docs/tasks/run-application/deployment.yaml
 
 1. Display information about the Deployment:
 
@@ -127,6 +131,13 @@ should have four pods:
 Delete the deployment by name:
 
     kubectl delete deployment nginx-deployment
+
+## ReplicationControllers -- the Old Way
+
+The preferred way to create a replicated application is to use a Deployment,
+which in turn uses a ReplicaSet. Before the Deployment and ReplicaSet were
+added to Kubernetes, replicated applicatios were configured by using a
+[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
 
 {% endcapture %}
 

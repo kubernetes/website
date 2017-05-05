@@ -43,7 +43,8 @@ Disallow: /docs/admin/sysctls/
 Disallow: /docs/admin/upgrade-1-6/
 Disallow: /docs/api/
 Disallow: /docs/contribute/
-Disallow: /docs/deprecation-policy/
+Disallow: /kubernetes/swagger-spec/
+Disallow: /kubernetes/third_party/swagger-ui/
 Disallow: /docs/getting-started-guides/kubectl/
 Disallow: /docs/getting-started-guides/network-policy/
 Disallow: /docs/getting-started-guides/running-cloud-controller/
@@ -110,6 +111,7 @@ Disallow: /docs/user-guide/thirdpartyresources/
 Disallow: /docs/user-guide/ui/
 Disallow: /docs/user-guide/update-demo/
 Disallow: /docs/user-guide/volumes/
+Disallow: /docs/user-guide/walkthrough/
 Disallow: /docs/user-guide/working-with-resources/
 Disallow: /docs/whatisk8s/
 
