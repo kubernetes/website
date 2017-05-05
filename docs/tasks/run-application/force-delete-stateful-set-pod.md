@@ -5,6 +5,9 @@ assignees:
 - foxish
 - smarterclayton
 title: Force Deleting StatefulSet Pods
+redirect:from:
+- "/docs/tasks/manage-stateful-set/delete-pods/"
+- "/docs/tasks/manage-stateful-set/delete-pods.html"
 ---
 
 {% capture overview %}
