@@ -3,11 +3,13 @@ title: Connecting a Front End to a Back End Using a Service
 redirect_from:
 - "/docs/user-guide/services/operations/"
 - "/docs/user-guide/services/operations.html"
+- "/docs/tutorials/connecting-apps/connecting-frontend-backend/"
+- "/docs/tutorials/connecting-apps/connecting-frontend-backend.html"
 ---
 
 {% capture overview %}
 
-This tutorial shows how to create a frontend and a backend
+This task shows how to create a frontend and a backend
 microservice. The backend microservice is a hello greeter. The
 frontend and backend are connected using a Kubernetes Service object.
 
@@ -28,7 +30,7 @@ frontend and backend are connected using a Kubernetes Service object.
 
 * {% include task-tutorial-prereqs.md %}
 
-* This tutorial uses
+* This task uses
   [Services with external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/), which
   require a supported environment. If your environment does not
   support this, you can use a Service of type
@@ -44,12 +46,12 @@ frontend and backend are connected using a Kubernetes Service object.
 The backend is a simple hello greeter microservice. Here is the configuration
 file for the backend Deployment:
 
-{% include code.html language="yaml" file="hello.yaml" ghlink="/docs/tutorials/connecting-apps/hello.yaml" %}
+{% include code.html language="yaml" file="hello.yaml" ghlink="/docs/tasks/access-application-cluster/hello.yaml" %}
 
 Create the backend Deployment:
 
 ```
-kubectl create -f http://k8s.io/docs/tutorials/connecting-apps/hello.yaml
+kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/hello.yaml
 ```
 
 View information about the backend Deployment:
@@ -87,7 +89,7 @@ selector labels to find the Pods that it routes traffic to.
 
 First, explore the Service configuration file:
 
-{% include code.html language="yaml" file="hello-service.yaml" ghlink="/docs/tutorials/connecting-apps/hello-service.yaml" %}
+{% include code.html language="yaml" file="hello-service.yaml" ghlink="/docs/tasks/access-application-cluster/hello-service.yaml" %}
 
 In the configuration file, you can see that the Service routes traffic to Pods
 that have the labels `app: hello` and `tier: backend`.
@@ -95,7 +97,7 @@ that have the labels `app: hello` and `tier: backend`.
 Create the `hello` Service:
 
 ```
-kubectl create -f http://k8s.io/docs/tutorials/connecting-apps/hello-service.yaml
+kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/hello-service.yaml
 ```
 
 At this point, you have a backend Deployment running, and you have a
@@ -111,18 +113,18 @@ of the `name` field in the preceding Service configuration file.
 The Pods in the frontend Deployment run an nginx image that is configured
 to find the hello backend Service. Here is the nginx configuration file:
 
-{% include code.html file="frontend/frontend.conf" ghlink="/docs/tutorials/connecting-apps/frontend/frontend.conf" %}
+{% include code.html file="frontend/frontend.conf" ghlink="/docs/tasks/access-application-cluster/frontend/frontend.conf" %}
 
 Similar to the backend, the frontend has a Deployment and a Service. The
 configuration for the Service has `type: LoadBalancer`, which means that
 the Service uses the default load balancer of your cloud provider.
 
-{% include code.html language="yaml" file="frontend.yaml" ghlink="/docs/tutorials/connecting-apps/frontend.yaml" %}
+{% include code.html language="yaml" file="frontend.yaml" ghlink="/docs/tasks/access-application-cluster/frontend.yaml" %}
 
 Create the frontend Deployment and Service:
 
 ```
-kubectl create -f http://k8s.io/docs/tutorials/connecting-apps/frontend.yaml
+kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/frontend.yaml
 ```
 
 The output verifies that both resources were created:
@@ -133,7 +135,7 @@ service "frontend" created
 ```
 
 **Note**: The nginx configuration is baked into the
-[container image](/docs/tutorials/connecting-apps/frontend/Dockerfile).
+[container image](/docs/tasks/access-application-cluster/frontend/Dockerfile).
 A better way to do this would be to use a
 [ConfigMap](/docs/tasks/configure-pod-container/configmap/), so
 that you can change the configuration more easily.

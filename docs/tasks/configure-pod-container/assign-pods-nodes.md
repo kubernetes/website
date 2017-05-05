@@ -1,5 +1,8 @@
 ---
 title: Assigning Pods to Nodes
+redirect_from:
+- "/docs/tasks/administer-cluster/assign-pods-nodes/"
+- "/docs/tasks/administer-cluster/assign-pods-nodes.html"
 ---
 
 {% capture overview %}
@@ -55,12 +58,12 @@ This pod configuration file describes a pod that has a node selector,
 `disktype: ssd`. This means that the pod will get scheduled on a node that has
 a `disktype=ssd` label.
 
-{% include code.html language="yaml" file="pod.yaml" ghlink="/docs/tasks/administer-cluster/pod.yaml" %}
+{% include code.html language="yaml" file="pod.yaml" ghlink="/docs/tasks/configure-pod-container/pod.yaml" %}
 
 1. Use the configuration file to create a pod that will get scheduled on your
    chosen node:
 
-        kubectl create -f http://k8s.io/docs/tasks/administer-cluster/pod.yaml
+        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/pod.yaml
 
 1. Verify that the pod is running on your chosen node:
 

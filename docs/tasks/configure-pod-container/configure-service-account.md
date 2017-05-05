@@ -3,7 +3,7 @@ assignees:
 - bprashanth
 - liggitt
 - thockin
-title: Configuring Service Accounts
+title: Configuring Service Accounts for Pods
 redirect_from:
 - "/docs/user-guide/service-accounts/"
 - "/docs/user-guide/service-accounts.html"

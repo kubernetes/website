@@ -205,7 +205,7 @@ with credentials for Google Container Registry.  You cannot use this approach.
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 
-Be default, the kubelet will try to pull each image from the specified registry.
+By default, the kubelet will try to pull each image from the specified registry.
 However, if the `imagePullPolicy` property of the container is set to `IfNotPresent` or `Never`,
 then a local image is used (preferentially or exclusively, respectively).
 
