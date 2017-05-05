@@ -48,7 +48,7 @@ provides a set of stateless replicas. Controllers such as
 * The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/user-guide/services/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
-* Updating an existing StatefulSet is currently a manual process.
+* Updating an existing StatefulSet is currently a [manual process](/docs/tutorials/stateful-application/basic-stateful-set/#updating-containers).
 
 ## Components
 The example below demonstrates the components of a StatefulSet. 
