@@ -66,7 +66,7 @@ toc:
   - docs/tasks/access-application-cluster/connecting-frontend-backend.md
   - docs/tasks/access-application-cluster/create-external-load-balancer.md
   - docs/tasks/access-application-cluster/configure-cloud-provider-firewall.md
-  - title: Setting Up and Configuring DNS
+  - title: Configuring DNS for a Cluster
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
 
 - title: Monitoring, Logging, and Debugging
