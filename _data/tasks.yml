@@ -3,8 +3,6 @@ abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
-- docs/tasks/web-ui-dashboard.md
-
 - title: Using the kubectl Command-Line
   section:
   - docs/tasks/kubectl/install.md
@@ -61,6 +59,7 @@ toc:
 
 - title: Accessing Applications in a Cluster
   section:
+  - docs/tasks/access-application-cluster/web-ui-dashboard.md
   - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md
   - docs/tasks/access-application-cluster/load-balance-access-application-cluster.md
   - docs/tasks/access-application-cluster/connecting-frontend-backend.md
