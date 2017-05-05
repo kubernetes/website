@@ -44,12 +44,12 @@ You can run an application by creating a Kubernetes Deployment object, and you
 can describe a Deployment in a YAML file. For example, this YAML file describes
 a Deployment that runs the nginx:1.7.9 Docker image:
 
-{% include code.html language="yaml" file="deployment.yaml" ghlink="/docs/tutorials/stateless-application/deployment.yaml" %}
+{% include code.html language="yaml" file="deployment.yaml" ghlink="/docs/tasks/run-application/deployment.yaml" %}
 
 
 1. Create a Deployment based on the YAML file:
 
-        kubectl create -f http://k8s.io/docs/tutorials/stateless-application/deployment.yaml
+        kubectl create -f http://k8s.io/docs/tasks/run-application/deployment.yaml
 
 1. Display information about the Deployment:
 
