@@ -108,7 +108,7 @@ writes.
 Finally, create the StatefulSet from the following YAML configuration file:
 
 ```shell
-kubectl create -f http://k8s.io/docs/docs/tasks/run-application/mysql-statefulset.yaml
+kubectl create -f http://k8s.io/docs/tasks/run-application/mysql-statefulset.yaml
 ```
 
 {% include code.html language="yaml" file="mysql-statefulset.yaml" ghlink="/docs/tutorials/run-application/mysql-statefulset.yaml" %}

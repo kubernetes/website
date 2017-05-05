@@ -54,7 +54,7 @@ Next create a PersistentVolume that points to the `mysql-disk`
 disk just created. Here is a configuration file for a PersistentVolume
 that points to the Compute Engine disk above:
 
-{% include code.html language="yaml" file="gce-volume.yaml" ghlink="/docs/docs/tasks/run-application/gce-volume.yaml" %}
+{% include code.html language="yaml" file="gce-volume.yaml" ghlink="/docs/tasks/run-application/gce-volume.yaml" %}
 
 Notice that the `pdName: mysql-disk` line matches the name of the disk
 in the Compute Engine environment. See the
