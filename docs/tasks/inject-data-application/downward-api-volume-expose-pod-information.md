@@ -59,7 +59,7 @@ fields of the Container in the Pod.
 Create the Pod:
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/dapi-volume.yaml
+kubectl create -f http://k8s.io/docs/tasks/inject-data-application/dapi-volume.yaml
 ```
 
 Verify that Container in the Pod is running:
@@ -168,7 +168,7 @@ should be stored in a file named `cpu_limit`.
 Create the Pod:
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/dapi-volume-resources.yaml
+kubectl create -f http://k8s.io/docs/tasks/inject-data-application/dapi-volume-resources.yaml
 ```
 
 Get a shell into the Container that is running in your Pod:

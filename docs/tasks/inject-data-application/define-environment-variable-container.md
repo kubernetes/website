@@ -37,7 +37,7 @@ Pod:
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/envars.yaml
+        kubectl create -f http://k8s.io/docs/tasks/inject-data-application/envars.yaml
 
 1. List the running Pods:
 
