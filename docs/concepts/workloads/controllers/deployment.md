@@ -739,7 +739,7 @@ The value can be an absolute number (e.g. 5) or a percentage of desired Pods
 (e.g. 10%).
 The absolute number is calculated from percentage by rounding up.
 This can not be 0 if `.spec.strategy.rollingUpdate.maxSurge` is 0.
-By default, a fixed value of 1 is used.
+By default, this is set to 25%.
 
 For example, when this value is set to 30%, the old Replica Set can be scaled down to
 70% of desired Pods immediately when the rolling update starts. Once new Pods are
@@ -755,7 +755,7 @@ Value can be an absolute number (e.g. 5) or a percentage of desired Pods
 (e.g. 10%).
 This can not be 0 if `MaxUnavailable` is 0.
 The absolute number is calculated from percentage by rounding up.
-By default, a value of 1 is used.
+By default, this is set to 25%.
 
 For example, when this value is set to 30%, the new Replica Set can be scaled up immediately when
 the rolling update starts, such that the total number of old and new Pods do not exceed
