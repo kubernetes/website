@@ -765,7 +765,7 @@ at any time during the update is at most 130% of desired Pods.
 
 ### Progress Deadline Seconds
 
-`.spec.progressDeadlineSeconds` is an optional field that specifies the number of seconds you want
+`.spec.progressDeadlineSeconds` is an optional field (with default value of 600s) that specifies the number of seconds you want
 to wait for your Deployment to progress before the system reports back that the Deployment has
 [failed progressing](#failed-deployment) - surfaced as a condition with `Type=Progressing`, `Status=False`.
 and `Reason=ProgressDeadlineExceeded` in the status of the resource. The deployment controller will keep
@@ -776,7 +776,7 @@ If specified, this field needs to be greater than `.spec.minReadySeconds`.
 
 ### Min Ready Seconds
 
-`.spec.minReadySeconds` is an optional field (with default value of 600s) that specifies the
+`.spec.minReadySeconds` is an optional field that specifies the
 minimum number of seconds for which a newly created Pod should be ready
 without any of its containers crashing, for it to be considered available.
 This defaults to 0 (the Pod will be considered available as soon as it is ready).
