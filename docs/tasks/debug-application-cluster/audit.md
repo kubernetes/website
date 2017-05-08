@@ -6,6 +6,8 @@ title: Auditing
 redirect_from:
 - "/docs/admin/audit/"
 - "/docs/admin/audit.html"
+- "/docs/concepts/cluster-administration/audit/"
+- "/docs/concepts/cluster-administration/audit.html"
 ---
 
 * TOC
