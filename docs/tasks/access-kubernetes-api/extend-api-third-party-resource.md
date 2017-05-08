@@ -1,7 +1,7 @@
 ---
 assignees:
 - IanLewis
-title: Third Party Resources
+title: Extending the Kubernetes API Using Third Party Resources
 redirect_from:
 - "/docs/user-guide/thirdpartyresources/"
 - "/docs/user-guide/thirdpartyresources.html"
