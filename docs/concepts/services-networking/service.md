@@ -450,8 +450,11 @@ added to a `LoadBalancer` service:
     metadata:
       name: my-service
       annotations:
+        # ARN of an SSL certificate known to AWS
         service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
-        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
+        # Can be one of {https|http|ssl|tcp}
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+        # CSV of ports that support SSL/HTTPS
         service.beta.kubernetes.io/aws-load-balancer-ssl-ports: '443'
 ```
 
