@@ -1,8 +1,10 @@
 ---
-title: Communicating Between Containers Running in the Same Pod
+title: Communicating Between Containers in the Same Pod Using a Shared Volume
 redirect_from:
 - "/docs/user-guide/pods/multi-container/"
 - "/docs/user-guide/pods/multi-container.html"
+- "docs/tasks/configure-pod-container/communicate-containers-same-pod/"
+- "docs/tasks/configure-pod-container/communicate-containers-same-pod.html"
 ---
 
 {% capture overview %}
@@ -28,7 +30,7 @@ In this exercise, you create a Pod that runs two Containers. The two containers
 share a Volume that they can use to communicate. Here is the configuration file
 for the Pod:
 
-{% include code.html language="yaml" file="two-container-pod.yaml" ghlink="/docs/tasks/configure-pod-container/two-container-pod.yaml" %}
+{% include code.html language="yaml" file="two-container-pod.yaml" ghlink="/docs/tasks/access-application-cluster/two-container-pod.yaml" %}
 
 In the configuration file, you can see that the Pod has a Volume named
 `shared-data`.
@@ -45,7 +47,7 @@ directory of the nginx server.
 
 Create the Pod and the two Containers:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/two-container-pod.yaml
+    kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/two-container-pod.yaml
 
 View information about the Pod and the Containers:
 
