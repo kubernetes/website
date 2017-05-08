@@ -459,7 +459,8 @@ added to a `LoadBalancer` service:
 It can be either a third party certificate uploaded to IAM, or one created within AWS Certificate Manager.
 
 `aws-load-balancer-backend-protocol` (added in version 1.3) specifies which protocol a pod speaks. For HTTPS and
-SSL, the ELB will expect the pod to authenticate itself over the encrypted connection.
+SSL, the ELB will need the public key of the certificate used by the pods. 
+Consult the [AWS documentation](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-create-https-ssl-load-balancer.html#config-backend-auth) on how to add the public key to the ELB.
 
 `aws-load-balancer-ssl-ports` (added in version 1.4) specifies which listener ports support SSL connections. If omitted,
 Kubernetes will apply HTTPS/SSL to all ports in the service. Secured ports can be specified via a comma-separated list.
