@@ -6,7 +6,6 @@ toc:
 - title: Using the kubectl Command-Line
   section:
   - docs/tasks/kubectl/install.md
-  - docs/tasks/kubectl/get-shell-running-container.md
 
 - title: Configuring Pods and Containers
   section:
@@ -74,6 +73,7 @@ toc:
 
 - title: Monitoring, Logging, and Debugging
   section:
+  - docs/tasks/debug-application-cluster/get-shell-running-container.md
   - docs/tasks/debug-application-cluster/monitor-node-health.md
   - docs/tasks/debug-application-cluster/logging-stackdriver.md
   - docs/tasks/debug-application-cluster/logging-elasticsearch-kibana.md
