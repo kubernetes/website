@@ -85,6 +85,7 @@ toc:
   - docs/tasks/debug-application-cluster/debug-application.md
   - docs/tasks/debug-application-cluster/debug-stateful-set.md
   - docs/tasks/debug-application-cluster/debug-application-introspection.md
+  - docs/tasks/debug-application-cluster/audit.md
   - title: Using Explorer to Examine the Runtime Environment
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
