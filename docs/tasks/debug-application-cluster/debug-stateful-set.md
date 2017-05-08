@@ -8,6 +8,9 @@ assignees:
 - kow3ns
 - smarterclayton
 title: Debugging a StatefulSet
+redirect_from:
+- "/docs/tasks/manage-stateful-set/debugging-a-statefulset/"
+- "/docs/tasks/manage-stateful-set/debugging-a-statefulset.html"
 ---
 
 {% capture overview %}

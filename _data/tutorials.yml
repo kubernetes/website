@@ -40,17 +40,11 @@ toc:
   - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
 - title: Stateless Applications
   section:
-  - docs/tutorials/stateless-application/expose-external-ip-address-service.md
   - docs/tutorials/stateless-application/expose-external-ip-address.md
 - title: Stateful Applications
   section:
   - docs/tutorials/stateful-application/basic-stateful-set.md
-  - docs/tutorials/stateful-application/run-stateful-application.md
-  - docs/tutorials/stateful-application/run-replicated-stateful-application.md
   - docs/tutorials/stateful-application/zookeeper.md
-- title: Connecting Applications
-  section:
-  - docs/tutorials/connecting-apps/connecting-frontend-backend.md
 - title: Clusters
   section:
   - docs/tutorials/clusters/apparmor.md

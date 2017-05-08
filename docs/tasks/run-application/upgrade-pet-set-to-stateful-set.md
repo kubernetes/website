@@ -8,6 +8,9 @@ assignees:
 - kow3ns
 - smarterclayton
 title: Upgrading from PetSets to StatefulSets
+redirect_from:
+- "/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/"
+- "/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set.html"
 ---
 
 {% capture overview %}

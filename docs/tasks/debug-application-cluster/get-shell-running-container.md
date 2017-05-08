@@ -6,6 +6,8 @@ title: Getting a Shell to a Running Container
 redirect_from:
 - "/docs/user-guide/getting-into-containers/"
 - "/docs/user-guide/getting-into-containers.html"
+- "/docs/tasks/kubectl/get-shell-running-container/"
+- "/docs/tasks/kubectl/get-shell-running-container.html"
 ---
 
 {% capture overview %}
@@ -30,12 +32,12 @@ running Container.
 In this exercise, you create a Pod that has one Container. The Container
 runs the nginx image. Here is the configuration file for the Pod:
 
-{% include code.html language="yaml" file="shell-demo.yaml" ghlink="/docs/tasks/kubectl/shell-demo.yaml" %}
+{% include code.html language="yaml" file="shell-demo.yaml" ghlink="/docs/tasks/debug-application-cluster/shell-demo.yaml" %}
 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/docs/tasks/kubectl/shell-demo.yaml
+kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/shell-demo.yaml
 ```
 
 Verify that the Container is running:
