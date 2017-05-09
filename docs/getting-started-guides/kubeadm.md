@@ -158,7 +158,7 @@ kubeadm init
 
 **Note:** this will autodetect the network interface to advertise the master on
 as the interface with the default gateway. If you want to use a different
-interface, specify `--apiserver-advertise-address <ip-address>` argument to `kubeadm
+interface, specify `--apiserver-advertise-address=<ip-address>` argument to `kubeadm
 init`.
 
 There are pod network implementations where the master also plays a role in
