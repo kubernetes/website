@@ -95,13 +95,12 @@ pod in this list.
 To run multiple-scheduler with leader election enabled, you must do the following:
 
 First, update the following fields in your YAML file:
-```
- --leader-elect=true
- --lock-object-namespace=lock-object-namespace
- --lock-object-name=lock-object-name
-```
 
-If RBAC is enabled on your cluster, you must update the system:kube-scheduler cluster role. Add you scheduler name to the resourceNames of the rule applied for endpoints resources, as in the following example:
+- --leader-elect=true
+- --lock-object-namespace=lock-object-namespace
+- --lock-object-name=lock-object-name
+
+If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add you scheduler name to the resourceNames of the rule applied for endpoints resources, as in the following example:
 ```
 $ kubectl edit clusterrole system:kube-scheduler
 - apiVersion: rbac.authorization.k8s.io/v1beta1
