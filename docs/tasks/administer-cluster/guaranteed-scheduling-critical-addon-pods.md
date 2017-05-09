@@ -7,6 +7,8 @@ title: Guaranteed Scheduling For Critical Add-On Pods
 redirect_from:
 - "/docs/admin/rescheduler/"
 - "/docs/admin/rescheduler.html"
+- "/docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods/"
+- "/docs/concepts/cluster-administration/guaranteed-scheduling-critical-addon-pods.html"
 ---
 
 * TOC
