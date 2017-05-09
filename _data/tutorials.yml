@@ -48,7 +48,6 @@ toc:
 - title: Clusters
   section:
   - docs/tutorials/clusters/apparmor.md
-  - docs/tutorials/clusters/multiple-schedulers.md
 - title: Services
   section:
   - docs/tutorials/services/source-ip.md
