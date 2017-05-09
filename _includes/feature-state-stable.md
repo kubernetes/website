@@ -1,6 +1,6 @@
 {% assign dialog_title = "stable" %}
 {% capture dialog_content %}
-This feature has moved out of the `beta` stage and is now `stable`, meaning:
+This feature is `stable`, meaning:
 
 * The version name is vX where X is an integer.
 * Stable versions of features will appear in released software for many subsequent versions.
