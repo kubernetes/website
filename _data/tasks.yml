@@ -11,7 +11,6 @@ toc:
   section:
   - docs/tasks/configure-pod-container/assign-cpu-ram-container.md
   - docs/tasks/configure-pod-container/limit-range.md
-  - docs/tasks/configure-pod-container/apply-resource-quota-limit.md
   - docs/tasks/configure-pod-container/configure-volume-storage.md
   - docs/tasks/configure-pod-container/configure-persistent-volume-storage.md
   - docs/tasks/configure-pod-container/projected-volume.md
@@ -100,6 +99,7 @@ toc:
 
 - title: Administering a Cluster
   section:
+  - docs/tasks/administer-cluster/apply-resource-quota-limit.md
   - docs/tasks/administer-cluster/overview.md
   - docs/tasks/administer-cluster/upgrade-1-6.md
   - docs/tasks/administer-cluster/namespaces.md
