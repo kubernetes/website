@@ -5,6 +5,8 @@ title: Using Romana for NetworkPolicy
 redirect_from:
 - "/docs/getting-started-guides/network-policy/romana/"
 - "/docs/getting-started-guides/network-policy/romana.html"
+- "/docs/tasks/configure-pod-container/romana-network-policy/"
+- "/docs/tasks/configure-pod-container/romana-network-policy.html"
 ---
 
 # Installation with kubeadm
