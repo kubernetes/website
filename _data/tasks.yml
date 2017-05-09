@@ -89,9 +89,10 @@ toc:
   - title: Using Explorer to Examine the Runtime Environment
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
-- title: Accessing the Kubernetes API
+- title: Accessing and Extending the Kubernetes API
   section:
   - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
+  - docs/tasks/access-kubernetes-api/extend-api-third-party-resource.md
 
 - title: Using TLS
   section:
