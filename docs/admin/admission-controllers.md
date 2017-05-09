@@ -257,6 +257,36 @@ storage classes and how to mark a storage class as default.
 This plug-in sets the default forgiveness toleration for pods, which have no forgiveness tolerations, to tolerate
 the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes.
 
+### PodNodeSelector
+
+This plug-in defaults and limits what node selectors may be used within a namespace by reading a namespace annotation and a global configuration.
+
+#### Configuration File Format
+PodNodeSelector uses the admission config file `--admission-control-config-file` to set configuration options for the behavior of the backend.
+
+Note that the configuration file format will move to a versioned file in a future release.
+
+This file may be json or yaml and has the following format:
+
+```yaml
+podNodeSelectorPluginConfig:
+ clusterDefaultNodeSelector: <node-selectors-labels>
+ namespace1: <node-selectors-labels>
+ namespace2: <node-selectors-labels>
+```
+
+#### Configuration Annotation Format
+PodNodeSelector uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    scheduler.alpha.kubernetes.io/node-selector: <node-selectors-labels>
+  name: namespace3
+```
+
 ### PodSecurityPolicy
 
 This plug-in acts on creation and modification of the pod and determines if it should be admitted
