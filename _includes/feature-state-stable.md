@@ -18,4 +18,4 @@ This feature has moved out of the `beta` stage and is now `stable`, meaning:
 
 {% endcapture %}
 
-**Feature state:** `{{ for_k8s_version }}` {% include dialog.md %}
+**FEATURE STATE:** Kubernetes `{{ for_k8s_version }}` {% include dialog.md %}
