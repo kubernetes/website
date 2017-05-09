@@ -6,6 +6,8 @@ title: Applying Resource Quotas and Limits
 redirect_from:
 - "/docs/admin/resourcequota/walkthrough/"
 - "/docs/admin/resourcequota/walkthrough.html"
+- "/docs/tasks/configure-pod-container/apply-resource-quota-limit/"
+- "/docs/tasks/configure-pod-container/apply-resource-quota-limit.html"
 ---
 
 {% capture overview %}
