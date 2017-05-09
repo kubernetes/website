@@ -5,6 +5,8 @@ title: Configuring a Pod Disruption Budget
 redirect_from:
 - "/docs/admin/disruptions/"
 - "/docs/admin/disruptions.html"
+- "/docs/tasks/configure-pod-container/configure-pod-disruption-budget/"
+- "/docs/tasks/configure-pod-container/configure-pod-disruption-budget/"
 ---
 
 This guide is for anyone wishing to specify safety constraints on pods or anyone
