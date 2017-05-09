@@ -7,7 +7,7 @@ $(function(){
     
     $( "#feature-state-dialog" ).dialog({
         autoOpen: false,
-        width: 400,
+        width: {% endraw %}{{ dialog_width | default: "600" }}{% raw %},
         buttons: [
             {
                 text: "Ok",
