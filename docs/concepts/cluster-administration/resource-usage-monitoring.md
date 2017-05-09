@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-title: Resource Usage Monitoring
+title: Tools for Monitoring Compute, Storage, and Network Resources
 redirect_from:
 - "/docs/user-guide/monitoring/"
 - "/docs/user-guide/monitoring.html"
