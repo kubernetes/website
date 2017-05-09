@@ -1,4 +1,4 @@
-{% assign dialog_title = "`beta`" %}
+{% assign dialog_title = "beta" %}
 {% capture dialog_content %}
 This feature is currently in a `beta` state, meaning:
 
