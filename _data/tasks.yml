@@ -102,6 +102,7 @@ toc:
   - docs/tasks/administer-cluster/out-of-resource.md
   - docs/tasks/administer-cluster/cpu-memory-limit.md
   - docs/tasks/administer-cluster/reserve-compute-resources.md
+  - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/overview.md
   - docs/tasks/administer-cluster/upgrade-1-6.md
   - docs/tasks/administer-cluster/namespaces.md
