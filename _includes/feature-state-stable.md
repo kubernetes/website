@@ -18,4 +18,4 @@ This feature is `stable`, meaning:
 
 {% endcapture %}
 
-**FEATURE STATE:** Kubernetes `{{ for_k8s_version }}` {% include dialog.md %}
+**FEATURE STATE:** `Kubernetes {{ for_k8s_version }}` {% include dialog.md %}

@@ -22,4 +22,4 @@ This feature is currently in a `beta` state, meaning:
 
 {% endcapture %}
 
-**FEATURE STATE:** Kubernetes `{{ for_k8s_version }}` {% include dialog.md %}
+**FEATURE STATE:** `Kubernetes {{ for_k8s_version }}` {% include dialog.md %}
