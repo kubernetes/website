@@ -17,10 +17,10 @@ scripts not present in an app image.
 
 {:toc}
 
-{% include 1-5-beta.md %}
+{% assign for_k8s_version="v1.5" %}{% include feature-state-beta.md %}
 
-**Once the feature exits beta, Init Containers will be specified in the PodSpec
-alongside the app `containers` array.**
+Once the feature exits beta, Init Containers will be specified in the PodSpec
+alongside the app `containers` array.
 
 {% capture body %}
 ## Understanding Init Containers
