@@ -7,6 +7,8 @@ title: Configuring Out Of Resource Handling
 redirect_from:
 - "/docs/admin/out-of-resource/"
 - "/docs/admin/out-of-resource.html"
+- "/docs/concepts/cluster-administration/out-of-resource/"
+- "/docs/concepts/cluster-administration/out-of-resource.html"
 ---
 
 * TOC
