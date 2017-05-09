@@ -20,7 +20,6 @@ toc:
   - docs/tasks/configure-pod-container/assign-pods-nodes.md
   - docs/tasks/configure-pod-container/configure-pod-initialization.md
   - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
-  - docs/tasks/configure-pod-container/configure-pod-disruption-budget.md
   - docs/tasks/configure-pod-container/configmap.md
   - docs/tasks/configure-pod-container/declare-network-policy.md
   - docs/tasks/configure-pod-container/calico-network-policy.md
@@ -110,6 +109,7 @@ toc:
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
+  - docs/tasks/administer-cluster/configure-pod-disruption-budget.md
   - docs/tasks/administer-cluster/limit-storage-consumption.md
   - docs/tasks/administer-cluster/change-default-storage-class.md
   - docs/tasks/administer-cluster/share-configuration.md
