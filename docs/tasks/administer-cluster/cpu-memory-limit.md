@@ -6,6 +6,8 @@ title: Setting Pod CPU and Memory Limits
 redirect_from:
 - "/docs/admin/limitrange/"
 - "/docs/admin/limitrange/index.html"
+- "/docs/tasks/configure-pod-container/limit-range/"
+- "/docs/tasks/configure-pod-container/limit-range.html"
 ---
 
 {% capture overview %}
