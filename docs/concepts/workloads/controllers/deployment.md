@@ -739,7 +739,7 @@ The value can be an absolute number (e.g. 5) or a percentage of desired Pods
 (e.g. 10%).
 The absolute number is calculated from percentage by rounding up.
 This can not be 0 if `.spec.strategy.rollingUpdate.maxSurge` is 0.
-By default, a fixed value of 1 is used.
+By default, this is set to 25%.
 
 For example, when this value is set to 30%, the old Replica Set can be scaled down to
 70% of desired Pods immediately when the rolling update starts. Once new Pods are
@@ -755,7 +755,7 @@ Value can be an absolute number (e.g. 5) or a percentage of desired Pods
 (e.g. 10%).
 This can not be 0 if `MaxUnavailable` is 0.
 The absolute number is calculated from percentage by rounding up.
-By default, a value of 1 is used.
+By default, this is set to 25%.
 
 For example, when this value is set to 30%, the new Replica Set can be scaled up immediately when
 the rolling update starts, such that the total number of old and new Pods do not exceed
@@ -765,7 +765,7 @@ at any time during the update is at most 130% of desired Pods.
 
 ### Progress Deadline Seconds
 
-`.spec.progressDeadlineSeconds` is an optional field that specifies the number of seconds you want
+`.spec.progressDeadlineSeconds` is an optional field (with default value of 600s) that specifies the number of seconds you want
 to wait for your Deployment to progress before the system reports back that the Deployment has
 [failed progressing](#failed-deployment) - surfaced as a condition with `Type=Progressing`, `Status=False`.
 and `Reason=ProgressDeadlineExceeded` in the status of the resource. The deployment controller will keep
@@ -776,7 +776,7 @@ If specified, this field needs to be greater than `.spec.minReadySeconds`.
 
 ### Min Ready Seconds
 
-`.spec.minReadySeconds` is an optional field (with default value of 600s) that specifies the
+`.spec.minReadySeconds` is an optional field that specifies the
 minimum number of seconds for which a newly created Pod should be ready
 without any of its containers crashing, for it to be considered available.
 This defaults to 0 (the Pod will be considered available as soon as it is ready).
