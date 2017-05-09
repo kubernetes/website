@@ -14,12 +14,6 @@ $(function(){
                 click: function() {
                     $( this ).dialog( "close" );
                 }
-            },
-            {
-                text: "Cancel",
-                click: function() {
-                    $( this ).dialog( "close" );
-                }
             }
         ]
     });
