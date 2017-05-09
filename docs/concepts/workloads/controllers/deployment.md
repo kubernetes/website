@@ -372,7 +372,7 @@ Events:
 ### Clean up Policy
 
 You can set `.spec.revisionHistoryLimit` field to specify how much revision history of this deployment you want to keep. By default,
-all revision history will be kept; explicitly setting this field to `0` disallows a deployment being rolled back.
+two previous revisions will be kept; explicitly setting this field to `0` disallows a deployment being rolled back.
 
 ## Scaling a Deployment
 
@@ -794,10 +794,12 @@ To learn more about when a Pod is considered ready, see [Container Probes](/docs
 
 A deployment's revision history is stored in the replica sets it controls.
 
-`.spec.revisionHistoryLimit` is an optional field (with default value of two) that specifies the number of old Replica Sets to retain to allow rollback. Its ideal value depends on the frequency and stability of new deployments. All old Replica Sets will be kept by default, consuming resources in `etcd` and crowding the output of `kubectl get rs`, if this field is not set. The configuration of each Deployment revision is stored in its Replica Sets; therefore, once an old Replica Set is deleted, you lose the ability to rollback to that revision of Deployment.
+`.spec.revisionHistoryLimit` is an optional field that specifies the number of old Replica Sets to retain to allow rollback. Its ideal value depends on the frequency and stability of new deployments. Two old Replica Sets will be kept by default, if this field is not set. The configuration of each Deployment revision is stored in its Replica Sets; therefore, once an old Replica Set is deleted, you lose the ability to rollback to that revision of Deployment.
 
 More specifically, setting this field to zero means that all old replica sets with 0 replica will be cleaned up.
 In this case, a new deployment rollout cannot be undone, since its revision history is cleaned up.
+
+Setting this to a very high value would consume resources in `etcd` and crowd the output of `kubectl get rs`.
 
 ### Paused
 
