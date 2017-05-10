@@ -3,9 +3,9 @@ abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
-- title: Using the kubectl Command-Line
+- title: Installing Tools
   section:
-  - docs/tasks/kubectl/install.md
+  - docs/tasks/tools/install-kubectl.md
 
 - title: Configuring Pods and Containers
   section:
