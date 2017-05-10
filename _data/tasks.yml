@@ -6,6 +6,7 @@ toc:
 - title: Installing Tools
   section:
   - docs/tasks/tools/install-kubectl.md
+  - docs/tasks/tools/install-minikube.md
 
 - title: Configuring Pods and Containers
   section:
