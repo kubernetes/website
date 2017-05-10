@@ -121,6 +121,7 @@ toc:
 
 - title: Administering Federation
   section:
+  - docs/tasks/administer-federation/cluster.md
   - docs/tasks/administer-federation/configmap.md
   - docs/tasks/administer-federation/daemonset.md
   - docs/tasks/administer-federation/deployment.md

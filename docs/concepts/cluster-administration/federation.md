@@ -96,6 +96,7 @@ Once we have the control plane setup, we can start creating federation API
 resources.
 The following guides explain some of the resources in detail:
 
+* [Cluster](/docs/tasks/administer-federation/cluster/)
 * [ConfigMap](/docs/tasks/administer-federation/configmap/)
 * [DaemonSets](/docs/tasks/administer-federation/daemonset/)
 * [Deployment](/docs/tasks/administer-federation/deployment/)
