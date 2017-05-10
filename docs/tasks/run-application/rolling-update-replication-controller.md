@@ -1,7 +1,7 @@
 ---
 assignees:
 - janetkuo
-title: Rolling Update Replication Controller
+title: Performing a Rolling Update Using a Replication Controller
 redirect_from:
 - "/docs/user-guide/rolling-updates/"
 - "/docs/user-guide/rolling-updates.html"
@@ -13,6 +13,13 @@ redirect_from:
 {:toc}
 
 ## Overview
+
+**Note**: The preferred way to create a replicated application is to use a
+[Deployment](/docs/api-reference/v1.6/#deployment-v1beta1-apps),
+which in turn uses a
+[ReplicaSet](/docs/api-reference/v1.6/#replicaset-v1beta1-extensions).
+For more information, see
+[Running a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
 
 To update a service without an outage, `kubectl` supports what is called ['rolling update'](/docs/user-guide/kubectl/v1.6/#rolling-update), which updates one pod at a time, rather than taking down the entire service at the same time. See the [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) and the [example of rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) for more information.
 

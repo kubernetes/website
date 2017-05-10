@@ -63,7 +63,7 @@ a `disktype=ssd` label.
 1. Use the configuration file to create a pod that will get scheduled on your
    chosen node:
 
-        kubectl create -f http://k8s.io/docs/tasks/administer-cluster/pod.yaml
+        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/pod.yaml
 
 1. Verify that the pod is running on your chosen node:
 

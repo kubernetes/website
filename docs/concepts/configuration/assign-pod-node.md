@@ -253,9 +253,25 @@ A toleration "matches" a taint if the `key`s are the same and the `effect`s are 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
 * the `operator` is `Equal` and the `value`s are equal
 
-(`Operator` defaults to `Equal` if not specified.)
-As a special case, an empty `key` with operator `Exists` matches all keys and all values.
-Also as a special case, empty `effect` matches all effects.
+`Operator` defaults to `Equal` if not specified.
+
+**NOTE:** There are two special cases:
+
+* An empty `key` with operator `Exists` matches all keys, values and effects which means this
+will tolerate everything.
+
+```yaml
+tolerations:
+- operator: "Exists"
+```
+
+* An empty `effect` matches all effects with key `key`.
+
+```yaml
+tolerations:
+- key: "key"
+  operator: "Exists"
+```
 
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
 This is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
