@@ -72,7 +72,7 @@ CPU is always requested as an absolute quantity, never as a relative quantity;
 ## Meaning of memory
 
 Limits and requests for `memory` are measured in bytes. You can express memory as
-a plain integer or as a fixed-point integer using one of these SI suffixes:
+a plain integer or as a fixed-point integer using one of these suffixes:
 E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following represent roughly the same value:
 
