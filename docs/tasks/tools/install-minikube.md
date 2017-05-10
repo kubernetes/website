@@ -21,7 +21,7 @@ VT-x or AMD-v virtualization must be enabled in your computer's BIOS.
 If you do not already have a hypervisor installed, install one now.
 
 * For OS X, install
-[xhyve driver](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#xhyve-driver),
+[xhyve driver](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#xhyve-driver),
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads), or
 [VMware Fusion](https://www.vmware.com/products/fusion).
 
