@@ -33,7 +33,7 @@ If you do not already have a hypervisor installed, install one now.
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or
 [Hyper-V](https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/quick_start/walkthrough_install).
 
-## Insatlling kubectl
+## Installing kubectl
 
 * [Install kubectl](/docs/tasks/tools/install-kubectl/).
 
