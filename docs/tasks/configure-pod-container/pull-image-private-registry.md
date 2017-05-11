@@ -38,7 +38,7 @@ The output contains a section similar to this:
     {
         "auths": {
             "https://index.docker.io/v1/": {
-                "auth": "c3RldmU1MzpTdGV2ZURvY2tAIzE2"
+                "auth": "c3R...zE2"
             }
         }
     }
@@ -90,7 +90,7 @@ readable format:
 
 The output is similar to this:
 
-    {"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3RldmU1MzpTdGV2ZURvY2tAIzE2"}}
+    {"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}
 
 Notice that the secret data contains the authorization token from your
 `config.json` file.
