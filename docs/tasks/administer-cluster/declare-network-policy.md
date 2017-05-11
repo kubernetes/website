@@ -46,7 +46,7 @@ po/nginx-701339712-o00ef    1/1           Running       0          35s
 ```
 
 We should be able to access our new nginx Service from other Pods.  Let's try to access it from another Pod 
-in the default namespace.  We haven't put any network policy in place, so this should just work. Start a 
+in the default namespace.  We haven't enabled isolation on the namespace, so this should just work. Start a
 busybox container, and use `wget` to hit the nginx Service:
 
 ```console
@@ -67,7 +67,19 @@ enable ingress isolation on the `default` Namespace.  This will prevent _any_ po
 $ kubectl annotate ns default "net.beta.kubernetes.io/network-policy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"
 ```
 
-With ingress isolation in place, we should no longer be able to access the nginx Service like we were able to before.
+With ingress isolation in place, we should no longer be able to access the nginx Service like we were able to before:
+
+```console
+$ kubectl run busybox --rm -ti --image=busybox /bin/sh
+Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending, pod ready: false
+
+Hit enter for command prompt
+
+/ # wget --spider --timeout=1 nginx
+Connecting to nginx (10.100.0.16:80)
+wget: download timed out
+/ #
+```
 
 Let's now create a `NetworkPolicy` which allows connections from pods with the label `access: true`.
 
@@ -81,19 +93,19 @@ spec:
     matchLabels:
       run: nginx
   ingress:
-    - from:
-      - podSelector:
-          matchLabels:
-            access: "true"
+  - from:
+    - podSelector:
+        matchLabels:
+          access: "true"
 ```
 
-Use kubectl to create the above nginx-policy.yaml file:
+Use kubectl to create a NetworkPolicy from the above nginx-policy.yaml file:
 ```console
 $ kubectl create -f nginx-policy.yaml
 networkpolicy "access-nginx" created
 ```
 
-If we attempt to access the nginx Service from a pod without the correct labels, the request will timeout:
+If we attempt to access the nginx Service from a pod without the correct labels, the request will still time out:
 
 ```console
 $ kubectl run busybox --rm -ti --image=busybox /bin/sh
