@@ -154,6 +154,7 @@ http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
         w.WriteHeader(200)
         w.Write([]byte("ok"))
     }
+})
 ```
 
 The kubelet starts performing health checks 3 seconds after the Container starts.
