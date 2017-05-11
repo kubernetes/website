@@ -116,10 +116,11 @@ For each host in turn:
 * If the machine is running CentOS, run:
 
   ``` bash
+  ARCH=x86_64
   cat <<EOF > /etc/yum.repos.d/kubernetes.repo
   [kubernetes]
   name=Kubernetes
-  baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+  baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-${ARCH}
   enabled=1
   gpgcheck=1
   repo_gpgcheck=1
@@ -131,6 +132,10 @@ For each host in turn:
   systemctl enable docker && systemctl start docker
   systemctl enable kubelet && systemctl start kubelet
   ```
+
+  If your hosts are a different architecture, you will need to modify the
+  `ARCH=x86_64` line above to the correct value. RPMs are currently available
+  for `armhfp`, `aarch64`, `ppc64le`, `s390x`, and `x86_64`.
 
   The kubelet is now restarting every few seconds, as it waits in a crashloop for
   kubeadm to tell it what to do.
@@ -470,12 +475,9 @@ control of your Kubernetes cluster.
 
 ## kubeadm is multi-platform {#multi-platform}
 
-kubeadm deb packages and binaries are built for amd64, arm and arm64, following
-the [multi-platform
+kubeadm deb/rpm packages and binaries are built for amd64, arm64, armhfp,
+ppc64el, and s390x following the [multi-platform
 proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/multi-platform.md).
-
-deb-packages are released for ARM and ARM 64-bit, but not RPMs (yet, reach out
-if there's interest).
 
 Currently, only the pod networks flannel and Weave Net work on multiple architectures.
 For Weave Net just use its [standard install](https://www.weave.works/docs/net/latest/kube-addon/).
