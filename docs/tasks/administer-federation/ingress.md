@@ -25,7 +25,7 @@ unresponsive clusters).
 Federated Ingress is released as an alpha feature, and supports Google Cloud Platform (GKE,
 GCE and hybrid scenarios involving both) in Kubernetes v1.4.  Work is under way to support other cloud
 providers such as AWS, and other hybrid cloud scenarios (e.g. services
-spanning private on-premise as well as public cloud Kubernetes
+spanning private on-premises as well as public cloud Kubernetes
 clusters).  We welcome your feedback.
 
 * TOC

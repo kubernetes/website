@@ -1,5 +1,5 @@
 ---
-title: Installing Kubernetes On-premise/Cloud Providers with Kargo
+title: Installing Kubernetes On-premises/Cloud Providers with Kargo
 ---
 
 ## Overview
