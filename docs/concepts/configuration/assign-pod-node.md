@@ -395,7 +395,7 @@ is enabled (you can do this by including `TaintBasedEvictions=true` in `--featur
 `--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
 added by the NodeController and the normal logic for evicting pods from nodes
 based on the Ready NodeCondition is disabled.
-(Note: To maintain the existing [rate limiting](https://kubernetes.io/docs/admin/node/#node-controller))
+(Note: To maintain the existing [rate limiting](https://kubernetes.io/docs/admin/node/#node-controller)
 behavior of pod evictions due to node problems, the system actually adds the taints
 in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.)
