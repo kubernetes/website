@@ -158,13 +158,13 @@ kubeadm init
 
 **Note:** this will autodetect the network interface to advertise the master on
 as the interface with the default gateway. If you want to use a different
-interface, specify `--apiserver-advertise-address <ip-address>` argument to `kubeadm
+interface, specify `--apiserver-advertise-address=<ip-address>` argument to `kubeadm
 init`.
 
 There are pod network implementations where the master also plays a role in
 allocating a set of network address space for each node.  When using
 [flannel](https://github.com/coreos/flannel) as the [pod network](#pod-network)
-(described in step 3), specify `--pod-network-cidr 10.244.0.0/16`. _This is not
+(described in step 3), specify `--pod-network-cidr=10.244.0.0/16`. _This is not
 required for any other networks besides Flannel._
 
 Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to

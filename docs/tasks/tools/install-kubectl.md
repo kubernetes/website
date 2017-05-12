@@ -3,6 +3,9 @@ assignees:
 - bgrant0607
 - mikedanese
 title: Installing and Setting Up kubectl
+redirect_from:
+- "/docs/tasks/kubectl/install/"
+- "/docs/tasks/kubectl/install.html"
 ---
 
 To deploy and manage applications on Kubernetes, you'll use the

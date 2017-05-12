@@ -6,6 +6,8 @@ title: Cluster Administration Overview
 redirect_from:
 - "/docs/admin/"
 - "/docs/admin/index.html"
+- "/docs/tasks/administer-cluster/overview/"
+- "/docs/tasks/administer-cluster/overview.html"
 ---
 
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.

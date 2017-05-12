@@ -6,6 +6,8 @@ title: Configuring Multiple Schedulers
 redirect_from:
 - "/docs/admin/multiple-schedulers/"
 - "/docs/admin/multiple-schedulers.html"
+- "/docs/tutorials/clusters/multiple-schedulers/"
+- "/docs/tutorials/clusters/multiple-schedulers.html"
 ---
 
 Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).
@@ -91,6 +93,40 @@ my-scheduler-lnf4s-4744f                       1/1       Running   0          2m
 
 You should see a "Running" my-scheduler pod, in addition to the default kube-scheduler
 pod in this list.
+
+To run multiple-scheduler with leader election enabled, you must do the following:
+
+First, update the following fields in your YAML file:
+
+* `--leader-elect=true`
+* `--lock-object-namespace=lock-object-namespace`
+* `--lock-object-name=lock-object-name`
+
+If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add you scheduler name to the resourceNames of the rule applied for endpoints resources, as in the following example:
+```
+$ kubectl edit clusterrole system:kube-scheduler
+- apiVersion: rbac.authorization.k8s.io/v1beta1
+  kind: ClusterRole
+  metadata:
+    annotations:
+      rbac.authorization.kubernetes.io/autoupdate: "true"
+    labels:
+      kubernetes.io/bootstrapping: rbac-defaults
+    name: system:kube-scheduler
+  rules:
+  - apiGroups:
+    - ""
+    resourceNames:
+    - kube-scheduler
+    - my-scheduler
+    resources:
+    - endpoints
+    verbs:
+    - delete
+    - get
+    - patch
+    - update
+```
 
 ### 4. Specify schedulers for pods
 
