@@ -142,7 +142,7 @@ When the service type is set to `LoadBalancer`, Kubernetes provides functionalit
 Due to the implementation of this feature, the source IP for sessions as seen in the target container will *not be the original source IP* of the client. This is the default behavior as of Kubernetes v1.5. However, starting in v1.5, an optional beta feature has been added
 that will preserve the client Source IP for GCE/GKE environments. This feature will be phased in for other cloud providers in subsequent releases.
 
-### Caveats and Limitations when preserving source IPs
+## Caveats and Limitations when preserving source IPs
 
 GCE/AWS load balancers do not provide weights for their target pools. This was not an issue with the old LB
 kube-proxy rules which would correctly balance across all endpoints.
