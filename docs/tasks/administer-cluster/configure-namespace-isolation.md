@@ -48,3 +48,4 @@ kubectl annotate ns <namespace> "net.beta.kubernetes.io/network-policy={\"ingres
 {% capture whatsnext %}
 * For conceptual information about Network Policies, see [Network Policies](/docs/concepts/services-networking/networkpolicies).
 {% endcapture %}
+{% include templates/task.md %}
