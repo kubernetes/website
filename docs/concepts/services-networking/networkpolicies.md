@@ -64,4 +64,4 @@ So, the example NetworkPolicy:
 *    For configuration instructions, see [Configuring Namespace Isolation](/docs/tasks/administer-cluster/configure-namespace-isolation).
 *    For more NetworkPolicy examples, see the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough).
 {% endcapture %}
-
+{% include templates/concept.md %}
