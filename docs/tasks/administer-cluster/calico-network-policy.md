@@ -9,6 +9,16 @@ redirect_from:
 - "/docs/tasks/configure-pod-container/calico-network-policy.html"
 ---
 
+{% capture overview %}
+This page shows how to use Calico for NetworkPolicy.
+{% endcapture %}
+
+{% capture prerequisites %}
+{% endcapture %}
+
+{% capture steps %}
+## Deploying a cluster using Calico
+
 You can deploy a cluster using Calico for network policy in the default [GCE deployment](/docs/getting-started-guides/gce) using the following set of commands:
 
 ```shell
@@ -18,6 +28,8 @@ curl -sS https://get.k8s.io | bash
 ```
 
 See the [Calico documentation](http://docs.projectcalico.org/) for more options to deploy Calico with Kubernetes.
+
+## Verifying your cluster is using Calico
 
 Once your cluster using Calico is running, you should see a collection of pods running in the `kube-system` Namespace that support Kubernetes NetworkPolicy.
 
@@ -35,5 +47,10 @@ There are two main components to be aware of:
 
 - One `calico-node` Pod runs on each node in your cluster, and enforces network policy on the traffic to/from Pods on that machine by configuring iptables.
 - The `calico-policy-controller` Pod reads policy and label information from the Kubernetes API and configures Calico appropriately.
+{% endcapture %}
 
+{% capture whatsnext %}
 Once your cluster is running, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
+{% endcapture %}
+
+{% include templates/task.md %}
