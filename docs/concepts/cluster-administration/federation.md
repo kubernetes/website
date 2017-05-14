@@ -44,7 +44,7 @@ why you might want multiple clusters are:
 * [Hybrid cloud](###hybrid-cloud-capabilities): You can have multiple clusters on different cloud providers or
   on-premises data centers.
 
-###Caveats 
+### Caveats 
 
 While there are a lot of attractive use cases for federation, there are also
 some caveats:
