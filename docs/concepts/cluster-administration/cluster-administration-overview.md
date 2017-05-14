@@ -10,88 +10,70 @@ redirect_from:
 - "/docs/tasks/administer-cluster/overview.html"
 ---
 
-The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
-It assumes some familiarity with concepts in the [User Guide](/docs/user-guide/).
-
-* TOC
 {:toc}
 
+{% capture overview %}
+The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
+It assumes some familiarity with concepts in the [User Guide](/docs/user-guide/).
+{% endcapture %}
+
+{% capture body %}
 ## Planning a cluster
 
-There are many different examples of how to setup a Kubernetes cluster.  Many of them are listed in this
-[matrix](/docs/getting-started-guides/).  We call each of the combinations in this matrix a *distro*.
+See the guides in [Picking the Right Solution](/docs/setup/pick-right-solution/) for examples of how to plan, set up, and configure Kubernetes clusters. The solutions listed this article are called *distros*.
 
-Before choosing a particular guide, here are some things to consider:
+Before choosing a guide, here are some considerations:
 
- - Are you just looking to try out Kubernetes on your laptop, or build a high-availability many-node cluster? Both
-   models are supported, but some distros are better for one case or the other.
- - Will you be using a hosted Kubernetes cluster, such as [GKE](https://cloud.google.com/container-engine), or setting
-   one up yourself?
- - Will your cluster be on-premises, or in the cloud (IaaS)?  Kubernetes does not directly support hybrid clusters.  We
-   recommend setting up multiple clusters rather than spanning distant locations.
- - Will you be running Kubernetes on "bare metal" or virtual machines?  Kubernetes supports both, via different distros.
- - Do you just want to run a cluster, or do you expect to do active development of Kubernetes project code?  If the
-   latter, it is better to pick a distro actively used by other developers.  Some distros only use binary releases, but
-   offer is a greater variety of choices.
- - Not all distros are maintained as actively.  Prefer ones which are listed as tested on a more recent version of
-   Kubernetes.
- - If you are configuring Kubernetes on-premises, you will need to consider what [networking
-   model](/docs/admin/networking) fits best.
- - If you are designing for very high-availability, you may want [clusters in multiple zones](/docs/admin/multi-cluster).
- - You may want to familiarize yourself with the various
-   [components](/docs/admin/cluster-components) needed to run a cluster.
+ - Do you just want to try out Kubernetes on your computer, or do you want to build a high-availability, multi-node cluster? Choose distros best suited for your needs.
+ - **If you are designing for very high-availability**, learn about configuring [clusters in multiple zones](/docs/admin/multi-cluster).
+ - Will you be using **a hosted Kubernetes cluster**, such as [Google Container Engine (GKE)](https://cloud.google.com/container-engine/), or **hosting your own cluster**?
+ - Will your cluster be **on-premises**, or **in the cloud (IaaS)**? Kubernetes does not directly support hybrid clusters. Instead, you can set up multiple clusters.
+ - **If you are configuring Kubernetes on-premises**, consider which [networking model](/docs/admin/networking) fits best. One option for custom networking is [*OpenVSwitch GRE/VxLAN networking*](/docs/admin/ovs-networking/), which uses OpenVSwitch to set up networking between pods across Kubernetes nodes.
+ - Will you be running Kubernetes on **"bare metal" hardware** or on **virtual machines (VMs)**?
+ - Do you **just want to run a cluster**, or do you expect to do **active development of Kubernetes project code**? If the
+   latter, choose a actively-developed distro. Some distros only use binary releases, but
+   offer a greater variety of choices.
+ - Familiarize yourself with the [components](/docs/admin/cluster-components) needed to run a cluster.
 
-## Setting up a cluster
+Note: Not all distros are actively maintained. Choose distros which have been tested a recent version of Kubernetes.
 
-Pick one of the Getting Started Guides from the [matrix](/docs/getting-started-guides/) and follow it.
-If none of the Getting Started Guides fits, you may want to pull ideas from several of the guides.
+If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](/docs/admin/salt).
 
-One option for custom networking is *OpenVSwitch GRE/VxLAN networking* ([ovs-networking.md](/docs/admin/ovs-networking)), which
-uses OpenVSwitch to set up networking between pods across
-  Kubernetes nodes.
+## Managing a cluster
 
-If you are modifying an existing guide which uses Salt, this document explains [how Salt is used in the Kubernetes
-project](/docs/admin/salt).
+* [Managing a cluster](/docs/concepts/cluster-administration/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster..
 
-## Managing a cluster, including upgrades
+* Learn how to manage [nodes](/docs/concepts/nodes/node/).
 
-[Managing a cluster](/docs/admin/cluster-management).
+* Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/)) for shared clusters.
 
-## Managing nodes
+## Securing a cluster
 
-[Managing nodes](/docs/admin/node).
+* [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/)) describes the environment for Kubelet managed containers on a Kubernetes node.
 
-## Optional Cluster Services
+* [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api) describes how to set up permissions for users and service accounts.
 
-* **DNS Integration with SkyDNS** ([dns](/docs/admin/dns)):
-  Resolving a DNS name directly to a Kubernetes service.
+* [Authenticating](/docs/admin/authentication) explains authentication in Kubernetes, including the various authentication options.
 
-* [**Cluster-level logging**](/docs/user-guide/logging/overview):
-  Saving container logs to a central log store with search/browsing interface.
+* [Authorization](/docs/admin/authorization) is separate from authentication, and controls how HTTP calls are handled.
 
-## Multi-tenant support
+* [Using Admission Controllers](/docs/admin/admission-controllers) explains plug-ins which intercepts requests to the Kubernetes API server after authentication and authorization.
 
-* **Resource Quota** ([resourcequota](/docs/concepts/policy/resource-quotas/))
+* [Using Sysctls in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
 
-## Security
+* [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 
-* **Kubernetes Container Environment** ([/docs/concepts/containers/container-environment-variables/](/docs/concepts/containers/container-environment-variables/)):
-  Describes the environment for Kubelet managed containers on a Kubernetes
-  node.
-
-* **Securing access to the API Server** [accessing the api](/docs/admin/accessing-the-api)
-
-* **Authentication**  [authentication](/docs/admin/authentication)
-
-* **Authorization** [authorization](/docs/admin/authorization)
-
-* **Admission Controllers** [admission controllers](/docs/admin/admission-controllers)
-
-* **Sysctls** [sysctls](/docs/admin/sysctls)
-
-* **Audit** [audit](/docs/admin/audit)
-
-* **Securing the kubelet**
+### Securing the kubelet
   * [Master-Node communication](/docs/concepts/cluster-administration/master-node-communication/)
   * [TLS bootstrapping](/docs/admin/kubelet-tls-bootstrapping/)
   * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)
+
+## Optional Cluster Services
+
+* [DNS Integration with SkyDNS](/docs/concepts/services-networking/dns-pod-service/) describes how to resolve a DNS name directly to a Kubernetes service.
+
+* [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/) explains how logging in Kubernetes works and how to implement it.
+
+{% endcapture %}
+
+{% include templates/concept.md %}
