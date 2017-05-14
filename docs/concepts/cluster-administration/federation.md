@@ -5,26 +5,20 @@ redirect_from:
 - "/docs/user-guide/federation/index.html"
 ---
 
-This guide explains why and how to manage multiple Kubernetes clusters using
+{% capture overview %}
+This page explains why and how to manage multiple Kubernetes clusters using
 federation.
+{% endcapture %}
 
-
-* TOC
-{:toc}
-
-
+{% capture body %}
 ## Why federation
 
 Federation makes it easy to manage multiple clusters. It does so by providing 2
 major building blocks:
 
   * Sync resources across clusters: Federation provides the ability to keep
-    resources in multiple clusters in sync. This can be used, for example, to
-    ensure that the same deployment exists in multiple clusters.
-  * Cross cluster discovery: It provides the ability to auto-configure DNS
-    servers and load balancers with backends from all clusters. This can be used,
-    for example, to ensure that a global VIP or DNS record can be used to access
-    backends from multiple clusters.
+    resources in multiple clusters in sync. For example, you can ensure that the same deployment exists in multiple clusters.
+  * Cross cluster discovery: Federation provides the ability to auto-configure DNS servers and load balancers with backends from all clusters. For example, you can ensure that a global VIP or DNS record can be used to access backends from multiple clusters.
 
 Some other use cases that federation enables are:
 
@@ -43,18 +37,17 @@ why you might want multiple clusters are:
 * Fault isolation: It might be better to have multiple small clusters rather
   than a single large  cluster for fault isolation (for example: multiple
   clusters in different availability zones of a cloud provider).
-  [Multi cluster guide](/docs/admin/multi-cluster) has more details on this.
+  See [Multi cluster guide](/docs/admin/multi-cluster) for details.
 * Scalability: There are scalability limits to a single kubernetes cluster (this
   should not be the case for most users. For more details:
   [Kubernetes Scaling and Performance Goals](https://github.com/kubernetes/community/blob/master/sig-scalability/goals.md)).
-* Hybrid cloud: You can have multiple clusters on different cloud providers or
+* [Hybrid cloud](###hybrid-cloud-capabilities): You can have multiple clusters on different cloud providers or
   on-premises data centers.
 
-
-### Caveats
+### Caveats 
 
 While there are a lot of attractive use cases for federation, there are also
-some caveats.
+some caveats:
 
 * Increased network bandwidth and cost: The federation control plane watches all
   clusters to ensure that the current state is as expected. This can lead to
@@ -70,14 +63,7 @@ some caveats.
   38893](https://github.com/kubernetes/kubernetes/issues/38893) ennumerates
   known issues with the system that the team is busy solving.
 
-## Setup
-
-To be able to federate multiple clusters, we first need to setup a federation
-control plane.
-Follow the [setup guide](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) to setup the
-federation control plane.
-
-## Hybrid cloud capabilities
+### Hybrid cloud capabilities
 
 Federations of Kubernetes Clusters can include clusters running in
 different cloud providers (e.g. Google Cloud, AWS), and on-premises
@@ -87,12 +73,19 @@ register each cluster's API endpoint and credentials with your
 Federation API Server (See the
 [federation admin guide](/docs/admin/federation/) for details).
 
-Thereafter, your API resources can span different clusters
+Thereafter, your [API resources](##api-resources) can span different clusters
 and cloud providers.
+
+## Setting up federation
+
+To be able to federate multiple clusters, you first need to set up a federation
+control plane.
+Follow the [setup guide](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) to set up the
+federation control plane.
 
 ## API resources
 
-Once we have the control plane setup, we can start creating federation API
+Once you have the control plane set up, you can start creating federation API
 resources.
 The following guides explain some of the resources in detail:
 
@@ -113,21 +106,25 @@ resources supported by federation apiserver.
 
 Kubernetes version 1.6 includes support for cascading deletion of federated
 resources. With cascading deletion, when you delete a resource from the
-federation control plane, the corresponding resources in all underlying clusters
-are also deleted.
+federation control plane, you also delete the corresponding resources in all underlying clusters.
 
 Cascading deletion is not enabled by default when using the REST API. To enable
 it, set the option `DeleteOptions.orphanDependents=false` when you delete a
-resource from the federation control plane using REST API. Using `kubectl
+resource from the federation control plane using the REST API. Using `kubectl
 delete`
-will enable cascading deletion by default. You can disable it by running `kubectl
+enables cascading deletion by default. You can disable it by running `kubectl
 delete --cascade=false`
 
 Note: Kubernetes version 1.5 included cascading deletion support for a subset of
 federation resources.
+{% endcapture %}
 
-## For more information
+{% capture whatsnext %}
+* Learn more about the [Federation
+  proposal](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/federation.md).
+* See this [setup guide](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) for cluster federation.
+* See this [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
+{% endcapture %}
 
-* [Federation
-  proposal](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/federation.md)
-* [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
+{% include templates/concept.md %}
+
