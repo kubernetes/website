@@ -10,18 +10,14 @@ redirect_from:
 
 {% capture overview %}
 This page shows how to use a [`projected`](/docs/concepts/storage/volumes/#projected) volume to mount several existing volume sources into the same directory. Currently, `secret`, `configMap`, and `downwardAPI` volumes can be projected.
-
 {% endcapture %}
 
 {% capture prerequisites %}
-
 {% include task-tutorial-prereqs.md %}
-
 {% endcapture %}
 
 {% capture steps %}
-
-## Configure a pod to project multiple sources into a single directory
+## Configure a projected volume for a pod
 
 In this exercise, you create a Pod that runs Redis in one Container. The Pod uses two types of Volumes: [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) is used for storing Redis data, and [`projected`](/docs/concepts/storage/volumes/#projected) mounts multiple secrets into the same shared directory. Here is the configuration file for the Pod:
 
@@ -89,8 +85,11 @@ the Pod:
 1. In your shell, verify that the `projected-volumes` directory contains your projected sources:
 
         root@redis:/data/# ls ../projected-volumes/
+{% endcapture %}
 
+{% capture whatsnext %}
+* Learn more about [`projected`](/docs/concepts/storage/volumes/#projected) volumes.
+* Read the the [all-in-one volume](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md) design document.
 {% endcapture %}
 
 {% include templates/task.md %}
-
