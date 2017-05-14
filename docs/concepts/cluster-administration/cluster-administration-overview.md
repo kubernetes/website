@@ -10,8 +10,6 @@ redirect_from:
 - "/docs/tasks/administer-cluster/overview.html"
 ---
 
-{:toc}
-
 {% capture overview %}
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
 It assumes some familiarity with concepts in the [User Guide](/docs/user-guide/).
