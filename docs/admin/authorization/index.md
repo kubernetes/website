@@ -16,14 +16,14 @@ In Kubernetes, you must be authenticated (logged in) before your request can be 
 
 Kubernetes expects attributes that are common to REST API requests. This means that Kubernetes authorization works with existing organization-wide or cloud-provider-wide access control systems which may handle other APIs besides the Kubernetes API.
 
-##Determine Whether a Request is Allowed or Denied
+## Determine Whether a Request is Allowed or Denied
 Kubernetes authorizes API requests using the API server. It evaluates all of the request attributes against all policies and allows or denies the request. All parts of an API request must be allowed by some policy in order to proceed. This means that permissions are denied by default.
 
 (Although Kubernetes uses the API server, access controls and policies that depend on specific fields of specific kinds of objects are handled by Admission Controllers.)
 
 When multiple authorization modules are configured, each is checked in sequence, and if any module authorizes the request, then the request can proceed. If all modules deny the request, then the request is denied (HTTP status code 403).
 
-##Review Your Request Attributes
+## Review Your Request Attributes
 Kubernetes reviews only the following API request attributes:
 
  * **user** - The `user` string provided during authentication
@@ -39,7 +39,7 @@ Kubernetes reviews only the following API request attributes:
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only)
  * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/api/).
 
-##Determine the Request Verb
+## Determine the Request Verb
 To determine the request verb for a resource API endpoint, review the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
 
 HTTP verb | request verb
@@ -57,7 +57,7 @@ Kubernetes sometimes checks authorization for additional permissions using speci
 of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
 * [Authentication](/docs/admin/authentication/) layer checks for authorization of the `impersonate` verb on `users`, `groups`, and `serviceaccounts` in the core API group, and the `userextras` in the `authentication.k8s.io` API group.
 
-##Authorization Modules
+## Authorization Modules
  * **ABAC Mode** - Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together. The policies can use any type of attributes (user attributes, resource attributes, object, environment attributes etc). To learn more about using the ABAC mode, see [ABAC Mode](/docs/admin/authorization/abac/)
  * **RBAC Mode** - Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise. In this context, access is the ability of an individual user to perform a specific task, such as view, create, or modify a file. To learn more about using the RBAC mode, see [RBAC Mode](/docs/admin/authorization/rbac/)
  ..* When specified "RBAC" (Role-Based Access Control) uses the "rbac.authorization.k8s.io" API group to drive authorization decisions, allowing admins to dynamically configure permission policies through the Kubernetes API.
@@ -66,7 +66,7 @@ of the `bind` verb on `roles` and `clusterroles` resources in the `rbac.authoriz
  * **Webhook Mode** - A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. To learn more about using the Webhook mode, see [Webhook Mode](/docs/admin/authorization/webhook/)
  * **Custom Modules** - You can create custom modules for using with Kubernetes. To learn more, see **Custom Modules** below.
  
-###Custom Modules
+### Custom Modules
 Other implementations can be developed fairly easily. The APIserver calls the Authorizer interface:
 
 ```go
@@ -130,7 +130,7 @@ subjectaccessreview "" created
 This is useful for debugging access problems, in that you can use this resource
 to determine what access an authorizer is granting.
 
-##Using Flags for Your Authorization Module
+## Using Flags for Your Authorization Module
 
 You must include a flag in your policy to indicate which authorization module your policies include:
 
@@ -143,7 +143,7 @@ The following flags can be used:
 
 You can choose more than one authorization module. If one of the modes is `AlwaysAllow`, then it overrides the other modes and all API requests are allowed. 
 
-##Versioning
+## Versioning
 For version 1.2, clusters created by kube-up.sh are configured so that no authorization is required for any request.
 
 As of version 1.3, clusters created by kube-up.sh are configured so that the ABAC authorization modules are enabled. However, its input file is initially set to allow all users to do all operations. The cluster administrator needs to edit that file, or configure a different authorizer to restrict what users can do.
