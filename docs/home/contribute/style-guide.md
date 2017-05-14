@@ -182,6 +182,18 @@ Use simple and direct language. Avoid using unnecessary phrases, such as saying 
     <tr><td>In the preceding output, you can see...</td><td>In the preceding output, we can see ...</td></tr>
 </table>
 
+### Avoid Latin phrases
+
+Prefer English terms over Latin abbreviations.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>For example, ...</td><td>e.g., ...</td></tr>
+  <tr><td>That is, ...</td><td>i.e., ...</td></tr>
+</table>
+
+Exception: Use "etc." for et cetera.
+
 ## Patterns to avoid
 
 ### Avoid using "we"
