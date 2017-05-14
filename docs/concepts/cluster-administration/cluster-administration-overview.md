@@ -10,13 +10,12 @@ redirect_from:
 - "/docs/tasks/administer-cluster/overview.html"
 ---
 
+{:toc}
+
 {% capture overview %}
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
 It assumes some familiarity with concepts in the [User Guide](/docs/user-guide/).
 {% endcapture %}
-
-* TOC
-{:toc}
 
 {% capture body %}
 ## Planning a cluster
@@ -44,13 +43,13 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 * [Managing a cluster](/docs/concepts/cluster-administration/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster..
 
-* Learn how to manage [nodes](/docs/concepts/nodes/node/).
+* Learn how to [manage nodes](/docs/concepts/nodes/node/).
 
-* Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/)) for shared clusters.
+* Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
 
 ## Securing a cluster
 
-* [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/)) describes the environment for Kubelet managed containers on a Kubernetes node.
+* [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/) describes the environment for Kubelet managed containers on a Kubernetes node.
 
 * [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api) describes how to set up permissions for users and service accounts.
 
@@ -62,7 +61,7 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 * [Using Sysctls in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
 
-* [Auditing](docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
+* [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 
 ### Securing the kubelet
   * [Master-Node communication](/docs/concepts/cluster-administration/master-node-communication/)
