@@ -94,6 +94,7 @@ toc:
 
 - title: Administering a Cluster
   section:
+  - docs/tasks/administer-cluster/configure-upgrade-etcd.md
   - docs/tasks/administer-cluster/apply-resource-quota-limit.md
   - docs/tasks/administer-cluster/out-of-resource.md
   - docs/tasks/administer-cluster/cpu-memory-limit.md
