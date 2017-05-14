@@ -61,9 +61,9 @@ toc:
   - docs/concepts/cluster-administration/federation-service-discovery.md
   - docs/concepts/cluster-administration/static-pod.md
   - docs/concepts/cluster-administration/sysctl-cluster.md
-  - docs/concepts/cluster-administration/access-cluster.md
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
   - docs/concepts/cluster-administration/master-node-communication.md
+  - docs/concepts/cluster-administration/proxies.md
 
 - title: Storage
   section:
