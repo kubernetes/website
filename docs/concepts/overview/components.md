@@ -35,6 +35,7 @@ Kubernetes control plane. It is designed to scale horizontally -- that is, it sc
 [kube-controller-manager](/docs/admin/kube-controller-manager) runs controllers, which are the background threads that handle routine tasks in the cluster. Logically, each controller is a separate process, but to reduce complexity, they are all compiled into a single binary and run in a single process.
 
 These controllers include:
+
   * Node Controller: Responsible for noticing and responding when nodes go down.
   * Replication Controller: Responsible for maintaining the correct number of pods for every replication
   controller object in the system.
@@ -99,6 +100,7 @@ Node components run on every node, maintaining running pods and providing the Ku
 ### kubelet
 
 [kubelet](/docs/admin/kubelet) is the primary node agent. It watches for pods that have been assigned to its node (either by apiserver or via local configuration file) and:
+
   * Mounts the pod's required volumes.
   * Downloads the pod's secrets.
   * Runs the pod's containers via docker (or, experimentally, rkt).
@@ -131,6 +133,3 @@ fluentd is a daemon which helps provide [cluster-level logging](#cluster-level-l
 {% endcapture %}
 
 {% include templates/concept.md %}
-
-
-
