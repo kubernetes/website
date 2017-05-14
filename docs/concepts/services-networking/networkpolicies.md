@@ -8,48 +8,13 @@ redirect_from:
 - "/docs/user-guide/networkpolicies/"
 - "/docs/user-guide/networkpolicies.html"
 ---
-
-* TOC
-{:toc}
-
-A network policy is a specification of how groups of pods are allowed to communicate with each other and other network endpoints.
+{% capture overview %}
+A network policy is a specification of how groups of pods are allowed to communicate with each other and other network endpoints. 
 
 `NetworkPolicy` resources use labels to select pods and define whitelist rules which allow traffic to the selected pods in addition to what is allowed by the isolation policy for a given namespace.
+{% endcapture %}
 
-## Prerequisites
-
-Network policies are implemented by the network plugin, so you must be using a networking solution which supports `NetworkPolicy` - simply creating the resource without a controller to implement it will have no effect.
-
-## Configuring Namespace Isolation
-
-By default, all traffic is allowed between all pods (and `NetworkPolicy` resources have no effect).
-
-Isolation can be configured on a per-namespace basis. Currently, only isolation on inbound traffic (ingress) can be defined. When a namespace has been configured to isolate inbound traffic, all traffic to pods in that namespace (even from other pods in the same namespace) will be blocked. `NetworkPolicy` objects can then be added to the isolated namespace to specify what traffic should be allowed.
-
-Isolation is enabled via the `NetworkPolicy` field of the `Namespace` object. To enable isolation via `kubectl`:
-
-```shell
-{% raw %}
-kubectl patch ns <namespace> -p '{"spec": {"networkPolicy": {"ingress": {"isolation": "DefaultDeny"}}}}'
-{% endraw %}
-```
-
-To disable it:
-
-```shell
-{% raw %}
-kubectl patch ns <namespace> -p '{"spec": {"networkPolicy": null}}'
-{% endraw %}
-```
-
-NOTE: older network plugins may instead require the v1beta1 syntax, using an annotation:
-
-```shell
-{% raw %}
-kubectl annotate ns <namespace> "net.beta.kubernetes.io/network-policy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"
-{% endraw %}
-```
-
+{% capture body %}
 ## The `NetworkPolicy` Resource
 
 See the [api-reference](/docs/api-reference/networking/v1/definitions/#_v1_networkpolicy) for a full definition of the resource.
@@ -93,6 +58,10 @@ So, the example NetworkPolicy:
 
 1. allows connections to tcp port 6379 of "role=db" pods in the "default" namespace from any pod in the "default" namespace with the label "role=frontend"
 2. allows connections to tcp port 6379 of "role=db" pods in the "default" namespace from any pod in a namespace with the label "project=myproject"
+{% endcapture %}
 
-See the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) for further examples.
+{% capture whatsnext %}
+*    For configuration instructions, see [Configuring Namespace Isolation](/docs/tasks/administer-cluster/configure-namespace-isolation).
+*    For more NetworkPolicy examples, see the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough).
+{% endcapture %}
 
