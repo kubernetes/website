@@ -1,12 +1,12 @@
 ---
-title: Accessing Clusters
+title: Proxies in Kubernetes
 redirect_from:
 - "/docs/user-guide/accessing-the-cluster/"
 - "/docs/user-guide/accessing-the-cluster.html"
 ---
 
 {% capture overview %}
-This page explains ...
+This page explains proxies used with Kubernetes.
 {% endcapture %}
 
 {% capture body %}
