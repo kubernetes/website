@@ -7,16 +7,14 @@ redirect_from:
 - "/docs/admin/apparmor/index.html"
 ---
 
-AppArmor is a Linux kernel enhancement that can reduce the potential attack surface of an
-application and provide greater defense in depth for Applications. Beta support for AppArmor was
-added in Kubernetes v1.4.
+{% capture overview %}
 
-* TOC
-{:toc}
+{% assign for_k8s_version="v1.4" %}{% include feature-state-beta.md %}
 
-## What is AppArmor
+AppArmor is a Linux kernel security module that can reduce the potential attack surface of an
+application and provide greater defense in depth for Applications. 
 
-AppArmor is a Linux kernel security module that supplements the standard Linux user and group based
+AppArmor supplements the standard Linux user and group based
 permissions to confine programs to a limited set of resources. AppArmor can be configured for any
 application to reduce its potential attack surface and provide greater defense in depth. It is
 configured through profiles tuned to whitelist the access needed by a specific program or container,
@@ -30,9 +28,21 @@ that AppArmor is not a silver bullet, and can only do so much to protect against
 application code. It is important to provide good, restrictive profiles, and harden your
 applications and cluster from other angles as well.
 
-AppArmor support in Kubernetes is currently in beta.
+{% endcapture %}
 
-## Prerequisites
+{% capture objectives %}
+
+* One way to load a profile on a node
+* How to enforce the profile on a Pod
+* How to check that the profile is loaded
+* What happens when a profile is violated
+* What happens when a profile cannot be loaded
+
+{% endcapture %}
+
+{% capture prerequisites %}
+
+Make sure:
 
 1. **Kubernetes version is at least v1.4**. Kubernetes support for AppArmor was added in
    v1.4. Kubernetes components older than v1.4 are not aware of the new AppArmor annotations, and
@@ -95,6 +105,10 @@ later release):
     gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor enabled
     gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
 
+{% endcapture %}
+
+{% capture lessoncontent %}
+
 ## Securing a Pod
 
 *Note: AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
@@ -129,14 +143,6 @@ You can also verify directly that the container's root process is running with t
     k8s-apparmor-example-deny-write (enforce)
 
 ## Example
-
-In this example you'll see:
-
-- One way to load a profile on a node
-- How to enforce the profile on a Pod
-- How to check that the profile is loaded
-- What happens when a profile is violated
-- What happens when a profile cannot be loaded
 
 *This example assumes you have already set up a cluster with AppArmor support.*
 
@@ -351,10 +357,6 @@ denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be fou
 logs or through `journalctl`. More information is provided in
 [AppArmor failures](http://wiki.apparmor.net/index.php/AppArmor_Failures).
 
-Additional resources:
-
-- [Quick guide to the AppArmor profile language](http://wiki.apparmor.net/index.php/QuickProfileLanguage)
-- [AppArmor core policy reference](http://wiki.apparmor.net/index.php/ProfileLanguage)
 
 ## API Reference
 
@@ -394,3 +396,16 @@ Specifying the list of profiles Pod containers is allowed to specify:
 - **value**: a comma-separated list of profile references (described above)
   - Although an escaped comma is a legal character in a profile name, it cannot be explicitly
     allowed here
+
+{% endcapture %}
+
+{% capture whatsnext %}
+
+Additional resources:
+
+- [Quick guide to the AppArmor profile language](http://wiki.apparmor.net/index.php/QuickProfileLanguage)
+- [AppArmor core policy reference](http://wiki.apparmor.net/index.php/ProfileLanguage)
+
+{% endcapture %}
+
+{% include templates/tutorial.md %}
