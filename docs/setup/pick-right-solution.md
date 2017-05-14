@@ -186,7 +186,7 @@ any                  | any          | any    | any         | [docs](/docs/gettin
 
 * **IaaS Provider** is the product or organization which provides the virtual or physical machines (nodes) that Kubernetes runs on.
 * **OS** is the base operating system of the nodes.
-* **Config. Mgmt. ** is the configuration management system that helps install and maintain Kubernetes on the
+* **Config. Mgmt.** is the configuration management system that helps install and maintain Kubernetes on the
   nodes.
 * **Networking** is what implements the [networking model](/docs/concepts/cluster-administration/networking/). Those with networking type
   _none_ may not support more than a single node, or may support multiple VM nodes in a single physical node.
