@@ -11,6 +11,7 @@ redirect_from:
 
 {% assign for_k8s_version="v1.4" %}{% include feature-state-beta.md %}
 
+
 AppArmor is a Linux kernel security module that can reduce the potential attack surface of an
 application and provide greater defense in depth for Applications. 
 
