@@ -9,9 +9,11 @@ redirect_from:
 ---
 {% capture overview %}
 Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl), to deploy and manage applications on Kubernetes. Using kubectl, you can:
+
   * Inspect your cluster resources.
   * Create, delete, and update components. 
   * Look at your new cluster and bring up example apps. 
+  
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -49,6 +51,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 ## Download as part of the Google Cloud SDK
 
 kubectl can be installed as part of the Google Cloud SDK.
+
   1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
   2. Run the following command to install `kubectl`:
   ```shell
@@ -57,6 +60,7 @@ gcloud components install kubectl
   3. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
   
 ## Install with Homebrew on macOS
+
   1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
 ```shell
 brew install kubectl
