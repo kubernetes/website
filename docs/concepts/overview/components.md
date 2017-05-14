@@ -103,40 +103,34 @@ Node components run on every node, maintaining running pods and providing the Ku
   * Downloads the pod's secrets.
   * Runs the pod's containers via docker (or, experimentally, rkt).
   * Periodically executes any requested container liveness probes.
-  * Reports the status of the pod back to the rest of the system, by creating a "mirror pod" if necessary.
+  * Reports the status of the pod back to the rest of the system, by creating a *mirror pod* if necessary.
   * Reports the status of the node back to the rest of the system.
-{% endcapture %}
-
-
-
-
-
-
-
-
-
-
-
-
 
 ### kube-proxy
 
 [kube-proxy](/docs/admin/kube-proxy) enables the Kubernetes service abstraction by maintaining
 network rules on the host and performing connection forwarding.
 
+
 ### docker
 
-`docker` is of course used for actually running containers.
+docker is used for running containers.
 
 ### rkt
 
-`rkt` is supported experimentally as an alternative to docker.
+rkt is supported experimentally for running containers as an alternative to docker.
 
 ### supervisord
 
-`supervisord` is a lightweight process babysitting system for keeping kubelet and docker
+supervisord is a lightweight process monitoring and control system that can be used to keeo kubelet and docker
 running.
 
 ### fluentd
 
-`fluentd` is a daemon which helps provide [cluster-level logging](#cluster-level-logging).
+fluentd is a daemon which helps provide [cluster-level logging](#cluster-level-logging).
+{% endcapture %}
+
+{% include templates/concept.md %}
+
+
+
