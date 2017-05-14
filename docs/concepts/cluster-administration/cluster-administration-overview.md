@@ -15,7 +15,6 @@ The cluster administration overview is for anyone creating or administering a Ku
 It assumes some familiarity with concepts in the [User Guide](/docs/user-guide/).
 {% endcapture %}
 
-* TOC
 {:toc}
 
 {% capture body %}
