@@ -108,7 +108,7 @@ The `assign tab_names` tag takes a list of labels to use for the tabs. Label tex
 {{ "{% assign tab_contents = site.emptyArray | push: default_tab | push: calico | push: flannel | push: romana | push: weave_net " }}%}
 ````
 
-The `assign tab_contents` tag adds the contents of each tab pane, captured above, as elements to the `tab_contents` array.
+The `assign tab_contents` tag adds the contents of each tab pane, captured above, as elements to an empty array, `site.emptyArray`, then assigns that array to the `tab_contents` variable.
 
 ### Including the tabs.md template
 
