@@ -9,6 +9,8 @@ redirect_from:
 - "/docs/getting-started-guides/index.html"
 ---
 
+{:toc}
+
 Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to rack of
 bare metal servers. The effort required to set up a cluster varies from running a single command to
 crafting your own customized cluster. Use this guide to choose a solution that fits your needs.
@@ -24,8 +26,6 @@ If you already have a way to configure hosting resources, use [kubeadm](/docs/ge
 
 [Custom solutions](#custom-solutions) vary from step-by-step instructions to general advice for setting up
 a Kubernetes cluster from scratch.
-
-{:toc}
 
 # Local-machine Solutions
 
