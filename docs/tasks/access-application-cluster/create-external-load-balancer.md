@@ -5,8 +5,6 @@ redirect_from:
 - "/docs/user-guide/load-balancer.html"
 ---
 
-* TOC
-{:toc}
 
 {% capture overview %}
 
@@ -64,7 +62,7 @@ You can alternatively create the service with the `kubectl expose` command and
 its `--type=LoadBalancer` flag:
 
 ```bash
-    $ kubectl expose rc example --port=8765 --target-port=9376 \
+    kubectl expose rc example --port=8765 --target-port=9376 \
         --name=example-service --type=LoadBalancer
 ```
 
@@ -81,7 +79,10 @@ You can find the IP address created for your service by getting the service
 information through `kubectl`:
 
 ```bash
-    $ kubectl describe services example-service
+    kubectl describe services example-service
+```
+which should produce output like this:
+```bash
     Name:  example-service
     Selector:   app=example
     Type:     LoadBalancer
@@ -135,7 +136,7 @@ This feature can be activated by adding the beta annotation below to the metadat
 
 It is important to note that the datapath for this functionality is provided by a load balancer external to the Kubernetes cluster.
 
-When the service type is set to `LoadBalancer`, Kubernetes provides functionality equivalent to type=`ClusterIP` to pods within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes VMs. The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed), firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object.
+When the service type is set to `LoadBalancer`, Kubernetes provides functionality equivalent to `type=<ClusterIP>` to pods within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes VMs. The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed), firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object.
 
 ## Loss of client source IP for external traffic
 
