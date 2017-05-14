@@ -95,6 +95,7 @@ toc:
 
   - docs/admin/node-conformance.md
 
+- docs/concepts/cluster-administration/addons.md
 - docs/admin/salt.md
 - docs/admin/cluster-large.md
 - docs/admin/multiple-zones.md
