@@ -88,6 +88,7 @@ Kubernetes supports several types of Volumes:
    * `Quobyte`
    * `PortworxVolume`
    * `ScaleIO`
+   * `projected`
 
 We welcome additional contributions.
 
@@ -464,7 +465,7 @@ More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{
 
 ### vsphereVolume
 
-__Prerequisite: Kubernetes with vSphere Cloud Provider configured. 
+__Prerequisite: Kubernetes with vSphere Cloud Provider configured.
 For cloudprovider configuration please refer [vSphere getting started guide](http://kubernetes.io/docs/getting-started-guides/vsphere/).__
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
@@ -475,7 +476,7 @@ __Important: You must create VMDK using one of the following method before using
 #### Creating a VMDK volume
 
 * Create using vmkfstools.
-   
+
    First ssh into ESX and then use following command to create vmdk,
 
 ```shell
@@ -553,9 +554,9 @@ __Important: Make sure you have an existing PortworxVolume with name `pxvol` bef
 More details and examples can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/portworx/README.md)
 
 ### ScaleIO
-ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable 
-shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO 
-volumes (or it can dynamically provision new volumes for persistent volume claims, see 
+ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable
+shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO
+volumes (or it can dynamically provision new volumes for persistent volume claims, see
 [ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio)).
 
 __Important: You must have an existing ScaleIO cluster already setup and running with the volumes created
@@ -587,6 +588,90 @@ spec:
 ```
 
 For further detail, plese the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
+
+### projected
+
+A `projected` volume maps several existing volume sources into the same directory.
+
+Currently, the following types of volume sources can be projected:
+
+- [`secret`](#secret)
+- [`downwardAPI`](#downardapi)
+- `configMap`
+
+All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md).
+
+#### Example pod with a secret, a downward API, and a configmap
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-test
+spec:
+  containers:
+  - name: container-test
+    image: busybox
+    volumeMounts:
+    - name: all-in-one
+      mountPath: "/projected-volume"
+      readOnly: true
+  volumes:
+  - name: all-in-one
+    projected:
+      sources:
+      - secret:
+          name: mysecret
+          items:
+            - key: username
+              path: my-group/my-username
+      - downwardAPI:
+          items:
+            - path: "labels"
+              fieldRef:
+                fieldPath: metadata.labels
+            - path: "cpu_limit"
+              resourceFieldRef:
+                containerName: container-test
+                resource: limits.cpu
+      - configMap:
+          name: myconfigmap
+          items:
+            - key: config
+              path: my-group/my-config
+```
+
+#### Example pod with multiple secrets with a non-default permission mode set
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-test
+spec:
+  containers:
+  - name: container-test
+    image: busybox
+    volumeMounts:
+    - name: all-in-one
+      mountPath: "/projected-volume"
+      readOnly: true
+  volumes:
+  - name: all-in-one
+    projected:
+      sources:
+      - secret:
+          name: mysecret
+          items:
+            - key: username
+              path: my-group/my-username
+      - secret:
+          name: mysecret2
+          items:
+            - key: password
+              path: my-group/my-password
+              mode: 511
+```
 
 ## Using subPath
 
