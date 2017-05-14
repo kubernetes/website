@@ -10,13 +10,12 @@ redirect_from:
 - "/docs/tasks/administer-cluster/overview.html"
 ---
 
+{:toc}
+
 {% capture overview %}
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
 It assumes some familiarity with concepts in the [User Guide](/docs/user-guide/).
 {% endcapture %}
-
-* TOC
-{:toc}
 
 {% capture body %}
 ## Planning a cluster
@@ -62,7 +61,7 @@ If you are using a guide involving Salt, see [Configuring Kubernetes with Salt](
 
 * [Using Sysctls in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
 
-* [Auditing](docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
+* [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 
 ### Securing the kubelet
   * [Master-Node communication](/docs/concepts/cluster-administration/master-node-communication/)
