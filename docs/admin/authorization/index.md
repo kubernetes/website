@@ -7,9 +7,6 @@ assignees:
 title: Overview
 ---
 
-* TOC
-{:toc}
-
 {% capture overview %}
 Learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules.
 {% endcapture %}
