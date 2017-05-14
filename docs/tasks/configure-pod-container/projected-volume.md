@@ -8,35 +8,41 @@ redirect_from:
 - "/docs/user-guide/projected-volume/index.html"
 ---
 
-The _projected volume_ is a volume that projects several existing volume sources
-into the same directory. Currently, one can project configmaps, downward API,
-and secrets. The resulting pod spec is also shorter when projecting to a single
-volume as opposed to multiple different locations. See [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md)
-for more information.
+{% capture overview %}
+This page shows how to use a [`projected`](/docs/concepts/storage/volumes/#projected) volume to mount several existing volume sources into the same directory. Currently, `secret`, `configMap`, and `downwardAPI` volumes can be projected.
 
-* TOC
-{:toc}
+{% endcapture %}
 
-## Overview of a projected volume
+{% capture prerequisites %}
 
-The projected volume encapsulates multiple volumes to be projected, with each
-volume source respecting nearly the same parameters as supported by each
-individual type. Consider the following example:
+{% include task-tutorial-prereqs.md %}
+
+{% endcapture %}
+
+{% capture steps %}
+
+## Configure a pod to project multiple sources into a single directory
+
+In this exercise, you create a Pod that runs Redis in one Container. The Pod uses two types of Volumes: [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) is used for storing Redis data, and [`projected`](/docs/concepts/storage/volumes/#projected) mounts multiple secrets into the same shared directory. Here is the configuration file for the Pod:
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: volume-test
+  name: redis
 spec:
   containers:
-  - name: container-test
-    image: busybox
+  - name: redis
+    image: redis
     volumeMounts:
+    - name: redis-storage
+      mountPath: /data/redis
     - name: all-in-one
       mountPath: "/projected-volume"
       readOnly: true
   volumes:
+  - name: redis-storage
+    emptyDir: {}
   - name: all-in-one
     projected:
       sources:
@@ -53,7 +59,7 @@ spec:
               mode: 511
 ```
 
-Each volume source is listed in the spec under `sources`. As stated above the
+Each projected volume source is listed in the spec under `sources`. The
 parameters are nearly the same with two exceptions:
 
 * For secrets, the `secretName` field has been changed to `name` to be consistent
@@ -62,15 +68,29 @@ with config maps naming.
 volume source. However, as illustrated above, you can explicitly set the `mode`
 for each individual projection.
 
-## Creating projections
+1. Create the Pod:
 
-A projected volume is created by passing in the pod spec to kubectl as normally
-done to create a new pod:
-```shell
-kubectl create -f podspec.yaml
-```
+        kubectl create -f podspec.yaml
 
-## Restrictions
+1. Verify that the Pod's Container is running, and then watch for changes to
+the Pod:
 
-Both secrets and config maps are required to be in the same namespace as the
-pod.
+        kubectl get --watch pod redis
+
+    The output looks like this:
+
+        NAME      READY     STATUS    RESTARTS   AGE
+        redis     1/1       Running   0          13s
+
+1. In another terminal, get a shell to the running Container:
+
+        kubectl exec -it redis -- /bin/bash
+
+1. In your shell, verify that the `projected-volumes` directory contains your projected sources:
+
+        root@redis:/data/# ls ../projected-volumes/
+
+{% endcapture %}
+
+{% include templates/task.md %}
+
