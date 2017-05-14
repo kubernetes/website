@@ -1,5 +1,5 @@
 ---
-title: Using ConfigMaps in Pods 
+title: Using ConfigMap Data in Pods 
 ---
 
 {% capture overview %}
@@ -182,31 +182,11 @@ produces the following output in the `test-container` container:
 very charm
 ```
 
-## Using ConfigMap data in Volumes
+## Adding ConfigMap data to a Volume 
 
-### Add files stored in a ConfigMap to a Volume 
+As explained in [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap.html), when you create a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value. 
 
-{$ endcapture %}
-
-{% capture discussion %}
-## Understanding ...
-
-Here's an interesting thing to know about the steps you just did.
-{% endcapture %}
-
-{% capture whatsnext %}
-* Learn more about [this](...).
-* See this [related task](...).
-{% endcapture %}
-
-{% include templates/task.md %}
-
-
-
-
-## Using ConfigMap via volume plugin
-
-ConfigMaps can also be consumed in volumes.  Returning again to our example ConfigMap:
+The examples in this section refer to a ConfigMap named special-config, shown below.
 
 ```yaml
 apiVersion: v1
@@ -215,199 +195,198 @@ metadata:
   name: special-config
   namespace: default
 data:
-  special.how: very
+  special.level: very
   special.type: charm
 ```
 
-We have a couple different options for consuming this ConfigMap in a volume.  The most basic
-way is to populate the volume with files where the key is the filename and the content of the file
-is the value of the key:
+### Populate a Volume with data stored in a ConfigMap
+
+Add the ConfigMap name under the `volumes` section of the Pod specification. 
+This adds the ConfigMap data to the directory specified as `volumeMount.mountPath` (in this case, `/etc/config`).
+The `command` section references the `special.level` item stored in the ConfigMap.
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: dapi-test-pod
+name: dapi-test-pod
 spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "-c", "cat /etc/config/special.how" ]
-      volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
-  volumes:
+containers:
+  - name: test-container
+    image: gcr.io/google_containers/busybox
+    command: [ "/bin/sh", "-c", "ls /etc/config/" ]
+    volumeMounts:
     - name: config-volume
-      configMap:
-        name: special-config
-  restartPolicy: Never
+      mountPath: /etc/config
+volumes:
+  - name: config-volume
+    configMap:
+      # Provide the name of the ConfigMap containing the files you want 
+      # to add to the container
+      name: special-config
+restartPolicy: Never
 ```
 
-When this pod is run, the output will be:
+When the pod runs, the command (`"ls /etc/config/"`) produces the output below:
 
 ```shell
-very
+special.level
+special.type
 ```
 
-We can also control the paths within the volume where ConfigMap keys are projected:
+### Add ConfigMap data to a specific path in the Volume:
+
+Use the `path` field to specify the desired file path for specific ConfigMap items. 
+In this case, the `special.key` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
 
 ```yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: dapi-test-pod
+name: dapi-test-pod
 spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh","-c","cat /etc/config/path/to/special-key" ]
-      volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
-  volumes:
+containers:
+  - name: test-container
+    image: gcr.io/google_containers/busybox
+    command: [ "/bin/sh","-c","cat /etc/config/keys/special.level" ]
+    volumeMounts:
     - name: config-volume
-      configMap:
-        name: special-config
-        items:
-        - key: special.how
-          path: path/to/special-key
-  restartPolicy: Never
+      mountPath: /etc/config
+volumes:
+  - name: config-volume
+    configMap:
+      name: special-config
+      items:
+      - key: special.level
+        path: /keys
+restartPolicy: Never
 ```
 
-When this pod is run, the output will be:
+When the pod runs, the command (`"cat /etc/config/keys/special.level"`) produces the output below:
 
 ```shell
 very
 ```
 
-#### Projecting keys to specific paths and file permissions
+### Projecting keys to specific paths and file permissions
 
 You can project keys to specific paths and specific permissions on a per-file
-basis. The [Secrets](/docs/concepts/configuration/secret/) user guide explains the syntax.
+basis. The [Secrets](/docs/concepts/configuration/secret#using-secrets-as-files-from-a-pod) user guide explains the syntax.
 
-## Real World Example: Configuring Redis
+## Real World Example: Configuring Redis using a ConfigMap
 
-Let's take a look at a real-world example: configuring redis using ConfigMap.  Say that we want to inject
-redis with the recommendation configuration for using redis as a cache.  The redis config file
-should contain:
+You can follow the steps below to configure a Redis cache using data stored in a ConfigMap.
 
-```conf
-maxmemory 2mb
-maxmemory-policy allkeys-lru
-```
+1. Create a ConfigMap from the `docs/user-guide/configmap/redis/redis-config` file
 
-Such a file is in `docs/user-guide/configmap/redis`; we can use the following command to create a
-ConfigMap instance with it:
+   ```shell
+   kubectl create configmap example-redis-config --from-file=docs/user-guide/configmap/redis/redis-config
 
-```shell
-$ kubectl create configmap example-redis-config --from-file=docs/user-guide/configmap/redis/redis-config
+   kubectl get configmap example-redis-config -o yaml
+   ```
 
-$ kubectl get configmap example-redis-config -o yaml
-```
+   ```yaml
+   apiVersion: v1
+   data:
+     redis-config: |
+       maxmemory 2mb
+       maxmemory-policy allkeys-lru
+   kind: ConfigMap
+   metadata:
+     creationTimestamp: 2016-03-30T18:14:41Z
+     name: example-redis-config
+     namespace: default
+     resourceVersion: "24686"
+     selfLink: /api/v1/namespaces/default/configmaps/example-redis-config
+     uid: 460a2b6e-f6a3-11e5-8ae5-42010af00002
+   ```
 
-```yaml
-apiVersion: v1
-data:
-  redis-config: |
-    maxmemory 2mb
-    maxmemory-policy allkeys-lru
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2016-03-30T18:14:41Z
-  name: example-redis-config
-  namespace: default
-  resourceVersion: "24686"
-  selfLink: /api/v1/namespaces/default/configmaps/example-redis-config
-  uid: 460a2b6e-f6a3-11e5-8ae5-42010af00002
-```
+1. Create a pod specification that uses the config data stored in the ConfigMap:
 
-Now, let's create a pod that uses this config:
+   ```yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: redis
+   spec:
+     containers:
+     - name: redis
+       image: kubernetes/redis:v1
+       env:
+       - name: MASTER
+         value: "true"
+       ports:
+       - containerPort: 6379
+       resources:
+         limits:
+           cpu: "0.1"
+       volumeMounts:
+       - mountPath: /redis-master-data
+         name: data
+       - mountPath: /redis-master
+         name: config
+     volumes:
+       - name: data
+         emptyDir: {}
+       - name: config
+         configMap:
+           name: example-redis-config
+           items:
+           - key: redis-config
+             path: redis.conf
+   ```
+1. Create the pod.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: redis
-spec:
-  containers:
-  - name: redis
-    image: kubernetes/redis:v1
-    env:
-    - name: MASTER
-      value: "true"
-    ports:
-    - containerPort: 6379
-    resources:
-      limits:
-        cpu: "0.1"
-    volumeMounts:
-    - mountPath: /redis-master-data
-      name: data
-    - mountPath: /redis-master
-      name: config
-  volumes:
-    - name: data
-      emptyDir: {}
-    - name: config
-      configMap:
-        name: example-redis-config
-        items:
-        - key: redis-config
-          path: redis.conf
-```
+  ```shell
+  kubectl create -f docs/user-guide/configmap/redis/redis-pod.yaml
+  ```
 
-Notice that this pod has a ConfigMap volume that places the `redis-config` key of the
-`example-redis-config` ConfigMap into a file called `redis.conf`.  This volume is mounted into the
-`/redis-master` directory in the redis container, placing our config file at
-`/redis-master/redis.conf`, which is where the image looks for the redis config file for the master.
+In the example, the config volume is mounted at `/redis-master`. 
+It uses `path` to add the `redis-config` key to a file named `redis.conf`. 
+The file path for the redis config, therefore, is `/redis-master/redis.conf`.    
+This is where the image will look for the config file for the redis master.
 
-```shell
-$ kubectl create -f docs/user-guide/configmap/redis/redis-pod.yaml
-```
+1. Use `kubectl exec` to enter the pod and run the `redis-cli` tool to verify that the configuration was correctly applied:
 
-If we `kubectl exec` into this pod and run the `redis-cli` tool, we can check that our config was
-applied correctly:
+   ```shell
+   kubectl exec -it redis redis-cli
+   127.0.0.1:6379> CONFIG GET maxmemory
+   1) "maxmemory"
+   2) "2097152"
+   127.0.0.1:6379> CONFIG GET maxmemory-policy
+   1) "maxmemory-policy"
+   2) "allkeys-lru"
+   ```
 
-```shell
-$ kubectl exec -it redis redis-cli
-127.0.0.1:6379> CONFIG GET maxmemory
-1) "maxmemory"
-2) "2097152"
-127.0.0.1:6379> CONFIG GET maxmemory-policy
-1) "maxmemory-policy"
-2) "allkeys-lru"
-```
+{$ endcapture %}
 
-## Restrictions
+{% capture discussion %}
 
-ConfigMaps must be created before they are consumed in pods unless they are
-marked as optional.  References to ConfigMaps that do not exist will prevent
-the pod from starting.  Controllers may be written to tolerate missing
-configuration data; consult individual components configured via ConfigMap on
-a case-by-case basis.
+## Understanding ConfigMaps and Pods
 
-References via `configMapKeyRef` to keys that do not exist in a named ConfigMap
-will prevent the pod from starting.
+### Restrictions
 
-ConfigMaps used to populate environment variables via `envFrom` that have keys
-that are considered invalid environment variable names will have those keys
-skipped.  The pod will be allowed to start.  There will be an event whose
-reason is `InvalidVariableNames` and the message will contain the list of
-invalid keys that were skipped. The example shows a pod which refers to the
-default/myconfig ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
+1. You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional"). If you reference a ConfigMaps that doesn't exist, the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
 
-```shell
-$ kubectl get events
-LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
-0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
-```
+1. If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
 
-ConfigMaps reside in a namespace.   They can only be referenced by pods in the same namespace.
+   ```shell
+   kubectl get events
+   LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
+   0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
+   ```
 
-Quota for ConfigMap size is a planned feature.
+1. ConfigMaps reside in a specific [namespace](/docs/user-guide/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
 
-Kubelet only supports use of ConfigMap for pods it gets from the API server.  This includes every pod
-created using kubectl, or indirectly via a replication controller.  It does not include pods created
-via the Kubelet's `--manifest-url` flag, its `--config` flag, or its REST API (these are not common
-ways to create pods.)
+1. Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. 
+   This includes every pod created using kubectl or indirectly via a replication controller. 
+   It does not include pods created via the Kubelet's `--manifest-url` flag, `--config` flag, or the Kubelet REST API. (Note: these are not commonly-used ways to create pods.)
+   
+{% endcapture %}
 
+{% capture whatsnext %}
+* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configmap.html).
+
+{% endcapture %}
+
+{% include templates/task.md %}
