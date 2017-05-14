@@ -9,12 +9,14 @@ redirect_from:
 {:toc}
 
 {% capture overview %}
+
 This page shows how to create an External Load Balancer.
 
 When creating a service, you have the option of automatically creating a
 cloud network load balancer. This provides an
 externally-accessible IP address that sends traffic to the correct port on your
 cluster nodes _provided your cluster runs in a supported environment and is configured with the correct cloud load balancer provider package_.
+
 {% endcapture %}
 
 {% capture prerequisites %}
