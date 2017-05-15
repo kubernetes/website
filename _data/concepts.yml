@@ -55,7 +55,6 @@ toc:
   - docs/concepts/cluster-administration/logging.md
   - docs/concepts/cluster-administration/resource-usage-monitoring.md
   - docs/concepts/cluster-administration/kubelet-garbage-collection.md
-  - docs/concepts/cluster-administration/cluster-management.md
   - docs/concepts/cluster-administration/multiple-clusters.md
   - docs/concepts/cluster-administration/federation.md
   - docs/concepts/cluster-administration/federation-service-discovery.md
