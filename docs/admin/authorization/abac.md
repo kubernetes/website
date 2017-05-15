@@ -7,9 +7,6 @@ assignees:
 title: ABAC Mode
 ---
 
-* TOC
-{:toc}
-
 {% capture overview %}
 Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.
 {% endcapture %}
