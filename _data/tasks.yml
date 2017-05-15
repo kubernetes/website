@@ -126,8 +126,9 @@ toc:
   - title: Changing Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
 
-- title: Administering Federation
+- title: Federation
   section:
+  - docs/tasks/federation/federation-service-discovery.md
   - docs/tasks/administer-federation/configmap.md
   - docs/tasks/administer-federation/daemonset.md
   - docs/tasks/administer-federation/deployment.md
