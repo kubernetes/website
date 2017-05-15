@@ -16,6 +16,10 @@ toc:
     - docs/concepts/overview/working-with-objects/annotations.md
   - docs/concepts/overview/kubernetes-api.md
 
+- title: Kubernetes Architecture
+  section:
+  - docs/concepts/architecture/master-node-communication.md
+
 - title: Containers
   section:
   - docs/concepts/containers/images.md
@@ -53,17 +57,9 @@ toc:
   - docs/concepts/cluster-administration/networking.md
   - docs/concepts/cluster-administration/network-plugins.md
   - docs/concepts/cluster-administration/logging.md
-  - docs/concepts/cluster-administration/resource-usage-monitoring.md
   - docs/concepts/cluster-administration/kubelet-garbage-collection.md
-  - docs/concepts/cluster-administration/cluster-management.md
-  - docs/concepts/cluster-administration/multiple-clusters.md
   - docs/concepts/cluster-administration/federation.md
-  - docs/concepts/cluster-administration/federation-service-discovery.md
-  - docs/concepts/cluster-administration/static-pod.md
   - docs/concepts/cluster-administration/sysctl-cluster.md
-  - docs/concepts/cluster-administration/access-cluster.md
-  - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
-  - docs/concepts/cluster-administration/master-node-communication.md
 
 - title: Storage
   section:

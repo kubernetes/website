@@ -6,6 +6,8 @@ title: Cross-cluster Service Discovery using Federated Services
 redirect_from:
 - "/docs/user-guide/federation/federated-services/"
 - "/docs/user-guide/federation/federated-services.html"
+- "/docs/concepts/cluster-administration/federation-service-discovery/"
+- "/docs/concepts/cluster-administration/federation-service-discovery.html"
 ---
 
 This guide explains how to use Kubernetes Federated Services to deploy

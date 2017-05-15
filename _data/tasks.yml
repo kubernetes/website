@@ -54,6 +54,8 @@ toc:
 - title: Accessing Applications in a Cluster
   section:
   - docs/tasks/access-application-cluster/web-ui-dashboard.md
+  - docs/tasks/access-application-cluster/access-cluster.md
+  - docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig.md
   - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md
   - docs/tasks/access-application-cluster/load-balance-access-application-cluster.md
   - docs/tasks/access-application-cluster/service-access-application-cluster.md
@@ -67,6 +69,7 @@ toc:
 
 - title: Monitoring, Logging, and Debugging
   section:
+  - docs/tasks/debug-application-cluster/resource-usage-monitoring.md
   - docs/tasks/debug-application-cluster/get-shell-running-container.md
   - docs/tasks/debug-application-cluster/monitor-node-health.md
   - docs/tasks/debug-application-cluster/logging-stackdriver.md
@@ -99,10 +102,13 @@ toc:
   - docs/tasks/administer-cluster/out-of-resource.md
   - docs/tasks/administer-cluster/cpu-memory-limit.md
   - docs/tasks/administer-cluster/reserve-compute-resources.md
+  - docs/tasks/administer-cluster/static-pod.md
   - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
+  - docs/tasks/administer-cluster/cluster-management.md
   - docs/tasks/administer-cluster/upgrade-1-6.md
   - docs/tasks/administer-cluster/namespaces.md
   - docs/tasks/administer-cluster/namespaces-walkthrough.md
+  - docs/tasks/administer-cluster/configure-namespace-isolation.md
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/declare-network-policy.md
@@ -120,8 +126,9 @@ toc:
   - title: Changing Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
 
-- title: Administering Federation
+- title: Federation
   section:
+  - docs/tasks/federation/federation-service-discovery.md
   - docs/tasks/administer-federation/configmap.md
   - docs/tasks/administer-federation/daemonset.md
   - docs/tasks/administer-federation/deployment.md
