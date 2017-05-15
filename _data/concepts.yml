@@ -16,6 +16,10 @@ toc:
     - docs/concepts/overview/working-with-objects/annotations.md
   - docs/concepts/overview/kubernetes-api.md
 
+- title: Kubernetes Architecture
+  section:
+  - docs/concepts/architecture/master-node-communication.md
+
 - title: Containers
   section:
   - docs/concepts/containers/images.md
@@ -60,7 +64,6 @@ toc:
   - docs/concepts/cluster-administration/federation-service-discovery.md
   - docs/concepts/cluster-administration/sysctl-cluster.md
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
-  - docs/concepts/cluster-administration/master-node-communication.md
 
 - title: Storage
   section:
