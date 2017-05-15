@@ -129,6 +129,14 @@ echo "source <(kubectl completion bash)" >> ~/.bash_profile
 Please note that this only appears to work currently if you install using `brew install kubectl`,
 and not if you downloaded kubectl directly.
 
+### On MacOS, using ZSH
+
+To add kubectl autocomplete to your ZSH profile:
+
+```shell
+sed "s/^\(plugins=(\)\(.*\)\()\)$/\1\2 kubectl\3/" ~/.zshrc
+```
+
 ## What's next?
 
 [Learn how to launch and expose your application.](/docs/user-guide/quick-start)
