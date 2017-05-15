@@ -37,7 +37,7 @@ This document is meant to highlight and consolidate in one place configuration b
 
   Replication controllers are almost always preferable to creating pods, except for some explicit
   [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) scenarios.  A
-  [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) object (currently in Beta), may also be appropriate.
+  [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) object may also be appropriate.
 
 
 ## Services
