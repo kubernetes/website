@@ -3,6 +3,8 @@ title: Federation
 redirect_from:
 - "/docs/user-guide/federation/"
 - "/docs/user-guide/federation/index.html"
+- "/docs/concepts/cluster-administration/multiple-clusters/"
+- "/docs/concepts/cluster-administration/multiple-clusters.html"
 - "/docs/admin/multi-cluster/"
 - "/docs/admin/multi-cluster.html"
 ---
