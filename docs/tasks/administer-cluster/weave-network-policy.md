@@ -17,7 +17,7 @@ This page shows how to use Weave Net for NetworkPolicy.
 
 {% capture prerequisites %}
 
-1. Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/). 
+Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/). 
 
 {% endcapture %}
 
@@ -25,7 +25,7 @@ This page shows how to use Weave Net for NetworkPolicy.
 
 ## Installing Weave Net addon 
 
-1. Follow the [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kube-addon/) guide.
+Follow the [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kube-addon/) guide.
 
 The Weave Net Addon for Kubernetes comes with a [Network Policy Controller](https://www.weave.works/docs/net/latest/kube-addon/#npc) that automatically monitors Kubernetes for any NetworkPolicy annotations on all namespaces and configures `iptables` rules to allow or block traffic as directed by the policies.
 
