@@ -3,6 +3,8 @@ title: Accessing Clusters
 redirect_from:
 - "/docs/user-guide/accessing-the-cluster/"
 - "/docs/user-guide/accessing-the-cluster.html"
+- "/docs/concepts/cluster-administration/access-cluster/"
+- "/docs/concepts/cluster-administration/access-cluster.html"
 ---
 
 * TOC
