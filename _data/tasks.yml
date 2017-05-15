@@ -69,6 +69,7 @@ toc:
 
 - title: Monitoring, Logging, and Debugging
   section:
+  - docs/tasks/debug-application-cluster/resource-usage-monitoring.md
   - docs/tasks/debug-application-cluster/get-shell-running-container.md
   - docs/tasks/debug-application-cluster/monitor-node-health.md
   - docs/tasks/debug-application-cluster/logging-stackdriver.md
