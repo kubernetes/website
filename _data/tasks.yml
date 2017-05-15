@@ -54,6 +54,7 @@ toc:
 - title: Accessing Applications in a Cluster
   section:
   - docs/tasks/access-application-cluster/web-ui-dashboard.md
+  - docs/tasks/access-application-cluster/access-cluster.md
   - docs/tasks/access-application-cluster/port-forward-access-application-cluster.md
   - docs/tasks/access-application-cluster/load-balance-access-application-cluster.md
   - docs/tasks/access-application-cluster/service-access-application-cluster.md
