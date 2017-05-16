@@ -6,6 +6,8 @@ title: Nodes
 redirect_from:
 - "/docs/admin/node/"
 - "/docs/admin/node.html"
+- "/docs/concepts/nodes/node/"
+- "/docs/concepts/nodes/node.html"
 ---
 
 * TOC
