@@ -6,6 +6,8 @@ title: Cluster Management
 redirect_from:
 - "/docs/admin/cluster-management/"
 - "/docs/admin/cluster-management.html"
+- "/docs/concepts/cluster-administration/cluster-management/"
+- "/docs/concepts/cluster-administration/cluster-management.html"
 ---
 
 * TOC
