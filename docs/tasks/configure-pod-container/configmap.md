@@ -32,7 +32,7 @@ Use the `kubectl create configmap` command to create configmaps from [directorie
 kubectl create <map-name> <data-source>
 ```
 
-where <map-name> is the name you want to assign to the ConfigMap and <data-source> is the directory, file, or literal value to draw the data from.
+where `<map-name>` is the name you want to assign to the ConfigMap and `<data-source>` is the directory, file, or literal value to draw the data from.
  
 The data source corresponds to a key-value pair in the ConfigMap, where
 
