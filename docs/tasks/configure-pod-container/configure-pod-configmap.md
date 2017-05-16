@@ -358,7 +358,7 @@ This is where the image will look for the config file for the redis master.
    2) "allkeys-lru"
    ```
 
-{$ endcapture %}
+{% endcapture %}
 
 {% capture discussion %}
 
