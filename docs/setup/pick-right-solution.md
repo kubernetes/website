@@ -9,6 +9,7 @@ redirect_from:
 - "/docs/getting-started-guides/index.html"
 ---
 
+* TOC
 {:toc}
 
 Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to rack of
