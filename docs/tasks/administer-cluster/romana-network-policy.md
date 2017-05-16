@@ -17,7 +17,7 @@ This page shows how to use Romana for NetworkPolicy.
 
 {% capture prerequisites %}
 
-1. Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/). 
+Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/). 
 
 {% endcapture %}
 
@@ -25,7 +25,7 @@ This page shows how to use Romana for NetworkPolicy.
 
 ## Installing Romana with kubeadm
 
-1. Follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadmin. 
+Follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadmin. 
 
 ## Applying network policies
 
