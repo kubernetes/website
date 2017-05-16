@@ -7,6 +7,8 @@ title: Master-Node communication
 redirect_from:
 - "/docs/admin/master-node-communication/"
 - "/docs/admin/master-node-communication.html"
+- "/docs/concepts/cluster-administration/master-node-communication/"
+- "/docs/concepts/cluster-administration/master-node-communication.html"
 ---
 
 * TOC
