@@ -132,6 +132,7 @@ toc:
   section:
   - docs/tasks/federation/federation-service-discovery.md
   - docs/tasks/federation/set-up-cluster-federation-kubefed.md
+  - docs/tasks/federation/set-up-coredns-provider-federation.md
   - docs/tasks/administer-federation/configmap.md
   - docs/tasks/administer-federation/daemonset.md
   - docs/tasks/administer-federation/deployment.md
