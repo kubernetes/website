@@ -1,2313 +1,2767 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-<url>
-  <loc>https://kubernetes.io/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/partners/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/community/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/case-studies/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/hellonode/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/editdocs/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/whatisk8s</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/jobs/run-to-completion-finite-workloads/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/case-studies/pearson/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/case-studies/wikimedia/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/home/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/setup/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/samples/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-interactive/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-interactive/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-interactive/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/expose-intro/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/expose-interactive/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/scale-intro/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/scale-interactive/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/update-intro/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/update-interactive/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/object-management-kubectl/object-management/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/object-management-kubectl/imperative-object-management-command/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/clusters/apparmor/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/services/source-ip/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/home/contribute/create-pull-request/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/home/contribute/write-new-topic/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/home/contribute/stage-documentation-changes/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/home/contribute/page-templates/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/home/contribute/review-issues/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/home/contribute/style-guide/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/setup/pick-right-solution/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/minikube/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/kops/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/kubeadm/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/kargo/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tools/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/scratch/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/alternatives/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/gce/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/aws/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/azure/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/clc/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/stackpoint/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/coreos/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/rackspace/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/cloudstack/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/vsphere/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/photon-controller/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/dcos/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/libvirt-coreos/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ovirt/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/openstack-heat/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/rkt/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/rkt/notes/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/mesos/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/mesos-docker/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/coreos/bare_metal_offline/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/fedora/fedora_ansible_config/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/fedora/fedora_manual_config/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/fedora/flannel_multi_node_cluster/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/centos/centos_manual_config/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/validation/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/backups/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/upgrades/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/scaling/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/installation/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/monitoring/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/networking/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/security/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/storage/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/troubleshooting/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/decommissioning/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/operational-considerations/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/glossary/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/local/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/logging/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/manual/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/windows/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/node-conformance/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/addons/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/salt/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/cluster-large/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/multiple-zones/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/high-availability/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/binary_release/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/tools/install-kubectl/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/tools/install-minikube/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-ram-container/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/projected-volume/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-initialization/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/configmap/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tools/kompose/user-guide/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/inject-data-application/podpreset/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/run-single-instance-stateful-application/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/upgrade-pet-set-to-stateful-set/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/scale-stateful-set/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/delete-stateful-set/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/rolling-update-replication-controller/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/job/parallel-processing-expansion/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/job/coarse-parallel-processing-work-queue/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/job/fine-parallel-processing-work-queue/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/load-balance-access-application-cluster/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/list-all-running-container-images/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/monitor-node-health/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/logging-stackdriver/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/determine-reason-pod-failure/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-init-containers/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-pod-replication-controller/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-stateful-set/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/debug-application-cluster/audit/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-kubernetes-api/http-proxy-access-api/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-third-party-resource/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-services/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/apply-resource-quota-limit/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/cpu-memory-limit/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/static-pod/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/cluster-management/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/upgrade-1-6/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/namespaces/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/namespaces-walkthrough/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/configure-namespace-isolation/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/dns-horizontal-autoscaling/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/calico-network-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/romana-network-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/weave-network-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/configure-pod-disruption-budget/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/limit-storage-consumption/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/share-configuration/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/highly-available-master/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/federation/federation-service-discovery/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/federation/set-up-cluster-federation-kubefed/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/federation/set-up-coredns-provider-federation/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-federation/configmap/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-federation/daemonset/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-federation/deployment/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-federation/events/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-federation/ingress/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-federation/namespaces/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-federation/replicaset/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/administer-federation/secret/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/stateless-application/run-stateless-application-deployment/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address-service/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/stateful-application/run-stateful-application/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/stateful-application/run-replicated-stateful-application/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/connecting-apps/connecting-frontend-backend/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/overview/components/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/names/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/overview/kubernetes-api/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/architecture/nodes/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/architecture/master-node-communication/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/containers/images/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/containers/container-environment-variables/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/pods/pod/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/controllers/deployment/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/controllers/petset/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/configuration/overview/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/configuration/assign-pod-node/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/configuration/secret/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/services-networking/service/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/services-networking/ingress/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/services-networking/networkpolicies/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/storage/volumes/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/storage/persistent-volumes/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/cluster-administration-overview/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/networking/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/logging/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/kubelet-garbage-collection/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/federation/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/sysctl-cluster/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/proxies/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/policy/container-capabilities/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/policy/resource-quotas/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/policy/security-context/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/policy/pod-security-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/kube-apiserver/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/kube-controller-manager/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/kube-scheduler/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/kubelet/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/kube-proxy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/abstractions/overview/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/abstractions/pod/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/api-overview/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/accessing-the-api/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/authentication/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/bootstrap-tokens/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/admission-controllers/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/service-accounts-admin/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/authorization/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/authorization/rbac/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/deprecation-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/api-reference/v1.6/</loc>
-  <lastmod>2017-05-16T03:31:46+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/api-reference/v1.5/</loc>
-  <lastmod>2017-05-16T03:31:46+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/labels-annotations-taints/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/federation/v1/operations/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/federation/v1/definitions/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/federation/v1beta1/operations/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/federation/v1beta1/definitions/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/federation/extensions/v1beta1/operations/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/federation/extensions/v1beta1/definitions/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/kubectl-overview/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/kubectl/v1.6/</loc>
-  <lastmod>2017-05-16T03:31:47+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/kubectl/v1.5/</loc>
-  <lastmod>2017-05-16T03:31:46+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/docker-cli-to-kubectl/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/kubectl-conventions/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/jsonpath/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/kubectl-cheatsheet/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/kubeadm/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/federation-apiserver/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/federation-controller-manager/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/ovs-networking/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/security/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/meanstack/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/deployments</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/resources-reference/v1.6/</loc>
-  <lastmod>2017-05-16T03:31:46+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/tools/kubectl/object-management-overview/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/tools/kubectl/object-management-using-imperative-commands/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/tools/kubectl/object-management-using-imperative-config/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/pod-states</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/load-balancer</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/resource-usage-monitoring/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/labels/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/cluster-components</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/configuring-containers</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/working-with-resources</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.51</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/calico</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/search/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/kubectl/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/federation/set-up-cluster-federation-kubefed/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/web-ui-dashboard/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/kubectl/install/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/networking</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/declare-network-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/node</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/service-accounts</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/troubleshooting/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/simple-nginx</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/quick-start</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/monitoring</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/namespaces</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/limit-range/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/communicate-containers-same-pod/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/kubectl/get-shell-running-container/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/define-environment-variable-container/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/manage-stateful-set/scale-stateful-set/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/manage-stateful-set/deleting-a-statefulset/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/manage-stateful-set/debugging-a-statefulset/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/kubectl/index</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/kubeconfig-file</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/access-cluster/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/abstractions/init-containers/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/multi-cluster</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/troubleshoot/debug-init-containers/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/getting-into-containers</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/connecting-to-applications-proxy</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/connecting-to-applications-port-forward</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/upgrade-1-6</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/dns</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-disruption-budget/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/networkpolicies</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/calico-network-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/romana-network-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/weave-network-policy/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/federation/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/federation/set-up-coredns-provider-federation/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/out-of-resource/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/etcd</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/labels</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/annotations</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/identifiers</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/kubelet-tls-bootstrapping/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/admin/kubelet-authentication-authorization/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/simple-yaml/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tutorials/stateful-application/run-replicated-stateful-application</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/static-pod/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/deploying-applications</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/nodes/node/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/run-application/podpreset/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/federation-service-discovery/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/production-pods</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/security-context</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/compute-resources</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/cluster-management/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/concepts/cluster-administration/master-node-communication/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/federation/api-reference/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/tasks/configure-pod-container/apply-resource-quota-limit/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/user-guide/accessing-the-cluster</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.41</priority>
-</url>
-<url>
-  <loc>https://kubernetes.io/docs/reference/federation/</loc>
-  <lastmod>2017-05-16T03:33:27+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.33</priority>
-</url>
+<!-- Sitemap File Generated by https://freesitemapgenerator.com/ at Tue, 16 May 2017 07:30:38 +0200 -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                           http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+	<url>
+		<loc>https://kubernetes.io/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/tools/install-minikube/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-ram-container/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/projected-volume/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-initialization/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/configmap/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tools/kompose/user-guide/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/run-single-instance-stateful-application/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/home</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/partners/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/community/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/case-studies/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/hellonode/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/editdocs/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/home/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/setup/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/samples/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/tools/install-kubectl/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/inject-data-application/podpreset/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/force-delete-stateful-set-pod/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/rolling-update-replication-controller/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/job/parallel-processing-expansion/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/job/coarse-parallel-processing-work-queue/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/job/fine-parallel-processing-work-queue/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/load-balance-access-application-cluster/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/list-all-running-container-images/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/monitor-node-health/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/logging-stackdriver/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/determine-reason-pod-failure/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-pod-replication-controller/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-application-introspection/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/audit/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-third-party-resource/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-api/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/access-cluster-services/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/upgrade-pet-set-to-stateful-set/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/cpu-memory-limit/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/editdocs</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/apply-resource-quota-limit/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/out-of-resource/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/delete-stateful-set/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-init-containers/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/debug-stateful-set/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-kubernetes-api/http-proxy-access-api/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/scale-stateful-set/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/static-pod/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/cluster-management/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/upgrade-1-6/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/namespaces/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/namespaces-walkthrough/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/dns-horizontal-autoscaling/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/configure-namespace-isolation/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/minikube/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/setup/pick-right-solution/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/calico-network-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/romana-network-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/kubeadm/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/configure-pod-disruption-budget/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/weave-network-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/limit-storage-consumption/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/share-configuration/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/highly-available-master/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/federation/federation-service-discovery/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/federation/set-up-cluster-federation-kubefed/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-federation/configmap/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/scratch/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/alternatives/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/federation/set-up-coredns-provider-federation/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-federation/daemonset/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/gce/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-federation/deployment/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-federation/events/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/aws/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-federation/ingress/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-federation/namespaces/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-federation/replicaset/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/administer-federation/secret/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/azure/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/clc/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/stackpoint/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/coreos/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/kops/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/kargo/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/rackspace/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/kubectl/v1.6/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/cloudstack/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/vsphere/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/photon-controller/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/dcos/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/libvirt-coreos/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ovirt/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/openstack-heat/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/rkt/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/mesos/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/rkt/notes/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/mesos-docker/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/coreos/bare_metal_offline/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/fedora/fedora_ansible_config/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/fedora/fedora_manual_config/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/fedora/flannel_multi_node_cluster/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/centos/centos_manual_config/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/validation/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/backups/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/installation/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/upgrades/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/scaling/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/monitoring/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/networking/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/security/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/storage/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/troubleshooting/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/decommissioning/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/operational-considerations/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/containers/images/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/glossary/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/local/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/logging/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/manual/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/controllers/deployment/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/pods/pod/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/salt/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/windows/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/addons/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/node-conformance/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/cluster-large/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/names/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/overview/components/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/high-availability/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/binary_release/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/multiple-zones/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/architecture/nodes/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/overview/kubernetes-api/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/services-networking/service/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/architecture/master-node-communication/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/containers/container-environment-variables/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/configuration/overview/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/storage/volumes/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/configuration/secret/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/configuration/assign-pod-node/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/controllers/petset/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/services-networking/networkpolicies/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/api-reference/v1.6/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/storage/persistent-volumes/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/services-networking/ingress/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/networking/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/logging/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/policy/resource-quotas/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/cluster-administration-overview/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/kubelet-garbage-collection/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/federation/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/policy/security-context/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/policy/pod-security-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/sysctl-cluster/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/proxies/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/policy/container-capabilities/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/admission-controllers/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.99</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/authentication/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.99</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/authorization/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/api-overview/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/accessing-the-api/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/kubectl-overview/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/kubelet/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/authorization/rbac/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/bootstrap-tokens/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/service-accounts-admin/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/api-reference/v1.5/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/deprecation-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/labels-annotations-taints/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/kube-controller-manager/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/federation/v1/operations/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.98</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/kubectl/v1.5/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/federation/v1/definitions/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/kubeadm/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/federation/v1beta1/operations/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/federation/v1beta1/definitions/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/federation/extensions/v1beta1/operations/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/federation/extensions/v1beta1/definitions/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/kube-scheduler/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/jsonpath/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/kube-apiserver/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/docker-cli-to-kubectl/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/kube-proxy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/ovs-networking/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/kubectl-conventions/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/kubectl-cheatsheet/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.97</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/federation-apiserver/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.96</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/federation-controller-manager/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.96</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/security/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.96</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/minikube</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.96</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.92</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/object-management-kubectl/object-management/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.92</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-interactive/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.91</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-intro/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.91</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-interactive/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-intro/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/explore-interactive/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/expose-intro/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/expose-interactive/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/object-management-kubectl/imperative-object-management-command/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/scale-intro/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/scale-interactive/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateless-application/hello-minikube/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/update-intro/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/kubernetes-basics/update-interactive/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.89</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.89</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.89</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.88</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.88</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/jobs/run-to-completion-finite-workloads/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.88</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/clusters/apparmor/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.88</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/services/source-ip/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.87</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/resources-reference/v1.6/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/labels/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.76</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/pods</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.75</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.73</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/home/contribute/stage-documentation-changes/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.71</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/home/contribute/page-templates/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.71</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/home/contribute/write-new-topic/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.71</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/home/contribute/create-pull-request/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.69</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/search/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.69</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/home/contribute/review-issues/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.67</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/home/contribute/style-guide/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.67</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/kubectl/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.67</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/federation/set-up-cluster-federation-kubefed/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.59</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.59</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.56</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/federation/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.54</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/troubleshooting/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.53</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/kubectl</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.52</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/service-accounts</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.52</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/tools/kubectl/object-management-overview/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.50</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/case-studies/pearson/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.49</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/pod-states</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.49</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/multi-cluster</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.48</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/node</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.47</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/gce</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.47</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/whatisk8s</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.46</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/replication-controller</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.44</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/limit-range/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.42</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/simple-nginx</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.42</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/configuring-containers</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.41</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/working-with-resources</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.41</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/federation-service-discovery/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.40</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/deployments</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.40</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/nodes/node/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.40</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.39</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/deploying-applications</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.37</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/compute-resources</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.36</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/kubectl/install/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.35</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/security-context</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.35</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.34</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/counter-pod.yaml</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.34</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/apply-resource-quota-limit/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.34</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/out-of-resource/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.33</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.33</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/namespaces</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.33</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.32</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/networking</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.32</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/kubeconfig-file</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.32</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/kubectl/index</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.32</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/kubelet-tls-bootstrapping/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.31</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/cluster-management/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.31</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/production-pods</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.31</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-disruption-budget/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.31</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/federation/api-reference/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.30</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateful-application/run-stateful-application/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.30</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/master-node-communication/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.30</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/high-availability/default-kubelet</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.30</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/high-availability/monit-kubelet</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.30</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.30</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/high-availability/monit-docker</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.29</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/home/contribute/stage-documentation-changes</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.29</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateless-application/run-stateless-application-deployment/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.29</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateful-application/run-replicated-stateful-application</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.29</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/high-availability/etcd.yaml</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.29</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/high-availability/kube-apiserver.yaml</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.29</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.29</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/high-availability/kube-scheduler.yaml</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.29</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/coreos/cloud-configs/master.yaml</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.28</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/high-availability/kube-controller-manager.yaml</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.28</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/coreos/cloud-configs/node.yaml</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.28</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/logging</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.28</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/aws</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.28</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/backups</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.28</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/validation</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.27</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/centos/centos_manual_config</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.27</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/monitoring</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.27</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/static-pod/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/run-application/podpreset/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/networkpolicies</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ovirt</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/counter-pod.yaml</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/fedora/flannel_multi_node_cluster</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/fedora/fedora_manual_config</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tools/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/fedora/fedora_ansible_config</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/cluster-components</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/debug-application-cluster/troubleshooting</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/access-cluster/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/abstractions/init-containers/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.26</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/getting-into-containers</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/troubleshoot/debug-init-containers/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/connecting-to-applications-proxy</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/connecting-to-applications-port-forward</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/manage-stateful-set/debugging-a-statefulset/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/coreos/bare_metal_offline</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/manage-stateful-set/deleting-a-statefulset/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/openstack-heat</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/job/fine-parallel-processing-work-queue/redis-pod.yaml?raw=true</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/calico-network-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/kubectl-overview</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/mesos</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/job/fine-parallel-processing-work-queue/redis-service.yaml?raw=true</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/romana-network-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/job/coarse-parallel-processing-work-queue/Dockerfile?raw=true</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/job/fine-parallel-processing-work-queue/rediswq.py?raw=true</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/weave-network-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.25</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/job/coarse-parallel-processing-work-queue/worker.py?raw=true</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.24</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-application-cluster/frontend/Dockerfile</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.24</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/job/fine-parallel-processing-work-queue/worker.py?raw=true</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.24</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/upgrade-1-6</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.24</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/job/fine-parallel-processing-work-queue/Dockerfile?raw=true</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.24</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/mesos-docker</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.24</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/connecting-apps/connecting-frontend-backend/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.24</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/rackspace</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.23</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/cloudstack</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.23</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/coreos</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.23</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/simple-yaml</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.23</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/quick-start</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.23</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/out-of-resource/memory-available.sh</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.23</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/photon-controller</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.23</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/vsphere</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.23</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/abstractions/pod/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.22</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/libvirt-coreos</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.22</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/case-studies/wikimedia/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.22</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/load-balancer</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.22</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/dns</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.22</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/tools/kubectl/object-management-using-imperative-commands/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.22</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/tools/kubectl/object-management-using-imperative-config/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.22</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/dcos</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.22</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/home/contribute/write-new-topic</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.22</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/local</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.21</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/kubelet-authentication-authorization/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.21</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/simple-yaml/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.21</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/scratch</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.20</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/web-ui-dashboard/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.20</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/federation/set-up-coredns-provider-federation/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.19</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.19</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/access-kubernetes-api/http-proxy-access-api</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.18</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/azure</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.17</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/clc</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.17</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/installation</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/annotations</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/manual</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/upgrades</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/scaling</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/reference/federation/</loc>
+		<lastmod>1970-01-01T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/monitoring</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/networking</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/security</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/storage</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/troubleshooting</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/decommissioning</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/meanstack/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/operational-considerations</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/glossary</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.15</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/kubeadm</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.14</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/labels</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.14</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address-service/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.14</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/ubuntu/calico</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.14</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateful-application/run-replicated-stateful-application/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.14</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/cluster-administration/resource-usage-monitoring/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.14</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/declare-network-policy/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.14</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/kubectl/get-shell-running-container/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.14</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/services-networking/connect-applications-service</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.13</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/overview/working-with-objects/labels</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.13</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/concepts/abstractions/overview/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.12</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/kubeadm</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.12</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/getting-started-guides/kops</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.12</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tutorials/stateless-application/deployment.yaml</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.12</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/identifiers</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.11</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/admin/etcd</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.09</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/manage-stateful-set/scale-stateful-set/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.08</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/user-guide/accessing-the-cluster</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.07</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.06</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/communicate-containers-same-pod/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.04</priority>
+	</url>
+	<url>
+		<loc>https://kubernetes.io/docs/tasks/configure-pod-container/define-environment-variable-container/</loc>
+		<lastmod>2017-05-16T07:30:38+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.04</priority>
+	</url>
 </urlset>
