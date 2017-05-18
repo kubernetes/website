@@ -65,7 +65,7 @@ environments.
 Create the persistent volume:
 
 ```
-kubectl create -f http://k8s.io/docs/tasks/run-application/gce-volume.yaml
+kubectl create -f https://k8s.io/docs/tasks/run-application/gce-volume.yaml
 ```
 
 
@@ -88,7 +88,7 @@ for a secure solution.
 
 1. Deploy the contents of the YAML file:
 
-        kubectl create -f http://k8s.io/docs/tasks/run-application/mysql-deployment.yaml
+        kubectl create -f https://k8s.io/docs/tasks/run-application/mysql-deployment.yaml
 
 1. Display information about the Deployment:
 
