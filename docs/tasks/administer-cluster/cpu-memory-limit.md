@@ -94,7 +94,7 @@ were previously created in a namespace.
 If a resource (CPU or memory) is being restricted by a limit, the user will get an error at time
 of creation explaining why.
 
-Let's first spin up a [Deployment](/docs/user-guide/deployments) that creates a single container Pod to demonstrate
+Let's first spin up a [Deployment](/docs/concepts/workloads/controllers/deployment/) that creates a single container Pod to demonstrate
 how default values are applied to each pod.
 
 ```shell
