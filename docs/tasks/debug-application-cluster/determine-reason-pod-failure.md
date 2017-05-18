@@ -37,7 +37,7 @@ the container starts.
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f http://k8s.io/docs/tasks/debug-application-cluster/termination.yaml
+        kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/termination.yaml
 
     In the YAML file, in the `cmd` and `args` fields, you can see that the
     container sleeps for 10 seconds and then writes "Sleep expired" to

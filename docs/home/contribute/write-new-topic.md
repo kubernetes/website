@@ -115,14 +115,14 @@ repository, preferably in the same directory as your topic file.
 
 In your topic, show this command:
 
-    kubectl create -f http://k8s.io/<PATHFROMROOT>
+    kubectl create -f https://k8s.io/<PATHFROMROOT>
 
 where `<PATHFROMROOT>` is the path to the configuration file relative to root,
 for example, `docs/tutorials/stateful-application/gce-volume.yaml`.
 
 Here's an example of a command that creates an API object from a configuration file:
 
-    kubectl create -f http://k8s.io/docs/tutorials/stateful-application/gce-volume.yaml
+    kubectl create -f https://k8s.io/docs/tutorials/stateful-application/gce-volume.yaml
 
 For an example of a topic that uses this technique, see
 [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/).
