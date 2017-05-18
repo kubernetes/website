@@ -72,7 +72,7 @@ read-write by a single Node.
 
 Create the PersistentVolume:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/task-pv-volume.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-volume.yaml
 
 View information about the PersistentVolume:
 
@@ -98,7 +98,7 @@ Here is the configuration file for the PersistentVolumeClaim:
 
 Create the PersistentVolumeClaim:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/task-pv-claim.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-claim.yaml
 
 After you create the PersistentVolumeClaim, the Kubernetes control plane looks
 for a PersistentVolume that satisfies the claim's requirements. If the control
@@ -138,7 +138,7 @@ is a volume.
 
 Create the Pod:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/task-pv-pod.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-pod.yaml
 
 Verify that the Container in the Pod is running;
 
