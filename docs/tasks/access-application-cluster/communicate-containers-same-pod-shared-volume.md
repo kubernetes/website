@@ -47,7 +47,7 @@ directory of the nginx server.
 
 Create the Pod and the two Containers:
 
-    kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/two-container-pod.yaml
+    kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/two-container-pod.yaml
 
 View information about the Pod and the Containers:
 
