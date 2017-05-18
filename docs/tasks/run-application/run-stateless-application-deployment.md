@@ -96,7 +96,7 @@ specifies that the deployment should be updated to use nginx 1.8.
 
 1. Apply the new YAML file:
 
-        kubectl apply -f http://k8s.io/docs/tutorials/stateless-application/deployment-update.yaml
+        kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-update.yaml
 
 1. Watch the deployment create pods with new names and delete the old pods:
 
@@ -112,7 +112,7 @@ should have four pods:
 
 1. Apply the new YAML file:
 
-        kubectl apply -f http://k8s.io/docs/tutorials/stateless-application/deployment-scale.yaml
+        kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-scale.yaml
 
 1. Verify that the Deployment has four pods:
 
