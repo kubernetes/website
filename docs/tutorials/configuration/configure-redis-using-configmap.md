@@ -35,7 +35,7 @@ This page provides a real world example of how to configure Redis using a Config
 
 You can follow the steps below to configure a Redis cache using data stored in a ConfigMap.
 
-1. Create a ConfigMap from the `docs/user-guide/configmap/redis/redis-config` file
+1. Create a ConfigMap from the `docs/user-guide/configmap/redis/redis-config` file:
 
    ```shell
    kubectl create configmap example-redis-config --from-file=docs/user-guide/configmap/redis/redis-config
@@ -93,16 +93,16 @@ You can follow the steps below to configure a Redis cache using data stored in a
            - key: redis-config
              path: redis.conf
    ```
-1. Create the pod.
+1. Create the pod:
 
    ```shell
    kubectl create -f docs/user-guide/configmap/redis/redis-pod.yaml
    ```
 
-In the example, the config volume is mounted at `/redis-master`. 
-It uses `path` to add the `redis-config` key to a file named `redis.conf`. 
-The file path for the redis config, therefore, is `/redis-master/redis.conf`.
-This is where the image will look for the config file for the redis master.
+   In the example, the config volume is mounted at `/redis-master`.
+   It uses `path` to add the `redis-config` key to a file named `redis.conf`.
+   The file path for the redis config, therefore, is `/redis-master/redis.conf`.
+   This is where the image will look for the config file for the redis master.
 
 1. Use `kubectl exec` to enter the pod and run the `redis-cli` tool to verify that the configuration was correctly applied:
 
