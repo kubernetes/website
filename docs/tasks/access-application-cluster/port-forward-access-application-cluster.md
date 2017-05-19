@@ -29,7 +29,7 @@ for database debugging.
 
 1. Create a pod:
 
-        kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
+        kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
 
     The output of a successful command verifies that the pod was created:
 

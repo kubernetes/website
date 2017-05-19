@@ -129,7 +129,7 @@ $ federation/deploy/deploy.sh deploy_federation
 ```
 
 This spins up the federation control components as pods managed by
-[`Deployments`](http://kubernetes.io/docs/user-guide/deployments/) on your
+[`Deployments`](/docs/concepts/workloads/controllers/deployment/) on your
 existing Kubernetes cluster. It also starts a
 [`type: LoadBalancer`](http://kubernetes.io/docs/user-guide/services/#type-loadbalancer)
 [`Service`](http://kubernetes.io/docs/user-guide/services/) for the

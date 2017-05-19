@@ -34,6 +34,8 @@ a Kubernetes cluster from scratch.
 
 * [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local) supports a nine-instance deployment on localhost.
 
+* [IBM Spectrum Conductor for Containers](https://www.ibm.com/support/knowledgecenter/SS8TQM/product_welcome_containers.html) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs. Scales to full multi-node cluster. Free distribution.
+
 # Hosted Solutions
 
 * [Google Container Engine](https://cloud.google.com/container-engine) offers managed Kubernetes clusters.
