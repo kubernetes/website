@@ -3,6 +3,7 @@ assignees:
 - janetkuo
 - thockin
 title: Application Introspection and Debugging
+redirect_from:
 - "/docs/user-guide/introspection-and-debugging/"
 - "/docs/user-guide/introspection-and-debugging.html"
 ---
