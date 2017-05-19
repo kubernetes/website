@@ -2,6 +2,9 @@
 assignees:
 - davidopp
 title: Troubleshooting Clusters
+redirect_from:
+- "/docs/admin/cluster-troubleshooting/"
+- "/docs/admin/cluster-troubleshooting.html"
 ---
 
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
