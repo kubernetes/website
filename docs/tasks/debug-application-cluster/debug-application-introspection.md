@@ -3,6 +3,9 @@ assignees:
 - janetkuo
 - thockin
 title: Application Introspection and Debugging
+redirect_from:
+- "/docs/user-guide/introspection-and-debugging/"
+- "/docs/user-guide/introspection-and-debugging.html"
 ---
 
 Once your application is running, you'll inevitably need to debug problems with it.
