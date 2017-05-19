@@ -124,7 +124,7 @@ rkt is supported experimentally for running containers as an alternative to dock
 
 ### supervisord
 
-supervisord is a lightweight process monitoring and control system that can be used to keeo kubelet and docker
+supervisord is a lightweight process monitoring and control system that can be used to keep kubelet and docker
 running.
 
 ### fluentd
