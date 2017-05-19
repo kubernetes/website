@@ -164,7 +164,7 @@ Now the Minikube VM can run the image you built.
 A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
 tutorial has only one Container. A Kubernetes
-[*Deployment*](/docs/user-guide/deployments) checks on the health of your
+[*Deployment*](/docs/concepts/workloads/controllers/deployment/) checks on the health of your
 Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 

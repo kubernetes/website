@@ -96,7 +96,7 @@ A ReplicationController also needs a [`.spec` section](https://github.com/kubern
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](#pod-template).  It has exactly
+The `.spec.template` is a pod template.  It has exactly
 the same schema as a [pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an `apiVersion` or
 `kind`.
 

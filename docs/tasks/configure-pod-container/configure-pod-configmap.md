@@ -273,6 +273,7 @@ very
 You can project keys to specific paths and specific permissions on a per-file
 basis. The [Secrets](/docs/concepts/configuration/secret#using-secrets-as-files-from-a-pod) user guide explains the syntax.
 
+<<<<<<< HEAD
 ## Real World Example: Configuring Redis using a ConfigMap
 
 You can follow the steps below to configure a Redis cache using data stored in a ConfigMap.
@@ -358,6 +359,8 @@ This is where the image will look for the config file for the redis master.
    2) "allkeys-lru"
    ```
 
+=======
+>>>>>>> upstream/master
 {% endcapture %}
 
 {% capture discussion %}
@@ -385,7 +388,12 @@ This is where the image will look for the config file for the redis master.
 {% endcapture %}
 
 {% capture whatsnext %}
+<<<<<<< HEAD
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configmap.html).
+=======
+* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configmap/).
+* Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
+>>>>>>> upstream/master
 
 {% endcapture %}
 

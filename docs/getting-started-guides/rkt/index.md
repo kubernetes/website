@@ -222,4 +222,4 @@ By default, the log verbosity level is 2. In order to see more log messages rela
 
 ### Check Kubernetes events and logs.
 
-Kubernetes provides various tools for troubleshooting and examination. More information can be found [in the app troubleshooting guide](/docs/user-guide/application-troubleshooting).
+Kubernetes provides various tools for troubleshooting and examination. More information can be found [in the app troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application/).

@@ -62,7 +62,11 @@ Container in the Pod.
 Create the Pod:
 
 ```shell
+<<<<<<< HEAD:docs/tasks/inject-data-application/environment-variable-expose-pod-information.md
 kubectl create -f http://k8s.io/docs/tasks/inject-data-application/dapi-envars-pod.yaml
+=======
+kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-envars-pod.yaml
+>>>>>>> upstream/master:docs/tasks/inject-data-application/environment-variable-expose-pod-information.md
 ```
 
 Verify that the Container in the Pod is running:
@@ -137,7 +141,11 @@ from Container fields.
 Create the Pod:
 
 ```shell
+<<<<<<< HEAD:docs/tasks/inject-data-application/environment-variable-expose-pod-information.md
 kubectl create -f http://k8s.io/docs/tasks/inject-data-application/dapi-envars-container.yaml
+=======
+kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-envars-container.yaml
+>>>>>>> upstream/master:docs/tasks/inject-data-application/environment-variable-expose-pod-information.md
 ```
 
 Verify that the Container in the Pod is running:
