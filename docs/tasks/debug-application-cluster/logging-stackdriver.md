@@ -125,7 +125,7 @@ that writes out the value of a counter and the date once per
 second, and runs indefinitely. Let's create this pod in the default namespace.
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
+kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
 ```
 
 You can observe the running pod:
@@ -162,7 +162,7 @@ pod "counter" deleted
 and then recreating it:
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
+$ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
 pod "counter" created
 ```
 
