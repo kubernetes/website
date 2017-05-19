@@ -82,13 +82,13 @@ Kubernetes supports several types of Volumes:
    * `secret`
    * `persistentVolumeClaim`
    * `downwardAPI`
+   * `projected`
    * `azureFileVolume`
    * `azureDisk`
    * `vsphereVolume`
    * `Quobyte`
    * `PortworxVolume`
    * `ScaleIO`
-   * `projected`
 
 We welcome additional contributions.
 
@@ -442,6 +442,99 @@ It mounts a directory and writes the requested data in plain text files.
 
 See the [`downwardAPI` volume example](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/)  for more details.
 
+### projected
+
+A `projected` volume maps several existing volume sources into the same directory.
+
+Currently, the following types of volume sources can be projected:
+
+- [`secret`](#secret)
+- [`downwardAPI`](#downardapi)
+- `configMap`
+
+All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md).
+
+#### Example pod with a secret, a downward API, and a configmap
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-test
+spec:
+  containers:
+  - name: container-test
+    image: busybox
+    volumeMounts:
+    - name: all-in-one
+      mountPath: "/projected-volume"
+      readOnly: true
+  volumes:
+  - name: all-in-one
+    projected:
+      sources:
+      - secret:
+          name: mysecret
+          items:
+            - key: username
+              path: my-group/my-username
+      - downwardAPI:
+          items:
+            - path: "labels"
+              fieldRef:
+                fieldPath: metadata.labels
+            - path: "cpu_limit"
+              resourceFieldRef:
+                containerName: container-test
+                resource: limits.cpu
+      - configMap:
+          name: myconfigmap
+          items:
+            - key: config
+              path: my-group/my-config
+```
+
+#### Example pod with multiple secrets with a non-default permission mode set
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-test
+spec:
+  containers:
+  - name: container-test
+    image: busybox
+    volumeMounts:
+    - name: all-in-one
+      mountPath: "/projected-volume"
+      readOnly: true
+  volumes:
+  - name: all-in-one
+    projected:
+      sources:
+      - secret:
+          name: mysecret
+          items:
+            - key: username
+              path: my-group/my-username
+      - secret:
+          name: mysecret2
+          items:
+            - key: password
+              path: my-group/my-password
+              mode: 511
+```
+
+Each projected volume source is listed in the spec under `sources`. The
+parameters are nearly the same with two exceptions:
+
+* For secrets, the `secretName` field has been changed to `name` to be consistent
+with config maps naming.
+* The `defaultMode` can only be specified at the projected level and not for each
+volume source. However, as illustrated above, you can explicitly set the `mode`
+for each individual projection.
+
 ### FlexVolume
 
 A `FlexVolume` enables users to mount vendor volumes into a pod. It expects vendor
@@ -588,90 +681,6 @@ spec:
 ```
 
 For further detail, plese the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
-
-### projected
-
-A `projected` volume maps several existing volume sources into the same directory.
-
-Currently, the following types of volume sources can be projected:
-
-- [`secret`](#secret)
-- [`downwardAPI`](#downardapi)
-- `configMap`
-
-All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md).
-
-#### Example pod with a secret, a downward API, and a configmap
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: volume-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: all-in-one
-      mountPath: "/projected-volume"
-      readOnly: true
-  volumes:
-  - name: all-in-one
-    projected:
-      sources:
-      - secret:
-          name: mysecret
-          items:
-            - key: username
-              path: my-group/my-username
-      - downwardAPI:
-          items:
-            - path: "labels"
-              fieldRef:
-                fieldPath: metadata.labels
-            - path: "cpu_limit"
-              resourceFieldRef:
-                containerName: container-test
-                resource: limits.cpu
-      - configMap:
-          name: myconfigmap
-          items:
-            - key: config
-              path: my-group/my-config
-```
-
-#### Example pod with multiple secrets with a non-default permission mode set
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: volume-test
-spec:
-  containers:
-  - name: container-test
-    image: busybox
-    volumeMounts:
-    - name: all-in-one
-      mountPath: "/projected-volume"
-      readOnly: true
-  volumes:
-  - name: all-in-one
-    projected:
-      sources:
-      - secret:
-          name: mysecret
-          items:
-            - key: username
-              path: my-group/my-username
-      - secret:
-          name: mysecret2
-          items:
-            - key: password
-              path: my-group/my-password
-              mode: 511
-```
 
 ## Using subPath
 
