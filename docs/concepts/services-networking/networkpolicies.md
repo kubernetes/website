@@ -2,7 +2,6 @@
 assignees:
 - thockin
 - caseydavenport
-- danwinship
 title: Network Policies
 redirect_from:
 - "/docs/user-guide/networkpolicies/"
@@ -18,7 +17,11 @@ A network policy is a specification of how groups of pods are allowed to communi
 
 ## Prerequisites
 
-Network policies are implemented by the network plugin, so you must be using a networking solution which supports `NetworkPolicy` - simply creating the resource without a controller to implement it will have no effect.
+You must enable the `extensions/v1beta1/networkpolicies` runtime config in your apiserver to enable this resource.
+
+You must also be using a networking solution which supports `NetworkPolicy` - simply creating the
+resource without a controller to implement it will have no effect.
+
 
 ## Configuring Namespace Isolation
 
@@ -26,23 +29,22 @@ By default, all traffic is allowed between all pods (and `NetworkPolicy` resourc
 
 Isolation can be configured on a per-namespace basis. Currently, only isolation on inbound traffic (ingress) can be defined. When a namespace has been configured to isolate inbound traffic, all traffic to pods in that namespace (even from other pods in the same namespace) will be blocked. `NetworkPolicy` objects can then be added to the isolated namespace to specify what traffic should be allowed.
 
-Isolation is enabled via the `NetworkPolicy` field of the `Namespace` object. To enable isolation via `kubectl`:
+Ingress isolation can be enabled using an annotation on the Namespace.
 
-```shell
-{% raw %}
-kubectl patch ns <namespace> -p '{"spec": {"networkPolicy": {"ingress": {"isolation": "DefaultDeny"}}}}'
-{% endraw %}
+```yaml
+kind: Namespace
+apiVersion: v1
+metadata:
+  annotations:
+    net.beta.kubernetes.io/network-policy: |
+      {
+        "ingress": {
+          "isolation": "DefaultDeny"
+        }
+      }
 ```
 
-To disable it:
-
-```shell
-{% raw %}
-kubectl patch ns <namespace> -p '{"spec": {"networkPolicy": null}}'
-{% endraw %}
-```
-
-NOTE: older network plugins may instead require the v1beta1 syntax, using an annotation:
+To configure the annotation via `kubectl`:
 
 ```shell
 {% raw %}
@@ -52,12 +54,12 @@ kubectl annotate ns <namespace> "net.beta.kubernetes.io/network-policy={\"ingres
 
 ## The `NetworkPolicy` Resource
 
-See the [api-reference](/docs/api-reference/networking/v1/definitions/#_v1_networkpolicy) for a full definition of the resource.
+See the [api-reference](/docs/api-reference/extensions/v1beta1/definitions/#_v1beta1_networkpolicy) for a full definition of the resource.
 
 An example `NetworkPolicy` might look like this:
 
 ```yaml
-apiVersion: networking/v1
+apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 metadata:
   name: test-network-policy
