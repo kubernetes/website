@@ -29,7 +29,7 @@ each of which has a sequence of steps.
 
 * [Running a Replicated Stateful Application](/docs/tutorials/stateful-application/run-replicated-stateful-application/)
 
-* [Running ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
+* [Running ZooKeeper, A Distributed Key-Value Store](/docs/tutorials/stateful-application/zookeeper/)
 
 #### Connecting Applications
 

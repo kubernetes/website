@@ -7,7 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: Running ZooKeeper, A CP Distributed System
+title: Running ZooKeeper, A Distributed Key-Value Store
 ---
 
 {% capture overview %}
