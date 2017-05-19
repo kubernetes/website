@@ -26,34 +26,26 @@ In this exercise, you create a Pod that runs Redis in one Container. The Pod use
 apiVersion: v1
 kind: Pod
 metadata:
-  name: redis
+  name: test-projected-volume
 spec:
   containers:
-  - name: redis
-    image: redis
+  - name: test-projected-volume
+    image: busybox
+    args:
+    - sleep
+    - "86400"
     volumeMounts:
-    - name: redis-storage
-      mountPath: /data/redis
     - name: all-in-one
       mountPath: "/projected-volume"
       readOnly: true
   volumes:
-  - name: redis-storage
-    emptyDir: {}
   - name: all-in-one
     projected:
       sources:
       - secret:
-          name: mysecret
-          items:
-            - key: username
-              path: my-group/my-username
+          name: user
       - secret:
-          name: mysecret2
-          items:
-            - key: password
-              path: my-group/my-password
-              mode: 511
+          name: pass
 ```
 
 Each projected volume source is listed in the spec under `sources`. The
@@ -64,6 +56,15 @@ with config maps naming.
 * The `defaultMode` can only be specified at the projected level and not for each
 volume source. However, as illustrated above, you can explicitly set the `mode`
 for each individual projection.
+
+1. Create secrets:
+
+```
+$ echo -n "admin" > ./username.txt
+$ echo -n "1f2d1e2e67df" > ./password.txt
+$ kubectl create secret generic user --from-file=./username.txt
+$ kubectl create secret generic pass --from-file=./password.txt
+```
 
 1. Create the Pod:
 
@@ -81,7 +82,7 @@ the Pod:
 
 1. In another terminal, get a shell to the running Container:
 
-        kubectl exec -it redis -- /bin/bash
+        kubectl exec -it test-projected-volume -- /bin/sh
 
 1. In your shell, verify that the `projected-volumes` directory contains your projected sources:
 
