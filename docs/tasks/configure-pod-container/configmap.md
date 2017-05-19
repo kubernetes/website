@@ -252,7 +252,10 @@ data:
 
 {% capture whatsnext %}
 * See [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap).
+<<<<<<< HEAD
+=======
 * Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
+>>>>>>> upstream/master
 {% endcapture %}
 
 {% include templates/task.md %}
