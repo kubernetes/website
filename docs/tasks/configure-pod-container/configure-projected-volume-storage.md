@@ -20,65 +20,35 @@ This page shows how to use a [`projected`](/docs/concepts/storage/volumes/#proje
 {% capture steps %}
 ## Configure a projected volume for a pod
 
-In this exercise, you create a Pod that runs Redis in one Container. The Pod uses two types of Volumes: [`emptyDir`](/docs/concepts/storage/volumes/#emptydir) is used for storing Redis data, and [`projected`](/docs/concepts/storage/volumes/#projected) mounts multiple secrets into the same shared directory. Here is the configuration file for the Pod:
+In this exercise, you create username and password Secrets from local files. You then create a Pod that runs one Container, using a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount the Secrets into the same shared directory.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-projected-volume
-spec:
-  containers:
-  - name: test-projected-volume
-    image: busybox
-    args:
-    - sleep
-    - "86400"
-    volumeMounts:
-    - name: all-in-one
-      mountPath: "/projected-volume"
-      readOnly: true
-  volumes:
-  - name: all-in-one
-    projected:
-      sources:
-      - secret:
-          name: user
-      - secret:
-          name: pass
-```
+Here is the configuration file for the Pod:
 
-Each projected volume source is listed in the spec under `sources`. The
-parameters are nearly the same with two exceptions:
+{% include code.html language="yaml" file="projected-volume.yaml" ghlink="/docs/tasks/configure-pod-container/projected-volumen.yaml" %}
 
-* For secrets, the `secretName` field has been changed to `name` to be consistent
-with config maps naming.
-* The `defaultMode` can only be specified at the projected level and not for each
-volume source. However, as illustrated above, you can explicitly set the `mode`
-for each individual projection.
+1. Create the Secrets:
 
-1. Create secrets:
+        # Create files containing the username and password:
+        echo -n "admin" > ./username.txt
+        echo -n "1f2d1e2e67df" > ./password.txt
 
-```
-$ echo -n "admin" > ./username.txt
-$ echo -n "1f2d1e2e67df" > ./password.txt
-$ kubectl create secret generic user --from-file=./username.txt
-$ kubectl create secret generic pass --from-file=./password.txt
-```
+        # Package these files into secrets:
+        kubectl create secret generic user --from-file=./username.txt
+        kubectl create secret generic pass --from-file=./password.txt
 
 1. Create the Pod:
 
-        kubectl create -f podspec.yaml
+        kubectl create -f projected-volume.yaml
 
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:
 
-        kubectl get --watch pod redis
+        kubectl get --watch pod test-projected-volume
 
     The output looks like this:
 
-        NAME      READY     STATUS    RESTARTS   AGE
-        redis     1/1       Running   0          13s
+        NAME                    READY     STATUS    RESTARTS   AGE
+        test-projected-volume   1/1       Running   0          14s
 
 1. In another terminal, get a shell to the running Container:
 
@@ -86,7 +56,7 @@ the Pod:
 
 1. In your shell, verify that the `projected-volumes` directory contains your projected sources:
 
-        root@redis:/data/# ls ../projected-volumes/
+        / # ls projected-volumes/
 {% endcapture %}
 
 {% capture whatsnext %}
