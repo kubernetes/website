@@ -22,6 +22,7 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 * [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml) is an overlay network provider that can be used with Kubernetes.
 * [Romana](http://romana.io) is a Layer 3 networking solution for pod networks that also supports the [NetworkPolicy API](/docs/concepts/services-networking/networkpolicies/). Kubeadm add-on installation details available [here](https://github.com/romana/romana/tree/master/containerize).
 * [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/) provides networking and network policy, will carry on working on both sides of a network partition, and does not require an external database.
+* [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) enables Kubernetes to seamlessly connect to choice of CNI plugins, e.g, Flannel, Calico, Canal, Romana, Weave.
 
 ## Visualization &amp; Control
 
