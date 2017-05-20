@@ -484,7 +484,7 @@ For example, with a Deployment that was just created:
 $ kubectl get deploy
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx     3         3         3            3           1m
-[mkargaki@dhcp129-211 kubernetes]$ kubectl get rs
+$ kubectl get rs
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   3         3         3         1m
 ```
