@@ -243,23 +243,23 @@ In this case, the `special.key` item will be mounted in the `config-volume` volu
 apiVersion: v1
 kind: Pod
 metadata:
-name: dapi-test-pod
+  name: dapi-test-pod
 spec:
-containers:
-  - name: test-container
-    image: gcr.io/google_containers/busybox
-    command: [ "/bin/sh","-c","cat /etc/config/keys/special.level" ]
-    volumeMounts:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh","-c","cat /etc/config/keys/special.level" ]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+  volumes:
     - name: config-volume
-      mountPath: /etc/config
-volumes:
-  - name: config-volume
-    configMap:
-      name: special-config
-      items:
-      - key: special.level
-        path: /keys
-restartPolicy: Never
+      configMap:
+        name: special-config
+        items:
+        - key: special.level
+          path: /keys
+  restartPolicy: Never
 ```
 
 When the pod runs, the command (`"cat /etc/config/keys/special.level"`) produces the output below:
