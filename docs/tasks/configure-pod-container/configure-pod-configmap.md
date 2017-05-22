@@ -136,7 +136,7 @@ Note: This functionality is available to users running Kubernetes v1.6 and later
          image: gcr.io/google_containers/busybox
          command: [ "/bin/sh", "-c", "env" ]
          envFrom:
-           - configMapRef:
+         - configMapRef:
              name: special-config
       restartPolicy: Never
    ```
