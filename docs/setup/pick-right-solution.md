@@ -60,6 +60,8 @@ a Kubernetes cluster from scratch.
 
 * [IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters. Currently in beta.
 
+* [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
+
 # Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
@@ -150,6 +152,7 @@ KCluster.io          |              | multi-support | multi-support | [docs](htt
 KUBE2GO.io          |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
 Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
+Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
 Azure (IaaS)    |              | Ubuntu | Azure       | [docs](/docs/getting-started-guides/azure)                    |  [Community (Microsoft)](https://github.com/Azure/acs-engine)
