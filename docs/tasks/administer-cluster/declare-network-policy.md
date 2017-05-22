@@ -1,7 +1,6 @@
 ---
 assignees:
 - caseydavenport
-- danwinship
 title: Declaring Network Policy
 redirect_from:
 - "/docs/getting-started-guides/network-policy/walkthrough/"
@@ -72,7 +71,7 @@ Connecting to nginx (10.100.0.16:80)
 Let's say you want to limit access to the `nginx` service so that only pods with the label `access: true` can query it. The first step is to enable ingress isolation on the `default` namespace. This prevents **_any_** pods from accessing the `nginx` service.
 
 ```console
-$ kubectl patch ns default -p '{"spec": {"networkPolicy": {"ingress": {"isolation": "DefaultDeny"}}}}'
+$ kubectl annotate ns default "net.beta.kubernetes.io/network-policy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"
 ```
 
 ## Test the access limitation
@@ -97,7 +96,7 @@ Next, create a `NetworkPolicy` that allows connections from pods with the label 
 
 ```yaml
 kind: NetworkPolicy
-apiVersion: networking/v1
+apiVersion: extensions/v1beta1
 metadata:
   name: access-nginx
 spec:
