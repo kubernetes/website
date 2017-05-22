@@ -209,22 +209,22 @@ The `command` section references the `special.level` item stored in the ConfigMa
 apiVersion: v1
 kind: Pod
 metadata:
-name: dapi-test-pod
+  name: dapi-test-pod
 spec:
-containers:
-  - name: test-container
-    image: gcr.io/google_containers/busybox
-    command: [ "/bin/sh", "-c", "ls /etc/config/" ]
-    volumeMounts:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "ls /etc/config/" ]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+  volumes:
     - name: config-volume
-      mountPath: /etc/config
-volumes:
-  - name: config-volume
-    configMap:
-      # Provide the name of the ConfigMap containing the files you want 
-      # to add to the container
-      name: special-config
-restartPolicy: Never
+      configMap:
+        # Provide the name of the ConfigMap containing the files you want
+        # to add to the container
+        name: special-config
+  restartPolicy: Never
 ```
 
 When the pod runs, the command (`"ls /etc/config/"`) produces the output below:
