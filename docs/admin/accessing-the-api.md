@@ -61,11 +61,20 @@ After the request is authenticated as coming from a specific user, the request m
 
 A request must include the username of the requester, the requested action, and the object affected by the action. The request is authorized if an existing policy declares that the user has permissions to complete the requested action. 
 
-For example, if Bob has the policy below, then he can read pods only in the namespace `projectCarabou`:
+For example, if Bob has the policy below, then he can read pods only in the namespace `projectCaribou`:
 
-    ```json
-    {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "bob", "namespace": "projectCaribou", "resource": "pods", "readonly": true}}
-    ```
+```json
+{
+    "apiVersion": "abac.authorization.kubernetes.io/v1beta1",
+    "kind": "Policy",
+    "spec": {
+        "user": "bob",
+        "namespace": "projectCaribou",
+        "resource": "pods",
+        "readonly": true
+    }
+}
+```
 If Bob makes the following request, the request is authorized because he is allowed to read objects in the `projectCaribou` namespace:
 
 ```json
@@ -74,7 +83,7 @@ If Bob makes the following request, the request is authorized because he is allo
   "kind": "SubjectAccessReview",
   "spec": {
     "resourceAttributes": {
-      "namespace": "projectCarabou",
+      "namespace": "projectCaribou",
       "verb": "get",
       "group": "unicorn.example.org",
       "resource": "pods"
@@ -82,7 +91,7 @@ If Bob makes the following request, the request is authorized because he is allo
   }
 }
 ```
-If Bob makes a request to write (`creat`e or `update`) to the objects in the `projectCaribou` namespace, his authorization is denied. If Bob makes a request to read (`get`) objects in a different namespace such as `projectFish`, then his authorization is denied. 
+If Bob makes a request to write (`create` or `update`) to the objects in the `projectCaribou` namespace, his authorization is denied. If Bob makes a request to read (`get`) objects in a different namespace such as `projectFish`, then his authorization is denied. 
 
 Kubernetes authorization requires that you use common REST attributes to interact with existing organization-wide or cloud-provider-wide access control systems. It is important to use REST formatting because these control systems might interact with other APIs besides the Kubernetes API.
 

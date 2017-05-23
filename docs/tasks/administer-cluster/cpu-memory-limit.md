@@ -53,7 +53,7 @@ limit-example   Active    45s
 Let's create a simple limit in our namespace.
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/limits.yaml --namespace=limit-example
+$ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/limits.yaml --namespace=limit-example
 limitrange "mylimits" created
 ```
 
@@ -94,7 +94,7 @@ were previously created in a namespace.
 If a resource (CPU or memory) is being restricted by a limit, the user will get an error at time
 of creation explaining why.
 
-Let's first spin up a [Deployment](/docs/user-guide/deployments) that creates a single container Pod to demonstrate
+Let's first spin up a [Deployment](/docs/concepts/workloads/controllers/deployment/) that creates a single container Pod to demonstrate
 how default values are applied to each pod.
 
 ```shell
@@ -140,14 +140,14 @@ Note that our nginx container has picked up the namespace default CPU and memory
 Let's create a pod that exceeds our allowed limits by having it have a container that requests 3 CPU cores.
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/invalid-pod.yaml --namespace=limit-example
+$ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/invalid-pod.yaml --namespace=limit-example
 Error from server: error when creating "http://k8s.io/docs/tasks/configure-pod-container/invalid-pod.yaml": Pod "invalid-pod" is forbidden: [Maximum cpu usage per Pod is 2, but limit is 3., Maximum cpu usage per Container is 2, but limit is 3.]
 ```
 
 Let's create a pod that falls within the allowed limit boundaries.
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/valid-pod.yaml --namespace=limit-example
+$ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/valid-pod.yaml --namespace=limit-example
 pod "valid-pod" created
 ```
 

@@ -231,7 +231,7 @@ before changing course.
 
 Sometimes you may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping.
 By default, all of the Deployment's rollout history is kept in the system so that you can rollback anytime you want
-(you can change that by modifying [revision history limit](/docs/user-guide/deployments/#revision-history-limit)).
+(you can change that by modifyingrevision history limit]).
 
 **Note:** a Deployment's revision is created when a Deployment's rollout is triggered. This means that the
 new revision is created if and only if the Deployment's pod template (i.e. `.spec.template`) is changed,
@@ -484,7 +484,7 @@ For example, with a Deployment that was just created:
 $ kubectl get deploy
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx     3         3         3            3           1m
-[mkargaki@dhcp129-211 kubernetes]$ kubectl get rs
+$ kubectl get rs
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   3         3         3         1m
 ```
