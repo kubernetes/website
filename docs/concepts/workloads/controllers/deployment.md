@@ -209,7 +209,7 @@ least 2 Pods were available and at most 4 Pods were created at all times. It the
 the new and the old ReplicaSet, with the same rolling update strategy. Finally, we'll have 3 available replicas
 in the new ReplicaSet, and the old ReplicaSet is scaled down to 0.
 
-### Rollover (multiple rollouts in-flight)
+### Rollover (aka multiple updates in-flight)
 
 Each time a new deployment object is observed by the deployment controller, a ReplicaSet is created to bring up
 the desired Pods if there is no existing ReplicaSet doing so. Existing ReplicaSet controlling Pods whose labels
@@ -226,6 +226,21 @@ replicas of `nginx:1.7.9` had been created. In that case, Deployment will immedi
 killing the 3 `nginx:1.7.9` Pods that it had created, and will start creating
 `nginx:1.9.1` Pods. It will not wait for 5 replicas of `nginx:1.7.9` to be created
 before changing course.
+
+### Label selector updates
+
+It is generally discouraged to make label selector updates and it is suggested to plan your selectors up front.
+In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
+all of the implications.
+
+* Selector additions require the pod template labels in the Deployment spec to be updated with the new label, too,
+otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
+not select ReplicaSets and Pods created with the old selector, resulting in orphaning all of those objects. Also,
+note that changes in the PodTemplateSpec of the Deployment result in new rollouts, but a new ReplicaSet with Pods
+will be created anyway since the Deployment selector is not matching anything anymore.
+* Selector updates, ie. changing the existing value in a selector key, result in the same behavior as additions.
+* Selector removals, ie. removing an existing key from the Deployment selector, do not require any changes in the
+pod template labels, but note that the removed label will still exist in any existing Pods and ReplicaSets.
 
 ## Rolling Back a Deployment
 
