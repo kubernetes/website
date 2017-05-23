@@ -48,14 +48,14 @@ pods to which it applies. This is a required field.
 * `minAvailable` which is a description of the number of pods from that
 set that must still be available after the eviction, i.e. even in the absence
 of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
-* If you are using Kubernetes v1.7 or higher, `maxUnavailable` which is a description of the number of pods from that
-set that can be unavailable after the eviction. `maxUnavailable` can also be either an absolute number or a percentage.
+* `maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description of the number of pods from that
+set that can be unavailable after the eviction. It can also be either an absolute number or a percentage.
 
 You can specify only one of `maxUnavailable` and `minAvailable` in a single Pod Disruption Budget.
 
 So for example, a `minAvailable` of 100% means no voluntary evictions from the set are permitted. Correspondingly, a `maxUnavailable` of 0% means the same. In
 typical usage, a single budget would be used for a collection of pods managed by
-a controller—for example, the pods in a single ReplicaSet or StatefulSet.
+a controller—for example, the pods in a single ReplicaSet or StatefulSet. 
 
 Note that a disruption budget does not truly guarantee that the specified
 number/percentage of pods will always be up.  For example, a node that hosts a
@@ -63,6 +63,8 @@ pod from the collection may fail when the collection is at the minimum size
 specified in the budget, thus bringing the number of available pods from the
 collection below the specified size. The budget can only protect against
 voluntary evictions, not all causes of unavailability.
+
+A `maxUnavailable` of 0% (or 0) or a `minAvailable` of 100% (or equal to the number of replicas) may block node drains entirely. This is permitted as per the semantics of `PodDisruptionBudget`. Cluster administrators may restrict this behavior through policy or admission control.
 
 You can find examples of pod disruption budgets defined below. They match pods with the label 
 `app: zookeeper`.
