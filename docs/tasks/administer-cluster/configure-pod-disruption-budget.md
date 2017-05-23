@@ -40,13 +40,20 @@ disruption budget to be violated.
 
 ## Specifying a PodDisruptionBudget
 
-A `PodDisruptionBudget` has two components: a label selector `selector` to specify the set of
-pods to which it applies, and `minAvailable` which is a description of the number of pods from that
+A `PodDisruptionBudget` has three components, of which two must be specified: 
+* A label selector `selector` to specify the set of
+pods to which it applies. This is a required field.
+* `minAvailable` which is a description of the number of pods from that
 set that must still be available after the eviction, i.e. even in the absence
 of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
-So for example, 100% means no voluntary evictions from the set are permitted. In
+* If you are using Kubernetes v1.7 or higher, `maxUnavailable` which is a description of the number of pods from that
+set that can be unavailable after the eviction. `maxUnavailable` can also be either an absolute number or a percentage.
+
+You can specify only one of `maxUnavailable` and `minAvailable` in a single Pod Disruption Budget.
+
+So for example, a `minAvailable` of 100% means no voluntary evictions from the set are permitted. Correspondingly, a `maxUnavailable` of 0% means the same. In
 typical usage, a single budget would be used for a collection of pods managed by
-a controller—for example, the pods in a single ReplicaSet.
+a controller—for example, the pods in a single ReplicaSet or StatefulSet.
 
 Note that a disruption budget does not truly guarantee that the specified
 number/percentage of pods will always be up.  For example, a node that hosts a
@@ -55,8 +62,10 @@ specified in the budget, thus bringing the number of available pods from the
 collection below the specified size. The budget can only protect against
 voluntary evictions, not all causes of unavailability.
 
-You can find an example of a pod disruption budget defined below. It matches pods with the label 
+You can find examples of pod disruption budgets defined below. They match pods with the label 
 `app: zookeeper`.
+
+Example PDB Using maxUnavailable:
 
 ```yaml
 apiVersion: policy/v1beta1
@@ -70,7 +79,25 @@ spec:
       app: zookeeper
 ```
 
+Example PDB Using maxUnavailable (Kubernetes 1.7 or higher):
+
+```yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: zk-pdb
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+```
+
+For example, if the above `zk-pdb` object select the pods of a StatefulSet of size 3, both specifications have the exact same meaning. The use of `maxUnavailable` is recommended as it automatically responds to changes in the number of replicas of the corresponding controller.
+
 ## Requesting an eviction
+
+See the task explaining [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/) for a higher level construct used to trigger evictions of pods on chosen nodes.
 
 If you are writing infrastructure software that wants to produce these voluntary
 evictions, you will need to use the eviction API.  The eviction subresource of a
