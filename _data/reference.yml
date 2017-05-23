@@ -16,6 +16,7 @@ toc:
   - title: Authorization
     section:
     - docs/admin/authorization/index.md
+    - docs/admin/authorization/abac.md
     - docs/admin/authorization/rbac.md
   - docs/reference/deprecation-policy.md
 
