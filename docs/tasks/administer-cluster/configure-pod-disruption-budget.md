@@ -1,6 +1,8 @@
 ---
 assignees:
 - davidopp
+- foxish
+- kow3ns
 title: Configuring a Pod Disruption Budget
 redirect_from:
 - "/docs/admin/disruptions/"
