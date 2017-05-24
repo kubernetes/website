@@ -109,6 +109,10 @@ The API presented here **will change** in an upcoming release to better support 
 
 As of now, CUDA libraries are expected to be pre-installed on the nodes.
 
+The NVIDIA drivers will require privileged containers due to the permissions on ``/usr/lib/nvidia-367``.
+
+To mitigate this, you can copy the libraries to a more permissive folder in ``/var/lib/`` or change the permissions directly. (Future releases will automatically perform this operation)
+
 Pods can access the libraries using `hostPath` volumes.
 
 ```yaml
