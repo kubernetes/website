@@ -52,11 +52,25 @@ of the evicted pod. `minAvailable` can be either an absolute number or a percent
 of the number of pods from that set that can be unavailable after the eviction. 
 It can also be either an absolute number or a percentage.
 
-You can specify only one of `maxUnavailable` and `minAvailable` in a single Pod Disruption Budget.
+You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`. 
+`maxUnavailable` can only be used to control the eviction of pods 
+that have an associated controller managing them. In the examples below, "desired replicas"
+is the `scale` of the controller managing the pods being selected by the
+`PodDisruptionBudget`.
 
-So for example, a `minAvailable` of 100% means no voluntary evictions from the set are permitted.
-Correspondingly, a `maxUnavailable` of 0% means the same. In
-typical usage, a single budget would be used for a collection of pods managed by
+Example 1: With a `minAvailable` of 5, evictions will be allowed as long as they leave behind
+5 or more healthy pods among those selected by the PodDisruptionBudget's `selector`.
+
+Example 2: With a `minAvailable` of 30%, evictions will be allowed as long as at least 30%
+of the number of desired replicas are healthy. 
+
+Example 3: With a `maxUnavailable` of 5, evictions will be allowed as long as there are at most 5
+unhealthy replicas among the total number of desired replicas.
+
+Example 4: With a `maxUnavailable` of 30%, evictions will be allowed as long as no more than 30% 
+of the desired replicas are unhealthy.
+
+In typical usage, a single budget would be used for a collection of pods managed by
 a controller—for example, the pods in a single ReplicaSet or StatefulSet. 
 
 Note that a disruption budget does not truly guarantee that the specified
@@ -102,7 +116,9 @@ spec:
       app: zookeeper
 ```
 
-For example, if the above `zk-pdb` object selects the pods of a StatefulSet of size 3, both specifications have the exact same meaning. The use of `maxUnavailable` is recommended as it automatically responds to changes in the number of replicas of the corresponding controller.
+For example, if the above `zk-pdb` object selects the pods of a StatefulSet of size 3, both
+specifications have the exact same meaning. The use of `maxUnavailable` is recommended as it
+automatically responds to changes in the number of replicas of the corresponding controller.
 
 ## Requesting an eviction
 
