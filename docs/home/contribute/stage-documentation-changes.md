@@ -14,24 +14,6 @@ Create a fork of the Kubernetes documentation repository as described in
 
 {% capture steps %}
 
-## Staging from your GitHub account
-
-GitHub provides staging of content in your master branch. Note that you
-might not want to merge your changes into your master branch. If that is
-the case, choose another option for staging your content.
-
-1. In your GitHub account, in your fork, merge your changes into
-the master branch.
-
-1. Change the name of your repository to `<your-username>.github.io`, where
-`<your-username>` is the username of your GitHub account.
-
-1. Delete the `CNAME` file.
-
-1. View your staged content at this URL:
-
-        https://<your-username>.github.io
-
 ## Staging a pull request
 
 When you create a pull request, either against the master or &lt;vnext&gt;
