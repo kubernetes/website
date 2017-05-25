@@ -27,6 +27,7 @@ docs/admin/resourcequota/walkthrough.md
 docs/admin/static-pods.md
 docs/admin/sysctls.md
 docs/api-reference/labels-annotations-taints.md
+docs/concepts/example-concept-template.md
 docs/concepts/abstractions/pod-termination.md
 docs/contribute/README.md
 docs/contribute/create-pull-request.md
@@ -44,6 +45,8 @@ docs/reference/deprecation-policy.md
 docs/search.md
 docs/sitemap.md
 docs/tabs-example.md
+docs/tasks/example-task-template.md
+docs/tutorials/example-tutorial-template.md
 docs/user-guide/accessing-the-cluster.md
 docs/user-guide/annotations.md
 docs/user-guide/application-troubleshooting.md
