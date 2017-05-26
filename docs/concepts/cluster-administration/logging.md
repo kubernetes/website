@@ -61,13 +61,26 @@ Everything a containerized application writes to `stdout` and `stderr` is handle
 
 By default, if a container restarts, the kubelet keeps one terminated container with its logs. If a pod is evicted from the node, all corresponding containers are also evicted, along with their logs.
 
-An important consideration in node-level logging is implementing log rotation, so that logs don't consume all available storage on the node. Kubernetes uses the [`logrotate`](http://www.linuxcommand.org/man_pages/logrotate8.html) tool to implement log rotation.
+An important consideration in node-level logging is implementing log rotation,
+so that logs don't consume all available storage on the node. Kubernetes
+up to 1.7 is not responsible for rotating logs, deployment tool should set it
+up. For example, in Kubernetes clusters, deployed by `kube-up.sh` script,
+there is [`logrotate`](http://www.linuxcommand.org/man_pages/logrotate8.html)
+tool configured to perform log rotations daily or once application's log
+file grows beyond 10MB. You can also set up container runtime to rotate logs
+automatically, e.g. by using Docker's `log-opt` or by sending logs to the
+system that does this for you, e.g. journald. As an example, you can find
+detailed information about how `kube-up.sh` sets up logging in the
+corresponding [script][cosConfigureHelper].
 
-Kubernetes performs log rotation daily, or if the log file grows beyond 10MB in size. Each rotation belongs to a single container; if the container repeatedly fails or the pod is evicted, all previous rotations for the container are lost. By default, Kubernetes keeps up to five logging rotations per container.
+When you run [`kubectl logs`](/docs/user-guide/kubectl/v1.6/#logs) as in
+the basic logging example, the kubelet on the node handles the request and
+reads directly from the log file, returning the contents in the response.
+**Note:** if some external system has manipulated the log file, e.g.
+logrotate performed rotation, only the content of the original log file
+will be available through `kubectl logs`.
 
-The Kubernetes logging configuration differs depending on the node type. For example, you can find detailed information for GCI in the corresponding [configure helper](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/cluster/gce/gci/configure-helper.sh#L96).
-
-When you run [`kubectl logs`](/docs/user-guide/kubectl/v1.6/#logs), as in the basic logging example, the kubelet on the node handles the request and reads directly from the log file, returning the contents in the response. Note that `kubectl logs` **only returns the last rotation**; you must manually extract prior rotations, if desired and cluster-level logging is not enabled.
+[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/cluster/gce/gci/configure-helper.sh#L96
 
 ### System component logs
 
@@ -80,14 +93,16 @@ that do not run in a container. For example:
 On machines with systemd, the kubelet and container runtime write to journald. If
 systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
-bypassing the default logging mechanism. They use the [glog](https://godoc.org/github.com/golang/glog)
+bypassing the default logging mechanism. They use the [glog][glog]
 logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
 
 Similarly to the container logs, system component logs in the `/var/log`
-directory are rotated daily and based on the log size. However,
-system component logs have a higher size retention: by default,
-they can store up to 100MB.
+directory should be rotated. In Kubernetes clusters brough up by
+`kube-up.sh` script, those logs are configured to be rotated by
+`logrotate` tool daily or once the size exceeds 100MB.
+
+[glog]: https://godoc.org/github.com/golang/glog
 
 ## Cluster-level logging architectures
 
