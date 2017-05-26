@@ -486,7 +486,7 @@ invalid keys that were skipped. The example shows a pod which refers to the
 default/mysecret ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
 
 ```shell
-$ kubectl.sh get events
+$ kubectl get events
 LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
 0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
 ```
