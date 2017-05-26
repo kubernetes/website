@@ -125,7 +125,7 @@ Now create a node object internally in your Kubernetes cluster by running:
 $ kubectl create -f ./node.json
 
 $ kubectl get nodes
-NAME            STATUS        AGE
+NAME            STATUS        AGE      VERSION
 fed-node        Unknown       4h
 ```
 
@@ -172,7 +172,7 @@ done
 
 ```shell
 kubectl get nodes
-NAME            STATUS      AGE
+NAME            STATUS      AGE      VERSION
 fed-node        Ready       4h
 ```
 
