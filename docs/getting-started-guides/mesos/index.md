@@ -194,7 +194,7 @@ Send the pod description to Kubernetes using the `kubectl` CLI:
 
 ```shell
 $ kubectl create -f ./nginx.yaml
-pods/nginx
+pod "nginx" created
 ```
 
 Wait a minute or two while `dockerd` downloads the image layers from the internet.
