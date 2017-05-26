@@ -218,7 +218,7 @@ Events:
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created        Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started        Started container with docker id 5ced34a04634
 $ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
-$ kubectl logs myapp-pod -c init-mydd      # Inspect the second init container
+$ kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
 Once we start the `mydb` and `myservice` services, we can see the Init Containers
