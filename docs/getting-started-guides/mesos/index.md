@@ -159,9 +159,9 @@ NAME      READY     STATUS    RESTARTS   AGE
 ```shell
 # NOTE: your service IPs will likely differ
 $ kubectl get services
-NAME             LABELS                                    SELECTOR   IP(S)          PORT(S)
-k8sm-scheduler   component=scheduler,provider=k8sm         <none>     10.10.10.113   10251/TCP
-kubernetes       component=apiserver,provider=kubernetes   <none>     10.10.10.1     443/TCP
+NAME             CLUSTER-IP       EXTERNAL-IP     PORT(S)        AGE
+k8sm-scheduler   10.10.10.113     <none>          10251/TCP      1d
+kubernetes       10.10.10.1       <none>          443/TCP        1d
 ```
 
 Lastly, look for Kubernetes in the Mesos web GUI by pointing your browser to
