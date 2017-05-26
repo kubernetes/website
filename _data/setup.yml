@@ -17,7 +17,7 @@ toc:
     path: https://cloud.google.com/container-engine/docs/before-you-begin/
   - title: Running Kubernetes on Azure Container Service
     path: https://docs.microsoft.com/en-us/azure/container-service/container-service-kubernetes-walkthrough
-  - title: Running Kubernetes on IBM Bluemix Container Service (Beta)
+  - title: Running Kubernetes on IBM Bluemix Container Service
     path: https://console.ng.bluemix.net/docs/containers/container_index.html
 
 - title: Turn-key Cloud Solutions

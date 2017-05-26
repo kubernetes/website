@@ -179,7 +179,7 @@ To modify policy interactively, use `kubectl edit`:
 $ kubectl edit psp permissive
 ```
 
-This command will open a default text editor where you will be ably to modify policy.
+This command will open a default text editor where you will be able to modify policy.
 
 ## Deleting a Pod Security Policy
 

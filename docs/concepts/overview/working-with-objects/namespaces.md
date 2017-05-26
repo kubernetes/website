@@ -41,9 +41,9 @@ You can list the current namespaces in a cluster using:
 
 ```shell
 $ kubectl get namespaces
-NAME          LABELS    STATUS
-default       <none>    Active
-kube-system   <none>    Active
+NAME          STATUS    AGE
+default       Active    1d
+kube-system   Active    1d
 ```
 
 Kubernetes starts with two initial namespaces:
