@@ -11,7 +11,7 @@ redirect_from:
 
 {% capture overview %}
 
-This page shows you how to configure an application using a ConfigMap. 
+This page shows you how to configure an application using a ConfigMap.  ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
 
 {% endcapture %}
 
@@ -120,7 +120,7 @@ would produce the following ConfigMap:
 
 ```shell
 kubectl describe configmaps game-config-2
-Name:           game-config
+Name:           game-config-2
 Namespace:      default
 Labels:         <none>
 Annotations:    <none>
@@ -138,7 +138,7 @@ kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kub
 
 ```shell
 kubectl describe configmaps game-config-2
-Name:           game-config
+Name:           game-config-2
 Namespace:      default
 Labels:         <none>
 Annotations:    <none>
