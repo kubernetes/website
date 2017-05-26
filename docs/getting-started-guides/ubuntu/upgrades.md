@@ -75,7 +75,7 @@ Pause the old workers so your workload migrates:
 
 Verify old workloads have migrated with: 
 
-    kubectl get-pod -o wide
+    kubectl get pod -o wide
 
 Tear down old workers with: 
 
