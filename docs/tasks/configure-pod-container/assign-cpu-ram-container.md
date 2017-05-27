@@ -1,5 +1,6 @@
 ---
 title: Assigning CPU and RAM Resources to a Container
+description: When you create a Pod, you can request CPU and RAM resources for the containers that run in the Pod. You can also set limits for CPU and RAM use.
 ---
 
 {% capture overview %}
