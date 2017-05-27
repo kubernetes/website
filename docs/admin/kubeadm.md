@@ -331,7 +331,7 @@ commands.
 * `kubeadm token create` Creates a new token.
     * `--description` Set the description on the new token.
     * `--ttl duration` Set expiration time of the token as a delta from "now".
-      Default is 0 for no expiration. Unit of the duration is second.
+      Default is 0 for no expiration. The unit of the duration is seconds.
     * `--usages` Set the ways that the token can be used.  The default is
       `signing,authentication`.  These are the usages as described above.
 * `kubeadm token delete <token id>|<token id>.<token secret>` Delete a token.
