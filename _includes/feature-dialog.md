@@ -1,5 +1,5 @@
 <a href="#" id="feature-state-dialog-link" class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>{{ dialog_title }}</a>
-<div id="feature-state-dialog" title="{{ dialog_title }}">
+<div id="feature-state-dialog" class="ui-dialog-content" title="{{ dialog_title }}">
 {{ dialog_content | markdownify }}
 </div>
 {% raw %}<script>
