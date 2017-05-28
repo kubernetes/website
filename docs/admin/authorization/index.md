@@ -150,8 +150,8 @@ As of version 1.3, clusters created by kube-up.sh are configured so that the A
 
 {% endcapture %}
 {% capture whatsnext %}
-* To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](docs/admin/accessing-the-api/).
-* To learn more about Admission Control, see [Using Admission Controllers](docs/admin/admission-controllers/).
+* To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/admin/accessing-the-api/).
+* To learn more about Admission Control, see [Using Admission Controllers](/docs/admin/accessing-the-api/).
 {% endcapture %}
 
 {% include templates/concept.md %}
