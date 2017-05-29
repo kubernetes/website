@@ -67,11 +67,15 @@ currently is not responsible for rotating logs, but rather a deployment tool
 should set up a solution to address that.
 For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
 there is a [`logrotate`](http://www.linuxcommand.org/man_pages/logrotate8.html)
-tool configured to perform log rotations daily or once an application's log
-file grows beyond 10MB. You can also set up a container runtime to rotate logs
-automatically, e.g. by using Docker's `log-opt`. As an example, you can find
-detailed information about how `kube-up.sh` sets up logging in the
-corresponding [script][cosConfigureHelper].
+tool configured to run each hour. You can also set up a container runtime to
+rotate application's logs automatically, e.g. by using Docker's `log-opt`.
+In the `kube-up.sh` script, the latter approach is used for COS image on GCP,
+and the former approach is used in any other environment. In both cases, by
+default rotation is configured to take place when log file exceeds 10MB.
+
+As an example, you can find detailed information about how `kube-up.sh` sets
+up logging for COS image on GCP in the corresponding [script]
+[cosConfigureHelper].
 
 When you run [`kubectl logs`](/docs/user-guide/kubectl/v1.6/#logs) as in
 the basic logging example, the kubelet on the node handles the request and
@@ -82,7 +86,7 @@ only the contents of the latest log file will be available through
 the rotation and there are two files, one 10MB in size and one empty,
 `kubectl logs` will return an empty response.
 
-[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/cluster/gce/gci/configure-helper.sh#L96
+[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/cluster/gce/gci/configure-helper.sh
 
 ### System component logs
 
