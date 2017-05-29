@@ -271,6 +271,11 @@ for more information.
 ## Is there a recommended set of plug-ins to use?
 
 Yes.
+For Kubernetes >= 1.6.0, we strongly recommend running the following set of admission control plug-ins (order matters):
+
+```shell
+--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds
+```
 
 For Kubernetes >= 1.4.0, we strongly recommend running the following set of admission control plug-ins (order matters):
 

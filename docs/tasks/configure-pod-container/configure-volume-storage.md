@@ -35,7 +35,7 @@ restarts. Here is the configuration file for the Pod:
 
 1. Create the Pod:
 
-        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/pod-redis.yaml
+        kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/pod-redis.yaml
 
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:

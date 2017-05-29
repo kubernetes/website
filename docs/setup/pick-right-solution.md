@@ -9,154 +9,150 @@ redirect_from:
 - "/docs/getting-started-guides/index.html"
 ---
 
-Kubernetes can run on a range of platforms, from your laptop, to VMs on a cloud provider, to rack of
-bare metal servers.  The effort required to set up a cluster varies from running a single command to
-crafting your own customized cluster.  We'll guide you in picking a solution that fits for your needs.
+Kubernetes can run on various platforms: from your laptop, to VMs on a cloud provider, to rack of
+bare metal servers. The effort required to set up a cluster varies from running a single command to
+crafting your own customized cluster. Use this guide to choose a solution that fits your needs.
 
-If you just want to "kick the tires" on Kubernetes, we recommend the [local Docker-based solution using MiniKube](#local-machine-solutions).
+If you just want to "kick the tires" on Kubernetes, use the [local Docker-based solution using MiniKube](#local-machine-solutions).
 
-When you are ready to scale up to more machines and higher availability, a [Hosted](#hosted-solutions)
-solution is the easiest to create and maintain.
+When you are ready to scale up to more machines and higher availability, a [hosted solution](#hosted-solutions) is the easiest to create and maintain.
 
-[Turn-key cloud solutions](#turn-key-cloud-solutions) require only a few commands to create
-and cover a wider range of cloud providers.
+[Turnkey cloud solutions](#turnkey-cloud-solutions) require only a few commands to create
+and cover a wide range of cloud providers.
 
-If you already have a way to configure hosting resources, you can use
-[kubeadm](/docs/getting-started-guides/kubeadm/) to easily bring up a cluster
-with a single command per machine.
+If you already have a way to configure hosting resources, use [kubeadm](/docs/getting-started-guides/kubeadm/) to easily bring up a cluster with a single command per machine.
 
-[Custom solutions](#custom-solutions) require more effort to setup but cover and even
-they vary from step-by-step instructions to general advice for setting up
+[Custom solutions](#custom-solutions) vary from step-by-step instructions to general advice for setting up
 a Kubernetes cluster from scratch.
 
 * TOC
 {:toc}
 
-### Local-machine Solutions
+# Local-machine Solutions
 
-[Minikube](/docs/getting-started-guides/minikube/) is the recommended method for you to create a single node kubernetes cluster locally for purposes of development and testing. Setup is completely automated and doesn't require a cloud provider account.
+* [Minikube](/docs/getting-started-guides/minikube/) is the recommended method for creating a local, single-node Kubernetes cluster for development and testing. Setup is completely automated and doesn't require a cloud provider account.
 
-Use the [Minikube getting started guide](/docs/getting-started-guides/minikube/) to try it out.
+* [Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local) supports a nine-instance deployment on localhost.
 
-[Ubuntu on LXD](/docs/getting-started-guides/ubuntu/local) - Ubuntu supports a 9-instance deployment on localhost via LXD.
+* [IBM Spectrum Conductor for Containers](https://www.ibm.com/support/knowledgecenter/SS8TQM/product_welcome_containers.html) can use VirtualBox on your machine to deploy Kubernetes to one or more VMs. Scales to full multi-node cluster. Free distribution.
 
-### Hosted Solutions
+# Hosted Solutions
 
-[Google Container Engine](https://cloud.google.com/container-engine) offers managed Kubernetes
-clusters.
+* [Google Container Engine](https://cloud.google.com/container-engine) offers managed Kubernetes clusters.
 
-[Azure Container Service](https://azure.microsoft.com/en-us/services/container-service/) can easily deploy Kubernetes
-clusters.
+* [Azure Container Service](https://azure.microsoft.com/en-us/services/container-service/) can easily deploy Kubernetes clusters.
 
-[Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
+* [Stackpoint.io](https://stackpoint.io) provides Kubernetes infrastructure automation and management for multiple public clouds.
 
-[AppsCode.com](https://appscode.com/products/cloud-deployment/) provides managed Kubernetes clusters for various public clouds (including AWS and Google Cloud Platform).
+* [AppsCode.com](https://appscode.com/products/cloud-deployment/) provides managed Kubernetes clusters for various public clouds, including AWS and Google Cloud Platform.
 
-[KCluster.io](https://kcluster.io) provides highly available and scalable managed Kubernetes clusters for AWS.
+* [KCluster.io](https://kcluster.io) provides highly available and scalable managed Kubernetes clusters for AWS.
 
-[KUBE2GO.io](https://kube2go.io) get started with highly available Kubernetes clusters on multiple public clouds along with useful tools for development, debugging, monitoring.
+* [KUBE2GO.io](https://kube2go.io) get started with highly available Kubernetes clusters on multiple public clouds along with useful tools for development, debugging, monitoring.
 
-[Madcore.Ai](https://madcore.ai) CLI tool to deploy Kubernetes infrastructure in AWS with focus on devops. Master, auto-scaling-group nodes with spot-instances, ingress-ssl-lego, Heapster, Grafana. Based on latest containers.
+* [Madcore.Ai](https://madcore.ai) is devops-focused CLI tool for deploying Kubernetes infrastructure in AWS. Master, auto-scaling group nodes with spot-instances, ingress-ssl-lego, Heapster, and Grafana.
 
-[Platform9](https://platform9.com/products/kubernetes/) offers managed Kubernetes on-premises or any public cloud, and provides 24/7 health monitoring and alerting.
+* [Platform9](https://platform9.com/products/kubernetes/) offers managed Kubernetes on-premises or on any public cloud, and provides 24/7 health monitoring and alerting.
 
-[OpenShift Dedicated](https://www.openshift.com/dedicated/) offers managed Kubernetes clusters powered by OpenShift and [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
+* [OpenShift Dedicated](https://www.openshift.com/dedicated/) offers managed Kubernetes clusters powered by OpenShift.
 
-[IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters (currently in beta).
+* [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
 
-### Turn-key Cloud Solutions
+* [IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters.
+
+* [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
+
+# Turnkey Cloud Solutions
 
 These solutions allow you to create Kubernetes clusters on a range of Cloud IaaS providers with only a
-few commands, and have active community support.
+few commands. These solutions are actively developed and have active community support.
 
-- [GCE](/docs/getting-started-guides/gce)
-- [AWS](/docs/getting-started-guides/aws)
-- [Azure](/docs/getting-started-guides/azure)
-- [Tectonic by CoreOS](https://coreos.com/tectonic)
-- [CenturyLink Cloud](/docs/getting-started-guides/clc)
-- [IBM Bluemix](https://github.com/patrocinio/kubernetes-softlayer)
-- [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
-- [KUBE2GO.io](https://kube2go.io/)
-- [Madcore.Ai](https://madcore.ai/)
+* [Google Compute Engine (GCE)](/docs/getting-started-guides/gce)
+* [AWS](/docs/getting-started-guides/aws)
+* [Azure](/docs/getting-started-guides/azure)
+* [Tectonic by CoreOS](https://coreos.com/tectonic)
+* [CenturyLink Cloud](/docs/getting-started-guides/clc)
+* [IBM Bluemix](https://github.com/patrocinio/kubernetes-softlayer)
+* [Stackpoint.io](/docs/getting-started-guides/stackpoint/)
+* [KUBE2GO.io](https://kube2go.io/)
+* [Madcore.Ai](https://madcore.ai/)
 
-### Custom Solutions
+# Custom Solutions
 
 Kubernetes can run on a wide range of Cloud providers and bare-metal environments, and with many
 base operating systems.
 
-If you can find a guide below that matches your needs, use it.  It may be a little out of date, but
-it will be easier than starting from scratch.  If you do want to start from scratch because you
-have special requirements or just because you want to understand what is underneath a Kubernetes
+If you can find a guide below that matches your needs, use it. It may be a little out of date, but
+it will be easier than starting from scratch. If you do want to start from scratch, either because you
+have special requirements, or just because you want to understand what is underneath a Kubernetes
 cluster, try the [Getting Started from Scratch](/docs/getting-started-guides/scratch) guide.
 
-If you are interested in supporting Kubernetes on a new platform, check out our [advice for
-writing a new solution](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/writing-a-getting-started-guide.md).
+If you are interested in supporting Kubernetes on a new platform, see
+[Writing a Getting Started Guide](https://github.com/kubernetes/community/blob/master/contributors/devel/writing-a-getting-started-guide.md).
 
-#### Universal
+## Universal
 
-
-If you already have a way to configure hosting resources, you can use
+If you already have a way to configure hosting resources, use
 [kubeadm](/docs/getting-started-guides/kubeadm/) to easily bring up a cluster
 with a single command per machine.
 
-#### Cloud
+## Cloud
 
-These solutions are combinations of cloud provider and OS not covered by the above solutions.
+These solutions are combinations of cloud providers and operating systems not covered by the above solutions.
 
-- [AWS + CoreOS](/docs/getting-started-guides/coreos)
-- [GCE + CoreOS](/docs/getting-started-guides/coreos)
-- [Ubuntu + AWS/GCE/Rackspace/Joyent](/docs/getting-started-guides/ubuntu/)
-- [Rackspace + CoreOS](/docs/getting-started-guides/rackspace)
+* [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos)
+* [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
+* [CoreOS on Rackspace](/docs/getting-started-guides/rackspace)
 
-#### On-Premises VMs
+## On-Premises VMs
 
-- [Vagrant](/docs/getting-started-guides/coreos) (uses CoreOS and flannel)
-- [CloudStack](/docs/getting-started-guides/cloudstack) (uses Ansible, CoreOS and flannel)
-- [Vmware vSphere](/docs/getting-started-guides/vsphere)  (uses Debian)
-- [Vmware Photon Controller](/docs/getting-started-guides/photon-controller)  (uses Debian)
-- [Vmware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
-- [Vmware](/docs/getting-started-guides/coreos)  (uses CoreOS and flannel)
-- [libvirt-coreos](/docs/getting-started-guides/libvirt-coreos)  (uses CoreOS)
-- [oVirt](/docs/getting-started-guides/ovirt)
-- [OpenStack Heat](/docs/getting-started-guides/openstack-heat) (uses CentOS and flannel)
-- [libvirt](/docs/getting-started-guides/fedora/flannel_multi_node_cluster) (uses Fedora and flannel)
-- [KVM](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)  (uses Fedora and flannel)
+* [Vagrant](/docs/getting-started-guides/coreos) (uses CoreOS and flannel)
+* [CloudStack](/docs/getting-started-guides/cloudstack) (uses Ansible, CoreOS and flannel)
+* [Vmware vSphere](/docs/getting-started-guides/vsphere)  (uses Debian)
+* [Vmware Photon Controller](/docs/getting-started-guides/photon-controller)  (uses Debian)
+* [Vmware vSphere, OpenStack, or Bare Metal](/docs/getting-started-guides/ubuntu/) (uses Juju, Ubuntu and flannel)
+* [Vmware](/docs/getting-started-guides/coreos)  (uses CoreOS and flannel)
+* [CoreOS on libvirt](/docs/getting-started-guides/libvirt-coreos)  (uses CoreOS)
+* [oVirt](/docs/getting-started-guides/ovirt)
+* [OpenStack Heat](/docs/getting-started-guides/openstack-heat) (uses CentOS and flannel)
+* [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster) (uses Fedora and flannel)
 
-#### Bare Metal
+## Bare Metal
 
-- [Offline](/docs/getting-started-guides/coreos/bare_metal_offline) (no internet required.  Uses CoreOS and Flannel)
-- [fedora/fedora_ansible_config](/docs/getting-started-guides/fedora/fedora_ansible_config)
-- [Fedora single node](/docs/getting-started-guides/fedora/fedora_manual_config)
-- [Fedora multi node](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)
-- [Centos](/docs/getting-started-guides/centos/centos_manual_config)
-- [Bare Metal with Ubuntu](/docs/getting-started-guides/ubuntu/)
-- [Ubuntu Manual](/docs/getting-started-guides/ubuntu/manual)
-- [CoreOS](/docs/getting-started-guides/coreos)
+* [Offline](/docs/getting-started-guides/coreos/bare_metal_offline) (no internet required.  Uses CoreOS and Flannel)
+* [Fedora via Ansible](/docs/getting-started-guides/fedora/fedora_ansible_config)
+* [Fedora (Single Node)](/docs/getting-started-guides/fedora/fedora_manual_config)
+* [Fedora (Multi Node)](/docs/getting-started-guides/fedora/flannel_multi_node_cluster)
+* [CentOS](/docs/getting-started-guides/centos/centos_manual_config)
+* [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
+* [Manually Deploying Kubernetes on Ubuntu Nodes](/docs/getting-started-guides/ubuntu/manual)
+* [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos)
 
-#### Integrations
+## Integrations
 
-These solutions provide integration with 3rd party schedulers, resource managers, and/or lower level platforms.
+These solutions provide integration with third-party schedulers, resource managers, and/or lower level platforms.
 
-- [Kubernetes on Mesos](/docs/getting-started-guides/mesos)
-  - Instructions specify GCE, but are generic enough to be adapted to most existing Mesos clusters
-- [Kubernetes on DCOS](/docs/getting-started-guides/dcos)
-  - Community Edition DCOS uses AWS
-  - Enterprise Edition DCOS supports cloud hosting, on-premise VMs, and bare metal
+* [Kubernetes on Mesos](/docs/getting-started-guides/mesos)
+  * Instructions specify GCE, but are generic enough to be adapted to most existing Mesos clusters
+* [DCOS](/docs/getting-started-guides/dcos)
+  * Community Edition DCOS uses AWS
+  * Enterprise Edition DCOS supports cloud hosting, on-premise VMs, and bare metal
 
-## Table of Solutions
+# Table of Solutions
 
-Here are all the solutions mentioned above in table form.
+Below is a table of all of the solutions listed above.
 
-IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Support Level
+IaaS Provider        | Config. Mgmt. | OS     | Networking  | Docs                                              | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
 any                  | any          | multi-support | any CNI | [docs](https://kubernetes.io/docs/getting-started-guides/kubeadm/) | Project ([SIG-cluster-lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle))
 GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | Commercial
-Stackpoint.io        |              | multi-support       | multi-support   | [docs](http://www.stackpointcloud.com) | Commercial
+Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
 KCluster.io          |              | multi-support | multi-support | [docs](https://kcluster.io) | Commercial
 KUBE2GO.io          |              | multi-support | multi-support | [docs](https://kube2go.io) | Commercial
 Madcore.Ai           | Jenkins DSL  | Ubuntu | flannel     | [docs](https://madcore.ai)                        | Community ([@madcore-ai](https://github.com/madcore-ai))
-Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/products/kubernetes/) | Commercial
+Platform9        |              | multi-support | multi-support | [docs](https://platform9.com/managed-kubernetes/) | Commercial
+Giant Swarm        |              | CoreOS | flannel and/or Calico | [docs](https://docs.giantswarm.io/) | Commercial
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/getting-started-guides/gce)                                    | Project
 Azure Container Service |              | Ubuntu | Azure       | [docs](https://azure.microsoft.com/en-us/services/container-service/)                    |  Commercial
 Azure (IaaS)    |              | Ubuntu | Azure       | [docs](/docs/getting-started-guides/azure)                    |  [Community (Microsoft)](https://github.com/Azure/acs-engine)
@@ -189,26 +185,27 @@ oVirt                |              |        |             | [docs](/docs/gettin
 OpenStack Heat       | Saltstack    | CentOS | Neutron + flannel hostgw | [docs](/docs/getting-started-guides/openstack-heat)            |  Community ([@FujitsuEnablingSoftwareTechnologyGmbH](https://github.com/FujitsuEnablingSoftwareTechnologyGmbH))
 Rackspace            | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/rackspace)                              |  Community ([@doublerr](https://github.com/doublerr))
 any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch)                                |  Community ([@erictune](https://github.com/erictune))
+any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
 
-*Note*: The above table is ordered by version test/used in notes followed by support level.
+**Note**: The above table is ordered by version test/used in nodes, followed by support level.
 
-Definition of columns
+## Definition of columns
 
-- **IaaS Provider** is who/what provides the virtual or physical machines (nodes) that Kubernetes runs on.
-- **OS** is the base operating system of the nodes.
-- **Config. Mgmt** is the configuration management system that helps install and maintain Kubernetes software on the
+* **IaaS Provider** is the product or organization which provides the virtual or physical machines (nodes) that Kubernetes runs on.
+* **OS** is the base operating system of the nodes.
+* **Config. Mgmt.** is the configuration management system that helps install and maintain Kubernetes on the
   nodes.
-- **Networking** is what implements the [networking model](/docs/admin/networking).  Those with networking type
-  _none_ may not support more than one node, or may support multiple VM nodes only in the same physical node.
-- **Conformance** indicates whether a cluster created with this configuration has passed the project's conformance
+* **Networking** is what implements the [networking model](/docs/concepts/cluster-administration/networking/). Those with networking type
+  _none_ may not support more than a single node, or may support multiple VM nodes in a single physical node.
+* **Conformance** indicates whether a cluster created with this configuration has passed the project's conformance
   tests for supporting the API and base features of Kubernetes v1.0.0.
-- Support Levels
-  - **Project**:  Kubernetes Committers regularly use this configuration, so it usually works with the latest release
+* **Support Levels**
+  * **Project**: Kubernetes committers regularly use this configuration, so it usually works with the latest release
     of Kubernetes.
-  - **Commercial**: A commercial offering with its own support arrangements.
-  - **Community**: Actively supported by community contributions. May not work with more recent releases of Kubernetes.
-  - **Inactive**: No active maintainer.  Not recommended for first-time Kubernetes users, and may be deleted soon.
-- **Notes** is relevant information such as the version of Kubernetes used.
+  * **Commercial**: A commercial offering with its own support arrangements.
+  * **Community**: Actively supported by community contributions. May not work with recent releases of Kubernetes.
+  * **Inactive**: Not actively maintained. Not recommended for first-time Kubernetes users, and may be removed.
+* **Notes** has other relevant information, such as the version of Kubernetes used.
 
 
 <!-- reference style links below here -->

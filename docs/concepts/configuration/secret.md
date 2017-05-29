@@ -486,7 +486,7 @@ invalid keys that were skipped. The example shows a pod which refers to the
 default/mysecret ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
 
 ```shell
-$ kubectl.sh get events
+$ kubectl get events
 LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
 0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
 ```
@@ -805,6 +805,10 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
    - Administrators should limit access to etcd to admin users
    - Secret data in the API server is at rest on the disk that etcd uses; admins may want to wipe/shred disks
      used by etcd when no longer in use
+ - If you configure the secret through a manifest (JSON or YAML) file which has
+   the secret data encoded as base64, sharing this file or checking it in to a
+   source repository means the secret is compromised. Base64 encoding is not an
+   encryption method and is considered the same as plain text.
  - Applications still need to protect the value of secret after reading it from the volume,
    such as not accidentally logging it or transmitting it to an untrusted party.
  - A user who can create a pod that uses a secret can also see the value of that secret.  Even

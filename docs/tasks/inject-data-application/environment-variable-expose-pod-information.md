@@ -3,6 +3,8 @@ title: Exposing Pod Information to Containers Through Environment Variables
 redirect_from:
 - "/docs/user-guide/environment-guide/"
 - "/docs/user-guide/environment-guide/index.html"
+- "/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/"
+- "/docs/tasks/configure-pod-container/environment-variable-expose-pod-information.html"
 ---
 
 {% capture overview %}
@@ -45,7 +47,7 @@ Together, these two ways of exposing Pod and Container fields are called the
 In this exercise, you create a Pod that has one Container. Here is the
 configuration file for the Pod:
 
-{% include code.html language="yaml" file="dapi-envars-pod.yaml" ghlink="/docs/tasks/configure-pod-container/dapi-envars-pod.yaml" %}
+{% include code.html language="yaml" file="dapi-envars-pod.yaml" ghlink="/docs/tasks/inject-data-application/dapi-envars-pod.yaml" %}
 
 In the configuration file, you can see five environment variables. The `env`
 field is an array of
@@ -60,7 +62,7 @@ Container in the Pod.
 Create the Pod:
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/dapi-envars-pod.yaml
+kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-envars-pod.yaml
 ```
 
 Verify that the Container in the Pod is running:
@@ -122,7 +124,7 @@ variables. In this next exercise, you use Container fields as the values for
 environment variables. Here is the configuration file for a Pod that has one
 container:
 
-{% include code.html language="yaml" file="dapi-envars-container.yaml" ghlink="/docs/tasks/configure-pod-container/dapi-envars-container.yaml" %}
+{% include code.html language="yaml" file="dapi-envars-container.yaml" ghlink="/docs/tasks/inject-data-application/dapi-envars-container.yaml" %}
 
 In the configuration file, you can see four environment variables. The `env`
 field is an array of
@@ -135,7 +137,7 @@ from Container fields.
 Create the Pod:
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/dapi-envars-container.yaml
+kubectl create -f https://k8s.io/docs/tasks/inject-data-application/dapi-envars-container.yaml
 ```
 
 Verify that the Container in the Pod is running:

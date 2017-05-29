@@ -209,7 +209,7 @@ least 2 Pods were available and at most 4 Pods were created at all times. It the
 the new and the old ReplicaSet, with the same rolling update strategy. Finally, we'll have 3 available replicas
 in the new ReplicaSet, and the old ReplicaSet is scaled down to 0.
 
-### Rollover (multiple rollouts in-flight)
+### Rollover (aka multiple updates in-flight)
 
 Each time a new deployment object is observed by the deployment controller, a ReplicaSet is created to bring up
 the desired Pods if there is no existing ReplicaSet doing so. Existing ReplicaSet controlling Pods whose labels
@@ -227,11 +227,26 @@ killing the 3 `nginx:1.7.9` Pods that it had created, and will start creating
 `nginx:1.9.1` Pods. It will not wait for 5 replicas of `nginx:1.7.9` to be created
 before changing course.
 
+### Label selector updates
+
+It is generally discouraged to make label selector updates and it is suggested to plan your selectors up front.
+In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
+all of the implications.
+
+* Selector additions require the pod template labels in the Deployment spec to be updated with the new label, too,
+otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
+not select ReplicaSets and Pods created with the old selector, resulting in orphaning all old ReplicaSets and
+creating a new ReplicaSet.
+* Selector updates, i.e., changing the existing value in a selector key, result in the same behavior as additions.
+* Selector removals, i.e., removing an existing key from the Deployment selector, do not require any changes in the
+pod template labels, no existing ReplicaSet is orphaned, and a new ReplicaSet will not be created, but note that the
+removed label will still exist in any existing Pods and ReplicaSets.
+
 ## Rolling Back a Deployment
 
 Sometimes you may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping.
 By default, all of the Deployment's rollout history is kept in the system so that you can rollback anytime you want
-(you can change that by modifying [revision history limit](/docs/user-guide/deployments/#revision-history-limit)).
+(you can change that by modifyingrevision history limit]).
 
 **Note:** a Deployment's revision is created when a Deployment's rollout is triggered. This means that the
 new revision is created if and only if the Deployment's pod template (i.e. `.spec.template`) is changed,
@@ -484,7 +499,7 @@ For example, with a Deployment that was just created:
 $ kubectl get deploy
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx     3         3         3            3           1m
-[mkargaki@dhcp129-211 kubernetes]$ kubectl get rs
+$ kubectl get rs
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   3         3         3         1m
 ```
@@ -526,7 +541,7 @@ Eventually, resume the Deployment and observe a new ReplicaSet coming up with al
 ```shell
 $ kubectl rollout resume deploy nginx
 deployment "nginx" resumed
-$ KUBECTL get rs -w
+$ kubectl get rs -w
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   2         2         2         2m
 nginx-3926361531   2         2         0         6s
@@ -543,7 +558,7 @@ nginx-2142116321   0         1         1         2m
 nginx-2142116321   0         0         0         2m
 nginx-3926361531   3         3         3         20s
 ^C
-$ KUBECTL get rs
+$ kubectl get rs
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   0         0         0         2m
 nginx-3926361531   3         3         3         28s

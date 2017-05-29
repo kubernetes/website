@@ -7,31 +7,33 @@ redirect_from:
 - "/docs/whatisk8s/"
 - "/docs/whatisk8s.html"
 ---
+{% capture overview %}
+This page is an overview of Kubernetes.
+{% endcapture %}
 
+{% capture body %}
 Kubernetes is an [open-source platform for automating deployment, scaling, and operations of application containers](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) across clusters of hosts, providing container-centric infrastructure.
 
 With Kubernetes, you are able to quickly and efficiently respond to customer demand:
 
  - Deploy your applications quickly and predictably.
  - Scale your applications on the fly.
- - Seamlessly roll out new features.
- - Optimize use of your hardware by using only the resources you need.
+ - Roll out new features seamlessly.
+ - Limit hardware usage to required resources only. 
 
 Our goal is to foster an ecosystem of components and tools that relieve the burden of running applications in public and private clouds.
 
 #### Kubernetes is:
 
-* **portable**: public, private, hybrid, multi-cloud
-* **extensible**: modular, pluggable, hookable, composable
-* **self-healing**: auto-placement, auto-restart, auto-replication, auto-scaling
+* **Portable**: public, private, hybrid, multi-cloud
+* **Extensible**: modular, pluggable, hookable, composable
+* **Self-healing**: auto-placement, auto-restart, auto-replication, auto-scaling
 
-The Kubernetes project was started by Google in 2014. Kubernetes builds upon a [decade and a half of experience that Google has with running production workloads at scale](https://research.google.com/pubs/pub43438.html), combined with best-of-breed ideas and practices from the community.
-
-##### Ready to [Get Started](/docs/getting-started-guides/)?
+Google started the Kubernetes project in 2014. Kubernetes builds upon a [decade and a half of experience that Google has with running production workloads at scale](https://research.google.com/pubs/pub43438.html), combined with best-of-breed ideas and practices from the community.
 
 ## Why containers?
 
-Looking for reasons why you should be using [containers](http://aucouranton.com/2014/06/13/linux-containers-parallels-lxc-openvz-docker-and-more/)?
+Looking for reasons why you should be using [containers](https://aucouranton.com/2014/06/13/linux-containers-parallels-lxc-openvz-docker-and-more/)?
 
 ![Why Containers?](/images/docs/why_containers.svg)
 
@@ -56,7 +58,7 @@ Summary of container benefits:
     Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Container Engine, and anywhere else.
 * **Application-centric management**:
     Raises the level of abstraction from running an OS on virtual hardware to run an application on an OS using logical resources.
-* **Loosely coupled, distributed, elastic, liberated [micro-services](http://martinfowler.com/articles/microservices.html)**:
+* **Loosely coupled, distributed, elastic, liberated [micro-services](https://martinfowler.com/articles/microservices.html)**:
     Applications are broken into smaller, independent pieces and can be deployed and managed dynamically -- not a fat monolithic stack running on one big single-purpose machine.
 * **Resource isolation**:
     Predictable application performance.
@@ -69,52 +71,60 @@ At a minimum, Kubernetes can schedule and run application containers on clusters
 
 Kubernetes satisfies a number of common needs of applications running in production, such as:
 
-* [co-locating helper processes](/docs/concepts/workloads/pods/pod/), facilitating composite applications and preserving the one-application-per-container model,
-* [mounting storage systems](/docs/concepts/storage/volumes/),
-* [distributing secrets](/docs/concepts/configuration/secret/),
-* [application health checking](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks),
-* [replicating application instances](/docs/concepts/workloads/controllers/replicationcontroller/),
-* [horizontal auto-scaling](/docs/tasks/run-application/horizontal-pod-autoscale/),
-* [naming and discovery](/docs/concepts/services-networking/connect-applications-service/),
-* [load balancing](/docs/concepts/services-networking/service/),
-* [rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/),
-* [resource monitoring](/docs/concepts/cluster-administration/resource-usage-monitoring/),
-* [log access and ingestion](/docs/concepts/cluster-administration/logging/),
-* [support for introspection and debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/), and
-* [identity and authorization](/docs/admin/authorization/).
+* [Co-locating helper processes](/docs/concepts/workloads/pods/pod/), facilitating composite applications and preserving the one-application-per-container model
+* [Mounting storage systems](/docs/concepts/storage/volumes/)
+* [Distributing secrets](/docs/concepts/configuration/secret/)
+* [Checking application health](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
+* [Replicating application instances](/docs/concepts/workloads/controllers/replicationcontroller/)
+* [Using Horizontal Pod Autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale/)
+* [Naming and discovering](/docs/concepts/services-networking/connect-applications-service/)
+* [Balancing loads](/docs/concepts/services-networking/service/)
+* [Rolling updates](/docs/tasks/run-application/rolling-update-replication-controller/)
+* [Monitoring resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+* [Accessing and ingesting logs](/docs/concepts/cluster-administration/logging/)
+* [Debugging applications](/docs/tasks/debug-application-cluster/debug-application-introspection/)
+* [Providing authentication and authorization](/docs/admin/authorization/)
 
 This provides the simplicity of Platform as a Service (PaaS) with the flexibility of Infrastructure as a Service (IaaS), and facilitates portability across infrastructure providers.
 
-For more details, see the [user guide](/docs/user-guide/).
-
-#### Why and how is Kubernetes a platform?
+#### How is Kubernetes a platform?
 
 Even though Kubernetes provides a lot of functionality, there are always new scenarios that would benefit from new features. Application-specific workflows can be streamlined to accelerate developer velocity. Ad hoc orchestration that is acceptable initially often requires robust automation at scale. This is why Kubernetes was also designed to serve as a platform for building an ecosystem of components and tools to make it easier to deploy, scale, and manage applications.
 
-[Labels](/docs/user-guide/labels/) empower users to organize their resources however they please. [Annotations](/docs/concepts/overview/working-with-objects/annotations/) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
+[Labels](/docs/concepts/overview/working-with-objects/labels/) empower users to organize their resources however they please. [Annotations](/docs/concepts/overview/working-with-objects/annotations/) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
 
-Additionally, the [Kubernetes control plane](/docs/admin/cluster-components) is built upon the same [APIs](/docs/api/) that are available to developers and users. Users can write their own controllers, [schedulers](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/scheduler.md), etc., if they choose, with [their own APIs](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
+Additionally, the [Kubernetes control plane](/docs/concepts/overview/components/) is built upon the same [APIs](/docs/reference/api-overview/) that are available to developers and users. Users can write their own controllers, such as [schedulers](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/scheduler.md), with [their own APIs](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
 
 This [design](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/principles.md) has enabled a number of other systems to build atop Kubernetes.
 
-#### Kubernetes is not:
+#### What Kubernetes is not
 
-Kubernetes is not a traditional, all-inclusive PaaS (Platform as a Service) system. We preserve user choice where it is important.
+Kubernetes is not a traditional, all-inclusive PaaS (Platform as a Service) system. It preserves user choice where it is important.
 
-* Kubernetes does not limit the types of applications supported. It does not dictate application frameworks (e.g., [Wildfly](http://wildfly.org/)), restrict the set of supported language runtimes (e.g., Java, Python, Ruby), cater to only [12-factor applications](http://12factor.net/), nor distinguish "apps" from "services". Kubernetes aims to support an extremely diverse variety of workloads, including stateless, stateful, and data-processing workloads. If an application can run in a container, it should run great on Kubernetes.
-* Kubernetes does not provide middleware (e.g., message buses), data-processing frameworks (e.g., Spark), databases (e.g., mysql), nor cluster storage systems (e.g., Ceph) as built-in services. Such applications run on Kubernetes.
-* Kubernetes does not have a click-to-deploy service marketplace.
-* Kubernetes is unopinionated in the source-to-image space. It does not deploy source code and does not build your application. Continuous Integration (CI) workflow is an area where different users and projects have their own requirements and preferences, so we support layering CI workflows on Kubernetes but don't dictate how it should work.
-* Kubernetes allows users to choose the logging, monitoring, and alerting systems of their choice. (Though we do provide some integrations as proof of concept.)
-* Kubernetes does not provide nor mandate a comprehensive application configuration language/system (e.g., [jsonnet](https://github.com/google/jsonnet)).
-* Kubernetes does not provide nor adopt any comprehensive machine configuration, maintenance, management, or self-healing systems.
+Kubernetes:
 
-On the other hand, a number of PaaS systems run *on* Kubernetes, such as [Openshift](https://www.openshift.org/), [Deis](http://deis.io/), and [Eldarion](http://eldarion.cloud/). You could also roll your own custom PaaS, integrate with a CI system of your choice, or get along just fine with just Kubernetes: bring your container images and deploy them on Kubernetes.
+* Does not limit the types of applications supported. It does not dictate application frameworks (e.g., [Wildfly](http://wildfly.org/)), restrict the set of supported language runtimes (for example, Java, Python, Ruby), cater to only [12-factor applications](https://12factor.net/), nor distinguish *apps* from *services*. Kubernetes aims to support an extremely diverse variety of workloads, including stateless, stateful, and data-processing workloads. If an application can run in a container, it should run great on Kubernetes.
+* Does not provide middleware (e.g., message buses), data-processing frameworks (for example, Spark), databases (e.g., mysql), nor cluster storage systems (e.g., Ceph) as built-in services. Such applications run on Kubernetes.
+* Does not have a click-to-deploy service marketplace.
+* Does not deploy source code and does not build your application. Continuous Integration (CI) workflow is an area where different users and projects have their own requirements and preferences, so it supports layering CI workflows on Kubernetes but doesn't dictate how layering should work.
+* Allows users to choose their logging, monitoring, and alerting systems. (It provides some integrations as proof of concept.)
+* Does not provide nor mandate a comprehensive application configuration language/system (for example, [jsonnet](https://github.com/google/jsonnet)).
+* Does not provide nor adopt any comprehensive machine configuration, maintenance, management, or self-healing systems.
 
-Since Kubernetes operates at the application level rather than at just the hardware level, it provides some generally applicable features common to PaaS offerings, such as deployment, scaling, load balancing, logging, monitoring, etc. However, Kubernetes is not monolithic, and these default solutions are optional and pluggable.
+On the other hand, a number of PaaS systems run *on* Kubernetes, such as [Openshift](https://www.openshift.org/), [Deis](http://deis.io/), and [Eldarion](http://eldarion.cloud/). You can also roll your own custom PaaS, integrate with a CI system of your choice, or use only Kubernetes by deploying your container images on Kubernetes.
 
-Additionally, Kubernetes is not a mere "orchestration system"; it eliminates the need for orchestration. The technical definition of "orchestration" is execution of a defined workflow: do A, then B, then C. In contrast, Kubernetes is comprised of a set of independent, composable control processes that continuously drive current state towards the provided desired state. It shouldn't matter how you get from A to C: make it so. Centralized control is also not required; the approach is more akin to "choreography". This results in a system that is easier to use and more powerful, robust, resilient, and extensible.
+Since Kubernetes operates at the application level rather than at the hardware level, it provides some generally applicable features common to PaaS offerings, such as deployment, scaling, load balancing, logging, and monitoring. However, Kubernetes is not monolithic, and these default solutions are optional and pluggable.
+
+Additionally, Kubernetes is not a mere *orchestration system*. In fact, it eliminates the need for orchestration. The technical definition of *orchestration* is execution of a defined workflow: first do A, then B, then C. In contrast, Kubernetes is comprised of a set of independent, composable control processes that continuously drive the current state towards the provided desired state. It shouldn't matter how you get from A to C. Centralized control is also not required; the approach is more akin to *choreography*. This results in a system that is easier to use and more powerful, robust, resilient, and extensible.
 
 #### What does *Kubernetes* mean? K8s?
 
-The name **Kubernetes** originates from Greek, meaning "helmsman" or "pilot", and is the root of "governor" and ["cybernetic"](http://www.etymonline.com/index.php?term=cybernetics). **K8s** is an abbreviation derived by replacing the 8 letters "ubernete" with 8.
+The name **Kubernetes** originates from Greek, meaning *helmsman* or *pilot*, and is the root of *governor* and [cybernetic](http://www.etymonline.com/index.php?term=cybernetics). *K8s* is an abbreviation derived by replacing the 8 letters "ubernete" with "8".
+{% endcapture %}
+
+{% capture whatsnext %}
+*   Ready to [Get Started](/docs/getting-started-guides/)?
+*   For more details, see the [Kubernetes Documentation](/docs/user-guide/).
+{% endcapture %}
+{% include templates/concept.md %}
+

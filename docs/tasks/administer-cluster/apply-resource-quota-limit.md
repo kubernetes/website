@@ -66,7 +66,7 @@ The cluster-admin wants to control the following resources:
 Let's create a simple quota that controls object counts for those resource types in this namespace.
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/rq-object-counts.yaml --namespace=quota-example
+$ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/rq-object-counts.yaml --namespace=quota-example
 resourcequota "object-counts" created
 ```
 
@@ -95,7 +95,7 @@ To limit the amount of compute resource that can be consumed in this namespace,
 let's create a quota that tracks compute resources.
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/rq-compute-resources.yaml --namespace=quota-example
+$ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/rq-compute-resources.yaml --namespace=quota-example
 resourcequota "compute-resources" created
 ```
 
@@ -183,7 +183,7 @@ do not specify `requests` or `limits` for `cpu` and `memory`.
 So let's set some default values for the amount of `cpu` and `memory` a pod can consume:
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/rq-limits.yaml --namespace=quota-example
+$ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/rq-limits.yaml --namespace=quota-example
 limitrange "limits" created
 $ kubectl describe limits limits --namespace=quota-example
 Name:           limits
@@ -258,9 +258,9 @@ Let's create a new namespace with two quotas to demonstrate this behavior:
 ```shell
 $ kubectl create namespace quota-scopes
 namespace "quota-scopes" created
-$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/rq-best-effort.yaml --namespace=quota-scopes
+$ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/rq-best-effort.yaml --namespace=quota-scopes
 resourcequota "best-effort" created
-$ kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/rq-not-best-effort.yaml --namespace=quota-scopes
+$ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/rq-not-best-effort.yaml --namespace=quota-scopes
 resourcequota "not-best-effort" created
 $ kubectl describe quota --namespace=quota-scopes
 Name:       best-effort

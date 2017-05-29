@@ -63,7 +63,7 @@ code. After 30 seconds, `cat /tmp/healthy` returns a failure code.
 Create the Pod:
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/exec-liveness.yaml
+kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/exec-liveness.yaml
 ```
 
 Within 30 seconds, view the Pod events:
@@ -154,6 +154,7 @@ http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
         w.WriteHeader(200)
         w.Write([]byte("ok"))
     }
+})
 ```
 
 The kubelet starts performing health checks 3 seconds after the Container starts.
@@ -163,7 +164,7 @@ checks will fail, and the kubelet will kill and restart the Container.
 To try the HTTP liveness check, create a Pod:
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/http-liveness.yaml
+kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/http-liveness.yaml
 ```
 
 After 10 seconds, view Pod events to verify that liveness probes have failed and

@@ -58,7 +58,7 @@ life.
 
 ```shell
 $ kubectl get pods --namespace=kube-system
-NAME                                           READY     REASON    RESTARTS   AGE
+NAME                                           READY     STATUS    RESTARTS   AGE
 elasticsearch-logging-v1-78nog                 1/1       Running   0          2h
 elasticsearch-logging-v1-nj2nb                 1/1       Running   0          2h
 fluentd-elasticsearch-kubernetes-node-5oq0     1/1       Running   0          2h

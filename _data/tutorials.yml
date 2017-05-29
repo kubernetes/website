@@ -32,6 +32,9 @@ toc:
 - title: Online Training Course
   path: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
 - docs/tutorials/stateless-application/hello-minikube.md
+- title: Configuration
+  section:
+  - docs/tutorials/configuration/configure-redis-using-configmap.md
 - title: Object Management Using kubectl
   section:
   - docs/tutorials/object-management-kubectl/object-management.md
@@ -51,7 +54,4 @@ toc:
 - title: Services
   section:
   - docs/tutorials/services/source-ip.md
-- title: Federated Cluster Administration
-  section:
-  - docs/tutorials/federation/set-up-cluster-federation-kubefed.md
-  - docs/tutorials/federation/set-up-coredns-provider-federation.md
+
