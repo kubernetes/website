@@ -63,8 +63,8 @@ By default, if a container restarts, the kubelet keeps one terminated container 
 
 An important consideration in node-level logging is implementing log rotation,
 so that logs don't consume all available storage on the node. Kubernetes
-in version less than or equal to 1.7 is not responsible for rotating logs,
-but rather a deployment tool should set up a solution to address that.
+currently is not responsible for rotating logs, but rather a deployment tool
+should set up a solution to address that.
 For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
 there is a [`logrotate`](http://www.linuxcommand.org/man_pages/logrotate8.html)
 tool configured to perform log rotations daily or once an application's log
