@@ -63,22 +63,24 @@ By default, if a container restarts, the kubelet keeps one terminated container 
 
 An important consideration in node-level logging is implementing log rotation,
 so that logs don't consume all available storage on the node. Kubernetes
-up to 1.7 is not responsible for rotating logs, deployment tool should set it
-up. For example, in Kubernetes clusters, deployed by `kube-up.sh` script,
-there is [`logrotate`](http://www.linuxcommand.org/man_pages/logrotate8.html)
-tool configured to perform log rotations daily or once application's log
-file grows beyond 10MB. You can also set up container runtime to rotate logs
-automatically, e.g. by using Docker's `log-opt` or by sending logs to the
-system that does this for you, e.g. journald. As an example, you can find
+in version less than or equal to 1.7 is not responsible for rotating logs,
+but rather a deployment tool should set up a solution to address that.
+For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
+there is a [`logrotate`](http://www.linuxcommand.org/man_pages/logrotate8.html)
+tool configured to perform log rotations daily or once an application's log
+file grows beyond 10MB. You can also set up a container runtime to rotate logs
+automatically, e.g. by using Docker's `log-opt`. As an example, you can find
 detailed information about how `kube-up.sh` sets up logging in the
 corresponding [script][cosConfigureHelper].
 
 When you run [`kubectl logs`](/docs/user-guide/kubectl/v1.6/#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file, returning the contents in the response.
-**Note:** if some external system has manipulated the log file, e.g.
-logrotate performed rotation, only the content of the original log file
-will be available through `kubectl logs`.
+**Note:** currently, if some external system has performed the rotation,
+only the contents of the latest log file will be available through
+`kubectl logs`. E.g. if there's a 10MB file, `logrotate` performs
+the rotation and there are two files, one 10MB in size and one empty,
+`kubectl logs` will return an empty response.
 
 [cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/cluster/gce/gci/configure-helper.sh#L96
 
@@ -98,9 +100,9 @@ logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
 
 Similarly to the container logs, system component logs in the `/var/log`
-directory should be rotated. In Kubernetes clusters brough up by
-`kube-up.sh` script, those logs are configured to be rotated by
-`logrotate` tool daily or once the size exceeds 100MB.
+directory should be rotated. In Kubernetes clusters brought up by
+the `kube-up.sh` script, those logs are configured to be rotated by
+the `logrotate` tool daily or once the size exceeds 100MB.
 
 [glog]: https://godoc.org/github.com/golang/glog
 
