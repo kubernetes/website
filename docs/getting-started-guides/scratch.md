@@ -167,6 +167,8 @@ You can use a Kubernetes binary release (recommended) or build your Kubernetes b
 [Developer Documentation](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/).  Only using a binary release is covered in this guide.
 
 Download the [latest binary release](https://github.com/kubernetes/kubernetes/releases/latest) and unzip it.
+As server binary tarballs are no longer included in the Kubernetes final tarball. You need to locate and run
+`./kubernetes/cluster/get-kube-binaries.sh` to download the client and server binaries.
 Then locate `./kubernetes/server/kubernetes-server-linux-amd64.tar.gz` and unzip *that*.
 Then, within the second set of unzipped files, locate `./kubernetes/server/bin`, which contains
 all the necessary binaries.
