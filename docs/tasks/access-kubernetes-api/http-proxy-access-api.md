@@ -1,5 +1,8 @@
 ---
 title: Using an HTTP Proxy to Access the Kubernetes API
+redirect_from:
+- "/docs/user-guide/connecting-to-applications-proxy/"
+- "/docs/user-guide/connecting-to-applications-proxy.html"
 ---
 
 {% capture overview %}
@@ -78,7 +81,7 @@ Get a list of pods:
 {% endcapture %}
 
 {% capture whatsnext %}
-Learn more about [kubectl proxy](/docs/user-guide/kubectl/kubectl_proxy).
+Learn more about [kubectl proxy](/docs/user-guide/kubectl/v1.6/#proxy).
 {% endcapture %}
 
 {% include templates/task.md %}

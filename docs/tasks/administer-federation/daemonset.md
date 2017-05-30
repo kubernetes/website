@@ -1,35 +1,30 @@
 ---
 title: Federated DaemonSet
+redirect_from:
+- "/docs/user-guide/federation/daemonsets/"
+- "/docs/user-guide/federation/daemonsets.html"
 ---
 
+{% capture overview %}
 This guide explains how to use DaemonSets in a federation control plane.
 
-* TOC
-{:toc}
-
-## Prerequisites
-
-This guide assumes that you have a running Kubernetes Cluster
-Federation installation. If not, then head over to the
-[federation admin guide](/docs/admin/federation/) to learn how to
-bring up a cluster federation (or have your cluster administrator do
-this for you). 
-Other tutorials, such as Kelsey Hightower's 
-[Federated Kubernetes Tutorial](https://github.com/kelseyhightower/kubernetes-cluster-federation),
-might also help you create a Federated Kubernetes cluster.
-
-You should also have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and DaemonSets in particular.
-
-## Overview
-
-DaemonSets in federation control plane ("Federated Daemonsets" in
+DaemonSets in the federation control plane ("Federated Daemonsets" in
 this guide) are very similar to the traditional Kubernetes
-DaemonSets and provide the same functionality.
+[DaemonSets](/docs/concepts/workloads/controllers/daemonset/) and provide the same functionality.
 Creating them in the federation control plane ensures that they are synchronized
 across all the clusters in federation.
+{% endcapture %}
 
+{% capture prerequisites %}
+
+* {% include federated-task-tutorial-prereqs.md %}
+* You are also expected to have a basic
+[working knowledge of Kubernetes](/docs/setup/pick-right-solution/) in
+general and [DaemonSets](/docs/concepts/workloads/controllers/daemonset/) in particular.
+
+{% endcapture %}
+
+{% capture steps %}
 
 ## Creating a Federated Daemonset
 
@@ -48,7 +43,7 @@ request to the Federation apiserver instead of sending it to a Kubernetes
 cluster.
 
 Once a Federated Daemonset is created, the federation control plane will create
-a matching DaemonSet in all underlying Kubernetes clusters.
+a matching DaemonSet in all underlying Kubernetes clusters. 
 You can verify this by checking each of the underlying clusters, for example:
 
 ``` shell
@@ -57,8 +52,6 @@ kubectl --context=gce-asia-east1a get daemonset mydaemonset
 
 The above assumes that you have a context named 'gce-asia-east1a'
 configured in your client for your cluster in that zone.
-
-These DaemonSets in underlying clusters will match the Federated Daemonset.
 
 
 ## Updating a Federated Daemonset
@@ -81,3 +74,7 @@ For example, you can do that using kubectl by running:
 ```shell
 kubectl --context=federation-cluster delete daemonset mydaemonset
 ```
+
+{% endcapture %}
+
+{% include templates/task.md %}

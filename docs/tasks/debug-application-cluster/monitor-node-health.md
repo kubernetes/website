@@ -3,6 +3,9 @@ assignees:
 - Random-Liu
 - dchen1107
 title: Monitoring Node Health
+redirect_from:
+- "/docs/admin/node-problem/"
+- "/docs/admin/node-problem.html"
 ---
 
 * TOC
@@ -10,10 +13,10 @@ title: Monitoring Node Health
 
 ## Node Problem Detector
 
-*Node problem detector* is a [DaemonSet](/docs/admin/daemons/) monitoring the
+*Node problem detector* is a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) monitoring the
 node health. It collects node problems from various daemons and reports them
 to the apiserver as [NodeCondition](/docs/admin/node/#node-condition) and
-[Event](/docs/api-reference/v1/definitions/#_v1_event).
+[Event](/docs/api-reference/v1.6/#event-v1-core).
 
 It supports some known kernel issue detection now, and will detect more and
 more node problems over time.
@@ -120,7 +123,7 @@ Just create `node-problem-detector.yaml`, and put it under the addon pods direct
 The [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.1/config)
 is embedded when building the docker image of node problem detector.
 
-However, you can use [ConfigMap](/docs/user-guide/configmap/) to overwrite it
+However, you can use [ConfigMap](/docs/tasks/configure-pod-container/configmap/) to overwrite it
 following the steps:
 
 * **Step 1:** Change the config files in `config/`.

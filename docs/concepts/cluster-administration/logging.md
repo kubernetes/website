@@ -6,6 +6,9 @@ title: Logging and Monitoring Cluster Activity
 redirect_from:
 - "/docs/concepts/clusters/logging/"
 - "/docs/concepts/clusters/logging.html"
+redirect_from:
+- "/docs/user-guide/logging/overview/"
+- "/docs/user-guide/logging/overview.html"
 ---
 
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
@@ -32,7 +35,7 @@ a container that writes some text to standard output once per second.
 To run this pod, use the following command:
 
 ```shell
-$ kubectl create -f http://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
+$ kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/counter-pod.yaml
 pod "counter" created
 ```
 
@@ -46,7 +49,7 @@ $ kubectl logs counter
 ...
 ```
 
-You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/kubectl_logs/) for more details.
+You can use `kubectl logs` to retrieve logs from a previous instantiation of a container with `--previous` flag, in case the container has crashed. If your pod has multiple containers, you should specify which container's logs you want to access by appending a container name to the command. See the [`kubectl logs` documentation](/docs/user-guide/kubectl/v1.6/#logs) for more details.
 
 ## Logging at the node level
 
@@ -64,7 +67,7 @@ Kubernetes performs log rotation daily, or if the log file grows beyond 10MB in 
 
 The Kubernetes logging configuration differs depending on the node type. For example, you can find detailed information for GCI in the corresponding [configure helper](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/cluster/gce/gci/configure-helper.sh#L96).
 
-When you run [`kubectl logs`](/docs/user-guide/kubectl/kubectl_logs), as in the basic logging example, the kubelet on the node handles the request and reads directly from the log file, returning the contents in the response. Note that `kubectl logs` **only returns the last rotation**; you must manually extract prior rotations, if desired and cluster-level logging is not enabled.
+When you run [`kubectl logs`](/docs/user-guide/kubectl/v1.6/#logs), as in the basic logging example, the kubelet on the node handles the request and reads directly from the log file, returning the contents in the response. Note that `kubectl logs` **only returns the last rotation**; you must manually extract prior rotations, if desired and cluster-level logging is not enabled.
 
 ### System component logs
 
@@ -195,10 +198,10 @@ to significant resource consumption. Moreover, you won't be able to access
 those logs using `kubectl logs` command, because they are not controlled
 by the kubelet.
 
-As an example, you could use [Stackdriver](/docs/user-guide/logging/stackdriver/),
+As an example, you could use [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
 which uses fluentd as a logging agent. Here are two configuration files that
 you can use to implement this approach. The first file contains
-a [ConfigMap](/docs/user-guide/configmap/) to configure fluentd.
+a [ConfigMap](/docs/tasks/configure-pod-container/configmap/) to configure fluentd.
 
 {% include code.html language="yaml" file="fluentd-sidecar-config.yaml" ghlink="/docs/concepts/cluster-administration/fluentd-sidecar-config.yaml" %}
 

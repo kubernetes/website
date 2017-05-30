@@ -7,6 +7,10 @@ title: CentOS
 * TOC
 {:toc}
 
+## Warning
+
+This guide [has been deprecated](https://github.com/kubernetes/kubernetes.github.io/issues/1613). It was originally written for Kubernetes 1.1.0. Please check [the latest guide](/docs/getting-started-guides/kubeadm/).
+
 ## Prerequisites
 
 To configure Kubernetes with CentOS, you'll need a machine to act as a master, and one or more CentOS 7 hosts to act as cluster nodes.
@@ -216,15 +220,13 @@ kubectl config use-context default-context
 
 ```shell
 $ kubectl get nodes
-NAME                   LABELS            STATUS
-centos-minion-1        <none>            Ready
-centos-minion-2        <none>            Ready
-centos-minion-3        <none>            Ready
+NAME                   STATUS     AGE     VERSION
+centos-minion-1        Ready      3d      v1.6.0+fff5156
+centos-minion-2        Ready      3d      v1.6.0+fff5156   
+centos-minion-3        Ready      3d      v1.6.0+fff5156
 ```
 
 **The cluster should be running! Launch a test pod.**
-
-You should have a functional cluster, check out [101](/docs/user-guide/walkthrough/)!
 
 ## Support Level
 

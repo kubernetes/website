@@ -1,5 +1,8 @@
 ---
 title: Annotations
+redirect_from:
+- "/docs/user-guide/annotations/"
+- "/docs/user-guide/annotations.html"
 ---
 
 {% capture overview %}
@@ -47,7 +50,7 @@ Here are some examples of information that could be recorded in annotations:
 * Phone or pager numbers of persons responsible, or directory entries that
   specify where that information can be found, such as a team web site.
 
-Instead of using annotations, you could store this type of in information in an
+Instead of using annotations, you could store this type of information in an
 external database or directory, but that would make it much harder to produce
 shared client libraries and tools for deployment, management, introspection,
 and the like.

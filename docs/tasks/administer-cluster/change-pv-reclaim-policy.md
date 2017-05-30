@@ -67,14 +67,14 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn more about [PersistentVolumes](/docs/user-guide/persistent-volumes/).
+* Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Learn more about [PersistentVolumeClaims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims).
 
 ### Reference
 
-* [PersistentVolume](/docs/api-reference/v1/definitions/#_v1_persistentvolume)
-* [PersistentVolumeClaim](/docs/api-reference/v1/definitions/#_v1_persistentvolumeclaim)
-* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_persistentvolumespec).
+* [PersistentVolume](/docs/api-reference/v1.6/#persistentvolume-v1-core)
+* [PersistentVolumeClaim](/docs/api-reference/v1.6/#persistentvolumeclaim-v1-core)
+* See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](/docs/api-reference/v1.6/#persistentvolumeclaim-v1-core).
 {% endcapture %}
 
 {% include templates/task.md %}

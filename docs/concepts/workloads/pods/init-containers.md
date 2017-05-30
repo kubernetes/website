@@ -5,6 +5,8 @@ title: Init Containers
 redirect_from:
 - "/docs/concepts/abstractions/init-containers/"
 - "/docs/concepts/abstractions/init-containers.html"
+- "/docs/user-guide/pods/init-container/"
+- "/docs/user-guide/pods/init-container.html"
 ---
 
 {% capture overview %}
@@ -15,10 +17,9 @@ scripts not present in an app image.
 
 {:toc}
 
-{% include 1-5-beta.md %}
-
-**Once the feature exits beta, Init Containers will be specified in the PodSpec
-alongside the app `containers` array.**
+This feature has exited beta in 1.6. Init Containers can be specified in the PodSpec
+alongside the app `containers` array. The beta annotation value will still be respected
+and overrides the PodSpec field value.
 
 {% capture body %}
 ## Understanding Init Containers
@@ -35,7 +36,7 @@ Init Containers are exactly like regular Containers, except:
 If an Init Container fails for a Pod, Kubernetes restarts the Pod repeatedly until the Init
 Container succeeds. However, if the Pod has a `restartPolicy` of Never, it is not restarted.
 
-To specify a Container as an Init Container, add the `initContainers` field on the PodSpec as a JSON array of objects of type [v1.Container](http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_container) alongside the app `containers` array.
+To specify a Container as an Init Container, add the `initContainers` field on the PodSpec as a JSON array of objects of type [v1.Container](/docs/api-reference/v1.6/#container-v1-core) alongside the app `containers` array.
 The status of the init containers is returned in `status.initContainerStatuses`
 field as an array of the container statuses (similar to the `status.containerStatuses`
 field).
@@ -96,9 +97,9 @@ and the [Production Pods guide](/docs/user-guide/production-pods.md#handling-ini
 
 ### Init Containers in use
 
-The following yaml file outlines a simple Pod which has two Init Containers.
+The following yaml file for Kubernetes 1.5 outlines a simple Pod which has two Init Containers.
 The first waits for `myservice` and the second waits for `mydb`. Once both
-containers complete the Pod will begin.
+containers complete, the Pod will begin.
 
 ```yaml
 apiVersion: v1
@@ -127,6 +128,55 @@ spec:
     command: ['sh', '-c', 'echo The app is running! && sleep 3600']
 ```
 
+There is a new syntax in Kubernetes 1.6, although the old annotation syntax still works. We have moved the declaration of init containers to `spec`:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox
+    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+  initContainers:
+  - name: init-myservice
+    image: busybox
+    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+  - name: init-mydb
+    image: busybox
+    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+```
+
+1.5 syntax still works on 1.6, but we recommend using 1.6 syntax. In Kubernetes 1.6, Init Containers were made a field in the API. The beta annotation is still respected but will be deprecated in future releases.
+
+Yaml file below outlines the `mydb` and `myservice` services:
+
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: myservice
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mydb
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9377
+```
+
 This Pod can be started and debugged with the following commands:
 
 ```
@@ -135,8 +185,7 @@ pod "myapp-pod" created
 $ kubectl get -f myapp.yaml
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
-$ kubectl describe -f myapp.yaml
-i11:32 $ kubectl describe -f examples/init-container.yaml 
+$ kubectl describe -f myapp.yaml 
 Name:          myapp-pod
 Namespace:     default
 [...]
@@ -168,10 +217,10 @@ Events:
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created        Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started        Started container with docker id 5ced34a04634
 $ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
-$ kubectl logs myapp-pod -c init-mydd      # Inspect the second init container
+$ kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
-Once we start the `mydb` and `myservice` Services we can see the Init Containers
+Once we start the `mydb` and `myservice` services, we can see the Init Containers
 complete and the `myapp-pod` is created:
 
 ```

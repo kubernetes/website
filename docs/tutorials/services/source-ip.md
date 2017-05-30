@@ -59,10 +59,10 @@ a `proxyMode` endpoint:
 
 ```console
 $ kubectl get nodes
-NAME                           STATUS                     AGE
-kubernetes-minion-group-6jst   Ready                      2h
-kubernetes-minion-group-cx31   Ready                      2h
-kubernetes-minion-group-jj1t   Ready                      2h
+NAME                           STATUS     AGE     VERSION
+kubernetes-minion-group-6jst   Ready      2h      v1.6.0+fff5156
+kubernetes-minion-group-cx31   Ready      2h      v1.6.0+fff5156
+kubernetes-minion-group-jj1t   Ready      2h      v1.6.0+fff5156
 
 kubernetes-minion-group-6jst $ curl localhost:10249/proxyMode
 iptables
@@ -334,7 +334,7 @@ $ kubectl delete deployment source-ip-app
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn more about [connecting applications via services](/docs/user-guide/connecting-applications/)
+* Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
 * Learn more about [loadbalancing](/docs/user-guide/load-balancer)
 {% endcapture %}
 

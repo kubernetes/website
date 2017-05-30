@@ -1,46 +1,97 @@
 $( document ).ready(function() {
-    var oldURLs = ["/README.md","/README.html",".html",".md","/v1.1/","/v1.0/"];
-    var fwdDirs = ["examples/","cluster/","docs/devel","docs/design"];
     var doRedirect = false;
     var notHere = false;
     var forwardingURL = window.location.href;
 
-    var redirects = [{
-        "from": "resource-quota",
-        "to": "http://kubernetes.io/docs/admin/resourcequota/"
+    var oldURLs = ["/README.md","/README.html","/index.md",".html",".md","/v1.1/","/v1.0/"];
+
+    /* var:  forwardingRules
+     * type: array of objects
+     * example rule object:
+     * {
+     *   "from":    "/path/from/old/location", //search in incoming forwardingURL for this string
+     *   "pattern": "#([0-9a-zA-Z\-\_]+)",     //[optional] regex to parse out a token of digits, letters, hyphen, or underscore
+     *   "to":      "/path/to/new/location",   //base URL to forward to
+     *   "postfix": "/#<token>"                //[optional] append this to base URL w/ <token> found by "pattern"
+     * }
+     */
+    var forwardingRules = [{
+        "from":"/docs/api-reference/v1/definitions",
+        "pattern":"#_v1_(\\w+)",
+        "to":"/docs/api-reference/v1.6",
+        "postfix":"/#<token>-v1-core"
     },
     {
-        "from": "horizontal-pod-autoscaler",
-        "to": "http://kubernetes.io/docs/user-guide/horizontal-pod-autoscaling/"
+        "from":"/docs/user-guide/kubectl/kubectl_",
+        "pattern":"kubectl_(\\w+)",
+        "to":"/docs/user-guide/kubectl/v1.6",
+        "postfix":"/#<token>"
     },
     {
-        "from": "docs/roadmap",
-        "to": "https://github.com/kubernetes/kubernetes/milestones/"
+        "from":"/docs/contribute/",
+        "pattern":"\/contribute\/([0-9a-zA-Z\-\_]+)",
+        "to":"/docs/home/contribute",
+        "postfix":"/<token>"
     },
     {
-        "from": "api-ref/",
-        "to": "https://github.com/kubernetes/kubernetes/milestones/"
+        "from":"/resource-quota",
+        "pattern":"",
+        "to":"/docs/concepts/policy/resource-quotas/",
+        "postfix":""
     },
     {
-        "from": "docs/user-guide/overview",
-        "to": "http://kubernetes.io/docs/whatisk8s/"
+        "from":"/horizontal-pod-autoscaler",
+        "pattern":"",
+        "to":"/docs/tasks/run-application/horizontal-pod-autoscale/",
+        "postfix":""
+    },
+    {
+        "from":"/docs/roadmap",
+        "pattern":"",
+        "to":"https://github.com/kubernetes/kubernetes/milestones/",
+        "postfix":""
+    },
+    {
+        "from":"/api-ref/",
+        "pattern":"",
+        "to":"https://github.com/kubernetes/kubernetes/milestones/",
+        "postfix":""
+    },
+    {
+        "from":"/kubernetes/third_party/swagger-ui/",
+        "pattern":"",
+        "to":"/docs/reference",
+        "postfix":""
+    },
+    {
+        "from":"/docs/user-guide/overview",
+        "pattern":"",
+        "to":"/docs/concepts/overview/what-is-kubernetes/",
+        "postfix":""
+    },
+    {
+        "from": "/docs/admin/multiple-schedulers",
+        "to": "/docs/tutorials/clusters/multiple-schedulers/"
+    },
+    {
+        "from": "/docs/troubleshooting/",
+        "to": "/docs/tasks/debug-application-cluster/troubleshooting/"
     }];
 
-    for (var i = 0; i < redirects.length; i++) {
-        if (forwardingURL.indexOf(redirects[i].from) > -1){
-            notHere = true;
-            window.location.replace(redirects[i].to);
-        }
-    }
-
-    for (var i = 0; i < fwdDirs.length; i++) {
-        if (forwardingURL.indexOf(fwdDirs[i]) > -1){
-            var urlPieces = forwardingURL.split(fwdDirs[i]);
-            var newURL = "https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/" + fwdDirs[i] + urlPieces[1];
+    forwardingRules.forEach(function(rule) {
+        if (forwardingURL.indexOf(rule.from) > -1) {
+            var newURL = rule.to;
+            var re = new RegExp(rule.pattern, 'g');
+            var matchary = re.exec(forwardingURL);
+            if (matchary !== null && rule.postfix) {
+                newURL += rule.postfix.replace("<token>", matchary[1]);
+            }
             notHere = true;
             window.location.replace(newURL);
         }
-    }
+
+    });
+
     if (!notHere) {
         for (var i = 0; i < oldURLs.length; i++) {
             if (forwardingURL.indexOf(oldURLs[i]) > -1 &&

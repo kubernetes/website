@@ -28,7 +28,7 @@ do not already have a single-node cluster, you can create one by using
 [Minikube](/docs/getting-started-guides/minikube).
 
 * Familiarize yourself with the material in
-[Persistent Volumes](/docs/user-guide/persistent-volumes/).
+[Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 
 {% endcapture %}
 
@@ -57,7 +57,7 @@ PersistentVolume uses a file or directory on the Node to emulate network-attache
 In a production cluster, you would not use hostPath. Instead a cluster administrator
 would provision a network resource like a Google Compute Engine persistent disk,
 an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
-use [StorageClasses](/docs/resources-reference/v1.5/#storageclass-v1beta1)
+use [StorageClasses](/docs/resources-reference/v1.6/#storageclass-v1-storage)
 to set up
 [dynamic provisioning](http://blog.kubernetes.io/2016/10/dynamic-provisioning-and-storage-in-kubernetes.html).
 
@@ -72,7 +72,7 @@ read-write by a single Node.
 
 Create the PersistentVolume:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/task-pv-volume.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-volume.yaml
 
 View information about the PersistentVolume:
 
@@ -98,7 +98,7 @@ Here is the configuration file for the PersistentVolumeClaim:
 
 Create the PersistentVolumeClaim:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/task-pv-claim.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-claim.yaml
 
 After you create the PersistentVolumeClaim, the Kubernetes control plane looks
 for a PersistentVolume that satisfies the claim's requirements. If the control
@@ -138,7 +138,7 @@ is a volume.
 
 Create the Pod:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/task-pv-pod.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/task-pv-pod.yaml
 
 Verify that the Container in the Pod is running;
 
@@ -196,15 +196,15 @@ PersistentVolume are not present on the Pod resource itself.
 
 {% capture whatsnext %}
 
-* Learn more about [PersistentVolumes](/docs/user-guide/persistent-volumes/).
+* Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Read the [Persistent Storage design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/persistent-storage.md).
 
 ### Reference
 
-* [PersistentVolume](/docs/resources-reference/v1.5/#persistentvolume-v1)
-* [PersistentVolumeSpec](/docs/resources-reference/v1.5/#persistentvolumespec-v1)
-* [PersistentVolumeClaim](/docs/resources-reference/v1.5/#persistentvolumeclaim-v1)
-* [PersistentVolumeClaimSpec](/docs/resources-reference/v1.5/#persistentvolumeclaimspec-v1)
+* [PersistentVolume](/docs/resources-reference/v1.6/#persistentvolume-v1-core)
+* [PersistentVolumeSpec](/docs/resources-reference/v1.6/#persistentvolumespec-v1-core)
+* [PersistentVolumeClaim](/docs/resources-reference/v1.6/#persistentvolumeclaim-v1-core)
+* [PersistentVolumeClaimSpec](/docs/resources-reference/v1.6/#persistentvolumeclaimspec-v1-core)
 
 {% endcapture %}
 

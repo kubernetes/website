@@ -5,20 +5,27 @@ assignees:
 - saad-ali
 - thockin
 title: Volumes
+redirect_from:
+- "/docs/user-guide/volumes/"
+- "/docs/user-guide/volumes.html"
 ---
+
+{% capture overview %}
 
 On-disk files in a container are ephemeral, which presents some problems for
 non-trivial applications when running in containers.  First, when a container
-crashes kubelet will restart it, but the files will be lost - the
+crashes, kubelet will restart it, but the files will be lost - the
 container starts with a clean state.  Second, when running containers together
 in a `Pod` it is often necessary to share files between those containers.  The
 Kubernetes `Volume` abstraction solves both of these problems.
 
 Familiarity with [pods](/docs/user-guide/pods) is suggested.
 
-* TOC
+{% endcapture %}
+
 {:toc}
 
+{% capture body %}
 
 ## Background
 
@@ -75,10 +82,12 @@ Kubernetes supports several types of Volumes:
    * `secret`
    * `persistentVolumeClaim`
    * `downwardAPI`
+   * `projected`
    * `azureFileVolume`
    * `azureDisk`
    * `vsphereVolume`
    * `Quobyte`
+   * `PortworxVolume`
    * `ScaleIO`
 
 We welcome additional contributions.
@@ -423,7 +432,7 @@ A `persistentVolumeClaim` volume is used to mount a
 way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 
-See the [PersistentVolumes example](/docs/user-guide/persistent-volumes/) for more
+See the [PersistentVolumes example](/docs/concepts/storage/persistent-volumes/) for more
 details.
 
 ### downwardAPI
@@ -431,7 +440,100 @@ details.
 A `downwardAPI` volume is used to make downward API data available to applications.
 It mounts a directory and writes the requested data in plain text files.
 
-See the [`downwardAPI` volume example](/docs/user-guide/downward-api/volume/)  for more details.
+See the [`downwardAPI` volume example](/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/)  for more details.
+
+### projected
+
+A `projected` volume maps several existing volume sources into the same directory.
+
+Currently, the following types of volume sources can be projected:
+
+- [`secret`](#secret)
+- [`downwardAPI`](#downardapi)
+- `configMap`
+
+All sources are required to be in the same namespace as the pod. For more details, see the [all-in-one volume design document](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/all-in-one-volume.md).
+
+#### Example pod with a secret, a downward API, and a configmap
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-test
+spec:
+  containers:
+  - name: container-test
+    image: busybox
+    volumeMounts:
+    - name: all-in-one
+      mountPath: "/projected-volume"
+      readOnly: true
+  volumes:
+  - name: all-in-one
+    projected:
+      sources:
+      - secret:
+          name: mysecret
+          items:
+            - key: username
+              path: my-group/my-username
+      - downwardAPI:
+          items:
+            - path: "labels"
+              fieldRef:
+                fieldPath: metadata.labels
+            - path: "cpu_limit"
+              resourceFieldRef:
+                containerName: container-test
+                resource: limits.cpu
+      - configMap:
+          name: myconfigmap
+          items:
+            - key: config
+              path: my-group/my-config
+```
+
+#### Example pod with multiple secrets with a non-default permission mode set
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-test
+spec:
+  containers:
+  - name: container-test
+    image: busybox
+    volumeMounts:
+    - name: all-in-one
+      mountPath: "/projected-volume"
+      readOnly: true
+  volumes:
+  - name: all-in-one
+    projected:
+      sources:
+      - secret:
+          name: mysecret
+          items:
+            - key: username
+              path: my-group/my-username
+      - secret:
+          name: mysecret2
+          items:
+            - key: password
+              path: my-group/my-password
+              mode: 511
+```
+
+Each projected volume source is listed in the spec under `sources`. The
+parameters are nearly the same with two exceptions:
+
+* For secrets, the `secretName` field has been changed to `name` to be consistent
+with config maps naming.
+* The `defaultMode` can only be specified at the projected level and not for each
+volume source. However, as illustrated above, you can explicitly set the `mode`
+for each individual projection.
 
 ### FlexVolume
 
@@ -456,7 +558,7 @@ More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{
 
 ### vsphereVolume
 
-__Prerequisite: Kubernetes with vSphere Cloud Provider configured. 
+__Prerequisite: Kubernetes with vSphere Cloud Provider configured.
 For cloudprovider configuration please refer [vSphere getting started guide](http://kubernetes.io/docs/getting-started-guides/vsphere/).__
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
@@ -467,7 +569,7 @@ __Important: You must create VMDK using one of the following method before using
 #### Creating a VMDK volume
 
 * Create using vmkfstools.
-   
+
    First ssh into ESX and then use following command to create vmdk,
 
 ```shell
@@ -512,10 +614,42 @@ before you can use it__
 
 See the [Quobyte example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/quobyte) for more details.
 
+### PortworxVolume
+A `PortworxVolume` is an elastic block storage layer that runs hyperconverged with Kubernetes. Portworx fingerprints storage in a
+server, tiers based on capabilities, and aggregates capacity across multiple servers. Portworx runs in-guest in  virtual machines or on bare metal
+Linux nodes.
+
+A `PortworxVolume` can be dynamically created through Kubernetes or it can also be pre-provisioned and referenced inside a Kubernetes pod.
+Here is an example pod referencing a pre-provisioned PortworxVolume:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-portworx-volume-pod
+spec:
+  containers:
+  - image: gcr.io/google_containers/test-webserver
+    name: test-container
+    volumeMounts:
+    - mountPath: /mnt
+      name: pxvol
+  volumes:
+  - name: pxvol
+    # This Portworx volume must already exist.
+    portworxVolume:
+      volumeID: "pxvol"
+      fsType: "<fs-type>"
+```
+
+__Important: Make sure you have an existing PortworxVolume with name `pxvol` before using it in the pod__
+
+More details and examples can be found [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/portworx/README.md)
+
 ### ScaleIO
-ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable 
-shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO 
-volumes (or it can dynamically provision new volumes for persistent volume claims, see 
+ScaleIO is a software-based storage platform that can use existing hardware to create clusters of scalable
+shared block networked storage.  The ScaleIO volume plugin allows deployed pods to access existing ScaleIO
+volumes (or it can dynamically provision new volumes for persistent volume claims, see
 [ScaleIO Persistent Volumes](/docs/user-guide/persistent-volumes/#scaleio)).
 
 __Important: You must have an existing ScaleIO cluster already setup and running with the volumes created
@@ -593,3 +727,7 @@ In the future, we expect that `emptyDir` and `hostPath` volumes will be able to
 request a certain amount of space using a [resource](/docs/user-guide/compute-resources)
 specification, and to select the type of media to use, for clusters that have
 several media types.
+
+{% endcapture %}
+
+{% include templates/concept.md %}

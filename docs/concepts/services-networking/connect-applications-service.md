@@ -4,6 +4,9 @@ assignees:
 - lavalamp
 - thockin
 title: Connecting Applications with Services
+redirect_from:
+- "/docs/user-guide/connecting-applications/"
+- "/docs/user-guide/connecting-applications.html"
 ---
 
 * TOC
@@ -64,7 +67,7 @@ This is equivalent to `kubectl create -f` the following yaml:
 
 {% include code.html language="yaml" file="nginx-svc.yaml" ghlink="/docs/concepts/services-networking/nginx-svc.yaml" %}
 
-This specification will create a Service which targets TCP port 80 on any Pod with the `run: my-nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](/docs/api-reference/v1/definitions/#_v1_service) to see the list of supported fields in service definition.
+This specification will create a Service which targets TCP port 80 on any Pod with the `run: my-nginx` label, and expose it on an abstracted Service port (`targetPort`: is the port the container accepts traffic on, `port`: is the abstracted Service port, which can be any port other pods use to access the Service). View [service API object](/docs/api-reference/v1.6/#service-v1-core) to see the list of supported fields in service definition.
 Check your Service:
 
 ```shell
@@ -116,9 +119,9 @@ Note there's no mention of your Service. This is because you created the replica
 $ kubectl scale deployment my-nginx --replicas=0; kubectl scale deployment my-nginx --replicas=2;
 
 $ kubectl get pods -l run=my-nginx -o wide
-NAME                        READY     STATUS    RESTARTS   AGE       NODE
-my-nginx-3800858182-e9ihh   1/1       Running   0          5s        kubernetes-minion-ljyd
-my-nginx-3800858182-j4rm4   1/1       Running   0          5s        kubernetes-minion-905m
+NAME                        READY     STATUS    RESTARTS   AGE     IP            NODE
+my-nginx-3800858182-e9ihh   1/1       Running   0          5s      10.244.2.7    kubernetes-minion-ljyd
+my-nginx-3800858182-j4rm4   1/1       Running   0          5s      10.244.3.8    kubernetes-minion-905m
 ```
 
 You may notice that the pods have different names, since they are killed and recreated.

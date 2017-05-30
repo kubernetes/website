@@ -3,6 +3,9 @@ assignees:
 - bprashanth
 - davidopp
 title: Configuring Your Cloud Provider's Firewalls
+redirect_from:
+- "/docs/user-guide/services-firewalls/"
+- "/docs/user-guide/services-firewalls.html"
 ---
 
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent
@@ -16,8 +19,8 @@ well as any provider specific details that may be necessary.
  by using `spec.loadBalancerSourceRanges`. This field takes a list of IP CIDR ranges, which Kubernetes will use to configure firewall exceptions.
  This feature is currently supported on Google Compute Engine, Google Container Engine and AWS. This field will be ignored if the cloud provider does not support the feature.
 
- Assuming 10.0.0.0/8 is the internal subnet. In the following example, a load blancer will be created that is only accessible to cluster internal ips. 
- This will not allow clients from outside of your Kubernetes cluster to access the load blancer.
+ Assuming 10.0.0.0/8 is the internal subnet. In the following example, a load balancer will be created that is only accessible to cluster internal ips.
+ This will not allow clients from outside of your Kubernetes cluster to access the load balancer.
 
 ```yaml
 apiVersion: v1
@@ -35,7 +38,7 @@ spec:
   - 10.0.0.0/8
 ```
 
- In the following example, a load blancer will be created that is only accessible to clients with IP addresses from 130.211.204.1 and 130.211.204.2.
+ In the following example, a load balancer will be created that is only accessible to clients with IP addresses from 130.211.204.1 and 130.211.204.2.
 
 ```yaml
 apiVersion: v1
