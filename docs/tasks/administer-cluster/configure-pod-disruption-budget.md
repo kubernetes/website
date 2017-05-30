@@ -43,6 +43,7 @@ disruption budget to be violated.
 ## Specifying a PodDisruptionBudget
 
 A `PodDisruptionBudget` has three components, of which two must be specified: 
+
 * A label selector `selector` to specify the set of
 pods to which it applies. This is a required field.
 * `minAvailable` which is a description of the number of pods from that
