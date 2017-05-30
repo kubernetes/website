@@ -823,7 +823,7 @@ the rolling update process.
 of Pods that can be unavailable during the update process. The value can be an absolute number (e.g. 5)
 or a percentage of desired Pods (e.g. 10%). The absolute number is calculated from percentage by
 rounding down. This can not be 0 if `.spec.strategy.rollingUpdate.maxSurge` is 0. By default, a
-value of 1 is used.
+value of 25% is used.
 
 For example, when this value is set to 30%, the old ReplicaSet can be scaled down to 70% of desired
 Pods immediately when the rolling update starts. Once new Pods are ready, old ReplicaSet can be scaled
@@ -835,7 +835,7 @@ at all times during the update is at least 70% of the desired Pods.
 `.spec.strategy.rollingUpdate.maxSurge` is an optional field that specifies the maximum number of Pods
 that can be created above the desired number of Pods. Value can be an absolute number (e.g. 5) or a
 percentage of desired Pods (e.g. 10%). This can not be 0 if `MaxUnavailable` is 0. The absolute number
-is calculated from percentage by rounding up. By default, a value of 1 is used.
+is calculated from percentage by rounding up. By default, a value of 25% is used.
 
 For example, when this value is set to 30%, the new ReplicaSet can be scaled up immediately when the
 rolling update starts, such that the total number of old and new Pods do not exceed 130% of desired
