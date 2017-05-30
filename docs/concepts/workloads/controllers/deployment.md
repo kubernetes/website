@@ -209,7 +209,7 @@ least 2 Pods were available and at most 4 Pods were created at all times. It the
 the new and the old ReplicaSet, with the same rolling update strategy. Finally, we'll have 3 available replicas
 in the new ReplicaSet, and the old ReplicaSet is scaled down to 0.
 
-### Rollover (multiple rollouts in-flight)
+### Rollover (aka multiple updates in-flight)
 
 Each time a new deployment object is observed by the deployment controller, a ReplicaSet is created to bring up
 the desired Pods if there is no existing ReplicaSet doing so. Existing ReplicaSet controlling Pods whose labels
@@ -226,6 +226,21 @@ replicas of `nginx:1.7.9` had been created. In that case, Deployment will immedi
 killing the 3 `nginx:1.7.9` Pods that it had created, and will start creating
 `nginx:1.9.1` Pods. It will not wait for 5 replicas of `nginx:1.7.9` to be created
 before changing course.
+
+### Label selector updates
+
+It is generally discouraged to make label selector updates and it is suggested to plan your selectors up front.
+In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
+all of the implications.
+
+* Selector additions require the pod template labels in the Deployment spec to be updated with the new label, too,
+otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
+not select ReplicaSets and Pods created with the old selector, resulting in orphaning all old ReplicaSets and
+creating a new ReplicaSet.
+* Selector updates, i.e., changing the existing value in a selector key, result in the same behavior as additions.
+* Selector removals, i.e., removing an existing key from the Deployment selector, do not require any changes in the
+pod template labels, no existing ReplicaSet is orphaned, and a new ReplicaSet will not be created, but note that the
+removed label will still exist in any existing Pods and ReplicaSets.
 
 ## Rolling Back a Deployment
 
@@ -807,7 +822,7 @@ the rolling update process.
 of Pods that can be unavailable during the update process. The value can be an absolute number (e.g. 5)
 or a percentage of desired Pods (e.g. 10%). The absolute number is calculated from percentage by
 rounding down. This can not be 0 if `.spec.strategy.rollingUpdate.maxSurge` is 0. By default, a
-value of 1 is used.
+value of 25% is used.
 
 For example, when this value is set to 30%, the old ReplicaSet can be scaled down to 70% of desired
 Pods immediately when the rolling update starts. Once new Pods are ready, old ReplicaSet can be scaled
@@ -819,7 +834,7 @@ at all times during the update is at least 70% of the desired Pods.
 `.spec.strategy.rollingUpdate.maxSurge` is an optional field that specifies the maximum number of Pods
 that can be created above the desired number of Pods. Value can be an absolute number (e.g. 5) or a
 percentage of desired Pods (e.g. 10%). This can not be 0 if `MaxUnavailable` is 0. The absolute number
-is calculated from percentage by rounding up. By default, a value of 1 is used.
+is calculated from percentage by rounding up. By default, a value of 25% is used.
 
 For example, when this value is set to 30%, the new ReplicaSet can be scaled up immediately when the
 rolling update starts, such that the total number of old and new Pods do not exceed 130% of desired
