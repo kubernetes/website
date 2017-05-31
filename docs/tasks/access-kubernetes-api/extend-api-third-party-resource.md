@@ -14,12 +14,23 @@ redirect_from:
 
 ## What is ThirdPartyResource?
 
-**WARNING: ThirdPartyResources are not yet considered stable, and the API and/or storage could change before GA.
-Development and outstanding issues are tracked at [https://github.com/kubernetes/features/issues/95](https://github.com/kubernetes/features/issues/95).**
+**WARNING: ThirdPartyResources will be removed in 1.8 without access to existing data!  See the section on migration to CustomResourceDefinitions.**
 
-Kubernetes comes with many built-in API objects. However, there are often times when you might need to extend Kubernetes with their own API objects in order to do custom automation.
+Kubernetes comes with many built-in API objects. However, there are often times when you might need to extend Kubernetes with your own API objects in order to do custom automation.
 
 `ThirdPartyResource` objects are a way to extend the Kubernetes API with a new API object type. The new API object type will be given an API endpoint URL and support CRUD operations, and watch API. You can then create custom objects using this API endpoint. You can think of `ThirdPartyResources` as being much like the schema for a database table. Once you have created the table, you can then start storing rows in the table. Once created, `ThirdPartyResources` can act as the data model behind custom controllers or automation programs.
+
+## Migration to CustomResourceDefinitions
+`ThirdPartyResources` are being replaced by `CustomResourceDefinitions`, so you must migrate your data from one to the other.
+In order to gather the necessary data, the types are not directly compatible so you'll need to perform some manual steps.
+You should do a dry-run of these steps in a non-production cluster to make sure things work as expected.
+ 1. Create a `CustomResourceDefinition` that has a spec matching your current `ThirdPartyResource`.
+ 2. Stop your ThirdPartyResource controllers.
+ 3. Backup your ThirdPartyResource *Data* (the custom objects you've created).
+ 4. Delete the `ThirdPartyResource`.  This will trigger migration to the `CustomResourceDefinition`
+ 5. Wait for the `ThirdPartyResource` to be removed.
+ 6. Confirm that your custom objects are still present.
+ 7. Restart your ThirdPartyResource controllers.
 
 ## Structure of a ThirdPartyResource
 
