@@ -43,25 +43,6 @@ Then include templates/task.md like this:
 title: Understanding this Thing
 ---
 
-{% capture overview %}
-This page explains ...
-{% endcapture %}
-
-{% capture body %}
-## Understanding ...
-
-Kubernetes provides ...
-
-## Using ...
-
-To use ...
-{% endcapture %}
-
-{% capture whatsnext %}
-* Learn more about [this](...).
-* See this [related task](...).
-{% endcapture %}
-
 {% include templates/concept.md %}</pre>
 {% endraw %}
 
