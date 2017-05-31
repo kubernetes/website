@@ -39,7 +39,7 @@ variables:</p>
 Then include templates/task.md like this:
 
 {% raw %}
-<pre>{% include templates/task.md %}</pre>
+{% include templates/task.md %}
 {% endraw %}
 
 <p>In the <code>steps</code> section, use <code>##</code> to start with a level-two heading. For subheadings,
