@@ -33,8 +33,8 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s htt
 # Windows
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/windows/amd64/kubectl.exe
 ```
-To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version. For example, to download version 1.4.6 on MacOS, type:
-`curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.4.6/bin/darwin/amd64/kubectl`
+To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version. For example, to download version {{page.fullversion}} on Windows, type:
+`curl -LO https://storage.googleapis.com/kubernetes-release/release/{{page.fullversion}}/bin/windows/amd64/kubectl.exe`
 
   2. Make the kubectl binary executable.
 ```shell
