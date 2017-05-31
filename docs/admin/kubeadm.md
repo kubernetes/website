@@ -390,7 +390,7 @@ If `KUBE_KUBERNETES_DIR` is specified, you may need to rewrite the arguments of 
 (e.g. --kubeconfig, --pod-manifest-path)
 
 If `KUBE_REPO_PREFIX` is specified, you may need to set the kubelet flag `--pod-infra-container-image` which specifies which pause image to use.
-Defaults to `gcr.io/google_containers/pause-${ARCH}:3.0` where `${ARCH}` can be one of `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`
+Defaults to `gcr.io/google_containers/pause-${ARCH}:3.0` where `${ARCH}` can be one of `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
 ```bash
 cat > /etc/systemd/system/kubelet.service.d/20-pod-infra-image.conf <<EOF
