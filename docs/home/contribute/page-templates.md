@@ -39,9 +39,9 @@ variables:</p>
 Then include templates/task.md like this:
 
 {% raw %}
-<pre>
-
-{% include templates/concept.md %}</pre>
+<pre>...
+{% include templates/concept.md %}
+</pre>
 {% endraw %}
 
 
