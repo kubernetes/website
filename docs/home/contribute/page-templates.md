@@ -39,9 +39,7 @@ variables:</p>
 Then include templates/task.md like this:
 
 {% raw %}
-<pre>---
-title: Understanding this Thing
----
+<pre>
 
 {% include templates/concept.md %}</pre>
 {% endraw %}
