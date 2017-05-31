@@ -38,17 +38,8 @@ variables:</p>
 
 Then include templates/task.md like this:
 
-{% raw %}
-<pre>...
-{% include templates/concept.md %}
-</pre>
-{% endraw %}
-
-
-
-
-
-
+{% raw %}<pre>...
+{% include templates/task.md %}</pre>{% endraw %}
 
 <p>In the <code>steps</code> section, use <code>##</code> to start with a level-two heading. For subheadings,
 use <code>###</code> and <code>####</code> as needed. Similarly, if you choose to have a <code>discussion</code> section,
@@ -119,9 +110,8 @@ variables:</p>
 
 Then include templates/tutorial.md like this:
 
-{% raw %}
-<pre>{% include templates/tutorial.md %}</pre>
-{% endraw %}
+{% raw %}<pre>...
+{% include templates/tutorial.md %}</pre>{% endraw %}
 
 <p>In the <code>lessoncontent</code> section, use <code>##</code> to start with a level-two heading. For subheadings,
 use <code>###</code> and <code>####</code> as needed.
@@ -200,9 +190,8 @@ variables:</p>
 
 Then include templates/concept.md like this:
 
-{% raw %}
-<pre>{% include templates/concept.md %}</pre>
-{% endraw %}
+{% raw %}<pre>...
+{% include templates/concept.md %}</pre>{% endraw %}
 
 <p>In the <code>body</code> section, use <code>##</code> to start with a level-two heading. For subheadings,
 use <code>###</code> and <code>####</code> as needed.
