@@ -39,8 +39,37 @@ variables:</p>
 Then include templates/task.md like this:
 
 {% raw %}
-{% include templates/task.md %}
+<pre>---
+title: Understanding this Thing
+---
+
+{% capture overview %}
+This page explains ...
+{% endcapture %}
+
+{% capture body %}
+## Understanding ...
+
+Kubernetes provides ...
+
+## Using ...
+
+To use ...
+{% endcapture %}
+
+{% capture whatsnext %}
+* Learn more about [this](...).
+* See this [related task](...).
+{% endcapture %}
+
+{% include templates/concept.md %}</pre>
 {% endraw %}
+
+
+
+
+
+
 
 <p>In the <code>steps</code> section, use <code>##</code> to start with a level-two heading. For subheadings,
 use <code>###</code> and <code>####</code> as needed. Similarly, if you choose to have a <code>discussion</code> section,
