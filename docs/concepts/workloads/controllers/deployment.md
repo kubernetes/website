@@ -16,7 +16,11 @@ A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) (the next-generation ReplicationController).
 You only need to describe the desired state in a Deployment object, and the Deployment controller will
 change the actual state to the desired state at a controlled rate for you. You can define Deployments to
-create new resources, or replace existing ones by new ones.
+create new ReplicaSets, or remove existing Deployments and adopt all of their resources with new Deployments.
+
+**Note:** You should not manage ReplicaSets owned by a Deployment, otherwise you are racing with the Deployment
+controller! All of the use cases should be covered just by manipulating the Deployment object. Consider opening
+an issue in the main Kubernetes repository, if your use case is not covered below.
 
 A typical use case is:
 
