@@ -305,10 +305,6 @@ spec:
 and `replace` do not retain the `kubectl.kubernetes.io/last-applied-configuration`
 that `kubectl apply` uses to compute updates.
 
-**Warning**: As of Kubernetes 1.5, the `kubectl edit` command is
-incompatible with `kubectl apply`, and the two should not be
-used together.
-
 ## How to delete objects
 
 There are two approaches to delete objects managed by `kubectl apply`.
