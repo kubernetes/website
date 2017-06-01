@@ -158,6 +158,8 @@ To initialize the master, pick one of the machines you previously installed
 kubeadm on, and run:
 
 ``` bash
+systemctl start docker
+systemctl enable docker
 kubeadm init
 ```
 
