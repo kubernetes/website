@@ -526,6 +526,8 @@ This is commonly used by add-on API servers for unified authentication and autho
 The [Kubernetes controller manager](/docs/admin/kube-controller-manager/) runs core control loops.
 When invoked with `--use-service-account-credentials`, each control loop is started using a separate service account.
 Corresponding roles exist for each control loop, prefixed with `system:controller:`.
+If the controller manager is not started with `--use-service-account-credentials`, 
+it runs all control loops using its own credential, which must be granted all the relevant roles.
 These roles include:
 
 * system:controller:attachdetach-controller
