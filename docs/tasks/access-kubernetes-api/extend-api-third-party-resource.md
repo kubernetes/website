@@ -14,7 +14,7 @@ redirect_from:
 
 ## What is ThirdPartyResource?
 
-**WARNING: ThirdPartyResources are deprecated as of 1.7 and will be removed as soon as possible without access to existing data! See https://kubernetes.io/docs/reference/deprecation-policy/ for deprecation rules. Please [migrate to CustomResourceDefinition](#Migration to CustomResourceDefinitions).**
+**WARNING: ThirdPartyResources are deprecated as of 1.7 and will be removed as soon as possible without access to existing data! See https://kubernetes.io/docs/reference/deprecation-policy/ for deprecation rules. Please [migrate to CustomResourceDefinition](#Migration-to-CustomResourceDefinitions).**
 
 Kubernetes comes with many built-in API objects. However, there are often times when you might need to extend Kubernetes with your own API objects in order to do custom automation.
 
