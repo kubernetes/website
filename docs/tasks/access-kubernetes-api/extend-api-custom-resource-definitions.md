@@ -26,7 +26,7 @@ table, you can then start storing rows in the table. Once created,
 `CustomResourceDefinitions` can act as the data model behind custom controllers
 or automation programs.
 
-A `CustomResourceDefinition` creates the REST API for a `CustomResource` of your chosen name.
+A `CustomResourceDefinition` creates the REST API for a custom resource of your chosen name.
 
 ## Creating a CustomResourceDefinition
 
@@ -95,8 +95,9 @@ apiVersion: "stable.example.com/v1"
 kind: CronTab
 metadata:
   name: my-new-cron-object
-cronSpec: "* * * * /5"
-image: my-awesome-cron-image
+spec:
+  cronSpec: "* * * * /5"
+  image: my-awesome-cron-image
 ```
 
 and create it:
@@ -122,8 +123,6 @@ $ kubectl get ct -o yaml
 apiVersion: v1
 items:
 - apiVersion: stable.example.com/v1
-  cronSpec: '* * * * /5'
-  image: my-awesome-cron-image
   kind: CronTab
   metadata:
     clusterName: ""
@@ -135,6 +134,9 @@ items:
     resourceVersion: "285"
     selfLink: /apis/stable.example.com/v1/namespaces/default/crontabs/my-new-cron-object
     uid: 9423255b-4600-11e7-af6a-28d2447dc82b
+  spec:
+    cronSpec: '* * * * /5'
+    image: my-awesome-cron-image
 kind: List
 metadata:
   resourceVersion: ""
@@ -147,6 +149,8 @@ CustomResources (objects created in the schema defined by CustomResourceDefintio
 support finalizers.  If you add a `metadata.finalizers` stanza like
 
 ```yaml
+apiVersion: "stable.example.com/v1"
+kind: CronTab
 metadata:
   finalizers:
   - finalizer.stable.example.com
