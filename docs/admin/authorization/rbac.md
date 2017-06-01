@@ -416,11 +416,6 @@ When used in a <b>ClusterRoleBinding</b>, it gives full control over every resou
 When used in a <b>RoleBinding</b>, it gives full control over every resource in the rolebinding's namespace, including the namespace itself.</td>
 </tr>
 <tr>
-<td><b>cluster-status</b></td>
-<td>None</td>
-<td>Allows read-only access to basic cluster status information.</td>
-</tr>
-<tr>
 <td><b>admin</b></td>
 <td>None</td>
 <td>Allows admin access, intended to be granted within a namespace using a <b>RoleBinding</b>.
