@@ -321,9 +321,9 @@ simultaneous writers allowed.
 
 See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/iscsi) for more details.
 
-### fc(fibre channel)
+### fc (fibre channel)
 
-A `fc` volume allows an existing fibre channel volume to be mounted into your pod.
+An `fc` volume allows an existing fibre channel volume to be mounted into your pod.
 You can specify single or multiple target World Wide Names to the parameter
 targetWWNs in your volume configuration. If multiple WWNs are specified,
 targetWWNs expects that those WWNs form multipath connection.
