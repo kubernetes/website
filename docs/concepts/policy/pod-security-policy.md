@@ -129,7 +129,7 @@ configMap, downwardAPI, emptyDir, persistentVolumeClaim, secret, and projected.
  - *HostPorts*, default `empty`. List of `HostPortRange`, defined by `min`(inclusive) and `max`(inclusive), which define the allowed host ports.
 
 ### Allowed Host Paths
- - AllowedHostPaths is a white list of allowed host path prefixes. Empty indicates that all host paths may be used.
+ - *AllowedHostPaths* is a white list of allowed host path prefixes. Empty indicates that all host paths may be used.
 
 ## Admission
 
