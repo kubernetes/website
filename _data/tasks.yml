@@ -7,6 +7,7 @@ toc:
   section:
   - docs/tasks/tools/install-kubectl.md
   - docs/tasks/tools/install-minikube.md
+  - docs/setup/independent/install-kubeadm.md
 
 - title: Configuring Pods and Containers
   section:
@@ -150,4 +151,5 @@ toc:
 - title: Managing GPUs
   section:
   - docs/tasks/manage-gpus/scheduling-gpus.md
+
 
