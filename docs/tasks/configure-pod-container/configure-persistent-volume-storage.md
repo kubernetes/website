@@ -89,8 +89,10 @@ means it has not yet been bound to a PersistentVolumeClaim.
 
 The next step is to create a PersistentVolumeClaim. Pods use PersistentVolumeClaims
 to request physical storage. In this exercise, you create a PersistentVolumeClaim
-that requests a volume of at least three gibibytes that can provide read-write
-access for at least one Node.
+that requests a volume of at least three gigabytes that can provide read-write
+access for at least one Node. In order to bind the PersistentVolumeClaim to the
+PersistentVolume we created in the previous step, we also must [disable dynamic
+provisioning by specifying an empty StorageClass](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#dynamic).
 
 Here is the configuration file for the PersistentVolumeClaim:
 
