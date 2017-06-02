@@ -4,7 +4,10 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-title: Installing Kubernetes on Linux with kubeadm
+title: Using kubeadm to Create a Cluster
+redirect_from:
+- "/docs/getting-started-guides/kubeadm/"
+- "/docs/getting-started-guides/kubeadm.html"
 ---
 
 ## Overview
