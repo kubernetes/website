@@ -141,7 +141,7 @@ The following flags can be used:
   - `--authorization-mode=AlwaysDeny` This flag blocks all requests. Use this flag only for testing.
   - `--authorization-mode=AlwaysAllow` This flag allows all requests. Use this flag only if you do not require authorization for your API requests.
 
-You can choose more than one authorization module. If one of the modes is `AlwaysAllow`, then it overrides the other modes and all API requests are allowed. 
+You can choose more than one authorization module. If one of the modes is `AlwaysAllow`, then it overrides the other modes and all API requests are allowed.
 
 ## Versioning
 For version 1.2, clusters created by kube-up.sh are configured so that no authorization is required for any request.
