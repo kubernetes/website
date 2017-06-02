@@ -221,7 +221,7 @@ each other.
 
 **The network must be deployed before any applications.  Also, kube-dns, a
 helper service, will not start up before a network is installed. kubeadm only
-supports CNI based networks (and does not support kubenet).**
+supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
 support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons
