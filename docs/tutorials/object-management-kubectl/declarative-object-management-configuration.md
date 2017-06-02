@@ -69,7 +69,7 @@ Here's an example of an object configuration file:
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
@@ -137,7 +137,7 @@ Here's an example configuration file:
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
 ```
 
 **Note:** For purposes of illustration, the preceding command refers to a single
@@ -245,7 +245,7 @@ Update the `simple_deployment.yaml` configuration file to change the image from
 Apply the changes made to the configuration file:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/tutorials/object-management-kubectl/update_deployment.yaml
+kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/update_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
@@ -304,10 +304,6 @@ spec:
 `create` and `replace` is not supported. This is because `create`
 and `replace` do not retain the `kubectl.kubernetes.io/last-applied-configuration`
 that `kubectl apply` uses to compute updates.
-
-**Warning**: As of Kubernetes 1.5, the `kubectl edit` command is
-incompatible with `kubectl apply`, and the two should not be
-used together.
 
 ## How to delete objects
 
@@ -680,7 +676,7 @@ Here's a configuration file for a Deployment. The file does not specify `strateg
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:

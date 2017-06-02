@@ -57,43 +57,48 @@ users in its object store.
 
 ## Authorization
 
-Once the request is authenticated as coming from a specific user,
-it moves to a generic authorization step.  This is shown as step **2** in the
-diagram.
+After the request is authenticated as coming from a specific user, the request must be authorized. This is shown as step **2** in the diagram. 
 
-The input to the Authorization step are attributes of the REST request, including:
-  - the username determined by the Authentication step.
-  - a `verb` associated with the API request.  Most object support these common operations: `list, watch, create, update, patch, delete`.  Some objects have "special verbs"; for example pods and services can be `proxy`-ed.
-  - any subresource associated with the API request (e.g. `status`).
-  - the Group, Version, and Kind of the API resource (e.g. `v1 pod`, or `batch/v1 job`) being
-    operated on.
-  - the name and namespace of the object.
+A request must include the username of the requester, the requested action, and the object affected by the action. The request is authorized if an existing policy declares that the user has permissions to complete the requested action. 
 
-There are multiple supported Authorization Modules.  The cluster creator configures the API
-server with which Authorization Modules should be used.  When multiple Authorization Modules
-are configured, each is checked in sequence, and if any Module authorizes the request,
-then the request can proceed.  If all deny the request, then the request is denied (HTTP status
-code 403).
+For example, if Bob has the policy below, then he can read pods only in the namespace `projectCaribou`:
 
-The [Authorization Modules](/docs/admin/authorization) page describes what authorization modules
-are available and how to configure them.
+```json
+{
+    "apiVersion": "abac.authorization.kubernetes.io/v1beta1",
+    "kind": "Policy",
+    "spec": {
+        "user": "bob",
+        "namespace": "projectCaribou",
+        "resource": "pods",
+        "readonly": true
+    }
+}
+```
+If Bob makes the following request, the request is authorized because he is allowed to read objects in the `projectCaribou` namespace:
 
-For version 1.2, clusters created by `kube-up.sh` are configured so that no authorization is
-required for any request.
+```json
+{
+  "apiVersion": "authorization.k8s.io/v1beta1",
+  "kind": "SubjectAccessReview",
+  "spec": {
+    "resourceAttributes": {
+      "namespace": "projectCaribou",
+      "verb": "get",
+      "group": "unicorn.example.org",
+      "resource": "pods"
+    }
+  }
+}
+```
+If Bob makes a request to write (`create` or `update`) to the objects in the `projectCaribou` namespace, his authorization is denied. If Bob makes a request to read (`get`) objects in a different namespace such as `projectFish`, then his authorization is denied. 
 
-As of version 1.3, clusters created by `kube-up.sh` are configured so that the ABAC authorization
-modules are enabled.  However, its input file is initially set to allow all users to do all
-operations.  The cluster administrator needs to edit that file, or configure a different authorizer
-to restrict what users can do.
+Kubernetes authorization requires that you use common REST attributes to interact with existing organization-wide or cloud-provider-wide access control systems. It is important to use REST formatting because these control systems might interact with other APIs besides the Kubernetes API.
 
+Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode. When an administrator creates a cluster, they configured the authorization modules that should be used in the API server. If more than one authorization modules are configured, Kubernetes checks each module, and if any module authorizes the request, then the request can proceed. If all of the modules deny the request, then the request is denied (HTTP status code 403).
 
-The Authorization step is designed to operate on attributes that are likely to be common to most
-REST requests, such as object name, kind, etc.  This is intended to facilitate interation with
-existing organization-wide or cloud-provider-wide access control systems (which may handle
-other APIs besides the Kubernetes API).
+To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization Overview](/docs/admin/authorization). 
 
-Access controls and policies that depend on specific fields of specific Kinds of objects
-are handled by Admission Controllers.
 
 ## Admission Control
 

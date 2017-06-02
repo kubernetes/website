@@ -4,7 +4,10 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-title: Installing Kubernetes on Linux with kubeadm
+title: Using kubeadm to Create a Cluster
+redirect_from:
+- "/docs/getting-started-guides/kubeadm/"
+- "/docs/getting-started-guides/kubeadm.html"
 ---
 
 ## Overview
@@ -75,73 +78,9 @@ particularly easy.
 
 ## Instructions
 
-### (1/4) Installing kubelet and kubeadm on your hosts
+### (1/4) Installing kubeadm on your hosts
 
-You will install the following packages on all the machines:
-
-* `docker`: the container runtime, which Kubernetes depends on. v1.12 is
-  recommended, but v1.10 and v1.11 are known to work as well.  v1.13 and 17.03+
-  have not yet been tested and verified by the Kubernetes node team.
-* `kubelet`: the most core component of Kubernetes. It runs on all of the
-  machines in your cluster and does things like starting pods and containers.
-* `kubectl`: the command to control the cluster once it's running. You will only
-  need this on the master, but it can be useful to have on the other nodes as
-  well.
-* `kubeadm`: the command to bootstrap the cluster.
-
-**Note:** If you already have kubeadm installed, you should do a `apt-get update &&
-apt-get upgrade` or `yum update` to get the latest version of kubeadm. See the
-kubeadm release notes if you want to read about the different [kubeadm
-releases](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
-
-For each host in turn:
-
-* SSH into the machine and become root if you are not already (for example,
-  run `sudo su -`).
-
-* If the machine is running Ubuntu or HypriotOS, run:
-
-  ``` bash
-  apt-get update && apt-get install -y apt-transport-https
-  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-  cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
-  deb http://apt.kubernetes.io/ kubernetes-xenial main
-  EOF
-  apt-get update
-  # Install docker if you don't have it already.
-  apt-get install -y docker-engine
-  apt-get install -y kubelet kubeadm kubectl kubernetes-cni
-  ```
-
-* If the machine is running CentOS, run:
-
-  ``` bash
-  cat <<EOF > /etc/yum.repos.d/kubernetes.repo
-  [kubernetes]
-  name=Kubernetes
-  baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-  enabled=1
-  gpgcheck=1
-  repo_gpgcheck=1
-  gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
-          https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-  EOF
-  setenforce 0
-  yum install -y docker kubelet kubeadm kubectl kubernetes-cni
-  systemctl enable docker && systemctl start docker
-  systemctl enable kubelet && systemctl start kubelet
-  ```
-
-  The kubelet is now restarting every few seconds, as it waits in a crashloop for
-  kubeadm to tell it what to do.
-
-  Note: Disabling SELinux by running `setenforce 0` is required in order to allow
-  containers to access the host filesystem, which is required by pod networks for
-  example. You have to do this until SELinux support is improved in the kubelet.
-
-While this guide is correct for kubeadm 1.6, the previous version is still
-available but can be a bit tricky to install.  [See below](#old-kubeadm) for
-details.
+See [Installing kubeadm](/docs/setup/independent/install-kubeadm/)
 
 ### (2/4) Initializing your master
 
@@ -282,7 +221,7 @@ each other.
 
 **The network must be deployed before any applications.  Also, kube-dns, a
 helper service, will not start up before a network is installed. kubeadm only
-supports CNI based networks (and does not support kubenet).**
+supports Container Network Interface (CNI) based networks (and does not support kubenet).**
 
 Several projects provide Kubernetes pod networks using CNI, some of which also
 support [Network Policy](/docs/concepts/services-networking/networkpolicies/). See the [add-ons
@@ -470,12 +409,9 @@ control of your Kubernetes cluster.
 
 ## kubeadm is multi-platform {#multi-platform}
 
-kubeadm deb packages and binaries are built for amd64, arm and arm64, following
-the [multi-platform
+kubeadm deb/rpm packages and binaries are built for amd64, arm64, armhfp,
+ppc64el, and s390x following the [multi-platform
 proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/multi-platform.md).
-
-deb-packages are released for ARM and ARM 64-bit, but not RPMs (yet, reach out
-if there's interest).
 
 Currently, only the pod networks flannel and Weave Net work on multiple architectures.
 For Weave Net just use its [standard install](https://www.weave.works/docs/net/latest/kube-addon/).

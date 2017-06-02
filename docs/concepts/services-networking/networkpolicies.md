@@ -2,7 +2,6 @@
 assignees:
 - thockin
 - caseydavenport
-- danwinship
 title: Network Policies
 redirect_from:
 - "/docs/user-guide/networkpolicies/"
@@ -18,7 +17,11 @@ A network policy is a specification of how groups of pods are allowed to communi
 
 ## Prerequisites
 
-Network policies are implemented by the network plugin, so you must be using a networking solution which supports `NetworkPolicy` - simply creating the resource without a controller to implement it will have no effect.
+You must enable the `extensions/v1beta1/networkpolicies` runtime config in your apiserver to enable this resource.
+
+You must also be using a networking solution which supports `NetworkPolicy` - simply creating the
+resource without a controller to implement it will have no effect.
+
 
 ## Configuring Namespace Isolation
 
@@ -26,23 +29,22 @@ By default, all traffic is allowed between all pods (and `NetworkPolicy` resourc
 
 Isolation can be configured on a per-namespace basis. Currently, only isolation on inbound traffic (ingress) can be defined. When a namespace has been configured to isolate inbound traffic, all traffic to pods in that namespace (even from other pods in the same namespace) will be blocked. `NetworkPolicy` objects can then be added to the isolated namespace to specify what traffic should be allowed.
 
-Isolation is enabled via the `NetworkPolicy` field of the `Namespace` object. To enable isolation via `kubectl`:
+Ingress isolation can be enabled using an annotation on the Namespace.
 
-```shell
-{% raw %}
-kubectl patch ns <namespace> -p '{"spec": {"networkPolicy": {"ingress": {"isolation": "DefaultDeny"}}}}'
-{% endraw %}
+```yaml
+kind: Namespace
+apiVersion: v1
+metadata:
+  annotations:
+    net.beta.kubernetes.io/network-policy: |
+      {
+        "ingress": {
+          "isolation": "DefaultDeny"
+        }
+      }
 ```
 
-To disable it:
-
-```shell
-{% raw %}
-kubectl patch ns <namespace> -p '{"spec": {"networkPolicy": null}}'
-{% endraw %}
-```
-
-NOTE: older network plugins may instead require the v1beta1 syntax, using an annotation:
+To configure the annotation via `kubectl`:
 
 ```shell
 {% raw %}
@@ -52,12 +54,12 @@ kubectl annotate ns <namespace> "net.beta.kubernetes.io/network-policy={\"ingres
 
 ## The `NetworkPolicy` Resource
 
-See the [api-reference](/docs/api-reference/networking/v1/definitions/#_v1_networkpolicy) for a full definition of the resource.
+See the [api-reference](/docs/api-reference/extensions/v1beta1/definitions/#_v1beta1_networkpolicy) for a full definition of the resource.
 
 An example `NetworkPolicy` might look like this:
 
 ```yaml
-apiVersion: networking/v1
+apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 metadata:
   name: test-network-policy
@@ -85,7 +87,7 @@ __Mandatory Fields__: As with all other Kubernetes config, a `NetworkPolicy` nee
 
 __spec__: `NetworkPolicy` [spec](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
 
-__podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the `ingress` rules in the policy apply. The example policy selects pods with the label "role=db".
+__podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the policy applies. Since `NetworkPolicy` currently only supports definining `ingress` rules, this `podSelector` essentially defines the "destination pods" for the policy. The example policy selects pods with the label "role=db". An empty `podSelector` selects all pods in the namespace.
 
 __ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from either of two sources, the first specified via a `namespaceSelector` and the second specified via a `podSelector`.
 

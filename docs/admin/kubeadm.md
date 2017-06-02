@@ -331,7 +331,7 @@ commands.
 * `kubeadm token create` Creates a new token.
     * `--description` Set the description on the new token.
     * `--ttl duration` Set expiration time of the token as a delta from "now".
-      Default is 0 for no expiration.
+      Default is 0 for no expiration. The unit of the duration is seconds.
     * `--usages` Set the ways that the token can be used.  The default is
       `signing,authentication`.  These are the usages as described above.
 * `kubeadm token delete <token id>|<token id>.<token secret>` Delete a token.
@@ -388,6 +388,18 @@ configuration file.
 
 If `KUBE_KUBERNETES_DIR` is specified, you may need to rewrite the arguments of the kubelet.
 (e.g. --kubeconfig, --pod-manifest-path)
+
+If `KUBE_REPO_PREFIX` is specified, you may need to set the kubelet flag `--pod-infra-container-image` which specifies which pause image to use.
+Defaults to `gcr.io/google_containers/pause-${ARCH}:3.0` where `${ARCH}` can be one of `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
+
+```bash
+cat > /etc/systemd/system/kubelet.service.d/20-pod-infra-image.conf <<EOF
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--pod-infra-container-image=<your-image>"
+EOF
+systemctl daemon-reload
+systemctl restart kubelet
+```
 
 If you want to use kubeadm with an http proxy, you may need to configure it to
 support http_proxy, https_proxy, or no_proxy.

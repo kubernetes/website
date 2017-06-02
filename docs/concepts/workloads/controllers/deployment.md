@@ -16,7 +16,11 @@ A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) (the next-generation ReplicationController).
 You only need to describe the desired state in a Deployment object, and the Deployment controller will
 change the actual state to the desired state at a controlled rate for you. You can define Deployments to
-create new resources, or replace existing ones by new ones.
+create new ReplicaSets, or remove existing Deployments and adopt all of their resources with new Deployments.
+
+**Note:** You should not manage ReplicaSets owned by a Deployment, otherwise you are racing with the Deployment
+controller! All of the use cases should be covered just by manipulating the Deployment object. Consider opening
+an issue in the main Kubernetes repository, if your use case is not covered below.
 
 A typical use case is:
 
@@ -209,7 +213,7 @@ least 2 Pods were available and at most 4 Pods were created at all times. It the
 the new and the old ReplicaSet, with the same rolling update strategy. Finally, we'll have 3 available replicas
 in the new ReplicaSet, and the old ReplicaSet is scaled down to 0.
 
-### Rollover (multiple rollouts in-flight)
+### Rollover (aka multiple updates in-flight)
 
 Each time a new deployment object is observed by the deployment controller, a ReplicaSet is created to bring up
 the desired Pods if there is no existing ReplicaSet doing so. Existing ReplicaSet controlling Pods whose labels
@@ -227,11 +231,26 @@ killing the 3 `nginx:1.7.9` Pods that it had created, and will start creating
 `nginx:1.9.1` Pods. It will not wait for 5 replicas of `nginx:1.7.9` to be created
 before changing course.
 
+### Label selector updates
+
+It is generally discouraged to make label selector updates and it is suggested to plan your selectors up front.
+In any case, if you need to perform a label selector update, exercise great caution and make sure you have grasped
+all of the implications.
+
+* Selector additions require the pod template labels in the Deployment spec to be updated with the new label, too,
+otherwise a validation error is returned. This change is a non-overlapping one, meaning that the new selector does
+not select ReplicaSets and Pods created with the old selector, resulting in orphaning all old ReplicaSets and
+creating a new ReplicaSet.
+* Selector updates, i.e., changing the existing value in a selector key, result in the same behavior as additions.
+* Selector removals, i.e., removing an existing key from the Deployment selector, do not require any changes in the
+pod template labels, no existing ReplicaSet is orphaned, and a new ReplicaSet will not be created, but note that the
+removed label will still exist in any existing Pods and ReplicaSets.
+
 ## Rolling Back a Deployment
 
 Sometimes you may want to rollback a Deployment; for example, when the Deployment is not stable, such as crash looping.
 By default, all of the Deployment's rollout history is kept in the system so that you can rollback anytime you want
-(you can change that by modifying [revision history limit](/docs/user-guide/deployments/#revision-history-limit)).
+(you can change that by modifyingrevision history limit]).
 
 **Note:** a Deployment's revision is created when a Deployment's rollout is triggered. This means that the
 new revision is created if and only if the Deployment's pod template (i.e. `.spec.template`) is changed,
@@ -484,7 +503,7 @@ For example, with a Deployment that was just created:
 $ kubectl get deploy
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx     3         3         3            3           1m
-[mkargaki@dhcp129-211 kubernetes]$ kubectl get rs
+$ kubectl get rs
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   3         3         3         1m
 ```
@@ -526,7 +545,7 @@ Eventually, resume the Deployment and observe a new ReplicaSet coming up with al
 ```shell
 $ kubectl rollout resume deploy nginx
 deployment "nginx" resumed
-$ KUBECTL get rs -w
+$ kubectl get rs -w
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   2         2         2         2m
 nginx-3926361531   2         2         0         6s
@@ -543,7 +562,7 @@ nginx-2142116321   0         1         1         2m
 nginx-2142116321   0         0         0         2m
 nginx-3926361531   3         3         3         20s
 ^C
-$ KUBECTL get rs
+$ kubectl get rs
 NAME               DESIRED   CURRENT   READY     AGE
 nginx-2142116321   0         0         0         2m
 nginx-3926361531   3         3         3         28s
@@ -808,7 +827,7 @@ the rolling update process.
 of Pods that can be unavailable during the update process. The value can be an absolute number (e.g. 5)
 or a percentage of desired Pods (e.g. 10%). The absolute number is calculated from percentage by
 rounding down. This can not be 0 if `.spec.strategy.rollingUpdate.maxSurge` is 0. By default, a
-value of 1 is used.
+value of 25% is used.
 
 For example, when this value is set to 30%, the old ReplicaSet can be scaled down to 70% of desired
 Pods immediately when the rolling update starts. Once new Pods are ready, old ReplicaSet can be scaled
@@ -820,7 +839,7 @@ at all times during the update is at least 70% of the desired Pods.
 `.spec.strategy.rollingUpdate.maxSurge` is an optional field that specifies the maximum number of Pods
 that can be created above the desired number of Pods. Value can be an absolute number (e.g. 5) or a
 percentage of desired Pods (e.g. 10%). This can not be 0 if `MaxUnavailable` is 0. The absolute number
-is calculated from percentage by rounding up. By default, a value of 1 is used.
+is calculated from percentage by rounding up. By default, a value of 25% is used.
 
 For example, when this value is set to 30%, the new ReplicaSet can be scaled up immediately when the
 rolling update starts, such that the total number of old and new Pods do not exceed 130% of desired

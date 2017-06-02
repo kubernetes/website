@@ -17,10 +17,9 @@ scripts not present in an app image.
 
 {:toc}
 
-{% assign for_k8s_version="v1.5" %}{% include feature-state-beta.md %}
-
-Once the feature exits beta, Init Containers will be specified in the PodSpec
-alongside the app `containers` array.
+This feature has exited beta in 1.6. Init Containers can be specified in the PodSpec
+alongside the app `containers` array. The beta annotation value will still be respected
+and overrides the PodSpec field value.
 
 {% capture body %}
 ## Understanding Init Containers
@@ -218,7 +217,7 @@ Events:
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created        Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started        Started container with docker id 5ced34a04634
 $ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
-$ kubectl logs myapp-pod -c init-mydd      # Inspect the second init container
+$ kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
 Once we start the `mydb` and `myservice` services, we can see the Init Containers
