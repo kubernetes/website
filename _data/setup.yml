@@ -7,7 +7,8 @@ toc:
 - title: Independent Solutions
   section:
   - docs/getting-started-guides/minikube.md
-  - docs/getting-started-guides/kubeadm.md
+  - docs/setup/independent/install-kubeadm.md
+  - docs/setup/independent/create-cluster-kubeadm.md
   - docs/getting-started-guides/scratch.md
   - docs/getting-started-guides/alternatives.md
 

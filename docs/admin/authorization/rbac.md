@@ -416,11 +416,6 @@ When used in a <b>ClusterRoleBinding</b>, it gives full control over every resou
 When used in a <b>RoleBinding</b>, it gives full control over every resource in the rolebinding's namespace, including the namespace itself.</td>
 </tr>
 <tr>
-<td><b>cluster-status</b></td>
-<td>None</td>
-<td>Allows read-only access to basic cluster status information.</td>
-</tr>
-<tr>
 <td><b>admin</b></td>
 <td>None</td>
 <td>Allows admin access, intended to be granted within a namespace using a <b>RoleBinding</b>.
@@ -531,6 +526,8 @@ This is commonly used by add-on API servers for unified authentication and autho
 The [Kubernetes controller manager](/docs/admin/kube-controller-manager/) runs core control loops.
 When invoked with `--use-service-account-credentials`, each control loop is started using a separate service account.
 Corresponding roles exist for each control loop, prefixed with `system:controller:`.
+If the controller manager is not started with `--use-service-account-credentials`, 
+it runs all control loops using its own credential, which must be granted all the relevant roles.
 These roles include:
 
 * system:controller:attachdetach-controller
