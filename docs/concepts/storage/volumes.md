@@ -74,6 +74,7 @@ Kubernetes supports several types of Volumes:
    * `awsElasticBlockStore`
    * `nfs`
    * `iscsi`
+   * `fc(fibre_channel)`
    * `flocker`
    * `glusterfs`
    * `rbd`
@@ -319,6 +320,18 @@ iSCSI volumes can only be mounted by a single consumer in read-write mode - no
 simultaneous writers allowed.
 
 See the [iSCSI example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/iscsi) for more details.
+
+### fc(fibre channel)
+
+A `fc` volume allows an existing fibre channel volume to be mounted into your pod.
+You can specify single or multiple target World Wide Names to the parameter
+targetWWNs in your volume configuration. If multiple WWNs are specified,
+targetWWNs expects that those WWNs form multipath connection.
+
+__Important: You must have your own FC Storage setup running with the volume
+created before you can use it__
+
+See the [FC example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/fibre_channel) for more details.
 
 ### flocker
 
