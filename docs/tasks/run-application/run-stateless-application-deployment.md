@@ -146,8 +146,6 @@ added to Kubernetes, replicated applications were configured by using a
 
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 
-* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/)
-
 {% endcapture %}
 
 {% include templates/tutorial.md %}
