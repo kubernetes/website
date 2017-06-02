@@ -75,7 +75,9 @@ particularly easy.
 
 ## Instructions
 
-### (1/4) kubeadm on your hosts
+### (1/4) Installing kubeadm on your hosts
+
+See [Installing kubeadm](/docs/setup/independent/install-kubeadm/)
 
 ### (2/4) Initializing your master
 
