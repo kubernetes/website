@@ -28,9 +28,9 @@ Here are a few methods to install kubectl.
 
     To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version. 
 
-    For example, to download version 1.4.6 on MacOS, type:
+    For example, to download version {{page.fullversion}} on MacOS, type:
 
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.4.6/bin/darwin/amd64/kubectl
+        curl -LO https://storage.googleapis.com/kubernetes-release/release/{{page.fullversion}}/bin/darwin/amd64/kubectl
 
 2. Make the kubectl binary executable.
 
@@ -70,27 +70,16 @@ Here are a few methods to install kubectl.
 {% endcapture %}
 
 {% capture win %}
-1. Download the latest release with the command:
+1. Download the latest release {{page.fullversion}} from [this link](https://storage.googleapis.com/kubernetes-release/release/{{page.fullversion}}/bin/windows/amd64/kubectl.exe).
 
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/windows/amd64/kubectl.exe
-
-    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version. 
-
-    For example, to download version {{page.fullversion}} on Windows, type:
+    Or if you have `curl` installed, use this command:
 
         curl -LO https://storage.googleapis.com/kubernetes-release/release/{{page.fullversion}}/bin/windows/amd64/kubectl.exe
 
-2. Make the kubectl binary executable.
+    To find out the latest stable version (for example, for scripting), take a look at https://storage.googleapis.com/kubernetes-release/release/stable.txt
 
-    ```
-    chmod +x ./kubectl
-    ```
+2. Add the binary in to your PATH.
 
-3. Move the binary in to your PATH. 
-
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
 {% endcapture %}
 
 {% assign tab_names = "macOS,Linux,Windows" | split: ',' | compact %}
