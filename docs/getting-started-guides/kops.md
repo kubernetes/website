@@ -34,17 +34,15 @@ Download kops from the [releases page](https://github.com/kubernetes/kops/releas
 On MacOS:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/v1.4.1/kops-darwin-amd64
-chmod +x kops-darwin-amd64
-mv kops-darwin-amd64 /usr/local/bin/kops
+wget -O /usr/local/bin/kops `curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep browser_download_url | grep darwin | head -n 1`
+chmod +x /usr/local/bin/kops
 ```
 
 On Linux:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/v1.4.1/kops-linux-amd64
-chmod +x kops-linux-amd64
-mv kops-linux-amd64 /usr/local/bin/kops
+wget -O /usr/local/bin/kops `curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep browser_download_url | grep amd64 | head -n 1`
+chmod +x /usr/local/bin/kops
 ```
 
 ### (2/5) Create a route53 domain for your cluster
