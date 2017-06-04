@@ -2,6 +2,9 @@
 assignees:
 - pweil-
 title: Pod Security Policies
+redirect_from:
+- "/docs/user-guide/pod-security-policy/"
+- "/docs/user-guide/pod-security-policy/index.html"
 ---
 
 Objects of type `PodSecurityPolicy` govern the ability
@@ -119,7 +122,7 @@ to the volume sources that are defined when creating a volume:
 1. \* (allow all volumes)
 
 The recommended minimum set of allowed volumes for new PSPs are 
-configMap, downwardAPI, emptyDir, persistentVolumeClaim, and secret.
+configMap, downwardAPI, emptyDir, persistentVolumeClaim, secret, and projected.
 
 ### Host Network
  - *HostPorts*, default `empty`. List of `HostPortRange`, defined by `min`(inclusive) and `max`(inclusive), which define the allowed host ports.
@@ -165,7 +168,7 @@ $ kubectl get psp
 NAME        PRIV   CAPS  SELINUX   RUNASUSER         FSGROUP   SUPGROUP  READONLYROOTFS  VOLUMES
 permissive  false  []    RunAsAny  RunAsAny          RunAsAny  RunAsAny  false           [*]
 privileged  true   []    RunAsAny  RunAsAny          RunAsAny  RunAsAny  false           [*]
-restricted  false  []    RunAsAny  MustRunAsNonRoot  RunAsAny  RunAsAny  false           [emptyDir secret downwardAPI configMap persistentVolumeClaim]
+restricted  false  []    RunAsAny  MustRunAsNonRoot  RunAsAny  RunAsAny  false           [emptyDir secret downwardAPI configMap persistentVolumeClaim projected]
 ```
 
 ## Editing a Pod Security Policy
@@ -176,7 +179,7 @@ To modify policy interactively, use `kubectl edit`:
 $ kubectl edit psp permissive
 ```
 
-This command will open a default text editor where you will be ably to modify policy.
+This command will open a default text editor where you will be able to modify policy.
 
 ## Deleting a Pod Security Policy
 

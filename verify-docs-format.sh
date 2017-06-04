@@ -52,7 +52,7 @@ for file in `find docs -name "*.md" -type f`; do
 done
 
 if ${no_entry}; then 
-  echo "Found ${no_entry_counter} files without entries. For how to fix it, see http://kubernetes.io/docs/contribute/write-new-topic/#creating-an-entry-in-the-table-of-contents"
+  echo "Found ${no_entry_counter} files without entries. For how to fix it, see http://kubernetes.io/docs/home/contribute/write-new-topic/#creating-an-entry-in-the-table-of-contents"
   exit 1
 fi
 

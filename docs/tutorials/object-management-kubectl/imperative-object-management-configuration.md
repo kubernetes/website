@@ -30,31 +30,39 @@ You can use `kubectl create -f` to create an object from a configuration file.
 Refer to the [kubernetes object schema reference](/docs/resources-reference/v1.6/)
 for details.
 
-- `create -f <filename|url>`
+- `kubectl create -f <filename|url>`
 
 ## How to update objects
+
+**Warning:** Updating objects with the `replace` command drops all
+parts of the spec not specified in the configuration file.  This
+should not be used with objects whose specs are partially managed
+by the cluster, such as Services of type `LoadBalancer`, where
+the `externalIPs` field is managed independently from the configuration
+file.  Independently managed fields must be copied to the configuration
+file to prevent `replace` from dropping them.
 
 You can use `kubectl replace -f` to update a live object according to a
 configuration file.
 
-- `replace -f <filename|url>`
+- `kubectl replace -f <filename|url>`
 
 ## How to delete objects
 
 You can use `kubectl delete -f` to delete an object that is described in a
 configuration file.
 
-- `delete -f <filename|url>`
+- `kubectl delete -f <filename|url>`
 
 ## How to view an object
 
 You can use `kubectl get -f` to view information about an object that is
 described in a configuration file.
 
-- `get -f <filename|url> -o yaml`
+- `kubectl get -f <filename|url> -o yaml`
 
 The `-o yaml` flag specifies that the full object configuration is printed. 
-Use `get -h` to see a list of options.
+Use `kubectl get -h` to see a list of options.
 
 ## Limitations
 

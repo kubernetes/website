@@ -4,6 +4,9 @@ assignees:
 - mikedanese
 - thockin
 title: Namespaces
+redirect_from:
+- "/docs/user-guide/namespaces/"
+- "/docs/user-guide/namespaces.html"
 ---
 
 Kubernetes supports multiple virtual clusters backed by the same physical cluster.
@@ -18,7 +21,7 @@ need the features they provide.
 
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace, but not across namespaces.
 
-Namespaces are a way to divide cluster resources between multiple uses (via [resource quota](/docs/admin/resourcequota/)).
+Namespaces are a way to divide cluster resources between multiple uses (via [resource quota](/docs/concepts/policy/resource-quotas/)).
 
 In future versions of Kubernetes, objects in the same namespace will have the same
 access control policies by default.
@@ -38,9 +41,9 @@ You can list the current namespaces in a cluster using:
 
 ```shell
 $ kubectl get namespaces
-NAME          LABELS    STATUS
-default       <none>    Active
-kube-system   <none>    Active
+NAME          STATUS    AGE
+default       Active    1d
+kube-system   Active    1d
 ```
 
 Kubernetes starts with two initial namespaces:

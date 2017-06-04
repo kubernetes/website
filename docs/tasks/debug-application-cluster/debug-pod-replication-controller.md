@@ -2,6 +2,9 @@
 assignees:
 - bprashanth
 title: Debugging Pods and Replication Controllers
+redirect_from:
+- "/docs/user-guide/debugging-pods-and-replication-controllers/"
+- "/docs/user-guide/debugging-pods-and-replication-controllers.html"
 ---
 
 * TOC
@@ -38,7 +41,7 @@ case you can try several things:
   to make room for pending pods.
 
 * Check that the pod is not larger than your nodes. For example, if all
-  nodes have a capacity of `cpu:1`, then a pod with a limit of `cpu: 1.1`
+  nodes have a capacity of `cpu:1`, then a pod with a request of `cpu: 1.1`
   will never be scheduled.
 
     You can check node capacities with the `kubectl get nodes -o <format>`
@@ -48,7 +51,7 @@ case you can try several things:
         kubectl get nodes -o yaml | grep '\sname\|cpu\|memory'
         kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, cap: .status.capacity}'
 
-  The [resource quota](/docs/admin/resourcequota/)
+  The [resource quota](/docs/concepts/policy/resource-quotas/)
   feature can be configured to limit the total amount of
   resources that can be consumed. If used in conjunction with namespaces, it can
   prevent one team from hogging all the resources.

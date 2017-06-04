@@ -2,6 +2,9 @@
 assignees:
 - vishh
 title: Scheduling GPUs
+redirect_from:
+- "/docs/user-guide/gpus/"
+- "/docs/user-guide/gpus.html"
 ---
 
 {% capture overview %}
@@ -62,7 +65,7 @@ KUBELET_OPTS="$KUBELET_OPTS --node-labels='alpha.kubernetes.io/nvidia-gpu-name=$
 echo "KUBELET_OPTS=$KUBELET_OPTS" > /etc/default/kubelet
 ```
 
-Specify the GPU types a pod can use via [Node Affinity](./node-selection) rules.
+Specify the GPU types a pod can use via [Node Affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) rules.
 
 ```yaml
 kind: pod
@@ -105,6 +108,10 @@ The API presented here **will change** in an upcoming release to better support 
 ## Access to CUDA libraries
 
 As of now, CUDA libraries are expected to be pre-installed on the nodes.
+
+The NVIDIA drivers will require privileged containers due to the permissions on ``/usr/lib/nvidia-367``.
+
+To mitigate this, you can copy the libraries to a more permissive folder in ``/var/lib/`` or change the permissions directly. (Future releases will automatically perform this operation)
 
 Pods can access the libraries using `hostPath` volumes.
 

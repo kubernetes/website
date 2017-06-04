@@ -9,8 +9,8 @@ propose changes to this document in a pull request.
 
 For additional information on creating new content for the Kubernetes
 docs, follow the instructions on
-[using page templates](/docs/contribute/page-templates/) and
-[creating a documentation pull request](/docs/contribute/create-pull-request/).
+[using page templates](/docs/home/contribute/page-templates/) and
+[creating a documentation pull request](/docs/home/contribute/create-pull-request/).
 {% endcapture %}
 
 {% capture body %}
@@ -182,6 +182,18 @@ Use simple and direct language. Avoid using unnecessary phrases, such as saying 
     <tr><td>In the preceding output, you can see...</td><td>In the preceding output, we can see ...</td></tr>
 </table>
 
+### Avoid Latin phrases
+
+Prefer English terms over Latin abbreviations.
+
+<table>
+  <tr><th>Do</th><th>Don't</th></tr>
+  <tr><td>For example, ...</td><td>e.g., ...</td></tr>
+  <tr><td>That is, ...</td><td>i.e., ...</td></tr>
+</table>
+
+Exception: Use "etc." for et cetera.
+
 ## Patterns to avoid
 
 ### Avoid using "we"
@@ -227,10 +239,10 @@ considered new in a few months.
 
 
 {% capture whatsnext %}
-* Learn about [writing a new topic](/docs/contribute/write-new-topic/).
-* Learn about [using page templates](/docs/contribute/page-templates/).
-* Learn about [staging your changes](/docs/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/contribute/create-pull-request/).
+* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
+* Learn about [using page templates](/docs/home/contribute/page-templates/).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
+* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
 {% endcapture %}
 
 {% include templates/concept.md %}

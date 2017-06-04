@@ -5,6 +5,8 @@ title: Pod Overview
 redirect_from:
 - "/docs/concepts/abstractions/pod/"
 - "/docs/concepts/abstractions/pod.html"
+- "/docs/user-guide/pod-templates/"
+- "/docs/user-guide/pod-templates.html"
 ---
 
 {% capture overview %}
@@ -22,10 +24,10 @@ A Pod encapsulates an application container (or, in some cases, multiple contain
 
 > [Docker](https://www.docker.com) is the most common container runtime used in a Kubernetes Pod, but Pods support other container runtimes as well.
 
-Pods are employed a number of ways in a Kubernetes cluster, including:
+Pods are employed in a number of ways in a Kubernetes cluster, including:
 
 * **Pods that run a single container**. The "one-container-per-Pod" model is the most common Kubernetes use case; in this case, you can think of a Pod as a wrapper around a single container, and Kubernetes manages the Pods rather than the containers directly.
-* **Pods that run multiple containers that need to work together**. A Pod might encapsulate an application composed multiple co-located containers that are tightly coupled and need to share resources. These co-located containers might form a single cohesive unit of service--one container serving files from a shared volume to the public, while a separate "sidecar" container refreshes or updates those files. The Pod wraps these containers and storage resources together as a single managable entity.
+* **Pods that run multiple containers that need to work together**. A Pod might encapsulate an application composed of multiple co-located containers that are tightly coupled and need to share resources. These co-located containers might form a single cohesive unit of service--one container serving files from a shared volume to the public, while a separate "sidecar" container refreshes or updates those files. The Pod wraps these containers and storage resources together as a single manageable entity.
 
 The [Kubernetes Blog](http://blog.kubernetes.io) has some additional information on Pod use cases. For more information, see:
 
@@ -75,8 +77,8 @@ In general, Controllers use a Pod Template that you provide to create the Pods f
 ## Pod Templates
 
 Pod templates are pod specifications which are included in other objects, such as
-[Replication Controllers](/docs/user-guide/replication-controller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), and
-[DaemonSets](/docs/admin/daemons/).  Controllers use Pod Templates to make actual pods.
+[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), and
+[DaemonSets](/docs/concepts/workloads/controllers/daemonset/).  Controllers use Pod Templates to make actual pods.
 
 Rather than specifying the current desired state of all replicas, pod templates are like cookie cutters. Once a cookie has been cut, the cookie has no relationship to the cutter. There is no quantum entanglement. Subsequent changes to the template or even switching to a new template has no direct effect on the pods already created. Similarly, pods created by a replication controller may subsequently be updated directly. This is in deliberate contrast to pods, which do specify the current desired state of all containers belonging to the pod. This approach radically simplifies system semantics and increases the flexibility of the primitive.
 

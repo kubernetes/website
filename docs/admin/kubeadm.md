@@ -4,7 +4,7 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-title: kubeadm reference
+title: kubeadm Setup Tool
 ---
 
 This document provides information on how to use kubeadm's advanced options.
@@ -70,7 +70,7 @@ It is usually sufficient to run `kubeadm init` without any flags, but in some
 cases you might like to override the default behaviour. Here we specify all the
 flags that can be used to customise the Kubernetes installation.
 
-- `--api-advertise-address`
+- `--apiserver-advertise-address`
 
 This is the address the API Server will advertise to other members of the
 cluster.  This is also the address used to construct the suggested `kubeadm
@@ -277,7 +277,9 @@ networking:
   podSubnet: <cidr>
 kubernetesVersion: <string>
 cloudProvider: <string>
-authorizationMode: <string>
+authorizationModes:
+- <authorizationMode1|string>
+- <authorizationMode2|string>
 token: <string>
 tokenTTL: <time duration>
 selfHosted: <bool>
@@ -329,7 +331,7 @@ commands.
 * `kubeadm token create` Creates a new token.
     * `--description` Set the description on the new token.
     * `--ttl duration` Set expiration time of the token as a delta from "now".
-      Default is 0 for no expiration.
+      Default is 0 for no expiration. The unit of the duration is seconds.
     * `--usages` Set the ways that the token can be used.  The default is
       `signing,authentication`.  These are the usages as described above.
 * `kubeadm token delete <token id>|<token id>.<token secret>` Delete a token.
@@ -348,7 +350,7 @@ docs](/docs/admin/bootstrap-tokens/).
 ## Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the [basic kubeadm tutorial](/docs/getting-started-guides/kubeadm/), you can
+in the [basic kubeadm tutorial](/docs/admin/kubeadm/), you can
 parallelize the token distribution for easier automation. To implement this
 automation, you must know the IP address that the master will have after it is
 started.
@@ -380,10 +382,24 @@ configuration file.
 | Variable | Default | Description |
 | --- | --- | --- |
 | `KUBE_KUBERNETES_DIR` | `/etc/kubernetes` | Where most configuration files are written to and read from |
-| `KUBE_HOST_ETCD_PATH` | `/var/lib/etcd` | Local etcd state for Kubernetes cluster |
 | `KUBE_HYPERKUBE_IMAGE` | | If set, use a single hyperkube image with this name. If not set, individual images per server component will be used. |
 | `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:3.0.17` | The etcd container image to use. |
 | `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |
+
+If `KUBE_KUBERNETES_DIR` is specified, you may need to rewrite the arguments of the kubelet.
+(e.g. --kubeconfig, --pod-manifest-path)
+
+If `KUBE_REPO_PREFIX` is specified, you may need to set the kubelet flag `--pod-infra-container-image` which specifies which pause image to use.
+Defaults to `gcr.io/google_containers/pause-${ARCH}:3.0` where `${ARCH}` can be one of `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
+
+```bash
+cat > /etc/systemd/system/kubelet.service.d/20-pod-infra-image.conf <<EOF
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--pod-infra-container-image=<your-image>"
+EOF
+systemctl daemon-reload
+systemctl restart kubelet
+```
 
 If you want to use kubeadm with an http proxy, you may need to configure it to
 support http_proxy, https_proxy, or no_proxy.

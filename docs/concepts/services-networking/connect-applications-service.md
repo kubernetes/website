@@ -4,6 +4,9 @@ assignees:
 - lavalamp
 - thockin
 title: Connecting Applications with Services
+redirect_from:
+- "/docs/user-guide/connecting-applications/"
+- "/docs/user-guide/connecting-applications.html"
 ---
 
 * TOC
@@ -116,9 +119,9 @@ Note there's no mention of your Service. This is because you created the replica
 $ kubectl scale deployment my-nginx --replicas=0; kubectl scale deployment my-nginx --replicas=2;
 
 $ kubectl get pods -l run=my-nginx -o wide
-NAME                        READY     STATUS    RESTARTS   AGE       NODE
-my-nginx-3800858182-e9ihh   1/1       Running   0          5s        kubernetes-minion-ljyd
-my-nginx-3800858182-j4rm4   1/1       Running   0          5s        kubernetes-minion-905m
+NAME                        READY     STATUS    RESTARTS   AGE     IP            NODE
+my-nginx-3800858182-e9ihh   1/1       Running   0          5s      10.244.2.7    kubernetes-minion-ljyd
+my-nginx-3800858182-j4rm4   1/1       Running   0          5s      10.244.3.8    kubernetes-minion-905m
 ```
 
 You may notice that the pods have different names, since they are killed and recreated.

@@ -1,5 +1,6 @@
 ---
 title: Assigning CPU and RAM Resources to a Container
+description: When you create a Pod, you can request CPU and RAM resources for the containers that run in the Pod. You can also set limits for CPU and RAM use.
 ---
 
 {% capture overview %}
@@ -44,7 +45,7 @@ for the `Pod`:
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/cpu-ram.yaml
+        kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/cpu-ram.yaml
 
 1. Display information about the pod:
 
@@ -102,16 +103,16 @@ Default limits are applied according to a limit range for the default
 to see the default limits.
 
 For information about why you would want to specify limits, see
-[Setting Pod CPU and Memory Limits](/docs/admin/limitrange/).
+[Setting Pod CPU and Memory Limits](/docs/tasks/configure-pod-container/limit-range/).
 
 For information about what happens if you don't specify CPU and RAM requests, see
-[Resource Requests and Limits of Pod and Container](/docs/user-guide/compute-resources/).
+[Resource Requests and Limits of Pod and Container](/docs/concepts/configuration/manage-compute-resources-container/).
 
 {% endcapture %}
 
 {% capture whatsnext %}
 
-* Learn more about [managing compute resources](/docs/user-guide/compute-resources/).
+* Learn more about [managing compute resources](/docs/concepts/configuration/manage-compute-resources-container/).
 * See [ResourceRequirements](/docs/api-reference/v1.6/#resourcerequirements-v1-core).
 
 {% endcapture %}

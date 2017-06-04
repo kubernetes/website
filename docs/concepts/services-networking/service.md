@@ -2,12 +2,15 @@
 assignees:
 - bprashanth
 title: Services
+redirect_from:
+- "/docs/user-guide/services/"
+- "/docs/user-guide/services/index.html"
 ---
 
 Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicationControllers`](/docs/user-guide/replication-controller) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
-or when doing [rolling updates](/docs/user-guide/kubectl/kubectl_rolling-update)).  While each `Pod` gets its own IP address, even
+or when doing [rolling updates](/docs/user-guide/kubectl/v1.6/#rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -137,6 +140,8 @@ metadata:
 spec:
   type: ExternalName
   externalName: my.database.example.com
+  ports:
+  - port: 12345
 ```
 
 When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
@@ -351,7 +356,7 @@ Service onto an external (outside of your cluster) IP address.
 Kubernetes `ServiceTypes` allow you to specify what kind of service you want.
 The default is `ClusterIP`.
 
-`ServiceType` values and their behaviors are:
+`Type` values and their behaviors are:
 
    * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value 
      makes the service only reachable from within the cluster. This is the 
@@ -423,6 +428,21 @@ the `loadBalancerIP` to be specified. In those cases, the load-balancer will be 
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
 an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is specified, but the
 cloud provider does not support the feature, the field will be ignored.
+
+#### Internal load balancer on AWS
+In a mixed environment it is sometimes necessary to route traffic from services inside the same VPC.
+This can be achieved by adding the following annotation to the service:
+
+```yaml
+[...]
+metadata: 
+    name: my-service
+    annotations: 
+        service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+[...]
+```
+In a split-horizon DNS environment you would need two services to be able to route both external and internal traffic to your endpoints.
+
 
 #### SSL support on AWS
 For partial SSL support on clusters running on AWS, starting with 1.3 two
@@ -532,7 +552,7 @@ ensure that no two `Services` can collide.  We do that by allocating each
 `Service` its own IP address.
 
 To ensure each service receives a unique IP, an internal allocator atomically
-updates a global allocation map in etcd prior to each service. The map object
+updates a global allocation map in etcd prior to creating each service. The map object
 must exist in the registry for services to get IPs, otherwise creations will
 fail with a message indicating an IP could not be allocated. A background
 controller is responsible for creating that map (to migrate from older versions

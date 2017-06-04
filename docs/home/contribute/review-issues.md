@@ -65,9 +65,9 @@ Depending on where the dead link is reported, different actions are required to 
 
 
 {% capture whatsnext %}
-* Learn about [writing a new topic](/docs/contribute/write-new-topic).
-* Learn about [using page templates](/docs/contribute/page-templates/).
-* Learn about [staging your changes](/docs/contribute/stage-documentation-changes).
+* Learn about [writing a new topic](/docs/home/contribute/write-new-topic).
+* Learn about [using page templates](/docs/home/contribute/page-templates/).
+* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes).
 {% endcapture %}
 
 {% include templates/concept.md %}

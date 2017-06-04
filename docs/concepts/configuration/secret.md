@@ -2,6 +2,9 @@
 assignees:
 - mikedanese
 title: Secrets
+redirect_from:
+- "/docs/user-guide/secrets/index/"
+- "/docs/user-guide/secrets/index.html"
 ---
 
 Objects of type `secret` are intended to hold sensitive information, such as
@@ -121,7 +124,7 @@ The data field is a map.  Its keys must match
 [`DNS_SUBDOMAIN`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/design/identifiers.md), except that leading dots are also
 allowed.  The values are arbitrary data, encoded using base64.
 
-Create the secret using [`kubectl create`](/docs/user-guide/kubectl/kubectl_create/):
+Create the secret using [`kubectl create`](/docs/user-guide/kubectl/v1.6/#create):
 
 ```shell
 $ kubectl create -f ./secret.yaml
@@ -132,7 +135,8 @@ secret "mysecret" created
 encoded as base64 strings.  Newlines are not valid within these strings and must
 be omitted.  When using the `base64` utility on Darwin/OS X users should avoid
 using the `-b` option to split long lines.  Conversely Linux users *should* add
-the option `-w 0` to `base64` commands.
+the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
+`-w` option is not available.
 
 #### Decoding a Secret
 
@@ -436,15 +440,14 @@ You can manually create an imagePullSecret, and reference it from
 a serviceAccount.  Any pods created with that serviceAccount
 or that default to use that serviceAccount, will get their imagePullSecret
 field set to that of the service account.
-See [here](/docs/user-guide/service-accounts/#adding-imagepullsecrets-to-a-service-account)
+See [Adding ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#adding-imagepullsecrets-to-a-service-account)
  for a detailed explanation of that process.
 
 #### Automatic Mounting of Manually Created Secrets
 
-We plan to extend the service account behavior so that manually created
-secrets (e.g. one containing a token for accessing a github account)
+Manually created secrets (e.g. one containing a token for accessing a github account)
 can be automatically attached to pods based on their service account.
-*This is not implemented yet.  See [issue 9902](http://issue.k8s.io/9902).*
+See [Injecting Information into Pods Using a PodPreset](/docs/tasks/run-application/podpreset/) for a detailed explanation of that process.
 
 ## Details
 
@@ -467,6 +470,26 @@ This includes any pods created using kubectl, or indirectly via a replication
 controller.  It does not include pods created via the kubelets
 `--manifest-url` flag, its `--config` flag, or its REST API (these are
 not common ways to create pods.)
+
+Secrets must be created before they are consumed in pods as environment
+variables unless they are marked as optional.  References to Secrets that do not exist will prevent
+the pod from starting.
+
+References via `secretKeyRef` to keys that do not exist in a named Secret
+will prevent the pod from starting.
+
+Secrets used to populate environment variables via `envFrom` that have keys
+that are considered invalid environment variable names will have those keys
+skipped.  The pod will be allowed to start.  There will be an event whose
+reason is `InvalidVariableNames` and the message will contain the list of
+invalid keys that were skipped. The example shows a pod which refers to the
+default/mysecret ConfigMap that contains 2 invalid keys, 1badkey and 2alsobad.
+
+```shell
+$ kubectl get events
+LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT                         TYPE      REASON
+0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
+```
 
 ### Secret and Pod Lifetime interaction
 
@@ -782,6 +805,10 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
    - Administrators should limit access to etcd to admin users
    - Secret data in the API server is at rest on the disk that etcd uses; admins may want to wipe/shred disks
      used by etcd when no longer in use
+ - If you configure the secret through a manifest (JSON or YAML) file which has
+   the secret data encoded as base64, sharing this file or checking it in to a
+   source repository means the secret is compromised. Base64 encoding is not an
+   encryption method and is considered the same as plain text.
  - Applications still need to protect the value of secret after reading it from the volume,
    such as not accidentally logging it or transmitting it to an untrusted party.
  - A user who can create a pod that uses a secret can also see the value of that secret.  Even

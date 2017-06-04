@@ -29,6 +29,7 @@ vSphere Cloud Provider allows using vSphere managed storage within Kubernetes. I
 1. Volumes
 2. Persistent Volumes
 3. Storage Classes and provisioning of volumes.
+4. vSphere Storage Policy Based Management for Containers orchestrated by Kubernetes.
 
 Documentation for how to use vSphere managed storage can be found in the
 [persistent volumes user
@@ -55,6 +56,32 @@ export GOVC_INSECURE=1
 govc vm.change -e="disk.enableUUID=1" -vm=<VMNAME>
 ```
 
+* Create Role and User with Required Privileges for vSphere Cloud Provider
+
+vSphere Cloud Provider requires the following minimal set of privileges to interact with vCenter:
+
+Please refer [vSphere Documentation Center](http://pubs.vmware.com/vsphere-65/index.jsp?topic=%2Fcom.vmware.vsphere.security.doc%2FGUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html&resultof=%22%43%72%65%61%74%65%22%20%22%63%72%65%61%74%22%20%22%43%75%73%74%6f%6d%22%20%22%63%75%73%74%6f%6d%22%20%22%52%6f%6c%65%22%20%22%72%6f%6c%65%22%20) to know about steps for creating a Custom Role, User and Role Assignment.
+
+Note: Assign Permissions at the vCenter Level and make sure to check Propagate.
+
+```
+Datastore > Allocate space
+Datastore > Low level file Operations
+Virtual Machine > Configuration > Add existing disk
+Virtual Machine > Configuration > Add or remove device
+Virtual Machine > Configuration > Remove disk
+```
+
+For the VSAN policy based volume provisioning feature, the following additional privileges are required.
+
+```
+Network > Assign network
+Virtual machine > Configuration > Add new disk
+Virtual Machine > Inventory > Create new
+Virtual machine > Configuration > Add new disk
+Resource > Assign virtual machine to resource pool
+```
+
 * Provide the cloud config file to each instance of kubelet, apiserver and controller manager via ```--cloud-config=<path to file>``` flag. Cloud config [template can be found at Kubernetes-Anywhere](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
 
 Sample Config:
@@ -79,8 +106,6 @@ Sample Config:
 * When upgrading to 1.6 install the default storage class addons, [click here for more details](https://github.com/kubernetes/kubernetes/issues/40070)
 
 #### Known issues
-
-* [Unable to execute command on pod container using kubectl exec](https://github.com/kubernetes/kubernetes-anywhere/issues/337)
 
 ### Kube-up (Deprecated)
 
@@ -217,6 +242,8 @@ going on (find yourself authorized with your SSH key, or use the password
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/getting-started-guides/vsphere)                                |          | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
+
+If you identify any issues/problems using the vSphere cloud provider, you can create an issue in our repo - [VMware Kubernetes](https://github.com/vmware/kubernetes).
 
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 

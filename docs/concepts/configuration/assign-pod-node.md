@@ -4,9 +4,12 @@ assignees:
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
+redirect_from:
+- "/docs/user-guide/node-selection/"
+- "/docs/user-guide/node-selection/index.html"
 ---
 
-You can constrain a [pod](/docs/user-guide/pods/) to only be able to run on particular [nodes](/docs/admin/node/) or to prefer to
+You can constrain a [pod](/docs/concepts/workloads/pods/pod/) to only be able to run on particular [nodes](/docs/concepts/nodes/node/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
 [label selectors](/docs/user-guide/labels/) to make the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
@@ -135,6 +138,10 @@ There is no explicit "node anti-affinity" concept, but `NotIn` and `DoesNotExist
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
 to be scheduled onto a candidate node.
 
+If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types, then the pod can be scheduled onto a node **if one of** the `nodeSelectorTerms` is satisfied.
+
+If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
+
 For more information on node affinity, see the design doc
 [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/nodeaffinity.md).
 
@@ -149,7 +156,7 @@ as a LabelSelector with an associated list of namespaces (or "all" namespaces); 
 a label selector over pod labels must specify which namespaces the selector should apply to. Conceptually X is a topology domain
 like node, rack, cloud provider zone, cloud provider region, etc. You express it using a `topologyKey` which is the
 key for the node label that the system uses to denote such a topology domain, e.g. see the label keys listed above
-in the section "Interlude: built-in node labels."
+in the section [Interlude: built-in node labels](#interlude-built-in-node-labels).
 
 As with node affinity, there are currently two types of pod affinity and anti-affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
 `preferredDuringSchedulingIgnoredDuringExecution` which denote "hard" vs. "soft" requirements.
@@ -166,14 +173,15 @@ Here's an example of a pod that uses pod affinity:
 
 {% include code.html language="yaml" file="pod-with-pod-affinity.yaml" ghlink="/docs/concepts/configuration/pod-with-pod-affinity.yaml" %}
 
-The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. Both
-must be satisfied for the pod to schedule onto a node. The
+The affinity on this pod defines one pod affinity rule and one pod anti-affinity rule. In this example, the
+`podAffinity` is `requiredDuringSchedulingIgnoredDuringExecution`
+while the `podAntiAffinity` is `preferredDuringSchedulingIgnoredDuringExecution`. The
 pod affinity rule says that the pod can schedule onto a node only if that node is in the same zone
 as at least one already-running pod that has a label with key "security" and value "S1". (More precisely, the pod is eligible to run
 on node N if node N has a label with key `failure-domain.beta.kubernetes.io/zone` and some value V
 such that there is at least one node in the cluster with key `failure-domain.beta.kubernetes.io/zone` and
 value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
-rule says that the pod cannot schedule onto a node if that node is already running a pod with label
+rule says that the pod prefers to not schedule onto a node if that node is already running a pod with label
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot schedule onto a node if that node is in the same zone as a pod with
 label having key "security" and value "S2".) See the [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/podaffinity.md).
@@ -183,8 +191,8 @@ flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 As with node affinity, the legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 
 In principle, the `topologyKey` can be any legal label value. However,
-for performance reasons, only a limit set of topology keys are allowed;
-they are specified in the `--failure-domain` command-line argument to the scheduler. By default the allowed topology keys are
+for performance reasons, only a limited set of topology keys are allowed.
+By default the allowed topology keys are:
 
 * `kubernetes.io/hostname`
 * `failure-domain.beta.kubernetes.io/zone`
@@ -213,7 +221,7 @@ marks that the node should not accept any pods that do not tolerate the taints.
 Tolerations are applied to pods, and allow (but do not require) the pods to schedule
 onto nodes with matching taints.
 
-You add a taint to a node using [kubectl taint](https://kubernetes.io/docs/user-guide/kubectl/kubectl_taint/).
+You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/v1.6/#taint).
 For example,
 
 ```shell
@@ -246,9 +254,25 @@ A toleration "matches" a taint if the `key`s are the same and the `effect`s are 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
 * the `operator` is `Equal` and the `value`s are equal
 
-(`Operator` defaults to `Equal` if not specified.)
-As a special case, an empty `key` with operator `Exists` matches all keys and all values.
-Also as a special case, empty `effect` matches all effects.
+`Operator` defaults to `Equal` if not specified.
+
+**NOTE:** There are two special cases:
+
+* An empty `key` with operator `Exists` matches all keys, values and effects which means this
+will tolerate everything.
+
+```yaml
+tolerations:
+- operator: "Exists"
+```
+
+* An empty `effect` matches all effects with key `key`.
+
+```yaml
+tolerations:
+- key: "key"
+  operator: "Exists"
+```
 
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
 This is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
@@ -372,7 +396,7 @@ is enabled (you can do this by including `TaintBasedEvictions=true` in `--featur
 `--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
 added by the NodeController and the normal logic for evicting pods from nodes
 based on the Ready NodeCondition is disabled.
-(Note: To maintain the existing [rate limiting](https://kubernetes.io/docs/admin/node/#node-controller))
+(Note: To maintain the existing [rate limiting](https://kubernetes.io/docs/admin/node/#node-controller)
 behavior of pod evictions due to node problems, the system actually adds the taints
 in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.)

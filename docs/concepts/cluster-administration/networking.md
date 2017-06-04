@@ -2,16 +2,19 @@
 assignees:
 - thockin
 title: Cluster Networking
+redirect_from:
+- "/docs/admin/networking/"
+- "/docs/admin/networking.html"
 ---
 
 Kubernetes approaches networking somewhat differently than Docker does by
 default.  There are 4 distinct networking problems to solve:
 
 1. Highly-coupled container-to-container communications: this is solved by
-   [pods](/docs/user-guide/pods/) and `localhost` communications.
+   [pods](/docs/concepts/workloads/pods/pod/) and `localhost` communications.
 2. Pod-to-Pod communications: this is the primary focus of this document.
-3. Pod-to-Service communications: this is covered by [services](/docs/user-guide/services/).
-4. External-to-Service communications: this is covered by [services](/docs/user-guide/services/).
+3. Pod-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
+4. External-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
 
 * TOC
 {:toc}
@@ -102,6 +105,14 @@ as an introduction to various technologies and serves as a jumping-off point.
 
 The following networking options are sorted alphabetically - the order does not
 imply any preferential status.
+
+### Cilium
+
+[Cilium](https://github.com/cilium/cilium) is open source software for
+providing and transparently securing network connectivity between application
+containers. Cilium is L7/HTTP aware and can enforce network policies on L3-L7
+using an identity based security model that is decoupled from network
+addressing.
 
 ### Contiv
 
@@ -202,7 +213,7 @@ Calico can also be run in policy enforcement mode in conjunction with other netw
 
 ### Romana
 
-[Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/user-guide/networkpolicies/) to provide isolation across network namespaces.
+[Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/networkpolicies/) to provide isolation across network namespaces.
 
 ### Weave Net from Weaveworks
 

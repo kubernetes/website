@@ -3,17 +3,22 @@ assignees:
 - erictune
 - thockin
 title: Images
+redirect_from:
+- "/docs/user-guide/images/"
+- "/docs/user-guide/images.html"
 ---
 
-Each container in a pod has its own image.  Currently, the only type of image supported is a [Docker Image](https://docs.docker.com/engine/tutorials/dockerimages/).
+{% capture overview %}
 
 You create your Docker image and push it to a registry before referring to it in a Kubernetes pod.
 
 The `image` property of a container supports the same syntax as the `docker` command does, including private registries and tags.
 
-* TOC
+{% endcapture %}
+
 {:toc}
 
+{% capture body %}
 
 ## Updating Images
 
@@ -116,8 +121,8 @@ Once you have created your container registry, you will use the following creden
    * `DOCKER_REGISTRY_SERVER`: `${some-registry-name}.azurecr.io`
    * `DOCKER_EMAIL`: `${some-email-address}`
 
-Once you have those variables filled in you can [configure a Kubernetes Secret and use it to deploy a Pod]
-(/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+Once you have those variables filled in you can
+[configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
 
 ### Configuring Nodes to Authenticate to a Private Repository
@@ -162,7 +167,7 @@ spec:
       command: [ "echo", "SUCCESS" ]
 EOF
 $ kubectl create -f /tmp/private-image-test-1.yaml
-pods/private-image-test-1
+pod "private-image-test-1" created
 $
 ```
 
@@ -200,7 +205,7 @@ with credentials for Google Container Registry.  You cannot use this approach.
 will not work reliably on GCE, and any other cloud provider that does automatic
 node replacement.
 
-Be default, the kubelet will try to pull each image from the specified registry.
+By default, the kubelet will try to pull each image from the specified registry.
 However, if the `imagePullPolicy` property of the container is set to `IfNotPresent` or `Never`,
 then a local image is used (preferentially or exclusively, respectively).
 
@@ -318,3 +323,7 @@ common use cases and suggested solutions.
    - run a private registry with authorization required.
    - generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
    - tenant adds that secret to imagePullSecrets of each namespace.
+
+{% endcapture %}
+
+{% include templates/concept.md %}

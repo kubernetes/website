@@ -1,7 +1,7 @@
 ---
 assignees:
 - dlorenc
-- r2d4 
+- r2d4
 - aaron-prindle
 title: Running Kubernetes Locally via Minikube
 ---
@@ -24,18 +24,7 @@ Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a
 
 ## Installation
 
-### Requirements
-
-* OS X
-    * [xhyve driver](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#xhyve-driver), [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [VMware Fusion](https://www.vmware.com/products/fusion) installation
-* Linux
-    * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [KVM](http://www.linux-kvm.org/) installation,
-* VT-x/AMD-v virtualization must be enabled in BIOS
-* `kubectl` See the [kubectl installation instructions](/docs/getting-started-guides/kubectl/) for more details.
-
-### Instructions
-
-See the installation instructions for the [latest release](https://github.com/kubernetes/minikube/releases).
+See [Installing Minikube](/docs/tasks/tools/install-minikube/).
 
 ## Quickstart
 
@@ -45,8 +34,8 @@ the following drivers:
 
 * virtualbox
 * vmwarefusion
-* kvm ([driver installation](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#kvm-driver))
-* xhyve ([driver installation](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#xhyve-driver))
+* kvm ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm-driver))
+* xhyve ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#xhyve-driver))
 
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 
@@ -99,14 +88,14 @@ This will use an alternative minikube ISO image containing both rkt, and Docker,
 
 ### Driver plugins
 
-See [DRIVERS](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md) for details on supported drivers and how to install
+See [DRIVERS](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md) for details on supported drivers and how to install
 plugins, if required.
 
 ### Reusing the Docker daemon
 
 When using a single VM of Kubernetes, it's really handy to reuse the minikube's built-in Docker daemon; as this means you don't have to build a docker registry on your host machine and push the image into it - you can just build inside the same docker daemon as minikube which speeds up local experiments. Just make sure you tag your Docker image with something other than 'latest' and use that tag while you pull the image. Otherwise, if you do not specify version of your image, it will be assumed as `:latest`, with pull image policy of `Always` correspondingly, which may eventually result in `ErrImagePull` as you may not have any versions of your Docker image out there in the default docker registry (usually DockerHub) yet.
 
-To be able to work with the docker daemon on your mac/linux host use the [docker-env command](https://github.com/kubernetes/minikube/blob/master/docs/minikube_docker-env.md) in your shell:
+To be able to work with the docker daemon on your mac/linux host use the `docker-env command` in your shell:
 
 ```
 eval $(minikube docker-env)
@@ -138,7 +127,7 @@ Remember to turn off the imagePullPolicy:Always, as otherwise Kubernetes won't u
 
 ### Starting a Cluster
 
-The [minikube start](https://github.com/kubernetes/minikube/blob/master/docs/minikube_start.md) command can be used to start your cluster.
+The `minikube start` command can be used to start your cluster.
 This command creates and configures a virtual machine that runs a single-node Kubernetes cluster.
 This command also configures your [kubectl](http://kubernetes.io/docs/user-guide/kubectl-overview/) installation to communicate with this cluster.
 
@@ -182,19 +171,19 @@ This feature also supports nested structs. To change the `LeaderElection.LeaderE
 To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--extra-config=apiserver.AuthorizationMode=RBAC`.
 
 ### Stopping a Cluster
-The [minikube stop](https://github.com/kubernetes/minikube/blob/master/docs/minikube_stop.md) command can be used to stop your cluster.
+The `minikube stop` command can be used to stop your cluster.
 This command shuts down the minikube virtual machine, but preserves all cluster state and data.
 Starting the cluster again will restore it to it's previous state.
 
 ### Deleting a Cluster
-The [minikube delete](https://github.com/kubernetes/minikube/blob/master/docs/minikube_delete.md) command can be used to delete your cluster.
+The `minikube delete` command can be used to delete your cluster.
 This command shuts down and deletes the minikube virtual machine. No data or state is preserved.
 
 ## Interacting With your Cluster
 
 ### Kubectl
 
-The `minikube start` command creates a "[kubectl context](http://kubernetes.io/docs/user-guide/kubectl/kubectl_config_set-context/)" called "minikube".
+The `minikube start` command creates a "[kubectl context](/docs/user-guide/kubectl/v1.6/#-em-set-context-em-)" called "minikube".
 This context contains the configuration to communicate with your minikube cluster.
 
 Minikube sets this context to default automatically, but if you need to switch back to it in the future, run:
@@ -273,11 +262,7 @@ We recommend you use ImagePullSecrets, but if you would like to configure access
 
 ## Add-ons
 
-In order to have minikube properly start/restart custom addons, place the addon(s) you wish to be launched with minikube in the `.minikube/addons` directory.  Addons in this folder will be moved to the minikubeVM and launched each time minikube is started/restarted.
-
-## Documentation
-
-For a list of minikube's available commands see the [full CLI docs](https://github.com/kubernetes/minikube/blob/master/docs/minikube.md).
+In order to have minikube properly start/restart custom addons, place the addons you wish to be launched with minikube in the `.minikube/addons` directory.  Addons in this folder will be moved to the minikubeVM and launched each time minikube is started/restarted.
 
 ## Using Minikube with an HTTP Proxy
 
