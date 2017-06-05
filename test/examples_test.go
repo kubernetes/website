@@ -215,14 +215,15 @@ func walkConfigFiles(inDir string, fn func(name, path string, data [][]byte)) er
 func TestExampleObjectSchemas(t *testing.T) {
 	cases := map[string]map[string][]runtime.Object{
 		"../docs/user-guide/walkthrough": {
-			"deployment":                {&extensions.Deployment{}},
-			"deployment-update":         {&extensions.Deployment{}},
-			"pod-nginx":                 {&api.Pod{}},
-			"pod-nginx-with-label":      {&api.Pod{}},
-			"pod-redis":                 {&api.Pod{}},
-			"pod-with-http-healthcheck": {&api.Pod{}},
-			"podtemplate":               {&api.PodTemplate{}},
-			"service":                   {&api.Service{}},
+			"deployment":				{&extensions.Deployment{}},
+			"deployment-update":			{&extensions.Deployment{}},
+			"pod-nginx":				{&api.Pod{}},
+			"pod-nginx-with-label":			{&api.Pod{}},
+			"pod-redis":				{&api.Pod{}},
+			"pod-with-http-healthcheck":		{&api.Pod{}},
+			"pod-with-tcp-socket-healthcheck": 	{&api.Pod{}},
+			"podtemplate":				{&api.PodTemplate{}},
+			"service":				{&api.Service{}},
 		},
 		"../docs/user-guide/update-demo": {
 			"kitten-rc":   {&api.ReplicationController{}},
