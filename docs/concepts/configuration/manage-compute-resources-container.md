@@ -15,6 +15,8 @@ resources on a node can be handled in a specified manner. For more details about
 the difference between requests and limits, see
 [Resource QoS](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-qos.md).
 
+Blah blah blah
+
 {% endcapture %}
 
 
