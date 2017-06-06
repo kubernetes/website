@@ -386,6 +386,11 @@ kubeadm reset
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
+## Upgrading
+
+Instructions for upgrading kubeadm clusters can be found
+[here](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/).
+
 ## Explore other add-ons
 
 See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons,
