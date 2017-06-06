@@ -106,6 +106,22 @@ brew install kubectl
 ```
   2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
 
+## Install with Chocolatey on Windows
+
+  1. If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install with:
+```shell
+choco install kubernetes-cli
+```
+  2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
+  3. Configuring kubectl to use a remote kubernetes cluster
+```shell
+cd C:\users\yourusername (Or wherever your %HOME% directory is)
+mkdir .kube
+cd .kube
+touch config
+```
+Edit the config file with your editor of choice - notepad for example
+
 ## Configuring kubectl
 
 In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/), which is created automatically when you create a cluster using kube-up.sh or successfully deploy a Minikube cluster. See the [getting started guides](/docs/getting-started-guides/) for more about creating clusters. If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/administer-cluster/share-configuration/).
