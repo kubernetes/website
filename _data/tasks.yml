@@ -111,6 +111,7 @@ toc:
   - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/cluster-management.md
   - docs/tasks/administer-cluster/upgrade-1-6.md
+  - docs/tasks/administer-cluster/kubeadm-upgrade-1-7.md
   - docs/tasks/administer-cluster/namespaces.md
   - docs/tasks/administer-cluster/namespaces-walkthrough.md
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
