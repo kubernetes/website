@@ -26,16 +26,11 @@ Versions 1.13 and 17.03+ have not yet been tested and verified by the Kubernetes
 For installation instructions, see
 [Install Docker](https://docs.docker.com/engine/installation/).
 
-## Installing kubectl 
-
-On each of your machines,
-[install kubectl](/docs/tasks/tools/install-kubectl/).
-You only need kubectl on the master, but it can be useful to have on the other
-nodes as well.
-
-## Installing kubelet and kubeadm
+## Installing kubectl, kubelet and kubeadm
 
 You will install these packages on all of your machines:
+
+* `kubectl`: command line tool to manage your kubernetes cluster.
 
 * `kubelet`: the most core component of Kubernetes. It runs on all of the
   machines in your cluster and does things like starting pods and containers.
