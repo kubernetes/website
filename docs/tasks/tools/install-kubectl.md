@@ -113,14 +113,14 @@ brew install kubectl
 choco install kubernetes-cli
 ```
   2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
-  3. Configuring kubectl to use a remote kubernetes cluster
+  3. Configure kubectl to use a remote kubernetes cluster:
 ```shell
 cd C:\users\yourusername (Or wherever your %HOME% directory is)
 mkdir .kube
 cd .kube
 touch config
 ```
-Edit the config file with your editor of choice - notepad for example
+Edit the config file with a text editor of your choice, such as Notepad for example.
 
 ## Configuring kubectl
 
