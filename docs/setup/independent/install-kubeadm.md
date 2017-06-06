@@ -63,7 +63,7 @@ For each machine:
   apt-get update
   # Install docker if you don't have it already.
   apt-get install -y docker-engine
-  apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+  apt-get install -y kubelet kubeadm kubernetes-cni
   ```
 
 * If the machine is running CentOS, run:
@@ -80,7 +80,7 @@ For each machine:
           https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
   EOF
   setenforce 0
-  yum install -y docker kubelet kubeadm kubectl kubernetes-cni
+  yum install -y docker kubelet kubeadm kubernetes-cni
   systemctl enable docker && systemctl start docker
   systemctl enable kubelet && systemctl start kubelet
   ```
