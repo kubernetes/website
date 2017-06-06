@@ -60,6 +60,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: test-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
@@ -124,6 +126,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: test
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - host: foo.bar.com
