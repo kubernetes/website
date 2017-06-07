@@ -443,9 +443,9 @@ run, what volume plugin it uses (including Flex), etc. The repository [kubernete
 houses a library for writing external provisioners that implements the bulk of
 the specification plus various community-maintained external provisioners.
 
-For example, NFS doesn't provide internal provisioner, but external provisioner
-could be used and some external provisioners are listed under the repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
-Also there is a case that 3rd party storage vendor provides their own external
+For example, NFS doesn't provide an internal provisioner, but an external provisioner
+can be used. Some external provisioners are listed under the repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
+However, there are also cases when 3rd party storage vendors provide their own external
 provisioner.
 
 ### Parameters
