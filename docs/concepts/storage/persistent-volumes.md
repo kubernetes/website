@@ -445,7 +445,7 @@ the specification plus various community-maintained external provisioners.
 
 For example, NFS doesn't provide an internal provisioner, but an external provisioner
 can be used. Some external provisioners are listed under the repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
-However, there are also cases when 3rd party storage vendors provide their own external
+There are also cases when 3rd party storage vendors provide their own external
 provisioner.
 
 ### Parameters
@@ -548,7 +548,7 @@ metadata:
   name: standard
 provisioner: kubernetes.io/host-path
 ```
-> __Important!__ HostPath provisioner can be used single node testing only. DO NOT USE in your production environment.
+__Important!__ HostPath provisioner can be used for single node testing only. DO NOT USE it in your production environment.
 
 #### OpenStack Cinder
 
