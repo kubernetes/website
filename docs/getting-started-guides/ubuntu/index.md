@@ -24,6 +24,7 @@ Available for Ubuntu 16.04 and newer:
 
 ```
 sudo snap install conjure-up --classic
+# re-login may be required at that point if you just installed snap utility
 conjure-up kubernetes
 ```
 
