@@ -423,7 +423,6 @@ for provisioning PVs. This field must be specified.
 | Flocker              | &#x2713;            | -                                    |
 | GCEPersistentDisk    | &#x2713;            | [GCE](#gce)                          |
 | Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
-| HostPath             | &#x2713;            | [HostPath](#hostpath)                |
 | iSCSI                | -                   | -                                    |
 | PhotonPersistentDisk | &#x2713;            | -                                    |
 | Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
@@ -443,9 +442,9 @@ run, what volume plugin it uses (including Flex), etc. The repository [kubernete
 houses a library for writing external provisioners that implements the bulk of
 the specification plus various community-maintained external provisioners.
 
-For example, NFS doesn't provide internal provisioner, but external provisioner
-could be used and some external provisioners are listed under the repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
-Also there is a case that 3rd party storage vendor provides their own external
+For example, NFS doesn't provide an internal provisioner, but an external provisioner
+can be used. Some external provisioners are listed under the repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
+There are also cases when 3rd party storage vendors provide their own external
 provisioner.
 
 ### Parameters
@@ -538,17 +537,6 @@ parameters:
   For further reference information, see [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
 
   When persistent volumes are dynamically provisioned, the Gluster plugin automatically creates an endpoint and a headless service in the name `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically deleted when the persistent volume claim is deleted.
-
-#### HostPath
-
-```yaml
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: standard
-provisioner: kubernetes.io/host-path
-```
-> __Important!__ HostPath provisioner can be used single node testing only. DO NOT USE in your production environment.
 
 #### OpenStack Cinder
 
