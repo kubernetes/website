@@ -29,7 +29,7 @@ This page shows you how to configure an application using a ConfigMap.
 Use the `kubectl create configmap` command to create configmaps from [directories](#creating-configmaps-from-directories), [files](#creating-configmaps-from-files), or [literal values](#creating-configmaps-from-literal-values):
 
 ```shell
-kubectl create <map-name> <data-source>
+kubectl create configmap <map-name> <data-source>
 ```
 
 where \<map-name> is the name you want to assign to the ConfigMap and \<data-source> is the directory, file, or literal value to draw the data from.
