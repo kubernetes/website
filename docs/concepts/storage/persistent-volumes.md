@@ -411,6 +411,28 @@ parameters:
 Storage classes have a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
 
+| Volume Plugin        | Internal provisioner| Config Example                |
+| :---                 |     :---:           |    :---:                      |
+| AWSElasticBlockStore | &#x2713;            | [See below](#AWS)             |
+| AzureFile            | &#x2713;            | [See below](#HostPath)        |
+| AzureDisk            | &#x2713;            | [See below](#Azure Disk)      |
+| CephFS               | -                   | -                             |
+| Cinder               | &#x2713;            | [See below](#OpenStack Cinder)|
+| FC                   | -                   | -                             |
+| FlexVolume           | -                   | -                             |
+| Flocker              | &#x2713;            | -                             |
+| GCEPersistentDisk    | &#x2713;            | [See below](#GCE)             |
+| Glusterfs            | &#x2713;            | [See below](#Glusterfs)       |
+| HostPath             | &#x2713;            | [See below](#HostPath)        |
+| iSCSI                | -                   | -                             |
+| PhotonPersistentDisk | &#x2713;            | -                             |
+| Quobyte              | &#x2713;            | [See below](#Quobyte)         |
+| NFS                  | -                   | -                             |
+| RBD                  | &#x2713;            | [See below](#Ceph RBD)        |
+| VsphereVolume        | &#x2713;            | [See below](#vSphere)         |
+| PortworxVolume       | &#x2713;            | [See below](#Portworx Volume) |
+| ScaleIO              | &#x2713;            | [See below](#ScaleIO)         |
+
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
 alongside Kubernetes). You can also run and specify external provisioners,
@@ -511,6 +533,18 @@ parameters:
   For further reference information, see [How to configure Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
 
   When persistent volumes are dynamically provisioned, the Gluster plugin automatically creates an endpoint and a headless service in the name `gluster-dynamic-<claimname>`. The dynamic endpoint and service are automatically deleted when the persistent volume claim is deleted.
+
+#### HostPath
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: default
+  annotations:
+    storageclass.beta.kubernetes.io/is-default-class: "true"
+provisioner: kubernetes.io/host-path
+```
 
 #### OpenStack Cinder
 
