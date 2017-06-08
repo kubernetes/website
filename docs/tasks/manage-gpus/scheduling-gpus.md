@@ -1,7 +1,7 @@
 ---
 assignees:
 - vishh
-title: Scheduling GPUs
+title: Schedule GPUs
 redirect_from:
 - "/docs/user-guide/gpus/"
 - "/docs/user-guide/gpus.html"

@@ -144,11 +144,11 @@ toc:
   - docs/tasks/administer-federation/replicaset.md
   - docs/tasks/administer-federation/secret.md
 
-- title: Managing Cluster Daemons
+- title: Manage Cluster Daemons
   section:
   - docs/tasks/manage-daemon/update-daemon-set.md
 
-- title: Managing GPUs
+- title: Manage GPUs
   section:
   - docs/tasks/manage-gpus/scheduling-gpus.md
 
