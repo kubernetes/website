@@ -1,7 +1,7 @@
 ---
 assignees:
 - jessfraz
-title: Injecting Information into Pods Using a PodPreset
+title: Inject Information into Pods Using a PodPreset
 redirect_from:
 - "/docs/user-guide/pod-preset/index/"
 - "/docs/user-guide/pod-preset/index.html"
@@ -54,7 +54,7 @@ modified by a `PodPreset`. The annotation is of the form
 `podpreset.admission.kubernetes.io/<pod-preset name>": "<resource version>"`.
 
 
-## Enabling Pod Preset
+## Enable Pod Preset
 
 In order to use Pod Presets in your cluster you must ensure the
 following
@@ -63,7 +63,7 @@ following
 1.  You have enabled the admission controller `PodPreset`
 1.  You have defined your pod presets
 
-## Creating a Pod Preset
+## Create a Pod Preset
 
 ### Simple Pod Spec Example
 
