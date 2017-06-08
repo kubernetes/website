@@ -1,7 +1,7 @@
 ---
 assignees:
 - davidopp
-title: Safely Draining a Node while Respecting Application SLOs
+title: Safely Drain a Node while Respecting Application SLOs
 ---
 
 {% capture overview %}
