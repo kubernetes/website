@@ -9,7 +9,7 @@ toc:
   - docs/tasks/tools/install-minikube.md
   - docs/setup/independent/install-kubeadm.md
 
-- title: Configuring Pods and Containers
+- title: Configure Pods and Containers
   section:
   - docs/tasks/configure-pod-container/assign-cpu-ram-container.md
   - docs/tasks/configure-pod-container/configure-volume-storage.md
