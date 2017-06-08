@@ -53,7 +53,7 @@ toc:
   - docs/tasks/job/coarse-parallel-processing-work-queue/index.md
   - docs/tasks/job/fine-parallel-processing-work-queue/index.md
 
-- title: Accessing Applications in a Cluster
+- title: Access Applications in a Cluster
   section:
   - docs/tasks/access-application-cluster/web-ui-dashboard.md
   - docs/tasks/access-application-cluster/access-cluster.md
