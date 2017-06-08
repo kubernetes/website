@@ -1,5 +1,5 @@
 ---
-title: Defining a Command and Arguments for a Container
+title: Define a Command and Arguments for a Container
 redirect_from:
 - "/docs/concepts/configuration/container-command-args/"
 - "/docs/concepts/configuration/container-command-arg.html"
@@ -22,7 +22,7 @@ in a Kubernetes Pod.
 
 {% capture steps %}
 
-## Defining a command and arguments when you create a Pod
+## Define a command and arguments when you create a Pod
 
 When you create a Pod, you can define a command and arguments for the
 containers that run in the Pod. To define a command, include the `command`
@@ -62,7 +62,7 @@ from the Pod:
         command-demo
         tcp://10.3.240.1:443
 
-## Using environment variables to define arguments
+## Use environment variables to define arguments
 
 In the preceding example, you defined the arguments directly by
 providing strings. As an alternative to providing strings directly,
@@ -83,7 +83,7 @@ and
 NOTE: The environment variable appears in parentheses, `"$(VAR)"`. This is
 required for the variable to be expanded in the `command` or `args` field.
 
-## Running a command in a shell
+## Run a command in a shell
 
 In some cases, you need your command to run in a shell. For example, your
 command might consist of several commands piped together, or it might be a shell
