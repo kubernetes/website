@@ -2,7 +2,7 @@
 assignees:
 - davidopp
 - madhusudancs
-title: Configuring Multiple Schedulers
+title: Configure Multiple Schedulers
 redirect_from:
 - "/docs/admin/multiple-schedulers/"
 - "/docs/admin/multiple-schedulers.html"

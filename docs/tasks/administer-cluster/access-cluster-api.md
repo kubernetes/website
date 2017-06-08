@@ -1,5 +1,5 @@
 ---
-title: Accessing Clusters Using the Kubernetes API
+title: Access Clusters Using the Kubernetes API
 redirect_from:
 - "/docs/user-guide/accessing-the-cluster/"
 - "/docs/user-guide/accessing-the-cluster.html"

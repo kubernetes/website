@@ -1,5 +1,5 @@
 ---
-title: Autoscaling the DNS Service in a Cluster
+title: Autoscale the DNS Service in a Cluster
 ---
 
 {% capture overview %}
