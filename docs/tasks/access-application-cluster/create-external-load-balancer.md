@@ -1,5 +1,5 @@
 ---
-title: Creating an External Load Balancer
+title: Create an External Load Balancer
 redirect_from:
 - "/docs/user-guide/load-balancer/"
 - "/docs/user-guide/load-balancer.html"
