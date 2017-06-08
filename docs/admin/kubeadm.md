@@ -4,7 +4,7 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-title: kubeadm Setup Tool
+title: kubeadm Setup Tool Reference Guide
 ---
 
 This document provides information on how to use kubeadm's advanced options.
@@ -28,7 +28,7 @@ following steps:
 1. Outputting a kubeconfig file for the kubelet to use to connect to the API
    server, as well as an additional kubeconfig file for administration.
 
-1. kubeadm generates Kubernetes Static Pod manifests for the API server,
+1. kubeadm generates Kubernetes static Pod manifests for the API server,
    controller manager and scheduler.  It places them in
    `/etc/kubernetes/manifests`. The kubelet watches this directory for Pods to
    create on startup. These are the core components of Kubernetes. Once they are
@@ -49,7 +49,7 @@ steps:
 
 1. kubeadm creates a local key pair.  It prepares a certificate signing request
    (CSR) and sends that off to the API server for signing.  The bootstrap token
-   is used to authenticate.  The API server is configured to sign this
+   is used to authenticate.  The control plane will to sign this CSR request
    automatically.
 
 1. kubeadm configures the local kubelet to connect to the API server
@@ -293,8 +293,8 @@ schedulerExtraArgs:
   <argument>: <value|string>
   <argument>: <value|string>
 apiServerCertSANs:
-  - <name1|string>
-  - <name2|string>
+- <name1|string>
+- <name2|string>
 certificatesDir: <string>
 ```
 In addition, if authorizationMode is set to `ABAC`, you should write the config to `/etc/kubernetes/abac_policy.json`.
@@ -308,13 +308,9 @@ kind: NodeConfiguration
 caCertPath: <path|string>
 discoveryFile: <path|string>
 discoveryToken: <string>
-
-# Currently only the first server is used as a target for the cluster
-# bootstrap flow.
 discoveryTokenAPIServers:
-  - <address|string>
-  - <address|string>
-
+- <address|string>
+- <address|string>
 tlsBootstrapToken: <string>
 ```
 
@@ -347,6 +343,28 @@ For the gory details on how the tokens are implemented (including managing them
 outside of kubeadm) see the [Bootstrap Token
 docs](/docs/admin/bootstrap-tokens/).
 
+## Master Images
+
+All of these components run in pods started by kubelet and the following images
+are required and will be automatically pulled by kubelet if they are absent
+while `kubeadm init` is initializing your master:
+
+| Image Name | v1.6 version | v1.7 version
+|---|---|---|
+| gcr.io/google_containers/kube-apiserver-${ARCH} | v1.6.x | v1.7.x
+| gcr.io/google_containers/kube-controller-manager-${ARCH} | v1.6.x | v1.7.x
+| gcr.io/google_containers/kube-scheduler-${ARCH} | v1.6.x | v1.7.x
+| gcr.io/google_containers/kube-proxy-${ARCH} | v1.6.x | v1.7.x
+| gcr.io/google_containers/etcd-${ARCH} | 3.0.17 | 3.0.17
+| gcr.io/google_containers/pause-${ARCH} | 3.0 | 3.0
+| gcr.io/google_containers/k8s-dns-sidecar-${ARCH} | 1.14.1 | 1.14.2
+| gcr.io/google_containers/k8s-dns-kube-dns-${ARCH} | 1.14.1 | 1.14.2
+| gcr.io/google_containers/k8s-dns-dnsmasq-nanny-${ARCH} | 1.14.1 | 1.14.2
+
+v1.7.x means the latest patch release of the v1.7 branch.
+
+`${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
+
 ## Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
@@ -355,13 +373,12 @@ parallelize the token distribution for easier automation. To implement this
 automation, you must know the IP address that the master will have after it is
 started.
 
-1.  Generate a token.  This token must have the form  `<6 character string>.<16
-    character string>`.  More formally, it must match the regex
+1.  Generate a token. This token must match the regex
     `[a-z0-9]{6}\.[a-z0-9]{16}`.
 
-    Kubeadm can generate a token for you:
+    kubeadm can generate a token for you:
 
-    ``` bash
+    ```bash
     kubeadm token generate
     ```
 
@@ -371,6 +388,42 @@ started.
 
 Once the cluster is up, you can grab the admin credentials from the master node
 at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
+
+## Cloudprovider integrations (experimental)
+
+Enabling specific cloud providers is a common request. This currently requires
+manual configuration and is therefore not yet fully supported. If you wish to do
+so, edit the kubeadm dropin for the kubelet service
+(`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`) on all nodes,
+including the master. If your cloud provider requires any extra packages
+installed on host, for example for volume mounting/unmounting, install those
+packages.
+
+Specify the `--cloud-provider` flag to kubelet and set it to the cloud of your
+choice. If your cloudprovider requires a configuration file, create the file
+`/etc/kubernetes/cloud-config` on every node. The exact format and content of
+that file depends on the requirements imposed by your cloud provider. If you use
+the `/etc/kubernetes/cloud-config` file, you must append it to the kubelet
+arguments as follows: `--cloud-config=/etc/kubernetes/cloud-config`
+
+Next, specify the cloud provider in the kubeadm config file.  Create a file called
+`kubeadm.conf` with the following contents:
+
+``` yaml
+kind: MasterConfiguration
+apiVersion: kubeadm.k8s.io/v1alpha1
+cloudProvider: <cloud provider>
+```
+
+Lastly, run `kubeadm init --config=kubeadm.conf` to bootstrap your cluster with
+the cloud provider.
+
+This workflow is not yet fully supported, however we hope to make it extremely
+easy to spin up clusters with cloud providers in the future. (See [this
+proposal](https://github.com/kubernetes/community/pull/128) for more
+information) The [Kubelet Dynamic
+Settings](https://github.com/kubernetes/kubernetes/pull/29459) feature may also
+help to fully automate this process in the future.
 
 ## Environment variables
 
@@ -445,12 +498,3 @@ EOF
 ```
 
 Now `kubelet` is ready to use the specified CRI runtime, and you can continue with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
-
-## Releases and release notes
-
-If you already have kubeadm installed and want to upgrade, run `apt-get update
-&& apt-get upgrade` or `yum update` to get the latest version of kubeadm.
-
-Refer to the
-[CHANGELOG.md](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
-for more information.
