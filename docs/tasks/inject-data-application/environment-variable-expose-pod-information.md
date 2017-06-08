@@ -1,5 +1,5 @@
 ---
-title: Exposing Pod Information to Containers Through Environment Variables
+title: Expose Pod Information to Containers Through Environment Variables
 redirect_from:
 - "/docs/user-guide/environment-guide/"
 - "/docs/user-guide/environment-guide/index.html"
@@ -42,7 +42,7 @@ Together, these two ways of exposing Pod and Container fields are called the
 *Downward API*.
 
 
-## Using Pod fields as values for environment variables
+## Use Pod fields as values for environment variables
 
 In this exercise, you create a Pod that has one Container. Here is the
 configuration file for the Pod:
@@ -117,7 +117,7 @@ MY_NODE_NAME=minikube
 MY_POD_NAME=dapi-envars-fieldref
 ```
 
-## Using Container fields as values for environment variables
+## Use Container fields as values for environment variables
 
 In the preceding exercise, you used Pod fields as the values for environment
 variables. In this next exercise, you use Container fields as the values for
