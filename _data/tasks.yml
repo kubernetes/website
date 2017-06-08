@@ -3,7 +3,7 @@ abstract: "Step-by-step instructions for performing operations with Kubernetes."
 toc:
 - docs/tasks/index.md
 
-- title: Installing Tools
+- title: Install Tools
   section:
   - docs/tasks/tools/install-kubectl.md
   - docs/tasks/tools/install-minikube.md
