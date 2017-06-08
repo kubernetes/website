@@ -1,7 +1,7 @@
 ---
 assignees:
 - chenopis
-title: Tabs Example
+title: Canonical Tabs Example
 ---
 
 In a markdown page (.md file) on this site, you can add a tab set to display multiple flavors of a given solution. 
