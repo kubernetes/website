@@ -47,7 +47,7 @@ toc:
   - docs/tasks/run-application/horizontal-pod-autoscale.md
   - docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md
 
-- title: Running Jobs
+- title: Run Jobs
   section:
   - docs/tasks/job/parallel-processing-expansion.md
   - docs/tasks/job/coarse-parallel-processing-work-queue/index.md
