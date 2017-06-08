@@ -3,7 +3,7 @@ assignees:
 - derekwaynecarr
 - vishh
 - timstclair
-title: Configuring Out Of Resource Handling
+title: Configure Out Of Resource Handling
 redirect_from:
 - "/docs/admin/out-of-resource/"
 - "/docs/admin/out-of-resource.html"
