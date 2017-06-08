@@ -1,7 +1,7 @@
 ---
 assignees:
 - davidopp
-title: Troubleshooting Clusters
+title: Troubleshoot Clusters
 redirect_from:
 - "/docs/admin/cluster-troubleshooting/"
 - "/docs/admin/cluster-troubleshooting.html"
