@@ -93,7 +93,7 @@ toc:
   - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
   - docs/tasks/access-kubernetes-api/extend-api-third-party-resource.md
 
-- title: Using TLS
+- title: TLS
   section:
   - docs/tasks/tls/managing-tls-in-a-cluster.md
 
