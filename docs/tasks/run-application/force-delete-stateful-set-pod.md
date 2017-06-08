@@ -4,7 +4,7 @@ assignees:
 - erictune
 - foxish
 - smarterclayton
-title: Force Deleting StatefulSet Pods
+title: Force Delete StatefulSet Pods
 redirect:from:
 - "/docs/tasks/manage-stateful-set/delete-pods/"
 - "/docs/tasks/manage-stateful-set/delete-pods.html"
@@ -30,7 +30,7 @@ In normal operation of a StatefulSet, there is **never** a need to force delete 
 
 Manual force deletion should be undertaken with caution, as it has the potential to violate the at most one semantics inherent to StatefulSet. StatefulSets may be used to run distributed and clustered applications which have a need for a stable network identity and stable storage. These applications often have configuration which relies on an ensemble of a fixed number of members with fixed identities. Having multiple members with the same identity can be disastrous and may lead to data loss (e.g. split brain scenario in quorum-based systems). 
 
-## Deleting Pods
+## Delete Pods
 
 You can perform a graceful pod deletion with the following command:
 
