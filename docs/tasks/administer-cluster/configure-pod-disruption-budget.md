@@ -1,7 +1,7 @@
 ---
 assignees:
 - davidopp
-title: Configuring a Pod Disruption Budget
+title: Configure a Pod Disruption Budget
 redirect_from:
 - "/docs/admin/disruptions/"
 - "/docs/admin/disruptions.html"

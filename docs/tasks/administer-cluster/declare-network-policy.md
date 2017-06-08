@@ -1,7 +1,7 @@
 ---
 assignees:
 - caseydavenport
-title: Declaring Network Policy
+title: Declare Network Policy
 redirect_from:
 - "/docs/getting-started-guides/network-policy/walkthrough/"
 - "/docs/getting-started-guides/network-policy/walkthrough.html"
