@@ -69,7 +69,7 @@ toc:
   - title: Configuring DNS for a Cluster
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/cluster-dns
 
-- title: Monitoring, Logging, and Debugging
+- title: Monitor, Log, and Debug
   section:
   - docs/tasks/debug-application-cluster/resource-usage-monitoring.md
   - docs/tasks/debug-application-cluster/get-shell-running-container.md
@@ -85,7 +85,7 @@ toc:
   - docs/tasks/debug-application-cluster/debug-stateful-set.md
   - docs/tasks/debug-application-cluster/debug-application-introspection.md
   - docs/tasks/debug-application-cluster/audit.md
-  - title: Using Explorer to Examine the Runtime Environment
+  - title: Use Explorer to Examine the Runtime Environment
     path: https://github.com/kubernetes/kubernetes/tree/release-1.5/examples/explorer
 
 - title: Accessing and Extending the Kubernetes API
