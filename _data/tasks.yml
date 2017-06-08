@@ -25,7 +25,7 @@ toc:
   - docs/tasks/configure-pod-container/configure-pod-configmap.md
   - docs/tools/kompose/user-guide.md
 
-- title: Injecting Data Into Applications
+- title: Inject Data Into Applications
   section:
   - docs/tasks/inject-data-application/define-command-argument-container.md
   - docs/tasks/inject-data-application/define-environment-variable-container.md
