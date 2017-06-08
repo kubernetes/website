@@ -100,7 +100,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
              valueFrom:
                configMapKeyRef:
                  name: env-config
-                 key: special.type
+                 key: log_level
      restartPolicy: Never
    ```
  
