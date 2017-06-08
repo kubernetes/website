@@ -34,7 +34,7 @@ toc:
   - docs/tasks/inject-data-application/distribute-credentials-secure.md
   - docs/tasks/inject-data-application/podpreset.md
 
-- title: Running Applications
+- title: Run Applications
   section:
   - docs/tasks/run-application/run-stateless-application-deployment.md
   - docs/tasks/run-application/run-single-instance-stateful-application.md
