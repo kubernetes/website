@@ -90,6 +90,7 @@ Kubernetes supports several types of Volumes:
    * `Quobyte`
    * `PortworxVolume`
    * `ScaleIO`
+   * `local`
 
 We welcome additional contributions.
 
@@ -695,6 +696,15 @@ spec:
 ```
 
 For further detail, plese the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
+
+### local
+This volume type is alpha in 1.7.
+
+A `local` volume represents a mount point or directory that has node affinity.
+It can only be used as a statically created PersistentVolume source.
+
+For further detail, please see the [local volume
+user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)
 
 ## Using subPath
 
