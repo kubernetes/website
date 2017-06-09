@@ -174,6 +174,26 @@ token can add authenticated nodes to your cluster.  These tokens can be listed,
 created and deleted with the `kubeadm token` command.  See the [reference
 guide](/docs/admin/kubeadm/#manage-tokens).
 
+#### Configure Kubectl
+
+`kubeadm init` generates several configuration files in directory /etc/kubernetes. 
+Kubectl can use them to talk with the cluster. For example, to use the admin.conf, 
+run:
+```
+mkdir -p ~/.kube
+sudo cp /etc/kubernetes/admin.conf ~/.kube/config
+sudo chmod +r ~/.kube/config
+kubectl cluster-info
+```
+Check that kubectl is properly configured by running:
+```
+kubectl cluster-info
+```
+The output should be something like:
+```
+Kubernetes master is running at <master URL>
+```
+
 #### Master Images
 
 All of these components run in pods started by kubelet and the following images
