@@ -487,8 +487,8 @@ In the ServiceSpec, `externalIPs` can be specified along with any of the `Servic
 In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
 
 ```yaml
-kind: Service,
-apiVersion: v1,
+kind: Service
+apiVersion: v1
 metadata:
   name: my-service
 spec:
@@ -496,8 +496,8 @@ spec:
     app: MyApp
   ports:
     - name: http,
-      protocol: TCP,
-      port: 80,
+      protocol: TCP
+      port: 80
       targetPort: 9376
   externalIPs: 
     - 80.11.12.10
