@@ -1,13 +1,10 @@
 apiVersion: v1
 kind: ResourceQuota
 metadata:
-  name: not-best-effort
+  name: mem-cpu-demo
 spec:
   hard:
-    pods: "4"
     requests.cpu: "1"
-    requests.memory: 1Gi 
+    requests.memory: 1Gi
     limits.cpu: "2"
     limits.memory: 2Gi
-  scopes:
-  - NotBestEffort
