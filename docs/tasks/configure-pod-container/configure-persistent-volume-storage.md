@@ -1,5 +1,5 @@
 ---
-title: Configuring a Pod to Use a PersistentVolume for Storage
+title: Configure a Pod to Use a PersistentVolume for Storage
 redirect_from:
 - "/docs/user-guide/persistent-volumes/walkthrough/"
 - "/docs/user-guide/persistent-volumes/walkthrough.html"
@@ -34,7 +34,7 @@ do not already have a single-node cluster, you can create one by using
 
 {% capture steps %}
 
-## Creating an index.html file on your Node
+## Create an index.html file on your Node
 
 Open a shell to the Node in your cluster. How you open a shell depends on how
 you set up your cluster. For example, if you are using Minikube, you can open a
@@ -48,7 +48,7 @@ In the `/tmp/data` directory, create an `index.html` file:
 
     echo 'Hello from Kubernetes storage' > /tmp/data/index.html
 
-## Creating a PersistentVolume
+## Create a PersistentVolume
 
 In this exercise, you create a *hostPath* PersistentVolume. Kubernetes supports
 hostPath for development and testing on a single-node cluster. A hostPath
@@ -85,7 +85,7 @@ means it has not yet been bound to a PersistentVolumeClaim.
     task-pv-volume   10Gi       RWO           Retain          Available                       17s
 
 
-## Creating a PersistentVolumeClaim
+## Create a PersistentVolumeClaim
 
 The next step is to create a PersistentVolumeClaim. Pods use PersistentVolumeClaims
 to request physical storage. In this exercise, you create a PersistentVolumeClaim
@@ -124,7 +124,7 @@ The output shows that the PersistentVolumeClaim is bound to your PersistentVolum
     NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   AGE
     task-pv-claim   Bound     task-pv-volume   10Gi       RWO           5s
 
-## Creating a Pod
+## Create a Pod
 
 The next step is to create a Pod that uses your PersistentVolumeClaim as a volume.
 

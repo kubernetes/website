@@ -24,7 +24,7 @@ This page shows you how to configure an application using a ConfigMap.
 
 {% capture steps %}
 
-## Using kubectl to create a ConfigMap 
+## Use kubectl to create a ConfigMap 
 
 Use the `kubectl create configmap` command to create configmaps from [directories](#creating-configmaps-from-directories), [files](#creating-configmaps-from-files), or [literal values](#creating-configmaps-from-literal-values):
 
@@ -41,7 +41,7 @@ The data source corresponds to a key-value pair in the ConfigMap, where
  
 You can use [`kubectl describe`](docs/user-guide/kubectl/v1.6/#describe) or [`kubectl get`](docs/user-guide/kubectl/v1.6/#get) to retrieve information about a ConfigMap. The former shows a summary of the ConfigMap, while the latter returns the full contents of the ConfigMap.
 
-### Creating ConfigMaps from directories
+### Create ConfigMaps from directories
 
 You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory. 
 
@@ -106,7 +106,7 @@ metadata:
   uid: b4952dc3-d670-11e5-8cd0-68f728db1985
 ```
 
-### Creating ConfigMaps from files
+### Create ConfigMaps from files
 
 You can use `kubectl create configmap` to create a ConfigMap from an individual file, or from multiple files.
 
@@ -188,7 +188,7 @@ metadata:
   uid: 05f8da22-d671-11e5-8cd0-68f728db1985
 ```
 
-### Creating ConfigMaps from literal values
+### Create ConfigMaps from literal values
 
 You can use `kubectl create configmap` with the `--from-literal` argument to define a literal value from the command line:
 

@@ -1,5 +1,5 @@
 ---
-title: Running a Single-Instance Stateful Application
+title: Run a Single-Instance Stateful Application
 redirect_from:
 - "/docs/tutorials/stateful-application/run-stateful-application/"
 - "/docs/tutorials/stateful-application/run-stateful-application.html"

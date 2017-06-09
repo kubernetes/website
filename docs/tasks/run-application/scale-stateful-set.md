@@ -7,7 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: Scaling a StatefulSet
+title: Scale a StatefulSet
 redirect_from:
 - "/docs/tasks/manage-stateful-set/scale-stateful-set/"
 - "/docs/tasks/manage-stateful-set/scale-stateful-set.html"
