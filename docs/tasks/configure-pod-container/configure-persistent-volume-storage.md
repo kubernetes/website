@@ -68,7 +68,9 @@ Here is the configuration file for the hostPath PersistentVolume:
 The configuration file specifies that the volume is at `/tmp/data` on the
 the cluster's Node. The configuration also specifies a size of 10 gibibytes and
 an access mode of `ReadWriteOnce`, which means the volume can be mounted as
-read-write by a single Node.
+read-write by a single Node. It defines the [StorageClass name](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class)
+`manual` for the PersistentVolume, which will be used to bind
+PersistentVolumeClaim requests to this PersistentVolume.
 
 Create the PersistentVolume:
 
@@ -81,18 +83,15 @@ View information about the PersistentVolume:
 The output shows that the PersistentVolume has a `STATUS` of `Available`. This
 means it has not yet been bound to a PersistentVolumeClaim.
 
-    NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM     REASON    AGE
-    task-pv-volume   10Gi       RWO           Retain          Available                       17s
-
+    NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM     STORAGECLASS   REASON    AGE
+    task-pv-volume   10Gi       RWO           Retain          Available             manual                   4s
 
 ## Create a PersistentVolumeClaim
 
 The next step is to create a PersistentVolumeClaim. Pods use PersistentVolumeClaims
 to request physical storage. In this exercise, you create a PersistentVolumeClaim
 that requests a volume of at least three gigabytes that can provide read-write
-access for at least one Node. In order to bind the PersistentVolumeClaim to the
-PersistentVolume we created in the previous step, we also must [disable dynamic
-provisioning by specifying an empty StorageClass](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#dynamic).
+access for at least one Node.
 
 Here is the configuration file for the PersistentVolumeClaim:
 
@@ -104,7 +103,8 @@ Create the PersistentVolumeClaim:
 
 After you create the PersistentVolumeClaim, the Kubernetes control plane looks
 for a PersistentVolume that satisfies the claim's requirements. If the control
-plane finds a suitable PersistentVolume, it binds the claim to the volume.
+plane finds a suitable PersistentVolume with the same StorageClass, it binds the
+claim to the volume.
 
 Look again at the PersistentVolume:
 
@@ -112,9 +112,8 @@ Look again at the PersistentVolume:
 
 Now the output shows a `STATUS` of `Bound`.
 
-    kubectl get pv task-pv-volume
-    NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                   REASON    AGE
-    task-pv-volume   10Gi       RWO           Retain          Bound     default/task-pv-claim             8m
+    NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                   STORAGECLASS   REASON    AGE
+    task-pv-volume   10Gi       RWO           Retain          Bound     default/task-pv-claim   manual                   2m
 
 Look at the PersistentVolumeClaim:
 
@@ -123,8 +122,8 @@ Look at the PersistentVolumeClaim:
 The output shows that the PersistentVolumeClaim is bound to your PersistentVolume,
 `task-pv-volume`.
 
-    NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   AGE
-    task-pv-claim   Bound     task-pv-volume   10Gi       RWO           5s
+    NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   STORAGECLASS   AGE
+    task-pv-claim   Bound     task-pv-volume   10Gi       RWO           manual         30s
 
 ## Create a Pod
 
