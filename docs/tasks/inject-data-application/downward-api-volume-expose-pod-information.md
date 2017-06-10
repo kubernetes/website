@@ -1,5 +1,5 @@
 ---
-title: Exposing Pod Information to Containers Through Files
+title: Expose Pod Information to Containers Through Files
 redirect_from:
 - "/docs/user-guide/downward-api/"
 - "/docs/user-guide/downward-api/index.html"
@@ -36,7 +36,7 @@ There are two ways to expose Pod and Container fields to a running Container:
 Together, these two ways of exposing Pod and Container fields are called the
 *Downward API*.
 
-## Storing Pod fields
+## Store Pod fields
 
 In this exercise, you create a Pod that has one Container.
 Here is the configuration file for the Pod:
@@ -147,7 +147,7 @@ Exit the shell:
 /# exit
 ```
 
-## Storing Container fields
+## Store Container fields
 
 The preceding exercise, you stored Pod fields in a DownwardAPIVolumeFile. 
 In this next exercise, you store Container fields. Here is the configuration
@@ -213,7 +213,7 @@ DownwardAPIVolumeFiles.
 **Note**: If CPU and memory limits are not specified for a Container, the
 Downward API defaults to the node allocatable value for CPU and memory.
 
-## Projecting keys to specific paths and file permissions
+## Project keys to specific paths and file permissions
 
 You can project keys to specific paths and specific permissions on a per-file
 basis. For more information, see
