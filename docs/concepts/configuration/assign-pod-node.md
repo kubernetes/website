@@ -190,7 +190,14 @@ flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
 As with node affinity, the legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 
-The `topologyKey` can be any legal label value.
+In principle, the `topologyKey` can be any legal label-key. However,
+for performance and security reasons, there are some constraints on topologyKey:
+
+1. For affinity and for `RequiredDuringScheduling` pod anti-affinity,
+empty `topologyKey` is not allowed.
+2. For `RequiredDuringScheduling` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or simply disable it.
+3. For `PreferredDuringScheduling` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` and `failure-domain.beta.kubernetes.io/region`).
+4.  For the non above cases, the `topologyKey` can be any legal label-key.
 
 In addition to `labelSelector` and `topologyKey`, you can optionally specify a list `namespaces`
 of namespaces which the `labelSelector` should match against (this goes at the same level of the definition as `labelSelector` and `topologyKey`).
