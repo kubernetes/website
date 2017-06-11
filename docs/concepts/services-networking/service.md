@@ -140,8 +140,6 @@ metadata:
 spec:
   type: ExternalName
   externalName: my.database.example.com
-  ports:
-  - port: 12345
 ```
 
 When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
