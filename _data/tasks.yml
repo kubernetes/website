@@ -130,6 +130,7 @@ toc:
   - docs/tasks/administer-cluster/highly-available-master.md
   - docs/tasks/administer-cluster/configure-multiple-schedulers.md
   - docs/tasks/administer-cluster/ip-masq-agent.md
+  - docs/tasks/administer-cluster/dns-custom-nameservers.md
   - title: Change Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
 
