@@ -19,7 +19,7 @@ This page explains how Kubernetes objects are represented in the Kubernetes API,
 * The resources available to those applications
 * The policies around how those applications behave, such as restart policies, upgrades, and fault-tolerance
 
-A Kubernetes object is a "record of intent"--once you create the object, the Kubernetes system will constantly work to ensure that that object exists. By creating an object, you're effectively telling the Kubernetes system what you want your cluster's workload to look like; this is your cluster's **desired state**.
+A Kubernetes object is a "record of intent"--once you create the object, the Kubernetes system will constantly work to ensure that object exists. By creating an object, you're effectively telling the Kubernetes system what you want your cluster's workload to look like; this is your cluster's **desired state**.
 
 To work with Kubernetes objects--whether to create, modify, or delete them--you'll need to use the [Kubernetes API](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/api-conventions.md). When you use the `kubectl` command-line interface, for example, the CLI makes the necessary Kubernetes API calls for you; you can also use the Kubernetes API directly in your own programs. Kubernetes currently provides a `golang` [client library](https://github.com/kubernetes/client-go) for this purpose, and other language libraries (such as [Python](https://github.com/kubernetes-incubator/client-python)) are being developed.
 
