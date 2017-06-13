@@ -700,8 +700,17 @@ For further detail, plese the see the [ScaleIO examples](https://github.com/kube
 ### local
 This volume type is alpha in 1.7.
 
-A `local` volume represents a mount point or directory that has node affinity.
-It can only be used as a statically created PersistentVolume source.
+A `local` volume represents a mounted local storage device such as a disk,
+partition or directory.
+
+Local volumes can only be used as a statically created PersistentVolume source.
+
+Compared to HostPath volumes, local volumes can be used in a durable manner
+without manually scheduling pods to nodes, as the system is aware of the volume's
+node constraints.
+
+However, local volumes are still subject to the availability of the underlying
+node and are not suitable for all applications.
 
 For further detail, please see the [local volume
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)
