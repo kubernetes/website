@@ -2,18 +2,19 @@
 assignees:
 - davidopp
 - lavalamp
-
+title: Building Large Clusters
 ---
-
 
 ## Support
 
 At {{page.version}}, Kubernetes supports clusters with up to 1000 nodes. More specifically, we support configurations that meet *all* of the following criteria:
 
-* No more than 1000 nodes
-* No more than 30000 total pods
-* No more than 60000 total containers
+* No more than 2000 nodes
+* No more than 60000 total pods
+* No more than 120000 total containers
 * No more than 100 pods per node
+
+<br>
 
 * TOC
 {:toc}
@@ -98,19 +99,19 @@ To avoid running into cluster addon resource issues, when creating a cluster wit
 
 * Scale memory and CPU limits for each of the following addons, if used, as you scale up the size of cluster (there is one replica of each handling the entire cluster so memory and CPU usage tends to grow proportionally with size/load on cluster):
   * [InfluxDB and Grafana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/cluster-monitoring/influxdb/influxdb-grafana-controller.yaml)
-  * [skydns, kube2sky, and dns etcd](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/skydns-rc.yaml.in)
+  * [kubedns, dnsmasq, and sidecar](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/kubedns-controller.yaml.in)
   * [Kibana](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/kibana-controller.yaml)
 * Scale number of replicas for the following addons, if used, along with the size of cluster (there are multiple replicas of each so increasing replicas should help handle increased load, but, since load per replica also increases slightly, also consider increasing CPU/memory limits):
   * [elasticsearch](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/es-controller.yaml)
 * Increase memory and CPU limits slightly for each of the following addons, if used, along with the size of cluster (there is one replica per node but CPU/memory usage increases slightly along with cluster load/size as well):
-  * [FluentD with ElasticSearch Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/fluentd-es/fluentd-es.yaml)
-  * [FluentD with GCP Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml)
+  * [FluentD with ElasticSearch Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-elasticsearch/fluentd-es-ds.yaml)
+  * [FluentD with GCP Plugin](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/fluentd-gcp/fluentd-gcp-ds.yaml)
 
 Heapster's resource limits are set dynamically based on the initial size of your cluster (see [#16185](http://issue.k8s.io/16185)
 and [#22940](http://issue.k8s.io/22940)). If you find that Heapster is running
 out of resources, you should adjust the formulas that compute heapster memory request (see those PRs for details).
 
-For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/docs/user-guide/compute-resources/#troubleshooting).
+For directions on how to detect if addon containers are hitting resource limits, see the [Troubleshooting section of Compute Resources](/docs/concepts/configuration/manage-compute-resources-container/#troubleshooting).
 
 In the [future](http://issue.k8s.io/13048), we anticipate to set all cluster addon resource limits based on cluster size, and to dynamically adjust them if you grow or shrink your cluster.
 We welcome PRs that implement those features.

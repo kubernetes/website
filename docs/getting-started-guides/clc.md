@@ -1,10 +1,11 @@
 ---
-
+title: Running Kubernetes on CenturyLink Cloud
 ---
+
 * TOC
 {: toc}
 
-These scripts handle the creation, deletion and expansion of kubernetes clusters on CenturyLink Cloud.
+These scripts handle the creation, deletion and expansion of Kubernetes clusters on CenturyLink Cloud.
 
 You can accomplish all these tasks with a single command. We have made the Ansible playbooks used to perform these tasks available [here](https://github.com/CenturyLinkCloud/adm-kubernetes-on-clc/blob/master/ansible/README.md).
 
@@ -12,7 +13,7 @@ You can accomplish all these tasks with a single command. We have made the Ansib
 
 If you run into any problems or want help with anything, we are here to help. Reach out to use via any of the following ways:
 - Submit a github issue
-- Send an email to kubernetes AT ctl DOT io
+- Send an email to Kubernetes AT ctl DOT io
 - Visit http://info.ctl.io/kubernetes
 
 ## Clusters of VMs or Physical Servers, your choice.
@@ -206,18 +207,18 @@ Create a cluster with name of k8s_3, 1 master node, and 10 worker minions (on VM
 
 ## Cluster Features and Architecture
 
-We configue the Kubernetes cluster with the following features:
+We configure the Kubernetes cluster with the following features:
 
 * KubeDNS: DNS resolution and service discovery
 * Heapster/InfluxDB: For metric collection. Needed for Grafana and auto-scaling.
 * Grafana: Kubernetes/Docker metric dashboard
-* KubeUI: Simple web interface to view kubernetes state
+* KubeUI: Simple web interface to view Kubernetes state
 * Kube Dashboard: New web interface to interact with your cluster
 
-We use the following to create the kubernetes cluster:
+We use the following to create the Kubernetes cluster:
 
 * Kubernetes 1.1.7
-* Unbuntu 14.04
+* Ubuntu 14.04
 * Flannel 0.5.4
 * Docker 1.9.1-0~trusty
 * Etcd 2.2.2
@@ -232,7 +233,7 @@ We use the following to create the kubernetes cluster:
 
 ## Cluster management
 
-The most widely used tool for managing a kubernetes cluster is the command-line
+The most widely used tool for managing a Kubernetes cluster is the command-line
 utility ```kubectl```.  If you do not already have a copy of this binary on your
 administrative machine, you may run the script ```install_kubectl.sh``` which will
 download it and install it in ```/usr/bin/local```.
@@ -251,9 +252,9 @@ kubectl cluster-info
 
 ### Accessing the cluster programmatically 
 
-It's possible to use the locally-stored client certificates to access the api server. For example, you may want to use any of the [Kubernetes API client libraries](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/client-libraries.md) to program against your Kubernetes cluster in the programming language of your choice. 
+It's possible to use the locally stored client certificates to access the api server. For example, you may want to use any of the [Kubernetes API client libraries](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/client-libraries.md) to program against your Kubernetes cluster in the programming language of your choice. 
 
-To demostrate how to use these locally stored certificates, we provide the folowing example of using ```curl``` to communicate to the master api server via https:
+To demonstrate how to use these locally stored certificates, we provide the following example of using ```curl``` to communicate to the master api server via https:
 
 ```shell
 curl \
@@ -267,12 +268,12 @@ distributed with OSX.
 
 ### Accessing the cluster with a browser
 
-We install two UIs on Kubernetes. The orginal KubeUI and [the newer kube
-dashboard](/docs/user-guide/ui/). When you create a cluster, the script should output URLs for these
+We install two UIs on Kubernetes. The original KubeUI and [the newer kube
+dashboard](/docs/tasks/web-ui-dashboard/). When you create a cluster, the script should output URLs for these
 interfaces like this:
 
-KubeUI is running at ```https://${MASTER_IP}:6443/api/v1/proxy/namespaces/kube-system/services/kube-ui```
-kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/proxy/namespaces/kube-system/services/kubernetes-dashboard```
+KubeUI is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kube-ui/proxy```
+kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```
 
 Note on Authentication to the UIs: The cluster is set up to use basic
 authentication for the user _admin_.   Hitting the url at
@@ -315,14 +316,14 @@ the necessary certificates and serve locally over http.
 kubectl proxy -p 8001
 ```
 
-Then, you can access urls like ```http://127.0.0.1:8001/api/v1/proxy/namespaces/kube-system/services/kube-ui/``` without the need for client certificates in your browser.
+Then, you can access urls like ```http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kube-ui/proxy/``` without the need for client certificates in your browser.
 
 
 ## What Kubernetes features do not work on CenturyLink Cloud
 
 These are the known items that don't work on CenturyLink cloud but do work on other cloud providers:
 
-- At this time, there is no support services of the type [LoadBalancer](/docs/user-guide/load-balancer/). We are actively working on this and hope to publish the changes sometime around April 2016.
+- At this time, there is no support services of the type [LoadBalancer](/docs/tasks/access-application-cluster/create-external-load-balancer/). We are actively working on this and hope to publish the changes sometime around April 2016.
 
 - At this time, there is no support for persistent storage volumes provided by
   CenturyLink Cloud. However, customers can bring their own persistent storage

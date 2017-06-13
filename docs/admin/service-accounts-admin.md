@@ -4,7 +4,7 @@ assignees:
 - davidopp
 - lavalamp
 - liggitt
-
+title: Managing Service Accounts
 ---
 
 *This is a Cluster Administrator guide to service accounts.  It assumes knowledge of
@@ -64,6 +64,11 @@ TokenController runs as part of controller-manager. It acts asynchronously. It:
 - observes secret addition, and ensures the referenced ServiceAccount exists, and adds a token to the secret if needed
 - observes secret deletion and removes a reference from the corresponding ServiceAccount if needed
 
+You must pass a service account private key file to the token controller in the controller-manager by using
+the `--service-account-private-key-file` option. The private key will be used to sign generated service account tokens.
+Similarly, you must pass the corresponding public key to the kube-apiserver using the `--service-account-key-file`
+option. The public key will be used to verify the tokens during authentication.
+
 #### To create additional API tokens
 
 A controller loop ensures a secret with an API token exists for each service
@@ -71,8 +76,9 @@ account. To create additional API tokens for a service account, create a secret
 of type `ServiceAccountToken` with an annotation referencing the service
 account, and the controller will update it with a generated token:
 
-```json
 secret.json:
+
+```json
 {
     "kind": "Secret",
     "apiVersion": "v1",

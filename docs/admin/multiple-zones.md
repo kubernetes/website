@@ -3,7 +3,7 @@ assignees:
 - jlowdermilk
 - justinsb
 - quinton-hoole
-
+title: Running in Multiple Zones
 ---
 
 ## Introduction
@@ -39,7 +39,7 @@ or service across nodes in a single-zone cluster (to reduce the impact of
 failures.)  With multiple-zone clusters, this spreading behaviour is
 extended across zones (to reduce the impact of zone failures.)  (This is
 achieved via `SelectorSpreadPriority`).  This is a best-effort
-placement, and so if the zones in your cluster are heterogenous
+placement, and so if the zones in your cluster are heterogeneous
 (e.g. different numbers of nodes, different types of nodes, or
 different pod resource requirements), this might prevent perfectly
 even spreading of your pods across zones. If desired, you can use
@@ -51,7 +51,7 @@ admission controller automatically adds zone labels to them.  The scheduler (via
 `VolumeZonePredicate` predicate) will then ensure that pods that claim a
 given volume are only placed into the same zone as that volume, as volumes
 cannot be attached across zones.
- 
+
 ## Limitations
 
 There are some important limitations of the multizone support:
@@ -111,11 +111,11 @@ and `failure-domain.beta.kubernetes.io/zone` for the zone:
 > kubectl get nodes --show-labels
 
 
-NAME                     STATUS                     AGE       LABELS
-kubernetes-master        Ready,SchedulingDisabled   6m        beta.kubernetes.io/instance-type=n1-standard-1,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-master
-kubernetes-minion-87j9   Ready                      6m        beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-87j9
-kubernetes-minion-9vlv   Ready                      6m        beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
-kubernetes-minion-a12q   Ready                      6m        beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
+NAME                     STATUS                     AGE   VERSION          LABELS
+kubernetes-master        Ready,SchedulingDisabled   6m    v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-1,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-master
+kubernetes-minion-87j9   Ready                      6m    v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-87j9
+kubernetes-minion-9vlv   Ready                      6m    v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
+kubernetes-minion-a12q   Ready                      6m    v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
 ```
 
 ### Add more nodes in a second zone
@@ -146,20 +146,19 @@ in us-central1-b:
 ```shell
 > kubectl get nodes --show-labels
 
-NAME                     STATUS                     AGE       LABELS
-kubernetes-master        Ready,SchedulingDisabled   16m       beta.kubernetes.io/instance-type=n1-standard-1,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-master
-kubernetes-minion-281d   Ready                      2m        beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-281d
-kubernetes-minion-87j9   Ready                      16m       beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-87j9
-kubernetes-minion-9vlv   Ready                      16m       beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
-kubernetes-minion-a12q   Ready                      17m       beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
-kubernetes-minion-pp2f   Ready                      2m        beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-pp2f
-kubernetes-minion-wf8i   Ready                      2m        beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-wf8i
+NAME                     STATUS                     AGE   VERSION           LABELS
+kubernetes-master        Ready,SchedulingDisabled   16m   v1.6.0+fff5156    beta.kubernetes.io/instance-type=n1-standard-1,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-master
+kubernetes-minion-281d   Ready                      2m    v1.6.0+fff5156    beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-281d
+kubernetes-minion-87j9   Ready                      16m   v1.6.0+fff5156    beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-87j9
+kubernetes-minion-9vlv   Ready                      16m   v1.6.0+fff5156    beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
+kubernetes-minion-a12q   Ready                      17m   v1.6.0+fff5156    beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-a12q
+kubernetes-minion-pp2f   Ready                      2m    v1.6.0+fff5156    beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-pp2f
+kubernetes-minion-wf8i   Ready                      2m    v1.6.0+fff5156    beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-wf8i
 ```
 
 ### Volume affinity
 
-Create a volume (only PersistentVolumes are supported for zone
-affinity), using the new dynamic volume creation:
+Create a volume using the dynamic volume creation (only PersistentVolumes are supported for zone affinity):
 
 ```json
 kubectl create -f - <<EOF
@@ -186,10 +185,14 @@ kubectl create -f - <<EOF
 EOF
 ```
 
-The PV is also labeled with the zone & region it was created in.  For
-version 1.2, dynamic persistent volumes are always created in the zone
-of the cluster master (here us-central1-a / us-west-2a); this will
-be improved in a future version (issue [#23330](https://github.com/kubernetes/kubernetes/issues/23330).)
+**NOTE:** For version 1.3+ Kubernetes will distribute dynamic PV claims across
+the configured zones. For version 1.2, dynamic persistent volumes were
+always created in the zone of the cluster master
+(here us-central1-a / us-west-2a); that issue
+([#23330](https://github.com/kubernetes/kubernetes/issues/23330))
+was addressed in 1.3+.
+
+Now lets validate that Kubernetes automatically labeled the zone & region the PV was created in.
 
 ```shell
 > kubectl get pv --show-labels
@@ -226,10 +229,10 @@ cross-zone attachments are not generally permitted by cloud providers:
 
 ```shell
 > kubectl describe pod mypod | grep Node
-Node:		kubernetes-minion-9vlv/10.240.0.5
+Node:        kubernetes-minion-9vlv/10.240.0.5
 > kubectl get node kubernetes-minion-9vlv --show-labels
-NAME                     STATUS    AGE       LABELS
-kubernetes-minion-9vlv   Ready     22m       beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
+NAME                     STATUS    AGE    VERSION          LABELS
+kubernetes-minion-9vlv   Ready     22m    v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
 ```
 
 ### Pods are spread across zones
@@ -265,15 +268,15 @@ The pods should be spread across all 3 zones:
 
 ```shell
 >  kubectl describe pod -l app=guestbook | grep Node
-Node:		kubernetes-minion-9vlv/10.240.0.5
-Node:		kubernetes-minion-281d/10.240.0.8
-Node:		kubernetes-minion-olsh/10.240.0.11
+Node:        kubernetes-minion-9vlv/10.240.0.5
+Node:        kubernetes-minion-281d/10.240.0.8
+Node:        kubernetes-minion-olsh/10.240.0.11
 
  > kubectl get node kubernetes-minion-9vlv kubernetes-minion-281d kubernetes-minion-olsh --show-labels
-NAME                     STATUS    AGE       LABELS
-kubernetes-minion-9vlv   Ready     34m       beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
-kubernetes-minion-281d   Ready     20m       beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-281d
-kubernetes-minion-olsh   Ready     3m        beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-f,kubernetes.io/hostname=kubernetes-minion-olsh
+NAME                     STATUS    AGE    VERSION          LABELS
+kubernetes-minion-9vlv   Ready     34m    v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
+kubernetes-minion-281d   Ready     20m    v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-b,kubernetes.io/hostname=kubernetes-minion-281d
+kubernetes-minion-olsh   Ready     3m     v1.6.0+fff5156   beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-f,kubernetes.io/hostname=kubernetes-minion-olsh
 ```
 
 

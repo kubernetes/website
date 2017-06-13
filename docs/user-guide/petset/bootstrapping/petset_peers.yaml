@@ -16,8 +16,8 @@ spec:
   selector:
     app: nginx
 ---
-apiVersion: apps/v1alpha1
-kind: PetSet
+apiVersion: apps/v1beta1
+kind: StatefulSet
 metadata:
   name: web
 spec:
@@ -28,8 +28,7 @@ spec:
       labels:
         app: nginx
       annotations:
-        pod.alpha.kubernetes.io/initialized: "true"
-        pod.alpha.kubernetes.io/init-containers: '[
+        pod.beta.kubernetes.io/init-containers: '[
             {
                 "name": "peerfinder",
                 "image": "gcr.io/google_containers/peer-finder:0.1",
@@ -68,7 +67,6 @@ spec:
             }
         ]'
     spec:
-      terminationGracePeriodSeconds: 0
       containers:
       - name: nginx
         image: gcr.io/google_containers/nginx-slim:0.8

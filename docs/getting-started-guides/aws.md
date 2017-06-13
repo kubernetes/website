@@ -1,18 +1,35 @@
 ---
 assignees:
 - justinsb
-- lavalamp
-
+- clove
+title: Running Kubernetes on AWS EC2
 ---
 
 * TOC
 {:toc}
 
-## Prerequisites
 
-1. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
-2. Install and configure the [AWS Command Line Interface](http://aws.amazon.com/cli)
-3. We recommend installing using an account which has full access to the AWS APIs.
+## Supported Production Grade Tools
+
+* [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
+
+* [CoreOS Tectonic](https://coreos.com/tectonic/) includes the open-source [Tectonic Installer](https://github.com/coreos/tectonic-installer) that creates Kubernetes clusters with Container Linux nodes on AWS.
+
+* CoreOS originated and the Kubernetes Incubator maintains [a CLI tool, `kube-aws`](https://github.com/kubernetes-incubator/kube-aws), that creates and manages Kubernetes clusters with [Container Linux](https://coreos.com/why/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
+
+---
+
+## kube-up is no longer supported in kubernetes 1.6
+
+> `kube-up.sh` is a legacy tool for launching clusters.  It is deprecated, and removed entirely from kubernetes 1.6.
+
+
+### Prerequisites
+
+1. This is only supported for kubernetes 1.5 and earlier.  Consider switching to one of the supported options.
+2. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
+3. Install and configure the [AWS Command Line Interface](http://aws.amazon.com/cli)
+4. We recommend installing using an account which has full access to the AWS APIs.
 
 NOTE: This script use the 'default' AWS profile by default.
 You may explicitly set the AWS profile to use using the `AWS_DEFAULT_PROFILE` environment variable:
@@ -21,9 +38,9 @@ You may explicitly set the AWS profile to use using the `AWS_DEFAULT_PROFILE` en
 export AWS_DEFAULT_PROFILE=myawsprofile
 ```
 
-## Cluster turnup
+### Cluster turnup
 
-### Supported procedure: `get-kube`
+#### Supported procedure: `get-kube`
 
 ```shell
 #Using wget
@@ -50,7 +67,7 @@ export MASTER_SIZE=m3.medium
 export NODE_SIZE=m3.medium
 export AWS_S3_REGION=eu-west-1
 export AWS_S3_BUCKET=mycompany-kubernetes-artifacts
-export INSTANCE_PREFIX=k8s
+export KUBE_AWS_INSTANCE_PREFIX=k8s
 ...
 ```
 
@@ -97,12 +114,7 @@ If these already exist, make sure you want them to be used here.
 
 NOTE: If using an existing keypair named "kubernetes" then you must set the `AWS_SSH_KEY` key to point to your private key.
 
-### Alternatives
 
-* [kops](https://github.com/kubernetes/kops) "kubernetes-ops" is a complete Kubernetes cluster lifecycle management tool,
-  that supports AWS.
-
-* CoreOS maintains [a CLI tool](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html), `kube-aws` that will create and manage a Kubernetes cluster based on [CoreOS](http://www.coreos.com), using AWS tools: EC2, CloudFormation and Autoscaling.
 
 ## Getting started with your cluster
 
@@ -121,10 +133,10 @@ export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 ```
 
-An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl/kubectl)
+An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl)
 
 By default, `kubectl` will use the `kubeconfig` file generated during the cluster startup for authenticating against the API.
-For more information, please read [kubeconfig files](/docs/user-guide/kubeconfig-file)
+For more information, please read [kubeconfig files](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 
 ### Examples
 
@@ -152,7 +164,6 @@ cluster/kube-down.sh
 
 IaaS Provider        | Config. Mgmt | OS            | Networking  | Docs                                          | Conforms | Support Level
 -------------------- | ------------ | ------------- | ----------  | --------------------------------------------- | ---------| ----------------------------
-AWS                  | Saltstack    | Debian/Ubuntu | k8s (VPC)   | [docs](/docs/getting-started-guides/aws)      |          | Community ([@justinsb](https://github.com/justinsb))
 AWS                  | kops         | Debian        | k8s (VPC)   | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
 AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/getting-started-guides/aws)      |          | Community
 
@@ -162,6 +173,3 @@ For support level information on all solutions, see the [Table of solutions](/do
 
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
-
-
-

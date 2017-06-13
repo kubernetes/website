@@ -3,6 +3,15 @@ $vendor-strip-height: 44px
 $video-section-height: 550px
 
 @media screen and (min-width: 1025px)
+	#hamburger
+		display: none
+
+	ul.global-nav
+		display: inline-block
+
+	#docs #vendorStrip #searchBox:before
+		top: 15px
+
 	#vendorStrip
 		height: $vendor-strip-height
 		line-height: $vendor-strip-height
@@ -40,7 +49,7 @@ $video-section-height: 550px
 
 				#searchBox
 					float: right
-					width: 30%
+					width: 320px
 
 				#search
 					vertical-align: middle
@@ -65,7 +74,7 @@ $video-section-height: 550px
 
 
 	#encyclopedia
-		padding: 50px 50px 20px 20px
+		padding: 50px 50px 100px 100px
 		clear: both
 
 	#docsToc
@@ -88,6 +97,11 @@ $video-section-height: 550px
 	section, header, footer
 		main
 			max-width: $main-max-width
+	
+	header, #vendorStrip, #encyclopedia, #hero h1, #hero h5, #docs #hero h1, #docs #hero h5,
+	#community #hero h1, .gridPage #hero h1, #community #hero h5, .gridPage #hero h5
+		padding-left: 100px
+		padding-right: 100px
 
 	#home
 		section, header, footer
@@ -121,7 +135,7 @@ $video-section-height: 550px
 	#video
 		height: $video-section-height
 		position: relative
-		background-image: url(../images/kub_video_thm.jpg)
+		background-image: url(../images/kub_video_banner.jpg)
 		background-position: center center
 		background-size: cover
 
@@ -134,21 +148,21 @@ $video-section-height: 550px
 
 		#bigSocial
 			div
-				width: calc(25% - 15px)
+				width: calc(25% - 18px)
 
 			div + div
 				margin-left: 20px
+			//
+			//div:nth-child(3), div:nth-child(4)
+			//	margin-top: 0
 
-			div:nth-child(3), div:nth-child(4)
-				margin-top: 0
 
-
-	#home #bigSocial
-		div
-			width: calc(33% - 15px)
-
-		div:nth-child(3)
-			margin-top: inherit
+	//#home #bigSocial
+	//	div
+	//		width: calc(33% - 15px)
+	//
+	//	div:nth-child(3)
+	//		margin-top: inherit
 
 	// FOOTER
 	footer
@@ -164,10 +178,11 @@ $video-section-height: 550px
 			margin-bottom: 20px
 
 			a
-				width: 25%
+				width: 16.65%
 				float: left
 				font-size: 24px
 				font-weight: 300
+				white-space: nowrap
 
 		.social
 			padding: 0 30px
@@ -270,14 +285,27 @@ $video-section-height: 550px
 
 
 
-	#community
+	#community, .gridPage
 		#hero
 			text-align: left
 
 			h1
-				padding: 20px
+				padding: 20px 100px
 
 		#tryKubernetes
 			width: auto
 			background-color: $blue
 			padding: 0 20px
+			
+
+
+
+	#bigSocial
+		div
+			width: calc(25% - 18px)
+
+
+	#home #caseStudiesWrapper
+		div
+			width: 24%
+			min-height: 260px

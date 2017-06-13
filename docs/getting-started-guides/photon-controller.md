@@ -1,7 +1,7 @@
 ---
 assignees:
 - bprashanth
-
+title: VMware Photon Controller
 ---
 
 The example below creates a Kubernetes cluster using VMware's Photon
@@ -163,7 +163,7 @@ balancer. Specifically:
 Configure your service with the NodePort option. For example, this
 service uses the NodePort option. All Kubernetes nodes will listen on
 a port and forward network traffic to any pods in the service. In this
-case, Kubernets will choose a random port, but it will be the same
+case, Kubernetes will choose a random port, but it will be the same
 port on all nodes.
 
 ```yaml
@@ -209,7 +209,7 @@ backend nodes
 
 #### Option 2: Ingress Controller
 
-Using an [ingress controller](docs/user-guide/ingress) may also be an
+Using an [ingress controller](/docs/concepts/services-networking/ingress/#ingress-controllers) may also be an
 appropriate solution. Note that it in a production environment it will
 also require an external load balancer. However, it may be simpler to
 manage because it will not require you to manually update the load

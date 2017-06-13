@@ -2,7 +2,7 @@
 assignees:
 - idvoretskyi
 - xsgordon
-
+title: OpenStack Heat
 ---
 
 * TOC
@@ -23,7 +23,7 @@ This guide assumes you have access to a working OpenStack cluster with the follo
 - Heat
 - DNS resolution of instance names
 
-By default this provider provisions 4 m1.medium instances. If you do not have resources available, please see the [Set additional configuration values](#set-additional-configuration-values) section for information on reducing the footprint of your cluster.
+By default this provider provisions 4 `m1.medium` instances. If you do not have resources available, please see the [Set additional configuration values](#set-additional-configuration-values) section for information on reducing the footprint of your cluster.
 
 ## Pre-Requisites
 If you already have the required versions of the OpenStack CLI tools installed and configured, you can move on to the [Starting a cluster](#starting-a-cluster) section.
@@ -86,13 +86,13 @@ If you do not have your environment variables set, or do not want them consumed,
 - **[config-default.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/openstack-heat/config-default.sh)** Sets all parameters needed for heat template.
 - **[config-image.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/openstack-heat/config-image.sh)** Sets parameters needed to download and create new OpenStack image via glance.
 - **[openrc-default.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/openstack-heat/openrc-default.sh)** Sets environment variables for communicating to OpenStack. These are consumed by the cli tools (heat, glance, swift, nova).
-- **[openrc-swift.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/openstack-heat/openrc-swift.sh)** Some OpenStack setups require the use of seperate swift credentials. Put those credentials in this file.
+- **[openrc-swift.sh](http://releases.k8s.io/{{page.githubbranch}}/cluster/openstack-heat/openrc-swift.sh)** Some OpenStack setups require the use of separate swift credentials. Put those credentials in this file.
 
 Please see the contents of these files for documentation regarding each variable's function.
 
 ## Starting a cluster
 
-Once Kubernetes version 1.3 is released, and you've installed the OpenStack CLI tools and have set your OpenStack environment variables, issue this command:
+Once you've installed the OpenStack CLI tools and have set your OpenStack environment variables, issue this command:
 
 ```sh
 export KUBERNETES_PROVIDER=openstack-heat; curl -sS https://get.k8s.io | bash
@@ -129,10 +129,10 @@ You can also list the nodes in your cluster:
 
 ```console
 ./cluster/kubectl.sh get nodes
-NAME                            STATUS    AGE
-kubernetesstack-node-ojszyjtr   Ready     42m
-kubernetesstack-node-tzotzcbp   Ready     46m
-kubernetesstack-node-uah8pkju   Ready     47m
+NAME                            STATUS    AGE     VERSION
+kubernetesstack-node-ojszyjtr   Ready     42m     v1.6.0+fff5156
+kubernetesstack-node-tzotzcbp   Ready     46m     v1.6.0+fff5156
+kubernetesstack-node-uah8pkju   Ready     47m     v1.6.0+fff5156
 ```
 Being a new cluster, there will be no pods or replication controllers in the default namespace:
 
@@ -183,7 +183,7 @@ First, set your environment variables:
 To get all information about your cluster, use heat:
 
 ```sh
-heat stack-show $STACK_NAME
+openstack stack show $STACK_NAME
 ```
 
 To see a list of nodes, use nova:
@@ -193,6 +193,11 @@ nova list --name=$STACK_NAME
 ```
 
 See the [OpenStack CLI Reference](http://docs.openstack.org/cli-reference/) for more details.
+
+### Salt
+
+The OpenStack-Heat provider uses a [standalone Salt configuration](/docs/admin/salt/#standalone-salt-configuration-on-gce-and-others).  
+It only uses Salt for bootstraping the machines and creates no salt-master and does not auto-start the salt-minion service on the nodes.
 
 ## SSHing to your nodes
 

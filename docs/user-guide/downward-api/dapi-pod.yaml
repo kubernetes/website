@@ -8,6 +8,10 @@ spec:
       image: gcr.io/google_containers/busybox
       command: [ "/bin/sh", "-c", "env" ]
       env:
+        - name: MY_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
         - name: MY_POD_NAME
           valueFrom:
             fieldRef:
@@ -20,4 +24,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
+        - name: MY_POD_SERVICE_ACCOUNT
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.serviceAccountName
   restartPolicy: Never

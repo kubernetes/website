@@ -2,14 +2,16 @@
 assignees:
 - eparis
 - mikedanese
-
+title: Kubernetes 101
 ---
 
 ## Kubectl CLI and Pods
 
 For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple containers
 
-In order for the kubectl usage examples to work, make sure you have an examples directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or [the source](https://github.com/kubernetes/kubernetes).
+{% include task-tutorial-prereqs.md %}
+
+In order for the kubectl usage examples to work, make sure you have an example directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or [the source](https://github.com/kubernetes/kubernetes).
 
 * TOC
 {:toc}
@@ -21,13 +23,13 @@ The easiest way to interact with Kubernetes is via the [kubectl](/docs/user-guid
 
 For more info about kubectl, including its usage, commands, and parameters, see the [kubectl CLI reference](/docs/user-guide/kubectl-overview/).
 
-If you haven't installed and configured kubectl, finish the [prerequisites](/docs/user-guide/prereqs/) before continuing.
+If you haven't installed and configured kubectl, finish [installing kubectl](/docs/tasks/kubectl/install/) before continuing.
 
 ## Pods
 
 In Kubernetes, a group of one or more containers is called a _pod_. Containers in a pod are deployed together, and are started, stopped, and replicated as a group.
 
-See [pods](/docs/user-guide/pods/) for more details.
+See [pods](/docs/concepts/workloads/pods/pod/) for more details.
 
 
 #### Pod Definition
@@ -55,16 +57,18 @@ List all pods:
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/user-guide/getting-into-containers/) for details.
+On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/kubectl/get-shell-running-container/) for details.
 
 Provided the pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
 
-```shell{% raw %}
+```shell
+{% raw %}
 $ kubectl run busybox --image=busybox --restart=Never --tty -i --generator=run-pod/v1 --env "POD_IP=$(kubectl get pod nginx -o go-template='{{.status.podIP}}')"
 u@busybox$ wget -qO- http://$POD_IP # Run in the busybox container
 u@busybox$ exit # Exit the busybox container
 $ kubectl delete pod busybox # Clean up the pod we created with "kubectl run"
-{% endraw %}```
+{% endraw %}
+```
 
 Delete the pod by name:
 
@@ -113,7 +117,7 @@ Notes:
 - **EmptyDir**: Creates a new directory that will exist as long as the Pod is running on the node, but it can persist across container failures and restarts.
 - **HostPath**: Mounts an existing directory on the node's file system (e.g. `/var/logs`).
 
-See [volumes](/docs/user-guide/volumes/) for more details.
+See [volumes](/docs/concepts/storage/volumes/) for more details.
 
 
 #### Multiple Containers

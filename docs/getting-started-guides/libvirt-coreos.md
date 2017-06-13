@@ -2,7 +2,7 @@
 assignees:
 - erictune
 - idvoretskyi
-
+title: CoreOS on libvirt
 ---
 
 * TOC
@@ -30,7 +30,7 @@ Another difference is that no security is enforced on `libvirt-coreos` at all. F
 * Kubernetes secrets are not protected as securely as they are on production environments;
 * etc.
 
-So, an k8s application developer should not validate its interaction with Kubernetes on `libvirt-coreos` because he might technically succeed in doing things that are prohibited on a production environment like:
+So, a k8s application developer should not validate its interaction with Kubernetes on `libvirt-coreos` because he might technically succeed in doing things that are prohibited on a production environment like:
 
 * un-authenticated access to Kube API server;
 * Access to Kubernetes private data structures inside etcd;
@@ -45,7 +45,7 @@ On the other hand, `libvirt-coreos` might be useful for people investigating low
 3. Install [qemu](http://wiki.qemu.org/Main_Page)
 4. Install [libvirt](http://libvirt.org/)
 5. Install [openssl](http://openssl.org/)
-6. Enable and start the libvirt daemon, e.g:
+6. Enable and start the libvirt daemon, e.g.:
    * ``systemctl enable libvirtd && systemctl start libvirtd`` # for systemd-based systems
    * ``/etc/init.d/libvirt-bin start`` # for init.d-based systems
 7. [Grant libvirt access to your user¹](https://libvirt.org/aclpolkit.html)
@@ -121,7 +121,7 @@ setfacl -m g:kvm:--x ~
 
 By default, the libvirt-coreos setup will create a single Kubernetes master and 3 Kubernetes nodes. Because the VM drives use Copy-on-Write and because of memory ballooning and KSM, there is a lot of resource over-allocation.
 
-There is both an automated way and a manual, customizable way of setting up libvert Kubernetes clusters on CoreOS.
+There is both an automated way and a manual, customizable way of setting up libvirt Kubernetes clusters on CoreOS.
 
 #### Automated setup
 
@@ -134,7 +134,7 @@ export KUBERNETES_PROVIDER=libvirt-coreos; wget -q -O - https://get.k8s.io | bas
 Here is the curl version of this command:
 
 ```shell
-export KUBERNETES_PROVIDER=libvirt-coreos; curl -sS https://get.k8s.io | bash`
+export KUBERNETES_PROVIDER=libvirt-coreos; curl -sS https://get.k8s.io | bash
 ```
 
 This script downloads and unpacks the tarball, then spawns a Kubernetes cluster on CoreOS instances with the following characteristics:
@@ -183,10 +183,10 @@ You can check that the Kubernetes cluster is working with:
 
 ```shell
 $ kubectl get nodes
-NAME                LABELS              STATUS
-192.168.10.2        <none>              Ready
-192.168.10.3        <none>              Ready
-192.168.10.4        <none>              Ready
+NAME                STATUS     AGE     VERSION
+192.168.10.2        Ready      4h      v1.6.0+fff5156
+192.168.10.3        Ready      4h      v1.6.0+fff5156
+192.168.10.4        Ready      4h      v1.6.0+fff5156
 ```
 
 The VMs are running [CoreOS](https://coreos.com/).

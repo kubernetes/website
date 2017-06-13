@@ -3,8 +3,9 @@ assignees:
 - dchen1107
 - erictune
 - thockin
-
+title: Fedora (Multi Node)
 ---
+
 * TOC
 {:toc}
 
@@ -18,7 +19,7 @@ You need 2 or more machines with Fedora installed.
 
 **Perform following commands on the Kubernetes master**
 
-* Configure flannel by creating a `flannel-config.json` in your current directory on fed-master. flannel provides udp and vxlan among other overlay networking backend options. In this guide, we choose kernel based vxlan backend. The contents of the json are:
+* Configure flannel by creating a `flannel-config.json` in your current directory on fed-master. Flannel provides udp and vxlan among other overlay networking backend options. In this guide, we choose kernel based vxlan backend. The contents of the json are:
 
 ```json
 {
@@ -49,13 +50,19 @@ etcdctl get /coreos.com/network/config
 
 **Perform following commands on all Kubernetes nodes**
 
+Install the flannel package
+
+```shell
+# dnf -y install flannel
+```
+
 Edit the flannel configuration file /etc/sysconfig/flanneld as follows:
 
 ```shell
 # Flanneld configuration options
 
 # etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD="http://fed-master:4001"
+FLANNEL_ETCD="http://fed-master:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
@@ -104,7 +111,7 @@ Now check the interfaces on the nodes. Notice there is now a flannel.1 interface
 From any node in the cluster, check the cluster members by issuing a query to etcd server via curl (only partial output is shown using `grep -E "\{|\}|key|value"`). If you set up a 1 master and 3 nodes cluster, you should see one block for each node showing the subnets they have been assigned. You can associate those subnets to each node by the MAC address (VtepMAC) and IP address (Public IP) that is listed in the output.
 
 ```shell
-curl -s http://fed-master:4001/v2/keys/coreos.com/network/subnets | python -mjson.tool
+curl -s http://fed-master:2379/v2/keys/coreos.com/network/subnets | python -mjson.tool
 ```
 
 ```json
@@ -148,7 +155,7 @@ bash-4.3#
 This will place you inside the container. Install iproute and iputils packages to install ip and ping utilities. Due to a [bug](https://bugzilla.redhat.com/show_bug.cgi?id=1142311), it is required to modify capabilities of ping binary to work around "Operation not permitted" error.
 
 ```shell
-bash-4.3# yum -y install iproute iputils
+bash-4.3# dnf -y install iproute iputils
 bash-4.3# setcap cap_net_raw-ep /usr/bin/ping
 ```
 
