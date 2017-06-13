@@ -90,7 +90,7 @@ means it has not yet been bound to a PersistentVolumeClaim.
 
 The next step is to create a PersistentVolumeClaim. Pods use PersistentVolumeClaims
 to request physical storage. In this exercise, you create a PersistentVolumeClaim
-that requests a volume of at least three gigabytes that can provide read-write
+that requests a volume of at least three gibibytes that can provide read-write
 access for at least one Node.
 
 Here is the configuration file for the PersistentVolumeClaim:
