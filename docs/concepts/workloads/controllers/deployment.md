@@ -866,13 +866,16 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 ### Rollback To
 
-`.spec.rollbackTo` is an optional field with the configuration the Deployment is rolling back to. Setting
-this field will trigger a rollback, and this field will be cleared every time a rollback is done.
+`.spec.rollbackTo` is an optional field with the configuration the Deployment
+should roll back to. Setting this field triggers a rollback, and this field will
+be cleared by the server after a rollback is done.
 
 #### Revision
 
-`.spec.rollbackTo.revision` is an optional field specifying the revision to rollback to. This defaults
-to 0, meaning rollback to the last revision in history.
+`.spec.rollbackTo.revision` is an optional field specifying the revision to roll
+back to. Setting to 0 means rolling back to the last revision in history;
+otherwise, means rolling back to the specified revision. This defaults to 0 when
+[`spec.rollbackTo`](#rollback-to) is set.
 
 ### Revision History Limit
 
