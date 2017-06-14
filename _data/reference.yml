@@ -18,6 +18,7 @@ toc:
     - docs/admin/authorization/index.md
     - docs/admin/authorization/abac.md
     - docs/admin/authorization/rbac.md
+    - docs/admin/authorization/node.md
     - docs/admin/authorization/webhook.md
   - docs/reference/deprecation-policy.md
 
