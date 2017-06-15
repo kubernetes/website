@@ -11,4 +11,3 @@ spec:
     protocol: TCP
     port: 8181
     targetPort: 8181
-  type: LoadBalancer

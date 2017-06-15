@@ -15,7 +15,7 @@ resources using an external policy engine.
 
 {% capture objectives %}
 
-* Deploying Federation and configuring an exteranl policy engine
+* Deploying Federation and configuring an external policy engine
 * Deploying an external policy engine
 * Configuring placement policies with ConfigMaps
 * Testing placement policies
@@ -42,12 +42,12 @@ After deploying the Federation control plane, you must configure an Admission
 Controller in the Federation API server that enforces placement decisions
 received from the external policy engine.
 
-    kubectl create -f Scheduling-Policy-Admission.yaml
+    kubectl create -f scheduling-policy-admission.yaml
 
 Shown below is an example ConfigMap for the Admission Controller:
 
-{% include code.html language="yaml" file="Scheduling-Policy-Admission.yaml"
-ghlink="/docs/tutorials/federation/Scheduling-Policy-Admission.yaml" %}
+{% include code.html language="yaml" file="scheduling-policy-admission.yaml"
+ghlink="/docs/tutorials/federation/scheduling-policy-admission.yaml" %}
 
 The ConfigMap contains three files:
 
@@ -93,21 +93,21 @@ decisions in the Federation control plane.
 
 Create a Service in the host cluster to contact the external policy engine:
 
-    kubectl create -f Policy-Engine-Service.yaml
+    kubectl create -f policy-engine-service.yaml
 
 Shown below is an example Service for OPA.
 
-{% include code.html language="yaml" file="Policy-Engine-Service.yaml"
-ghlink="/docs/tutorials/federation/Policy-Engine-Service.yaml" %}
+{% include code.html language="yaml" file="policy-engine-service.yaml"
+ghlink="/docs/tutorials/federation/policy-engine-service.yaml" %}
 
 Create a Deployment in the host cluster with the Federation control plane:
 
-    kubectl create -f Policy-Engine-Deployment.yaml
+    kubectl create -f policy-engine-deployment.yaml
 
 Shown below is an example Deployment for OPA.
 
-{% include code.html language="yaml" file="Policy-Engine-Deployment.yaml"
-ghlink="/docs/tutorials/federation/Policy-Engine-Deployment.yaml" %}
+{% include code.html language="yaml" file="policy-engine-deployment.yaml"
+ghlink="/docs/tutorials/federation/policy-engine-deployment.yaml" %}
 
 ## Configuring placement policies via ConfigMaps
 
@@ -120,12 +120,12 @@ Create the namespace if it does not already exist:
 
 Configure a sample policy to test the external policy engine:
 
-{% include code.html language="yaml" file="Policy.rego"
-ghlink="/docs/tutorials/federation/Policy.rego" %}
+{% include code.html language="yaml" file="policy.rego"
+ghlink="/docs/tutorials/federation/policy.rego" %}
 
 Shown below is the command to create the sample policy:
 
-    kubectl --context=federation -n kube-federation-scheduling-policy create configmap scheduling-policy --from-file=Policy.rego
+    kubectl --context=federation -n kube-federation-scheduling-policy create configmap scheduling-policy --from-file=policy.rego
 
 This sample policy illustrates a few key ideas:
 
@@ -144,12 +144,12 @@ Annotate one of the clusters to indicate that it is PCI certified.
 
 Deploy a Federated ReplicaSet to test the placement policy.
 
-{% include code.html language="yaml" file="ReplicaSet-Example-Policy.yaml"
-ghlink="/docs/tutorials/federation/ReplicaSet-Example-Policy.yaml" %}
+{% include code.html language="yaml" file="replicaset-example-policy.yaml"
+ghlink="/docs/tutorials/federation/replicaset-example-policy.yaml" %}
 
 Shown below is the command to deploy a ReplicaSet that *does* match the policy.
 
-    kubectl --context=federation create -f ReplicaSet-Example-Policy.yaml
+    kubectl --context=federation create -f replicaset-example-policy.yaml
 
 Inspect the ReplicaSet to confirm the appropriate annotations have been applied:
 
