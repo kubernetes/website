@@ -148,6 +148,7 @@ toc:
 - title: Managing Cluster Daemons
   section:
   - docs/tasks/manage-daemon/update-daemon-set.md
+  - docs/tasks/manage-daemon/rollback-daemon-set.md
 
 - title: Managing GPUs
   section:
