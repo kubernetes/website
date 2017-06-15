@@ -120,6 +120,7 @@ to the volume sources that are defined when creating a volume:
 1. projected
 1. portworxVolume
 1. scaleIO
+1. storageos
 1. \* (allow all volumes)
 
 The recommended minimum set of allowed volumes for new PSPs are 
