@@ -164,7 +164,7 @@ On macOS, you will need to install bash-completion support via [Homebrew](https:
 ## If running Bash 3.2 included with macOS
 brew install bash-completion
 ## or, if running Bash 4.1+
-bash install bash-completion@2
+brew install bash-completion@2
 ```
 
 Follow the "caveats" section of brew's output to add the appropriate bash completion path to your local .bashrc.
