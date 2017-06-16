@@ -14,10 +14,43 @@ This page shows how to use install kubeadm.
 * 1GB or more of RAM per machine (any less will leave little room for your apps)
 * Full network connectivity between all machines in the cluster (public or private network is fine)
 * Unique MAC address and product_uuid for every node
+* Certain ports are open on your machines. See the section below for more details
 
 {% endcapture %}
 
 {% capture steps %}
+
+## Check required ports
+
+### Master node(s)
+
+| Port Range | Purpose                         |
+|------------|---------------------------------|
+| 6443*      | Kubernetes API server           |
+| 2379-2380  | etcd server client API          |
+| 10250      | Kubelet API                     |
+| 10251      | kube-scheduler                  |
+| 10252      | kube-controller-manager         |
+| 10255      | Read-only Kubelet API (Heapster)|
+
+### Worker node(s)
+
+| Port Range  | Purpose                         |
+|-------------|---------------------------------|
+| 10250       | Kubelet API                     |
+| 10255       | Read-only Kubelet API (Heapster)|
+| 30000-32767 | Default port range for [NodePort Services](/docs/concepts/services-networking/service). Typically, these ports would need to be exposed to external load-balancers, or other external consumers of the application itself. |
+
+Any port numbers marked with * are overridable, so you will need to ensure any
+custom ports you provide are also open.
+
+Although etcd ports are included in master nodes, you can also host your own
+etcd cluster externally on custom ports.
+
+The pod network plugin you use (see below) may also require certain ports to be
+open. Since this differs with each pod network plugin, please see the
+documentation for the plugins about what port(s) those need.
+
 
 ## Installing Docker
 
