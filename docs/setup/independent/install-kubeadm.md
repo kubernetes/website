@@ -13,10 +13,38 @@ This page shows how to use install kubeadm.
 * One or more machines running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+
 * 1GB or more of RAM per machine (any less will leave little room for your apps)
 * Full network connectivity between all machines in the cluster (public or private network is fine)
+* Certain ports are open on your machines. See the section below for more details.
 
 {% endcapture %}
 
 {% capture steps %}
+
+## Check required ports
+
+### Master node(s)
+
+| Port Range | Purpose                         |
+|------------|---------------------------------|
+| 6443*      | Kubernetes API server           |
+| 2379-2380  | etcd server client API          |
+| 10250      | Kubelet API                     |
+| 10251      | kube-scheduler                  |
+| 10252      | kube-controller-manager         |
+| 10255      | Read-only Kubelet API (Heapster)|
+
+### Worker node(s)
+
+| Port Range  | Purpose                         |
+|-------------|---------------------------------|
+| 10250       | Kubelet API                     |
+| 10255       | Read-only Kubelet API (Heapster)|
+| 30000-32767 | Default port range for [external service](https://kubernetes.io/docs/concepts/services-networking/service) ports. Typically, these ports would need to be exposed to external load-balancers, or other external consumers of the application itself. |
+
+Any port numbers marked with * are overridable, so you will need to ensure any
+custom ports you provide are also open.
+
+Although etcd ports are included in master nodes, you can also host your own
+etcd cluster externally on custom ports.
 
 ## Installing Docker
 
@@ -26,7 +54,7 @@ Versions 1.13 and 17.03+ have not yet been tested and verified by the Kubernetes
 For installation instructions, see
 [Install Docker](https://docs.docker.com/engine/installation/).
 
-## Installing kubectl 
+## Installing kubectl
 
 On each of your machines,
 [install kubectl](/docs/tasks/tools/install-kubectl/).
