@@ -13,10 +13,40 @@ This page shows how to use install kubeadm.
 * One or more machines running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+
 * 1GB or more of RAM per machine (any less will leave little room for your apps)
 * Full network connectivity between all machines in the cluster (public or private network is fine)
+* Certain ports are open on your machines. See below section for more information.
 
 {% endcapture %}
 
 {% capture steps %}
+
+## Check required ports
+
+### Master node(s)
+
+| Protocol | Port Range | Purpose                         |
+-----------|------------|---------------------------------|
+| TCP      | 443*       | Kubernetes API server           |
+| TCP      | 10250      | Kubelet API                     |
+| TCP      | 10251      | kube-scheduler                  |
+| TCP      | 10252      | kube-controller-manager         |
+| TCP      | 10255      | Read-only Kubelet API (Heapster)|
+
+### etcd node(s)
+
+| Protocol | Port Range   | Purpose                                          |
+-----------|--------------|--------------------------------------------------|
+| TCP      | 2379-2380    | etcd server client API                           |
+
+### Worker node(s)
+
+| Protocol | Port Range  | Purpose                                      |
+-----------|-------------|----------------------------------------------|
+| TCP      | 10250       | Kubelet API                                  |
+| TCP      | 10255       | Read-only Kubelet API (Heapster)             |
+| TCP      | 30000-32767 | Default port range for [external service][https://kubernetes.io/docs/concepts/services-networking/service] ports. Typically, these ports would need to be exposed to external load-balancers, or other external consumers of the application itself. |
+
+Any port numbers marked with * are overridable, so you will need to ensure any
+custom ports you provide are also open.
 
 ## Installing Docker
 
@@ -26,7 +56,7 @@ Versions 1.13 and 17.03+ have not yet been tested and verified by the Kubernetes
 For installation instructions, see
 [Install Docker](https://docs.docker.com/engine/installation/).
 
-## Installing kubectl 
+## Installing kubectl
 
 On each of your machines,
 [install kubectl](/docs/tasks/tools/install-kubectl/).
