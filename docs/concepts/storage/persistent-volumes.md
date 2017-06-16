@@ -234,7 +234,7 @@ In the CLI, the access modes are abbreviated to:
 | Quobyte              | &#x2713;     | &#x2713;    | &#x2713;     |
 | NFS                  | &#x2713;     | &#x2713;    | &#x2713;     |
 | RBD                  | &#x2713;     | &#x2713;    | -            |
-| VsphereVolume        | &#x2713;     | -           | -            |
+| VsphereVolume        | &#x2713;     | -           | - (works when pods are collocated)  |
 | PortworxVolume       | &#x2713;     | -           | &#x2713;     |
 | ScaleIO              | &#x2713;     | &#x2713;    | -            |
 | StorageOS            | &#x2713;     | -           | -            |
