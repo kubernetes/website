@@ -1,10 +1,12 @@
 ---
 assignees:
 - madhusudancs
-title: Setting up Cluster Federation with Kubefed
+title: Set up Cluster Federation with Kubefed
 redirect_from:
 - "/docs/admin/federation/kubefed/"
 - "/docs/admin/federation/kubefed.html"
+- "/docs/tutorials/federation/set-up-cluster-federation-kubefed/"
+- "/docs/tutorials/federation/set-up-cluster-federation-kubefed.html"
 ---
 
 * TOC

@@ -1,5 +1,6 @@
 ---
-title: Assigning CPU and RAM Resources to a Container
+title: Assign CPU and RAM Resources to a Container
+description: When you create a Pod, you can request CPU and RAM resources for the containers that run in the Pod. You can also set limits for CPU and RAM use.
 ---
 
 {% capture overview %}
@@ -19,7 +20,7 @@ in a Kubernetes Pod.
 
 {% capture steps %}
 
-## Assigning CPU and RAM resources to a container
+## Assign CPU and RAM resources to a container
 
 When you create a Pod, you can request CPU and RAM resources for the containers
 that run in the Pod. You can also set limits for CPU and RAM resources. To
@@ -44,7 +45,7 @@ for the `Pod`:
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/cpu-ram.yaml
+        kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/cpu-ram.yaml
 
 1. Display information about the pod:
 
@@ -64,7 +65,7 @@ for the `Pod`:
               cpu:    250m
               memory:   64Mi
 
-## Understanding CPU and RAM units
+## CPU and RAM units
 
 The CPU resource is measured in *cpu*s. Fractional values are allowed. You can
 use the suffix *m* to mean mili. For example 100m cpu is 100 milicpu, and is

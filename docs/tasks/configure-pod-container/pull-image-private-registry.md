@@ -1,5 +1,5 @@
 ---
-title: Pulling an Image from a Private Registry
+title: Pull an Image from a Private Registry
 ---
 
 {% capture overview %}
@@ -20,7 +20,7 @@ private Docker registry or repository.
 
 {% capture steps %}
 
-## Logging in to Docker
+## Log in to Docker
 
     docker login
 
@@ -38,14 +38,14 @@ The output contains a section similar to this:
     {
         "auths": {
             "https://index.docker.io/v1/": {
-                "auth": "c3RldmU1MzpTdGV2ZURvY2tAIzE2"
+                "auth": "c3R...zE2"
             }
         }
     }
     
 NOTE: If you use a Docker credentials store, you won't see that `auth` entry but a `credsStore` entry with the name of the store as value.
 
-## Creating a Secret that holds your authorization token
+## Create a Secret that holds your authorization token
 
 Create a Secret named `regsecret`:
 
@@ -90,12 +90,12 @@ readable format:
 
 The output is similar to this:
 
-    {"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3RldmU1MzpTdGV2ZURvY2tAIzE2"}}
+    {"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}
 
 Notice that the secret data contains the authorization token from your
 `config.json` file.
 
-## Creating a Pod that uses your Secret
+## Create a Pod that uses your Secret
 
 Here is a configuration file for a Pod that needs access to your secret data:
 

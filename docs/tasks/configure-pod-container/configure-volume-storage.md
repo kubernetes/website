@@ -1,5 +1,5 @@
 ---
-title: Configuring a Pod to Use a Volume for Storage
+title: Configure a Pod to Use a Volume for Storage
 ---
 
 {% capture overview %}
@@ -23,7 +23,7 @@ key-value cache and store.
 
 {% capture steps %}
 
-## Configuring a volume for a Pod
+## Configure a volume for a Pod
 
 In this exercise, you create a Pod that runs one Container. This Pod has a
 Volume of type
@@ -35,7 +35,7 @@ restarts. Here is the configuration file for the Pod:
 
 1. Create the Pod:
 
-        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/pod-redis.yaml
+        kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/pod-redis.yaml
 
 1. Verify that the Pod's Container is running, and then watch for changes to
 the Pod:

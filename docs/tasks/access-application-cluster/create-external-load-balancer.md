@@ -1,25 +1,29 @@
 ---
-title: Creating an External Load Balancer
+title: Create an External Load Balancer
 redirect_from:
 - "/docs/user-guide/load-balancer/"
 - "/docs/user-guide/load-balancer.html"
 ---
 
-* TOC
-{:toc}
 
-## Overview
+{% capture overview %}
+
+This page shows how to create an External Load Balancer.
 
 When creating a service, you have the option of automatically creating a
 cloud network load balancer. This provides an
 externally-accessible IP address that sends traffic to the correct port on your
 cluster nodes _provided your cluster runs in a supported environment and is configured with the correct cloud load balancer provider package_.
 
-## External Load Balancer Providers
+{% endcapture %}
 
-It is important to note that the datapath for this functionality is provided by a load balancer external to the Kubernetes cluster.
+{% capture prerequisites %}
 
-When the service type is set to `LoadBalancer`, Kubernetes provides functionality equivalent to type=`ClusterIP` to pods within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes VMs. The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed), firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object.
+* {% include task-tutorial-prereqs.md %}
+
+{% endcapture %}
+
+{% capture steps %}
 
 ## Configuration file
 
@@ -58,7 +62,7 @@ You can alternatively create the service with the `kubectl expose` command and
 its `--type=LoadBalancer` flag:
 
 ```bash
-    $ kubectl expose rc example --port=8765 --target-port=9376 \
+    kubectl expose rc example --port=8765 --target-port=9376 \
         --name=example-service --type=LoadBalancer
 ```
 
@@ -75,7 +79,10 @@ You can find the IP address created for your service by getting the service
 information through `kubectl`:
 
 ```bash
-    $ kubectl describe services example-service
+    kubectl describe services example-service
+```
+which should produce output like this:
+```bash
     Name:  example-service
     Selector:   app=example
     Type:     LoadBalancer
@@ -89,11 +96,6 @@ information through `kubectl`:
 ```
 
 The IP address is listed next to `LoadBalancer Ingress`.
-
-## Loss of client source IP for external traffic
-
-Due to the implementation of this feature, the source IP for sessions as seen in the target container will *not be the original source IP* of the client. This is the default behavior as of Kubernetes v1.5. However, starting in v1.5, an optional beta feature has been added
-that will preserve the client Source IP for GCE/GKE environments. This feature will be phased in for other cloud providers in subsequent releases.
 
 ## Annotation to modify the LoadBalancer behavior for preservation of Source IP
 In 1.5, a Beta feature has been added that changes the behavior of the external LoadBalancer feature.
@@ -125,7 +127,23 @@ This feature can be activated by adding the beta annotation below to the metadat
 
 **Note that this feature is not currently implemented for all cloudproviders/environments.**
 
-### Caveats and Limitations when preserving source IPs
+
+{% endcapture %}
+
+{% capture discussion %}
+
+## External Load Balancer Providers
+
+It is important to note that the datapath for this functionality is provided by a load balancer external to the Kubernetes cluster.
+
+When the service type is set to `LoadBalancer`, Kubernetes provides functionality equivalent to `type=<ClusterIP>` to pods within the cluster and extends it by programming the (external to Kubernetes) load balancer with entries for the Kubernetes VMs. The Kubernetes service controller automates the creation of the external load balancer, health checks (if needed), firewall rules (if needed) and retrieves the external IP allocated by the cloud provider and populates it in the service object.
+
+## Loss of client source IP for external traffic
+
+Due to the implementation of this feature, the source IP for sessions as seen in the target container will *not be the original source IP* of the client. This is the default behavior as of Kubernetes v1.5. However, starting in v1.5, an optional beta feature has been added
+that will preserve the client Source IP for GCE/GKE environments. This feature will be phased in for other cloud providers in subsequent releases.
+
+## Caveats and Limitations when preserving source IPs
 
 GCE/AWS load balancers do not provide weights for their target pools. This was not an issue with the old LB
 kube-proxy rules which would correctly balance across all endpoints.
@@ -142,3 +160,7 @@ Once the external load balancers provide weights, this functionality can be adde
 *Future Work: No support for weights is provided for the 1.4 release, but may be added at a future date*
 
 Internal pod to pod traffic should behave similar to ClusterIP services, with equal probability across all pods.
+
+{% endcapture %}
+
+{% include templates/task.md %}

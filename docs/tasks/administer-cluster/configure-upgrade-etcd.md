@@ -2,16 +2,22 @@
 assignees:
 - mml
 - wojtek-t
-title: Upgrading and Rolling Back etcd
+title: Configure, Upgrade, and Roll Back etcd
 redirect_from:
+- "/docs/concepts/storage/etcd-store-api-object/"
+- "/docs/concepts/storage/etcd-store-api-object.html"
+- "/docs/admin/etcd/"
+- "/docs/admin/etcd.html"
 - "/docs/admin/etcd_upgrade/"
 - "/docs/admin/etcd_upgrade.html"
+- "/docs/concepts/cluster-administration/configure-etcd/"
+- "/docs/concepts/cluster-administration/configure-etcd.html"
+- "/docs/concepts/cluster-administration/etcd-upgrade/"
+- "/docs/concepts/cluster-administration/etcd-upgrade.html"
 ---
 
-## About etcd
-
 [etcd](https://coreos.com/etcd/docs/latest/) is a highly-available key value
-store, which Kubernetes uses for persistent storage of all of its REST API
+store which Kubernetes uses for persistent storage of all of its REST API
 objects.
 
 <!-- TODO(mml): Write this doc.
@@ -21,7 +27,7 @@ see _some doc_.
 
 -->
 
-### Important assumptions
+## Important assumptions
 
 The upgrade procedure described in this document assumes that either:
 
@@ -35,7 +41,7 @@ integration, and deviations might create undesirable consequences. Additional
 information about operating an etcd cluster is available [from the etcd
 maintainers](https://github.com/coreos/etcd/tree/master/Documentation).
 
-### etcd for Kubernetes: high-level goals
+## etcd for Kubernetes: high-level goals
 
 Access control: Give only kube-apiserver read/write access to etcd. You do not
 want the API server's etcd exposed to every node in your cluster, or worse, to the
@@ -118,7 +124,7 @@ restart their watches and start from “now” when apiserver is back. And it wi
 be back with new resource version. That would mean that restarting node
 components is not needed.  But the assumptions here may not hold forever.
 
-## Design
+### Design
 
 This section describes how we are going to do the migration, given the
 [etcd upgrade requirements](#etcd-upgrade-requirements).
@@ -187,7 +193,7 @@ script works as follows:
    in v2 format.
 1. Finally update the contents of the version file.
 
-### Upgrade procedure
+## Upgrade procedure
 Simply modify the command line in the etcd manifest to:
 
 1. Run the migration script. If the previously run version is already in the
@@ -215,3 +221,29 @@ TARGET_VERSION=2.2.1
 STORAGE_MEDIA_TYPE=application/json
 ```
 
+## Notes for etcd Version 2.2.1
+
+### Default configuration
+
+The default setup scripts use kubelet's file-based static pods feature to run etcd in a
+[pod](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/etcd/etcd.manifest). This manifest should only
+be run on master VMs. The default location that kubelet scans for manifests is
+`/etc/kubernetes/manifests/`.
+
+### Kubernetes's usage of etcd
+
+By default, Kubernetes objects are stored under the `/registry` key in etcd.
+This path can be prefixed by using the [kube-apiserver](/docs/admin/kube-apiserver) flag
+`--etcd-prefix="/foo"`.
+
+`etcd` is the only place that Kubernetes keeps state.
+
+### Troubleshooting
+
+To test whether `etcd` is running correctly, you can try writing a value to a
+test key. On your master VM (or somewhere with firewalls configured such that
+you can talk to your cluster's etcd), try:
+
+```shell
+curl -fs -X PUT "http://${host}:${port}/v2/keys/_test"
+```

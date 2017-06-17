@@ -1,5 +1,5 @@
 ---
-title: Connecting a Front End to a Back End Using a Service
+title: Connect a Front End to a Back End Using a Service
 redirect_from:
 - "/docs/user-guide/services/operations/"
 - "/docs/user-guide/services/operations.html"
@@ -51,7 +51,7 @@ file for the backend Deployment:
 Create the backend Deployment:
 
 ```
-kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/hello.yaml
+kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/hello.yaml
 ```
 
 View information about the backend Deployment:
@@ -97,7 +97,7 @@ that have the labels `app: hello` and `tier: backend`.
 Create the `hello` Service:
 
 ```
-kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/hello-service.yaml
+kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/hello-service.yaml
 ```
 
 At this point, you have a backend Deployment running, and you have a
@@ -124,7 +124,7 @@ the Service uses the default load balancer of your cloud provider.
 Create the frontend Deployment and Service:
 
 ```
-kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/frontend.yaml
+kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/frontend.yaml
 ```
 
 The output verifies that both resources were created:

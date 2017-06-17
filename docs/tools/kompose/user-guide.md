@@ -3,7 +3,7 @@
 assignees:
 - cdrage
 
-title: Translating a Docker Compose File to Kubernetes Resources
+title: Translate a Docker Compose File to Kubernetes Resources
 redirect_from:
 - "/docs/tools/kompose/"
 - "/docs/tools/kompose/index.html"
@@ -284,7 +284,7 @@ Note:
 
 ## Alternate formats
 
-The default `kompose` transformation will generate Kubernetes [Deployments](http://kubernetes.io/docs/user-guide/deployments/) and [Services](http://kubernetes.io/docs/user-guide/services/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/) objects, [Deamon Sets](http://kubernetes.io/docs/admin/daemons/), or [Helm](https://github.com/helm/helm) charts.
+The default `kompose` transformation will generate Kubernetes [Deployments](/docs/concepts/workloads/controllers/deployment/) and [Services](http://kubernetes.io/docs/user-guide/services/), in yaml format. You have alternative option to generate json with `-j`. Also, you can alternatively generate [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/) objects, [Deamon Sets](http://kubernetes.io/docs/admin/daemons/), or [Helm](https://github.com/helm/helm) charts.
 
 ```console
 $ kompose convert -j

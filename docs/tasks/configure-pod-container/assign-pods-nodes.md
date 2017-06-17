@@ -1,5 +1,5 @@
 ---
-title: Assigning Pods to Nodes
+title: Assign Pods to Nodes
 redirect_from:
 - "/docs/tasks/administer-cluster/assign-pods-nodes/"
 - "/docs/tasks/administer-cluster/assign-pods-nodes.html"
@@ -18,7 +18,7 @@ Kubernetes cluster.
 
 {% capture steps %}
 
-## Adding a label to a node
+## Add a label to a node
 
 1. List the nodes in your cluster:
 
@@ -52,7 +52,7 @@ Kubernetes cluster.
     In the preceding output, you can see that the `worker0` node has a
     `disktype=ssd` label.
 
-## Creating a pod that gets scheduled to your chosen node
+## Create a pod that gets scheduled to your chosen node
 
 This pod configuration file describes a pod that has a node selector,
 `disktype: ssd`. This means that the pod will get scheduled on a node that has
@@ -63,7 +63,7 @@ a `disktype=ssd` label.
 1. Use the configuration file to create a pod that will get scheduled on your
    chosen node:
 
-        kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/pod.yaml
+        kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/pod.yaml
 
 1. Verify that the pod is running on your chosen node:
 

@@ -37,11 +37,11 @@ spec:
         podAffinityTerm:
           labelSelector:
             matchExpressions:
-            - key: app
+            - key: security
               operator: In
               values:
-              - P2
-            topologyKey: kubernetes.io/hostname
+              - S2
+          topologyKey: kubernetes.io/hostname
   containers:
   - name: with-pod-affinity
     image: gcr.io/google_containers/pause:2.0

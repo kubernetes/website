@@ -1,5 +1,5 @@
 ---
-title: Running a Stateless Application Using a Deployment
+title: Run a Stateless Application Using a Deployment
 redirect_from:
 - "/docs/user-guide/simple-nginx/"
 - "/docs/user-guide/simple-nginx.html"
@@ -49,7 +49,7 @@ a Deployment that runs the nginx:1.7.9 Docker image:
 
 1. Create a Deployment based on the YAML file:
 
-        kubectl create -f http://k8s.io/docs/tasks/run-application/deployment.yaml
+        kubectl create -f https://k8s.io/docs/tasks/run-application/deployment.yaml
 
 1. Display information about the Deployment:
 
@@ -96,7 +96,7 @@ specifies that the deployment should be updated to use nginx 1.8.
 
 1. Apply the new YAML file:
 
-        kubectl apply -f http://k8s.io/docs/tutorials/stateless-application/deployment-update.yaml
+        kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-update.yaml
 
 1. Watch the deployment create pods with new names and delete the old pods:
 
@@ -112,7 +112,7 @@ should have four pods:
 
 1. Apply the new YAML file:
 
-        kubectl apply -f http://k8s.io/docs/tutorials/stateless-application/deployment-scale.yaml
+        kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-scale.yaml
 
 1. Verify that the Deployment has four pods:
 
@@ -145,8 +145,6 @@ added to Kubernetes, replicated applications were configured by using a
 {% capture whatsnext %}
 
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
-
-* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/)
 
 {% endcapture %}
 

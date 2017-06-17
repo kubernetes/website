@@ -1,5 +1,5 @@
 ---
-title: Attaching Handlers to Container Lifecycle Events
+title: Attach Handlers to Container Lifecycle Events
 ---
 
 {% capture overview %}
@@ -21,7 +21,7 @@ Container is terminated.
 
 {% capture steps %}
 
-## Defining postStart and preStop handlers
+## Define postStart and preStop handlers
 
 In this exercise, you create a Pod that has one Container. The Container has handlers
 for the postStart and preStop events.
@@ -36,7 +36,7 @@ nginx gracefully. This is helpful if the Container is being terminated because o
 
 Create the Pod:
 
-    kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/lifecycle-events.yaml
+    kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/lifecycle-events.yaml
 
 Verify that the Container in the Pod is running:
 

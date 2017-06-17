@@ -1,7 +1,10 @@
 ---
 assignees:
 - bprashanth
-title: Debugging Pods and Replication Controllers
+title: Debug Pods and Replication Controllers
+redirect_from:
+- "/docs/user-guide/debugging-pods-and-replication-controllers/"
+- "/docs/user-guide/debugging-pods-and-replication-controllers.html"
 ---
 
 * TOC

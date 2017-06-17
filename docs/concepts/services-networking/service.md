@@ -140,6 +140,8 @@ metadata:
 spec:
   type: ExternalName
   externalName: my.database.example.com
+  ports:
+  - port: 12345
 ```
 
 When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
@@ -550,7 +552,7 @@ ensure that no two `Services` can collide.  We do that by allocating each
 `Service` its own IP address.
 
 To ensure each service receives a unique IP, an internal allocator atomically
-updates a global allocation map in etcd prior to each service. The map object
+updates a global allocation map in etcd prior to creating each service. The map object
 must exist in the registry for services to get IPs, otherwise creations will
 fail with a message indicating an IP could not be allocated. A background
 controller is responsible for creating that map (to migrate from older versions

@@ -1,5 +1,5 @@
 ---
-title: Communicating Between Containers in the Same Pod Using a Shared Volume
+title: Communicate Between Containers in the Same Pod Using a Shared Volume
 redirect_from:
 - "/docs/user-guide/pods/multi-container/"
 - "/docs/user-guide/pods/multi-container.html"
@@ -47,7 +47,7 @@ directory of the nginx server.
 
 Create the Pod and the two Containers:
 
-    kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/two-container-pod.yaml
+    kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/two-container-pod.yaml
 
 View information about the Pod and the Containers:
 

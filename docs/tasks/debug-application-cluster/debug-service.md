@@ -3,7 +3,10 @@ assignees:
 - bprashanth
 - janetkuo
 - thockin
-title: Debugging Services
+title: Debug Services
+redirect_from:
+- "/docs/user-guide/debugging-services/"
+- "/docs/user-guide/debugging-services.html"
 ---
 
 An issue that comes up rather frequently for new installations of Kubernetes is

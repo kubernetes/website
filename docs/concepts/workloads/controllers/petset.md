@@ -118,7 +118,7 @@ Saving this config into `petset.yaml` and submitting it to a Kubernetes cluster 
 ```shell
 $ kubectl create -f petset.yaml
 service "nginx" created
-petset "nginx" created
+petset "web" created
 ```
 
 ## Pet Identity

@@ -34,8 +34,8 @@ the following drivers:
 
 * virtualbox
 * vmwarefusion
-* kvm ([driver installation](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#kvm-driver))
-* xhyve ([driver installation](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md#xhyve-driver))
+* kvm ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm-driver))
+* xhyve ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#xhyve-driver))
 
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 
@@ -88,7 +88,7 @@ This will use an alternative minikube ISO image containing both rkt, and Docker,
 
 ### Driver plugins
 
-See [DRIVERS](https://github.com/kubernetes/minikube/blob/master/DRIVERS.md) for details on supported drivers and how to install
+See [DRIVERS](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md) for details on supported drivers and how to install
 plugins, if required.
 
 ### Reusing the Docker daemon

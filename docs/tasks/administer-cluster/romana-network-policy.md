@@ -1,7 +1,7 @@
 ---
 assignees:
 - chrismarino
-title: Using Romana for NetworkPolicy
+title: Romana for NetworkPolicy
 redirect_from:
 - "/docs/getting-started-guides/network-policy/romana/"
 - "/docs/getting-started-guides/network-policy/romana.html"
@@ -9,14 +9,42 @@ redirect_from:
 - "/docs/tasks/configure-pod-container/romana-network-policy.html"
 ---
 
-# Installation with kubeadm
+{% capture overview %}
 
-Begin by following the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/) and complete steps 1, 2, and 3. Once completed, follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadmin. Kubernetes network policies can then be applied to pods using the NetworkPolicy API.
+This page shows how to use Romana for NetworkPolicy.
 
-#### Additional Romana Network Policy Options
+{% endcapture %}
 
-In addition to the standard Kubernetes NetworkPolicy API, Romana also supports additional network policy functions.
+{% capture prerequisites %}
 
-* [Romana Network Policy Capabilities](https://github.com/romana/romana/wiki/Romana-policies)
-* [Example Romana Policies](https://github.com/romana/core/tree/master/policy)
+Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/). 
+
+{% endcapture %}
+
+{% capture steps %}
+
+## Installing Romana with kubeadm
+
+Follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadmin. 
+
+## Applying network policies
+
+To apply network policies use one of the following:
+
+* [Romana network policies](https://github.com/romana/romana/wiki/Romana-policies). 
+    * [Example of Romana network policy](https://github.com/romana/core/tree/master/policy).
+* The NetworkPolicy API.
+ 
+{% endcapture %}
+
+{% capture whatsnext %}
+
+Once your have installed Romana, you can follow the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) to try out Kubernetes NetworkPolicy.
+
+{% endcapture %}
+
+{% include templates/task.md %}
+
+
+
 
