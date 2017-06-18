@@ -69,7 +69,7 @@ This is a living document. If you think of something that is not on this list bu
 
   Note that the [Deployment](/docs/concepts/workloads/controllers/deployment/) object obviates the need to manage replication controller 'version names'. A desired state of an object is described by a Deployment, and if changes to that spec are _applied_, the deployment controller changes the actual state to the desired state at a controlled rate. (Deployment objects are currently part of the [`extensions` API Group](/docs/concepts/overview/kubernetes-api/#api-groups).)
 
-- You can manipulate labels for debugging. Because Kubernetes replication controllers and services match to pods using labels, this allows you to remove a pod from being considereby a controller, or served traffic by a service, by removing the relevant selectolabels. If you remove the labels of an existing pod, its controller will create a new pod to takits place. This is a useful way to debug a previously "live" pod in a quarantine environmentSee the [`kubectl label`](/docs/concepts/overview/working-with-objects/labels/) command.
+- You can manipulate labels for debugging. Because Kubernetes replication controllers and services match to pods using labels, this allows you to remove a pod from being considered by a controller, or served traffic by a service, by removing the relevant selector labels. If you remove the labels of an existing pod, its controller will create a new pod to take its place. This is a useful way to debug a previously "live" pod in a quarantine environment. See the [`kubectl label`](/docs/concepts/overview/working-with-objects/labels/) command.
 
 ## Container Images
 
