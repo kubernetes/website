@@ -138,6 +138,19 @@ For a given eviction request, there are two cases.
  2. There is at least one budget.  In this case, any of the three above responses may
     apply.
 
+In some cases, an application may reach a broken state where it will never return anything
+other than 429 or 500.  This can happen, for example, if the replacement pod created by the
+application's controller do not become ready, or if the last pod evicted has a very long
+termination grace period.
+
+In this case, either of the following could be done:
+
+- Abort or pause the automated operation.  Investigate the reason for the stuck application, and restart the automation.
+- After a suitably long wait, `DELETE` the pod instead of using the eviction API.
+
+Kubernetes does not specify what the behavior should be in this case: it is up to the
+application owners and cluster owners to establish an agreement on behavior in these cases.
+
 {% endcapture %}
 
 {% capture whatsnext %}
