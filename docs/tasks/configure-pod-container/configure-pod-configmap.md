@@ -1,5 +1,5 @@
 ---
-title: Using ConfigMap Data in Pods 
+title: Use ConfigMap Data in Pods 
 ---
 
 {% capture overview %}
@@ -14,7 +14,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
 {% capture steps %}
 
 
-## Defining Pod environment variables using ConfigMap data
+## Define Pod environment variables using ConfigMap data
 
 ### Define a Pod environment variable with data from a single ConfigMap
 
@@ -144,7 +144,7 @@ Note: This functionality is available to users running Kubernetes v1.6 and later
 1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
 
 
-## Using ConfigMap-defined environment variables in Pod commands  
+## Use ConfigMap-defined environment variables in Pod commands  
 
 You can use ConfigMap-defined environment variables in the `command` section of the Pod specification using the `$(VAR_NAME)` Kubernetes substitution syntax.
 
@@ -182,7 +182,7 @@ produces the following output in the `test-container` container:
 very charm
 ```
 
-## Adding ConfigMap data to a Volume 
+## Add ConfigMap data to a Volume 
 
 As explained in [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap.html), when you create a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value. 
 
@@ -268,7 +268,7 @@ When the pod runs, the command (`"cat /etc/config/keys/special.level"`) produces
 very
 ```
 
-### Projecting keys to specific paths and file permissions
+### Project keys to specific paths and file permissions
 
 You can project keys to specific paths and specific permissions on a per-file
 basis. The [Secrets](/docs/concepts/configuration/secret#using-secrets-as-files-from-a-pod) user guide explains the syntax.

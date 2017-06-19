@@ -5,7 +5,7 @@ assignees:
 - foxish
 - janetkuo
 - smarterclayton
-title: Deleting a Stateful Set
+title: Delete a Stateful Set
 redirect_from:
 - "/docs/tasks/manage-stateful-set/deleting-a-statefulset/"
 - "/docs/tasks/manage-stateful-set/deleting-a-statefulset.html"
