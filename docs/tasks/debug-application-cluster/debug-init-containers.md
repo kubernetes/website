@@ -7,7 +7,7 @@ assignees:
 - janetkuo
 - kow3ns
 - smarterclayton
-title: Debugging Init Containers
+title: Debug Init Containers
 redirect_from:
 - "/docs/tasks/troubleshoot/debug-init-containers/"
 - "/docs/tasks/troubleshoot/debug-init-containers.html"

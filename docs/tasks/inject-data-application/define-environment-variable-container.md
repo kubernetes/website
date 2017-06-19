@@ -1,5 +1,5 @@
 ---
-title: Defining Environment Variables for a Container
+title: Define Environment Variables for a Container
 redirect_from:
 - "/docs/tasks/configure-pod-container/define-environment-variable-container/"
 - "/docs/tasks/configure-pod-container/define-environment-variable-container.html"
@@ -22,7 +22,7 @@ in a Kubernetes Pod.
 
 {% capture steps %}
 
-## Defining an environment variable for a container
+## Define an environment variable for a container
 
 When you create a Pod, you can set environment variables for the containers
 that run in the Pod. To set environment variables, include the `env` or

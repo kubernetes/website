@@ -1,7 +1,7 @@
 ---
 assignees:
 - janetkuo
-title: Performing a Rolling Update on a DaemonSet
+title: Perform a Rolling Update on a DaemonSet
 ---
 
 {% capture overview %}

@@ -1,5 +1,5 @@
 ---
-title: Changing the Reclaim Policy of a PersistentVolume
+title: Change the Reclaim Policy of a PersistentVolume
 ---
 
 {% capture overview %}
