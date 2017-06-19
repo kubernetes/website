@@ -1,7 +1,7 @@
 ---
 assignees:
 - bboreham
-title: Using Weave Net for NetworkPolicy
+title: Weave Net for NetworkPolicy
 redirect_from:
 - "/docs/getting-started-guides/network-policy/weave/"
 - "/docs/getting-started-guides/network-policy/weave.html"
