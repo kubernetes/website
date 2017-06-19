@@ -2,7 +2,7 @@
 assignees:
 - derekwaynecarr
 - janetkuo
-title: Applying Resource Quotas and Limits
+title: Apply Resource Quotas and Limits
 redirect_from:
 - "/docs/admin/resourcequota/walkthrough/"
 - "/docs/admin/resourcequota/walkthrough.html"

@@ -2,7 +2,7 @@
 assignees:
 - mml
 - wojtek-t
-title: Configuring, Upgrading, and Rolling Back etcd
+title: Configure, Upgrade, and Roll Back etcd
 redirect_from:
 - "/docs/concepts/storage/etcd-store-api-object/"
 - "/docs/concepts/storage/etcd-store-api-object.html"
