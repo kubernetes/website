@@ -4,7 +4,8 @@ assignees:
 - erictune
 - foxish
 - kow3ns
-title: Configure a Pod Disruption Budget
+title: Configuring a Pod Disruption Budget
+>>>>>>> Changes from #3885
 redirect_from:
 - "/docs/admin/disruptions/"
 - "/docs/admin/disruptions.html"
