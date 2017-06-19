@@ -258,7 +258,7 @@ spec:
         name: special-config
         items:
         - key: special.level
-          path: /keys
+          path: keys
   restartPolicy: Never
 ```
 
