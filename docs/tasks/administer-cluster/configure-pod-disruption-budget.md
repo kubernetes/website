@@ -43,7 +43,7 @@ disruption budget to be violated.
 
 ## Specifying a PodDisruptionBudget
 
-A `PodDisruptionBudget` has three components, of which two must be specified: 
+A `PodDisruptionBudget` has three fields: 
 
 * A label selector `selector` to specify the set of
 pods to which it applies. This is a required field.
@@ -84,8 +84,7 @@ voluntary evictions, not all causes of unavailability.
 
 A `maxUnavailable` of 0% (or 0) or a `minAvailable` of 100% (or equal to the
 number of replicas) may block node drains entirely. This is permitted as per the 
-semantics of `PodDisruptionBudget`. Cluster administrators may restrict this 
-behavior through admission control.
+semantics of `PodDisruptionBudget`.
 
 You can find examples of pod disruption budgets defined below. They match pods with the label 
 `app: zookeeper`.
