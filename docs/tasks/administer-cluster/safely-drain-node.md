@@ -14,8 +14,12 @@ disruption SLOs you have specified using PodDisruptionBudget.
 This task assumes that you have met the following prerequisites:
 
 * You are using Kubernetes release >= 1.5.
-* You have created [PodDisruptionBudget(s)](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/) to express the
-application-level disruption SLOs you want the system to enforce.
+* Either:
+  1. You do not require your applications to be highly available during the
+     node drain, or
+  1. You have read about the [PodDisruptionBudget concept](/docs/concepts/workloads/pods/disruptions.md)
+     and [Configured PodDisruptionBudgets](docs/tasks/run-application/configure-pdb.md) for
+     applications that need them.
 
 {% endcapture %}
 
