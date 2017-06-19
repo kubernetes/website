@@ -252,7 +252,7 @@ spec:
     - "ReadWriteOnce"
   gcePersistentDisk:
     fsType: "ext4"
-    pdName: "gce-disk-1
+    pdName: "gce-disk-1"
 ```
 
 A mount option is a string which will be cumulatively joined and used while mounting volume to the disk. 
