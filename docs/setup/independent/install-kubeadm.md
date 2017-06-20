@@ -100,7 +100,7 @@ details.
 
 {% capture whatsnext %}
 
-* [Installing Kubernetes on Linux with kubeadm](/docs/getting-started-guides/kubeadm/)
+* [Using kubeadm to Create a Cluster](/docs/getting-started-guides/kubeadm/)
 
 {% endcapture %}
 
