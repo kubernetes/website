@@ -132,26 +132,7 @@ Kubernetes supports [Go](#go-client) and [Python](#python-client) client librari
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
 
 The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes/client-go/blob/master/examples/out-of-cluster-client-configuration/main.go):
-
-```golang
-import (
-   "fmt"
-   metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-   "k8s.io/client-go/kubernetes"
-   "k8s.io/client-go/tools/clientcmd"
-)
-...
-   // use the current context in kubeconfig
-   config, _ := clientcmd.BuildConfigFromFlags("", *kubeconfig)	 
-   // create the clientset
-   clientset, _ := kubernetes.NewForConfig(config)
-
-   // access the API to list pods
-   pods, _:= clientset.Core().Pods("").List(v1.ListOptions{})
-   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
-...
-```
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes/client-go/blob/master/examples/out-of-cluster-client-configuration/main.go).
 
 If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod).
 
