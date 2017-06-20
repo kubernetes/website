@@ -1,7 +1,7 @@
 ---
 assignees:
 - janetkuo
-title: Performing a Rolling Update Using a Replication Controller
+title: Perform Rolling Update Using a Replication Controller
 redirect_from:
 - "/docs/user-guide/rolling-updates/"
 - "/docs/user-guide/rolling-updates.html"

@@ -2,7 +2,7 @@
 assignees:
 - bprashanth
 - davidopp
-title: Configuring Your Cloud Provider's Firewalls
+title: Configure Your Cloud Provider's Firewalls
 redirect_from:
 - "/docs/user-guide/services-firewalls/"
 - "/docs/user-guide/services-firewalls.html"
