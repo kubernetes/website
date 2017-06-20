@@ -90,6 +90,7 @@ Kubernetes supports several types of Volumes:
    * `Quobyte`
    * `PortworxVolume`
    * `ScaleIO`
+   * `StorageOS`
 
 We welcome additional contributions.
 
@@ -695,6 +696,47 @@ spec:
 ```
 
 For further detail, plese the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
+
+### StorageOS
+A `storageos` volume allows an existing [StorageOS](https://www.storageos.com) volume to be mounted into your pod.
+
+StorageOS runs as a container within your Kubernetes environment, making local or attached storage accessible from any node within the Kubernetes cluster.  Data can be replicated to protect against node failure.  Thin provisioning and compression can improve utilization and reduce cost.
+
+At its core, StorageOS provides block storage to containers, accessible via a file system.
+
+The StorageOS container requires 64-bit Linux and has no additional dependencies.  A free developer licence is available.
+
+__Important: You must run the StorageOS container on each node that wants to access StorageOS volumes or that will contribute storage capacity to the pool.  For installation instructions, consult the [StorageOS documentation](https://docs.storageos.com)__
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: redis
+    role: master
+  name: test-storageos-redis
+spec:
+  containers:
+    - name: master
+      image: kubernetes/redis:v1
+      env:
+        - name: MASTER
+          value: "true"
+      ports:
+        - containerPort: 6379
+      volumeMounts:
+        - mountPath: /redis-master-data
+          name: redis-data
+  volumes:
+    - name: redis-data
+      storageos:
+        # The `redis-vol01` volume must already exist within StorageOS in the `default` namespace.
+        volumeName: redis-vol01
+        fsType: ext4
+```
+
+For more information including Dynamic Provisioning and Persistent Volume Claims, please see the [StorageOS examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/storageos).
 
 ## Using subPath
 
