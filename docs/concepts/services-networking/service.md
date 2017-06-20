@@ -495,7 +495,7 @@ spec:
   selector:
     app: MyApp
   ports:
-    - name: http,
+    - name: http
       protocol: TCP
       port: 80
       targetPort: 9376
