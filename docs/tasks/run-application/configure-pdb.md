@@ -24,9 +24,9 @@ nodes.
 {% capture steps %}
 
 ## Protecting an Application with a PodDisruptionBudget
+
 1. Identify what application you want to protect with a PodDisruptionBudget (PDB).
-1. Determine what level of unavailability you can tolerate.
-1. Determine what label will be used to match the application's pods.
+1. Think about how your application reacts to disruptions
 1. Create a PDB definition as a YAML file.
 1. Create the PDB object from the YAML file.
 
@@ -34,7 +34,41 @@ nodes.
 
 {% capture discussion %}
 
-TODO: elaborate on above steps.
+## Identify an Application to Protect
+
+PDBs can be used with applications the following types of application controllers:
+
+- Deployment
+- ReplicationController
+- ReplicaSet
+- StatefulSet
+
+In future, support may be extended to user-provided controllers ("operators").
+
+Identify the pod selector used by your controller.  You will use this in the
+`PodDisruptionBudget` to select the pods protected by the PDB.  These
+selectors should match.
+
+## Think about how your application reacts to disruptions
+
+Decide how many instances can be down at the same time for a short period
+due to a voluntary disruption.
+
+- Stateless frontends
+  - Concern: don't reduce serving capacity by more than 10%. 
+    - Solution: use PDB with minAvailable 90% for example.
+- Single-instance Stateful Application
+  - Concern: do not terminate this application without talking to me.
+    - Possible Solution 1: Do not use a PDB and tolerate occasional downtime.
+    - Possible Solution 2: Set PDB with maxUnavailable=0.  Have understanding (outside of Kubernetes) that the cluster operator needs to consult before termination.
+      when the cluster operator contacts you, prepare for downtime, and then delete the to set maxUnavailable=1 to indicate readiness for disruption.  Recreate afterwards.
+- Multiple-instance Stateful application such as Consul, ZooKeeper, or etcd  
+  - Concern: Do not reduce number of instances below quorum, otherwise writes fail.
+    - Possible Solution 1: set maxUnavailable to 1 (works with varying scale of application).
+    - Possible Solution 2: set minAvailable to quorum-size (e.g. 3 when scale is 5).  (Allows more disruptions at once).
+- Restartable Batch Job:
+  - Concern: Job needs to complete in case of voluntary disruption
+    - Possible solution: Do not create a PDB.  The Job controller will create a replacement pod.
 
 ## Specifying a PodDisruptionBudget
 
@@ -116,6 +150,11 @@ For example, if the above `zk-pdb` object selects the pods of a StatefulSet of s
 specifications have the exact same meaning. The use of `maxUnavailable` is recommended as it
 automatically responds to changes in the number of replicas of the corresponding controller.
 
+# Create the PDB object
+
+You can create the PDB object with a command like `kubectl create -f mypdb.yaml`.
+
+You cannot update PDB objects.  They must be deleted and re-created.
 {% endcapture %}
 
 {% include templates/task.md %}
