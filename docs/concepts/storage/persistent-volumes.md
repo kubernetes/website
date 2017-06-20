@@ -127,6 +127,7 @@ However, the particular path specified in the custom recycler pod template in th
 * VMware Photon
 * Portworx Volumes
 * ScaleIO Volumes
+* StorageOS
 
 ## Persistent Volumes
 
@@ -195,6 +196,7 @@ In the CLI, the access modes are abbreviated to:
 | VsphereVolume        | &#x2713;     | -           | -            |
 | PortworxVolume       | &#x2713;     | -           | &#x2713;     |
 | ScaleIO              | &#x2713;     | &#x2713;    | -            |
+| StorageOS            | &#x2713;     | -           | -            |
 
 ### Class
 
@@ -754,6 +756,36 @@ as shown in the following command:
 ```
 $> kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" --from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== --namespace=default
 ```
+
+#### StorageOS
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: fast
+provisioner: kubernetes.io/storageos
+parameters:
+  pool: default
+  description: Kubernetes volume
+  fsType: ext4
+  adminSecretNamespace: default
+  adminSecretName: storageos-secret
+```
+
+* `pool`: The name of the StorageOS distributed capacity pool to provision the volume from.  Uses the `default` pool which is normally present if not specified.
+* `description`: The description to assign to volumes that were created dynamically.  All volume descriptions will be the same for the storage class, but different storage classes can be used to allow descriptions for different use cases.  Defaults to `Kubernetes volume`.
+* `fsType`: The default filesystem type to request.  Note that user-defined rules within StorageOS may override this value.  Defaults to `ext4`.
+* `adminSecretNamespace`: The namespace where the API configuration secret is located.  Required if adminSecretName set.
+* `adminSecretName`: The name of the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+
+The StorageOS Kubernetes volume plugin can use a Secret object to specify an endpoint and credentials to access the StorageOS API.  This is only required when the defaults have been changed.
+The secret must be created with type `kubernetes.io/storageos` as shown in the following command:
+
+```
+$ kubectl create secret generic storageos-secret --type="kubernetes.io/storageos" --from-literal=apiAddress=tcp://localhost:5705 --from-literal=apiUsername=storageos --from-literal=apiPassword=storageos --namespace=default
+```
+
+Secrets used for dynamically provisioned volumes may be created in any namespace and referenced with the `adminSecretNamespace` parameter.  Secrets used by pre-provisioned volumes must be created in the same namespace as the PVC that references it.
 
 ## Writing Portable Configuration
 
