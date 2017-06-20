@@ -247,7 +247,7 @@ Allow "GET" and "POST" requests to the non-resource endpoint "/healthz" and all 
 
 ```yaml
 rules:
-- nonResourceURLs: ["/healthz", "/healthz/*"]
+- nonResourceURLs: ["/healthz", "/healthz/*"] # '*' in a nonResourceURL is a suffix glob match
   verbs: ["get", "post"]
 ```
 
