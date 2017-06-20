@@ -248,7 +248,7 @@ spec:
   containers:
     - name: test-container
       image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh","-c","cat /etc/config/keys/special.level" ]
+      command: [ "/bin/sh","-c","cat /etc/config/keys" ]
       volumeMounts:
       - name: config-volume
         mountPath: /etc/config
@@ -262,7 +262,7 @@ spec:
   restartPolicy: Never
 ```
 
-When the pod runs, the command (`"cat /etc/config/keys/special.level"`) produces the output below:
+When the pod runs, the command (`"cat /etc/config/keys"`) produces the output below:
 
 ```shell
 very
