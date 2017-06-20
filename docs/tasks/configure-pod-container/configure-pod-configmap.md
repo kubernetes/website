@@ -8,7 +8,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
 
 {% capture prerequisites %}
 * {% include task-tutorial-prereqs.md %}
-* [Create a ConfigMap](/docs/tasks/configure-pod-container/configmap.html)
+* [Create a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
 {% endcapture %}
 
 {% capture steps %}
@@ -248,7 +248,7 @@ spec:
   containers:
     - name: test-container
       image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh","-c","cat /etc/config/keys/special.level" ]
+      command: [ "/bin/sh","-c","cat /etc/config/keys" ]
       volumeMounts:
       - name: config-volume
         mountPath: /etc/config
@@ -258,11 +258,11 @@ spec:
         name: special-config
         items:
         - key: special.level
-          path: /keys
+          path: keys
   restartPolicy: Never
 ```
 
-When the pod runs, the command (`"cat /etc/config/keys/special.level"`) produces the output below:
+When the pod runs, the command (`"cat /etc/config/keys"`) produces the output below:
 
 ```shell
 very
