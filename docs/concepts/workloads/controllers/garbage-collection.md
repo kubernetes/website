@@ -157,7 +157,7 @@ kubectl delete replicaset my-repset --cascade=false
 * In 1.6, garbage collection does not support non-core resources, e.g.,
   resources added via ThirdPartyResource or via aggregated API servers. It will
   support non-core resources in the future. When it does, garbage collector will
-  delete objects with ownerRefereneces referring to non-existent object of a
+  delete objects with ownerReferences referring to non-existent object of a
   valid non-core resource.
 
 [Other known issues](https://github.com/kubernetes/kubernetes/issues/26120)
