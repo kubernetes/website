@@ -30,6 +30,22 @@ annotations["federation.kubernetes.io/replica-set-preferences"] = preferences {
     json.marshal(value, preferences)
 }
 
+# This "annotations" rule generates a value for the "federation.alpha.kubernetes.io/cluster-selector"
+# annotation.
+#
+# In English, the policy asserts that resources in the "production" namespace
+# that are not annotated with "criticality=low" MUST be placed on clusters
+# labelled with "on-premise=true".
+annotations["federation.alpha.kubernetes.io/cluster-selector"] = selector {
+    input.metadata.namespace = "production"
+    not input.metadata.annotations.criticality = "low"
+    json.marshal([{
+        "operator": "=",
+        "key": "on-premise",
+        "values": "[true]",
+    }], selector)
+}
+
 # Generates a set of cluster names that satisfy the incoming Federated
 # ReplicaSet's requirements. In this case, just PCI compliance.
 replica_set_clusters[cluster_name] {
