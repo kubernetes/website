@@ -105,6 +105,19 @@ A kubeadm specific [config file](#config-file).  This can be used to specify an
 extended set of options including passing arbitrary command line flags to the
 control plane components.
 
+**Note**: When providing configuration values using _both_ a configuration file
+and flags, the file will take precedence. For example, if a file exists with:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+token: 1234
+```
+
+and the user ran `kubeadm init --config file.yaml --token 5678`,
+the chosen token value will be `1234`.
+
+
 - `--kubernetes-version` (default 'latest') the kubernetes version to initialise
 
 The **v1.6** version of kubeadm only supports building clusters that are at
@@ -433,7 +446,7 @@ Using other CRI based runtimes with kubeadm is very simple, and currently suppor
 
 After you have successfully installed `kubeadm` and `kubelet`, please follow these two steps:
 
-1. Install runtime shim on every node. You will need to follow the installation document in the runtime shim project listing above. 
+1. Install runtime shim on every node. You will need to follow the installation document in the runtime shim project listing above.
 
 2. Configure kubelet to use remote CRI runtime. Please remember to change `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
 
