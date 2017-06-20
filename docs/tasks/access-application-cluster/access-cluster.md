@@ -141,19 +141,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
-as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py):
-
-```python
-from kubernetes import client, config
-
-config.load_kube_config()
-
-v1=client.CoreV1Api()
-print("Listing pods with their IPs:")
-ret = v1.list_pod_for_all_namespaces(watch=False)
-for i in ret.items:
-    print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
-```
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py).
 
 #### Other languages
 
