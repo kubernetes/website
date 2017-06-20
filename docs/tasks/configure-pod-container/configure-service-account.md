@@ -175,14 +175,10 @@ NAME             TYPE                              DATA    AGE
 myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
 ```
 
-Next, read/modify/write the service account for the namespace to use this secret as an imagePullSecret.
+Next, modify the default service account for the namespace to use this secret as an imagePullSecret.
 
-Automated version using json and the jq utility:
 ```shell
-kubectl get serviceaccounts default -o json |
-     jq  'del(.metadata.resourceVersion)'|
-     jq 'setpath(["imagePullSecrets"];[{"name":"myregistrykey"}])' |
-     kubectl replace serviceaccount default -f -
+kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
 
 ```
 
