@@ -116,6 +116,7 @@ to the volume sources that are defined when creating a volume:
 1. vsphereVolume
 1. quobyte
 1. photonPersistentDisk
+1. storageos
 1. projected
 1. portworxVolume
 1. scaleIO
