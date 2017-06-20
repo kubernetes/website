@@ -168,6 +168,9 @@ $ kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-ser
 
 # Update a container's image using a json patch with positional arrays
 $ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/containers/0/image", "value":"new image"}]'
+
+# Disable a deployment livenessProbe using a json patch with positional arrays
+$ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 ```
 
 ## Editing Resources
