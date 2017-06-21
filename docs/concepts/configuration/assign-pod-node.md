@@ -132,7 +132,7 @@ This node affinity rule says the pod can only be placed on a node with a label w
 among nodes that meet that criteria, nodes with a label whose key is `another-node-label-key` and whose
 value is `another-node-label-value` should be preferred.
 
-You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
+You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`.
 There is no explicit "node anti-affinity" concept, but `NotIn` and `DoesNotExist` give that behavior.
 
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
@@ -188,7 +188,7 @@ label having key "security" and value "S2".) See the [design doc](https://github
 for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
-As with node affinity, the legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
+As with node affinity, the legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`.
 
 In principle, the `topologyKey` can be any legal label value. However,
 for performance reasons, only a limited set of topology keys are allowed.
