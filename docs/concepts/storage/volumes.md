@@ -754,6 +754,35 @@ node constraints.
 However, local volumes are still subject to the availability of the underlying
 node and are not suitable for all applications.
 
+The following is an example PersistentVolume spec using a `local` volume:
+``` yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: example-pv
+  annotations:
+        "volume.alpha.kubernetes.io/node-affinity": `{
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+                "nodeSelectorTerms": [
+                    { "matchExpressions": [
+                        { "key": "kubernetes.io/hostname",
+                          "operator": "In",
+                          "values": ["example-node"]
+                        }
+                    ]}
+                 ]}
+              }`,
+spec:
+    capacity:
+      storage: 100Gi
+    accessModes:
+    - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: local-storage
+    local:
+      path: /mnt/disks/ssd1
+```
+
 For further detail, please see the [local volume
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)
 
