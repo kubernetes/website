@@ -17,7 +17,7 @@ be working to add this continuous testing, but for now the single-node master in
 
 ## Overview
 
-Setting up a truly reliable, highly available distributed system requires a number of steps, it is akin to
+Setting up a truly reliable, highly available distributed system requires a number of steps. It is akin to
 wearing underwear, pants, a belt, suspenders, another pair of underwear, and another pair of pants.  We go into each
 of these steps in detail, but a summary is given here to help guide and orient the user.
 
