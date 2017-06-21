@@ -740,6 +740,7 @@ spec:
 For more information including Dynamic Provisioning and Persistent Volume Claims, please see the [StorageOS examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/storageos).
 
 ### local
+
 This volume type is alpha in 1.7.
 
 A `local` volume represents a mounted local storage device such as a disk,
@@ -754,7 +755,37 @@ node constraints.
 However, local volumes are still subject to the availability of the underlying
 node and are not suitable for all applications.
 
-For further detail, please see the [local volume
+The following is an example PersistentVolume spec using a `local` volume:
+
+``` yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: example-pv
+  annotations:
+        "volume.alpha.kubernetes.io/node-affinity": '{
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+                "nodeSelectorTerms": [
+                    { "matchExpressions": [
+                        { "key": "kubernetes.io/hostname",
+                          "operator": "In",
+                          "values": ["example-node"]
+                        }
+                    ]}
+                 ]}
+              }'
+spec:
+    capacity:
+      storage: 100Gi
+    accessModes:
+    - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: local-storage
+    local:
+      path: /mnt/disks/ssd1
+```
+
+For details on the `local` volume type, see the [Local Persistent Storage 
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)
 
 ## Using subPath
