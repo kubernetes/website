@@ -23,6 +23,10 @@ a Pod or Container. Security context settings include:
 
 * [Linux Capabilities](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/): Give a process some privileges, but not all the privileges of the root user.
 
+* [AppArmor](https://en.wikipedia.org/wiki/AppArmor): Use program profiles to restrict the capabilities of individual programs.
+
+* [Seacomp](https://en.wikipedia.org/wiki/Seccomp): Limit a process's access to open file descriptors.
+
 For more information about security mechanisms in Linux, see
 [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
 
@@ -312,6 +316,9 @@ securityContext:
   seLinuxOptions:
     level: "s0:c123,c456"
 ```
+
+**Note**: To assign SELinux labels, the SELinux security module must be loaded
+on the host operating system.
 
 ## Discussion
 
