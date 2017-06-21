@@ -109,9 +109,10 @@ flag to kubefed init should match.*
 
 ## Setup CoreDNS server in nameserver resolv.conf chain
 
-*Note: Following section applies only to versions prior to v1.7 and
-will be automatically taken care if the `coredns-endpoints` parameter
-is configured in `coredns-provider.conf` as described in section above.
+*Note: The following section applies only to versions prior to v1.7
+and will be automatically taken care of if the `coredns-endpoints`
+parameter is configured in `coredns-provider.conf` as described in
+section above.*
 
 Once the federation control plane is deployed and federated clusters
 are joined to the federation, you need to add the CoreDNS server to the
