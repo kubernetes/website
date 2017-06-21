@@ -186,7 +186,8 @@ rules:
   verbs: ["update", "get"]
 ```
 
-Notably, `resourceNames` can NOT be used to limit requests using the "create" verb because
+Notably, if `resourceNames` are set, then the verb must not be list, watch, create, or deletecollection.
+`resourceNames` can NOT be used to limit requests using the "create" verb because
 authorizers only have access to information that can be obtained from the request URL, method,
 and headers (resource names in a "create" request are part of the request body).
 
