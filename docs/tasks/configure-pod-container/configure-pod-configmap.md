@@ -8,7 +8,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
 
 {% capture prerequisites %}
 * {% include task-tutorial-prereqs.md %}
-* [Create a ConfigMap](/docs/tasks/configure-pod-container/configmap.html)
+* [Create a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
 {% endcapture %}
 
 {% capture steps %}
