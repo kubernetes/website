@@ -154,6 +154,11 @@ names `<service_name>.<namespace>.svc.cluster.local`. You can use the
 update the `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` file
 accordingly else DNS will not function correctly.
 
+**Note: For the time being, this flag will have no effect. Ideally this should
+populate the kubelet's `KUBELET_DNS_ARGS` flag in the relevant system files.
+We are actively working on this problem; see [this issue](https://github.com/kubernetes/kubeadm/issues/28)
+to keep up to the date**.
+
 - `--skip-preflight-checks`
 
 By default, kubeadm runs a series of preflight checks to validate the system
