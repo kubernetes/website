@@ -20,6 +20,7 @@ toc:
   section:
   - docs/concepts/architecture/nodes.md
   - docs/concepts/architecture/master-node-communication.md
+  - docs/concepts/architecture/apiserver-aggregation.md
 
 - title: Containers
   section:
