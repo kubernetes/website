@@ -74,7 +74,7 @@ of the form: `podpreset.admission.kubernetes.io/exclude: "true"`.
 ### Simple Pod Spec Example
 
 This is a simple example to show how a Pod spec is modified by the Pod
-Injection Policy.
+Preset.
 
 **User submitted pod spec:**
 
@@ -148,8 +148,8 @@ spec:
 
 ### Pod Spec with `ConfigMap` Example
 
-This is an example to show how a Pod spec is modified by the Pod Injection
-Policy that defines a `ConfigMap` for Environment Variables.
+This is an example to show how a Pod spec is modified by the Pod Preset 
+that defines a `ConfigMap` for Environment Variables.
 
 **User submitted pod spec:**
 
@@ -266,7 +266,7 @@ spec:
 ### ReplicaSet with Pod Spec Example
 
 The following example shows that only the pod spec is modified by the Pod
-Injection Policy.
+Preset.
 
 **User submitted ReplicaSet:**
 
@@ -460,8 +460,8 @@ spec:
 
 ### Conflict Example
 
-This is a example to show how a Pod spec is not modified by the Pod Injection
-Policy when there is a conflict.
+This is an example to show how a Pod spec is not modified by the Pod Preset 
+when there is a conflict.
 
 **User submitted pod spec:**
 
