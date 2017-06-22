@@ -15,7 +15,7 @@ kubelet [manages](https://github.com/kubernetes/kubernetes/issues/14633) the hos
 
 Because of the managed-nature of the file, any user-written content will be overwritten whenever the hosts file is remounted by Kubelet in the event of a container restart or a Pod reschedule. Thus, it is not suggested to modify the contents of the file.
 
-As an alternative, Kubernetes 1.7 provides provides a `HostAliases` field for Pods to specify entries in the hosts file to provide Pod-level override of hostnames when DNS and other options are no applicable.
+As an alternative, Kubernetes 1.7 provides a `HostAliases` field for Pods to specify entries in the hosts file to provide Pod-level override of hostnames when DNS and other options are not applicable.
 
 ## Default Hosts File Content
 
@@ -45,7 +45,7 @@ by default, it only includes ipv4 and ipv6 boilerplates like localhost and its o
 
 Suppose we need to add additional entries to the hosts file to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`, `bar.remote` to `10.1.2.3`, we can by adding HostAliases to the Pod under `.spec.hostAliases`.
 
-{% include code.html language="yaml" file="pod-nginx.yaml" ghlink="/docs/concepts/services-networking/hostaliases-pod.yaml" %}
+{% include code.html language="yaml" file="hostaliases-pod.yaml" ghlink="/docs/concepts/services-networking/hostaliases-pod.yaml" %}
 
 The hosts file content would look like this:
 ```
