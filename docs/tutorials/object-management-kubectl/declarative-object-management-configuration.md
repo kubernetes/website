@@ -941,10 +941,11 @@ template:
       controller-selector: "extensions/v1beta1/deployment/nginx"
 ```
 
-## Support for ThirdPartyResources
+## Known Issues
 
-As of Kubernetes 1.5, ThirdPartyResources are not supported by `kubectl apply`.
-The recommended approach for ThirdPartyResources is to use [imperative object configuration](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/).
+* Prior to Kubernetes 1.6, `kubectl apply` did not support operating on objects stored in a
+  [custom resource](/docs/concepts/api-extension/custom-resources/).
+  For these cluster versions, you should instead use [imperative object configuration](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/).
 {% endcapture %}
 
 {% capture whatsnext %}

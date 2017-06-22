@@ -23,6 +23,7 @@ toc:
 
 - title: Extending the Kubernetes API
   section:
+  - docs/concepts/api-extension/custom-resources.md
   - docs/concepts/api-extension/apiserver-aggregation.md  
 
 - title: Containers
