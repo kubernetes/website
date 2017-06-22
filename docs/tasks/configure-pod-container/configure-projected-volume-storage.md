@@ -56,7 +56,7 @@ the Pod:
 
 1. In your shell, verify that the `projected-volumes` directory contains your projected sources:
 
-        / # ls projected-volumes/
+        / # ls /projected-volume/
 {% endcapture %}
 
 {% capture whatsnext %}
