@@ -70,11 +70,11 @@ toc:
   - title: Kubefed
     path: docs/admin/kubefed.md
     section:
-    docs/admin/kubefed_options.md
-    docs/admin/kubefed_init.md
-    docs/admin/kubefed_join.md
-    docs/admin/kubefed_unjoin.md
-    docs/admin/kubefed_version.md
+    - docs/admin/kubefed_options.md
+    - docs/admin/kubefed_init.md
+    - docs/admin/kubefed_join.md
+    - docs/admin/kubefed_unjoin.md
+    - docs/admin/kubefed_version.md
 
 - docs/admin/kubeadm.md
 
