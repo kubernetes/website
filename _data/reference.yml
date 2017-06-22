@@ -68,8 +68,8 @@ toc:
   - title: Kubeadm
     path: /docs/admin/kubeadm/
   - title: Kubefed
+    path: /docs/admin/kubefed/
     section:
-    - docs/admin/kubefed.md
     - docs/admin/kubefed_options.md
     - docs/admin/kubefed_init.md
     - docs/admin/kubefed_join.md
