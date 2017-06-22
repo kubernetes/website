@@ -66,17 +66,15 @@ toc:
 - title: Setup Tools
   section:
   - title: Kubeadm
-    path: docs/admin/kubeadm.md
+    path: /docs/admin/kubeadm/
   - title: Kubefed
-    path: docs/admin/kubefed.md
+    path: /docs/admin/kubefed/
     section:
     - docs/admin/kubefed_options.md
     - docs/admin/kubefed_init.md
     - docs/admin/kubefed_join.md
     - docs/admin/kubefed_unjoin.md
     - docs/admin/kubefed_version.md
-
-- docs/admin/kubeadm.md
 
 - title: Config Reference
   section:
