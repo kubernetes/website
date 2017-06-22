@@ -2,7 +2,7 @@
 assignees:
 - crassirostris
 - piosz
-title: Events Using Stackdriver
+title: Events in Stackdriver
 ---
 
 
@@ -23,12 +23,14 @@ to capture events.
 This article describes a solution that exports Kubernetes events to
 Stackdriver Logging, where they can be processed and analyzed.
 
-*Note:* events are considered best-effort, so it's possible that some events
-will be lost on their way to Stackdriver. For example, events that occur
-while the event exporter is not running are not exported. You should not
-assume that every event happening in the cluster will make its way to
-Stackdriver. In particular, this implies that alerting based on events
-is not a good idea.
+**Note:** it is not guaranteed that all events happening in a cluster will be
+exported to Stackdriver. One example of events that are not exported are
+the ones that occur while the event exporter is not running. In most cases
+it's fine to use events for purposes like setting up [metrics][sdLogMetrics]
+and [alerts][sdAlerts], but you should be aware of the potential inaccuracy.
+
+[sdLogMetrics]: https://cloud.google.com/logging/docs/view/logs_based_metrics
+[sdAlerts]: https://cloud.google.com/logging/docs/view/logs_based_metrics#creating_an_alerting_policy
 
 * TOC
 {:toc}
