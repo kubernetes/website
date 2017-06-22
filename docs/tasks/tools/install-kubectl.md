@@ -98,6 +98,16 @@ gcloud components install kubectl
 ```
   3. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
 
+## Install with snap on Ubuntu
+
+kubectl is available as a [snap](https://snapcraft.io/) application.
+
+  1. If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, you can install with:
+```shell
+sudo snap install kubectl --classic
+```
+  2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
+
 ## Install with Homebrew on macOS
 
   1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
