@@ -14,9 +14,9 @@ nodes.
 {% capture prerequisites %}
 * You are the owner of an application running on a Kubernetes cluster that requires
   high availability.
-* You should know how to deploy [Replicated Stateless Applications](docs/tasks/run-application/run-stateless-application-deployment.md)
-  and/or [Replicated Stateful Applications](docs/tasks/run-application/run-replicated-stateful-application.md).
-* You should have read about the [Pod Disruption Budget concept](docs/tasks/run-application/configure-pdb.md).
+* You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment.md)
+  and/or [Replicated Stateful Applications](/docs/tasks/run-application/run-replicated-stateful-application.md).
+* You should have read about the [Pod Disruption Budget concept](/docs/tasks/run-application/configure-pdb.md).
 * You should confirm with your cluster owner or service provider that they respect
   Pod Disruption Budgets.
 {% endcapture %}
@@ -47,7 +47,8 @@ In future, support may be extended to user-provided controllers ("operators").
 
 Identify the pod selector used by your controller.  You will use this in the
 `PodDisruptionBudget` to select the pods protected by the PDB.  These
-selectors should match.
+selectors should match.   If you specify selectors that overlap or do not
+cover all your pods, then they may not be protected by a disruption budget at all.
 
 ## Think about how your application reacts to disruptions
 
@@ -74,12 +75,12 @@ due to a voluntary disruption.
 
 A `PodDisruptionBudget` has three fields: 
 
-* A label selector `selector` to specify the set of
+* A label selector `.spec.selector` to specify the set of
 pods to which it applies. This is a required field.
-* `minAvailable` which is a description of the number of pods from that
+* `.spec.minAvailable` which is a description of the number of pods from that
 set that must still be available after the eviction, i.e. even in the absence
 of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
-* `maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description 
+* `.spec.maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description 
 of the number of pods from that set that can be unavailable after the eviction. 
 It can also be either an absolute number or a percentage.
 

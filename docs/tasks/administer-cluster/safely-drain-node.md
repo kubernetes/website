@@ -21,7 +21,7 @@ This task assumes that you have met the following prerequisites:
   1. You do not require your applications to be highly available during the
      node drain, or
   1. You have read about the [PodDisruptionBudget concept](/docs/concepts/workloads/pods/disruptions.md)
-     and [Configured PodDisruptionBudgets](docs/tasks/run-application/configure-pdb.md) for
+     and [Configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb.md) for
      applications that need them.
 
 {% endcapture %}
@@ -94,7 +94,7 @@ If you prefer not to use [kubectl drain](/docs/user-guide/kubectl/v1.6/#drain) (
 to avoid calling to an external command, or to get finer control over over the pod
 eviction process), you can also programmatically cause evictions using the eviction API.
 
-You should first be familiar with using [Kubernetes language clients](docs/tasks/administer-cluster/access-cluster-api.md#programmatic-access-to-the-api).
+You should first be familiar with using [Kubernetes language clients](/docs/tasks/administer-cluster/access-cluster-api.md#programmatic-access-to-the-api).
 
 The eviction subresource of a
 pod can be thought of as a kind of policy-controlled DELETE operation on the pod
