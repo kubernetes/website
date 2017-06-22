@@ -35,10 +35,10 @@ DaemonSet has two update strategy types :
 
 ## Caveat: Updating DaemonSet created from Kubernetes version 1.5 or before 
 
-If you try to rolling update a DaemonSet that was created from Kubernetes
+If you try a rolling update on a DaemonSet that was created from Kubernetes
 version 1.5 or before, a rollout will be triggered when you *first* change the
 DaemonSet update strategy to `RollingUpdate`, no matter if DaemonSet template is
-modified or not. If DaemonSet template is not changed, all existing DaemonSet
+modified or not. If the DaemonSet template is not changed, all existing DaemonSet
 pods will be restarted (deleted and created).
 
 Therefore, make sure you want to trigger a rollout before you first switch the

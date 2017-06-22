@@ -13,7 +13,7 @@ This page shows how to perform a rollback on a DaemonSet.
 
 {% capture prerequisites %}
 
-* The DaemonSet rollout history and DaemonSet rollback feature are only
+* The DaemonSet rollout history and DaemonSet rollback features are only
   supported in `kubectl` in Kubernetes version 1.7 or later.
 * Make sure you know how to [perform a rolling update on a
   DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
@@ -25,73 +25,82 @@ This page shows how to perform a rollback on a DaemonSet.
 
 ## Performing a Rollback on a DaemonSet
 
-1. Find the DaemonSet revision you want to roll back to:
+### Step 1: Find the DaemonSet revision you want to roll back to
 
-   ```shell
-   kubectl rollout history daemonset <daemonset-name>
-   ```
+You can skip this step if you just want to roll back to the last revision.
 
-   This returns a list of DaemonSet revisions:
+List all revisions of a DaemonSet:
 
-   ```shell
-   daemonsets "<daemonset-name>"
-   REVISION        CHANGE-CAUSE
-   1               ...
-   2               ...
-   ...
-   ```
+```shell
+kubectl rollout history daemonset <daemonset-name>
+```
 
-   To see the details of a specific revision:
+This returns a list of DaemonSet revisions:
 
-   ```shell
-   kubectl rollout history daemonset <daemonset-name> --revision=1
-   ```
+```shell
+daemonsets "<daemonset-name>"
+REVISION        CHANGE-CAUSE
+1               ...
+2               ...
+...
+```
 
-   This returns the details of that revision:
+* Change cause is copied from DaemonSet annotation `kubernetes.io/change-cause`
+  to its revisions upon creation. You may specify `--record=true` in `kubectl`
+  to record the command executed in the change cause annotation.
 
-   ```shell
-   daemonsets "<daemonset-name>" with revision #1
-   Pod Template:
-   Labels:       foo=bar
-   Containers:
-    app:
-     Image:       ...
-     Port:        ...
-     Environment: ...
-     Mounts:      ...
-   Volumes:       ...
-   ```
+To see the details of a specific revision:
 
-1. Roll back to a specific revision:
+```shell
+kubectl rollout history daemonset <daemonset-name> --revision=1
+```
 
-   ```shell
-   kubectl rollout undo daemonset <daemonset-name> --to-revision=<revision>
-   ```
+This returns the details of that revision:
 
-   If it succeeds, the command returns:
+```shell
+daemonsets "<daemonset-name>" with revision #1
+Pod Template:
+Labels:       foo=bar
+Containers:
+app:
+ Image:       ...
+ Port:        ...
+ Environment: ...
+ Mounts:      ...
+Volumes:       ...
+```
 
-   ```shell
-   daemonset "<daemonset-name>" rolled back
-   ```
+### Step 2: Roll back to a specific revision
 
-   If `--to-revision` flag is not specified, the last revision will be picked.
+```shell
+# Specify the revision number you get from Step 1 in --to-revision
+kubectl rollout undo daemonset <daemonset-name> --to-revision=<revision>
+```
 
-1. Watch the progress of the DaemonSet rollback:
+If it succeeds, the command returns:
 
-   `kubectl rollout undo daemonset` tells the server to start rolling back the
-   DaemonSet. The real rollback is done asynchronously on the server side.
+```shell
+daemonset "<daemonset-name>" rolled back
+```
 
-   To watch the progress of the rollback:
+If `--to-revision` flag is not specified, the last revision will be picked.
 
-   ```shell 
-   kubectl rollout status ds/<daemonset-name> 
-   ```
+### Step 3: Watch the progress of the DaemonSet rollback
 
-   When the rollback is complete, the output is similar to this:
+`kubectl rollout undo daemonset` tells the server to start rolling back the
+DaemonSet. The real rollback is done asynchronously on the server side.
 
-   ```shell
-   daemon set "<daemonset-name>" successfully rolled out
-   ```
+To watch the progress of the rollback:
+
+```shell 
+kubectl rollout status ds/<daemonset-name> 
+```
+
+When the rollback is complete, the output is similar to this:
+
+```shell
+daemon set "<daemonset-name>" successfully rolled out
+```
 
 {% endcapture %}
 
@@ -100,7 +109,7 @@ This page shows how to perform a rollback on a DaemonSet.
 
 ## Understanding DaemonSet Revisions
 
-In the previous `kubectl rollout history` step, you get a list of DaemonSet
+In the previous `kubectl rollout history` step, you got a list of DaemonSet
 revisions. Each revision is stored in a resource named `ControllerRevision`.
 `ControllerRevision` is a resource only available in Kubernetes release 1.7 or
 later.
@@ -123,7 +132,7 @@ NAME                               CONTROLLER                     REVISION   AGE
 Each `ControllerRevision` stores the annotations and template of a DaemonSet
 revision.
 
-`kubectl rollout undo` takes a specific `ControllerRevision`, and replaces
+`kubectl rollout undo` takes a specific `ControllerRevision` and replaces
 DaemonSet template with the template stored in the `ControllerRevision`.
 `kubectl rollout undo` is equivalent to updating DaemonSet template to a
 previous revision through other commands, such as `kubectl edit` or `kubectl
