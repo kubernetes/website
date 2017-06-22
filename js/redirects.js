@@ -76,6 +76,10 @@ $( document ).ready(function() {
     {
         "from": "/docs/troubleshooting/",
         "to": "/docs/tasks/debug-application-cluster/troubleshooting/"
+    },
+    {
+        "from": "/docs/concepts/services-networking/networkpolicies/",
+        "to": "/docs/concepts/services-networking/network-policies/"
     }];
 
     forwardingRules.forEach(function(rule) {
