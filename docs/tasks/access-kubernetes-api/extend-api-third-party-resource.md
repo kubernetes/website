@@ -1,7 +1,8 @@
 ---
 assignees:
+- enisoc
 - IanLewis
-title: Extend the Kubernetes API Using Third Party Resources
+title: Extend the Kubernetes API with ThirdPartyResources
 redirect_from:
 - "/docs/user-guide/thirdpartyresources/"
 - "/docs/user-guide/thirdpartyresources.html"
@@ -9,28 +10,23 @@ redirect_from:
 - "/docs/concepts/ecosystem/thirdpartyresource.html"
 ---
 
+{% assign for_k8s_version="1.7" %}{% include feature-state-deprecated.md %}
+
 * TOC
 {:toc}
 
 ## What is ThirdPartyResource?
 
-**WARNING: ThirdPartyResources are deprecated as of 1.7 and will be removed as soon as possible without access to existing data! See https://kubernetes.io/docs/reference/deprecation-policy/ for deprecation rules. Please [migrate to CustomResourceDefinition](#Migration-to-CustomResourceDefinitions).**
+**ThirdPartyResource is deprecated as of Kubernetes 1.7 and may be removed in version 1.8 in
+accordance with the [deprecation policy](/docs/reference/deprecation-policy) for beta features.**
+
+**To avoid losing data stored in ThirdPartyResources, you must
+[migrate to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/)
+before upgrading to Kubernetes 1.8 or higher.**
 
 Kubernetes comes with many built-in API objects. However, there are often times when you might need to extend Kubernetes with your own API objects in order to do custom automation.
 
 `ThirdPartyResource` objects are a way to extend the Kubernetes API with a new API object type. The new API object type will be given an API endpoint URL and support CRUD operations, and watch API. You can then create custom objects using this API endpoint. You can think of `ThirdPartyResources` as being much like the schema for a database table. Once you have created the table, you can then start storing rows in the table. Once created, `ThirdPartyResources` can act as the data model behind custom controllers or automation programs.
-
-## Migration to CustomResourceDefinitions
-`ThirdPartyResources` are being replaced by `CustomResourceDefinitions` as of 1.7, so you must migrate your data from one to the other.
-The types are not directly compatible so you'll need to perform some manual steps.
-You should do a dry-run of these steps in a non-production cluster to make sure things work as expected.
- 1. Create a `CustomResourceDefinition` that has a spec matching your current `ThirdPartyResource`.
- 2. Stop your ThirdPartyResource controllers.
- 3. Backup your ThirdPartyResource *Data* (the custom objects you've created).
- 4. Delete the `ThirdPartyResource`.  This will trigger migration to the `CustomResourceDefinition`
- 5. Wait for the `ThirdPartyResource` to be removed.
- 6. Confirm that your custom objects are still present.  If this doesn't work, simply recreate your `ThirdPartyResource` to get your data back.
- 7. Restart your ThirdPartyResource controllers.
 
 ## Structure of a ThirdPartyResource
 
@@ -80,12 +76,12 @@ Then a new RESTful API endpoint is created at:
 
 This endpoint URL can then be used to create and manage custom objects.
 The `kind` of these objects will be `CronTab` following the camel case
-rules applied to the `metadata.name` of this `ThirdPartyResource` 
+rules applied to the `metadata.name` of this `ThirdPartyResource`
 (`cron-tab.stable.example.com`)
 
 ## Creating Custom Objects
 
-After the `ThirdPartyResource` object has been created you can create custom objects. Custom objects can contain custom fields. These fields can contain arbitrary JSON. 
+After the `ThirdPartyResource` object has been created you can create custom objects. Custom objects can contain custom fields. These fields can contain arbitrary JSON.
 In the following example, a `cronSpec` and `image` custom fields are set to the custom object of kind `CronTab`.  The kind `CronTab` is derived from the
 `metadata.name` of the `ThirdPartyResource` object we created above.
 
