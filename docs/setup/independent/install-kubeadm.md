@@ -50,7 +50,7 @@ releases](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
 For each machine:
 
 * SSH into the machine and become root if you are not already (for example,
-  run `sudo su -`).
+  run `sudo -i`).
 
 * If the machine is running Ubuntu or HypriotOS, run:
 

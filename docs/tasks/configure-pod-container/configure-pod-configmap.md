@@ -202,7 +202,7 @@ data:
 ### Populate a Volume with data stored in a ConfigMap
 
 Add the ConfigMap name under the `volumes` section of the Pod specification. 
-This adds the ConfigMap data to the directory specified as `volumeMount.mountPath` (in this case, `/etc/config`).
+This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
 The `command` section references the `special.level` item stored in the ConfigMap.
 
 ```yaml
