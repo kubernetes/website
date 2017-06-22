@@ -93,6 +93,7 @@ toc:
   - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
   - docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions.md
   - docs/tasks/access-kubernetes-api/extend-api-third-party-resource.md
+  - docs/tasks/access-kubernetes-api/migrate-third-party-resource.md
 
 - title: TLS
   section:
