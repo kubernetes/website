@@ -161,7 +161,20 @@ This must be done manually.
 * Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready. 
 * Before a Pod is terminated, all of its successors must be completely shutdown.
 
-The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. This practice is unsafe and strongly discouraged. For further explanation, please refer to [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+These guarantees ensure predictable and consistent behavior for the majority of clustered
+software. Starting in Kubernetes 1.7, the `spec.podManagementPolicy` field has been added
+to allow the set to more aggressively scale up or down. By default the policy is 
+`OrderedReady` as described above - all pods are created in order, and the controller waits
+until each pod is `Ready` before continuing. A new policy `Parallel` allows the controller
+to create pods as quickly as they are needed, and when scaling down, to delete those pods
+as quickly as possible. No ordering is preserved in this mode which may be unexpected
+for some software.
+
+The StatefulSet should not specify a `pod.spec.terminationGracePeriodSeconds` of 0. This 
+practice is unsafe and strongly discouraged. For further explanation, please refer to 
+[force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+
+### Example of default scaling
 
 When the nginx example above is created, three Pods will be deployed in the order 
 web-0, web-1, web-2. web-1 will not be deployed before web-0 is 
@@ -175,5 +188,6 @@ If a user were to scale the deployed example by patching the StatefulSet such th
 is fully shutdown and deleted. If web-0 were to fail after web-2 has been terminated and 
 is completely shutdown, but prior to web-1's termination, web-1 would not be terminated 
 until web-0 is Running and Ready.
+
 {% endcapture %}
 {% include templates/concept.md %}
