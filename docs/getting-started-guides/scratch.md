@@ -130,7 +130,7 @@ Also, you need to pick a static IP for master node.
 
 #### Network Policy
 
-Kubernetes enables the definition of fine-grained network policy between Pods using the [NetworkPolicy](/docs/concepts/services-networking/networkpolicies/) resource.
+Kubernetes enables the definition of fine-grained network policy between Pods using the [NetworkPolicy](/docs/concepts/services-networking/network-policies/) resource.
 
 Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/tasks/configure-pod-container/declare-network-policy/) for more information.
 
