@@ -7,8 +7,7 @@ redirect_from:
 - "/docs/admin/kubeadm-upgrade-1-7.html"
 ---
 
-* TOC
-{:toc}
+{% capture overview %}
 
 This guide is for upgrading kubeadm clusters from version 1.6.x to 1.7.x.
 Upgrades are not supported for clusters lower than 1.6, which is when kubeadm
@@ -21,7 +20,15 @@ resources after cluster setup will need to be reapplied after the upgrade. The
 upgrade will not disturb other static pod manifest files or objects outside the
 `kube-system` namespace.
 
-### On the master
+{% endcapture %}
+
+{% capture prerequisites %}
+You need to have a Kubernetes cluster running version 1.6.x.
+{% endcapture %}
+
+{% capture steps %}
+
+## On the master
 
 1. Upgrade system packages.
 
@@ -63,7 +70,7 @@ upgrade will not disturb other static pod manifest files or objects outside the
    find your CNI provider and see if there are additional upgrade steps
    necessary.
 
-### On each node
+## On each node
 
 1. Upgrade system packages.
 
@@ -81,3 +88,7 @@ upgrade will not disturb other static pod manifest files or objects outside the
 2. Restart kubelet.
 
        sudo systemctl restart kubelet
+
+{% endcapture %}
+
+{% include templates/task.md %}
