@@ -79,9 +79,9 @@ There are requirements on how an etcd cluster upgrade can be performed. The prim
 #### One minor release at a time
 
 Upgrade only one minor release at a time. For example, we cannot upgrade directly from 2.1.x to 2.3.x.
-Within patch releases it is possible to upgrade and downgrade between arbitrary versions. Starting a cluster for 
+Within patch releases it is possible to upgrade and downgrade between arbitrary versions. Starting a cluster for
 any intermediate minor release, waiting until the cluster is healthy, and then
-shutting down the cluster down will perform the migration. For example, to upgrade from version 2.1.x to 2.3.y, 
+shutting down the cluster down will perform the migration. For example, to upgrade from version 2.1.x to 2.3.y,
 it is enough to start etcd in 2.2.z version, wait until it is healthy, stop it, and then start the
 2.3.y version.
 
@@ -245,5 +245,5 @@ test key. On your master VM (or somewhere with firewalls configured such that
 you can talk to your cluster's etcd), try:
 
 ```shell
-curl -fs -X PUT "http://${host}:${port}/v2/keys/_test"
+curl -X PUT "http://${host}:${port}/v2/keys/_test"
 ```
