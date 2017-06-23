@@ -132,7 +132,7 @@ occuring, but they do count against the budget.
 
 Pods which are deleted or unavailable due to a rolling upgrade to an application do count
 against the disruption budget, but controllers (like deployment and stateful-set)
-are not limited by PDBs whe doing rolling upgrades -- the handling of failures
+are not limited by PDBs when doing rolling upgrades -- the handling of failures
 during application updates is configured in the controller spec.
 (Learn about [updating a deployment](/docs/concepts/cluster-administration/manage-deployment/#updating-your-application-without-a-service-outage).)
 
