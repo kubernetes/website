@@ -40,6 +40,8 @@ If you are not running kube-proxy on your master, as the [Kubernetes Architectur
 
 The generated skeleton, which comes with [apiserver-builder](https://github.com/Kubernetes-incubator/apiserver-builder/blob/master/README.md), should setup the skeleton server it creates to do all of these steps. You can also look at the sample-apiserver under Kubernetes for ways the following can be done.
 
+1. Make sure the APIService api is enabled (check --runtime-config); it is on by default, so it should be on unless it’s been deliberately turned off in your cluster.
+1. You may need to make an RBAC rule allowing you to add APIService objects, or get your cluster administrator to make one. (Since API extensions affect the entire cluster, it is not recommended to do testing/development/debug of an API extension in a live cluster.)
 1. Create the Kubernetes namespace you want to run your extension api-service in.
 1. Create/get a CA cert to be used to sign the server cert the extension api-server uses for HTTPS.
 1. Create a server cert/key for the api-server to use for HTTPS. This cert should be signed by the above CA. It should also have a CN of the Kube DNS name. This will generally be derived from the Kubernetes service and be of the form  <service name>.<service name namespace>.svc
