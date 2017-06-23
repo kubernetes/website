@@ -132,25 +132,7 @@ Kubernetes supports [Go](#go-client) and [Python](#python-client) client librari
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
 
 The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes/client-go/blob/master/examples/out-of-cluster/main.go):
-
-```golang
-import (
-   "fmt"
-   "k8s.io/client-go/1.4/kubernetes"
-   "k8s.io/client-go/1.4/pkg/api/v1"
-   "k8s.io/client-go/1.4/tools/clientcmd"
-)
-...
-   // uses the current context in kubeconfig
-   config, _ := clientcmd.BuildConfigFromFlags("", "path to kubeconfig")
-   // creates the clientset
-   clientset, _:= kubernetes.NewForConfig(config)
-   // access the API to list pods
-   pods, _:= clientset.Core().Pods("").List(v1.ListOptions{})
-   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
-...
-```
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes/client-go/blob/master/examples/out-of-cluster-client-configuration/main.go).
 
 If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod).
 
@@ -159,19 +141,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 To use [Python client](https://github.com/kubernetes-incubator/client-python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-incubator/client-python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/user-guide/kubeconfig-file)
-as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py):
-
-```python
-from kubernetes import client, config
-
-config.load_kube_config()
-
-v1=client.CoreV1Api()
-print("Listing pods with their IPs:")
-ret = v1.list_pod_for_all_namespaces(watch=False)
-for i in ret.items:
-    print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
-```
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-incubator/client-python/tree/master/examples/example1.py).
 
 #### Other languages
 
