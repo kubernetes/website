@@ -35,7 +35,7 @@ see _some doc_.
 
   Performance and stability of the cluster is sensitive to network and disk IO. Any resource starvation can lead to heartbeat timeout, causing instability of the cluster. An unstable etcd indicates that no leader is elected. Under such circumstances, a cluster cannot make any changes to its current state, which implies no new pods can be scheduled.
 
-* Keeping stable etcd clusters is critical to the stability of Kubernetes clusters. Therefore, run etcd clusters on dedicated machines or isolated environments for [guaranteed resource requirements](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#hardware-recommendations). 
+* Keeping stable etcd clusters is critical to the stability of Kubernetes clusters. Therefore, run etcd clusters on dedicated machines or isolated environments for [guaranteed resource requirements](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/hardware.md#hardware-recommendations).
 
 ## Resource requirements
 
@@ -403,5 +403,5 @@ test key. On your master VM (or somewhere with firewalls configured such that
 you can talk to your cluster's etcd), try:
 
 ```shell
-curl -fs -X PUT "http://${host}:${port}/v2/keys/_test"
+curl -X PUT "http://${host}:${port}/v2/keys/_test"
 ```
