@@ -24,8 +24,9 @@
 
 {% if whatsnext %}
 
-## 下一步做什么？
+## What's next
 
 {{ whatsnext }}
 
 {% endif %}
+

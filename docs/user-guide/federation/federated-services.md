@@ -14,16 +14,19 @@ fault tolerance for your Kubernetes applications.
 * TOC
 {:toc}
 
-## 前提条件
+## Prerequisites
 
-本指南假设您有一个正在运行的 Kubernetes 集群联邦的安装。如果没有，然后转到
-[联邦管理员指南](/docs/admin/federation/) 了解如何启动联邦集群 (或让集群管理员为您执行此操作)。
-其他教程，如 Kelsey Hightower 的
-[Kubernetes 联邦教程](https://github.com/kelseyhightower/kubernetes-cluster-federation),
-也可以帮助您创建一个联邦 Kubernetes 集群。
+This guide assumes that you have a running Kubernetes Cluster
+Federation installation. If not, then head over to the
+[federation admin guide](/docs/admin/federation/) to learn how to
+bring up a cluster federation (or have your cluster administrator do
+this for you). Other tutorials, for example
+[this one](https://github.com/kelseyhightower/kubernetes-cluster-federation)
+by Kelsey Hightower, are also available to help you.
 
-您还应该有一些
-[Kubernetes 的基础工作知识](/docs/getting-started-guides/) ，特别是对 [Services](/docs/user-guide/services/) 要有些了解。
+You are also expected to have a basic
+[working knowledge of Kubernetes](/docs/getting-started-guides/) in
+general, and [Services](/docs/user-guide/services/) in particular.
 
 ## Overview
 
@@ -167,7 +170,7 @@ this. For example, if your Federation is configured to use Google
 Cloud DNS, and a managed DNS domain 'example.com':
 
 ``` shell
-$ gcloud dns managed-zones describe example-dot-com
+$ gcloud dns managed-zones describe example-dot-com 
 creationTime: '2016-06-26T18:18:39.229Z'
 description: Example domain for Kubernetes Cluster Federation
 dnsName: example.com.
