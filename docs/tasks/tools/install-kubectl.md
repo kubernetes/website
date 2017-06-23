@@ -133,12 +133,10 @@ kubectl is available as a [snap](https://snapcraft.io/) application.
 2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
 3. Configure kubectl to use a remote kubernetes cluster:
 
-    ```
-    cd C:\users\yourusername (Or wherever your %HOME% directory is)
-    mkdir .kube
-    cd .kube
-    touch config
-    ```
+        cd C:\users\yourusername (Or wherever your %HOME% directory is)
+        mkdir .kube
+        cd .kube
+        touch config
 
 Edit the config file with a text editor of your choice, such as Notepad for example.
 
