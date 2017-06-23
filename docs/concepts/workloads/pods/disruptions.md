@@ -170,7 +170,7 @@ called `pod-d`.  Since `node-1` is cordoned, it lands on another node.  Somethin
 also created `pod-y` as a replacement for `pod-x`.
 
 (Note: for a StatefulSet, `pod-a`, which would be called something like `pod-1`, would need
-to terminate completely before its replacement, which is also called `pod-1 but has a
+to terminate completely before its replacement, which is also called `pod-1` but has a
 different UID, could be created.  Otherwise, the example applies to a StatefulSet as well.)
 
 Now the cluster is in this state:
