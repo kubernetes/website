@@ -43,10 +43,17 @@ toc:
   - docs/tutorials/object-management-kubectl/declarative-object-management-configuration.md
 - title: Stateless Applications
   section:
+  - docs/tasks/run-application/run-stateless-application-deployment.md
+  - docs/tutorials/stateless-application/guestbook.md
+  - docs/tasks/access-application-cluster/service-access-application-cluster.md
   - docs/tutorials/stateless-application/expose-external-ip-address.md
 - title: Stateful Applications
   section:
   - docs/tutorials/stateful-application/basic-stateful-set.md
+  - docs/tasks/run-application/run-single-instance-stateful-application.md
+  - docs/tasks/run-application/run-replicated-stateful-application.md
+  - docs/tutorials/stateful-application/mysql-wordpress-persistent-volume.md
+  - docs/tutorials/stateful-application/cassandra.md
   - docs/tutorials/stateful-application/zookeeper.md
 - title: Clusters
   section:
