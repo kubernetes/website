@@ -4,7 +4,7 @@ title: Specifying a Disruption Budget for your Application
 
 {% capture overview %}
 
-This page shows how to limit the number of concurrent disruption
+This page shows how to limit the number of concurrent disruptions
 that your application experiences, allowing for higher availability
 while permitting the cluster administrator to manage the clusters
 nodes.
@@ -43,10 +43,10 @@ PDBs can be used with applications the following types of application controller
 - ReplicaSet
 - StatefulSet
 
-In future, support may be extended to user-provided controllers ("operators").
+In the future, support may be extended to user-provided controllers ("operators").
 
-Identify the pod selector used by your controller.  You will use this in the
-`PodDisruptionBudget` to select the pods protected by the PDB.  These
+"Identify the pod selector your controller uses. The PodDisruptionBudget uses this to select
+the pods protected by the PDB.  These
 selectors should match.   If you specify selectors that overlap or do not
 cover all your pods, then they may not be protected by a disruption budget at all.
 
@@ -61,8 +61,10 @@ due to a voluntary disruption.
 - Single-instance Stateful Application
   - Concern: do not terminate this application without talking to me.
     - Possible Solution 1: Do not use a PDB and tolerate occasional downtime.
-    - Possible Solution 2: Set PDB with maxUnavailable=0.  Have understanding (outside of Kubernetes) that the cluster operator needs to consult before termination.
-      when the cluster operator contacts you, prepare for downtime, and then delete the to set maxUnavailable=1 to indicate readiness for disruption.  Recreate afterwards.
+    - Possible Solution 2: Set PDB with maxUnavailable=0.  Have an understanding
+      (outside of Kubernetes) that the cluster operator needs to consult you before
+      termination.  When the cluster operator contacts you, prepare for downtime,
+      and then delete the PDB to indicate readiness for disruption.  Recreate afterwards.
 - Multiple-instance Stateful application such as Consul, ZooKeeper, or etcd  
   - Concern: Do not reduce number of instances below quorum, otherwise writes fail.
     - Possible Solution 1: set maxUnavailable to 1 (works with varying scale of application).
@@ -76,13 +78,13 @@ due to a voluntary disruption.
 A `PodDisruptionBudget` has three fields: 
 
 * A label selector `.spec.selector` to specify the set of
-pods to which it applies. This is a required field.
+pods to which it applies. This field is required.
 * `.spec.minAvailable` which is a description of the number of pods from that
-set that must still be available after the eviction, i.e. even in the absence
+set that must still be available after the eviction, even in the absence
 of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
 * `.spec.maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description 
 of the number of pods from that set that can be unavailable after the eviction. 
-It can also be either an absolute number or a percentage.
+It can be either an absolute number or a percentage.
 
 You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`. 
 `maxUnavailable` can only be used to control the eviction of pods 
@@ -90,16 +92,16 @@ that have an associated controller managing them. In the examples below, "desire
 is the `scale` of the controller managing the pods being selected by the
 `PodDisruptionBudget`.
 
-Example 1: With a `minAvailable` of 5, evictions will be allowed as long as they leave behind
+Example 1: With a `minAvailable` of 5, evictions are be allowed as long as they leave behind
 5 or more healthy pods among those selected by the PodDisruptionBudget's `selector`.
 
-Example 2: With a `minAvailable` of 30%, evictions will be allowed as long as at least 30%
+Example 2: With a `minAvailable` of 30%, evictions are allowed as long as at least 30%
 of the number of desired replicas are healthy. 
 
-Example 3: With a `maxUnavailable` of 5, evictions will be allowed as long as there are at most 5
+Example 3: With a `maxUnavailable` of 5, evictions are allowed as long as there are at most 5
 unhealthy replicas among the total number of desired replicas.
 
-Example 4: With a `maxUnavailable` of 30%, evictions will be allowed as long as no more than 30% 
+Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as no more than 30% 
 of the desired replicas are unhealthy.
 
 In typical usage, a single budget would be used for a collection of pods managed by

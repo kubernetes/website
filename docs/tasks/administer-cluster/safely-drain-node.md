@@ -120,35 +120,35 @@ $ curl -v -H 'Content-type: application/json' http://127.0.0.1:8080/api/v1/names
 
 The API can respond in one of three ways.
 
- 1. If the eviction is granted, then the pod is deleted just as if you had sent
-    a `DELETE` request to the pod's URL and you get back `200 OK`.
- 2. If the current state of affairs wouldn't allow an eviction by the rules set
-    forth in the budget, you get back `429 Too Many Requests`.  This is
-    typically used for generic rate limiting of *any* requests, but here we mean
-    that this request isn't allowed *right now* but it may be allowed later.
-    Currently, callers do not get any `Retry-After` advice, but they may in
-    future versions.
- 3. If there is some kind of misconfiguration, like multiple budgets pointing at
-    the same pod, you will get `500 Internal Server Error`.
+- If the eviction is granted, then the pod is deleted just as if you had sent
+  a `DELETE` request to the pod's URL and you get back `200 OK`.
+- If the current state of affairs wouldn't allow an eviction by the rules set
+  forth in the budget, you get back `429 Too Many Requests`.  This is
+  typically used for generic rate limiting of *any* requests, but here we mean
+  that this request isn't allowed *right now* but it may be allowed later.
+  Currently, callers do not get any `Retry-After` advice, but they may in
+  future versions.
+- If there is some kind of misconfiguration, like multiple budgets pointing at
+  the same pod, you will get `500 Internal Server Error`.
 
 For a given eviction request, there are two cases.
 
- 1. There is no budget that matches this pod.  In this case, the server always
-    returns `200 OK`.
- 2. There is at least one budget.  In this case, any of the three above responses may
-    apply.
+- There is no budget that matches this pod.  In this case, the server always
+  returns `200 OK`.
+- There is at least one budget.  In this case, any of the three above responses may
+ apply.
 
 In some cases, an application may reach a broken state where it will never return anything
 other than 429 or 500.  This can happen, for example, if the replacement pod created by the
-application's controller do not become ready, or if the last pod evicted has a very long
+application's controller does not become ready, or if the last pod evicted has a very long
 termination grace period.
 
-In this case, either of the following could be done:
+In this case, there are two potential solutions:
 
 - Abort or pause the automated operation.  Investigate the reason for the stuck application, and restart the automation.
 - After a suitably long wait, `DELETE` the pod instead of using the eviction API.
 
-Kubernetes does not specify what the behavior should be in this case: it is up to the
+Kubernetes does not specify what the behavior should be in this case; it is up to the
 application owners and cluster owners to establish an agreement on behavior in these cases.
 
 {% endcapture %}

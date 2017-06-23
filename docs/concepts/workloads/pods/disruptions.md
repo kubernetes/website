@@ -18,7 +18,7 @@ highly availabile applications, and thus need to understand
 what types of Disruptions can happen to Pods.
 
 It is also for Cluster Administrators who want to perform automated
-cluster actions, like upgrades and cluster autoscaling.
+cluster actions, like upgrading and autoscaling clusters.
 
 {% endcapture %}
 
@@ -28,44 +28,56 @@ cluster actions, like upgrades and cluster autoscaling.
 
 ## Voluntary and Involuntary Disruptions
 
-Pods generally do not dissappear until someone (a person or the controller) destroys them.
-However, once bound to a particular node, it is bound to that node for the rest of its lifetime.
-If a node dies or is disconnected, the pod is terminated.  Kubernetes controllers automatically
-create replacement pods when this happens.
-(Read more about [pod lifetime](/docs/concepts/workloads/pods/pod-lifecycle/#pod-lifetime).)
+Pods do not disappear until someone (a person or a controller) destroys them, or
+there is an unavoidable hardware or system software error.
 
-Some node failures are unavoidable.  We call these *involuntary disruptions* to
-an applicaton; for example, a hardware failure, kernel panic may cause
-the node to disappear from the cluster, taking its Pods with it.  Other examples
-are a node that is `NotReady`, a cluster network partition, or an eviction of a pod
-from a node due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource.md).
+We call these unavoidable cases *involuntary disruptions* to
+an applicaton.  Examples are:
 
-However, sometimes cluster management operations need to terminate pods.
-We say these are *voluntary disruptions* since they can be safely delayed for a reasonable period
-of time.  Examples are draining a node for maintenance or upgrade (learn how to
-[safely drain a node](/docs//tasks/administer-cluster/safely-drain-node.md)
-) and removing nodes from a cluster to scale it down (learn about
+- a hardware failure of the physical machine backing the node
+- cluster administrator deletes VM (instance) by mistake
+- cloud provider or hypervisor failure makes VM dissappear
+- a kernel panic
+- if the node to disappears from the cluster due to cluster network partition
+- eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource.md).
+
+Except for the out-of-resources condition, all these conditions
+should be familiar to most users; they are are not specific
+to Kubernetes.
+
+We call other cases *voluntary disruptions*.  These include both
+actions initiated by the application owner and those initiated by a Cluster
+Administrator.  Typical application owner actions include:
+
+- deleting the deployment or other controller that manages the pod
+- updating a deployment's pod template causing a restart
+- directly deleting a pod (e.g. by accident)
+
+Cluster Administrator actions include:
+
+- [Draining a node](/docs//tasks/administer-cluster/safely-drain-node.md) for repair or upgrade.
+- Draining a node from a cluster to scale the cluster down (learn about
 [Cluster Autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaler)
-).  In future releases of Kubernetes, a 
-[rescheduler](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/rescheduling.md)
-may also perform voluntary evictions.
+).
+- Removing a pod from a node to permit something else to fit on that node.
 
-All sources of voluntary disruptions are optional with Kubernetes.
-Ask you cluster administrator or consult your cloud provider or distribution documentation
-to determine if any are configured for your cluster.  If none are configured, you can skip
-creating Pod Disruption Budgets.
+These actions might be taken directly by the cluster administrator, or by automation
+run by the cluster administrator, or by your cluster hosting provider.
+
+Ask your cluster administrator or consult your cloud provider or distribution documentation
+to determine if any sources of voluntary disruptions are enabled for your cluster.
+If none are enabled, you can skip creating Pod Disruption Budgets.
 
 ## Dealing with Disruptions
 
-Involuntary disruptions are typically infrequent,
-and so it is often sufficient to just accept them. 
+Here are some ways to mitigate involuntary disruptions:
 
-If higher availability is needed,
-then the application can be replicated.   (Learn about running replicated
+- Ensure your pod [requests the resources](/docs/tasks/configure-pod-container/assign-cpu-ram-container) it needs.
+- Replicate your application if you need higher availability.  (Learn about running replicated
 [stateless](/docs/tasks/run-application/run-stateless-application-deployment.md)
 and [stateful](/docs/tasks/run-application/run-replicated-stateful-application.md) applications.)
-Simultaneous failures of multiple nodes is less likely.  For even higher availability, use
-multi-zone clusters, spread applications across racks (using
+- For even higher availability when running replicated applications,
+spread applications across racks (using
 [anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
 or across zones (if using a
 [multi-zone cluster](/docs/admin/multiple-zones).)
@@ -78,7 +90,6 @@ of cluster (node) autoscaling may cause voluntary disruptions to defragment and 
 You cluster adminstrator or hosting provider should have documented what level of voluntary
 disruptions, if any, to expect.
 
-
 Kubernetes offers features to help run highly available applications at the same
 time as frequent voluntary disruptions.  We call this set of features
 *Disruption Budgets*.
@@ -87,19 +98,22 @@ time as frequent voluntary disruptions.  We call this set of features
 ## How Disruption Budgets Work
 
 An Application Owner can create a `PodDisruptionBudget` object (PDB) for each application.
-A PDB limits the number pods of a replicated application that are down simultaneously due
-to voluntary disruptions.  For example, a quorum-based application would
+A PDB limits the number pods of a replicated application that are down simultaneously from
+voluntary disruptions.  For example, a quorum-based application would
 like to ensure that the number of replicas running is never brought below the
-number needed for a quorum, even temporarily. A web front end might want to
+number needed for a quorum. A web front end might want to
 ensure that the number of replicas serving load never falls below a certain
-percentage of the total, even briefly.  
+percentage of the total.  
 
-Cluster management tools can use the `Eviction API` to "safely delete" pods
-while respecting Pod Disruption Budgets.
-When a tool attempts to delete a pod using the Eviction API, Kuberetes checks if the proposed
-delete would leave the application with enough replicas.  If not, it rejects the request.
-The tool retries again later, and will typically succeed later.
-The `kubectl drain` tool uses the Eviction API.
+Cluster managers and hosting providers should use tools which
+respect Pod Disruption Budgets by calling the Eviction API instead
+of directly deleting pods.  An example is the `kubectl drain` command.
+
+When a cluster administrator wants to drain a node
+they use the `kubectl drain` command.  That tool tries to evict all
+the pods on the machine.  The eviction request may be temporarily rejected,
+and the tool periodically retries all failed requests until all pods
+are terminated, or until a configureable timeout is reached.
 
 A PDB specifies the number of replicas that an application can tolerate having, relative to how
 many it is intended to have.  For example, a Deployment which has a `spec.replicas: 5` is
@@ -137,9 +151,9 @@ Initially, the pods are layed out as follows:
 | pod-x  *available*   |                     |                    |
 
 All 3 pods are part of an deployment, and they collectively have a PDB which requires
-that there be at least 2 of the 3 pods available at all times.
+there be at least 2 of the 3 pods to be available at all times.
 
-The cluster administrator want to reboot into a new kernel version to fix a bug in the kernel.
+For example, assume the cluster administrator wants to reboot into a new kernel version to fix a bug in the kernel.
 The cluster administrator first tries to drain `node-1` using the `kubectl drain` command.
 That tool tries to evict `pod-a` and `pod-x`.  This succeeds immediately.
 Both pods go into the `terminating` state at the same time.
@@ -150,7 +164,7 @@ This puts the cluster in this state:
 | pod-a  *terminating* | pod-b *available*   | pod-c *available*  |
 | pod-x  *terminating* |                     |                    |
 
-The deployment notices that one of the pods is terminating, so it creates a replacement,
+The deployment notices that one of the pods is terminating, so it creates a replacement
 called `pod-d`.  Since `node-1` is cordoned, it lands on another node.  Something has
 also created `pod-y` as a replacement for `pod-x`.
 
@@ -173,8 +187,10 @@ At some point, the pods terminate, and the cluster look like this:
 |                      | pod-d *starting*    | pod-y              |
 
 At this point, if an impatient cluster administrator tries to drain `node-2` or
-`node-3`, they will not succeed, because there are only 2 available pods for the deployment, 
-and its PDB requires at least 2.  After some time passes, `pod-d` becomes available.
+`node-3`, the drain command will block, because there are only 2 available
+pods for the deployment, and its PDB requires at least 2.  After some time
+
+asses, `pod-d` becomes available.
 
 The cluster state now looks like this:
 
@@ -202,8 +218,8 @@ state:
 At this point, the cluster administrator needs to
 add a node back to the cluster to proceed with the upgrade.
 
-You can see how Kubernetes determine the rate at which disruptions, like node upgrades,
-can happen, varying the rate as the operation progresses, according to:
+You can see how Kubernetes varies the rate at which disruptions
+can happen, according to:
 
 - how many replicas an application needs
 - how long it takes to gracefully shutdown an instance
@@ -216,30 +232,28 @@ can happen, varying the rate as the operation progresses, according to:
 Often, it is useful to think of the Cluster Manager
 and Application Owner as separate roles with limited knowlege
 of each other.   This separation of responsibilities
-may make sense when:
+may make sense in these scenarios:
 
 - when there are many application teams sharing a Kubernetes cluster, and 
   there is natural specialization of roles
 - when third-party tools or services are used to automate cluster management
 
-Pod Disrutption Budgets supports this separation of roles by providing an
+Pod Disrutption Budgets support this separation of roles by providing an
 interface between the roles.
 
 If you do not have such a separation of responsibilities in your organization,
-you may not need to use Pod Disruption Budgets.  In that case, when performing
-cluster management tasks, like upgrading node software, and so on, you will
-think the impact on your application at each step.
+you may not need to use Pod Disruption Budgets.
 
 ## How to perform Distruptive Actions your Cluster
 
 If you are a Cluster Administrator, and you need to perform a disruptive action on all
 the nodes in your cluster, such as a node or system software upgrade, here are some options:
 
-1. Accept downtime during the upgrade. 
-2. Fail over to another complete replica cluster.
+- Accept downtime during the upgrade. 
+- Fail over to another complete replica cluster.
    -  No downtime, but may be costly both for the duplicated nodes,
      and for human effort to orchestrate the switchover.
-3. Write disruption tolerant applications and use PDBs.
+- Write disruption tolerant applications and use PDBs.
    - No downtime.
    - Minimal resource duplication.
    - Allows more automation of cluster administration.
