@@ -1,5 +1,8 @@
 ---
-title: Using Port Forwarding to Access Applications in a Cluster
+title: Use Port Forwarding to Access Applications in a Cluster
+redirect_from:
+- "/docs/user-guide/connecting-to-applications-port-forward/"
+- "/docs/user-guide/connecting-to-applications-port-forward.html"
 ---
 
 {% capture overview %}
@@ -26,7 +29,7 @@ for database debugging.
 
 1. Create a pod:
 
-        kubectl create -f http://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
+        kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/redis-master.yaml
 
     The output of a successful command verifies that the pod was created:
 
@@ -87,7 +90,7 @@ local workstation to debug the database that is running in the pod.
 
 
 {% capture whatsnext %}
-Learn more about [kubectl port-forward](/docs/user-guide/kubectl/kubectl_port-forward/).
+Learn more about [kubectl port-forward](/docs/user-guide/kubectl/v1.6/#port-forward).
 {% endcapture %}
 
 

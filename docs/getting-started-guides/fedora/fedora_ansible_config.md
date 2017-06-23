@@ -149,7 +149,7 @@ This will finally setup your whole Kubernetes cluster for you.
 ```shell
 cd ~/contrib/ansible/
 
-./setup.sh
+./scripts/deploy-cluster.sh
 ```
 
 ## Testing and using your new cluster

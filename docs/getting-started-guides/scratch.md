@@ -27,10 +27,10 @@ steps that existing cluster setup scripts are making.
 
   1. You should be familiar with using Kubernetes already.  We suggest you set
     up a temporary cluster by following one of the other Getting Started Guides.
-    This will help you become familiar with the CLI ([kubectl](/docs/user-guide/kubectl/kubectl)) and concepts ([pods](/docs/user-guide/pods), [services](/docs/user-guide/services), etc.) first.
+    This will help you become familiar with the CLI ([kubectl](/docs/user-guide/kubectl/)) and concepts ([pods](/docs/user-guide/pods), [services](/docs/user-guide/services), etc.) first.
   1. You should have `kubectl` installed on your desktop.  This will happen as a side
     effect of completing one of the other Getting Started Guides.  If not, follow the instructions
-    [here](/docs/user-guide/prereqs).
+    [here](/docs/tasks/kubectl/install/).
 
 ### Cloud Provider
 
@@ -130,9 +130,9 @@ Also, you need to pick a static IP for master node.
 
 #### Network Policy
 
-Kubernetes enables the definition of fine-grained network policy between Pods using the [NetworkPolicy](/docs/user-guide/network-policy) resource.
+Kubernetes enables the definition of fine-grained network policy between Pods using the [NetworkPolicy](/docs/concepts/services-networking/network-policies/) resource.
 
-Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/getting-started-guides/network-policy/walkthrough/) for more information.
+Not all networking providers support the Kubernetes NetworkPolicy API, see [Using Network Policy](/docs/tasks/configure-pod-container/declare-network-policy/) for more information.
 
 ### Cluster Naming
 
@@ -167,6 +167,8 @@ You can use a Kubernetes binary release (recommended) or build your Kubernetes b
 [Developer Documentation](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/).  Only using a binary release is covered in this guide.
 
 Download the [latest binary release](https://github.com/kubernetes/kubernetes/releases/latest) and unzip it.
+Server binary tarballs are no longer included in the Kubernetes final tarball, so you will need to locate and run
+`./kubernetes/cluster/get-kube-binaries.sh` to download the client and server binaries.
 Then locate `./kubernetes/server/kubernetes-server-linux-amd64.tar.gz` and unzip *that*.
 Then, within the second set of unzipped files, locate `./kubernetes/server/bin`, which contains
 all the necessary binaries.
@@ -264,7 +266,7 @@ to read.  This guide uses `/var/lib/kube-apiserver/known_tokens.csv`.
 The format for this file is described in the [authentication documentation](/docs/admin/authentication).
 
 For distributing credentials to clients, the convention in Kubernetes is to put the credentials
-into a [kubeconfig file](/docs/user-guide/kubeconfig-file).
+into a [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/).
 
 The kubeconfig file for the administrator can be created as follows:
 
@@ -822,7 +824,7 @@ Notes for setting up each cluster service are given below:
 * Cluster DNS:
   * required for many Kubernetes examples
   * [Setup instructions](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/)
-  * [Admin Guide](/docs/admin/dns/)
+  * [Admin Guide](/docs/concepts/services-networking/dns-pod-service/)
 * Cluster-level Logging
   * [Cluster-level Logging Overview](/docs/user-guide/logging/overview)
   * [Cluster-level Logging with Elasticsearch](/docs/user-guide/logging/elasticsearch)
@@ -866,7 +868,7 @@ You should see some services.  You should also see "mirror pods" for the apiserv
 
 ### Try Examples
 
-At this point you should be able to run through one of the basic examples, such as the [nginx example](/examples/simple-nginx).
+At this point you should be able to run through one of the basic examples, such as the [nginx example](/docs/tutorials/stateless-application/deployment.yaml).
 
 ### Running the Conformance Test
 

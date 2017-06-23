@@ -2,7 +2,7 @@
 redirect_from:
 - "/docs/user-guide/liveness/"
 - "/docs/user-guide.liveness.html"
-title: Configuring Liveness and Readiness Probes
+title: Configure Liveness and Readiness Probes
 ---
 
 {% capture overview %}
@@ -30,7 +30,7 @@ When a Pod is not ready, it is removed from Service load balancers.
 
 {% capture steps %}
 
-## Defining a liveness command
+## Define a liveness command
 
 Many applications running for long periods of time eventually transition to
 broken states, and cannot recover except by being restarted. Kubernetes provides
@@ -42,7 +42,7 @@ In this exercise, you create a Pod that runs a Container based on the
 {% include code.html language="yaml" file="exec-liveness.yaml" ghlink="/docs/tasks/configure-pod-container/exec-liveness.yaml" %}
 
 In the configuration file, you can see that the Pod has a single Container.
-The `livenessProbe` field specifies that the kubelet should perform a liveness
+The `periodSeconds` field specifies that the kubelet should perform a liveness
 probe every 5 seconds. The `initialDelaySeconds` field tells the kubelet that it
 should wait 5 second before performing the first probe. To perform a probe, the
 kubelet executes the command `cat /tmp/healthy` in the Container. If the
@@ -63,7 +63,7 @@ code. After 30 seconds, `cat /tmp/healthy` returns a failure code.
 Create the Pod:
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/exec-liveness.yaml
+kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/exec-liveness.yaml
 ```
 
 Within 30 seconds, view the Pod events:
@@ -117,7 +117,7 @@ NAME            READY     STATUS    RESTARTS   AGE
 liveness-exec   1/1       Running   1          1m
 ```
 
-## Defining a liveness HTTP request
+## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
 file for a Pod that runs a container based on the `gcr.io/google_containers/liveness`
@@ -154,6 +154,7 @@ http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
         w.WriteHeader(200)
         w.Write([]byte("ok"))
     }
+})
 ```
 
 The kubelet starts performing health checks 3 seconds after the Container starts.
@@ -163,7 +164,7 @@ checks will fail, and the kubelet will kill and restart the Container.
 To try the HTTP liveness check, create a Pod:
 
 ```shell
-kubectl create -f http://k8s.io/docs/tasks/configure-pod-container/http-liveness.yaml
+kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/http-liveness.yaml
 ```
 
 After 10 seconds, view Pod events to verify that liveness probes have failed and
@@ -173,11 +174,33 @@ the Container has been restarted:
 kubectl describe pod liveness-http
 ```
 
-## Using a named port
+## Define a TCP liveness probe
+
+A third type of liveness probe uses a TCP Socket. With this configuration, the
+kubelet will attempt to open a socket to your container on the specified port.
+If it can establish a connection, the container is considered healthy, if it
+can’t it is considered a failure.
+
+{% include code.html language="yaml" file="tcp-liveness-readiness.yaml" ghlink="/docs/tasks/configure-pod-container/tcp-liveness-readiness.yaml" %}
+
+As you can see, configuration for a TCP check is quite similar to a HTTP check.
+This example uses both readiness and liveness probes. The kubelet will send the
+first readiness probe 5 seconds after the container starts. This will attempt to
+connect to the `goproxy` container on port 8080. If the probe succeeds, the pod
+will be marked as ready. The kubelet will continue to run this check every 10
+seconds.
+
+In addition to the readiness probe, this configuration includes a liveness probe.
+The kubelet will run the first liveness probe 15 seconds after the container
+starts. Just like the readiness probe, this will attempt to connect to the
+`goproxy` container on port 8080. If the liveness probe fails, the container
+will be restarted.
+
+## Use a named port
 
 You can use a named
-[ContainerPort](/docs/api-reference/v1/definitions/#_v1_containerport)
-for HTTP liveness checks:
+[ContainerPort](/docs/api-reference/v1.6/#containerport-v1-core)
+for HTTP or TCP liveness checks:
 
 ```yaml
 ports:
@@ -191,7 +214,7 @@ livenessProbe:
   port: liveness-port
 ```
 
-## Defining readiness probes
+## Define readiness probes
 
 Sometimes, applications are temporarily unable to serve traffic.
 For example, an application might need to load large data or configuration
@@ -214,29 +237,45 @@ readinessProbe:
   periodSeconds: 5
 ```
 
-{% endcapture %}
+Configuration for HTTP and TCP readiness probes also remains identical to
+liveness probes.
 
+Readiness and liveness probes can be used in parallel for the same container.
+Using both can ensure that traffic does not reach a container that is not ready
+for it, and that containers are restarted when they fail.
 
-{% capture discussion %}
-
-## Discussion
+## Configure Probes
 
 {% comment %}
-Eventually, some of this Discussion section could be moved to a concept topic.
+Eventually, some of this section could be moved to a concept topic.
 {% endcomment %}
 
-[Probes](/docs/api-reference/v1/definitions/#_v1_probe) have these additional fields that you can use to more precisely control the behavior of liveness and readiness checks:
+[Probes](/docs/api-reference/v1.6/#probe-v1-core) have a number of fields that
+you can use to more precisely control the behavior of liveness and readiness
+checks:
 
-* timeoutSeconds
-* successThreshold
-* failureThreshold
+* `initialDelaySeconds`: Number of seconds after the container has started
+before liveness probes are initiated.
+* `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
+seconds. Minimum value is 1.
+* `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
+to 1 second. Minimum value is 1.
+* `successThreshold`: Minimum consecutive successes for the probe to be
+considered successful after having failed. Defaults to 1. Must be 1 for
+liveness. Minimum value is 1.
+* `failureThreshold`: Minimum consecutive failures for the probe to be
+considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 
-[HTTP probes](/docs/api-reference/v1/definitions/#_v1_httpgetaction)
-have these additional fields:
+[HTTP probes](/docs/api-reference/v1.6/#httpgetaction-v1-core)
+have additional fields that can be set on `httpGet`:
 
-* host
-* scheme
-* httpHeaders
+* `host`: Host name to connect to, defaults to the pod IP. You probably want to
+set "Host" in httpHeaders instead.
+* `scheme`: Scheme to use for connecting to the host. Defaults to HTTP.
+* `path`: Path to access on the HTTP server.
+* `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
+* `port`: Name or number of the port to access on the container. Number must be
+in the range 1 to 65535.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified path and
 port to perform the check. The kubelet sends the probe to the container’s IP address,
@@ -247,9 +286,6 @@ where you would set it. Suppose the Container listens on 127.0.0.1 and the Pod's
 If your pod relies on virtual hosts, which is probably the more common case,
 you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
-In addition to command probes and HTTP probes, Kubernetes supports
-[TCP probes](/docs/api-reference/v1/definitions/#_v1_tcpsocketaction).
-
 {% endcapture %}
 
 {% capture whatsnext %}
@@ -257,14 +293,11 @@ In addition to command probes and HTTP probes, Kubernetes supports
 * Learn more about
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
-* Learn more about
-[Health Checking section](/docs/user-guide/walkthrough/k8s201/#health-checking).
-
 ### Reference
 
-* [Pod](http://kubernetes.io/docs/api-reference/v1/definitions#_v1_pod)
-* [Container](/docs/api-reference/v1/definitions/#_v1_container)
-* [Probe](/docs/api-reference/v1/definitions/#_v1_probe)
+* [Pod](/docs/api-reference/v1.6/#pod-v1-core)
+* [Container](/docs/api-reference/v1.6/#container-v1-core)
+* [Probe](/docs/api-reference/v1.6/#probe-v1-core)
 
 {% endcapture %}
 

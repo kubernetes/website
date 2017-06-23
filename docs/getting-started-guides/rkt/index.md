@@ -21,7 +21,7 @@ This document describes how to run Kubernetes using [rkt](https://github.com/cor
 
 ### Kubernetes CNI networking
 
-You can configure Kubernetes pod networking with the usual Container Network Interface (CNI) [network plugins](/docs/admin/network-plugins/) by setting the kubelet's `--network-plugin` and `--network-plugin-dir` options appropriately. Configured in this fashion, the rkt container engine will be unaware of network details, and expects to connect pods to the provided subnet.
+You can configure Kubernetes pod networking with the usual Container Network Interface (CNI) [network plugins](/docs/concepts/cluster-administration/network-plugins/) by setting the kubelet's `--network-plugin` and `--network-plugin-dir` options appropriately. Configured in this fashion, the rkt container engine will be unaware of network details, and expects to connect pods to the provided subnet.
 
 #### kubenet: Google Compute Engine (GCE) network
 
@@ -222,4 +222,4 @@ By default, the log verbosity level is 2. In order to see more log messages rela
 
 ### Check Kubernetes events and logs.
 
-Kubernetes provides various tools for troubleshooting and examination. More information can be found [in the app troubleshooting guide](/docs/user-guide/application-troubleshooting).
+Kubernetes provides various tools for troubleshooting and examination. More information can be found [in the app troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application/).
