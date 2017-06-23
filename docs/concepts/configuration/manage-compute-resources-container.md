@@ -133,8 +133,8 @@ to the container runtime.
 When using Docker:
 
 - The `spec.containers[].resources.requests.cpu` is converted to its core value,
-  which is potentially fractional, and multiplied by 1024. This number is used
-  as the value of the
+  which is potentially fractional, and multiplied by 1024. The greater of this number
+  or 2 is used as the value of the
   [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
   flag in the `docker run` command.
 
