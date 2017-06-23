@@ -3,7 +3,7 @@ assignees:
 - bprashanth
 - janetkuo
 - thockin
-title: Debugging Services
+title: Debug Services
 redirect_from:
 - "/docs/user-guide/debugging-services/"
 - "/docs/user-guide/debugging-services.html"

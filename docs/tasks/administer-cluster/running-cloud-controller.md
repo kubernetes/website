@@ -1,7 +1,7 @@
 ---
 assignees:
 - thockin 
-title: Building and Running cloud-controller-manager
+title: Build and Run cloud-controller-manager
 redirect_from:
 - "/docs/getting-started-guides/running-cloud-controller/"
 - "/docs/getting-started-guides/running-cloud-controller.html"

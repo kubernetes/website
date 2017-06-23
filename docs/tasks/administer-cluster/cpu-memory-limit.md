@@ -2,7 +2,7 @@
 assignees:
 - derekwaynecarr
 - janetkuo
-title: Setting Pod CPU and Memory Limits
+title: Set Pod CPU and Memory Limits
 redirect_from:
 - "/docs/admin/limitrange/"
 - "/docs/admin/limitrange/index.html"

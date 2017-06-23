@@ -1,7 +1,7 @@
 ---
 assignees:
 - caseydavenport
-title: Declaring Network Policy
+title: Declare Network Policy
 redirect_from:
 - "/docs/getting-started-guides/network-policy/walkthrough/"
 - "/docs/getting-started-guides/network-policy/walkthrough.html"
@@ -9,7 +9,7 @@ redirect_from:
 - "/docs/tasks/configure-pod-container/declare-network-policy.html"
 ---
 {% capture overview %}
-This document helps you get started using using the Kubernetes [NetworkPolicy API](/docs/user-guide/networkpolicies) to declare network policies that govern how pods communicate with each other. 
+This document helps you get started using using the Kubernetes [NetworkPolicy API](/docs/user-guide/network-policies) to declare network policies that govern how pods communicate with each other. 
 {% endcapture %}
 
 {% capture prerequisites %}

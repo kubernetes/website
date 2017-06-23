@@ -58,7 +58,7 @@ a Kubernetes cluster from scratch.
 
 * [OpenShift Online](https://www.openshift.com/features/) provides free hosted access for Kubernetes applications.
 
-* [IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters.
+* [IBM Bluemix Container Service](https://console.ng.bluemix.net/docs/containers/container_index.html) offers managed Kubernetes clusters with isolation choice, operational tools, integrated security insight into images and containers, and integration with Watson, IoT, and data.
 
 * [Giant Swarm](https://giantswarm.io/product/) offers managed Kubernetes clusters in their own datacenter, on-premises, or on public clouds.
 
@@ -102,7 +102,6 @@ These solutions are combinations of cloud providers and operating systems not co
 
 * [CoreOS on AWS or GCE](/docs/getting-started-guides/coreos)
 * [Kubernetes on Ubuntu](/docs/getting-started-guides/ubuntu/)
-* [CoreOS on Rackspace](/docs/getting-started-guides/rackspace)
 
 ## On-Premises VMs
 
@@ -183,7 +182,6 @@ Bare-metal           | custom       | Ubuntu | flannel     | [docs](/docs/gettin
 libvirt/KVM          | CoreOS       | CoreOS | libvirt/KVM | [docs](/docs/getting-started-guides/libvirt-coreos)                         |  Community ([@lhuard1A](https://github.com/lhuard1A))
 oVirt                |              |        |             | [docs](/docs/getting-started-guides/ovirt)                                  |  Community ([@simon3z](https://github.com/simon3z))
 OpenStack Heat       | Saltstack    | CentOS | Neutron + flannel hostgw | [docs](/docs/getting-started-guides/openstack-heat)            |  Community ([@FujitsuEnablingSoftwareTechnologyGmbH](https://github.com/FujitsuEnablingSoftwareTechnologyGmbH))
-Rackspace            | CoreOS       | CoreOS | flannel     | [docs](/docs/getting-started-guides/rackspace)                              |  Community ([@doublerr](https://github.com/doublerr))
 any                  | any          | any    | any         | [docs](/docs/getting-started-guides/scratch)                                |  Community ([@erictune](https://github.com/erictune))
 any                  | any          | any    | any         | [docs](http://docs.projectcalico.org/v2.2/getting-started/kubernetes/installation/)                                |  Commercial and Community
 

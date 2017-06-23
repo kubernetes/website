@@ -1,5 +1,5 @@
 ---
-title: Accessing Clusters Using the Kubernetes API
+title: Access Clusters Using the Kubernetes API
 redirect_from:
 - "/docs/user-guide/accessing-the-cluster/"
 - "/docs/user-guide/accessing-the-cluster.html"
@@ -36,7 +36,7 @@ $ kubectl config view
 ```
 
 Many of the [examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/) provide an introduction to using
-kubectl.  omplete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
+kubectl.  Complete documentation is found in the [kubectl manual](/docs/user-guide/kubectl/index).
 
 ### Directly accessing the REST API
 

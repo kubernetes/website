@@ -487,17 +487,17 @@ In the ServiceSpec, `externalIPs` can be specified along with any of the `Servic
 In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
 
 ```yaml
-kind: Service,
-apiVersion: v1,
+kind: Service
+apiVersion: v1
 metadata:
   name: my-service
 spec:
   selector:
     app: MyApp
   ports:
-    - name: http,
-      protocol: TCP,
-      port: 80,
+    - name: http
+      protocol: TCP
+      port: 80
       targetPort: 9376
   externalIPs: 
     - 80.11.12.10
@@ -550,7 +550,7 @@ ensure that no two `Services` can collide.  We do that by allocating each
 `Service` its own IP address.
 
 To ensure each service receives a unique IP, an internal allocator atomically
-updates a global allocation map in etcd prior to each service. The map object
+updates a global allocation map in etcd prior to creating each service. The map object
 must exist in the registry for services to get IPs, otherwise creations will
 fail with a message indicating an IP could not be allocated. A background
 controller is responsible for creating that map (to migrate from older versions

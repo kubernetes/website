@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-title: Sharing Cluster Access with kubeconfig
+title: Share Cluster Access with kubeconfig
 redirect_from:
 - "/docs/user-guide/sharing-clusters/"
 - "/docs/user-guide/sharing-clusters.html"

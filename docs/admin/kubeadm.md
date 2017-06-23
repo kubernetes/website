@@ -105,6 +105,19 @@ A kubeadm specific [config file](#config-file).  This can be used to specify an
 extended set of options including passing arbitrary command line flags to the
 control plane components.
 
+**Note**: When providing configuration values using _both_ a configuration file
+and flags, the file will take precedence. For example, if a file exists with:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+token: 1234
+```
+
+and the user ran `kubeadm init --config file.yaml --token 5678`,
+the chosen token value will be `1234`.
+
+
 - `--kubernetes-version` (default 'latest') the kubernetes version to initialise
 
 The **v1.6** version of kubeadm only supports building clusters that are at
@@ -331,7 +344,7 @@ commands.
 * `kubeadm token create` Creates a new token.
     * `--description` Set the description on the new token.
     * `--ttl duration` Set expiration time of the token as a delta from "now".
-      Default is 0 for no expiration.
+      Default is 0 for no expiration. The unit of the duration is seconds.
     * `--usages` Set the ways that the token can be used.  The default is
       `signing,authentication`.  These are the usages as described above.
 * `kubeadm token delete <token id>|<token id>.<token secret>` Delete a token.
@@ -389,6 +402,18 @@ configuration file.
 If `KUBE_KUBERNETES_DIR` is specified, you may need to rewrite the arguments of the kubelet.
 (e.g. --kubeconfig, --pod-manifest-path)
 
+If `KUBE_REPO_PREFIX` is specified, you may need to set the kubelet flag `--pod-infra-container-image` which specifies which pause image to use.
+Defaults to `gcr.io/google_containers/pause-${ARCH}:3.0` where `${ARCH}` can be one of `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
+
+```bash
+cat > /etc/systemd/system/kubelet.service.d/20-pod-infra-image.conf <<EOF
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--pod-infra-container-image=<your-image>"
+EOF
+systemctl daemon-reload
+systemctl restart kubelet
+```
+
 If you want to use kubeadm with an http proxy, you may need to configure it to
 support http_proxy, https_proxy, or no_proxy.
 
@@ -408,6 +433,31 @@ export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,example.com,1
 
 Remember to change `proxy_ip` and add a kube master node IP address to
 `no_proxy`.
+
+## Use Kubeadm with other CRI runtimes
+
+Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
+
+Using other CRI based runtimes with kubeadm is very simple, and currently supported runtimes are:
+
+- [cri-o](https://github.com/kubernetes-incubator/cri-o)
+- [frakti](https://github.com/kubernetes/frakti)
+- [rkt](https://github.com/kubernetes-incubator/rktlet)
+
+After you have successfully installed `kubeadm` and `kubelet`, please follow these two steps:
+
+1. Install runtime shim on every node. You will need to follow the installation document in the runtime shim project listing above.
+
+2. Configure kubelet to use remote CRI runtime. Please remember to change `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
+
+```shell
+  $ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
+Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT --feature-gates=AllAlpha=true"
+EOF
+  $ systemctl daemon-reload
+```
+
+Now `kubelet` is ready to use the specified CRI runtime, and you can continue with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
 
 ## Releases and release notes
 

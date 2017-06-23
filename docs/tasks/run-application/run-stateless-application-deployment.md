@@ -1,5 +1,5 @@
 ---
-title: Running a Stateless Application Using a Deployment
+title: Run a Stateless Application Using a Deployment
 redirect_from:
 - "/docs/user-guide/simple-nginx/"
 - "/docs/user-guide/simple-nginx.html"
@@ -145,8 +145,6 @@ added to Kubernetes, replicated applications were configured by using a
 {% capture whatsnext %}
 
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
-
-* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/)
 
 {% endcapture %}
 

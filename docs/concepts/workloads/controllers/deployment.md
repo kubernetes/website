@@ -16,7 +16,11 @@ A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) (the next-generation ReplicationController).
 You only need to describe the desired state in a Deployment object, and the Deployment controller will
 change the actual state to the desired state at a controlled rate for you. You can define Deployments to
-create new resources, or replace existing ones by new ones.
+create new ReplicaSets, or remove existing Deployments and adopt all of their resources with new Deployments.
+
+**Note:** You should not manage ReplicaSets owned by a Deployment, otherwise you are racing with the Deployment
+controller! All of the use cases should be covered just by manipulating the Deployment object. Consider opening
+an issue in the main Kubernetes repository, if your use case is not covered below.
 
 A typical use case is:
 
@@ -823,7 +827,7 @@ the rolling update process.
 of Pods that can be unavailable during the update process. The value can be an absolute number (e.g. 5)
 or a percentage of desired Pods (e.g. 10%). The absolute number is calculated from percentage by
 rounding down. This can not be 0 if `.spec.strategy.rollingUpdate.maxSurge` is 0. By default, a
-value of 1 is used.
+value of 25% is used.
 
 For example, when this value is set to 30%, the old ReplicaSet can be scaled down to 70% of desired
 Pods immediately when the rolling update starts. Once new Pods are ready, old ReplicaSet can be scaled
@@ -835,7 +839,7 @@ at all times during the update is at least 70% of the desired Pods.
 `.spec.strategy.rollingUpdate.maxSurge` is an optional field that specifies the maximum number of Pods
 that can be created above the desired number of Pods. Value can be an absolute number (e.g. 5) or a
 percentage of desired Pods (e.g. 10%). This can not be 0 if `MaxUnavailable` is 0. The absolute number
-is calculated from percentage by rounding up. By default, a value of 1 is used.
+is calculated from percentage by rounding up. By default, a value of 25% is used.
 
 For example, when this value is set to 30%, the new ReplicaSet can be scaled up immediately when the
 rolling update starts, such that the total number of old and new Pods do not exceed 130% of desired
@@ -862,13 +866,20 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 ### Rollback To
 
-`.spec.rollbackTo` is an optional field with the configuration the Deployment is rolling back to. Setting
-this field will trigger a rollback, and this field will be cleared every time a rollback is done.
+`.spec.rollbackTo` is an optional field with the configuration the Deployment
+should roll back to. Setting this field triggers a rollback, and this field will
+be cleared by the server after a rollback is done.
+
+Because this field will be cleared by the server, it should not be used
+declaratively. For example, you should not perform `kubectl apply` with a
+manifest with `.spec.rollbackTo` field set.
 
 #### Revision
 
-`.spec.rollbackTo.revision` is an optional field specifying the revision to rollback to. This defaults
-to 0, meaning rollback to the last revision in history.
+`.spec.rollbackTo.revision` is an optional field specifying the revision to roll
+back to. Setting to 0 means rolling back to the last revision in history;
+otherwise, means rolling back to the specified revision. This defaults to 0 when
+[`spec.rollbackTo`](#rollback-to) is set.
 
 ### Revision History Limit
 

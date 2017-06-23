@@ -19,7 +19,7 @@ This document describes the current state of `PersistentVolumes` in Kubernetes. 
 
 Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed.  To do this we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
 
-A `PersistentVolume` (PV) is a piece of networked storage in the cluster that has been provisioned by an administrator.  It is a resource in the cluster just like a node is a cluster resource.   PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV.  This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator.  It is a resource in the cluster just like a node is a cluster resource.   PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV.  This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
 A `PersistentVolumeClaim` (PVC) is a request for storage by a user.  It is similar to a pod.  Pods consume node resources and PVCs consume PV resources.  Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
 
@@ -252,7 +252,7 @@ spec:
     - "ReadWriteOnce"
   gcePersistentDisk:
     fsType: "ext4"
-    pdName: "gce-disk-1
+    pdName: "gce-disk-1"
 ```
 
 A mount option is a string which will be cumulatively joined and used while mounting volume to the disk. 
@@ -411,6 +411,27 @@ parameters:
 Storage classes have a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
 
+| Volume Plugin        | Internal Provisioner| Config Example                       |
+| :---                 |     :---:           |    :---:                             |
+| AWSElasticBlockStore | &#x2713;            | [AWS](#aws)                          |
+| AzureFile            | &#x2713;            | -                                    |
+| AzureDisk            | &#x2713;            | [Azure Disk](#azure-disk)            |
+| CephFS               | -                   | -                                    |
+| Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
+| FC                   | -                   | -                                    |
+| FlexVolume           | -                   | -                                    |
+| Flocker              | &#x2713;            | -                                    |
+| GCEPersistentDisk    | &#x2713;            | [GCE](#gce)                          |
+| Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
+| iSCSI                | -                   | -                                    |
+| PhotonPersistentDisk | &#x2713;            | -                                    |
+| Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
+| NFS                  | -                   | -                                    |
+| RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
+| VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
+| PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
+| ScaleIO              | &#x2713;            | [ScaleIO](#scaleio)                  |
+
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
 alongside Kubernetes). You can also run and specify external provisioners,
@@ -420,6 +441,11 @@ over where their code lives, how the provisioner is shipped, how it needs to be
 run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage)
 houses a library for writing external provisioners that implements the bulk of
 the specification plus various community-maintained external provisioners.
+
+For example, NFS doesn't provide an internal provisioner, but an external provisioner
+can be used. Some external provisioners are listed under the repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
+There are also cases when 3rd party storage vendors provide their own external
+provisioner.
 
 ### Parameters
 Storage classes have parameters that describe volumes belonging to the storage
