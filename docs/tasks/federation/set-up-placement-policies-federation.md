@@ -7,21 +7,10 @@ redirect_from:
 
 {% capture overview %}
 
-This page shows you can enforce policy-based placement decisions over Federated
+This page shows how to policy-based placement decisions over Federated
 resources using an external policy engine.
 
 {% endcapture %}
-
-
-{% capture objectives %}
-
-* Deploying Federation and configuring an external policy engine
-* Deploying an external policy engine
-* Configuring placement policies with ConfigMaps
-* Testing placement policies
-
-{% endcapture %}
-
 
 {% capture prerequisites %}
 
@@ -31,8 +20,7 @@ guides for installation instructions for your platform.
 
 {% endcapture %}
 
-
-{% capture lessoncontent %}
+{% capture steps %}
 
 ## Deploying Federation and configuring an external policy engine
 
@@ -157,4 +145,4 @@ Inspect the ReplicaSet to confirm the appropriate annotations have been applied:
 
 {% endcapture %}
 
-{% include templates/tutorial.md %}
+{% include templates/task.md %}
