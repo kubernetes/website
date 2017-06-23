@@ -88,7 +88,7 @@ that only one pod is unavailable at any given time. Any drains that
 would cause the number of ready replicas to fall below the specified
 budget are blocked.
 
-## Programmatic eviction of Pods.
+## The Eviction API
 
 If you prefer not to use [kubectl drain](/docs/user-guide/kubectl/v1.6/#drain) (such as
 to avoid calling to an external command, or to get finer control over over the pod
@@ -154,7 +154,9 @@ application owners and cluster owners to establish an agreement on behavior in t
 {% endcapture %}
 
 {% capture whatsnext %}
-*TODO: link to other docs about Stateful Set?*
+
+* Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application//configure-pdb.md).
+
 {% endcapture %}
 
 {% include templates/task.md %}

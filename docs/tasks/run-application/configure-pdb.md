@@ -36,19 +36,21 @@ nodes.
 
 ## Identify an Application to Protect
 
-PDBs can be used with applications the following types of application controllers:
+The most common use case when you want to protect an application
+specified by one of the built-in Kubernetes controllers:
 
 - Deployment
 - ReplicationController
 - ReplicaSet
 - StatefulSet
 
-In the future, support may be extended to user-provided controllers ("operators").
+In this case, make a note of the controller's `.spec.selector`; the same
+selector goes into the PDBs `.spec.selector`.
 
-"Identify the pod selector your controller uses. The PodDisruptionBudget uses this to select
-the pods protected by the PDB.  These
-selectors should match.   If you specify selectors that overlap or do not
-cover all your pods, then they may not be protected by a disruption budget at all.
+You can also use PDBs with pods which are not controlled by one of the above
+controllers, or arbitrary groups of pods, but there are some restrictions,
+described in [Arbitrary Controllers and Selectors](#arbitrary-controllers-and-selectors).
+
 
 ## Think about how your application reacts to disruptions
 
@@ -158,6 +160,66 @@ automatically responds to changes in the number of replicas of the corresponding
 You can create the PDB object with a command like `kubectl create -f mypdb.yaml`.
 
 You cannot update PDB objects.  They must be deleted and re-created.
+
+# Check the status of the PDB
+
+Use kubectl to check that your PDB is created.
+
+Assuming you don't actually have pods matching `app: zookeeper` in your namespace,
+then you'll see something like this:
+
+```shell
+$ kubectl get poddisruptionbudgets
+NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
+zk-pdb    2               0                     7s
+```
+
+If there are matching pods (say, 3), then you would see something like this:
+
+```shell
+$ kubectl get poddisruptionbudgets
+NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
+zk-pdb    2               1                     7s
+```
+
+The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller
+has seen the PDB and counted the matching PDB, and updated the status
+of the PDB.  
+
+You can get more information about the status of a PDB with this command:
+
+```shell
+$ kubectl get poddisruptionbudgets zk-pdb -o yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: zk-pdb
+...
+status:
+  currentHealthy: 3
+  desiredHealthy: 3
+  disruptedPods: null
+  disruptionsAllowed: 1
+  expectedPods: 3
+  observedGeneration: 1
+```
+
+# Arbitrary Controllers and Selectors
+
+You can skip this section if you only use PDBs with the built-in
+application controllers (Deployment, ReplicationController, ReplicaSet, and StatefulSet),
+with the PDB selector matching the controller's selector.
+
+You can use a PDB with pods controlled by another type of controller, by an
+"operator", or bare pods, but with these restrictions:
+
+- only `.spec.minAvailable` can be used, not `.spec.maxUnavailable`.
+- only an integer value can be used with `.spec.minAvailable`, not a percentage.
+
+You can use a selector which selects a subset or superset of the pods beloning to a built-in
+controller.  However, when there are multiple PDBs in a namespace, you must be careful not
+to create PDBs whose selectors overlap.
+
 {% endcapture %}
 
 {% include templates/task.md %}

@@ -106,8 +106,9 @@ ensure that the number of replicas serving load never falls below a certain
 percentage of the total.  
 
 Cluster managers and hosting providers should use tools which
-respect Pod Disruption Budgets by calling the Eviction API instead
-of directly deleting pods.  An example is the `kubectl drain` command.
+respect Pod Disruption Budgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)
+instead of directly deleting pods.  Examples are the `kubectl drain` command
+and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
 
 When a cluster administrator wants to drain a node
 they use the `kubectl drain` command.  That tool tries to evict all
@@ -127,7 +128,7 @@ The "intended" number of pods is computed from the `.spec.replicas` of the pods 
 The controller is discovered from the pods using the `.metadata.ownerReferences` of the object.
 
 PDBs cannot prevent [involuntary disruptions](#voluntary-and-involuntary-disruptions) from
-occuring. 
+occuring, but they do count against the budget.
 
 Pods which are deleted or unavailable due to a rolling upgrade to an application do count
 against the disruption budget, but controllers (like deployment and stateful-set)
@@ -223,9 +224,9 @@ can happen, according to:
 
 - how many replicas an application needs
 - how long it takes to gracefully shutdown an instance
-- how long it takes a new instace to start up
+- how long it takes a new instance to start up
 - the type of controller
-- the cluster's capacity for new pods
+- the cluster's resource capacity
 
 ## Separating Cluster Owner and Application Owner Roles
 
