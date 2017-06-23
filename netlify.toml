@@ -1,6 +1,0 @@
-[build]
-  command = "make build"
-  publish = "_site"
-
-[context.deploy-preview]
-  command = "make build-preview"
