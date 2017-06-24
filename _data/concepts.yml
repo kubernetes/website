@@ -60,7 +60,7 @@ toc:
   - docs/concepts/services-networking/dns-pod-service.md
   - docs/concepts/services-networking/connect-applications-service.md
   - docs/concepts/services-networking/ingress.md
-  - docs/concepts/services-networking/networkpolicies.md
+  - docs/concepts/services-networking/network-policies.md
 
 - title: Storage
   section:
