@@ -23,7 +23,9 @@ following steps:
 
 1. kubeadm generates a self-signed CA to provision identities for each component
    (including nodes) in the cluster.  It also generates client certificates to
-   be used by various components.
+   be used by various components.  If the user has provided their own CA by
+   dropping it in the cert directory (configured via `--cert-dir`, by default
+   `/etc/kubernetes/pki`), this step is skipped.
 
 1. Outputting a kubeconfig file for the kubelet to use to connect to the API
    server, as well as an additional kubeconfig file for administration.
@@ -458,6 +460,23 @@ EOF
 ```
 
 Now `kubelet` is ready to use the specified CRI runtime, and you can continue with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
+
+## Using custom certificates
+
+By default kubeadm will generate all the certificates needed for a cluster to run.
+You can override this behaviour by providing your own certificates.
+
+To do so, you must place them in whatever directory is specified by the
+`--cert-dir` flag or `CertificatesDir` configuration file key. By default this
+is `/etc/kubernetes/pki`.
+
+If a given certificate and private key pair both exist, kubeadm will skip the
+generation step and those files will be validated and used for the prescribed
+use-case.
+
+This means you can, for example, prepopulate `/etc/kubernetes/pki/ca.crt`
+and `/etc/kubernetes/pki/ca.key` with an existing CA, which then will be used
+for signing the rest of the certs.
 
 ## Releases and release notes
 
