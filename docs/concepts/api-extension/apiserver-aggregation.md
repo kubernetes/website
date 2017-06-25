@@ -1,6 +1,8 @@
 ---
-title: Extending the Kubernetes API with Aggregator
+title: Extending the Kubernetes API with the aggregation layer
 assignees:
+- lavalamp
+- cheftako
 - chenopis
 ---
 
@@ -24,8 +26,9 @@ In 1.7 the aggregation layer runs in-process with the kube-apiserver. Until an e
 
 {% capture whatsnext %}
 
-* To get the aggregator working in your environment, see [Setup the API aggregator](/docs/tasks/access-kubernetes-api/setup-api-aggregator/).
-* Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
+* To get the aggregator working in your environment, [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/).
+* Then, [setup an extension api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) to work with the aggregation layer.
+* Also, learn how to [extend the Kubernetes API using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 
 {% endcapture %}
 
