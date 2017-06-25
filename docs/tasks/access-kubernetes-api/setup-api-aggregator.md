@@ -58,8 +58,7 @@ The generated skeleton, which comes with [apiserver-builder](https://github.com/
 
 {% capture whatsnext %}
 
-* For more information, see the [Aggregator Networking Requirements](https://docs.google.com/document/d/1KNT4iS_Y2miLARrfSPumBIiFo_h7eb5B2pVOZJ0ZmjQ/edit) doc.
-* For a high level overview, see [Extending the Kubernetes API with Aggregator](/docs/concepts/architecture/apiserver-aggregation/).
+* For a high level overview, see [Extending the Kubernetes API with Aggregator](/docs/concepts/api-extension/apiserver-aggregation/).
 * Learn how to [Extend the Kubernetes API Using Third Party Resources](/docs/tasks/access-Kubernetes-api/extend-api-third-party-resource/).
 
 {% endcapture %}
