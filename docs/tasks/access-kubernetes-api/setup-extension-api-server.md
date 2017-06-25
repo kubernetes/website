@@ -43,7 +43,7 @@ If you use an existing 3rd party solution, such as [apiserver-builder](https://g
 
 {% capture whatsnext %}
 
-* If you haven't already, [configure the aggregation layer](/docs/tasks/configure-aggregation-layer) and enable the apiserver flags.
+* If you haven't already, [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) and enable the apiserver flags.
 * For a high level overview, see [Extending the Kubernetes API with Aggregator](/docs/concepts/api-extension/apiserver-aggregation/).
 * Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 
