@@ -331,16 +331,14 @@ tlsBootstrapToken: <string>
 
 ## Securing your installation even more
 
-Most security features are automatically turned on for kubeadm clusters, but there is a balance between usability
-and security. kubeadm clusters start with RBAC and the Node Authorizer turned on, and all communication between
-components secured for instance.
+The defaults for kubeadm may not work for everyone. This section documents how to tighten up a kubeadm install
+at the cost of some usability.
 
 ### Turning off auto-approval of Node Client Certificates
 
-However, in order to make the `kubeadm join` flow smooth, there is an CSR auto-approver
-enabled that basically approves any client certificate request for a Node when a Bootstrap Token was used as
-authentication. If you don't want the cluster to automatically approve Node client certs, you can turn it off
-by executing this command:
+By default, there is an CSR auto-approver enabled that basically approves any client certificate request
+for a kubelet when a Bootstrap Token was used when authenticating. If you don't want the cluster to
+automatically approve kubelet client certs, you can turn it off by executing this command:
 
 ```console
 $ kubectl delete clusterrole kubeadm:node-autoapprove-bootstrap
@@ -367,15 +365,36 @@ Only after `kubectl certificate approve` has been run, `kubeadm join` can procee
 
 In order to achieve the joining flow using the token as the only piece of validation information, a
 public ConfigMap with some data needed for validation of the master's identity is exposed publicly by
-default. There is no private data in there, but if you anyway want to turn off being able to use the
-`kubeadm join --discovery-token` flow, you can take these steps below:
+default. While there is no private data in this ConfigMap, some users are sensitive and wish to turn
+it off regardless. Doing so will disable the ability to use the `--discovery-token` flag of the
+`kubeadm join` flow. Here are the steps to do so:
 
+Fetch the `cluster-info` file from the API Server:
+
+```console
+$ kubectl -n kube-public get cm cluster-info -oyaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: <ca-cert>
+    server: https://<ip>:<port>
+  name: ""
+contexts: []
+current-context: ""
+kind: Config
+preferences: {}
+users: []
 ```
+
+You can then use the `cluster-info.yaml` file as an argument to `kubeadm join --discovery-file`.
+
+Turning of public access to the `cluster-info` ConfigMap:
+
+```console
 $ kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
 ```
 
-After this command, you must specify a `cluster-info` file to `--discovery-file` in order to validate
-the master's identity properly.
+These command should be run after `kubeadm init` but before `kubeadm join`.
 
 ## Managing Tokens {#manage-tokens}
 
@@ -406,6 +425,73 @@ For the gory details on how the tokens are implemented (including managing them
 outside of kubeadm) see the [Bootstrap Token
 docs](/docs/admin/bootstrap-tokens/).
 
+## Automating kubeadm
+
+Rather than copying the token you obtained from `kubeadm init` to each node, as
+in the [basic kubeadm tutorial](/docs/admin/kubeadm/), you can
+parallelize the token distribution for easier automation. To implement this
+automation, you must know the IP address that the master will have after it is
+started.
+
+1.  Generate a token. This token must have the form  `<6 character string>.<16
+    character string>`.  More formally, it must match the regex:
+    `[a-z0-9]{6}\.[a-z0-9]{16}`.
+
+    kubeadm can generate a token for you:
+
+    ```bash
+    kubeadm token generate
+    ```
+
+1. Start both the master node and the worker nodes concurrently with this token.
+   As they come up they should find each other and form the cluster.  The same
+   `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
+
+Once the cluster is up, you can grab the admin credentials from the master node
+at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
+
+## Use Kubeadm with other CRI runtimes
+
+Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
+
+Using other CRI based runtimes with kubeadm is very simple, and currently supported runtimes are:
+
+- [cri-o](https://github.com/kubernetes-incubator/cri-o)
+- [frakti](https://github.com/kubernetes/frakti)
+- [rkt](https://github.com/kubernetes-incubator/rktlet)
+
+After you have successfully installed `kubeadm` and `kubelet`, please follow these two steps:
+
+1. Install runtime shim on every node. You will need to follow the installation document in the runtime shim project listing above.
+
+2. Configure kubelet to use remote CRI runtime. Please remember to change `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
+
+```shell
+  $ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
+Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT --feature-gates=AllAlpha=true"
+EOF
+  $ systemctl daemon-reload
+```
+
+Now `kubelet` is ready to use the specified CRI runtime, and you can continue with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
+
+## Using custom certificates
+
+By default kubeadm will generate all the certificates needed for a cluster to run.
+You can override this behaviour by providing your own certificates.
+
+To do so, you must place them in whatever directory is specified by the
+`--cert-dir` flag or `CertificatesDir` configuration file key. By default this
+is `/etc/kubernetes/pki`.
+
+If a given certificate and private key pair both exist, kubeadm will skip the
+generation step and those files will be validated and used for the prescribed
+use-case.
+
+This means you can, for example, prepopulate `/etc/kubernetes/pki/ca.crt`
+and `/etc/kubernetes/pki/ca.key` with an existing CA, which then will be used
+for signing the rest of the certs.
+
 ## Running kubeadm without an internet connection
 
 All of the control plane components run in Pods started by the kubelet and
@@ -429,29 +515,6 @@ Here `v1.7.x` means the "latest patch release of the v1.7 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
-## Automating kubeadm
-
-Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the [basic kubeadm tutorial](/docs/admin/kubeadm/), you can
-parallelize the token distribution for easier automation. To implement this
-automation, you must know the IP address that the master will have after it is
-started.
-
-1.  Generate a token. This token must match the regex
-    `[a-z0-9]{6}\.[a-z0-9]{16}`.
-
-    kubeadm can generate a token for you:
-
-    ```bash
-    kubeadm token generate
-    ```
-
-1. Start both the master node and the worker nodes concurrently with this token.
-   As they come up they should find each other and form the cluster.  The same
-   `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
-
-Once the cluster is up, you can grab the admin credentials from the master node
-at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
 
 ## Cloudprovider integrations (experimental)
 
@@ -469,6 +532,9 @@ choice. If your cloudprovider requires a configuration file, create the file
 that file depends on the requirements imposed by your cloud provider. If you use
 the `/etc/kubernetes/cloud-config` file, you must append it to the kubelet
 arguments as follows: `--cloud-config=/etc/kubernetes/cloud-config`
+
+Note that there is most likely other per-provider configuration that may be needed
+(IAM roles for AWS) that is currently underdocumented.
 
 Next, specify the cloud provider in the kubeadm config file.  Create a file called
 `kubeadm.conf` with the following contents:
@@ -489,12 +555,15 @@ information) The [Kubelet Dynamic
 Settings](https://github.com/kubernetes/kubernetes/pull/29459) feature may also
 help to fully automate this process in the future.
 
+
 ## Environment variables
 
 There are some environment variables that modify the way that kubeadm works.
 Most users will have no need to set these. These environment variables are a
 short-term solution, eventually they will be integrated in the kubeadm
 configuration file.
+
+**Note:** These environment variables are deprecated and will stop function in v1.8!
 
 | Variable | Default | Description |
 | --- | --- | --- |
@@ -540,45 +609,3 @@ export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,example.com,1
 
 Remember to change `proxy_ip` and add a kube master node IP address to
 `no_proxy`.
-
-## Use Kubeadm with other CRI runtimes
-
-Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
-
-Using other CRI based runtimes with kubeadm is very simple, and currently supported runtimes are:
-
-- [cri-o](https://github.com/kubernetes-incubator/cri-o)
-- [frakti](https://github.com/kubernetes/frakti)
-- [rkt](https://github.com/kubernetes-incubator/rktlet)
-
-After you have successfully installed `kubeadm` and `kubelet`, please follow these two steps:
-
-1. Install runtime shim on every node. You will need to follow the installation document in the runtime shim project listing above.
-
-2. Configure kubelet to use remote CRI runtime. Please remember to change `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
-
-```shell
-  $ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
-Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT --feature-gates=AllAlpha=true"
-EOF
-  $ systemctl daemon-reload
-```
-
-Now `kubelet` is ready to use the specified CRI runtime, and you can continue with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
-
-## Using custom certificates
-
-By default kubeadm will generate all the certificates needed for a cluster to run.
-You can override this behaviour by providing your own certificates.
-
-To do so, you must place them in whatever directory is specified by the
-`--cert-dir` flag or `CertificatesDir` configuration file key. By default this
-is `/etc/kubernetes/pki`.
-
-If a given certificate and private key pair both exist, kubeadm will skip the
-generation step and those files will be validated and used for the prescribed
-use-case.
-
-This means you can, for example, prepopulate `/etc/kubernetes/pki/ca.crt`
-and `/etc/kubernetes/pki/ca.key` with an existing CA, which then will be used
-for signing the rest of the certs.
