@@ -23,7 +23,9 @@ Setting up an extension API server to work the aggregation layer allows the Kube
 
 ## Setup an extension api-server to work with the aggregation layer
 
-If you use an existing 3rd party solution, such as [apiserver-builder](https://github.com/Kubernetes-incubator/apiserver-builder/blob/master/README.md), it should generate a skeleton and perform all of the following steps. Alternatively, you can also look at the [sample-apiserver](https://github.com/kubernetes/sample-apiserver/blob/master/README.md) under Kubernetes for ways the following can be done.
+The following steps describe how to set up an extension-apiserver *at a high level*. For a concrete example of how they can be implemented, you can look at the [sample-apiserver](https://github.com/kubernetes/sample-apiserver/blob/master/README.md) in the Kubernetes repo.
+
+Alternatively, you can use an existing 3rd party solution, such as [apiserver-builder](https://github.com/Kubernetes-incubator/apiserver-builder/blob/master/README.md), which should generate a skeleton and automate all of the following steps for you.
 
 1. Make sure the APIService API is enabled (check `--runtime-config`). It should be on by default, unless it's been deliberately turned off in your cluster.
 1. You may need to make an RBAC rule allowing you to add APIService objects, or get your cluster administrator to make one. (Since API extensions affect the entire cluster, it is not recommended to do testing/development/debug of an API extension in a live cluster.)
