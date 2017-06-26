@@ -25,7 +25,7 @@ function copyCode(elem){
              }
              target.value = document.getElementById(elem).innerText;
          // select the content
-         target.setSelectionRange(0, target.value.length);
+         target.select();
 
          // copy the selection
          var succeed;
