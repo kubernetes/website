@@ -28,7 +28,7 @@ the stub domain suffix (e.g.; “.acme.local”) will be sent to the configured
 custom resolver. Finally, requests that do not match any of those suffixes will
 be forwarded to the upstream DNS.
 
-![DNS lookup flow](dns-custom-nameservers/dns.png)
+![DNS lookup flow](/docs/tasks/administer-cluster/dns-custom-nameservers/dns.png)
 
 ## Configuring stub-domain and upstream DNS servers
 
