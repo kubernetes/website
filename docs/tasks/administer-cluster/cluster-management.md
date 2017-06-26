@@ -66,7 +66,7 @@ The node upgrade process is user-initiated and is described in the [GKE document
 Different providers, and tools, will manage upgrades differently.  It is recommended that you consult their main documentation regarding upgrades.
 
 * [kops](https://github.com/kubernetes/kops)
-* [kargo](https://github.com/kubernetes-incubator/kargo)
+* [kubespray](https://github.com/kubernetes-incubator/kubespray)
 * [CoreOS Tectonic](https://coreos.com/tectonic/docs/latest/admin/upgrade.html)
 * ...
 
