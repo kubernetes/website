@@ -5,10 +5,10 @@ title: Local Kubernetes development with LXD
 {% capture overview %}
 ## Overview
 
-Running Kubernetes locally has obvious development advantages, such as lower cost and faster iteration than constantly deploying and tearing down clusters on a public cloud. Ideally a Kubernetes developer can spawn all the instances locally and test code as they commit. This page will show you how to deploy a cluster on a local machine.
+Running Kubernetes locally has obvious development advantages, such as lower cost and faster iteration than constantly deploying and tearing down clusters on a public cloud. Ideally, a Kubernetes developer can spawn all necessary nodes inside local containers and test new configurations as they are committed. This page will show you how to deploy a cluster to LXD containers on a local machine.
 {% endcapture %}
 
-The purpose of using [LXD](https://linuxcontainers.org/lxd/) on a local machine is to emulate the same deployment that a user would use in a cloud or bare metal. Each node is treated as a machine, with the same characteristics as production.
+The purpose of using [LXD](https://linuxcontainers.org/lxd/) on a local machine is to emulate the same deployment that a user would use in a cloud or bare metal. Each node is treated as a machine, with the same characteristics as production. Each node is a separate container, which runs Docker containers and `kubectl` inside (see [Cluster Intro](https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/) for more info).
 
 {% capture prerequisites %}
 ## Prerequisites
@@ -42,11 +42,8 @@ Next, apply those kernel parameters (you should see the above options echoed bac
 Now you're ready to install conjure-up and deploy Kubernetes.
     
 ```
-    sudo apt-add-repository ppa:juju/stable
-    sudo apt-add-repository ppa:conjure-up/next
-    sudo apt update
-    sudo apt install conjure-up
-    
+    sudo snap install conjure-up --classic
+    conjure-up kubernetes
 ```
 
 Note: During this set up phase conjure-up will ask you to "Setup an ipv6 subnet" with LXD, ensure you answer NO. ipv6 with Juju/LXD is currently unsupported.

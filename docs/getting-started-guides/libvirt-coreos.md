@@ -183,10 +183,10 @@ You can check that the Kubernetes cluster is working with:
 
 ```shell
 $ kubectl get nodes
-NAME                LABELS              STATUS
-192.168.10.2        <none>              Ready
-192.168.10.3        <none>              Ready
-192.168.10.4        <none>              Ready
+NAME                STATUS     AGE     VERSION
+192.168.10.2        Ready      4h      v1.6.0+fff5156
+192.168.10.3        Ready      4h      v1.6.0+fff5156
+192.168.10.4        Ready      4h      v1.6.0+fff5156
 ```
 
 The VMs are running [CoreOS](https://coreos.com/).

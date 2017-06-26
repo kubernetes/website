@@ -1,7 +1,7 @@
 ---
 assignees:
 - davidopp
-title: Safely Draining a Node while Respecting Application SLOs
+title: Safely Drain a Node while Respecting Application SLOs
 ---
 
 {% capture overview %}
@@ -14,7 +14,7 @@ disruption SLOs you have specified using PodDisruptionBudget.
 This task assumes that you have met the following prerequisites:
 
 * You are using Kubernetes release >= 1.5.
-* You have created [PodDisruptionBudget(s)](/docs/admin/disruptions.md) to express the
+* You have created [PodDisruptionBudget(s)](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/) to express the
 application-level disruption SLOs you want the system to enforce.
 
 {% endcapture %}
@@ -32,7 +32,7 @@ will respect the `PodDisruptionBudgets` you have specified.
 
 **Note:** By default `kubectl drain` will ignore certain system pods on the node
 that cannot be killed; see
-the [kubectl drain](/docs/user-guide/kubectl/kubectl_drain.md)
+the [kubectl drain](/docs/user-guide/kubectl/v1.6/#drain)
 documentation for more details.
 
 When `kubectl drain` returns successfully, that indicates that all of
