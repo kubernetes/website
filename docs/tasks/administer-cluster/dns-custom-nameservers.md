@@ -11,6 +11,7 @@ nameservers.
 {% endcapture %}
 
 {% capture prerequisites %}
+* {% include task-tutorial-prereqs.md %}
 * The cluster must be configured to use the `kube-dns` addon.
 {% endcapture %}
 
