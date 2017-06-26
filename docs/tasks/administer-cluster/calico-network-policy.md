@@ -1,7 +1,7 @@
 ---
 assignees:
 - caseydavenport
-title: Using Calico for NetworkPolicy
+title: Use Calico for NetworkPolicy
 redirect_from:
 - "/docs/getting-started-guides/network-policy/calico/"
 - "/docs/getting-started-guides/network-policy/calico.html"

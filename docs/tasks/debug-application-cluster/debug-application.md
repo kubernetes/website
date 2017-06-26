@@ -2,7 +2,7 @@
 assignees:
 - mikedanese
 - thockin
-title: Troubleshooting Applications
+title: Troubleshoot Applications
 redirect_from:
 - "/docs/user-guide/application-troubleshooting/"
 - "/docs/user-guide/application-troubleshooting.html"

@@ -3,7 +3,7 @@
 assignees:
 - cdrage
 
-title: Translating a Docker Compose File to Kubernetes Resources
+title: Translate a Docker Compose File to Kubernetes Resources
 redirect_from:
 - "/docs/tools/kompose/"
 - "/docs/tools/kompose/index.html"

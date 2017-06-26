@@ -1,5 +1,5 @@
 ---
-title: Limiting Storage Consumption
+title: Limit Storage Consumption
 redirect_from:
 - "/docs/admin/resourcequota/limitstorageconsumption/"
 - "/docs/admin/resourcequota/limitstorageconsumption.html"

@@ -13,6 +13,7 @@ This page shows how to use install kubeadm.
 * One or more machines running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+
 * 1GB or more of RAM per machine (any less will leave little room for your apps)
 * Full network connectivity between all machines in the cluster (public or private network is fine)
+* Unique MAC address and product_uuid for every node
 
 {% endcapture %}
 
@@ -26,7 +27,7 @@ Versions 1.13 and 17.03+ have not yet been tested and verified by the Kubernetes
 For installation instructions, see
 [Install Docker](https://docs.docker.com/engine/installation/).
 
-## Installing kubectl 
+## Installing kubectl
 
 On each of your machines,
 [install kubectl](/docs/tasks/tools/install-kubectl/).
@@ -50,7 +51,7 @@ releases](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
 For each machine:
 
 * SSH into the machine and become root if you are not already (for example,
-  run `sudo su -`).
+  run `sudo -i`).
 
 * If the machine is running Ubuntu or HypriotOS, run:
 
@@ -100,7 +101,7 @@ details.
 
 {% capture whatsnext %}
 
-* [Installing Kubernetes on Linux with kubeadm](/docs/getting-started-guides/kubeadm/)
+* [Using kubeadm to Create a Cluster](/docs/getting-started-guides/kubeadm/)
 
 {% endcapture %}
 
