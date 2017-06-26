@@ -415,7 +415,7 @@ control of your Kubernetes cluster.
 
 kubeadm deb/rpm packages and binaries are built for amd64, arm64, armhfp,
 ppc64el, and s390x following the [multi-platform
-proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/multi-platform.md).
+proposal](https://git.k8s.io/community/contributors/design-proposals/multi-platform.md).
 
 Currently, only the pod networks flannel and Weave Net work on multiple architectures.
 For Weave Net just use its [standard install](https://www.weave.works/docs/net/latest/kube-addon/).
