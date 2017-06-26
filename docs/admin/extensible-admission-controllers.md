@@ -10,19 +10,19 @@ title: Extending admission controllers
 * TOC
 {:toc}
 
-## The plugin-style admission controllers are not flexible enough
+## Overview
 
-[Using Admission Controllers documentation](/doc/admin/admission-controllers.md) introduces how to use the plugin-style admission controllers.The plugin admission controllers need to be compiled in-tree, and are only configurable when the apiserver starts up.
+[Using Admission Controllers documentation](/doc/admin/admission-controllers.md) introduces how to use standard, plugin-style admission controllers.However, plugin admission controllers are not flexible enough for all use cases, due to the following:
+* They need to be compiled in-tree
+* They are only configurable when the apiserver starts up.
 
-## How do I extend admission controllers?
+1.7 introduces two alpha features, *Initializers* and *External Admission Hooks*, that address these limitations. These features allow admission controllers to be developed out-of-tree and configured at runtime.
 
-In 1.7, we introduce two alpha features, *Initializers* and *External Admission Hooks*, they allow admission controllers to be developed out-of-tree and to be configured at runtime.
-
-We will first describe initializers and then describe external admission hooks.
+This page describes how to use Initializers and External Admission Hooks.
 
 ## Initializers
 
-###what are they?
+### what are initializers?
 * muntating AC; called in serial
 * a plugin-style initializer admission controller sets the default list of initializers for objects in the CREATE request. The default list of initializers can be dynamically configured via `InitializersConfiguration`, see XXX
 * an `initializer agent` is the worker that mutates the objects. is a controller watch for objects with `metadata.finalizers[0]==<initializer id>`
@@ -31,32 +31,21 @@ We will first describe initializers and then describe external admission hooks.
 
 ### When are initializers called?
 
-## External Admission Webhooks (assigned to @whitlockjc)
+TODO: Explain the plugin "Initializer" admission controller
 
-###What are they? (assigned to @whitlockjc)
-External webhook: non-mutating, called in parallel
+### Enable initializers alpha feature
 
-### When are they called? (assigned to @whitlockjc)
+Initializers is an alpha feature, which is disabled by default. To turn it on, you need to
 
-AdmissionChain, depends on the admission-controller-config
-
-Recommended plug-in order:
-???
-```
---admission-control=Initializer,NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds,GenericAdmissionWebhook"
-```
-
-## How to enable initializers and external admission webhooks?
-
-Initializers and External Admission Webhooks are alpha features, which are disabled by default. To turn them on, you need to
-
-* include "Initializer" and "GenericAdmissionWebhook" in the `--admission-control` flag when starting the apiserver. If you are using HA-master or aggregated apiservers, you need to do so for each apiserver.
+* include "Initializer" in the `--admission-control` flag when starting the apiserver. If you are using HA-master or aggregated apiservers, you need to do so for each apiserver.
 
 * enable the dynamic admission controller registration API by setting `--runtime-config=admissionregistration.k8s.io/v1alpha1` when starts the kube-apiserver.
 
-## How to write an initializer (@Clayton)
-## How to deploy an initializer (@Clayton)
-## How to configure initializers on the fly?
+### Write an initializer controller (@Clayton)
+
+### Deploy an initializer (@Clayton)
+
+### Configure initializers on the fly
 
 You can configure what initializers are enabled and what resources are subject to the initializers via creating initiallizerconfigurations.
 
@@ -84,13 +73,39 @@ spec:
             - pods
 ```
 
-For a Create request received by the apiserver, if the request matches any of the `rules` of an initializer, the `Initializer` admission controller will add the initializer to the `metadate.initializers` field of the created object, thus the initializer controller will notice the creation and initialize the object.
+For a Create request received by the apiserver, if the request matches any of the `rules` of an initializer, the `Initializer` admission controller will add the initializer to the `metadata.initializers` field of the created object. Thus the initializer controller will notice the creation and initialize the object.
 
-It is recommended to make sure that all expansions of the `<apiGroup, apiVersions,resources>` tuple in a `rule` are valid; if they are not, separate them to different `rules`.
+Make sure that all expansions of the `<apiGroup, apiVersions,resources>` tuple in a `rule` are valid; if they are not, separate them to different `rules`.
 
-After you create the initializerConfiguration, please give the system a few seconds to honor the new configuration.
+After you create the `initializerConfiguration`,  the system will take a few seconds to honor the new configuration.
 
-## How to write a webhook admission controller?
+## External Admission Webhooks (assigned to @whitlockjc)
+
+### What are admission webhooks? (assigned to @whitlockjc)
+External webhook: non-mutating, called in parallel
+
+### When are they called? (assigned to @whitlockjc)
+
+TODO: explain the "GenericAdmissionWebhook" plugin admission controller
+
+AdmissionChain, depends on the admission-controller-config
+
+Recommended plug-in order:
+???
+```
+--admission-control=Initializer,NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds,GenericAdmissionWebhook"
+```
+
+### Enable external admission webhooks
+
+External Admission Webhooks is an alpha feature, which is disabled by default. To turn it on, you need to
+
+* include "GenericAdmissionWebhook" in the `--admission-control` flag when starting the apiserver. If you are using HA-master or aggregated apiservers, you need to do so for each apiserver.
+
+* enable the dynamic admission controller registration API by setting `--runtime-config=admissionregistration.k8s.io/v1alpha1` when starts the kube-apiserver.
+
+
+### Write a webhook admission controller
 
 ***TODO: find a home for the example***
 See (https://github.com/caesarxuchao/example-webhook-admission-controller) for an example webhook admission controller.
@@ -100,14 +115,14 @@ The communication between the webhook admission controller and the apiserver, or
 ***TODO: link to admissionReview api doc when there is one***
 For each request received by the apiserver, the GenericAdmissionWebhook admission controller sends an `admissionReview` to the relevant webhook admission controller. The webhook admission controller gathers information like `object`, `oldobject`, and `userInfo`, from `admissionReview.spec`, sends back a response with the body also being the `admissionReview`, whose `status` field is filled with the admission decision.
 
-## How to deploy the webhook admission controller?
+### Deploy the webhook admission controller
 
 ***TODO: find a home for the example***
 See (https://github.com/caesarxuchao/example-webhook-admission-controller/tree/master/deployment) for an example deployment.
 
 We suggest that deploying the webhook admission controller via the [deployment API](https://kubernetes.io/docs/api-reference/v1.6/#deployment-v1beta1-apps). You also need to create a [service](https://kubernetes.io/docs/api-reference/v1.6/#service-v1-core) as the front-end of the deployment.
 
-## How to configure webhook admission controller on the fly?
+### Configure webhook admission controller on the fly
 
 You can configure what webhook admission controller are enabled and what resources are subject to the admission controller via creating externaladmissionhookconfigurations.
 
@@ -145,8 +160,8 @@ The `rule` is similar to the `rule` in `initializerConfiguration`, with two diff
 * the addition of the `operations` field, specifying what operations the webhook is interested in;
 * the `resources` field accepts subresources in the form or resource/subresource.
 
-It is recommended to make sure that all expansions of the `<apiGroup, apiVersions,resources>` tuple in a `rule` are valid; if they are not, separate them to different `rules`.
+Make sure that all expansions of the `<apiGroup, apiVersions,resources>` tuple in a `rule` are valid; if they are not, separate them to different `rules`.
 
 You can also specify the `failurePolicy`. In 1.7, the system supports `Ignore` and `Fail` policies, meaning upon an communication error with the webhook admission controller, if the `GenericAdmissionWebhook` will admit or reject the operation.
 
-After you create the initializerConfiguration, please give the system a few seconds to honor the new configuration.
+After you create the `initializerConfiguration`,  the system will take a few seconds to honor the new configuration.
