@@ -8,7 +8,7 @@ assignees:
 
 {% capture overview %}
 
-Configuring the aggregation layer allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
+Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
 
 {% endcapture %}
 
@@ -43,7 +43,7 @@ The [Kubernetes Architectural Roadmap](https://docs.google.com/a/google.com/docu
 {% capture whatsnext %}
 
 * [Setup an extension api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) to work with the aggregation layer.
-* For a high level overview, see [Extending the Kubernetes API with Aggregator](/docs/concepts/api-extension/apiserver-aggregation/).
+* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/).
 * Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 
 {% endcapture %}
