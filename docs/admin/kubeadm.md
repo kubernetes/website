@@ -448,7 +448,7 @@ Remember to change `proxy_ip` and add a kube master node IP address to
 
 ## Use Kubeadm with other CRI runtimes
 
-Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
+Since [Kubernetes 1.6 release](https://git.k8s.io/kubernetes/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
 
 Using other CRI based runtimes with kubeadm is very simple, and currently supported runtimes are:
 
@@ -494,5 +494,5 @@ If you already have kubeadm installed and want to upgrade, run `apt-get update
 && apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
 Refer to the
-[CHANGELOG.md](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
+[CHANGELOG.md](https://git.k8s.io/kubeadm/CHANGELOG.md)
 for more information.

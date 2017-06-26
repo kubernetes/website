@@ -24,7 +24,7 @@ To install Kubernetes on a set of machines, consult one of the existing [Getting
 
 ## Upgrading a cluster
 
-The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
+The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
 
 * [Upgrading to 1.6](/docs/admin/upgrade-1-6)
 
