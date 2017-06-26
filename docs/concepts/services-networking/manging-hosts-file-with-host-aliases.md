@@ -49,7 +49,7 @@ Suppose we need to add additional entries to the hosts file to resolve `foo.loca
 
 The hosts file content would look like this:
 ```
-$ kubectl exec nginx -- cat /etc/hosts
+$ kubectl logs hostaliases-pod
 # Kubernetes-managed hosts file.
 127.0.0.1	localhost
 ::1	localhost ip6-localhost ip6-loopback
