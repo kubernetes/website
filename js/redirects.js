@@ -83,7 +83,7 @@ $( document ).ready(function() {
     },
     {
         "from": "/docs/getting-started-guides/meanstack/",
-        "to": "https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-app-engine-and-mongolab-4bbd2040ea75"
+        "to": "https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-kubernetes-149ca81c2b5d"
     },
     {
         "from": "/docs/samples/",
