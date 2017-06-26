@@ -12,6 +12,7 @@ nameservers.
 
 {% capture prerequisites %}
 * {% include task-tutorial-prereqs.md %}
+* Kubernetes version 1.6 and above.
 * The cluster must be configured to use the `kube-dns` addon.
 {% endcapture %}
 
@@ -85,8 +86,8 @@ using the dnsPolicy flag: “Default” and “ClusterFirst”. If dnsPolicy is 
 explicitly specified, then “ClusterFirst” is used:
 
 If dnsPolicy is set to “Default”, then the name resolution configuration is
-inherited from the node the pods run on. Note: this feature cannot be used in
-conjunction with dnsPolicy: “Default”.
+inherited from the node the pods run on. Note: custom upstream nameservers and
+stub domains cannot be used in conjunction with dnsPolicy: “Default”.
 
 If dnsPolicy is set to “ClusterFirst”, then DNS queries will be sent to the
 kube-dns service. Queries for domains rooted in the configured cluster domain
