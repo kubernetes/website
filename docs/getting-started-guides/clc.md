@@ -269,11 +269,11 @@ distributed with OSX.
 ### Accessing the cluster with a browser
 
 We install two UIs on Kubernetes. The original KubeUI and [the newer kube
-dashboard](/docs/user-guide/ui/). When you create a cluster, the script should output URLs for these
+dashboard](/docs/tasks/web-ui-dashboard/). When you create a cluster, the script should output URLs for these
 interfaces like this:
 
-KubeUI is running at ```https://${MASTER_IP}:6443/api/v1/proxy/namespaces/kube-system/services/kube-ui```
-kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/proxy/namespaces/kube-system/services/kubernetes-dashboard```
+KubeUI is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kube-ui/proxy```
+kubernetes-dashboard is running at ```https://${MASTER_IP}:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy```
 
 Note on Authentication to the UIs: The cluster is set up to use basic
 authentication for the user _admin_.   Hitting the url at
@@ -316,14 +316,14 @@ the necessary certificates and serve locally over http.
 kubectl proxy -p 8001
 ```
 
-Then, you can access urls like ```http://127.0.0.1:8001/api/v1/proxy/namespaces/kube-system/services/kube-ui/``` without the need for client certificates in your browser.
+Then, you can access urls like ```http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kube-ui/proxy/``` without the need for client certificates in your browser.
 
 
 ## What Kubernetes features do not work on CenturyLink Cloud
 
 These are the known items that don't work on CenturyLink cloud but do work on other cloud providers:
 
-- At this time, there is no support services of the type [LoadBalancer](/docs/user-guide/load-balancer/). We are actively working on this and hope to publish the changes sometime around April 2016.
+- At this time, there is no support services of the type [LoadBalancer](/docs/tasks/access-application-cluster/create-external-load-balancer/). We are actively working on this and hope to publish the changes sometime around April 2016.
 
 - At this time, there is no support for persistent storage volumes provided by
   CenturyLink Cloud. However, customers can bring their own persistent storage

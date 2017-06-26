@@ -13,7 +13,7 @@ In this doc, we introduce the Kubernetes command line for interacting with the a
 
 #### docker run
 
-How do I run an nginx Deployment and expose it to the world? Checkout [kubectl run](/docs/user-guide/kubectl/kubectl_run).
+How do I run an nginx Deployment and expose it to the world? Checkout [kubectl run](/docs/user-guide/kubectl/v1.6/#run).
 
 With docker:
 
@@ -34,7 +34,7 @@ deployment "nginx-app" created
 ```
 
 `kubectl run` creates a Deployment named "nginx-app" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/v1.6/#run) for more details. 
 Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. Now, we can expose a new Service with the deployment created above:
 
 ```shell
@@ -43,7 +43,7 @@ $ kubectl expose deployment nginx-app --port=80 --name=nginx-http
 service "nginx-http" exposed
 ```
 
-With kubectl, we create a [Deployment](/docs/user-guide/deployments) which will make sure that N pods are running nginx (where N is the number of replicas stated in the spec, which defaults to 1). We also create a [service](/docs/user-guide/services) with a selector that matches the Deployment's selector. See the [Quick start](/docs/user-guide/quick-start) for more information.
+With kubectl, we create a [Deployment](/docs/concepts/workloads/controllers/deployment/) which will make sure that N pods are running nginx (where N is the number of replicas stated in the spec, which defaults to 1). We also create a [service](/docs/user-guide/services) with a selector that matches the Deployment's selector. See the [Quick start](/docs/user-guide/quick-start) for more information.
 
 By default images are run in the background, similar to `docker run -d ...`, if you want to run things in the foreground, use:
 
@@ -58,7 +58,7 @@ To destroy the Deployment (and its pods) you need to run `kubectl delete deploym
 
 #### docker ps
 
-How do I list what is currently running? Checkout [kubectl get](/docs/user-guide/kubectl/kubectl_get).
+How do I list what is currently running? Checkout [kubectl get](/docs/user-guide/kubectl/v1.6/#get).
 
 With docker:
 
@@ -78,7 +78,7 @@ nginx-app-5jyvm   1/1       Running   0          1h
 
 #### docker attach
 
-How do I attach to a process that is already running in a container?  Checkout [kubectl attach](/docs/user-guide/kubectl/kubectl_attach)
+How do I attach to a process that is already running in a container?  Checkout [kubectl attach](/docs/user-guide/kubectl/v1.6/#attach)
 
 With docker:
 
@@ -86,7 +86,7 @@ With docker:
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                         NAMES
 a9ec34d98787        nginx               "nginx -g 'daemon of   8 minutes ago       Up 8 minutes        0.0.0.0:80->80/tcp, 443/tcp   nginx-app
-$ docker attach -it a9ec34d98787
+$ docker attach a9ec34d98787
 ...
 ```
 
@@ -102,7 +102,7 @@ $ kubectl attach -it nginx-app-5jyvm
 
 #### docker exec
 
-How do I execute a command in a container? Checkout [kubectl exec](/docs/user-guide/kubectl/kubectl_exec).
+How do I execute a command in a container? Checkout [kubectl exec](/docs/user-guide/kubectl/v1.6/#exec).
 
 With docker:
 
@@ -141,11 +141,11 @@ $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-For more information see [Getting into containers](/docs/user-guide/getting-into-containers).
+For more information see [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/).
 
 #### docker logs
 
-How do I follow stdout/stderr of a running process? Checkout [kubectl logs](/docs/user-guide/kubectl/kubectl_logs).
+How do I follow stdout/stderr of a running process? Checkout [kubectl logs](/docs/user-guide/kubectl/v1.6/#logs).
 
 
 With docker:
@@ -172,11 +172,11 @@ $ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-See [Logging Overview](/docs/user-guide/logging/overview) for more information.
+See [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/) for more information.
 
 #### docker stop and docker rm
 
-How do I stop and delete a running process? Checkout [kubectl delete](/docs/user-guide/kubectl/kubectl_delete).
+How do I stop and delete a running process? Checkout [kubectl delete](/docs/user-guide/kubectl/v1.6/#delete).
 
 With docker
 
@@ -209,11 +209,11 @@ Notice that we don't delete the pod directly. With kubectl we want to delete the
 
 #### docker login
 
-There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/user-guide/images/#using-a-private-registry).
+There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 
 #### docker version
 
-How do I get the version of my client and server? Checkout [kubectl version](/docs/user-guide/kubectl/kubectl_version).
+How do I get the version of my client and server? Checkout [kubectl version](/docs/user-guide/kubectl/v1.6/#version).
 
 With docker:
 
@@ -241,7 +241,7 @@ Server Version: version.Info{Major:"0", Minor:"21+", GitVersion:"v0.21.1-411-g32
 
 #### docker info
 
-How do I get miscellaneous info about my environment and configuration? Checkout [kubectl cluster-info](/docs/user-guide/kubectl/kubectl_cluster-info).
+How do I get miscellaneous info about my environment and configuration? Checkout [kubectl cluster-info](/docs/user-guide/kubectl/v1.6/#cluster-info).
 
 With docker:
 
@@ -270,9 +270,9 @@ With kubectl:
 ```shell
 $ kubectl cluster-info
 Kubernetes master is running at https://108.59.85.141
-KubeDNS is running at https://108.59.85.141/api/v1/proxy/namespaces/kube-system/services/kube-dns
-KubeUI is running at https://108.59.85.141/api/v1/proxy/namespaces/kube-system/services/kube-ui
-Grafana is running at https://108.59.85.141/api/v1/proxy/namespaces/kube-system/services/monitoring-grafana
-Heapster is running at https://108.59.85.141/api/v1/proxy/namespaces/kube-system/services/monitoring-heapster
-InfluxDB is running at https://108.59.85.141/api/v1/proxy/namespaces/kube-system/services/monitoring-influxdb
+KubeDNS is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kube-dns/proxy
+KubeUI is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kube-ui/proxy
+Grafana is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+Heapster is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
+InfluxDB is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```

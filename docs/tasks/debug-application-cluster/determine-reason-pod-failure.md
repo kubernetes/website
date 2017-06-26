@@ -13,7 +13,7 @@ be easily retrieved and surfaced by tools like dashboards
 and monitoring software. In most cases, information that you
 put in a termination message should also be written to
 the general
-[Kubernetes logs](/docs/user-guide/logging/).
+[Kubernetes logs](/docs/concepts/cluster-administration/logging/).
 
 {% endcapture %}
 
@@ -37,7 +37,7 @@ the container starts.
 
 1. Create a Pod based on the YAML configuration file:
 
-        kubectl create -f http://k8s.io/docs/tasks/debug-application-cluster/termination.yaml
+        kubectl create -f https://k8s.io/docs/tasks/debug-application-cluster/termination.yaml
 
     In the YAML file, in the `cmd` and `args` fields, you can see that the
     container sleeps for 10 seconds and then writes "Sleep expired" to
@@ -100,8 +100,8 @@ Set `terminationMessagePath` as shown here:
 {% capture whatsnext %}
 
 * See the `terminationMessagePath` field in
-  [Container](/docs/api-reference/v1/definitions#_v1_container).
-* Learn about [retrieving logs](/docs/user-guide/logging/).
+  [Container](/docs/api-reference/v1.6/#container-v1-core).
+* Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
 * Learn about [Go templates](https://golang.org/pkg/text/template/).
 
 {% endcapture %}

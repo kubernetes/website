@@ -39,23 +39,23 @@ In the above, stable is synonymous with persistence across Pod (re)schedulings.
 If an application doesn't require any stable identifiers or ordered deployment, 
 deletion, or scaling, you should deploy your application with a controller that 
 provides a set of stateless replicas. Controllers such as 
-[Deployment](/docs/user-guide/deployments/) or 
-[ReplicaSet](/docs/user-guide/replicasets/) may be better suited to your stateless needs.
+[Deployment](/docs/concepts/workloads/controllers/deployment/) or 
+[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
 
 ## Limitations
 * StatefulSet is a beta resource, not available in any Kubernetes release prior to 1.5.
 * As with all alpha/beta resources, you can disable StatefulSet through the `--runtime-config` option passed to the apiserver.
 * The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
-* StatefulSets currently require a [Headless Service](/docs/user-guide/services/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
-* Updating an existing StatefulSet is currently a manual process.
+* StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
+* Updating an existing StatefulSet is currently a [manual process](/docs/tutorials/stateful-application/basic-stateful-set/#updating-containers).
 
 ## Components
 The example below demonstrates the components of a StatefulSet. 
 
 * A Headless Service, named nginx, is used to control the network domain. 
 * The StatefulSet, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/user-guide/volumes/) provisioned by a 
+* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/volumes/) provisioned by a 
  PersistentVolume Provisioner.
 
 ```yaml
@@ -99,6 +99,8 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: www
+      annotations:
+        volume.beta.kubernetes.io/storage-class: anything
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
@@ -122,10 +124,10 @@ Each Pod in a StatefulSet derives its hostname from the name of the StatefulSet
 and the ordinal of the Pod. The pattern for the constructed hostname 
 is `$(statefulset name)-$(ordinal)`. The example above will create three Pods 
 named `web-0,web-1,web-2`.
-A StatefulSet can use a [Headless Service](/docs/user-guide/services/#headless-services)
+A StatefulSet can use a [Headless Service](/docs/concepts/services-networking/service/#headless-services)
 to control the domain of its Pods. The domain managed by this Service takes the form: 
 `$(service name).$(namespace).svc.cluster.local`, where "cluster.local" 
-is the [cluster domain](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it). 
+is the [cluster domain](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md). 
 As each Pod is created, it gets a matching DNS subdomain, taking the form: 
 `$(podname).$(governing service domain)`, where the governing service is defined 
 by the `serviceName` field on the StatefulSet.
@@ -140,11 +142,11 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 Note that Cluster Domain will be set to `cluster.local` unless 
-[otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it).
+[otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).
 
 ### Stable Storage
 
-Kubernetes creates one [PersistentVolume](/docs/user-guide/volumes/) for each 
+Kubernetes creates one [PersistentVolume](/docs/concepts/storage/volumes/) for each 
 VolumeClaimTemplate. In the nginx example above, each Pod will receive a single PersistentVolume 
 with a storage class of `anything` and 1 Gib of provisioned storage. When a Pod is (re)scheduled 
 onto a node, its `volumeMounts` mount the PersistentVolumes associated with its 
@@ -159,7 +161,7 @@ This must be done manually.
 * Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready. 
 * Before a Pod is terminated, all of its successors must be completely shutdown.
 
-The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. This practice is unsafe and strongly discouraged. For further explanation, please refer to [force deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/#deleting-pods).
+The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. This practice is unsafe and strongly discouraged. For further explanation, please refer to [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
 When the nginx example above is created, three Pods will be deployed in the order 
 web-0, web-1, web-2. web-1 will not be deployed before web-0 is 

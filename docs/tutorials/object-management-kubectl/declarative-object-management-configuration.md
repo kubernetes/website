@@ -64,18 +64,18 @@ configuration file that was used to create the object.
 
 Here's an example of an object configuration file:
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/simple_deployment.yaml" %}
+{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/simple_deployment.yaml" %}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -89,7 +89,7 @@ metadata:
     # This is the json representation of simple_deployment.yaml
     # It was written by kubectl apply when the object was created
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
@@ -132,12 +132,12 @@ kubectl apply -f <directory>/
 
 Here's an example configuration file:
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/simple_deployment.yaml" %}
+{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/simple_deployment.yaml" %}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
 ```
 
 **Note:** For purposes of illustration, the preceding command refers to a single
@@ -146,7 +146,7 @@ configuration file instead of a directory.
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `kubectl.kubernetes.io/last-applied-configuration` annotation
@@ -160,7 +160,7 @@ metadata:
     # This is the json representation of simple_deployment.yaml
     # It was written by kubectl apply when the object was created
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
@@ -197,14 +197,14 @@ kubectl scale deployment/nginx-deployment --replicas 2
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
 annotation does not contain a `replicas` field:
 
 ```
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   annotations:
@@ -212,7 +212,7 @@ metadata:
     # note that the annotation does not contain replicas
     # because it was not updated through apply
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
@@ -240,18 +240,18 @@ spec:
 Update the `simple_deployment.yaml` configuration file to change the image from
 `nginx:1.7.9` to `nginx:1.11.9`, and delete the `minReadySeconds` field:
 
-{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/concepts/tools/update_deployment.yaml" %}
+{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/update_deployment.yaml" %}
 
 Apply the changes made to the configuration file:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/update_deployment.yaml
+kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/update_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
@@ -264,7 +264,7 @@ The output shows the following changes to the live configuration:
 - The `last-applied-configuration` annotation no longer contains the `minReadySeconds` field.
 
 ```shell
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   annotations:
@@ -272,7 +272,7 @@ metadata:
     # The annotation contains the updated image to nginx 1.11.9,
     # but does not contain the updated replicas to 2
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
@@ -305,22 +305,18 @@ spec:
 and `replace` do not retain the `kubectl.kubernetes.io/last-applied-configuration`
 that `kubectl apply` uses to compute updates.
 
-**Warning**: As of Kubernetes 1.5, the `kubectl edit` command is
-incompatible with `kubectl apply`, and the two should not be
-used together.
-
 ## How to delete objects
 
 There are two approaches to delete objects managed by `kubectl apply`.
 
-### Recommended: `delete -f <filename>`
+### Recommended: `kubectl delete -f <filename>`
 
 Manually deleting objects using the imperative command is the recommended
 approach, as it is more explicit about what is being deleted, and less likely
 to result in the user deleting something unintentionally:
 
 ```shell
-delete -f <filename>
+kubectl delete -f <filename>
 ```
 
 ### Alternative: `kubectl apply -f <directory/> --prune -l your=label`
@@ -383,19 +379,19 @@ The `kubectl apply` command writes the contents of the configuration file to the
 `kubectl.kubernetes.io/last-applied-configuration` annotation. This
 is used to identify fields that have been removed from the configuration
 file and need to be cleared from the live configuration. Here are the steps used
-to caluculate which fields should be deleted or set:
+to calculate which fields should be deleted or set:
 
 1. Calculate the fields to delete. These are the fields present in `last-applied-configuration` and missing from the configuration file.
 2. Calculate the fields to add or set. These are the fields present in the configuration file whose values don't match the live configuration.
 
 Here's an example. Suppose this is the configuration file for a Deployment object:
 
-{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/concepts/tools/update_deployment.yaml" %}
+{% include code.html language="yaml" file="update_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/update_deployment.yaml" %}
 
 Also, suppose this is the live configuration for the same Deployment object:
 
 ```shell
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   annotations:
@@ -403,7 +399,7 @@ metadata:
     # note that the annotation does not contain replicas
     # because it was not updated through apply
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
@@ -446,7 +442,7 @@ Here are the merge calculations that would be performed by `kubectl apply`:
 Here is the live configuration that is the result of the merge:
 
 ```shell
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   annotations:
@@ -454,7 +450,7 @@ metadata:
     # The annotation contains the updated image to nginx 1.11.9,
     # but does not contain the updated replicas to 2
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"extensions/v1beta1","kind":"Deployment",
+      {"apiVersion":"apps/v1beta1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"template":{"metadata":{"labels":{"app":"nginx"}},
       "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
@@ -675,25 +671,25 @@ not specified when the object is created.
 
 Here's a configuration file for a Deployment. The file does not specify `strategy` or `selector`:
 
-{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/concepts/tools/simple_deployment.yaml" %}
+{% include code.html language="yaml" file="simple_deployment.yaml" ghlink="/docs/tutorials/object-management-kubectl/simple_deployment.yaml" %}
 
 Create the object using `kubectl apply`:
 
 ```shell
-kubectl apply -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml
+kubectl apply -f https://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml
 ```
 
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f http://k8s.io/docs/concepts/tools/kubectl/simple_deployment.yaml -o yaml
+kubectl get -f http://k8s.io/docs/tutorials/object-management-kubectl/simple_deployment.yaml -o yaml
 ```
 
 The output shows that the API server set several fields to default values in the live
 configuration. These fields were not specified in the configuration file.
 
 ```shell
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 # ...
 spec:
@@ -948,14 +944,14 @@ template:
 ## Support for ThirdPartyResources
 
 As of Kubernetes 1.5, ThirdPartyResources are not supported by `kubectl apply`.
-The recommended approach for ThirdPartyResources is to use [imperative object configuration](/docs/concepts/tools/kubectl/object-management-using-imperative-config/).
+The recommended approach for ThirdPartyResources is to use [imperative object configuration](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/).
 {% endcapture %}
 
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)
+- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.6/)
 {% endcapture %}
 
 {% include templates/concept.md %}

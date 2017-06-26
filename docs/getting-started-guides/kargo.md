@@ -2,10 +2,6 @@
 title: Installing Kubernetes On-premise/Cloud Providers with Kargo
 ---
 
-<style>
-li>.highlighter-rouge {position:relative; top:3px;}
-</style>
-
 ## Overview
 
 This quickstart helps to install a Kubernetes cluster hosted
@@ -47,7 +43,7 @@ to [kubeadm](../kubeadm) and [kops](../kops).
 * Customize your deployment by usual Ansible meanings, which is
   [generating inventory](https://github.com/kubernetes-incubator/kargo/blob/master/docs/getting-started.md#building-your-own-inventory)
   and overriding default data [variables](https://github.com/kubernetes-incubator/kargo/blob/master/docs/vars.md).
-  Or just stick with default values (Kargo will choose Flannel networking plugin for you
+  Or just stick with default values (Kargo will choose Calico networking plugin for you
   then). This includes steps like deciding on the:
   * DNS [configuration options](https://github.com/kubernetes-incubator/kargo/blob/master/docs/dns-stack.md)
   * [Networking plugin](https://github.com/kubernetes-incubator/kargo#network-plugins) to use
@@ -77,7 +73,7 @@ to [kubeadm](../kubeadm) and [kops](../kops).
 
 #### Checklist
 
-* Enusre the netchecker-agent's pods can resolve DNS requests and ping each over within the default namespace.
+* Ensure the netchecker-agent's pods can resolve DNS requests and ping each over within the default namespace.
   Those pods mimic similar behavior of the rest of the workloads and serve as cluster health indicators.
 
 ## Explore contributed add-ons

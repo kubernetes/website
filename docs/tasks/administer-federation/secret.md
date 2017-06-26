@@ -1,5 +1,8 @@
 ---
 title: Federated Secrets
+redirect_from:
+- "/docs/user-guide/federation/secrets/"
+- "/docs/user-guide/federation/secrets.html"
 ---
 
 This guide explains how to use secrets in Federation control plane.
@@ -19,13 +22,13 @@ by Kelsey Hightower, are also available to help you.
 
 You are also expected to have a basic
 [working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and [Secrets](/docs/user-guide/secrets/) in particular.
+general and [Secrets](/docs/concepts/configuration/secret/) in particular.
 
 ## Overview
 
 Secrets in federation control plane (referred to as "federated secrets" in
 this guide) are very similar to the traditional [Kubernetes
-Secrets](/docs/user-guide/secrets/) providing the same functionality.
+Secrets](/docs/concepts/configuration/secret/) providing the same functionality.
 Creating them in the federation control plane ensures that they are synchronized
 across all the clusters in federation.
 

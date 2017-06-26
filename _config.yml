@@ -1,5 +1,6 @@
 name: Kubernetes
 title: Kubernetes
+url: https://kubernetes.io
 description: Production-Grade Container Orchestration
 markdown: kramdown
 kramdown:
@@ -17,7 +18,8 @@ defaults:
     scope:
       path: ""
     values:
-      version: "v1.5.1"
+      fullversion: "v1.6.3"
+      version: "v1.6"
       githubbranch: "master"
       docsbranch: "master"
   -
@@ -41,14 +43,16 @@ logo: /images/favicon.png
 twitter:
   username: kubernetesio
 
+# empty array for tabs
+emptyArray: []
+
 # Tables of contents, stored in the _data folder, that control the sidebar nav
 tocs:
   - docs-home
-  - guides
-  - tutorials
+  - setup
   - tasks
+  - tutorials
   - concepts
   - reference
-  - tools
   - samples
-  - support
+  - search

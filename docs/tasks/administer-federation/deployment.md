@@ -1,39 +1,34 @@
 ---
 title: Federated Deployment
+redirect_from:
+- "/docs/user-guide/federation/deployment/"
+- "/docs/user-guide/federation/deployment.html"
 ---
 
+{% capture overview %}
 This guide explains how to use Deployments in the Federation control plane.
 
-* TOC
-{:toc}
-
-## Prerequisites
-
-This guide assumes that you have a running Kubernetes Cluster
-Federation installation. If not, then head over to the
-[federation admin guide](/docs/admin/federation/) to learn how to
-bring up a cluster federation (or have your cluster administrator do
-this for you).
-Other tutorials, such as Kelsey Hightower's 
-[Federated Kubernetes Tutorial](https://github.com/kelseyhightower/kubernetes-cluster-federation),
-might also help you create a Federated Kubernetes cluster.
-
-You should also have a basic
-[working knowledge of Kubernetes](/docs/getting-started-guides/) in
-general and [Deployment](/docs/user-guide/deployments) in particular.
-
-## Overview
-
-Deployments in federation control plane (referred to as "Federated Deployments" in
+Deployments in the federation control plane (referred to as "Federated Deployments" in
 this guide) are very similar to the traditional [Kubernetes
-Deployment](/docs/user-guide/deployments/), and provide the same functionality.
+Deployment](/docs/concepts/workloads/controllers/deployment/) and provide the same functionality.
 Creating them in the federation control plane ensures that the desired number of
 replicas exist across the registered clusters.
 
 **As of Kubernetes version 1.5, Federated Deployment is an Alpha feature. The core 
 functionality of Deployment is present, but some features 
 (such as full rollout compatibility) are still in development.**
+{% endcapture %}
 
+{% capture prerequisites %}
+
+* {% include federated-task-tutorial-prereqs.md %}
+* You should also have a basic
+[working knowledge of Kubernetes](/docs/setup/pick-right-solution/) in
+general and [Deployments](/docs/concepts/workloads/controllers/deployment/) in particular.
+
+{% endcapture %}
+
+{% capture steps %}
 ## Creating a Federated Deployment
 
 The API for Federated Deployment is compatible with the
@@ -69,7 +64,7 @@ Federated Deployment.
 
 ### Spreading Replicas in Underlying Clusters
 
-By default, replicas are spread equally in all the underlying clusters. For ex:
+By default, replicas are spread equally in all the underlying clusters. For example:
 if you have 3 registered clusters and you create a Federated Deployment with
 `spec.replicas = 9`, then each Deployment in the 3 clusters will have
 `spec.replicas=3`.
@@ -106,3 +101,7 @@ For example, you can do that using kubectl by running:
 ```shell
 kubectl --context=federation-cluster delete deployment mydep
 ```
+
+{% endcapture %}
+
+{% include templates/task.md %}

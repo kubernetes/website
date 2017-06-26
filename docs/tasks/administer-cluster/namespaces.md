@@ -1,5 +1,11 @@
 ---
-title: Using Namespaces
+assignees:
+- derekwaynecarr
+- janetkuo
+title: Share a Cluster with Namespaces
+redirect_from:
+- "/docs/admin/namespaces/"
+- "/docs/admin/namespaces/index.html"
 ---
 
 {% capture overview %}

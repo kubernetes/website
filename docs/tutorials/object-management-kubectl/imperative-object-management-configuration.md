@@ -27,34 +27,42 @@ for a discussion of the advantages and disadvantage of each kind of object manag
 ## How to create objects
 
 You can use `kubectl create -f` to create an object from a configuration file.
-Refer to the [kubernetes object schema reference](/docs/resources-reference/v1.5/)
+Refer to the [kubernetes object schema reference](/docs/resources-reference/v1.6/)
 for details.
 
-- `create -f <filename|url>`
+- `kubectl create -f <filename|url>`
 
 ## How to update objects
+
+**Warning:** Updating objects with the `replace` command drops all
+parts of the spec not specified in the configuration file.  This
+should not be used with objects whose specs are partially managed
+by the cluster, such as Services of type `LoadBalancer`, where
+the `externalIPs` field is managed independently from the configuration
+file.  Independently managed fields must be copied to the configuration
+file to prevent `replace` from dropping them.
 
 You can use `kubectl replace -f` to update a live object according to a
 configuration file.
 
-- `replace -f <filename|url>`
+- `kubectl replace -f <filename|url>`
 
 ## How to delete objects
 
 You can use `kubectl delete -f` to delete an object that is described in a
 configuration file.
 
-- `delete -f <filename|url>`
+- `kubectl delete -f <filename|url>`
 
 ## How to view an object
 
 You can use `kubectl get -f` to view information about an object that is
 described in a configuration file.
 
-- `get -f <filename|url> -o yaml`
+- `kubectl get -f <filename|url> -o yaml`
 
 The `-o yaml` flag specifies that the full object configuration is printed. 
-Use `get -h` to see a list of options.
+Use `kubectl get -h` to see a list of options.
 
 ## Limitations
 
@@ -62,7 +70,7 @@ The `create`, `replace`, and `delete` commands work well when each object's
 configuration is fully defined and recorded in its configuration
 file. However when a live object is updated, and the updates are not merged
 into its configuration file, the updates will be lost the next time a `replace`
-is executed. This is can happen if a controller, such as
+is executed. This can happen if a controller, such as
 a HorizontalPodAutoscaler, makes updates directly to a live object. Here's 
 an example:
 
@@ -125,8 +133,8 @@ template:
 {% capture whatsnext %}
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tutorials/object-management-kubectl/imperative-object-management-command/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
-- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.5/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.5/)
+- [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.6/)
 {% endcapture %}
 
 {% include templates/concept.md %}

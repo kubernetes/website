@@ -2,16 +2,19 @@
 assignees:
 - thockin
 title: Cluster Networking
+redirect_from:
+- "/docs/admin/networking/"
+- "/docs/admin/networking.html"
 ---
 
 Kubernetes approaches networking somewhat differently than Docker does by
 default.  There are 4 distinct networking problems to solve:
 
 1. Highly-coupled container-to-container communications: this is solved by
-   [pods](/docs/user-guide/pods/) and `localhost` communications.
+   [pods](/docs/concepts/workloads/pods/pod/) and `localhost` communications.
 2. Pod-to-Pod communications: this is the primary focus of this document.
-3. Pod-to-Service communications: this is covered by [services](/docs/user-guide/services/).
-4. External-to-Service communications: this is covered by [services](/docs/user-guide/services/).
+3. Pod-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
+4. External-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
 
 * TOC
 {:toc}
@@ -103,9 +106,21 @@ as an introduction to various technologies and serves as a jumping-off point.
 The following networking options are sorted alphabetically - the order does not
 imply any preferential status.
 
+### Cilium
+
+[Cilium](https://github.com/cilium/cilium) is open source software for
+providing and transparently securing network connectivity between application
+containers. Cilium is L7/HTTP aware and can enforce network policies on L3-L7
+using an identity based security model that is decoupled from network
+addressing.
+
 ### Contiv
 
 [Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](http://contiv.io) is all open sourced.
+
+### Contrail
+
+[Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [OpenContrail](http://www.opencontrail.org), is a truly open, multi-cloud network virtualization and policy management platform. Contrail / OpenContrail is integrated with various orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provides different isolation modes for virtual machines, containers/pods and bare metal workloads.
 
 ### Flannel
 
@@ -198,7 +213,7 @@ Calico can also be run in policy enforcement mode in conjunction with other netw
 
 ### Romana
 
-[Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/user-guide/networkpolicies/) to provide isolation across network namespaces.
+[Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/networkpolicies/) to provide isolation across network namespaces.
 
 ### Weave Net from Weaveworks
 
@@ -207,6 +222,12 @@ resilient and simple to use network for Kubernetes and its hosted applications.
 Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)  
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
+
+### CNI-Genie from Huawei
+
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultanously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+
+CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 
 ## Other reading
 

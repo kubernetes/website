@@ -23,8 +23,8 @@ Init Containers.
 {% capture prerequisites %}
 
 * You should be familiar with the basics of
-  [Init Containers](/docs/user-guide/pods/init-container/).
-* You should have a [Pod](/docs/user-guide/pods/) you want to debug that uses
+  [Init Containers](/docs/concepts/abstractions/init-containers/).
+* You should have a [Pod](/docs/concepts/workloads/pods/pod/) you want to debug that uses
   Init Containers. The example command lines below refer to the Pod as
   `<pod-name>` and the Init Containers as `<init-container-1>` and
   `<init-container-2>`.
@@ -91,11 +91,11 @@ Init Containers:
 ```
 
 You can also access the Init Container statuses programmatically by reading the
-`pod.beta.kubernetes.io/init-container-status` annotation on the Pod:
+`status.initContainerStatuses` field on the Pod Spec:
 
 {% raw %}
 ```shell
-kubectl get pod <pod-name> --template '{{index .metadata.annotations "pod.beta.kubernetes.io/init-container-statuses"}}'
+kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
 ```
 {% endraw %}
 

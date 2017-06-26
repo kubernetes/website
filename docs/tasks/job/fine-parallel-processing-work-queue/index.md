@@ -1,5 +1,8 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
+redirect_from:
+- "/docs/user-guide/jobs/work-queue-2/"
+- "/docs/user-guide/jobs/work-queue-2/index.html"
 ---
 
 * TOC
@@ -134,7 +137,7 @@ docker push <username>/job-wq-2
 ```
 
 You need to push to a public repository or [configure your cluster to be able to access
-your private repository](/docs/user-guide/images).
+your private repository](/docs/concepts/containers/images/).
 
 If you are using [Google Container
 Registry](https://cloud.google.com/tools/container-registry/), tag
@@ -175,21 +178,21 @@ kubectl create -f ./job.yaml
 Now wait a bit, then check on the job.
 
 ```shell
-$ kubectl describe jobs/job-wq-2 
-Name:		job-wq-2
-Namespace:	default
-Image(s):	gcr.io/exampleproject/job-wq-2
-Selector:	app in (job-wq-2)
-Parallelism:	2
-Completions:	Unset
-Start Time:	Mon, 11 Jan 2016 17:07:59 -0800
-Labels:		app=job-wq-2
-Pods Statuses:	1 Running / 0 Succeeded / 0 Failed
+$ kubectl describe jobs/job-wq-2
+Name:             job-wq-2
+Namespace:        default
+Image(s):         gcr.io/exampleproject/job-wq-2
+Selector:         app in (job-wq-2)
+Parallelism:      2
+Completions:      Unset
+Start Time:       Mon, 11 Jan 2016 17:07:59 -0800
+Labels:           app=job-wq-2
+Pods Statuses:    1 Running / 0 Succeeded / 0 Failed
 No volumes.
 Events:
-  FirstSeen	LastSeen	Count	From			SubobjectPath	Type		Reason			Message
-  ---------	--------	-----	----			-------------	--------	------			-------
-  33s		33s		1	{job-controller }			Normal		SuccessfulCreate	Created pod: job-wq-2-lglf8
+  FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
+  ---------    --------    -----    ----            -------------    --------    ------            -------
+  33s          33s         1        {job-controller }                Normal      SuccessfulCreate  Created pod: job-wq-2-lglf8
 
 
 $ kubectl logs pods/job-wq-2-7r7b2

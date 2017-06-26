@@ -9,6 +9,8 @@ title: Kubernetes 101
 
 For Kubernetes 101, we will cover kubectl, pods, volumes, and multiple containers
 
+{% include task-tutorial-prereqs.md %}
+
 In order for the kubectl usage examples to work, make sure you have an example directory locally, either from [a release](https://github.com/kubernetes/kubernetes/releases) or [the source](https://github.com/kubernetes/kubernetes).
 
 * TOC
@@ -27,7 +29,7 @@ If you haven't installed and configured kubectl, finish [installing kubectl](/do
 
 In Kubernetes, a group of one or more containers is called a _pod_. Containers in a pod are deployed together, and are started, stopped, and replicated as a group.
 
-See [pods](/docs/user-guide/pods/) for more details.
+See [pods](/docs/concepts/workloads/pods/pod/) for more details.
 
 
 #### Pod Definition
@@ -55,7 +57,7 @@ List all pods:
 $ kubectl get pods
 ```
 
-On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/user-guide/getting-into-containers/) for details.
+On most providers, the pod IPs are not externally accessible. The easiest way to test that the pod is working is to create a busybox pod and exec commands on it remotely. See the [command execution documentation](/docs/tasks/kubectl/get-shell-running-container/) for details.
 
 Provided the pod IP is accessible, you should be able to access its http endpoint with wget on port 80:
 
@@ -115,7 +117,7 @@ Notes:
 - **EmptyDir**: Creates a new directory that will exist as long as the Pod is running on the node, but it can persist across container failures and restarts.
 - **HostPath**: Mounts an existing directory on the node's file system (e.g. `/var/logs`).
 
-See [volumes](/docs/user-guide/volumes/) for more details.
+See [volumes](/docs/concepts/storage/volumes/) for more details.
 
 
 #### Multiple Containers
