@@ -1,18 +1,30 @@
 ---
 assignees:
 - megastef
-title: Logging and Monitoring with Sematext 
+title: Log and Monitor with Sematext 
 ---
 
-# Logging and Monitoring with Sematext 
+{% capture overview %}
+
+[Sematext Docker Agent](https://sematext.com/kubernetes/) runs as a tiny container on every Kubernetes node and collects logs, metrics and events for all cluster nodes and all containers.
+
+{% endcapture %}
+
+{% capture prerequisites %}
 
 Logging on Kubernetes requires either Elasticsearch running in the cluster or Google Cloud Logging. 
 
 An easier alternative is to just use the integration of Sematext [Logsene Log Management](https:sematext.com/logsene) and [SPM Performance Monitoring](https://sematext.com/docker) services.
 
+{% endcapture %}
+
+{% capture steps %}
+
 ## Agent for Kubernetes Metrics and Logs
 
-There are a number of [open source docker monitoring and logging projects](https://sematext.com/blog/2016/07/19/open-source-docker-monitoring-logging/) one can cobble together to build a monitoring and log collection system (or systems).  The pro is that the code is all free.  The downside is that this takes time - both initially when setting it up and later when maintaining.  Luckily, there is [Sematext Docker Agent](https://sematext.com/kubernetes/) - a modern, Kubernetes-aware monitoring and log collection agent.  It runs as a tiny container on every Kubernetes node and collects logs, metrics and events for all cluster nodes and all containers. It discovers all containers (one pod might contain multiple containers) including containers for Kubernetes core services, if core services are deployed in Docker containers. After its deployment, all logs and metrics are immediately available out of the box. Why is this valuable?  Because it means you don’t have to spend the next N hours or days figuring out which data to collect and how to chart it, plus you don’t need the resources to maintain your own logging and monitoring infrastructure. Let’s see how to deploy this agent.
+There are a number of [open source docker monitoring and logging projects](https://sematext.com/blog/2016/07/19/open-source-docker-monitoring-logging/) one can cobble together to build a monitoring and log collection system (or systems).  The pro is that the code is all free.  The downside is that this takes time - both initially when setting it up and later when maintaining.  Luckily, there is [Sematext Docker Agent](https://sematext.com/kubernetes/) - a modern, Kubernetes-aware monitoring and log collection agent.  
+
+It runs as a tiny container on every Kubernetes node and collects logs, metrics and events for all cluster nodes and all containers. It discovers all containers (one pod might contain multiple containers) including containers for Kubernetes core services, if core services are deployed in Docker containers. After its deployment, all logs and metrics are immediately available out of the box. Why is this valuable?  Because it means you don’t have to spend the next N hours or days figuring out which data to collect and how to chart it, plus you don’t need the resources to maintain your own logging and monitoring infrastructure. Let’s see how to deploy this agent.
 
 ## Deploy Sematext Docker Agent to all Kubernetes Nodes 
 
@@ -23,7 +35,7 @@ Kubernetes provides DaemonSets, which ensure pods are added to nodes as nodes ar
    - For logs (optional) [create a Logsene App](https://apps.sematext.com/logsene-reports/registerApplication.do) to obtain an App Token for [Logsene](http://www.sematext.com/logsene/)
 3. Create [sematext-agent.yml](https://github.com/sematext/sematext-agent-docker/blob/master/kubernetes/sematext-agent.yml) - and edit values of LOGSENE_TOKEN and SPM_TOKEN in the Daemon Set definition as shown below.
 
-{% include code.html language="yaml" file="sematext-agent.yml" ghlink="/docs/user-guide/logging-monitoring-sematext/sematext-agent.yml" %}
+{% include code.html language="yaml" file="sematext-agent.yml" ghlink="/docs/tasks/debug-application-cluster/sematext-agent.yml" %}
 
 
 4. Run the Daemon Set
@@ -89,3 +101,6 @@ The metrics from all Kubernetes nodes are collected in a single SPM App, which a
 Each detailed chart has filter options for Node, Pod, and Docker Container. A search by pod name in the Pod filter makes it easy to select all containers for a specific pod. 
 There are more [docker metrics to monitor](https://sematext.com/blog/2016/06/28/top-docker-metrics-to-watch/), like CPU and memory usage, memory fail counters, throttled CPU times, Network Throughput and Network errors for containers.
 
+{% endcapture %}
+
+{% include templates/task.md %}
