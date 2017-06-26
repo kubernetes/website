@@ -11,7 +11,7 @@ title: Running in Multiple Zones
 Kubernetes 1.2 adds support for running a single cluster in multiple failure zones
 (GCE calls them simply "zones", AWS calls them "availability zones", here we'll refer to them as "zones").
 This is a lightweight version of a broader Cluster Federation feature (previously referred to by the affectionate
-nickname ["Ubernetes"](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/federation.md)).
+nickname ["Ubernetes"](https://git.k8s.io/community/contributors/design-proposals/federation.md)).
 Full Cluster Federation allows combining separate
 Kubernetes clusters running in different regions or cloud providers
 (or on-premise data centers).  However, many

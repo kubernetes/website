@@ -247,7 +247,7 @@ it is enough to start etcd in 2.2.z version, wait until it is healthy, stop it, 
 
 Versions 3.0+ of etcd do not support general rollback. That is,
 after migrating from M.N to M.N+1, there is no way to go back to M.N.
-The etcd team has provided a [custom rollback tool](https://github.com/kubernetes/kubernetes/tree/master/cluster/images/etcd/rollback)
+The etcd team has provided a [custom rollback tool](https://git.k8s.io/kubernetes/cluster/images/etcd/rollback)
 but the rollback tool has these limitations:
 
 * This custom rollback tool is not part of the etcd repo and does not receive the same

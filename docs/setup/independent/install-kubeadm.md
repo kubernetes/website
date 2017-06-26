@@ -46,7 +46,7 @@ You will install these packages on all of your machines:
 **Note:** If you already have kubeadm installed, you should do a `apt-get update &&
 apt-get upgrade` or `yum update` to get the latest version of kubeadm. See the
 kubeadm release notes if you want to read about the different [kubeadm
-releases](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
+releases](https://git.k8s.io/kubeadm/CHANGELOG.md)
 
 For each machine:
 

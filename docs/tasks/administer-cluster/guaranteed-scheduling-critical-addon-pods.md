@@ -34,7 +34,7 @@ the rescheduler tries to free up space for the add-on by evicting some pods; the
 
 To avoid situation when another pod is scheduled into the space prepared for the critical add-on,
 the chosen node gets a temporary taint "CriticalAddonsOnly" before the eviction(s)
-(see [more details](https://github.com/kubernetes/kubernetes/blob/master/docs/design/taint-toleration-dedicated.md)).
+(see [more details](https://git.k8s.io/community/contributors/design-proposals/taint-toleration-dedicated.md)).
 Each critical add-on has to tolerate it,
 while the other pods shouldn't tolerate the taint. The taint is removed once the add-on is successfully scheduled.
 
@@ -44,7 +44,7 @@ killed for this purpose.
 
 ## Config
 
-Rescheduler should be [enabled by default as a static pod](https://github.com/kubernetes/kubernetes/blob/master/cluster/saltbase/salt/rescheduler/rescheduler.manifest).
+Rescheduler should be [enabled by default as a static pod](https://git.k8s.io/kubernetes/cluster/saltbase/salt/rescheduler/rescheduler.manifest).
 It doesn't have any user facing configuration (component config) or API and can be disabled:
 
 * during cluster setup by setting `ENABLE_RESCHEDULER` flag to `false`

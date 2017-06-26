@@ -47,33 +47,33 @@ so we can find them.
 
 Deployment of the cluster is [supported on a wide variety of public clouds](#cloud-compatibility), private OpenStack clouds, or raw bare metal clusters. Bare metal deployments are supported via [MAAS](http://maas.io/).
 
-After deciding which cloud to deploy to, follow the [cloud setup page](https://jujucharms.com/docs/devel/getting-started-general#2.-choose-a-cloud) to configure deploying to that cloud. 
+After deciding which cloud to deploy to, follow the [cloud setup page](https://jujucharms.com/docs/devel/getting-started-general#2.-choose-a-cloud) to configure deploying to that cloud.
 
-Load your [cloud credentials](https://jujucharms.com/docs/2.0/credentials) for each 
-cloud provider you would like to use. 
+Load your [cloud credentials](https://jujucharms.com/docs/2.0/credentials) for each
+cloud provider you would like to use.
 
 In this example
 
 ```
-juju add-credential aws 
+juju add-credential aws
 credential name: my_credentials
 select auth-type [userpass, oauth, etc]: userpass
 enter username: jorge
 enter password: *******
 ```
 
-You can also just auto load credentials for popular clouds with the `juju autoload-credentials` command, which will auto import your credentials from the default files and environment variables for each cloud. 
+You can also just auto load credentials for popular clouds with the `juju autoload-credentials` command, which will auto import your credentials from the default files and environment variables for each cloud.
 
 Next we need to bootstrap a controller to manage the cluster. You need to define the cloud you want to bootstrap on, the region, and then any name for your controller node:   
 
 ```
 juju update-clouds # This command ensures all the latest regions are up to date on your client
-juju bootstrap aws/us-east-2 
+juju bootstrap aws/us-east-2
 ```
-or, another example, this time on Azure: 
+or, another example, this time on Azure:
 
 ```
-juju bootstrap azure/centralus 
+juju bootstrap azure/centralus
 ```
 
 You will need a controller node for each cloud or region you are deploying to. See the [controller documentation](https://jujucharms.com/docs/2.0/controllers) for more information.
@@ -84,13 +84,13 @@ Note that each controller can host multiple Kubernetes clusters in a given cloud
 {% capture steps %}
 ## Launch a Kubernetes cluster
 
-The following command will deploy the initial 9-node starter cluster. The speed of execution is very dependent of the performance of the cloud you're deploying to: 
+The following command will deploy the initial 9-node starter cluster. The speed of execution is very dependent of the performance of the cloud you're deploying to:
 
 ```
 juju deploy canonical-kubernetes
 ```
 
-After this command executes the cloud will then launch instances and begin the deployment process. 
+After this command executes the cloud will then launch instances and begin the deployment process.
 
 ## Monitor deployment
 
@@ -98,9 +98,9 @@ The `juju status` command provides information about each unit in the cluster. U
 
     juju status
 
-Output: 
+Output:
 
-``` 
+```
 Model    Controller     Cloud/Region   Version
 default  aws-us-east-2  aws/us-east-2  2.0.1
 
@@ -159,8 +159,8 @@ juju scp kubernetes-master/0:config ~/.kube/config
 
 Fetch a binary for the architecture you have deployed. If your client is a
 different architecture you will need to get the appropriate `kubectl` binary
-through other means. In this example we copy kubectl to `~/bin` for convenience, 
-by default this should be in your $PATH. 
+through other means. In this example we copy kubectl to `~/bin` for convenience,
+by default this should be in your $PATH.
 
 ```
 mkdir -p ~/bin
@@ -171,7 +171,7 @@ Query the cluster:
 
     kubectl cluster-info
 
-Output: 
+Output:
 
 ```
 Kubernetes master is running at https://52.15.104.227:443
@@ -206,7 +206,7 @@ Or multiple units at one time:
 ```shell
 juju add-unit -n3 kubernetes-worker
 ```
-You can also ask for specific instance types or other machine-specific constraints. See the [constraints documentation](https://jujucharms.com/docs/stable/reference-constraints) for more information. Here are some examples, note that generic constraints such as `cores` and `mem` are more portable between clouds. In this case we'll ask for a specific instance type from AWS: 
+You can also ask for specific instance types or other machine-specific constraints. See the [constraints documentation](https://jujucharms.com/docs/stable/reference-constraints) for more information. Here are some examples, note that generic constraints such as `cores` and `mem` are more portable between clouds. In this case we'll ask for a specific instance type from AWS:
 
 ```shell
 juju set-constraints kubernetes-worker instance-type=c4.large
@@ -218,7 +218,7 @@ You can also scale the etcd charm for more fault tolerant key/value storage:
 ```shell
 juju add-unit -n3 etcd
 ```
-It is strongly recommended to run an odd number of units for quorum. 
+It is strongly recommended to run an odd number of units for quorum.
 
 ## Tear down cluster
 
@@ -240,8 +240,8 @@ The Ubuntu Kubernetes deployment uses open-source operations, or operations as c
 The Kubernetes layer and bundles can be found in the `kubernetes`
 project on github.com:  
 
- - [Bundle location](https://github.com/kubernetes/kubernetes/tree/master/cluster/juju/bundles)
- - [Kubernetes charm layer location](https://github.com/kubernetes/kubernetes/tree/master/cluster/juju/layers/kubernetes)
+ - [Bundle location](https://git.k8s.io/kubernetes/cluster/juju/bundles)
+ - [Kubernetes charm layer location](https://git.k8s.io/kubernetes/cluster/juju/layers)
  - [Canonical Kubernetes home](https://jujucharms.com/canonical-kubernetes/)
 
 Feature requests, bug reports, pull requests or any feedback would be much appreciated.
@@ -264,4 +264,3 @@ Bare Metal (MAAS)           | Juju         | Ubuntu | flannel, calico     | [doc
 For support level information on all solutions, see the [Table of solutions](/docs/getting-started-guides/#table-of-solutions) chart.
 
 {% include templates/task.md %}
-

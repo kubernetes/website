@@ -33,7 +33,7 @@ can see your changes.
 
 You can use the k8sdocs Docker image to run a local staging server. If you're
 interested, you can view the
-[Dockerfile](https://github.com/kubernetes/kubernetes.github.io/blob/master/staging-container/Dockerfile){: target="_blank"}
+[Dockerfile](https://git.k8s.io/kubernetes.github.io/staging-container/Dockerfile){: target="_blank"}
 for this image.
 
 1. Install Docker if you don't already have it.
