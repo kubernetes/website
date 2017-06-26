@@ -156,6 +156,16 @@ names `<service_name>.<namespace>.svc.cluster.local`. You can use the
 update the `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` file
 accordingly else DNS will not function correctly.
 
+**Note**: This flag has an effect (it's needed for the kube-dns Deployment
+manifest and the API Server's serving certificate) but not as you might expect,
+since you will have to modify the arguments to the kubelets in the cluster for
+it to work fully. Specifying DNS parameters using this flag only is not enough.
+Rewriting the kubelet's CLI arguments is out of scope for kubeadm as it should
+be agnostic to how you run the kubelet. However, making all kubelets in the
+cluster pick up information dynamically via the API _is_ in scope and is a
+[planned feature](https://github.com/kubernetes/kubeadm/issues/28) for upcoming
+releases.
+
 - `--skip-preflight-checks`
 
 By default, kubeadm runs a series of preflight checks to validate the system
