@@ -66,6 +66,7 @@ toc:
   - docs/concepts/services-networking/connect-applications-service.md
   - docs/concepts/services-networking/ingress.md
   - docs/concepts/services-networking/network-policies.md
+  - docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases.md
 
 - title: Storage
   section:
