@@ -66,27 +66,22 @@ providers. Only one provider type may be specified per entry (`identity` or `aes
 but not both in the same item).
 
 The first provider in the list will be used to encrypt resources going into storage. When reading
-resources from storage the providers will be attempted in order to decrypt data. If no provider
-can read the stored data, an error will be returned which will prevent clients from accessing that
-resource. 
+resources from storage each provider that matches the stored data attempts to decrypt the data in
+order. If no provider can read the stored data due to a mismatch in format or secret key, an error 
+is returned which prevents clients from accessing that resource. 
 
-IMPORTANT: If any resource is not readable via the encryption config (because keys were changed), 
+**IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed), 
 the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to 
 read that resource will fail until it is deleted or a valid decryption key is provided.
 
 ### Providers:
 
-* `identity` results in the data being written as-is without encryption. 
-  * When placed in the first position the resource will be decrypted as new values are written.
-* `secretbox` uses XSalsa20 and Poly1305 to store data at rest
-  * It is fast, but a newer standard and may not be considered acceptable in environments that require high levels of review. 
-  * It requires a 32 byte key.
-* `aescbc` uses AES in CBC mode
-  * It is the recommended choice for encryption at rest but may be slightly slower than `secretbox`.
-  * It requires 32 byte keys
-* `aesgcm` uses AES in GCM mode with a randomly assigned nonce 
-  * This mode is the fastest, but is not recommended for use except when an automated key rotation scheme is implemented. * Because these nonces are small the secret key must be rotated frequently - at most every 200k writes.
-  * It supports 16, 24, or 32 byte keys, but 32 byte keys should always be used.
+Name | Encryption | Strength | Speed | Key Length | Other Considerations
+-----|------------|----------|-------|------------|---------------------
+`identity` | None | N/A | N/A | N/A Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
+`aescbc` | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | The recommended choice for encryption at rest but may be slightly slower than `secretbox`.
+`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review. 
+`aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented. 
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider the first key is used for decryption.
@@ -109,20 +104,19 @@ resources:
     - identity: {}
 ```
 
-To create a new secret, generate a 32 byte random key and base64 encode it. On Linux or Mac OS X, the
-following command will read 32 bytes of random data and then base 64 encode it.
+To create a new secret perform the following steps:
 
-```
-head -c 32 /dev/urandom | base64 -i - -o -
-```
+1. Generate a 32 byte random key and base64 encode it. If you're on Linux or Mac OS X, run the following command:
 
-Place that value in the secret field.  
+    ```
+    head -c 32 /dev/urandom | base64 -i - -o -
+    ```
 
-Set the `--experimental-encryption-provider-config` flag on the `kube-apiserver` to point to the location 
-of the config file and restart your API server. 
+2. Place that value in the secret field.  
+3. Set the `--experimental-encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file 
+4. restart your API server. 
 
-IMPORTANT: Your config file contains keys that can decrypt the content in etcd and should be properly 
-permission restricted on your masters so that only the user that runs the `kube-apiserver` can read it.
+**IMPORTANT:** Your config file contains keys that can decrypt content in etcd, so you must properly restrict permissions on your masters so only the user who runs the kube-apiserver can read it.
 
 
 ## Verifying that data is encrypted 
@@ -131,28 +125,27 @@ Data is encrypted when written to etcd. After restarting your `kube-apiserver`, 
 updated secret should be encrypted when stored. To check, you can use the `etcdctl` command line
 program to retrieve the contents of your secret.
 
-Create a new secret called `secret1` in the `default` namespace:
+1. Create a new secret called `secret1` in the `default` namespace:
 
-```
-kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
-```
+    ```
+    kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
+    ```
 
-Using the etcdctl commandline, read that secret out of etcd:
+2. Using the etcdctl commandline, read that secret out of etcd:
 
-```
-ETCDCTL_API=3 etcdctl get /kubernetes.io/secrets/default/secret1 [...] | hexdump -C
-```
+    ```
+    ETCDCTL_API=3 etcdctl get /kubernetes.io/secrets/default/secret1 [...] | hexdump -C
+    ```
 
-where `[...]` must be the additional arguments for connecting to the etcd server. The `hexdump` command
-will format the encoded bytes into a readable form. Verify the resulting output is prefixed with 
-`k8s:enc:aescbc:v1:` which indicates the `aescbc` provider has encrypted the resulting data. 
+    where `[...]` must be the additional arguments for connecting to the etcd server. 
+3. Verify the stored secret is prefixed with `k8s:enc:aescbc:v1:` which indicates the `aescbc` provider has encrypted the resulting data. 
+4. Verify the secret is correctly decrypted when retrieved via the API:
 
-Verify the secret is correctly decoded by retrieving the secret from the command line, and that the secret
-contents match what was provided above (`mykey: mydata`).
+    ```
+    kubectl describe secret generic -n default
+    ```
 
-```
-kubectl describe secret generic -n default
-```
+    should match `mykey: mydata`
 
 
 ## Ensuring all secrets to be encrypted
@@ -163,7 +156,7 @@ Since secrets are encrypted on write, performing an update on a secret will encr
 kubectl get secrets -o json | kubectl update -f -
 ```
 
-Will read all secrets and then perform an update with encryption. If an error occurs due to a 
+Reads all secrets and then updates them to apply server side encryption. If an error occurs due to a 
 conflicting write, retry the command. For larger clusters, you may wish to subdivide the secrets
 by namespace or script an update.
 
@@ -203,3 +196,7 @@ resources:
 
 and restart all `kube-apiserver` processes. Then run the command `kubectl get secrets -o json | kubectl update -f -`
 to force all secrets to be decrypted.
+
+{% endcapture %}
+
+{% include templates/task.md %}
