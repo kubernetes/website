@@ -7,7 +7,7 @@ redirect_from:
 
 {% capture overview %}
 
-This page shows how to policy-based placement decisions over Federated
+This page shows how to enforce policy-based placement decisions over Federated
 resources using an external policy engine.
 
 {% endcapture %}
