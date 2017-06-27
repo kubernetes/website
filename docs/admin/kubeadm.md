@@ -4,7 +4,7 @@ assignees:
 - luxas
 - errordeveloper
 - jbeda
-title: kubeadm Setup Tool
+title: kubeadm Setup Tool Reference Guide
 ---
 
 This document provides information on how to use kubeadm's advanced options.
@@ -30,7 +30,7 @@ following steps:
 1. Outputting a kubeconfig file for the kubelet to use to connect to the API
    server, as well as an additional kubeconfig file for administration.
 
-1. kubeadm generates Kubernetes Static Pod manifests for the API server,
+1. kubeadm generates Kubernetes static Pod manifests for the API server,
    controller manager and scheduler.  It places them in
    `/etc/kubernetes/manifests`. The kubelet watches this directory for Pods to
    create on startup. These are the core components of Kubernetes. Once they are
@@ -51,7 +51,7 @@ steps:
 
 1. kubeadm creates a local key pair.  It prepares a certificate signing request
    (CSR) and sends that off to the API server for signing.  The bootstrap token
-   is used to authenticate.  The API server is configured to sign this
+   is used to authenticate.  The control plane will sign this CSR requested
    automatically.
 
 1. kubeadm configures the local kubelet to connect to the API server
@@ -318,8 +318,8 @@ schedulerExtraArgs:
   <argument>: <value|string>
   <argument>: <value|string>
 apiServerCertSANs:
-  - <name1|string>
-  - <name2|string>
+- <name1|string>
+- <name2|string>
 certificatesDir: <string>
 ```
 In addition, if authorizationMode is set to `ABAC`, you should write the config to `/etc/kubernetes/abac_policy.json`.
@@ -333,15 +333,78 @@ kind: NodeConfiguration
 caCertPath: <path|string>
 discoveryFile: <path|string>
 discoveryToken: <string>
-
-# Currently only the first server is used as a target for the cluster
-# bootstrap flow.
 discoveryTokenAPIServers:
-  - <address|string>
-  - <address|string>
-
+- <address|string>
+- <address|string>
 tlsBootstrapToken: <string>
 ```
+
+## Securing your installation even more
+
+The defaults for kubeadm may not work for everyone. This section documents how to tighten up a kubeadm install
+at the cost of some usability.
+
+### Turning off auto-approval of Node Client Certificates
+
+By default, there is an CSR auto-approver enabled that basically approves any client certificate request
+for a kubelet when a Bootstrap Token was used when authenticating. If you don't want the cluster to
+automatically approve kubelet client certs, you can turn it off by executing this command:
+
+```console
+$ kubectl delete clusterrole kubeadm:node-autoapprove-bootstrap
+```
+
+After that, `kubeadm join` will block until the admin has manually approved the CSR in flight:
+
+```console
+$ kubectl get csr
+NAME                                                   AGE       REQUESTOR                 CONDITION
+node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
+
+$ kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
+certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
+
+$ kubectl get csr
+NAME                                                   AGE       REQUESTOR                 CONDITION
+node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
+```
+
+Only after `kubectl certificate approve` has been run, `kubeadm join` can proceed.
+
+### Turning off public access to the cluster-info ConfigMap
+
+In order to achieve the joining flow using the token as the only piece of validation information, a
+public ConfigMap with some data needed for validation of the master's identity is exposed publicly by
+default. While there is no private data in this ConfigMap, some users are sensitive and wish to turn
+it off regardless. Doing so will disable the ability to use the `--discovery-token` flag of the
+`kubeadm join` flow. Here are the steps to do so:
+
+Fetch the `cluster-info` file from the API Server:
+
+```console
+$ kubectl -n kube-public get cm cluster-info -oyaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: <ca-cert>
+    server: https://<ip>:<port>
+  name: ""
+contexts: []
+current-context: ""
+kind: Config
+preferences: {}
+users: []
+```
+
+You can then use the `cluster-info.yaml` file as an argument to `kubeadm join --discovery-file`.
+
+Turning of public access to the `cluster-info` ConfigMap:
+
+```console
+$ kubectl -n kube-public delete rolebinding kubeadm:bootstrap-signer-clusterinfo
+```
+
+These command should be run after `kubeadm init` but before `kubeadm join`.
 
 ## Managing Tokens {#manage-tokens}
 
@@ -380,13 +443,13 @@ parallelize the token distribution for easier automation. To implement this
 automation, you must know the IP address that the master will have after it is
 started.
 
-1.  Generate a token.  This token must have the form  `<6 character string>.<16
-    character string>`.  More formally, it must match the regex
+1.  Generate a token. This token must have the form  `<6 character string>.<16
+    character string>`.  More formally, it must match the regex:
     `[a-z0-9]{6}\.[a-z0-9]{16}`.
 
-    Kubeadm can generate a token for you:
+    kubeadm can generate a token for you:
 
-    ``` bash
+    ```bash
     kubeadm token generate
     ```
 
@@ -396,55 +459,6 @@ started.
 
 Once the cluster is up, you can grab the admin credentials from the master node
 at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
-
-## Environment variables
-
-There are some environment variables that modify the way that kubeadm works.
-Most users will have no need to set these. These environment variables are a
-short-term solution, eventually they will be integrated in the kubeadm
-configuration file.
-
-| Variable | Default | Description |
-| --- | --- | --- |
-| `KUBE_KUBERNETES_DIR` | `/etc/kubernetes` | Where most configuration files are written to and read from |
-| `KUBE_HYPERKUBE_IMAGE` | | If set, use a single hyperkube image with this name. If not set, individual images per server component will be used. |
-| `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:3.0.17` | The etcd container image to use. |
-| `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |
-
-If `KUBE_KUBERNETES_DIR` is specified, you may need to rewrite the arguments of the kubelet.
-(e.g. --kubeconfig, --pod-manifest-path)
-
-If `KUBE_REPO_PREFIX` is specified, you may need to set the kubelet flag `--pod-infra-container-image` which specifies which pause image to use.
-Defaults to `gcr.io/google_containers/pause-${ARCH}:3.0` where `${ARCH}` can be one of `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
-
-```bash
-cat > /etc/systemd/system/kubelet.service.d/20-pod-infra-image.conf <<EOF
-[Service]
-Environment="KUBELET_EXTRA_ARGS=--pod-infra-container-image=<your-image>"
-EOF
-systemctl daemon-reload
-systemctl restart kubelet
-```
-
-If you want to use kubeadm with an http proxy, you may need to configure it to
-support http_proxy, https_proxy, or no_proxy.
-
-For example, if your kube master node IP address is 10.18.17.16 and you have a
-proxy which supports both http/https on 10.18.17.16 port 8080, you can use the
-following command:
-
-```bash
-export PROXY_PORT=8080
-export PROXY_IP=10.18.17.16
-export http_proxy=http://$PROXY_IP:$PROXY_PORT
-export HTTP_PROXY=$http_proxy
-export https_proxy=$http_proxy
-export HTTPS_PROXY=$http_proxy
-export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,example.com,10.18.17.16"
-```
-
-Remember to change `proxy_ip` and add a kube master node IP address to
-`no_proxy`.
 
 ## Use Kubeadm with other CRI runtimes
 
@@ -488,11 +502,120 @@ This means you can, for example, prepopulate `/etc/kubernetes/pki/ca.crt`
 and `/etc/kubernetes/pki/ca.key` with an existing CA, which then will be used
 for signing the rest of the certs.
 
-## Releases and release notes
+## Running kubeadm without an internet connection
 
-If you already have kubeadm installed and want to upgrade, run `apt-get update
-&& apt-get upgrade` or `yum update` to get the latest version of kubeadm.
+All of the control plane components run in Pods started by the kubelet and
+the following images are required for the cluster works will be automatically
+pulled by the kubelet if they don't exist locally while `kubeadm init` is initializing
+your master:
 
-Refer to the
-[CHANGELOG.md](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
-for more information.
+| Image Name | v1.6 release branch version | v1.7 release branch version
+|---|---|---|
+| gcr.io/google_containers/kube-apiserver-${ARCH} | v1.6.x | v1.7.x
+| gcr.io/google_containers/kube-controller-manager-${ARCH} | v1.6.x | v1.7.x
+| gcr.io/google_containers/kube-scheduler-${ARCH} | v1.6.x | v1.7.x
+| gcr.io/google_containers/kube-proxy-${ARCH} | v1.6.x | v1.7.x
+| gcr.io/google_containers/etcd-${ARCH} | 3.0.17 | 3.0.17
+| gcr.io/google_containers/pause-${ARCH} | 3.0 | 3.0
+| gcr.io/google_containers/k8s-dns-sidecar-${ARCH} | 1.14.1 | 1.14.4
+| gcr.io/google_containers/k8s-dns-kube-dns-${ARCH} | 1.14.1 | 1.14.4
+| gcr.io/google_containers/k8s-dns-dnsmasq-nanny-${ARCH} | 1.14.1 | 1.14.4
+
+Here `v1.7.x` means the "latest patch release of the v1.7 branch".
+
+`${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
+
+
+## Cloudprovider integrations (experimental)
+
+Enabling specific cloud providers is a common request. This currently requires
+manual configuration and is therefore not yet fully supported. If you wish to do
+so, edit the kubeadm dropin for the kubelet service
+(`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`) on all nodes,
+including the master. If your cloud provider requires any extra packages
+installed on the host, for example for volume mounting/unmounting, install those
+packages.
+
+Specify the `--cloud-provider` flag for the kubelet and set it to the cloud of your
+choice. If your cloudprovider requires a configuration file, create the file
+`/etc/kubernetes/cloud-config` on every node. The exact format and content of
+that file depends on the requirements imposed by your cloud provider. If you use
+the `/etc/kubernetes/cloud-config` file, you must append it to the kubelet
+arguments as follows: `--cloud-config=/etc/kubernetes/cloud-config`
+
+Note that there is most likely other per-provider configuration that may be needed
+(IAM roles for AWS) that is currently underdocumented.
+
+Next, specify the cloud provider in the kubeadm config file.  Create a file called
+`kubeadm.conf` with the following contents:
+
+``` yaml
+kind: MasterConfiguration
+apiVersion: kubeadm.k8s.io/v1alpha1
+cloudProvider: <cloud provider>
+```
+
+Lastly, run `kubeadm init --config=kubeadm.conf` to bootstrap your cluster with
+the cloud provider.
+
+This workflow is not yet fully supported, however we hope to make it extremely
+easy to spin up clusters with cloud providers in the future. (See [this
+proposal](https://github.com/kubernetes/community/pull/128) for more
+information) The [Kubelet Dynamic
+Settings](https://github.com/kubernetes/kubernetes/pull/29459) feature may also
+help to fully automate this process in the future.
+
+
+## Environment variables
+
+There are some environment variables that modify the way that kubeadm works.
+Most users will have no need to set these. These environment variables are a
+short-term solution, eventually they will be integrated in the kubeadm
+configuration file.
+
+**Note:** These environment variables are deprecated and will stop functioning in v1.8!
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `KUBE_KUBERNETES_DIR` | `/etc/kubernetes` | Where most configuration files are written to and read from |
+| `KUBE_HYPERKUBE_IMAGE` | | If set, use a single hyperkube image with this name. If not set, individual images per server component will be used. |
+| `KUBE_ETCD_IMAGE` | `gcr.io/google_containers/etcd-<arch>:3.0.17` | The etcd container image to use. |
+| `KUBE_REPO_PREFIX` | `gcr.io/google_containers` | The image prefix for all images that are used. |
+
+If `KUBE_KUBERNETES_DIR` is specified, you may need to rewrite the arguments of the kubelet.
+(e.g. --kubeconfig, --pod-manifest-path)
+
+If `KUBE_REPO_PREFIX` is specified, you may need to set the kubelet flag
+`--pod-infra-container-image` which specifies which pause image to use.
+
+Defaults to `gcr.io/google_containers/pause-${ARCH}:3.0` where `${ARCH}`
+can be one of `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
+
+```bash
+cat > /etc/systemd/system/kubelet.service.d/20-pod-infra-image.conf <<EOF
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--pod-infra-container-image=<your-image>"
+EOF
+systemctl daemon-reload
+systemctl restart kubelet
+```
+
+If you want to use kubeadm with an http proxy, you may need to configure it to
+support http_proxy, https_proxy, or no_proxy.
+
+For example, if your kube master node IP address is 10.18.17.16 and you have a
+proxy which supports both http/https on 10.18.17.16 port 8080, you can use the
+following command:
+
+```bash
+export PROXY_PORT=8080
+export PROXY_IP=10.18.17.16
+export http_proxy=http://$PROXY_IP:$PROXY_PORT
+export HTTP_PROXY=$http_proxy
+export https_proxy=$http_proxy
+export HTTPS_PROXY=$http_proxy
+export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,example.com,10.18.17.16"
+```
+
+Remember to change `proxy_ip` and add a kube master node IP address to
+`no_proxy`.

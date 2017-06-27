@@ -31,15 +31,15 @@ For installation instructions, see
 
 On each of your machines,
 [install kubectl](/docs/tasks/tools/install-kubectl/).
-You only need kubectl on the master, but it can be useful to have on the other
-nodes as well.
+You only need kubectl on the master and/or your workstation, but it can be
+useful to have on the other nodes as well.
 
 ## Installing kubelet and kubeadm
 
 You will install these packages on all of your machines:
 
-* `kubelet`: the most core component of Kubernetes. It runs on all of the
-  machines in your cluster and does things like starting pods and containers.
+* `kubelet`: the component that runs on all of the machines in your cluster
+    and does things like starting pods and containers.
 
 * `kubeadm`: the command to bootstrap the cluster.
 
@@ -62,9 +62,7 @@ For each machine:
   deb http://apt.kubernetes.io/ kubernetes-xenial main
   EOF
   apt-get update
-  # Install docker if you don't have it already.
-  apt-get install -y docker-engine
-  apt-get install -y kubelet kubeadm kubernetes-cni
+  apt-get install -y kubelet kubeadm
   ```
 
 * If the machine is running CentOS, run:
@@ -81,8 +79,7 @@ For each machine:
           https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
   EOF
   setenforce 0
-  yum install -y docker kubelet kubeadm kubernetes-cni
-  systemctl enable docker && systemctl start docker
+  yum install -y kubelet kubeadm
   systemctl enable kubelet && systemctl start kubelet
   ```
 
@@ -92,10 +89,6 @@ For each machine:
   Note: Disabling SELinux by running `setenforce 0` is required to allow
   containers to access the host filesystem, which is required by pod networks for
   example. You have to do this until SELinux support is improved in the kubelet.
-
-While this guide is correct for kubeadm 1.6, the previous version is still
-available but can be a bit tricky to install.  [See below](#old-kubeadm) for
-details.
 
 {% endcapture %}
 
