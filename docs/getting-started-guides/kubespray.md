@@ -32,7 +32,7 @@ to [kubeadm](../kubeadm) and [kops](../kops).
 
 * You must have cloud instances or baremetal nodes running for your future Kubernetes cluster.
   A way to achieve that is to use the
-  [kargo-cli tool](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md).
+  [kubespray-cli tool](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md).
 * Or provision baremetal hosts with a tool-of-your-choice or launch cloud instances,
   then create an inventory file for Ansible with this [tool](https://github.com/kubernetes-incubator/kubespray/blob/master/contrib/inventory_builder/inventory.py).
 
@@ -65,7 +65,7 @@ to [kubeadm](../kubeadm) and [kops](../kops).
 #### Checklist
 
 * Apply deployment with
- [kargo-cli tool](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md)
+ [kubespray-cli tool](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md)
   or ``ansible-playbook``
  [manual commands](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
 
@@ -95,6 +95,5 @@ Note, that it is highly unrecommended to delete production clusters with the res
 
 ## Feedback
 
-* Slack Channel: [#kargo](https://kubernetes.slack.com/messages/kargo/)
+* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/)
 * [GitHub Issues](https://github.com/kubernetes-incubator/kubespray/issues)
-
