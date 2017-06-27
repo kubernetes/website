@@ -21,6 +21,10 @@ toc:
   - docs/concepts/architecture/nodes.md
   - docs/concepts/architecture/master-node-communication.md
 
+- title: Extending the Kubernetes API
+  section:
+  - docs/concepts/api-extension/apiserver-aggregation.md  
+
 - title: Containers
   section:
   - docs/concepts/containers/images.md
