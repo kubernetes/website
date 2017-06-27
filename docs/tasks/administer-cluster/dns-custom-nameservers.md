@@ -55,8 +55,7 @@ data:
     [“8.8.8.8”, “8.8.4.4”]
 ```
 
-The diagram below shows the flow of DNS queries specified in the configuration
-above. With the dnsPolicy set to “ClusterFirst”, a DNS query is first sent to
+With the dnsPolicy set to “ClusterFirst”, a DNS query is first sent to
 the DNS caching layer in kube-dns. From there, the suffix of the request is
 examined and then forwarded to the appropriate DNS.  In this case, names with
 the cluster suffix (e.g. “.cluster.local”) are sent to kube-dns. Names with the
