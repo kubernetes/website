@@ -69,10 +69,7 @@ explicitly specified, then “ClusterFirst” is used.*
 ### "Default" DNS Policy
 
 If `dnsPolicy` is set to “Default”, then the name resolution configuration is
-inherited from the node that the pods run on.
-
-Custom upstream nameservers and
-stub domains cannot be used in conjunction with this DNS policy.
+inherited from the node that the pods run on. Custom upstream nameservers and stub domains cannot be used in conjunction with this DNS policy.
 
 
 ### "ClusterFirst" DNS Policy
@@ -83,9 +80,11 @@ If they are *not* configured, any query that does not match the configured clust
 
 If stub domains and upstream DNS servers are configured (as in the [previous example](#configuring-stub-domain-and-upstream-dns-servers)), DNS queries will be
 routed according to the following flow:
+
 1. The query is first sent to the DNS caching layer in kube-dns.
 
 1. From the DNS caching layer, the suffix of the request is examined and then forwarded to the appropriate DNS, based on the following cases:
+
    * *Names with the cluster suffix* (e.g.".cluster.local"): The request is sent to kube-dns.
 
    * *Names with the stub domain suffix* (e.g. ".acme.local"): The request is sent to the configured custom DNS resolver (e.g. listening at 1.2.3.4).
@@ -104,8 +103,6 @@ Options for the kube-dns `kube-system:kube-dns` ConfigMap
 | `upstreamNameservers` (optional) | A JSON array of DNS IPs. | Note: If specified, then the values specified replace the nameservers taken by default from the node’s `/etc/resolv.conf`. Limits: a maximum of three upstream nameservers can be specified. |
 
 {% endcapture %}
-
-{% capture whatsnext %}
 
 ## Additional examples
 
@@ -148,7 +145,5 @@ metadata:
       upstreamNameservers: |
           [“172.16.0.1”]
 ```
-
-{% endcapture %}
 
 {% include templates/task.md %}
