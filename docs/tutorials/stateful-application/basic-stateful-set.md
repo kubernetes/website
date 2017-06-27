@@ -47,7 +47,6 @@ After this tutorial, you will be familiar with the following.
 * How to delete a StatefulSet
 * How to scale a StatefulSet
 * How to update a StatefulSet's Pods
-* How to use Pod Management policies 
 {% endcapture %}
 
 {% capture lessoncontent %}
@@ -57,7 +56,7 @@ Begin by creating a StatefulSet using the example below. It is similar to the
 example presented in the
 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/) concept. 
 It creates a [Headless Service](/docs/user-guide/services/#headless-services), 
-`nginx`, to control the network domain of the StatefulSet, `web`. 
+`nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`. 
 
 {% include code.html language="yaml" file="web.yaml" ghlink="/docs/tutorials/stateful-application/web.yaml" %}
 
@@ -545,7 +544,7 @@ All the Pods in the StatefulSet are now running a new container image.
 
 ### Rolling Update
 
-The `RollingUpdate` update strategy will update all Pods in a StatefuleSet, in 
+The `RollingUpdate` update strategy will update all Pods in a StatefulSet, in 
 reverse ordinal order, while respecting the StatefulSet guarantees.
 
 Patch the `web` StatefulSet to apply the `RollingUpdate` update strategy.
@@ -1000,8 +999,8 @@ identity. To address this, in Kubernetes 1.7, we introduced
 
 ### OrderedReady Pod Management
 
-`OrderedReady` pod management is the default for StatefulSets. It tell the 
-StatefulSet controller to respect the the ordering guarantees demonstrated 
+`OrderedReady` pod management is the default for StatefulSets. It tells the 
+StatefulSet controller to respect the ordering guarantees demonstrated 
 above.
 
 ### Parallel Pod Management
@@ -1011,7 +1010,7 @@ terminate all Pods in parallel, and to not wait for Pods to becoming Running
 and Ready or completely terminated prior to launching or terminating another 
 Pod.
 
-{% include code.html language="yaml" file="web.yaml" ghlink="/docs/tutorials/stateful-application/webp.yaml" %}
+{% include code.html language="yaml" file="webp.yaml" ghlink="/docs/tutorials/stateful-application/webp.yaml" %}
 
 Download the example above, and save it to a file named `webp.yaml`
 

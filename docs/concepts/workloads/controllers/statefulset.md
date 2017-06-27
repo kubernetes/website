@@ -33,7 +33,7 @@ following.
 * Stable, persistent storage.
 * Ordered, graceful deployment and scaling.
 * Ordered, graceful deletion and termination.
-* Ordered automated rolling updates.
+* Ordered, automated rolling updates.
 
 In the above, stable is synonymous with persistence across Pod (re)scheduling.
 If an application doesn't require any stable identifiers or ordered deployment, 
@@ -186,7 +186,7 @@ described [above](#deployment-and-scaling-guarantees).
 #### Parallel Pod Management
 
 `Parallel` pod management tells the StatefulSet controller to launch or 
-terminate all Pods in parallel, and to not wait for Pods to becoming Running 
+terminate all Pods in parallel, and to not wait for Pods to become Running 
 and Ready or completely terminated prior to launching or terminating another 
 Pod.
 
@@ -198,8 +198,9 @@ annotations for the Pods in a StatefulSet.
 
 ### On Delete
 
-The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior. When a StatefulSet's 
-`.spec.updateStrategy.type` is set to `OnDelete`. The StatefulSet controller will not automatically 
+The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior. It is the default 
+strategy when `spec.updateStrategy` is left unspecified. When a StatefulSet's 
+`.spec.updateStrategy.type` is set to `OnDelete`, the StatefulSet controller will not automatically 
 update the Pods in a StatefulSet. Users must manually delete Pods to cause the controller to 
 create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
 
@@ -208,18 +209,26 @@ create new Pods that reflect modifications made to a StatefulSet's `.spec.templa
 The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a 
 StatefulSet. When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the 
 StatefulSet controller will delete and recreate each Pod in the StatefulSet. It will proceed 
-in the same order as Pod termination, updating each Pod one at a time. It will wait until an 
-updated Pod is Running and Ready prior to updating its predecessor.
+in the same order as Pod termination (from the largest ordinal to the smallest), updating 
+each Pod one at a time. It will wait until an updated Pod is Running and Ready prior to 
+updating its predecessor.
 
 #### Partitions
 
-The `RollindUpdate` update strategy can be partitioned, by specifying a 
-`.spec.updateStrategy.rollinUpdate.partition`. If a partition is specified, all Pods with an 
+The `RollingUpdate` update strategy can be partitioned, by specifying a 
+`.spec.updateStrategy.rollingUpdate.partition`. If a partition is specified, all Pods with an 
 ordinal that is greater than or equal to the partition will be updated when the StatefulSet's 
-`.spec.template` is updated. All Pods with an ordinal that is less than partition will not 
-be updated, and, even if they are deleted, they will be recreated at the current version. If a 
+`.spec.template` is updated. All Pods with an ordinal that is less than the partition will not 
+be updated, and, even if they are deleted, they will be recreated at the previous version. If a 
 StatefulSet's `.spec.updateStrategy.rollingUpdate.partition` is greater than its `.spec.replicas`, 
 updates to its `.spec.template` will not be propagated to its Pods.
+In most cases you will not need to use a partition, but they are useful if you want to stage an 
+update, roll out a canary, or perform a phased roll out.
+
+{% endcapture %}
+{% capture whatsnext %}
+
+* Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set). 
 
 {% endcapture %}
 {% include templates/concept.md %}
