@@ -126,14 +126,15 @@ will then download and install the cluster database and control plane
 components. This may take several minutes.
 
 You can't run `kubeadm init` twice without tearing down the cluster in between
-([unless you're upgrading from v1.6 to v1.7](#TODO)), see [Tear Down](#tear-down).
+([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7.md)),
+see [Tear Down](#tear-down).
 
 The output should look like:
 
 ```
 [kubeadm] WARNING: kubeadm is in beta, please do not use it for production clusters.
-[init] Using Kubernetes version: v1.6.4
-[init] Using Authorization mode: RBAC
+[init] Using Kubernetes version: v1.7.0
+[init] Using Authorization modes: [Node RBAC]
 [preflight] Running pre-flight checks
 [preflight] Starting the kubelet service
 [certificates] Generated CA certificate and key.
@@ -149,22 +150,19 @@ The output should look like:
 [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/controller-manager.conf"
 [kubeconfig] Wrote KubeConfig file to disk: "/etc/kubernetes/scheduler.conf"
 [apiclient] Created API client, waiting for the control plane to become ready
-[apiclient] All control plane components are healthy after 16.772251 seconds
-[apiclient] Waiting for at least one node to register and become ready
-[apiclient] First node is ready after 5.002536 seconds
-[apiclient] Test deployment succeeded
+[apiclient] All control plane components are healthy after 16.502136 seconds
 [token] Using token: <token>
 [apiconfig] Created RBAC rules
-[addons] Created essential addon: kube-proxy
-[addons] Created essential addon: kube-dns
+[addons] Applied essential addon: kube-proxy
+[addons] Applied essential addon: kube-dns
 
 Your Kubernetes master has initialized successfully!
 
 To start using your cluster, you need to run (as a regular user):
 
-  sudo cp /etc/kubernetes/admin.conf $HOME/
-  sudo chown $(id -u):$(id -g) $HOME/admin.conf
-  export KUBECONFIG=$HOME/admin.conf
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 You should now deploy a pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
@@ -267,7 +265,7 @@ The output should look something like:
 [discovery] Created cluster-info discovery client, requesting info from "https://10.138.0.4:6443"
 [discovery] Cluster info signature and contents are valid, will use API Server "https://10.138.0.4:6443"
 [discovery] Successfully established connection with API Server "10.138.0.4:6443"
-[bootstrap] Detected server version: v1.6.4
+[bootstrap] Detected server version: v1.7.0
 [bootstrap] The server supports the Certificates API (certificates.k8s.io/v1beta1)
 [csr] Created API client to obtain unique certificate for this node, generating keys and certificate signing request
 [csr] Received signed certificate from the API server, generating KubeConfig...
@@ -457,9 +455,10 @@ You may have trouble in the configuration if you see Pod statuses like `RunConta
     an issue in the Pod Network providers' issue tracker and get the issue triaged there.
 
 1. **The `kube-dns` Pod is stuck in the `Pending` state forever**
-    This is expected and part of the design. kubeadm is network provider-agnostic, so you should
-    install the pod network solution of choice  is normal, you have to install a Pod Network
-    before `kube-dns` may deployed fully. Hence the Pending state before the network is set up.
+    This is expected and part of the design. kubeadm is network provider-agnostic, so the admin
+    should [install the pod network solution](/docs/concepts/cluster-administration/addons/)
+    of choice. You have to install a Pod Network
+    before `kube-dns` may deployed fully. Hence the `Pending` state before the network is set up.
 
 1. **I tried to set `HostPort` on one workload, but it didn't have any effect**
     The `HostPort` and `HostIP` functionality is available depending on your Pod Network

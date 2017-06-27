@@ -563,7 +563,7 @@ Most users will have no need to set these. These environment variables are a
 short-term solution, eventually they will be integrated in the kubeadm
 configuration file.
 
-**Note:** These environment variables are deprecated and will stop function in v1.8!
+**Note:** These environment variables are deprecated and will stop functioning in v1.8!
 
 | Variable | Default | Description |
 | --- | --- | --- |
