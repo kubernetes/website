@@ -24,7 +24,7 @@ Configuring the [aggregation layer](/docs/concepts/api-extension/apiserver-aggre
 
 ## Enable apiserver flags
 
-Enable the aggregation layer via the following apiserver flags. They may have already been taken care of by your provider.
+Enable the aggregation layer via the following kube-apiserver flags. They may have already been taken care of by your provider.
 
     --requestheader-client-ca-file=<path to aggregator CA cert>
     --requestheader-allowed-names=aggregator
