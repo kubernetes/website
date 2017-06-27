@@ -100,11 +100,21 @@ nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app
 
 The created ReplicaSet will ensure that there are three nginx Pods at all times.
 
-**Note:** You must specify appropriate selector and pod template labels of a Deployment (in this case,
-`app = nginx`), i.e. don't overlap with other controllers (including Deployments, ReplicaSets,
-ReplicationControllers, etc.) Kubernetes won't stop you from doing that, and if you end up with multiple
-controllers that have overlapping selectors, those controllers will fight with each other and won't behave
+**Note:** You must specify an appropriate selector and pod template labels in a Deployment (in this case,
+`app = nginx`), i.e. don't overlap with other controllers (including other Deployments, ReplicaSets,
+StatefulSets, etc.). Kubernetes won't stop you from doing that, and if you end up with multiple
+controllers that have overlapping selectors, those controllers may fight with each other and won't behave
 correctly.
+
+### Pod-template-hash label
+
+**Note:** This label is not meant to be mutated by users!
+
+Note the pod-template-hash label in the example output in the pod labels above. pod-template-hash is added by the
+Deployment controller in every ReplicaSet that a Deployment creates or adopts. Its purpose is so that children
+ReplicaSets of a Deployment will not overlap among them. It is computed by hashing the PodTemplate of the ReplicaSet
+and using the resulting hash as the label value that will be added in the ReplicaSet selector, pod template labels,
+and in any existing Pods that the ReplicaSet may have.
 
 ## Updating a Deployment
 

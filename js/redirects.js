@@ -80,7 +80,16 @@ $( document ).ready(function() {
     {
         "from": "/docs/concepts/services-networking/networkpolicies/",
         "to": "/docs/concepts/services-networking/network-policies/"
-    }];
+    },
+    {
+        "from": "/docs/getting-started-guides/meanstack/",
+        "to": "https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-kubernetes-149ca81c2b5d"
+    },
+    {
+        "from": "/docs/samples/",
+        "to": "/docs/tutorials/"
+    }
+    ];
 
     forwardingRules.forEach(function(rule) {
         if (forwardingURL.indexOf(rule.from) > -1) {
