@@ -13,7 +13,7 @@ redirect_from:
 
 Adding entries to a Pod's /etc/hosts file provides Pod-level override of hostname resolution when DNS and other options are not applicable. In 1.7, users can add these custom entries with the HostAliases field in PodSpec.
 
-Modification not using HostAliases is not suggested because the file is managed by Kubetlet and can be overwritten on during Pod creation/restart.
+Modification not using HostAliases is not suggested because the file is managed by Kubelet and can be overwritten on during Pod creation/restart.
 
 ## Default Hosts File Content
 
