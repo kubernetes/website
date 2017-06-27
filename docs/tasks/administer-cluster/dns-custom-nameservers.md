@@ -22,12 +22,12 @@ nameservers.
 
 The diagram below shows the flow of DNS queries specified in the configuration
 above. With the dnsPolicy set to “ClusterFirst” a DNS query is first sent to
-the DNS caching layer in kube-dns. From here, the suffix of the request is
+the DNS caching layer in kube-dns. From there, the suffix of the request is
 examined and then forwarded to the appropriate DNS.  In this case, names with
-the cluster suffix (e.g.; “.cluster.local”) are sent to kube-dns. Names with
-the stub domain suffix (e.g.; “.acme.local”) will be sent to the configured
-custom resolver. Finally, requests that do not match any of those suffixes will
-be forwarded to the upstream DNS.
+the cluster suffix (e.g. “.cluster.local”) are sent to kube-dns. Names with
+the stub domain suffix (e.g. “.acme.local”) are sent to the configured
+custom resolver. Finally, requests that do not match any of those suffixes are
+forwarded to the upstream DNS.
 
 ![DNS lookup flow](/docs/tasks/administer-cluster/dns-custom-nameservers/dns.png)
 
@@ -38,8 +38,8 @@ by providing a ConfigMap for kube-dns (`kube-system:kube-dns`).
 
 For example, the configuration below inserts a single stub domain and two
 upstream nameservers.  As specified, DNS requests with the “.acme.local” suffix
-will be forwarded to a DNS listening at 1.2.3.4. Additionally, Google Public DNS
-will serve upstream queries. See the [ConfigMap options](#configmap-options) for
+are forwarded to a DNS listening at 1.2.3.4. Additionally, Google Public DNS
+serves the upstream queries. See the [ConfigMap options](#configmap-options) for
 details about the configuration option format.
 
 ```yaml
@@ -57,11 +57,11 @@ data:
 
 The diagram below shows the flow of DNS queries specified in the configuration
 above. With the dnsPolicy set to “ClusterFirst”, a DNS query is first sent to
-the DNS caching layer in kube-dns. From here, the suffix of the request is
+the DNS caching layer in kube-dns. From there, the suffix of the request is
 examined and then forwarded to the appropriate DNS.  In this case, names with
 the cluster suffix (e.g. “.cluster.local”) are sent to kube-dns. Names with the
-stub domain suffix (e.g. “.acme.local”) will be sent to the configured custom
-resolver. Finally, requests that do not match any of those suffixes will be
+stub domain suffix (e.g. “.acme.local”) are sent to the configured custom
+resolver. Finally, requests that do not match any of those suffixes are
 forwarded to the upstream DNS.
 
 Below is a table of example domain names and the destination of the queries for
@@ -89,11 +89,11 @@ If dnsPolicy is set to “Default”, then the name resolution configuration is
 inherited from the node the pods run on. Note: custom upstream nameservers and
 stub domains cannot be used in conjunction with dnsPolicy: “Default”.
 
-If dnsPolicy is set to “ClusterFirst”, then DNS queries will be sent to the
+If dnsPolicy is set to “ClusterFirst”, then DNS queries are sent to the
 kube-dns service. Queries for domains rooted in the configured cluster domain
-suffix (any address ending in “.cluster.local” in the example above) will be
-answered by the kube-dns service. All other queries (for example,
-www.kubernetes.io) will be forwarded to the upstream nameserver inherited from
+suffix (any address ending in “.cluster.local” in the example above) are
+answered by the kube-dns service. All other queries, such as
+www.kubernetes.io, are forwarded to the upstream nameserver inherited from
 the node.
 
 ### ConfigMap options
@@ -102,7 +102,7 @@ Options for the kube-dns `kube-system:kube-dns` ConfigMap
 
 | Field | Format | Description |
 | ----- | ------ | ----------- |
-| stubDomains (optional) | A JSON map using a DNS suffix key (e.g.; “acme.local”) and a value consisting of a JSON array of DNS IPs. | The target nameserver may itself be a Kubernetes service. For instance, you can run your own copy of dnsmasq to export custom DNS names into the ClusterDNS namespace. |
+| stubDomains (optional) | A JSON map using a DNS suffix key (e.g. “acme.local”) and a value consisting of a JSON array of DNS IPs. | The target nameserver may itself be a Kubernetes service. For instance, you can run your own copy of dnsmasq to export custom DNS names into the ClusterDNS namespace. |
 | upstreamNameservers (optional) | A JSON array of DNS IPs. | Note: If specified, then the values specified replace the nameservers taken by default from the node’s /etc/resolv.conf Limits: a maximum of three upstream nameservers can be specified. |
 
 ### Additional examples
