@@ -39,7 +39,7 @@ data:
     [“8.8.8.8”, “8.8.4.4”]
 ```
 
- As specified, DNS requests with the “.acme.local” suffix
+As specified, DNS requests with the “.acme.local” suffix
 are forwarded to a DNS listening at 1.2.3.4. Google Public DNS
 serves the upstream queries.
 
@@ -60,8 +60,7 @@ details about the configuration option format.
 
 ## Understanding name resolution in Kubernetes
 
-Kubernetes currently supports two DNS policies specified on a per-pod basis
-using the `dnsPolicy` flag: “Default” and “ClusterFirst”.
+DNS policies can be set on a per-pod basis. Currently Kubernetes supports two pod-specific DNS policies: “Default” and “ClusterFirst”. These policies are specified with the `dnsPolicy` flag.
 
 *NOTE: "Default" is not the default DNS policy. If `dnsPolicy` is not
 explicitly specified, then “ClusterFirst” is used.*
@@ -69,23 +68,21 @@ explicitly specified, then “ClusterFirst” is used.*
 ### "Default" DNS Policy
 
 If `dnsPolicy` is set to “Default”, then the name resolution configuration is
-inherited from the node that the pods run on.
-
-Custom upstream nameservers and
-stub domains cannot be used in conjunction with this DNS policy.
-
+inherited from the node that the pods run on. Custom upstream nameservers and stub domains cannot be used in conjunction with this policy.
 
 ### "ClusterFirst" DNS Policy
 
 If the `dnsPolicy` is set to "ClusterFirst", name resolution is handled differently, *depending on whether stub-domain and upstream DNS servers are configured*.
 
-If they are *not* configured, any query that does not match the configured cluster domain suffix, such as "www.kubernetes.io", is forwarded to the upstream nameserver inherited from the node.
+**Without custom configurations**: Any query that does not match the configured cluster domain suffix, such as "www.kubernetes.io", is forwarded to the upstream nameserver inherited from the node.
 
-If stub domains and upstream DNS servers are configured (as in the [previous example](#configuring-stub-domain-and-upstream-dns-servers)), DNS queries will be
+**With custom configurations**: If stub domains and upstream DNS servers are configured (as in the [previous example](#configuring-stub-domain-and-upstream-dns-servers)), DNS queries will be
 routed according to the following flow:
+
 1. The query is first sent to the DNS caching layer in kube-dns.
 
-1. From the DNS caching layer, the suffix of the request is examined and then forwarded to the appropriate DNS, based on the following cases:
+1. From the caching layer, the suffix of the request is examined and then forwarded to the appropriate DNS, based on the following cases:
+
    * *Names with the cluster suffix* (e.g.".cluster.local"): The request is sent to kube-dns.
 
    * *Names with the stub domain suffix* (e.g. ".acme.local"): The request is sent to the configured custom DNS resolver (e.g. listening at 1.2.3.4).
@@ -94,18 +91,14 @@ routed according to the following flow:
 
 ![DNS lookup flow](/docs/tasks/administer-cluster/dns-custom-nameservers/dns.png)
 
-### ConfigMap options
+## ConfigMap options
 
 Options for the kube-dns `kube-system:kube-dns` ConfigMap
 
 | Field | Format | Description |
 | ----- | ------ | ----------- |
 | `stubDomains` (optional) | A JSON map using a DNS suffix key (e.g. “acme.local”) and a value consisting of a JSON array of DNS IPs. | The target nameserver may itself be a Kubernetes service. For instance, you can run your own copy of dnsmasq to export custom DNS names into the ClusterDNS namespace. |
-| `upstreamNameservers` (optional) | A JSON array of DNS IPs. | Note: If specified, then the values specified replace the nameservers taken by default from the node’s `/etc/resolv.conf`.<br><br>Limits: a maximum of three upstream nameservers can be specified. |
-
-{% endcapture %}
-
-{% capture whatsnext %}
+| `upstreamNameservers` (optional) | A JSON array of DNS IPs. | Note: If specified, then the values specified replace the nameservers taken by default from the node’s `/etc/resolv.conf`. Limits: a maximum of three upstream nameservers can be specified. |
 
 ## Additional examples
 
