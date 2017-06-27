@@ -90,11 +90,12 @@ access to run privileged or access the host network, and other controls that wou
 allow it to run unfettered on a hosting node. [Pod security policies](/docs/concepts/policy/pod-security-policy.md) 
 can limit which users or service accounts can provide dangerous security context settings.
 
-In general most application workloads need limited access to host resources and so can run
-successfully as a root process (uid 0) without access to host information. However, given
-the privileges associated with the root user, it is always recommended that application 
-containers be written to run as a non-root user, and that administrators that wish to prevent
-client applications from escaping their containers to use a restrictive pod security policy.
+Generally, most application workloads need limited access to host resources so they can 
+successfully run as a root process (uid 0) without access to host information. However, 
+considering the privileges associated with the root user, you should write application 
+containers to run as a non-root user. Similarly, administrators who wish to prevent 
+client applications from escaping their containers should use a restrictive pod security 
+policy.
 
 
 ### Restricting network access
@@ -135,9 +136,12 @@ Write access to the etcd backend for the API is equivalent to gaining root on th
 and read access can be used to escalate fairly quickly. Administrators should always use strong
 credentials from the API servers to their etcd server, such as mutual auth via TLS client certificates,
 and it is often recommended to isolate the etcd servers behind a firewall that only the API servers
-may access. It is not recommended to allow other components within the cluster to access the master
-etcd instance unless proper security precautions are taken to limit access for those other components
-to only keys the API does not use.
+may access. 
+
+**CAUTION:** Allowing other components within the cluster to access the master etcd instance with
+read or write access to the full keyspace is equivalent to granting cluster-admin access. Using
+separate etcd instances for non-master components or using etcd ACLs to restrict read and write
+access to a subset of the keyspace is strongly recommended.
 
 ### Enable audit logging
 
@@ -153,6 +157,12 @@ provide against the possible risk to your security posture. When in doubt, disab
 do not use.
 
 ### Rotate infrastructure credentials frequently
+
+The shorter the lifetime of a secret or credential the harder it is for an attacker to make
+use of that credential. Set short lifetimes on certificates and automate their rotation. Use
+an authentication provider that can control how long issued tokens are available and use short
+lifetimes where possible. If you use service account tokens in external integrations plan to
+rotate those tokens frequently.
 
 ### Review third party integrations before enabling them
 
