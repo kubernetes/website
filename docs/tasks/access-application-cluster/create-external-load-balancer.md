@@ -99,24 +99,26 @@ which should produce output like this:
 
 The IP address is listed next to `LoadBalancer Ingress`.
 
-## Modify the LoadBalancer behavior for preservation of Source IP
+## Preserving the client source IP
 
-Due to the implementation of this feature, the source IP for sessions as seen in the target
-container will *not be the original source IP* of the client. This is the default behavior as
-of Kubernetes v1.7. However, starting in v1.5, an optional beta feature has been added that
-will preserve the client Source IP for GCE/GKE environments. This feature has been promoted
-to GA in v1.7, with below APIs defined:
+Due to the implementation of this feature, the source IP seen in the target
+container will *not be the original source IP* of the client. To enable
+preservation of the client IP, the following fields can be configured in the
+service spec (supported in GCE/GKE environments):
 
-* `service.spec.externalTrafficPolicy` - It denotes if this Service desires to route
-external traffic to node-local or cluster-wide endpoints. "Local" preserves the client
-source IP and avoids a second hop for LoadBalancer and NodePort type services, but risks
-potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and
-may cause a second hop to another node, but should have good overall load-spreading.
-* `service.spec.healthCheckNodePort` - It specifies the healthcheck nodePort for the
-service. If not specified, healthCheckNodePort is created by the service API backend
-with the allocated nodePort. It will use the user-specified nodePort value if specified
-by the client. It only has an effect when type is set to "LoadBalancer" and
-externalTrafficPolicy is set to "Local".
+* `service.spec.externalTrafficPolicy` - denotes if this Service desires to route
+external traffic to node-local or cluster-wide endpoints. There are two available
+options: "Cluster" (default) and "Local". "Cluster" obscures the client source
+IP and may cause a second hop to another node, but should have good overall
+load-spreading. "Local" preserves the client source IP and avoids a second hop
+for LoadBalancer and NodePort type services, but risks potentially imbalanced
+traffic spreading.
+* `service.spec.healthCheckNodePort` - specifies the healthcheck nodePort (a 32
+bit integer) for the service. If not specified, healthCheckNodePort is created
+by the service API backend with the allocated nodePort. It will use the
+user-specified nodePort value if specified by the client. It only has an
+effect when type is set to "LoadBalancer" and externalTrafficPolicy is set
+to "Local".
 
 This feature can be activated by setting `externalTrafficPolicy` to "Local" in the
 Service Configuration file.
@@ -142,9 +144,12 @@ Service Configuration file.
     }
 ```
 
-Below you could find the deprecated annotations used to enable this feature
-prior to its stable version. Newer Kubernetes versions may stop supporting these
-after v1.7. Please update existing applications to use the fields directly.
+### Deprecated Beta annotations
+
+Below you could find the deprecated Beta annotations used to enable this feature
+prior to its stable version (starting in v1.5). Newer Kubernetes versions may
+stop supporting these after v1.7. Please update existing applications to use the
+fields directly.
 
 * `service.beta.kubernetes.io/external-traffic` annotation <-> `service.spec.externalTrafficPolicy` field
 * `service.beta.kubernetes.io/healthcheck-nodeport` annotation <-> `service.spec.healthCheckNodePort` field
