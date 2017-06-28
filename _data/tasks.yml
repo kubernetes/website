@@ -110,6 +110,8 @@ toc:
   section:
   - docs/tasks/administer-cluster/access-cluster-api.md
   - docs/tasks/administer-cluster/access-cluster-services.md
+  - docs/tasks/administer-cluster/securing-a-cluster.md
+  - docs/tasks/administer-cluster/encrypt-data.md
   - docs/tasks/administer-cluster/configure-upgrade-etcd.md
   - docs/tasks/administer-cluster/apply-resource-quota-limit.md
   - docs/tasks/administer-cluster/out-of-resource.md
