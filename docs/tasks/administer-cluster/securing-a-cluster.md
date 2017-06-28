@@ -4,11 +4,20 @@ assignees:
 title: Securing a Cluster
 ---
 
-* TOC
-{:toc}
+{% capture overview %}
 
 This document covers topics related to protecting a cluster from accidental or malicious access
 and provides recommendations on overall security.
+
+{% endcapture %}
+
+{% capture prerequisites %}
+
+* {% include task-tutorial-prereqs.md %}
+
+{% endcapture %}
+
+{% capture steps %}
 
 ## Controlling access to the Kubernetes API
 
@@ -31,30 +40,31 @@ or static Bearer token approach. Larger clusters may wish to integrate an existi
 allow users to be subdivided into groups. 
 
 All API clients must be authenticated, even those that are part of the infrastructure like nodes,
-proxies, the scheduler, and volume plugins. These clients are typically [service accounts](/docs/admin/service-accounts-admin.md) and are created automatically at cluster startup.
+proxies, the scheduler, and volume plugins. These clients are typically [service accounts](/docs/admin/service-accounts-admin/) or use x509 client certificates, and they are created automatically at cluster startup or are setup as part of the cluster installation.
 
-Consult the [authentication reference document](/docs/admin/authentication.md) for more information.
+Consult the [authentication reference document](/docs/admin/authentication/) for more information.
 
 ### API Authorization
 
-Once authenticated, every API call is also expected to pass an authorization check. Kubernetes ships an 
-integrated Role-Based Access Control (RBAC) component that matches an incoming user or group to a
+Once authenticated, every API call is also expected to pass an authorization check. Kubernetes ships
+an integrated [Role-Based Access Control (RBAC)](/docs/admin/authorization/rbac/) component that matches an incoming user or group to a
 set of permissions bundled into roles. These permissions combine verbs (get, create, delete) with
 resources (pods, services, nodes) and can be namespace or cluster scoped. A set of out of the box
-roles are provided that offer reasonable default separation of responsibilty depending on what actions
-a client might want to perform.
+roles are provided that offer reasonable default separation of responsibility depending on what
+actions a client might want to perform. It is recommended that you use the [Node](/docs/admin/authorization/node/) and [RBAC](/docs/admin/authorization/rbac/) authorizers together, in combination with the
+[NodeRestriction](/docs/admin/admission-controllers/#noderestriction) admission plugin.
 
 As with authentication, simple and broad roles may be appropriate for smaller clusters, but as
 more users interact with the cluster, it may become necessary to separate teams into separate
 namespaces with more limited roles.
 
-With authorization it is important to understand how updates on one object may cause actions in 
+With authorization, it is important to understand how updates on one object may cause actions in 
 other places. For instance, a user may not be able to create pods directly, but allowing them to 
-create a deployment (which creates pods on their behalf) will let them create those pods 
-indirectly. Likewise deleting a node from the API will result in the pods scheduled to that node 
-being terminated and recreated on other nodes. The out of the box roles represent a compromise
+create a deployment, which creates pods on their behalf, will let them create those pods 
+indirectly. Likewise, deleting a node from the API will result in the pods scheduled to that node 
+being terminated and recreated on other nodes. The out of the box roles represent a balance
 between flexibility and the common use cases, but more limited roles should be carefully reviewed
-to prevent accidental escalation.
+to prevent accidental escalation. You can make roles specific to your use case if the out-of-box ones don't meet your needs.
 
 Consult the [authorization reference section](/docs/admin/authorization) for more information.
 
@@ -67,7 +77,7 @@ cluster, themselves, and other resources.
 
 ### Limiting resource usage on a cluster
 
-[Resource quota](/docs/concepts/policy/resource-quotas.md) limits the number or capacity of
+[Resource quota](/docs/concepts/policy/resource-quotas/) limits the number or capacity of
 resources granted to a namespace. This is most often used to limit the amount of CPU, memory,
 or persistent disk a namespace can allocate, but can also control how many pods, services, or
 volumes exist in each namespace. 
@@ -79,11 +89,11 @@ reserved resources like memory, or to provide default limits when none are speci
 
 ### Controlling what privileges containers run with
 
-A pod definition contains a [security context](/docs/tasks/configure-pod-container/security-context.md)
+A pod definition contains a [security context](/docs/tasks/configure-pod-container/security-context/)
 that allows it to request access to running as a specific Linux user on a node (like root),
 access to run privileged or access the host network, and other controls that would otherwise
-allow it to run unfettered on a hosting node. [Pod security policies](/docs/concepts/policy/pod-security-policy.md) 
-can limit which users or service accounts can provide dangerous security context settings.
+allow it to run unfettered on a hosting node. [Pod security policies](/docs/concepts/policy/pod-security-policy/) 
+can limit which users or service accounts can provide dangerous security context settings. For example, pod security policies can limit volume mounts, especially `hostPath`, which are aspects of a pod that should be controlled.
 
 Generally, most application workloads need limited access to host resources so they can 
 successfully run as a root process (uid 0) without access to host information. However, 
@@ -95,9 +105,9 @@ policy.
 
 ### Restricting network access
 
-The [network policy](/docs/tasks/administer-cluster/declare-network-policy.md) for a namespace 
+The [network policies](/docs/tasks/administer-cluster/declare-network-policy/) for a namespace 
 allows application authors to restrict which pods in other namespaces may access pods and ports 
-within their namespace. Many of the supported [Kubernetes networking providers](/docs/concepts/cluster-administration/networking.md)
+within their namespace. Many of the supported [Kubernetes networking providers](/docs/concepts/cluster-administration/networking/)
 now respect network policy.
 
 Quota and limit ranges can also be used to control whether users may request node ports or
@@ -111,8 +121,8 @@ prevent cross talk, or advanced networking policy.
 
 ### Controlling which nodes pods may access
 
-By default there are no limits on which nodes a pod may run.  Kubernetes offers a 
-[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/configuration/assign-pod-node.md)
+By default, there are no restrictions on which nodes may run a pod.  Kubernetes offers a 
+[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/configuration/assign-pod-node/)
 that are available to end users. For many clusters use of these policies to separate workloads
 can be a convention that authors adopt or enforce via tooling.
 
@@ -156,13 +166,13 @@ do not use.
 The shorter the lifetime of a secret or credential the harder it is for an attacker to make
 use of that credential. Set short lifetimes on certificates and automate their rotation. Use
 an authentication provider that can control how long issued tokens are available and use short
-lifetimes where possible. If you use service account tokens in external integrations plan to
-rotate those tokens frequently.
+lifetimes where possible. If you use service account tokens in external integrations, plan to
+rotate those tokens frequently. For example, once the bootstrap phase is complete, a bootstrap token used for setting up nodes should be revoked or its authorization removed.
 
 ### Review third party integrations before enabling them
 
 Many third party integrations to Kubernetes may alter the security profile of your cluster. When
-enabling an integration, always review the permissions that extension requests before granting
+enabling an integration, always review the permissions that an extension requests before granting
 it access. For example, many security integrations may request access to view all secrets on
 your cluster which is effectively making that component a cluster admin. When in doubt, 
 restrict the integration to functioning in a single namespace if possible. 
@@ -170,7 +180,7 @@ restrict the integration to functioning in a single namespace if possible.
 Components that create pods may also be unexpectedly powerful if they can do so inside namespaces
 like the `kube-system` namespace, because those pods can gain access to service account secrets
 or run with elevated permissions if those service accounts are granted access to permissive
-[pod security policies](/docs/concepts/policy/pod-security-policy.md)
+[pod security policies](/docs/concepts/policy/pod-security-policy/).
 
 ### Encrypt secrets at rest
 
@@ -179,13 +189,17 @@ and may grant an attacker significant visibility into the state of your cluster.
 your backups using a well reviewed backup and encryption solution, and consider using full disk
 encryption where possible.
 
-Kubernetes 1.7 contains an alpha feature that will encrypt `Secret` resources in etcd, preventing
+Kubernetes 1.7 contains [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/), an alpha feature that will encrypt `Secret` resources in etcd, preventing
 parties that gain access to your etcd backups from viewing the content of those secrets. While
-this feature is currently experimental, it may offer an additional level of defence when backups
+this feature is currently experimental, it may offer an additional level of defense when backups
 are not encrypted or an attacker gains read access to etcd.
 
 ### Receiving alerts for security updates and reporting vulnerabilities
 
 Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 
-group for emails about security announcements. See the [security reporting](/docs/reference/security.md)
+group for emails about security announcements. See the [security reporting](/security/)
 page for more on how to report vulnerabilities.
+
+{% endcapture %}
+
+{% include templates/task.md %}
