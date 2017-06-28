@@ -424,6 +424,8 @@ Flannel requires special installation instructions:
 
 ``` bash
 export ARCH=amd64
+# next line only if using k8s >=1.6
+curl -sSL "https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel-rbac.yml?raw=true" | kubectl create -f -
 curl -sSL "https://github.com/coreos/flannel/blob/master/Documentation/kube-flannel.yml?raw=true" | sed "s/amd64/${ARCH}/g" | kubectl create -f -
 ```
 
