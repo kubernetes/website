@@ -26,15 +26,19 @@ This page describes how to use Initializers and External Admission Hooks.
 
 Two meanings:
 * A list of pending pre-initialization tasks, stored in every object's metadata (e.g., "AddMyCorporatePolicySidecar").
-* The controllers which actually perform those tasks. The name of the task corresponds to the controller which performs the task.
+* The controllers which actually perform those tasks. The name of the task corresponds to the controller which performs the task. For clarity, we call them "initializer controllers" in this page.
 
-Once the controller has performed its assigned task, it removes its name from the the list. For example, it may send a PATCH that inserts a container in a pod and also removes its name from `metadata.initalizers`. Initializers may make mutations to objects.
+Once the controller has performed its assigned task, it removes its name from the list. For example, it may send a PATCH that inserts a container in a pod and also removes its name from `metadata.initalizers`. Initializers may make mutations to objects.
 
 Objects which have a non-empty initializer list are considered uninitialized, and are not visible in the API unless specifically requested (`?includeUninitialized=true`).
 
 ### How are initializers triggered?
 
-When an object is POSTed, it is checked against all existing `InitializerConfiguration` objects (explained below). For all that it matches, all `spec.initializers[].name`s are appended to the new object's `metadata.initializers` field.
+When an object is POSTed, it is checked against all existing `initializerConfiguration` objects (explained below). For all that it matches, all `spec.initializers[].name`s are appended to the new object's `metadata.initializers` field.
+
+An initializer controller should list and watch for uninitialized objects, by using the query parameter `?includeUninitialized=true`. If using client-go, just set the [listOptions.includeUninitialized](https://github.com/kubernetes/kubernetes/blob/v1.7.0-rc.1/staging/src/k8s.io/apimachinery/pkg/apis/meta/v1/types.go#L315) to true.
+
+For the observed uninitialized objects, an initializer controller should first check if its name matches `metadata.initializers[0]`, if so, it should then perform its assigned task and remove its name from the list.
 
 ### Enable initializers alpha feature
 
@@ -44,17 +48,17 @@ Initializers are an alpha feature, which is disabled by default. To turn it on, 
 
 * Enable the dynamic admission controller registration API by adding `admissionregistration.k8s.io/v1alpha1` to the `--runtime-config` flag passed to `kube-apiserver`, e.g. `--runtime-config=admissionregistration.k8s.io/v1alpha1`. Again, all replicas should have the same flag setting.
 
-### Write an initializer controller (@Clayton)
+### Deploy an initializer controller
 
-### Deploy an initializer (@Clayton)
+We suggest that deploying an initializer controller via the [deployment API](https://kubernetes.io/docs/api-reference/v1.6/#deployment-v1beta1-apps).
 
 ### Configure initializers on the fly
 
-You can configure what initializers are enabled and what resources are subject to the initializers by creating initiallizerconfigurations.
+You can configure what initializers are enabled and what resources are subject to the initializers by creating `initializerconfigurations`.
 
-We suggest that you first deploy the initializer controller and make sure it is working properly before creating the initiallizerconfigurations, otherwise any newly created resources will be stuck in an uninitialized state.
+We suggest that you first deploy the initializer controller and make sure it is working properly before creating the `initializerconfigurations`, otherwise any newly created resources will be stuck in an uninitialized state.
 
-The following is an example InitiallizerConfiguration.
+The following is an example `initiallizerConfiguration`.
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
@@ -75,8 +79,6 @@ spec:
           resources:
             - pods
 ```
-
-For a Create request received by the apiserver, if the request matches any of the `rules` of an initializer, the `Initializer` admission controller will add the initializer to the `metadata.initializers` field of the created object. Thus the initializer controller will notice the creation and initialize the object.
 
 Make sure that all expansions of the `<apiGroup, apiVersions, resources>` tuple in a `rule` are valid; if they are not, separate them in different `rules`.
 
