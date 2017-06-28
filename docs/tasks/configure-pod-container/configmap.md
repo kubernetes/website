@@ -2,7 +2,7 @@
 assignees:
 - eparis
 - pmorie
-title: Configure Containers Using a ConfigMap
+title: Configure Containers with a ConfigMap
 redirect_from:
 - "/docs/user-guide/configmap/index/"
 - "/docs/user-guide/configmap/index.html"

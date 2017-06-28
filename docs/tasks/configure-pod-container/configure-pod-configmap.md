@@ -101,50 +101,23 @@ very charm
 
 ## Add ConfigMap data to a Volume
 
-As explained in [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap.html), when you create a ConfigMap using `--from-file`, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value.
+When you [create a ConfigMap using `--from-file`](/docs/tasks/configure-pod-container/configmap/#create-configmaps-from-files), the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value.
 
-The examples in this section refer to a ConfigMap named special-config, shown below.
+The examples in this section refer to a ConfigMap named `special-config`:
 
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: special-config
-  namespace: default
-data:
-  special.level: very
-  special.type: charm
-```
+{% include code.html language="yaml" file="pod-volume-special-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-volume-special-config" %}
 
 ### Populate a Volume with data stored in a ConfigMap
 
-Add the ConfigMap name under the `volumes` section of the Pod specification.
-This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
-The `command` section references the `special.level` item stored in the ConfigMap.
+1. Add the ConfigMap name under the `volumes` section of the Pod specification.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "-c", "ls /etc/config/" ]
-      volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
-  volumes:
-    - name: config-volume
-      configMap:
-        # Provide the name of the ConfigMap containing the files you want
-        # to add to the container
-        name: special-config
-  restartPolicy: Never
-```
+  This adds the ConfigMap data to the directory specified by the `volumeMounts.mountPath` attribute. In the following example, the specified directory is `/etc/config`.
 
-When the pod runs, the command (`"ls /etc/config/"`) produces the output below:
+  The `command` section references the `special.level` attribute in the ConfigMap.
+
+  {% include code.html language="yaml" file="pod-volume-populate.yaml" ghlink="/docs/tasks/configure-pod-container/pod-volume-populate" %}
+
+When the pod runs, the command `ls /etc/config/` produces the following output:
 
 ```shell
 special.level
@@ -153,33 +126,13 @@ special.type
 
 ### Add ConfigMap data to a specific path in the Volume:
 
-Use the `path` field to specify the desired file path for specific ConfigMap items.
-In this case, the `special.level` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
+You can specify a file path for specific ConfigMap items using the `path` field.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh","-c","cat /etc/config/keys" ]
-      volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
-  volumes:
-    - name: config-volume
-      configMap:
-        name: special-config
-        items:
-        - key: special.level
-          path: keys
-  restartPolicy: Never
-```
+In this example, the `special.level` item is mounted in the volume `config-volume` at `/etc/config/keys`.
 
-When the pod runs, the command (`"cat /etc/config/keys"`) produces the output below:
+{% include code.html language="yaml" file="pod-volume-path.yaml" ghlink="/docs/tasks/configure-pod-container/pod-volume-path" %}
+
+When the pod runs, the command `cat /etc/config/keys` produces the following output:
 
 ```shell
 very
@@ -193,8 +146,9 @@ basis. The [Secrets](/docs/concepts/configuration/secret#using-secrets-as-files-
 {% endcapture %}
 
 {% capture whatsnext %}
-* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configmap/).
-* Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
+- Learn more about [ConfigMaps](/docs/concepts/concept-configmap)
+- See [Configure Containers with a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
+- Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 {% endcapture %}
 
