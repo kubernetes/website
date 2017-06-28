@@ -3,19 +3,21 @@ title: Use ConfigMap Data in Pods
 ---
 
 {% capture overview %}
-This page provides a series of usage examples demonstrating how to configure Pods using data stored in ConfigMaps.
+
+This page demonstrates how to configure Pods using data stored in ConfigMaps.
+
 {% endcapture %}
 
 {% capture prerequisites %}
 - {% include task-tutorial-prereqs.md %}
-- [Create a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
+- [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
 {% endcapture %}
 
 {% capture steps %}
 
 ## Define Pod environment variables using ConfigMap data
 
-### Define a Pod environment variable with data from a single ConfigMap
+### Define a Pod environment variable using a single ConfigMap
 
 1. Define an environment variable as a key-value pair in a ConfigMap:
 
@@ -25,35 +27,17 @@ This page provides a series of usage examples demonstrating how to configure Pod
 
 1. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.  
 
-   ```shell
-   kubectl edit pod dapi-test-pod
-   ```
+    ```shell
+    kubectl edit pod dapi-test-pod
+    ```
 
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: dapi-test-pod
-   spec:
-     containers:
-       - name: test-container
-         image: gcr.io/google_containers/busybox
-         command: [ "/bin/sh", "-c", "env" ]
-         env:
-           # Define the environment variable
-           - name: SPECIAL_LEVEL_KEY
-             valueFrom:
-               configMapKeyRef:
-                 # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
-                 name: special-config
-                 # Specify the key associated with the value
-                 key: special.how
-     restartPolicy: Never
-   ```
+{% include code.html language="yaml" file="pod-single-configmap.yaml" ghlink="/docs/tasks/configure-pod-container/pod-single-configmap" %}
 
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`.
+1. Save the changes to the Pod specification.
 
-### Define Pod environment variables with data from multiple ConfigMaps
+    The Pod's output now includes `SPECIAL_LEVEL_KEY=very`.
+
+### Define Pod environment variables using multiple ConfigMaps
 
 1. As with the previous example, create the ConfigMaps first.
 
@@ -107,7 +91,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
 
 ## Configure all key-value pairs in a ConfigMap as Pod environment variables
 
-Note: This functionality is available to users running Kubernetes v1.6 and later.
+**Note:** This functionality is only available with Kubernetes v1.6 and later.
 
 1. Create a ConfigMap containing multiple key-value pairs.
 
