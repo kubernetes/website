@@ -491,10 +491,10 @@ web-0     1/1       Running   0         3s
 Get the Pods to view their container images.
 
 ```shell{% raw %}
-for p in 0 1 2; do kubectl get po web-$p --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
-gcr.io/google_containers/nginx-slim:0.7
-gcr.io/google_containers/nginx-slim:0.8
-gcr.io/google_containers/nginx-slim:0.8
+kubectl get pod -l app=nginx -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
+web-0   gcr.io/google_containers/nginx-slim:0.7
+web-1   gcr.io/google_containers/nginx-slim:0.8
+web-2   gcr.io/google_containers/nginx-slim:0.8
 {% endraw %}```
 
 `web-0` has had its image updated. Complete the update by deleting the remaining
@@ -532,10 +532,10 @@ web-2     1/1       Running   0         36s
 Get the Pods to view their container images.
 
 ```shell{% raw %}
-for p in 0 1 2; do kubectl get po web-$p --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
-gcr.io/google_containers/nginx-slim:0.7
-gcr.io/google_containers/nginx-slim:0.7
-gcr.io/google_containers/nginx-slim:0.7
+kubectl get pod -l app=nginx -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
+web-0   gcr.io/google_containers/nginx-slim:0.7
+web-1   gcr.io/google_containers/nginx-slim:0.7
+web-2   gcr.io/google_containers/nginx-slim:0.7
 {% endraw %}```
 
 All the Pods in the StatefulSet are now running a new container image.

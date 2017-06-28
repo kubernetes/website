@@ -48,7 +48,7 @@ Services, this resolves to the set of IPs of the pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
 
-### SRV records
+#### SRV records
 
 SRV Records are created for named ports that are part of normal or [Headless
 Services](https://kubernetes.io/docs/user-guide/services/#headless-services).
@@ -60,7 +60,7 @@ For a headless service, this resolves to multiple answers, one for each pod
 that is backing the service, and contains the port number and a CNAME of the pod
 of the form `auto-generated-name.my-svc.my-namespace.svc.cluster.local`.
 
-### Backwards compatibility
+#### Backwards compatibility
 
 Previous versions of kube-dns made names of the form
 `my-svc.my-namespace.cluster.local` (the 'svc' level was added later).  This

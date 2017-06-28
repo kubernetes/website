@@ -186,9 +186,10 @@ rules:
   verbs: ["update", "get"]
 ```
 
-Notably, `resourceNames` can NOT be used to limit requests using the "create" verb because
-authorizers only have access to information that can be obtained from the request URL, method,
-and headers (resource names in a "create" request are part of the request body).
+Notably, if `resourceNames` are set, then the verb must not be list, watch, create, or deletecollection.
+Because resource names are not present in the URL for create, list, watch, and deletecollection API requests,
+those verbs would not be allowed by a rule with resourceNames set, since the resourceNames portion of the
+rule would not match the request.
 
 #### Role Examples
 
@@ -247,7 +248,7 @@ Allow "GET" and "POST" requests to the non-resource endpoint "/healthz" and all 
 
 ```yaml
 rules:
-- nonResourceURLs: ["/healthz", "/healthz/*"]
+- nonResourceURLs: ["/healthz", "/healthz/*"] # '*' in a nonResourceURL is a suffix glob match
   verbs: ["get", "post"]
 ```
 

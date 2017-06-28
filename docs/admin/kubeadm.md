@@ -23,7 +23,9 @@ following steps:
 
 1. kubeadm generates a self-signed CA to provision identities for each component
    (including nodes) in the cluster.  It also generates client certificates to
-   be used by various components.
+   be used by various components.  If the user has provided their own CA by
+   dropping it in the cert directory (configured via `--cert-dir`, by default
+   `/etc/kubernetes/pki`), this step is skipped.
 
 1. Outputting a kubeconfig file for the kubelet to use to connect to the API
    server, as well as an additional kubeconfig file for administration.
@@ -105,6 +107,19 @@ A kubeadm specific [config file](#config-file).  This can be used to specify an
 extended set of options including passing arbitrary command line flags to the
 control plane components.
 
+**Note**: When providing configuration values using _both_ a configuration file
+and flags, the file will take precedence. For example, if a file exists with:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+token: 1234
+```
+
+and the user ran `kubeadm init --config file.yaml --token 5678`,
+the chosen token value will be `1234`.
+
+
 - `--kubernetes-version` (default 'latest') the kubernetes version to initialise
 
 The **v1.6** version of kubeadm only supports building clusters that are at
@@ -140,6 +155,16 @@ names `<service_name>.<namespace>.svc.cluster.local`. You can use the
 `--service-dns-domain` to change the DNS name suffix. Again, you will need to
 update the `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` file
 accordingly else DNS will not function correctly.
+
+**Note**: This flag has an effect (it's needed for the kube-dns Deployment
+manifest and the API Server's serving certificate) but not as you might expect,
+since you will have to modify the arguments to the kubelets in the cluster for
+it to work fully. Specifying DNS parameters using this flag only is not enough.
+Rewriting the kubelet's CLI arguments is out of scope for kubeadm as it should
+be agnostic to how you run the kubelet. However, making all kubelets in the
+cluster pick up information dynamically via the API _is_ in scope and is a
+[planned feature](https://github.com/kubernetes/kubeadm/issues/28) for upcoming
+releases.
 
 - `--skip-preflight-checks`
 
@@ -433,7 +458,7 @@ Using other CRI based runtimes with kubeadm is very simple, and currently suppor
 
 After you have successfully installed `kubeadm` and `kubelet`, please follow these two steps:
 
-1. Install runtime shim on every node. You will need to follow the installation document in the runtime shim project listing above. 
+1. Install runtime shim on every node. You will need to follow the installation document in the runtime shim project listing above.
 
 2. Configure kubelet to use remote CRI runtime. Please remember to change `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
 
@@ -445,6 +470,23 @@ EOF
 ```
 
 Now `kubelet` is ready to use the specified CRI runtime, and you can continue with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
+
+## Using custom certificates
+
+By default kubeadm will generate all the certificates needed for a cluster to run.
+You can override this behaviour by providing your own certificates.
+
+To do so, you must place them in whatever directory is specified by the
+`--cert-dir` flag or `CertificatesDir` configuration file key. By default this
+is `/etc/kubernetes/pki`.
+
+If a given certificate and private key pair both exist, kubeadm will skip the
+generation step and those files will be validated and used for the prescribed
+use-case.
+
+This means you can, for example, prepopulate `/etc/kubernetes/pki/ca.crt`
+and `/etc/kubernetes/pki/ca.key` with an existing CA, which then will be used
+for signing the rest of the certs.
 
 ## Releases and release notes
 

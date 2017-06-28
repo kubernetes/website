@@ -10,7 +10,7 @@ redirect_from:
 - "/docs/getting-started-guides/kubeadm.html"
 ---
 
-## Overview
+{% capture overview %}
 
 This quickstart shows you how to easily install a Kubernetes cluster on machines
 running Ubuntu 16.04, CentOS 7 or HypriotOS v1.0.1+. The installation uses a
@@ -60,14 +60,18 @@ documented here) are, of course, alpha.
 **Be sure to read the [limitations](#limitations)**.  Specifically, configuring
 cloud providers is difficult.  Upgrades are also not well documented or
 particularly easy.
+{% endcapture %}
 
-## Prerequisites
+{% capture prerequisites %}
 
 1. One or more machines running Ubuntu 16.04+, CentOS 7 or HypriotOS v1.0.1+
 1. 1GB or more of RAM per machine (any less will leave little room for your
    apps)
 1. Full network connectivity between all machines in the cluster (public or
    private network is fine)
+{% endcapture %}
+
+{% capture steps %}
 
 ## Objectives
 
@@ -644,3 +648,8 @@ Finally, when running `kubeadm init` you must specify the `--use-kubernetes-vers
 ```bash
 kubeadm init --use-kubernetes-version=v1.5.6
 ```
+
+{% endcapture %}
+
+
+{% include templates/task.md %}

@@ -149,7 +149,7 @@ To use this feature, you can use the `--extra-config` flag on the `minikube star
 
 This flag is repeated, so you can pass it several times with several different values to set multiple options.
 
-This flag takes a string of the form `component.key=value`, where `component` is one of the strings from the above list, `key` is a value on the
+This flag takes a string of the form `component.key=value`, where `component` is one of the strings from the below list, `key` is a value on the
 configuration struct and `value` is the value to set.
 
 Valid `key`s can be found by examining the documentation for the Kubernetes `componentconfigs` for each component.
@@ -226,7 +226,7 @@ However, Minikube is configured to persist files stored under the following host
 * `/var/lib/localkube`
 * `/var/lib/docker`
 
-Here is an example PersistentVolume config to persist data in the '/data' directory:
+Here is an example PersistentVolume config to persist data in the `/data` directory:
 
 ```yaml
 apiVersion: v1
@@ -243,13 +243,15 @@ spec:
 ```
 
 ## Mounted Host Folders
-Some drivers will mount a host folder within the VM so that you can easily share files between the VM and host.  These are not configurable at the moment and different for the driver and OS you are using.  Note: Host folder sharing is not implemented in the KVM driver yet.
+Some drivers will mount a host folder within the VM so that you can easily share files between the VM and host.  These are not configurable at the moment and different for the driver and OS you are using.
+
+**Note:** Host folder sharing is not implemented in the KVM driver yet.
 
 | Driver | OS | HostFolder | VM |
 | --- | --- | --- | --- |
-| Virtualbox | Linux | /home | /hosthome |
-| Virtualbox | OSX | /Users | /Users |
-| Virtualbox | Windows | C://Users | /c/Users |
+| VirtualBox | Linux | /home | /hosthome |
+| VirtualBox | OSX | /Users | /Users |
+| VirtualBox | Windows | C://Users | /c/Users |
 | VMWare Fusion | OSX | /Users | /Users |
 | Xhyve | OSX | /Users | /Users |
 
@@ -258,11 +260,11 @@ Some drivers will mount a host folder within the VM so that you can easily share
 
 To access a private container registry, follow the steps on [this page](/docs/concepts/containers/images/).
 
-We recommend you use ImagePullSecrets, but if you would like to configure access on the minikube VM you can place the `.dockercfg` in the `/home/docker` directory or the `config.json` in the `/home/docker/.docker` directory.
+We recommend you use `ImagePullSecrets`, but if you would like to configure access on the minikube VM you can place the `.dockercfg` in the `/home/docker` directory or the `config.json` in the `/home/docker/.docker` directory.
 
 ## Add-ons
 
-In order to have minikube properly start/restart custom addons, place the addons you wish to be launched with minikube in the `.minikube/addons` directory.  Addons in this folder will be moved to the minikubeVM and launched each time minikube is started/restarted.
+In order to have minikube properly start/restart custom addons, place the addons you wish to be launched with minikube in the `~/.minikube/addons` directory.  Addons in this folder will be moved to the minikubeVM and launched each time minikube is started/restarted.
 
 ## Using Minikube with an HTTP Proxy
 
@@ -299,12 +301,13 @@ Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmach
 For more information about minikube, see the [proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/local-cluster-ux.md).
 
 ## Additional Links:
-* **Goals and Non-Goals**: For the goals and non-goals of the minikube project, please see our [roadmap](https://github.com/kubernetes/minikube/blob/master/ROADMAP.md).
+* **Goals and Non-Goals**: For the goals and non-goals of the minikube project, please see our [roadmap](https://github.com/kubernetes/minikube/blob/master/docs/contributors/roadmap.md).
 * **Development Guide**: See [CONTRIBUTING.md](https://github.com/kubernetes/minikube/blob/master/CONTRIBUTING.md) for an overview of how to send pull requests.
-* **Building Minikube**: For instructions on how to build/test minikube from source, see the [build guide](https://github.com/kubernetes/minikube/blob/master/BUILD_GUIDE.md)
-* **Adding a New Dependency**: For instructions on how to add a new dependency to minikube see the [adding dependencies guide](https://github.com/kubernetes/minikube/blob/master/ADD_DEPENDENCY.md)
-* **Updating Kubernetes**: For instructions on how to add a new dependency to minikube see the [updating Kubernetes guide](https://github.com/kubernetes/minikube/blob/master/UPDATE_KUBERNETES.md)
+* **Building Minikube**: For instructions on how to build/test minikube from source, see the [build guide](https://github.com/kubernetes/minikube/blob/master/docs/contributors/build_guide.md)
+* **Adding a New Dependency**: For instructions on how to add a new depeindency to minikube see the [adding dependencies guide](https://github.com/kubernetes/minikube/blob/master/docs/contributors/adding_a_dependency.md)
+* **Adding a New Addon**: For instruction on how to add a new addon for minikube see the [adding an addon guide](https://github.com/kubernetes/minikube/blob/master/docs/contributors/adding_an_addon.md)
+* **Updating Kubernetes**: For instructions on how to update kubernetes see the [updating Kubernetes guide](https://github.com/kubernetes/minikube/blob/master/docs/contributors/updating_kubernetes.md)
 
 ## Community
 
-Contributions, questions, and comments are all welcomed and encouraged! minkube developers hang out on [Slack](https://kubernetes.slack.com) in the #minikube channel (get an invitation [here](http://slack.kubernetes.io/)). We also have the [kubernetes-dev Google Groups mailing list](https://groups.google.com/forum/#!forum/kubernetes-dev). If you are posting to the list please prefix your subject with "minikube: ".
+Contributions, questions, and comments are all welcomed and encouraged! minikube developers hang out on [Slack](https://kubernetes.slack.com) in the #minikube channel (get an invitation [here](http://slack.kubernetes.io/)). We also have the [kubernetes-dev Google Groups mailing list](https://groups.google.com/forum/#!forum/kubernetes-dev). If you are posting to the list please prefix your subject with "minikube: ".

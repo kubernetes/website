@@ -16,18 +16,19 @@ redirect_from:
 {% capture overview %}
 
 This page shows how to investigate problems related to the execution of
-Init Containers.
+Init Containers. The example command lines below refer to the Pod as
+  `<pod-name>` and the Init Containers as `<init-container-1>` and
+  `<init-container-2>`.
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
+{% include task-tutorial-prereqs.md %}
+
 * You should be familiar with the basics of
   [Init Containers](/docs/concepts/abstractions/init-containers/).
-* You should have a [Pod](/docs/concepts/workloads/pods/pod/) you want to debug that uses
-  Init Containers. The example command lines below refer to the Pod as
-  `<pod-name>` and the Init Containers as `<init-container-1>` and
-  `<init-container-2>`.
+* You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).   
 
 {% endcapture %}
 
@@ -35,7 +36,7 @@ Init Containers.
 
 ## Checking the status of Init Containers
 
-The Pod status will give you an overview of Init Container execution:
+Display the status of your pod:
 
 ```shell
 kubectl get pod <pod-name>
@@ -54,7 +55,7 @@ status values and their meanings.
 
 ## Getting details about Init Containers
 
-You can see detailed information about Init Container execution by running:
+View more detailed information about Init Container execution:
 
 ```shell
 kubectl describe pod <pod-name>
@@ -99,18 +100,18 @@ kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
 ```
 {% endraw %}
 
-This will return the same information as above, but in raw JSON format.
+This command will return the same information as above in raw JSON.
 
 ## Accessing logs from Init Containers
 
-You can access logs for an Init Container by passing its Container name along
-with the Pod name:
+Pass the Init Container name along with the Pod name
+to access its logs.
 
 ```shell
 kubectl logs <pod-name> -c <init-container-2>
 ```
 
-If your Init Container runs a shell script, it helps to enable printing of
+Init Containers that run a shell script print
 commands as they're executed. For example, you can do this in Bash by running
 `set -x` at the beginning of the script.
 
@@ -129,10 +130,8 @@ Status | Meaning
 `Init:N/M` | The Pod has `M` Init Containers, and `N` have completed so far.
 `Init:Error` | An Init Container has failed to execute.
 `Init:CrashLoopBackOff` | An Init Container has failed repeatedly.
-
-A Pod with status `Pending` has not yet begun executing Init Containers.
-A Pod with status `PodInitializing` or `Running` has already finished executing
-Init Containers.
+`Pending` | The Pod has not yet begun executing Init Containers.
+`PodInitializing` or `Running` | The Pod has already finished executing Init Containers.
 
 {% endcapture %}
 

@@ -54,7 +54,7 @@ You can enable multiple authentication methods at once. You should usually use a
  - service account tokens for service accounts
  - at least one other method for user authentication.
 
-When multiple are enabled, the first authenticator module
+When multiple authenticator modules are enabled, the first module
 to successfully authenticate the request short-circuits evaluation.
 The API server does not guarantee the order authenticators run in.
 

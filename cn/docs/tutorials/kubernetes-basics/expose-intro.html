@@ -1,0 +1,138 @@
+---
+title: 使用服务让您的应用程序外部可见
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+
+     <div class="col-md-8">
+      	<h3>目标</h3>
+				<ul>
+					<li>了解 Kubernetes 服务</li>
+					<li>了解 Kubernetes 标签</li>
+					<li>应用程序在 Kubernetes 外部可见</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<h3>Kubernetes Services</h3>
+
+			<p>虽然每个 Pod 在所在的集群中拥有自己独立的 IP 地址，但这些 IP 地址不会暴露在 Kubernetes 集群外部。考虑到 Pod 可能随时会被终止、删除或被其他 Pod 替换，我们需要一种方法让其他 Pod 和应用程序自动发现彼此。Kubernetes 通过 Service 对 Pods 进行分组来解决此问题。一个 Kubernetes <b>Service</b> 是一个抽象层，它定义了一组逻辑的 Pods，并让这些 Pods 对外部流量可见，可以被负载均衡和服务发现。 </p>
+
+			<p>此抽象允许我们将 Pods 暴露给集群外部的流量访问。Services 具有自己的唯一集群专用 IP 地址，并显示一个端口以接收流量。如果选择在集群外公开 Service，则有如下选项:</p>
+			<ul>
+				<li>LoadBalancer - 提供公有 IP 地址 (在 GCP 或 AWS 上运行 Kubernetes 通常使用此方式)</li>
+				<li>NodePort - 使用 NAT 在集群的每个 Node 节点的同一端口让服务可见。(所有 Kubernetes 集群和 Minikube 中都可用此方式)</li>
+			</ul>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>摘要:</h3>
+					<ul>
+						<li>Pod 流量外部可见</li>
+						<li>Pods 流量负载均衡</li>
+						<li>使用标签</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<p><i>
+							Kubernetes Service 是一个抽象层，它定义了一组逻辑的 Pods，并为这些 Pods 启用了外部流量访问、负载均衡和服务发现。
+						</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h2 style="color: #3771e3;">Services 概述</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg"></p>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+
+				<p>一个 Service 提供了一组 Pods 的流量负载均衡。通过创建服务以对来自特定部署的所有 Pods 进行分组时，这是有用的(当我们有多个实例运行时，我们的应用程序将在下一个模块中使用这一点)。</p>
+
+				<p>Services 还负责集群内部的服务发现 (包含在 <a href="/docs/user-guide/connecting-applications/#accessing-the-service">访问服务</a>中)。 例如，这将允许前端服务 (如 web 服务器) 从后端服务 (如 数据库) 接收流量，而不必考虑 Pod。 </p>
+
+				<p>Services 使用标签选择器匹配一组 Pods，标签选择器支持在标签上进行原始逻辑分组的能力。</p>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i> 您可以通过添加 --expose 作为 kubectl 运行命令的参数，在创建 Deployment 的同时创建 Service。 </i></p>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><b>Labels</b> 是附加到对象的 键/值对，例如 Pods，您可以将它们视为社交媒体的标签符号。它们用于以对用户有意义的方式组织相关对象，如:</p>
+				<ul>
+					<li>生产环境 (生产、测试、开发)</li>
+					<li>应用程序版本 (beta、v1.3)</li>
+					<li>服务类型 (前端、后端、数据库)</li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i> Labels 是附加到对象的键/值对。</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<h2 style="color: #3771e3;">Labels</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+
+				<p>Labels 可以在创建时或以后附加到对象，并可以随时修改。
+				在使用 kubectl run 命令新建 Pods/Deployment 时，会设置一些默认的 Labels/Label。标签和标签选择器之间的链接定义了 Deployment 及其创建 Pod 之间的关系。</p>
+
+				<p>现在，让我们在 Service 的帮助下公开我们的应用程序，并应用一些新的标签。</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/expose-interactive/" role="button">启动交互式教程<span class="btn__next">›</span></a>
+			</div>
+		</div>
+
+	</main>
+
+</div>
+
+</body>
+</html>
