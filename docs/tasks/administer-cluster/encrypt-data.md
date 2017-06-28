@@ -79,7 +79,7 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented. 
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
-is the first provider the first key is used for decryption.
+is the first provider, the first key is used for encryption.
 
 ## Encrypting your data
 
@@ -143,7 +143,7 @@ program to retrieve the contents of your secret.
     should match `mykey: mydata`
 
 
-## Ensuring all secrets to be encrypted
+## Ensure all secrets are encrypted
 
 Since secrets are encrypted on write, performing an update on a secret will encrypt that content.
 
@@ -151,9 +151,9 @@ Since secrets are encrypted on write, performing an update on a secret will encr
 kubectl get secrets -o json | kubectl update -f -
 ```
 
-Reads all secrets and then updates them to apply server side encryption. If an error occurs due to a 
-conflicting write, retry the command. For larger clusters, you may wish to subdivide the secrets
-by namespace or script an update.
+The command above reads all secrets and then updates them to apply server side encryption.
+If an error occurs due to a conflicting write, retry the command.
+For larger clusters, you may wish to subdivide the secrets by namespace or script an update.
 
 
 ## Rotating a decryption key
