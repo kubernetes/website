@@ -22,10 +22,37 @@ A ConfigMap's `data` field contains the configuration data. Assigning `data` val
 
 {% include code.html language="yaml" file="concept-configmap.yaml" ghlink="/docs/concepts/configuration/concept-configmap.yaml" %}
 
+## ConfigMaps and Pods: Restrictions
+
+You can use ConfigMaps to configure [pods](/docs/concepts/workloads/pods/pod/), but there are some restrictions:
+
+1. Unless you mark the ConfigMap as "optional", you must create a ConfigMap before referencing it in a Pod specification.
+
+  If you reference a ConfigMap that doesn't exist, the Pod doesn't start. Likewise, references in the ConfigMap to keys that don't exist prevent the pod from starting.
+
+1. If you use `envFrom` to define environment variables from ConfigMaps, invalid keys will be skipped.
+
+  The pod starts, but the invalid names are recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
+
+   ```shell
+   kubectl get events
+   LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
+   0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
+   ```
+
+1. ConfigMaps reside in a specific [namespace](/docs/user-guide/namespaces/).
+
+  A ConfigMap can only be referenced by pods residing in the same namespace.
+
+1. Kubelet doesn't support ConfigMaps for pods not found on the API server.
+
+  This includes pods created using kubectl or indirectly with a replication controller. It does not include pods created via Kubelet's `--manifest-url` flag, `--config` flag, or the Kubelet REST API. (Note that these are uncommon ways to create pods.)
+
 {% endcapture %}
 
 {% capture whatsnext %}
 
+- See [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
 - See [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap).
 - Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
 
