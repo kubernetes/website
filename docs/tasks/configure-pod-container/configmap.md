@@ -11,112 +11,62 @@ redirect_from:
 
 {% capture overview %}
 
-This page shows you how to configure an application using a ConfigMap.
+This page shows you how to configure an application with a ConfigMap.
 
 {% endcapture %}
 
 {% capture prerequisites %}
 
-* {% include task-tutorial-prereqs.md %}
+- {% include task-tutorial-prereqs.md %}
 
 {% endcapture %}
-
 
 {% capture steps %}
 
 ## Use kubectl to create a ConfigMap
 
-Use the `kubectl create configmap` command to create configmaps from [directories](#creating-configmaps-from-directories), [files](#creating-configmaps-from-files), or [literal values](#creating-configmaps-from-literal-values):
+You can use the `kubectl create configmap` command to create ConfigMaps from [literal values](#creating-configmaps-from-literal-values), [files](#creating-configmaps-from-files), or [directories](#creating-configmaps-from-directories). The `kubectl` syntax is:
 
 ```shell
 kubectl create configmap <map-name> <data-source>
 ```
 
-where \<map-name> is the name you want to assign to the ConfigMap and \<data-source> is the directory, file, or literal value to draw the data from.
+where \<map-name> is the name you assign the ConfigMap and \<data-source> is the source for the data: a literal value, file, or directory.
 
-The data source corresponds to a key-value pair in the ConfigMap, where
+The data source corresponds to a key-value pair in the ConfigMap, where:
 
-* key = the file name or the key you provided on the command line, and
-* value = the file contents or the literal value you provided on the command line.
+- the *key* is the file name or the key you provided on the command line; and
+- the *value* is the file contents or the literal value you provided on the command line.
 
-You can use [`kubectl describe`](docs/user-guide/kubectl/v1.6/#describe) or [`kubectl get`](docs/user-guide/kubectl/v1.6/#get) to retrieve information about a ConfigMap. The former shows a summary of the ConfigMap, while the latter returns the full contents of the ConfigMap.
+You can use [`kubectl describe`](docs/user-guide/kubectl/v1.6/#describe) or [`kubectl get`](docs/user-guide/kubectl/v1.6/#get) to retrieve information about a ConfigMap. The `kubectl describe` command shows a summary of the ConfigMap, while `kubectl get` returns the full contents of the ConfigMap.
 
-### Create ConfigMaps from directories
+### Create ConfigMaps from literal values
 
-You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory.
-
-For example:
+You can use `kubectl create configmap` with the `--from-literal` argument to define a literal value from the command line:
 
 ```shell
-kubectl create configmap game-config --from-file=docs/user-guide/configmap/kubectl
+kubectl create configmap special-config --from-literal=special.how=very --from-literal=special.type=charm
 ```
 
-combines the contents of the `docs/user-guide/configmap/kubectl/` directory
+You can pass in multiple key-value pairs. Each pair provided at the command line is represented as a separate entry in the `data` section of the ConfigMap.
 
 ```shell
-ls docs/user-guide/configmap/kubectl/
-game.properties
-ui.properties
+kubectl get configmaps special-config -o yaml
 ```
 
-into the following ConfigMap:
-
-```shell
-kubectl describe configmaps game-config
-Name:           game-config
-Namespace:      default
-Labels:         <none>
-Annotations:    <none>
-
-Data
-====
-game.properties:        158 bytes
-ui.properties:          83 bytes
-```
-
-The `game.properties` and `ui.properties` files in the `docs/user-guide/configmap/kubectl/` directory are represented in the `data` section of the ConfigMap.
-
-```shell
-kubectl get configmaps game-config-2 -o yaml
-```
-
-```yaml
-apiVersion: v1
-data:
-  game.properties: |
-    enemies=aliens
-    lives=3
-    enemies.cheat=true
-    enemies.cheat.level=noGoodRotten
-    secret.code.passphrase=UUDDLRLRBABAS
-    secret.code.allowed=true
-    secret.code.lives=30
-  ui.properties: |
-    color.good=purple
-    color.bad=yellow
-    allow.textmode=true
-    how.nice.to.look=fairlyNice
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2016-02-18T18:52:05Z
-  name: game-config-2
-  namespace: default
-  resourceVersion: "516"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-2
-  uid: b4952dc3-d670-11e5-8cd0-68f728db1985
-```
+{% include code.html language="yaml" file="configmap-from-literal.yaml" ghlink="/docs/tasks/configure-pod-container/configmap-from-literal" %}
 
 ### Create ConfigMaps from files
 
-You can use `kubectl create configmap` to create a ConfigMap from an individual file, or from multiple files.
+With `kubectl create configmap`, you can create a ConfigMap from an individual file or from multiple files.
 
-For example,
+For example, this command:
 
 ```shell
 kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties
 ```
 
-would produce the following ConfigMap:
+...produces the following ConfigMap:j
 
 ```shell
 kubectl describe configmaps game-config-2
@@ -130,7 +80,7 @@ Data
 game.properties:        158 bytes
 ```
 
-You can pass in the  `--from-file` argument multiple times to create a ConfigMap from multiple data sources.
+Including the  `--from-file` argument multiple times creates a ConfigMap from multiple data sources:
 
 ```shell
 kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties --from-file=docs/user-guide/configmap/kubectl/ui.properties
@@ -151,13 +101,13 @@ ui.properties:          83 bytes
 
 #### Define the key to use when creating a ConfigMap from a file
 
-You can define a key other than the file name to use in the `data` section of your ConfigMap when using the `--from-file` argument:
+The `--from-file` argument lets you define a key other than the file name for use in the `data` section of your ConfigMap:
 
 ```shell
 kubectl create configmap game-config-3 --from-file=<my-key-name>=<path-to-file>
 ```
 
-where `<my-key-name>` is the key you want to use in the ConfigMap and `<path-to-file>` is the location of the data source file you want the key to represent.
+...where `<my-key-name>` is the key to use in the ConfigMap and `<path-to-file>` is the location of the data source file the key represents.
 
 For example:
 
@@ -167,61 +117,54 @@ kubectl create configmap game-config-3 --from-file=game-special-key=docs/user-gu
 kubectl get configmaps game-config-3 -o yaml
 ```
 
-```yaml
-apiVersion: v1
-data:
-  game-special-key: |
-    enemies=aliens
-    lives=3
-    enemies.cheat=true
-    enemies.cheat.level=noGoodRotten
-    secret.code.passphrase=UUDDLRLRBABAS
-    secret.code.allowed=true
-    secret.code.lives=30
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2016-02-18T18:54:22Z
-  name: game-config-3
-  namespace: default
-  resourceVersion: "530"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-3
-  uid: 05f8da22-d671-11e5-8cd0-68f728db1985
-```
+{% include code.html language="yaml" file="configmap-from-file-with-key.yaml" ghlink="/docs/tasks/configure-pod-container/configmap-from-file-with-key" %}
 
-### Create ConfigMaps from literal values
+### Create ConfigMaps from directories
 
-You can use `kubectl create configmap` with the `--from-literal` argument to define a literal value from the command line:
+You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory.
+
+For example:
 
 ```shell
-kubectl create configmap special-config --from-literal=special.how=very --from-literal=special.type=charm
+kubectl create configmap game-config --from-file=docs/user-guide/configmap/kubectl
 ```
 
-You can pass in multiple key-value pairs. Each pair provided on the command line is represented as a separate entry in the `data` section of the ConfigMap.
+...combines the contents of the `docs/user-guide/configmap/kubectl/` directory:
 
 ```shell
-kubectl get configmaps special-config -o yaml
+ls docs/user-guide/configmap/kubectl/
+game.properties
+ui.properties
 ```
 
-```yaml
-apiVersion: v1
-data:
-  special.how: very
-  special.type: charm
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2016-02-18T19:14:38Z
-  name: special-config
-  namespace: default
-  resourceVersion: "651"
-  selfLink: /api/v1/namespaces/default/configmaps/special-config
-  uid: dadce046-d673-11e5-8cd0-68f728db1985
+...into the following ConfigMap:
+
+```shell
+kubectl describe configmaps game-config
+Name:           game-config
+Namespace:      default
+Labels:         <none>
+Annotations:    <none>
+
+Data
+====
+game.properties:        158 bytes
+ui.properties:          83 bytes
 ```
+
+The `data` section of the ConfigMap represents the `game.properties` and `ui.properties` files in the directory `docs/user-guide/configmap/kubectl/`.
+
+```shell
+kubectl get configmaps game-config-2 -o yaml
+```
+
+{% include code.html language="yaml" file="configmap-from-directory.yaml" ghlink="/docs/tasks/configure-pod-container/configmap-from-directory" %}
 
 {% endcapture %}
 
 {% capture whatsnext %}
-* See [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap).
-* Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
+- See [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap).
+- Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
 {% endcapture %}
 
 {% include templates/task.md %}
