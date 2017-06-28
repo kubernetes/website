@@ -31,4 +31,4 @@ A ConfigMap's `data` field contains the configuration data. Assigning `data` val
 
 {% endcapture %}
 
-{% include templates/task.md %}
+{% include templates/concept.md %}
