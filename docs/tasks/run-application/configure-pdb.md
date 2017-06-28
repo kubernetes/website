@@ -16,7 +16,7 @@ nodes.
   high availability.
 * You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment.md)
   and/or [Replicated Stateful Applications](/docs/tasks/run-application/run-replicated-stateful-application.md).
-* You should have read how to [Configure a Pod Disruption Budget](/docs/tasks/administer-cluster/configure-pod-disruption-budget/).
+* You should have read about [Pod Disruptions](/docs/concepts/workloads/pods/disruptions/).
 * You should confirm with your cluster owner or service provider that they respect
   Pod Disruption Budgets.
 {% endcapture %}

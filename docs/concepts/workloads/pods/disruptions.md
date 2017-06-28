@@ -8,13 +8,12 @@ redirect_from:
 - "/docs/admin/disruptions/"
 - "/docs/admin/disruptions.html"
 - "/docs/tasks/configure-pod-container/configure-pod-disruption-budget/"
-- "/docs/tasks/configure-pod-container/configure-pod-disruption-budget/"
 - "/docs/tasks/administer-cluster/configure-pod-disruption-budget/"
 ---
 
 {% capture overview %}
 This guide is for application owners who want to build
-highly availabile applications, and thus need to understand
+highly available applications, and thus need to understand
 what types of Disruptions can happen to Pods.
 
 It is also for Cluster Administrators who want to perform automated
@@ -32,11 +31,11 @@ Pods do not disappear until someone (a person or a controller) destroys them, or
 there is an unavoidable hardware or system software error.
 
 We call these unavoidable cases *involuntary disruptions* to
-an applicaton.  Examples are:
+an application.  Examples are:
 
 - a hardware failure of the physical machine backing the node
 - cluster administrator deletes VM (instance) by mistake
-- cloud provider or hypervisor failure makes VM dissappear
+- cloud provider or hypervisor failure makes VM disappear
 - a kernel panic
 - if the node to disappears from the cluster due to cluster network partition
 - eviction of a pod due to the node being [out-of-resources](/docs/tasks/administer-cluster/out-of-resource.md).
@@ -83,11 +82,11 @@ or across zones (if using a
 [multi-zone cluster](/docs/admin/multiple-zones).)
 
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
-no voluntary disruptions at all.  However, your cluster admnistrator or hosting provider
+no voluntary disruptions at all.  However, your cluster administrator or hosting provider
 may run some additional services which cause voluntary disruptions.  For example,
 rolling out node software updates can cause voluntary updates.  Also, some implementations
 of cluster (node) autoscaling may cause voluntary disruptions to defragment and compact nodes.
-You cluster adminstrator or hosting provider should have documented what level of voluntary
+You cluster administrator or hosting provider should have documented what level of voluntary
 disruptions, if any, to expect.
 
 Kubernetes offers features to help run highly available applications at the same
@@ -114,7 +113,7 @@ When a cluster administrator wants to drain a node
 they use the `kubectl drain` command.  That tool tries to evict all
 the pods on the machine.  The eviction request may be temporarily rejected,
 and the tool periodically retries all failed requests until all pods
-are terminated, or until a configureable timeout is reached.
+are terminated, or until a configurable timeout is reached.
 
 A PDB specifies the number of replicas that an application can tolerate having, relative to how
 many it is intended to have.  For example, a Deployment which has a `spec.replicas: 5` is
@@ -144,7 +143,7 @@ When a pod is evicted using the eviction API, it is gracefully terminated (see
 Consider a cluster with 3 nodes, `node-1` through `node-3`.
 The cluster is running several applications.  One of them has 3 replicas initially called
 `pod-a`, `pod-b`, and `pod-c`.  Another, unrelated pod without a PDB, called `pod-x`, is also shown.
-Initially, the pods are layed out as follows:
+Initially, the pods are laid out as follows:
 
 |       node-1         |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|
@@ -231,7 +230,7 @@ can happen, according to:
 ## Separating Cluster Owner and Application Owner Roles
 
 Often, it is useful to think of the Cluster Manager
-and Application Owner as separate roles with limited knowlege
+and Application Owner as separate roles with limited knowledge
 of each other.   This separation of responsibilities
 may make sense in these scenarios:
 
@@ -239,7 +238,7 @@ may make sense in these scenarios:
   there is natural specialization of roles
 - when third-party tools or services are used to automate cluster management
 
-Pod Disrutption Budgets support this separation of roles by providing an
+Pod Disruption Budgets support this separation of roles by providing an
 interface between the roles.
 
 If you do not have such a separation of responsibilities in your organization,
