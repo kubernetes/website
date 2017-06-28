@@ -183,12 +183,10 @@ Follow the "caveats" section of brew's output to add the appropriate bash comple
 
 If you've installed kubectl using the [Homebrew instructions](#install-with-homebrew-on-macos) then kubectl completion should start working immediately.
 
-If you have installed kubectl manually, then run: `source <(kubectl completion bash)`
-
-To add kubectl autocompletion to your profile (so it is automatically loaded in future shells):
+If you have installed kubectl manually, you need to add kubectl autocompletion to the bash-completion:
 
 ```shell
-echo "source <(kubectl completion bash)" >> ~/.bash_profile
+kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 ```
 
 The Homebrew project is independent from kubernetes, so the bash-completion packages are not guaranteed to work.
