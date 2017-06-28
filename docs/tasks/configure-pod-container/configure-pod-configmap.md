@@ -39,127 +39,61 @@ This page demonstrates how to configure Pods using data stored in ConfigMaps.
 
 ### Define Pod environment variables using multiple ConfigMaps
 
-1. As with the previous example, create the ConfigMaps first.
+1. Create multiple ConfigMaps.
 
-   ```yaml
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-     name: special-config
-     namespace: default
-   data:
-     special.how: very
-   ```
+    These commands:
 
-   ```yaml
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-     name: env-config
-     namespace: default
-   data:
-     log_level: INFO
-   ```
+    ```shell
+    kubectl create configmap special-config --from-literal=special.how=very
 
-1. Define the environment variables in the Pod specification.   
+    kubectl create configmap env-config --from-literal=log_level=INFO
+    ```
 
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: dapi-test-pod
-   spec:
-     containers:
-       - name: test-container
-         image: gcr.io/google_containers/busybox
-         command: [ "/bin/sh", "-c", "env" ]
-         env:
-           - name: SPECIAL_LEVEL_KEY
-             valueFrom:
-               configMapKeyRef:
-                 name: special-config
-                 key: special.how
-           - name: LOG_LEVEL
-             valueFrom:
-               configMapKeyRef:
-                 name: env-config
-                 key: special.type
-     restartPolicy: Never
-   ```
+    ...create these YAML files:
 
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=info`.
+    {% include code.html language="yaml" file="pod-multiple-special-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-special-config" %}
+
+    {% include code.html language="yaml" file="pod-multiple-env-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-env-config" %}
+
+1. Define environment variables in the Pod specification.   
+
+    {% include code.html language="yaml" file="pod-multiple-define.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-define" %}
+
+1. Save the changes to the Pod specification.
+
+  The Pod's output now includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=info`.
 
 ## Configure all key-value pairs in a ConfigMap as Pod environment variables
 
 **Note:** This functionality is only available with Kubernetes v1.6 and later.
 
+Including `env-from` as an attribute in a ConfigMap lets you define the ConfigMap's data as Pod environment variables.
+
 1. Create a ConfigMap containing multiple key-value pairs.
 
-   ```yaml
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-     name: special-config
-     namespace: default
-   data:
-     special_level: very
-     special_type: charm
-   ```
+    ```shell
+    kubectl create configmap special-config --from-literal=special_level=very --from-literal=special_type=charm
+    ```
 
-1. Use `env-from` to define all of the ConfigMap's data as Pod environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
+1. Add `env-from` to define all of the ConfigMap's data as Pod environment variables.
 
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: dapi-test-pod
-   spec:
-     containers:
-       - name: test-container
-         image: gcr.io/google_containers/busybox
-         command: [ "/bin/sh", "-c", "env" ]
-         envFrom:
-         - configMapRef:
-             name: special-config
-      restartPolicy: Never
-   ```
+  The Pod uses the key from the ConfigMap as the environment variable name.
 
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`.
+  {% include code.html language="yaml" file="pod-multiple-env-variables.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-env-variables" %}
 
+1. Save the changes to the Pod specification.
+
+  The Pod's output now includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`.
 
 ## Use ConfigMap-defined environment variables in Pod commands  
 
 You can use ConfigMap-defined environment variables in the `command` section of the Pod specification using the `$(VAR_NAME)` Kubernetes substitution syntax.
 
-For example:
+For example, the following Pod specification:
 
-The following Pod specification
+{% include code.html language="yaml" file="pod-multiple-sub.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-sub" %}
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "-c", "echo $(SPECIAL_LEVEL_KEY) $(SPECIAL_TYPE_KEY)" ]
-      env:
-        - name: SPECIAL_LEVEL_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: special-config
-              key: special.how
-        - name: SPECIAL_TYPE_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: special-config
-              key: special.type
-  restartPolicy: Never
-```
-
-produces the following output in the `test-container` container:
+...produces the following output in the `test-container` container:
 
 ```shell
 very charm
