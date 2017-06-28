@@ -16,7 +16,7 @@ nodes.
   high availability.
 * You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment.md)
   and/or [Replicated Stateful Applications](/docs/tasks/run-application/run-replicated-stateful-application.md).
-* You should have read about the [Pod Disruption Budget concept](/docs/tasks/run-application/configure-pdb.md).
+* You should have read about [Pod Disruptions](/docs/concepts/workloads/pods/disruptions/).
 * You should confirm with your cluster owner or service provider that they respect
   Pod Disruption Budgets.
 {% endcapture %}
@@ -109,7 +109,7 @@ of the desired replicas are unhealthy.
 In typical usage, a single budget would be used for a collection of pods managed by
 a controller—for example, the pods in a single ReplicaSet or StatefulSet. 
 
-Note that a disruption budget does not truly guarantee that the specified
+**Note:** A disruption budget does not truly guarantee that the specified
 number/percentage of pods will always be up.  For example, a node that hosts a
 pod from the collection may fail when the collection is at the minimum size
 specified in the budget, thus bringing the number of available pods from the
@@ -123,7 +123,7 @@ semantics of `PodDisruptionBudget`.
 You can find examples of pod disruption budgets defined below. They match pods with the label 
 `app: zookeeper`.
 
-Example PDB Using maxUnavailable:
+Example PDB Using minAvailable:
 
 ```yaml
 apiVersion: policy/v1beta1
@@ -182,9 +182,8 @@ NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
 zk-pdb    2               1                     7s
 ```
 
-The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller
-has seen the PDB and counted the matching PDB, and updated the status
-of the PDB.  
+The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller has seen the pods,
+counted the matching pods, and update the status of the PDB.
 
 You can get more information about the status of a PDB with this command:
 
@@ -216,7 +215,7 @@ You can use a PDB with pods controlled by another type of controller, by an
 - only `.spec.minAvailable` can be used, not `.spec.maxUnavailable`.
 - only an integer value can be used with `.spec.minAvailable`, not a percentage.
 
-You can use a selector which selects a subset or superset of the pods beloning to a built-in
+You can use a selector which selects a subset or superset of the pods belonging to a built-in
 controller.  However, when there are multiple PDBs in a namespace, you must be careful not
 to create PDBs whose selectors overlap.
 
