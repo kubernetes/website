@@ -1,5 +1,5 @@
 ---
-
+title: MEAN stack on Google Cloud Platform
 ---
 
 **By: Sandeep Dinesh** - _July 29, 2015_
@@ -17,12 +17,12 @@ Thankfully, there is a system we can use to manage our containers in a cluster e
 
 ## The Basics of Using Kubernetes
 
-Before we jump in and start kube’ing it up, it’s important to understand some of the fundamentals of Kubernetes.
+Before we jump in and start kube'ing it up, it's important to understand some of the fundamentals of Kubernetes.
 
 * Containers: These are the Docker, rtk, AppC, or whatever Container you are running. You can think of these like subatomic particles; everything is made up of them, but you rarely (if ever) interact with them directly.
-* Pods: Pods are the basic component of Kubernetes. They are a group of Containers that are scheduled, live, and die together. Why would you want to have a group of containers instead of just a single container? Let’s say you had a log processor, a web server, and a database. If you couldn't use Pods, you would have to bundle the log processor in the web server and database containers, and each time you updated one you would have to update the other. With Pods, you can just reuse the same log processor for both the web server and database.
+* Pods: Pods are the basic component of Kubernetes. They are a group of Containers that are scheduled, live, and die together. Why would you want to have a group of containers instead of just a single container? Let's say you had a log processor, a web server, and a database. If you couldn't use Pods, you would have to bundle the log processor in the web server and database containers, and each time you updated one you would have to update the other. With Pods, you can just reuse the same log processor for both the web server and database.
 * Deployments: A Deployment provides declarative updates for Pods. You can define Deployments to create new Pods, or replace existing Pods. You only need to describe the desired state in a Deployment object, and the deployment controller will change the actual state to the desired state at a controlled rate for you. You can define Deployments to create new resources, or replace existing ones by new ones.
-* Services: A service is the single point of contact for a group of Pods. For example, let’s say you have a Deployment that creates four copies of a web server pod. A Service will split the traffic to each of the four copies. Services are "permanent" while the pods behind them can come and go, so it’s a good idea to use Services.
+* Services: A service is the single point of contact for a group of Pods. For example, let's say you have a Deployment that creates four copies of a web server pod. A Service will split the traffic to each of the four copies. Services are "permanent" while the pods behind them can come and go, so it's a good idea to use Services.
 
 
 ## Step 1: Creating the Container
@@ -37,7 +37,7 @@ To do this, you need to use more Docker. Make sure you have the latest version i
 
 Getting the code:
 
-Before starting, let’s get some code to run. You can follow along on your personal machine or a Linux VM in the cloud. I recommend using Linux or a Linux VM; running Docker on Mac and Windows is outside the scope of this tutorial.
+Before starting, let's get some code to run. You can follow along on your personal machine or a Linux VM in the cloud. I recommend using Linux or a Linux VM; running Docker on Mac and Windows is outside the scope of this tutorial.
 
 ```shell
 $ git clone https://github.com/ijason/NodeJS-Sample-App.git app
@@ -45,7 +45,7 @@ $ mv app/EmployeeDB/* app/
 $ sed -i -- 's/localhost/mongo/g' ./app/app.js
 ```
 
-This is the same sample app we ran before. The second line just moves everything from the `EmployeeDB` subfolder up into the app folder so it’s easier to access. The third line, once again, replaces the hardcoded `localhost` with the `mongo` proxy.
+This is the same sample app we ran before. The second line just moves everything from the `EmployeeDB` subfolder up into the app folder so it's easier to access. The third line, once again, replaces the hardcoded `localhost` with the `mongo` proxy.
 
 Building the Docker image:
 
@@ -83,7 +83,7 @@ $ ls
 Dockerfile app
 ```
 
-Let’s build.
+Let's build.
 
 ```shell
 $ docker build -t myapp .
@@ -139,7 +139,7 @@ After some time, it will finish. You can check the console to see the container 
 
 ## **Step 4: Creating the Cluster**
 
-So now you have the custom container, let’s create a cluster to run it.
+So now you have the custom container, let's create a cluster to run it.
 
 Currently, a cluster can be as small as one machine to as big as 100 machines. You can pick any machine type you want, so you can have a cluster of a single `f1-micro` instance, 100 `n1-standard-32` instances (3,200 cores!), and anything in between.
 
@@ -193,7 +193,7 @@ $ gcloud compute disks create \
 
 Pick the same zone as your cluster and an appropriate disk size for your application.
 
-Now, we need to create a Deployment that will run the database. I’m using a Deployment and not a Pod, because if a standalone Pod dies, it won't restart automatically.
+Now, we need to create a Deployment that will run the database. I'm using a Deployment and not a Pod, because if a standalone Pod dies, it won't restart automatically.
 
 ### `db-deployment.yml`
 
@@ -231,7 +231,7 @@ We call the deployment `mongo-deployment`, specify one replica, and open the app
 
 The `volumes` section creates the volume for Kubernetes to use. There is a Google Container Engine-specific `gcePersistentDisk` section that maps the disk we made into a Kubernetes volume, and we mount the volume into the `/data/db` directory (as described in the MongoDB Docker documentation)
 
-Now we have the Deployment, let’s create the Service:
+Now we have the Deployment, let's create the Service:
 
 ### `db-service.yml`
 
@@ -267,7 +267,7 @@ db-service.yml
 
 ## Step 6: Running the Database
 
-First, let’s "log in" to the cluster
+First, let's "log in" to the cluster
 
 ```shell
 $ gcloud container clusters get-credentials mean-cluster
@@ -305,14 +305,14 @@ mongo-deployment-xxxx   1/1    Running  0        3m
 
 ## Step 7: Creating the Web Server
 
-Now the database is running, let’s start the web server.
+Now the database is running, let's start the web server.
 
 We need two things:
 
 1. Deployment to spin up and down web server pods
 2. Service to expose our website to the interwebs
 
-Let’s look at the Deployment configuration:
+Let's look at the Deployment configuration:
 
 ### `web-deployment.yml`
 

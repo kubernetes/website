@@ -2,13 +2,11 @@
 assignees:
 - soltysh
 - sttts
-
+title: Audit in Kubernetes
 ---
 
 * TOC
 {:toc}
-
-## Audit in Kubernetes
 
 Kubernetes Audit provides a security-relevant chronological set of records documenting
 the sequence of activities that have affected system by individual users, administrators
@@ -23,7 +21,7 @@ answer the following questions:
     - to where was it going?
 
 NOTE: Currently, Kubernetes provides only basic audit capabilities, there is still a lot
-of work going on to provide fully featured auditing capabilities (see https://github.com/kubernetes/features/issues/22).
+of work going on to provide fully featured auditing capabilities (see [this issue](https://github.com/kubernetes/features/issues/22)).
 
 Kubernetes audit is part of [kube-apiserver](/docs/admin/kube-apiserver) logging all requests
 coming to the server. Each audit log contains two entries:

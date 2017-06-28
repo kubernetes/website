@@ -1,4 +1,5 @@
 ---
+title: Creating a Documentation Pull Request
 ---
 
 {% capture overview %}
@@ -22,7 +23,7 @@ Documentation will be published under the [CC BY SA 4.0](https://github.com/kube
 
 {% capture steps %}
 
-### Creating a fork of the Kubernetes documentation repository
+## Creating a fork of the Kubernetes documentation repository
 
 1. Go to the
 [kubernetes/kubernetes.github.io](https://github.com/kubernetes/kubernetes.github.io){: target="_blank"}
@@ -32,18 +33,18 @@ repository.
 Kubernetes documentation repository in your GitHub account. The copy
 is called a *fork*.
 
-### Making your changes
+## Making your changes
 
 1. In your GitHub account, in your fork of the Kubernetes docs, create
 a new branch to use for your contribution.
 
-1. In your new branch, make your changes and commit them. If you want to 
+1. In your new branch, make your changes and commit them. If you want to
 [write a new topic](/docs/contribute/write-new-topic/),
 choose the
 [page type](/docs/contribute/page-templates/)
 that is the best fit for your content.
 
-### Submitting a pull request to the master branch (Current Release)
+## Submitting a pull request to the master branch (Current Release)
 
 If you want your change to be published in the released version Kubernetes docs,
 create a pull request against the master branch of the Kubernetes
@@ -61,7 +62,7 @@ site where you can verify that your changes have rendered correctly.
 If needed, revise your pull request by committing changes to your
 new branch in your fork.
 
-### Submitting a pull request to the &lt;vnext&gt; branch (Upcoming Release)
+## Submitting a pull request to the &lt;vnext&gt; branch (Upcoming Release)
 
 If your documentation change should not be released until the next release of
 the Kubernetes product, create a pull request against the &lt;vnext&gt; branch
@@ -79,6 +80,12 @@ site where you can verify that your changes have rendered correctly.
 1. During the next few days, check your pull request for reviewer comments.
 If needed, revise your pull request by committing changes to your
 new branch in your fork.
+
+The staging site for the upcoming Kubernetes release is here:
+[http://kubernetes-io-vnext-staging.netlify.com/](http://kubernetes-io-vnext-staging.netlify.com/).
+The staging site reflects the current state of what's been merged in the
+release branch, or in other words, what the docs will look like for the
+next upcoming release. It's automatically updated as new PRs get merged.
 
 {% endcapture %}
 

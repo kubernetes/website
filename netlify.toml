@@ -1,6 +1,6 @@
 [build]
-  command = "make build"
+  command = "make build generate-redirects"
   publish = "_site"
 
 [context.deploy-preview]
-  command = "make build-preview"
+  command = "make build-preview generate-redirects"

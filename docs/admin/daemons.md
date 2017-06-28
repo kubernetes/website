@@ -1,26 +1,26 @@
 ---
 assignees:
 - erictune
-
+title: Daemon Sets
 ---
 
 * TOC
 {:toc}
 
-## What is a _Daemon Set_?
+## What is a DaemonSet?
 
-A _Daemon Set_ ensures that all (or some) nodes run a copy of a pod.  As nodes are added to the
+A _DaemonSet_ ensures that all (or some) nodes run a copy of a pod.  As nodes are added to the
 cluster, pods are added to them.  As nodes are removed from the cluster, those pods are garbage
-collected.  Deleting a Daemon Set will clean up the pods it created.
+collected.  Deleting a DaemonSet will clean up the pods it created.
 
-Some typical uses of a Daemon Set are:
+Some typical uses of a DaemonSet are:
 
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
 - running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
   https://github.com/prometheus/node_exporter), `collectd`, New Relic agent, or Ganglia `gmond`.
 
-In a simple case, one Daemon Set, covering all nodes, would be used for each type of daemon.
+In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets would be used for a single type of daemon,
 but with different flags and/or different memory and cpu requests for different hardware types.
 
@@ -74,7 +74,7 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](https://github.com/kubernetes/kubernetes.github.io/tree/{{page.docsbranch}}/docs/user-guide/node-selection).  
+selector](/docs/user-guide/node-selection/).
 If you specify a `scheduler.alpha.kubernetes.io/affinity` annotation in `.spec.template.metadata.annotations`,
 then DaemonSet controller will create pods on nodes which match that [node affinity](../../user-guide/node-selection/#alpha-feature-in-kubernetes-v12-node-affinity).
 
@@ -88,18 +88,17 @@ created by the Daemon controller have the machine already selected (`.spec.nodeN
 when the pod is created, so it is ignored by the scheduler).  Therefore:
 
  - the [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
-   by the daemon set controller.
- - daemon set controller can make pods even when the scheduler has not been started, which can help cluster
+   by the DaemonSet controller.
+ - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
 
 ## Communicating with DaemonSet Pods
 
 Some possible patterns for communicating with pods in a DaemonSet are:
 
-- **Push**: Pods in the Daemon Set are configured to send updates to another service, such
+- **Push**: Pods in the DaemonSet are configured to send updates to another service, such
   as a stats database.  They do not have clients.
-- **NodeIP and Known Port**: Pods in the Daemon Set use a `hostPort`, so that the pods are reachable
-  via the node IPs.  Clients knows the the list of nodes ips somehow, and know the port by convention.
+- **NodeIP and Known Port**: Pods in the DaemonSet use a `hostPort`, so that the pods are reachable via the node IPs.  Clients know the list of nodes ips somehow, and know the port by convention.
 - **DNS**: Create a [headless service](/docs/user-guide/services/#headless-services) with the same pod selector,
   and then discover DaemonSets using the `endpoints` resource or retrieve multiple A records from
   DNS.
@@ -126,11 +125,11 @@ You cannot update a DaemonSet.
 
 Support for updating DaemonSets and controlled updating of nodes is planned.
 
-## Alternatives to Daemon Set
+## Alternatives to DaemonSet
 
 ### Init Scripts
 
-It is certainly possible to run daemon processes by directly starting them on a node (e.g using
+It is certainly possible to run daemon processes by directly starting them on a node (e.g. using
 `init`, `upstartd`, or `systemd`).  This is perfectly fine.  However, there are several advantages to
 running such processes via a DaemonSet:
 
@@ -145,9 +144,9 @@ running such processes via a DaemonSet:
 ### Bare Pods
 
 It is possible to create pods directly which specify a particular node to run on.  However,
-a Daemon Set replaces pods that are deleted or terminated for any reason, such as in the case of
+a DaemonSet replaces pods that are deleted or terminated for any reason, such as in the case of
 node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, you should
-use a Daemon Set rather than creating individual pods.
+use a DaemonSet rather than creating individual pods.
 
 ### Static Pods
 
@@ -159,7 +158,7 @@ in cluster bootstrapping cases.  Also, static pods may be deprecated in the futu
 
 ### Replication Controller
 
-Daemon Set are similar to [Replication Controllers](/docs/user-guide/replication-controller) in that
+DaemonSet are similar to [Replication Controllers](/docs/user-guide/replication-controller) in that
 they both create pods, and those pods have processes which are not expected to terminate (e.g. web servers,
 storage servers).
 

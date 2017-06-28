@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: TLS bootstrapping
 ---
 
 * TOC
@@ -9,7 +9,7 @@ assignees:
 
 ## Overview
 
-This document describes how to set up TLS client certificate boostrapping for kubelets.
+This document describes how to set up TLS client certificate bootstrapping for kubelets.
 Kubernetes 1.4 introduces an experimental API for requesting certificates from a cluster-level 
 Certificate Authority (CA). The first supported use of this API is the provisioning of TLS client 
 certificates for kubelets. The proposal can be found [here](https://github.com/kubernetes/kubernetes/pull/20439)
@@ -17,7 +17,7 @@ and progress on the feature is being tracked as [feature #43](https://github.com
 
 ## apiserver configuration
 
-You must provide a token file which specifies at least one "bootstrap token" assigned to a kubelet boostrap-specific group.
+You must provide a token file which specifies at least one "bootstrap token" assigned to a kubelet bootstrap-specific group.
 This group will later be used in the controller-manager configuration to scope approvals in the default approval
 controller. As this feature matures, you should ensure tokens are bound to an RBAC policy which limits requests
 using the bootstrap token to only be able to make requests related to certificate provisioning. When RBAC policy

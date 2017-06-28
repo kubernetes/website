@@ -1,4 +1,5 @@
 ---
+title: Providing Load-Balanced Access to an Application in a Cluster
 ---
 
 {% capture overview %}
@@ -27,7 +28,7 @@ load-balanced access to an application running in a cluster.
 
 {% capture lessoncontent %}
 
-### Creating a Service for an application running in two pods
+## Creating a Service for an application running in two pods
 
 1. Run a Hello World application in your cluster:
 
@@ -52,7 +53,7 @@ load-balanced access to an application running in a cluster.
         NAME                     DESIRED   CURRENT   AGE
         hello-world-2189936611   2         2         12m
 
-1. Create a Serivice object that exposes the replica set:
+1. Create a Service object that exposes the replica set:
 
         kubectl expose rs <your-replica-set-name> --type="LoadBalancer" --name="example-service"
 
@@ -97,21 +98,12 @@ load-balanced access to an application running in a cluster.
     where `<minikube-node-ip-address>` us the IP address of your Minikube node,
     and `<service-node-port>` is the NodePort value for your service.
 
-### Using a service configuration file
+## Using a service configuration file
 
 As an alternative to using `kubectl expose`, you can use a
 [service configuration file](/docs/user-guide/services/operations)
 to create a Service.
 
-
-{% endcapture %}
-
-
-{% capture cleanup %}
-
-If you want to stop the Hello World application, enter these commands:
-
-    TODO
 
 {% endcapture %}
 

@@ -2,10 +2,8 @@
 assignees:
 - davidopp
 - kevin-wangzefeng
-
+title: Assigning Pods to Nodes
 ---
-
-# Constraining pods to run on particular nodes
 
 You can constrain a [pod](/docs/user-guide/pods/) to only be able to run on particular [nodes](/docs/admin/node/) or to prefer to
 run on particular nodes. There are several ways to do this, and they all use
@@ -93,7 +91,7 @@ rather than against labels on the node itself, which allows rules about which po
 The affinity feature consists of two types of affinity, "node affinity" and "inter-pod affinity/anti-affinity."
 Node affinity is like the existing `nodeSelector` (but with the first two benefits listed above),
 while inter-pod affinity/anti-affinity constrains against pod labels rather than node labels, as
-described in the three item listed above, in addition to having the first and second properties listed above.
+described in the third item listed above, in addition to having the first and second properties listed above.
 
 `nodeSelector` continues to work as usual, but will eventually be deprecated, as node affinity can express
 everything that `nodeSelector` can express.

@@ -6,7 +6,7 @@ assignees:
 - erictune
 - janetkuo
 - thockin
-
+title: Using Admission Controllers
 ---
 
 * TOC
@@ -87,7 +87,7 @@ The ImagePolicyWebhook plug-in allows a backend webhook to make admission decisi
 ```
 
 #### Configuration File Format
-ImagePolicyWebhook uses the admission controller config file (`--admission-controller-config-file`) to set configuration options for the behavior of the backend. This file may be json or yaml and has the following format:
+ImagePolicyWebhook uses the admission config file `--admission-controller-config-file` to set configuration options for the behavior of the backend. This file may be json or yaml and has the following format:
 
 ```javascript
 {
@@ -126,7 +126,7 @@ For additional HTTP configuration, refer to the [kubeconfig](/docs/user-guide/ku
 
 When faced with an admission decision, the API Server POSTs a JSON serialized api.imagepolicy.v1alpha1.ImageReview object describing the action. This object contains fields describing the containers being admitted, as well as any pod annotations that match `*.image-policy.k8s.io/*`.
 
-Note that webhook API objects are subject to the same versioning compatibility rules as other Kubernetes API objects. Implementers should be aware of looser compatibility promises for alpha objects and check the “apiVersion” field of the request to ensure correct deserialization. Additionally, the API Server must enable the imagepolicy.k8s.io/v1alpha1 API extensions group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
+Note that webhook API objects are subject to the same versioning compatibility rules as other Kubernetes API objects. Implementers should be aware of looser compatibility promises for alpha objects and check the "apiVersion" field of the request to ensure correct deserialization. Additionally, the API Server must enable the imagepolicy.k8s.io/v1alpha1 API extensions group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 
 An example request body:
 
@@ -151,7 +151,7 @@ An example request body:
 }
 ```
 
-The remote service is expected to fill the ImageReviewStatus field of the request and respond to either allow or disallow access. The response body’s “spec” field is ignored and may be omitted. A permissive response would return:
+The remote service is expected to fill the ImageReviewStatus field of the request and respond to either allow or disallow access. The response body's "spec" field is ignored and may be omitted. A permissive response would return:
 
 ```
 {
@@ -251,6 +251,11 @@ This plugin ignores any `PersistentVolumeClaim` updates, it acts only on creatio
 
 See [persistent volume](/docs/user-guide/persistent-volumes) documentation about persistent volume claims and
 storage classes and how to mark a storage class as default.
+
+### DefaultTolerationSeconds
+
+This plug-in sets the default forgiveness toleration for pods, which have no forgiveness tolerations, to tolerate
+the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes.
 
 ## Is there a recommended set of plug-ins to use?
 

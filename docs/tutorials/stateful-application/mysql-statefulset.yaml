@@ -16,8 +16,6 @@ spec:
             "image": "mysql:5.7",
             "command": ["bash", "-c", "
               set -ex\n
-              # mysqld --initialize expects an empty data dir.\n
-              rm -rf /mnt/data/lost+found\n
               # Generate mysql server-id from pod ordinal index.\n
               [[ `hostname` =~ -([0-9]+)$ ]] || exit 1\n
               ordinal=${BASH_REMATCH[1]}\n
@@ -32,7 +30,6 @@ spec:
               fi\n
             "],
             "volumeMounts": [
-              {"name": "data", "mountPath": "/mnt/data"},
               {"name": "conf", "mountPath": "/mnt/conf.d"},
               {"name": "config-map", "mountPath": "/mnt/config-map"}
             ]
@@ -54,7 +51,7 @@ spec:
               xtrabackup --prepare --target-dir=/var/lib/mysql\n
             "],
             "volumeMounts": [
-              {"name": "data", "mountPath": "/var/lib/mysql"},
+              {"name": "data", "mountPath": "/var/lib/mysql", "subPath": "mysql"},
               {"name": "conf", "mountPath": "/etc/mysql/conf.d"}
             ]
           }
@@ -72,6 +69,7 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /var/lib/mysql
+          subPath: mysql
         - name: conf
           mountPath: /etc/mysql/conf.d
         resources:
@@ -140,6 +138,7 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /var/lib/mysql
+          subPath: mysql
         - name: conf
           mountPath: /etc/mysql/conf.d
         resources:

@@ -1,13 +1,16 @@
 ---
 assignees:
 - IanLewis
-
+title: Third Party Resources
 ---
 
 * TOC
 {:toc}
 
 ## What is ThirdPartyResource?
+
+**WARNING: ThirdPartyResources are not yet considered stable, and the API and/or storage could change before GA.
+Development and outstanding issues are tracked at [https://github.com/kubernetes/features/issues/95](https://github.com/kubernetes/features/issues/95).**
 
 Kubernetes comes with many built-in API objects. However, there are often times when you might need to extend Kubernetes with their own API objects in order to do custom automation.
 
@@ -34,9 +37,9 @@ $ kubectl explain thirdpartyresource
 
 ## Creating a ThirdPartyResource
 
-When you user create a new `ThirdPartyResource`, the Kubernetes API Server reacts by creating a new, namespaced RESTful resource path. For now, non-namespaced objects are not supported. As with existing built-in objects, deleting a namespace deletes all custom objects in that namespace. `ThirdPartyResources` themselves are non-namespaced and are available to all namespaces.
+When you create a new `ThirdPartyResource`, the Kubernetes API Server reacts by creating a new, namespaced RESTful resource path. For now, non-namespaced objects are not supported. As with existing built-in objects, deleting a namespace deletes all custom objects in that namespace. `ThirdPartyResources` themselves are non-namespaced and are available to all namespaces.
 
-For example, if a save the following `ThirdPartyResource` to `resource.yaml`:
+For example, if you save the following `ThirdPartyResource` to `resource.yaml`:
 
 ```yaml
 apiVersion: extensions/v1beta1

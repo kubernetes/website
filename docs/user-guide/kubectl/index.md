@@ -1,4 +1,5 @@
 ---
+title: kubectl
 ---
 
 ## kubectl
@@ -19,28 +20,29 @@ kubectl
 ### Options
 
 ```
-      --alsologtostderr value          log to standard error as well as files
-      --as string                      Username to impersonate for the operation
-      --certificate-authority string   Path to a cert. file for the certificate authority
-      --client-certificate string      Path to a client certificate file for TLS
-      --client-key string              Path to a client key file for TLS
-      --cluster string                 The name of the kubeconfig cluster to use
-      --context string                 The name of the kubeconfig context to use
-      --insecure-skip-tls-verify       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
-      --kubeconfig string              Path to the kubeconfig file to use for CLI requests.
-      --log-backtrace-at value         when logging hits line file:N, emit a stack trace (default :0)
-      --log-dir value                  If non-empty, write log files in this directory
-      --logtostderr value              log to standard error instead of files
-      --match-server-version           Require server version to match client version
-  -n, --namespace string               If present, the namespace scope for this CLI request
-      --password string                Password for basic authentication to the API server
-  -s, --server string                  The address and port of the Kubernetes API server
-      --stderrthreshold value          logs at or above this threshold go to stderr (default 2)
-      --token string                   Bearer token for authentication to the API server
-      --user string                    The name of the kubeconfig user to use
-      --username string                Username for basic authentication to the API server
-  -v, --v value                        log level for V logs
-      --vmodule value                  comma-separated list of pattern=N settings for file-filtered logging
+      --alsologtostderr                  log to standard error as well as files
+      --as string                        Username to impersonate for the operation
+      --certificate-authority string     Path to a cert. file for the certificate authority
+      --client-certificate string        Path to a client certificate file for TLS
+      --client-key string                Path to a client key file for TLS
+      --cluster string                   The name of the kubeconfig cluster to use
+      --context string                   The name of the kubeconfig context to use
+      --insecure-skip-tls-verify         If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
+      --kubeconfig string                Path to the kubeconfig file to use for CLI requests.
+      --log-backtrace-at traceLocation   when logging hits line file:N, emit a stack trace (default :0)
+      --log-dir string                   If non-empty, write log files in this directory
+      --logtostderr                      log to standard error instead of files
+      --match-server-version             Require server version to match client version
+  -n, --namespace string                 If present, the namespace scope for this CLI request
+      --password string                  Password for basic authentication to the API server
+      --request-timeout string           The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests. (default "0")
+  -s, --server string                    The address and port of the Kubernetes API server
+      --stderrthreshold severity         logs at or above this threshold go to stderr (default 2)
+      --token string                     Bearer token for authentication to the API server
+      --user string                      The name of the kubeconfig user to use
+      --username string                  Username for basic authentication to the API server
+  -v, --v Level                          log level for V logs
+      --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging
 ```
 
 ### SEE ALSO
@@ -50,11 +52,13 @@ kubectl
 * [kubectl apply](kubectl_apply.md)	 - Apply a configuration to a resource by filename or stdin
 * [kubectl attach](kubectl_attach.md)	 - Attach to a running container
 * [kubectl autoscale](kubectl_autoscale.md)	 - Auto-scale a Deployment, ReplicaSet, or ReplicationController
+* [kubectl certificate](kubectl_certificate.md)	 - Modify certificate resources.
 * [kubectl cluster-info](kubectl_cluster-info.md)	 - Display cluster info
 * [kubectl completion](kubectl_completion.md)	 - Output shell completion code for the given shell (bash or zsh)
 * [kubectl config](kubectl_config.md)	 - Modify kubeconfig files
 * [kubectl convert](kubectl_convert.md)	 - Convert config files between different API versions
 * [kubectl cordon](kubectl_cordon.md)	 - Mark node as unschedulable
+* [kubectl cp](kubectl_cp.md)	 - Copy files and directories to and from containers.
 * [kubectl create](kubectl_create.md)	 - Create a resource by filename or stdin
 * [kubectl delete](kubectl_delete.md)	 - Delete resources by filenames, stdin, resources and names, or by resources and label selector
 * [kubectl describe](kubectl_describe.md)	 - Show details of a specific resource or group of resources
@@ -66,7 +70,6 @@ kubectl
 * [kubectl get](kubectl_get.md)	 - Display one or many resources
 * [kubectl label](kubectl_label.md)	 - Update the labels on a resource
 * [kubectl logs](kubectl_logs.md)	 - Print the logs for a container in a pod
-* [kubectl namespace](kubectl_namespace.md)	 - Deprecated: config set-context
 * [kubectl options](kubectl_options.md)	 -
 * [kubectl patch](kubectl_patch.md)	 - Update field(s) of a resource using strategic merge patch
 * [kubectl port-forward](kubectl_port-forward.md)	 - Forward one or more local ports to a pod
@@ -82,11 +85,7 @@ kubectl
 * [kubectl uncordon](kubectl_uncordon.md)	 - Mark node as schedulable
 * [kubectl version](kubectl_version.md)	 - Print the client and server version information
 
-###### Auto generated by spf13/cobra on 24-Oct-2016
-
-
-
-
+###### Auto generated by spf13/cobra on 13-Dec-2016
 
 <!-- BEGIN MUNGE: GENERATED_ANALYTICS -->
 [![Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/docs/user-guide/kubectl/kubectl.md?pixel)]()

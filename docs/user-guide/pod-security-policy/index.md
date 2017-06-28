@@ -1,19 +1,19 @@
 ---
 assignees:
 - pweil-
-
+title: Pod Security Policies
 ---
 
 Objects of type `podsecuritypolicy` govern the ability 
 to make requests on a pod that affect the `SecurityContext` that will be 
-applied to a pod and container.  
+applied to a pod and container.
 
-See [PodSecurityPolicy proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/security-context-constraints.md) for more information.
+See [PodSecurityPolicy proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security-context-constraints.md) for more information.
 
 * TOC
 {:toc}
 
-## What is a _Pod Security Policy_?
+## What is a Pod Security Policy?
 
 A _Pod Security Policy_ is a cluster-level resource that controls the 
 actions that a pod can perform and what it has the ability to access. The
@@ -26,7 +26,7 @@ administrator to control the following:
 1. The SELinux context of the container.
 1. The user ID.
 1. The use of host namespaces and networking.
-1. Allocating an FSGroup that owns the pod’s volumes
+1. Allocating an FSGroup that owns the pod's volumes
 1. Configuring allowable supplemental groups
 1. Requiring the use of a read only root file system
 1. Controlling the usage of volume types
@@ -39,7 +39,7 @@ into three categories:
 restrictive value. 
 - *Controlled by an allowable set*: Fields of this type are checked 
 against the set to ensure their value is allowed.
-- *Controlled by a strategy*: Items that have a strategy to generate a value provide
+- *Controlled by a strategy*: Items that have a strategy to provide
 a mechanism to generate the value and a mechanism to ensure that a 
 specified value falls into the set of allowable values.
 
@@ -102,6 +102,10 @@ to the volume sources that are defined when creating a volume:
 1. downwardAPI
 1. fc
 1. configMap
+1. vsphereVolume
+1. quobyte
+1. azureDisk
+1. photonPersistentDisk
 1. \* (allow all volumes)
 
 The recommended minimum set of allowed volumes for new PSPs are 
@@ -156,3 +160,8 @@ following
 1.  You have enabled the api type `extensions/v1beta1/podsecuritypolicy`
 1.  You have enabled the admission controller `PodSecurityPolicy`
 1.  You have defined your policies
+
+## Working With RBAC
+
+In Kubernetes 1.5 and newer, you can use PodSecurityPolicy to control access to privileged containers based on user role and groups.
+(see [more details](https://github.com/kubernetes/kubernetes/blob/master/examples/podsecuritypolicy/rbac/README.md)).
