@@ -148,7 +148,8 @@ whether or not the admission request should be allowed.
 Unlike initializers or the plugin-style admission controllers, external
 admission webhooks are not allowed to mutate the admission request in any way.
 
-The external admission webhooks must support https.
+Because admission is a high security operation, the external admission webhooks
+must support TLS.
 
 ### When to use admission webhooks?
 
@@ -159,7 +160,7 @@ persisted to Kubernetes if those needs are not met. You could write your
 external admission webhook to do this validation and respond accordingly. Of
 course this is a very simple case but you get the idea.
 
-### When are they called?
+### How are external admission webhooks triggered?
 
 Whenever a request comes in, the `GenericAdmissionWebhook` admission plugin will
 get the list of interested external admission webhooks from
@@ -214,8 +215,7 @@ gathers information like `object`, `oldobject`, and `userInfo`, from
 
 ### Deploy the webhook admission controller
 
-See
-(https://github.com/caesarxuchao/example-webhook-admission-controller/tree/master/deployment)
+See [here](https://github.com/caesarxuchao/example-webhook-admission-controller/tree/master/deployment)
 for an example deployment.
 
 We suggest that deploying the webhook admission controller via the [deployment
