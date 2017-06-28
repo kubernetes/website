@@ -4,9 +4,8 @@ assignees:
 - jbeda
 - mikedanese
 - thockin
-
+title: Running Kubernetes on Google Compute Engine
 ---
-
 
 The example below creates a Kubernetes cluster with 4 worker node Virtual Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
 
@@ -135,10 +134,10 @@ $ kubectl get --all-namespaces services
 should show a set of [services](/docs/user-guide/services) that look something like this:
 
 ```shell
-NAMESPACE     NAME                  CLUSTER_IP       EXTERNAL_IP       PORT(S)       SELECTOR               AGE
-default       kubernetes            10.0.0.1         <none>            443/TCP       <none>                 1d
-kube-system   kube-dns              10.0.0.2         <none>            53/TCP,53/UDP k8s-app=kube-dns       1d
-kube-system   kube-ui               10.0.0.3         <none>            80/TCP        k8s-app=kube-ui        1d
+NAMESPACE     NAME                  CLUSTER_IP       EXTERNAL_IP       PORT(S)        AGE
+default       kubernetes            10.0.0.1         <none>            443/TCP        1d
+kube-system   kube-dns              10.0.0.2         <none>            53/TCP,53/UDP  1d
+kube-system   kube-ui               10.0.0.3         <none>            80/TCP         1d
 ...
 ```
 

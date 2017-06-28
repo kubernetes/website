@@ -1,4 +1,5 @@
 ---
+title: Federated Ingress
 ---
 
 This guide explains how to use Kubernetes Federated Ingress to deploy
@@ -276,7 +277,7 @@ where:
 
 1. `firewall-rule-name` can be any name.
 2. `[<service-nodeports>]` is the comma separated list of node ports corresponding to the services that back the Federated Ingress.
-3. [<target-tags>] is the comma separated list of the target tags assigned to the nodes in a kubernetes cluster.
+3. [<target-tags>] is the comma separated list of the target tags assigned to the nodes in a Kubernetes cluster.
 4. <network-name> is the name of the network where the firewall rule must be installed.
 
 Example:

@@ -1,10 +1,8 @@
 ---
 assignees:
-- lavalamp
 - mikedanese
-
+title: Rolling Update Demo
 ---
-
 
 This example demonstrates the usage of Kubernetes to perform a [rolling update](/docs/user-guide/kubectl/kubectl_rolling-update/) on a running group of [pods](/docs/user-guide/pods/). See [here](/docs/user-guide/managing-deployments/#updating-your-application-without-a-service-outage) to understand why you need a rolling update. Also check [rolling update design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/simple-rolling-update.md) for more information.
 
@@ -69,7 +67,7 @@ The rolling-update command in kubectl will do 2 things:
 
 Watch the [demo website](http://localhost:8001/static/index.html), it will update one pod every 10 seconds until all of the pods have the new image.
 Note that the new replication controller definition does not include the replica count, so the current replica count of the old replication controller is preserved.
-But if the replica count had been specified, the final replica count of the new replication controller will be equal this number.
+But if the replica count had been specified, the final replica count of the new replication controller will be equal to this number.
 
 ### Step Five: Bring down the pods
 

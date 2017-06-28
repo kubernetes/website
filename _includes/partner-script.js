@@ -279,14 +279,120 @@
  			logo: 'harbur',
  			link: 'https://harbur.io/',
  			blurb: 'Based in Barcelona, Harbur is a consulting firm that helps companies deploy self-healing solutions empowered by Container technologies'
-  	},
+  		},
 		{
  			type: 1,
  			name: 'Endocode',
  			logo: 'endocode',
  			link: 'https://endocode.com/kubernetes/',
  			blurb: 'Endocode practices and teaches the open source way. Kernel to cluster - Dev to Ops. We offer Kubernetes trainings, services and support.'
-  	}
+  		},
+		{
+ 			type: 0,
+ 			name: 'Spotinst',
+ 			logo: 'spotinst',
+ 			link: 'http://blog.spotinst.com/2016/08/04/elastigroup-kubernetes-minions-steroids/',
+ 			blurb: 'Spotinst uses a prediction algorithm in the Amazon EC2 Spot allowing k8s clusters to increase performance and lower the infrastructure costs'
+  		},
+		{
+ 			type: 1,
+ 			name: 'inwinSTACK',
+ 			logo: 'inwinstack',
+ 			link: 'http://www.inwinstack.com/index.php/en/solutions-en/',
+ 			blurb: 'Our container service leverages OpenStack-based infrastructure and its container orchestration engine Magnum to manage Kubernetes clusters.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'Semantix',
+ 			logo: 'semantix',
+ 			link: 'http://www.semantix.com.br/',
+ 			blurb: 'Semantix is a company that works with data analytics and distributed systems. Kubernetes is used to orchestrate services for our customers.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'ASM Technologies Limited',
+ 			logo: 'asm',
+ 			link: 'http://www.asmtech.com/',
+ 			blurb: 'Our technology supply chain portfolio enables your software products to be accessible, viable and available more effectively.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'InfraCloud Technologies',
+ 			logo: 'infracloud',
+ 			link: 'http://blog.infracloud.io/state-of-kubernetes/',
+ 			blurb: 'InfraCloud Technologies is software consultancy which provides services in Containers, Cloud and DevOps.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'SignalFx',
+ 			logo: 'signalfx',
+ 			link: 'https://github.com/signalfx/integrations/tree/master/kubernetes',
+ 			blurb: 'Gain real-time visibility across metrics & the most intelligent alerts for todays architectures, including deep integration with Kubernetes'
+  		},
+		{
+ 			type: 0,
+ 			name: 'NATS',
+ 			logo: 'nats',
+ 			link: 'https://github.com/pires/kubernetes-nats-cluster',
+ 			blurb: 'NATS is a simple, secure, and scalable cloud native messaging system.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'RX-M',
+ 			logo: 'rxm',
+ 			link: 'http://rx-m.com/training/kubernetes-training/',
+ 			blurb: 'Market neutral Kubernetes Dev, DevOps and Production training and consulting services'
+  		},
+		{
+ 			type: 1,
+ 			name: 'Emerging Technology Advisors',
+ 			logo: 'eta',
+ 			link: 'https://www.emergingtechnologyadvisors.com/services/kubernetes.html',
+ 			blurb: 'ETA helps companies architect, implement, and manage scalable applications using Kubernetes on on public or private cloud.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'CloudPlex.io',
+ 			logo: 'cloudplex',
+ 			link: 'http://www.cloudplex.io',
+ 			blurb: 'CloudPlex enables operations teams to visually deploy, orchestrate, manage, and monitor infrastructure, applications, and services in public or private cloud.'
+  		},
+		{
+ 			type: 1,
+ 			name: 'Kumina',
+ 			logo: 'kumina',
+ 			link: 'https://www.kumina.nl/managed_kubernetes',
+ 			blurb: 'Kumina creates Kubernetes solutions on your choice of infrastructure with around-the-clock management and unlimited support.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'CA Technologies',
+ 			logo: 'ca',
+ 			link: 'https://www.ca.com/us/products/application-deployment.html',
+ 			blurb: 'The RA CDE Kubernetes plugin enables an automated process for pushing changes to production by applying standard Kubernetes YAML files'
+  		},
+		{
+ 			type: 0,
+ 			name: 'CoScale',
+ 			logo: 'coscale',
+ 			link: 'http://www.coscale.com/blog/how-to-monitor-your-kubernetes-cluster',
+ 			blurb: 'Full stack monitoring of containers and microservices orchestrated by Kubernetes. Powered by anomaly detection to find problems faster.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Supergiant.io',
+ 			logo: 'supergiant',
+ 			link: 'https://supergiant.io/blog/supergiant-packing-algorithm-unique-save-money',
+ 			blurb: 'Supergiant autoscales hardware for Kubernetes. Open-source, it makes HA, distributed, stateful apps easy to deploy, manage, and scale.'
+  		},
+		{
+ 			type: 0,
+ 			name: 'Avi Networks',
+ 			logo: 'avinetworks',
+ 			link: 'https://kb.avinetworks.com/avi-vantage-openshift-installation-guide/',
+ 			blurb: 'Avis elastic application services fabric provides scalable, feature rich & integrated L4-7 networking for K8S environments.'
+  		}
+		
 	]
 
 	var isvContainer = document.getElementById('isvContainer')

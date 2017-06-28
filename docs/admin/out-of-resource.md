@@ -3,7 +3,7 @@ assignees:
 - derekwaynecarr
 - vishh
 - timstclair
-
+title: Configuring Out Of Resource Handling
 ---
 
 * TOC
@@ -17,8 +17,7 @@ If either resource is exhausted, the node would become unstable.
 
 ## Eviction Policy
 
-The `kubelet` can pro-actively monitor for and prevent against total starvation of a compute resource.  In
-cases where it could appear to occur, the `kubelet` can pro-actively fail one or more pods in order to reclaim
+The `kubelet` can pro-actively monitor for and prevent against total starvation of a compute resource.  In those cases, the `kubelet` can pro-actively fail one or more pods in order to reclaim
 the starved resource.  When the `kubelet` fails a pod, it terminates all containers in the pod, and the `PodPhase`
 is transitioned to `Failed`.
 
@@ -36,7 +35,7 @@ summary API.
 | `imagefs.available` | `imagefs.available` := `node.stats.runtime.imagefs.available` |
 | `imagefs.inodesFree` | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree` |
 
-Each of the above signals support either a literal or percentage based value.  The percentage based value
+Each of the above signals supports either a literal or percentage based value.  The percentage based value
 is calculated relative to the total capacity associated with each signal.
 
 `kubelet` supports only two filesystem partitions.
@@ -330,7 +329,7 @@ for eviction. Instead `DaemonSet` should ideally launch `Guaranteed` pods.
 `kubelet` has been freeing up disk space on demand to keep the node stable.
 
 As disk based eviction matures, the following `kubelet` flags will be marked for deprecation
-in favor of the simpler configuation supported around eviction.
+in favor of the simpler configuration supported around eviction.
 
 | Existing Flag | New Flag |
 | ------------- | -------- |
@@ -349,7 +348,7 @@ in favor of the simpler configuation supported around eviction.
 The `kubelet` currently polls `cAdvisor` to collect memory usage stats at a regular interval.  If memory usage
 increases within that window rapidly, the `kubelet` may not observe `MemoryPressure` fast enough, and the `OOMKiller`
 will still be invoked.  We intend to integrate with the `memcg` notification API in a future release to reduce this
-latency, and instead have the kernel tell us when a threshold has been crossed immmediately.
+latency, and instead have the kernel tell us when a threshold has been crossed immediately.
 
 If you are not trying to achieve extreme utilization, but a sensible measure of overcommit, a viable workaround for
 this issue is to set eviction thresholds at approximately 75% capacity.  This increases the ability of this feature

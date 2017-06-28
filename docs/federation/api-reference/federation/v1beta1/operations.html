@@ -219,6 +219,12 @@
 <li>
 <p>application/vnd.kubernetes.protobuf</p>
 </li>
+<li>
+<p>application/json;stream=watch</p>
+</li>
+<li>
+<p>application/vnd.kubernetes.protobuf;stream=watch</p>
+</li>
 </ul>
 </div>
 </div>
@@ -1196,7 +1202,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_*versioned_event">*versioned.Event</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_versioned_event">versioned.Event</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1220,10 +1226,13 @@
 <p>application/json</p>
 </li>
 <li>
-<p>application/json;stream=watch</p>
+<p>application/yaml</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf</p>
+</li>
+<li>
+<p>application/json;stream=watch</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf;stream=watch</p>
@@ -1350,7 +1359,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_*versioned_event">*versioned.Event</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../definitions#_versioned_event">versioned.Event</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1374,10 +1383,13 @@
 <p>application/json</p>
 </li>
 <li>
-<p>application/json;stream=watch</p>
+<p>application/yaml</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf</p>
+</li>
+<li>
+<p>application/json;stream=watch</p>
 </li>
 <li>
 <p>application/vnd.kubernetes.protobuf;stream=watch</p>
@@ -1401,7 +1413,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-08-31 00:15:09 UTC
+Last updated 2016-10-28 05:35:17 UTC
 </div>
 </div>
 </body>

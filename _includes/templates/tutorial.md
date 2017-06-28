@@ -15,7 +15,7 @@
 
 {% if objectives %}
 
-### Objectives
+## Objectives
 
 {{ objectives }}
 
@@ -28,7 +28,7 @@
 
 {% if prerequisites %}
 
-### Before you begin
+## Before you begin
 
 {{ prerequisites }}
 
@@ -52,7 +52,7 @@
 
 {% if cleanup %}
 
-### Cleaning up
+## Cleaning up
 
 {{ cleanup }}
 
@@ -61,7 +61,7 @@
 
 {% if whatsnext %}
 
-### What's next
+## What's next
 
 {{ whatsnext }}
 

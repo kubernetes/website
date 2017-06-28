@@ -1,7 +1,7 @@
 ---
 assignees:
 - bprashanth
-
+title: Resizing a Replication Controller
 ---
 
 To increase or decrease the number of pods under a replication controller's

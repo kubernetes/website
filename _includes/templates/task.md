@@ -15,7 +15,7 @@
 
 {% if prerequisites %}
 
-### Before you begin
+## Before you begin
 
 {{ prerequisites }}
 
@@ -48,7 +48,7 @@
 
 {% if whatsnext %}
 
-### What's next
+## What's next
 
 {{ whatsnext }}
 

@@ -2,7 +2,7 @@
 assignees:
 - lavalamp
 - mikedanese
-
+title: Accessing Clusters
 ---
 
 * TOC
@@ -125,6 +125,7 @@ with future high-availability support.
 The Kubernetes project-supported Go client library is at [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go).
 
 To use it, 
+
 * To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes` See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
 * Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
 
@@ -182,9 +183,8 @@ From within a pod the recommended ways to connect to API are:
     Kubernetes API to the localhost interface of the pod, so that other processes
     in any container of the pod can access it.  See this [example of using kubectl proxy
     in a pod](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/kubectl-container/).
-  - use the Go client library, and create a client using the `client.NewInCluster()` factory.
-    This handles locating and authenticating to the apiserver. See this [example of using Go client
-    library in a pod](https://github.com/kubernetes/client-go/blob/master/examples/in-cluster/main.go).
+  - use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
+    They handle locating and authenticating to the apiserver. [example](https://github.com/kubernetes/client-go/blob/master/examples/in-cluster/main.go)
 
 In each case, the credentials of the pod are used to communicate securely with the apiserver.
 
