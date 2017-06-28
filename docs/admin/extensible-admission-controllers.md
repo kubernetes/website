@@ -84,16 +84,34 @@ Make sure that all expansions of the `<apiGroup, apiVersions, resources>` tuple 
 
 After you create the `initializerConfiguration`,  the system will take a few seconds to honor the new configuration.
 
-## External Admission Webhooks (assigned to @whitlockjc)
+## External Admission Webhooks
 
-### What are admission webhooks? (assigned to @whitlockjc)
-External webhook: non-mutating, called in parallel
+### What are external admission webhooks?
 
-### When are they called? (assigned to @whitlockjc)
+External admission webhooks are web applications that are intended to receive admission requests and do something with
+them.  What the external admission webhook does is up to you but there is an interface the external admission webhook
+must follow and that is to respond back with whether or not the admission request should be allowed.
 
-TODO: explain the "GenericAdmissionWebhook" plugin admission controller
+A good example use of an external admission webhook is to do semantic validation of Kubernetes resources.  Imagine your
+infrastructure requires that all `Pod` resources have a common set of labels and you do not want any `Pod` to be
+persisted to Kubernetes if those needs are not met.  You could write your external admission webhook to do this
+validation and respond accordingly.  Of course this is a very simple case but you get the idea.
 
-AdmissionChain, depends on the admission-controller-config
+**Note:** Unlike typical admission controllers that are compiled into `kube-apiserver`, external admission webhooks are
+not allowed to mutate the admission request in any way.
+
+### When are they called?
+
+Whenever an admission request comes in, the `GenericAdmissionWebhook` admission plugin will get the list of external
+admission webhooks and call them in parallel.  If **all** of the external admission webhooks approve the admission
+request, the admission chain continues.  If **any** of the external admission webhooks deny the admission request, the
+admission request will be denied and the reason for doing so will be based on the _first_ external admission webhook
+denial reason.  _(This means if there is more than one external admission webhook that denied the admission request,
+only the first will be returned to the user.)_  If there is an error encountered when calling an external admission
+webhook, that request is ignored and will not be used to approve/deny the admission request.
+
+**Note:** The admission chain depends solely on the order of the `--admission-control` option passed to
+`kube-apiserver`.
 
 Recommended plug-in order:
 ???
