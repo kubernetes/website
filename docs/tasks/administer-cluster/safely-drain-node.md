@@ -118,7 +118,7 @@ You can attempt an eviction using `curl`:
 $ curl -v -H 'Content-type: application/json' http://127.0.0.1:8080/api/v1/namespaces/default/pods/quux/eviction -d @eviction.json
 ```
 
-The API can respond in one of three ways.
+The API can respond in one of three ways:
 
 - If the eviction is granted, then the pod is deleted just as if you had sent
   a `DELETE` request to the pod's URL and you get back `200 OK`.
