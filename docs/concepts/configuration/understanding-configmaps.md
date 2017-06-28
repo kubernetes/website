@@ -10,7 +10,7 @@ A `ConfigMap` lets you separate configuration data for a container image from th
 
 {% capture body %}
 
-## ConfigMaps
+## Understanding ConfigMaps
 
 The [ConfigMap API resource](/docs/api-reference/v1.6/#configmap-v1-core) stores configuration data as key-value pairs. The data can be consumed in pods or provide the configurations for system components, such as controllers. ConfigMap is similar to [Secrets](/docs/concepts/configuration/secret/), but provides a means of working with strings that don't contain sensitive information. Users and system components alike can store configuration data in a ConfigMap.
 
@@ -26,8 +26,8 @@ A ConfigMap's `data` field contains the configuration data. Assigning `data` val
 
 {% capture whatsnext %}
 
-* See [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap).
-* Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
+- See [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap).
+- Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
 
 {% endcapture %}
 
