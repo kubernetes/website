@@ -197,7 +197,7 @@ are not encrypted or an attacker gains read access to etcd.
 ### Receiving alerts for security updates and reporting vulnerabilities
 
 Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 
-group for emails about security announcements. See the [security reporting](/docs/reference/security/)
+group for emails about security announcements. See the [security reporting](/security/)
 page for more on how to report vulnerabilities.
 
 {% endcapture %}
