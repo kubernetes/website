@@ -30,23 +30,23 @@ You can use ConfigMaps to configure [pods](/docs/concepts/workloads/pods/pod/), 
 
   If you reference a ConfigMap that doesn't exist, the Pod doesn't start. Likewise, references in the ConfigMap to keys that don't exist prevent the pod from starting.
 
-1. If you use `envFrom` to define environment variables from ConfigMaps, invalid keys will be skipped.
+2. If you use `envFrom` to define environment variables from ConfigMaps, invalid keys will be skipped.
 
-  The pod starts, but the invalid names are recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
+    The pod starts, but the invalid names are recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
 
-   ```shell
-   kubectl get events
-   LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
-   0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
-   ```
+    ```shell
+    kubectl get events
+    LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
+    0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
+    ```
 
-1. ConfigMaps reside in a specific [namespace](/docs/user-guide/namespaces/).
+3. ConfigMaps reside in a specific [namespace](/docs/user-guide/namespaces/).
 
-  A ConfigMap can only be referenced by pods residing in the same namespace.
+    A ConfigMap can only be referenced by pods residing in the same namespace.
 
-1. Kubelet doesn't support ConfigMaps for pods not found on the API server.
+4. Kubelet doesn't support ConfigMaps for pods not found on the API server.
 
-  This includes pods created using kubectl or indirectly with a replication controller. It does not include pods created via Kubelet's `--manifest-url` flag, `--config` flag, or the Kubelet REST API. (Note that these are uncommon ways to create pods.)
+    This includes pods created using kubectl or indirectly with a replication controller. It does not include pods created via Kubelet's `--manifest-url` flag, `--config` flag, or the Kubelet REST API. (Note that these are uncommon ways to create pods.)
 
 {% endcapture %}
 
