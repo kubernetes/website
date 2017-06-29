@@ -23,7 +23,9 @@ following steps:
 
 1. kubeadm generates a self-signed CA to provision identities for each component
    (including nodes) in the cluster.  It also generates client certificates to
-   be used by various components.
+   be used by various components.  If the user has provided their own CA by
+   dropping it in the cert directory (configured via `--cert-dir`, by default
+   `/etc/kubernetes/pki`), this step is skipped.
 
 1. Outputting a kubeconfig file for the kubelet to use to connect to the API
    server, as well as an additional kubeconfig file for administration.
@@ -153,6 +155,16 @@ names `<service_name>.<namespace>.svc.cluster.local`. You can use the
 `--service-dns-domain` to change the DNS name suffix. Again, you will need to
 update the `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` file
 accordingly else DNS will not function correctly.
+
+**Note**: This flag has an effect (it's needed for the kube-dns Deployment
+manifest and the API Server's serving certificate) but not as you might expect,
+since you will have to modify the arguments to the kubelets in the cluster for
+it to work fully. Specifying DNS parameters using this flag only is not enough.
+Rewriting the kubelet's CLI arguments is out of scope for kubeadm as it should
+be agnostic to how you run the kubelet. However, making all kubelets in the
+cluster pick up information dynamically via the API _is_ in scope and is a
+[planned feature](https://github.com/kubernetes/kubeadm/issues/28) for upcoming
+releases.
 
 - `--skip-preflight-checks`
 
@@ -436,7 +448,7 @@ Remember to change `proxy_ip` and add a kube master node IP address to
 
 ## Use Kubeadm with other CRI runtimes
 
-Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
+Since [Kubernetes 1.6 release](https://git.k8s.io/kubernetes/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
 
 Using other CRI based runtimes with kubeadm is very simple, and currently supported runtimes are:
 
@@ -459,11 +471,28 @@ EOF
 
 Now `kubelet` is ready to use the specified CRI runtime, and you can continue with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
 
+## Using custom certificates
+
+By default kubeadm will generate all the certificates needed for a cluster to run.
+You can override this behaviour by providing your own certificates.
+
+To do so, you must place them in whatever directory is specified by the
+`--cert-dir` flag or `CertificatesDir` configuration file key. By default this
+is `/etc/kubernetes/pki`.
+
+If a given certificate and private key pair both exist, kubeadm will skip the
+generation step and those files will be validated and used for the prescribed
+use-case.
+
+This means you can, for example, prepopulate `/etc/kubernetes/pki/ca.crt`
+and `/etc/kubernetes/pki/ca.key` with an existing CA, which then will be used
+for signing the rest of the certs.
+
 ## Releases and release notes
 
 If you already have kubeadm installed and want to upgrade, run `apt-get update
 && apt-get upgrade` or `yum update` to get the latest version of kubeadm.
 
 Refer to the
-[CHANGELOG.md](https://github.com/kubernetes/kubeadm/blob/master/CHANGELOG.md)
+[CHANGELOG.md](https://git.k8s.io/kubeadm/CHANGELOG.md)
 for more information.

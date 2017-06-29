@@ -100,11 +100,21 @@ nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app
 
 The created ReplicaSet will ensure that there are three nginx Pods at all times.
 
-**Note:** You must specify appropriate selector and pod template labels of a Deployment (in this case,
-`app = nginx`), i.e. don't overlap with other controllers (including Deployments, ReplicaSets,
-ReplicationControllers, etc.) Kubernetes won't stop you from doing that, and if you end up with multiple
-controllers that have overlapping selectors, those controllers will fight with each other and won't behave
+**Note:** You must specify an appropriate selector and pod template labels in a Deployment (in this case,
+`app = nginx`), i.e. don't overlap with other controllers (including other Deployments, ReplicaSets,
+StatefulSets, etc.). Kubernetes won't stop you from doing that, and if you end up with multiple
+controllers that have overlapping selectors, those controllers may fight with each other and won't behave
 correctly.
+
+### Pod-template-hash label
+
+**Note:** This label is not meant to be mutated by users!
+
+Note the pod-template-hash label in the example output in the pod labels above. pod-template-hash is added by the
+Deployment controller in every ReplicaSet that a Deployment creates or adopts. Its purpose is so that children
+ReplicaSets of a Deployment will not overlap among them. It is computed by hashing the PodTemplate of the ReplicaSet
+and using the resulting hash as the label value that will be added in the ReplicaSet selector, pod template labels,
+and in any existing Pods that the ReplicaSet may have.
 
 ## Updating a Deployment
 
@@ -638,7 +648,7 @@ attributes to the Deployment's `status.conditions`:
 * Status=False
 * Reason=ProgressDeadlineExceeded
 
-See the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
+See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
 
 **Note:** Kubernetes will take no action on a stalled Deployment other than to report a status condition with
 `Reason=ProgressDeadlineExceeded`. Higher level orchestrators can take advantage of it and act accordingly, for
@@ -765,7 +775,7 @@ As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, a
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/tutorials/object-management-kubectl/object-management/) documents.
 
-A Deployment also needs a [`.spec` section](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#spec-and-status).
+A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
