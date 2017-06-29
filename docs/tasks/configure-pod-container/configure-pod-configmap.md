@@ -10,7 +10,7 @@ This page demonstrates how to configure Pods using data stored in ConfigMaps.
 
 {% capture prerequisites %}
 - {% include task-tutorial-prereqs.md %}
-- [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
+- Read and understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
 {% endcapture %}
 
 {% capture steps %}
