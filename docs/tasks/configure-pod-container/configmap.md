@@ -17,7 +17,7 @@ This page shows you how to configure an application with a ConfigMap.
 {% capture prerequisites %}
 
 - {% include task-tutorial-prereqs.md %}
-- Read and understand [ConfigMaps](/docs/concepts/concept-configmap)
+- Read and understand [ConfigMaps](/docs/concepts/configuration/understanding-configmaps/)
 
 {% endcapture %}
 
