@@ -28,7 +28,7 @@ You can use ConfigMaps to configure [pods](/docs/concepts/workloads/pods/pod/), 
 
 1. Unless you mark the ConfigMap as "optional", you must create a ConfigMap before referencing it in a Pod specification.
 
-  If you reference a ConfigMap that doesn't exist, the Pod doesn't start. Likewise, references in the ConfigMap to keys that don't exist prevent the pod from starting.
+    If you reference a ConfigMap that doesn't exist, the Pod doesn't start. Likewise, references in the ConfigMap to keys that don't exist prevent the pod from starting.
 
 1. If you use `envFrom` to define environment variables from ConfigMaps, invalid keys will be skipped.
 
