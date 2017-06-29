@@ -1,5 +1,5 @@
 ---
-title: Use ConfigMap Data in Pods
+title: Configure Pods Using ConfigMap Data
 ---
 
 {% capture overview %}
