@@ -27,7 +27,7 @@ title: 使用 kubectl 创建部署
 			<div class="col-md-8">
 				<h3>Kubernetes 部署</h3>
 				<p>
-				一旦运行了 Kubernetes 集群，您可以在其上部署容器化应用程序。为此，您可以创建一个 Kubernetes <b>部署</b>。部署负责创建和更新应用程序实例。创建部署 后， Kubernetes master 会将部署创建的应用程序实例调度到集群中的各个节点。
+				一旦运行了 Kubernetes 集群，您可以在其上部署容器化应用程序。为此，您可以创建一个 Kubernetes <b>Deployment</b>。Deployment 负责创建和更新应用程序实例。创建 Deployment 后， Kubernetes master 会将 Deployment 创建的应用程序实例调度到集群中的各个节点。
 				</p>
 
 				<p>创建应用程序实例后，Kubernetes 部署控制器会持续监视这些实例。如果托管它的节点不可用或删除，则部署控制器将替换实例。 <b>这提供了一种解决机器故障或维护的自愈机制。</b></p>
