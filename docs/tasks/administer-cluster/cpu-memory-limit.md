@@ -227,7 +227,7 @@ constrain the amount of resource a pod consumes on a node.
 {% endcapture %}
 
 {% capture whatsnext %}
-* See [LimitRange design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/admission_control_limit_range.md) for more information.
+* See [LimitRange design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_limit_range.md) for more information.
 * See [Resources](/docs/concepts/configuration/manage-compute-resources-container/) for a detailed description of the Kubernetes resource model.
 {% endcapture %}
 

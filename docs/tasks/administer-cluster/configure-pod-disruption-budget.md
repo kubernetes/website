@@ -22,7 +22,7 @@ Various cluster management operations may voluntarily evict pods.  "Voluntary"
 means an eviction can be safely delayed for a reasonable period of time. The
 principal examples today are draining a node for maintenance or upgrade
 (`kubectl drain`), and cluster autoscaling down. In the future the
-[rescheduler](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/rescheduling.md)
+[rescheduler](https://git.k8s.io/community/contributors/design-proposals/rescheduling.md)
 may also perform voluntary evictions.  By contrast, something like evicting pods
 because a node has become unreachable or reports `NotReady`, is not "voluntary."
 
