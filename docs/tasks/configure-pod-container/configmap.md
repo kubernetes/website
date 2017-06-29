@@ -66,7 +66,7 @@ For example, this command:
 kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties
 ```
 
-...produces the following ConfigMap:j
+...produces the following ConfigMap:
 
 ```shell
 kubectl describe configmaps game-config-2
