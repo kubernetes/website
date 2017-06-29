@@ -42,7 +42,7 @@ h1 {
   padding-bottom:0.5%;
   padding-left:9.9%;
   font-size:32px;
-  background: url('CaseStudy_golfnow_banner1.jpg');
+  background: url('/images/CaseStudy_golfnow_banner1.jpg');
   background-size:100% auto;
   background-repeat:no-repeat;
 }
@@ -75,7 +75,7 @@ h1 {
   letter-spacing:0.03em;
   line-height:32px;
   float:left;
-  background: url('CaseStudy_golfnow_banner3.jpg');
+  background: url('/images/CaseStudy_golfnow_banner3.jpg');
   background-size:100% auto;
 }
 
@@ -89,7 +89,7 @@ h1 {
   letter-spacing:0.03em;
   line-height:32px;
   float:left;
-  background: url('CaseStudy_golfnow_banner4.jpg');
+  background: url('/images/CaseStudy_golfnow_banner4.jpg');
   background-size:100% auto;
 }
 
@@ -318,7 +318,7 @@ h1 {
   padding-bottom:2%;
   padding-left:10%;
   font-size:18px;
-  background: url('CaseStudy_golfnow_banner1.jpg');
+  background: url('/images/CaseStudy_golfnow_banner1.jpg');
   background-size:100% auto;
 }
 
@@ -351,7 +351,7 @@ h1 {
   padding-left:15%;
   padding-right:10%;
   float:left;
-  background: url('CaseStudy_golfnow_banner3.jpg');
+  background: url('/images/CaseStudy_golfnow_banner3.jpg');
 }
 
 .banner4 {
@@ -365,7 +365,7 @@ h1 {
   line-height:24px;
   width:100%;
   float:left;
-  background: url('CaseStudy_golfnow_banner4.jpg');
+  background: url('/images/CaseStudy_golfnow_banner4.jpg');
 }
 
 .banner5 {
