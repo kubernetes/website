@@ -34,8 +34,8 @@ the following drivers:
 
 * virtualbox
 * vmwarefusion
-* kvm ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#kvm-driver))
-* xhyve ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#xhyve-driver))
+* kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
+* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver))
 
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 
@@ -88,7 +88,7 @@ This will use an alternative minikube ISO image containing both rkt, and Docker,
 
 ### Driver plugins
 
-See [DRIVERS](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md) for details on supported drivers and how to install
+See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install
 plugins, if required.
 
 ### Reusing the Docker daemon
@@ -296,17 +296,17 @@ $ export no_proxy=$no_proxy,$(minikube ip)
 
 ## Design
 
-Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmachine) for provisioning VMs, and [localkube](https://github.com/kubernetes/minikube/tree/master/pkg/localkube) (originally written and donated to this project by [RedSpread](https://redspread.com/)) for running the cluster.
+Minikube uses [libmachine](https://github.com/docker/machine/tree/master/libmachine) for provisioning VMs, and [localkube](https://git.k8s.io/minikube/pkg/localkube) (originally written and donated to this project by [RedSpread](https://redspread.com/)) for running the cluster.
 
-For more information about minikube, see the [proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/local-cluster-ux.md).
+For more information about minikube, see the [proposal](https://git.k8s.io/community/contributors/design-proposals/local-cluster-ux.md).
 
 ## Additional Links:
-* **Goals and Non-Goals**: For the goals and non-goals of the minikube project, please see our [roadmap](https://github.com/kubernetes/minikube/blob/master/docs/contributors/roadmap.md).
-* **Development Guide**: See [CONTRIBUTING.md](https://github.com/kubernetes/minikube/blob/master/CONTRIBUTING.md) for an overview of how to send pull requests.
-* **Building Minikube**: For instructions on how to build/test minikube from source, see the [build guide](https://github.com/kubernetes/minikube/blob/master/docs/contributors/build_guide.md)
-* **Adding a New Dependency**: For instructions on how to add a new depeindency to minikube see the [adding dependencies guide](https://github.com/kubernetes/minikube/blob/master/docs/contributors/adding_a_dependency.md)
-* **Adding a New Addon**: For instruction on how to add a new addon for minikube see the [adding an addon guide](https://github.com/kubernetes/minikube/blob/master/docs/contributors/adding_an_addon.md)
-* **Updating Kubernetes**: For instructions on how to update kubernetes see the [updating Kubernetes guide](https://github.com/kubernetes/minikube/blob/master/docs/contributors/updating_kubernetes.md)
+* **Goals and Non-Goals**: For the goals and non-goals of the minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
+* **Development Guide**: See [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) for an overview of how to send pull requests.
+* **Building Minikube**: For instructions on how to build/test minikube from source, see the [build guide](https://git.k8s.io/minikube/docs/contributors/build_guide.md)
+* **Adding a New Dependency**: For instructions on how to add a new depeindency to minikube see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)
+* **Adding a New Addon**: For instruction on how to add a new addon for minikube see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)
+* **Updating Kubernetes**: For instructions on how to update kubernetes see the [updating Kubernetes guide](https://git.k8s.io/minikube/docs/contributors/updating_kubernetes.md)
 
 ## Community
 

@@ -321,7 +321,7 @@ Fluentd is written in Ruby and allows to extend its capabilities using
 [plugins](http://www.fluentd.org/plugins). If you want to use a plugin, which is not included
 in the default Stackdriver Logging container image, you have to build a custom image. Imagine
 you want to add Kafka sink for messages from a particular container for additional processing.
-You can re-use the default [container image sources](https://github.com/kubernetes/contrib/tree/master/fluentd/fluentd-gcp-image)
+You can re-use the default [container image sources](https://git.k8s.io/contrib/fluentd/fluentd-gcp-image)
 with minor changes:
 
 * Change Makefile to point to your container repository, e.g. `PREFIX=gcr.io/<your-project-id>`.

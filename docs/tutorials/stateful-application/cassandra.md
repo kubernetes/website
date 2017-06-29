@@ -839,7 +839,7 @@ ring. The [`KubernetesSeedProvider`](java/src/main/java/io/k8s/cassandra/Kuberne
 discovers Cassandra seeds IP addresses via the Kubernetes API, those Cassandra
 instances are defined within the Cassandra Service.
 
-Refer to the custom seed provider [README](https://github.com/kubernetes/examples/blob/master/cassandra/java/README.md) for further
+Refer to the custom seed provider [README](https://git.k8s.io/examples/cassandra/java/README.md) for further
 `KubernetesSeedProvider` configurations. For this example you should not need
 to customize the Seed Provider configurations.
 

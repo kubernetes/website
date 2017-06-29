@@ -619,3 +619,54 @@ export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,example.com,1
 
 Remember to change `proxy_ip` and add a kube master node IP address to
 `no_proxy`.
+
+## Use Kubeadm with other CRI runtimes
+
+Since [Kubernetes 1.6 release](https://git.k8s.io/kubernetes/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
+
+Using other CRI based runtimes with kubeadm is very simple, and currently supported runtimes are:
+
+- [cri-o](https://github.com/kubernetes-incubator/cri-o)
+- [frakti](https://github.com/kubernetes/frakti)
+- [rkt](https://github.com/kubernetes-incubator/rktlet)
+
+After you have successfully installed `kubeadm` and `kubelet`, please follow these two steps:
+
+1. Install runtime shim on every node. You will need to follow the installation document in the runtime shim project listing above.
+
+2. Configure kubelet to use remote CRI runtime. Please remember to change `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
+
+```shell
+  $ cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
+Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT --feature-gates=AllAlpha=true"
+EOF
+  $ systemctl daemon-reload
+```
+
+Now `kubelet` is ready to use the specified CRI runtime, and you can continue with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
+
+## Using custom certificates
+
+By default kubeadm will generate all the certificates needed for a cluster to run.
+You can override this behaviour by providing your own certificates.
+
+To do so, you must place them in whatever directory is specified by the
+`--cert-dir` flag or `CertificatesDir` configuration file key. By default this
+is `/etc/kubernetes/pki`.
+
+If a given certificate and private key pair both exist, kubeadm will skip the
+generation step and those files will be validated and used for the prescribed
+use-case.
+
+This means you can, for example, prepopulate `/etc/kubernetes/pki/ca.crt`
+and `/etc/kubernetes/pki/ca.key` with an existing CA, which then will be used
+for signing the rest of the certs.
+
+## Releases and release notes
+
+If you already have kubeadm installed and want to upgrade, run `apt-get update
+&& apt-get upgrade` or `yum update` to get the latest version of kubeadm.
+
+Refer to the
+[CHANGELOG.md](https://git.k8s.io/kubeadm/CHANGELOG.md)
+for more information.

@@ -647,7 +647,7 @@ attributes to the Deployment's `status.conditions`:
 * Status=False
 * Reason=ProgressDeadlineExceeded
 
-See the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
+See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
 
 **Note:** Kubernetes will take no action on a stalled Deployment other than to report a status condition with
 `Reason=ProgressDeadlineExceeded`. Higher level orchestrators can take advantage of it and act accordingly, for
@@ -774,7 +774,7 @@ As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, a
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/tutorials/object-management-kubectl/object-management/) documents.
 
-A Deployment also needs a [`.spec` section](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#spec-and-status).
+A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
