@@ -97,7 +97,7 @@ game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
-#### Define the key to use when creating a ConfigMap from a file
+#### Define a key to use when creating a ConfigMap from a file
 
 The `--from-file` argument lets you define a key other than the file name for use in the `data` section of your ConfigMap:
 
