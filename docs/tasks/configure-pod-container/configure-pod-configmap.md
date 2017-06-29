@@ -41,19 +41,19 @@ kubectl edit pod dapi-test-pod
 
 1. Create multiple ConfigMaps.
 
-    These commands:
+    Each command creates a YAML file: 
 
 ```shell
 kubectl create configmap special-config --from-literal=special.how=very
+```
 
+{% include code.html language="yaml" file="pod-multiple-special-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-special-config" %}
+
+```shell
 kubectl create configmap env-config --from-literal=log_level=INFO
 ```
 
-    ...create these YAML files:
-
-    {% include code.html language="yaml" file="pod-multiple-special-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-special-config" %}
-
-    {% include code.html language="yaml" file="pod-multiple-env-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-env-config" %}
+{% include code.html language="yaml" file="pod-multiple-env-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-env-config" %}
 
 1. Define environment variables in the Pod specification.   
 
