@@ -41,23 +41,23 @@ kubectl edit pod dapi-test-pod
 
 1. Create multiple ConfigMaps.
 
-    Each command creates a YAML file: 
+    Each command creates a YAML file:
 
-```shell
-kubectl create configmap special-config --from-literal=special.how=very
-```
+  ```shell
+  kubectl create configmap special-config --from-literal=special.how=very
+  ```
 
-{% include code.html language="yaml" file="pod-multiple-special-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-special-config" %}
+  {% include code.html language="yaml" file="pod-multiple-special-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-special-config" %}
 
-```shell
-kubectl create configmap env-config --from-literal=log_level=INFO
-```
+  ```shell
+  kubectl create configmap env-config --from-literal=log_level=INFO
+  ```
 
-{% include code.html language="yaml" file="pod-multiple-env-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-env-config" %}
+  {% include code.html language="yaml" file="pod-multiple-env-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-env-config" %}
 
 1. Define environment variables in the Pod specification.   
 
-    {% include code.html language="yaml" file="pod-multiple-define.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-define" %}
+  {% include code.html language="yaml" file="pod-multiple-define.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-define" %}
 
 1. Save the changes to the Pod specification.
 
@@ -71,9 +71,9 @@ Including `env-from` as an attribute in a ConfigMap lets you define the ConfigMa
 
 1. Create a ConfigMap containing multiple key-value pairs.
 
-```shell
-kubectl create configmap special-config --from-literal=special_level=very --from-literal=special_type=charm
-```
+  ```shell
+  kubectl create configmap special-config --from-literal=special_level=very --from-literal=special_type=charm
+  ```
 
 1. Add `env-from` to define all of the ConfigMap's data as Pod environment variables.
 
@@ -91,13 +91,13 @@ You can use ConfigMap-defined environment variables in the `command` section of 
 
 For example, the following Pod specification:
 
-{% include code.html language="yaml" file="pod-multiple-sub.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-sub" %}
+  {% include code.html language="yaml" file="pod-multiple-sub.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-sub" %}
 
 ...produces the following output in the `test-container` container:
 
-```shell
-very charm
-```
+  ```shell
+  very charm
+  ```
 
 ## Add ConfigMap data to a Volume
 
