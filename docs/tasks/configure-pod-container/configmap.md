@@ -8,7 +8,6 @@ redirect_from:
 - "/docs/user-guide/configmap/index.html"
 ---
 
-
 {% capture overview %}
 
 This page shows you how to configure an application with a ConfigMap.
@@ -18,12 +17,13 @@ This page shows you how to configure an application with a ConfigMap.
 {% capture prerequisites %}
 
 - {% include task-tutorial-prereqs.md %}
+- [ConfigMaps](/docs/concepts/concept-configmap)
 
 {% endcapture %}
 
 {% capture steps %}
 
-## Use kubectl to create a ConfigMap
+## Create a ConfigMap with kubectl
 
 You can use the `kubectl create configmap` command to create ConfigMaps from [literal values](#creating-configmaps-from-literal-values), [files](#creating-configmaps-from-files), or [directories](#creating-configmaps-from-directories). The `kubectl` syntax is:
 
@@ -84,9 +84,7 @@ Including the  `--from-file` argument multiple times creates a ConfigMap from mu
 
 ```shell
 kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties --from-file=docs/user-guide/configmap/kubectl/ui.properties
-```
 
-```shell
 kubectl describe configmaps game-config-2
 Name:           game-config
 Namespace:      default
