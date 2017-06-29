@@ -618,7 +618,7 @@ spec:
       volumePath: "[DatastoreName] volumes/myDisk"
       fsType: ext4
 ```
-More examples can be found [here](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere).
+More examples can be found [here](https://git.k8s.io/kubernetes/examples/volumes/vsphere).
 
 
 ### Quobyte
