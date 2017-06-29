@@ -66,7 +66,7 @@ and Unknown.
 A [Probe](/docs/resources-reference/v1.6/#probe-v1-core) is a diagnostic
 performed periodically by the [kubelet](/docs/admin/kubelet/)
 on a Container. To perform a diagnostic,
-the kublet calls a
+the kubelet calls a
 [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) implemented by
 the Container. There are three types of handlers:
 

@@ -30,7 +30,7 @@ Further information is available in the Kubernetes on Mesos [contrib directory][
 - A running [Mesos cluster on Google Compute Engine][5]
 - A [VPN connection][10] to the cluster
 - A machine in the cluster which should become the Kubernetes *master node* with:
-  - Go (see [here](https://github.com/kubernetes/community/blob/master/contributors/devel/development.md) for required versions)
+  - Go (see [here](https://git.k8s.io/community/contributors/devel/development.md) for required versions)
   - make (i.e. build-essential)
   - Docker
 
@@ -332,6 +332,6 @@ Future work will add instructions to this guide to enable support for Kubernetes
 [8]: https://github.com/mesosphere/kubernetes-mesos/issues
 [9]: https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples
 [10]: http://open.mesosphere.com/getting-started/cloud/google/mesosphere/#vpn-setup
-[11]: https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/README.md#kube-dns
-[12]: https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/kubedns-controller.yaml.in
+[11]: https://git.k8s.io/kubernetes/cluster/addons/dns/README.md#kube-dns
+[12]: https://git.k8s.io/kubernetes/cluster/addons/dns/kubedns-controller.yaml.in
 [13]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/README.md
