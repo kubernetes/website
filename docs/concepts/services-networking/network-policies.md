@@ -33,7 +33,7 @@ See the [api-reference](/docs/api-reference/networking/v1/definitions/#_v1_netwo
 An example `NetworkPolicy` might look like this:
 
 ```yaml
-apiVersion: networking/v1
+apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: test-network-policy
