@@ -165,9 +165,9 @@ kubectl delete replicaset my-repset --cascade=false
 
 {% capture whatsnext %}
 
-[Design Doc 1](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/garbage-collection.md)
+[Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/garbage-collection.md)
 
-[Design Doc 2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/synchronous-garbage-collection.md)
+[Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/synchronous-garbage-collection.md)
 
 {% endcapture %}
 
