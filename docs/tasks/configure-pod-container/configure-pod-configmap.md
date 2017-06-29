@@ -95,9 +95,9 @@ For example, the following Pod specification:
 
 ...produces the following output in the `test-container` container:
 
-  ```shell
-  very charm
-  ```
+```shell
+very charm
+```
 
 ## Add ConfigMap data to a Volume
 
