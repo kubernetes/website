@@ -21,27 +21,27 @@ This page demonstrates how to configure Pods using data stored in ConfigMaps.
 
 1. Define an environment variable as a key-value pair in a ConfigMap:
 
-```shell
-kubectl create configmap special-config --from-literal=special.how=very
-```
+  ```shell
+  kubectl create configmap special-config --from-literal=special.how=very
+  ```
 
 1. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.  
 
-```shell
-kubectl edit pod dapi-test-pod
-```
+  ```shell
+  kubectl edit pod dapi-test-pod
+  ```
 
-{% include code.html language="yaml" file="pod-single-configmap.yaml" ghlink="/docs/tasks/configure-pod-container/pod-single-configmap" %}
+  {% include code.html language="yaml" file="pod-single-configmap.yaml" ghlink="/docs/tasks/configure-pod-container/pod-single-configmap" %}
 
 1. Save the changes to the Pod specification.
 
-    The Pod's output now includes `SPECIAL_LEVEL_KEY=very`.
+  The Pod's output now includes `SPECIAL_LEVEL_KEY=very`.
 
 ### Define Pod environment variables using multiple ConfigMaps
 
 1. Create multiple ConfigMaps.
 
-    Each command creates a YAML file:
+  Each command creates a YAML file:
 
   ```shell
   kubectl create configmap special-config --from-literal=special.how=very
