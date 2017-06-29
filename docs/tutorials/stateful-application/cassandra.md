@@ -83,7 +83,7 @@ kubectl create -f cassandra/cassandra-statefulset.yaml
 kubectl exec -ti cassandra-0 -- nodetool status
 
 # cleanup
-grace=$(kubectl get po cassandra-0 --template '{{.spec.terminationGracePeriodSeconds}}') \
+grace=$(kubectl get po cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
   && kubectl delete statefulset,po -l app=cassandra \
   && echo "Sleeping $grace" \
   && sleep $grace \
@@ -421,7 +421,7 @@ Deleting and/or scaling a StatefulSet down will not delete the volumes associate
 Use the following commands to delete the StatefulSet.
 
 ```console
-$ grace=$(kubectl get po cassandra-0 --template '{{.spec.terminationGracePeriodSeconds}}') \
+$ grace=$(kubectl get po cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
   && kubectl delete statefulset -l app=cassandra \
   && echo "Sleeping $grace" \
   && sleep $grace \
