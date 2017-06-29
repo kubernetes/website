@@ -449,6 +449,14 @@ can be used. Some external provisioners are listed under the repository [kuberne
 There are also cases when 3rd party storage vendors provide their own external
 provisioner.
 
+### Reclaim Policy
+Persistent Volumes that are dynamically created by a storage class will have a reclaim
+policy of `delete`.  If that is not desired, the only current option is to edit the
+PV after it is created.
+
+Persistent Volumes that are created manually and managed via a storage class will have
+whatever reclaim policy they were assigned at creation.
+
 ### Parameters
 Storage classes have parameters that describe volumes belonging to the storage
 class. Different parameters may be accepted depending on the `provisioner`. For
