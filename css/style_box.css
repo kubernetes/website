@@ -3,6 +3,11 @@
     font-family:"Roboto", sans-serif;
 }
 
+body {
+
+  background-color:#ffffff;
+}
+
 p {
   font-family:"Roboto", sans-serif;
   padding:5%;
