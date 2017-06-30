@@ -14,7 +14,7 @@ $( document ).ready(function() {
         $("#continueEditButton").text("Edit " + forwarding);
         $("#continueEditButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/edit/master/" + forwarding)
         $("#viewOnGithubButton").text("View " + forwarding + " on GitHub");
-        $("#viewOnGithubButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/tree/master/" + forwarding)
+        $("#viewOnGithubButton").attr("href", "https://git.k8s.io/kubernetes.github.io/" + forwarding)
     } else {
         $("#generalInstructions").show();
         $("#continueEdit").hide();

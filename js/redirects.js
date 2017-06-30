@@ -18,13 +18,13 @@ $( document ).ready(function() {
     var forwardingRules = [{
         "from":"/docs/api-reference/v1/definitions",
         "pattern":"#_v1_(\\w+)",
-        "to":"/docs/api-reference/v1.6",
+        "to":"/docs/api-reference/v1.7",
         "postfix":"/#<token>-v1-core"
     },
     {
         "from":"/docs/user-guide/kubectl/kubectl_",
         "pattern":"kubectl_(\\w+)",
-        "to":"/docs/user-guide/kubectl/v1.6",
+        "to":"/docs/user-guide/kubectl/v1.7",
         "postfix":"/#<token>"
     },
     {
@@ -76,7 +76,20 @@ $( document ).ready(function() {
     {
         "from": "/docs/troubleshooting/",
         "to": "/docs/tasks/debug-application-cluster/troubleshooting/"
-    }];
+    },
+    {
+        "from": "/docs/concepts/services-networking/networkpolicies/",
+        "to": "/docs/concepts/services-networking/network-policies/"
+    },
+    {
+        "from": "/docs/getting-started-guides/meanstack/",
+        "to": "https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-kubernetes-149ca81c2b5d"
+    },
+    {
+        "from": "/docs/samples/",
+        "to": "/docs/tutorials/"
+    }
+    ];
 
     forwardingRules.forEach(function(rule) {
         if (forwardingURL.indexOf(rule.from) > -1) {
