@@ -5,14 +5,14 @@ assignees:
 title: 认识 Kubernetes?
 ---
 
-Kubernetes 是一个 [开源的容器调度平台，它可以自动化应用容器的部署、扩展和操作](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) 可以跨主机集群, 提供以容器为中心的基础架构。
+Kubernetes 是一个跨主机集群的 [开源的容器调度平台，它可以自动化应用容器的部署、扩展和操作](http://www.slideshare.net/BrianGrant11/wso2con-us-2015-kubernetes-a-platform-for-automating-deployment-scaling-and-operations) , 提供以容器为中心的基础架构。
 
 使用 Kubernetes, 您可以快速高效地响应客户需求:
 
  - 快速、可预测地部署您的应用程序
  - 拥有即时扩展应用程序的能力
- - 不影响现有业务的情况下，无缝地发布新功能。
- - 优化您的硬件资源，降低您的拥有成本
+ - 不影响现有业务的情况下，无缝地发布新功能
+ - 优化硬件资源，降低成本
 
 我们的目标是构建一个软件和工具的生态系统，以减轻您在公共云或私有云运行应用程序的负担。
 
@@ -36,11 +36,11 @@ Kubernetes 项目由 Google 公司在 2014 年启动。Kubernetes 建立在 [Goo
 
 *新方式* 是基于操作系统级虚拟化而不是硬件级虚拟化方法来部署容器。容器之间彼此隔离并与主机隔离：它们具有自己的文件系统，不能看到彼此的进程，并且它们所使用的计算资源是可以被限制的。它们比虚拟机更容易构建，并且因为它们与底层基础架构和主机文件系统隔离，所以它们可以跨云和操作系统快速分发。
 
-由于容器体积小且启动快，因此可以在每个容器镜像中打包一个应用程序。这种一对一的应用镜像关系拥有很多好处。使用容器，不需要与外部的基础架构环境绑定, 因为每一个应用程序不需要外部依赖，更不需要与外部的基础架构环境依赖。完美解决了从开发到生产环境的一致性问题。
+由于容器体积小且启动快，因此可以在每个容器镜像中打包一个应用程序。这种一对一的应用镜像关系拥有很多好处。使用容器，不需要与外部的基础架构环境绑定, 因为每一个应用程序都不需要外部依赖，更不需要与外部的基础架构环境依赖。完美解决了从开发到生产环境的一致性问题。
 
-类似地，容器比虚拟机更加透明，这有助于监测和管理。真实的情况是，容器进程的生命周期由基础设施管理，而容器内的进程对外是隐藏的。最后，每个应用程序用容器封装，管理容器部署就等同于管理应用程序部署。
+容器同样比虚拟机更加透明，这有助于监测和管理。尤其是容器进程的生命周期由基础设施管理，而不是由容器内的进程对外隐藏时更是如此。最后，每个应用程序用容器封装，管理容器部署就等同于管理应用程序部署。
 
-容器好处摘要:
+容器优点摘要:
 
 * **敏捷的应用程序创建和部署**:
     与虚拟机镜像相比，容器镜像更容易创建，提升了硬件的使用效率。
@@ -55,7 +55,7 @@ Kubernetes 项目由 Google 公司在 2014 年启动。Kubernetes 建立在 [Goo
 * **以应用为中心的管理**:
     提升了操作系统的抽象级别，以便在使用逻辑资源的操作系统上运行应用程序。
 * **松耦合、分布式、弹性伸缩 [微服务](http://martinfowler.com/articles/microservices.html)**:
-    应用程序被分成更小，更独立的部分，可以动态部署和管理 - 而不是巨型单体应用运行在专用的大型机。
+    应用程序被分成更小，更独立的部分，可以动态部署和管理 - 而不是巨型单体应用运行在专用的大型机上。
 * **资源隔离**:
     通过对应用进行资源隔离，可以很容易的预测应用程序性能。
 * **资源利用**:
@@ -87,11 +87,11 @@ Kubernetes 满足了生产中运行应用程序的许多常见的需求，例如
 
 #### 为什么 Kubernetes 是一个平台?
 
-Kubernetes 提供了很多的功能，总会有新的场景会受益于新特性。它可以简化应用程序的工作流，加快开发速度。被大家认可的应用编排通常需要有较强的自动化能力。这就是为什么 Kubernetes 被设计作为构建组件和工具的生态系统平台，以便更轻松地部署、扩展和管理应用程序。
+Kubernetes 提供了很多的功能，总会有新的场景受益于新特性。它可以简化应用程序的工作流，加快开发速度。被大家认可的应用编排通常需要有较强的自动化能力。这就是为什么 Kubernetes 被设计作为构建组件和工具的生态系统平台，以便更轻松地部署、扩展和管理应用程序。
 
 [Label](/docs/user-guide/labels/) 允许用户按照自己的方式组织管理对应的资源。 [注解](/docs/user-guide/annotations/) 使用户能够以自定义的描述信息来修饰资源，以适用于自己的工作流，并为管理工具提供检查点状态的简单方法。
 
-此外，[Kubernetes 控制面](/docs/admin/cluster-components) 是构建在相同的 [APIs](/docs/api/) 上面，开发员人和用户都可以用。用户可以编写自己的控制器， [调度器](https://git.k8s.io/community/contributors/devel/scheduler.md)等等，如果这么做，根据新加的[自定义 API](https://git.k8s.io/community/contributors/design-proposals/extending-api.md) ，可以扩展当前的通用 [CLI 命令行工具](/docs/user-guide/kubectl-overview/)。
+此外，[Kubernetes 控制面 (Controll Plane)](/docs/admin/cluster-components) 是构建在相同的 [APIs](/docs/api/) 上面，开发人员和用户都可以用。用户可以编写自己的控制器， [调度器](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/scheduler.md)等等，如果这么做，根据新加的[自定义 API](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) ，可以扩展当前的通用 [CLI 命令行工具](/docs/user-guide/kubectl-overview/)。
 
 这种 [设计](https://git.k8s.io/community/contributors/design-proposals/principles.md) 使得许多其他系统可以构建在 Kubernetes 之上。
 
@@ -116,4 +116,3 @@ Kubernetes 不是一个传统意义上，包罗万象的 PaaS (平台即服务) 
 #### *Kubernetes* 是什么意思? K8s?
 
 名称 **Kubernetes** 源于希腊语，意为 "舵手" 或 "飞行员"， 且是英文 "governor" 和 ["cybernetic"](http://www.etymonline.com/index.php?term=cybernetics)的词根。 **K8s** 是通过将 8 个字母 "ubernete" 替换为 8 而导出的缩写。另外，在中文里，k8s 的发音与 Kubernetes 的发音比较接近。
-
