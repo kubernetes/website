@@ -286,4 +286,4 @@ Events are POSTed as a JSON serialized `EventList`. An example payload:
 
 [audit-api]: https://github.com/kubernetes/kubernetes/blob/v1.7.0-rc.1/staging/src/k8s.io/apiserver/pkg/apis/audit/v1alpha1/types.go
 [kube-apiserver]: /docs/admin/kube-apiserver
-[gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/v1.7.0-rc.1/cluster/gce/gci/configure-helper.sh#L490
+[gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/v1.7.0/cluster/gce/gci/configure-helper.sh#L490
