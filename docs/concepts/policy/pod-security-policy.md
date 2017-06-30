@@ -35,6 +35,7 @@ administrator to control the following:
 | The use of host ports                                         | `hostPorts`                       |
 | The use of host's PID namespace                               | `hostPID`                         |
 | The use of host's IPC namespace                               | `hostIPC`                         |
+| The use of host paths                                         | [`allowedHostPaths`](#allowed-host-paths)    |
 | The SELinux context of the container                          | [`seLinux`](#selinux)             |
 | The user ID                                                   | [`runAsUser`](#runasuser)         |
 | Configuring allowable supplemental groups                     | [`supplementalGroups`](#supplementalgroups) |
@@ -119,6 +120,7 @@ to the volume sources that are defined when creating a volume:
 1. projected
 1. portworxVolume
 1. scaleIO
+1. storageos
 1. \* (allow all volumes)
 
 The recommended minimum set of allowed volumes for new PSPs are 
@@ -126,7 +128,10 @@ configMap, downwardAPI, emptyDir, persistentVolumeClaim, secret, and projected.
 
 ### Host Network
  - *HostPorts*, default `empty`. List of `HostPortRange`, defined by `min`(inclusive) and `max`(inclusive), which define the allowed host ports.
- 
+
+### Allowed Host Paths
+ - *AllowedHostPaths* is a white list of allowed host path prefixes. Empty indicates that all host paths may be used.
+
 ## Admission
 
 _Admission control_ with `PodSecurityPolicy` allows for control over the

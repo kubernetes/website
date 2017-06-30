@@ -188,7 +188,7 @@ label having key "security" and value "S2".) See the [design doc](https://git.k8
 for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
-As with node affinity, the legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
+The legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`.
 
 In principle, the `topologyKey` can be any legal label-key. However,
 for performance and security reasons, there are some constraints on topologyKey:
