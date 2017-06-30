@@ -298,6 +298,13 @@ extensions group (`--runtime-config=extensions/v1beta1/podsecuritypolicy=true`).
 See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-policy/)
 for more information.
 
+### NodeRestriction
+
+This plug-in limits the `Node` and `Pod` objects a kubelet can modify. In order to be limited by this admission plugin,
+kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`. 
+Such kubelets will only be allowed to modify their own `Node` API object, and only modify `Pod` API objects that are bound to their node.
+Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
+
 ## Is there a recommended set of plug-ins to use?
 
 Yes.

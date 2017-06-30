@@ -2,6 +2,7 @@
 assignees:
 - thockin
 - caseydavenport
+- danwinship
 title: Network Policies
 redirect_from:
 - "/docs/user-guide/networkpolicies/"
@@ -13,53 +14,26 @@ redirect_from:
 
 A network policy is a specification of how groups of pods are allowed to communicate with each other and other network endpoints.
 
-`NetworkPolicy` resources use labels to select pods and define whitelist rules which allow traffic to the selected pods in addition to what is allowed by the isolation policy for a given namespace.
+`NetworkPolicy` resources use labels to select pods and define rules which specify what traffic is allowed to the selected pods.
 
 ## Prerequisites
 
-You must enable the `extensions/v1beta1/networkpolicies` runtime config in your apiserver to enable this resource.
+Network policies are implemented by the network plugin, so you must be using a networking solution which supports `NetworkPolicy` - simply creating the resource without a controller to implement it will have no effect.
 
-You must also be using a networking solution which supports `NetworkPolicy` - simply creating the
-resource without a controller to implement it will have no effect.
+## Isolated and Non-isolated Pods
 
+By default, pods are non-isolated; they accept traffic from any source.
 
-## Configuring Namespace Isolation
-
-By default, all traffic is allowed between all pods (and `NetworkPolicy` resources have no effect).
-
-Isolation can be configured on a per-namespace basis. Currently, only isolation on inbound traffic (ingress) can be defined. When a namespace has been configured to isolate inbound traffic, all traffic to pods in that namespace (even from other pods in the same namespace) will be blocked. `NetworkPolicy` objects can then be added to the isolated namespace to specify what traffic should be allowed.
-
-Ingress isolation can be enabled using an annotation on the Namespace.
-
-```yaml
-kind: Namespace
-apiVersion: v1
-metadata:
-  annotations:
-    net.beta.kubernetes.io/network-policy: |
-      {
-        "ingress": {
-          "isolation": "DefaultDeny"
-        }
-      }
-```
-
-To configure the annotation via `kubectl`:
-
-```shell
-{% raw %}
-kubectl annotate ns <namespace> "net.beta.kubernetes.io/network-policy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"
-{% endraw %}
-```
+Pods become isolated by having a NetworkPolicy that selects them. Once there is any NetworkPolicy in a Namespace selecting a particular pod, that pod will reject any connections that are not allowed by any NetworkPolicy. (Other pods in the Namespace that are not selected by any NetworkPolicy will continue to accept all traffic.)
 
 ## The `NetworkPolicy` Resource
 
-See the [api-reference](/docs/api-reference/extensions/v1beta1/definitions/#_v1beta1_networkpolicy) for a full definition of the resource.
+See the [api-reference](/docs/api-reference/networking/v1/definitions/#_v1_networkpolicy) for a full definition of the resource.
 
 An example `NetworkPolicy` might look like this:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: test-network-policy
@@ -93,8 +67,36 @@ __ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules. 
 
 So, the example NetworkPolicy:
 
-1. allows connections to tcp port 6379 of "role=db" pods in the "default" namespace from any pod in the "default" namespace with the label "role=frontend"
-2. allows connections to tcp port 6379 of "role=db" pods in the "default" namespace from any pod in a namespace with the label "project=myproject"
+1. isolates "role=db" pods in the "default" namespace (if they weren't already isolated)
+2. allows connections to tcp port 6379 of "role=db" pods in the "default" namespace from any pod in the "default" namespace with the label "role=frontend"
+3. allows connections to tcp port 6379 of "role=db" pods in the "default" namespace from any pod in a namespace with the label "project=myproject"
 
 See the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) for further examples.
 
+## Default policies
+
+You can create a "default" isolation policy for a Namespace by creating a NetworkPolicy that selects all pods but does not allow any traffic:
+
+```yaml
+apiVersion: networking/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+spec:
+  podSelector:
+```
+
+This ensures that even pods that aren't selected by any other NetworkPolicy will still be isolated.
+
+Alternatively, if you want to allow all traffic for all pods in a Namespace (even if policies are added that cause some pods to be treated as "isolated"), you can create a policy that explicitly allows all traffic:
+
+```yaml
+apiVersion: networking/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all
+spec:
+  podSelector:
+  ingress:
+  - {}
+```
