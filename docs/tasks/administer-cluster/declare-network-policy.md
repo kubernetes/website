@@ -73,7 +73,7 @@ Let's say you want to limit access to the `nginx` service so that only pods with
 
 ```yaml
 kind: NetworkPolicy
-apiVersion: networking/v1
+apiVersion: networking.k8s.io/v1
 metadata:
   name: access-nginx
 spec:

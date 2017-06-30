@@ -78,7 +78,7 @@ See the [NetworkPolicy getting started guide](/docs/getting-started-guides/netwo
 You can create a "default" isolation policy for a Namespace by creating a NetworkPolicy that selects all pods but does not allow any traffic:
 
 ```yaml
-apiVersion: networking/v1
+apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: default-deny
@@ -91,7 +91,7 @@ This ensures that even pods that aren't selected by any other NetworkPolicy will
 Alternatively, if you want to allow all traffic for all pods in a Namespace (even if policies are added that cause some pods to be treated as "isolated"), you can create a policy that explicitly allows all traffic:
 
 ```yaml
-apiVersion: networking/v1
+apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-all
