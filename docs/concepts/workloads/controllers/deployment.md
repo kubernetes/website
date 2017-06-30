@@ -589,10 +589,10 @@ rolling out a new ReplicaSet, it can be [complete](#complete-deployment), or it 
 
 Kubernetes marks a Deployment as _progressing_ when one of the following tasks is performed:
 
-* The Deployment is in the process of creating a new ReplicaSet.
-* The Deployment is scaling up an existing ReplicaSet.
-* The Deployment is scaling down an existing ReplicaSet.
-* New pods become available.
+* The Deployment creates a new ReplicaSet.
+* The Deployment is scaling up its newest ReplicaSet.
+* The Deployment is scaling down its older ReplicaSet(s).
+* New Pods become ready or available (ready for at least [MinReadySeconds](#min-ready-seconds)).
 
 You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
@@ -600,11 +600,10 @@ You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
 Kubernetes marks a Deployment as _complete_ when it has the following characteristics:
 
-* The Deployment has minimum availability. Minimum availability means that the Deployment's number of available replicas
-equals or exceeds the number required by the Deployment strategy.
 * All of the replicas associated with the Deployment have been updated to the latest version you've specified, meaning any
 updates you've requested have been completed.
-* No old pods for the Deployment are running.
+* All of the replicas associated with the Deployment are available.
+* No old replicas for the Deployment are running.
 
 You can check if a Deployment has completed by using `kubectl rollout status`. If the rollout completed
 successfully, `kubectl rollout status` returns a zero exit code.

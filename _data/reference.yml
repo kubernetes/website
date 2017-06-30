@@ -12,17 +12,21 @@ toc:
     - docs/admin/authentication.md
     - docs/admin/bootstrap-tokens.md
     - docs/admin/admission-controllers.md
+    - docs/admin/extensible-admission-controllers.md
     - docs/admin/service-accounts-admin.md
   - title: Authorization
     section:
     - docs/admin/authorization/index.md
     - docs/admin/authorization/abac.md
     - docs/admin/authorization/rbac.md
+    - docs/admin/authorization/node.md
     - docs/admin/authorization/webhook.md
   - docs/reference/deprecation-policy.md
 
 - title: API Reference
   section:
+  - title: v1.7
+    path: /docs/api-reference/v1.7/
   - title: v1.6
     path: /docs/api-reference/v1.6/
   - title: v1.5
@@ -47,6 +51,8 @@ toc:
 - title: kubectl CLI
   section:
   - docs/user-guide/kubectl-overview.md
+  - title: v1.7 Commands
+    path: /docs/user-guide/kubectl/v1.7/
   - title: v1.6 Commands
     path: /docs/user-guide/kubectl/v1.6/
   - title: v1.5 Commands
