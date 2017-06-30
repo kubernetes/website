@@ -19,13 +19,13 @@ the sequence of activities that have affected system by individual users, admini
 or other components of the system. It allows cluster administrator to
 answer the following questions:
 
-    - what happened?
-    - when did it happen?
-    - who initiated it?
-    - on what did it happen?
-    - where was it observed?
-    - from where was it initiated?
-    - to where was it going?
+ - what happened?
+ - when did it happen?
+ - who initiated it?
+ - on what did it happen?
+ - where was it observed?
+ - from where was it initiated?
+ - to where was it going?
 
 ## Audit logs
 
