@@ -553,7 +553,7 @@ the Deployment will not have any effect as long as the Deployment is paused.
 
 Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
 ```shell
-$ kubectl rollout resume deploy/nginx
+$ kubectl rollout resume deploy nginx
 deployment "nginx" resumed
 $ kubectl get rs -w
 NAME               DESIRED   CURRENT   READY     AGE
