@@ -65,9 +65,13 @@ Currently, there are several API groups in use:
 *  The named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
    (for example, `apiVersion: batch/v1`).  Full list of supported API groups can be seen in [Kubernetes API reference](/docs/reference/).
 
-There is a supported path to extending the API:
-* [Third Party Resources](https://git.k8s.io/community/contributors/design-proposals/extending-api.md)
-   are for users with very basic CRUD needs.
+There are two supported paths to extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/):
+
+1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
+   is for users with very basic CRUD needs.
+1. Coming soon: users needing the full set of Kubernetes API semantics can implement their own apiserver
+   and use the [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/aggregated-api-servers.md)
+   to make it seamless for clients.
  
 
 ## Enabling API groups
