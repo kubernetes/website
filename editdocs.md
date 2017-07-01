@@ -25,7 +25,12 @@ $( document ).ready(function() {
 
 <h2>Continue your edit</h2>
 
-<p>Click the button below to edit the page you were just on. When you are done, click <b>Commit Changes</b> at the bottom of the screen. This creates a copy of our site in your GitHub account called a <i>fork</i>. You can make other changes in your fork after it is created, if you want. When you are ready to send us all your changes, go to the index page for your fork and click <b>New Pull Request</b> to let us know about it.</p>
+<p><b>To so changes on the document, do the following:</b></P>
+
+<ol><li>Click the button below to edit the page you were just on. </li>
+<li>Click <b>Commit Changes</b> at the bottom of the screen to create a copy of our site in your GitHub account called a <i>fork</i>.</li>
+<li>You can make other changes in your fork after it is created, if you want.</li>
+<li>On the index page, click <b>New Pull Request</b> to let us know about it.</li>
 
 <p><a id="continueEditButton" class="button"></a></p>
 <p><a id="viewOnGithubButton" class="button"></a></p>
