@@ -91,35 +91,45 @@ Here are a few methods to install kubectl.
 
 kubectl can be installed as part of the Google Cloud SDK.
 
-  1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
-  2. Run the following command to install `kubectl`:
-  ```shell
-gcloud components install kubectl
-```
-  3. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
+1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
+2. Run the following command to install `kubectl`:
+
+        gcloud components install kubectl
+
+3. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
+
+## Install with snap on Ubuntu
+
+kubectl is available as a [snap](https://snapcraft.io/) application.
+
+1. If you are on Ubuntu or one of other Linux distributions that support [snap](https://snapcraft.io/docs/core/install) package manager, you can install with:
+
+        sudo snap install kubectl --classic
+
+2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
 
 ## Install with Homebrew on macOS
 
-  1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
-```shell
-brew install kubectl
-```
-  2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
+1. If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install with:
+
+        brew install kubectl
+
+2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
 
 ## Install with Chocolatey on Windows
 
-  1. If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install with:
-```shell
-choco install kubernetes-cli
-```
-  2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
-  3. Configure kubectl to use a remote kubernetes cluster:
-```shell
-cd C:\users\yourusername (Or wherever your %HOME% directory is)
-mkdir .kube
-cd .kube
-touch config
-```
+1. If you are on Windows and using [Chocolatey](https://chocolatey.org) package manager, you can install with:
+
+        choco install kubernetes-cli
+
+2. Run `kubectl version` to verify that the verison you've installed is sufficiently up-to-date.
+3. Configure kubectl to use a remote kubernetes cluster:
+
+        cd C:\users\yourusername (Or wherever your %HOME% directory is)
+        mkdir .kube
+        cd .kube
+        touch config
+
 Edit the config file with a text editor of your choice, such as Notepad for example.
 
 ## Configure kubectl
@@ -136,9 +146,11 @@ $ kubectl cluster-info
 If you see a URL response, kubectl is correctly configured to access your cluster.
 
 If you see a message similar to the following, kubectl is not correctly configured:
+
 ```shell
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
+
 ## Enabling shell autocompletion
 
 kubectl includes autocompletion support, which can save a lot of typing!
@@ -164,19 +176,17 @@ On macOS, you will need to install bash-completion support via [Homebrew](https:
 ## If running Bash 3.2 included with macOS
 brew install bash-completion
 ## or, if running Bash 4.1+
-bash install bash-completion@2
+brew install bash-completion@2
 ```
 
 Follow the "caveats" section of brew's output to add the appropriate bash completion path to your local .bashrc.
 
 If you've installed kubectl using the [Homebrew instructions](#install-with-homebrew-on-macos) then kubectl completion should start working immediately.
 
-If you have installed kubectl manually, then run: `source <(kubectl completion bash)`
-
-To add kubectl autocompletion to your profile (so it is automatically loaded in future shells):
+If you have installed kubectl manually, you need to add kubectl autocompletion to the bash-completion:
 
 ```shell
-echo "source <(kubectl completion bash)" >> ~/.bash_profile
+kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
 ```
 
 The Homebrew project is independent from kubernetes, so the bash-completion packages are not guaranteed to work.

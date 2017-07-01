@@ -54,7 +54,7 @@ You can enable multiple authentication methods at once. You should usually use a
  - service account tokens for service accounts
  - at least one other method for user authentication.
 
-When multiple are enabled, the first authenticator module
+When multiple authenticator modules are enabled, the first module
 to successfully authenticate the request short-circuits evaluation.
 The API server does not guarantee the order authenticators run in.
 
@@ -614,13 +614,13 @@ Impersonate-Extra-scopes: development
 ```
 
 When using `kubectl` set the `--as` flag to configure the `Impersonate-User`
-header.
+header, set the `--as-group` flag to configure the `Impersonate-Group` header.
 
 ```shell
 $ kubectl drain mynode
 Error from server (Forbidden): User "clark" cannot get nodes at the cluster scope. (get nodes mynode)
 
-$ kubectl drain mynode --as=superman
+$ kubectl drain mynode --as=superman --as-group=system:masters
 node "mynode" cordoned
 node "mynode" drained
 ```

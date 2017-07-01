@@ -140,8 +140,6 @@ metadata:
 spec:
   type: ExternalName
   externalName: my.database.example.com
-  ports:
-  - port: 12345
 ```
 
 When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
@@ -489,17 +487,17 @@ In the ServiceSpec, `externalIPs` can be specified along with any of the `Servic
 In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
 
 ```yaml
-kind: Service,
-apiVersion: v1,
+kind: Service
+apiVersion: v1
 metadata:
   name: my-service
 spec:
   selector:
     app: MyApp
   ports:
-    - name: http,
-      protocol: TCP,
-      port: 80,
+    - name: http
+      protocol: TCP
+      port: 80
       targetPort: 9376
   externalIPs: 
     - 80.11.12.10

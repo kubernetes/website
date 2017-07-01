@@ -83,7 +83,7 @@ If you find that some pods in your StatefulSet are stuck in the 'Terminating' or
 
 {% capture whatsnext %}
 
-Learn more about [force deleting StatefulSet Pods](/docs/tasks/manage-stateful-set/delete-pods/).
+Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
 {% endcapture %}
 

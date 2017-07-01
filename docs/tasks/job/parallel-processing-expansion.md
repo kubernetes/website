@@ -99,7 +99,7 @@ There is not a single command to check on the output of all jobs at once,
 but looping over all the pods is pretty easy:
 
 ```shell
-$ for p in $(kubectl get pods -l jobgroup=jobexample -o name)
+$ for p in $(kubectl get pods -l jobgroup=jobexample --show-all -o name)
 do
   kubectl logs $p
 done
