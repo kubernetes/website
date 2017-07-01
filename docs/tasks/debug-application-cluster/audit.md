@@ -84,7 +84,7 @@ webhooks.
 
 The structure of audit events changes when enabling the `AdvancedAuditing` feature
 flag. This includes some cleanups, such as the `method` reflecting the verb evaluated
-by the [authoriation layer](/docs/admin/authorization/) instead of the HTTP verb
+by the [authorization layer](/docs/admin/authorization/) instead of the HTTP verb
 ("create" instead of "POST"). Also, instead of always generating two events per
 request, events are recorded with an associated "stage." The known stages are:
 
@@ -196,7 +196,7 @@ formatted as follows:
 2017-06-15T21:50:50.259470834Z AUDIT: id="591e9fde-6a98-46f6-b7bc-ec8ef575696d" stage="ResponseComplete" ip="10.2.1.3" method="update" user="system:serviceaccount:kube-system:default" groups="\"system:serviceaccounts\",\"system:serviceaccounts:kube-system\",\"system:authenticated\"" as="<self>" asgroups="<lookup>" namespace="kube-system" uri="/api/v1/namespaces/kube-system/endpoints/kube-controller-manager" response="200"
 ```
 
-Logged evens omit the request and response bodies. The `Request` and
+Logged events omit the request and response bodies. The `Request` and
 `RequestResponse` levels are equivalent to `Metadata` for this backend.
 
 #### Webhook backend
