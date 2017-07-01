@@ -525,12 +525,65 @@ Here `v1.7.x` means the "latest patch release of the v1.7 branch".
 
 `${ARCH}` can be one of: `amd64`, `arm`, `arm64`, `ppc64le` or `s390x`.
 
+## Managing the kubeadm drop-in file for the kubelet
+
+The kubeadm deb package ships with configuration for how the kubelet should
+be run. Note that the `kubeadm` CLI command will never touch this drop-in file.
+This drop-in file belongs to the kubeadm deb/rpm package.
+
+This is what it looks like in v1.7:
+
+```
+[Service]
+Environment="KUBELET_KUBECONFIG_ARGS=--kubeconfig=/etc/kubernetes/kubelet.conf --require-kubeconfig=true"
+Environment="KUBELET_SYSTEM_PODS_ARGS=--pod-manifest-path=/etc/kubernetes/manifests --allow-privileged=true"
+Environment="KUBELET_NETWORK_ARGS=--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
+Environment="KUBELET_DNS_ARGS=--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
+Environment="KUBELET_AUTHZ_ARGS=--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
+Environment="KUBELET_CADVISOR_ARGS=--cadvisor-port=0"
+ExecStart=
+ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_SYSTEM_PODS_ARGS $KUBELET_NETWORK_ARGS $KUBELET_DNS_ARGS $KUBELET_AUTHZ_ARGS $KUBELET_CADVISOR_ARGS $KUBELET_EXTRA_ARGS
+```
+
+A breakdown of what/why:
+
+* `--kubeconfig=/etc/kubernetes/kubelet.conf` points to the kubeconfig file that
+   tells the kubelet where the API server is. This file also has the kubelet's
+   credentials.
+* `--require-kubeconfig=true` the kubelet should fail fast if the kubeconfig file
+   is not present. This makes the kubelet crashloop during the time the service is
+   started until `kubeadm init` is run.
+* `--pod-manifest-path=/etc/kubernetes/manifests` specifies from where to read
+   Static Pod manifests used for spinning up the control plane
+* `--allow-privileged=true` allows this kubelet to run privileged Pods
+* `--network-plugin=cni` uses CNI networking
+* `--cni-conf-dir=/etc/cni/net.d` specifies where to look for the
+   [CNI spec file(s)](https://github.com/containernetworking/cni/blob/master/SPEC.md)
+* `--cni-bin-dir=/opt/cni/bin` specifies where to look for the actual CNI binaries
+* `--cluster-dns=10.96.0.10` use this cluster-internal DNS server for `nameserver`
+   entries in Pods' `/etc/resolv.conf`
+* `--cluster-domain=cluster.local` uses this cluster-internal DNS domain for
+   `search` entries in Pods' `/etc/resolv.conf`
+* `--client-ca-file=/etc/kubernetes/pki/ca.crt` authenticates requests to the Kubelet
+   API using this CA certificate.
+* `--authorization-mode=Webhook` authorizes requests to the Kubelet API by `POST`-ing
+   a `SubjectAccessReview` to the API Server
+* `--cadvisor-port=0` disables cAdvisor from listening to `0.0.0.0:4194` by default.
+   cAdvisor will still be run inside of the kubelet and its API can be accessed at
+   `https://{node-ip}:10250/stats/`. If you want to enable cAdvisor to listen on a
+   wide-open port, run:
+
+   ```
+   sed -e "/cadvisor-port=0/d" -i /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+   systemctl daemon-reload
+   systemctl restart kubelet
+   ```
 
 ## Cloudprovider integrations (experimental)
 
 Enabling specific cloud providers is a common request. This currently requires
 manual configuration and is therefore not yet fully supported. If you wish to do
-so, edit the kubeadm dropin for the kubelet service
+so, edit the kubeadm drop-in for the kubelet service
 (`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`) on all nodes,
 including the master. If your cloud provider requires any extra packages
 installed on the host, for example for volume mounting/unmounting, install those
