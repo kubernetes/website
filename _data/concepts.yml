@@ -59,6 +59,7 @@ toc:
   - docs/concepts/configuration/manage-compute-resources-container.md
   - docs/concepts/configuration/assign-pod-node.md
   - docs/concepts/configuration/secret.md
+  - docs/concepts/configuration/understanding-configmaps.md
 
 - title: Services, Load Balancing, and Networking
   section:
@@ -94,5 +95,3 @@ toc:
     section:
     - docs/concepts/policy/resource-quotas.md
     - docs/concepts/policy/pod-security-policy.md
-
-

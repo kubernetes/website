@@ -1,233 +1,123 @@
 ---
-title: Use ConfigMap Data in Pods 
+title: Configure Pods Using ConfigMap Data
 ---
 
 {% capture overview %}
-This page provides a series of usage examples demonstrating how to configure Pods using data stored in ConfigMaps. 
+
+This page demonstrates how to configure Pods using data stored in ConfigMaps.
+
 {% endcapture %}
 
 {% capture prerequisites %}
-* {% include task-tutorial-prereqs.md %}
-* [Create a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
+- {% include task-tutorial-prereqs.md %}
+- Read and understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
 {% endcapture %}
 
 {% capture steps %}
 
-
 ## Define Pod environment variables using ConfigMap data
 
-### Define a Pod environment variable with data from a single ConfigMap
+### Define a Pod environment variable using a single ConfigMap
 
 1. Define an environment variable as a key-value pair in a ConfigMap:
 
-   ```shell
-   kubectl create configmap special-config --from-literal=special.how=very 
-   ```
+  ```shell
+  kubectl create configmap special-config --from-literal=special.how=very
+  ```
 
 1. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.  
 
-   ```shell
-   kubectl edit pod dapi-test-pod
-   ```
+  ```shell
+  kubectl edit pod dapi-test-pod
+  ```
 
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: dapi-test-pod
-   spec:
-     containers:
-       - name: test-container
-         image: gcr.io/google_containers/busybox
-         command: [ "/bin/sh", "-c", "env" ]
-         env:
-           # Define the environment variable
-           - name: SPECIAL_LEVEL_KEY
-             valueFrom:
-               configMapKeyRef:
-                 # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
-                 name: special-config
-                 # Specify the key associated with the value
-                 key: special.how
-     restartPolicy: Never
-   ```
+  {% include code.html language="yaml" file="pod-single-configmap.yaml" ghlink="/docs/tasks/configure-pod-container/pod-single-configmap" %}
 
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very`. 
- 
-### Define Pod environment variables with data from multiple ConfigMaps
- 
-1. As with the previous example, create the ConfigMaps first.
+1. Save the changes to the Pod specification.
 
-   ```yaml
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-     name: special-config
-     namespace: default
-   data:
-     special.how: very
-   ```
+  The Pod's output now includes `SPECIAL_LEVEL_KEY=very`.
 
-   ```yaml
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-     name: env-config
-     namespace: default
-   data:
-     log_level: INFO
-   ``` 
+### Define Pod environment variables using multiple ConfigMaps
 
-1. Define the environment variables in the Pod specification.   
+1. Create multiple ConfigMaps.
 
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: dapi-test-pod
-   spec:
-     containers:
-       - name: test-container
-         image: gcr.io/google_containers/busybox
-         command: [ "/bin/sh", "-c", "env" ]
-         env:
-           - name: SPECIAL_LEVEL_KEY
-             valueFrom:
-               configMapKeyRef:
-                 name: special-config
-                 key: special.how
-           - name: LOG_LEVEL
-             valueFrom:
-               configMapKeyRef:
-                 name: env-config
-                 key: special.type
-     restartPolicy: Never
-   ```
- 
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=info`. 
+  Each command creates a YAML file:
 
-## Configure all key-value pairs in a ConfigMap as Pod environment variables 
+  ```shell
+  kubectl create configmap special-config --from-literal=special.how=very
+  ```
 
-Note: This functionality is available to users running Kubernetes v1.6 and later.
+  {% include code.html language="yaml" file="pod-multiple-special-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-special-config" %}
 
-1. Create a ConfigMap containing multiple key-value pairs. 
+  ```shell
+  kubectl create configmap env-config --from-literal=log_level=INFO
+  ```
 
-   ```yaml
-   apiVersion: v1
-   kind: ConfigMap
-   metadata:
-     name: special-config
-     namespace: default
-   data:
-     special_level: very
-     special_type: charm
-   ```
+  {% include code.html language="yaml" file="pod-multiple-env-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-env-config" %}
 
-1. Use `env-from` to define all of the ConfigMap's data as Pod environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
-   
-   ```yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: dapi-test-pod
-   spec:
-     containers:
-       - name: test-container
-         image: gcr.io/google_containers/busybox
-         command: [ "/bin/sh", "-c", "env" ]
-         envFrom:
-         - configMapRef:
-             name: special-config
-      restartPolicy: Never
-   ```
+1. Define environment variables in the Pod specification.   
 
-1. Save the changes to the Pod specification. Now, the Pod's output includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`. 
+  {% include code.html language="yaml" file="pod-multiple-define.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-define" %}
 
+1. Save the changes to the Pod specification.
+
+  The Pod's output now includes `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=info`.
+
+## Configure all key-value pairs in a ConfigMap as Pod environment variables
+
+**Note:** This functionality is only available with Kubernetes v1.6 and later.
+
+Including `env-from` as an attribute in a ConfigMap lets you define the ConfigMap's data as Pod environment variables.
+
+1. Create a ConfigMap containing multiple key-value pairs.
+
+  ```shell
+  kubectl create configmap special-config --from-literal=special_level=very --from-literal=special_type=charm
+  ```
+
+1. Add `env-from` to define all of the ConfigMap's data as Pod environment variables.
+
+  The Pod uses the key from the ConfigMap as the environment variable name.
+
+  {% include code.html language="yaml" file="pod-multiple-env-variables.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-env-variables" %}
+
+1. Save the changes to the Pod specification.
+
+  The Pod's output now includes `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`.
 
 ## Use ConfigMap-defined environment variables in Pod commands  
 
 You can use ConfigMap-defined environment variables in the `command` section of the Pod specification using the `$(VAR_NAME)` Kubernetes substitution syntax.
 
-For example:
+For example, the following Pod specification:
 
-The following Pod specification
+  {% include code.html language="yaml" file="pod-multiple-sub.yaml" ghlink="/docs/tasks/configure-pod-container/pod-multiple-sub" %}
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "-c", "echo $(SPECIAL_LEVEL_KEY) $(SPECIAL_TYPE_KEY)" ]
-      env:
-        - name: SPECIAL_LEVEL_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: special-config
-              key: special.how
-        - name: SPECIAL_TYPE_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: special-config
-              key: special.type
-  restartPolicy: Never
-```
-
-produces the following output in the `test-container` container:
+...produces the following output in the `test-container` container:
 
 ```shell
 very charm
 ```
 
-## Add ConfigMap data to a Volume 
+## Add ConfigMap data to a Volume
 
-As explained in [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configmap.html), when you create a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value. 
+When you [create a ConfigMap using `--from-file`](/docs/tasks/configure-pod-container/configmap/#create-configmaps-from-files), the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value.
 
-The examples in this section refer to a ConfigMap named special-config, shown below.
+The examples in this section refer to a ConfigMap named `special-config`:
 
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: special-config
-  namespace: default
-data:
-  special.level: very
-  special.type: charm
-```
+{% include code.html language="yaml" file="pod-volume-special-config.yaml" ghlink="/docs/tasks/configure-pod-container/pod-volume-special-config" %}
 
 ### Populate a Volume with data stored in a ConfigMap
 
-Add the ConfigMap name under the `volumes` section of the Pod specification. 
-This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
-The `command` section references the `special.level` item stored in the ConfigMap.
+1. Add the ConfigMap name under the `volumes` section of the Pod specification.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "-c", "ls /etc/config/" ]
-      volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
-  volumes:
-    - name: config-volume
-      configMap:
-        # Provide the name of the ConfigMap containing the files you want
-        # to add to the container
-        name: special-config
-  restartPolicy: Never
-```
+  This adds the ConfigMap data to the directory specified by the `volumeMounts.mountPath` attribute. In the following example, the specified directory is `/etc/config`.
 
-When the pod runs, the command (`"ls /etc/config/"`) produces the output below:
+  The `command` section references the `special.level` attribute in the ConfigMap.
+
+  {% include code.html language="yaml" file="pod-volume-populate.yaml" ghlink="/docs/tasks/configure-pod-container/pod-volume-populate" %}
+
+When the pod runs, the command `ls /etc/config/` produces the following output:
 
 ```shell
 special.level
@@ -236,33 +126,13 @@ special.type
 
 ### Add ConfigMap data to a specific path in the Volume:
 
-Use the `path` field to specify the desired file path for specific ConfigMap items. 
-In this case, the `special.level` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
+You can specify a file path for specific ConfigMap items using the `path` field.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dapi-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh","-c","cat /etc/config/keys" ]
-      volumeMounts:
-      - name: config-volume
-        mountPath: /etc/config
-  volumes:
-    - name: config-volume
-      configMap:
-        name: special-config
-        items:
-        - key: special.level
-          path: keys
-  restartPolicy: Never
-```
+In this example, the `special.level` item is mounted in the volume `config-volume` at `/etc/config/keys`.
 
-When the pod runs, the command (`"cat /etc/config/keys"`) produces the output below:
+{% include code.html language="yaml" file="pod-volume-path.yaml" ghlink="/docs/tasks/configure-pod-container/pod-volume-path" %}
+
+When the pod runs, the command `cat /etc/config/keys` produces the following output:
 
 ```shell
 very
@@ -279,33 +149,10 @@ When a ConfigMap already being consumed in a volume is updated, projected keys a
 
 {% endcapture %}
 
-{% capture discussion %}
-
-## Understanding ConfigMaps and Pods
-
-### Restrictions
-
-1. You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional"). If you reference a ConfigMaps that doesn't exist, the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
-
-1. If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
-
-   ```shell
-   kubectl get events
-   LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
-   0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
-   ```
-
-1. ConfigMaps reside in a specific [namespace](/docs/user-guide/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
-
-1. Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. 
-   This includes every pod created using kubectl or indirectly via a replication controller. 
-   It does not include pods created via the Kubelet's `--manifest-url` flag, `--config` flag, or the Kubelet REST API. (Note: these are not commonly-used ways to create pods.)
-   
-{% endcapture %}
-
 {% capture whatsnext %}
-* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configmap/).
-* Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
+- Learn more about [ConfigMaps](/docs/concepts/concept-configmap)
+- See [Configure Containers with a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
+- Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 {% endcapture %}
 
