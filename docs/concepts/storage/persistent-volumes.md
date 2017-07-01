@@ -753,11 +753,11 @@ parameters:
 * `protectionDomain`: the name of the ScaleIO protection domain
 * `storagePool`: the name of the volume storage pool
 * `storageMode`: the storage provision mode: `ThinProvisionned` (default) or `ThickProvisionned`
-* `secretRef`: reference to a configuered Secret object (required, see detail below)
+* `secretRef`: reference to a configured Secret object (required, see detail below)
 * `readOnly`: specifies the access mode to the mounted volume
 * `fsType`: the file system to use for the volume
 
-The ScaleIO Kubernetes volume plugin requires a configuered Secret object. 
+The ScaleIO Kubernetes volume plugin requires a configured Secret object. 
 The secret must be created with type `kubernetes.io/scaleio` and use the same namespace value as that of the PVC where it is referenced
 as shown in the following command:
 

@@ -54,9 +54,9 @@ the Pod:
 
         kubectl exec -it test-projected-volume -- /bin/sh
 
-1. In your shell, verify that the `projected-volumes` directory contains your projected sources:
+1. In your shell, verify that the `projected-volume` directory contains your projected sources:
 
-        / # ls projected-volumes/
+        / # ls /projected-volume/
 {% endcapture %}
 
 {% capture whatsnext %}
