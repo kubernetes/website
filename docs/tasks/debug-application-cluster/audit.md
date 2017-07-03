@@ -50,7 +50,7 @@ later in this document.
 [Kube-apiserver][kube-apiserver] provides the following options which are responsible
 for configuring where and how audit logs are handled:
 
-- `audit-log-path` - enables the audit log pointing to a file where the requests are being logged to.
+- `audit-log-path` - enables the audit log pointing to a file where the requests are being logged to, '-' means standard out.
 - `audit-log-maxage` - specifies maximum number of days to retain old audit log files based on the timestamp encoded in their filename.
 - `audit-log-maxbackup` - specifies maximum number of old audit log files to retain.
 - `audit-log-maxsize` - specifies maximum size in megabytes of the audit log file before it gets rotated. Defaults to 100MB
@@ -84,9 +84,9 @@ webhooks.
 
 The structure of audit events changes when enabling the `AdvancedAuditing` feature
 flag. This includes some cleanups, such as the `method` reflecting the verb evaluated
-by the [authorization layer](/docs/admin/authorization/) instead of the HTTP verb
-("create" instead of "POST"). Also, instead of always generating two events per
-request, events are recorded with an associated "stage." The known stages are:
+by the [authorization layer](/docs/admin/authorization/) instead of the [HTTP verb](docs/admin/authorization/#determine-the-request-verb).
+Also, instead of always generating two events per request, events are recorded with an associated "stage."
+The known stages are:
 
 - `RequestReceived` - The stage for events generated as soon as the audit handler receives the request.
 - `ResponseStarted` - Once the response headers are sent, but before the response body is sent. This stage is only generated for long-running requests (e.g. watch).
@@ -177,7 +177,7 @@ Audit backends implement strategies for emitting events. The [kube-apiserver][ku
 provides a logging and webhook backend.
 
 Each request to the API server can generate multiple events, one when the request is received,
-another when the response is sent, and additional events for log running requests (such as
+another when the response is sent, and additional events for long running requests (such as
 watches). The ID of events will be the same if they were generated from the same request.
 
 The event format is defined by the `audit.k8s.io` API group. The `v1alpha1` format of this
