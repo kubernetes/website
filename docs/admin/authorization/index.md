@@ -30,7 +30,7 @@ Kubernetes reviews only the following API request attributes:
  * **group** - The list of group names to which the authenticated user belongs
  * **"extra"** - A map of arbitrary string keys to string values, provided by the authentication layer
  * **API** - Indicates whether the request is for an API resource
- * **Request path** - Path to miscellaneous non-resource endpoints like `/api` or `/healthz` (see [kubectl](#kubectl)).
+ * **Request path** - Path to miscellaneous non-resource endpoints like `/api` or `/healthz`.
  * **API request verb** - API verbs `get`, `list`, `create`, `update`, `patch`, `watch`, `proxy`, `redirect`, `delete`, and `deletecollection` are used for resource requests. To determine the request verb for a resource API endpoint, see **Determine the request verb** below.
  * **HTTP request verb** - HTTP verbs `get`, `post`, `put`, and `delete` are used for non-resource requests
  * **Resource** - The ID or name of the resource that is being accessed (for resource requests only)
