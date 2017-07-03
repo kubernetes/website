@@ -485,23 +485,6 @@ EOF
 
 Now `kubelet` is ready to use the specified CRI runtime, and you can continue with `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
 
-## Using custom certificates
-
-By default kubeadm will generate all the certificates needed for a cluster to run.
-You can override this behaviour by providing your own certificates.
-
-To do so, you must place them in whatever directory is specified by the
-`--cert-dir` flag or `CertificatesDir` configuration file key. By default this
-is `/etc/kubernetes/pki`.
-
-If a given certificate and private key pair both exist, kubeadm will skip the
-generation step and those files will be validated and used for the prescribed
-use-case.
-
-This means you can, for example, prepopulate `/etc/kubernetes/pki/ca.crt`
-and `/etc/kubernetes/pki/ca.key` with an existing CA, which then will be used
-for signing the rest of the certs.
-
 ## Running kubeadm without an internet connection
 
 All of the control plane components run in Pods started by the kubelet and
