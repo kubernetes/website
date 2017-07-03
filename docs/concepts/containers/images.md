@@ -102,7 +102,7 @@ Troubleshooting:
 - Verify all requirements above.
 - Get $REGION (e.g. `us-west-2`) credentials on your workstation. SSH into the host and run Docker manually with those creds. Does it work?
 - Verify kubelet is running with `--cloud-provider=aws`.
-- Check kubelet logs (e.g. `journalctl -t kubelet`) for log lines like:
+- Check kubelet logs (e.g. `journalctl -u kubelet`) for log lines like:
   - `plugins.go:56] Registering credential provider: aws-ecr-key`
   - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
 
