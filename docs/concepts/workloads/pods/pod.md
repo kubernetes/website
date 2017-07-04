@@ -17,7 +17,7 @@ managed in Kubernetes.
 
 A _pod_ (as in a pod of whales or pea pod) is a group of one or more containers
 (such as Docker containers), the shared storage for those containers, and
-options about how to run the containers.  Pods are always co-located and
+options about how to run the containers.  A pod's contents are always co-located and
 co-scheduled, and run in a shared context.  A pod models an
 application-specific "logical host" - it contains one or more application
 containers which are relatively tightly coupled &mdash; in a pre-container
