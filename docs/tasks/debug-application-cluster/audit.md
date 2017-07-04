@@ -84,7 +84,7 @@ webhooks.
 
 The structure of audit events changes when enabling the `AdvancedAuditing` feature
 flag. This includes some cleanups, such as the `method` reflecting the verb evaluated
-by the [authorization layer](/docs/admin/authorization/) instead of the [HTTP verb](docs/admin/authorization/#determine-the-request-verb).
+by the [authorization layer](/docs/admin/authorization/) instead of the [HTTP verb](/docs/admin/authorization/#determine-the-request-verb).
 Also, instead of always generating two events per request, events are recorded with an associated "stage."
 The known stages are:
 
