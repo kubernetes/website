@@ -90,7 +90,7 @@ As with all other Kubernetes config, a ReplicationController needs `apiVersion`,
 general information about working with config files, see [here](/docs/user-guide/simple-yaml/),
 [here](/docs/user-guide/configuring-containers/), and [here](/docs/concepts/tools/kubectl/object-management-overview/).
 
-A ReplicationController also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
+A ReplicationController also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 

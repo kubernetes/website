@@ -53,7 +53,7 @@ tar -xzvf kubernetes-client-windows-amd64.tar.gz
 `amd64`. If you are on a different architecture, please use a URL
 appropriate for your architecture. You can find the list of available
 binaries on the
-[release page](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#client-binaries-1).
+[release page](https://git.k8s.io/kubernetes/CHANGELOG.md#client-binaries-1).
 
 Copy the extracted binaries to one of the directories in your `$PATH`
 and set the executable permission on those binaries.
