@@ -188,8 +188,8 @@ API can be found [here][audit-api] with more details about the exact fields capt
 The behavior of the `--audit-log-path` flag changes when enabling the `AdvancedAuditing`
 feature flag. This includes the cleanups discussed above, such as changes to the `method`
 values and the introduction of a "stage" for each event. As before, the `id` field of
-the log line indicates which events were generated from the same request. Events are
-formatted as follows:
+the log indicates which events were generated from the same request. With default legacy
+format, events are formatted as follows:
 
 ```
 2017-06-15T21:50:50.259470834Z AUDIT: id="591e9fde-6a98-46f6-b7bc-ec8ef575696d" stage="RequestReceived" ip="10.2.1.3" method="update" user="system:serviceaccount:kube-system:default" groups="\"system:serviceaccounts\",\"system:serviceaccounts:kube-system\",\"system:authenticated\"" as="<self>" asgroups="<lookup>" namespace="kube-system" uri="/api/v1/namespaces/kube-system/endpoints/kube-controller-manager" response="<deferred>"
@@ -197,7 +197,21 @@ formatted as follows:
 ```
 
 Logged events omit the request and response bodies. The `Request` and
-`RequestResponse` levels are equivalent to `Metadata` for this backend.
+`RequestResponse` levels are equivalent to `Metadata` for legacy format.
+
+Since Kubernetes 1.8, structed json fromat is supported for log backend.
+Use the following option to switch log to json format:
+
+```
+--audit-log-format=json
+```
+
+With json format, events are formatted as follows:
+
+```
+{"kind":"Event","apiVersion":"audit.k8s.io/v1alpha1","metadata":{"creationTimestamp":null},"level":"Metadata","timestamp":"2017-07-12T11:02:43Z","auditID":"2e79f0c9-a941-45ae-a9ce-663a1b19ff14","stage":"RequestReceived","requestURI":"/api/v1/namespaces/default/pods","verb":"list","user":{"username":"kubecfg","groups":["system:masters","system:authenticated"]},"sourceIPs":["172.16.116.128"],"objectRef":{"resource":"pods","namespace":"default","apiVersion":"/v1"}}
+{"kind":"Event","apiVersion":"audit.k8s.io/v1alpha1","metadata":{"creationTimestamp":null},"level":"Metadata","timestamp":"2017-07-12T11:02:43Z","auditID":"2e79f0c9-a941-45ae-a9ce-663a1b19ff14","stage":"ResponseComplete","requestURI":"/api/v1/namespaces/default/pods","verb":"list","user":{"username":"kubecfg","groups":["system:masters","system:authenticated"]},"sourceIPs":["172.16.116.128"],"objectRef":{"resource":"pods","namespace":"default","apiVersion":"/v1"},"responseStatus":{"metadata":{},"code":200}}
+```
 
 #### Webhook backend
 
@@ -284,6 +298,138 @@ Events are POSTed as a JSON serialized `EventList`. An example payload:
 }
 ```
 
+### Log Collector Examples
+
+#### Use fluentd to collect and distribute audit events from log file
+
+[Fluentd][fluentd] is an open source data collector for unified logging layer.
+In this example, we will use fluentd to split audit events by different namespaces.
+Note that this example requries json format output support in Kubernetes 1.8.
+
+1. install [fluentd, fluent-plugin-forest and fluent-plugin-rewrite-tag-filter][fluentd_install_doc] in the kube-apiserver node
+1. create a config file for fluentd
+
+          $ cat <<EOF > /etc/fluentd/config
+          # fluentd conf runs in the same host with kube-apiserver
+          <source>
+              @type tail
+              # audit log path of kube-apiserver
+              path /var/log/audit
+              pos_file /var/log/audit.pos
+              format json
+              time_key time
+              time_format %Y-%m-%dT%H:%M:%S.%N%z
+              tag audit
+          </source>
+          
+          <filter audit>
+              #https://github.com/fluent/fluent-plugin-rewrite-tag-filter/issues/13
+              type record_transformer
+              enable_ruby
+              <record>
+              	namespace ${record["objectRef"].nil? ? "<none>":(record["objectRef"]["namespace"].nil? ?  "<none>":record["objectRef"]["namespace"])}
+              </record>
+          </filter>
+          
+          <match audit>
+              # route audit according to namespace element in context
+              @type rewrite_tag_filter
+              rewriterule1 namespace ^(.+) ${tag}.$1
+          </match>
+          
+          <filter audit.**>
+          	  @type record_transformer
+          	  remove_keys namespace
+          </filter>
+          
+          <match audit.**>
+              @type forest
+              subtype file
+              remove_prefix audit
+              <template>
+                  time_slice_format %Y%m%d%H
+                  compress gz
+                  path /var/log/audit-${tag}.*.log
+                  format json
+                  include_time_key true
+              </template>
+          </match>
+1. start fluentd
+
+          $ fluentd -c /etc/fluentd/config  -vv
+1. start kube-apiserver with the following options:
+
+          --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-log-path=/var/log/kube-audit --audit-log-format=json
+1. check audits for different namespaces in /var/log/audit-*.log
+
+#### Use logstash to collect and distribute audit events from webhook backend
+
+[Logstash][logstash] is an open source, server-side data processing tool. In this example,
+we will use logstash to collect audit events from webhook backend, and save events of
+different users into different files.
+
+1. install [logstash][logstash_install_doc]
+1. create config file for logstash
+
+          $ cat <<EOF > /etc/logstash/config
+          input{
+              http{
+                  #TODO, does logstash support https input?
+                  port=>8888
+              }
+          }
+          filter{
+              split{
+                  # Webhook audit backend sends several events together with EventList
+                  # split each event here.
+                  field=>[items]
+                  # We only need event subelement, remove others.
+                  remove_field=>[headers, metadata, apiVersion, "@timestamp", kind, "@version", host]
+              }
+              mutate{
+                  rename => {items=>event}
+              }
+          }
+          output{
+              file{
+                  # Audit events from different users will be saved into different files.
+                  path=>"/var/log/kube-audit-%{[event][user][username]}/audit"
+              }
+          }
+1. start logstash
+
+          $ bin/logstash -f /etc/logstash/config --path.settings /etc/logstash/
+1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
+
+          $ cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
+          apiVersion: v1
+          clusters:
+          - cluster:
+              server: http://<ip_of_logstash>:8888
+            name: logstash
+          contexts:
+          - context:
+              cluster: logstash
+              user: ""
+            name: default-context
+          current-context: default-context
+          kind: Config
+          preferences: {}
+          users: []
+          EOF
+1. start kube-apiserver with the following options:
+
+          --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-webhook-config-file=/etc/kubernetes/audit-webhook-kubeconfig
+1. check audits in logstash node's directories /var/log/kube-audit-*/audit
+
+Note that in addition to file output plugin, logstash has a variety of outputs that
+let users route data where they want. For example, users can emit audit events to elasticsearch
+plugin which supports full-text search and analytics.
+
 [audit-api]: https://github.com/kubernetes/kubernetes/blob/v1.7.0-rc.1/staging/src/k8s.io/apiserver/pkg/apis/audit/v1alpha1/types.go
 [kube-apiserver]: /docs/admin/kube-apiserver
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/v1.7.0/cluster/gce/gci/configure-helper.sh#L490
+[fluentd]: http://www.fluentd.org/
+[fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
+[logstash]: https://www.elastic.co/products/logstash
+[logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
