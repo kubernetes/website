@@ -384,4 +384,4 @@ Check that:
 
 ## For more information
 
- * [Federation proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/federation.md) details use cases that motivated this work.
+ * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation.md) details use cases that motivated this work.

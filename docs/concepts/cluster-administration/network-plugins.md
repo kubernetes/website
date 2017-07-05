@@ -38,7 +38,7 @@ The CNI plugin is selected by passing Kubelet the `--network-plugin=cni` command
 
 If there are multiple CNI configuration files in the directory, the first one in lexicographic order of file name is used.
 
-In addition to the CNI plugin specified by the configuration file, Kubernetes requires the standard CNI [`lo`](https://github.com/containernetworking/cni/blob/master/plugins/main/loopback/loopback.go) plugin, at minimum version 0.2.0
+In addition to the CNI plugin specified by the configuration file, Kubernetes requires the standard CNI [`lo`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) plugin, at minimum version 0.2.0
 
 Limitation: Due to [#31307](https://github.com/kubernetes/kubernetes/issues/31307), `HostPort` won't work with CNI networking plugin at the moment. That means all `hostPort` attribute in pod would be simply ignored.
 

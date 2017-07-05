@@ -42,8 +42,6 @@ with batch/v2alpha1 API turned on by passing `--runtime-config=batch/v2alpha1=tr
 the API server (see [Turn on or off an API version for your cluster](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
 for more).
 
-Beginning with 1.6 series Cron Jobs are enabled by default, but note that you can not use Cron Jobs on a hosted Kubernetes provider that has disabled alpha resources.
-
 ## Creating a Cron Job
 
 Here is an example Cron Job. Every minute, it runs a simple job to print current time and then say
@@ -154,7 +152,7 @@ information about working with config files, see [deploying applications](/docs/
 [configuring containers](/docs/user-guide/configuring-containers), and
 [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
 
-A cron job also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
+A cron job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
 **Note:** All modifications to a cron job, especially its `.spec`, will be applied only to the next run.
 
