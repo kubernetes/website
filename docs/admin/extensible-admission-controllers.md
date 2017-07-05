@@ -112,19 +112,18 @@ apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: InitializerConfiguration
 metadata:
   name: example-config
-spec:
-  initializers:
-    # the name needs to be fully qualified, i.e., containing at least two "."
-    - name: podimage.example.com
-      rules:
-        # apiGroups, apiVersion, resources all support wildcard "*".
-        # "*" cannot be mixed with non-wildcard.
-        - apiGroups:
-            - ""
-          apiVersions:
-            - v1
-          resources:
-            - pods
+initializers:
+  # the name needs to be fully qualified, i.e., containing at least two "."
+  - name: podimage.example.com
+    rules:
+      # apiGroups, apiVersion, resources all support wildcard "*".
+      # "*" cannot be mixed with non-wildcard.
+      - apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        resources:
+          - pods
 ```
 
 Make sure that all expansions of the `<apiGroup, apiVersions, resources>` tuple
