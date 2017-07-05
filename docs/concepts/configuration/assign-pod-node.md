@@ -43,7 +43,7 @@ Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the o
 
 If this fails with an "invalid command" error, you're likely using an older version of kubectl that doesn't have the `label` command. In that case, see the [previous version](https://github.com/kubernetes/kubernetes/blob/a053dbc313572ed60d89dae9821ecab8bfd676dc/examples/node-selection/README.md) of this guide for instructions on how to manually set labels on a node.
 
-Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/identifiers.md)), meaning that they are not allowed to contain any upper-case letters.
+Also, note that label keys must be in the form of DNS labels (as described in the [identifiers doc](https://git.k8s.io/community/contributors/design-proposals/identifiers.md)), meaning that they are not allowed to contain any upper-case letters.
 
 You can verify that it worked by re-running `kubectl get nodes --show-labels` and checking that the node now has a label.
 
@@ -143,7 +143,7 @@ If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types
 If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
 
 For more information on node affinity, see the design doc
-[here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/nodeaffinity.md).
+[here](https://git.k8s.io/community/contributors/design-proposals/nodeaffinity.md).
 
 ### Inter-pod affinity and anti-affinity (beta feature)
 
@@ -184,11 +184,11 @@ value V that is running a pod that has a label with key "security" and value "S1
 rule says that the pod prefers to not schedule onto a node if that node is already running a pod with label
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot schedule onto a node if that node is in the same zone as a pod with
-label having key "security" and value "S2".) See the [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/podaffinity.md).
+label having key "security" and value "S2".) See the [design doc](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
 for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
 
-As with node affinity, the legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
+The legal operators for pod affinity and anti-affinity are `In`, `NotIn`, `Exists`, `DoesNotExist`.
 
 In principle, the `topologyKey` can be any legal label-key. However,
 for performance and security reasons, there are some constraints on topologyKey:
@@ -208,7 +208,7 @@ All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExe
 must be satisfied for the pod to schedule onto a node. 
 
 For more information on inter-pod affinity/anti-affinity, see the design doc
-[here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/podaffinity.md).
+[here](https://git.k8s.io/community/contributors/design-proposals/podaffinity.md).
 
 ## Taints and tolerations (beta feature)
 
@@ -432,7 +432,7 @@ These automatically-added tolerations ensure that
 the default pod behavior of remaining bound for 5 minutes after one of these
 problems is detected is maintained.
 The two default tolerations are added by the [DefaultTolerationSeconds
-admission controller](https://github.com/kubernetes/kubernetes/tree/master/plugin/pkg/admission/defaulttolerationseconds).
+admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds).
 
 [DaemonSet](https://kubernetes.io/docs/admin/daemons/) pods are created with
 `NoExecute` tolerations for `node.alpha.kubernetes.io/unreachable` and `node.alpha.kubernetes.io/notReady`
