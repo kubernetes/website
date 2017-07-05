@@ -57,6 +57,10 @@ You need to have a Kubernetes cluster running version 1.6.x.
 
 4. Perform kubeadm upgrade.
 
+    **WARNING**: All parameters you passed to the first `kubeadm init` when you bootstrapped your
+    cluster **MUST** be specified here in the upgrade-`kubeadm init`-command. This is a limitation
+    we plan to address in v1.8.
+
        sudo kubeadm init --skip-preflight-checks --kubernetes-version <DESIRED_VERSION>
 
    For instance, if you want to upgrade to `1.7.0`, you would run:
