@@ -85,7 +85,7 @@ however they require a better understanding of the Kubernetes object schema.
 - `edit`: Directly edit the raw configuration of a live object by opening its configuration in an editor.
 - `patch`: Directly modify specific fields of a live object by using a patch string. 
 For more details on patch strings, see the patch section in
-[API Conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#patch-operations).
+[API Conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#patch-operations).
 
 ## How to delete objects
 

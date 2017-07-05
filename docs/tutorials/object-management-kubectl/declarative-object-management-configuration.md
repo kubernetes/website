@@ -575,7 +575,7 @@ Add, delete, or update individual elements. This does not preserve ordering.
 
 This merge strategy uses a special tag on each field called a `patchMergeKey`. The
 `patchMergeKey` is defined for each field in the Kubernetes source code:
-[types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go#L2119)
+[types.go](https://git.k8s.io/kubernetes/pkg/api/v1/types.go#L2119)
 When merging a list of maps, the field specified as the `patchMergeKey` for a given element
 is used like a map key for that element.
 
@@ -649,7 +649,7 @@ by `name`.
 As of Kubernetes 1.5, merging lists of primitive elements is not supported.
 
 **Note:** Which of the above strategies is chosen for a given field is controlled by
-the `patchStrategy` tag in [types.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/api/v1/types.go#L2119)
+the `patchStrategy` tag in [types.go](https://git.k8s.io/kubernetes/pkg/api/v1/types.go#L2119)
 If no `patchStrategy` is specified for a field of type list, then
 the list is replaced.
 
@@ -941,10 +941,11 @@ template:
       controller-selector: "extensions/v1beta1/deployment/nginx"
 ```
 
-## Support for ThirdPartyResources
+## Known Issues
 
-As of Kubernetes 1.5, ThirdPartyResources are not supported by `kubectl apply`.
-The recommended approach for ThirdPartyResources is to use [imperative object configuration](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/).
+* Prior to Kubernetes 1.6, `kubectl apply` did not support operating on objects stored in a
+  [custom resource](/docs/concepts/api-extension/custom-resources/).
+  For these cluster versions, you should instead use [imperative object configuration](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/).
 {% endcapture %}
 
 {% capture whatsnext %}

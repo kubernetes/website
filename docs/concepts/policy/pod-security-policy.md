@@ -11,7 +11,7 @@ Objects of type `PodSecurityPolicy` govern the ability
 to make requests on a pod that affect the `SecurityContext` that will be 
 applied to a pod and container.
 
-See [PodSecurityPolicy proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security-context-constraints.md) for more information.
+See [PodSecurityPolicy proposal](https://git.k8s.io/community/contributors/design-proposals/security-context-constraints.md) for more information.
 
 * TOC
 {:toc}
@@ -35,6 +35,7 @@ administrator to control the following:
 | The use of host ports                                         | `hostPorts`                       |
 | The use of host's PID namespace                               | `hostPID`                         |
 | The use of host's IPC namespace                               | `hostIPC`                         |
+| The use of host paths                                         | [`allowedHostPaths`](#allowed-host-paths)    |
 | The SELinux context of the container                          | [`seLinux`](#selinux)             |
 | The user ID                                                   | [`runAsUser`](#runasuser)         |
 | Configuring allowable supplemental groups                     | [`supplementalGroups`](#supplementalgroups) |
@@ -119,6 +120,7 @@ to the volume sources that are defined when creating a volume:
 1. projected
 1. portworxVolume
 1. scaleIO
+1. storageos
 1. \* (allow all volumes)
 
 The recommended minimum set of allowed volumes for new PSPs are 
@@ -126,7 +128,10 @@ configMap, downwardAPI, emptyDir, persistentVolumeClaim, secret, and projected.
 
 ### Host Network
  - *HostPorts*, default `empty`. List of `HostPortRange`, defined by `min`(inclusive) and `max`(inclusive), which define the allowed host ports.
- 
+
+### Allowed Host Paths
+ - *AllowedHostPaths* is a white list of allowed host path prefixes. Empty indicates that all host paths may be used.
+
 ## Admission
 
 _Admission control_ with `PodSecurityPolicy` allows for control over the
@@ -203,4 +208,4 @@ following
 
 In Kubernetes 1.5 and newer, you can use PodSecurityPolicy to control access to privileged containers based on user role and groups. Access to different PodSecurityPolicy objects can be controlled via authorization. To limit access to PodSecurityPolicy objects for pods created via a Deployment, ReplicaSet, etc, the [Controller Manager](/docs/admin/kube-controller-manager/) must be run against the secured API port, and must not have superuser permissions.
 
-PodSecurityPolicy authorization uses the union of all policies available to the user creating the pod and the service account specified on the pod. When pods are created via a Deployment, ReplicaSet, etc, it is Controller Manager that creates the pod, so if it is running against the unsecured API port, all PodSecurityPolicy objects would be allowed, and you could not effectively subdivide access. Access to given PSP policies for a user will be effective only when deploying Pods directly. For more details, see the [PodSecurityPolicy RBAC example](https://github.com/kubernetes/kubernetes/blob/master/examples/podsecuritypolicy/rbac/README.md) of applying PodSecurityPolicy to control access to privileged containers based on role and groups when deploying Pods directly.
+PodSecurityPolicy authorization uses the union of all policies available to the user creating the pod and the service account specified on the pod. When pods are created via a Deployment, ReplicaSet, etc, it is Controller Manager that creates the pod, so if it is running against the unsecured API port, all PodSecurityPolicy objects would be allowed, and you could not effectively subdivide access. Access to given PSP policies for a user will be effective only when deploying Pods directly. For more details, see the [PodSecurityPolicy RBAC example](https://git.k8s.io/kubernetes/examples/podsecuritypolicy/rbac/README.md) of applying PodSecurityPolicy to control access to privileged containers based on role and groups when deploying Pods directly.
