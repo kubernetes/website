@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="/css/sweetalert.css">
     {% if page.class == "gridPage" %}<link rel="stylesheet" type="text/css" href="/css/gridpage.css">{% endif %}
+    {% if page.css %}<link rel="stylesheet" type="text/css" href="{{page.css}}">{% endif %}
 
     {% if page.description %}
     <meta name="description" content="{{ page.description }}" />
