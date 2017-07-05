@@ -71,7 +71,7 @@ Deploy new worker(s):
 
 Pause the old workers so your workload migrates: 
 
-    juju action kubernetes-alpha/# pause
+    juju run-action kubernetes-alpha/# pause
 
 Verify old workloads have migrated with: 
 
@@ -86,7 +86,11 @@ Tear down old workers with:
     juju upgrade-charm kubernetes-worker
     juju config kubernetes-worker channel=1.x/stable
 
-Where `x` is the minor version of Kubernetes. For example, `1.6/stable`. See above for Channel definitions
+Where `x` is the minor version of Kubernetes. For example, `1.6/stable`. See above for Channel definitions. Once you've configured kubernetes-worker with the appropriate channel, run the upgrade action on each worker:
+
+    juju run-action kubernetes-worker/0 upgrade
+    juju run-action kubernetes-worker/1 upgrade
+    ...
 
 # Verify upgrade
 
