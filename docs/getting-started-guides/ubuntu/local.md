@@ -10,8 +10,8 @@ Running Kubernetes locally has obvious development advantages, such as lower cos
 
 The purpose of using [LXD](https://linuxcontainers.org/lxd/) on a local machine is to emulate the same deployment that a user would use in a cloud or bare metal. Each node is treated as a machine, with the same characteristics as production. Each node is a separate container, which runs Docker containers and `kubectl` inside (see [Cluster Intro](https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/) for more info).
 
-{% capture steps %}
-## Getting Started
+{% capture prerequisites %}
+## Prerequisites
 
 Install [conjure-up](http://conjure-up.io/), a tool for deploying big software.
     
@@ -20,7 +20,9 @@ Install [conjure-up](http://conjure-up.io/), a tool for deploying big software.
 ```
 
 Note: If conjure-up asks you to "Setup an ipv6 subnet" with LXD, answer NO. ipv6 with Juju/LXD is currently unsupported.
+{% endcapture %}
 
+{% capture steps %}
 ### Deploying Kubernetes
 
 Start the deployment with:
