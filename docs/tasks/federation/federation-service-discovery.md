@@ -380,7 +380,7 @@ Check that:
 
 #### This troubleshooting guide did not help me solve my problem
 
-1. Please use one of our  [support channels](http://kubernetes.io/docs/troubleshooting/) to seek assistance.
+1. Please use one of our  [support channels](/docs/troubleshooting/) to seek assistance.
 
 ## For more information
 

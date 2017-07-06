@@ -38,7 +38,7 @@ name should be as depicted:
 ```
 
 Add the `--token-auth-file=FILENAME` flag to the kube-apiserver command (in your systemd unit file perhaps) to enable the token file.
-See docs [here](http://kubernetes.io/docs/admin/authentication/#static-token-file) for further details.
+See docs [here](/docs/admin/authentication/#static-token-file) for further details.
 
 ### Client certificate CA bundle
 

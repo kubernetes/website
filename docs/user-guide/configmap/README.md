@@ -6,7 +6,7 @@
 
 This example assumes you have a Kubernetes cluster installed and running, and that you have
 installed the `kubectl` command line tool somewhere in your path. Please see the [getting
-started](http://kubernetes.io/docs/getting-started-guides/) for installation instructions for your platform.
+started](/docs/getting-started-guides/) for installation instructions for your platform.
 
 ## Step One: Create the ConfigMap
 

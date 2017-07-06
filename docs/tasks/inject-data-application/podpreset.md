@@ -23,7 +23,7 @@ See [PodPreset proposal](https://git.k8s.io/community/contributors/design-propos
 A _Pod Preset_ is an API resource that you can use to inject additional runtime
 requirements into a Pod at creation time. You use label selectors to specify
 the Pods to which a given Pod Preset applies. Check out more information on [label
-selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors).
+selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 
 Using a Pod Preset allows pod template authors to not have to explicitly set
 information for every pod. This way, authors of pod templates consuming a

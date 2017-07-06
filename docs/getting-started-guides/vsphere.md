@@ -33,7 +33,7 @@ vSphere Cloud Provider allows using vSphere managed storage within Kubernetes. I
 
 Documentation for how to use vSphere managed storage can be found in the
 [persistent volumes user
-guide](http://kubernetes.io/docs/user-guide/persistent-volumes/#vsphere) and the
+guide](/docs/user-guide/persistent-volumes/#vsphere) and the
 [volumes user
 guide](/docs/concepts/storage/volumes/#vspherevolume)
 

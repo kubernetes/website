@@ -575,7 +575,7 @@ More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{
 ### vsphereVolume
 
 __Prerequisite: Kubernetes with vSphere Cloud Provider configured.
-For cloudprovider configuration please refer [vSphere getting started guide](http://kubernetes.io/docs/getting-started-guides/vsphere/).__
+For cloudprovider configuration please refer [vSphere getting started guide](/docs/getting-started-guides/vsphere/).__
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
 of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
