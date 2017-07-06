@@ -100,3 +100,8 @@ spec:
   ingress:
   - {}
 ```
+
+## What's next?
+
+- See the [Declare Network Policy](/docs/getting-started-guides/network-policy/walkthrough)
+  walkthrough for further examples.
