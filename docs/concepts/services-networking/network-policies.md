@@ -100,3 +100,8 @@ spec:
   ingress:
   - {}
 ```
+
+## What's next?
+
+- See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
+  walkthrough for further examples.
