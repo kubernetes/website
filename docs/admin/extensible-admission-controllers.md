@@ -12,7 +12,7 @@ title: Dynamic Admission Control
 
 ## Overview
 
-The [admission controllers documentation](/docs/admin/admission-controllers/)
+The [admission controllers documentation](/docs/admin/admission-controllers.md)
 introduces how to use standard, plugin-style admission controllers. However,
 plugin admission controllers are not flexible enough for all use cases, due to
 the following:
@@ -51,9 +51,9 @@ and are not visible in the API unless specifically requested by using the query 
 ### When to use initializers?
 
 Initializers are useful for admins to force policies (e.g., the
-[AlwaysPullImages](/docs/admin/admission-controllers/#alwayspullimages)
+[AlwaysPullImages](/docs/admin/admission-controllers.md#alwayspullimages)
 admission controller), or to inject defaults (e.g., the
-[DefaultStorageClass](/docs/admin/admission-controllers/#defaultstorageclass)
+[DefaultStorageClass](/docs/admin/admission-controllers.md#defaultstorageclass)
 admission controller), etc.
 
 **Note:** If your use case does not involve mutating objects, consider using
