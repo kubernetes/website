@@ -22,6 +22,32 @@ defaults:
       version: "v1.7"
       githubbranch: "master"
       docsbranch: "master"
+      versions:
+        - fullversion: "v1.8.0-alpha1"
+          version: "v1.8"
+          githubbranch: "master"
+          docsbranch: "master"
+          url: http://kubernetes-docs-1-8.zoidbergwill.com/docs/
+        - fullversion: "v1.7.0"
+          version: "v1.7"
+          githubbranch: "release-1.7"
+          docsbranch: "release-1.7"
+          url: https://kubernetes.io/docs/
+        - fullversion: "v1.6.4"
+          version: "v1.6"
+          githubbranch: "release-1.6"
+          docsbranch: "release-1.6"
+          url: http://kubernetes-docs-1-6.zoidbergwill.com/docs/
+        - fullversion: "v1.5.4"
+          version: "v1.5"
+          githubbranch: "release-1.5"
+          docsbranch: "release-1.5"
+          url: http://kubernetes-docs-1-5.zoidbergwill.com/docs/
+        - fullversion: "v1.4.4"
+          version: "v1.4"
+          githubbranch: "release-1.4"
+          docsbranch: "release-1.4"
+          url: http://kubernetes-docs-1-4.zoidbergwill.com/docs/
   -
     scope:
       path: "docs"
