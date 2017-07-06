@@ -34,7 +34,7 @@ Enable the aggregation layer via the following kube-apiserver flags. They may ha
     --proxy-client-cert-file=<path to aggregator proxy cert>
     --proxy-client-key-file=<path to aggregator proxy key>
 
-The [Kubernetes Architectural Roadmap](https://docs.google.com/a/google.com/document/d/1XkjVm4bOeiVkj-Xt1LgoGiqWsBfNozJ51dyI-ljzt1o/edit?usp=sharing) recommends not running kube-proxy on the master. If you follow this recommendation, then you must make sure that the system is enabled with the following apiserver flag. Again, this may have already been taken care of by your provider.
+If you are not running kube-proxy on a host running the API server then you must make sure that the system is enabled with the following apiserver flag:
 
     --enable-aggregator-routing=true
 
