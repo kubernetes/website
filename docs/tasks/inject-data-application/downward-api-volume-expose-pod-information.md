@@ -199,6 +199,7 @@ variables and DownwardAPIVolumeFiles:
 * The Pod’s namespace
 * The Pod’s IP address
 * The Pod’s service account name
+* The Pod’s UID
 * A Container’s CPU limit
 * A container’s CPU request
 * A Container’s memory limit

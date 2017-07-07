@@ -589,10 +589,10 @@ rolling out a new ReplicaSet, it can be [complete](#complete-deployment), or it 
 
 Kubernetes marks a Deployment as _progressing_ when one of the following tasks is performed:
 
-* The Deployment is in the process of creating a new ReplicaSet.
-* The Deployment is scaling up an existing ReplicaSet.
-* The Deployment is scaling down an existing ReplicaSet.
-* New pods become available.
+* The Deployment creates a new ReplicaSet.
+* The Deployment is scaling up its newest ReplicaSet.
+* The Deployment is scaling down its older ReplicaSet(s).
+* New Pods become ready or available (ready for at least [MinReadySeconds](#min-ready-seconds)).
 
 You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
@@ -600,11 +600,10 @@ You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
 Kubernetes marks a Deployment as _complete_ when it has the following characteristics:
 
-* The Deployment has minimum availability. Minimum availability means that the Deployment's number of available replicas
-equals or exceeds the number required by the Deployment strategy.
 * All of the replicas associated with the Deployment have been updated to the latest version you've specified, meaning any
 updates you've requested have been completed.
-* No old pods for the Deployment are running.
+* All of the replicas associated with the Deployment are available.
+* No old replicas for the Deployment are running.
 
 You can check if a Deployment has completed by using `kubectl rollout status`. If the rollout completed
 successfully, `kubectl rollout status` returns a zero exit code.
@@ -648,7 +647,7 @@ attributes to the Deployment's `status.conditions`:
 * Status=False
 * Reason=ProgressDeadlineExceeded
 
-See the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
+See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
 
 **Note:** Kubernetes will take no action on a stalled Deployment other than to report a status condition with
 `Reason=ProgressDeadlineExceeded`. Higher level orchestrators can take advantage of it and act accordingly, for
@@ -775,7 +774,7 @@ As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, a
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/tutorials/object-management-kubectl/object-management/) documents.
 
-A Deployment also needs a [`.spec` section](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#spec-and-status).
+A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
