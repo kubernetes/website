@@ -136,7 +136,7 @@ during application updates is configured in the controller spec.
 (Learn about [updating a deployment](/docs/concepts/cluster-administration/manage-deployment/#updating-your-application-without-a-service-outage).)
 
 When a pod is evicted using the eviction API, it is gracefully terminated (see
-`terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/v1.7/#podspec-v1-core).)
+`terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core).)
 
 ## PDB Example
 

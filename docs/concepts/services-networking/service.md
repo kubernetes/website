@@ -612,7 +612,7 @@ through a load-balancer, though in those cases the client IP does get altered.
 
 Service is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Service API
-object](/docs/api-reference/v1.7/#service-v1-core).
+object](/docs/api-reference/{{page.version}}/#service-v1-core).
 
 ## For More Information
 
