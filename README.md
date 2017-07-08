@@ -15,5 +15,5 @@ For more information about contributing to the Kubernetes documentation, see:
 
 ## Thank you!
 
-Kubernetes thrives on community participation, and we appreciate your
+Kubernetes thrives on community participation, and we really appreciate your
 contributions to our site and our documentation!
