@@ -125,7 +125,7 @@ will then download and install the cluster database and control plane
 components. This may take several minutes.
 
 You can't run `kubeadm init` twice without tearing down the cluster in between
-([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7.md)),
+([unless you're upgrading from v1.6 to v1.7](/docs/tasks/administer-cluster/kubeadm-upgrade-1-7)),
 see [Tear Down](#tear-down).
 
 The output should look like:

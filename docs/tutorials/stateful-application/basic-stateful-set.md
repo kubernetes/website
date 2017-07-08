@@ -1014,8 +1014,7 @@ Pod.
 
 Download the example above, and save it to a file named `webp.yaml`
 
-This manifest is identical to the one you 
-[downloaded above](creating-a-statefulset) except that the `.spec.podManagementPolicy` 
+This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy` 
 of the `web` StatefulSet is set to `Parallel`.
 
 In one terminal, watch the Pods in the StatefulSet.
