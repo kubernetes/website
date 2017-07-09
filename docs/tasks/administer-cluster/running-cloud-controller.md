@@ -33,3 +33,5 @@ Once your code is ready, you must import that code into `cloud-controller-manage
 To run `cloud-controller-manager`, add it to your existing Kubernetes cluster as a Master component. All other master components except `kube-controller-manager` can be run without any changes.
 
 The `kube-controller-manager` should not run any cloud-specific controllers, since the `cloud-controller-manager` takes over this responsibility. To prevent the `kube-controller-manager` from running cloud-specific controllers, you must set the `--cloud-provider` flag in `kube-controller-manager` to `external`.
+
+The `kube-apiserver` should not run the Persistent Volume Label admission controller either since the `cloud-controller-manager` take over labeling persistent volumes.  To prevent the Persistent Volume Label admission plugin from running, make sure the `kube-apiserver` has a `--admission-control` flag with a value that does not include `PersistentVolumeLabel`.
