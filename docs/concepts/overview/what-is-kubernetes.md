@@ -23,7 +23,7 @@ With Kubernetes, you are able to quickly and efficiently respond to customer dem
 
 Our goal is to foster an ecosystem of components and tools that relieve the burden of running applications in public and private clouds.
 
-#### Kubernetes is:
+#### Kubernetes is
 
 * **Portable**: public, private, hybrid, multi-cloud
 * **Extensible**: modular, pluggable, hookable, composable

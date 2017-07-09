@@ -93,7 +93,7 @@ authority or `insecure-skip-tls-verify: true`, if the cluster's serving
 certificate is not signed by a system trusted certificate authority.
 A `cluster` has a name (nickname) which acts as a dictionary key for the cluster
 within this kubeconfig file. You can add or modify `cluster` entries using
-[`kubectl config set-cluster`](/docs/user-guide/kubectl/v1.6/#-em-set-cluster-em-).
+[`kubectl config set-cluster`](/docs/user-guide/kubectl/{{page.version}}/#-em-set-cluster-em-).
 
 #### user
 
@@ -114,7 +114,7 @@ after kubeconfig is loaded/merged. Available credentials are `client-certificate
 `client-key`, `token`, and `username/password`. `username/password` and `token`
 are mutually exclusive, but client certs and keys can be combined with them.
 You can add or modify `user` entries using
-[`kubectl config set-credentials`](/docs/user-guide/kubectl/v1.6/#-em-set-credentials-em-).
+[`kubectl config set-credentials`](/docs/user-guide/kubectl/{{page.version}}/#-em-set-credentials-em-).
 
 #### context
 
@@ -133,7 +133,7 @@ namespace. Each of the three is optional; it is valid to specify a context with 
 `user`,`namespace`, or to specify none. Unspecified values, or named values that don't have corresponding
 entries in the loaded kubeconfig (e.g. if the context specified a `pink-user` for the above kubeconfig file)
 will be replaced with the default. See [Loading and merging rules](#loading-and-merging) below for override/merge behavior.
-You can add or modify `context` entries with [`kubectl config set-context`](/docs/user-guide/kubectl/v1.6/#-em-set-context-em-).
+You can add or modify `context` entries with [`kubectl config set-context`](/docs/user-guide/kubectl/{{page.version}}/#-em-set-context-em-).
 
 #### current-context
 
@@ -144,7 +144,7 @@ current-context: federal-context
 `current-context` is the nickname or 'key' for the cluster,user,namespace tuple that kubectl
 will use by default when loading config from this file. You can override any of the values in kubectl
 from the commandline, by passing `--context=CONTEXT`, `--cluster=CLUSTER`, `--user=USER`, and/or `--namespace=NAMESPACE` respectively.
-You can change the `current-context` with [`kubectl config use-context`](/docs/user-guide/kubectl/v1.6/#-em-use-context-em-).
+You can change the `current-context` with [`kubectl config use-context`](/docs/user-guide/kubectl/{{page.version}}/#-em-use-context-em-).
 
 #### miscellaneous
 
@@ -165,7 +165,7 @@ be edited manually.
 `kubectl config view` will display the current kubeconfig settings. By default
 it will show you all loaded kubeconfig settings; you can filter the view to just
 the settings relevant to the `current-context` by passing `--minify`. See
-[`kubectl config view`](/docs/user-guide/kubectl/v1.6/#-em-view-em-) for other options.
+[`kubectl config view`](/docs/user-guide/kubectl/{{page.version}}/#-em-view-em-) for other options.
 
 ## Building your own kubeconfig file
 
@@ -233,7 +233,7 @@ Any path in a kubeconfig file is resolved relative to the location of the kubeco
 ## Manipulation of kubeconfig via `kubectl config <subcommand>`
 
 In order to more easily manipulate kubeconfig files, there are a series of subcommands to `kubectl config` to help.
-See [kubectl/kubectl_config](/docs/user-guide/kubectl/v1.6/#config) for help.
+See [kubectl/kubectl_config](/docs/user-guide/kubectl/{{page.version}}/#config) for help.
 
 ### Example
 

@@ -222,7 +222,7 @@ marks that the node should not accept any pods that do not tolerate the taints.
 Tolerations are applied to pods, and allow (but do not require) the pods to schedule
 onto nodes with matching taints.
 
-You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/v1.6/#taint).
+You add a taint to a node using [kubectl taint](/docs/user-guide/kubectl/v1.7/#taint).
 For example,
 
 ```shell

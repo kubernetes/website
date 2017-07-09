@@ -53,13 +53,12 @@ The experience for the command line is currently in beta and we are trying hard
 not to change command line flags and break that flow.  Other parts of the
 experience are still under active development.  Specifically, kubeadm relies on
 some features (bootstrap tokens, cluster signing), that are still considered
-alpha.  The implementation may change as the tool evolves to support easy
+alpha.  The implementation may change as the tool evolves to support even easier
 upgrades and high availability (HA).  Any commands under `kubeadm alpha` (not
 documented here) are, of course, alpha.
 
 **Be sure to read the [limitations](#limitations)**.  Specifically, configuring
-cloud providers is difficult.  Upgrades are also not well documented or
-particularly easy.
+cloud providers is difficult.
 {% endcapture %}
 
 {% capture prerequisites %}
