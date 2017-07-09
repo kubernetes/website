@@ -6,6 +6,7 @@ toc:
 - title: Using the API
   section:
   - docs/reference/api-overview.md
+  - docs/reference/client-libraries.md
   - title: Accessing the API
     section:
     - docs/admin/accessing-the-api.md
