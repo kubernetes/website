@@ -726,7 +726,7 @@ container to rotate and ship your logs.
 The best practices with respect to allowing an application to run as a privileged 
 user inside of a container are a matter of debate. If your organization requires 
 that applications be run as a non-privileged user you can use a 
-[SecurityContext](/docs/concepts/policy/security-context/) to control the user that 
+[SecurityContext](/docs/tasks/configure-pod-container/security-context/) to control the user that 
 the entry point runs as.
 
 The `zk` StatefulSet's Pod `template` contains a SecurityContext.
