@@ -23,12 +23,12 @@ whereas a Replication Controller only supports equality-based selector requireme
 
 Most [`kubectl`](/docs/user-guide/kubectl/) commands that support
 Replication Controllers also support ReplicaSets. One exception is the
-[`rolling-update`](/docs/user-guide/kubectl/v1.6/#rolling-update) command. If
+[`rolling-update`](/docs/user-guide/kubectl/{{page.version}}/#rolling-update) command. If
 you want the rolling update functionality please consider using Deployments
 instead. Also, the
-[`rolling-update`](/docs/user-guide/kubectl/v1.6/#rolling-update) command is
+[`rolling-update`](/docs/user-guide/kubectl/{{page.version}}/#rolling-update) command is
 imperative whereas Deployments are declarative, so we recommend using Deployments
-through the [`rollout`](/docs/user-guide/kubectl/v1.6/#rollout) command.
+through the [`rollout`](/docs/user-guide/kubectl/{{page.version}}/#rollout) command.
 
 While ReplicaSets can be used independently, today it's mainly used by
 [Deployments](/docs/concepts/workloads/controllers/deployment/) as a mechanism to orchestrate pod
