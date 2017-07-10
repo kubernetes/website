@@ -244,7 +244,7 @@ interface between the roles.
 If you do not have such a separation of responsibilities in your organization,
 you may not need to use Pod Disruption Budgets.
 
-## How to perform Disruptive Actions your Cluster
+## How to perform Disruptive Actions on your Cluster
 
 If you are a Cluster Administrator, and you need to perform a disruptive action on all
 the nodes in your cluster, such as a node or system software upgrade, here are some options:
