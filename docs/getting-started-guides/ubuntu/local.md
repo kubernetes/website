@@ -6,7 +6,7 @@ title: Local Kubernetes development with LXD
 Running Kubernetes locally has obvious development advantages, such as lower cost and faster iteration than constantly deploying and tearing down clusters on a public cloud. Ideally, a Kubernetes developer can spawn all necessary nodes inside local containers and test new configurations as they are committed. This page will show you how to deploy a cluster to LXD containers on a local machine.
 {% endcapture %}
 
-The purpose of using [LXD](https://linuxcontainers.org/lxd/) on a local machine is to emulate the same deployment that a user would use in a cloud or bare metal. Each node is treated as a machine, with the same characteristics as production. Each node is a separate container, which runs Docker containers and `kubectl` inside (see [Cluster Intro](https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/) for more info).
+The purpose of using [LXD](https://linuxcontainers.org/lxd/) on a local machine is to emulate the same deployment that a user would use in a cloud or bare metal. Each node is treated as a machine, with the same characteristics as production. Each node is a separate container, which runs Docker containers and `kubectl` inside (see [Cluster Intro](/docs/tutorials/kubernetes-basics/cluster-intro/) for more info).
 
 {% capture prerequisites %}
 Install [conjure-up](http://conjure-up.io/), a tool for deploying big software.

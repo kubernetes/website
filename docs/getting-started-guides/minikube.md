@@ -129,7 +129,7 @@ Remember to turn off the imagePullPolicy:Always, as otherwise Kubernetes won't u
 
 The `minikube start` command can be used to start your cluster.
 This command creates and configures a virtual machine that runs a single-node Kubernetes cluster.
-This command also configures your [kubectl](http://kubernetes.io/docs/user-guide/kubectl-overview/) installation to communicate with this cluster.
+This command also configures your [kubectl](/docs/user-guide/kubectl-overview/) installation to communicate with this cluster.
 
 If you are behind a web proxy, you will need to pass this information in e.g. via
 
@@ -194,7 +194,7 @@ or pass the context on each command like this: `kubectl get pods --context=minik
 
 ### Dashboard
 
-To access the [Kubernetes Dashboard](http://kubernetes.io/docs/user-guide/ui/), run this command in a shell after starting minikube to get the address:
+To access the [Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/), run this command in a shell after starting minikube to get the address:
 ```shell
 minikube dashboard
 ```
@@ -216,7 +216,7 @@ To determine the NodePort for your service, you can use a `kubectl` command like
 `kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
 ## Persistent Volumes
-Minikube supports [PersistentVolumes](http://kubernetes.io/docs/user-guide/persistent-volumes/) of type `hostPath`.
+Minikube supports [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) of type `hostPath`.
 These PersistentVolumes are mapped to a directory inside the minikube VM.
 
 The Minikube VM boots into a tmpfs, so most directories will not be persisted across reboots (`minikube stop`).
