@@ -397,7 +397,7 @@ is enabled (you can do this by including `TaintBasedEvictions=true` in `--featur
 `--feature-gates=FooBar=true,TaintBasedEvictions=true`), the taints are automatically
 added by the NodeController and the normal logic for evicting pods from nodes
 based on the Ready NodeCondition is disabled.
-(Note: To maintain the existing [rate limiting](/docs/admin/node/#node-controller)
+(Note: To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
 behavior of pod evictions due to node problems, the system actually adds the taints
 in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.)
@@ -434,7 +434,7 @@ problems is detected is maintained.
 The two default tolerations are added by the [DefaultTolerationSeconds
 admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds).
 
-[DaemonSet](/docs/admin/daemons/) pods are created with
+[DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods are created with
 `NoExecute` tolerations for `node.alpha.kubernetes.io/unreachable` and `node.alpha.kubernetes.io/notReady`
 with no `tolerationSeconds`. This ensures that DaemonSet pods are never evicted due
 to these problems, which matches the behavior when this feature is disabled.
