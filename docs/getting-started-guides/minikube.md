@@ -194,7 +194,7 @@ or pass the context on each command like this: `kubectl get pods --context=minik
 
 ### Dashboard
 
-To access the [Kubernetes Dashboard](/docs/user-guide/ui/), run this command in a shell after starting minikube to get the address:
+To access the [Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/), run this command in a shell after starting minikube to get the address:
 ```shell
 minikube dashboard
 ```
