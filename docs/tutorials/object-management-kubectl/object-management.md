@@ -71,7 +71,7 @@ operation (create, replace, etc.), optional flags and at least one file
 name. The file specified must contain a full definition of the object
 in YAML or JSON format.
 
-See the [resource reference](https://kubernetes.io/docs/resources-reference/v1.6/)
+See the [resource reference](https://kubernetes.io/docs/resources-reference/{{page.version}}/)
 for more details on object definitions.
 
 **Warning:** The imperative `replace` command replaces the existing
