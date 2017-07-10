@@ -94,7 +94,7 @@ you need to:
 ### Deploy an initializer controller
 
 You should deploy an initializer controller via the [deployment
-API](/docs/api-reference/v1.6/#deployment-v1beta1-apps).
+API](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps).
 
 ### Configure initializers on the fly
 
@@ -216,9 +216,9 @@ See [caesarxuchao/example-webhook-admission-controller deployment](https://githu
 for an example deployment.
 
 The webhook admission controller should be deployed via the
-[deployment API](/docs/api-reference/v1.6/#deployment-v1beta1-apps).
+[deployment API](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps).
 You also need to create a
-[service](/docs/api-reference/v1.6/#service-v1-core) as the
+[service](/docs/api-reference/{{page.version}}/#service-v1-core) as the
 front-end of the deployment.
 
 ### Configure webhook admission controller on the fly
