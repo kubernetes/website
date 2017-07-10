@@ -47,7 +47,7 @@ kubelet
       --cert-dir string                                         The directory where the TLS certs are located (by default /var/run/kubernetes). If --tls-cert-file and --tls-private-key-file are provided, this flag will be ignored. (default "/var/run/kubernetes")
       --cgroup-driver string                                    Driver that the kubelet uses to manipulate cgroups on the host.  Possible values: 'cgroupfs', 'systemd' (default "cgroupfs")
       --cgroup-root string                                      Optional root cgroup to use for pods. This is handled by the container runtime on a best effort basis. Default: '', which means use the container runtime default.
-      --cgroups-per-qos                                         Enable creation of QoS cgroup hierarchy, if true top level QoS and pod cgroups are created. [default: true] (default true)
+      --cgroups-per-qos                                         Enable creation of QoS cgroup hierarchy, if true top level QoS and pod cgroups are created. (default true)
       --chaos-chance float                                      If > 0.0, introduce random client errors and latency. Intended for testing. [default=0.0]
       --client-ca-file string                                   If set, any request presenting a client certificate signed by one of the authorities in the client-ca-file is authenticated with an identity corresponding to the CommonName of the client certificate.
       --cloud-config string                                     The path to the cloud provider configuration file.  Empty string for no configuration file.
