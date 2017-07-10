@@ -143,7 +143,7 @@ Below is a table of all of the solutions listed above.
 
 IaaS Provider        | Config. Mgmt. | OS     | Networking  | Docs                                              | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ----------------------------
-any                  | any          | multi-support | any CNI | [docs](/docs/getting-started-guides/kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
+any                  | any          | multi-support | any CNI | [docs](/docs/setup/independent/create-cluster-kubeadm/) | Project ([SIG-cluster-lifecycle](https://git.k8s.io/community/sig-cluster-lifecycle))
 GKE                  |              |        | GCE         | [docs](https://cloud.google.com/container-engine) | Commercial
 Stackpoint.io        |              | multi-support       | multi-support   | [docs](https://stackpoint.io/) | Commercial
 AppsCode.com         | Saltstack    | Debian | multi-support | [docs](https://appscode.com/products/cloud-deployment/) | Commercial
