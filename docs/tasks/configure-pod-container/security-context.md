@@ -351,7 +351,7 @@ protection, you must ensure each Pod is assigned a unique MCS label.
 * [Tuning Docker with the newest security enhancements](https://opensource.com/business/15/3/docker-security-tuning)
 * [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/volume-ownership-management.md)
-* [Pod Security Policies](https://kubernetes.io/docs/concepts/policy/pod-security-policy/)
+* [Pod Security Policies](/docs/concepts/policy/pod-security-policy/)
 
 
 {% endcapture %}
