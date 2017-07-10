@@ -205,7 +205,7 @@ This plug-in will observe the incoming request and ensure that it does not viola
 enumerated in the `ResourceQuota` object in a `Namespace`.  If you are using `ResourceQuota`
 objects in your Kubernetes deployment, you MUST use this plug-in to enforce quota constraints.
 
-See the [resourceQuota design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
+See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 
 It is strongly encouraged that this plug-in is configured last in the sequence of admission control plug-ins.  This is
 so that quota is not prematurely incremented only for the request to be rejected later in admission control.
@@ -218,7 +218,7 @@ your Kubernetes deployment, you MUST use this plug-in to enforce those constrain
 be used to apply default resource requests to Pods that don't specify any; currently, the default LimitRanger
 applies a 0.1 CPU requirement to all Pods in the `default` namespace.
 
-See the [limitRange design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_limit_range.md) and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
+See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_limit_range.md) and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
 
 ### InitialResources (experimental)
 
@@ -227,7 +227,7 @@ then the plug-in auto-populates a compute resource request based on historical u
 If there is not enough data to make a decision the Request is left unchanged.
 When the plug-in sets a compute resource request, it annotates the pod with information on what compute resources it auto-populated.
 
-See the [InitialResouces proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/initial-resources.md) for more details.
+See the [InitialResouces proposal](https://git.k8s.io/community/contributors/design-proposals/initial-resources.md) for more details.
 
 ### NamespaceLifecycle
 
@@ -257,6 +257,36 @@ storage classes and how to mark a storage class as default.
 This plug-in sets the default forgiveness toleration for pods, which have no forgiveness tolerations, to tolerate
 the taints `notready:NoExecute` and `unreachable:NoExecute` for 5 minutes.
 
+### PodNodeSelector
+
+This plug-in defaults and limits what node selectors may be used within a namespace by reading a namespace annotation and a global configuration.
+
+#### Configuration File Format
+PodNodeSelector uses the admission config file `--admission-control-config-file` to set configuration options for the behavior of the backend.
+
+Note that the configuration file format will move to a versioned file in a future release.
+
+This file may be json or yaml and has the following format:
+
+```yaml
+podNodeSelectorPluginConfig:
+ clusterDefaultNodeSelector: <node-selectors-labels>
+ namespace1: <node-selectors-labels>
+ namespace2: <node-selectors-labels>
+```
+
+#### Configuration Annotation Format
+PodNodeSelector uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign node selectors to namespaces.
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    scheduler.alpha.kubernetes.io/node-selector: <node-selectors-labels>
+  name: namespace3
+```
+
 ### PodSecurityPolicy
 
 This plug-in acts on creation and modification of the pod and determines if it should be admitted
@@ -267,6 +297,13 @@ extensions group (`--runtime-config=extensions/v1beta1/podsecuritypolicy=true`).
 
 See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-policy/)
 for more information.
+
+### NodeRestriction
+
+This plug-in limits the `Node` and `Pod` objects a kubelet can modify. In order to be limited by this admission plugin,
+kubelets must use credentials in the `system:nodes` group, with a username in the form `system:node:<nodeName>`. 
+Such kubelets will only be allowed to modify their own `Node` API object, and only modify `Pod` API objects that are bound to their node.
+Future versions may add additional restrictions to ensure kubelets have the minimal set of permissions required to operate correctly.
 
 ## Is there a recommended set of plug-ins to use?
 

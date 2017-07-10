@@ -240,4 +240,4 @@ See a [detailed example for how to use resource quota](/docs/tasks/configure-pod
 
 ## Read More
 
-See [ResourceQuota design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_resource_quota.md) for more information.
+See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/admission_control_resource_quota.md) for more information.
