@@ -131,12 +131,12 @@ $ federation/deploy/deploy.sh deploy_federation
 This spins up the federation control components as pods managed by
 [`Deployments`](/docs/concepts/workloads/controllers/deployment/) on your
 existing Kubernetes cluster. It also starts a
-[`type: LoadBalancer`](/docs/user-guide/services/#type-loadbalancer)
-[`Service`](/docs/user-guide/services/) for the
+[`type: LoadBalancer`](/docs/concepts/services-networking/service/#type-loadbalancer)
+[`Service`](/docs/concepts/services-networking/service/) for the
 `federation-apiserver` and a
-[`PVC`](/docs/user-guide/persistent-volumes/) backed
+[`PVC`](/docs/concepts/storage/persistent-volumes/) backed
 by a dynamically provisioned
-[`PV`](/docs/user-guide/persistent-volumes/) for
+[`PV`](/docs/concepts/storage/persistent-volumes/) for
  `etcd`. All these components are created in the `federation` namespace.
 
 You can verify that the pods are available by running the following
@@ -247,7 +247,7 @@ federation, and
 in your federation DNS.
 
 You can find more details about config maps in general at
-[config map](/docs/user-guide/configmap/).
+[config map](/docs/tasks/configure-pod-container/configmap/).
 
 ### Kubernetes 1.4 and earlier: Setting federations flag on kube-dns-rc
 
