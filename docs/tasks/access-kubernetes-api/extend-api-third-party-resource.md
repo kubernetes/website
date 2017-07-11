@@ -1,7 +1,8 @@
 ---
 assignees:
+- enisoc
 - IanLewis
-title: Extend the Kubernetes API Using Third Party Resources
+title: Extend the Kubernetes API with ThirdPartyResources
 redirect_from:
 - "/docs/user-guide/thirdpartyresources/"
 - "/docs/user-guide/thirdpartyresources.html"
@@ -9,15 +10,21 @@ redirect_from:
 - "/docs/concepts/ecosystem/thirdpartyresource.html"
 ---
 
+{% assign for_k8s_version="1.7" %}{% include feature-state-deprecated.md %}
+
 * TOC
 {:toc}
 
 ## What is ThirdPartyResource?
 
-**WARNING: ThirdPartyResources are not yet considered stable, and the API and/or storage could change before GA.
-Development and outstanding issues are tracked at [https://github.com/kubernetes/features/issues/95](https://github.com/kubernetes/features/issues/95).**
+**ThirdPartyResource is deprecated as of Kubernetes 1.7 and may be removed in version 1.8 in
+accordance with the [deprecation policy](/docs/reference/deprecation-policy) for beta features.**
 
-Kubernetes comes with many built-in API objects. However, there are often times when you might need to extend Kubernetes with their own API objects in order to do custom automation.
+**To avoid losing data stored in ThirdPartyResources, you must
+[migrate to CustomResourceDefinition](/docs/tasks/access-kubernetes-api/migrate-third-party-resource/)
+before upgrading to Kubernetes 1.8 or higher.**
+
+Kubernetes comes with many built-in API objects. However, there are often times when you might need to extend Kubernetes with your own API objects in order to do custom automation.
 
 `ThirdPartyResource` objects are a way to extend the Kubernetes API with a new API object type. The new API object type will be given an API endpoint URL and support CRUD operations, and watch API. You can then create custom objects using this API endpoint. You can think of `ThirdPartyResources` as being much like the schema for a database table. Once you have created the table, you can then start storing rows in the table. Once created, `ThirdPartyResources` can act as the data model behind custom controllers or automation programs.
 
@@ -69,12 +76,12 @@ Then a new RESTful API endpoint is created at:
 
 This endpoint URL can then be used to create and manage custom objects.
 The `kind` of these objects will be `CronTab` following the camel case
-rules applied to the `metadata.name` of this `ThirdPartyResource` 
+rules applied to the `metadata.name` of this `ThirdPartyResource`
 (`cron-tab.stable.example.com`)
 
 ## Creating Custom Objects
 
-After the `ThirdPartyResource` object has been created you can create custom objects. Custom objects can contain custom fields. These fields can contain arbitrary JSON. 
+After the `ThirdPartyResource` object has been created you can create custom objects. Custom objects can contain custom fields. These fields can contain arbitrary JSON.
 In the following example, a `cronSpec` and `image` custom fields are set to the custom object of kind `CronTab`.  The kind `CronTab` is derived from the
 `metadata.name` of the `ThirdPartyResource` object we created above.
 

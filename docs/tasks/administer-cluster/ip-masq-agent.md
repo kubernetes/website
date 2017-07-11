@@ -50,7 +50,7 @@ MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent:
 
 ```
 
-By default, in GCE/GKE starting with Kubernetes version 1.7.0, the ip-masq-agent will run in your cluster.  If you are running in another environment, you can add the ip-masq-agent [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) to your cluster:
+By default, in GCE/GKE starting with Kubernetes version 1.7.0, the ip-masq-agent will run in your cluster.  If you are running in another environment, you can add the ip-masq-agent [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) to your cluster:
 
 {% endcapture %}
 
@@ -65,7 +65,7 @@ kubectl create -f https://github.com/kubernetes-incubator/ip-masq-agent/blob/mas
 
 More information can be found in the ip-masq-agent documentation [here](https://github.com/kubernetes-incubator/ip-masq-agent)
 
-In most cases, the default set of rules should be sufficient; however, if this is not the case for your cluster, you can create and apply a [ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configmap/) to customize the IP ranges that are affected.  For example, to allow only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the following [ConfigMap](/docs/tasks/configure-pod-container/configmap/) in a file called "config".
+In most cases, the default set of rules should be sufficient; however, if this is not the case for your cluster, you can create and apply a [ConfigMap](/docs/tasks/configure-pod-container/configmap/) to customize the IP ranges that are affected.  For example, to allow only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the following [ConfigMap](/docs/tasks/configure-pod-container/configmap/) in a file called "config".
 **Note:** It is important that the file is called config since, by default, that will be used as the key for lookup by the ip-masq-agent:
 
 ```

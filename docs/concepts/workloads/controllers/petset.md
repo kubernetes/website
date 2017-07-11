@@ -149,7 +149,7 @@ pvc-902733c2-3717-11e6-a46e-42010af00002   1Gi        RWO           Bound     de
 
 ### Network identity
 
-The network identity has 2 parts. First, we created a headless Service that controls the domain within which we create Pets. The domain managed by this Service takes the form: `$(service name).$(namespace).svc.cluster.local`, where "cluster.local" is the [cluster domain](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it). As each pet is created, it gets a matching DNS subdomain, taking the form: `$(petname).$(governing service domain)`, where the governing service is defined by the `serviceName` field on the PetSet.
+The network identity has 2 parts. First, we created a headless Service that controls the domain within which we create Pets. The domain managed by this Service takes the form: `$(service name).$(namespace).svc.cluster.local`, where "cluster.local" is the [cluster domain](/docs/concepts/services-networking/dns-pod-service/). As each pet is created, it gets a matching DNS subdomain, taking the form: `$(petname).$(governing service domain)`, where the governing service is defined by the `serviceName` field on the PetSet.
 
 Here are some examples of choices for Cluster Domain, Service name, PetSet name, and how that affects the DNS names for the Pets and the hostnames in the Pet's pods:
 
@@ -159,7 +159,7 @@ Cluster Domain | Service (ns/name) | PetSet (ns/name)  | PetSet Domain  | Pet DN
  cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
-Note that Cluster Domain will be set to `cluster.local` unless [otherwise configured](http://releases.k8s.io/{{page.githubbranch}}/build/kube-dns/README.md#how-do-i-configure-it).
+Note that Cluster Domain will be set to `cluster.local` unless [otherwise configured](https://github.com/kubernetes/kubernetes/blob/master/examples/cluster-dns/README.md).
 
 Let's verify our assertion with a simple test.
 

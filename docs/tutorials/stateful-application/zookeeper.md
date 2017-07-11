@@ -97,7 +97,7 @@ and a [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/).
 {% include code.html language="yaml" file="zookeeper.yaml" ghlink="/docs/tutorials/stateful-application/zookeeper.yaml" %}
 
 Open a command terminal, and use 
-[`kubectl create`](/docs/user-guide/kubectl/v1.6/#create) to create the 
+[`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create) to create the 
 manifest.
 
 ```shell
@@ -114,7 +114,7 @@ poddisruptionbudget "zk-budget" created
 statefulset "zk" created
 ```
 
-Use [`kubectl get`](/docs/user-guide/kubectl/v1.6/#get)  to watch the
+Use [`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get)  to watch the
 StatefulSet controller create the StatefulSet's Pods.
 
 ```shell
@@ -153,7 +153,7 @@ leader election. Each server in the ensemble needs to have a unique
 identifier, all servers need to know the global set of identifiers, and each
 identifier needs to be associated with a network address.
 
-Use [`kubectl exec`](/docs/user-guide/kubectl/v1.6/#exec) to get the hostnames 
+Use [`kubectl exec`](/docs/user-guide/kubectl/{{page.version}}/#exec) to get the hostnames 
 of the Pods in the `zk` StatefulSet.
 
 ```shell
@@ -356,7 +356,7 @@ in memory state, to storage media. Using WALs to provide durability is a common
 technique for applications that use consensus protocols to achieve a replicated
 state machine and for storage applications in general.
 
-Use [`kubectl delete`](/docs/user-guide/kubectl/v1.6/#delete) to delete the 
+Use [`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete) to delete the 
 `zk` StatefulSet.
 
 ```shell
@@ -681,7 +681,7 @@ log rotation for you. Kubernetes also implements a sane retention policy that
 ensures application logs written to standard out and standard error do not 
 exhaust local storage media.
 
-Use [`kubectl logs`](/docs/user-guide/kubectl/v1.6/#logs) to retrieve the last 
+Use [`kubectl logs`](/docs/user-guide/kubectl/{{page.version}}/#logs) to retrieve the last 
 few log lines from one of the Pods.
 
 ```shell
@@ -726,7 +726,7 @@ container to rotate and ship your logs.
 The best practices with respect to allowing an application to run as a privileged 
 user inside of a container are a matter of debate. If your organization requires 
 that applications be run as a non-privileged user you can use a 
-[SecurityContext](/docs/concepts/policy/security-context/) to control the user that 
+[SecurityContext](/docs/tasks/configure-pod-container/security-context/) to control the user that 
 the entry point runs as.
 
 The `zk` StatefulSet's Pod `template` contains a SecurityContext.
@@ -1022,7 +1022,7 @@ Get the nodes in your cluster.
 kubectl get nodes
 ```
 
-Use [`kubectl cordon`](/docs/user-guide/kubectl/v1.6/#cordon) to 
+Use [`kubectl cordon`](/docs/user-guide/kubectl/{{page.version}}/#cordon) to 
 cordon all but four of the nodes in your cluster.
 
 ```shell{% raw %}
@@ -1060,7 +1060,7 @@ kubernetes-minion-group-i4c4
 {% endraw %}
 ```
 
-Use [`kubectl drain`](/docs/user-guide/kubectl/v1.6/#drain) to cordon and 
+Use [`kubectl drain`](/docs/user-guide/kubectl/{{page.version}}/#drain) to cordon and 
 drain the node on which the `zk-0` Pod is scheduled.
 
 ```shell {% raw %}
@@ -1170,7 +1170,7 @@ dataLength = 5
 numChildren = 0
 ```
 
-Use [`kubectl uncordon`](/docs/user-guide/kubectl/v1.6/#uncordon) to uncordon the first node.
+Use [`kubectl uncordon`](/docs/user-guide/kubectl/{{page.version}}/#uncordon) to uncordon the first node.
 
 ```shell
 kubectl uncordon kubernetes-minion-group-pb41
