@@ -25,7 +25,7 @@ a Pod or Container. Security context settings include:
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/): Use program profiles to restrict the capabilities of individual programs.
 
-* [Seacomp](https://en.wikipedia.org/wiki/Seccomp): Limit a process's access to open file descriptors.
+* [Seccomp](https://en.wikipedia.org/wiki/Seccomp): Limit a process's access to open file descriptors.
 
 For more information about security mechanisms in Linux, see
 [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
