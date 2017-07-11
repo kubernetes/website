@@ -5,12 +5,15 @@ title: Configure Quotas for API Objects
 
 {% capture overview %}
 
-This page shows how to set a quotas for API objects, including
+This page shows how to configure quotas for API objects, including
 PersistentVolumeClaims, NodePorts, and Load Balancers. You specify quotas in a
 [ResourceQuota](/docs/api-reference/v1.7/#resourcequota-v1-core)
 object.
 
 See https://github.com/kubernetes/community/blob/master/contributors/design-proposals/admission_control_resource_quota.md. 
+
+See https://github.com/kubernetes/kubernetes/blob/f663c4c83ed12dabf51ca2bef9154c59b1c56bd7/pkg/api/types.go
+for resource types, like service.nodeports.
 
 {% endcapture %}
 
@@ -48,15 +51,88 @@ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-objects.yam
 View detailed information about the ResourceQuota:
 
 ```shell
-kubectl get resourcequota api-object-demo --namespace=quota-object-example --output=yaml
+kubectl get resourcequota object-quota-demo --namespace=quota-object-example --output=yaml
 ```
 
-The output shows that the namespace has 
+The output shows that in the quota-object-example namespace, there can be at most
+one PersistentVolumeClaim, at most two Services of type LoadBalancer, and no Services
+of type NodePort. 
 
 ```yaml
-xxx
+status:
+  hard:
+    persistentvolumeclaims: "1"
+    services.loadbalancers: "2"
+    services.nodeports: "0"
+  used:
+    persistentvolumeclaims: "0"
+    services.loadbalancers: "0"
+    services.nodeports: "0"
 ```
 
+## Create a PersistentVolumeClaim:
+
+Here is the configuration file for a PersistentVolumeClaim object:
+
+{% include code.html language="yaml" file="quota-objects-pvc.yaml" ghlink="/docs/tasks/administer-cluster/quota-objects-pvc.yaml" %}
+
+Create the PersistentVolumeClaim:
+
+```shell
+kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-objects-pvc.yaml --namespace=quota-object-example
+```
+
+Verify that the PersistentVolumeClaim was created:
+
+```shell
+kubectl get persistentvolumeclaims --namespace=quota-object-example
+```
+
+The output shows that the PersistentVolumeClaim exists and has status Pending:
+
+```shell
+NAME             STATUS
+pvc-quota-demo   Pending
+```
+
+## Attempt to create a second PersistentVolumeClaim:
+
+Here is the configuration file for a second PersistentVolumeClaim:
+
+{% include code.html language="yaml" file="quota-objects-pvc-2.yaml" ghlink="/docs/tasks/administer-cluster/quota-objects-pvc-2.yaml" %}
+
+Attempt to create the second PersistentVolumeClaim:
+
+```shell
+kubectl create -f https://k8s.io/docs/tasks/administer-cluster/quota-objects-pvc-2.yaml --namespace=quota-object-example
+```
+
+The output shows that the second PersistentVolumeClaim was not created,
+because it would have exceeded the quota for the namespace.
+
+```
+persistentvolumeclaims "pvc-quota-demo-2" is forbidden:
+exceeded quota: object-quota-demo, requested: persistentvolumeclaims=1,
+used: persistentvolumeclaims=1, limited: persistentvolumeclaims=1
+```
+
+## Notes
+
+These are the strings used to identify API resources that can be constrained
+by quotas:
+
+<table>
+<tr><th>String</th><th>API Object</th></tr>
+<tr><td>"pods"</td><td>Pod</td></tr>
+<tr><td>"services</td><td>Service</td></tr>
+<tr><td>"replicationcontrollers"</td><td>ReplicationController</td></tr>
+<tr><td>"resourcequotas"</td><td>ResourceQuota</td></tr>
+<tr><td>"secrets"</td><td>Secret</td></tr>
+<tr><td>"configmaps"</td><td>ConfigMap</td></tr>
+<tr><td>"persistentvolumeclaims"</td><td>PersistentVolumeClaim</td></tr>
+<tr><td>"services.nodeports"</td><td>Service of type NodePort</td></tr>
+<tr><td>"services.loadbalancers"</td><td>Service of type LoadBalancer</td></tr>
+</table
 
 ## Clean up
 
