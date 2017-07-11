@@ -38,7 +38,7 @@ Choose any extra options you may want to include with your cluster, then click *
 
 You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on AWS, [consult the  Kubernetes documentation](http://kubernetes.io/docs/getting-started-guides/aws/).
+For information on using and managing a Kubernetes cluster on AWS, [consult the  Kubernetes documentation](/docs/getting-started-guides/aws/).
 
 
 
@@ -70,7 +70,7 @@ Choose any extra options you may want to include with your cluster, then click *
 
 You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on GCE, [consult the  Kubernetes documentation](http://kubernetes.io/docs/getting-started-guides/gce).
+For information on using and managing a Kubernetes cluster on GCE, [consult the  Kubernetes documentation](/docs/getting-started-guides/gce/).
 
 
 
@@ -103,7 +103,7 @@ Choose any extra options you may want to include with your cluster, then click *
 
 You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on GKE, consult [the official documentation](http://kubernetes.io/docs/).
+For information on using and managing a Kubernetes cluster on GKE, consult [the official documentation](/docs/home/).
 
 
 
@@ -135,7 +135,7 @@ Choose any extra options you may want to include with your cluster, then click *
 
 You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on DigitalOcean, consult [the official documentation](http://kubernetes.io/docs/).
+For information on using and managing a Kubernetes cluster on DigitalOcean, consult [the official documentation](/docs/home/).
 
 
 
@@ -168,7 +168,7 @@ Choose any extra options you may want to include with your cluster, then click *
 
 You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on Azure, [consult the  Kubernetes documentation](http://kubernetes.io/docs/getting-started-guides/azure/).
+For information on using and managing a Kubernetes cluster on Azure, [consult the  Kubernetes documentation](/docs/getting-started-guides/azure/).
 
 
 
@@ -200,4 +200,4 @@ Choose any extra options you may want to include with your cluster, then click *
 
 You can monitor the status of your cluster and suspend or delete it from [your stackpoint.io dashboard](https://stackpoint.io/#/clusters).
 
-For information on using and managing a Kubernetes cluster on Packet, consult [the official documentation](http://kubernetes.io/docs/).
+For information on using and managing a Kubernetes cluster on Packet, consult [the official documentation](/docs/home/).

@@ -381,4 +381,4 @@ object, but complete control over what pods are created and how work is assigned
 
 ## Cron Jobs
 
-Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [cron job documents](http://kubernetes.io/docs/user-guide/cron-jobs/)
+Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [cron job documents](/docs/concepts/workloads/controllers/cron-jobs/)

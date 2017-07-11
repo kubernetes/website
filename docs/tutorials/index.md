@@ -46,7 +46,7 @@ each of which has a sequence of steps.
 
 #### Services
 
-* [Using SourceIP](/docs/tutorials/services/source-ip/)
+* [Using Source IP](/docs/tutorials/services/source-ip/)
 
 ### What's next
 
