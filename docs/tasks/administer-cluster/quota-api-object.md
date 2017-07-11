@@ -10,11 +10,6 @@ PersistentVolumeClaims, NodePorts, and Load Balancers. You specify quotas in a
 [ResourceQuota](/docs/api-reference/v1.7/#resourcequota-v1-core)
 object.
 
-See https://github.com/kubernetes/community/blob/master/contributors/design-proposals/admission_control_resource_quota.md. 
-
-See https://github.com/kubernetes/kubernetes/blob/f663c4c83ed12dabf51ca2bef9154c59b1c56bd7/pkg/api/types.go
-for resource types, like service.nodeports.
-
 {% endcapture %}
 
 
@@ -132,7 +127,7 @@ by quotas:
 <tr><td>"persistentvolumeclaims"</td><td>PersistentVolumeClaim</td></tr>
 <tr><td>"services.nodeports"</td><td>Service of type NodePort</td></tr>
 <tr><td>"services.loadbalancers"</td><td>Service of type LoadBalancer</td></tr>
-</table
+</table>
 
 ## Clean up
 
