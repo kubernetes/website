@@ -97,15 +97,22 @@ coredns-provider.conf has below format:
     [Global]
     etcd-endpoints = http://etcd-cluster.my-namespace:2379
     zones = example.com.
+    coredns-endpoints = <coredns-server-ip>:<port>
 
  - `etcd-endpoints` is the endpoint to access etcd.
  - `zones` is the federation domain for which CoreDNS is authoritative and is same as --dns-zone-name flag of `kubefed init`.
+ - `coredns-endpoints` is the endpoint to access coredns server. This is an optional parameter introduced from v1.7 onwards.
 
 *Note: middleware.etcd.zones in CoreDNS configuration and --dns-zone-name
 flag to kubefed init should match.*
 
 
 ## Setup CoreDNS server in nameserver resolv.conf chain
+
+*Note: The following section applies only to versions prior to v1.7
+and will be automatically taken care of if the `coredns-endpoints`
+parameter is configured in `coredns-provider.conf` as described in
+section above.*
 
 Once the federation control plane is deployed and federated clusters
 are joined to the federation, you need to add the CoreDNS server to the
@@ -117,9 +124,6 @@ achieved by adding the below line to `dnsmasq` container's arg in
     --server=/example.com./<CoreDNS endpoint>
 
 Replace `example.com` above with federation domain.
-
-*Note: Adding CoreDNS server to the pod's nameserver resolv.conf chain will be
-automated in subsequent releases.*
 
 
 Now the federated cluster is ready for cross-cluster service discovery!

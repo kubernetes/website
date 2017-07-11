@@ -87,14 +87,14 @@ to define *Hard* resource usage limits that a *Namespace* may consume.
 A limit range defines min/max constraints on the amount of resources a single entity can consume in
 a *Namespace*.
 
-See [Admission control: Limit Range](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/admission_control_limit_range.md)
+See [Admission control: Limit Range](https://git.k8s.io/community/contributors/design-proposals/admission_control_limit_range.md)
 
 A namespace can be in one of two phases:
 
    * `Active` the namespace is in use
    * `Terminating` the namespace is being deleted, and can not be used for new objects
 
-See the [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md#phases) for more details.
+See the [design doc](https://git.k8s.io/community/contributors/design-proposals/namespaces.md#phases) for more details.
 
 ## Creating a new namespace
 
@@ -117,7 +117,7 @@ Note that the name of your namespace must be a DNS compatible label.
 
 There's an optional field `finalizers`, which allows observables to purge resources whenever the namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will be created but will get stuck in the `Terminating` state if the user tries to delete it.
 
-More information on `finalizers` can be found in the namespace [design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md#finalizers).
+More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/community/contributors/design-proposals/namespaces.md#finalizers).
 
 
 ### Working in namespaces
@@ -148,5 +148,5 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 ## Design
 
-Details of the design of namespaces in Kubernetes, including a [detailed example](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md#example-openshift-origin-managing-a-kubernetes-namespace)
-can be found in the [namespaces design doc](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/namespaces.md)
+Details of the design of namespaces in Kubernetes, including a [detailed example](https://git.k8s.io/community/contributors/design-proposals/namespaces.md#example-openshift-origin-managing-a-kubernetes-namespace)
+can be found in the [namespaces design doc](https://git.k8s.io/community/contributors/design-proposals/namespaces.md)

@@ -86,7 +86,7 @@ As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `meta
 general information about working with config files, see [here](/docs/user-guide/simple-yaml),
 [here](/docs/user-guide/configuring-containers), and [here](/docs/user-guide/working-with-resources).
 
-A Job also needs a [`.spec` section](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).
+A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
@@ -266,7 +266,7 @@ The pattern names are also links to examples and more detailed description.
 | Single Job with Static Work Assignment                               |         ✓         |                             |          ✓          |                     |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
-has an identical [`spec`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status).  This means that
+has an identical [`spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).  This means that
 all pods will have the same command line and the same
 image, the same volumes, and (almost) the same environment variables.  These patterns
 are different ways to arrange for pods to work on different things.
@@ -381,4 +381,4 @@ object, but complete control over what pods are created and how work is assigned
 
 ## Cron Jobs
 
-Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [cron job documents](http://kubernetes.io/docs/user-guide/cron-jobs/)
+Support for creating Jobs at specified times/dates (i.e. cron) is available in Kubernetes [1.4](https://github.com/kubernetes/kubernetes/pull/11980). More information is available in the [cron job documents](/docs/concepts/workloads/controllers/cron-jobs/)

@@ -6,23 +6,28 @@ toc:
 - title: Using the API
   section:
   - docs/reference/api-overview.md
+  - docs/reference/client-libraries.md
   - title: Accessing the API
     section:
     - docs/admin/accessing-the-api.md
     - docs/admin/authentication.md
     - docs/admin/bootstrap-tokens.md
     - docs/admin/admission-controllers.md
+    - docs/admin/extensible-admission-controllers.md
     - docs/admin/service-accounts-admin.md
   - title: Authorization
     section:
     - docs/admin/authorization/index.md
     - docs/admin/authorization/abac.md
     - docs/admin/authorization/rbac.md
+    - docs/admin/authorization/node.md
     - docs/admin/authorization/webhook.md
   - docs/reference/deprecation-policy.md
 
 - title: API Reference
   section:
+  - title: v1.7
+    path: /docs/api-reference/v1.7/
   - title: v1.6
     path: /docs/api-reference/v1.6/
   - title: v1.5
@@ -31,9 +36,9 @@ toc:
   - title: OpenAPI and Swagger
     section:
     - title: OpenAPI Spec
-      path: https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/
+      path: https://git.k8s.io/kubernetes/api/openapi-spec/
     - title: Swagger Spec
-      path: https://github.com/kubernetes/kubernetes/tree/master/api/swagger-spec/
+      path: https://git.k8s.io/kubernetes/api/swagger-spec/
 
 - title: Federation API
   section:
@@ -47,6 +52,8 @@ toc:
 - title: kubectl CLI
   section:
   - docs/user-guide/kubectl-overview.md
+  - title: v1.7 Commands
+    path: /docs/user-guide/kubectl/v1.7/
   - title: v1.6 Commands
     path: /docs/user-guide/kubectl/v1.6/
   - title: v1.5 Commands
@@ -71,16 +78,16 @@ toc:
 - title: Kubernetes Design Docs
   section:
   - title: Kubernetes Architecture
-    path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md
+    path: https://git.k8s.io/community/contributors/design-proposals/architecture.md
   - title: Kubernetes Design Overview
     path: https://github.com/kubernetes/kubernetes/tree/release-1.6/docs/design
   - title: Kubernetes Identity and Access Management
-    path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/access.md
+    path: https://git.k8s.io/community/contributors/design-proposals/access.md
   - docs/admin/ovs-networking.md
   - title: Security Contexts
-    path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security_context.md
+    path: https://git.k8s.io/community/contributors/design-proposals/security_context.md
   - title: Security in Kubernetes
-    path: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security.md
+    path: https://git.k8s.io/community/contributors/design-proposals/security.md
 
 - title: Kubernetes Issues and Security
   section:

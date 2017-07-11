@@ -52,7 +52,7 @@ controlled by the php-apache deployment we created in the first step of these in
 Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
 (since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
-See [here](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
+See [here](https://git.k8s.io/community/contributors/design-proposals/horizontal-pod-autoscaler.md#autoscaling-algorithm) for more details on the algorithm.
 
 ```shell
 $ kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
@@ -180,7 +180,7 @@ the only other supported resource metric is memory.  These resources do not chan
 to cluster, and should always be available, as long as Heapster is deployed.
 
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
-requested value.  To do so, use the `targetAverageValue` field insted of the `targetAverageUtilization`
+requested value.  To do so, use the `targetAverageValue` field instead of the `targetAverageUtilization`
 field.
 
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
@@ -268,6 +268,48 @@ status:
 Then, your HorizontalPodAutoscaler would attempt to ensure that each pod was consuming roughly
 50% of its requested CPU, serving 1000 packets per second, and that all pods behind the main-route
 Ingress were serving a total of 10000 requests per second.
+
+## Appendix: Horizontal Pod Autoscaler Status Conditions
+
+When using the `autoscaling/v2alpha1` form of the HorizontalPodAutoscaler, you will be able to see
+*status conditions* set by Kubernetes on the HorizontalPodAutoscaler.  These status conditions indicate
+whether or not the HorizontalPodAutoscaler is able to scale, and whether or not it is currently restricted
+in any way.
+
+The conditions appear in the `status.conditions` field.  To see the conditions affecting a HorizontalPodAutoscaler,
+we can use `kubectl describe hpa`:
+
+```shell
+$ kubectl describe hpa cm-test
+Name:                           cm-test
+Namespace:                      prom
+Labels:                         <none>
+Annotations:                    <none>
+CreationTimestamp:              Fri, 16 Jun 2017 18:09:22 +0000
+Reference:                      ReplicationController/cm-test
+Metrics:                        ( current / target )
+  "http_requests" on pods:      66m / 500m
+Min replicas:                   1
+Max replicas:                   4
+ReplicationController pods:     1 current / 1 desired
+Conditions:
+  Type                  Status  Reason                  Message
+  ----                  ------  ------                  -------
+  AbleToScale           True    ReadyForNewScale        the last scale time was sufficiently old as to warrant a new scale
+  ScalingActive         True    ValidMetricFound        the HPA was able to successfully calculate a replica count from pods metric http_requests
+  ScalingLimited        False   DesiredWithinRange      the desired replica count is within the acceptible range
+Events:
+```
+
+For this HorizontalPodAutoscaler, we can see several conditions in a healthy state.  The first,
+`AbleToScale`, indicates whether or not the HPA is able to fetch and update scales, as well as
+whether or not any backoff-related conditions would prevent scaling.  The second, `ScalingActive`,
+indicates whether or not the HPA is enabled (i.e. the replica count of the target is not zero) and
+is able to calculate desired scales. When it is `False`, it generally indicates problems with
+fetching metrics.  Finally, the last condition, `ScalingLimitted`, indicates that the desired scale
+was capped by the maximum or minimum of the HorizontalPodAutoscaler.  This is an indication that
+you may wish to raise or lower the minimum or maximum replica count constraints on your
+HorizontalPodAutoscaler.
 
 ## Appendix: Other possible scenarios
 

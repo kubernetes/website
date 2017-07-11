@@ -54,7 +54,7 @@ Requirements
 * Git
 * Go 1.7.1+
 * make (if using Linux or MacOS)
-* Important notes and other dependencies are listed [here](https://github.com/kubernetes/kubernetes/blob/master/docs/devel/development.md#building-kubernetes-on-a-local-osshell-environment)
+* Important notes and other dependencies are listed [here](https://git.k8s.io/community/contributors/devel/development.md#building-kubernetes-on-a-local-osshell-environment)
 
 **kubelet**
 

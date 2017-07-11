@@ -300,9 +300,9 @@ Check that:
 {% endcapture %}
 
 {% capture whatsnext %}
-*  If you need assistance, use one of the [support channels](http://kubernetes.io/docs/troubleshooting/) to seek assistance.
+*  If you need assistance, use one of the [support channels](/docs/tasks/debug-application-cluster/troubleshooting/) to seek assistance.
  *  For details about use cases that motivated this work, see 
- [Federation proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/federation.md).
+ [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/federation.md).
 {% endcapture %}
 {% include templates/task.md %}
  

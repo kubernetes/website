@@ -12,7 +12,7 @@ external IP address.
 
 {% capture prerequisites %}
 
- * Install [kubectl](http://kubernetes.io/docs/tasks/kubectl/install/).
+ * Install [kubectl](/docs/tasks/tools/install-kubectl/).
 
  * Use a cloud provider like Google Container Engine or Amazon Web Services to
  create a Kubernetes cluster. This tutorial creates an
