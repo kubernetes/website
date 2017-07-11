@@ -21,7 +21,7 @@ Some typical uses of a DaemonSet are:
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
 - running a logs collection daemon on every node, such as `fluentd` or `logstash`.
 - running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), `collectd`, New Relic agent, or Ganglia `gmond`.
+  https://github.com/prometheus/node_exporter), `collectd`, Datadog agent, New Relic agent, or Ganglia `gmond`.
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
@@ -35,7 +35,7 @@ As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
 [configuring containers](/docs/user-guide/configuring-containers/), and [working with resources](/docs/concepts/tools/kubectl/object-management-overview/) documents.
 
-A DaemonSet also needs a [`.spec`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api-conventions.md#spec-and-status) section.
+A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) section.
 
 ### Pod Template
 
@@ -106,7 +106,7 @@ Some possible patterns for communicating with pods in a DaemonSet are:
 
 - **Push**: Pods in the DaemonSet are configured to send updates to another service, such
   as a stats database.  They do not have clients.
-- **NodeIP and Known Port**: Pods in the DaemonSet use a `hostPort`, so that the pods are reachable via the node IPs.  Clients know the list of nodes ips somehow, and know the port by convention.
+- **NodeIP and Known Port**: Pods in the DaemonSet can use a `hostPort`, so that the pods are reachable via the node IPs.  Clients know the list of nodes ips somehow, and know the port by convention.
 - **DNS**: Create a [headless service](/docs/user-guide/services/#headless-services) with the same pod selector,
   and then discover DaemonSets using the `endpoints` resource or retrieve multiple A records from
   DNS.

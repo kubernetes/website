@@ -22,7 +22,7 @@ The provided Kubernetes master nodes act as a control plane for the cluster. The
 
     juju add-unit kubernetes-master
 
-This will add another master node to the control plane. See the [building high-availability clusters](http://kubernetes.io/docs/admin/high-availability) section of the documentation for more information. 
+This will add another master node to the control plane. See the [building high-availability clusters](/docs/admin/high-availability) section of the documentation for more information. 
 
 ## Kubernetes workers
 

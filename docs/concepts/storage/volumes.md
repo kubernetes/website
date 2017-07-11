@@ -90,6 +90,8 @@ Kubernetes supports several types of Volumes:
    * `Quobyte`
    * `PortworxVolume`
    * `ScaleIO`
+   * `StorageOS`
+   * `local`
 
 We welcome additional contributions.
 
@@ -573,7 +575,7 @@ More details can be found [here](https://github.com/kubernetes/kubernetes/tree/{
 ### vsphereVolume
 
 __Prerequisite: Kubernetes with vSphere Cloud Provider configured.
-For cloudprovider configuration please refer [vSphere getting started guide](http://kubernetes.io/docs/getting-started-guides/vsphere/).__
+For cloudprovider configuration please refer [vSphere getting started guide](/docs/getting-started-guides/vsphere/).__
 
 A `vsphereVolume` is used to mount a vSphere VMDK Volume into your Pod.  The contents
 of a volume are preserved when it is unmounted. It supports both VMFS and VSAN datastore.
@@ -616,7 +618,7 @@ spec:
       volumePath: "[DatastoreName] volumes/myDisk"
       fsType: ext4
 ```
-More examples can be found [here](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere).
+More examples can be found [here](https://git.k8s.io/kubernetes/examples/volumes/vsphere).
 
 
 ### Quobyte
@@ -695,6 +697,96 @@ spec:
 ```
 
 For further detail, plese the see the [ScaleIO examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/scaleio).
+
+### StorageOS
+A `storageos` volume allows an existing [StorageOS](https://www.storageos.com) volume to be mounted into your pod.
+
+StorageOS runs as a container within your Kubernetes environment, making local or attached storage accessible from any node within the Kubernetes cluster.  Data can be replicated to protect against node failure.  Thin provisioning and compression can improve utilization and reduce cost.
+
+At its core, StorageOS provides block storage to containers, accessible via a file system.
+
+The StorageOS container requires 64-bit Linux and has no additional dependencies.  A free developer licence is available.
+
+__Important: You must run the StorageOS container on each node that wants to access StorageOS volumes or that will contribute storage capacity to the pool.  For installation instructions, consult the [StorageOS documentation](https://docs.storageos.com)__
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: redis
+    role: master
+  name: test-storageos-redis
+spec:
+  containers:
+    - name: master
+      image: kubernetes/redis:v1
+      env:
+        - name: MASTER
+          value: "true"
+      ports:
+        - containerPort: 6379
+      volumeMounts:
+        - mountPath: /redis-master-data
+          name: redis-data
+  volumes:
+    - name: redis-data
+      storageos:
+        # The `redis-vol01` volume must already exist within StorageOS in the `default` namespace.
+        volumeName: redis-vol01
+        fsType: ext4
+```
+
+For more information including Dynamic Provisioning and Persistent Volume Claims, please see the [StorageOS examples](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/volumes/storageos).
+
+### local
+
+This volume type is alpha in 1.7.
+
+A `local` volume represents a mounted local storage device such as a disk,
+partition or directory.
+
+Local volumes can only be used as a statically created PersistentVolume.
+
+Compared to HostPath volumes, local volumes can be used in a durable manner
+without manually scheduling pods to nodes, as the system is aware of the volume's
+node constraints.
+
+However, local volumes are still subject to the availability of the underlying
+node and are not suitable for all applications.
+
+The following is an example PersistentVolume spec using a `local` volume:
+
+``` yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: example-pv
+  annotations:
+        "volume.alpha.kubernetes.io/node-affinity": '{
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+                "nodeSelectorTerms": [
+                    { "matchExpressions": [
+                        { "key": "kubernetes.io/hostname",
+                          "operator": "In",
+                          "values": ["example-node"]
+                        }
+                    ]}
+                 ]}
+              }'
+spec:
+    capacity:
+      storage: 100Gi
+    accessModes:
+    - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: local-storage
+    local:
+      path: /mnt/disks/ssd1
+```
+
+For details on the `local` volume type, see the [Local Persistent Storage 
+user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)
 
 ## Using subPath
 

@@ -1,6 +1,8 @@
 ---
 assignees:
+- ericchiang
 - mikedanese
+- jcbsmpsn
 title: TLS bootstrapping
 ---
 
@@ -36,7 +38,7 @@ name should be as depicted:
 ```
 
 Add the `--token-auth-file=FILENAME` flag to the kube-apiserver command (in your systemd unit file perhaps) to enable the token file.
-See docs [here](http://kubernetes.io/docs/admin/authentication/#static-token-file) for further details.
+See docs [here](/docs/admin/authentication/#static-token-file) for further details.
 
 ### Client certificate CA bundle
 
@@ -59,17 +61,113 @@ The kube-controller-manager flags are:
 --cluster-signing-cert-file="/etc/path/to/kubernetes/ca/ca.crt" --cluster-signing-key-file="/etc/path/to/kubernetes/ca/ca.key"
 ```
 
-### Automatic approval
-To ease deployment and testing, there is an experimental flag in the certificate bootstrapping API to approve all certificate
-requests made by users in a certain group. The intended use of this is to whitelist only the group corresponding to the bootstrap
-token in the token file above. Use of this flag circumvents the approval process described below and is not recommended
-for production use.
+### Approval controller
 
-The flag is:
+In 1.7 the experimental "group auto approver" controller is dropped in favor of the new `csrapproving` controller
+that ships as part of [kube-controller-manager](/docs/admin/kube-controller-manager/) and is enabled by default.
+The controller uses the [`SubjectAccessReview` API](/docs/admin/authorization/#checking-api-access) to determine
+if a given user is authorized to request a CSR, then approves based on the authorization outcome. To prevent
+conflicts with other approvers, the builtin approver doesn't explicitly deny CSRs, only ignoring unauthorized requests.
+
+The controller categorizes CSRs into three subresources:
+
+1. `nodeclient` - a request by a user for a client certificate with `O=system:nodes` and `CN=system:node:(node name)`.
+2. `selfnodeclient` - a node renewing a client certificate with the same `O` and `CN`.
+3. `selfnodeserver` - a node renewing a serving certificate. (ALPHA, requires feature gate)
+
+The checks to determine if a CSR is a `selfnodeserver` request is currently tied to the kubelet's credential rotation
+implementation, an __alpha__ feature. As such, the definition of `selfnodeserver` will likely change in a future and
+requires the `RotateKubeletServerCertificate` feature gate on the controller manager. The feature progress can be
+tracked at [kubernetes/features#267](https://github.com/kubernetes/features/issues/267).
 
 ```
---insecure-experimental-approve-all-kubelet-csrs-for-group="system:kubelet-bootstrap"
+--feature-gates=RotateKubeletServerCertificate=true
 ```
+
+The following RBAC `ClusterRoles` represent the `nodeclient`, `selfnodeclient`, and `selfnodeserver` capabilities. Similar roles
+may be automatically created in future releases.
+
+```yml
+# A ClusterRole which instructs the CSR approver to approve a user requesting
+# node client credentials.
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: approve-node-client-csr
+rules:
+- apiGroups: ["certificates.k8s.io"]
+  resources: ["certificatesigningrequests/nodeclient"]
+  verbs: ["create"]
+---
+# A ClusterRole which instructs the CSR approver to approve a node renewing its
+# own client credentials.
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: approve-node-client-renewal-csr
+rules:
+- apiGroups: ["certificates.k8s.io"]
+  resources: ["certificatesigningrequests/selfnodeclient"]
+  verbs: ["create"]
+---
+# A ClusterRole which instructs the CSR approver to approve a node requesting a
+# serving cert matching its client cert.
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: approve-node-server-renewal-csr
+rules:
+- apiGroups: ["certificates.k8s.io"]
+  resources: ["certificatesigningrequests/selfnodeserver"]
+  verbs: ["create"]
+```
+
+These powers can be granted to credentials, such as bootstrapping tokens. For example, to replicate the behavior
+provided by the removed auto-approval flag, of approving all CSRs by a single group:
+
+```
+# REMOVED: This flag no longer works as of 1.7.
+--insecure-experimental-approve-all-kubelet-csrs-for-group="kubelet-bootstrap-token"
+```
+
+An admin would create a `ClusterRoleBinding` targeting that group.
+
+```yml
+# Approve all CSRs for the group "kubelet-bootstrap-token"
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: auto-approve-csrs-for-group
+subjects:
+- kind: Group
+  name: kubelet-bootstrap-token
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: approve-node-client-csr
+  apiGroup: rbac.authorization.k8s.io
+```
+
+To let a node renew its own credentials, an admin can construct a `ClusterRoleBinding` targeting
+that node's credentials:
+
+```yml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: node1-client-cert-renewal
+subjects:
+- kind: User
+  name: system:node:node-1 # Let "node-1" renew its client certificate.
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: approve-node-client-renewal-csr
+  apiGroup: rbac.authorization.k8s.io
+```
+
+Deleting the binding will prevent the node from renewing its client credentials, effectively
+removing it from the cluster once its certificate expires.
 
 ## kubelet configuration
 To request a client certificate from kube-apiserver, the kubelet first needs a path to a kubeconfig file that contains the
@@ -86,6 +184,19 @@ The flag to enable this bootstrapping when starting the kubelet is:
 ```
 --experimental-bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
 ```
+
+Additionally, in 1.7 the kubelet implements __alpha__ features for enabling rotation of both its client and/or serving certs.
+These can be enabled through the respective `RotateKubeletClientCertificate` and `RotateKubeletServerCertificate` feature
+flags on the kubelet, but may change in backward incompatible ways in future releases.
+
+```
+--feature-gates=RotateKubeletClientCertificate=true,RotateKubeletServerCertificate=true
+```
+
+`RotateKubeletClientCertificate` causes the kubelet to rotate its client certificates by creating new CSRs as its existing
+credentials expire. `RotateKubeletServerCertificate` causes the kubelet to both request a serving certificate after
+bootstrapping its client credentials and rotate the certificate. The serving cert currently does not request DNS or IP
+SANs.
 
 ## kubectl approval
 The signing controller does not immediately sign all certificate requests. Instead, it waits until they have been flagged with an

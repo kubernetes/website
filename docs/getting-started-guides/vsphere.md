@@ -20,7 +20,7 @@ This page also describes how to configure and get started with the cloud provide
 
 To start using Kubernetes on top of vSphere and use the vSphere Cloud Provider use Kubernetes-Anywhere. Kubernetes-Anywhere will deploy and configure a cluster from scratch.
 
-Detailed steps can be found at the [getting started with Kubernetes-Anywhere on vSphere page](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/README.md)
+Detailed steps can be found at the [getting started with Kubernetes-Anywhere on vSphere page](https://git.k8s.io/kubernetes-anywhere/phase1/vsphere/README.md)
 
 ### vSphere Cloud Provider
 
@@ -33,12 +33,12 @@ vSphere Cloud Provider allows using vSphere managed storage within Kubernetes. I
 
 Documentation for how to use vSphere managed storage can be found in the
 [persistent volumes user
-guide](http://kubernetes.io/docs/user-guide/persistent-volumes/#vsphere) and the
+guide](/docs/concepts/storage/persistent-volumes/#vsphere) and the
 [volumes user
 guide](/docs/concepts/storage/volumes/#vspherevolume)
 
 Examples can be found
-[here](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere)
+[here](https://git.k8s.io/kubernetes/examples/volumes/vsphere)
 
 #### Configuring vSphere Cloud Provider
 
@@ -82,7 +82,7 @@ Virtual machine > Configuration > Add new disk
 Resource > Assign virtual machine to resource pool
 ```
 
-* Provide the cloud config file to each instance of kubelet, apiserver and controller manager via ```--cloud-config=<path to file>``` flag. Cloud config [template can be found at Kubernetes-Anywhere](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
+* Provide the cloud config file to each instance of kubelet, apiserver and controller manager via ```--cloud-config=<path to file>``` flag. Cloud config [template can be found at Kubernetes-Anywhere](https://git.k8s.io/kubernetes-anywhere/phase1/vsphere/vsphere.conf)
 
 Sample Config:
 
@@ -119,7 +119,7 @@ Machines and a master Virtual Machine (i.e. 5 VMs in your cluster). This cluster
 #### Prerequisites
 
 * You need administrator credentials to an ESXi machine or vCenter instance with write mode api access enabled (not available on the free ESXi license).
-* You must have Go (see [here](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/development.md#go-versions) for supported versions) installed: [www.golang.org](http://www.golang.org).
+* You must have Go (see [here](https://git.k8s.io/community/contributors/devel/development.md#go-versions) for supported versions) installed: [www.golang.org](http://www.golang.org).
 * You must have your `GOPATH` set up and include `$GOPATH/bin` in your `PATH`.
 
 ```shell

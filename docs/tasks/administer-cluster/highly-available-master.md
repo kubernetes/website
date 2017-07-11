@@ -97,7 +97,7 @@ $ KUBE_GCE_ZONE=replica-zone KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-
 
 * Try to place masters replicas in different zones. During a zone failure, all master placed inside the zone will fail.
 To survive zone failure, also place nodes in multiple zones
-(see [multiple-zones](http://kubernetes.io/docs/admin/multiple-zones/) for details).
+(see [multiple-zones](/docs/admin/multiple-zones/) for details).
 
 * Do not use a cluster with two master replicas. Consensus on a two replica cluster requires both replicas running when changing persistent state.
 As a result, both replicas are needed and a failure of any replica turns cluster into majority failure state.
@@ -157,5 +157,5 @@ To make such deployment secure, communication between etcd instances is authoriz
 
 ## Additional reading
 
-[Automated HA master deployment - design doc](https://github.com/kubernetes/kubernetes/blob/master/docs/design/ha_master.md)
+[Automated HA master deployment - design doc](https://git.k8s.io/community/contributors/design-proposals/ha_master.md)
 

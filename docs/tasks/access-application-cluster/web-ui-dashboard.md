@@ -79,7 +79,7 @@ The deploy wizard expects that you provide the following information:
 
   A [Deployment](/docs/concepts/workloads/controllers/deployment/) will be created to maintain the desired number of Pods across your cluster.
 
-- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](http://kubernetes.io/docs/user-guide/services/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
+- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
 
   Other Services that are only visible from inside the cluster are called internal Services.
 
@@ -119,11 +119,11 @@ track=stable
 
 - **Run as privileged**: This setting determines whether processes in [privileged containers](/docs/user-guide/pods/#privileged-mode-for-pod-containers) are equivalent to processes running as root on the host. Privileged containers can make use of capabilities like manipulating the network stack and accessing devices.
 
-- **Environment variables**: Kubernetes exposes Services through [environment variables](http://kubernetes.io/docs/user-guide/environment-guide/). You can compose environment variable or pass arguments to your commands using the values of environment variables. They can be used in applications to find a Service. Values can reference other variables using the `$(VAR_NAME)` syntax.
+- **Environment variables**: Kubernetes exposes Services through [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/). You can compose environment variable or pass arguments to your commands using the values of environment variables. They can be used in applications to find a Service. Values can reference other variables using the `$(VAR_NAME)` syntax.
 
 ### Uploading a YAML or JSON file
 
-Kubernetes supports declarative configuration. In this style, all configuration is stored in YAML or JSON configuration files using the Kubernetes [API](http://kubernetes.io/docs/api/) resource schemas.
+Kubernetes supports declarative configuration. In this style, all configuration is stored in YAML or JSON configuration files using the Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
 
 As an alternative to specifying application details in the deploy wizard, you can define your application in YAML or JSON files, and upload the files using Dashboard:
 
