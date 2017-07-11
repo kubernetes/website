@@ -6,9 +6,11 @@ title: Configure Quotas for API Objects
 {% capture overview %}
 
 This page shows how to configure quotas for API objects, including
-PersistentVolumeClaims, NodePorts, and Load Balancers. You specify quotas in a
+PersistentVolumeClaims and Services. A quota restricts the number of
+objects, of a particular type, that can be created in a namespace.
+You specify quotas in a
 [ResourceQuota](/docs/api-reference/v1.7/#resourcequota-v1-core)
-object.
+object. You can use
 
 {% endcapture %}
 
