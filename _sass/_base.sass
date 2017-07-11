@@ -243,18 +243,6 @@ ul.global-nav
 		display: inline-block
 		margin-right: 14px
 
-		ul
-			display: none
-			position: fixed
-			top: 40px
-			left: inherit
-			text-align: left
-
-			li
-				display: block
-				position: relative
-				height: 40px
-
 		a
 			color: #fff
 			font-weight: 400
@@ -270,15 +258,28 @@ ul.global-nav
 				left: 0
 				background: #fff
 
+		ul
+			display: none
+			position: fixed
+			top: 40px
+			text-align: left
+
+			li
+				display: block
+				height: 40px
+
 	li:hover
-		display: block
+		ul
+			display: block
 
 
 .flip-nav ul.global-nav li a,
+.flip-nav ul.global-nav li ul li a,
 .open-nav ul.global-nav li a,
 	color: #333
 
 .flip-nav ul.global-nav li a.active:after,
+.flip-nav ul.global-nav li ul li a.active:after,
 .open-nav ul.global-nav li a.active:after,
 
 	background: $blue
