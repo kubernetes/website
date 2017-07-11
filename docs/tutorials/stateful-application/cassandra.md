@@ -2,6 +2,43 @@
 title: "Example: Deploying Cassandra with Stateful Sets"
 ---
 
+<!--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DO NOT UPDATE THIS FILE!
+
+Submit a patch to https://github.com/kubernetes/examples and
+once it is merged, run ./update-imported-tutorials.sh to
+import it to the website.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+
 ## Table of Contents
 
   - [Prerequisites](#prerequisites)
@@ -835,7 +872,7 @@ via a replication control or a daemonset, you will need to use the custom seed p
 In Cassandra, a `SeedProvider` bootstraps the gossip protocol that Cassandra uses to find other
 Cassandra nodes. Seed addresses are hosts deemed as contact points. Cassandra
 instances use the seed list to find each other and learn the topology of the
-ring. The [`KubernetesSeedProvider`](https://github.com/kubernetes/kubernetes/blob/master/examples/storage/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
+ring. The [`KubernetesSeedProvider`](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
 discovers Cassandra seeds IP addresses via the Kubernetes API, those Cassandra
 instances are defined within the Cassandra Service.
 

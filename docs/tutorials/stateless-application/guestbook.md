@@ -1,9 +1,42 @@
 ---
-title: "Example: PHP Guestbook application with Redis"
-assignees:
-- ahmetb
-- jeffmendoza
+title: "Example: Deploying PHP Guestbook application with Redis"
 ---
+
+<!--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DO NOT UPDATE THIS FILE!
+
+Submit a patch to https://github.com/kubernetes/examples and
+once it is merged, run ./update-imported-tutorials.sh to
+import it to the website.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
 
 
 This example shows how to build a simple, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/).
