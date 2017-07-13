@@ -785,6 +785,9 @@ spec:
       path: /mnt/disks/ssd1
 ```
 
+Note that local PersistentVolume cleanup and deletion requires manual
+intervention without the external provisioner.
+
 For details on the `local` volume type, see the [Local Persistent Storage 
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)
 
