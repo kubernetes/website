@@ -430,7 +430,7 @@ an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is
 cloud provider does not support the feature, the field will be ignored.
 
 Special notes for Azure: To use user-specified public type `loadBalancerIP`, a static type
-public IP address resource needs to be created at first, and it should be in the same resource
+public IP address resource needs to be created first, and it should be in the same resource
 group of the cluster. Then you could specify the assigned IP address as `loadBalancerIP`.
 
 #### Internal load balancer
