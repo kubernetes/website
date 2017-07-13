@@ -41,9 +41,7 @@ A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/dev
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](/docs/user-guide/replication-controller/#pod-template).
-It has exactly the same schema as a [pod](/docs/user-guide/pods), except
-it is nested and does not have an `apiVersion` or `kind`.
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [pod](/docs/user-guide/pods), except it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields for a pod, a pod template in a DaemonSet has to specify appropriate
 labels (see [pod selector](#pod-selector)).
