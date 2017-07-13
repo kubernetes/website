@@ -12,6 +12,7 @@ toc:
 - title: Configure Pods and Containers
   section:
   - docs/tasks/configure-pod-container/assign-cpu-ram-container.md
+  - docs/tasks/configure-pod-container/opaque-integer-resource.md
   - docs/tasks/configure-pod-container/configure-volume-storage.md
   - docs/tasks/configure-pod-container/configure-persistent-volume-storage.md
   - docs/tasks/configure-pod-container/configure-projected-volume-storage.md
@@ -108,6 +109,9 @@ toc:
 
 - title: Administer a Cluster
   section:
+  - title: Manage Memory, CPU, and API Resources
+    section:
+    - docs/tasks/administer-cluster/opaque-integer-resource-node.md
   - docs/tasks/administer-cluster/access-cluster-api.md
   - docs/tasks/administer-cluster/access-cluster-services.md
   - docs/tasks/administer-cluster/securing-a-cluster.md
