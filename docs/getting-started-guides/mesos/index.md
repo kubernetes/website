@@ -19,16 +19,16 @@ Mesos clusters can be deployed on nearly every IaaS cloud provider infrastructur
 This tutorial will walk you through setting up Kubernetes on a Mesos cluster.
 It provides a step by step walk through of adding Kubernetes to a Mesos cluster and starting your first pod with an nginx webserver.
 
-**NOTE:** There are [known issues with the current implementation][7] and support for centralized logging and monitoring is not yet available.
-Please [file an issue against the kubernetes-mesos project][8] if you have problems completing the steps below.
+**NOTE:** There are [known issues with the current implementation][6] and support for centralized logging and monitoring is not yet available.
+Please [file an issue against the kubernetes-mesos project][7] if you have problems completing the steps below.
 
-Further information is available in the Kubernetes on Mesos [contrib directory][13].
+Further information is available in the Kubernetes on Mesos [contrib directory][11].
 
 ### Prerequisites
 
-- Understanding of [Apache Mesos][6]
-- A running [Mesos cluster on Google Compute Engine][5]
-- A [VPN connection][10] to the cluster
+- Understanding of [Apache Mesos][5]
+- A running [Mesos cluster on Google Compute Engine][4]
+- A [VPN connection][8] to the cluster
 - A machine in the cluster which should become the Kubernetes *master node* with:
   - Go (see [here](https://git.k8s.io/community/contributors/devel/development.md) for required versions)
   - make (i.e. build-essential)
@@ -212,12 +212,12 @@ started the Kubernetes pod.
 
 ## Launching kube-dns
 
-Kube-dns is an addon for Kubernetes which adds DNS-based service discovery to the cluster. For a detailed explanation see [DNS in Kubernetes][4].
+Kube-dns is an addon for Kubernetes which adds DNS-based service discovery to the cluster. For a detailed explanation see [DNS in Kubernetes](https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md).
 
 The kube-dns addon runs as a pod inside the cluster. The pod consists of three co-located containers:
 
 - a local etcd instance
-- the [kube-dns][11] DNS server
+- the [kube-dns][9] DNS server
 
 We assume that kube-dns will use
 
@@ -226,13 +226,13 @@ We assume that kube-dns will use
 
 Note that we have passed these two values already as parameter to the apiserver above.
 
-A template for a replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/kubedns-controller.yaml.in][12] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
+A template for a replication controller spinning up the pod with the 3 containers can be found at [cluster/addons/dns/kubedns-controller.yaml.in][10] in the repository. The following steps are necessary in order to get a valid replication controller yaml file:
 
 - replace `{% raw %}{{ pillar['dns_replicas'] }}{% endraw %}`  with `1`
 - replace `{% raw %}{{ pillar['dns_domain'] }}{% endraw %}` with `cluster.local.`
 - add `--kube_master_url=${KUBERNETES_MASTER}` parameter to the kube2sky container command.
 
-In addition the service template at [cluster/addons/dns/kubedns-controller.yaml.in][12] needs the following replacement:
+In addition the service template at [cluster/addons/dns/kubedns-controller.yaml.in][10] needs the following replacement:
 
 - `{% raw %}{{ pillar['dns_server'] }}{% endraw %}` with `10.10.10.10`.
 
@@ -313,25 +313,23 @@ For support level information on all solutions, see the [Table of solutions](/do
 
 ## What next?
 
-Try out some of the standard [Kubernetes examples][9].
+Try out some of the standard [Kubernetes examples](https://releases.k8s.io/{{page.githubbranch}}/examples/).
 
-Read about Kubernetes on Mesos' architecture in the [contrib directory][13].
+Read about Kubernetes on Mesos' architecture in the [contrib directory][11].
 
 **NOTE:** Some examples require Kubernetes DNS to be installed on the cluster.
 Future work will add instructions to this guide to enable support for Kubernetes DNS.
 
-**NOTE:** Please be aware that there are [known issues with the current Kubernetes-Mesos implementation][7].
+**NOTE:** Please be aware that there are [known issues with the current Kubernetes-Mesos implementation][6].
 
 [1]: https://docs.mesosphere.com/latest/usage/service-guides/hdfs/
 [2]: https://docs.mesosphere.com/latest/usage/service-guides/spark/
-[3]: https://docs.mesosphere.com/latest/usage/service-guides/chronos/
-[4]: https://releases.k8s.io/{{page.githubbranch}}/cluster/addons/dns/README.md
-[5]: https://dcos.io/docs/latest/administration/installing/cloud/gce/
-[6]: http://mesos.apache.org/
-[7]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/docs/issues.md
-[8]: https://github.com/mesosphere/kubernetes-mesos/issues
-[9]: https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples
-[10]: http://open.mesosphere.com/getting-started/cloud/google/mesosphere/#vpn-setup
-[11]: https://git.k8s.io/kubernetes/cluster/addons/dns/README.md#kube-dns
-[12]: https://git.k8s.io/kubernetes/cluster/addons/dns/kubedns-controller.yaml.in
-[13]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/README.md
+[3]: https://mesos.github.io/chronos/docs/getting-started.html
+[4]: https://dcos.io/docs/latest/administration/installing/cloud/gce/
+[5]: http://mesos.apache.org/
+[6]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/docs/issues.md
+[7]: https://github.com/mesosphere/kubernetes-mesos/issues
+[8]: http://open.mesosphere.com/getting-started/cloud/google/mesosphere/#vpn-setup
+[9]: https://git.k8s.io/kubernetes/cluster/addons/dns/README.md#kube-dns
+[10]: https://git.k8s.io/kubernetes/cluster/addons/dns/kubedns-controller.yaml.in
+[11]: https://github.com/kubernetes-incubator/kube-mesos-framework/blob/master/README.md
