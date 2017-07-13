@@ -96,9 +96,7 @@ A ReplicationController also needs a [`.spec` section](https://git.k8s.io/commun
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a pod template.  It has exactly
-the same schema as a [pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an `apiVersion` or
-`kind`.
+The `.spec.template` is a [pod template](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview.md#pod-templates). It has exactly the same schema as a [pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a pod template in a ReplicationController must specify appropriate
 labels (i.e. don't overlap with other controllers, see [pod selector](#pod-selector)) and an appropriate restart policy.
