@@ -142,7 +142,7 @@ If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types
 
 If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
 
-If you remove or change the label of the node which the pod is running on,the running pod won't be stopped.It means that the affinity selection only works when the pod is scheduled. 
+If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
 
 For more information on node affinity, see the design doc
 [here](https://git.k8s.io/community/contributors/design-proposals/nodeaffinity.md).
