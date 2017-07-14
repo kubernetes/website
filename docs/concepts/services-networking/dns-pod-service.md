@@ -48,10 +48,10 @@ Services, this resolves to the set of IPs of the pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
 
-### SRV records
+#### SRV records
 
 SRV Records are created for named ports that are part of normal or [Headless
-Services](https://kubernetes.io/docs/user-guide/services/#headless-services).
+Services](/docs/concepts/services-networking/service/#headless-services).
 For each named port, the SRV record would have the form
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
 For a regular service, this resolves to the port number and the CNAME:
@@ -60,7 +60,7 @@ For a headless service, this resolves to multiple answers, one for each pod
 that is backing the service, and contains the port number and a CNAME of the pod
 of the form `auto-generated-name.my-svc.my-namespace.svc.cluster.local`.
 
-### Backwards compatibility
+#### Backwards compatibility
 
 Previous versions of kube-dns made names of the form
 `my-svc.my-namespace.cluster.local` (the 'svc' level was added later).  This
@@ -325,7 +325,7 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 
 If you do not see the endpoints, see endpoints section in the [debugging services documentation](/docs/tasks/debug-application-cluster/debug-service/).
 
-For additional Kubernetes DNS examples, see the [cluster-dns examples](https://github.com/kubernetes/kubernetes/tree/master/examples/cluster-dns) in the Kubernetes GitHub repository.
+For additional Kubernetes DNS examples, see the [cluster-dns examples](https://git.k8s.io/kubernetes/examples/cluster-dns) in the Kubernetes GitHub repository.
 
 ## Kubernetes Federation (Multiple Zone support)
 

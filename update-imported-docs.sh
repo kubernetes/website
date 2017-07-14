@@ -5,8 +5,8 @@ set -o errexit
 # Uncomment this to see the commands as they are run
 # set -x
 
-VERSION=1.6
-OLDVERSION=1.5
+VERSION=1.7
+OLDVERSION=1.6
 
 # Processes api reference docs.
 function process_api_ref_docs {
@@ -142,7 +142,7 @@ BINARIES="federation-apiserver.md federation-controller-manager.md kube-apiserve
   cd docs/admin
   for bin in $BINARIES; do
     sed -i -e '/<!-- BEGIN MUNGE: IS_VERSIONED -->/,/<!-- END MUNGE: IS_VERSIONED -->/d' "$bin"
-    sed -i -e '/<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->/,/<!-- END MUNGE: UNVERSIONED_WARNINgG -->/d' "$bin"
+    sed -i -e '/<!-- BEGIN MUNGE: UNVERSIONED_WARNING -->/,/<!-- END MUNGE: UNVERSIONED_WARNING -->/d' "$bin"
     sed -i -e '1 i\
 ---' "$bin"
     sed -i -e '1 i\

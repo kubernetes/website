@@ -69,10 +69,44 @@ kubefed unjoin gondor --host-cluster-context=rivendell
 You can find more details on unjoin in the
 [kubefed guide](/docs/tutorials/federation/set-up-cluster-federation-kubefed/#removing-a-cluster-from-a-federation).
 
+## Labeling Clusters
+
+You can label clusters the same way as any other Kubernetes object, which can help with grouping clusters and can also be leveraged by the ClusterSelector.
+
+``` shell
+kubectl --context=rivendell label cluster gondor key1=value1 key2=value2
+```
+
+## ClusterSelector Annotation
+
+Starting in Kubernetes 1.7, there is alpha support for directing objects across the federated clusters with the annotation `federation.alpha.kubernetes.io/cluster-selector`. The *ClusterSelector* is conceptually similar to `nodeSelector`, but instead of selecting against labels on nodes, it selects against labels on federated clusters.
+
+The annotation value must be json formatted and must be parsable into the [ClusterSelector API type](/docs/reference/federation/v1beta1/definitions/#_v1beta1_clusterselector). For example: `[{"key": "load", "operator": "Lt", "values": ["10"]}]`. Content that doesn't parse correctly will throw an error and prevent distribution of the object to any federated clusters. Objects of type Configmap, Secret, Daemonset, Service and Ingress are included in the alpha implementation.
+
+Here is an example ClusterSelector annotation, which will only select clusters WITH the label `pci=true` and WITHOUT the label `environment=test`:
+
+``` yaml
+  metadata:
+    annotations:
+      federation.alpha.kubernetes.io/cluster-selector: '[{"key": "pci", "operator":
+        "In", "values": ["true"]}, {"key": "environment", "operator": "NotIn", "values":
+        ["test"]}]'
+```
+
+The *key* is matched against label names on the federated clusters.
+
+The *values* are matched against the label values on the federated clusters.
+
+The possible *operators* are: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
+
+The *values* field is expected to be empty when `Exists` or `DoesNotExist` is specified and may include more than one string when `In` or `NotIn` are used.
+
+Currently, only integers are supported with `Gt` or `Lt`.
+
 ## Clusters API reference
 
 The full clusters API reference is currently in `federation/v1beta1` and more details can be found in details in the
-[Federation API reference page](https://kubernetes.io/docs/reference/federation/).
+[Federation API reference page](/docs/reference/federation/).
 
 {% endcapture %}
 

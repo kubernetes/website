@@ -25,7 +25,7 @@ a building block.  kops builds on the kubeadm work.
 
 #### Requirements
 
-You must have [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
+You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
 
 #### Installation
 
@@ -34,15 +34,17 @@ Download kops from the [releases page](https://github.com/kubernetes/kops/releas
 On MacOS:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/v1.4.1/kops-darwin-amd64
+wget https://github.com/kubernetes/kops/releases/download/1.6.1/kops-darwin-amd64
 chmod +x kops-darwin-amd64
 mv kops-darwin-amd64 /usr/local/bin/kops
+# you can also install using Homebrew
+brew update && brew install kops
 ```
 
 On Linux:
 
 ```
-wget https://github.com/kubernetes/kops/releases/download/v1.4.1/kops-linux-amd64
+wget https://github.com/kubernetes/kops/releases/download/1.6.1/kops-linux-amd64
 chmod +x kops-linux-amd64
 mv kops-linux-amd64 /usr/local/bin/kops
 ```

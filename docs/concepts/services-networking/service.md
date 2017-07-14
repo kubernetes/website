@@ -10,7 +10,7 @@ redirect_from:
 Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicationControllers`](/docs/user-guide/replication-controller) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
-or when doing [rolling updates](/docs/user-guide/kubectl/v1.6/#rolling-update)).  While each `Pod` gets its own IP address, even
+or when doing [rolling updates](/docs/user-guide/kubectl/v1.7/#rolling-update)).  While each `Pod` gets its own IP address, even
 those IP addresses cannot be relied upon to be stable over time. This leads to
 a problem: if some set of `Pods` (let's call them backends) provides
 functionality to other `Pods` (let's call them frontends) inside the Kubernetes
@@ -140,8 +140,6 @@ metadata:
 spec:
   type: ExternalName
   externalName: my.database.example.com
-  ports:
-  - port: 12345
 ```
 
 When looking up the host `my-service.prod.svc.CLUSTER`, the cluster DNS service
@@ -489,17 +487,17 @@ In the ServiceSpec, `externalIPs` can be specified along with any of the `Servic
 In the example below, my-service can be accessed by clients on 80.11.12.10:80 (externalIP:port)
 
 ```yaml
-kind: Service,
-apiVersion: v1,
+kind: Service
+apiVersion: v1
 metadata:
   name: my-service
 spec:
   selector:
     app: MyApp
   ports:
-    - name: http,
-      protocol: TCP,
-      port: 80,
+    - name: http
+      protocol: TCP
+      port: 80
       targetPort: 9376
   externalIPs: 
     - 80.11.12.10
@@ -614,7 +612,7 @@ through a load-balancer, though in those cases the client IP does get altered.
 
 Service is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Service API
-object](/docs/api-reference/v1.6/#service-v1-core).
+object](/docs/api-reference/{{page.version}}/#service-v1-core).
 
 ## For More Information
 

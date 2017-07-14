@@ -100,11 +100,21 @@ nginx-deployment-2035384211-qqcnn   1/1       Running   0          18s       app
 
 The created ReplicaSet will ensure that there are three nginx Pods at all times.
 
-**Note:** You must specify appropriate selector and pod template labels of a Deployment (in this case,
-`app = nginx`), i.e. don't overlap with other controllers (including Deployments, ReplicaSets,
-ReplicationControllers, etc.) Kubernetes won't stop you from doing that, and if you end up with multiple
-controllers that have overlapping selectors, those controllers will fight with each other and won't behave
+**Note:** You must specify an appropriate selector and pod template labels in a Deployment (in this case,
+`app = nginx`), i.e. don't overlap with other controllers (including other Deployments, ReplicaSets,
+StatefulSets, etc.). Kubernetes won't stop you from doing that, and if you end up with multiple
+controllers that have overlapping selectors, those controllers may fight with each other and won't behave
 correctly.
+
+### Pod-template-hash label
+
+**Note:** This label is not meant to be mutated by users!
+
+Note the pod-template-hash label in the example output in the pod labels above. pod-template-hash is added by the
+Deployment controller in every ReplicaSet that a Deployment creates or adopts. Its purpose is so that children
+ReplicaSets of a Deployment will not overlap among them. It is computed by hashing the PodTemplate of the ReplicaSet
+and using the resulting hash as the label value that will be added in the ReplicaSet selector, pod template labels,
+and in any existing Pods that the ReplicaSet may have.
 
 ## Updating a Deployment
 
@@ -384,7 +394,7 @@ $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 deployment "nginx-deployment" rolled back
 ```
 
-For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/v1.6/#rollout).
+For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/{{page.version}}/#rollout).
 
 The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event
 for rolling back to revision 2 is generated from Deployment controller.
@@ -579,10 +589,10 @@ rolling out a new ReplicaSet, it can be [complete](#complete-deployment), or it 
 
 Kubernetes marks a Deployment as _progressing_ when one of the following tasks is performed:
 
-* The Deployment is in the process of creating a new ReplicaSet.
-* The Deployment is scaling up an existing ReplicaSet.
-* The Deployment is scaling down an existing ReplicaSet.
-* New pods become available.
+* The Deployment creates a new ReplicaSet.
+* The Deployment is scaling up its newest ReplicaSet.
+* The Deployment is scaling down its older ReplicaSet(s).
+* New Pods become ready or available (ready for at least [MinReadySeconds](#min-ready-seconds)).
 
 You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
@@ -590,11 +600,10 @@ You can monitor the progress for a Deployment by using `kubectl rollout status`.
 
 Kubernetes marks a Deployment as _complete_ when it has the following characteristics:
 
-* The Deployment has minimum availability. Minimum availability means that the Deployment's number of available replicas
-equals or exceeds the number required by the Deployment strategy.
 * All of the replicas associated with the Deployment have been updated to the latest version you've specified, meaning any
 updates you've requested have been completed.
-* No old pods for the Deployment are running.
+* All of the replicas associated with the Deployment are available.
+* No old replicas for the Deployment are running.
 
 You can check if a Deployment has completed by using `kubectl rollout status`. If the rollout completed
 successfully, `kubectl rollout status` returns a zero exit code.
@@ -638,7 +647,7 @@ attributes to the Deployment's `status.conditions`:
 * Status=False
 * Reason=ProgressDeadlineExceeded
 
-See the [Kubernetes API conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
+See the [Kubernetes API conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#typical-status-properties) for more information on status conditions.
 
 **Note:** Kubernetes will take no action on a stalled Deployment other than to report a status condition with
 `Reason=ProgressDeadlineExceeded`. Higher level orchestrators can take advantage of it and act accordingly, for
@@ -765,7 +774,7 @@ As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, a
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/tutorials/object-management-kubectl/object-management/) documents.
 
-A Deployment also needs a [`.spec` section](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#spec-and-status).
+A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status).
 
 ### Pod Template
 
@@ -866,13 +875,20 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 ### Rollback To
 
-`.spec.rollbackTo` is an optional field with the configuration the Deployment is rolling back to. Setting
-this field will trigger a rollback, and this field will be cleared every time a rollback is done.
+`.spec.rollbackTo` is an optional field with the configuration the Deployment
+should roll back to. Setting this field triggers a rollback, and this field will
+be cleared by the server after a rollback is done.
+
+Because this field will be cleared by the server, it should not be used
+declaratively. For example, you should not perform `kubectl apply` with a
+manifest with `.spec.rollbackTo` field set.
 
 #### Revision
 
-`.spec.rollbackTo.revision` is an optional field specifying the revision to rollback to. This defaults
-to 0, meaning rollback to the last revision in history.
+`.spec.rollbackTo.revision` is an optional field specifying the revision to roll
+back to. Setting to 0 means rolling back to the last revision in history;
+otherwise, means rolling back to the specified revision. This defaults to 0 when
+[`spec.rollbackTo`](#rollback-to) is set.
 
 ### Revision History Limit
 
@@ -898,6 +914,6 @@ it is created.
 
 ### kubectl rolling update
 
-[Kubectl rolling update](/docs/user-guide/kubectl/v1.6/#rolling-update) updates Pods and ReplicationControllers
+[Kubectl rolling update](/docs/user-guide/kubectl/{{page.version}}/#rolling-update) updates Pods and ReplicationControllers
 in a similar fashion. But Deployments are recommended, since they are declarative, server side, and have
 additional features, such as rolling back to any previous revision even after the rolling update is done.

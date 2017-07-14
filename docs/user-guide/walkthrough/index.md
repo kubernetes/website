@@ -40,7 +40,7 @@ The simplest pod definition describes the deployment of a single container.  For
 
 A pod definition is a declaration of a _desired state_.  Desired state is a very important concept in the Kubernetes model.  Many things present a desired state to the system, and it is Kubernetes' responsibility to make sure that the current state matches the desired state.  For example, when you create a Pod, you declare that you want the containers in it to be running.  If the containers happen to not be running (e.g. program failure, ...), Kubernetes will continue to (re-)create them for you in order to drive them to the desired state. This process continues until the Pod is deleted.
 
-See the [design document](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/README.md) for more details.
+See the [design document](https://git.k8s.io/community/contributors/design-proposals/README.md) for more details.
 
 
 #### Pod Management

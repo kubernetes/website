@@ -21,6 +21,11 @@ toc:
   - docs/concepts/architecture/nodes.md
   - docs/concepts/architecture/master-node-communication.md
 
+- title: Extending the Kubernetes API
+  section:
+  - docs/concepts/api-extension/custom-resources.md
+  - docs/concepts/api-extension/apiserver-aggregation.md  
+
 - title: Containers
   section:
   - docs/concepts/containers/images.md
@@ -35,6 +40,7 @@ toc:
     - docs/concepts/workloads/pods/pod.md
     - docs/concepts/workloads/pods/pod-lifecycle.md
     - docs/concepts/workloads/pods/init-containers.md
+    - docs/concepts/workloads/pods/disruptions.md
   - title: Controllers
     section:
     - docs/concepts/workloads/controllers/replicaset.md
@@ -60,7 +66,8 @@ toc:
   - docs/concepts/services-networking/dns-pod-service.md
   - docs/concepts/services-networking/connect-applications-service.md
   - docs/concepts/services-networking/ingress.md
-  - docs/concepts/services-networking/networkpolicies.md
+  - docs/concepts/services-networking/network-policies.md
+  - docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases.md
 
 - title: Storage
   section:
@@ -82,11 +89,10 @@ toc:
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
   - docs/concepts/cluster-administration/master-node-communication.md
   - docs/concepts/cluster-administration/proxies.md
+  - docs/concepts/cluster-administration/controller-metrics.md
   - title: Policies
     section:
-    - docs/concepts/policy/container-capabilities.md
     - docs/concepts/policy/resource-quotas.md
-    - docs/concepts/policy/security-context.md
     - docs/concepts/policy/pod-security-policy.md
 
 

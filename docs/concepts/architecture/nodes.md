@@ -19,7 +19,7 @@ A `node` is a worker machine in Kubernetes, previously known as a `minion`. A no
 may be a VM or physical machine, depending on the cluster. Each node has
 the services necessary to run [pods](/docs/user-guide/pods) and is managed by the master
 components. The services on a node include Docker, kubelet and kube-proxy. See
-[The Kubernetes Node](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/architecture.md#the-kubernetes-node) section in the
+[The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture.md#the-kubernetes-node) section in the
 architecture design doc for more details.
 
 ## Node Status
@@ -70,7 +70,7 @@ The node condition is represented as a JSON object. For example, the following r
 
 If the Status of the Ready condition is "Unknown" or "False" for longer than the `pod-eviction-timeout`, an argument passed to the [kube-controller-manager](/docs/admin/kube-controller-manager/), all of the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on it. The decision to delete the pods cannot be communicated to the kubelet until it re-establishes communication with the apiserver. In the meantime, the pods which are scheduled for deletion may continue to run on the partitioned node. 
 
-In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/user-guide/pods/#force-deletion-of-pods) these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
+In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods) these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is confirmed that they have stopped running in the cluster. One can see these pods which may be running on an unreachable node as being in the "Terminating" or "Unknown" states. In cases where Kubernetes cannot deduce from the underlying infrastructure if a node has permanently left a cluster, the cluster administrator may need to delete the node object by hand.  Deleting the node object from Kubernetes causes all the Pod objects running on it to be deleted from the apiserver, freeing up their names.
 
 ### Capacity
 
@@ -232,7 +232,7 @@ you are doing [manual node administration](#manual-node-administration), then yo
 capacity when adding a node.
 
 The Kubernetes scheduler ensures that there are enough resources for all the pods on a node.  It
-checks that the sum of the limits of containers on the node is no greater than the node capacity.  It
+checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
 includes all containers started by the kubelet, but not containers started directly by Docker nor
 processes not in containers.
 
@@ -249,7 +249,7 @@ spec:
   - name: sleep-forever
     image: gcr.io/google_containers/pause:0.8.0
     resources:
-      limits:
+      requests:
         cpu: 100m
         memory: 100Mi
 ```
@@ -263,4 +263,4 @@ on each kubelet where you want to reserve resources.
 
 Node is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Node API
-object](/docs/api-reference/v1.6/#node-v1-core).
+object](/docs/api-reference/{{page.version}}/#node-v1-core).

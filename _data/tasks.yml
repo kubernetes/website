@@ -15,6 +15,9 @@ toc:
   - docs/tasks/configure-pod-container/configure-volume-storage.md
   - docs/tasks/configure-pod-container/configure-persistent-volume-storage.md
   - docs/tasks/configure-pod-container/configure-projected-volume-storage.md
+  - docs/tasks/configure-pod-container/projected-volume.md
+  - docs/tasks/configure-pod-container/security-context.md
+  - docs/tasks/configure-pod-container/environment-variable-expose-pod-information.md
   - docs/tasks/configure-pod-container/configure-service-account.md
   - docs/tasks/configure-pod-container/pull-image-private-registry.md
   - docs/tasks/configure-pod-container/configure-liveness-readiness-probes.md
@@ -46,6 +49,7 @@ toc:
   - docs/tasks/run-application/rolling-update-replication-controller.md
   - docs/tasks/run-application/horizontal-pod-autoscale.md
   - docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md
+  - docs/tasks/run-application/configure-pdb.md
 
 - title: Run Jobs
   section:
@@ -75,6 +79,7 @@ toc:
   - docs/tasks/debug-application-cluster/get-shell-running-container.md
   - docs/tasks/debug-application-cluster/monitor-node-health.md
   - docs/tasks/debug-application-cluster/logging-stackdriver.md
+  - docs/tasks/debug-application-cluster/events-stackdriver.md
   - docs/tasks/debug-application-cluster/logging-elasticsearch-kibana.md
   - docs/tasks/debug-application-cluster/determine-reason-pod-failure.md
   - docs/tasks/debug-application-cluster/debug-init-containers.md
@@ -91,7 +96,11 @@ toc:
 - title: Access and Extend the Kubernetes API
   section:
   - docs/tasks/access-kubernetes-api/http-proxy-access-api.md
+  - docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions.md
   - docs/tasks/access-kubernetes-api/extend-api-third-party-resource.md
+  - docs/tasks/access-kubernetes-api/migrate-third-party-resource.md
+  - docs/tasks/access-kubernetes-api/configure-aggregation-layer.md
+  - docs/tasks/access-kubernetes-api/setup-extension-api-server.md
 
 - title: TLS
   section:
@@ -101,6 +110,8 @@ toc:
   section:
   - docs/tasks/administer-cluster/access-cluster-api.md
   - docs/tasks/administer-cluster/access-cluster-services.md
+  - docs/tasks/administer-cluster/securing-a-cluster.md
+  - docs/tasks/administer-cluster/encrypt-data.md
   - docs/tasks/administer-cluster/configure-upgrade-etcd.md
   - docs/tasks/administer-cluster/apply-resource-quota-limit.md
   - docs/tasks/administer-cluster/out-of-resource.md
@@ -110,14 +121,17 @@ toc:
   - docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods.md
   - docs/tasks/administer-cluster/cluster-management.md
   - docs/tasks/administer-cluster/upgrade-1-6.md
+  - docs/tasks/administer-cluster/kubeadm-upgrade-1-7.md
   - docs/tasks/administer-cluster/namespaces.md
   - docs/tasks/administer-cluster/namespaces-walkthrough.md
   - docs/tasks/administer-cluster/dns-horizontal-autoscaling.md
   - docs/tasks/administer-cluster/safely-drain-node.md
   - docs/tasks/administer-cluster/declare-network-policy.md
-  - docs/tasks/administer-cluster/calico-network-policy.md
-  - docs/tasks/administer-cluster/romana-network-policy.md
-  - docs/tasks/administer-cluster/weave-network-policy.md
+  - title: Install Network Policy Provider
+    section:
+    - docs/tasks/administer-cluster/calico-network-policy.md
+    - docs/tasks/administer-cluster/romana-network-policy.md
+    - docs/tasks/administer-cluster/weave-network-policy.md
   - docs/tasks/administer-cluster/change-pv-reclaim-policy.md
   - docs/tasks/administer-cluster/configure-pod-disruption-budget.md
   - docs/tasks/administer-cluster/limit-storage-consumption.md
@@ -126,6 +140,8 @@ toc:
   - docs/tasks/administer-cluster/running-cloud-controller.md
   - docs/tasks/administer-cluster/highly-available-master.md
   - docs/tasks/administer-cluster/configure-multiple-schedulers.md
+  - docs/tasks/administer-cluster/ip-masq-agent.md
+  - docs/tasks/administer-cluster/dns-custom-nameservers.md
   - title: Change Cluster Size
     path: https://github.com/kubernetes/kubernetes/wiki/User-FAQ#how-do-i-change-the-size-of-my-cluster/
 
@@ -134,6 +150,7 @@ toc:
   - docs/tasks/federation/federation-service-discovery.md
   - docs/tasks/federation/set-up-cluster-federation-kubefed.md
   - docs/tasks/federation/set-up-coredns-provider-federation.md
+  - docs/tasks/federation/set-up-placement-policies-federation.md
   - docs/tasks/administer-federation/cluster.md
   - docs/tasks/administer-federation/configmap.md
   - docs/tasks/administer-federation/daemonset.md
@@ -147,6 +164,7 @@ toc:
 - title: Manage Cluster Daemons
   section:
   - docs/tasks/manage-daemon/update-daemon-set.md
+  - docs/tasks/manage-daemon/rollback-daemon-set.md
 
 - title: Manage GPUs
   section:

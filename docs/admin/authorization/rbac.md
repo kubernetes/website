@@ -186,9 +186,10 @@ rules:
   verbs: ["update", "get"]
 ```
 
-Notably, `resourceNames` can NOT be used to limit requests using the "create" verb because
-authorizers only have access to information that can be obtained from the request URL, method,
-and headers (resource names in a "create" request are part of the request body).
+Notably, if `resourceNames` are set, then the verb must not be list, watch, create, or deletecollection.
+Because resource names are not present in the URL for create, list, watch, and deletecollection API requests,
+those verbs would not be allowed by a rule with resourceNames set, since the resourceNames portion of the
+rule would not match the request.
 
 #### Role Examples
 
@@ -247,7 +248,7 @@ Allow "GET" and "POST" requests to the non-resource endpoint "/healthz" and all 
 
 ```yaml
 rules:
-- nonResourceURLs: ["/healthz", "/healthz/*"]
+- nonResourceURLs: ["/healthz", "/healthz/*"] # '*' in a nonResourceURL is a suffix glob match
   verbs: ["get", "post"]
 ```
 
@@ -460,11 +461,12 @@ The permissions required by individual control loops are contained in the <a hre
 </tr>
 <tr>
 <td><b>system:node</b></td>
-<td><b>system:nodes</b> group</td>
-<td>Allows access to resources required by the kubelet component, <b>including read access to secrets, and write access to pods</b>.
-In the future, read access to secrets and write access to pods will be restricted to objects scheduled to the node.
-To maintain permissions in the future, Kubelets must identify themselves with the group <b>system:nodes</b> and a username in the form <b>system:node:&lt;node-name&gt;</b>.
-See <a href="https://pr.k8s.io/40476">https://pr.k8s.io/40476</a> for details.
+<td><b>system:nodes</b> group (deprecated in 1.7)</td>
+<td>Allows access to resources required by the kubelet component, <b>including read access to all secrets, and write access to all pods</b>.
+As of 1.7, use of the [Node authorizer](/docs/admin/authorization/node/) 
+and [NodeRestriction admission plugin](/docs/admin/admission-controllers#NodeRestriction) 
+is recommended instead of this role, and allow granting API access to kubelets based on the pods scheduled to run on them.
+As of 1.7, when the `Node` authorization mode is enabled, the automatic binding to the `system:nodes` group is not created.
 </td>
 </tr>
 <tr>

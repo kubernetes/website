@@ -19,7 +19,7 @@ This document describes the current state of `PersistentVolumes` in Kubernetes. 
 
 Managing storage is a distinct problem from managing compute. The `PersistentVolume` subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed.  To do this we introduce two new API resources:  `PersistentVolume` and `PersistentVolumeClaim`.
 
-A `PersistentVolume` (PV) is a piece of networked storage in the cluster that has been provisioned by an administrator.  It is a resource in the cluster just like a node is a cluster resource.   PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV.  This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+A `PersistentVolume` (PV) is a piece of storage in the cluster that has been provisioned by an administrator.  It is a resource in the cluster just like a node is a cluster resource.   PVs are volume plugins like Volumes, but have a lifecycle independent of any individual pod that uses the PV.  This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
 A `PersistentVolumeClaim` (PVC) is a request for storage by a user.  It is similar to a pod.  Pods consume node resources and PVCs consume PV resources.  Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., can be mounted once read/write or many times read-only).
 
@@ -127,6 +127,7 @@ However, the particular path specified in the custom recycler pod template in th
 * VMware Photon
 * Portworx Volumes
 * ScaleIO Volumes
+* StorageOS
 
 ## Persistent Volumes
 
@@ -151,7 +152,7 @@ Each PV contains a spec and status, which is the specification and status of the
 
 ### Capacity
 
-Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resources.md) to understand the units expected by `capacity`.
+Generally, a PV will have a specific storage capacity.  This is set using the PV's `capacity` attribute.  See the Kubernetes [Resource Model](https://git.k8s.io/community/contributors/design-proposals/resources.md) to understand the units expected by `capacity`.
 
 Currently, storage size is the only resource that can be set or requested.  Future attributes may include IOPS, throughput, etc.
 
@@ -195,6 +196,7 @@ In the CLI, the access modes are abbreviated to:
 | VsphereVolume        | &#x2713;     | -           | -            |
 | PortworxVolume       | &#x2713;     | -           | &#x2713;     |
 | ScaleIO              | &#x2713;     | &#x2713;    | -            |
+| StorageOS            | &#x2713;     | -           | -            |
 
 ### Class
 
@@ -252,7 +254,7 @@ spec:
     - "ReadWriteOnce"
   gcePersistentDisk:
     fsType: "ext4"
-    pdName: "gce-disk-1
+    pdName: "gce-disk-1"
 ```
 
 A mount option is a string which will be cumulatively joined and used while mounting volume to the disk. 
@@ -304,7 +306,7 @@ Claims use the same conventions as volumes when requesting storage with specific
 
 ### Resources
 
-Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/resources.md) applies to both volumes and claims.
+Claims, like pods, can request specific quantities of a resource.  In this case, the request is for storage.  The same [resource model](https://git.k8s.io/community/contributors/design-proposals/resources.md) applies to both volumes and claims.
 
 ### Selector
 
@@ -414,7 +416,7 @@ for provisioning PVs. This field must be specified.
 | Volume Plugin        | Internal Provisioner| Config Example                       |
 | :---                 |     :---:           |    :---:                             |
 | AWSElasticBlockStore | &#x2713;            | [AWS](#aws)                          |
-| AzureFile            | &#x2713;            | -                                    |
+| AzureFile            | &#x2713;            | [Azure File](#azure-file)            |
 | AzureDisk            | &#x2713;            | [Azure Disk](#azure-disk)            |
 | CephFS               | -                   | -                                    |
 | Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
@@ -435,7 +437,7 @@ for provisioning PVs. This field must be specified.
 You are not restricted to specifying the "internal" provisioners
 listed here (whose names are prefixed with "kubernetes.io" and shipped
 alongside Kubernetes). You can also run and specify external provisioners,
-which are independent programs that follow a [specification](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/volume-provisioning.md)
+which are independent programs that follow a [specification](https://git.k8s.io/community/contributors/design-proposals/volume-provisioning.md)
 defined by Kubernetes. Authors of external provisioners have full discretion
 over where their code lives, how the provisioner is shipped, how it needs to be
 run, what volume plugin it uses (including Flex), etc. The repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage)
@@ -446,6 +448,14 @@ For example, NFS doesn't provide an internal provisioner, but an external provis
 can be used. Some external provisioners are listed under the repository [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
 There are also cases when 3rd party storage vendors provide their own external
 provisioner.
+
+### Reclaim Policy
+Persistent Volumes that are dynamically created by a storage class will have a reclaim
+policy of `delete`.  If that is not desired, the only current option is to edit the
+PV after it is created.
+
+Persistent Volumes that are created manually and managed via a storage class will have
+whatever reclaim policy they were assigned at creation.
 
 ### Parameters
 Storage classes have parameters that describe volumes belonging to the storage
@@ -464,12 +474,13 @@ metadata:
 provisioner: kubernetes.io/aws-ebs
 parameters:
   type: io1
-  zone: us-east-1d
+  zones: us-east-1d, us-east-1c
   iopsPerGB: "10"
 ```
 
 * `type`: `io1`, `gp2`, `sc1`, `st1`. See [AWS docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) for details. Default: `gp2`.
-* `zone`: AWS zone. If not specified, volumes are generally round-robin-ed across all active zones where Kubernetes cluster has a node.
+* `zone`: AWS zone. If neither `zone` nor `zones` is specified, volumes are generally round-robin-ed across all active zones where Kubernetes cluster has a node. `zone` and `zones` parameters must not be used at the same time.
+* `zones`: A comma separated list of AWS zone(s). If neither `zone` nor `zones` is specified, volumes are generally round-robin-ed across all active zones where Kubernetes cluster has a node. `zone` and `zones` parameters must not be used at the same time.
 * `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS volume plugin multiplies this with size of requested volume to compute IOPS of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see [AWS docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html). A string is expected here, i.e. `"10"`, not `10`.
 * `encrypted`: denotes whether the EBS volume should be encrypted or not. Valid values are `"true"` or `"false"`. A string is expected here, i.e. `"true"`, not `true`.
 * `kmsKeyId`: optional. The full Amazon Resource Name of the key to use when encrypting the volume. If none is supplied but `encrypted` is true, a key is generated by AWS. See AWS docs for valid ARN value.
@@ -484,11 +495,12 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
-  zone: us-central1-a
+  zones: us-central1-a, us-central1-b
 ```
 
 * `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
-* `zone`: GCE zone. If not specified, volumes are generally round-robin-ed across all active zones where Kubernetes cluster has a node.
+* `zone`: GCE zone. If neither `zone` nor `zones` is specified, volumes are generally round-robin-ed across all active zones where Kubernetes cluster has a node. `zone` and `zones` parameters must not be used at the same time.
+* `zones`: A comma separated list of GCE zone(s). If neither `zone` nor `zones` is specified, volumes are generally round-robin-ed across all active zones where Kubernetes cluster has a node. `zone` and `zones` parameters must not be used at the same time.
 
 #### Glusterfs
 
@@ -519,7 +531,7 @@ parameters:
   ```
   $ kubectl create secret generic heketi-secret --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' --namespace=default
   ```
-  Example of a secret can be found in [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/kubernetes/blob/master/examples/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
+  Example of a secret can be found in [glusterfs-provisioning-secret.yaml](https://git.k8s.io/kubernetes/examples/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
 * `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster which will be used by Heketi when provisioning the volume. It can also be a list of clusterids, for ex:
   "8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397". This is an optional parameter.
 * `gidMin`, `gidMax` : The minimum and maximum value of GID range for the storage class. A unique value (GID) in this range ( gidMin-gidMax ) will be used for dynamically provisioned volumes. These are optional values. If not specified, the volume will be provisioned with a value between 2000-2147483647 which are defaults for gidMin and gidMax respectively.
@@ -551,7 +563,7 @@ parameters:
   availability: nova
 ```
 
-* `type`: [VolumeType](http://docs.openstack.org/admin-guide/dashboard-manage-volumes.html) created in Cinder. Default is empty.
+* `type`: [VolumeType](https://docs.openstack.org/user-guide/dashboard-manage-volumes.html) created in Cinder. Default is empty.
 * `availability`: Availability Zone. If not specified, volumes are generally round-robin-ed across all active zones where Kubernetes cluster has a node.
 
 #### vSphere
@@ -614,7 +626,7 @@ parameters:
 
     vSphere Infrastructure(VI) administrator can specify storage requirements for applications in terms of storage capabilities while creating a storage class inside Kubernetes. Please note that while creating a StorageClass, administrator should specify storage capability names used in the table above as these names might differ from the ones used by VSAN. For example - Number of disk stripes per object is referred to as stripeWidth in VSAN documentation however vSphere Cloud Provider uses a friendly name diskStripes.
 
-You can see [vSphere example](https://github.com/kubernetes/kubernetes/tree/master/examples/volumes/vsphere) for more details.
+You can see [vSphere example](https://git.k8s.io/kubernetes/examples/volumes/vsphere) for more details.
 
 #### Ceph RBD
 
@@ -694,6 +706,27 @@ parameters:
 * `location`: Azure storage account location. Default is empty.
 * `storageAccount`: Azure storage account name. If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
+#### Azure File
+
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: azurefile
+provisioner: kubernetes.io/azure-file
+parameters:
+  skuName: Standard_LRS
+  location: eastus
+  storageAccount: azure_storage_account_name
+```
+
+* `skuName`: Azure storage account Sku tier. Default is empty.
+* `location`: Azure storage account location. Default is empty.
+* `storageAccount`: Azure storage account name.  Default is empty.
+If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
+
+During provision, a secret will be created for mounting credentials. If the cluster has enabled both [RBAC](/docs/admin/authorization/rbac/) and [Controller Roles](/docs/admin/authorization/rbac/#controller-roles), you will first need to add `create` permission of resource `secret` for clusterrole `system:controller:persistent-volume-binder`.
+ 
 #### Portworx Volume
 
 ```yaml
@@ -741,17 +774,47 @@ parameters:
 * `protectionDomain`: the name of the ScaleIO protection domain
 * `storagePool`: the name of the volume storage pool
 * `storageMode`: the storage provision mode: `ThinProvisionned` (default) or `ThickProvisionned`
-* `secretRef`: reference to a configuered Secret object (required, see detail below)
+* `secretRef`: reference to a configured Secret object (required, see detail below)
 * `readOnly`: specifies the access mode to the mounted volume
 * `fsType`: the file system to use for the volume
 
-The ScaleIO Kubernetes volume plugin requires a configuered Secret object. 
+The ScaleIO Kubernetes volume plugin requires a configured Secret object. 
 The secret must be created with type `kubernetes.io/scaleio` and use the same namespace value as that of the PVC where it is referenced
 as shown in the following command:
 
 ```
 $> kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" --from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== --namespace=default
 ```
+
+#### StorageOS
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: fast
+provisioner: kubernetes.io/storageos
+parameters:
+  pool: default
+  description: Kubernetes volume
+  fsType: ext4
+  adminSecretNamespace: default
+  adminSecretName: storageos-secret
+```
+
+* `pool`: The name of the StorageOS distributed capacity pool to provision the volume from.  Uses the `default` pool which is normally present if not specified.
+* `description`: The description to assign to volumes that were created dynamically.  All volume descriptions will be the same for the storage class, but different storage classes can be used to allow descriptions for different use cases.  Defaults to `Kubernetes volume`.
+* `fsType`: The default filesystem type to request.  Note that user-defined rules within StorageOS may override this value.  Defaults to `ext4`.
+* `adminSecretNamespace`: The namespace where the API configuration secret is located.  Required if adminSecretName set.
+* `adminSecretName`: The name of the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+
+The StorageOS Kubernetes volume plugin can use a Secret object to specify an endpoint and credentials to access the StorageOS API.  This is only required when the defaults have been changed.
+The secret must be created with type `kubernetes.io/storageos` as shown in the following command:
+
+```
+$ kubectl create secret generic storageos-secret --type="kubernetes.io/storageos" --from-literal=apiAddress=tcp://localhost:5705 --from-literal=apiUsername=storageos --from-literal=apiPassword=storageos --namespace=default
+```
+
+Secrets used for dynamically provisioned volumes may be created in any namespace and referenced with the `adminSecretNamespace` parameter.  Secrets used by pre-provisioned volumes must be created in the same namespace as the PVC that references it.
 
 ## Writing Portable Configuration
 

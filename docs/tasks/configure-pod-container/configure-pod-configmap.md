@@ -8,7 +8,7 @@ This page provides a series of usage examples demonstrating how to configure Pod
 
 {% capture prerequisites %}
 * {% include task-tutorial-prereqs.md %}
-* [Create a ConfigMap](/docs/tasks/configure-pod-container/configmap.html)
+* [Create a ConfigMap](/docs/tasks/configure-pod-container/configmap/)
 {% endcapture %}
 
 {% capture steps %}
@@ -202,7 +202,7 @@ data:
 ### Populate a Volume with data stored in a ConfigMap
 
 Add the ConfigMap name under the `volumes` section of the Pod specification. 
-This adds the ConfigMap data to the directory specified as `volumeMount.mountPath` (in this case, `/etc/config`).
+This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
 The `command` section references the `special.level` item stored in the ConfigMap.
 
 ```yaml
@@ -248,7 +248,7 @@ spec:
   containers:
     - name: test-container
       image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh","-c","cat /etc/config/keys/special.level" ]
+      command: [ "/bin/sh","-c","cat /etc/config/keys" ]
       volumeMounts:
       - name: config-volume
         mountPath: /etc/config
@@ -258,11 +258,11 @@ spec:
         name: special-config
         items:
         - key: special.level
-          path: /keys
+          path: keys
   restartPolicy: Never
 ```
 
-When the pod runs, the command (`"cat /etc/config/keys/special.level"`) produces the output below:
+When the pod runs, the command (`"cat /etc/config/keys"`) produces the output below:
 
 ```shell
 very
@@ -272,6 +272,10 @@ very
 
 You can project keys to specific paths and specific permissions on a per-file
 basis. The [Secrets](/docs/concepts/configuration/secret#using-secrets-as-files-from-a-pod) user guide explains the syntax.
+
+### Mounted ConfigMaps are updated automatically
+
+When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period + ttl of ConfigMaps cache in kubelet.
 
 {% endcapture %}
 

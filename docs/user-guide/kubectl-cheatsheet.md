@@ -168,6 +168,9 @@ $ kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-ser
 
 # Update a container's image using a json patch with positional arrays
 $ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/containers/0/image", "value":"new image"}]'
+
+# Disable a deployment livenessProbe using a json patch with positional arrays
+$ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 ```
 
 ## Editing Resources
@@ -276,3 +279,19 @@ Output format | Description
 `-o=name`     | Print only the resource name and nothing else
 `-o=wide`     | Output in the plain-text format with any additional information, and for pods, the node name is included
 `-o=yaml`     | Output a YAML formatted API object
+
+### Kubectl output verbosity and debugging
+
+Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md).
+
+Verbosity | Description
+--------------| -----------
+`--v=0` | Generally useful for this to ALWAYS be visible to an operator.
+`--v=1` | A reasonable default log level if you don't want verbosity.
+`--v=2` | Useful steady state information about the service and important log messages that may correlate to significant changes in the system. This is the recommended default log level for most systems.
+`--v=3` | Extended information about changes.
+`--v=4` | Debug level verbosity.
+`--v=6` | Display requested resources.
+`--v=7` | Display HTTP request headers.
+`--v=8` | Display HTTP request contents.
+

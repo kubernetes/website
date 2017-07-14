@@ -13,7 +13,7 @@ requests specified, the scheduler can make better decisions about which nodes to
 place Pods on. And when Containers have their limits specified, contention for
 resources on a node can be handled in a specified manner. For more details about
 the difference between requests and limits, see
-[Resource QoS](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-qos.md).
+[Resource QoS](https://git.k8s.io/community/contributors/design-proposals/resource-qos.md).
 
 {% endcapture %}
 
@@ -133,8 +133,8 @@ to the container runtime.
 When using Docker:
 
 - The `spec.containers[].resources.requests.cpu` is converted to its core value,
-  which is potentially fractional, and multiplied by 1024. This number is used
-  as the value of the
+  which is potentially fractional, and multiplied by 1024. The greater of this number
+  or 2 is used as the value of the
   [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
   flag in the `docker run` command.
 
@@ -243,7 +243,7 @@ The amount of resources available to Pods is less than the node capacity, becaus
 system daemons use a portion of the available resources. The `allocatable` field
 [NodeStatus](/docs/resources-reference/v1.6/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
-[Node Allocatable Resources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node-allocatable.md).
+[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md).
 
 The [resource quota](/docs/concepts/policy/resource-quotas/) feature can be configured
 to limit the total amount of resources that can be consumed. If used in conjunction
