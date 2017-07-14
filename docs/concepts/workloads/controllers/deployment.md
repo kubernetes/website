@@ -526,13 +526,13 @@ deployment "nginx-deployment" paused
 
 Then update the image of the Deployment:
 ```shell
-$ kubectl set image deploy/nginx nginx=nginx:1.9.1
+$ kubectl set image deploy/nginx-deployment nginx=nginx:1.9.1
 deployment "nginx-deployment" image updated
 ```
 
 Notice that no new rollout started:
 ```shell
-$ kubectl rollout history deploy/nginx
+$ kubectl rollout history deploy/nginx-deployment
 deployments "nginx"
 REVISION  CHANGE-CAUSE
 1   <none>
@@ -553,7 +553,7 @@ the Deployment will not have any effect as long as the Deployment is paused.
 
 Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
 ```shell
-$ kubectl rollout resume deploy nginx
+$ kubectl rollout resume deploy/nginx-deployment
 deployment "nginx" resumed
 $ kubectl get rs -w
 NAME               DESIRED   CURRENT   READY     AGE
@@ -609,7 +609,7 @@ You can check if a Deployment has completed by using `kubectl rollout status`. I
 successfully, `kubectl rollout status` returns a zero exit code.
 
 ```shell
-$ kubectl rollout status deploy/nginx
+$ kubectl rollout status deploy/nginx-deployment
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
 deployment "nginx" successfully rolled out
 $ echo $?
@@ -738,7 +738,7 @@ You can check if a Deployment has failed to progress by using `kubectl rollout s
 returns a non-zero exit code if the Deployment has exceeded the progression deadline.
 
 ```shell
-$ kubectl rollout status deploy/nginx
+$ kubectl rollout status deploy/nginx-deployment
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline
 $ echo $?
