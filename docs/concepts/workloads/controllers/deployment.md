@@ -799,8 +799,7 @@ allowed, which is the default if not specified.
 `.spec.selector` is an optional field that specifies a [label selector](/docs/concepts/overview/working-with-objects/labels/)
 for the Pods targeted by this deployment.
 
-If specified, `.spec.selector` must match `.spec.template.metadata.labels`, or it will be rejected by
-the API.  If `.spec.selector` is unspecified, `.spec.selector.matchLabels` will be defaulted to
+If `.spec.selector` is unspecified, `.spec.selector.matchLabels` will be defaulted to
 `.spec.template.metadata.labels`.
 
 Deployment may kill Pods whose labels match the selector, in the case that their template is different
