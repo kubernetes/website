@@ -197,7 +197,7 @@ is pending with a message of this type, there are several things to try:
 - Add more nodes to the cluster.
 - Terminate unneeded Pods to make room for pending Pods.
 - Check that the Pod is not larger than all the nodes. For example, if all the
-  nodes have a capacity of `cpu: 1`, then a Pod with a limit of `cpu: 1.1` will
+  nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
   never be scheduled.
 
 You can check node capacities and amounts allocated with the
