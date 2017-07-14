@@ -3,7 +3,7 @@ assignees:
 - smarterclayton
 - lavalamp
 - whitlockjc
-- caesrxuchao
+- caesarxuchao
 title: Dynamic Admission Control
 ---
 
@@ -99,13 +99,13 @@ API](/docs/api-reference/{{page.version}}/#deployment-v1beta1-apps).
 ### Configure initializers on the fly
 
 You can configure what initializers are enabled and what resources are subject
-to the initializers by creating `initializerconfigurations`.
+to the initializers by creating `initializerConfiguration` resources.
 
 You should first deploy the initializer controller and make sure that it is
-working properly before creating the `initializerconfigurations`. Otherwise, any
+working properly before creating the `initializerConfiguration`. Otherwise, any
 newly created resources will be stuck in an uninitialized state.
 
-The following is an example `initiallizerConfiguration`.
+The following is an example `initializerConfiguration`:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
@@ -125,6 +125,11 @@ initializers:
         resources:
           - pods
 ```
+
+Once this `initializerConfiguration` named `example-config` is created, the
+new resources of `apiVersion: v1` and `kind: Pod` will automatically be updated
+to include `"podimage.example.com"` initializer in its `metadata.initializers`
+field.
 
 Make sure that all expansions of the `<apiGroup, apiVersions, resources>` tuple
 in a `rule` are valid. If they are not, separate them in different `rules`.
@@ -232,7 +237,7 @@ it is working properly before creating the externaladmissionhookconfigurations.
 Otherwise, depending whether the webhook is configured as fail open or fail
 closed, operations will be unconditionally accepted or rejected. 
 
-The following is an example externaladmissionhookconfiguration.
+The following is an example `externaladmissionhookconfiguration`:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
