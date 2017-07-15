@@ -124,7 +124,8 @@ with future high-availability support.
 
 ### Programmatic access to the API
 
-Kubernetes supports [Go](#go-client) and [Python](#python-client) client libraries.
+Kubernetes officially supports [Go](#go-client) and [Python](#python-client)
+client libraries.
 
 #### Go client
 
@@ -145,7 +146,8 @@ as the kubectl CLI does to locate and authenticate to the apiserver. See this [e
 
 #### Other languages
 
-There are [client libraries](https://git.k8s.io/community/contributors/devel/client-libraries.md) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
+There are [client libraries](/docs/reference/client-libraries/) for accessing the API from other languages.
+See documentation for other libraries for how they authenticate.
 
 ### Accessing the API from a Pod
 
