@@ -12,6 +12,15 @@ assignees:
   * [1.6](/docs/api-reference/v1.6/)
   * [1.5](/docs/api-reference/v1.5/)
 
+## API Client Libraries
+
+To call the Kubernetes API from a programming language, you can use
+[client libraries](/docs/reference/client-libraries/). Officially supported
+client libraries:
+
+- [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
+- [Kubernetes Python client libary](https://github.com/kubernetes-incubator/client-python)
+
 ## CLI Reference
 
 * [kubectl](/docs/user-guide/kubectl-overview) - Main CLI tool for running commands and managing Kubernetes clusters.

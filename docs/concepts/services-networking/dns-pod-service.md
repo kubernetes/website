@@ -51,7 +51,7 @@ selection from the set.
 #### SRV records
 
 SRV Records are created for named ports that are part of normal or [Headless
-Services](https://kubernetes.io/docs/user-guide/services/#headless-services).
+Services](/docs/concepts/services-networking/service/#headless-services).
 For each named port, the SRV record would have the form
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local`.
 For a regular service, this resolves to the port number and the CNAME:

@@ -126,10 +126,4 @@ Connecting to nginx (10.100.0.16:80)
 ```
 {% endcapture %}
 
-
-{% capture whatsnext %}
-Learn more about [kubectl proxy](/docs/user-guide/kubectl/v1.6/#proxy).
-{% endcapture %}
-
 {% include templates/task.md %}
-
