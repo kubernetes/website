@@ -41,7 +41,7 @@ This page describes how to use Initializers and External Admission Webhooks.
 
 Once the controller has performed its assigned task, it removes its name from
 the list. For example, it may send a PATCH that inserts a container in a pod and
-also removes its name from `metadata.initializers`. Initializers may make
+also removes its name from `metadata.initializers.pending`. Initializers may make
 mutations to objects.
 
 Objects which have a non-empty initializer list are considered uninitialized,
@@ -64,7 +64,7 @@ external admission webhooks, as they have better performance.
 When an object is POSTed, it is checked against all existing
 `initializerConfiguration` objects (explained below). For all that it matches,
 all `spec.initializers[].name`s are appended to the new object's
-`metadata.initializers` field.
+`metadata.initializers.pending` field.
 
 An initializer controller should list and watch for uninitialized objects, by
 using the query parameter `?includeUninitialized=true`. If using client-go, just
@@ -73,7 +73,7 @@ set
 to true.
 
 For the observed uninitialized objects, an initializer controller should first
-check if its name matches `metadata.initializers[0]`. If so, it should then
+check if its name matches `metadata.initializers.pending[0]`. If so, it should then
 perform its assigned task and remove its name from the list.
 
 ### Enable initializers alpha feature
@@ -126,16 +126,15 @@ initializers:
           - pods
 ```
 
-Once this `initializerConfiguration` named `example-config` is created, the
-new resources of `apiVersion: v1` and `kind: Pod` will automatically be updated
-to include `"podimage.example.com"` initializer in its `metadata.initializers`
-field.
+After you create the `initializerConfiguration`, the system will take a few
+seconds to honor the new configuration. Then, `"podimage.example.com"` will be
+appended to the `metadata.initializers.pending` field of newly created pods. You
+should already have a ready "podimage" initializer controller that handles pods
+whose `metadata.initializers.pending[0].name="podimage.example.com"`. Otherwise
+the pods will stuck uninitialized.
 
 Make sure that all expansions of the `<apiGroup, apiVersions, resources>` tuple
 in a `rule` are valid. If they are not, separate them in different `rules`.
-
-After you create the `initializerConfiguration`, the system will take a few
-seconds to honor the new configuration.
 
 ## External Admission Webhooks
 
