@@ -5,7 +5,7 @@ notitle: true
 ## kube-apiserver
 
 
-
+<!--
 ### Synopsis
 
 
@@ -17,13 +17,33 @@ cluster's shared state through which all other components interact.
 ```
 kube-apiserver
 ```
+-->
+### 概要
 
-### Options
+
+Kubernetes API server为api对象验证并配置数据，包括pods, services, replicationcontrollers和其它api对象。API Server提供REST操作和集群共享状态的前端，所有其他节点通过它进行交互。
 
 ```
+kube-apiserver
+```
+<!--
+### Options
+-->
+### 选项
+```
+<!--
       --admission-control stringSlice                           Ordered list of plug-ins to do admission control of resources into cluster. Comma-delimited list of: NamespaceLifecycle. (default [AlwaysAdmit])
+-->
+      --admission-control stringSlice                           控制资源进入集群的准入控制插件有序列表。逗号分隔的NamespaceLifecycle列表。(默认值[AlwaysAdmit])
+<!--
       --admission-control-config-file string                    File with admission control configuration.
+-->
+      --admission-control-config-file string                    准入控制配置文件。
+<!--
       --advertise-address ip                                    The IP address on which to advertise the apiserver to members of the cluster. This address must be reachable by the rest of the cluster. If blank, the --bind-address will be used. If --bind-address is unspecified, the host's default interface will be used.
+-->
+      --advertise-address ip                                    向集群成员通知apiserver消息的IP地址。这个地址必须是能够被集群其他成员访问的。如果IP地址为空，--bind-address将会被使用，如果--bind-address未指定，则会使用主机的默认接口。
+      
       --allow-privileged                                        If true, allow privileged containers.
       --anonymous-auth                                          Enables anonymous requests to the secure port of the API server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of system:anonymous, and a group name of system:unauthenticated. (default true)
       --apiserver-count int                                     The number of apiservers running in the cluster, must be a positive number. (default 1)
