@@ -48,7 +48,7 @@ Once you have that file, source it into your environment by typing
 . ~/path/to/openrc.sh
 ```
 
-This provider will consume the [correct variables](http://docs.openstack.org/user-guide/common/cli_set_environment_variables_using_openstack_rc.html) to talk to OpenStack and turn-up the Kubernetes cluster.
+This provider will consume the [correct variables](https://docs.openstack.org/user-guide/common/cli-set-environment-variables-using-openstack-rc.html) to talk to OpenStack and turn-up the Kubernetes cluster.
 
 Otherwise, you must set the following appropriately:
 
