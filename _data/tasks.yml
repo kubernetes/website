@@ -21,7 +21,6 @@ toc:
   - docs/tasks/configure-pod-container/configure-service-account.md
   - docs/tasks/configure-pod-container/pull-image-private-registry.md
   - docs/tasks/configure-pod-container/pull-image-gcr.md
-  - docs/tasks/configure-pod-container/pull-image-ecr.md
   - docs/tasks/configure-pod-container/configure-liveness-readiness-probes.md
   - docs/tasks/configure-pod-container/assign-pods-nodes.md
   - docs/tasks/configure-pod-container/configure-pod-initialization.md
