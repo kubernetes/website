@@ -2,3 +2,5 @@
 # set server-side redirects in this file
 # see https://www.netlify.com/docs/redirects/
 #
+
+/docs/user-guide/add-entries-to-pod-etc-hosts-with-host-aliases/    /docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/      301
