@@ -220,6 +220,12 @@ Current reclaim policies are:
 
 Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk, and Cinder volumes support deletion.
 
+When the Retain reclaim policy is specified, you can manually reclaim your volume with the following steps.
+- Delete the `PersistentVolumeClaim`. `PersistentVolume` remains after deletion of PVC.
+- Delete the `PersistentVolume`. The volume on storage asset remains after deletion of PV.
+- Manually clean up the data on the volume accordingly.
+- Manually delete the volume, or if you want to reuse the same volume, create a new `PersistentVolume` with the volume definition.
+
 ### Phase
 
 A volume will be in one of the following phases:
@@ -451,8 +457,8 @@ provisioner.
 
 ### Reclaim Policy
 Persistent Volumes that are dynamically created by a storage class will have a reclaim
-policy of `delete`.  If that is not desired, the only current option is to edit the
-PV after it is created.
+policy of `delete`.  If that is not desired, the only current option is to edit or patch
+the PV after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
 
 Persistent Volumes that are created manually and managed via a storage class will have
 whatever reclaim policy they were assigned at creation.
