@@ -32,11 +32,12 @@ defaults:
 permalink: pretty
 
 gems:
-  - jekyll-redirect-from
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-include-cache
+# disabled gems
+#  - jekyll-redirect-from
 
 # SEO
 logo: /images/favicon.png
