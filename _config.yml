@@ -39,6 +39,8 @@ gems:
 # disabled gems
 #  - jekyll-redirect-from
 
+include: _redirects
+
 # SEO
 logo: /images/favicon.png
 twitter:
