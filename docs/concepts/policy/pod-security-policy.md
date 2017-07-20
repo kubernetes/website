@@ -199,6 +199,29 @@ following
 
 ## Working With RBAC
 
-In Kubernetes 1.5 and newer, you can use PodSecurityPolicy to control access to privileged containers based on user role and groups. Access to different PodSecurityPolicy objects can be controlled via authorization. To limit access to PodSecurityPolicy objects for pods created via a Deployment, ReplicaSet, etc, the [Controller Manager](/docs/admin/kube-controller-manager/) must be run against the secured API port, and must not have superuser permissions.
+In Kubernetes 1.5 and newer, you can use PodSecurityPolicy to control access to
+privileged containers based on user role and groups. Access to different
+PodSecurityPolicy objects can be controlled via authorization.
 
-PodSecurityPolicy authorization uses the union of all policies available to the user creating the pod and the service account specified on the pod. When pods are created via a Deployment, ReplicaSet, etc, it is Controller Manager that creates the pod, so if it is running against the unsecured API port, all PodSecurityPolicy objects would be allowed, and you could not effectively subdivide access. Access to given PSP policies for a user will be effective only when deploying Pods directly. For more details, see the [PodSecurityPolicy RBAC example](https://git.k8s.io/examples/staging/podsecuritypolicy/rbac/README.md) of applying PodSecurityPolicy to control access to privileged containers based on role and groups when deploying Pods directly.
+Note that [Controller Manager](/docs/admin/kube-controller-manager/) must be run
+against [the secured API port](/docs/admin/accessing-the-api/), and must not
+have superuser permissions. Otherwise requests would bypass authentication and
+authorization modules, all PodSecurityPolicy objects would be allowed,
+and user will be able to create privileged containers.
+
+PodSecurityPolicy authorization uses the union of all policies available to the
+user creating the pod and
+[the service account specified on the pod](/docs/tasks/configure-pod-container/configure-service-account/).
+
+Access to given PSP policies for a user will be effective only when creating
+Pods directly.
+
+For pods created on behalf of a user, in most cases by Controller Manager,
+access should be given to the service account specified on the pod spec
+template. Examples of resources that create pods on behalf of a user are
+Deployments, ReplicaSets, etc.
+
+For more details, see the
+[PodSecurityPolicy RBAC example](https://git.k8s.io/examples/staging/podsecuritypolicy/rbac/README.md)
+of applying PodSecurityPolicy to control access to privileged containers based
+on role and groups when deploying Pods directly.
