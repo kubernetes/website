@@ -281,6 +281,23 @@ $ minikube start --docker-env HTTP_PROXY=http://$YOURPROXY:PORT \
                  --docker-env HTTPS_PROXY=https://$YOURPROXY:PORT
 ```
 
+If the operation above doesn't work on your computer,try restarting Docker daemon with the proxy settings directly in Virtual Machine to fix this.
+
+For example:
+
+```shell
+$ minikube start&&minikube ssh
+```
+
+You are now in the shell of Virtual Machine.
+Then execute following commands:
+
+```
+$ echo -e '[Service]\nEnvironment="HTTP_PROXY=http://$YOURPROXY:PORT"'>>/etc/systemd/system/docker.service.d/http-proxy.conf
+$ sudo systemctl daemon-reload && sudo systemctl restart docker
+```
+`exit` will exit the Virtual Machine shell.
+
 If your Virtual Machine address is 192.168.99.100, then chances are your proxy settings will prevent kubectl from directly reaching it.
 To by-pass proxy configuration for this IP address, you should modify your no_proxy settings. You can do so with:
 
