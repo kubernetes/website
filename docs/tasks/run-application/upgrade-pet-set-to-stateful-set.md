@@ -30,7 +30,12 @@ Here are some notable changes:
 
 * **StatefulSet is the new PetSet**: PetSet is no longer available in Kubernetes release 1.5 or later. It becomes beta StatefulSet. To understand why the name was changed, see this [discussion thread](https://github.com/kubernetes/kubernetes/issues/27430).
 * **StatefulSet guards against split brain**: StatefulSets guarantee at most one Pod for a given ordinal index can be running anywhere in a cluster, to guard against split brain scenarios with distributed applications. *TODO: Link to doc about fencing.*
-* **Flipped debug annotation behavior**: The default value of the debug annotation (`pod.alpha.kubernetes.io/initialized`) is now `true`. The absence of this annotation will pause PetSet operations, but will NOT pause StatefulSet operations. In most cases, you no longer need this annotation in your StatefulSet manifests.
+* **Flipped debug annotation behavior**:
+  The default value of the debug annotation (`pod.alpha.kubernetes.io/initialized`) is `true` in 1.5 through 1.7.
+  The annotation is completely ignored in 1.8 and above, which always behave as if it were `true`.
+
+  The absence of this annotation will pause PetSet operations, but will NOT pause StatefulSet operations.
+  In most cases, you no longer need this annotation in your StatefulSet manifests.
 
 
 ## Upgrading from PetSets to StatefulSets
@@ -66,7 +71,14 @@ Now, for every PetSet manifest you have, prepare a corresponding StatefulSet man
 
 1. Change `apiVersion` from `apps/v1alpha1` to `apps/v1beta1`.
 2. Change `kind` from `PetSet` to `StatefulSet`.
-3. If you have the debug hook annotation `pod.alpha.kubernetes.io/initialized` set to `true`, you can remove it because it's redundant. If you don't have this annotation, you should add one, with the value set to `false`, to pause StatefulSets operations.
+3. If you have the debug hook annotation `pod.alpha.kubernetes.io/initialized` set to `true`,
+   you can remove it because it's redundant.
+   If you don't have this annotation or have it set to `false`,
+   be aware that StatefulSet operations might resume after the upgrade.
+
+   If you are upgrading to 1.6 or 1.7, you can set the annotation explicitly to `false` to maintain
+   the paused behavior.
+   If you are upgrading to 1.8 or above, there's no longer any debug annotation to pause StatefulSets.
 
 It's recommended that you keep both PetSet manifests and StatefulSet manifests, so that you can safely roll back and recreate your PetSets,
 if you decide not to upgrade your cluster.
