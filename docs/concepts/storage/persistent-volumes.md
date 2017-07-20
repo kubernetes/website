@@ -67,13 +67,17 @@ Pods use claims as volumes. The cluster inspects the claim to find the bound vol
 
 Once a user has a claim and that claim is bound, the bound PV belongs to the user for as long as they need it. Users schedule Pods and access their claimed PVs by including a persistentVolumeClaim in their Pod's volumes block. [See below for syntax details](#claims-as-volumes).
 
-### Releasing
-
-When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource.  The volume is considered "released" when the claim is deleted, but it is not yet available for another claim.  The previous claimant's data remains on the volume which must be handled according to policy.
-
 ### Reclaiming
 
-The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim.  Currently, volumes can either be Retained, Recycled or Deleted.  Retention allows for manual reclamation of the resource.  For those volume plugins that support it, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume).  Volumes that were dynamically provisioned are always deleted.
+When a user is done with their volume, they can delete the PVC objects from the API which allows reclamation of the resource.　The reclaim policy for a `PersistentVolume` tells the cluster what to do with the volume after it has been released of its claim.  Currently, volumes can either be Retained, Recycled or Deleted.
+
+#### Retaining
+
+The Retain reclaim policy allows for manual reclamation of the resource. When the `PersistentVolumeClaim` is deleted, the `PersistentVolume` still exists and the volume is considered "released". But it is not yet available for another claim because the previous claimant's data remains on the volume. An administrator can manually reclaim the volume with the following steps.
+
+- Delete the `PersistentVolume`. The underlying volume still exists after the PV is deleted.
+- Manually clean up the data on the volume accordingly.
+- Manually delete the volume, or if you want to reuse the same volume, create a new `PersistentVolume` with the volume definition.
 
 #### Recycling
 
@@ -103,6 +107,10 @@ spec:
 ```
 
 However, the particular path specified in the custom recycler pod template in the `volumes` part is replaced with the particular path of the volume that is being recycled.
+
+#### Deleting
+
+When those volume plugins that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume). Volumes that were dynamically provisioned are always deleted. If that is not desired, the only current option is to edit the PV after it is created.  See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
 
 ## Types of Persistent Volumes
 
@@ -219,12 +227,6 @@ Current reclaim policies are:
 * Delete -- associated storage asset such as AWS EBS, GCE PD, Azure Disk, or OpenStack Cinder volume is deleted
 
 Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk, and Cinder volumes support deletion.
-
-When the Retain reclaim policy is specified, you can manually reclaim your volume with the following steps.
-- Delete the `PersistentVolumeClaim`. `PersistentVolume` remains after deletion of PVC.
-- Delete the `PersistentVolume`. The volume on storage asset remains after deletion of PV.
-- Manually clean up the data on the volume accordingly.
-- Manually delete the volume, or if you want to reuse the same volume, create a new `PersistentVolume` with the volume definition.
 
 ### Phase
 
@@ -458,7 +460,7 @@ provisioner.
 ### Reclaim Policy
 Persistent Volumes that are dynamically created by a storage class will have a reclaim
 policy of `delete`.  If that is not desired, the only current option is to edit or patch
-the PV after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+the PV after it is created.
 
 Persistent Volumes that are created manually and managed via a storage class will have
 whatever reclaim policy they were assigned at creation.
