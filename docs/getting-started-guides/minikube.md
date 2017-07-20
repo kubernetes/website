@@ -292,7 +292,7 @@ $ minikube start&&minikube ssh
 You are now in the shell of Virtual Machine.
 Then execute following commands:
 
-```
+```shell
 $ echo -e '[Service]\nEnvironment="HTTP_PROXY=http://$YOURPROXY:PORT"'>>/etc/systemd/system/docker.service.d/http-proxy.conf
 $ sudo systemctl daemon-reload && sudo systemctl restart docker
 ```
