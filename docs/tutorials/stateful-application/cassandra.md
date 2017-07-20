@@ -1,5 +1,5 @@
 ---
-title: Deploying Cassandra with Stateful Sets
+title: Deploying Cassandra a StatefulSet
 ---
 
 {% capture overview %}
@@ -50,20 +50,20 @@ kubectl create -f cassandra-service.yaml
 
 ### Validating (optional)
 
-1. Get the Cassandra `Service`.
+* Get the Cassandra `Service`.
 
 ```shell
 kubectl get svc cassandra
 ```
 
-2. The response should be
+The response should be
 
 ```console
 NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
 cassandra   None         <none>        9042/TCP   45s
 ```
 
-   If anything else returns, the service was not successfully created. Check out [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
+If anything else returns, the service was not successfully created. Check out [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
 
 ## Using a StatefulSet to Create a Cassandra Ring
 
@@ -98,6 +98,7 @@ cassandra   3         0         13s
 
    The StatefulSet resource deploys pods sequentially.  
 
+{:start="2"}
 2. Get the Pods to see the ordered creation status:
 
 ```shell
@@ -150,21 +151,23 @@ spec:
   replicas: 3
 ```
 
+{:start="2"}
 2. Increase the number of replicas to 4, and then save the manifest. 
 
    The StatefulSet now contains 4 pods.
 
 3. Get the Cassandra StatefulSet to verify:
 
-  ```shell
-  kubectl get statefulset cassandra
-  ```
+```shell
+kubectl get statefulset cassandra
+```
+
   The response should be
 
-  ```console
-  NAME        DESIRED   CURRENT   AGE
-  cassandra   4         4         36m
-  ```
+```console
+NAME        DESIRED   CURRENT   AGE
+cassandra   4         4         36m
+```
 {% endcapture %}
 
 {% capture cleanup %}
