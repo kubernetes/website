@@ -21,7 +21,7 @@ You should already have a basic familiarity with [Pods](#), [Services](#), and [
 
 Check out the the [getting started guides](/docs/setup/pick-right-solution/) if you don’t already have a cluster. 
 
-Warning: [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors. {: .notice}  
+Warning: [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors. 
 
 To avoid these errors add the flags `--memory 5120` and `--cpus=4` to `minikube start`
 
@@ -66,7 +66,7 @@ If anything else returns, the service was not successfully created. Check out [D
 The StatefulSet manifest, included below, creates a Cassandra ring that consists
 of three pods.
 
-Note: This example uses the default provisioner for Minikube. Please update the following StatefulSet for the cloud you are working with. {: .notice}
+Note: This example uses the default provisioner for Minikube. Please update the following StatefulSet for the cloud you are working with. 
 
 1. Update the StatefulSet if necessary.
 2. Create the Cassandra StatefulSet from the following .yaml file:
@@ -102,7 +102,7 @@ cassandra-0   1/1       Running             0          1m
 cassandra-1   0/1       ContainerCreating   0          8s
 ```
 
-Note: It can take up to ten minutes for all three pods to deploy. {: .notice} 
+Note: It can take up to ten minutes for all three pods to deploy. 
 
 Once all pods are deployed, the same command will return:
 
@@ -164,7 +164,7 @@ cassandra   4         4         36m
 {% capture cleanup %}
 Deleting or scaling a StatefulSet down will not delete the volumes associated with the StatefulSet. This is done to ensure safety first, your data is more valuable than an auto purge of all related StatefulSet resources. 
 
-Warning: Depending on the storage class and reclaim policy, deleting the Persistent Volume Claims may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted. {: .notice}
+Warning: Depending on the storage class and reclaim policy, deleting the Persistent Volume Claims may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted. 
 
 * Run the following command to delete everything in a StatefulSet:
 
