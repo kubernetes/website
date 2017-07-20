@@ -168,7 +168,7 @@ Warning: Depending on the storage class and reclaim policy, deleting the Persist
 
 * Run the following command to delete everything in a StatefulSet:
 
-```shell{% raw %}
+```shell
 grace=$(kubectl get po cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
   && kubectl delete statefulset -l app=cassandra \
   && echo "Sleeping $grace" \
