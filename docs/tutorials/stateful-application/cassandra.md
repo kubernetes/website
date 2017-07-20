@@ -16,7 +16,9 @@ This tutorial will show you how to develop a native cloud [Cassandra](http://cas
 
 {% capture prerequisites %}
 You should already have a basic familiarity with [Pods](#), [Services](#), and [StatefulSets](#), but to complete this tutorial you only need: 
+
 * To [Install and Configure](/docs/tasks/tools/install-kubectl/) the `kubectl` command line
+
 * To have a v1.5 or later Kubernetes Cluster running
 
 Check out the the [getting started guides](/docs/setup/pick-right-solution/) if you don’t already have a cluster. 
@@ -50,16 +52,18 @@ kubectl create -f cassandra-service.yaml
 
 1. Get the Cassandra `Service`.
 
-	```shell
+```shell
 kubectl get svc cassandra
 ```
+
 2. The response should be
 
 ```console
 NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
 cassandra   None         <none>        9042/TCP   45s
 ```
-If anything else returns, the service was not successfully created. Check out [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
+
+   If anything else returns, the service was not successfully created. Check out [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
 
 ## Using a StatefulSet to Create a Cassandra Ring
 
@@ -84,14 +88,15 @@ kubectl create -f cassandra-statefulset.yaml
 ```shell
 kubectl get statefulset cassandra
 ```
-The response should be
+
+   The response should be
 
 ```console
 NAME        DESIRED   CURRENT   AGE
 cassandra   3         0         13s
 ```
 
-The StatefulSet resource deploys pods sequentially.  
+   The StatefulSet resource deploys pods sequentially.  
 
 2. Get the Pods to see the ordered creation status:
 
@@ -118,35 +123,36 @@ cassandra-2   1/1       Running   0          8m
 Use `kubectl edit` to modify the size of of a Cassandra StatefulSet. For more information, read [kubectl edit](#) 
 
 1. Run the following command:
-
 ```shell
 kubectl edit statefulset cassandra
 ```
-  This command opens an editor in your terminal. The line you need to change is `Replicas`.
 
-  ```console
-  # Please edit the object below. Lines beginning with a '#' will be ignored,
-  # and an empty file will abort the edit. If an error occurs while saving this file will be
-  # reopened with the relevant failures.
-  #
-  apiVersion: apps/v1beta1
-  kind: StatefulSet
-  metadata:
-    creationTimestamp: 2016-08-13T18:40:58Z
-    generation: 1
-    labels:
-      app: cassandra
-    name: cassandra
-    namespace: default
-    resourceVersion: "323"
-    selfLink: /apis/apps/v1beta1/namespaces/default/statefulsets/cassandra
-    uid: 7a219483-6185-11e6-a910-42010a8a0fc0
-  spec:
-    replicas: 3
-  ```
+   This command opens an editor in your terminal. The line you need to change is `Replicas`.
+
+```console
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  creationTimestamp: 2016-08-13T18:40:58Z
+  generation: 1
+  labels:
+    app: cassandra
+  name: cassandra
+  namespace: default
+  resourceVersion: "323"
+  selfLink: /apis/apps/v1beta1/namespaces/default/statefulsets/cassandra
+  uid: 7a219483-6185-11e6-a910-42010a8a0fc0
+spec:
+  replicas: 3
+```
+
 2. Increase the number of replicas to 4, and then save the manifest. 
 
-  The StatefulSet now contains 4 pods.
+   The StatefulSet now contains 4 pods.
 
 3. Get the Cassandra StatefulSet to verify:
 
