@@ -1,10 +1,5 @@
 ---
 title: Kubernetes 对象管理
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-overview/"
-- "/docs/concepts/tools/kubectl/object-management-overview.html"
-- "/docs/user-guide/working-with-resources/"
-- "/docs/user-guide/working-with-resources.html"
 ---
 
 {% capture overview %}
