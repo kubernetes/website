@@ -3,11 +3,6 @@ assignees:
 - erictune
 - soltysh
 title: Jobs - Run to Completion
-redirect_from:
-- "/docs/concepts/jobs/run-to-completion-finite-workloads/"
-- "/docs/concepts/jobs/run-to-completion-finite-workloads.html"
-- "/docs/user-guide/jobs/"
-- "/docs/user-guide/jobs.html"
 ---
 
 * TOC

@@ -4,9 +4,6 @@ assignees:
 - mikedanese
 - thockin
 title: Configure a Security Context for a Pod or Container
-redirect_from:
-- "/docs/user-guide/security-context/"
-- "/docs/concepts/policy/container-capabilities/" 
 ---
 
 {% capture overview %}
@@ -291,7 +288,7 @@ Compare the capabilities of the two Containers:
 
 ```
 00000000a80425fb
-00000000aa0435fb 
+00000000aa0435fb
 ```
 
 In the capability bitmap of the first container, bits 12 and 25 are clear. In the second container,

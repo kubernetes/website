@@ -3,17 +3,6 @@ assignees:
 - mml
 - wojtek-t
 title: Operating etcd clusters for Kubernetes
-redirect_from:
-- "/docs/concepts/storage/etcd-store-api-object/"
-- "/docs/concepts/storage/etcd-store-api-object.html"
-- "/docs/admin/etcd/"
-- "/docs/admin/etcd.html"
-- "/docs/admin/etcd_upgrade/"
-- "/docs/admin/etcd_upgrade.html"
-- "/docs/concepts/cluster-administration/configure-etcd/"
-- "/docs/concepts/cluster-administration/configure-etcd.html"
-- "/docs/concepts/cluster-administration/etcd-upgrade/"
-- "/docs/concepts/cluster-administration/etcd-upgrade.html"
 ---
 
 etcd is a strong, consistent, and highly-available key value store which Kubernetes uses for persistent storage of all of its API objects. This documentation provides specific instruction on operating, upgrading, and rolling back etcd clusters for Kubernetes. For in-depth information on etcd, see [etcd documentation](https://github.com/coreos/etcd/blob/master/Documentation/docs.md).

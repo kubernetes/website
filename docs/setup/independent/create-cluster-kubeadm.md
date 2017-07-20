@@ -5,9 +5,6 @@ assignees:
 - errordeveloper
 - jbeda
 title: Using kubeadm to Create a Cluster
-redirect_from:
-- "/docs/getting-started-guides/kubeadm/"
-- "/docs/getting-started-guides/kubeadm.html"
 ---
 
 {% capture overview %}
@@ -228,7 +225,7 @@ You can install a pod network add-on with the following command:
 kubectl apply -f <add-on.yaml>
 ```
 
-Please refer to the specific add-on installation guide for exact details. 
+Please refer to the specific add-on installation guide for exact details.
 
 **NOTE:** You can install **only one** pod network per cluster.
 
@@ -294,7 +291,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 
 **Note:** If you are using GCE, instances disable ssh access for root by default.
 If that's the case you can log in to the machine, copy the file someplace that
-can be accessed and then use 
+can be accessed and then use
 [`gcloud compute copy-files`](https://cloud.google.com/sdk/gcloud/reference/compute/copy-files)
 
 ### (Optional) Proxying API Server to localhost

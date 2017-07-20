@@ -1,9 +1,5 @@
 ---
 title: Understanding Kubernetes Objects
-
-redirect_from:
-- "/docs/concepts/abstractions/overview/"
-- "/docs/concepts/abstractions/overview.html"
 ---
 
 {% capture overview %}

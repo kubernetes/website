@@ -3,9 +3,6 @@ assignees:
 - Random-Liu
 - dchen1107
 title: Monitor Node Health
-redirect_from:
-- "/docs/admin/node-problem/"
-- "/docs/admin/node-problem.html"
 ---
 
 * TOC
@@ -248,4 +245,4 @@ resource overhead on each node. Usually this is fine, because:
 * The kernel log is generated relatively slowly.
 * Resource limit is set for node problem detector.
 * Even under high load, the resource usage is acceptable.
-(see [benchmark result](https://github.com/kubernetes/node-problem-detector/issues/2#issuecomment-220255629)) 
+(see [benchmark result](https://github.com/kubernetes/node-problem-detector/issues/2#issuecomment-220255629))

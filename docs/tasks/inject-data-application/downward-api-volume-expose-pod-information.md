@@ -1,12 +1,5 @@
 ---
 title: Expose Pod Information to Containers Through Files
-redirect_from:
-- "/docs/user-guide/downward-api/"
-- "/docs/user-guide/downward-api/index.html"
-- "/docs/user-guide/downward-api/volume/"
-- "/docs/user-guide/downward-api/volume/index.html"
-- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/"
-- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information.html"
 ---
 
 {% capture overview %}
@@ -50,7 +43,7 @@ Look at the `items` array under `downwardAPI`. Each element of the array is a
 [DownwardAPIVolumeFile](/docs/resources-reference/v1.6/#downwardapivolumefile-v1-core).
 The first element specifies that the value of the Pod's
 `metadata.labels` field should be stored in a file named `labels`.
-The second element specifies that the value of the Pod's `annotations` 
+The second element specifies that the value of the Pod's `annotations`
 field should be stored in a file named `annotations`.
 
 **Note**: The fields in this example are Pod fields. They are not
@@ -149,7 +142,7 @@ Exit the shell:
 
 ## Store Container fields
 
-The preceding exercise, you stored Pod fields in a DownwardAPIVolumeFile. 
+The preceding exercise, you stored Pod fields in a DownwardAPIVolumeFile.
 In this next exercise, you store Container fields. Here is the configuration
 file for a Pod that has one Container:
 
@@ -162,7 +155,7 @@ Look at the `items` array under `downwardAPI`. Each element of the array is a
 DownwardAPIVolumeFile.
 
 The first element specifies that in the Container named `client-container`,
-the value of the `limits.cpu` field 
+the value of the `limits.cpu` field
 should be stored in a file named `cpu_limit`.
 
 Create the Pod:

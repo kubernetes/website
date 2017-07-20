@@ -1,8 +1,5 @@
 ---
 title: Imperative Management of Kubernetes Objects Using Configuration Files
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-config/"
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-config.html"
 ---
 
 {% capture overview %}
@@ -61,7 +58,7 @@ described in a configuration file.
 
 - `kubectl get -f <filename|url> -o yaml`
 
-The `-o yaml` flag specifies that the full object configuration is printed. 
+The `-o yaml` flag specifies that the full object configuration is printed.
 Use `kubectl get -h` to see a list of options.
 
 ## Limitations
@@ -71,7 +68,7 @@ configuration is fully defined and recorded in its configuration
 file. However when a live object is updated, and the updates are not merged
 into its configuration file, the updates will be lost the next time a `replace`
 is executed. This can happen if a controller, such as
-a HorizontalPodAutoscaler, makes updates directly to a live object. Here's 
+a HorizontalPodAutoscaler, makes updates directly to a live object. Here's
 an example:
 
 1. You create an object from a configuration file.

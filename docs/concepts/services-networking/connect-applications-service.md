@@ -4,9 +4,6 @@ assignees:
 - lavalamp
 - thockin
 title: Connecting Applications with Services
-redirect_from:
-- "/docs/user-guide/connecting-applications/"
-- "/docs/user-guide/connecting-applications.html"
 ---
 
 * TOC
@@ -181,7 +178,7 @@ secret "nginxsecret" created
 $ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 default-token-il9rc   kubernetes.io/service-account-token   1         1d
-nginxsecret           Opaque                                2         1m     
+nginxsecret           Opaque                                2         1m
 ```
 
 Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
