@@ -4,11 +4,11 @@ title: Pull an Image from Google Cloud Registry
 
 {% capture overview %}
 
-If you store your container images in a private Google Cloud Registry (GCR), you might want to pull them into a project that you deploy on a different platform. To do this, you add an ``ImagePullSecrets`` field to the configuration for a Kubernetes service account. This is a type of Kubernetes secret that contains credential information.
+If you store your container images in a private Google Cloud Registry (GCR), you might want to pull them into a project that you deploy on a different platform. To do this, you create a Secret that maps GCR credentials to the syntax for a `docker-registry` Secret. You then specify the Secret as an `imagePullSecrets` field in your Pod configuration file, or you can add it to the configuration for a Service Account.
 
-To create this secret, we recommend that you create a GCP service account and use its keys to pull from GCR. These keys are stored in a JSON key file. This approach lets you store long-lived credentials, instead of passing short-lived access tokens.
+To create the Secret this way, you create a GCP service account and specify its keys to pull from GCR. These keys are stored in a JSON key file. This approach lets you store long-lived credentials, instead of passing short-lived access tokens.
 
-NOTE: A GCP service account is different from a Kubernetes service account.
+NOTE: A GCP service account is different from a Kubernetes Service Account.
 
 NOTE: Clusters on Google Container Engine (GKE) do not need to configure these secrets.
 
@@ -26,7 +26,7 @@ NOTE: Clusters on Google Container Engine (GKE) do not need to configure these s
 
 ## Create JSON key file
 
-You can create the file with the following script. The script creates the necessary GCP service account and gives it access to the registry. In this case, we create a file named `k8s-gcr-auth-ro`.
+You can create the file with the following script. The script creates the necessary GCP service account and gives it access to the registry. The script creates a file named `k8s-gcr-auth-ro`.
 
 ```shell
 # create a GCP service account; format of account is email address
