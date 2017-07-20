@@ -16,7 +16,7 @@ NOTE: Clusters on Google Container Engine (GKE) do not need to configure these s
 
 {% capture prerequisites %}
 
-{% include task-tutorial-prereqs.md %}
+* {% include task-tutorial-prereqs.md %}
 
 * You need a Docker image stored on GCR. For instructions, see the [Quickstart for GCR](https://cloud.google.com/container-registry/docs/quickstart).
 
@@ -57,11 +57,11 @@ where:
 * `gcr.io` is the name of the Secret. The name can contain only lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character. Regex for validation is `'[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*'`.
 * docker-username must be set to `_json_key`
 * docker-email must be any well-formed email address (not used, but required)       
-* docker-password is the contents of the json key file that you created in the previous script
+* docker-password is the contents of the JSON key file that you created in the previous script
 
 ## Add Secret to Kubernetes configuration
 
-You can specify the `imagePullSecrets` value either by including it in a Pod configuration file, or by patching the appropriate service account.
+You can specify the `imagePullSecrets` value either by including it in a Pod configuration file, or by patching the appropriate Service Account.
 
 ### Include your Secret in a Pod configuration file
 
@@ -95,7 +95,7 @@ kubectl get pod private-reg
 
 ### Patch a service account
 
-You can add the `imagePullSecrets` value to the default service account with the following command:
+You can add the `imagePullSecrets` value to the default Service Account with the following command:
 
 ```shell
 kubectl patch serviceaccount default \
