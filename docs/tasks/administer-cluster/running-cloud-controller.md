@@ -1,15 +1,12 @@
 ---
 assignees:
-- thockin 
+- thockin
 title: Build and Run cloud-controller-manager
-redirect_from:
-- "/docs/getting-started-guides/running-cloud-controller/"
-- "/docs/getting-started-guides/running-cloud-controller.html"
 ---
 
 Kubernetes version 1.6 contains a new binary called as `cloud-controller-manager`. `cloud-controller-manager` is a daemon that embeds cloud-specific control loops in Kubernetes. These cloud-specific control loops were originally in the kube-controller-manager. However, cloud providers move at a different pace and schedule compared to the Kubernetes project, and abstracting the provider-specific code to the `cloud-controller-manager` binary allows cloud provider vendors to evolve independently from the core Kubernetes code.
 
-The `cloud-controller-manager` can be linked to any cloud provider that satisifies the [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go). 
+The `cloud-controller-manager` can be linked to any cloud provider that satisifies the [cloudprovider.Interface](https://git.k8s.io/kubernetes/pkg/cloudprovider/cloud.go).
 In future Kubernetes releases, cloud vendors should link code that satisfies the above interface to the `cloud-controller-manager` project and compile `cloud-controller-manager` for their own clouds. Cloud providers would also be responsible for maintaining and evolving their code.
 
 * TOC

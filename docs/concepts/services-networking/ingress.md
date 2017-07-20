@@ -2,9 +2,6 @@
 assignees:
 - bprashanth
 title: Ingress Resources
-redirect_from:
-- "/docs/user-guide/ingress/"
-- "/docs/user-guide/ingress.html"
 ---
 
 * TOC

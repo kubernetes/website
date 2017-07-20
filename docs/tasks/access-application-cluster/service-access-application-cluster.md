@@ -1,10 +1,5 @@
 ---
 title: Use a Service to Access an Application in a Cluster
-redirect_from:
-- "/docs/user-guide/quick-start/"
-- "/docs/user-guide/quick-start.html"
-- "/docs/tutorials/stateless-application/expose-external-ip-address-service/"
-- "/docs/tutorials/stateless-application/expose-external-ip-address-service.html"
 ---
 
 {% capture overview %}

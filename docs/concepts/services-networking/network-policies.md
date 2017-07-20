@@ -4,9 +4,6 @@ assignees:
 - caseydavenport
 - danwinship
 title: Network Policies
-redirect_from:
-- "/docs/user-guide/networkpolicies/"
-- "/docs/user-guide/networkpolicies.html"
 ---
 
 * TOC

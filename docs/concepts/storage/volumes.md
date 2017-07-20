@@ -5,9 +5,6 @@ assignees:
 - saad-ali
 - thockin
 title: Volumes
-redirect_from:
-- "/docs/user-guide/volumes/"
-- "/docs/user-guide/volumes.html"
 ---
 
 {% capture overview %}
@@ -788,7 +785,7 @@ spec:
 Note that local PersistentVolume cleanup and deletion requires manual
 intervention without the external provisioner.
 
-For details on the `local` volume type, see the [Local Persistent Storage 
+For details on the `local` volume type, see the [Local Persistent Storage
 user guide](https://github.com/kubernetes-incubator/external-storage/tree/master/local-volume)
 
 ## Using subPath

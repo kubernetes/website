@@ -2,11 +2,6 @@
 assignees:
 - erictune
 title: Init Containers
-redirect_from:
-- "/docs/concepts/abstractions/init-containers/"
-- "/docs/concepts/abstractions/init-containers.html"
-- "/docs/user-guide/pods/init-container/"
-- "/docs/user-guide/pods/init-container.html"
 ---
 
 {% capture overview %}
@@ -185,7 +180,7 @@ pod "myapp-pod" created
 $ kubectl get -f myapp.yaml
 NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
-$ kubectl describe -f myapp.yaml 
+$ kubectl describe -f myapp.yaml
 Name:          myapp-pod
 Namespace:     default
 [...]

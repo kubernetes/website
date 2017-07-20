@@ -1,8 +1,5 @@
 ---
 title: Managing Kubernetes Objects Using Imperative Commands
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-commands/"
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-commands.html"
 ---
 
 {% capture overview %}
@@ -83,7 +80,7 @@ The `kubectl` tool supports these additional ways to update a live object direct
 however they require a better understanding of the Kubernetes object schema.
 
 - `edit`: Directly edit the raw configuration of a live object by opening its configuration in an editor.
-- `patch`: Directly modify specific fields of a live object by using a patch string. 
+- `patch`: Directly modify specific fields of a live object by using a patch string.
 For more details on patch strings, see the patch section in
 [API Conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#patch-operations).
 

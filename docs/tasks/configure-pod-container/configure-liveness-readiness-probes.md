@@ -1,7 +1,4 @@
 ---
-redirect_from:
-- "/docs/user-guide/liveness/"
-- "/docs/user-guide.liveness.html"
 title: Configure Liveness and Readiness Probes
 ---
 
