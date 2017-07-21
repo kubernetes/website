@@ -112,7 +112,7 @@ To start the redis master, use the file [redis-master-deployment.yaml](https://g
 
 Although we have a single instance of our redis master, we are using a [Deployment](http://kubernetes.io/docs/user-guide/deployments/) to enforce that exactly one pod keeps running. E.g., if the node were to go down, the Deployment will ensure that the redis master gets restarted on a healthy node. (In our simplified example, this could result in data loss.)
 
-The file [redis-master-deployment.yaml](redis-master-deployment.yaml) defines the redis master Deployment:
+The file [redis-master-deployment.yaml](https://git.k8s.io/examples/guestbook/redis-master-deployment.yaml) defines the redis master Deployment:
 
 <!-- BEGIN MUNGE: EXAMPLE redis-master-deployment.yaml -->
 
@@ -166,7 +166,7 @@ A Kubernetes [Service](http://kubernetes.io/docs/user-guide/services/) is a name
 Services find the pods to load balance based on the pods' labels.
 The selector field of the Service description determines which pods will receive the traffic sent to the Service, and the `port` and `targetPort` information defines what port the Service proxy will run at.
 
-The file [redis-master-service.yaml](https://git.k8s.io/examples/guestbook/redis-master-deployment.yaml) defines the redis master Service:
+The file [redis-master-service.yaml](https://git.k8s.io/examples/guestbook/redis-master-service.yaml) defines the redis master Service:
 
 <!-- BEGIN MUNGE: EXAMPLE redis-master-service.yaml -->
 
