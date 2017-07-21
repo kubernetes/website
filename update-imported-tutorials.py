@@ -59,8 +59,8 @@ def main():
 
         print('Processing {0}'.format(dst_path))
         remove_excluded_snippets(dst_path)
-        insert_title(dst_path, new_title)
         insert_do_not_update(dst_path)
+        insert_title(dst_path, new_title)
         print('Processed {0}'.format(dst_path))
 
 
