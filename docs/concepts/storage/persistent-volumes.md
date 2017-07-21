@@ -75,9 +75,9 @@ When a user is done with their volume, they can delete the PVC objects from the 
 
 The Retain reclaim policy allows for manual reclamation of the resource. When the `PersistentVolumeClaim` is deleted, the `PersistentVolume` still exists and the volume is considered "released". But it is not yet available for another claim because the previous claimant's data remains on the volume. An administrator can manually reclaim the volume with the following steps.
 
-1. Delete the `PersistentVolume`. The underlying volume still exists after the PV is deleted.
-1. Manually clean up the data on the volume accordingly.
-1. Manually delete the volume, or if you want to reuse the same volume, create a new `PersistentVolume` with the volume definition.
+1. Delete the `PersistentVolume`. The associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume) still exists after the PV is deleted.
+1. Manually clean up the data on the associated storage asset accordingly.
+1. Manually delete the associated storage asset, or if you want to reuse the same storage asset, create a new `PersistentVolume` with the storage asset definition.
 
 #### Recycling
 
@@ -110,7 +110,7 @@ However, the particular path specified in the custom recycler pod template in th
 
 #### Deleting
 
-When those volume plugins that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume). Volumes that were dynamically provisioned are always deleted. If that is not desired, the only current option is to edit or patch the PV after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
+For volume plugns that support the Delete reclaim policy, deletion removes both the `PersistentVolume` object from Kubernetes, as well as deleting the associated storage asset in external infrastructure (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume). Volumes that were dynamically provisioned are always deleted. If that is not desired, the only current option is to edit or patch the PV after it is created. See [Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
 
 ## Types of Persistent Volumes
 
