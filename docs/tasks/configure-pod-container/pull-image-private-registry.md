@@ -1,5 +1,5 @@
 ---
-title: Pull an Image from a Private Registry
+title: Pull an Image from a Private Docker Registry
 ---
 
 {% capture overview %}
@@ -126,6 +126,8 @@ Create a Pod that uses your Secret, and verify that the Pod is running:
 * Learn more about [Secrets](/docs/concepts/configuration/secret/).
 * Learn more about
 [using a private registry](/docs/concepts/containers/images/#using-a-private-registry).
+* See [Pull an Image from Google Cloud Registry](/docs/tasks/configure-pod-container/pull-image-gcr).
+* See [Pull an Image from Amazon EC2 Container Registry](/docs/tasks/configure-pod-container/pull-image-ecr).
 * See [kubectl create secret docker-registry](/docs/user-guide/kubectl/v1.6/#-em-secret-docker-registry-em-).
 * See [Secret](/docs/api-reference/v1.6/#secret-v1-core)
 * See the `imagePullSecrets` field of
