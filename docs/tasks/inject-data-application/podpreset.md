@@ -219,7 +219,8 @@ spec:
     - name: cache-volume
       emptyDir: {}
     - name: secret-volume
-      secretName: config-details
+      secret:
+         secretName: config-details
 ```
 
 **Pod spec after admission controller:**
@@ -260,7 +261,8 @@ spec:
     - name: cache-volume
       emptyDir: {}
     - name: secret-volume
-      secretName: config-details
+      secret:
+         secretName: config-details
 ```
 
 ### ReplicaSet with Pod Spec Example
