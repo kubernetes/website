@@ -9,7 +9,7 @@ redirect_from:
 
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
 problem you are experiencing. See
-the [application troubleshooting guide]/docs/tasks/debug-application-cluster/debug-application) for tips on application debugging.
+the [application troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application) for tips on application debugging.
 You may also visit [troubleshooting document](/docs/troubleshooting/) for more information.
 
 ## Listing your cluster
