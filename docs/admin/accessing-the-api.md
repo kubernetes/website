@@ -66,7 +66,7 @@ users in its object store.
 认证模块包括客户端证书， 密码，明文token， 初始token， 和JWT token（用于服务账号）。
 可以同时指定多个认证模块，对于这种情况， 会按照指定的顺序一个个尝试认证，直到有一个认证成功为止。 
 在GCE上，  客户端证书， 密码，明文token， 初始token， 和JWT token这几个认证模块都是打开的。 
-如果一个请求不能被认证成功， 那么它会被拒绝，并受到401的状态码。 
+如果请求不能被认证成功， 那么它会被拒绝，并收到401的状态码。 
 如果认证成功， 用户会被指定一个用户名做认证， 这个用户名会被下一个步骤用于下一轮判断。有 一些验证模块还会为该用户提供组成员资格，有些则不会 。
 当Kubernetes将“用户名”用于准入控制的决定和请求日志的记录过程，在它的对象存储中就不会出现`user`对象， 也不会存储有关用户的用户名和其它信息。 
 <!--
@@ -145,7 +145,7 @@ To learn more about Kubernetes authorization, including details about creating p
   }
 }
 ```
-如果Bob发送往 `projectCaribou`命名空间写（`create` 或者 `update`）对象信息的请求， 那么他会被拒绝授权。 如果发送从一个不同的命名空间， 比如`projectFish`  读取(`get`)对象信息的请求，那么他的授权也会被拒绝。 Kubernetes的授权要求你和已存在的组织范畴或者云供应商范畴的访问控制系统进行交互时， 要使用通用的REST属性。使用REST的格式是非常重要的， 因为这些控制系统也可能会会包括Kubernetes API在内的其它API进行交互。 
+如果Bob发送往 `projectCaribou`命名空间写（`create` 或者 `update`）对象信息的请求， 那么他会被拒绝授权。 如果发送从一个不同的命名空间， 比如`projectFish`  读取(`get`)对象信息的请求，那么他的授权也会被拒绝。 Kubernetes的授权要求你和已存在的组织范畴或者云供应商范畴的访问控制系统进行交互时， 要使用通用的REST属性。使用REST的格式是非常重要的， 因为这些控制系统也可能会和包括Kubernetes API在内的其它API进行交互。 
 Kubernetes支持多个授权模块， 比如ABAC模式， RBAC模式， Webhook模式。 
 当一个管理员创建了集群， 他们会配置API server会启用哪些授权模块。 如果配置了多于1个的授权模块， Kubernetes会检查每个模块， 如果其中任何模块授权的请求， 请求会被处理， 如果所有的模块都拒绝了请求， 那么请求会被拒绝掉（返回403状态码）。 
 要了解更多关于Kubernetes授权的信息， 包括使用支持的授权模块来创建策略的细节信息，可以参见 [授权概览](/docs/admin/authorization)。
@@ -228,11 +228,11 @@ access to the API. Other cluster setup methods vary.
 
           - 用于测试或者启动集群， 还有master 节点的其它组件跟API的交互
           - 没有TLS
-          -  默认的侦听端口是8080，可以通过参数 `--insecure-port` 指定别的端口
+          - 默认的侦听端口是8080，可以通过参数 `--insecure-port` 指定别的端口
           - 默认绑定的IP是localhost， 可以通过参数 `--insecure-bind-address`指定别的地址
           - 请求会绕过认证和授权模块
           - 请求会经过准入控制模块处理
-          -  通过对主机进行访问控制保护接口
+          - 通过对主机进行访问控制保护接口
 
   2. `安全端口`:
 
