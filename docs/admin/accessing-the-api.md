@@ -12,7 +12,7 @@ client libraries, or by making REST requests.  Both human users and
 authorized for API access.
 When a request reaches the API, it goes through several stages, illustrated in the
 following diagram:
-- -> 
+--> 
 用户可以通过kubectl命令, 客户端库， 或者发送REST请求来[访问API](/docs/user-guide/accessing-the-cluster) 。kubernetes用户和[服务账号](/docs/tasks/configure-pod-container/configure-service-account/)都可以用于API访问时的授权。 当请求到达API时， 它会经历几个阶段，如下图所示：
 ![Diagram of request handling steps for Kubernetes API request](/images/docs/admin/access-control-overview.svg)
 <!--
@@ -26,7 +26,7 @@ is used in place of the system default root certificates.  This certificate is t
 automatically written into your `$USER/.kube/config` when you create a cluster yourself
 using `kube-up.sh`.  If the cluster has multiple users, then the creator needs to share
 the certificate with other users.
-- ->
+-->
 ##  传输安全
 在一个典型的 Kubernetes集群里， API 的侦听端口是443， TLS连接会被建立。 API server会提供一个证书。 这个证书是自签名的， 因此在`$USER/.kube/config`路径下会包含API server证书的根证书，你可以指定这个证书用来替换系统默认的根证书。 当你使用`kube-up.sh`来创建集群时，这个证书会自动写入到`$USER/.kube/config`目录下。 如果集群有多个用户， 那么集群创建者需要和其它用户共享这个证书。 
 <!--
@@ -57,7 +57,7 @@ do not.
 While Kubernetes uses "usernames" for access control decisions and in request logging,
 it does not have a `user` object nor does it store usernames or other information about
 users in its object store.
-- ->
+-->
 
 ## 认证
  TLS一旦建立连接， HTTP请求就会转到认证这一步， 即图示中标注的步骤1. 
@@ -112,7 +112,7 @@ Kubernetes authorization requires that you use common REST attributes to interac
 Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode. When an administrator creates a cluster, they configured the authorization modules that should be used in the API server. If more than one authorization modules are configured, Kubernetes checks each module, and if any module authorizes the request, then the request can proceed. If all of the modules deny the request, then the request is denied (HTTP status code 403).
 
 To learn more about Kubernetes authorization, including details about creating policies using the supported authorization modules, see [Authorization Overview](/docs/admin/authorization). 
-- ->
+-->
 
 ## 授权
 当一个请求被验证来自指定用户时，  这个请求紧接着必须被授权， 即如图示中的步骤**2**所示. 
@@ -172,7 +172,7 @@ The available Admission Control Modules are described [here](/docs/admin/admissi
 
 Once a request passes all admission controllers, it is validated using the validation routines
 for the corresponding API object, and then written to the object store (shown as step **4**).
-- ->
+-->
 
 ## 准入控制
 准入控制模块是可以修改或者拒绝请求的模块。
@@ -219,7 +219,7 @@ When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On
 GCE, a firewall rule is configured on the project to allow external HTTPS
 access to the API. Other cluster setup methods vary.
-- - > 
+-->
 
 ##  API Server 的端口和IP
 之前的讨论的都是请求发往API Server的安全端口的情况（这个也是最典型的情况）。 事实上， API Server可以侦听两个端口：
