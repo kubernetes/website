@@ -1,13 +1,8 @@
-<!--
 ---
 title: kube-scheduler
 notitle: true
 ---
--->
----
-title: kube-scheduler
-notitile: true
----
+
 
 ## kube-scheduler
 
