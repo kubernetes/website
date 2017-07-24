@@ -15,30 +15,30 @@ This tutorial shows you how to develop a native cloud [Cassandra](http://cassand
 {% endcapture %}
 
 {% capture prerequisites %}
-To complete this tutorial, you should already have a basic familiarity with [Pods](kubernetes.io/docs/concepts/workloads/pods/pod/), [Services](https://kubernetes.io/docs/concepts/services-networking/service/), and [StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/). In addition, you should:
+To complete this tutorial, you should already have a basic familiarity with [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod/), [Services](https://kubernetes.io/docs/concepts/services-networking/service/), and [StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/). In addition, you should:
 
-* [Install and Configure](kubernetes.io/docs/tasks/tools/install-kubectl/) the `kubectl` command line
+* [Install and Configure](https://kubernetes.io/docs/tasks/tools/install-kubectl/) the `kubectl` command line
 
 * Have a supported Kubernetes Cluster running
 
-* Download [cassandra-service.yaml](kubernetes.io/docs/tutorials/stateful-application/cassandra-service.yaml) and [cassandra-statefulset.yaml](kubernetes.io/docs/tutorials/stateful-application/cassandra-statefulset.yaml)
-{% endcapture %}
+* Download [cassandra-service.yaml](https://kubernetes.io/docs/tutorials/stateful-application/cassandra-service.yaml) and [cassandra-statefulset.yaml](https://kubernetes.io/docs/tutorials/stateful-application/cassandra-statefulset.yaml)
 
-Read the [getting started guides](kubernetes.io/docs/setup/pick-right-solution/) if you don’t already have a cluster. 
+Read the [getting started guides](https://kubernetes.io/docs/setup/pick-right-solution/) if you don’t already have a cluster. 
 
 ### Additional Minikube Setup Instructions
 
-**Warning**: [Minikube](kubernetes.io/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors. 
+**Warning:** [Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors. 
 
 To avoid these errors add the flags `--memory 5120` and `--cpus=4` to `minikube start`
 
 ```
 minikube start --memory 5120 --cpus=4
 ``` 
+{% endcapture %}
 
 {% capture lessoncontent %}
 ## Creating a Cassandra Headless Service
-A Kubernetes [Service](kubernetes.io/docs/concepts/services-networking/service/) describes a set of [Pods]( kubernetes.io/docs/concepts/workloads/pods/pod/) that perform the same task. 
+A Kubernetes [Service](https://kubernetes.io/docs/concepts/services-networking/service/) describes a set of [Pods]( https://kubernetes.io/docs/concepts/workloads/pods/pod/) that perform the same task. 
 
 The following `Service` is used for DNS lookups between Cassandra pods and clients within the Kubernetes Cluster.
 
@@ -70,13 +70,12 @@ If anything else returns, the service was not successfully created. Read [Debug 
 
 ## Using a StatefulSet to Create a Cassandra Ring
 
-The StatefulSet manifest, included below, creates a Cassandra ring that consists
-of three pods.
+The StatefulSet manifest, included below, creates a Cassandra ring that consists of three pods.
 
-Note: This example uses the default provisioner for Minikube. Please update the following StatefulSet for the cloud you are working with. 
+**Note:** This example uses the default provisioner for Minikube. Please update the following StatefulSet for the cloud you are working with. 
 
 1. Update the StatefulSet if necessary.
-2. Create the Cassandra StatefulSet from the following .yaml file:
+2. Create the Cassandra StatefulSet from the following `.yaml` file:
 
 ```shell
 kubectl create -f cassandra-statefulset.yaml
@@ -111,9 +110,9 @@ cassandra-0   1/1       Running             0          1m
 cassandra-1   0/1       ContainerCreating   0          8s
 ```
 
-Note: It can take up to ten minutes for all three pods to deploy. 
+**Note**: It can take up to ten minutes for all three pods to deploy. 
 
-Once all pods are deployed, the same command will return:
+Once all pods are deployed, the same command returns:
 
 ```shell
 kubectl get pods -l="app=cassandra"
@@ -124,7 +123,7 @@ cassandra-2   1/1       Running   0          8m
 ```
 
 ## Modifying the Cassandra StatefulSet
-Use `kubectl edit` to modify the size of of a Cassandra StatefulSet. For more information, read [kubectl edit](#) 
+Use `kubectl edit` to modify the size of of a Cassandra StatefulSet. <!--For more information, read [kubectl edit](#)--> 
 
 1. Run the following command:
 ```shell
@@ -174,9 +173,9 @@ cassandra   4         4         36m
 {% endcapture %}
 
 {% capture cleanup %}
-Deleting or scaling a StatefulSet down will not delete the volumes associated with the StatefulSet. This is done to ensure safety first, your data is more valuable than an auto purge of all related StatefulSet resources. 
+Deleting or scaling a StatefulSet down will not delete the volumes associated with the StatefulSet. This is done to ensure safety first: your data is more valuable than an auto purge of all related StatefulSet resources. 
 
-Warning: Depending on the storage class and reclaim policy, deleting the Persistent Volume Claims may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted. 
+**Warning:** Depending on the storage class and reclaim policy, deleting the Persistent Volume Claims may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted. 
 
 * Run the following command to delete everything in a StatefulSet:
 
