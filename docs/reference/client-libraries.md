@@ -42,6 +42,7 @@ their authors, not the Kubernetes team.
 | Go       | [github.com/ericchiang/k8s](https://github.com/ericchiang/k8s) |
 | Java (OSGi) | [bitbucket.org/amdatulabs/amdatu-kubernetes](https://bitbucket.org/amdatulabs/amdatu-kubernetes) |
 | Java (Fabric8, OSGi) | [github.com/fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client) |
+| Node.js  |  (https://github.com/Goyoo/node-k8s-client) |
 | Node.js  | [github.com/tenxcloud/node-kubernetes-client](https://github.com/tenxcloud/node-kubernetes-client) |
 | Node.js  | [github.com/godaddy/kubernetes-client](https://github.com/godaddy/kubernetes-client) |
 | Perl     | [metacpan.org/pod/Net::Kubernetes](https://metacpan.org/pod/Net::Kubernetes) |
