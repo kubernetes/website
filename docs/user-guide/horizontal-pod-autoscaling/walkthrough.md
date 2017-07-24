@@ -127,20 +127,19 @@ Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas 
 Instead of using `kubectl autoscale` command we can use the [hpa-php-apache.yaml](/docs/user-guide/horizontal-pod-autoscaling/hpa-php-apache.yaml) file, which looks like this:
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
   namespace: default
 spec:
-  scaleRef:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
     kind: Deployment
     name: php-apache
-    subresource: scale
   minReplicas: 1
   maxReplicas: 10
-  cpuUtilization:
-    targetPercentage: 50
+  targetCPUUtilizationPercentage: 50
 ```
 
 We will create the autoscaler by executing the following command:

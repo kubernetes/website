@@ -53,7 +53,7 @@ A request has the following attributes that can be considered for authorization:
   - what resource is being accessed (for resource requests only)
   - what subresource is being accessed (for resource requests only)
   - the namespace of the object being accessed (for namespaced resource requests only)
-  - the API group being accessed (for resource requests only)
+  - the API group being accessed (for resource requests only); an empty string designates the [core API group](../api.md#api-groups)
 
 The request verb for a resource API endpoint can be determined by the HTTP verb used and whether or not the request acts on an individual resource or a collection of resources:
 
@@ -207,6 +207,29 @@ and [enable the API version](
 /docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster),
 with a `--runtime-config=` that includes `rbac.authorization.k8s.io/v1alpha1`.
 
+### Privilege Escalation Prevention and Bootstrapping
+
+The `rbac.authorization.k8s.io` API group inherently attempts to prevent users
+from escalating privileges. Simply put, __a user can't grant permissions they
+don't already have even when the RBAC authorizer it disabled__. If "user-1"
+does not have the ability to read secrets in "namespace-a", they cannot create
+a binding that would grant that permission to themselves or any other user.
+
+For bootstrapping the first roles, it becomes necessary for someone to get
+around these limitations. For the alpha release of RBAC, an API Server flag was
+added to allow one user to step around all RBAC authorization and privilege
+escalation checks. NOTE: _This is subject to change with future releases._
+
+```
+--authorization-rbac-super-user=admin
+```
+
+Once set the specified super user, in this case "admin", can be used to create
+the roles and role bindings to initialize the system.
+
+This flag is optional and once the initial bootstrapping is performed can be
+unset.
+
 ### Roles, RolesBindings, ClusterRoles, and ClusterRoleBindings
 
 The RBAC API Group declares four top level types which will be covered in this
@@ -231,7 +254,7 @@ metadata:
   namespace: default
   name: pod-reader
 rules:
-  - apiGroups: [""] # The API group "" indicates the default API Group.
+  - apiGroups: [""] # The API group "" indicates the core API Group.
     resources: ["pods"]
     verbs: ["get", "watch", "list"]
     nonResourceURLs: []
@@ -323,28 +346,99 @@ roleRef:
   apiVersion: rbac.authorization.k8s.io/v1alpha1
 ```
 
-### Privilege Escalation Prevention and Bootstrapping
+### Referring to Resources
 
-The `rbac.authorization.k8s.io` API group inherently attempts to prevent users
-from escalating privileges. Simply put, __a user can't grant permissions they
-don't already have even when the RBAC authorizer it disabled__. If "user-1"
-does not have the ability to read secrets in "namespace-a", they cannot create
-a binding that would grant that permission to themselves or any other user.
-
-For bootstrapping the first roles, it becomes necessary for someone to get
-around these limitations. For the alpha release of RBAC, an API Server flag was
-added to allow one user to step around all RBAC authorization and privilege
-escalation checks. NOTE: _This is subject to change with future releases._
+Most resources are represented by a string representation of their name, such as "pods", just as it
+appears in the URL for the relevant API endpoint. However, some Kubernetes APIs involve a
+"subresource" such as the logs for a pod. The URL for the pods logs endpoint is:
 
 ```
---authorization-rbac-super-user=admin
+GET /api/v1/namespaces/{namespace}/pods/{name}/log
 ```
 
-Once set the specified super user, in this case "admin", can be used to create
-the roles and role bindings to initialize the system.
+In this case, "pods" is the namespaced resource, and "log" is a subresource of pods. To represent
+this in an RBAC role, use a slash to delimit the resource and subresource names. To allow a subject
+to read both pods and pod logs, you would write:
 
-This flag is optional and once the initial bootstrapping is performed can be
-unset.
+```yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1alpha1
+metadata:
+  namespace: default
+  name: pod-and-pod-logs-reader
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list"]
+```
+
+### Referring to Subjects
+
+RoleBindings and ClusterRoleBindings bind "subjects" to "roles".
+Subjects can be groups, users or service accounts.
+
+Users are represented by strings.  These can be plain usernames, like
+"alice", or email style names, like "bob@example.com", or numeric ids
+as string.  It is up to the Kubernetes admin to configure
+the [authentication modules](/doc/admin/authentication/) to produce
+usernames in the desired format.  The RBAC authorization system does
+not require any particular format.  However, the prefix `system:` is
+reserved for Kubernetes system use, and so the admin should ensure
+usernames should not contain this prefix by accident.
+
+Groups information in Kubernetes is currently provided by the Authenticator
+modules.  (In the future we may add a separate way for the RBAC Authorizer
+to query groups information for users.)  Groups, like users, are represented
+by a string, and that string has no format requirements, other than that the
+prefix `system:` is reserved.
+
+Service Accounts have usernames with the `system:` prefix and belong
+to groups with the `system:` prefix.
+
+#### Role Binding Examples
+
+Only the `subjects` section of a RoleBinding object shown in the following examples.
+
+For a user called `alice@example.com`, specify
+
+```yaml
+subjects:
+  - kind: User
+    name: "alice@example.com"
+```
+
+For a group called `frontend-admins`, specify:
+
+```yaml
+subjects:
+  - kind: Group
+    name: "frontend-admins"
+```
+
+For the default service account in the kube-system namespace:
+
+```yaml
+subjects:
+ - kind: ServiceAccount
+   name: default
+   namespace: kube-system
+```
+
+For all service accounts in the `qa` namespace:
+
+```yaml
+subjects:
+- kind: Group
+  name: system:serviceaccounts:qa
+```
+
+For all service accounts everywhere:
+
+```yaml
+subjects:
+- kind: Group
+  name: system:serviceaccounts
+```
 
 ## Webhook Mode
 

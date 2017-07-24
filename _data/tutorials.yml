@@ -1,0 +1,57 @@
+bigheader: "Tutorials"
+abstract: "Detailed walkthroughs of common Kubernetes operations and workflows."
+toc:
+- title: Tutorials
+  path: /docs/tutorials/
+- title: Kubernetes Basics
+  section:
+  - title: Overview
+    path: /docs/tutorials/kubernetes-basics/
+  - title: 1. Create a Cluster
+    section:
+    - title: Using Minikube to Create a Cluster
+      path: /docs/tutorials/kubernetes-basics/cluster-intro/
+    - title: Interactive Tutorial - Creating a Cluster
+      path: /docs/tutorials/kubernetes-basics/cluster-interactive/
+  - title: 2. Deploy an App
+    section:
+    - title: Using kubectl to Create a Deployment
+      path: /docs/tutorials/kubernetes-basics/deploy-intro/
+    - title: Interactive Tutorial - Deploying an App
+      path: /docs/tutorials/kubernetes-basics/deploy-interactive/
+  - title: 3. Explore Your App
+    section:
+    - title: Viewing Pods and Nodes
+      path: /docs/tutorials/kubernetes-basics/explore-intro/
+    - title: Interactive Tutorial - Exploring Your App
+      path: /docs/tutorials/kubernetes-basics/explore-interactive/
+  - title: 4. Expose Your App Publicly
+    section:
+    - title: Using a Service to Expose Your App
+      path: /docs/tutorials/kubernetes-basics/expose-intro/
+    - title: Interactive Tutorial - Exposing Your App
+      path: /docs/tutorials/kubernetes-basics/expose-interactive/
+  - title: 5. Scale Your App
+    section:
+    - title: Running Multiple Instances of Your App
+      path: /docs/tutorials/kubernetes-basics/scale-intro/
+    - title: Interactive Tutorial - Scaling Your App
+      path: /docs/tutorials/kubernetes-basics/scale-interactive/
+  - title: 6. Update Your App
+    section:
+    - title: Performing a Rolling Update
+      path: /docs/tutorials/kubernetes-basics/update-intro/
+    - title: Interactive Tutorial - Updating Your App
+      path: /docs/tutorials/kubernetes-basics/update-interactive/
+- title: Stateless Applications
+  section:
+  - title: Running a Stateless Application Using a Deployment
+    path: /docs/tutorials/stateless-application/run-stateless-application-deployment/
+  - title: Using a Service to Access an Application in a Cluster
+    path: /docs/tutorials/stateless-application/expose-external-ip-address-service/
+  - title: Exposing an External IP Address to Access an Application in a Cluster
+    path: /docs/tutorials/stateless-application/expose-external-ip-address/
+- title: Stateful Applications
+  section:
+  - title: Running a Single-Instance Stateful Application
+    path: /docs/tutorials/stateful-application/run-stateful-application/

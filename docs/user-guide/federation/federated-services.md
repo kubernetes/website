@@ -40,9 +40,9 @@ API for traditional Kubernetes Services.
 
 Once created, the Federated Service automatically:
 
-1. creates matching Kubernetes Services in every cluster underlying your Cluster Federation,
-2. monitors the health of those service "shards" (and the clusters in which they reside), and
-3. manages a set of DNS records in a public DNS provider (like Google Cloud DNS, or AWS Route 53), thus ensuring that clients
+1. Creates matching Kubernetes Services in every cluster underlying your Cluster Federation,
+2. Monitors the health of those service "shards" (and the clusters in which they reside), and
+3. Manages a set of DNS records in a public DNS provider (like Google Cloud DNS, or AWS Route 53), thus ensuring that clients
 of your federated service can seamlessly locate an appropriate healthy service endpoint at all times, even in the event of cluster,
 availability zone or regional outages.
 

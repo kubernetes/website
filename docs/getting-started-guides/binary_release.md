@@ -33,7 +33,7 @@ cd kubernetes
 make release
 ```
 
-For more details on the release process see the [`build/` directory](http://releases.k8s.io/{{page.githubbranch}}/build/)
+For more details on the release process see the [`build/`](http://releases.k8s.io/{{page.githubbranch}}/build/) directory
 
 ### Download Kubernetes and automatically set up a default cluster
 
@@ -57,4 +57,4 @@ Possible values for `YOUR_PROVIDER` include:
 * `vsphere` - VMWare VSphere
 * `rackspace` - Rackspace
 
-For the complete, up-to-date list of providers supported by this script, see [the `/cluster` folder in the main Kubernetes repo](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster), where each folder represents a possible value for `YOUR_PROVIDER`. If you don't see your desired provider, try looking at our [getting started guides](/docs/getting-started-guides); there's a good chance we have docs for them.
+For the complete, up-to-date list of providers supported by this script, see the [`/cluster`](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/cluster) folder in the main Kubernetes repo, where each folder represents a possible value for `YOUR_PROVIDER`. If you don't see your desired provider, try looking at our [getting started guides](/docs/getting-started-guides); there's a good chance we have docs for them.

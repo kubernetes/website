@@ -163,7 +163,7 @@ Workloads are categorized as follows:
 * [Daemon Sets](http://kubernetes.io/docs/admin/daemons/) which ensure that all or some of the nodes in your cluster run a copy of a Pod.  
 * [Deployments](http://kubernetes.io/docs/user-guide/deployments/) which provide declarative updates for Pods and Replica Sets (the next-generation [Replication Controller](http://kubernetes.io/docs/user-guide/replication-controller/))
   The Details page for a Deployment lists resource details, as well as new and old Replica Sets. The resource details also include information on the [RollingUpdate](http://kubernetes.io/docs/user-guide/rolling-updates/) strategy, if any.
-* [Pet Sets](http://kubernetes.io/docs/user-guide/load-balancer/) (nominal Services, also known as load-balanced Services) for legacy application support.
+* [Pet Sets](http://kubernetes.io/docs/user-guide/petset/) (nominal Services, also known as load-balanced Services) for legacy application support.
 * [Replica Sets](http://kubernetes.io/docs/user-guide/replicasets/) for using label selectors.
 * [Jobs](http://kubernetes.io/docs/user-guide/jobs/) for creating one or more Pods, ensuring that a specified number of them successfully terminate, and tracking the completions.
 * [Replication Controllers](http://kubernetes.io/docs/user-guide/replication-controller/)

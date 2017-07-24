@@ -150,7 +150,9 @@ Pod is exposed as a primitive in order to facilitate:
 * clean composition of Kubelet-level functionality with cluster-level functionality &mdash; Kubelet is effectively the "pod controller"
 * high-availability applications, which will expect pods to be replaced in advance of their termination and certainly in advance of deletion, such as in the case of planned evictions, image prefetching, or live pod migration [#3949](http://issue.k8s.io/3949)
 
-The current best practice for pets is to create a replication controller with `replicas` equal to `1` and a corresponding service. If you find this cumbersome, please comment on [issue #260](http://issue.k8s.io/260).
+There is new first-class support for pet-like pods with the [PetSet](/docs/user-guide/petset/) feature (currently in alpha).
+For prior versions of Kubernetes, best practice for pets is to create a replication controller with `replicas` equal to `1` and a corresponding service. 
+
 
 ## Termination of Pods
 

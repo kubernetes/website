@@ -59,6 +59,13 @@ interest. For example, people new to Kubernetes may also want to join the
 `#kubernetes-novice` channel. As another example, developers should join the
 `#kubernetes-dev` channel.
 
+There are also many country specific/local language channels. Feel free to join
+these channels for localized support and info:
+
+- France: `#fr-users`, `#fr-events`
+- Germany: `#de-users`, `#de-events`
+- Japan: `#jp-users`, `#jp-events`
+
 ### Mailing List
 
 The Kubernetes / Google Container Engine mailing list is [kubernetes-users@googlegroups.com](https://groups.google.com/forum/#!forum/kubernetes-users)

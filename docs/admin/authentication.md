@@ -6,7 +6,8 @@ assignees:
 - deads2k
 
 ---
-
+* TOC
+{:toc}
 
 ## Users in Kubernetes
 
@@ -25,16 +26,17 @@ manually through API calls. Service accounts are tied to a set of credentials
 stored as `Secrets`, which are mounted into pods allowing in cluster processes
 to talk to the Kubernetes API.
 
-All API requests are tied to either a normal user or a service account. This
-means every process inside or outside the cluster, from a human user typing
-`kubectl` on a workstation, to `kubelets` on nodes, to members of the control
-plane, must authenticate when making requests to the the API server.
+API requests are tied to either a normal user or a service account, or are treated
+as anonymous requests. This means every process inside or outside the cluster, from 
+a human user typing `kubectl` on a workstation, to `kubelets` on nodes, to members 
+of the control plane, must authenticate when making requests to the the API server, 
+or be treated as an anonymous user.
 
 ## Authentication strategies
 
-Kubernetes uses client certificates, bearer tokens, or HTTP basic auth to
-authenticate API requests through authentication plugins. As HTTP request are
-made to the API server plugins attempts to associate the following attributes
+Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to
+authenticate API requests through authentication plugins. As HTTP requests are
+made to the API server, plugins attempt to associate the following attributes
 with the request:
 
 * Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
@@ -54,20 +56,31 @@ When multiple are enabled, the first authenticator module
 to successfully authenticate the request short-circuits evaluation.
 The API server does not guarantee the order authenticators run in.
 
+The `system:authenticated` group is included in the list of groups for all authenticated users. 
+
 ### X509 Client Certs
 
 Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
 option to API server. The referenced file must contain one or more certificates authorities
 to use to validate client certificates presented to the API server. If a client certificate
 is presented and verified, the common name of the subject is used as the user name for the
-request.
+request. As of Kubernetes 1.4, client certificates can also indicate a user's group memberships
+using the certificate's organization fields. To include multiple group memberships for a user,
+include multiple organization fields in the certificate.
+
+For example, using the `openssl` command line tool to generate a certificate signing request:
+
+``` bash
+openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app2"
+```
+
+This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
 
 See [APPENDIX](#appendix) for how to generate a client cert.
 
 ### Static Token File
 
-Token file is enabled by passing the `--token-auth-file=SOMEFILE` option to the
-API server.  Currently, tokens last indefinitely, and the token list cannot be
+The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
 changed without restarting API server.
 
 The token file format is implemented in `plugin/pkg/auth/authenticator/token/tokenfile/...`
@@ -78,8 +91,19 @@ optional group names. Note, if you have more than one group the column must be d
 token,user,uid,"group1,group2,group3"
 ```
 
-When using token authentication from an http client the API server expects an `Authorization`
-header with a value of `Bearer SOMETOKEN`.
+#### Putting a Bearer Token in a Request
+
+When using bearer token authentication from an http client, the API
+server expects an `Authorization` header with a value of `Bearer
+THETOKEN`.  The bearer token must be a character sequence that can be
+put in an HTTP header value using no more than the encoding and
+quoting facilities of HTTP.  For example: if the bearer token is
+`31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
+header as shown below.
+
+```http
+Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
+```
 
 ### Static Password File
 
@@ -171,7 +195,8 @@ type: kubernetes.io/service-account-token
 Note: values are base64 encoded because secrets are always base64 encoded.
 
 The signed JWT can be used as a bearer token to authenticate as the given service
-account. Normally these secrets are mounted into pods for in-cluster access to
+account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
+in a request.  Normally these secrets are mounted into pods for in-cluster access to
 the API server, but can be used from outside the cluster as well.
 
 Service accounts authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
@@ -192,11 +217,8 @@ email, signed by the server.
 
 To identify the user, the authenticator uses the `id_token` (not the `access_token`)
 from the OAuth2 [token response](https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse)
-as a bearer token.
-
-```
-Authentication: Bearer (id_token)
-```
+as a bearer token.  See [above](#putting-a-bearer-token-in-a-request) for how the token
+is included in a request.
 
 To enable the plugin, pass the following required flags:
 
@@ -228,7 +250,7 @@ it must be an array of strings.
 
 Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or [others](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak) or CloudFoundary [UAA](https://github.com/cloudfoundry/uaa).
+Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak) or CloudFoundry [UAA](https://github.com/cloudfoundry/uaa).
 
 The provider needs to support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html); not all do.
 
@@ -272,10 +294,11 @@ contexts:
   name: webhook
 ```
 
-When a client attempts to authenticate with the API server using a bearer token,
-using the `Authorization: Bearer (TOKEN)` HTTP header the authentication webhook
+When a client attempts to authenticate with the API server using a bearer token
+as discussed [above](#putting-a-bearer-token-in-a-request),
+the authentication webhook
 queries the remote service with a review object containing the token. Kubernetes
-will not challenge request that lack such a header.
+will not challenge a request that lacks such a header.
 
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/api/)
 as other Kubernetes API objects. Implementers should be aware of looser
@@ -338,6 +361,20 @@ An unsuccessful request would return:
 
 HTTP status codes can be used to supply additional error context.
 
+
+### Authenticating Proxy
+
+The API server can be configured to identify users from request header values, such as `X-Remote-User`.
+It is designed for use in combination with an authenticating proxy, which sets the request header value.
+In order to prevent header spoofing, the authenticating proxy is required to present a valid client
+certificate to the API server for validation against the specified CA before the request headers are 
+checked.
+
+* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the identity.
+* `--requestheader-client-ca-file` Required. PEM-encoded certificate bundle. A valid client certificate must be presented and validated against the certificate authorities in the specified file before the request headers are checked for user names.
+* `--requestheader-allowed-names` Optional.  List of common names (cn). If set, a valid client certificate with a Common Name (cn) in the specified list must be presented before the request headers are checked for user names. If empty, any Common Name is allowed. 
+
+
 ### Keystone Password
 
 Keystone authentication is enabled by passing the `--experimental-keystone-url=<AuthURL>`
@@ -354,6 +391,22 @@ Please refer to the [discussion](https://github.com/kubernetes/kubernetes/pull/1
 [blueprint](https://github.com/kubernetes/kubernetes/issues/11626) and [proposed
 changes](https://github.com/kubernetes/kubernetes/pull/25536) for more details.
 
+## Anonymous requests
+
+Anonymous access is enabled by default, and can be disabled by passing `--anonymous-auth=false` 
+option to the API server during startup.
+
+When enabled, requests that are not rejected by other configured authentication methods are 
+treated as anonymous requests, and given a username of `system:anonymous` and a group of 
+`system:unauthenticated`.
+
+For example, on a server with token authentication configured, and anonymous access enabled,
+a request providing an invalid bearer token would receive a `401 Unauthorized` error. 
+A request providing no bearer token would be treated as an anonymous request. 
+
+If you rely on authentication alone to authorize access, either change to use an 
+authorization mode other than `AlwaysAllow`, or set `--anonymous-auth=false`.
+
 ## Plugin Development
 
 We plan for the Kubernetes API server to issue tokens after the user has been
@@ -367,7 +420,7 @@ enterprise directory, kerberos, etc.)
 ### Creating Certificates
 
 When using client certificate authentication, you can generate certificates
-using an existing deployment script or manually through `easyrsa` or `openssl.``
+using an existing deployment script or manually through `easyrsa` or `openssl.`
 
 #### Using an Existing Deployment Script
 

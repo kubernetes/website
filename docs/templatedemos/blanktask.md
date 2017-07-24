@@ -1,3 +1,0 @@
----
----
-{% include templates/task.md %}

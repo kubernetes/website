@@ -117,7 +117,7 @@ curl http://localhost:8080
 
 You should see `Hello World!`
 
-**Note:** *If you recieve a `Connection refused` message from Docker for Mac, ensure you are using the latest version of Docker (1.12 or later). Alternatively, if you are using Docker Toolbox on OSX, make sure you are using the VM's IP and not localhost:*
+**Note:** *If you receive a `Connection refused` message from Docker for Mac, ensure you are using the latest version of Docker (1.12 or later). Alternatively, if you are using Docker Toolbox on OSX, make sure you are using the VM's IP and not localhost:*
 
 ```shell
 curl "http://$(docker-machine ip YOUR-VM-MACHINE-NAME):8080"
@@ -129,7 +129,7 @@ Let’s now stop the container. You can list the docker containers with:
 docker ps
 ```
 
-You should something like see:
+You should see something like this:
 
 ```shell
 CONTAINER ID        IMAGE                                 COMMAND                  NAMES
@@ -145,12 +145,16 @@ docker stop hello_tutorial
 Now that the image works as intended and is all tagged with your `$PROJECT_ID`, we can push it to the [Google Container Registry](https://cloud.google.com/tools/container-registry/), a private repository for your Docker images accessible from every Google Cloud project (but also from outside Google Cloud Platform) :
 
 ```shell
-gcloud docker push gcr.io/$PROJECT_ID/hello-node:v1
+gcloud docker -- push gcr.io/$PROJECT_ID/hello-node:v1
 ```
 
 If all goes well, you should be able to see the container image listed in the console: *Compute > Container Engine > Container Registry*. We now have a project-wide Docker image available which Kubernetes can access and orchestrate.
 
+If you see an error message like the following: __denied: Unable to create the repository, please check that you have access to do so.__ ensure that you are pushing the image to Container Registry with the correct user credentials, use `gcloud auth list` and then `gcloud config set account example@gmail.com`.
+
 ![image](/images/hellonode/image_10.png)
+
+**Note:** *Docker for Windows, Version 1.12 or 1.12.1, does not yet support this procedure. Instead, it replies with the message 'denied: Unable to access the repository; please check that you have permission to access it'. A bugfix is available at http://stackoverflow.com/questions/39277986/unable-to-push-to-google-container-registry-unable-to-access-the-repository?answertab=votes#tab-top.*
 
 ## Create your Kubernetes Cluster
 
@@ -336,7 +340,7 @@ We can now build and publish a new container image to the registry with an incre
 
 ```shell
 docker build -t gcr.io/$PROJECT_ID/hello-node:v2 .
-gcloud docker push gcr.io/$PROJECT_ID/hello-node:v2
+gcloud docker -- push gcr.io/$PROJECT_ID/hello-node:v2
 ```
 
 Building and pushing this updated image should be much quicker as we take full advantage of the Docker cache.

@@ -37,6 +37,7 @@ resources.
 The following guides explain some of the resources in detail:
 
 * [Events](/docs/user-guide/federation/events/)
+* [Ingress](/docs/user-guide/federation/federated-ingress/)
 * [Namespaces](/docs/user-guide/federation/namespaces/)
 * [ReplicaSets](/docs/user-guide/federation/replicasets/)
 * [Secrets](/docs/user-guide/federation/secrets/)

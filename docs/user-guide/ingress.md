@@ -53,18 +53,18 @@ Make sure you review the [beta limitations](https://github.com/kubernetes/contri
 A minimal Ingress might look like:
 
 ```yaml
-01. apiVersion: extensions/v1beta1
-02. kind: Ingress
-03. metadata:
-04.  name: test-ingress
-05. spec:
-06.  rules:
-07.  - http:
-08.      paths:
-09.      - path: /testpath
-10.        backend:
-11.          serviceName: test
-12.          servicePort: 80
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /testpath
+        backend:
+          serviceName: test
+          servicePort: 80
 ```
 
 *POSTing this to the API server will have no effect if you have not configured an [Ingress controller](#ingress-controllers).*

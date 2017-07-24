@@ -27,7 +27,7 @@ for ease of development and testing.  You'll create a local `HostPath` for this 
 support local storage on the host at this time.  There is no guarantee your pod ends up on the correct node where the `HostPath` resides.
 
 ```shell
-# This will be nginx's webroot
+# This will be nginx's webroot; execute this on the node where your pod will run.
 $ mkdir /tmp/data01
 $ echo 'I love Kubernetes storage!' > /tmp/data01/index.html
 ```

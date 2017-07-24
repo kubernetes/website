@@ -1,0 +1,9 @@
+bigheader: "Concepts"
+abstract: "Detailed explanations of Kubernetes system concepts and abstractions."
+toc:
+- title: Concepts
+  path: /docs/concepts/
+- title: Object Metadata
+  section:
+  - title: Annotations
+    path: /docs/concepts/object-metadata/annotations/

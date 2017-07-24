@@ -265,7 +265,7 @@ All listed keys must exist in the corresponding secret. Otherwise, the volume is
 **Secret files permissions**
 
 You can also specify the permission mode bits files part of a secret will have.
-If you don't specify any, `0644` is used by default. You can sepecify a default
+If you don't specify any, `0644` is used by default. You can specify a default
 mode for the whole secret volume and override per key if needed.
 
 For example, you can specify a default mode like this:
@@ -284,7 +284,7 @@ For example, you can specify a default mode like this:
       "image": "redis",
       "volumeMounts": [{
         "name": "foo",
-        "mountPath": "/etc/foo",
+        "mountPath": "/etc/foo"
       }]
     }],
     "volumes": [{
@@ -322,7 +322,7 @@ permission for different files like this:
       "image": "redis",
       "volumeMounts": [{
         "name": "foo",
-        "mountPath": "/etc/foo",
+        "mountPath": "/etc/foo"
       }]
     }],
     "volumes": [{
@@ -343,6 +343,9 @@ permission for different files like this:
 In this case, the file resulting in `/etc/foo/my-group/my-username` will have
 permission value of `0777`. Owing to JSON limitations, you must specify the mode
 in decimal notation.
+
+Note that this permission value might be displayed in decimal notation if you
+read it later.
 
 **Consuming Secret Values from Volumes**
 
@@ -377,7 +380,7 @@ To use a secret in an environment variable in a pod:
 1. Modify your Pod definition in each container that you wish to consume the value of a secret key to add an environment variable for each secret key you wish to consume.  The environment variable that consumes the secret key should populate the secret's name and key in `env[x].valueFrom.secretKeyRef`.
 1. Modify your image and/or command line so that the program looks for values in the specified environment variables
 
-This is an example of a pod that mounts a secret in a volume:
+This is an example of a pod that uses secrets from environment variables:
 
 ```yaml
 apiVersion: v1
@@ -543,9 +546,9 @@ credentials.
 Make the secrets:
 
 ```shell
-$ kubectl create secret generic prod-db-secret --from-literal=user=produser --from-literal=password=Y4nys7f11
+$ kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
 secret "prod-db-secret" created
-$ kubectl create secret generic test-db-secret --from-literal=user=testuser --from-literal=password=iluvtests
+$ kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
 secret "test-db-secret" created
 ```
 

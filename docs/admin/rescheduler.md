@@ -43,6 +43,7 @@ killed for this purpose.
 
 Rescheduler doesn't have any user facing configuration (component config) or API.
 It's enabled by default. It can be disabled:
+
 * during cluster setup by setting `ENABLE_RESCHEDULER` flag to `false`
 * on running cluster by deleting its manifest from master node
 (default path `/etc/kubernetes/manifests/rescheduler.manifest`)
@@ -51,6 +52,7 @@ It's enabled by default. It can be disabled:
 
 To be critical an add-on has to run in `kube-system` namespace (cofigurable via flag)
 and have the following annotations specified:
+
 * `scheduler.alpha.kubernetes.io/critical-pod` set to empty string
 * `scheduler.alpha.kubernetes.io/tolerations` set to `[{"key":"CriticalAddonsOnly", "operator":"Exists"}]`
 

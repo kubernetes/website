@@ -41,12 +41,6 @@ A generic guide to setting up an HA cluster on any cloud or bare metal, with ful
 
 These guides are maintained by community members, cover specific platforms and use cases, and experiment with different ways of configuring Kubernetes on CoreOS.
 
-[**Multi-node Cluster**](/docs/getting-started-guides/coreos/coreos_multinode_cluster)
-
-Set up a single master, multi-worker cluster on your choice of platform: AWS, GCE, or VMware Fusion.
-
-<hr/>
-
 [**Easy Multi-node Cluster on Google Compute Engine**](https://github.com/rimusz/coreos-multi-node-k8s-gce/blob/master/README.md)
 
 Scripted installation of a single master, multi-worker cluster on GCE. Kubernetes components are managed by [fleet](https://github.com/coreos/fleet).

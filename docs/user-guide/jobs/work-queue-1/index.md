@@ -166,7 +166,7 @@ We will use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  Here is a very simple
 example program:
 
-{% include code.html language="python" file="worker.py" ghlink="/docs/user-guide/job/work-queue-1/worker.py" %}
+{% include code.html language="python" file="worker.py" ghlink="/docs/user-guide/jobs/work-queue-1/worker.py" %}
 
 Now, build an image.  If you are working in the source
 tree, then change directory to `examples/job/work-queue-1`.
@@ -204,7 +204,7 @@ Here is a job definition.  You'll need to make a copy of the Job and edit the
 image to match the name you used, and call it `./job.yaml`.
 
 
-{% include code.html language="yaml" file="job.yaml" ghlink="/docs/user-guide/job/work-queue-1/job.yaml" %}
+{% include code.html language="yaml" file="job.yaml" ghlink="/docs/user-guide/jobs/work-queue-1/job.yaml" %}
 
 In this example, each pod works on one item from the queue and then exits.
 So, the completion count of the Job corresponds to the number of work items
@@ -258,12 +258,12 @@ want to consider one of the other [job patterns](/docs/user-guide/jobs/#job-patt
 
 This approach creates a pod for every work item.  If your work items only take a few seconds,
 though, creating a Pod for every work item may add a lot of overhead.  Consider another
-[example](/docs/user-guide/job/work-queue-2), that executes multiple work items per Pod.
+[example](/docs/user-guide/jobs/work-queue-2/), that executes multiple work items per Pod.
 
 In this example, we used use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  This has the advantage that you
 do not need to modify your program to be aware of the queue.
-A [different example](/docs/user-guide/job/work-queue-2), shows how to
+A [different example](/docs/user-guide/jobs/work-queue-2/), shows how to
 communicate with the work queue using a client library.
 
 ## Caveats

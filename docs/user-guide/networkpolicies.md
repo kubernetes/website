@@ -44,9 +44,11 @@ metadata:
 
 To configure the annotation via `kubectl`:
 
-```shell{% raw %}
+```shell
+{% raw %}
 kubectl annotate ns <namespace> "net.beta.kubernetes.io/network-policy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"
-{% endraw %}```
+{% endraw %}
+```
 
 See the [NetworkPolicy getting started guide](/docs/getting-started-guides/network-policy/walkthrough) for an example.
 
@@ -61,12 +63,16 @@ apiVersion: extensions/v1beta1
 kind: NetworkPolicy
 metadata:
  name: test-network-policy
+ namespace: default
 spec:
  podSelector:
   matchLabels:
     role: db
  ingress:
   - from:
+     - namespaceSelector:
+        matchLabels:
+         project: myproject
      - podSelector:
         matchLabels:
          role: frontend
@@ -84,3 +90,9 @@ __spec__: `NetworkPolicy` [spec](https://github.com/kubernetes/kubernetes/tree/{
 __podSelector__: Each `NetworkPolicy` includes a `podSelector` which selects the grouping of pods to which the `ingress` rules in the policy apply.
 
 __ingress__: Each `NetworkPolicy` includes a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections.
+
+This example NetworkPolicy has the following characteristics:
+
+1. applies to all pods in the default namespace with the label "role=db"
+2. allows tcp/6379 ingress traffic to the "role=db" pods from any pod in the current namespace with the label "role=frontend" (due to the podSelector list element)
+3. allows tcp/6379 ingress traffic to the "role=db" pods from any pod in the namespace "myproject" (due to the namespaceSelector list element)

@@ -2,13 +2,28 @@
 assignees:
 - justinsb
 - lavalamp
+- clove
 
 ---
 
 * TOC
 {:toc}
 
-## Prerequisites
+
+## Supported Production Grade Tools with High Availability Options
+
+* [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
+
+* CoreOS maintains [a CLI tool](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html), `kube-aws` that will create and manage a Kubernetes cluster based on [CoreOS](http://www.coreos.com), using AWS tools: EC2, CloudFormation and Autoscaling.
+
+---
+
+## kube-up bash script
+
+> `kube-up.sh` is a legacy tool that is an easy way to spin up a cluster.  This tool is being deprecated, and does not create a production ready environment.
+
+
+### Prerequisites
 
 1. You need an AWS account. Visit [http://aws.amazon.com](http://aws.amazon.com) to get started
 2. Install and configure the [AWS Command Line Interface](http://aws.amazon.com/cli)
@@ -21,9 +36,9 @@ You may explicitly set the AWS profile to use using the `AWS_DEFAULT_PROFILE` en
 export AWS_DEFAULT_PROFILE=myawsprofile
 ```
 
-## Cluster turnup
+### Cluster turnup
 
-### Supported procedure: `get-kube`
+#### Supported procedure: `get-kube`
 
 ```shell
 #Using wget
@@ -97,12 +112,7 @@ If these already exist, make sure you want them to be used here.
 
 NOTE: If using an existing keypair named "kubernetes" then you must set the `AWS_SSH_KEY` key to point to your private key.
 
-### Alternatives
 
-* [kops](https://github.com/kubernetes/kops) "kubernetes-ops" is a complete Kubernetes cluster lifecycle management tool,
-  that supports AWS.
-
-* CoreOS maintains [a CLI tool](https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html), `kube-aws` that will create and manage a Kubernetes cluster based on [CoreOS](http://www.coreos.com), using AWS tools: EC2, CloudFormation and Autoscaling.
 
 ## Getting started with your cluster
 
@@ -162,6 +172,3 @@ For support level information on all solutions, see the [Table of solutions](/do
 
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
-
-
-

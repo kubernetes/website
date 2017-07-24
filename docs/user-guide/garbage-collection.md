@@ -32,5 +32,7 @@ Synchronous garbage collection will be supported in 1.5 (tracking [issue](https:
 If you specify `deleteOptions.orphanDependents=true`, or leave it blank, then the GC will first reset the `ownerReferences` in the dependents, then delete the owner. Note that the deletion of the owner object is asynchronous, that is, a 200 OK response will be sent by the API server before the owner object gets deleted.
 
 ### Other references
+
 [Design Doc](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/garbage-collection.md)
+
 [Known issues](https://github.com/kubernetes/kubernetes/issues/26120)

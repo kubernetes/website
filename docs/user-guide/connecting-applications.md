@@ -9,7 +9,7 @@ assignees:
 * TOC
 {:toc}
 
-# The Kubernetes model for connecting containers
+## The Kubernetes model for connecting containers
 
 Now that you have a continuously running, replicated application you can expose it on a network. Before discussing the Kubernetes approach to networking, it is worthwhile to contrast it with the "normal" way networking works with Docker.
 
