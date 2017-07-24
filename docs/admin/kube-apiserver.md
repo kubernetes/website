@@ -375,15 +375,15 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
 <!--      
       --requestheader-extra-headers-prefix stringSlice          List of request header prefixes to inspect. X-Remote-Extra- is suggested.
 -->      
-      --requestheader-extra-headers-prefix stringSlice          要检测的请求头前缀列表. 建议使用X-Remote-Extra-.
+      --requestheader-extra-headers-prefix stringSlice          用于检查的请求头的前缀列表。建议使用X-Remote-Extra-。
 <!--       
       --requestheader-group-headers stringSlice                 List of request headers to inspect for groups. X-Remote-Group is suggested.
  -->
-      --requestheader-group-headers stringSlice                 要检测表示群组的请求头前缀列表。建议使用X-Remote-Group.
+      --requestheader-group-headers stringSlice                 用于检查群组的请求头列表。建议使用X-Remote-Group.
  <!--      
       --requestheader-username-headers stringSlice              List of request headers to inspect for usernames. X-Remote-User is common.
  -->      
-      --requestheader-username-headers stringSlice              要检测表示用户名的请求头前缀列表。建议使用X-Remote-User。
+      --requestheader-username-headers stringSlice              用于检查用户名的请求头列表。建议使用X-Remote-User。
  <!--      
       --runtime-config mapStringString                          A set of key=value pairs that describe runtime configuration that may be passed to apiserver. apis/<groupVersion> key can be used to turn on/off specific api versions. apis/<groupVersion>/<resource> can be used to turn on/off specific resources. api/all and api/legacy are special keys to control all and legacy api versions respectively.
  -->      
