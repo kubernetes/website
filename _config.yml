@@ -38,7 +38,7 @@ gems:
   - jekyll-seo-tag
   - jekyll-include-cache
 
-include: _headers
+include: [_headers]
 
 # SEO
 logo: /images/favicon.png
