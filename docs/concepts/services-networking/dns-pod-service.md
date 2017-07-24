@@ -234,6 +234,29 @@ nameserver 10.0.0.10
 options ndots:5
 ```
 
+### DNS Policy
+
+By default, DNS policy for a pod is 'ClusterFirst'. So pods running with hostNetwork cannot resolve DNS names. To have DNS options set along with hostNetwork, you should specify DNS policy explicitly to 'ClusterFirstWithHostNet'. Update the busybox.yaml as following:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  namespace: default
+spec:
+  containers:
+  - image: busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: busybox
+  restartPolicy: Always
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+```
+
 #### Quick diagnosis
 
 Errors such as the following indicate a problem with the kube-dns add-on or associated Services:
