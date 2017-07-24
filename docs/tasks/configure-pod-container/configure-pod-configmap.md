@@ -119,8 +119,8 @@ Note: This functionality is available to users running Kubernetes v1.6 and later
      name: special-config
      namespace: default
    data:
-     special_level: very
-     special_type: charm
+     SPECIAL_LEVEL: very
+     SPECIAL_TYPE: charm
    ```
 
 1. Use `env-from` to define all of the ConfigMap's data as Pod environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
