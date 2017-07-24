@@ -16,3 +16,6 @@ docs/user-guide/downward-api/index.md
 docs/user-guide/downward-api/volume/index.md
 docs/user-guide/getting-into-containers.md
 
+docs/api-reference/README.md
+docs/user-guide/logging/stackdriver.md
+docs/user-guide/production-pods.md
