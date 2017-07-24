@@ -1,19 +1,19 @@
 ---
 assignees:
 - pweil-
-
+title: Pod Security Policies
 ---
 
-Objects of type `podsecuritypolicy` govern the ability 
+Objects of type `PodSecurityPolicy` govern the ability
 to make requests on a pod that affect the `SecurityContext` that will be 
-applied to a pod and container.  
+applied to a pod and container.
 
-See [PodSecurityPolicy proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/proposals/security-context-constraints.md) for more information.
+See [PodSecurityPolicy proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security-context-constraints.md) for more information.
 
 * TOC
 {:toc}
 
-## What is a _Pod Security Policy_?
+## What is a Pod Security Policy?
 
 A _Pod Security Policy_ is a cluster-level resource that controls the 
 actions that a pod can perform and what it has the ability to access. The
@@ -26,7 +26,7 @@ administrator to control the following:
 1. The SELinux context of the container.
 1. The user ID.
 1. The use of host namespaces and networking.
-1. Allocating an FSGroup that owns the pod’s volumes
+1. Allocating an FSGroup that owns the pod's volumes
 1. Configuring allowable supplemental groups
 1. Requiring the use of a read only root file system
 1. Controlling the usage of volume types
@@ -39,7 +39,7 @@ into three categories:
 restrictive value. 
 - *Controlled by an allowable set*: Fields of this type are checked 
 against the set to ensure their value is allowed.
-- *Controlled by a strategy*: Items that have a strategy to generate a value provide
+- *Controlled by a strategy*: Items that have a strategy to provide
 a mechanism to generate the value and a mechanism to ensure that a 
 specified value falls into the set of allowable values.
 
@@ -84,6 +84,7 @@ volumes field of the PSP. The allowable values of this field correspond
 to the volume sources that are defined when creating a volume:
 
 1. azureFile
+1. azureDisk
 1. flocker
 1. flexVolume
 1. hostPath
@@ -102,15 +103,24 @@ to the volume sources that are defined when creating a volume:
 1. downwardAPI
 1. fc
 1. configMap
+1. vsphereVolume
+1. quobyte
+1. photonPersistentDisk
+1. projected
+1. portworxVolume
+1. scaleIO
 1. \* (allow all volumes)
 
 The recommended minimum set of allowed volumes for new PSPs are 
 configMap, downwardAPI, emptyDir, persistentVolumeClaim, and secret.
 
+### Host Network
+ - *HostPorts*, default `empty`. List of `HostPortRange`, defined by `min`(inclusive) and `max`(inclusive), which define the allowed host ports.
+ 
 ## Admission
 
-_Admission control_ with `PodSecurityPolicy` allows for control over the creation of resources
-based on the capabilities allowed in the cluster.
+_Admission control_ with `PodSecurityPolicy` allows for control over the
+creation and modification of resources based on the capabilities allowed in the cluster.
 
 Admission uses the following approach to create the final security context for
 the pod:
@@ -139,6 +149,28 @@ $ kubectl create -f ./psp.yaml
 podsecuritypolicy "permissive" created
 ```
 
+## Getting a list of Pod Security Policies
+
+To get a list of existing policies, use `kubectl get`:
+
+```shell
+$ kubectl get psp
+NAME        PRIV   CAPS  SELINUX   RUNASUSER         FSGROUP   SUPGROUP  READONLYROOTFS  VOLUMES
+permissive  false  []    RunAsAny  RunAsAny          RunAsAny  RunAsAny  false           [*]
+privileged  true   []    RunAsAny  RunAsAny          RunAsAny  RunAsAny  false           [*]
+restricted  false  []    RunAsAny  MustRunAsNonRoot  RunAsAny  RunAsAny  false           [emptyDir secret downwardAPI configMap persistentVolumeClaim]
+```
+
+## Editing a Pod Security Policy
+
+To modify policy interactively, use `kubectl edit`:
+
+```shell
+$ kubectl edit psp permissive
+```
+
+This command will open a default text editor where you will be ably to modify policy.
+
 ## Deleting a Pod Security Policy
 
 Once you don't need a policy anymore, simply delete it with `kubectl`:
@@ -156,3 +188,9 @@ following
 1.  You have enabled the api type `extensions/v1beta1/podsecuritypolicy`
 1.  You have enabled the admission controller `PodSecurityPolicy`
 1.  You have defined your policies
+
+## Working With RBAC
+
+In Kubernetes 1.5 and newer, you can use PodSecurityPolicy to control access to privileged containers based on user role and groups. Access to different PodSecurityPolicy objects can be controlled via authorization. To limit access to PodSecurityPolicy objects for pods created via a Deployment, ReplicaSet, etc, the [Controller Manager](/docs/admin/kube-controller-manager/) must be run against the secured API port, and must not have superuser permissions.
+
+PodSecurityPolicy authorization uses the union of all policies available to the user creating the pod and the service account specified on the pod. When pods are created via a Deployment, ReplicaSet, etc, it is Controller Manager that creates the pod, so if it is running against the unsecured API port, all PodSecurityPolicy objects would be allowed, and you could not effectively subdivide access. Access to given PSP policies for a user will be effective only when deploying Pods directly. For more details, see the [PodSecurityPolicy RBAC example](https://github.com/kubernetes/kubernetes/blob/master/examples/podsecuritypolicy/rbac/README.md) of applying PodSecurityPolicy to control access to privileged containers based on role and groups when deploying Pods directly.

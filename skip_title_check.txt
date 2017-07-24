@@ -1,0 +1,12 @@
+# Put files you want to skip "title:" check here:
+docs/sitemap.md
+docs/getting-started-guides/docker.md
+docs/user-guide/configmap/README.md
+docs/user-guide/downward-api/README.md
+docs/api-reference/extensions/v1beta1/definitions.md
+docs/api-reference/extensions/v1beta1/operations.md
+docs/api-reference/v1/definitions.md
+docs/api-reference/v1/operations.md
+docs/user-guide/pods/_viewing-a-pod.md
+docs/user-guide/simple-yaml.md
+docs/concepts/abstractions/pod-termination.md

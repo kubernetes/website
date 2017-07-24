@@ -1,9 +1,9 @@
 ---
 assignees:
 - davidopp
-
+title: Safely Draining a Node while Respecting Application SLOs
 ---
- 
+
 {% capture overview %}
 This page shows how to safely drain a machine, respecting the application-level
 disruption SLOs you have specified using PodDisruptionBudget.
@@ -21,7 +21,7 @@ application-level disruption SLOs you want the system to enforce.
 
 {% capture steps %}
 
-### Use `kubectl drain` to remove a node from service
+## Use `kubectl drain` to remove a node from service
 
 You can use `kubectl drain` to safely evict all of your pods from a
 node before you perform maintenance on the node (e.g. kernel upgrade,
@@ -44,11 +44,13 @@ down its physical machine or, if running on a cloud platform, deleting its
 virtual machine.
 
 First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
+
 ```shell
 kubectl get nodes
 ```
 
 Next, tell Kubernetes to drain the node:
+
 ```shell
 kubectl drain <node name>
 ```
@@ -56,12 +58,13 @@ kubectl drain <node name>
 Once it returns (without giving an error), you can power down the node
 (or equivalently, if on a cloud platform, delete the virtual machine backing the node).
 If you leave the node in the cluster during the maintenance operation, you need to run
+
 ```shell
 kubectl uncordon <node name>
 ```
 afterwards to tell Kubernetes that it can resume scheduling new pods onto the node.
 
-### Draining multiple nodes in parallel
+## Draining multiple nodes in parallel
 
 The `kubectl drain` command should only be issued to a single node at a
 time. However, you can run multiple `kubectl drain` commands for

@@ -1,8 +1,7 @@
 ---
 assignees:
-- lavalamp
 - thockin
-
+title: Cloudstack
 ---
 
 CloudStack is a software to build public and private clouds based on hardware virtualization principles (traditional IaaS). To deploy Kubernetes on CloudStack there are several possibilities depending on the Cloud being used and what images are made available. [Exoscale](http://exoscale.ch) for instance makes a [CoreOS](http://coreos.com) template available, therefore instructions to deploy Kubernetes on coreOS can be used. CloudStack also has a vagrant plugin available, hence Vagrant could be used to deploy Kubernetes either using the existing shell provisioner or using new Salt based recipes.
@@ -66,7 +65,7 @@ Some variables can be edited in the `k8s.yml` file.
       k8s_instance_type: Tiny
 
 This will start a Kubernetes master node and a number of compute nodes (by default 2).
-The `instance_type` and `template` by default are specific to [exoscale](http://exoscale.ch), edit them to specify your CloudStack cloud specific template and instance type (i.e service offering).
+The `instance_type` and `template` by default are specific to [exoscale](http://exoscale.ch), edit them to specify your CloudStack cloud specific template and instance type (i.e. service offering).
 
 Check the tasks and templates in `roles/k8s` if you want to modify anything.
 
@@ -78,10 +77,10 @@ SSH to it using the key that was created and using the _core_ user and you can l
 
     $ ssh -i ~/.ssh/id_rsa_k8s core@<master IP>
     $ fleetctl list-machines
-    MACHINE		IP		       METADATA
-    a017c422...	<node #1 IP>   role=node
-    ad13bf84...	<master IP>	   role=master
-    e9af8293...	<node #2 IP>   role=node
+    MACHINE        IP               METADATA
+    a017c422...    <node #1 IP>   role=node
+    ad13bf84...    <master IP>       role=master
+    e9af8293...    <node #2 IP>   role=node
 
 ## Support Level
 

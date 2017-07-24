@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - brendandburns
 - thockin
-
+title: kubectl for Docker Users
 ---
 
 In this doc, we introduce the Kubernetes command line for interacting with the api to docker-cli users. The tool, kubectl, is designed to be familiar to docker-cli users but there are a few necessary differences. Each section of this doc highlights a docker subcommand explains the kubectl equivalent.
@@ -33,7 +33,7 @@ $ kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
 deployment "nginx-app" created
 ```
 
-`kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
+`kubectl run` creates a Deployment named "nginx-app" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
 If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/kubectl_run/) for more details. 
 Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands. Now, we can expose a new Service with the deployment created above:
 
@@ -141,7 +141,7 @@ $ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-For more information see [Getting into containers](/docs/user-guide/getting-into-containers).
+For more information see [Getting a Shell to a Running Container](/docs/tasks/kubectl/get-shell-running-container/).
 
 #### docker logs
 
@@ -172,7 +172,7 @@ $ kubectl logs --previous nginx-app-zibvs
 10.240.63.110 - - [14/Jul/2015:01:09:02 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.26.0" "-"
 ```
 
-See [Logging Overview](/docs/user-guide/logging/overview) for more information.
+See [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/) for more information.
 
 #### docker stop and docker rm
 
@@ -209,7 +209,7 @@ Notice that we don't delete the pod directly. With kubectl we want to delete the
 
 #### docker login
 
-There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/user-guide/images/#using-a-private-registry).
+There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 
 #### docker version
 

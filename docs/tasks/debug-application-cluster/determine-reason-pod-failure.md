@@ -1,4 +1,5 @@
 ---
+title: Determining the Reason for Pod Failure
 ---
 
 {% capture overview %}
@@ -26,7 +27,7 @@ the general
 
 {% capture steps %}
 
-### Writing and reading a termination message
+## Writing and reading a termination message
 
 In this exercise, you create a Pod that runs one container.
 The configuration file specifies a command that runs when
@@ -74,7 +75,7 @@ only the termination message:
 {% raw %}    kubectl get pod termination-demo -o go-template="{{range .status.containerStatuses}}{{.lastState.terminated.message}}{{end}}"{% endraw %}
 ```
 
-### Setting the termination log file
+## Setting the termination log file
 
 By default Kubernetes retrieves termination messages from
 `/dev/termination-log`. To change this to a different file,
@@ -100,7 +101,7 @@ Set `terminationMessagePath` as shown here:
 
 * See the `terminationMessagePath` field in
   [Container](/docs/api-reference/v1/definitions#_v1_container).
-* Learn about [retrieving logs](/docs/user-guide/logging/).
+* Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
 * Learn about [Go templates](https://golang.org/pkg/text/template/).
 
 {% endcapture %}

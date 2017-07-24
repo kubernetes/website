@@ -2,8 +2,9 @@
 assignees:
 - eparis
 - pmorie
-
+title: Using ConfigMap
 ---
+
 Many applications require configuration via some combination of config files, command line
 arguments, and environment variables.  These configuration artifacts should be decoupled from image
 content in order to keep containerized applications portable.  The ConfigMap API resource provides
@@ -19,7 +20,9 @@ or used to store configuration data for system components such as controllers.  
 to [Secrets](/docs/user-guide/secrets/), but designed to more conveniently support working with strings that do not
 contain sensitive information.
 
-Let's look at a made-up example:
+Note: ConfigMaps are not intended to act as a replacement for a properties file. ConfigMaps are intended to act as a  reference to multiple properties files. You can think of them as way to represent something similar to the /etc directory, and the files within, on a Linux computer. One example of this model is creating Kubernetes Volumes from ConfigMaps, where each data item in the ConfigMap becomes a new file. 
+
+Consider the following example:
 
 ```yaml
 kind: ConfigMap
@@ -43,7 +46,7 @@ of configuration files.
 
 Configuration data can be consumed in pods in a variety of ways.  ConfigMaps can be used to:
 
-1.  Populate the value of environment variables
+1.  Populate the values of environment variables
 2.  Set command-line arguments in a container
 3.  Populate config files in a volume
 
@@ -291,7 +294,7 @@ SPECIAL_TYPE_KEY=charm
 ### Use-Case: Set command-line arguments with ConfigMap
 
 ConfigMaps can also be used to set the value of the command or arguments in a container.  This is
-accomplished using the kubernetes substitution syntax `$(VAR_NAME)`.  Consider the ConfigMap:
+accomplished using the Kubernetes substitution syntax `$(VAR_NAME)`.  Consider the ConfigMap:
 
 ```yaml
 apiVersion: v1
@@ -421,7 +424,7 @@ basis. The [Secrets](/docs/user-guide/secrets/) user guide explains the syntax.
 
 ## Real World Example: Configuring Redis
 
-Let's take a look at a real-world example: configuring redis using ConfigMap.  Say we want to inject
+Let's take a look at a real-world example: configuring redis using ConfigMap.  Say that we want to inject
 redis with the recommendation configuration for using redis as a cache.  The redis config file
 should contain:
 
@@ -522,7 +525,8 @@ ConfigMaps reside in a namespace.   They can only be referenced by pods in the s
 
 Quota for ConfigMap size is a planned feature.
 
-Kubelet only supports use of ConfigMap for pods it gets from the API server.  This includes any pods
+Kubelet only supports use of ConfigMap for pods it gets from the API server.  This includes every pod
 created using kubectl, or indirectly via a replication controller.  It does not include pods created
 via the Kubelet's `--manifest-url` flag, its `--config` flag, or its REST API (these are not common
 ways to create pods.)
+

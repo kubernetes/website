@@ -1,10 +1,10 @@
 ---
 assignees:
 - bprashanth
-
+title: Services
 ---
 
-Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and they die, and they
+Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and when they die, they
 are not resurrected.  [`ReplicationControllers`](/docs/user-guide/replication-controller) in
 particular create and destroy `Pods` dynamically (e.g. when scaling up or down
 or when doing [rolling updates](/docs/user-guide/kubectl/kubectl_rolling-update)).  While each `Pod` gets its own IP address, even
@@ -19,7 +19,7 @@ Enter `Services`.
 A Kubernetes `Service` is an abstraction which defines a logical set of `Pods`
 and a policy by which to access them - sometimes called a micro-service.  The
 set of `Pods` targeted by a `Service` is (usually) determined by a [`Label
-Selector`](/docs/user-guide/labels/#label-selectors) (see below for why you might want a
+Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors) (see below for why you might want a
 `Service` without a selector).
 
 As an example, consider an image-processing backend which is running with 3
@@ -226,7 +226,7 @@ knowing anything about Kubernetes or `Services` or `Pods`. This should be
 faster and more reliable than the userspace proxy. However, unlike the
 userspace proxier, the iptables proxier cannot automatically retry another
 `Pod` if the one it initially selects does not respond, so it depends on
-having working [readiness probes](/docs/user-guide/production-pods/#liveness-and-readiness-probes-aka-health-checks).
+having working [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#defining-readiness-probes).
 
 ![Services overview diagram for iptables proxy](/images/docs/services-iptables-overview.svg)
 
@@ -345,7 +345,7 @@ can do a DNS SRV query for `"_http._tcp.my-service.my-ns"` to discover the port
 number for `"http"`.
 
 The Kubernetes DNS server is the only way to access services of type
-`ExternalName`.  More information is available in the [DNS Admin Guide](http://kubernetes.io/docs/admin/dns/).
+`ExternalName`.  More information is available in the [DNS Pods and Services](/docs/concepts/services-networking/dns-pod-service/).
 
 ## Headless services
 
@@ -353,59 +353,57 @@ Sometimes you don't need or want load-balancing and a single service IP.  In
 this case, you can create "headless" services by specifying `"None"` for the
 cluster IP (`spec.clusterIP`).
 
-This option allows developers to reduce coupling to the Kubernetes system, if
-they desire, but leaves them freedom to do discovery in their own way.
-Applications can still use a self-registration pattern and adapters for other
-discovery systems could easily be built upon this API.
+This option allows developers to reduce coupling to the Kubernetes system by 
+allowing them freedom to do discovery their own way.  Applications can still use 
+a self-registration pattern and adapters for other discovery systems could easily 
+be built upon this API.
 
-For such `Services` a cluster IP is not allocated, the kube proxy does not handle
+For such `Services`, a cluster IP is not allocated, kube-proxy does not handle
 these services, and there is no load balancing or proxying done by the platform
-for them. How DNS is automatically configured depends on if the service has
-selectors or not.
+for them. How DNS is automatically configured depends on whether the service has
+selectors defined.
 
 ### With selectors
 
 For headless services that define selectors, the endpoints controller creates
 `Endpoints` records in the API, and modifies the DNS configuration to return A
-records (addresses) which point directly to the `Pods` backing the `Service`.
+records (addresses) that point directly to the `Pods` backing the `Service`.
 
 ### Without selectors
 
 For headless services that do not define selectors, the endpoints controller does
 not create `Endpoints` records. However, the DNS system looks for and configures
 either:
-  - CNAME records for `ExternalName`-type services
-  - A records for any `Endpoints` that share a name with the service, for all
+
+  * CNAME records for `ExternalName`-type services
+  * A records for any `Endpoints` that share a name with the service, for all
     other types
 
 ## Publishing services - service types
 
 For some parts of your application (e.g. frontends) you may want to expose a
-Service onto an external (outside of your cluster, maybe public internet) IP
-address, other services should be visible only from inside of the cluster.
+Service onto an external (outside of your cluster) IP address.
 
 
 Kubernetes `ServiceTypes` allow you to specify what kind of service you want.
-The default and base type is `ClusterIP`, which exposes a service to connection
-from inside the cluster. `NodePort` and `LoadBalancer` are two types that expose
-services to external traffic.
+The default is `ClusterIP`.
 
-Valid values for the `ServiceType` field are:
+`ServiceType` values and their behaviors are:
 
-   * `ExternalName`: map the service to the contents of the `externalName` field
+   * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value 
+     makes the service only reachable from within the cluster. This is the 
+     default `ServiceType`.
+   * `NodePort`: Exposes the service on each Node's IP at a static port (the `NodePort`). 
+     A `ClusterIP` service, to which the NodePort service will route, is automatically 
+     created.  You'll be able to contact the `NodePort` service, from outside the cluster, 
+     by requesting `<NodeIP>:<NodePort>`.
+   * `LoadBalancer`: Exposes the service externally using a cloud provider's load balancer. 
+     `NodePort` and `ClusterIP` services, to which the external load balancer will route, 
+     are automatically created.
+   * `ExternalName`: Maps the service to the contents of the `externalName` field
      (e.g. `foo.bar.example.com`), by returning a `CNAME` record with its value.
      No proxying of any kind is set up. This requires version 1.7 or higher of
      `kube-dns`.
-   * `ClusterIP`: use a cluster-internal IP only - this is the default and is
-     discussed above. Choosing this value means that you want this service to be
-     reachable only from inside of the cluster.
-   * `NodePort`: on top of having a cluster-internal IP, expose the service on a
-     port on each node of the cluster (the same port on each node). You'll be able
-     to contact the service on any `<NodeIP>:NodePort` address.
-   * `LoadBalancer`: on top of having a cluster-internal IP and exposing service
-     on a NodePort also, ask the cloud provider for a load balancer
-     which forwards to the `Service` exposed as a `<NodeIP>:NodePort`
-     for each Node.
 
 ### Type NodePort
 
@@ -420,7 +418,7 @@ will fail (i.e. you need to take care about possible port collisions yourself).
 The value you specify must be in the configured range for node ports.
 
 This gives developers the freedom to set up their own load balancers, to
-configure cloud environments that are not fully supported by Kubernetes, or
+configure environments that are not fully supported by Kubernetes, or
 even to just expose one or more nodes' IPs directly.
 
 Note that this Service will be visible as both `<NodeIP>:spec.ports[*].nodePort`
@@ -502,7 +500,7 @@ within AWS Certificate Manager.
     },
 ```
 
-The second annotation specificies which protocol a pod speaks. For HTTPS and
+The second annotation specifies which protocol a pod speaks. For HTTPS and
 SSL, the ELB will expect the pod to authenticate itself over the encrypted
 connection.
 
@@ -657,10 +655,10 @@ through a load-balancer, though in those cases the client IP does get altered.
 
 ## API Object
 
-Service is a top-level resource in the kubernetes REST API. More details about the
+Service is a top-level resource in the Kubernetes REST API. More details about the
 API object can be found at: [Service API
 object](/docs/api-reference/v1/definitions/#_v1_service).
 
 ## For More Information
 
-Read [Service Operations](/docs/user-guide/services/operations/).
+Read [Connecting a Front End to a Back End Using a Service](/docs/tutorials/connecting-apps/connecting-frontend-backend/).

@@ -1,7 +1,7 @@
 ---
 assignees:
 - mikedanese
-
+title: Secrets
 ---
 
 Objects of type `secret` are intended to hold sensitive information, such as
@@ -22,7 +22,7 @@ more control over how it is used, and reduces the risk of accidental exposure.
 Users can create secrets, and the system also creates some secrets.
 
 To use a secret, a pod needs to reference the secret.
-A secret can be used with a pod in two ways: as files in a [volume](/docs/user-guide/volumes) mounted on one or more of
+A secret can be used with a pod in two ways: as files in a [volume](/docs/concepts/storage/volumes/) mounted on one or more of
 its containers, or used by kubelet when pulling images for the pod.
 
 ### Built-in Secrets
@@ -71,17 +71,17 @@ NAME                  TYPE                                  DATA      AGE
 db-user-pass          Opaque                                2         51s
 
 $ kubectl describe secrets/db-user-pass
-Name:		db-user-pass
-Namespace:	default
-Labels:		<none>
-Annotations:	<none>
+Name:            db-user-pass
+Namespace:       default
+Labels:          <none>
+Annotations:     <none>
 
-Type:	Opaque
+Type:            Opaque
 
 Data
 ====
-password.txt:	13 bytes
-username.txt:	6 bytes
+password.txt:    13 bytes
+username.txt:    6 bytes
 ```
 
 Note that neither `get` nor `describe` shows the contents of the file by default.
@@ -113,8 +113,8 @@ metadata:
   name: mysecret
 type: Opaque
 data:
-  password: MWYyZDFlMmU2N2Rm
   username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 ```
 
 The data field is a map.  Its keys must match
@@ -142,8 +142,8 @@ Get back the secret created in the previous section:
 $ kubectl get secret mysecret -o yaml
 apiVersion: v1
 data:
-  password: MWYyZDFlMmU2N2Rm
   username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
 kind: Secret
 metadata:
   creationTimestamp: 2016-01-22T18:41:56Z
@@ -158,7 +158,7 @@ type: Opaque
 Decode the password field:
 
 ```shell
-$ echo "MWYyZDFlMmU2N2Rm" | base64 -d
+$ echo "MWYyZDFlMmU2N2Rm" | base64 --decode
 1f2d1e2e67df
 ```
 
@@ -364,13 +364,16 @@ $ cat /etc/foo/password
 1f2d1e2e67df
 ```
 
-The program in a container is responsible for reading the secret(s) from the
+The program in a container is responsible for reading the secrets from the
 files.
 
 **Mounted Secrets are updated automatically**
 
 When a secret being already consumed in a volume is updated, projected keys are eventually updated as well.
-The update time depends on the kubelet syncing period.
+Kubelet is checking whether the mounted secret is fresh on every periodic sync.
+However, it is using its local ttl-based cache for getting the current value of the secret.
+As a result, the total delay from the moment when the secret is updated to the moment when new keys are
+projected to the pod can be as long as kubelet sync period + ttl of secrets cache in kubelet.
 
 #### Using Secrets as Environment Variables
 
@@ -425,7 +428,7 @@ password to the Kubelet so it can pull a private image on behalf of your Pod.
 
 **Manually specifying an imagePullSecret**
 
-Use of imagePullSecrets is described in the [images documentation](/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
+Use of imagePullSecrets is described in the [images documentation](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
 
 ### Arranging for imagePullSecrets to be Automatically Attached
 
@@ -486,7 +489,7 @@ Create a secret containing some ssh keys:
 $ kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 ```
 
-**Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to have accessible to all the users with whom you share the kubernetes cluster, and can revoke if they are compromised.
+**Security Note:** think carefully before sending your own ssh keys: other users of the cluster may have access to the secret.  Use a service account which you want to have accessible to all the users with whom you share the Kubernetes cluster, and can revoke if they are compromised.
 
 
 Now we can create a pod which references the secret with the ssh key and
@@ -531,8 +534,8 @@ consumes it in a volume:
 When the container's command runs, the pieces of the key will be available in:
 
 ```shell
-/etc/secret-volume/id-rsa.pub
-/etc/secret-volume/id-rsa
+/etc/secret-volume/ssh-publickey
+/etc/secret-volume/ssh-privatekey
 ```
 
 The container is then free to use the secret data to establish an ssh connection.
@@ -666,7 +669,7 @@ one called, say, `prod-user` with the `prod-db-secret`, and one called, say,
 
 ### Use-case: Dotfiles in secret volume
 
-In order to make piece of data 'hidden' (ie, in a file whose name begins with a dot character), simply
+In order to make piece of data 'hidden' (i.e., in a file whose name begins with a dot character), simply
 make that key begin with a dot.  For example, when the following secret is mounted into a volume:
 
 ```json
@@ -700,7 +703,7 @@ make that key begin with a dot.  For example, when the following secret is mount
       {
         "name": "dotfile-test-container",
         "image": "gcr.io/google_containers/busybox",
-        "command": "ls -l /etc/secret-volume",
+        "command": [ "ls", "-l", "/etc/secret-volume" ],
         "volumeMounts": [
           {
             "name": "secret-volume",
@@ -786,8 +789,6 @@ Pod level](#use-case-secret-visible-to-one-container-in-a-pod).
    run a pod which exposes the secret.
  - If multiple replicas of etcd are run, then the secrets will be shared between them.
    By default, etcd does not secure peer-to-peer communication with SSL/TLS, though this can be configured.
- - It is not possible currently to control which users of a Kubernetes cluster can
-   access a secret.  Support for this is planned.
  - Currently, anyone with root on any node can read any secret from the apiserver,
    by impersonating the kubelet.  It is a planned feature to only send secrets to
    nodes that actually require them, to restrict the impact of a root exploit on a

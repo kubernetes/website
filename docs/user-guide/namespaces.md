@@ -3,7 +3,7 @@ assignees:
 - derekwaynecarr
 - mikedanese
 - thockin
-
+title: Namespaces
 ---
 
 Kubernetes supports multiple virtual clusters backed by the same physical cluster.
@@ -64,16 +64,8 @@ $ kubectl --namespace=<insert-namespace-name-here> get pods
 You can permanently save the namespace for all subsequent kubectl commands in that
 context.
 
-First get your current context:
-
 ```shell
-$ export CONTEXT=$(kubectl config view | awk '/current-context/ {print $2}')
-```
-
-Then update the default namespace:
-
-```shell
-$ kubectl config set-context $CONTEXT --namespace=<insert-namespace-name-here>
+$ kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
 # Validate it
 $ kubectl config view | grep namespace:
 ```
@@ -89,7 +81,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 ## Not All Objects are in a Namespace
 
-Most kubernetes resources (e.g. pods, services, replication controllers, and others) are
+Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
 in some namespace.  However namespace resources are not themselves in a namespace.
 And low-level resources, such as [nodes](/docs/admin/node) and
 persistentVolumes, are not in any namespace. Events are an exception: they may or may not

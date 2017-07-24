@@ -3,7 +3,7 @@ assignees:
 - bprashanth
 - liggitt
 - thockin
-
+title: Service Accounts
 ---
 
 A service account provides an identity for processes that run in a Pod.
@@ -41,8 +41,8 @@ You can list this and any other serviceAccount resources in the namespace with t
 
 ```shell
 $ kubectl get serviceAccounts
-NAME      SECRETS
-default   1
+NAME      SECRETS    AGE
+default   1          1d
 ```
 
 You can create additional serviceAccounts like this:
@@ -138,7 +138,7 @@ namespace: 7 bytes
 
 ## Adding ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod)
+First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
 Next, verify it has been created.  For example:
 
 ```shell
@@ -147,8 +147,18 @@ NAME             TYPE                              DATA
 myregistrykey    kubernetes.io/.dockerconfigjson   1
 ```
 
-Next, read/modify/write the service account for the namespace to use this secret as an imagePullSecret
+Next, read/modify/write the service account for the namespace to use this secret as an imagePullSecret.
 
+Automated version using json and the jq utility:
+```shell
+kubectl get serviceaccounts default -o json |
+     jq  'del(.metadata.resourceVersion)'|
+     jq 'setpath(["imagePullSecrets"];[{"name":"myregistrykey"}])' |
+     kubectl replace serviceaccount default -f -
+
+```
+
+Interactive version requiring manual edit:
 ```shell
 $ kubectl get serviceaccounts default -o yaml > ./sa.yaml
 $ cat sa.yaml

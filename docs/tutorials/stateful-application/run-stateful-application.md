@@ -1,4 +1,5 @@
 ---
+title: Running a Single-Instance Stateful Application
 ---
 
 {% capture overview %}
@@ -36,7 +37,7 @@ application is MySQL.
 
 {% capture lessoncontent %}
 
-### Set up a disk in your environment
+## Set up a disk in your environment
 
 You can use any type of persistent volume for your stateful app. See
 [Types of Persistent Volumes](/docs/user-guide/persistent-volumes/#types-of-persistent-volumes)
@@ -65,7 +66,7 @@ kubectl create -f http://k8s.io/docs/tutorials/stateful-application/gce-volume.y
 ```
 
 
-### Deploy MySQL
+## Deploy MySQL
 
 You can run a stateful application by creating a Kubernetes Deployment
 and connecting it to an existing PersistentVolume using a
@@ -90,20 +91,20 @@ for a secure solution.
 
         kubectl describe deployment mysql
 
-        Name:			mysql
-        Namespace:		default
-        CreationTimestamp:	Tue, 01 Nov 2016 11:18:45 -0700
-        Labels:			app=mysql
-        Selector:		app=mysql
-        Replicas:		1 updated | 1 total | 0 available | 1 unavailable
-        StrategyType:		Recreate
-        MinReadySeconds:	0
-        OldReplicaSets:		<none>
-        NewReplicaSet:		mysql-63082529 (1/1 replicas created)
+        Name:                 mysql
+        Namespace:            default
+        CreationTimestamp:    Tue, 01 Nov 2016 11:18:45 -0700
+        Labels:               app=mysql
+        Selector:             app=mysql
+        Replicas:             1 updated | 1 total | 0 available | 1 unavailable
+        StrategyType:         Recreate
+        MinReadySeconds:      0
+        OldReplicaSets:       <none>
+        NewReplicaSet:        mysql-63082529 (1/1 replicas created)
         Events:
-          FirstSeen	LastSeen	Count	From				SubobjectPath	Type		Reason			Message
-          ---------	--------	-----	----				-------------	--------	------			-------
-          33s		33s		1	{deployment-controller }			Normal		ScalingReplicaSet	Scaled up replica set mysql-63082529 to 1
+          FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
+          ---------    --------    -----    ----                -------------    --------    ------            -------
+          33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
 
 1. List the pods created by the Deployment:
 
@@ -116,36 +117,36 @@ for a secure solution.
 
         kubectl describe pv mysql-pv
 
-        Name:		mysql-pv
-        Labels:		<none>
-        Status:		Bound
-        Claim:		default/mysql-pv-claim
-        Reclaim Policy:	Retain
-        Access Modes:	RWO
-        Capacity:	20Gi
-        Message:	
+        Name:            mysql-pv
+        Labels:          <none>
+        Status:          Bound
+        Claim:           default/mysql-pv-claim
+        Reclaim Policy:  Retain
+        Access Modes:    RWO
+        Capacity:        20Gi
+        Message:    
         Source:
-            Type:	GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
-            PDName:	mysql-disk
-            FSType:	ext4
-            Partition:	0
-            ReadOnly:	false
+            Type:        GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
+            PDName:      mysql-disk
+            FSType:      ext4
+            Partition:   0
+            ReadOnly:    false
         No events.
 
 1. Inspect the PersistentVolumeClaim:
 
         kubectl describe pvc mysql-pv-claim
 
-        Name:		mysql-pv-claim
-        Namespace:	default
-        Status:		Bound
-        Volume:		mysql-pv
-        Labels:		<none>
-        Capacity:	20Gi
-        Access Modes:	RWO
+        Name:         mysql-pv-claim
+        Namespace:    default
+        Status:       Bound
+        Volume:       mysql-pv
+        Labels:       <none>
+        Capacity:     20Gi
+        Access Modes: RWO
         No events.
 
-### Accessing the MySQL instance
+## Accessing the MySQL instance
 
 The preceding YAML file creates a service that
 allows other Pods in the cluster to access the database. The Service option
@@ -170,7 +171,7 @@ If you don't see a command prompt, try pressing enter.
 mysql> 
 ```
 
-### Updating
+## Updating
 
 The image or any other part of the Deployment can be updated as usual
 with the `kubectl apply` command. Here are some precautions that are
@@ -186,7 +187,7 @@ specific to stateful apps:
   one Pod running at a time. The `Recreate` strategy will stop the
   first pod before creating a new one with the updated configuration.
 
-### Deleting a deployment
+## Deleting a deployment
 
 Delete the deployed objects by name:
 
@@ -213,7 +214,7 @@ gcloud compute disks delete mysql-disk
 
 * [kubectl run documentation](/docs/user-guide/kubectl/kubectl_run/)
 
-* [Volumes](/docs/user-guide/volumes/) and [Persistent Volumes](/docs/user-guide/persistent-volumes/)
+* [Volumes](/docs/concepts/storage/volumes/) and [Persistent Volumes](/docs/user-guide/persistent-volumes/)
 
 {% endcapture %}
 

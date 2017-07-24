@@ -3,7 +3,7 @@ assignees:
 - bgrant0607
 - erictune
 - lavalamp
-
+title: Overview
 ---
 
 This document describes how access to the Kubernetes API is controlled.
@@ -24,7 +24,7 @@ following diagram:
 In a typical Kubernetes cluster, the API served on port 443.  A TLS connection is
 established.  The API server presents a certificate.  This certificate is
 often self-signed, so `$USER/.kube/config` on the user's machine typically
-contains the root certficate for the API server's certificate, which when specified
+contains the root certificate for the API server's certificate, which when specified
 is used in place of the system default root certificates.  This certificate is typically
 automatically written into your `$USER/.kube/config` when you create a cluster yourself
 using `kube-up.sh`.  If the cluster has multiple users, then the creator needs to share
@@ -63,7 +63,7 @@ users in its object store.
 
 Once the request is authenticated as coming from a specific user,
 it moves to a generic authorization step.  This is shown as step **2** in the
-diagram. 
+diagram.
 
 The input to the Authorization step are attributes of the REST request, including:
   - the username determined by the Authentication step.
@@ -80,13 +80,13 @@ then the request can proceed.  If all deny the request, then the request is deni
 code 403).
 
 The [Authorization Modules](/docs/admin/authorization) page describes what authorization modules
-are available and how to configure them.    
+are available and how to configure them.
 
 For version 1.2, clusters created by `kube-up.sh` are configured so that no authorization is
 required for any request.
 
 As of version 1.3, clusters created by `kube-up.sh` are configured so that the ABAC authorization
-modules is enabled.  However, its input file is initially set to allow all users to do all
+modules are enabled.  However, its input file is initially set to allow all users to do all
 operations.  The cluster administrator needs to edit that file, or configure a different authorizer
 to restrict what users can do.
 
@@ -94,7 +94,7 @@ to restrict what users can do.
 The Authorization step is designed to operate on attributes that are likely to be common to most
 REST requests, such as object name, kind, etc.  This is intended to facilitate interation with
 existing organization-wide or cloud-provider-wide access control systems (which may handle
-other APIs besides the Kubernetes API.
+other APIs besides the Kubernetes API).
 
 Access controls and policies that depend on specific fields of specific Kinds of objects
 are handled by Admission Controllers.
@@ -108,7 +108,7 @@ They act on objects being created, deleted, updated or connected (proxy), but no
 
 Multiple admission controllers can be configured.  Each is called in order.
 
-This is shown as step **3** in the diagram. 
+This is shown as step **3** in the diagram.
 
 Unlike Authentication and Authorization Modules, if any admission controller module
 rejects, then the request is immediately rejected.
@@ -122,17 +122,17 @@ Once a request passes all admission controllers, it is validated using the valid
 for the corresponding API object, and then written to the object store (shown as step **4**).
 
 
-## API Server Ports and IPs 
+## API Server Ports and IPs
 
 The previous discussion applies to requests sent to the secure port of the API server
 (the typical case).  The API server can actually serve on 2 ports:
 
-By default the Kubernetes APIserver serves HTTP on 2 ports:
+By default the Kubernetes API server serves HTTP on 2 ports:
 
   1. `Localhost Port`:
 
           - is intended for testing and bootstrap, and for other components of the master node
-	    (scheduler, controller-manager) to talk to the API
+            (scheduler, controller-manager) to talk to the API
           - no TLS
           - default is port 8080, change with `--insecure-port` flag.
           - defaults IP is localhost, change with `--insecure-bind-address` flag.
@@ -141,14 +141,14 @@ By default the Kubernetes APIserver serves HTTP on 2 ports:
           - protected by need to have host access
 
   2. `Secure Port`:
- 
+
           - use whenever possible 
           - uses TLS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
           - default is port 6443, change with `--secure-port` flag.
           - default IP is first non-localhost network interface, change with `--bind-address` flag.
           - request handled by authentication and authorization modules.
           - request handled by admission control module(s).
-          - authentication and authoriation modules run.
+          - authentication and authorisation modules run.
 
 When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On

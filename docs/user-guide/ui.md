@@ -3,9 +3,8 @@ assignees:
 - bryk
 - mikedanese
 - rf232
-
+title: Web UI (Dashboard)
 ---
-
 
 Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster itself along with its attendant resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
 
@@ -15,6 +14,14 @@ Dashboard also provides information on the state of Kubernetes resources in your
 
 * TOC
 {:toc}
+
+## Deploying the Dashboard UI
+
+The Dashboard UI is not deployed by default. To deploy it, run the following command:
+
+```
+kubectl create -f https://rawgit.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
+```
 
 ## Accessing the Dashboard UI
 
@@ -35,9 +42,9 @@ The UI can _only_ be accessed from the machine where the command is executed. Se
 You may access the UI directly via the Kubernetes master apiserver. Open a browser and navigate to `https://<kubernetes-master>/ui`, where `<kubernetes-master>` is IP address or domain name of the Kubernetes
 master.
 
-Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with the some setup tools (e.g., `kubeadm`). Refer to the  [authentication admin documentation](/docs/admin/authentication/) for information on how to configure authentication manually.
+Please note, this works only if the apiserver is set up to allow authentication with username and password. This is not currently the case with some setup tools (e.g., `kubeadm`). Refer to the  [authentication admin documentation](/docs/admin/authentication/) for information on how to configure authentication manually.
 
-If the username and password is configured but unknown to you, then use `kubectl config view` to find it.
+If the username and password are configured but unknown to you, then use `kubectl config view` to find it.
 
 ## Welcome view
 
@@ -59,9 +66,9 @@ The deploy wizard expects that you provide the following information:
 
 - **App name** (mandatory): Name for your application. A [label](/docs/user-guide/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
 
-  The application name must be unique within the selected Kubernetes [namespace](/docs/admin/namespaces/). It must start and end with a lowercase character, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
+  The application name must be unique within the selected Kubernetes [namespace](/docs/admin/namespaces/). It must start with a lowercase character, and end with a lowercase character or a number, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
 
-- **Container image** (mandatory): The URL of a public Docker [container image](/docs/user-guide/images/) on any registry, or a private image (commonly hosted on the Google Container Registry or Docker Hub). The container image specification must end with a colon.
+- **Container image** (mandatory): The URL of a public Docker [container image](/docs/concepts/containers/images/) on any registry, or a private image (commonly hosted on the Google Container Registry or Docker Hub). The container image specification must end with a colon.
 
 - **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in. The value must be a positive integer.
 
@@ -90,13 +97,14 @@ track=stable
 
 - **Namespace**: Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called [namespaces](/docs/admin/namespaces/). They let you partition resources into logically named groups.
 
-  Dashboard offers all available namespaces in a dropdown list, and allows you to create a new namespace. The namespace name may contain a maximum of 63 alphanumeric characters and dashes (-).
+  Dashboard offers all available namespaces in a dropdown list, and allows you to create a new namespace. The namespace name may contain a maximum of 63 alphanumeric characters and dashes (-) but can not contain capital letters.
+  Namespace names should not consist of only numbers. If the name is set as a number, such as 10, the pod will be put in the default namespace.
 
   In case the creation of the namespace is successful, it is selected by default. If the creation fails, the first namespace is selected.
 
 - **Image Pull Secret**: In case the specified Docker container image is private, it may require [pull secret](/docs/user-guide/secrets/) credentials.
 
-  Dashboard offers all available secrets in a dropdown list, and allows you to create a new secret. The secret name must follow the DNS domain name syntax, e.g. `new.image-pull.secret`. The content of a secret must be base64-encoded and specified in a  [`.dockercfg`](/docs/user-guide/images/#specifying-imagepullsecrets-on-a-pod) file. The secret name may consist of a maximum of 253 characters.
+  Dashboard offers all available secrets in a dropdown list, and allows you to create a new secret. The secret name must follow the DNS domain name syntax, e.g. `new.image-pull.secret`. The content of a secret must be base64-encoded and specified in a  [`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) file. The secret name may consist of a maximum of 253 characters.
 
   In case the creation of the image pull secret is successful, it is selected by default. If the creation fails, no secret is applied.
 
@@ -140,7 +148,7 @@ Detail views for workloads show status and specification information and surface
 ![Deployment detail view](/images/docs/ui-dashboard-deployment-detail.png)
 
 #### Services and discovery
-Services and discovery view shows Kubernetes resources that allow for exposing services to external world and discovering them within a cluster. For that reason, Service and Ingress views show Pods targeted by them, internal endpoints for cluster connections and endpoints for external users.
+Services and discovery view shows Kubernetes resources that allow for exposing services to external world and discovering them within a cluster. For that reason, Service and Ingress views show Pods targeted by them, internal endpoints for cluster connections and external endpoints for external users.
 
 ![Service list partial view](/images/docs/ui-dashboard-service-list.png)
 

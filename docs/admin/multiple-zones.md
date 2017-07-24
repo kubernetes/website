@@ -3,7 +3,7 @@ assignees:
 - jlowdermilk
 - justinsb
 - quinton-hoole
-
+title: Running in Multiple Zones
 ---
 
 ## Introduction
@@ -51,7 +51,7 @@ admission controller automatically adds zone labels to them.  The scheduler (via
 `VolumeZonePredicate` predicate) will then ensure that pods that claim a
 given volume are only placed into the same zone as that volume, as volumes
 cannot be attached across zones.
- 
+
 ## Limitations
 
 There are some important limitations of the multizone support:
@@ -158,8 +158,7 @@ kubernetes-minion-wf8i   Ready                      2m        beta.kubernetes.io
 
 ### Volume affinity
 
-Create a volume (only PersistentVolumes are supported for zone
-affinity), using the new dynamic volume creation:
+Create a volume using the dynamic volume creation (only PersistentVolumes are supported for zone affinity):
 
 ```json
 kubectl create -f - <<EOF
@@ -186,10 +185,14 @@ kubectl create -f - <<EOF
 EOF
 ```
 
-The PV is also labeled with the zone & region it was created in.  For
-version 1.2, dynamic persistent volumes are always created in the zone
-of the cluster master (here us-central1-a / us-west-2a); this will
-be improved in a future version (issue [#23330](https://github.com/kubernetes/kubernetes/issues/23330).)
+**NOTE:** For version 1.3+ Kubernetes will distribute dynamic PV claims across
+the configured zones. For version 1.2, dynamic persistent volumes were
+always created in the zone of the cluster master
+(here us-central1-a / us-west-2a); that issue
+([#23330](https://github.com/kubernetes/kubernetes/issues/23330))
+was addressed in 1.3+.
+
+Now lets validate that Kubernetes automatically labeled the zone & region the PV was created in.
 
 ```shell
 > kubectl get pv --show-labels
@@ -226,7 +229,7 @@ cross-zone attachments are not generally permitted by cloud providers:
 
 ```shell
 > kubectl describe pod mypod | grep Node
-Node:		kubernetes-minion-9vlv/10.240.0.5
+Node:        kubernetes-minion-9vlv/10.240.0.5
 > kubectl get node kubernetes-minion-9vlv --show-labels
 NAME                     STATUS    AGE       LABELS
 kubernetes-minion-9vlv   Ready     22m       beta.kubernetes.io/instance-type=n1-standard-2,failure-domain.beta.kubernetes.io/region=us-central1,failure-domain.beta.kubernetes.io/zone=us-central1-a,kubernetes.io/hostname=kubernetes-minion-9vlv
@@ -265,9 +268,9 @@ The pods should be spread across all 3 zones:
 
 ```shell
 >  kubectl describe pod -l app=guestbook | grep Node
-Node:		kubernetes-minion-9vlv/10.240.0.5
-Node:		kubernetes-minion-281d/10.240.0.8
-Node:		kubernetes-minion-olsh/10.240.0.11
+Node:        kubernetes-minion-9vlv/10.240.0.5
+Node:        kubernetes-minion-281d/10.240.0.8
+Node:        kubernetes-minion-olsh/10.240.0.11
 
  > kubectl get node kubernetes-minion-9vlv kubernetes-minion-281d kubernetes-minion-olsh --show-labels
 NAME                     STATUS    AGE       LABELS
