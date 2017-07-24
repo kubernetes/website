@@ -2,7 +2,7 @@
 assignees:
 - eparis
 - pmorie
-title: Configure Containers Using a ConfigMap
+title: 使用ConfigMap配置容器
 redirect_from:
 - "/docs/user-guide/configmap/index/"
 - "/docs/user-guide/configmap/index.html"
@@ -13,7 +13,7 @@ redirect_from:
 
 This page shows you how to configure an application using a ConfigMap. ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
 
-本文将向你展示如何使用ConfigMap来配置应用。ConfigMap允许你将配置文件从容器镜像中解耦，从而增强容器应用的可移植性。
+本文将向您展示如何使用ConfigMap来配置应用。ConfigMap允许您将配置文件从容器镜像中解耦，从而增强容器应用的可移植性。
 
 {% endcapture %}
 
@@ -168,7 +168,7 @@ game.properties:        158 bytes
 
 You can pass in the  `--from-file` argument multiple times to create a ConfigMap from multiple data sources.
 
-你可以多次传递`--from-file`参数使用不同的数据源来创建ConfigMap。
+您可以多次传递`--from-file`参数使用不同的数据源来创建ConfigMap。
 
 ```shell
 kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties --from-file=docs/user-guide/configmap/kubectl/ui.properties 
@@ -193,7 +193,7 @@ ui.properties:          83 bytes
 
 You can define a key other than the file name to use in the `data` section of your ConfigMap when using the `--from-file` argument:
 
-当你使用`—from-file`参数时，可以在ConfigMap的`data`小节内定义key替代默认的文件名：
+当您使用`—from-file`参数时，可以在ConfigMap的`data`小节内定义key替代默认的文件名：
 
 ```shell
 kubectl create configmap game-config-3 --from-file=<my-key-name>=<path-to-file>
@@ -277,7 +277,7 @@ metadata:
 
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. 
 
-ConfigMap允许你将配置文件从容器镜像中解耦，从而增强容器应用的可移植性。
+ConfigMap允许您将配置文件从容器镜像中解耦，从而增强容器应用的可移植性。
 
 The ConfigMap API resource stores configuration data as key-value pairs. The data can be consumed in pods or provide the configurations for system components such as controllers. ConfigMap is similar to [Secrets](/docs/concepts/configuration/secret/), but provides a means of working with strings that don't contain sensitive information. Users and system components alike can store configuration data in ConfigMap.
 
@@ -285,7 +285,7 @@ ConfigMap API resource将配置数据以键值对的形式存储。这些数据�
 
 Note: ConfigMaps should reference properties files, not replace them. Think of the ConfigMap as representing something similar to the a Linux `/etc` directory and its contents. For example, if you create a [Kubernetes Volume](/docs/concepts/storage/volumes/) from a ConfigMap, each data item in the ConfigMap is represented by an individual file in the volume. 
 
-注意：ConfigMap只引用属性文件，而不会替换它们。可以把ConfigMap联想成Linux中的`/etc`目录和它里面的内容。例如，假如你使用ConfigMap创建了[Kubernetes Volume](/docs/concepts/storage/volumes/)，ConfigMap中的每个数据项都代表该volume中的一个文件。
+注意：ConfigMap只引用属性文件，而不会替换它们。可以把ConfigMap联想成Linux中的`/etc`目录和它里面的内容。例如，假如您使用ConfigMap创建了[Kubernetes Volume](/docs/concepts/storage/volumes/)，ConfigMap中的每个数据项都代表该volume中的一个文件。
 
 The ConfigMap's `data` field contains the configuration data. As shown in the example below, this can be simple -- like individual properties defined using `--from-literal` -- or complex -- like configuration files or JSON blobs defined using `--from-file`.
 
