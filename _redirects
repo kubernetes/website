@@ -235,3 +235,8 @@
 /docs/samples													/docs/tutorials		301
 /v1.1															/		301
 /v1.0															/		301
+
+#
+# Redirect users with chinese language preference to /cn
+#
+#/  /cn  302  Language=zh
