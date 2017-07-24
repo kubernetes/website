@@ -1,13 +1,13 @@
 ---
-title: Deploying Cassandra a StatefulSet
+title: Using StatefulSets with Cassandra
 ---
 
 {% capture overview %}
-This tutorial will show you how to develop a native cloud [Cassandra](http://cassandra.apache.org/) deployment on Kubernetes. In this instance, a custom Cassandra `SeedProvider` enables Cassandra to discover new Cassandra nodes as they join the cluster.
+This tutorial shows you how to develop a native cloud [Cassandra](http://cassandra.apache.org/) deployment on Kubernetes. In this instance, a custom Cassandra `SeedProvider` enables Cassandra to discover new Cassandra nodes as they join the cluster.
 {% endcapture %}
 
 {% capture objectives %}
-* Create and Validate a Cassandra headless service.
+* Create and Validate a Cassandra headless `Service`.
 * Use a StatefulSet to create a Cassandra ring.
 * Validate the StatefulSet.
 * Modify the StatefulSet.
@@ -15,32 +15,35 @@ This tutorial will show you how to develop a native cloud [Cassandra](http://cas
 {% endcapture %}
 
 {% capture prerequisites %}
-You should already have a basic familiarity with [Pods](#), [Services](#), and [StatefulSets](#), but to complete this tutorial you only need: 
+To complete this tutorial, you should already have a basic familiarity with [Pods](kubernetes.io/docs/concepts/workloads/pods/pod/), [Services](https://kubernetes.io/docs/concepts/services-networking/service/), and [StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/). In addition, you should:
 
-* To [Install and Configure](/docs/tasks/tools/install-kubectl/) the `kubectl` command line
+* [Install and Configure](kubernetes.io/docs/tasks/tools/install-kubectl/) the `kubectl` command line
 
-* To have a v1.5 or later Kubernetes Cluster running
+* Have a supported Kubernetes Cluster running
 
-Check out the the [getting started guides](/docs/setup/pick-right-solution/) if you don’t already have a cluster. 
+* Download [cassandra-service.yaml](kubernetes.io/docs/tutorials/stateful-application/cassandra-service.yaml) and [cassandra-statefulset.yaml](kubernetes.io/docs/tutorials/stateful-application/cassandra-statefulset.yaml)
+{% endcapture %}
 
-Warning: [Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors. 
+Read the [getting started guides](kubernetes.io/docs/setup/pick-right-solution/) if you don’t already have a cluster. 
+
+### Additional Minikube Setup Instructions
+
+**Warning**: [Minikube](kubernetes.io/docs/getting-started-guides/minikube/) defaults to 1024MB of memory and 1 CPU which results in an insufficient resource errors. 
 
 To avoid these errors add the flags `--memory 5120` and `--cpus=4` to `minikube start`
 
 ```
 minikube start --memory 5120 --cpus=4
 ``` 
-* To download [cassandra-service.yaml](docs/tutorials/stateful-application/cassandra-service.yaml) and [cassandra-statefulset.yaml](/docs/tutorials/stateful-application/cassandra-statefulset.yaml)
-{% endcapture %}
 
 {% capture lessoncontent %}
 ## Creating a Cassandra Headless Service
-A Kubernetes [Service](/docs/user-guide/services) describes a set of [Pods](/docs/user-guide/pods) that perform the same task. 
+A Kubernetes [Service](kubernetes.io/docs/concepts/services-networking/service/) describes a set of [Pods]( kubernetes.io/docs/concepts/workloads/pods/pod/) that perform the same task. 
 
 The following `Service` is used for DNS lookups between Cassandra pods and clients within the Kubernetes Cluster.
 
 1. `cd` to the folder you saved the .yaml files.
-2. Create a Service to track all Cassandra StatefulSet Nodes from the following .yaml file:
+2. Create a `Service` to track all Cassandra StatefulSet Nodes from the following `.yaml` file:
 
 ```shell
 kubectl create -f cassandra-service.yaml
@@ -63,7 +66,7 @@ NAME        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
 cassandra   None         <none>        9042/TCP   45s
 ```
 
-If anything else returns, the service was not successfully created. Check out [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
+If anything else returns, the service was not successfully created. Read [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for common issues.
 
 ## Using a StatefulSet to Create a Cassandra Ring
 
