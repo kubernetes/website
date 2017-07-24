@@ -48,7 +48,7 @@ kube-apiserver
 -->
       --allow-privileged                                        如果为true, 将允许特权容器.
 <!--
-      --anonymous-auth                                          Enables anonymous requests to the secure port of the API server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of system:anonymous, and a group name of system:unauthenticated.(default true)
+      --anonymous-auth                                          Enables anonymous requests to the secure port of the API server. Requests that are not rejected by another authentication method are treated as anonymous requests. Anonymous requests have a username of system:anonymous, and a group name of system:unauthenticated. (default true)
 -->
       --anonymous-auth                                          启用到API server的安全端口的匿名请求。未被其他认证方法拒绝的请求被当做匿名请求。匿名请求的用户名为system:anonymous，用户组名为system:unauthenticated。（默认值true）
 <!--
@@ -134,11 +134,11 @@ kube-apiserver
  <!--
       --cloud-config string                                     The path to the cloud provider configuration file. Empty string for no configuration file.
  -->
-      --cloud-config string                                     云提供商配置文件路径。空字符串表示无配置文件.
+      --cloud-config string                                     云服务提供商配置文件路径。空字符串表示无配置文件.
  <!--
       --cloud-provider string                                   The provider for cloud services. Empty string for no provider.
   -->
-      --cloud-provider string                                   云提供商。空字符串表示无提供商。
+      --cloud-provider string                                   云服务提供商，空字符串表示无提供商。
  <!--
       --contention-profiling                                    Enable lock contention profiling, if profiling is enabled
  -->
@@ -148,7 +148,7 @@ kube-apiserver
 -->
       --cors-allowed-origins stringSlice                        CORS的域列表，以逗号分隔。合法的域可以是一个匹配子域名的正则表达式。如果这个列表为空则不会启用CORS.
 <!--
-	  --delete-collection-workers int                           Number of workers spawned for DeleteCollection call. These are used to speed up namespace cleanup. (default 1)
+      --delete-collection-workers int                           Number of workers spawned for DeleteCollection call. These are used to speed up namespace cleanup. (default 1)
 -->
       --delete-collection-workers int                           用于DeleteCollection调用的工作者数量。这被用于加速namespace的清理。(默认值1)
 <!--
@@ -214,7 +214,7 @@ kube-apiserver
 <!--
       --experimental-keystone-ca-file string                    If set, the Keystone server's certificate will be verified by one of the authorities in the experimental-keystone-ca-file, otherwise the host's root CA set will be used.
 -->
-      --experimental-keystone-ca-file string                    如果设置改值，将会使用experimental-keystone-ca-file中的一个authority对Keystone服务的证书进行验证，否则将会使用主机的根CA进行验证。
+      --experimental-keystone-ca-file string                    如果设置该值，将会使用experimental-keystone-ca-file中的一个authority对Keystone服务的证书进行验证，否则将会使用主机的根CA进行验证。
 <!--
       --experimental-keystone-url string                        If passed, activates the keystone authentication plugin.
 -->
@@ -357,9 +357,9 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
 -->      
       --proxy-client-cert-file string                           当必须调用外部程序时，用于证明aggregator或者kube-apiserver的身份的客户端证书。包括代理到用户api-server的请求和调用webhook准入控制插件的请求。它期望这个证书包含一个来自于CA中的--requestheader-client-ca-file标记的签名。该CA在kube-system命名空间的'extension-apiserver-authentication' configmap中发布。从Kube-aggregator收到调用的组件应该使用该CA进行他们部分的双向TLS验证。
 <!--      
-	  --proxy-client-key-file string                            Private key for the client certificate used to prove the identity of the aggregator or kube-apiserver when it must call out during a request. This includes proxying requests to a user api-server and calling out to webhook admission plugins.  
+      --proxy-client-key-file string                            Private key for the client certificate used to prove the identity of the aggregator or kube-apiserver when it must call out during a request. This includes proxying requests to a user api-server and calling out to webhook admission plugins.
 --> 
-      --proxy-client-key-file string                           当必须调用外部程序时，用于证明aggregator或者kube-apiserver的身份的客户端证书密钥。包括代理到用户api-server的请求和调用webhook准入控制插件的请求。
+      --proxy-client-key-file string                            当必须调用外部程序时，用于证明aggregator或者kube-apiserver的身份的客户端证书密钥。包括代理到用户api-server的请求和调用webhook准入控制插件的请求。
 <!--      
       --repair-malformed-updates                                If true, server will do its best to fix the update request to pass the validation, e.g., setting empty UID in update request to its existing value. This flag can be turned off after we fix all the clients that send malformed updates. (default true)
 -->      
@@ -381,7 +381,7 @@ TaintBasedEvictions=true|false (ALPHA - default=false)
  -->
       --requestheader-group-headers stringSlice                 要检测表示群组的请求头前缀列表。建议使用X-Remote-Group.
  <!--      
-      --requestheader-username-headers stringSlice              List of request headers to inspect for usernames. X-Remote-User is Common.
+      --requestheader-username-headers stringSlice              List of request headers to inspect for usernames. X-Remote-User is common.
  -->      
       --requestheader-username-headers stringSlice              要检测表示用户名的请求头前缀列表。建议使用X-Remote-User。
  <!--      
