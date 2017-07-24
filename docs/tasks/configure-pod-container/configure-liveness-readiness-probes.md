@@ -2,14 +2,14 @@
 redirect_from:
 - "/docs/user-guide/liveness/"
 - "/docs/user-guide.liveness.html"
-title: Configure Liveness and Readiness Probes
+title: 配置Liveness和Readiness探针
 ---
 
 {% capture overview %}
 
 This page shows how to configure liveness and readiness probes for Containers.
 
-本文将向展示如何配置容器的存活和可读性探针。
+本文将向您展示如何配置容器的存活和可读性探针。
 
 The [kubelet](/docs/admin/kubelet/) uses liveness probes to know when to
 restart a Container. For example, liveness probes could catch a deadlock,
@@ -288,7 +288,7 @@ readiness probes to detect and mitigate these situations. A pod with containers
 reporting that they are not ready does not receive traffic through Kubernetes
 Services.
 
-有时，应用程序暂时无法对外部流量提供服务。 例如，应用程序可能需要在启动期间加载大量数据或配置文件。 在这种情况下，你不想杀死应用程序，但你也不想发送请求。 Kubernetes提供了readiness probe来检测和减轻这些情况。 Pod中的容器可以报告自己还没有准备，不能处理Kubernetes服务发送过来的流量。
+有时，应用程序暂时无法对外部流量提供服务。 例如，应用程序可能需要在启动期间加载大量数据或配置文件。 在这种情况下，您不想杀死应用程序，也不想发送请求。 Kubernetes提供了readiness probe来检测和减轻这些情况。 Pod中的容器可以报告自己还没有准备，不能处理Kubernetes服务发送过来的流量。
 
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.
@@ -340,7 +340,7 @@ checks:
 * `failureThreshold`: Minimum consecutive failures for the probe to be
   considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 
-[Probe](/docs/api-reference/v1.6/#probe-v1-core)中有很多精确和详细的配置，通过它们你能准确的控制liveness和readiness检查：
+[Probe](/docs/api-reference/v1.6/#probe-v1-core)中有很多精确和详细的配置，通过它们您能准确的控制liveness和readiness检查：
 
 - `initialDelaySeconds`：容器启动后第一次执行探测是需要等待多少秒。
 - `periodSeconds`：执行探测的频率。默认是10秒，最小1秒。
@@ -361,7 +361,7 @@ have additional fields that can be set on `httpGet`:
 
 [HTTP probe](/docs/api-reference/v1.6/#httpgetaction-v1-core)中可以给 `httpGet`设置其他配置项：
 
-- `host`：连接的主机名，默认连接到pod的IP。你可能想在http header中设置"Host"而不是使用IP。
+- `host`：连接的主机名，默认连接到pod的IP。您可能想在http header中设置"Host"而不是使用IP。
 - `scheme`：连接使用的schema，默认HTTP。
 - `path`: 访问的HTTP server的path。
 - `httpHeaders`：自定义请求的header。HTTP运行重复的header。
@@ -376,7 +376,7 @@ where you would set it. Suppose the Container listens on 127.0.0.1 and the Pod's
 If your pod relies on virtual hosts, which is probably the more common case,
 you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
-对于HTTP探测器，kubelet向指定的路径和端口发送HTTP请求以执行检查。 Kubelet将probe发送到容器的IP地址，除非地址被`httpGet`中的可选`host`字段覆盖。 在大多数情况下，你不想设置主机字段。 有一种情况下你可以设置它。 假设容器在127.0.0.1上侦听，并且Pod的`hostNetwork`字段为true。 然后，在`httpGet`下的`host`应该设置为127.0.0.1。 如果你的pod依赖于虚拟主机，这可能是更常见的情况，你不应该是用`host`，而是应该在`httpHeaders`中设置`Host`头。
+对于HTTP探测器，kubelet向指定的路径和端口发送HTTP请求以执行检查。 Kubelet将probe发送到容器的IP地址，除非地址被`httpGet`中的可选`host`字段覆盖。 在大多数情况下，您不想设置主机字段。 有一种情况下您可以设置它。 假设容器在127.0.0.1上侦听，并且Pod的`hostNetwork`字段为true。 然后，在`httpGet`下的`host`应该设置为127.0.0.1。 如果您的pod依赖于虚拟主机，这可能是更常见的情况，您不应该是用`host`，而是应该在`httpHeaders`中设置`Host`头。
 
 {% endcapture %}
 
