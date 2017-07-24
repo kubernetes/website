@@ -1,103 +1,194 @@
 ---
 title: Building High-Availability Clusters
+title: 构建高可用集群
 ---
 
+<!--
 ## Introduction
+-->
+## 简介
 
+<!--
 This document describes how to build a high-availability (HA) Kubernetes cluster.  This is a fairly advanced topic.
+-->
+本文描述了如何构建一个高可用（high-availability, HA）的集群。这是一个非常高级的主题。
+<!--
 Users who merely want to experiment with Kubernetes are encouraged to use configurations that are simpler to set up such
 as [Minikube](/docs/getting-started-guides/minikube/)
 or try [Google Container Engine](https://cloud.google.com/container-engine/) for hosted Kubernetes.
-
+-->
+对于仅希望使用Kubernetes进行试验的用户，推荐使用更简单的配置工具进行搭建，例如：
+[Minikube](/docs/getting-started-guides/minikube/)，或者尝试使用[Google Container Engine](https://cloud.google.com/container-engine/) 来运行
+<!--
 Also, at this time high availability support for Kubernetes is not continuously tested in our end-to-end (e2e) testing.  We will
 be working to add this continuous testing, but for now the single-node master installations are more heavily tested.
+-->
+此外，当前在我们的端到端（e2e）测试环境中，没有对Kubernetes高可用的支持进行连续测试。我们将会增加这个连续测试项，但当前对单主节点配置测试得严格。
 
 * TOC
 {:toc}
-
+<!--
 ## Overview
+-->
+## 概览
 
+<!--
 Setting up a truly reliable, highly available distributed system requires a number of steps. It is akin to
 wearing underwear, pants, a belt, suspenders, another pair of underwear, and another pair of pants.  We go into each
 of these steps in detail, but a summary is given here to help guide and orient the user.
+-->
+搭建一个正真可靠，高度可用的分布式系统需要若干步骤。这类似于穿上内衣，裤子，皮带，背带，另一套内衣和另一套裤子。我们会详细介绍每一个步骤，但先在这里给出一个总结来帮助指导用户。
 
+<!--
 The steps involved are as follows:
 
    * [Creating the reliable constituent nodes that collectively form our HA master implementation.](#reliable-nodes)
    * [Setting up a redundant, reliable storage layer with clustered etcd.](#establishing-a-redundant-reliable-data-storage-layer)
    * [Starting replicated, load balanced Kubernetes API servers](#replicated-api-servers)
    * [Setting up master-elected Kubernetes scheduler and controller-manager daemons](#master-elected-components)
+  -->
+  相关步骤如下：
 
-Here's what the system should look like when it's finished:
+   * [从HA主节点实现中创建可靠成员节点。](#reliable-nodes)
+   * [使用etcd集群，搭建一个冗余的，可靠的存储层。](#establishing-a-redundant-reliable-data-storage-layer)
+   * [启动具有备份和负载均衡能力的Kubernetes API 服务](#replicated-api-servers)
+   * [搭建运行主节点选举的Kubernetes scheduler和controller-manager守护程序](#master-elected-components)
+  <!--
+  Here's what the system should look like when it's finished:
+  -->
+  系统完成时看起来应该像这样：
 
 ![High availability Kubernetes diagram](/images/docs/ha.svg)
 
+<!--
 ## Initial set-up
+-->
+## 初始配置
 
+<!--
 The remainder of this guide assumes that you are setting up a 3-node clustered master, where each machine is running some flavor of Linux.
+-->
+本文假设你正在搭建一个3节点的主节点集群，每个节点上都运行者某种Linux系统。
+<!--
 Examples in the guide are given for Debian distributions, but they should be easily adaptable to other distributions.
+-->
+指南中的示例使用Debian发行版，但它们应该可以被轻松移植到其他发行版上。
+<--
 Likewise, this set up should work whether you are running in a public or private cloud provider, or if you are running
 on bare metal.
+-->
+同样的，不管在公有云还是私有云亦或是裸机上，这个配置都应该可以运行。
 
+<!--
 The easiest way to implement an HA Kubernetes cluster is to start with an existing single-master cluster.  The
 instructions at [https://get.k8s.io](https://get.k8s.io)
 describe easy installation for single-master clusters on a variety of platforms.
-
+-->
+从一个已经存在的单主节点集群开始是实现一个高可用Kubernetes集群的最简单的方法。这篇指导 [https://get.k8s.io](https://get.k8s.io) 描述了在多个平台上方便的安装一个单主节点集群的方法。
+<!--
 ## Reliable nodes
+-->
+## 可靠节点
 
+<!--
 On each master node, we are going to run a number of processes that implement the Kubernetes API.  The first step in making these reliable is
 to make sure that each automatically restarts when it fails.  To achieve this, we need to install a process watcher.  We choose to use
 the `kubelet` that we run on each of the worker nodes.  This is convenient, since we can use containers to distribute our binaries, we can
 establish resource limits, and introspect the resource usage of each daemon.  Of course, we also need something to monitor the kubelet
 itself (insert who watches the watcher jokes here).  For Debian systems, we choose monit, but there are a number of alternate
 choices. For example, on systemd-based systems (e.g. RHEL, CentOS), you can run 'systemctl enable kubelet'.
+-->
+我们在每个主节点上都将运行数个实现Kubernetes API的进程。使他们可靠的第一步是保证在发生故障时，每一个进程都可以自动重启。为了实现这个目标，我们需要安装一个进程监视器。我们选择了在每个工作者节点上都会运行的`kubelet`进程。这会带来便利性，因为我们使用容器来分发我们的二进制文件，所以我们为每一个守护程序建立资源限制并省查它们的资源消耗。当然，我们也需要一些手段来监控kubelete本身（在此添加一个监控监控者的笑话）。对于Debian系统我们选择了monit，但也有许多可替代的工具。
 
+<!--
 If you are extending from a standard Kubernetes installation, the `kubelet` binary should already be present on your system.  You can run
 `which kubelet` to determine if the binary is in fact installed.  If it is not installed,
 you should install the [kubelet binary](https://storage.googleapis.com/kubernetes-release/release/v0.19.3/bin/linux/amd64/kubelet), the
 [kubelet init file](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/kubelet/initd) and [default-kubelet](/docs/admin/high-availability/default-kubelet)
 scripts.
-
+-->
+如果你是从标准的Kubernetes安装扩展而来，那么`kubelet`二进制文件应该已经存在于你的系统中。你可以运行`which kubelet`来判断是否确实安装了这个二进制文件。如果没有安装的话，你应该手动安装 [kubelet binary](https://storage.googleapis.com/kubernetes-release/release/v0.19.3/bin/linux/amd64/kubelet)、 [kubelet binary](https://storage.googleapis.com/kubernetes-release/release/v0.19.3/bin/linux/amd64/kubelet)和[kubelet init file](http://releases.k8s.io/{{page.githubbranch}}/cluster/saltbase/salt/kubelet/initd)脚本。
+<!--
 If you are using monit, you should also install the monit daemon (`apt-get install monit`) and the [monit-kubelet](/docs/admin/high-availability/monit-kubelet) and
 [monit-docker](/docs/admin/high-availability/monit-docker) configs.
-
+-->
+如果使用monit，你还需要安装monit守护程序（`apt-get install monit`）、 [monit-kubelet](/docs/admin/high-availability/monit-kubelet) 和
+[monit-docker](/docs/admin/high-availability/monit-docker) 配置。
+<!--
 On systemd systems you `systemctl enable kubelet` and `systemctl enable docker`.
+-->
+在使用systemd的系统上，你可以执行 `systemctl enable kubelet` 和 `systemctl enable docker`。
 
+<!--
 ## Establishing a redundant, reliable data storage layer
+-->
+## 建立一个冗余的，可靠的存储层
 
+<!--
 The central foundation of a highly available solution is a redundant, reliable storage layer.  The number one rule of high-availability is
 to protect the data.  Whatever else happens, whatever catches on fire, if you have the data, you can rebuild.  If you lose the data, you're
 done.
+-->
+高可用方案的中心基础是一个冗余的，可靠的存储层。高可用的头条规则是保护数据。不管发生了什么，不管什么着了火，只要还有数据，你就可以重建。如果丢掉了数据，你就完了。
 
+<!--
 Clustered etcd already replicates your storage to all master instances in your cluster.  This means that to lose data, all three nodes would need
 to have their physical (or virtual) disks fail at the same time.  The probability that this occurs is relatively low, so for many people
 running a replicated etcd cluster is likely reliable enough.  You can add additional reliability by increasing the
 size of the cluster from three to five nodes.  If that is still insufficient, you can add
 [even more redundancy to your storage layer](#even-more-reliable-storage).
+-->
+集群化的etcd已经把你存储的数据复制到了你集群中的所有master示例上。这意味着如果要想丢失数据，三个节点的物理（或虚拟）硬盘需要全部同时故障。这种情况发生的概览是比较低的，所以对于许多人来说，运行一个复制的etcd集群可能已经足够的可靠了。你可以将集群数量从3个增大到5个来增加集群的可靠性。如果那样还不够，你可以添加[更多的可靠性到你的存储层](#even-more-reliable-storage)。
 
+<!--
 ### Clustering etcd
+-->
+### 集群化etcd
 
+<!--
 The full details of clustering etcd are beyond the scope of this document, lots of details are given on the
 [etcd clustering page](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md).  This example walks through
 a simple cluster set up, using etcd's built in discovery to build our cluster.
+-->
+集群化etcd的完整细节超出了本文范围，你可以在[etcd clustering page](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md)找到许多详细内容。这个例子仅走查一个简单的集群建立过程，使用etcd内置的发现功能来构建我们的集群。
 
+<!--
 First, hit the etcd discovery service to create a new token:
 
 ```shell
 curl https://discovery.etcd.io/new?size=3
 ```
+-->
+首先，调用etcd发现服务来创建一个新令牌:
 
+```shell
+curl https://discovery.etcd.io/new?size=3
+```
+
+<!--
 On each node, copy the [etcd.yaml](/docs/admin/high-availability/etcd.yaml) file into `/etc/kubernetes/manifests/etcd.yaml`
+-->
+在每个节点上，拷贝 [etcd.yaml](/docs/admin/high-availability/etcd.yaml) 文件到`/etc/kubernetes/manifests/etcd.yaml`。
 
+<!--
 The kubelet on each node actively monitors the contents of that directory, and it will create an instance of the `etcd`
 server from the definition of the pod specified in `etcd.yaml`.
+-->
+每个节点上的kubelet会动态的监控这个文件夹的内容，并且会按照`etcd.yaml`里对pod的定义创建一个`etcd`服务的实例。
 
+<!--
 Note that in `etcd.yaml` you should substitute the token URL you got above for `${DISCOVERY_TOKEN}` on all three machines,
 and you should substitute a different name (e.g. `node-1`) for `${NODE_NAME}` and the correct IP address
 for `${NODE_IP}` on each machine.
+-->
+请注意，你应该使用上文中获取的令牌URL替换全部三个节点上`etcd.yaml`中的`${DISCOVERY_TOKEN}`项。同时还应该将每个节点上的 `${NODE_NAME}`替换为一个不同的名字（例如：`node-1`），并将 `${NODE_IP}`替换为正确的IP地址。
 
+<!--
 #### Validating your cluster
+-->
+#### 验证你的集群
 
+<!--
 Once you copy this into all three nodes, you should have a clustered etcd set up.  You can validate on master with
 ```shell
 kubectl exec < pod_name > etcdctl member list
@@ -108,25 +199,55 @@ and
 ```shell
 kubectl exec < pod_name > etcdctl cluster-health
 ```
+-->
+如果已经将这个文件拷贝到所有三个节点，你应该已经搭建起了一个集群化的etcd。你可以在主节点上进行验证：
+```shell
+kubectl exec < pod_name > etcdctl member list
+```
 
+和
+
+```shell
+kubectl exec < pod_name > etcdctl cluster-health
+```
+
+<!--
 You can also validate that this is working with `etcdctl set foo bar` on one node, and `etcdctl get foo`
 on a different node.
+-->
+你也可以在一个节点上运行 `etcdctl set foo bar`，在另一个节点上运行`etcdctl get foo`来验证集群是否工作正常。
 
+<!--
 ### Even more reliable storage
+-->
+### 更加可靠的存储
 
+<!--
 Of course, if you are interested in increased data reliability, there are further options which makes the place where etcd
 installs it's data even more reliable than regular disks (belts *and* suspenders, ftw!).
+-->
+当然，如果你对增加数据的可靠性感兴趣，这里还有一些更深入的选项可以使etcd把它的数据存放在比常规硬盘更可靠的地方（裤带和背带，ftw!）。
 
+<!--
 If you use a cloud provider, then they usually provide this
 for you, for example [Persistent Disk](https://cloud.google.com/compute/docs/disks/persistent-disks) on the Google Cloud Platform.  These
 are block-device persistent storage that can be mounted onto your virtual machine. Other cloud providers provide similar solutions.
+-->
+如果你使用云服务，那么你的提供商通常会为你提供这个特性，例如Google Cloud Platform上的 [Persistent Disk](https://cloud.google.com/compute/docs/disks/persistent-disks) 。它们是可以mount到你的虚拟机中的块设备持久化存储。其他的云服务提供商提供了类似的解决方案。
 
+<!--
 If you are running on physical machines, you can also use network attached redundant storage using an iSCSI or NFS interface.
 Alternatively, you can run a clustered file system like Gluster or Ceph.  Finally, you can also run a RAID array on each physical machine.
+-->
+如果运行于物理机之上，你仍然可以使用iSCSI或者NFS接口通过网络来连接冗余存储。
+此外，你也可以运行一个集群文件系统，比如Gluster或者Ceph。最后，你还可以在你的每个物理机器上运行RAID矩阵。
 
+<!--
 Regardless of how you choose to implement it, if you chose to use one of these options, you should make sure that your storage is mounted
 to each machine.  If your storage is shared between the three masters in your cluster, you should create a different directory on the storage
 for each node.  Throughout these instructions, we assume that this storage is mounted to your machine in `/var/etcd/data`
+-->
+不管你选择如何实现，如果已经选择了使用其中的一个选项，那么你应该保证你的存储被mount到了每一台机器上。如果你的存储在集群中的三个主节点之间共享，那么你应该在存储上为每一个节点创建一个不同的文件夹。对于所有的这些指导，我们都假设这个存储被mount到你机器上的`/var/etcd/data`路径。
 
 ## Replicated API Servers
 
