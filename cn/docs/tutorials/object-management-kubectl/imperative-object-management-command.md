@@ -1,8 +1,5 @@
 ---
 title: 使用命令式的方式管理 Kubernetes 对象
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-commands/"
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-commands.html"
 ---
 
 {% capture overview %}

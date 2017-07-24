@@ -1,6 +1,6 @@
-#caseStudyTitle {
-    margin-top: 1em !important;
-    font-family:"Roboto", sans-serif;
+
+.golfnow {
+  width:100%;
 }
 
 p {
@@ -15,7 +15,12 @@ a {
 
 body {
   margin:0;
+  background-color:#ffffff !important;
 
+}
+
+footer {
+background-color:#ffffff !important;  
 }
 
 h1 {
