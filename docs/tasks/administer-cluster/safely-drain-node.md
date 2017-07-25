@@ -20,8 +20,8 @@ This task assumes that you have met the following prerequisites:
 * Either:
   1. You do not require your applications to be highly available during the
      node drain, or
-  1. You have read about the [PodDisruptionBudget concept](/docs/concepts/workloads/pods/disruptions.md)
-     and [Configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb.md) for
+  1. You have read about the [PodDisruptionBudget concept](/docs/concepts/workloads/pods/disruptions/)
+     and [Configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) for
      applications that need them.
 
 {% endcapture %}
@@ -39,7 +39,7 @@ will respect the `PodDisruptionBudgets` you have specified.
 
 **Note:** By default `kubectl drain` will ignore certain system pods on the node
 that cannot be killed; see
-the [kubectl drain](/docs/user-guide/kubectl/v1.6/#drain)
+the [kubectl drain](/docs/user-guide/kubectl/{{page.version}}/#drain)
 documentation for more details.
 
 When `kubectl drain` returns successfully, that indicates that all of
@@ -90,11 +90,11 @@ budget are blocked.
 
 ## The Eviction API
 
-If you prefer not to use [kubectl drain](/docs/user-guide/kubectl/v1.6/#drain) (such as
+If you prefer not to use [kubectl drain](/docs/user-guide/kubectl/{{page.version}}/#drain) (such as
 to avoid calling to an external command, or to get finer control over over the pod
 eviction process), you can also programmatically cause evictions using the eviction API.
 
-You should first be familiar with using [Kubernetes language clients](/docs/tasks/administer-cluster/access-cluster-api.md#programmatic-access-to-the-api).
+You should first be familiar with using [Kubernetes language clients](/docs/tasks/administer-cluster/access-cluster-api/#programmatic-access-to-the-api).
 
 The eviction subresource of a
 pod can be thought of as a kind of policy-controlled DELETE operation on the pod
@@ -155,7 +155,7 @@ application owners and cluster owners to establish an agreement on behavior in t
 
 {% capture whatsnext %}
 
-* Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application//configure-pdb.md).
+* Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
 
 {% endcapture %}
 
