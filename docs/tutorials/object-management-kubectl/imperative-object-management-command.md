@@ -83,7 +83,7 @@ The `kubectl` tool supports these additional ways to update a live object direct
 however they require a better understanding of the Kubernetes object schema.
 
 - `edit`: Directly edit the raw configuration of a live object by opening its configuration in an editor.
-- `patch`: Directly modify specific fields of a live object by using a patch string. 
+- `patch`: Directly modify specific fields of a live object by using a patch string.
 For more details on patch strings, see the patch section in
 [API Conventions](https://git.k8s.io/community/contributors/devel/api-conventions.md#patch-operations).
 
@@ -156,7 +156,7 @@ kubectl create --edit -f /tmp/srv.yaml
 - [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tutorials/object-management-kubectl/imperative-object-management-configuration/)
 - [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tutorials/object-management-kubectl/declarative-object-management-configuration/)
 - [Kubectl Command Reference](/docs/user-guide/kubectl/v1.6/)
-- [Kubernetes Object Schema Reference](/docs/resources-reference/v1.6/)
+- [Kubernetes Object Schema Reference](/docs/resources-reference/{{page.version}}/)
 {% endcapture %}
 
 {% include templates/concept.md %}
