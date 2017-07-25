@@ -50,7 +50,7 @@ You can use [`kubectl describe`](/docs/user-guide/kubectl/v1.6/#describe) or [`k
 ```shell
 kubectl create configmap <map-name> <data-source>
 ```
-<map-name>代表ConfigMap的名字，<data-source>代表目录、文件或者字面值。
+\<map-name>代表ConfigMap的名字，\<data-source>代表目录、文件或者字面值。
 
 数据源对应于ConfigMap中的键值对，
 
