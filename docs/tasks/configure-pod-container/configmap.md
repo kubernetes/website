@@ -271,9 +271,9 @@ metadata:
 {% endcapture %}
 
 {% capture discussion %}
-
+<!--
 ## Understanding ConfigMaps
-
+-->
 ## 理解Config Map
 <!--
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
