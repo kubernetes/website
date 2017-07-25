@@ -25,7 +25,7 @@ a Pod or Container. Security context settings include:
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/): Use program profiles to restrict the capabilities of individual programs.
 
-* [Seacomp](https://en.wikipedia.org/wiki/Seccomp): Limit a process's access to open file descriptors.
+* [Seccomp](https://en.wikipedia.org/wiki/Seccomp): Limit a process's access to open file descriptors.
 
 For more information about security mechanisms in Linux, see
 [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
@@ -329,7 +329,7 @@ applied to Volumes as follows:
 
 * `fsGroup`: Volumes that support ownership management are modified to be owned
 and writable by the GID specified in `fsGroup`. See the
-[Ownership Management design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/volume-ownership-management.md)
+[Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/volume-ownership-management.md)
 for more details.
 
 * `seLinuxOptions`: Volumes that support SELinux labeling are relabeled to be accessible
@@ -349,9 +349,9 @@ protection, you must ensure each Pod is assigned a unique MCS label.
 * [PodSecurityContext](/docs/api-reference/v1.6/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/api-reference/v1.6/#securitycontext-v1-core)
 * [Tuning Docker with the newest security enhancements](https://opensource.com/business/15/3/docker-security-tuning)
-* [Security Contexts design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/security_context.md)
-* [Ownership Management design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/volume-ownership-management.md)
-* [Pod Security Policies](https://kubernetes.io/docs/concepts/policy/pod-security-policy/)
+* [Security Contexts design document](https://git.k8s.io/community/contributors/design-proposals/security_context.md)
+* [Ownership Management design document](https://git.k8s.io/community/contributors/design-proposals/volume-ownership-management.md)
+* [Pod Security Policies](/docs/concepts/policy/pod-security-policy/)
 
 
 {% endcapture %}

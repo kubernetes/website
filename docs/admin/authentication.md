@@ -277,7 +277,7 @@ solution for authentication.  It does offer a few challenges:
 
 1.  Kubernetes has no "web interface" to trigger the authentication process.  There is no browser or interface to collect credentials which is why you need to authenticate to your identity provider first.
 2.  The `id_token` can't be revoked, its like a certificate so it should be short-lived (only a few minutes) so it can be very annoying to have to get a new token every few minutes
-3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl -proxy` command or a reverse proxy that injects the `id_token`
+3.  There's no easy way to authenticate to the Kubernetes dashboard without using the `kubectl proxy` command or a reverse proxy that injects the `id_token`
 
 
 #### Configuring the API Server
@@ -614,13 +614,13 @@ Impersonate-Extra-scopes: development
 ```
 
 When using `kubectl` set the `--as` flag to configure the `Impersonate-User`
-header.
+header, set the `--as-group` flag to configure the `Impersonate-Group` header.
 
 ```shell
 $ kubectl drain mynode
 Error from server (Forbidden): User "clark" cannot get nodes at the cluster scope. (get nodes mynode)
 
-$ kubectl drain mynode --as=superman
+$ kubectl drain mynode --as=superman --as-group=system:masters
 node "mynode" cordoned
 node "mynode" drained
 ```

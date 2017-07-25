@@ -23,7 +23,7 @@ With Kubernetes, you are able to quickly and efficiently respond to customer dem
 
 Our goal is to foster an ecosystem of components and tools that relieve the burden of running applications in public and private clouds.
 
-#### Kubernetes is:
+#### Kubernetes is
 
 * **Portable**: public, private, hybrid, multi-cloud
 * **Extensible**: modular, pluggable, hookable, composable
@@ -93,7 +93,7 @@ Even though Kubernetes provides a lot of functionality, there are always new sce
 
 [Labels](/docs/concepts/overview/working-with-objects/labels/) empower users to organize their resources however they please. [Annotations](/docs/concepts/overview/working-with-objects/annotations/) enable users to decorate resources with custom information to facilitate their workflows and provide an easy way for management tools to checkpoint state.
 
-Additionally, the [Kubernetes control plane](/docs/concepts/overview/components/) is built upon the same [APIs](/docs/reference/api-overview/) that are available to developers and users. Users can write their own controllers, such as [schedulers](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/scheduler.md), with [their own APIs](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
+Additionally, the [Kubernetes control plane](/docs/concepts/overview/components/) is built upon the same [APIs](/docs/reference/api-overview/) that are available to developers and users. Users can write their own controllers, such as [schedulers](https://git.k8s.io/community/contributors/devel/scheduler.md), with [their own APIs](https://git.k8s.io/community/contributors/design-proposals/extending-api.md) that can be targeted by a general-purpose [command-line tool](/docs/user-guide/kubectl-overview/).
 
 This [design](https://github.com/kubernetes/community/blob/{{page.githubbranch}}/contributors/design-proposals/principles.md) has enabled a number of other systems to build atop Kubernetes.
 
@@ -124,7 +124,7 @@ The name **Kubernetes** originates from Greek, meaning *helmsman* or *pilot*, an
 
 {% capture whatsnext %}
 *   Ready to [Get Started](/docs/getting-started-guides/)?
-*   For more details, see the [Kubernetes Documentation](/docs/user-guide/).
+*   For more details, see the [Kubernetes Documentation](/docs/home/).
 {% endcapture %}
 {% include templates/concept.md %}
 

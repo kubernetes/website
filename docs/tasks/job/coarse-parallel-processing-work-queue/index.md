@@ -199,7 +199,7 @@ your app image with your project ID, and push to GCR. Replace
 
 ```shell
 docker tag job-wq-1 gcr.io/<project>/job-wq-1
-gcloud docker push gcr.io/<project>/job-wq-1
+gcloud docker -- push gcr.io/<project>/job-wq-1
 ```
 
 ## Defining a Job

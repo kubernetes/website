@@ -154,11 +154,9 @@ kubectl delete replicaset my-repset --cascade=false
 ```
 
 ## Known issues
-* In 1.6, garbage collection does not support non-core resources, e.g.,
-  resources added via ThirdPartyResource or via aggregated API servers. It will
-  support non-core resources in the future. When it does, garbage collector will
-  delete objects with ownerRefereneces referring to non-existent object of a
-  valid non-core resource.
+* As of 1.7, garbage collection does not yet support
+  [custom resources](/docs/concepts/api-extension/custom-resources/),
+  such as those added through CustomResourceDefinition or aggregated API servers.
 
 [Other known issues](https://github.com/kubernetes/kubernetes/issues/26120)
 
@@ -167,9 +165,9 @@ kubectl delete replicaset my-repset --cascade=false
 
 {% capture whatsnext %}
 
-[Design Doc 1](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/garbage-collection.md)
+[Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/garbage-collection.md)
 
-[Design Doc 2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/synchronous-garbage-collection.md)
+[Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/synchronous-garbage-collection.md)
 
 {% endcapture %}
 

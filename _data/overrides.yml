@@ -7,4 +7,3 @@ overrides:
 - path: docs/admin/kube-scheduler.md
 - path: docs/admin/kubelet.md
 - copypath: k8s/federation/docs/api-reference/ docs/federation/
-- copypath: k8s/cluster/saltbase/salt/fluentd-gcp/fluentd-gcp.yaml docs/getting-started-guides/fluentd-gcp.yaml

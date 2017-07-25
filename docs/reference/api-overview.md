@@ -21,6 +21,9 @@ Most operations can be performed through the
 command-line tools, such as [kubeadm](/docs/admin/kubeadm/), which in turn use
 the API. However, the API can also be accessed directly using REST calls.
 
+Consider using one of the [client libraries](/docs/reference/client-libraries/)
+if you are writing an application using the Kubernetes API.
+
 ## API versioning
 
 To make it easier to eliminate fields or restructure resource representations, Kubernetes supports
@@ -30,10 +33,10 @@ multiple API versions, each at a different API path, such as `/api/v1` or
 The version is set at the API level rather than at the resource or field level to ensure that the API presents a clear, consistent view of system resources and behavior, and to enable controlling access to end-of-life and/or experimental APIs. The JSON and Protobuf serialization schemas follow the same guidelines for schema changes; all descriptions below cover both formats.
 
 Note that API versioning and software versioning are only indirectly related.  The [API and release
-versioning proposal](https://github.com/kubernetes/kubernetes/blob/{{page.githubbranch}}/docs/design/versioning.md) describes the relationship between API versioning and software versioning.
+versioning proposal](https://git.k8s.io/community/contributors/design-proposals/versioning.md) describes the relationship between API versioning and software versioning.
 
 Different API versions imply different levels of stability and support.  The criteria for each level are described
-in more detail in the [API Changes documentation](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/docs/devel/api_changes.md#alpha-beta-and-stable-versions).  
+in more detail in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions).  
 
 The criteria are summarized here:
 
@@ -57,7 +60,7 @@ The criteria are summarized here:
 
 ## API groups
 
-[*API groups*](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-group.md) make it easier to extend the Kubernetes API. The API group is specified in a REST path and in the `apiVersion` field of a serialized object.
+[*API groups*](https://git.k8s.io/community/contributors/design-proposals/api-group.md) make it easier to extend the Kubernetes API. The API group is specified in a REST path and in the `apiVersion` field of a serialized object.
 
 Currently, there are several API groups in use:
 
@@ -65,9 +68,13 @@ Currently, there are several API groups in use:
 *  The named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
    (for example, `apiVersion: batch/v1`).  Full list of supported API groups can be seen in [Kubernetes API reference](/docs/reference/).
 
-There is a supported path to extending the API:
-* [Third Party Resources](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/extending-api.md)
-   are for users with very basic CRUD needs.
+There are two supported paths to extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/):
+
+1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
+   is for users with very basic CRUD needs.
+1. Coming soon: users needing the full set of Kubernetes API semantics can implement their own apiserver
+   and use the [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/aggregated-api-servers.md)
+   to make it seamless for clients.
  
 
 ## Enabling API groups

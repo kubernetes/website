@@ -68,7 +68,7 @@ Here is the configuration file for the hostPath PersistentVolume:
 The configuration file specifies that the volume is at `/tmp/data` on the
 the cluster's Node. The configuration also specifies a size of 10 gibibytes and
 an access mode of `ReadWriteOnce`, which means the volume can be mounted as
-read-write by a single Node. It defines the [StorageClass name](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class)
+read-write by a single Node. It defines the [StorageClass name](/docs/concepts/storage/persistent-volumes/#class)
 `manual` for the PersistentVolume, which will be used to bind
 PersistentVolumeClaim requests to this PersistentVolume.
 
@@ -198,7 +198,7 @@ PersistentVolume are not present on the Pod resource itself.
 {% capture whatsnext %}
 
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
-* Read the [Persistent Storage design document](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/persistent-storage.md).
+* Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/persistent-storage.md).
 
 ### Reference
 
