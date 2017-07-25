@@ -45,17 +45,17 @@ The steps involved are as follows:
    * [Setting up a redundant, reliable storage layer with clustered etcd.](#establishing-a-redundant-reliable-data-storage-layer)
    * [Starting replicated, load balanced Kubernetes API servers](#replicated-api-servers)
    * [Setting up master-elected Kubernetes scheduler and controller-manager daemons](#master-elected-components)
-  -->
-  相关步骤如下：
+-->
+相关步骤如下：
 
    * [创建可靠的成员节点共同形成我们的高可用主节点实现。](#可靠的节点)
    * [使用etcd集群，搭建一个冗余的，可靠的存储层。](#建立一个冗余的，可靠的存储层)
    * [启动具有备份和负载均衡能力的Kubernetes API 服务](#复制的API服务)
    * [搭建运行master选举的Kubernetes scheduler和controller-manager守护程序](#进行master选举的组件)
-  <!--
-  Here's what the system should look like when it's finished:
-  -->
-  系统完成时看起来应该像这样：
+<!--
+Here's what the system should look like when it's finished:
+-->
+系统完成时看起来应该像这样：
 
 ![High availability Kubernetes diagram](/images/docs/ha.svg)
 
