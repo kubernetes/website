@@ -27,5 +27,5 @@ script:
 - $GOPATH/bin/md-check --root-dir=$HOME/gopath/src/k8s.io/kubernetes.github.io
 - ./verify-docs-format.sh
 - $GOPATH/bin/mungedocs --verbose --verify --upstream=origin --root-dir=$HOME/gopath/src/k8s.io/kubernetes.github.io/docs/ --repo-root=$HOME/gopath/src/k8s.io/kubernetes.github.io --skip-munges=remove-whitespace,blank-lines-surround-preformatted,header-lines,sync-examples,analytics,analytics,kubectl-dash-f,table-of-contents,md-links,kubectl-dash-f
-- test -z "$(grep -EIirn "grep -EIirn "/docs/api-reference/v[0-9]\.[0-9]{1,2}" --include \*.md --exclude ./docs/reference/index.md ." --include \*.md --exclude ./docs/reference/index.md . | tee /dev/stderr)"
+- test -z "$(grep -EIirn "/docs/api-reference/v[0-9]\.[0-9]{1,2}" --include \*.md --exclude ./docs/reference/index.md ." --include \*.md --exclude ./docs/reference/index.md . | tee /dev/stderr)"
 - test -z "$(grep -EIirn "/docs/resources-reference/v[0-9]\.[0-9]{1,2}" --include \*.md --exclude ./docs/reference/index.md ." --include \*.md --exclude ./docs/reference/index.md . | tee /dev/stderr)"
