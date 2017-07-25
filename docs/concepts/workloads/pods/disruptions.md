@@ -190,7 +190,7 @@ At this point, if an impatient cluster administrator tries to drain `node-2` or
 `node-3`, the drain command will block, because there are only 2 available
 pods for the deployment, and its PDB requires at least 2.  After some time
 
-asses, `pod-d` becomes available.
+passes, `pod-d` becomes available.
 
 The cluster state now looks like this:
 
