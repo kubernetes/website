@@ -81,6 +81,7 @@ The following table includes a list of all the supported resource types and thei
 
 Resource type    | Abbreviated alias
 -------------------- | --------------------
+`apiservices` |
 `certificatesigningrequests` |`csr`
 `clusters` |
 `clusterrolebindings` |
