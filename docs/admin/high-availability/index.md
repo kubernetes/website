@@ -10,7 +10,7 @@ title: 构建高可用集群
 <!--
 This document describes how to build a high-availability (HA) Kubernetes cluster.  This is a fairly advanced topic.
 -->
-本文描述了如何构建一个高可用（high-availability, HA）的集群。这是一个非常高级的主题。
+本文描述了如何构建一个高可用（high-availability, HA）的Kubernetes集群。这是一个非常高级的主题。
 <!--
 Users who merely want to experiment with Kubernetes are encouraged to use configurations that are simpler to set up such
 as [Minikube](/docs/getting-started-guides/minikube/)
@@ -22,7 +22,7 @@ or try [Google Container Engine](https://cloud.google.com/container-engine/) for
 Also, at this time high availability support for Kubernetes is not continuously tested in our end-to-end (e2e) testing.  We will
 be working to add this continuous testing, but for now the single-node master installations are more heavily tested.
 -->
-此外，当前在我们的端到端（e2e）测试环境中，没有对Kubernetes高可用的支持进行连续测试。我们将会增加这个连续测试项，但当前对单主节点配置测试得严格。
+此外，当前在我们的端到端（e2e）测试环境中，没有对Kubernetes高可用的支持进行连续测试。我们将会增加这个连续测试项，但当前对单节点master的安装测试得更加严格。
 
 * TOC
 {:toc}
@@ -45,16 +45,16 @@ The steps involved are as follows:
    * [Setting up a redundant, reliable storage layer with clustered etcd.](#establishing-a-redundant-reliable-data-storage-layer)
    * [Starting replicated, load balanced Kubernetes API servers](#replicated-api-servers)
    * [Setting up master-elected Kubernetes scheduler and controller-manager daemons](#master-elected-components)
--->
+  -->
 相关步骤如下：
 
-   * [创建可靠的成员节点共同形成我们的高可用主节点实现。](#可靠的节点)
+   * [创建可靠的组成节点，共同形成我们的高可用主节点实现。](#可靠的节点)
    * [使用etcd集群，搭建一个冗余的，可靠的存储层。](#建立一个冗余的，可靠的存储层)
    * [启动具有备份和负载均衡能力的Kubernetes API 服务](#复制的API服务)
    * [搭建运行master选举的Kubernetes scheduler和controller-manager守护程序](#进行master选举的组件)
-<!--
-Here's what the system should look like when it's finished:
--->
+  <!--
+  Here's what the system should look like when it's finished:
+  -->
 系统完成时看起来应该像这样：
 
 ![High availability Kubernetes diagram](/images/docs/ha.svg)
@@ -72,7 +72,7 @@ The remainder of this guide assumes that you are setting up a 3-node clustered m
 Examples in the guide are given for Debian distributions, but they should be easily adaptable to other distributions.
 -->
 指南中的示例使用Debian发行版，但它们应该可以被轻松移植到其他发行版上。
-<--
+<!--
 Likewise, this set up should work whether you are running in a public or private cloud provider, or if you are running
 on bare metal.
 -->
@@ -83,7 +83,7 @@ The easiest way to implement an HA Kubernetes cluster is to start with an existi
 instructions at [https://get.k8s.io](https://get.k8s.io)
 describe easy installation for single-master clusters on a variety of platforms.
 -->
-从一个现成的单主节点集群开始是实现一个高可用Kubernetes集群的最简单的方法。这篇指导 [https://get.k8s.io](https://get.k8s.io) 描述了在多个平台上方便的安装一个单主节点集群的方法。
+从一个现成的单主节点集群开始是实现一个高可用Kubernetes集群的最简单的方法。这篇指导 [https://get.k8s.io](https://get.k8s.io) 描述了在多种平台上方便的安装一个单主节点集群的方法。
 <!--
 ## Reliable nodes
 -->
@@ -97,7 +97,7 @@ establish resource limits, and introspect the resource usage of each daemon.  Of
 itself (insert who watches the watcher jokes here).  For Debian systems, we choose monit, but there are a number of alternate
 choices. For example, on systemd-based systems (e.g. RHEL, CentOS), you can run 'systemctl enable kubelet'.
 -->
-我们在每个主节点上都将运行数个实现Kubernetes API的进程。使他们可靠的第一步是保证在发生故障时，每一个进程都可以自动重启。为了实现这个目标，我们需要安装一个进程监视器。我们选择了在每个工作者节点上都会运行的`kubelet`进程。这会带来便利性，因为我们使用了容器来分发我们的二进制文件，所以我们能够为每一个守护程序建立资源限制并省查它们的资源消耗。当然，我们也需要一些手段来监控kubelete本身（在此添加一个监控监控者的笑话）。对于Debian系统我们选择了monit，但也有许多可替代的工具。例如在基于systemd的系统上（如RHEL, CentOS），你可以运行 'systemctl enable kubelet'。
+我们在每个主节点上都将运行数个实现Kubernetes API的进程。使他们可靠的第一步是保证在发生故障时，每一个进程都可以自动重启。为了实现这个目标，我们需要安装一个进程监视器。我们选择了在每个工作者节点上都会运行的`kubelet`进程。这会带来便利性，因为我们使用了容器来分发我们的二进制文件，所以我们能够为每一个守护程序建立资源限制并省查它们的资源消耗。当然，我们也需要一些手段来监控kubelete本身（在此监测监控者本身是一个有趣的话题）。对于Debian系统我们选择了monit，但也有许多可替代的工具。例如在基于systemd的系统上（如RHEL, CentOS），你可以运行 'systemctl enable kubelet'。
 
 <!--
 If you are extending from a standard Kubernetes installation, the `kubelet` binary should already be present on your system.  You can run
@@ -112,7 +112,7 @@ scripts.
 If you are using monit, you should also install the monit daemon (`apt-get install monit`) and the [monit-kubelet](/docs/admin/high-availability/monit-kubelet) and
 [monit-docker](/docs/admin/high-availability/monit-docker) configs.
 -->
-如果使用monit，你还需要安装monit守护程序（`apt-get install monit`）、 [monit-kubelet](/docs/admin/high-availability/monit-kubelet) 和
+如果使用monit，你还需要安装monit守护程序（`apt-get install monit`）以及[monit-kubelet](/docs/admin/high-availability/monit-kubelet) 和
 [monit-docker](/docs/admin/high-availability/monit-docker) 配置。
 <!--
 On systemd systems you `systemctl enable kubelet` and `systemctl enable docker`.
@@ -240,7 +240,7 @@ If you are running on physical machines, you can also use network attached redun
 Alternatively, you can run a clustered file system like Gluster or Ceph.  Finally, you can also run a RAID array on each physical machine.
 -->
 如果运行于物理机之上，你仍然可以使用iSCSI或者NFS接口通过网络来连接冗余存储。
-此外，你也可以运行一个集群文件系统，比如Gluster或者Ceph。最后，你还可以在你的每个物理机器上运行RAID矩阵。
+此外，你还可以运行一个集群文件系统，比如Gluster或者Ceph。最后，你还可以在你的每个物理机器上运行RAID矩阵。
 
 <!--
 Regardless of how you choose to implement it, if you chose to use one of these options, you should make sure that your storage is mounted
@@ -257,7 +257,7 @@ for each node.  Throughout these instructions, we assume that this storage is mo
 <!--
 Once you have replicated etcd set up correctly, we will also install the apiserver using the kubelet.
 -->
-在正确搭建好复制的etcd之后，我们还需要使用kubelet安装apiserver。
+在正确搭建复制的etcd之后，我们还需要使用kubelet安装apiserver。
 
 <!--
 ### Installing configuration files
@@ -284,10 +284,10 @@ Next, you need to create a `/srv/kubernetes/` directory on each node.  This dire
    * kubecfg.key - Client certificate, private key
    * server.cert - Server certificate, public key
    * server.key - Server certificate, private key
-       -->
-       接下来，你需要在每个节点上创建一个`/srv/kubernetes/`文件夹。这个文件夹包含：
+  -->
+接下来，你需要在每个节点上创建一个`/srv/kubernetes/`文件夹。这个文件夹包含：
 
-   * basic_auth.csv  - 基本授权的用户名和密码
+   * basic_auth.csv  - 基本认证的用户名和密码
    * ca.crt - CA证书
    * known_tokens.csv - 实体（例如kubelet）用来和apiserver通信的令牌
    * kubecfg.crt - 客户端证书，公钥
@@ -344,7 +344,7 @@ For pods that you deploy into the cluster, the `kubernetes` service/dns name sho
 For external users of the API (e.g. the `kubectl` command line interface, continuous build pipelines, or other clients) you will want to configure
 them to talk to the external load balancer's IP address.
 -->
-对于API的外部用户（如命令行运行的`kubectl`，持续集成管道或其他客户端）你会希望他们访问外部的负载均衡器地址。
+对于使用API的外部用户（如命令行运行的`kubectl`，持续集成管道或其他客户端）你会希望将他们配置成为访问外部负载均衡器的地址。
 
 <!--
 ## Master elected components
@@ -357,7 +357,7 @@ cluster state, such as the controller manager and scheduler.  To achieve this re
 instances of these actors, in case a machine dies.  To achieve this, we are going to use a lease-lock in the API to perform
 master election.  We will use the `--leader-elect` flag for each scheduler and controller-manager, using a lease in the API will ensure that only 1 instance of the scheduler and controller-manager are running at once.
 -->
-到目前为止，我们已经搭建了状态存储，也搭建好了API服务，但我们还没有运行任何正真改变集群状态的服务，比如controller manager和scheduler。为了可靠的实现这个目标，我们希望在同一时间只有一个参与者在修改集群状态。但是我们希望复制这些参与者的示例以防某个机器宕机。要做到这一点，我们打算在API中使用一个lease-lock来执行master选举。我们会对每一个scheduler和controller-manager使用`--leader-elect`标志，从而在API中使用一个租约来保证同一时间只有一个scheduler和controller-manager的示例正在运行。
+到目前为止，我们已经搭建了状态存储，也搭建好了API服务，但我们还没有运行任何真正改变集群状态的服务，比如controller manager和scheduler。为了可靠的实现这个目标，我们希望在同一时间只有一个参与者在修改集群状态。但是我们希望复制这些参与者的实例以防某个机器宕机。要做到这一点，我们打算在API中使用一个lease-lock来执行master选举。我们会对每一个scheduler和controller-manager使用`--leader-elect`标志，从而在API中使用一个租约来保证同一时间只有一个scheduler和controller-manager的实例正在运行。
 
 <!--
 The scheduler and controller-manager can be configured to talk to the API server that is on the same node (i.e. 127.0.0.1), or it can be configured to communicate using the load balanced IP address of the API servers. Regardless of how they are configured, the scheduler and controller-manager will complete the leader election process mentioned above when using the `--leader-elect` flag.
@@ -398,12 +398,12 @@ by copying [kube-scheduler.yaml](/docs/admin/high-availability/kube-scheduler.ya
 <!--
 ## Conclusion
 -->
-## 总结
+## 结尾
 
 <!--
 At this point, you are done (yeah!) with the master components, but you still need to add worker nodes (boo!).
 -->
-此时，你已经配置完了master组件（耶！），但你还需要添加工作者节点（噗！）。
+此时，你已经完成了master组件的配置（耶！），但你还需要添加工作者节点（噗！）。
 
 <!--
 If you have an existing cluster, this is as simple as reconfiguring your kubelets to talk to the load-balanced endpoint, and
