@@ -447,7 +447,7 @@ The request body will be of the following format:
 }
 ```
 
-The remote service is expected to fill the `TokenAccessReviewStatus` field of
+The remote service is expected to fill the `status` field of
 the request to indicate the success of the login. The response body's "spec"
 field is ignored and may be omitted. A successful validation of the bearer
 token would return:
