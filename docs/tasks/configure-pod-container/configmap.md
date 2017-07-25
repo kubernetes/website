@@ -317,7 +317,6 @@ data:
 * See [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap).
 * Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
 -->
-{% endcapture %}
 * 参考 [在Pod中使用ConfigMap数据](/docs/tasks/configure-pod-container/configure-pod-configmap).
 * 参考实际案例[使用ConfigMap配置Redis](/docs/tutorials/configuration/configure-redis-using-configmap/).
 {% endcapture %}
