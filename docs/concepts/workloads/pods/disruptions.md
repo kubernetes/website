@@ -102,7 +102,7 @@ voluntary disruptions.  For example, a quorum-based application would
 like to ensure that the number of replicas running is never brought below the
 number needed for a quorum. A web front end might want to
 ensure that the number of replicas serving load never falls below a certain
-percentage of the total.  
+percentage of the total.
 
 Cluster managers and hosting providers should use tools which
 respect Pod Disruption Budgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)
@@ -136,7 +136,7 @@ during application updates is configured in the controller spec.
 (Learn about [updating a deployment](/docs/concepts/cluster-administration/manage-deployment/#updating-your-application-without-a-service-outage).)
 
 When a pod is evicted using the eviction API, it is gracefully terminated (see
-`terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/v1.6/#podspec-v1-core).)
+`terminationGracePeriodSeconds` in [PodSpec](/docs/resources-reference/{{page.version}}/#podspec-v1-core).)
 
 ## PDB Example
 
@@ -200,7 +200,7 @@ The cluster state now looks like this:
 |                      | pod-d *available*   | pod-y              |
 
 Now, the cluster admin tries to drain `node-2`.
-The drain command will try to evict the two pods in some order, say 
+The drain command will try to evict the two pods in some order, say
 `pod-b` first and then `pod-d`.  It will succeed at evicting `pod-b`.
 But, when it tries to evict `pod-d`, it will be refused because that would leave only
 one pod available for the deployment.
@@ -234,7 +234,7 @@ and Application Owner as separate roles with limited knowledge
 of each other.   This separation of responsibilities
 may make sense in these scenarios:
 
-- when there are many application teams sharing a Kubernetes cluster, and 
+- when there are many application teams sharing a Kubernetes cluster, and
   there is natural specialization of roles
 - when third-party tools or services are used to automate cluster management
 
@@ -249,7 +249,7 @@ you may not need to use Pod Disruption Budgets.
 If you are a Cluster Administrator, and you need to perform a disruptive action on all
 the nodes in your cluster, such as a node or system software upgrade, here are some options:
 
-- Accept downtime during the upgrade. 
+- Accept downtime during the upgrade.
 - Fail over to another complete replica cluster.
    -  No downtime, but may be costly both for the duplicated nodes,
      and for human effort to orchestrate the switchover.
@@ -270,7 +270,7 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 
 * Learn more about [draining nodes](/docs/tasks/administer-cluster//safely-drain-node.md)
 
-{% endcapture %} 
+{% endcapture %}
 
 
 {% include templates/concept.md %}
