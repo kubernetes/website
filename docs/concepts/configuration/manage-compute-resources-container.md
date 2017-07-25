@@ -432,7 +432,7 @@ consistency across providers and platforms.
 
 * [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
 
-* [ResourceRequirements](/docs/resources-reference/{{page.version}}/#resourcerequirements-v1-core)
+* [ResourceRequirements](/docs/resources-reference/v1.7/#resourcerequirements-v1-core)
 
 {% endcapture %}
 
