@@ -66,8 +66,8 @@ For each of the virtual machine nodes that will be participating in the cluster,
 * Set disk.EnableUUID to true for all VMs
     <pre>
     govc vm.change -e="disk.enableUUID=1" -vm='VM Path'</pre>
-Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=1` can be set on the template VM. VMs cloned from this template, will automatically inherit this property.
 
+Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=1` can be set on the template VM. VMs cloned from this template, will automatically inherit this property.
 
 **Step-4** Create and assign Roles to the vSphere Cloud Provider user and vSphere entities.
 
@@ -76,19 +76,19 @@ Note: if you want to use Administrator account then this step can be skipped.
 vSphere Cloud Provider requires the following minimal set of privileges to interact with vCenter. Please refer [vSphere Documentation Center](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html) to know about steps for creating a Custom Role, User and Role Assignment.
 
 
-| Roles  | Privileges  | Entities | Propagate to Children  |
-|---|---|---|---|
-| manage-k8s-node-vms | Resource.AssignVMToPool<br> System.Anonymous<br> System.Read<br> System.View<br> VirtualMachine.Config.AddExistingDisk<br> VirtualMachine.Config.AddNewDisk<br> VirtualMachine.Config.AddRemoveDevice<br> VirtualMachine.Config.RemoveDisk<br> VirtualMachine.Inventory.Create<br> VirtualMachine.Inventory.Delete<br> | Cluster, Hosts and VM Folder  | Yes |
-| manage-k8s-volumes | Datastore.AllocateSpace<br> Datastore.FileManagement<br> System.Anonymous<br> System.Read<br> System.View<br> | Datastore | No |
-| k8s-system-read-and-spbm-profile-view |StorageProfile.View<br> System.Anonymous<br> System.Read<br> System.View<br> | vCenter  | No |
-| ReadOnly | System.Anonymous<br> System.Read<br> System.View<br> | Datacenter,<br> Datastore Cluster,<br> Datastore Storage Folder<br> | No |
-
+Roles        | Privileges  | Entities | Propagate to Children
+------------ | ----------- | -------- | ---------------------
+manage-k8s-node-vms | Resource.AssignVMToPool<br> System.Anonymous<br> System.Read<br> System.View<br> VirtualMachine.Config.AddExistingDisk<br> VirtualMachine.Config.AddNewDisk<br> VirtualMachine.Config.AddRemoveDevice<br> VirtualMachine.Config.RemoveDisk<br> VirtualMachine.Inventory.Create<br> VirtualMachine.Inventory.Delete<br> | Cluster, Hosts and VM Folder | Yes
+manage-k8s-volumes  | Datastore.AllocateSpace<br> Datastore.FileManagement<br> System.Anonymous<br> System.Read<br> System.View<br> | Datastore | No
+k8s-system-read-and-spbm-profile-view | StorageProfile.View<br> System.Anonymous<br> System.Read<br> System.View<br> | vCenter | No
+ReadOnly | System.Anonymous<br> System.Read<br> System.View<br> | Datacenter,<br> Datastore Cluster,<br> Datastore Storage Folder<br> | No
 
 **Step-5** Create the vSphere cloud config file (`vsphere.conf`). Cloud config template can be found [here](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
 
 This config file needs to be placed in the shared directory which should be accessible from kubelet container, controller-manager pod, and API server pod.
 
 **```vsphere.conf``` for Master Node:**
+
 ```
 [Global]
         user = "vCenter username for cloud provider"
@@ -103,6 +103,7 @@ This config file needs to be placed in the shared directory which should be acce
 [Disk]
     scsicontrollertype = pvscsi
 ```
+
 Note: **```vm-name``` parameter is introduced in 1.6.4 release.** Both ```vm-uuid``` and ```vm-name``` are optional parameters. if ```vm-name``` is specified then ```vm-uuid``` is not used. if both are not specified then kubelet will get vm-uuid from `/sys/class/dmi/id/product_serial` and query vCenter to find the Node VM's name. 
 
 **```vsphere.conf``` for Worker Nodes:** (Only Applicable to 1.6.4 release and above. For older releases this file should have all the parameters specified in Master node's ```vSphere.conf``` file)
@@ -142,10 +143,12 @@ Below is summary of supported parameters in the `vsphere.conf` file
 
 **Step-6** Add flags to controller-manager, API server and Kubelet to enable vSphere Cloud Provider.
 * Add following flags to kubelet running on every node and to the controller-manager and API server pods manifest files. 
+
 ```
 --cloud-provider=vsphere
 --cloud-config=<Path of the vsphere.conf file>
 ```
+
 Manifest files for API server and controller-manager are generally located at `/etc/kubernetes`
 
 **Step-7** Restart Kubelet on all nodes.
@@ -159,8 +162,8 @@ Note: After enabling the vSphere Cloud Provider, Node names will be set to the V
 ## Support Level
 
 
-IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
--------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
+IaaS Provider        | Config. Mgmt | OS     | Networking | Docs                                          | Conforms  | Support Level
+-------------------- | ------------ | ------ | ---------- | --------------------------------------------- | --------- | ----------------------------
 Vmware vSphere       | Kube-anywhere    | Photon OS | Flannel         | [docs](/docs/getting-started-guides/vsphere)                                |                | Community  ([@abrarshivani](https://github.com/abrarshivani)), ([@kerneltime](https://github.com/kerneltime)), ([@BaluDontu](https://github.com/BaluDontu)), ([@luomiao](https://github.com/luomiao)), ([@divyenpatel](https://github.com/divyenpatel))
 
 If you identify any issues/problems using the vSphere cloud provider, you can create an issue in our repo - [VMware Kubernetes](https://github.com/vmware/kubernetes).
