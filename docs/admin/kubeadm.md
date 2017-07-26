@@ -460,7 +460,7 @@ started.
 Once the cluster is up, you can grab the admin credentials from the master node
 at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
 
-## [Use Kubeadm with other CRI runtimes](#use-kubeadm-with-other-cri-runtimes)
+## Use Kubeadm with other CRI runtimes
 
 Since [Kubernetes 1.6 release](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG.md#node-components-1), Kubernetes container runtimes have been transferred to using CRI by default. Currently, the build-in container runtime is Docker which is enabled by build-in `dockershim` in `kubelet`.
 
