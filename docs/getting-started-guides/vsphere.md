@@ -80,10 +80,10 @@ vSphere Cloud Provider requires the following minimal set of privileges to inter
 
 Roles        | Privileges  | Entities | Propagate to Children
 ------------ | ----------- | -------- | ---------------------
-manage-k8s-node-vms | Resource.AssignVMToPool<br> System.Anonymous<br/> System.Read<br/> System.View<br/> VirtualMachine.Config.AddExistingDisk<br/> VirtualMachine.Config.AddNewDisk<br/> VirtualMachine.Config.AddRemoveDevice<br/> VirtualMachine.Config.RemoveDisk<br/> VirtualMachine.Inventory.Create<br/> VirtualMachine.Inventory.Delete | Cluster, Hosts and VM Folder | Yes
-manage-k8s-volumes  | Datastore.AllocateSpace<br/> Datastore.FileManagement<br/> System.Anonymous<br/> System.Read<br/> System.View | Datastore | No
-k8s-system-read-and-spbm-profile-view | StorageProfile.View<br/> System.Anonymous<br/> System.Read<br/> System.View | vCenter | No
-ReadOnly | System.Anonymous<br/> System.Read<br/> System.View | Datacenter, Datastore Cluster, Datastore Storage Folder | No
+manage-k8s-node-vms | Resource.AssignVMToPool<br> System.Anonymous<br/> System.Read<br> System.View<br> VirtualMachine.Config.AddExistingDisk<br> VirtualMachine.Config.AddNewDisk<br> VirtualMachine.Config.AddRemoveDevice<br> VirtualMachine.Config.RemoveDisk<br> VirtualMachine.Inventory.Create<br> VirtualMachine.Inventory.Delete | Cluster, Hosts and VM Folder | Yes
+manage-k8s-volumes  | Datastore.AllocateSpace<br> Datastore.FileManagement<br> System.Anonymous<br> System.Read<br> System.View | Datastore | No
+k8s-system-read-and-spbm-profile-view | StorageProfile.View<br> System.Anonymous<br> System.Read<br> System.View | vCenter | No
+ReadOnly | System.Anonymous<br> System.Read<br> System.View | Datacenter, Datastore Cluster, Datastore Storage Folder | No
 
 **Step-5** Create the vSphere cloud config file (`vsphere.conf`). Cloud config template can be found [here](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
 
