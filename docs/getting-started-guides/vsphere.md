@@ -43,7 +43,8 @@ If a Kubernetes cluster has not been deployed using Kubernetes-Anywhere, follow 
 
 **Step-2** Make sure Node VM names must comply with the regex `[a-z](([-0-9a-z]+)?[0-9a-z])?(\.[a-z0-9](([-0-9a-z]+)?[0-9a-z])?)*` If Node VMs does not comply with this regex, rename them and make it compliant to this regex.
 
-   Node VM names constraints
+  Node VM names constraints:
+
   * VM names can not begin with numbers.
   * VM names can not have capital letters, any special charaters except `.` and `-`.
   * VM names can not be shorter than 3 chars and longer than 63
@@ -55,17 +56,14 @@ The disk.EnableUUID parameter must be set to "TRUE" for each Node VM. This step 
 For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using [GOVC tool](https://github.com/vmware/govmomi/tree/master/govc)
 
 * Set up GOVC environment
-    <pre>
     export GOVC_URL='vCenter IP OR FQDN'
     export GOVC_USERNAME='vCenter User'
     export GOVC_PASSWORD='vCenter Password'
-    export GOVC_INSECURE=1</pre>
+    export GOVC_INSECURE=1
 * Find Node VM Paths
-    <pre>
-    govc ls /datacenter/vm/<vm-folder-name></pre>
+    govc ls /datacenter/vm/<vm-folder-name>
 * Set disk.EnableUUID to true for all VMs
-    <pre>
-    govc vm.change -e="disk.enableUUID=1" -vm='VM Path'</pre>
+    govc vm.change -e="disk.enableUUID=1" -vm='VM Path'
 
 Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=1` can be set on the template VM. VMs cloned from this template, will automatically inherit this property.
 
@@ -75,13 +73,12 @@ Note: if you want to use Administrator account then this step can be skipped.
 
 vSphere Cloud Provider requires the following minimal set of privileges to interact with vCenter. Please refer [vSphere Documentation Center](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html) to know about steps for creating a Custom Role, User and Role Assignment.
 
-
 Roles        | Privileges  | Entities | Propagate to Children
 ------------ | ----------- | -------- | ---------------------
-manage-k8s-node-vms | Resource.AssignVMToPool  System.Anonymous  System.Read  System.View  VirtualMachine.Config.AddExistingDisk  VirtualMachine.Config.AddNewDisk  VirtualMachine.Config.AddRemoveDevice  VirtualMachine.Config.RemoveDisk  VirtualMachine.Inventory.Create  VirtualMachine.Inventory.Delete  | Cluster, Hosts and VM Folder | Yes
-manage-k8s-volumes  | Datastore.AllocateSpace  Datastore.FileManagement  System.Anonymous  System.Read  System.View  | Datastore | No
-k8s-system-read-and-spbm-profile-view | StorageProfile.View  System.Anonymous  System.Read  System.View  | vCenter | No
-ReadOnly | System.Anonymous  System.Read  System.View  | Datacenter,  Datastore Cluster,  Datastore Storage Folder  | No
+manage-k8s-node-vms | Resource.AssignVMToPool<br/>System.Anonymous<br/>System.Read<br/>System.View<br/>VirtualMachine.Config.AddExistingDisk<br/>VirtualMachine.Config.AddNewDisk<br/>VirtualMachine.Config.AddRemoveDevice<br/>VirtualMachine.Config.RemoveDisk<br/>VirtualMachine.Inventory.Create<br/>VirtualMachine.Inventory.Delete<br/>| Cluster, Hosts and VM Folder | Yes
+manage-k8s-volumes  | Datastore.AllocateSpace<br/>Datastore.FileManagement<br/>System.Anonymous<br/>System.Read<br/>System.View<br/>| Datastore | No
+k8s-system-read-and-spbm-profile-view | StorageProfile.View<br/>System.Anonymous<br/>System.Read<br/>System.View<br/>| vCenter | No
+ReadOnly | System.Anonymous<br/>System.Read<br/>System.View<br/>| Datacenter,<br/>Datastore Cluster,<br/>Datastore Storage Folder<br/>| No
 
 **Step-5** Create the vSphere cloud config file (`vsphere.conf`). Cloud config template can be found [here](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
 
@@ -131,15 +128,12 @@ Below is summary of supported parameters in the `vsphere.conf` file
      * ```vm-uuid``` needs to be set in this format - ```423D7ADC-F7A9-F629-8454-CE9615C810F1```
 
      * ```vm-uuid``` can be retrieved from Node Virtual machines using following command. This will be different on each node VM.
-        <pre>
-        cat /sys/class/dmi/id/product_serial | sed -e 's/^VMware-//' -e 's/-/ /' | awk '{ print toupper($1$2$3$4 "-" $5$6 "-" $7$8 "-" $9$10 "-" $11$12$13$14$15$16) }'</pre>
+        cat /sys/class/dmi/id/product_serial | sed -e 's/^VMware-//' -e 's/-/ /' | awk '{ print toupper($1$2$3$4 "-" $5$6 "-" $7$8 "-" $9$10 "-" $11$12$13$14$15$16) }'
 * `datastore` is the default datastore used for provisioning volumes using storage classes. If datastore is located in storage folder or datastore is member of datastore cluster, make sure to specify full datastore path. Make sure vSphere Cloud Provider user has Read Privilege set on the datastore cluster or storage folder to be able to find datastore.
      * For datastore located in the datastore cluster, specify datastore as mentioned below
-        <pre>
-        datastore = "DatastoreCluster/datastore1"</pre>
+        datastore = "DatastoreCluster/datastore1"
      * For datastore located in the datastore cluster, specify datastore as mentioned below
-        <pre>
-        datastore = "DatastoreFolder/datastore1"</pre>
+        datastore = "DatastoreFolder/datastore1"
 
 **Step-6** Add flags to controller-manager, API server and Kubelet to enable vSphere Cloud Provider.
 * Add following flags to kubelet running on every node and to the controller-manager and API server pods manifest files. 
