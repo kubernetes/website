@@ -24,10 +24,10 @@ controller. As this feature matures, you should ensure tokens are bound to a Rol
 
 There are two methods by which tokens can be handled.
 
-1. [Bootstrap Tokens](/docs/admin/bootstrap-tokens.md)
+1. [Bootstrap Tokens](/docs/admin/bootstrap-tokens.md) - __alpha__
 2. [Token authentication file](###token-authentication-file)
 
-Using bootstrap tokens is the preferred method as the token authentication file (csv) is difficult to manage especially in HA scenarios.
+Using bootstrap tokens is currently __alpha__ and will simplify the management of bootstrap token management especially in a HA scenario. 
 
 ### Token authentication file
 Tokens are arbitrary but should represent at least 128 bits of entropy derived from a secure random number
