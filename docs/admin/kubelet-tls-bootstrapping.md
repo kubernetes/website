@@ -187,7 +187,7 @@ kubectl config set-credentials kubelet-bootstrap --token=${BOOTSTRAP_TOKEN} --ku
 
 When starting the kubelet, if the file specified by `--kubeconfig` does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On approval of the certificate request and receipt back by the kubelet, a kubeconfig file referencing the generated key and obtained certificate is written to the path specified by `--kubeconfig`. The certificate and key file will be placed in the directory specified by `--cert-dir`.
 
-The following flags are required to enable this bootstrapping when starting the kubelet is:
+**Note:** The following flags are required to enable this bootstrapping when starting the kubelet are:
 
 ```
 --require-kubeconfig
