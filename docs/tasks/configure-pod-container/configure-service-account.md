@@ -18,11 +18,12 @@ Service account为Pod中的进程提供身份信息。
 -->
 *本文是关于 Service Account 的用户指南，管理指南另见 [Service Account 的集群管理指南](/docs/admin/service-accounts-admin) 。*
 
+<!--
 *Note: This document describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project.  Your cluster administrator may have
 customized the behavior in your cluster, in which case this documentation may
 not apply.*
-
+-->
 *注意：本文档描述的关于 Serivce Account 的行为只有当您按照 Kubernetes 项目建议的方式搭建起集群的情况下才有效。您的集群管理员可能在您的集群中有自定义配置，这种情况下该文档可能并不适用。*
 <!--
 When you (a human) access the cluster (e.g. using `kubectl`), you are
@@ -34,6 +35,7 @@ When they do, they are authenticated as a particular Service Account (e.g.
 -->
 当您（真人用户）访问集群（例如使用`kubectl`命令）时，apiserver 会将您认证为一个特定的 User Account（目前通常是`admin`，除非您的系统管理员自定义了集群配置）。Pod 容器中的进程也可以与 apiserver 联系。 当它们在联系 apiserver 的时候，它们会被认证为一个特定的 Service Account（例如`default`）。
 <!--
+
 ## Use the Default Service Account to access the API server.
 
 When you create a pod, if you do not specify a service account, it is
@@ -214,12 +216,15 @@ token: ...
 namespace: 7 bytes
 ```
 <!--
+
 > Note that the content of `token` is elided here.
 
 -->
 
 > 注意该内容中的`token`被省略了。
-> <!--
+
+
+<!--
 ## Add ImagePullSecrets to a service account
 
 First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
