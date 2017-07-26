@@ -190,7 +190,7 @@ The following flags are required to enable this bootstrapping when starting the 
 
 ```
 --require-kubeconfig
---experimental-bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
+--bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
 ```
 
 Additionally, in 1.7 the kubelet implements __alpha__ features for enabling rotation of both its client and/or serving certs.
