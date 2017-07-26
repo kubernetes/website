@@ -56,14 +56,19 @@ The disk.EnableUUID parameter must be set to "TRUE" for each Node VM. This step 
 For each of the virtual machine nodes that will be participating in the cluster, follow the steps below using [GOVC tool](https://github.com/vmware/govmomi/tree/master/govc)
 
 * Set up GOVC environment
-    export GOVC_URL='vCenter IP OR FQDN'
-    export GOVC_USERNAME='vCenter User'
-    export GOVC_PASSWORD='vCenter Password'
-    export GOVC_INSECURE=1
+
+        export GOVC_URL='vCenter IP OR FQDN'
+        export GOVC_USERNAME='vCenter User'
+        export GOVC_PASSWORD='vCenter Password'
+        export GOVC_INSECURE=1
+
 * Find Node VM Paths
-    govc ls /datacenter/vm/<vm-folder-name>
+
+        govc ls /datacenter/vm/<vm-folder-name>
+
 * Set disk.EnableUUID to true for all VMs
-    govc vm.change -e="disk.enableUUID=1" -vm='VM Path'
+
+        govc vm.change -e="disk.enableUUID=1" -vm='VM Path'
 
 Note: If Kubernetes Node VMs are created from template VM then `disk.EnableUUID=1` can be set on the template VM. VMs cloned from this template, will automatically inherit this property.
 
@@ -125,14 +130,19 @@ Below is summary of supported parameters in the `vsphere.conf` file
 * ```working-dir``` can be set to empty ( working-dir = ""), if Node VMs are located in the root VM folder.
 * ```vm-uuid``` is the VM Instance UUID of virtual machine. ```vm-uuid``` can be set to empty (```vm-uuid = ""```). if set to empty, this will be retrieved from /sys/class/dmi/id/product_serial file on virtual machine (requires root access).
 
-     * ```vm-uuid``` needs to be set in this format - ```423D7ADC-F7A9-F629-8454-CE9615C810F1```
+  * ```vm-uuid``` needs to be set in this format - ```423D7ADC-F7A9-F629-8454-CE9615C810F1```
 
-     * ```vm-uuid``` can be retrieved from Node Virtual machines using following command. This will be different on each node VM.
+  * ```vm-uuid``` can be retrieved from Node Virtual machines using following command. This will be different on each node VM.
+
         cat /sys/class/dmi/id/product_serial | sed -e 's/^VMware-//' -e 's/-/ /' | awk '{ print toupper($1$2$3$4 "-" $5$6 "-" $7$8 "-" $9$10 "-" $11$12$13$14$15$16) }'
+
 * `datastore` is the default datastore used for provisioning volumes using storage classes. If datastore is located in storage folder or datastore is member of datastore cluster, make sure to specify full datastore path. Make sure vSphere Cloud Provider user has Read Privilege set on the datastore cluster or storage folder to be able to find datastore.
-     * For datastore located in the datastore cluster, specify datastore as mentioned below
+  * For datastore located in the datastore cluster, specify datastore as mentioned below
+
         datastore = "DatastoreCluster/datastore1"
-     * For datastore located in the datastore cluster, specify datastore as mentioned below
+
+  * For datastore located in the datastore cluster, specify datastore as mentioned below
+
         datastore = "DatastoreFolder/datastore1"
 
 **Step-6** Add flags to controller-manager, API server and Kubelet to enable vSphere Cloud Provider.
