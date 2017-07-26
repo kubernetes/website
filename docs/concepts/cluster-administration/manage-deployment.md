@@ -308,27 +308,6 @@ For more information, please see [kubectl scale](/docs/user-guide/kubectl/{{page
 
 Sometimes it's necessary to make narrow, non-disruptive updates to resources you've created.
 
-### kubectl apply
-
-It is suggested to maintain a set of configuration files in source control (see [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)),
-so that they can be maintained and versioned along with the code for the resources they configure.
-Then, you can use [`kubectl apply`](/docs/user-guide/kubectl/{{page.version}}/#apply) to push your configuration changes to the cluster.
-
-This command will compare the version of the configuration that you're pushing with the previous version and apply the changes you've made, without overwriting any automated changes to properties you haven't specified.
-
-```shell
-$ kubectl apply -f docs/user-guide/nginx/nginx-deployment.yaml
-deployment "my-nginx" configured
-```
-
-Note that `kubectl apply` attaches an annotation to the resource in order to determine the changes to the configuration since the previous invocation. When it's invoked, `kubectl apply` does a three-way diff between the previous configuration, the provided input and the current configuration of the resource, in order to determine how to modify the resource.
-
-Currently, resources are created without this annotation, so the first invocation of `kubectl apply` will fall back to a two-way diff between the provided input and the current configuration of the resource. During this first invocation, it cannot detect the deletion of properties set when the resource was created. For this reason, it will not remove them.
-
-All subsequent calls to `kubectl apply`, and other commands that modify the configuration, such as `kubectl replace` and `kubectl edit`, will update the annotation, allowing subsequent calls to `kubectl apply` to detect and perform deletions using a three-way diff.
-
-**Note:** To use apply, always create resource initially with either `kubectl apply` or `kubectl create --save-config`.
-
 ### kubectl edit
 
 Alternatively, you may also update resources with `kubectl edit`:

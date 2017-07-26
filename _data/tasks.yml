@@ -46,6 +46,7 @@ toc:
   - docs/tasks/run-application/run-stateless-application-deployment.md
   - docs/tasks/run-application/run-single-instance-stateful-application.md
   - docs/tasks/run-application/run-replicated-stateful-application.md
+  - docs/tasks/run-application/update-api-object-in-place.md
   - docs/tasks/run-application/upgrade-pet-set-to-stateful-set.md
   - docs/tasks/run-application/scale-stateful-set.md
   - docs/tasks/run-application/delete-stateful-set.md
