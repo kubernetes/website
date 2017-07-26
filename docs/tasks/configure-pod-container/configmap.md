@@ -10,6 +10,7 @@ redirect_from:
 
 
 {% capture overview %}
+
 <!--
 This page shows you how to configure an application using a ConfigMap. ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
 -->
@@ -26,7 +27,7 @@ This page shows you how to configure an application using a ConfigMap. ConfigMap
 
 {% capture steps %}
 <!--
-## Use kubectl to create a ConfigMap
+## Use kubectl to create a ConfigMap 
 
 Use the `kubectl create configmap` command to create configmaps from [directories](#creating-configmaps-from-directories), [files](#creating-configmaps-from-files), or [literal values](#creating-configmaps-from-literal-values):
 
@@ -38,7 +39,7 @@ where \<map-name> is the name you want to assign to the ConfigMap and \<data-sou
 
 The data source corresponds to a key-value pair in the ConfigMap, where
 
-* key = the file name or the key you provided on the command line, and
+* key = the file name or the key you provided on the command line, and 
 * value = the file contents or the literal value you provided on the command line.
 
 You can use [`kubectl describe`](/docs/user-guide/kubectl/v1.6/#describe) or [`kubectl get`](/docs/user-guide/kubectl/v1.6/#get) to retrieve information about a ConfigMap. The former shows a summary of the ConfigMap, while the latter returns the full contents of the ConfigMap.
@@ -63,7 +64,7 @@ kubectl create configmap <map-name> <data-source>
 -->
 ### 利用目录创建ConfigMap
 <!--
-You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory.
+You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory. 
 
 For example:
 -->
@@ -75,6 +76,7 @@ kubectl create configmap game-config --from-file=docs/user-guide/configmap/kubec
 <!--
 combines the contents of the `docs/user-guide/configmap/kubectl/` directory
 -->
+
 将`docs/user-guide/configmap/kubectl`目录的内容
 
 ```shell
@@ -102,6 +104,7 @@ ui.properties:          83 bytes
 <!--
 The `game.properties` and `ui.properties` files in the `docs/user-guide/configmap/kubectl/` directory are represented in the `data` section of the ConfigMap.
 -->
+
 `docs/user-guide/configmap/kubectl/`目录下的`game.properties`和`ui.properties`文件代表ConfigMap中的`data`部分。
 
 ```shell
@@ -140,12 +143,12 @@ metadata:
 <!--
 You can use `kubectl create configmap` to create a ConfigMap from an individual file, or from multiple files.
 
-For example,
+For example, 
 -->
 使用`kubectl create configmap`命令从单个文件或一组文件中创建ConfigMap，例如：
 
 ```shell
-kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties
+kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties 
 ```
 <!--
 would produce the following ConfigMap:
@@ -169,7 +172,7 @@ You can pass in the  `--from-file` argument multiple times to create a ConfigMap
 您可以多次传递`--from-file`参数使用不同的数据源来创建ConfigMap。
 
 ```shell
-kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties --from-file=docs/user-guide/configmap/kubectl/ui.properties
+kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kubectl/game.properties --from-file=docs/user-guide/configmap/kubectl/ui.properties 
 ```
 
 ```shell
@@ -191,7 +194,7 @@ ui.properties:          83 bytes
 <!--
 You can define a key other than the file name to use in the `data` section of your ConfigMap when using the `--from-file` argument:
 -->
-当您使用`—from-file`参数时，可以在ConfigMap的`data`小节内定义key替代默认的文件名：
+当您使用`--from-file`参数时，可以在ConfigMap的`data`小节内定义key替代默认的文件名：
 
 ```shell
 kubectl create configmap game-config-3 --from-file=<my-key-name>=<path-to-file>
@@ -199,11 +202,9 @@ kubectl create configmap game-config-3 --from-file=<my-key-name>=<path-to-file>
 <!--
 where `<my-key-name>` is the key you want to use in the ConfigMap and `<path-to-file>` is the location of the data source file you want the key to represent.
 
-For example:
+For example: 
 -->
 `<my-key-name>`是ConfigMap中的key，`<path-to-file>`是key代表的数据源文件位置。
-
-例如：
 
 ```shell
 kubectl create configmap game-config-3 --from-file=game-special-key=docs/user-guide/configmap/kubectl/game.properties
@@ -231,7 +232,6 @@ metadata:
   selfLink: /api/v1/namespaces/default/configmaps/game-config-3
   uid: 05f8da22-d671-11e5-8cd0-68f728db1985
 ```
-
 <!--
 ### Create ConfigMaps from literal values
 -->
@@ -272,11 +272,11 @@ metadata:
 
 {% capture discussion %}
 <!--
-## Understanding ConfigMaps
+## Understanding ConfigMaps 
 -->
 ## 理解Config Map
 <!--
-ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
+ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. 
 -->
 ConfigMap允许您将配置文件从容器镜像中解耦，从而增强容器应用的可移植性。
 <!--
@@ -284,7 +284,7 @@ The ConfigMap API resource stores configuration data as key-value pairs. The dat
 -->
 ConfigMap API resource将配置数据以键值对的形式存储。这些数据可以在pod中消费或者为系统组件提供配置，例如controller。ConfigMap与[Secret](/docs/concepts/configuration/secret/)类似，但是通常只保存不包含敏感信息的字符串。用户和系统组件可以以同样的方式在ConfigMap中存储配置数据。
 <!--
-Note: ConfigMaps should reference properties files, not replace them. Think of the ConfigMap as representing something similar to the a Linux `/etc` directory and its contents. For example, if you create a [Kubernetes Volume](/docs/concepts/storage/volumes/) from a ConfigMap, each data item in the ConfigMap is represented by an individual file in the volume.
+Note: ConfigMaps should reference properties files, not replace them. Think of the ConfigMap as representing something similar to the a Linux `/etc` directory and its contents. For example, if you create a [Kubernetes Volume](/docs/concepts/storage/volumes/) from a ConfigMap, each data item in the ConfigMap is represented by an individual file in the volume. 
 -->
 注意：ConfigMap只引用属性文件，而不会替换它们。可以把ConfigMap联想成Linux中的`/etc`目录和它里面的内容。例如，假如您使用ConfigMap创建了[Kubernetes Volume](/docs/concepts/storage/volumes/)，ConfigMap中的每个数据项都代表该volume中的一个文件。
 <!--
@@ -316,9 +316,9 @@ data:
 <!--
 * See [Using ConfigMap Data in Pods](/docs/tasks/configure-pod-container/configure-pod-configmap).
 * Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
--->
+  -->
 * 参考 [在Pod中使用ConfigMap数据](/docs/tasks/configure-pod-container/configure-pod-configmap).
 * 参考实际案例[使用ConfigMap配置Redis](/docs/tutorials/configuration/configure-redis-using-configmap/).
-{% endcapture %}
+  {% endcapture %}
 
 {% include templates/task.md %}
