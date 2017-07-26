@@ -17,10 +17,17 @@ and progress on the feature is being tracked as [feature #43](https://github.com
 
 ## kube-apiserver configuration
 
-You must provide a token file which specifies at least one "bootstrap token" assigned to a kubelet bootstrap-specific group.
+You must provide a token which specifies at least one "bootstrap token" assigned to a kubelet bootstrap-specific group.
 This group will later be used in the controller-manager configuration to scope approvals in the default approval
 controller. As this feature matures, you should ensure tokens are bound to a Role-Based Access Control (RBAC) policy which limits requests
 (using the bootstrap token) strictly to client requests related to certificate provisioning. With RBAC in place, scoping the tokens to a group allows for great flexibility (e.g. you could disable a particular bootstrap group's access when you are done provisioning the nodes).
+
+There are two methods by which tokens can be handled.
+
+1. [Bootstrap Tokens](/docs/admin/bootstrap-tokens.md)
+2. [Token authentication file](###token-authentication-file)
+
+Using bootstrap tokens is the preferred method as the token authentication file (csv) is difficult to manage especially in HA scenarios.
 
 ### Token authentication file
 Tokens are arbitrary but should represent at least 128 bits of entropy derived from a secure random number
@@ -179,9 +186,10 @@ kubectl config set-credentials kubelet-bootstrap --token=${BOOTSTRAP_TOKEN} --ku
 
 When starting the kubelet, if the file specified by `--kubeconfig` does not exist, the bootstrap kubeconfig is used to request a client certificate from the API server. On approval of the certificate request and receipt back by the kubelet, a kubeconfig file referencing the generated key and obtained certificate is written to the path specified by `--kubeconfig`. The certificate and key file will be placed in the directory specified by `--cert-dir`.
 
-The flag to enable this bootstrapping when starting the kubelet is:
+The following flags are required to enable this bootstrapping when starting the kubelet is:
 
 ```
+--require-kubeconfig
 --experimental-bootstrap-kubeconfig="/path/to/bootstrap/kubeconfig"
 ```
 
