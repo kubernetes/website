@@ -154,11 +154,8 @@ kubectl delete replicaset my-repset --cascade=false
 ```
 
 ## Known issues
-* As of 1.7, garbage collection does not yet support
-  [custom resources](/docs/concepts/api-extension/custom-resources/),
-  such as those added through CustomResourceDefinition or aggregated API servers.
 
-[Other known issues](https://github.com/kubernetes/kubernetes/issues/26120)
+Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
 {% endcapture %}
 
