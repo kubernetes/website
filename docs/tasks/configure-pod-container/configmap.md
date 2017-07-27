@@ -77,7 +77,7 @@ ui.properties:          83 bytes
 The `game.properties` and `ui.properties` files in the `docs/user-guide/configmap/kubectl/` directory are represented in the `data` section of the ConfigMap.
 
 ```shell
-kubectl get configmaps game-config-2 -o yaml
+kubectl get configmaps game-config -o yaml
 ```
 
 ```yaml
@@ -99,7 +99,7 @@ data:
 kind: ConfigMap
 metadata:
   creationTimestamp: 2016-02-18T18:52:05Z
-  name: game-config-2
+  name: game-config
   namespace: default
   resourceVersion: "516"
   selfLink: /api/v1/namespaces/default/configmaps/game-config-2
