@@ -191,6 +191,8 @@ Manifest files for API server and controller-manager are generally located at `/
 Note: After enabling the vSphere Cloud Provider, Node names will be set to the VM names from the vCenter Inventory.
 
 #### Known issues
+[vmware#220](https://github.com/vmware/kubernetes/issues/220) :
+vSphere Cloud Provider can not be used on the Kubernetes Cluster when vCenter port is configured other than the default port 443. Fix for this issue is already out (Kubernetes PR# [49689](https://github.com/kubernetes/kubernetes/pull/49689)). We will make sure that, PR 49689 is cherry picked to 1.7, 1.6 and 1.5 branches. 
 
 ## Support Level
 
