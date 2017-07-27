@@ -78,12 +78,41 @@ Note: if you want to use Administrator account then this step can be skipped.
 
 vSphere Cloud Provider requires the following minimal set of privileges to interact with vCenter. Please refer [vSphere Documentation Center](https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-18071E9A-EED1-4968-8D51-E0B4F526FDA3.html) to know about steps for creating a Custom Role, User and Role Assignment.
 
-Roles        | Privileges  | Entities | Propagate to Children
------------- | ----------- | -------- | ---------------------
-manage-k8s-node-vms | Resource.AssignVMToPool, System.Anonymous, System.Read, System.View, VirtualMachine.Config.AddExistingDisk, VirtualMachine.Config.AddNewDisk, VirtualMachine.Config.AddRemoveDevice, VirtualMachine.Config.RemoveDisk, VirtualMachine.Inventory.Create, VirtualMachine.Inventory.Delete | Cluster, Hosts and VM Folder | Yes
-manage-k8s-volumes  | Datastore.AllocateSpace, Datastore.FileManagement, System.Anonymous, System.Read, System.View | Datastore | No
-k8s-system-read-and-spbm-profile-view | StorageProfile.View, System.Anonymous, System.Read, System.View | vCenter | No
-ReadOnly | System.Anonymous, System.Read, System.View | Datacenter, Datastore Cluster, Datastore Storage Folder | No
+<table>
+<thead>
+<tr>
+  <th>Roles</th>
+  <th>Privileges</th>
+  <th>Entities</th>
+  <th>Propagate to Children</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>manage-k8s-node-vms</td>
+  <td>Resource.AssignVMToPool<br> System.Anonymous<br> System.Read<br> System.View<br> VirtualMachine.Config.AddExistingDisk<br> VirtualMachine.Config.AddNewDisk<br> VirtualMachine.Config.AddRemoveDevice<br> VirtualMachine.Config.RemoveDisk<br> VirtualMachine.Inventory.Create<br> VirtualMachine.Inventory.Delete</td>
+  <td>Cluster,<br> Hosts,<br> VM Folder</td>
+  <td>Yes</td>
+</tr>
+<tr>
+  <td>manage-k8s-volumes</td>
+  <td>Datastore.AllocateSpace<br> Datastore.FileManagement<br> System.Anonymous<br> System.Read<br> System.View</td>
+  <td>Datastore</td>
+  <td>No</td>
+</tr>
+<tr>
+  <td>k8s-system-read-and-spbm-profile-view</td>
+  <td>StorageProfile.View<br> System.Anonymous<br> System.Read<br> System.View</td>
+  <td>vCenter</td>
+  <td>No</td>
+</tr>
+<tr>
+  <td>ReadOnly</td>
+  <td>System.Anonymous<br>System.Read<br>System.View</td>
+  <td>Datacenter,<br> Datastore Cluster,<br> Datastore Storage Folder</td>
+  <td>No</td>
+</tr>
+</tbody>
+</table>
 
 **Step-5** Create the vSphere cloud config file (`vsphere.conf`). Cloud config template can be found [here](https://github.com/kubernetes/kubernetes-anywhere/blob/master/phase1/vsphere/vsphere.conf)
 
