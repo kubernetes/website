@@ -172,9 +172,9 @@ Below is summary of supported parameters in the `vsphere.conf` file
 
         datastore = "DatastoreCluster/datastore1"
 
-  * For datastore located in the datastore cluster, specify datastore as mentioned below
+  * For datastore located in the storage folder, specify datastore as mentioned below
 
-        datastore = "DatastoreFolder/datastore1"
+        datastore = "DatastoreStorageFolder/datastore1"
 
 **Step-6** Add flags to controller-manager, API server and Kubelet to enable vSphere Cloud Provider.
 * Add following flags to kubelet running on every node and to the controller-manager and API server pods manifest files. 
