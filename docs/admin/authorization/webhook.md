@@ -86,9 +86,9 @@ An example request body:
 }
 ```
 
-The remote service is expected to fill the SubjectAccessReviewStatus field of
+The remote service is expected to fill the `status` field of
 the request and respond to either allow or disallow access. The response body's
-"spec" field is ignored and may be omitted. A permissive response would return:
+`spec` field is ignored and may be omitted. A permissive response would return:
 
 ```json
 {
