@@ -394,7 +394,7 @@ $ kubectl rollout undo deployment/nginx-deployment --to-revision=2
 deployment "nginx-deployment" rolled back
 ```
 
-For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/v1.6/#rollout).
+For more details about rollout related commands, read [`kubectl rollout`](/docs/user-guide/kubectl/{{page.version}}/#rollout).
 
 The Deployment is now rolled back to a previous stable revision. As you can see, a `DeploymentRollback` event
 for rolling back to revision 2 is generated from Deployment controller.
@@ -526,13 +526,13 @@ deployment "nginx-deployment" paused
 
 Then update the image of the Deployment:
 ```shell
-$ kubectl set image deploy/nginx nginx=nginx:1.9.1
+$ kubectl set image deploy/nginx-deployment nginx=nginx:1.9.1
 deployment "nginx-deployment" image updated
 ```
 
 Notice that no new rollout started:
 ```shell
-$ kubectl rollout history deploy/nginx
+$ kubectl rollout history deploy/nginx-deployment
 deployments "nginx"
 REVISION  CHANGE-CAUSE
 1   <none>
@@ -553,7 +553,7 @@ the Deployment will not have any effect as long as the Deployment is paused.
 
 Eventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
 ```shell
-$ kubectl rollout resume deploy nginx
+$ kubectl rollout resume deploy/nginx-deployment
 deployment "nginx" resumed
 $ kubectl get rs -w
 NAME               DESIRED   CURRENT   READY     AGE
@@ -609,7 +609,7 @@ You can check if a Deployment has completed by using `kubectl rollout status`. I
 successfully, `kubectl rollout status` returns a zero exit code.
 
 ```shell
-$ kubectl rollout status deploy/nginx
+$ kubectl rollout status deploy/nginx-deployment
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
 deployment "nginx" successfully rolled out
 $ echo $?
@@ -738,7 +738,7 @@ You can check if a Deployment has failed to progress by using `kubectl rollout s
 returns a non-zero exit code if the Deployment has exceeded the progression deadline.
 
 ```shell
-$ kubectl rollout status deploy/nginx
+$ kubectl rollout status deploy/nginx-deployment
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline
 $ echo $?
@@ -914,6 +914,6 @@ it is created.
 
 ### kubectl rolling update
 
-[Kubectl rolling update](/docs/user-guide/kubectl/v1.6/#rolling-update) updates Pods and ReplicationControllers
+[Kubectl rolling update](/docs/user-guide/kubectl/{{page.version}}/#rolling-update) updates Pods and ReplicationControllers
 in a similar fashion. But Deployments are recommended, since they are declarative, server side, and have
 additional features, such as rolling back to any previous revision even after the rolling update is done.

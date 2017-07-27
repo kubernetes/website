@@ -141,7 +141,7 @@ ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
-cases when a big number of nodes have problems with reaching the master
+cases when a large number of nodes have problems with reaching the master
 (e.g. because the master has networking problem). Starting with 1.4, the node
 controller will look at the state of all nodes in the cluster when making a
 decision about pod eviction.
@@ -232,7 +232,7 @@ you are doing [manual node administration](#manual-node-administration), then yo
 capacity when adding a node.
 
 The Kubernetes scheduler ensures that there are enough resources for all the pods on a node.  It
-checks that the sum of the limits of containers on the node is no greater than the node capacity.  It
+checks that the sum of the requests of containers on the node is no greater than the node capacity.  It
 includes all containers started by the kubelet, but not containers started directly by Docker nor
 processes not in containers.
 
@@ -249,7 +249,7 @@ spec:
   - name: sleep-forever
     image: gcr.io/google_containers/pause:0.8.0
     resources:
-      limits:
+      requests:
         cpu: 100m
         memory: 100Mi
 ```
