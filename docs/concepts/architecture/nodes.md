@@ -141,7 +141,7 @@ ConditionUnknown and 5m after that to start evicting pods.) The node controller
 checks the state of each node every `--node-monitor-period` seconds.
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
-cases when a big number of nodes have problems with reaching the master
+cases when a large number of nodes have problems with reaching the master
 (e.g. because the master has networking problem). Starting with 1.4, the node
 controller will look at the state of all nodes in the cluster when making a
 decision about pod eviction.
