@@ -207,7 +207,7 @@ one pod available for the deployment.
 
 The deployment creates a replacement for `pod-b` called `pod-e`.
 However, not there are not enough resources in the cluster to schedule
-`pod-e`.  So, the drain  then the drain will block.  The cluster may end up in this
+`pod-e`.  So, the drain will again block.  The cluster may end up in this
 state:
 
 |    node-1 *drained*  |       node-2        |       node-3       | *no node*          |
