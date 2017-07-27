@@ -105,16 +105,15 @@ kubeadm on, and run:
 kubeadm init
 ```
 
-**Note:** this will autodetect the network interface to advertise the master on
+**Note:**
+ - You need to choose a Pod Network Plugin in the next step. Depending on what
+third-party provider you choose, you might have to set the `--pod-network-cidr` to
+something provider-specific. The tabs below will contain a notice about what flags
+on `kubeadm init` are required.
+ - This will autodetect the network interface to advertise the master on
 as the interface with the default gateway. If you want to use a different
 interface, specify `--apiserver-advertise-address=<ip-address>` argument to `kubeadm
 init`.
-
-There are pod network implementations where the master also plays a role in
-allocating a set of network address space for each node.  When using
-[flannel](https://github.com/coreos/flannel) as the [pod network](#pod-network)
-(described in step 3), specify `--pod-network-cidr=10.244.0.0/16`. _This is not
-required for any other networks besides flannel._
 
 Please refer to the [kubeadm reference doc](/docs/admin/kubeadm/) if you want to
 read more about the flags `kubeadm init` provides.
@@ -182,31 +181,9 @@ token can add authenticated nodes to your cluster.  These tokens can be listed,
 created and deleted with the `kubeadm token` command.  See the [reference
 guide](/docs/admin/kubeadm/#manage-tokens).
 
-#### Master Isolation
-
-By default, your cluster will not schedule pods on the master for security
-reasons. If you want to be able to schedule pods on the master, e.g. for a
-single-machine Kubernetes cluster for development, run:
-
-``` bash
-kubectl taint nodes --all node-role.kubernetes.io/master-
-```
-
-With output looking something like:
-
-```
-node "test-01" tainted
-taint key="dedicated" and effect="" not found.
-taint key="dedicated" and effect="" not found.
-```
-
-This will remove the `node-role.kubernetes.io/master` taint from any nodes that
-have it, including the master node, meaning that the scheduler will then be able
-to schedule pods everywhere.
-
 ### (3/4) Installing a pod network {#pod-network}
 
-You must install a pod network add-on so that your pods can communicate with
+You **must** install a pod network add-on so that your pods can communicate with
 each other.
 
 **The network must be deployed before any applications.  Also, kube-dns, a
@@ -228,13 +205,79 @@ You can install a pod network add-on with the following command:
 kubectl apply -f <add-on.yaml>
 ```
 
-Please refer to the specific add-on installation guide for exact details. 
-
 **NOTE:** You can install **only one** pod network per cluster.
 
-If you are on another architecture than amd64, you should use the
-flannel or Weave Net overlay networks as described in [the
-multi-platform section](#multi-platform)
+
+{% capture choose %}
+Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
+{% endcapture %}
+
+{% capture calico %}
+
+The official Calico guide is [here](http://docs.projectcalico.org/v2.3/getting-started/kubernetes/installation/hosted/kubeadm/)
+
+**Note:**
+ - In order for Network Policy to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`
+ - Calico works on `amd64` only.
+
+```shell
+kubectl apply -f http://docs.projectcalico.org/v2.3/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+```
+{% endcapture %}
+
+{% capture canal %}
+
+The official Canal set-up guide is [here](https://github.com/projectcalico/canal/tree/master/k8s-install)
+
+**Note:**
+ - For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
+ - Canal works on `amd64` only.
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/canal/master/k8s-install/1.6/canal.yaml
+```
+{% endcapture %}
+
+{% capture flannel %}
+
+**Note:**
+ - For flannel to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`.
+ - flannel works on `amd64`, `arm`, `arm64` and `ppc64le`, but for it to work on an other platform than
+`amd64` you have to manually download the manifest and replace `amd64` occurances with your chosen platform.
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
+```
+{% endcapture %}
+
+{% capture romana %}
+
+The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm)
+
+**Note:** Romana works on `amd64` only.
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containerize/specs/romana-kubeadm.yml
+```
+{% endcapture %}
+
+{% capture weave_net %}
+
+The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/)
+
+**Note:** Weave Net works on `amd64`, `arm` and `arm64` without any extra action required.
+
+```shell
+kubectl apply -f https://git.io/weave-kube-1.6
+```
+{% endcapture %}
+
+{% assign tab_names = "Choose one...,Calico,Canal,Flannel,Romana,Weave Net" | split: ',' | compact %}
+{% assign tab_contents = site.emptyArray | push: choose | push: calico | push: canal | push: flannel | push: romana | push: weave_net %}
+
+{% include tabs.md %}
 
 Once a pod network has been installed, you can confirm that it is working by
 checking that the kube-dns pod is Running in the output of `kubectl get pods --all-namespaces`.
@@ -242,6 +285,28 @@ And once the kube-dns pod is up and running, you can continue by joining your no
 
 If your network is not working or kube-dns is not in the Running state, check
 out the [troubleshooting section](#troubleshooting) below.
+
+#### Master Isolation
+
+By default, your cluster will not schedule pods on the master for security
+reasons. If you want to be able to schedule pods on the master, e.g. for a
+single-machine Kubernetes cluster for development, run:
+
+``` bash
+kubectl taint nodes --all node-role.kubernetes.io/master-
+```
+
+With output looking something like:
+
+```
+node "test-01" tainted
+taint key="dedicated" and effect="" not found.
+taint key="dedicated" and effect="" not found.
+```
+
+This will remove the `node-role.kubernetes.io/master` taint from any nodes that
+have it, including the master node, meaning that the scheduler will then be able
+to schedule pods everywhere.
 
 ### (4/4) Joining your nodes
 
@@ -419,7 +484,9 @@ kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, 
 following the [multi-platform
 proposal](https://github.com/kubernetes/kubernetes/blob/master/docs/proposals/multi-platform.md).
 
-Currently, only the pod networks [flannel](https://github.com/coreos/flannel) and [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/) work on multiple architectures.
+Only some of the network providers offer solutions for all platforms. Please consult the list of
+network providers above or the documentation from each provider to figure out whether the provider
+supports your chosen platform.
 
 ## Limitations
 
