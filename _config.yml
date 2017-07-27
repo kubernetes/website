@@ -37,12 +37,12 @@ defaults:
           version: "v1.5"
           githubbranch: "release-1.5"
           docsbranch: "release-1.5"
-          url: https://v1-5.docs.kubernetes.io/docs/home/
+          url: https://v1-5.docs.kubernetes.io/docs/
         - fullversion: "v1.4.4"
           version: "v1.4"
           githubbranch: "release-1.4"
           docsbranch: "release-1.4"
-          url: https://v1-4.docs.kubernetes.io/docs/home/
+          url: https://v1-4.docs.kubernetes.io/docs/
   -
     scope:
       path: "docs"
