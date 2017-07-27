@@ -1,6 +1,7 @@
 ---
 assignees:
 - caseydavenport
+- danwinship
 title: Declare Network Policy
 redirect_from:
 - "/docs/getting-started-guides/network-policy/walkthrough/"
@@ -9,7 +10,7 @@ redirect_from:
 - "/docs/tasks/configure-pod-container/declare-network-policy.html"
 ---
 {% capture overview %}
-This document helps you get started using using the Kubernetes [NetworkPolicy API](/docs/user-guide/networkpolicies) to declare network policies that govern how pods communicate with each other. 
+This document helps you get started using using the Kubernetes [NetworkPolicy API](/docs/user-guide/network-policies) to declare network policies that govern how pods communicate with each other. 
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -68,35 +69,11 @@ Connecting to nginx (10.100.0.16:80)
 
 ## Limit access to the `nginx` service
 
-Let's say you want to limit access to the `nginx` service so that only pods with the label `access: true` can query it. The first step is to enable ingress isolation on the `default` namespace. This prevents **_any_** pods from accessing the `nginx` service.
-
-```console
-$ kubectl annotate ns default "net.beta.kubernetes.io/network-policy={\"ingress\": {\"isolation\": \"DefaultDeny\"}}"
-```
-
-## Test the access limitation
-
-Test to see that with ingress isolation in place, you no longer have access to the `nginx` service:
-
-```console
-$ kubectl run busybox --rm -ti --image=busybox /bin/sh
-Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending, pod ready: false
-
-Hit enter for command prompt
-
-/ # wget --spider --timeout=1 nginx
-Connecting to nginx (10.100.0.16:80)
-wget: download timed out
-/ #
-```
-
-## Create a policy that allows connections from authorized pods
-
-Next, create a `NetworkPolicy` that allows connections from pods with the label `access: true`.
+Let's say you want to limit access to the `nginx` service so that only pods with the label `access: true` can query it. To do that, create a `NetworkPolicy` that allows connections only from those pods:
 
 ```yaml
 kind: NetworkPolicy
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 metadata:
   name: access-nginx
 spec:
@@ -119,7 +96,7 @@ networkpolicy "access-nginx" created
 ```
 
 ## Test access to the service when access label is not defined
-If we attempt to access the nginx Service from a pod without the correct labels, the request will still time out:
+If we attempt to access the nginx Service from a pod without the correct labels, the request will now time out:
 
 ```console
 $ kubectl run busybox --rm -ti --image=busybox /bin/sh
@@ -149,10 +126,4 @@ Connecting to nginx (10.100.0.16:80)
 ```
 {% endcapture %}
 
-
-{% capture whatsnext %}
-Learn more about [kubectl proxy](/docs/user-guide/kubectl/v1.6/#proxy).
-{% endcapture %}
-
 {% include templates/task.md %}
-

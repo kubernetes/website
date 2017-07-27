@@ -22,8 +22,8 @@ This document makes use of the following terms:
 * [NAT](https://en.wikipedia.org/wiki/Network_address_translation): network address translation
 * [Source NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT): replacing the source IP on a packet, usually with a node's IP
 * [Destination NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT): replacing the destination IP on a packet, usually with a pod IP
-* [VIP](/docs/user-guide/services/#ips-and-vips): a virtual IP, such as the one assigned to every Kubernetes Service
-* [Kube-proxy](/docs/user-guide/services/#virtual-ips-and-service-proxies): a network daemon that orchestrates Service VIP management on every node
+* [VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): a virtual IP, such as the one assigned to every Kubernetes Service
+* [Kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): a network daemon that orchestrates Service VIP management on every node
 
 
 ## Prerequisites
@@ -157,19 +157,20 @@ Visually:
 ```
 
 
-To avoid this, Kubernetes 1.5 has a beta feature triggered by the
-`service.beta.kubernetes.io/external-traffic` [annotation](/docs/user-guide/load-balancer/#loss-of-client-source-ip-for-external-traffic).
-Setting it to the value `OnlyLocal` will only proxy requests to local endpoints,
-never forwarding traffic to other nodes and thereby preserving the original
-source IP address. If there are no local endpoints, packets sent to the node
-are dropped, so you can rely on the correct source-ip in any packet processing
-rules you might apply a packet that make it through to the endpoint.
+To avoid this, Kubernetes has a feature to preserve the client source IP
+[(check here for feature availability)](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip).
+Setting `service.spec.externalTrafficPolicy` to the value `Local` will only
+proxy requests to local endpoints, never forwarding traffic to other nodes
+and thereby preserving the original source IP address. If there are no
+local endpoints, packets sent to the node are dropped, so you can rely
+on the correct source-ip in any packet processing rules you might apply a
+packet that make it through to the endpoint.
 
-Set the annotation as follows:
+Set the `service.spec.externalTrafficPolicy` field as follows:
 
 ```console
-$ kubectl annotate service nodeport service.beta.kubernetes.io/external-traffic=OnlyLocal
-service "nodeport" annotated
+$ kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
+service "nodeport" patched
 ```
 
 Now, re-run the test:
@@ -230,11 +231,10 @@ client_address=10.240.0.5
 ...
 ```
 
-However, if you're running on GKE/GCE, setting the same `service.beta.kubernetes.io/external-traffic`
-annotation to `OnlyLocal` forces nodes *without* Service endpoints to remove
+However, if you're running on GKE/GCE, setting the same `service.spec.externalTrafficPolicy`
+field to `Local` forces nodes *without* Service endpoints to remove
 themselves from the list of nodes eligible for loadbalanced traffic by
-deliberately failing health checks. We expect to roll this feature out across a
-wider range of providers before GA (see next section).
+deliberately failing health checks.
 
 Visually:
 
@@ -253,23 +253,22 @@ health check --->   node 1   node 2 <--- health check
 You can test this by setting the annotation:
 
 ```console
-$ kubectl annotate service loadbalancer service.beta.kubernetes.io/external-traffic=OnlyLocal
+$ kubectl patch svc loadbalancer -p '{"spec":{"externalTrafficPolicy":"Local"}}'
 ```
 
-You should immediately see a second annotation allocated by Kubernetes:
+You should immediately see the `service.spec.healthCheckNodePort` field allocated
+by Kubernetes:
 
 ```console
-$ kubectl get svc loadbalancer -o yaml | grep -i annotations -A 2
-  annotations:
-    service.beta.kubernetes.io/external-traffic: OnlyLocal
-    service.beta.kubernetes.io/healthcheck-nodeport: "32122"
+$ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
+  healthCheckNodePort: 32122
 ```
 
-The `service.beta.kubernetes.io/healthcheck-nodeport` annotation points to
-a port on every node serving the health check at `/healthz`. You can test this:
+The `service.spec.healthCheckNodePort` field points to a port on every node
+serving the health check at `/healthz`. You can test this:
 
 ```
-$ kubectl get po -o wide -l run=source-ip-app
+$ kubectl get pod -o wide -l run=source-ip-app
 NAME                            READY     STATUS    RESTARTS   AGE       IP             NODE
 source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-minion-group-6jst
 
@@ -313,7 +312,7 @@ such as the HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For
 header, or the [proxy protocol](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt).
 Loadbalancers in the second category can leverage the feature described above
 by simply creating a HTTP health check pointing at the port stored in
-the `service.beta.kubernetes.io/healthcheck-nodeport` annotation on the Service.
+the `service.spec.healthCheckNodePort` field on the Service.
 
 {% endcapture %}
 

@@ -7,8 +7,12 @@ toc:
 - title: Independent Solutions
   section:
   - docs/getting-started-guides/minikube.md
-  - docs/setup/independent/install-kubeadm.md
-  - docs/setup/independent/create-cluster-kubeadm.md
+
+  - title: Bootstrapping Clusters with kubeadm
+    section:
+    - docs/setup/independent/install-kubeadm.md
+    - docs/setup/independent/create-cluster-kubeadm.md
+
   - docs/getting-started-guides/scratch.md
   - docs/getting-started-guides/alternatives.md
 
@@ -39,7 +43,7 @@ toc:
     - docs/getting-started-guides/coreos/index.md
     - docs/getting-started-guides/ubuntu/index.md
     - docs/getting-started-guides/kops.md
-    - docs/getting-started-guides/kargo.md
+    - docs/getting-started-guides/kubespray.md
     - docs/getting-started-guides/running-cloud-controller.md
 
   - title: On-Premise VMs

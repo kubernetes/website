@@ -1,0 +1,107 @@
+---
+title: 使用 Minikube 创建一个集群
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+
+      <div class="col-md-8">
+      	<h3>目标</h3>
+				<ul>
+					<li>了解什么是 Kubernetes 集群</li>
+					<li>了解什么是 Minikube</li>
+					<li>使用在线终端启动 Kubernetes 集群</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+				<h3>Kubernetes 集群</h3>
+				<p>
+				<b>Kubernetes 用于协调高度可用的计算机集群，这些计算机群集被连接作为单个单元工作。</b> Kubernetes 的抽象性允许您将容器化的应用程序部署到集群，而不必专门将其绑定到单个计算机。为了利用这种新的部署模型，应用程序需要以将它们与各个主机分离的方式打包: 它们需要被容器化。容器化应用程序比过去的部署模型更灵活和可用，其中应用程序直接安装到特定机器上，作为深入集成到主机中的软件包。 <b>Kubernetes 在一个集群上以更有效的方式自动分发和调度容器应用程序。</b> Kubernetes 是一个 <a href="https://github.com/kubernetes/kubernetes">开源</a> 平台，可满足生产环境的需要。
+				</p>
+				<p>Kubernetes 集群由两种类型的资源组成:
+					<ul>
+			            <li>一个 <b>Master</b> 是集群的调度节点</li>
+			            <li><b>Nodes</b> 是应用程序实际运行的工作节点</li>
+			        </ul>
+			    </p>
+			</div>
+
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>概要:</h3>
+					<ul>
+						<li>Kubernetes 集群</li>
+						<li>Minikube</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+					<p><i>
+						Kubernetes 是一个生产级的开源平台，用于协调计算机集群内部和跨计算机集群的应用程序容器的分发(调度)和运行。
+					</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h2 style="color: #3771e3;">集群图</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><b>Master 负责管理集群。</b> master 协调集群中的所有活动，例如调度应用程序、维护应用程序的所需状态、扩展应用程序和滚动更新。</p>
+				<p><b>节点 是 Kubernetes 集群中的工作机器，可以是物理机或虚拟机。</b> 每个工作节点都有一个 Kubelet，它是管理 节点 并与 Kubernetes Master 节点进行通信的代理。节点 上还应具有处理容器操作的工作，例如 <a href="https://www.docker.com/">Docker</a> 或 <a href="https://coreos.com/rkt/">rkt</a>。一个 Kubernetes 工作集群至少有三个节点。</p>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+					<p><i> Master 管理集群，而 节点 用于托管正在运行的应用程序。  </i></p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p>当您在 Kubernetes 上部署应用程序时，您可以告诉 master 启动应用程序容器。Master 调度容器在集群的 节点 上运行。<b> 节点 使用 Master 公开的 Kubernetes API 与 Master 通信</b>。最终用户还可以直接使用 Kubernetes 的 API 与集群交互。</p>
+
+				<p>Kubernetes 集群可以部署在物理机或虚拟机上。要开始使用 Kubernetes 开发，您可以使用 <a href="https://github.com/kubernetes/minikube">Minikube</a>。Minikube 是一个轻量级的 Kubernetes 实现，会在本机创建一台虚拟机，并部署一个只包含一个节点的简单集群。 Minikube 适用于 Linux, Mac OS 和 Windows 系统。Minikube CLI 提供了集群的基本引导操作，包括启动、停止、状态和删除。为了完成此基础训练，您将使用预先安装了 Minikube 的在线终端。</p>
+
+				<p>现在您已经知道 Kubernetes 是什么，让我们使用在线教程，开始我们的第一个集群!</p>
+
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/cluster-interactive/" role="button">启动互动教程 <span class="btn__next">›</span></a>
+			</div>
+		</div>
+
+	</main>
+
+</div>
+
+</body>
+</html>

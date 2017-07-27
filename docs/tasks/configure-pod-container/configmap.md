@@ -11,7 +11,7 @@ redirect_from:
 
 {% capture overview %}
 
-This page shows you how to configure an application using a ConfigMap. 
+This page shows you how to configure an application using a ConfigMap. ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
 
 {% endcapture %}
 
@@ -39,7 +39,7 @@ The data source corresponds to a key-value pair in the ConfigMap, where
 * key = the file name or the key you provided on the command line, and 
 * value = the file contents or the literal value you provided on the command line.
  
-You can use [`kubectl describe`](docs/user-guide/kubectl/v1.6/#describe) or [`kubectl get`](docs/user-guide/kubectl/v1.6/#get) to retrieve information about a ConfigMap. The former shows a summary of the ConfigMap, while the latter returns the full contents of the ConfigMap.
+You can use [`kubectl describe`](/docs/user-guide/kubectl/v1.6/#describe) or [`kubectl get`](/docs/user-guide/kubectl/v1.6/#get) to retrieve information about a ConfigMap. The former shows a summary of the ConfigMap, while the latter returns the full contents of the ConfigMap.
 
 ### Create ConfigMaps from directories
 
@@ -77,7 +77,7 @@ ui.properties:          83 bytes
 The `game.properties` and `ui.properties` files in the `docs/user-guide/configmap/kubectl/` directory are represented in the `data` section of the ConfigMap.
 
 ```shell
-kubectl get configmaps game-config-2 -o yaml
+kubectl get configmaps game-config -o yaml
 ```
 
 ```yaml
@@ -99,7 +99,7 @@ data:
 kind: ConfigMap
 metadata:
   creationTimestamp: 2016-02-18T18:52:05Z
-  name: game-config-2
+  name: game-config
   namespace: default
   resourceVersion: "516"
   selfLink: /api/v1/namespaces/default/configmaps/game-config-2
@@ -120,7 +120,7 @@ would produce the following ConfigMap:
 
 ```shell
 kubectl describe configmaps game-config-2
-Name:           game-config
+Name:           game-config-2
 Namespace:      default
 Labels:         <none>
 Annotations:    <none>
@@ -138,7 +138,7 @@ kubectl create configmap game-config-2 --from-file=docs/user-guide/configmap/kub
 
 ```shell
 kubectl describe configmaps game-config-2
-Name:           game-config
+Name:           game-config-2
 Namespace:      default
 Labels:         <none>
 Annotations:    <none>

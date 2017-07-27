@@ -60,7 +60,7 @@ juju add-relation kubernetes-master ceph-mon
 ```
 
 We are now ready to enlist 
-[Persistent Volumes](http://kubernetes.io/docs/user-guide/persistent-volumes/)
+[Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 in Kubernetes which our workloads can consume via Persistent Volume (PV) claims.
 
 ```
@@ -84,7 +84,7 @@ test   50M          RWO       Available                              10s
 
 To consume these Persistent Volumes, your pods will need an associated
 Persistent Volume Claim with them, and is outside the scope of this README. See the
-[Persistent Volumes](http://kubernetes.io/docs/user-guide/persistent-volumes/)
+[Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 documentation for more information.
 {% endcapture %}
 

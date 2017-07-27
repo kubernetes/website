@@ -39,7 +39,7 @@
 			type: 0,
 			name: 'Citrix',
 			logo: 'citrix',
-			link: 'http://wercker.com/workflows/partners/kubernetes/',
+			link: 'https://www.citrix.com/networking/microservices.html',
 			blurb: 'Netscaler CPX gives app developers all the features they need to load balance their microservices and containerized apps with Kubernetes.'
 		},
 		{
@@ -67,7 +67,7 @@
 			type: 0,
 			name: 'Wercker',
 			logo: 'wercker',
-			link: 'http://wercker.com/workflows/partners/kubernetes/',
+			link: 'http://www.wercker.com/integrations/kubernetes',
 			blurb: 'Wercker automates your build, test and deploy pipelines for launching containers and triggering rolling updates on your Kubernetes cluster. '
 		},
 		{
@@ -183,7 +183,7 @@
 			blurb: 'Aporeto makes cloud-native applications secure by default without impacting developer velocity and works at any scale, on any cloud.'
 		},
 		{
-  		type: 0,
+  			type: 0,
  			name: 'Giant Swarm',
  			logo: 'giant_swarm',
  			link: 'https://giantswarm.io',
@@ -415,13 +415,6 @@
   		},
 		{
  			type: 0,
- 			name: 'F5 Networks',
- 			logo: 'f5networks',
- 			link: 'https://f5.com/about-us/news/press-kit',
- 			blurb: 'Integration of our ADC services with Kubernetes'
-  		},
-		{
- 			type: 0,
  			name: 'StackIQ, Inc.',
  			logo: 'stackiq',
  			link: 'https://www.stackiq.com/kubernetes/',
@@ -459,8 +452,8 @@
  			type: 1,
  			name: 'Lovable Tech',
  			logo: 'lovable',
- 			link: 'https://drive.google.com/file/d/0BxCnAyMK1pgBTUFOdEZsUndLa01xMGJYZWtUVmVOdldadk80/view?usp=sharing',
- 			blurb: ''
+ 			link: 'http://lovable.tech/',
+ 			blurb: 'World class engineers, designers, and strategic consultants helping you ship Lovable web & mobile technology.'
   		},
 		{
  			type: 0,

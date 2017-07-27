@@ -14,7 +14,7 @@ $( document ).ready(function() {
         $("#continueEditButton").text("Edit " + forwarding);
         $("#continueEditButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/edit/master/" + forwarding)
         $("#viewOnGithubButton").text("View " + forwarding + " on GitHub");
-        $("#viewOnGithubButton").attr("href", "https://github.com/kubernetes/kubernetes.github.io/tree/master/" + forwarding)
+        $("#viewOnGithubButton").attr("href", "https://git.k8s.io/kubernetes.github.io/" + forwarding)
     } else {
         $("#generalInstructions").show();
         $("#continueEdit").hide();
@@ -25,7 +25,14 @@ $( document ).ready(function() {
 
 <h2>Continue your edit</h2>
 
-<p>Click the button below to edit the page you were just on. When you are done, click <b>Commit Changes</b> at the bottom of the screen. This creates a copy of our site in your GitHub account called a <i>fork</i>. You can make other changes in your fork after it is created, if you want. When you are ready to send us all your changes, go to the index page for your fork and click <b>New Pull Request</b> to let us know about it.</p>
+<p><b>To make changes to the document, do the following:</b></p>
+
+<ol>
+<li>Click the button below to edit the page you were just on.</li>
+<li>Click <b>Commit Changes</b> at the bottom of the screen to create a copy of our site in your GitHub account called a <i>fork</i>.</li>
+<li>You can make other changes in your fork after it is created, if you want.</li>
+<li>On the index page, click <b>New Pull Request</b> to let us know about it.</li>
+</ol>
 
 <p><a id="continueEditButton" class="button"></a></p>
 <p><a id="viewOnGithubButton" class="button"></a></p>
@@ -46,8 +53,8 @@ $( document ).ready(function() {
 
 For more information about contributing to the Kubernetes documentation, see:
 
-* [Creating a Documentation Pull Request](http://kubernetes.io/docs/home/contribute/create-pull-request/)
-* [Writing a New Topic](http://kubernetes.io/docs/home/contribute/write-new-topic/)
-* [Staging Your Documentation Changes](http://kubernetes.io/docs/home/contribute/stage-documentation-changes/)
-* [Using Page Templates](http://kubernetes.io/docs/home/contribute/page-templates/)
-* [Documentation Style Guide](http://kubernetes.io/docs/home/contribute/style-guide/)
+* [Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/)
+* [Writing a New Topic](/docs/home/contribute/write-new-topic/)
+* [Staging Your Documentation Changes](/docs/home/contribute/stage-documentation-changes/)
+* [Using Page Templates](/docs/home/contribute/page-templates/)
+* [Documentation Style Guide](/docs/home/contribute/style-guide/)
