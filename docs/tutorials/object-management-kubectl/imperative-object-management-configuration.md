@@ -1,8 +1,5 @@
 ---
 title: Imperative Management of Kubernetes Objects Using Configuration Files
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-config/"
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-config.html"
 ---
 
 {% capture overview %}

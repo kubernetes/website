@@ -4,9 +4,6 @@ assignees:
 - lavalamp
 - thockin
 title: Connecting Applications with Services
-redirect_from:
-- "/docs/user-guide/connecting-applications/"
-- "/docs/user-guide/connecting-applications.html"
 ---
 
 * TOC

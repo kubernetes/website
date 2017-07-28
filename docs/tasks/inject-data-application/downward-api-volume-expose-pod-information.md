@@ -1,12 +1,5 @@
 ---
 title: Expose Pod Information to Containers Through Files
-redirect_from:
-- "/docs/user-guide/downward-api/"
-- "/docs/user-guide/downward-api/index.html"
-- "/docs/user-guide/downward-api/volume/"
-- "/docs/user-guide/downward-api/volume/index.html"
-- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information/"
-- "/docs/tasks/configure-pod-container/downward-api-volume-expose-pod-information.html"
 ---
 
 {% capture overview %}

@@ -1,8 +1,5 @@
 ---
 title: Federated Deployment
-redirect_from:
-- "/docs/user-guide/federation/deployment/"
-- "/docs/user-guide/federation/deployment.html"
 ---
 
 {% capture overview %}
@@ -14,8 +11,8 @@ Deployment](/docs/concepts/workloads/controllers/deployment/) and provide the sa
 Creating them in the federation control plane ensures that the desired number of
 replicas exist across the registered clusters.
 
-**As of Kubernetes version 1.5, Federated Deployment is an Alpha feature. The core 
-functionality of Deployment is present, but some features 
+**As of Kubernetes version 1.5, Federated Deployment is an Alpha feature. The core
+functionality of Deployment is present, but some features
 (such as full rollout compatibility) are still in development.**
 {% endcapture %}
 
@@ -60,7 +57,7 @@ These Deployments in underlying clusters will match the federation Deployment
 _except_ in the number of replicas and revision-related annotations.
 Federation control plane ensures that the
 sum of replicas in each cluster combined matches the desired number of replicas in the
-Federated Deployment. 
+Federated Deployment.
 
 ### Spreading Replicas in Underlying Clusters
 
@@ -81,7 +78,7 @@ Deployment; however, for a Federated Deployment, you must send the request to
 the federation apiserver instead of sending it to a specific Kubernetes cluster.
 The federation control plane ensures that whenever the Federated Deployment is
 updated, it updates the corresponding Deployments in all underlying clusters to
-match it. So if the rolling update strategy was chosen then the underlying 
+match it. So if the rolling update strategy was chosen then the underlying
 cluster will do the rolling update independently and `maxSurge` and `maxUnavailable`
 will apply only to individual clusters. This behavior may change in the future.
 

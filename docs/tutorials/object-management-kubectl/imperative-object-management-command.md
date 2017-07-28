@@ -1,8 +1,5 @@
 ---
 title: Managing Kubernetes Objects Using Imperative Commands
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-commands/"
-- "/docs/concepts/tools/kubectl/object-management-using-imperative-commands.html"
 ---
 
 {% capture overview %}

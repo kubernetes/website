@@ -4,11 +4,6 @@ assignees:
 - foxish
 - davidopp
 title: Disruptions
-redirect_from:
-- "/docs/admin/disruptions/"
-- "/docs/admin/disruptions.html"
-- "/docs/tasks/configure-pod-container/configure-pod-disruption-budget/"
-- "/docs/tasks/administer-cluster/configure-pod-disruption-budget/"
 ---
 
 {% capture overview %}
