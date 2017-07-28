@@ -137,6 +137,59 @@ A list of Kubernetes-specific terms and words to be used consistently across the
   <tr><td>TBD</td><td>TBD</td></tr>
 </table>{% endcomment %}
 
+## Callout Formatting
+Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: note, caution, and warning. 
+
+Use the following syntax to apply style:
+
+```console
+**Note:** This is my note. 
+{: .note}
+```
+
+The output is:
+
+**Note:** This is my note. 
+{: .note}
+
+Callouts should generally be single sentences but can span multiple lines if you use ```<br/>``` tags.
+
+```console
+**Note:"** This is my note. Use ```<br/>``` to create multiple lines. <br/> <br/> **You** can still use _Markdown_ to ~format text~!
+{: .note}
+```
+
+The output is:
+
+**Note:** This is my note. Use ```<br/>``` to create multiple lines. <br/> <br/> **You** can still use _Markdown_ to ~format text~!
+{: .note}
+
+Trying to use regular Markdown with multiple lines will **not** work.
+{: .warning}
+
+```console
+**Note:** This is my note. 
+
+I didn't read the stlye guide.
+{: .note}
+```
+
+**Note** This is my note. 
+
+I didn't read the stlye guide.
+{: .note}
+
+### Note
+
+Use {: .note} to highlight a tip or a piece of information that may be helpful to know. 
+
+### Caution
+
+Use {: .caution} to call attention to an important piece of information to avoid pitfalls.  
+
+### Warning
+
+Use {: .warning} to indicate danger or a piece of information that is crucial to follow.
 
 ## Content best practices
 
