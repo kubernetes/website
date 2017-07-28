@@ -12,6 +12,7 @@ This document helps you get started using using the Kubernetes [NetworkPolicy AP
 You'll need to have a Kubernetes cluster in place, with network policy support. There are a number of network providers that support NetworkPolicy, including:
 
 * [Calico](/docs/tasks/configure-pod-container/calico-network-policy/)
+* [Cilium](/docs/tasks/configure-pod-container/cilium-network-policy/)
 * [Romana](/docs/tasks/configure-pod-container/romana-network-policy/)
 * [Weave Net](/docs/tasks/configure-pod-container/weave-network-policy/)
 
