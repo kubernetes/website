@@ -267,7 +267,7 @@ By default, all of the Deployment's rollout history is kept in the system so tha
 new revision is created if and only if the Deployment's pod template (`.spec.template`) is changed,
 for example if you update the labels or container images of the template. Other updates, such as scaling the Deployment,
 do not create a Deployment revision, so that we can facilitate simultaneous manual- or auto-scaling.
-This means that when you rollback to an earlier revision, only the Deployment's pod template part is 
+This means that when you roll back to an earlier revision, only the Deployment's pod template part is
 rolled back.
 
 Suppose that we made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
@@ -808,8 +808,8 @@ A Deployment may terminate Pods whose labels match the selector if their templat
 tfrom `.spec.template` or if the total number of such Pods exceeds `.spec.replicas`. It brings up new
 Pods with `.spec.template` if the number of Pods is less than the desired number.
 
-**Note:** You should not create other pods whose labels match this selector, either directly, by creating 
-another Deployment, or by creating another controller such as a ReplicaSet or a ReplicationController. If you 
+**Note:** You should not create other pods whose labels match this selector, either directly, by creating
+another Deployment, or by creating another controller such as a ReplicaSet or a ReplicationController. If you
 do so, the first Deployment thinks that it created these other pods. Kubernetes does not stop you from doing this.
 
 If you have multiple controllers that have overlapping selectors, the controllers will fight with each

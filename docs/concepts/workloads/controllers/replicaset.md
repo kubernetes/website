@@ -85,7 +85,7 @@ frontend-qhloh   1/1       Running   0          1m
 ## ReplicaSet as an Horizontal Pod Autoscaler target
 
 A ReplicaSet can also be a target for
-[Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/). That is, 
+[Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/). That is,
 a ReplicaSet can be auto-scaled by an HPA. Here is an example HPA targeting
 the ReplicaSet we created in the previous example.
 

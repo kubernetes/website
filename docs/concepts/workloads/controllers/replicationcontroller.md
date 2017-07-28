@@ -124,7 +124,7 @@ different, and the `.metadata.labels` do not affect the behavior of the Replicat
 
 ### Pod Selector
 
-The `.spec.selector` field is a [label selector](/docs/user-guide/labels/#label-selectors). A ReplicationController 
+The `.spec.selector` field is a [label selector](/docs/user-guide/labels/#label-selectors). A ReplicationController
 manages all the pods with labels that match the selector. It does not distinguish
 between pods that it created or deleted and pods that another person or process created or
 deleted. This allows the ReplicationController to be replaced without affecting the running pods.
