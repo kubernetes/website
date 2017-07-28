@@ -138,58 +138,110 @@ A list of Kubernetes-specific terms and words to be used consistently across the
 </table>{% endcomment %}
 
 ## Callout Formatting
-Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: note, caution, and warning. 
+Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: note {: ,note}, caution {: .caution}, and warning {: .warning}. 
 
-Use the following syntax to apply style:
+1. Start each callout with the appropriate prefix.
+
+2. Use the following syntax to apply a style:
 
 ```console
-**Note:** This is my note. 
-{: .note}
+**Note:** The prefix you use is the same text you use in the tag. 
+{: .note} 
 ```
 
 The output is:
 
-**Note:** This is my note. 
-{: .note}
-
-Callouts should generally be single sentences but can span multiple lines if you use ```<br/>``` tags.
-
-```console
-**Note:"** This is my note. Use ```<br/>``` to create multiple lines. <br/> <br/> **You** can still use _Markdown_ to ~format text~!
-{: .note}
-```
-
-The output is:
-
-**Note:** This is my note. Use ```<br/>``` to create multiple lines. <br/> <br/> **You** can still use _Markdown_ to ~format text~!
-{: .note}
-
-Trying to use regular Markdown with multiple lines will **not** work.
-{: .warning}
-
-```console
-**Note:** This is my note. 
-
-I didn't read the stlye guide.
-{: .note}
-```
-
-**Note** This is my note. 
-
-I didn't read the stlye guide.
+**Note:** The prefix you choose is the same text for the tag.
 {: .note}
 
 ### Note
 
 Use {: .note} to highlight a tip or a piece of information that may be helpful to know. 
 
+For example:
+
+```console
+**Note:** You can _still_ use ~Markdown~ inside these callouts. 
+{: .note}
+```
+
+The output is:
+
+**Note:** You can _still_ use ~Markdown~ inside these callouts.
+{: .note}
+
 ### Caution
 
 Use {: .caution} to call attention to an important piece of information to avoid pitfalls.  
 
+For example:
+
+```console
+**Caution:** Each tag must be on a new line to apply the style. 
+{: .caution}
+```
+
+The output is:
+
+**Caution:** Each tag must be on a new line to apply the style. 
+{: .caution}
+
 ### Warning
 
 Use {: .warning} to indicate danger or a piece of information that is crucial to follow.
+
+For example:
+
+```console
+**Warning:** Beware. 
+{: .warning}
+```
+
+The output is:
+
+**Warning:** Beware. 
+{: .warning}
+
+## Common Callout Issues
+
+### Style Does Not Apply
+
+Callout tags must be on a new line to apply the style. Github's Preview Changes feature further obfuscates this fact by rendering the tag on the same line, but your code must match the following syntax:
+
+```console
+**Note:** Your text goes here.
+{: .note} <!-- This tag must appear on a new line. -->
+```
+
+### Multiple Lines
+
+Callouts should generally be single sentences and automatically span multiple lines. However, you can use `<br/>` tags if you need to create multiple lines.
+
+For example:
+
+```console
+**Note:"** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> **You** can still use _Markdown_ to ~format text~!
+{: .note}
+```
+
+The output is:
+
+**Note:** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> **You** can still use _Markdown_ to ~format text~!
+{: .note}
+
+Typing multiple lines does **not** work. The callout style only applies to the line directly above the tag. 
+
+```console
+**Note:** This is my note. 
+
+I didn't read the stlye guide.
+{: .note}
+```
+
+**Note:** This is my note. 
+
+I didn't read the stlye guide.
+{: .note}
 
 ## Content best practices
 
