@@ -17,13 +17,13 @@ and progress on the feature is being tracked as [feature #43](https://github.com
 
 ## kube-apiserver configuration
 
-You must configure a token based authentication mechanism that will provide authorization for a user in the `system:bootstrappers` group.
+The API server should be configured with an [authenticator](/docs/admin/authentication.md) that can authenticate tokens as a user in the `system:bootstrappers` group.
 
 This group will later be used in the controller-manager configuration to scope approvals in the default approval
 controller. As this feature matures, you should ensure tokens are bound to a Role-Based Access Control (RBAC) policy which limits requests
 (using the bootstrap token) strictly to client requests related to certificate provisioning. With RBAC in place, scoping the tokens to a group allows for great flexibility (e.g. you could disable a particular bootstrap group's access when you are done provisioning the nodes).
 
-There are two methods by which tokens can be handled.
+While any authentication strategy can be used for the kubelet's initial bootstrap credentials, the following two authenticators are recommended for ease of provisioning.
 
 1. [Bootstrap Tokens](/docs/admin/bootstrap-tokens.md) - __alpha__
 2. [Token authentication file](###token-authentication-file)
