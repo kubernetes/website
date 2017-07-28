@@ -1,0 +1,23 @@
+.note, .info, .caution, .warning {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+
+.note {
+    border-left-color: #428bca;
+}
+
+.info {
+     border-left-color: #5cb85c;
+}
+
+.caution {
+    border-left-color: #f0ad4e;
+}
+
+.warning {
+    border-left-color: #d9534f;
+}
