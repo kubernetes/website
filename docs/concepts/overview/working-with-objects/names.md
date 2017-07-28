@@ -3,9 +3,6 @@ assignees:
 - mikedanese
 - thockin
 title: Names
-redirect_from:
-- "/docs/user-guide/identifiers/"
-- "/docs/user-guide/identifiers.html"
 ---
 
 All objects in the Kubernetes REST API are unambiguously identified by a Name and a UID.

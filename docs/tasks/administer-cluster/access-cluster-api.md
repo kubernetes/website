@@ -1,9 +1,5 @@
 ---
 title: Access Clusters Using the Kubernetes API
-redirect_from:
-- "/docs/user-guide/accessing-the-cluster/"
-- "/docs/user-guide/accessing-the-cluster.html"
-- "/docs/concepts/cluster-administration/access-cluster/"
 ---
 
 {% capture overview %}
@@ -43,10 +39,10 @@ kubectl.  Complete documentation is found in the [kubectl manual](/docs/user-gui
 Kubectl handles locating and authenticating to the apiserver. If you want to directly access the REST API with an http client like
 `curl` or `wget`, or a browser, there are multiple ways you can locate and authenticate against the apiserver:
 
- 1. Run kubectl in proxy mode (recommended).  This method is recommended, since it uses the stored apiserver location abd verifies the identity of the apiserver using a self-signed cert.  No Man-in-the-middle (MITM) attack is possible using this method . 
+ 1. Run kubectl in proxy mode (recommended).  This method is recommended, since it uses the stored apiserver location abd verifies the identity of the apiserver using a self-signed cert.  No Man-in-the-middle (MITM) attack is possible using this method .
  1. Alternatively, you can provide the location and credentials directly to the http client. This works with for client code that is confused by proxies.  To protect against man in the middle attacks, you'll need to import a root cert into your browser.
- 
- Using the Go or Python client libraries provides accessing kubectl in proxy mode. 
+
+ Using the Go or Python client libraries provides accessing kubectl in proxy mode.
 
 #### Using kubectl proxy
 
@@ -116,7 +112,8 @@ with future high-availability support.
 
 ### Programmatic access to the API
 
-Kubernetes supports [Go](#go-client) and [Python](#python-client) client libraries.
+Kubernetes officially supports client libraries for [Go](#go-client) and
+[Python](#python-client).
 
 #### Go client
 
@@ -167,7 +164,7 @@ for i in ret.items:
 
 #### Other languages
 
-There are [client libraries](https://git.k8s.io/community/contributors/devel/client-libraries.md) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
+There are [client libraries](/docs/reference/client-libraries/) for accessing the API from other languages. See documentation for other libraries for how they authenticate.
 
 ### Accessing the API from a Pod
 
