@@ -4,9 +4,6 @@ assignees:
 - freehan
 - thockin
 title: Network Plugins
-redirect_from:
-- "/docs/admin/network-plugins/"
-- "/docs/admin/network-plugins.html"
 ---
 
 * TOC

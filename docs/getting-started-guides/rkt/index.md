@@ -4,7 +4,9 @@ assignees:
 title: Running Kubernetes with rkt
 ---
 
-This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as the container runtime.
+This document describes how to run Kubernetes using [rkt](https://github.com/coreos/rkt) as the container runtime. 
+
+*Note*: This document describes how to use what is known as "rktnetes". In future, Kubernetes will support the rkt runtime through the Container Runtime Interface (CRI). At present the [rkt shim for the CRI](https://github.com/kubernetes-incubator/rktlet) is considered "experimental", but if you wish to use it you will find instructions in the [kubeadm reference](/docs/admin/kubeadm/#use-kubeadm-with-other-cri-runtimes). 
 
 * TOC
 {:toc}
