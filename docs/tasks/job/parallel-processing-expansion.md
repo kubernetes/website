@@ -1,8 +1,5 @@
 ---
 title: Parallel Processing using Expansions
-redirect_from:
-- "/docs/user-guide/jobs/expansions/index/"
-- "/docs/user-guide/jobs/expansions/index.html"
 ---
 
 * TOC
@@ -90,9 +87,9 @@ We can check on the pods as well using the same label selector:
 ```shell
 $ kubectl get pods -l jobgroup=jobexample --show-all
 NAME                        READY     STATUS      RESTARTS   AGE
-process-item-apple-kixwv    0/1       Completed   0          4m 
-process-item-banana-wrsf7   0/1       Completed   0          4m 
-process-item-cherry-dnfu9   0/1       Completed   0          4m 
+process-item-apple-kixwv    0/1       Completed   0          4m
+process-item-banana-wrsf7   0/1       Completed   0          4m
+process-item-cherry-dnfu9   0/1       Completed   0          4m
 ```
 
 There is not a single command to check on the output of all jobs at once,
@@ -124,7 +121,7 @@ First, copy and paste the following template of a Job object, into a file called
 {%- set params = [{ "name": "apple", "url": "http://www.orangepippin.com/apples", },
                   { "name": "banana", "url": "https://en.wikipedia.org/wiki/Banana", },
                   { "name": "raspberry", "url": "https://www.raspberrypi.org/" }]
-%} 
+%}
 {%- for p in params %}
 {%- set name = p["name"] %}
 {%- set url = p["url"] %}

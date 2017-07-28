@@ -5,9 +5,6 @@ assignees:
 - saad-ali
 - thockin
 title: Persistent Volumes
-redirect_from:
-- "/docs/user-guide/persistent-volumes/"
-- "/docs/user-guide/persistent-volumes/index.html"
 ---
 
 This document describes the current state of `PersistentVolumes` in Kubernetes.  Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
@@ -265,7 +262,7 @@ spec:
     pdName: "gce-disk-1"
 ```
 
-A mount option is a string which will be cumulatively joined and used while mounting volume to the disk. 
+A mount option is a string which will be cumulatively joined and used while mounting volume to the disk.
 
 Note that not all Persistent volume types support mount options. In Kubernetes version 1.6, the following
 volume types support mount options.
@@ -734,7 +731,7 @@ parameters:
 If storage account is not provided, all storage accounts associated with the resource group are searched to find one that matches `skuName` and `location`. If storage account is provided, it must reside in the same resource group as the cluster, and `skuName` and `location` are ignored.
 
 During provision, a secret will be created for mounting credentials. If the cluster has enabled both [RBAC](/docs/admin/authorization/rbac/) and [Controller Roles](/docs/admin/authorization/rbac/#controller-roles), you will first need to add `create` permission of resource `secret` for clusterrole `system:controller:persistent-volume-binder`.
- 
+
 #### Portworx Volume
 
 ```yaml
@@ -786,7 +783,7 @@ parameters:
 * `readOnly`: specifies the access mode to the mounted volume
 * `fsType`: the file system to use for the volume
 
-The ScaleIO Kubernetes volume plugin requires a configured Secret object. 
+The ScaleIO Kubernetes volume plugin requires a configured Secret object.
 The secret must be created with type `kubernetes.io/scaleio` and use the same namespace value as that of the PVC where it is referenced
 as shown in the following command:
 

@@ -1,8 +1,5 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
-redirect_from:
-- "/docs/user-guide/jobs/work-queue-2/"
-- "/docs/user-guide/jobs/work-queue-2/index.html"
 ---
 
 * TOC

@@ -4,9 +4,6 @@ assignees:
 - derekwaynecarr
 - dashpole
 title: Reserve Compute Resources for System Daemons
-redirect_from:
-- "/docs/admin/node-allocatable/"
-- "/docs/admin/node-allocatable.html"
 ---
 
 * TOC

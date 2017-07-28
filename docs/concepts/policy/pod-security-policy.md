@@ -2,13 +2,10 @@
 assignees:
 - pweil-
 title: Pod Security Policies
-redirect_from:
-- "/docs/user-guide/pod-security-policy/"
-- "/docs/user-guide/pod-security-policy/index.html"
 ---
 
 Objects of type `PodSecurityPolicy` govern the ability
-to make requests on a pod that affect the `SecurityContext` that will be 
+to make requests on a pod that affect the `SecurityContext` that will be
 applied to a pod and container.
 
 See [PodSecurityPolicy proposal](https://git.k8s.io/community/contributors/design-proposals/security-context-constraints.md) for more information.
@@ -18,10 +15,10 @@ See [PodSecurityPolicy proposal](https://git.k8s.io/community/contributors/desig
 
 ## What is a Pod Security Policy?
 
-A _Pod Security Policy_ is a cluster-level resource that controls the 
+A _Pod Security Policy_ is a cluster-level resource that controls the
 actions that a pod can perform and what it has the ability to access. The
-`PodSecurityPolicy` objects define a set of conditions that a pod must 
-run with in order to be accepted into the system. They allow an 
+`PodSecurityPolicy` objects define a set of conditions that a pod must
+run with in order to be accepted into the system. They allow an
 administrator to control the following:
 
 | Control Aspect                                                | Field Name                        |
@@ -35,23 +32,22 @@ administrator to control the following:
 | The use of host ports                                         | `hostPorts`                       |
 | The use of host's PID namespace                               | `hostPID`                         |
 | The use of host's IPC namespace                               | `hostIPC`                         |
-| The use of host paths                                         | [`allowedHostPaths`](#allowed-host-paths)    |
 | The SELinux context of the container                          | [`seLinux`](#selinux)             |
 | The user ID                                                   | [`runAsUser`](#runasuser)         |
 | Configuring allowable supplemental groups                     | [`supplementalGroups`](#supplementalgroups) |
 | Allocating an FSGroup that owns the pod's volumes             | [`fsGroup`](#fsgroup)             |
 | Requiring the use of a read only root file system             | `readOnlyRootFilesystem`          |
 
-_Pod Security Policies_ are comprised of settings and strategies that 
-control the security features a pod has access to. These settings fall 
+_Pod Security Policies_ are comprised of settings and strategies that
+control the security features a pod has access to. These settings fall
 into three categories:
 
-- *Controlled by a boolean*: Fields of this type default to the most 
-restrictive value. 
-- *Controlled by an allowable set*: Fields of this type are checked 
+- *Controlled by a boolean*: Fields of this type default to the most
+restrictive value.
+- *Controlled by an allowable set*: Fields of this type are checked
 against the set to ensure their value is allowed.
 - *Controlled by a strategy*: Items that have a strategy to provide
-a mechanism to generate the value and a mechanism to ensure that a 
+a mechanism to generate the value and a mechanism to ensure that a
 specified value falls into the set of allowable values.
 
 
@@ -76,22 +72,22 @@ specified.
 
 ### SupplementalGroups
 
-- *MustRunAs* - Requires at least one range to be specified. Uses the 
+- *MustRunAs* - Requires at least one range to be specified. Uses the
 minimum value of the first range as the default. Validates against all ranges.
 - *RunAsAny* - No default provided. Allows any `supplementalGroups` to be
 specified.
 
 ### FSGroup
 
-- *MustRunAs* - Requires at least one range to be specified. Uses the 
-minimum value of the first range as the default. Validates against the 
+- *MustRunAs* - Requires at least one range to be specified. Uses the
+minimum value of the first range as the default. Validates against the
 first ID in the first range.
 - *RunAsAny* - No default provided. Allows any `fsGroup` ID to be specified.
 
 ### Controlling Volumes
 
-The usage of specific volume types can be controlled by setting the 
-volumes field of the PSP. The allowable values of this field correspond 
+The usage of specific volume types can be controlled by setting the
+volumes field of the PSP. The allowable values of this field correspond
 to the volume sources that are defined when creating a volume:
 
 1. azureFile
@@ -123,15 +119,12 @@ to the volume sources that are defined when creating a volume:
 1. storageos
 1. \* (allow all volumes)
 
-The recommended minimum set of allowed volumes for new PSPs are 
+The recommended minimum set of allowed volumes for new PSPs are
 configMap, downwardAPI, emptyDir, persistentVolumeClaim, secret, and projected.
 
 ### Host Network
  - *HostPorts*, default `empty`. List of `HostPortRange`, defined by `min`(inclusive) and `max`(inclusive), which define the allowed host ports.
-
-### Allowed Host Paths
- - *AllowedHostPaths* is a white list of allowed host path prefixes. Empty indicates that all host paths may be used.
-
+ 
 ## Admission
 
 _Admission control_ with `PodSecurityPolicy` allows for control over the
@@ -197,7 +190,7 @@ podsecuritypolicy "permissive" deleted
 
 ## Enabling Pod Security Policies
 
-In order to use Pod Security Policies in your cluster you must ensure the 
+In order to use Pod Security Policies in your cluster you must ensure the
 following
 
 1.  You have enabled the api type `extensions/v1beta1/podsecuritypolicy` (only for versions prior 1.6)
@@ -208,4 +201,4 @@ following
 
 In Kubernetes 1.5 and newer, you can use PodSecurityPolicy to control access to privileged containers based on user role and groups. Access to different PodSecurityPolicy objects can be controlled via authorization. To limit access to PodSecurityPolicy objects for pods created via a Deployment, ReplicaSet, etc, the [Controller Manager](/docs/admin/kube-controller-manager/) must be run against the secured API port, and must not have superuser permissions.
 
-PodSecurityPolicy authorization uses the union of all policies available to the user creating the pod and the service account specified on the pod. When pods are created via a Deployment, ReplicaSet, etc, it is Controller Manager that creates the pod, so if it is running against the unsecured API port, all PodSecurityPolicy objects would be allowed, and you could not effectively subdivide access. Access to given PSP policies for a user will be effective only when deploying Pods directly. For more details, see the [PodSecurityPolicy RBAC example](https://git.k8s.io/kubernetes/examples/podsecuritypolicy/rbac/README.md) of applying PodSecurityPolicy to control access to privileged containers based on role and groups when deploying Pods directly.
+PodSecurityPolicy authorization uses the union of all policies available to the user creating the pod and the service account specified on the pod. When pods are created via a Deployment, ReplicaSet, etc, it is Controller Manager that creates the pod, so if it is running against the unsecured API port, all PodSecurityPolicy objects would be allowed, and you could not effectively subdivide access. Access to given PSP policies for a user will be effective only when deploying Pods directly. For more details, see the [PodSecurityPolicy RBAC example](https://git.k8s.io/examples/staging/podsecuritypolicy/rbac/README.md) of applying PodSecurityPolicy to control access to privileged containers based on role and groups when deploying Pods directly.
