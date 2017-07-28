@@ -196,7 +196,7 @@ will be restarted.
 ## Use a named port
 
 You can use a named
-[ContainerPort](/docs/api-reference/v1.6/#containerport-v1-core)
+[ContainerPort](/docs/api-reference/{{page.version}}/#containerport-v1-core)
 for HTTP or TCP liveness checks:
 
 ```yaml
@@ -247,7 +247,7 @@ for it, and that containers are restarted when they fail.
 Eventually, some of this section could be moved to a concept topic.
 {% endcomment %}
 
-[Probes](/docs/api-reference/v1.6/#probe-v1-core) have a number of fields that
+[Probes](/docs/api-reference/{{page.version}}/#probe-v1-core) have a number of fields that
 you can use to more precisely control the behavior of liveness and readiness
 checks:
 
@@ -263,7 +263,7 @@ liveness. Minimum value is 1.
 * `failureThreshold`: Minimum consecutive failures for the probe to be
 considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 
-[HTTP probes](/docs/api-reference/v1.6/#httpgetaction-v1-core)
+[HTTP probes](/docs/api-reference/{{page.version}}/#httpgetaction-v1-core)
 have additional fields that can be set on `httpGet`:
 
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
@@ -292,9 +292,9 @@ you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
 ### Reference
 
-* [Pod](/docs/api-reference/v1.6/#pod-v1-core)
-* [Container](/docs/api-reference/v1.6/#container-v1-core)
-* [Probe](/docs/api-reference/v1.6/#probe-v1-core)
+* [Pod](/docs/api-reference/{{page.version}}/#pod-v1-core)
+* [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
+* [Probe](/docs/api-reference/{{page.version}}/#probe-v1-core)
 
 {% endcapture %}
 
