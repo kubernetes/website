@@ -3,9 +3,6 @@ assignees:
 - Random-Liu
 - dchen1107
 title: Monitor Node Health
-redirect_from:
-- "/docs/admin/node-problem/"
-- "/docs/admin/node-problem.html"
 ---
 
 * TOC

@@ -1,16 +1,13 @@
 ---
 title: Limit Storage Consumption
-redirect_from:
-- "/docs/admin/resourcequota/limitstorageconsumption/"
-- "/docs/admin/resourcequota/limitstorageconsumption.html"
 ---
 
 {% capture overview %}
 
 This example demonstrates an easy way to limit the amount of storage consumed in a namespace.
 
-The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/), 
-[LimitRange](/docs/tasks/configure-pod-container/limit-range/), 
+The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/),
+[LimitRange](/docs/tasks/configure-pod-container/limit-range/),
 and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 
 {% endcapture %}
@@ -56,17 +53,17 @@ spec:
       storage: 1Gi
 ```
 
-Minimum storage requests are used when the underlying storage provider requires certain minimums. For example, 
-AWS EBS volumes have a 1Gi minimum requirement. 
+Minimum storage requests are used when the underlying storage provider requires certain minimums. For example,
+AWS EBS volumes have a 1Gi minimum requirement.
 
 ## StorageQuota to limit PVC count and cumulative storage capacity
 
 Admins can limit the number of PVCs in a namespace as well as the cumulative capacity of those PVCs. New PVCs that exceed
 either maximum value will be rejected.
 
-In this example, a 6th PVC in the namespace would be rejected because it exceeds the maximum count of 5. Alternatively, 
+In this example, a 6th PVC in the namespace would be rejected because it exceeds the maximum count of 5. Alternatively,
 a 5Gi maximum quota when combined with the 2Gi max limit above, cannot have 3 PVCs where each has 2Gi. That would be 6Gi requested
- for a namespace capped at 5Gi. 
+ for a namespace capped at 5Gi.
 
 ```
 apiVersion: v1
@@ -83,10 +80,10 @@ spec:
 
 {% capture discussion %}
 
-## Summary 
+## Summary
 
 A limit range can put a ceiling on how much storage is requested while a resource quota can effectively cap the storage
-consumed by a namespace through claim counts and cumulative storage capacity. The allows a cluster-admin to plan their 
+consumed by a namespace through claim counts and cumulative storage capacity. The allows a cluster-admin to plan their
 cluster's storage budget without risk of any one project going over their allotment.
 
 {% endcapture %}

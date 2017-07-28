@@ -1,8 +1,5 @@
 ---
 title: Declarative Management of Kubernetes Objects Using Configuration Files
-redirect_from:
-- "/docs/concepts/tools/kubectl/object-management-using-declarative-config/"
-- "/docs/concepts/tools/kubectl/object-management-using-declarative-config.html"
 ---
 
 {% capture overview %}

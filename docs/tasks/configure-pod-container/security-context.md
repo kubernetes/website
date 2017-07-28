@@ -4,9 +4,6 @@ assignees:
 - mikedanese
 - thockin
 title: Configure a Security Context for a Pod or Container
-redirect_from:
-- "/docs/user-guide/security-context/"
-- "/docs/concepts/policy/container-capabilities/"
 ---
 
 {% capture overview %}

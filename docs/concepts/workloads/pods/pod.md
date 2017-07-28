@@ -1,9 +1,6 @@
 ---
 assignees:
 title: Pods
-redirect_from:
-- "/docs/user-guide/pods/index/"
-- "/docs/user-guide/pods/index.html"
 ---
 
 * TOC

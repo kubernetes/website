@@ -2,11 +2,6 @@
 assignees:
 - erictune
 title: Init Containers
-redirect_from:
-- "/docs/concepts/abstractions/init-containers/"
-- "/docs/concepts/abstractions/init-containers.html"
-- "/docs/user-guide/pods/init-container/"
-- "/docs/user-guide/pods/init-container.html"
 ---
 
 {% capture overview %}
