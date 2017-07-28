@@ -1,10 +1,5 @@
 ---
 title: Expose Pod Information to Containers Through Environment Variables
-redirect_from:
-- "/docs/user-guide/environment-guide/"
-- "/docs/user-guide/environment-guide/index.html"
-- "/docs/tasks/configure-pod-container/environment-variable-expose-pod-information/"
-- "/docs/tasks/configure-pod-container/environment-variable-expose-pod-information.html"
 ---
 
 {% capture overview %}

@@ -1,8 +1,5 @@
 ---
 title: Define a Command and Arguments for a Container
-redirect_from:
-- "/docs/concepts/configuration/container-command-args/"
-- "/docs/concepts/configuration/container-command-arg.html"
 ---
 
 {% capture overview %}

@@ -1,9 +1,5 @@
 ---
-
 title: Hello Minikube
-redirect_from:
-- "/docs/hellonode/"
-- "/docs/hellonode.html"
 ---
 
 {% capture overview %}
@@ -77,10 +73,10 @@ brew install kubectl
 Determine whether you can access sites like [https://cloud.google.com/container-registry/](https://cloud.google.com/container-registry/) directly without a proxy, by opening a new terminal and using
 
 ```shell
-curl --proxy "" https://cloud.google.com/container-registry/ 
+curl --proxy "" https://cloud.google.com/container-registry/
 ```
 
-If NO proxy is required, start the Minikube cluster: 
+If NO proxy is required, start the Minikube cluster:
 
 ```shell
 minikube start --vm-driver=xhyve

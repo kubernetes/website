@@ -2,9 +2,6 @@
 assignees:
 - bprashanth
 title: Services
-redirect_from:
-- "/docs/user-guide/services/"
-- "/docs/user-guide/services/index.html"
 ---
 
 Kubernetes [`Pods`](/docs/user-guide/pods) are mortal. They are born and when they die, they
@@ -319,9 +316,9 @@ Sometimes you don't need or want load-balancing and a single service IP.  In
 this case, you can create "headless" services by specifying `"None"` for the
 cluster IP (`spec.clusterIP`).
 
-This option allows developers to reduce coupling to the Kubernetes system by 
-allowing them freedom to do discovery their own way.  Applications can still use 
-a self-registration pattern and adapters for other discovery systems could easily 
+This option allows developers to reduce coupling to the Kubernetes system by
+allowing them freedom to do discovery their own way.  Applications can still use
+a self-registration pattern and adapters for other discovery systems could easily
 be built upon this API.
 
 For such `Services`, a cluster IP is not allocated, kube-proxy does not handle
@@ -356,15 +353,15 @@ The default is `ClusterIP`.
 
 `Type` values and their behaviors are:
 
-   * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value 
-     makes the service only reachable from within the cluster. This is the 
+   * `ClusterIP`: Exposes the service on a cluster-internal IP. Choosing this value
+     makes the service only reachable from within the cluster. This is the
      default `ServiceType`.
-   * `NodePort`: Exposes the service on each Node's IP at a static port (the `NodePort`). 
-     A `ClusterIP` service, to which the NodePort service will route, is automatically 
-     created.  You'll be able to contact the `NodePort` service, from outside the cluster, 
+   * `NodePort`: Exposes the service on each Node's IP at a static port (the `NodePort`).
+     A `ClusterIP` service, to which the NodePort service will route, is automatically
+     created.  You'll be able to contact the `NodePort` service, from outside the cluster,
      by requesting `<NodeIP>:<NodePort>`.
-   * `LoadBalancer`: Exposes the service externally using a cloud provider's load balancer. 
-     `NodePort` and `ClusterIP` services, to which the external load balancer will route, 
+   * `LoadBalancer`: Exposes the service externally using a cloud provider's load balancer.
+     `NodePort` and `ClusterIP` services, to which the external load balancer will route,
      are automatically created.
    * `ExternalName`: Maps the service to the contents of the `externalName` field
      (e.g. `foo.bar.example.com`), by returning a `CNAME` record with its value.
@@ -441,9 +438,9 @@ This can be achieved by adding the following annotations to the service based on
 For AWS:
 ```yaml
 [...]
-metadata: 
+metadata:
     name: my-service
-    annotations: 
+    annotations:
         service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 [...]
 ```
@@ -516,7 +513,7 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 9376
-  externalIPs: 
+  externalIPs:
     - 80.11.12.10
 ```
 
