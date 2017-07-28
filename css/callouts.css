@@ -1,4 +1,4 @@
-.note, .info, .caution, .warning {
+.caution, .info, .note, .warning {
     padding: 20px;
     margin: 20px 0;
     border: 1px solid #eee;
@@ -6,16 +6,16 @@
     border-radius: 3px;
 }
 
-.note {
-    border-left-color: #428bca;
+.caution {
+    border-left-color: #f0ad4e;
 }
 
 .info {
      border-left-color: #5cb85c;
 }
 
-.caution {
-    border-left-color: #f0ad4e;
+.note {
+    border-left-color: #428bca;
 }
 
 .warning {
