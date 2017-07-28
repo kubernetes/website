@@ -138,7 +138,7 @@ A list of Kubernetes-specific terms and words to be used consistently across the
 </table>{% endcomment %}
 
 ## Callout Formatting
-Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: note {: ,note}, caution {: .caution}, and warning {: .warning}. 
+Callouts help create different rhetorical appeal levels. Our documentation supports three different callouts: **Note:** {: .note}, **Caution:** {: .caution}, and **Warning:** {: .warning}. 
 
 1. Start each callout with the appropriate prefix.
 
@@ -146,7 +146,7 @@ Callouts help create different rhetorical appeal levels. Our documentation suppo
 
 ```console
 **Note:** The prefix you use is the same text you use in the tag. 
-{: .note} 
+{: .note} <!-- This tag must appear on a new line. -->
 ```
 
 The output is:
@@ -161,13 +161,13 @@ Use {: .note} to highlight a tip or a piece of information that may be helpful t
 For example:
 
 ```console
-**Note:** You can _still_ use ~Markdown~ inside these callouts. 
+**Note:** You can _still_ use Markdown inside these callouts. 
 {: .note}
 ```
 
 The output is:
 
-**Note:** You can _still_ use ~Markdown~ inside these callouts.
+**Note:** You can _still_ use Markdown inside these callouts.
 {: .note}
 
 ### Caution
@@ -177,13 +177,13 @@ Use {: .caution} to call attention to an important piece of information to avoid
 For example:
 
 ```console
-**Caution:** Each tag must be on a new line to apply the style. 
+**Caution:** The callout style only applies to the line directly above the tag. 
 {: .caution}
 ```
 
 The output is:
 
-**Caution:** Each tag must be on a new line to apply the style. 
+**Caution:** The callout style only applies to the line directly above the tag. 
 {: .caution}
 
 ### Warning
@@ -220,13 +220,13 @@ Callouts should generally be single sentences and automatically span multiple li
 For example:
 
 ```console
-**Note:"** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> **You** can still use _Markdown_ to ~format text~!
+**Note:"** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> You can still use _Markdown_ to **format** text!
 {: .note}
 ```
 
 The output is:
 
-**Note:** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> **You** can still use _Markdown_ to ~format text~!
+**Note:** This is my note. Use `<br/>` to create multiple lines. <br/> <br/> You can still use _Markdown_ to **format** text!
 {: .note}
 
 Typing multiple lines does **not** work. The callout style only applies to the line directly above the tag. 
