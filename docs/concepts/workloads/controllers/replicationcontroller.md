@@ -15,8 +15,6 @@ always up and available.
 
 {% endcapture %}
 
-* TOC
-{:toc}
 
 {% capture body %}
 

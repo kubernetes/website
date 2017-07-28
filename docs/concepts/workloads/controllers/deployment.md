@@ -18,7 +18,6 @@ an issue in the main Kubernetes repository if your use case is not covered below
 
 {% endcapture %}
 
-{:toc}
 
 {% capture body %}
 

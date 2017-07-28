@@ -17,8 +17,6 @@ whereas a Replication Controller only supports equality-based selector requireme
 
 {% endcapture %}
 
-* TOC
-{:toc}
 
 {% capture body %}
 
