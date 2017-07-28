@@ -22,3 +22,13 @@ A `ConfigMap` lets you separate configuration data for a container image from th
 {% endcapture %}
 
 {% capture steps %}
+
+## What is a ConfigMap?
+
+For more information about ConfigMaps, see "[Understanding ConfigMaps]()".
+
+## Configuring containers
+
+## Configuring pods
+
+{% endcapture %}
