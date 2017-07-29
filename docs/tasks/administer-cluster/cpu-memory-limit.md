@@ -3,11 +3,6 @@ assignees:
 - derekwaynecarr
 - janetkuo
 title: Set Pod CPU and Memory Limits
-redirect_from:
-- "/docs/admin/limitrange/"
-- "/docs/admin/limitrange/index.html"
-- "/docs/tasks/configure-pod-container/limit-range/"
-- "/docs/tasks/configure-pod-container/limit-range.html"
 ---
 
 {% capture overview %}
@@ -39,7 +34,7 @@ $ kubectl create namespace limit-example
 namespace "limit-example" created
 ```
 
-Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands: 
+Note that `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands:
 
 ```shell
 $ kubectl get namespaces
@@ -103,7 +98,7 @@ deployment "nginx" created
 ```
 
 Note that `kubectl run` creates a Deployment named "nginx" on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/v1.6/#run) for more details. 
+If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/user-guide/kubectl/{{page.version}}/#run) for more details. 
 The Deployment manages 1 replica of single container Pod. Let's take a look at the Pod it manages. First, find the name of the Pod:
 
 ```shell
@@ -112,7 +107,7 @@ NAME                     READY     STATUS    RESTARTS   AGE
 nginx-2040093540-s8vzu   1/1       Running   0          11s
 ```
 
-Let's print this Pod with yaml output format (using `-o yaml` flag), and then `grep` the `resources` field. Note that your pod name will be different. 
+Let's print this Pod with yaml output format (using `-o yaml` flag), and then `grep` the `resources` field. Note that your pod name will be different.
 
 ```shell
 $ kubectl get pods nginx-2040093540-s8vzu --namespace=limit-example -o yaml | grep resources -C 8
@@ -151,7 +146,7 @@ $ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/valid-pod.
 pod "valid-pod" created
 ```
 
-Now look at the Pod's resources field: 
+Now look at the Pod's resources field:
 
 ```shell
 $ kubectl get pods valid-pod --namespace=limit-example -o yaml | grep -C 6 resources

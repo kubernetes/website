@@ -3,9 +3,6 @@ assignees:
 - bprashanth
 - janetkuo
 title: Replication Controller
-redirect_from:
-- "/docs/user-guide/replication-controller/"
-- "/docs/user-guide/replication-controller/index.html"
 ---
 
 * TOC
@@ -194,7 +191,7 @@ Ideally, the rolling update controller would take application readiness into acc
 The two ReplicationControllers would need to create pods with at least one differentiating label, such as the image tag of the primary container of the pod, since it is typically image updates that motivate rolling updates.
 
 Rolling update is implemented in the client tool
-[`kubectl rolling-update`](/docs/user-guide/kubectl/{{page.version}}/#rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples. 
+[`kubectl rolling-update`](/docs/user-guide/kubectl/{{page.version}}/#rolling-update). Visit [`kubectl rolling-update` task](/docs/tasks/run-application/rolling-update-replication-controller/) for more concrete examples.
 
 ### Multiple release tracks
 
@@ -240,7 +237,7 @@ Note that we recommend using Deployments instead of directly using Replica Sets,
 ### Deployment (Recommended)
 
 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) is a higher-level API object that updates its underlying Replica Sets and their Pods
-in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want this rolling update functionality, 
+in a similar fashion as `kubectl rolling-update`. Deployments are recommended if you want this rolling update functionality,
 because unlike `kubectl rolling-update`, they are declarative, server-side, and have additional features.
 
 ### Bare Pods

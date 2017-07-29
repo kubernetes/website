@@ -1,8 +1,5 @@
 ---
 title: Managing Compute Resources for Containers
-redirect_from:
-- "/docs/user-guide/compute-resources/"
-- "/docs/user-guide/compute-resources.html"
 ---
 
 {% capture overview %}
@@ -197,7 +194,7 @@ is pending with a message of this type, there are several things to try:
 - Add more nodes to the cluster.
 - Terminate unneeded Pods to make room for pending Pods.
 - Check that the Pod is not larger than all the nodes. For example, if all the
-  nodes have a capacity of `cpu: 1`, then a Pod with a limit of `cpu: 1.1` will
+  nodes have a capacity of `cpu: 1`, then a Pod with a request of `cpu: 1.1` will
   never be scheduled.
 
 You can check node capacities and amounts allocated with the
@@ -241,7 +238,7 @@ the node.
 
 The amount of resources available to Pods is less than the node capacity, because
 system daemons use a portion of the available resources. The `allocatable` field
-[NodeStatus](/docs/resources-reference/v1.6/#nodestatus-v1-core)
+[NodeStatus](/docs/resources-reference/{{page.version}}/#nodestatus-v1-core)
 gives the amount of resources that are available to Pods. For more information, see
 [Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md).
 
@@ -430,9 +427,9 @@ consistency across providers and platforms.
 * Get hands-on experience
 [assigning CPU and RAM resources to a container](/docs/tasks/configure-pod-container/assign-cpu-ram-container/).
 
-* [Container](/docs/api-reference/v1.6/#container-v1-core)
+* [Container](/docs/api-reference/{{page.version}}/#container-v1-core)
 
-* [ResourceRequirements](/docs/resources-reference/v1.6/#resourcerequirements-v1-core)
+* [ResourceRequirements](/docs/resources-reference/{{page.version}}/#resourcerequirements-v1-core)
 
 {% endcapture %}
 
