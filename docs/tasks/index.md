@@ -1,5 +1,5 @@
 ---
-title: Tasks"
+title: Tasks
 ---
 
 This section of the Kubernetes documentation contains pages that
