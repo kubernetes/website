@@ -19,16 +19,16 @@ cluster, how do those frontends find out and keep track of which backends are
 in that set?
 -->
 
-Kubernetes [`Pods`](/docs/user-guide/pods) 是有生命周期的，它们可以被创建，也可以被销毁，然而一旦被销毁生命就会永远被终结。 
-通过 [`ReplicationControllers`](/docs/user-guide/replication-controller) 能够动态地创建和销毁 `Pods` （例如，需要进行扩缩容，或者执行 [滚动升级](/docs/user-guide/kubectl/v1.7/#rolling-update)）。 
+Kubernetes [`Pod`](/docs/user-guide/pods) 是有生命周期的，它们可以被创建，也可以被销毁，然而一旦被销毁生命就永远结束。 
+通过 [`ReplicationController`](/docs/user-guide/replication-controller) 能够动态地创建和销毁 `Pod` （例如，需要进行扩缩容，或者执行 [滚动升级](/docs/user-guide/kubectl/v1.7/#rolling-update)）。 
 每个 `Pod` 都会获取它自己的IP地址，即使这些IP地址不总是稳定可依赖的。
-这会导致一个问题：在Kubernetes集群中，如果一组 `Pods` （称为backends）为其它 `Pods` （称为frontends）提供服务，那么这些frontends该如何发现，并连接到这组 `Pods` 中的哪些backends呢？
+这会导致一个问题：在Kubernetes集群中，如果一组 `Pod` （称为backends）为其它 `Pod` （称为frontend）提供服务，那么这些frontend该如何发现，并连接到这组 `Pod` 中的哪些backend呢？
 
 <!-- 
 Enter `Services`.
 -->
 
-关于 `Services`
+关于 `Service`
 
 <!--
 A Kubernetes `Service` is an abstraction which defines a logical set of `Pods`
@@ -38,7 +38,7 @@ Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 `Service` without a selector).
 -->
 
-一个 Kubernetes `Service` 定义了这样一种抽象：一个 `Pods` 的逻辑分组，一种可以访问它们的策略 —— 通常我们称之为一个微服务。
+一个Kubernetes `Service` 定义了这样一种抽象：一个 `Pod` 的逻辑分组，一种可以访问它们的策略 —— 通常我们称之为微服务。
 这一组 `Pods` 能够被一个 `Service` 访问到，通常是通过一个 [`Label
 Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors) （查看下面了解，为什么你可能需要一个没有selector的 `Service` ）实现的。
 
@@ -50,8 +50,8 @@ frontend clients should not need to be aware of that or keep track of the list
 of backends themselves.  The `Service` abstraction enables this decoupling.
 -->
 
-举个例子，考虑一个图片处理backend程序，它运行了3个副本。这些副本是可互换的 —— frontends程序不需要关心它们调用了哪个backend副本。
-然而组成这一组backend程序的 `Pods` 实际上可能会发生变化，frontend客户端不应该也没必要知道，而且也不需要跟踪这一组backend程序的状态。
+举个例子，考虑一个图片处理backend，它运行了3个副本。这些副本是可互换的 —— frontend不需要关心它们调用了哪个backend副本。
+然而组成这一组backend程序的 `Pod` 实际上可能会发生变化，frontend客户端不应该也没必要知道，而且也不需要跟踪这一组backend程序的状态。
 `Service` 定义的抽象能够解耦这种关联。
 
 <!--
@@ -61,8 +61,8 @@ non-native applications, Kubernetes offers a virtual-IP-based bridge to Services
 which redirects to the backend `Pods`.
 -->
 
-对Kubernetes集群中的应用程序，Kubernetes提供了一个简单的 `Endpoints` API，只要一个 `Service` 中的一组 `Pods` 发生变更，应用程序就会被更新。
-对非Kubernetes集群中的应用程序，Kubernetes提供了一个基于VIP的网桥的方式访问 `Service`，再由 `Service` 重定向到backend `Pods`。
+对Kubernetes集群中的应用程序，Kubernetes提供了一个简单的 `Endpoints` API，只要一个 `Service` 中的一组 `Pod` 发生变更，应用程序就会被更新。
+对非Kubernetes集群中的应用程序，Kubernetes提供了一个基于VIP的网桥的方式访问 `Service`，再由 `Service` 重定向到backend `Pod`。
 
 * TOC
 {:toc}
@@ -82,7 +82,7 @@ port 9376 and carry a label `"app=MyApp"`.
 
 一个 `Service`在Kubernetes中是一个REST对象，和一个 `Pod` 类似。
 像所有的REST对象一样，一个 `Service` 定义可以基于POST方式，请求apiserver创建一个实例。
-例如，假定你有一组 `Pods`，它们对外暴露了9376端口，同时还被打上`"app=MyApp"`标签。
+例如，假定你有一组 `Pod`，它们对外暴露了9376端口，同时还被打上`"app=MyApp"`标签。
 
 ```yaml
 kind: Service
@@ -126,21 +126,21 @@ breaking clients.
 默认情况下，`targetPort` 将被设置为与 `port` 字段相同的值。
 可能更有趣的是，`targetPort` 可以是一个字符串，引用了backend `Pod` 的一个端口的名称。
 但是，实际指派给该端口名称的端口号，在每个backend `Pod` 中可能并不相同。
-对于部署和演进 `Services` ，这种方式会给你提供更大的灵活性。
-例如，你可以在你backend软件的下一个版本中，修改Pod暴露的端口，并不会中断客户端的调用。
+对于部署和设计 `Service` ，这种方式会给你提供更大的灵活性。
+例如，你可以在你的backend软件下一个版本中，修改Pod暴露的端口，并不会中断客户端的调用。
 
 <!--
 Kubernetes `Services` support `TCP` and `UDP` for protocols.  The default
 is `TCP`.
 -->
 
-Kubernetes `Services` 能够支持 `TCP` 和 `UDP` 协议，默认是 `TCP` 协议。 
+Kubernetes `Service` 能够支持 `TCP` 和 `UDP` 协议，默认支持 `TCP` 协议。 
 
 <!--
 ### Services without selectors
 -->
 
-### 不需要selector的Service
+### 没有selector的Service
 
 <!--
 Services generally abstract access to Kubernetes `Pods`, but they can also
@@ -199,7 +199,7 @@ NOTE: Endpoint IPs may not be loopback (127.0.0.0/8), link-local
 (169.254.0.0/16), or link-local multicast (224.0.0.0/24).
 -->
 
-注意：Endpoint IP地址不能是loopback（127.0.0.0/8）， link-local（169.254.0.0/16）， 或者link-local多播（224.0.0.0/24）。
+注意：Endpoint IP地址不能是loopback（127.0.0.0/8）、 link-local（169.254.0.0/16）、或者link-local多播（224.0.0.0/24）。
 
 <!--
 Accessing a `Service` without a selector works the same as if it had selector.
@@ -207,7 +207,7 @@ The traffic will be routed to endpoints defined by the user (`1.2.3.4:9376` in
 this example).
 -->
 
-访问一个没有selector的 `Service`，与存在selector的原理是相同的。请求将被路由到用户定义的Endpoints（该示例中为`1.2.3.4:9376`）。
+访问一个没有selector的 `Service`，与有selector的 `Service` 的原理相同。请求将被路由到用户定义的Endpoints（该示例中为`1.2.3.4:9376`）。
 
 <!--
 An ExternalName service is a special case of service that does not have
@@ -238,9 +238,9 @@ Should you later decide to move your database into your cluster, you can start
 its pods, add appropriate selectors or endpoints and change the service `type`.
 -->
 
-当查询主机  `my-service.prod.svc.CLUSTER`时，集群的DNS服务将返回一个值为 `my.database.example.com` 的 `CNAME` 记录。
+当查询主机 `my-service.prod.svc.CLUSTER`时，集群的DNS服务将返回一个值为 `my.database.example.com` 的 `CNAME` 记录。
 访问这个服务的工作方式与其它的相同，唯一不同的是重定向发生在DNS层，而且不会进行代理或转发。
-如果后续你决定要将数据库迁移到Kubernetes集群中，你可以启动对应的Pod，增加合适的Selector或Endpoint，修改 `Service` 的 `type`。
+如果后续决定要将数据库迁移到Kubernetes集群中，可以启动对应的Pod，增加合适的Selector或Endpoint，修改 `Service` 的 `type`。
 
 <!--
 ## Virtual IPs and service proxies
@@ -257,7 +257,7 @@ iptables proxy was added, but was not the default operating mode.  Since
 Kubernetes v1.2, the iptables proxy is the default.
 -->
 
-在Kubernetes集群中，每个Node运行一个 `kube-proxy` 进程。`kube-proxy` 负责为 `Services` 实现了一种VIP（虚拟IP）的形式，而不是 `ExternalName` 的形式。
+在Kubernetes集群中，每个Node运行一个 `kube-proxy` 进程。`kube-proxy` 负责为 `Service` 实现了一种VIP（虚拟IP）的形式，而不是 `ExternalName` 的形式。
 在Kubernetes v1.0版本，代理完全在userspace。在Kubernetes v1.1版本，新增了一个iptables代理，但并不是默认的运行模式。
 从Kubernetes v1.2起，默认就是iptables代理。
 
@@ -267,7 +267,7 @@ In Kubernetes v1.1 the `Ingress` API was added (beta) to represent "layer 7"
 (HTTP) services.
 -->
 
-在Kubernetes v1.0版本，`Services` 是一个“4层”（TCP/UDP over IP）概念。
+在Kubernetes v1.0版本，`Service` 是一个“4层”（TCP/UDP over IP）概念。
 在Kubernetes v1.1版本，新增了 `Ingress` API（beta版），用来表示“7层”（HTTP）服务。
 
 <!--
@@ -299,7 +299,7 @@ to an appropriate backend without the clients knowing anything about Kubernetes
 or `Services` or `Pods`.
 -->
 
-网络返回的结果是，任何到达 `Service` 的IP:Port的请求，都会被代理到一个合适的backend，不需要客户端知道关于Kubernetes、`Services`、或`Pods`的任何信息。
+网络返回的结果是，任何到达 `Service` 的IP:Port的请求，都会被代理到一个合适的backend，不需要客户端知道关于Kubernetes、`Service`、或`Pod`的任何信息。
 
 <!--
 By default, the choice of backend is round robin.  Client-IP based session affinity
@@ -307,7 +307,7 @@ can be selected by setting `service.spec.sessionAffinity` to `"ClientIP"` (the
 default is `"None"`).
 -->
 
-默认的策略是，通过round-robin算法来选选择backend `Pod`。
+默认的策略是，通过round-robin算法来选择backend `Pod`。
 实现基于客户端IP的会话亲和性，可以通过设置`service.spec.sessionAffinity` 的值为 `"ClientIP"` （默认值为 `"None"`）。
 
 <!--
@@ -342,7 +342,7 @@ default is `"None"`).
 -->
 
 默认的策略是，随机选择一个backend。
-基于客户端IP的会话亲和性，可以通过设置`service.spec.sessionAffinity` 的值为 `"ClientIP"` （默认值为 `"None"`）。
+实现基于客户端IP的会话亲和性，可以将`service.spec.sessionAffinity` 的值设置为 `"ClientIP"` （默认值为 `"None"`）。
 
 <!--
 As with the userspace proxy, the net result is that any traffic bound for the
@@ -354,7 +354,7 @@ userspace proxier, the iptables proxier cannot automatically retry another
 having working [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#defining-readiness-probes).
 -->
 
-和userspace代理类似，网络返回的结果是，任何到达 `Service` 的IP:Port的请求，都会被代理到一个合适的backend，不需要客户端知道关于Kubernetes、`Services`、或`Pods`的任何信息。
+和userspace代理类似，网络返回的结果是，任何到达 `Service` 的IP:Port的请求，都会被代理到一个合适的backend，不需要客户端知道关于Kubernetes、`Service`、或`Pod`的任何信息。
 这应该比userspace代理更快、更可靠。然而，不像userspace代理，如果初始选择的 `Pod` 没有响应，iptables代理能够自动地重试另一个 `Pod`，所以它需要依赖[readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#defining-readiness-probes)。
 
 <!--
@@ -517,8 +517,8 @@ DNS records for each.  If DNS has been enabled throughout the cluster then all
 
 一个可选（尽管强烈推荐）[cluster
 add-on](http://releases.k8s.io/{{page.githubbranch}}/cluster/addons/README.md)是一个DNS服务器。
-DNS服务器监视着创建新 `Services` 的Kubernetes API，从而为每一个 `Services` 创建一组DNS记录。
-如果整个集群的DNS一直被启用，那么所有的 `Pod` 应该能够自动对 `Services` 进行名称解析。
+DNS服务器监视着创建新 `Services` 的Kubernetes API，从而为每一个 `Service` 创建一组DNS记录。
+如果整个集群的DNS一直被启用，那么所有的 `Pod` 应该能够自动对 `Service` 进行名称解析。
 
 <!--
 For example, if you have a `Service` called `"my-service"` in Kubernetes
@@ -529,9 +529,9 @@ qualify the name as `"my-service.my-ns"`.  The result of these name lookups is t
 cluster IP. 
 -->
 
-例如，你有一个名称为 `"my-service"` 的 `Services`，它在Kubernetes集群中一个名为 `"my-ns"` 的`Namespace`，为 `"my-service.my-ns"` 创建了一条DNS记录。
+例如，你有一个名称为 `"my-service"` 的 `Service`，它在Kubernetes集群中一个名为 `"my-ns"` 的`Namespace`，为 `"my-service.my-ns"` 创建了一条DNS记录。
 在名称为 `"my-ns"` 的 `Namespace` 中的 `Pods` 应该能够简单地通过名称查询找到 `"my-service"`。
-在另一个 `Namespaces` 中的 `Pods` 必须限定名称为 `"my-service.my-ns"`。
+在另一个 `Namespace` 中的 `Pod` 必须限定名称为 `"my-service.my-ns"`。
 这些名称查询的结果是Cluster IP。
 
 <!--
@@ -580,14 +580,14 @@ for them. How DNS is automatically configured depends on whether the service has
 selectors defined.
 -->
 
-对这类 `Services` 并不会分配Cluster IP，kube-proxy不会处理它们，而且平台也不会为它们进行负载均衡和路由。
-DNS如何实现自动配置，依赖于 `Services` 是否定义了selector。
+对这类 `Service` 并不会分配Cluster IP，kube-proxy不会处理它们，而且平台也不会为它们进行负载均衡和路由。
+DNS如何实现自动配置，依赖于 `Service` 是否定义了selector。
 
 <!--
 ### With selectors
 -->
 
-### 带有Selectors
+### 配置Selectors
 
 <!--
 For headless services that define selectors, the endpoints controller creates
@@ -601,7 +601,7 @@ records (addresses) that point directly to the `Pods` backing the `Service`.
 ### Without selectors
 -->
 
-### 不带有Selectors
+### 不配置Selectors
 
 <!--
 For headless services that do not define selectors, the endpoints controller does
@@ -628,7 +628,7 @@ Service onto an external (outside of your cluster) IP address.
 
 ## 发布服务 —— 服务类型
 
-对你应用（例如，Frontends），你可能希望通过一个外部（Kubernetes集群外部）IP地址露一个Service。
+对你应用（例如，Frontend），你可能希望通过一个外部（Kubernetes集群外部）IP地址暴露一个Service。
 
 <!--
 Kubernetes `ServiceTypes` allow you to specify what kind of service you want.
@@ -747,7 +747,7 @@ an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is
 cloud provider does not support the feature, the field will be ignored.
 -->
 
-来自外部负载均衡器的流量将直接打到backend `Pods` 上，不过实际它们是如何工作的，这要依赖于云提供商。
+来自外部负载均衡器的流量将直接打到backend `Pod` 上，不过实际它们是如何工作的，这要依赖于云提供商。
 在这些情况下，将根据用户设置的 `loadBalancerIP` 来创建负载均衡器。
 某些云提供商允许设置 `loadBalancerIP`。如果没有设置 `loadBalancerIP`，将会给负载均衡器指派一个临时的IP。
 如果设置了 `loadBalancerIP`，但云提供商并不支持这种特性，那么设置的 `loadBalancerIP` 值将会被忽略掉。
@@ -937,7 +937,7 @@ worth understanding.
 ## VIP的那些骇人听闻的细节
 
 对很多想使用 `Service` 的人来说，前面的信息应该足够了。
-然而，有很多内部原理性的东西，还是值得深入理解的。
+然而，有很多内部原理性的内容，还是值去理解的。
 
 <!--
 ### Avoiding collisions
@@ -951,9 +951,9 @@ another user.  That is an isolation failure.
 
 ### 避免冲突
 
-Kubernetes最主要得哲学之一是，用户不应该暴露那些能够导致他们操作失败、但又不是他们的过错的场景。
-这种场景下，让我们来看一下网络端口 —— 用户不应该必须选择一个端口号，但是该端口还有可能与其他用户的冲突。
-这就是，在彼此隔离状态下仍然会出现失败。
+Kubernetes最主要的哲学之一，是用户不应该暴露那些能够导致他们操作失败、但又不是他们的过错的场景。
+这种场景下，让我们来看一下网络端口 —— 用户不应该必须选择一个端口号，而且该端口还有可能与其他用户的冲突。
+这就是说，在彼此隔离状态下仍然会出现失败。
 
 <!--
 In order to allow users to choose a port number for their `Services`, we must
@@ -996,7 +996,7 @@ differently.
 
 ### IP和VIP
 
-不像 `Pod` 的IP地址，它实际路由到一个固定的目的地，`Service` 的IP实际上不能通过一个单独的主机来进行应答。
+不像 `Pod` 的IP地址，它实际路由到一个固定的目的地，`Service` 的IP实际上不能通过单个主机来进行应答。
 相反，我们使用 `iptables`（Linux中的数据包处理逻辑）来定义一个虚拟IP地址（VIP），它可以根据需要透明地进行重定向。
 当客户端连接到VIP时，它们的流量会自动地传输到一个合适的Endpoint。
 环境变量和DNS，实际上会根据 `Service` 的VIP和端口来进行填充。
@@ -1015,9 +1015,9 @@ connections on it.
 
 #### Userspace
 
-作为一个例子，考虑前面讲过的图片处理应用程序。
-当创建backend `Service` 时，Kubernetes master会给指派一个虚拟IP地址，比如10.0.0.1。
-假设 `Service` 的端口时1234，该 `Service` 会被集群中所有的 `kube-proxy` 实例观察到。
+作为一个例子，考虑前面提到的图片处理应用程序。
+当创建backend `Service` 时，Kubernetes master会给它指派一个虚拟IP地址，比如10.0.0.1。
+假设 `Service` 的端口是1234，该 `Service` 会被集群中所有的 `kube-proxy` 实例观察到。
 当代理看到一个新的 `Service`， 它会打开一个新的端口，建立一个从该VIP重定向到新端口的iptables，并开始接收请求连接。
 
 <!--
@@ -1030,7 +1030,7 @@ collision.  Clients can simply connect to an IP and port, without being aware
 of which `Pods` they are actually accessing.
 -->
 
-当一个客户端连接到该VIP，iptables会重定向该数据包到 `Service代理` 的端口。
+当一个客户端连接到一个VIP，iptables规则开始起作用，它会重定向该数据包到 `Service代理` 的端口。
 `Service代理` 选择一个backend，并将客户端的流量代理到backend上。
 
 这意味着 `Service` 的所有者能够选择任何他们想使用的端口，而不存在冲突的风险。
@@ -1050,12 +1050,11 @@ per-`Endpoint` rules which redirect (Destination NAT) to the backends.
 
 ### Iptables
 
-再次考虑前面讲到的图片处理应用程序。
-作为一个例子，考虑前面讲过的图片处理应用程序。
-当创建backend `Service` 时，Kubernetes master会给指派一个虚拟IP地址，比如10.0.0.1。
-假设 `Service` 的端口时1234，该 `Service` 会被集群中所有的 `kube-proxy` 实例观察到。
+再次考虑前面提到的图片处理应用程序。
+当创建backend `Service` 时，Kubernetes master会给它指派一个虚拟IP地址，比如10.0.0.1。
+假设 `Service` 的端口是1234，该 `Service` 会被集群中所有的 `kube-proxy` 实例观察到。
 当代理看到一个新的 `Service`， 它会安装一系列的iptables规则，从VIP重定向到 per-`Service` 规则。
-该 per-`Service` 规则连接到 per-`Endpoint` 规则，该 per-`Endpoint` 规则会重定向（目标NAT）到 backends。
+该 per-`Service` 规则连接到 per-`Endpoint` 规则，该 per-`Endpoint` 规则会重定向（目标NAT）到backend。
 
 <!--
 When a client connects to the VIP the iptables rule kicks in.  A backend is
@@ -1067,6 +1066,10 @@ work, and the client IP is not altered.
 This same basic flow executes when traffic comes in through a node-port or
 through a load-balancer, though in those cases the client IP does get altered.
 -->
+
+当一个客户端连接到一个VIP，iptables规则开始起作用。一个backend会被选择（或者根据会话亲和性，或者随机），数据包被重定向到这个backend。
+不像userspace代理，数据包从来不拷贝到用户空间，kube-proxy不是必须为该VIP工作而运行，并且客户端IP是不可更改的。
+当流量打到一个Node的端口上，或通过一个负载均衡器，会执行相同的基本流程，但是在那些案例中客户端IP是可以更改的。
 
 <!--
 ## API Object
