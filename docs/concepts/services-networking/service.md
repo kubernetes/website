@@ -62,7 +62,7 @@ which redirects to the backend `Pods`.
 -->
 
 对Kubernetes集群中的应用程序，Kubernetes提供了一个简单的 `Endpoints` API，只要一个 `Service` 中的一组 `Pods` 发生变更，应用程序就会被更新。
-对非Kubernetes集群中的应用程序，Kubernetes提供了一个基于VIP的网桥的方式访问 `Service`，再由 `Service` 转发给backend `Pods`。
+对非Kubernetes集群中的应用程序，Kubernetes提供了一个基于VIP的网桥的方式访问 `Service`，再由 `Service` 重定向到backend `Pods`。
 
 * TOC
 {:toc}
@@ -291,7 +291,7 @@ and redirects that traffic to the proxy port which proxies the backend `Pod`.
 对每个 `Service`，它会在本地Node上打开一个端口（随机选择）。
 任何连接到“代理端口”的请求，都会被代理到 `Service` 的backend `Pods` 中的某个上面（如 `Endpoints` 所报告的一样）。
 使用哪个backend `Pod`，是基于 `Service` 的 `SessionAffinity` 来确定的。
-最后，它安装iptables规则，捕获到达该 `Service` 的 `clusterIP`（是虚拟IP）和 `Port` 的请求，并转发到代理端口，代理端口再代理请求到backend `Pod`。
+最后，它安装iptables规则，捕获到达该 `Service` 的 `clusterIP`（是虚拟IP）和 `Port` 的请求，并重定向到代理端口，代理端口再代理请求到backend `Pod`。
 
 <!--
 The net result is that any traffic bound for the `Service`'s IP:Port is proxied
@@ -332,7 +332,7 @@ select a backend `Pod`.
 -->
 
 这种模式，kube-proxy会监视Kubernetes master对 `Service` 对象和 `Endpoints` 对象的添加和移除。
-对每个 `Service`，它会安装iptables规则，从而捕获到达该 `Service` 的 `clusterIP`（虚拟IP）和端口的请求，进而将请求转发到 `Service` 的一组backend中的某个上面。
+对每个 `Service`，它会安装iptables规则，从而捕获到达该 `Service` 的 `clusterIP`（虚拟IP）和端口的请求，进而将请求重定向到 `Service` 的一组backend中的某个上面。
 对于每个 `Endpoints` 对象，它也会安装iptables规则，这个规则会选择一个backend `Pod`。
 
 <!--
@@ -738,13 +738,14 @@ status:
     ingress:
       - ip: 146.148.47.155
 ```
-
+<!--
 Traffic from the external load balancer will be directed at the backend `Pods`,
 though exactly how that works depends on the cloud provider. Some cloud providers allow
 the `loadBalancerIP` to be specified. In those cases, the load-balancer will be created
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
 an ephemeral IP will be assigned to the loadBalancer. If the `loadBalancerIP` is specified, but the
 cloud provider does not support the feature, the field will be ignored.
+-->
 
 来自外部负载均衡器的流量将直接打到backend `Pods` 上，不过实际它们是如何工作的，这要依赖于云提供商。
 在这些情况下，将根据用户设置的 `loadBalancerIP` 来创建负载均衡器。
@@ -879,34 +880,66 @@ design proposal for portals](http://issue.k8s.io/1107) for more details.
 为VIP使用userspace代理，将只适合小型到中型规模的集群，不能够扩展到上千 `Service` 的大型集群。
 查看[最初设计方案](http://issue.k8s.io/1107)获取更多细节。
 
+<!--
 Using the userspace proxy obscures the source-IP of a packet accessing a `Service`.
 This makes some kinds of firewalling impossible.  The iptables proxier does not
 obscure in-cluster source IPs, but it does still impact clients coming through
 a load-balancer or node-port.
+-->
 
+使用userspace代理，隐藏了访问一个 `Service` 的数据包的源IP地址。
+这使得一些类型的防火墙无法起作用。
+iptables代理不会隐藏Kubernetes集群内部的IP地址，但却要求客户端请求必须通过一个负载均衡器或Node端口。
+
+<!--
 The `Type` field is designed as nested functionality - each level adds to the
 previous.  This is not strictly required on all cloud providers (e.g. Google Compute Engine does
 not need to allocate a `NodePort` to make `LoadBalancer` work, but AWS does)
 but the current API requires it.
+-->
 
+`Type` 字段支持嵌套功能 —— 每一层需要添加到上一层里面。
+不会严格要求所有云提供商（例如，GCE就没必要为了使一个 `LoadBalancer` 能工作而分配一个 `NodePort`，但是AWS需要 ），但当前API是强制要求的。
+
+<!--
 ## Future work
 
 In the future we envision that the proxy policy can become more nuanced than
 simple round robin balancing, for example master-elected or sharded.  We also
 envision that some `Services` will have "real" load balancers, in which case the
 VIP will simply transport the packets there.
+-->
 
+## 未来工作
+
+未来我们能预见到，代理策略可能会变得比简单的round-robin均衡策略有跟多细微的差别，比如master选举或分片。
+我们也能想到，某些 `Service` 将具有一个“真正”的负载均衡器，这种情况下VIP将简化数据包的传输。
+
+<!--
 We intend to improve our support for L7 (HTTP) `Services`.
 
 We intend to have more flexible ingress modes for `Services` which encompass
 the current `ClusterIP`, `NodePort`, and `LoadBalancer` modes and more.
+-->
 
+我们打算为L7（HTTP）`Service` 改进我们对它的支持。
+
+我们打算为 `Service` 实现更加灵活的请求进入模式，这些 `Service` 包含当前 `ClusterIP`、`NodePort` 和 `LoadBalancer`模式，或者更多。
+
+<!--
 ## The gory details of virtual IPs
 
 The previous information should be sufficient for many people who just want to
 use `Services`.  However, there is a lot going on behind the scenes that may be
 worth understanding.
+-->
 
+## VIP的那些骇人听闻的细节
+
+对很多想使用 `Service` 的人来说，前面的信息应该足够了。
+然而，有很多内部原理性的东西，还是值得深入理解的。
+
+<!--
 ### Avoiding collisions
 
 One of the primary philosophies of Kubernetes is that users should not be
@@ -914,11 +947,24 @@ exposed to situations that could cause their actions to fail through no fault
 of their own.  In this situation, we are looking at network ports - users
 should not have to choose a port number if that choice might collide with
 another user.  That is an isolation failure.
+-->
 
+### 避免冲突
+
+Kubernetes最主要得哲学之一是，用户不应该暴露那些能够导致他们操作失败、但又不是他们的过错的场景。
+这种场景下，让我们来看一下网络端口 —— 用户不应该必须选择一个端口号，但是该端口还有可能与其他用户的冲突。
+这就是，在彼此隔离状态下仍然会出现失败。
+
+<!--
 In order to allow users to choose a port number for their `Services`, we must
 ensure that no two `Services` can collide.  We do that by allocating each
 `Service` its own IP address.
+-->
 
+为了使用户能够为他们的 `Service` 选择一个端口号，我们必须确保不能有2个 `Service` 发生冲突。
+我们可以通过为每个 `Service` 分配它们自己的IP地址来实现。
+
+<!--
 To ensure each service receives a unique IP, an internal allocator atomically
 updates a global allocation map in etcd prior to creating each service. The map object
 must exist in the registry for services to get IPs, otherwise creations will
@@ -927,7 +973,13 @@ controller is responsible for creating that map (to migrate from older versions
 of Kubernetes that used in memory locking) as well as checking for invalid
 assignments due to administrator intervention and cleaning up any IPs
 that were allocated but which no service currently uses.
+-->
 
+为了保证每个 `Service` 被分配到一个唯一的IP，需要一个内部的分配器能够原子地更新etcd中的一个全局分配映射表，这个更新操作要先于创建每一个 `Service`。
+为了使 `Service` 能够获取到IP，这个映射表对象必须在注册中心存在，否则创建 `Service` 将会失败，指示一个IP不能被分配。
+一个后台Controller的职责是创建映射表（从Kubernetes的旧版本迁移过来，旧版本中是通过在内存中加锁的方式实现），并检查出由于管理员干预和清除任意IP造成的不合理分配，这些IP被分配了但当前没有 `Service` 使用它们。
+
+<!--
 ### IPs and VIPs
 
 Unlike `Pod` IP addresses, which actually route to a fixed destination,
@@ -940,7 +992,16 @@ terms of the `Service`'s VIP and port.
 
 We support two proxy modes - userspace and iptables, which operate slightly
 differently.
+-->
 
+### IP和VIP
+
+不像 `Pod` 的IP地址，它实际路由到一个固定的目的地，`Service` 的IP实际上不能通过一个单独的主机来进行应答。
+相反，我们使用 `iptables`（Linux中的数据包处理逻辑）来定义一个虚拟IP地址（VIP），它可以根据需要透明地进行重定向。
+当客户端连接到VIP时，它们的流量会自动地传输到一个合适的Endpoint。
+环境变量和DNS，实际上会根据 `Service` 的VIP和端口来进行填充。
+
+<!--
 #### Userspace
 
 As an example, consider the image processing application described above.
@@ -950,7 +1011,16 @@ IP address, for example 10.0.0.1.  Assuming the `Service` port is 1234, the
 When a proxy sees a new `Service`, it opens a new random port, establishes an
 iptables redirect from the VIP to this new port, and starts accepting
 connections on it.
+-->
 
+#### Userspace
+
+作为一个例子，考虑前面讲过的图片处理应用程序。
+当创建backend `Service` 时，Kubernetes master会给指派一个虚拟IP地址，比如10.0.0.1。
+假设 `Service` 的端口时1234，该 `Service` 会被集群中所有的 `kube-proxy` 实例观察到。
+当代理看到一个新的 `Service`， 它会打开一个新的端口，建立一个从该VIP重定向到新端口的iptables，并开始接收请求连接。
+
+<!--
 When a client connects to the VIP the iptables rule kicks in, and redirects
 the packets to the `Service proxy`'s own port.  The `Service proxy` chooses a
 backend, and starts proxying traffic from the client to the backend.
@@ -958,7 +1028,15 @@ backend, and starts proxying traffic from the client to the backend.
 This means that `Service` owners can choose any port they want without risk of
 collision.  Clients can simply connect to an IP and port, without being aware
 of which `Pods` they are actually accessing.
+-->
 
+当一个客户端连接到该VIP，iptables会重定向该数据包到 `Service代理` 的端口。
+`Service代理` 选择一个backend，并将客户端的流量代理到backend上。
+
+这意味着 `Service` 的所有者能够选择任何他们想使用的端口，而不存在冲突的风险。
+客户端可以简单地连接到一个IP和端口，而不需要知道实际访问了哪些 `Pod`。
+
+<!--
 #### Iptables
 
 Again, consider the image processing application described above.
@@ -968,7 +1046,18 @@ IP address, for example 10.0.0.1.  Assuming the `Service` port is 1234, the
 When a proxy sees a new `Service`, it installs a series of iptables rules which
 redirect from the VIP to per-`Service` rules.  The per-`Service` rules link to
 per-`Endpoint` rules which redirect (Destination NAT) to the backends.
+-->
 
+### Iptables
+
+再次考虑前面讲到的图片处理应用程序。
+作为一个例子，考虑前面讲过的图片处理应用程序。
+当创建backend `Service` 时，Kubernetes master会给指派一个虚拟IP地址，比如10.0.0.1。
+假设 `Service` 的端口时1234，该 `Service` 会被集群中所有的 `kube-proxy` 实例观察到。
+当代理看到一个新的 `Service`， 它会安装一系列的iptables规则，从VIP重定向到 per-`Service` 规则。
+该 per-`Service` 规则连接到 per-`Endpoint` 规则，该 per-`Endpoint` 规则会重定向（目标NAT）到 backends。
+
+<!--
 When a client connects to the VIP the iptables rule kicks in.  A backend is
 chosen (either based on session affinity or randomly) and packets are
 redirected to the backend.  Unlike the userspace proxy, packets are never
@@ -977,6 +1066,7 @@ work, and the client IP is not altered.
 
 This same basic flow executes when traffic comes in through a node-port or
 through a load-balancer, though in those cases the client IP does get altered.
+-->
 
 <!--
 ## API Object
