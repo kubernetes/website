@@ -20,7 +20,7 @@ create new ReplicaSets, or remove existing Deployments and adopt all of their re
 -->
 ## 什么是 Deployment ？
 
-Deployment 为 [Pod]((/docs/concepts/workloads/pods/pod/)) 和 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)（下一代Replication Controller）提供声明式更新。
+_Deployment_ 为 [Pod]((/docs/concepts/workloads/pods/pod/)) 和 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)（下一代Replication Controller）提供声明式更新。
 
 您只需要在 Deployment 中描述您想要的目标状态是什么，Deployment controller 就会帮您将 Pod 和ReplicaSet 的实际状态改变到您的目标状态。您可以定义一个全新的 Deployment 来创建 ReplicaSet 或者删除已有的 Deployment 并创建一个新的来替换。
 <!--
@@ -44,13 +44,13 @@ A typical use case is:
 * [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore
   -->
 
-- 使用Deployment来创建ReplicaSet。ReplicaSet在后台创建pod。检查启动状态，看它是成功还是失败。
-- 然后，通过更新Deployment的PodTemplateSpec字段来声明Pod的新状态。这会创建一个新的ReplicaSet，Deployment会按照控制的速率将pod从旧的ReplicaSet移动到新的ReplicaSet中。
-- 如果当前状态不稳定，回滚到之前的Deployment revision。每次回滚都会更新Deployment的revision。
-- 扩容Deployment以满足更高的负载。
-- 暂停Deployment来应用PodTemplateSpec的多个修复，然后恢复上线。
-- 根据Deployment 的状态判断上线是否hang住了。
-- 清除旧的不必要的ReplicaSet。
+- [使用 Deployment来创建 ReplicaSet](#creating-a-deployment)。ReplicaSet 在后台创建 pod。检查启动状态，看它是成功还是失败。
+- 然后，通过更新 Deployment 的 PodTemplateSpec 字段来 [声明 Pod 的新状态](#updating-a-deployment)。这会创建一个新的 ReplicaSet，Deployment 会按照控制的速率将 pod 从旧的 ReplicaSet 移动到新的 ReplicaSet 中。
+- 如果当前状态不稳定，[回滚到之前的 Deployment revision](#rolling-back-a-deployment)。每次回滚都会更新Deployment的revision。
+- [扩容 Deployment 以满足更高的负载](#scaling-a-deployment)。
+- [暂停 Deployment](#pausing-and-resuming-a-deployment) 来应用 PodTemplateSpec 的多个修复，然后恢复上线。
+- 根据 [Deployment 的状态](#deployment-status) 判断 rollout 是否 hang 住了。
+- [清除没必要的旧的 ReplicaSet](#clean-up-policy)。
 
  <!--
 ## Creating a Deployment
@@ -137,7 +137,7 @@ and using the resulting hash as the label value that will be added in the Replic
 and in any existing Pods that the ReplicaSet may have.
 -->
 
-## 创建Deployment
+## 创建 Deployment
 
 下面是一个Deployment示例，它创建了一个Replica Set来启动3个nginx pod。
 
