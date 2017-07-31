@@ -68,8 +68,8 @@ After this tutorial, you will be familiar with the following.
 * How to scale a StatefulSet
 
 * How to update a StatefulSet's Pods
--->
-StatefulSets旨在与有状态的应用及分布式系统一起使用。然而在Kubernetes上管理有状态应用和分布式系统是一个宽泛而复杂的话题。为了演示StatefulSet的基本特性，并且不使前后的主题混淆，你将会使用StatefulSet部署一个简单的web应用。
+  -->
+  StatefulSets旨在与有状态的应用及分布式系统一起使用。然而在Kubernetes上管理有状态应用和分布式系统是一个宽泛而复杂的话题。为了演示StatefulSet的基本特性，并且不使前后的主题混淆，你将会使用StatefulSet部署一个简单的web应用。
 
 在阅读本教程后，你将熟悉以下内容：
 
@@ -881,7 +881,7 @@ the `RollingUpdate` update strategy. A staged update will keep all of the Pods
 in the StatefulSet at the current version while allowing mutations to the 
 StatefulSet's `.spec.template`.
 -->
-你可以使用`RollingUpdate`更新策略的`partition`参数来分段更新一个StatefulSet。一个分段的更新将会使StatefulSet中的其余所有Pod保持当前版本，而仅StatefulSet的 `.spec.template`进行改变。
+你可以使用`RollingUpdate`更新策略的`partition`参数来分段更新一个StatefulSet。分段的更新将会使StatefulSet中的其余所有Pod保持当前版本的同时仅允许改变StatefulSet的 `.spec.template`。
 
 <!--
 Patch the `web` StatefulSet to add a partition to the `updateStrategy` field.
@@ -944,7 +944,7 @@ controller restored the Pod with its original container. This is because the
 ordinal of the Pod is less than the `partition` specified by the 
 `updateStrategy`.
 -->
-请注意，虽然更新策略是`RollingUpdate`，StatefulSet控制器还是会使用原始的容器重建Pod。这是因为Pod的序号比`updateStrategy`指定的`partition`要小。
+请注意，虽然更新策略是`RollingUpdate`，StatefulSet控制器还是会使用原始的容器恢复Pod。这是因为Pod的序号比`updateStrategy`指定的`partition`更小。
 
 <!--
 #### Rolling Out a Canary
@@ -954,7 +954,7 @@ ordinal of the Pod is less than the `partition` specified by the
 You can roll out a canary to test a modification by decrementing the `partition` 
 you specified [above](#staging-an-update).
 -->
-你可以通过减少 [上文](#分段更新)指定的`partition`来执行一次灰度扩容，以此来测试你的程序的修改。
+你可以通过减少 [上文](#分段更新)指定的`partition`来进行灰度扩容，以此来测试你的程序的改动。
 
 <!--
 Patch the StatefulSet to decrement the partition.
@@ -996,7 +996,7 @@ When you changed the `partition`, the StatefulSet controller automatically
 updated the `web-2` Pod because the Pod's ordinal was less than or equal to 
 the `partition`.
 -->
-当你改变`partition`时，StatefulSet会自动的更新`web-2` Pod。因为Pod的序号小于或等于 `partition`。
+当你改变`partition`时，StatefulSet会自动的更新`web-2` Pod，这是因为Pod的序号小于或等于 `partition`。
 
 <!--
 Delete the `web-1` Pod.
@@ -1046,7 +1046,7 @@ StatefulSet's `.spec.template` is updated. If a Pod that has an ordinal less
 than the partition is deleted or otherwise terminated, it will be restored to 
 its original configuration.
 -->
-`web-1`按照原来的配置被恢复，因为Pod的序号小于分区要小。当指定了分区时，如果更新了StatefulSet的`.spec.template`，则所有序号大于或等于分区的Pod都将被更新。如果一个序号小于分区的Pod被删除或者终止，它将按照原来的配置被恢复。
+`web-1`被按照原来的配置恢复，因为Pod的序号小于分区。当指定了分区时，如果更新了StatefulSet的`.spec.template`，则所有序号大于或等于分区的Pod都将被更新。如果一个序号小于分区的Pod被删除或者终止，它将被按照原来的配置恢复。
 
 <!--
 #### Phased Roll Outs
@@ -1064,7 +1064,7 @@ update.
 <!--
 The partition is currently set to `2`. Set the partition to `0`.
 -->
-分区当前设置为`2`。将分区设置为`0`。
+分区当前为`2`。请将分区设置为`0`。
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":0}}}}'
@@ -1117,7 +1117,7 @@ continue the update process.
 <!--
 ## Deleting StatefulSets
 -->
-## 删除StatefulSets
+## 删除StatefulSet
 
 <!--
 StatefulSet supports both Non-Cascading and Cascading deletion. In a 
@@ -1135,7 +1135,7 @@ StatefulSet同时支持级联和非级联删除。使用非级联方式删除Sta
 <!--
 In one terminal window, watch the Pods in the StatefulSet.
 -->
-在一个终端窗口监控StatefulSet中的Pod。
+在一个终端窗口查看StatefulSet中的Pod。
 
 ```
 kubectl get pods -w -l app=nginx
@@ -1210,7 +1210,7 @@ In a second terminal, recreate the StatefulSet. Note that, unless
 you deleted the `nginx` Service ( which you should not have ), you will see 
 an error indicating that the Service already exists.
 -->
-在另一个终端里重新创建StatefulSet。请注意，除非你删除了`nginx` Service（你不应该这样做），你将会看到一个错误，指示Service已经存在。
+在另一个终端里重新创建StatefulSet。请注意，除非你删除了`nginx` Service（你不应该这样做），你将会看到一个错误，提示Service已经存在。
 
 ```shell
 kubectl create -f web.yaml 
@@ -1253,13 +1253,13 @@ Since `web-1` was already Running and Ready, when `web-0` transitioned to
  `web-1` had been determined to already be Running and Ready, `web-2` was 
  terminated. 
 -->
-当重新创建`web` StatefulSet时，`web-0`第一个被重新启动。由于`web-1`已经处于Running和Ready状态，当`web-0`变成Running和Ready时，StatefulSet会直接接收这个Pod。由于你重新创建的StatefulSet的`replicas`等于2，一旦`web-0`被重新创建并且`web-1`被认为已经处于Running和Ready状态时，`web-2`将会被终止。
+当重新创建`web` StatefulSet时，`web-0`被第一个重新启动。由于`web-1`已经处于Running和Ready状态，当`web-0`变成Running和Ready时，StatefulSet会直接接收这个Pod。由于你重新创建的StatefulSet的`replicas`等于2，一旦`web-0`被重新创建并且`web-1`被认为已经处于Running和Ready状态时，`web-2`将会被终止。
 
 <!--
 Let's take another look at the contents of the `index.html` file served by the 
 Pods' webservers.
 -->
-让我们在看一眼被Pod的web服务器加载的`index.html`的内容。
+让我们再看一眼被Pod的web服务器加载的`index.html`的内容。
 
 ```shell
 for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
@@ -1274,7 +1274,7 @@ because the StatefulSet never deletes the PersistentVolumes associated with a
 Pod. When you recreated the StatefulSet and it relaunched `web-0`, its original 
 PersistentVolume was remounted.
 -->
-尽管你同时删除了StatefulSet和`web-0` Pod，但它仍然使用最初写入`index.html`文件的主机名进行服务。这是因为StatefulSet从来不会删除和一个Pod相关联的PersistentVolumes。当你重建这个StatefulSet并且它从新启动了`web-0`时，它原本的PersistentVolume会被重新挂载。
+尽管你同时删除了StatefulSet和`web-0` Pod，但它仍然使用最初写入`index.html`文件的主机名进行服务。这是因为StatefulSet永远不会删除和一个Pod相关联的PersistentVolumes。当你重建这个StatefulSet并且重新启动了`web-0`时，它原本的PersistentVolume会被重新挂载。
 
 <!--
 ### Cascading Delete
@@ -1345,7 +1345,7 @@ service "nginx" deleted
 <!--
 Recreate the StatefulSet and Headless Service one more time.
 -->
-再次重现创建StatefulSet和Headless Service。
+再一次重新创建StatefulSet和Headless Service。
 
 ```shell
 kubectl create -f web.yaml 
@@ -1425,13 +1425,16 @@ Pod.
 
 {% include code.html language="yaml" file="webp.yaml" ghlink="/docs/tutorials/stateful-application/webp.yaml" %}
 
+<!--
 Download the example above, and save it to a file named `webp.yaml`
+-->
+下载上面的例子并保存为 `webp.yaml`。
 
 <!--
 This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy` 
 of the `web` StatefulSet is set to `Parallel`.
 -->
-这份清单和你在上文下载的完全一样，只有`web` StatefulSet的`.spec.podManagementPolicy`设置成了`Parallel`。
+这份清单和你在上文下载的完全一样，只是`web` StatefulSet的`.spec.podManagementPolicy`设置成了`Parallel`。
 
 <!--
 In one terminal, watch the Pods in the StatefulSet.
@@ -1489,7 +1492,7 @@ statefulset "web" scaled
 <!--
 Examine the output of the terminal where the `kubectl get` command is running.
 -->
-在 `kubectl get`命令运行的终端检查输出。
+在 `kubectl get`命令运行的终端里检查它的输出。
 
 ```shell
 web-3     0/1       Pending   0         0s
@@ -1506,7 +1509,7 @@ the first to become Running and Ready prior to launching the second.
 
 Keep this terminal open, and in another terminal delete the `web` StatefulSet.
 -->
-StatefulSet控制器启动了两个新的Pod，而且在启动第二个之前它并没有等待第一个变成Running和Running状态。
+StatefulSet控制器启动了两个新的Pod，而且在启动第二个之前并没有等待第一个变成Running和Ready状态。
 
 保持这个终端打开，并在另一个终端删除`web` StatefulSet。
 
