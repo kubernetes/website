@@ -90,7 +90,7 @@ Horizontal Pod Autoscaler 由一个控制循环实现，循环周期由 controll
 - 对于每个 Pod 自定义的 metric，controller 功能类似于每个 Pod 的 resource metric，只是它使用原始值而不是利用率值。
 - 对于 object metric，获取单个度量（描述有问题的对象），并与目标值进行比较，以产生如上所述的比率。
 
-<!-
+<!--
 
 The HorizontalPodAutoscaler controller can fetch metrics in two different ways: direct Heapster
 access, and REST client access.
