@@ -15,7 +15,7 @@ This tutorial provides an introduction to managing applications with
 [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/). It 
 demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 -->
-本教程介绍了如何使用[StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)来管理应用。演示了如何创建、删除、扩缩容和更新StatefulSets的Pods。
+本教程介绍了如何使用[StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)来管理应用。演示了如何创建、删除、扩容/缩容和更新StatefulSets的Pods。
 {% endcapture %}
 
 {% capture prerequisites %}
@@ -60,19 +60,23 @@ topic with the latter, you will deploy a simple web application using a Stateful
 After this tutorial, you will be familiar with the following.
 
 * How to create a StatefulSet
+
 * How a StatefulSet manages its Pods
+
 * How to delete a StatefulSet
+
 * How to scale a StatefulSet
+
 * How to update a StatefulSet's Pods
-  -->
-  StatefulSets准备用于有状态应用及分布式系统。然而在Kubernetes上管理有状态应用和分布式系统是一个宽泛而复杂的话题。为了演示StatefulSet的基本特性，并且不使前后的主题混淆，你将会使用StatefulSet部署一个简单的web应用。
+-->
+StatefulSets旨在与有状态的应用及分布式系统一起使用。然而在Kubernetes上管理有状态应用和分布式系统是一个宽泛而复杂的话题。为了演示StatefulSet的基本特性，并且不使前后的主题混淆，你将会使用StatefulSet部署一个简单的web应用。
 
 在阅读本教程后，你将熟悉以下内容：
 
 * 如何创建一个StatefulSet
 * StatefulSet怎样管理它的Pods
 * 如何删除一个StatefulSet
-* 如何对StatefulSet进行扩缩容
+* 如何对StatefulSet进行扩容/缩容
 * 如何更新一个StatefulSet的Pods
   {% endcapture %}
 
@@ -90,22 +94,21 @@ example presented in the
 It creates a [Headless Service](/docs/user-guide/services/#headless-services), 
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`. 
 -->
-使用如下示例创建一个StatefulSet作为开始。它和[StatefulSets概念](/docs/concepts/abstractions/controllers/statefulsets/) 中的示例相似。它创建了一个 [Headless Service](/docs/user-guide/services/#headless-services) 
-`nginx`用来发布StatefulSet `web`中的Pod的IP地址。
+作为开始，使用如下示例创建一个StatefulSet。它和[StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/) 概念中的示例相似。它创建了一个 [Headless Service](/docs/user-guide/services/#headless-services)  `nginx`用来发布StatefulSet `web`中的Pod的IP地址。
 
 {% include code.html language="yaml" file="web.yaml" ghlink="/docs/tutorials/stateful-application/web.yaml" %}
 
 <!--
 Download the example above, and save it to a file named `web.yaml`
 -->
-下载上面的例子并保存到文件`web.yaml`。
+下载上面的例子并保存为文件`web.yaml`。
 
 <!--
 You will need to use two terminal windows. In the first terminal, use 
 [`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get) to watch the creation 
 of the StatefulSet's Pods.
 -->
-你需要使用两个终端窗口。在第一个终端中，使用[`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get) 来监控StatefulSet的Pods的创建情况。
+你需要使用两个终端窗口。在第一个终端中，使用[`kubectl get`](/docs/user-guide/kubectl/{{page.version}}/#get) 来查看StatefulSet的Pods的创建情况。
 
 ```shell
 kubectl get pods -w -l app=nginx
@@ -116,7 +119,7 @@ In the second terminal, use
 [`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create) to create the 
 Headless Service and StatefulSet defined in `web.yaml`.
 -->
-在第二个终端中，使用[`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create)来创建定义在 `web.yaml`中的Headless Service和StatefulSet。
+在另一个终端中，使用[`kubectl create`](/docs/user-guide/kubectl/{{page.version}}/#create)来创建定义在 `web.yaml`中的Headless Service和StatefulSet。
 
 ```shell
 kubectl create -f web.yaml 
@@ -152,7 +155,7 @@ created sequentially, in order from {0..N-1}. Examine the output of the
 `kubectl get` command in the first terminal. Eventually, the output will 
 look like the example below.
 -->
-对于拥有N个副本的StatefulSet，Pod被部署时是按照 {0..N-1}的序号顺序创建的。在第一个终端中使用`kubectl get`检查输出。这个输出最终将看起来像下面的样子。
+对于一个拥有N个副本的StatefulSet，Pod被部署时是按照 {0..N-1}的序号顺序创建的。在第一个终端中使用`kubectl get`检查输出。这个输出最终将看起来像下面的样子。
 
 ```shell
 kubectl get pods -w -l app=nginx
@@ -171,7 +174,7 @@ web-1     1/1       Running   0         18s
 Notice that the `web-1` Pod is not launched until the `web-0` Pod is 
 [Running and Ready](/docs/user-guide/pod-states). 
 -->
-请注意在`web-0` Pod处于[Running and Ready](/docs/user-guide/pod-states)状态后`web-1` Pod才会被启动。
+请注意在`web-0` Pod处于[Running和Ready](/docs/user-guide/pod-states)状态后`web-1` Pod才会被启动。
 
 <!-
 ## Pods in a StatefulSet
@@ -221,7 +224,7 @@ Each Pod has a stable hostname based on its ordinal index. Use
 [`kubectl exec`](/docs/user-guide/kubectl/{{page.version}}/#exec) to execute the 
 `hostname` command in each Pod. 
 -->
-每个Pod都拥有一个基于其顺序索引的稳定主机名。使用[`kubectl exec`](/docs/user-guide/kubectl/{{page.version}}/#exec) 在每个Pod中执行`hostname` 。
+每个Pod都拥有一个基于其顺序索引的稳定的主机名。使用[`kubectl exec`](/docs/user-guide/kubectl/{{page.version}}/#exec) 在每个Pod中执行`hostname` 。
 
 ```shell
 for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
@@ -259,12 +262,12 @@ The CNAME of the headless service points to SRV records (one for each Pod that
 is Running and Ready). The SRV records point to A record entries that 
 contain the Pods' IP addresses. 
 -->
-headless服务的CNAME指向SRV记录（记录每个Running和Ready状态的Pod）。SRV记录指向一个包含Pod IP地址的记录表项。
+headless service的CNAME指向SRV记录（记录每个Running和Ready状态的Pod）。SRV记录指向一个包含Pod IP地址的记录表项。
 
 <!--
 In one terminal, watch the StatefulSet's Pods. 
 -->
-在第一个终端中监控StatefulSet的Pod。
+在一个终端中查看StatefulSet的Pod。
 
 ```shell
 kubectl get pod -w -l app=nginx
@@ -274,7 +277,7 @@ In a second terminal, use
 [`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete) to delete all 
 the Pods in the StatefulSet.
 -->
-在第二个终端中使用[`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete) 删除所有在StatefulSet中的Pod。
+在另一个终端中使用[`kubectl delete`](/docs/user-guide/kubectl/{{page.version}}/#delete) 删除StatefulSet中所有的Pod。
 
 ```shell
 kubectl delete pod -l app=nginx
@@ -286,7 +289,7 @@ pod "web-1" deleted
 Wait for the StatefulSet to restart them, and for both Pods to transition to 
 Running and Ready.
 -->
-等待StatefulSet重启它们，并且两个Pod都变为Running和Ready状态。
+等待StatefulSet重启它们，并且两个Pod都变成Running和Ready状态。
 
 ```shell
 kubectl get pod -w -l app=nginx
@@ -304,7 +307,7 @@ web-1     1/1       Running   0         34s
 Use `kubectl exec` and `kubectl run` to view the Pods hostnames and in-cluster 
 DNS entries.
 -->
-使用`kubectl exec`和`kubectl run`查看Pod的主机名和集群内部的DNS条目。
+使用`kubectl exec`和`kubectl run`查看Pod的主机名和集群内部的DNS表项。
 
 ```shell
 for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
@@ -333,7 +336,7 @@ but the IP addresses associated with the Pods may have changed. In the cluster
 used for this tutorial, they have. This is why it is important not to configure 
 other applications to connect to Pods in a StatefulSet by IP address.
 -->
-Pod的序号、主机名、SRV条目和记录名称没有改变，但和Pod相关联的IP地址可能发生了改变。在这篇教程中使用的集群中它们就改变了。这就是为什么不要在其他应用中使用StatefulSet中的Pod的IP地址进行连接这点很重要。
+Pod的序号、主机名、SRV条目和记录名称没有改变，但和Pod相关联的IP地址可能发生了改变。在本教程中使用的集群中它们就改变了。这就是为什么不要在其他应用中使用StatefulSet中的Pod的IP地址进行连接，这点很重要。
 
 <!--
 If you need to find and connect to the active members of a StatefulSet, you 
@@ -385,13 +388,13 @@ The NGINX webservers, by default, will serve an index file at
 StatefulSets `spec` ensures that the `/usr/share/nginx/html` directory is 
 backed by a PersistentVolume.
 -->
-NGINX web服务器默认会为处于`/usr/share/nginx/html/index.html`的index文件提供服务。StatefulSets `spec`中的`volumeMounts`字段保证了`/usr/share/nginx/html`文件夹使用的是一个PersistentVolume后端。
+NGINX web服务器默认会加载位于`/usr/share/nginx/html/index.html`的index文件。StatefulSets `spec`中的`volumeMounts`字段保证了`/usr/share/nginx/html`文件夹由一个PersistentVolume支持。
 
 <!--
 Write the Pods' hostnames to their `index.html` files and verify that the NGINX 
 webservers serve the hostnames.
 -->
-将Pod的主机名写入它们的 `index.html`文件并验证NGINX web服务器监听了该主机名。
+将Pod的主机名写入它们的 `index.html`文件并验证NGINX web服务器使用该主机名提供服务。
 
 ```shell
 for i in 0 1; do kubectl exec web-$i -- sh -c 'echo $(hostname) > /usr/share/nginx/html/index.html'; done
@@ -406,8 +409,8 @@ Note, if you instead see 403 Forbidden responses for the above curl command,
 you will need to fix the permissions of the directory mounted by the `volumeMounts`
 (due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)) with:
 -->
-请注意，如果你看见上面的curl命令返回了403 Forbidden的响应，你需要这样修复使用`volumeMounts`
-(due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630))挂载的目录的的权限：
+请注意，如果你看见上面的curl命令返回了403 Forbidden的响应，你需要像这样修复使用`volumeMounts`
+(due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630))挂载的目录的权限：
 
 ```shell
 for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done
@@ -417,9 +420,9 @@ before retrying the curl command above.
 
 In one terminal, watch the StatefulSet's Pods.
 -->
-然后从新尝试上面的curl命令。
+在你重新尝试上面的curl命令之前。
 
-在一个终端监控StatefulSet的Pod：
+在一个终端查看StatefulSet的Pod。
 
 ```shell
 kubectl get pod -w -l app=nginx
@@ -428,7 +431,7 @@ kubectl get pod -w -l app=nginx
 <!--
 In a second terminal, delete all of the StatefulSet's Pods.
 -->
-在另一个终端删除所有的StatefulSet的Pod：
+在另一个终端删除StatefulSet所有的Pod。
 
 ```shell
 kubectl delete pod -l app=nginx
@@ -439,7 +442,7 @@ pod "web-1" deleted
 Examine the output of the `kubectl get` command in the first terminal, and wait 
 for all of the Pods to transition to Running and Ready.
 -->
-在第一个终端里检查`kubectl get` 命令的输出，等待所有Pod的状态变为Running和Ready。
+在第一个终端里检查`kubectl get` 命令的输出，等待所有Pod变成Running和Ready状态。
 
 ```shell
 kubectl get pod -w -l app=nginx
@@ -456,7 +459,7 @@ web-1     1/1       Running   0         34s
 <!--
 Verify the web servers continue to serve their hostnames.
 -->
-验证所有web服务器继续监听它们的主机名。
+验证所有web服务器在继续使用它们的主机名提供服务。
 
 ```
 for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
@@ -476,7 +479,7 @@ mounted to the appropriate mount points.
 <!--
 ## Scaling a StatefulSet
 -->
-## 扩容/缩容StatefulSet
+## 扩容/缩容一个StatefulSet
 <!--
 Scaling a StatefulSet refers to increasing or decreasing the number of replicas. 
 This is accomplished by updating the `replicas` field. You can use either
@@ -484,7 +487,7 @@ This is accomplished by updating the `replicas` field. You can use either
 [`kubectl patch`](/docs/user-guide/kubectl/{{page.version}}/#patch) to scale a Stateful 
 Set.
 -->
-扩容/缩容StatefulSet指增加或减少副本数。这通过更新`replicas`字段完成。你可以使用[`kubectl scale`](/docs/user-guide/kubectl/{{page.version}}/#scale) 或者[`kubectl patch`](/docs/user-guide/kubectl/{{page.version}}/#patch)来扩容/缩容一个StatefulSet。
+扩容/缩容一个StatefulSet指增加或减少它的副本数。这通过更新`replicas`字段完成。你可以使用[`kubectl scale`](/docs/user-guide/kubectl/{{page.version}}/#scale) 或者[`kubectl patch`](/docs/user-guide/kubectl/{{page.version}}/#patch)来扩容/缩容一个StatefulSet。
 
 <!--
 ### Scaling Up
@@ -544,7 +547,7 @@ created each Pod sequentially with respect to its ordinal index, and it
 waited for each Pod's predecessor to be Running and Ready before launching the 
 subsequent Pod.
 -->
-StatefulSet控制器扩展了副本的数量。如同[创建StatefulSet](#ordered-pod-creation)所述，StatefulSet按序号索引顺序的创建每个Pod，并且会等待前一个Pod变为Running和Ready才会启动下一个Pod。
+StatefulSet控制器扩展了副本的数量。如同[创建StatefulSet](#顺序创建pod)所述，StatefulSet按序号索引顺序的创建每个Pod，并且会等待前一个Pod变为Running和Ready才会启动下一个Pod。
 
 <!--
 ### Scaling Down
@@ -627,7 +630,7 @@ PersistentVolumes mounted to the Pods of a StatefulSet are not deleted when
 the StatefulSet's Pods are deleted. This is still true when Pod deletion is 
 caused by scaling the StatefulSet down. 
 -->
-五个PersistentVolumeClaims和五个PersistentVolumes仍然还存在。查看Pod的 [稳定存储](#stable-storage)，我们发现当删除StatefulSet的Pod时，挂载到StatefulSet的Pod的PersistentVolumes不会被删除。当这种删除是由StatefulSet缩容引起时也是一样的。
+五个PersistentVolumeClaims和五个PersistentVolumes仍然存在。查看Pod的 [稳定存储](#stable-storage)，我们发现当删除StatefulSet的Pod时，挂载到StatefulSet的Pod的PersistentVolumes不会被删除。当这种删除行为是由StatefulSet缩容引起时也是一样的。
 
 <!--
 ## Updating StatefulSets
@@ -647,7 +650,7 @@ Kubernetes 1.7版本的StatefulSet控制器支持自动更新。更新策略由S
 <!--
 ### On Delete
 -->
-### On Delete
+### On Delete策略
 <!--
 The `OnDelete` update strategy implements the legacy (prior to 1.7) behavior, 
 and it is the default update strategy. When you select this update strategy, 
@@ -679,7 +682,7 @@ pod "web-0" deleted
 <--
 Watch the `web-0` Pod, and wait for it to transition to Running and Ready.
 -->
-监控 `web-0` Pod， 等待它变成Running和Ready。
+观察`web-0` Pod， 等待它变成Running和Ready。
 
 ```shell
 kubectl get pod web-0 -w
@@ -719,7 +722,7 @@ pod "web-2" deleted
 <!--
 Watch the StatefulSet's Pods, and wait for all of them to transition to Running and Ready.
 -->
-监控StatefulSet的Pod，等待它们全部变成Running和Ready。
+观察StatefulSet的Pod，等待它们全部变成Running和Ready。
 
 ```
 kubectl get pods -w -l app=nginx
@@ -763,7 +766,7 @@ All the Pods in the StatefulSet are now running a new container image.
 <!--
 ### Rolling Update
 -->
-### Rolling Update
+### Rolling Update策略
 
 <!--
 The `RollingUpdate` update strategy will update all Pods in a StatefulSet, in 
@@ -784,7 +787,7 @@ statefulset "web" patched
 In one terminal window, patch the `web` StatefulSet to change the container 
 image again.
 -->
-在一个终端窗口，patch `web` StatefulSet来再次的改变容器镜像。
+在一个终端窗口中patch `web` StatefulSet来再次的改变容器镜像。
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
@@ -794,7 +797,7 @@ statefulset "web" patched
 <!--
 In another terminal, watch the Pods in the StatefulSet.
 -->
-在另一个终端监控StatefulSet的Pod。
+在另一个终端监控StatefulSet中的Pod。
 
 ```shell
 kubectl get po -l app=nginx -w
@@ -843,7 +846,7 @@ update will be restored to the previous version. In this way, the controller
 attempts to continue to keep the application healthy and the update consistent 
 in the presence of intermittent failures.
 -->
-StatefulSet里的Pod以和序号相反的顺序更新。在更新下一个Pod前，StatefulSet控制器终止每个Pod并等待它变成Running和Ready。请注意，虽然在顺序后继者变成Running和Ready之前StatefulSet控制器不会更新下一个Pod，但它仍然会重建任何在更新过程中故障的Pod，使用的是它们当前的版本。已经接收到更新请求的Pod将会被重建为更新的版本，没有收到请求的Pod则会被重建为之前的版本。像这样，控制器尝试继续使应用保持健康并在出现间歇性故障时保持连续的更新。
+StatefulSet里的Pod采用和序号相反的顺序更新。在更新下一个Pod前，StatefulSet控制器终止每个Pod并等待它们变成Running和Ready。请注意，虽然在顺序后继者变成Running和Ready之前StatefulSet控制器不会更新下一个Pod，但它仍然会重建任何在更新过程中发生故障的Pod，使用的是它们当前的版本。已经接收到更新请求的Pod将会被恢复为更新的版本，没有收到请求的Pod则会被恢复为之前的版本。像这样，控制器尝试继续使应用保持健康并在出现间歇性故障时保持更新的一致性。
 
 <!--
 Get the Pods to view their container images.
@@ -860,7 +863,7 @@ gcr.io/google_containers/nginx-slim:0.8
 <!--
 All the Pods in the StatefulSet are now running the previous container image.
 -->
-StatefulSet中的所有Pod当前都正在运行之前的容器镜像。
+StatefulSet中的所有Pod现在都在运行之前的容器镜像。
 
 <!--
 **Tip** You can also use `kubectl rollout status sts/<name>` to view 
